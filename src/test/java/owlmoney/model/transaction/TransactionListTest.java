@@ -50,7 +50,7 @@ class TransactionListTest {
         }
         double amount = -1;
         try {
-            amount = testList.getExpenditureAmount(1);
+            amount = testList.getExpenditureAmount(1, false);
         } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
@@ -211,7 +211,7 @@ class TransactionListTest {
     void getExpenditureAmount_noDeposits_throwsException() {
         TransactionList testList = new TransactionList();
         TransactionException thrown = assertThrows(TransactionException.class, () ->
-                        testList.getExpenditureAmount(1),
+                        testList.getExpenditureAmount(1, false),
                 "Expected deleteDepositFromList to throw, but it didn't");
         assertEquals("There are no transactions in this bank account", thrown.getMessage());
     }
@@ -223,7 +223,7 @@ class TransactionListTest {
         Transaction testExpenditure = new Expenditure("test", 1, new Date(), "test");
         testList.addDepositToList(testExpenditure, testUi, "bank");
         TransactionException thrown = assertThrows(TransactionException.class, () ->
-                        testList.getExpenditureAmount(7),
+                        testList.getExpenditureAmount(7, false),
                 "Expected deleteDepositFromList to throw, but it didn't");
         assertEquals("Index is out of transaction list range", thrown.getMessage());
     }
@@ -235,7 +235,7 @@ class TransactionListTest {
         Transaction testDeposit = new Deposit("test", 1, new Date(), "test");
         testList.addDepositToList(testDeposit, testUi, "bank");
         TransactionException thrown = assertThrows(TransactionException.class, () ->
-                        testList.getExpenditureAmount(1),
+                        testList.getExpenditureAmount(1, false),
                 "Expected deleteDepositFromList to throw, but it didn't");
         assertEquals("The transaction is a deposit", thrown.getMessage());
     }
@@ -248,7 +248,7 @@ class TransactionListTest {
         testList.addDepositToList(testExpenditure, testUi, "bank");
         double value = -1;
         try {
-            value = testList.getExpenditureAmount(1);
+            value = testList.getExpenditureAmount(1, false);
         } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }

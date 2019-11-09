@@ -33,20 +33,20 @@ public class ParseEditCard extends ParseCard {
         while (cardIterator.hasNext()) {
             String key = cardIterator.next();
             String value = cardParameters.get(key);
-            if (NAME_PARAMETER.equals(key) && (value.isEmpty() || value.isBlank())) {
+            if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when editing card");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(value);
             }
-            if (LIMIT_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (LIMIT_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkLimit(value);
                 changeCounter++;
             }
-            if (REBATE_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (REBATE_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkCashBack(value);
                 changeCounter++;
             }
-            if (NEW_NAME_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (NEW_NAME_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkName(value);
                 changeCounter++;
             }

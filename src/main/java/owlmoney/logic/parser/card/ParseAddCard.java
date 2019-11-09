@@ -33,7 +33,7 @@ public class ParseAddCard extends ParseCard {
         while (cardIterator.hasNext()) {
             String key = cardIterator.next();
             String value = cardParameters.get(key);
-            if (!NEW_NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (!NEW_NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when adding a new card");
             }
             if (LIMIT_PARAMETER.equals(key)) {

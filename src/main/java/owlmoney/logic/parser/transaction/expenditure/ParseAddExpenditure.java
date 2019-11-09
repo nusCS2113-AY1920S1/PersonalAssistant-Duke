@@ -51,12 +51,13 @@ public class ParseAddExpenditure extends ParseExpenditure {
             String value = expendituresParameters.get(key);
             if (!TRANSACTION_NUMBER_PARAMETER.equals(key) && !NUM_PARAMETER.equals(key)
                     && !CATEGORY_PARAMETER.equals(key)
-                    && (value.isBlank() || value.isEmpty())) {
+                    && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
             }
-            if (CATEGORY_PARAMETER.equals(key) && RESERVED_CATEGORY_LISTS.contains(value.toUpperCase())) {
+            if (CATEGORY_PARAMETER.equals(key) && value != null &&
+                    RESERVED_CATEGORY_LISTS.contains(value.toUpperCase())) {
                 throw new ParserException(key + " cannot be " + value + " when adding a new expenditure");
-            } else if (CATEGORY_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            } else if (CATEGORY_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 expendituresParameters.put(CATEGORY_PARAMETER, "Miscellaneous");
             } else if (CATEGORY_PARAMETER.equals(key)) {
                 checkCategory(value);

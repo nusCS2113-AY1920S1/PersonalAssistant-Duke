@@ -86,6 +86,9 @@ public class Saving extends Bank {
      */
     private boolean earnedIncome(Ui ui) throws BankException {
         if (new Date().compareTo(nextIncomeDate) >= 0) {
+            if (this.getCurrentAmount() + this.income > MAX_AMOUNT) {
+                throw new BankException("Amount in bank account cannot exceed 9 digits");
+            }
             if (income > 0) {
                 Deposit addIncome = new Deposit("Income", this.income, this.nextIncomeDate, INCOME_CATEGORY);
                 addDepositTransaction(addIncome, ui, ACCOUNT_TYPE);
@@ -161,9 +164,15 @@ public class Saving extends Bank {
      * @param ui               required for printing.
      * @param isCreditCardBill Is the command affecting a credit card bill.
      * @throws TransactionException If invalid transaction.
+     * @throws BankException If the bank amount exceeds 9 digits.
      */
     @Override
-    public void deleteExpenditure(int expenditureIndex, Ui ui, boolean isCreditCardBill) throws TransactionException {
+    public void deleteExpenditure(int expenditureIndex, Ui ui, boolean isCreditCardBill)
+            throws TransactionException, BankException {
+        double expenditureAmount = transactions.getExpenditureAmount(expenditureIndex, isCreditCardBill);
+        if (this.getCurrentAmount() + expenditureAmount > MAX_AMOUNT) {
+            throw new BankException("The amount in the bank account cannot exceed 9 digits");
+        }
         addToAmount(transactions.deleteExpenditureFromList(expenditureIndex, ui, isCreditCardBill));
     }
 
@@ -193,11 +202,16 @@ public class Saving extends Bank {
     void editExpenditureDetails(
             int expenditureIndex, String description, String amount, String date, String category, Ui ui)
             throws TransactionException, BankException {
-        if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
-                + transactions.getExpenditureAmount(expenditureIndex) < Double.parseDouble(amount)) {
+        if (!(amount == null || amount.isBlank()) && (this.getCurrentAmount() +
+                transactions.getExpenditureAmount(expenditureIndex, false) - Double.parseDouble(amount)
+                > MAX_AMOUNT)) {
+                throw new BankException("The amount in the bank cannot exceed 9 digits.");
+        }
+        if (!(amount == null || amount.isBlank()) && this.getCurrentAmount()
+                + transactions.getExpenditureAmount(expenditureIndex, false) < Double.parseDouble(amount)) {
             throw new BankException("Bank account cannot have a negative amount");
         }
-        double oldAmount = transactions.getExpenditureAmount(expenditureIndex);
+        double oldAmount = transactions.getExpenditureAmount(expenditureIndex, false);
         double newAmount = transactions.editExpenditure(expenditureIndex, description, amount, date, category, ui);
         this.addToAmount(oldAmount);
         this.deductFromAmount(newAmount);
@@ -217,7 +231,11 @@ public class Saving extends Bank {
     @Override
     void editDepositDetails(int depositIndex, String description, String amount, String date, Ui ui)
             throws TransactionException, BankException {
-        if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
+        if (!(amount == null || amount.isBlank()) && (this.getCurrentAmount() -
+                transactions.getDepositValue(depositIndex, false) + Double.parseDouble(amount)
+                > MAX_AMOUNT)) {
+            throw new BankException("The amount in the bank cannot exceed 9 digits.");
+        } else if (!(amount == null || amount.isBlank()) && this.getCurrentAmount()
                 + Double.parseDouble(amount) < transactions.getDepositValue(depositIndex, false)) {
             throw new BankException("Bank account cannot have a negative amount");
         }
@@ -238,6 +256,9 @@ public class Saving extends Bank {
     void addDepositTransaction(Transaction deposit, Ui ui, String bankType) throws BankException {
         if (!"bank".equals(bankType) && !"savings transfer".equals(bankType)) {
             throw new BankException("This account does not support investment account deposits");
+        }
+        if (this.getCurrentAmount() + deposit.getAmount() > MAX_AMOUNT) {
+            throw new BankException("The amount in the bank cannot exceed 9 digits");
         }
         transactions.addDepositToList(deposit, ui, bankType);
         addToAmount(deposit.getAmount());
@@ -471,18 +492,6 @@ public class Saving extends Bank {
     @Override
     public void importNewRecurringExpenditure(Transaction expenditure) {
         recurringExpenditures.importRecurringExpenditureToList(expenditure);
-    }
-
-    /**
-     * Returns expenditure amount based on the specified expenditure id.
-     *
-     * @param expenditureId Expenditure id of the expenditure to be searched.
-     * @return Expenditure amount based on the specified expenditure id.
-     * @throws TransactionException If transaction is not an expenditure.
-     */
-    @Override
-    double getExpAmountById(int expenditureId) throws TransactionException {
-        return transactions.getExpenditureAmount(expenditureId);
     }
 
     /**

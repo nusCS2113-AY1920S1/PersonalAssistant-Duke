@@ -42,27 +42,28 @@ public class ParseEditRecurringExpenditure extends ParseRecurringExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if (TRANSACTION_NUMBER_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (TRANSACTION_NUMBER_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when editing a recurring expenditure");
             } else if (TRANSACTION_NUMBER_PARAMETER.equals(key)) {
                 checkInt(TRANSACTION_NUMBER_PARAMETER, value);
             }
-            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when editing a recurring expenditure");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
             }
-            if (CATEGORY_PARAMETER.equals(key) && RESERVED_CATEGORY_LISTS.contains(value.toUpperCase())) {
+            if (CATEGORY_PARAMETER.equals(key) && value != null
+                    && RESERVED_CATEGORY_LISTS.contains(value.toUpperCase())) {
                 throw new ParserException(key + " cannot be " + value + " when editing a recurring expenditure");
-            } else if (CATEGORY_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            } else if (CATEGORY_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkCategory(value);
                 changeCounter++;
             }
-            if (AMOUNT_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (AMOUNT_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkAmount(value);
                 changeCounter++;
             }
-            if (DESCRIPTION_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (DESCRIPTION_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkDescription(value, key);
                 changeCounter++;
             }

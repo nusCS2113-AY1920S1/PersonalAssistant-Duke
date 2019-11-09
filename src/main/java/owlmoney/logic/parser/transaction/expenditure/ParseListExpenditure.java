@@ -38,12 +38,12 @@ public class ParseListExpenditure extends ParseExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when listing expenditures");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
             }
-            if (NUM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NUM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 expendituresParameters.put(NUM_PARAMETER, "30");
             } else if (NUM_PARAMETER.equals(key)) {
                 checkInt(NUM_PARAMETER, value);

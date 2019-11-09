@@ -177,7 +177,7 @@ public class BondList {
      * @param i    position of the bond in the bondList.
      */
     private void editBondRate(String rate, int i) {
-        if (!(rate.isEmpty() || rate.isBlank())) {
+        if (!(rate == null || rate.isBlank())) {
             bondLists.get(i).setRate(Double.parseDouble(rate));
         }
     }
@@ -190,7 +190,7 @@ public class BondList {
      * @throws BondException if the year is smaller than the original year.
      */
     private void editBondYear(String year, int i) throws BondException {
-        if (!(year.isEmpty() || year.isBlank())) {
+        if (!(year == null || year.isBlank())) {
             int originalYear = bondLists.get(i).getYear();
             if (Integer.parseInt(year) < originalYear) {
                 throw new BondException("The year can only be larger than: " + originalYear);

@@ -36,7 +36,7 @@ public class ParseDeleteCardBill extends ParseCardBill {
         while (cardBillIterator.hasNext()) {
             String key = cardBillIterator.next();
             String value = cardBillParameters.get(key);
-            if (value.isBlank() || value.isEmpty()) {
+            if (value == null || value.isBlank()) {
                 throw new ParserException(key + " cannot be empty when deleting a card bill payment!");
             }
             if (CARD_PARAMETER.equals(key)) {

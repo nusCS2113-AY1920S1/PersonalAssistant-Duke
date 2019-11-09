@@ -73,7 +73,7 @@ public class Profile {
     private static final int ARRAY_INDEX = 1;
     private static final String RECURRING = "recurring";
     private static final Logger logger = getLogger(Profile.class);
-
+    private static final String IS_MATURE = "true";
 
     /**
      * Creates a new instance of the user profile.
@@ -676,6 +676,7 @@ public class Profile {
         String fromType = bankList.getTransferBankType(from, amount);
         String toType = bankList.getReceiveBankType(to);
         String descriptionTo = "Fund Transfer to " + to;
+        bankList.bankListCheckTransferExceed(to, amount);
         Transaction newExpenditure = new Expenditure(descriptionTo, amount, date, TRANSFERCATEGORY);
         bankList.bankListAddExpenditure(from, newExpenditure, ui, checkBankType(fromType));
         String descriptionFrom = "Fund Received from " + from;
@@ -949,9 +950,13 @@ public class Profile {
             String year = importDataRow[4];
             int integerYear = Integer.parseInt(year);
             String stringNextDateToCreditInterest = importDataRow[5];
+            String bondMaturity = importDataRow[6];
             Date nextDateToCreditInterestInFormat = dateFormat.parse(stringNextDateToCreditInterest);
             Bond newBond = new Bond(bondName, doubleAmount, doubleRate, dateInFormat, integerYear,
                     nextDateToCreditInterestInFormat);
+            if (IS_MATURE.equals(bondMaturity)) {
+                newBond.setMature();
+            }
             profileImportNewBonds(bankName, newBond);
         }
     }
@@ -1242,20 +1247,6 @@ public class Profile {
     }
 
     /**
-     * Returns expenditure amount in bank based on specified transaction id.
-     *
-     * @param bank  The name of the bank to search for transaction.
-     * @param expenditureId The transaction id of the transaction to be searched.
-     * @return      The expenditure amount in bank based on specified transaction id.
-     * @throws BankException        If bank account does not exist.
-     * @throws TransactionException If transaction does not exist.
-     */
-    public double getBankExpAmountById(String bank, int expenditureId)
-            throws BankException, TransactionException {
-        return bankList.bankListGetExpenditureAmountById(bank, expenditureId);
-    }
-
-    /**
      * Gets the index of the transaction object in specific bank that is a card bill expenditure
      * with specified card id and bill date.
      *
@@ -1313,7 +1304,7 @@ public class Profile {
         }
         if (isThrowException) {
             throw new CardException("Unable to delete credit card bill because " + accountType
-                    + " does not exist in savings account anymore!\n Either the card bill was not paid "
+                    + " does not exist in savings account anymore!\nEither the card bill was not paid "
                     + "with " + bankName + " or the bill was deleted due to too many transactions after it");
         }
     }

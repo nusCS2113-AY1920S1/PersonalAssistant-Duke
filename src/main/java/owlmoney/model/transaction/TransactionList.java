@@ -173,8 +173,7 @@ public class TransactionList {
             } else if (!isCardBill && CREDIT_CARD_BILL.equals(transactionLists.get(index - 1).getCategory())) {
                 throw new TransactionException("The transaction is a credit card bill. Please use the "
                         + "/delete /cardbill function to revert credit card payment");
-            }
-            else {
+            } else {
                 Transaction temp = transactionLists.get(index - ONE_INDEX);
                 transactionLists.remove(index - ONE_INDEX);
                 ui.printMessage("Details of deleted Expenditure:");
@@ -225,13 +224,13 @@ public class TransactionList {
     public double editExpenditure(
             int expenditureIndex, String description, String amount, String date, String category, Ui ui)
             throws TransactionException {
-        if (!(description.isBlank() || description.isEmpty())) {
+        if (!(description == null || description.isBlank())) {
             transactionLists.get(expenditureIndex - ONE_INDEX).setDescription(description);
         }
-        if (!(amount.isBlank() || amount.isEmpty())) {
+        if (!(amount == null || amount.isBlank())) {
             transactionLists.get(expenditureIndex - ONE_INDEX).setAmount(Double.parseDouble(amount));
         }
-        if (!(date.isBlank() || date.isEmpty())) {
+        if (!(date == null || date.isBlank())) {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 transactionLists.get(expenditureIndex - ONE_INDEX).setDate(temp.parse(date));
@@ -240,7 +239,7 @@ public class TransactionList {
                 throw new TransactionException(e.toString());
             }
         }
-        if (!(category.isBlank() || category.isEmpty())) {
+        if (!(category == null || category.isBlank())) {
             transactionLists.get(expenditureIndex - ONE_INDEX).setCategory(category);
         }
         ui.printMessage("Edited details of the specified expenditure:");
@@ -262,13 +261,13 @@ public class TransactionList {
     public double editDeposit(int depositIndex, String description, String amount, String date, Ui ui)
             throws TransactionException {
         ui.printMessage("Editing transaction...\n");
-        if (!(description.isBlank() || description.isEmpty())) {
+        if (!(description == null || description.isBlank())) {
             transactionLists.get(depositIndex - ONE_INDEX).setDescription(description);
         }
-        if (!(amount.isBlank() || amount.isEmpty())) {
+        if (!(amount == null || amount.isBlank())) {
             transactionLists.get(depositIndex - ONE_INDEX).setAmount(Double.parseDouble(amount));
         }
-        if (!(date.isBlank() || date.isEmpty())) {
+        if (!(date == null || date.isBlank())) {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 transactionLists.get(depositIndex - ONE_INDEX).setDate(temp.parse(date));
@@ -289,15 +288,22 @@ public class TransactionList {
      * @return Amount of the expenditure.
      * @throws TransactionException If transaction is not an expenditure.
      */
-    public double getExpenditureAmount(int index) throws TransactionException {
-
+    public double getExpenditureAmount(int index, boolean isCardBill) throws TransactionException {
         if (transactionLists.size() <= ISZERO) {
             throw new TransactionException("There are no transactions in this bank account");
         }
         if ((index - ONE_INDEX) >= ISZERO && (index - ONE_INDEX) < transactionLists.size()) {
             if (!transactionLists.get(index - ONE_INDEX).getSpent()) {
                 throw new TransactionException("The transaction is a deposit");
-            } else {
+            } else if (CREDIT_CARD_BILL.equals(transactionLists.get(index - ONE_INDEX).getCategory())
+                    && !isCardBill) {
+                throw new TransactionException("The transaction is a credit card bill. Please use the "
+                        + "/delete /cardbill function to revert credit card payment");
+            } else if (!CREDIT_CARD_BILL.equals(transactionLists.get(index - ONE_INDEX).getCategory())
+                    && isCardBill) {
+                throw new TransactionException("The transaction is not a credit card bill");
+            }
+            else {
                 return transactionLists.get(index - ONE_INDEX).getAmount();
             }
         } else {
@@ -448,13 +454,13 @@ public class TransactionList {
             ui.printMessage("Transaction list is empty.");
             return;
         }
-        if (!(description.isBlank() || description.isEmpty())) {
+        if (!(description == null || description.isBlank())) {
             findByDescription(description, ui);
         }
-        if (!(category.isBlank() || category.isEmpty())) {
+        if (!(category == null || category.isBlank())) {
             findByCategory(category, ui);
         }
-        if (!(fromDate.isBlank() || fromDate.isEmpty())) {
+        if (!(fromDate == null || fromDate.isBlank())) {
             findByDate(fromDate, toDate, ui);
         }
     }

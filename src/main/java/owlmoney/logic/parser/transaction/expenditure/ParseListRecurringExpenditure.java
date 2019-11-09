@@ -37,7 +37,7 @@ public class ParseListRecurringExpenditure extends ParseRecurringExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when listing recurring expenditures");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);

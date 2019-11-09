@@ -25,6 +25,7 @@ public abstract class Bank {
     private String accountName;
     private double currentAmount;
     TransactionList transactions;
+    static final double MAX_AMOUNT = 999999999.99;
 
     /**
      * Allows the child class to create an instance with name and current amount.
@@ -377,17 +378,6 @@ public abstract class Bank {
     }
 
     /**
-     * Returns expenditure amount based on the specified expenditure id.
-     *
-     * @param expno Expenditure id of the expenditure to be searched.
-     * @return Expenditure amount based on the specified expenditure id.
-     * @throws TransactionException If transaction is not an expenditure.
-     */
-    double getExpAmountById(int expno) throws TransactionException {
-        throw new TransactionException("This account does not support this feature");
-    }
-
-    /**
      * Finds the transactions from the bank object that matches with the keywords specified by the user.
      *
      * @param fromDate The date to search from.
@@ -564,5 +554,17 @@ public abstract class Bank {
      */
     public int getCardBillDepositId(UUID cardId, YearMonth billDate) throws BankException {
         throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Checks if the receiving bank account will exceed 9 digits after transfer.
+     *
+     * @param amount Amount to receive.
+     * @throws BankException If the bank amount exceeds 9 digits.
+     */
+    public void enoughForTransfer(double amount) throws BankException {
+        if (this.currentAmount + amount > MAX_AMOUNT) {
+            throw new BankException("The amount in the receiving bank account cannot exceed 9 digits");
+        }
     }
 }

@@ -39,33 +39,33 @@ public class ParseEditGoals extends ParseGoals {
         while (goalIterator.hasNext()) {
             String key = goalIterator.next();
             String value = goalsParameters.get(key);
-            if (NAME_PARAMETER.equals(key) && (value.isEmpty() || value.isBlank())) {
+            if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException("/name cannot be empty.");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(NAME_PARAMETER, value);
             }
-            if (AMOUNT_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (AMOUNT_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkAmount(value);
                 changeCounter++;
             }
-            if (NEW_NAME_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (NEW_NAME_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkName(NEW_NAME_PARAMETER, value);
                 changeCounter++;
             }
-            if (BY_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (BY_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 by = checkDate(value);
                 changeCounter++;
             }
-            if (FROM_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (FROM_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkName(FROM_PARAMETER, value);
                 changeCounter++;
             }
-            if (IN_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (IN_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkDay(IN_PARAMETER, value);
                 by = convertDaysToDate(Integer.parseInt(value));
                 changeCounter++;
             }
-            if (MARK_DONE_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (MARK_DONE_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkInt(MARK_DONE_PARAMETER, value);
                 markDone = true;
                 markDoneCounter++;

@@ -46,9 +46,10 @@ public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if (CATEGORY_PARAMETER.equals(key) && RESERVED_CATEGORY_LISTS.contains(value.toUpperCase())) {
+            if (CATEGORY_PARAMETER.equals(key) && value != null
+                    && RESERVED_CATEGORY_LISTS.contains(value.toUpperCase())) {
                 throw new ParserException(key + " cannot be " + value + " when adding a new recurring expenditure");
-            } else if (CATEGORY_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            } else if (CATEGORY_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 expendituresParameters.put(CATEGORY_PARAMETER, "Miscellaneous");
             } else if (CATEGORY_PARAMETER.equals(key)) {
                 checkCategory(value);

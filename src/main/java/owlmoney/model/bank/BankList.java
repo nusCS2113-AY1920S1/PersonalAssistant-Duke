@@ -255,14 +255,14 @@ public class BankList {
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalBankName.equals(capitalCurrentBankName)
                     && "saving".equals(currentBank.getType())) {
-                if (!(newName.isEmpty() || newName.isBlank())) {
+                if (!(newName == null || newName.isBlank())) {
                     compareBank(currentBank, newName);
                     currentBank.setAccountName(newName);
                 }
-                if (!(amount.isBlank() || amount.isEmpty())) {
+                if (!(amount == null || amount.isBlank())) {
                     currentBank.setCurrentAmount(Double.parseDouble(amount));
                 }
-                if (!(income.isEmpty() || income.isBlank())) {
+                if (!(income == null || income.isBlank())) {
                     currentBank.setIncome(Double.parseDouble(income));
                 }
                 ui.printMessage("New details of the account:");
@@ -316,11 +316,11 @@ public class BankList {
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalBankName.equals(capitalCurrentBankName)
                     && "investment".equals(bankLists.get(i).getType())) {
-                if (!(newName.isEmpty() || newName.isBlank())) {
+                if (!(newName == null || newName.isBlank())) {
                     compareBank(currentBank, newName);
                     currentBank.setAccountName(newName);
                 }
-                if (!(amount.isBlank() || amount.isEmpty())) {
+                if (!(amount == null || amount.isBlank())) {
                     currentBank.setCurrentAmount(Double.parseDouble(amount));
                 }
                 ui.printMessage("New details of the account:");
@@ -1282,25 +1282,6 @@ public class BankList {
     }
 
     /**
-     * Returns expenditure amount based on specified transaction id.
-     *
-     * @param bank  The name of the bank to search for transaction.
-     * @param expenditureId The transaction id of the transaction to be searched.
-     * @return      Expenditure amount based on specified transaction id.
-     * @throws TransactionException If transaction does not exist.
-     * @throws BankException        If bank account does not exist.
-     */
-    public double bankListGetExpenditureAmountById(String bank, int expenditureId)
-            throws TransactionException, BankException {
-        for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(bank)) {
-                return bankLists.get(i).getExpAmountById(expenditureId);
-            }
-        }
-        throw new BankException("Bank with the following name does not exist: " + bank);
-    }
-
-    /**
      * Gets the index of the transaction object in specific bank that is a card bill expenditure
      * with specified card id and bill date.
      *
@@ -1346,5 +1327,24 @@ public class BankList {
             }
         }
         return -1;
+    }
+
+    /**
+     * Checks if the receiving bank can receive the amount from the transfer without overflowing.
+     *
+     * @param bankName Receiving bank name.
+     * @param amount Amount to receive.
+     * @throws BankException If bank amount overflows after receiving.
+     */
+    public void bankListCheckTransferExceed(String bankName, double amount) throws BankException {
+        String capitalBankName = bankName.toUpperCase();
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)) {
+                currentBank.enoughForTransfer(amount);
+            }
+        }
     }
 }

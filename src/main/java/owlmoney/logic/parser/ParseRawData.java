@@ -72,7 +72,7 @@ public class ParseRawData {
     private String concatenateParameter(int startIndex, int endIndex, String[] splitTypeSpecificArguments) {
         StringBuilder individualParameter = new StringBuilder();
         for (int i = startIndex + NEXT_INDEX; i < endIndex; i++) {
-            if (individualParameter.toString().isEmpty() || individualParameter.toString().isBlank()) {
+            if (individualParameter.toString().isBlank()) {
                 individualParameter.append(splitTypeSpecificArguments[i]);
             } else {
                 individualParameter.append(" ").append(splitTypeSpecificArguments[i]);

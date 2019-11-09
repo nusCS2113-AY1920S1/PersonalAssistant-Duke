@@ -37,7 +37,7 @@ public class ParseAddSaving extends ParseSaving {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = savingsParameters.get(key);
-            if (!NEW_NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (!NEW_NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when adding savings account");
             }
             if (NAME_PARAMETER.equals(key)) {
