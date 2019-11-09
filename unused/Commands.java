@@ -115,7 +115,7 @@
 //            contactList.remove(indexOfContactToDelete);
 //            ui.showContactDeleted(contactList, deletedContact);
 //        } else if (contactList.size() == Numbers.ZERO.value) {
-//            ui.showErrorMsgGui("     No contacts to be deleted!");
+//            ui.showErrorMsg("     No contacts to be deleted!");
 //        } else {
 //            ui.showErrorMsg("     Invalid index! Please choose 1 "
 //                    + ((contactList.size() == Numbers.ONE.value) ? "" : "to " + contactList.size()));
@@ -270,7 +270,6 @@
  */
 //    /**
 //     * Executes a command with task list and ui.
-//     * (not used)
 //     *
 //     * @param items The task list that contains a list of tasks.
 //     * @param ui    To tell the user that it is executed successfully.
