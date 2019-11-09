@@ -8,7 +8,7 @@ import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.storage.Storage;
 import chronologer.task.Todo;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 import java.time.LocalDateTime;
 
 /**
@@ -99,40 +99,40 @@ public class AddCommand extends Command {
         case "deadline":
             task = new Deadline(taskDescription, formattedStartDate);
             if (tasks.isClash(task)) {
-                UiTemporary.printOutput(ChronologerException.taskClash());
+                UiMessageHandler.outputMessage(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             }
             break;
         case "event":
             task = new Event(taskDescription, formattedStartDate, formattedEndDate);
             if (tasks.isClash(task)) {
-                UiTemporary.printOutput(ChronologerException.taskClash());
+                UiMessageHandler.outputMessage(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             }
             break;
         case "assignment":
             task = new Deadline(taskDescription, formattedStartDate, modCode);
             if (tasks.isClash(task)) {
-                UiTemporary.printOutput(ChronologerException.taskClash());
+                UiMessageHandler.outputMessage(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             }
             break;
         case "exam":
             task = new Event(taskDescription, formattedStartDate, formattedEndDate, modCode);
             if (tasks.isClash(task)) {
-                UiTemporary.printOutput(ChronologerException.taskClash());
+                UiMessageHandler.outputMessage(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             }
             break;
         default:
-            UiTemporary.printOutput(ChronologerException.unknownUserCommand());
+            UiMessageHandler.outputMessage(ChronologerException.unknownUserCommand());
             throw new ChronologerException(ChronologerException.unknownUserCommand());
         }
 
         tasks.add(task);
         ChronologerStateList.addState(tasks.getTasks());
         storage.saveFile(tasks.getTasks());
-        UiTemporary.printOutput("Got it! I've added this task:" + "\n  " + task.toString() + "\nNow you have "
+        UiMessageHandler.outputMessage("Got it! I've added this task:" + "\n  " + task.toString() + "\nNow you have "
                 + tasks.getSize() + " task(s) in the list.");
 
     }

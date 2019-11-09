@@ -4,7 +4,7 @@ import chronologer.exception.ChronologerException;
 import chronologer.exception.MyLogger;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -15,10 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Stack;
 
 /**
  * Reads and writes to persistent storage in Json format.
@@ -61,7 +58,7 @@ public class Storage {
             fileOutputStream.write(json.getBytes());
             fileOutputStream.close();
         } catch (IOException e) {
-            UiTemporary.printOutput(ChronologerException.unableToWriteFile());
+            UiMessageHandler.outputForGUI = ChronologerException.unableToWriteFile();
             logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(ChronologerException.unableToWriteFile());
         }
@@ -90,11 +87,11 @@ public class Storage {
             bufferedReader.close();
             return taskList;
         } catch (FileNotFoundException e) {
-            UiTemporary.printOutput(ChronologerException.fileDoesNotExist());
+            UiMessageHandler.outputForGUI = ChronologerException.fileDoesNotExist();
             logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(ChronologerException.fileDoesNotExist());
         } catch (IOException e) {
-            UiTemporary.printOutput(ChronologerException.unableToReadFile());
+            UiMessageHandler.outputForGUI = ChronologerException.unableToReadFile();
             logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(ChronologerException.unableToReadFile());
         }

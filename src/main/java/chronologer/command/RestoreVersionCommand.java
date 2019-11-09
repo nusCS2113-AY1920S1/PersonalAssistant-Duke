@@ -5,6 +5,12 @@ import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
 
+/**
+ * Allows the user to restore to a particular version.
+ *
+ * @author Sai Ganesh Suresh
+ * @version v1.4
+ */
 public class RestoreVersionCommand extends Command {
     private int versionNumber;
 
@@ -15,7 +21,7 @@ public class RestoreVersionCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         tasks.updateListOfTasks(ChronologerStateList.restoreVersion(tasks.getTasks(), versionNumber));
-        tasks.updatePriority(null);
+        tasks.updateGUI(null);
         storage.saveFile(tasks.getTasks());
     }
 }

@@ -4,7 +4,7 @@ import chronologer.exception.ChronologerException;
 import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * Allows the user to delete a particular task from their task list based on index.
@@ -22,8 +22,8 @@ public class UndoCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         tasks.updateListOfTasks(ChronologerStateList.undo());
-        tasks.updatePriority(null);
+        tasks.updateGUI(null);
         storage.saveFile(tasks.getTasks());
-        UiTemporary.printOutput("undo successful");
+        UiMessageHandler.outputMessage("undo successful");
     }
 }

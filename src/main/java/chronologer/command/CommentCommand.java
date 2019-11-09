@@ -5,7 +5,7 @@ import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 //@@author hanskw4267
 /**
@@ -42,7 +42,7 @@ public class CommentCommand extends Command {
             Task taskToEdit = tasks.editTaskComment(indexOfTask, comment);
             ChronologerStateList.addState((tasks.getTasks()));
             storage.saveFile(tasks.getTasks());
-            UiTemporary.printOutput("Noted. Your comment has been added:" + "\n " + taskToEdit.toString());
+            UiMessageHandler.outputMessage("Noted. Your comment has been added:" + "\n " + taskToEdit.toString());
         }
     }
 

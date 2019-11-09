@@ -3,7 +3,7 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.PostponeCommand;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -59,7 +59,7 @@ public class PostponeParser extends IndexParser {
         try {
             return postponeCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
-            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
@@ -78,7 +78,7 @@ public class PostponeParser extends IndexParser {
             newFromDate = DateTimeExtractor.extractDateTime(obtainStartDate, command);
             newToDate = DateTimeExtractor.extractDateTime(obtainEndDate, command);
         } catch (DateTimeParseException e) {
-            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
@@ -94,7 +94,7 @@ public class PostponeParser extends IndexParser {
         try {
             newFromDate = DateTimeExtractor.extractDateTime(dateString, command);
         } catch (DateTimeParseException e) {
-            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }

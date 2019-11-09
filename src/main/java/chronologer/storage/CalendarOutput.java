@@ -2,7 +2,7 @@ package chronologer.storage;
 
 import chronologer.exception.ChronologerException;
 import chronologer.exception.MyLogger;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
 
@@ -36,14 +36,14 @@ public class CalendarOutput {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(icsFile);
             calendarOutputter.output(calendar, fileOutputStream);
-            UiTemporary.printOutput("Success,ics file written at src/ChronologerDatabase/" + fileName);
+            UiMessageHandler.outputMessage("Success,ics file written at src/ChronologerDatabase/" + fileName);
             fileOutputStream.close();
         } catch (FileNotFoundException e) {
-            UiTemporary.printOutput(ChronologerException.fileDoesNotExist());
+            UiMessageHandler.outputMessage(ChronologerException.fileDoesNotExist());
             logger.writeLog(e.toString(), "Calendar Output");
             throw new ChronologerException(ChronologerException.fileDoesNotExist());
         } catch (IOException e) {
-            UiTemporary.printOutput(ChronologerException.errorWriteCalendar());
+            UiMessageHandler.outputMessage(ChronologerException.errorWriteCalendar());
             logger.writeLog(e.toString(), "Calendar Output");
             throw new ChronologerException(ChronologerException.errorWriteCalendar());
         }

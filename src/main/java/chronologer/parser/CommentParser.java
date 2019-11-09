@@ -3,7 +3,7 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.CommentCommand;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * Extract the components required for the comment command from the user input.
@@ -30,7 +30,7 @@ public class CommentParser extends IndexParser {
             String[] commentCommandParts = taskFeatures.split("\\s+", 2);
             comment = commentCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
-            UiTemporary.printOutput(ChronologerException.emptyComment());
+            UiMessageHandler.outputMessage(ChronologerException.emptyComment());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyComment());
         }

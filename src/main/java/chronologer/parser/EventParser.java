@@ -3,9 +3,8 @@ package chronologer.parser;
 import chronologer.command.AddCommand;
 import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -62,7 +61,7 @@ public class EventParser extends DescriptionParser {
             return DateTimeExtractor.extractDateTime(fromDateString, command);
         } catch (DateTimeParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }
@@ -80,7 +79,7 @@ public class EventParser extends DescriptionParser {
             return DateTimeExtractor.extractDateTime(toDateString, command);
         } catch (DateTimeParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }
@@ -97,7 +96,7 @@ public class EventParser extends DescriptionParser {
             return taskFeatures.split(checkType, 2)[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
     }

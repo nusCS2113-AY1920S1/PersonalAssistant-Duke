@@ -4,7 +4,7 @@ import chronologer.exception.ChronologerException;
 import chronologer.task.Task;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,8 @@ import java.util.ArrayList;
 public class FindCommand extends Command {
 
     private String keyWord;
-
+    private static final String EMPTY_LIST = "There are no matching tasks in your list.";
+    private static final String PRESENT_LIST = "Here are the matching task(s) in your list:";
 
     public FindCommand(String keyWord) {
         this.keyWord = keyWord;
@@ -32,10 +33,9 @@ public class FindCommand extends Command {
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         ArrayList<Task> holdFoundTasks = tasks.find(keyWord);
         if (holdFoundTasks.isEmpty()) {
-            UiTemporary.printOutput("There are no matching tasks in your list.");
+            UiMessageHandler.outputMessage(EMPTY_LIST);
         } else {
-            UiTemporary.printOutput("Here are the matching task(s) in your list:");
-            outputRequiredList(holdFoundTasks);
+            outputRequiredList(holdFoundTasks,PRESENT_LIST);
         }
     }
 }

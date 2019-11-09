@@ -5,7 +5,7 @@ import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * Adds a location to an existing task as a comment.
@@ -41,7 +41,7 @@ public class LocationCommand extends Command {
             Task taskWithLocation = tasks.addLocation(indexOfTask, locationOfTask);
             ChronologerStateList.addState((tasks.getTasks()));
             storage.saveFile(tasks.getTasks());
-            UiTemporary.printOutput("Noted. Your task location has been added:" + "\n "
+            UiMessageHandler.outputMessage("Noted. Your task location has been added:" + "\n "
                 + taskWithLocation.toString());
         }
     }

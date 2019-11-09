@@ -6,7 +6,7 @@ import java.util.regex.PatternSyntaxException;
 import chronologer.command.AddRecurringCommand;
 import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 //@@author hanskw4267
 /**
@@ -53,7 +53,7 @@ public class RecurringEventParser extends EventParser {
             return LastDay.getDate(dayFromUser);
         } catch (ArrayIndexOutOfBoundsException | PatternSyntaxException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
     }
@@ -66,7 +66,7 @@ public class RecurringEventParser extends EventParser {
             return startDate + "-" + endDate;
         } catch (ArrayIndexOutOfBoundsException | PatternSyntaxException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
     }

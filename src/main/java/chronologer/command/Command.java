@@ -5,7 +5,7 @@ import chronologer.exception.MyLogger;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public abstract class Command {
      */
     public boolean isIndexValid(Integer indexOfTask, Integer currentSizeOfTasks) throws ChronologerException {
         if (indexOfTask < 0 || indexOfTask > (currentSizeOfTasks - 1)) {
-            UiTemporary.printOutput(ChronologerException.invalidIndex());
+            UiMessageHandler.outputMessage(ChronologerException.invalidIndex());
             throw new ChronologerException(ChronologerException.invalidIndex());
         }
         return true;
@@ -39,14 +39,13 @@ public abstract class Command {
      *
      * @param tasks Holds the list that need to be formatted for UI.
      */
-    public void outputRequiredList(ArrayList<Task> tasks) {
-        Integer i = 1;
-        Integer j = 1;
+    void outputRequiredList(ArrayList<Task> tasks , String title) {
+        int i = 1;
+        String requiredList = "";
         for (Task task : tasks) {
-            UiTemporary.printMessage(i++ + "." + task.toString());
-            UiTemporary.userOutputForUI += j++ + "." + task.toString() + "\n";
+         requiredList += i++ + "." + task.toString() + "\n";
         }
-        UiTemporary.printDash();
+        UiMessageHandler.outputMessage(title + "\n" + requiredList);
     }
 
     /**

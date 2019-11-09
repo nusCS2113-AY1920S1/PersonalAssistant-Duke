@@ -89,7 +89,9 @@ class TimelineWindow extends UiComponent<Region> {
     private static final int SATURDAY = 1;
     private static final int SUNDAY = 0;
     private static final int CURRENT_WEEK_INDICATOR = -1;
-
+    private static final int AUGUST = 8;
+    private static final int FIRST = 1;
+    private static final int WEEK = 7;
     private LocalDate currentSundayDate;
 
 
@@ -238,7 +240,7 @@ class TimelineWindow extends UiComponent<Region> {
     private void changeWeek(int chosenWeek) {
         final DayOfWeek Sunday = DayOfWeek.SUNDAY;
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        LocalDate firstDay = LocalDate.of(currentYear, 8, 1);
+        LocalDate firstDay = LocalDate.of(currentYear, AUGUST, FIRST);
         LocalDate firstMondayOfSemester = firstDay.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
         LocalDate firstSundayOfSemester = firstMondayOfSemester.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
         LocalDate requiredSundayDate;
@@ -246,7 +248,7 @@ class TimelineWindow extends UiComponent<Region> {
             requiredSundayDate = LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday));
             todayLabel.setVisible(true);
         } else {
-            requiredSundayDate = firstSundayOfSemester.plusDays(chosenWeek * 7);
+            requiredSundayDate = firstSundayOfSemester.plusDays(chosenWeek * WEEK);
             if (requiredSundayDate.isEqual(LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday)))) {
                 todayLabel.setVisible(true);
             } else {

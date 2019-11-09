@@ -5,7 +5,7 @@ import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * Marks a task as ignorable or not ignorable.
@@ -46,12 +46,12 @@ public class IgnoreCommand extends Command {
                 Task task = tasks.markAsIgnorable(indexOfTask);
                 ChronologerStateList.addState((tasks.getTasks()));
                 storage.saveFile(tasks.getTasks());
-                UiTemporary.printOutput(IGNORED + task.toString());
+                UiMessageHandler.outputMessage(IGNORED + task.toString());
             } else {
                 Task task = tasks.markAsUnignorable(indexOfTask);
                 ChronologerStateList.addState((tasks.getTasks()));
                 storage.saveFile(tasks.getTasks());
-                UiTemporary.printOutput(UNIGNORED + task.toString());
+                UiMessageHandler.outputMessage(UNIGNORED + task.toString());
             }
         }
     }

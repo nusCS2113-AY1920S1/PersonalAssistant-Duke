@@ -4,7 +4,7 @@ import chronologer.task.Event;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.storage.Storage;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -51,10 +51,10 @@ public class SearchCommand extends Command {
         Collections.sort(dateList);
 
         if (dateList.size() == 0) {
-            UiTemporary.printOutput(NO_CLASH);
+            UiMessageHandler.outputMessage(NO_CLASH);
             found = true;
         } else if (dateList.size() == 1) {
-            UiTemporary.printOutput("You can schedule something after " + dateList.get(0).toString());
+            UiMessageHandler.outputMessage("You can schedule something after " + dateList.get(0).toString());
         } else {
             for (int i = 0; i < dateList.size(); i++) {
                 if (i != 0) {
@@ -65,12 +65,12 @@ public class SearchCommand extends Command {
                 }
                 if (durationToFind <= duration) {
                     if (i != 0) {
-                        UiTemporary.printOutput(
+                        UiMessageHandler.outputMessage(
                                 "Next free time slot of duration " + Long.toString(durationToFind) + "hrs is between \n"
                                         + dateList.get(i - 1).toString() + " and " + dateList.get(i).toString());
                     } else {
-                        UiTemporary
-                                .printOutput("You can schedule something from now till " + dateList.get(i).toString());
+                        UiMessageHandler
+                                .outputMessage("You can schedule something from now till " + dateList.get(i).toString());
                     }
                     found = true;
                     break;
@@ -78,7 +78,7 @@ public class SearchCommand extends Command {
             }
 
             if (!found) {
-                UiTemporary.printOutput(
+                UiMessageHandler.outputMessage(
                         "You can schedule something after the " + dateList.get(dateList.size() - 1).toString());
             }
         }

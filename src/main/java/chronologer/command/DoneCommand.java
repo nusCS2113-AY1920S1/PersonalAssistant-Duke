@@ -5,7 +5,7 @@ import chronologer.storage.ChronologerStateList;
 import chronologer.task.Task;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * Marks a task as complete or done.
@@ -31,7 +31,7 @@ public class DoneCommand extends Command {
             Task task = tasks.markAsDone(indexOfTask);
             ChronologerStateList.addState((tasks.getTasks()));
             storage.saveFile(tasks.getTasks());
-            UiTemporary.printOutput("Nice! I've marked this task as done: " + task.toString());
+            UiMessageHandler.outputMessage("Nice! I've marked this task as done: " + task.toString());
         }
     }
 }

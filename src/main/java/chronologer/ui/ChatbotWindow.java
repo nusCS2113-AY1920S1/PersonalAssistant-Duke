@@ -25,7 +25,6 @@ import java.util.List;
  */
 class ChatbotWindow extends UiComponent<Region> {
 
-    private static final String CHRONOLOGER_WELCOME_MESSAGE = "Hello! I'm Chronologer, your task manager!";
     private static final String FXML = "ChatbotWindow.fxml";
 
     @FXML
@@ -80,7 +79,7 @@ class ChatbotWindow extends UiComponent<Region> {
             printChronologerMessage(e.getMessage());
         }
         printUserMessage(" " + input);
-        printChronologerMessage(UiTemporary.userOutputForUI);
+        printChronologerMessage(UiMessageHandler.outputForGUI);
         inputTextField.clear();
     }
 
@@ -106,7 +105,7 @@ class ChatbotWindow extends UiComponent<Region> {
      * Prints chronologer's welcome message.
      */
     private void printWelcome() {
-        printChronologerMessage(CHRONOLOGER_WELCOME_MESSAGE);
+        printChronologerMessage(UiMessageHandler.printGreeting());
     }
 
     private void setText(String text) {

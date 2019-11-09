@@ -15,7 +15,7 @@ public class StoreVersionCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         ChronologerStateList.storeVersion(tasks.getTasks(), versionNumber);
-        tasks.updatePriority(null);
+        tasks.updateGUI(null);
         storage.saveFile(tasks.getTasks());
     }
 }

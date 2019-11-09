@@ -5,7 +5,7 @@ import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * Adds a reminder.
@@ -31,7 +31,7 @@ public class RemindCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         if (!isIndexValid(indexOfTask,tasks.getSize())) {
-            UiTemporary.printOutput(ChronologerException.taskDoesNotExist());
+            UiMessageHandler.outputMessage(ChronologerException.taskDoesNotExist());
             throw new ChronologerException(ChronologerException.taskDoesNotExist());
         }
 
@@ -40,7 +40,7 @@ public class RemindCommand extends Command {
         ChronologerStateList.addState((tasks.getTasks()));
         storage.saveFile(tasks.getTasks());
 
-        UiTemporary.printOutput(String.format("Okay! You'll get a reminder for this task %d days beforehand:", days)
+        UiMessageHandler.outputMessage(String.format("Okay! You'll get a reminder for this task %d days beforehand:", days)
             + "  " + task.toString());
     }
 }

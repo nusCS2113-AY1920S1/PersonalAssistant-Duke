@@ -2,16 +2,13 @@ package chronologer.parser;
 
 import chronologer.command.Command;
 import chronologer.command.ExitCommand;
-import chronologer.command.ExportCommand;
 import chronologer.command.HelpCommand;
 import chronologer.command.ListCommand;
 import chronologer.command.ManualCommand;
 import chronologer.command.RedoCommand;
-import chronologer.command.StoreVersionCommand;
 import chronologer.command.UndoCommand;
-import chronologer.command.WeekCommand;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * The parser class is used to parse and make sense of the different queries the
@@ -113,8 +110,7 @@ public class ParserFactory {
             return new RecurringEventParser(userInput, command).parse();
         default:
             // Empty string or unknown command.
-            UiTemporary.printUnknownInput();
-            UiTemporary.userOutputForUI = WRONG_COMMAND;
+            UiMessageHandler.outputForGUI = WRONG_COMMAND;
             throw new ChronologerException(ChronologerException.unknownUserCommand());
         }
     }

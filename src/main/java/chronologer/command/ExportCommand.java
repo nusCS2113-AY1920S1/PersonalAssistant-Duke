@@ -6,11 +6,9 @@ import chronologer.storage.Storage;
 import chronologer.task.Priority;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.Component;
 import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.CalScale;
 import net.fortuna.ical4j.model.property.Description;
@@ -90,7 +88,7 @@ public class ExportCommand extends Command {
         if (isCalendarValid(calendar)) {
             CalendarOutput.outputCalendar(fileName.trim(), calendar);
         } else {
-            UiTemporary.printOutput(ChronologerException.emptyCalendar());
+            UiMessageHandler.outputMessage(ChronologerException.emptyCalendar());
             throw new ChronologerException(ChronologerException.emptyCalendar());
         }
     }
@@ -286,7 +284,7 @@ public class ExportCommand extends Command {
      */
     private void checkEmptyList(ArrayList<Task> taskList) throws ChronologerException {
         if (taskList.size() == 0) {
-            UiTemporary.printOutput(ChronologerException.emptyExport());
+            UiMessageHandler.outputMessage(ChronologerException.emptyExport());
             throw new ChronologerException(ChronologerException.emptyExport());
         }
     }

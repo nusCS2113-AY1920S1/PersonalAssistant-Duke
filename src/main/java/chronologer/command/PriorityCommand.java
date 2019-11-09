@@ -6,7 +6,7 @@ import chronologer.storage.Storage;
 import chronologer.task.Priority;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * Adds a priority level to a certain task.
@@ -36,18 +36,18 @@ public class PriorityCommand extends Command {
 
         Priority newPriority = Priority.getPriorityLevel(priorityString);
         if (newPriority == Priority.INVALID) {
-            UiTemporary.printOutput(ChronologerException.invalidPriorityLevel());
+            UiMessageHandler.outputMessage(ChronologerException.invalidPriorityLevel());
             throw new ChronologerException(ChronologerException.invalidPriorityLevel());
         }
         if (!isIndexValid(indexOfTask, tasks.getSize())) {
-            UiTemporary.printOutput(ChronologerException.taskDoesNotExist());
+            UiMessageHandler.outputMessage(ChronologerException.taskDoesNotExist());
             throw new ChronologerException(ChronologerException.taskDoesNotExist());
         }
         Task task = tasks.getTasks().get(indexOfTask);
         task.setPriority(newPriority);
         ChronologerStateList.addState((tasks.getTasks()));
-        tasks.updatePriority(null);
+        tasks.updateGUI(null);
         storage.saveFile(tasks.getTasks());
-        UiTemporary.printOutput("Got it! " + task.getDescription() + " priority level is now " + priorityString);
+        UiMessageHandler.outputMessage("Got it! " + task.getDescription() + " priority level is now " + priorityString);
     }
 }

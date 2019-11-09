@@ -3,7 +3,7 @@ package chronologer.command;
 import chronologer.exception.ChronologerException;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import java.net.URISyntaxException;
 public class ManualCommand extends Command {
 
     private static final String UG_URI = "https://github.com/AY1920S1-CS2113-T13-3/main/blob/master/docs/%5BAY1920S1-"
-            + "CS2113-T13-3%5D-Chronologer-UG.pdf";
+            + "CS2113-T13-3%5D-C[hronologer-UG.pdf";
 
     /**
      * Removes the task from the TaskList and saves the updated TaskList to
@@ -35,9 +35,9 @@ public class ManualCommand extends Command {
             Desktop desktop = Desktop.getDesktop();
             desktop.browse(new URI(UG_URI));
         } catch (URISyntaxException | IOException e) {
-            UiTemporary.printOutput("Unable to open our guide!");
+            UiMessageHandler.outputMessage(ChronologerException.websiteMissing());
             logger.writeLog(e.toString(), this.getClass().getName());
-            throw new ChronologerException("Unable to open our guide!");
+            throw new ChronologerException(ChronologerException.websiteMissing());
         }
 
     }

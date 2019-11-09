@@ -3,7 +3,7 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.TaskScheduleCommand;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -55,7 +55,7 @@ public class ScheduleParser extends IndexParser {
         try {
             convertedIndex = Integer.parseInt(extractedIndex) - 1;
         } catch (NumberFormatException e) {
-            UiTemporary.printOutput(ChronologerException.unknownUserCommand());
+            UiMessageHandler.outputMessage(ChronologerException.unknownUserCommand());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.unknownUserCommand());
         }
@@ -69,7 +69,7 @@ public class ScheduleParser extends IndexParser {
         try {
             convertedDate = DateTimeExtractor.extractDateTime(extractedDate, command);
         } catch (DateTimeParseException e) {
-            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
@@ -83,9 +83,10 @@ public class ScheduleParser extends IndexParser {
         }
         String stringToCheck = taskFeatures.split(Flag.BY.getFlag(), 2)[1].trim();
         if (stringToCheck.isEmpty()) {
+            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
-        if (stringToCheck.contains("/")) {
+        else if (stringToCheck.contains("/")) {
             return DATE_INPUT;
         }
         return INDEX_INPUT;

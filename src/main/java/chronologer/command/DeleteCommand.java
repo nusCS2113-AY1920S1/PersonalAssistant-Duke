@@ -5,7 +5,7 @@ import chronologer.storage.ChronologerStateList;
 import chronologer.task.Task;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * Allows the user to delete a particular task from their task list based on index.
@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
             Task task = tasks.delete(indexOfTask);
             ChronologerStateList.addState(tasks.getTasks());
             storage.saveFile(tasks.getTasks());
-            UiTemporary.printOutput("Noted. I've removed this task:" + "\n " + task.toString() + "\nNow you have "
+            UiMessageHandler.outputMessage("Noted. I've removed this task:" + "\n " + task.toString() + "\nNow you have "
                 + tasks.getSize() + " task(s) in the list.");
         }
     }

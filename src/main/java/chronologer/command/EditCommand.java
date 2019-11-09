@@ -5,7 +5,7 @@ import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * Edits the user's task description.
@@ -35,7 +35,7 @@ public class EditCommand extends Command {
             Task taskToEdit = tasks.editTaskDescription(indexOfTask, newDescription);
             ChronologerStateList.addState((tasks.getTasks()));
             storage.saveFile(tasks.getTasks());
-            UiTemporary.printOutput("Noted. Your new task description is:" + "\n " + taskToEdit.getDescription());
+            UiMessageHandler.outputMessage("Noted. Your new task description is:" + "\n " + taskToEdit.getDescription());
         }
     }
 }
