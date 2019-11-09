@@ -1274,54 +1274,6 @@ The instructions and sample test cases only act as a guidance for you to start t
 
 === Managing your semesters
 
-=== Tracking your time spent on tasks
-
-=== Setting recurring tasks
-
-==== Selecting the `task` to be recurred
-+1.+ You should use the `list` command to list the `tasks` you have added to *OOF*. +
-+2.+ Keep in mind the `task` you wish to recur.
-
-==== Choosing the `number of recurrences` and `frequency`
-+3.+ A valid `number of recurrence` is an integer between `1 - 10`. You can choose a valid number within this range. +
-+4.+ A valid `frequency` is an integer from `1 - 4` representing `DAILY`, `WEEKLY`, `MONTHLY` and `YEARLY` respectively. You can choose a valid `frequency` within this range.
-
-==== Entering the command
-+5.+ You can then proceed to enter a command based on the parameters you have chosen. +
-
-[NOTE]
-The command is in the format `recurring INDEX NUMBER_OF_RECURRENCES FREQUENCY`. +
-`INDEX` refers to the `index` of the `task` you have chosen in step `2`. +
-`NUMBER_OF_RECURRENCES` refers to the number you have chosen in step `3`. +
-`FREQUENCY` refers to the number you have chosen in step `4`. +
-You are free to test out this command with variations of the three parameters.
-
-=== Finding free time slots
-
-==== Understanding the parameters 
-The `free` command syntax is as such: `free DD-MM-YYYY`.
-
-[NOTE]
-The `date` has to strictly be in the format `DD-MM-YYYY`. +
-You must enter either today's date or a date in the future. 
-
-==== Testing the command 
-You can enter the command `free DD-MM-YYYY` to view your free time slots in the given date as well as suggestions for upcoming deadlines to complete. 
-
-=== Viewing your tasks in a calendar format 
-
-=== Viewing your tasks for a week in a tabular format
-
-==== Understanding the parameters
-The `viewweek` command syntax is as such: `viewweek DD MM YYYY`.
-
-[NOTE]
-The `date` parameters `DD`, `MM` and `YYYY` are optional. If the `date` is not entered, the current week will be selected. Similarly, if there is an error in the `date` supplied, the feature will ignore the the inputted `date` and print `tasks` for the current week.
-
-==== Testing the command
-You can enter the command `viewweek` to view `tasks` for the current week. +
-You are free to enter a `date` of your choice and observe the output of this command.
-
 === Starting Task Tracker
 
 ==== Understanding the parameters
@@ -1381,3 +1333,50 @@ The `tracker /delete` command syntax is as such: `tracker /delete TASK_INDEX`.
 ==== Testing the command
 You can enter the command `tracker /delete TASK_INDEX` to delete a `Tracker` you have created. +
 Feel free to enter a `TASK_INDEX` of your choice.
+
+
+=== Setting recurring tasks
+
+==== Selecting the `task` to be recurred
++1.+ You should use the `list` command to list the `tasks` you have added to *OOF*. +
++2.+ Keep in mind the `task` you wish to recur.
+
+==== Choosing the `number of recurrences` and `frequency`
++3.+ A valid `number of recurrence` is an integer between `1 - 10`. You can choose a valid number within this range. +
++4.+ A valid `frequency` is an integer from `1 - 4` representing `DAILY`, `WEEKLY`, `MONTHLY` and `YEARLY` respectively. You can choose a valid `frequency` within this range.
+
+==== Entering the command
++5.+ You can then proceed to enter a command based on the parameters you have chosen. +
+
+[NOTE]
+The command is in the format `recurring INDEX NUMBER_OF_RECURRENCES FREQUENCY`. +
+`INDEX` refers to the `index` of the `task` you have chosen in step `2`. +
+`NUMBER_OF_RECURRENCES` refers to the number you have chosen in step `3`. +
+`FREQUENCY` refers to the number you have chosen in step `4`. +
+You are free to test out this command with variations of the three parameters.
+
+=== Finding free time slots
+
+==== Understanding the parameters 
+The `free` command syntax is as such: `free DD-MM-YYYY`.
+
+[NOTE]
+The `date` has to strictly be in the format `DD-MM-YYYY`. +
+You must enter either today's date or a date in the future. 
+
+==== Testing the command 
+You can enter the command `free DD-MM-YYYY` to view your free time slots in the given date as well as suggestions for upcoming deadlines to complete. 
+
+=== Viewing your tasks in a calendar format 
+
+=== Viewing your tasks for a week in a tabular format
+
+==== Understanding the parameters
+The `viewweek` command syntax is as such: `viewweek DD MM YYYY`.
+
+[NOTE]
+The `date` parameters `DD`, `MM` and `YYYY` are optional. If the `date` is not entered, the current week will be selected. Similarly, if there is an error in the `date` supplied, the feature will ignore the the inputted `date` and print `tasks` for the current week.
+
+==== Testing the command
+You can enter the command `viewweek` to view `tasks` for the current week. +
+You are free to enter a `date` of your choice and observe the output of this command.
