@@ -5,6 +5,8 @@ import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
 
+//@@author Fractalisk
+
 public class StatsCommand extends Command {
 
     public StatsCommand() {

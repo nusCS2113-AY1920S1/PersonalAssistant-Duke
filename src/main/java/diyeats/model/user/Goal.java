@@ -11,6 +11,8 @@ import java.util.HashMap;
 import static diyeats.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
 import static java.time.temporal.ChronoUnit.DAYS;
 
+//@@author Fractalisk
+
 /**
  * Goal is a public class that defines all user set dietary goals.
  */

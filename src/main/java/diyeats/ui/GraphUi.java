@@ -1,5 +1,7 @@
 package diyeats.ui;
 
+//@@author koushireo
+
 /** UserUi is a public class that facilitates the output of Graph data.
  */
 public class GraphUi {

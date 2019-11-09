@@ -3,6 +3,8 @@ package diyeats.logic.autocorrect;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//@@author koushireo
+
 /**
  * This is a class that will help to correct minor typo.
  */

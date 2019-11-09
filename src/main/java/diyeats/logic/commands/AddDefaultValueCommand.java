@@ -8,6 +8,7 @@ import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
 
 //@@author Fractalisk
+
 /**
  * AddDefaultValueCommand is a public class that inherits from abstract class Command.
  * An AddDefaultValueCommand object encapsulates the current meal that is to be added as a defaultvalue.

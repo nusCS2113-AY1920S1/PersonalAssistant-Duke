@@ -11,6 +11,7 @@ import diyeats.ui.InputHandler;
 import java.util.HashMap;
 
 //@@author Fractalisk
+
 /**
  * AddGoalCommand is a public class that inherits from abstract class Command.
  * An AddGoalCommand object encapsulates the goal object that is to be added.

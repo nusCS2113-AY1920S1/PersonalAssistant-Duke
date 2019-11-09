@@ -11,6 +11,7 @@ import diyeats.model.wallet.Wallet;
 import com.google.gson.Gson;
 
 //@@author Fractalisk
+
 /**
  * This object is in charge of all writing to save operations.
  */

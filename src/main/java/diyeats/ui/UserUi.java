@@ -2,7 +2,7 @@ package diyeats.ui;
 
 import diyeats.model.user.User;
 
-//@@author-koushireo
+//@@author koushireo
 
 /** UserUi is a public class that facilitates the output of User info.
  */

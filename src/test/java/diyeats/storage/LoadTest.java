@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 //@@author Fractalisk
+
 public class LoadTest {
     private Load loader = new Load(new GsonBuilder().setPrettyPrinting().registerTypeAdapter(LocalDate.class,
             new LocalDateAdapter()).create());

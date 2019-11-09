@@ -17,6 +17,7 @@ import java.util.Scanner;
 import static diyeats.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
 
 //@@author
+
 public class Ui {
     private static final String UI_PADDING = "     ";
     private static final String UI_BOUNDARY = "    ____________________________________________________________";
