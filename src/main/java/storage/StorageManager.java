@@ -55,6 +55,16 @@ public class StorageManager {
     }
 
     /**
+     * Untracks a particular tag.
+     * @param tag String to untrack
+     * @throws DukeException The tag is not yet tracked.
+     */
+    public void untrackTag(String tag) throws DukeException {
+        this.wallet.removeFolder(tag);
+    }
+
+
+    /**
      * Adds a receipt to the Wallet Object.
      * Used in CommandAddReceipt.
      * @param r Receipt Object to be added into the Wallet

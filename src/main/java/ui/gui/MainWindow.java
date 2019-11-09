@@ -61,7 +61,8 @@ public class MainWindow extends AnchorPane {
         InfoCapsule infoCapsule = this.interpreterLayer.interpret(input);
         this.updateGui(infoCapsule);
         if (this.displayType == DisplayType.HOME) {
-            updateHomeDisplay();
+            this.updateHomeDisplay();
+            this.updateHomeDisplay(); // Javafx won't update completely
         }
         this.userInput.clear();
         if (this.exitRequest) {

@@ -22,7 +22,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class HomeWindow extends AnchorPane {
     @FXML
@@ -145,66 +144,44 @@ public class HomeWindow extends AnchorPane {
     }
 
     void updateBreakdownData() {
-        //this.incomeSeries.getData().clear();
-        //this.expenditureSeries.getData().clear();
-
         InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.WALLET, null);
         Wallet wallet = infoCapsule.getWallet();
+        HashMap<String, Double> newExpenditureData = new HashMap<>();
+        HashMap<String, Double> newIncomeData = new HashMap<>();
         for (Map.Entry<String, ReceiptTracker> folder : wallet.getFolders().entrySet()) {
             if (isFolderValid(folder)) {
-                help(folder);
+                newExpenditureData.put(folder.getKey(), folder.getValue().getTotalExpenses());
+                newIncomeData.put(folder.getKey(), folder.getValue().getTotalIncome());
             }
         }
-//        this.backdrop.getData().clear();
-
-//        for (Map.Entry<String, Double> data : backdropData.entrySet()) {
-//            backdrop.getData().add(new XYChart.Data<String, Double>(data.getKey(), data.getValue()));
-//        }
+        Double backdropValue = this.getBackdropValue(wallet);
+        HashMap<String, Double> newBackdropData = this.getBackdropData(backdropValue,
+                this.expenditureSeries, this.incomeSeries);
+        this.updateSeriesData(this.expenditureSeries, newExpenditureData);
+        this.updateSeriesData(this.incomeSeries, newIncomeData);
+        this.updateSeriesData(this.backdrop, newBackdropData);
     }
 
-    private void help(Map.Entry<String, ReceiptTracker> folder) {
-        boolean found = false;
-        for (XYChart.Data<String, Double> data : this.expenditureSeries.getData()) {
-            if (data.getXValue().equals(folder.getKey())) {
-                data.setYValue(folder.getValue().getTotalExpenses());
-                found = true;
+    private void updateSeriesData(XYChart.Series<String, Double> series, HashMap<String, Double> newData) {
+        ArrayList<XYChart.Data<String, Double>> toDelete = new ArrayList<>();
+        for (XYChart.Data<String, Double> oldDataPoint : series.getData()) {
+            String key = oldDataPoint.getXValue();
+            if (newData.containsKey(key)) {
+                oldDataPoint.setYValue(newData.get(key));
+                newData.remove(key);
+            } else {
+                toDelete.add(oldDataPoint);
             }
-        }
-        if (!found) {
-            this.expenditureSeries.getData().add(new XYChart.Data<String, Double>(
-                    folder.getKey(),
-                    folder.getValue().getTotalExpenses()
-            ));
-        }
-        found = false;
-        for (XYChart.Data<String, Double> data : this.incomeSeries.getData()) {
-            if (data.getXValue().equals(folder.getKey())) {
-                data.setYValue(folder.getValue().getTotalIncome());
-                found = true;
-            }
-        }
-        if (!found) {
-            this.incomeSeries.getData().add(new XYChart.Data<String, Double>(
-                    folder.getKey(),
-                    folder.getValue().getTotalIncome()
-            ));
         }
 
-        InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.WALLET, null);
-        Wallet wallet = infoCapsule.getWallet();
-        Double backdropValue = this.getBackdropValue(wallet);
-        HashMap<String, Double> backdropData = this.getBackdropData(backdropValue, expenditureSeries, incomeSeries);
-        found = false;
-        for (XYChart.Data<String, Double> data : this.backdrop.getData()) {
-            if (data.getXValue().equals(folder.getKey())) {
-                data.setYValue(backdropData.get(folder.getKey()));
-                found = true;
-            }
+        for (XYChart.Data<String, Double> item : toDelete) {
+            series.getData().remove(item);
         }
-        if (!found) {
-            this.backdrop.getData().add(new XYChart.Data<String, Double>(
-                    folder.getKey(),
-                    backdropData.get(folder.getKey())
+
+        for (Map.Entry<String, Double> newDataPoint : newData.entrySet()) {
+            series.getData().add(new XYChart.Data<String, Double>(
+                    newDataPoint.getKey(),
+                    newDataPoint.getValue()
             ));
         }
     }
@@ -226,8 +203,8 @@ public class HomeWindow extends AnchorPane {
             if (!folder.getKey().equals("Income") && !folder.getKey().equals("Expenses")) {
                 if (folder.getValue().getTotalExpenses() > maxValue) {
                     maxValue = folder.getValue().getTotalExpenses();
-                } else if (-folder.getValue().getTotalIncome() > maxValue) {
-                    maxValue = -folder.getValue().getTotalIncome();
+                } else if (folder.getValue().getTotalIncome() > maxValue) {
+                    maxValue = folder.getValue().getTotalIncome();
                 }
             }
         }
@@ -250,5 +227,4 @@ public class HomeWindow extends AnchorPane {
         }
         return backdropData;
     }
-
 }

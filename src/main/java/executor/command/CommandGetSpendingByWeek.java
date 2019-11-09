@@ -47,7 +47,7 @@ public class CommandGetSpendingByWeek extends Command {
         }
         for (String a : dateList) {
             try {
-                total += storageManager.getReceiptsByDate(a).getTotalCashSpent();
+                total += storageManager.getReceiptsByDate(a).getTotalExpenses();
             } catch (Exception e) {
                 this.infoCapsule.setCodeError();
                 this.infoCapsule.setOutputStr(e.getMessage());

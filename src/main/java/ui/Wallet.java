@@ -139,4 +139,13 @@ public class Wallet {
     public void addFolder(String tag) throws DukeException {
         this.receipts.addFolder(tag);
     }
+
+    /**
+     * Accessor for method removeFolder in ReceiptTracker.
+     * @param tag String to be unregistered
+     * @throws DukeException Error untracking a tag.
+     */
+    public void removeFolder(String tag) throws DukeException {
+        this.receipts.removeFolder(tag);
+    }
 }

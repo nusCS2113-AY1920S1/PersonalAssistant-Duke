@@ -1,6 +1,7 @@
 package ui;
 
 import duke.exception.DukeException;
+import main.Duke;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -79,15 +80,28 @@ public class ReceiptTracker extends ArrayList<Receipt> {
     /**
      * Registers a tag to be tracked.
      * @param tag String to be registered into the folders property of ReceiptTracker Object
+     * @throws DukeException Folder already exists
      */
     public void addFolder(String tag) throws DukeException {
-        if (this.getFolders().containsKey(tag)) {
+        if (isRegisteredTag(tag)) {
             throw new DukeException("Category already exists!");
         }
         ArrayList<Receipt> taggedReceipts = getReceiptsByTag(tag);
         if (taggedReceipts.size() < this.size()) {
             this.getFolders().put(tag, new ReceiptTracker(taggedReceipts));
         }
+    }
+
+    /**
+     * Unregisters a tag.
+     * @param tag String to be unregistered
+     * @throws DukeException Folder doesn't exist
+     */
+    public void removeFolder(String tag) throws DukeException {
+        if (!isRegisteredTag(tag)) {
+            throw new DukeException("This tag is not being tracked!");
+        }
+        this.getFolders().remove(tag);
     }
 
     /**
@@ -252,8 +266,12 @@ public class ReceiptTracker extends ArrayList<Receipt> {
         return outputStr.toString();
     }
 
+    /**
+     * Gets the total sum of all the Income Receipts.
+     * @return Double representing said sum
+     */
     public Double getTotalIncome() {
-        if (this.getFolders().containsKey("Income")) {
+        if (isRegisteredTag("Income")) {
             return -this.getFolders().get("Income").getNettCashSpent();
         } else if (this.nettCashSpent < 0) {
             return -this.nettCashSpent;
@@ -263,14 +281,19 @@ public class ReceiptTracker extends ArrayList<Receipt> {
 
     }
 
+    /**
+     * Gets the total sum of all the Spending Receipts.
+     * @return Double representing said sum
+     */
     public Double getTotalExpenses() {
-        if (this.getFolders().containsKey("Expenses")) {
+        if (isRegisteredTag("Expenses")) {
             return this.getFolders().get("Expenses").getNettCashSpent();
         } else if (this.nettCashSpent >= 0) {
             return this.nettCashSpent;
         } else {
             return 0.0;
         }
+    }
       
     public Double getBudget() {
         return budget;
