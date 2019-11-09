@@ -113,6 +113,10 @@ public class Category {
         return longestName;
     }
 
+    /**
+     * Sorts expenditures within each category according to the type specified.
+     * @param type type of sort
+     */
     public void sort(String type) {
         if ("name".equals(type)) {
             category.sort(Comparator.comparing(Expenditure::getName));

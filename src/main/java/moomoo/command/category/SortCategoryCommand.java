@@ -1,10 +1,15 @@
 package moomoo.command.category;
 
 import moomoo.command.Command;
-import moomoo.feature.*;
-import moomoo.feature.category.Category;
+
+import moomoo.feature.Budget;
 import moomoo.feature.category.CategoryList;
+import moomoo.feature.MooMooException;
+import moomoo.feature.ScheduleList;
 import moomoo.feature.storage.Storage;
+import moomoo.feature.Ui;
+import moomoo.feature.MainDisplay;
+import moomoo.feature.category.Category;
 
 public class SortCategoryCommand extends Command {
 
