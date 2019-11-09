@@ -42,7 +42,7 @@ public class AddCardBillCommand extends Command {
         this.expenditureDate = getCurrentDate();
         this.bank = bank;
         this.type = BANK_TYPE;
-        this.expenditureDescription = "Bill - " + card + " " + date;
+        this.expenditureDescription = "Bill Payment - " + card + " " + date;
     }
 
     /**
