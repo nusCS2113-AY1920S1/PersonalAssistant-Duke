@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * It displays all the meals in a relevant day in a list to the user
  */
 public class ListCommand extends Command {
-    String sortBy = "default";
+    private String sortBy = "default";
 
     /**
      * Constructor for ListCommand.
@@ -31,7 +31,6 @@ public class ListCommand extends Command {
      * Constructor for ListCommand.
      * @param date The date of the data to List
      */
-
     public ListCommand(LocalDate date) {
         if (date != null) {
             try {
@@ -43,11 +42,21 @@ public class ListCommand extends Command {
         }
     }
 
+    /**
+     * Constructor for ListCommand.
+     * @param date the date concerned.
+     * @param sortBy the type of sorting acceptable.
+     */
     public ListCommand(LocalDate date, String sortBy) {
         this(date);
         this.sortBy = sortBy;
     }
 
+    /**
+     * Constructor when ListCommand encounters error.
+     * @param flag the flag to activate isFail.
+     * @param messageStr the messageStr concerned.
+     */
     public ListCommand(boolean flag, String messageStr) {
         this.isFail = flag;
         this.errorStr = messageStr;

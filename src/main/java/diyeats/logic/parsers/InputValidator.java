@@ -2,6 +2,8 @@ package diyeats.logic.parsers;
 
 import diyeats.commons.exceptions.ProgramException;
 
+import java.time.LocalDate;
+
 //@@author GaryStu
 /**
  * InputValidator is a public class that deals with validating user input.
@@ -35,4 +37,16 @@ public class InputValidator {
             throw new ProgramException("Only positive value is accepted.");
         }
     }
+
+    /**
+     * validate the date so that transaction that happens in the future will not be recorded.
+     * @param localDate the date of transaction.
+     * @throws ProgramException if <code>LocalDate</code> is after <code>LocalDate.now()</code>.
+     */
+    public static void validateDate(LocalDate localDate) throws ProgramException {
+        if (localDate.isAfter(LocalDate.now())) {
+            throw new ProgramException("Cannot add transaction that happens in the future.");
+        }
+    }
+
 }

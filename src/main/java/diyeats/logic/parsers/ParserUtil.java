@@ -4,6 +4,8 @@ import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.autocorrect.Autocorrect;
 import diyeats.logic.commands.HistoryCommand;
 
+import java.time.LocalDate;
+
 //@@author Fractalisk
 /**
  * Utility class to handle pre-parsing of user inputs.
@@ -42,6 +44,12 @@ public class ParserUtil {
         command = autocorrect.runOnCommand(command);
         argument = autocorrect.runOnArgument(argument);
         history.addCommand(command);
+    }
+
+    public LocalDate parseDate(String dateStr) {
+        try {
+            localDate = LocalDate.parse(dateStr, dateFormat);
+        }
     }
 
     /**
