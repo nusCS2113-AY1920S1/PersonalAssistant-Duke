@@ -1,5 +1,6 @@
 package seedu.hustler.logic.command.task;
 
+import seedu.hustler.MainWindow;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.UndoAnomaly;
@@ -44,6 +45,7 @@ public class UndoCommand extends Command {
         Ui ui = new Ui();
         MemoryManager memorymanager = new MemoryManager();
 
+        MainWindow.offPrinting();
         if (this.taskInfo.length == 1) {
             this.numberOfCommandsToUndo = 1;
             memorymanager.reloadBackup(numberOfCommandsToUndo);

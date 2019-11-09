@@ -45,7 +45,9 @@ public class FirstLogin extends Achievements {
      * @return total points.
      */
     public static int updatePoints() {
-        totalPoints += 15;
+        if (totalPoints == 0) {
+            totalPoints += 15;
+        }
         return totalPoints;
     }
 

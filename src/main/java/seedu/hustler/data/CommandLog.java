@@ -29,7 +29,6 @@ public class CommandLog {
         int restoreDataUntil = commandLog.size() - numberOfCommandsToUndo;
 
         if (restoreDataUntil >= 0) {
-            MainWindow.offPrinting();
             for (int i = 0; i < restoreDataUntil; i++) {
                 try {
                     CommandParser parser = new CommandParser();
