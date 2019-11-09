@@ -3,16 +3,18 @@ matrix:
   include:
     - jdk: openjdk11
 
+before_install:
+  - chmod +x gradlew
+
 script: >-
   ./gradlew clean test checkstyleMain checkstyleTest
-
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 after_success:
   - ./gradlew jacocoTestReport coveralls
 
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 cache:
   directories:
