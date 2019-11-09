@@ -1,11 +1,11 @@
 package sgtravel.model;
 
+import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
 import sgtravel.commons.exceptions.NoSuchItineraryException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.commons.exceptions.ParseException;
-import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.model.lists.EventList;
 import sgtravel.model.lists.RouteList;
 import sgtravel.model.lists.VenueList;
@@ -109,6 +109,10 @@ public interface Model {
      * Returns name of the user.
      */
     String getName();
+
+    void addToFavourite(String name, Itinerary itinerary) throws NoSuchItineraryException;
+
+    void deleteFavourite(String name) throws NoSuchItineraryException;
 
     void doneItinerary(String name) throws NoSuchItineraryException;
 }

@@ -1,9 +1,10 @@
 package sgtravel.model;
 
+import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
-import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.NoSuchItineraryException;
+import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.model.lists.EventList;
 import sgtravel.model.lists.RouteList;
@@ -49,6 +50,19 @@ public class ModelManager implements Model {
     @Override
     public String getName() {
         return profileCard.getPersonName();
+    }
+
+    @Override
+    public void addToFavourite(String name, Itinerary itinerary) throws NoSuchItineraryException {
+        if (itinerary == null) {
+            throw new NoSuchItineraryException();
+        }
+        profileCard.addFavourite(name, itinerary);
+    }
+
+    @Override
+    public void deleteFavourite(String name) throws NoSuchItineraryException {
+        profileCard.deleteFavourite(name);
     }
 
     @Override
