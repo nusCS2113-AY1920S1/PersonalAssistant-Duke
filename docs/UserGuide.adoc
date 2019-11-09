@@ -309,7 +309,7 @@ Format: `recommend itinerary between START_DATE and END_DATE`
 ====
 * This command still works if u enter 23/04/20 and 31/04/20 (invalid date). This is just the
  Java Library automatically changing 31/04/20 to 30/04/20. 
-* Hence, do not enter invaid dates (known bug).
+* Hence, do not enter invalid dates (known bug).
 ====
 
 image::RecommendationsCommand.png[width="380" height="447"]
