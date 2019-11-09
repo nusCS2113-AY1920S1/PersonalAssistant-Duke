@@ -417,6 +417,9 @@ public class Ui {
         if (numFound == Numbers.ZERO.value) {
             str += "     No matching tasks found." + "\n";
         }
+        if (!taskType.equals("todo") && !taskType.equals("deadline") && !taskType.equals("fixedduration")) {
+            str = "     Invalid type of task.";
+        }
         return str;
     }
 
