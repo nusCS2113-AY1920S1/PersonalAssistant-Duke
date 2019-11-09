@@ -12,27 +12,27 @@ import entertainment.pro.ui.MovieHandler;
 public class WatchlistCommand  extends CommandSuper {
 
     public WatchlistCommand(Controller uicontroller) {
-        super(COMMANDKEYS.watchlist, CommandStructure.cmdStructure.get(COMMANDKEYS.watchlist), uicontroller);
+        super(COMMANDKEYS.WATCHLIST, CommandStructure.cmdStructure.get(COMMANDKEYS.WATCHLIST), uicontroller);
     }
 
     @Override
     public void executeCommands() {
         switch (this.getSubRootCommand()) {
-        case add:
+        case ADD:
             try {
                 addToWatchList();
             } catch (Exception e) {
                 e.printStackTrace();
             }
             break;
-        case set:
+        case SET:
             if (getPayload().isEmpty()) {
                 executeIndexTaskDone();
             } else {
                 executeNameTaskDone();
             }
             break;
-        case delete:
+        case DELETE:
             deleteFromWatchlist();
             break;
         default:

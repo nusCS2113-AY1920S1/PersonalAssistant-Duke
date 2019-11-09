@@ -14,20 +14,20 @@ import entertainment.pro.storage.user.WatchlistHandler;
 public class AddCommand extends CommandSuper {
 
     public AddCommand(Controller uicontroller) {
-        super(COMMANDKEYS.add, CommandStructure.cmdStructure.get(COMMANDKEYS.add), uicontroller);
+        super(COMMANDKEYS.ADD, CommandStructure.cmdStructure.get(COMMANDKEYS.ADD), uicontroller);
     }
 
     @Override
     public void executeCommands() {
         switch (this.getSubRootCommand()) {
-        case watchlist:
+        case WATCHLIST:
             try {
                 addToWatchList();
             } catch (Exceptions exceptions) {
                 exceptions.printStackTrace();
             }
             break;
-        case blacklist:
+        case BLACKLIST:
 //                addToBlackList();
             break;
         default:

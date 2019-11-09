@@ -1,11 +1,14 @@
 package entertainment.pro.logic.execution;
 
+import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.parsers.CommandSuper;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Contains all the commands the user entered to be kept track of.
@@ -14,13 +17,14 @@ public class CommandStack {
     private static ArrayList<CommandSuper> myStack = new ArrayList<>();
     private static int counter = 0;
     private static long lastexec = System.currentTimeMillis();
+    private static Logger logger = Logger.getLogger(CommandStack.class.getName());
 
 
     /**
      * Adds the command to the command Stack.
      */
     public static void pushCmd(CommandSuper cmd) throws IOException, Exceptions {
-        if (cmd.getRoot() == COMMANDKEYS.yes) {
+        if (cmd.getRoot() == COMMANDKEYS.YES) {
             executeLastCommand();
         } else {
             myStack.add(cmd);
@@ -92,7 +96,7 @@ public class CommandStack {
      * prompt to execute the predicted command
      */
     public static void executeLastCommand() throws IOException, Exceptions {
-        System.out.println("Execute Last Command");
+        logger.log(Level.INFO , PromptMessages.EXECUTING_MISTYPED_COMMAND);
         if (myStack.size() < 1) {
             return;
         }

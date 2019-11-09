@@ -1,10 +1,12 @@
 package entertainment.pro.logic.parsers;
 
+import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.assertions.CommandAssertions;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.commons.exceptions.EmptyCommandException;
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.execution.CommandStack;
-import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.parsers.commands.*;
 import entertainment.pro.model.CommandPair;
 import entertainment.pro.ui.Controller;
@@ -12,11 +14,15 @@ import entertainment.pro.ui.MovieHandler;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * CommandParser class to determine the root command given the user input.
  */
 public class CommandParser {
+
+    private static Logger logger = Logger.getLogger(CommandParser.class.getName());
 
     /**
      * Entry point to command parser Class.
@@ -30,7 +36,8 @@ public class CommandParser {
             , MissingInfoException {
 
         if (command.trim().length() == 0) {
-            throw new EmptyCommandException("Comand is empty");
+            logger.log(Level.SEVERE , PromptMessages.MISSING_COMMAND);
+            throw new EmptyCommandException(PromptMessages.MISSING_COMMAND);
         }
         String commandArr[] = command.split(" ");
         rootCommand(commandArr , command, uicontroller);
@@ -49,81 +56,83 @@ public class CommandParser {
             , Controller uicontroller)
             throws IOException, Exceptions , MissingInfoException {
 
+        assert (CommandAssertions.assertIsLowerStringArr(commandArr));
+
         if (!command.isValidCommand()) {
             return;
         }
         switch(command.getRootCommand()) {
-        case search:
+        case SEARCH:
             SearchCommand sc = new SearchCommand(uicontroller);
             sc.initCommand(commandArr , commandStr, command.getSubRootCommand());
             if (command.isValidCommand()) {
                 CommandStack.pushCmd(sc);
             }
             break;
-        case view:
+        case VIEW:
             ViewCommand vc = new ViewCommand(uicontroller);
             vc.initCommand(commandArr , commandStr, command.getSubRootCommand());
             if (command.isValidCommand()) {
                 CommandStack.pushCmd(vc);
             }
             break;
-        case help:
+        case HELP:
             HelpCommand hc = new HelpCommand(uicontroller);
             hc.initCommand(commandArr, commandStr, command.getSubRootCommand());
             if (command.isValidCommand()) {
                 CommandStack.pushCmd(hc);
             }
             break;
-        case more:
+        case MORE:
             MoreCommand mc = new MoreCommand(uicontroller);
             mc.initCommand(commandArr, commandStr, command.getSubRootCommand());
             if (command.isValidCommand()) {
                 CommandStack.pushCmd(mc);
             }
             break;
-        case yes:
+        case YES:
             YesCommand yc = new YesCommand(uicontroller);
             yc.initCommand(commandArr, commandStr, command.getSubRootCommand());
             if (command.isValidCommand()) {
                 CommandStack.pushCmd(yc);
             }
             break;
-        case add:
+        case ADD:
             AddCommand wc = new AddCommand(uicontroller);
             wc.initCommand(commandArr, commandStr, command.getSubRootCommand());
             if (command.isValidCommand()) {
                 CommandStack.pushCmd(wc);
             }
             break;
-        case set:
+        case SET:
             SetCommand stc = new SetCommand(uicontroller);
             stc.initCommand(commandArr, commandStr , command.getSubRootCommand());
             if (command.isValidCommand()) {
                 CommandStack.pushCmd(stc);
             }
             break;
-        case playlist:
+        case PLAYLIST:
             PlaylistCommand pc = new PlaylistCommand(uicontroller);
             pc.initCommand(commandArr, commandStr , command.getSubRootCommand());
             if (command.isValidCommand()) {
                 CommandStack.pushCmd(pc);
             }
             break;
-        case preference:
+        case PREFERENCE:
             PreferenceCommand pfc = new PreferenceCommand(uicontroller);
             pfc.initCommand(commandArr, commandStr , command.getSubRootCommand());
             if (command.isValidCommand()) {
                 CommandStack.pushCmd(pfc);
             }
             break;
-        case restriction:
+        case RESTRICTION:
             RestrictionCommand rc = new RestrictionCommand(uicontroller);
             rc.initCommand(commandArr, commandStr, command.getSubRootCommand());
             if (command.isValidCommand()) {
                 CommandStack.pushCmd(rc);
             }
             break;
-        case blacklist:
+        case BLACKLIST:
             BlacklistCommand bbc = new BlacklistCommand(uicontroller);
             bbc.initCommand(commandArr, commandStr, command.getSubRootCommand());
 
@@ -131,21 +140,21 @@ public class CommandParser {
                 CommandStack.pushCmd(bbc);
             }
             break;
-        case watchlist:
+        case WATCHLIST:
             WatchlistCommand wlc = new WatchlistCommand(uicontroller);
             wlc.initCommand(commandArr, commandStr, command.getSubRootCommand());
             if (command.isValidCommand()) {
                 CommandStack.pushCmd(wlc);
             }
             break;
-        case find:
+        case FIND:
             FindCommand fc = new FindCommand(uicontroller);
             fc.initCommand(commandArr, commandStr, command.getSubRootCommand());
             if (command.isValidCommand()) {
                 CommandStack.pushCmd(fc);
             }
             break;
-        case exit:
+        case EXIT:
             ExitCommand ec = new ExitCommand(uicontroller);
             ec.initCommand(commandArr , commandStr , command.getSubRootCommand());
             if (command.isValidCommand()) {
@@ -153,9 +162,8 @@ public class CommandParser {
             }
             break;
         default:
-            CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.none , uicontroller);
-            ((MovieHandler) uicontroller).setGeneralFeedbackText("Sorry we are unable to process your command. " +
-                    "Please check help for more details!");
+            CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.NONE, uicontroller);
+            ((MovieHandler) uicontroller).setGeneralFeedbackText(PromptMessages.UNABLE_TO_PROCESS);
 
         }
     }
@@ -170,7 +178,6 @@ public class CommandParser {
     public static void rootCommand(String[] commandArr , String command ,
                                    Controller uicontroller) throws IOException, Exceptions , MissingInfoException {
 
-        System.out.print("Whats happening");
         switch(commandArr[0].toLowerCase()) {
         case "search":
             SearchCommand sc = new SearchCommand(uicontroller);
@@ -269,7 +276,7 @@ public class CommandParser {
             }
             break;
         default:
-            CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.none, uicontroller);
+            CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.NONE, uicontroller);
             askUserConfirmation(pair , uicontroller , commandArr);
             processCommand(pair , commandArr , command, uicontroller);
             break;
@@ -277,11 +284,11 @@ public class CommandParser {
     }
 
     private static void askUserConfirmation(CommandPair pair, Controller uicontroller, String[] commandArr) {
-        if (pair.getSubRootCommand() == COMMANDKEYS.none) {
-            ((MovieHandler) uicontroller).setAutoCompleteText("Did you mean :" + pair.getRootCommand());
+        if (pair.getSubRootCommand() == COMMANDKEYS.NONE) {
+            ((MovieHandler) uicontroller).setAutoCompleteText(PromptMessages.DID_YOU_MEAN + pair.getRootCommandStr());
         } else {
-            ((MovieHandler) uicontroller).setAutoCompleteText("Did you mean :" + pair.getRootCommand() + " "
-                    + pair.getSubRootCommand() + " "
+            ((MovieHandler) uicontroller).setAutoCompleteText(PromptMessages.DID_YOU_MEAN + pair.getRootCommandStr() + " "
+                    + pair.getSubRootCommandStr() + " "
                     + String.join(" ", Arrays.copyOfRange(commandArr, 2, commandArr.length)));
         }
     }

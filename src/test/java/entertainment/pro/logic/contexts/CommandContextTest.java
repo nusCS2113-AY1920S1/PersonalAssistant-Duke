@@ -43,7 +43,7 @@ public class CommandContextTest {
         a.sort(null);
         ArrayList<COMMANDKEYS> b = new ArrayList<>();
         for(String s :CommandContext.getRoot()) {
-            b.add(COMMANDKEYS.valueOf(s));
+            b.add(COMMANDKEYS.valueOf(s.toUpperCase()));
         }
         b.sort(null);
         assertEquals(true , a.equals(b));
@@ -90,7 +90,7 @@ public class CommandContextTest {
             possible.sort(null);
             ArrayList<String> actual =  new ArrayList<>();
             for (COMMANDKEYS c : CommandStructure.cmdStructure.get(ck)){
-                actual.add(c.toString());
+                actual.add(c.toString().toLowerCase());
             }
             actual.sort(null);
             assertEquals(true , possible.equals(actual));

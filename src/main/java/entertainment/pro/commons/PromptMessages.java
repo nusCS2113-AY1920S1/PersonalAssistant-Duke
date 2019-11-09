@@ -61,7 +61,14 @@ public class PromptMessages {
     public static final String PREFERENCES_SUCCESS = "Nice! You have successfully updated your preferences";
 
 
-    public static final String AUTOCOMPLETION_PROMPT = "Did you mean this?";
+    public static final String DID_YOU_MEAN = "Did you mean:";
+
+    public static final String LOGGER_UNKNOWN_COMMAND_TYPED = "Unknown command typed";
+
+    public static final String COMMAND_MISSING_ARGS = "Command is missing a few arguments";
+
+    public static final String UNABLE_TO_PROCESS = "Sorry we are unable to process your command. " +
+            "Please check help for more details!";
 
     public static final String UNKNOWN_COMMAND = "I'm sorry, but I don't know what that means. "
             + "Refer to help for command formats :-(";
@@ -82,6 +89,7 @@ public class PromptMessages {
 
     public static final String DUPLICATE_BLACKLIST = "Blacklisted item already exists. Here is your blacklist\n";
 
+    public static final String EXECUTING_MISTYPED_COMMAND = "Executing mistyped command";
 
 
     //API Messages

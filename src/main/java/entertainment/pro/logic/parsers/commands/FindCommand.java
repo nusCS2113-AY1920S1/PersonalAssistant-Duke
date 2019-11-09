@@ -20,7 +20,7 @@ public class FindCommand extends CommandSuper {
      * @param uicontroller UI controller for javafx
      */
     public FindCommand(Controller uicontroller) {
-        super(COMMANDKEYS.find, CommandStructure.cmdStructure.get(COMMANDKEYS.find), uicontroller);
+        super(COMMANDKEYS.FIND, CommandStructure.cmdStructure.get(COMMANDKEYS.FIND), uicontroller);
     }
 
     /**
@@ -29,7 +29,7 @@ public class FindCommand extends CommandSuper {
     @Override
     public void executeCommands() {
         switch (this.getSubRootCommand()) {
-        case cinema:
+        case CINEMA:
             try {
                 findCinemas();
             } catch (Exceptions exceptions) {

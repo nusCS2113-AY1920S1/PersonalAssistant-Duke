@@ -47,7 +47,7 @@ public class SearchCommand extends CommandSuper {
      * @param uicontroller The UI controller.
      */
     public SearchCommand(Controller uicontroller) {
-        super(COMMANDKEYS.search, CommandStructure.cmdStructure.get(COMMANDKEYS.search), uicontroller);
+        super(COMMANDKEYS.SEARCH, CommandStructure.cmdStructure.get(COMMANDKEYS.SEARCH), uicontroller);
     }
 
     /**
@@ -64,12 +64,12 @@ public class SearchCommand extends CommandSuper {
         searchProfile.iniitalizeBackSearchProfile(searchProfile);
         getPreferences(movieHandler, searchProfile, payload, isMovie);
         switch (this.getSubRootCommand()) {
-        case movies:
+        case MOVIES:
             isMovie = true;
             searchProfile.setMovie(true);
             executeMovieSearch(payload, movieHandler, searchProfile);
             break;
-        case tvshows:
+        case TVSHOWS:
             executeTvSearch(payload, movieHandler, searchProfile);
             break;
         default:
@@ -127,14 +127,6 @@ public class SearchCommand extends CommandSuper {
             movieHandler.setGeneralFeedbackText(PromptMessages.EMPTY_PARAM_IN_SEARCH);
             logger.log(Level.SEVERE, PromptMessages.EMPTY_PARAM_IN_SEARCH);
             throw new Exceptions(PromptMessages.EMPTY_PARAM_IN_SEARCH);
-        }
-        if (payload.equals("create")) {
-            movieHandler.getAPIRequester().create();
-            return;
-        }
-        if (payload.equals("get")) {
-            movieHandler.getAPIRequester().getAllMovies();
-            return;
         }
         if (payload.equals(GET_CURRENT)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);

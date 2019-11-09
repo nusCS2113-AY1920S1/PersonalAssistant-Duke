@@ -1,5 +1,7 @@
 package entertainment.pro.logic.parsers;
 
+import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.assertions.CommandAssertions;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.model.CommandPair;
@@ -33,7 +35,8 @@ public class CommandDebugger {
         throws MissingInfoException {
 
 
-        logger.log(Level.INFO, "Unknown command typed");
+        assert (CommandAssertions.assertIsLowerStringArr(undefinedCommandArr));
+        logger.log(Level.INFO, PromptMessages.LOGGER_UNKNOWN_COMMAND_TYPED);
 
         root = getCorrectedRoot(undefinedCommandArr, root);
         COMMANDKEYS mostSimilarSub = getCorrectedSubRoot(undefinedCommandArr, root);
@@ -58,16 +61,17 @@ public class CommandDebugger {
             throws MissingInfoException {
         double score;
         score = INITSCORE;
-        COMMANDKEYS mostSimilarSub = COMMANDKEYS.none;
+        COMMANDKEYS mostSimilarSub = COMMANDKEYS.NONE;
 
         if (undefinedCommandArr.length <= 1) {
-            logger.log(Level.INFO , "Command is missing a few arguments");
+            logger.log(Level.INFO , PromptMessages.COMMAND_MISSING_ARGS);
             throw new MissingInfoException("You are missing a few arguments and presumably have a typo as well");
         }
 
-        if (root != COMMANDKEYS.none && CommandStructure.hasSubRoot(root) && undefinedCommandArr.length > 1) {
+        if (root != COMMANDKEYS.NONE && CommandStructure.hasSubRoot(root) && undefinedCommandArr.length > 1) {
             for (COMMANDKEYS s : CommandStructure.cmdStructure.get(root)) {
-                double temp = calculateJaccardSimilarity(s.toString(), undefinedCommandArr[1]);
+                double temp = calculateJaccardSimilarity(s.toString().toLowerCase()
+                        , undefinedCommandArr[1]);
                 if (temp > score) {
                     mostSimilarSub = s;
                     score = temp;
@@ -85,9 +89,10 @@ public class CommandDebugger {
      */
     private static COMMANDKEYS getCorrectedRoot(String[] undefinedCommandArr, COMMANDKEYS root) {
         double score = INITSCORE;
-        if (root == COMMANDKEYS.none && undefinedCommandArr.length > 0) {
+        if (root == COMMANDKEYS.NONE && undefinedCommandArr.length > 0) {
             for (COMMANDKEYS s : CommandStructure.AllRoots) {
-                double temp = calculateJaccardSimilarity(s.toString(), undefinedCommandArr[0]);
+                double temp = calculateJaccardSimilarity(s.toString().toLowerCase()
+                        , undefinedCommandArr[0]);
                 if (temp > score) {
                     root = s;
                     score = temp;
@@ -102,7 +107,9 @@ public class CommandDebugger {
      * Compute string similarity based on  Jaccard Similarity algorithm.
      * @return the similarity score based on the algorithm
      */
-    public static Double calculateJaccardSimilarity(CharSequence word1, CharSequence word2) {
+    public static Double calculateJaccardSimilarity(String word1, String word2) {
+        assert (CommandAssertions.assertIsLowerString(word1));
+        assert (CommandAssertions.assertIsLowerString(word2));
         Set<String> iset = new HashSet<String>();
         Set<String> unionSet = new HashSet<String>();
         boolean isfilled = false;

@@ -1,6 +1,5 @@
 package entertainment.pro.logic.parsers.commands;
 
-import com.fasterxml.jackson.databind.cfg.MutableConfigOverride;
 import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.storage.utils.ProfileCommands;
@@ -35,7 +34,7 @@ public class PreferenceCommand extends CommandSuper {
      * @param uiController Controller Class.
      */
     public PreferenceCommand(Controller uiController) {
-        super(COMMANDKEYS.preference, CommandStructure.cmdStructure.get(COMMANDKEYS.preference), uiController);
+        super(COMMANDKEYS.PREFERENCE, CommandStructure.cmdStructure.get(COMMANDKEYS.PREFERENCE), uiController);
     }
 
     /**
@@ -69,13 +68,13 @@ public class PreferenceCommand extends CommandSuper {
             }
         }
         switch (this.getSubRootCommand()) {
-        case add:
+        case ADD:
             executeAddPreference(containsPossibleInputs, movieHandler);
             break;
-        case remove:
+        case REMOVE:
             executeRemovePreference(containsPossibleInputs, movieHandler);
             break;
-        case clear:
+        case CLEAR:
             executeClearPreference(containsPossibleInputs, movieHandler);
             break;
         default:
