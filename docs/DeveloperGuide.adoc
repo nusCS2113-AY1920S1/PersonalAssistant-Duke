@@ -206,11 +206,13 @@ to the potentially high number of arguments and operations that need to be done.
 Separate methods would be needed to handle assignments and unassignments, with one unifying method that combines and
 executes one or both based on the user input.
 
-Creating the `AssignmentController` class ensures a higher cohesion as all methods related to managing assignments between
-tasks and members are isolated into a single, focused class. It can help to fulfill the Separation of Concerns Principle.
+For these reasons, we decided to separate these methods into `AssignmentController` class. This allows for higher cohesion
+as all methods related to managing assignments between tasks and members are isolated into a single, focused class. It can help to fulfill the Separation of Concerns Principle.
 
 === 2.3. Repository layer
 
+The repository layer is responsible for the storage of information in ArchDuke. It consists of the `ProjectRepository` class, which
+keeps track of all the `Project` objects. Each `Project` contains the following components:
 // .Structure of the Model Component
 // image::ModelClassDiagram.png[]
 
@@ -254,7 +256,7 @@ assist the functionality of ArchDuke. The following table shows a description of
 |ArchDukeLogger|
 |AssignmentViewHelper|
 |CommandHelper|
-|ConstantHelper|
+|ConstantHelper| Contains most of the constants used throughout ArchDuke.
 |DateTimeHelper|
 |MemberFactory|
 |JsonConverter|
@@ -330,6 +332,7 @@ differences, listed below:
 ArchDuke allows users to manage each individual project in the `ProjectRepository`.
 
 image::images/ManageProject_Sequence.png[]
+
 === 3.2 CRUD functionality for Members
 ==== Implementation
 
@@ -484,8 +487,8 @@ Assignments are tracked in the `Project` class by mapping the task IDs to the me
 ** Key: String representing `memberID` of each member.
 ** Value: ArrayList<String> containing `taskID` of all the tasks assigned to that particular member.
 
-==== Making Assignments
-The following steps show how task assignments are made in ArchDuke.
+==== Making Assignments: "assign task" command
+The following steps show how the `assign task` command is implemented in ArchDuke.
 
 Step 1) Assume Project has been created and the user is currently managing a specific project.
 
@@ -524,8 +527,8 @@ Certain objects, such as `Project` and `ViewHelper` are omitted for simplicity.
 image::images/AssignmentSequenceDiagram.png[]
 
 
-==== Viewing Assignments
-The following steps show how task assignments can be viewed by the user in ArchDuke.
+==== Viewing Assignments: "view assignments" command
+The following steps show how `view assignments` is implemented in ArchDuke.
 
 Step 1) Assume Project has been created and the user is currently managing a specific project.
 
@@ -1032,18 +1035,20 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-[discrete]
-=== Use case: Generate report for a specific project (UC10)
+//[discrete]
+//=== Use case: Generate report for a specific project (UC10)
+//
+//*MSS*
+//
+//1.  User [underline]#selects a specific project to manage (UC03)#.
+//2.  User requests to generate a report of of the project and members' contributions.
+//3.  ArchDuke gathers information from tasks, and presents it in a report.
+//4.  ArchDuke saves a copy of the report in a readable format to the hard disk.
 
-*MSS*
-
-1.  User [underline]#selects a specific project to manage (UC03)#.
-2.  User requests to generate a report of of the project and members' contributions.
-3.  ArchDuke gathers information from tasks, and presents it in a report.
-4.  ArchDuke saves a copy of the report in a readable format to the hard disk.
+[appendix]
+== Instructions for Manual Testing
 
 
-// _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
