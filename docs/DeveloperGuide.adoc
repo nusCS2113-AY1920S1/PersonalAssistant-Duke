@@ -568,6 +568,92 @@ fund transfer.
 . Once the transfer has been completed, the details of the transfer will be displayed to inform the user of the
 *successful* fund transfer.
 
+=== Adding Goals
+
+The `/add /goals` feature allows user to add in any financial goals they have in mind to achieve for their future plans.
+This also aims to encourage users whom have yet to have savings to start saving  and track their goals.
+
+==== Current Implementation
+
+The current implementation of adding goals allow users to either manually track their goals or track via an existing
+saving account. Also, the `/amount` parameter that user specify should be the total amount they wish to
+have in their saving account.
+The reason for providing these two options to users is that we consider that some users may prefer to do manual tracking
+while others would prefer tracking them using an existing savings account.
+
+.Sequence Diagram of Adding Goals
+image::AddGoalsCommand.png[width="800"]
+
+[NOTE]
+The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
+
+The sequence diagram presented above depicts the interaction between the `Logic` and `Model` component for running
+`AddGoalsCommand`.
+
+The `AddGoalsCommand` requires a minimum of *3* and up to a maximum of *4* inputs:
+
+. Goal name
+. Intended amount to save
+. Date they wish to achieve the goal by
+. *OPTIONAL* input:
+.. Savings Account Name
+
+When the user executes the `AddGoalsCommand`, the following steps are taken by the application:
+
+. When `AddGoalsCommand` is executed, a new goal object is created  with the provided inputs.
+. After creation of the goal object is created, the `AddGoalsCommand` will invoke the method `profileAddGoals`.
+. Within the invocation of `profileAddGoals`, a method named `addToGoals` will be invoked to add the new goal object
+to an ArrayList containing all goals objects. .
+. Once invoked, `addToGoals` will perform the following checks:
+
+* Checks if goal name specified is unique among all goals in the existing list through the method of `goalsExist`
+* If a saving accounts was specified, it will check for if the amount of money in the account is lesser than the
+goals amount specified
+* Checks for the size of goals list through the method of `CheckNumGoals`
+
+[NOTE]
+`AddGoalsCommand` will throw an error if the above check fails.
+
+[start=4]
+. After passing the above checks,`addToGoals` will add the new goals object into the existing list containing all goals
+objects.
+. Once the goal object have been added, the details of the new goal object will be displayed to inform the user
+of the *successful* addition of the goal object.
+
+==== Design Considerations
+
+This section describes the various design considerations taken when implementing the `/add /goals` feature.
+
+*Aspect: Choice of whether to allow tying of savings account to a goals*
+[cols="18%,37%,45%"]
+|======
+| *Approach* | *Pros* | *Cons*
+
+| *1.* Allowing the option of tying of savings account.
+
+a| * Provides flexibility to users
+* Able to track goals status and progress, know how much more to save
+a| * Difficult to implement, have to consider several possibilities: what happens to the goals when
+e.g. if savings account was deleted, if user are allowed to tie and untie savings account, un-tracked goals status would
+be always false.
+* Increases coupling and dependency of savings account
+
+| *2.* Disallow tying of savings account.
+
+a| * Easier to implement in terms of code
+* Lesser considerations during the implementation of `/edit /goals`
+a| * Less flexibility for the users.
+* The feature and importance of goals would be less evident
+
+|======
+
+*Approach 1* was taken after the evidence that the pros outweigh the cons.
+
+Firstly, the original intention of `goals` feature is to model real-life implementation of having goals,
+encourages users to save and enable an easy yet convenient way of tracking on status of goals.
+Although it may increase coupling and dependencies, the implementation of `goals` evidently shows that the pros
+outweighs the cons.
+
 == Documentation
 
 We use asciidoc for writing documentation. We recommend you to document features that you have done to keep other
