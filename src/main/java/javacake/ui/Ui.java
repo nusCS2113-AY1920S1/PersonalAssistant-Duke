@@ -3,11 +3,9 @@ package javacake.ui;
 import javacake.Logic;
 import javacake.commands.ListNoteCommand;
 import javacake.commands.ScoreCommand;
-import javacake.quiz.QuizSession;
 import javacake.commands.ReminderCommand;
 import javacake.exceptions.CakeException;
 import javacake.quiz.Question;
-import javacake.storage.Profile;
 import javacake.storage.StorageManager;
 
 import java.io.BufferedReader;
@@ -15,7 +13,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
-    private static String cake = "cake";
     private static String border = "____________________________________________________________";
 
     /**
@@ -87,6 +84,7 @@ public class Ui {
         return "\nType 'list' to view main topics.\n"
                 + "Type 'overview' to view all content.\n"
                 + "Type 'help' to view all commands available.\n"
+                + "Type 'change' to change to a different color scheme.\n"
                 + "Type 'exit' to rage quit.\n";
     }
 
@@ -120,23 +118,6 @@ public class Ui {
      */
     public void showMessage(String m) {
         System.out.print(m);
-    }
-
-    /**
-     * Method to display text from file.
-     * @param reader BufferedReader to read in text from file
-     * @throws CakeException Error thrown when unable to close reader
-     */
-    public void displayTextFile(BufferedReader reader) throws CakeException {
-        String lineBuffer;
-        try {
-            while ((lineBuffer = reader.readLine()) != null) {
-                System.out.println(lineBuffer);
-            }
-            reader.close();
-        } catch (IOException e) {
-            throw new CakeException("File not found!");
-        }
     }
 
     /**

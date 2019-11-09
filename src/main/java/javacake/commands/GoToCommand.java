@@ -1,6 +1,5 @@
 package javacake.commands;
 
-import javacake.JavaCake;
 import javacake.exceptions.CakeException;
 import javacake.quiz.QuestionDifficulty;
 import javacake.quiz.QuestionType;
@@ -105,8 +104,8 @@ public class GoToCommand extends Command {
             qnDifficulty = QuestionDifficulty.HARD;
         }
 
-        if (JavaCake.isCliMode()) {
-            return new QuizSession(qnType, qnDifficulty, JavaCake.isCliMode())
+        if (storageManager.profile.isCli) {
+            return new QuizSession(qnType, qnDifficulty, true)
                     .execute(logic, ui, storageManager);
         } else {
             String response = null;

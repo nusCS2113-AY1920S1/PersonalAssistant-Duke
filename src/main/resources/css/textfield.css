@@ -2,7 +2,7 @@
     -fx-text-fill: white;
     -fx-highlight-fill: derive(-fx-control-inner-background,-20%);
     -fx-highlight-text-fill: -fx-text-inner-color;
-    -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+    -fx-prompt-text-fill: derive(white,-12%);
     -fx-background-insets: 0, 1;
     -fx-background-radius: 3, 2;
     -fx-cursor: text;

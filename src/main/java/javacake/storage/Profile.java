@@ -11,16 +11,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
 public class Profile {
-    private static String filepath = "data";
+    private String filepath = "data";
     private String username;
     private ArrayList<Integer> overalltopicsDone = new ArrayList<>();
     private ArrayList<Integer> individualTopicsDone = new ArrayList<>();
-    int totalNumOfMainTopics = 4;
-    int levelsOfDifficulty = 3;
-
+    private int totalNumOfMainTopics = 4;
+    private int levelsOfDifficulty = 3;
+    private static boolean isResetFresh = false;
+    public boolean isCli = true;
 
     public Profile() throws CakeException {
         this("data");
@@ -38,24 +40,7 @@ public class Profile {
         JavaCake.logger.log(Level.INFO,"Filepath: " + filepath);
         try {
             try {
-                if (!file.getParentFile().getParentFile().exists()) {
-                    file.getParentFile().getParentFile().mkdir();
-                    file.getParentFile().mkdir();
-                    file.createNewFile();
-                    initialiseUser();
-                    System.out.println("A" + file.getParentFile().getParentFile().getPath());
-                } else if (!file.getParentFile().exists()) {
-                    file.getParentFile().mkdir();
-                    file.createNewFile();
-                    initialiseUser();
-                    System.out.println("B" + file.getParentFile().getPath());
-                } else if (!file.exists()) {
-                    file.createNewFile();
-                    initialiseUser();
-                    System.out.println("C" + file.getPath());
-                } else {
-                    JavaCake.logger.log(Level.INFO, filepath + " is found!");
-                }
+                initialiseUser(file, filename);
 
             } catch (IOException e) {
                 System.out.println("before reader");
@@ -77,6 +62,19 @@ public class Profile {
                 ++count;
             }
             reader.close();
+
+            if (!isResetFresh) {
+                try {
+                    File logFile = new File("cakeLog/javaCakeLogFiles.txt");
+                    logFile.getParentFile().mkdir();
+                    FileHandler fileHandler = new FileHandler(logFile.getPath());
+                    JavaCake.logger.addHandler(fileHandler);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("Unable to create log file");
+                }
+            }
+
         } catch (IOException e) {
             System.out.println("after reader");
             throw new CakeException("Failed to close reader");
@@ -86,7 +84,8 @@ public class Profile {
     /**
      * Method to hard reset profile.
      */
-    public static void resetProfile() {
+    public void resetProfile() {
+        isResetFresh = true;
         File file = new File(filepath);
         if (file.exists()) {
             file.delete();
@@ -167,6 +166,7 @@ public class Profile {
             } else {
                 configFile.createNewFile();
             }
+
             PrintWriter out = new PrintWriter(configFile.getPath());
             System.out.println(configFile.getPath());
             if (isLight) {
@@ -204,18 +204,51 @@ public class Profile {
     /**
      * Method that creates data to be written into savefile.txt.
      */
-    private void initialiseUser() throws CakeException {
-        username = "NEW_USER_!@#";
-        try {
+    private void initialiseUser(File file, String filename) throws IOException {
+        boolean isCleanSlate = true;
+        if (!file.getParentFile().getParentFile().exists()) {
+            file.getParentFile().getParentFile().mkdir();
+            JavaCake.logger.log(Level.INFO, "ProfileGrandpa");
+        }
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdir();
+            JavaCake.logger.log(Level.INFO, "ProfilePapa");
+        }
+        if (!file.exists()) {
+            file.createNewFile();
+            JavaCake.logger.log(Level.INFO, "ProfileP");
+        } else {
+            isCleanSlate = false;
+            JavaCake.logger.log(Level.INFO, filepath + " is found!");
+        }
+
+        if (!isResetFresh && isCleanSlate && filename.equals("data")) {
+            username = "BakaTester";
+            PrintWriter out = new PrintWriter(filepath);
+            out.println(username);
+
+            //for stupid fking testers
+            for (int i = 0; i < 3; ++i) {
+                out.println("3");
+            }
+            out.println("0");
+            for (int i = 0; i < 9; ++i) {
+                out.println("1");
+            }
+            for (int i = 0; i < 3; ++i) {
+                out.println("0");
+            }
+            out.close();
+        } else if (isCleanSlate) {
+            username = "NEW_USER_!@#";
             PrintWriter out = new PrintWriter(filepath);
             out.println(username);
             for (int i = 0; i < totalNumOfMainTopics * (levelsOfDifficulty + 1); ++i) {
                 out.println("0");
             }
             out.close();
-        } catch (FileNotFoundException e) {
-            throw new CakeException("Cannot initialise file");
         }
+
     }
 
     private void writeProgress() throws CakeException {

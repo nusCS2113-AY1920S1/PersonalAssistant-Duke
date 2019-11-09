@@ -12,8 +12,8 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "JavaCake"
-    archiveVersion = "midv1.4"
+    archiveBaseName = "[CS2113T-W13-2][JavaCake]"
+    archiveVersion = ""
     archiveClassifier = null
     archiveAppendix = null
 }
