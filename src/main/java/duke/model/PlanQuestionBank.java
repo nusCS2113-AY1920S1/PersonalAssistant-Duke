@@ -123,6 +123,7 @@ public class PlanQuestionBank {
                 DOUBLE,
                 DOUBLE,
                 "ONLINE_SHOPPING"));
+        logger.info("QuestionBank generated successfully!");
     }
 
     /**
@@ -259,7 +260,6 @@ public class PlanQuestionBank {
                                     .append(monthlyFoodBudget).append(" monthly. \n\n");
                             budgetRecommendation.put("food", monthlyFoodBudget);
                         }
-
                     } else {
                         //Eats all meals outside of hall
                         int mealsPerDay = Integer.parseInt(planAttributes.get("MEALS_PER_DAY"));
@@ -287,7 +287,6 @@ public class PlanQuestionBank {
                     phoneBillExpenseBuilder.setTag("phone bill");
                     recommendationExpenseList.add(phoneBillExpenseBuilder.build());
                 }
-
                 if (planAttributes.get("NETFLIX").equals("TRUE")) {
                     recommendation.append("Netflix has a family plan that is $17.00 per month,"
                             + " so its cheaper if you can find friends to share!\n"
@@ -319,17 +318,16 @@ public class PlanQuestionBank {
                             + " to online shopping.");
                 }
             }
-
         } catch (NullPointerException | NumberFormatException e) {
             throw new DukeException("Missing attributes to make recommendation!" + e.getMessage());
         }
-
         if (recommendation.toString().isEmpty()) {
             return new PlanRecommendation("I can't make any recommendations for you"
                     + " :(. Something probably went wrong",
                     budgetRecommendation,
                     recommendationExpenseList);
         }
+        logger.info("Recommendation made successfully!");
         return new PlanRecommendation(recommendation.toString(),
                 budgetRecommendation,
                 recommendationExpenseList);
