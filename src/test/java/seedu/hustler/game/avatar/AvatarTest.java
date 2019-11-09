@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *  Test class for Avatar.
+ *  Test class for Avatar, contains the unit testing for Avatar.
  */
 public class AvatarTest {
 
@@ -27,10 +27,10 @@ public class AvatarTest {
         Avatar avatar2 = new Avatar();
         Avatar avatar3 = new Avatar();
 
-        // Same object -> returns true.
+        // Returns true if they are the same object.
         assertEquals(avatar1, avatar1);
 
-        // Same name -> returns true.
+        // Returns true if they have the same 
         assertEquals(avatar1.getName(), avatar2.getName());
 
         // Different name -> returns false

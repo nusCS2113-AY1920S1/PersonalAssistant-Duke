@@ -2,6 +2,7 @@ package seedu.hustler.game.avatar;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.game.shop.items.ShopItem;
+
 import java.util.ArrayList;
 
 /**

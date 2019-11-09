@@ -284,7 +284,7 @@ public class Ui {
             /**
              * Divides the list to format the printing of different classes.
              */
-            if (i == 0 || !(shopList.get(i).isEquals(shopList.get(i - 1)))) {
+            if (i == 0 || !(shopList.get(i).isSameType(shopList.get(i - 1)))) {
                 System.out.println("\n\t\t\t\t======" + shopList.get(i).getType() + "=====");
             }
             System.out.print((i + 1) + ". ");

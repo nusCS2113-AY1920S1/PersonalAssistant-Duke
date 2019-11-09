@@ -19,14 +19,21 @@ public class ShopList {
     /**
      * The ArrayList of ShopItem to be purchased.
      */
-    private ArrayList<ShopItem> shopList;
+    private final ArrayList<ShopItem> shopList;
 
     /**
      * Constructs a ShopList and populate with every existing shopItem.
      */
     public ShopList() {
         this.shopList = new ArrayList<>();
-        populateShop();
+    }
+
+    /**
+     * Constructs a ShopList with the items in the given ShopList.
+     */
+    public ShopList(ShopList other) {
+        this.shopList = new ArrayList<>();
+        this.shopList.addAll(other.shopList);
     }
 
     /**
@@ -43,16 +50,14 @@ public class ShopList {
      * @param index the index of the item in the list.
      * @return the ShopItem that is purchased, if any.
      */
-    public Optional<ShopItem> buy(int index) {
+    public Optional<ShopItem> buy(int index, int totalPoints) {
         if (!shopList.get(index).isPurchased()) {
-            if (shopList.get(index).canPurchase(Achievements.totalPoints)) {
+            if (shopList.get(index).canPurchase(totalPoints)) {
                 shopList.get(index).setPurchased(true);
-                Achievements.totalPoints -= shopList.get(index).getCost();
-            } else {
-                return Optional.empty();
+                return Optional.ofNullable(shopList.get(index));
             }
         }
-        return Optional.ofNullable(shopList.get(index));
+        return Optional.empty();
     }
 
     /**
@@ -61,6 +66,14 @@ public class ShopList {
      */
     public int size() {
         return this.shopList.size();
+    }
+
+    /**
+     * Gets the shop item with the given index
+     * @return the shop item in the shop list.
+     */
+    public ShopItem getItem(int index) {
+        return this.shopList.get(index);
     }
 
     /**
@@ -98,11 +111,17 @@ public class ShopList {
         return itemsPurchased;
     }
 
+    public ShopList addItem(ShopItem item) {
+        ShopList newShop = new ShopList(this);
+        newShop.shopList.add(item);
+        return newShop;
+    }
+
     /**
      * Adds in every existing ShopItem in shop.
      * @return the newly populated ShopList.
      */
-    private ShopList populateShop() {
+    public ShopList populateShop() {
         shopList.add(new Broadsword());
         shopList.add(new Mace());
         shopList.add(new MoonlightSword());

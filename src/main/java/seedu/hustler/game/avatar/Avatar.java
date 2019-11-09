@@ -41,8 +41,8 @@ public class Avatar implements Convertible {
      */
     public Avatar() {
         this.name = "Avatar";
-        this.level = new Level();
-        this.stats = new Stats();
+        this.level = new AvatarLevel();
+        this.stats = new AvatarStats();
         this.weapon = Optional.empty();
         this.armor = Optional.empty();
     }
@@ -50,15 +50,15 @@ public class Avatar implements Convertible {
     /**
      * Constructs the avatar instance with the name, level and stat with the equipment
      * of the avatar, if any.
-     * @param level the level of the avatar.
-     * @param stats the statistics of the avatar.
+     * @param avatarLevel the level of the avatar.
+     * @param avatarStats the statistics of the avatar.
      * @param weapon the weapon equipped by the avatar, if any.
      * @param armor the armor equipped by the avatar, if any.
      */
-    public Avatar(String name, Level level, Stats stats, Optional<Weapon> weapon, Optional<Armor> armor) {
+    public Avatar(String name, AvatarLevel avatarLevel, AvatarStats avatarStats, Optional<Weapon> weapon, Optional<Armor> armor) {
         this.name = name;
-        this.level = level;
-        this.stats = stats;
+        this.level = avatarLevel;
+        this.stats = avatarStats;
         this.weapon = weapon;
         this.armor = armor;
     }
@@ -116,7 +116,7 @@ public class Avatar implements Convertible {
      * @return the new updated avatar.
      */
     public Avatar levelUp() {
-        this.level.upLevel();
+        this.level = this.level.upLevel();
         this.stats = this.stats.upStats(this.level.getLevel());
         return this;
     }
