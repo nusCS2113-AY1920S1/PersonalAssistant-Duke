@@ -21,6 +21,7 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
                 new Switch("append", null, true, ArgLevel.NONE, "a"),
+                new Switch("impression", String.class, true, ArgLevel.REQUIRED, "im"),
                 new Switch("evidence", String.class, true, ArgLevel.REQUIRED, "e"),
                 new Switch("treatment", String.class, true, ArgLevel.REQUIRED, "t"),
                 new Switch("name", String.class, true, ArgLevel.REQUIRED, "n"),
