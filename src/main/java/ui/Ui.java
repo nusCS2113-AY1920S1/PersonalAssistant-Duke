@@ -211,6 +211,7 @@ public class Ui {
                 "Got it. The input commands from " + date1 + " to " + date2 + " have been deleted from the history");
     }
 
+    //@@author karansarat
     /**
      * Prints the list of payments of a payee.
      * 
@@ -223,6 +224,11 @@ public class Ui {
             System.out.println("Payment " + ++i + ":");
             payments.printPayment();
         }
+    }
+
+    public void printFoundMessage(Payee payee) {
+        System.out.println("\tHere are the details you requested!");
+        payee.printPayee();
     }
 
     /**
@@ -251,8 +257,8 @@ public class Ui {
      * @param prName the name of the project
      * @param managerMap a HashMap of the payees in a project.
      */
-    public void printPayeeList(String prName, HashMap<String, Payee> managerMap) {
-        System.out.println("Here are your payees in Project " + prName + ":");
+    public void printPayeeList(HashMap<String, Payee> managerMap) {
+        System.out.println("Here are your payees in Project " + managerMap.get(0).project + ":");
         int i = 0;   
         for (Payee payee : managerMap.values()) {
             System.out.println("Payee " + ++i + ":");

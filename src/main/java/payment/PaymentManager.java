@@ -3,12 +3,13 @@ package payment;
 import ui.Ui;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
 
 import common.AlphaNUSException;
+import project.ProjectManager;
 
+//@@author karansarat
 /**
  * PaymentManager for managing Payments objects and PaymentForms from the
  * PaymentsList.
@@ -46,10 +47,21 @@ public abstract class PaymentManager {
      *
      * @param payee Payee of the item.
      */
-    public static ArrayList<Payments> findPayee(String payee, HashMap<String, Payee> managermap) {
-        ArrayList<Payments> paymentsArrayList = new ArrayList<Payments>();
-        paymentsArrayList.addAll(managermap.get(payee).payments);
-        return paymentsArrayList;
+    public static Payee findPayee(ProjectManager projectManager, String name) {
+        Set<String> projectnames = projectManager.projectmap.keySet();
+        if (projectManager.currentProject == null) {
+            projectManager.gotoProject(projectnames.iterator().next());
+        }
+        String currProject = projectManager.currentProject.projectname;
+        while (!projectManager.currentProject.managermap.containsKey(name)) {
+            projectnames.remove(currProject);
+            if (projectnames.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+            currProject = projectnames.iterator().next();
+            projectManager.gotoProject(currProject);
+        }
+        return projectManager.currentProject.managermap.get(name);
     }
 
     /**
@@ -156,12 +168,12 @@ public abstract class PaymentManager {
     /**
      * Add Payee object to managermap.
      */
-    public static Payee addPayee(String payee, String email, String matricNum, String phoneNum,
+    public static Payee addPayee(String project, String payee, String email, String matricNum, String phoneNum,
                                  HashMap<String, Payee> managermap) {
         if (managermap.keySet().contains(payee)) {
             throw new IllegalArgumentException();
         }
-        Payee payeeNew = new Payee(payee, email, matricNum, phoneNum);
+        Payee payeeNew = new Payee(project, payee, email, matricNum, phoneNum);
         managermap.put(payee, payeeNew);
         return payeeNew;
     }

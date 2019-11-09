@@ -654,7 +654,8 @@ public class Process {
             String email = splitpayments[2];
             String matricNum = splitpayments[3];
             String phoneNum = splitpayments[4];
-            Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
+            Payee payee = PaymentManager.addPayee(currentProjectName, payeename, 
+                email, matricNum, phoneNum, managermap);
             int payeesize = managermap.size();
             ui.printAddPayeeMessage(splitpayments[1], payee, payeesize, currentProjectName);
             BeforeAfterCommand.afterCommand(storage, projectmanager);
@@ -697,55 +698,88 @@ public class Process {
     }
 
     /**
-     * Processes the find command and outputs a list of payments from the payee name given.
+     * Processes the find command and outputs a list of payments from the payee name
+     * given.
+     * 
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
+     * @throws AlphaNUSException
      */
-    public void findPayee(String input, Ui ui) {
+    public void findPayee(String input, Storage storage, Ui ui) throws AlphaNUSException {
+        String payee = new String();
         try {
-            HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
-            String[] splitspace = input.split(" ", 2);
-            ArrayList<Payments> paymentsArrayList = PaymentManager.findPayee(splitspace[1], managermap);
-            ui.printPaymentList(projectmanager.currentProject.projectname, paymentsArrayList);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
+            String[] splitspace = input.split("payee ", 2);
+            String[] splitpayments = splitspace[1].split("p/");
+            splitpayments = cleanStrStr(splitpayments);
+            payee = splitpayments[1];
+            Payee found = PaymentManager.findPayee(projectmanager, payee);
+            ui.printFoundMessage(found);
+        } catch (IllegalArgumentException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There is no such payee in the records");
+            Set<String> dict = storage.readFromDictFile();
+            ui.printSuggestion(dict, input, payee);
         }
     }
 
     /**
-     * Processes the find command and outputs a list of payments from the payee name given.
+     * Processes the find command and outputs a list of payments from the payee name
+     * given.
+     * 
      * @param input Input from the user.
-     * @param ui Ui that interacts with the user.
+     * @param ui    Ui that interacts with the user.
+     * @throws AlphaNUSException
      */
-    public void listPayments(String input, Ui ui) {
+    public void listPayments(String input, Storage storage, Ui ui) throws AlphaNUSException {
+        String prName = new String();
+        String payeeName = new String();
         try {
             if (input.contains("pr/")) {
                 String[] splitspace = input.split("payments ", 2);
                 String[] splitpayments = splitspace[1].split("pr/");
                 splitpayments = cleanStrStr(splitpayments);
-                projectmanager.gotoProject(splitpayments[1]);
+                prName = splitpayments[1];
+                if (!projectmanager.projectmap.containsKey(prName)) {
+                    throw new IllegalCallerException();
+                }
+                projectmanager.gotoProject(prName);
             } else if (input.contains("p/")) {
                 String[] splitspace = input.split("payments ", 2);
                 String[] splitpayments = splitspace[1].split("p/");
                 splitpayments = cleanStrStr(splitpayments);
+                if (projectmanager.getCurrentProject() == null) {
+                    throw new NullPointerException();
+                }
                 HashMap<String, Payee> managerMap = projectmanager.getCurrentProjectManagerMap();
+                if (!managerMap.containsKey(splitpayments[1])) {
+                    payeeName = splitpayments[1];
+                    throw new IllegalArgumentException();
+                }
                 ui.printPaymentList(splitpayments[1], managerMap.get(splitpayments[1]).payments);
                 return;
             }
             HashMap<String, Payee> managerMap = projectmanager.getCurrentProjectManagerMap();
             ArrayList<ArrayList<Payments>> listOfPayments = PaymentManager.listOfPayments(managerMap);
+            prName = projectmanager.currentProject.projectname;
             for (ArrayList<Payments> lists : listOfPayments) {
                 if (lists.isEmpty()) {
                     continue;
                 }
-                ui.printPaymentList(projectmanager.currentProject.projectname, lists, lists.get(0).status);
+                ui.printPaymentList(prName, lists, lists.get(0).status);
             }
+        } catch (IllegalArgumentException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There are no payees with that name!");
+            Set<String> dict = storage.readFromDictFile();
+            ui.printSuggestion(dict, input, payeeName);
+        } catch (IllegalCallerException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There are no projects with that name!");
+            Set<String> dict = storage.readFromDictFile();
+            ui.printSuggestion(dict, input, prName);
         } catch (NullPointerException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! There are no payments to list!");
+            ui.exceptionMessage("     ☹ OOPS!!! Please select a project using the goto command first!");
         }
     }
 
-    public void listPayees(String input, Ui ui, Set<String> dict) throws AlphaNUSException {
+    public void listPayees(String input, Storage storage, Ui ui) throws AlphaNUSException {
         String prName = new String();
         try {
             if (input.contains("pr/")) {
@@ -759,11 +793,12 @@ public class Process {
             if (managerMap.isEmpty()) {
                 throw new ArrayIndexOutOfBoundsException();
             }
-            ui.printPayeeList(projectmanager.currentProject.projectname ,managerMap);
+            ui.printPayeeList(managerMap);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There are no payees to list!");
         } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There are no such projects!");
+            Set<String> dict = storage.readFromDictFile();
             ui.printSuggestion(dict, input, prName);
         }
     }

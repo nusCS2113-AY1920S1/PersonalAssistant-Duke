@@ -1,56 +1,40 @@
 package ui;
 
-import java.util.Arrays;
-import java.util.Map;
 import java.util.Set;
-
-import command.Storage;
 import common.AlphaNUSException;
 
 public class Suggest {
-    private Storage storage;
-
     public String guess(Set<String> dict, String w1) throws AlphaNUSException {
         
         Integer min = Integer.MAX_VALUE;
         String guess = new String();
         for (String w2 : dict) {
-            int currDist = minDistance(w1, w2);
+            int currDist = calcEditDist(w1, w2);
             if (currDist < min) {
                 guess = w2;
+                min = currDist;
             }
         }
         return guess;
     }
-
-    private int minDistance(String w1, String w2) {
-        int m = w1.length();
-        int n = w2.length();
-        int[][] mem = new int[m][n];
-        for (int[] arr: mem) {
-            Arrays.fill(arr, -1);
-        }
-        return calDistance(w1, w2, mem, m-1, n-1);
-    }
-     
-    private int calDistance(String w1, String w2, int[][] mem, int i, int j){ 
-        if (i < 0) {
-            return j + 1;
-        } else if (j < 0){
-            return i + 1;
-        }
-     
-        if (mem[i][j] != -1) {
-            return mem[i][j];
-        }
-     
-        if (w1.charAt(i) == w2.charAt(j)) {
-            mem[i][j] = calDistance(w1, w2, mem, i-1, j-1);
-        } else {
-            int prevMin = Math.min(calDistance(w1, w2, mem, i, j-1), calDistance(w1, w2, mem, i-1, j));
-            prevMin = Math.min(prevMin, calDistance(w1, w2, mem, i-1, j-1));
-            mem[i][j] = 1 + prevMin;
-        }
-        return mem[i][j];    
+  
+    private static int calcEditDist(String w1, String w2) { 
+        int l1 = w1.length();
+        int l2 = w2.length();
+        int dist[][] = new int[l1+1][l2+1]; 
+       
+        for (int i = 0; i <= l1; i++) { 
+            for (int j = 0; j <= l2; j++) { 
+                if (i == 0) 
+                    dist[i][j] = j;
+                else if (j == 0) 
+                    dist[i][j] = i;
+                else if (w1.charAt(i-1) == w2.charAt(j-1)) 
+                    dist[i][j] = dist[i-1][j-1]; 
+                else
+                    dist[i][j] = 1 + Math.min(dist[i][j-1], Math.min(dist[i-1][j], dist[i-1][j-1]));
+            } 
+        } 
+        return dist[l1][l2];
     }
 }

@@ -82,10 +82,6 @@ public class Instruction {
         return input.startsWith("delete payee");
     }
 
-    public boolean isgetpayee(String input)  {
-        return input.startsWith("getpayee");
-    }
-
     public boolean isInvoice(String input) {
         return input.startsWith("invoice");
     }

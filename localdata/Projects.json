@@ -1,23 +1,25 @@
 {
   "rag": {
     "managermap": {
-      "p": {
-        "payee": "p",
-        "email": "e",
-        "matricNum": "m",
-        "phoneNum": "ph",
+      "Yong Heng": {
+        "project": "rag",
+        "payee": "Yong Heng",
+        "email": "yongheng@u.nus.edu",
+        "matricNum": "A0123123B",
+        "phoneNum": "91234321",
         "payments": [
           {
-            "payee": "p",
-            "item": "i",
-            "cost": 1.0,
-            "inv": "v",
-            "deadline": "Dec 8, 2019, 1:55:23 AM",
+            "payee": "Yong Heng",
+            "item": "Banners",
+            "cost": 180.53,
+            "inv": "INV-921",
+            "deadline": "Dec 10, 2019, 1:39:09 AM",
             "status": "PENDING"
           }
         ]
       },
       "Karan Sarat": {
+        "project": "rag",
         "payee": "Karan Sarat",
         "email": "karansarat@u.nus.edu",
         "matricNum": "A0178947E",
@@ -28,20 +30,54 @@
             "item": "Venue Rental",
             "cost": 2345.0,
             "inv": "INV-01",
-            "deadline": "Dec 8, 2019, 1:54:08 AM",
+            "deadline": "Dec 10, 2019, 1:35:36 AM",
             "status": "PENDING"
           }
         ]
       }
     },
-    "budget": 0.0,
+    "budget": 20000.0,
     "spending": 0.0,
     "projectname": "rag"
   },
   "flag": {
-    "managermap": {},
-    "budget": 0.0,
+    "managermap": {
+      "Trevor Noah": {
+        "project": "flag",
+        "payee": "Trevor Noah",
+        "email": "trevorn@u.nus.edu",
+        "matricNum": "A0178934J",
+        "phoneNum": "85673942",
+        "payments": [
+          {
+            "payee": "Trevor Noah",
+            "item": "Tin Cans",
+            "cost": 2105.2,
+            "inv": "INV-9932",
+            "deadline": "Dec 10, 2019, 1:47:02 AM",
+            "status": "PENDING"
+          }
+        ]
+      }
+    },
+    "budget": 50000.0,
     "spending": 0.0,
     "projectname": "flag"
+  },
+  "fsc": {
+    "managermap": {
+      "Trevor": {
+        "project": "fsc",
+        "payee": "Julene",
+        "email": "julene@u.nus.edu",
+        "matricNum": "A0189875G",
+        "phoneNum": "86734521",
+        "payments": []
+      }
+    },
+    "budget": 16000.0,
+    "spending": 0.0,
+    "projectname": "fsc"
   }
 }
+
