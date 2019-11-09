@@ -199,9 +199,12 @@ application without affecting the clash handling
 ==== Expected behaviour of functionality
 When a user attempts to add an event(recurring or otherwise) and the program detects a clash with an existing event
 in the pre-existing list, the following output should be printed: +
-#"That event clashes with another in the schedule! Please resolve the conflict and try again!"# +
+
+    "That event clashes with another in the schedule! Please resolve the conflict and try again!"
+
 This is followed by the following line indicating the details of the detected clash: +
-#"Clashes with: [E][X] YST Final project review START: Tue, 03 Dec 2019, 15:00 END: Tue, 03 Dec 2019, 18:00#
+
+    "Clashes with: [E][X] YST Final project review START: Tue, 03 Dec 2019, 15:00 END: Tue, 03 Dec 2019, 18:00
 
 ==== Design considerations
 While designing the clash handling system, i had to decide how best to: +
@@ -547,7 +550,7 @@ prints the output to the user interface, EventList.getReminder is responsible fo
 obtains the filtered list of events from `eventArrayList`.
 
 This implementation also implements scalability as the Predicate class and the EventList.filteredList method can be reused for other
-functionalities.
+functions.
 
 
 == Documentation
