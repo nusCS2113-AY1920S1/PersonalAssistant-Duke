@@ -10,6 +10,7 @@
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
+:warning-caption: :warning:
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-W13-3/main
@@ -19,6 +20,37 @@ By: `Team SGTravel`      Since: `Aug 2019`      Licence: `MIT`
 == Introduction
 
 SGTravel is for those who *prefer to use a desktop app for scheduling tasks*. SGTravel is also able to provide all sort of information about Singapore. Regardless whether you are a tourist or a local, SGTravel is the best application for planning your vacation plans in Singapore! More importantly, SGTravel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SGTravel can get your tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+== How to use this user guide
+
+=== Basic information
+
+To jump to a specific topic immediately, simply click on the topic in the <<toc, Table of Contents>> at the top
+
+To improve the navigability and readability of this user guide, multiple styles will be used, which will
+include the following:
+
+* User commands and parameters will displayed as: `format`
+* Important keywords will be displayed as: *format*
+* Keyboard buttons will be displayed as: kbd:[format]
+
+
+Additionally, the following annotations will be used throughout this user guide:
+
+[TIP]
+====
+This symbol denotes a tip which you may find useful when using the application.
+====
+[WARNING]
+====
+This symbol denotes a warning which you will need to be careful of when using the application.
+====
+[NOTE]
+====
+This symbol denotes some information or caveats that you will need to take note of when using the application.
+====
+
+Now that you have familiarized yourself with the style used in this guide, lets move on to how to setup *SGTravel*!
 
 == Quick Start
 
@@ -38,8 +70,8 @@ image::Ui.png[width="600" height="400"]
 .  Some example commands you can try:
 
 * *`list`* : lists all tasks
-* **`todo`**`Go Jurong Regional Library` : adds a task named `Go Jurong Regional Library` to SGTravel.
-* **`delete`**`3` : deletes the 3rd task shown in the current list
+* **`map`**`Jurong Regional Library` : Shows the map area of `Jurong Regional Library` on SGTravel.
+* **`delete`**`3` : deletes the 3rd event shown in the current list
 * *`bye`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -56,8 +88,12 @@ image::Ui.png[width="600" height="400"]
 
 === Help: `help`
 
-SGTravel shows the available commands to the user. +
+SGTravel shows the available commands to the user +
 Format: `help`
+
+Examples:
+
+* `help`
 
 === Setting a profile: `profile`
 
@@ -67,6 +103,11 @@ Format: `profile NAME BIRTHDAY`
 Examples:
 
 * `profile James 01/01/00`
+
+[TIP]
+====
+Entering `profile` will initiate the multi-step version of this command
+====
 
 === Showing a profile: `profileShow`
 
@@ -107,16 +148,24 @@ Examples:
 
 * `event Geylang between Mon and Wed`
 
+[NOTE]
+====
+* The Dates should be entered in the following format: `dd/mm/yy`, `dd/MM/yy HHmm`, `HHmm`, `dd/mm/yyyy`, `dd/MM/yyyy HHmm` or `DAY_OF_THE_WEEK`
+* e.g. 12/21/20, Mon, Friday, 11/11/2019 2359, etc
+====
+
 === Deleting an event : `delete`
 
 Deletes the specified event from SGTravel. +
 Format: `delete INDEX`
 
-****
+[NOTE]
+====
 * Deletes the event at the specified `INDEX`.
-* The index refers to the index number shown in the displayed task list.
+* The index refers to the index number shown in the displayed event list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
+* The index cannot be *ridiculously large* 9999999999999999999999...
+====
 
 Examples:
 
@@ -124,16 +173,23 @@ Examples:
 `delete 2` +
 Deletes the 2nd event in SGTravel.
 
+[TIP]
+====
+Entering `delete` will initiate the multi-step version of this command
+====
+
 === Marking an event : `done`
 
 Mark the specified event as done on SGTravel. +
 Format: `done INDEX`
 
-****
+[NOTE]
+====
 * Marks the event done at the specified `INDEX`.
-* The index refers to the index number shown in the displayed task list.
+* The index refers to the index number shown in the displayed event list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
+* The index cannot be *ridiculously large* 9999999999999999999999...
+====
 
 Examples:
 
@@ -141,25 +197,52 @@ Examples:
 `done 2` +
 Marks the 2nd event as done in SGTravel.
 
+[TIP]
+====
+Entering `done` will initiate the multi-step version of this command
+====
+
 === Editing places of visit: `edit`
 
-Panel will automatically select an intial location and the current location will be glowing green in color. +
-Users will use `up, down, left, right or ESC and Enter` key to then select the place of visit they want to edit. +
-`Enter` selects and `ESC` deselects. +
+Panel will automatically select an initial location and the current location will be glowing green in color. +
+
+image::edit1.png[width="600" height="400"]
+
+Users will use kbd:[up, down, left, right, ESC, Enter] keys to then select the place of visit they want to edit. +
+kbd:[Enter] selects and kbd:[ESC] deselects. +
 Once an event is selected (orange), simply type in the new `VENUE/DATE` into the CLI depending on what is currently highlighted. +
+
+image::edit2.png[width="600" height="400"]
 
 Examples:
 
 * `Orchard road` if updating the `VENUE`
 * `Mon` or `12/12/12` if updating a `DATE`
 
-+
-image::Ui.png[width="600" height="400"]
+To save the edits, type `save` or `done`. +
+To discard the changes, type `close` or `end`.
 
-To save the edits, type `save` or `done` or `x`. +
-To discard the changes, type `close` or `end` or `X`.+
-Alternatively, user can use `e INDEX LOCATION START_DATE END_DATE` +
-Where `INDEX` is the index of the event, `LOCATION` is the new location of the event, the `START_DATE` is the start date of the event, the `END_DATE` of the end date of the event.
+[TIP]
+====
+* Users can type `x` to save changes.
+* Users can type `X` to discard changes.
+====
+
+[WARNING]
+====
+Changes will not be saved if user attempts to store 2 or more events at the same location
+
+Examples:
+
+* 2 Events sharing the same Venue: Marina Bay Sands
+====
+
+[TIP]
+====
+* Alternatively, user can use the single step command: +
+ `e INDEX LOCATION START_DATE END_DATE`
+* Where `INDEX` is the index of the original event, `LOCATION` is the new location of the event, the `START_DATE` is the start date of the event, the `END_DATE` of the end date of the event.
+====
 
 === Listing all places to visit : `list`
 
@@ -171,14 +254,20 @@ Format: `list`
 SGTravel shows the events whose names contain any of the given keywords. +
 Format: `find KEYWORD`
 
-****
+[NOTE]
+====
 * The search is case sensitive. e.g `Changi Airport` will match `Changi Airport`
-****
+====
 
 Examples:
 
 * `find Singapore` +
 Returns `Singapore` and `Singapore Bishan`
+
+[TIP]
+====
+Entering `find` will initiate the multi-step version of this command
+====
 
 === Searching for a location in Singapore: `search`
 
@@ -189,6 +278,11 @@ Examples:
 
 * `find Bishan mrt`
 
+[TIP]
+====
+Entering `search` will initiate the multi-step version of this command
+====
+
 === Searching for the map of a location in Singapore: `map`
 
 SGTravel finds the map of a location with the given keywords. +
@@ -196,100 +290,206 @@ Format: `map KEYWORD`
 
 Examples:
 
-* `map NUS`
+* `map ntu`
 +
-image::Ui.png[width="600" height="400"]
+image::map.png[width="600" height="400"]
 
 === Recommend an Itinerary: `recommend`
 
-Get a recommended Itinerary List from SGTravel +
-Format: `recommend HOTEL_LOCATION between START_DATE and END_DATE`
+Get a recommended itinerary List from SGTravel +
+Format: `recommend itinerary between START_DATE and END_DATE`
+
+[NOTE]
+====
+* 23/04/20 to 25/04/20 is regarded as a 3 day trip.
+* Dates entered can only be in the future and valid with respects to each other. 
+====
+
+[WARNING]
+====
+* This command still works if u enter 23/04/20 and 31/04/20 (invalid date). This is just the
+ Java Library automatically changing 31/04/20 to 30/04/20. 
+* Hence, do not enter invalid dates (known bug).
+====
+
+image::RecommendationsCommand.png[width="380" height="447"]
 
 Examples:
 
-* `recommend orchard between 23/04/19 and 25/04/19`
+* `recommend itinerary between 23/04/20 and 25/04/20`
 
 === Save a Recommended Itinerary: `addThisList`
 
 After SGTravel shows a recommended list, you can save this list using this command +
-Format: `addThisList`
+Format: `addThisList ITINERARY_NAME`
+
+[NOTE]
+====
+* You must rename your list before you add it to your storage.
+====
+
+[WARNING]
+====
+* You must enter this command only after the app has recommended you a list. 
+* You CANNOT save the same list twice, this will result in an error. 
+====
+
+image::AddThisListCommand.png[width="365" height="497"]
+
 
 Examples:
 
-* `recommend orchard between 23/04/19 and 25/04/19` then afterwards `addThisList`
+* `recommend between 23/04/19 and 25/04/19` then afterwards `addThisList Sunday Vacation!`
+
+[TIP]
+====
+* Spaces in the new name are allowed.
+====
 
 === Create new Itinerary: `newItinerary`
 
 Creates a new itinerary from scratch +
-Format: `newItinerary START_DATE END_DATE HOTEL_LOCATION ITINERARY_NAME DAY_NUMBER /venue VENUE_NAME /do TODO1 /and TODO2 /venue VENUE_NAME /do TODO1 /and TODO2 …. <day number> ….`
+Format: `newItinerary START_DATE END_DATE ITINERARY_NAME DAY_NUMBER /venue VENUE_NAME /do TODO1 /and TODO2 /venue VENUE_NAME /do TODO1 /and TODO2 …. DAY_NUMBER ….`
+
+[NOTE]
+====
+* Each itinerary day can have any number of venues and todos.  
+* Every day's attractions must come with at least 2 todos!
+* Dates must be valid with each other and in the future. 
+* If you enter dates with x days in between them. A list containing the acitivities for x days must be specified.  
+====
+
+[WARNING]
+====
+* You cannot re-enter the same list!  
+* You cannot have an itinerary name with spaces!
+* Adding 2 of the same day numbers results in an error. (Putting two day 1's for example) 
+* Adding identical venues twice in the same day will show only one instance but is still valid. 
+====
+
+image::NewItineraryCommand.png[width="377" height="485"] 
 
 Examples:
 
-An itinerary with muliple days.
+An itinerary with multiple days.
 
-* `newItinerary 23/04/15 25/04/15 MBS TwoDayHoliday 1 /venue Orchard /do dancing /and singing /and swinging 2 /venue Changi /do running /and jumping /and swinging`
+* `newItinerary 23/04/20 24/04/20 TwoDayHoliday 1 /venue Orchard /do dancing /and singing /and swinging 2 /venue Changi /do running /and jumping /and swinging`
 
-A itinerary with multiple venues in 1 day.
+An itinerary with multiple venues in 1 day.
 
-* `newItinerary 23/04/15 24/04/15 Bedok SundayVacay 1 /venue Bedok /do swimming /and jumping /and swinging /venue Simei /do jogging /and running`
+* `newItinerary 23/04/20 23/04/20 SundayVacay 1 /venue Bedok /do swimming /and jumping /and swinging /venue Simei /do jogging /and running`
 
 === List Saved Itineraries: `listItinerary`
 
-Returns the saved itineraries and their serial numbers +
+Returns the saved itineraries and their names +
 Format: `listItinerary`
 
+[NOTE]
+====
+* Enter the command exactly with no whitespaces.  
+====
 Example Output:
 
-`Your Saved Itineraries are :`
-   `1. TwoDayHoliday`
-   `2. SundayVacay`
+image::ListItineraryCommand.png[width="365" height="232"]
+
+[TIP]
+====
+Use this command in order to refer to itinerary names before using the showItinerary command
+====
 
 === Show a saved Itinerary: `showItinerary`
 
-Disaplays a specific saved Itinerary +
-Format: `showItinerary ITIERARY_SERIAL_NUMBER`
+Displays a specific saved Itinerary +
+Format: `showItinerary ITIERARY_NAME`
+
+[WARNING]
+====
+* You cannot enter an invalid name!
+====
+
+image::ShowItineraryCommand.png[width="370" height="522"]
 
 Examples:
 
-* `showItinerary 1`
+* `showItinerary SundayVacay`
 
-Will show the `TwoDayHoliday` Itinerary.
+Will print the `SundayVacay` Itinerary.
+
+=== Delete an Itinerary: `doneItinerary`
+
+Removes a specified Itinerary from storage +
+Format: `doneItinerary ITIERARY_NAME`
+
+[WARNING]
+====
+* You cannot enter an invalid name!
+====
+
+image::DoneItineraryCommand.png[width="370" height="505"]
+
+Examples:
+
+* `doneItinerary SundayVacay`
+
+Will mark the `SundaVacay` Itinerary as done (effectively deletes it).
 
 === Creating a new Route: `routeAdd`
 
 Adds a new Route to SGTravel. +
 Format: `routeAdd NAME`
 
-****
+[NOTE]
+====
 * Creates a Route with the specified `NAME`.
 * Routes can contain different RouteNodes, which are points on the Route.
-****
+====
+
+[WARNING]
+====
+* You cannot create a Route that has the same name as an existing one.
+====
+
+image::routeAdd1.PNG[width="400" height="200"]
 
 Examples:
 
 * `routeAdd Day trip to Sentosa`
 * `routeAdd 2 Week staycation at Pulau Tekong`
 
+[TIP]
+====
+Entering `routeAdd` will initiate the multi-step version of this command
+====
+
 === Creating a new RouteNode: `routeNodeAdd`
 
 Adds a new RouteNode to an existing Route. +
 Format: `routeNodeAdd INDEXROUTE INDEXNODE at LOCATION by CONSTRAINT`
 
-****
+[NOTE]
+====
 * Creates a RouteNode with the specified `LOCATION` at the Route with specified 'INDEXROUTE'.
-* RouteNodes can be either of these 3 types: BusStop, TrainStation, CustomNode.
-* RouteNodes are specific bus stops, mrt stations or locations in a Route.
+* Shows the information and an image of the map at the RouteNode upon creation.
+* RouteNodes are specific bus stops (BusStop), mrt stations (TrainStation) or locations in a Route (CustomNode).
 * If `INDEXNODE` is not specified, the RouteNode is added to the end of the Route, else it is added to position `INDEXNODE`.
 * If `CONSTRAINT` is `bus`, the `LOCATION` must correspond to the bus stop's number. This creates a BusStop.
 * If `CONSTRAINT` is `mrt` instead, the `LOCATION` must correspond to the name of the MRT station, and is not case-sensitive. This creates a TrainStation.
 * If `CONSTRAINT` is `custom` instead, a CustomNode is created with the specified 'LOCATION'.
-****
+====
+
+[WARNING]
+====
+* You cannot add duplicate RouteNodes into a Route.
+* If there is no internet connection, the image is not shown.
+====
 
 Valid CONSTRAINT:
 
 * `bus`
 * `mrt`
 * `custom`
+
+image::routeNodeAdd1.PNG[width="400" height="600"]
 
 Examples:
 
@@ -300,33 +500,50 @@ Examples:
 * `routeNodeAdd 1 1 at jurong bird park by custom`
 * `routeNodeAdd 1 at Bishan Park by custom`
 
+[TIP]
+====
+Entering `routeNodeAdd` will initiate the multi-step version of this command
+====
+
 === Automatically generating a Route: `routeGenerate`
 
 Automatically creates a new Route between 2 given locations with RouteNodes in it. +
 Format: `routeGenerate STARTLOCATION to ENDLOCATION by CONSTRAINT`
 
-****
+[NOTE]
+====
 * Creates a Route between the two locations `STARTLOCATION` and `ENDLOCATION`.
 * `CONSTRAINT` refers to the mode of transport.
-****
+====
 
 Valid CONSTRAINT:
 
 * `bus`
 * `mrt`
 
+image::routeGenerate1.PNG[width="400" height="200"]
+
 Examples:
 
 * `routeGenerate amk hub to clementi by bus`
+* `routeGenerate amk hub to sungei gedong by mrt`
+
+[TIP]
+====
+Entering `routeGenerate` will initiate the multi-step version of this command
+====
 
 === Listing the information of all the Routes: `routeListAll`
 
 Lists the information about each Route. +
 Format: `routeListAll`
 
-****
+[NOTE]
+====
 * Information includes the name and description of all Routes.
-****
+====
+
+image::routeListAll1.PNG[width="400" height="360"]
 
 Examples:
 
@@ -337,53 +554,53 @@ Examples:
 Lists the information about a Route. +
 Format: `routeList INDEX_ROUTE`
 
-****
+[NOTE]
+====
 * Lists the information of the Route at index `INDEX_ROUTE`.
 * Information includes the name, description and all RouteNodes in the Route.
-****
+====
+
+image::routeList1.PNG[width="400" height="260"]
 
 Examples:
 
 * `routeList 1`
-
-=== Listing the information of a RouteNode: `routeNodeList`
-
-Lists the information about a RouteNode. +
-Format: `routeNodeList INDEX_ROUTE INDEX_NODE`
-
-****
-* Lists the information of the RouteNode at Route `INDEX_ROUTE` and index `INDEX_NODE`.
-* Information includes the name, description and coordinates of the RouteNode.
-****
-
-Examples:
-
-* `routeNodeList 1 1`
-* `routeNodeList 3 2`
 
 === Showing the map image of a Route: `routeShow`
 
 Shows a Route on the Singapore map. +
 Format: `routeShow INDEX_ROUTE`
 
-****
+[NOTE]
+====
 * Shows the map of the Route at `INDEX_ROUTE` in the Singapore Map.
-****
+====
+
+image::routeShow1.PNG[width="1000" height="700"]
+image::routeShow2.png[width="400" height="330"]
 
 Examples:
 
 * `routeShow 1`
+
+[TIP]
+====
+Entering `routeList` will initiate the multi-step version of this command
+====
 
 === Showing the information of a RouteNode with image: `routeNodeShow`
 
 Shows information and a map image of a RouteNode. +
 Format: `routeNodeShow INDEX_ROUTE INDEX_NODE`
 
-****
+[NOTE]
+====
 * Shows the information and map of the RouteNode at `INDEX_NODE` in Route at `INDEX_ROUTE`.
 * The RouteNode being shown is colored in green.
 * Nearby RouteNodes in the Route are also shown, and are colored in orange.
-****
+====
+
+image::routeNodeShow1.PNG[width="400" height="600"]
 
 Examples:
 
@@ -395,10 +612,13 @@ Examples:
 Shows information of nearby bus stops and MRT stations to a RouteNode, in an image. +
 Format: `routeNodeNearby INDEX_ROUTE INDEX_NODE`
 
-****
+[NOTE]
+====
 * Shows the map of the RouteNode at `INDEX_NODE` in Route at `INDEX_ROUTE` and its nearby neighbours.
 * Nearby neighbours are colored in black.
-****
+====
+
+image::routeNodeNearby1.PNG[width="400" height="600"]
 
 Examples:
 
@@ -410,41 +630,68 @@ Examples:
 Edits a specific field in a Route. +
 Format: `routeEdit INDEX_ROUTE FIELD VALUE`
 
-****
+[NOTE]
+====
 * Edits `FIELD` in the Route at `INDEX_ROUTE` and sets the new value to `VALUE`.
-****
+====
 
 Valid FIELD:
 
 * `name`
 * `description`
 
+image::routeEdit1.PNG[width="400" height="260"]
+image::routeEdit2.PNG[width="400" height="190"]
+image::routeEdit3.PNG[width="400" height="250"]
+
 Examples:
 
 * `routeEdit 1 name Go to Sentosa for the beach`
 * `routeEdit 3 description stop at MBS for lunch`
+
+[TIP]
+====
+Entering `routeEdit` will initiate the multi-step version of this command
+====
 
 === Deleting a Route: `routeDelete`
 
 Deletes a Route. +
 Format: `routeDelete INDEX_ROUTE`
 
-****
+[NOTE]
+====
 * Deletes a Route at `INDEX_ROUTE`.
-****
+====
+
+image::routeDelete1.PNG[width="400" height="210"]
 
 Examples:
 
 * `routeDelete 1`
+
+[TIP]
+====
+Entering `routeDelete` will initiate the multi-step version of this command
+====
+
 
 === Deleting a RouteNode: `routeNodeDelete`
 
 Deletes a RouteNode in a Route. +
 Format: `routeNodeDelete INDEX_ROUTE INDEX_NODE`
 
-****
+[NOTE]
+====
 * Deletes a RouteNode at `INDEX_NODE` in Route at `INDEX_ROUTE`.
-****
+====
+
+image::routeNodeDelete1.PNG[width="400" height="200"]
+
+[TIP]
+====
+Entering `routeNodeDelete` will initiate the multi-step version of this command
+====
 
 Examples:
 
@@ -456,36 +703,41 @@ Examples:
 SGTravel shows the information of a bus stop. +
 Format: `busStop BUSCODE`
 
+image::busStop1.PNG[width="400" height="500"]
+
 Examples:
 
 * `busStop 17009`
 * `busstop 17001`
+
+[TIP]
+====
+Entering `busStop` will initiate the multi-step version of this command
+====
 
 === Shows the bus route of a bus service: `busRoute`
 
 SGTravel finds the bus route of a given bus service given the bus service number. +
 Format: `busroute BUS_NUMBER`
 
+image::busRoute1.PNG[width="400" height="330"]
+
 Examples:
 
 * `busRoute 96`
 * `busRoute 193`
-
-Examples:
-
-* `help`
-
-=== Exiting the program : `bye`
-
-Exits the program. +
-Format: `bye`
 
 === Viewing calendar : `view`
 
 SGTravel will display a calendar containing the events. Click or hover to view other events on the same day. +
 Format: `view`
 
-image::Ui.png[width="600" height="400"]
+image::cal.png[width="600" height="400"]
+
+=== Exiting the program : `bye`
+
+Exits the program. +
+Format: `bye`
 
 === Saving the data
 

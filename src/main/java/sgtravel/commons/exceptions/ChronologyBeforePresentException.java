@@ -3,7 +3,7 @@ package sgtravel.commons.exceptions;
 import sgtravel.commons.Messages;
 
 /**
- * Exception thrown when a given time is in the past when it should not.
+ * Exception thrown when Dates entered are before present.
  */
 public class ChronologyBeforePresentException extends ParseException {
 

@@ -5,20 +5,19 @@ import sgtravel.commons.exceptions.NullResultException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.logic.commands.AddSampleItineraryCommand;
 import sgtravel.logic.commands.Command;
+import sgtravel.logic.commands.DoneItineraryCommand;
 import sgtravel.logic.commands.EditorCommand;
 import sgtravel.logic.commands.ExitCommand;
 import sgtravel.logic.commands.HelpCommand;
 import sgtravel.logic.commands.ListCommand;
-import sgtravel.logic.commands.ListItineraryCommand;
-import sgtravel.logic.commands.ProfileSetPreferenceCommand;
+import sgtravel.logic.commands.ProfileAddFavCommand;
+import sgtravel.logic.commands.ProfileDeleteFavCommand;
+import sgtravel.logic.commands.ProfileListFavCommand;
 import sgtravel.logic.commands.ProfileShowCommand;
+import sgtravel.logic.commands.ProfileShowFavCommand;
 import sgtravel.logic.commands.RouteListAllCommand;
-import sgtravel.logic.commands.RouteNodeNeighboursCommand;
-import sgtravel.logic.commands.RouteNodeShowCommand;
-import sgtravel.logic.commands.RouteShowCommand;
 import sgtravel.logic.commands.ShowItineraryCommand;
 import sgtravel.logic.commands.ViewScheduleCommand;
-import sgtravel.logic.parsers.commandparsers.PromptParser;
 import sgtravel.logic.parsers.commandparsers.AddEventParser;
 import sgtravel.logic.parsers.commandparsers.CreateNewItineraryParser;
 import sgtravel.logic.parsers.commandparsers.DeleteParser;
@@ -26,8 +25,11 @@ import sgtravel.logic.parsers.commandparsers.DoneParser;
 import sgtravel.logic.parsers.commandparsers.FindParser;
 import sgtravel.logic.parsers.commandparsers.GetBusRouteParser;
 import sgtravel.logic.parsers.commandparsers.GetBusStopParser;
+import sgtravel.logic.parsers.commandparsers.ListItineraryParser;
 import sgtravel.logic.parsers.commandparsers.LocationSearchParser;
 import sgtravel.logic.parsers.commandparsers.ProfileAddParser;
+import sgtravel.logic.parsers.commandparsers.ProfileSetParser;
+import sgtravel.logic.parsers.commandparsers.PromptParser;
 import sgtravel.logic.parsers.commandparsers.QuickEditParser;
 import sgtravel.logic.parsers.commandparsers.RecommendationParser;
 import sgtravel.logic.parsers.commandparsers.RouteAddParser;
@@ -37,6 +39,9 @@ import sgtravel.logic.parsers.commandparsers.RouteGenerateParser;
 import sgtravel.logic.parsers.commandparsers.RouteListParser;
 import sgtravel.logic.parsers.commandparsers.RouteNodeAddParser;
 import sgtravel.logic.parsers.commandparsers.RouteNodeDeleteParser;
+import sgtravel.logic.parsers.commandparsers.RouteNodeNeighboursParser;
+import sgtravel.logic.parsers.commandparsers.RouteNodeShowParser;
+import sgtravel.logic.parsers.commandparsers.RouteShowParser;
 import sgtravel.logic.parsers.commandparsers.StaticMapParser;
 import sgtravel.logic.parsers.storageparsers.PlanningStorageParser;
 
@@ -106,28 +111,35 @@ public class Parser {
         case "routeGenerate":
             return new RouteGenerateParser(getWord(input)).parse();
         case "routeShow":
-            return new RouteShowCommand(ParserUtil.getIntegerIndexInList(0, 2, getWord(input)));
+            return new RouteShowParser(getWord(input)).parse();
         case "routeNodeShow":
-            return new RouteNodeShowCommand(ParserUtil.getIntegerIndexInList(0, 2, getWord(input)),
-                    ParserUtil.getIntegerIndexInList(1, 2, getWord(input)));
+            return new RouteNodeShowParser(getWord(input)).parse();
         case "routeNodeNearby":
-            return new RouteNodeNeighboursCommand(ParserUtil.getIntegerIndexInList(0, 2, getWord(input)),
-                    ParserUtil.getIntegerIndexInList(1, 2, getWord(input)));
+            return new RouteNodeNeighboursParser(getWord(input)).parse();
         case "addThisList":
             return new AddSampleItineraryCommand(PlanningStorageParser.getNewAddListName(input));
         case "newItinerary":
             return new CreateNewItineraryParser(input).parse();
         case "listItinerary":
-            return new ListItineraryCommand();
+            return new ListItineraryParser(input).parse();
         case "showItinerary":
             return new ShowItineraryCommand(getWord(input));
+        case "doneItinerary":
+            return new DoneItineraryCommand(getWord(input));
         case "profile":
             return new ProfileAddParser(getWord(input)).parse();
         case "profileShow":
             return new ProfileShowCommand();
         case "profileSet":
-            return new ProfileSetPreferenceCommand(ParserUtil.getFieldInList(0,2,getWord(input)),
-                        ParserUtil.getFieldInList(1,2,getWord(input)));
+            return new ProfileSetParser(getWord(input)).parse();
+        case "addToFav":
+            return new ProfileAddFavCommand(getWord(input));
+        case "listFav":
+            return new ProfileListFavCommand();
+        case "showFav":
+            return new ProfileShowFavCommand(getWord(input));
+        case "deleteFav":
+            return new ProfileDeleteFavCommand(getWord(input));
         default:
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }

@@ -3,7 +3,7 @@ package sgtravel.commons.exceptions;
 import sgtravel.commons.Messages;
 
 /**
- * Exception thrown when there is an inconsistency in dates given.
+ * Exception thrown when startDate > endDate or endDate < startDate.
  */
 public class ChronologyInconsistentException extends ParseException {
 

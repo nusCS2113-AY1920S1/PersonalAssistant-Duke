@@ -86,8 +86,7 @@ public class StorageStub {
                 String name = scanner.nextLine();
                 LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());
                 LocalDateTime end = ParserTimeUtil.parseStringToDate(scanner.nextLine());
-                Venue hotel = PlanningStorageParser.getVenueFromStorage(scanner.nextLine());
-                Itinerary itinerary = new Itinerary(start, end, hotel, name);
+                Itinerary itinerary = new Itinerary(start, end, name);
                 List<Agenda> agendaList = new ArrayList<>();
                 String fileLine = scanner.nextLine();
                 while (fileLine.split("\\|")[0].equals("Agenda ")) {

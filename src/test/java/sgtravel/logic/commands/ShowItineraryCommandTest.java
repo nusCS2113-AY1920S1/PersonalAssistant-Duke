@@ -18,7 +18,7 @@ class ShowItineraryCommandTest {
         LocalDateTime startDate = LocalDateTime.of(2020, 9, 9, 9, 9);
         LocalDateTime endDate = LocalDateTime.of(2020, 9, 13, 9, 9);
 
-        String [] itineraryDetails = {"YEW TEE INDUSTRIAL ESTATE", startDate.toString(), endDate.toString()};
+        String [] itineraryDetails = {"itinerary ", startDate.toString(), endDate.toString()};
 
         RecommendationsCommand recommendationsCommand = new RecommendationsCommand(itineraryDetails);
 
@@ -28,13 +28,13 @@ class ShowItineraryCommandTest {
 
         addSampleItineraryCommand.execute(model);
 
-        ShowItineraryCommand showItineraryCommand = new ShowItineraryCommand(model.getRecentItinerary().getName());
+        ShowItineraryCommand showItineraryCommand = new ShowItineraryCommand("New List");
 
         CommandResultText commandResultText = showItineraryCommand.execute(model);
 
         String result = commandResultText.getMessage();
 
-        assertEquals(result, model.getItinerary(model.getRecentItinerary().getName()).printItinerary());
+        assertEquals(result, model.getItinerary("New List").printItinerary());
 
     }
 

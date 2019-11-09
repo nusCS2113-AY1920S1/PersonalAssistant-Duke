@@ -1,8 +1,10 @@
 package sgtravel.model;
 
+import sgtravel.commons.exceptions.AddListFailException;
+import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
-import sgtravel.commons.exceptions.DuplicateRouteException;
+import sgtravel.commons.exceptions.NoSuchItineraryException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.model.lists.EventList;
 import sgtravel.model.lists.RouteList;
@@ -54,6 +56,19 @@ public class ModelManager implements Model {
     /**
      * Returns map object.
      */
+    @Override
+    public void addToFavourite(String name, Itinerary itinerary) throws NoSuchItineraryException {
+        if (itinerary == null) {
+            throw new NoSuchItineraryException();
+        }
+        profileCard.addFavourite(name, itinerary);
+    }
+
+    @Override
+    public void deleteFavourite(String name) throws NoSuchItineraryException {
+        profileCard.deleteFavourite(name);
+    }
+
     @Override
     public TransportationMap getMap() {
         return map;
@@ -108,9 +123,9 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Gets a Recommendation.
+     * Returns the recommendation list object.
      *
-     * @return The Recommendation.
+     * @return recommendations The requested recommendations list.
      */
     @Override
     public Recommendation getRecommendations() {
@@ -118,9 +133,9 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Gets the Itinerary table.
+     * Returns the itinerary hash-map keyed by their names.
      *
-     * @return The Itinerary table.
+     * @return itineraryTable The list of saved itineraries.
      */
     @Override
     public HashMap<String, Itinerary> getItineraryTable() {
@@ -128,9 +143,22 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Sets the most recent Itinerary.
+     * Deletes the requested itinerary from storage.
      *
-     * @param recentItinerary The most recent Itinerary.
+     * @param name The name of the itinerary to be "done" (deleted).
+     */
+    @Override
+    public void doneItinerary(String name) throws NoSuchItineraryException {
+        if (itineraryTable.get(name) == null) {
+            throw new NoSuchItineraryException();
+        }
+        this.itineraryTable.remove(name);
+    }
+
+    /**
+     * Saves the most recent recommendation.
+     *
+     * @param recentItinerary The recent recommendation.
      */
     @Override
     public void setRecentItinerary(Itinerary recentItinerary) {
@@ -138,10 +166,9 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Gets the most recent Itinerary.
+     * Returns the "recently recommended itinerary".
      *
-     * @return The most recent Itinerary.
-     * @throws NoRecentItineraryException If there is no recent Itinerary.
+     * @return recentItinerary The recent recommendation.
      */
     @Override
     public Itinerary getRecentItinerary() throws NoRecentItineraryException {
@@ -152,9 +179,9 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Sets a new Itinerary.
+     * Stores a new itinerary to storage.
      *
-     * @param itinerary The new Itinerary.
+     * @param itinerary The itinerary to be saved.
      */
     @Override
     public void setNewItinerary(Itinerary itinerary) {
@@ -162,12 +189,15 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Confirms the most recent Itinerary.
+     * Stores the "recently recommended itinerary" into storage.
      *
-     * @param name The name of the itinerary.
+     * @param name The new name for the itinerary list.
      */
     @Override
-    public void confirmRecentItinerary(String name) {
+    public void confirmRecentItinerary(String name) throws AddListFailException {
+        if ("".equals(name)) {
+            throw new AddListFailException();
+        }
         recentItinerary.setName(name);
         this.itineraryTable.put(name, recentItinerary);
     }

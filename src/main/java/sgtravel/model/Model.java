@@ -1,10 +1,12 @@
 package sgtravel.model;
 
+import sgtravel.commons.exceptions.AddListFailException;
+import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
+import sgtravel.commons.exceptions.NoSuchItineraryException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.commons.exceptions.ParseException;
-import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.model.lists.EventList;
 import sgtravel.model.lists.RouteList;
 import sgtravel.model.lists.VenueList;
@@ -77,54 +79,59 @@ public interface Model {
     /**
      * Gets an itinerary with the given name.
      *
-     * @param name The name of the itinerary.
+     * @param name The serial number of the Itinerary.
      * @return The itinerary.
      */
     Itinerary getItinerary(String name);
 
     /**
-     * Gets a Recommendation.
+     * Returns the recommendation list object.
      *
-     * @return The Recommendation.
+     * @return recommendations The requested recommendations list.
      */
     Recommendation getRecommendations();
 
     /**
-     * Gets the Itinerary table.
-     *
-     * @return The Itinerary table.
+     * Returns the itinerary hash-map keyed by their names.
+     * 
+     * @return itineraryTable The list of saved itineraries.
      */
     HashMap<String,Itinerary> getItineraryTable();
 
     /**
-     * Sets the most recent Itinerary.
-     *
-     * @param itinerary The most recent Itinerary.
+     * Saves the most recent recommendation.
+     * 
+     * @param itinerary The recent recommendation.
      */
-    void setRecentItinerary(Itinerary itinerary);
+    void setRecentItinerary(Itinerary itinerary) throws AddListFailException;
 
     /**
-     * Gets the most recent Itinerary.
+     * Returns the recently recommended itinerary.
      *
-     * @return The most recent Itinerary.
-     * @throws NoRecentItineraryException If there is no recent Itinerary.
+     * @return recentItinerary The recent recommendation.
      */
     Itinerary getRecentItinerary() throws NoRecentItineraryException;
 
     /**
-     * Sets a new Itinerary.
-     *
-     * @param itinerary The new Itinerary.
-     * @throws ParseException If there is an issue parsing.
+     * Stores a new itinerary to storage.
+     * 
+     * @param itinerary The itinerary to be saved.
      */
     void setNewItinerary(Itinerary itinerary) throws ParseException;
 
     /**
-     * Confirms the most recent Itinerary.
-     *
-     * @param newName The new name of the itinerary.
+     * Stores recently recommended itinerary.
+     * 
+     * @param newName The new name for the itinerary.
      */
-    void confirmRecentItinerary(String newName);
+    void confirmRecentItinerary(String newName) throws AddListFailException;
+
+    /**
+     * Deletes the requested itinerary from storage.
+     * 
+     * @param name The name of the itinerary to be "done" (deleted).
+     */
+    void doneItinerary(String name) throws NoSuchItineraryException;
 
     /**
      * Returns profile of user.
@@ -135,4 +142,8 @@ public interface Model {
      * Returns name of the user.
      */
     String getName();
+
+    void addToFavourite(String name, Itinerary itinerary) throws NoSuchItineraryException;
+
+    void deleteFavourite(String name) throws NoSuchItineraryException;
 }

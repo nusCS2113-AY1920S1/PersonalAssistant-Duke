@@ -3,7 +3,7 @@ package sgtravel.commons.exceptions;
 import sgtravel.commons.Messages;
 
 /**
- * Exception thrown when no such Itinerary can be found.
+ * Displays an error a specified itinerary is not found within the itineraryTable.
  */
 public class NoSuchItineraryException extends DukeException {
 

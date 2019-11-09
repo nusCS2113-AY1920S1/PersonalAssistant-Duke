@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.exceptions.AddListFailException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
 import sgtravel.logic.commands.results.CommandResultText;
@@ -12,8 +13,12 @@ import sgtravel.model.planning.Itinerary;
 public class AddSampleItineraryCommand extends Command {
     private String newName;
 
-    public AddSampleItineraryCommand(String word) {
-        newName = word;
+    /**
+     * Creates a new AddSampleItinerary with the given newName.
+     * @param newName The new name of the itinerary.
+     */
+    public AddSampleItineraryCommand(String newName) {
+        this.newName = newName;
     }
 
     /**
@@ -24,13 +29,14 @@ public class AddSampleItineraryCommand extends Command {
      * @throws NoRecentItineraryException If there is no recent itinerary.
      */
     @Override
-    public CommandResultText execute(Model model) throws FileNotSavedException, NoRecentItineraryException {
-        // Add to the list of Itineraries
+    public CommandResultText execute(Model model) throws FileNotSavedException, NoRecentItineraryException,
+            AddListFailException {
         Itinerary itinerary = model.getRecentItinerary();
         model.confirmRecentItinerary(newName);
+        model.setRecentItinerary(null);
         model.save();
-        return new CommandResultText("Successfully added this itinerary: " + "\n"
-                + itinerary.printItinerary());
-
+        String printString = itinerary.printItinerary();
+        return new CommandResultText("Successfully added the recommendation : " + "\n"
+                + printString);
     }
 }

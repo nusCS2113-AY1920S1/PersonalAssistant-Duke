@@ -3,7 +3,7 @@ package sgtravel.commons.exceptions;
 import sgtravel.commons.Messages;
 
 /**
- * Exception thrown when the Recommendations fails.
+ * Displays an error when the trip is too long (greater than 8 days).
  */
 public class RecommendationFailException extends DukeException {
 

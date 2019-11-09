@@ -3,7 +3,7 @@ package sgtravel.commons.exceptions;
 import sgtravel.commons.Messages;
 
 /**
- * Exception thrown when there is no recent Itinerary.
+ * Displays an error when no recent recommendations are found.
  */
 public class NoRecentItineraryException extends DukeException {
 

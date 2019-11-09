@@ -1,8 +1,11 @@
 package sgtravel.logic.parsers.storageparsers;
 
 import sgtravel.commons.Messages;
+import sgtravel.commons.exceptions.AddListFailException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.model.locations.Venue;
+import sgtravel.model.planning.Agenda;
+import sgtravel.model.planning.Itinerary;
 import sgtravel.model.planning.Todo;
 
 import java.util.ArrayList;
@@ -33,8 +36,8 @@ public class PlanningStorageParser {
     }
 
     /**
-     * Returns a list of todo's from a text file.
-     *
+     * Parses a String into a todo list.
+     * @param line The string containing the todo list.
      * @return The List of todo's.
      */
     public static List<Todo> getTodoListFromStorage(String line) {
@@ -49,10 +52,10 @@ public class PlanningStorageParser {
 
     /**
      * Returns the new name of a recently added recommendation.
-     *
-     * @return The new name of the recommendation.
+     * @param line The string containing the new name.
+     * @return result The new name of the recommendation.
      */
-    public static String getNewAddListName(String line) {
+    public static String getNewAddListName(String line) throws AddListFailException {
         String[] todoParts = line.split(" ");
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 1; i < todoParts.length; i++) {
@@ -62,7 +65,25 @@ public class PlanningStorageParser {
                 stringBuilder.append(todoParts[i]).append(" ");
             }
         }
-        return stringBuilder.toString();
+
+        String result = stringBuilder.toString();
+
+        return result;
     }
 
+    /**
+     * Converts the itinerary into a storage friendly string format.
+     *
+     * @return itineraryString The itinerary object converted to a storage string
+     */
+    public static String toItineraryStorageString(Itinerary value) {
+        StringBuilder itineraryString = new StringBuilder();
+        itineraryString.append(value.getName()).append("\n").append(value.getStartDate().toString()).append("\n")
+                .append(value.getEndDate().toString()).append("\n");
+        for (Agenda agenda : value.getList()) {
+            itineraryString.append(agenda.toString());
+        }
+        itineraryString.append("\n");
+        return itineraryString.toString();
+    }
 }
