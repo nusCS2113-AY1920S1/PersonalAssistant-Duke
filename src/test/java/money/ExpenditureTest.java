@@ -1,10 +1,7 @@
 package money;
 
 import controlpanel.MoneyStorage;
-import moneycommands.MoneyCommand;
-import moneycommands.AddExpenditureCommand;
-import moneycommands.DeleteExpenditureCommand;
-import moneycommands.ListTotalExpenditureCommand;
+import moneycommands.*;
 import controlpanel.DukeException;
 import controlpanel.Ui;
 import org.junit.jupiter.api.Test;
