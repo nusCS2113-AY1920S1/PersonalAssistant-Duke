@@ -3,9 +3,7 @@ package com.algosenpai.app.logic.command.critical;
 import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.models.QuestionModel;
-import com.algosenpai.app.stats.UserStats;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -32,8 +30,8 @@ public class ArcadeCommand extends Command {
     @Override
     public String execute() {
         if (!isArcadeMode.get()) {
-            String question = currQuestion.getQuestion();
             isArcadeMode.set(true);
+            String question = currQuestion.getQuestion();
             previousQuestion = currQuestion.copy();
             currQuestion = quizGenerator.generateQuestion();
             return question;
@@ -49,8 +47,7 @@ public class ArcadeCommand extends Command {
                 } else {
                     return reset();
                 }
-            }
-            else {
+            } else {
                 return reset();
             }
         }
@@ -60,9 +57,9 @@ public class ArcadeCommand extends Command {
         isArcadeMode.set(false);
         previousQuestion = null;
         currQuestion = null;
-        int cScore = highScore;
+        int currentScore = highScore;
         highScore = 0;
-        return "Your arcade highscore is : " + cScore;
+        return "Your Arcade High Score is : " + currentScore;
     }
 
     /**

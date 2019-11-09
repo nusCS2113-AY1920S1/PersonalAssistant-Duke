@@ -5,7 +5,7 @@ import com.algosenpai.app.logic.parser.Parser;
 import java.util.ArrayList;
 
 public class HistoryExceptions extends SenpaiExceptions {
-    public HistoryExceptions(String message) {
+    private HistoryExceptions(String message) {
         super(message);
     }
 

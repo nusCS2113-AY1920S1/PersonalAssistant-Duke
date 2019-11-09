@@ -9,9 +9,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class LectureCommand extends Command {
 
 
-    AtomicBoolean isLectureMode;
-    AtomicInteger lectureSlideNumber;
-    AtomicBoolean isNewLecture;
+    private AtomicBoolean isLectureMode;
+    private AtomicInteger lectureSlideNumber;
+    private AtomicBoolean isNewLecture;
     private ArrayList<String> currentTopicSlides;
 
     /**

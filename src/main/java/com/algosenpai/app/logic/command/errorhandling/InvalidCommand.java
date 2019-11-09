@@ -28,14 +28,15 @@ public class InvalidCommand extends Command {
             return "Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
                     + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.";
         } else {
-            String input = "";
+            StringBuilder input = new StringBuilder();
             for (String i : inputs) {
                 if (Parser.allCharacters(i)) {
-                    input += i.toLowerCase();
+                    input.append(i.toLowerCase());
                 }
             }
-            if (!compare(input).isEmpty()) {
-                return "OOPS!!! Error occurred. Please input a valid command. Did you mean... " + compare(input) + "?";
+            if (!compare(input.toString()).isEmpty()) {
+                return "OOPS!!! Error occurred. Please input a valid command. Did you mean... "
+                        + compare(input.toString()) + "?";
             } else {
                 return "Sorry please input a valid command. "
                         + "Enter `menu` to view our list of commands "

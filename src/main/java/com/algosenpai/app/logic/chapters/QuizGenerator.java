@@ -59,19 +59,23 @@ public class QuizGenerator {
         return questionList;
     }
 
+    /**
+     * Generates questions for the arcade mode.
+     * @return A single question model.
+     */
     public QuestionModel generateQuestion() {
         //by default, it will pick a mix of questions
         Random random = new Random();
         int chapterToPick = random.nextInt(3);
         switch (chapterToPick) {
-            case 0 :
-                return ChapterSorting.generateQuestions();
-            case 1 :
-                return ChapterLinkedList.generateQuestions();
-            case 2 :
-                return ChapterBitmask.generateQuestions();
-            default :
-                return null;
+        case 0 :
+            return ChapterSorting.generateQuestions();
+        case 1 :
+            return ChapterLinkedList.generateQuestions();
+        case 2 :
+            return ChapterBitmask.generateQuestions();
+        default :
+            return null;
         }
     }
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class HistoryCommand extends Command {
 
-    ArrayList<String> historyList;
+    private ArrayList<String> historyList;
 
     /**
      * Create new command.

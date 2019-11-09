@@ -130,8 +130,8 @@ public class InvalidCommandTest extends ApplicationTest {
                     + "'hello NAME GENDER (boy/girl)' please.", actualText);
         } else if (!previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
-                    + "menu, quiz, result, review, reset, history, undo, clear, help, "
-                    + "volume, print, archive, save, stats, exit?", actualText);
+                    + "menu, lecture, quiz, arcade, chapters, review, reset, history, undo, clear, help, volume, print,"
+                    + " archive, save, stats, result, exit?", actualText);
         }
     }
 
