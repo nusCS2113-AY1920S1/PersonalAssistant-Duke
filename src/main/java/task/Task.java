@@ -302,6 +302,21 @@ public class Task implements Serializable {
         this.nusDegreeName = nusDegreeName;
     }
 
+    /**
+     * sets the NUS Degree Name that is related to this task
+     * @param
+     */
+    public void setNusDegreeName() {
+        String stringToCheck = this.description;
+        String[] splitString = stringToCheck.split("]");
+        if (splitString[0] != null){
+            String wordToCheck = splitString[0].replace("[","");
+            if (wordToCheck.matches("BME|CHE|CIV|CEG|EE|ENV|ISE|ME|MSE")){
+                setNusDegreeName(wordToCheck);
+            }
+        }
+    }
+
 
     /**
      * sets the UserDefinedPriority that is related to this task
