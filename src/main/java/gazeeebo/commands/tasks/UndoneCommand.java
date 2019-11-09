@@ -1,3 +1,5 @@
+//@@author e0323290
+
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
@@ -25,8 +27,6 @@ public class UndoneCommand extends Command {
                 } else if (numberCheck > list.size() - 1) {
                     throw new DukeException("Task number does not exist.");
                 }
-
-                // int numberCheck = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
                 if (list.get(numberCheck).isDone == true) {
                     list.get(numberCheck).isDone = false;
                 }

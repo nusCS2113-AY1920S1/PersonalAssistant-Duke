@@ -3,6 +3,7 @@ package gazeeebo.parsers;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
+import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.specialization.CompletedCommand;
 import gazeeebo.commands.specialization.ListOfSpecializationAndModules;
 import gazeeebo.commands.specialization.ListSpecializationCommand;
@@ -43,24 +44,26 @@ public class SpecializationCommandParser extends Command {
                         final TriviaManager triviaManager)
             throws IOException, DukeException {
         HashMap<String, ArrayList<ModuleCategory>> sMap
-                = storage.Specialization(); //Read the file
+                = storage.readFromSpecializationFile(); //Read the file
         Map<String, ArrayList<ModuleCategory>> specMap = new TreeMap<>(sMap);
         HashMap<String, ArrayList<String>> eMap
-                = storage.completedElectives(); //Read the file
+                = storage.readFromCompletedElectivesFile(); //Read the file
         Map<String, ArrayList<String>> completedEMap = new TreeMap<>(eMap);
         new ListOfSpecializationAndModules(specMap);
 
-        System.out.print("Welcome to your specialization page!"
+        System.out.println("Welcome to your specialization page!"
                 + "What would you like to do?\n\n");
-        System.out.println("____________________________"
-                + "_____________________________");
-        System.out.println("1. Show list of specializations"
-                + "and technical electives : list");
-        System.out.println("2. Key in completed electives: complete");
-        System.out.println("3. Exit contact page: esc");
-        System.out.println("____________________________"
-                + "______________________________");
-
+        String helpSpec = "____________________________"
+                + "_____________________________\n"
+                + "1. Show list of specializations"
+                + " and technical electives : list\n"
+                + "2. Key in completed electives: complete\n"
+                + "3. List of commands for specialization page: commands\n"
+                + "4. Help page: help\n"
+                + "5. Exit contact page: esc\n"
+                + "____________________________"
+                + "______________________________";
+        System.out.println(helpSpec);
 
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
@@ -69,9 +72,17 @@ public class SpecializationCommandParser extends Command {
                         specMap, completedEMap);
             } else if (ui.fullCommand.equals("complete")) {
                 new CompletedCommand(ui, storage, specMap, completedEMap);
+            } else if (ui.fullCommand.equals("commands")) {
+                System.out.println(helpSpec);
+            } else if (ui.fullCommand.equals("help")) {
+                (new HelpCommand()).execute(null, ui, null,
+                        null, null, null);
+            } else {
+                System.out.println("Command not found, please re-enter!");
             }
-
             ui.readCommand();
+
+
         }
         System.out.println("Going back to Main Menu...\n"
                 + "Content Page:\n"

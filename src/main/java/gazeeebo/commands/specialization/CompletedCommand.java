@@ -1,3 +1,5 @@
+//@@author e0323290
+
 package gazeeebo.commands.specialization;
 
 import gazeeebo.UI.Ui;
@@ -13,41 +15,13 @@ import java.util.Map;
  */
 public class CompletedCommand {
     /**
-     * Index of Communication and Networking specialization.
-     */
-    static final int COMMS_NETWORKING_INDEX = 1;
-    /**
-     * Index of Embedded Computing specialization.
-     */
-    static final int EMBEDDED_COMPUTING_INDEX = 2;
-    /**
-     * Index of Intelligent Systems specialization.
-     */
-    static final int INTELLIGENT_SYSTEMS_INDEX = 3;
-    /**
-     * Index of Interactive Digital Media specialization.
-     */
-    static final int INTERACTIVE_DIGITAL_MEDIA_INDEX = 4;
-    /**
-     * Index of Large-Scale Computing specialization.
-     */
-    static final int LARGE_SCALE_COMPUTING_INDEX = 5;
-    /**
-     * Index of System-On-A-Chip Design specialization.
-     */
-    static final int SYS_DESIGN_INDEX = 6;
-
-    /**
-     * Allows user to record the
-     * technical electives they have completed.
+     * Allows user to record the technical electives they have completed.
      *
      * @param ui            the object that deals with
      *                      printing things to the user.
      * @param storage       the object that deals with storing data,
      *                      in this case storing data in the expenses map
-     * @param specMap       the map that map list of
-     *                      technical electives to their
-     *                      respective specializations
+     * @param specMap       the map that map list of respective specializations
      * @param completedEMap the map that maps the completed electives to
      *                      their respective specializations
      * @throws DukeException throws a custom exception if
@@ -60,10 +34,16 @@ public class CompletedCommand {
                                     specMap,
                             final Map<String, ArrayList<String>> completedEMap)
             throws DukeException, IOException {
+        final int commsAndNetworkingIndex = 1;
+        final int embeddedComputingIndex = 2;
+        final int intelligentSystemsIndex = 3;
+        final int interactiveDigitalMediaIndex = 4;
+        final int largeScaleComputingIndex = 5;
+        final int sysDesignIndex = 6;
         try {
             ArrayList<String> completedElectiveList =
                     new ArrayList();
-            System.out.println("Which specialization number"
+            System.out.println("Which specialization number "
                     + "is your module under?");
             ArrayList<String> specList = new ArrayList<String>();
             specList.add("Communications & Networking"); //index 0
@@ -77,23 +57,26 @@ public class CompletedCommand {
             }
 
             ui.readCommand();
+            String input = ui.fullCommand;
             int specNumber = Integer.parseInt(ui.fullCommand);
-            if (specNumber < 0 || specNumber > specList.size()) {
+            if (specNumber < 0 || specNumber == 0
+                    || specNumber > specList.size()) {
                 throw new DukeException("Specialization index does not exist.");
             }
+
             String checkKey = "";
-            if (specNumber == COMMS_NETWORKING_INDEX) {
-                checkKey = specList.get(COMMS_NETWORKING_INDEX - 1);
-            } else if (specNumber == EMBEDDED_COMPUTING_INDEX) {
-                checkKey = specList.get(EMBEDDED_COMPUTING_INDEX - 1);
-            } else if (specNumber == INTELLIGENT_SYSTEMS_INDEX) {
-                checkKey = specList.get(INTELLIGENT_SYSTEMS_INDEX - 1);
-            } else if (specNumber == INTERACTIVE_DIGITAL_MEDIA_INDEX) {
-                checkKey = specList.get(INTERACTIVE_DIGITAL_MEDIA_INDEX - 1);
-            } else if (specNumber == LARGE_SCALE_COMPUTING_INDEX) {
-                checkKey = specList.get(LARGE_SCALE_COMPUTING_INDEX - 1);
-            } else if (specNumber == SYS_DESIGN_INDEX) {
-                checkKey = specList.get(SYS_DESIGN_INDEX - 1);
+            if (specNumber == commsAndNetworkingIndex) {
+                checkKey = specList.get(commsAndNetworkingIndex - 1);
+            } else if (specNumber == embeddedComputingIndex) {
+                checkKey = specList.get(embeddedComputingIndex - 1);
+            } else if (specNumber == intelligentSystemsIndex) {
+                checkKey = specList.get(intelligentSystemsIndex - 1);
+            } else if (specNumber == interactiveDigitalMediaIndex) {
+                checkKey = specList.get(interactiveDigitalMediaIndex - 1);
+            } else if (specNumber == largeScaleComputingIndex) {
+                checkKey = specList.get(largeScaleComputingIndex - 1);
+            } else if (specNumber == sysDesignIndex) {
+                checkKey = specList.get(sysDesignIndex - 1);
             }
             System.out.println("Which module have you completed?");
             for (int i = 0; i < specMap.get(checkKey).size(); i++) {
@@ -103,15 +86,13 @@ public class CompletedCommand {
 
             ui.readCommand();
             int moduleCodeIndex = Integer.parseInt(ui.fullCommand);
-
-            if (moduleCodeIndex < 0 || moduleCodeIndex
+            if (moduleCodeIndex < 0 || moduleCodeIndex == 0 || moduleCodeIndex
                     > specMap.get(checkKey).size()) {
                 throw new DukeException("The module index"
-                        + "does not exist.");
+                        + " does not exist.");
             }
             String moduleCode
                     = specMap.get(checkKey).get(moduleCodeIndex - 1).code;
-
             boolean isEqual = false;
             for (String key : completedEMap.keySet()) {
                 if (checkKey.equals(key)) {
@@ -123,7 +104,6 @@ public class CompletedCommand {
                 completedElectiveList.add(moduleCode);
                 completedEMap.put(checkKey, completedElectiveList);
             }
-
             System.out.println("You have completed " + moduleCode + ".");
 
             String toStoreCN = "";
@@ -132,10 +112,9 @@ public class CompletedCommand {
             String toStoreIDM = "";
             String toStoreLS = "";
             String toStoreSC = "";
-
             for (String key : completedEMap.keySet()) {
                 if (key.equals("Communications & Networking")) {
-                    for (int i = 0; i < completedEMap.get("Communications"
+                    for (int i = 0; i < completedEMap.get("Communications "
                             + "& Networking").size(); i++) {
                         toStoreCN = toStoreCN.concat("Communications "
                                 + "& Networking"
@@ -145,66 +124,61 @@ public class CompletedCommand {
                     }
                 } else if (key.equals("Embedded Computing")) {
                     for (int i = 0; i < completedEMap.get("Embedded"
-                            + "Computing").size(); i++) {
+                            + " Computing").size(); i++) {
                         toStoreEC = toStoreEC.concat("Embedded Computing"
                                 + "|"
                                 + completedEMap.get("Embedded"
-                                + "Computing").get(i));
+                                + " Computing").get(i));
                     }
                 } else if (key.equals("Intelligent"
-                        + "Systems")) {
+                        + " Systems")) {
                     for (int i = 0; i < completedEMap.get("Intelligent"
-                            + "Systems").size(); i++) {
+                            + " Systems").size(); i++) {
                         toStoreIS = toStoreIS.concat("Intelligent"
-                                + "Systems"
+                                + " Systems"
                                 + "|"
                                 + completedEMap.get("Intelligent"
-                                + "Systems").get(i));
+                                + " Systems").get(i));
                     }
                 } else if (key.equals("Interactive"
-                        + "Digital Media")) {
+                        + " Digital Media")) {
                     for (int i = 0; i < completedEMap.get("Interactive"
-                            + "Digital Media").size(); i++) {
+                            + " Digital Media").size(); i++) {
                         toStoreIS = toStoreIS.concat("Interactive"
-                                + "Digital Media"
+                                + " Digital Media"
                                 + "|"
                                 + completedEMap.get("Interactive"
-                                + "Digital Media").get(i));
+                                + " Digital Media").get(i));
                     }
                 } else if (key.equals("Large-Scale"
-                        + "Computing")) {
+                        + " Computing")) {
                     for (int i = 0; i < completedEMap.get("Large-Scale"
-                            + "Computing").size(); i++) {
+                            + " Computing").size(); i++) {
                         toStoreIS = toStoreIS.concat("Large-Scale"
-                                + "Computing"
+                                + " Computing"
                                 + "|"
                                 + completedEMap.get("Large-Scale"
-                                + "Computing").get(i));
+                                + " Computing").get(i));
                     }
                 } else if (key.equals("System-On-A-Chip"
-                        + "Design")) {
+                        + " Design")) {
                     for (int i = 0; i < completedEMap.get("System-On-A-Chip"
-                            + "Design").size(); i++) {
+                            + " Design").size(); i++) {
                         toStoreIS = toStoreIS.concat("System-On-A-Chip"
-                                + "Design"
+                                + " Design"
                                 + "|"
                                 + completedEMap.get("System-On-A-Chip"
-                                + "Design").get(i));
+                                + " Design").get(i));
                     }
                 }
                 String allCompletedE = toStoreCN
-                        + "\n"
-                        + toStoreEC
-                        + "\n"
-                        + toStoreIS
-                        + "\n"
-                        + toStoreIDM
-                        + "\n"
-                        + toStoreLS
-                        + "\n"
-                        + toStoreSC;
-                storage.completedElectivesStorage(allCompletedE);
+                        + "\n" + toStoreEC + "\n"
+                        + toStoreIS + "\n" + toStoreIDM + "\n"
+                        + toStoreLS + "\n" + toStoreSC;
+                storage.writeToCompletedElectivesFile(allCompletedE);
             }
+        } catch (NumberFormatException e) {
+            System.out.println("Please only key in the index.");
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
