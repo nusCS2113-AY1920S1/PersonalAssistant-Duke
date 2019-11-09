@@ -53,14 +53,13 @@ public class RecurParse extends Parse {
                 isRecur = true;
             }
 
-            if (!super.isValidModCodeAndDescription(modCodeAndDescription)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode + description of an event cannot be empty.");
+            if (!super.isValidModCodeAndDescription(modCodeAndDescription)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_EMPTY_MODCODE_DESCRIPTION_ERROR);
             if (!super.isModCode(modCodeAndDescription)) {
-                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.INVALID_MODCODE_ERROR);
             }
             String[] checkSplit = modCodeAndDescription.trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
-            if (!super.isValidDescription(checkSplit)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of an event cannot be empty.");
-            if(!super.isValidTimePeriod(dateAndTime)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of an event can only contain digits and the time has to be 4 digits.\n" +
-                    "Please enter the time in a 24-hour time format");
+            if (!super.isValidDescription(checkSplit)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_EMPTY_DESCRIPTION_ERROR);
+            if(!super.isValidTimePeriod(dateAndTime)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_TIME_FORMAT_ERROR);
             String[] in = DateTimeParser.recurringEventParse(dateAndTime);
             String startDateString = in[0];
             String endDateString = in[1];
@@ -69,10 +68,7 @@ public class RecurParse extends Parse {
             return new RecurringCommand(modCodeAndDescription, startDateString, endDateString, startTimeString, endTimeString, isBiweekly, isRecur);
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
             LOGGER.severe("Invalid recur format");
-            throw new DukeInvalidFormatException("OOPS!!! Please enter recurring event as follows:\n" +
-                    "recur/(fill) modCode name_of_event /start dd/MM/yyyy to dd/MM/yyyy /from HHmm /to HHmm\n" +
-                    "Note: replace (fill) with either: weekly, biweekly, rmweekly, rmbiweekly\n" +
-                    "For example: recur/weekly CS1231 project meeting /start 1/10/2019 to 15/11/2019 /from 1500 /to 1700");
+            throw new DukeInvalidFormatException(DukeConstants.RECUR_EVENT_FORMAT);
         }
     }
 }
