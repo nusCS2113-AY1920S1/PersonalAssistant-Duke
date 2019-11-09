@@ -15,11 +15,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -123,7 +121,6 @@ public class MainWindow extends GridPane {
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-
     }
 
     public void setJavaCake(JavaCake d) {
@@ -552,8 +549,8 @@ public class MainWindow extends GridPane {
             }
             return true;
         } else if (input.equals("reminder")) {
-            response = "Reminders are shown over there! ================>>>\n";
-            showContentContainer();
+            //response = "Reminders are shown over there! ================>>>\n";
+            //showContentContainer();
             showRemindersBox();
             JavaCake.logger.log(Level.INFO, "Reminder setting");
             return true;

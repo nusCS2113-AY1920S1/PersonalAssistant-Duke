@@ -88,6 +88,9 @@ public class DialogBox extends HBox {
         charList = displayText.toCharArray();
         setScrollText();
         dialog.setText(displayText.substring(0, 1));
+
+
+
     }
 
     private void setScrollText() {
