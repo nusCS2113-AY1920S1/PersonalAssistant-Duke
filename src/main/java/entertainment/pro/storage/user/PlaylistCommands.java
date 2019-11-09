@@ -1,10 +1,10 @@
 package entertainment.pro.storage.user;
 
-import entertainment.pro.commons.exceptions.PlaylistExceptions;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.Playlist;
 import entertainment.pro.model.PlaylistMovieInfoObject;
 import entertainment.pro.storage.utils.EditPlaylistJson;
+import entertainment.pro.storage.utils.EditProfileJson;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -34,6 +34,7 @@ public class PlaylistCommands {
         editPlaylistJson.deletePlaylist();
     }
 
+
     /**
      * to add movies to playlist.
      */
@@ -41,26 +42,8 @@ public class PlaylistCommands {
         Playlist playlist = editPlaylistJson.load();
         ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
         for (String log : flagMap.get("-m")) {
-            try {
-                PlaylistExceptions.checkIndexInput(log.trim());
-            } catch (PlaylistExceptions e) {
-                System.out.println(e);
-                continue;
-            }
             int index = Integer.parseInt(log.trim()) - 1;
-            try {
-                PlaylistExceptions.checkIndex(index, movies.size());
-            } catch (PlaylistExceptions e) {
-                System.out.println(e);
-                continue;
-            }
-            MovieInfoObject movie = movies.get(index);
-            try {
-                PlaylistExceptions.checkMovieForAdd(movie, playlist);
-                playlistMovies.add(movie);
-            } catch (PlaylistExceptions e) {
-                System.out.println(e);
-            }
+            playlistMovies.add(movies.get(index));
         }
         ArrayList<PlaylistMovieInfoObject> newPlaylistMovies = convert(playlistMovies);
         playlist.add(newPlaylistMovies);
@@ -74,19 +57,9 @@ public class PlaylistCommands {
         Playlist playlist = editPlaylistJson.load();
         ArrayList<PlaylistMovieInfoObject> toDelete = new ArrayList<>();
         for (String log : flagMap.get("-m")) {
-            try {
-                PlaylistExceptions.checkIndexInput(log.trim());
-            } catch (PlaylistExceptions e) {
-                System.out.println(e);
-                continue;
-            }
             int index = Integer.parseInt(log.trim()) - 1;
-            try {
-                PlaylistExceptions.checkIndex(index, playlist.getMovies().size());
-                toDelete.add(playlist.getMovies().get(index));
-            } catch (PlaylistExceptions e) {
-                System.out.println(e);
-            }
+            toDelete.add(playlist.getMovies().get(index));
+
         }
         playlist.remove(toDelete);
         editPlaylistJson.editPlaylist(playlist);
@@ -109,7 +82,6 @@ public class PlaylistCommands {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String string = dateFormat.format(date);
             System.out.println("help " + log.getTitle() + " " + log.getFullPosterPathInfo());
-            //int fakeType = 12345;
             boolean fakeType = false;
             PlaylistMovieInfoObject testMovie = new PlaylistMovieInfoObject(fakeType, log.getId(),
                     log.getTitle(), log.getReleaseDateInfo(), log.getSummaryInfo(), log.getRatingInfo(),
@@ -155,6 +127,7 @@ public class PlaylistCommands {
         Playlist playlist = editPlaylistJson.load();
         playlist.setPlaylistName(newName);
         editPlaylistJson.renamePlaylist(playlist, newName);
+
     }
 
     /**
@@ -174,6 +147,7 @@ public class PlaylistCommands {
         playlist.setPlaylistName(newName);
         playlist.setDescription(description);
         editPlaylistJson.renamePlaylist(playlist, newName);
+        editPlaylistJson = new EditPlaylistJson(newName);
         editPlaylistJson.editPlaylist(playlist);
     }
 }

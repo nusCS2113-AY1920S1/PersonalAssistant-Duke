@@ -29,15 +29,20 @@ import java.util.logging.Logger;
 public class RetrieveRequest implements InfoFetcher {
     private static final String DEFAULT_IMAGE_FILENAME = "/images/cross.png";
     private static final String RECACHE_IO_ERROR = "IOException took place when recaching data";
-    private static final String PRINT_SUITABLE_FOR = "Suitable for";
-    private static final String UNAVAILABLE_INFO = "N/A";
+    private static final String PRINT_SUITABLE_FOR = "Suitable for ";
+    private static final String UNAVAILABLE_INFO = "Unavailable";
     private static final String RECACHE_PARSE_ERROR = "Parsing error took place when recaching data";
     private static RequestListener requestListener;
-    private ArrayList<MovieInfoObject> finalSearchResults = new ArrayList<>();
-    private SearchProfile searchProfile;
+    public static ArrayList<MovieInfoObject> finalSearchResults = new ArrayList<>();
+    public static SearchProfile searchProfile;
+
+    public static void setGetType(MoviesRequestType getType) {
+        RetrieveRequest.getType = getType;
+    }
+
     private static RetrieveRequest.MoviesRequestType getType;
-    private boolean isOffline = false;
-    private String messageToBePrinted = "";
+    private static boolean isOffline = false;
+    public static String messageToBePrinted = "";
     private static final Logger logger = Logger.getLogger(RetrieveRequest.class.getName());
 
 
@@ -58,6 +63,10 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String TO_SPECIFY_CERTIFICATION = "certification";
     private static final String TO_SPECIFY_RELEASE_DATES = "release_dates";
     private static final String TO_SPECIFY_TRUE = "true";
+    private static final String TO_SPECIFY_U = "U";
+    private static final String TO_SPECIFY_PG = "PG";
+    private static final String TO_SPECIFY_12A = "12A";
+    private static final String TO_SPECIFY_18A = "18A";
 
 
     // General Data Request URL's
@@ -301,8 +310,8 @@ public class RetrieveRequest implements InfoFetcher {
             } else {
                 cert = getTVCertFromJSON(casts);
             }
-        } catch (MalformedURLException | org.json.simple.parser.ParseException ex) {
-            ex.printStackTrace();
+        } catch (MalformedURLException | org.json.simple.parser.ParseException | ClassCastException | NullPointerException ex) {
+            cert = UNAVAILABLE_INFO;
         }
         return cert;
     }
@@ -321,12 +330,19 @@ public class RetrieveRequest implements InfoFetcher {
                 JSONObject castPair = (JSONObject) certInfo.get(i);
                 if (castPair.get(TO_SPECIFY_ISO).equals(TO_SPECIFY_UK)) {
                     certStrings = castPair.get(TO_SPECIFY_RATING).toString();
-                    cert = PRINT_SUITABLE_FOR + certStrings + " years & above";
+                    if (certStrings.equals(TO_SPECIFY_12A) || certStrings.equals(TO_SPECIFY_18A) ||
+                    certStrings.equals(TO_SPECIFY_U) || certStrings.equals(TO_SPECIFY_PG)) {
+                        cert = certStrings;
+                    } else {
+                        cert = PRINT_SUITABLE_FOR + certStrings + " years & above";
+                    }
                 }
             }
-        } catch (NullPointerException e) {
-            requestListener.requestTimedOut(PromptMessages.API_FAIL_GENERAL);
-            throw new FailedAPIException(PromptMessages.API_NULL_DATA);
+        } catch (ClassCastException | NullPointerException ex) {
+            cert = UNAVAILABLE_INFO;
+        }
+        if (cert.equals("\"\"") || (cert.equals("\" \""))) {
+            cert = UNAVAILABLE_INFO;
         }
         return cert;
     }
@@ -337,29 +353,36 @@ public class RetrieveRequest implements InfoFetcher {
      * @param certInfo JSONArray from which the certification for the movie is extacted.
      * @return Certification for the movie from a JSONArray.
      */
-    public static String getMovieCertFromJSON(JSONArray certInfo) {
+    public static String getMovieCertFromJSON(JSONArray certInfo) throws org.json.simple.parser.ParseException, ClassCastException, NullPointerException {
         String cert = UNAVAILABLE_INFO;
         String certStrings = "";
-        for (int i = 0; i < certInfo.size(); i += 1) {
-            JSONObject castPair = (JSONObject) certInfo.get(i);
-            if (castPair.get(TO_SPECIFY_ISO).equals(TO_SPECIFY_US)) {
-                //SONArray jsonArray = castPair.get(RELEASE_DATE)
-                Map certMap = (Map) certInfo.get(i);
-                Iterator<Map.Entry> itr1 = certMap.entrySet().iterator();
-                while (itr1.hasNext()) {
-                    Map.Entry pair = itr1.next();
-                    if (pair.getKey().equals(TO_SPECIFY_RELEASE_DATES)) {
-                        certStrings = pair.getValue().toString();
+        try {
+            for (int i = 0; i < certInfo.size(); i += 1) {
+                JSONObject castPair = (JSONObject) certInfo.get(i);
+                if (castPair.get(TO_SPECIFY_ISO).equals(TO_SPECIFY_US)) {
+                    //SONArray jsonArray = castPair.get(RELEASE_DATE)
+                    Map certMap = (Map) certInfo.get(i);
+                    Iterator<Map.Entry> itr1 = certMap.entrySet().iterator();
+                    while (itr1.hasNext()) {
+                        Map.Entry pair = itr1.next();
+                        if (pair.getKey().equals(TO_SPECIFY_RELEASE_DATES)) {
+                            certStrings = pair.getValue().toString();
+                        }
+                    }
+                    System.out.println("this is:" + certStrings);
+                    String[] getCert = certStrings.strip().split(TO_SPECIFY_CERTIFICATION);
+                    if (getCert.length == 2) {
+                        cert = getCert[1].substring(2, getCert[1].length() - 2);
+                    } else {
+                        cert = getCert[getCert.length - 1].substring(2, getCert[getCert.length - 1].length() - 2);
                     }
                 }
-                System.out.println("this is:" + certStrings);
-                String[] getCert = certStrings.strip().split(TO_SPECIFY_CERTIFICATION);
-                if (getCert.length == 2) {
-                    cert = getCert[1].substring(2, getCert[1].length() - 2);
-                } else {
-                    cert = getCert[getCert.length - 1].substring(2, getCert[getCert.length - 1].length() - 2);
-                }
             }
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            cert = UNAVAILABLE_INFO;
+        }
+        if (cert.equals("\"\"") || (cert.equals("\" \""))) {
+            cert = UNAVAILABLE_INFO;
         }
         return cert;
     }
@@ -394,10 +417,10 @@ public class RetrieveRequest implements InfoFetcher {
                 JSONObject castPair = (JSONObject) casts.get(i);
                 castInfoStrings.add((String) castPair.get(KEYWORD_FOR_NAME));
             }
-        } catch (MalformedURLException | org.json.simple.parser.ParseException ex) {
-            throw new Exceptions(PromptMessages.API_FAIL_GENERAL);
+        } catch (MalformedURLException | org.json.simple.parser.ParseException | ClassCastException | NullPointerException ex) {
+            castInfoStrings = new ArrayList<>();
         }
-        return castInfoStrings;
+                return castInfoStrings;
     }
 
 
@@ -493,7 +516,7 @@ public class RetrieveRequest implements InfoFetcher {
      * Also responsible for sorting results according to user's preferences.
      * @param searchResults JSONArray that contains data about all the search results.
      */
-    private void parseJSON(JSONArray searchResults) {
+    public static void parseJSON(JSONArray searchResults) {
         ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
         int size = 0;
         //max size of results that are to be displayed set at 20
@@ -537,7 +560,7 @@ public class RetrieveRequest implements InfoFetcher {
     /**
      * Responsible for sorting the list of search results by their ratings from highly rated to least highly rated.
      */
-    private void sortByHighestRating() {
+    public static void sortByHighestRating() {
         finalSearchResults.sort(new Comparator<MovieInfoObject>() {
             public int compare(MovieInfoObject v1, MovieInfoObject v2) {
                 return Double.compare(v2.getRatingInfo(), v1.getRatingInfo());
@@ -548,7 +571,7 @@ public class RetrieveRequest implements InfoFetcher {
     /**
      * Responsible for sorting the list of search results by their release dates from latest to least latest.
      */
-    private void sortByLatestRelease() {
+    public static void sortByLatestRelease() {
         finalSearchResults.sort(new Comparator<MovieInfoObject>() {
             public int compare(MovieInfoObject v1, MovieInfoObject v2) {
                 return v2.getReleaseDateInfo().compareTo(v1.getReleaseDateInfo());
@@ -560,7 +583,7 @@ public class RetrieveRequest implements InfoFetcher {
     /**
      * Responsible for sorting the list of search results in alphabetical order from lowest letter to highest letter.
      */
-    private void sortByAlphaOrder() {
+    public static void sortByAlphaOrder() {
         finalSearchResults.sort(new Comparator<MovieInfoObject>() {
             public int compare(MovieInfoObject v1, MovieInfoObject v2) {
                 return v1.getTitle().compareTo(v2.getTitle());
@@ -608,8 +631,8 @@ public class RetrieveRequest implements InfoFetcher {
      * @param data JSONObject containing the information about a movie/TV show.
      * @return MovieInfo object containing information about a movie/TV show.
      */
-    private MovieInfoObject parseMovieJSON(JSONObject data) {
-        String title = "";
+    private static MovieInfoObject parseMovieJSON(JSONObject data) {
+        String title = UNAVAILABLE_INFO;
         boolean isMovie = false;
 
         // Parse title
@@ -650,14 +673,14 @@ public class RetrieveRequest implements InfoFetcher {
         } else {
             releaseDateString = (String) data.get("first_air_date");
         }
+        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
         if (releaseDateString != null) {
             try {
-                SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
                 releaseDate = formatter1.parse(releaseDateString);
                 //System.out.println("this is " + releaseDate);
                 //System.out.println(releaseDate);
             } catch (ParseException e) {
-                releaseDate = null;
+                releaseDate = new Date();
             }
         }
 
@@ -822,7 +845,7 @@ public class RetrieveRequest implements InfoFetcher {
      * @param entryInfo JSONObject containing all the information about a movie/TV show.
      * @return true if the movie/TV show meets users' preferences and requirements.
      */
-    private boolean checkCondition(JSONObject entryInfo) {
+    public static boolean checkCondition(JSONObject entryInfo) {
 
         //System.out.println(searchProfile.getName());
         if ((isOffline) && getType.equals(MoviesRequestType.SEARCH_MOVIES)) {

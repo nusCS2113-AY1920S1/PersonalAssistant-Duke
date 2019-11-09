@@ -1,8 +1,8 @@
 package entertainment.pro.logic.parsers.commands;
 
-import entertainment.pro.commons.exceptions.PlaylistExceptions;
-import entertainment.pro.model.MovieInfoObject;
-import entertainment.pro.model.Playlist;
+import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
+import entertainment.pro.commons.exceptions.InvalidParameterException;
+import entertainment.pro.commons.exceptions.logic.PlaylistExceptions;
 import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.user.PlaylistCommands;
 import entertainment.pro.storage.utils.EditProfileJson;
@@ -66,15 +66,14 @@ public class PlaylistCommand extends CommandSuper {
         String createPlaylistName = this.getPayload();
         UserProfile userProfile = new EditProfileJson().load();
         ProfileCommands profileCommands = new ProfileCommands(userProfile);
-        PlaylistCommands playlistCommands = new PlaylistCommands(createPlaylistName);
         try {
-            PlaylistExceptions.checkNameExist(createPlaylistName, userProfile);
+            PlaylistExceptions.checkCreateCommand(createPlaylistName, userProfile);
             profileCommands.addPlaylist(createPlaylistName);
+            PlaylistCommands playlistCommands = new PlaylistCommands(createPlaylistName);
             playlistCommands.create();
             movieHandler.setLabels();
             movieHandler.refresh();
-        } catch (PlaylistExceptions e) {
-            System.out.println(e);
+        } catch (InvalidParameterException | InvalidFormatCommandException e) {
             movieHandler.setGeneralFeedbackText(e.getMessage());
         }
         movieHandler.clearSearchTextField();
@@ -93,14 +92,14 @@ public class PlaylistCommand extends CommandSuper {
         UserProfile userProfile = new EditProfileJson().load();
         ProfileCommands profileCommands = new ProfileCommands(userProfile);
         try {
-            PlaylistExceptions.checkPayloadPlaylist(deletePlaylistName, userProfile);
+            PlaylistExceptions.checkDeleteCommand(deletePlaylistName, userProfile);
             profileCommands.deletePlaylist(deletePlaylistName);
             PlaylistCommands playlistCommands = new PlaylistCommands(deletePlaylistName);
             playlistCommands.delete();
             movieHandler.setLabels();
             movieHandler.refresh();
-        } catch (PlaylistExceptions e) {
-            System.out.println(e);
+        } catch (InvalidParameterException | InvalidFormatCommandException e) {
+            movieHandler.setGeneralFeedbackText(e.getMessage());
         }
         movieHandler.clearSearchTextField();
     }
@@ -118,17 +117,16 @@ public class PlaylistCommand extends CommandSuper {
         UserProfile userProfile = new EditProfileJson().load();
         if (movieHandler.getPageTracker().isMainPage()) {
             try {
-                PlaylistExceptions.checkPayloadPlaylist(playlistName, userProfile);
+                PlaylistExceptions.checkAddCommand(playlistName, this.getFlagMap(),
+                        userProfile, movieHandler.getmMovies());
                 PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
                 playlistCommands.add(this.getFlagMap(), movieHandler.getmMovies());
-                movieHandler.refresh();
-            } catch (PlaylistExceptions e) {
-                System.out.println(e);
+            } catch (InvalidFormatCommandException | InvalidParameterException | IOException e) {
+                movieHandler.setGeneralFeedbackText(e.getMessage());
             }
+        } else {
+            movieHandler.setGeneralFeedbackText("there are no shows here to be added :( try making a search first!");
         }
-        /*
-        set feedback to tell user cant add movies here?
-         */
         movieHandler.clearSearchTextField();
     }
 
@@ -145,20 +143,19 @@ public class PlaylistCommand extends CommandSuper {
         UserProfile userProfile = new EditProfileJson().load();
         if (movieHandler.getPageTracker().isPlaylistInfo()) {
             try {
-                PlaylistExceptions.checkPayloadPlaylist(playlistName, userProfile);
-            } catch (PlaylistExceptions e) {
-                System.out.println(e);
-                return;
+                PlaylistExceptions.checkRemoveCommand(playlistName, this.getFlagMap(),
+                        userProfile, movieHandler.getmMovies());
+                movieHandler.setPlaylistName(playlistName);
+                PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
+                playlistCommands.remove(this.getFlagMap());
+                movieHandler.refresh();
+            } catch (InvalidParameterException | InvalidFormatCommandException e) {
+                movieHandler.setGeneralFeedbackText(e.getMessage());
             }
-            movieHandler.clearSearchTextField();
-            movieHandler.setPlaylistName(playlistName);
-            PlaylistCommands playlistCommands = new PlaylistCommands(this.getPayload());
-            playlistCommands.remove(this.getFlagMap());
-            movieHandler.refresh();
+        } else {
+            movieHandler.setGeneralFeedbackText("there are not shows here to be removed :( "
+                    + "try going into the playlist first using the command: \n playlist list");
         }
-        /*
-        set feedback to tell user cant remove movies here?
-         */
         movieHandler.clearSearchTextField();
     }
 
@@ -173,30 +170,26 @@ public class PlaylistCommand extends CommandSuper {
     private void executeSetToPlaylist() throws IOException {
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         String playlistName = this.getPayload();
-        UserProfile userProfile = new EditProfileJson().load();
+        String newName = "";
+        EditProfileJson editProfileJson = new EditProfileJson();
+        UserProfile userProfile = editProfileJson.load();
         try {
-            PlaylistExceptions.checkPayloadPlaylist(playlistName, userProfile);
-        } catch (PlaylistExceptions e) {
-            System.out.println(e);
-            return;
-        }
-        if (this.getFlagMap().containsKey("-n")) {
-            String appendName = appendFlagMap(this.getFlagMap().get("-n"));
-            try {
-                PlaylistExceptions.checkNameExist(appendName, userProfile);
-                PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
-                playlistCommands.setToPlaylist(this.getFlagMap());
-                ProfileCommands profileCommands = new ProfileCommands(new EditProfileJson().load());
-                profileCommands.renamePlaylist(this.getPayload(), appendName);
-                movieHandler.setPlaylistName(appendName);
-                movieHandler.refresh();
-            } catch (PlaylistExceptions e) {
-                System.out.println(e);
-            }
-        } else {
+            PlaylistExceptions.checkSetCommand(playlistName, this.getFlagMap(), userProfile);
             PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
             playlistCommands.setToPlaylist(this.getFlagMap());
+            if (this.getFlagMap().containsKey("-n")) {
+                System.out.println("have what cbbb");
+                newName = appendFlagMap(this.getFlagMap().get("-n"));
+                userProfile.renamePlaylist(playlistName, newName);
+                editProfileJson.updateProfile(userProfile);
+            }
+            if (movieHandler.getPlaylistName().equals(playlistName)) {
+                newName = appendFlagMap(this.getFlagMap().get("-n"));
+                movieHandler.setPlaylistName(newName);
+            }
             movieHandler.refresh();
+        } catch (InvalidParameterException | InvalidFormatCommandException e) {
+            movieHandler.setGeneralFeedbackText(e.getMessage());
         }
         movieHandler.clearSearchTextField();
     }
@@ -213,12 +206,12 @@ public class PlaylistCommand extends CommandSuper {
         String playlistName = this.getPayload();
         UserProfile userProfile = new EditProfileJson().load();
         try {
-            PlaylistExceptions.checkPayloadPlaylist(playlistName, userProfile);
+            PlaylistExceptions.checkClearCommand(playlistName, userProfile);
             PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
             playlistCommands.clear();
             movieHandler.refresh();
-        } catch (PlaylistExceptions e) {
-            System.out.println(e);
+        } catch (InvalidParameterException | InvalidFormatCommandException e) {
+            movieHandler.setGeneralFeedbackText(e.getMessage());
         }
         movieHandler.clearSearchTextField();
     }
@@ -234,14 +227,27 @@ public class PlaylistCommand extends CommandSuper {
         MovieHandler movieHandler = ((MovieHandler)this.getUiController());
         if (!movieHandler.getPageTracker().isPlaylistList()) {
             movieHandler.showPlaylistList();
+        } else {
+            movieHandler.setGeneralFeedbackText("you are already on this page! try other commands instead");
         }
         movieHandler.clearSearchTextField();
     }
 
+    /**
+     * to back to the playlist info page after viewing a movie info in the playlist.
+     * root: playlist
+     * sub: back
+     * payload: none
+     * flag: none
+     */
     private void executeBackToPlaylistInfo() throws IOException {
         System.out.println("yeboi we here");
         MovieHandler movieHandler = ((MovieHandler)this.getUiController());
-        movieHandler.backToPlaylistInfo();
+        if (movieHandler.getPageTracker().isPlaylistMovieInfo()) {
+            movieHandler.backToPlaylistInfo();
+        } else {
+            movieHandler.setGeneralFeedbackText("you can't do that here :o");
+        }
     }
 
     private String appendFlagMap(ArrayList<String> flagMapArrayList) {

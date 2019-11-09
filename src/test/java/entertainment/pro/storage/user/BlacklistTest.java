@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 
 public class BlacklistTest {
@@ -28,9 +30,6 @@ public class BlacklistTest {
         } catch (DuplicateEntryException e) {
 
         }
-
-
-
     }
 
     @Test
@@ -38,7 +37,6 @@ public class BlacklistTest {
         try {
             Blacklist.addToBlacklistKeyWord("");
             assertEmptyAll();
-
 
             Blacklist.addToBlacklistKeyWord("joker");
             Blacklist.addToBlacklistKeyWord("joker");

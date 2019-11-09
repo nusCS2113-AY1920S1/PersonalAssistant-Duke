@@ -14,6 +14,7 @@ public class UserProfile {
     private boolean sortByHighestRating = false;
     private boolean sortByLatestRelease = false;
 
+
     public ArrayList<Integer> getGenreIdPreference() {
         return genreIdPreference;
     }
@@ -92,6 +93,11 @@ public class UserProfile {
 
     public void deletePlaylist(String listName) {
         playlistNames.remove(listName);
+    }
+
+    public void renamePlaylist(String oldName, String newName) {
+        playlistNames.remove((oldName));
+        playlistNames.add(newName);
     }
 
     public String getUserName() {

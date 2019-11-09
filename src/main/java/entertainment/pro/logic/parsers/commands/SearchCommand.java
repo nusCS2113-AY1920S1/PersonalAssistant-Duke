@@ -1,12 +1,10 @@
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.PromptMessages;
-import entertainment.pro.commons.exceptions.DateTimeParseExceptions;
 import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.commons.exceptions.InvalidFormatCommandExceptions;
+import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.InvalidParameterException;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
-import entertainment.pro.logic.parsers.CommandDebugger;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.ProfileCommands;
 import entertainment.pro.ui.Controller;
@@ -14,7 +12,6 @@ import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
-import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import java.io.IOException;
@@ -152,10 +149,10 @@ public class SearchCommand extends CommandSuper {
      * @param searchProfile Object that contains all the preferences of the search request.
      * @param searchEntryName name of movie/TV show that user want search result to be based on, if any.
      * @param isMovie whether the search request is movie or TV shows related.
-     * @throws InvalidFormatCommandExceptions when user input is invalid.
+     * @throws InvalidFormatCommandException when user input is invalid.
      */
     private void getPreferences(MovieHandler movieHandler, SearchProfile searchProfile, String searchEntryName,
-                                boolean isMovie) throws InvalidFormatCommandExceptions {
+                                boolean isMovie) throws InvalidFormatCommandException {
         if (!(getPayload().isEmpty() || getPayload().isBlank())) {
             searchProfile.setName(getPayload());
         }
@@ -166,7 +163,7 @@ public class SearchCommand extends CommandSuper {
                         movieHandler.getUserProfile());
             } else {
                 movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_COMBI_OF_FLAGS);
-                throw new InvalidFormatCommandExceptions();
+                throw new InvalidFormatCommandException();
             }
         } else {
             if (this.getFlagMap().containsKey(GET_NEW_GENRE_PREF)) {
@@ -185,7 +182,7 @@ public class SearchCommand extends CommandSuper {
                 sortOptionConvertToInt = Integer.parseInt(sortOption);
                 if (sortOptionConvertToInt <= 0 || sortOptionConvertToInt > 3) {
                     movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
-                    throw new InvalidFormatCommandExceptions();
+                    throw new InvalidFormatCommandException();
                 }
                 searchProfile.setSortByAlphabetical(getAlphaSortForSearch(getUserSortPref.get(0)));
                 searchProfile.setSortByLatestRelease(getDatesSortForSearch(getUserSortPref.get(0)));
@@ -269,9 +266,9 @@ public class SearchCommand extends CommandSuper {
     /**
      * Responsible for returning whether user prefers adult content to be included inside search request results..
      * @return true if user prefers adult content to be included inside search request results and false otherwise.
-     * @throws InvalidFormatCommandExceptions when user input is invalid.
+     * @throws InvalidFormatCommandException when user input is invalid.
      */
-    private boolean getAdultPrefForSearch() throws InvalidFormatCommandExceptions {
+    private boolean getAdultPrefForSearch() throws InvalidFormatCommandException {
         System.out.println(getFlagMap().get(GET_NEW_ADULT_RATING));
         if (getFlagMap().get(GET_NEW_ADULT_RATING).contains(USER_PREF_FOR_ADULT_TRUE)) {
             return true;
@@ -279,7 +276,7 @@ public class SearchCommand extends CommandSuper {
             return false;
         } else {
             ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
-            throw new InvalidFormatCommandExceptions();
+            throw new InvalidFormatCommandException();
         }
     }
 

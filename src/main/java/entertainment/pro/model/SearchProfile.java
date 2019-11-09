@@ -38,6 +38,22 @@ public class SearchProfile extends UserProfile {
         this.isMovie = isMovie;
     }
 
+
+    public SearchProfile(ArrayList<Integer> genreIdPreference,
+                         ArrayList<Integer> genreIdRestriction, boolean adult,
+                         boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease,
+                         String name, boolean isMovie) {
+        super.setGenreIdPreference(genreIdPreference);
+        super.setGenreIdRestriction(genreIdRestriction);
+        super.setAdult(adult);
+        super.setSortByAlphabetical(sortByAlphabetical);
+        super.setSortByHighestRating(sortByHighestRating);
+        super.setSortByLatestRelease(sortByLatestRelease);
+        this.name = name;
+        this.isMovie = isMovie;
+    }
+
+
     /**
      * Responsible for returning the name of movie/TV show that user want search results to be based on.
      * @return The name of movie/TV show that user want search results to be based on.
