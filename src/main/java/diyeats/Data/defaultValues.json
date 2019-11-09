@@ -1,4 +1,10 @@
 {
+  "Mega Zinger Burger": {
+    "calorie": 100
+  },
+  "mega bega burger": {
+    "calorie": 2000
+  },
   "burger": {
     "sodium": 20,
     "fats": 20,

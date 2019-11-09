@@ -20,3 +20,4 @@ pay
 deposit
 done
 list
+add
