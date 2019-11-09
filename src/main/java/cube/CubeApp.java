@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 
 import java.util.logging.Logger;
 
+/**
+ * Entry Point for GUI
+ */
 public class CubeApp extends Application {
 
     private StorageManager storageManager;
