@@ -3,8 +3,6 @@
 package planner.logic.command;
 
 import planner.credential.user.User;
-import planner.util.legacy.schedule.ModTimer;
-import planner.logic.modules.cca.CcaList;
 import planner.main.CliLauncher;
 import planner.util.crawler.JsonWrapper;
 import planner.ui.cli.PlannerUi;
@@ -16,6 +14,7 @@ import java.util.HashMap;
 
 import java.util.Timer;
 import planner.util.legacy.schedule.ScheduledTask;
+import planner.util.legacy.schedule.ModTimer;
 
 public class ReminderCommand extends ModuleCommand {
 
