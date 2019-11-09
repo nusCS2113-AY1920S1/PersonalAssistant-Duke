@@ -31,7 +31,7 @@ public class InputValidator {
      */
     public static void validateAmount(String amountInput) throws ProgramException {
         if (!amountInput.matches(numericValidator)) {
-            throw new ProgramException("The nutritional value or food cost must be numeric.");
+            throw new ProgramException("The food cost must be specified and must be numeric.");
         }
         if (!amountInput.matches(positiveValidator)) {
             throw new ProgramException("Only positive value is accepted.");
