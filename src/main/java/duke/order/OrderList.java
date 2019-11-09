@@ -33,6 +33,27 @@ public class OrderList extends GenericList<Order> {
         this.todoList = new TodayTodoList(orderList);
     }
 
+    /**
+     * @return todoList, Chef's today ToDo list
+     */
+    public TodayTodoList getTodoList() { return this.todoList; }
+
+    /**
+     * init chef's today Todo list
+     */
+    public void initTodoList() { this.todoList = new TodayTodoList(); }
+
+    /**
+     * update chef's today todoList
+     * add all ordered dishes in the order list into empty todoList
+     */
+    public void updateTodoList() {
+        for (Order order : genList) {
+            if (order.isToday()&&(!order.isDone()))
+                todoList.addTodoFromOrder(order);
+        }
+
+    }
 
     /**
      * Marks a order as completed if the user finished it.

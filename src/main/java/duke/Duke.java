@@ -7,13 +7,14 @@ import duke.command.ingredientCommand.RemoveAllExpired;
 import duke.dish.DishList;
 import duke.exception.DukeException;
 import duke.fridge.Fridge;
-import duke.ingredient.IngredientsList;
 import duke.order.OrderList;
 import duke.parser.Parser;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
 import duke.storage.RecipeStorage;
 import duke.ui.Ui;
+
+import java.io.IOException;
 
 /**
  * MAIN CLASS DUKE, start from main function.
@@ -28,9 +29,9 @@ public class Duke {
     private OrderList order;
     private Fridge fridge;
 
-    private final String fridgeFilePath = "data/fridge.txt";
-    private final String orderFilePath = "data/order.txt";
-    private final String recipeFilePath = "data/recipebook.txt";
+    private final String fridgeFilePath = "fridge.txt";
+    private final String orderFilePath = "order.txt";
+    private final String recipeFilePath = "recipebook.txt";
 
     public enum Type {
         INGREDIENT, DISH, ORDER
@@ -49,7 +50,7 @@ public class Duke {
             orderStorage = new OrderStorage(orderFilePath);
             recipeStorage = new RecipeStorage(recipeFilePath); //TODO: use this
             fridge = new Fridge(fridgeStorage);
-            order = new OrderList(orderStorage.getEntries().getAllEntries());
+            order = new OrderList(orderStorage.load().getAllEntries());
         } catch (DukeException e) {
             ui.showLoadingError();
             e.printStackTrace();
@@ -61,7 +62,6 @@ public class Duke {
      */
     public void run() {
         String fullCommand;
-        //ui.clearScreen();
         ui.showWelcome();
 
         if (fridge.hasExpiredIngredients()) {
@@ -82,7 +82,6 @@ public class Duke {
                 ui.showOptions();
                 ui.showLine();
                 fullCommand = ui.readCommand();
-                //ui.clearScreen();
                 ui.showLine();
                 switch (fullCommand) {
                     case "options": {
@@ -113,7 +112,6 @@ public class Duke {
                         while (true) {
                             try {
                                 fullCommand = ui.readCommand();
-                                //ui.clearScreen();
                                 if (fullCommand.trim().equals("back")) {
                                     break;
                                 }
@@ -146,7 +144,6 @@ public class Duke {
                         while (true) {
                             try {
                                 fullCommand = ui.readCommand();
-                                //ui.clearScreen();
                                 if (fullCommand.trim().equals("back")) { break; }
                                 if (fullCommand.trim().equals("q")) {
                                     Command command = new ExitCommand();
@@ -171,7 +168,6 @@ public class Duke {
                             try {
                                 ui.showDishTemplate();
                                 fullCommand = ui.readCommand();
-                                //ui.clearScreen();
                                 if(fullCommand.trim().equals("q")) {
                                     Command command = new ExitCommand();
                                     command.execute(null, dish, order, ui, fridgeStorage, orderStorage);
@@ -182,7 +178,6 @@ public class Duke {
                                     break;
                                 }
                                 if(fullCommand.trim().equals("template")) {
-                                    //ui.clearScreen();
                                     continue;
                                 }
                                 Command command = Parser.parse(fullCommand, Type.DISH);
@@ -194,9 +189,9 @@ public class Duke {
                         break;
                     }
                     default:
-                        throw new DukeException("wrong input");
+                        System.out.println("\t OOPS!!! Wrong input!");
                 }
-            } catch (DukeException e) {
+            } catch (DukeException | IOException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

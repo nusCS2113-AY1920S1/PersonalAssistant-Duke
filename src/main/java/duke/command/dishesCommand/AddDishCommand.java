@@ -20,6 +20,16 @@ public class AddDishCommand extends Command {
         this.dish = dish;
     }
 
+    //@@ Author 9hafidz6
+    /**
+     * @param fridge
+     * @param dishList
+     * @param ol
+     * @param ui
+     * @param fs
+     * @param os
+     * @throws DukeException
+     */
     @Override
     public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         boolean flag = true;

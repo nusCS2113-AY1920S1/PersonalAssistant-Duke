@@ -17,11 +17,11 @@ public class IngredientsList extends GenericList<Ingredient> {
     public IngredientsList() {
         super();
     }
-
+    /*
     public void changeIngredientsDate(int Nb, Date date) throws DukeException {
         genList.get(Nb).changeDate(date);
     }
-
+*/
     @Override
     public void addEntry(Ingredient ingredient) {
         if (genList.contains(ingredient) && this.getEntry(ingredient).getExpiryDate().equals(ingredient.getExpiryDate())) {
@@ -40,16 +40,6 @@ public class IngredientsList extends GenericList<Ingredient> {
         }
         return ingredient.getAmount() <= currAmount;        //if needed amount is less than or equal to amount we have, means we have enough
         // return getAllEntries().contains(ingredient);
-    }
-
-
-    public void changeName(int Nb, String name) {
-        genList.get(Nb).setName(name);
-    }
-
-
-    public void changeAmount(int Nb, Integer amount) {
-        genList.get(Nb).changeAmount(amount);
     }
 
     public String toString() {

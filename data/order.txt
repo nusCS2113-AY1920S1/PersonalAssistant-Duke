@@ -1,0 +1,10 @@
+0|07/11/2019|D|fish|1|D|chili crab|1|D|rice|2
+0|07/11/2019|D|cereal shrimp|1
+0|12/11/2019|D|beef noodle|1|D|pork dumplings|2
+0|12/09/2018|D|beef noodle|1|D|chili crab|1|D|rice|3
+0|07/11/2019|D|cereal shrimp|1|D|soup|4
+0|31/12/2019|D|beef|1|D|pork dumplings|2|D|beef noodle|1
+0|31/12/2019|D|beef|1|D|pork dumplings|2
+0|31/12/2017|D|beef|1|D|pork dumplings|2|D|beef noodle|1
+0|31/12/2017|D|beef|1|D|pork dumplings|2|D|beef noodle|1
+0|07/11/2019|D|fried chicken|1

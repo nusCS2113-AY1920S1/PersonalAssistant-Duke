@@ -18,7 +18,9 @@ public class TodayTodoList {
     public TodayTodoList(List<Order> orderList) {
         this.tasks = new LinkedHashMap<>();
         for (Order order: orderList) {
-            addTodoFromOrder(order);
+            if (order.isToday()&&(!order.isDone())) {
+                addTodoFromOrder(order);
+            }
         }
     }
 
@@ -61,6 +63,9 @@ public class TodayTodoList {
         Date date = new Date();
         String output="\t Today Task list ("+date+")";
         int cnt=0;
+        if (tasks.size()==0) {
+            output+="\n\t None!";
+        }
         for (Map.Entry<String, Integer> entry : tasks.entrySet()) {
             cnt++;
             String dishName = entry.getKey();

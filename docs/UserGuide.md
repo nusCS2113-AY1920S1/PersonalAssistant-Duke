@@ -1,28 +1,73 @@
-# Restaurant Manager - User Guide
+# Chef Duke - User Guide
 
-1.  Introduction
+1. Introduction
+
 2. Quick Start
+
 3. Features
-   - Menu
-   - Adding Dish
-   - Adding Ingredient to Dish
-   - List all Dish
-   - Initialize Dish
-   - Removing Dish
-   - Load and save tasks to hard disk
-   - Identify dates and times
-   - delete: Delete a task
-   - find: Find a task by searching for a keyword. 
-   - Error Handling 
+
+   3.1 Main Menu
+   
+   3.2 Dish
+   
+   ​	3.2.1 Adding Dish
+   
+   ​	3.2.2 Adding Ingredient to Dish
+   
+   ​	3.2.3 List all Dishes
+   
+   ​	3.2.4 Initializing the Dish
+   
+   ​	3.2.5 Removing a Dish
+   
+   3.3 Ingredient
+   
+   ​	3.3.1 Adding Ingredient
+   
+   ​	3.3.2 Removing Ingredient
+   
+   ​	3.3.3 Finding Ingredients
+   
+   ​	3.3.4 Listing all Expired Ingredient on Date itself
+   
+   ​	3.3.5 Removing all Expired Ingredient 
+   
+   ​	3.3.6 Using an Ingredient
+   
+   3.4 Fridge
+   
+   ​	3.4.1 Add an Ingredient to Fridge
+   
+   ​	3.4.2 Removing an Ingredient from Fridge
+   
+   ​	3.4.3 Use Ingredient from Fridge 
+   
+   ​	3.4.4 Remove all Expired Ingredient from Fridge
+   
+   3.5 Order
+   
+   ​	3.5.1 Adding Order Today or Pre-Order
+   
+   ​	3.5.2 Altering Order Serving Date
+   
+   ​	3.5.3 Cancelling Order
+   
+   ​	3.5.4 Marking Order as Done
+   
+   ​	3.5.5 Initializing Order List
+   
+   ​	3.5.6 Listing Order by Different Filtering Keywords
+   
+   3.6 Todo List Today
+   
 4. Command Summary
-5.  FAQ
+
+5. FAQ
+
 
 ## 1. Introduction
 
 Duke is targeted towards restaurant chefs who wants to be able to consolidate most of the things happening in their kitchen such as recipes, ingredients, expiry dates etc. By using this product, you are able to order all the ingredients needed for your kitchen. Additionally, this application takes in customers order/preorder of the restaurants dishes. Proceed to the Developer Guide [here]( https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/DeveloperGuide.md ) to learn more about this application. 
-
-
-
 ## 2. Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
@@ -31,9 +76,9 @@ Duke is targeted towards restaurant chefs who wants to be able to consolidate mo
 
 3. Copy the file to the folder you want to use as the home folder for your Duke application.
 
-4. Use the command prompt and navigate to the path where the application is downloaded
+4. Use the command prompt and navigate to the path where the application is downloaded `cd ../FILEPATH`
 
-5. run the command `java -jar v1.3` , application will then be executed 
+5. run the command `java -jar v1.3` , application will then be executed 
 
    ![UI]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/Ui.png )
 
@@ -41,37 +86,51 @@ Duke is targeted towards restaurant chefs who wants to be able to consolidate mo
 
 7. Some example commands
 
-   1. given various options in menu, user can type these commands`option` ,`q`, `a`, `b`, `c`, `d`.
+   1. given various options in menu, user can type these commands `options` ,`q`, `t`, `a`, `b`, `c`, `d`.
    2. user enters `d` then `add chicken rice`, dish is then added to the list
    3. user enters `d` then `list`, outputs the the dishes and the ingredients associated to the dish in table form
 
 8. Refer to Section 4 for the full list of commands
 
+
+
 ## 3. Features
 
-**command format**
+**Command Format**
 
-- commands are in `UPPER_CASE` are to be provided by the user eg. `add/DESC`, `DESC` is a parameter which can be used as `add noodle`.
+- Command parameter in `UPPER_CASE` is needed to be specified by the user. E.g., `add DESC` can be specified as `add noodle`.
+- Command parameter followed by `-(...)` is to inform the user of the specifying format. E.g., `ORDER_DATE-(dd/mm/yyyy)` indicates only the format such as `31/12/2019` is accepted. 
+- Some command parameter is followed by `-(option: a (default) | b | c)`, indicating it has `a`, `b`, `c` three options, with the default set to `a`. E.g., for `-l LIST_TYPE-(option: all (default) | undone)`, the user can enter `-l` without further specification as it is equivalent to `-l all`, or specify as `-l undone`.
+- Command parameter can be optional. If it is wrapped by `[...]`, the specification can be dropped and the value is set as `NULL` or default. Otherwise, the parameter must be specified. E.g.,  `add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]` supports command  `add chicken rice*1, cake*2, laksa`, where the order date is set to `date of today` if not specified, and the dish amount is set to `1` if not specified.
 
 ### 3.1 Main Menu
 
-the user is greeted depending on the time of day, `good morning` , `good evening` etc. Upon start up, if there are any expired ingredients in the fridge, the application will prompt the user to clear the expired ingredients. In the Main menu, the user is given various options to enter:
+The user is greeted depending on the time of day, `good morning` , `good evening` etc. Upon start up, if there are any expired ingredients in the fridge, the application will prompt the user to clear the expired ingredients. In the Main menu, the user is given various options to enter:
 
-- `q` , **exits** the application
 - `a`, remove the **expired** ingredients 
 - `b` , proceed to **fridge** commands
-- `c`, proceeds to **order** commands 
+- `c`, proceeds to **order** commands
 - `d`, proceeds to **dish** commands
+- `t`, view today's **todo** list
+- `q` , **exits** the application
 
-### 3.2 Adding Dish: `add`
 
-user needs to enter `d` in main menu first.
 
-To add a dish to the DishList, user needs to execute command below:
+### 3.2 Recipe Book Management
 
-Format: `add <DESC>`
+the user needs to enter command `d` from the Main menu to enter the Dish template.
 
-if the dish already exist in the list, message is output:
+add ui here
+
+#### 3.2.1 Adding Dish
+
+user needs to enter `d` in main menu first.
+
+To add a dish to the DishList, the user needs to execute command below:
+
+Format: `add DISH_NAME`
+
+If the dish already exist in the list, message is output:
 
 ```
          dish already exist in list
@@ -89,15 +148,13 @@ Examples:
          _________________________________________________________________________________________
 ```
 
-
-
-### 3.3 Adding Ingredient to Dish: `ingredient`
+#### 3.2.2 Adding Ingredient to Dish
 
 user needs to enter `d` in main menu first.
 
-Executing this command associates an ingredient to a certain Dish. user needs to execute the command below:
+Executing this command associates an `Ingredient` to an existing `Dish`. The user needs to execute the following command with the below format:
 
-Format: `ingredient <DESC> <AMOUNT> <INDEX>`
+Format: `ingredient INGREDIENT_NAME INGREDIENT_AMOUNT DISH_INDEX`
 
 Examples:
 
@@ -112,16 +169,12 @@ Examples:
 ```
 
 
+#### 3.2.3 List all Dishes
+The user needs to enter the command below:
 
-### 3.4 List all Dishes: `list`
+Format: `list`
 
-user needs to enter `d` in main menu first.
-
-user needs to enter the command below:
-
-Format:`list`
-
-if there are no dishes in list, output message:
+If there are no dishes in list, the program will output the following message:
 
 ```
         OOPS!!! No Dishes yet!.
@@ -131,7 +184,7 @@ if there are no dishes in list, output message:
         'q' to exit
 ```
 
-if user enters a valid command,
+If user enters a valid command and the dish list is not empty, the result will be as follows.
 
 ```
    ____________________________
@@ -143,8 +196,6 @@ if user enters a valid command,
 4. | aglio olio    |           |
 ```
 
-
-
 ```
    _______________________________
    | Dish          | ingredient   |
@@ -153,50 +204,40 @@ if user enters a valid command,
 2. | chicken noodle| noodle,flour,|
 ```
 
-
-
-
-### 3.5 Initializing the Dish List:`initialize`
-
-user needs to enter `d` in main menu first.
-
+#### 3.2.4 Initializing the Dish List
 user needs to enter the command below:
 
 Format: `initialize`
 
-user is then asked to confirm as this command deletes all the entries in the dish
+The user is then asked to confirm as this command deletes all the entries in the dish.
 
-if user enters yes,
+If user enters `y`,
 
 ```
          are you sure you want to clear list? (yes or no)
-yes
+y
          LIST IS CLEARED
 ```
 
-if user enters no,
+If user enters `n`,
 
 ```
          are you sure you want to clear list? (yes or no)
-no
+n
          LIST IS NOT CLEARED
 ```
 
+#### 3.2.5 Removing Dish
+The user needs to enter the command below:
 
-### 3.6 Removing Dish:`remove`
-
-user needs to enter `d` in main menu first.
-
-user needs to enter the command below:
-
-Format: `remove <INDEX>`
+Format: `remove DISH_INDEX`
 
 Examples:
 
 - `remove 1`
 - `remove 2`
 
-if user enters an invalid index, a error message will appear
+If user enters an invalid index, an error message will appear.
 
 ```
         OOPS!!! dish does not exist.
@@ -207,7 +248,7 @@ if user enters an invalid index, a error message will appear
          _________________________________________________________________________________________
 ```
 
-if user enters a valid command,
+Otherwise, it will print out the information of the removed dishes.
 
 ```
          _________________________________________________________________________________________
@@ -216,13 +257,19 @@ if user enters a valid command,
          _________________________________________________________________________________________
 ```
 
-### 3.7 Adding Ingredient
+### 3.3 Ingredient Management by Fridge Storage
 
-User needs to enter `b` in the menu first. To add an ingredient to the IngredientsList, user needs to execute command below:
+To begin with, the user needs to enter command `'a'- remove all expired` or `'b' - add/remove/use an ingredient` in the main menu. In mode `a`, all expired ingredients would be removed after execution of the command `a`. While the execution of command  `b`, directs the user into Ingredient management menu. The below commands, except for removing all expired, are all executed in the Ingredient management menu.
 
-Format: `add ` `ingredient name` `ingredient amount` `ingredient expiry date`
+#### 3.3.1 Adding Ingredient
 
-if the ingredient already exist in the list, but **do not have the same expiry date**, another entry of the ingredient will be created in the ingredient list. **However**, if the ingredient also **have the same expiry date as the existing ingredient in the ingredient list**, the amount of the existing ingredient amount will be added on and no new entry will be created in the ingredient list.
+To add an ingredient to the IngredientsList, user needs to execute command below:
+
+To add an ingredient to the IngredientsList, the user needs to execute command below:
+
+Format: `add `  `INGREDIENT_NAME` `INGREDIENT_AMOUNT` `INGREDIENT_EXPIRY_DATE-(dd/mm/yyyy)`
+
+If the ingredient already exist in the list, but **do not have the same expiry date**, another entry of the ingredient will be created in the ingredient list. **However**, if the ingredient also **have the same expiry date as the existing ingredient in the ingredient list**, the amount of the existing ingredient amount will be added on and no new entry will be created in the ingredient list.
 
 Examples: 
 
@@ -236,13 +283,15 @@ Examples:
          _________________________________________________________________________________________
 ```
 
-### 3.8 Removing Ingredient
+#### 3.3.2 Removing Ingredient
 
-User needs to enter `b` in the menu first. To remove an ingredient from the IngredientsList, user needs to execute command below:
+To remove an ingredient from the IngredientsList, user needs to execute command below:
+
+To remove an ingredient from the IngredientsList, the user needs to execute command below:
 
 Format: `remove ` `ingredient index`
 
-if the ingredient index does not exist in the list, message is output:
+If the ingredient index does not exist in the list, message is output:
 
 ```
 	 ☹ OOPS!!! Enter a valid ingredient index number after delete, between 1 and 14.
@@ -252,7 +301,7 @@ if the ingredient index does not exist in the list, message is output:
 	'q' to exit
 ```
 
-this example was done when the size of the ingredient list is 14.
+This example was done when the size of the ingredient list is 14.
 
 Examples: 
 
@@ -267,13 +316,15 @@ Examples:
          _________________________________________________________________________________________
 ```
 
-### 3.9 Finding Ingredient
+#### 3.3.3 Finding Ingredient
 
-User needs to enter `b` in the menu first. To find an ingredient from the IngredientsList, user needs to execute command below:
+To find an ingredient from the IngredientsList, user needs to execute command below:
 
-Format: `find` `keyword`
+To find an ingredient from the IngredientsList, user needs to execute command below:
 
-if the ingredient index does not exist in the list, message is output:
+Format: `find` `INGREDIENT_NAME`
+
+If the ingredient index does not exist in the list, message is output:
 
 ```
 	 No such ingredient found!
@@ -290,9 +341,35 @@ These are the ingredients you searched for!
 	 9. salt 60 21/07/2021
 ```
 
-### 3.10 Listing all expired ingredients on the date itself
 
-User needs to enter `b` in the menu first. To list all expired ingredient from the IngredientsList on the date itself, user needs to execute command below:
+#### 3.3.4 Using an ingredient 
+
+To use an ingredient from the ingredient list, the user needs to execute command below:
+
+Format: `use`  `INGREDIENT_NAME` `INGREDIENT_AMOUNT` 
+
+If there are not enough required ingredients, message is output:
+
+```
+	 There is not a sufficient amount of rice that is not expired, maybe you could buy some first? 
+```
+
+Examples: 
+
+- `use ` `salt` `50` 
+- `use` ` chilli` `40`  
+
+```
+	 Great you used salt amount: 50
+```
+
+Also, once amount reaches 0, the ingredient will be deleted off from the IngredientsList. 
+
+#### 3.3.5 Listing all expired ingredients on the date itself
+
+To list all expired ingredient from the IngredientsList on the date itself, user needs to execute command below:
+
+To list all expired ingredient from the IngredientsList on the date itself, user needs to execute command below:
 
 Format: `listtoday`
 
@@ -310,11 +387,13 @@ Otherwise,
 	 7. chilli, amount is: 60 expired on 31st of October 2019.
 ```
 
-### 3.11 Removing all expired ingredients 
+#### 3.3.6 Removing all expired ingredients 
 
-User needs to enter `a` in the menu.
+User needs to enter `a` in the menu.
 
-if there are no expired ingredients for the date itself, message is output:
+*Note that*: this removing all expired command is executed by the user entering `a` in the **main menu**.
+
+If there are no expired ingredients for the date itself, message is output:
 
 ```
 	 ☹ OOPS!!! Seems like you don't have any expired ingredients in the fridge!. 
@@ -324,154 +403,368 @@ Otherwise,
 
 ```
 	Removed:  ingredients: 
-salt, amount is: 50 expired on 31st of October 2019
+	salt, amount is: 50 expired on 31st of October 2019
 ```
 
-### 3.12 Using an ingredient 
+### 3.5 Order Management
 
-User needs to enter `b` in the menu first. To use an ingredient from the IngredientsList, user needs to execute command below:
+To begin with, the user needs to enter command `c` in main menu, so as to step into Order management menu. The below commands are all executed in the Order management menu. 
 
-Format: `use` `ingredient name` `amount` 
+#### 3.5.1 Adding Order Today or Pre-Order
 
-if there are not enough required ingredients, message is output:
+To add a new order to the order list, the user needs to execute the command following the below format.
 
-```
-	 There is not a sufficient amount of rice that is not expired, maybe you could buy some first? 
-```
+Format: `add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH1_AMOUNT], DISH2_NAME[*DISH2_AMOUNT], ...`
+
+<u>Requirement:</u>
+
+- The serving date of the order `ORDER_DATE` should be valid and **cannot be before today**. 
+  - If the date is today, the user can simply enter command `add -n DISH_NAME[*DISH_AMOUNT], ...`. 
+  - Otherwise, the order is treated as *pre-order*. `ORDER_DATE` must be specified.
+- The ordered dishes **cannot be empty**.
 
 Examples: 
 
-- `use ` `salt` `50` 
-- `use` ` chilli` `40`  
+- `add -d 31/12/2019 -n beef noodle*3`: there can be only one ordered dishes.
+- `add -d 12/11/2019 -n chicken rice*1, cake*2, laksa`: the amount of laksa is 1, as default.
+- `add -n pasta, mushroom soup` : the serving date of this order is date of today, as default.
+
+Sample output message:
 
 ```
-	 Great you used salt amount: 50
+_________________________________________________________________________________________
+	 Got it. I've added this order: 
+	 [✘] Order on 31/12/2019 
+	    (1) beef noodle 3
+	 Now you have 1 orders in the order list.
+_________________________________________________________________________________________
 ```
 
-Also, once amount reaches 0, the ingredient will be deleted off from the IngredientsList. 
-
-
-
-### 3.13 Error Handling 
-
-handles unexpected commands from the user such as unknown/incomplete command. if user enters an invalid command, the application will output a message that corresponds to what the user entered wrongly.
-
-eg. `deadline` <empty desc>, `deadline` <desc> `by` <empty desc>, `delete` <empty indx>
-
-outputs:
-
 ```
-	 ____________________________________________________________
-	 ☹ OOPS!!! The description cannot be empty.
-	 ____________________________________________________________
-
+_________________________________________________________________________________________
+	 Got it. I've added this order: 
+	 [✘] Order today 
+	    (1) pasta 1
+	    (2) mushroom soup 1
+	 Now you have 2 orders in the order list.
+_________________________________________________________________________________________
 ```
 
-### 3.14 stats: gives the statistics of the Dish
+#### 3.5.2 Altering Order Serving Date
 
-### 3.15 order: creates a new order 
+In pre-order management, it is very likely that the serving date alters. To update the serving date information of an order in the order list, the user needs to execute the command following the below format.
 
-### 3.16 preorder: 
+Format: `alter ORDER_INDEX ORDER_DATE-(dd/mm/yyyy)`
 
-### 3.17 help: shows a list of commands to the user 
+<u>Requirement:</u>
 
-things to include in version 2:
+- Altering a done order is not expected. It will do nothing and reminds you of  `Order done already. Date alteration is not expected.`
+- The range of `ORDER_INDEX` is 1 to the size of the order list.
+- The newly set date should be in valid format and **cannot be before today**. 
+  - If the date is today, the user can simply enter `alter ORDER_INDEX`. 
+  - Otherwise, the order is treated as *pre-order*. `ORDER_DATE` must be specified.
 
-...
+Examples: 
 
-### 3.2 fridge commands
+- `alter 2`: changes the serving date of 2nd order in the order list to today.
+- `alter 1 03/01/2020`: changes the serving date of 2nd order in the order list to `03/01/2020`.
 
-To be able to execute the fridge commands the user must choose, type `'a'- remove all expired` or `'b' - add/remove/use an ingredient` in the main menu.  
+If the order list is empty, the output message would be:
 
- while in mode `b`:
+```
+	 OOPS!!! No order in the list! No order can be altered!
+```
 
-by typing `template`, the user can see how to use which command
+Otherwise, the sample output message would be like:
 
-by typing `show`, the user gets a list of all of the ingredients currently in the fridge, indexed and sorted by expiry date
+```
+_________________________________________________________________________________________
+	 Nice! I've changed the order to the date 07/11/2019:
+	 [✘] Order today 
+	    (1) fish 1
+	    (2) chili crab 1
+	    (3) rice 2
+_________________________________________________________________________________________
+```
 
-by typing `back`, he returns to the main menu
+```
+_________________________________________________________________________________________
+	 Nice! I've changed the order to the date 03/12/2019:
+	 [✘] Order /on 03/12/2019 
+	    (1) fish 1
+	    (2) chili crab 1
+	    (3) rice 2
+_________________________________________________________________________________________
+```
 
-#### 3.2.1 add an ingredient to the Fridge
 
-To add an ingredient to the Fridge, user needs to execute command below:
 
-Format: `add <Ingredient_name> <ingredient_amount> <expiry_date: DD/MM/YYYY>`
+#### 3.5.3 Cancelling Order
 
-Examples:
+To cancel an existing order from the order list, the user needs to execute the command following the below format.
 
-- `add chicken 250 3/11/2019`
+Format: `cancel ORDER_INDEX`
 
-- `add cheese 150 11/11/2019`
+<u>Requirement:</u>
 
-  If the user adds an expired ingredient,eg. `add cheese 150 2/3/2019`  he is warned by ` WARNING! expired ingredient: cheese, amount is: 100 expired on 2nd of March 2019`
+- The range of `ORDER_INDEX` ranges from 1 to the size of the order list. Use command `list` to check `ORDER_INDEX`.
+- Only **today's undone order** or **pre-order** can be cancelled. 
 
-#### 3.2.2 remove an ingredient from the fridge
+Examples: 
 
-To remove an ingredient from the Fridge, user needs to execute command below:
+- `cancel 3`: remove 3rd order in the order list, if exists.
 
-Format: `remove <Ingredient_index>`
+If the order list is empty, the output message would be:
 
-The ingredient index can be found by typing `show`, see details above.
+```
+	 OOPS!!! No order in the list! No order can be removed!
+```
 
-Examples:
+Otherwise, the sample output message would be like:
 
-- `remove 2`
+```
+_________________________________________________________________________________________
+	 Noted. I've cancelled this order:
+	 [✘] Order /on 03/12/2019 
+	    (1) fish 1
+	    (2) chili crab 1
+	    (3) rice 2
+	 Now you have 3 orders in the order list.
+_________________________________________________________________________________________
+```
 
-  if user enters an invalid index, a similar error message will appear
 
-  ` ☹ OOPS!!! Enter a valid ingredient number after delete, between 1 and 5. 
-  	You can type: 
-  	'template' to see the format of the commands, 
-  	'back' to see all your options, 
-  	'q' to exit`
 
-  
+#### 3.5.4 Marking Order as Done
 
-#### 3.2.3 use an ingredient from the fridge
+To mark an existing undone order of the date today as done, the user needs to execute the command following the below format.
 
-To use an ingredient from the Fridge, user needs to execute command below:
+Format: `done ORDER_INDEX`
 
-Format: `use <Ingredient_name> <ingredient_amout_to_be_used>`
+<u>Requirement:</u>
 
-Examples:
+- `ORDER_INDEX` ranges from 1 to the size of the (whole) order list. Use command `list` to check `ORDER_INDEX`.
+- Only **today's undone order** can be done. Pre-order supports cancellation and date alteration.
 
-- `use cheese 100`
+Examples: 
 
-  The user must use the most recently expiring ingredients in order to prevent food waste.  
+- `done 2`: Mark 2nd order in the order list as done, if there exists. 
 
-### 3.3 remove all expired ingredients from the fridge
+If the order list is empty, the output message would be:
 
-From the main menu the user selects `a`, and it will remove all expired ingredients from the fridge.
+```
+	 OOPS!!! No order in the list! No order can be done!
+```
 
-If there are no expired ingredients, he gets the following message:
+Otherwise, the sample output message would be like:
 
-`☹ OOPS!!! Seems like you don't have any expired ingredients in the fridge!.` 
+```
+_________________________________________________________________________________________
+	 Nice! I've marked this order as done:
+	 [✓] Order /on 12/09/2020 
+	    (1) beef noodle 1
+	    (2) chili crab 1
+	    (3) rice 3
+_________________________________________________________________________________________
+```
 
-When the user loads the program if there are any expired ingredients in the fridge, he is notified by: 
 
-`A gentle reminder you have some  expired ingredients in the fridge`
-	 `Would you like to see the list?`
 
-by typing `yes`, the list of expired ingredients is printed
+#### 3.5.5 Initializing Order List
 
-by typing anything else, the main menu appears where the user can select how he whishes to proceed.
+To clear all the orders in the order list, the user needs to execute the command following the below format.
+
+Format: `init`
+
+The program will then asks the user to confirm the initialization: `Are you sure you want to clear all orders in the order list? [y/n] `
+
+If the user answers  `y` or `Y`, the output message will be:
+
+```
+_________________________________________________________________________________________
+	 ORDER LIST CLEARED
+	 TODAY TODO LIST CLEARED
+
+	 Continue by adding order. Template:
+	 add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]
+_________________________________________________________________________________________
+```
+
+If the user answers  `n`  or `N`, the output message will be:
+
+```
+_________________________________________________________________________________________
+	 ORDER LIST NOT CLEARED
+
+	 Continue by adding, removing, altering, listing order.
+	 Type 'template' to see the format of the commands
+_________________________________________________________________________________________
+```
+
+If the user enters neither `y` or `n`, then the order list maintains. Note that the user has to enter `init` again and then enters confirm the initialization. An `y` or `n`  command not after the confirmation question is regarded as invalid. The reminding message will be:
+
+```
+	 OOPS!!! Please enter 'y' or 'n' after the second 'init' command.
+```
+
+
+
+#### 3.5.6 Listing Order by Different Filtering Keywords
+
+To list orders in the order list, the user needs to execute the command following the below format.
+
+Format 1: `list [-l LIST_TYPE-(option: all (default) | undone | today | undoneToday)]`
+
+- Examples:
+  - `list -l undone`: list all the undone orders in the order list. 
+  - `list -l today`: list all orders of the date today in the order list.
+  -  `list -l undoneToday`: list all undone orders of the date today in the order list.
+  -  `list` (i.e., `list -l all`): list all orders in the order list.
+
+Format 2: `list -n DISH_NAME`
+
+- Example
+  -  `list -n chicken rice`: list all undone orders of the date today that contains the dishes `chicken rice`.
+
+Format 3: `list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) | undone)]`
+
+- Example: 
+  - `list -d 31/12/2019 -l undone`: list all undone orders on `31/12/2019`. 
+  - `list -d 31/12/2019` (i.e., `list -d 31/12/2019 -l all`): list all orders on `31/12/2019`. 
+- Remark: If you want to find ***today's orders***, we recommend you to enter `list -l today` or `list -l undoneToday`.
+
+If entering invalid command, the output message is: 
+
+```
+	 OOPS!!! Must enter a list type, dishes name, or order date
+```
+
+If there is no order in the order list, the output message is: 
+
+```
+	 OOPS!!! No orders in the order list! 
+```
+
+If there is no order satisfying your requirement, the output message is:
+
+```
+	 OOPS!!! No orders found!
+```
+
+Otherwise, the sample output message is like:
+
+```
+_________________________________________________________________________________________
+	 Here are the orders in the order list:
+	 1.[✘] Order today 
+	    (1) laksa 1
+	 2.[✘] Order today 
+	    (1) chicken rice 1
+	 3.[✘] Order /on 12/12/2019 
+	    (1) beef noodle 2
+_________________________________________________________________________________________
+```
+
+
+
+### 3.6 ToDo List Today
+
+Chef needs to check his/her remaining tasks of the day. The ToDo list keeps in accordance with the update of the orders in the order list. To view the ToDo List of today, the user needs to enter `t` in the main menu.
+
+The sample output message as follows: 
+
+```
+_________________________________________________________________________________________
+	 Today Task list (Thu Nov 07 13:00:00 SGT 2019)
+	 1. chicken rice (amount: 3) 
+	 2. cake (amount: 2) 
+	 3. beef noodles (amount: 4)
+_________________________________________________________________________________________
+```
+
+Update Principle:
+
+1. add undone dishes from pre-orders when the restaurant opens;
+2. add undone dishes when today's new order comes;
+3. delete finished dishes from the ToDo list when an order of today is done;
+4. delete undone dishes from the ToDo list when an order of today is cancelled.
+5. add undone dishes when a pre-order alters its date to become today's undone order.
+
+
+
+### 3.6 Fridge commands
+
+#### 3.6.1 Add an ingredient to the Fridge
+#### 3.6.2 Remove an ingredient from the fridge
+#### 3.6.3 Use an ingredient from the fridge
+#### 3.6.4 Remove all expired ingredients from the fridge
+
+### 3.7 stats: gives the statistics of the Dish
+
 
 
 ## 4. Command Summary
 
-Index | Keyword  | Usage 
------ | -------- | ----------
-1 | back | back 
-2 | template | template 
- |  |                                    
- |            |  
-15 | add | dishadd <desc> 
-16 | remove | remove <indx> 
-17 | list | list 
-18 | ingredient | ingredient <desc> <amount> <index> 
+Main Menu
+
+Index | Keyword  | Usage | Description 
+----- | -------- | ---------- | ---------- 
+1 | options | options | show options 
+2 | q       | q | exit program 
+ 3 | t | t | view todo list 
+ 4 | a | a | remove expired ingredients 
+ 5 | b | b | go into ingredient template 
+ 6 | c | c | go into order template 
+ 7 | d | d | go into dish template 
+
+Ingredient template
+
+| Index | Keyword   | Usage                      | Description                    |
+| ----- | --------- | -------------------------- | ------------------------------ |
+| 1     | add       | add <desc> <amount> <Date> | add an Ingredient to the list  |
+| 2     | remove    | remove <index>             | remove an ingredient from list |
+| 3     | find      | find <desc>                | find an ingredient in list     |
+| 4     | listtoday | listtoday                  | list all expired ingredient    |
+| 5     | a         | a                          | removes expired ingredient     |
+| 6     | use       | use <desc> <amount>        | use an ingredient              |
+
+Order Template
+
+| Index | Keyword | Usage                            | Description |
+| ----- | ------- | -------------------------------- | ----------- |
+| 1     | add     | add -d <date> -n <desc>*<amount> |             |
+| 2     | alter   | alter <index> <date>             |             |
+| 3     | remove  | remove <index>                   |             |
+| 4     | done    | done <index>                     |             |
+| 5     | init    | init                             |             |
+| 6     | list    | list -l <option>                 |             |
+| 7     | list    | list -n <desc>                   |             |
+| 8     | list    | list -d <date> -l <option>       |             |
+
+for <option>, (option: all (default) | undone | today | undoneToday)
+
+Dish Template
+
+| Index | Keyword    | Usage                              | Description               |
+| ----- | ---------- | ---------------------------------- | ------------------------- |
+| 1     | add        | add <desc>                         | adds a dish to the list   |
+| 2     | remove     | remove <index>                     | removes a dish from list  |
+| 3     | list       | list                               | list all dishes           |
+| 4     | initialize | initialize                         | clears the dish list      |
+| 5     | ingredient | ingredient <desc> <amount> <index> | add an ingredient to dish |
+
+common commands in template
+
+| Index | Keyword  | Usage    | Description                   |
+| ----- | -------- | -------- | ----------------------------- |
+| 1     | template | template | shows the template of current |
+| 2     | back     | back     | goes to main menu             |
+| 3     | q        | q        | exits program                 |
+
+
 
 # 5. FAQ
 
 Q: how do I transfer data to another computer 
 
-A: install the application on the other computer and an empty recipe.txt will be created under the data folder. Replace this file with the same file found in your previous computer. therefore your data will be transferred  
+A: install the application on the other computer and an empty recipe.txt will be created under the data folder. Replace this file with the same txt file found in your previous computer. therefore your data will be transferred. 
