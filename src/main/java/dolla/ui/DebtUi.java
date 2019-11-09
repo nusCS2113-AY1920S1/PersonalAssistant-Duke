@@ -13,7 +13,7 @@ public class DebtUi extends Ui {
     public static void printInvalidDebtFormatError() {
         System.out.println(line);
         System.out.println("\tplease follow the format "
-                + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION] /due [DURATION] {/tag [TAGNAME]}'");
+                + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION] /due [DURATION]'");
         System.out.println(line);
     }
 
@@ -93,6 +93,15 @@ public class DebtUi extends Ui {
     public static void printEmptyBillMessage() {
         System.out.println(line);
         System.out.println("\tYou don't have any bills yet.");
+        System.out.println(line);
+    }
+
+    /**
+     * Pritn invalid name message.
+     */
+    public static void printInvalidNameMessage() {
+        System.out.println(line);
+        System.out.println("\tPlease input a valid name.");
         System.out.println(line);
     }
 }

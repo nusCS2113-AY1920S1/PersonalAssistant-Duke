@@ -4,14 +4,17 @@ import dolla.ModeStringList;
 import dolla.Time;
 import dolla.model.RecordList;
 import dolla.exception.DollaException;
-import dolla.ui.EntryUi;
+
 import dolla.ui.Ui;
+import dolla.ui.EntryUi;
+import dolla.ui.RemoveUi;
+import dolla.ui.LimitUi;
+import dolla.ui.DebtUi;
+import dolla.ui.SortUi;
 import dolla.ui.ModifyUi;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
-import dolla.ui.SortUi;
-import dolla.ui.RemoveUi;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -31,6 +34,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected String type;
     protected double amount;
     protected static String[] inputArray;
+    protected String duration;
+
     protected String commandToRun;
     protected int modifyRecordNum;
 
@@ -46,7 +51,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         this.commandToRun = inputArray[0];
     }
 
-    public abstract Command parseInput();
+    public abstract Command parseInput() throws DollaException;
 
     public static String getInputLine() {
         return inputLine;
@@ -90,7 +95,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return Integer type of the specified string.
      */
     public static double stringToDouble(String str) throws Exception {
-        double newDouble = 0.0;
+        double newDouble;
         try {
             newDouble = Double.parseDouble(str);
             if (newDouble <= 0 || newDouble >= maxAmount) {
@@ -144,6 +149,59 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return false; // If error occurs, stop the method!
         }
         return true;
+    }
+
+    //@@author tatayu
+    /**
+     * Returns true if no error occurs while creating the required variables for 'addDebtCommand'.
+     * Also splits name, description components in the process.
+     * @return true if no error occurs.
+     */
+    public boolean verifyDebtCommand() {
+        try {
+            try {
+                Integer.parseInt(inputArray[1]);
+                DebtUi.printInvalidNameMessage();
+                return false;
+            } catch (Exception ignored) {
+                //do nothing
+            }
+            amount = stringToDouble(inputArray[2]);
+            String[] desc = inputLine.split(inputArray[2] + SPACE);
+            String[] dateString = desc[1].split(" /due ");
+            description = dateString[0];
+            return checkTag(dateString[1]);
+        } catch (Exception e) {
+            DebtUi.printInvalidDebtFormatError();
+            return false;
+        }
+    }
+
+    //@@author tatayu
+    /**
+     * Returns true if no error occurs while creating the date for 'addDebtCommand'.
+     * @param dateString the string that contains date and tag.
+     * @return true if no error occurs.
+     */
+    private boolean checkTag(String dateString) {
+        if (inputLine.contains(COMPONENT_TAG)) {
+            String[] dateAndTag = dateString.split(COMPONENT_TAG);
+            try {
+                date = Time.readDate(dateAndTag[0].trim());
+            } catch (DateTimeParseException e) {
+                Ui.printDateFormatError();
+                return false;
+            }
+            return true;
+        } else {
+            try {
+                date = Time.readDate(dateString.trim());
+            } catch (DateTimeParseException e) {
+                Ui.printDateFormatError();
+                return false;
+            }
+            return true;
+        }
     }
 
     /**
@@ -248,12 +306,12 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     public boolean verifyPartialModifyCommand() {
 
-        boolean hasComponents = false;
         //ArrayList<String> errorList = new ArrayList<String>();
         type = null;
         amount = -1;
         description = null;
         date = null;
+        duration = null;
 
         try {
             modifyRecordNum = Integer.parseInt(inputArray[1]);
@@ -262,27 +320,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return false;
         }
 
-        switch (mode) {
-        case MODE_ENTRY:
-            hasComponents = findEntryComponents();
-            break;
-        case MODE_LIMIT:
-            // TODO
-            Ui.printUpcomingFeature();
-            return false;
-            //break;
-        case MODE_DEBT:
-            // TODO
-            Ui.printUpcomingFeature();
-            return false;
-            //break;
-        case MODE_SHORTCUT:
-            // TODO
-            break;
-        default:
-            break;
-        }
-
+        boolean hasComponents = findComponents();
 
         if (!hasComponents) {
             ModifyUi.printInvalidPartialModifyFormatError();
@@ -294,37 +332,32 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     /**
      * Returns true if the input contains a component to be edited in the current mode,
-     * demarcated with strings like "/type".
+     * demarcated with strings like "/type", and the entered data is valid.
      * Also designates the correct information to the relevant variables.
-     * @return true if the input contains a component to be edited in the current mode.
+     * @return true if the input contains a component to be edited in the current mode, and is followed
+     *         by valid data relevant to the component.
      */
-    private boolean findEntryComponents() {
-        boolean hasComponents = false;
+    private boolean findComponents() {
+        boolean hasComponents;
+        hasComponents = false;
         for (int i = 0; i < inputArray.length; i += 1) {
             String currStr = inputArray[i];
 
             if (isComponent(currStr)) {
                 try {
                     String nextStr = inputArray[i + 1];
-                    switch (currStr) {
-                    case COMPONENT_TYPE:
-                        type = verifyAddType(nextStr);
+
+                    switch (mode) {
+                    case MODE_ENTRY:
+                        verifyEntryComponents(currStr, nextStr, i);
                         break;
-                    case COMPONENT_AMOUNT:
-                        amount = stringToDouble(nextStr);
-                        break;
-                    case COMPONENT_DESC:
-                        description = parseDesc(i + 1);
-                        break;
-                    case COMPONENT_DATE:
-                        date = Time.readDate(nextStr);
-                        break;
-                    case COMPONENT_TAG:
-                        //TODO
+                    case MODE_LIMIT:
+                        verifyLimitComponents(currStr, nextStr);
                         break;
                     default:
                         break;
                     }
+
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ModifyUi.printMissingComponentInfoError(currStr);
                     return false;
@@ -334,10 +367,65 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 } catch (Exception e) {
                     return false;
                 }
+
                 hasComponents = true;
             }
         }
         return hasComponents;
+    }
+
+    /**
+     * Checks if the string from input (currStr) represents a component of limit. If so, verify and assign
+     * the components of limit with the new data (nextStr).
+     * @param currStr to be checked if it's a component (ie. /type).
+     * @param nextStr the new data to be used for the specified component.
+     * @throws Exception when the nextStr is not a valid input for component from currStr.
+     */
+    private void verifyLimitComponents(String currStr, String nextStr) throws Exception {
+        switch (currStr) {
+        case COMPONENT_TYPE:
+            type = verifyLimitType(nextStr);
+            break;
+        case COMPONENT_AMOUNT:
+            amount = stringToDouble(nextStr);
+            break;
+        case COMPONENT_DURATION:
+            duration = verifyLimitDuration(nextStr);
+            break;
+        default:
+            break;
+        }
+    }
+
+    /**
+     * Checks if the string from input (currStr) represents a component of entry. If so, verify and assign
+     * the components of entry with the new data (nextStr).
+     * @param currStr to be checked if it's a component (ie. /type).
+     * @param nextStr the new data to be used for the specified component.
+     * @param index the index of currStr in the input array.
+     * @throws Exception when the nextStr is not a valid input for component from currStr.
+     */
+    private void verifyEntryComponents(String currStr, String nextStr, int index) throws Exception {
+        try {
+            switch (currStr) {
+            case COMPONENT_TYPE:
+                type = verifyAddType(nextStr);
+                break;
+            case COMPONENT_AMOUNT:
+                amount = stringToDouble(nextStr);
+                break;
+            case COMPONENT_DESC:
+                description = parseDesc(index + 1);
+                break;
+            case COMPONENT_DATE:
+                date = Time.readDate(nextStr);
+                break;
+            default:
+                break;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     /**
@@ -359,12 +447,18 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 break;
             }
             break;
-        /*
         case MODE_LIMIT:
             switch (s) {
-                // TODO
+            case COMPONENT_TYPE:
+            case COMPONENT_AMOUNT:
+            case COMPONENT_DURATION:
+            case COMPONENT_TAG:
+                return true;
+            default:
+                break;
             }
             break;
+        /*
         case MODE_DEBT:
             switch (s) {
                 // TODO
@@ -447,32 +541,35 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     //@@author Weng-Kexin
-    private Boolean verifyLimitType(String limitType) {
-        return limitType.equals(LIMIT_TYPE_S)
-                || limitType.equals(LIMIT_TYPE_B);
-    }
-
-    private Boolean verifyLimitDuration(String limitDuration) {
-        return limitDuration.equals(LIMIT_DURATION_D)
-                || limitDuration.equals(LIMIT_DURATION_W)
-                || limitDuration.equals(LIMIT_DURATION_M);
-    }
-
-    private Boolean verifyLimitAmount(double limitAmount) {
-        return (limitAmount != 0);
-    }
-
-    protected Boolean verifySetLimitCommand() {
-        boolean isValid;
-        try {
-            amount = stringToDouble(inputArray[2]);
-            String typeStr = inputArray[1];
-            String durationStr = inputArray[3];
-            isValid = verifyLimitType(typeStr) && verifyLimitAmount(amount) && verifyLimitDuration(durationStr);
-        } catch (Exception e) { //index out of bounds here also
-            //LimitUi.invalidSetCommandPrinter();
-            isValid = false;
+    private String verifyLimitType(String limitType) throws DollaException {
+        if (limitType.equals(LIMIT_TYPE_S) || limitType.equals(LIMIT_TYPE_B)) {
+            return limitType;
+        } else {
+            throw new DollaException(DollaException.invalidLimitType());
         }
-        return isValid;
+    }
+
+    private String verifyLimitDuration(String limitDuration) throws DollaException {
+        if (limitDuration.equals(LIMIT_DURATION_D)
+                || limitDuration.equals(LIMIT_DURATION_W)
+                || limitDuration.equals(LIMIT_DURATION_M)) {
+            return limitDuration;
+        } else {
+            throw new DollaException(DollaException.invalidLimitDuration());
+        }
+    }
+
+    protected Boolean verifySetCommand() {
+        try {
+            type = verifyLimitType(inputArray[1]);
+            amount = stringToDouble(inputArray[2]);
+            duration = verifyLimitDuration(inputArray[3]);
+        } catch (IndexOutOfBoundsException e) {
+            LimitUi.invalidSetCommandPrinter();
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }

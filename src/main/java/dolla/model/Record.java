@@ -15,20 +15,18 @@ public abstract class Record {
     protected String userInput;
     protected double amount;
     protected String recordType;
+    protected String duration;
     protected ArrayList<String> nameList;
     protected int people;
-    protected String tagName;
 
     protected static final String RECORD_ENTRY = "entry";
     protected static final String RECORD_LIMIT = "limit";
     protected static final String RECORD_DEBT = "debt";
     protected static final String RECORD_SHORTCUT = "shortcut";
 
-    protected String duration;
-
     public abstract String getRecordDetail();
 
-    public abstract String formatSave();//currently assuming no tags
+    public abstract String formatSave();
 
     public LocalDate getDate() {
         return date;
@@ -62,12 +60,6 @@ public abstract class Record {
         return amount;
     }
 
-    /*
-    public String getTagName() {
-        return tagName;
-    }
-     */
-
     public void setDescription(String s) {
         description = s;
     }
@@ -82,10 +74,6 @@ public abstract class Record {
 
     public void setDate(LocalDate ld) {
         date = ld;
-    }
-
-    public void setTagName(String inputTag) {
-        tagName = inputTag;
     }
 
     public ArrayList<String> getNameList() {

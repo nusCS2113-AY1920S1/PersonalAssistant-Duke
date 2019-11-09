@@ -19,27 +19,27 @@ public class ActionTest implements ActionTestStringList {
 
     private State createDebtState1() {
         testList1.add(new Debt(OWE, "tata", 20, "food",
-                LocalDate.parse("2019-01-01"), ""));
+                LocalDate.parse("2019-01-01")));
         testList1.add(new Debt(BORROW, "yuyu", 40, "drink",
-                LocalDate.parse("2019-01-02"), ""));
+                LocalDate.parse("2019-01-02")));
         testList1.add(new Debt(OWE, "mama", 30, "bill",
-                LocalDate.parse("2019-01-03"), ""));
+                LocalDate.parse("2019-01-03")));
         testList1.add(new Debt(BORROW, "baba", 60, "dinner",
-                LocalDate.parse("2019-01-04"), ""));
+                LocalDate.parse("2019-01-04")));
         return new DebtState(testList1);
     }
 
     private State createDebtState2() {
         testList2.add(new Debt(BORROW, "aikpeng", 126, "bushi",
-                LocalDate.parse("2011-01-01"), ""));
+                LocalDate.parse("2011-01-01")));
         testList2.add(new Debt(OWE, "yetong", 245, "sushi",
-                LocalDate.parse("2012-01-02"), ""));
+                LocalDate.parse("2012-01-02")));
         testList2.add(new Debt(OWE, "kexin", 91, "disco",
-                LocalDate.parse("2013-01-03"), ""));
+                LocalDate.parse("2013-01-03")));
         testList2.add(new Debt(OWE, "xiaoxue", 1151, "wine",
-                LocalDate.parse("2014-01-04"), ""));
+                LocalDate.parse("2014-01-04")));
         testList2.add(new Debt(BORROW, "bahaba", 521, "rebina",
-                LocalDate.parse("2015-01-04"), ""));
+                LocalDate.parse("2015-01-04")));
         return new DebtState(testList2);
     }
 
