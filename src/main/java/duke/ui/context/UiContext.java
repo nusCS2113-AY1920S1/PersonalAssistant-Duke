@@ -50,24 +50,29 @@ public class UiContext {
     /**
      * Moves up one in the hierarchy of contexts.
      */
-    public void moveUpOneContext() throws DukeException {
+    public String moveUpOneContext() throws DukeException {
         if (context == Context.HOME) {
             throw new DukeException("You are already in the Home context.");
         } else {
-            open(object.getParent());
+            DukeObject parent = object.getParent();
+            open(parent);
+            return "You are now viewing '" + parent.getName() + "' in the " + context.toString() + " context";
         }
     }
 
     /**
      * Moves back one context.
      */
-    public void moveBackOneContext() throws DukeException {
+    public String moveBackOneContext() throws DukeException {
         if (contexts.empty()) {
             throw new DukeException("No previous context before this!");
         }
 
         Pair<Context, DukeObject> pair = contexts.pop();
+        Context newContext = pair.getKey();
+        DukeObject newObj = pair.getValue();
         updateContext(pair.getKey(), pair.getValue());
+        return "You are now viewing '" + newObj.getName() + "' in the " + newContext.toString() + " context";
     }
 
     private void updateContext(Context newContext, DukeObject object) {

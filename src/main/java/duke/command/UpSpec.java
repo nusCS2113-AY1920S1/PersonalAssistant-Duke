@@ -12,7 +12,6 @@ public class UpSpec extends CommandSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-        core.uiContext.moveUpOneContext();
-        core.ui.showMessage("You are now at the " + core.uiContext.getContext().toString() + " context.");
+        core.ui.showMessage(core.uiContext.moveUpOneContext());
     }
 }

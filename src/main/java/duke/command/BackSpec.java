@@ -12,7 +12,6 @@ public class BackSpec extends CommandSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-        core.uiContext.moveBackOneContext();
-        core.ui.showMessage("You are now at the " + core.uiContext.getContext().toString() + " context.");
+        core.ui.showMessage(core.uiContext.moveBackOneContext());
     }
 }
