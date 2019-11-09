@@ -1,7 +1,5 @@
 package RetrieveFreeTimesTest;
 
-
-
 import Commands.Command;
 import DukeExceptions.DukeInvalidFormatException;
 import DukeExceptions.DukeNoValidDataException;

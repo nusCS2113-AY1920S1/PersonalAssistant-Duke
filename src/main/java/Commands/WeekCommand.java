@@ -156,9 +156,12 @@ public class WeekCommand extends Command {
         String[] rightSplit = right.split(newLine,2);
         String[] rightTimeSplit = rightSplit[0].split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
 
-        if (leftTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX) && rightTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)) {
-            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
-            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
+        if (leftTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)
+                && rightTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)) {
+            String[]leftTimeSplitHourMinute
+                    = leftTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
+            String[]rightTimeSplitHourMinute
+                    = rightTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
             if (leftTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)
                     && rightTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)) {
                 return leftTimeSplitHourMinute[1].compareTo(rightTimeSplitHourMinute[1]);
@@ -174,8 +177,10 @@ public class WeekCommand extends Command {
         } else if (rightTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)) {
             return 1;
         } else {
-            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
-            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
+            String[]leftTimeSplitHourMinute
+                    = leftTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
+            String[]rightTimeSplitHourMinute
+                    = rightTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
             if (leftTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)
                     && rightTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)) {
                 return leftTimeSplitHourMinute[1].compareTo(rightTimeSplitHourMinute[1]);

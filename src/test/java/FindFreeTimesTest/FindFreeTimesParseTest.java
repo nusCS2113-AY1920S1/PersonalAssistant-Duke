@@ -24,6 +24,7 @@ public class FindFreeTimesParseTest {
     private static String validUserInputWithDuration;
     //TODO: ask if should take 0 and 17 instead of negative
     private static String userInputWithZeroDuration;
+    private static String userInputWithSeventeenDuration;
     private static String userInputWithInvalidDuration;
     private static String userInputWithDurationInDecimal;
 
@@ -36,6 +37,7 @@ public class FindFreeTimesParseTest {
         validUserInputWithDuration = "find/time 5 hours";
 
         userInputWithZeroDuration = "find/time 0 hours";
+        userInputWithSeventeenDuration = "find/time 17 hours";
         userInputWithInvalidDuration = "find/time abc hours";
         userInputWithDurationInDecimal = "find/time 5.6 hours";
 
@@ -44,12 +46,25 @@ public class FindFreeTimesParseTest {
     }
 
     @Test
-    public void findFreeTimesWithNegativeDuration() {
+    public void findFreeTimesWithZeroDuration() {
         String expected = INVALID_DURATION;
         String actual = null;
         Command command = null;
         try {
             command = new FindFreeTimesParse(userInputWithZeroDuration).parse();
+        } catch (DukeInvalidFormatException e) {
+            actual = e.getMessage();
+        }
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findFreeTimesWithSeventeenDuration() {
+        String expected = INVALID_DURATION;
+        String actual = null;
+        Command command = null;
+        try {
+            command = new FindFreeTimesParse(userInputWithSeventeenDuration).parse();
         } catch (DukeInvalidFormatException e) {
             actual = e.getMessage();
         }
