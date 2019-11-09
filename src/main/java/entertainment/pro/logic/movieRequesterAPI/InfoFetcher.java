@@ -8,6 +8,7 @@ package entertainment.pro.logic.movieRequesterAPI;
 public interface InfoFetcher {
     /**
      * Called when data have been extracted from the MovieDB API and need to be parsed into a JSONArray.
+     *
      * @param json Sting containing all the data.
      */
     void fetchedJSON(String json);

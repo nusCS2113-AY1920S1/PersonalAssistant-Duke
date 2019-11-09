@@ -27,6 +27,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
 
     /**
      * constructor for cinema retrieve request class.
+     *
      * @param variableListener calls the thread to execute the API
      */
     public CinemaRetrieveRequest(RequestListener variableListener) {
@@ -36,6 +37,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
 
     /**
      * finds the nearest cinemas upon entering a desired location.
+     *
      * @param location area to search
      * @return an array_list of cinemas with their info contained inside the CinemaInfoObject Class
      */
@@ -59,6 +61,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
 
     /**
      * parses the results from json into a CinemaInfoObject.
+     *
      * @param json result from the api request
      */
     @Override
@@ -72,10 +75,10 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
         try {
             cinemaData = (JSONObject) parser.parse(json);
             JSONArray cinemas;
-            cinemas = (JSONArray)cinemaData.get("results");
+            cinemas = (JSONArray) cinemaData.get("results");
             parsedCinemas.clear();
             for (int i = 0; i < cinemas.size(); i++) {
-                parsedCinemas.add(parseCinemaJSON((JSONObject)(cinemas.get(i))));
+                parsedCinemas.add(parseCinemaJSON((JSONObject) (cinemas.get(i))));
             }
             Collections.sort(parsedCinemas, Comparator.comparingDouble(CinemaInfoObject::getRating));
             Collections.reverse(parsedCinemas);
@@ -86,19 +89,20 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
 
     /**
      * extracts out the data of each cinema from JSONObject to a MovieInfoObject.
+     *
      * @param cinemaData JSONObject to be parsed
      * @return CinemaInfoObject of the desired cinema
      */
     public CinemaInfoObject parseCinemaJSON(JSONObject cinemaData) {
-        String name = (String)(cinemaData.get("name"));
+        String name = (String) (cinemaData.get("name"));
         double rating;
         try {
-            rating = (double)(cinemaData.get("rating"));
+            rating = (double) (cinemaData.get("rating"));
         } catch (ClassCastException e) {
-            long doubleRating = (long)(cinemaData.get("rating"));
-            rating = (double)(doubleRating);
+            long doubleRating = (long) (cinemaData.get("rating"));
+            rating = (double) (doubleRating);
         }
-        String address = (String)(cinemaData.get("formatted_address"));
+        String address = (String) (cinemaData.get("formatted_address"));
         CinemaInfoObject cinema = new CinemaInfoObject(name, rating, address);
         return cinema;
     }

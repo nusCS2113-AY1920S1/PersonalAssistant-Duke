@@ -2,9 +2,12 @@ package entertainment.pro.logic.movieRequesterAPI;
 
 import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.logic.parsers.commands.SearchCommand;
 import entertainment.pro.ui.MovieHandler;
 
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class responsible for fetching data from the MovieDB API asynchronously.
@@ -12,6 +15,7 @@ import java.net.URL;
 public class MovieInfoFetcher implements Runnable {
     private URL movieRequestUrl;
     private InfoFetcher movieRequestListener;
+    private static final Logger logger = Logger.getLogger(MovieInfoFetcher.class.getName());
 
     /**
      * Responsible for constructing fetcher with a given URL.
@@ -23,7 +27,8 @@ public class MovieInfoFetcher implements Runnable {
         movieRequestListener = listener;
         movieRequestUrl = requestUrl;
         if (requestUrl == null) {
-            throw new Exceptions(PromptMessages.API_INVALID_REQUEST);
+            logger.log(Level.WARNING, PromptMessages.NULL_URL);
+            throw new Exceptions(PromptMessages.NULL_URL);
         }
     }
 
@@ -37,8 +42,11 @@ public class MovieInfoFetcher implements Runnable {
         try {
             json = URLRetriever.readURLAsString(movieRequestUrl);
             movieRequestListener.fetchedJSON(json);
+            logger.log(Level.INFO, PromptMessages.DATA_EXTRACT_FROM_API_SUCCESS);
         } catch (NullPointerException | Exceptions e) {
+            logger.log(Level.INFO, PromptMessages.DATA_EXTRACT_FROM_OFFLINE_NEEDED);
             movieRequestListener.fetchOfflineData();
-            }
+            logger.log(Level.INFO, PromptMessages.DATA_EXTRACT_FROM_OFFLINE_SUCCESS);
         }
     }
+}
