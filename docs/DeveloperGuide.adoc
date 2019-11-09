@@ -815,7 +815,7 @@ Searching for products whose name contains the given keyword
    Expected: All products whose name include `cake` are listed. List will be empty if no products' names
 contain `cake`.
 
-==+ Filtering Products
+== Filtering Products
 .. Test case: `product filter -scope archive` +
     Expected: All archive products are listed. List will be empty if no products have archive status.
 .. Test case: `product filter -scope all` +
