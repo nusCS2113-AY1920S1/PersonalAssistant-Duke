@@ -27,7 +27,7 @@ public class RemoveUserCommand extends Command {
         if (splitStr.length == 1) {
             throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please enter a username you would like to remove!");
         }
-        this.splitL = input.split(" ");
+        this.splitL = input.split("rmuser ");
     }
 
     @Override
