@@ -56,7 +56,9 @@ class SearchContextWindow extends ContextWindow {
         searchTermLabel.setText(searchResults.getName());
         searchDetailsLabel.setText(searchResults.toString());
         for (DukeObject obj : searchResults.getSearchList()) {
-            searchListPanel.getItems().add(obj.toCard());
+            UiCard card = obj.toCard();
+            card.setIndex(getIndexedList(null).indexOf(obj) + 1);
+            searchListPanel.getItems().add(card);
         }
     }
 
