@@ -208,11 +208,55 @@ May require additional components other than JavaFx's built-in components.
 ** Advantages: Easier to implement since no additional components are needed
 ** Disadvantages: Cannot display all possible commands in one place.
 
-=== List Product Feature
+=== Filter Product Feature
 
 ==== Implementation
+This feature shows only products with a certain status, i.e. shows only products with an ARCHIVE status.
+
+The filter mechanism in product is facilitated by `FilteredList` which wraps a `ObservableList` and filters
+using the provided Predicate.
+A `FilteredList<Product>`  `filteredProducts` is stored in the `ModelManager`. In `BakingHome`, there is an
+`ObservableList<Product>` `products` which contains all products, regardless of the status. `filteredProducts`
+in the ModelManager is initialized with this ObservableList.
+
+Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible,
+the filter mechanism implements the following operation to support filtering:
+* `Model#updateFilteredProductList(Predicate<Product> predicate)` -- Sets the value of the
+property Predicate in the `filteredProducts`. The `ListProductCommand` will use this method to change the
+visibility of products with different status by passing in the corresponding predicate.
+The predicates declared statically in the `Model` interface, namely `PREDICATE_SHOW_ACTIVE_PRODUCTS`,
+* `PREDICATE_SHOW_ARCHIVE_PRODUCTS`, and `PREDICATE_SHOW_ALL_PRODUCT`.
+
+An example usage scenario and how the filter mechanism behaves at each step is shown below.
+**Step1.** The user launched the application for the first time.
+UniqueProductList will be initialized with a list of default products in BakingHome. This list
+contains a few active products and a few archived products.
+
+**Step 2.** The user executes `product filter -scope archive` command to list all archived products.
+
+The Sequence Diagram below shows how the components interact with each other for filter product feature.
+
+.Sequence Diagram for Filter Product Mechanism
+image::FilterProductSD.png[]
 
 ==== Design considerations
+* Alternative 1 (current choice): Save all products in a `ObservableList` in `BakingHome`, and keeps a
+`FilteredList` in the `ModleManager`. `ProductCommandParser` parses the user input and gets the Predicate to
+update the `FilteredList`.
+ ** Advantages: Implementation is clearer and code is more human-readable.
+** Disadvantages: More difficult to write a Predicate.
+
+* Alternative 2: Keep two separate product lists, one for archived products one for active products.
+** Advantages: Fast access to products both status.
+** Disadvantages: Implementation will become complicated. It also makes it very expensive when adding
+features like sorting all products according to name, price or cost.
+
+* Alternative 2: Keep only one List of products. Loop through the list to get the products with the desired
+status.
+** Advantages: Simplicity in storing data.
+** Disadvantages: Time complexity is very high, resulting in a slow response of the application when the
+product list gets
+long.
 
 === Buy Shopping List feature
 
