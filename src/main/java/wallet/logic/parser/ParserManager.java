@@ -28,6 +28,7 @@ import java.text.ParseException;
  */
 public class ParserManager {
 
+    private String parametersError = " command currently has no parameters!";
     /**
      * Parses the user input command and returns the corresponding Command object.
      *
@@ -37,51 +38,79 @@ public class ParserManager {
     public Command parseCommand(String fullCommand) throws ParseException {
         String[] arguments = fullCommand.split(" ", 2);
 
-        switch (arguments[0]) {
+        switch (arguments[0].toLowerCase()) {
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments[1].toLowerCase());
+            try{
+                return new AddCommandParser().parse(arguments[1]);
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters(AddCommand.COMMAND_WORD + parametersError);
+            }
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments[1].toLowerCase());
+            try {
+                return new EditCommandParser().parse(arguments[1]);
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters(EditCommand.COMMAND_WORD + parametersError);
+            }
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommandParser().parse(arguments[1].toLowerCase());
+            try {
+                return new ListCommandParser().parse(arguments[1].toLowerCase());
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters(ListCommand.COMMAND_WORD + parametersError);
+            }
 
         case ViewCommand.COMMAND_WORD:
             try {
                 return new ViewCommandParser().parse(arguments[1].toLowerCase());
             } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters("view command currently has no parameters!");
+                throw new InsufficientParameters(ViewCommand.COMMAND_WORD + parametersError);
             }
 
         case SetBudgetCommand.COMMAND_WORD:
             try {
                 return new SetBudgetParser().parse(arguments[1].toLowerCase());
             } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters("budget command currently has no parameters!");
+                throw new InsufficientParameters(SetBudgetCommand.COMMAND_WORD + parametersError);
             }
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments[1].toLowerCase());
+            try {
+                return new DeleteCommandParser().parse(arguments[1].toLowerCase());
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters(DeleteCommand.COMMAND_WORD + parametersError);
+            }
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case ReminderCommand.COMMAND_WORD:
-            return new ReminderCommandParser().parse(arguments[1].toLowerCase());
+            try {
+                return new ReminderCommandParser().parse(arguments[1].toLowerCase());
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters(ReminderCommand.COMMAND_WORD + parametersError);
+            }
 
         case DoneCommand.COMMAND_WORD:
             try {
                 return new DoneCommandParser().parse(arguments[1].toLowerCase());
             } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters("done command currently has no parameters!");
+                throw new InsufficientParameters(DoneCommand.COMMAND_WORD + parametersError);
             }
 
         case ExportCommand.COMMAND_WORD:
-            return new ExportCommandParser().parse(arguments[1].toLowerCase());
+            try {
+                return new ExportCommandParser().parse(arguments[1]);
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters(ExportCommand.COMMAND_WORD + parametersError);
+            }
 
         case ImportCommand.COMMAND_WORD:
-            return new ImportCommandParser().parse(arguments[1].toLowerCase());
+            try {
+                return new ImportCommandParser().parse(arguments[1]);
+            }  catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters(ImportCommand.COMMAND_WORD + parametersError);
+            }
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand(arguments[1]);
@@ -102,7 +131,7 @@ public class ParserManager {
             try {
                 return new CurrencyParser().parse(arguments[1].toLowerCase());
             } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters("currency command currently has no parameters!");
+                throw new InsufficientParameters(CurrencyCommand.COMMAND_WORD + parametersError);
             }
 
         default:

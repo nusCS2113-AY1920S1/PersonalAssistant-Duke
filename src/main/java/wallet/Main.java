@@ -36,7 +36,7 @@ public class Main {
             String fullCommand = ui.readLine();
 
             //@@author Xdecosee
-            if ("help".equals(fullCommand)) {
+            if ("help".equalsIgnoreCase(fullCommand)) {
                 ui.showHelp(logicManager.getHelpList());
                 continue;
             }

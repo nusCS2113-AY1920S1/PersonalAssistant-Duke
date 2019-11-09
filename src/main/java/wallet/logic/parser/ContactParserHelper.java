@@ -33,7 +33,7 @@ public class ContactParserHelper {
     private int findIndexOf(String[] info, String toFind) {
 
         for (int i = 0; i < info.length; i += 1) {
-            if (info[i].equals(toFind)) {
+            if (info[i].equalsIgnoreCase(toFind)) {
                 return i;
             }
         }

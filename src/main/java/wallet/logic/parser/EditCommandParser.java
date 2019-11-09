@@ -30,7 +30,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     @Override
     public EditCommand parse(String input) throws InsufficientParameters {
         String[] arguments = input.split(" ", 2);
-        switch (arguments[0]) {
+        switch (arguments[0].toLowerCase()) {
         case "expense":
             Expense expense;
             try {

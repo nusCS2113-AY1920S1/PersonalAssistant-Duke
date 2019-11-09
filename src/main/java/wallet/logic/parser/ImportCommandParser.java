@@ -40,12 +40,13 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
             return null;
         }
+        arguments[0] = arguments[0].toLowerCase();
         if ("loan".equals(arguments[0])) {
             ArrayList<Loan> data = parseLoans(arguments[1]);
             if (data != null) {
                 LoanList newList = new LoanList();
                 newList.setLoanList(data);
-                return new ImportCommand(newList, arguments[0]);
+                return new ImportCommand(newList);
             } else {
                 return null;
             }
@@ -54,7 +55,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             if (data != null) {
                 ExpenseList newList = new ExpenseList();
                 newList.setExpenseList(data);
-                return new ImportCommand(newList, arguments[0]);
+                return new ImportCommand(newList);
             } else {
                 return null;
             }
@@ -180,18 +181,17 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                     return null;
                 }
                 boolean isRecurring = false;
-                String freq = null;
+                RecurrenceRate freq = RecurrenceRate.NO;
                 if (s.length == 6 && s[4].trim().equalsIgnoreCase("yes")) {
                     isRecurring = true;
                     date = LocalDate.parse(s[1].trim(), formatter);
-                    freq = s[5].trim().toUpperCase();
-                    if (!"DAILY".equals(freq) && !"WEEKLY".equals(freq) && !"MONTHLY".equals(freq)) {
-                        System.out.println(freq);
+                    freq = RecurrenceRate.getRecurrence(s[5].trim());
+                    if (freq == null) {
                         System.out.println(MESSAGE_ERROR_CSV_FORMAT);
                         return null;
                     }
                 }
-                Expense expense = new Expense(desc, date, amount, cat, isRecurring, RecurrenceRate.getRecurrence(freq));
+                Expense expense = new Expense(desc, date, amount, cat, isRecurring, freq);
                 data.add(expense);
             }
             csvReader.close();

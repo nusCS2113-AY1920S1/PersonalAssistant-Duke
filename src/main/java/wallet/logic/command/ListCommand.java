@@ -120,6 +120,10 @@ public class ListCommand extends Command {
                 Ui.printContactTable(contactList);
             } else {
                 String[] arguments = record.split(" ", 3);
+                if(arguments.length < 3){
+                    System.out.println(MESSAGE_CONTACT_SORT);
+                    return false;
+                }
                 if (arguments[1].equals("/sortby")) {
                     if (arguments[2].equals("name")) {
                         ArrayList<Contact> sortedContacts = wallet.getContactList().sortByName();
