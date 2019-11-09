@@ -25,27 +25,42 @@ public class SetPriorityCommand extends Command {
         this.priority = priority;
     }
 
+    //    /**
+    //     * Executes a command that adds the priority into priority list and outputs the result.
+    //     *
+    //     * @param items The task list that contains a list of tasks.
+    //     * @param priorityList List of priorities.
+    //     * @param ui To tell the user that it is executed successfully.
+    //     */
+    //    public void execute(TaskList items, PriorityList priorityList, Ui ui) {
+    //        priorityList.setPriority(taskNum, priority);
+    //        ui.showSetPriority(items, taskNum, priority);
+    //    }
+
     /**
-     * Executes a command that adds the priority into priority list and outputs the result.
+     * Executes a command that adds the priority into priority list and outputs the result. (GUI).
      *
      * @param items The task list that contains a list of tasks.
      * @param priorityList List of priorities.
      * @param ui To tell the user that it is executed successfully.
+     * @return String to be outputted to the user.
      */
-    public void execute(TaskList items, PriorityList priorityList, Ui ui) {
+    public String executeGui(TaskList items, PriorityList priorityList, Ui ui) {
         priorityList.setPriority(taskNum, priority);
-        ui.showSetPriority(items, taskNum, priority);
+        String str = ui.showSetPriorityGui(items, taskNum, priority);
+        return str;
     }
 
     /**
      * Executes a command that adds the task into task list and outputs the result (GUI).
+     * (Not in use)
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is added successfully.
      * @return String to be outputted to the user.
      */
     public String executeGui(TaskList items, Ui ui) {
-        return "";
+        return null;
     }
 
     /**

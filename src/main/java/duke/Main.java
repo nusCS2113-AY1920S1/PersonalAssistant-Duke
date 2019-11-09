@@ -1,5 +1,6 @@
 package duke;
 
+import duke.Duke;
 import duke.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +35,15 @@ public class Main extends Application {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            logger.log(Level.SEVERE,"Unable to load main window.", e);
+            logger.log(Level.SEVERE, "Unable to load main window.", e);
         }
     }
+
+    //@@author maxxyx96
+    @Override
+    public void stop() {
+        logger.info("ALERT: Duke is shutting down! Stopping duke... ");
+        duke.suddenStop();
+    } //@@author
 }
+//@@author
