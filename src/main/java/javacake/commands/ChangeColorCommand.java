@@ -1,8 +1,6 @@
 package javacake.commands;
 
 import javacake.Logic;
-import javacake.storage.Profile;
-import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 

@@ -10,11 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.attribute.PosixFilePermission;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 
 public class Profile {
@@ -22,8 +18,8 @@ public class Profile {
     private String username;
     private ArrayList<Integer> overalltopicsDone = new ArrayList<>();
     private ArrayList<Integer> individualTopicsDone = new ArrayList<>();
-    int totalNumOfMainTopics = 4;
-    int levelsOfDifficulty = 3;
+    private int totalNumOfMainTopics = 4;
+    private int levelsOfDifficulty = 3;
     private static boolean isResetFresh = false;
 
 

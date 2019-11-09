@@ -17,8 +17,8 @@ public class JavaCake {
     private static boolean isCliMode = true;
 
     public static StorageManager storageManager;
-    //    public static Storage storage;
-    //    public static Profile profile;
+    //public static Storage storage;
+    //public static Profile profile;
     public static boolean isFirstTimeUser;
     public static String userName;
     public static int userProgress = 0;

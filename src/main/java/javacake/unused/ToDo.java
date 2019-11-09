@@ -1,4 +1,6 @@
-package javacake.tasks;
+package javacake.unused;
+
+import javacake.tasks.Task;
 
 import java.util.Date;
 
@@ -11,7 +13,6 @@ public class ToDo extends Task {
      */
     public ToDo(String description) {
         super(description);
-        taskType = TaskType.TODO;
     }
 
     /**

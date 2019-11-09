@@ -21,7 +21,6 @@ import javacake.commands.ResetCommand;
 import javacake.commands.ScoreCommand;
 import javacake.commands.ViewNoteCommand;
 import javacake.exceptions.CakeException;
-import javacake.ui.MainWindow;
 
 public class Parser {
 
@@ -56,9 +55,7 @@ public class Parser {
         case ("done"): return new DoneCommand(inputCommand);
         case ("delete"): return new DeleteCommand(inputCommand);
         case ("snooze"): return new EditCommand(inputCommand);
-        case ("change"):
-            //MainWindow.isChanged = true;
-            return new ChangeColorCommand();
+        case ("change"): return new ChangeColorCommand();
         default:
             throw new CakeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }

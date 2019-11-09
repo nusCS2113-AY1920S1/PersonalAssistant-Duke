@@ -2,17 +2,13 @@ package javacake.commands;
 
 import javacake.Logic;
 import javacake.exceptions.CakeException;
-import javacake.storage.Profile;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.storage.Storage;
 import javacake.tasks.Task;
 
 import java.util.ArrayList;
 
 public class ReminderCommand extends Command {
-
-
 
     /**
      * Constructor for ReminderCommand.

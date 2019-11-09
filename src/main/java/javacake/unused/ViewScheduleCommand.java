@@ -1,7 +1,8 @@
-package javacake.commands;
+package javacake.unused;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
+import javacake.commands.Command;
 import javacake.exceptions.CakeException;
 import javacake.Logic;
 import javacake.storage.StorageManager;

@@ -1,7 +1,6 @@
 package javacake.ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 
 import javafx.animation.Animation;

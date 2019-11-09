@@ -7,7 +7,6 @@ import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 import javacake.utilities.IFileUtilities;
-import org.apache.commons.io.FilenameUtils;
 
 import java.io.BufferedWriter;
 import java.io.File;

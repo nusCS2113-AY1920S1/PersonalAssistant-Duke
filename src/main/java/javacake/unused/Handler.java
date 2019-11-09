@@ -1,10 +1,7 @@
-package javacake.ui;
+package javacake.unused;
 
 import javacake.JavaCake;
-import javafx.animation.PauseTransition;
-import javafx.util.Duration;
-
-import java.util.logging.Level;
+import javacake.ui.MainWindow;
 
 public class Handler {
 

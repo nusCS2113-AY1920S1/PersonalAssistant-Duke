@@ -2,10 +2,8 @@ package javacake.commands;
 
 import javacake.Logic;
 import javacake.exceptions.CakeException;
-import javacake.storage.Profile;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.storage.Storage;
 
 public class ExitCommand extends Command {
 

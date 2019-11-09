@@ -27,9 +27,8 @@ public class Storage {
     private TaskType dataType;
     private static boolean isResetFresh = false;
 
-
     public enum TaskType {
-        TODO, DEADLINE, TODO_DAILY, TODO_WEEKLY, TODO_MONTHLY
+        DEADLINE
     }
 
     /**
@@ -57,22 +56,6 @@ public class Storage {
         JavaCake.logger.log(Level.INFO,"Filepath: " + filepath);
         try {
             initialiseStorage(tasksFile, altPath);
-            //            if (!tasksFile.getParentFile().getParentFile().exists()) {
-            //                tasksFile.getParentFile().getParentFile().mkdir();
-            //                tasksFile.getParentFile().mkdir();
-            //                tasksFile.createNewFile();
-            //                //System.out.println("A" + tasksFile.getParentFile().getParentFile().getPath());
-            //            } else if (!tasksFile.getParentFile().exists()) {
-            //                tasksFile.getParentFile().mkdir();
-            //                tasksFile.createNewFile();
-            //                //System.out.println("B" + tasksFile.getParentFile().getPath());
-            //            } else if (!tasksFile.exists()) {
-            //                tasksFile.createNewFile();
-            //                //System.out.println("C" + tasksFile.getPath());
-            //            } else {
-            //                JavaCake.logger.log(Level.INFO, filepath + " is found!");
-            //            }
-
         } catch (IOException e) {
             JavaCake.logger.log(Level.WARNING, "Unable to create deadline file");
             throw new CakeException("Failed to create storage.");
