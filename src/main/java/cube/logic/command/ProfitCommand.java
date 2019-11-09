@@ -116,6 +116,8 @@ public class ProfitCommand extends Command {
         String tempFoodName;
         switch (param) {
             case ALL:
+                //generating the profits and revenue for all food in the given period from date_i to date_f,
+                //simply iterating though the sales history will do.
                 Iterator<Sale> it = saleSet.iterator();
                 while (it.hasNext()) {
                     Sale tempSale = it.next();
@@ -127,51 +129,73 @@ public class ProfitCommand extends Command {
                         toGenerateProfit += tempProfit;
                     }
                 }
-                return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, toGenerateProfit, toGenerateRevenue, list.size()));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, toGenerateProfit,
+                        toGenerateRevenue, list.size()));
             case INDEX:
+                //generating the profits and revenue for the food with given index in the list, in the given period
+                //from date_i to date_f, slightly more involved.
+                //get the food name based on indexing from the food list, then iterate through sales history to find
+                //matching description.
                 CommandUtil.requireValidIndex(list, profitIndex);
                 Food foodToGenerate = list.get(profitIndex);
                 tempFoodName = foodToGenerate.getName(); //possible to do this because we disallow duplicate food names
+
                 Iterator<Sale> it = saleSet.iterator();
                 while (it.hasNext()) {
                     Sale tempSale = it.next();
                     Date tempDate = tempSale.getDate();
                     String tempName = tempSale.getName();
-                    if (tempDate.compareTo(date_i) >= 0 && tempDate.compareTo(date_f) <= 0 && tempFoodName.equals(tempName)) {
+                    if (tempDate.compareTo(date_i) >= 0 && tempDate.compareTo(date_f) <= 0
+                            && tempFoodName.equals(tempName)) {
                         double tempRevenue = tempSale.getRevenue();
                         double tempProfit = tempSale.getProfit();
                         toGenerateRevenue += tempRevenue;
                         toGenerateProfit += tempProfit;
                     }
                 }
-                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateProfit, toGenerateRevenue, list.size()));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateProfit,
+                        toGenerateRevenue, list.size()));
             case NAME:
+                //generating the profits and revenue for the food with given food name, in the given period
+                //from date_i to date_f, rather straightforward.
+                //since we disallow duplicate food names in this project, iterate through sales history will do.
                 CommandUtil.requireValidName(list, profitDescription);
                 tempFoodName = profitDescription; //for consistency
+
                 Iterator<Sale> it = saleSet.iterator();
                 while (it.hasNext()) {
                     Sale tempSale = it.next();
                     Date tempDate = tempSale.getDate();
                     String tempName = tempSale.getName();
-                    if (tempDate.compareTo(date_i) >= 0 && tempDate.compareTo(date_f) <= 0 && tempFoodName.equals(tempName)) {
+                    if (tempDate.compareTo(date_i) >= 0 && tempDate.compareTo(date_f) <= 0
+                            && tempFoodName.equals(tempName)) {
                         double tempRevenue = tempSale.getRevenue();
                         double tempProfit = tempSale.getProfit();
                         toGenerateRevenue += tempRevenue;
                         toGenerateProfit += tempProfit;
                     }
                 }
-                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateProfit, toGenerateRevenue, list.size()));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateProfit,
+                        toGenerateRevenue, list.size()));
             case TYPE:
+                //generating the profits and revenue for the food with given food type, in the given period
+                //from date_i to date_f, most involved in all cases here.
+                //get all the food names of the food of the associated food type from the food list,
+                //then iterate through sales history to find possible matching descriptions.
+
+                //store all the food names of the food with the food type the user is looking for into an arraylist.
                 CommandUtil.requireValidType(list, profitDescription);
-                ArrayList<String> tempFoodNameCollection = new ArrayList<String>();
+                ArrayList<String> tempFoodNames = new ArrayList<String>();
                 int count = 0, listSize = list.size();
                 for (int i = 0; i < listSize; ++i) {
                     if ((list.get(i).getType() != null) && (list.get(i).getType().equals(profitDescription))) {
-                        tempFoodNameCollection.add(list.get(i).getName());
+                        tempFoodNames.add(list.get(i).getName());
                         ++count;
                     }
                 }
 
+                //iterate through the sales history to look for matching food names, identification
+                //with only food names is possible since we disallow duplicate food names in this project.
                 Iterator<Sale> it = saleSet.iterator();
                 while (it.hasNext()) {
                     Sale tempSale = it.next();
@@ -179,7 +203,7 @@ public class ProfitCommand extends Command {
                     String tempName = tempSale.getName();
                     if (tempDate.compareTo(date_i) >= 0 && tempDate.compareTo(date_f) <= 0) {
                         for (int i = 0; i < count; ++i) {
-                            if (tempName.equals(tempFoodNameCollection.get(i))) {
+                            if (tempName.equals(tempFoodNames.get(i))) {
                                 double tempRevenue = tempSale.getRevenue();
                                 double tempProfit = tempSale.getProfit();
                                 toGenerateRevenue += tempRevenue;
@@ -189,7 +213,8 @@ public class ProfitCommand extends Command {
                         }
                     }
                 }
-                return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, toGenerateProfit, toGenerateRevenue, count, listSize));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, toGenerateProfit,
+                        toGenerateRevenue, count, listSize));
         }
         return null;
     }

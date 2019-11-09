@@ -26,6 +26,8 @@ public class ProfitCommandParser implements ParserPrototype<ProfitCommand> {
      */
     public ProfitCommand parse(String[] args) throws ParserException {
         if (args.length < 6) {
+            //generating profits and revenue requires at least 6 arguments, which is the case of generating for all
+            //food within the given time period
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
         }
         if (!args[5].equals("-all") && args.length < 7) {
@@ -41,9 +43,11 @@ public class ProfitCommandParser implements ParserPrototype<ProfitCommand> {
             case "-i":
                 return new ProfitCommand(date_i, date_f, Integer.parseInt(args[6]),"INDEX");
             case "-n":
-                return new ProfitCommand(date_i, date_f, String.join(" ", Arrays.copyOfRange(args,6,args.length)),"NAME");
+                return new ProfitCommand(date_i, date_f, String.join(" ",
+                        Arrays.copyOfRange(args,6,args.length)),"NAME");
             case "-t":
-                return new ProfitCommand(date_i, date_f, String.join(" ", Arrays.copyOfRange(args,6,args.length)),"TYPE");
+                return new ProfitCommand(date_i, date_f, String.join(" ",
+                        Arrays.copyOfRange(args,6,args.length)),"TYPE");
         }
         throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
     }
