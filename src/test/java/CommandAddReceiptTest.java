@@ -24,15 +24,15 @@ public class CommandAddReceiptTest {
         assertEquals(CommandType.IN, testIncome.getCommandType());
         assertEquals(3.00, testIncome.getCash());
         assertEquals("1990-01-24", testIncome.getDate().toString());
-        assertEquals("bank", testIncome.getTags().get(0));
-        assertEquals("robbed", testIncome.getTags().get(1));
-        assertEquals("crime", testIncome.getTags().get(2));
+        assertEquals("bank", testIncome.getTags().get(1));
+        assertEquals("robbed", testIncome.getTags().get(2));
+        assertEquals("crime", testIncome.getTags().get(3));
 
         assertEquals(CommandType.OUT, testSpending.getCommandType());
         assertEquals(15, testSpending.getCash());
         assertEquals("2019-12-31", testSpending.getDate().toString());
-        assertEquals("fine", testSpending.getTags().get(0));
-        assertEquals("bank", testSpending.getTags().get(1));
-        assertEquals("robbed", testSpending.getTags().get(2));
+        assertEquals("fine", testSpending.getTags().get(1));
+        assertEquals("bank", testSpending.getTags().get(2));
+        assertEquals("robbed", testSpending.getTags().get(3));
     }
 }

@@ -26,7 +26,7 @@ public class CommandGetSpendingByDay extends Command {
         String currDate = LocalDate.now().toString();
         Double totalMoney;
         try {
-            totalMoney = storageManager.getReceiptsByDate(currDate).getTotalCashSpent();
+            totalMoney = storageManager.getReceiptsByDate(currDate).getNettCashSpent();
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());

@@ -17,9 +17,6 @@ public abstract class Command {
     protected String description = "NO DESCRIPTION";
     protected TaskList taskList;
 
-
-    // Constructor
-
     /**
      * Base Constructor for all sub-classes to call super().
      */

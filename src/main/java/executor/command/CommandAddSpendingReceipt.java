@@ -4,6 +4,8 @@ import duke.exception.DukeException;
 import storage.StorageManager;
 import ui.Receipt;
 
+import java.text.DecimalFormat;
+
 public class CommandAddSpendingReceipt extends CommandAddReceipt {
 
     /**
@@ -17,6 +19,7 @@ public class CommandAddSpendingReceipt extends CommandAddReceipt {
         this.cash = extractIncome(this.commandType, this.userInput);
         this.date = extractDate(this.userInput);
         this.tags = extractTags(this.userInput);
+        this.tags.add(0, "Expenses");
         this.description = "You can add a new spendings receipt.\n"
                 + "FORMAT :  out <value> /date <YYYY-MM-DD> /tags <tag>";
     }
@@ -26,11 +29,11 @@ public class CommandAddSpendingReceipt extends CommandAddReceipt {
         Receipt r = new Receipt(this.cash, this.date, this.tags);
         try {
             storageManager.addReceipt(r);
+            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
             this.infoCapsule.setCodeToast();
             this.infoCapsule.setOutputStr("Added Receipt: $"
-                    + r.getCashSpent().toString()
-                    + " "
-                    + "with tags: "
+                    + decimalFormat.format(r.getCashSpent())
+                    + " with tags: "
                     + r.getTags().toString());
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();

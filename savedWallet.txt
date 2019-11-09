@@ -1,0 +1,28 @@
+1000.0
+angbao-dating-travel-food-
+out $20.0 /date 2010-11-01 /tags gift
+out $3.0 /date 2019-11-02 /tags food
+out $25.0 /date 2019-11-02 /tags groceries
+out $10.0 /date 2010-11-01 /tags gift
+out $7.0 /date 2019-11-02 /tags food
+out $9.0 /date 2019-11-03 /tags food
+out $25.0 /date 2019-11-03 /tags dating
+out $2.5 /date 2019-11-03 /tags food
+out $12.0 /date 2019-11-03 /tags groceries
+out $5.0 /date 2019-11-04 /tags food
+out $4.5 /date 2019-11-04 /tags food
+out $30.0 /date 2019-11-01 /tags dating
+out $45.0 /date 2019-11-01 /tags dating
+out $100.0 /date 2010-11-01 /tags gift
+out $5.0 /date 2019-11-05 /tags food
+out $12.0 /date 2019-11-05 /tags food
+out $30.0 /date 2019-11-05 /tags groceries
+out $15.0 /date 2010-11-01 /tags gift
+out $10.0 /date 2019-11-06 /tags food
+out $9.5 /date 2019-11-06 /tags food
+out $6.0 /date 2019-11-07 /tags food
+out $15.0 /date 2010-11-01 /tags gift
+out $12.0 /date 2019-11-08 /tags food
+out $45.0 /date 2019-11-08 /tags travel concession
+in $45.0 /date 2019-11-08 /tags angbao
+out $100.0 /date 2019-11-08 /tags unlucky misplaced
