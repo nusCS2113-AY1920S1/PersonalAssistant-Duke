@@ -215,8 +215,7 @@ it could lead to unexpected side-effects if implemented wrongly.
 
 * Alternative 1: Use a drop-down list to display all possible suggestions.
 ** Pros: Intuitive and allows users to see all possible commands in one place.
-* Cons: Hard to implement.
-May require additional components other than JavaFx's built-in components.
+** Cons: Hard to implement.
 May require additional components other than JavaFx's built-in components.
 * Alternative 2 (Current choice): Navigate between possible suggestions by repeatedly pressing `Tab` key.
 ** Pros: Easier to implement since no additional components are needed
