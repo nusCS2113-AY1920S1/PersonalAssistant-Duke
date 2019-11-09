@@ -25,9 +25,9 @@ public class QuizNextCommand extends QuizCommand {
 
     @Override
     public String execute() {
-        if (inputs.get(1).equals("next") && questionNumber.get() < 9) {
+        if (inputs.get(0).equals("next") && questionNumber.get() < 9) {
             questionNumber.incrementAndGet();
-        } else if (inputs.get(1).equals("back") && questionNumber.get() > 0) {
+        } else if (inputs.get(0).equals("back") && questionNumber.get() > 0) {
             questionNumber.decrementAndGet();
         }
         return quizList.get(questionNumber.get()).getQuestion()
