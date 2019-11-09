@@ -5,36 +5,33 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-/**
- * Test class for BusyBee.
- */
-public class BusyBeeTest {
+public class CompletionistTest {
 
     /**
-     * Checks if Busybee can be unlock.
+     * Checks if Completionist can be unlock.
      */
     @Test
-    public void checkUnlockBusybee() {
-        AddTask addTask = new AddTask("Bronze");
-        addTask.setLock(false);
-        assertEquals(false, addTask.checkLock());
+    public void checkCompletionistBusyBee() {
+        DoneTask doneTask = new DoneTask("Bronze");
+        doneTask.setLock(false);
+        assertEquals(false, doneTask.checkLock());
     }
 
     /**
      * Checks if the condition for unlocking each achievement level is correct.
      */
     @Test
-    public void checkBusybeeInformation() {
-        AddTask bronze = new AddTask("Bronze");
-        AddTask silver = new AddTask("Silver");
-        AddTask gold = new AddTask("Gold");
+    public void checkCompletionistInformation() {
+        DoneTask bronze = new DoneTask("Bronze");
+        DoneTask silver = new DoneTask("Silver");
+        DoneTask gold = new DoneTask("Gold");
 
         //checks if the condition for getting bronze achievement level is correct
-        assertEquals("(User adds 5 tasks)", bronze.getInformation());
+        assertEquals("(User completes 5 tasks)", bronze.getInformation());
         //checks if the condition for getting silver achievement level is correct
-        assertEquals("(User adds 10 tasks)", silver.getInformation());
+        assertEquals("(User completes 10 tasks)", silver.getInformation());
         //checks if the condition for getting gold achievement level is correct
-        assertEquals("(User adds 15 tasks)", gold.getInformation());
+        assertEquals("(User completes 15 tasks)", gold.getInformation());
 
         //checks if the condition for getting bronze achievement level is different from silver
         assertNotEquals(bronze.getInformation(),silver.getInformation());
@@ -46,15 +43,15 @@ public class BusyBeeTest {
     @Test
     public void checkPrintingToTxt() {
 
-        AddTask lockedBronze = new AddTask("Bronze");
-        AddTask unlockedBronze = new AddTask("Bronze");
+        DoneTask lockedBronze = new DoneTask("Bronze");
+        DoneTask unlockedBronze = new DoneTask("Bronze");
 
         unlockedBronze.setLock(false);
         unlockedBronze.setPoints(5);
 
         //String should represents the current status of Busybee.
-        assertEquals("true|0|Bronze|Busybee|(User adds 5 tasks)", lockedBronze.toTxt());
-        assertEquals("false|5|Bronze|Busybee|(User adds 5 tasks)", unlockedBronze.toTxt());
+        assertEquals("true|0|Bronze|Completionist|(User completes 5 tasks)", lockedBronze.toTxt());
+        assertEquals("false|5|Bronze|Completionist|(User completes 5 tasks)", unlockedBronze.toTxt());
 
     }
 
@@ -64,10 +61,11 @@ public class BusyBeeTest {
     @Test
     public void checkPrintingToString() {
 
-        AddTask lockedBronze = new AddTask("Bronze");
+        DoneTask lockedBronze = new DoneTask("Bronze");
 
         //String should represents the current status of Busybee.
-        assertEquals("Gained: 0 Busybee Bronze (User adds 5 tasks) Progress: [0%]", lockedBronze.toString());
+        assertEquals("Gained: 0 Completionist Bronze (User completes 5 tasks) Progress: [0%]", lockedBronze.toString());
     }
+
 
 }

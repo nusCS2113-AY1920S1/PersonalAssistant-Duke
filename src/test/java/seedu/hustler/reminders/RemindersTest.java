@@ -19,9 +19,9 @@ public class RemindersTest {
     @Test
 
     /**
-     * Check if oneDay reminder exist.
+     * Check if overDue reminder exist.
      */
-    public void dummyTest() {
+    public void checkOverDue() {
         ArrayList<Task> temp = new ArrayList<>();
         LocalDateTime localDateTime = LocalDateTime.of(2019,8,1,1,1,1);
         temp.add(new Deadline("assignemntsss",localDateTime));

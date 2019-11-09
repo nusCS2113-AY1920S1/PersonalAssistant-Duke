@@ -5,16 +5,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-/**
- * Test class for BusyBee.
- */
-public class BusyBeeTest {
+public class DedicatedTest {
 
     /**
      * Checks if Busybee can be unlock.
      */
     @Test
-    public void checkUnlockBusybee() {
+    public void checkUnlockBusyBee() {
         AddTask addTask = new AddTask("Bronze");
         addTask.setLock(false);
         assertEquals(false, addTask.checkLock());
@@ -24,7 +21,7 @@ public class BusyBeeTest {
      * Checks if the condition for unlocking each achievement level is correct.
      */
     @Test
-    public void checkBusybeeInformation() {
+    public void checkBusyBeeInformation() {
         AddTask bronze = new AddTask("Bronze");
         AddTask silver = new AddTask("Silver");
         AddTask gold = new AddTask("Gold");
@@ -69,5 +66,4 @@ public class BusyBeeTest {
         //String should represents the current status of Busybee.
         assertEquals("Gained: 0 Busybee Bronze (User adds 5 tasks) Progress: [0%]", lockedBronze.toString());
     }
-
 }
