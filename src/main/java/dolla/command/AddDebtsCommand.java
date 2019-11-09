@@ -57,6 +57,6 @@ public class AddDebtsCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return null;
+        return type + " " + name + " " + amount + " " + description + " " + date;
     }
 }

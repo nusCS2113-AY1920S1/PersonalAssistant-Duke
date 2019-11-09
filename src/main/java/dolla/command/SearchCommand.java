@@ -93,6 +93,6 @@ public class SearchCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return null;
+        return component + " " + searchContent;
     }
 }
