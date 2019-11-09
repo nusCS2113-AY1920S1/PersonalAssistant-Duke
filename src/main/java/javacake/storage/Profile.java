@@ -21,7 +21,7 @@ public class Profile {
     private int totalNumOfMainTopics = 4;
     private int levelsOfDifficulty = 3;
     private static boolean isResetFresh = false;
-
+    public boolean isCli = true;
 
     public Profile() throws CakeException {
         this("data");
@@ -139,7 +139,7 @@ public class Profile {
      * @param isLight whether isLight mode is on
      * @throws CakeException when unable to create file
      */
-    public static void writeColorConfig(boolean isLight) throws CakeException {
+    public void writeColorConfig(boolean isLight) throws CakeException {
         File configFile = new File("data/colorconfig/color.txt");
         try {
             if (!configFile.getParentFile().getParentFile().exists()) {

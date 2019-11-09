@@ -30,13 +30,14 @@ public class ViewScheduleCommand extends Command {
         input = input.substring(13);
         Date currDate = getDate(input);
         Calendar calendar = GregorianCalendar.getInstance();
-        calendar.setTime(currDate);
+        ArrayList<Task> scheduleList = new ArrayList<>();
+
+        /*
         int currDay = calendar.get(Calendar.DAY_OF_MONTH);
         int currMonth = calendar.get(Calendar.MONTH);
         int currYear = calendar.get(Calendar.YEAR);
 
-        ArrayList<Task> scheduleList = new ArrayList<>();
-        /*for (Task task : progressStack.getData()) {
+        for (Task task : progressStack.getData()) {
             if (task.getTaskType() == Task.TaskType.EVENT || task.getTaskType() == Task.TaskType.DEADLINE) {
                 calendar.setTime(task.getDateTime());
                 int taskDay = calendar.get(Calendar.DAY_OF_MONTH);

@@ -55,6 +55,11 @@ public class TopBar extends HBox {
     private Image cakeOriginal = new Image(this.getClass().getResourceAsStream("/images/cake.png"));
     private int cakeCounter = 0;
     private boolean isSet = false;
+    private JavaCake javaCake;
+
+    public void setJavaCake(JavaCake javaCake) {
+        this.javaCake = javaCake;
+    }
 
     /**
      * Constructor for title bar.
@@ -150,16 +155,16 @@ public class TopBar extends HBox {
     /**
      * Method to set up progressBars.
      */
-    public static void setUpProgressBars() {
-        TopBar.progValueA = (double) JavaCake.storageManager.profile.getOverallContentMarks(0)
+    public void setUpProgressBars() {
+        progValueA = (double) javaCake.storageManager.profile.getOverallContentMarks(0)
                 / QuizSession.TotalMaxQuestions;
-        TopBar.progValueB = (double) JavaCake.storageManager.profile.getOverallContentMarks(1)
+        progValueB = (double) javaCake.storageManager.profile.getOverallContentMarks(1)
                 / QuizSession.TotalMaxQuestions;
-        TopBar.progValueC = (double) JavaCake.storageManager.profile.getOverallContentMarks(2)
+        progValueC = (double) javaCake.storageManager.profile.getOverallContentMarks(2)
                 / QuizSession.TotalMaxQuestions;
-        TopBar.progValueD = (double) JavaCake.storageManager.profile.getOverallContentMarks(3)
+        progValueD = (double) javaCake.storageManager.profile.getOverallContentMarks(3)
                 / QuizSession.TotalMaxQuestions;
-        TopBar.progValueT = (double) JavaCake.storageManager.profile.getTotalProgress()
+        progValueT = (double) javaCake.storageManager.profile.getTotalProgress()
                 / (QuizSession.TotalMaxQuestions * 4);
     }
 

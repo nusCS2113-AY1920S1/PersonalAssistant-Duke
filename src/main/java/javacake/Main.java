@@ -5,6 +5,7 @@ import java.io.IOException;
 import javacake.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
@@ -23,6 +24,7 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             GridPane ap = fxmlLoader.load();
+            System.out.println("Yeet");
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setJavaCake(javaCake);

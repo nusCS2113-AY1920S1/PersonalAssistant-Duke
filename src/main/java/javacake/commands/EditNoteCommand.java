@@ -177,7 +177,7 @@ public class EditNoteCommand extends Command implements IFileUtilities {
     @Override
     public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
 
-        if (JavaCake.isCliMode()) {
+        if (storageManager.profile.isCli) {
             if (checkFileIsEmpty(currentFilePath)) {
                 ui.showMessage("Write your notes below!\n");
                 ui.showMessage("To save edited content, type '/save' and enter!\n");

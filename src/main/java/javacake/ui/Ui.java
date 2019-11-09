@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
-    private static String cake = "cake";
     private static String border = "____________________________________________________________";
 
     /**

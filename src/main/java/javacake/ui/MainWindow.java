@@ -63,11 +63,9 @@ public class MainWindow extends GridPane {
     public static boolean isChanged = false;
     public static boolean doneDialog = false;
 
-    //private Handler handler;
     private JavaCake javaCake;
     private Stage primaryStage;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image javaCakeImage = new Image(this.getClass().getResourceAsStream("/images/padoru.png"));
 
     private QuizSession quizSession;
@@ -93,30 +91,43 @@ public class MainWindow extends GridPane {
         taskScreen.vvalueProperty().bind(taskContainer.heightProperty());
         noteScreen.vvalueProperty().bind(noteContainer.heightProperty());
         avatarScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
-        topBar.getChildren().add(new TopBar());
-        TopBar.setUpProgressBars();
 
-        if (JavaCake.isFirstTimeUser) {
-            response = Ui.showWelcomeMsgPhaseA(JavaCake.isFirstTimeUser);
-            showContentContainer();
-        } else {
-            response = Ui.showWelcomeMsgPhaseA(JavaCake.isFirstTimeUser)
-                    + Ui.showWelcomeMsgPhaseB(JavaCake.isFirstTimeUser,
-                    JavaCake.userName, JavaCake.storageManager);
-            showContentContainer();
-        }
-        setAvatarDialogLoop();
-        showListNotesBox();
-        showRemindersBox();
-        playGuiModeLoop();
-
-        //Resize contentDialog to fit the current scrollpane
-        playResizeLoop();
 
     }
 
-    public void setJavaCake(JavaCake d) {
-        javaCake = d;
+    /**
+     * Method to initialise all things javaCake related.
+     * @param cake instance of JavaCake
+     */
+    public void setJavaCake(JavaCake cake) {
+        javaCake = cake;
+        TopBar top = new TopBar();
+        top.setJavaCake(javaCake);
+        top.setUpProgressBars();
+        topBar.getChildren().add(top);
+
+        try {
+            if (javaCake.isFirstTimeUser) {
+                response = Ui.showWelcomeMsgPhaseA(true);
+                showContentContainer();
+            } else {
+                response = Ui.showWelcomeMsgPhaseA(false)
+                        + Ui.showWelcomeMsgPhaseB(javaCake.isFirstTimeUser,
+                        javaCake.userName, javaCake.storageManager);
+                showContentContainer();
+            }
+
+            setAvatarDialogLoop();
+            showListNotesBox();
+            showRemindersBox();
+            playGuiModeLoop();
+
+            //Resize contentDialog to fit the current scrollpane
+            playResizeLoop();
+        } catch (NullPointerException | CakeException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void setStage(Stage stage) {
@@ -134,7 +145,7 @@ public class MainWindow extends GridPane {
         if (!isExit) {
             try {
                 input = userInput.getText();
-                String inputDivider[] = input.split("\\s+");
+                String[] inputDivider = input.split("\\s+");
                 // get input first, don't get response first...
                 userInput.clear();
                 JavaCake.logger.log(Level.INFO, "INPUT: " + input);
@@ -150,7 +161,7 @@ public class MainWindow extends GridPane {
                     handleDeleteNote();
                 } else if (inputDivider[0].equals("createnote")) {
                     handleCreateNote();
-                } else if (isStarting && JavaCake.isFirstTimeUser) { //set up new username
+                } else if (isStarting && javaCake.isFirstTimeUser) { //set up new username
                     handleStartAndFirstTime();
                 } else if (isTryingReset) { //confirmation of reset
                     handleResetConfirmation();
@@ -363,9 +374,9 @@ public class MainWindow extends GridPane {
     private void handleStartAndFirstTime() throws CakeException {
         System.out.println("start and first");
         JavaCake.logger.log(Level.INFO, "New user initialising...");
-        JavaCake.userName = input;
-        JavaCake.storageManager.profile.overwriteName(JavaCake.userName);
-        response = Ui.showWelcomeMsgPhaseB(JavaCake.isFirstTimeUser, JavaCake.userName, JavaCake.storageManager);
+        javaCake.userName = input;
+        javaCake.storageManager.profile.overwriteName(javaCake.userName);
+        response = Ui.showWelcomeMsgPhaseB(javaCake.isFirstTimeUser, javaCake.userName, javaCake.storageManager);
         showContentContainer();
         isStarting = false;
     }
@@ -379,9 +390,9 @@ public class MainWindow extends GridPane {
             Storage.resetStorage();
             this.javaCake = new JavaCake();
             javaCake.storageManager.profile.writeColorConfig(isLightMode);
-            JavaCake.userProgress = JavaCake.storageManager.profile.getTotalProgress();
-            JavaCake.userName = JavaCake.storageManager.profile.getUsername();
-            JavaCake.isFirstTimeUser = true;
+            javaCake.userProgress = javaCake.storageManager.profile.getTotalProgress();
+            javaCake.userName = javaCake.storageManager.profile.getUsername();
+            javaCake.isFirstTimeUser = true;
             showRemindersBox();
             showListNotesBox();
             response = "Reset confirmed!\nPlease type in new username:\n";
@@ -524,8 +535,6 @@ public class MainWindow extends GridPane {
 
     private boolean isDeadlineRelated() throws CakeException {
         if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
-            //response = JavaCake.getResponse(input);
-            System.out.println(response);
             if (!response.contains("[!]")) {
                 deadlineExtracted();
                 JavaCake.logger.log(Level.INFO, "Adding deadlines setting");
@@ -536,10 +545,9 @@ public class MainWindow extends GridPane {
             }
             return true;
         } else if (input.length() >= 4 && input.substring(0, 4).equals("done")) {
-            System.out.println(response);
             if (!response.contains("[!]")) {
                 deadlineExtracted();
-                JavaCake.logger.log(Level.INFO, "Removing deadlines setting");
+                JavaCake.logger.log(Level.INFO, "Done deadlines setting");
             } else {
                 response += "\nType 'reminder' to view deadlines";
                 showTaskContainer();
@@ -547,7 +555,6 @@ public class MainWindow extends GridPane {
             }
             return true;
         } else if (input.length() >= 6 && input.substring(0, 6).equals("delete")) {
-            System.out.println(response);
             if (!response.contains("[!]")) {
                 deadlineExtracted();
                 JavaCake.logger.log(Level.INFO, "Removing deadlines setting");
@@ -558,7 +565,6 @@ public class MainWindow extends GridPane {
             }
             return true;
         } else if (input.length() >= 6 && input.substring(0, 6).equals("snooze")) {
-            System.out.println(response);
             if (!response.contains("[!]")) {
                 deadlineExtracted();
                 JavaCake.logger.log(Level.INFO, "Changing deadlines setting");
@@ -569,8 +575,6 @@ public class MainWindow extends GridPane {
             }
             return true;
         } else if (input.equals("reminder")) {
-            //response = "Reminders are shown over there! ================>>>\n";
-            //showContentContainer();
             showRemindersBox();
             JavaCake.logger.log(Level.INFO, "Reminder setting");
             return true;
@@ -613,12 +617,15 @@ public class MainWindow extends GridPane {
     }
 
     private void showListNotesBox() throws CakeException {
-        response = Ui.showNoteList(JavaCake.storageManager);
+        if (javaCake == null) {
+            System.out.println("NO CAKE");
+        }
+        response = Ui.showNoteList(javaCake.storageManager);
         showNoteContainer();
     }
 
     private void showRemindersBox() throws CakeException {
-        response = Ui.showDeadlineReminder(JavaCake.storageManager);
+        response = Ui.showDeadlineReminder(javaCake.storageManager);
         //CHECKSTYLE:OFF
         response = response.replaceAll("✓", "\u2713");
         response = response.replaceAll("✗", "\u2717");
@@ -660,13 +667,6 @@ public class MainWindow extends GridPane {
         list.add("I rather get Akshay than an A!\n");
         list.add("I LOVE BIG CAKES AND I CANNOT LIE!");
         list.add("CAAAAAAAAAaaaaakkkke!");
-        //list.add("the cake...\n     is a LIE!");
-        //list.add("Your momma so fat...\nshe segfaulted on JavaCake");
-        //list.add("Want to know a secret?\nYour waifu does not love you!");
-        //list.add("Hi, Welcome to JavaCake!\nWant sum cake?\nAll you have to do is get 100%!");
-        //list.add("late as heck but...\nhappy halloween!!!");
-        //list.add("like my hat?\nit ate my soul");
-        //list.add("Hi, Welcome to JavaCake!\nWant sum cake?\nAll you have to do is get 100%!");
     }
 
     private static boolean isNumeric(String input) {

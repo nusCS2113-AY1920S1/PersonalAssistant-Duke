@@ -77,7 +77,7 @@ public class TaskList {
      * Creates a new 'Deadline' task, before adding it to current list,
      * then returning the output by Duke.
      * @param data ArrayList of Tasks that's currently being stored
-     * @param input Command input by user
+     * @param inputCommand Command input by user
      * @param state The type of output needed:
      *              0 : Needs to return a string
      *              1 : Returns null string with unchecked task
@@ -86,11 +86,11 @@ public class TaskList {
      */
 
 
-    public static String runDeadline(ArrayList<Task> data, String input, TaskState state) throws CakeException {
-        if (input.length() <= 9) {
+    public static String runDeadline(ArrayList<Task> data, String inputCommand, TaskState state) throws CakeException {
+        if (inputCommand.length() <= 9) {
             throw new CakeException("[!] No task description\nPlease input:\n'deadline TASK /by TASK_DATE'");
         }
-        input = input.substring(9);
+        String input = inputCommand.substring(9);
         String[] listStr = input.split("\\s+");
         if (listStr.length < 3) {
             throw new CakeException("[!] Improper format\nPlease input:\n'deadline TASK /by TASK_DATE'");
