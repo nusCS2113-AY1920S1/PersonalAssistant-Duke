@@ -301,7 +301,6 @@ public class Parser {
             }
         } else if (!emptyString
                 && (arr[Numbers.ZERO.value].equals("fixedduration") || arr[Numbers.ZERO.value].equals("fd"))) {
-            //fixedduration <task> /for <duration> <unit>
             String description = "";
             int duration;
             String unit;
@@ -356,7 +355,6 @@ public class Parser {
             }
         } else if (!emptyString
                 && (arr[Numbers.ZERO.value].equals("setpriority") || arr[Numbers.ZERO.value].equals("sp"))) {
-            //fixedduration <taskNum> <priority>
             String description = "";
 
             int taskNum;
@@ -396,7 +394,6 @@ public class Parser {
 
         } else if (!emptyString
                     && (arr[Numbers.ZERO.value].equals("findpriority") || arr[Numbers.ZERO.value].equals("fp"))) {
-            // findpriority <int>
             if (arr.length == Numbers.ONE.value) {
                 throw new DukeException("     (>_<) OOPS!!! The target priority cannot be empty.");
             } else {
@@ -418,7 +415,6 @@ public class Parser {
                 }
             }
         } else if (!emptyString && arr[Numbers.ZERO.value].equals("finddate")) {
-            // finddate /on <dd/MM/yyyy>
             SimpleDateFormat datetimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             int sufIndex = Numbers.MINUS_ONE.value;
             String description = "";
@@ -426,9 +422,26 @@ public class Parser {
             for (int i = Numbers.ONE.value; i < arr.length; i++) {
                 description += arr[i] + " ";
             }
-            dateDesc = description.split("/on ")[Numbers.ONE.value].trim();
+            String[] holder =  description.split("/on");
+            if (holder.length == 1) {
+                throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
+                        + arr[Numbers.ZERO.value] + " cannot be empty.");
+            }
 
-            Date date = datetimeFormat.parse(dateDesc);
+            dateDesc = description.split("/on")[Numbers.ONE.value].trim();
+
+            if (dateDesc.trim().isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
+                        + arr[Numbers.ZERO.value] + " cannot be empty.");
+            }
+
+            Date date;
+            try {
+                date = datetimeFormat.parse(dateDesc);
+            } catch (Exception e) {
+                logr.log(Level.WARNING, ErrorMessages.DATE_FORMAT.message, e);
+                throw new DukeException(ErrorMessages.DATE_FORMAT.message);
+            }
             int day = Integer.parseInt(new SimpleDateFormat("d").format(date));
             if (day % 10 == Numbers.ONE.value) {
                 sufIndex = Numbers.ZERO.value;

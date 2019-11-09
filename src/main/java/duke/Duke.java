@@ -2,6 +2,11 @@ package duke;
 
 import duke.command.Command;
 import duke.command.FilterCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.SetPriorityCommand;
+import duke.command.AddCommand;
+import duke.command.DeleteCommand;
+import duke.command.FindTasksByPriorityCommand;
 import duke.enums.ErrorMessages;
 import duke.parser.Parser;
 import duke.storage.BudgetStorage;
@@ -241,10 +246,18 @@ public class Duke {
      *
      * @param cmd Command to be executed.
      * @return String to be outputted.
-     * @throws IOException  If there is an error writing the text file
      */
-    public String executeCommand(Command cmd) throws IOException {
-        String str = cmd.executeGui(items, ui);
+    public String executeCommand(Command cmd) {
+        String str;
+        if (cmd instanceof ListPriorityCommand
+                || cmd instanceof SetPriorityCommand
+                || cmd instanceof FindTasksByPriorityCommand
+                || cmd instanceof AddCommand
+                || cmd instanceof DeleteCommand) {
+            str = cmd.executeGui(items, priorityList, ui);
+        } else {
+            str = cmd.executeGui(items, ui);
+        }
         if (cmd instanceof FilterCommand) {
             cmd.execute(items,filterList);
         }

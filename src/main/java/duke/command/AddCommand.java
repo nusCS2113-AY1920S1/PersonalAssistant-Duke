@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.storage.Storage;
+import duke.task.PriorityList;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -19,6 +20,21 @@ public class AddCommand extends Command {
      */
     public AddCommand(Task task) {
         this.task = task;
+    }
+
+    /**
+     * Executes a command that adds the task into task list and outputs the result together with its priority (Gui).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param ui To tell the user that it is deleted successfully.
+     * @param priorities The list of priorities.
+     */
+    @Override
+    public String executeGui(TaskList items, PriorityList priorities, Ui ui) {
+        items.add(task);
+        priorities.addDefaultPriority();
+        String str = Ui.showAddGui(items);
+        return str;
     }
 
     /**
