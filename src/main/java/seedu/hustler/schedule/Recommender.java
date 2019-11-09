@@ -49,6 +49,8 @@ public class Recommender {
         PriorityQueue<ScheduleEntry> topk = new PriorityQueue<ScheduleEntry>(new SortByPriority());
         int hours = (int) seconds / 3600;
 
+        hours = hours == 0 ? 1 : hours;
+
         topKAlgorithm(topk, hours);
 
         recommended = new ArrayList<ScheduleEntry>(topk);

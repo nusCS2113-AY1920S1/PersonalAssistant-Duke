@@ -7,6 +7,7 @@ import seedu.hustler.logic.command.Command;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.logic.parser.anomaly.DoneAnomaly;
+import seedu.hustler.schedule.Scheduler;
 
 import java.io.IOException;
 
@@ -41,6 +42,7 @@ public class DoneCommand extends Command {
         try {
             anomaly.detect(userInput);
             int taskIndex = Integer.parseInt(userInput[1]) - 1;
+            Scheduler.remove(Hustler.list.get(taskIndex));
             Hustler.list.doTask(taskIndex);
             Hustler.avatar.gainXp();
             if (Hustler.avatar.canLevel()) {

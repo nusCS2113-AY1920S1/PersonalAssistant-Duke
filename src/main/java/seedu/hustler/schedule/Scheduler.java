@@ -125,7 +125,7 @@ public class Scheduler {
      * and time spent on each of the tasks.
      */
     public static void displayEntries() {
-        String output = "";
+        String output = "These are the amount of hours you have spent on all your tasks:\n\t";
         for (ScheduleEntry entry : schedule) {
             output += entry.getTask().toString() 
                 + " hours spent: " + (entry.getTimeSpent() / 3600.0) + "\n\t";
@@ -157,7 +157,6 @@ public class Scheduler {
     public static void recommend(int seconds) {
         recommender = new Recommender(schedule);
         recommended = recommender.recommend(seconds);
-        displayRecommendedSchedule();
     }
     
     public static void displayRecommendedSchedule() {
@@ -167,15 +166,14 @@ public class Scheduler {
             return;
         }
 
-        String output = "Hey, this is your recommended schedule for the next "
-            + "few hours. Please confirm if you will follow it. Please add or delete" 
-            + " entries before updating time:\n\t";
+        String output = "This is your recommended schedule for the next "
+            + "few hours. Change it to your liking:\n\t";
         for (int i = 0; i < recommended.size(); i++) {
             long hours = recommended.get(i).getTimeAlloc() / 3600;
             long minutes = (recommended.get(i).getTimeAlloc() / 60) % 60;
             long seconds = recommended.get(i).getTimeAlloc() % 60;
             output += (i + 1) + ". " + recommended.get(i).getTask().toString() 
-                + " time alloted: " + hours + ":" + minutes + ":" + seconds + " " + recommended.get(i).getPriorityScore() + "\n\t";
+                + " time alloted: " + hours + ":" + minutes + ":" + seconds + "\n\t";
         }
         ui.showMessage(output);
     }
@@ -197,7 +195,7 @@ public class Scheduler {
         for (ScheduleEntry entry : recommended) {
             entry.updateTimeSpent(entry.getTimeAlloc());
         }
-        recommended = new ArrayList<ScheduleEntry>();
+        recommended.clear();
         displayEntries();
     }
 
