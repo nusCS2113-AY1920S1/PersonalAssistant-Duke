@@ -487,7 +487,7 @@ public class Card {
      * @param newExpenditure an instance of the expenditure, contained in 1 line in the save file.
      */
     void importNewPaidExpenditure(Transaction newExpenditure) {
-        unpaid.importExpenditureToList(newExpenditure);
+        paid.importExpenditureToList(newExpenditure);
     }
 
     /**
@@ -496,6 +496,6 @@ public class Card {
      * @param newExpenditure an instance of the expenditure, contained in 1 line in the save file.
      */
     void importNewUnpaidExpenditure(Transaction newExpenditure) {
-        paid.importExpenditureToList(newExpenditure);
+        unpaid.importExpenditureToList(newExpenditure);
     }
 }

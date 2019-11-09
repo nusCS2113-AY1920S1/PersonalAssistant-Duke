@@ -24,7 +24,6 @@ public class ParseAddGoals extends ParseGoals {
     public ParseAddGoals(String data) throws ParserException {
         super(data);
         checkRedundantParameter(NEW_NAME_PARAMETER, ADD_COMMAND);
-        //check wrong parameter e.g. if user accidentally keys in /date instead of by
         checkFirstParameter();
     }
 
@@ -45,7 +44,7 @@ public class ParseAddGoals extends ParseGoals {
             if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when adding new goals");
             } else if (NAME_PARAMETER.equals(key)) {
-                checkName(NAME_PARAMETER, value);
+                checkGoalsName(NAME_PARAMETER, value);
             }
             if (AMOUNT_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when adding new goals");

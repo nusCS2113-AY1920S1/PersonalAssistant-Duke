@@ -18,6 +18,9 @@ public class AchievementList {
     private ArrayList<Achievement> achievementList;
     private static final String PROFILE_ACHIEVEMENT_LIST_FILE_NAME = "profile_achievementlist.csv";
     private static final int ISZERO = 0;
+    private static final int ONE_INDEX = 1;
+    private static final boolean ISSINGLE = false;
+    private static final boolean ISMULTIPLE = true;
 
     /**
      * Creates a instance of AchievementList that contains an arrayList of Achievements.
@@ -42,9 +45,7 @@ public class AchievementList {
                     + " at risk, but we will try again, feel free to continue using the program.");
         }
         ui.printMessage("Achievement unlocked! Details: ");
-        ui.printMessage(achievement.getCategory() + " Achieved goal [" + achievement.getName() + "] to save ["
-                + new DecimalFormat("0.00").format(achievement.getAmount())
-                + "] before your target date " + achievement.getDate());
+        printOneAchievement(ONE_INDEX, achievement, ISSINGLE, ui);
     }
 
     /**
@@ -63,12 +64,30 @@ public class AchievementList {
                     ui.printError("Error trying to save your achievements to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
-
-                ui.printMessage("Achieved Goals:\n");
-                ui.printMessage(i + 1 + ". SAVED " + "$"
-                        + new DecimalFormat("0.00").format(achievementList.get(i).getAmount())
-                        + " for your " + achievementList.get(i).getCategory() + " " + achievementList.get(i).getName());
+                ui.printAchievementHeader();
+                printOneAchievement(ONE_INDEX, achievementList.get(i), ISMULTIPLE, ui);
+                ui.printDivider();
             }
+        }
+    }
+
+    /**
+     * Prints goal details.
+     *
+     * @param num                Represents the numbering of the goal.
+     * @param achievement        The achievement object to be printed.
+     * @param isMultiplePrinting Represents whether the function will be called for printing once or multiple
+     *                           time
+     * @param ui                 The object use for printing.
+     */
+    private void printOneAchievement(int num, Achievement achievement, boolean isMultiplePrinting, Ui ui) {
+        if (!isMultiplePrinting) {
+            ui.printAchievementHeader();
+        }
+        ui.printAchievement(num, achievement.getName(), "$"
+                        + new DecimalFormat("0.00").format(achievement.getAmount()), achievement.getDate());
+        if (!isMultiplePrinting) {
+            ui.printDivider();
         }
     }
 
