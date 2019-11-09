@@ -12,7 +12,7 @@ import owlmoney.storage.Storage;
 /**
  * Generates dummy data and writes to CSV files for v1.4 test so that the application can import them.
  */
-public class MainImport {
+class MainImport {
     private Storage storage;
     private static final Logger logger = getLogger(Profile.class);
     private static final String FILE_PATH = "data/";
@@ -45,6 +45,9 @@ public class MainImport {
             createInvestmentBondListFile("1"); //investment account is bank 1 in bankList
             createInvestmentTransactionListFile("1"); //investment account is bank 1 in bankList
             createCardUnpaidTransactionListFile("0"); //POSB card is card 0 in cardList
+            createCardPaidTransactionListFile("0"); //POSB card is card 0 in cardList
+            createGoalListFile();
+            createAchievementListFile();
         } catch (IOException exceptionMessage) {
             logger.warning("Error creating dummy data.");
         }
@@ -68,13 +71,13 @@ public class MainImport {
         exportArrayList.add(new String[]{
             "MayBank Savings Account",
             "saving",
-            "15000",
-            "5000",
-            "1/12/2019"});
+            "13889.75",
+            "5000.00",
+            "01/12/2019"});
         exportArrayList.add(new String[]{
             "DBS Vickers Account",
             "investment",
-            "20000",
+            "5456.91",
             ".00",
             ""});
         return exportArrayList;
@@ -87,73 +90,95 @@ public class MainImport {
 
     private ArrayList<String[]> prepareSavingTransactions() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
-        exportArrayList.add(new String[]{"description","amount","date","category","spent"});
+        exportArrayList.add(new String[]{"description","amount","date","category","spent","cardId","billDate"});
         exportArrayList.add(new String[]{
             "Koi Bubble Tea",
             "3.5",
             "02/01/2019",
             "dining",
-            "true"});
+            "true",
+            "",
+            "2019-01"});
         exportArrayList.add(new String[]{
             "Chicken Rice",
             "4",
             "08/03/2019",
             "dining",
-            "true"});
+            "true",
+            "",
+            "2019-03"});
         exportArrayList.add(new String[]{
             "Ice Coffee",
             "7.5",
             "13/05/2019",
             "dining",
-            "true"});
+            "true",
+            "",
+            "2019-05"});
         exportArrayList.add(new String[]{
-            "Uniqlo Tshirt",
+            "Uniqlo TShirt",
             "39.9",
             "09/08/2019",
             "shopping",
-            "true"});
+            "true",
+            "",
+            "2019-08"});
         exportArrayList.add(new String[]{
             "Anker Powerbank",
             "29.99",
             "09/09/2019",
             "Miscellaneous",
-            "true"});
+            "true",
+            "",
+            "2019-09"});
+        exportArrayList.add(new String[]{
+            "FREELANCE",
+            "500",
+            "29/10/2019",
+            "deposit",
+            "false",
+            "",
+            "2019-10"});
         exportArrayList.add(new String[]{
             "Pixel 4 XL",
             "1469.99",
             "24/10/2019",
             "Miscellaneous",
-            "true"});
+            "true",
+            "",
+            "2019-10"});
         exportArrayList.add(new String[]{
             "Ramen",
             "13.37",
             "25/10/2019",
             "dining",
-            "true"});
-        exportArrayList.add(new String[]{
-            "freelance",
-            "500",
-            "29/10/2019",
-            "deposit",
-            "false"});
+            "true",
+            "",
+            "2019-10"});
         exportArrayList.add(new String[]{
             "Movie Joker",
-            "13.50",
-            "3/11/2019",
+            "13.5",
+            "03/11/2019",
             "Miscellaneous",
-            ""});
+            "true",
+            "",
+            "2019-11"});
         exportArrayList.add(new String[]{
             "Grab to NUS",
-            "22.00",
-            "4/11/2019",
+            "22",
+            "04/11/2019",
             "transport",
-            ""});
+            "true",
+            "",
+            "2019-11"});
         exportArrayList.add(new String[]{
             "Chicken Chop",
-            "6.50",
-            "7/11/2019",
+            "6.5",
+            "07/11/2019",
             "dining",
-            "true"});
+            "true",
+            "",
+            "2019-11"});
         return exportArrayList;
     }
 
@@ -167,7 +192,7 @@ public class MainImport {
         exportArrayList.add(new String[]{"description","amount","date","category","spent"});
         exportArrayList.add(new String[]{
             "Singtel Bill",
-            "42.9",
+            "62.9",
             "01/12/2019",
             "bills",
             "true"});
@@ -263,96 +288,124 @@ public class MainImport {
 
     private ArrayList<String[]> prepareInvestmentTransactionList() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
-        exportArrayList.add(new String[]{"description","amount","date","category","spent"});
+        exportArrayList.add(new String[]{"description","amount","date","category","spent","cardId","billDate"});
         exportArrayList.add(new String[]{
             "January SSB",
             "500",
             "01/02/2019",
             "bonds",
-            "true"});
+            "true",
+            "",
+            "2019-02"});
         exportArrayList.add(new String[]{
             "January SSB",
             "5.02",
             "01/08/2019",
             "bonds",
-            "false"});
+            "false",
+            "",
+            "2019-08"});
         exportArrayList.add(new String[]{
             "February SSB",
             "1000",
             "01/03/2019",
             "bonds",
-            "true"});
+            "true",
+            "",
+            "2019-03"});
         exportArrayList.add(new String[]{
             "February SSB",
             "9.9",
             "01/09/2019",
             "bonds",
-            "false"});
+            "false",
+            "",
+            "2019-09"});
         exportArrayList.add(new String[]{
             "March SSB",
             "3000",
             "01/04/2019",
             "bonds",
-            "true"});
+            "true",
+            "",
+            "2019-04"});
         exportArrayList.add(new String[]{
             "March SSB",
             "29.25",
             "01/10/2019",
             "bonds",
-            "false"});
+            "false",
+            "",
+            "2019-10"});
         exportArrayList.add(new String[]{
             "April SSB",
             "1300",
             "01/05/2019",
             "bonds",
-            "true"});
+            "true",
+            "",
+            "2019-05"});
         exportArrayList.add(new String[]{
             "April SSB",
             "12.74",
             "01/11/2019",
             "bonds",
-            "false"});
+            "false",
+            "",
+            "2019-11"});
         exportArrayList.add(new String[]{
             "May SSB",
             "2100",
             "01/06/2019",
             "bonds",
-            "true"});
+            "true",
+            "",
+            "2019-06"});
         exportArrayList.add(new String[]{
             "June SSB",
             "2000",
             "01/07/2019",
             "bonds",
-            "true"});
+            "true",
+            "",
+            "2019-07"});
         exportArrayList.add(new String[]{
             "July SSB",
             "1500",
             "01/08/2019",
             "bonds",
-            "true"});
+            "true",
+            "",
+            "2019-08"});
         exportArrayList.add(new String[]{
             "August SSB",
-            "100",
+            "1000",
             "01/09/2019",
             "bonds",
-            "true"});
+            "true",
+            "",
+            "2019-09"});
         exportArrayList.add(new String[]{
             "September SSB",
             "1000",
             "01/10/2019",
             "bonds",
-            "true"});
+            "true",
+            "",
+            "2019-10"});
         exportArrayList.add(new String[]{
             "October SSB",
             "1200",
             "01/11/2019",
             "bonds",
-            "true"});
+            "true",
+            "",
+            "2019-11"});
         return exportArrayList;
     }
 
     private void createInvestmentTransactionListFile(String bankNumber) throws IOException {
-        ArrayList<String[]> inputData = prepareInvestmentBonds();
+        ArrayList<String[]> inputData = prepareInvestmentTransactionList();
         storage.writeFile(inputData,bankNumber + INVESTMENT_TRANSACTION_LIST_FILE_NAME);
     }
 
@@ -427,6 +480,61 @@ public class MainImport {
 
     private void createCardUnpaidTransactionListFile(String cardNumber) throws IOException {
         ArrayList<String[]> inputData = prepareCardUnpaidTransactionList();
-        storage.writeFile(inputData,CARD_UNPAID_TRANSACTION_LIST_FILE_NAME);
+        storage.writeFile(inputData,cardNumber + CARD_UNPAID_TRANSACTION_LIST_FILE_NAME);
+    }
+
+    private ArrayList<String[]> prepareCardpaidTransactionList() {
+        ArrayList<String[]> exportArrayList = new ArrayList<>();
+        exportArrayList.add(new String[] {"description", "amount", "date", "category", "cardId", "billDate",});
+        return exportArrayList;
+    }
+
+    private void createCardPaidTransactionListFile(String cardNumber) throws IOException {
+        ArrayList<String[]> inputData = prepareCardpaidTransactionList();
+        storage.writeFile(inputData,cardNumber + CARD_PAID_TRANSACTION_LIST_FILE_NAME);
+    }
+
+    private ArrayList<String[]> prepareGoalsData() {
+        ArrayList<String[]> exportArrayList = new ArrayList<>();
+        exportArrayList.add(new String[]{
+            "goalName", "amount", "date", "savingsAccountName", "doneStatus", "achieveStatus"});
+        exportArrayList.add(new String[]{
+            "BTO at Punggol Downpayment",
+            "25000.00",
+            "10/10/2020",
+            "",
+            "false",
+            "false"});
+        exportArrayList.add(new String[]{
+            "Europe Holiday",
+            "20000.00",
+            "08/01/2020",
+            "",
+            "false",
+            "false"});
+        exportArrayList.add(new String[]{
+            "Car COE",
+            "35000.00",
+            "19/11/2019",
+            "MayBank Savings Account",
+            "false",
+            "false"});
+        return exportArrayList;
+    }
+
+    private void createGoalListFile() throws IOException {
+        ArrayList<String[]> inputData = prepareGoalsData();
+        storage.writeFile(inputData,PROFILE_GOAL_LIST_FILE_NAME);
+    }
+
+    private ArrayList<String[]> prepareAchievementData() {
+        ArrayList<String[]> exportArrayList = new ArrayList<>();
+        exportArrayList.add(new String[] {"achievementName", "amount", "category", "date"});
+        return exportArrayList;
+    }
+
+    private void createAchievementListFile() throws IOException {
+        ArrayList<String[]> inputData = prepareAchievementData();
+        storage.writeFile(inputData,PROFILE_ACHIEVEMENT_LIST_FILE_NAME);
     }
 }

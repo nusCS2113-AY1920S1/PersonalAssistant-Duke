@@ -1896,7 +1896,7 @@ Windows, Linux, Unix, OS-X
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-Persistent Storage for card related function are not enabled.
+Test data has been included for your convenience, feel free to deviate from the sample commands during testing.
 
 === Launch and Shutdown
 
