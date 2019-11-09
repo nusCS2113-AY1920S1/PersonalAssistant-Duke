@@ -393,6 +393,21 @@ public class Ui {
     }
 
     /**
+     * Shows to user all words of a specific tag.
+     * @param searchWord tag to be searched
+     * @param words array of words belong to the tag
+     * @return string shown to user
+     */
+    public String showSearchSynonym(String searchWord, String[] words) {
+        StringBuilder stringBuilder = new StringBuilder("Your synonym \"" + searchWord + "\" has " + words.length
+                + (words.length == 1 ? " word:\n" : " words:\n"));
+        for (int i = 0; i < words.length; i++) {
+            stringBuilder.append(words[i] + "\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
      * Shows all tags in TagBank.
      * @param tagList array of all tags in the TagBank
      * @return string shown to user

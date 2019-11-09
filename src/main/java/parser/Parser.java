@@ -461,7 +461,7 @@ public class Parser {
         if (wordAndSynonyms.length == 1) {
             throw new WrongAddSynonymFormatException();
         }
-        String wordDescription = wordAndSynonyms[0].substring(2).trim(); //drink
+        String wordDescription = wordAndSynonyms[0].substring(2).trim();
         String[] synonymsString = wordAndSynonyms[1].trim().split(" ");
         ArrayList<String> synonyms = new ArrayList<>();
         for (String synonym : synonymsString){

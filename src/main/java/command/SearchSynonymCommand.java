@@ -26,7 +26,7 @@ public class SearchSynonymCommand extends Command {
                     throw new SynonymBankEmptyException();
                 }
                 String[] words = bank.getWordsOfSynonym(searchWord);
-                return ui.showSearchTag(searchWord, words);
+                return ui.showSearchSynonym(searchWord, words);
         } catch (NoSynonymFoundException e) {
             try {
                 return e.showError() + ui.showAllSynonyms(bank.getWordsOfSynonym(searchWord));
