@@ -38,7 +38,7 @@ public class HomeOpenSpec extends HomeObjSpec {
             }
         } else {
             core.uiContext.open(patient);
-            core.updateUi("Accessing details of " + patient.getName());
+            core.updateUi("Accessing " + patient.getName() + "'s details");
         }
     }
 }
