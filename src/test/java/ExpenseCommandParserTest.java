@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ExpenseCommandParserTest {
     private static final String WELCOME_MESSAGE = "Welcome to your expenses record!"
-            + " What would you like to do?\n\n"
+            + " What would you like to do?\n\n\r\n"
             + "_________________________"
             + "_________________________________\n"
             + "1. Add expenses command: add item, price, date\n"

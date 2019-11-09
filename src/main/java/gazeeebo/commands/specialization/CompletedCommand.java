@@ -63,7 +63,7 @@ public class CompletedCommand {
         try {
             ArrayList<String> completedElectiveList =
                     new ArrayList();
-            System.out.println("Which specialization number"
+            System.out.println("Which specialization number "
                     + "is your module under?");
             ArrayList<String> specList = new ArrayList<String>();
             specList.add("Communications & Networking"); //index 0
@@ -77,10 +77,16 @@ public class CompletedCommand {
             }
 
             ui.readCommand();
+            String input = ui.fullCommand;
+//            if(!(ui.fullCommand.equals('1')) || !(ui.fullCommand.equals('2')) || !(ui.fullCommand.equals('3'))
+//                    || !(ui.fullCommand.equals('4')) || !(ui.fullCommand.equals('5') || !(ui.fullCommand.equals('6')))) {
+//                throw new DukeException("Please key in only the specialization index number.");
+//            }
             int specNumber = Integer.parseInt(ui.fullCommand);
-            if (specNumber < 0 || specNumber > specList.size()) {
+            if (specNumber < 0 || specNumber == 0 || specNumber > specList.size()) {
                 throw new DukeException("Specialization index does not exist.");
             }
+
             String checkKey = "";
             if (specNumber == COMMS_NETWORKING_INDEX) {
                 checkKey = specList.get(COMMS_NETWORKING_INDEX - 1);
@@ -104,10 +110,10 @@ public class CompletedCommand {
             ui.readCommand();
             int moduleCodeIndex = Integer.parseInt(ui.fullCommand);
 
-            if (moduleCodeIndex < 0 || moduleCodeIndex
+            if (moduleCodeIndex < 0 || moduleCodeIndex == 0 || moduleCodeIndex
                     > specMap.get(checkKey).size()) {
                 throw new DukeException("The module index"
-                        + "does not exist.");
+                        + " does not exist.");
             }
             String moduleCode
                     = specMap.get(checkKey).get(moduleCodeIndex - 1).code;
@@ -205,7 +211,12 @@ public class CompletedCommand {
                         + toStoreSC;
                 storage.writeToCompletedElectivesFile(allCompletedE);
             }
-        } catch (DukeException e) {
+        }  catch (IOException | ArrayIndexOutOfBoundsException e) {
+            System.out.print("Please input in the correct format.\n");
+        } catch (NumberFormatException e) {
+            System.out.println("Please only key in the index.");
+        }
+        catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }

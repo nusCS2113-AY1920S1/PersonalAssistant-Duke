@@ -48,7 +48,7 @@ public class ExpenseListCommandTest {
         expenses.put(bookDateOfPurchase, itemAndPriceList1);
         expenses.put(breadDateOfPurchase, itemAndPriceList2);
 
-        ExpenseListCommand test = new ExpenseListCommand(expenses);
+        new ExpenseListCommand(expenses);
         assertEquals("Here is the list of your expenses:\r\n"
         + "1. bread, $2.50 | bought on 2019-04-04\r\n"
         + "2. book, $3 | bought on 2019-09-09\r\n", output.toString());

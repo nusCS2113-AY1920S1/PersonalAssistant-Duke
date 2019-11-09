@@ -58,9 +58,9 @@ public class ExpenseCommandParser extends Command {
         Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
         boolean isExitExpenses = false;
 
-        String helpExpenses = "Welcome to your expenses record!"
-                + " What would you like to do?\n\n"
-                + "_________________________"
+        System.out.println("Welcome to your expenses record!"
+                + " What would you like to do?\n\n");
+        String helpExpenses = "_________________________"
                 + "_________________________________\n"
                 + "1. Add expenses command: add item, price, date\n"
                 + "2. Find expenses on a certain date: "
