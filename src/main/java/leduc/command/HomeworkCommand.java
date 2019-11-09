@@ -126,7 +126,7 @@ public class HomeworkCommand extends Command {
                     catch(Exception e){
                         throw new PrioritizeLimitException();
                     }
-                    if (priority < 0 || priority > 9) {
+                    if (priority < 1 || priority > 9) {
                         throw new PrioritizeLimitException();
                     }
                     newTask = new HomeworkTask(description,d,priority);
