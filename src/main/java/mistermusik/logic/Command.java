@@ -246,7 +246,7 @@ public class Command {
                 String[] checklistCommand = splitChecklist[0].split(" ");
                 int eventIndex = Integer.parseInt(checklistCommand[1]) - 1;
 //                if(!((events.getEvent(eventIndex).getType()=='P') || (events.getEvent(eventIndex).getType()=='L'))) {
-//                    ui.noSuchEvent();
+//                    ui.printNoSuchEvent();
 //                    return;
 //                }
                 if (checklistCommand.length == 3) {
@@ -278,9 +278,9 @@ public class Command {
                     }
                 }
             } catch (IndexOutOfBoundsException ne) {
-                ui.noSuchEvent();
+                ui.printNoSuchEvent();
             } catch (NumberFormatException numE) {
-                ui.notAnInteger();
+                ui.printNotAnInteger();
             }
         }
     }
@@ -319,7 +319,7 @@ public class Command {
      */
     private void editEvent(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.eventDescriptionEmpty();
+            ui.printEventDescriptionEmpty();
         } else {
             String[] splitInfo = continuation.split("/");
             int eventIndex = Integer.parseInt(splitInfo[0]) - 1;
@@ -340,9 +340,9 @@ public class Command {
             try {
                 int newBudget = Integer.parseInt(continuation.substring(4));
                 events.getBudgeting().setBudget(newBudget);
-                UI.budgetSet(newBudget);
+                UI.printBudgetSet(newBudget);
             } catch (NumberFormatException e) {
-                ui.notAnInteger();
+                ui.printNotAnInteger();
             }
         } else { //show budget for given month
             String monthAndYear = continuation;
@@ -358,7 +358,7 @@ public class Command {
     //@@author
     private void searchEvents(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.eventDescriptionEmpty();
+            ui.printEventDescriptionEmpty();
         } else {
             String searchKeyWords = continuation;
             String foundEvent = "";
@@ -428,7 +428,7 @@ public class Command {
     //@@author Ryan-Wong-Ren-Wei
     private void addNewEvent(EventList events, UI ui, char eventType) {
         if (continuation.isEmpty()) {
-            ui.eventDescriptionEmpty();
+            ui.printEventDescriptionEmpty();
         } else {
             try {
                 EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
@@ -439,7 +439,7 @@ public class Command {
                 if (entryForEvent.getPeriod() == NO_PERIOD) { //non-recurring
 
                     events.addEvent(newEvent);
-                    ui.eventAdded(newEvent, events.getNumEvents());
+                    ui.printEventAdded(newEvent, events.getNumEvents());
                     if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
                         ui.printEnteredEventOver();
                     }
@@ -457,14 +457,14 @@ public class Command {
                 }
 
             } catch (ClashException e) { //clash found
-                ui.scheduleClash(e.getClashEvent());
+                ui.printScheduleClash(e.getClashEvent());
             } catch (CostExceedsBudgetException e) { //budget exceeded in attempt to add concert
-                ui.costExceedsBudget(e.getConcert(), e.getBudget());
+                ui.printCostExceedsBudgetMsg(e.getConcert(), e.getBudget());
             } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException
                     | ParseException | NumberFormatException e) { //error interpreting info(wrong user input)
-                ui.newEntryFormatWrong();
+                ui.printNewEntryFormatWrong();
             } catch (EndBeforeStartException e) { //start time is after end time
-                ui.eventEndsBeforeStart();
+                ui.printEventEndsBeforeStart();
             } catch (PeriodRangeException e) {
                 ui.printPeriodNotPositive();
             }
@@ -510,21 +510,21 @@ public class Command {
      */
     private void addNewTodo(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.eventDescriptionEmpty();
+            ui.printEventDescriptionEmpty();
             return;
         }
         try {
             EntryForToDo entryForToDo = new EntryForToDo().invoke(); //separate all info into relevant details
             Event newToDo = new ToDo(entryForToDo.getDescription(), entryForToDo.getDate());
             events.addNewTodo(newToDo);
-            ui.eventAdded(newToDo, events.getNumEvents());
+            ui.printEventAdded(newToDo, events.getNumEvents());
             Calendar currentDate = Calendar.getInstance();
             if (newToDo.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
                 ui.printEnteredEventOver();
             }
 
         } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | ParseException e) {
-            ui.newEntryFormatWrong();
+            ui.printNewEntryFormatWrong();
         }
     }
 
@@ -536,9 +536,9 @@ public class Command {
             events.deleteEvent(eventNo - 1);
             ui.eventDeleted(currEvent);
         } catch (IndexOutOfBoundsException outOfBoundsE) {
-            ui.noSuchEvent();
+            ui.printNoSuchEvent();
         } catch (NumberFormatException notInteger) {
-            ui.notAnInteger();
+            ui.printNotAnInteger();
         }
     }
 
@@ -549,12 +549,12 @@ public class Command {
                 events.getEvent(eventNo - 1).markAsDone();
                 ui.eventDone(events.getEvent(eventNo - 1));
             } else {
-                ui.noSuchEvent();
+                ui.printNoSuchEvent();
             }
         } catch (IndexOutOfBoundsException outOfBoundsE) {
-            ui.noSuchEvent();
+            ui.printNoSuchEvent();
         } catch (NumberFormatException notInteger) {
-            ui.notAnInteger();
+            ui.printNotAnInteger();
         }
     }
 
@@ -598,17 +598,17 @@ public class Command {
             events.addEvent(newEvent);
             ui.printEventRescheduled(newEvent);
         } catch (ClashException clashE) {
-            ui.scheduleClash(clashE.getClashEvent());
+            ui.printScheduleClash(clashE.getClashEvent());
             newEvent.rescheduleStartDate(copyOfStartDate);
             newEvent.rescheduleEndDate(copyOfEndDate);
             events.undoDeletionOfEvent(newEvent);
         } catch (CostExceedsBudgetException e) {
-            ui.costExceedsBudget(e.getConcert(), e.getBudget());
+            ui.printCostExceedsBudgetMsg(e.getConcert(), e.getBudget());
             newEvent.rescheduleStartDate(copyOfStartDate);
             newEvent.rescheduleEndDate(copyOfEndDate);
             events.undoDeletionOfEvent(newEvent);
         } catch (Exception e) {
-            ui.eventEndsBeforeStart();
+            ui.printEventEndsBeforeStart();
             newEvent.rescheduleStartDate(copyOfStartDate);
             newEvent.rescheduleEndDate(copyOfEndDate);
             events.undoDeletionOfEvent(newEvent);
@@ -684,9 +684,9 @@ public class Command {
                 }
             }
         } catch (IndexOutOfBoundsException ne) {
-            ui.noSuchEvent();
+            ui.printNoSuchEvent();
         } catch (NumberFormatException numE) {
-            ui.notAnInteger();
+            ui.printNotAnInteger();
         }
     }
 
@@ -772,9 +772,9 @@ public class Command {
                 }
             }
         } catch (IndexOutOfBoundsException e) {
-            ui.noSuchEvent();
+            ui.printNoSuchEvent();
         } catch (NumberFormatException en) {
-            ui.notAnInteger();
+            ui.printNotAnInteger();
         } catch (UnsupportedOperationException e) {
             ui.printContactCommandInvalid();
         }
@@ -784,7 +784,7 @@ public class Command {
     public void manageInstruments(InstrumentList instruments, UI ui) {
         try {
             if (continuation.isEmpty()) {
-                ui.noSuchEvent();
+                ui.printNoSuchEvent();
                 return;
             }
             String splitInstrument[] = continuation.split("/");
@@ -821,7 +821,7 @@ public class Command {
                     break;
             }
         } catch (IndexOutOfBoundsException e) {
-            ui.noSuchEvent();
+            ui.printNoSuchEvent();
         }
     }
 
