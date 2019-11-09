@@ -84,6 +84,7 @@ public class Eggventory {
                 ((ByeCommand) command).executeSaveMoreLists(stockList, ui, storage, loanList, personList, templateList);
             }
             command.execute(stockList, ui, storage);
+            storage.save(stockList, loanList, personList, templateList);
 
             if (command.getType() == CommandType.BYE) {
                 System.exit(0);
