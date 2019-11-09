@@ -1,13 +1,17 @@
+package unittesting;
+
 import javacake.JavaCake;
 import javacake.Parser;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
+
 public class ParserTest {
 
+
     private static JavaCake javaCake = new JavaCake();
-    private static Parser parser = new Parser();
     private static String response;
 
 
@@ -16,7 +20,7 @@ public class ParserTest {
      * in case of typos.
      */
     @Test
-    void testHelper() {
+    private void testHelper() {
         String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto",
                              "overview", "deadline", "editnote", "createnote", "listnote", "deletenote",
                              "change", "reminder", "viewnote", "done", "delete", "snooze"};
