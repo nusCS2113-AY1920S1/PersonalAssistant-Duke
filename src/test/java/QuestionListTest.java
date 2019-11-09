@@ -1,9 +1,11 @@
+import javacake.JavaCake;
 import javacake.exceptions.CakeException;
 import javacake.quiz.Question;
 import javacake.quiz.QuestionDifficulty;
 import javacake.quiz.QuestionList;
 import javacake.quiz.QuestionType;
 import javacake.quiz.QuizSession;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static javacake.quiz.QuestionList.MAX_QUESTIONS;
@@ -14,6 +16,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class QuestionListTest {
+    private static JavaCake javacake;
+
+    //@BeforeEach
+    //public void
+
+
+
     // TODO this test is dummied out until a reliable unit test can be written.
     @Test
     public void initializeBasicQuizTest() throws CakeException {
