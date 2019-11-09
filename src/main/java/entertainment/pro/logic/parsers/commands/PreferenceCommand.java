@@ -30,7 +30,8 @@ public class PreferenceCommand extends CommandSuper {
     private static String GET_NEW_SORT = "-s";
     private static String GET_NEW_ADULT_RATING = "-a";
     ArrayList<String> containsPossibleInputs = new ArrayList<>();
-    List<String> flagList = Arrays.asList( GET_NEW_GENRE_PREF, GET_NEW_GENRE_RESTRICT, GET_NEW_SORT, GET_NEW_ADULT_RATING);
+    List<String> flagList = Arrays.asList( GET_NEW_GENRE_PREF, GET_NEW_GENRE_RESTRICT, GET_NEW_SORT,
+            GET_NEW_ADULT_RATING);
 
 
     /**

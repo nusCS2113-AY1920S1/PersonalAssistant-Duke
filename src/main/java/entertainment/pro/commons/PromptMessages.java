@@ -10,7 +10,7 @@ public class PromptMessages {
     public static final String WAIT_FOR_APP_TO_PROCESS = "Please wait while the app processes your request...";
     public static final String INVALID_GENRE_NAME = "I'm sorry but you have entered a invalid genre...";
     public static final String REPETITVE_GENRE_NAME = "I'm sorry but the genre entered by you already exists " +
-            "under your preferences";
+            "or you are entering the same genre more than a time...";
     public static final String GENRE_DOES_NOT_EXIST = "I'm sorry but the genre entered by you does not exists " +
             "under your preferences";
     public static final String VIEW_CURRENT_MOVIES_SUCCESS =

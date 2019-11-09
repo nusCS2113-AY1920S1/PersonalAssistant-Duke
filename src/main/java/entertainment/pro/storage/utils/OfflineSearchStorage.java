@@ -16,16 +16,19 @@ import java.util.ArrayList;
  * Called when there is no internet connection and data fetch has to be done offline.
  */
 public class OfflineSearchStorage {
-    private static String CURRENT_MOVIES_DATA_FILEPATH = "/data/CurrentMovies.json";
-    private static String POPULAR_MOVIES_DATA_FILEPATH = "/data/PopularMovies.json";
-    private static String TRENDING_MOVIES_DATA_FILEPATH = "/data/TrendingMovies.json";
-    private static String TOP_RATED_MOVIES_DATA_FILEPATH = "/data/RatedMovies.json";
-    private static String UPCOMING_MOVIES_DATA_FILEPATH = "/data/UpcomingMovies.json";
-    private static String CURRENT_TV_DATA_FILEPATH = "/data/CurrentTV.json";
-    private static String POPULAR_TV_DATA_FILEPATH = "/data/PopularTV.json";
-    private static String TRENDING_TV_DATA_FILEPATH = "/data/TrendingTV.json";
-    private static String TOP_RATED_TV_DATA_FILEPATH = "/data/RatedTV.json";
-    private static String MOVIES_DATABASE_FILEPATH = "/data/movieData/";
+    private static final int MAX_FILE_NO_FOR_MOVIES = 1055;
+    private static final int MAX_FILE_NO_FOR_TV = 150;
+    private static final String CURRENT_MOVIES_DATA_FILEPATH = "/data/CurrentMovies.json";
+    private static final String POPULAR_MOVIES_DATA_FILEPATH = "/data/PopularMovies.json";
+    private static final String TRENDING_MOVIES_DATA_FILEPATH = "/data/TrendingMovies.json";
+    private static final String TOP_RATED_MOVIES_DATA_FILEPATH = "/data/RatedMovies.json";
+    private static final String UPCOMING_MOVIES_DATA_FILEPATH = "/data/UpcomingMovies.json";
+    private static final String CURRENT_TV_DATA_FILEPATH = "/data/CurrentTV.json";
+    private static final String POPULAR_TV_DATA_FILEPATH = "/data/PopularTV.json";
+    private static final String TRENDING_TV_DATA_FILEPATH = "/data/TrendingTV.json";
+    private static final String TOP_RATED_TV_DATA_FILEPATH = "/data/RatedTV.json";
+    private static final String MOVIES_DATABASE_FILEPATH = "/data/movieData/";
+    private static final String TV_DATABASE_FILEPATH = "/data/tvData/";
     private static final String KEYWORD_FOR_SEARCH_REQUESTS = "results";
 
     /**
@@ -38,8 +41,9 @@ public class OfflineSearchStorage {
         JSONArray searchData = new JSONArray();
         RetrieveRequest.MoviesRequestType type = RetrieveRequest.getGetType();
         String filename = getFileName(type);
-        if (type.equals(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES)) {
-            searchData = getSearchData();
+        if ((type.equals(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES)) ||
+                (type.equals(RetrieveRequest.MoviesRequestType.SEARCH_TV))) {
+            searchData = getSearchData(type);
             return searchData;
         }
         dataFromJSON = getData(filename);
@@ -128,11 +132,21 @@ public class OfflineSearchStorage {
      * @return JSONArray that consist of all the required data for the search request.
      * @throws Exceptions when encounter a failed/interrupted I/O operation.
      */
-    public static JSONArray getSearchData() throws Exceptions {
+    public static JSONArray getSearchData(RetrieveRequest.MoviesRequestType type) throws Exceptions {
         JSONArray searchResults = new JSONArray();
-        for (int i = 1; i <= 1055; i += 1) {
-            String filename = MOVIES_DATABASE_FILEPATH;
+        String fileType = "";
+        int maxFileNo = 0;
+        if (type.equals(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES)) {
+            fileType = MOVIES_DATABASE_FILEPATH;
+            maxFileNo = MAX_FILE_NO_FOR_MOVIES;
+        } else {
+            fileType = TV_DATABASE_FILEPATH;
+            maxFileNo = MAX_FILE_NO_FOR_TV;
+        }
+        for (int i = 1; i <= maxFileNo; i += 1) {
+            String filename = fileType;
             filename += i + ".json";
+            System.out.println(filename);
             String dataFromJSON = getData(filename);
             JSONParser jsonParser = new JSONParser();
             JSONArray jsonArray = new JSONArray();
