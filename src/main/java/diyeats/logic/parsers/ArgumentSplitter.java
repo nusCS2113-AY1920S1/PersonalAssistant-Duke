@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//@@author GaryStu
 /**
  * ArgumentSplitter is a public class that handles the splitting of command arguments.
  */

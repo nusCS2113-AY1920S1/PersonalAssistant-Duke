@@ -22,3 +22,7 @@ default
 addexercise
 deldefault
 delexercise
+pay
+deposit
+done
+list

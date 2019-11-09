@@ -26,12 +26,7 @@ public class Wallet {
     }
 
     public void updateAccountBalance(Transaction transaction) {
-        BigDecimal transactionAmount = transaction.getTransactionAmount();
-        if (transaction.getType().equals("PAY")) {
-            this.account.withdraw(transactionAmount);
-        } else if (transaction.getType().equals("DEP")) {
-            this.account.deposit(transactionAmount);
-        }
+        this.account.updateAccountBalance(transaction);
     }
 
     public void updateAccountBalance(Wallet wallet) {

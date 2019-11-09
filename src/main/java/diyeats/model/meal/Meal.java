@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 /**
- * Task is a public class that represents the tasks in duke.
+ * Task is a public class that represents the tasks in DIYeats.
  * A task object encapsulates the description of the task, the type of task it is, and whether
  * the task is done.
  */

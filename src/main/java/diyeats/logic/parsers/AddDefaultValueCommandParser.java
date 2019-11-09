@@ -37,14 +37,16 @@ public class AddDefaultValueCommandParser implements ParserInterface<AddDefaultV
         for (String details : nutritionInfoMap.keySet()) {
             if (details.equals("cost")) {
                 foodCostStr = nutritionInfoMap.get(details);
+            } else {
+                String intArgStr = nutritionInfoMap.get(details);
+                try {
+                    int value = Integer.parseInt(intArgStr);
+                } catch (NumberFormatException e) {
+                    return new AddDefaultValueCommand(true, "Unable to parse " + intArgStr
+                            + " as an integer. ");
+                }
             }
-            String intArgStr = nutritionInfoMap.get(details);
-            try {
-                int value = Integer.parseInt(intArgStr);
-            } catch (NumberFormatException e) {
-                return new AddDefaultValueCommand(true, "Unable to parse " + intArgStr
-                        + " as an integer. ");
-            }
+
         }
         return new AddDefaultValueCommand(new Meal(mealNameAndInfo[0], dateArgStr, nutritionInfoMap, foodCostStr));
     }

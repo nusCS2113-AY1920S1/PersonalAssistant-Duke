@@ -7,6 +7,7 @@ import diyeats.model.wallet.Transaction;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
 
+//@@author GaryStu
 /**
  * AddTransactionCommand is a public class that inherits from abstract class Command.
  * An AddTransactionCommand is a command that stores the transaction information(cost and date)

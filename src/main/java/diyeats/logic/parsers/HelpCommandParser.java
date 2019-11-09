@@ -3,6 +3,7 @@ package diyeats.logic.parsers;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.HelpCommand;
 
+//@@author GaryStu
 /**
  * Parser class to handle the parsing of a help command.
  */

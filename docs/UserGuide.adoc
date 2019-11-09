@@ -180,7 +180,8 @@ Format: `list [/date] <DATE>`
 
 Want to view your current nutritional intake for today? Simply enter the command `list` to show your current recorded nutritional intake for breakfast, lunch and dinner.
 
-The command also supports the viewing of data from other dates: simply specify the date after adding a `/date` flag.
+The command supports the viewing of data from other dates: simply specify the date after adding a `/date` flag.
+The command also supports sorting the data to be viewed: simply specify the sorting criteria after adding a `/sort` flag.
 
 Examples:
 
@@ -188,13 +189,20 @@ Examples:
 ** `list`
 * You want to view your data from 26th of December, 2019:
 ** `list /date 26/12/2019`
-* You want to view your data from 1st of January, 2018:
-** `list /date 1/1/2018`
+* You want to view your data from 1st of January, 2018 based on calorie:
+** `list /date 1/1/2018 /sort calorie`
+* You want to view your data from 31th of December, 2019 based on their cost:
+** `list /sort cost /date 31/12/2019`
 
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
-* Dates should be entered in the following format: day/month/year.
+* Dates should be entered in the following format: day/month/year and must be valid date.
+* There are three sorting criteria, `cost`, `calorie`, and `default`:
+** `cost` will sort the list based on their cost (ascending)
+** `calorie` will sort the list based on their calorie (ascending)
+** `default` will sort the list based on their meal (breakfast, followed by lunch, and followed by dinner)
+* Not specifying sort will sort the data with `default` sorting criteria.
 ====
 
 ==== Adding a breakfast item: `breakfast`
@@ -336,14 +344,17 @@ Delete the 1st meal on 10/10/2019
 Format: `done INDEX [/date] <DATE>`
 
 Finished eating your meal? Use `done` command to marked it as done! You can see the updated remaining calories that you can
-eat for the rest of the day!
+eat for the rest of the day! You can also see the updated account balance after you paid the food you have eaten!
 
 [NOTE]
 ====
-* Deletes the task at the specified `INDEX`.
+* Marked done the task at the specified `INDEX`.
 * The index refers to the index number shown in the displayed tasklist.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* (1, 2, 3, ...) and must not go out of bound of the list of meals.
 * Only meals that have been eaten are counted to the calories you have eaten that day.
+* Only meals that have been marked done will deduct the account balance.
+* Marking done meal that has been eaten would not do anything.
+* If the food cost exceeds the account balance remaining, the meal will not be marked done.
 ====
 
 Examples:
@@ -472,7 +483,7 @@ Examples:
 
 ==== Pay money from your account: `pay`
 
-Format: `pay` AMOUNT [/date]<DATE>`
+Format: `pay AMOUNT [/date]<DATE>`
 
 Paying for utilities or other miscellaneous fees? Simply deduct your account using `pay` command!
 
@@ -490,6 +501,7 @@ Examples:
 * Current date is obtained from the system date in your computer.
 * Dates should be entered in the following format: day/month/year.
 * The `AMOUNT` is expressed in Singapore Dollar (SGD)
+* If `AMOUNT` exceeds the current account balance. It is possible for the account balance to become negative.
 ====
 
 === Data analysis commands

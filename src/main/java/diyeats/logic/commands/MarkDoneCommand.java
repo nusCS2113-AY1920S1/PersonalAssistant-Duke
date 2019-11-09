@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+//@@author GaryStu
 /**
  * MarkDoneCommand is a public class that inherits form abstract class Command.
  * A MarkDoneCommand object encapsulates the index of meal to be marked as done.
@@ -65,32 +66,31 @@ public class MarkDoneCommand extends Command {
         ui.showLine();
         if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
             ui.showMessage("Index provided out of bounds for list of meals on " + currentDate);
-            ui.showLine();
-            return;
-        }
-        Meal currentMeal = meals.getMeal(currentDate, index);
-        String foodCostStr = currentMeal.getCostStr();
-        Payment payment = new Payment(foodCostStr, currentMeal.getDate());
-
-        if (currentMeal.getIsDone()) {
-            ui.showAlreadyMarkedDone(currentMeal);
-        } else if (wallet.addPaymentTransaction(payment)) {
-            Meal markedDoneMeal = meals.markDone(currentDate, index);
-            try {
-                storage.updateFile(meals);
-                storage.updateTransaction(wallet);
-            } catch (ProgramException e) {
-                ui.showMessage(e.getMessage());
-            }
-            ui.showDone(markedDoneMeal);
-            ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
-            ui.showCaloriesLeft(currentMeals, user, currentDate);
-            ui.showPayment(payment);
-            ui.showAccountBalance(wallet);
         } else {
-            ui.showInsufficientBalance(payment);
-            ui.showNotDone(currentMeal);
-            ui.showAccountBalance(wallet);
+            Meal currentMeal = meals.getMeal(currentDate, index);
+            String foodCostStr = currentMeal.getCostStr();
+            Payment payment = new Payment(foodCostStr, currentMeal.getDate());
+
+            if (currentMeal.getIsDone()) {
+                ui.showAlreadyMarkedDone(currentMeal);
+            } else if (wallet.addPaymentTransaction(payment)) {
+                Meal markedDoneMeal = meals.markDone(currentDate, index);
+                try {
+                    storage.updateFile(meals);
+                    storage.updateTransaction(wallet);
+                } catch (ProgramException e) {
+                    ui.showMessage(e.getMessage());
+                }
+                ui.showDone(markedDoneMeal);
+                ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
+                ui.showCaloriesLeft(currentMeals, user, currentDate);
+                ui.showPayment(payment);
+                ui.showAccountBalance(wallet);
+            } else {
+                ui.showInsufficientBalance(payment);
+                ui.showNotDone(currentMeal);
+                ui.showAccountBalance(wallet);
+            }
         }
         ui.showLine();
     }
