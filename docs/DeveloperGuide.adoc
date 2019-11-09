@@ -46,13 +46,22 @@ Each of the four components
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::ui_class_diagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that contains 5 separate pages, namely.`SalePage`,
+`ProductPage`, `Shopping`, `InventoryPage` and `OrderPage`. All these, including the `MainWindow`,
+inherit
+from the abstract `UiPart` class.
+Some page consists of smaller components, for example, `SalePage` has a `SaleCard`, `ProductPage` has a
+`IngredientCard` and `OrderPage` has a `OrderCard` and a `OrderItemBox`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml`
+files that are in the `src/main/resources/view` folder. For example, the layout of the link:{https://github
+.com/AY1920S1-CS2113T-T12-3/main.git}/src/main/java/duke/ui/MainWindow.java[`MainWindow`] is
+specified in
+link:{https://github.com/AY1920S1-CS2113T-T12-3/main.git}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
