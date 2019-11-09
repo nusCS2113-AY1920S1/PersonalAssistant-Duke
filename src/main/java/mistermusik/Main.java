@@ -30,7 +30,7 @@ public class Main {
         setup();
         ui.welcome();
         String userInput = parser.readUserInput().toLowerCase();
-        while (!userInput.equals("printGoodbyeMsg")) {
+        while (!userInput.equals("bye")) {
             if(userInput.equals("calendar on")) { allowCalendarFrequentPrint = true; }
             else if (userInput.equals("calendar off")) { allowCalendarFrequentPrint = false; }
             Command currCommand = parser.parseInput(userInput);
