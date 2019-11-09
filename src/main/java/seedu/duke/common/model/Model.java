@@ -66,12 +66,13 @@ public class Model {
     public void setEmailList(EmailList emailList) {
         this.emailList = emailList;
         updateGuiEmailList();
+        updateEmailTagMap();
         updateEmailTagList();
     }
 
     public EmailKeywordPairList getKeywordPairList() {
         return keywordPairList;
-    }
+    }git
 
     public void setKeywordPairList(EmailKeywordPairList keywordPairList) {
         this.keywordPairList = keywordPairList;
@@ -97,9 +98,12 @@ public class Model {
         }
     }
 
-    public void updateEmailTagList() {
+    public void updateEmailTagMap() {
         EmailTags.updateTagMap(emailList);
-        //UI.getInstance().updateEmailList(emailList.getEmailTagList());
+    }
+
+    public void updateEmailTagList() {
+        EmailTags.updateEmailTagList(emailList);
     }
 
     /**
@@ -131,4 +135,5 @@ public class Model {
     public void setIsUpdateGui(boolean isUpdateGui) {
         this.isUpdateGui = isUpdateGui;
     }
+
 }

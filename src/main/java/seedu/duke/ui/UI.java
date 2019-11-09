@@ -202,6 +202,7 @@ public class UI {
         Model model = Model.getInstance();
         model.updateGuiTaskList();
         model.updateGuiEmailList();
+        model.updateEmailTagMap();
         model.updateEmailTagList();
     }
 

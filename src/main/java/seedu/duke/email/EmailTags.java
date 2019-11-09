@@ -21,7 +21,7 @@ public class EmailTags {
             ArrayList<Email.Tag> tags = email.getTags();
             for (Email.Tag tag : tags) {
                 String tagName = tag.getKeywordPair().getKeyword();
-                if (! emailTagList.contains(tagName)) {
+                if (!emailTagList.contains(tagName)) {
                     emailTagList.add(tagName);
                 }
             }
@@ -45,7 +45,6 @@ public class EmailTags {
      * @return HashMap of tags with their associated emails.
      */
     public static HashMap<String, SubTagMap> updateTagMap(EmailList emailList) {
-        updateEmailTagList(emailList);
         tagMap.clear();
         for (int index = 0; index < emailList.size(); index ++) {
             Email email = emailList.get(index);
