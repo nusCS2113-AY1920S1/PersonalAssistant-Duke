@@ -1,5 +1,6 @@
-package javacake.commands;
+package javacake.unused;
 
+import javacake.commands.Command;
 import javacake.exceptions.CakeException;
 import javacake.Logic;
 import javacake.storage.StorageManager;

@@ -43,7 +43,7 @@
             <Insets bottom="50.0" />
          </GridPane.margin>
     </ScrollPane>
-    <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="40.0" prefWidth="700.0" style="-fx-background-color: #EE8EC7; -fx-background-radius: 10;" stylesheets="@../css/textfield.css" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
+    <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="40.0" prefWidth="700.0" promptText="Enter command here..." style="-fx-background-color: #EE8EC7; -fx-background-radius: 10;" stylesheets="@../css/textfield.css" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets bottom="8.0" />
          </GridPane.margin>

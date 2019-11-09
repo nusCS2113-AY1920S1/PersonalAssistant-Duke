@@ -2,7 +2,6 @@ package javacake.storage;
 
 import javacake.JavaCake;
 import javacake.exceptions.CakeException;
-import javacake.notes.Note;
 import javacake.tasks.Task;
 import org.apache.commons.io.FileUtils;
 
@@ -19,17 +18,15 @@ import java.util.logging.Level;
 public class Storage {
     private int stringBuffer = 7;
     private static ArrayList<Task> tempTaskData = new ArrayList<>();
-    private static ArrayList<Note> noteCollection = new ArrayList<>();
-    public static TaskList currentTaskData;
+    public TaskList currentTaskData;
 
     private static String defaultFilePath = "data";
     private String filepath;
     private TaskType dataType;
     private static boolean isResetFresh = false;
 
-
     public enum TaskType {
-        TODO, DEADLINE, TODO_DAILY, TODO_WEEKLY, TODO_MONTHLY
+        DEADLINE
     }
 
     /**
@@ -57,22 +54,6 @@ public class Storage {
         JavaCake.logger.log(Level.INFO,"Filepath: " + filepath);
         try {
             initialiseStorage(tasksFile, altPath);
-            //            if (!tasksFile.getParentFile().getParentFile().exists()) {
-            //                tasksFile.getParentFile().getParentFile().mkdir();
-            //                tasksFile.getParentFile().mkdir();
-            //                tasksFile.createNewFile();
-            //                //System.out.println("A" + tasksFile.getParentFile().getParentFile().getPath());
-            //            } else if (!tasksFile.getParentFile().exists()) {
-            //                tasksFile.getParentFile().mkdir();
-            //                tasksFile.createNewFile();
-            //                //System.out.println("B" + tasksFile.getParentFile().getPath());
-            //            } else if (!tasksFile.exists()) {
-            //                tasksFile.createNewFile();
-            //                //System.out.println("C" + tasksFile.getPath());
-            //            } else {
-            //                JavaCake.logger.log(Level.INFO, filepath + " is found!");
-            //            }
-
         } catch (IOException e) {
             JavaCake.logger.log(Level.WARNING, "Unable to create deadline file");
             throw new CakeException("Failed to create storage.");
@@ -91,18 +72,16 @@ public class Storage {
                 while (stringTokenizer.hasMoreTokens()) {
                     currStr = stringTokenizer.nextToken();
                     if (count == 1) {
-                        if (currStr.equals("D")) {
+                        if ("D".equals(currStr)) {
                             finalOutput = new StringBuilder("deadline ");
                             this.dataType = TaskType.DEADLINE;
                         }
-                    } else if (count == 2 && currStr.equals("✓")) {
+                    } else if (count == 2 && "✓".equals(currStr)) {
                         isChecked = true;
                     } else if (count == 3) {
                         finalOutput.append(currStr);
-                    } else if (count == 4) {
-                        if (this.dataType == TaskType.DEADLINE) {
-                            finalOutput.append(" /by ").append(currStr);
-                        }
+                    } else if (count == 4 && this.dataType == TaskType.DEADLINE) {
+                        finalOutput.append(" /by ").append(currStr);
                     }
                     count++;
                 }
@@ -143,7 +122,7 @@ public class Storage {
         }
 
         //populate with testing trash
-        if (!isResetFresh && isCleanSlate && altPath.equals("data")) {
+        if (!isResetFresh && isCleanSlate && "data".equals(altPath)) {
             PrintWriter out = new PrintWriter(filepath);
             out.println("D|✗|testmessage to show the39characterlimit|01 01 2019 0001");
             out.println("D|✗|finish javacake|31-12-19 23:59");
@@ -159,7 +138,7 @@ public class Storage {
     /**
      * Method to hard reset profile.
      */
-    public static void resetStorage() throws CakeException {
+    public void resetStorage() throws CakeException {
         isResetFresh = true;
         try {
             FileUtils.deleteDirectory(new File(defaultFilePath));
@@ -173,7 +152,6 @@ public class Storage {
     /**
      * Generates starting folder when program starts.
      * @param sampleFile File that is auto-generated when program starts.
-     * @throws CakeException If file does not exist.
      */
     public static void generateFolder(File sampleFile) {
         if (!sampleFile.getParentFile().exists()) {
@@ -219,7 +197,7 @@ public class Storage {
         st1 = task.toString().substring(1, 2);
         String st4 = null;
         //Appends extra task details for all task types excent 'Todo'
-        if (st1.equals("D") || st1.equals("E") || st1.equals("d") || st1.equals("m") || st1.equals("w")) {
+        if ("D".equals(st1)) {
             st4 = task.getExtra();
         }
         String st2;
@@ -244,15 +222,7 @@ public class Storage {
         return str.toString();
     }
 
-    /**
-     * Method to get size of internal data.
-     * @return size of internal data
-     */
-    public static int getInternalDataSize() {
-        return currentTaskData.size();
-    }
-
     public ArrayList<Task> getData() {
-        return this.currentTaskData.getData();
+        return currentTaskData.getData();
     }
 }

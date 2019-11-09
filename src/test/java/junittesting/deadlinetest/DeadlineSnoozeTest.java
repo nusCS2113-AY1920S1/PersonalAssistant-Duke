@@ -1,18 +1,22 @@
+package junittesting.deadlinetest;
+
 import javacake.JavaCake;
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-public class EditNoteTest {
+public class DeadlineSnoozeTest {
+    JavaCake javaCake;
 
-    private static JavaCake javaCake;
-
-    @BeforeAll
-    static void init() {
+    /**
+     * Initialise test files.
+     */
+    @BeforeEach
+    public void init() {
         try {
             FileUtils.deleteDirectory(new File("testPath"));
         } catch (IOException e) {
@@ -24,8 +28,8 @@ public class EditNoteTest {
     /**
      * Deletes test files.
      */
-    @AfterAll
-    static void delete() {
+    @AfterEach
+    public void free() {
         try {
             FileUtils.deleteDirectory(new File("testPath"));
         } catch (IOException e) {
@@ -33,6 +37,8 @@ public class EditNoteTest {
         }
     }
 
+    @Test
+    public void posTest1() {
 
-
+    }
 }

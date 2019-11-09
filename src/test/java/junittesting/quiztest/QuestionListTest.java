@@ -1,19 +1,10 @@
+package junittesting.quiztest;
+
 import javacake.JavaCake;
 import javacake.exceptions.CakeException;
-import javacake.quiz.Question;
-import javacake.quiz.QuestionDifficulty;
-import javacake.quiz.QuestionList;
-import javacake.quiz.QuestionType;
-import javacake.quiz.QuizSession;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static javacake.quiz.QuestionList.MAX_QUESTIONS;
-import static javacake.quiz.QuizSession.TotalMaxQuestions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class QuestionListTest {
     private static JavaCake javacake;

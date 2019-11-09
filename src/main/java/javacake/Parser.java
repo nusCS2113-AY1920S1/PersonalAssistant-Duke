@@ -21,7 +21,6 @@ import javacake.commands.ResetCommand;
 import javacake.commands.ScoreCommand;
 import javacake.commands.ViewNoteCommand;
 import javacake.exceptions.CakeException;
-import javacake.ui.MainWindow;
 
 public class Parser {
 
@@ -56,9 +55,7 @@ public class Parser {
         case ("done"): return new DoneCommand(inputCommand);
         case ("delete"): return new DeleteCommand(inputCommand);
         case ("snooze"): return new EditCommand(inputCommand);
-        case ("change"):
-            //MainWindow.isChanged = true;
-            return new ChangeColorCommand();
+        case ("change"): return new ChangeColorCommand();
         default:
             throw new CakeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
@@ -72,7 +69,8 @@ public class Parser {
      */
     private static void helper(String input) throws CakeException {
         String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto",
-            "overview", "deadline", "editnote", "createnote", "listnote", "deletenote", "change"};
+            "overview", "deadline", "editnote", "createnote", "listnote", "deletenote",
+            "change", "reminder", "viewnote", "done", "delete", "snooze"};
 
         for (int i = 0; i < commands.length; i++) {
             boolean isTypo = false;
@@ -97,10 +95,8 @@ public class Parser {
                 isOneLetterApart = true;
             }
 
-            if (!command.equals(input) && isOneLetterApart) {
-                if (command.contains(input) || input.contains(command)) {
-                    isTypo = true;
-                }
+            if (!command.equals(input) && isOneLetterApart && (command.contains(input) || input.contains(command))) {
+                isTypo = true;
             }
 
             if (isTypo) {

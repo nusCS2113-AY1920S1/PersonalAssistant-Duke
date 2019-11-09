@@ -10,22 +10,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.attribute.PosixFilePermission;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
 public class Profile {
-    private static String filepath = "data";
+    private String filepath = "data";
     private String username;
     private ArrayList<Integer> overalltopicsDone = new ArrayList<>();
     private ArrayList<Integer> individualTopicsDone = new ArrayList<>();
-    int totalNumOfMainTopics = 4;
-    int levelsOfDifficulty = 3;
+    private int totalNumOfMainTopics = 4;
+    private int levelsOfDifficulty = 3;
     private static boolean isResetFresh = false;
-
+    public boolean isCli = true;
 
     public Profile() throws CakeException {
         this("data");
@@ -65,6 +62,19 @@ public class Profile {
                 ++count;
             }
             reader.close();
+
+            if (!isResetFresh) {
+                try {
+                    File logFile = new File("cakeLog/javaCakeLogFiles.txt");
+                    logFile.getParentFile().mkdir();
+                    FileHandler fileHandler = new FileHandler(logFile.getPath());
+                    JavaCake.logger.addHandler(fileHandler);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("Unable to create log file");
+                }
+            }
+
         } catch (IOException e) {
             System.out.println("after reader");
             throw new CakeException("Failed to close reader");
@@ -74,7 +84,7 @@ public class Profile {
     /**
      * Method to hard reset profile.
      */
-    public static void resetProfile() {
+    public void resetProfile() {
         isResetFresh = true;
         File file = new File(filepath);
         if (file.exists()) {
@@ -143,7 +153,7 @@ public class Profile {
      * @param isLight whether isLight mode is on
      * @throws CakeException when unable to create file
      */
-    public static void writeColorConfig(boolean isLight) throws CakeException {
+    public void writeColorConfig(boolean isLight) throws CakeException {
         File configFile = new File("data/colorconfig/color.txt");
         try {
             if (!configFile.getParentFile().getParentFile().exists()) {

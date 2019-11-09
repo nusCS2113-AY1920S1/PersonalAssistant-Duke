@@ -1,3 +1,5 @@
+package junittesting;
+
 import javacake.exceptions.CakeException;
 import javacake.storage.Profile;
 import javacake.storage.Storage;
@@ -14,8 +16,8 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
-    File profileFile;
-    File storageFile;
+    private File profileFile;
+    private File storageFile;
 
     /**
      * Initialise test files.
@@ -71,7 +73,6 @@ public class StorageTest {
         try {
             storage = new Storage(storageFile.getPath());
             assertEquals(new ArrayList<Task>(), storage.getData());
-            assertEquals(0, Storage.getInternalDataSize());
         } catch (CakeException e) {
             System.out.println(e.getMessage());
         }

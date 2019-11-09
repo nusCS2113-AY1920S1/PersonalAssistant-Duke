@@ -14,6 +14,7 @@ public class CreateNoteCommand extends Command {
     private static String userGivenFileName = "Notes";
     private static int defaultFileNameCounter = 1;
     private static String defaultDirectoryPath = "data/notes/";
+    private static final int MAXIMUM_PARAMETER = 2;
 
     /**
      * Constructor for CreateNoteCommand.
@@ -31,6 +32,7 @@ public class CreateNoteCommand extends Command {
      */
     private void updateDefaultDirectoryPath() {
         defaultDirectoryPath = Storage.returnNotesDefaultFilePath();
+
     }
 
     /**
@@ -45,6 +47,7 @@ public class CreateNoteCommand extends Command {
     private void checksValidityOfCommand(String inputCommand) throws CakeException {
         String bySpaces = "\\s+";
         String[] wordsInInputCommand = inputCommand.split(bySpaces);
+
 
         if (commandHasMultipleParameters(wordsInInputCommand)) {
             throw new CakeException("Additional Parameters in command detected!\n"
@@ -67,7 +70,7 @@ public class CreateNoteCommand extends Command {
      * @return True if there are multiple parameters.
      */
     private boolean commandHasMultipleParameters(String[] parameters) {
-        return (parameters.length > 2);
+        return (parameters.length > MAXIMUM_PARAMETER);
     }
 
     /**
@@ -81,7 +84,6 @@ public class CreateNoteCommand extends Command {
         String bySpaces = "\\s+";
         String[] parameters = inputCommand.split(bySpaces);
         String fileName = parameters[1];
-
         if (Command.containsIllegalCharacter(inputCommand)) {
             throw new CakeException("Special Character(s) detected! Please use another file name!");
         } else if (fileNameExceedsWordLimit(fileName)) {

@@ -42,7 +42,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
      * Checks the parameters of input by user.
      * Checks if user inputs file name.
      * Checks if command contains multiple parameters.
-     * Checks if command contains illegal characters.
+     * Checks if command contains special characters.
      * Checks if file exists in save directory.
      * Checks if file specified is empty.
      * @param inputCommand View note command by user.
@@ -55,7 +55,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
         } else if (containsMultipleParameters(inputCommand)) {
             throw new CakeException("Please only enter one file name! E.g. viewnote [name of file]");
         } else if (Command.containsIllegalCharacter(inputCommand)) {
-            throw new CakeException("Invalid file name: Illegal character in file name detected!");
+            throw new CakeException("Invalid file name: Special character(s) in file name detected!");
         } else if (fileDoesNotExist(inputCommand)) {
             throw new CakeException("File specified does not exist! "
             + "Please refer to the notes window to view existing notes file!");

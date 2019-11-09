@@ -1,19 +1,14 @@
 
 package javacake.commands;
 
-import com.joestelmach.natty.DateGroup;
-import com.joestelmach.natty.Parser;
 import javacake.Logic;
 import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
-import java.util.Date;
-import java.util.List;
-
 /**
  * EDIT commands should be of the following format:
- * edit TASKINDEX  NEWDATE.
+ * snooze TASK_INDEX /by NEW_DATE.
  */
 
 public class EditCommand extends Command {
@@ -54,12 +49,9 @@ public class EditCommand extends Command {
                     newDateString += " ";
                 }
             }
-            Date newDate;
+
             boolean isInsideData = false;
             try {
-                Parser parser = new Parser();
-                List<DateGroup> groups = parser.parse(newDateString);
-                newDate = groups.get(0).getDates().get(0);
                 storageManager.storage.getData().get(taskIndex).changeDate(newDateString);
                 System.out.println("Snoozed to: " + newDateString);
                 storageManager.storage.write(storageManager.storage.getData());
