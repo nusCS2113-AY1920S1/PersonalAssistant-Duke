@@ -24,24 +24,31 @@ public class GeneralNoteCommandParser extends Command {
 
     private static final String ESC = "esc";
     private static final String VIEW = "view";
+    private static final String D_EDIT_GOAL = "edit /n NEW_GOAL";
+    private static final String D_ADD_MODULE = "add /n MODULE_NAME";
+    private static final String D_DELETE_MODULE = "delete /n MODULE_NAME";
+    private static final String D_MODULE = "module /n MODULE_NAME";
+    private static final String COMMANDS = "commands";
+    private static final String HELP = "help";
+
+
     private static final String EDIT_GOAL = "edit";
     private static final String ADD_MODULE = "add";
     private static final String DELETE_MODULE = "delete";
     private static final String MODULE = "module";
-    private static final String COMMANDS = "commands";
-    private static final String HELP = "help";
+
 
     /** Prints out a summary of the list of commands that can be used in the note page. */
     public static void showListOfCommands() {
         System.out.println("__________________________________________________________");
         System.out.println("1. View goal and list of modules: " + VIEW);
-        System.out.println("2. Edit goal: " + EDIT_GOAL); //edit /n
-        System.out.println("3. Add a module: " + ADD_MODULE); //add /n
-        System.out.println("4. Delete a module: " + DELETE_MODULE); //delete /n
-        System.out.println("5. View/edit a particular module: " + MODULE); //module /n module_name
-        System.out.println("6. View list of commands for note page: " + COMMANDS);
+        System.out.println("2. Edit goal: " + D_EDIT_GOAL); //edit /n
+        System.out.println("3. Add a module: " + D_ADD_MODULE); //add /n
+        System.out.println("4. Delete a module: " + D_DELETE_MODULE); //delete /n
+        System.out.println("5. View/edit a particular module: " + D_MODULE); //module /n module_name
+        System.out.println("6. View this list of commands: " + COMMANDS);
         System.out.println("7. View help page: " + HELP);
-        System.out.println("8. View individual help: help COMMAND_NAME");
+        System.out.println("8. View help for a page: help PAGE_NAME");
         System.out.println("9. Exit note page: " + ESC);
         System.out.println("__________________________________________________________");
     }
@@ -87,11 +94,11 @@ public class GeneralNoteCommandParser extends Command {
                     break;
                 case ADD_MODULE:
                     System.out.println("Please input the command "
-                            + "in the format \'add /n MODULE_CODE\'.");
+                            + "in the format \'add /n MODULE_NAME\'.");
                     break;
                 case DELETE_MODULE:
                     System.out.println("Please input the command "
-                            + "in the format \'delete /n MODULE_CODE\'.");
+                            + "in the format \'delete /n MODULE_NAME\'.");
                     break;
                 default:
                     System.out.println("Please input the command "

@@ -2,10 +2,8 @@
 
 package gazeeebo.notes;
 
-import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -84,8 +82,7 @@ public class Module {
                 throw new DukeException("Please input a weightage.");
             }
         } catch (IndexOutOfBoundsException i) {
-            throw new DukeException("Please input the command in the format \'add assmt /n ASSESSMENT_NAME"
-                    + " /a ASSESSMENT_WEIGHTAGE\'.");
+            throw new DukeException("Please input the command in the format \'add assmt /n NAME /a WEIGHTAGE\'.");
         }
         int percentage;
         try {
@@ -118,8 +115,7 @@ public class Module {
                 throw new DukeException(EMPTY_DESCRIPTION);
             }
         } catch (IndexOutOfBoundsException i) {
-            throw new DukeException("Please input the command in the format \'edit assmt /n ASSESSMENT_INDEX"
-                    + " /a NEW_ASSESSMENT_NAME\'.");
+            throw new DukeException("Please input the command in the format \'edit assmt /n INDEX /a NEW_NAME\'.");
         }
         String[] indexAndOldName = checkIfValidIndexAssmt(details[0].trim());
         int assmtNum = Integer.parseInt(indexAndOldName[0]);
@@ -171,8 +167,8 @@ public class Module {
                 throw new DukeException("Please input a weightage.");
             }
         } catch (IndexOutOfBoundsException i) {
-            throw new DukeException("Please input the command in the format \'edit weightage /n ASSESSMENT_INDEX"
-                    + " /a NEW_ASSESSMENT_WEIGHTAGE\'.");
+            throw new DukeException("Please input the command in the format"
+                    + " \'edit weight /n INDEX /a NEW_WEIGHTAGE\'.");
         }
         String[] indexAndOldName = checkIfValidIndexAssmt(details[0].trim());
         int assmtNum = Integer.parseInt(indexAndOldName[0]);
@@ -266,8 +262,7 @@ public class Module {
                 throw new DukeException("Please input a new miscellaneous information.");
             }
         } catch (IndexOutOfBoundsException i) {
-            throw new DukeException("Please input the command in the format \'edit msc /n MISCELLANEOUS_INDEX"
-                    + " /a NEW_DESCRIPTION\'.");
+            throw new DukeException("Please input the command in the format \'edit msc /n INDEX /a NEW_DESCRIPTION\'.");
         }
         String[] indexAndMscToEdit = checkIfValidIndexMsc(details[0].trim());
         int mscNum = Integer.parseInt(indexAndMscToEdit[0]);
