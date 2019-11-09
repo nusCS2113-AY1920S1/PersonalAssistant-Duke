@@ -372,7 +372,6 @@ public class Storage {
     }
 
     /**
-     * Writes recommendations to local storage.
      * Writes recommendations to indicated filepath.
      *
      * @param file The filepath to write to.
