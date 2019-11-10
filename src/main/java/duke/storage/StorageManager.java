@@ -28,7 +28,7 @@ public class StorageManager implements Storage {
 
 
     /**
-     * Constructor for StorageManager
+     * Constructor for StorageManager.
      *
      * @param expenseListStorage    storage for expense List
      * @param planAttributesStorage storage for PlanAttributes from PlanBot

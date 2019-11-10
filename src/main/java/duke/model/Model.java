@@ -105,11 +105,11 @@ public interface Model {
 
     public Payment getPayment(int index) throws DukeException;
 
-    public FilteredList<Payment> getFilteredPaymentList();
+    public ObservableList<Payment> getUnmodifiableFilteredPaymentList();
 
     public PaymentList getPaymentList();
 
-    public StringProperty getPaymentSortingCriteria();
+    public ObjectProperty<PaymentList.SortingCriteria> getPaymentSortingCriteria();
 
     public ObjectProperty<Predicate> getPaymentPredicate();
 

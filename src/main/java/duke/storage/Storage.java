@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * API of the Storage component
+ * API of the Storage component.
  */
 public interface Storage {
 

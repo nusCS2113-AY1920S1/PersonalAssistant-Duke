@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -29,7 +30,7 @@ public class DukePP implements Model {
     private static final Logger logger = LogsCenter.getLogger(DukePP.class);
 
 
-    private Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = unused -> true;
+    private Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = PaymentList.PREDICATE_SHOW_ALL_PAYMENTS;
 
     private final ExpenseList expenseList;
     private final PlanBot planBot;
@@ -52,14 +53,14 @@ public class DukePP implements Model {
     public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, IncomeList incomeList, Budget budget, BudgetView budgetView, Optional<PaymentList> optionalPayments) throws DukeException {
 
         this.expenseList = expenseList;
-        this.planBot = new PlanBot(planAttributes);
+        this.planBot =  PlanBot.getInstance(planAttributes);
         this.incomeList = incomeList;
         this.budget = budget;
         this.budgetView = budgetView;
 
         if(!optionalPayments.isPresent()) {
-            logger.warning("PaymentList is not loaded. It be starting with a empty PaymentList");
-            this.payments = new PaymentList();
+            logger.warning("PaymentList is not loaded. It will be starting with a empty PaymentList");
+            this.payments = new PaymentList(new ArrayList<Payment>());
         } else {
             this.payments = optionalPayments.get();
         }
@@ -69,8 +70,6 @@ public class DukePP implements Model {
 
     public void addExpense(Expense expense) {
         expenseList.add(expense);
-        logger.info("Model's expense externalList length now is "
-                + externalExpenseList.size());
     }
 
     public void deleteExpense(int index) throws DukeException {
@@ -306,8 +305,8 @@ public class DukePP implements Model {
         return payments.getPayment(index);
     }
 
-    public FilteredList<Payment> getFilteredPaymentList() {
-        return payments.getFilteredList();
+    public ObservableList<Payment> getUnmodifiableFilteredPaymentList() {
+        return payments.asUnmodifiableFilteredList();
     }
 
     /**
@@ -320,7 +319,7 @@ public class DukePP implements Model {
     }
 
     @Override
-    public StringProperty getPaymentSortingCriteria() {
+    public ObjectProperty<PaymentList.SortingCriteria> getPaymentSortingCriteria() {
         return payments.getSortingCriteriaIndicator();
     }
 

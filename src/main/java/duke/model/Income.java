@@ -1,7 +1,7 @@
 package duke.model;
 
 import duke.exception.DukeException;
-import duke.logic.Parser.Parser;
+import duke.logic.parser.Parser;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

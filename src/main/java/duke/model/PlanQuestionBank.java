@@ -2,7 +2,7 @@ package duke.model;
 
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
-import duke.logic.Parser.Parser;
+import duke.logic.parser.Parser;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,10 +16,10 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 public class PlanQuestionBank {
+    private static PlanQuestionBank planQuestionBank;
     private Map<Integer, PlanQuestion> questionList;
 
     private static final Logger logger = LogsCenter.getLogger(PlanQuestionBank.class);
-
 
     private static final String[] BOOL_ANSWERS = {"YES", "Y", "NO", "N"};
     private static final String[] BOOL_ATTRIBUTE_VALUES = {"TRUE", "TRUE", "FALSE", "FALSE"};
@@ -31,7 +31,7 @@ public class PlanQuestionBank {
      *
      * @throws DukeException on Error constructing the QuestionBank
      */
-    public PlanQuestionBank() throws DukeException {
+    private PlanQuestionBank() throws DukeException {
         this.questionList = new HashMap<>();
         PlanQuestion question1 = new PlanQuestion("Are you a student from NUS? <yes/no>",
                 BOOL_ANSWERS,
@@ -123,6 +123,14 @@ public class PlanQuestionBank {
                 DOUBLE,
                 DOUBLE,
                 "ONLINE_SHOPPING"));
+        logger.info("QuestionBank generated successfully!");
+    }
+
+    public static PlanQuestionBank getInstance() throws DukeException {
+        if (planQuestionBank == null) {
+            planQuestionBank = new PlanQuestionBank();
+        }
+        return planQuestionBank;
     }
 
     /**
@@ -259,7 +267,6 @@ public class PlanQuestionBank {
                                     .append(monthlyFoodBudget).append(" monthly. \n\n");
                             budgetRecommendation.put("food", monthlyFoodBudget);
                         }
-
                     } else {
                         //Eats all meals outside of hall
                         int mealsPerDay = Integer.parseInt(planAttributes.get("MEALS_PER_DAY"));
@@ -287,7 +294,6 @@ public class PlanQuestionBank {
                     phoneBillExpenseBuilder.setTag("phone bill");
                     recommendationExpenseList.add(phoneBillExpenseBuilder.build());
                 }
-
                 if (planAttributes.get("NETFLIX").equals("TRUE")) {
                     recommendation.append("Netflix has a family plan that is $17.00 per month,"
                             + " so its cheaper if you can find friends to share!\n"
@@ -313,23 +319,25 @@ public class PlanQuestionBank {
                     recommendationExpenseList.add(spotifyExpenseBuilder.build());
                 }
                 if (Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")).compareTo(BigDecimal.ZERO) == 1) {
-                    budgetRecommendation.put("online shopping", Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")));
+                    budgetRecommendation.put("online shopping",
+                            Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")));
                     recommendation.append("You should allocate $"
                             + planAttributes.get("ONLINE_SHOPPING")
                             + " to online shopping.");
                 }
             }
-
         } catch (NullPointerException | NumberFormatException e) {
-            throw new DukeException("Missing attributes to make recommendation!" + e.getMessage());
+            throw new DukeException("Error in making recommendation! "
+                    + "Most likely there's something wrong in the the storage file"
+                    + e.getMessage());
         }
-
         if (recommendation.toString().isEmpty()) {
             return new PlanRecommendation("I can't make any recommendations for you"
                     + " :(. Something probably went wrong",
                     budgetRecommendation,
                     recommendationExpenseList);
         }
+        logger.info("Recommendation made successfully!");
         return new PlanRecommendation(recommendation.toString(),
                 budgetRecommendation,
                 recommendationExpenseList);

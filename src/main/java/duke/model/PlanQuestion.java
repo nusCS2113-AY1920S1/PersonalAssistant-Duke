@@ -1,7 +1,7 @@
 package duke.model;
 
 import duke.exception.DukeException;
-import duke.logic.Parser.Parser;
+import duke.logic.parser.Parser;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -20,7 +20,8 @@ public class PlanQuestion {
     private Map<String, Set<Integer>> neighbouringQuestions;
     private String attribute;
 
-    private final static String SUCCESS_MESSAGE = "Ok noted!";
+    private static final String SUCCESS_MESSAGE = "Ok noted!";
+    private static final String DOUBLE = "DOUBLE";
 
     /**
      * Constructor for PlanQuestion.
@@ -64,8 +65,8 @@ public class PlanQuestion {
      * @return a set of indexes of neighbouring questions, an empty set if no enighboring quesion
      */
     public Set<Integer> getNeighbouringQuestions(String attribute) {
-        if (answersAttributesValue.containsKey("DOUBLE") && (neighbouringQuestions.get("DOUBLE") != null)) {
-            return neighbouringQuestions.get("DOUBLE");
+        if (answersAttributesValue.containsKey(DOUBLE) && (neighbouringQuestions.get(DOUBLE) != null)) {
+            return neighbouringQuestions.get(DOUBLE);
         }
         if (neighbouringQuestions.containsKey(attribute)) {
             return neighbouringQuestions.get(attribute);
@@ -74,21 +75,22 @@ public class PlanQuestion {
     }
 
     /**
-     *  Returns a success message if the input provided is a valid one and
-     *  the question is successfully processed.
-     * @param input the input string for the question
+     * Returns a success message if the input provided is a valid one and
+     * the question is successfully processed.
+     *
+     * @param input      the input string for the question
      * @param attributes the currently known attributes about the user
      * @return Reply containing the updated attributes and success message
-     * @throws DukeException
+     * @throws DukeException when there the reply is not valid
      */
     Reply getReply(String input, Map<String, String> attributes) throws DukeException {
         try {
             if (answersAttributesValue.size() == 1) {
-                if (answersAttributesValue.containsKey("DOUBLE")) {
+                if (answersAttributesValue.containsKey(DOUBLE)) {
                     BigDecimal scaledAmount = Parser.parseMoney(input);
                     String attributeVal = scaledAmount.toString();
                     attributes.put(attribute, attributeVal);
-                    return new Reply(SUCCESS_MESSAGE , attributes);
+                    return new Reply(SUCCESS_MESSAGE, attributes);
                 }
             } else {
                 if (!answersAttributesValue.containsKey(input.toUpperCase())) {
@@ -99,7 +101,7 @@ public class PlanQuestion {
                 return new Reply(SUCCESS_MESSAGE, attributes);
             }
         } catch (NoSuchElementException | NumberFormatException | NullPointerException e) {
-            throw new DukeException("Please enter a valid reply!");
+            throw new DukeException(DukeException.MESSAGE_PLANBOT_INVALID_REPLY);
         }
         return new Reply("Something strange happened", attributes);
     }
@@ -110,11 +112,11 @@ public class PlanQuestion {
      * @param neighbouring Integer index of neighbouring question
      */
     public void addNeighbouring(Integer neighbouring) {
-        if (answersAttributesValue.containsKey("DOUBLE")) {
-            if (neighbouringQuestions.containsKey("DOUBLE")) {
-                neighbouringQuestions.get("DOUBLE").add(neighbouring);
+        if (answersAttributesValue.containsKey(DOUBLE)) {
+            if (neighbouringQuestions.containsKey(DOUBLE)) {
+                neighbouringQuestions.get(DOUBLE).add(neighbouring);
             } else {
-                neighbouringQuestions.put("DOUBLE", new HashSet<>(Collections.singletonList(neighbouring)));
+                neighbouringQuestions.put(DOUBLE, new HashSet<>(Collections.singletonList(neighbouring)));
             }
         }
         for (String attributeValue : answersAttributesValue.values()) {
@@ -135,12 +137,10 @@ public class PlanQuestion {
     public void addNeighbouring(String attributeValue, Integer neighbouring) throws DukeException {
         if (!answersAttributesValue.containsValue(attributeValue)) {
             throw new DukeException(attributeValue + " is not a valid attribute value for " + attribute);
+        } else if (neighbouringQuestions.containsKey(attributeValue)) {
+            neighbouringQuestions.get(attributeValue).add(neighbouring);
         } else {
-            if (neighbouringQuestions.containsKey(attributeValue)) {
-                neighbouringQuestions.get(attributeValue).add(neighbouring);
-            } else {
-                neighbouringQuestions.put(attributeValue, new HashSet<>(Collections.singletonList(neighbouring)));
-            }
+            neighbouringQuestions.put(attributeValue, new HashSet<>(Collections.singletonList(neighbouring)));
         }
     }
 
