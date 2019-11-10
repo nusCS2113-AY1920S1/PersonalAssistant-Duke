@@ -3,7 +3,7 @@ package seedu.duke.task.parser;
 import javafx.util.Pair;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.common.command.InvalidCommand;
-import seedu.duke.common.command.LinkCommand;
+import seedu.duke.task.command.TaskLinkCommand;
 import seedu.duke.common.command.HelpCommand;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.FlipCommand;
@@ -308,8 +308,10 @@ public class TaskCommandParseHelper {
         } catch (NumberFormatException e) {
             return new InvalidCommand("Please enter a valid task index (positive integer equal or less "
                     + "than the number of tasks)");
+        } catch (TaskParseException e) {
+            return new InvalidCommand(e.getMessage());
         } catch (CommandParseHelper.CommandParseException e) {
-            return new InvalidCommand("Index out of bound");
+            return new InvalidCommand("Index out of bounds");
         }
     }
 
@@ -328,7 +330,9 @@ public class TaskCommandParseHelper {
                                                   ArrayList<String> descriptions)
             throws TaskParseException {
         if (!extractDoAfter(optionList).equals("")) {
-            descriptions.add(extractDoAfter(optionList));
+            String doafter = extractDoAfter(optionList);
+            System.out.println(doafter);
+            descriptions.add(doafter);
             attributes.add(TaskUpdateCommand.Attributes.DO_AFTER);
         }
     }
@@ -531,11 +535,10 @@ public class TaskCommandParseHelper {
                     + "the number of tasks) and email indexes (optional)");
         }
         try {
-            int index = parseTaskIndex(linkCommandMatcher.group("index"));
+            int taskIndex = parseTaskIndex(linkCommandMatcher.group("index"));
             ArrayList<Integer> emailIndexList = extractEmails(optionList);
-            ArrayList<Integer> taskIndexList = new ArrayList<>();
-            taskIndexList.add(index);
-            return new LinkCommand(taskIndexList, emailIndexList);
+            ArrayList<Integer> deleteIndexList = extractDelete(optionList);
+            return new TaskLinkCommand(taskIndex, emailIndexList, deleteIndexList);
         } catch (TaskParseException e) {
             return new InvalidCommand("Please enter a valid task index");
         } catch (EmailParseException e) {
@@ -562,6 +565,23 @@ public class TaskCommandParseHelper {
             }
         }
         return emailList;
+    }
+
+    /**
+     * Extracts email index from the option list.
+     *
+     * @param optionList the list of options where the parameters are extracted
+     * @return the ArrayList of email index
+     */
+    public static ArrayList<Integer> extractDelete(ArrayList<Command.Option> optionList) {
+        ArrayList<Integer> deleteList = new ArrayList<>();
+        for (Command.Option option : optionList) {
+            if (option.getKey().equals("delete")) {
+                int index = Integer.parseInt(option.getValue().strip()) - 1;
+                deleteList.add(index);
+            }
+        }
+        return deleteList;
     }
 
     /**
