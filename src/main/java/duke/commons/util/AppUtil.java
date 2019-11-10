@@ -31,10 +31,4 @@ public class AppUtil {
     public static void checkEmpty(String test, String errorMessage) {
         checkArgument(test.matches(VALIDATION_NON_EMPTY_REGEX), errorMessage);
     }
-
-    public static void checkNegativeDouble(Double number, String errorMessage) {
-        if (number < 0) {
-            throw new IllegalArgumentException(errorMessage);
-        }
-    }
 }
