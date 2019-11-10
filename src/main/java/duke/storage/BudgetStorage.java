@@ -34,7 +34,7 @@ public class BudgetStorage {
      * @param amount the string to be converted to a float value.
      * @return returns true if it can be converted to a float value, false otherwise.
      */
-    public boolean isFloat(String amount) {
+    private boolean isFloat(String amount) {
         try {
             Float.parseFloat(amount.trim());
             return true;
@@ -49,7 +49,7 @@ public class BudgetStorage {
      * @param line the string to be checked
      * @return returns true if it is convertable, false otherwise.
      */
-    public boolean isFormatCorrect(String line) {
+    private boolean isFormatCorrect(String line) {
         try {
             String[] lineSplit = line.split(":");
             Float.parseFloat(lineSplit[0].trim());
@@ -57,16 +57,6 @@ public class BudgetStorage {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    /**
-     * Converts a string value to a float value.(unused)
-     *
-     * @param amount the string to be converted into a float value.
-     * @return the float equivalence of the string.
-     */
-    public float convertToFloat(String amount) {
-        return Float.parseFloat(amount.trim());
     }
 
     /**
