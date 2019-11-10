@@ -6,7 +6,6 @@ import duke.logic.CommandResult;
 import duke.model.Model;
 import duke.storage.Storage;
 
-import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -54,7 +53,10 @@ public abstract class Command {
      * Executes the command with parameters given by the user.
      *
      * @param commandParams the parameters given by the user, parsed into a {@code CommandParams} object.
-     * @param model          The Duke object.
+     * @param model         {@code Model} which the command should operate on.
+     * @param storage       the storage of Duke++.
+     * @return feedback message of the operation result for display
+     * @throws DukeException If an error occurs during command execution.
      */
     public abstract CommandResult execute(CommandParams commandParams,
                                           Model model, Storage storage) throws DukeException;

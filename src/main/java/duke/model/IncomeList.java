@@ -44,7 +44,7 @@ public class IncomeList extends DukeList<Income> {
                 this.viewScopeName = ViewScopeName.valueOf(viewScopeName.toUpperCase());
             } catch (IllegalArgumentException e) {
                 throw new DukeException(String.format(
-                        DukeException.MESSAGE_EXPENSE_VIEW_SCOPE_NAME_INVALID, viewScopeName));
+                        DukeException.MESSAGE_EXPENSE_VIEW_NAME_INVALID, viewScopeName));
             }
         }
 

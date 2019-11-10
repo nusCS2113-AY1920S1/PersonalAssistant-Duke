@@ -12,13 +12,20 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Changes details of a payment identified using it's displayed index in the payment reminder.
+ */
 public class ChangePaymentCommand extends Command {
     private static final String name = "changePayment";
     private static final String description = "Changes a pending payment";
     private static final String usage = "changePayment $index";
 
     private static final String COMPLETE_MESSAGE = "Changed the payment!";
+    private static final String EXCEPTION_WORD_INDEX = "index";
 
+    /**
+     * Contains all secondary parameters used by {@code ChangePaymentCommand}.
+     */
     private enum SecondaryParam {
         DESCRIPTION("description", "a short description or name of the pending payment"),
         DUE("due", "the due date of affording the payment"),
@@ -30,6 +37,12 @@ public class ChangePaymentCommand extends Command {
         private String name;
         private String description;
 
+        /**
+         * Constructs a {@code SecondaryParam} with its name and usage.
+         *
+         * @param name        The name of the secondary parameter.
+         * @param description The usage of this parameter.
+         */
         SecondaryParam(String name, String description) {
             this.name = name;
             this.description = description;
@@ -47,8 +60,10 @@ public class ChangePaymentCommand extends Command {
 
     @Override
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
+
         if (!commandParams.containsMainParam()) {
-            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "index"));
+            throw new DukeException(String.format
+                    (DukeException.MESSAGE_COMMAND_PARAM_MISSING, EXCEPTION_WORD_INDEX));
         }
 
         int index;
@@ -59,6 +74,7 @@ public class ChangePaymentCommand extends Command {
             throw new DukeException(String.format(DukeException.MESSAGE_NUMBER_FORMAT_INVALID, mainParam));
         }
 
+        // Constructs a builder with same fields as the target payment for modification on fields.
         Payment.Builder paymentBuilder = new Payment.Builder(model.getPayment(index));
 
         if (commandParams.containsParams(SecondaryParam.AMOUNT.name)) {

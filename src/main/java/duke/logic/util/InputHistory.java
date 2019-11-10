@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.Objects.requireNonNullElse;
 
 /**
  * Enables the user to iterate through previous inputs one by one.
@@ -23,7 +22,7 @@ public class InputHistory {
     private int iteratingIndex;
 
     /**
-     * Creates an InputHistory to record user commands sent in textField of mainWindow.
+     * Creates an {@code InputHistory} to record user commands sent in textField of mainWindow.
      */
     public InputHistory() {
         inputHistory = new ArrayList<String>();
@@ -56,8 +55,10 @@ public class InputHistory {
         }
 
         if (isAbleToLast()) {
-            iteratingIndex = iteratingIndex - 1;
+            iteratingIndex--;
         }
+        assert iteratingIndex >= 0;
+
         return inputHistory.get(iteratingIndex);
     }
 
@@ -72,8 +73,9 @@ public class InputHistory {
         }
 
         if (isAbleToNext()) {
-            iteratingIndex = iteratingIndex + 1;
+            iteratingIndex++;
         }
+        assert iteratingIndex < inputHistory.size() + 1;
 
         if (iteratingIndex == inputHistory.size()) {
             return EMPTY_STRING;

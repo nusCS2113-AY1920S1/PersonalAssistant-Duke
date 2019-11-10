@@ -16,6 +16,7 @@ public class FilterExpenseCommand extends Command {
 
     private static final String COMPLETE_MESSAGE = "Filtered the expense!";
 
+
     private enum SecondaryParam {
         ;
 

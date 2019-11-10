@@ -38,14 +38,14 @@ import static java.util.Objects.requireNonNull;
  * It can also produce a parameter name, complete a parameter name and iterate through all suitable parameter names.
  * If the given input ends with space, autoCompleter will produce a parameter name.
  * If the given input doesn't end with space and is different from last complement,
- * autoCompleter will complete the last token, which can be a commandName or a parameter.
+ * autoCompleter will complete the fragment after the last space, which can be a commandName or a parameter.
  * Instead, if the given input is same as last complement,
  * autoCompleter will iterate through other suitable complements in the list.
  * <p>
  * The mechanism of complement and iteration is firstly getting a suitable token(complement),
- * which can be either a complete commandName or parameter, or just original last token from input
+ * which can be either a complete commandName or parameter, or the fragment after the last space in input
  * in case that no suitable complements can be applied to current input.
- * Then auto-completer replaces the last token of original input with this suitable token,
+ * Then auto-completer replaces the fragment after the last space of input with this suitable complement,
  * and lastly returns the modified input to userInput TextField.
  */
 public class AutoCompleter {
@@ -53,17 +53,20 @@ public class AutoCompleter {
     private static final Logger logger = LogsCenter.getLogger(AutoCompleter.class);
 
     /**
-     * Three keywords used to decide the purpose of complement.
+     * Works as a detector of an empty string.
+     * A keyword used to decide the purpose of complement.
      **/
     private static final String EMPTY_STRING = "";
 
     /**
      * Works as a space regex to tokenize the input.
+     * A keyword used to decide the purpose of complement.
      */
     private static final String SPACE = " ";
 
     /**
      * Works as a indicator of secondary parameter.
+     * A keyword used to decide the purpose of complement.
      */
     private static final String PARAMETER_INDICATOR = "/";
 
@@ -75,15 +78,16 @@ public class AutoCompleter {
     /**
      * Helps conversion between 0-based and 1-based indexes.
      */
-    private static final int ZERO_BASED_CONVERSION = 1;
+    private static final int BASE_CONVERSION = 1;
 
     /**
      * The list storing all commands' names.
+     * Works as the information source to complete command names.
      **/
     private final List<String> allCommandNames;
 
     /**
-     * CommandNames mapped to their respective secondaryParams' names.
+     * Maps each commandNames to their respective collections of secondaryParams' names.
      **/
     private final HashMap<String, List<String>> allSecondaryParams;
 
@@ -103,12 +107,12 @@ public class AutoCompleter {
     private int numberOfTokens;
 
     /**
-     * The starting index of the last token in {@code fromInput}.
+     * The starting index of the fragment after the last space in {@code fromInput}.
      **/
-    private int startIndexOfLastToken;
+    private int startIndexOfLastFragment;
 
     /**
-     * All suitable tokens that can replace the last token of {@code fromInput}.
+     * All suitable tokens that can replace the fragment after the last space of {@code fromInput}.
      **/
     private List<String> complementList;
 
@@ -119,6 +123,7 @@ public class AutoCompleter {
 
     /**
      * A supplier that supplies streams of all command classes.
+     * It works as the source of all complements information.
      **/
     private static final Supplier<Stream<Command>> COMMANDS = () -> Stream.of(
             new AddExpenseCommand(),
@@ -155,22 +160,27 @@ public class AutoCompleter {
     /**
      * Constructs a auto-completer.
      * All commandNames are stored in {@code allCommandNames}.
-     * All secondaryParams of each command are stored in {@code allSecondaryParams}.
+     * All collections of secondaryParams of each command are stored in {@code allSecondaryParams}.
      * The {@code complementList} is initialized as an empty ArrayList.
      * The {@code lastComplement} is initialized as an empty String.
      */
     public AutoCompleter() {
         allCommandNames = COMMANDS.get().map(Command::getName).collect(Collectors.toList());
+        assert !allCommandNames.isEmpty();
 
         allSecondaryParams = new HashMap<String, List<String>>();
-        COMMANDS.get().forEach(c -> {
-            Set<String> secondaryParamSet = c.getSecondaryParams().keySet();
+        COMMANDS.get().forEach(command -> {
+            Set<String> secondaryParamSet = command.getSecondaryParams().keySet();
             List<String> secondaryParamList = new ArrayList<String>(secondaryParamSet);
-            allSecondaryParams.put(c.getName(), secondaryParamList);
+            // maps commandName to collections of its all secondaryParams' names
+            allSecondaryParams.put(command.getName(), secondaryParamList);
         });
+        assert !allSecondaryParams.isEmpty();
 
         complementList = new ArrayList<String>();
         lastComplement = EMPTY_STRING;
+
+        logger.info("Auto Completer is constructed.");
     }
 
 
@@ -182,27 +192,29 @@ public class AutoCompleter {
      */
     public void receiveText(String fromInput) {
         this.fromInput = requireNonNull(fromInput);
-        logger.info("start receiving Text");
+        logger.info("Received text for auto-completer.");
     }
 
     /**
-     * Replaces the last token of {@code fromInput} with complement token.
+     * Replaces the fragment after the last space of {@code fromInput} with complement token.
      * and stores this modified String in {@code lastComplement}.
-     * This modified String is full complement and will be set as text in userInput TextField.
+     * This modified String is the full complement and will be set as text in userInput TextField.
      * <p>
-     * i.e full complement = fromInput - last token of fromInput + complement token.
+     * i.e full complement = fromInput - fragment after the last space + complement token.
      *
-     * @return Full complement going to be set in userInput TextField
+     * @return Full complement going to be set in userInput TextField.
      */
     public String getFullComplement() {
         Purpose purpose = getPurpose();
+        requireNonNull(purpose);
+
         String complement = getComplement(purpose);
         lastComplement = getTailoredInput() + complement;
         return lastComplement;
     }
 
     /**
-     * Decides the {@code purpose} with values of various criteria.
+     * Decides the {@code purpose} with various criteria.
      */
     private Purpose getPurpose() {
         if (isEmpty()) {
@@ -232,7 +244,7 @@ public class AutoCompleter {
             return Purpose.COMPLETE_COMMAND_NAME;
         }
 
-        logger.info("purpose decided.");
+        logger.info("The original input itself is already complete.");
         return Purpose.NOT_DOABLE;
     }
 
@@ -240,12 +252,12 @@ public class AutoCompleter {
      * Gets the complement token.
      * If the {@code purpose} is not {@code ITERATE},
      * it firstly generates {@code complementList} containing all suitable complements(tokens)
-     * and chooses the first element of list as complement token.
+     * and chooses the first element as complement token.
      * If the {@code purpose} is {@code ITERATE},
-     * it adds the {@code iteratingIndex} by one and chooses the corresponding element
-     * in existing {@code complementList} as complement token.
+     * the {@code iteratingIndex} increases by one and the element at {@code iteratingIndex}
+     * in the existing {@code complementList} will be chose as complement token.
      *
-     * @return The complement token
+     * @return The complement token.
      */
     private String getComplement(Purpose purpose) {
         switch (purpose) {
@@ -274,33 +286,32 @@ public class AutoCompleter {
 
         default:
             logger.warning("Purpose takes unexpected value.");
+            break;
         }
-
-
 
         if (complementList.isEmpty()) { // return original last token if there's no suitable complement
-            return getLastToken();
+            return getFragmentAfterLastSpace();
         }
 
-        return complementList.get(iteratingIndex);
+        assert iteratingIndex < complementList.size();
 
+        return complementList.get(iteratingIndex);
     }
 
-
     /**
-     * Cuts off the last token from {@code fromInput}.
+     * Cuts off the fragment after the last space from {@code fromInput}.
      *
-     * @return A tailored input without the last token.
+     * @return A tailored input without the last fragment.
      */
     private String getTailoredInput() {
-        return fromInput.substring(INITIAL_INDEX, startIndexOfLastToken);
+        return fromInput.substring(INITIAL_INDEX, startIndexOfLastFragment);
     }
 
     /**
      * Tests whether the given input is same as the most recent complement.
      * This is a criteria to help decide purpose.
      *
-     * @return True if {@code fromInput} is same as {@code lastComplement} and false otherwise
+     * @return True if {@code fromInput} is same as {@code lastComplement} and false otherwise.
      */
     private boolean isSameAsLastComplement() {
         return fromInput.equals(lastComplement);
@@ -327,13 +338,13 @@ public class AutoCompleter {
     }
 
     /**
-     * Tests whether the last token of given input starts with {@code PARAMETER_INDICATOR}.
+     * Tests whether the fragment after the last space of given input starts with {@code PARAMETER_INDICATOR}.
      * This is a criteria to help decide purpose.
      *
-     * @return True if the last token starts with {@code PARAMETER_INDICATOR} and false otherwise.
+     * @return True if the fragment after the last space starts with {@code PARAMETER_INDICATOR}.
      */
     private boolean inUncompletedParameter() {
-        return getLastToken().startsWith(PARAMETER_INDICATOR);
+        return getFragmentAfterLastSpace().startsWith(PARAMETER_INDICATOR);
     }
 
     /**
@@ -344,7 +355,9 @@ public class AutoCompleter {
      */
     private String getCommandName() {
         List<String> tokens = Arrays.asList(fromInput.split(SPACE));
+        // Gets rid of empty tokens
         tokens = tokens.stream().filter(s -> !s.equals(EMPTY_STRING)).collect(Collectors.toList());
+        // Gets rid of extra space
         tokens = tokens.stream().map(String::trim).collect(Collectors.toList());
         numberOfTokens = tokens.size();
 
@@ -362,62 +375,82 @@ public class AutoCompleter {
     }
 
     /**
-     * Gets the last token of given input.
-     * Updates {@code startIndexOfLastToken}.
+     * Gets the fragment after the last space of given input.
+     * Updates {@code startIndexOfLastFragment}.
      *
-     * @return The last token of {@code fromInput}.
+     * @return The last fragment of {@code fromInput}.
      */
-    private String getLastToken() {
-        int index = fromInput.length() - ZERO_BASED_CONVERSION;
-        while (index >= INITIAL_INDEX && SPACE.charAt(INITIAL_INDEX) != fromInput.charAt(index)) {
-            index--;
+    private String getFragmentAfterLastSpace() {
+        int index = fromInput.length() - BASE_CONVERSION;
+
+        boolean isSpaceNotReached;
+
+        // gets the position of the last space in input
+        while (index >= INITIAL_INDEX) {
+            isSpaceNotReached = (fromInput.charAt(index) != SPACE.charAt(INITIAL_INDEX));
+
+            if(isSpaceNotReached) {
+                index--;
+            } else {
+                break;
+            }
         }
-        startIndexOfLastToken = index + ZERO_BASED_CONVERSION;
-        return fromInput.substring(startIndexOfLastToken);
+
+        startIndexOfLastFragment = index + BASE_CONVERSION;
+        assert startIndexOfLastFragment <= fromInput.length();
+
+        return fromInput.substring(startIndexOfLastFragment);
     }
 
     /**
      * Fills the {@code complementList} with all complete versions of current commandName.
-     * This is called when {@code purpose} is {@code COMPLETE_COMMAND_NAME}.
+     * This is called when purpose is {@code COMPLETE_COMMAND_NAME}.
      */
     private void completeCommandNameComplements() {
-        String unCompletedCommandName = getLastToken();
+        String unCompletedCommandName = getFragmentAfterLastSpace();
         complementList = allCommandNames.stream()
                 .filter(s -> s.startsWith(unCompletedCommandName)).collect(Collectors.toList());
+
+        logger.info("ComplementList for command names is constructed.");
     }
 
     /**
      * Fills the {@code complementList} with all complete versions of current secondaryParameter.
-     * This is called when {@code purpose} is {@code COMPLETE_PARAMETER}.
+     * This is called when purpose is {@code COMPLETE_PARAMETER}.
      */
     private void completeParameterComplements() {
-        String unCompletedParameter = getLastToken().substring(1);
-        List<String> usableParameters = allSecondaryParams.get(getCommandName());
-        List<String> options = usableParameters.stream()
+        String unCompletedParameter = getFragmentAfterLastSpace().substring(1); // gets rid of "/" at index 0
+        List<String> options = allSecondaryParams.get(getCommandName());
+        List<String> usableParameters = options.stream()
                 .filter(s -> s.startsWith(unCompletedParameter)).collect(Collectors.toList());
-        logger.info("options for complementList lengths " + options.size());
-        complementList = options.stream().map(s -> PARAMETER_INDICATOR + s).collect(Collectors.toList());
+        complementList = usableParameters.stream().map(s -> PARAMETER_INDICATOR + s).collect(Collectors.toList());
+
+        logger.info("ComplementList for parameter names is constructed.");
     }
 
     /**
      * Fills the {@code complementList} with all secondaryParameters belonging to commandName.
-     * This is called when {@code purpose} is {@code PRODUCE_PARAMETER}.
+     * This is called when purpose is {@code PRODUCE_PARAMETER}.
      */
     private void produceParameterComplements() {
-        String empty = getLastToken(); // updates the starting index of last token.
+        getFragmentAfterLastSpace();
         List<String> options = allSecondaryParams.get(getCommandName());
         complementList = options.stream().map(s -> PARAMETER_INDICATOR + s).collect(Collectors.toList());
+
+        logger.info("ComplementList producing parameter names is constructed.");
     }
 
     /**
      * Iterates the index of {@code complementList} by adding it by one.
-     * This is called when {@code purpose} is {@code ITERATE}.
+     * This is called when purpose is {@code ITERATE}.
      */
     private void iterateIndex() {
         iteratingIndex++;
         if (iteratingIndex >= complementList.size()) {
             iteratingIndex = INITIAL_INDEX;
         }
+
+        logger.info("Index has been iterated.");
     }
 
 }
