@@ -28,8 +28,7 @@ public class FindBookingIndexCommand extends Command {
      */
     public FindBookingIndexCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
-            throw new DukeException("☹ OOPS!!! Please create your booking with the following format: "
-                    + "index");
+            throw new DukeException("☹ OOPS!!! Please include the index of the booking you would like to find!");
         }
         index = Integer.valueOf(input.substring(10)) - 1;
 
