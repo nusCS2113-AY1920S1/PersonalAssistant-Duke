@@ -262,6 +262,10 @@ public class Schedule {
     public void listAll() {
         ArrayList<String> scheduleList = new ArrayList<>();
         scheduleList.addAll(new ScheduleStorage().loadOverview());
+        if (scheduleList.isEmpty()) {
+            cliViewSchedule.bufferLine();
+            cliViewSchedule.message("No classes have been scheduled");
+        }
         for (String i: scheduleList) {
             cliViewSchedule.message(i);
         }

@@ -11,12 +11,12 @@ import java.util.ArrayList;
 public interface IStorage {
     /**
      * Method will load saved files.
-     * @return
+     * @return array list
      */
     ArrayList<ToDo> load(String date) throws IOException;
 
     /**
      * Method will save file to location.
      */
-    void save(ToDo toDo) throws IOException;
+    void save(ToDo toDo, String date) throws IOException;
 }

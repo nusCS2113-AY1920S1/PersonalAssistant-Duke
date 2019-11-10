@@ -97,9 +97,8 @@ public class CliView {
         System.out.flush();
         System.out.println("TRAINING SCHEDULE:\n"
             + "1. Daily Schedule\n"
-            + "2. Weekly Schedule\n"
-            + "3. Monthly Schedule\n"
-            + "4. Back");
+            + "2. Monthly Schedule\n"
+            + "3. Back");
     }
 
     /**

@@ -132,14 +132,6 @@ public class ParserSchedule {
     }
 
     /**
-     * Method to run when entering weekly schedule.
-     */
-    public void weeklySchedule() {
-        System.out.println(schedule.getWeek());
-
-    }
-
-    /**
      * Method selects the month.
      *
      * @param month the selected month
@@ -197,9 +189,8 @@ public class ParserSchedule {
      */
     public void parseCommand() throws ParseException, IOException {
         final int dailySchedule = 1;
-        final int weeklySchedule = 2;
-        final int monthlySchedule = 3;
-        final int back = 4;
+        final int monthlySchedule = 2;
+        final int back = 3;
         int input;
         boolean runSchedule = true;
         try {
@@ -224,9 +215,6 @@ public class ParserSchedule {
                             cliViewSchedule.showDontKnow();
                         }
                     }
-                    break;
-                case weeklySchedule:
-                    weeklySchedule();
                     break;
                 case monthlySchedule:
                     monthlySchedule();
