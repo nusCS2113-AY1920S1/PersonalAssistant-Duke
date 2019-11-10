@@ -217,7 +217,7 @@ It could lead to unexpected side-effects if implemented wrongly.
 ** Pros: Intuitive and allows users to see all possible commands in one place.
 ** Cons: Hard to implement.
 May require additional components other than JavaFx's built-in components.
-May require additional components other than JavaFx's built-in components.
+
 * Alternative 2 (Current choice): Navigate between possible suggestions by repeatedly pressing `Tab` key.
 ** Pros: Easier to implement since no additional components are needed
 ** Cons: Cannot display all possible commands in one place.

@@ -11,7 +11,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Customer {
     public static final String MESSAGE_CONSTRAINTS
-        = "Customer name/contact should be non-blank and less than 20 characters.";
+        = "Customer name/contact should be non-blank and no more than 20 characters.";
 
     //Identity field
     public final String name;
