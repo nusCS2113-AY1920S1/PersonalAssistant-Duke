@@ -20,13 +20,12 @@ public class PlannerTest extends InputTest {
     @DisplayName("Termination Test")
     @Test
     public void testPlan() {
-        final String test = "password\n bye";
+        final String test = "bye";
         provideInput(test);
         final String[] hold = {""};
         CliLauncher.main(hold);
         String expected =
-                "Please enter your password to continue:\n"
-                + LINE
+                LINE
                 + "\n"
                 + "Welcome to ModPlanner, your one stop solution to module planning!\n"
                 + "Begin typing to get started!\n"
@@ -40,6 +39,6 @@ public class PlannerTest extends InputTest {
                 + "\n"
                 + LINE
                 + "\n";
-        assertEquals(expected, expected);
+        assertEquals(expected, getReplace());
     }
 }

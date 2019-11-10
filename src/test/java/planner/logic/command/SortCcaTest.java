@@ -70,7 +70,7 @@ public class SortCcaTest extends InputTest {
         final String commandTest1 = "sort cca\n" + "bye";
         final String commandTest2 = "sort cca --r\n" + "bye";
 
-        provideInput("password\n" + commandTest1);
+        provideInput(commandTest1);
         final String[] hold = {""};
         CliLauncher.main(hold);
         String expectedSortedCcas = "_______________________________\n"

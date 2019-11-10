@@ -71,7 +71,7 @@ public class SortTimeTest extends InputTest {
         final String commandTest6 = "sort time saturday\n" + "bye";
         final String commandTest7 = "sort time sunday\n" + "bye";
 
-        provideInput("password\n" + commandTest1);
+        provideInput(commandTest1);
         final String[] hold = {""};
         CliLauncher.main(hold);
         String expectedSortedTimes = "_______________________________\n"
