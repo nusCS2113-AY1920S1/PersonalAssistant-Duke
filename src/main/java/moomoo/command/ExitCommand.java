@@ -6,6 +6,7 @@ import moomoo.feature.Budget;
 import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.storage.Storage;
+import moomoo.command.DetectOsCommand;
 
 import java.io.IOException;
 
@@ -25,7 +26,6 @@ public class ExitCommand extends Command {
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Storage storage)
             throws MooMooException {
-
         DetectOsCommand getOS = new DetectOsCommand();
         if (getOS.osName.contains("win")) {
             try {
