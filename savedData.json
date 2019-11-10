@@ -1,4 +1,11 @@
 {
+  "2019-08-02" : [ {
+    "Status" : "Upcoming",
+    "Start Time" : "0900 ",
+    "Name" : "Lifting ",
+    "End Time" : "1000 ",
+    "Location" : "NUS"
+  } ],
   "2019-11-10" : [ {
     "Status" : "Upcoming",
     "Start Time" : "0800",
@@ -55,12 +62,5 @@
     "Name" : "Competition",
     "End Time" : "1100",
     "Location" : "Kr"
-  } ],
-  "2019-10-11" : [ {
-    "Status" : "Upcoming",
-    "Start Time" : "0700",
-    "Name" : "Testing save",
-    "End Time" : "0900",
-    "Location" : "NUS"
   } ]
 }

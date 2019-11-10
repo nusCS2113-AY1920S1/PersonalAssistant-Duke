@@ -67,8 +67,9 @@ public class CliViewSchedule extends CliView {
     public void tableHeader() {
         System.out.println(
             String.format(
-                "%10s %10s %10s %10s %10s %10s %10s",
+                "%-10s %10s %-10s %10s %-10s %10s %-10s %10s %-10s",
                 "Lesson", "|",
+                "Location", "|",
                 "Start Time", "|",
                 "End Time", "|",
                 "Status"
@@ -77,7 +78,7 @@ public class CliViewSchedule extends CliView {
         System.out.println(
             String.format(
                 "%s",
-                "--------------------------------------------------------------------------------------------"));
+                "-----------------------------------------------------------------------------------------------------"));
     }
 
     /**
@@ -88,8 +89,9 @@ public class CliViewSchedule extends CliView {
             //Iterate through and print ever item that is listed in the day.
             for (ToDo i : todo) {
                 System.out.println(
-                    String.format("%-19s %-1s %-19s %-1s %-19s %-1s %10s",
+                    String.format("%-19s %-1s %-19s %-1s %-19s %-1s %-19s %-1s %-10s",
                         i.getClassName(), "|",
+                        i.getLocation(), "|",
                         i.getStartTime(), "|",
                         i.getEndTime(), "|",
                         i.getStatus()
@@ -112,5 +114,14 @@ public class CliViewSchedule extends CliView {
     public void tableDate(final int day, final int month) {
         String date = DateHandler.stringDate("dd MMM yyyy", day, month, 2019);
         message(date);
+    }
+
+    /**
+     * Method will list all available commands in the table.
+     */
+    public void tableMenu() {
+        bufferLine();
+        message("Add Class: add n/[CLASS NAME] s/[START TIME] d/[END TIME] loc/[LOCATION]");
+        message("Go back: back");
     }
 }
