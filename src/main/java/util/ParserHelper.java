@@ -158,7 +158,7 @@ public class ParserHelper {
                 newReminderDate = s.substring(1).trim();
                 break;
             case'l':
-                newReminderCategory = s.substring(1).trim();
+                newReminderCategory = s.substring(1).trim().toUpperCase();
                 break;
             default:
                 break;

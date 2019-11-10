@@ -612,8 +612,11 @@ public class ProjectInputController implements IController {
                 allTaskDetailsForTable.add(index + ". " + reminder.getStatus() + " " + reminder.getReminderName());
                 allTaskDetailsForTable.add("   - Category: " + reminder.getCategory());
                 allTaskDetailsForTable.add("   - Remarks: " + reminder.getReminderRemarks());
-                allTaskDetailsForTable.add("   - " + dateTimeHelper.formatDateForDisplay(reminder.getReminderDate())
-                        + dateTimeHelper.getDifferenceDays(reminder.getReminderDate()));
+                if (reminder.getReminderDate() != null) {
+                    allTaskDetailsForTable.add("   - " + dateTimeHelper.formatDateForDisplay(reminder.getReminderDate())
+                            + dateTimeHelper.getDifferenceDays(reminder.getReminderDate()));
+
+                }
                 allTaskDetailsForTable.add(" ");
                 index++;
             }
@@ -722,16 +725,17 @@ public class ProjectInputController implements IController {
     public String[] projectViewReminderCategory(Project projectToManage) {
         ArrayList<ArrayList<String>> reminderCategory = new ArrayList<>();
         HashMap<String, ArrayList<Reminder>> reminderCategoryList = projectToManage.getCategoryReminderList();
-        DateTimeHelper dateTimeHelper = new DateTimeHelper();
+        int indexCategory = 1;
         for (Map.Entry<String, ArrayList<Reminder>> list: reminderCategoryList.entrySet()) {
+            int index = 1;
             ArrayList<String> categoryOfReminder = new ArrayList<>();
-            categoryOfReminder.add(list.getKey());
+            categoryOfReminder.add(indexCategory + ". " + list.getKey());
             for (Reminder reminder: list.getValue()) {
-                categoryOfReminder.add(reminder.getReminderName());
-                categoryOfReminder.add(" - Date: " + dateTimeHelper.formatDateForDisplay(reminder.getReminderDate())
-                        + dateTimeHelper.getDifferenceDays(reminder.getReminderDate()));
+                categoryOfReminder.add(index + ". " + reminder.getReminderName());
+                index++;
             }
             reminderCategory.add(categoryOfReminder);
+            indexCategory++;
         }
         return viewHelper.consolePrintMultipleTables(reminderCategory, DEFAULT_HORI_BORDER_LENGTH, 2,
                 "Reminders of " + projectToManage.getName() + ":");

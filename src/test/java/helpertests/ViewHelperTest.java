@@ -219,7 +219,7 @@ class ViewHelperTest {
         };
         String resetDate = "|    Today's date is " + dateTimeHelper.getCurrentDate() + " "
                 + dateTimeHelper.getCurrentMonth() + " " + dateTimeHelper.getCurrentYear()
-                + "                                         |";
+                + "                                        |";
         expectedOutput[1] = resetDate;
         assertArrayEquals(expectedOutput, simulatedOutput);
     }
