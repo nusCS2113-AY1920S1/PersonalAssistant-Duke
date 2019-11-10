@@ -227,10 +227,10 @@ Format: `export <file name>`
 - A new ICS file will be created under src/DukeDatabase/file name.
 - Chronologer will inform user if no file name provided.
 
-Examples:<br/>
+Examples:
 
-`Export MyCalendar`<br/>
-`Export schedule`<br/>
+* `Export MyCalendar`
+* `Export schedule`
 
 ### 3.5.2) Export only certain task types: 'export'
 Create an ICS file which only consist of the tasks included.</br>
@@ -243,12 +243,12 @@ Format: `export <file name> </task type flag>`
 * `-t = Todo with period`
 - Can include multiple flags in the instruction. If there are no task flags, all supported task type will be exported by default.
 
-Examples:</br>
+Examples:
 
-`Export MyCalendar -d`</br>
-`Export schedule -e`</br>
-`Export TestCalendar -d -e`</br>
-`Export TestCalendar -d -e -t`</br>
+* `Export MyCalendar -d`
+* `Export schedule -e`
+* `Export TestCalendar -d -e`
+* `Export TestCalendar -d -e -t`
 
 ## 3.6 Scheduling feature
 ### 3.6.1) Schedule a Todo with duration by a Deadline task: `schedule`
