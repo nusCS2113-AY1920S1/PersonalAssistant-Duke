@@ -24,7 +24,7 @@ public class ProjectRepository implements IRepository<Project> {
      */
     public ProjectRepository() {
         ArrayList<Project> projectsFromResource = jsonConverter.getResourcesInJar();
-        allProjects = jsonConverter.loadAllProjectsData(projectsFromResource);
+        allProjects = jsonConverter.loadAllProjectsData();
         allProjects.addAll(projectsFromResource); // TODO FIXED DUPLICATION
     }
 
@@ -91,7 +91,10 @@ public class ProjectRepository implements IRepository<Project> {
             jsonConverter.deleteProject(allProjects.get(indexNumber - 1));
             this.allProjects.remove(indexNumber - 1);
             return true;
-        } catch (IndexOutOfBoundsException | DukeException err) {
+        } catch (IndexOutOfBoundsException err) {
+            return false;
+        } catch (DukeException err) {
+            this.allProjects.remove(indexNumber - 1);
             return false;
         }
     }

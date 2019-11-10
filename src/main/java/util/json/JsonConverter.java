@@ -59,7 +59,7 @@ public class JsonConverter {
     /**
      * Method responsible for loading Projects Data from hard coded directory where savedProjects.json file is located
      */
-    public ArrayList<Project> loadAllProjectsData(ArrayList<Project> projectsFromJar) {
+    public ArrayList<Project> loadAllProjectsData() {
         Gson gson = new Gson();
         ArrayList<Project> allProjects = new ArrayList<>();
         File directory = new File(userDirectory);
