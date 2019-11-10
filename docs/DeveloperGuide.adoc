@@ -462,7 +462,7 @@ image::SGTravel_newItinerary_Command_diagram.png[height="640" width="1400"]
 
 Alternatively, the creation of itineraries can be facilitated by the Recommendations and AddListCommands in the Logic Component. 
 
-Given below is an example usage scenario and how the recommendation mechanism behaves and interacts in the Model :
+Given below is an example usage scenario and how the Recommendation mechanism behaves and interacts in the Model :
 
 .  The user calls the `RecommendationsCommand` with its relevant parameters. +
 e.g. `recommend itinerary between 23/04/20 and 24/04/20`
@@ -478,6 +478,24 @@ Given below is the sequence diagram of how the various components work in the `e
 
 .Sequence diagram for the execute() method in RecommendationsCommand
 image::SGTravel_recommend_command_diagram.png[height="950" width="1380"]
+
+Given below is an example usage scenario and how the AddList mechanism behaves and interacts in the Model after a recommendation has been added :
+
+.  The user calls the `AddThisListCommand` with its relevant parameters. +
+e.g. `addThisList MyNewVacation`
+. The `LogicManager` parses the user input using the `Parser`.
+. The `Parser` returns a AddThisListCommand object and passes the relevant newName with it. 
+. The `LogicManager` will call `execute()` on the `AddThisListCommand` object which return a `CommandResultText` Object containing the add itinerary in full.
+. During the `execute()` method the recent recommendation is received from storage. If no recent recommendation is present a `NoRecentItineraryException` is returned
+. The confirmRecentItinerary() method is called. This saves the current recommendation with the new name entered.
+. The recentItinerary (recomendation) is set to null such that the same recommendation cannot  be added twice.
+. The method `save()` is invoked in the `Model`, and a `CommandResultText` object is created with an appropriate message to show the stored itinerary. 
+
+Given below is the sequence diagram of how the various components work in the `execute()` method of the `AddThisListCommand` command:
+
+.Sequence diagram for the execute() method in RecommendationsCommand
+image::SGTravel_addList_command_diagram.png[height="950" width="1380"]
+
 
 Other helper commands such as list,show and doneItineraries have not been shown but are an important interface to the user.
 
