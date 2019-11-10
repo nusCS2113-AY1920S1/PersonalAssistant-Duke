@@ -123,10 +123,9 @@ public class CliView {
             + "1. Student List \n"
             + "2. Add student \n"
             + "3. Delete Student \n"
-            + "4. Find Student \n"
+            + "4. Student Progress \n"
             + "5. View student details \n"
             + "6. Exit ");
-        printLine();
 
     }
 
