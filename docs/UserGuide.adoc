@@ -127,6 +127,9 @@ El Duque also supports keywords `today`,  `tomorrow` and `today/tomorrow HHmm` a
 
     -t tomorrow 1200
 
+[TIP]
+If a non
+
 //tag::shaun97[]
 === Listing all tasks : `list`
 Shows a list of all tasks in the task manager. +
