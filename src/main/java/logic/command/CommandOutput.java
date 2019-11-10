@@ -35,10 +35,15 @@ public class CommandOutput {
         return responseToUser;
     }
 
-
     public boolean isExit() {
         return exit;
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        return this == obj
+            || (obj instanceof CommandOutput
+                && responseToUser.equals(((CommandOutput) obj).responseToUser)
+                && exit == ((CommandOutput) obj).exit);
+    }
 }
