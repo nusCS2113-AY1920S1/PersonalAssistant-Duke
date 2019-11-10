@@ -96,7 +96,9 @@ public class MainScene extends NewScene {
         } else {
             c = Parser.parse(userInput);
             if (c instanceof SetReminderCommand) {
-                isSettingUpReminder = true;
+                if (userInput.split(" +").length == 1) {
+                    isSettingUpReminder = true;
+                }
             } else if (c instanceof QuizCommand) {
                 throw new ChangeSceneException();
             }
