@@ -4,7 +4,7 @@ package planner.logic.command;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import planner.InputTest;
+import planner.main.InputTest;
 import planner.logic.exceptions.planner.ModFailedJsonException;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTasksList;
@@ -59,7 +59,7 @@ public class ShowModule extends InputTest {
         final String test = "show module\n";
 
         final String bye = "bye";
-        provideInput(test + bye);
+        provideInput("password\n" + test + bye);
         final String[] hold = {""};
         CliLauncher.main(hold);
         String expectedShowModule = "_______________________________\n"

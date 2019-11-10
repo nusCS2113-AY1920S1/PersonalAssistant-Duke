@@ -3,7 +3,7 @@
 package planner.logic.command;
 
 import org.junit.jupiter.api.Test;
-import planner.InputTest;
+import planner.main.InputTest;
 import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModFailedJsonException;
@@ -71,7 +71,7 @@ public class SortTimeTest extends InputTest {
         final String commandTest6 = "sort time saturday\n" + "bye";
         final String commandTest7 = "sort time sunday\n" + "bye";
 
-        provideInput(commandTest1);
+        provideInput("password\n" + commandTest1);
         final String[] hold = {""};
         CliLauncher.main(hold);
         String expectedSortedTimes = "_______________________________\n"
