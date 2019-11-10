@@ -4,6 +4,7 @@
  *
  * @author tygq13
  */
+
 package cube.model.sale;
 
 import java.util.TreeSet;
@@ -25,7 +26,7 @@ public class SalesHistory {
 	/**
 	 * Constructor with one argument.
 	 * Utilize existing sales history set.
-	 * @param salesSet
+	 * @param salesSet the sales history.
 	 */
 	public SalesHistory(TreeSet<Sale> salesSet) {
 		this.salesSet = salesSet;
@@ -64,7 +65,7 @@ public class SalesHistory {
 	public String toString() {
 		String result = "";
 		Iterator i = salesSet.iterator();
-		while(i.hasNext()) {
+		while (i.hasNext()) {
 			result += i.next() + "\n";
 		}
 		return result;

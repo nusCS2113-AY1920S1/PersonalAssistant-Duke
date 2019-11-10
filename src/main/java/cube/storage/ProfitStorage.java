@@ -3,6 +3,7 @@
  * ProfitStorage.java
  * Support profit and revenue generation-related methods for storage.
  */
+
 package cube.storage;
 
 /**

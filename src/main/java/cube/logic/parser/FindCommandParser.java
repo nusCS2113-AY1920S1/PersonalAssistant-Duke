@@ -49,7 +49,7 @@ public class FindCommandParser implements ParserPrototype<FindCommand> {
                     if (!ParserUtil.hasField(args,sortIndex + 1)) {
                         throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
                     }
-                    if (FoodList.SortType.IsDefined(args[sortIndex + 1])) {
+                    if (FoodList.SortType.isDefined(args[sortIndex + 1])) {
                         return new FindCommand(name,"NAME",
                                 FoodList.SortType.valueOf(args[sortIndex + 1].toUpperCase()));
                     } else {
@@ -69,7 +69,7 @@ public class FindCommandParser implements ParserPrototype<FindCommand> {
                     if (!ParserUtil.hasField(args,sortIndex + 1)) {
                         throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
                     }
-                    if (FoodList.SortType.IsDefined(args[sortIndex + 1])) {
+                    if (FoodList.SortType.isDefined(args[sortIndex + 1])) {
                         return new FindCommand(type,"TYPE",
                                 FoodList.SortType.valueOf(args[sortIndex + 1].toUpperCase()));
                     } else {

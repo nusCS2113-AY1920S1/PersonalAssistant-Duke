@@ -3,6 +3,7 @@
  *
  * @author kuromono
  */
+
 package cube.storage;
 
 import cube.storage.config.ReminderConfig;

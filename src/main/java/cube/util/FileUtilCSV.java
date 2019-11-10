@@ -1,5 +1,5 @@
 /**
- * Handling of CSV File Read/Write operations in Cube
+ * Handling of CSV File Read/Write operations in Cube.
  *
  * @author kuromono
  */
@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class FileUtilCSV<Type> extends FileUtil {
-    private Type fileObject;
+public class FileUtilCSV<T> extends FileUtil {
+    private T fileObject;
     private String fileFullPath;
     private File file;
     private CsvMapper mapper;
@@ -33,7 +33,7 @@ public class FileUtilCSV<Type> extends FileUtil {
      *
      * @param filePath the directory path where data will be stored.
      */
-    public FileUtilCSV(String filePath, String fileName, Type fileObject) {
+    public FileUtilCSV(String filePath, String fileName, T fileObject) {
         super(filePath, fileName);
         this.fileFullPath = filePath + File.separator + fileName;
         this.fileObject = fileObject;
@@ -48,8 +48,8 @@ public class FileUtilCSV<Type> extends FileUtil {
      *
      * @throws CubeException exception happens in reading from the data file.
      */
-    public ArrayList<Type> load() throws CubeException {
-        ArrayList<Type> collectionToLoad = new ArrayList<>();
+    public ArrayList<T> load() throws CubeException {
+        ArrayList<T> collectionToLoad = new ArrayList<>();
 
         System.out.println("Loading file from : " + fileFullPath);
         try {
@@ -57,10 +57,10 @@ public class FileUtilCSV<Type> extends FileUtil {
             JavaType type = mapper.getTypeFactory().constructType(fileObject.getClass());
             ObjectReader reader = mapper.readerFor(type).with(schema);
 
-            MappingIterator<Type> iterator = reader.readValues(file);
+            MappingIterator<T> iterator = reader.readValues(file);
 
             while (iterator.hasNext()) {
-                Type currentObject = iterator.next();
+                T currentObject = iterator.next();
                 collectionToLoad.add(currentObject);
             }
 
@@ -77,7 +77,7 @@ public class FileUtilCSV<Type> extends FileUtil {
      * @param collectionToSave Collection to be saved into CSV.
      * @throws CubeException exception happens in writing to the data file.
      */
-    public void save(Collection<Type> collectionToSave) throws CubeException {
+    public void save(Collection<T> collectionToSave) throws CubeException {
         checkFileAvailable(true);
         try {
             JavaType type = mapper.getTypeFactory().constructType(fileObject.getClass());
