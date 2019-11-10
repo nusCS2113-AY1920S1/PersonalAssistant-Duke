@@ -88,6 +88,10 @@ public class JsonConverter {
             InputStreamReader isr = new InputStreamReader(is);
             Project newProject = gson.fromJson(isr, new TypeToken<Project>(){}.getType());
             allProjects.add(newProject);
+            is = getClass().getResourceAsStream("/initdata/CS1010.json");
+            isr = new InputStreamReader(is);
+            newProject = gson.fromJson(isr, new TypeToken<Project>(){}.getType());
+            allProjects.add(newProject);
         } catch (NullPointerException err) {
             return allProjects;
         }
