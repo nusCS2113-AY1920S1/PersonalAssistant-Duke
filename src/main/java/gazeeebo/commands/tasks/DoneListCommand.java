@@ -27,9 +27,9 @@ public class DoneListCommand extends Command {
      * @param ui            the object that deals with
      *                      printing things to the user
      * @param storage       The object that deals with storing data
-     * @param commandStack
-     * @param deletedTask
-     * @param triviaManager
+     * @param commandStack  Stores the stack of previous commands
+     * @param deletedTask   Stores the list of deleted tasks
+     * @param triviaManager The object for TriviaManager
      * @throws DukeException  Throws custom exception when
      *                        format of done list command is wrong
      * @throws ParseException Catch error if parsing of command fails

@@ -33,13 +33,13 @@ public class ExpenseCommandParser extends Command {
      * find expenses on a certain date, delete a chosen expense,
      * see the expense list and exit the expense page.
      *
-     * @param list          list of all tasks
-     * @param ui            the object that deals with
+     * @param list          List of all tasks
+     * @param ui            The object that deals with
      *                      printing things to the user
-     * @param storage       the object that deals with storing data
-     * @param commandStack
-     * @param deletedTask
-     * @param triviaManager
+     * @param storage       The object that deals with storing data
+     * @param commandStack  Stores the stack of previous commands
+     * @param deletedTask   Stores the list of deleted tasks
+     * @param triviaManager The object for TriviaManager
      * @throws IOException    Catch error if the read file fails
      * @throws ParseException Catch error if parsing of command fails
      */

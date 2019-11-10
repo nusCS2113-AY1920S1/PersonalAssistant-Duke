@@ -12,13 +12,12 @@ import java.io.IOException;
 
 import gazeeebo.exception.DukeException;
 import gazeeebo.tasks.Timebound;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
 /**
- * Adds tasks that has a time bound when called.
+ * Adds tasks that has a time bound when called. (e.g. between 2h)
  */
 public class TimeboundCommand extends Command {
     @Override
@@ -30,9 +29,9 @@ public class TimeboundCommand extends Command {
      *                      printing things to the user.
      * @param storage       The object that deals with
      *                      storing data to the Save.txt file.
-     * @param commandStack
-     * @param deletedTask
-     * @param triviaManager
+     * @param commandStack  Stores the stack of previous commands
+     * @param deletedTask   Stores the list of deleted tasks
+     * @param triviaManager The object for TriviaManager
      * @throws DukeException  Throws custom exception when
      *                        format of fixed duration command is wrong
      * @throws ParseException Catch error if parsing of command fails

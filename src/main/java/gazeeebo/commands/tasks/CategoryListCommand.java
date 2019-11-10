@@ -28,7 +28,7 @@ public class CategoryListCommand extends Command {
     /**
      * Index of parameter duration on the command is 3.
      */
-    static final int INDEX_OF_DURATION = 3;
+    private static final int INDEX_OF_DURATION = 3;
 
     /**
      * Sorts the different types of tasks into their respective categories.
@@ -38,12 +38,12 @@ public class CategoryListCommand extends Command {
      * @param ui            the object that deals with
      *                      printing things to the user
      * @param storage       The object that deals with storing data
-     * @param commandStack
-     * @param deletedTask
-     * @param triviaManager
+     * @param commandStack  Stores the stack of previous commands
+     * @param deletedTask   Stores the list of deleted tasks
+     * @param triviaManager The object for TriviaManager
      * @throws DukeException  Throws a custom exception if
      *                        module index does not exist.
-     * @throws ParseException
+     * @throws ParseException Catch error if parsing of commands fails
      * @throws IOException    Catch error if the read file fails
      */
     @Override

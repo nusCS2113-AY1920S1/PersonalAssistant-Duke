@@ -22,15 +22,15 @@ public class EventCommand extends Command {
     /**
      * The string "event" has 5 characters.
      */
-    static final int EVENT_CHAR_COUNT = 5;
+    private static final int EVENT_CHAR_COUNT = 5;
     /**
      * The string "event " has 6 characters.
      */
-    static final int EVENT_AND_SPACE_CHAR_COUNT = 6;
+    private static final int EVENT_AND_SPACE_CHAR_COUNT = 6;
     /**
      * Calls in the Event object.
      */
-    static final String EVENT = "gazeeebo.tasks.Event";
+    private static final String EVENT = "gazeeebo.tasks.Event";
 
     /**
      * This class adds event tasks to the list of tasks when called.

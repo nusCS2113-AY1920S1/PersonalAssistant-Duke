@@ -14,6 +14,7 @@ import java.util.Map;
  * Calls out the list of specializations and technical electives.
  */
 public class ListSpecializationCommand {
+
     /**
      * Allows the user to show list of technical electives completed
      * and number of MCs completed for each specialization.

@@ -21,11 +21,11 @@ public class DoneCommand extends Command {
     /**
      * The string "done " has 5 characters.
      */
-    static final int DONE_AND_SPACE_CHAR_COUNT = 5;
+    private static final int DONE_AND_SPACE_CHAR_COUNT = 5;
     /**
      * The string of task initials and status has 9 characters.
      */
-    static final int TASK_INITIALS_AND_STATUS_CHAR_COUNT = 9;
+    private static final int TASK_INITIALS_AND_STATUS_CHAR_COUNT = 9;
 
     /**
      * This class marks tasks as done and prints out
@@ -92,11 +92,9 @@ public class DoneCommand extends Command {
 
             ui.showProgessiveBar(list);
 
-        } catch (
-                NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Wrong input for done command");
-        } catch (
-                IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Done number not found");
         }
     }

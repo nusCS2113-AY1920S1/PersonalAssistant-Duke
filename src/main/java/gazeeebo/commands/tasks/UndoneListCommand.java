@@ -16,28 +16,46 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class UndoneListCommand extends Command {
+    /**
+     * Displays the list of tasks that are marked undone.
+     *
+     * @param list          List of all tasks
+     * @param ui            the object that deals with
+     *                      printing things to the user
+     * @param storage       The object that deals with storing data
+     * @param commandStack  the stack of previous commands.
+     * @param deletedTask   the list of deleted task.
+     * @param triviaManager the object for triviaManager
+     * @throws DukeException  Throws custom exception when
+     *                        format of command is wrong
+     * @throws ParseException Catch error if parsing of command fails
+     * @throws IOException    Catch error if the read file fails
+     */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
-        ArrayList<Task> UndoneList = new ArrayList<>();
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager)
+            throws DukeException, ParseException, IOException {
+        ArrayList<Task> undoneList = new ArrayList<>();
         try {
             if (ui.fullCommand.equals("undone")) {
                 throw new DukeException("Command for 'undone' cannot be empty.");
             }
 
             for (Task task : list) {
-                if (task.isDone == false) {
-                    UndoneList.add(task);
+                if (!task.isDone) {
+                    undoneList.add(task);
                 }
             }
             if (ui.fullCommand.equals("undone list")) {
                 System.out.println("List of tasks that are undone:");
-                for (int i = 0; i < UndoneList.size(); i++) {
-                    System.out.println(i + 1 + "." + UndoneList.get(i).listFormat());
+                for (int i = 0; i < undoneList.size(); i++) {
+                    System.out.println(i + 1 + "." + undoneList.get(i).listFormat());
                 }
             }
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < list.size(); i++) {
-                sb.append(list.get(i).toString() + "\n");
+            for (Task task : list) {
+                sb.append(task.toString()).append("\n");
             }
             storage.writeToSaveFile(sb.toString());
         } catch (DukeException e) {

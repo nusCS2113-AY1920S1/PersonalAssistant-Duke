@@ -25,9 +25,9 @@ public class FindExpenseCommand {
                               final Map<LocalDate,
                                       ArrayList<String>> expenses) {
         try {
-        String date = ui.fullCommand.split(" ")[1];
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate dateOfPurchase;
+            String date = ui.fullCommand.split(" ")[1];
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate dateOfPurchase;
 
             dateOfPurchase = LocalDate.parse(date, fmt);
             boolean isExist = false;
@@ -46,8 +46,7 @@ public class FindExpenseCommand {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.print("Please input in the correct format\n");
-        } catch (
-                DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             System.out.println("Wrong date format");
         }
     }

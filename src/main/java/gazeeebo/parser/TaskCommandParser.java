@@ -265,8 +265,7 @@ public class TaskCommandParser extends Command {
             } else if (command.equals("esc")) {
                 System.out.println(MAIN_MENU_PAGE);
             } else {
-                System.out.println("OOPS!!! I'm sorry,"
-                        + "but I don't know what that means :-(");
+                ui.showDontKnowErrorMessage();
             }
 
         }

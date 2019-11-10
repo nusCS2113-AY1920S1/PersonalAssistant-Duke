@@ -109,7 +109,7 @@ public class CompletedCommand {
             String toStoreCN = "";
             String toStoreEC = "";
             String toStoreIS = "";
-            String toStoreIDM = "";
+            String toStoreID = "";
             String toStoreLS = "";
             String toStoreSC = "";
             for (String key : completedEMap.keySet()) {
@@ -173,7 +173,7 @@ public class CompletedCommand {
                 }
                 String allCompletedE = toStoreCN
                         + "\n" + toStoreEC + "\n"
-                        + toStoreIS + "\n" + toStoreIDM + "\n"
+                        + toStoreIS + "\n" + toStoreID + "\n"
                         + toStoreLS + "\n" + toStoreSC;
                 storage.writeToCompletedElectivesFile(allCompletedE);
             }
