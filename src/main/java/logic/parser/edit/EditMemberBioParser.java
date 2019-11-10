@@ -32,7 +32,7 @@ public class EditMemberBioParser {
         } else {
             name = name.trim();
             changeContent = changeContent.trim();
-                return new EditMemberBioCommand(name, changeContent);
+            return new EditMemberBioCommand(name, changeContent);
         }
     }
 }

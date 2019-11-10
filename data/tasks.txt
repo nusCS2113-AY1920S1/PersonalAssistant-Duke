@@ -1,36 +1,6 @@
 [
   {
-    "name": "todo1",
-    "description": "this is the test description",
-    "isDone": true,
-    "memberList": [],
-    "skillReqList": [],
-    "time": "Nov 11, 2019, 11:11:00 AM"
-  },
-  {
-    "name": "job B",
-    "isDone": false,
-    "memberList": [
-      "tester1"
-    ],
-    "skillReqList": []
-  },
-  {
-    "name": "job C",
-    "isDone": false,
-    "memberList": [],
-    "skillReqList": []
-  },
-  {
-    "name": "job B",
-    "isDone": false,
-    "memberList": [
-      "tester1"
-    ],
-    "skillReqList": []
-  },
-  {
-    "name": "job C",
+    "name": "test",
     "isDone": false,
     "memberList": [],
     "skillReqList": []

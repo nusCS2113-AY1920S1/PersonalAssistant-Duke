@@ -390,16 +390,6 @@ public class TasksManager implements Serializable {
     }
 
     //@@author yuyanglin28
-    /**
-     * schedule todo task list
-     *
-     * @return a string shows the scheduled todo task list
-     */
-    public String tasksTodoInorderTime() {
-        return showTasks(sortByTime(pickTodo(taskList)));
-    }
-
-    //@@author yuyanglin28
 
     /**
      * schedule tasks supplied by task name
@@ -413,6 +403,16 @@ public class TasksManager implements Serializable {
             tasks.add(getTaskByName(tasksName.get(i)));
         }
         return showTasks(sortByTime(tasks));
+    }
+
+    //@@author yuyanglin28
+    /**
+     * schedule todo task list
+     *
+     * @return a string shows the scheduled todo task list
+     */
+    public String tasksTodoInorderTime() {
+        return showTasks(sortByTime(pickTodo(taskList)));
     }
 
     //@@author yuyanglin28

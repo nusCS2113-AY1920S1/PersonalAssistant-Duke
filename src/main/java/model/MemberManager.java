@@ -328,7 +328,7 @@ public class MemberManager {
 
     /**
      * This method is to get the occurrence of a double in an array list
-     * 
+     *
      * @param arr double array list
      * @param x the double to be checked
      * @return the number of the occurrence

@@ -19,12 +19,12 @@ public class ScheduleTeamAllCommand extends Command {
      */
     @Override
     public CommandOutput execute(Model model) {
-            String tasks = model.tasksAllInorderTime();
-            if (tasks.equals("")) {
-                return new CommandOutput(EMPTY_MSSAGE);
-            } else {
-                return new CommandOutput(SUCCESS_MSSAGE + tasks);
-            }
+        String tasks = model.tasksAllInorderTime();
+        if (tasks.equals("")) {
+            return new CommandOutput(EMPTY_MSSAGE);
+        } else {
+            return new CommandOutput(SUCCESS_MSSAGE + tasks);
+        }
 
     }
 }

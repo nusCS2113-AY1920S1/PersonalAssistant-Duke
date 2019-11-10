@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 
 public class EditCommandParser {
 
-    public static final String EDIT_USAGE = "Usage: edit member {name/bio/email/phone} [MEMBER_NAME] /to [NEW_CONTENT]\n"
+    public static final String EDIT_USAGE = "Usage: edit member {name/bio/email/phone} [MEMBER_NAME] "
+                                            + "/to [NEW_CONTENT]\n"
                                             + "or edit task {name/time/des} INDEX /to [NEW_CONTENT]";
     public static final String TASK = "task";
     public static final String MEMBER = "member";
