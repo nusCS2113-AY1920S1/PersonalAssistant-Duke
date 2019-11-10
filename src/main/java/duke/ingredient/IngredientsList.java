@@ -67,7 +67,7 @@ public class IngredientsList extends GenericList<Ingredient> {
 
     @Override
     public String toString() {
-        String ingredients = " ingredients: \n";
+        String ingredients = genList.size() > 1 ? " ingredients: \n" : " ingredient:\n";
         for (Ingredient ingredient : genList) {
             ingredients += (ingredient.toStringNoWarning() + "\n");
         }
