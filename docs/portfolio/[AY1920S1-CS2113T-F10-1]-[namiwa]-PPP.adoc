@@ -1,6 +1,6 @@
 = Khairul Iman - Project Portfolio
 :site-section: AboutUs
-:imagesDir: images
+:imagesDir: ../images
 :stylesDir: ../stylesheets
 :repoURL: https://github.com/AY1920S1-CS2113T-F10-1
 

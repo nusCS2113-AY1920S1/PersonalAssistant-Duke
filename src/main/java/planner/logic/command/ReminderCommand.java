@@ -3,7 +3,7 @@
 package planner.logic.command;
 
 import planner.credential.user.User;
-import planner.ModTimer;
+import planner.main.CliLauncher;
 import planner.util.crawler.JsonWrapper;
 import planner.ui.cli.PlannerUi;
 import planner.util.storage.Storage;
@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import java.util.Timer;
 import planner.util.legacy.schedule.ScheduledTask;
+import planner.util.legacy.schedule.ModTimer;
 
 public class ReminderCommand extends ModuleCommand {
 
@@ -22,39 +23,51 @@ public class ReminderCommand extends ModuleCommand {
     }
 
     /**
+     * Prints the reminder message every ten seconds.
+     */
+    private void printEveryTenSec() throws InterruptedException {
+        Timer time = new ModTimer();
+        ScheduledTask scheduledTask = new ScheduledTask();
+        time.schedule(scheduledTask, 0, 10000);
+    }
+
+
+    /**
      * Prints the reminder message every thirty seconds.
      */
-    public void printEveryThirtySec() throws InterruptedException {
+    private void printEveryThirtySec() throws InterruptedException {
         Timer time = new ModTimer();
-        ScheduledTask st = new ScheduledTask();
-        time.schedule(st, 0, 30000);
+        ScheduledTask scheduledTask = new ScheduledTask();
+        time.schedule(scheduledTask, 0, 30000);
     }
 
     /**
      * Prints the reminder message every one minute.
      */
-    public void printEveryOneMin() throws InterruptedException {
+    private void printEveryOneMin() throws InterruptedException {
         Timer time = new ModTimer();
-        ScheduledTask st = new ScheduledTask();
-        time.schedule(st, 0, 60000);
+        ScheduledTask scheduledTask = new ScheduledTask();
+        time.schedule(scheduledTask, 0, 60000);
     }
 
     /**
      * Prints the reminder message every two minutes.
      */
-    public void printEveryTwoMin() throws InterruptedException {
+    private void printEveryTwoMin() throws InterruptedException {
         Timer time = new ModTimer();
-        ScheduledTask st = new ScheduledTask();
-        time.schedule(st, 0, 120000);
+        ScheduledTask scheduledTask = new ScheduledTask();
+        time.schedule(scheduledTask, 0, 120000);
     }
 
     /**
-     * Prints the reminder message every five minutes.
+     * Stops the reminder message.
      */
-    public void printEveryFiveMin() throws InterruptedException {
-        Timer time = new ModTimer();
-        ScheduledTask st = new ScheduledTask();
-        time.schedule(st, 0, 300000);
+    private void killAllTimers() {
+        for (Timer timer: CliLauncher.timerPool) {
+            timer.cancel();
+        }
+        System.out.println("Your reminder for the update is being stopped.\n"
+                            + "To activate the reminder again, type reminder list.");
     }
 
     @Override
@@ -72,7 +85,7 @@ public class ReminderCommand extends ModuleCommand {
 
             case ("one"): {
                 try {
-                    printEveryThirtySec();
+                    printEveryTenSec();
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
                 }
@@ -81,7 +94,7 @@ public class ReminderCommand extends ModuleCommand {
 
             case ("two"): {
                 try {
-                    printEveryOneMin();
+                    printEveryThirtySec();
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
                 }
@@ -90,7 +103,7 @@ public class ReminderCommand extends ModuleCommand {
 
             case ("three"): {
                 try {
-                    printEveryTwoMin();
+                    printEveryOneMin();
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
                 }
@@ -99,17 +112,18 @@ public class ReminderCommand extends ModuleCommand {
 
             case ("four"): {
                 try {
-                    printEveryFiveMin();
+                    printEveryTwoMin();
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
             }
 
-            case ("others") :
-            default : {
-                plannerUi.reminderWrongCommand();
+            case ("stop"):
+            default: {
+                killAllTimers();
             }
+
         }
     }
 }

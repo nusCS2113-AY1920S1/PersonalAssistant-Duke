@@ -48,7 +48,7 @@ public class SortCommand extends ModuleCommand {
                 TaskList<Cca> hold = profile.getCcas();
                 List<TaskWithMultipleWeeklyPeriod> holdForCcas = new ArrayList<>();
                 hold.sort(Comparator.comparing((Object t) -> ((Cca) t).getTaskToLowerCase()));
-                if (arg("forwardOrReverse").equals("r")) {
+                if (arg("r", Boolean.class)) {
                     for (int i = hold.size() - 1; i >= 0; i--) {
                         holdForCcas.add(hold.get(i));
                     }
@@ -58,8 +58,10 @@ public class SortCommand extends ModuleCommand {
                 plannerUi.showSorted(hold);
                 break;
             }
+
             case ("times"):
                 List<TaskWithMultipleWeeklyPeriod> holdForTime = new ArrayList<>();
+                List<TaskWithMultipleWeeklyPeriod> holdForTimeReverse = new ArrayList<>();
                 DayOfWeek dayOfWeek = DayOfWeek.valueOf(arg("DayOfTheWeek").toUpperCase());
                 for (Cca t : profile.getCcas()) {
                     if (t.happensOnThisDayOfWeek(dayOfWeek)) {
@@ -72,12 +74,21 @@ public class SortCommand extends ModuleCommand {
                     }
                 }
                 holdForTime.sort(Comparator.comparing(t -> t.getTimePeriodOfTheDay(dayOfWeek).get(0).getBegin()));
+                if (arg("r", Boolean.class)) {
+                    for (int i = holdForTime.size() - 1; i >= 0; i--) {
+                        holdForTimeReverse.add(holdForTime.get(i));
+                    }
+                    plannerUi.showSortedTimes(holdForTimeReverse, dayOfWeek);
+                    break;
+                }
                 plannerUi.showSortedTimes(holdForTime, dayOfWeek);
                 break;
+
             case ("modules"):
 
             default:
                 TaskList<ModuleTask> taskList = profile.getModules();
+                List<TaskWithMultipleWeeklyPeriod> holdForTaskList = new ArrayList<>();
                 switch (arg("type")) {
                     case ("level"): {
                         taskList.sort(Comparator.comparing(ModuleTask::getModuleLevel));
@@ -96,6 +107,13 @@ public class SortCommand extends ModuleCommand {
                         taskList.sort(Comparator.comparing(ModuleTask::getModuleCode));
                         break;
                     }
+                }
+                if (arg("r", Boolean.class)) {
+                    for (int i = taskList.size() - 1; i >= 0; i--) {
+                        holdForTaskList.add(taskList.get(i));
+                    }
+                    plannerUi.showSorted(holdForTaskList);
+                    break;
                 }
                 plannerUi.showSorted(taskList);
         }

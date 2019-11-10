@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 import net.sourceforge.argparse4j.ArgumentParsers;
+import net.sourceforge.argparse4j.impl.action.StoreTrueArgumentAction;
 import net.sourceforge.argparse4j.inf.ArgumentAction;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
@@ -64,7 +65,7 @@ public class Parser {
         mapCommand("grade", GradeCommand.class);
         mapCommand("update", UpdateModuleInfo.class);
         mapCommand("reminder", ReminderCommand.class);
-        mapCommand("passwd", SetPasswordCommand.class);
+        //mapCommand("passwd", SetPasswordCommand.class);
     }
 
     /**
@@ -159,25 +160,34 @@ public class Parser {
                 .help("What to clear");
 
         Subparsers sortParsers = getSubParser("sort")
-                .help("Sort your modules in alphabet order")
+                .help("Sort your modules and/or ccas in the order you desire")
                 .addSubparsers()
                 .dest("toSort")
                 .help("What to sort");
-        sortParsers.addParser("modules")
-                .help("Sort your modules")
-                .addArgument("type")
+
+        Subparser module = sortParsers.addParser("module")
+                .help("Sort your modules");
+        module.addArgument("type")
                 .choices("code", "grade", "level", "mc")
                 .help("What to use for sorting");
-        sortParsers.addParser("ccas")
-                .help("Sort your CCAs")
-                .addArgument("forwardOrReverse")
-                .choices("f","r")
-                .help("Forward or reverse order");
-        sortParsers.addParser("times")
-                .help("Sort your modules and ccas to days of the week")
-                .addArgument("DayOfTheWeek")
+        module.addArgument("--r")
+                .action(new StoreTrueArgumentAction())
+                .setDefault(false);
+
+        Subparser cca = sortParsers.addParser("cca")
+                .help("Sort your CCAs");
+        cca.addArgument("--r")
+                .action(new StoreTrueArgumentAction())
+                .setDefault(false);
+
+        Subparser time = sortParsers.addParser("time")
+                .help("Sort your modules and ccas to days of the week");
+        time.addArgument("DayOfTheWeek")
                 .choices("monday","tuesday","wednesday","thursday","friday","saturday","sunday")
                 .help("Day of the week");
+        time.addArgument("--r")
+                .action(new StoreTrueArgumentAction())
+                .setDefault(false);
 
         getSubParser("cap")
                 .help("Calculate your CAP from your input or list")
@@ -200,12 +210,13 @@ public class Parser {
         getSubParser("reminder")
                 .help("Setting reminders")
                 .addArgument("toReminder")
+                .choices("list", "one", "two", "three", "four", "stop")
                 .help("When do you want to set the reminder again");
 
-        getSubParser("passwd")
-                .help("Set or update your password")
-                .addArgument("password")
-                .help("Your new password");
+        //getSubParser("passwd")
+        //        .help("Set or update your password")
+        //        .addArgument("password")
+        //        .help("Your new password");
     }
 
     private void initBuiltinActions() {
