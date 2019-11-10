@@ -64,7 +64,7 @@ public class PlannerUiTest extends InputTest {
                 +  "Welcome to ModPlanner, your one stop solution to module planning!\n"
                 + "Begin typing to get started!\n"
                 + LINE
-                +"\n";
+                + "\n";
         plannerUi.helloMsg();
         assertEquals(expected, getReplace());
     }
@@ -76,7 +76,7 @@ public class PlannerUiTest extends InputTest {
                 + "Thanks for using ModPlanner!\n"
                 + "Your data will be stored in file shortly!\n"
                 + LINE
-                +"\n";
+                + "\n";
         plannerUi.goodbyeMsg();
         assertEquals(expected, getReplace());
     }
