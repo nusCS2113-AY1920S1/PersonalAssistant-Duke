@@ -1,21 +1,5 @@
 package controllers;
 
-import static util.constant.ConstantHelper.COMMAND_ADD_MEMBER;
-import static util.constant.ConstantHelper.COMMAND_DELETE_MEMBER;
-import static util.constant.ConstantHelper.COMMAND_DELETE_TASK;
-import static util.constant.ConstantHelper.COMMAND_EDIT_MEMBER;
-import static util.constant.ConstantHelper.COMMAND_EDIT_TASK;
-import static util.constant.ConstantHelper.COMMAND_EDIT_TASK_REQ;
-import static util.constant.ConstantHelper.COMMAND_VIEW_TASKS;
-import static util.constant.ConstantHelper.COMMAND_VIEW_TASK_REQ;
-import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import models.member.IMember;
 import models.member.Member;
 import models.member.NullMember;
@@ -30,7 +14,6 @@ import util.date.DateTimeHelper;
 import util.factories.MemberFactory;
 import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
-import util.json.JsonConverter;
 import util.log.ArchDukeLogger;
 import util.uiformatter.AssignmentViewHelper;
 import util.uiformatter.CommandHelper;
@@ -43,6 +26,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+import static util.constant.ConstantHelper.COMMAND_ADD_MEMBER;
+import static util.constant.ConstantHelper.COMMAND_EDIT_MEMBER;
+import static util.constant.ConstantHelper.COMMAND_EDIT_TASK;
+import static util.constant.ConstantHelper.COMMAND_DELETE_MEMBER;
+import static util.constant.ConstantHelper.COMMAND_DELETE_TASK;
+import static util.constant.ConstantHelper.COMMAND_VIEW_TASK_REQ;
+import static util.constant.ConstantHelper.COMMAND_EDIT_TASK_REQ;
+import static util.constant.ConstantHelper.COMMAND_VIEW_TASKS;
+
+
+
+
+
+
+
+
 
 public class ProjectInputController implements IController {
     private ProjectRepository projectRepository;
@@ -517,26 +516,16 @@ public class ProjectInputController implements IController {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewTasks] User input: '"
             + projectCommand + "'");
         try {
-            if (("view tasks").equals(projectCommand)) {
-                HashMap<String, ArrayList<String>> tasksAndAssignedMembers
+            HashMap<String, ArrayList<String>> tasksAndAssignedMembers
                     = projectToManage.getTasksAndAssignedMembers();
-                ArrayList<ArrayList<String>> allTaskDetailsForTable
-                    = projectToManage.getTaskList().getAllTaskDetailsForTable(tasksAndAssignedMembers,
-                    "-priority", projectToManage);
+            ArrayList<ArrayList<String>> allTaskDetailsForTable = new ArrayList<>();
+            if (("view tasks").equals(projectCommand)) {
+                allTaskDetailsForTable = projectToManage.getTaskList().getAllTaskDetailsForTable(
+                        tasksAndAssignedMembers,"-priority", projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
-                if (allTaskDetailsForTable.size() == 1 && allTaskDetailsForTable.get(0).size() == 1) {
-                    ArrayList<String> taskTable = new ArrayList<>();
-                    taskTable.add("Tasks of " + projectToManage.getName() + ":");
-                    taskTable.add(allTaskDetailsForTable.get(0).get(0));
-                    return viewHelper.consolePrintTable(taskTable, DEFAULT_HORI_BORDER_LENGTH);
-                }
-                return viewHelper.consolePrintMultipleTables(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH, 2,
-                        "Tasks of " + projectToManage.getName() + ":");
             } else if (projectCommand.length() >= COMMAND_VIEW_TASKS.length()) {
                 String sortCriteria = projectCommand.substring(COMMAND_VIEW_TASKS.length());
-                HashMap<String, ArrayList<String>> tasksAndAssignedMembers
-                    = projectToManage.getTasksAndAssignedMembers();
-                ArrayList<ArrayList<String>> allTaskDetailsForTable =
+                allTaskDetailsForTable =
                     projectToManage.getTaskList().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria,
                         projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
@@ -545,21 +534,20 @@ public class ProjectInputController implements IController {
                             + "Currently there are no tasks with the specified attribute.");
                     return (new String[] {"Currently there are no tasks with the specified attribute."});
                 }
-                if (allTaskDetailsForTable.size() == 1 && allTaskDetailsForTable.get(0).size() == 1) {
-                    ArrayList<String> taskTable = new ArrayList<>();
-                    taskTable.add("Tasks of " + projectToManage.getName() + ":");
-                    taskTable.add(allTaskDetailsForTable.get(0).get(0));
-                    return viewHelper.consolePrintTable(taskTable, DEFAULT_HORI_BORDER_LENGTH);
-                }
-                return viewHelper.consolePrintMultipleTables(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH, 2,
-                        "Tasks of " + projectToManage.getName() + ":");
             }
+            if (allTaskDetailsForTable.size() == 1 && allTaskDetailsForTable.get(0).size() == 1) {
+                ArrayList<String> taskTable = new ArrayList<>();
+                taskTable.add("Tasks of " + projectToManage.getName() + ":");
+                taskTable.add(allTaskDetailsForTable.get(0).get(0));
+                return viewHelper.consolePrintTable(taskTable, DEFAULT_HORI_BORDER_LENGTH);
+            }
+            return viewHelper.consolePrintMultipleTables(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH, 2,
+                    "Tasks of " + projectToManage.getName() + ":");
         } catch (IndexOutOfBoundsException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAssignTask] "
                 + "Currently there are no tasks with the specified attribute.");
             return (new String[] {"Currently there are no tasks with the specified attribute."});
         }
-        return null;
     }
 
 
