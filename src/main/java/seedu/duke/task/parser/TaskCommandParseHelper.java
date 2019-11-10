@@ -521,11 +521,10 @@ public class TaskCommandParseHelper {
                     + "the number of tasks) and email indexes (optional)");
         }
         try {
-            int index = parseTaskIndex(linkCommandMatcher.group("index"));
+            int taskIndex = parseTaskIndex(linkCommandMatcher.group("index"));
             ArrayList<Integer> emailIndexList = extractEmails(optionList);
-            ArrayList<Integer> taskIndexList = new ArrayList<>();
-            taskIndexList.add(index);
-            return new TaskLinkCommand(taskIndexList, emailIndexList);
+            ArrayList<Integer> deleteIndexList = extractDelete(optionList);
+            return new TaskLinkCommand(taskIndex, emailIndexList, deleteIndexList);
         } catch (TaskParseException e) {
             return new InvalidCommand("Please enter a valid task index");
         } catch (EmailParseException e) {
@@ -552,6 +551,23 @@ public class TaskCommandParseHelper {
             }
         }
         return emailList;
+    }
+
+    /**
+     * Extracts email index from the option list.
+     *
+     * @param optionList the list of options where the parameters are extracted
+     * @return the ArrayList of email index
+     */
+    public static ArrayList<Integer> extractDelete(ArrayList<Command.Option> optionList) {
+        ArrayList<Integer> deleteList = new ArrayList<>();
+        for (Command.Option option : optionList) {
+            if (option.getKey().equals("delete")) {
+                int index = Integer.parseInt(option.getValue().strip()) - 1;
+                deleteList.add(index);
+            }
+        }
+        return deleteList;
     }
 
     /**

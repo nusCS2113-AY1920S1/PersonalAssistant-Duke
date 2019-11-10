@@ -11,18 +11,21 @@ import seedu.duke.ui.UI;
 import java.util.ArrayList;
 
 public class TaskLinkCommand extends Command {
-    private ArrayList<Integer> taskIndexList;
+    private int taskIndex;
     private ArrayList<Integer> emailIndexList;
+    private ArrayList<Integer> deleteIndexList;
 
     /**
      * Instantiates link command with all the necessary variables.
      *
-     * @param taskIndexList  the index of tasks that is to be linked together.
-     * @param emailIndexList the index of emails that is to be linked.
+     * @param taskIndex       the index of task that is to be linked together.
+     * @param emailIndexList  the index of emails that is to be linked.
+     * @param deleteIndexList the index of link to be deleted for the specified task.
      */
-    public TaskLinkCommand(ArrayList<Integer> taskIndexList, ArrayList<Integer> emailIndexList) {
-        this.taskIndexList = taskIndexList;
+    public TaskLinkCommand(int taskIndex, ArrayList<Integer> emailIndexList, ArrayList<Integer> deleteIndexList) {
+        this.taskIndex = taskIndex;
         this.emailIndexList = emailIndexList;
+        this.deleteIndexList = deleteIndexList;
     }
 
     /**
@@ -36,9 +39,13 @@ public class TaskLinkCommand extends Command {
         TaskList taskList = model.getTaskList();
         EmailList emailList = model.getEmailList();
         StringBuilder msg = new StringBuilder();
+        ArrayList<String> linkedEmails = taskList.get(taskIndex).getLinkedEmails();
+
+        if (!deleteIndexList.isEmpty()) {
+            deleteLinks(msg, linkedEmails);
+        }
 
         if (emailIndexList.isEmpty()) {
-            ArrayList<String> linkedEmails = taskList.get(taskIndexList.get(0)).getLinkedEmails();
             if (linkedEmails.isEmpty()) {
                 msg.append("No linked emails currently.");
             } else {
@@ -63,25 +70,36 @@ public class TaskLinkCommand extends Command {
             return true;
         } else {
             msg.append("Linked task ");
-            for (int i = 0; i < taskIndexList.size(); i++) {
-                Task task = taskList.get(taskIndexList.get(i));
-                msg.append(task.getName());
-                msg.append(" with email(s):" + System.lineSeparator());
+            Task task = taskList.get(taskIndex);
+            msg.append(task.getName());
+            msg.append(" with email(s):" + System.lineSeparator());
 
-                for (int j = 0; j < emailIndexList.size(); j++) {
-                    Email email = emailList.get(emailIndexList.get(j));
-                    msg.append(email.getSubject() + System.lineSeparator());
-                    if (task.getLinkedEmails().contains(email.getShaHash())) {
-                        continue;
-                    }
-                    task.addLinkedEmails(email.getShaHash());
+            for (int j = 0; j < emailIndexList.size(); j++) {
+                Email email = emailList.get(emailIndexList.get(j));
+                msg.append(email.getSubject() + System.lineSeparator());
+                if (task.getLinkedEmails().contains(email.getShaHash())) {
+                    continue;
                 }
+                task.addLinkedEmails(email.getShaHash());
             }
+
             if (!silent) {
                 responseMsg = msg.toString();
                 UI.getInstance().showResponse(msg.toString());
             }
             return true;
         }
+    }
+
+    private void deleteLinks(StringBuilder msg, ArrayList<String> linkedEmails) {
+        for (int deleteIndex : deleteIndexList) {
+            if (deleteIndex < linkedEmails.size() && deleteIndex >= 0) {
+                linkedEmails.remove(deleteIndex);
+            } else {
+                msg.append("Link " + (deleteIndex+1) + " does not exist. ");
+            }
+        }
+        msg.append("Valid links have been deleted. ");
+        msg.append(System.lineSeparator() + System.lineSeparator());
     }
 }
