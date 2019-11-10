@@ -43,10 +43,6 @@ public class PlannerUi {
         System.out.println(LINE);
     }
 
-    private void closeScanner() {
-        scan.close();
-    }
-
     /**
      * Read input.
      * @return input if exists else null
@@ -455,7 +451,7 @@ public class PlannerUi {
                             +
                             "To do so, you can input the update command in the following format:\n"
                             +
-                            "update YEAR_SEM_1-YEAR_SEM_2 ");
+                            "update module");
     }
 
     /**
