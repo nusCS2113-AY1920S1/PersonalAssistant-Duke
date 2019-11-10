@@ -161,9 +161,21 @@ public class Reservation {
      */
     public String getDateToPrint(Date date) {
         DateFormat dayFormat = new SimpleDateFormat("d");
-        int day = Integer.parseInt(dayFormat.format(date)) % 10;
-        String suffix = day == 1 ? "st" : (day == 2 ? "nd" : (day == 3 ? "rd" : "th"));
-        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + (dayFormat.format(date)) + suffix
+        int actualDay = Integer.parseInt(dayFormat.format(date));
+        int roundedDay = actualDay % 10;
+        String suffix;
+        if (actualDay < 20 && actualDay > 9) {
+            suffix = "th";
+        } else if (roundedDay == 1) {
+            suffix = "st";
+        } else if (roundedDay == 2) {
+            suffix = "nd";
+        } else if (roundedDay == 3) {
+            suffix = "rd";
+        } else {
+            suffix = "th";
+        }
+        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + actualDay + suffix
             + " " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
         return stringDate;
     }

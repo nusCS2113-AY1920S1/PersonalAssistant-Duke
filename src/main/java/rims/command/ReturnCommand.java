@@ -47,9 +47,6 @@ public class ReturnCommand extends Command {
         for (int i = 0; i < resourceIds.size(); i++) {
             Resource thisResource = resources.getResourceById(resourceIds.get(i));
             Reservation cancelledReservation = thisResource.getReservations().getReservationById(reservationIds.get(i));
-            if (!(userId == cancelledReservation.getUserId())) {
-                throw new RimsException("Reservation [" + reservationIds.get(i) + "] was not made by this user!");
-            }
             thisResource.getReservations().cancelReservationById(reservationIds.get(i));
             cancelledReservations.add(cancelledReservation);
         }
