@@ -1,7 +1,6 @@
 package duke.ui;
 
 import duke.DukeCore;
-import duke.data.DukeObject;
 import duke.exception.DukeFatalException;
 import duke.ui.commons.UiStrings;
 import duke.ui.window.MainWindow;
@@ -11,8 +10,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.util.List;
 
 //@@author gowgos5
 /**
@@ -41,8 +38,8 @@ public class UiManager implements Ui {
         try {
             showMainWindow(primaryStage);
         } catch (Throwable t) {
-            //showErrorDialogAndShutdown(UiStrings.MESSAGE_ERROR_LAUNCH, t);
             t.printStackTrace();
+            showErrorDialogAndShutdown(UiStrings.MESSAGE_ERROR_LAUNCH, t);
         }
     }
 

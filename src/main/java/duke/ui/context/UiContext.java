@@ -44,7 +44,9 @@ public class UiContext {
      */
     public void open(DukeObject obj) {
         Context newContext = Context.HOME;
-        contexts.push(new Pair<>(this.context, this.object));
+        if (this.context != Context.SEARCH) {
+            contexts.push(new Pair<>(this.context, this.object));
+        }
         if (obj != null) {
             obj.update();
             newContext = obj.toContext();
