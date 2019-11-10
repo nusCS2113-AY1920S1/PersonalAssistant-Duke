@@ -20,6 +20,6 @@ public class RemoveBillCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return null;
+        return "bill " + billNum;
     }
 }

@@ -46,6 +46,4 @@ public class ListUi extends Ui {
         System.out.println("\tTry looking through the list of " + mode + "again.");
         System.out.println(line);
     }
-
-
 }
