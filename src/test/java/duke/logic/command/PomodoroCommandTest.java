@@ -3,6 +3,10 @@ package duke.logic.command;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import javax.swing.text.html.Option;
+
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import duke.exception.DukeException;
@@ -19,10 +23,10 @@ class PomodoroCommandTest {
 
     @Test
     void execute_wrongPomodoroCommand_failure() {
-        PomodoroCommand pomodoroCommand = new PomodoroCommand("starts");
+        PomodoroCommand pomodoroCommand = new PomodoroCommand(Optional.of("cs2113"), "starts");
         Exception exception = assertThrows(DukeException.class, () ->
                 pomodoroCommand.execute(tasks, ui, storage));
-        assertEquals("☹ OOPS!!! I'm sorry, but I don't know what pomodoro you are referring to",
+        assertEquals("I'm sorry, but I don't know what pomodoro you are referring to",
                 exception.getMessage());
     }
 }

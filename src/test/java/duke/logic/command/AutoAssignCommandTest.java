@@ -55,7 +55,11 @@ class AutoAssignCommandTest {
         System.setIn(systemIn);
         System.setOut(systemOut);
     }
-
+    /**
+     * Helper method to create a sample task lists for the commands to work on
+     * @return TaskList
+     * @throws DukeException
+     */
     private TaskList createTaskList() throws DukeException {
         TaskList t = new TaskList();
 
@@ -81,10 +85,10 @@ class AutoAssignCommandTest {
         String description3 = "cs2113 homework 2";
         String description4 = "More cs homework";
 
-        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4,1));
-        t.add(new Task(Optional.of("cs"), dateTime3, recurrenceDaily, description3, 4,1));
-        t.add(new Task(Optional.of("cs"), dateTime2, recurrenceNone, description2, 5,1));
-        t.add(new Task(empty, dateTime2, recurrenceNone, description4, 5,1));
+        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4,"l"));
+        t.add(new Task(Optional.of("cs"), dateTime3, recurrenceDaily, description3, 4,"l"));
+        t.add(new Task(Optional.of("cs"), dateTime2, recurrenceNone, description2, 5,"l"));
+        t.add(new Task(empty, dateTime2, recurrenceNone, description4, 5,"l"));
 
         return t;
     }

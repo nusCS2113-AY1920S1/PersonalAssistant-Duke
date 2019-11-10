@@ -23,6 +23,7 @@ Refer to the guide <<SettingUp#, here>>.
 == Design
 
 [[Design-Architecture]]
+//tag::shaun97[]
 === Architecture
 
 .Architecture Diagram
@@ -45,6 +46,7 @@ The sequence diagram below shows how the different components interact with each
 image::ComponentSequence.jpeg[]
 
 The sections below give more details of each component.
+//end::shaun97[]
 //tag::ajl3[]
 [[Design-Ui]]
 === UI component
@@ -66,10 +68,13 @@ image::LogicClassDiagram.png[]
 .  Depending on the user command, a different parser will be created to handle the command.
 .  This results in a `Command` object which is executed by `El Duque`.
 .  The command execution can affect the `Model` (e.g. adding a `Task`).
-.  The result of the command execution, which may affect the `Model`, will be passed back to the `Ui` to display confirmation of the successful execution to the user.
-// end::logic[]
+.  The result of the command execution, which may affect the `Model`, will be passed back to the `Ui` to display confirmation of the successful execution to the user. +
+
+//end::logic[]
 [[Design-Model]]
-=== Model component
+
+//tag::shaun97[]
+=== TaskList component
 
 .Structure of the TaskList Component
 image::ModelClassDiagram.jpeg[]
@@ -80,6 +85,7 @@ The `TaskList`:
 * Event object extends tasks and enforces a compulsory `LocalDateTime` object denoting the time of the event
 * `TaskList` does not depend on other components
 
+//end::shaun97[]
 //tag::ajl2[]
 [[Design-Storage]]
 === Storage component
@@ -171,6 +177,7 @@ undo
 ** Cons: Takes up more space which might slow down the program overall or even cause an eventual `Memory Limit Exceeded` exception.
 // end::nova[]
 
+//tag::shaun97[]
 === Editing
 ==== Implementation
 The edit feature extends `Command` class. This commands takes in the filter and a string containing the attributes and it’s update field. 
@@ -229,8 +236,6 @@ The states are configured based on the pomodoro workflow and are as follows:
 * Short Break: Set to 5 minutes interval, runs after ever 1st, 2nd and 3rd work cycle.
 * Long Break: Set to 15 minutes interval, runs after every 4th work cycle.
 
-
-
 *Commands*
 This feature uses the keyword pomo followed by a few commands to control it’s actions as listed below.
 
@@ -268,8 +273,9 @@ image::PomodoroSequenceDiagram.jpeg[]
 ** Cons: Have to create a setter for each attribute of task
 * **Alternative 2:** Create a new task with updated fields.
 ** Pros: Won’t need to call individual setters for each attribute.
-** Cons: Have to deal with AddCommand class to create a new task. 
+** Cons: Have to deal with AddCommand class to create a new task.
 
+//end::shaun97[]
 //tag::ajl[]
 === Finding feature
 ==== Implementation

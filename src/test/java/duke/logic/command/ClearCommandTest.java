@@ -1,11 +1,12 @@
 package duke.logic.command;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import duke.exception.DukeException;
@@ -16,13 +17,11 @@ import duke.tasklist.TaskList;
 import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
-
-class AddCommandTest {
-    private static final String FILE_PATH = "data/editCommandTest.json";
+class ClearCommandTest {
+    private static final String FILE_PATH = "data/clearCommandTest.json";
 
     private static final Ui ui = new Ui();
     private static final Storage storage = new Storage(FILE_PATH);
-
     /**
      * Helper method to create a sample task lists for the commands to work on
      * @return TaskList
@@ -61,48 +60,21 @@ class AddCommandTest {
     }
 
     @Test
-    public void execute_addCommandTask_success() throws DukeException, IOException {
+    public void execute_filteredClearTest() throws DukeException, IOException {
         TaskList tasks = createTaskList();
-
-        //Parameters of new task
-        Optional<LocalDateTime> dateTime = Optional.of(LocalDateTime.of(2017, Month.OCTOBER, 29,
-                0, 0));
-        Recurrence recurrenceWeekly = new Recurrence(Optional.of("weekly"));
-        AddCommand addCommand = new AddCommand(Optional.of("cs"), dateTime, Optional.of("weekly"), "tower",
-                "task", 2, "l");
-
-        addCommand.execute(tasks, ui, storage);
-        String expectedDescriptionOfTask = "tower 29/10/2017 00:00";
-        String actualTaskDescription = tasks.get(4).getDescription();
-        assertEquals(expectedDescriptionOfTask, actualTaskDescription);
+        ClearCommand c = new ClearCommand(Optional.of("cs"));
+        c.execute(tasks, ui, storage);
+        ArrayList<Task> t = tasks.getList();
+        assertTrue(t.size() == 2);
     }
 
     @Test
-    public void execute_addCommandEvent_success() throws DukeException, IOException {
+    public void execute_clearFullListTest() throws DukeException, IOException {
         TaskList tasks = createTaskList();
-
-        //Parameters of new task/
-        Optional<LocalDateTime> dateTime = Optional.of(LocalDateTime.of(2017, Month.OCTOBER, 29,
-                0, 0));
-        AddCommand addCommand = new AddCommand(Optional.of("cs"), dateTime, Optional.of("weekly"), "tower",
-                "event", 2, "l");
-
-        addCommand.execute(tasks, ui, storage);
-        String expectedStringOfTask = "[R][E][N] tower (29/10/2017 00:00)";
-        String actualTaskString = tasks.get(4).toString();
-        assertEquals(expectedStringOfTask, actualTaskString);
+        ClearCommand c = new ClearCommand(Optional.empty());
+        c.execute(tasks, ui, storage);
+        ArrayList<Task> t = tasks.getList();
+        assertEquals(0, t.size());
     }
 
-    @Test
-    public void execute_addCommandEventNoDeadline_failure() throws DukeException {
-        TaskList tasks = createTaskList();
-        //Parameters of new task
-        AddCommand addCommand = new AddCommand(Optional.of("cs"), Optional.empty(), Optional.of("weekly"), "tower",
-                "event", 2, "l");
-
-        Exception exception = assertThrows(DukeException.class, () ->
-                addCommand.execute(tasks, ui, storage));
-        assertEquals("Your event needs to have a starting time.", exception.getMessage());
-    }
 }
-

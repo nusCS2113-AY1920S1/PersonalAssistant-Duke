@@ -25,10 +25,16 @@ El Duque is a desktop task manager made for computing students. More importantly
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `El-Duque.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your personal Task Manager.
-.  Open the command line and navigate to the selected folder and type `java -jar El-Duque.jar` to run El Duque.
+.  Open the command line and navigate to the selected folder and type in the following command.
+
+    java -jar El-Duque.jar
 +
 image::Ui.png[width="790"]
 +
+
+[NOTE]
+If you are running the program for the first time, El Duque will preload 20 tasks to get you started!
+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will show you a brief summary of commands and their format
 .  Some example commands you can try:
@@ -42,14 +48,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will show you a brief summary of c
 
 [[Features]]
 == Features
-
+//tag::shaun97[]
 ====
 El Duque relies on a flexible command line syntax to parse in commands. Here is the general form of that said syntax.
 
     [-FILTER] COMMAND [-MODIFICATIONS]
 
 There are 3 main parts to the syntax and filter and modifications have to be prefixed with `-`. Filter and modifications are optional. They serve to add extra depth to the basic commands.
-You can think of filters as sublists. To learn more filters, go to Section 4.5, “Project Filters”. One very important point to note is that `INDEX` is relative to `FILTER`. 
+You can think of filters as sublists. One very important point to note is that `INDEX` is relative to `FILTER`.
 
 For example: +
  `edit 3 -description do laundry` can be doing exactly the same thing as `-housechores edit 1 -description do laundry` if the first task in housechores filter tasklist is the same as the third task in the overall tasklist.
@@ -86,6 +92,7 @@ Adds an event to the task manager. Events support the same functionalities of ta
 
     event Student Life Fair -t tomorrow 1000
 
+//end::shaun97[]
 === Modifications
 
 ==== Priority
@@ -96,12 +103,15 @@ Priority tagging for tasks have 3 levels. `l` , `m` and `h` to represent low, me
 [NOTE]
 Feel free to type `low`, `medium` or `high` as well, El Duque understands.
 
+//tag::shaun97[]
 ==== Recurring Tasks
 Recurring tasks are tasks that will mark itself as undone after the recurrence period.
 A daily task will be refreshed daily, saving you the trouble of having to recreate the task every day.
 Recurrence periods supported are `daily` and `weekly`.
 
     -r daily
+
+//end::shaun97[]
 
 ==== Duration
 Duration assigned to task denotes the amount of time in hours you assigned for the task.
@@ -117,6 +127,10 @@ El Duque also supports keywords `today`,  `tomorrow` and `today/tomorrow HHmm` a
 
     -t tomorrow 1200
 
+[TIP]
+If a non
+
+//tag::shaun97[]
 === Listing all tasks : `list`
 Shows a list of all tasks in the task manager. +
 
@@ -160,6 +174,8 @@ Filters can be used with this command as well as shown.
 
 Will mark the second task in the -CS2113 list as done.
 
+//end::shaun97[]
+
 === Locating tasks by description: `find`
 
 Finds task whose description contain any of the given keywords. +
@@ -179,6 +195,7 @@ For example, if `cs` filter has many tasks with description contatining "program
 
     autoassign 2
 
+//tag::shaun97[]
 === Editing a task : `edit`
 El Duque supports the editing of any parameters of a given task.
 The parameters to be edited must begin with `-KEYWORD` followed by the edit.
@@ -200,6 +217,8 @@ Shown below are the list of keywords and the respective attributes that they edi
 * `t` : date and time
 * `d` : duration of the task
 * `r` : recurrence
+
+//end::shaun97[]
 
 === Deleting a task : `delete`
 
@@ -256,7 +275,17 @@ This first undo will reverse the `delete 1` command. +
 The second undeo will reverse the `edit 2 -p high` command. +
 // end::undoredo[]
 
-=== Pomodoro Timer
+=== Clear: `clear`
+Clears the entire task list.
+
+    clear
+
+This command supports filters as well. Typing the following command will clear the `cs2113` task list
+
+    -CS2113 clear
+
+//tag::shaun97[]
+=== Pomodoro Timer: `pomo`
 El Duque includes a pomodoro timer to complement the pomodoro workflow.
 This timer has 3 states, *work*, *short break* and *long break*.
 A work cycle is followed by a *short break*, every 4th break will be a *long break*. +
@@ -327,6 +356,8 @@ We hope this gives you something to take your mind of work. You can use the `ans
 [NOTE]
 Brain teaser bank is randomised, you might not get the same question the next break. Make sure to type `pomo answer` before you start your next break to view the answer to this current brain teaser!
 
+//end::shaun97[]
+
 === Exiting the program : `bye`
 
 Exits the program. +
@@ -345,19 +376,25 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+* *Help* `help` +
+* *Task* `[-FILTER] task DESCRIPTION [-p PRIORITY] [-t DATETIME] [-d DURATION] [-r RECURRENCE]` +
+e.g. `-cs task -p h -t tomorrow`
+* *Event* `[-FILTER] event DESCRIPTION [-p PRIORITY] [-t DATETIME] [-d DURATION] [-r RECURRENCE]` +
+e.g. `-cs event -d 3 -t tomorrow`
+* *List* `[-FILTER] list [MODIFICATION] +
+e.g ` list undone`
+* *Done* `[-FILTER] done INDEX` +
+e.g `-cs done 2`
+* *Find* `[-FILTER] find KEYWORD` +
+e.g `-cs find tutorial`
+* *Autoassign* `autoassign INDEX` +
+e.g `autoassign 4`
+* *Edit* `[-FILTER] edit [-desc DESCRIPTION] [-p PRIORITY] [-t DATETIME] [-d DURATION] [-r RECURRENCE] [-f FILTER]` +
+e.g `-cs edit 2 -f cs2113 -p h`
+* *Delete* `[-FILTER] delete INDEX`
+* *Clear* `[-FILTER] clear`
+* *Undo* `undo`
+* *Pomodoro* `pomo [MODIFICATION]` +
+e.g `pomo add 1`
+* *Bye* `bye`
+

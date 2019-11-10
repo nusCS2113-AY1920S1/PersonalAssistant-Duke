@@ -32,10 +32,11 @@ class FindCommandTest {
         System.setOut(new PrintStream(outContent));
     }
 
-    public void restoreStreams() {
-        System.setOut(originalOut);
-    }
-
+    /**
+     * Helper method to create a sample task lists for the commands to work on
+     * @return TaskList
+     * @throws DukeException
+     */
     private TaskList createTaskList() throws DukeException {
         TaskList t = new TaskList();
 
@@ -60,10 +61,10 @@ class FindCommandTest {
         String description1 = "cs2113 is the best :')";
         String description2 = "cg2271 is the best :')";
         String description3 = "st2334 is the best :')";
-        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4,1));
-        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4,1));
-        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5,1));
-        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4,1));
+        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4,"l"));
+        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4,"l"));
+        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5,"l"));
+        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4,"l"));
 
         return t;
     }

@@ -33,10 +33,6 @@ public class Recurrence {
         }
     }
 
-    public String recurrenceDescription() {
-        return recurrencePeriod.recurrenceDescription();
-    }
-
     public String recurrenceCode() {
         return recurrencePeriod.recurrenceCode();
     }
