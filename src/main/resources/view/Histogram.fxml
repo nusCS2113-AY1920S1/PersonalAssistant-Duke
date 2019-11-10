@@ -10,10 +10,10 @@
    <children>
       <BarChart fx:id="barChart" layoutX="-4.0" prefHeight="337.0" prefWidth="409.0" titleSide="BOTTOM">
         <xAxis>
-          <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+          <CategoryAxis side="BOTTOM" fx:id="axisX" />
         </xAxis>
         <yAxis>
-          <NumberAxis fx:id="yAxis" side="LEFT" />
+          <NumberAxis fx:id="axisY" side="LEFT" />
         </yAxis>
       </BarChart>
    </children>

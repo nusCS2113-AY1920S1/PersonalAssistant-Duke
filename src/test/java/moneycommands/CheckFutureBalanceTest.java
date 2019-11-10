@@ -49,7 +49,7 @@ public class CheckFutureBalanceTest {
     void execute_tooEarlyFutureDate_exceptionThrown() throws ParseException, DukeException {
         createNewTrackerWithSample1();
         Assertions.assertThrows(DukeException.class,
-                () -> executeCheckBalanceCmd("check-balance OCBC /at 8/2/2016"));
+            () -> executeCheckBalanceCmd("check-balance OCBC /at 8/2/2016"));
     }
 
     @Test
@@ -62,6 +62,6 @@ public class CheckFutureBalanceTest {
     @Test
     void undo_anyInput_exceptionThrown() throws DukeException, ParseException {
         createNewTrackerWithSample1();
-        Assertions.assertThrows(DukeException.class, ()->undoCheckBalanceCmd("check-balance OCBC /at 8/2/2020"));
+        Assertions.assertThrows(DukeException.class, () -> undoCheckBalanceCmd("check-balance OCBC /at 8/2/2020"));
     }
 }

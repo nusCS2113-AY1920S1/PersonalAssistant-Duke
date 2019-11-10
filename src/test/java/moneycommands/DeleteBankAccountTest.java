@@ -41,14 +41,6 @@ public class DeleteBankAccountTest {
         cmd.execute(account, ui, moneyStorage);
     }
 
-//    private void undoDeleteCmd(String deleteCommand) throws ParseException, DukeException {
-//        MoneyCommand cmd = new DeleteBankAccountCommand(deleteCommand);
-//        cmd.execute(account, ui, moneyStorage);
-//        ui.clearOutputString();
-//        cmd.undo(account, ui, moneyStorage);
-//    }
-
-
     @Test
     void execute_outOfBound_exceptionThrown() throws ParseException, DukeException {
         createNewTrackerWithSample1();
@@ -63,12 +55,4 @@ public class DeleteBankAccountTest {
                 + "  Balance: 30.00\n  Latest Update Date: 27/7/2017\n  Interest Rate: 0.005\n", ui.getOutputString());
     }
 
-//    @Test
-//    void undo_validInput_success() throws ParseException, DukeException {
-//        createNewTrackerWithSample1();
-//        undoDeleteCmd(SAMPLE_VALID_INPUT1);
-//        Assertions.assertEquals(" Last command undone: \n"
-//                + "  Name: OCBC\n  Balance: 30.00\n  Latest Update Date: 27/7/2017\n  Interest Rate: 0.005\n"
-//                + " Now you have 1 bank listed\n", ui.getOutputString());
-//    }
 }
