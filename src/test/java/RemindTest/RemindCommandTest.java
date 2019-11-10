@@ -79,7 +79,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void Execute_SetRemindTaskDateBeforeCurrentDate_ThrowsDukeInvalidDateTimeException() {
+    public void execute_setRemindTaskDateBeforeCurrentDate_throwsDukeInvalidDateTimeException() {
         Command command = new RemindCommand(taskBeforeCurrentDate,oneMinAfterCurrentDate,true);
         String expected = "Sorry, your selected task has already passed!";
         String actual = "";
@@ -92,7 +92,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void Execute_SetRemindDateBeforeCurrentDate_ThrowsDukeInvalidDateTimeException() {
+    public void execute_setRemindDateBeforeCurrentDate_throwsDukeInvalidDateTimeException() {
         Command command = new RemindCommand(taskAfterCurrentDate, oneMinBeforeCurrentDate,true);
         String expected = "Sorry, you cannot set a time that has already passed!";
         String actual = "";
@@ -105,7 +105,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void Execute_SetRemindWithInvalidModCode_ThrowsDukeException() {
+    public void execute_setRemindWithInvalidModCode_throwsDukeException() {
         Command command = new RemindCommand(taskWithInvalidModCode, oneMinAfterCurrentDate,true);
         String expected = "Sorry, you have no such mod entered in your deadline table!";
         String actual = "";
@@ -118,7 +118,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void Execute_SetRemindWithInvalidTaskDate_ThrowsDukeException() {
+    public void execute_setRemindWithInvalidTaskDate_throwsDukeException() {
         Command command = new RemindCommand(taskWithInvalidDate, oneMinAfterCurrentDate,true);
         String expected = "Sorry, you have no such timing entered in your deadline table!";
         String actual = "";
@@ -131,7 +131,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void Execute_SetReminderWithInvalidTaskDescription_ThrowsDukeException() {
+    public void execute_setReminderWithInvalidTaskDescription_throwsDukeException() {
         Command command = new RemindCommand(taskWithInvalidDescription, oneMinAfterCurrentDate,true);
         String expected = "Sorry, there are no such task description in your deadline table!";
         String actual = "";
@@ -144,7 +144,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void Execute_SetRemindDateThatExists_ThrowsDukeInvalidDateTimeException() {
+    public void execute_setRemindDateThatExists_throwsDukeInvalidDateTimeException() {
         Command command = new RemindCommand(taskWithReminder, tenMinAfterCurrentDate,true);
         String expected = "Sorry, you have a reminder set for " + taskWithReminder.getModCode() + " " + taskWithReminder.getDescription() + " by: " + taskWithReminder.getDateTime();
         String actual = "";
@@ -157,7 +157,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void Execute_RemoveReminderWithInvalidReminderTime_ThrowsDukeInvalidDateTimeException() {
+    public void execute_removeReminderWithInvalidReminderTime_throwsDukeInvalidDateTimeException() {
         Command command = new RemindCommand(taskAfterCurrentDate, oneMinAfterCurrentDate,false);
         String expected = "Sorry, you have no such reminder at that inputted time.";
         String actual = "";
@@ -170,7 +170,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void Execute_SetReminderAfterDateOfTask_ThrowsDukeInvalidDateTimeException() {
+    public void execute_setReminderAfterDateOfTask_throwsDukeInvalidDateTimeException() {
         Command command = new RemindCommand(taskAfterCurrentDate, threeDaysAfterCurrentDate, true);
         String expected = "Sorry, you cannot set a reminder after the date of the task.";
         String actual = "";
@@ -183,7 +183,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void Execute_RemoveReminderWithInvalidDescription_ThrowsDukeException() {
+    public void execute_removeReminderWithInvalidDescription_throwsDukeException() {
         Command command = new RemindCommand(taskWithInvalidDescription, tenMinAfterCurrentDate,false);
         String expected = "Sorry, you have no such reminder with inputted description at that time.";
         String actual = "";
@@ -196,7 +196,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void Execute_CheckReminder() {
+    public void execute_checkReminder() {
         Command command = new RemindCommand(dummyTask, tenMinAfterCurrentDate,false);
         String expected = "Here is the list of reminders set:\n\n" + "1. ModCode: CS2100\n" + "Description: exam \n" +
                 "Deadline date: " + taskWithReminder.getDateTime() + "\n" + "Reminder date: " + tenMinAfterCurrentDateString;
@@ -210,7 +210,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void Execute_SetReminderWithValidFormat() {
+    public void execute_setReminderWithValidFormat() {
         Command command = new RemindCommand(taskAfterCurrentDate, oneMinAfterCurrentDate,true);
         String expected = "Reminder has been set for " + taskAfterCurrentDate.getModCode() + " " + taskAfterCurrentDate.getDescription() + "at: " + reminderSetDateString;
         String actual = "";
@@ -223,7 +223,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void Execute_RemoveReminderWithValidFormat() {
+    public void execute_removeReminderWithValidFormat() {
         Command command = new RemindCommand(taskWithReminder, tenMinAfterCurrentDate,false);
         String expected = "Reminder has been removed for " + taskWithReminder.getModCode() + " " + taskWithReminder.getDescription() + "on: " + reminderRemoveDateString;
         String actual = "";

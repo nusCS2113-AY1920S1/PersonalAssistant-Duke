@@ -33,9 +33,20 @@ public class Storage {
     private final Logger LOGGER = DukeLogger.getLogger(Storage.class);
     private HashMap<String, HashMap<String, ArrayList<Assignment>>> map;
     private HashMap<Date, Assignment> reminderMap;
+    private static final int LENGTH_TO_DATE = 4;
+    private static final int LENGTH_TO_REMINDER_DATE = 3;
+    private static final int LENGTH_TO_DESCRIPTION = 5;
+    private static final int LENGTH_TO_START_TIME = 6;
+    private static final int LENGTH_TO_END_MODCODE = 1;
+    private static final int LENGTH_TO_END_DESCRIPTION = 2;
+    private static final int START_OF_DATA_STRING = 0;
+    private static final String DEADLINE_DATA_DATE_START_KEYWORD = "by:";
+    private static final String EVENT_DATA_DATE_START_KEYWORD ="at:";
+    private static final String EVENT_DATA_TIME_START_KEYWORD = "time:";
+    private static final String EVENT_DATA_TIME_END_KEYWORD = "to:";
 
-    public final String[] deadlineDelimiter = {"[D]", "by:", "[<R", "/R>]"};
-    public final String[] eventDelimiter = {"[E]", "at:", "time:", "[<R", "/R>]", "to:"};
+    private final String[] deadlineDelimiter = {"[D]", "by:", "[<R", "/R>]"};
+    private final String[] eventDelimiter = {"[E]", "at:", "time:", "[<R", "/R>]", "to:"};
 
     /**
      * Creates Storage object.
@@ -95,7 +106,7 @@ public class Storage {
      * @throws DukeIOException when event.txt is not found
      */
     public void readEventList(TaskList list) throws DukeIOException {
-        ArrayList<String> temp = null;
+        ArrayList<String> temp;
         try {
             File eventFile = new File(filePathEvent);
             eventFile.createNewFile();
@@ -163,7 +174,6 @@ public class Storage {
             throw new DukeIOException(DukeConstants.NO_DEADLINE_TXT);
         }
         for (String string : temp) {
-            DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             boolean isValid = true;
             for(int i = 0; i < deadlineDelimiter.length; i++) {
                 if (!string.contains(deadlineDelimiter[i])) {
@@ -177,7 +187,7 @@ public class Storage {
                 if (task.getIsReminder()) {
                     Date date = null;
                     try {
-                        date = dateFormat.parse(task.getRemindTime());
+                        date = DukeConstants.DEADLINE_DATE_FORMAT.parse(task.getRemindTime());
                     } catch (ParseException e) {
                         LOGGER.severe("Reminder time is wrongly recorded");
                     }
@@ -197,39 +207,34 @@ public class Storage {
     protected Assignment stringToTask(String string) {
         Assignment line = null;
         try {
-            if (string.contains("[D]")) {
-                DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-                SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
-                DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
-                String dateFromData = string.substring(string.indexOf("by:") + 4, string.indexOf(')')).trim();
-                String remindTime = string.substring(string.indexOf("[<R") + 3, string.indexOf("/R>]"));
-                Date date = format.parse(dateFromData);
-                String dateString = dateFormat.format(date);
-                String timeString = timeFormat.format(date);
-                String modCode = string.substring(0, string.indexOf("[D]") - 1);
-                String description = string.substring(string.indexOf("/R>] ") + 5, string.indexOf("by:") - 2);
+            if (string.contains(DukeConstants.DEADLINE_INDICATOR)) {
+                String dateFromData = string.substring(string.indexOf(DEADLINE_DATA_DATE_START_KEYWORD) + LENGTH_TO_DATE, string.indexOf(DukeConstants.DATA_TIME_STRING_TERMINATOR)).trim();
+                String remindTime = string.substring(string.indexOf(DukeConstants.REMINDER_TIME_START_KEYWORD) + LENGTH_TO_REMINDER_DATE, string.indexOf(DukeConstants.REMINDER_TIME_END_KEYWORD));
+                Date date = DukeConstants.DEADLINE_DATE_FORMAT.parse(dateFromData);
+                String dateString = DukeConstants.DAY_DATE_FORMAT.format(date);
+                String timeString = DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(date);
+                String modCode = string.substring(START_OF_DATA_STRING, string.indexOf(DukeConstants.DEADLINE_INDICATOR) - LENGTH_TO_END_MODCODE);
+                String description = string.substring(string.indexOf(DukeConstants.REMINDER_TIME_END_KEYWORD) + LENGTH_TO_DESCRIPTION, string.indexOf(DEADLINE_DATA_DATE_START_KEYWORD) - LENGTH_TO_END_DESCRIPTION);
                 line = new Deadline(modCode + " " + description, dateString, timeString);
                 line.setRemindTime(remindTime);
             } else {
-                DateFormat format = new SimpleDateFormat("E dd/MM/yyyy");
-                SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
-                String dateFromData = string.substring(string.indexOf("at:") + 4, string.indexOf("time:")).trim();
-                String startTimeFromData = string.substring(string.indexOf("time:") + 6, string.indexOf("to:"));
-                String endTimeFromData = string.substring(string.indexOf("to:") + 3, string.indexOf(')')).trim();
-                Date startTime = timeFormat.parse(startTimeFromData);
-                Date endTime = timeFormat.parse(endTimeFromData);
-                Date date = format.parse(dateFromData);
-                String dateString = format.format(date);
-                String startTimeString = timeFormat.format(startTime);
-                String endTimeString = timeFormat.format(endTime);
-                String modCode = string.substring(0, string.indexOf("[E]") - 1);
-                String description = string.substring(string.indexOf("/R>]") + 5, string.indexOf("at:") - 2);
+                String dateFromData = string.substring(string.indexOf(EVENT_DATA_DATE_START_KEYWORD) + LENGTH_TO_DATE, string.indexOf(EVENT_DATA_TIME_START_KEYWORD)).trim();
+                String startTimeFromData = string.substring(string.indexOf(EVENT_DATA_TIME_START_KEYWORD) + LENGTH_TO_START_TIME, string.indexOf(EVENT_DATA_TIME_END_KEYWORD));
+                String endTimeFromData = string.substring(string.indexOf(EVENT_DATA_TIME_END_KEYWORD) + LENGTH_TO_REMINDER_DATE, string.indexOf(DukeConstants.DATA_TIME_STRING_TERMINATOR)).trim();
+                Date startTime = DukeConstants.TWELVE_HOUR_TIME_FORMAT.parse(startTimeFromData);
+                Date endTime = DukeConstants.TWELVE_HOUR_TIME_FORMAT.parse(endTimeFromData);
+                Date date = DukeConstants.DAY_DATE_FORMAT.parse(dateFromData);
+                String dateString = DukeConstants.DAY_DATE_FORMAT.format(date);
+                String startTimeString = DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(startTime);
+                String endTimeString = DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(endTime);
+                String modCode = string.substring(START_OF_DATA_STRING, string.indexOf(DukeConstants.EVENT_INDICATOR) - LENGTH_TO_END_MODCODE);
+                String description = string.substring(string.indexOf(DukeConstants.REMINDER_TIME_END_KEYWORD) + LENGTH_TO_DESCRIPTION, string.indexOf(EVENT_DATA_TIME_START_KEYWORD) - LENGTH_TO_END_DESCRIPTION);
                 line = new Event( modCode+ " " + description, dateString, startTimeString, endTimeString);
             }
-            if (string.contains("\u2713")) {
+            if (string.contains(DukeConstants.DONE_INDICATOR)) {
                 line.setDone(true);
             }
-            if (string.contains("[HR]")) {
+            if (string.contains(DukeConstants.HAS_REMINDER_INDICATOR)) {
                 line.setReminder(true);
             }
         } catch (ParseException | StringIndexOutOfBoundsException | NullPointerException e) {
@@ -249,9 +254,8 @@ public class Storage {
             Date currentDate = new Date();
             Assignment task = reminderMap.get(date);
             String remindTime = task.getRemindTime();
-            DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             try {
-                remindDate = dateFormat.parse(remindTime);
+                remindDate = DukeConstants.DEADLINE_DATE_FORMAT.parse(remindTime);
             } catch (ParseException e) {
                 LOGGER.severe("Reminder date is wrong in deadline.txt. Unable to parse");
             }
