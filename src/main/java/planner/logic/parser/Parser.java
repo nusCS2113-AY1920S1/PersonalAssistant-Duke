@@ -157,6 +157,7 @@ public class Parser {
                 .help("Clear your data as specified")
                 .addArgument("toClear")
                 .choices("module", "cca", "data")
+                //.choices("module", "cca", "data", "password")
                 .help("What to clear");
 
         Subparsers sortParsers = getSubParser("sort")
@@ -216,7 +217,7 @@ public class Parser {
         //getSubParser("passwd")
         //        .help("Set or update your password")
         //        .addArgument("password")
-        //        .help("Your new password");
+        //        .help("New password");
     }
 
     private void initBuiltinActions() {

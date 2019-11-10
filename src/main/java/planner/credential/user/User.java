@@ -240,7 +240,7 @@ public class User {
         return this.password;
     }
 
-    private boolean isValidPassword(String password) {
+    public boolean isValidPassword(String password) {
         return User.isValidPassword(password, this.password);
     }
 
@@ -278,7 +278,11 @@ public class User {
     public void clear() {
         this.setSemester(0);
         this.init();
-        this.password = null;
+        this.clearPassword();
         this.saveProfile();
+    }
+
+    public void clearPassword() {
+        this.password = null;
     }
 }
