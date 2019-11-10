@@ -11,6 +11,7 @@ public enum CommandType {
     DONE(CommandMarkDone.class),
     MAJOREXPENSE(CommandMajorExpense.class),
     QUEUE(CommandQueue.class),
+    STATS(CommandStatistics.class),
     VIEWSCHEDULE(CommandSchedule.class),
     REMINDER(CommandReminder.class),
     BALANCE(CommandDisplayBalance.class),
