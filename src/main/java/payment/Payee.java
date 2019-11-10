@@ -31,6 +31,9 @@ public class Payee {
         this.payments = new ArrayList<Payments>();
     }
 
+    /**
+     * Prints the details contained in a payee object.
+     */
     public void printPayee() {
         System.out.println("\t" + "Project: " + this.project);
         System.out.println("\t" + "Payee: " + this.payee);

@@ -22,7 +22,7 @@ public abstract class PaymentManager {
     /**
      * Takes in a string describing a field of payee/payment objects.
      * Returns a Field enum object that describes the field.
-     * @param str
+     * @param str string describing field
      * @return a Field object corresponding to str.
      */
     private static Field strToField(String str) {
@@ -72,7 +72,7 @@ public abstract class PaymentManager {
     }
 
     /**
-     * Modifies the specified field of a Payee object
+     * Modifies the specified field of a Payee object.
      * @param payee Name of payee
      * @param fieldToAmend field of payee to amend
      * @param replace what to write to the field
@@ -95,7 +95,7 @@ public abstract class PaymentManager {
     }
 
     /**
-     * Modifies the specified field of a Payment object
+     * Modifies the specified field of a Payment object.
      * @param payee name of payee
      * @param item description of payment 
      * @param fieldToAmend which field to amend
@@ -130,7 +130,7 @@ public abstract class PaymentManager {
     }
 
     /**
-     * Organises all payments in a managermap, output according to status
+     * Organises all payments in a managermap, output according to status.
      * @param managermap Hashmap of all payees in project
      * @return a list containing a list each for pending, overdue and approved payments.
      */
