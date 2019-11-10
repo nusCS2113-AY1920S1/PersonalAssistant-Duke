@@ -25,6 +25,7 @@ public class FilterParse extends Parse {
     }
 
     /**
+     * This executes the data processing for FilterParse.
      * @return Command which represents the parsed FilterCommand
      * @throws Exception Returned if command does not adhere to format
      */
