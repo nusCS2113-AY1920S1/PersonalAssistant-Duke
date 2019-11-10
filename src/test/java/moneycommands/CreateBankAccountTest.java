@@ -19,6 +19,10 @@ public class CreateBankAccountTest {
     private Account account;
     private MoneyStorage moneyStorage;
     private static String SAMPLE_INPUT1 = "bank-account OCBC /amt 30 /at 27/7/2017 /rate 0.005";
+    private static String INVALID_INPUT1 = "bank-account OCBC /amt -100 /at 27/7/2017 /rate 0.005";
+    private static String INVALID_INPUT2 = "bank-account OCBC /amt 100 /at haha /rate 0.005";
+    private static String INVALID_INPUT3 = "bank-account OCBC /amt 100 /at 27/7/2017 /rate 0.005%%";
+    private static String INVALID_INPUT4 = "bank-account OCBC /amt %^haha i m tired 100 /at 27/7/2017 /rate 0.005%%";
 
     CreateBankAccountTest() throws IOException {
         ui = new Ui();
@@ -29,7 +33,24 @@ public class CreateBankAccountTest {
     }
 
     @Test
-    void execute_duplicateName_exceptionThrown() throws ParseException, DukeException {
+    void constructor_wrongNumberFormat_exceptionThrown() {
+        Assertions.assertThrows(DukeException.class, () -> new CreateBankAccountCommand(INVALID_INPUT3));
+        Assertions.assertThrows(DukeException.class, () -> new CreateBankAccountCommand(INVALID_INPUT4));
+
+    }
+
+    @Test
+    void constructor_wrongDateFormat_exceptionThrown() {
+        Assertions.assertThrows(DukeException.class, () -> new CreateBankAccountCommand(INVALID_INPUT2));
+    }
+
+    @Test
+    void constructor_negativeInitialAmt_exceptionThrown() {
+        Assertions.assertThrows(DukeException.class, () -> new CreateBankAccountCommand(INVALID_INPUT1));
+    }
+
+    @Test
+    void execute_duplicateName_exceptionThrown() throws DukeException {
         account.getBankTrackerList().clear();
         CreateBankAccountCommand cmd1 = new CreateBankAccountCommand(SAMPLE_INPUT1);
         CreateBankAccountCommand cmd2 = new CreateBankAccountCommand(SAMPLE_INPUT1);

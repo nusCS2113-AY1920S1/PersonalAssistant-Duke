@@ -11,6 +11,7 @@ import money.Income;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -27,18 +28,27 @@ public class CreateBankAccountCommand extends MoneyCommand {
      * (account description, initial amount, initial date and interest rate)
      * of the new bank account tracker and pack it as a new bank-tracker.
      * @param inputString The command line typed in by the user
-     * @throws ParseException The exception for parsing the date
      */
-    public CreateBankAccountCommand(String inputString) throws ParseException {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-        String desc = inputString.split(" /amt ")[0];
-        String info = inputString.split(" /amt ")[1];
-        desc = desc.replaceFirst("bank-account ","");
+    public CreateBankAccountCommand(String inputString) throws DukeException {
+        try {
+            String desc = inputString.split(" /amt ")[0];
+            String info = inputString.split(" /amt ")[1];
+            desc = desc.replaceFirst("bank-account ","");
 
-        String[] words = info.split(" ");
-        LocalDate initialDate = Parser.shortcutTime(words[2]);
-        newTracker = new BankTracker(desc, Integer.parseInt(words[0]),
-                initialDate, Double.parseDouble(words[4]));
+            String[] words = info.split(" ");
+            LocalDate initialDate = Parser.shortcutTime(words[2]);
+            if (Integer.parseInt(words[0]) < 0) {
+                throw new DukeException("Sorry. The input initial balance should not be a negative number.");
+            }
+            newTracker = new BankTracker(desc, Integer.parseInt(words[0]),
+                    initialDate, Double.parseDouble(words[4]));
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
+        } catch (NumberFormatException e) {
+            throw new DukeException("The format for the numbers is wrong, please check and type in again.");
+        }
+
+
     }
 
     /**
