@@ -7,7 +7,6 @@ import duchess.storage.Store;
 import duchess.ui.Ui;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -43,9 +42,16 @@ public class Duchess {
         try {
             store = storage.load();
         } catch (DuchessException e) {
-            store = new Store();
+            ui.showError(e.getMessage());
+            store = Store.seedStore();
+        }
+
+        try {
+            storage.save(store);
+        } catch (DuchessException e) {
             ui.showError(e.getMessage());
         }
+
         storage.addToUndoStackPush(store);
     }
 

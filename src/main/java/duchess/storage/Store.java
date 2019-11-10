@@ -33,6 +33,17 @@ public class Store {
         return moduleList.stream().filter(module -> module.isOfCode(code)).findFirst();
     }
 
+    /**
+     * Creates and returns a new store with seed data.
+     *
+     * @return the new store
+     */
+    public static Store seedStore() {
+        Store store = new Store();
+        Seed.execute(store);
+        return store;
+    }
+
     @JsonGetter("taskList")
     public List<Task> getTaskList() {
         return taskList;

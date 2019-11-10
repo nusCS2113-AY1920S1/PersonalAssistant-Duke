@@ -22,7 +22,7 @@ public class StorageTest {
     private final String blankTestFilePath = "testBlankData.json";
 
     private final String unreadableFileMessage
-            = "Unable to read file, continuing with empty list.";
+            = "Unable to read file, continuing with default list.";
     private final String emptyRedoStackErrorMessage
             = "Redo stack is empty.";
     private final String emptyUndoStackErrorMessage
@@ -291,7 +291,7 @@ public class StorageTest {
         try {
             jsonVal = getObjectMapper().writeValueAsString(store);
         } catch (JsonProcessingException e) {
-            jsonVal = new String();
+            jsonVal = "";
             assert (jsonVal.equals(""));
         }
         return jsonVal;

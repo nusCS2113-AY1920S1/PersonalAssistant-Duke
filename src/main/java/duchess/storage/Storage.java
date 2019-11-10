@@ -27,7 +27,7 @@ public class Storage {
     // storageSize must be 1 more than intended size value.
     private static final int storageSize = 11;
     private static final String UNREADABLE_FILE_MESSAGE
-            = "Unable to read file, continuing with empty list.";
+            = "Unable to read file, continuing with default list.";
     private static final String FILE_WRITE_ERROR_MESSAGE
             = "An unexpected error occurred when writing to the file. ";
     private static final String JSON_PARSE_ERROR_MESSAGE
