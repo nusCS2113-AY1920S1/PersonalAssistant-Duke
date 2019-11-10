@@ -734,9 +734,6 @@ public class Command {
             if (contactCommand.length == 2) {
                 switch (contactCommand[0]) {
                 case "add":
-                    if (!continuation.contains("/")) {
-                        throw new UnsupportedOperationException();
-                    }
                     String[] contactDetails = splitContact[1].split(",");
                     if (contactDetails.length != 3) {
                         throw new UnsupportedOperationException();
@@ -757,10 +754,10 @@ public class Command {
                     throw new UnsupportedOperationException();
                 }
             } else {
-                int contactIndex = Integer.parseInt(contactCommand[2]) - 1;
                 switch (contactCommand[0]) {
                 case "delete":
                     try {
+                        int contactIndex = Integer.parseInt(contactCommand[2]) - 1;
                         events.getEvent(eventIndex).removeContact(contactIndex);
                         ui.printContactDeleted();
                     } catch (IndexOutOfBoundsException e) {
@@ -786,6 +783,7 @@ public class Command {
                             throw new UnsupportedOperationException();
                     }
                     try {
+                        int contactIndex = Integer.parseInt(contactCommand[2]) - 1;
                         events.getEvent(eventIndex).editContact(contactIndex, editType, splitContact[1]);
                         ui.printContactEdited(events.getEvent(eventIndex).getContactList().get(contactIndex));
                     } catch (IndexOutOfBoundsException e) {
