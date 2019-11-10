@@ -5,8 +5,7 @@ import cube.exception.CubeException;
 /**
  * Handles exception specific to command.
  */
-public class CommandException extends CubeException
-{
+public class CommandException extends CubeException {
     /**
      * Default constructor.
      */

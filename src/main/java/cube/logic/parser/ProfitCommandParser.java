@@ -3,6 +3,7 @@
  * ProfitCommandParser.java
  * Parse the command for ProfitCommand.
  */
+
 package cube.logic.parser;
 
 import cube.logic.command.ProfitCommand;
@@ -35,20 +36,22 @@ public class ProfitCommandParser implements ParserPrototype<ProfitCommand> {
             //of food, then it requires at least 7 arguments in total.
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
         }
-        Date date_i = ParserUtil.parseStringToDate(args[2]); //the start date of the period (initial)
-        Date date_f = ParserUtil.parseStringToDate(args[4]); //the end date of the period (final)
+        Date dateI = ParserUtil.parseStringToDate(args[2]); //the start date of the period (initial)
+        Date dateF = ParserUtil.parseStringToDate(args[4]); //the end date of the period (final)
         switch (args[5]) {
             case "-all":
-                return new ProfitCommand(date_i, date_f, "ALL");
+                return new ProfitCommand(dateI, dateF, "ALL");
             case "-i":
-                return new ProfitCommand(date_i, date_f, Integer.parseInt(args[6]),"INDEX");
+                return new ProfitCommand(dateI, dateF, Integer.parseInt(args[6]),"INDEX");
             case "-n":
-                return new ProfitCommand(date_i, date_f, String.join(" ",
+                return new ProfitCommand(dateI, dateF, String.join(" ",
                         Arrays.copyOfRange(args,6,args.length)),"NAME");
             case "-t":
-                return new ProfitCommand(date_i, date_f, String.join(" ",
+                return new ProfitCommand(dateI, dateF, String.join(" ",
                         Arrays.copyOfRange(args,6,args.length)),"TYPE");
+            default:
+                throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
         }
-        throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
+
     }
 }

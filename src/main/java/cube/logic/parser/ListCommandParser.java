@@ -1,4 +1,5 @@
 //@@author ZKathrynx
+
 package cube.logic.parser;
 
 import cube.logic.command.ListCommand;
@@ -7,7 +8,7 @@ import cube.logic.parser.exception.ParserException;
 import cube.model.food.FoodList.SortType;
 
 /**
- * Parse list command
+ * Parse list command.
  */
 public class ListCommandParser implements ParserPrototype<ListCommand> {
 
@@ -20,10 +21,10 @@ public class ListCommandParser implements ParserPrototype<ListCommand> {
 	public ListCommand parse(String[] args) throws ParserException {
 		String[] params = new String[]{"-sort"};
 
-		if(ParserUtil.hasInvalidParameters(args,params)){
+		if (ParserUtil.hasInvalidParameters(args,params)) {
 			throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
 		}
-		if(ParserUtil.hasRepetitiveParameters(args)){
+		if (ParserUtil.hasRepetitiveParameters(args)) {
 			throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
 		}
 
@@ -34,7 +35,7 @@ public class ListCommandParser implements ParserPrototype<ListCommand> {
 			throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
 		}
 
-		if (SortType.IsDefined(args[2].toUpperCase())){
+		if (SortType.IsDefined(args[2].toUpperCase())) {
 			return new ListCommand(SortType.valueOf(args[2].toUpperCase()));
 		} else {
 			throw new ParserException(ParserErrorMessage.INVALID_SORT_TYPE);

@@ -17,7 +17,8 @@ public class ParserErrorMessage {
     public static final String EMPTY_FIELD
         = "OOPS!!! Your input after a parameter is empty.";
     public static final String INVALID_NAME
-        = "OOPS!!! The name should only contains alphanumeric characters and spaces, and cannot be blank or start with '-'";
+        = "OOPS!!! The name should only contains "
+            + "alphanumeric characters and spaces, and cannot be blank or start with '-'";
     public static final String INVALID_NUMBER
         = "OOPS!!! The number inside input should only be non-negative numerical and less than 10000.00.";
     public static final String INVALID_SORT_TYPE
@@ -25,6 +26,6 @@ public class ParserErrorMessage {
     public static final String INVALID_PARAM_RANGE
         = "OOPS!!! The input value range for %1$s parameter should be between %2$s and %3$s.";
     public static final String INVALID_COMMAND_FORMAT
-        = "OOPS!!! There are some issues with the command format.\n" +
-        "Please view 'help' or our user guide for more info!";
+        = "OOPS!!! There are some issues with the command format.\n"
+            + "Please view 'help' or our user guide for more info!";
 }

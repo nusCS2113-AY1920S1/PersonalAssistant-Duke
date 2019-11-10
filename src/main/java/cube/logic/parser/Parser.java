@@ -1,7 +1,10 @@
 //@@author ZKathrynx
+
 package cube.logic.parser;
 
-import cube.logic.command.*;
+import cube.logic.command.Command;
+import cube.logic.command.ExitCommand;
+import cube.logic.command.HelpCommand;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 
@@ -15,7 +18,6 @@ public class Parser {
 
 	/**
 	 * Parse user command.
-	 *
 	 * Format:
 	 * add foodName -t foodType -p price -s stock -e expiryDate
 	 * update foodName -t foodType -p price -s stock -e expiryDate
@@ -37,7 +39,7 @@ public class Parser {
 	 * @param fullCommand the command that user inputs.
 	 * @return corresponding command.
 	 */
-	public static Command parse (String fullCommand) throws ParserException {
+	public static Command parse(String fullCommand) throws ParserException {
 		String[] inputs = fullCommand.split(" ");
 		String command = inputs[0];
 		command = command.trim().toLowerCase();

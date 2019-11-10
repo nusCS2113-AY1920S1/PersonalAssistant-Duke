@@ -1,4 +1,5 @@
 //@@author ZKathrynx
+
 package cube.logic.parser;
 
 import cube.logic.command.Command;
@@ -6,7 +7,7 @@ import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 
 /**
- * Parse promotion command
+ * Parse promotion command.
  */
 public class PromotionCommandParser {
 
@@ -16,7 +17,7 @@ public class PromotionCommandParser {
      * @return corresponding promotion command.
      * @throws ParserException when user input is illegal.
      */
-    public static Command parse (String[] args) throws ParserException {
+    public static Command parse(String[] args) throws ParserException {
         if (args.length < 2) {
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
         }

@@ -64,7 +64,8 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
                 double maxHeight = UiConfig.getMaxWindowHeight();
 
                 if (windowHeight < minHeight || windowHeight > maxHeight) {
-                    throw new ParserException(String.format(ParserErrorMessage.INVALID_PARAM_RANGE, "-h", minHeight, maxHeight));
+                    throw new ParserException(String.format(
+                            ParserErrorMessage.INVALID_PARAM_RANGE, "-h", minHeight, maxHeight));
                 }
 
                 uiConfig.setWindowHeight(windowHeight);
@@ -78,7 +79,8 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
                 double maxWidth = UiConfig.getMaxWindowWidth();
 
                 if (windowWidth < minWidth || windowWidth > maxWidth) {
-                    throw new ParserException(String.format(ParserErrorMessage.INVALID_PARAM_RANGE, "-w", minWidth, maxWidth));
+                    throw new ParserException(String.format(
+                            ParserErrorMessage.INVALID_PARAM_RANGE, "-w", minWidth, maxWidth));
                 }
 
                 uiConfig.setWindowWidth(windowWidth);
@@ -128,7 +130,9 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
             return new ConfigCommand(configType, logConfig);
         case VIEW:
             return new ConfigCommand(configType);
+        default:
+            throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
         }
-        throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
+
     }
 }

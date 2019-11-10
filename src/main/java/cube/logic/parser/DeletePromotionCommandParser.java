@@ -9,7 +9,7 @@ import java.util.Arrays;
 /**
  * Parse delete promotion command.
  */
-public class DeletePromotionCommandParser implements ParserPrototype<DeletePromotionCommand>{
+public class DeletePromotionCommandParser implements ParserPrototype<DeletePromotionCommand> {
 
     /**
      * Parse user delete promotion command.
@@ -23,7 +23,7 @@ public class DeletePromotionCommandParser implements ParserPrototype<DeletePromo
         if (ParserUtil.hasInvalidParameters(args, params)) {
             throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
         }
-        if(ParserUtil.hasRepetitiveParameters(args)) {
+        if (ParserUtil.hasRepetitiveParameters(args)) {
             throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
         }
 
@@ -35,7 +35,7 @@ public class DeletePromotionCommandParser implements ParserPrototype<DeletePromo
             return new DeletePromotionCommand(String.join(" ", Arrays.copyOfRange(args,2,args.length)),"ALL");
         }
 
-        if(!ParserUtil.isValidInteger(args[2])) {
+        if (!ParserUtil.isValidInteger(args[2])) {
             throw new ParserException((ParserErrorMessage.INVALID_NUMBER));
         }
         return new DeletePromotionCommand(Integer.parseInt(args[2]), "INDEX");

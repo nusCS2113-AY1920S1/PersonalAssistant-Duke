@@ -3,6 +3,7 @@
  *
  * @author tygq13
  */
+
 package cube.logic.command;
 
 import cube.model.food.FoodList;
@@ -12,7 +13,7 @@ import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 	public SortType sortType;
 
 	public static final String MESSAGE_SUCCESS = "Here are the food in your list: \n"
@@ -22,14 +23,16 @@ public class ListCommand extends Command{
 	/**
 	 * Default constructor of ListCommand.
 	 */
-	public ListCommand() {}
+	public ListCommand() {
+
+	}
 
 	/**
 	 * Constructor with one argument.
 	 *
 	 * @param sortType The type of sorting used for food list.
 	 */
-	public ListCommand (SortType sortType) {
+	public ListCommand(SortType sortType) {
 		this.sortType = sortType;
 	}
 

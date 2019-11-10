@@ -35,7 +35,8 @@ public class BatchCommandParser implements ParserPrototype<BatchCommand> {
             return new BatchCommand(args[2], BatchCommand.OperationType.IMPORT);
         case "-e":
             return new BatchCommand(args[2], BatchCommand.OperationType.EMPTY);
+        default:
+            throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
         }
-        throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
     }
 }

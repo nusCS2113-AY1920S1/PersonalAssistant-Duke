@@ -2,6 +2,7 @@
  * GenerateRevenueCommand.java
  * Support commands related to generating revenue.
  */
+
 package cube.logic.command;
 
 import cube.logic.command.exception.CommandException;
@@ -26,13 +27,16 @@ public class RevenueCommand extends Command {
     private int generateRevenueIndex;
     private String generateRevenueDescription;
     private RevenueCommand.GenerateBy param;
-    private final String MESSAGE_SUCCESS_ALL = "Nice! I've generated the revenue for all the stocks:\n"
+    public static final String MESSAGE_SUCCESS_ALL
+            = "Nice! I've generated the revenue for all the stocks:\n"
             + "$ %1$s\n"
             + "In total, you have %2$s food in the list.\n";
-    private final String MESSAGE_SUCCESS_SINGLE = "Nice! I've generated the revenue for this food:\n"
+    public static final String MESSAGE_SUCCESS_SINGLE
+            = "Nice! I've generated the revenue for this food:\n"
             + "$ %1$s\n"
             + "In total, you have %2$s food in the list.\n";
-    private final String MESSAGE_SUCCESS_MULTIPLE = "Nice! I've generated the revenue for this type:\n"
+    public static final String MESSAGE_SUCCESS_MULTIPLE
+            = "Nice! I've generated the revenue for this type:\n"
             + "$ %1$s\n"
             + "This type contains "
             + "%2$s food items\n"
@@ -64,14 +68,15 @@ public class RevenueCommand extends Command {
         this.generateRevenueIndex = index - 1;
         this.param = RevenueCommand.GenerateBy.valueOf(param);
     }
+
     /**
      * The constructor for generating revenue using food name or food type.
      *
-     * @param GenerateRevenueDescription The food name or food type whose revenue is to be generated.
+     * @param generateRevenueDescription The food name or food type whose revenue is to be generated.
      * @param param The parameter is used to specify the type of generating revenue.
      */
-    public RevenueCommand(String GenerateRevenueDescription, String param) {
-        this.generateRevenueDescription = GenerateRevenueDescription;
+    public RevenueCommand(String generateRevenueDescription, String param) {
+        this.generateRevenueDescription = generateRevenueDescription;
         this.param = RevenueCommand.GenerateBy.valueOf(param);
     }
 
@@ -93,15 +98,18 @@ public class RevenueCommand extends Command {
             case INDEX:
                 CommandUtil.requireValidIndex(list, generateRevenueIndex);
                 toGenerateRevenue = list.get(generateRevenueIndex);
-                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateRevenue.getFoodRevenue(), list.size()));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE,
+                        toGenerateRevenue.getFoodRevenue(), list.size()));
             case NAME:
                 CommandUtil.requireValidName(list, generateRevenueDescription);
                 toGenerateRevenue = list.get(generateRevenueDescription);
-                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateRevenue.getFoodRevenue(), list.size()));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE,
+                        toGenerateRevenue.getFoodRevenue(), list.size()));
             case TYPE:
                 CommandUtil.requireValidType(list, generateRevenueDescription);
                 double totalRevenue = 0;
-                int count = 0, listSize = list.size(); //listSize stored in a variable to speed up the loop below (one time access)
+                int count = 0;
+                int listSize = list.size();
                 for (int i = 0; i < listSize; ++i) {
                     if ((list.get(i).getType() != null) && (list.get(i).getType().equals(generateRevenueDescription))) {
                         totalRevenue = totalRevenue + list.get(i).getFoodRevenue();
@@ -109,7 +117,9 @@ public class RevenueCommand extends Command {
                     }
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, totalRevenue, count, listSize));
+            default:
+                return null;
         }
-        return null;
+
     }
 }

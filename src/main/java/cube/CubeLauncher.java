@@ -6,6 +6,11 @@ import javafx.application.Application;
  * Launcher class to facilitate launching of JavaFX application directly from JAR.
  */
 public class CubeLauncher {
+
+    /**
+     * The main function of the application.
+     * @param args cli or gui.
+     */
     public static void main(String[] args) {
 
         if (args.length == 1 && args[0].equals("-cli")) {
