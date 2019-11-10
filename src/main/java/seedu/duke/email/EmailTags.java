@@ -70,7 +70,7 @@ public class EmailTags {
     }
 
     /**
-     * Updates root tag map
+     * Updates root tag map.
      *
      * @param index       index of email
      * @param tags        list of all tags in the email
@@ -107,6 +107,13 @@ public class EmailTags {
         }
     }
 
+    /**
+     * Filters the emails by the specified tags.
+     *
+     * @param tags tags
+     * @param emailList email list from model
+     * @return
+     */
     public static String filterByEmailTag(ArrayList<String> tags, EmailList emailList) {
         String responseMsg = "";
         try {
@@ -116,7 +123,6 @@ public class EmailTags {
         }
         return responseMsg;
     }
-
 
     /**
      * Gets list of tagged emails given one or two tags from user input.
@@ -166,7 +172,7 @@ public class EmailTags {
      * @param tag tag name
      * @return true if the tag exists
      */
-    public static Boolean isOneTagExist(String tag){
+    public static Boolean isOneTagExist(String tag) {
         if (tagMap.containsKey(tag)) {
             return true;
         }
@@ -183,7 +189,7 @@ public class EmailTags {
      * @param tagTwo second tag name
      * @return true if both tags co-exist
      */
-    public static Boolean isBothTagCoexist(String tagOne, String tagTwo){
+    public static Boolean isBothTagCoexist(String tagOne, String tagTwo) {
         if (!tagMap.containsKey(tagOne) || !tagMap.containsKey(tagTwo)) {
             return false;
         }
@@ -220,7 +226,8 @@ public class EmailTags {
      * @param indexList index list of tagged emails
      * @return
      */
-    public static String getTagsCoexistMessage(EmailList emailList, String tagNameOne, String tagNameTwo, ArrayList<Integer> indexList) {
+    public static String getTagsCoexistMessage(EmailList emailList, String tagNameOne, String tagNameTwo,
+                                               ArrayList<Integer> indexList) {
         String responseMsg = "Here are the email(s) tagged with both #" + tagNameOne + " and #" + tagNameTwo
                 + ": " + System.lineSeparator() + System.lineSeparator();
         responseMsg += emailList.toString(indexList);

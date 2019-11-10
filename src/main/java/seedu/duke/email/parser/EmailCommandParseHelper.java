@@ -116,7 +116,8 @@ public class EmailCommandParseHelper {
         }
     }
 
-    private static Command parseEmailListCommand(ArrayList<Command.Option> optionList, String input) throws EmailParseException {
+    private static Command parseEmailListCommand(ArrayList<Command.Option> optionList, String input)
+            throws EmailParseException {
         if (optionList.size() == 0 && "list".equals(input)) {
             return new EmailListCommand();
         }
