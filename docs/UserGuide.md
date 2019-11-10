@@ -16,7 +16,8 @@ features of the application BetterDuke.
 # 1. Introduction
     Betterduke is a desktop application for NUS students with poor time management. 
     Students, more often than not, are on their laptops, hence Betterduke
-    will provide a convenient platform for students to toggle between checking their timetables and scheduling their tasks. More importantly, Betterduke is optimized for those who
+    will provide a convenient platform for students to toggle between checking their timetables
+    and scheduling their tasks. More importantly, Betterduke is optimized for those who
     prefer to work with a Command Line Interface (CLI) while still having the benefits
     of a Graphical User Interface (GUI). If you can type fast, Betterduke can
     schedule your tasks faster than traditional GUI apps.  Enjoy!
@@ -37,7 +38,7 @@ features of the application BetterDuke.
         5. Type the command in the command box and press **Submit** to execute it.
   <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/Example%20UI2.png" width = 800 length = 450>
        
-        6. E.g. typing "help"  and pressing **Submit** will open the help window.
+        6. E.g. typing "show/help"  and pressing **Submit** will open the help window.
         7. Some example commands you can try:
             a.     show/workload     ​ : show workload for following week’s timetable
             b.     show/filter CS2113T     ​ : show tasks which contains keyword “CS2113T”
@@ -239,7 +240,7 @@ _The Week and calendar display will be switched to week 1._
    ## 3.11. Viewing help : help 
 _Shows list of commands and correct format_
 ### Format:
-- help
+- show/help
 ### Example:
  #### STEPS
  1. User inputs command: show/week 1
@@ -429,7 +430,7 @@ _Tags Task with a label so all related tasks can be categorised
 - show/week 5
 
 13. Help:
-- help
+- show/help
  
 14. Exit:
  - bye

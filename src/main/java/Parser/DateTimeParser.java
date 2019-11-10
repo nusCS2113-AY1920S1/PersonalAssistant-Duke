@@ -60,7 +60,7 @@ public class DateTimeParser {
         commandSplit = input.substring(0, dateOfTask);
         weekDate = WeekFormatParse.acadWeekToString(weekDate,commandSplit.trim());
         String time = input.substring(dateOfTask).trim();
-        weekDate = weekDate + DukeConstants.BLANK_SPACE + time;
+        weekDate = weekDate.trim() + DukeConstants.BLANK_SPACE + time;
         Date date = DukeConstants.DEADLINE_INPUT_FORMAT.parse(weekDate);
         String dateString = DukeConstants.DAY_DATE_FORMAT.format(date);
         String timeString = DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(date);

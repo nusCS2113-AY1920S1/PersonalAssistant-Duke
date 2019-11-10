@@ -84,10 +84,6 @@ public class ShowPreviousCommand extends Command {
                     + DukeConstants.STR_RANGE_FOR_LESS_THAN + sizeOfPreviousList + " .");
         }
 
-        if (!isNumber) {
-            throw new DukeInvalidCommandException(DukeConstants.STR_RANGE_FOR_BETWEEN + sizeOfPreviousList + " .");
-        }
-
         if (isNumber) {
             int startIndex = sizeOfPreviousList - 1;
             for (int i = 0; i < number; i++) {
