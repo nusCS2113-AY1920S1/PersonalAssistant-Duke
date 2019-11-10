@@ -49,7 +49,7 @@ public class ProjectRepository implements IRepository<Project> {
     }
 
     /**
-     * Method to force save an Object to the Data layer
+     * Method to force save an Object to the Data layer.
      * @param object : Object to be saved.
      */
     public void saveToRepo(Project object) {
