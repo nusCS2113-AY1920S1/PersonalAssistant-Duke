@@ -23,11 +23,14 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.HashMap;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Deals with the user in the main CAP page.
  */
 public class CapCommandParser extends Command {
+    private static final Logger LOGGER = Logger.getLogger(CapCommandParser.class.getName());
     /**
      * module name of the module.
      */
@@ -149,15 +152,16 @@ public class CapCommandParser extends Command {
 
 
                     }
-                    capPageStorage.writeToCapFile(toStore);
-                    System.out.println("What do you want to do next ?");
-                    ui.readCommand();
                 }
+                capPageStorage.writeToCapFile(toStore);
+                System.out.println("What do you want to do next ?");
+                ui.readCommand();
             }
             System.out.print(MAIN_MENU_PAGE);
         } catch (IOException | NumberFormatException
                 | ArrayIndexOutOfBoundsException e) {
             System.out.println("Error in CAP.txt");
+            LOGGER.log(Level.SEVERE, "Error in CAP.txt");
         }
     }
 

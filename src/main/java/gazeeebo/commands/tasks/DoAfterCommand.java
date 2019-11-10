@@ -65,11 +65,8 @@ public class DoAfterCommand extends Command {
     }
 
     /**
-     * Program does not exit and continues running
-     * since command "bye" is not called.
-     * <p>
-     * Tells the main Duke class that
-     * the system should not exit and continue running.
+     * Program does not exit and continues running since command "bye" is not called.
+     * Tells the main Duke class that the system should not exit and continue running.
      *
      * @return false
      */

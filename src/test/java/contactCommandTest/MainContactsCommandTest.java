@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package ContactCommandTest;
+package contactCommandTest;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;

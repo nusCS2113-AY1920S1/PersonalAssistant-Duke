@@ -46,6 +46,7 @@ public class ContactCommandParser extends Command {
             + "9. notes\n"
             + "10. change password\n"
             + "To exit: bye\n";
+
     /**
      * Shows list of commands in contact page.
      */

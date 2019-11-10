@@ -26,16 +26,16 @@ public class DeleteCapCommand {
         try {
             String moduleName = "";
             switch (ui.fullCommand.split(" ").length) {
-                case 1:
-                    System.out.print("Which module do you want to delete?\n");
-                    ui.readCommand();
-                    moduleName = ui.fullCommand;
-                    break;
-                case 2:
-                    moduleName = ui.fullCommand.split(" ")[1];
-                    break;
-                default:
-                    throw new ArrayIndexOutOfBoundsException();
+            case 1:
+                System.out.print("Which module do you want to delete?\n");
+                ui.readCommand();
+                moduleName = ui.fullCommand;
+                break;
+            case 2:
+                moduleName = ui.fullCommand.split(" ")[1];
+                break;
+            default:
+                throw new ArrayIndexOutOfBoundsException();
             }
             boolean haveDeleted = false;
             for (String key : caplist.keySet()) {
@@ -47,8 +47,7 @@ public class DeleteCapCommand {
                     break;
                 } else {
                     for (int i = 0; i < caplist.get(key).size(); i++) {
-                        if (moduleName.equals(caplist.
-                                get(key).get(i).moduleCode)) {
+                        if (moduleName.equals(caplist.get(key).get(i).moduleCode)) {
                             caplist.get(key).remove(i);
                             haveDeleted = true;
                             break;
