@@ -45,7 +45,7 @@ public class AddDebtsCommand extends Command {
         UndoStateList.addState(new DebtState(debtList.get()), mode);
         Redo.clearRedoState(mode);
         Debt newDebt = new Debt(type, name, amount, description, date);
-        int duplicateDebtIndex = debtList.findExistingRecordIndex(dollaData, newDebt, mode);
+        int duplicateDebtIndex = debtList.findExistingRecordIndex(newDebt);
         if (recordDoesNotExist(duplicateDebtIndex)) {
             dollaData.addToRecordList(mode, newDebt);
             Ui.echoAddRecord(newDebt);

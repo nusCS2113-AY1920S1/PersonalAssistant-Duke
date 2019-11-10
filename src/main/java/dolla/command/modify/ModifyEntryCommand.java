@@ -19,7 +19,7 @@ public abstract class ModifyEntryCommand extends Command {
 
     protected void updateUndoState(DollaData dollaData) {
         EntryList entryList = (EntryList) dollaData.getRecordListObj(mode);
-        UndoStateList.addState(new EntryState(entryList.get()), mode);///////////////////////////////////////
+        UndoStateList.addState(new EntryState(entryList.get()), mode);
         Redo.clearRedoState(mode);
     }
 }

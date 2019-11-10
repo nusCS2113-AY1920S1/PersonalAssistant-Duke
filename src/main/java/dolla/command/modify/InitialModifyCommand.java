@@ -11,8 +11,8 @@ import dolla.ui.ModifyUi;
  */
 public class InitialModifyCommand extends Command {
 
-    public InitialModifyCommand(String indexStr) {
-        index = Integer.parseInt(indexStr) - 1;
+    public InitialModifyCommand(String recordNumStr) {
+        index = Integer.parseInt(recordNumStr) - 1;
     }
 
     @Override
