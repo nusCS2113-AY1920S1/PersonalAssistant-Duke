@@ -123,7 +123,7 @@ public class MainWindow extends AnchorPane {
         duke = d;
 
 
-        new AutoCompletionTextFieldBinding<>(this.userInput, provider);
+        new AutoCompletionTextFieldBinding<>(this.userInput, provider).setVisibleRowCount(5);
 
         String logo = "  _____  ______ _____ _____  ______ ______  _____  _   _ _    _  _____ \n"
                 + " |  __ \\|  ____/ ____|  __ \\|  ____|  ____|/ ____|| \\ | | |  | |/ ____|\n"
@@ -560,6 +560,16 @@ public class MainWindow extends AnchorPane {
                 + "Format of date is DD-MM-YYYY. \n\n"
                 + "Examples: schedule 01-01-1970 | schedule 18-05-2019";
         this.dataHelp.add(new HelpFX("schedule <DD-MM-YYYY>", description));
+
+        //undo Command.
+        description = "Undoes the most recent command.\n"
+                + "This only works for commands that modify tasks or choices.";
+        this.dataHelp.add(new HelpFX("undo", description));
+
+        //redo Command.
+        description = "Redoes the most recent undone command.\n"
+                + "This only works for commands that modify tasks or choices.";
+        this.dataHelp.add(new HelpFX("redo", description));
 
         helpView.sort();
     }
