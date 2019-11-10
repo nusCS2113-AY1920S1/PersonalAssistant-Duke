@@ -229,7 +229,7 @@ BakingHome's products can have two status: `ACTIVE` or `ARCHIVE`. This feature a
 with a given certain status, i.e. shows only products with an ARCHIVE status.
 
 The filter mechanism in product is facilitated by
-`[FilteredList](https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html)`
+https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html[FilteredList]
 which wraps a ObservableList and
 filters using the provided Predicate.
 A `FilteredList<Product> filteredProducts` is stored in the `ModelManager`. In `BakingHome`, there is an
@@ -255,6 +255,7 @@ particular `PREDICATE_SHOW_ARCHIVE_PRODUCTS` is as follow
 by passing in the corresponding predicate.
 
 An example usage scenario and how the filter mechanism behaves at each step is shown below.
+
 **Step 1.** The user launched the application for the first time.
 UniqueProductList will be initialized with a list of default products in BakingHome.
 This list contains a few active products and a few archived products.
@@ -605,7 +606,6 @@ Use case ends.
 +
 Use case ends.
 
-<<<<<<< HEAD
 * 3a.
 The given index(indices) is(are) invalid.
 +
@@ -636,8 +636,6 @@ BHS detects a invalid command.
 
 _{More to be added}_
 
-=======
->>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
 [appendix]
 == Non Functional Requirements
 
@@ -799,12 +797,7 @@ Error details shown in the pop-up bar.
 .. Test case: `product add -name Bread` +
    Expected: A new product named `Bread` is added.
 Ingredient cost and Retail price are both $0.0. Status is active.
-<<<<<<< HEAD
 .. Test case: `product add -name Cheese cake -ingt [Cream cheese, 3] [Sugar, 5] -cost 3.0 -price 5.9` +
-=======
-. Adding a product with cost and price
-.. Test case: `product add -name Cheese cake -cost 3.0 -price 5.9` +
->>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
    Expected: A new product named `Cheese cake` is added.
 Ingredient cost are $3 and Retail price is $5.9. Status is active. Use `product show INDEX_OF_CHEESE_CAKE`
 to check the ingredients.
@@ -817,18 +810,13 @@ to check the ingredients.
 List will be empty if no products' names contain `cake`.
 
 === Filtering Products
-<<<<<<< HEAD
-=======
-
 . Filters to show only archived products
->>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
 .. Test case: `product filter -scope archive` +
    Expected: All archive products are listed.
 List will be empty if no products have archive status.
 
 . No filter
 .. Test case: `product filter -scope all` +
-<<<<<<< HEAD
     Expected: All products, regardless their status, are listed.
 .. Test case: `product filter -scope active` +
     Expected: All active products are listed.
@@ -836,9 +824,6 @@ List will be empty if no products have archive status.
 === Sorting Products
 .. Test case: `product sort -by cost -scope active -re` +
     Expected: Active products are sorted by cost in descending order.
-=======
-   Expected: All products, regardless their status, are listed.
->>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
 
 === Editing data in BakingHome
 
@@ -859,7 +844,6 @@ You can check the ingredient using command `product show 1`.
 
 . Dealing with missing/corrupted data files
 
-<<<<<<< HEAD
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 BakingHome provides basic Add, Edit, Delete operations for all entity. The tables belows provides a few
@@ -1006,9 +990,9 @@ This is provided the order status is not completed. If the order status is compl
 
 
 _{ more test cases ... }_
-=======
+
 .. Test case (missing data file): Delete the folder `data` in BakingHome's directory and restart BakingHome +
    Expected: BakingHome loads demo data
 .. Test case (corrupted data file): Change the content of data file at `data/baking.json` to "This file is damaged" and restart BakingHome. +
    Expected: BakingHome loads demo data
->>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
+
