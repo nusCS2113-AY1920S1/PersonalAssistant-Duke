@@ -1,10 +1,14 @@
 package seedu.duke.email;
 
+import javafx.util.Pair;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.email.entity.Email;
+import seedu.duke.email.parser.EmailContentParseHelper;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class EmailList extends ArrayList<Email> {
@@ -154,6 +158,33 @@ public class EmailList extends ArrayList<Email> {
             emailStringList.add(email.toGuiString());
         }
         return emailStringList;
+    }
+
+    /**
+     * Searches for the target string with some degree of tolerance in difference.
+     *
+     * @param target the given target string
+     * @return the string to be displayed to the user containing all the search result
+     */
+    public String fuzzySearch(String target) {
+        ArrayList<Pair<Integer, Integer>> results = new ArrayList<>();
+        for (int i = 0; i < this.size(); i++) {
+            int score = EmailContentParseHelper.fuzzySearchInEmail(this.get(i), target);
+            if (score > 0) {
+                results.add(new Pair<>(i, score));
+            }
+        }
+        results.sort(Comparator.comparing(Pair::getValue));
+        ArrayList<Integer> indexes = extractIndexFromFuzzyResults(results);
+        return this.toString(indexes);
+    }
+
+    private static ArrayList<Integer> extractIndexFromFuzzyResults(ArrayList<Pair<Integer, Integer>> results) {
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for (Pair result : results) {
+            indexes.add((Integer) result.getKey());
+        }
+        return indexes;
     }
 
     /**
