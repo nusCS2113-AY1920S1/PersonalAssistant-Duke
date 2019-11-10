@@ -27,6 +27,10 @@ public interface DebtArrayListInterface extends ParserStringList {
                 "tea", LocalDate.parse("2019-12-02"));
     }
 
+    /**
+     * Returns an ArrayList of debts.
+     * @return an ArrayList of debts.
+     */
     default ArrayList<Record> createNewDebtArrayList() {
         ArrayList<Record> newRecordList = new ArrayList<Record>();
         newRecordList.add(createNewDebt1());

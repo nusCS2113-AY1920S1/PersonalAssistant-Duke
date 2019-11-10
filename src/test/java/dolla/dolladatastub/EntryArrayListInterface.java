@@ -27,6 +27,10 @@ public interface EntryArrayListInterface extends ParserStringList {
                 LocalDate.parse("1000-01-01"));
     }
 
+    /**
+     * Returns an ArrayList of entries.
+     * @return an ArrayList of entries.
+     */
     default ArrayList<Record> createNewEntryArrayList() {
         ArrayList<Record> newRecordList = new ArrayList<Record>();
         newRecordList.add(createNewEntry1());

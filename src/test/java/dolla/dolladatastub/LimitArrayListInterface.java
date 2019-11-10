@@ -23,6 +23,10 @@ public interface LimitArrayListInterface extends ParserStringList {
         return new Limit(LIMIT_TYPE_B, 500, LIMIT_DURATION_M);
     }
 
+    /**
+     * Returns an ArrayList of limits.
+     * @return an ArrayList of limits.
+     */
     default ArrayList<Record> createNewLimitArrayList() {
         ArrayList<Record> newRecordList = new ArrayList<Record>();
         newRecordList.add(createNewLimit1());
