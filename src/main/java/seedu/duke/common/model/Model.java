@@ -72,7 +72,7 @@ public class Model {
 
     public EmailKeywordPairList getKeywordPairList() {
         return keywordPairList;
-    }git
+    }
 
     public void setKeywordPairList(EmailKeywordPairList keywordPairList) {
         this.keywordPairList = keywordPairList;

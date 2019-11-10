@@ -116,13 +116,18 @@ public class EmailCommandParseHelper {
         }
     }
 
-    private static Command parseEmailListCommand(ArrayList<Command.Option> optionList, String input) {
+    private static Command parseEmailListCommand(ArrayList<Command.Option> optionList, String input) throws EmailParseException {
         if (optionList.size() == 0 && "list".equals(input)) {
             return new EmailListCommand();
         }
         ArrayList<String> tags = CommandParseHelper.extractTags(optionList);
         if (!tagsNotEmpty(tags)) {
             return new InvalidCommand("Please enter a tag name after \'-tag\' option");
+        }
+        // only a maximum of 2 input tags is allowed
+        if (tags.size() > 2) {
+            throw new EmailParseException("[Input format error] Maximum of 2 tag names are allowed for email tag-"
+                    + "searching.");
         }
         return new EmailFilterByTagCommand(tags);
     }
@@ -214,7 +219,7 @@ public class EmailCommandParseHelper {
         return expressionList;
     }
 
-    private static class EmailParseException extends CommandParseHelper.CommandParseException {
+    public static class EmailParseException extends CommandParseHelper.CommandParseException {
         /**
          * Instantiates the exception with a message, which is ready to be displayed by the UI.
          *

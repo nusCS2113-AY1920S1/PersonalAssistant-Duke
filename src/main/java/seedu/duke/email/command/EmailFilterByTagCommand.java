@@ -16,7 +16,7 @@ public class EmailFilterByTagCommand extends Command {
 
     @Override
     public boolean execute(Model model) {
-        responseMsg = EmailTags.getTaggedEmailList(tags, model.getEmailList());
+        responseMsg = EmailTags.filterByEmailTag(tags, model.getEmailList());
         UI.getInstance().showResponse(responseMsg);
         return true;
     }

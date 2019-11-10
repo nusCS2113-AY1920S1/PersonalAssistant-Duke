@@ -7,6 +7,7 @@ import seedu.duke.Duke;
 import seedu.duke.common.logger.LogsCenter;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
+import seedu.duke.email.EmailTags;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
