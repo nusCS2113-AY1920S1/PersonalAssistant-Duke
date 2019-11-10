@@ -212,7 +212,7 @@ public class GoalsTest {
                         + "[GS] computer(target: $300.00)\n"
                         + " (to achieve by: 9/10/2050) LOW\n"
                         + "Goal Savings after commit: $400.00\n"
-                        + "Target Savings for the Month after commit: $4.31\n"
+                        + "Target Savings for the Month after commit: $4.32\n"
                         + "current Goal Savings: $1500.00\n"
                         + "Target Savings for the Month: $1.35\n"
                         + "Got it, list will be printed in the other pane!\n",
@@ -378,6 +378,9 @@ public class GoalsTest {
         assertEquals(" Last command undone: \n" + g.toString() + " added to goals\n Now you have "
         + account.getShortTermGoals().size() + " goals listed\nand " + account.getExpListTotal().size()
         + " expenses listed\n", ui.getOutputString());
+        account.getShortTermGoals().clear();
+        account.getIncomeListTotal().clear();
+        account.getExpListTotal().clear();
         MoneyCommand exitCommand = new ExitMoneyCommand();
         exitCommand.execute(account, ui, moneyStorage);
     }
