@@ -1,3 +1,4 @@
+import duke.command.Command;
 import duke.command.dishesCommand.AddDishCommand;
 import duke.dish.Dish;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ class DishTest {
     @Test
     public void putDish() {
         Dish dish = new Dish("chicken rice");
-        assertEquals("chicken rice", new AddDishCommand(dish));
+        assertEquals("chicken rice", dish.getDishname());
     }
 
     @Test

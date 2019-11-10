@@ -336,7 +336,7 @@ To begin with, the user needs to enter command `'a'- remove all expired` or `'b'
 
 #### 3.3.1 Adding Ingredient
 
-To add an ingredient to the `Fridge`, the user needs to execute command below:
+To add an ingredient to the `Fridge`, the user needs to execute the command below:
 
 Format: `add `  `INGREDIENT_NAME` `INGREDIENT_AMOUNT` `INGREDIENT_EXPIRY_DATE-(dd/mm/yyyy)`
 
