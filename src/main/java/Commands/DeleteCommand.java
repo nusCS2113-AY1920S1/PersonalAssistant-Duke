@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
      * @param task The task to be deleted
      * @param list The name of the TaskList that requires changing
      */
-    public DeleteCommand(String list, Assignment task){
+    public DeleteCommand(String list, Assignment task) {
         this.task = task;
         this.list = list;
     }
@@ -41,7 +41,8 @@ public class DeleteCommand extends Command {
      * @throws DukeException On ArrayList out of bound error
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeException {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage)
+            throws DukeException {
         HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
         if (list.equals(DukeConstants.EVENT_LIST)) {

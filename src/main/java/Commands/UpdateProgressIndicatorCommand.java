@@ -32,10 +32,14 @@ public class UpdateProgressIndicatorCommand {
      * @param deadlineList The Tasklist object for deadlines
      * @throws IOException if the input is invalid
      */
-    public Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> getWholeDate(TaskList eventList, TaskList deadlineList) throws IOException {
+    public Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>>
+        getWholeDate(TaskList eventList, TaskList deadlineList) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
         fxmlLoader.load();
-        Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> result = fxmlLoader.<ProgressController>getController().getProgressIndicatorMap(eventList.getMap(), deadlineList.getMap());
+        Pair<HashMap<String, String>,
+                ArrayList<Pair<String, Pair<String, String>>>> result
+                = fxmlLoader.<ProgressController>getController()
+                .getProgressIndicatorMap(eventList.getMap(), deadlineList.getMap());
         return result;
     }
 
@@ -43,7 +47,8 @@ public class UpdateProgressIndicatorCommand {
      * This method gets the map which contains the module code.
      * @param wholeData The entire map which contains the module code with the description and tick/cross
      */
-    public HashMap<String, String> getModuleMap(Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> wholeData) {
+    public HashMap<String, String> getModuleMap(Pair<HashMap<String, String>,
+            ArrayList<Pair<String, Pair<String, String>>>> wholeData) {
         HashMap<String, String> modulesMap = wholeData.getKey();
         return modulesMap;
     }
@@ -54,7 +59,9 @@ public class UpdateProgressIndicatorCommand {
      * @param wholeData The entire map which contains the module code, description and tick/cross
      * @return module code, completed tasks and total number of tasks
      */
-    public HashMap<String, Pair<Integer, Integer>> getValues(HashMap<String, String> moduleMap, Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> wholeData) {
+    public HashMap<String, Pair<Integer, Integer>>
+        getValues(HashMap<String, String> moduleMap, Pair<HashMap<String, String>,
+            ArrayList<Pair<String, Pair<String, String>>>> wholeData) {
         HashMap<String, Pair<Integer, Integer>> moduleCodeAndTotalNumOfTasksAndCompletedValue = new HashMap<>();
         for (String module : moduleMap.keySet()) {
             int totalNumTasks = 0;
