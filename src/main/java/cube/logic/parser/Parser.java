@@ -67,8 +67,6 @@ public class Parser {
 				return new PromotionCommandParser().parse(inputs);
 			case "reminder":
 				return new ReminderCommandParser().parse(inputs);
-			case "revenue" :
-				return new RevenueCommandParser().parse(inputs);
 			case "bye":
 			case "exit":
 			case "quit":
