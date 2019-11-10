@@ -12,22 +12,17 @@ import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 
 public class Storage {
     private int stringBuffer = 7;
-    private static ArrayList<Task> tempTaskData = new ArrayList<>();
+    private ArrayList<Task> tempTaskData = new ArrayList<>();
     public TaskList currentTaskData;
 
     private static String defaultFilePath = "data";
     private String filepath;
-    private TaskType dataType;
     private static boolean isResetFresh = false;
 
-    public enum TaskType {
-        DEADLINE
-    }
 
     /**
      * Constructor for storage.
@@ -61,36 +56,40 @@ public class Storage {
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filepath));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                StringTokenizer stringTokenizer = new StringTokenizer(line, "|");
-                int count = 1;
-                StringBuilder finalOutput = new StringBuilder();
-                String currStr;
-                boolean isChecked = false;
-
-                while (stringTokenizer.hasMoreTokens()) {
-                    currStr = stringTokenizer.nextToken();
-                    if (count == 1) {
-                        if ("D".equals(currStr)) {
-                            finalOutput = new StringBuilder("deadline ");
-                            this.dataType = TaskType.DEADLINE;
-                        }
-                    } else if (count == 2 && "✓".equals(currStr)) {
-                        isChecked = true;
-                    } else if (count == 3) {
-                        finalOutput.append(currStr);
-                    } else if (count == 4 && this.dataType == TaskType.DEADLINE) {
-                        finalOutput.append(" /by ").append(currStr);
-                    }
-                    count++;
+            String lineToRead;
+            while ((lineToRead = reader.readLine()) != null) {
+                String currStr = "";
+                boolean isChecked;
+                String[] listOfStrings = lineToRead.split("\\|");
+                if (listOfStrings.length != 4) {
+                    throw new CakeException("DEADLINE LENGTH INVALID: " + listOfStrings.length);
                 }
+
+                currStr += "deadline ";
+                if (!"D".equals(listOfStrings[0])) {
+                    throw new CakeException("DEADLINE EXP 0: " + listOfStrings[0]);
+                }
+
+                if ("✓".equals(listOfStrings[1])) {
+                    isChecked = true;
+                } else if ("✗".equals(listOfStrings[1])) {
+                    isChecked = false;
+                } else {
+                    throw new CakeException("DEADLINE EXP 1: " + listOfStrings[1]);
+                }
+
+                //append taskname
+                currStr += listOfStrings[2];
+                currStr += " /by ";
+                currStr += listOfStrings[3];
+
+                System.out.println("CurrStr: " + currStr);
                 if (!isChecked) {
-                    TaskList.runDeadline(tempTaskData, finalOutput.toString(), TaskList.TaskState.NOT_DONE);
+                    TaskList.runDeadline(tempTaskData, currStr, TaskList.TaskState.NOT_DONE);
                     this.currentTaskData.add(tempTaskData.get(0));
                     tempTaskData.clear();
                 } else {
-                    TaskList.runDeadline(tempTaskData, finalOutput.toString(), TaskList.TaskState.DONE);
+                    TaskList.runDeadline(tempTaskData, currStr, TaskList.TaskState.DONE);
                     this.currentTaskData.add(tempTaskData.get(0));
                     tempTaskData.clear();
                 }

@@ -1,13 +1,16 @@
 package javacake.storage;
 
+import javacake.JavaCake;
 import javacake.exceptions.CakeException;
 import javacake.tasks.Deadline;
 import javacake.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class TaskList {
     private ArrayList<Task> data;
+    private static final int maxDeadlineLength = 39;
 
     public enum TaskState {
         NOT_DONE, DONE
@@ -87,46 +90,53 @@ public class TaskList {
 
 
     public static String runDeadline(ArrayList<Task> data, String inputCommand, TaskState state) throws CakeException {
+        String[] listStr = inputCommand.split("\\s+");
         if (inputCommand.length() <= 9) {
             throw new CakeException("[!] No task description\nPlease input:\n'deadline TASK /by TASK_DATE'");
         }
-        String input = inputCommand.substring(9);
-        String[] listStr = input.split("\\s+");
-        if (listStr.length < 3) {
+        if (listStr.length < 4) {
             throw new CakeException("[!] Improper format\nPlease input:\n'deadline TASK /by TASK_DATE'");
         }
-        String taskInput = "";
-        String argumentDate = "";
-        int idxSlash = -1;
-        for (int i = 0; i < listStr.length; ++i) {
-            if (listStr[i].equals("/by")) {
-                idxSlash = i;
-                break;
-            }
-        }
+        String taskInput;
+        String argumentDate;
+        int idxSlash = getSlashIndex(listStr);
+
         if (idxSlash == -1 || idxSlash == (listStr.length - 1)) {
+            JavaCake.logger.log(Level.WARNING, "INVALID DEADLINE! slashIdx: " + idxSlash);
             throw new CakeException("[!] Improper format\nPlease input:\n'deadline TASK /by TASK_DATE'");
         } else {
-            for (int i = 0; i < idxSlash; ++i) {
-                taskInput += listStr[i];
-                if (i != idxSlash - 1) {
-                    taskInput += " ";
-                }
-            }
-            for (int i = idxSlash + 1; i < listStr.length; ++i) {
-                argumentDate += listStr[i];
-                if (i != listStr.length - 1) {
-                    argumentDate += " ";
-                }
-            }
+            taskInput = getParamString(listStr, 1, idxSlash);
+            argumentDate = getParamString(listStr, idxSlash + 1, listStr.length);
+            System.out.println("Task: " + taskInput);
+            System.out.println("Date: " + argumentDate);
         }
-        System.out.println("Task: " + taskInput);
-        System.out.println("Date: " + argumentDate);
-        if (taskInput.length() > 39) {
+
+        if (taskInput.length() > maxDeadlineLength) {
+            JavaCake.logger.log(Level.WARNING, "Deadline Task length exceeded!");
             throw new CakeException("[!] Task length too long\nPlease input task with < 40 characters!");
         }
         Task tempTask = new Deadline(taskInput, argumentDate);
         return getString(data, state, tempTask);
+    }
+
+    private static String getParamString(String[] listStr, int lowB, int hiB) {
+        String output = "";
+        for (int i = lowB; i < hiB; ++i) {
+            output += listStr[i];
+            if (i != hiB - 1) {
+                output += " ";
+            }
+        }
+        return output;
+    }
+
+    private static int getSlashIndex(String[] listStr) {
+        for (int i = 0; i < listStr.length; ++i) {
+            if (listStr[i].equals("/by")) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private static String getString(ArrayList<Task> data, TaskList.TaskState state, Task tempTask) {

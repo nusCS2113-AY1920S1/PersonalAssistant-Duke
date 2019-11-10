@@ -45,9 +45,6 @@ public class Deadline extends Task {
         } catch (ParseException | NullPointerException e) {
             throw new CakeException("[!] Date cannot be parsed: " + inputDate);
         }
-        //        Parser parser = new Parser();
-        //        List<DateGroup> groups = parser.parse(by);
-        //        dateNow = groups.get(0).getDates().get(0);
         System.out.println("Date:" + dateNow.toString());
 
     }

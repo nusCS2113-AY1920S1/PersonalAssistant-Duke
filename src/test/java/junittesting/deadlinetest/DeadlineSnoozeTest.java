@@ -9,8 +9,12 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class DeadlineSnoozeTest {
-    JavaCake javaCake;
+    private JavaCake javaCake;
+    private String actualOut = "";
+    private String expOut = "";
 
     /**
      * Initialise test files.
@@ -39,6 +43,25 @@ public class DeadlineSnoozeTest {
 
     @Test
     public void posTest1() {
+        actualOut = javaCake.getResponse("deadline a /by 01/01/2019");
+        actualOut = javaCake.getResponse("snooze 1 /by 02/01/2019");
+        actualOut = javaCake.getResponse("reminder");
+        expOut = "~~Upcoming Deadlines!~~\n"
+                + "1.[✗] a\n(by: 02/01/2019)\n";
+        assertEquals(expOut, actualOut);
+    }
 
+    @Test
+    public void posTest2() {
+        actualOut = javaCake.getResponse("deadline a /by 01/01/2019 0001");
+        actualOut = javaCake.getResponse("deadline b /by 01/01/2019");
+        //this will sort the deadlines first
+        actualOut = javaCake.getResponse("reminder");
+        actualOut = javaCake.getResponse("snooze 1 /by 01/01/2019 0002");
+        actualOut = javaCake.getResponse("reminder");
+        expOut = "~~Upcoming Deadlines!~~\n"
+                + "1.[✗] a\n(by: 01/01/2019 0001)\n"
+                + "2.[✗] b\n(by: 01/01/2019 0002)\n";
+        assertEquals(expOut, actualOut);
     }
 }
