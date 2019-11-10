@@ -5,6 +5,8 @@ import static util.constant.ConstantHelper.ALL_MARKER;
 import static util.constant.ConstantHelper.ASSIGNEE_MARKER;
 import static util.constant.ConstantHelper.ASSIGNMENT_INDEX_NUMBER_MARKER;
 import static util.constant.ConstantHelper.BLANK;
+import static util.constant.ConstantHelper.MEMBER_FLAG_LENGTH;
+import static util.constant.ConstantHelper.TASK_FLAG_LENGTH;
 import static util.constant.ConstantHelper.UNASSIGNEE_MARKER;
 
 import java.util.ArrayList;
@@ -46,23 +48,23 @@ public class ParserHelper {
                 continue;
             }
             switch (s.charAt(0)) {
-            case 'n':
-                memberDetails[0] = s.substring(1).trim();
-                break;
-            case 'i':
-                memberDetails[1] = s.substring(1).trim();
-                break;
-            case 'e':
-                memberDetails[2] = s.substring(1).trim();
-                break;
-            case 'x':
-                memberDetails[3] = s.substring(1).trim();
-                break;
-            case 'r':
-                memberDetails[4] = s.substring(1).trim();
-                break;
-            default:
-                break;
+                case 'n':
+                    memberDetails[0] = s.substring(1).trim();
+                    break;
+                case 'i':
+                    memberDetails[1] = s.substring(1).trim();
+                    break;
+                case 'e':
+                    memberDetails[2] = s.substring(1).trim();
+                    break;
+                case 'x':
+                    memberDetails[3] = s.substring(1).trim();
+                    break;
+                case 'r':
+                    memberDetails[4] = s.substring(1).trim();
+                    break;
+                default:
+                    break;
             }
         }
         return memberDetails;
@@ -103,24 +105,24 @@ public class ParserHelper {
                     continue;
                 }
                 switch (trimmedString.substring(0, 2)) {
-                case "t ":
-                    newTaskName = trimmedString.substring(2);
-                    break;
-                case "p ":
-                    newTaskPriority = trimmedString.substring(2);
-                    break;
-                case "d ":
-                    newTaskDate = trimmedString.substring(2);
-                    break;
-                case "c ":
-                    newTaskCredit = trimmedString.substring(2);
-                    break;
-                case "s ":
-                    newTaskState = trimmedString.substring(2);
-                    break;
-                default:
-                    errorMessages.add("An invalid flag is used here: -" + trimmedString);
-                    break;
+                    case "t ":
+                        newTaskName = trimmedString.substring(2);
+                        break;
+                    case "p ":
+                        newTaskPriority = trimmedString.substring(2);
+                        break;
+                    case "d ":
+                        newTaskDate = trimmedString.substring(2);
+                        break;
+                    case "c ":
+                        newTaskCredit = trimmedString.substring(2);
+                        break;
+                    case "s ":
+                        newTaskState = trimmedString.substring(2);
+                        break;
+                    default:
+                        errorMessages.add("An invalid flag is used here: -" + trimmedString);
+                        break;
                 }
             }
         }
@@ -149,20 +151,20 @@ public class ParserHelper {
         newReminderInfoInput.remove(0); // Remove the first empty string in newReminderInfoInput
         for (String s : newReminderInfoInput) {
             switch (s.charAt(0)) {
-            case 'n':
-                newReminderName = s.substring(1).trim();
-                break;
-            case 'r':
-                newReminderRemarks = s.substring(1).trim();
-                break;
-            case 'd':
-                newReminderDate = s.substring(1).trim();
-                break;
-            case'l':
-                newReminderCategory = s.substring(1).trim().toUpperCase();
-                break;
-            default:
-                break;
+                case 'n':
+                    newReminderName = s.substring(1).trim();
+                    break;
+                case 'r':
+                    newReminderRemarks = s.substring(1).trim();
+                    break;
+                case 'd':
+                    newReminderDate = s.substring(1).trim();
+                    break;
+                case'l':
+                    newReminderCategory = s.substring(1).trim().toUpperCase();
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -269,16 +271,16 @@ public class ParserHelper {
                 }
 
                 switch (trimmedString.split(" ")[0]) {
-                case "rm":
-                    String[] splitTrimmedString = trimmedString.substring(3).split(" ");
-                    taskReqIndexesToBeRemoved.addAll(Arrays.asList(splitTrimmedString));
-                    break;
-                case "r":
-                    taskRequirementsToBeAdded.add(trimmedString.substring(2));
-                    break;
-                default:
-                    errorMessages.add("Invalid flag is used in this entry: -" + trimmedString);
-                    break;
+                    case "rm":
+                        String[] splitTrimmedString = trimmedString.substring(3).split(" ");
+                        taskReqIndexesToBeRemoved.addAll(Arrays.asList(splitTrimmedString));
+                        break;
+                    case "r":
+                        taskRequirementsToBeAdded.add(trimmedString.substring(2));
+                        break;
+                    default:
+                        errorMessages.add("Invalid flag is used in this entry: -" + trimmedString);
+                        break;
                 }
             }
         }
@@ -307,33 +309,33 @@ public class ParserHelper {
      * @return An ArrayList with String descriptions of task details sorted by the criteria specified by the user.
      */
     public ArrayList<String> parseSortTaskDetails(
-        HashMap<String, ArrayList<String>> tasksAndAssignedMembers, ArrayList<Task> taskList,
-        String sortCriteria, Project project) {
+            HashMap<String, ArrayList<String>> tasksAndAssignedMembers, ArrayList<Task> taskList,
+            String sortCriteria, Project project) {
         ArrayList<String> taskDetails = new ArrayList<>();
         if (sortCriteria.length() >= 4) {
             String[] detailedCriteria = sortCriteria.split(" ",2);
             switch (detailedCriteria[0]) {
-            case "-name":
-                taskDetails = this.sortHelper.sortTaskName(taskList);
-                break;
-            case "-date":
-                taskDetails = this.sortHelper.sortTaskDueDate(taskList);
-                break;
-            case "-priority":
-                taskDetails = this.sortHelper.sortTaskPriority(taskList);
-                break;
-            case "-credits":
-                taskDetails = this.sortHelper.sortTaskCredit(taskList);
-                break;
-            case "-who":
-                taskDetails = this.sortHelper.sortTaskMember(tasksAndAssignedMembers, taskList,
-                    detailedCriteria[1], project);
-                break;
-            case "-state":
-                taskDetails = this.sortHelper.sortTaskState(taskList, detailedCriteria[1]);
-                break;
-            default:
-                break;
+                case "-name":
+                    taskDetails = this.sortHelper.sortTaskName(taskList);
+                    break;
+                case "-date":
+                    taskDetails = this.sortHelper.sortTaskDueDate(taskList);
+                    break;
+                case "-priority":
+                    taskDetails = this.sortHelper.sortTaskPriority(taskList);
+                    break;
+                case "-credits":
+                    taskDetails = this.sortHelper.sortTaskCredit(taskList);
+                    break;
+                case "-who":
+                    taskDetails = this.sortHelper.sortTaskMember(tasksAndAssignedMembers, taskList,
+                            detailedCriteria[1], project);
+                    break;
+                case "-state":
+                    taskDetails = this.sortHelper.sortTaskState(taskList, detailedCriteria[1]);
+                    break;
+                default:
+                    break;
             }
         }
         return taskDetails;
@@ -358,22 +360,22 @@ public class ParserHelper {
                 continue;
             }
             switch (part[0]) {
-            case ASSIGNMENT_INDEX_NUMBER_MARKER:
-                if (commandPart.length() >= 3) {
-                    allTaskIndexes = commandPart.substring(2).trim();
-                }
-                break;
-            case ASSIGNEE_MARKER:
-                if (commandPart.length() >= 4) {
-                    allAssigneeIndexes = commandPart.substring(3).trim();
-                }
-                break;
-            case UNASSIGNEE_MARKER:
-                if (commandPart.length() >= 4) {
-                    allUnassigneeIndexes = commandPart.substring(3).trim();
-                }
-                break;
-            default:
+                case ASSIGNMENT_INDEX_NUMBER_MARKER:
+                    if (commandPart.length() >= TASK_FLAG_LENGTH) {
+                        allTaskIndexes = commandPart.substring(TASK_FLAG_LENGTH - 1).trim();
+                    }
+                    break;
+                case ASSIGNEE_MARKER:
+                    if (commandPart.length() >= MEMBER_FLAG_LENGTH) {
+                        allAssigneeIndexes = commandPart.substring(MEMBER_FLAG_LENGTH - 1).trim();
+                    }
+                    break;
+                case UNASSIGNEE_MARKER:
+                    if (commandPart.length() >= MEMBER_FLAG_LENGTH) {
+                        allUnassigneeIndexes = commandPart.substring(MEMBER_FLAG_LENGTH - 1).trim();
+                    }
+                    break;
+                default:
             }
         }
 
@@ -421,9 +423,9 @@ public class ParserHelper {
                 }
             } catch (NumberFormatException e) {
                 ArchDukeLogger.logError(ParserHelper.class.getName(), "[parseMemberIndexes] "
-                    + "Invalid member index: " + index);
+                        + "Invalid member index: " + index);
                 errorMessages.add("Could not recognise member " + index
-                    + ", please ensure it is an integer.");
+                        + ", please ensure it is an integer.");
             }
         }
         return validMembers;
@@ -457,24 +459,24 @@ public class ParserHelper {
                 }
             } catch (NumberFormatException e) {
                 ArchDukeLogger.logError(ParserHelper.class.getName(), "[parseTasksIndexes]"
-                    + "Invalid task number: " + index);
+                        + "Invalid task number: " + index);
                 errorMessages.add("Could not recognise task " + index
-                    + ", please ensure it is an integer.");
+                        + ", please ensure it is an integer.");
             }
         }
         return tasksToView;
     }
 
     private void checkForSameMemberIndexes(ArrayList<Integer> assignees, ArrayList<Integer> unassignees,
-        Project project) {
+                                           Project project) {
         ArrayList<Integer> repeated = new ArrayList<>();
         for (Integer index: assignees) {
             if (unassignees.contains(index)) {
                 repeated.add(index);
                 ArchDukeLogger.logError(ParserHelper.class.getName(), "[checkForSameMemberIndexes] "
-                    + " Same index in assign and unassign: " + index);
+                        + " Same index in assign and unassign: " + index);
                 errorMessages.add("Cannot assign and unassign task to member " + index + " ("
-                    + project.getMember(index).getName() + ") at the same time");
+                        + project.getMember(index).getName() + ") at the same time");
 
             }
         }

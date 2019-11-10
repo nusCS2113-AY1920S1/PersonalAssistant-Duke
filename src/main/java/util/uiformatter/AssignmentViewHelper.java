@@ -6,6 +6,10 @@ import static util.constant.ConstantHelper.COMMAND_VIEW_ASSIGNMENTS_TASK_FLAG;
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
 import static util.constant.ConstantHelper.VALID_VIEW_ASSIGNMENT_LENGTH;
 import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_ASSIGNMENTS;
+import static util.constant.ConstantHelper.VIEW_ASSIGNMENTS_INSUFFICIENT_PARAMS_MESSAGE;
+import static util.constant.ConstantHelper.VIEW_ASSIGNMENTS_INVALID_FLAG_MESSAGE;
+import static util.constant.ConstantHelper.VIEW_ASSIGNMENTS_NO_MEMBERS_MESSAGE;
+import static util.constant.ConstantHelper.VIEW_ASSIGNMENTS_NO_TASKS_MESSAGE;
 
 import controllers.ProjectInputController;
 import java.util.ArrayList;
@@ -21,10 +25,10 @@ import util.log.ArchDukeLogger;
 public class AssignmentViewHelper {
     private static ViewHelper viewHelper = new ViewHelper();
     private ParserHelper parserHelper;
+
     /**
      * Class that assists with retrieving and formatting information about task assignments in a project.
      */
-
     public AssignmentViewHelper() {
         this.parserHelper = new ParserHelper();
     }
@@ -37,12 +41,9 @@ public class AssignmentViewHelper {
      */
     public String[] viewAssignments(String projectCommand, Project projectToManage) {
         if (projectCommand.length() <= VALID_VIEW_ASSIGNMENT_LENGTH) {
-            return (new String[] {
-                "Please input the parameters to view assignments:",
-                "**\t-m for viewing by member, -t for viewing by task.",
-                "**\t\"all\" to view all assignments + or enter selected task/member index numbers.",
-                "You may refer to the user guide or enter \"help\" for the list of possible commands."
-            });
+            ArchDukeLogger.logError(AssignmentViewHelper.class.getName(), "[viewAssignments]: "
+                    + "invalid input length");
+            return (VIEW_ASSIGNMENTS_INSUFFICIENT_PARAMS_MESSAGE);
         }
         String input = projectCommand.substring(COMMAND_VIEW_ASSIGNMENTS.length());
         if (COMMAND_VIEW_ASSIGNMENTS_MEMBER_FLAG.equals(input.substring(0,2))) {
@@ -50,9 +51,9 @@ public class AssignmentViewHelper {
         } else if (COMMAND_VIEW_ASSIGNMENTS_TASK_FLAG.equals(input.substring(0,2))) {
             return viewTasksAssignments(projectToManage, projectCommand.substring(VALID_VIEW_ASSIGNMENT_LENGTH));
         } else {
-            return (new String[]
-                {"Could not understand your command! Please use:",
-                    "**\t-m for viewing by member, -t for viewing by task.",});
+            ArchDukeLogger.logError(AssignmentViewHelper.class.getName(), "[viewAssignments]: "
+                    + "wrong flag used (not -m or -t)");
+            return (VIEW_ASSIGNMENTS_INVALID_FLAG_MESSAGE);
         }
     }
 
@@ -63,29 +64,18 @@ public class AssignmentViewHelper {
      */
     private String[] viewMembersAssignments(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
-            "[projectViewMembersAssignments] User input: '" + projectCommand + "'");
+                "[projectViewMembersAssignments] User input: '" + projectCommand + "'");
         ArrayList<Integer> validMembers = parserHelper.parseMembersIndexes(projectCommand,
-            projectToManage.getNumOfMembers());
+                projectToManage.getNumOfMembers());
         if (!parserHelper.getErrorMessages().isEmpty()) {
             return parserHelper.getErrorMessages().toArray(new String[0]);
         }
-        return getMemberOutput(validMembers, projectToManage);
-    }
-
-    /**
-     * Returns a list of tasks and the members assigned to them.
-     * @param projectToManage The project to manage.
-     * @param projectCommand The user input.
-     */
-    private String[] viewTasksAssignments(Project projectToManage, String projectCommand) {
-        ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
-            "[projectViewTasksAssignments] User input: '" + projectCommand + "'");
-        ArrayList<Integer> validTasks = parserHelper.parseTasksIndexes(projectCommand,
-            projectToManage.getNumOfTasks());
-        if (!parserHelper.getErrorMessages().isEmpty()) {
-            return parserHelper.getErrorMessages().toArray(new String[0]);
+        HashMap<String, ArrayList<String>> memberAndIndividualTasks = projectToManage.getMembersIndividualTaskList();
+        if (memberAndIndividualTasks.keySet().isEmpty()) {
+            return VIEW_ASSIGNMENTS_NO_MEMBERS_MESSAGE;
         }
-        return getTaskOutput(validTasks, projectToManage);
+        ArrayList<ArrayList<String>> memberAssignmentInfo = getMemberOutput(validMembers, projectToManage);
+        return getFormattedOutputForMember(memberAssignmentInfo);
     }
 
     /**
@@ -94,16 +84,10 @@ public class AssignmentViewHelper {
      * @param project THe project being managed.
      * @return An array containing information requested by the user.
      */
-    public static String[] getMemberOutput(ArrayList<Integer> membersToView,
-        Project project) {
-        ArrayList<ArrayList<String>> totalOutputToPrint = new ArrayList<>();
+    private static ArrayList<ArrayList<String>> getMemberOutput(ArrayList<Integer> membersToView,
+                                                                Project project) {
         HashMap<String, ArrayList<String>> memberAndIndividualTasks = project.getMembersIndividualTaskList();
-        if (memberAndIndividualTasks.keySet().isEmpty()) {
-            ArrayList<String> outputToPrint = new ArrayList<>();
-            outputToPrint.add("No members in project yet.");
-            outputToPrint.add("Please add members and assign them tasks before using this command!");
-            return outputToPrint.toArray(new String[0]);
-        }
+        ArrayList<ArrayList<String>> totalMemberOutputToPrint = new ArrayList<>();
         for (Integer index : membersToView) {
             ArrayList<String> outputToPrint = new ArrayList<>();
             IMember member = project.getMember(index);
@@ -120,10 +104,35 @@ public class AssignmentViewHelper {
                 }
                 outputToPrint.remove(outputToPrint.lastIndexOf(""));
             }
-            totalOutputToPrint.add(outputToPrint);
+            totalMemberOutputToPrint.add(outputToPrint);
         }
+        return totalMemberOutputToPrint;
+    }
+
+    public String[] getFormattedOutputForMember(ArrayList<ArrayList<String>> totalOutputToPrint) {
         return viewHelper.consolePrintMultipleTables(totalOutputToPrint, DEFAULT_HORI_BORDER_LENGTH,
                 NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_ASSIGNMENTS, "Here are each member's tasks:");
+    }
+
+    /**
+     * Returns a list of tasks and the members assigned to them.
+     * @param projectToManage The project to manage.
+     * @param projectCommand The user input.
+     */
+    private String[] viewTasksAssignments(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
+                "[projectViewTasksAssignments] User input: '" + projectCommand + "'");
+        ArrayList<Integer> validTasks = parserHelper.parseTasksIndexes(projectCommand,
+                projectToManage.getNumOfTasks());
+        if (!parserHelper.getErrorMessages().isEmpty()) {
+            return parserHelper.getErrorMessages().toArray(new String[0]);
+        }
+        HashMap<String, ArrayList<String>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+        if (tasksAndAssignedMembers.keySet().isEmpty()) {
+            return VIEW_ASSIGNMENTS_NO_TASKS_MESSAGE;
+        }
+        ArrayList<ArrayList<String>> taskAssignmentInfo = getTaskOutput(validTasks, projectToManage);
+        return getFormattedOutputForTask(taskAssignmentInfo);
     }
 
     /**
@@ -132,15 +141,9 @@ public class AssignmentViewHelper {
      * @param project Project to be managed.
      * @return An Array containing information requested by the user.
      */
-    public static String[] getTaskOutput(ArrayList<Integer> tasksToView, Project project) {
+    private static ArrayList<ArrayList<String>> getTaskOutput(ArrayList<Integer> tasksToView, Project project) {
         HashMap<String, ArrayList<String>> tasksAndAssignedMembers = project.getTasksAndAssignedMembers();
-        if (tasksAndAssignedMembers.keySet().isEmpty()) {
-            ArrayList<String> outputToPrint = new ArrayList<>();
-            outputToPrint.add("No tasks in project yet.");
-            outputToPrint.add("Please add tasks and assign them to members before using this command!");
-            return outputToPrint.toArray(new String[0]);
-        }
-        ArrayList<ArrayList<String>> totalOutputToPrint = new ArrayList<>();
+        ArrayList<ArrayList<String>> totalTaskOutputToPrint = new ArrayList<>();
         for (Integer index : tasksToView) {
             Task task = project.getTask(index);
             ArrayList<String> outputToPrint = new ArrayList<>();
@@ -155,8 +158,12 @@ public class AssignmentViewHelper {
                     currentNumber++;
                 }
             }
-            totalOutputToPrint.add(outputToPrint);
+            totalTaskOutputToPrint.add(outputToPrint);
         }
+        return totalTaskOutputToPrint;
+    }
+
+    public String[] getFormattedOutputForTask(ArrayList<ArrayList<String>> totalOutputToPrint) {
         return viewHelper.consolePrintMultipleTables(totalOutputToPrint, DEFAULT_HORI_BORDER_LENGTH,
                 NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_ASSIGNMENTS, "Here are the members assigned to each task:");
     }
