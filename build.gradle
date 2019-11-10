@@ -4,8 +4,8 @@ plugins {
     id 'application'
     id 'checkstyle'
     id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'jacoco'
 }
-
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
@@ -14,6 +14,15 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+test.finalizedBy jacocoTestReport
 
 group 'seedu.main'
 version '0.1.0'
@@ -29,13 +38,18 @@ javafx {
 
 shadowJar {
     archiveBaseName = "Ducats"
-    archiveVersion = "1.3"
+    archiveVersion = "1.3.1"
     archiveClassifier = null
     archiveAppendix = null
 }
 
 checkstyle {
     toolVersion = '8.23'
+}
+
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/reports/jacoco")
 }
 
 application {

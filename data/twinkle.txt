@@ -1,0 +1,8 @@
+twinkle aminor 120 
+[[UAs],[UA],[UA],[UA],[RTs],[RT],[RT],[RT]]
+[[MCs],[MC],[MC],[MC],[MC],[MC],[LDs],[LD]]
+[[MCs],[MC],[MC],[MC],[MC],[MC],[LDs],[LD]]
+[[MCs],[UDs],[UD],[UD],[RTs],[RT],[RT],[RT]]
+[[MCs],[UDs],[UD],[UD],[RTs],[RT],[RT],[RT]]
+groups:
+goodstuff [[MCs],[MC],[MC],[MC],[MC],[MC],[LDs],[LD]] [[MCs],[UDs],[UD],[UD],[RTs],[RT],[RT],[RT]] 

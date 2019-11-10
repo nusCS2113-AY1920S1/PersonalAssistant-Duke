@@ -38,6 +38,8 @@ public class Ducats {
     private UndoRedoStack undoRedoStack;
     private Metronome metronome;
 
+    private String fileDelimiter = System.getProperty("file.separator");
+
     //@@author rohan-av
     /**
      * Constructor for the duke.Duke object, which initializes the UI, duke.TaskList and duke.Storage in
@@ -48,8 +50,7 @@ public class Ducats {
         songs = new SongList();
 
         //storage = new Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt"));
-        String fileDelimiter = System.getProperty("file.separator");
-        storage = new Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
+        storage = new Storage(System.getProperty("user.dir") + fileDelimiter + "data");
 
         metronome = new Metronome();
         try {
