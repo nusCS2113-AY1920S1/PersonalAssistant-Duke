@@ -68,7 +68,7 @@ public class RecurringEventParser extends EventParser {
         if (matcher.find()) {
             return matcher.group().split("\\s")[1]; // you can get it from desired index as well
         } else {
-            logger.writeLog("Missing till date", this.getClass().getName(), userInput);
+            logger.writeLog(ChronologerException.emptyDateOrTime(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
     }
