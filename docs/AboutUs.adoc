@@ -54,7 +54,7 @@ Responsibilities: +
 - Implementation of Domain Logic +
 Features Implemented: +
 - Creation/Viewing/Updating/Deletion of members +
-- Viewing/Updating/Deletion of tasks
+- Viewing/Updating/Deletion of tasks +
 - Assignment features (Credits)
 
 '''
