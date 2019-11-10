@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 //@@author JasonChanWQ
@@ -74,7 +75,7 @@ public class ShowTaskDetailsCommandTest {
 
         Command command = ShowCommandParser.parseShowCommand("task 1");
         CommandOutput out = command.execute(model);
-        assertEquals("Here are the details for Task: 1\n"
+        assertSame("Here are the details for Task: 1\n"
                 + "Task Name: Complete event poster ["
                 + model.getTaskIsDoneByIdOnList(1) + "]\n"
                 + "Description: Complete swim meet poster\n"
