@@ -102,7 +102,7 @@ public class RetrieveRequest implements InfoFetcher {
     // Data Keys for both movie and TV shows
     private static final String MOVIE_TITLE = "title";
     private static final String ADULT = "adult";
-    private static final String TV_TITLE = "original_name";
+    private static final String TV_TITLE = "name";
     private static final String RELEASE_DATE = "release_date";
     private static final String DATA_ID = "id";
     private static final String GENRES = "genre_ids";
