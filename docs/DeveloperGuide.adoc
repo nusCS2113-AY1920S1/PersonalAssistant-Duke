@@ -498,21 +498,21 @@ Degree are a class which contains ModuleList class and other auxiliary informati
 
 `Degree#validList(List<String> input)`: This function takes in a list of strings. First, the input is checked to make sure it is not null or empty, or only consists of one string. Then each string is then checked for the following criteria. Then the second string is checked to make sure it has 12 comma separated values.
 
-`Degree#print(void)`: This function prints the degree list. It first prints out the hardcoded information, then it prints out the list headers by printListHeader, then the related list with printList.
+`Degree#compare(Degree other)`: This function prints result of comparison with another degree. It will print out the Proper Names of each degree, followed by the list headers. For each list header, it will print similar degrees followed by different degrees.
 
-`Degree#printListHeader(String front, Integer sum)`: This function prints out the List header and the sum associated with it.
-
-`Degree#printList(ModuleList modList)`: This prints out the List of Modules in lexicographical order.
+`Degree#print(void)`: This function prints the degree list. It first prints out the hardcoded information, then it prints out the list headers followed by the lists.
 
 Given below is an example usage scenario and how the degree mechanism behaves at each step.
 
-*Step 1*: The user launches the application, and Duke will initialize an instance of Set of Strings of degrees and a Map of Strings to Degrees. Duke will call the `setDegrees` method, and it will fetch the data of list of degrees from listdegrees.csv in the data folder.
+*Step 1*: The user launches the application, and Duke will initalize the storage. Duke will then instantiate a new copy of DegreeManager, by handing it a copy of the Storage and its contents.
 
-*Step 2*: Duke will continue refer to this list of Degrees in order to determine where to get the degree information from. The csv file is expected to match the strings in the set.
+*Step 2*: DegreeManager will load the list of degrees it should initialize from storage. Then it will attempt to load the relevant save data from each file. If any Degree is unsucessful in loading, an empty instance of DegreeManager will be initialized instead.
 
-*Step 3*: The degrees are created using the data from the csv files. It will then be linked via its key (the name of the Degree) to the Degree.
+*Step 3*: Duke will continue refer to Degrees stored in DegreeManager in order to determine where to get the degree information from. The csv file is expected to match the strings in the set.
 
-*Step 4*: If no errors occured, the map of degrees will be initialized, if not the maps and sets will be cleared and there will be a request to contact the System Adminstrator for assistance.
+*Step 4*: The degrees are created using the data from the csv files. It will then be linked via its key (the name of the Degree) to the Degree.
+
+*Step 5*: If no errors occured, the map of degrees will be initialized, if not the maps and sets will be cleared and there will be a request to contact the System Adminstrator for assistance.
 
 ==== Design Considerations
 
