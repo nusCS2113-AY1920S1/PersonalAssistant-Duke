@@ -56,8 +56,7 @@ public class TaskList {
             }
             deletedList.add(tasks.get(idx[0]));
             tasks.remove(idx[0]);
-        }
-        else {
+        } else {
             if (idx[0] < 0 || idx[0] >= tasks.size() || idx[1] < 0 || idx[1] >= tasks.size()) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
@@ -131,7 +130,7 @@ public class TaskList {
     public void showCompleted() throws RoomShareException {
         sortTasks();
         System.out.println(COMPLETED_TASKS);
-        if (tasks.size() != 0){
+        if (tasks.size() != 0) {
             int listCount = 1;
             for (Task output : tasks) {
                 if (output.getDone()) {
@@ -166,26 +165,31 @@ public class TaskList {
             if (index[0] < 0 || index[0] >= tasks.size() || index[1] < 0 || index[1] >= tasks.size()) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
-            for (int i = index[0]; i <= index[1]; i++){
+            for (int i = index[0]; i <= index[1]; i++) {
                 tasks.get(i).setDone(true);
             }
         }
     }
 
     /**
-     * Overload function for done to complete subTasks.
-     * @param index index of task
-     * @param subTaskIndex index of subtask completed
+     * Set a subtask from an assignment as done.
+     * @param input the String containing the index of the Assignment and subtask
+     * @throws RoomShareException if there are formatting error or the task entered is not an Assignment
      */
-    public void done(int index, int subTaskIndex) throws RoomShareException {
-        if (TaskList.get(index) instanceof Assignment) {
-            try {
-                ((Assignment) TaskList.get(index - 1)).doneSubtask(subTaskIndex - 1);
-            } catch (ClassCastException e) {
+    public void doneSubTask(String input) throws RoomShareException {
+        int index;
+        int subTaskIndex;
+        try {
+            String[] arr = input.split(" ");
+            index = Integer.parseInt(arr[1]) - 1;
+            subTaskIndex = Integer.parseInt(arr[2]) - 1;
+            if (TaskList.get(index) instanceof Assignment) {
+                ((Assignment) TaskList.get(index)).doneSubtask(subTaskIndex);
+            } else {
                 throw new RoomShareException(ExceptionType.subTaskError);
             }
-        } else {
-            throw new RoomShareException(ExceptionType.subTaskError);
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e1) {
+            throw new RoomShareException(ExceptionType.wrongIndexFormat);
         }
     }
 
@@ -384,7 +388,7 @@ public class TaskList {
      * @param timeUnit unit for snooze time: month, day, hour, minute
      * @throws IndexOutOfBoundsException when the specified index is not within the task list indices
      */
-    public void snooze (int index, int amount, TimeUnit timeUnit) throws RoomShareException {
+    public void snooze(int index, int amount, TimeUnit timeUnit) throws RoomShareException {
         try {
             switch (timeUnit) {
             case month:
@@ -414,7 +418,7 @@ public class TaskList {
      */
     int getSize() {
         int count = 0;
-        for(Task t : tasks) {
+        for (Task t : tasks) {
             if (!t.getOverdue() && !(t instanceof Leave)) {
                 count += 1;
             }
@@ -508,11 +512,11 @@ public class TaskList {
      * @throws RoomShareException when the task selected is a Leave
      */
     public void reopen(int index, Date date) throws RoomShareException {
-        tasks.get(index).setDate(date);
-        CheckAnomaly.checkDuplicate(tasks.get(index));
+        TaskList.get(index).setDate(date);
+        CheckAnomaly.checkDuplicate(TaskList.get(index));
         if (tasks.get(index) instanceof Meeting) {
-            CheckAnomaly.checkTimeClash(tasks.get(index));
+            CheckAnomaly.checkTimeClash(TaskList.get(index));
         }
-        tasks.get(index).setDone(false);
+        TaskList.get(index).setDone(false);
     }
 }

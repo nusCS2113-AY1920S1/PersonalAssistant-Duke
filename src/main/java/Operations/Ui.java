@@ -6,11 +6,11 @@ import Enums.TimeUnit;
 import java.io.IOException;
 
 /**
- * class to tell user about errors and completion of operations
+ * Class to tell user about errors and completion of operations.
  */
 public class Ui {
     /**
-     * Constructor for Ui class
+     * Constructor for Ui class.
      */
     public Ui() {
     }
@@ -37,6 +37,29 @@ public class Ui {
         System.out.println("Enter 'help' if you require assistance");
     }
 
+    public void helpList() {
+        System.out.println("Here are a list of commands you can input: " +
+                "\n bye " +
+                "\n list " +
+                "\n done " +
+                "\n delete " +
+                "\n removeoverdue " +
+                "\n restore " +
+                "\n find " +
+                "\n priority " +
+                "\n add " +
+                "\n snooze " +
+                "\n reorder " +
+                "\n subtask " +
+                "\n update " +
+                "\n sort " +
+                "\n log " +
+                "\n completed " +
+                "\n overdue " +
+                "\n reschedule " +
+                "\n show \n" +
+                "For more information about a specific command you can \nEnter help followed by a command, eg. help add\n");
+    }
 
     void helpAdd() {
         System.out.println("Adds a Meeting or Assignment to the list\n");
@@ -137,6 +160,37 @@ public class Ui {
         System.out.println("Logs the current task list into a saved file");
     }
 
+    public void helpRemoveoverdue() {
+        System.out.println("Remove tasks from the overdue list if you do not want to reschedule it");
+        System.out.println("\teg. removeoverdue 2");
+        System.out.println("\teg. removeoverdue 1-3");
+    }
+
+    public void helpBye() {
+        System.out.println("Typing in 'bye' will exit the program");
+    }
+
+    public void helpCompleted() {
+        System.out.println("Shows the list of completed tasks");
+    }
+
+    public void helpOverdue() {
+        System.out.println("Shows the list of overdued tasks");
+    }
+
+    public void helpReschedule() {
+        System.out.println("Reschedules an overdued task by index to a later date by inputting a new date");
+        System.out.println("\teg. reschedule 1 &20/11/2019 10:00&");
+        System.out.println("\teg. reschedule 3-4 &tmr 10:00&");
+        System.out.println("This will reschedule the tasks specified by their index to the new date");
+    }
+
+    public void helpShow() {
+        System.out.println("Shows you the task tagged to each user in the task list");
+        System.out.println("\teg. show kelly");
+        System.out.println("This will list all the tasks assigned to kelly and everyone");
+    }
+
     /**
      * Prints a message telling the user that the task at the index has been deleted.
      *
@@ -146,8 +200,7 @@ public class Ui {
     public void showDeleted(int[] index) {
         if (index.length == 1) {
             System.out.println("Deleted task number " + (index[0] + 1) + "!");
-        }
-        else {
+        } else {
             System.out.println("Deleted task number " + (index[0] + 1) + " to " + (index[1] + 1) + " !");
         }
     }
@@ -184,7 +237,7 @@ public class Ui {
      * tells the user that RoomShare is listing the tasks.
      */
     void showList() {
-        System.out.println("Listing tasks in your task list...");
+        System.out.println("Listing tasks in the common task list...");
     }
 
     /**
@@ -204,14 +257,14 @@ public class Ui {
     }
 
     /**
-     * tells the user that the requested task has been snoozed
+     * tells the user that the requested task has been snoozed.
      */
     public void showSnoozeComplete(int index, int amount, TimeUnit unit) {
         System.out.println("Great I've snoozed task " + index + " by " + amount + " " + unit.name());
     }
 
     /**
-     * Provides user with instructions to prioritise task
+     * Provides user with instructions to prioritise task.
      */
     public void priorityInstruction() {
         System.out.println("Enter task index followed by priority (high, medium, low)");
@@ -219,14 +272,14 @@ public class Ui {
     }
 
     /**
-     * Notifies the user that their task's priority has been set
+     * Notifies the user that their task's priority has been set.
      */
     public void prioritySet() {
         System.out.println("Your task's priority has been set");
     }
 
     /**
-     * Prompt user to enter the second index
+     * Prompt user to enter the second index.
      */
     public void promptSecondIndex() {
         System.out.println("Please enter the index to swap to");
@@ -234,18 +287,6 @@ public class Ui {
 
     public void showReordering() {
         System.out.println("Reordering the task list...");
-    }
-
-    void helpList() {
-        System.out.println("Here are a list of commands you can input: " +
-                "\n add " + "\n delete " + "\n list " + "\n done "
-                + "\n restore " + "\n find " + "\n priority "
-                + "\n snooze " + "\n reorder " + "\n subtask "
-                + "\n update " + "\n sort " + "\n bye "
-                + "\n completed " + "\n overdue " + "\n reschedule "
-                + "\n log \n"
-                + "For more information about a specific command you can "
-                + "\nEnter help followed by a command, eg. help add");
     }
 
     /**
@@ -297,26 +338,10 @@ public class Ui {
         System.out.println("Here are your overdue tasks: ");
     }
 
-    void helpBye() {
-        System.out.println("Typing in 'bye' will exit the program");
-    }
-
-    void helpCompleted() {
-        System.out.println("Shows the list of completed tasks");
-    }
-
-    void helpOverdue() {
-        System.out.println("Shows the list of overdue tasks");
-    }
-
-    void helpReschedule() {
-        System.out.println("Reschedules an overdue task by index to a later date by inputting a new date");
-        System.out.println("\teg. reschedule 1 &20/11/2019 10:00&");
-        System.out.println("This will reschedule task 1 in the overdue task list to have a deadline of 20th Nov 2019 at 10am");
-    }
     public void showTagged(String user) {
         System.out.println("These are the tasks assigned to " + user + ":");
     }
+
     public void showTaggedPercentage(String user) {
         System.out.println("The completion status for '" + user + "' is:");
     }

@@ -124,7 +124,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/java/TaskListTest.java</url>
-          <line>39</line>
+          <line>38</line>
           <properties class="TaskListTest" method="add">
             <option name="EMULATED" value="true" />
           </properties>
@@ -132,7 +132,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/java/TaskListTest.java</url>
-          <line>93</line>
+          <line>92</line>
           <properties class="TaskListTest" method="reorder">
             <option name="EMULATED" value="true" />
           </properties>
@@ -140,7 +140,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/TaskListTest.java</url>
-          <line>107</line>
+          <line>106</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
