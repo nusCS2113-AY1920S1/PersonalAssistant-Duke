@@ -4,6 +4,7 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.util.logging.Handler;
 import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
 
@@ -35,4 +36,22 @@ public class DukeLogger {
             logger.log(Level.SEVERE, "Duke logger is not working.", e);
         }
     }
+
+    //@@author maxxyx96
+    //Solution adapted from https://www.programcreek.com/java-api-examples/?class=java.util.logging.Handler&method=close
+    /**
+     * Closes all the handlers that are utilised for logging Duke.
+     *
+     * @param logger the logger that Duke Manager uses to log errors.
+     */
+    public static void stopLogger(Logger logger) {
+        if (logger != null) {
+            Handler[] handlers = logger.getHandlers();
+            for (Handler handler : handlers) {
+                handler.close();
+                logger.removeHandler(handler);
+            }
+        }
+    } //@@author
 }
+//@@author

@@ -19,6 +19,7 @@ import duke.task.FilterList;
 import duke.task.ContactList;
 import duke.task.TaskList;
 import duke.ui.Ui;
+import duke.DukeLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -295,8 +296,9 @@ public class Duke {
             contactStorage.write(contactList);
             budgetStorage.write(budgetList);
             storage.write(items);
+            new DukeLogger().stopLogger(logger);
         } catch (IOException i) {
-            logger.severe("OH NO CANT SAVE WHEN EXITING OH GOD WHY");
+            logger.severe("Error saving storage files upon exiting.");
         }
     } //@@author
 }
