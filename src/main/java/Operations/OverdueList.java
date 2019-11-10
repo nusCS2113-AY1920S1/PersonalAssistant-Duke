@@ -8,7 +8,7 @@ import Model_Classes.Task;
 import java.util.ArrayList;
 
 public class OverdueList {
-    private static ArrayList<Task> Overdue;
+    private static ArrayList<Task> overdue;
 
     /**
      * A constructor for the overdueList class.
@@ -16,7 +16,7 @@ public class OverdueList {
      * @param Overdue ArrayList of Task object to be operated on.
      */
     public OverdueList(ArrayList<Task> Overdue) {
-        this.Overdue = Overdue;
+        OverdueList.overdue = Overdue;
     }
 
     /**
@@ -25,7 +25,7 @@ public class OverdueList {
      *             Overdued task list.
      */
     public void add(Task task) {
-        Overdue.add(task);
+        overdue.add(task);
     }
 
     /**
@@ -65,15 +65,15 @@ public class OverdueList {
      * @throws RoomShareException when the list is empty
      */
     public void list() throws RoomShareException {
-        if (Overdue.size() == 0) {
+        if (overdue.size() == 0) {
             throw new RoomShareException(ExceptionType.emptyList);
         } else {
             int listCount = 1;
-            for (Task output : Overdue) {
+            for (Task output : overdue) {
                 System.out.println("\t" + listCount + ". " + output.toString());
-                if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
+                if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
                     ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                    for(String subtask : subTasks) {
+                    for (String subtask : subTasks) {
                         System.out.println("\t" + "\t" + "-" + subtask);
                     }
                 }
@@ -88,35 +88,45 @@ public class OverdueList {
      * @return the task at the specified index in the task list.
      * @throws RoomShareException when the index specified is out of bounds.
      */
-    public Task get(int index) throws RoomShareException{
+    public Task get(int index) throws RoomShareException {
         try {
-            return Overdue.get(index);
+            return overdue.get(index);
         } catch (IndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.outOfBounds);
         }
     }
 
+    /**
+     * removes overdue items from the list.
+     * supports ranged based deletion
+     * @param index array of indices of tasks to be removed
+     * @param deletedList list for temporary storage to dump the overdue items into
+     * @throws RoomShareException when the indices specified are out of bounds
+     */
     public void remove(int[] index, TempDeleteList deletedList) throws RoomShareException {
         int[] idx = index.clone();
         if (idx.length == 1) {
-            if (idx[0] < 0 || idx[0] >= Overdue.size()) {
+            if (idx[0] < 0 || idx[0] >= overdue.size()) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
-            deletedList.add(Overdue.get(idx[0]));
-            Overdue.remove(idx[0]);
-        }
-        else {
-            if (idx[0] < 0 || idx[0] >= Overdue.size() || idx[1] < 0 || idx[1] >= Overdue.size()) {
+            deletedList.add(overdue.get(idx[0]));
+            overdue.remove(idx[0]);
+        } else {
+            if (idx[0] < 0 || idx[0] >= overdue.size() || idx[1] < 0 || idx[1] >= overdue.size()) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
             for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--) {
-                deletedList.add(Overdue.get(i));
-                Overdue.remove(i);
+                deletedList.add(overdue.get(i));
+                overdue.remove(i);
             }
         }
     }
 
+    /**
+     * gets the current overdue list.
+     * @return ArrayList of tasks representing the overdue list
+     */
     public static ArrayList<Task> getOverdueList() {
-        return Overdue;
+        return overdue;
     }
 }

@@ -2,7 +2,9 @@ package Operations;
 
 import CustomExceptions.RoomShareException;
 import Enums.RecurrenceScheduleType;
-import Model_Classes.*;
+import Model_Classes.Assignment;
+import Model_Classes.Meeting;
+import Model_Classes.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,22 +12,24 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * This class deals with operations for Recurring Tasks
+ * This class deals with operations for Recurring Tasks.
  * will perform operations such as add, list, find
  * also checks for recurrence of tasks
  */
 public class RecurHandler {
-    public static final String DATE_ERROR_SET_AS_NOT_DONE = "Error in parsing date, will be setting the task to not done instead";
+    public static final String DATE_ERROR_SET_AS_NOT_DONE = "Error in parsing date, will be setting the task "
+            + "to not done instead";
     private TaskList taskList;
     private Parser parser = new Parser();
 
     /**
-     * Constructor for RecurHandler class
+     * Constructor for RecurHandler class.
      * @param recurringList The TaskList to be operated on using RecurHandler
      */
     public RecurHandler(TaskList recurringList) {
         this.taskList = recurringList;
     }
+
     /**
      * Checks for recurrences based on the date.
      * if there is a recurrence, replaces the old recurring task with a new one
@@ -48,14 +52,14 @@ public class RecurHandler {
                 // check if recurrence date has passed
                 if (dateHasPassedOthers(currentTime, check, isEdited)) {
                     if (check instanceof Assignment) {
-                        Assignment recurringAssignment= new Assignment(description, getNewDate(check));
+                        Assignment recurringAssignment = new Assignment(description, getNewDate(check));
                         recurringAssignment.setRecurrenceSchedule(type);
                         recurringAssignment.setPriority(check.getPriority());
                         recurringAssignment.setAssignee(check.getAssignee());
                         taskList.replace(index, recurringAssignment);
                         isEdited = true;
                     } else {
-                        Meeting recurringMeeting= new Meeting(description, getNewDate(check));
+                        Meeting recurringMeeting = new Meeting(description, getNewDate(check));
                         recurringMeeting.setRecurrenceSchedule(type);
                         recurringMeeting.setPriority(check.getPriority());
                         recurringMeeting.setAssignee(check.getAssignee());
@@ -82,7 +86,7 @@ public class RecurHandler {
             Calendar calendar = Calendar.getInstance();
             String date = new Storage().convertForStorage(check);
             date = date.substring(0, 15);
-            Date storedDate = parser.formatDateCustom_1(date);
+            Date storedDate = parser.formatDateDDMMYY(date);
             calendar.setTime(storedDate);
             if (check.getRecurrenceSchedule().equals(RecurrenceScheduleType.day)) {
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -110,7 +114,7 @@ public class RecurHandler {
     private boolean dateHasPassedOthers(String currentTime, Task check, boolean isEdited) throws RoomShareException {
         boolean isPassed = false;
         try {
-            Date current = parser.formatDateCustom_1(currentTime);
+            Date current = parser.formatDateDDMMYY(currentTime);
             Date newDate = getNewDate(check);
             if (newDate.compareTo(current) < 0) {
                 // date has passed

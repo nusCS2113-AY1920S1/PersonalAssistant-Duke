@@ -2,9 +2,13 @@ package Operations;
 
 import CustomExceptions.RoomShareException;
 import Enums.*;
-import Model_Classes.*;
+import Model_Classes.Assignment;
+import Model_Classes.Leave;
+import Model_Classes.Meeting;
+import Model_Classes.Task;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,13 +16,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Performs storage operations such as writing and reading from a .txt file
+ * Performs storage operations such as writing and reading from a .txt file.
  */
 public class Storage {
-    private Parser parser;
 
     /**
-     * Constructor for the Storage class
+     * Constructor for the Storage class.
      */
     public Storage() {
     }
@@ -41,7 +44,7 @@ public class Storage {
             while ((line = bufferedReader.readLine()) != null) {
                 tempList.add(line);
             }
-            parser = new Parser();
+            Parser parser = new Parser();
             for (String list : tempList) {
                 String[] temp = list.split("#");
 
@@ -68,8 +71,7 @@ public class Storage {
                     priority = Priority.low;
                 }
 
-                String scanDescription = temp[3].trim();
-                String description = scanDescription;
+                String description = temp[3].trim();
 
                 Date from = new Date();
                 Date to = new Date();
@@ -78,20 +80,20 @@ public class Storage {
                     String[] dateArray = temp[4].trim().split("-");
                     String scanFromDate = dateArray[0].trim();
                     try {
-                        from = parser.formatDateCustom_1(scanFromDate);
+                        from = parser.formatDateDDMMYY(scanFromDate);
                     } catch (RoomShareException e) {
                         System.out.println("error in loading file: date format error");
                     }
                     String scanToDate = dateArray[1].trim();
                     try {
-                        to = parser.formatDateCustom_1(scanToDate);
+                        to = parser.formatDateDDMMYY(scanToDate);
                     } catch (RoomShareException e) {
                         System.out.println("error in loading file: date format error");
                     }
                 } else {
                     String scanDate = temp[4].trim();
                     try {
-                        date = parser.formatDateCustom_1(scanDate);
+                        date = parser.formatDateDDMMYY(scanDate);
                     } catch (RoomShareException e) {
                         System.out.println("error in loading file: date format error");
                     }
@@ -105,8 +107,7 @@ public class Storage {
                     throw new RoomShareException(ExceptionType.loadError);
                 }
 
-                String scanUser = temp[6].trim();
-                String user = scanUser;
+                String user = temp[6].trim();
 
                 String scanIsFixedDuration = temp[7].trim();
                 boolean isFixedDuration = scanIsFixedDuration.equals("F");
@@ -138,7 +139,9 @@ public class Storage {
                     assignment.setAssignee(user);
                     assignment.setRecurrenceSchedule(recurrence);
                     assignment.setDone(done);
-                    if (!scanSubTask.equals("")) assignment.addSubTasks(scanSubTask);
+                    if (!scanSubTask.equals("")) {
+                        assignment.addSubTasks(scanSubTask);
+                    }
                     taskArrayList.add(assignment);
                 } else if (type.equals(SaveType.L)) {
                     //Leave type
@@ -194,16 +197,11 @@ public class Storage {
                 String recurrence = s.getRecurrenceSchedule().toString();
                 String user = s.getAssignee();
                 if (s instanceof Assignment) {
-                    out = type + "#" +
-                            isDone + "#" +
-                            priority + "#" +
-                            description + "#" +
-                            date + "#" +
-                            recurrence + "#" +
-                            user + "#" +
-                            "N" + "#" +
-                            "0" + "#" +
-                            "unDefined" + "#";
+                    out = type + "#" + isDone + "#"
+                            + priority + "#" + description + "#"
+                            + date + "#" + recurrence + "#"
+                            + user + "#" + "N" + "#"
+                            + "0" + "#" + "unDefined" + "#";
                     // Saves sub-tasks
                     if (!(((Assignment) s).getSubTasks() == null)) {
                         ArrayList<String> subTasks = ((Assignment) s).getSubTasks();
@@ -214,44 +212,26 @@ public class Storage {
                     out += "#";
                 } else if (s instanceof Leave) {
                     String leaveDate = convertForStorageLeave(s);
-                    out = type + "#" +
-                            isDone + "#" +
-                            priority + "#" +
-                            description + "#" +
-                            leaveDate + "#" +
-                            recurrence + "#" +
-                            user + "#" +
-                            "N" + "#" +
-                            "0" + "#" +
-                            "unDefined" + "#"
-                            + "#";
+                    out = type + "#" + isDone + "#"
+                            + priority + "#" + description + "#"
+                            + leaveDate + "#" + recurrence + "#"
+                            + user + "#" + "N" + "#"
+                            + "0" + "#" + "unDefined" + "#" + "#";
                 } else if (s instanceof Meeting) {
                     if (((Meeting) s).isFixedDuration()) {
                         String duration = ((Meeting) s).getDuration();
                         String unit = ((Meeting) s).getTimeUnit().toString();
-                        out = type + "#" +
-                                isDone + "#" +
-                                priority + "#" +
-                                description + "#" +
-                                date + "#" +
-                                recurrence + "#" +
-                                user + "#" +
-                                "F" + "#" +
-                                duration + "#" +
-                                unit + "#"
-                                + "#";
+                        out = type + "#" + isDone + "#"
+                                + priority + "#" + description + "#"
+                                + date + "#" + recurrence + "#"
+                                + user + "#" + "F" + "#"
+                                + duration + "#" + unit + "#" + "#";
                     } else {
-                        out = type + "#" +
-                                isDone + "#" +
-                                priority + "#" +
-                                description + "#" +
-                                date + "#" +
-                                recurrence + "#" +
-                                user + "#" +
-                                "N" + "#" +
-                                "0" + "#" +
-                                "unDefined" + "#"
-                                + "#";
+                        out = type + "#" + isDone + "#"
+                                + priority + "#" + description + "#"
+                                + date + "#" + recurrence + "#"
+                                + user + "#" + "N" + "#"
+                                + "0" + "#" + "unDefined" + "#" + "#";
                     }
                 }
                 writer.write(out);
@@ -264,10 +244,9 @@ public class Storage {
     }
 
     /**
-     * Create a new text file and write all information of the current task list to it
+     * Create a new text file and write all information of the current task list to it.
      * @param list the current task list
-     * @throws IOException when there's error creating or writing to file
-     * @throws FileNotFoundException when there's error creating or writing to file
+     * @throws RoomShareException when there is an error in writing the log file
      */
     public String writeLogFile(ArrayList<Task> list) throws RoomShareException {
         String fileName = "log " + new Date().toString() + ".txt";
@@ -279,7 +258,7 @@ public class Storage {
             File folder = new File(folderName);
             if (!folder.exists()) folder.mkdir();
             file.createNewFile();
-            PrintWriter writer = new PrintWriter(filePath, "UTF-8");
+            PrintWriter writer = new PrintWriter(filePath, StandardCharsets.UTF_8);
             for (Task t : list) {
                 writer.println(t.toString());
             }
@@ -348,15 +327,15 @@ public class Storage {
             String fromDay = tempString[3];
             String toDay = tempString[10];
 
-            time = fromDay + "/" + fromMth + "/" + fromYear + " " + fromTimeArray[0] + ":" + fromTimeArray[1] + "-" +
-                    toDay + "/" + toMth + "/" + toYear + " " + toTimeArray[0] + ":" + toTimeArray[1];
-
+            time = fromDay + "/" + fromMth + "/" + fromYear
+                    + " " + fromTimeArray[0] + ":" + fromTimeArray[1] + "-"
+                    + toDay + "/" + toMth + "/" + toYear
+                    + " " + toTimeArray[0] + ":" + toTimeArray[1];
             return time;
         } catch (ParseException e) {
             throw new RoomShareException(ExceptionType.wrongFormat);
         }
     }
-
 }
 
 
