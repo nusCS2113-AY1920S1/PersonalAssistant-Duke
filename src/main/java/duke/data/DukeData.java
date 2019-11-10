@@ -29,6 +29,11 @@ public abstract class DukeData extends DukeObject {
     }
 
     @Override
+    public void setParent(DukeObject obj) {
+        this.parent = (Impression) obj;
+    }
+
+    @Override
     public Impression getParent() {
         return parent;
     }

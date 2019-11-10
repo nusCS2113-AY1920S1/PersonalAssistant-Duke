@@ -1,6 +1,7 @@
 package duke.ui.window;
 
 import duke.data.Medicine;
+import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -26,11 +27,10 @@ public class MedicineContextWindow extends DukeDataContextWindow {
      *
      * @param medicine Medicine object.
      */
-    public MedicineContextWindow(Medicine medicine) {
+    public MedicineContextWindow(Medicine medicine) throws DukeFatalException {
         super(FXML, medicine);
 
         this.medicine = medicine;
-
         updateUi();
     }
 

@@ -15,6 +15,7 @@ public class UiStrings {
     public static String MESSAGE_ERROR_UNINITIALISED_PATIENT_LIST = "Patient list has not been initialised.";
     public static String MESSAGE_ERROR_UNINITIALISED_PATIENT = "Patient has not been initialised.";
     public static String MESSAGE_ERROR_UNINITIALISED_IMPRESSION = "Impression has not been initialised.";
+    public static String MESSAGE_ERROR_UNINITIALISED_DUKEDATA = "Data has not been initialised.";
 
     public static String DISPLAY_ALLERGIES_NONE = "No allergies";
     public static String DISPLAY_HISTORY_NOT_SET = "No medical history";

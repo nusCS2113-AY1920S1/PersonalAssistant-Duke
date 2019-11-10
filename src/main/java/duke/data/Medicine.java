@@ -128,7 +128,7 @@ public class Medicine extends Treatment {
 
     @Override
     public Context toContext() {
-        return Context.TREATMENT;
+        return Context.MEDICINE;
     }
 
     @Override

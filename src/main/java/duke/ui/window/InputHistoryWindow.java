@@ -85,7 +85,7 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
      * Attaches a listener to the {@code inputTextField} to listen for key presses.
      */
     private void attachKeyListenerToTextField() {
-        inputTextField.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
+        inputTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
             case PAGE_UP:
                 event.consume();

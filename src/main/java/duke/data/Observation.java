@@ -73,6 +73,6 @@ public class Observation extends Evidence {
 
     @Override
     public Context toContext() {
-        return Context.EVIDENCE;
+        return Context.OBSERVATION;
     }
 }

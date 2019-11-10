@@ -2,6 +2,8 @@ package duke.ui.window;
 
 import duke.data.DukeData;
 import duke.data.DukeObject;
+import duke.exception.DukeFatalException;
+import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -26,15 +28,14 @@ public class DukeDataContextWindow extends ContextWindow {
      * @param fxmlFileName Name of FXML file.
      * @param data         DukeData object.
      */
-    public DukeDataContextWindow(String fxmlFileName, DukeData data) {
+    public DukeDataContextWindow(String fxmlFileName, DukeData data) throws DukeFatalException {
         super(fxmlFileName);
 
         if (data == null) {
-            return;
+            throw new DukeFatalException(UiStrings.MESSAGE_ERROR_UNINITIALISED_DUKEDATA);
         }
 
         this.data = data;
-        updateUi();
     }
 
     /**

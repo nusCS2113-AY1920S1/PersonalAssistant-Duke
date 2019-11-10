@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 //@@author gowgos5
-
 /**
  * UI window for the Impression context.
  */
@@ -46,9 +45,6 @@ public class ImpressionContextWindow extends ContextWindow {
     private Patient patient;
     private Impression impression;
 
-    private List<Evidence> indexedEvidenceList;
-    private List<Treatment> indexedTreatmentList;
-
     /**
      * Constructs the patient UI window.
      */
@@ -62,9 +58,6 @@ public class ImpressionContextWindow extends ContextWindow {
         this.patient = patient;
         this.impression = impression;
         assert (patient.equals(impression.getParent()));
-
-        this.indexedEvidenceList = new ArrayList<>();
-        this.indexedTreatmentList = new ArrayList<>();
 
         updateUi();
     }
@@ -118,30 +111,23 @@ public class ImpressionContextWindow extends ContextWindow {
         followUpLabel.setText(impression.getFollowUpCountStr());
 
         evidenceListPanel.getItems().clear();
-        indexedEvidenceList.clear();
         for (Evidence evidence : impression.getEvidences()) {
-            int index = (evidence.getPriority() == 1) ? 1 : evidenceListPanel.getItems().size() + 1;
+            int index = evidenceListPanel.getItems().size() + 1;
             evidenceListPanel.getItems().add(newEvidenceCard(evidence, index));
-            indexedEvidenceList.add(index, evidence);
         }
 
         treatmentListPanel.getItems().clear();
-        indexedTreatmentList.clear();
         for (Treatment treatment : impression.getTreatments()) {
-            int index = (treatment.getPriority() == 1) ? 1 : treatmentListPanel.getItems().size() + 1;
+            int index = treatmentListPanel.getItems().size() + 1;
             treatmentListPanel.getItems().add(newTreatmentCard(treatment, index));
-            indexedTreatmentList.add(index, treatment);
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<DukeObject> getIndexedList(String type) {
-        if ("evidence".equals(type)) {
-            return new ArrayList<>(indexedEvidenceList);
-        } else if ("treatment".equals(type)) {
-            return new ArrayList<>(indexedTreatmentList);
-        } else {
-            return null;
-        }
+        return null;
     }
 }

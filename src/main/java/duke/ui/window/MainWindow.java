@@ -4,6 +4,11 @@ import duke.DukeCore;
 import duke.command.Executor;
 import duke.command.Parser;
 import duke.data.DukeObject;
+import duke.data.Investigation;
+import duke.data.Medicine;
+import duke.data.Observation;
+import duke.data.Plan;
+import duke.data.Result;
 import duke.data.storage.GsonStorage;
 import duke.data.Impression;
 import duke.data.Patient;
@@ -155,26 +160,43 @@ public class MainWindow extends UiElement<Stage> {
         uiContext.addListener(event -> {
             contextWindowHolder.getTabs().remove(currentTab);
 
+            Context context = (Context) event.getNewValue();
             try {
-                switch ((Context) event.getNewValue()) {
+                switch (context) {
                 case HOME:
                     currentContextWindow = new HomeContextWindow(patientList);
-                    currentTab = new Tab(Context.HOME.toString(), currentContextWindow.getRoot());
                     break;
                 case PATIENT:
                     Patient patient = (Patient) uiContext.getObject();
                     currentContextWindow = new PatientContextWindow(patient);
-                    currentTab = new Tab(Context.PATIENT.toString(), currentContextWindow.getRoot());
                     break;
                 case IMPRESSION:
                     Impression impression = (Impression) uiContext.getObject();
                     currentContextWindow = new ImpressionContextWindow(impression, impression.getParent());
-                    currentTab = new Tab(Context.IMPRESSION.toString(), currentContextWindow.getRoot());
+                    break;
+                case PLAN:
+                    Plan plan = (Plan) uiContext.getObject();
+                    currentContextWindow = new PlanContextWindow(plan);
+                    break;
+                case INVESTIGATION:
+                    Investigation investigation = (Investigation) uiContext.getObject();
+                    currentContextWindow = new InvestigationContextWindow(investigation);
+                    break;
+                case OBSERVATION:
+                    Observation observation = (Observation) uiContext.getObject();
+                    currentContextWindow = new ObservationContextWindow(observation);
+                    break;
+                case RESULT:
+                    Result result = (Result) uiContext.getObject();
+                    currentContextWindow = new ResultContextWindow(result);
+                    break;
+                case MEDICINE:
+                    Medicine medicine = (Medicine) uiContext.getObject();
+                    currentContextWindow = new MedicineContextWindow(medicine);
                     break;
                 case SEARCH:
                     SearchResults searchResults = (SearchResults) uiContext.getObject();
                     currentContextWindow = new SearchContextWindow(searchResults);
-                    currentTab = new Tab(Context.SEARCH.toString(), currentContextWindow.getRoot());
                     break;
                 default:
                     return;
@@ -183,6 +205,7 @@ public class MainWindow extends UiElement<Stage> {
                 core.ui.showErrorDialogAndShutdown(UiStrings.MESSAGE_ERROR_OPEN_CONTEXT, e);
             }
 
+            currentTab = new Tab(context.toString(), currentContextWindow.getRoot());
             contextWindowHolder.getTabs().add(currentTab);
             contextWindowHolder.getSelectionModel().select(currentTab);
         });
