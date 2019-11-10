@@ -33,6 +33,8 @@ public class Parser {
     public boolean parse(String input, TaskList tasklist, Ui ui, Fund fund,
                                 Storage storage, ArrayList<String> list) {
         try {
+            input = trimInput(input);
+
             if (instr.isBye(input)) {
                 storage.writeToProjectsFile(process.projectmanager.projectmap);
                 storage.writeToFundFile(fund);
@@ -166,6 +168,15 @@ public class Parser {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * Remove whitespace in front and back of input.
+     * @param input Input from user.
+     * @return Returns trimmed input.
+     */
+    private String trimInput(String input) {
+        return input.trim();
     }
 }
     

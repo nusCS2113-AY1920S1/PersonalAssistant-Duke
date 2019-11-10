@@ -89,23 +89,17 @@ public class ProjectManager {
      * Lists all projects in the projectmap.
      * @return Returns an ArrayList of projects.
      */
-    public ArrayList<Project> listProjects() throws AlphaNUSException {
+    public ArrayList<Project> listProjects() {
         ArrayList<Project> projectslist = new ArrayList<>();
         projectslist.addAll(projectmap.values());
         return projectslist;
     }
 
-    //TODO --> adds spending for project when adding payments
-    public void addSpending() {
-
-    }
-
-    //TODO --> subtracts spending for project when adding payments
-    public static void subtractSpending() {
-
-    }
-
-    //TODO --> assign budget
+    /**
+     * Assigns a budget to the project.
+     * @param projectname Name of the project.
+     * @param amount Amo
+     */
     public void assignBudget(String projectname, Double amount) {
         projectmap.get(projectname).addBudget(amount);
     }
@@ -120,14 +114,6 @@ public class ProjectManager {
         Project projectallocated = projectmap.get(projectname);
         projectmap.get(projectname).budget = budget;
         return projectallocated; //TODO --> allocates budget to a project
-    }
-
-    /**
-     * Returns the current project being edited.
-     * @return Returns current project.
-     */
-    public String getcurrentprojectname() {
-        return currentprojectname;
     }
 
     public HashMap<String, Payee> getCurrentProjectManagerMap() {

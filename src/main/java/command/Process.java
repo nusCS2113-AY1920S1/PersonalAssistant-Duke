@@ -27,6 +27,9 @@ public class Process {
     public ProjectManager projectmanager = new ProjectManager();
     private payment.Status Status;
 
+    static final int MAX_FUND = 500000;
+    static final int MIN_FUND = 0;
+
     Process() throws AlphaNUSException {
     }
 
@@ -44,16 +47,6 @@ public class Process {
         return cleanArr;
     }
 
-    /**
-     * Processes the homepage messages to be displayed.
-     * @param currentprojectname Current project that the treasurer is working on.
-     * @param projectsize        Number of projects in the record.
-     * @param ui                 Ui that interacts with the user.
-     */
-    public void homePageMessage(String currentprojectname, int projectsize, Ui ui) {
-        ui.printProjectStatus(currentprojectname, projectsize); //TODO to change to reflect homepage contents
-    }
-
     //===========================* Project *================================
 
     /**
@@ -67,7 +60,7 @@ public class Process {
             ui.printNoProjectMessage();
             return;
         }
-        ui.printProjectsList(projectslist);
+        ui.printProjectsList(projectslist, projectmanager.currentprojectname);
     }
 
     /**
@@ -111,6 +104,11 @@ public class Process {
                 ui.printAddProject(newProject, projectsize);
             } else {
                 double projectamount = Double.parseDouble(inputamount);
+                if (projectamount < MIN_FUND) {
+                    ui.exceptionMessage("     :( OOPS!!! Please enter a positive value. ");
+                } else if (projectamount > MAX_FUND) {
+                    ui.exceptionMessage("     :( OOPS!!! Please enter a positive value of no more than 500,000. ");
+                }
                 if (fund.getFundRemaining() >= projectamount) {
                     fund.takeFund(projectamount);
                     Project newProject = projectmanager.addProject(projectname, projectamount);
@@ -118,7 +116,9 @@ public class Process {
                     ui.printAddProject(newProject, projectsize);
                     BeforeAfterCommand.afterCommand(storage, projectmanager);
                 } else {
-                    ui.exceptionMessage("\t" + "Not enough funds");
+                    ui.exceptionMessage("     :( OOPS!!! There is not enough fund. "
+                            + "Please decrease the amount of fund assigned");
+                    System.out.print(fund.giveFund());
                 }
             }
         } catch (NumberFormatException | AlphaNUSException e) {
@@ -218,23 +218,23 @@ public class Process {
         try {
             String[] split = input.split("am/", 2);
             Double amount = Double.parseDouble(split[1]);
-            if (amount < 0) {
-                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value. ");
-            } else if (amount > 500000) {
-                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
+            if (amount < MIN_FUND) {
+                ui.exceptionMessage("     :( OOPS!!! Please enter a positive value. ");
+            } else if (amount > MAX_FUND) {
+                ui.exceptionMessage("     :( OOPS!!! Please enter a positive value of no more than 500,000. ");
             } else {
                 if (fund.getFund() == 0.0) {
                     fund.setFund(amount);
                     ui.printSetFundMessage(fund);
                 } else {
-                    ui.exceptionMessage("     ☹ OOPS!!! The fund is set already. "
+                    ui.exceptionMessage("     :( OOPS!!! The fund is set already. "
                             + "Please use reset fund command instead.");
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     :( OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NumberFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
+            ui.exceptionMessage("     :( OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
         }
     }
 
@@ -249,21 +249,21 @@ public class Process {
         try {
             String[] split = input.split("add/", 2);
             Double amount = Double.parseDouble(split[1]);
-            if (amount < 0) {
-                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value. ");
-            } else if (amount > 500000) {
-                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
-            } else if (fund.getFund() + amount >= 500000) {
-                ui.exceptionMessage("     ☹ Oops!!! The total fund will be above the limit. You can still add "
-                        + (500000 - fund.getFund()) + "dollars to your current fund!");
+            if (amount < MIN_FUND) {
+                ui.exceptionMessage("     :( OOPS!!! Please enter a positive value. ");
+            } else if (amount > MAX_FUND) {
+                ui.exceptionMessage("     :( OOPS!!! Please enter a positive value of no more than 500,000. ");
+            } else if (fund.getFund() + amount >= MAX_FUND) {
+                ui.exceptionMessage("     :( Oops!!! The total fund will be above the limit. You can still add "
+                        + (MAX_FUND - fund.getFund()) + "dollars to your current fund!");
             } else {
                 fund.addFund(amount);
                 ui.printAddFundMessage(fund, amount);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     :( OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NumberFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
+            ui.exceptionMessage("     :( OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
         }
     }
 
@@ -282,27 +282,27 @@ public class Process {
             if (!projectmanager.projectmap.containsKey(projectname)) {
                 System.out.println("\t" + "Project does not exist!");
                 return;
-            } else if (amount < 0) {
-                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value. ");
-            } else if (amount > 500000) {
-                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
+            } else if (amount < MIN_FUND) {
+                ui.exceptionMessage("     :( OOPS!!! Please enter a positive value. ");
+            } else if (amount > MAX_FUND) {
+                ui.exceptionMessage("     :( OOPS!!! Please enter a positive value of no more than 500,000. ");
             } else {
                 if (fund.getFundRemaining() >= amount) {
                     fund.takeFund(amount);
                     projectmanager.assignBudget(projectname, amount);
                     ui.printAssignFundMessage(fund, amount, projectmanager.projectmap.get(projectname));
                 } else {
-                    ui.exceptionMessage("     ☹ OOPS!!! There is not enough fund. "
+                    ui.exceptionMessage("     :( OOPS!!! There is not enough fund. "
                             + "Please decrease the amount of fund assigned)");
                     System.out.print(fund.giveFund());
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     :( OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! There is no project with that name yet, please add the project first!");
+            ui.exceptionMessage("     :( OOPS!!! There is no project with that name yet, please add the project first!");
         } catch (NumberFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
+            ui.exceptionMessage("     :( OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
         }
     }
 
@@ -330,21 +330,21 @@ public class Process {
         try {
             String[] split = input.split("new/", 2);
             Double newFund = Double.parseDouble(split[1]);
-            if (newFund < 0) {
-                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value. ");
-            } else if (newFund > 500000) {
-                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
+            if (newFund < MIN_FUND) {
+                ui.exceptionMessage("     :( OOPS!!! Please enter a positive value. ");
+            } else if (newFund > MAX_FUND) {
+                ui.exceptionMessage("     :( OOPS!!! Please enter a positive value of no more than 500,000. ");
             } else if (fund.getFundTaken() > newFund) {
-                ui.exceptionMessage("     ☹ Oops!!! new fund should not be more than the sum of assigned budgets!\n "
+                ui.exceptionMessage("     :( Oops!!! new fund should not be more than the sum of assigned budgets!\n "
                         + "   You have assigned " + (fund.getFundTaken()) + " dollars to your projects!");
             } else {
                 fund.setFund(newFund);
                 ui.printResetFundMessage(fund, newFund);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     :( OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NumberFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
+            ui.exceptionMessage("     :( OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
         }
     }
 
@@ -356,7 +356,7 @@ public class Process {
         ArrayList<String> backupcommandlist = storage.readFromBackupCommandsFile();
         commandlist.clear();
         commandlist.addAll(backupcommandlist);
-        System.out.println("Load Complete!");
+        ui.printBackupComplete(projectmap.size(), backupfund);
     }
 
 
@@ -394,7 +394,7 @@ public class Process {
             }
             ui.printList(finalList, "View Schedule");
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
+            ui.exceptionMessage("     :( OOPS!!! The content to find cannot be empty.");
         }
     }
 
@@ -412,7 +412,7 @@ public class Process {
             ui.printDoneMessage(numdone, tasklist);
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to indicate as done.");
+            ui.exceptionMessage("     :( OOPS!!! Please input the list number to indicate as done.");
         }
     }
 
@@ -431,7 +431,7 @@ public class Process {
             tasklist.addTask(deadline);
             ui.printAddedMessage(deadline, tasklist);
         } catch (ArrayIndexOutOfBoundsException | ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The description of a deadline cannot be empty.");
+            ui.exceptionMessage("     :( OOPS!!! The description of a deadline cannot be empty.");
         }
     }
 
@@ -447,7 +447,7 @@ public class Process {
             int id = Integer.parseInt(splitspace[1]) - 1;
             tasklist.deleteTask(id);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The id of a deadline cannot be empty.");
+            ui.exceptionMessage("     :( OOPS!!! The id of a deadline cannot be empty.");
         }
     }
 
@@ -477,9 +477,9 @@ public class Process {
                 ui.printAddedMessage(after, tasklist);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The description of a DoAfter cannot be empty.");
+            ui.exceptionMessage("     :( OOPS!!! The description of a DoAfter cannot be empty.");
         } catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
+            ui.exceptionMessage("     :( OOPS!!! Format of time is wrong.");
         }
     }
 
@@ -505,9 +505,9 @@ public class Process {
             tasklist.addTask(withinPeriodTask);
             ui.printAddedMessage(withinPeriodTask, tasklist);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The description of a withinPeriodTask cannot be empty.");
+            ui.exceptionMessage("     :( OOPS!!! The description of a withinPeriodTask cannot be empty.");
         } catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
+            ui.exceptionMessage("     :( OOPS!!! Format of time is wrong.");
         }
     }
 
@@ -532,13 +532,13 @@ public class Process {
                 tasklist.get(nsnooze).setBy(tasklist.get(nsnooze).getIsInVoice());
                 ui.printSnoozeMessage(tasklist.get(nsnooze));
             } else {
-                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to snooze.");
+                ui.exceptionMessage("     :( OOPS!!! Please select a deadline type task to snooze.");
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to snooze.");
+            ui.exceptionMessage("     :( OOPS!!! Please input the list number to snooze.");
         } catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
+            ui.exceptionMessage("     :( OOPS!!! Format of time is wrong.");
         }
     }
 
@@ -564,14 +564,14 @@ public class Process {
                 tasklist.get(npostpone).setBy(tasklist.get(npostpone).getIsInVoice());
                 ui.printPostponeMessage(tasklist.get(npostpone));
             } else {
-                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to postpone.");
+                ui.exceptionMessage("     :( OOPS!!! Please select a deadline type task to postpone.");
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to postpone. "
+            ui.exceptionMessage("     :( OOPS!!! Please input the list number to postpone. "
                     + "Format:'postpone <index> <no.of hours to postpone>'");
         } catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong. "
+            ui.exceptionMessage("     :( OOPS!!! Format of time is wrong. "
                     + "Format:'postpone <index> <no.of hours to postpone>");
         }
     }
@@ -593,12 +593,12 @@ public class Process {
                 tasklist.get(id).setInVoice(invoice);
                 ui.printAddInvoiceMessage(tasklist.get(id));
             } else {
-                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline instead!");
+                ui.exceptionMessage("     :( OOPS!!! Please select a deadline instead!");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input a valid ID!");
+            ui.exceptionMessage("     :( OOPS!!! Please input a valid ID!");
         } catch (NumberFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     :( OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
 
@@ -620,14 +620,14 @@ public class Process {
                 tasklist.get(nreschedule).setAt(newschedule);
                 ui.printRescheduleMessage(tasklist.get(nreschedule));
             } else {
-                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to reschedule.");
+                ui.exceptionMessage("     :( OOPS!!! Please select a deadline type task to reschedule.");
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to reschedule. "
+            ui.exceptionMessage("     :( OOPS!!! Please input the list number to reschedule. "
                     + "Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>'");
         } catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong. "
+            ui.exceptionMessage("     :( OOPS!!! Format of time is wrong. "
                     + "Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>");
         }
     }
@@ -648,9 +648,9 @@ public class Process {
             PaymentManager.editPayee(splitpayments[1], splitpayments[2],
                     splitpayments[3], splitpayments[4], managermap, ui);
         } catch (IllegalArgumentException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     :( OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format"
+            ui.exceptionMessage("     :( OOPS!!! Please input the correct command format"
                     + "The input format is: edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT");
         }
     }
@@ -707,10 +707,10 @@ public class Process {
             double cost = Double.parseDouble(splitpayments[3]);
 
             if (cost < 0) {
-                ui.exceptionMessage("     ☹ OOPS!!! The cost should be a positive number.");
+                ui.exceptionMessage("     :( OOPS!!! The cost should be a positive number.");
             }
             if (cost > projectmanager.projectmap.get(currentprojectname).getRemaining()) {
-                ui.exceptionMessage("     ☹ OOPS!!! There is not enough budget left.\n"
+                ui.exceptionMessage("     :( OOPS!!! There is not enough budget left.\n"
                         + " Total budget: " + projectmanager.projectmap.get(currentprojectname).getBudget() + "\n"
                         + " Budget spent: " + projectmanager.projectmap.get(currentprojectname).getSpending() + "\n"
                         + " Budget remaining: " + projectmanager.projectmap.get(currentprojectname).getRemaining() + "\n");
@@ -723,9 +723,9 @@ public class Process {
                 BeforeAfterCommand.afterCommand(storage, projectmanager);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     :( OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException | AlphaNUSException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
+            ui.exceptionMessage("     :( OOPS!!! There is no payee with that name yet, please add the payee first!");
         }
     }
 
@@ -752,11 +752,11 @@ public class Process {
             ui.printAddPayeeMessage(splitpayments[1], payee, payeesize, currentprojectname);
             BeforeAfterCommand.afterCommand(storage, projectmanager);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     :( OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
+            ui.exceptionMessage("     :( OOPS!!! There is no payee with that name yet, please add the payee first!");
         } catch (IllegalArgumentException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! There is a payee with that name in the record!");
+            ui.exceptionMessage("     :( OOPS!!! There is a payee with that name in the record!");
         } catch (AlphaNUSException e) {
             e.printStackTrace();
         }
@@ -788,9 +788,9 @@ public class Process {
             }
             projectmanager.projectmap.get(currentprojectname).addBudget(totalspending);//the total spending paid by a payee is released as budget
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     :( OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException | AlphaNUSException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
+            ui.exceptionMessage("     :( OOPS!!! There is no payee with that name yet, please add the payee first!");
         }
     }
 
@@ -806,7 +806,7 @@ public class Process {
             ArrayList<Payments> paymentsArrayList = PaymentManager.findPayee(splitspace[1], managermap);
             ui.printPaymentList(paymentsArrayList);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
+            ui.exceptionMessage("     :( OOPS!!! The content to find cannot be empty.");
         }
     }
 
@@ -829,7 +829,7 @@ public class Process {
             }
             ui.printTotalCostMessage(payeeName, totalcost, currentprojectname);
         } catch ( ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Wrong input format. Correct input format: total cost p/PAYEE_NAME");
+            ui.exceptionMessage("     :( OOPS!!! Wrong input format. Correct input format: total cost p/PAYEE_NAME");
         }
     }
 
@@ -895,7 +895,7 @@ public class Process {
                 ui.printPaymentList(lists, lists.get(0).status);
             }
         } catch (NullPointerException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! There are no payments to list!");
+            ui.exceptionMessage("     :( OOPS!!! There are no payments to list!");
         }
     }
 
@@ -919,7 +919,7 @@ public class Process {
             System.out.println("\t Remaining budget: " + p.getRemaining());
             System.out.print(Ui.line);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Wrong input error!"
+            ui.exceptionMessage("     :( OOPS!!! Wrong input error!"
                     + "The correct input format is: show budget pr/PROJECT_NAME");
         }
     }
