@@ -3,7 +3,7 @@ package project;
 import payment.Payee;
 
 import java.util.HashMap;
-
+import java.util.LinkedHashMap;
 
 
 public class Project {
@@ -26,6 +26,18 @@ public class Project {
         this.budget = NOBUDGET;
         this.spending = NOSPENDING;
         this.remaining = NOREMAINING;
+        this.projectname = projectname;
+    }
+
+    /**
+     * Overload function to Instantiate Project object with budget allocated.
+     * @param budget Budget allocated to project.
+     */
+    public Project(String projectname, double budget) {
+        this.managermap = new HashMap<>();
+        this.budget = budget;
+        this.spending = NOSPENDING;
+        this.remaining = budget;
         this.projectname = projectname;
     }
 
@@ -73,7 +85,7 @@ public class Project {
     }
 
     /**
-     * get budget lrft of the project.
+     * get budget left in the project.
      * @return budget left.
      */
     public double getRemaining() {
@@ -89,16 +101,4 @@ public class Project {
             + "Total Spending: " + this.spending;
     }
 
-    /**
-     * Overload function to Instantiate Project object with budget allocated.
-     * @param projectname the name of the project.
-     * @param budget Budget allocated to project.
-     */
-    public Project(String projectname, double budget) {
-        this.managermap = new HashMap<>();
-        this.budget = budget;
-        this.spending = NOSPENDING;
-        this.remaining = budget;
-        this.projectname = projectname;
-    }
 }

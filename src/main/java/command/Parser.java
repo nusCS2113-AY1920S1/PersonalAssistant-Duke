@@ -1,5 +1,6 @@
 package command;
 
+import storage.Storage;
 import common.AlphaNUSException;
 import common.TaskList;
 import project.Fund;
@@ -7,20 +8,16 @@ import ui.Ui;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Parser that parses input from the user.
  */
 public class Parser {
-    private static Instruction instr = new Instruction();
-    private static Process process;
+    public static Instruction instr = new Instruction();
+    public Process process = new Process();
 
-    static {
-        try {
-            process = new Process();
-        } catch (AlphaNUSException e) {
-            e.printStackTrace();
-        }
+    public Parser() throws AlphaNUSException {
     }
 
 
@@ -29,25 +26,29 @@ public class Parser {
      * @param input Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
-     * @param storage command.Storage for the Tasklist.
+     * @param storage Storage for the Tasklist.
      * @param list CommandList.
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
      */
-    public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund,
-                                Storage storage, ArrayList<String> list) {
+    public boolean parse(String input, TaskList tasklist, Ui ui, Fund fund,
+                                Storage storage, ArrayList<String> list, Set<String> dict) {
         try {
+            input = trimInput(input);
+
             if (instr.isBye(input)) {
-                storage.writeToProjectsFile(process.projectmanager.projectmap);
+                storage.writeToProjectsFile(process.projectManager.projectmap);
                 storage.writeToFundFile(fund);
-                //storage.writeToTasklistFile(tasklist);
-                storage.writeTocurrentprojectnameFile(process.projectmanager.currentprojectname);
+                storage.writeToDictFile(dict);
+                storage.writeTocurrentprojectnameFile(process.projectManager.currentprojectname);
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
             } else if (instr.isUndo(input)) {
                 process.commandHistory(input, ui, storage);
                 process.undo(storage, ui);
+            } else if (instr.isLoad(input)) {
+                process.backupProjects(ui, fund, storage, list);
             } else if (instr.isRedo(input)) {
                 process.commandHistory(input, ui, storage);
                 process.redo(storage, ui);
@@ -83,11 +84,13 @@ public class Parser {
             } else if (instr.isDoAfter(input)) {
                 process.doAfter(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
-                //command.Storage.save(tasklist.returnArrayList());
+                //Storage.save(tasklist.returnArrayList());
             } else if (instr.isDeletePayment(input)) {
                 process.deletePayment(input, ui, storage);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
+            } else if (instr.isFind(input)) {
+                process.findPayee(input, storage, ui);
             } else if (instr.isFindTask(input)) {
                 process.findTask(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
@@ -95,7 +98,10 @@ public class Parser {
                 process.listTasks(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isListPayments(input)) {
-                process.listAllPayments(input, ui);
+                process.listPayments(input, storage, ui);
+                process.commandHistory(input, ui, storage);
+            } else if (instr.isListPayees(input)) {
+                process.listPayees(input, storage, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isWithinPeriodTask(input)) {
                 process.within(input, tasklist, ui);
@@ -119,10 +125,7 @@ public class Parser {
                 process.edit(input,ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayment(input)) {
-                process.addPayment(input, ui, storage);
-                process.commandHistory(input, ui, storage);
-            } else if (instr.isgetpayee(input)) {
-                process.findPayee(input, ui);
+                process.addPayment(input, ui, storage, dict);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayee(input)) {
                 process.addPayee(input, ui, storage);
@@ -168,6 +171,15 @@ public class Parser {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * Remove whitespace in front and back of input.
+     * @param input Input from user.
+     * @return Returns trimmed input.
+     */
+    private String trimInput(String input) {
+        return input.trim();
     }
 }
     

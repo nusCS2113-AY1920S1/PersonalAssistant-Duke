@@ -5,15 +5,28 @@ import ui.Ui;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Set;
 
+import common.AlphaNUSException;
+import project.Project;
+import payment.Status;
 
+//@@author karansarat
 /**
- * PaymentManager for managing Payments objects and PaymentForms from the PaymentsList.
+ * PaymentManager for managing Payments objects and PaymentForms from the
+ * PaymentsList.
  */
 public abstract class PaymentManager {
 
+    /**
+     * Takes in a string describing a field of payee/payment objects.
+     * Returns a Field enum object that describes the field.
+     * @param str string describing field
+     * @return a Field object corresponding to str.
+     */
     private static Field strToField(String str) {
-        switch (str) {
+        switch (str.toUpperCase()) {
         case ("PAYEE"):
             return Field.PAYEE;
         case ("EMAIL"):
@@ -38,72 +51,99 @@ public abstract class PaymentManager {
     }
 
     /**
-     * Finds the Payments objects containing a payee name and returns a list of Payments.
-     *
-     * @param payee Payee of the item.
+     * Finds a Payee object from any project using the payee name.
+     * User does not have to goto each project to try to find payee.
+     * @param projectMap LinkedHashMap containing all the projects in AlphaNUS.
+     * @param curr the name of the current project user is using.
+     * @param name name of the payee to find
+     * @return the Payee object required to find
      */
-    public static ArrayList<Payments> findPayee(String payee, HashMap<String, Payee> managermap) {
-        ArrayList<Payments> paymentsArrayList = new ArrayList<Payments>();
-        paymentsArrayList.addAll(managermap.get(payee).payments);
-        return paymentsArrayList;
+    public static Payee findPayee(LinkedHashMap<String, Project> projectMap, String curr, String name) {
+        Set<String> projectnames = projectMap.keySet();
+        String currProject = curr;
+        while (!projectMap.get(currProject).managermap.containsKey(name)) {
+            projectnames.remove(currProject);
+            if (projectnames.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+            currProject = projectnames.iterator().next();
+        }
+        return projectMap.get(currProject).managermap.get(name);
     }
 
     /**
-     * Edits the Payments object details, may overload string to take different ways of inputs.
+     * Modifies the specified field of a Payee object.
+     * @param payee Name of payee
+     * @param fieldToAmend field of payee to amend
+     * @param replace what to write to the field
+     * @param managermap Hashmap of all payees in project
+     * @param ui Print messages to show payee has been edited.
      */
-    public static void editPayee(String payee, String inv, String fieldToAmend, 
-        String replace, HashMap<String, Payee> managermap, Ui ui) {
+    public static void editPayee(String payee, String fieldToAmend, String replace,
+            HashMap<String, Payee> managermap, Ui ui) {
         Field field = strToField(fieldToAmend);
-        if (inv.isEmpty()) {
-            if (field == Field.PAYEE) {
-                managermap.get(payee).payee = replace;
-            } else if (field == Field.EMAIL) {
-                managermap.get(payee).email = replace;
-            } else if (field == Field.MATRIC) {
-                managermap.get(payee).matricNum = replace;
-            } else if (field == Field.PHONE) {
-                managermap.get(payee).phoneNum = replace;
-            }
-            ui.printEditMessage(managermap.get(payee));
-        } else {
-            for (Payments payment : managermap.get(payee).payments) {
-                if (payment.inv.equals(inv)) {
-                    if (field == Field.ITEM) {
-                        payment.item = replace;
-                    } else if (field == Field.COST) {
-                        payment.cost = Double.parseDouble(replace);
-                    } else if (field == Field.INV) {
-                        payment.inv = replace;
-                    } else if (field == Field.STATUS) {
-                        if (replace.equalsIgnoreCase("pending")) {
-                            payment.status = Status.PENDING;
-                        } else if (replace.equalsIgnoreCase("approved")) {
-                            payment.status = Status.APPROVED;
-                        } else if (replace.equalsIgnoreCase("overdue")) {
-                            payment.status = Status.OVERDUE;
-                        }
+        if (field == Field.PAYEE) {
+            managermap.get(payee).payee = replace;
+        } else if (field == Field.EMAIL) {
+            managermap.get(payee).email = replace;
+        } else if (field == Field.MATRIC) {
+            managermap.get(payee).matricNum = replace;
+        } else if (field == Field.PHONE) {
+            managermap.get(payee).phoneNum = replace;
+        }
+        ui.printEditMessage(managermap.get(payee));
+    }
+
+    /**
+     * Modifies the specified field of a Payment object.
+     * @param payee name of payee
+     * @param item description of payment 
+     * @param fieldToAmend which field to amend
+     * @param replace what to replace in that field
+     * @param managermap Hashmap of all payees in project
+     * @param ui Print messages to show payment has been edited.
+     */
+    public static void editPayment(String payee, String item, String fieldToAmend, String replace,
+        HashMap<String, Payee> managermap, Ui ui) {
+        Field field = strToField(fieldToAmend);
+        for (Payments payment : managermap.get(payee).payments) {
+            if (payment.item.equals(item)) {
+                if (field == Field.ITEM) {
+                    payment.item = replace;
+                } else if (field == Field.COST) {
+                    payment.cost = Double.parseDouble(replace);
+                } else if (field == Field.INV) {
+                    payment.inv = replace;
+                } else if (field == Field.STATUS) {
+                    if (replace.equalsIgnoreCase("pending")) {
+                        payment.status = Status.PENDING;
+                    } else if (replace.equalsIgnoreCase("approved")) {
+                        payment.status = Status.APPROVED;
+                    } else if (replace.equalsIgnoreCase("overdue")) {
+                        payment.status = Status.OVERDUE;
                     }
-                    ui.printEditMessage(payment, payee);
-                    break;
                 }
+                ui.printEditMessage(payment, payee);
+                break;
             }
-            assert (false); //Invalid invoice number <-- TODO : Raise error
         }
     }
 
     /**
-     * List the Payments object details, may extend to generate statement of accounts.
+     * Organises all payments in a managermap, output according to status.
+     * @param managermap Hashmap of all payees in project
+     * @return a list containing a list each for pending, overdue and approved payments.
      */
-    public static ArrayList<ArrayList<Payments>> listPayments(HashMap<String, Payee> managermap) {
+    public static ArrayList<ArrayList<Payments>> listOfPayments(HashMap<String, Payee> managermap) {
         ArrayList<ArrayList<Payments>> listOfPayments = new ArrayList<>();
         ArrayList<Payments> overdue = new ArrayList<>();
         ArrayList<Payments> pending = new ArrayList<>();
         ArrayList<Payments> approved = new ArrayList<>();
         for (Payee payee : managermap.values()) {
             for (Payments payment : payee.payments) {
-                if (payment.getStatus() == Status.PENDING) {
+                if (payment.status == Status.PENDING) {
                     pending.add(payment);
-                } else if (payment.getStatus() == Status.OVERDUE) {
+                } else if (payment.status == Status.OVERDUE) {
                     overdue.add(payment);
                 } else {
                     approved.add(payment);
@@ -117,16 +157,43 @@ public abstract class PaymentManager {
     }
 
     /**
-     * Deletes the Payments object details.
+     * Add the Payments object details to PaymentsList.
+     * @param project Name of project
+     * @param payee Name of payee
+     * @param item Description of item
+     * @param cost Amount billed in invoice
+     * @param inv Invoice ID
+     * @param managermap Hashmap containing all payees in project
+     * @param dict set of strings containing the vocab used by user
+     * @return returns a Payment object representing the newly created payment
+     * @throws AlphaNUSException when error is found in writing to dict.json
      */
-    public static Payments deletePayments(String payee, String item, HashMap<String, Payee> managermap,
-                                          String projectname) {
+    public static Payments addPayments(String project, String payee, String item, double cost, String inv, 
+            HashMap<String, Payee> managermap, Set<String> dict) throws AlphaNUSException {
+        Payments pay = new Payments(project, payee, item, cost, inv);
+        pay.paymentToDict(dict);
+        managermap.get(payee).payments.add(pay);
+        return pay;
+    }
+
+    /**
+     * Deletes an existing payment object.
+     * @param payee Payee name.
+     * @param item Description of payment item
+     * @param managermap Hashmap containing all payees in project.
+     * @return the payee object that was deleted from managermap to print out a confirmation.
+     */
+    public static Payments deletePayments(String payee, String item, 
+        HashMap<String, Payee> managermap) {
         int i = 0;
         while (i < managermap.get(payee).payments.size()) {
             if (managermap.get(payee).payments.get(i++).item.equals(item)) {
-                Payments deleted = new Payments(payee, item, managermap.get(payee).payments.get(--i).cost,
-                        managermap.get(payee).payments.get(i).inv, projectname);
+                Double cost = managermap.get(payee).payments.get(--i).cost;
+                String inv = managermap.get(payee).payments.get(i).inv;
+                String prName = managermap.get(payee).payments.get(i).project;
+                Payments deleted = new Payments(prName, payee, item, cost, inv);
                 managermap.get(payee).payments.remove(i);
+                checkStatus(deleted);
                 return deleted;
             }
         }
@@ -134,51 +201,69 @@ public abstract class PaymentManager {
     }
 
     /**
-     * Add the Payments object details to PaymentsList.
+     * Add the Payee object details to managermap.
+     * @param project Name of project
+     * @param payee Name of payee
+     * @param email Email address of payee
+     * @param matricNum Matriculation number of payee
+     * @param phoneNum Phone number of payee
+     * @param managermap Hashmap containing all payees in project
+     * @return Payee object that user created
      */
-    public static Payments addPayments(String payee, String item, double cost, String inv,
-                                       HashMap<String, Payee> managermap, String projectname) {
-        Payments pay = new Payments(payee, item, cost, inv, projectname);
-        managermap.get(payee).payments.add(pay);
-        return pay;
-    }
-
-    /**
-     * Add Payee object to managermap.
-     */
-    public static Payee addPayee(String payee, String email, String matricNum, String phoneNum,
+    public static Payee addPayee(String project, String payee, String email, String matricNum, String phoneNum,
                                  HashMap<String, Payee> managermap) {
         if (managermap.keySet().contains(payee)) {
             throw new IllegalArgumentException();
         }
-        Payee payeeNew = new Payee(payee, email, matricNum, phoneNum);
+        Payee payeeNew = new Payee(project, payee, email, matricNum, phoneNum);
         managermap.put(payee, payeeNew);
         return payeeNew;
     }
 
     /**
-     * Delete Payee object.
+     * Deletes an existing payee object.
+     * @param payee Payee name.
+     * @param managermap Hashmap containing all payees in project.
+     * @return the payee object that was deleted from managermap to print out a confirmation.
      */
     public static Payee deletePayee(String payee, HashMap<String, Payee> managermap) {
+        if (!managermap.containsKey(payee)) {
+            throw new IllegalArgumentException();
+        }
         Payee payeeDeleted = managermap.get(payee);
+        checkStatus(payeeDeleted);
         managermap.remove(payee);
         return payeeDeleted;
     }
 
     /**
-     * This function scans through every payment and changes its status if needed.
-     * @param managermap The managermap.
+     * This function scans through every payment in managermap and changes its status if needed.
+     * @param managermap The managermap to scan through.
      */
     public static void checkStatus(HashMap<String, Payee> managermap) {
+        for (Payee payee : managermap.values()) {
+            checkStatus(payee);
+        }
+    }
+
+    /**
+     * This function scans through every payment in a payee and changes its status if needed.
+     * @param payee The payee to scan through.
+     */
+    public static void checkStatus(Payee payee) {
+        for (Payments payment : payee.payments) {
+            checkStatus(payment);
+        }
+    }
+
+    /**
+     * This function checks a payment and changes its status if needed.
+     * @param payment The payment object to check through.
+     */
+    public static void checkStatus(Payments payment) {
         Date dateObj = new Date();
-        for (Payee payee : managermap.values()) { // iterate through the payees
-            for (Payments payment : payee.payments) { // iterate through the payments
-                if (payment.getStatus() == Status.APPROVED || dateObj.compareTo(payment.getDeadline()) >= 0) {
-                    continue;
-                } else {
-                    payment.setStatus(Status.OVERDUE);
-                }
-            }
+        if (payment.status != Status.APPROVED && dateObj.compareTo(payment.deadline) < 0) {
+            payment.status = Status.OVERDUE;
         }
     }
 }
