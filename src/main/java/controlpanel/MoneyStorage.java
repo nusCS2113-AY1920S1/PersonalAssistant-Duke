@@ -309,6 +309,12 @@ public class MoneyStorage {
     }
 
     //@@author Chianhaoplanks
+
+    /**
+     * method that adds a deleted entry of type Item into the stack of deleted entries.
+     * @param item deleted by a recent delete command.
+     */
+
     public void addDeletedEntry(Item item) {
         deletedEntries.push(item);
         if (deletedEntries.size() > 5) {
@@ -316,12 +322,20 @@ public class MoneyStorage {
         }
     }
 
+    /**
+     * returns the most recently deleted entry of type Item when the undo command is called.
+     * @return most recent item deleted in the program.
+     */
     public Item getDeletedEntry() {
         Item item = deletedEntries.lastElement();
         deletedEntries.pop();
         return item;
     }
 
+    /**
+     * method that adds a deleted entry of type BankTracker into a stack of BankTrackers.
+     * @param bankTracker deleted by a recent DeleteBankAccountCommand that was called.
+     */
     public void addDeletedBank(BankTracker bankTracker) {
         deletedBanks.push(bankTracker);
         if (deletedBanks.size() > 5) {
@@ -329,6 +343,10 @@ public class MoneyStorage {
         }
     }
 
+    /**
+     * returns the most recently deleted BankTracker when the undo command is called.
+     * @return most recent BankTracker deleted in the program.
+     */
     public BankTracker getDeletedBankTracker() {
         BankTracker bt = deletedBanks.lastElement();
         deletedBanks.pop();
