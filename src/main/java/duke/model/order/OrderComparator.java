@@ -39,14 +39,12 @@ public class OrderComparator implements Comparator<Order> {
         } else if (SortOrderCommand.SortCriteria.DEADLINE.equals(criteria)) {
             return compareDeadLine(o1, o2);
 
-
         } else if (SortOrderCommand.SortCriteria.STATUS.equals(criteria)) {
             return compareStatus(o1, o2);
 
         } else if (SortOrderCommand.SortCriteria.TOTAL.equals(criteria)) {
             return compareTotal(o1, o2);
         }
-
         return 0;
     }
 

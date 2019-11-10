@@ -5,6 +5,7 @@ import duke.commons.util.FileUtil;
 import duke.commons.util.JsonUtil;
 import duke.logic.command.exceptions.DataConversionException;
 import duke.logic.command.exceptions.IllegalValueException;
+import duke.logic.parser.exceptions.ParseException;
 import duke.model.ReadOnlyBakingHome;
 
 import java.io.IOException;
@@ -53,9 +54,12 @@ public class JsonBakingHomeStorage implements BakingHomeStorage {
 
         try {
             return Optional.of(jsonBakingHome.get().toModelType());
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
+        } catch (IllegalValueException | ParseException | IllegalArgumentException e) {
+            logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
+            throw new DataConversionException(e);
+        } catch (Exception i) {
+            logger.info("Exception happened while reading data" + i.getMessage());
+            throw new DataConversionException(i);
         }
     }
 

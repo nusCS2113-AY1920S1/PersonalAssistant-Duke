@@ -51,7 +51,8 @@ public class ParserUtil {
     /**
      * Returns a set of unique {@code Index} parsed from user input.
      * The input string can be a) a single index e.g. 1;
-     * or b) some indices separated by commas, e.g. 1, 2, 4;
+     * or b) multiple indices separated by commas, e.g. 1, 2, 4. Note that for duplicate indices, only one
+     * will remain. For example, for 1,2,2, returns a set with two indices;
      * or c) an interval of index e.g. 1~4.
      *
      * @throws ParseException if user input is not in the specified format

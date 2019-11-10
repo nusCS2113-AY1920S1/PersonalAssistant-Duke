@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 public class ArgumentTokenizer {
 
     private static final Pattern PREAMBLE_ARGS_FORMAT = Pattern.compile("^([^-]+)?\\s*(.*)");
-    private static final Pattern PREFIX_VALUE_FORMAT = Pattern.compile("(-\\w+)\\s*([^-]+)?");
+    private static final Pattern PREFIX_VALUE_FORMAT = Pattern.compile("(-\\w*)\\s*([^-]+)?");
 
     /**
      * Tokenizes an arguments string and returns an {@code ArgumentMultimap} object that maps prefixes to their

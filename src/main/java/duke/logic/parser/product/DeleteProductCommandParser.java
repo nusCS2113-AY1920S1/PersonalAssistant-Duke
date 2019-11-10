@@ -1,6 +1,5 @@
 package duke.logic.parser.product;
 
-import duke.commons.core.index.Index;
 import duke.logic.command.product.DeleteProductCommand;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;
@@ -8,10 +7,7 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
-import java.util.Set;
-
 import static duke.logic.message.ProductMessageUtils.MESSAGE_EMPTY_INDICES;
-import static duke.logic.message.ProductMessageUtils.MESSAGE_INDEX_OUT_OF_BOUND;
 
 public class DeleteProductCommandParser implements Parser<DeleteProductCommand> {
 
