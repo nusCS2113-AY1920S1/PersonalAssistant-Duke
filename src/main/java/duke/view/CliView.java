@@ -163,7 +163,8 @@ public class CliView {
             + "3. Edit plan - Edit a specified plan by adding new "
             + "activities or switching activity positions "
             + "(Choose a plan from the list)\n"
-            + "4. Delete plan(Choose a plan from the list)");
+            + "4. Delete plan(Choose a plan from the list)\n"
+            + "5. Back");
         printLine();
     }
 
@@ -474,7 +475,7 @@ public class CliView {
      */
     public void showEditPlanPrompt1() {
         System.out.println("Input new activity(add), look at the list(show)"
-                + ",edit activity positions(switch) or"
+                + ", edit activity positions(switch) or"
                 + " finalize the plan(finalize)");
     }
 

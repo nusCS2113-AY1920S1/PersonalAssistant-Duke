@@ -34,17 +34,9 @@ public class MyPlan {
      */
     private ArrayList<MyTraining> list = new ArrayList<>();
     /**
-     * Represents the list for the current number of plans saved.
-     */
-    private ArrayList<String> toc = new ArrayList<>();
-    /**
      * Represents the map of all lists loaded from the text file.
      */
     private Map<String, ArrayList<MyTraining>> map = new HashMap<>();
-    /**
-     * Represents the name of the individual activity in a plan.
-     */
-    private String name;
 
     /**
      * The constructor for MyPlan.
@@ -56,19 +48,11 @@ public class MyPlan {
     }
 
     /**
-     * A getter to retrieve the activity name in a plan.
-     * @return name of activity
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
      * A getter to retrieve the list of current plan loaded.
      *
      * @return the list of current plan loaded.
      */
-    private ArrayList<MyTraining> getList() {
+    public ArrayList<MyTraining> getList() {
         return this.list;
     }
 
@@ -79,6 +63,15 @@ public class MyPlan {
      */
     public void setList(final ArrayList<MyTraining> newList) {
         this.list = newList;
+    }
+
+    /**
+     * A getter to retrieve the map of plans.
+     *
+     * @return the list of current plan loaded.
+     */
+    public Map<String, ArrayList<MyTraining>> getMap() {
+        return this.map;
     }
 
     /**
@@ -93,14 +86,14 @@ public class MyPlan {
     }
 
     /**
-     * Retrieves an sorted arraylist of keys from the map.
+     * Retrieves an arraylist of keys from the map.
      *
      * @return the arraylist of keys, sorted by intensity and plan number
      */
     public ArrayList<String> keyList() {
-        Set<String> keys = map.keySet();
+        Set<String> keys = getMap().keySet();
         ArrayList<String> kl = new ArrayList<>(keys);
-        Collections.sort(kl, new Comparator<String>() {
+        /*Collections.sort(kl, new Comparator<String>() {
             public int compare(final String a, final String b) {
                 return extractInt(a) - extractInt(b);
             }
@@ -109,7 +102,7 @@ public class MyPlan {
                 String num = s.replaceAll("\\D", "");
                 return num.isEmpty() ? 0 : Integer.parseInt(num);
             }
-        });
+        });*/
         return kl;
     }
 
@@ -120,42 +113,52 @@ public class MyPlan {
         ArrayList<String> planList = keyList();
         int index = 1;
         int option = 1;
+
+        StringBuilder message = new StringBuilder();
+
         for (String s : planList) {
             String[] num = s.split("(?<=\\D)(?=\\d)");
             if (s.contains("high")) {
                 if (num[1].equals("1")) {
                     index = 1;
-                    System.out.println("High intensity:");
-                    System.out.println(option + ". Plan " + index);
+                    message.append("High intensity:\n");
+                    message.append(option).append(". Plan ").append(index);
+                    message.append("\n");
                 } else {
-                    System.out.println(option + ". Plan " + index);
+                    message.append(option).append(". Plan ").append(index);
+                    message.append("\n");
                 }
             } else if (s.contains("moderate")) {
                 if (num[1].equals("1")) {
                     index = 1;
-                    System.out.println("Moderate intensity:");
-                    System.out.println(option + ". Plan " + index);
+                    message.append("Moderate intensity:\n");
+                    message.append(option).append(". Plan ").append(index);
+                    message.append("\n");
                 } else {
-                    System.out.println(option + ". Plan " + index);
+                    message.append(option).append(". Plan ").append(index);
+                    message.append("\n");
                 }
             } else {
                 if (num[1].equals("1")) {
                     index = 1;
-                    System.out.println("Relaxed intensity:");
-                    System.out.println(option + ". Plan " + index);
+                    message.append("Relaxed intensity:\n");
+                    message.append(option).append(". Plan ").append(index);
+                    message.append("\n");
                 } else {
-                    System.out.println(option + ". Plan " + index);
+                    message.append(option).append(". Plan ").append(index);
+                    message.append("\n");
                 }
             }
             index++;
             option++;
         }
+        System.out.println(message);
     }
 
     /**
      * Clear the plan currently loaded in the list.
      */
-    private void clearPlan() {
+    public void clearPlanInList() {
         getList().clear();
     }
 
@@ -277,9 +280,15 @@ public class MyPlan {
 
     /**
      * Edit a plan from the map.
+     * @param intensity intensity level
+     * @param key key of plan
+     * @throws IOException IO
      */
-    public void editPlan() {
+    public void editPlan(final String intensity,
+                         final String key) throws IOException {
+        cliView.printLine();
         System.out.println(viewPlan());
+        cliView.printLine();
         while (true) {
             cliView.showEditPlanPrompt1();
             if (sc.hasNextLine()) {
@@ -321,6 +330,7 @@ public class MyPlan {
                         cliView.printLine();
                     }
                 } else if (input.equals("finalize")) {
+                    saveToMap(getList(), intensity, key);
                     cliView.printLine();
                     cliView.showEditPlanSuccessful();
                     System.out.println(viewPlan());
@@ -336,12 +346,9 @@ public class MyPlan {
      * @param key key for a plan in the map.
      */
     public void loadPlanToList(final String key) {
-        clearPlan();
-        if (map.containsKey(key)) {
-            for (MyTraining t : map.get(key)) {
-                getList().add(t);
-            }
-        }
+        clearPlanInList();
+        ArrayList<MyTraining> temp = getMap().get(key);
+        setList(temp);
     }
 
     /**
@@ -357,18 +364,19 @@ public class MyPlan {
                            final String key) throws IOException {
         if (key.equals("0")) {
             int planNum = 1;
-            Set<String> keys = map.keySet();
+            Set<String> keys = getMap().keySet();
             for (String k : keys) {
                 if (k.contains(intensity)) {
                     planNum++;
                 }
             }
             String k = createKey(intensity, planNum);
-            map.put(k, newList);
+            getMap().put(k, newList);
         } else {
-            map.put(key, newList);
+            getMap().put(key, newList);
         }
         savePlansToFile();
+        clearPlanInList();
     }
 
     /**
@@ -378,7 +386,7 @@ public class MyPlan {
      */
     public void createPlan(final String intensity) {
         try {
-            clearPlan();
+            clearPlanInList();
             boolean inCreation = true;
             if (Intensity.contains(intensity)) {
                 while (inCreation) {
@@ -458,10 +466,10 @@ public class MyPlan {
      * @throws IOException IO
      */
     public void deletePlan(final String key) throws IOException {
-        if (!map.containsKey(key)) {
+        if (!getMap().containsKey(key)) {
             cliView.showIntensityAndNumber();
         } else {
-            map.remove(key);
+            getMap().remove(key);
             cliView.showPlanRemoved();
         }
         savePlansToFile();
@@ -473,6 +481,7 @@ public class MyPlan {
      */
     public void savePlansToFile() throws IOException {
         new Storage(
-                ".\\src\\main\\java\\duke\\data\\plan.txt").savePlans(map, toc);
+                ".\\src\\main\\java\\duke\\data\\plan.txt"
+                ).savePlans(getMap(), keyList());
     }
 }
