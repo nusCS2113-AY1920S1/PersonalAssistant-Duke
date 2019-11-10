@@ -4,7 +4,7 @@ package seedu.hustler.game.achievement;
  * The interface that all classes in achievement must inherit to
  * convert them to proper format before storing them in a txtfile.
  */
-public interface Achievement extends Write{
+public interface Achievement extends Write {
 
 
     /**
@@ -13,42 +13,42 @@ public interface Achievement extends Write{
      */
     String getAchievementLevel();
 
-     /**
+    /**
      * Retrieve description of an achievement.
      * @return
      */
     String getDescription();
 
-     /**
+    /**
      * Retrieve information regarding an achievement.
      * @return
      */
-   String getInformation();
+    String getInformation();
 
-     /**
+    /**
      * Retrieve points attainable from an achievement.
      * @return
      */
-   int getPoints();
+    int getPoints();
 
-     /**
+    /**
      * Update how much point is gained from unlocking an achievement.
      * @param points number of points
      * @return
      */
     int setPoints(int points);
 
-     /**
+    /**
      * Check whether achievement is locked.
      * @return
      */
-   Boolean checkLock();
+    Boolean checkLock();
 
-     /**
+    /**
      * Unlock an achievement.
      * @param lock lock
      * @return
      */
-   Boolean setLock(Boolean lock);
+    Boolean setLock(Boolean lock);
 
 }
