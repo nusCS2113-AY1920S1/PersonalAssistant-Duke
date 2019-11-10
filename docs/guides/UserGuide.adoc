@@ -482,6 +482,20 @@ Fetches email from Outlook.com.
 [WARNING]
 The window might freeze for a while as it is fetching and parsing emails. Please wait patiently.
 
+==== Fuzzy search on emails
+Format: `fuzzySearch TARGET`
+
+This feature searches for the target string across all emails including their subject, sender and body,
+with some tolerance of difference. This tolerance is represented by the **edit distance** between two words.
+For more details about the **edit distance**, you can find more details
+https://en.wikipedia.org/wiki/Edit_distance[here]. The lower the **edit distance** is, the more similar are
+these two strings.
+
+This fuzzy search functionality tolerates up to an **edit distance** of 2 and is insensitive to cases. It
+will list all the emails which contain the target string in their subject, sender or body. Emails are
+listed in descending order of a **relevance score**. The general idea is, the higher the score, the more
+relevant is the email. It is calculated in the following formula:
+
 ==== Auto parsing and tagging of emails
 This feature is automatically triggered by fetching emails from Outlook Server and adding new keyword. It
 will automatically parse "keywords" that might be  shown in your emails in different forms/expressions.
@@ -523,9 +537,9 @@ expression.
 
 Examples:
 
-`addKeyword School -exp luminus -exp op`
+`addKeyword Project -exp project -exp demo`
 
-`addKeyword ICM -exp ICM Career`
+`addKeyword Notice -exp announcement`
 
 [TIP]
 The easiest way to verify whether this command is working properly is to check whether the email

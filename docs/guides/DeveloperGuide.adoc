@@ -566,6 +566,10 @@ Please ensure the program is copied to an empty folder before starting the testi
 contamination. Any manual changes to the data folder might affect the program from function normally and is
 not recommended.
 
+[NOTE]
+As we are using key mapping for certain hotkeys, you will not be able to use `Ctrl + V` for pasting.
+However, you can right click on the input box and choose paste to paste the test input.
+
 |===
 |ℹ️|These instructions only provide a starting point for testers to work on; testers are expected to do more
 exploratory testing.
@@ -585,9 +589,30 @@ not 'CS2101'.
 
 | `email` | `addKeyword Notice -exp announcement` | All emails with the word 'announcement' in its subject,
 sender or body will have #Notice on the list | Normal use case of addKeyword and auto parsing
-| `email` | `addKeyword Project Demo -exp project -exp demo` | All emails with the word 'project' or 'demo'
-in its subject, sender or body will have #Project Demo on the list | Normal use case with multiple
+| `email` | `addKeyword Project -exp project -exp demo` | All emails with the word 'project' or 'demo'
+in its subject, sender or body will have #Project on the list | Normal use case with multiple
 expressions in one keyword
+| `email` | `addKeyword Project Demo -exp project -exp demo` | All emails with the word 'project' or 'demo'
+in its subject, sender or body will have #Project Demo on the list | Normal use case with space in keyword
+| `email` | `addKeyword Demo -exp final demo` | All emails with the word 'final demo'
+in its subject, sender or body will have #Demo on the list | Normal use case with space in expression
+| `email` | `addKeyword Project Demo -exp luminus` | All emails with the word 'luminus' in its subject,
+sender, or body will have #Project Demo on the list. Those emails already have #Project Demo will not be
+affected | Normal use case with new expression but existing keyword
+| `email` | `addKeyword 46 -exp 46` | All emails with '46' in its subject, sender or body will have #46 on
+the list | Normal use case with numbers in keyword and expression
+
+| `email` | `addKeyword` | Invalid command reported asking for a keyword after `addKeyword` | Invalid input
+without keyword specified
+| `email` | `addKeyword -exp project` | Invalid command reported asking for a keyword after `addKeyword` |
+Invalid input with expression but without keyword specified
+| `email` | `addKeyword project` | Invalid command reported asking for expression options | Invalid input
+without expression specified
+| `email` | `addKeyword project -exp` | Invalid command format reported | Empty expression in expression
+option should trigger the invalid command format check as option must not be empty
+| `email` | `addKeyword project -exp !@#` | Invalid command format reported | Invalid character in input
+will trigger the invalid command format check
+
 
 |===
 
