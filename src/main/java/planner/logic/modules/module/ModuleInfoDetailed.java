@@ -84,6 +84,7 @@ public class ModuleInfoDetailed {
         return moduleCode.replaceAll("[^0-9]", "");
     }
 
+    //@@author andrewleow97
     /**
      * Checks if module is S/U-able, and assigns grade based on String score.
      */

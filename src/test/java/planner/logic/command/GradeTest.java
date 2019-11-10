@@ -1,6 +1,6 @@
 //@@andrewleow97
 
-package planner.main;
+package planner.logic.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,8 +13,11 @@ import planner.main.InputTest;
 import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModFailedJsonException;
+import planner.logic.modules.module.ModuleTask;
 import planner.logic.parser.Parser;
 import planner.logic.modules.module.ModuleInfoDetailed;
+import planner.logic.modules.module.ModuleTasksList;
+import planner.logic.parser.Parser;
 import planner.main.CliLauncher;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
@@ -64,14 +67,13 @@ public class GradeTest extends InputTest {
      */
     @Test
     public void gradeTestUserInput() {
-        final String moduleTest1 = "password\n" + "grade CS1010 A\n" + "bye"; //This affects the user's list
+        final String moduleTest1 = "grade CS1010 A\n" + "bye"; //This affects the user's list
         final String[] hold = {""};
         provideInput(moduleTest1);
         CliLauncher.main(hold);
-        String temp =
-            "Please enter your password to continue:\n"
-            + "_______________________________\n"
-            + "Welcome to ModPlanner, your one stop solution to module planning!\n"
+        String temp = "_______________________________\n"
+            +
+            "Welcome to ModPlanner, your one stop solution to module planning!\n"
             +
             "Begin typing to get started!\n"
             +
@@ -91,7 +93,7 @@ public class GradeTest extends InputTest {
             +
             "_______________________________\n"
             +
-            "_______________________________\n";
+            "_______________________________";
         String expectedAddModule = "_______________________________\n"
             +
             "Welcome to ModPlanner, your one stop solution to module planning!\n"
@@ -110,13 +112,9 @@ public class GradeTest extends InputTest {
         newContentString = newContentString.replaceAll("\n", "");
         String escaped = removeUnicodeAndEscapeChars(newContentString);
         expectedAddModule = expectedAddModule.replaceAll("\n", "");
-        //assertEquals(escaped, removeUnicodeAndEscapeChars(expectedAddModule));
-        assertEquals(escaped, escaped);
+        assertEquals(escaped, removeUnicodeAndEscapeChars(expectedAddModule));
     }
 
-    /**
-     * Testing for invalid grade.
-     */
     @Test
     public void testIncorrectGradeInput() {
         final String moduleTest1 = "grade CS1010 Z\n" + "bye\n"; //This affects the user's list
@@ -152,9 +150,6 @@ public class GradeTest extends InputTest {
         assertEquals(escaped, removeUnicodeAndEscapeChars(expectedErrorModule));
     }
 
-    /**
-     * Testing for multiple grades inputted.
-     */
     @Test
     public void testMultipleGradeInput() {
         final String moduleTest1 = "grade CS1010 A\n";
