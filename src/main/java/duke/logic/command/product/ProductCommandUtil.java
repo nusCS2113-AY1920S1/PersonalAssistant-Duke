@@ -27,6 +27,10 @@ public class ProductCommandUtil {
         String newProductName =
             StringUtils.capitalize((productDescriptor.getProductName().orElse(toEdit.getProductName())).toLowerCase());
 
+        if (newProductName.isBlank() || newProductName.isEmpty() || newProductName.length() > 50) {
+            throw new ParseException(ProductMessageUtils.MESSAGE_CONSTRAIN_NAME);
+        }
+
         Double newRetailPrice = productDescriptor.getRetailPrice().orElse(toEdit.getRetailPrice());
         Double newIngredientCost =
                 productDescriptor.getIngredientCost().orElse(toEdit.getIngredientCost());
@@ -48,8 +52,8 @@ public class ProductCommandUtil {
         }
         String s = productDescriptor.getProductName().get();
         String name = StringUtils.capitalize(s.toLowerCase());
-        if (name.isBlank() || name.isEmpty()) {
-            throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
+        if (name.isBlank() || name.isEmpty() || name.length() > 50) {
+            throw new ParseException(ProductMessageUtils.MESSAGE_CONSTRAIN_NAME);
         }
         Product product = new Product(name);
         if (!productDescriptor.getIngredientCost().isEmpty()) {

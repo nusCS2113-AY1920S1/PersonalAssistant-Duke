@@ -10,23 +10,19 @@ import duke.logic.parser.exceptions.ParseException;
 
 import java.util.Set;
 
+import static duke.logic.message.ProductMessageUtils.MESSAGE_EMPTY_INDICES;
+import static duke.logic.message.ProductMessageUtils.MESSAGE_INDEX_OUT_OF_BOUND;
+
 public class DeleteProductCommandParser implements Parser<DeleteProductCommand> {
-    private static final String MESSAGE_EMPTY_INDICES = "Indices cannot be empty.";
-    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index 0 is out of bound";
 
     @Override
     public DeleteProductCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args);
+
         if (map.getPreamble().isBlank()) {
             throw new ParseException(MESSAGE_EMPTY_INDICES);
         }
-        Set<Index> indices;
-        try {
-            indices = ParserUtil.getIndices(map.getPreamble());
-        } catch (IndexOutOfBoundsException e) {
-            throw new ParseException(MESSAGE_INDEX_OUT_OF_BOUND);
-        }
-        // return new DeleteProductCommand(ParserUtil.getIndices(map.getPreamble()));
-        return new DeleteProductCommand(indices);
+
+        return new DeleteProductCommand(ParserUtil.getIndices(map.getPreamble()));
     }
 }
