@@ -98,7 +98,7 @@ public class UI {
                 + "Will also switch to the \"Degree Differences\" tab.\n"
                 + "Can be used on its own to simply switch tabs.\n\n"
                 + "Format: compare | compare <Degree> <Degree>\n"
-                + "Examples: compare bme come | compare ise ee\n");
+                + "Examples: compare Biomedical Engineering Computer Engineering | compare ise ee\n");
 
         //Todoo Command.
         helpMap.put("todo", "Adds a Todo task to your list of tasks.\n"
