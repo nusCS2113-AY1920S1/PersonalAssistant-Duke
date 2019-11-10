@@ -4,9 +4,11 @@ import duke.exception.DukeException;
 import executor.task.Task;
 import executor.task.TaskList;
 import interpreter.Parser;
+import ui.gui.MainWindow;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class StorageTask {
@@ -56,6 +58,29 @@ public class StorageTask {
             }
         } catch (Exception e) {
             throw new DukeException("No Previously Saved Tasks.\n");
+        }
+    }
+
+    /**
+     * Loads Task test data for Testers to try.
+     * @param taskList TaskList to store test Tasks
+     * @throws DukeException Cannot find test Data.
+     */
+    void loadTestData(TaskList taskList) throws DukeException {
+        InputStream testerTaskData = MainWindow.class
+                .getResourceAsStream("/testers/testersTask.txt");
+        if (testerTaskData == null) {
+            throw new DukeException("No file detected.");
+        }
+        Scanner s = new Scanner(testerTaskData).useDelimiter("\\A");
+        Task newTask;
+        while (s.hasNextLine()) {
+            String loadedInput = s.nextLine();
+            if (loadedInput.equals("")) {
+                break;
+            }
+            newTask = loadTaskFromStorageString(loadedInput);
+            taskList.addTask(newTask);
         }
     }
 

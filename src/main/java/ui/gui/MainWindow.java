@@ -20,7 +20,9 @@ import ui.UiCode;
 import ui.Wallet;
 import utils.InfoCapsule;
 
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MainWindow extends AnchorPane {
 
@@ -141,6 +143,10 @@ public class MainWindow extends AnchorPane {
             case CLEAR_CLI:
                 this.cliController.clearCliDisplay();
                 break;
+            case TESTER:
+                this.enableTesterMode();
+                this.displayToast(infoCapsule.getOutputStr());
+                break;
             case UPDATE:
                 break;
             default:
@@ -208,6 +214,13 @@ public class MainWindow extends AnchorPane {
     private void printSeparator() {
         this.showCliDisplay();
         this.cliController.printSeparator();
+    }
+
+    private void enableTesterMode() {
+        InfoCapsule infoCapsule = this.interpreterLayer.requestTesterData();
+        this.showCliDisplay();
+        this.showHomeDisplay();
+        this.displayToast(infoCapsule.getOutputStr());
     }
 
 }
