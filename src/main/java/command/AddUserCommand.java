@@ -16,7 +16,6 @@ import java.io.IOException;
 //@@author AmirAzhar
 public class AddUserCommand extends Command {
     private String[] splitL;
-
     /**
      * User login.
      * @param input from user
