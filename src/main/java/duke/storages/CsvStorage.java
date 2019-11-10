@@ -16,12 +16,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Map;
 
+//@@author HUANGXUANKUN
 public class CsvStorage extends Storage {
 
     private String filePath;
 
     /**
-     * Constructs a Storage object with a specific file path.
+     * Constructs a CSV-specific storage object with a specific file path.
      *
      * @param filePath A string that represents the path of the file to read or
      *                 write.

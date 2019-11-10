@@ -2,6 +2,7 @@ package duke.gui;
 
 import javafx.stage.Stage;
 
+//@@author HUANGXUANKUN
 /**
  * API of UI component.
  */

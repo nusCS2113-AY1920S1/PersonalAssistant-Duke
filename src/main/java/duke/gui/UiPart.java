@@ -2,28 +2,27 @@ package duke.gui;
 
 import duke.Launcher;
 import duke.Main;
-import static java.util.Objects.requireNonNull;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 import java.net.URL;
 
+//@@author HUANGXUANKUN
 /**
- * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
- * It contains a scene graph with a root node of type {@code T}.
+ * Represents GUI component with FXML given.
  */
 public abstract class UiPart<T> {
 
     /**
      * Resource folder where FXML files are stored.
      */
-    public static final String FXML_FILE_FOLDER = "/view/";
+    private static final String FXML_FILE_FOLDER = "/view/";
 
     private final FXMLLoader fxmlLoader = new FXMLLoader();
 
 
     /**
-     * Constructs a UiPart with the specified FXML file within {@link #FXML_FILE_FOLDER} and root object.
+     * Constructs a UiPart with a FXML file.
      */
     UiPart(String fxmlFileName, T root) {
         loadFxmlFile(getFxmlFileUrl(fxmlFileName), root);
@@ -51,8 +50,8 @@ public abstract class UiPart<T> {
     /**
      * Returns the FXML file's location path for a specified FXML file name.
      *
-     * @param fxmlFileName Holds the name of the FXML file.
-     * @return FXML file''s location for its corresponding FXML file.
+     * @param fxmlFileName Name of the fxml file.
+     * @return  File's location.
      */
     private static URL getFxmlFileUrl(String fxmlFileName) {
         if (fxmlFileName.isEmpty()) {
@@ -64,7 +63,7 @@ public abstract class UiPart<T> {
     }
 
     /**
-     * Returns the root object of the scene graph of this UiPart.
+     * Returns the root of the scene from the fxml controller extended from this UiPart.
      */
     public T getRoot() {
         return fxmlLoader.getRoot();

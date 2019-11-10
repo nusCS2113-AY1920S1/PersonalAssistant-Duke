@@ -1,19 +1,16 @@
 package duke.gui;
 
 import java.io.IOException;
-import java.util.Collections;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+
+//@@author HUANGXUANKUN
 
 /**
  * An example of a custom control using FXML.
@@ -27,10 +24,10 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * .
+     * A gui component which displays a Dialog with an image.
      *
-     * @param text .
-     * @param img  .
+     * @param text Dialog to be displayed in the
+     * @param img  an picture representing the dialog's owner
      */
     private DialogBox(String text, Image img, String colorCode) {
         try {
@@ -47,30 +44,26 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
-     */
-    private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
-    }
-
-    /**
-     * .
+     * It returns a dialog block with text in black, as well as user's icon image.
      *
-     * @param text .
-     * @param img  .
-     * @return .
+     * @param text Dialog to be displayed in the
+     * @param img  an picture representing the dialog's owner
+     * @return a JavaFX DialogBox
      */
-    public static DialogBox getUserDialog(String text, Image img) {
+    static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img, "#000000"); //Dialog with black text
     }
 
     /**
-     * .
+     * It returns a dialog block with text in red and blue, as well as duke's icon image.
+     * Exception message will be displayed in red.
+     * Duke's reply without exception will be displayed in blue.
+     *
+     * @param text Dialog to be displayed in the
+     * @param img  an picture representing the dialog's owner
+     * @return a JavaFX DialogBox
      */
-    public static DialogBox getDukeDialog(String text, Image img, boolean isException) {
+    static DialogBox getDukeDialog(String text, Image img, boolean isException) {
         if (isException) {
             return new DialogBox(text, img, "#ff0000"); //Dialog with red text
         } else {
