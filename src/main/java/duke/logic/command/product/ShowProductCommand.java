@@ -4,8 +4,6 @@ import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
-import duke.logic.parser.commons.CliSyntax;
-import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 import duke.model.product.Product;
 

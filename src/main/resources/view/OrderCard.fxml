@@ -25,7 +25,7 @@
                         <HBox alignment="CENTER_LEFT" mouseTransparent="true" prefHeight="45.0" prefWidth="200.0"
                               spacing="10.0" style="-fx-background-color: #5086ec;">
                             <children>
-                                <Label fx:id="index" text="{index}" textFill="WHITE">
+                                <Label fx:id="index" minWidth="18.0" text="1." textFill="WHITE" HBox.hgrow="ALWAYS">
                                     <font>
                                         <Font name="SF Pro Text Regular" size="18.0"/>
                                     </font>

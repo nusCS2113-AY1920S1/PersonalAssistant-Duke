@@ -90,7 +90,7 @@ link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/du
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : 
+*API* :
 link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/duke/model/Model.java[`Model.java`]
 
 The `Model`,
@@ -109,7 +109,7 @@ The `Model`,
 .Structure of the Storage Component
 image::storage_diagram.png[]
 
-*API* : 
+*API* :
 link:https://github.com/AY1920S1-CS2113T-T12-3/main/tree/master/src/main/java/duke/storage/BakingHomeStorage.java[`BakingHomeStorage.java`]
 
 The `Storage` component,
@@ -127,13 +127,15 @@ This section describes some noteworthy details on how certain features are imple
 
 === Auto-Complete Feature
 
-BakingHome comes with a auto-complete feature that predicts the commands or arguments that the user attempts to type based on what has already been entered.
+BakingHome comes with an auto-complete feature that predicts the commands or arguments that the user attempts to type based on what has already been entered.
 Auto-Complete is invoked by pressing the `Tab` key.
 If there are multiple suggestions available, the user can navigate among the suggestions by repeatedly pressing the `Tab` key.
 
 ==== Implementation
 
-Auto-complete mechanism is facilitated by `AutoCompleter` in `Logic` component.  
+The auto-complete mechanism is facilitated by `AutoCompleter` in `Logic` component.
+
+`AutoCompleter` has a nested class `Input`, which represents the details of user input, including the `text` and the `caretPosition`.
 
 `AutoCompleter` implements the following operations:
 
@@ -141,17 +143,16 @@ Auto-complete mechanism is facilitated by `AutoCompleter` in `Logic` component.
 
 * `AutoCompleter#isAutoCompletable(Input)` -- Returns true if the current user input can be completed by `AutoCompleter`.
 
-* `AutoCompleter#complete()` -- Returns a  `UserInputState` that specifies the details of the user input after auto-completion.
+* `AutoCompleter#complete()` -- Returns a  `Input` object that specifies the details of the user input after auto-completion.
 
-The last two operations are exposed in the `Model` interface as `Model#isAutoCompletable(UserInputState)()` and `Model#complete()` respectively.
+The last two operations are exposed in the `Model` interface as `Model#isAutoCompletable(Input)()` and `Model#complete()` respectively.
 
-In addition, `AutoCompleter` has a nested class `Input`, which represents the details of a user input, including the `text` and the `caretPosition`.
 
 ===== Workflow
 
 When the user presses a key in the command box, command box checks if the key pressed is `Tab`.
-If `Tab` is pressed, the text field checks with `AutoCompleter` to verify if the current input is auto-completable.
-If the state is eligible for auto-completion, command box will request for a suggestion by calling `Model#complete()` and set its text and caret position accordingly.
+If `Tab` is pressed, the command box checks with `AutoCompleter` to verify if the current input is auto-completable.
+If the state is eligible for auto-completion, the command box will request for a suggestion by calling `Model#complete()` and set its text and caret position accordingly.
 The workflow is illustrated in the diagram below:
 
 
@@ -161,7 +162,7 @@ image::auto_complete_activity_diagram.png[]
 
 ===== Navigating among suggestions
 
-The auto-complete feature allows the user to navigate among possible suggestions by repeatedly pressing `Tab`.
+The auto-complete feature allows users to navigate among possible suggestions by repeatedly pressing `Tab`.
 
 Internally, `AutoCompleter` maintains a list `suggestionList` containing all possible `Input` suggestions. `suggestionList` is implemented as a cyclic list by maintaining a `suggestionPointer`:
 
@@ -172,6 +173,7 @@ Internally, `AutoCompleter` maintains a list `suggestionList` containing all pos
 ===== Extending Auto-Complete to More Commands
 
 Following the Open-Closed Principle, the Auto-Complete feature is highly extensible.
+
 You can add a command to support auto-completion by taking the following steps:
 
 *Step 1.* Declare `AUTO_COMPLETE_INDICATOR` and `AUTO_COMPLETE_PARAMETERS` fields in your command class.
@@ -195,7 +197,7 @@ public class AddOrderCommand extends Command {
 
 ===== Aspect 1: Extending AutoComplete to more commands
 
- * Alternative 1: Hard-code command words and arguments in AutoCompleter class.
+* Alternative 1: Hard-code command words and arguments in AutoCompleter class.
 
 ** Pros: Easy to implement.
 
@@ -217,7 +219,7 @@ It could lead to unexpected side-effects if implemented wrongly.
 ** Pros: Intuitive and allows users to see all possible commands in one place.
 ** Cons: Hard to implement.
 May require additional components other than JavaFx's built-in components.
-May require additional components other than JavaFx's built-in components.
+
 * Alternative 2 (Current choice): Navigate between possible suggestions by repeatedly pressing `Tab` key.
 ** Pros: Easier to implement since no additional components are needed
 ** Cons: Cannot display all possible commands in one place.
@@ -353,18 +355,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-== Documentation
-
-Refer to the guide <<Documentation#, here>>.
-
-== Testing
-
-Refer to the guide <<Testing#, here>>.
-
-== Dev Ops
-
-Refer to the guide <<DevOps#, here>>.
-
 [appendix]
 == Product Scope
 
@@ -380,7 +370,7 @@ Thus, it is hard for him to switch between different apps to manage his bakery b
 
 BakingHome is a one-stop desktop application that has all the important features for such a manager to eliminate the trouble of changing between different apps.
 
-*Value proposition*: All-in-one bakery management system for home bakeries.
+*Value proposition*: One-stop bakery management system for home bakeries.
 
 [appendix]
 == User Stories
@@ -406,7 +396,7 @@ something to refer to when deciding the retail price
 
 |`* *`|user | Sort products through name, cost, price, profit| find a product easily when the list gets long.
 
-|`* * *` |user |Add new orders |Track the orders that have been placed
+|`* * *` |user |Add a new order without specifying any details| Add orders more quickly
 
 |`* * *` |user |Edit an order's details |Adjust the order if my customer's preferences change
 
@@ -414,15 +404,15 @@ something to refer to when deciding the retail price
 
 |`* *` |user |Sort the orders by date created, deadline, and total price |Look for orders more easily
 
-|`* *` |careless user |Undo deleting an order |Reverse a change instead of typing out the whole order again
+|`* *` |careless user |Undo deleting an order | save myself from the trouble of typing out the whole order again
 
-|`* *` |user |Mark orders as done, canceled or completed |Keep the orders organized and easy to sort
+|`* *` |user |Mark orders as done, canceled or completed | Track the status of my orders more easily
 
 |`* * *` |user |Add, edit and delete my ingredients in the shopping list easily |Manage the bakery more easily
 
 |`* * *` |user |Transfer my ingredients from the shopping list to inventory list in a single step |Save the trouble of having to manually re-key every single ingredient
 
-|`* *` |user |Clear my lists |It is easier to manage
+|`* *` |user |Clear all list items in one go | saved myself from the trouble of deleting one by one
 
 |`* *` |user |Be able to know the price or estimated prices of the ingredients in my shopping list |I can budget myself and cut costs if necessary
 
@@ -455,7 +445,7 @@ _{More to be added}_
 (For all use cases below, the *System* is `BakingHome` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete an Order
+=== Use case 1: Deleting an Order
 
 *MSS*
 
@@ -483,7 +473,7 @@ The given index(indices) is(are) invalid.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Buying an ingredient in the shopping list
+=== Use case 2: Buying an ingredient in the shopping list
 
 *MSS*
 
@@ -510,7 +500,7 @@ The given index(indices) is(are) invalid.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Complete an Order
+=== Use case 3: Completing an Order
 
 *MSS*
 
@@ -539,7 +529,7 @@ The given index(indices) is(are) invalid.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Delete a Sale Entry
+=== Use case 4: Deleting a Sale Entry
 
 *MSS*
 
@@ -550,42 +540,26 @@ Use case resumes at step 2.
 +
 Use case ends.
 
-*Extensions*
-
-[none]
-* 2a.
-The list is empty.
-+
-Use case ends.
-
-* 3a.
-The given index(indices) is(are) invalid.
-+
-[none]
-** 3a1. BakingHome shows an error message.
-+
-Use case resumes at step 2.
-
 [discrete]
-=== Use case: Show a Product
-
-*Precondition:* Bakery manager has at least 1 product in the product list.
+=== Use case 5: Viewing Active Orders
 
 *MSS*
 
-1. Manager can be viewing any pages.
-2. Manager enters a ShowProductCommand indicating the index of the product to be shown, e.g. product show 1.
-3. BHS parses the command.
-4. BHS displays the details of the product
-
-*Extensions*
-
-[none]
-* 3a. 
-BHS detects a invalid command.
+1. User requests to list all active orders.
+2. BakingHome shows a list of active orders.
 +
-[none]
-** 3a1. BHS shows an error message
+Use case ends.
+
+=== Use case 6: Viewing Product's ingredients
+
+*Precondition:* BakingHome has at least 1 product in the product list.
+
+*MSS*
+
+1. User request to list products
+2. BakingHome lists products
+3. User request to view a specific product's ingredients
+4. BakingHome shows the ingredients of that product
 +
 Use case ends.
 
@@ -593,15 +567,14 @@ Use case ends.
 == Non Functional Requirements
 
 . Should be an open-source project.
+. Should be portable (i.e. it does not require installation to run).
+. Should a single user application.
 . Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` installed.
-. Should be able to hold up to 100 orders without a noticeable sluggishness in performance for typical usage.
-. Should be able to hold up to 300 products without a noticeable sluggishness in performance for typical usage.
-. Should be able to hold up to 300 sales entries without a noticeable sluggishness in performance for typical usage.
+. Should be able to hold up to 150 entities without a noticeable sluggishness in performance for typical usage.
 . Should have a low response time of not more than 2 seconds.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-. A user would be able to execute every operation with typing only, and without the assist of a mouse.
-
-_{More to be added}_
+. Changes are saved automatically and no manual saving is needed.
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. A user would be able to execute every operation with typing only, and without the assist of a mouse
 
 [appendix]
 == Glossary
@@ -679,14 +652,14 @@ Expected: Similar to previous
 . Adding an empty sale
 .. Test case: `sale add` +
    Expected: A new sale with default value 0.0 is added.
-   The sale's description and remarks are "N/A" and date is set to current date and time.
+The sale's description and remarks are "N/A" and date is set to current date and time.
 .. Test case: `sale add -desc Refund     abcdeabcdeabcdeabcdeabcdeabcdeabcde has been completed`
-   Expected: A error message pops up.
-   The error message is "Description should be no more than 50 characters"
+Expected: A error message pops up.
+The error message is "Description should be no more than 50 characters"
 .. Test case: `sale add -rmk Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas`
-   Expected: A error message pops up.
-   The error message is "Remarks should be no more than 50 characters"
-   
+Expected: A error message pops up.
+The error message is "Remarks should be no more than 50 characters"
+
 . Adding a sale with date
 .. Test case: `sale add -at 31/12/2019 23:00` +
    Expected: A new sale with date Tue, Dec 31, 2019 23:00 is added.
@@ -717,6 +690,16 @@ Error details shown in the pop-up bar.
 .. Other incorrect commands to try: `sale remove 1,x` (where x is larger than the list size), `sale remove 2~1`
 Expected: Similar to previous
 
+=== Filtering Sales
+
+. Showing only sales between two dates not inclusive of date itself.
+.. Test case: `sale filter -from 01/01/2019 06:00 -to 10/01/2019 06:00` +
+   Expected: Sale entries starting from 02/01/2019 00:00 to 09/01/2019 23:59 are shown.
+.. Test case: `sale -from 01/01/2019 15:00 -to 32/01/2019 15:00` +
+   Expected: Error is shown. Nothing changes to sale.
+Error details shown in the pop-up bar.
+.. Other incorrect delete commands to try: `sale filter -from 02/01/2019 00:00`, `sale filter -to 02/01/2019 00:00` Expected: Similar to previous.
+
 === Buying ingredients 
 
 . Buying a single ingredient
@@ -740,26 +723,26 @@ Error details shown in the pop-up bar.
 . Adding a product with default values
 .. Test case: `product add -name Bread` +
    Expected: A new product named `Bread` is added.
-   Ingredient cost and Retail price are both $0.0. Status is active.
+Ingredient cost and Retail price are both $0.0. Status is active.
 . Adding a product with cost and price
 .. Test case: `product add -name Cheese cake -cost 3.0 -price 5.9` +
    Expected: A new product named `Cheese cake` is added.
-   Ingredient cost are $3 and Retail price is $5.9. Status is active.
+Ingredient cost are $3 and Retail price is $5.9. Status is active.
 
 === Searching a Product
 
 . Searching for products whose name contains the given keyword
 .. Test case: `product search -include cake` +
    Expected: All products whose name include `cake` are listed.
-   List will be empty if no products' names contain `cake`.
+List will be empty if no products' names contain `cake`.
 
 === Filtering Products
 
 . Filters to show only archived products
 .. Test case: `product filter -scope archive` +
    Expected: All archive products are listed.
-   List will be empty if no products have archive status.
-   
+List will be empty if no products have archive status.
+
 . No filter
 .. Test case: `product filter -scope all` +
    Expected: All products, regardless their status, are listed.
@@ -771,18 +754,19 @@ Error details shown in the pop-up bar.
    Expected: In the shopping list, the first ingredient's quantity is changed to 10, and its unit cost is changed to 10. +
    All other data that is not inputted as parameters will be unchanged.
 .. Test case: `order edit 1 -name Eugene -rmk Birthday`
-   Expected: In orders, the first order's customer name is changed to Eugene, and the remarks is changed to Birthday` +
+Expected: In orders, the first order's customer name is changed to Eugene, and the remarks is changed to Birthday` +
    All other data that is not inputted as parameters will be unchanged. +
    This is provided the order status is not completed.
-   If the order status is completed, you cannot edit the order. +
+If the order status is completed, you cannot edit the order. +
 .. Test case: `product edit 1 -name _name -cost 5 -ingt [Cream cheese, 1.0]` +
    Expected: The name of the first product is changed to `_name`, and cost is changed to $5. It has a ingredient `Cream cheese` associated.
-   You can check the ingredient using command `product show 1`.
+You can check the ingredient using command `product show 1`.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Test case (missing data file): Delete the folder `data` in BakingHome's directory and restart BakingHome +
+   Expected: BakingHome loads demo data
+.. Test case (corrupted data file): Change the content of data file at `data/baking.json` to "This file is damaged" and restart BakingHome. +
+   Expected: BakingHome loads demo data
