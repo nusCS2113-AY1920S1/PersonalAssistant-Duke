@@ -557,11 +557,37 @@ Email Manager meets the following non-functional requirements:
 //
 [appendix]
 == Instructions for Manual Testing
-Given below are instructions to test the app manually.
+Please follow the following feature testing tables to do the manual testing. The actual output and error
+message are to be checked against the expected output in the table. If Internet access is not available,
+please copy the content in the test_data folder to the data folder and overwrite all. These two folders
+will be automatically generated once the program is started. +
+Please ensure the program is copied to an empty folder before starting the testing to avoid any data
+contamination. Any manual changes to the data folder might affect the program from function normally and is
+not recommended.
 
 |===
 |ℹ️|These instructions only provide a starting point for testers to work on; testers are expected to do more
 exploratory testing.
+|===
+
+=== Feature Testing
+
+==== Email Auto Parsing and AddKeyword Command
+Since the email content parsing is automatic, it is easier to be tested together with the addKeyword command.
+
+[NOTE]
+All the expression match is case insensitive and full match, meaning that 'cs' can be matched to 'CS' but
+not 'CS2101'.
+
+|===
+| Mode | Input | Expected Result | Purpose of Testing
+
+| `email` | `addKeyword Notice -exp announcement` | All emails with the word 'announcement' in its subject,
+sender or body will have #Notice on the list | Normal use case of addKeyword and auto parsing
+| `email` | `addKeyword Project Demo -exp project -exp demo` | All emails with the word 'project' or 'demo'
+in its subject, sender or body will have #Project Demo on the list | Normal use case with multiple
+expressions in one keyword
+
 |===
 
 === Launch and Shutdown
