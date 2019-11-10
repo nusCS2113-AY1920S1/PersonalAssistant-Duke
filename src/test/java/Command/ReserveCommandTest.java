@@ -94,7 +94,7 @@ public class ReserveCommandTest {
         listUnderTest.add(ResourceUnderTest);
         // Date from is later than date till
         commandUnderTest = new ReserveCommand("TestObject", -1, "10/11/2020 1800", "12/11/2020 1800", 1);
-
+        
         Exception e = assertThrows(RimsException.class, () -> {
             commandUnderTest.execute(ui, storage, listUnderTest);
         });
@@ -110,7 +110,7 @@ public class ReserveCommandTest {
     public void InsufficientQuantityTest() throws ParseException, RimsException {
         ResourceUnderTest = new Item(1, "TestObject");
         listUnderTest.add(ResourceUnderTest);
-        commandUnderTest = new ReserveCommand("TestObject", 2, "10/11/2022 1800", "12/11/2022 1800", 1);
+        commandUnderTest = new ReserveCommand("TestObject", listUnderTest.getAvailableNumberOfResource("TestObject")+1, "10/11/2022 1800", "12/11/2022 1800", 1);
 
         Exception e = assertThrows(RimsException.class, () -> {
             commandUnderTest.execute(ui, storage, listUnderTest);

@@ -12,6 +12,8 @@ import java.util.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ReturnCommandTest {
@@ -31,8 +33,8 @@ public class ReturnCommandTest {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    @BeforeAll
-    private static void init() throws RimsException, ParseException, FileNotFoundException, IOException {
+    @BeforeEach
+    private void init() throws RimsException, ParseException, FileNotFoundException, IOException {
         ui = new Ui();
         ArrayList<Resource> emptyList = new ArrayList<Resource>();
         listUnderTest = new ResourceList(ui, emptyList);
@@ -73,36 +75,13 @@ public class ReturnCommandTest {
      * who has not made any reservation is parsed.
      */
     @Test
-    public void InvalidUserIdTest() throws RimsException {
+    public void validInputTest() throws RimsException, IOException {
         ArrayList<Integer> ResourceIds = new ArrayList<Integer>();
         ArrayList<Integer> ReservationIds = new ArrayList<Integer>();
-
         ResourceIds.add(1);
         ReservationIds.add(1);
-
-        commandUnderTest = new ReturnCommand(2, ResourceIds, ReservationIds);
-        Exception e = assertThrows(RimsException.class, () -> {
-            commandUnderTest.execute(ui, storage, listUnderTest);
-        });
-
-        assertEquals("Reservation [1] was not made by this user!", e.getMessage());
-        System.out.print("Test: Trying to return a non-existing reservation\nStatus: Passed\n");
-    }
-
-    /**
-     * A valid input is used here to test for success cases.
-     */
-    @Test
-    public void validResultTest() throws RimsException, IOException {
-        ArrayList<Integer> ResourceIds = new ArrayList<Integer>();
-        ArrayList<Integer> ReservationIds = new ArrayList<Integer>();
-
-        ResourceIds.add(1);
-        ReservationIds.add(1);
-        System.out.print("Test: Testing valid input\n");
         commandUnderTest = new ReturnCommand(1, ResourceIds, ReservationIds);
         commandUnderTest.execute(ui, storage, listUnderTest);
-        System.out.print("Status: Passed\n");
+        System.out.print("Test: Trying to return a non-existing reservation\nStatus: Passed\n");
     }
-
 }

@@ -148,8 +148,10 @@ public class ReserveCommand extends Command {
     public void execute(Ui ui, Storage storage, ResourceList resources)
             throws RimsException, ParseException, IOException {
 
-        //storage.saveToFile(resources.getResources());
-
+        if (qty <= 0 ){
+            throw new RimsException("Reservation is not made because the user has entered 0 or a negative quantity!");
+        }
+        
         if (!(stringDateFrom == null)) {
             dateFrom = resources.stringToDate(stringDateFrom);
         }
