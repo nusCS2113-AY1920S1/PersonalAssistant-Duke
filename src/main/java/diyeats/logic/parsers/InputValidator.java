@@ -16,16 +16,15 @@ public class InputValidator {
     private static final String positiveValidator = "^[1-9]\\d*(\\.\\d+)?$";
     private static final String wholeNumberValidator = "^\\d+$";
     private static final String positiveIntegerValidator = "^[1-9]\\d*$";
-    private static final String leadingZeroValidator = "^0+";
     private static Logger logger = Logger.getLogger(InputValidator.class.getName());
 
     /**
      * validate the user input to check whether it's empty.
-     * @param userInput String input by user.
+     * @param userInputStr String input by user.
      * @throws ProgramException If the userInput is empty.
      */
-    public static void validate(String userInput) throws ProgramException {
-        if (userInput.trim().length() == 0) {
+    public static void validate(String userInputStr) throws ProgramException {
+        if (userInputStr.trim().length() == 0) {
             logger.log(Level.WARNING, "user input is empty");
             throw new ProgramException("OOPS!!! The description of the command cannot be empty.");
         }
@@ -34,15 +33,15 @@ public class InputValidator {
 
     /**
      * validate the amount the user input (nutritional value or food cost) is numeric.
-     * @param amountInput amount input by user.
+     * @param amountInputStr amount input by user.
      * @throws ProgramException If the amount input by the user is not numeric or not positive.
      */
-    public static void validateAmount(String amountInput) throws ProgramException {
-        if (!amountInput.matches(numericValidator)) {
+    public static void validateAmount(String amountInputStr) throws ProgramException {
+        if (!amountInputStr.matches(numericValidator)) {
             logger.log(Level.WARNING, "food cost is not specified or it is not numeric");
             throw new ProgramException("The food cost must be specified and must be numeric.");
         }
-        if (!amountInput.matches(positiveValidator)) {
+        if (!amountInputStr.matches(positiveValidator)) {
             logger.log(Level.WARNING, "food cost is not positive");
             throw new ProgramException("Only positive value is accepted.");
         }
@@ -74,5 +73,16 @@ public class InputValidator {
         }
     }
 
+    /**
+     * validate the nutritional value .
+     * @param valueInput the nutritional value.
+     * @throws ProgramException if the value is not a whole number.
+     */
+    public static void validateNutritionalValue(String valueInput) throws ProgramException {
+        if (!valueInput.matches(wholeNumberValidator)) {
+            logger.log(Level.WARNING, "the value is not a whole number");
+            throw new ProgramException("The value must be a whole number");
+        }
+    }
 
 }

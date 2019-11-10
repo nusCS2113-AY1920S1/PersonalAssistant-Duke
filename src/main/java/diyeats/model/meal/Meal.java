@@ -152,6 +152,27 @@ public class Meal {
     }
 
     /**
+     * Setter for the meal type and meal string.
+     */
+    public void setMealType(MealType mealType) {
+        this.mealType = mealType;
+        switch (this.mealType) {
+            case BREAKFAST:
+                this.type = "B";
+                break;
+            case LUNCH:
+                this.type = "L";
+                break;
+            case DINNER:
+                this.type = "D";
+                break;
+            default:
+                this.type = "L";
+                break;
+        }
+    }
+
+    /**
      * This function overrides the toString() function in the object class.
      * @return the status icon and the description of the meal
      */

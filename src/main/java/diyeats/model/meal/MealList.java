@@ -75,8 +75,8 @@ public class MealList {
      * @return Returns the meal that was deleted.
      */
     public Meal delete(LocalDate date, int index) {
-        Meal deletedMeal = this.mealTracker.get(date).get(index - 1);
-        this.mealTracker.get(date).remove(index - 1);
+        Meal deletedMeal = this.mealTracker.get(date).get(index);
+        this.mealTracker.get(date).remove(index);
         return deletedMeal;
     }
 
@@ -96,40 +96,6 @@ public class MealList {
         Meal markedDoneMeal = this.mealTracker.get(date).get(index - 1);
         this.mealTracker.get(date).get(index - 1).markAsDone();
         return markedDoneMeal;
-    }
-
-    /**
-     * Update existing meal from mealList based on date and description given.
-     * @param newMeal Meal to be updated.
-     * @return Returns updated meal information.
-     * @throws ProgramException Exception thrown if meal description or date not found in current list.
-     */
-    public Meal updateMeal(Meal newMeal) throws ProgramException {
-        LocalDate mealDate = newMeal.getDate();
-        if (mealTracker.containsKey(mealDate)) {
-            ArrayList<Meal> meals = getMealsList(mealDate);
-            for (int idx = 0; idx < meals.size(); idx++) {
-                Meal currMeal = meals.get(idx);
-                if (checkIsSameMeal(currMeal, newMeal)) {
-                    HashMap<String, Integer> newNutrition = newMeal.getNutritionalValue();
-                    for (String keyStr : newNutrition.keySet()) {
-                        currMeal.addNutritionalValue(keyStr, newNutrition.get(keyStr));
-                    }
-                    meals.set(idx, currMeal);
-                    newMeal = currMeal;
-                    mealTracker.replace(mealDate, meals);
-                    return newMeal;
-                }
-            }
-            throw new ProgramException("No meal matches description of " + newMeal.getDescription() + " on "
-                    + newMeal.getDate());
-        } else {
-            throw new ProgramException("No meal found on " + newMeal.getDate());
-        }
-    }
-
-    public boolean checkIsSameMeal(Meal meal1, Meal meal2) {
-        return meal1.getDescription().equals(meal2.getDescription()) && meal1.getDate().equals(meal2.getDate());
     }
 
     /**
