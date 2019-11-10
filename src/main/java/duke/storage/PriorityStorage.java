@@ -53,10 +53,11 @@ public class PriorityStorage {
                     items.add(item);
                 } else {
                     items.add(5);
-                    throw new DukeException("     (>_<) OOPS!!! There's an invalid priority: " + item +
-                            "\nDefault priority is added instead!");
+                    throw new DukeException("     (>_<) OOPS!!! There's an invalid priority: "
+                            + item
+                            + "\nDefault priority is added instead!");
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 items.add(5);
             }
 
@@ -98,7 +99,8 @@ public class PriorityStorage {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
         String input = "";
         while ((input = bufferedReader.readLine()) != null) {
-            fileContent += input + "\n";
+            fileContent += input
+                    + "\n";
         }
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
         writer.write(fileContent);
