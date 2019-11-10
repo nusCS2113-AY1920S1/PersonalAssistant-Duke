@@ -65,6 +65,18 @@ Format: `add module MOD_CODE`
 * Example: `add module CG2028`
 ****
 
+==== Searching and adding a module with time period of the week: `add module`
+
+Searchs for a module and adds it to the module list, if the module is present in the list of NUS modules. +
+Format: `add module MOD_CODE --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
+
+****
+* The `MOD_CODE` must be in the format of the NUS module code name.
+* The `BEGIN_TIME` and `END_TIME` must be in the format of HHmm.
+* The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc. 
+* Example: `add module CG2028 --begin 14:00 --end 17:00 --dayOfWeek Tuesday`
+****
+
 ==== Adding CCA : `add cca`
 
 Adds a CCA task into the CCA list. +
