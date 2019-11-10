@@ -73,6 +73,26 @@ public class ConstantHelper {
         {"No members in project yet.",
          "Please add members and assign them tasks before using this command!"};
 
+
+    public static final String[] ASSIGN_TASKS_INSUFFICIENT_PARAMS_MESSAGE = new String[]
+        {"Insufficient parameters! "
+            + "Indicate the tasks and members whom you wish to assign or remove!",
+         "Format is \"assign task -i TASK_INDEX [-to MEMBER_INDEX] [-rm MEMBER_INDEX]\"",
+         "You must either assign a task to someone, or remove, or both!"};
+
+
+    public static final String[] ASSIGN_TASKS_NO_VALID_TASKS_MESSAGE = new String[]
+        {"No valid task numbers detected. Cannot assign/unassign any tasks.",
+         "Please check that the task index number(s) are valid, and input them in"
+             + "this format: -i TASK_INDEX1 [TASK_INDEX2]"};
+
+    public static final String[] ASSIGN_TASKS_NO_VALID_MEMBERS_MESSAGE = new String[]
+        {"No valid member indexes detected. No tasks can be assigned/unassigned.",
+         "Please check that you are using valid member indexes.",
+         "Also ensure that the correct flags are used: '-to' for assignees, '-rm' for unassignees."};
+
+
+
     public static final String COMMAND_VIEW_ASSIGNMENTS_MEMBER_FLAG = "-m";
 
     public static final String COMMAND_VIEW_ASSIGNMENTS_TASK_FLAG = "-t";

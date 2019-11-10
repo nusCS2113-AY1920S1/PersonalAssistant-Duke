@@ -3,6 +3,9 @@ package controllers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static util.constant.ConstantHelper.ASSIGN_TASKS_INSUFFICIENT_PARAMS_MESSAGE;
+import static util.constant.ConstantHelper.ASSIGN_TASKS_NO_VALID_MEMBERS_MESSAGE;
+import static util.constant.ConstantHelper.ASSIGN_TASKS_NO_VALID_TASKS_MESSAGE;
 
 import java.util.ArrayList;
 import models.project.Project;
@@ -20,6 +23,8 @@ public class AssignmentControllerTest {
     private String simulatedUserInput;
     private String actualOutput;
     private String expectedOutput;
+    private String[] actualOutputArray;
+    private String[] expectedOutputArray;
 
     AssignmentControllerTest() {
         this.project = new Project("Test Project");
@@ -72,26 +77,22 @@ public class AssignmentControllerTest {
         AssignmentController assignmentController = new AssignmentController(project);
         simulatedUserInput = "assign task";
         assignmentController.assignAndUnassign(simulatedUserInput);
-        ArrayList<String> errorMessages = assignmentController.getErrorMessages();
-        actualOutput = errorMessages.get(0);
-        expectedOutput = "Insufficient parameters! "
-            + "Indicate the tasks and members whom you wish to assign or remove!";
+        actualOutputArray = assignmentController.getErrorMessages().toArray(new String[0]);
+        expectedOutputArray = ASSIGN_TASKS_INSUFFICIENT_PARAMS_MESSAGE;
         assertEquals(expectedOutput, actualOutput);
 
         simulatedUserInput = "assign task -i";
         assignmentController = new AssignmentController(project);
         assignmentController.assignAndUnassign(simulatedUserInput);
-        errorMessages = assignmentController.getErrorMessages();
-        actualOutput = errorMessages.get(0);
-        expectedOutput = "No valid task numbers detected. Cannot assign/unassign any tasks.";
+        actualOutputArray = assignmentController.getErrorMessages().toArray(new String[0]);
+        expectedOutputArray = ASSIGN_TASKS_NO_VALID_TASKS_MESSAGE;
         assertEquals(expectedOutput, actualOutput);
 
         simulatedUserInput = "assign task -i 1 -to";
         assignmentController = new AssignmentController(project);
         assignmentController.assignAndUnassign(simulatedUserInput);
-        errorMessages = assignmentController.getErrorMessages();
-        actualOutput = errorMessages.get(0);
-        expectedOutput = "No valid member indexes detected. No tasks can be assigned/unassigned.";
+        actualOutputArray = assignmentController.getErrorMessages().toArray(new String[0]);
+        expectedOutputArray = ASSIGN_TASKS_NO_VALID_MEMBERS_MESSAGE;
         assertEquals(expectedOutput, actualOutput);
     }
 
