@@ -8,6 +8,7 @@ import javafx.scene.layout.Region;
 
 import java.util.List;
 
+//@@author gowgos5
 /**
  * A generic UI window that is associated with a particular {@link UiContext}.
  */
@@ -26,7 +27,6 @@ public abstract class ContextWindow extends UiElement<Region> {
      */
     public abstract void updateUi() throws DukeFatalException;
 
-    /* TODO: TEMPORARY */
     /**
      * Retrieves indexed list of {@code DukeObject}.
      *

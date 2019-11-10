@@ -7,14 +7,16 @@ import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.Treatment;
 import duke.exception.DukeFatalException;
-import duke.ui.commons.UiStrings;
 import duke.ui.card.EvidenceCard;
 import duke.ui.card.TreatmentCard;
+import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+import java.util.ArrayList;
 import java.util.List;
 
+//@@author gowgos5
 /**
  * UI window for the Impression context.
  */
@@ -49,20 +51,23 @@ public class ImpressionContextWindow extends ContextWindow {
     public ImpressionContextWindow(Impression impression, Patient patient) throws DukeFatalException {
         super(FXML);
 
-        if (impression != null && patient != null) {
-            this.patient = patient;
-            this.impression = impression;
-            assert (patient.getName().equals(impression.getParent().getName()));
-            updateUi();
+        if (impression == null || patient == null) {
+            throw new DukeFatalException(UiStrings.MESSAGE_ERROR_UNINITIALISED_IMPRESSION);
         }
+
+        this.patient = patient;
+        this.impression = impression;
+        assert (patient.equals(impression.getParent()));
+
+        updateUi();
     }
 
     /**
-     * This function returns the new card added dependent on the class instance.
+     * Returns the new card added dependent on the class instance.
      *
      * @param evidence Evidence object
      * @param index    Displayed index.
-     * @return ObservationCard/ResultCard
+     * @return ObservationCard / ResultCard
      */
     private EvidenceCard newEvidenceCard(Evidence evidence, int index) throws DukeFatalException {
         EvidenceCard evidenceCard = evidence.toCard();
@@ -71,11 +76,11 @@ public class ImpressionContextWindow extends ContextWindow {
     }
 
     /**
-     * This function returns the new card added dependent on the class instance.
+     * Returns the new card added dependent on the class instance.
      *
      * @param treatment Treatment object.
      * @param index     Displayed index.
-     * @return InvestigationCard/MedicineCard/PlanCard
+     * @return InvestigationCard / MedicineCard / PlanCard
      */
     private TreatmentCard newTreatmentCard(Treatment treatment, int index) throws DukeFatalException {
         TreatmentCard treatmentCard = treatment.toCard();
@@ -107,17 +112,20 @@ public class ImpressionContextWindow extends ContextWindow {
 
         evidenceListPanel.getItems().clear();
         for (Evidence evidence : impression.getEvidences()) {
-            int index = (evidence.getPriority() == 1) ? 1 : evidenceListPanel.getItems().size() + 1;
+            int index = evidenceListPanel.getItems().size() + 1;
             evidenceListPanel.getItems().add(newEvidenceCard(evidence, index));
         }
 
         treatmentListPanel.getItems().clear();
         for (Treatment treatment : impression.getTreatments()) {
-            int index = (treatment.getPriority() == 1) ? 1 : treatmentListPanel.getItems().size() + 1;
+            int index = treatmentListPanel.getItems().size() + 1;
             treatmentListPanel.getItems().add(newTreatmentCard(treatment, index));
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<DukeObject> getIndexedList(String type) {
         return null;

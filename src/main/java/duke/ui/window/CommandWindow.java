@@ -9,7 +9,6 @@ import duke.ui.commons.UiElement;
 import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -17,6 +16,9 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
+import javax.swing.event.ChangeListener;
+
+//@@author gowgos5
 /**
  * UI element designed for the user to interact with the application.
  * It has 3 main tasks.
@@ -58,7 +60,6 @@ public class CommandWindow extends InputHistoryWindow {
      */
     @Override
     protected void handleAction() {
-        // TODO: Format block
         String inputMessage = inputTextField.getText().strip();
 
         if (inputMessage.isEmpty()) {
@@ -77,9 +78,7 @@ public class CommandWindow extends InputHistoryWindow {
         messageContainer.getChildren().add(userMessageBox.getRoot());
 
         try {
-            Command command = parser.parse(inputMessage);
-            executor.execute(command);
-            inputTextField.clear();
+            parseAndExecuteCommand(inputMessage);
         } catch (DukeException e) {
             printError(e);
         }
@@ -96,7 +95,7 @@ public class CommandWindow extends InputHistoryWindow {
     }
 
     /**
-     * Prints welcome message.
+     * Prints welcome message in the {@code messageContainer}.
      */
     private void printWelcome() {
         String welcome = UiStrings.MESSAGE_WELCOME_GREET + System.lineSeparator() + UiStrings.MESSAGE_WELCOME_QUESTION;
@@ -104,7 +103,7 @@ public class CommandWindow extends InputHistoryWindow {
     }
 
     /**
-     * Prints error message.
+     * Prints error message in the {@code messageContainer}.
      *
      * @param e Error.
      */
@@ -112,8 +111,17 @@ public class CommandWindow extends InputHistoryWindow {
         print(e.getMessage());
     }
 
-    public TextArea getInputTextField() {
-        return inputTextField;
+    /**
+     * Parses the input message into a command and executes it accordingly.
+     *
+     * @param inputMessage Message entered by the user in the {@code inputTextField}.
+     * @throws DukeException If the {@code parser} encounters an error parsing the {@code inputMessage} or
+     *                       the {@code executor} encounters an error executing the command.
+     */
+    private void parseAndExecuteCommand(String inputMessage) throws DukeException {
+        Command command = parser.parse(inputMessage);
+        executor.execute(command);
+        inputTextField.clear();
     }
 
     private static class MessageBox extends UiElement<Region> {

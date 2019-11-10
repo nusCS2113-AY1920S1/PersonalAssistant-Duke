@@ -8,8 +8,9 @@ import java.net.URL;
 
 import static java.util.Objects.requireNonNull;
 
+//@@author gowgos5-reused
 /**
- * Represents a distinct UI element in the application, e.g. windows, panels, dialogs, etc.
+ * Represents a distinct UI element in the application, e.g. windows, panels, etc.
  * It contains a scene graph with a root node of type {@code T}.
  *
  * @param <T> Root node's type.

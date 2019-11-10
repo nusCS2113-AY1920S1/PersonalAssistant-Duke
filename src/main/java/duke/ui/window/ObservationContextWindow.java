@@ -1,6 +1,7 @@
 package duke.ui.window;
 
 import duke.data.Observation;
+import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -20,11 +21,10 @@ public class ObservationContextWindow extends DukeDataContextWindow {
      *
      * @param observation Observation object.
      */
-    public ObservationContextWindow(Observation observation) {
+    public ObservationContextWindow(Observation observation) throws DukeFatalException {
         super(FXML, observation);
 
         this.observation = observation;
-
         updateUi();
     }
 

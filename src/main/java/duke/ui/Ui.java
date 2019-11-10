@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+//@@author gowgos5
 /**
  * API of the UI module of Dr. Duke.
  * Abstracts and exposes the UI module to external modules of Dr. Duke.
@@ -30,29 +31,28 @@ public interface Ui {
     void stop();
 
     /**
-     * Prints message on the {@link CommandWindow}.
+     * Shows message on the {@link CommandWindow}.
      *
      * @param message Output message.
      */
     void showMessage(String message);
 
     /**
-     * Updates {@link ContextWindow} and prints message on the {@link CommandWindow}.
+     * Updates {@link ContextWindow} and shows message on the {@link CommandWindow}.
      *
      * @param message Output message.
      */
     void updateUi(String message) throws DukeFatalException;
 
     /**
-     * Shows an error dialog with {@code errorTitle} and {@code error}.
-     * Exits the application after the user has acknowledged the alert dialog.
+     * Shows an error dialog with {@code errorTitle} and {@code error} message.
+     * Exits the application only after the user has acknowledged the alert dialog.
      *
      * @param errorTitle Title of error dialog.
      * @param error      Thrown error.
      */
     void showErrorDialogAndShutdown(String errorTitle, Throwable error);
 
-    /* TODO: TEMPORARY */
     /**
      * Retrieves indexed list of DukeObjects.
      * List is dependent on the current {@link UiContext}.
