@@ -42,7 +42,8 @@ public class Patient extends DukeObject {
     public Patient(String name, String bedNo, String allergies, Integer height, Integer weight,
                    Integer age, Integer number, String address, String history) {
         super(name, null);
-
+        this.criticalList = new ArrayList<DukeData>();
+        this.followUpList = new ArrayList<Treatment>();
         this.bedNo = bedNo;
         setAllergies(allergies);
         this.impressionList = new ArrayList<>();
@@ -392,6 +393,9 @@ public class Patient extends DukeObject {
      * @return The number of critical DukeData items for this patient.
      */
     public String getCriticalCountStr() {
+        if (criticalList == null) {
+            update();
+        }
         int count = criticalList.size();
         if (count == 0) {
             return "No critical issues";
