@@ -1,4 +1,4 @@
-0.0
+1000.0
 angbao-dating-travel-food-
 out $20.0 /date 2010-11-01 /tags gift
 out $3.0 /date 2019-11-02 /tags food
