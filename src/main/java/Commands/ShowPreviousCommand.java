@@ -75,11 +75,11 @@ public class ShowPreviousCommand extends Command {
 
         if (sizeOfPreviousList < number) {
             throw new DukeInvalidCommandException("There are only " + sizeOfPreviousList + " previous commands. "
-                    + "Please enter a valid number less than or equal to " + sizeOfPreviousList + " .");
+                    + DukeConstants.STR_RANGE_FOR_LESS_THAN + sizeOfPreviousList + " .");
         }
 
         if (!isNumber) {
-            throw new DukeInvalidCommandException("Please enter an integer between 0 and " + sizeOfPreviousList + " .");
+            throw new DukeInvalidCommandException(DukeConstants.STR_RANGE_FOR_BETWEEN + sizeOfPreviousList + " .");
         }
 
         if (isNumber) {
@@ -137,6 +137,9 @@ public class ShowPreviousCommand extends Command {
         return ui.showPrevious(result);
     }
 
+    /**
+     * This method gets the list of output that the user request to show.
+     */
     public static ArrayList<String> getOutputList() {
         return result;
     }
