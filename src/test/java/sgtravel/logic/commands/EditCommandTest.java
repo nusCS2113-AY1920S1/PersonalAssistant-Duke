@@ -17,8 +17,8 @@ class EditCommandTest {
         ModelStub modelStub = new ModelStub();
         EditCommand editCommand = new EditCommand(false, new EventList());
         CommandResultText resultText = editCommand.execute(modelStub);
-        assertEquals(resultText.getMessage(), "Changes are not saved.\n");
-        assertNotEquals(resultText.getMessage(), "Changes are not saved.");
+        assertEquals(resultText.getMessage(), "Changes are not/cannot be saved.\n");
+        assertNotEquals(resultText.getMessage(), "CChanges are not/cannot be saved.");
         EditCommand editCommand1 = new EditCommand(true, new EventList());
         CommandResultText resultText1 = editCommand1.execute(modelStub);
         assertEquals(resultText1.getMessage(), "Here are the list of events:\n");

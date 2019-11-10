@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  */
 public class EditCommand extends Command {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private static final String MESSAGE_EDIT_FAILURE = "Changes are not saved.\n";
+    private static final String MESSAGE_EDIT_FAILURE = "Changes are not/cannot be saved.\n";
     private boolean canSave;
     private EventList events;
 
