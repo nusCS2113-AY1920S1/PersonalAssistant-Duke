@@ -2,6 +2,7 @@ package storage;
 
 import degree.Degree;
 import exception.DukeException;
+import javafx.Launcher;
 import javafx.util.Pair;
 import list.DegreeList;
 import main.Duke;
@@ -9,16 +10,17 @@ import parser.Parser;
 import task.TaskList;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 
 /**
@@ -72,24 +74,18 @@ public class Storage {
         }
         finally
         {
-            /*
-            InputStream in = getClass().getResourceAsStream("/data/save.txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            StringBuffer sb = new StringBuffer();
-            String str;
-            while((str = reader.readLine())!= null){
-                sb.append(str);
-            }
-            System.out.println(sb.toString());
-
-             */
 
             if(input.isBlank()) {
                 setSaveFile("save.txt", "savedegree.txt");
             }
         }
         try {
-            load();
+            File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+            if(jarFile.isFile()) {  // Run with JAR file
+                jarLoad(jarFile);
+            } else {
+                load();
+            }
         } catch (DukeException e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -118,7 +114,67 @@ public class Storage {
      * This method reads the folder.
      *
      */
-    public void load() throws DukeException {
+    public void load() throws DukeException, IOException {
+        /*
+        File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+
+        if(jarFile.isFile()) {  // Run with JAR file
+            final JarFile jar = new JarFile(jarFile);
+            final Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
+            while (entries.hasMoreElements()) {
+                String pathString = entries.nextElement().getName();
+                //The very first run, it will read itself as only data/, so have to skip it
+                if (pathString.startsWith("data/") && (pathString.length() > 5)) {
+                    //int i = pathString.lastIndexOf(File.separatorChar);
+                    String file = pathString.substring(5);
+                    //System.out.println("reading... " + file);
+                    if (validateFile(file)) {
+                        errorList.add(new Pair<>(file, "Invalid File Type"));
+                        continue;
+                    }
+                    String read = file.substring(0, file.lastIndexOf('.'));
+                    if (readable.containsKey(read)) {
+                        errorList.add(new Pair<>(file, "Same File Name with Different Extension detected"));
+                        continue;
+                    }
+                    System.out.println("Read: " + read);
+                    System.out.println("pathString: " + pathString);
+                    System.out.println("file: " + file);
+                    readable.put(read, pathString);
+                    fileNames.add(read);
+                    //System.out.println(path.toString());
+                }
+            }
+        } else { //Run with IDE
+            final URL url = Launcher.class.getResource("/data/");
+            if (url != null) {
+                try {
+                    final File apps = new File(url.toURI());
+                    for (File path : apps.listFiles()) {
+                        String pathString = path.toString();
+                        int i = pathString.lastIndexOf(File.separatorChar);
+                        String file = pathString.substring(i + 1);
+                        //System.out.println("reading... " + file);
+                        if (validateFile(file)) {
+                            errorList.add(new Pair<>(file, "Invalid File Type"));
+                            continue;
+                        }
+                        String read = file.substring(0, file.lastIndexOf('.'));
+                        if (readable.containsKey(read)) {
+                            errorList.add(new Pair<>(file, "Same File Name with Different Extension detected"));
+                            continue;
+                        }
+                        readable.put(read, path.toString());
+                        fileNames.add(read);
+                        //System.out.println(path.toString());
+                    }
+                } catch (URISyntaxException ex) {
+                    throw new DukeException("Error Reading Files");
+                }
+            }
+        }
+
+*/
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(folder)) {
             for (Path path : directoryStream) {
                 String file = path.toString().substring(folderName.length());
@@ -141,15 +197,40 @@ public class Storage {
         } catch (IOException ex) {
             throw new DukeException("Error Reading Files");
         }
+
         for (String file : fileNames) {
             try {
                 // put the file's name and its content into the data structure
                 System.out.print(readable.get(file));System.out.println(" +" + file);
+                //List<String> lines = Files.readAllLines(folder.resolve(readable.get(file)), StandardCharsets.UTF_8);
                 List<String> lines = Files.readAllLines(folder.resolve(readable.get(file)), StandardCharsets.UTF_8);
+                Path resolvedPath = folder.resolve(readable.get(file));
                 data.put(file, lines);
                 System.out.println("success for " + file);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    private void jarLoad(File jarFile) throws IOException {
+        final JarFile jar = new JarFile(jarFile);
+        final Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
+        while (entries.hasMoreElements()) {
+            String pathString = entries.nextElement().getName();
+            //The very first run, it will read itself as only data/, so have to skip it
+            if (pathString.startsWith("data/") && (pathString.length() > 5)) {
+                String file = pathString.substring(5); //file name like save.txt
+                String read = file.substring(0, file.lastIndexOf('.')); //file name without the .txt or .csv
+                InputStreamReader in = new InputStreamReader(getClass().getResourceAsStream("/" + pathString),
+                        StandardCharsets.UTF_8);
+                BufferedReader reader = new BufferedReader(in);
+                ArrayList<String> stringList = new ArrayList<>();
+                String str;
+                while ((str = reader.readLine()) != null) {
+                    stringList.add(str);
+                }
+                data.put(read, stringList);
             }
         }
     }
