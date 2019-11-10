@@ -158,6 +158,12 @@ public class DebtUi extends Ui {
         System.out.println(line);
     }
 
+    public static void printInvalidNameNumberError(int people) {
+        System.out.println(line);
+        System.out.println("\tPlease enter " + people + " names.");
+        System.out.println(line);
+    }
+
     //@@ author: omupenguin
     /**
      * Prints an error message informing the user that the type of debt entered is invalid.

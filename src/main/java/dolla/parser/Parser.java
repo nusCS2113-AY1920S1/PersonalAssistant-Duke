@@ -795,10 +795,16 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected Boolean verifyAddBillCommand(ArrayList<String> nameList) {
         try {
             if (verifyBillPeopleAndAmount()) {
-                amount = stringToDouble(inputArray[2]);
-                for (int i = 3; i < 3 + Integer.parseInt(inputArray[1]); i++) {
-                    String name = inputArray[i];
-                    nameList.add(name);
+                int numberOfNames = inputArray.length - 3;
+                if (numberOfNames > Integer.parseInt(inputArray[1])) {
+                    DebtUi.printInvalidNameNumberError(Integer.parseInt(inputArray[1]));
+                    return false;
+                } else {
+                    amount = stringToDouble(inputArray[2]);
+                    for (int i = 3; i < 3 + Integer.parseInt(inputArray[1]); i++) {
+                        String name = inputArray[i];
+                        nameList.add(name);
+                    }
                 }
             } else {
                 return false;
