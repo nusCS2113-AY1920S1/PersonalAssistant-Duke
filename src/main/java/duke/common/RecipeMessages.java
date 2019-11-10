@@ -35,6 +35,7 @@ public class RecipeMessages {
     public static final String ERROR_MESSAGE_INVALID_RECIPE_QUANTITY = "Please input a valid value for the quantity";
     public static final String ERROR_MESSAGE_DELETE_RECIPE_NOT_FOUND = "The recipe that you wish to delete is not in your recipe list.";
     public static final String ERROR_MESSAGE_REQ_INGREDIENT_INVALID_POSITION = "Please input a valid value for the position you wish to insert the ingredient in.";
+    public static final String ERROR_MESSAGE_REQ_INGREDIENT_INVALID_ORDER = "Invalid placement of the sequence of the individual parts: ins/n/q/u/a/ or app/n/q/u/a/.\n";
     public static final String ERROR_MESSAGE_PREPSTEP_INVALID_POSITION = "Please input a valid value for the position you wish to insert the preparation step in.";
     public static final String ERROR_MESSAGE_RECIPE_INCOMPLETE = "     Please provide all information needed.";
     public static final String ERROR_MESSAGE_INVALID_RECIPE_FORMAT = "     Please input in this format:\n     Eg: addrecipeingredient garlic 100 grams.";
