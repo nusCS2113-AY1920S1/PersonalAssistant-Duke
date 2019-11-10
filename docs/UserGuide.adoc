@@ -134,6 +134,69 @@ will become members 2 and 3 respectively).
 If multiple index numbers are used, then members will be deleted in descending order of index numbers.
 This is to prevent any errors caused by possible shifting of index numbers during the deletion process.
 
+==== Give roles to specific members in a project : role
+Allows a user to assign roles to specific members, where a role can be any String.
+Members must be specified using the index of a specific member in a group project.
+* Format: `role INDEX -n ROLE_NAME`
+** Example: `role 2 -n Badguy`
+
+The role of a new member can also be changed during the addition, by using the -r flag.
+* Example: `add member -n Thor -r AlienGuy`
+
+====  View total credits completed by each member : view credits
+Shows all members’ credits, their index number, name, and name of tasks completed.
+* Format: view credits
+
+[NOTE]
+Credits are only calculated for tasks which have the “DONE” state.
+
+[NOTE]
+Credits are equally distributed amongst assigned members.
+
+=== Task Commands
+
+==== Add a task to project : `add task`
+Adds a task to the project.
+
+* Format: `add task
+-t TASK_NAME
+-p TASK_PRIORITY
+-c TASK_CREDIT
+[-d TASK_DUEDATE-(dd/mm/yyyy)]
+[-s STATE]
+[-r TASK_REQUIREMENT1]
+[-r TASK_REQUIREMENT2]`
+
+** Example: `add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -r do something -r do another thing`
+
+[NOTE]
+Task name should not contain any hyphens (eg. Task-1) or the details will be truncated and not recorded properly.
+
+[NOTE]
+Task priority is represented by an integer from 1-5 which denotes how important a task is, with a higher number meaning higher priority.
+
+[NOTE]
+Task credit is represented by an integer from 0 to 100, which denotes the amount of credit a person would receive for completing a task (eg. a more difficult task which requires more work would receive higher credit.)
+
+[NOTE]
+Task credit is accumulated throughout the selected project
+
+[NOTE]
+Due date may or may not need to be added depending on the nature of the task.
+
+[NOTE]
+The input for date is in the dd/mm/yyyy format.  E.g. 21/09/2019
+
+[NOTE]
+Each task will be given an index number based on the amount of tasks in the list
+
+[NOTE]
+State refers to whether the task is in OPEN, TODO, DOING, DONE. If no state is specified, task created will automatically be assigned to OPEN.
+
+[NOTE]
+Any number of task requirements can be added to give specific requirements for the task so that the member will be clear of what to do
+
+
 
 
 
