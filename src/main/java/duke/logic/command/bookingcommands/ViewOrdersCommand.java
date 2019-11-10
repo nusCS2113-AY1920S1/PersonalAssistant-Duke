@@ -24,21 +24,6 @@ public class ViewOrdersCommand extends Command<BookingList, Ui, BookingStorage> 
     }
 
     /**
-     * Validates the input to be alphabets or _.
-     *
-     * @param input String input from user
-     * @return true if the string consist only alphabets or _ and false otherwise
-     */
-    private static boolean isValidName(String input) {
-        for (char c : input.toCharArray()) {
-            if (!Character.isLetter(c) && !(c == '_')) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Processes the view orders command to display the orders for a particular customer.
      *
      * @param bookingList    contains the booking list
@@ -51,19 +36,33 @@ public class ViewOrdersCommand extends Command<BookingList, Ui, BookingStorage> 
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_VIEW_ORDERS)) {
             arrayList.add(ERROR_MESSAGE_EMPTY_NAME_VIEW);
-        } else if (userInput.trim().charAt(10) == ' ') {
+        } else if (userInput.trim().charAt(10) != ' ') {
+            arrayList.add(ERROR_MESSAGE_INVALID_VIEWORDERS_COMMAND);
+        } else {
             String customerName = userInput.split("\\s", 2)[1].trim().toLowerCase();
-            if (isValidName(customerName)) {
+            if (!isValidName(customerName)) {
+                arrayList.add(ERROR_MESSAGE_INVALID_NAME);
+            } else {
                 arrayList.add(MESSAGE_ORDERS_FOR + customerName);
                 arrayList.addAll(bookingList.viewOrders(customerName));
-            } else {
-                arrayList.add(ERROR_MESSAGE_INVALID_NAME);
             }
-
-        } else {
-            arrayList.add(ERROR_MESSAGE_INVALID_VIEWORDERS_COMMAND);
         }
         return arrayList;
+    }
+
+    /**
+     * Validates the input to be alphabets or _.
+     *
+     * @param input String input from user
+     * @return true if the string consist only alphabets or _ and false otherwise
+     */
+    private static boolean isValidName(String input) {
+        for (char c : input.toCharArray()) {
+            if (!Character.isLetter(c) && !(c == '_')) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

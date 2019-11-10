@@ -46,22 +46,6 @@ public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorag
     }
 
     /**
-     * Validates the input to be integer.
-     *
-     * @param input String input from user
-     * @return true if the user inputs an integer and false otherwise
-     */
-    private static boolean isParsable(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        } catch (NumberFormatException e) {
-            logger.warning("Index input is not an integer.");
-            return false;
-        }
-    }
-
-    /**
      * Processes the delete command to delete a booking from the booking list.
      *
      * @param bookingList    contains the booking list
@@ -75,9 +59,14 @@ public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorag
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_DELETE_BOOKING)) {
             arrayList.add(ERROR_MESSAGE_EMPTY_BOOKING_INDEX);
-        } else if (userInput.trim().charAt(13) == ' ') {
+        } else if (userInput.trim().charAt(13) != ' ') {
+            logger.warning("Invalid delete booking command");
+            arrayList.add(ERROR_MESSAGE_INVALID_DELETE_COMMAND);
+        } else {
             String input = userInput.split("\\s", 2)[1].trim();
-            if (isParsable(input)) {
+            if (!isParsable(input)) {
+                arrayList.add(ERROR_MESSAGE_UNKNOWN_INDEX);
+            } else {
                 int index = Integer.parseInt(input);
                 if (index > bookingList.getSize() || index <= 0) {
                     if (bookingList.getSize() == 0) {
@@ -97,14 +86,25 @@ public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorag
                     bookingList.deleteBooking(index - 1);
                     bookingStorage.saveFile(bookingList);
                 }
-            } else {
-                arrayList.add(ERROR_MESSAGE_UNKNOWN_INDEX);
             }
-        } else {
-            logger.warning("Invalid deletebooking command");
-            arrayList.add(ERROR_MESSAGE_INVALID_DELETE_COMMAND);
         }
         return arrayList;
+    }
+
+    /**
+     * Validates the input to be integer.
+     *
+     * @param input String input from user
+     * @return true if the user inputs an integer and false otherwise
+     */
+    private static boolean isParsable(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            logger.warning("Index input is not an integer.");
+            return false;
+        }
     }
 
     @Override
