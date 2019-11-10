@@ -1,0 +1,219 @@
+= Ng Wei Jie, Brandon (nwjbrandon) - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+
+== PROJECT: AlgoSenpai Adventures (ASA)
+== Overview
+AlgoSenpai Adventures is a desktop Personal Teaching Assistant
+application. It has a GUI but most user interactions occur on CLI
+(Command Line Interface). It is written in Java 11 by developers of
+AY1920S1-T09-3. The application targets students taking classes in
+data structures and algorithms. Students interested to reinforce their
+understanding of data structures and algorithms will find this
+application useful.
+
+
+== Summary of contributions
+* *Major enhancement*: Created functionality for users to review their
+quizzes, mistakes, and progress.
+** `print user <filename>.pdf`: Prints user's stats and learning progress.
+** `print archive <filename>.pdf`: Prints archived questions.
+** `print quiz <filename>.pdf`: Prints the last attempted quiz.
+** `review <x>`: Reviews selected question in the last attempted quiz.
+** `archive <x>`: Archives select question in the last attempted quiz.
+
+
+** Justification: This feature differentiates the product from other
+competitors' because a user can learn from their mistakes immediately
+after taking a quiz and save a record of the questions attempted for
+his/her revision.
+** Highlights: This feature is the final integration and depends on the
+implementation on other features.The implementation was challenging due to:
+*** Integration with the quizzes. For instance,
+`print quiz <filename>.pdf` depends on whether a quiz has been
+attempted as no quiz is recorded when the program first launches.
+*** Changes in the storage. For instance, `print user <filename>.pdf`
+depends on how the user information is stored in text file.
+
+
+* *Minor enhancement*: Created `history` command to view list of
+queries entered by the user.
+* *Minor enhancement*: Implemented the music feature to play music.
+* *Minor enhancement*: Created `volumne <x>` command to adjust the
+volume
+* *Minor enhancement*: Created a Splash Screen that launches at the
+start of the application
+* *Minor enhancement*: Created the `quiz <chapter name>` command
+to select the chapter for the quiz.
+* *Minor enhancement*: Prompts user when the application is idling.
+
+
+* *Code contributed*: https://nuscs2113-ay1920s1.github.io/dashboard/#search=nwjbrandon&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false[Code Contributed]
+
+* *Other contributions*:
+** Project management:
+*** Managed releases `v1.1` - `v1.3` (3 releases) and Issue Tracker on GitHub.
+*** Added the Build status badge from Travis on README.adoc.
+*** Setup Travis to run CI/CD on Linux.
+*** Setup Appveyor to run CI/CD on Windows.
+*** Helped with setting up Netlify to https://algosenpaiadventures.netlify.com/userguide[host] documentation on Github.
+** Enhancements to existing features:
+*** Setup CI/CD for JavaFx in headless mode
+(Pull requests https://github.com/AY1920S1-CS2113T-T09-3/main/pull/81[#81]).
+** Documentation:
+*** Updated the FAQ and Command Summary in User Guide.
+*** Updated the class diagrams and user flow diagrams review functionality
+*** Updated CONTRIBUTORS.md to follow proper commits and submission guidelines.
+** Community:
+*** Reviewed PRs (with non-trivial review comments):
+https://github.com/AY1920S1-CS2113T-T09-3/main/pull/238[#238],
+https://github.com/AY1920S1-CS2113T-T09-3/main/pull/239[#239])
+*** Setup test case that was adopted and followed by other teammates
+(https://github.com/AY1920S1-CS2113T-T09-3/main/pull/129[#129])
+
+== Contributions to the User Guide
+
+=== Print questions or user information : `print`
+This command provides a way for you to print the questions you have attempted in a text file. This is for users who
+want to keep a copy of the questions they found hard, or attempted wrongly. +
+Specify `user`, `archive`, or `quiz` to the
+second argument to print the data in the user, archive, or quiz respectively.
+Specify the filename with the extension `.pdf` as the third argument to print the data to PDF +
+Format : `print DATA_SOURCE FILENAME` +
+====
+Example: +
+`print user MyData.pdf` will print the UserData (His name, gender, level, exp, chapter information) into a pdf named MyData.
+=====
+*Expected outcome*
+* The pdf will be located in the same directory as the application.
+=====
+
+====
+=== Archive questions : `archive`
+This command archives the specified question. Specifying the question number archived the question in the last attempted quiz. +
+This is for users who found a particular question interesting, or users who are
+not sure of the correct answer and wish to review the question in greater detail in the future. +
+Format: `archive NUMBER`
+====
+Example: +
+`archive 1` archives question 1 in the quiz. Note that to view the archived questions in pdf, please read the `print archive FILENAME` with FILENAME having the .pdf extension.
+=====
+*Expected Outcome*
+* NUMBER should be between 1 to 10 inclusive.
+=====
+====
+
+
+=== Clear the chatbox : `clear`
+
+This command removes all existing conversations in the chat if you deem the interface to be too cluttered with information +
+Format : `clear`
+
+=== Adjusting volume of the background music : `volume`
+
+This command adjust the volume. Specify a number between 0 to 100 to adjust the sound level. +
+Format: `volume NUMBER` +
+
+
+Example: +
+`volume 1` will set the volume to level 1.
+
+- NUMBER should be between 0 to 100 inclusive.
+
+
+== FAQ
+
+*Q*: What is AlgoSenpai Adventures? +
+*A*: AlgoSenpai Adventures (ASA) is a desktop application to assist you in learning data structures
+and algorithms. The application is not meant to replace lectures and tutorials completely. It is for
+students who wants to reinforce their learning in a fun, engaging manner.
+
+*Q*: Who is ASA for? +
+*A*: ASA is intended for any students who are starting to learn data structures and algorithms.
+We assumes introductory knowledge to programming in any language. The lectures provided are
+in pesudocode. Students of any programming background should be able to follow the lesson.
+
+*Q*: What topics do ASA covers? +
+*A*: ASA covers chapters on Linked List, Sorting, and BitMask at the moment. We plan to
+increasing the number of topics covered in future.
+
+*Q*: How to get the most out of ASA? +
+*A*: The prerequisites for using this application is introductory knowledge to programming. New users should
+first attempt the lectures and quizzes built in ASA. We also have quizzes and arcade to provide you
+time practices. Finally, you can save and print the questions you attempted into PDF for revision.
+Besides, you can run `stats` to see your progress in the application.
+
+*Q*: Is there a time limit to the questions given? +
+*A*: There is no time limit for each question currently. We gave the users this flexibility to customize the
+learning. Nevertheless, users are expected to improve with more practice.
+
+*Q*: How to adjust the number of questions in the quiz? +
+*A*: Each quiz currently is set to 10 questions. You cannot set the number of questions to attempt before the
+quiz. Studies have shown that the students learned best from quizzes that are not more than 10 questions in total.
+
+*Q*: I made an accidental mistake in my answer during the quiz. Is there a way for me to go back to the previous
+question? +
+*A*: No. You cannot go back to the previous. We hope to build your confidence and  accuracy when answering
+questions on data structures and algorithms.
+
+*Q*: How to download the questions? +
+*A*: Run `print quiz <filename>.pdf` to print the last attempted quiz and `print archive <filename>.pdf` to
+print the archived questions.
+
+*Q*: Does my game auto-save for me or do I have to manually save it?  +
+*A*: The game will try to save an instance for you automatically after certain checkpoints. However, in some
+unforeseen circumstances, the program might terminate midway, causing your progress to not be saved. As such,
+we recommend users to do a manual save occasionally as well.
+
+*Q*: What is the different between the questions in quiz and arcade mode? +
+*A*: Each quiz has 10 questions. You can choose the chapters you want to focus on during the quiz. In the
+arcade, you can 1 question only that is random from the chapters Sorting, BitMask and LinkedList. We provide
+different modes to increase the learning experience in ASA.
+
+*Q*: Will the questions in each quiz be repeated?   +
+*A*: Each question is phrased the same; however, the list of numbers provided in each question varies, and
+these numbers are randomly generated. You can expect no two questions will be exactly the same so that you
+can practice as many as you need.
+
+*Q*: How can I keep a copy of a question before attempting another quiz?  +
+*A*: You can run `archive <x>` where x is an integer to archive the xth question. For example, to archive question
+1, you can run `archive 1`. This command is only available when you have completed a quiz.
+
+*Q*: How can I view the archived questions? +
+*A*: You cannot view the archived questions in the quiz. However, you can view the archived questions by
+running `quiz archive <filename>.pdf`. This will print the archived questions into a PDF.
+
+*Q*: How to transfer my user information into another computer? +
+*A*: There is a file `UserData.txt` in the directory next to your application. This file contains your user
+information. You need to transfer this file to your another computer. When you start the application, run
+`load <file>.txt` to restore your information.
+
+*Q*: How can I reset my stats?
+*A*: You can run `reset` to reset you stats. Alternatively, you can delete the file `UserData.txt` in the
+directory next to your application. However, information such as, your name and gender, will be lost in the
+process.
+
+*Q*: How do I maximise my learning potential with the report of my user information?   +
+*A*: The report generated will give a good indication on the chapters that you are weak at, based on the time
+taken to solve the questions, as well as the number of question you gotten correct. As such, more effort can be
+placed into practicing the chapters which are deemed “weak” by the reports as it indicates a lack of conceptual
+understanding.
+
+*Q*: There are too many messages in the application. How do you clear the messages in the application?  +
+*A*: You can run `undo <x>` where x is the number of messages you want to delete. Alternatively, you can run
+`clear` to delete all the messages.
+
+*Q*: Can I challenge friends in a multi-player mode?   +
+*A*: Unfortunately, you can’t. However, you still run `print user <filename>.pdf` to print your scores and
+share with your friends.
+
+*Q*: Are there automatic software updates?    +
+*A*: There is no automatic software updates. To get the updates, you need to redownload the latest version of
+the software at our https://github.com/AY1920S1-CS2113T-T09-3/main/releases[releases].
+
+*Q*: How to get in touch? +
+*A*: You can contact us at contact@algosenpaiadventures.com.
+
+== Contributions to the Developer Guide
