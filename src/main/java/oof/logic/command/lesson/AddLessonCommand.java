@@ -32,6 +32,8 @@ public class AddLessonCommand extends Command {
     private static final int ARRAY_SIZE_START_TIME = 3;
     private static final int ARRAY_SIZE_END_TIME = 4;
     private static final int LESSON_NAME_LENGTH_MAX = 20;
+    private static final String[] days = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY",
+            "SUNDAY"};
 
     /**
      * Constructor for AddLessonCommand.
@@ -67,17 +69,21 @@ public class AddLessonCommand extends Command {
         }
         String startTime = parseTime(arguments.get(INDEX_START_TIME));
         String endTime = parseTime(arguments.get(INDEX_END_TIME));
-        if (!isDateValid(startTime)) {
-            throw new InvalidArgumentException("OOPS!!! The start date is invalid.");
+        String day = arguments.get(INDEX_DAY);
+        if (!isDayValid(day.toUpperCase())) {
+            throw new InvalidArgumentException("OOPS!!! The day is invalid.");
+        } else if (!isDateValid(startTime)) {
+            throw new InvalidArgumentException("OOPS!!! The start time is invalid.");
         } else if (!isDateValid(endTime)) {
-            throw new InvalidArgumentException("OOPS!!! The end date is invalid.");
+            throw new InvalidArgumentException("OOPS!!! The end time is invalid.");
         }
         SimpleDateFormat format = new java.text.SimpleDateFormat("HH:mm");
         try {
             Date newStartTime = format.parse(startTime);
             Date newEndTime = format.parse(endTime);
             if (!isStartDateBeforeEndDate(newStartTime, newEndTime)) {
-                throw new InvalidArgumentException("OOPS!!! The start time of a lesson cannot be after the end time.");
+                throw new InvalidArgumentException("OOPS!!! The start time of a lesson must be strictly before the "
+                        + "end time.");
             }
         } catch (ParseException e) {
             throw new InvalidArgumentException("Timestamp given is invalid! Please try again.");
@@ -95,6 +101,15 @@ public class AddLessonCommand extends Command {
         module.addLesson(lesson);
         ui.printLessonAddedMessage(lesson);
         storageManager.writeSemesterList(semesterList);
+    }
+
+    private boolean isDayValid(String day) {
+        for (String i : days) {
+            if (day.equals(i)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
