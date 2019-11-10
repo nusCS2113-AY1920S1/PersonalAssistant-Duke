@@ -48,14 +48,6 @@ public class DukeDataContextWindow extends ContextWindow {
         priorityLabel.setText(String.valueOf(data.getPriority()));
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<DukeObject> getIndexedList(String type) {
-        return null;
-    }
-
     public DukeData getData() {
         return data;
     }

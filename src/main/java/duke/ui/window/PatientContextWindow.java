@@ -165,12 +165,4 @@ public class PatientContextWindow extends ContextWindow {
     public void updateUi() throws DukeFatalException {
         updatePatientWindow();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<DukeObject> getIndexedList(String type) {
-        return null;
-    }
 }
