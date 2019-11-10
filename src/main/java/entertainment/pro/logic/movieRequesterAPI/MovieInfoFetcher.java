@@ -39,7 +39,7 @@ public class MovieInfoFetcher implements Runnable {
         String json = "";
         try {
             json = UrlRetriever.readUrlAsString(movieRequestUrl);
-            movieRequestListener.fetchedJSON(json);
+            movieRequestListener.fetchedJson(json);
             logger.log(Level.INFO, PromptMessages.DATA_EXTRACT_FROM_API_SUCCESS);
         } catch (NullPointerException | Exceptions e) {
             logger.log(Level.INFO, PromptMessages.DATA_EXTRACT_FROM_OFFLINE_NEEDED);

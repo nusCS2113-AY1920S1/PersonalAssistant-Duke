@@ -1,7 +1,7 @@
 package entertainment.pro.commons.strings;
 
 /**
- *
+ * Class contains all the root command keys used in the app.
  */
 public class CommandRootKeyStrings {
 
