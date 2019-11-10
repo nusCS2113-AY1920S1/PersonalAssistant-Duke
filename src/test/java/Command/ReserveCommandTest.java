@@ -5,6 +5,7 @@ import rims.command.ReserveCommand;
 import rims.exception.*;
 import rims.resource.*;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 
@@ -65,6 +66,7 @@ public class ReserveCommandTest {
     /**
      * This test creates a test list with one item. It tries to reserve an item with
      * a return date and a date of borrowing that are in the past.
+     * 
      * @throws ParseException
      * @throws RimsException
      */
@@ -109,12 +111,25 @@ public class ReserveCommandTest {
         ResourceUnderTest = new Item(1, "TestObject");
         listUnderTest.add(ResourceUnderTest);
         commandUnderTest = new ReserveCommand("TestObject", 2, "10/11/2022 1800", "12/11/2022 1800", 1);
-        
+
         Exception e = assertThrows(RimsException.class, () -> {
             commandUnderTest.execute(ui, storage, listUnderTest);
         });
         assertEquals("We don't have that many of this resource currently available!", e.getMessage());
         System.out.print("Test: Resource list has insufficient quantity for requested resource\nStatus: Passed\n");
+        listUnderTest.deleteResourceByName("TestObject");
+    }
+
+    /**
+     * A valid input is used here to test for success cases.
+     */
+    @Test
+    public void validResultTest() throws RimsException, ParseException, IOException {
+        ResourceUnderTest = new Item(1, "TestObject");
+        listUnderTest.add(ResourceUnderTest);
+        commandUnderTest = new ReserveCommand("TestObject", 1, "10/11/2022 1800", "12/11/2022 1800", 1);
+        commandUnderTest.execute(ui, storage, listUnderTest);
+        System.out.print("Test: Valid input test\nStatus: Passed\n");
         listUnderTest.deleteResourceByName("TestObject");
     }
 }

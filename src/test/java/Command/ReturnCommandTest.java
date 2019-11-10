@@ -103,7 +103,6 @@ public class ReturnCommandTest {
         commandUnderTest = new ReturnCommand(1, ResourceIds, ReservationIds);
         commandUnderTest.execute(ui, storage, listUnderTest);
         System.out.print("Status: Passed\n");
-        
     }
 
 }
