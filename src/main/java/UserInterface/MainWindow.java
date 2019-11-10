@@ -296,7 +296,6 @@ public class MainWindow extends BorderPane implements Initializable {
 
         outputList = ShowPreviousCommand.getOutputList();
 
-
         overdueTable.getColumns().clear();
         overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
@@ -304,10 +303,8 @@ public class MainWindow extends BorderPane implements Initializable {
         overdueTable.getColumns().addAll(overdueTaskColumn,overdueDateColumn, overdueDaysColumn);
         overdueTable.setItems(setDeadlineTable());
 
-
-        //add/d CS1000 mod /by 01/11/2019 1500
         setProgressContainer();
-        if (!response.isEmpty() || !response.equals(NO_FIELD)) {
+        if (!response.isEmpty() || response.equals(NO_FIELD)) {
             Text temp = new Text(response);
             temp.setWrappingWidth(dukeResponseColumn.getWidth() - 20);
             Integer index = betterDukeResponse.size() + 1;
@@ -328,16 +325,7 @@ public class MainWindow extends BorderPane implements Initializable {
         } else if (input.startsWith("retrieve/time") && RetrieveFreeTimesParse.isValidOption(input)) {
             String selectedOption = Duke.getSelectedOption();
             userInput.setText(selectedOption);
-        }
-    }
-
-    private boolean overdueCheck(Date date) {
-        Calendar c = Calendar.getInstance();
-        Date startOfWeek = c.getTime();
-        if (date.before(startOfWeek)) {
-            return true;
-        } else {
-            return false;
+            userInput.positionCaret(DukeConstants.ADD_EVENT_HEADER.length() + DukeConstants.STRING_SPACE_SPLIT_KEYWORD.length());
         }
     }
 
