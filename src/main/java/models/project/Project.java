@@ -188,7 +188,8 @@ public class Project implements IProject {
             for (int i = percentDone; i < scale; i++) {
                 progress += ".";
             }
-            allMemberCredits.add(count + ". " + member.getName() + ": " + String.format("%.1f", doneCredits) + " credits");
+            allMemberCredits.add(count + ". " + member.getName() + ": "
+                    + String.format("%.1f", doneCredits) + " credits");
             allMemberCredits.add("   Progress: " + progress + " (" + percentDone * (100 / scale) + "%)");
             count++;
         }
