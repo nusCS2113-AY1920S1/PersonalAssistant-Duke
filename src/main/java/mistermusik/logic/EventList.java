@@ -435,5 +435,4 @@ public class EventList {
         }
         return overUnachievedGoalsList;
     }
-    //@@author
 }

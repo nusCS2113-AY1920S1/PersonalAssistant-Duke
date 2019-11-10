@@ -3,8 +3,14 @@ package mistermusik.commons;
 
 public class Goal {
 
+    /**
+     * The string for the goal.
+     */
     private String goalDescription;
 
+    /**
+     * The boolean for the achieved status of the goal.
+     */
     private boolean isAchieved;
 
     /**
@@ -17,18 +23,30 @@ public class Goal {
         isAchieved = false;
     }
 
+    /**
+     * Returns the string for the goal.
+     */
     public String getGoal() {
         return goalDescription;
     }
 
+    /**
+     * Sets whether the goal has been achieved.
+     */
     public void setAchieved() {
         isAchieved = true;
     }
 
+    /**
+     * Returns the boolean for the achieved status of the goal.
+     */
     public boolean getBooleanStatus() {
         return isAchieved;
     }
 
+    /**
+     * Returns the string for the achieved status of the goal.
+     */
     public String getStatus() {
         if (isAchieved) {
             return "Yes";

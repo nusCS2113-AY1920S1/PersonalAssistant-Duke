@@ -18,7 +18,7 @@ public class UI {
     private static String lineSeparation = "____________________________________________________________\n";
 
     /**
-     * prints welcome message and instructions for use.
+     * Prints welcome message and instructions for use.
      */
     public void welcome() {
         String logo = " ___    ___   __________    __________   __________   __________   _________" + "\n"
@@ -46,7 +46,7 @@ public class UI {
     //@@author YuanJiayi
 
     /**
-     * prints the help list contains different command format.
+     * Prints the help list contains different command format.
      */
     public void printHelpList() {
         System.out.print(lineSeparation);
@@ -76,7 +76,7 @@ public class UI {
     }
 
     /**
-     * prints the list of commands relative to calendar.
+     * Prints the list of commands relative to calendar.
      */
     public void printCalendarHelp() {
         System.out.print(lineSeparation);
@@ -89,7 +89,7 @@ public class UI {
     }
 
     /**
-     * prints the list of commands relative to adding or deleting events.
+     * Prints the list of commands relative to adding or deleting events.
      */
     public void printEventHelp() {
         System.out.print(lineSeparation);
@@ -107,7 +107,7 @@ public class UI {
     }
 
     /**
-     * prints the list of commands relative to goal management.
+     * Prints the list of commands relative to goal management.
      */
     public void printGoalHelp() {
         System.out.print(lineSeparation);
@@ -122,7 +122,7 @@ public class UI {
     }
 
     /**
-     * prints the list of commands relative to contact management.
+     * Prints the list of commands relative to contact management.
      */
     public void printContactHelp() {
         System.out.print(lineSeparation);
@@ -138,7 +138,7 @@ public class UI {
     }
 
     /**
-     * prints the list of commands relative to checklist management.
+     * Prints the list of commands relative to checklist management.
      */
     public void printChecklistHelp() {
         System.out.print(lineSeparation);
@@ -154,7 +154,7 @@ public class UI {
     }
 
     /**
-     * prints the list of commands relative to changing information or status of events.
+     * Prints the list of commands relative to changing information or status of events.
      */
     public void printChangeHelp() {
         System.out.print(lineSeparation);
@@ -168,7 +168,7 @@ public class UI {
     }
 
     /**
-     * prints the list of commands relative to instrument management.
+     * Prints the list of commands relative to instrument management.
      */
     public void printInstrumentsHelp() {
         System.out.print(lineSeparation);
@@ -184,7 +184,7 @@ public class UI {
     }
 
     /**
-     * prints when the period of recurring events is not a positive integer.
+     * Prints when the period of recurring events is not a positive integer.
      */
     public void printPeriodNotPositive() {
         System.out.print(lineSeparation);
@@ -193,7 +193,7 @@ public class UI {
     }
 
     /**
-     * prints when the contact is added successfully.
+     * Prints when the contact is added successfully.
      */
     public void printContactAdded() {
         System.out.print(lineSeparation);
@@ -202,7 +202,7 @@ public class UI {
     }
 
     /**
-     * prints when the contact is deleted successfully.
+     * Prints when the contact is deleted successfully.
      */
     public void printContactDeleted() {
         System.out.print(lineSeparation);
@@ -211,7 +211,7 @@ public class UI {
     }
 
     /**
-     * prints all of the contacts under a specified event.
+     * Prints all of the contacts under a specified event.
      *
      * @param viewEventContact The event whose contacts is printed
      */
@@ -228,7 +228,7 @@ public class UI {
     }
 
     /**
-     * prints when the contact is edited successfully.
+     * Prints when the contact is edited successfully.
      *
      * @param newContact The contact after edited
      */
@@ -240,7 +240,7 @@ public class UI {
     }
 
     /**
-     * prints when the event has no contact.
+     * Prints when the event has no contact.
      */
     public void printNoContactInEvent() {
         System.out.print(lineSeparation);
@@ -249,7 +249,7 @@ public class UI {
     }
 
     /**
-     * prints when the contact list does not have the contact asked to be edited or deleted.
+     * Prints when the contact list does not have the contact asked to be edited or deleted.
      */
     public void printNoSuchContact() {
         System.out.print(lineSeparation);
@@ -258,7 +258,7 @@ public class UI {
     }
 
     /**
-     * prints when the reschedule command invalid.
+     * Prints when the reschedule command invalid.
      */
     public void printRescheduleInvalidCommand() {
         System.out.print(lineSeparation);
@@ -270,7 +270,7 @@ public class UI {
     }
 
     /**
-     * prints message when reschedule an event successfully.
+     * Prints message when reschedule an event successfully.
      *
      * @param event event after rescheduled
      */
@@ -281,7 +281,7 @@ public class UI {
     }
 
     /**
-     * prints when contact command is invalid.
+     * Prints when contact command is invalid.
      */
     public void printContactCommandInvalid() {
         System.out.print(lineSeparation);
@@ -291,7 +291,7 @@ public class UI {
     }
 
     /**
-     * prints message when recurring events are added to the list successfully.
+     * Prints message when recurring events are added to the list successfully.
      */
     public void printRecurringEventAdded(Event eventAdded, int numEvents, int period) {
         System.out.println(lineSeparation + "Got it. I've added these recurring events:");
@@ -327,7 +327,7 @@ public class UI {
     }
 
     /**
-     * prints entire list of events stored.
+     * Prints entire list of events stored.
      *
      * @param events Model_Class.EventList object containing all stored classes and pertaining methods.
      */
@@ -339,7 +339,7 @@ public class UI {
     }
 
     /**
-     * prints goodbye message.
+     * Prints goodbye message.
      */
     public static void printGoodbyeMsg() {
         System.out.print(lineSeparation + "Bye. Hope to see you again soon!\n" + lineSeparation);
@@ -353,7 +353,7 @@ public class UI {
     }
 
     /**
-     * prints message when a event is successfully added.
+     * Prints message when a event is successfully added.
      *
      * @param eventAdded event in question
      * @param numEvents  total number of events
@@ -375,7 +375,7 @@ public class UI {
     }
 
     /**
-     * prints message when a event is marked as completed.
+     * Prints message when a event is marked as completed.
      *
      * @param event event in question
      */
@@ -387,7 +387,7 @@ public class UI {
     }
 
     /**
-     * prints message when a event is deleted successfully.
+     * Prints message when a event is deleted successfully.
      *
      * @param event event in question to be deleted
      */
@@ -399,8 +399,8 @@ public class UI {
     }
 
     /**
-     * prints message containing events found when a search is performed.
-     * prints error message if no events are found
+     * Prints message containing events found when a search is performed.
+     * Prints error message if no events are found
      *
      * @param allFoundEvents string containing all the events found, separated by newline character
      * @param found          boolean signifying whether or not any events were found
@@ -419,7 +419,7 @@ public class UI {
     }
 
     /**
-     * prints message if command does not contain valid input for related event.
+     * Prints message if command does not contain valid input for related event.
      */
     public void printNoSuchEvent() {
         System.out.print(lineSeparation);
@@ -428,7 +428,7 @@ public class UI {
     }
 
     /**
-     * prints message if no event description is found when adding a new event to the list.
+     * Prints message if no event description is found when adding a new event to the list.
      */
     public void printEventDescriptionEmpty() {
         System.out.print(lineSeparation);
@@ -437,7 +437,7 @@ public class UI {
     }
 
     /**
-     * prints when checklist command is invalid.
+     * Prints when checklist command is invalid.
      */
     public void printChecklistCommandInvalid() {
         System.out.print(lineSeparation);
@@ -447,7 +447,7 @@ public class UI {
     }
 
     /**
-     * prints when budget command is invalid.
+     * Prints when budget command is invalid.
      */
     public void printBudgetCommandInvalid() {
         System.out.print(lineSeparation);
@@ -457,7 +457,7 @@ public class UI {
     }
 
     /**
-     * prints when view command is invalid.
+     * Prints when view command is invalid.
      */
     public void printViewCommandInvalid() {
         System.out.print(lineSeparation);
@@ -467,7 +467,7 @@ public class UI {
     }
 
     /**
-     * prints when goal command is invalid.
+     * Prints when goal command is invalid.
      */
     public void printGoalCommandInvalid() {
         System.out.print(lineSeparation);
@@ -486,7 +486,7 @@ public class UI {
     }
 
     /**
-     * prints message when expected number from input is not an integer.
+     * Prints message when expected number from input is not an integer.
      */
     public void printNotAnInteger() {
         System.out.print(lineSeparation);
@@ -495,7 +495,7 @@ public class UI {
     }
 
     /**
-     * prints message when input format is wrong for addition of new event type event.
+     * Prints message when input format is wrong for addition of new event type event.
      */
     public void printNewEntryFormatWrong() {
         System.out.print(lineSeparation);
@@ -507,7 +507,7 @@ public class UI {
     }
 
     /**
-     * prints when the command relative to calender is invalid.
+     * Prints when the command relative to calender is invalid.
      */
     public void printInvalidCalendarCommand() {
         System.out.print(lineSeparation);
@@ -528,7 +528,7 @@ public class UI {
     }
 
     /**
-     * prints next 3 days that are free.
+     * Prints next 3 days that are free.
      *
      * @param freeDays queue of free days of type DateObj
      */
