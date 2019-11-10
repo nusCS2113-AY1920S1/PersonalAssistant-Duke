@@ -16,7 +16,7 @@ public class RimsException extends Exception {
     /**
      * Constructor for a RimsException. Every RimsException contains an error
      * message.
-     * 
+     *
      * @param error the error message of this RimsException.
      */
     public RimsException(String error) {

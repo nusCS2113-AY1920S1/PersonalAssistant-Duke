@@ -24,7 +24,7 @@ public class Rims {
     /**
      * Constructor for RIMS that instantiates the necessary sub-classes for its
      * operation.
-     * 
+     *
      * @param resourceFilePath the file path of the document where resource data is
      *                         stored.
      * @param reserveFilePath  the file path of the document where reservation data
