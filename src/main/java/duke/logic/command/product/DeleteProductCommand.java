@@ -15,6 +15,9 @@ import static duke.logic.message.ProductMessageUtils.MESSAGE_DELETE_SUCCESS;
 import static duke.logic.message.ProductMessageUtils.MESSAGE_INDEX_OUT_OF_BOUND;
 import static java.util.Objects.requireNonNull;
 
+/**
+ * A command to delete products from Product List in {@code Model}.
+ */
 public class DeleteProductCommand extends ProductCommand {
     public static final String COMMAND_WORD = "remove";
 

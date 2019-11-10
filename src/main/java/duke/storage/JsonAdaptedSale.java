@@ -8,7 +8,7 @@ import duke.model.sale.Sale;
 import java.util.Date;
 
 /**
- * Jackson-friendly version of {@link Order}.
+ * Jackson-friendly version of {@link Sale}.
  */
 public class JsonAdaptedSale {
 

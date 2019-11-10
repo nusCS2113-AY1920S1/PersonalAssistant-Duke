@@ -9,6 +9,9 @@ import duke.model.Model;
 
 import static duke.logic.message.ProductMessageUtils.MESSAGE_SORT_PRODUCT_SUCCESS;
 
+/**
+ * A command to sort products in product list according to different categories.
+ */
 public class SortProductCommand extends ProductCommand {
 
     public static final String COMMAND_WORD = "sort";
@@ -43,6 +46,9 @@ public class SortProductCommand extends ProductCommand {
             CommandResult.DisplayedPage.PRODUCT);
     }
 
+    /**
+     * The Category to sort product list by.
+     */
     public enum Category {
         NAME,
         COST,

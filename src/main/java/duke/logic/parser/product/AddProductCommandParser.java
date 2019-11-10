@@ -12,6 +12,9 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
 import static duke.logic.parser.product.ProductParserUtil.createProductDescriptor;
 
+/**
+ * A parser that parses {@code AddProductCommand}.
+ */
 public class AddProductCommandParser implements Parser<AddProductCommand> {
 
     private ArgumentMultimap map;

@@ -16,7 +16,9 @@ import duke.logic.parser.exceptions.ParseException;
 
 public class
 
-
+/**
+ * A parser that parses {@code ProductCommand}.
+ */
 ProductCommandParser implements SubCommandParser<ProductCommand> {
 
     @Override

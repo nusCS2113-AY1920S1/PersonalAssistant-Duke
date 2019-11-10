@@ -15,6 +15,9 @@ import java.util.List;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * A command to edit a product from Product List.
+ */
 public class EditProductCommand extends ProductCommand {
 
     public static final String COMMAND_WORD = "edit";
@@ -34,8 +37,8 @@ public class EditProductCommand extends ProductCommand {
     };
 
     /**
-     * Creates an EditProductCommand to modify the details of an {@code comProduct}.
-     *  @param index                 of the product in the filtered product list
+     * Creates an EditProductCommand to modify the details of a {@code Product}.
+     *  @param index of the product in the filteredProductList in {@code ModelManager}
      * @param productDescriptor details to edit the product with
      */
     public EditProductCommand(Index index, ProductDescriptor productDescriptor) {

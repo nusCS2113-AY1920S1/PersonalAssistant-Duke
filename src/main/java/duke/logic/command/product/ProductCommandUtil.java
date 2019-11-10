@@ -12,6 +12,9 @@ import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * A utility class to get a Product from {@code a ProductDescriptor}.
+ */
 public class ProductCommandUtil {
     public static Double NOT_SPECIFIED_COST = -1.0;
 

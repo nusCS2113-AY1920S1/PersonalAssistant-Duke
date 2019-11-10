@@ -9,6 +9,9 @@ import duke.logic.parser.exceptions.ParseException;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_SEARCH;
 
+/**
+ * A parser that parses {@code SearchProductCommand}.
+ */
 public class SearchProductCommandParser implements Parser<SearchProductCommand> {
 
     private ArgumentMultimap map;

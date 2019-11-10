@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.model.inventory.Ingredient;
 
+/**
+ * Jackson-friendly version of {@link duke.model.inventory.Ingredient}.
+ */
 public class JsonAdaptedIngredient {
     private final String name;
     private final Double unitPrice;

@@ -12,12 +12,19 @@ import java.util.List;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 import static duke.logic.message.ProductMessageUtils.MESSAGE_SHOW_PRODUCT_SUCCESS;
 
+/**
+ * A command that displays the ingredients needed of a {@code Product}.
+ */
 public class ShowProductCommand extends ProductCommand {
 
     public static final String COMMAND_WORD = "show";
 
     public final Index index;
 
+    /**
+     * Construct a ShowProductCommand with the index of the {@code Product} to be shown.
+     * @param index the index of the product in the currently showing product list
+     */
     public ShowProductCommand(Index index) {
         requireAllNonNull(index);
 

@@ -10,6 +10,9 @@ import duke.model.product.Product;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Jackson-friendly version of {@link duke.model.product.Product}.
+ */
 public class JsonAdaptedProduct {
     private final String productName;
     private List<JsonAdaptedIngredientItem> ingredientItems = new ArrayList<>();
