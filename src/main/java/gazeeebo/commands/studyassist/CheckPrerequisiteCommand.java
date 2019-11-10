@@ -3,6 +3,7 @@ package gazeeebo.commands.studyassist;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
+import gazeeebo.storage.StudyAssistPageStorage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,8 +18,9 @@ public class CheckPrerequisiteCommand {
      * @param storage The object that deals with modify,access and save external files.
      * @throws IOException if the user input is in wrong format.
      */
-    public void execute(Ui ui, Storage storage) throws IOException,DukeException {
-        HashMap<String, ArrayList<String>> prerequisiteList = new HashMap<String,ArrayList<String>>(storage.readFromPrerequisiteFile());
+    public void execute(Ui ui, StudyAssistPageStorage storage) throws IOException,DukeException {
+        HashMap<String, ArrayList<String>> prerequisiteList = new HashMap<String,ArrayList<String>>(
+                storage.readFromPrerequisiteFile());
         try {
             if (ui.fullCommand.split(" ").length != 2) {
                 throw new DukeException("Please follow the correct input format~");
@@ -30,7 +32,6 @@ public class CheckPrerequisiteCommand {
                 StringBuilder buffer = new StringBuilder();
                 String prefix = "";
                 String childrenPrefix = "";
-//            test(ui.fullCommand.split(" ")[1],Prefix,ChildrenPrefix,buffer,PrerequisiteList);
                 dfsPrerequisite(ui.fullCommand.split(" ")[1],
                         prefix, childrenPrefix, buffer, prerequisiteList);
                 System.out.println(buffer);
@@ -38,7 +39,7 @@ public class CheckPrerequisiteCommand {
                 System.out.println("This module " + ui.fullCommand
                         + " does not have any pre-requisite~");
             }
-        } catch (DukeException e){
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
         return;
@@ -76,9 +77,6 @@ public class CheckPrerequisiteCommand {
         }
         return;
     }
-//    private void test(String ModuleCode,String Prefix, String ChildrenPrefix, StringBuilder buffer, HashMap<String, ArrayList<String>> PrerequisiteList){
-//        System.out.println("Can.");
-//    }
 }
 
 

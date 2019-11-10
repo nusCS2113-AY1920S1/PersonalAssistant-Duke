@@ -1,4 +1,5 @@
 //@@author mononokehime14
+
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
@@ -35,15 +36,20 @@ public class RescheduleCommand extends Command {
      * @throws IOException    Catch error if the read file fails
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
+    public void execute(ArrayList<Task> list,
+                        Ui ui,
+                        Storage storage,
+                        Stack<ArrayList<Task>> commandStack,
+                        ArrayList<Task> deletedTask,
+                        TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         try {
             if (ui.fullCommand.length() == 10) {
                 throw new DukeException("OOPS!!! The object of a rescheduling cannot be null.");
             } else {
                 int index = Integer.parseInt(ui.fullCommand.split(" ")[1]) - 1;
-                String Decription = list.get(index).description;
+                String decription = list.get(index).description;
                 ;
-                System.out.println("You are rescheduling this task: " + Decription);
+                System.out.println("You are rescheduling this task: " + decription);
                 System.out.println("Please type in your new timeline");
                 ui.readCommand();
                 String time = ui.fullCommand;
@@ -51,17 +57,17 @@ public class RescheduleCommand extends Command {
                 ui.readCommand();
                 if (ui.fullCommand.equals("yes")) {
                     if (list.get(index).listFormat().contains("by")) {
-                        Task RescheduledDeadline = new Deadline(Decription, time);
+                        Task rescheduledDeadline = new Deadline(decription, time);
                         list.remove(index);
-                        list.add(RescheduledDeadline);
+                        list.add(rescheduledDeadline);
                         System.out.println("Noted. I've changed this task's timeline: ");
-                        System.out.println(RescheduledDeadline.listFormat());
+                        System.out.println(rescheduledDeadline.listFormat());
                     } else {
-                        Event RescheduledEvent = new Event(Decription, time);
+                        Event rescheduledEvent = new Event(decription, time);
                         list.remove(index);
-                        list.add(RescheduledEvent);
+                        list.add(rescheduledEvent);
                         System.out.println("Noted. I've changed this task's timeline: ");
-                        System.out.println(RescheduledEvent.listFormat());
+                        System.out.println(rescheduledEvent.listFormat());
                     }
 
                     StringBuilder sb = new StringBuilder();

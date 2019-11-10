@@ -2,6 +2,8 @@ package gazeeebo.commands.studyassist;
 
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
+import gazeeebo.storage.StudyAssistPageStorage;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -25,8 +27,8 @@ public class StudyPlannerCommand {
      *                files.
      * @throws IOException when the user input is wrong
      */
-    public StudyPlannerCommand(Storage storage) throws IOException {
-        this.StudyPlan = storage.Read_StudyPlan();
+    public StudyPlannerCommand(StudyAssistPageStorage storage) throws IOException {
+        this.StudyPlan = storage.readFromStudyPlanFile();
         if (StudyPlan.isEmpty()) {
             StudyPlan = new ArrayList<ArrayList<String>>();
         }
@@ -116,17 +118,16 @@ public class StudyPlannerCommand {
         System.out.println(" +-----------------------------------------------------------------------+");
         int biggestsize = 0;
         for (int i = 0;i < StudyPlan.size();i++) {
-           if (biggestsize < StudyPlan.get(i).size()) {
-               biggestsize = StudyPlan.get(i).size();
-           }
+            if (biggestsize < StudyPlan.get(i).size()) {
+                biggestsize = StudyPlan.get(i).size();
+            }
         }
-//        System.out.println(biggestsize);
         ArrayList<StringBuilder> printplan = new ArrayList<StringBuilder>();
         for (int i = 0;i < biggestsize;i++) {
             StringBuilder temp = new StringBuilder();
             temp.append(" ");
             for (int j = 0;j < StudyPlan.size();j++) {
-                if (StudyPlan.get(j).size() > i){
+                if (StudyPlan.get(j).size() > i) {
                     if (StudyPlan.get(j).get(i).getBytes().length == 8) {
                         temp.append("|" + StudyPlan.get(j).get(i));
                     } else if (StudyPlan.get(j).get(i).getBytes().length == 5) {
@@ -145,7 +146,7 @@ public class StudyPlannerCommand {
         }
         StringBuilder temp2 = new StringBuilder();
         temp2.append(" ");
-        for (int i= 0;i < 8;i++) {
+        for (int i = 0;i < 8;i++) {
             int mc = calculateSemMC(i);
             if (String.valueOf(mc).length() == 2) {
                 temp2.append("| MCs:" + mc + " ");
@@ -161,18 +162,18 @@ public class StudyPlannerCommand {
                     + "------------------------------------------+");
         }
         if (checkGraduation().size() == 0) {
-            System.out.println("* Note: You have met the " +
-                    "graduation requirement! *");
+            System.out.println("* Note: You have met the "
+                    + "graduation requirement! *");
         } else {
-            System.out.println("* Note: You haven't reach " +
-                    "the graduation requirement! *");
-            System.out.println("* To meet the graduation requirement," +
-                    " you have to take following modules: *");
+            System.out.println("* Note: You haven't reach "
+                    + "the graduation requirement! *");
+            System.out.println("* To meet the graduation requirement,"
+                    + " you have to take following modules: *");
             checkGraduation().stream().forEach(System.out::println);
         }
         if (checkTechnicalElective() < 20) {
-            System.out.println("* Note: You need to have" +
-                    " at least 20 MCs of Technical Elective Modules! *");
+            System.out.println("* Note: You need to have"
+                    + " at least 20 MCs of Technical Elective Modules! *");
             System.out.println("* You need " + (20 - checkTechnicalElective()) + " MCs More. *");
         } else {
             System.out.println("* Note: You have reached minimum MCs for Technical Elective Modules! *");
@@ -190,7 +191,7 @@ public class StudyPlannerCommand {
             try {
                 String key = StudyPlan.get(semester).get(i);
                 boolean flag = false;
-                for (Map.Entry < String,ArrayList<String>> temp: TEs.entrySet()) {
+                for (Map.Entry<String,ArrayList<String>> temp: TEs.entrySet()) {
                     if (temp.getValue().contains(key)) {
                         flag = true;
                     }
@@ -203,7 +204,7 @@ public class StudyPlannerCommand {
                     }
                     count += MCMap.get(key);
                 }
-            } catch (DukeException e){
+            } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
         }

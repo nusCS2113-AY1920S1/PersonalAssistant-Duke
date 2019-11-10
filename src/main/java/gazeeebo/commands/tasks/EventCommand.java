@@ -2,6 +2,7 @@ package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
 import gazeeebo.storage.TasksPageStorage;
+import gazeeebo.storage.TriviaStorage;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -58,13 +59,14 @@ public class EventCommand extends Command {
 
         String description;
         try {
+            TriviaStorage triviaStorage = new TriviaStorage();
             if (ui.fullCommand.length() == EVENT_CHAR_COUNT) {
                 throw new DukeException("OOPS!!! The description of"
                         + "an event cannot be empty.");
             } else {
                 description = ui.fullCommand.split("/at ")[0]
                         .substring(EVENT_AND_SPACE_CHAR_COUNT);
-                triviaManager.learnInput(ui.fullCommand, storage);
+                triviaManager.learnInput(ui.fullCommand, triviaStorage);
             }
             String at = ui.fullCommand.split("/at ")[1];
             Event ev = new Event(description, at);

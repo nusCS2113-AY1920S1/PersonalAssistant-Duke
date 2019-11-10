@@ -7,6 +7,7 @@ import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.studyassist.*;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
+import gazeeebo.storage.StudyAssistPageStorage;
 import gazeeebo.tasks.Task;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class    StudyAssistCommandParser extends Command {
+public class StudyAssistCommandParser extends Command {
     /** This method allows user to enter the module planner page,
      * Delete/shift/add/view their 4 year study plan, view prerequisite tree of modules
      * the method keeps repeating in while loop unless esc command is given.
@@ -23,15 +24,20 @@ public class    StudyAssistCommandParser extends Command {
      * @param ui            the object that deals with
      *                      printing things to the user
      * @param storage       the object that deals with storing data
-     * @param commandStack
-     * @param deletedTask
-     * @param triviaManager
+     * @param commandStack  the stack of previous commands.
+     * @param deletedTask   the list of deleted task.
+     * @param triviaManager the object for triviaManager
      * @throws IOException   Catch error if the read file fails
      * @throws DukeException throws a custom exception if
      *                       module index does not exist.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException, ParseException {
+    public void execute(ArrayList<Task> list,
+                        Ui ui,
+                        Storage storage,
+                        Stack<ArrayList<Task>> commandStack,
+                        ArrayList<Task> deletedTask,
+                        TriviaManager triviaManager) throws IOException, DukeException, ParseException {
         System.out.println("Welcome to Module Planner!");
         System.out.println("__________________________________________________________");
         System.out.println("1. Add module to your plan: add CSXXXX to n(Semester number)");
@@ -42,28 +48,33 @@ public class    StudyAssistCommandParser extends Command {
         System.out.println("6. Undo Previous Command: undo");
         System.out.println("7. Exit Module Planner page: esc");
         System.out.println("__________________________________________________________");
-        StudyPlannerCommand StudyPlan =  new StudyPlannerCommand(storage);
+        StudyAssistPageStorage studyStorage = new StudyAssistPageStorage();
+        StudyPlannerCommand studyPlan =  new StudyPlannerCommand(studyStorage);
         Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
         while (!ui.fullCommand.equals("esc")) {
             String command = ui.fullCommand;
             String[] splitCommand = command.split(" ");
             if (splitCommand[0].equals("help")) {
-                new HelpCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                new HelpCommand().execute(
+                        null, null,null,
+                        null,null,
+                        null);
             } else if (splitCommand[0].equals("plan")) {
-                StudyPlan.showPlan();
+                studyPlan.showPlan();
             } else if (splitCommand[0].equals("add")) {
-                copyStudyPlan(oldStudyPlan,StudyPlan.StudyPlan);
-                new AddModuleCommand().execute(StudyPlan,storage,ui);
+                copyStudyPlan(oldStudyPlan,studyPlan.StudyPlan);
+                new AddModuleCommand().execute(studyPlan,studyStorage,ui);
             } else if (splitCommand[0].equals("delete")) {
-                copyStudyPlan(oldStudyPlan,StudyPlan.StudyPlan);
-                new DeleteModuleCommand().execute(StudyPlan,storage,ui);
+                copyStudyPlan(oldStudyPlan,studyPlan.StudyPlan);
+                new DeleteModuleCommand().execute(studyPlan,studyStorage,ui);
             } else if (splitCommand[0].equals("shift")) {
-                copyStudyPlan(oldStudyPlan,StudyPlan.StudyPlan);
-                new ShiftModuleCommand().execute(StudyPlan,storage,ui);
+                copyStudyPlan(oldStudyPlan,studyPlan.StudyPlan);
+                new ShiftModuleCommand().execute(studyPlan,studyStorage,ui);
             } else if (splitCommand[0].equals("prerequisite")) {
-                new CheckPrerequisiteCommand().execute(ui, storage);
+                new CheckPrerequisiteCommand().execute(ui, studyStorage);
             } else if (ui.fullCommand.equals("undo")) {
-               StudyPlan.StudyPlan = new UndoStudyPlannerCommand().undoStudyPlanner(oldStudyPlan,StudyPlan.StudyPlan, storage);
+                studyPlan.StudyPlan = new UndoStudyPlannerCommand()
+                        .undoStudyPlanner(oldStudyPlan,studyPlan.StudyPlan, studyStorage);
             } else if (!ui.fullCommand.equals("moduleplanner")) {
                 System.out.println("Invalid input that i could not understand~");
             }
@@ -85,7 +96,8 @@ public class    StudyAssistCommandParser extends Command {
                 + "To exit: bye\n");
     }
 
-    private void copyStudyPlan(Stack<ArrayList<ArrayList<String>>> oldStudyPlan, ArrayList<ArrayList<String>> currentMods) {
+    private void copyStudyPlan(Stack<ArrayList<ArrayList<String>>> oldStudyPlan,
+                               ArrayList<ArrayList<String>> currentMods) {
         ArrayList<ArrayList<String>> currentPlan = new ArrayList<>();
         for (ArrayList<String> mods : currentMods) {
             ArrayList<String> arrayList = new ArrayList<>();
@@ -96,6 +108,7 @@ public class    StudyAssistCommandParser extends Command {
         }
         oldStudyPlan.push(currentPlan);
     }
+
     @Override
     public boolean isExit() {
         return false;

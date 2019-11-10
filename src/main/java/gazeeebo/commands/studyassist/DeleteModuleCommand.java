@@ -3,6 +3,8 @@ package gazeeebo.commands.studyassist;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
+import gazeeebo.storage.StudyAssistPageStorage;
+
 import java.io.IOException;
 import java.util.stream.Collectors;
 
@@ -15,7 +17,9 @@ public class DeleteModuleCommand {
      * @param ui The object that deals with interaction with users and the system.
      * @throws IOException if user input is in wrong format
      */
-    public void execute(StudyPlannerCommand studyPlan, Storage storage, Ui ui) throws IOException,DukeException {
+    public void execute(StudyPlannerCommand studyPlan,
+                        StudyAssistPageStorage storage,
+                        Ui ui) throws IOException,DukeException {
         try {
             if (ui.fullCommand.split(" ").length != 4) {
                 throw new DukeException("Please follow the correct input format~");
@@ -57,7 +61,7 @@ public class DeleteModuleCommand {
                         .collect(Collectors.joining(" "));
                 toStore += "\n";
             }
-            storage.Storage_StudyPlan(toStore);
+            storage.writeToStudyPlanFile(toStore);
             System.out.println("This module " + moduleCode
                     + " has been successfully deleted from Sem" + (semester + 1) + ".");
         } catch (DukeException e) {

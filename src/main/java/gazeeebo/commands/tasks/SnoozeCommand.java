@@ -1,9 +1,11 @@
 //@@author mononokehime14
+
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
 import gazeeebo.storage.Storage;
 import gazeeebo.storage.TasksPageStorage;
+import gazeeebo.storage.TriviaStorage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
@@ -20,7 +22,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.*;
+import java.util.Stack;
 
 
 public class SnoozeCommand extends Command {
@@ -39,15 +41,22 @@ public class SnoozeCommand extends Command {
      * @throws IOException    Catch error if the read file fails
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
+    public void execute(ArrayList<Task> list,
+                        Ui ui,
+                        Storage storage,
+                        Stack<ArrayList<Task>> commandStack,
+                        ArrayList<Task> deletedTask,
+                        TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         try {
             if (ui.fullCommand.length() == 6) {
                 throw new DukeException("OOPS!!! The object of a snoozing cannot be null.");
             } else {
-                triviaManager.learnInput(ui.fullCommand, storage);
+                TriviaStorage triviaStorage = new TriviaStorage();
+                triviaManager.learnInput(ui.fullCommand, triviaStorage);
                 int index = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
-                String Description = list.get(index).description;
-                System.out.println("You are snoozing this task: " + list.get(index).description);
+                String description = list.get(index).description;
+                System.out.println("You are snoozing this task: "
+                        + list.get(index).description);
                 System.out.println("Please indicate how much time you want to snooze");
                 ui.readCommand();
                 int year = Integer.parseInt(ui.fullCommand.split(" ")[0]);
@@ -57,26 +66,36 @@ public class SnoozeCommand extends Command {
 
                 if (list.get(index).listFormat().contains("by")) {
                     String date = list.get(index).toString().split("\\|")[3].substring(4);
-                    LocalDateTime newDate = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                    LocalDateTime newDate = LocalDateTime
+                            .parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                     newDate = newDate.plusYears(year).plusMonths(month).plusDays(day).plusHours(hour);
-                    String newBy = newDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                    Task snoozedDeadline = new Deadline(Description, newBy);
+                    String newBy = newDate
+                            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                    Task snoozedDeadline = new Deadline(description, newBy);
                     list.remove(index);
                     list.add(snoozedDeadline);
                     System.out.println("Okay. I've prolonged this task's deadline: ");
                     System.out.println(snoozedDeadline.listFormat());
                 } else {
-                    String date = list.get(index).toString().split("\\|")[3].substring(4).split(" ")[0];
-                    String start = list.get(index).toString().split("\\|")[3].substring(4).split(" ")[1].split("-")[0];
-                    String end = list.get(index).toString().split("\\|")[3].substring(4).split(" ")[1].split("-")[1];
+                    String date = list.get(index).toString()
+                            .split("\\|")[3].substring(4)
+                            .split(" ")[0];
+                    String start = list.get(index).toString()
+                            .split("\\|")[3].substring(4)
+                            .split(" ")[1].split("-")[0];
+                    String end = list.get(index).toString()
+                            .split("\\|")[3].substring(4
+                    ).split(" ")[1].split("-")[1];
                     LocalDate newDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     LocalTime newStart = LocalTime.parse(start, DateTimeFormatter.ofPattern("HH:mm:ss"));
                     LocalTime newEnd = LocalTime.parse(end, DateTimeFormatter.ofPattern("HH:mm:ss"));
                     newDate = newDate.plusYears(year).plusMonths(month).plusDays(day);
                     newStart = newStart.plusHours(hour);
                     newEnd = newEnd.plusHours(hour);
-                    String newAt = newDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " " + newStart.format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "-" + newEnd.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-                    Event snoozedEvent = new Event(Description, newAt);
+                    String newAt = newDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                            + " " + newStart.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+                            + "-" + newEnd.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+                    Event snoozedEvent = new Event(description, newAt);
                     list.remove(index);
                     list.add(snoozedEvent);
                     System.out.println("Okay. I've prolonged this task's time: ");

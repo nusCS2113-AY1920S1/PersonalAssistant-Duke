@@ -1,4 +1,5 @@
 //@@author mononokehime14
+
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
@@ -69,8 +70,7 @@ public class SortCommand extends Command {
                             + "Gazeeebo currently does not support this sorting method.");
                 }
             }
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }

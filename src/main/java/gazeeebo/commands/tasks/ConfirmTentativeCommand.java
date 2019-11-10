@@ -1,4 +1,5 @@
 //@@author mononokehime14
+
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
@@ -64,8 +65,8 @@ public class ConfirmTentativeCommand extends Command {
                             + "time slot you want to confirm");
                     ui.readCommand();
                     int whichTimeSlot = Integer.parseInt(ui.fullCommand);
-                    String[] timeslots = list.get(index).
-                            toString().split("\\|");
+                    String[] timeslots = list.get(index)
+                            .toString().split("\\|");
                     System.out.println(timeslots[whichTimeSlot + 2]);
                     ev = new Event(list.get(index).description,
                             timeslots[whichTimeSlot + 2]);
