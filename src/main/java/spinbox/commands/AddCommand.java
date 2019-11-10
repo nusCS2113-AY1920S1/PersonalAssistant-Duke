@@ -100,8 +100,8 @@ public class AddCommand extends Command {
                     String fileName = content.replaceFirst(type, "").trim();
                     fileAdded = files.add(new File(0, fileName));
                     return HORIZONTAL_LINE + "\nAdded into " + module.toString() + " file: " + fileAdded.toString()
-                            + "\nYou currently have " + files.getList().size()
-                            + ((files.getList().size() == 1) ? " file in the list." : " files in the list.") + "\n"
+                            + "\nYou currently have " + files.size()
+                            + ((files.size() == 1) ? " file in the list." : " files in the list.") + "\n"
                             + HORIZONTAL_LINE;
                 } else {
                     return NON_EXISTENT_MODULE;
@@ -173,8 +173,8 @@ public class AddCommand extends Command {
                     taskAdded = tasks.add(new Todo(taskDescription));
 
                     return HORIZONTAL_LINE + "\nAdded into " + module.toString() + " task: " + taskAdded.toString()
-                            + "\nYou currently have " + tasks.getList().size()
-                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
+                            + "\nYou currently have " + tasks.size()
+                            + ((tasks.size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
                             + HORIZONTAL_LINE;
                 } else {
                     return NON_EXISTENT_MODULE;
@@ -198,8 +198,8 @@ public class AddCommand extends Command {
                     taskAdded = tasks.add(new Deadline(taskDescription.substring(0,
                             taskDescription.lastIndexOf(" by:")), start));
                     return HORIZONTAL_LINE + "\nAdded into " + module.toString() + " task: " + taskAdded.toString()
-                            + "\nYou currently have " + tasks.getList().size()
-                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
+                            + "\nYou currently have " + tasks.size()
+                            + ((tasks.size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
                             + HORIZONTAL_LINE;
                 } else {
                     return NON_EXISTENT_MODULE;
@@ -263,8 +263,8 @@ public class AddCommand extends Command {
                                 taskDescription.lastIndexOf(" at:")), start, end));
                     }
                     return HORIZONTAL_LINE + "\nAdded into " + module.toString() + " task: " + taskAdded.toString()
-                            + "\nYou currently have " + tasks.getList().size()
-                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
+                            + "\nYou currently have " + tasks.size()
+                            + ((tasks.size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
                             + HORIZONTAL_LINE;
                 } else {
                     return NON_EXISTENT_MODULE;

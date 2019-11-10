@@ -60,8 +60,8 @@ public class RemoveCommand extends Command {
                     File fileRemoved = files.get(index);
                     files.remove(index);
                     return HORIZONTAL_LINE + "\nRemoved file: " + fileRemoved.toString() + "\n"
-                            + "You currently have " + files.getList().size()
-                            + ((files.getList().size() == 1) ? " file in the list." : " files in the list.") + "\n"
+                            + "You currently have " + files.size()
+                            + ((files.size() == 1) ? " file in the list." : " files in the list.") + "\n"
                             + HORIZONTAL_LINE;
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);
@@ -127,8 +127,8 @@ public class RemoveCommand extends Command {
                     Task taskRemoved = tasks.get(index);
                     tasks.remove(index);
                     return HORIZONTAL_LINE + "\nRemoved task: " + taskRemoved.toString() + "\n"
-                            + "You currently have " + tasks.getList().size()
-                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
+                            + "You currently have " + tasks.size()
+                            + ((tasks.size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
                             + HORIZONTAL_LINE;
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);

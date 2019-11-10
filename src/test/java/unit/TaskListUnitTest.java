@@ -14,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskListUnitTest {
+    private static final String TASKS_CONTAIN = "Here are the tasks that contain ";
+
     @Test
     void addItemSuccessful_insertTodo_addedSuccessfully() throws SpinBoxException {
         TaskList taskList = new TaskList("testTaskList");
@@ -85,7 +87,7 @@ public class TaskListUnitTest {
         List<String> containsList = taskList.containsKeyword("a");
         List<String> checkList = new ArrayList<>();
 
-        checkList.add("Here are the tasks that contain a in your module:");
+        checkList.add(TASKS_CONTAIN + "a");
         checkList.add("1. [T][NOT DONE] a");
 
         assertTrue(checkList.equals(containsList));

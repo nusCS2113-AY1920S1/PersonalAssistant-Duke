@@ -14,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FileListUnitTest {
+    private static final String FILES_CONTAIN = "Here are the files that contain ";
+
     @Test
     void addFileSuccessful_insertFile_addedSuccessfully() throws SpinBoxException {
         FileList fileList = new FileList("testFileList");
@@ -81,7 +83,7 @@ public class FileListUnitTest {
 
         List<String> containsList = fileList.containsKeyword("a");
         List<String> checkList = new ArrayList<>();
-        checkList.add("Here are the files that contain a in your module:");
+        checkList.add(FILES_CONTAIN + "a");
         checkList.add("1. [NOT DOWNLOADED] a");
 
         assertTrue(checkList.equals(containsList));

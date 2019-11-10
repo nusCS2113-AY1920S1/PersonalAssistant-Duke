@@ -131,8 +131,8 @@ public class RemoveMultipleCommand extends Command {
                         throw new InputException(PROVIDE_INDEX);
                     }
                     outputMessage = removeMultipleFile(finalIndexes, files, outputMessage).concat(
-                            "You currently have " + files.getList().size()
-                            + ((files.getList().size() == 1) ? " file in the list." : " files in the list.") + "\n"
+                            "You currently have " + files.size()
+                            + ((files.size() == 1) ? " file in the list." : " files in the list.") + "\n"
                                     + HORIZONTAL_LINE);
                     return outputMessage;
                 } else {
@@ -166,8 +166,8 @@ public class RemoveMultipleCommand extends Command {
                         throw new InputException(PROVIDE_INDEX);
                     }
                     outputMessage = removeMultipleTask(finalIndexes, tasks, outputMessage).concat(
-                            "You currently have " + tasks.getList().size()
-                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
+                            "You currently have " + tasks.size()
+                            + ((tasks.size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
                                     + HORIZONTAL_LINE);
                     return outputMessage;
                 } else {
