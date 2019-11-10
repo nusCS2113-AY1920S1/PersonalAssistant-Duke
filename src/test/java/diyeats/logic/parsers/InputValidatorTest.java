@@ -24,6 +24,8 @@ public class InputValidatorTest {
     private final String numericInput2 = "12345678";
     private final String negativeInput = "-1.23";
     private final String fractionInput = "3.14";
+    private final String leadingZeroInput = "0000123";
+    private final String zeroInput = "0";
     private final LocalDate localDateInput = LocalDate.of(5000, 12, 31);
 
     /**
@@ -107,13 +109,39 @@ public class InputValidatorTest {
     }
 
     /**
-     * test whether the nutritional value is a whole number.:w
+     * test whether the value is not a fraction.
      */
     @Test
-    public void nutritionalValueInputTest() {
+    public void positiveValueFractionInputTest() {
         try {
-            InputValidator.validateNutritionalValue(fractionInput);
-            fail("No non-whole number exception is thrown");
+            InputValidator.validatePositiveInteger(fractionInput);
+            fail("No positive whole number exception is thrown");
+        } catch (ProgramException e) {
+            assertTrue(true);
+        }
+    }
+
+    /**
+     * test whether the value has a leading zero.
+     */
+    @Test
+    public void positiveValueLeadingZeroInputTest() {
+        try {
+            InputValidator.validatePositiveInteger(leadingZeroInput);
+            fail("No leading zero number exception is thrown");
+        } catch (ProgramException e) {
+            assertTrue(true);
+        }
+    }
+
+    /**
+     * test whether the value is a zero.
+     */
+    @Test
+    public void zeroInputTest() {
+        try {
+            InputValidator.validatePositiveInteger(zeroInput);
+            fail("No zero number exception is thrown");
         } catch (ProgramException e) {
             assertTrue(true);
         }
