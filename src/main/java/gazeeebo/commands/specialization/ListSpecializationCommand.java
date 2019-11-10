@@ -4,6 +4,7 @@ package gazeeebo.commands.specialization;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
+import gazeeebo.storage.SpecializationPageStorage;
 import gazeeebo.storage.Storage;
 
 import java.io.IOException;
@@ -497,7 +498,9 @@ public class ListSpecializationCommand {
                     + toStoreIdmB + "\n" + toStoreIdmD + toStorelsB
                     + "\n" + toStorelsD + "\n" + toStoreSysChipB
                     + "\n" + toStoreSysChipD;
-            storage.writeToSpecializationFile(totalStoringOfSpec);
+
+            SpecializationPageStorage specPageStorage = new SpecializationPageStorage();
+            specPageStorage.writeToSpecializationFile(totalStoringOfSpec);
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }

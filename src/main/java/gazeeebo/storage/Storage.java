@@ -63,12 +63,8 @@ public class Storage {
 
     private String relativePathTriviaResource
             = "Trivia.txt";
-    private String relativePathSpecializationResource
-            = "Specialization.txt";
     private String relativePathStudyPlannerResource
             = "Study_Plan.txt";
-    private String relativePathCompletedElectivesResource
-            = "CompletedElectives.txt";
     private String relativePathPrerequisiteResource
             = "Prerequisite.txt";
     //@@author jessteoxizhi
@@ -169,55 +165,6 @@ public class Storage {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public void writeToSpecializationFile(String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(relativePathSpecializationResource);
-        fileWriter.write(fileContent);
-        fileWriter.flush();
-        fileWriter.close();
-    }
-
-    public HashMap<String, ArrayList<ModuleCategory>> readFromSpecializationFile() throws IOException {
-        HashMap<String, ArrayList<ModuleCategory>> specMap = new HashMap<>();
-
-        File file = new File(relativePathSpecializationResource);
-        Scanner sc = new Scanner(file);
-        while (sc.hasNext()) {
-            String[] split = sc.nextLine().split("\\|");
-            ArrayList<ModuleCategory> moduleBD = new ArrayList<>();
-            ModuleCategory mC = new ModuleCategory(split[2]);
-            moduleBD.add(mC);
-            specMap.put(split[1], moduleBD);
-        }
-
-        return specMap;
-    }
-
-    public void writeToCompletedElectivesFile(String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(relativePathCompletedElectivesResource);
-        fileWriter.write(fileContent);
-        fileWriter.flush();
-        fileWriter.close();
-    }
-
-    public HashMap<String, ArrayList<String>> readFromCompletedElectivesFile() throws IOException {
-        HashMap<String, ArrayList<String>> completedEMap = new HashMap<>();
-        File file = new File(relativePathCompletedElectivesResource);
-        Scanner sc = new Scanner(file);
-        while (sc.hasNext()) {
-            ArrayList<String> completedElectiveList = new ArrayList<>();
-            String[] split = sc.nextLine().split("\\|");
-            String checkKey = split[0];
-            if (completedEMap.containsKey(checkKey)) {
-                completedEMap.get(checkKey).add(split[1]);
-            } else {
-                completedElectiveList.add(split[1]);
-                completedEMap.put(checkKey, completedElectiveList);
-            }
-        }
-        //}
-        return completedEMap;
     }
 
     /**

@@ -170,7 +170,7 @@ public class CompletedCommand {
                         + "\n" + toStoreEC + "\n"
                         + toStoreIS + "\n" + toStoreID + "\n"
                         + toStoreLS + "\n" + toStoreSC;
-                storage.writeToCompletedElectivesFile(allCompletedE);
+                completedElectivesStorage.writeToCompletedElectivesFile(allCompletedE);
             }
         } catch (NumberFormatException e) {
             System.out.println("Please only key in the index.");

@@ -9,6 +9,8 @@ import gazeeebo.commands.specialization.ListOfSpecializationAndModules;
 import gazeeebo.commands.specialization.ListSpecializationCommand;
 import gazeeebo.commands.specialization.ModuleCategory;
 import gazeeebo.exception.DukeException;
+import gazeeebo.storage.CompletedElectivesStorage;
+import gazeeebo.storage.SpecializationPageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 
@@ -43,12 +45,14 @@ public class SpecializationCommandParser extends Command {
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
             throws IOException, DukeException {
+        SpecializationPageStorage specPageStorage = new SpecializationPageStorage();
         HashMap<String, ArrayList<ModuleCategory>> smap
-                = storage.readFromSpecializationFile(); //Read the file
+                = specPageStorage.readFromSpecializationFile(); //Read the file
         Map<String, ArrayList<ModuleCategory>> specMap = new TreeMap<>(smap);
 
+        CompletedElectivesStorage completedElectivesStorage = new CompletedElectivesStorage();
         HashMap<String, ArrayList<String>> emap
-                = storage.readFromCompletedElectivesFile(); //Read the file
+                = completedElectivesStorage.readFromCompletedElectivesFile(); //Read the file
 
         Map<String, ArrayList<String>> completedEMap = new TreeMap<>(emap);
 
