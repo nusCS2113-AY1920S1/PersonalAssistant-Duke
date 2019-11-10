@@ -45,7 +45,7 @@
                 </Label>
             </children>
         </AnchorPane>
-        <JFXListView fx:id="investigationListPanel" layoutX="452.0" layoutY="297.0" prefHeight="260.0" prefWidth="210.0"
+        <JFXListView fx:id="followUpListPanel" layoutX="452.0" layoutY="297.0" prefHeight="260.0" prefWidth="210.0"
                      style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;"/>
         <AnchorPane layoutX="452.0" layoutY="261.0" prefHeight="30.0" prefWidth="210.0">
             <children>
