@@ -405,6 +405,33 @@ e.g. `routeNodeAdd 1 1 at 17009 by bus`
 .Activity diagram for the execute() method in RouteNodeAddCommand
 image::SGTravel_routeNodeAdd_diagram.png[height="1150" width="850"]
 
+The user can also show the map of a `RouteNode` by using the `RouteNodeShowCommand`. Given below is an example usage scenario and how the `Model`, `RouteList`, `Route` and `RouteNode` object behave at each step:
+
+.  The user calls the `RouteNodeShowCommand` with its relevant parameters. +
+e.g. `routeNodeShow 1 1`
+. The `LogicManager` parses the user input using the `Parser`.
+. The `Parser` breakdowns the user input into and returns an `RouteNodeShowCommand` Object.
+. During the `execute()` method, the `Route` that the `RouteNode` that is being shown is obtained by calling the `getRoute()` method in the `Model`. By calling `getNode()` on the `Route`, the `RouteNode` being shown will be obtained.
+. The `generateRouteNodeShow()` method is called in the `ApiParser` class. This method constructs a `String` from the parameters of the `RouteNode` object, and obtains an `Image` object from the `getStaticMap` method in the `ApiParser`.
+. A `StaticMapUrlRequest` object is created, which will send a request to the OneMap API. The API returns an `Image` object back to the `StaticMapUrlRequest`, which will return the object back to the `ApiParser`. This `Image` is returned back to the `RouteNodeShowCommand` object, which will then return a `ComandResultImage` object with the `Image` and the parameters of the `RouteNode`.
+
+.Activity diagram for the execute() method in RouteNodeShowCommand
+image::SGTravel_routeNodeShow_diagram.png[height="1150" width="850"]
+
+The user can also automatically generate a new `Route` by using the `RouteGenerateCommand`. Given below is an exmample usage scenario and how the `Model`, `RouteList` and `PathFinder` object behave at each step.
+
+.  The user calls the `RouteGenerateCommand` with its relevant parameters. +
+e.g. `routeGenerate amk hub to nus by bus`
+. The `LogicManager` parses the user input using the `Parser`.
+. The `Parser` breakdowns the user input into and returns an `RouteGenerateCommand` Object.
+. The `generateRoute()` method is called in the `RouteGenerateCommand`. It invokes the `getLocationSearch()` method in the `ApiParser` class for the 2 given location parameters. This creates 2 `Venue` objects corresponding to the starting and ending points of this `Route`. These 2 objects are passed into the `execute()` method in the `PathFinder` object that is constructed in this method. This `execute()` method will return a list of `Venue` objects corresponding to the transfer points that the Route will have.
+. A new `Route` object is created, and all the `Venue` objects are iterated through. For each pair of `Venue` objects in the list, `addInbetweenNodes()` is invoked from the `RouteGenerateCommand`, which creates all the `RouteNode` objects that exist between these 2 transfer points and inserts them into the new `Route`. `addEndingNode()` is then invoked to add the `Venue` objects as `RouteNode` objects to the `Route`.
+. The `RouteList` is obtained by invoking `getRoutes()` in the `Model`, and the new `Route` is added via the `add()` method in the `RouteList`.
+. The method `save()` is invoked in the `Model`, and a `CommandResultText` object is created and returned.
+
+.Activity diagram for the execute() method in RouteGenerateCommand
+image::SGTravel_routeGenerate_diagram.png[height="1150" width="1030"]
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
