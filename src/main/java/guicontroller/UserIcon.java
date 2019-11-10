@@ -1,5 +1,6 @@
 package guicontroller;
 
+import controlpanel.DukeException;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 
@@ -36,8 +37,13 @@ public class UserIcon {
         File iconFile = new File("dataFG/iconPath.txt");
         if (!iconFile.isFile()) {
             iconFile.createNewFile();
+            FileWriter fileWriter = new FileWriter("dataFG/iconPath.txt", false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write("/images/DaUser.png");
             initialPath = "/images/DaUser.png";
             icon = new Image(this.getClass().getResourceAsStream(initialPath));
+            bufferedWriter.close();
+            fileWriter.close();
         } else {
             FileReader fileReader = new FileReader(iconFile);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -61,7 +67,7 @@ public class UserIcon {
      * folder to store and save it as the current user icon.
      * @throws IOException The IOE exception
      */
-    public void changeIcon() throws IOException {
+    public void changeIcon() throws IOException, DukeException {
         FileWriter fileWriter = new FileWriter("dataFG/iconPath.txt", false);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         FileChooser chooser = new FileChooser();
@@ -74,12 +80,20 @@ public class UserIcon {
             bufferedWriter.close();
             return;
         }
-        Path from = Paths.get(selectedFile.toURI());
-        Path to = Paths.get("dataFG/userCustomizedIcons/" + selectedFile.getName());
-        Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
-        File newIcon = new File("dataFG/userCustomizedIcons/" + selectedFile.getName());
-        icon = new Image(newIcon.toURI().toString());
-        bufferedWriter.write(newIcon.toURI().toString());
-        bufferedWriter.close();
+        if (!selectedFile.isFile()) {
+            bufferedWriter.close();
+            fileWriter.close();
+            throw new DukeException("You have not selected a image, so your icon will keep the same as before.");
+        } else {
+            Path from = Paths.get(selectedFile.toURI());
+            Path to = Paths.get("dataFG/userCustomizedIcons/" + selectedFile.getName());
+            Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
+            File newIcon = new File("dataFG/userCustomizedIcons/" + selectedFile.getName());
+            icon = new Image(newIcon.toURI().toString());
+            bufferedWriter.write(newIcon.toURI().toString());
+            bufferedWriter.close();
+            fileWriter.close();
+        }
+
     }
 }

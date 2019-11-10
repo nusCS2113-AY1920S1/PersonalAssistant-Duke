@@ -59,8 +59,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane2.vvalueProperty().bind(graphContainer.heightProperty());
 
-        //userIcon = new UserIcon();
-        //userImage = userIcon.getIcon();
+        userIcon = new UserIcon();
+        userImage = userIcon.getIcon();
 
         Platform.runLater(new Runnable() {
             @Override
@@ -98,8 +98,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         graphContainer.getChildren().clear();
         if (input.equals("change icon")) {
-            //userIcon.changeIcon();
-            //userImage = userIcon.getIcon();
+            userIcon.changeIcon();
+            userImage = userIcon.getIcon();
         }
 
         String[] response = duke.getResponse(input);
