@@ -23,8 +23,8 @@ _What it does_: Persistent storage stores all the data in the form of a folder c
 
 _Justification_: There are two major benefits to persistent storage:
 
-**	Ducats is able to retain all the data upon its closure, ensuring that the user does not experience data loss.
-** Since the data is stored in a .txt file, it is easy to import or export the data, enabling the user to back up or share his/her compositions with ease.
+1.	Ducats is able to retain all the data upon its closure, ensuring that the user does not experience data loss.
+2. Since the data is stored in a .txt file, it is easy to import or export the data, enabling the user to back up or share his/her compositions with ease.
 
 _Highlights_: As an essential part of Ducats, Storage had to be implemented with the consideration of a huge amount of features, as well as the extremely intricate data present in the form of musical compositions. A human-readable and compact form of data storage had to be designed, and considering the number of classes involved, the parsing and string conversion was complicated to implement.
 
