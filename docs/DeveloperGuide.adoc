@@ -109,20 +109,41 @@ When the user inputs a command, the command will be parsed through by the parser
 
 image::ParserandCommandClassDiagram.png[]
 
+==== Lecture Component
+
+The lecture component was designed to model after lecture slides, with each slide containing a string of information. As such, the system was designed in a manner
+that follows OOP. The lecture generator populates a HashMap with lecture data when it is constructed. When the user executes the command for the lecture,
+a slide pointer is initialised, and the first lecture slide is returned.
+
+[[fig-LectureSequenceDiagram]]
+.Sequence Diagram of Lecture Selection
+image::lectureslideactivitydiagram.png[]
+*API* :
+link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/logic/command/critical/ArcadeCommand.java[`ArcadeCommand.java`]
+
+In Figure 5, the user executes the command `lecture sorting` which is passed from the UI to the Logic. Logic interprets it as a lecture and sends the command
+to LectureGenerator, which instantiates all the lectures, and returns a confirmation string. The user executes `start` which gets handled by LectureCommand. LectureCommand
+then returns a String containing the first slide to the user.
+
+
 ==== Quiz Component
 
 The chapter component was designed to model after questions as you would expect in real life, with each specific question
 containing methods and variables of a generic question. As such, the system was designed in a manner that follows OOP. Each
 chapter contained the method to create different types of question related to that chapter.
 
-.Activity Diagram of Quiz Selection
-image::QuizSelectionActivityDiagram.png[]
+[[fig-QuizSelectionSequenceDiagram]]
+.Sequence Diagram of Quiz Selection
+image::QuestionSelectionActivityDiagram.png[]
+*API* :
+link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/logic/chapters/QuizGenerator.java[`QuizGenerator.java`]
+
 
 When the user selects a particular chapter for the quiz, the quiz generator is called.The quiz generator determines which
-chapter should be called based on the user input. In this case, since the user inputs `1`, it calls the ChapterSorting class.
+chapter should be called based on the user input. In this case, since the user inputs `quiz sorting`, it calls the ChapterSorting class.
 The ChapterSorting Class is the class in charge of the random generation of questions related to the Chapter on Sorting.
 
-In ChapterSorting, mainly 4 types of questions are available. In Fig.5, a random number is produced, leading to
+In ChapterSorting, mainly 4 types of questions are available. In Fig.6, a random number is produced, leading to
 the BubbleSortPassQuestion being generated. The BubbleSortPassQuestion generates a QuestionModel in the background before
 passing it back to ChapterSorting and back to QuizGenerator.
 
@@ -134,6 +155,29 @@ It has 4 classes in it, all of which uses methods from an abstract Question clas
 to each question. In the example of BubbleSortPassesQuestion, some of the variables that are not part of the Question class are such
 as arraySize, and the number of passes. There are also specific algorithms present in each Class that extends abstract Question class, such
 as the BubbleSort algorithm, responsible for generating the correct answer for each question.
+
+==== Arcade Component
+
+The arcade component was designed to be similar to the quiz component. Certain steps could be circumvented since there was no storage component necessary.
+
+[[fig-ArcadeClassDiagram]]
+.Class Diagram of ArcadeCommand
+image::ArcadeClassdiagram.png[]
+*API* :
+link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/logic/chapters/LectureGenerator.java[`LectureGenerator.java`]
+
+In Fig 8, the HighScore of the user is a static variable used to keep track of the number of consecutive correct answers.
+In every iteration, previous question will be updated to the current question, while the current question will be a new generated question.
+
+[[fig-ArcadeActivityDiagram]]
+.Activity Diagram of ArcadeCommand
+image::ArcadeActivityDiagram.png[]
+
+In Fig 9, the user starts the arcade. The question is generated and printed on the GUI. The user inputs an answer which is received by the
+Logic component. The answer is referenced to the correct answer. If the answer is correct, the highscore counter is incremented and the next
+question is generated and printed. But if the answer is wrong, Arcade mode will terminate and the highscore is printed on the GUI.
+
+
 
 [[Design-Storage]]
 === Storage component

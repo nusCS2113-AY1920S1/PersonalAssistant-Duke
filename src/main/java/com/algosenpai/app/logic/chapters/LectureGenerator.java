@@ -10,7 +10,6 @@ import java.util.HashMap;
 public class LectureGenerator {
 
     private static HashMap<String, ArrayList<String>> lectureSlides = new HashMap<>();
-    private static HashMap<String, Integer> slidePointer = new HashMap<>();
 
     /**
      * Instantiates the lecture by loading all the lecture slides.
@@ -34,7 +33,6 @@ public class LectureGenerator {
         String line;
         StringBuilder currentSlide = new StringBuilder();
         lectureSlides.put(topic, new ArrayList<>());
-        slidePointer.put(topic, 0);
         while (true) {
             try {
                 line = bufferedReader.readLine();
