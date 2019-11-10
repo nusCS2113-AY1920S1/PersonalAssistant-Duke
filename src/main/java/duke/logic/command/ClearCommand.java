@@ -46,6 +46,15 @@ public class ClearCommand extends Command {
         storage.save(tasks);
     }
 
+    /**
+     * If there are tasks that match the filter description in the task list, then this method creates a mirror
+     * command to ClearCommand, ReplaceCommand, which will undo the clearing of tasks executed by this instance of
+     * ClearCommand
+     *
+     * @param tasks the current TaskList
+     * @param undoStack data structure storing all of the current undo commands
+     * @throws DukeException NA
+     */
     @Override
     public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
         if (!tasks.isEmpty(filter)) {
