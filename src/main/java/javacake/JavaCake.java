@@ -19,14 +19,16 @@ public class JavaCake {
     public boolean isFirstTimeUser;
     public String userName;
     public int userProgress = 0;
-    public static Logger logger = Logger.getLogger("JavaCake");
+    public static Logger LOGGER = Logger.getLogger(JavaCake.class.getPackageName());
 
 
     /**
      * Constructor for main class to initialise the settings.
      */
     public JavaCake() throws CakeException {
-        logger.log(Level.INFO, "Starting JavaCake Constructor!");
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.entering(getClass().getName(), "JavaCake");
         ui = new Ui();
         try {
             logic = Logic.getInstance();
@@ -39,17 +41,17 @@ public class JavaCake {
             checkIfNewUser("NEW_USER_!@#");
         } catch (CakeException e) {
             ui.showLoadingError();
-            logger.log(Level.WARNING, "Profile set-up failed.");
+            LOGGER.severe("[GUI] Storage/Profile Load failed, taking out the trash...");
             throw new CakeException(e.getMessage());
         }
+        LOGGER.exiting(getClass().getName(), "initialize");
     }
 
     /**
      * Constructor for main class to initialise the settings[TEST].
      */
     public JavaCake(String testFilePath) {
-
-        logger.log(Level.INFO, "Starting JavaCake Constructor!");
+        LOGGER.info("Starting JavaCake Constructor!");
         ui = new Ui();
         try {
             logic = Logic.getInstance();
@@ -60,7 +62,7 @@ public class JavaCake {
             checkIfNewUser("NEW_USER_!@#");
         } catch (CakeException e) {
             ui.showLoadingError();
-            logger.log(Level.WARNING, "Profile set-up failed.");
+            LOGGER.severe("[CLI] Storage/Profile Load failed, taking out the trash...");
         }
     }
 
@@ -90,7 +92,7 @@ public class JavaCake {
                 ui.showLine();
             } catch (CakeException e) {
                 ui.showError(e.getMessage());
-                logger.log(Level.WARNING, "Profile overwrite failed.");
+                LOGGER.severe("Profile overwrite failed.");
             }
         }
         ui.showMessage(Ui.showWelcomeMsgPhaseB(isFirstTimeUser, userName, storageManager));
@@ -105,7 +107,7 @@ public class JavaCake {
                     new FileReader("src/main/resources/content/cake.txt"))));
         } catch (CakeException | FileNotFoundException e) {
             ui.showError(e.getMessage());
-            logger.log(Level.WARNING, "Failed to load cake.txt!");
+            LOGGER.severe("Failed to load cake.txt!");
         }
     }
 
@@ -139,12 +141,14 @@ public class JavaCake {
      * Public Method to get String response: GUI MODE.
      */
     public String getResponse(String input) {
-        logger.log(Level.INFO, "Getting response from input...");
+        LOGGER.entering(getClass().getName(), "getResponse");
         storageManager.profile.isCli = false;
         try {
             Command c = Parser.parse(input);
+            LOGGER.exiting(getClass().getName(), "getResponse");
             return c.execute(logic, ui, storageManager);
         } catch (CakeException e) {
+            LOGGER.warning(e.getMessage());
             return e.getMessage();
         }
     }

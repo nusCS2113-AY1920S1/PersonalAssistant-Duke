@@ -13,8 +13,8 @@ public abstract class Command {
      * Types of commands that are possible.
      */
     public enum CmdType {
-        EXIT, LIST, FIND, DONE, DELETE, TODO, DEADLINE, REMIND, VIEWSCH,
-        EDIT, BACK, GOTO, QUIZ, HELP, OVERVIEW, CREATE_NOTE, EDIT_NOTE,
+        EXIT, LIST, FIND, DONE, DELETE, DEADLINE, REMIND,
+        SNOOZE, BACK, GOTO, HELP, OVERVIEW, CREATE_NOTE, EDIT_NOTE,
         LIST_NOTE, DELETE_NOTE, VIEW_NOTE
     }
 

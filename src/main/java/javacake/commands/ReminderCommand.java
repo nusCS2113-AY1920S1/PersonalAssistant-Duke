@@ -24,11 +24,6 @@ public class ReminderCommand extends Command {
     @Override
     public String execute(Logic logic, Ui ui, StorageManager storageManager) {
         ArrayList<Task> deadlineList = storageManager.storage.getData();
-        /*for (Task task : logic.getData()) {
-            if (task.getTaskType() == Task.TaskType.DEADLINE) {
-                deadlineList.add(task);
-            }
-        }*/
         StringBuilder stringBuilder = new StringBuilder();
         sortTasksByDate(deadlineList);
         int idx = 1;

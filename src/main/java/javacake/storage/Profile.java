@@ -1,6 +1,5 @@
 package javacake.storage;
 
-import javacake.JavaCake;
 import javacake.exceptions.CakeException;
 import javacake.ui.MainWindow;
 
@@ -11,10 +10,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Profile {
+    private static final Logger LOGGER = Logger.getLogger(Profile.class.getPackageName());
     private String filepath = "data";
     private String username;
     private ArrayList<Integer> overalltopicsDone = new ArrayList<>();
@@ -34,10 +34,13 @@ public class Profile {
      * @throws CakeException when unable to create profile
      */
     public Profile(String filename) throws CakeException {
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.entering(getClass().getName(), "Profile");
         filepath = filename;
         filepath += "/save/savefile.txt";
         File file = new File(filepath);
-        JavaCake.logger.log(Level.INFO,"Filepath: " + filepath);
+        LOGGER.info("Filepath[p]: " + filepath);
         try {
             try {
                 initialiseUser(file, filename);
@@ -77,27 +80,15 @@ public class Profile {
             }
             reader.close();
 
-            System.out.println("Profile line count: " + count);
-
+            LOGGER.info("Checksum Line Count: " + count);
             overallChecksum(count);
 
-
-            if (!isResetFresh) {
-                try {
-                    File logFile = new File("cakeLog/javaCakeLogFiles.txt");
-                    logFile.getParentFile().mkdir();
-                    FileHandler fileHandler = new FileHandler(logFile.getPath());
-                    JavaCake.logger.addHandler(fileHandler);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("Unable to create log file");
-                }
-            }
-
         } catch (IOException e) {
-            System.out.println("after reader");
+            //System.out.println("after reader");
+            LOGGER.severe("Reader failed[p]");
             throw new CakeException("Failed to close reader");
         }
+        LOGGER.exiting(getClass().getName(), "Profile");
     }
 
     private void overallChecksum(int count) throws CakeException {
@@ -259,24 +250,26 @@ public class Profile {
      * Method that creates data to be written into savefile.txt.
      */
     private void initialiseUser(File file, String filename) throws IOException {
+        LOGGER.entering(getClass().getName(), "initialiseUser");
         boolean isCleanSlate = true;
         if (!file.getParentFile().getParentFile().exists()) {
             file.getParentFile().getParentFile().mkdir();
-            JavaCake.logger.log(Level.INFO, "ProfileGrandpa");
+            LOGGER.info("Creating grandpa file[p]");
         }
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdir();
-            JavaCake.logger.log(Level.INFO, "ProfilePapa");
+            LOGGER.info("Creating papa file[p]");
         }
         if (!file.exists()) {
             file.createNewFile();
-            JavaCake.logger.log(Level.INFO, "ProfileP");
+            LOGGER.info("Creating file[p]");
         } else {
             isCleanSlate = false;
-            JavaCake.logger.log(Level.INFO, filepath + " is found!");
+            LOGGER.info(filepath + " is found![p]");
         }
 
         if (!isResetFresh && isCleanSlate && filename.equals("data")) {
+            LOGGER.info("Testing Profile initiated");
             username = "BakaTester";
             PrintWriter out = new PrintWriter(filepath);
             out.println(username);
@@ -294,6 +287,7 @@ public class Profile {
             }
             out.close();
         } else if (isCleanSlate) {
+            LOGGER.info("Resetted Profile initiated");
             username = "NEW_USER_!@#";
             PrintWriter out = new PrintWriter(filepath);
             out.println(username);
@@ -302,7 +296,7 @@ public class Profile {
             }
             out.close();
         }
-
+        LOGGER.exiting(getClass().getName(), "initialiseUser");
     }
 
     private void writeProgress() throws CakeException {
@@ -317,6 +311,7 @@ public class Profile {
             }
             out.close();
         } catch (FileNotFoundException e) {
+            LOGGER.severe("Cannot write[p]");
             throw new CakeException("Cannot initialise file");
         }
     }
