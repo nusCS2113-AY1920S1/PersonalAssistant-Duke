@@ -155,7 +155,7 @@ public class Ui {
         if (command.equals("list")) {
             System.out.print(line + "     Here are the tasks in your list:\n");
         } else if (command.equals("find")) {
-                System.out.print(line + "     Here are the matching tasks in your list:\n");
+            System.out.print(line + "     Here are the matching tasks in your list:\n");
         } else if (command.equals("View Schedule")) {
             System.out.print(line + "     Here are the tasks on this day:\n");
         }
@@ -279,8 +279,8 @@ public class Ui {
     public void printTaskList(TaskList tasklist) {
         System.out.print(line);
         System.out.println("\tYour result is as follow:");
-        for ( int i  = 0 ; i < tasklist.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + tasklist.get(i).giveTask() );
+        for (int i  = 0; i < tasklist.size(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + tasklist.get(i).giveTask());
         }
         System.out.print(line);
     }

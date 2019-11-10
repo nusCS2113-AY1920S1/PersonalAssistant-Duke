@@ -100,7 +100,7 @@ public class Parser {
             } else if (instr.isWithinPeriodTask(input)) {
                 process.within(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
-              } else if (instr.isSnooze(input)) {
+            } else if (instr.isSnooze(input)) {
                 process.snooze(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isPostpone(input)) {

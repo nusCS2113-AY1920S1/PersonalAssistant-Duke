@@ -498,18 +498,18 @@ public class Process {
             String keyword = split[1];
             TaskList resultList = new TaskList();
             int count = 0;
-            for (int i = 0 ; i < taskList.size() ; i++) {
+            for (int i = 0; i < taskList.size(); i++) {
                 if (taskList.get(i).getDescription().contains(keyword)) {
                     count++;
                     resultList.addTask(taskList.get(i));
                 }
             }
-            if (resultList.size()== 0) {
+            if (resultList.size() == 0) {
                 ui.exceptionMessage("     No matching tasks!");
                 return;
             }
             ui.printList(resultList,"find");
-        } catch(ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Wrong input format! Correct format: find task key/KEY_WORD");
         }
     }
@@ -528,7 +528,7 @@ public class Process {
                 return;
             }
             ui.printList(taskList,"list");
-        } catch(ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Wrong input format! Correct format: list tasks");
         }
     }
@@ -540,7 +540,7 @@ public class Process {
      * @param tasklist Tasklist of the user.
      * @param ui       Ui that interacts with the user.
      */
-    public void viewSchedule(String input, TaskList tasklist, Ui ui) {//view schedule d/23-11-2019
+    public void viewSchedule(String input, TaskList tasklist, Ui ui) {
         try {
             TaskList findlist = new TaskList();
             String[] split = input.split("d/", 2);
@@ -639,7 +639,7 @@ public class Process {
         try {
             String[] arr = input.split("id/", 2);
             int id = Integer.parseInt(arr[1]) - 1;
-            if (id+1 > tasklist.size()) {
+            if (id >= tasklist.size()) {
                 ui.exceptionMessage("     ☹ OOPS!!! Required task is not found.");
                 return;
             } else if (tasklist.get(id).getType().equals("D")) {
@@ -675,7 +675,7 @@ public class Process {
             String[] split = input.split("id/| n/", 3);
             int id = Integer.parseInt(split[1]) - 1;
             int delaydays = Integer.parseInt(split[2]);
-            if (id+1 > tasklist.size()) {
+            if (id >= tasklist.size()) {
                 ui.exceptionMessage("     ☹ OOPS!!! Required task is not found.");
                 return;
             } else if (tasklist.get(id).getType().equals("D")) {
@@ -714,7 +714,7 @@ public class Process {
             int id = Integer.parseInt(split[1]) - 1;
             String delay = split[2];
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            if (id+1 > tasklist.size()) {
+            if (id >= tasklist.size()) {
                 ui.exceptionMessage("     ☹ OOPS!!! Required task is not found.");
                 return;
             } else if (tasklist.get(id).getType().equals("D")) {
@@ -935,7 +935,7 @@ public class Process {
 
     //@@author lijiayu980606
     /**
-     *
+     * Process total cost command and calculate the total cost of a payee.
      * Command format: total cost p/PAYEE_NAME
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
