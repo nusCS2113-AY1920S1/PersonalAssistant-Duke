@@ -119,11 +119,12 @@ public abstract class PaymentManager {
     /**
      * Deletes the Payments object details.
      */
-    public static Payments deletePayments(String payee, String item, HashMap<String, Payee> managermap, String projectname) {
+    public static Payments deletePayments(String payee, String item, HashMap<String, Payee> managermap,
+                                          String projectname) {
         int i = 0;
         while (i < managermap.get(payee).payments.size()) {
-                    if (managermap.get(payee).payments.get(i++).item.equals(item)) {
-                        Payments deleted = new Payments(payee, item, managermap.get(payee).payments.get(--i).cost,
+            if (managermap.get(payee).payments.get(i++).item.equals(item)) {
+                Payments deleted = new Payments(payee, item, managermap.get(payee).payments.get(--i).cost,
                         managermap.get(payee).payments.get(i).inv, projectname);
                 managermap.get(payee).payments.remove(i);
                 return deleted;
@@ -168,11 +169,11 @@ public abstract class PaymentManager {
      * This function scans through every payment and changes its status if needed.
      * @param managermap The managermap.
      */
-    public static void checkStatus(HashMap<String, Payee> managermap){
+    public static void checkStatus(HashMap<String, Payee> managermap) {
         Date dateObj = new Date();
         for (Payee payee : managermap.values()) { // iterate through the payees
             for (Payments payment : payee.payments) { // iterate through the payments
-                if( payment.getStatus() == Status.APPROVED || dateObj.compareTo(payment.getDeadline()) >= 0) {
+                if (payment.getStatus() == Status.APPROVED || dateObj.compareTo(payment.getDeadline()) >= 0) {
                     continue;
                 } else {
                     payment.setStatus(Status.OVERDUE);

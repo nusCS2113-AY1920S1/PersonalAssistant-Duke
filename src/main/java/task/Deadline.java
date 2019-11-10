@@ -12,27 +12,18 @@ import java.util.Date;
 
 public class Deadline extends Task implements Serializable {
     //protected String by;
-    private static SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private static SimpleDateFormat dataformat = new SimpleDateFormat("dd-MM-yyyy");
 
     /**
      * Creates a Deadline instance and initialises the required attributes.
      * @param description Description of the deadline.
      */
-    public Deadline(String description, String by) throws ParseException {
+    public Deadline(String description, Date by) {
         super(description);
-        this.by = by;
-        this.date = dataformat.parse(by);
+        this.date = by;
         this.type = "D";
     }
 
-    /**
-     * set the value of inVoice as true.
-     */
-    public void setInVoice(String inVoice) {
-        this.isInVoice = true;
-        setBy(isInVoice);
-        this.inVoice = inVoice;
-    }
 
     /**
      * Returns a string status of the Deadline task.
@@ -40,6 +31,6 @@ public class Deadline extends Task implements Serializable {
      */
     @Override
     public String giveTask() {
-        return "[D]" + super.giveTask() + "(by: " + by + ")" + " (invoice: " + inVoice + ")";
+        return  super.giveTask() + "(by: " + dataformat.format(this.date) + ")";
     }
 }

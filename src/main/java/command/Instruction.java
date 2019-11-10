@@ -11,11 +11,15 @@ public class Instruction {
     }
 
     public boolean isDone(String input) {
-        return input.startsWith("done");
+        return input.startsWith("done task");
+    }
+
+    public boolean isTodo(String input) {
+        return input.startsWith("add todo");
     }
 
     public boolean isDeadline(String input) {
-        return input.startsWith("deadline");
+        return input.startsWith("add deadline");
     }
 
     public boolean isDoAfter(String input) {
@@ -26,8 +30,12 @@ public class Instruction {
         return input.startsWith("delete payment");
     }
 
-    public boolean isFind(String input) {
-        return input.startsWith("find");
+    public boolean isFindTask(String input) {
+        return input.startsWith("find task");
+    }
+
+    public  boolean isListTasks(String input) {
+        return input.startsWith("list tasks");
     }
 
     public boolean isWithinPeriodTask(String input) {
@@ -51,7 +59,7 @@ public class Instruction {
     }
 
     public boolean isViewSchedule(String input) {
-        return input.startsWith("View Schedule");
+        return input.startsWith("view schedule");
     }
 
     public boolean isReminder(String input) {
@@ -86,10 +94,6 @@ public class Instruction {
         return input.startsWith("total cost");
     }
 
-    public boolean isInvoice(String input) {
-        return input.startsWith("invoice");
-    }
-
     public boolean isHistory(String input) {
         return input.startsWith("history");
     }
@@ -120,6 +124,10 @@ public class Instruction {
 
     public boolean isAssignFund(String input) { 
         return input.startsWith("assign fund"); 
+    }
+
+    public boolean isReduceBudget(String input) {
+        return input.startsWith("reduce budget");
     }
 
     public boolean isShowFund(String input) { 
