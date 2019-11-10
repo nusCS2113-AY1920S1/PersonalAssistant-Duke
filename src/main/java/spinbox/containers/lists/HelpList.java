@@ -34,7 +34,8 @@ public class HelpList {
             + "\t4. View the list of files under module CG1111: view / modules cg1111 files\n"
             + "\t5. View the list of grade components under module CG1111: view / modules cg1111 grades\n"
             + "\t6. View the list of notes under module CG1111: view / modules cg1111 notes\n"
-            + "\t7. View the list of tasks under module CG1111: view / modules cg1111 tasks\n" + horizontalLine);
+            + "\t7. View the list of tasks under module CG1111: view / modules cg1111 tasks\n"
+            + "\t6. View the specify month and year under calendar: view / calendar 01/2020\n" + horizontalLine);
 
     public final String add = helpOutput.concat(horizontalLine + "\n" + "Command: add\n"
             + "Function: To add a module/task/grade/file/note component\n"

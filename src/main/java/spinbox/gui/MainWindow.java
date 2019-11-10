@@ -122,7 +122,7 @@ public class MainWindow extends GridPane {
                     updateMain();
                     break;
                 case 1:
-                    updateCalendar();
+                    updateCalendar("today");
                     break;
                 default:
                     updateModules();
@@ -189,6 +189,11 @@ public class MainWindow extends GridPane {
             break;
         case "calendar":
             tabPane.getSelectionModel().select(1);
+            if (responseFragments.length == 4) {
+                updateCalendar(responseFragments[2] + "/01/" + responseFragments[3]);
+            } else {
+                updateCalendar("today");
+            }
             break;
         case "modules":
             tabPane.getSelectionModel().select(2);
@@ -242,7 +247,7 @@ public class MainWindow extends GridPane {
     private void updateAll() {
         updateMain();
         updateModules();
-        updateCalendar();
+        updateCalendar("today");
     }
 
     private void updateMain() {
@@ -263,7 +268,7 @@ public class MainWindow extends GridPane {
     private void updateOverallTasksView() {
         allTasks = new ArrayList<>();
         overallTasksView.getChildren().clear();
-        overallTasksView.getChildren().add(addHeader("URGENT TASK"));
+        overallTasksView.getChildren().add(addHeader("URGENT TASKS"));
         ModuleContainer moduleContainer = spinBox.getModuleContainer();
         HashMap<String, Module> modules = moduleContainer.getModules();
         for (Map.Entry module : modules.entrySet()) {
@@ -569,8 +574,8 @@ public class MainWindow extends GridPane {
         }
     }
 
-    private void updateCalendar() {
-        CalendarMonthBox monthBox = new CalendarMonthBox("today", allTasks);
+    private void updateCalendar(String dateTime) {
+        CalendarMonthBox monthBox = new CalendarMonthBox(dateTime, allTasks);
         calendarView.getChildren().clear();
         calendarView.getChildren().add(monthBox);
     }

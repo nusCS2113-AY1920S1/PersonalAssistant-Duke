@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 
 <?import javafx.scene.control.Label?>
-<GridPane prefHeight="675.0" prefWidth="900.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<GridPane prefHeight="685.0" prefWidth="900.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
           minWidth="-Infinity" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
           fx:controller="spinbox.gui.MainWindow" hgap="10.0" style="-fx-background-color: #464866">
     <columnConstraints>
@@ -57,7 +57,8 @@
 
         <!--Start of Calendar tab-->
         <Tab text="Calendar">
-            <StackPane fx:id="calendarView" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+            <StackPane fx:id="calendarView" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+                       style="-fx-background-color: #25274D"/>
         </Tab>
         <!--End of Calendar tab-->
 

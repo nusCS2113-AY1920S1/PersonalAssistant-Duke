@@ -1,8 +1,10 @@
 package spinbox.commands;
 
+import spinbox.DateTime;
 import spinbox.containers.ModuleContainer;
 import spinbox.entities.Module;
 import spinbox.Ui;
+import spinbox.exceptions.DateFormatException;
 import spinbox.exceptions.InputException;
 import spinbox.exceptions.SpinBoxException;
 
@@ -42,6 +44,11 @@ public class ViewCommand extends Command {
     private static final int ONE_PAGE_INPUT = 1;
     private static final int TWO_PAGE_INPUTS = 2;
     private static final int THREE_PAGE_INPUTS = 3;
+
+    private static final String INVALID_MONTH_YEAR = "Sorry, please input valid month and year in the format of"
+            + " MM/yyyy.\n"
+            + "E.g. 'view / calendar 12/2019'";
+    private static final String MONTH_YEAR_REGEX = "\\d{2}/\\d{4}";
 
     private String page;
     private String moduleCode;
@@ -105,6 +112,9 @@ public class ViewCommand extends Command {
             } else if (isValidTab) {
                 page = "modules";
                 moduleCode = contentComponents[0];
+                tab = contentComponents[1];
+            } else if (contentComponents[0].equals("calendar")) {
+                page = "calendar";
                 tab = contentComponents[1];
             } else {
                 LOGGER.severe(LOG_INVALID_VIEW_COMMAND);
@@ -205,6 +215,19 @@ public class ViewCommand extends Command {
             }
         }
         LOGGER.fine(LOG_ADDED_TAB);
+
+        if (page.equals("calendar") && tab != null) {
+            newPageTrace.addFirst(tab);
+            if (!tab.matches(MONTH_YEAR_REGEX)) {
+                throw new InputException(INVALID_MONTH_YEAR);
+            }
+            try {
+                String[] monthYear = tab.split("/");
+                new DateTime(monthYear[0] + "/01/" + monthYear[1] + " 00:00");
+            } catch (DateFormatException e) {
+                throw new InputException(INVALID_MONTH_YEAR);
+            }
+        }
 
         pageTrace.clear();
 

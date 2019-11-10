@@ -2,10 +2,17 @@ package spinbox.gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
@@ -62,22 +69,32 @@ public class CalendarMonthBox extends AnchorPane {
 
         taskInMonthBox = calendarMonth.taskInCalendarByDayInMonth(taskList);
         for (i = 1; i < lastDay + 1; i++) {
-            VBox temp = new VBox();
+            VBox vbox = new VBox();
             label = new Label(" " + dateCount);
-            temp.getChildren().add(label);
-            int row = ((i + day - 2) / 7) + 1;
-            int col = (i + day - 2) % 7;
+            vbox.getChildren().add(label);
+            vbox.setBackground(new Background(
+                    new BackgroundFill(Color.web("#25274D"), CornerRadii.EMPTY, Insets.EMPTY)));
             if (!taskInMonthBox.isEmpty()) {
                 Pair<Integer, List<Pair<String, Task>>> pair = taskInMonthBox.get(i - 1);
                 List<Pair<String, Task>> tasksOnDay = pair.getValue();
                 for (Pair item : tasksOnDay) {
                     Task task = (Task) item.getValue();
                     String moduleCode = (String) item.getKey();
-                    label = new Label(moduleCode + " " + task.getTaskType() + " : " + task.getName());
-                    temp.getChildren().add(label);
+                    label = new Label(moduleCode + " : " + task.getTaskType());
+                    vbox.getChildren().add(label);
                 }
             }
-            monthBox.add(temp, col, row);
+            Pane pane = new Pane();
+            pane.getChildren().add(vbox);
+            pane.setBackground(new Background(
+                    new BackgroundFill(Color.web("#25274D"), CornerRadii.EMPTY, Insets.EMPTY)));
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setContent(pane);
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            scrollPane.setStyle("-fx-border-color: #25274D;-fx-background: #25274D;");
+            int row = ((i + day - 2) / 7) + 1;
+            int col = (i + day - 2) % 7;
+            monthBox.add(scrollPane, col, row);
             dateCount += 1;
         }
 

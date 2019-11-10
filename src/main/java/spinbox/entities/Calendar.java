@@ -30,7 +30,6 @@ public class Calendar {
         } catch (DateFormatException e) {
             LOGGER.severe(LOG_CORRUPTED + e.getMessage());
         }
-
     }
 
     public String getMonthString() {
