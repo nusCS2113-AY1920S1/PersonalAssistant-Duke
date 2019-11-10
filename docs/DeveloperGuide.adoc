@@ -224,7 +224,6 @@ May require additional components other than JavaFx's built-in components.
 
 ==== Implementation
 
-<<<<<<< HEAD
 BakingHome's products can have two status: `ACTIVE` or `ARCHIVE`. This feature allows user to view product
 with a given certain status, i.e. shows only products with an ARCHIVE status.
 
