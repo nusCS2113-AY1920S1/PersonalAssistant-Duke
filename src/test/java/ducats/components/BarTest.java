@@ -4,9 +4,11 @@ import ducats.DucatsException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class BarTest {
 
@@ -40,7 +42,7 @@ public class BarTest {
     }
 
     @Test
-    void testCompileNotesToChords() {
+    void testCompileNotesToChords() throws DucatsException {
         ArrayList<Note> noteList = new ArrayList<>();
         noteList.add(new Note("2", Pitch.UPPER_A, true));
         noteList.add(new Note("2", Pitch.MIDDLE_C, true));
@@ -68,6 +70,20 @@ public class BarTest {
         }
     }
 
-    //@@author
-    //todo: test code for updateBarChart, copy
+    @Test
+    void testCopy() throws DucatsException, IOException, ClassNotFoundException {
+        Bar bar = new Bar(0, chords);
+        assertEquals(bar.toString(), bar.copy(new Bar(0, chords)).toString());
+        assertEquals(bar.getId(), bar.copy(new Bar(0, chords)).getId());
+        assertNotEquals(bar, bar.copy(bar));
+        assertNotEquals(bar.getChords(), bar.copy(bar).getChords());
+        assertNotEquals(bar.getChords().toArray()[0], bar.copy(bar).getChords().toArray()[0]);
+    }
+
+    @Test
+    void testSetID() throws DucatsException {
+        Bar bar = new Bar(0, chords);
+        bar.setId(1);
+        assertEquals(1, bar.getId());
+    }
 }

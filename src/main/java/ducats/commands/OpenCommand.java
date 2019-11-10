@@ -29,6 +29,8 @@ public class OpenCommand extends Command<SongList> {
             int songIndex = songList.findSongIndex(songName);
             if (songIndex != -1) {
                 songList.setActiveIndex(songList.findSongIndex(songName));
+            } else {
+                throw new DucatsException("");
             }
             return Ui.formatOpen(songList, songIndex);
         } catch (Exception e) {
