@@ -775,10 +775,17 @@ public class HelpText {
             "\t[ Deleting a contact in the list ]\n"
                     + "\tDeletes an existing contact in the list.\n"
                     + "\n"
-                    + "\tFormat: find name\n"
+                    + "\tFormat: delete name\n"
                     + "\n"
                     + "\tExample:\n"
                     + "\t\t- delete Jason\n";
+
+    private static final String CONTACT_COMMANDS =
+            "\t[ View commands in Contact page ]\n"
+                    + "\tView commands in contact page.\n\n"
+                    + "\tFormat: commands\n\n"
+                    + "\tExample:\n"
+                    + "\t\t- commands\n";
 
     private  static final String CONTACT_UNDO =
             "\t[ Undo previous contact command ]\n"
@@ -833,6 +840,15 @@ public class HelpText {
                     + "\n"
                     + "\tExample:\n"
                     + "\t\t- delete CS1231\n";
+
+    private static final String CAP_COMMANDS =
+            "\t[ Viewing commands in CAP page ]\n"
+                    + "\tView commands in CAP page.\n"
+                    + "\n"
+                    + "\tFormat: commands\n"
+                    + "\n"
+                    + "\tExample:\n"
+                    + "\t\t- commands\n";
 
     //------------------------------------------expenses-------------------------------
     private static final String HEADER_EXPENSES_PAGE = "********** Expenses page: expenses **********\n"
@@ -926,11 +942,11 @@ public class HelpText {
     //--------------------------------------password-----------------------------
     public static final String PASSWORD_PLANNER = SEPARATOR_PAGE
             + "********** Password to enter the planner **********\n"
-                    + "Enter the correct password set\n"
+                    + "Enter the correct password set. Default password is jjjry.\n"
                     + "Format: PASSWORD_TEXT\n"
                     + "\n"
                     + "Example:\n"
-                    + "\t- password123\n"
+                    + "\t- jjjry\n"
                     + SEPARATOR_PAGE;
 
     public static final String PASSWORD_CHANGE = SEPARATOR_PAGE
@@ -1041,14 +1057,16 @@ public class HelpText {
             + CONTACT_FIND + SEPARATOR_COMMAND
             + CONTACT_LIST + SEPARATOR_COMMAND
             + CONTACT_DELETE  + SEPARATOR_COMMAND
-            + CONTACT_UNDO + SEPARATOR_PAGE;
+            + CONTACT_UNDO + SEPARATOR_COMMAND
+            + CONTACT_COMMANDS + SEPARATOR_PAGE;
 
     public static final String CAP_PAGE = SEPARATOR_PAGE
             + HEADER_CAP_PAGE + SEPARATOR_COMMAND
             + CAP_ADD_MODULE + SEPARATOR_COMMAND
             + CAP_FIND_MODULE + SEPARATOR_COMMAND
             + CAP_LIST_MODULE + SEPARATOR_COMMAND
-            + CAP_DELETE_MODULE + SEPARATOR_PAGE;
+            + CAP_DELETE_MODULE + SEPARATOR_COMMAND
+            + CAP_COMMANDS + SEPARATOR_PAGE;
 
     public static final String EXPENSES_PAGE =  SEPARATOR_PAGE
             + HEADER_EXPENSES_PAGE + SEPARATOR_COMMAND
