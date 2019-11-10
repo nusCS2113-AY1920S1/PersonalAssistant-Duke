@@ -70,8 +70,15 @@ public class Patient extends DukeObject {
         if (impressionList.size() == 0) {
             primaryDiagnosis = newImpression;
         }
-
         impressionList.add(newImpression);
+
+        for (Evidence evidence : newImpression.getEvidences()) {
+            updateCriticalList(newImpression, evidence);
+        }
+        for (Treatment treatment : newImpression.getTreatments()) {
+            updateCriticalList(newImpression, treatment);
+            updateFollowUpList(newImpression, treatment);
+        }
         return newImpression;
     }
 
@@ -94,6 +101,18 @@ public class Patient extends DukeObject {
 
             if (impressionList.size() == 1) {
                 primaryDiagnosis = impressionList.get(0);
+            }
+
+            // this is very slow but we have no choice
+            for (DukeData data : criticalList) {
+                if (data.getParent() == deletedImpression) {
+                    criticalList.remove(data);
+                }
+            }
+            for (Treatment treatment : followUpList) {
+                if (treatment.getParent() == deletedImpression) {
+                    followUpList.remove(treatment);
+                }
             }
 
             return deletedImpression;
@@ -428,6 +447,14 @@ public class Patient extends DukeObject {
         return impressionList;
     }
 
+    public ArrayList<DukeData> getCriticalList() {
+        return criticalList;
+    }
+
+    public ArrayList<Treatment> getFollowUpList() {
+        return followUpList;
+    }
+
     @Override
     public PatientCard toCard() throws DukeFatalException {
         return new PatientCard(this);
@@ -449,14 +476,12 @@ public class Patient extends DukeObject {
         return false;
     }
 
-    public void updatePriorityList(Impression impression, DukeData data) {
+    public void updateCriticalList(Impression impression, DukeData data) {
         assert (impressionList.contains(impression)
                 && (impression.getEvidence(data.getName()) != null
                 || impression.getTreatment(data.getName()) != null));
-        if (criticalList.contains(data)) {
-            if (data.getPriority() != DukeData.PRIORITY_CRITICAL) {
-                criticalList.remove(data);
-            }
+        if (criticalList.contains(data) && data.getPriority() != DukeData.PRIORITY_CRITICAL) {
+            criticalList.remove(data);
         } else if (data.getPriority() == DukeData.PRIORITY_CRITICAL) {
             criticalList.add(data);
         }
@@ -465,8 +490,10 @@ public class Patient extends DukeObject {
     public void updateFollowUpList(Impression impression, Treatment treatment) {
         assert (impressionList.contains(impression)
                 && impression.getTreatment(treatment.getName()) != null);
-        if (followUpList.contains(treatment)) {
-        } else {
+        if (followUpList.contains(treatment) && !treatment.isFollowUp()) {
+            followUpList.remove(treatment);
+        } else if (treatment.isFollowUp()) {
+            followUpList.add(treatment);
         }
     }
 }
