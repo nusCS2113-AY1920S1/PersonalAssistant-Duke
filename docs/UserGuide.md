@@ -417,7 +417,7 @@ To find an ingredient from the `Fridge`, user needs to execute command below:
 
 Format: `find` `INGREDIENT_NAME`
 
-If the ingredient index does not exist in the list, message is output:
+If the ingredient name does not exist in the list, message is output:
 
 ```
 	 No such ingredient found!
@@ -499,6 +499,82 @@ Otherwise,
 salt, amount is: 50, expired on 31st of October 2019
 milk, amount is: 150, expired on 11th of October 2019
 ```
+
+#### 3.3.6 Changing the amount of an ingredient
+
+To change the amount of an ingredient, the user will have to first type show to know the index of the ingredient. 
+
+Format: `changeamount` `ingredient index` `new amount` 
+
+If the user enters an invalid number for the ingredient index, he will be prompted with error response.
+
+For example, for a list of 
+
+```
+1: WARNING! expired ingredient: cockroach, amount is: 50 expired on 11th of November 2019
+2: chichken, amount is: 2 expiring on 12th of December 2019
+3: rice, amount is: 1476 expiring on 2nd of March 2020
+4: chicken, amount is: 6 expiring on 2nd of March 2020
+5: rice, amount is: 500 expiring on 12th of December 2020
+6: chicken, amount is: 2147483646 expiring on 11th of November 2022
+```
+
+Examples: 
+
+- `changeamount` `7` `22`   
+
+```
+	OOPS!!! Enter a valid ingredient index number after change, between 1 and <number of     ingredients in the fridge>  
+```
+
+Otherwise,
+
+- `changeamount` `4` `22`   
+
+```
+	 You've changed index number 4's amount to 22
+	 4.chicken, amount is: 22 expiring on 2nd of March 2020
+```
+
+#### 3.3.6 Changing the name of an ingredient
+
+To change the name of an ingredient, the user will have to first type show to know the index of the ingredient. 
+
+Format: `changeamount` `ingredient index` `new name` 
+
+If the user enters an invalid number for the ingredient index, he will be prompted with error response.
+
+For example, for a list of 
+
+```
+1: WARNING! expired ingredient: cockroach, amount is: 50 expired on 11th of November 2019
+2: chichken, amount is: 2 expiring on 12th of December 2019
+3: rice, amount is: 1476 expiring on 2nd of March 2020
+4: chicken, amount is: 22 expiring on 2nd of March 2020
+5: rice, amount is: 500 expiring on 12th of December 2020
+6: chicken, amount is: 2147483646 expiring on 11th of November 2022
+```
+
+Examples: 
+
+- `changename` `7` `beef`   
+
+```
+	OOPS!!! Enter a valid ingredient index number after change, between 1 and <number of     ingredients in the fridge>  
+```
+
+Otherwise,
+
+- `changename` `4` `beef`   
+
+```
+	You've changed index number 4's name to beef
+	4.beef, amount is: 22 expiring on 2nd of March 2020
+```
+
+#### 
+
+
 
 ### 3.5 Order Management
 
@@ -813,14 +889,17 @@ Index | Keyword  | Usage | Description
 
 Ingredient template
 
-| Index | Keyword   | Usage                      | Description                       |
-| ----- | --------- | -------------------------- | --------------------------------- |
-| 1     | add       | add <desc> <amount> <Date> | add an Ingredient to the fridge   |
-| 2     | remove    | remove <index>             | remove an ingredient from fridge  |
-| 3     | find      | find <desc>                | find an ingredient in the fridge  |
-| 4     | listtoday | listtoday                  | list all expired ingredient       |
-| 5     | a         | a                          | removes all expired ingredient    |
-| 6     | use       | use <desc> <amount>        | use an ingredient from the fridge |
+| Index | Keyword      | Usage                             | Description                                          |
+| ----- | ------------ | --------------------------------- | ---------------------------------------------------- |
+| 1     | add          | add <desc> <amount> <Date>        | add an Ingredient to the fridge                      |
+| 2     | remove       | remove <index>                    | remove an ingredient from fridge                     |
+| 3     | find         | find <desc>                       | find an ingredient in the fridge                     |
+| 4     | listtoday    | listtoday                         | list all expired ingredient                          |
+| 5     | a            | a                                 | removes all expired ingredient                       |
+| 6     | use          | use <desc> <amount>               | use an ingredient from the fridge                    |
+| 7     | changeamount | changeamount <index> <new amount> | changes the amount of the ingredient using its index |
+| 8     | changename   | changename <index> <new name>     | changes the name of the ingredient using its index   |
+| 9     | show         | show                              | lists all the ingredients in the fridge              |
 
 Order Template
 

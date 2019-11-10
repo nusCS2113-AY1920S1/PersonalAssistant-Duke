@@ -846,7 +846,29 @@ in the main page, there are several actions for the user:
 
 1. Adding an ingredient to the List
 
-#### E7. Finding an ingredient
+#### E8. Finding an ingredient
+
+1. Find an ingredient in the list using a keyword
+
+   1.1. Prerequisite: user must be in `ingredient` template.
+
+   1.2. List all ingredients by typing `show`
+
+   1.3. Test case 1: `find beef` 
+
+   ​		Expected: Find and list all ingredients that have the keyword `beef` to the user
+
+   ​		Test case 2: `find cockroach`
+
+   ​		Expected: Ingredient is not found and program outputs `No such ingredient found!`
+
+   ​		Test case 3: `find be ef`
+
+   ​		Expected: Program outputs to user the proper syntax to use the command.
+
+2. 
+
+   
 
 #### E8. Listing ingredients that expired today
 
