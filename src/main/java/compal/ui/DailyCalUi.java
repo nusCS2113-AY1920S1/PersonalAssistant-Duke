@@ -18,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 
 //@@author SholihinK
+
 /**
  * Create a timetable drawing onto DailyView scroll-pane within tab-pane.
  */
@@ -124,7 +125,15 @@ class DailyCalUi {
             rectangle.setStroke(Color.BLACK);
 
             final StackPane stack = new StackPane();
-            final Text text = new Text(t.getDescription() + "\nDue:" + t.getStringEndTime());
+
+            String tempText = t.getDescription();
+            String tempId = String.valueOf(t.getId());
+
+            if (tempText.length() > 15) {
+                tempText = tempText.substring(0, 12) + "...";
+            }
+
+            final Text text = new Text("Due: " + t.getStringEndTime() + "\nID: [" + tempId + "]\n " + tempText);
             text.setFont(Font.font("Georgia Italic", 12));
             text.setTextAlignment(TextAlignment.CENTER);
             stack.getChildren().addAll(rectangle, text);
@@ -246,7 +255,7 @@ class DailyCalUi {
     private String createTitle(Task t) {
         String blockTitle = "";
 
-        if (t.getDescription().matches("(?i:.*lec.*)")) {
+        /*if (t.getDescription().matches("(?i:.*lec.*)")) {
             blockTitle = "[Lecture]\n";
         } else if (t.getDescription().matches("(?i:.*tut.*)")) {
             blockTitle = "[Tut]\n";
@@ -258,25 +267,24 @@ class DailyCalUi {
             blockTitle = "[RT]\n";
         } else if (t.getSymbol().equals("E")) {
             blockTitle = "[Event]\n";
-        }
+        }*/
 
-        if (t.getPriority().equals(Task.Priority.high)) {
+        /*if (t.getPriority().equals(Task.Priority.high)) {
             blockTitle += "[Priority: High]\n";
         } else if (t.getPriority().equals(Task.Priority.medium)) {
             blockTitle += "[Priority: Medium]\n";
         } else {
             blockTitle += "[Priority: Low]\n";
-        }
+        }*/
 
-        if (t.getisDone().equals(true)) {
-            String tick = "\u2713";
-            blockTitle += "[" + tick + "]\n";
-        } else {
-            String wrong = "\u2718";
-            blockTitle += "[" + wrong + "]\n";
-        }
+        blockTitle += "Time: " + t.getStringStartTime() + " - " + t.getStringEndTime() + "\n";
+        blockTitle += "ID: [" + t.getId() + "]\n";
 
-        blockTitle += t.getDescription();
+        String tempText = t.getDescription();
+        if (tempText.length() > 15) {
+            tempText = tempText.substring(0, 12) + "...";
+        }
+        blockTitle += tempText;
         return blockTitle;
     }
 
@@ -313,8 +321,13 @@ class DailyCalUi {
                 double heightY = 1.7;
                 double heightYMin = heightY * totalMin;
                 double heightYHour = pixelBlock * totalHour;
+                System.out.println(heightYHour + heightYMin);
+                double combineY = heightYHour + heightYMin;
+                if (combineY < 50) {
+                    combineY = 50;
+                }
 
-                Rectangle rectangle = new Rectangle(pixelBlock, heightYHour + heightYMin);
+                Rectangle rectangle = new Rectangle(pixelBlock, combineY);
                 rectangle.setFill(colorFill(task));
                 rectangle.setStroke(Color.BLACK);
 
@@ -349,16 +362,12 @@ class DailyCalUi {
             return Color.VIOLET;
         } else if (t.getDescription().matches("(?i:.*lab.*)")) {
             return Color.INDIANRED;
-        } else if (t.getDescription().matches("(?i:.*rt.*)")) {
-            return Color.LEMONCHIFFON;
         } else if (t.getPriority().equals(Task.Priority.medium)) {
-            return Color.GOLDENROD;
+            return Color.TOMATO;
         } else if (t.getPriority().equals(Task.Priority.high)) {
-            return Color.VIOLET;
-        } else if (t.getSymbol().equals(Task.Priority.medium)) {
-            return Color.BLUE;
+            return Color.RED;
         }
-        return Color.BLUE;
+        return Color.LIGHTSALMON;
     }
 
 

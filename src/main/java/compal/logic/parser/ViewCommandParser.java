@@ -7,6 +7,7 @@ import compal.logic.command.ViewCommand;
 import compal.logic.parser.exceptions.ParserException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.logging.Logger;
 
@@ -16,7 +17,8 @@ import java.util.logging.Logger;
  * Parses input arguments and creates a new ViewCommand object.
  */
 public class ViewCommandParser implements CommandParser {
-    public static final String MESSAGE_INVALID_PARAM = "Looks like there's an invalid parameter inserted!\n"
+    private static final ArrayList<String> key = new ArrayList<>(Arrays.asList(TOKEN_DATE, TOKEN_TYPE));
+    public static final String MESSAGE_INVALID_PARAM = "Whoops! Looks like that's an invalid command!\n"
         + "This is how you use the view command:\n\n" + ViewCommand.MESSAGE_USAGE;
     private static final Logger logger = LogUtils.getLogger(ViewCommandParser.class);
 
@@ -37,6 +39,8 @@ public class ViewCommandParser implements CommandParser {
         if (emptyString.equals(viewType)) {
             throw new ParserException(MESSAGE_MISSING_TOKEN);
         }
+
+        isValidKey(key, restOfInput, MESSAGE_INVALID_PARAM);
 
         switch (viewType) {
         case "month":
@@ -61,8 +65,10 @@ public class ViewCommandParser implements CommandParser {
                 if (restOfInput.contains("/type")) {
                     String type = getType(restOfInput);
                     return new ViewCommand(viewType, finalDate, type);
-                } else {
+                } else if (restOfInput.contains("/date")) {
                     return new ViewCommand(viewType, finalDate);
+                } else {
+                   throw new ParserException(MESSAGE_INVALID_PARAM);
                 }
             } else if (viewArgs.length == 5) {
                 String type = getType(restOfInput);
