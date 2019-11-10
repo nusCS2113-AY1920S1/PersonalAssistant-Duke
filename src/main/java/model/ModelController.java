@@ -65,8 +65,32 @@ public class ModelController implements Model {
         return tasksManager.getTaskNameById(index);
     }
 
-    public Date getTaskDateTimeById(int index) {
-        return tasksManager.getTaskDateTimeById(index);
+    public String getTaskNameByIdOnList(int index) {
+        return tasksManager.getTaskNameByIdOnList(index);
+    }
+
+    public String getTaskIsDoneByIdOnList(int index) {
+        return tasksManager.getTaskIsDoneByIdOnList(index);
+    }
+
+    public String getTaskDescriptionByIdOnList(int index) {
+        return tasksManager.getTaskDescriptionByIdOnList(index);
+    }
+
+    public Date getTaskDateTimeByIdOnList(int index) {
+        return tasksManager.getTaskDateTimeByIdOnList(index);
+    }
+
+    public ArrayList getMemberListOfTaskByIdOnList(int index) {
+        return tasksManager.getMemberListOfTaskByIdOnList(index);
+    }
+
+    public ArrayList getSkillListOfTaskByIdOnList(int index) {
+        return tasksManager.getSkillListOfTaskByIdOnList(index);
+    }
+
+    public Date getTaskReminderByIdOnList(int index) {
+        return tasksManager.getTaskReminderByIdOnList(index);
     }
 
     @Override
@@ -122,6 +146,19 @@ public class ModelController implements Model {
 
     public String tasksTodoInorderPicNum() {
         return tasksManager.tasksTodoInorderPicNum();
+    }
+
+    //@@author JasonChanWQ
+    /**
+     * Checks if task index exists in task list
+     * @param taskIndex Index of the task
+     * @return false if the task not in list, true if task in list
+     */
+    public boolean isInTaskList(int taskIndex) {
+        if (taskIndex < 1 || taskIndex > tasksManager.getTaskList().size()) {
+            return false;
+        }
+        return true;
     }
 
 
@@ -184,6 +221,82 @@ public class ModelController implements Model {
         String oldPhone = memberManager.getMemberPhone(index);
         memberManager.updateMemberPhone(index, phone);
         return oldPhone;
+    }
+
+    //@@author JasonChanWQ
+    /**
+     * get the corresponding member index by the name
+     * @param name input name
+     * @return memberIndex
+     */
+    public int getMemberIdByName(String name) {
+        int memberIndex = 0;
+        for (int i = 0; i < memberManager.getMemberList().size(); i++) {
+            if (name.equals(memberManager.getMemberNameById(i))) {
+                memberIndex = i;
+                break;
+            }
+        }
+        return memberIndex;
+    }
+
+    //@@author JasonChanWQ
+    /**
+     * get member biography by name
+     * @param name input name
+     * @return memberBio
+     */
+    public String getMemberBioByName(String name) {
+        String memberBio = "";
+        for (int i = 0; i < memberManager.getMemberList().size(); i++) {
+            if (name.equals(memberManager.getMemberNameById(i))) {
+                memberBio = memberManager.getMemberBio(i);
+                break;
+            }
+        }
+        return memberBio;
+    }
+
+    //@@author JasonChanWQ
+    /**
+     * get member email by name
+     * @param name input name
+     * @return memberEmail
+     */
+    public String getMemberEmailByName(String name) {
+        String memberEmail = "";
+        for (int i = 0; i < memberManager.getMemberList().size(); i++) {
+            if (name.equals(memberManager.getMemberNameById(i))) {
+                memberEmail = memberManager.getMemberEmail(i);
+                break;
+            }
+        }
+        return memberEmail;
+    }
+
+    //@@author JasonChanWQ
+    /**
+     * get member phone by name
+     * @param name input name
+     * @return memberPhone
+     */
+    public String getMemberPhoneByName(String name) {
+        String memberPhone = "";
+        for (int i = 0; i < memberManager.getMemberList().size(); i++) {
+            if (name.equals(memberManager.getMemberNameById(i))) {
+                memberPhone = memberManager.getMemberPhone(i);
+                break;
+            }
+        }
+        return memberPhone;
+    }
+
+    public ArrayList<String> getTaskListOfMemberByName(String name) {
+        return memberManager.getTaskListOfMember(name);
+    }
+
+    public ArrayList<String> getSkillListOfMemberByName(String name) {
+        return memberManager.getSkillListOfMember(name);
     }
 
 
