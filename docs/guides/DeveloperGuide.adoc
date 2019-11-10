@@ -559,7 +559,8 @@ Email Manager meets the following non-functional requirements:
 == Instructions for Manual Testing
 Please follow the following feature testing tables to do the manual testing. The actual output and error
 message are to be checked against the expected output in the table. If Internet access is not available,
-please copy the content in the test_data folder to the data folder and overwrite all. These two folders
+please copy the content in the `/data/test_data` folder to the `/data` folder and overwrite all. These two
+folders
 will be automatically generated once the program is started. +
 Please ensure the program is copied to an empty folder before starting the testing to avoid any data
 contamination. Any manual changes to the data folder might affect the program from function normally and is
