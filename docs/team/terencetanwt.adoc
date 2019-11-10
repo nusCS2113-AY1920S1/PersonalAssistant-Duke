@@ -1,4 +1,4 @@
-= Tan Wee Theng, Terence - Project Portfolio for OwlMoney
+= Tan Wee Theng Terence - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -85,6 +85,85 @@ in order to integrate my credit card bill expenditures with his bank expenditure
  [link:{repoURL}/pulls?q=author%3ATerenceTanWT[Pull Requests]]
 
 === 3.3 Other contributions
+
+==== 3.3.1 Project Management
+
+* Managed the team's issue tracker to ensure that issues are closed within deadlines.
+* Helped review and schedule various Pull Requests (PRs) to minimize merge conflicts and regressions.
+
+==== 3.3.2 Additional Codes
+
+* Design and wrote the initial Parser class (ParseCommand, ParseType, ParseRawData) with the contributions from
+everyone (
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai], and
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
+)
+. These Parser classes are used by all commands to help parse keywords and parameters from a user command,
+regardless of the position of the parameters. (link:{repoURL}/pull/60[#66])
+
+==== 3.3.3 Team Contributions
+
+* Designed and implemented the abstract class `bank`, `parser`, `command`, and `transaction` which serve as the code
+base of the project with everyone (
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai], and
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
+).
+
+* Implemented logging for *OwlMoney* while collaborating with everyone (
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai], and
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
+).
+
+* User Guide (UG)
+** Contributed and wrote the sections for all parts of
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc#Features[Features] and
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc#command-summary[Command Summary]
+while collaborating with everyone (
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai], and
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
+).
+
+** Contributed and wrote the sections for all part of
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#design++[Design],
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide
+.adoc#implementation++[Implementation],
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#product-scope++[Product
+Scope],
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#user-stories++[User Stories],
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#use-cases++[Use Cases], and
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#instructions-
+for-manual-testing++[Instructions for
+Manual Testing] while collaborating with everyone (
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai], and
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
+).
+
+* Helped team members debug issues related to parser and also performed regression testing of their codes.
+
+==== 3.3.4 Documentation
+* Came up with the initial set of User Stories and Use Cases for the Developer Guide.
+* Corrected the User Guide and Developer Guide for grammatical errors.
+
+==== 3.3.5 Community
+* Reported bugs in another team's project, link:https://github.com/AY1920S1-CS2113T-W13-3/main[SGTravel] (
+ link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/176[#176],
+ link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/177[#177],
+ link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/178[#178],
+ link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/179[#179],
+ link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/180[#180],
+ link:https://github.com/AY1920S1-CS2113T-W13-3/main/issues/181[#181]
+).
+
 
 == 4. Contributions to the User Guide
 

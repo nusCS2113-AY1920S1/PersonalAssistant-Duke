@@ -488,8 +488,19 @@ high risk of logic and coding errors, leaving room for bugs to be exploited.
 // end::editing_bonds[]
 
 === Deleting Credit Card
+
 // tag::DeleteCreditCard_SequenceDiagram[]
-.Model Component Diagram
+The `/delete /card` feature aims to help user to remove credit cards that they no longer wish to store in their profile.
+This could be because the credit card has expired and the user no longer wish to keep track of the card.
+
+==== Current Implementation
+The current implementation of deleting `card` allows user to remove a credit card from their profile by entering
+the credit card name. Because we allow entering of case and trailing white space insensitive card name, users do not
+need to worry about typing the exact card name. Although each credit card has it's own Universal Unique Identifier
+(UUID), we do not expose it to the user for them to use for the deletion of card. The reason is because UUID
+is a string of 32 alphanumeric characters and it will be very unintuitive for the user to enter it into the command.
+
+.Sequence Diagram for deleting of credit card
 image::DeleteCardCommand.png[width="970"]
 
 [NOTE]
@@ -518,12 +529,54 @@ When the user executes the `DeleteCardCommand`, the following steps are taken by
 . After passing the above checks, `cardListDeleteCard` will delete the card with the specified name from the Arraylist.
 . Once the card object has been deleted, the details of the deleted card object will be displayed to inform the user
 of the *successful* deletion of the card object.
+
+==== Design Considerations
+
+This section describes the various design considerations taken when implementing the `/delete /card` feature.
+
+*Aspect: Choice of using which parameters for deletion of credit cards*
+[cols="18%,37%,45%"]
+|======
+| *Approach* | *Pros* | *Cons*
+
+| *1.* Allowing deletion of credit cards by specifying the card name (case and trailing white space insensitive).
+
+a| * More intuitive because users typically remembers their card by it's name.
+* Users do not need to worry about remembering the exact card name because it is case insensitive.
+
+a| * Harder to implement because we have to write additional functions for trimming of spaces from card name and also
+converting the card name to a common case for comparison.
+* Users cannot have multiple cards with same name but different cases (e.g. VISA, Visa, ViSa).
+
+
+| *2.* Allowing deletion of credit cards by specifying the exact card name (case and trailing white space sensitive).
+
+a| * Allows for multiple cards to have the same name with different cases (e.g. VISA, Visa, ViSa).
+
+a| * User may forget their exact card name because it is difficult to remember multiple variations of the same names
+with different cases.
+* User will be more prone to deleting a wrong card because card with same name but different cases look alike.
+
+
+| *3.* Allowing deletion of credit cards by specifying the card's order number.
+a| * Easiest to implement because we can directly remove the card from the array list using it's index number.
+
+a| * Unintuitive for user because they have to remember the card's order number. If they forget the order number,
+they will have to `list` the credit cards to find out it's order number.
+
+
+| *4.* Allowing deletion of credit cards by specifying the card's UUID.
+a| * Easy to implement because we do not have to worry about case sensitiveness.
+
+a| * Unintuitive for user because they will be unable to remember a 32 character alphanumeric string.
+
+|======
 // end::DeleteCreditCard_SequenceDiagram[]
 
 
 === Listing Credit Cards
 // tag::ListCreditCard_SequenceDiagram[]
-.Model Component Diagram
+.Sequence Diagram for listing of credit card
 image::listCardCommand.png[width="970"]
 
 [NOTE]
