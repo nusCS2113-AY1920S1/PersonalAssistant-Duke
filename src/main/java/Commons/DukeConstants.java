@@ -44,7 +44,7 @@ public class DukeConstants {
     public static final String RECUR_RMBIWEEKLY_KEYWORD = "/rmbiweekly";
     public static final String RECUR_RMWEEKLY_KEYWORD = "/rmweekly";
     public static final String RECUR_EVENT_DATE_FORMAT_ERROR = " OOPS!!! The start date of the recurring event is after the end date of the recurring event.\n" +
-            "Please ensure the end date is after the start end.";
+            "Please ensure the end date is after the start date.";
     public static final String RECUR_EVENT_FORMAT = "OOPS!!! Please enter recurring event as follows:\n" +
             "recur/(fill) modCode name_of_event /start dd/MM/yyyy to dd/MM/yyyy /from HHmm /to HHmm\n" +
             "Note: replace (fill) with either: weekly, biweekly, rmweekly, rmbiweekly\n" +
@@ -65,12 +65,14 @@ public class DukeConstants {
             "show/workload";
     public static final String SHOW_FILTER_FORMAT = " OOPS!!! Please enter filter command as follows\n" +
             "show/filter keyword\n";
-    public static final String SHOW_PREVIOUS_FORMAT = "Invalid input. Please enter format: show/previous <num>" +
-            "OR show/previous <command type>";
+    public static final String SHOW_PREVIOUS_FORMAT = "Invalid input. Please enter format: show/previous <x>"
+            + " where x is an integer OR show/previous <command type>";
     public static final String INVALID_NEGATIVE_NUMBER = "Invalid Input. Cannot enter negative number. Please enter a valid integer greater than 0";
     public static final String INVALID_DECIMAL_NUMBER = "Please enter an integer for x for the command show/previous <x>.";
     public static final String NO_AND_INVALID_COMMAND_TYPE = "Invalid Input. There is no such command type in previous input";
     public static final String INVALID_NUMBER_ZERO = "Please enter a valid integer greater than 0";
+
+
 
     //RETRIEVE
     public static final String RETRIEVE_TIME_HEADER = "retrieve/time";
@@ -82,30 +84,33 @@ public class DukeConstants {
     public static final String INVALID_EMPTY_NUMBER = "<x> cannot be empty. Please enter the valid command as retrieve/previous <x>, "
             + "where x is an integer.";
     public static final String NO_PREVIOUS_COMMAND_TO_GET_LIST = "You did not enter Show Previous Command yet. \n"
-            + "Format: show previous <num> or show previous <type> <num>";
+            + "Format: show previous <x>, where x is an integer OR show previous <Command type>";
+
     public static final String INVALID_STRING_SHOULD_BE_INTEGER = "The x in retrieve/previous <x> must be an integer and not a string.";
+
     public static final String INVALID_OPTION = "Invalid option. Please enter the command as follows. \n"
-            + "retrieve/time 'x', where 'x' is a digit between 1 - 5";
+            + "retrieve/time <x>, where x is a digit between 1 - 5, inclusive";
     public static final String INVALID_EMPTY_OPTION = "Invalid input.\n"
             + "Option cannot be blank.\nPlease enter the command as follows.\n"
-            + "retrieve/time 'x', where 'x' is a digit between 1 - 5";
+            + "retrieve/time <x>, where x is a digit between 1 - 5, inclusive";
     public static final String INVALID_NO_FREE_TIME_FOUND
             = "Please find free times by invoking the command shown below\n"
-            + "find/time 'x' hours, where 'x' is a digit between 1 - 16\n"
+            + "find/time <x> hours, where x is a digit between 1 - 16, inclusive\n"
             + "Followed by the command\n"
-            + "retrieve/time 'x', where 'x' is a digit between 1- 5";
+            + "retrieve/time <x>, where x is a digit between 1- 5, inclusive";
+
     public static final String STR_RANGE_FOR_BETWEEN = "Please enter a valid integer x between 0 and ";
     public static final String STR_RANGE_FOR_LESS_THAN = "Please enter a valid number less than or equal to ";
 
 
     //FIND
     public static final String INVALID_INPUT = "Invalid input. Please enter the command as follows. \n"
-            + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
+            + "find/time <x> hours , where x is a digit between 1 - 16, inclusive";
     public static final String INVALID_DURATION = "Invalid duration. Please enter the command as follows. \n"
-            + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
+            + "find/time <x> hours , where x is a digit between 1 - 16, inclusive";
     public static final String INVALID_EMPTY_DURATION = "Invalid input."
             + "\nDuration cannot be blank.\nPlease enter the command as follows.\n"
-            + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
+            + "find/time <x> hours , where x is a digit between 1 - 16, inclusive";
 
 
     //REMIND
@@ -151,11 +156,11 @@ public class DukeConstants {
     //WEEK
     public static final String INVALID_EMPTY_WEEK = "Invalid Input.\n"
             + "The week cannot be blank.\nPlease enter the command as follows.\n"
-            + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
-            + "'x' is either 'recess', 'reading', or 'exam'";
+            + "show/week <x> , where x is a digit between 1 - 13, inclusive or \n"
+            + "x is either 'recess', 'reading', or 'exam'";
     public static final String INVALID_WEEK = "Invalid Week. Please enter the command as follows. \n"
-            + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
-            + "'x' is either 'recess', 'reading', or 'exam'";
+            + "show/week <x> , where x is a digit between 1 - 13, inclusive or \n"
+            + "x is either 'recess', 'reading', or 'exam'";
 
 
     //MISC
