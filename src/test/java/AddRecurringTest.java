@@ -1,4 +1,5 @@
 import java.lang.reflect.Field;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Assertions;
@@ -18,12 +19,12 @@ import chronologer.parser.ParserFactory;
  */
 public class AddRecurringTest {
 
-    LocalDateTime startDate = LocalDateTime.of(2019, 11, 17, 21, 30);
-    LocalDateTime endDate = LocalDateTime.of(2019, 11, 17, 22, 0);
+    LocalDateTime startDate = LocalDateTime.of(2020, 01, 12, 21, 30);
+    LocalDateTime endDate = LocalDateTime.of(2020, 01, 12, 22, 0);
     String modCode = "CS2113";
-
-    AddRecurringCommand lecture = new AddRecurringCommand("lecture", "lecture", startDate, endDate, modCode);
-    AddRecurringCommand tutorial = new AddRecurringCommand("tutorial", "tutorial", startDate, endDate, modCode);
+    DayOfWeek day = DayOfWeek.MONDAY;
+    AddRecurringCommand lecture = new AddRecurringCommand("lecture", "lecture", startDate, endDate, modCode, day);
+    AddRecurringCommand tutorial = new AddRecurringCommand("tutorial", "tutorial", startDate, endDate, modCode, day);
 
     private Field[] getAddRecurringCommandFields(Command command) throws NoSuchFieldException {
         Field[] commandFields = new Field[5];
@@ -53,7 +54,7 @@ public class AddRecurringTest {
     @DisplayName("Testing parsing of lectures")
     public void testAddLectures() throws ChronologerException, NoSuchFieldException, IllegalAccessException {
         Field[] lectureFields = getAddRecurringCommandFields(lecture);
-        Command lectureTest = ParserFactory.parse("lecture /m cs2113 /at sundays 2130-2200");
+        Command lectureTest = ParserFactory.parse("lecture /m cs2113 /at sundays 2130-2200 /till 12/01/2020");
         Field[] lectureTestFields = getAddRecurringCommandFields(lectureTest);
         assertEqualsAddRecurringCommand(lectureFields, lectureTestFields, lecture, lectureTest);
     }
@@ -62,7 +63,7 @@ public class AddRecurringTest {
     @DisplayName("Testing parsing of tutorials")
     public void testAddTutorials() throws ChronologerException, NoSuchFieldException, IllegalAccessException {
         Field[] tutorialFields = getAddRecurringCommandFields(tutorial);
-        Command tutorialTest = ParserFactory.parse("tutorial /m cs2113 /at sundays 2130-2200");
+        Command tutorialTest = ParserFactory.parse("tutorial /m cs2113 /at sundays 2130-2200 /till 12/01/2020");
         Field[] tutorialTestFields = getAddRecurringCommandFields(tutorialTest);
         assertEqualsAddRecurringCommand(tutorialFields, tutorialTestFields, tutorial, tutorialTest);
     }

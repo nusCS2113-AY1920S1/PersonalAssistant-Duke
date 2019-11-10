@@ -10,6 +10,7 @@ import chronologer.command.AddRecurringCommand;
 import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiMessageHandler;
+import javafx.util.Pair;
 
 //@@author hanskw4267
 /**
@@ -37,13 +38,16 @@ public class RecurringEventParser extends EventParser {
         LocalDateTime toDate;
         String modCode = "";
         modCode = extractModCode(taskFeatures);
-        DayOfWeek day = extractDay(taskFeatures);
         String tillDate = extractTillDate(taskFeatures);
         String dateTimeFromUser = formatDateTime(tillDate, taskFeatures);
         fromDate = super.extractFromDate(dateTimeFromUser);
         toDate = super.extractToDate(dateTimeFromUser);
         assert toDate != null;
         assert fromDate != null;
+        DayOfWeek day = extractDay(taskFeatures);
+        Pair<LocalDateTime, LocalDateTime> orderedDates = super.checkDateOrder(fromDate, toDate);
+        fromDate = orderedDates.getKey();
+        toDate = orderedDates.getValue();
         return new AddRecurringCommand(command, taskDescription, fromDate, toDate, modCode, day);
     }
 

@@ -45,8 +45,7 @@ public class AddRecurringCommand extends AddCommand {
         Task task;
         LocalDateTime timeNow = LocalDateTime.now();
         while (this.formattedStartDate.isAfter(timeNow)) {
-            if(formattedStartDate.getDayOfWeek().equals(this.dayToAdd))
-            {
+            if (formattedStartDate.getDayOfWeek().equals(this.dayToAdd)) {
                 task = new Event(taskDescription, formattedStartDate, formattedEndDate, modCode);
                 tasks.add(task);
                 this.formattedEndDate = this.formattedEndDate.minusWeeks(1);
