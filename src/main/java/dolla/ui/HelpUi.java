@@ -29,10 +29,10 @@ public class HelpUi extends Ui {
           "\tremove record from list                 remove [LIST NO.]";
 
     private static final String SEARCH_CMD =
-          "\tsearch description                      search [KEYWORD(S)]\n"
-        + "\tsearch date                             search [KEYWORD(S)]\n"
-        + "\tsearch name                             search [KEYWORD(S)]\n"
-        + "\tsearch duration                         search [KEYWORD(S)]";
+          "\tsearch description                      search description [KEYWORD(S)]\n"
+        + "\tsearch date                             search date [KEYWORD(S)]\n"
+        + "\tsearch name                             search name [KEYWORD(S)]\n"
+        + "\tsearch duration                         search duration [KEYWORD(S)]";
 
     private static final String MODIFY_CMD =
           "\tfully modify input                      modify [LIST NO.]\n"
