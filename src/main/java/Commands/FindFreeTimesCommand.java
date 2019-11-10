@@ -26,11 +26,6 @@ public class FindFreeTimesCommand extends Command {
     private static final String TWELVE_HOUR_TIME_AM_POST_FIX = "AM";
     private static final String TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR = "12";
     private static final String TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR = ":";
-    private final SimpleDateFormat timeFormat12 = new SimpleDateFormat("hh:mm aa");
-    private final SimpleDateFormat timeFormat24 = new SimpleDateFormat("HHmm");
-    private final SimpleDateFormat dateDayFormat = new SimpleDateFormat("E dd/MM/yyyy");
-    private final SimpleDateFormat dateTimeFormat12 = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-    private final SimpleDateFormat dateTimeFormat24 = new SimpleDateFormat("E dd/MM/yyyy HHmm");
 
     private final Integer options = 5;
     private final Integer duration;
@@ -172,8 +167,8 @@ public class FindFreeTimesCommand extends Command {
     private void mapDataMap(TaskList events) throws ParseException {
         Date date = new Date();
         Date refDate = getRefDate(events, date);
-        String strCurrDateDay = dateDayFormat.format(refDate);
-        String strCurrTime = timeFormat12.format(refDate);
+        String strCurrDateDay = DukeConstants.DAY_DATE_FORMAT.format(refDate);
+        String strCurrTime = DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(refDate);
 
         for (String module: events.getMap().keySet()) {
             HashMap<String, ArrayList<Assignment>> moduleValues = events.getMap().get(module);
@@ -190,7 +185,7 @@ public class FindFreeTimesCommand extends Command {
     private Date getRefDate(TaskList events, Date date) throws ParseException {
         Comparator<Pair<Long,Assignment>> startTimeComparator = Comparator.comparing(Pair<Long,Assignment>:: getKey);
 
-        String strDateDay = dateDayFormat.format(date);
+        String strDateDay = DukeConstants.DAY_DATE_FORMAT.format(date);
         Date refDate = date;
         ArrayList<Pair<Long, Assignment>> extractedAssignmentsOnDate = new ArrayList<>();
         for (String module: events.getMap().keySet()) {
@@ -200,7 +195,7 @@ public class FindFreeTimesCommand extends Command {
                 for (Assignment task : data) {
                     String startAndEnd = task.getTime();
                     String[] spiltStartAndEnd = startAndEnd.split("to");
-                    Date startDateTime = dateTimeFormat12.parse(strDateDay
+                    Date startDateTime = DukeConstants.DEADLINE_DATE_FORMAT.parse(strDateDay
                             + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + spiltStartAndEnd[0]);
                     Long inMillis = startDateTime.getTime();
                     extractedAssignmentsOnDate.add(new Pair<>(inMillis,task));
@@ -213,9 +208,9 @@ public class FindFreeTimesCommand extends Command {
         for (Pair<Long,Assignment> task : extractedAssignmentsOnDate) {
             String startAndEnd = task.getValue().getTime();
             String[] spiltStartAndEnd = startAndEnd.split("to");
-            Date startDateTime = dateTimeFormat12.parse(strDateDay
+            Date startDateTime = DukeConstants.DEADLINE_DATE_FORMAT.parse(strDateDay
                     + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + spiltStartAndEnd[0]);
-            Date endDateTime = dateTimeFormat12.parse(strDateDay
+            Date endDateTime = DukeConstants.DEADLINE_DATE_FORMAT.parse(strDateDay
                     + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + spiltStartAndEnd[1]);
 
             if (startDateTime.equals(refDate)) {
@@ -239,7 +234,7 @@ public class FindFreeTimesCommand extends Command {
                                      String strCurrTime,HashMap<String,
             ArrayList<Assignment>> moduleValues) throws ParseException {
         for (String strDate : moduleValues.keySet()) {
-            Date date = dateDayFormat.parse(strDate);
+            Date date = DukeConstants.DAY_DATE_FORMAT.parse(strDate);
             date = increaseTimeToTwoThreeFiveNine(date);
             ArrayList<Pair<String, String>> timeArray = new ArrayList<>();
             if (strDate.equals(strCurrDateDay)) {
@@ -250,7 +245,7 @@ public class FindFreeTimesCommand extends Command {
                 for (Assignment task : data) {
                     String startAndEnd = task.getTime();
                     String[] spiltStartAndEnd = startAndEnd.split("to");
-                    Date startDateTime = dateTimeFormat12.parse(strDate
+                    Date startDateTime = DukeConstants.DEADLINE_DATE_FORMAT.parse(strDate
                             + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + spiltStartAndEnd[0]);
                     if (startDateTime.after(refDate)) {
                         timeArray.add(new Pair<>(spiltStartAndEnd[0].trim(), spiltStartAndEnd[1].trim()));
@@ -307,7 +302,7 @@ public class FindFreeTimesCommand extends Command {
      */
     private Integer addIfWithinTimeBoundary(ArrayList<Pair<String, String>> startAndEndTimes,
                                             Integer index, String date) throws ParseException {
-        Date dateBoundary = dateTimeFormat12.parse(date
+        Date dateBoundary = DukeConstants.DEADLINE_DATE_FORMAT.parse(date
                 + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + TWELVE_HOUR_TIME_FORMAT_START_TIME);
         Date dateUpperBoundary = increaseTimeToTwoThreeFiveNine(dateBoundary);
         Date dateLowerBoundary = increaseTimeToZeroSevenZeroZero(dateBoundary);
@@ -317,14 +312,14 @@ public class FindFreeTimesCommand extends Command {
             String dateTimeNextEvent = date
                     + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + startAndEndTimes.get(index + 1).getKey();
 
-            Date dateTimeStart = dateTimeFormat12.parse(dateTime);
+            Date dateTimeStart = DukeConstants.DEADLINE_DATE_FORMAT.parse(dateTime);
             if (dateTimeStart.equals(roundByHalfHourMark(dateTimeStart))) {
                 dateTimeStart = increaseTimeByFifteenMinutes(dateTimeStart);
             } else {
                 dateTimeStart = roundByHalfHourMark(dateTimeStart);
             }
 
-            Date dateNextEvent = dateTimeFormat12.parse(dateTimeNextEvent);
+            Date dateNextEvent = DukeConstants.DEADLINE_DATE_FORMAT.parse(dateTimeNextEvent);
             Date dateTimeEnd = increaseDateTime(dateTimeStart, duration);
 
 
@@ -343,7 +338,7 @@ public class FindFreeTimesCommand extends Command {
             }
         } else if (index == (startAndEndTimes.size() - 1)) {
             String dateTime = date + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + startAndEndTimes.get(index).getValue();
-            Date dateTimeStart = dateTimeFormat12.parse(dateTime);
+            Date dateTimeStart = DukeConstants.DEADLINE_DATE_FORMAT.parse(dateTime);
 
             if (dateTimeStart.equals(roundByHalfHourMark(dateTimeStart))) {
                 dateTimeStart = increaseTimeByFifteenMinutes(dateTimeStart);
@@ -363,7 +358,7 @@ public class FindFreeTimesCommand extends Command {
             } else {
                 String nextKey = dataMap.higherKey(date);
                 if (nextKey == null) {
-                    Date nextDay = dateTimeFormat12.parse(date
+                    Date nextDay = DukeConstants.DEADLINE_DATE_FORMAT.parse(date
                             + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + TWELVE_HOUR_TIME_FORMAT_START_TIME);
                     nextDay = increaseDateTime(nextDay, HOURS_IN_A_DAY);
                     Date nextDayStartTime = increaseTimeToZeroSevenZeroZero(nextDay);//increaseDateTime(nextDay, 7);
@@ -374,7 +369,7 @@ public class FindFreeTimesCommand extends Command {
                     String nextDateTime = nextKey
                             + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + nextDayStartAndEndTimes.get(0).getKey();
                     //Just need to check first item of next day start time
-                    Date nextDateTimeStart = dateTimeFormat12.parse(nextDateTime);
+                    Date nextDateTimeStart = DukeConstants.DEADLINE_DATE_FORMAT.parse(nextDateTime);
                     dateLowerBoundary = increaseDateTime(dateLowerBoundary, HOURS_IN_A_DAY);
                     //0700 since look at next day boundary must be increase by a day
                     Date dateLowerBoundaryPlusDuration = increaseDateTime(dateLowerBoundary, duration); //2100
@@ -412,9 +407,9 @@ public class FindFreeTimesCommand extends Command {
         Pair<Date, Date> last;
         if (size == 0) {
             Date currDate = new Date();
-            String strCurrDateDay = dateDayFormat.format(currDate)
+            String strCurrDateDay = DukeConstants.DAY_DATE_FORMAT.format(currDate)
                     + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + TWELVE_HOUR_TIME_FORMAT_START_TIME;
-            currDate = dateTimeFormat12.parse(strCurrDateDay);
+            currDate = DukeConstants.DEADLINE_DATE_FORMAT.parse(strCurrDateDay);
             currDate = increaseTimeToZeroSevenZeroZero(currDate);
             currDate = increaseDateTime(currDate, HOURS_IN_A_DAY);
             last = new Pair<>(currDate, increaseDateTime(currDate, duration));
@@ -439,9 +434,9 @@ public class FindFreeTimesCommand extends Command {
         for (int i = size; i < options; i++) {
             Date tempStart = last.getKey();
             Date tempEnd = last.getValue();
-            String currDate = dateDayFormat.format(tempStart)
+            String currDate = DukeConstants.DAY_DATE_FORMAT.format(tempStart)
                     + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + TWELVE_HOUR_TIME_FORMAT_START_TIME;
-            Date dateBoundary = dateTimeFormat12.parse(currDate);
+            Date dateBoundary = DukeConstants.DEADLINE_DATE_FORMAT.parse(currDate);
             Date dateUpperBoundary = increaseTimeToTwoThreeFiveNine(dateBoundary);
             Date dateLowerBoundary = increaseTimeToZeroSevenZeroZero(dateBoundary);
 
@@ -485,10 +480,10 @@ public class FindFreeTimesCommand extends Command {
             String compiledFreeTimeToShow;
             String compiledFreeTimeCommand;
 
-            compiledFreeTimeToShow = dateTimeFormat12.format(freeTimeData.get(i).getKey())
-                    + " until " + timeFormat12.format(freeTimeData.get(i).getValue());
+            compiledFreeTimeToShow = DukeConstants.DEADLINE_DATE_FORMAT.format(freeTimeData.get(i).getKey())
+                    + " until " + DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(freeTimeData.get(i).getValue());
 
-            String dateTime = dateTimeFormat24.format(freeTimeData.get(i).getKey());
+            String dateTime = DukeConstants.TWENTYFOUR_HOUR_DATE_FORMAT.format(freeTimeData.get(i).getKey());
             String[] spiltDateTime = dateTime.split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD, 3);
             compiledFreeTimeCommand = DukeConstants.ADD_EVENT_HEADER
                     + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + DukeConstants.STRING_SPACE_SPLIT_KEYWORD
@@ -498,7 +493,7 @@ public class FindFreeTimesCommand extends Command {
                     + DukeConstants.STRING_SPACE_SPLIT_KEYWORD
                     + spiltDateTime[2] + DukeConstants.STRING_SPACE_SPLIT_KEYWORD
                     + DukeConstants.EVENT_TIME_SPLIT_KEYWORD + DukeConstants.STRING_SPACE_SPLIT_KEYWORD
-                    + timeFormat24.format(freeTimeData.get(i).getValue());
+                    + DukeConstants.EVENT_TIME_INPUT_FORMAT.format(freeTimeData.get(i).getValue());
 
             //TODO: Sorted output method 1 using Pair<Long, Pair<String, String> > complicated to trace (10 lines)
             Long startDateTimeInMilliSeconds = (freeTimeData.get(i).getKey()).getTime();

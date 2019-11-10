@@ -47,8 +47,7 @@ public class WorkloadParse extends Parse{
         try {
             Date today = Calendar.getInstance().getTime();
             Date nextWeek = getNextWeekDate(today);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            String nextWeekDate = formatter.format(nextWeek);
+            String nextWeekDate = DukeConstants.EVENT_DATE_INPUT_FORMAT.format(nextWeek);
             return new ShowWorkloadCommand(nextWeekDate);
         } catch (ArrayIndexOutOfBoundsException e) {
             LOGGER.severe("Invalid show workload format");
