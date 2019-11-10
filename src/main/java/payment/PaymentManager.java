@@ -124,7 +124,8 @@ public abstract class PaymentManager {
         int i = 0;
         while (i < managermap.get(payee).payments.size()) {
             if (managermap.get(payee).payments.get(i++).item.equals(item)) {
-                Payments deleted = new Payments(payee, item, managermap.get(payee).payments.get(--i).cost, managermap.get(payee).payments.get(i).inv, projectname);
+                Payments deleted = new Payments(payee, item, managermap.get(payee).payments.get(--i).cost,
+                        managermap.get(payee).payments.get(i).inv, projectname);
                 managermap.get(payee).payments.remove(i);
                 return deleted;
             }

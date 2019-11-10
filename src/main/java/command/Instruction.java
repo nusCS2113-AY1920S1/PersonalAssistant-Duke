@@ -26,7 +26,9 @@ public class Instruction {
         return input.startsWith("delete payment");
     }
 
-    public boolean isFind(String input) { return input.startsWith("find task"); }
+    public boolean isFind(String input) {
+        return input.startsWith("find task");
+    }
 
     public boolean isWithinPeriodTask(String input) {
         return input.startsWith("within");

@@ -505,10 +505,14 @@ public class Ui {
         System.out.println("Got it! I have redone the previous command.");
     }
 
+    /**
+     * Prints out the pending and overdue payments in a sorted order with the earliest on eon the top.
+     * @param paymentlist the list of all payments
+     */
     public void printReminderMessage(ArrayList<Payments> paymentlist) {
         System.out.print(line);
         System.out.print("\tYour reminder is as follow:\n");
-        for (int i = 0; i < paymentlist.size(); i++ ) {
+        for (int i = 0; i < paymentlist.size(); i++) {
             Payments p = paymentlist.get(i);
             System.out.println("\t" + (i + 1) + ":");
             System.out.println("\t" + "Deadline: " + p.getDeadline());

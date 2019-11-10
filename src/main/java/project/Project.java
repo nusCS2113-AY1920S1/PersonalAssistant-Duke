@@ -57,6 +57,7 @@ public class Project {
     }
 
     /**
+     * get budget of the project.
      * @return total budget assigned to the project.
      */
     public double getBudget() {
@@ -64,6 +65,7 @@ public class Project {
     }
 
     /**
+     * get budget spent of the project.
      * @return budget spent.
      */
     public double getSpending() {
@@ -71,6 +73,7 @@ public class Project {
     }
 
     /**
+     * get budget lrft of the project.
      * @return budget left.
      */
     public double getRemaining() {

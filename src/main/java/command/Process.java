@@ -602,6 +602,7 @@ public class Process {
         }
     }
 
+
 //    /**
 //     * process the invoice command, set invoice status as true, update invoice value and set the deadline.
 //     * INPUT FORMAT: invoice id i/invoice_num
@@ -609,25 +610,26 @@ public class Process {
 //     * @param tasklist Tasklist of the user.
 //     * @param ui       Ui that interacts with the user.
 //     */
-//    public void inVoice(String input, TaskList tasklist, Ui ui) {
-//        try {
-//            String[] splitspace = input.split(" ", 2);
-//            String[] splitInvoice = splitspace[1].split(" i/");
-//            int id = Integer.parseInt(splitInvoice[0]) - 1;
-//            if (tasklist.get(id).getType().equals("D")) {
-//                String invoice = splitInvoice[1];
-//                tasklist.get(id).setInVoice(invoice);
-//                ui.printAddInvoiceMessage(tasklist.get(id));
-//            } else {
-//                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline instead!");
-//            }
-//        } catch (ArrayIndexOutOfBoundsException e) {
-//            ui.exceptionMessage("     ☹ OOPS!!! Please input a valid ID!");
-//        } catch (NumberFormatException e) {
-//            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
-//        }
-//    }
-
+/*
+    public void inVoice(String input, TaskList tasklist, Ui ui) {
+        try {
+            String[] splitspace = input.split(" ", 2);
+            String[] splitInvoice = splitspace[1].split(" i/");
+            int id = Integer.parseInt(splitInvoice[0]) - 1;
+            if (tasklist.get(id).getType().equals("D")) {
+                String invoice = splitInvoice[1];
+                tasklist.get(id).setInVoice(invoice);
+                ui.printAddInvoiceMessage(tasklist.get(id));
+            } else {
+                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline instead!");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input a valid ID!");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        }
+    }
+/*
     /*
     public void reschedule(String input, TaskList tasklist, Ui ui) {
         try {
@@ -657,7 +659,7 @@ public class Process {
                     + "Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>");
         }
     }
-
+*/
 
     /**
      * Processes the edit command, amends the data of a payee or payment already existing in the records.
@@ -864,7 +866,7 @@ public class Process {
      * @param ui Ui that interacts with the user.
      * @param storage storage of the programme.
      */
-    public void totalCost ( String input, Ui ui, Storage storage) {
+    public void totalCost(String input, Ui ui, Storage storage) {
         try {
             String[] split = input.split("p/", 2);
             String payeeName = split[1];
@@ -875,7 +877,7 @@ public class Process {
                 totalcost += p.getCost();
             }
             ui.printTotalCostMessage(payeeName, totalcost, currentprojectname);
-        } catch(ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Wrong input format. Correct input format: total cost p/PAYEE_NAME");
         }
     }
