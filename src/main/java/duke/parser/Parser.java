@@ -83,6 +83,8 @@ public class Parser {
      * list: list all dishes in list
      * initialize: clears the list
      * ingredient: add an ingredient to a dish
+     * find: find a dish in list key keyword
+     * change: change name of the dish of the given index
      *
      * @param fullCommand command from the user
      * @return a command to be executed
@@ -155,7 +157,6 @@ public class Parser {
      * @param fullCommand command from the user
      * @return a command to be executed
      * @throws DukeException
-     * @author Hafidz
      */
 
     //@@author x3chillax

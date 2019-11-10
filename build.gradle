@@ -14,7 +14,7 @@ repositories {
 
 shadowJar {
     archiveBaseName = null
-    archiveVersion = "v1.3.1"
+    archiveVersion = "v1.4"
     archiveClassifier = null
     archiveAppendix = null
 }

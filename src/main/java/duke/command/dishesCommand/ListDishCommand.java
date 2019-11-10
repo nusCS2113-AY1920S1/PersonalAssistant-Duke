@@ -22,6 +22,7 @@ public class ListDishCommand extends Command {
      * @param ui prints output for user
      * @param fs storage for fridge
      * @param os storage for order
+     * @param rs storage for recipe
      * @throws DukeException
      */
     @Override

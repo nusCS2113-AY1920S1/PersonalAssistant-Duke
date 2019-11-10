@@ -18,14 +18,14 @@ public class ResetDishCommand extends Command {
      * this method clears the list, the program asks the user whether they want the list to be cleared
      * user can enter y or n, yes or no.
      *
-     * @param fridge Ya
-     * @param dishList List of dishes
-     * @param ol Order List
-     * @param ui User Interface
-     * @param fs Fridge Storage
-     * @param os Order Storage
-     * @param rs Recipe Storage
-     * @throws DukeException when invalid input
+     * @param fridge ingredients found in fridge
+     * @param dishList list of dishes
+     * @param ol list of orders
+     * @param ui prints output for user
+     * @param fs storage for fridge
+     * @param os storage for order
+     * @param rs storage for recipe
+     * @throws DukeException
      */
     @Override
     public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {

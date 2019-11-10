@@ -126,6 +126,7 @@ public class Duke {
                                     continue;
                                 }
                                 if (fullCommand.trim().equals("template")) {
+                                    ui.ingredientDrawing();
                                     ui.showIngredientTemplate();
                                     continue;
                                 }
@@ -165,9 +166,9 @@ public class Duke {
                         break;
                     }
                     case "d": {
+                        ui.showDishTemplate();
                         while (true) {
                             try {
-                                ui.showDishTemplate();
                                 fullCommand = ui.readCommand();
                                 if (fullCommand.trim().equals("q")) {
                                     Command command = new ExitCommand();
@@ -179,6 +180,7 @@ public class Duke {
                                     break;
                                 }
                                 if (fullCommand.trim().equals("template")) {
+                                    ui.showDishTemplate();
                                     continue;
                                 }
                                 Command command = Parser.parse(fullCommand, Type.DISH);

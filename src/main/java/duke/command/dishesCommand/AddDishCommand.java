@@ -23,12 +23,16 @@ public class AddDishCommand extends Command {
 
     //@@ Author 9hafidz6
     /**
-     * @param fridge
-     * @param dishList
-     * @param ol
-     * @param ui
-     * @param fs
-     * @param os
+     * adds a dish into the dishlist. if the dishlist is empty add immediately
+     * else check through the whole list to check for duplicate, if no duplicate add dish into list
+     * else do not add and notify user
+     * @param fridge ingredients found in fridge
+     * @param dishList list of dishes
+     * @param ol list of orders
+     * @param ui prints output for user
+     * @param fs storage for fridge
+     * @param os storage for order
+     * @param rs storage for recipe
      * @throws DukeException
      */
     @Override

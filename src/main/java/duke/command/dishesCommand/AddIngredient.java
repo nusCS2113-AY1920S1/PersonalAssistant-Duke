@@ -27,6 +27,7 @@ public class AddIngredient extends Command {
     }
 
     //@@ Author 9hafidz6
+
     /**
      * adds an ingredient to the dish. if the ingredient already exist and amount is the same
      * prints out ingredient already exist
@@ -36,6 +37,7 @@ public class AddIngredient extends Command {
      * @param ui prints output for user
      * @param fs storage for fridge
      * @param os storage for order
+     * @param rs storage for recipe
      * @throws DukeException
      */
     @Override
@@ -43,7 +45,9 @@ public class AddIngredient extends Command {
         try {
             boolean flag;
             flag = dishList.getEntry(index - 1).addIngredients(ingredient,amount);
-            rs.addInFile(dishList.getEntry(index - 1).printInFile());
+            rs.changeContent(index - 1);
+            //rs.removeFromFile(index - 1);
+            //rs.addInFile(dishList.getEntry(index - 1).printInFile());
             if(flag) {
                 ui.showIngredients(ingredient,dishList.getEntry(index - 1));
             }
