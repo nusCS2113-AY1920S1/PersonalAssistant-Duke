@@ -40,11 +40,13 @@ public class ParseEditBond extends ParseBond {
             String key = bondIterator.next();
             String value = bondParameters.get(key);
             if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when editing a bond");
                 throw new ParserException(key + " cannot be empty when editing a bond");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(NAME_PARAMETER, value);
             }
             if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when editing a bond");
                 throw new ParserException(key + " cannot be empty when editing a bond");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(FROM_PARAMETER, value);
@@ -59,6 +61,7 @@ public class ParseEditBond extends ParseBond {
             }
         }
         if (changeCounter == 0) {
+            logger.warning("Edit should have at least 1 differing parameter to change.");
             throw new ParserException("Edit should have at least 1 differing parameter to change.");
         }
     }
@@ -75,6 +78,7 @@ public class ParseEditBond extends ParseBond {
                         bondParameters.get(NAME_PARAMETER),
                         bondParameters.get(RATE_PARAMETER),
                         bondParameters.get(YEAR_PARAMETER));
+        logger.info("Successful creation of EditBondCommand object");
         return newEditBondCommand;
     }
 }
