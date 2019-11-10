@@ -8,33 +8,32 @@ public class SetShortcutParserTest {
     private SetShortcutCommandParser parser = new SetShortcutCommandParser();
 
     @Test
-    public void createShortcut_emptyName_throwsParseException() {
-        Assertions.assertThrows(ParseException.class, () -> parser.parse(" order add"));
+    public void parse_valid_success() {
+        //Empty command
+        Assertions.assertAll(() -> parser.parse("[name]  [  ]"));
+
+        //Single command
+        Assertions.assertAll(() -> parser.parse("[name] [order add]"));
+
+        //Multiple command
+        Assertions.assertAll(() -> parser.parse("[name] [order add; order remove]"));
     }
 
     @Test
-    public void createShortcut_emptyUserInputs_success() {
-        Assertions.assertAll(() -> parser.parse("name   "));
-    }
+    public void parse_invalidArguments_throwsParseException() {
+        //empty name
+        Assertions.assertThrows(ParseException.class, () -> parser.parse("[] [order ad]d"));
 
-    @Test
-    public void createShortcut_singleUserInput_success() {
-        Assertions.assertAll(() -> parser.parse("name order add"));
-    }
+        //blank name
+        Assertions.assertThrows(ParseException.class, () -> parser.parse("[ \n \t \f ] [order ad]d"));
 
-    @Test
-    public void createShortcut_multipleUserInputs_success() {
-        Assertions.assertAll(() -> parser.parse("name order add; order remove"));
-    }
-
-    @Test
-    public void createShortcut_blankCommands_throwsParseException() {
-        Assertions.assertThrows(ParseException.class, () -> parser.parse(";order add"));
-        Assertions.assertThrows(ParseException.class, () -> parser.parse(";;order add"));
-        Assertions.assertThrows(ParseException.class, () -> parser.parse(";; "));
-        Assertions.assertThrows(ParseException.class, () -> parser.parse("order add;"));
-        Assertions.assertThrows(ParseException.class, () -> parser.parse("order add;;"));
-        Assertions.assertThrows(ParseException.class, () -> parser.parse(";"));
+        //empty/blank commands
+        Assertions.assertThrows(ParseException.class, () -> parser.parse("[test] [;order add]"));
+        Assertions.assertThrows(ParseException.class, () -> parser.parse("[test] [;;order add]"));
+        Assertions.assertThrows(ParseException.class, () -> parser.parse("[test] [;; \n \t \f]"));
+        Assertions.assertThrows(ParseException.class, () -> parser.parse("[test] [order add;]"));
+        Assertions.assertThrows(ParseException.class, () -> parser.parse("[test] [order add;;]"));
+        Assertions.assertThrows(ParseException.class, () -> parser.parse("[test] [;]"));
 
     }
 }
