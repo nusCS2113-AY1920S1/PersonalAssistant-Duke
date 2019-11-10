@@ -2314,3 +2314,7 @@ Nov 10, 2019 1:00:11 AM UserInterface.Main start
 SEVERE: MainWindow.fxml cannot be found.
 /C:/Users/Kai/Desktop/main1/build/resources/main/view/MainWindow.fxml
 
+Nov 10, 2019 10:39:53 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: ☹Invalid input. Please type help to see all commands
+Nov 10, 2019 10:40:13 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidDateTimeException: Sorry, you cannot set a time that has already passed!
