@@ -28,20 +28,17 @@ public class AddContactsCommand extends Command {
         this.contactList = contactList;
     }
 
-
     /**
-     * Executes a command that adds the contact into contact list and outputs the result (GUI).
-     * (Not in use)
+     * Executes a command that adds the contact into contact list.
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is added successfully.
-     * @return A string value to be output to GUI.
+     * @return A string with what is added to be output to GUI.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
         contactList.add(contactObj);
-        String str = ui.showAddedContactGui(contactList);
-        return str;
+        return ui.showAddedContactGui(contactList);
     }
 
     /**

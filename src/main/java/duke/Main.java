@@ -1,5 +1,6 @@
 package duke;
 
+import duke.Duke;
 import duke.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,12 +13,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //@@author talesrune-reused
+//Reused from https://github.com/nusCS2113-AY1920S1/duke/blob/master/tutorials/javaFxTutorialPart4.md with minor modifications
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
     private Duke duke = new Duke();
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
+    public Main() throws IOException {
+    }
 
     @Override
     public void start(Stage stage) {
@@ -31,7 +36,16 @@ public class Main extends Application {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            logger.log(Level.SEVERE,"Unable to load main window.", e);
+            logger.log(Level.SEVERE, "Unable to load main window.", e);
         }
     }
+
+    //@@author maxxyx96
+    //Solution adapted from https://github.com/nusCS2113-AY1920S1/addressbook-level3/blob/master/src/main/java/seedu/address/MainApp.java
+    @Override
+    public void stop() {
+        logger.info("ALERT: Duke is shutting down! Stopping duke... ");
+        duke.suddenStop();
+    } //@@author
 }
+//@@author

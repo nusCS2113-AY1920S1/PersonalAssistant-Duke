@@ -30,14 +30,9 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
-//javafx {
-//    version = "11.0.2"
-//    modules = [ 'javafx.controls', 'javafx.fxml' ]
-//}
-
 shadowJar {
     archiveBaseName = "duke"
-    archiveVersion = "v1.3.1c"
+    archiveVersion = "v1.3.1e"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -51,7 +46,6 @@ repositories {
 
 application {
     // Change this to your main class.
-    //mainClassName = "duke.Duke"
     mainClassName = "duke.Launcher"
 }
 

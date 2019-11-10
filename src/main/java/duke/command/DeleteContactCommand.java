@@ -23,31 +23,31 @@ public class DeleteContactCommand extends Command {
      * @param contactList The list of contacts.
      */
     public DeleteContactCommand(int indexOfContactToDelete, ContactList contactList) {
-        this.indexOfContactToDelete = indexOfContactToDelete;
+        this.indexOfContactToDelete = indexOfContactToDelete - Numbers.ONE.value;
         this.contactList = contactList;
     }
 
     /**
-     * Executes a command that deletes the contact from the contact list and outputs the deleted contact (GUI).
+     * Executes a command that deletes the contact from the contact list.
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is executed successfully.
-     * @return String to be output to the user.
+     * @return A string with the deleted contact to be output to the GUI.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        String str;
-        if (indexOfContactToDelete >= Numbers.ZERO.value && indexOfContactToDelete
-                + Numbers.ONE.value <= contactList.size()) {
-            String deletedContact = contactList.getAndDisplay(indexOfContactToDelete);
-            contactList.remove(indexOfContactToDelete);
-            str = ui.showContactDeletedGui(contactList, deletedContact);
-        } else if (contactList.size() == Numbers.ZERO.value) {
-            str = ui.showErrorMsgGui("No contacts to be deleted!");
-        } else {
-            str = ui.showErrorMsgGui("Invalid index! Please choose 1 "
+        if (contactList.size() == Numbers.ZERO.value) {
+            return ui.showErrorMsgGui("No contacts to be deleted!");
+        }
+
+        if (indexOfContactToDelete < Numbers.ZERO.value || indexOfContactToDelete >= contactList.size()) {
+            return ui.showErrorMsgGui("Invalid index! Please choose 1 "
                     + ((contactList.size() == Numbers.ONE.value) ? "" : "to " + contactList.size()));
         }
+
+        String deletedContact = contactList.getAndDisplay(indexOfContactToDelete);
+        contactList.remove(indexOfContactToDelete);
+        String str = ui.showContactDeletedGui(contactList, deletedContact);
         return str;
     }
 

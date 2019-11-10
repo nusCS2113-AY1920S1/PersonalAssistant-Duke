@@ -7,7 +7,7 @@ import duke.ui.Ui;
 
 //@@author e0318465
 /**
- * Represents a command that locates a contact in contact list using keyword.
+ * Represents a command that searches through the contact in contact list for the keyword.
  */
 public class FindContactCommand extends Command {
     protected String keyword;
@@ -26,11 +26,11 @@ public class FindContactCommand extends Command {
     }
 
     /**
-     * Executes a command that locates matching tasks in task list and outputs the result (GUI).
+     * Executes a command that locates matching contacts in contact list.
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user the matching tasks based on the keyword.
-     * @return Contacts found that matches keyword.
+     * @return A string with contacts found to be output to the GUI.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {

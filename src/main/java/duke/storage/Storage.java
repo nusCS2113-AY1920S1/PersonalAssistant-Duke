@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +26,8 @@ import java.util.logging.Logger;
  * Represents a storage to store the task list into a text file.
  */
 public class Storage {
-    protected String filePath = System.getProperty("user.dir") + "/";   //27-28, 40-47
+    protected static String filePath = System.getProperty("user.dir") + "/";   //27-28, 40-47
+    private static final String CREDITS_PATH = "credits/credits.txt";
     private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
@@ -42,6 +45,7 @@ public class Storage {
      * @return ArrayList to update the task list.
      * @throws IOException  If there is an error reading the text file.
      */
+    //Solution below adapted from http://www.javased.com/index.php?source_dir=AndroidCommon/src/com/asksven/android/common/kernelutils/Wakelocks.java
     public ArrayList<Task> read() throws IOException {
 
         ArrayList<Task> items = new ArrayList<>();
@@ -133,6 +137,7 @@ public class Storage {
      * @param items The task list that contains a list of tasks.
      * @throws IOException  If there is an error writing the text file.
      */
+    //Solution below adapted from https://stackoverflow.com/questions/1377279/find-a-line-in-a-file-and-remove-it/1377322#1377322
     public void write(TaskList items) throws IOException {
         String fileContent = "";
         for (int i = Numbers.ZERO.value; i < items.size(); i++) {
@@ -142,4 +147,53 @@ public class Storage {
         writer.write(fileContent);
         writer.close();
     }
+
+    //@@author maxxyx96
+    //Solution adapted from https://stackoverflow.com/questions/20389255/reading-a-resource-file-from-within-jar
+    /**
+     * Extracts the sample data from jar file and moves it to data folder in the computer.
+     *
+     * @param samplePath path of the sample data set for tasks.
+     * @throws IOException When there is an error writing to the text file.
+     */
+    public static void writeSample(String samplePath) throws IOException {
+        String fileContent = "";
+        InputStream in = Storage.class.getResourceAsStream(samplePath);
+        if (in == null) {
+            in = Storage.class.getClassLoader().getResourceAsStream(samplePath);
+        }
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+        String input;
+        while ((input = bufferedReader.readLine()) != null) {
+            fileContent += input + "\n";
+        }
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        writer.write(fileContent);
+        writer.close();
+        bufferedReader.close();
+        in.close();
+    } //@@author
+
+    //@@author talesrune
+    /**
+     * Extracts the credits data from jar file.
+     *
+     * @return String of credits.
+     * @throws IOException When there is an error writing to the text file.
+     */
+    public String readCredits() throws IOException {
+        String creditsDesc = "";
+        InputStream in = Storage.class.getResourceAsStream(CREDITS_PATH);
+        if (in == null) {
+            in = Storage.class.getClassLoader().getResourceAsStream(CREDITS_PATH);
+        }
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+        String input;
+        while ((input = bufferedReader.readLine()) != null) {
+            creditsDesc += input + "\n";
+        }
+        bufferedReader.close();
+        in.close();
+        return creditsDesc;
+    } //@@author
 }

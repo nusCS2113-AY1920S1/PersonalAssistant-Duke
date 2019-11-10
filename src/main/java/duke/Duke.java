@@ -2,6 +2,12 @@ package duke;
 
 import duke.command.Command;
 import duke.command.FilterCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.SetPriorityCommand;
+import duke.command.AddCommand;
+import duke.command.DeleteCommand;
+import duke.command.FindTasksByPriorityCommand;
+import duke.enums.ErrorMessages;
 import duke.parser.Parser;
 import duke.storage.BudgetStorage;
 import duke.storage.ContactStorage;
@@ -13,6 +19,7 @@ import duke.task.FilterList;
 import duke.task.ContactList;
 import duke.task.TaskList;
 import duke.ui.Ui;
+import duke.DukeLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,46 +50,75 @@ public class Duke {
     private static final String priorityFilePath = "data/priority.txt";
     private static final String budgetFilePath = "data/budget.txt";
     private static final String contactsFilePath = "data/contacts.txt";
-    private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static final String sampleBudgetFilePath = "sample/budget.txt";
+    private static final String sampleContactsFilePath = "sample/contacts.txt";
+    private static final String samplePriorityFilePath = "sample/priority.txt";
+    private static final String sampleTaskFilePath = "sample/duke.txt";
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private boolean sampleTaskFileUsed = false;
+    private boolean samplePriorityFileUsed = false;
+    private boolean sampleContactsFileUsed = false;
+    private boolean sampleBudgetFileUsed = false;
+    private String creditsDesc;
 
     /**
      * Creates a duke to initialize storage, task list, and ui.
+     *
+     * @throws IOException  If there is an error writing the text file.
      */
-    public Duke() {
+    public Duke() throws IOException {
         initialize();
         dukeLogger.setupLogger();
-        checkStorageExist();
         try {
             readStorage();
         } catch (IOException e) {
             ui.showLoadingError();
-            logr.log(Level.SEVERE,"Storage text file is not found");
+            logger.log(Level.SEVERE,"Storage text file is not found");
             createEmptyTaskList();
+            Storage.writeSample(sampleTaskFilePath);
+            sampleTaskFileUsed = true;
+            readStorage();
         }
         try {
             readPriorityStorage();
         } catch (IOException e) {
             ui.showLoadingError();
-            logr.log(Level.SEVERE,"Priority storage text file is not found");
+            logger.log(Level.SEVERE,"Priority storage text file is not found");
             createEmptyPriorityList();
+            PriorityStorage.writeSample(samplePriorityFilePath);
+            samplePriorityFileUsed = true;
+            readPriorityStorage();
         }
         try {
             readContactStorage();
         } catch (IOException e) {
             ui.showLoadingError();
-            logr.log(Level.SEVERE,"Contact list text file is not found");
+            logger.log(Level.SEVERE,"Contact list text file is not found");
             createEmptyContactList();
+            ContactStorage.writeSample(sampleContactsFilePath);
+            sampleContactsFileUsed = true;
+            readContactStorage();
         }
         try {
             readBudgetStorage();
         } catch (IOException e) {
             ui.showLoadingError();
-            logr.log(Level.SEVERE,"Budget list text file is not found");
+            logger.log(Level.SEVERE,"Budget list text file is not found");
             createEmptyBudgetList();
+            BudgetStorage.writeSample(sampleBudgetFilePath);
+            sampleBudgetFileUsed = true;
+            readBudgetStorage();
+        }
+        try {
+            readCredits();
+        } catch (IOException e) {
+            logger.log(Level.SEVERE,"Credits text file is not found");
         }
     }
 
+    //@@author talesrune
     private void initialize() {
+        checkStorageExist();
         dukeLogger = new DukeLogger();
         ui = new Ui();
         filterList = new FilterList();
@@ -91,6 +127,7 @@ public class Duke {
         contactStorage = new ContactStorage(contactsFilePath);
         budgetStorage = new BudgetStorage(budgetFilePath);
     }
+
 
     private void readStorage() throws IOException {
         items = new TaskList(storage.read());
@@ -108,6 +145,10 @@ public class Duke {
         budgetList = new BudgetList(budgetStorage.read());
     }
 
+    private void readCredits() throws IOException {
+        creditsDesc = storage.readCredits();
+    }
+
     private void createEmptyTaskList() {
         items = new TaskList();
     }
@@ -123,6 +164,29 @@ public class Duke {
     private void createEmptyBudgetList() {
         budgetList = new BudgetList();
     }
+
+    /**
+     * Checks whether the sample files are used and inform the user.
+     *
+     * @return String of a message informing using of sample files.
+     */
+    public String checkSampleUsed() {
+        String str = "";
+        if (sampleTaskFileUsed) {
+            str += ErrorMessages.MISSING_TASKFILE.message;
+        }
+        if (samplePriorityFileUsed) {
+            str += ErrorMessages.MISSING_PRIORITYFILE.message;
+        }
+        if (sampleContactsFileUsed) {
+            str += ErrorMessages.MISSING_CONTACTSFILE.message;
+        }
+        if (sampleBudgetFileUsed) {
+            str += ErrorMessages.MISSING_BUDGETFILE.message;
+        }
+        return str;
+    }
+    //@@author
 
     /**
      * Echoes the user input back the the user.
@@ -163,11 +227,23 @@ public class Duke {
      *
      * @return A list of contacts.
      */
-    public ContactList getContactList() {
+    public ContactList getFullContactList() {
         return contactList;
     }
     //@@author
 
+    /**
+     * Executes a command to overwrite existing storage with the current updated lists(GUI).
+     *
+     * @param cmd Command to be executed.
+     * @throws IOException  If there is an error writing the text file.
+     */
+    public void saveState(Command cmd) throws IOException {
+        cmd.executeStorage(items, ui, storage, budgetStorage, budgetList,
+                contactStorage, contactList, priorityStorage, priorityList);
+    }
+
+    //@@author talesrune
     /**
      * Retrieves a command from interpreting the user input (GUI).
      *
@@ -181,32 +257,28 @@ public class Duke {
     }
 
     /**
-     * Executes a command to overwrite existing storage with the current updated lists(GUI).
-     *
-     * @param cmd Command to be executed.
-     * @throws IOException  If there is an error writing the text file.
-     */
-    public void saveState(Command cmd) throws IOException {
-        cmd.executeStorage(items, ui, storage, budgetStorage, budgetList,
-                contactStorage, contactList, priorityStorage, priorityList);
-    }
-
-    /**
      * Executes a command and outputs the result to the user (GUI).
      *
      * @param cmd Command to be executed.
      * @return String to be outputted.
-     * @throws IOException  If there is an error writing the text file
      */
-    public String executeCommand(Command cmd) throws IOException {
-        String str = cmd.executeGui(items, ui);
+    public String executeCommand(Command cmd) {
+        String str;
+        if (cmd instanceof ListPriorityCommand
+                || cmd instanceof SetPriorityCommand
+                || cmd instanceof FindTasksByPriorityCommand
+                || cmd instanceof AddCommand
+                || cmd instanceof DeleteCommand) {
+            str = cmd.executeGui(items, priorityList, ui);
+        } else {
+            str = cmd.executeGui(items, ui);
+        }
         if (cmd instanceof FilterCommand) {
             cmd.execute(items,filterList);
         }
         return str;
     }
 
-    //@@author talesrune
     /**
      * Retrieves the current task list (GUI).
      *
@@ -225,4 +297,30 @@ public class Duke {
         return filterList;
     }
 
+    /**
+     * Retrieves credits list (GUI).
+     *
+     * @return A list of credits.
+     */
+    public String getCreditsList() {
+        return creditsDesc;
+    }
+    //@@author
+
+    //@@author maxxyx96
+    /**
+     * Forces the saving of current lists upon external exiting such as clicking on "X".
+     *
+     */
+    public void suddenStop() {
+        try {
+            priorityStorage.write(priorityList);
+            contactStorage.write(contactList);
+            budgetStorage.write(budgetList);
+            storage.write(items);
+            new DukeLogger().stopLogger(logger);
+        } catch (IOException i) {
+            logger.severe("Error saving storage files upon exiting.");
+        }
+    } //@@author
 }

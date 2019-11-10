@@ -21,15 +21,15 @@ public class FindTasksByDateCommand extends Command {
         this.targetDate = targetDate;
     }
 
-    /**
-     * Executes a command with task list and ui.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is executed successfully.
-     */
-    public void execute(TaskList items, Ui ui) {
-        ui.showFindTasksByDate(items, targetDate);
-    }
+    //    /**
+    //     * Executes a command with task list and ui.
+    //     *
+    //     * @param items The task list that contains a list of tasks.
+    //     * @param ui To tell the user that it is executed successfully.
+    //     */
+    //    public void execute(TaskList items, Ui ui) {
+    //        ui.showFindTasksByDate(items, targetDate);
+    //    }
 
 
     /**
@@ -41,7 +41,8 @@ public class FindTasksByDateCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        return "";
+        String str = ui.showFindTasksByDateGui(items, targetDate);
+        return str;
     }
 
     /**

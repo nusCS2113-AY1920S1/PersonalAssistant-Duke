@@ -25,7 +25,8 @@ My role was mainly to create and implement a Expenditure/Budget Tracker to Duke 
 
 ** *FriendlierSyntax*: For longer commands, there are shorter alternatives that can be called by the user, such as `addcontacts` can be called by `ac` as well. Some commands can also be called by other terms which has similar meanings, such as  `bye` and `exit`.
 
-* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#search=maxxyx96&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom&tabAuthor=maxxyx96&tabRepo=AY1920S1-CS2113-T13-4%2Fmain%5Bmaster%5D[Repo-Sense]]
+* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=maxxyx96[Project Code Dashboard]]
+
 
 ** *Budget Tracking Related Code*: [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/storage/BudgetStorage.java[Budget Storage]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/task/BudgetList.java[Budget List]], [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/AddBudgetCommand.java[Add Budget Command]], [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/ViewBudgetCommand.java[View Budget Command]], [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/ResetBudgetCommand.java[Reset Budget Command]]
 

@@ -103,6 +103,7 @@ public class MainWindow extends AnchorPane {
     }
 
     //@@author talesrune-reused
+    //Reused from https://github.com/nusCS2113-AY1920S1/duke/blob/master/tutorials/javaFxTutorialPart4.md with minor modifications
     /**
      * Setting up Duke GUI.
      * @param d The object of Duke.
@@ -113,18 +114,16 @@ public class MainWindow extends AnchorPane {
         setVboxWidth(false);
         setButtonsVisibility(true);
         selectedTab =  tpTabs.getSelectionModel();
-        //toolTip.setText("");
         listT.setTooltip(toolTip);
         toolTip.setShowDelay(Duration.millis(TOOLTIP_SHOWDELAY));
         toolTip.setShowDuration(Duration.millis(TOOLTIP_SHOWDURATION));
 
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(Ui.showWelcomeGui(), dukeImage)
+                DialogBox.getDukeDialog(duke.checkSampleUsed() + Ui.showWelcomeGui(), dukeImage)
         );
 
         TaskList items = duke.getTaskList();
         dialogContainer.getChildren().add(
-                //DialogBox.getDukeDialog("Upcoming Reminders: \n" + items.getList(), dukeImage)
                 DialogBox.getDukeDialog(remind.getReminders(Numbers.THREE.value, items).getList(), dukeImage)
         );
     }
@@ -439,6 +438,14 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    @FXML
+    private void exitProgramWithoutSaving() {
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(Ui.showByeGui(), dukeImage)
+        );
+        timer.schedule(exitDuke, createTimerDelay());
+    }
+
     /**
      * Creates a new window to allow the user to add a new task via user friendly interface.
      */
@@ -507,12 +514,33 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Creates a credits window to allow the user to view credits list via user friendly interface.
+     */
+    @FXML
+    public void createCreditsWindow() {
+        String creditsDesc = duke.getCreditsList();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/CreditsWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            fxmlLoader.<CreditsWindow>getController().setCreditsWindow(creditsDesc);
+            stage.show();
+        } catch (IOException e) {
+            logr.log(Level.SEVERE, "Unable to load Credits window", e);
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Creates a budget window to allow the user to view contacts list via user friendly interface.
      */
     @FXML
     public void createContactsWindow() {
-        ContactList contactList = duke.getContactList();
-        String contactDesc = contactList.getContactList();
+        ContactList contactList = duke.getFullContactList();
+        String contactDesc = contactList.getFullContactList();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/ContactsWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();

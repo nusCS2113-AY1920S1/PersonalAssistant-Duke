@@ -1,6 +1,5 @@
 package duke.task;
 
-import duke.command.AddCommand;
 import duke.enums.Numbers;
 
 import java.util.ArrayList;
@@ -46,17 +45,24 @@ public class PriorityList {
         return new PriorityList(priorityList);
     }
 
+    //    /**
+    //     * Add a default priority associated with a task into the list when the task is generated.
+    //     *
+    //     * @param cmd The command used to generate a new task;
+    //     * @return The updated Priority List.
+    //     */
+    //    public PriorityList addDefaultPriority(duke.command.Command cmd) {
+    //        if (cmd instanceof AddCommand) {
+    //            priorityList.add(defaultPriority);
+    //        }
+    //        return new PriorityList(priorityList);
+    //    }
     /**
      * Add a default priority associated with a task into the list when the task is generated.
      *
-     * @param cmd The command used to generate a new task;
-     * @return The updated Priority List.
      */
-    public PriorityList addDefaultPriority(duke.command.Command cmd) {
-        if (cmd instanceof AddCommand) {
-            priorityList.add(defaultPriority);
-        }
-        return new PriorityList(priorityList);
+    public void addDefaultPriority() {
+        priorityList.add(defaultPriority);
     }
 
     /**
@@ -137,14 +143,15 @@ public class PriorityList {
             pairList.add(pair);
         }
 
-        for (int i = Numbers.ONE.value; i < taskList.size(); i++) {
-            for (int j = i; j > Numbers.ZERO.value; j--) {
-                if (((int) pairList.get(j).getKey()) < (int) pairList.get(j).getKey()) {
-                    Pair<Integer, String> temp = pairList.get(j);
-                    pairList.set(j, pairList.get(j));
-                    pairList.set(j, temp);
-                } else {
-                    break;
+
+
+        for (int i = Numbers.ZERO.value; i < taskList.size(); i++) {
+            for (int j = Numbers.ZERO.value; j < taskList.size() - Numbers.ONE.value; j++) {
+                if (((int) pairList.get(j).getKey()) > (int) pairList.get(j + Numbers.ONE.value).getKey()) {
+
+                    Pair<Integer, Task> temp = pairList.get(j);
+                    pairList.set(j, pairList.get(j + Numbers.ONE.value));
+                    pairList.set(j + Numbers.ONE.value, temp);
                 }
             }
         }

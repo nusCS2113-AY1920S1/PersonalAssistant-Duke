@@ -23,16 +23,30 @@ public class FindTasksByPriorityCommand extends Command {
     }
 
 
+    //    /**
+    //     * Executes a command that locates matching tasks in task list and outputs the result.
+    //     *
+    //     * @param items The task list that contains a list of tasks.
+    //     * @param priorityList The list of priorities associated with the task list.
+    //     * @param ui To tell the user the matching tasks based on the keyword.
+    //     */
+    //    @Override
+    //    public void execute(TaskList items, PriorityList priorityList, Ui ui) {
+    //        ui.showFindTasksByPriority(items, priorityList, targetPriority);
+    //    }
+
     /**
-     * Executes a command that locates matching tasks in task list and outputs the result.
+     * Executes a command that locates matching tasks in task list and outputs the result (GUI).
      *
      * @param items The task list that contains a list of tasks.
      * @param priorityList The list of priorities associated with the task list.
      * @param ui To tell the user the matching tasks based on the keyword.
+     * @return List of matching tasks.
      */
     @Override
-    public void execute(TaskList items, PriorityList priorityList, Ui ui) {
-        ui.showFindTasksByPriority(items, priorityList, targetPriority);
+    public String executeGui(TaskList items, PriorityList priorityList, Ui ui) {
+        String str = ui.showFindTasksByPriorityGui(items, priorityList, targetPriority);
+        return str;
     }
 
     /**

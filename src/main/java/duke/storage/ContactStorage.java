@@ -11,11 +11,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 //@@author e0318465
 public class ContactStorage {
-    protected String filePathForContacts = System.getProperty("user.dir") + "/";
+    protected static String filePathForContacts = System.getProperty("user.dir") + "/";
 
     /**
      * Creates a storage with a specified filePathForContacts.
@@ -48,7 +50,7 @@ public class ContactStorage {
         while ((st = br.readLine()) != null) {  //name + "," + contact + "," + email + "," + office
             String[] contactDetails = st.split(",");
             if (contactDetails.length != Numbers.FOUR.value) {
-                ui.showErrorMsg("     Not all contact details entered, please leave a space for empty fields.");
+                ui.showErrorMsg("     Not all contact details entered, please key in nil for empty fields.");
             } else {
                 name = contactDetails[Numbers.ZERO.value];
                 contact = contactDetails[Numbers.ONE.value];
@@ -77,4 +79,31 @@ public class ContactStorage {
         writer.write(fileContent);
         writer.close();
     }
+
+    //@@author maxxyx96
+    //Solution adapted from https://stackoverflow.com/questions/20389255/reading-a-resource-file-from-within-jar
+    /**
+     * Extracts the sample data from jar file and moves it to data folder in the computer.
+     *
+     * @param samplePath path of the sample data set for contacts.
+     * @throws IOException When there is an error writing to the text file.
+     */
+    public static void writeSample(String samplePath) throws IOException {
+        String fileContent = "";
+        InputStream in = ContactStorage.class.getResourceAsStream(samplePath);
+        if (in == null) {
+            in = ContactStorage.class.getClassLoader().getResourceAsStream(samplePath);
+        }
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+        String input = "";
+        while ((input = bufferedReader.readLine()) != null) {
+            fileContent += input + "\n";
+        }
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePathForContacts));
+        writer.write(fileContent);
+        writer.close();
+        bufferedReader.close();
+        in.close();
+    } //@@author
+
 }

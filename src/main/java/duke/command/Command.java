@@ -22,15 +22,15 @@ public abstract class Command {
 
 
     //@@author
-    /**
-     * Executes a command with task list and ui.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param priorities The list of priorities.
-     * @param ui To tell the user that it is executed successfully.
-     */
-    public void execute(TaskList items, PriorityList priorities, Ui ui) {
-    }
+    //    /**
+    //     * Executes a command with task list and ui.
+    //     *
+    //     * @param items The task list that contains a list of tasks.
+    //     * @param priorities The list of priorities.
+    //     * @param ui To tell the user that it is executed successfully.
+    //     */
+    //    public void execute(TaskList items, PriorityList priorities, Ui ui) {
+    //    }
 
     /**
      * Executes a command with task list, contactList and ui.
@@ -61,7 +61,19 @@ public abstract class Command {
      * @return String to be outputted to the user.
      */
     public abstract String executeGui(TaskList items, Ui ui);
+
     //@@author
+    /**
+     * Executes a command with task list and ui (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param priorities The list of priorities.
+     * @param ui To tell the user that it is executed successfully.
+     * @return String to be outputted to the user.
+     */
+    public String executeGui(TaskList items,PriorityList priorities, Ui ui) {
+        return null;
+    }
 
     public String executeGui(TaskList items, ContactList contactList,Ui ui) {
         return null;
