@@ -47,26 +47,26 @@ public class BookingList extends ArrayList<Booking> {
         LocalDate dateStart = startDateTime.toLocalDate();
         LocalTime startTime = startDateTime.toLocalTime();
         LocalTime endTime = LocalTime.parse(timeEnd, formatterEnd);
-        boolean startAfter = false;
-        boolean startBefore = false;
-        boolean endAfter = false;
-        boolean endBefore = false;
-        boolean startBetween = false;
-        boolean endBetween = false;
-        for (int i = 0; i < bookinglist.size(); i++) {
-            startAfter = bookinglist.get(i).getTimeStart().isAfter(startTime);
-            startBefore = bookinglist.get(i).getTimeStart().isBefore(startTime);
-            endAfter = bookinglist.get(i).getTimeEnd().isAfter(endTime);
-            endBefore = bookinglist.get(i).getTimeEnd().isBefore(endTime);
-            startBetween = (bookinglist.get(i).getTimeStart().isAfter(startTime)
-                    && bookinglist.get(i).getTimeStart().isBefore(endTime))
-                    || (startTime.isAfter(bookinglist.get(i).getTimeStart())
-                    && startTime.isBefore(bookinglist.get(i).getTimeEnd()));
-            endBetween = (bookinglist.get(i).getTimeEnd().isAfter(startTime)
-                    && bookinglist.get(i).getTimeEnd().isBefore(endTime))
-                    || (endTime.isAfter(bookinglist.get(i).getTimeStart())
-                    && endTime.isBefore(bookinglist.get(i).getTimeEnd()));
-            if ((bookinglist.get(i).venue.equals(roomcode)) && (bookinglist.get(i).getDateStart().equals(dateStart))) {
+        boolean startAfter;
+        boolean startBefore;
+        boolean endAfter;
+        boolean endBefore;
+        boolean startBetween;
+        boolean endBetween;
+        for (Booking booking : bookinglist) {
+            startAfter = booking.getTimeStart().isAfter(startTime);
+            startBefore = booking.getTimeStart().isBefore(startTime);
+            endAfter = booking.getTimeEnd().isAfter(endTime);
+            endBefore = booking.getTimeEnd().isBefore(endTime);
+            startBetween = (booking.getTimeStart().isAfter(startTime)
+                    && booking.getTimeStart().isBefore(endTime))
+                    || (startTime.isAfter(booking.getTimeStart())
+                    && startTime.isBefore(booking.getTimeEnd()));
+            endBetween = (booking.getTimeEnd().isAfter(startTime)
+                    && booking.getTimeEnd().isBefore(endTime))
+                    || (endTime.isAfter(booking.getTimeStart())
+                    && endTime.isBefore(booking.getTimeEnd()));
+            if ((booking.venue.equals(roomcode)) && (booking.getDateStart().equals(dateStart))) {
                 if ((!startAfter && !startBefore) && (!endAfter && !endBefore)) {
                     found = true;
                 } else if (startAfter && endBefore) {
