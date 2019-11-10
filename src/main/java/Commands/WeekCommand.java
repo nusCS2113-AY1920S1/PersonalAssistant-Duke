@@ -14,8 +14,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
+/**
+ * Represents the command to show the week selected by the user.
+ */
 public class WeekCommand extends Command {
     private static final String NO_FIELD = "void";
     private static final String TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR = ":";
@@ -34,11 +36,19 @@ public class WeekCommand extends Command {
     private final ObservableList<Text> sunList = FXCollections.observableArrayList();
     private static WeekList weekList = new WeekList();
 
+    /**
+     * Creates a WeekCommand object.
+     * @param fullCommand The user's input
+     */
     public WeekCommand(String fullCommand) {
         fullCommand = fullCommand.trim();
         this.week = fullCommand;
     }
 
+    /**
+     * This method appends the day of the date to the date.
+     * @return an ArrayList with the day and dates as a string
+     */
     private ArrayList<String> generateDateDay(String date, LookupTable lookupTable) {
         String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
         ArrayList<String> temp = new ArrayList<>();
@@ -50,16 +60,25 @@ public class WeekCommand extends Command {
         return temp;
     }
 
-    private ArrayList<String> checkIfExist(HashMap<String, ArrayList<Assignment>> map, ArrayList<String> dates) {
+    /**
+     * This method checks whether there is assignment the day.
+     * @param AssignmentList containing the module code and list of assignment
+     * @param dates containing all the days and date
+     * @return an ArrayList that contains the new days and dates that contain assignment for the new week
+     */
+    private ArrayList<String> checkIfExist(HashMap<String, ArrayList<Assignment>> AssignmentList, ArrayList<String> dates) {
         ArrayList<String> newDates = new ArrayList<>();
-        for (String s: dates) {
-            if (map.containsKey(s) == true) {
-                newDates.add(s);
+        for (String date: dates) {
+            if (AssignmentList.containsKey(date)) {
+                newDates.add(date);
             }
         }
         return newDates;
     }
 
+    /**
+     * This method updates the list to be shown to user based on their request.
+     */
     private void updateList(String day, Text toShow) {
         switch (day) {
         case "Mon":
@@ -88,6 +107,9 @@ public class WeekCommand extends Command {
         }
     }
 
+    /**
+     * This method sort the list of the days by time.
+     */
     private void sortList() {
         if (monList.size() != 0) {
             monList.sort(WeekCommand::compareByTime);
@@ -112,6 +134,9 @@ public class WeekCommand extends Command {
         }
     }
 
+    /**
+     * This method generate the text to be shown to the user.
+     */
     private Text generateToShow(Assignment task) {
         Text toShow = new Text(task.toShow() + task.getModCode() + "\n" + task.getDescription());
         toShow.setFont(Font.font(10));
@@ -198,6 +223,13 @@ public class WeekCommand extends Command {
         return weekList;
     }
 
+    /**
+     * Executes showing of the week list requested by the user.
+     * @param events The TaskList object for events
+     * @param deadlines The TaskList object for deadlines
+     * @param ui The Ui object to display the done task message
+     * @param storage The Storage object to access file to load or save the tasks
+     */
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) {
         setListView(lookupTable, events);
