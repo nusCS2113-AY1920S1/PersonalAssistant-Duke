@@ -1,4 +1,6 @@
-import duke.logic.command.bookingcommands.ViewOrdersCommand;
+package duketest.bookingcommandstest;
+
+import duke.logic.command.bookingcommands.FindBookingCommand;
 import duke.model.list.bookinglist.BookingList;
 import duke.storage.BookingStorage;
 import duke.ui.MainWindow;
@@ -7,30 +9,32 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import static duke.common.BookingMessages.MESSAGE_MATCHING_BOOKINGS;
 import static duke.common.Messages.filePathBookingTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ViewOrdersCommandTest {
+public class FindBookingCommandTest {
+
     private Ui ui;
     private BookingStorage bookingStorage;
     private BookingList bookingList;
     private MainWindow mainWindow;
 
     @Test
-    public void testViewBookingSchedule() {
-
+    public void testFindBookingCommand() {
         ui = new Ui(mainWindow);
         bookingStorage = new BookingStorage(filePathBookingTest);
         bookingList = new BookingList(bookingStorage.load());
 
         ArrayList<String> arrExpectedOutput = new ArrayList<>();
-        arrExpectedOutput.add("     Here are your orders for: john_lim");
-        arrExpectedOutput.add("     [chicken rice,  fish and chips] on 30 June 2019");
+        arrExpectedOutput.add(MESSAGE_MATCHING_BOOKINGS);
+        arrExpectedOutput.add("     3. [Customer name: Jack] [Contact No.: 94847291] [No. of pax: 2] [Booking on: 13 May 2019] [Orders: beef pasta]");
 
-        ViewOrdersCommand viewOrdersCommand = new ViewOrdersCommand("vieworders john_lim");
-        ArrayList<String> arrActualOutput = new ArrayList<>(viewOrdersCommand.execute(bookingList, ui, bookingStorage));
+        FindBookingCommand findBookingCommand = new FindBookingCommand("findbooking jack");
+        ArrayList<String> arrActualOutput = new ArrayList<>(findBookingCommand.execute(bookingList, ui, bookingStorage));
 
         assertEquals(arrExpectedOutput, arrActualOutput);
         System.out.println("Test passed.");
+
     }
 }

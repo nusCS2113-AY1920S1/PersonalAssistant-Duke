@@ -1,3 +1,5 @@
+package duketest.recipecommandstest;
+
 import duke.logic.command.recipecommands.ViewRecipeCommand;
 import duke.model.list.recipelist.RecipeList;
 import duke.storage.RecipeStorage;
@@ -12,6 +14,7 @@ import static duke.common.Messages.filePathRecipesTest;
 import static duke.common.RecipeMessages.MESSAGE_RECIPE_TO_BE_VIEWED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author wjlingg
 public class ViewRecipeCommandTest {
 
     private Ui ui;

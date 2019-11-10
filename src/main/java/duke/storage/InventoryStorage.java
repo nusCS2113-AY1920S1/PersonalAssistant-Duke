@@ -4,7 +4,11 @@ import duke.model.list.inventorylist.InventoryList;
 import duke.model.task.ingredienttasks.Ingredient;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
+
+import static duke.common.Messages.filePathInventoryTest;
 
 /**
  * Handles the ability to read and write to the inventory storage location.
@@ -52,21 +56,46 @@ public class InventoryStorage {
      * @return the list of inventory in inventory list
      */
     public HashMap<String, Ingredient> load() {
+        if (Files.notExists(Paths.get(filePathInventory))) {
             try {
+                File file = new File(filePathInventory);
+                file.getParentFile().mkdir();
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Unknown IO error when creating 'data/' folder.");
+            }
+        }
+
+//        if (Files.notExists(Paths.get(filePathInventory))) {
+//            try {
+//                Files.createDirectory(Paths.get("data/"));
+//            } catch (IOException e) {
+//                System.out.println("Unknown IO error when creating 'data/' folder.");
+//            }
+//        }
+        try {
+            InputStream inputStream;
+            if (filePathInventory.equals(filePathInventoryTest)) {
+                inputStream = getClass().getResourceAsStream("/data/inventoriesTest.txt");
+            } else {
+                inputStream = getClass().getResourceAsStream("/data/inventories.txt");
+            }
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             FileReader fileReader = new FileReader(filePathInventory);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            BufferedReader bufferedReader1 = new BufferedReader(fileReader);
             String content = "";
-            while ((content = bufferedReader.readLine()) != null) {
+            while ((content = bufferedReader.readLine()) != null || (content = bufferedReader1.readLine()) != null) {
                 String ingredientName, quantity, unit, additionalInfo, remaining, remaining2;
-                String[] split = content.split("\\|", 2);
+                String[] split = content.split(",", 2);
                 if (split.length == 2) {
                     ingredientName = split[0].trim();
                     remaining = split[1].trim();
-                    String[] split2 = remaining.split("\\|", 2);
+                    String[] split2 = remaining.split(",", 2);
                     if (split2.length == 2) {
                         quantity = split2[0].trim();
                         remaining2 = split2[1].trim();
-                        String[] split3 = remaining2.split("\\|", 2);
+                        String[] split3 = remaining2.split(",", 2);
                         if (split3.length == 2) {
                             unit = split3[0].trim();
                             additionalInfo = split3[1].trim();
@@ -76,6 +105,9 @@ public class InventoryStorage {
                     }
                 }
             }
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
             fileReader.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePathInventory + "'");

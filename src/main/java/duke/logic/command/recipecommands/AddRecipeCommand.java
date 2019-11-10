@@ -32,7 +32,7 @@ public class AddRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> {
      */
     private static boolean isValidRecipeTitle(String input) {
         for (char c : input.toCharArray()) {
-            if (!Character.isLetter(c)) {
+            if (!Character.isLetter(c) && !(c == ' ')) {
                 return false;
             }
         }
