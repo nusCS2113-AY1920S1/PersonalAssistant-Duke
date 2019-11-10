@@ -194,9 +194,10 @@ public class Bank {
         return tagBank.getAllTagsAsList();
     }
 
-    /**Obtains the synonyms of the word
+    /**
+     * Obtains the synonyms of the word.
      * @param searchWord consist of the main word we will be using
-     * @throws NoSynonymFoundException
+     * @throws NoSynonymFoundException if no synonym is found
      */
     public ArrayList<String> getSynonymsOfWord(String searchWord) throws NoSynonymFoundException {
         if (!synonymBank.contains(searchWord)) {
