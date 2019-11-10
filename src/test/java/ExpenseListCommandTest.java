@@ -1,4 +1,5 @@
 //@@author e0323290
+
 import gazeeebo.commands.expenses.ExpenseListCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,9 +16,21 @@ import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Testing ExpenseListCommand when list is called.
+ */
 public class ExpenseListCommandTest {
+    /**
+     * Output stream in which data is written into a byte array.
+     */
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
+    /**
+     * Print representation of actual data values.
+     */
     private PrintStream mine = new PrintStream(output);
+    /**
+     * Print representation of original data values.
+     */
     private PrintStream original = System.out;
 
 
@@ -32,6 +45,9 @@ public class ExpenseListCommandTest {
         System.setOut(original);
     }
 
+    /**
+     * Test the displaying of expense list.
+     */
     @Test
     void testExpenseListCommand() {
         HashMap<LocalDate, ArrayList<String>> map = new HashMap<>();
@@ -51,7 +67,7 @@ public class ExpenseListCommandTest {
 
         new ExpenseListCommand(expenses);
         assertEquals("Here is the list of your expenses:\r\n"
-        + "1. bread, $2.50 | bought on 2019-04-04\r\n"
-        + "2. book, $3 | bought on 2019-09-09\r\n", output.toString());
+                + "1. bread, $2.50 | bought on 2019-04-04\r\n"
+                + "2. book, $3 | bought on 2019-09-09\r\n", output.toString());
     }
 }

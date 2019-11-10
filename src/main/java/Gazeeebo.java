@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 
 public class Gazeeebo {
     private static final Logger LOGGER = Logger.getLogger(Gazeeebo.class.getName());
+
     /**
      * Returns main function for duke.
      *
@@ -28,7 +29,7 @@ public class Gazeeebo {
     public static void main(String[] args) throws IOException {
         LogCenter.setUpLogger(LOGGER);
         ArrayList<Task> list;
-        Stack<ArrayList<Task>> CommandStack = new Stack<ArrayList<Task>>();
+        Stack<ArrayList<Task>> commandStack = new Stack<ArrayList<Task>>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage store = new Storage();
         store.startUp();
@@ -51,7 +52,7 @@ public class Gazeeebo {
                 String command = ui.fullCommand;
                 Command c = ParserManager.parse(command, ui);
                 if (c != null) {
-                    c.execute(list, ui, store, CommandStack, deletedTask, triviaManager);
+                    c.execute(list, ui, store, commandStack, deletedTask, triviaManager);
                     isExit = c.isExit();
                 }
             }

@@ -4,6 +4,7 @@ package gazeeebo.commands.specialization;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
+import gazeeebo.storage.CompletedElectivesStorage;
 import gazeeebo.storage.Storage;
 
 import java.io.IOException;
@@ -19,45 +20,39 @@ public class CompletedCommand {
      *
      * @param ui            the object that deals with
      *                      printing things to the user.
-     * @param storage       the object that deals with storing data,
-     *                      in this case storing data in the expenses map
      * @param specMap       the map that map list of respective specializations
      * @param completedEMap the map that maps the completed electives to
      *                      their respective specializations
-     * @throws DukeException throws a custom exception if
-     *                       module index does not exist
-     * @throws IOException   catch any error if read file fails
+     * @throws IOException catch any error if read file fails
      */
-    public CompletedCommand(final Ui ui,
-                            final Storage storage,
+    public CompletedCommand(final Ui ui, final Storage storage,
                             final Map<String, ArrayList<ModuleCategory>>
                                     specMap,
                             final Map<String, ArrayList<String>> completedEMap)
-            throws DukeException, IOException {
+            throws IOException {
+        CompletedElectivesStorage completedElectivesStorage = new CompletedElectivesStorage();
         final int commsAndNetworkingIndex = 1;
         final int embeddedComputingIndex = 2;
         final int intelligentSystemsIndex = 3;
         final int interactiveDigitalMediaIndex = 4;
         final int largeScaleComputingIndex = 5;
         final int sysDesignIndex = 6;
-        try {
-            ArrayList<String> completedElectiveList =
-                    new ArrayList();
-            System.out.println("Which specialization number "
-                    + "is your module under?");
-            ArrayList<String> specList = new ArrayList<String>();
-            specList.add("Communications & Networking"); //index 0
-            specList.add("Embedded Computing"); //index 1
-            specList.add("Intelligent Systems"); //index 2
-            specList.add("Interactive Digital Media"); //index 3
-            specList.add("Large-Scale Computing"); //index 4
-            specList.add("System-On-A-Chip Design"); //index 5
-            for (int i = 0; i < specList.size(); i++) {
-                System.out.println(i + 1 + ". " + specList.get(i));
-            }
 
+        ArrayList<String> completedElectiveList = new ArrayList();
+        System.out.println("Which specialization number "
+                + "is your module under?");
+        ArrayList<String> specList = new ArrayList<String>();
+        specList.add("Communications & Networking"); //index 0
+        specList.add("Embedded Computing"); //index 1
+        specList.add("Intelligent Systems"); //index 2
+        specList.add("Interactive Digital Media"); //index 3
+        specList.add("Large-Scale Computing"); //index 4
+        specList.add("System-On-A-Chip Design"); //index 5
+        for (int i = 0; i < specList.size(); i++) {
+            System.out.println(i + 1 + ". " + specList.get(i));
+        }
+        try {
             ui.readCommand();
-            String input = ui.fullCommand;
             int specNumber = Integer.parseInt(ui.fullCommand);
             if (specNumber < 0 || specNumber == 0
                     || specNumber > specList.size()) {
@@ -86,11 +81,7 @@ public class CompletedCommand {
 
             ui.readCommand();
             int moduleCodeIndex = Integer.parseInt(ui.fullCommand);
-            if (moduleCodeIndex < 0 || moduleCodeIndex == 0 || moduleCodeIndex
-                    > specMap.get(checkKey).size()) {
-                throw new DukeException("The module index"
-                        + " does not exist.");
-            }
+
             String moduleCode
                     = specMap.get(checkKey).get(moduleCodeIndex - 1).code;
             boolean isEqual = false;
@@ -109,7 +100,7 @@ public class CompletedCommand {
             String toStoreCN = "";
             String toStoreEC = "";
             String toStoreIS = "";
-            String toStoreIDM = "";
+            String toStoreID = "";
             String toStoreLS = "";
             String toStoreSC = "";
             for (String key : completedEMap.keySet()) {
@@ -173,14 +164,16 @@ public class CompletedCommand {
                 }
                 String allCompletedE = toStoreCN
                         + "\n" + toStoreEC + "\n"
-                        + toStoreIS + "\n" + toStoreIDM + "\n"
+                        + toStoreIS + "\n" + toStoreID + "\n"
                         + toStoreLS + "\n" + toStoreSC;
-                storage.writeToCompletedElectivesFile(allCompletedE);
+                completedElectivesStorage.writeToCompletedElectivesFile(allCompletedE);
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Please only key in the index.");
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Please key in numbers only.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.print("Specialization index does not exist.\n");
         }
     }
 }
