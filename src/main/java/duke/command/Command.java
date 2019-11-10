@@ -19,29 +19,6 @@ import java.io.IOException;
  * Represents various kinds of commands using an abstract class.
  */
 public abstract class Command {
-
-
-    //@@author
-    //    /**
-    //     * Executes a command with task list and ui.
-    //     *
-    //     * @param items The task list that contains a list of tasks.
-    //     * @param priorities The list of priorities.
-    //     * @param ui To tell the user that it is executed successfully.
-    //     */
-    //    public void execute(TaskList items, PriorityList priorities, Ui ui) {
-    //    }
-
-    /**
-     * Executes a command with task list, contactList and ui.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param contactList The list of contacts.
-     * @param ui To tell the user that it is executed successfully.
-     */
-    public void execute(TaskList items, ContactList contactList, Ui ui) {
-    }
-
     //@@author talesrune
     /**
      * Executes a command with Filter list and ui.
