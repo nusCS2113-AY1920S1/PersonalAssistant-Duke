@@ -26,7 +26,7 @@ This document details my overall https://nuscs2113-ay1920s1.github.io/dashboard/
 * Initially, I had originally intended to parse the returned JSON data from NUSMODS directly into a Java Object, hence skipping the step of saving the data as a JSON file.
     ** This proved to be extremely difficult, since we had no way to inspect the data if it was malformed or incomplete.
     ** Thus, following the discussion made in https://github.com/AY1920S1-CS2113T-F10-1/main/issues/74[#74], I had decided to store the information within a JSON file, before using GSON to parse the data into a `List` object.
-    ** Based on the discussion, I implemented to store the module data in a `HashMap` for ease of access.
+    ** Based on the discussion, I implemented to storing module data in a `HashMap` for ease of access.
 
 * *Implemented persistent data storage*
 ** Through the `Storage` and `Logger` classes, user's current data would be instantly stored in JSON file format. This process is done automatically without
@@ -37,6 +37,13 @@ needing the user to be aware of the process.
 date parsing.
 ** This is inline with the integration with of the `GSON` library as well as adding support for `Junit 5` to give our team access to
 a streamlined testing framework.
+
+* *Provided starting template for morphing*
+** As the initial code base for the Duke personal assistant used my code base, I provided the initial classes to transition
+to morphing to ModPlanner.
+** Given that I had written the initial implementations, it would follow that I should be the one to port the functionality over
+to ModPlan.
+
 
 == Summary of contributions
 
@@ -56,20 +63,20 @@ a streamlined testing framework.
     ** Added support for checkstyle in TravisCI for code quality monitoring https://github.com/AY1920S1-CS2113T-F10-1/main/pull/53[#53]
     ** Added support for Coveralls, for efficient tracking of code coverage https://github.com/AY1920S1-CS2113T-F10-1/main/pull/122[#122], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/215[#215]
 
-* Project management:
+* *Project management*:
     ** Managed releases https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/A-Jar[`mid-v1.1`], https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/v1.1[`v1.1`] and https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/v1.2.1[`v1.2.1`]
     ** Handled team issue tracking regarding:
-        *** Improvements to implemented features
-        *** General bug reporting
-        *** Patch releases to fix to discovered bugs
-* Documentation:
+        *** Improvements to implemented features https://github.com/AY1920S1-CS2113T-F10-1/main/issues/74[#74]
+        *** General bug reporting https://github.com/AY1920S1-CS2113T-F10-1/main/issues/73[#73], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/213[#213]
+        *** Patch releases to fix to discovered bugs https://github.com/AY1920S1-CS2113T-F10-1/main/pull/112[#112], https://github.com/AY1920S1-CS2113T-F10-1/main/issues/124[#124], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/215[#215]
+* *Documentation*:
     *** Added UML Diagrams for overall product design in Developer Guide https://github.com/AY1920S1-CS2113T-F10-1/main/pull/126[#126]
     *** Wrote section on JsonParser, RequestData and Logger in Developer Guide
 
-* Community:
+* *Community*:
     ** Requested permission to utilize NUSMODS API in the course forum https://github.com/nusCS2113-AY1920S1/forum/issues/53[#53]
 
-* Tools:
+* *Tools*:
 *** Integrated a third party library (https://github.com/joestelmach/natty[Natty]) to the project, for improved date parsing https://github.com/AY1920S1-CS2113T-F10-1/main/pull/59[#59]
 *** Integrated https://github.com/google/gson[GSON] for efficient `JSON` data parsing
 *** Added https://github.com/junit-team/junit5[JUnit 5] support to give team access to a testing framework https://github.com/AY1920S1-CS2113T-F10-1/main/pull/9[#9]
@@ -82,11 +89,7 @@ _The following has been extracted from the User's Guide_
 === Updating module data : `update`
 
 Allows the user to directly update the module data. +
-Format: `update YEAR_SEM_1-YEAR_SEM_2`
-
-****
-* YEAR_SEM_1 and YEAR_SEM_2 must both be in the format YYYY, ie `2019-2020`
-****
+Format: `update module`
 
 == Contributions to the Developer Guide
 
