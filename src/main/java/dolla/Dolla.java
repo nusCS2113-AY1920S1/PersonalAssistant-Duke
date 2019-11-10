@@ -11,10 +11,6 @@ import java.util.Scanner;
 
 /**
  * Dolla is a chat-bot styled expense manager.
- *
- * @author  Aik Peng
- * @version 1.0
- * @since   2019-07-26
  */
 public class Dolla implements ModeStringList, ParserStringList {
 

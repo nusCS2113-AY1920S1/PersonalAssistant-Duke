@@ -77,8 +77,10 @@ public class HelpUi extends Ui {
     private static final String BYE_CMD =
           "\texit the app                            bye";
 
+    /**
+     * Prints out the list of available commands.
+     */
     public static void helpCommandPrinter() {
-
         System.out.println(HEADER);
         System.out.println(SWITCH_MODE_CMD);
         System.out.println(VIEW_LIST_CMD);
