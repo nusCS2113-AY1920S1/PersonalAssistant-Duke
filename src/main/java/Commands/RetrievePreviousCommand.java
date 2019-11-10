@@ -1,5 +1,6 @@
 package Commands;
 
+import Commons.DukeConstants;
 import Commons.DukeLogger;
 import Commons.Storage;
 import Commons.UserInteraction;
@@ -36,16 +37,14 @@ public class RetrievePreviousCommand extends Command {
         if (!fullCommand.isEmpty()) {
             char checkSpace = fullCommand.charAt(0);
             if (checkSpace != ' ') {
-                throw new DukeInvalidCommandException("There should be a space between the command retrieve/previous"
-                        + " and <x>, where x is an integer");
+                throw new DukeInvalidCommandException(DukeConstants.INVALID_WITHOUT_SPACE);
             }
         }
 
         fullCommand = fullCommand.trim();
         if (fullCommand.length() == 0) {
             isValid = false;
-            throw new DukeInvalidCommandException("<x> cannot be empty. Please enter the valid command as retrieve/previous <x>, "
-                    + "where x is an integer.");
+            throw new DukeInvalidCommandException(DukeConstants.INVALID_EMPTY_NUMBER);
         }
 
         ArrayList<String> retrievedList;
@@ -53,8 +52,7 @@ public class RetrievePreviousCommand extends Command {
         int size = retrievedList.size();
         if (size == 0) {
             isValid = false;
-            throw new DukeNoValidDataException("You did not enter Show Previous Command yet. \n"
-                    + "Format: show previous <num> or show previous <type> <num>");
+            throw new DukeNoValidDataException(DukeConstants.NO_PREVIOUS_COMMAND_TO_GET_LIST);
         }
 
         boolean isNumber = true;
@@ -65,8 +63,7 @@ public class RetrievePreviousCommand extends Command {
             LOGGER.severe("Unable to parse string to integer");
             isNumber = false;
             isValid = false;
-            throw new DukeInvalidCommandException("The x in retrieve/previous <x> "
-                     + "must be an integer and not a string.");
+            throw new DukeInvalidCommandException(DukeConstants.INVALID_STRING_SHOULD_BE_INTEGER);
         }
 
         if (isNumber) {
