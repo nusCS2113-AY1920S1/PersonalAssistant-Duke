@@ -1,4 +1,5 @@
 //@@author jessteoxizhi
+
 package gazeeebo.commands.tasks;
 
 
@@ -6,7 +7,7 @@ import gazeeebo.commands.Command;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.tasks.*;
+import gazeeebo.tasks.Todo;
 import gazeeebo.storage.Storage;
 import gazeeebo.exception.DukeException;
 
@@ -17,7 +18,7 @@ import java.util.Stack;
 
 public class TodoCommand extends Command {
     /**
-     *
+     * Todo tasks.
      * @param list          List of all tasks
      * @param ui            the object that deals with
      *                      printing things to the user
@@ -31,7 +32,11 @@ public class TodoCommand extends Command {
      * @throws IOException    Catch error if the read file fails
      */
     @Override
-    public void execute(ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException {
+    public void execute(ArrayList<Task> list, final Ui ui,
+                        final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask, final TriviaManager triviaManager)
+            throws DukeException, ParseException, IOException {
         String description = "";
         try {
             if (ui.fullCommand.length() <= 4) {
@@ -56,6 +61,7 @@ public class TodoCommand extends Command {
             //triviaManager.showAllMap();
         }
     }
+
     /**
      * Program does not exit and continues running
      * since command "bye" is not called.

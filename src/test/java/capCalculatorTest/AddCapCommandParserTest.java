@@ -2,8 +2,8 @@
 package capCalculatorTest;
 
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.capCalculator.AddCAPCommand;
-import gazeeebo.parser.CAPCommandParser;
+import gazeeebo.commands.capCalculator.AddCapCommand;
+import gazeeebo.parser.CapCommandParser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,10 +14,10 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AddCAPCommandParserTest {
+public class AddCapCommandParserTest {
     private Ui ui = new Ui();
-    private HashMap<String, ArrayList<CAPCommandParser>> map = new HashMap<>();
-    private Map<String, ArrayList<CAPCommandParser>> CAPList = new TreeMap<>(map);
+    private HashMap<String, ArrayList<CapCommandParser>> map = new HashMap<>();
+    private Map<String, ArrayList<CapCommandParser>> CAPList = new TreeMap<>(map);
 
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
@@ -37,14 +37,14 @@ public class AddCAPCommandParserTest {
     @Test
     void testAddCAPCommand() {
         ui.fullCommand = "add 1,CS1231,4,A";
-        AddCAPCommand test = new AddCAPCommand(ui, CAPList);
+        AddCapCommand test = new AddCapCommand(ui, CAPList);
         assertEquals("Successfully added: CS1231\n", output.toString());
     }
 
     @Test
     void testIncorrectFormatAddCAPCommand() {
         ui.fullCommand = "add 1,CS1231,4,A and 2,EE2026,4,B";
-        AddCAPCommand test = new AddCAPCommand(ui, CAPList);
+        AddCapCommand test = new AddCapCommand(ui, CAPList);
         assertEquals("Please Input in the correct format\n", output.toString());
     }
 }
