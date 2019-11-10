@@ -55,6 +55,10 @@ public class UpdateCommandParser implements ParserPrototype<UpdateCommand> {
         if (foodName.equals("")) {
             throw new ParserException(ParserErrorMessage.INVALID_NAME);
         }
+        if (foodTypeIndex == -1 && priceIndex == -1
+                && stockIndex == -1 && expiryDateIndex == -1) {
+            throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
+        }
         Food tempFood = new Food(foodName);
         if (foodTypeIndex != -1) {
             if (!ParserUtil.hasField(args,foodTypeIndex + 1)) {
