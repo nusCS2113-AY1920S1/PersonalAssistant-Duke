@@ -3,6 +3,7 @@ package room;
 import storage.Constants;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -38,6 +39,7 @@ public class RoomList extends ArrayList<Room> {
      * @throws IOException if the input is in the wrong format
      */
 
+
     public boolean checkRoom(String roomcode) {
         for (Room i : this) {
             if (i.roomcode.equals(roomcode)) {
@@ -47,24 +49,45 @@ public class RoomList extends ArrayList<Room> {
         return false;
     }
 
-    /*
     public static boolean checkRoom(RoomList roomlist, String roomcode, String timeStart, String timeEnd) {
         boolean found = false;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
-        LocalDateTime startTime = LocalDateTime.parse(timeStart, formatterStart);
+        LocalDateTime startDateTime = LocalDateTime.parse(timeStart, formatterStart);
+        LocalDate dateStart = startDateTime.toLocalDate();
+        LocalTime startTime = startDateTime.toLocalTime();
         LocalTime endTime = LocalTime.parse(timeEnd, formatterEnd);
+        boolean startAfter;
+        boolean startBefore;
+        boolean endAfter;
+        boolean endBefore;
+        boolean startBetween;
+        boolean endBetween;
         for (int i = 0; i < roomlist.size(); i++) {
-            if (roomlist.get(i).roomcode == roomcode) {
-                if ((roomlist.get(i).dateTimeStart.isBefore(startTime)
-                        || roomlist.get(i).dateTimeStart.isEqual(startTime))
-                        && ((roomlist.get(i).timeEnd.isAfter(endTime))
-                        && (roomlist.get(i).timeEnd.isBefore(endTime)))) {
+            startAfter = roomlist.get(i).getTimeStart().isAfter(startTime);
+            startBefore = roomlist.get(i).getTimeStart().isBefore(startTime);
+            endAfter = roomlist.get(i).getTimeEnd().isAfter(endTime);
+            endBefore = roomlist.get(i).getTimeEnd().isBefore(endTime);
+            startBetween = (roomlist.get(i).getTimeStart().isAfter(startTime)
+                    && roomlist.get(i).getTimeStart().isBefore(endTime))
+                    || (startTime.isAfter(roomlist.get(i).getTimeStart())
+                    && startTime.isBefore(roomlist.get(i).getTimeEnd()));
+            endBetween = (roomlist.get(i).getTimeEnd().isAfter(startTime)
+                    && roomlist.get(i).getTimeEnd().isBefore(endTime))
+                    || (endTime.isAfter(roomlist.get(i).getTimeStart())
+                    && endTime.isBefore(roomlist.get(i).getTimeEnd()));
+            if ((roomlist.get(i).roomcode.equals(roomcode)) && (roomlist.get(i).getDateStart().equals(dateStart))) {
+                if ((!startAfter && !startBefore) && (!endAfter && !endBefore)) {
+                    found = true;
+                } else if (startAfter && endBefore) {
+                    found = true;
+                } else if (startBefore && endAfter) {
+                    found = true;
+                } else if (startBetween || endBetween) {
                     found = true;
                 }
             }
         }
         return found;
     }
-     */
 }
