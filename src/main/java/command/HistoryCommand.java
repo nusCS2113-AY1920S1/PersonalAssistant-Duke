@@ -22,7 +22,7 @@ public class HistoryCommand extends Command {
 
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
-        wordHistory = storage.loadHistoryFromFile();
+        wordHistory = storage.loadHistoryFile();
         return ui.showRecentlyAdded(wordHistory, numberOfWordsToDisplay);
     }
 }

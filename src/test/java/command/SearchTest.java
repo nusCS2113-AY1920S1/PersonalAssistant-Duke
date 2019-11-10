@@ -34,7 +34,6 @@ public class SearchTest {
     public Bank bank;
     public Ui ui;
     public WordBank wordBank;
-    public WordCount wordCount;
 
     /**
      * Create wordup test file.
@@ -42,38 +41,20 @@ public class SearchTest {
      * @throws UnsupportedEncodingException if encoding is not supported
      */
     @BeforeEach
-    public void createWordUpTestFile() throws WordAlreadyExistsException, FileNotFoundException,
-            UnsupportedEncodingException {
-
-        filename = "testdata\\WordUp.txt";
-        excelFileName = "testdata\\WordUp.xlsx";
-
-        PrintWriter writer = new PrintWriter(filename, "UTF-8");
-        writer.println("apple: red fruit");
-        writer.println("orange: orange fruit");
-        writer.println("banana: yellow fruit");
-        writer.println("kiwi: green fruit");
-        writer.close();
-
-
-        storage = new Storage("\\testdata");
+    public void createWordUpTestFile() throws WordAlreadyExistsException {
+        storage = new Storage("commandTestData.txt", "commandTest.xslx", "commandTestReminder.txt");
         ui = new Ui();
-        bank = storage.loadExcelFile();
+        bank = new Bank();
 
-        wordCount = bank.getWordCountObject();
-        wordBank = bank.getWordBankObject();
+        storage.writeStorage("apple: red fruit", true, "wordup", bank);
+        storage.writeStorage("orange: orange fruit", true, "wordup", bank);
+        storage.writeStorage("banana: yellow fruit", true, "wordup", bank);
+        storage.writeStorage("kiwi: green fruit", true, "wordup", bank);
 
-        wordBank.addWord(new Word("apple","red fruit"));
-        wordBank.addWord(new Word("orange","orange fruit"));
-        wordBank.addWord(new Word("banana","yellow fruit"));
-        wordBank.addWord(new Word("kiwi","green fruit"));
-
-        wordCount.addWord(new Word("apple","red fruit"));
-        wordCount.addWord(new Word("orange","orange fruit"));
-        wordCount.addWord(new Word("banana","yellow fruit"));
-        wordCount.addWord(new Word("kiwi","green fruit"));
-
-        storage.writeWordBankExcelFile(wordBank);
+        bank.addWord(new Word("apple","red fruit"));
+        bank.addWord(new Word("orange","orange fruit"));
+        bank.addWord(new Word("banana","yellow fruit"));
+        bank.addWord(new Word("kiwi","green fruit"));
     }
 
 
@@ -141,7 +122,7 @@ public class SearchTest {
     @Test
     public void spellCheckingTest() {
         try {
-            String closeWords = wordBank.getClosedWords("bnn").toString();
+            String closeWords = bank.getWordBankObject().getClosedWords("bnn").toString();
             Assertions.assertEquals(closeWords, "[banana]");
         } catch (Exception e) {
             fail("Spell checking failed: " + e.getMessage());
@@ -153,13 +134,13 @@ public class SearchTest {
      */
     @AfterEach
     public void deleteWordUpTestFile() {
-        File file1 = new File(filename);
-        File file2 = new File(excelFileName);
-
-        if (file1.delete() && file2.delete()) {
-            System.out.println("File deleted successfully"); //note the test/file being used
+        File dataFile = new File(Storage.DATA_FILE_PATH);
+        File reminderFile = new File(Storage.REMINDER_FILE_PATH);
+        File excelFile = new File(Storage.EXCEL_PATH);
+        if ((dataFile.delete()) && (reminderFile.delete()) && (excelFile.delete())) {
+            System.out.println("SetReminderCommandTest: File deleted successfully");
         } else {
-            System.out.println("Failed to delete the file");
+            System.out.println("SetReminderCommandTest: Failed to delete the file");
         }
     }
 }

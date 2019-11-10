@@ -47,8 +47,8 @@ import java.util.Stack;
 public class Storage {
 
     public static String REMINDER_FILE_PATH;
-    private static String DATA_FILE_PATH;
-    private static String EXCEL_PATH;
+    public static String DATA_FILE_PATH;
+    public static String EXCEL_PATH;
     private File excelFile;
 
     /**
@@ -86,13 +86,16 @@ public class Storage {
     }
 
     /**
-     * Makes a text file with the specified name.
-     * @param testFileName the name of the text file
+     * Makes files with the specified name.
+     * @param testDataName the name of the text file
+     * @param testExcelName the name of the excel file
+     * @param testReminderName the name of the reminder file
      */
-    public Storage(String testFileName) {
+    public Storage(String testDataName, String testExcelName, String testReminderName) {
         File currentDir = new File(System.getProperty("user.dir"));
         File filePath = new File(currentDir.toString() + "\\data");
-        File dataText = new File(filePath, testFileName);
+        File dataText = new File(filePath, testDataName);
+        File reminderText = new File(filePath, testReminderName);
         if (!filePath.exists()) {
             filePath.mkdir();
         }
@@ -103,7 +106,19 @@ public class Storage {
                 e.printStackTrace();
             }
         }
-        REMINDER_FILE_PATH = dataText.getAbsolutePath();
+        if (!reminderText.exists()) {
+            try {
+                reminderText.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        DATA_FILE_PATH = dataText.getAbsolutePath();
+        REMINDER_FILE_PATH = reminderText.getAbsolutePath();
+
+        File dataExcel = new File(filePath, testExcelName);
+        EXCEL_PATH = dataExcel.getAbsolutePath();
+        excelFile = new File(EXCEL_PATH);
     }
 
     /**
@@ -111,7 +126,7 @@ public class Storage {
      * Stack structure used because the first words to be extracted are the last ones added to stack.
      * @return a stack containing all input words ordered by SEQUENCE OF ENTRY
      */
-    public Stack<Word> loadHistoryFromFile() {
+    public Stack<Word> loadHistoryFile() {
         File file = new File(DATA_FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
@@ -149,7 +164,7 @@ public class Storage {
     /**
      * Checks the reminders.txt file and creates reminders from the data stored.
      */
-    public void loadRemindersFromFile() {
+    public void loadRemindersFile() {
         File file = new File(REMINDER_FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
@@ -183,6 +198,10 @@ public class Storage {
         }
     }
 
+    public void writeStorage(String s, boolean append, String fileType, Bank bank) {
+        writeFile(s, append, fileType);
+        writeExcelFile(bank);
+    }
 
     /**
      * Writes data to an extracted file.
