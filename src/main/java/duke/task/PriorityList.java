@@ -144,7 +144,6 @@ public class PriorityList {
         }
 
 
-
         for (int i = Numbers.ZERO.value; i < taskList.size(); i++) {
             for (int j = Numbers.ZERO.value; j < taskList.size() - Numbers.ONE.value; j++) {
                 if (((int) pairList.get(j).getKey()) > (int) pairList.get(j + Numbers.ONE.value).getKey()) {

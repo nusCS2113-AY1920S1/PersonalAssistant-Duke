@@ -1,5 +1,7 @@
 package duke.storage;
 
+import duke.dukeexception.DukeException;
+import duke.enums.ErrorMessages;
 import duke.enums.Numbers;
 import duke.task.PriorityList;
 
@@ -44,7 +46,21 @@ public class PriorityStorage {
 
         String priority;
         while ((priority = br.readLine()) != null) {
-            items.add(Integer.parseInt(priority.trim()));
+            int item;
+            try {
+                item = Integer.parseInt(priority.trim());
+                if ((item <= 5) && item >= 1) {
+                    items.add(item);
+                } else {
+                    items.add(5);
+                    throw new DukeException("     (>_<) OOPS!!! There's an invalid priority: "
+                            + item
+                            + "\nDefault priority is added instead!");
+                }
+            } catch (Exception e) {
+                items.add(5);
+            }
+
         }
         br.close();
         return items;
@@ -83,7 +99,8 @@ public class PriorityStorage {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
         String input = "";
         while ((input = bufferedReader.readLine()) != null) {
-            fileContent += input + "\n";
+            fileContent += input
+                    + "\n";
         }
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
         writer.write(fileContent);
