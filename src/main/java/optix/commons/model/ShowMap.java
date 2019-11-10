@@ -2,9 +2,14 @@ package optix.commons.model;
 
 import optix.util.OptixDateFormatter;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 /**
  * TreeMap to sort all usage of the Opera Theatre according to calendar.
@@ -12,9 +17,11 @@ import java.util.TreeMap;
 public class ShowMap extends TreeMap<LocalDate, Theatre> {
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
+    private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Get show name.
+     *
      * @param key the show being queried.
      * @return the name of the show.
      */
@@ -26,9 +33,10 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
 
     /**
      * Add shows into Archive.
+     *
      * @param showDate The date of the show.
      * @param showName The name of the show.
-     * @param revenue The money earned from the show.
+     * @param revenue  The money earned from the show.
      */
     public void addShowHistory(LocalDate showDate, String showName, double revenue) {
         Show show = new Show(showName, revenue);
@@ -52,6 +60,7 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
 
     /**
      * Get all the shows that are scheduled and their dates.
+     *
      * @return String message of all the shows that are registered.
      */
     public String listShow() {
@@ -71,6 +80,7 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
 
     /**
      * Get the list of show dates for the show in query.
+     *
      * @param showName The name of the show.
      * @return new ShowMap with shows that have the show in query.
      */
@@ -86,8 +96,9 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
 
     /**
      * Get the list of show for the month in query.
+     *
      * @param startOfMonth The first day of month in query.
-     * @param endOfMonth The first day of the following month for the month in query.
+     * @param endOfMonth   The first day of the following month for the month in query.
      * @return new ShowMap with shows that are within the month of query.
      */
     public ShowMap listShow(LocalDate startOfMonth, LocalDate endOfMonth) {
@@ -104,6 +115,7 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
 
     /**
      * Remove a show from the show map.
+     *
      * @param key the show to be removed.
      * @return the show that is removed.
      */
@@ -131,5 +143,18 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
 
     public double getProfit(LocalDate localDate) {
         return this.get(localDate).getProfit();
+    }
+
+    private void initLogger() {
+        LogManager.getLogManager().reset();
+        OPTIXLOGGER.setLevel(Level.ALL);
+        try {
+            FileHandler fh = new FileHandler("OptixLogger.log", true);
+            fh.setLevel(Level.FINE);
+            OPTIXLOGGER.addHandler(fh);
+        } catch (IOException e) {
+            OPTIXLOGGER.log(Level.SEVERE, "File logger not working", e);
+        }
+        OPTIXLOGGER.log(Level.FINEST, "Logging in " + this.getClass().getName());
     }
 }

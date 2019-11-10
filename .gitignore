@@ -17,3 +17,5 @@ bin/
 /src/main/data/archive.txt
 /src/main/data/optix.txt
 
+# ignore log files
+/OptixLogger.*

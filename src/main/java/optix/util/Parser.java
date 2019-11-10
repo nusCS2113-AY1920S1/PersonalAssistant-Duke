@@ -31,6 +31,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Parse input arguments and create a new Command Object.
  */
@@ -40,7 +44,9 @@ public class Parser {
     private File preferenceFile; // the path to the file itself
     // array of all possible command values
     private static String[] commandList = {"bye", "list", "help", "edit", "sell", "view",
-        "reschedule", "add", "delete", "reassign-seat", "show", "archive", "finance"};
+        "reschedule", "add", "delete", "reassign-seat", "show", "archive", "finance",
+        "view-profit", "view-monthly", "add-alias", "remove-alias", "reset-alias", "list-alias"};
+    private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Set the path to directory containing the save file for preferences.
@@ -49,6 +55,8 @@ public class Parser {
      * @param filePath path to directory containing the save file for preferences.
      */
     public Parser(File filePath) {
+        initLogger();
+        OPTIXLOGGER.log(Level.INFO, "Parser initialization begin");
         this.preferenceFile = new File(filePath + "\\ParserPreferences.txt");
         this.preferenceFilePath = filePath;
         // load preferences from file
@@ -57,8 +65,10 @@ public class Parser {
                 loadPreferences();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
+                OPTIXLOGGER.log(Level.WARNING, "Error loading preferences.");
             }
         }
+        OPTIXLOGGER.log(Level.INFO, "Parser initialization complete.");
     }
 
     /**
@@ -70,11 +80,11 @@ public class Parser {
      */
     public Command parse(String fullCommand) throws OptixException {
         // add exception for null pointer exception. e.g. reschedule
+        OPTIXLOGGER.log(Level.INFO, "Parsing string: " + fullCommand);
         String[] splitStr = fullCommand.trim().split(" ", 2);
         String aliasName = splitStr[0];
         String commandName = commandAliasMap.getOrDefault(aliasName, aliasName);
-        commandName = commandName.toLowerCase().trim(); // is the lower case and trim necessary ?
-
+        commandName = commandName.toLowerCase().trim();
         if (splitStr.length == 1) {
             switch (commandName) {
             case "bye":
@@ -85,12 +95,14 @@ public class Parser {
                 return new ResetAliasCommand(this.preferenceFilePath);
             case "list-alias":
                 return new ListAliasCommand();
+            case "help":
             case "archive":
             case "show":
             case "finance":
                 return new TabCommand(commandName);
             default:
-                return new TabCommand(commandName);
+                OPTIXLOGGER.log(Level.WARNING, "Error with command: " + commandName);
+                throw new OptixInvalidCommandException();
             }
         } else if (splitStr.length == 2) {
 
@@ -122,9 +134,11 @@ public class Parser {
             case "reassign-seat":
                 return new ReassignSeatCommand(splitStr[1]);
             default:
+                OPTIXLOGGER.log(Level.WARNING, "Error with command: " + commandName);
                 throw new OptixInvalidCommandException();
             }
         } else {
+            OPTIXLOGGER.log(Level.WARNING, "Error with command: " + fullCommand);
             throw new OptixInvalidCommandException();
         }
     }
@@ -142,24 +156,31 @@ public class Parser {
      *                        the pipe symbol is a special character- it cannot be used.
      */
     public void addAlias(String newAlias, String command) throws OptixException {
-        if (!newAlias.contains("\\|") // pipe symbol not in alias
+        OPTIXLOGGER.log(Level.INFO, "adding new alias");
+        if (!newAlias.contains("|") // pipe symbol not in alias
                 && Arrays.asList(commandList).contains(command) // command exists
                 && !commandAliasMap.containsKey(newAlias) // new alias is not already in use
                 && !Arrays.asList(commandList).contains(newAlias)) { // new alias is not the name of a command
             commandAliasMap.put(newAlias, command);
+            OPTIXLOGGER.log(Level.INFO, "add alias successful");
         } else {
-            throw new OptixException("Alias is already in use, or command does not exist.\n");
+            OPTIXLOGGER.log(Level.INFO, "error adding alias.");
+            throw new OptixException("Invalid alias-command input.\n Alias cannot be a command keyword.\n"
+                    + "Alias cannot already be in use.");
         }
     }
 
     //@@ OungKennedy
     private void loadPreferences() throws IOException {
+        OPTIXLOGGER.log(Level.INFO, "loading preferences");
         File filePath = this.preferenceFile;
         // if file does not exist, create a new file and write the default aliases
         if (filePath.createNewFile()) {
+            OPTIXLOGGER.log(Level.INFO, "preference file not found. Creating new file.");
             resetPreferences();
             savePreferences();
         } else { // if file exists then load the preferences within
+            OPTIXLOGGER.log(Level.INFO, "preference file found.");
             FileReader fr = new FileReader(filePath);
             BufferedReader br = new BufferedReader(fr);
             String aliasPreference;
@@ -180,6 +201,7 @@ public class Parser {
             br.close();
             fr.close();
         }
+        OPTIXLOGGER.log(Level.INFO, "load preferences completed");
     }
 
     //@@ OungKennedy
@@ -187,13 +209,14 @@ public class Parser {
      * Writes the contents of commandAliasMap to the file in preferenceFilePath.
      */
     public void savePreferences() throws IOException {
+        OPTIXLOGGER.log(Level.INFO, "saving preferences");
         FileWriter writer = new FileWriter(this.preferenceFile, false);
-
         for (Map.Entry<String, String> entry : commandAliasMap.entrySet()) {
             String saveString = entry.getKey() + "|" + entry.getValue() + '\n'; // no need to escape. why?
             writer.write(saveString);
         }
         writer.close();
+        OPTIXLOGGER.log(Level.INFO, "preferences saved");
     }
 
     //@@ OungKennedy
@@ -201,13 +224,14 @@ public class Parser {
      * Method to reset preferences to default values.op
      */
     public static void resetPreferences() {
+        OPTIXLOGGER.log(Level.INFO, "Saving preferences");
         commandAliasMap.clear();
         commandAliasMap.put("re", "reassign-seat");
         commandAliasMap.put("arc", "archive");
         commandAliasMap.put("shw", "show");
         commandAliasMap.put("fin", "finance");
         commandAliasMap.put("b", "bye");
-        commandAliasMap.put("l", "list");   
+        commandAliasMap.put("l", "list");
         commandAliasMap.put("h", "help");
         commandAliasMap.put("e", "edit");
         commandAliasMap.put("s", "sell");
@@ -215,6 +239,12 @@ public class Parser {
         commandAliasMap.put("rd", "reschedule");
         commandAliasMap.put("a", "add");
         commandAliasMap.put("d", "delete");
+        commandAliasMap.put("vp", "view-profit");
+        commandAliasMap.put("vm", "view-monthly");
+        commandAliasMap.put("a-a", "add-alias");
+        commandAliasMap.put("rm-a", "remove-alias");
+        commandAliasMap.put("rst-a", "reset-alias");
+        OPTIXLOGGER.log(Level.INFO, "preferences saved");
     }
 
     /**
@@ -237,4 +267,17 @@ public class Parser {
 
         return new ListShowCommand(details);
     }
+
+    private void initLogger() {
+        OPTIXLOGGER.setLevel(Level.ALL);
+        try {
+            // do not append here to avoid
+            FileHandler fh = new FileHandler("OptixLogger.log",1024*1024,1, false);
+            OPTIXLOGGER.addHandler(fh);
+        } catch (IOException e) {
+            OPTIXLOGGER.log(Level.SEVERE, "File logger not working", e);
+        }
+        OPTIXLOGGER.log(Level.FINEST, "Logging in " + this.getClass().getName());
+    }
+
 }

@@ -56,6 +56,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Initialize the main display for Optix.
+     *
      * @param optix The software Optix.
      */
     public MainWindow(Optix optix) {

@@ -39,6 +39,7 @@ public class Optix {
 
     /**
      * Processes user input command.
+     *
      * @param fullCommand User input command.
      * @return String for the type of Model that command deals with. E.g Show, Seat and Alias.
      */

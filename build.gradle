@@ -35,6 +35,10 @@ checkstyle {
     toolVersion = '8.23'
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 group 'duke'
 version '0.1.0'
 

@@ -7,8 +7,13 @@ import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 //@@author OungKennedy
 public class DeleteCommand extends Command {
@@ -21,9 +26,11 @@ public class DeleteCommand extends Command {
     private static final String MESSAGE_ENTRY = "%1$d. %2$s (on: %3$s)\n";
 
     private static final String MESSAGE_SHOW_NOT_FOUND = "☹ OOPS!!! Unable to find the following shows:\n";
+    private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Instantiate vars.
+     *
      * @param splitStr String of format "SHOW_NAME|DATE_1|DATE_2|etc."
      */
     public DeleteCommand(String splitStr) {
@@ -81,7 +88,7 @@ public class DeleteCommand extends Command {
     @Override
     public String[] parseDetails(String details) throws OptixInvalidCommandException {
         String[] detailsArray;
-        detailsArray = details.split("\\|",2);
+        detailsArray = details.split("\\|", 2);
 
         if (detailsArray.length != 2) {
             throw new OptixInvalidCommandException();
@@ -91,5 +98,18 @@ public class DeleteCommand extends Command {
 
     private boolean hasValidDate(String date) {
         return formatter.isValidDate(date);
+    }
+
+    private void initLogger() {
+        LogManager.getLogManager().reset();
+        OPTIXLOGGER.setLevel(Level.ALL);
+        try {
+            FileHandler fh = new FileHandler("OptixLogger.log");
+            fh.setLevel(Level.FINE);
+            OPTIXLOGGER.addHandler(fh);
+        } catch (IOException e) {
+            OPTIXLOGGER.log(Level.SEVERE, "File logger not working", e);
+        }
+        OPTIXLOGGER.log(Level.FINEST, "Logging in " + this.getClass().getName());
     }
 }

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-11-10T11:13:01.965499500Z</date>
+  <millis>1573384381965</millis>
+  <nanos>499500</nanos>
+  <sequence>324</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialization begin</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.965499500Z</date>
+  <millis>1573384381965</millis>
+  <nanos>499500</nanos>
+  <sequence>325</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialization complete.</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.965499500Z</date>
+  <millis>1573384381965</millis>
+  <nanos>499500</nanos>
+  <sequence>326</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>resetPreferences</method>
+  <thread>1</thread>
+  <message>Saving preferences</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.965499500Z</date>
+  <millis>1573384381965</millis>
+  <nanos>499500</nanos>
+  <sequence>327</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>resetPreferences</method>
+  <thread>1</thread>
+  <message>preferences saved</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.966499400Z</date>
+  <millis>1573384381966</millis>
+  <nanos>499400</nanos>
+  <sequence>328</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>addAlias</method>
+  <thread>1</thread>
+  <message>adding new alias</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.966499400Z</date>
+  <millis>1573384381966</millis>
+  <nanos>499400</nanos>
+  <sequence>329</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>addAlias</method>
+  <thread>1</thread>
+  <message>error adding alias.</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.969498Z</date>
+  <millis>1573384381969</millis>
+  <nanos>498000</nanos>
+  <sequence>331</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialization begin</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.970497300Z</date>
+  <millis>1573384381970</millis>
+  <nanos>497300</nanos>
+  <sequence>332</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialization complete.</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.970497300Z</date>
+  <millis>1573384381970</millis>
+  <nanos>497300</nanos>
+  <sequence>333</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>resetPreferences</method>
+  <thread>1</thread>
+  <message>Saving preferences</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.970497300Z</date>
+  <millis>1573384381970</millis>
+  <nanos>497300</nanos>
+  <sequence>334</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>resetPreferences</method>
+  <thread>1</thread>
+  <message>preferences saved</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.970497300Z</date>
+  <millis>1573384381970</millis>
+  <nanos>497300</nanos>
+  <sequence>335</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>addAlias</method>
+  <thread>1</thread>
+  <message>adding new alias</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.970497300Z</date>
+  <millis>1573384381970</millis>
+  <nanos>497300</nanos>
+  <sequence>336</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>addAlias</method>
+  <thread>1</thread>
+  <message>error adding alias.</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.976495500Z</date>
+  <millis>1573384381976</millis>
+  <nanos>495500</nanos>
+  <sequence>338</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialization begin</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.976495500Z</date>
+  <millis>1573384381976</millis>
+  <nanos>495500</nanos>
+  <sequence>339</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialization complete.</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.977495100Z</date>
+  <millis>1573384381977</millis>
+  <nanos>495100</nanos>
+  <sequence>340</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>resetPreferences</method>
+  <thread>1</thread>
+  <message>Saving preferences</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.977495100Z</date>
+  <millis>1573384381977</millis>
+  <nanos>495100</nanos>
+  <sequence>341</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>resetPreferences</method>
+  <thread>1</thread>
+  <message>preferences saved</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.977495100Z</date>
+  <millis>1573384381977</millis>
+  <nanos>495100</nanos>
+  <sequence>342</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>addAlias</method>
+  <thread>1</thread>
+  <message>adding new alias</message>
+</record>
+<record>
+  <date>2019-11-10T11:13:01.977495100Z</date>
+  <millis>1573384381977</millis>
+  <nanos>495100</nanos>
+  <sequence>343</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>optix.util.Parser</class>
+  <method>addAlias</method>
+  <thread>1</thread>
+  <message>error adding alias.</message>
+</record>
+</log>

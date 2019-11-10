@@ -48,6 +48,7 @@ public class OptixDateFormatter {
 
     /**
      * Formate date from LocalDate to String.
+     *
      * @param localDate YYYY-MM-DD.
      * @return String for the date. Format: DD/MM/YYYY.
      */
@@ -106,6 +107,7 @@ public class OptixDateFormatter {
 
     /**
      * Get year in numeric form.
+     *
      * @param year String format: YYYY.
      * @return Integer number for year.
      */
@@ -126,6 +128,7 @@ public class OptixDateFormatter {
 
     /**
      * Get month in numeric form.
+     *
      * @param month String format: MMMM.
      * @return Integer number for month.
      */
@@ -202,7 +205,7 @@ public class OptixDateFormatter {
     /**
      * Get the first day of the month in query.
      *
-     * @param year The year in query.
+     * @param year  The year in query.
      * @param month The month in query.
      * @return The first day of the month in LocalDate.
      */
@@ -213,7 +216,7 @@ public class OptixDateFormatter {
     /**
      * Get the first day of the following month for the month in query.
      *
-     * @param year The year in query.
+     * @param year  The year in query.
      * @param month The month in query.
      * @return The first day of the following month for the month in query in LocalDate.
      */

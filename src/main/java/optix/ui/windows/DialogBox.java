@@ -43,8 +43,9 @@ public class DialogBox extends HBox {
 
     /**
      * Creates a new DialogBox object that contains user input and user image.
+     *
      * @param text User input command.
-     * @param img User image for the chat box.
+     * @param img  User image for the chat box.
      * @return New DialogBox object that contains user input and user image for chat box.
      */
     public static DialogBox getUserDialog(String text, Image img) {

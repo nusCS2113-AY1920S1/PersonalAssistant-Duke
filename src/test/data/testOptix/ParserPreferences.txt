@@ -3,7 +3,6 @@ b|bye
 shw|show
 d|delete
 e|edit
-abcde|list
 h|help
 fin|finance
 l|list
@@ -11,5 +10,4 @@ rd|reschedule
 re|reassign-seat
 arc|archive
 s|sell
-qe|add
 v|view

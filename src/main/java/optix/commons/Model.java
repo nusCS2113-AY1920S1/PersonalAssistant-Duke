@@ -4,17 +4,26 @@ import optix.commons.model.ShowMap;
 import optix.commons.model.Theatre;
 import optix.util.OptixDateFormatter;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Map;
 
+import java.util.logging.LogManager;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+//@@author CheeSengg
 public class Model {
     private ShowMap showsHistory = new ShowMap();
     private ShowMap shows = new ShowMap();
     private ShowMap showsGui;
     private OptixDateFormatter formatter = new OptixDateFormatter();
+    private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * The Optix model.
+     *
      * @param storage the object which handles data from the save file.
      */
     public Model(Storage storage) {
@@ -22,6 +31,7 @@ public class Model {
         storage.loadArchive(showsHistory);
         storage.writeArchive(showsHistory);
         showsGui = this.getShows();
+        initLogger();
     }
 
     public ShowMap getShows() {
@@ -50,32 +60,59 @@ public class Model {
 
     //// Commands that deals with Shows
 
+    /**
+     * Method to add show to "shows" ShowMap.
+     * @param showName name of show to add
+     * @param showDate date of show to add
+     * @param seatBasePrice base price for seats of show to add
+     */
     public void addShow(String showName, LocalDate showDate, double seatBasePrice) {
+        OPTIXLOGGER.log(Level.INFO, "adding show: " + showName + " on " + showDate.toString()
+                + "at the base price of " + seatBasePrice);
         shows.addShow(showName, showDate, seatBasePrice);
         this.setShowsGui(shows);
     }
 
+    /**
+     * Method to edit the name of an existing show.
+     * @param showDate date of show to change
+     * @param showName New name of show
+     */
     public void editShowName(LocalDate showDate, String showName) {
+        OPTIXLOGGER.log(Level.INFO, "editing show: " + showName + " scheduled on " + showDate.toString());
         shows.editShowName(showDate, showName);
         this.setShowsGui(shows);
     }
 
+    /**
+     * Change the date of an existing show.
+     * @param oldDate Current date of show
+     * @param newDate New date of show
+     */
     public void rescheduleShow(LocalDate oldDate, LocalDate newDate) {
+        OPTIXLOGGER.log(Level.INFO, "rescheduling show from " + oldDate.toString() + " to " + newDate.toString());
         shows.rescheduleShow(oldDate, newDate);
         this.setShowsGui(shows);
     }
 
+    /** Method to List all shows.
+     *
+     * @return String containing details of all current shows in "shows" ShowMap
+     */
     public String listShow() {
+        OPTIXLOGGER.log(Level.INFO, "listing shows");
         this.setShowsGui(shows);
         return shows.listShow();
     }
 
     /**
      * Get the list of show dates for the show in query.
+     *
      * @param showName The name of the show.
      * @return String message for the list of dates for the show in query.
      */
     public String listShow(String showName) {
+        OPTIXLOGGER.log(Level.INFO, "Listing show by name:" + showName);
         this.setShowsGui(shows.listShow(showName));
         StringBuilder message = new StringBuilder();
         int counter = 1;
@@ -89,11 +126,13 @@ public class Model {
 
     /**
      * Get the list of show for the month in query.
+     *
      * @param startOfMonth The first day of month in query.
-     * @param endOfMonth The first day of the following month for the month in query.
+     * @param endOfMonth   The first day of the following month for the month in query.
      * @return String message for the list of shows that are scheduled for the month in query.
      */
     public String listShow(LocalDate startOfMonth, LocalDate endOfMonth) {
+        OPTIXLOGGER.log(Level.INFO, "listing show by month:" + startOfMonth.toString());
         this.setShowsGui(shows.listShow(startOfMonth, endOfMonth));
         StringBuilder message = new StringBuilder();
         int counter = 1;
@@ -108,12 +147,14 @@ public class Model {
 
     /**
      * Calculates the earnings for a certain month from the Optix file.
-     * @param mth The month in numerical form.
-     * @param yr The year.
+     *
+     * @param mth        The month in numerical form.
+     * @param yr         The year.
      * @param showsQuery shows, showsHistory or both. Contains all the shows from these ShowMaps
      * @return A message String that contains the profit to show to the user.
      */
     public String findMonthly(int mth, int yr, ShowMap... showsQuery) {
+        OPTIXLOGGER.log(Level.INFO, String.format("calculating earnings for month %s of year %s", mth, yr));
         StringBuilder message = new StringBuilder();
         double profit = 0;
         double projectedProfit = 0.0;
@@ -163,7 +204,12 @@ public class Model {
         return message.toString();
     }
 
+    /**
+     * Method to delete a show from "shows" ShowMap.
+     * @param showDate date of show to delete
+     */
     public void deleteShow(LocalDate showDate) {
+        OPTIXLOGGER.log(Level.INFO, "Deleting show");
         shows.deleteShow(showDate);
         this.setShowsGui(shows);
     }
@@ -182,4 +228,16 @@ public class Model {
         return shows.reassignSeat(showlocalDate, oldSeat, newSeat);
     }
 
+    private void initLogger() {
+        LogManager.getLogManager().reset();
+        OPTIXLOGGER.setLevel(Level.ALL);
+        try {
+            FileHandler fh = new FileHandler("OptixLogger.log",true);
+            fh.setLevel(Level.FINE);
+            OPTIXLOGGER.addHandler(fh);
+        } catch (IOException e) {
+            OPTIXLOGGER.log(Level.SEVERE, "File logger not working", e);
+        }
+        OPTIXLOGGER.log(Level.FINEST, "Logging in " + this.getClass().getName());
+    }
 }

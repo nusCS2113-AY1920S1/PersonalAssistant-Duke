@@ -10,22 +10,29 @@ import optix.util.Parser;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 //@@author OungKennedy
 public class AddAliasCommand extends Command {
     private String details;
     private File preferenceFilePath;
+    private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private static final String MESSAGE_NOT_ACCEPTED = "☹ OOPS!!! Spaces are not allowed for alias command.\n"
                                                        + "Please try again";
 
     /**
      * Command to add a new alias to the command alias map.
+     *
      * @param details String containing "NEW_ALIAS|COMMAND"
      */
     public AddAliasCommand(String details, File filePath) {
         this.details = details.trim();
         this.preferenceFilePath = filePath;
+        initLogger();
     }
 
     /**
@@ -46,6 +53,7 @@ public class AddAliasCommand extends Command {
             newAlias = detailsArray[0].trim();
             command = detailsArray[1].trim();
         } catch (OptixInvalidCommandException e) {
+            OPTIXLOGGER.log(Level.WARNING, "error parsing details: " + this.details);
             ui.setMessage(e.getMessage());
             return "";
         }
@@ -62,6 +70,7 @@ public class AddAliasCommand extends Command {
             dummyParser.savePreferences();
             message = String.format("The new alias %s was successfully paired to the command %s\n", newAlias, command);
         } catch (OptixException | IOException e) {
+            OPTIXLOGGER.log(Level.WARNING, String.format("error adding or saving alias. Alias:%s Command:%s", newAlias, command));
             message = e.getMessage();
         }
         ui.setMessage(message);
@@ -70,11 +79,24 @@ public class AddAliasCommand extends Command {
 
     @Override
     public String[] parseDetails(String details) throws OptixInvalidCommandException {
-        String[] detailsArray = details.split("\\|",2);
+        String[] detailsArray = details.split("\\|", 2);
         if (detailsArray.length != 2) {
             throw new OptixInvalidCommandException();
         }
         return detailsArray;
+    }
+
+    private void initLogger() {
+        LogManager.getLogManager().reset();
+        OPTIXLOGGER.setLevel(Level.ALL);
+        try {
+            FileHandler fh = new FileHandler("OptixLogger.log", true);
+            fh.setLevel(Level.FINE);
+            OPTIXLOGGER.addHandler(fh);
+        } catch (IOException e) {
+            OPTIXLOGGER.log(Level.SEVERE, "File logger not working", e);
+        }
+        OPTIXLOGGER.log(Level.FINEST, "Logging in " + this.getClass().getName());
     }
 }
 

@@ -56,9 +56,9 @@ class ShowMapTest {
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "\n"
-                + "Tier 1 Seats: 20\n"
-                + "Tier 2 Seats: 20\n"
-                + "Tier 3 Seats: 20\n";
+                + "Tier 1 Seats (rows E and F): 20\n"
+                + "Tier 2 Seats (rows C and D): 20\n"
+                + "Tier 3 Seats (rows A and B): 20\n";
         assertEquals(expected, shows.viewSeats(date1));
     }
 
@@ -68,7 +68,7 @@ class ShowMapTest {
                           + "[A1, A2]\n"
                           + "The total cost of the tickets are $60.00\n";
         assertEquals(expected, shows.sellSeats(date1, "A1", "A2"));
-        expected = "☹ OOPS!!! All of the seats [A1, A2] are unavailable\n";
+        expected = "☹ OOPS!!! All of the seats [A1, A2] are unavailable.\n";
         assertEquals(expected, shows.sellSeats(date1, "A1", "A2"));
     }
 

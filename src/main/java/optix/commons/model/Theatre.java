@@ -112,8 +112,8 @@ public class Theatre {
     /**
      * function to set the status of a seat (change it to booked when a seat is bought).
      *
-     * @param row       desired seat row
-     * @param col       desired seat column
+     * @param row desired seat row
+     * @param col desired seat column
      */
     public void setSeat(int row, int col) {
         seats[row][col].setSold(true);
@@ -162,7 +162,7 @@ public class Theatre {
     /**
      * Sell seats to customers.
      *
-     * @param seat      desired seat
+     * @param seat desired seat
      * @return cost of seat.
      */
     public double sellSeats(String seat) {
@@ -193,7 +193,7 @@ public class Theatre {
     /**
      * Sell seats to customers. Used when customer wants to buy multiple seats.
      *
-     * @param seats     String array of desired seats
+     * @param seats String array of desired seats
      * @return Message detailing status of desired seats (sold out or successfully purchased.)
      */
     public String sellSeats(String... seats) {
@@ -244,6 +244,7 @@ public class Theatre {
 
     /**
      * Reassigns the seat of a customer.
+     *
      * @param oldSeat The seat to be changed.
      * @param newSeat The seat to change to.
      * @return Message detailing the success of reassignment and the cost difference between the seats.
@@ -296,6 +297,7 @@ public class Theatre {
 
     /**
      * Removes a seat booking from the theatre.
+     *
      * @param seatToRemove The seat to be removed.
      * @return The cost of the seat that has been removed.
      */

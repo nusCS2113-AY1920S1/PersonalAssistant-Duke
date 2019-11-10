@@ -1,5 +1,6 @@
 package optix.commands.parser;
 
+import optix.Optix;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
@@ -12,20 +13,27 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 //@@author OungKennedy
 public class RemoveAliasCommand extends Command {
     private String details;
     private HashMap<String, String> commandAliasMap;
+    private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Command to remove an existing alias from aliasCommandMap.
-     * @param details the details of alias to remove and its command, in an array
+     *
+     * @param details         the details of alias to remove and its command, in an array
      * @param commandAliasMap the command alias map
      */
     public RemoveAliasCommand(String details, HashMap<String, String> commandAliasMap) {
         this.details = details;
         this.commandAliasMap = commandAliasMap;
+        initLogger();
     }
 
     /**
@@ -38,6 +46,7 @@ public class RemoveAliasCommand extends Command {
      */
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
+        OPTIXLOGGER.log(Level.INFO, "executing command");
         // parse the string to assign the details and command strings to local variables
         String alias;
         String command;
@@ -46,6 +55,7 @@ public class RemoveAliasCommand extends Command {
             alias = detailsArray[0].trim();
             command = detailsArray[1].trim();
         } catch (OptixInvalidCommandException e) {
+            OPTIXLOGGER.log(Level.WARNING, "Error parsing details:" + this.details);
             ui.setMessage(e.getMessage());
             return "";
         }
@@ -76,10 +86,23 @@ public class RemoveAliasCommand extends Command {
 
     @Override
     public String[] parseDetails(String details) throws OptixInvalidCommandException {
-        String[] detailsArray = details.split("\\|",2);
+        String[] detailsArray = details.split("\\|", 2);
         if (detailsArray.length != 2) {
             throw new OptixInvalidCommandException();
         }
         return detailsArray;
+    }
+
+    private void initLogger() {
+        LogManager.getLogManager().reset();
+        OPTIXLOGGER.setLevel(Level.ALL);
+        try {
+            FileHandler fh = new FileHandler("OptixLogger.log", true);
+            fh.setLevel(Level.FINE);
+            OPTIXLOGGER.addHandler(fh);
+        } catch (IOException e) {
+            OPTIXLOGGER.log(Level.SEVERE, "File logger not working", e);
+        }
+        OPTIXLOGGER.log(Level.FINEST, "Logging in " + this.getClass().getName());
     }
 }

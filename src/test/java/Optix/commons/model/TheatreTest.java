@@ -34,9 +34,10 @@ class TheatreTest {
                         + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                         + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                         + "\n"
-                        + "Tier 1 Seats: " + theatre.getTierOneSeats() + "\n"
-                        + "Tier 2 Seats: " + theatre.getTierTwoSeats() + "\n"
-                        + "Tier 3 Seats: " + theatre.getTierThreeSeats() + "\n";
+                        + "Tier 1 Seats (rows E and F): " + theatre.getTierOneSeats() + "\n"
+                        + "Tier 2 Seats (rows C and D): " + theatre.getTierTwoSeats() + "\n"
+                        + "Tier 3 Seats (rows A and B): " + theatre.getTierThreeSeats() + "\n";
+        System.out.println(theatre.getSeatingArrangement());
         assertEquals(expected, theatre.getSeatingArrangement());
     }
 
@@ -51,9 +52,9 @@ class TheatreTest {
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "\n"
-                + "Tier 1 Seats: " + theatre.getTierOneSeats() + "\n"
-                + "Tier 2 Seats: " + theatre.getTierTwoSeats() + "\n"
-                + "Tier 3 Seats: " + theatre.getTierThreeSeats() + "\n";
+                + "Tier 1 Seats (rows E and F): " + theatre.getTierOneSeats() + "\n"
+                + "Tier 2 Seats (rows C and D): " + theatre.getTierTwoSeats() + "\n"
+                + "Tier 3 Seats (rows A and B): " + theatre.getTierThreeSeats() + "\n";
         assertEquals(expected, theatre.getSeatingArrangement());
         assertEquals(60, theatre.getProfit());
         Seat[][] seats = theatre.getSeats();
@@ -77,9 +78,10 @@ class TheatreTest {
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "\n"
-                + "Tier 1 Seats: " + theatre.getTierOneSeats() + "\n"
-                + "Tier 2 Seats: " + theatre.getTierTwoSeats() + "\n"
-                + "Tier 3 Seats: " + theatre.getTierThreeSeats() + "\n";
+                + "Tier 1 Seats (rows E and F): " + theatre.getTierOneSeats() + "\n"
+                + "Tier 2 Seats (rows C and D): " + theatre.getTierTwoSeats() + "\n"
+                + "Tier 3 Seats (rows A and B): " + theatre.getTierThreeSeats() + "\n";
+
         assertEquals(expected, theatre.getSeatingArrangement());
         theatre.reassignSeat("A1", "A0"); // unsuccessful reassignment of seats.
         assertEquals(expected, theatre.getSeatingArrangement());
@@ -98,9 +100,9 @@ class TheatreTest {
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✓][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "\n"
-                + "Tier 1 Seats: " + theatre.getTierOneSeats() + "\n"
-                + "Tier 2 Seats: " + theatre.getTierTwoSeats() + "\n"
-                + "Tier 3 Seats: " + theatre.getTierThreeSeats() + "\n";
+                + "Tier 1 Seats (rows E and F): " + theatre.getTierOneSeats() + "\n"
+                + "Tier 2 Seats (rows C and D): " + theatre.getTierTwoSeats() + "\n"
+                + "Tier 3 Seats (rows A and B): " + theatre.getTierThreeSeats() + "\n";
         assertEquals(80, theatre.getProfit());
         assertEquals(expected, theatre.getSeatingArrangement());
         assertEquals(20, theatre.removeSeat("F3"));

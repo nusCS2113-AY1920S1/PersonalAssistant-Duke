@@ -9,7 +9,12 @@ import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 //@@author CheeSengg
 public class RescheduleCommand extends Command {
@@ -27,9 +32,11 @@ public class RescheduleCommand extends Command {
     private static final String MESSAGE_INVALID_NEW_DATE = "☹ OOPS!!! It is not possible to reschedule to the past.\n";
 
     private static final String MESSAGE_SUCCESSFUL = "%1$s has been rescheduled from %2$s to %3$s.\n";
+    private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Command to reschedule show.
+     *
      * @param splitStr String containing "SHOW_NAME|OLD_DATE|NEW_DATE"
      */
     public RescheduleCommand(String splitStr) {
@@ -79,10 +86,23 @@ public class RescheduleCommand extends Command {
 
     @Override
     public String[] parseDetails(String details) throws OptixInvalidCommandException {
-        String[] detailsArray = details.trim().split("\\|",3);
+        String[] detailsArray = details.trim().split("\\|", 3);
         if ((detailsArray.length) != 3) {
             throw new OptixInvalidCommandException();
         }
         return detailsArray;
+    }
+
+    private void initLogger() {
+        LogManager.getLogManager().reset();
+        OPTIXLOGGER.setLevel(Level.ALL);
+        try {
+            FileHandler fh = new FileHandler("OptixLogger.log");
+            fh.setLevel(Level.FINE);
+            OPTIXLOGGER.addHandler(fh);
+        } catch (IOException e) {
+            OPTIXLOGGER.log(Level.SEVERE, "File logger not working", e);
+        }
+        OPTIXLOGGER.log(Level.FINEST, "Logging in " + this.getClass().getName());
     }
 }
