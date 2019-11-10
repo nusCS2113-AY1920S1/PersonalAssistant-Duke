@@ -729,7 +729,7 @@ public class ProjectInputController implements IController {
         for (Map.Entry<String, ArrayList<Reminder>> list: reminderCategoryList.entrySet()) {
             int index = 1;
             ArrayList<String> categoryOfReminder = new ArrayList<>();
-            categoryOfReminder.add(indexCategory + ". "+ list.getKey());
+            categoryOfReminder.add(indexCategory + ". " + list.getKey());
             for (Reminder reminder: list.getValue()) {
                 categoryOfReminder.add(index + ". " + reminder.getReminderName());
                 index++;
