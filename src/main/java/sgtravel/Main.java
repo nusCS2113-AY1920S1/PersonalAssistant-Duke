@@ -27,7 +27,7 @@ public class Main extends Application {
             mainWindow.show();
             mainWindow.initialise(this);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING, "Something went wrong with the application.");
         }
     }
 
