@@ -20,11 +20,11 @@ public class MatchTaskCommand extends Command {
         taskID = name;
     }
 
-    private final String NO_SUCH_TASK_MESSAGE = "Could not find such a task!";
-    private final String USER_OUTPUT_STARTING = "These are the members with the relevant skills: \n";
-    private final String NO_MATCHING_MEMBER = "No matching members who have the skills or task has required no " +
-            "skills assigned";
-    private final String TASK_HAS_NO_SKILL = "Task does not have any required skills";
+    private static final String NO_SUCH_TASK_MESSAGE = "Could not find such a task!";
+    private static final String USER_OUTPUT_STARTING = "These are the members with the relevant skills: \n";
+    private static final String NO_MATCHING_MEMBER = "No matching members who have the skills or task has required no "
+            + "skills assigned";
+    private static final String TASK_HAS_NO_SKILL = "Task does not have any required skills";
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
@@ -58,9 +58,9 @@ public class MatchTaskCommand extends Command {
 
     /**
      * updates the members correctly from the hashmap
-     * */
+     */
     private void getMemberWithSkill(Member member, ArrayList<String> reqSkills,
-                                      HashMap<String, Integer> matchedMembers) {
+                                    HashMap<String, Integer> matchedMembers) {
         for (String reqSkill : reqSkills) {
             if (member.hasSkill(reqSkill)) {
                 if (matchedMembers.containsKey(member.getName())) {
@@ -76,14 +76,15 @@ public class MatchTaskCommand extends Command {
 
     /**
      * Does bubble sorting on the matchedTask to find most matched member
-     * */
+     */
     private ArrayList<String> sortMatchedMembers(HashMap<String, Integer> matchedMembers) {
         boolean swapped = true;
         ArrayList<String> sortedMatchedMembers = new ArrayList<>(matchedMembers.keySet());
         while (swapped) {
             swapped = false;
             for (int i = 0; i < sortedMatchedMembers.size() - 1; i += 1) {
-                if (matchedMembers.get(sortedMatchedMembers.get(i)) < matchedMembers.get(sortedMatchedMembers.get(i + 1))) {
+                if (matchedMembers.get(sortedMatchedMembers.get(i))
+                        < matchedMembers.get(sortedMatchedMembers.get(i + 1))) {
                     Collections.swap(sortedMatchedMembers, i, i + 1);
                     swapped = true;
                 }
