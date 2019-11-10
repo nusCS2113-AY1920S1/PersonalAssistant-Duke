@@ -1,5 +1,7 @@
 package Tasks;
 
+import Commons.DukeConstants;
+
 /**
  * Represents a task called deadline.
  */
@@ -21,12 +23,12 @@ public class Deadline extends Assignment {
 
     @Override
     public String toString() {
-        return super.getModCode() + " " + "[D]" + super.toString() + "(by: " + getDateTime() + ")";
+        return super.getModCode() + " " + getType() + super.toString() + "(by: " + getDateTime() + ")";
     }
 
     @Override
     public String getType() {
-        return "[D]";
+        return DukeConstants.DEADLINE_INDICATOR;
     }
 
     @Override

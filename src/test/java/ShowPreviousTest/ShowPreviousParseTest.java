@@ -90,7 +90,7 @@ public class ShowPreviousParseTest {
     }
 
     @Test
-    public void showPreviousParss_userInputWithValidCommandType() {
+    public void showPreviousParse_userInputWithValidCommandType() {
         String expected = "No error";
         Command command = null;
         String actual = "";
