@@ -4,6 +4,7 @@ breakfast
 end
 lunch
 dinner
+edit
 exit
 update
 date
