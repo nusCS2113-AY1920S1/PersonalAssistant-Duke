@@ -200,10 +200,10 @@ public class SetExceptions {
      */
     private static void checkValidGenre(String inputGenre) throws InvalidParameterException {
         String[] genres = {
-            "Action", "Adventure", "Animation", "Comedy", "Crime",
-            "Documentary", "Drama", "Family", "Fantasy", "History",
-            "Horror", "Music", "Mystery", "Romance", "Science Fiction",
-            "TV Movie", "Thriller", "War", "Western"
+                "Action", "Adventure", "Animation", "Comedy", "Crime",
+                "Documentary", "Drama", "Family", "Fantasy", "History",
+                "Horror", "Music", "Mystery", "Romance", "Science Fiction",
+                "TV Movie", "Thriller", "War", "Western"
         };
         boolean flag = true;
         for (String log : genres) {
@@ -238,7 +238,7 @@ public class SetExceptions {
 //                        + PromptMessages.GENRE_IN_RESTRICTION_END);
 //            }
 //        }
-    //        }
+//    }
 
     /**
      * to check whether a genre id can be set to user's preferences.
@@ -246,8 +246,7 @@ public class SetExceptions {
      *
      * @throws InvalidParameterException when id already belongs to restrictions
      */
-    public static void checkForSetPreference(int id, ArrayList<Integer> restrictions) throws IOException,
-            InvalidParameterException {
+    private static void checkForSetPreference(int id, ArrayList<Integer> restrictions) throws IOException, InvalidParameterException {
         for (int log : restrictions) {
             if (id == log) {
                 throw new InvalidParameterException(PromptMessages.GENRE_IN_RESTRICTION_START + findGenreName(id)
@@ -262,8 +261,7 @@ public class SetExceptions {
      *
      * @throws InvalidParameterException when id already belongs to preferences
      */
-    public static void checkForSetRestriction(int id, ArrayList<Integer> preferences) throws
-            InvalidParameterException, IOException {
+    private static void checkForSetRestriction(int id, ArrayList<Integer> preferences) throws InvalidParameterException, IOException {
         for (int log : preferences) {
             if (id == log) {
                 throw new InvalidParameterException(PromptMessages.GENRE_IN_PREFERENCE_START + findGenreName(id)

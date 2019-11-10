@@ -914,6 +914,7 @@ public class RetrieveRequest implements InfoFetcher {
         boolean haveGenreRestrict = true;
         try {
             for (int i = 0; i < searchProfile.getGenreIdPreference().size(); i += 1) {
+                System.out.println("thiss " + searchProfile.getGenreIdPreference().get(i));
                 genrePref.add(Long.valueOf(searchProfile.getGenreIdPreference().get(i)));
             }
         } catch (NullPointerException e) {
