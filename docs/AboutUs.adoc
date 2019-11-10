@@ -24,7 +24,7 @@ image::dkenobi.png[width="150", align="left"]
 {empty}[https://github.com/Dkenobi[github]] [https://github.com/Dkenobi[portfolio]]
 
 Role: Architecture Lead +
-Responsibilities: Architecture of ArchDuke, Documentation, Implementation of Data models
+Responsibilities: Architecture of ArchDuke, Documentation, Implementation of Data models +
 Features Implemented: CRUD reminders, Data Logging, Handling date objects
 
 '''
