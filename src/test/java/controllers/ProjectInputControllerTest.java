@@ -546,27 +546,6 @@ class ProjectInputControllerTest {
         assertArrayEquals(expectedOutput, actualOutput);
     }
 
-    //@@author sinteary
-    @Test
-    void testProjectViewAssignments_emptyProject_executionSuccess() {
-        /**
-         * Refer to AssignmentViewHelperTest for other tests
-         */
-        Project project = new Project("New project");
-
-        //no members
-        simulatedUserInput = "view assignments -m all";
-        actualOutputArray = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("No members in project yet.", output[0]);
-        //no tasks
-        simulatedUserInput = "view assignments -t all";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("No tasks in project yet.", output[0]);
-        simulatedUserInput = "view assignments -a 1";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("Could not understand your command! Please use:", output[0]);
-    }
-    //@@author
 
     @Test
     void assignRole_correctInputs() {

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static util.constant.ConstantHelper.VIEW_ASSIGNMENTS_INSUFFICIENT_PARAMS_MESSAGE;
 import static util.constant.ConstantHelper.VIEW_ASSIGNMENTS_INVALID_FLAG_MESSAGE;
+import static util.constant.ConstantHelper.VIEW_ASSIGNMENTS_NO_MEMBERS_MESSAGE;
+import static util.constant.ConstantHelper.VIEW_ASSIGNMENTS_NO_TASKS_MESSAGE;
 
 import java.util.ArrayList;
 import models.member.Member;
@@ -131,4 +133,23 @@ public class AssignmentViewHelperTest {
         expectedOutput = VIEW_ASSIGNMENTS_INSUFFICIENT_PARAMS_MESSAGE;
     }
 
+    @Test
+    void testProjectViewAssignments_emptyProject_executionSuccess() {
+        /**
+         * Refer to AssignmentViewHelperTest for other tests regarding view assignments.
+         */
+        Project project = new Project("New project");
+        AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
+
+        //no members
+        simulatedUserInput = "view assignments -m all";
+        expectedOutput = VIEW_ASSIGNMENTS_NO_MEMBERS_MESSAGE;
+        actualOutput = assignmentViewHelper.viewAssignments(simulatedUserInput, project);
+        assertArrayEquals(expectedOutput, actualOutput);
+        //no tasks
+        simulatedUserInput = "view assignments -t all";
+        expectedOutput = VIEW_ASSIGNMENTS_NO_TASKS_MESSAGE;
+        actualOutput = assignmentViewHelper.viewAssignments(simulatedUserInput, project);
+        assertEquals(expectedOutput, actualOutput);
+    }
 }
