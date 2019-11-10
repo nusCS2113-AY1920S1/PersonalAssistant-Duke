@@ -25,7 +25,7 @@ public class NotePageStorage {
      * Write data to the goal file.
      * @throws IOException if the file cannot be written to
      */
-    public static void writeToGoalFile() throws IOException {
+    public static void writeToGoalFile() {
         LogCenter.setUpLogger(logger);
         try {
             FileWriter file = new FileWriter(FILE_GOAL);
@@ -41,11 +41,20 @@ public class NotePageStorage {
      * Reads data from the goal file.
      * @throws IOException if the file cannot be read
      */
-    public static void readFromGoalFile() throws IOException {
+    public static void readFromGoalFile() {
         File f = new File(FILE_GOAL);
-        Scanner txtFile = new Scanner(f);
-        if (txtFile.hasNextLine()) {
-            GeneralNotePage.goal = txtFile.nextLine();
+        try {
+            Scanner txtFile = new Scanner(f);
+            if (txtFile.hasNextLine()) {
+                GeneralNotePage.goal = txtFile.nextLine();
+            }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Can't read from goal file. Creating a new one...", e);
+            try {
+                f.createNewFile();
+            } catch (IOException a) {
+                logger.log(Level.SEVERE, "Can't create a new goal file.");
+            }
         }
     }
 
