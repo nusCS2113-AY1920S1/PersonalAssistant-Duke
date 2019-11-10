@@ -9,18 +9,26 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class ReplaceCommand extends Command {
-	private TaskList taskList;
+	private ArrayList<Task> taskList;
+	private Optional<String> filter;
 
-	public ReplaceCommand(TaskList tasks) {
-		this.taskList = tasks;
+	public ReplaceCommand(ArrayList<Task> tasks, Optional<String> filter) {
+		this.taskList = new ArrayList<>(tasks);
+		this.filter = filter;
 	}
 
 	@Override
 	public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ParseException, DukeException {
 		tasks.replace(taskList);
+		if (filter.isPresent()) {
+			ui.showLine(filter.get() + " clear command has been undone!");
+		} else {
+			ui.showLine("Clear command has been undone!");
+		}
 		storage.save(tasks);
 	}
 
