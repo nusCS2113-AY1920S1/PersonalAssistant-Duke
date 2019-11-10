@@ -6,7 +6,6 @@ import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
 import payment.Payments;
-import payment.Status;
 import project.Fund;
 import project.Project;
 import project.ProjectManager;
@@ -30,7 +29,7 @@ public class Process {
     private SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     private CommandFormat commandformat = new CommandFormat();
     ProjectManager projectManager = new ProjectManager();
-    private payment.Status Status;
+    private payment.Status status;
 
     Process() throws AlphaNUSException {
     }
@@ -179,17 +178,19 @@ public class Process {
             String[] split = input.split(" ", 2);
             split = cleanStrStr(split);
             if (split.length != 2) {
-                ui.exceptionMessage("\t" + "Incorrect input format\n" +
-                        "\t" + "Correct Format: " + commandformat.gotoProjectFormat());
+                ui.exceptionMessage("\t" + "Incorrect input format\n" + "\t" 
+                    + "Correct Format: " + commandformat.gotoProjectFormat());
                 return;
             } //TODO refactor
 
             int projectindex = Integer.parseInt(split[1]) - 1;
-            //if (projectindex.isEmpty()) {
-                //System.out.println("\t" + "Project index cannot be empty!");
-                //System.out.println("\t" + "Correct Format: goto project pr/PROJECT_NAME");
-                //return;
-            //}
+            /* 
+            if (projectindex.isEmpty()) {
+                System.out.println("\t" + "Project index cannot be empty!");
+                System.out.println("\t" + "Correct Format: goto project pr/PROJECT_NAME");
+                return;
+            } 
+            */
             if (projectManager.projectmap.isEmpty()) { //TODO refactor
                 ui.printNoProjectMessage();
                 return;
@@ -201,11 +202,11 @@ public class Process {
             String currentprojectname = projectManager.gotoProject(projectindex);
             ui.printGoToProject(currentprojectname);
         } catch (NumberFormatException e) {
-            ui.exceptionMessage("\t" + "Please make sure that the index is an Integer\n" +
-                    "\t" + "Correct Format: " + commandformat.gotoProjectFormat());
+            ui.exceptionMessage("\t" + "Please make sure that the index is an Integer\n" + "\t" 
+                + "Correct Format: " + commandformat.gotoProjectFormat());
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("\t" + "No existing project with that index\n" +
-                    "\t" + "Correct Format: " + commandformat.gotoProjectFormat());
+            ui.exceptionMessage("\t" + "No existing project with that index\n" + "\t" 
+                + "Correct Format: " + commandformat.gotoProjectFormat());
         }
     }
 
@@ -676,9 +677,9 @@ public class Process {
             split = cleanStrStr(split);
             payeename = split[1];
             String itemname = split[2];
-            Payments deleted = PaymentManager.deletePayments(payeename, itemname, managermap, currentProjectName);
+            Payments deleted = PaymentManager.deletePayments(payeename, itemname, managermap);
             projectManager.projectmap.get(payeename).addBudget(deleted.cost);
-            ui.printDeletePaymentMessage(deleted, managermap.get(payeename).payments.size(), currentProjectName);
+            ui.printDeletePaymentMessage(deleted, managermap.get(payeename).payments.size());
             BeforeAfterCommand.afterCommand(storage, projectManager);
         }
         catch (ArrayIndexOutOfBoundsException | AlphaNUSException e) {
@@ -767,10 +768,12 @@ public class Process {
     /**
      * Processes the delete payee command, saves a new payee inside managermap.
      * INPUT FORMAT: delete payee p/payee
+     * 
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
+     * @throws AlphaNUSException
      */
-    public void deletePayee(String input, Ui ui, Storage storage) {
+    public void deletePayee(String input, Ui ui, Storage storage) throws AlphaNUSException {
         String payeename = new String();
         try {
             BeforeAfterCommand.beforedoCommand(storage, projectManager);
@@ -780,23 +783,21 @@ public class Process {
             String[] splitpayments = splitspace[1].split("p/");
             splitpayments = cleanStrStr(splitpayments);
             payeename = splitpayments[1];
-            if (!managermap.containsKey(payeename)) {
-                throw new IllegalArgumentException();
-            }
             Payee payee = PaymentManager.deletePayee(payeename, managermap);
             int payeesize = managermap.size();
             ui.printdeletePayeeMessage(splitpayments[1], payee, payeesize, currentprojectname);
             BeforeAfterCommand.afterCommand(storage, projectManager);
-
             double totalspending = 0;
-            for(Payments p:payee.payments) {
-                totalspending += p.getCost();
+            for(Payments p : payee.payments) {
+                totalspending += p.cost;
             }
-            projectManager.projectmap.get(currentprojectname).addBudget(totalspending);//the total spending paid by a payee is released as budget
+            projectManager.projectmap.get(currentprojectname).addBudget(totalspending);
         } catch (AlphaNUSException | ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (IllegalArgumentException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
+            Set<String> dict = storage.readFromDictFile();
+            ui.printSuggestion(dict, input, payeename);
         }
     }
 
@@ -951,7 +952,7 @@ public class Process {
             HashMap<String, Payee> managermap = project.managermap;
             for (Payee payee : managermap.values()) { // iterate through the payees
                 for (Payments payment : payee.payments) { // iterate through the payments
-                    if (payment.getStatus() == Status.APPROVED) {
+                    if (payment.status == status.APPROVED) {
                         approved.add(payment);
                     } else {
                         tobesorted.add(payment);

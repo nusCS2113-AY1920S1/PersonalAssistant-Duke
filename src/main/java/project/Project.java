@@ -38,7 +38,7 @@ public class Project {
     }
 
     /**
-     * This function deccribes how the program works when a payment is made to a project
+     * This function deccribes how the program works when a payment is made to a project.
      * @param amount the amount of money for this payment
      */
     public void addPayment(Double amount) {
@@ -47,6 +47,7 @@ public class Project {
     }
 
     /**
+     * TODO.
      * @return total budget assigned to the project
      */
     public double getBudget() {
@@ -54,6 +55,7 @@ public class Project {
     }
 
     /**
+     * TODO.
      * @return budget spent.
      */
     public double getSpending() {
@@ -61,6 +63,7 @@ public class Project {
     }
 
     /**
+     * TODO.
      * @return budget left.
      */
     public double getRemaining() {

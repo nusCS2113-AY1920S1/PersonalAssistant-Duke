@@ -159,7 +159,7 @@ public class Parser {
             } else if (instr.isHelp(input)) {
                 ui.printHelpMessage();
             } else if (instr.isReminder(input)) {
-                process.reminder( ui, storage);
+                process.reminder(ui, storage);
                 process.commandHistory(input, ui, storage);
             } else {
                 throw new AlphaNUSException("\t" + "OOPS!!! I'm sorry, but I don't know what that means :-(");

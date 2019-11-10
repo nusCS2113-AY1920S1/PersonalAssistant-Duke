@@ -216,6 +216,15 @@ public class Ui {
 
     //@@author karansarat
     /**
+     * Prints a message with the details of a payee that the user requested for.
+     * @param payee the payee object the user queried for.
+     */
+    public void printFoundMessage(Payee payee) {
+        System.out.println("\tHere are the details you requested!");
+        payee.printPayee();
+    }
+
+    /**
      * Prints the list of payments of a payee.
      * 
      * @param paymentList paymentList of the payee.
@@ -227,11 +236,6 @@ public class Ui {
             System.out.println("Payment " + ++i + ":");
             payments.printPayment();
         }
-    }
-
-    public void printFoundMessage(Payee payee) {
-        System.out.println("\tHere are the details you requested!");
-        payee.printPayee();
     }
 
     /**
@@ -257,7 +261,6 @@ public class Ui {
 
     /**
      * Prints the list of payees of a project.
-     * @param prName the name of the project
      * @param managerMap a HashMap of the payees in a project.
      */
     public void printPayeeList(HashMap<String, Payee> managerMap) {
@@ -277,11 +280,11 @@ public class Ui {
      * @param size    the number of payments in the record for this Payee after
      *                deletion
      */
-    public void printDeletePaymentMessage(Payments payment, int size, String currentprojectnameName) {
+    public void printDeletePaymentMessage(Payments payment, int size) {
         System.out.print(line + "     Noted. I've removed this payment: \n");
         payment.printPayment();
         System.out.print("\t" + payment.payee + " now has " + size 
-            + " payments in project " + currentprojectnameName + ".\n");
+            + " payments in project " + payment.project + ".\n");
         System.out.print(line);
     }
 
@@ -377,6 +380,9 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * TODO.
+     */
     public void printInsufficientBudget(ProjectManager projectManager) {
         String currProjectName = projectManager.currentprojectname;
         exceptionMessage("     ☹ OOPS!!! There is not enough budget left.\n"
@@ -450,6 +456,13 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * Takes a user input and substring of input.
+     * Prints a message to suggest a valid form of input. 
+     * @param dict A Set of words that will be used
+     * @param input A string representing the user's input
+     * @param word A substring of input that is to be replaced by a guess
+     */
     public void printSuggestion(Set<String> dict, String input, String word) throws AlphaNUSException {
         Suggest suggest = new Suggest();
         String suggestion = suggest.guess(dict, word);
@@ -539,11 +552,14 @@ public class Ui {
         System.out.println("Got it! I have redone the previous command.");
     }
 
-    public void printReminderMessage(ArrayList<Payments> paymentlist){
+    /**
+     * TODO.
+     */
+    public void printReminderMessage(ArrayList<Payments> paymentlist) {
         System.out.print(line);
-        System.out.println("\tYour reminder is as follow:\n");
-        for(Payments p:paymentlist){
-            System.out.println("\t" + p.getProject());
+        System.out.println("\tYour reminder is as follows:\n");
+        for (Payments p : paymentlist) {
+            System.out.println("\t" + p.project);
             p.printPayment();
         }
         System.out.print(line);

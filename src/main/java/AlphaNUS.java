@@ -38,7 +38,7 @@ public class AlphaNUS {
     /**
      * Method to run the AlphaNUS instance and take in the inputs of the user.
      */
-    public void run(){
+    public void run() {
         ui.startMessage();
 
         boolean isExit = false;
