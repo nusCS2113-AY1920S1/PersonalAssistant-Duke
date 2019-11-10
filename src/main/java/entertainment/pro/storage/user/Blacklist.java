@@ -74,9 +74,6 @@ public class Blacklist {
      */
     private static void initialiseBlackListMovieID(ArrayList<MovieModel> movies) {
         for (MovieModel m : movies) {
-
-
-//            System.out.print(m.getSummary());
             blackListMovies.add(m);
         }
     }
@@ -111,7 +108,7 @@ public class Blacklist {
                 throw new DuplicateEntryException("blacklist");
             }
         }
-        blackListMovies.add(new MovieModel(mo.getId() , mo.getTitle().toLowerCase()));
+        blackListMovies.add(new MovieModel(mo.getId(), mo.getTitle().toLowerCase()));
         saveBlackList();
     }
 
@@ -340,12 +337,12 @@ public class Blacklist {
      * Filters search results to exclude blacklisted items.
      * @return filtered search results.
      */
-    public static ArrayList<MovieInfoObject> filter(ArrayList<MovieInfoObject> mMovies) {
-        mMovies = filterByKeyword(mMovies);
-        mMovies = filterById(mMovies);
-        mMovies = filterByTitle(mMovies);
+    public static ArrayList<MovieInfoObject> filter(ArrayList<MovieInfoObject> miMovies) {
+        miMovies = filterByKeyword(miMovies);
+        miMovies = filterById(miMovies);
+        miMovies = filterByTitle(miMovies);
 
-        return mMovies;
+        return miMovies;
     }
 
     /**

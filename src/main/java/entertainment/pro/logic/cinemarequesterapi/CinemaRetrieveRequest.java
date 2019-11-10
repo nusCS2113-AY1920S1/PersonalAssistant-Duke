@@ -1,4 +1,4 @@
-package entertainment.pro.logic.cinemaRequesterAPI;
+package entertainment.pro.logic.cinemarequesterapi;
 
 import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
@@ -22,7 +22,8 @@ import java.util.Comparator;
 public class CinemaRetrieveRequest implements CinemaInfoFetcher {
     private RequestListener variableListener;
     private ArrayList<CinemaInfoObject> parsedCinemas;
-    private static final String MAIN_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=cinemas+near+";
+    private static final String MAIN_URL = "https://maps.googleapis.com/maps/api/place"
+            + "/textsearch/json?query=cinemas+near+";
     private static final String API_KEY = "AIzaSyBocJpxC7ChqlrS_mq6L-GpgudmXCzcXig";
 
     /**

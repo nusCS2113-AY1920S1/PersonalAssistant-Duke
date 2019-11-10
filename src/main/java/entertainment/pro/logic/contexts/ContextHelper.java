@@ -239,9 +239,9 @@ public class ContextHelper {
     /**
      * Updates the command input field based on the hints.
      *
-     * @param controller
-     * @param allPossibilities
-     * @param incompleteCommand
+     * @param controller MovieUI controller
+     * @param allPossibilities  All possible suggestions for incomplete command
+     * @param incompleteCommand The incomplete part of the command
      */
     private static void updateCommandInputFieldWithHints(Controller controller,
                                                          ArrayList<String> allPossibilities,

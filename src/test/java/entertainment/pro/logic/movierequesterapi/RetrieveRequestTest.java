@@ -1,4 +1,4 @@
-package entertainment.pro.logic.movieRequesterAPI;
+package entertainment.pro.logic.movierequesterapi;
 
 import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
@@ -93,7 +93,7 @@ public class RetrieveRequestTest {
         JSONArray searchData2 = getValidData(data2);
         String cert1 = "Unavailable";
         try {
-            cert1 = RetrieveRequest.getTVCertFromJSON(searchData1);
+            cert1 = RetrieveRequest.getTvCertFromJson(searchData1);
         } catch (NullPointerException e) {
             assertEquals("Unavailable", cert1);
             return;
@@ -102,7 +102,7 @@ public class RetrieveRequestTest {
         String expected1 = "Suitable for 12 years & above";
         String cert2 = null;
         try {
-            cert2 = RetrieveRequest.getMovieCertFromJSON(searchData2);
+            cert2 = RetrieveRequest.getMovieCertFromJson(searchData2);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -117,7 +117,7 @@ public class RetrieveRequestTest {
         JSONArray searchData1 = getValidData(data);
         String cert1 = null;
         try {
-            cert1 = RetrieveRequest.getMovieCertFromJSON(searchData1);
+            cert1 = RetrieveRequest.getMovieCertFromJson(searchData1);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -133,7 +133,7 @@ public class RetrieveRequestTest {
         JSONArray searchData2 = getValidData(data2);
         String cert1 = "Unavailable";
         try {
-            cert1 = RetrieveRequest.getMovieCertFromJSON(searchData1);
+            cert1 = RetrieveRequest.getMovieCertFromJson(searchData1);
         } catch (NullPointerException | ParseException e) {
             assertEquals("Unavailable", cert1);
             return;
@@ -142,7 +142,7 @@ public class RetrieveRequestTest {
         String expected1 = "\"R\"";
         String cert2 = null;
         try {
-            cert2 = RetrieveRequest.getMovieCertFromJSON(searchData2);
+            cert2 = RetrieveRequest.getMovieCertFromJson(searchData2);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -157,7 +157,7 @@ public class RetrieveRequestTest {
         JSONArray searchData1 = getValidData(data);
         String cert1 = null;
         try {
-            cert1 = RetrieveRequest.getMovieCertFromJSON(searchData1);
+            cert1 = RetrieveRequest.getMovieCertFromJson(searchData1);
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -6,16 +6,16 @@ import entertainment.pro.commons.enums.COMMANDKEYS;
  * Template command pair class containing the root command and subroot command.
  */
 public class CommandPair {
-    private COMMANDKEYS RootCommand;
-    private COMMANDKEYS SubRootCommand;
+    private COMMANDKEYS rootCommand;
+    private COMMANDKEYS subRootCommand;
     private boolean validCommand;
 
     /**
      * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
      */
     public CommandPair(COMMANDKEYS rootCommand, COMMANDKEYS subRootCommand) {
-        RootCommand = rootCommand;
-        SubRootCommand = subRootCommand;
+        this.rootCommand = rootCommand;
+        this.subRootCommand = subRootCommand;
         validCommand = true;
     }
 
@@ -23,8 +23,8 @@ public class CommandPair {
      * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
      */
     public CommandPair(COMMANDKEYS rootCommand, COMMANDKEYS subRootCommand, boolean isValid) {
-        RootCommand = rootCommand;
-        SubRootCommand = subRootCommand;
+        this.rootCommand = rootCommand;
+        this.subRootCommand = subRootCommand;
         validCommand = isValid;
     }
 
@@ -33,7 +33,7 @@ public class CommandPair {
      * @return Rootcommand
      */
     public COMMANDKEYS getRootCommand() {
-        return RootCommand;
+        return rootCommand;
     }
 
     /**
@@ -41,7 +41,7 @@ public class CommandPair {
      * @return Rootcommand
      */
     public String getRootCommandStr() {
-        return RootCommand.toString().toLowerCase();
+        return rootCommand.toString().toLowerCase();
     }
 
     /**
@@ -49,7 +49,7 @@ public class CommandPair {
      * @return subRootcommand
      */
     public String getSubRootCommandStr() {
-        return SubRootCommand.toString().toLowerCase();
+        return subRootCommand.toString().toLowerCase();
     }
 
     /**
@@ -57,7 +57,7 @@ public class CommandPair {
      * @return Subroot command
      **/
     public COMMANDKEYS getSubRootCommand() {
-        return SubRootCommand;
+        return subRootCommand;
     }
 
     /**

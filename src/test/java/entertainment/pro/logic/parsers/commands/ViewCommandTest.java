@@ -3,9 +3,8 @@ package entertainment.pro.logic.parsers.commands;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.MissingInfoException;
-import entertainment.pro.logic.movieRequesterAPI.RequestListener;
-import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
-import entertainment.pro.logic.movieRequesterAPI.RetrieveRequestTest;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequestTest;
 import entertainment.pro.logic.parsers.CommandParser;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.SearchProfile;
@@ -19,8 +18,6 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static entertainment.pro.ui.MovieHandler.mMovieRequest;
-import static entertainment.pro.ui.MovieHandler.mMovies;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ViewCommandTest extends MovieHandler{
@@ -62,7 +59,7 @@ public class ViewCommandTest extends MovieHandler{
         movieHandler.setSearchProfile(searchProfile);
         for (int i = 0; i < jsonArray.size(); i += 1) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-            MovieInfoObject movieInfoObject = RetrieveRequest.parseMovieJSON(jsonObject);
+            MovieInfoObject movieInfoObject = RetrieveRequest.parseMovieJson(jsonObject);
             movieHandler.mMovies.add(movieInfoObject);
         }
         assertThrows(InvalidFormatCommandException.class, () -> {
