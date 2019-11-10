@@ -1,6 +1,6 @@
 package dolla.command.modify;
 
-import dolla.DollaDataStubs.DollaDataStub2;
+import dolla.DollaDataStubs.DollaDataEntryStub1;
 import dolla.ModeStringList;
 import dolla.model.DollaData;
 import dolla.model.Entry;
@@ -15,7 +15,7 @@ public class FullModifyEntryCommandTest implements ModeStringList {
 
     @Test
     public void execute() {
-        DollaData dollaData = new DollaDataStub2();
+        DollaData dollaData = new DollaDataEntryStub1();
 
         String newType = "expense";
         double newAmount = 999;
