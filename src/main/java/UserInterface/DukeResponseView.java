@@ -2,6 +2,9 @@ package UserInterface;
 
 import javafx.scene.text.Text;
 
+/**
+ * Class for response table to store and display.
+ */
 public class DukeResponseView {
     private final String index;
     private final Text response;

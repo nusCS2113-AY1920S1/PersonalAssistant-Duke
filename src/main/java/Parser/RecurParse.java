@@ -38,7 +38,7 @@ public class RecurParse extends Parse {
             String activity = fullCommand.trim().substring(LENGTH_OF_RECUR);
             String[] fullCommandSplit = activity.split(DukeConstants.RECUR_DATE_DESCRIPTION_SPLIT_KEYWORD);
             String modCodeAndDescription = fullCommandSplit[0].trim();
-            modCodeAndDescriptionSplit = modCodeAndDescription.trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+            modCodeAndDescriptionSplit = modCodeAndDescription.trim().split(DukeConstants.BLANK_SPACE);
             String dateAndTime = fullCommandSplit[1].trim();
 
             if (modCodeAndDescription.contains(DukeConstants.RECUR_BIWEEKLY_KEYWORD)) {
@@ -56,7 +56,7 @@ public class RecurParse extends Parse {
             }
 
             if (!super.isValidModCodeAndDescription(modCodeAndDescription)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_EMPTY_MODCODE_DESCRIPTION_ERROR);
-            String[] checkSplit = modCodeAndDescription.trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+            String[] checkSplit = modCodeAndDescription.trim().split(DukeConstants.BLANK_SPACE);
             String modCode = checkSplit[0];
             if (!modCodeChecker.isModCode(modCode)) {
                 throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.INVALID_MODCODE_ERROR);

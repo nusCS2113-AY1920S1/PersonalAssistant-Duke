@@ -12,6 +12,9 @@ public abstract class Assignment {
     private boolean isReminder;
     private String remindTime;
     private String modCode;
+    private static final String FRONT_ICON_SEPARATOR = "[";
+    private static final String BACK_ICON_SEPARATOR = "]";
+    private static final String DEADLINE_KEYWORD = " by ";
 
     /**
      * Creates Task object.
@@ -21,8 +24,8 @@ public abstract class Assignment {
         this.description = description;
         this.isDone = false;
         this.isReminder = false;
-        this.remindTime = "";
-        this.modCode = "";
+        this.remindTime = DukeConstants.NO_FIELD;
+        this.modCode = DukeConstants.NO_FIELD;
     }
 
     public abstract String getType();
@@ -45,14 +48,25 @@ public abstract class Assignment {
         return (isDone ? DukeConstants.DONE_INDICATOR : DukeConstants.NOT_DONE_INDICATOR);
     }
 
+    /**
+     * Checks whether the task is completed.
+     * @return true if task is completed
+     */
     public boolean getStatus() {
         return isDone;
     }
 
+    /**
+     * Check whether a reminder is set.
+     * @return This returns HR or NR depending on whether reminder is set
+     */
     private String getReminderStatus() {
         return (isReminder ? DukeConstants.HAS_REMINDER_INDICATOR : DukeConstants.NO_REMINDER_INDICATOR);
     }
 
+    /**
+     * Set a task to be completed.
+     */
     public void setDone(boolean done) {
         isDone = done;
     }
@@ -61,33 +75,43 @@ public abstract class Assignment {
      * This method gets the description of the assignment.
      */
     public String getDescription() {
-        String[] split = description.split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
-        String taskDescription = "";
+        String[] split = description.split(DukeConstants.BLANK_SPACE);
+        String taskDescription = DukeConstants.NO_FIELD;
         for (int i = 0; i < split.length; i++) {
             if (!split[i].toUpperCase().equals(getModCode())) {
-                taskDescription += split[i] + " ";
+                taskDescription += split[i] + DukeConstants.BLANK_SPACE;
             }
         }
         return taskDescription;
     }
 
+    /**
+     * Convert reminder time to a string.
+     */
     public String remindTimeToString() {
-        return DukeConstants.REMINDER_TIME_START_KEYWORD + remindTime + DukeConstants.REMINDER_TIME_END_KEYWORD + " ";
+        return DukeConstants.REMINDER_TIME_START_KEYWORD + remindTime + DukeConstants.REMINDER_TIME_END_KEYWORD + DukeConstants.BLANK_SPACE;
     }
 
+    /**
+     * Convert reminder task to string for display.
+     * @return string of reminder task
+     */
     public String toString() {
-        return "[" + getStatusIcon() + "]" + getReminderStatus()  + remindTimeToString() + getDescription();
+        return FRONT_ICON_SEPARATOR + getStatusIcon() + BACK_ICON_SEPARATOR + getReminderStatus()  + remindTimeToString() + getDescription();
     }
 
+    /**
+     * Display string of task.
+     */
     public String displayString() {
-        return "[" + getType() + "]" + "[" + getStatusIcon() + "]" + this.description + " by " + getDateTime();
+        return FRONT_ICON_SEPARATOR + getType() + BACK_ICON_SEPARATOR + FRONT_ICON_SEPARATOR + getStatusIcon() + BACK_ICON_SEPARATOR + this.description + DEADLINE_KEYWORD + getDateTime();
     }
 
     /**
      * This method gets the module code of the assignment.
      */
     public String getModCode() {
-        String[] split = description.trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+        String[] split = description.trim().split(DukeConstants.BLANK_SPACE);
         String moduleCode = split[0].toUpperCase();
         return moduleCode;
     }
@@ -121,6 +145,9 @@ public abstract class Assignment {
         return this.isReminder;
     }
 
+    /**
+     * Gets the string of modCode and description.
+     */
     public String toShow() {
         return modCode + "\n" + description;
     }
