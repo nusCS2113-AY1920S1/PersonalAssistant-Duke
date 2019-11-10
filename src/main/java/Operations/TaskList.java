@@ -513,11 +513,11 @@ public class TaskList {
      * @throws RoomShareException when the task selected is a Leave
      */
     public void reopen(int index, Date date) throws RoomShareException {
-        tasks.get(index).setDate(date);
-        CheckAnomaly.checkDuplicate(tasks.get(index));
+        TaskList.get(index).setDate(date);
+        CheckAnomaly.checkDuplicate(TaskList.get(index));
         if (tasks.get(index) instanceof Meeting) {
-            CheckAnomaly.checkTimeClash(tasks.get(index));
+            CheckAnomaly.checkTimeClash(TaskList.get(index));
         }
-        tasks.get(index).setDone(false);
+        TaskList.get(index).setDone(false);
     }
 }

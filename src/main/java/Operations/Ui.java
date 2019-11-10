@@ -184,7 +184,7 @@ public class Ui {
      * tells the user that RoomShare is listing the tasks.
      */
     void showList() {
-        System.out.println("Listing tasks in your task list...");
+        System.out.println("Listing tasks in the common task list...");
     }
 
     /**
