@@ -59,8 +59,15 @@ public class DateParser {
      */
     protected void isValidDateTime(String dateDesc) throws Exception {
         String[] dateArray = dateDesc.split("/");
+
+        if (dateArray.length != Numbers.THREE.value) {
+            throw new DukeException("Invalid date format");
+        }
         String[] timeArray = dateArray[Numbers.TWO.value].split(" ");
 
+        if (timeArray.length != Numbers.TWO.value) {
+            throw new DukeException("Invalid date format");
+        }
 
         if (dateDesc.contains("-")) {
             throw new DukeException("Invalid date format");

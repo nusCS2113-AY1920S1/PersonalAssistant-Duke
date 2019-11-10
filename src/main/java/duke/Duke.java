@@ -8,7 +8,6 @@ import duke.command.AddCommand;
 import duke.command.DeleteCommand;
 import duke.command.FindTasksByPriorityCommand;
 import duke.enums.ErrorMessages;
-import duke.enums.Numbers;
 import duke.parser.Parser;
 import duke.storage.BudgetStorage;
 import duke.storage.ContactStorage;
@@ -323,7 +322,6 @@ public class Duke {
             storage.write(items);
             logger.info("Save success.");
             new DukeLogger().stopLogger(logger);
-            System.exit(Numbers.ZERO.value);
         } catch (IOException | InterruptedException i) {
             logger.severe("Error saving storage files upon exiting.");
         }
