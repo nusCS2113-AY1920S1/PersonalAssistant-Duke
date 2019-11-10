@@ -38,6 +38,7 @@ public class ParseAddBond extends ParseBond {
             String key = bondIterator.next();
             String value = bondParameters.get(key);
             if (!NUM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when adding bond");
                 throw new ParserException(key + " cannot be empty when adding bond");
             }
             if (NAME_PARAMETER.equals(key)) {
@@ -73,6 +74,7 @@ public class ParseAddBond extends ParseBond {
                 Double.parseDouble(bondParameters.get(RATE_PARAMETER)),
                 this.date,
                 Integer.parseInt(bondParameters.get(YEAR_PARAMETER)), this.type);
+        logger.info("Successful creation of AddBondCommand object");
         return newAddBondCommand;
     }
 }

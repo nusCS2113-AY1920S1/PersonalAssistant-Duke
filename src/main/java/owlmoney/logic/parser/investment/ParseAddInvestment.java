@@ -36,6 +36,7 @@ public class ParseAddInvestment extends ParseInvestment {
             String key = investmentIterator.next();
             String value = investmentParameters.get(key);
             if (!NEW_NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when adding investment account");
                 throw new ParserException(key + " cannot be empty when adding investment account");
             }
             if (NAME_PARAMETER.equals(key)) {
@@ -56,6 +57,7 @@ public class ParseAddInvestment extends ParseInvestment {
         AddInvestmentCommand newAddInvestmentCommand =
                 new AddInvestmentCommand(investmentParameters.get(NAME_PARAMETER),
                 Double.parseDouble(investmentParameters.get(AMOUNT_PARAMETER)));
+        logger.info("Successful creation of AddInvestmentCommand object");
         return newAddInvestmentCommand;
     }
 }
