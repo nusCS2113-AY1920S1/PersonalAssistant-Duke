@@ -54,11 +54,6 @@ public class DeleteRoomCommand extends Command {
         }
         deletedRoom = roomList.get(index);
         roomList.remove(index);
-        try {
-            allStorage.getRoomStorage().saveToFile(roomList);
-        } catch (IOException e) {
-            throw new DukeException("OOPS!!! An error occurred while deleting your booking!");
-        }
         ui.addToOutput("This room has been successfully removed and is no longer available:\n"
                 + deletedRoom.toString()
                 + "\nYou now have " + roomList.size() + " rooms in your list.");
