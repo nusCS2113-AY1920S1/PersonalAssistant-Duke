@@ -662,9 +662,9 @@ Step 1) User enters a command that requires information to be presented in a cle
 Step 2) Assume the command `list` is entered. The user is requesting an overview of all the projects that he is currently doing.
 This would call the method `getAllProjectDetailsForTable()` in `ProjectRepository`.
 
-Step 3) The method `getAllProjectDetailsForTable()` would return an ArrayList containing multiple ArrayLists of String, with each
-ArrayList of String containing all the details of each project which will be stored in one table. The parent ArrayList
-would then contain information to be printed in different tables. In this case, each project will fill one table.
+Step 3) The method `getAllProjectDetailsForTable()` would return an ArrayList containing multiple ArrayLists of String,
+with each ArrayList of String containing all the details of each project which will be stored in one table. The parent
+ArrayList would then contain information to be printed in different tables. In this case, each project will fill one table.
 
 Step 4) The ArrayList of ArrayLists would then be passed into the `consolePrintMultipleTables()` method in the `ViewHelper`
 class, which will create an overall table containing information to all the projects and pack each individual
