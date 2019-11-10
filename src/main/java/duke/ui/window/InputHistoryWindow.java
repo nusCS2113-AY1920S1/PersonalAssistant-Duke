@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 import duke.ui.commons.UiElement;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
@@ -38,24 +39,7 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
             }
         });
 
-        inputTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            switch (event.getCode()) {
-            case UP:
-                event.consume();
-                this.navigateToPreviousInput();
-                break;
-            case DOWN:
-                event.consume();
-                this.navigateToNextInput();
-                break;
-            case ENTER:
-                event.consume();
-                this.handleAction();
-                break;
-            default:
-                break;
-            }
-        });
+        attachListenerToInput();
 
         historyFile = new File("data/history.txt");
         try {
@@ -104,6 +88,42 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
     private void setText(String text) {
         inputTextField.setText(text);
         inputTextField.positionCaret(inputTextField.getText().length());
+    }
+
+    /**
+     * Attaches a listener to the {@code inputTextField}.
+     */
+    private void attachListenerToInput() {
+        inputTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            switch (event.getCode()) {
+            case UP:
+                if (event.isShiftDown()) {
+                    event.consume();
+                    this.navigateToPreviousInput();
+                }
+
+                break;
+            case DOWN:
+                if (event.isShiftDown()) {
+                    event.consume();
+                    this.navigateToNextInput();
+                }
+
+                break;
+            case ENTER:
+                event.consume();
+
+                if (event.isShiftDown()) {
+                    inputTextField.appendText(System.lineSeparator());
+                } else {
+                    this.handleAction();
+                }
+
+                break;
+            default:
+                break;
+            }
+        });
     }
 
     /* @@author aquohn */

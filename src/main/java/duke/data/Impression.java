@@ -392,7 +392,7 @@ public class Impression extends DukeObject {
         } else if (count == 1) {
             return "1 follow-up";
         } else {
-            return count + "follow-ups";
+            return count + " follow-ups";
         }
     }
 
@@ -409,7 +409,7 @@ public class Impression extends DukeObject {
         } else if (count == 1) {
             return "1 critical issue";
         } else {
-            return count + "critical issues";
+            return count + " critical issues";
         }
     }
 

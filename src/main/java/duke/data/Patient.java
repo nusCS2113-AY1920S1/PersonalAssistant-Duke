@@ -420,7 +420,7 @@ public class Patient extends DukeObject {
         } else if (count == 1) {
             return "1 critical issue";
         } else {
-            return count + "critical issues";
+            return count + " critical issues";
         }
     }
 
