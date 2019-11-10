@@ -21,11 +21,11 @@ public class LogoutCommand extends Command {
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
                         StorageManager allStorage)
             throws DukeException {
-        if (userList.getLoginStatus() == false) {
+        if (!userList.getLoginStatus()) {
             throw new DukeException("OOPS!!! You are not currently logged in!");
+        } else {
+            ui.addToOutput("You have successfully logged out from: " + userList.getCurrentUser());
+            userList.logout();
         }
-        userList.logout();
-        ui.addToOutput("You have successfully logged out from: " + userList.getCurrentUser());
-        userList.setCurrentUser(null);
     }
 }

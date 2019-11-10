@@ -2,12 +2,10 @@ package command;
 
 import booking.ApprovedList;
 import booking.BookingList;
-import control.Duke;
 import exception.DukeException;
 import inventory.Inventory;
 import room.RoomList;
 import storage.Constants;
-import storage.Storage;
 import storage.StorageManager;
 import ui.Ui;
 import user.User;
@@ -37,13 +35,11 @@ public class AddUserCommand extends Command {
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
                         StorageManager allStorage)
             throws DukeException, IOException {
-        if (UserList.checkExistence(userList, splitL[1])) {
-            throw new DukeException("Sorry, that user already exists!");
-        } else {
-            User user = new User(splitL[1]);
-            userList.add(user);
+        if (userList.addUser(splitL[1])) {
             allStorage.getUserStorage().saveToFile(userList);
-            ui.addToOutput("You have successfully created an account: " + user.getUsername());
+            ui.addToOutput("You have successfully created an account: " + splitL[1]);
+        } else {
+            throw new DukeException("Sorry, that user already exists!");
         }
     }
 }

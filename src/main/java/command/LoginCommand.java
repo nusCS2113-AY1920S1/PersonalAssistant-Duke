@@ -36,10 +36,7 @@ public class LoginCommand extends Command {
                         StorageManager allStorage)
             throws DukeException {
         if (!userList.getLoginStatus()) {
-            boolean isValid = UserList.checkExistence(userList, splitL[1]);
-            if (isValid) {
-                userList.setCurrentUser(splitL[1]);
-                userList.login();
+            if (userList.login(splitL[1])) {
                 ui.addToOutput("You have successfully logged in as: " + userList.getCurrentUser());
             } else {
                 throw new DukeException("The user does not exist!");

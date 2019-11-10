@@ -25,16 +25,15 @@ public class UserList extends ArrayList<User> {
     }
 
     /**
-     * checkExistence checks if the email supplied exists in the user list or not.
-     * @param userList ArrayList of registered usernames
+     * doesExist checks if the email supplied exists in the user list or not.
      * @param username username input
      * @return boolean value "found" if email ca be already found in system
      */
-    public static boolean checkExistence(UserList userList, String username) {
+    public boolean doesExist(String username) {
         boolean found = false;
 
-        for (User i : userList) {
-            if (i.username.toUpperCase().trim().equals(username.toUpperCase())) {
+        for (User i : this) {
+            if (i.username.equals(username)) {
                 found = true;
                 break;
             }
@@ -42,37 +41,56 @@ public class UserList extends ArrayList<User> {
         return found;
     }
 
+    public boolean addUser(String username) {
+        if (this.doesExist(username)) {
+            return false;
+        } else {
+            User user = new User(username);
+            this.add(user);
+            return true;
+        }
+    }
+
     /**
      * Remove user from userlist.
-     * @param userList list of registered users
      * @param username input username to remove
      */
-    public static void removeUser(UserList userList, String username) {
-        for (int i = 0; i < userList.size(); i++) {
-            if (userList.get(i).username.equals(username)) {
-                userList.remove(i);
+    public void removeUser(String username) {
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).username.equals(username)) {
+                this.remove(i);
                 break;
             }
         }
+    }
+
+    /**
+     *
+     * @param username to login with
+     * @return true if login is successful
+     */
+    public boolean login(String username) {
+        if (this.doesExist(username)) {
+            loginStatus = true;
+            setCurrentUser(username);
+            return true;
+        } else return false;
+    }
+
+    public void logout() {
+        loginStatus = false;
+        setCurrentUser(null);
+    }
+
+    public boolean getLoginStatus() {
+        return loginStatus;
     }
 
     public String getCurrentUser() {
         return currentUser;
     }
 
-    public void logout() {
-        loginStatus = false;
-    }
-
     public void setCurrentUser(String username) {
         currentUser = username;
-    }
-
-    public void login() {
-        loginStatus = true;
-    }
-
-    public boolean getLoginStatus() {
-        return loginStatus;
     }
 }
