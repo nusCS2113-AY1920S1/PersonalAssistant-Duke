@@ -14,12 +14,12 @@ image::lucria.png[width="150", align="left"]
 {empty}[https://github.com/Lucria[github]] [https://github.com/Lucria[portfolio]]
 
 Role: Team Lead +
-Responsibilities: 
-* Documentation
-* Implementation of Data Models
-* Unit Tests
+Responsibilities: +
+- Documentation +
+- Implementation of Data Models +
+- Unit Tests +
 Features Implemented: +
-- Creation/Viewing/Updation/Deletion of projects +
+- Creation/Viewing/Updating/Deletion of projects +
 - Member Features (roles) +
 - Task features (agenda) +
 - Persistent data saving
@@ -36,10 +36,10 @@ Responsibilities: +
 - Documentation +
 - Implementation of Data models +
 Features Implemented: +
-- CRUD of reminders +
+- Creation/Viewing/Updating/Deletion of reminders +
 - Data Logging +
 - Handling date objects +
-- Task features (Creation of task)
+- Creation of tasks
 
 '''
 
@@ -48,8 +48,14 @@ image::iamabhishek98.png[width="150", align="left"]
 {empty}[https://github.com/iamabhishek98[github]] [https://github.com/iamabhishek98[portfolio]]
 
 Role: Release and Tags Manager +
-Responsibilities: Documentation, Releases, Implementation of Domain Logic +
-Features Implemented: CRUD of members, RUD of tasks
+Responsibilities: +
+- Documentation +
+- Releases +
+- Implementation of Domain Logic +
+Features Implemented: +
+- Creation/Viewing/Updating/Deletion of members +
+- Viewing/Updating/Deletion of tasks
+- Assignment features (Credits)
 
 '''
 
@@ -58,8 +64,14 @@ image::seanlimhx.png[width="150", align="left"]
 {empty}[https://github.com/seanlimhx[github]] [https://github.com/seanlimhx[portfolio]]
 
 Role: UI Lead +
-Responsibilities: UI Design, Implementation of UI models, Documentation +
-Features Implemented: Help command, UI printing and formatting, CRUD of task requirements
+Responsibilities: +
+- UI Design +
+- Implementation of UI models +
+- Documentation +
+Features Implemented: +
+- Help command +
+- UI printing and formatting +
+- Creation/Viewing/Updating/Deletion of task requirements
 
 '''
 
@@ -68,7 +80,11 @@ image::sinteary.png[width="150", align="left"]
 {empty}[https://github.com/sinteary[github]] [https://github.com/sinteary[portfolio]]
 
 Role: Tests Lead +
-Responsibilities: Unit Tests, Implementation of Domain Logic, Documentation +
-Features Implemented: Assignment logic of tasks to members
+Responsibilities: +
+- Unit Tests +
+- Implementation of Domain Logic +
+- Documentation +
+Features Implemented: +
+- Assignment logic of tasks to members
 
 '''
