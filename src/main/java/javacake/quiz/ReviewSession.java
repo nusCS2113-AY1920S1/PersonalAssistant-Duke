@@ -1,10 +1,13 @@
 package javacake.quiz;
 
+import javacake.JavaCake;
 import javacake.commands.BackCommand;
 import javacake.exceptions.CakeException;
 import javacake.Logic;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
+
+import java.util.logging.Level;
 
 import static javacake.quiz.QuestionList.MAX_QUESTIONS;
 
@@ -30,6 +33,7 @@ public class ReviewSession implements QuizManager {
      */
     @Override
     public String getQuestion(int index) {
+        JavaCake.logger.log(Level.INFO, "Reviewing question" + index);
         String message = "Type the question number to navigate to that question.\n"
                 + "Type \"back\" to return to table of contents.\n";
         return message + answeredQuestions.getQuestion(index) + "\n\n" + answeredQuestions.getAnswers(index);
@@ -45,12 +49,13 @@ public class ReviewSession implements QuizManager {
     @Override
     public String parseInput(int index, String input) throws CakeException {
         if (input.equals("back")) {
-            // TODO tie BackCommand identifier to MainWindow
+            JavaCake.logger.log(Level.INFO, "User chose to go BACK");
             return "!@#_BACK";
         } else if (isValidInput(input)) {
             int tmp = Integer.parseInt(input) - 1;
             return String.valueOf(tmp); // echo back input with proper indexing for the next getQuestion
         } else {
+            JavaCake.logger.log(Level.WARNING, "user question index out of range: " + input);
             throw new CakeException("That question number is out of range! Try again.\n\n"
                     + getQuestion(index));
         }

@@ -38,8 +38,9 @@ public class GoToCommand extends Command {
      * Processes multiple indexes if specified.
      * @param gotoIndex goto index specified by the user.
      */
-    private void processIndex(String gotoIndex) {
+    private void processIndex(String gotoIndex) throws CakeException {
         if (gotoIndex.matches(NUMERAL)) { //check if input is numeric
+            checkOverflow(gotoIndex);
             indexQueue.add(gotoIndex);
         } else {
             processMultipleIndexes(gotoIndex);
@@ -50,8 +51,11 @@ public class GoToCommand extends Command {
      * Queues the index when multiple indexes are detected.
      * @param gotoIndex Index user wants to view.
      */
-    private void processMultipleIndexes(String gotoIndex) {
+    private void processMultipleIndexes(String gotoIndex) throws CakeException {
         String[] buffer = gotoIndex.split(BY_DOTS);
+        for (String s : buffer) {
+            checkOverflow(s);
+        }
         indexQueue.addAll(Arrays.asList(buffer));
     }
 
@@ -278,4 +282,16 @@ public class GoToCommand extends Command {
         }
     }
 
+    /**
+     * Checks if the index in the goto index contains only numerals.
+     * @param input Goto index by the user.
+     * @throws CakeException If the goto index contains non-integers.
+     */
+    private void checkOverflow(String input) throws CakeException {
+        try {
+            Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new CakeException("Please input valid index!");
+        }
+    }
 }

@@ -55,7 +55,7 @@ public class CrashScreen extends GridPane {
 
         crashFace.setOnMouseClicked(event -> {
             if (event.getClickCount() >= 1) {
-                timeFrame = 14;
+                timeFrame = 15;
                 JavaCake.logger.log(Level.INFO, "Touched waifu");
             }
         });

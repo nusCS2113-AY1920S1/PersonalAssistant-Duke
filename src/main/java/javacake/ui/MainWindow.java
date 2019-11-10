@@ -25,6 +25,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
@@ -91,7 +92,6 @@ public class MainWindow extends GridPane {
         noteScreen.vvalueProperty().bind(noteContainer.heightProperty());
         avatarScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
 
-
     }
 
     /**
@@ -120,6 +120,7 @@ public class MainWindow extends GridPane {
             showListNotesBox();
             showRemindersBox();
             playGuiModeLoop();
+
 
             //Resize contentDialog to fit the current scrollpane
             playResizeLoop();
@@ -150,10 +151,12 @@ public class MainWindow extends GridPane {
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
                 String[] inputDivider = input.split("\\s+");
                 if ("exit".equals(input)) {
+                    //must be "exit" exactly, else wont exe
                     handleExit();
                 } else if (isQuiz) {
                     handleOtherProcesses();
                 } else if ("listnote".equals(input)) {
+                    //must be "listnote" exactly, else wont exe
                     handleListNote();
                 } else if ("deletenote".equals(inputDivider[0])) {
                     handleDeleteNote();
@@ -224,6 +227,7 @@ public class MainWindow extends GridPane {
             //handles "deadline" and "reminder"
             JavaCake.logger.log(Level.INFO, "deadline setting");
         } else if (isColorRelated()) {
+            //must be "change" exactly, else wont exe
             System.out.println("COLOR MODE");
             JavaCake.logger.log(Level.INFO, "colormode setting");
         } else if (isFirstQuiz()) {
@@ -238,23 +242,11 @@ public class MainWindow extends GridPane {
             if (response.contains("!@#_EDIT_NOTE")) {
                 handleEditNote();
             } else {
+                System.out.println("Trash Cmd");
                 handleNormalCommand();
             }
         }
     }
-
-    /*static void setExitToTrue() {
-        isExit = true;
-    }
-
-    static void setResponse(String userResponse) {
-        response = userResponse;
-    }
-
-    static String getInput() {
-        return input;
-    }*/
-
 
     private void handleIsResult() throws CakeException {
         response = quizSession.parseInput(0, input);
@@ -405,6 +397,7 @@ public class MainWindow extends GridPane {
     }
 
     private void handleGuiQuiz() throws CakeException {
+        JavaCake.logger.log(Level.INFO,"Answering question " + index + "\nUser input: \"" + input + "\"");
         quizSession.parseInput(index, input);
         index++;
         if (index < MAX_QUESTIONS) {
@@ -572,6 +565,7 @@ public class MainWindow extends GridPane {
             }
             return true;
         } else if ("reminder".equals(input)) {
+            //must be "reminder" exactly, else wont exe
             showRemindersBox();
             JavaCake.logger.log(Level.INFO, "Reminder setting");
             return true;
@@ -591,7 +585,7 @@ public class MainWindow extends GridPane {
 
     private boolean isFirstQuiz() throws CakeException {
         if (response.contains("!@#_QUIZ")) {
-            //checks for first execution of quizCommand
+            //checks for first execution of quizSession
             isQuiz = true;
             JavaCake.logger.log(Level.INFO, "isFirstQuiz(): " + response);
             response = initQuizSession(response);
@@ -633,24 +627,47 @@ public class MainWindow extends GridPane {
     private void setAvatarDialogLoop() {
         ArrayList<String> listToSay = new ArrayList<>();
         setList(listToSay);
-        if (!isStupidUser) {
-            avatarDialog.getChildren().add(
-                    DialogBox.getTaskDialog(listToSay.get(0)));
-        } else {
-            System.out.println("STUPID USER");
-            avatarDialog.getChildren().add(
-                    DialogBox.getTaskDialog("WHY ARE YOU TRYING TO CRASH MEE?!?!\n"
-                            + "baaAAKAAAAAAAAA"));
-            AvatarScreen.avatarMode = AvatarScreen.AvatarMode.POUT;
-        }
+        avatarDialog.getChildren().add(
+                DialogBox.getTaskDialog(listToSay.get(0)));
         AtomicLong counterTicks = new AtomicLong();
         AtomicBoolean isSet = new AtomicBoolean();
         Random rand = new Random();
+        AtomicInteger bullyCount = new AtomicInteger();
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), ev -> {
-            if (counterTicks.get() > 30 && !isExit && !isResult) {
+            if (isStupidUser) {
+                avatarDialog.getChildren().clear();
+                if (bullyCount.get() == 0) {
+                    JavaCake.logger.log(Level.INFO, "Cake is mad!");
+                    avatarDialog.getChildren().add(
+                            DialogBox.getTaskDialog("WHY ARE YOU TRYING TO CRASH MEE?!?!\n"
+                                    + "baaAAKAAAAAAAAA"));
+                    AvatarScreen.avatarMode = AvatarScreen.AvatarMode.POUT;
+                } else if (bullyCount.get() == 1) {
+                    JavaCake.logger.log(Level.INFO, "Cake is sad!");
+                    avatarDialog.getChildren().add(
+                            DialogBox.getTaskDialog("FBI-kun!!!!\n"
+                                    + "HAaAaaaalPP mmeeeeeeee"));
+                    AvatarScreen.avatarMode = AvatarScreen.AvatarMode.SAD;
+                } else if (bullyCount.get() == 2) {
+                    JavaCake.logger.log(Level.INFO, "Cake is gaogao!");
+                    avatarDialog.getChildren().add(
+                            DialogBox.getTaskDialog("{JavaCake has been officially\n"
+                                    + "                         "
+                                    + "                       broken...}"));
+                    AvatarScreen.avatarMode = AvatarScreen.AvatarMode.EXTHAPPY;
+                }
+                if (bullyCount.get() == 2) {
+                    bullyCount.set(0);
+                } else {
+                    bullyCount.getAndIncrement();
+                }
+                isStupidUser = false;
+                counterTicks.set(0);
+            } else if (counterTicks.get() > 30 && !isExit && !isResult) {
                 avatarDialog.getChildren().clear();
                 avatarDialog.getChildren().add(
                         DialogBox.getTaskDialog(listToSay.get(rand.nextInt(listToSay.size()))));
+                AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
                 counterTicks.set(0);
             } else if (isExit && !isSet.get()) {
                 avatarDialog.getChildren().clear();
@@ -669,9 +686,10 @@ public class MainWindow extends GridPane {
         list.add("Akshay-sensei is my favourite prof!!!");
         list.add("Learning Java\nis a piece of cake with JavaCake!! uWu");
         list.add("Learning Cake\nis a piece of java with CakeJava!! wUw");
-        list.add("I rather get Akshay than an A!\n");
+        list.add("Hi, Welcome to JavaCake!\nWant sum cake?\nAll you have to do is get 100%!");
+        list.add("I rather have Akshay than an A!\n");
         list.add("I LOVE BIG CAKES AND I CANNOT LIE!");
-        list.add("CAAAAAAAAAaaaaakkkke!");
+        list.add("CAAAAaaaaaaaaakkkke!");
     }
 
     private static boolean isNumeric(String input) {

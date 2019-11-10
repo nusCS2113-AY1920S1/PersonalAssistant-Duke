@@ -1,5 +1,6 @@
 package javacake.ui;
 
+import javacake.JavaCake;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,6 +15,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class AvatarScreen extends VBox {
     @FXML
@@ -74,6 +76,10 @@ public class AvatarScreen extends VBox {
         initialiseList();
         avatarMode = type;
         setStyleLoop();
+        avatarImage.setOnMouseClicked(event -> {
+            JavaCake.logger.log(Level.INFO, "Initiating bully mode!");
+            MainWindow.isStupidUser = true;
+        });
     }
 
     /**

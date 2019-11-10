@@ -55,7 +55,7 @@ public class Parser {
         case ("done"): return new DoneCommand(inputCommand);
         case ("delete"): return new DeleteCommand(inputCommand);
         case ("snooze"): return new EditCommand(inputCommand);
-        case ("change"): return new ChangeColorCommand();
+        case ("change"): return new ChangeColorCommand(inputCommand);
         default:
             throw new CakeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }

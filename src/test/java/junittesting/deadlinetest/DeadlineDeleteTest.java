@@ -42,7 +42,7 @@ public class DeadlineDeleteTest {
     }
 
     @Test
-    public void posTest0() {
+    public void deleteTest0() {
         actualOut = javaCake.getResponse("deadline a /by 01/01/2019");
         actualOut = javaCake.getResponse("delete 1");
         actualOut = javaCake.getResponse("reminder");
@@ -51,7 +51,7 @@ public class DeadlineDeleteTest {
     }
 
     @Test
-    public void posTest1() {
+    public void deleteTest1() {
         actualOut = javaCake.getResponse("deadline a /by 01/01/2019");
         actualOut = javaCake.getResponse("deadline b /by 01/01/2019");
         actualOut = javaCake.getResponse("delete 1");
