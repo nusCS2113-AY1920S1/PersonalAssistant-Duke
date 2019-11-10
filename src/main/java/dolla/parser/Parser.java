@@ -35,19 +35,20 @@ import static dolla.parser.LimitParser.verifyLimitDuration;
 public abstract class Parser implements ParserStringList, ModeStringList {
 
     protected String mode;
-    protected LocalDate date;
-    protected String description;
+
     protected static String inputLine;
-    protected String type;
-    protected double amount;
     protected static String[] inputArray;
-    protected String duration;
+    protected String commandToRun;
+
+    protected String type;
     protected String name;
+    protected String description;
+    protected double amount;
+    protected String duration;
+    protected LocalDate date;
     protected String tagName;
 
-    protected String commandToRun;
     protected int modifyRecordNum;
-
     protected static int maxAmount = 1000000;
     protected static int appropriateDecimalPlace = 2;
 
@@ -75,17 +76,13 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * Splits the input from the user and assigns the relevant data into description and date variables.
      * If the incorrect format is given in the input, the corresponding alert will be printed.
      */
-    public void extractDescTime() throws Exception {
+    protected void extractDescTime() throws Exception {
         // dataArray[0] is command, amount and description, dataArray[1] is time and tag
-        String[] dataArray = inputLine.split(" /on ");
-        String dateString = (dataArray[1].split(" /tag"))[0];
+        String[] dataArray = inputLine.split(" " + COMPONENT_DATE + " ");
+        String dateString = (dataArray[1].split(" " + COMPONENT_TAG))[0];
         description = dataArray[0].split(inputArray[2] + " ")[1];
         try {
             date = Time.readDate(dateString.trim());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            // TODO: Shouldn't happen anymore, need to test if this will happen still
-            Ui.printMsg("Please add '/at <date>' after your task to specify the entry date.");
-            throw new DollaException(INVALID_DATE_EXCEPTION);
         } catch (DateTimeParseException e) {
             Ui.printDateFormatError();
             throw new DollaException(INVALID_DATE_EXCEPTION);
@@ -128,7 +125,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * Alerts the user that the input is invalid, and returns an ErrorCommand.
      * @return an ErrorCommand
      */
-    public Command invalidCommand() {
+    protected Command invalidCommand() {
         Ui.printInvalidCommandError();
         return new ErrorCommand();
     }
@@ -139,7 +136,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return Either 'expense' or 'income' if either are passed in.
      * @throws Exception ???
      */
-    public static String verifyAddType(String s) throws Exception {
+    private static String verifyAddType(String s) throws Exception {
         if (s.equals("income") || s.equals("expense")) {
             return s;
         } else {
@@ -153,7 +150,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * Also splits description and time components in the process.
      * @return true if no error occurs.
      */
-    public boolean verifyAddCommand() {
+    protected boolean verifyAddCommand() {
         try {
             type = verifyAddType(inputArray[1]);
             amount = stringToDouble(inputArray[2]);
@@ -218,23 +215,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
             return true;
         }
-    }
-
-    /**
-     * Returns true if the only element in the input that follows 'modify' is a number.
-     * @return true if the only element in the input that follows 'modify' is a number.
-     */
-    public boolean verifyFullModifyCommand() {
-        if (inputArray.length != 2) {
-            return false;
-        }
-        try {
-            Integer.parseInt(inputArray[1]);
-        } catch (Exception e) {
-            ModifyUi.printInvalidFullModifyFormatError();
-            return false;
-        }
-        return true;
     }
 
     //@@author yetong1895
@@ -329,13 +309,29 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     //@@author omupenguin
     /**
+     * Returns true if the only element in the input that follows 'modify' is a number.
+     * @return true if the only element in the input that follows 'modify' is a number.
+     */
+    protected boolean verifyFullModifyCommand() {
+        if (inputArray.length != 2) {
+            return false;
+        }
+        try {
+            Integer.parseInt(inputArray[1]);
+        } catch (Exception e) {
+            ModifyUi.printInvalidFullModifyFormatError();
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Returns true if the input has no formatting issues.
      * Also designates the correct information to the relevant variables.
      * @return true if the input has no formatting issues.
      */
-    public boolean verifyPartialModifyCommand() {
+    protected boolean verifyPartialModifyCommand() {
 
-        //ArrayList<String> errorList = new ArrayList<String>();
         type = null;
         amount = -1;
         description = null;
@@ -409,73 +405,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     /**
-     * Checks if the string from input (currStr) represents a component of limit. If so, verify and assign
-     * the components of limit with the new data (nextStr).
-     * @param currStr to be checked if it's a component (ie. /type).
-     * @param nextStr the new data to be used for the specified component.
-     * @throws Exception when the nextStr is not a valid input for component from currStr.
-     */
-    private void verifyLimitComponents(String currStr, String nextStr) throws Exception {
-        switch (currStr) {
-        case COMPONENT_TYPE:
-            type = verifyLimitType(nextStr);
-            break;
-        case COMPONENT_AMOUNT:
-            amount = stringToDouble(nextStr);
-            break;
-        case COMPONENT_DURATION:
-            duration = verifyLimitDuration(nextStr);
-            break;
-        default:
-            break;
-        }
-    }
-
-    /**
-     * Checks if the first word after 'add' is either 'income' or 'expense'.
-     * @param s String to be analysed.
-     * @return Either 'expense' or 'income' if either are passed in.
-     * @throws Exception ???
-     */
-    public static String verifyDebtType(String s) throws Exception {
-        if (s.equals(TYPE_OWE) || s.equals(TYPE_BORROW)) {
-            return s;
-        } else {
-            DebtUi.printInvalidDebtType();
-            throw new DollaException(DollaException.invalidType());
-        }
-    }
-
-    private void verifyDebtComponents(String currStr, String nextStr, int index) throws Exception {
-        try {
-            switch (currStr) {
-            case COMPONENT_TYPE:
-                type = verifyDebtType(nextStr);
-                break;
-            case COMPONENT_NAME:
-                name = parseDesc(index + 1);
-                break;
-            case COMPONENT_AMOUNT:
-                amount = stringToDouble(nextStr);
-                break;
-            case COMPONENT_DESC:
-                description = parseDesc(index + 1);
-                break;
-            case COMPONENT_DATE:
-                date = Time.readDate(nextStr);
-                break;
-            case COMPONENT_TAG:
-                // TODO
-            default:
-                break;
-            }
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-
-
-    /**
      * Checks if the string from input (currStr) represents a component of entry. If so, verify and assign
      * the components of entry with the new data (nextStr).
      * @param currStr to be checked if it's a component (ie. /type).
@@ -507,6 +436,70 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     /**
+     * Checks if the string from input (currStr) represents a component of limit. If so, verify and assign
+     * the components of limit with the new data (nextStr).
+     * @param currStr to be checked if it's a component (ie. /type).
+     * @param nextStr the new data to be used for the specified component.
+     * @throws Exception when the nextStr is not a valid input for component from currStr.
+     */
+    private void verifyLimitComponents(String currStr, String nextStr) throws Exception {
+        switch (currStr) {
+        case COMPONENT_TYPE:
+            type = verifyLimitType(nextStr);
+            break;
+        case COMPONENT_AMOUNT:
+            amount = stringToDouble(nextStr);
+            break;
+        case COMPONENT_DURATION:
+            duration = verifyLimitDuration(nextStr);
+            break;
+        default:
+            break;
+        }
+    }
+
+    /**
+     * Checks if the first word after 'add' is either 'income' or 'expense'.
+     * @param s String to be analysed.
+     * @return Either 'expense' or 'income' if either are passed in.
+     * @throws Exception ???
+     */
+    private static String verifyDebtType(String s) throws Exception {
+        if (s.equals(TYPE_OWE) || s.equals(TYPE_BORROW)) {
+            return s;
+        } else {
+            DebtUi.printInvalidDebtType();
+            throw new DollaException(DollaException.invalidType());
+        }
+    }
+
+    private void verifyDebtComponents(String currStr, String nextStr, int index) throws Exception {
+        try {
+            switch (currStr) {
+            case COMPONENT_TYPE:
+                type = verifyDebtType(nextStr);
+                break;
+            case COMPONENT_NAME:
+                name = parseDesc(index + 1);
+                break;
+            case COMPONENT_AMOUNT:
+                amount = stringToDouble(nextStr);
+                break;
+            case COMPONENT_DESC:
+                description = parseDesc(index + 1);
+                break;
+            case COMPONENT_DATE:
+                date = Time.readDate(nextStr);
+                break;
+            default:
+                break;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    /**
      * Returns true if the specified string is a editable component for the current mode.
      * @param s the string to be checked.
      * @return true if the specified string is a editable component for the current mode.
@@ -519,7 +512,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             case COMPONENT_AMOUNT:
             case COMPONENT_DESC:
             case COMPONENT_DATE:
-            case COMPONENT_TAG:
                 return true;
             default:
                 break;
@@ -530,7 +522,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             case COMPONENT_TYPE:
             case COMPONENT_AMOUNT:
             case COMPONENT_DURATION:
-            case COMPONENT_TAG:
                 return true;
             default:
                 break;
@@ -543,19 +534,11 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             case COMPONENT_AMOUNT:
             case COMPONENT_DESC:
             case COMPONENT_DATE:
-            case COMPONENT_TAG:
                 return true;
             default:
                 break;
             }
             break;
-        /*
-        case MODE_SHORTCUT:
-            switch (s) {
-                // TODO
-            }
-            break;
-        */
         default:
             break;
         }

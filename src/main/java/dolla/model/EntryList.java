@@ -26,7 +26,7 @@ public class EntryList extends RecordList {
 
     @Override
     public void setRecordList(ArrayList<Record> recordList) {
-        this.list = recordList;
+        this.recordArrayList = recordList;
         StorageWrite.setEntries(get());
     }
 

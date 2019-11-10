@@ -131,6 +131,15 @@ public class DebtUi extends Ui {
         System.out.println(line);
     }
 
+    /**
+     * print to tell the user that bill feature is used under debt mode.
+     */
+    public static void printBillFeature() {
+        System.out.println(line);
+        System.out.println("\tYou can also add bills under this mode :)");
+        System.out.println(line);
+    }
+
     //@@ author: omupenguin
     /**
      * Prints an error message informing the user that the type of debt entered is invalid.

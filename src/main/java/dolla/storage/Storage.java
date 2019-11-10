@@ -33,7 +33,7 @@ public class Storage implements StorageStringList {
 
     //@@author yetong1895
     /**
-     * This method will return the ArrayList containing the entries.
+     * Returns the ArrayList containing the entries.
      * @return entries the ArrayList containing all the entries.
      */
     public static ArrayList<Record> getEntriesFromSave() {
@@ -41,7 +41,7 @@ public class Storage implements StorageStringList {
     }
 
     /**
-     * This method will return the ArrayList containing the limits.
+     * Returns the ArrayList containing the limits.
      * @return limits the ArrayList containing all the limits.
      */
     public static ArrayList<Record> getLimitsFromSave() {
@@ -49,7 +49,7 @@ public class Storage implements StorageStringList {
     }
 
     /**
-     * This method will return the ArrayList containing the debts.
+     * Returns the ArrayList containing the debts.
      * @return entries the ArrayList containing all the debts.
      */
     public static ArrayList<Record> getDebtsFromSave() {
@@ -57,7 +57,7 @@ public class Storage implements StorageStringList {
     }
 
     /**
-     * This method will return the ArrayList containing the debts.
+     * Returns the ArrayList containing the debts.
      * @return bills the ArrayList containing all the bills.
      */
     public static ArrayList<Record> getBillsFromSave() {
@@ -65,7 +65,7 @@ public class Storage implements StorageStringList {
     }
 
     /**
-     * This method will return the ArrayList containing the shortcuts.
+     * Returns the ArrayList containing the shortcuts.
      * @return entries the ArrayList containing all the shortcuts.
      */
     public static ArrayList<Record> getShortcutsFromSave() {
@@ -73,7 +73,7 @@ public class Storage implements StorageStringList {
     }
 
     /**
-     * This method will clear the data in the save file.
+     * Clears the data in the save file.
      */
     public static void clearStorage() {
         try {

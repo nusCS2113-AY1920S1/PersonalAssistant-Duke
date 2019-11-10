@@ -23,13 +23,14 @@ public class ListUi extends Ui {
     }
 
     /**
-     * Prints error message when user wants to list down items in the specific list but it's empty.
-     *
-     * @param mode The mode that is used when the 'list' is input
+     * Prints a message to alert user that the list to be iterated through is empty.
+     * @param mode record name to be used
      */
     public static void printEmptyListError(String mode) {
         System.out.println(line);
-        System.out.println("\tYou haven't added any " + mode + " yet!");
+        System.out.println("\tI'm sorry, but there doesn't seem to be anything in "
+                + mode + "for me to through. ");
+        System.out.println("Try adding a new " + mode + "and try again!");
         System.out.println(line);
     }
 
@@ -45,4 +46,6 @@ public class ListUi extends Ui {
         System.out.println("\tTry looking through the list of " + mode + "again.");
         System.out.println(line);
     }
+
+
 }
