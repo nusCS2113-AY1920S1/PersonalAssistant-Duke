@@ -215,6 +215,7 @@ The `logic.command.bond` package consist of `Bond` classes with the following fe
 `Profile` class in `Model` to *execute*.
 
 
+// tag::CardCommand_ClassDiagram[]
 .Card Command Class Diagram
 image::LogicCommandCardPackage.png[width="800"]
 
@@ -228,6 +229,7 @@ The `logic.command.card` package consist of `Card` classes with the following fe
 `Main` will call the specific `Card` command class that will construct the *required parameters* before calling the
 `Profile` class in `Model` to *execute*.
 
+// end::CardCommand_ClassDiagram[]
 // tag::goals_class[]
 .Goals Command Class Diagram
 image::LogicCommandGoalsPackage.png[width="800"]
@@ -482,6 +484,7 @@ high risk of logic and coding errors, leaving room for bugs to be exploited.
 // end::editing_bonds[]
 
 === Deleting Credit Card
+// tag::DeleteCreditCard_SequenceDiagram[]
 .Model Component Diagram
 image::DeleteCardCommand.png[width="970"]
 
@@ -511,9 +514,11 @@ When the user executes the `DeleteCardCommand`, the following steps are taken by
 . After passing the above checks, `cardListDeleteCard` will delete the card with the specified name from the Arraylist.
 . Once the card object has been deleted, the details of the deleted card object will be displayed to inform the user
 of the *successful* deletion of the card object.
+// end::DeleteCreditCard_SequenceDiagram[]
 
 
 === Listing Credit Cards
+// tag::ListCreditCard_SequenceDiagram[]
 .Model Component Diagram
 image::listCardCommand.png[width="970"]
 
@@ -538,6 +543,7 @@ When the user executes the `ListCardCommand`, the following steps are taken by t
 
 [start=4]
 . After passing the above checks, `cardListListCard` will display the details of each card within the Arraylist.
+// end::ListCreditCard_SequenceDiagram[]
 
 === Transferring Funds
 .Model Component Diagram

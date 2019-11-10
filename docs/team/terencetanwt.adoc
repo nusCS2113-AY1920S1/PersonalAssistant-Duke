@@ -1,4 +1,4 @@
-= Terence Tan Wee Theng - Project Portfolio
+= Tan Wee Theng, Terence - Project Portfolio for OwlMoney
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -13,21 +13,20 @@ ifdef::env-github[]
 endif::[]
 
 
-== Terence Tan Wee Theng - Project Portfolio for OwlMoney
+== 1. Introduction
 
 Hello there, I am Terence. I am currently pursuing a degree in Information Security at the National University of
 Singapore (NUS). +
-I am an information security enthusiast and also enjoys server administration. +
-This portfolio documents my contributions towards *OwlMoney* for the module CS2113T Software Engineering &
+This portfolio documents my contributions towards OwlMoney for the module CS2113T Software Engineering &
 Object-Oriented Programming.
 
-=== About the project
+== 2. About the project
 
 My team and I were tasked with enhancing the basic command line interface (CLI) personal assistant,
 Duke, for our software engineering project. We choose to morph it into a command line financial tracker called
 OwlMoney. This enhanced application is designed to assist undergraduates and fresh graduates to track and manage
 their finances. OwlMoney provides a simple and minimalistic CLI that presents information in an organized manner.
-It is intuitive so that even users who are unfamiliar with CLI can use it with ease.
+It is intuitive so that users who are unfamiliar with CLI can use it with ease.
 
 My role was to design and write codes for the `card` feature, which allow users to track and manage
 their credit cards. The following sections illustrate the enhancements in detail, and also the relevant
@@ -36,50 +35,84 @@ information that I have added to the user and developer guide with reference to 
 Note the following symbols and formatting used.
 include::../UserGuide.adoc[tag=user_guide_common_logo]
 
-=== Summary of contributions
+== 3. Summary of contributions
 This section shows the summary of my contributions to the project which include the coding, documentation
 and other helpful contributions.
 
-*Features implemented:* I have implemented the ability to manage credit cards
+=== 3.1 Features enhancement
+
+==== 3.1.1 Features implemented: Ability to manage credit cards
 
 * *What it does*: The `card` feature has `add`, `delete`, `edit`, and `list` commands which helps users manage
 their credit cards.
-* *Justification*: Due to the popularity of credit cards, many people including students owns one.
+* *Justification*: Due to the popularity of credit cards, many people including students has one.
 Because different cards provide different benefits, some people owns several cards.
 This feature gives users the ability to manage their credit cards.
-* *Highlights*: In line with a real credit card, users will be able to set their monthly limit
-and monthly spending rebates.
+* *Highlights*: In line with real credit cards, users will be able to set their monthly spending limit
+and rebates.
 * *Credits*: Collaborated with <<mong-nus#,Mong Zheng Wei>> to implement the /edit function.
 
-*Features implemented:* I have implemented the ability to manage credit card expenditures
+==== 3.1.2 Features implemented: Ability to manage credit card expenditures
 
 * *What it does*: Each `card` is able to `add`, `delete`, `edit`, and `list` card expenditures which
 helps users manage their credit card spending.
-* *Justification*: The convenience of purchasing things on credit and making one payment for all purchases
-at the end of the month is the reason why many people pays for purchases using a credit card.
-In addition, most credit cards come with benefits such as reward points or cash back rebates.
+* *Justification*: Many people enjoys the convenience of credit cards that allows them  to purchase things
+on credit and making payment at the end of the month.
+In addition, most credit cards also has benefits such as reward points or rebates.
 This feature will allow users to track and manage their credit card expenditures on each of their cards.
-* *Highlights*: In line with a real credit card, users will have to abide by their monthly card limit
-when adding expenditures. When a particular card has reached its limit, the user will no longer be able to
-add any expenditures to the card for the month.
+* *Highlights*: In line with a real credit cards, users will have to abide by their monthly card limit
+when adding expenditures. When a particular card has reached its monthly limit, user will no longer be able to
+add any expenditures to the card for that particular month.
 * *Credits*: Collaborated with <<mong-nus#,Mong Zheng Wei>> to implement the `add` and `list`
 card expenditures function.
 
-*Features implemented:* I have implemented the ability to manage credit card bills
+==== 3.1.3 Features implemented: Ability to manage credit card bills
 
-* *What it does*: Each `card` is able to `add` and `delete` credit card bill payment to their bank savings account,
-so that users can keep track of their monthly credit card bill payments in their bank account expenditures.
+* *What it does*: Each `card` is able to `add` and `delete` credit card bill payment to their savings account,
+so that users can keep track of their monthly credit card bill in their savings account expenditures.
 * *Justification*: At the end of every month, users are expected to pay their credit card bill.
-Thus, this feature will allow users to keep track of their monthly credit card bills in the savings account
-used to make the bill payment, so that the payment is being reflected as their bank account expenditure.
-* *Highlights*: When making a credit card bill payment using one of the bank savings account,
-the credit card cash back rebates will be automatically deposited back to the savings account to reflect
-the rebates earned for the month.
-* *Credits*: Collaborated with <<briantkm#,Brian Tan Kian Ming>> to move the credit card transactions
+Thus, this feature will allow users to keep track of their monthly credit card bills and
+rebates in their savings account.
+* *Highlights*: When making a credit card bill payment, the credit card rebates will automatically
+be deposited back to the user's savings account to reflect the rebates earned for the particular month.
+* *Credits*: Collaborated with <<briantkm#,Tan Kian Ming Brian>> to move the credit card transactions
 into `bankexpenditure` and `deposit`. I had to edit, write additional, and use some of his methods
 in order to integrate my credit card bill expenditures with his bank expenditures.
 
-*Code contributed:*
+=== 3.2 Code contributions
 [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=TerenceTanWT[RepoSense]],
 [link:{repoURL}/commits?author=TerenceTanWT[Commits]],
-[link:{repoURL}/pulls?q=author%3ATerenceTanWT[Pull Requests]]
+ [link:{repoURL}/pulls?q=author%3ATerenceTanWT[Pull Requests]]
+
+=== 3.3 Other contributions
+
+== 4. Contributions to the User Guide
+
+I wrote the sections of the user guide related to the `card` function. The following contains an excerpt from our
+OwlMoney link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc[User Guide],
+showing additions that I have made for the `card` function.
+
+=== 4.1 Credit card bill management commands: `/cardbill`
+
+==== 4.1.1 Adding credit card bill to savings account `/add /cardbill`
+
+include::../UserGuide.adoc[tag=AddCreditCardBill_Command]
+
+==== 4.1.2 Deleting credit card bill from savings account `/delete /cardbill`
+
+include::../UserGuide.adoc[tag=DeleteCreditCardBill_Command]
+
+== 5. Contributions to the Developer Guide
+
+I wrote various sections of the developer guide, including sections related to the `card` function. The following
+contains an excerpt from our OwlMoney
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]
+    , showing additions that I have made for the `card` function.
+
+=== 5.1 Card Command Class Diagram
+
+include::../DeveloperGuide.adoc[tag=CardCommand_ClassDiagram]
+
+=== 5.2 Delete Card Command Sequence Diagram
+
+include::../DeveloperGuide.adoc[tag=DeleteCreditCard_SequenceDiagram]
