@@ -134,6 +134,10 @@ public class HelpWindow extends AnchorPane {
                     getExample.setText(cbCommands.getValue() + " 1 /desc running \n"
                             + cbCommands.getValue() + " 1 /date 27/10/2019 2359 \n"
                             + cbCommands.getValue() + " 1 /type todo");
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("priority")) {
+                    getDescription.setText(" List existing tasks with priority");
+                    getFormat.setText(cbCommands.getValue());
+                    getExample.setText(cbCommands.getValue());
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("setpriority")) {
                     getDescription.setText(" Sets priority of a task");
                     getFormat.setText(cbCommands.getValue() + " [TASK NUM] [PRIORITY NUM]");
