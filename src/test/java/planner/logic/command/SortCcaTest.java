@@ -4,7 +4,7 @@ package planner.logic.command;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import planner.InputTest;
+import planner.main.InputTest;
 import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModFailedJsonException;
@@ -70,7 +70,7 @@ public class SortCcaTest extends InputTest {
         final String commandTest1 = "sort cca\n" + "bye";
         final String commandTest2 = "sort cca --r\n" + "bye";
 
-        provideInput(commandTest1);
+        provideInput("password\n" + commandTest1);
         final String[] hold = {""};
         CliLauncher.main(hold);
         String expectedSortedCcas = "_______________________________\n"
