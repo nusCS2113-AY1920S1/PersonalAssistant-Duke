@@ -15,7 +15,6 @@ import gazeeebo.tasks.DoAfter;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.FixedDuration;
 import gazeeebo.tasks.Task;
-import gazeeebo.tasks.*;
 
 import java.io.InputStream;
 import java.time.LocalDate;
@@ -57,16 +56,14 @@ public class Storage {
             = {"NoteMonthly.txt", "/NoteMonthly.txt"};
     private String[] getrelativeNoteMonthly
             = {"NoteWeekly.txt", "/NoteWeekly.txt"};
-    private String relativePathExpensesResource
-            = "Expenses.txt";
+
+    private String relativePathPlacesResource
+            = "Places.txt";
+
     private String relativePathTriviaResource
             = "Trivia.txt";
-    private String relativePathSpecializationResource
-            = "Specialization.txt";
     private String relativePathStudyPlannerResource
             = "Study_Plan.txt";
-    private String relativePathCompletedElectivesResource
-            = "CompletedElectives.txt";
     private String relativePathPrerequisiteResource
             = "Prerequisite.txt";
     //@@author jessteoxizhi
@@ -74,6 +71,7 @@ public class Storage {
     /**
      * Check if there are save txt file in the directory, if there is not, create a new txt file and copy
      * preloaded data into the new txt file
+     *
      * @throws IOException exception when there is an error read the txt file
      */
     public void startUp() throws IOException {
@@ -115,41 +113,9 @@ public class Storage {
         }
     }
 
-    public void writeToExpensesFile(String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(relativePathExpensesResource);
-        fileWriter.write(fileContent);
-        fileWriter.flush();
-        fileWriter.close();
-    }
-
-
-    public HashMap<LocalDate, ArrayList<String>> readFromExpensesFile() throws FileNotFoundException {
-        HashMap<LocalDate, ArrayList<String>> expenses = new HashMap<LocalDate, ArrayList<String>>();
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        File f = new File(relativePathExpensesResource);
-        Scanner sc = new Scanner(f);
-        while (sc.hasNext()) {
-            ArrayList<String> itemAndPriceList = new ArrayList<>();
-            String[] split = sc.nextLine().split("\\|");
-            LocalDate dateOfPurchase = LocalDate.parse(split[0], fmt);
-            boolean isEqual = false;
-            for (LocalDate key : expenses.keySet()) {
-                if (dateOfPurchase.equals(key)) { //if date equal
-                    expenses.get(key).add(split[1]);
-                    isEqual = true;
-                }
-            }
-            if (isEqual == false) {
-                itemAndPriceList.add(split[1]);
-                expenses.put(dateOfPurchase, itemAndPriceList);
-            }
-        }
-        return expenses;
-    }
-
     /**
      * This method read Trivia.txt, get users' past inputs from the file.
+     *
      * @return hash-map of keywords and inputs
      * @throws FileNotFoundException
      */
@@ -178,6 +144,7 @@ public class Storage {
 
     /**
      * This method writes to Trivia.txt file, record down updates in record of user inputs.
+     *
      * @param fileContent
      * @throws IOException
      */
@@ -194,67 +161,14 @@ public class Storage {
             bufferedWriter.write(fileContent);
             bufferedWriter.flush();
             bufferedWriter.close();
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void writeToSpecializationFile(String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(relativePathSpecializationResource);
-        fileWriter.write(fileContent);
-        fileWriter.flush();
-        fileWriter.close();
-    }
-
-    public HashMap<String, ArrayList<ModuleCategory>> readFromSpecializationFile() throws IOException {
-        HashMap<String, ArrayList<ModuleCategory>> specMap = new HashMap<>();
-
-        File file = new File(relativePathSpecializationResource);
-        Scanner sc = new Scanner(file);
-        while (sc.hasNext()) {
-            String[] split = sc.nextLine().split("\\|");
-            ArrayList<ModuleCategory> moduleBD = new ArrayList<>();
-            ModuleCategory mC = new ModuleCategory(split[2]);
-            moduleBD.add(mC);
-            specMap.put(split[1], moduleBD);
-        }
-
-        return specMap;
-    }
-
-    public void writeToCompletedElectivesFile(String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(relativePathCompletedElectivesResource);
-        fileWriter.write(fileContent);
-        fileWriter.flush();
-        fileWriter.close();
-    }
-
-    public HashMap<String, ArrayList<String>> readFromCompletedElectivesFile() throws IOException {
-        HashMap<String, ArrayList<String>> completedEMap = new HashMap<>();
-        File file = new File(relativePathCompletedElectivesResource);
-        Scanner sc = new Scanner(file);
-        while (sc.hasNext()) {
-            ArrayList<String> completedElectiveList = new ArrayList<>();
-            String[] split = sc.nextLine().split("\\|");
-            String checkKey = split[0];
-            boolean isEqual = false;
-            for (String key : completedEMap.keySet()) {
-                if (checkKey.equals(key)) { //if date equal
-                    completedEMap.get(key).add(split[1]);
-                    isEqual = true;
-                }
-                if (isEqual == false) {
-                    completedElectiveList.add(split[1]);
-                    completedEMap.put(checkKey, completedElectiveList);
-                }
-            }
-        }
-        //}
-        return completedEMap;
-    }
-
     /**
      * This method reads from Study_Plan.txt, get users' current module plan
+     *
      * @return double ArrayList storing the table.
      * @throws IOException
      */
@@ -278,6 +192,7 @@ public class Storage {
 
     /**
      * This method writes to Study_Plan.txt, updates changes in module plan.
+     *
      * @param fileContent
      * @throws IOException
      */
@@ -290,6 +205,7 @@ public class Storage {
 
     /**
      * This method reads from prerequisite txt file, gets information about courses' prerequisites.
+     *
      * @return
      * @throws IOException
      */

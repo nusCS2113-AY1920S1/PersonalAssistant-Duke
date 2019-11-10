@@ -8,6 +8,7 @@ import gazeeebo.commands.expenses.FindExpenseCommand;
 import gazeeebo.commands.expenses.UndoExpenseCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
+import gazeeebo.storage.ExpensePageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -27,40 +28,11 @@ import java.util.TreeMap;
  * Allows user to call commands to record and manage their expenses.
  */
 public class ExpenseCommandParser extends Command {
-
     /**
-     * This method is allows user to call commands to add expenses,
-     * find expenses on a certain date, delete a chosen expense,
-     * see the expense list and exit the expense page.
-     *
-     * @param list          list of all tasks
-     * @param ui            the object that deals with
-     *                      printing things to the user
-     * @param storage       the object that deals with storing data
-     * @param commandStack
-     * @param deletedTask
-     * @param triviaManager
-     * @throws IOException    Catch error if the read file fails
-     * @throws ParseException Catch error if parsing of command fails
+     * Shows list of commands in expense page.
      */
-    @Override
-    public void execute(final ArrayList<Task> list,
-                        final Ui ui, final Storage storage,
-                        final Stack<ArrayList<Task>> commandStack,
-                        final ArrayList<Task> deletedTask,
-                        final TriviaManager triviaManager)
-            throws IOException, ParseException, DukeException {
-        /*Read file from storage*/
-        HashMap<LocalDate, ArrayList<String>> map
-                = storage.readFromExpensesFile();
-        Map<LocalDate, ArrayList<String>> expenses =
-                new TreeMap<LocalDate, ArrayList<String>>(map);
-        Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
-        boolean isExitExpenses = false;
-
-        System.out.println("Welcome to your expenses record!"
-                + " What would you like to do?\n\n");
-        String helpExpenses = "_________________________"
+    private static void showListOfCommands() {
+        System.out.print("_________________________"
                 + "_________________________________\n"
                 + "1. Add expenses command: add item, price, date\n"
                 + "2. Find expenses on a certain date: "
@@ -72,65 +44,104 @@ public class ExpenseCommandParser extends Command {
                 + "7. Help page: help\n"
                 + "8. Exit Expense page: esc\n"
                 + "_________________________"
-                + "_________________________________";
+                + "_________________________________\n");
+    }
 
-        System.out.println(helpExpenses);
-        while (!isExitExpenses) {
-            ui.readCommand();
-            if (ui.fullCommand.split(" ")[0].equals("add")) {
-                copyMap(expenses, oldExpenses);
-                new AddExpenseCommand(ui, expenses);
-            } else if (ui.fullCommand.split(" ")[0].equals("find")) {
-                new FindExpenseCommand(ui, expenses);
-            } else if (ui.fullCommand.split(" ")[0].equals("delete")) {
-                copyMap(expenses, oldExpenses);
-                new DeleteExpenseCommand(ui, expenses);
-            } else if (ui.fullCommand.equals("list")) {
-                new ExpenseListCommand(expenses);
-            } else if (ui.fullCommand.equals("undo")) {
-                expenses = UndoExpenseCommand.undoExpenses(expenses,
-                        oldExpenses, storage);
-            } else if (ui.fullCommand.equals("commands")) {
-                System.out.println(helpExpenses);
-            } else if (ui.fullCommand.equals("help")) {
-                (new HelpCommand()).execute(null, ui, null,
-                        null, null, null);
-            } else if (ui.fullCommand.equals("esc")) {
-                isExitExpenses = true;
-                System.out.println("Going back to Main Menu...\n"
-                        + "Content Page:\n"
-                        + "------------------ \n"
-                        + "1. help\n"
-                        + "2. contacts\n"
-                        + "3. expenses\n"
-                        + "4. places\n"
-                        + "5. tasks\n"
-                        + "6. cap\n"
-                        + "7. spec\n"
-                        + "8. moduleplanner\n"
-                        + "9. notes\n"
-                        + "10. change password\n"
-                        + "To exit: bye\n"
-                );
-            } else {
-                System.out.println("Command not found, please re-enter!");
-            }
-            String toStore = "";
-            for (LocalDate key : expenses.keySet()) {
-                if (expenses.get(key).size() > 1) {
-                    for (int i = 0; i < expenses.get(key).size(); i++) {
+    /**
+     * This method is allows user to call commands to add expenses,
+     * find expenses on a certain date, delete a chosen expense,
+     * see the expense list and exit the expense page.
+     *
+     * @param list          List of all tasks
+     * @param ui            The object that deals with
+     *                      printing things to the user
+     * @param storage       The object that deals with storing data
+     * @param commandStack  Stores the stack of previous commands
+     * @param deletedTask   Stores the list of deleted tasks
+     * @param triviaManager The object for TriviaManager
+     * @throws IOException    Catch error if the read file fails
+     * @throws ParseException Catch error if parsing of command fails
+     */
+    @Override
+    public void execute(final ArrayList<Task> list,
+                        final Ui ui, final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager)
+            throws IOException, ParseException, DukeException {
+        try {
+            ExpensePageStorage expensePageStorage = new ExpensePageStorage();
+            /*Read file from storage*/
+            HashMap<LocalDate, ArrayList<String>> map
+                    = expensePageStorage.readFromExpensesFile();
+            Map<LocalDate, ArrayList<String>> expenses =
+                    new TreeMap<LocalDate, ArrayList<String>>(map);
+            Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
+            boolean isExitExpenses = false;
+
+            System.out.println("Welcome to your expenses record!"
+                    + " What would you like to do?\n\n");
+
+            showListOfCommands();
+            while (!isExitExpenses) {
+                ui.readCommand();
+                if (ui.fullCommand.split(" ")[0].equals("add")) {
+                    copyMap(expenses, oldExpenses);
+                    new AddExpenseCommand(ui, expenses);
+                } else if (ui.fullCommand.split(" ")[0].equals("find")) {
+                    new FindExpenseCommand(ui, expenses);
+                } else if (ui.fullCommand.split(" ")[0].equals("delete")) {
+                    copyMap(expenses, oldExpenses);
+                    new DeleteExpenseCommand(ui, expenses);
+                } else if (ui.fullCommand.equals("list")) {
+                    new ExpenseListCommand(expenses);
+                } else if (ui.fullCommand.equals("undo")) {
+                    expenses = UndoExpenseCommand.undoExpenses(expenses,
+                            oldExpenses, expensePageStorage);
+                } else if (ui.fullCommand.equals("commands")) {
+                    showListOfCommands();
+                } else if (ui.fullCommand.equals("help")) {
+                    (new HelpCommand()).execute(null, ui, null,
+                            null, null, null);
+                } else if (ui.fullCommand.equals("esc")) {
+                    isExitExpenses = true;
+                    System.out.println("Going back to Main Menu...\n"
+                            + "Content Page:\n"
+                            + "------------------ \n"
+                            + "1. help\n"
+                            + "2. contacts\n"
+                            + "3. expenses\n"
+                            + "4. places\n"
+                            + "5. tasks\n"
+                            + "6. cap\n"
+                            + "7. spec\n"
+                            + "8. moduleplanner\n"
+                            + "9. notes\n"
+                            + "10. change password\n"
+                            + "To exit: bye\n"
+                    );
+                } else {
+                    ui.showDontKnowErrorMessage();
+                }
+                String toStore = "";
+                for (LocalDate key : expenses.keySet()) {
+                    if (expenses.get(key).size() > 1) {
+                        for (int i = 0; i < expenses.get(key).size(); i++) {
+                            toStore = toStore.concat(key + "|"
+                                    + expenses.get(key).get(i)
+                                    + "\n");
+                        }
+                    } else if (expenses.get(key).size() == 1) {
                         toStore = toStore.concat(key + "|"
-                                + expenses.get(key).get(i)
+                                + expenses.get(key).get(0)
                                 + "\n");
                     }
-                } else if (expenses.get(key).size() == 1) {
-
-                    toStore = toStore.concat(key + "|"
-                            + expenses.get(key).get(0)
-                            + "\n");
                 }
+                expensePageStorage.writeToExpensesFile(toStore);
             }
-            storage.writeToExpensesFile(toStore);
+        } catch (NumberFormatException | IOException
+                | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error in Expense.txt");
         }
     }
 

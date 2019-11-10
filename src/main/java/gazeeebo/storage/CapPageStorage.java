@@ -34,8 +34,7 @@ public class CapPageStorage {
     /**
      * Read from the file CAP.txt and put the details into a HashMap.
      *
-     * @return Returns the HashMap of contacts,
-     * key is the contact name and the value is the phone number.
+     * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number.
      * @throws IOException catch the error if the read file fails.
      */
     public HashMap<String, ArrayList<CapCommandParser>> readFromCapFile()

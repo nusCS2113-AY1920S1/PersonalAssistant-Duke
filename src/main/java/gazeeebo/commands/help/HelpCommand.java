@@ -24,12 +24,15 @@ public class HelpCommand extends Command {
     private static final String CAP = "cap";
     private static final String EXPENSES = "expenses";
     private static final String SPECIALIZATION = "spec";
+    private static final String PASSWORD = "password";
+    private static final String CHANGE_PASSWORD = "change password";
+    private static final String MODULE_PLANNER = "moduleplanner";
+    private static final String BYE = "bye";
 
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack,
                         ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException,
             IOException, NullPointerException {
-        //gazeeebo.help COMMAND or just gazeeebo.help
         //description of a gazeeebo.help can be empty
         HelpText help = new HelpText();
         String description;
@@ -38,6 +41,7 @@ public class HelpCommand extends Command {
         if (command.length == 1) {
             description = HelpText.COMMAND_FORMAT + System.lineSeparator() + System.lineSeparator()
                     + HelpText.COMMANDS_HEADER
+                    + HelpText.HELP_PAGE
                     + HelpText.TASKS_PAGE
                     + HelpText.PLACES_PAGE
                     + HelpText.NOTES_PAGE
@@ -46,8 +50,10 @@ public class HelpCommand extends Command {
                     + HelpText.CAP_PAGE
                     + HelpText.EXPENSES_PAGE
                     + HelpText.SPECIALIZATION_PAGE
-                    + HelpText.PASSWORD_PLANNER
-                    + HelpText.PASSWORD_CHANGE;
+                    + HelpText.PASSWORD_PLANNER_PAGE
+                    + HelpText.PASSWORD_CHANGE_PAGE
+                    + HelpText.MODULE_PLANNER_PAGE
+                    + HelpText.BYE_PAGE;
         } else {
             switch (command[1]) {
             case TASKS: description = HelpText.TASKS_PAGE;
@@ -66,8 +72,16 @@ public class HelpCommand extends Command {
                 break;
             case SPECIALIZATION: description = HelpText.SPECIALIZATION_PAGE;
                 break;
+            case PASSWORD: description = HelpText.PASSWORD_PLANNER_PAGE;
+                break;
+            case CHANGE_PASSWORD: description = HelpText.PASSWORD_CHANGE_PAGE;
+                break;
+            case MODULE_PLANNER: description = HelpText.MODULE_PLANNER_PAGE;
+                break;
+            case BYE: description = HelpText.BYE_PAGE;
+                break;
             default:
-                description = "OOPS!!! There is no such command.";
+                description = "OOPS!!! There is no such page.";
                 break;
             }
         }

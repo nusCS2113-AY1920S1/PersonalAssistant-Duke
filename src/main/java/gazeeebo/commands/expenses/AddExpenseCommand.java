@@ -41,7 +41,6 @@ public class AddExpenseCommand {
                     + price;
             String date = toAdd.substring(addCharacterCount)
                     .split(",")[2].trim();
-            System.out.println(price.substring(0, 1));
 
             if (!(price.charAt(0) == '$')) {
                 throw new DukeException("Please key in the "

@@ -6,26 +6,48 @@ package gazeeebo.help;
 public class HelpText {
     private static final String SEPARATOR_COMMAND = System.lineSeparator()
             + "----------------------------------------------------------------------------------------"
-            + "-------------------\n"
-            + System.lineSeparator();
-
-    private static final String SEPARATOR_COMMAND_SHORT = System.lineSeparator()
-            + "\t------------------------------------------------------------------------------------------"
-            + "--------------\n"
+            + "------------------------------------------------------\n"
             + System.lineSeparator();
 
     private static final String SEPARATOR_PAGE = System.lineSeparator()
             + "_____________________________________________________________________________________________"
-            + "______________\n"
+            + "____________________________________________________\n"
             + System.lineSeparator();
 
     public static final String COMMAND_FORMAT =
             "# Command Format #\n"
-            + "Words in UPPER_CASE are the parameters to be supplied by the\n"
-            + "user e.g. in todo TASK_DESCRIPTION, TASK_DESCRIPTION is a\n"
-            + "parameter which can be used as todo eat.\n";
+                    + "Words in UPPER_CASE are the parameters to be supplied by the\n"
+                    + "user e.g. in todo TASK_DESCRIPTION, TASK_DESCRIPTION is a\n"
+                    + "parameter which can be used as todo eat.\n";
 
     public static final String COMMANDS_HEADER = "# Commands #";
+
+    //---------------------help--------------------
+    private static final  String HEADER_HELP_PAGE = "********** Help page: help **********\n";
+
+    private static final String HELP_FULL =
+            "\t[ Viewing the full help page: help ]\n"
+                    + "\tCalls out the full help page.\n"
+                    + "\tFormat: help\n";
+
+    private static final String HELP_INDIV =
+            "\t[ Viewing help for a specific page: help ]\n"
+                    + "\tCalls out help for a specific page in the application.\n"
+                    + "\tFormat: help PAGE_NAME\n"
+                    + "\n"
+                    + "\tList of possible commands: \n"
+                    + "\t\t- help tasks\n"
+                    + "\t\t- help places\n"
+                    + "\t\t- help notes\n"
+                    + "\t\t- help module\n"
+                    + "\t\t- help contacts\n"
+                    + "\t\t- help cap\n"
+                    + "\t\t- help expenses\n"
+                    + "\t\t- help spec\n"
+                    + "\t\t- help password - Provides help on how to login and the default password.\n"
+                    + "\t\t- help change password \n"
+                    + "\t\t- help moduleplanner\n"
+                    + "\t\t- help bye\n";
 
     //------------------------------TASKS-------------------------------------------
     private static final String HEADER_TASKS_PAGE = "********** Tasks page: tasks **********\n"
@@ -41,54 +63,54 @@ public class HelpText {
 
     private static final String TODO =
             "\t[ Adding a todo: todo ]\n"
-            + "\tAdds a todo task to the task list.\n"
-            + "\tFormat: todo TASK_DESCRIPTION\n"
-            + "\n"
-            + "\tExamples:\n"
-            + "\t\t- todo eat\n"
-            + "\t\t- todo watch TV\n";
+                    + "\tAdds a todo task to the task list.\n"
+                    + "\tFormat: todo TASK_DESCRIPTION\n"
+                    + "\n"
+                    + "\tExamples:\n"
+                    + "\t\t- todo eat\n"
+                    + "\t\t- todo watch TV\n";
 
     private static final String DEADLINE =
             "\t[ Adding a deadline: deadline ]\n"
-            + "\tAdds a deadline task to the task list.\n"
-            + "\tFormat: deadline TASK_DESCRIPTION /by YYYY-MM-DD HH:MM:SS\n"
-            + "\n"
-            + "\tExamples:\n"
-            + "\t\t- deadline assignment /by 2019-12-04 12:07:08\n"
-            + "\t\t- deadline watch TV /by 1988-06-27 08:46:37\n";
+                    + "\tAdds a deadline task to the task list.\n"
+                    + "\tFormat: deadline TASK_DESCRIPTION /by YYYY-MM-DD HH:MM:SS\n"
+                    + "\n"
+                    + "\tExamples:\n"
+                    + "\t\t- deadline assignment /by 2019-12-04 12:07:08\n"
+                    + "\t\t- deadline watch TV /by 1988-06-27 08:46:37\n";
 
     private static final String EVENT =
             "\t[ Adding an event: event ]\n"
-            + "\tAdds an event task to the task list.\n"
-            + "\tFormat: event TASK_DESCRIPTION /at YYYY-MM-DD HH:MM:SS-HH:SS:MM\n"
-            + "\n"
-            + "\tExamples: \n"
-            + "\t\t- event party /at 2019-12-04 12:07:08-12:50:00\n"
-            + "\t\t- event project meeting /at 1988-06-27 08:46:37-09:50:10\n";
+                    + "\tAdds an event task to the task list.\n"
+                    + "\tFormat: event TASK_DESCRIPTION /at YYYY-MM-DD HH:MM:SS-HH:SS:MM\n"
+                    + "\n"
+                    + "\tExamples: \n"
+                    + "\t\t- event party /at 2019-12-04 12:07:08-12:50:00\n"
+                    + "\t\t- event project meeting /at 1988-06-27 08:46:37-09:50:10\n";
 
     private static final String LIST =
             "\t[ Listing out the task list: list ]\n"
-            + "\tList out all the tasks in the task list.\n"
-            + "\tFormat: list\n";
+                    + "\tList out all the tasks in the task list.\n"
+                    + "\tFormat: list\n";
 
     private static final String DELETE =
             "\t[ Delete task(s): delete ]\n"
-            + "\tDeletes n number of tasks at once from the list or delete all tasks at once.\n"
-            + "\tFormat: delete TASK_NUM1 and TASK_NUM2...OR delete all\n"
-            + "\n"
-            + "\tExamples:\n"
-            + "\t\t- delete 3 and 5\n"
-            + "\t\t- delete 6\n"
-            + "\t\t- delete all\n";
+                    + "\tDeletes n number of tasks at once from the list or delete all tasks at once.\n"
+                    + "\tFormat: delete TASK_NUM1 and TASK_NUM2...OR delete all\n"
+                    + "\n"
+                    + "\tExamples:\n"
+                    + "\t\t- delete 3 and 5\n"
+                    + "\t\t- delete 6\n"
+                    + "\t\t- delete all\n";
 
     private static final String DONE =
-            "\t[ Set a task as done: done]\n"
-            + "\tMarks a task as done.\n"
-            + "\tFormat: done TASK_NUM\n"
-            + "\n"
-            + "\tExamples:\n"
-            + "\t\t- done 1\n"
-            + "\t\t- done 6\n";
+            "\t[ Set a task as done: done ]\n"
+                    + "\tMarks a task as done.\n"
+                    + "\tFormat: done TASK_NUM\n"
+                    + "\n"
+                    + "\tExamples:\n"
+                    + "\t\t- done 1\n"
+                    + "\t\t- done 6\n";
 
     private static final String TASKS_FIND =
             "\t[ Find tasks based on a keyword: find ]\n"
@@ -160,7 +182,7 @@ public class HelpText {
                     + "\t\t  /\n"
                     + "\n"
                     + "\tEnsure your creation with a keyword: yes\n"
-                    + "\tExample: yes";
+                    + "\tExample: yes\n";
 
     private static final String TENTATIVE_EVENT_CONFIRM =
             "\t[ Confirming a Tentative Event base on a keyword: confirm ]\n"
@@ -177,11 +199,11 @@ public class HelpText {
                     + "\t\t- 1\n"
                     + "\n"
                     + "\tEnsure your confirmation with a keyword: yes\n"
-                    + "\tExample: yes";
+                    + "\tExample: yes\n";
 
     private static final String TASKS_EDIT =
             "\t[ Editing a task: edit ]\n"
-                    + "\tEdit task with task’s INDEX.\n"
+                    + "\tEdit task with task's INDEX.\n"
                     + "\tFormat: edit INDEX\n"
                     + "\n"
                     + "\tExample:\n"
@@ -216,19 +238,19 @@ public class HelpText {
     private static final String CALENDAR_VIEW_MONTHLY =
             "\t[ View current month in a calendar view: calendar monthly view ]\n"
                     + "\tShows the dates and current month in a calendar view.\n"
-                    + "\tDates with tasks will be demarcated with a ‘ * ’.\n"
-                    + "\tCurrent date will be demarcated between ‘ | ’.\n"
-                    + "\tFormat: calendar monthly view";
+                    + "\tDates with tasks will be demarcated with a ' * '.\n"
+                    + "\tCurrent date will be demarcated between ' | '.\n"
+                    + "\tFormat: calendar monthly view\n";
 
     private static final String CALENDAR_VIEW_ANNUAL =
             "\t[ View current year in a calendar view: calendar annual view ]\n"
                     + "\tShows the dates and months in a calendar view.\n"
-                    + "\tDates with tasks will be demarcated with a ‘ * ’.\n"
-                    + "\tCurrent date will be demarcated between ‘ | ’.\n"
-                    + "\tFormat: calendar annual view";
+                    + "\tDates with tasks will be demarcated with a ' * '.\n"
+                    + "\tCurrent date will be demarcated between ' | '.\n"
+                    + "\tFormat: calendar annual view\n";
 
     private static final String UNDONE =
-            "\t[ Set a ‘done’ task as undone: undone ]\n"
+            "\t[ Set a 'done' task as undone: undone ]\n"
                     + "\tMarks a task as undone.\n"
                     + "\tFormat: undone TASK_NUM\n"
                     + "\n"
@@ -239,7 +261,7 @@ public class HelpText {
     private static final String DONE_LIST =
             "\t[ See all the tasks that are marked as done: done list ]\n"
                     + "\tList out all the tasks that are done in a list\n"
-                    + "\tFormat: done list";
+                    + "\tFormat: done list\n";
 
     private static final String DO_AFTER_TASK =
             "\t[ Adding a do-after task: /after ]\n"
@@ -251,7 +273,7 @@ public class HelpText {
 
     private static final String SNOOZE =
             "\t[ Snooze a task based on a keyword: reschedule ]\n"
-                    + "\tSnooze a task’s timeline with task’s INDEX\n"
+                    + "\tSnooze a task's timeline with task's INDEX\n"
                     + "\tFormat: reschedule INDEX\n"
                     + "\n"
                     + "\tExample: \n"
@@ -270,7 +292,7 @@ public class HelpText {
 
     private static final String RESCHEDULE =
             "\t[ Reschedule a task based on a keyword: snooze ]\n"
-                    + "\tReschedule a task’s timeline with task’s INDEX\n"
+                    + "\tReschedule a task's timeline with task's INDEX\n"
                     + "\tFormat: snooze INDEX\n"
                     + "\n"
                     + "\tExample:\n"
@@ -297,7 +319,7 @@ public class HelpText {
     private static final String UNDONE_LIST =
             "\t[ See all the tasks that are marked as undone: undone list ]\n"
                     + "\tList out all the tasks that are undone in a list\n"
-                    + "\tFormat: undone list";
+                    + "\tFormat: undone list\n";
 
     private static final String TAGGING =
             "\t[ Tagging tasks: #TAG_NAME ]\n"
@@ -437,7 +459,7 @@ public class HelpText {
             + "\n"
             + "How to get to places page: \n"
             + "\t- Type in the command \'places\' in the main menu page and press ENTER.\n"
-            + "\t- You can only go to the places page from the main menu.";
+            + "\t- You can only go to the places page from the main menu.\n";
 
     private static final String PLACES_ADD =
             "\t[ Adds and stores a new place and location. ]\n"
@@ -510,14 +532,14 @@ public class HelpText {
             + "In your notes page, you can specify your goal and also record information about your modules. "
             + "\n"
             + "How to go to your notes page: \n"
-            + "\t- Type in the command \'notes\' in the main menu page and press ENTER.\n"
+            + "\t- Type in the command \'notes\' or \'9\' in the main menu page and press ENTER.\n"
             + "\t- You can only go to the notes page from the main menu.\n";
 
     private static final String NOTES_VIEW =
             "\t[ View goal and list of modules: view ]\n"
                     + "\tLists out your goal and the list of modules you have added.\n"
                     + "\n"
-                    + "\tFormat: view";
+                    + "\tFormat: view\n";
 
     private static final String NOTES_EDIT_GOAL =
             "\t[ Edit goal: edit /n ]\n"
@@ -562,11 +584,11 @@ public class HelpText {
                     + "\tExamples: \n"
                     + "\t\t- delete /n annoying module\n"
                     + "\t\t- delete /n cs1231\n"
-                    + "\t\t- delete /nSoftware Engineering & Object-Oriented Programming ";
+                    + "\t\t- delete /nSoftware Engineering & Object-Oriented Programming\n";
 
     private static final String HEADER_MODULE_PAGE = "********** Module page: module **********\n"
             + "\n"
-            + "Brings you to a module page, which contains the notes for that module, for the module you specify. "
+            + "Brings you to a module page, which contains the notes for that module, for the module you specify. \n"
             + "The notes for the module are grouped into 2 categories, namely assessments and miscellaneous.\n"
             + "\n"
             + "Format: module /n MODULE_NAME\n"
@@ -575,22 +597,22 @@ public class HelpText {
             + "\n"
             + "Constraints:\n"
             + "\t- You can only go to a module page from the note page.\n"
-            + "\t\t-- ie. You have to first go to your note page and then type in module /n MODULE_NAME "
-            + "in your note page to be able to go to a module page.\n"
+            + "\t\t-- ie. You have to first go to your note page and then type in module /n MODULE_NAME \n"
+            + "\t\t   in your note page to be able to go to a module page.\n"
             + "\n"
             + "Examples: \n"
             + "\t- module /n annoying module\n"
             + "\t- module /n cs1231\n"
-            + "\t- module /nSoftware Engineering & Object-Oriented Programming";
+            + "\t- module /nSoftware Engineering & Object-Oriented Programming\n";
 
     private static final String MODULE_VIEW =
-            "\t[ View the module’s notes: view ]\n"
+            "\t[ View the module's notes: view ]\n"
                     + "\tShows you the notes you have for the module.\n"
-                    + "\tFormat: view";
+                    + "\tFormat: view\n";
 
     private static final String MODULE_EDIT_MODULE_NAME =
-            "\t[ Edit the module’s name: edit mod /n ]\n"
-                    + "\tEdit the module’s name: edit mod /n\n"
+            "\t[ Edit the module's name: edit mod /n ]\n"
+                    + "\tEdit the module's name: edit mod /n\n"
                     + "\tEdits the name of the module.\n"
                     + "\n"
                     + "\tFormat: edit mod /n NEW_NAME\n"
@@ -601,7 +623,7 @@ public class HelpText {
                     + "\tExamples: \n"
                     + "\t\t- edit mod /n A+ module\n"
                     + "\t\t- edit mod /n CS1231\n"
-                    + "\t\t- edit mod /nSoftware Engineering & Object-Oriented Programming";
+                    + "\t\t- edit mod /nSoftware Engineering & Object-Oriented Programming\n";
 
     private static final String MODULE_ADD_ASSMT =
             "\t[ Add an assessment: add assmt /n /a ]\n"
@@ -780,18 +802,25 @@ public class HelpText {
                     + "\tExample:\n"
                     + "\t\t- delete Jason\n";
 
+    private static final String CONTACT_COMMANDS =
+            "\t[ View commands in Contact page ]\n"
+                    + "\tView commands in contact page.\n\n"
+                    + "\tFormat: commands\n\n"
+                    + "\tExample:\n"
+                    + "\t\t- commands\n";
+
     private  static final String CONTACT_UNDO =
             "\t[ Undo previous contact command ]\n"
                     + "\tUndo the previous contact command.\n"
                     + "\tCommands that can be undone:\n"
-                    + "\t\tadd\n"
-                    + "\t\tdelete\n"
+                    + "\t\t- add\n"
+                    + "\t\t- delete\n"
                     + "\n"
                     + "\tFormat :  undo\n";
     //--------------------------------------CAP-----------------------------------------------
     private static final String HEADER_CAP_PAGE = "********** CAP page: cap **********\n"
             + "\n"
-            + "A function to calculate the CAP of modules and to store module’s sem number, code, credit and grade.\n"
+            + "A function to calculate the CAP of modules and to store module's sem number, code, credit and grade.\n"
             + "\n"
             + "Format: cap\n"
             + "\n"
@@ -799,40 +828,73 @@ public class HelpText {
             + "\t- cap\n";
 
     private static final String CAP_ADD_MODULE =
-            "\t[ Adding a new module’s sem number, code, credit, and grade ]\n"
-                    + "\tCall out the add feature and input the required module information.\n"
-                    + "\tFormat: add semester number,module’s code,module’s credit,module’s grade\n"
+            "\t[ Adding a new module's sem number, code, credit, and grade ]\n"
+                    + "\tCall out the add feature and input the required module information. There are 3 ways\n"
+                    + "\tof calling out add feature:\n"
                     + "\n"
-                    + "\tExample:\n"
-                    + "\t\t- add 1,cg1111,6,B\n";
+                    + "\t1st way: \n"
+                    + "\t\tStep 1: 1\n"
+                    + "\t\tStep 2: semester number,module's code,module's credit,module's grade\n"
+                    + "\n"
+                    + "\t2nd way: \n"
+                    + "\t\tStep 1: add\n"
+                    + "\t\tStep 2: semester number,module's code,module's credit,module's grade\n"
+                    + "\n"
+                    + "\t3rd way:\n"
+                    + "\t\tStep 1: add semester number,module's code,module's credit,module's grade\n";
 
     private static final String CAP_FIND_MODULE =
             "\t[ Finding a module(s) ]\n"
-                    + "\tFinds all the modules by module’s code\n"
+                    + "\tFinds all the modules by module's code. There are 2 ways of calling out the find feature:\n"
                     + "\n"
-                    + "\tFormat: find module’s code\n"
+                    + "\t1st way: \n"
+                    + "\t\tStep 1: 2\n"
+                    + "\t\tStep 2: module's code\n"
                     + "\n"
-                    + "\tExample:\n"
-                    + "\t\t- find CS1231\n";
+                    + "\t2nd way: \n"
+                    + "\t\tStep 1: find\n"
+                    + "\t\tStep 2: module's code\n"
+                    + "\n"
+                    + "\t3rd way:\n"
+                    + "\t\tStep 1: find module's code\n";
 
     private static final String CAP_LIST_MODULE =
             "\t[ Listing modules ]\n"
                     + "\tCall out the list feature\n"
                     + "\n"
-                    + "\tFormat: list all/semester number\n"
+                    + "\t1st way: \n"
+                    + "\t\tStep 1: 4\n"
+                    + "\t\tStep 2: semester's number\n"
                     + "\n"
-                    + "\tExample:\n"
-                    + "\t\t- list all\n"
-                    + "\t\t- list 1\n";
+                    + "\t2nd way: \n"
+                    + "\t\tStep 1: list\n"
+                    + "\t\tStep 2: semester's number\n"
+                    + "\n"
+                    + "\t3rd way:\n"
+                    + "\t\tStep 1: list semester's number\n";
 
     private static final String CAP_DELETE_MODULE =
             "\t[ Deleting a module in the list ]\n"
-                    + "\tDeletes an existing module in the list.\n"
+                    + "\t1st way: \n"
+                    + "\t\tStep 1: 3\n"
+                    + "\t\tStep 2: module's code\n"
                     + "\n"
-                    + "\tFormat: delete module’s code\n"
+                    + "\t2nd way: \n"
+                    + "\t\tStep 1: delete\n"
+                    + "\t\tStep 2: module's code\n"
                     + "\n"
-                    + "\tExample:\n"
-                    + "\t\t- delete CS1231\n";
+                    + "\t3rd way:\n"
+                    + "\t\tStep 1: add semester number,module's code,module's credit,module's grade\n";
+
+    private static final String CAP_COMMANDS =
+            "\t[ Show commands in CAP Page ]\n"
+                    + "\tShows what commands can do in CAP page.\n"
+                    + "\n"
+                    + "\t1st way: \n"
+                    + "\t\tStep 1: 5\n"
+                    + "\n"
+                    + "\t2nd way: \n"
+                    + "\t\tStep 1: commands\n";
 
     //------------------------------------------expenses-------------------------------
     private static final String HEADER_EXPENSES_PAGE = "********** Expenses page: expenses **********\n"
@@ -863,47 +925,44 @@ public class HelpText {
     private static final String EXP_ADD = "\t[ Adding a new expense: add ]\n"
             + "\tAdds and store the new expenses to a list.\n"
             + "\n"
-            + "\tFormat: add\n"
+            + "\tFormat: add ITEM, PRICE, DATE\n"
             + "\n"
             + "\tExample: \n"
-            + "\t\t- add\n"
-            + "\tSteps for adding an expense:\n"
-            + "\t\t1. Type the command add and press ENTER.\n"
-            + "\t\t2. You will be prompted with the question \"What did you buy:\"\n"
-            + "\t\t3. Type the item name and press ENTER.\n"
-            + "\t\t4. You will be prompted with the question \"How much did you spend:\"\n"
-            + "\t\t5. Type the price of the item and press ENTER.\n"
-            + "\t\t6. You will be prompted with the hint \"Date of purchase:\"\n"
-            + "\t\t7. Type the date the item was bought in the format YYYY-MM-DD and press ENTER.\n";
+            + "\t\t- add bread, $4, 2019-09-09\n";
 
     private static final String EXP_DELETE = "\t[ Delete a certain expense: delete expense ]\n"
             + "\tDeletes an expense from your expenses list.\n"
             + "\n"
-            + "\tFormat: delete\n"
+            + "\tFormat: delete ITEM\n"
             + "\n"
-            + "\tSteps for deleting an expense:\n"
+            + "\tAlternative format: delete\n"
+            + "\n"
+            + "\tSteps for deleting an expense via index:\n"
             + "\t\t1. Type the command delete and press ENTER.\n"
-            + "\t\t2. Type the index of the expense you want to delete and press ENTER.\n";
+            + "\t\t2. Type the index of the expense you want to delete and press ENTER.\n"
+            + "\n"
+            + "\tExample: \n"
+            + "\t\t- delete bread\n";
 
     private  static final String EXP_UNDO =
-            "\t[ Undo previous expenses command ]\n"
+            "\t[ Undo previous expense command: undo ]\n"
                     + "\tUndo the previous expenses command.\n"
                     + "\tCommands that can be undone:\n"
                     + "\t\tadd\n"
                     + "\t\tdelete\n"
                     + "\n"
-                    + "\tFormat :  undo\n";
+                    + "\tFormat: undo\n";
 
     //----------------------------------specialisation-----------------------------
     private static final String HEADER_SPECIALISATION_PAGE = "********** Specialization page: spec **********\n"
             + "\n"
-            + "Brings you to your specialization page from the main menu page. This specialization "
-            + "page helps you be clearer of what specialization you can take in your course and record "
+            + "Brings you to your specialization page from the main menu page. This specialization \n"
+            + "page helps you be clearer of what specialization you can take in your course and record \n"
             + "the technical elective modules taken to see the progress of achieving that specialization.\n";
 
     private static final String SPEC_LIST = "\t[ List all specialization and Technical Electives ]\n"
-            + "\tShows all possible specializations and their respective modules. Number of MCs completed"
-            + " out of 20 will be shown too. (20MCs are needed to complete a specialization)\n"
+            + "\tShows all possible specializations and their respective modules. Number of MCs completed\n"
+            + "\tout of 20 will be shown too. (20MCs are needed to complete a specialization)\n"
             + "\n"
             + "\tFormat: list\n"
             + "\n"
@@ -924,34 +983,25 @@ public class HelpText {
             + "\t\t5. Type the index of the module completed and press ENTER.\n";
 
     //--------------------------------------password-----------------------------
-    public static final String PASSWORD_PLANNER = SEPARATOR_PAGE
+    public static final String PASSWORD_PLANNER_PAGE = SEPARATOR_PAGE
             + "********** Password to enter the planner **********\n"
+                    + "The password is a security measure to prevent other users from accessing the user's \n"
+                    + "Gazeeebo without his permission. Default password is jjjry.\n"
                     + "Enter the correct password set\n"
-                    + "Format: PASSWORD_TEXT\n"
+                    + "Format: Password_text\n"
                     + "\n"
                     + "Example:\n"
-                    + "\t- password123\n"
+                    + "\t- jjjry\n"
                     + SEPARATOR_PAGE;
 
-    public static final String PASSWORD_CHANGE = SEPARATOR_PAGE
+    public static final String PASSWORD_CHANGE_PAGE = SEPARATOR_PAGE
             + "********** Change Password based on keyword: change password ********** \n"
-                    + "Change Password\n"
-                    + "Format: Change password\n"
+                    + "Change Password. Feature can be called in the main page.\n"
                     + "\n"
-                    + "Example:\n"
-                    + "\t- change password\n"
+                    + "Step 1: Input change password\n"
+                    + "Step 2: Input old password.\n"
+                    + "Step 2: Input new password.\n"
                     + "\n"
-                    + "Old password\n"
-                    + "Format: old_password\n"
-                    + "\n"
-                    + "Example:\n"
-                    + "\t- Password123\n"
-                    + "\n"
-                    + "New password\n"
-                    + "Format: new_password\n"
-                    + "\n"
-                    + "Example:\n"
-                    + "\t- Secret_password\n"
                     + SEPARATOR_PAGE;
 
     //----------------------------module planner-----------------------------------
@@ -962,15 +1012,89 @@ public class HelpText {
                 + "How to get to the Module Planner page:\n"
                 + "\t- From main page, type in command 'moduleplanner', And then system will drops "
                 + "into Module Planner session\n"
-                + "\t- You could only enter the module planner page from the main page\n"
-                + "\n"
-                + "Following image shows the above step and the start page of Module Planner session "
-                + "after the user enters in.\n";
+                + "\t- You could only enter the module planner page from the main page\n";
 
-    //private static final String HEADER_MODULE_PLANNER_PAGE =
+    private static final String MODULE_PLANNER_PLAN =
+            "\t[ Display the module plan table and showcase suggestions: plan ]\n"
+            + "\tDescription: showcase the module plan table\n"
+            + "\n"
+            + "\tFormat: plan\n"
+            + "\n"
+            + "\tIf it is the first time user is using this feature, the system showcase default module plan \n"
+            + "\ttable which is the CEG recommended module plan for AY18/19 intake.\n";
+
+    private static final String MODULE_PLANNER_ADD =
+            "\t[ Add module to specific semester column: add ]\n"
+                    + "\tDescription: Add a new module to any column of the study plan table\n"
+                    + "\n"
+                    + "\tFormat: add module_code to semester_number\n"
+                    + "\n"
+                    + "\tExample: add CS4223 to 5\n"
+                    + "\n"
+                    + "\tSteps to add a command:\n"
+                    + "\t\t1. Type in command add module_code to semester_number and press ENTER\n"
+                    + "\t\t2. System will showcase the module is successfully added.\n"
+                    + "\t\t\t- If adding is not successful, an IOException message will be displayed\n";
+
+    private static final String MODULE_PLANNER_DELETE =
+            "\t[ Delete module from specific semester column: delete ]\n"
+                    + "\tDescription: delete an existing module from any column of the study plan table\n"
+                    + "\n"
+                    + "\tFormat: delete module_code from semester_number\n"
+                    + "\n"
+                    + "\tExample: delete CS4223 from 5\n"
+                    + "\n"
+                    + "\tSteps to add a command:\n"
+                    + "\t\t1. Type in command delete module_code from semester_number and press ENTER\n"
+                    + "\t\t2. System will showcase the module is successfully deleted.\n"
+                    + "\t\t\t- If deleting is not successful, an IOException message will be displayed\n";
+
+    private static final String MODULE_PLANNER_SHIFT =
+            "\t[ Shift module from specific semester column to another column: shift ]\n"
+                    + "\tDescription: shift an existing module from any column to another column of "
+                    + "the study plan table\n"
+                    + "\n"
+                    + "\tFormat: shift module_code to semester_number\n"
+                    + "\n"
+                    + "\tExample: shift CS4223 to 5\n"
+                    + "\n"
+                    + "\tSteps to add a command:\n"
+                    + "\t\t1. Type in command shift module_code to semester_numberand press ENTER\n"
+                    + "\t\t2. System will showcase the module is successfully shifted.\n"
+                    + "\t\t\t- If shifting is not successful, an IOException message will be displayed\n";
+
+    private static final String MODULE_PLANNER_PREREQ =
+            "\t[ Show a prerequisite tree of a module: prerequisite ]\n"
+                    + "\tDescription: showcase all prerequisite requirements for a specific module.\n"
+                    + "\n"
+                    + "\tFormat: prerequisite Module_Code\n"
+                    + "\n"
+                    + "\tExample: prerequisite CS2040C";
+
+    private static final String MODULE_PLANNER_UNDO =
+            "\t[ Undo previous module planner command: undo ]\n"
+                    + "\tUndo the previous module planner command.\n"
+                    + "\tCommands that can be undone:\n"
+                    + "\t\t- add\n"
+                    + "\t\t- delete\n"
+                    + "\t\t- shift\n"
+                    + "\n"
+                    + "\tFormat: undo\n";
+
+    //--------------------------------exiting the program----------------------------------
+    public static final String BYE_PAGE = SEPARATOR_PAGE
+            + "********** Exiting the program: bye **********\n"
+                    + "Exits the program.\n"
+                    + "Format: bye\n"
+                    + SEPARATOR_PAGE;
 
     //-----------------------------pages--------------------------------------
-    public static final String TASKS_PAGE =  SEPARATOR_PAGE
+    public static final String HELP_PAGE = SEPARATOR_PAGE
+            + HEADER_HELP_PAGE + SEPARATOR_COMMAND
+            + HELP_FULL + SEPARATOR_COMMAND
+            + HELP_INDIV + SEPARATOR_PAGE;
+
+    public static final String TASKS_PAGE = SEPARATOR_PAGE
             + HEADER_TASKS_PAGE + SEPARATOR_COMMAND
             + TODO + SEPARATOR_COMMAND
             + DEADLINE + SEPARATOR_COMMAND
@@ -1040,17 +1164,19 @@ public class HelpText {
             + CONTACT_ADD + SEPARATOR_COMMAND
             + CONTACT_FIND + SEPARATOR_COMMAND
             + CONTACT_LIST + SEPARATOR_COMMAND
-            + CONTACT_DELETE  + SEPARATOR_COMMAND
-            + CONTACT_UNDO + SEPARATOR_PAGE;
+            + CONTACT_DELETE + SEPARATOR_COMMAND
+            + CONTACT_UNDO + SEPARATOR_COMMAND
+            + CONTACT_COMMANDS + SEPARATOR_PAGE;
 
     public static final String CAP_PAGE = SEPARATOR_PAGE
             + HEADER_CAP_PAGE + SEPARATOR_COMMAND
             + CAP_ADD_MODULE + SEPARATOR_COMMAND
             + CAP_FIND_MODULE + SEPARATOR_COMMAND
             + CAP_LIST_MODULE + SEPARATOR_COMMAND
-            + CAP_DELETE_MODULE + SEPARATOR_PAGE;
+            + CAP_DELETE_MODULE + SEPARATOR_COMMAND
+            + CAP_COMMANDS + SEPARATOR_PAGE;
 
-    public static final String EXPENSES_PAGE =  SEPARATOR_PAGE
+    public static final String EXPENSES_PAGE = SEPARATOR_PAGE
             + HEADER_EXPENSES_PAGE + SEPARATOR_COMMAND
             + EXP_LIST + SEPARATOR_COMMAND
             + EXP_FIND + SEPARATOR_COMMAND
@@ -1063,6 +1189,12 @@ public class HelpText {
             + SPEC_LIST + SEPARATOR_COMMAND
             + SPEC_COMPLETE + SEPARATOR_PAGE;
 
+    public static final String MODULE_PLANNER_PAGE = SEPARATOR_PAGE
+            + HEADER_MODULE_PLANNER_PAGE + SEPARATOR_COMMAND
+            + MODULE_PLANNER_PLAN + SEPARATOR_COMMAND
+            + MODULE_PLANNER_ADD + SEPARATOR_COMMAND
+            + MODULE_PLANNER_DELETE + SEPARATOR_COMMAND
+            + MODULE_PLANNER_SHIFT + SEPARATOR_COMMAND
+            + MODULE_PLANNER_PREREQ + SEPARATOR_COMMAND
+            + MODULE_PLANNER_UNDO + SEPARATOR_PAGE;
 }
-
-

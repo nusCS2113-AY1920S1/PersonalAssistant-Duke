@@ -24,17 +24,17 @@ public class TagCommand extends Command {
     /**
      * Adds a tag e.g. #study to a task.
      *
-     * @param list         Task lists
-     * @param ui           The object that deals with
-     *                     printing things to the user.
-     * @param storage      The object that deals with storing data.
-     * @param commandStack
-     * @param deletedTask
-     * @param triviaManager
+     * @param list          Task lists
+     * @param ui            The object that deals with
+     *                      printing things to the user.
+     * @param storage       The object that deals with storing data.
+     * @param commandStack  Stores the stack of previous commands
+     * @param deletedTask   Stores the list of deleted tasks
+     * @param triviaManager The object for TriviaManager
      * @throws DukeException  Throws custom exception when
      *                        format of tag command is wrong
-     * @throws ParseException
-     * @throws IOException
+     * @throws ParseException Catch error if parsing of commands fails
+     * @throws IOException Catch error if reading of file fails
      */
     @Override
     public void execute(final ArrayList<Task> list,

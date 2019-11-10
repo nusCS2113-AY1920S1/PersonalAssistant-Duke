@@ -9,6 +9,14 @@ import java.util.Map;
  * Pushes all specializations and technical electives to specMap.
  */
 public class ListOfSpecializationAndModules {
+    private static final int COMMS_AND_NETWORKING_INDEX = 1;
+    private static final int EMBEDDED_COMPUTING_INDEX = 2;
+    private static final int INTELLIGENT_SYSTEMS_INDEX = 3;
+    private static final int INTERACTIVE_DIGITAL_MEDIA_INDEX = 4;
+    private static final int LARGE_SCALE_COMPUTING_INDEX = 5;
+    private static final int SYS_ON_A_CHIP_DESIGN_INDEX = 6;
+    private static final int MODULAR_CREDITS = 4;
+
     /**
      * Stores all the technical electives and specializations.
      * in this case storing data in the expenses map
@@ -18,12 +26,7 @@ public class ListOfSpecializationAndModules {
      */
     public ListOfSpecializationAndModules(final Map<String,
             ArrayList<ModuleCategory>> specMap) {
-        final int commsAndNetworkingIndex = 1;
-        final int embeddedComputingIndex = 2;
-        final int intelligentSystemsIndex = 3;
-        final int interactiveDigitalMediaIndex = 4;
-        final int largeScaleComputingIndex = 5;
-        final int sysDesignIndex = 6;
+
         ArrayList<String> specList = new ArrayList<>();
         specList.add("Communications & Networking"); //index 0
         specList.add("Embedded Computing"); //index 1
@@ -32,81 +35,74 @@ public class ListOfSpecializationAndModules {
         specList.add("Large-Scale Computing"); //index 4
         specList.add("System-On-A-Chip Design"); //index 5
 
-        ArrayList<ModuleCategory> commsAndNetworkingBD = new ArrayList();
-        ArrayList<ModuleCategory> embComputingBD = new ArrayList();
-        ArrayList<ModuleCategory> intSystemsBD = new ArrayList();
-        ArrayList<ModuleCategory> intDigMediaBD = new ArrayList();
-        ArrayList<ModuleCategory> largeScaleComputingBD = new ArrayList();
-        ArrayList<ModuleCategory> sysDesignBD = new ArrayList();
+        final String cs2107 = "CS2107 Introduction to Information System";
+        final String cs3103 = "CS3103 Computer Networks Practice";
+        final String ee3131C = "EE3131C Communication Systems";
+        final String cs4222 = "CS4222 Wireless Networking";
+        final String cs4226 = "CS4226 Internet Architecture";
+        final String ee4210 = "EE4210 Network Protocols and Applications";
+        final String cs5223 = "CS5223 Distributed Systems";
+        final String cs5321 = "CS5321 Network Security";
+        final String ee5135 = "EE5135 Digital Communications";
 
-        String cs2107 = "CS2107 Introduction to Information System";
-        String cs3103 = "CS3103 Computer Networks Practice";
-        String ee3131C = "EE3131C Communication Systems";
-        String cs4222 = "CS4222 Wireless Networking";
-        String cs4226 = "CS4226 Internet Architecture";
-        String ee4210 = "EE4210 Network Protocols and Applications";
-        String cs5223 = "CS5223 Distributed Systems";
-        String cs5321 = "CS5321 Network Security";
-        String eE5135 = "EE5135 Digital Communications";
+        final String cg3207 = "CG3207 Computing Architecture";
+        final String cs3211 = "CS3211 Parallel and Concurrent Programming";
+        final String ee3731C = "EE3731C Signal Processing Methods";
+        final String cs4223 = "CS4223 Multi-core Architectures";
+        final String ee4218 = "EE4218 Embedded Hardware System Design";
+        final String ee4415 = "EE4218 Embedded Hardware System Design";
+        final String cs5272 = "CS5272 Embedded Software Design";
+        final String ee5903 = "EE5903 Real-time Systems";
 
-        String cg3207 = "CG3207 Computing Architecture";
-        String cs3211 = "CS3211 Parallel and Concurrent Programming";
-        String ee3731C = "EE3731C Signal Processing Methods";
-        String cs4223 = "CS4223 Multi-core Architectures";
-        String ee4218 = "EE4218 Embedded Hardware System Design";
-        String ee4415 = "EE4218 Embedded Hardware System Design";
-        String cs5272 = "CS5272 Embedded Software Design";
-        String ee5903 = "EE5903 Real-time Systems";
+        final String cs3243 = "CS3243 Introduction to Artificial Intelligence";
+        final String cs3244 = "CS3244 Machine Learning";
+        final String ee3331C = "EE3331C Feedback Control Systems";
+        final String cs4244 = "CS4244 Knowledge-based Systems";
+        final String cs4246 = "CS4246 AI Planning and Decision Making";
+        final String cs4248 = "CS4248 Natural Language Processing";
+        final String ee4305 = "EE4305 Fuzzy/Neural Systems for Intelligent Robotics";
+        final String ee4308 = "EE4308 Autonomous Robot Systems";
+        final String cs5242 = "CS5242 Neural Networks & Deep Learning";
+        final String cs5339 = "CS5339 Theory and Algorithms for Machine Learning";
+        final String ee5904 = "EE5904 Neural Networks";
+        final String ee5907 = "EE5907 Pattern Recognition";
 
-        String cs3243 = "CS3243 Introduction to Artificial Intelligence";
-        String cs3244 = "CS3244 Machine Learning";
-        String ee3331C = "EE3331C Feedback Control Systems";
-        String cs4244 = "CS4244 Knowledge-based Systems";
-        String cs4246 = "CS4246 AI Planning and Decision Making";
-        String cs4248 = "CS4248 Natural Language Processing";
-        String ee4305 = "EE4305 Fuzzy/Neural Systems for Intelligent Robotics";
-        String ee4308 = "EE4308 Autonomous Robot Systems";
-        String cs5242 = "CS5242 Neural Networks & Deep Learning";
-        String cs5339 = "CS5339 Theory and Algorithms for Machine Learning";
-        String ee5904 = "EE5904 Neural Networks";
-        String ee5907 = "EE5907 Pattern Recognition";
-
-        String cs2108 = "CS2108 Introduction to Media Computing";
-        String cs3240 = "CS3240 Interaction Design";
-        String cs3241 = "CS3241 Computer Graphics";
-        String cs3242 = "CS3242 3D Modeling and Animation";
-        String cs3247 = "CS3247 Game Development";
-        String cs4240 = "CS4240 Interaction Design"
+        final String cs2108 = "CS2108 Introduction to Media Computing";
+        final String cs3240 = "CS3240 Interaction Design";
+        final String cs3241 = "CS3241 Computer Graphics";
+        final String cs3242 = "CS3242 3D Modeling and Animation";
+        final String cs3247 = "CS3247 Game Development";
+        final String cs4240 = "CS4240 Interaction Design "
                 + "for Virtual and Augmented Reality";
-        String cs4243 = "CS4243 Computer Vision and Pattern Recognition";
-        String cs4247 = "CS4247 Graphics Rendering Techniques";
-        String cs4249 = "CS4249 Phenomena and Theories of"
-                + "Human-Computer Interaction";
-        String cs4347 = "CS4347 Sound and Music Computing";
-        String cs4351 = "CS4351 Real-Time Graphics";
-        String ee4212 = "EE4212 Computer Vision";
-        String ee4604 = "EE4604 Biological Perception in Digital Media";
-        String ee4704 = "EE4704 Introduction to"
+        final String cs4243 = "CS4243 Computer Vision and Pattern Recognition";
+        final String cs4247 = "CS4247 Graphics Rendering Techniques";
+        final String cs4249 = "CS4249 Phenomena and Theories of"
+                + " Human-Computer Interaction";
+        final String cs4347 = "CS4347 Sound and Music Computing";
+        final String cs4351 = "CS4351 Real-Time Graphics";
+        final String ee4212 = "EE4212 Computer Vision";
+        final String ee4604 = "EE4604 Biological Perception in Digital Media";
+        final String ee4704 = "EE4704 Introduction to "
                 + "Computer Vision and Image Processing";
 
-        String cs2101 = "CS2101 Database Systems";
-        String cs3210 = "CS3210 Parallel Computing";
-        String cs3230 = "CS3230 Design & Analysis of Algorithms";
-        String cs3235 = "CS3235 Computer Security";
-        String cs3223 = "CS3223 Database Systems Implementation";
-        String cs4211 = "CS4211 Formal Methods for Software Engineering";
-        String cs4221 = "CS4221 Database Applications Design and Tuning";
-        String cs4224 = "CS4224 Distributed Databases";
-        String cs4231 = "CS4231 Parallel &"
+        final String cs2101 = "CS2101 Database Systems";
+        final String cs3210 = "CS3210 Parallel Computing";
+        final String cs3230 = "CS3230 Design & Analysis of Algorithms";
+        final String cs3235 = "CS3235 Computer Security";
+        final String cs3223 = "CS3223 Database Systems Implementation";
+        final String cs4211 = "CS4211 Formal Methods for Software Engineering";
+        final String cs4221 = "CS4221 Database Applications Design and Tuning";
+        final String cs4224 = "CS4224 Distributed Databases";
+        final String cs4231 = "CS4231 Parallel & "
                 + "Distributed Algorithms";
 
-        String ee3104C = "EE3104C Introduction to RF "
+        final String ee3104C = "EE3104C Introduction to RF "
                 + "and Microwave Systems & Circuit";
-        String ee3408C = "EE3408C Integrated Analog Design";
-        String ee4104 = "EE4101 Microwave Circuits & Devices";
-        String ee4112 = "EE4112 Radio Frequency Design and Systems";
-        String ee4505 = "EE4505 Power Semiconductor Devices & ICs";
-        String ee5518 = "EE5518 VLSI Digital Circuit Design";
+        final String ee3408C = "EE3408C Integrated Analog Design";
+        final String ee4104 = "EE4101 Microwave Circuits & Devices";
+        final String ee4112 = "EE4112 Radio Frequency Design and Systems";
+        final String ee4505 = "EE4505 Power Semiconductor Devices & ICs";
+        final String ee5518 = "EE5518 VLSI Digital Circuit Design";
 
         ModuleCategory cn1 = new ModuleCategory(cs2107);
         cn1.isBreadth = true;
@@ -132,9 +128,10 @@ public class ListOfSpecializationAndModules {
         ModuleCategory cn8 = new ModuleCategory(cs5321);
         cn8.isDepth = true;
 
-        ModuleCategory cn9 = new ModuleCategory(eE5135);
+        ModuleCategory cn9 = new ModuleCategory(ee5135);
         cn9.isDepth = true;
 
+        ArrayList<ModuleCategory> commsAndNetworkingBD = new ArrayList();
         commsAndNetworkingBD.add(cn1);
         commsAndNetworkingBD.add(cn2);
         commsAndNetworkingBD.add(cn3);
@@ -145,7 +142,7 @@ public class ListOfSpecializationAndModules {
         commsAndNetworkingBD.add(cn8);
         commsAndNetworkingBD.add(cn9);
 
-        specMap.put(specList.get(commsAndNetworkingIndex - 1),
+        specMap.put(specList.get(COMMS_AND_NETWORKING_INDEX - 1),
                 commsAndNetworkingBD);
 
         ModuleCategory emb1 = new ModuleCategory(cg3207);
@@ -178,6 +175,7 @@ public class ListOfSpecializationAndModules {
         ModuleCategory emb10 = new ModuleCategory(ee5903);
         emb10.isDepth = true;
 
+        ArrayList<ModuleCategory> embComputingBD = new ArrayList();
         embComputingBD.add(emb1);
         embComputingBD.add(emb2);
         embComputingBD.add(emb3);
@@ -189,7 +187,7 @@ public class ListOfSpecializationAndModules {
         embComputingBD.add(emb9);
         embComputingBD.add(emb10);
 
-        specMap.put(specList.get(embeddedComputingIndex - 1), embComputingBD);
+        specMap.put(specList.get(EMBEDDED_COMPUTING_INDEX - 1), embComputingBD);
 
         ModuleCategory is1 = new ModuleCategory(cs3243);
         is1.isBreadth = true;
@@ -227,6 +225,7 @@ public class ListOfSpecializationAndModules {
         ModuleCategory is12 = new ModuleCategory(ee5907);
         is12.isDepth = true;
 
+        ArrayList<ModuleCategory> intSystemsBD = new ArrayList();
         intSystemsBD.add(is1);
         intSystemsBD.add(is2);
         intSystemsBD.add(is3);
@@ -240,7 +239,7 @@ public class ListOfSpecializationAndModules {
         intSystemsBD.add(is11);
         intSystemsBD.add(is12);
 
-        specMap.put(specList.get(intelligentSystemsIndex - 1), intSystemsBD);
+        specMap.put(specList.get(INTELLIGENT_SYSTEMS_INDEX - 1), intSystemsBD);
 
         ModuleCategory idm1 = new ModuleCategory(cs2108);
         idm1.isBreadth = true;
@@ -287,6 +286,7 @@ public class ListOfSpecializationAndModules {
         ModuleCategory idm15 = new ModuleCategory(ee4704);
         idm15.isDepth = true;
 
+        ArrayList<ModuleCategory> intDigMediaBD = new ArrayList();
         intDigMediaBD.add(idm1);
         intDigMediaBD.add(idm2);
         intDigMediaBD.add(idm3);
@@ -303,7 +303,7 @@ public class ListOfSpecializationAndModules {
         intDigMediaBD.add(idm14);
         intDigMediaBD.add(idm15);
 
-        specMap.put(specList.get(interactiveDigitalMediaIndex - 1),
+        specMap.put(specList.get(INTERACTIVE_DIGITAL_MEDIA_INDEX - 1),
                 intDigMediaBD);
 
         ModuleCategory ls1 = new ModuleCategory(cs2101);
@@ -345,6 +345,7 @@ public class ListOfSpecializationAndModules {
         ModuleCategory ls13 = new ModuleCategory(ee4218);
         ls13.isDepth = true;
 
+        ArrayList<ModuleCategory> largeScaleComputingBD = new ArrayList();
         largeScaleComputingBD.add(ls1);
         largeScaleComputingBD.add(ls2);
         largeScaleComputingBD.add(ls3);
@@ -359,7 +360,7 @@ public class ListOfSpecializationAndModules {
         largeScaleComputingBD.add(ls12);
         largeScaleComputingBD.add(ls13);
 
-        specMap.put(specList.get(largeScaleComputingIndex - 1),
+        specMap.put(specList.get(LARGE_SCALE_COMPUTING_INDEX - 1),
                 largeScaleComputingBD);
 
         ModuleCategory s1 = new ModuleCategory(cg3207);
@@ -392,6 +393,7 @@ public class ListOfSpecializationAndModules {
         ModuleCategory s10 = new ModuleCategory(ee5518);
         s10.isDepth = true;
 
+        ArrayList<ModuleCategory> sysDesignBD = new ArrayList();
         sysDesignBD.add(s1);
         sysDesignBD.add(s2);
         sysDesignBD.add(s3);
@@ -403,7 +405,7 @@ public class ListOfSpecializationAndModules {
         sysDesignBD.add(s9);
         sysDesignBD.add(s10);
 
-        specMap.put(specList.get(sysDesignIndex - 1), sysDesignBD);
+        specMap.put(specList.get(SYS_ON_A_CHIP_DESIGN_INDEX - 1), sysDesignBD);
 
     }
 }

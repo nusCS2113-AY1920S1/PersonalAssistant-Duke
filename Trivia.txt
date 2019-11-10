@@ -9,13 +9,12 @@ event sleep/at 2019-12-12 03:03:03-04:04:04
 event sleep/at 2019-12-12 02:03:03-03:10:04
 event sleep/at 2019-12-12 03:10:03-03:50:04
 deadline return book /by 2008-07-07 03:03:03
+
 todo study
-<<<<<<< HEAD
+
 deadline asdkj/////
 deadline asd/bsd
 deadline asd/san 2019-12-12 12:12:12
 
 deadline sadasdas/by 2019-12-12 12:12:12
-=======
 
->>>>>>> da31cefb2d1b4699565ab08b574002c1f0749238
