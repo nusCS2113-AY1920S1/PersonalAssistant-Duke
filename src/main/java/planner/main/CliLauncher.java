@@ -107,7 +107,7 @@ public class CliLauncher {
                 }
             }
         } catch (ModException e) {
-            System.out.println(e.getMessage());
+            modUi.println(e.getMessage());
             PlannerLogger.log(e);
         } finally {
             modUi.showLine();
