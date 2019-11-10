@@ -1,5 +1,7 @@
 package duke.commons.util;
 
+import duke.logic.parser.exceptions.ParseException;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -57,7 +59,7 @@ public class StringUtil {
      *
      * @throws NullPointerException if {@code s} is null.
      */
-    public static boolean isNonZeroUnsignedInteger(String s) {
+    public static boolean isNonZeroUnsignedInteger(String s) throws ParseException {
         requireNonNull(s);
 
         try {
