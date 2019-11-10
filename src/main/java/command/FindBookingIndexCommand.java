@@ -19,7 +19,7 @@ import java.text.ParseException;
 public class FindBookingIndexCommand extends Command {
     private int index;
 
-    //@@author  Alex-Teo
+    //@@author Alex-Teo
     /**
      * Find booking via index.
      * @param input from user

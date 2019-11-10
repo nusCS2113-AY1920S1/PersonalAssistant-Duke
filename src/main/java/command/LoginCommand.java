@@ -15,8 +15,7 @@ import user.UserList;
 public class LoginCommand extends Command {
     private String[] splitL;
 
-    //@@ AmirAzhar
-
+    //@@author  AmirAzhar
     /**
      * User login.
      * @param input from user

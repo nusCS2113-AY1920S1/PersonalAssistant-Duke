@@ -14,12 +14,12 @@ import user.UserList;
 
 import java.io.IOException;
 
-//@@author amoschan97
+//@@author AmosChan97
 public class DeleteBookingCommand extends Command {
     private int index;
     private Booking deletedBooking;
 
-    //@@ AmosChan97
+    //@@author AmosChan97
     /**
      * Deletes a booking from the booking list based on the index.
      * @param input raw user input
