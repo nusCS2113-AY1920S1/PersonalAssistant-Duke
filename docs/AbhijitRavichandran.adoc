@@ -137,13 +137,10 @@ The excerpt describes the implementation and design considerations of the `loan`
 
 === Reserve/Loan
 
-Implemented by: Bobby/Abhijit +
-Written by: Bobby/Sean
-
 ==== Implementation
 .Sequence Diagram for Reserve
 [caption="Figure 2.2.1: "]
-image::ReserveSequence.png[width="1000", align="center"]
+image::images/DeveloperGuide/ReserveSequence.png[width="1000", align="center"]
 
 Making a reservation utilizes the following classes. The Parser and UI class will gather inputs from users. Then, these inputs will be used to create new reservation under the ReserveCommand class. New reservations are added to the ReservationList class under each Resource object.
 
