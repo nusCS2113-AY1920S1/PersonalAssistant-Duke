@@ -36,7 +36,8 @@ public class SearchProfile extends UserProfile {
 //        super.setSortByAlphabetical(sortByAlphabetical);
 //        super.setSortByHighestRating(sortByHighestRating);
 //        super.setSortByLatestRelease(sortByLatestRelease);
-        super(userName, userAge, genreIdPreference, genreIdRestriction, adult, playlistNames, sortByAlphabetical, sortByHighestRating, sortByLatestRelease);
+        super(userName, userAge, genreIdPreference, genreIdRestriction, adult, playlistNames, sortByAlphabetical,
+                sortByHighestRating, sortByLatestRelease);
         this.name = name;
         this.isMovie = isMovie;
     }
@@ -75,7 +76,9 @@ public class SearchProfile extends UserProfile {
      * @param name The name of movie/TV show that user want search results to be based on.
      */
     public SearchProfile setName(String name) {
-        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease(), name, this.isMovie);
+        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(),
+                this.isSortByHighestRating(), this.isSortByLatestRelease(), name, this.isMovie);
     }
 
     /**
@@ -91,31 +94,45 @@ public class SearchProfile extends UserProfile {
      * @param movie true if search request is for movies and false otherwise.
      */
     public SearchProfile setMovie(boolean movie) {
-        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), movie);
+        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(),
+                this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), movie);
     }
 
     public SearchProfile setGenreIdPreference(ArrayList<Integer> genreIdPreference) {
-        return new SearchProfile(this.getUserName(), this.getUserAge(), genreIdPreference, this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), this.isMovie);
+        return new SearchProfile(this.getUserName(), this.getUserAge(), genreIdPreference, this.getGenreIdRestriction(),
+                this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(),
+                this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
     public SearchProfile setGenreIdRestriction(ArrayList<Integer> genreIdRestriction) {
-        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), genreIdRestriction, this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), this.isMovie);
+        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), genreIdRestriction,
+                this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(),
+                this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
     public SearchProfile setAdult(boolean adult) {
-        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), adult, this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), this.isMovie);
+        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), adult, this.getPlaylistNames(), this.isSortByAlphabetical(),
+                this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
     public SearchProfile setSortByAlphabetical(boolean sortByAlphabetical) {
-        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), sortByAlphabetical, this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), this.isMovie);
+        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), sortByAlphabetical,
+                this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
     public SearchProfile setSortByLatestRelease(boolean sortByLatestRelease) {
-        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), sortByLatestRelease, this.getName(), this.isMovie);
+        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(),
+                this.isSortByHighestRating(), sortByLatestRelease, this.getName(), this.isMovie);
     }
 
     public SearchProfile setSortByHighestRating(boolean sortByHighestRating) {
-        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), sortByHighestRating, this.isSortByLatestRelease(), this.getName(), this.isMovie);
+        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(),
+                sortByHighestRating, this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
     /**

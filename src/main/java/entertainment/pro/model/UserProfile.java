@@ -13,7 +13,9 @@ public class UserProfile {
     private final boolean sortByHighestRating;
     private final boolean sortByLatestRelease;
 
-    public UserProfile(String userName, int userAge, ArrayList<Integer> genreIdPreference, ArrayList<Integer> genreIdRestriction, boolean adult, ArrayList<String> playlistNames, boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease) {
+    public UserProfile(String userName, int userAge, ArrayList<Integer> genreIdPreference,
+                       ArrayList<Integer> genreIdRestriction, boolean adult, ArrayList<String> playlistNames,
+                       boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease) {
         this.userName = userName;
         this.userAge = userAge;
         this.genreIdPreference = genreIdPreference;
@@ -42,7 +44,9 @@ public class UserProfile {
     }
 
     public UserProfile setGenreIdPreference(ArrayList<Integer> genreIdPreference) {
-        return new UserProfile(this.getUserName(), this.getUserAge(), genreIdPreference, this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+        return new UserProfile(this.getUserName(), this.getUserAge(), genreIdPreference, this.getGenreIdRestriction(),
+                this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(),
+                this.isSortByHighestRating(), this.isSortByLatestRelease());
     }
 
     public ArrayList<Integer> getGenreIdRestriction() {
@@ -50,7 +54,9 @@ public class UserProfile {
     }
 
     public UserProfile setGenreIdRestriction(ArrayList<Integer> genreIdRestriction) {
-        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), genreIdRestriction, this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), genreIdRestriction,
+                this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(),
+                this.isSortByHighestRating(), this.isSortByLatestRelease());
     }
 
     public boolean isAdult() {
@@ -58,7 +64,9 @@ public class UserProfile {
     }
 
     public UserProfile setAdult(boolean adult) {
-        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), adult, this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), adult, this.getPlaylistNames(), this.isSortByAlphabetical(),
+                this.isSortByHighestRating(), this.isSortByLatestRelease());
     }
 
     public boolean isSortByAlphabetical() {
@@ -66,7 +74,9 @@ public class UserProfile {
     }
 
     public UserProfile setSortByAlphabetical(boolean sortByAlphabetical) {
-        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), sortByAlphabetical, this.isSortByHighestRating(), this.isSortByLatestRelease());
+        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), sortByAlphabetical,
+                this.isSortByHighestRating(), this.isSortByLatestRelease());
     }
 
     public boolean isSortByHighestRating() {
@@ -74,7 +84,9 @@ public class UserProfile {
     }
 
     public UserProfile setSortByHighestRating(boolean sortByHighestRating) {
-        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), sortByHighestRating, this.isSortByLatestRelease());
+        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(),
+                this.isSortByAlphabetical(), sortByHighestRating, this.isSortByLatestRelease());
     }
 
     public boolean isSortByLatestRelease() {
@@ -82,31 +94,41 @@ public class UserProfile {
     }
 
     public UserProfile setSortByLatestRelease(boolean sortByLatestRelease) {
-        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), sortByLatestRelease);
+        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(),
+                this.isSortByAlphabetical(), this.isSortByHighestRating(), sortByLatestRelease);
     }
 
     public UserProfile addGenreIdRestriction(ArrayList<Integer> inputGenre) {
         ArrayList<Integer> newRestriction = this.getGenreIdRestriction();
         newRestriction.addAll(inputGenre);
-        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), newRestriction, this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                newRestriction, this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(),
+                this.isSortByHighestRating(), this.isSortByLatestRelease());
     }
 
     public UserProfile removeGenreIdRestriction(ArrayList<Integer> inputGenre) {
         ArrayList<Integer> newRestriction = this.getGenreIdRestriction();
         newRestriction.removeAll(inputGenre);
-        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), newRestriction, this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                newRestriction, this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(),
+                this.isSortByHighestRating(), this.isSortByLatestRelease());
     }
 
     public UserProfile addGenreIdPreference(ArrayList<Integer> inputGenre) {
         ArrayList<Integer> newPreference = this.getGenreIdPreference();
         newPreference.addAll(inputGenre);
-        return new UserProfile(this.getUserName(), this.getUserAge(), newPreference, this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+        return new UserProfile(this.getUserName(), this.getUserAge(), newPreference,
+                this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(),
+                this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
     }
 
     public UserProfile removeGenreIdPreference(ArrayList<Integer> inputGenre) {
         ArrayList<Integer> newPreference = this.getGenreIdPreference();
         newPreference.removeAll(inputGenre);
-        return new UserProfile(this.getUserName(), this.getUserAge(), newPreference, this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+        return new UserProfile(this.getUserName(), this.getUserAge(), newPreference,
+                this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(),
+                this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
     }
 
     public ArrayList<String> getPlaylistNames() {
@@ -114,26 +136,34 @@ public class UserProfile {
     }
 
     public UserProfile setPlaylistNames(ArrayList<String> playlistNames) {
-        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), playlistNames, this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), this.isAdult(), playlistNames, this.isSortByAlphabetical(),
+                this.isSortByHighestRating(), this.isSortByLatestRelease());
     }
 
     public UserProfile addPlaylist(String listName) {
         ArrayList<String> newPlaylistNames = this.getPlaylistNames();
         newPlaylistNames.add(listName);
-        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), newPlaylistNames, this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), this.isAdult(), newPlaylistNames,
+                this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
     }
 
     public UserProfile deletePlaylist(String listName) {
         ArrayList<String> newPlaylistNames = this.getPlaylistNames();
         newPlaylistNames.remove(listName);
-        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), newPlaylistNames, this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), this.isAdult(), newPlaylistNames, this.isSortByAlphabetical(),
+                this.isSortByHighestRating(), this.isSortByLatestRelease());
     }
 
     public UserProfile renamePlaylist(String oldName, String newName) {
         ArrayList<String> newPlaylistNames = this.getPlaylistNames();
         newPlaylistNames.remove((oldName));
         newPlaylistNames.add(newName);
-        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), newPlaylistNames, this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+        return new UserProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
+                this.getGenreIdRestriction(), this.isAdult(), newPlaylistNames, this.isSortByAlphabetical(),
+                this.isSortByHighestRating(), this.isSortByLatestRelease());
     }
 
     public String getUserName() {
@@ -141,7 +171,9 @@ public class UserProfile {
     }
 
     public UserProfile setUserName(String userName) {
-        return new UserProfile(userName, this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+        return new UserProfile(userName, this.getUserAge(), this.getGenreIdPreference(), this.getGenreIdRestriction(),
+                this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(),
+                this.isSortByHighestRating(), this.isSortByLatestRelease());
     }
 
     public int getUserAge() {
@@ -153,9 +185,13 @@ public class UserProfile {
      */
     public UserProfile setUserAge(int userAge) {
         if (userAge < 21) {
-            return new UserProfile(this.getUserName(), userAge, this.getGenreIdPreference(), this.getGenreIdRestriction(), false, this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+            return new UserProfile(this.getUserName(), userAge, this.getGenreIdPreference(),
+                    this.getGenreIdRestriction(), false, this.getPlaylistNames(),
+                    this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
         } else {
-            return new UserProfile(this.getUserName(), userAge, this.getGenreIdPreference(), this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
+            return new UserProfile(this.getUserName(), userAge, this.getGenreIdPreference(),
+                    this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(),
+                    this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease());
 
         }
     }
