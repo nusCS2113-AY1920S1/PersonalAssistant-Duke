@@ -44,25 +44,25 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
             return new EditCommand(true, e.getMessage());
         }
 
+        if (nutritionInfoMap.containsKey("date")) {
+            String dateArgStr = "";
+            try {
+                dateArgStr = nutritionInfoMap.get("date");
+                localDate = LocalDate.parse(dateArgStr, dateFormat);
+            } catch (DateTimeParseException e) {
+                return new EditCommand(true, "Unable to parse" + dateArgStr + " as a date. "
+                        + "Please follow DD/MM/YYYY format.");
+            }
+            nutritionInfoMap.remove("date");
+        }
+
         for (String detailsStr : nutritionInfoMap.keySet()) {
-            if (detailsStr.equals("date")) {
-                String dateArgStr = "";
-                try {
-                    dateArgStr = nutritionInfoMap.get(detailsStr);
-                    localDate = LocalDate.parse(dateArgStr, dateFormat);
-                } catch (DateTimeParseException e) {
-                    return new EditCommand(true, "Unable to parse" + dateArgStr + " as a date. "
-                            + "Please follow DD/MM/YYYY format.");
-                }
-                nutritionInfoMap.remove("date");
-            } else {
-                String valueStr = nutritionInfoMap.get(detailsStr);
-                try {
-                    InputValidator.validateNutritionalValue(valueStr);
-                } catch (ProgramException e) {
-                    return new EditCommand(false, "Unable to parse tag " + detailsStr + " with value "
-                            + valueStr + " as an integer. Please enter values as integers larger than or equal to 0");
-                }
+            String valueStr = nutritionInfoMap.get(detailsStr);
+            try {
+                InputValidator.validateNutritionalValue(valueStr);
+            } catch (ProgramException e) {
+                return new EditCommand(false, "Unable to parse tag " + detailsStr + " with value "
+                        + valueStr + " as an integer. Please enter values as integers larger than or equal to 0");
             }
         }
 

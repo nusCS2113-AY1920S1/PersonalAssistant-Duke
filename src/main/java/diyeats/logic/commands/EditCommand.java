@@ -37,14 +37,14 @@ public class EditCommand extends Command {
         String mealNameStr = oldMeal.getDescription();
         String costStr = oldMeal.getCostStr();
         HashMap<String,Integer> nutritionInfoMap = oldMeal.getNutritionalValue();
-        for (String detailsStr : newNutritionInfoMap.keySet()) {
-            if (detailsStr.equals("name")) {
-                mealNameStr = newNutritionInfoMap.get(detailsStr);
-                newNutritionInfoMap.remove(detailsStr);
-            } else if (detailsStr.equals("cost")) {
-                costStr = newNutritionInfoMap.get(detailsStr);
-                newNutritionInfoMap.remove(detailsStr);
-            }
+        if (newNutritionInfoMap.containsKey("name")) {
+            mealNameStr = newNutritionInfoMap.get("name");
+            newNutritionInfoMap.remove("name");
+        }
+
+        if (newNutritionInfoMap.containsKey("cost")) {
+            costStr = newNutritionInfoMap.get("cost");
+            newNutritionInfoMap.remove("cost");
         }
 
         for (String keyStr : nutritionInfoMap.keySet()) {
