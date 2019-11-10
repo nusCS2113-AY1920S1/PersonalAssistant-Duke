@@ -44,11 +44,6 @@ public class CommandManager {
      */
     public static Command manageCommand(String userInput) throws DukeException {
         userInput = userInput.trim();
-        String possibleCommand = TypoCorrector.commandCorrection(userInput);
-        if (!possibleCommand.equals(userInput)) {
-            DukeUi.getDukeUi().typoCorrection(possibleCommand);
-            userInput = possibleCommand;
-        }
 
         String[] command = userInput.toLowerCase().split(":");
         String keyWord = command[0].trim();
