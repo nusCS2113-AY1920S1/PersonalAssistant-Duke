@@ -3,10 +3,8 @@ package tests;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.card.PatientCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -151,7 +149,7 @@ public class PatientTest {
     public void appendHistory_basicPatient_historySuccessfullyAppended() {
         assertEquals("Heart attack 5 years ago", validPatient.getHistory());
         validPatient.appendHistory("Test Append");
-        assertEquals("Heart attack 5 years ago" + System.lineSeparator() + "Test Append",
+        assertEquals("Heart attack 5 years ago\n\nTest Append",
                 validPatient.getHistory());
     }
 }
