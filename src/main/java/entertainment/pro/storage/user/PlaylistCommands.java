@@ -37,7 +37,8 @@ public class PlaylistCommands {
     /**
      * to add movies to playlist.
      */
-    public Playlist add(Playlist playlist, TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> movies) throws IOException {
+    public Playlist add(Playlist playlist, TreeMap<String, ArrayList<String>> flagMap,
+                        ArrayList<MovieInfoObject> movies) throws IOException {
         ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
         for (String log : flagMap.get("-m")) {
             int index = Integer.parseInt(log.trim()) - 1;

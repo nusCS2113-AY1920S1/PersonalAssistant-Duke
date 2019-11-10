@@ -96,7 +96,7 @@ public class CommandStack {
      * prompt to execute the predicted command
      */
     public static void executeLastCommand() throws IOException, Exceptions {
-        logger.log(Level.INFO , PromptMessages.EXECUTING_MISTYPED_COMMAND);
+        logger.log(Level.INFO, PromptMessages.EXECUTING_MISTYPED_COMMAND);
         if (myStack.size() < 1) {
             return;
         }

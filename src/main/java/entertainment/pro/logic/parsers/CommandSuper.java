@@ -171,7 +171,7 @@ public abstract class CommandSuper {
                     }
                 }
             } catch (Exception e) {
-                logger.log(Level.SEVERE , e.toString());
+                logger.log(Level.SEVERE, e.toString());
             }
 
             CommandPair cmds = CommandDebugger.commandSpellChecker(commandArr, root, this.uicontroller);
@@ -214,7 +214,7 @@ public abstract class CommandSuper {
 
         ArrayList<String> flagOrder = new ArrayList<>();
 
-        logger.log(Level.INFO , "Finding Flags");
+        logger.log(Level.INFO, "Finding Flags");
         for (String s :commandArr) {
             if (s.matches("-[a-z,A-Z]")) {
                 flagOrder.add(s);

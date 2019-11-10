@@ -9,27 +9,31 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Retrieves Help information from help storage files.
+ *
+ */
 public class HelpStorage {
 
     private static final Logger logger = Logger.getLogger(HelpStorage.class.getName());
     private static TreeMap<COMMANDKEYS, String> cmdHelp = new TreeMap<>();
 
     /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     * Initialises help for all root keywords.
      */
     public static void initialiseAllHelp() {
         for (COMMANDKEYS root: CommandStructure.AllRoots) {
             try {
                 cmdHelp.put(root, getHelpInstructions(root.toString()));
             } catch (IOException e) {
-                logger.log(Level.SEVERE , PromptMessages.FILE_NOT_FOUND + e.toString());
+                logger.log(Level.SEVERE, PromptMessages.FILE_NOT_FOUND + e.toString());
             }
         }
 
         try {
             cmdHelp.put(COMMANDKEYS.ME, getHelpInstructions(COMMANDKEYS.ME.toString()));
         } catch (IOException e) {
-            logger.log(Level.SEVERE , PromptMessages.FILE_NOT_FOUND + e.toString());
+            logger.log(Level.SEVERE, PromptMessages.FILE_NOT_FOUND + e.toString());
         }
 
     }
@@ -42,7 +46,7 @@ public class HelpStorage {
         InputStream configStream = HelpStorage.class
                 .getResourceAsStream(String.format("/helpData/%s.txt", root.toLowerCase()));
         if (configStream == null) {
-            logger.log(Level.SEVERE , PromptMessages.FILES_NOT_FOUND);
+            logger.log(Level.SEVERE, PromptMessages.FILES_NOT_FOUND);
             return PromptMessages.FILES_NOT_FOUND;
         }
         BufferedReader br = new BufferedReader(new InputStreamReader(configStream, "UTF-8"));

@@ -1,4 +1,4 @@
-package entertainment.pro.logic.cinemaRequesterAPI;
+package entertainment.pro.logic.cinemarequesterapi;
 
 import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
@@ -22,7 +22,8 @@ import java.util.Comparator;
 public class CinemaRetrieveRequest implements CinemaInfoFetcher {
     private RequestListener variableListener;
     private ArrayList<CinemaInfoObject> parsedCinemas;
-    private static final String MAIN_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=cinemas+near+";
+    private static final String MAIN_URL = "https://maps.googleapis.com/maps/api/place"
+            + "/textsearch/json?query=cinemas+near+";
     private static final String API_KEY = "AIzaSyBocJpxC7ChqlrS_mq6L-GpgudmXCzcXig";
 
     /**
@@ -47,12 +48,14 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
             String result = "";
             for (int i = 0; i < token.length; i++) {
                 result += token[i];
-                if (i != token.length - 1) result += "%20";
+                if (i != token.length - 1) {
+                    result += "%20";
+                }
             }
             String url = MAIN_URL + result + "&key=" + API_KEY;
             UrlRetriever retrieve = new UrlRetriever();
             String json = retrieve.readUrlAsString(new URL(url));
-            fetchedCinemasJSON(json);
+            fetchedCinemasJson(json);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -65,7 +68,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
      * @param json result from the api request
      */
     @Override
-    public void fetchedCinemasJSON(String json) {
+    public void fetchedCinemasJson(String json) {
         if (json == null) {
             variableListener.requestTimedOut(PromptMessages.NO_RESULTS_FOUND);
             return;
@@ -78,7 +81,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
             cinemas = (JSONArray) cinemaData.get("results");
             parsedCinemas.clear();
             for (int i = 0; i < cinemas.size(); i++) {
-                parsedCinemas.add(parseCinemaJSON((JSONObject) (cinemas.get(i))));
+                parsedCinemas.add(parseCinemaJson((JSONObject) (cinemas.get(i))));
             }
             Collections.sort(parsedCinemas, Comparator.comparingDouble(CinemaInfoObject::getRating));
             Collections.reverse(parsedCinemas);
@@ -93,7 +96,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
      * @param cinemaData JSONObject to be parsed
      * @return CinemaInfoObject of the desired cinema
      */
-    public CinemaInfoObject parseCinemaJSON(JSONObject cinemaData) {
+    public CinemaInfoObject parseCinemaJson(JSONObject cinemaData) {
         String name = (String) (cinemaData.get("name"));
         double rating;
         try {

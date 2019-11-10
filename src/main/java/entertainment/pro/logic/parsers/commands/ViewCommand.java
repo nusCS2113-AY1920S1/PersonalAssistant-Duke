@@ -31,23 +31,24 @@ import java.util.ArrayList;
     @Override
     public void executeCommands() throws Exceptions {
         switch (this.getSubRootCommand()) {
-            case WATCHLIST:
-                WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
-                break;
-            case BLACKLIST:
-                ((MovieHandler) this.getUiController()).setGeneralFeedbackText(Blacklist.printList());
-                break;
-            case ENTRY:
-                int num = Integer.parseInt(getPayload());
-                executeEntryCommands(num);
-                break;
-            case RECOMMENDATION:
-                executeRecommendationCommand();
-                break;
-                case BACK:
-                    executeBackCommands();
-            default:
-                break;
+        case WATCHLIST:
+            WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
+            break;
+        case BLACKLIST:
+            ((MovieHandler) this.getUiController()).setGeneralFeedbackText(Blacklist.printList());
+            break;
+        case ENTRY:
+            int num = Integer.parseInt(getPayload());
+            executeEntryCommands(num);
+            break;
+        case RECOMMENDATION:
+            executeRecommendationCommand();
+            break;
+        case BACK:
+            executeBackCommands();
+            break;
+        default:
+            break;
         }
     }
 

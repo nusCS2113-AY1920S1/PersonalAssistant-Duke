@@ -72,8 +72,8 @@ public class CommandStructure {
             });
             put(COMMANDKEYS.FIND, new COMMANDKEYS[] {
                 COMMANDKEYS.CINEMA
-        });
-    }};
+            });
+        }};
 
 
     public static boolean hasSubRoot(COMMANDKEYS root) {

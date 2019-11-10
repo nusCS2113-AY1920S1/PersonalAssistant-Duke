@@ -5,7 +5,7 @@ import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
-import entertainment.pro.logic.cinemaRequesterAPI.CinemaRetrieveRequest;
+import entertainment.pro.logic.cinemarequesterapi.CinemaRetrieveRequest;
 import entertainment.pro.logic.contexts.CommandContext;
 import entertainment.pro.logic.contexts.ContextHelper;
 import entertainment.pro.logic.contexts.SearchResultContext;

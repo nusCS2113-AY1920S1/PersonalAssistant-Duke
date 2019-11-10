@@ -38,7 +38,7 @@ public class EditProfileJson {
             this.inputStream = new FileInputStream(file);
         } else {
             file.createNewFile();
-//            UserProfile userProfile = null;
+            //UserProfile userProfile = null;
             UserProfile userProfile = new UserProfile();
             mapper.writeValue(file, userProfile);
             this.inputStream = new FileInputStream(file);
@@ -49,7 +49,7 @@ public class EditProfileJson {
      * Responsible for loading UserProfile object from userProfile.json.
      */
     public static UserProfile load() throws IOException {
-//        InputStream inputStream = getClass().getResourceAsStream("./userProfile.json");
+        //InputStream inputStream = getClass().getResourceAsStream("./userProfile.json");
         InputStream inputStream = new FileInputStream("./userProfile.json");
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -72,7 +72,7 @@ public class EditProfileJson {
         UserProfile userProfile = new UserProfile();
         parse(userProfileString, userProfile);
         return userProfile;
-//        return mapper.readValue(inputStream, typeReference);
+        //return mapper.readValue(inputStream, typeReference);
     }
 
 

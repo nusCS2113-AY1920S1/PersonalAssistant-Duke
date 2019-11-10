@@ -2,12 +2,9 @@ package entertainment.pro.logic.movierequesterapi;
 
 import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.commons.exceptions.FailedAPIException;
 import entertainment.pro.commons.exceptions.EmptyResultExceptions;
-import entertainment.pro.commons.exceptions.ParseExceptionInExtraction;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
-import org.apache.commons.logging.Log;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -472,7 +469,7 @@ public class RetrieveRequest implements InfoFetcher {
             String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
             UrlRetriever retrieve = new UrlRetriever();
             String json = retrieve.readUrlAsString(new URL(url));
-            fetchedJSON(json);
+            fetchedJson(json);
         } catch (UnsupportedEncodingException | MalformedURLException | Exceptions ex) {
             ex.printStackTrace();
         }
@@ -498,7 +495,7 @@ public class RetrieveRequest implements InfoFetcher {
             url += adult;
             UrlRetriever retrieve = new UrlRetriever();
             String json = retrieve.readUrlAsString(new URL(url));
-            fetchedJSON(json);
+            fetchedJson(json);
             //fetchJSONData(url);
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
@@ -535,8 +532,7 @@ public class RetrieveRequest implements InfoFetcher {
      *
      * @param json String that contains all the data extracted by fetcher.
      */
-    @Override
-    public void fetchedJSON(String json) {
+    public void fetchedJson(String json) {
         isOffline = false;
         JSONObject data = new JSONObject();
         JSONParser parser = new JSONParser();
