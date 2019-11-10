@@ -1,29 +1,30 @@
 package mistermusik.logic;
 
-import mistermusik.commons.events.eventtypes.Event;
-import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Exam;
-import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Recital;
-import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
-import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Lesson;
-import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Practice;
-import mistermusik.commons.events.eventtypes.eventsubclasses.ToDo;
-import mistermusik.commons.events.formatting.EventDate;
-import mistermusik.commons.events.formatting.Predicate;
+import mistermusik.commons.Goal;
 import mistermusik.commons.budgeting.Budgeting;
 import mistermusik.commons.budgeting.CostExceedsBudgetException;
+import mistermusik.commons.events.eventtypes.Event;
+import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
+import mistermusik.commons.events.eventtypes.eventsubclasses.ToDo;
+import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Exam;
+import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Recital;
+import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Lesson;
+import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Practice;
+import mistermusik.commons.events.formatting.EventDate;
+import mistermusik.commons.events.formatting.Predicate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.logging.Logger;
+
+//@@author
 
 /**
  * Allows for access to the list of events currently stored, and editing that list of events.
  * Does NOT contain any methods for reading/writing to savefile.
  */
 public class EventList {
-    private static Logger logger = Logger.getLogger("EventList");
     /**
      * list of Model_Class.Event objects currently stored.
      */
@@ -32,15 +33,8 @@ public class EventList {
     /**
      * compare_func codes
      */
-    static final int EQUAL = 0;
-    static final int GREATER_THAN = 1;
-    static final int SMALLER_THAN = 2;
-
-    /**
-     * Filter type codes
-     */
-    private static final int DATE = 0;
-    private static final int TYPE = 1;
+    private static final int GREATER_THAN = 1;
+    private static final int SMALLER_THAN = 2;
 
     /**
      * Class that handles all budgeting for concerts.
@@ -48,18 +42,43 @@ public class EventList {
     private Budgeting budgeting;
 
     /**
+     * Index to manage which events are over.
+     */
+    public int currentDateIndex = 0;
+
+    /**
+     * Calendar class to get the current system date.
+     */
+    private Calendar currentDateCalendar = Calendar.getInstance();
+
+    /**
+     * Date class to be used to compare event dates with current date.
+     */
+    private Date currentDate = currentDateCalendar.getTime();
+
+    /**
+     * Flag to check if there are unachieved goals for past events.
+     */
+    public boolean gotPastUnachieved = false;
+
+    /**
+     * Characters signifying event types.
+     */
+    private static final char TODO = 'T';
+    private static final char CONCERT = 'C';
+    private static final char LESSON = 'L';
+    private static final char PRACTICE = 'P';
+    private static final char EXAM = 'E';
+    private static final char RECITAL = 'R';
+
+    //@author Ryan-Wong-Ren-Wei
+
+    /**
      * Creates new Model_Class.EventList object.
      *
      * @param inputList list of strings containing all information extracted from save file
      */
     public EventList(ArrayList<String> inputList) {
-        //magic characters for type of event
-        final char TODO = 'T';
-        final char CONCERT = 'C';
-        final char LESSON = 'L';
-        final char PRACTICE = 'P';
-        final char EXAM = 'E';
-        final char RECITAL = 'R';
         eventArrayList = new ArrayList<>();
 
         for (String currLine : inputList) {
@@ -78,32 +97,34 @@ public class EventList {
                 String endDateAndTime = splitString[3];
 
                 switch (eventType) {
-                    case CONCERT:
-                        eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime,
-                                Integer.parseInt(splitString[4])));
-                        break;
+                case CONCERT:
+                    eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime,
+                            Integer.parseInt(splitString[4])));
+                    break;
+                case LESSON:
+                    eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
+                    break;
 
-                    case LESSON:
-                        eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
-                        break;
+                case PRACTICE:
+                    eventArrayList.add(new Practice(description, isDone, startDateAndTime, endDateAndTime));
+                    break;
 
-                    case PRACTICE:
-                        eventArrayList.add(new Practice(description, isDone, startDateAndTime, endDateAndTime));
-                        break;
+                case EXAM:
+                    eventArrayList.add(new Exam(description, isDone, startDateAndTime, endDateAndTime));
+                    break;
 
-                    case EXAM:
-                        eventArrayList.add(new Exam(description, isDone, startDateAndTime, endDateAndTime));
-                        break;
-
-                    case RECITAL:
-                        eventArrayList.add(new Recital(description, isDone, startDateAndTime, endDateAndTime));
-                        break;
+                case RECITAL:
+                    eventArrayList.add(new Recital(description, isDone, startDateAndTime, endDateAndTime));
+                    break;
                 }
             }
         }
 
         budgeting = new Budgeting(eventArrayList, 50);
     }
+
+
+    //@@author
 
     /**
      * Edit an event's description, start time and end time in the list.
@@ -124,7 +145,6 @@ public class EventList {
      */
     public void addEvent(Event event) throws EndBeforeStartException, ClashException, CostExceedsBudgetException {
         if (event.getStartDate().getEventJavaDate().compareTo(event.getEndDate().getEventJavaDate()) == 1) {
-//            logger.log(Level.WARNING, "The end time is earlier than the start time");
             throw new EndBeforeStartException();
         }
 
@@ -135,19 +155,17 @@ public class EventList {
             }
 
             this.eventArrayList.add(event);
-//            logger.log(Level.INFO, "The new event is added to the eventList");
         } else { //if clash is found, notify user via terminal.
-//            logger.log(Level.WARNING, "The event to be added clashes with another event in the list");
             throw new ClashException(clashEvent);
         }
     }
 
     public void addNewTodo(Event event) {
         this.eventArrayList.add(event);
-//        logger.log(Level.INFO, "The new Todo is added to the eventList");
     }
 
     //@@author YuanJiayi
+
     /**
      * Adds recurring events to the list.
      *
@@ -179,7 +197,6 @@ public class EventList {
             if (clashEvent(newEvent) == null) {
                 tempEventList.add(newEvent);
             } else {
-//                logger.log(Level.WARNING, "At least one of the events to be added clashes with another event in the list");
                 throw new ClashException(newEvent);
             }
             calendarStartDate.add(Calendar.DATE, period);
@@ -187,10 +204,10 @@ public class EventList {
         }
 
         this.eventArrayList.addAll(tempEventList);
-//        logger.log(Level.INFO, "Recurring events are added to the list");
     }
 
     //@@author Ryan-Wong-Ren-Wei
+
     /**
      * Checks the list of events for any clashes with the newly added event. If
      * there is a clash, return a reference to the event, if not, return null.
@@ -218,11 +235,9 @@ public class EventList {
 
             if (newEventDate.equals(currEventStartDateTime[0]) && //check for same date
                     timeClash(newEventStartTime, newEventEndTime, currEventStartDateTime[1], currEventEndDateTime[1])) { //check for time clash
-//                logger.log(Level.INFO, "Clash found");
                 return currEvent; //clash found
             }
         }
-//        logger.log(Level.INFO, "No clash found");
         return null; //no clash found
     }
 
@@ -244,6 +259,8 @@ public class EventList {
         }
     }
 
+    //@@author
+
     /**
      * sorts the list of events/tasks according to date, in increasing order.
      */
@@ -251,7 +268,6 @@ public class EventList {
         Collections.sort(eventArrayList);
     }
 
-    //@@author
     /**
      * Deletes a event from the list.
      *
@@ -262,7 +278,6 @@ public class EventList {
             budgeting.removeMonthlyCost((Concert) this.eventArrayList.get(eventNo));
         }
         this.eventArrayList.remove(eventNo);
-//        logger.log(Level.INFO, "The event is deleted");
     }
 
     /**
@@ -299,8 +314,9 @@ public class EventList {
      * @return String containing all events, separated by a newline.
      */
     public String listOfEvents_String() {
+        findNextEventAndSetBoolean(currentDate);
         String allEvents = "";
-        for (int i = 0; i < eventArrayList.size(); ++i) {
+        for (int i = currentDateIndex; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
             int j = i + 1;
             allEvents += j + ". " + this.getEvent(i).toString() + "\n";
@@ -316,8 +332,8 @@ public class EventList {
         int j;
         for (int i = 0; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
-            else if (!predicate1.check(eventArrayList.get(i).getStartDate()) 
-            		|| !predicate2.check(eventArrayList.get(i).getStartDate())) continue;
+            else if (!predicate1.check(eventArrayList.get(i).getStartDate())
+                    || !predicate2.check(eventArrayList.get(i).getStartDate())) continue;
             j = i + 1;
             filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
         }
@@ -325,7 +341,7 @@ public class EventList {
     }
 
     /**
-     * @return String containing events found in the next 3 days
+     * @return String containing events found in the next `days` days
      */
     public String getReminder(int days) {
         Date systemDateAndTime = new Date();
@@ -342,6 +358,7 @@ public class EventList {
     }
 
     //@@author
+
     /**
      * Used to reinstate deleted event in case of failure to reschedule
      */
@@ -351,15 +368,59 @@ public class EventList {
                 this.budgeting.updateMonthlyCost((Concert) event);
             }
         } catch (CostExceedsBudgetException e) {
-//            logger.log(Level.WARNING, e.getMessage(), e);
             //ignore exception, will never happen
         }
         eventArrayList.add(event);
-//        logger.log(Level.INFO, "The deleted event is added back to the list");
     }
 
     public Budgeting getBudgeting() {
         return budgeting;
     }
 
+    //@@author yenpeichih
+
+    /**
+     * Compares the dates of each event with current date
+     */
+    public void findNextEventAndSetBoolean(Date currentDate) {
+        gotPastUnachieved = false;
+        for (int i = 0; i < eventArrayList.size(); i += 1) {
+            if (this.getEvent(i).getStartDate().getEventJavaDate().compareTo(currentDate) <= 0) {
+                currentDateIndex = i + 1;
+            }
+        }
+        if (currentDateIndex > 0) {
+            for (int i = 0; i < currentDateIndex; i += 1) {
+                Event eventToCheck = this.getEvent(i);
+                for (int j = 0; j < eventToCheck.getGoalList().size(); j += 1) {
+                    if (!eventToCheck.getGoalObject(j).getBooleanStatus()) {
+                        gotPastUnachieved = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public String getPastEventsWithUnachievedGoals() {
+        String overUnachievedGoalsList = "\n" + "Below lists all the unachieved goal for past events. Please be reminded to add them to the future events." + "\n";
+        if (gotPastUnachieved) {
+            for (int j = 0; j < currentDateIndex; j += 1) {
+                Event eventToCheck = this.getEvent(j);
+                for (int k = 0; k < eventToCheck.getGoalList().size(); k += 1) {
+                    if (!eventToCheck.getGoalObject(k).getBooleanStatus()) {
+                        Goal unachievedGoal = eventToCheck.getGoalObject(k);
+                        int eventListNum = j + 1;
+                        int goalListNum = k + 1;
+                        overUnachievedGoalsList += "Event " + eventListNum + ": " + eventToCheck.toString() + " ---" + " Goal " + goalListNum + ": " + unachievedGoal.getGoal() + "\n";
+                    }
+                }
+            }
+            return overUnachievedGoalsList;
+        } else {
+            overUnachievedGoalsList += "You do not have any unachieved goals for past events! Yay!" + "\n";
+        }
+        return overUnachievedGoalsList;
+    }
+    //@@author
 }

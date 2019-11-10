@@ -3,10 +3,8 @@ package mistermusik.commons.Instruments;
 import mistermusik.commons.events.formatting.EventDate;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 public class Instrument {
-    private static Logger logger = Logger.getLogger("Instrument");
     private String instrumentName;
     private ArrayList<ServiceInfo> serviceInfoList;
     
@@ -28,7 +26,6 @@ public class Instrument {
     public int addService (EventDate date, String description) {
     	ServiceInfo newServiceInfo = new ServiceInfo(date, description);
         serviceInfoList.add(newServiceInfo);
-//        logger.log(Level.INFO, "The new service info is added to the list");
         return serviceInfoList.size();
     }
     

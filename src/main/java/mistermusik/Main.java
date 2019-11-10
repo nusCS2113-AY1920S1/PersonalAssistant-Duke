@@ -1,3 +1,4 @@
+//@@author
 
 package mistermusik;
 
@@ -20,26 +21,31 @@ public class Main {
     private static EventList tasks;
     private static InstrumentList instruments = new InstrumentList();
     private static EventDate calendarStartDate;
+    public static boolean allowCalendarFrequentPrint;
 
     /**
-     * main mistermusik.Main method
+     * Main component. Runs the application.
      */
     public static void main(String[] args) throws IOException {
         setup();
         ui.welcome();
-
         String userInput = parser.readUserInput().toLowerCase();
         while (!userInput.equals("bye")) {
+            if (userInput.equals("calendar on")) {
+                allowCalendarFrequentPrint = true;
+            } else if (userInput.equals("calendar off")) {
+                allowCalendarFrequentPrint = false;
+            }
             Command currCommand = parser.parseInput(userInput);
-            currCommand.execute(tasks, ui, storage, instruments, calendarStartDate);
+            currCommand.execute(tasks, ui, storage, instruments, calendarStartDate, allowCalendarFrequentPrint);
             userInput = parser.readUserInput();
         }
 
-        ui.bye();
+        UI.printGoodbyeMsg();
     }
 
     /**
-     * instantiates all necessary classes to run duke program
+     * Instantiates all necessary classes to run duke program.
      */
     private static void setup() {
         parser = new Parser();
@@ -47,5 +53,6 @@ public class Main {
         storage = new Storage(new File("data/mistermusik.Main.txt"));
         tasks = new EventList(storage.readFromFile(ui));
         calendarStartDate = new EventDate(new Date());
+        allowCalendarFrequentPrint = false;
     }
 }

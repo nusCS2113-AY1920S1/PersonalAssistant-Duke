@@ -14,3 +14,4 @@ src/main/resources/docs/
 bin/
 
 /data/mistermusik.Main.txt
+src/main/java/data/mistermusik.Main.txt

@@ -25,6 +25,10 @@ public class Goal {
         isAchieved = true;
     }
 
+    public boolean getBooleanStatus() {
+        return isAchieved;
+    }
+
     public String getStatus() {
         if (isAchieved) {
             return "Yes";
