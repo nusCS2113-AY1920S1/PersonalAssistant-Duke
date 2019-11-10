@@ -3,7 +3,6 @@ package RetrievePreviousTest;
 import Commands.Command;
 import Commands.RetrievePreviousCommand;
 import Commands.ShowPreviousCommand;
-import Commons.Duke;
 import Commons.UserInteraction;
 import DukeExceptions.DukeInvalidFormatException;
 import Parser.FindFreeTimesParse;
@@ -11,7 +10,6 @@ import Parser.ShowPreviousParse;
 import Parser.WeekParse;
 import StubClasses.StorageStub;
 import Tasks.TaskList;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class RetrievePreviousCommandTest {
     private static ArrayList<String> previousInputList;
     private static String userInputWithInvalidNumberGreaterThanSize;
-    private static String userInputToGetFromEmptyPreviousInputList;
     private static String userInputWithValidNumber;
     private static String userInputToGetFromNonEmptyPreviousInputList;
     private static String userInputWithoutInteger;
@@ -45,7 +42,6 @@ public class RetrievePreviousCommandTest {
     @BeforeAll
     public static void setAllVariables() {
         userInputWithInvalidNumberGreaterThanSize = "retrieve/previous 3";
-        userInputToGetFromEmptyPreviousInputList = "retrieve/previous 1";
         userInputWithValidNumber = "retrieve/previous 2";
         userInputToGetFromNonEmptyPreviousInputList = "retrieve/previous 1";
         userInputWithoutInteger = "retrieve/previous";
@@ -172,7 +168,7 @@ public class RetrievePreviousCommandTest {
         previousInputList = ShowPreviousCommand.getOutputList();
         int sizeOfList = previousInputList.size();
         Command command = new RetrievePreviousCommand(userInputWithNumberZero);
-        String expected = "Please enter a valid integer x between 0 and " + sizeOfList + " ,inclusive.";
+        String expected = "Please enter a valid integer x from 1 to " + sizeOfList + " .";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -190,7 +186,7 @@ public class RetrievePreviousCommandTest {
         previousInputList = ShowPreviousCommand.getOutputList();
         int sizeOfList = previousInputList.size();
         Command command = new RetrievePreviousCommand(userInputWithNegativeNumber);
-        String expected = "Please enter a valid integer x between 0 and " + sizeOfList + " ,inclusive.";
+        String expected = "Please enter a valid integer x from 1 to " + sizeOfList + " .";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);

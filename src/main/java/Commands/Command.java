@@ -67,19 +67,14 @@ public abstract class Command {
                     if (date.equals(t.getDate())) {
                         Date taskStartTime = DukeConstants.TWELVE_HOUR_TIME_FORMAT.parse(task.getStartTime());
                         Date taskEndTime = DukeConstants.TWELVE_HOUR_TIME_FORMAT.parse(task.getEndTime());
-                        //start time is the same
                         if (taskStartTime.equals(startTime1) || taskStartTime.equals(endTime1)) {
                             conflict.add(task.displayString());
-                            //end time is the same
                         } else if (taskEndTime.equals(endTime1) || taskEndTime.equals(startTime1)) {
                             conflict.add(task.displayString());
-                            //new task start time overlaps with existing task
                         } else if (startTime1.after(taskStartTime) && startTime1.before(taskEndTime)) {
                             conflict.add(task.displayString());
-                            //new task end time overlaps with existing task
                         } else if (endTime1.after(taskEndTime) && endTime1.before(taskEndTime)) {
                             conflict.add(task.displayString());
-                            //existing task in new task period
                         } else if (taskStartTime.after(startTime1) && taskStartTime.before(endTime1)) {
                             conflict.add(task.displayString());
                         } else if (taskEndTime.after(startTime1) && taskEndTime.before(endTime1)) {

@@ -110,7 +110,7 @@ public class DukeConstants {
             + "Followed by the command\n"
             + "retrieve/time <x>, where x is a digit between 1- 5, inclusive";
 
-    public static final String STR_RANGE_FOR_BETWEEN = "Please enter a valid integer x between 0 and ";
+    public static final String STR_RANGE_FOR_FROM = "Please enter a valid integer x from 1 to ";
     public static final String STR_RANGE_FOR_LESS_THAN = "Please enter a valid number less than or equal to ";
 
 

@@ -1,7 +1,6 @@
 package RetrieveFreeTimesTest;
 
 import Commands.Command;
-import Commands.FindFreeTimesCommand;
 import Commons.UserInteraction;
 import DukeExceptions.DukeInvalidFormatException;
 import DukeExceptions.DukeNoValidDataException;
@@ -9,10 +8,7 @@ import Parser.FindFreeTimesParse;
 import Parser.RetrieveFreeTimesParse;
 import StubClasses.StorageStub;
 import Tasks.TaskList;
-import javafx.util.Pair;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -163,7 +159,6 @@ public class RetrieveFreeTimesParseTest {
         }
         assertNotNull(command, actual);
     }
-
 
     @Test
     public void retrieveFreeTimesValidUserInputWithOptionWithoutPopulatedList() {

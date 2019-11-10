@@ -211,7 +211,6 @@ public class FindFreeTimesCommand extends Command {
         }
         extractedAssignmentsOnDate.sort(startTimeComparator);
 
-
         for (Pair<Long,Assignment> task : extractedAssignmentsOnDate) {
             String startTime = task.getValue().getStartTime();
             String endTime = task.getValue().getEndTime();
@@ -375,11 +374,9 @@ public class FindFreeTimesCommand extends Command {
                     ArrayList<Pair<String, String>> nextDayStartAndEndTimes = dataMap.get(nextKey);
                     String nextDateTime = nextKey
                             + DukeConstants.BLANK_SPACE + nextDayStartAndEndTimes.get(0).getKey();
-                    //Just need to check first item of next day start time
                     Date nextDateTimeStart = DukeConstants.DEADLINE_DATE_FORMAT.parse(nextDateTime);
                     dateLowerBoundary = increaseDateTime(dateLowerBoundary, HOURS_IN_A_DAY);
-                    //0700 since look at next day boundary must be increase by a day
-                    Date dateLowerBoundaryPlusDuration = increaseDateTime(dateLowerBoundary, duration); //2100
+                    Date dateLowerBoundaryPlusDuration = increaseDateTime(dateLowerBoundary, duration);
 
                     if (dateLowerBoundary.before(nextDateTimeStart)
                             && dateLowerBoundaryPlusDuration.before(nextDateTimeStart)) {
@@ -470,8 +467,6 @@ public class FindFreeTimesCommand extends Command {
             freeTimeData.add(last);
         }
     }
-
-
 
     private static final ArrayList<Pair<String, String>> compiledFreeTimes = new ArrayList<>();
 

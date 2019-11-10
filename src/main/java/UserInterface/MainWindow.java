@@ -108,7 +108,6 @@ public class MainWindow extends BorderPane implements Initializable {
     private static final String START_WEEK_DELIMITER = " ( ";
     private static final String END_WEEK_DELIMITER = " )";
 
-
     /**
      * This method initializes the display in the window of the GUI.
      */
@@ -150,7 +149,6 @@ public class MainWindow extends BorderPane implements Initializable {
             LOGGER.severe("quotes.txt not found. Unable to load quote of the day.");
         }
     }
-
 
     /**
      * This method creates the progress indicator for the different modules.

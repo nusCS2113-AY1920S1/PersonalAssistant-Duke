@@ -19,7 +19,6 @@ public class RetrieveFreeTimesParse extends Parse {
     private final Logger LOGGER = DukeLogger.getLogger(FindFreeTimesParse.class);
     private String fullCommand;
 
-
     /**
      * Creates RetrieveFreeTimesParse object.
      * @param fullCommand The input by the user
