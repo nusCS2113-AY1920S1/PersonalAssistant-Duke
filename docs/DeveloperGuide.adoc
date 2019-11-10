@@ -2,7 +2,7 @@
 :toc:
 :toc-title: Table of Contents
 :toc-placement: preamble
-:repoURL: https://github.com/AY1920S1-CS2113-T13-1/main
+:repoURL: https://github.com/AY1920S1-CS2113-T13-1/main/tree/master
 
 By: `CS2113-T13-1`      Since: `Aug 2019`      Licence: `MIT`
 
@@ -111,6 +111,7 @@ when the application is modified, we only had to rework the specific layer deali
 helped us in logically structuring the elements which made up ArchDuke. The Architecture Diagram given below explains the
 high-level design of ArchDuke.
 
+// TODO UPDATE architecture DIAGRAM
 .Architecture Diagram
 image::images/ArchDuke_Architecture.png[]
 
@@ -136,8 +137,8 @@ The rest of the App consists of four main layers.
 from the user.
 * `Controller` layer: Responsible for handling user inputs and sending them to the respective classes for parsing,
 cleaning, or object creation.
-* `Repository` layer: Responsible for holding data in-memory
-* `Data` layer: Responsible for saving and loading persistent data from hard disk.
+* `Repository` layer: Responsible for holding data in-memory during program runtime
+* `Storage` layer: Responsible for saving and loading persistent data from hard disk.
 
 Each layer will be discussed in detail below.
 
@@ -210,20 +211,23 @@ tasks and members are isolated into a single, focused class. It can help to fulf
 //  +
 // image:BetterModelClassDiagram.png[]
 
-=== 2.4. Data Layer
+=== 2.4. Storage Layer
 
-// .Structure of the Storage Component
-// image::StorageClassDiagram.png[]
+.Class Diagram of Storage Layer
+image::StorageClassDiagram.png[]
 
-// *API* : 
-// link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* :
+link:{repoURL}/src/main/java/util/json/JsonConverter.java[`JsonConverter.java`]
 
-//The `Storage` component,
+The `Storage` layer is responsible for saving and loading data to and from persistent data. It utilizes a
+3rd-party plugin called GSON, a serialization and deserialization library by Google to convert Java Objects into JSON
+and back.
 
-// * can save `UserPref` objects in json format and read it back.
-// * can save the Address Book data in json format and read it back.
+* It can save `Project` objects in JSON format and read it back.
+* It saves all JSON in the current working directory that ArchDuke is saved in
+* Each new `Project` object saved inside the `Repository` will be saved in a new JSON file, named after the name of
+the `Project`.
 
-//[[Design-Commons]]
 === 2.5. Utility Classes
 //Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
@@ -618,7 +622,7 @@ assignments. This also results in increased and unnecessary coupling.
 
 ==== Implementation
 
-UI functions are handled by `CLIView`, `ViewHelper`, and the data layer which stores the details of projects,
+UI functions are handled by `CLIView`, `ViewHelper`, and the repository layer which stores the details of projects,
 members and tasks. It allows ArchDuke to present useful information to the user in an easily readable format when
 requested. The information will be presented in a table form with a clear header that describes the content and
 has the information in bullet point form.
