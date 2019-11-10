@@ -9,6 +9,7 @@ import dolla.model.LimitList;
 import dolla.model.Record;
 import dolla.ui.LimitUi;
 
+import static dolla.model.RecordList.recordDoesNotExist;
 import static dolla.parser.ParserStringList.SPACE;
 
 //@@author Weng-Kexin

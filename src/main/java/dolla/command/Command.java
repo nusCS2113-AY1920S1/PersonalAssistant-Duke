@@ -41,10 +41,6 @@ public abstract class Command implements ModeStringList {
         return newInt;
     }
 
-    protected Boolean recordDoesNotExist(int recordIndex) {
-        return (recordIndex == - 1);
-    }
-
     /**
      * Returns true is the given index is within the recordList.
      * @param recordList The recordList containing the record to be modified.
