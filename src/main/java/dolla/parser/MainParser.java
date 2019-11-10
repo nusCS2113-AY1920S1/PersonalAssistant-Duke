@@ -2,14 +2,12 @@ package dolla.parser;
 
 import dolla.ModeStringList;
 
-import dolla.model.Debt;
-import dolla.ui.DebtUi;
-import dolla.ui.Ui;
-
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.ExitCommand;
+import dolla.command.HelpCommand;
 import dolla.command.SwitchModeCommand;
+import dolla.ui.Ui;
 
 /**
  * MainParser directs the program to the appropriate parser depending on the current mode and the user's input.
@@ -33,9 +31,12 @@ public class MainParser implements ParserStringList, ModeStringList {
         String command = inputArray[0];
 
         boolean isExitCommand = isExitCommand(command);
+        boolean isHelpCommand = isHelpCommand(command);
         boolean isSwitchMode = isSwitchModeCommand(command);
         if (isExitCommand) {
             return new ExitCommand();
+        } else if (isHelpCommand) {
+            return new HelpCommand();
         } else if (isSwitchMode) {
             return new SwitchModeCommand(command);
         }
@@ -71,6 +72,10 @@ public class MainParser implements ParserStringList, ModeStringList {
 
     private static boolean isExitCommand(String command) {
         return command.equals(COMMAND_BYE);
+    }
+
+    private static boolean isHelpCommand(String command) {
+        return command.equals(COMMAND_HELP);
     }
 
     private static boolean isSwitchModeCommand(String command) {
