@@ -1,10 +1,13 @@
+//@@author jessteoxizhi
+
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.parsers.TaskCommandParser;
+import gazeeebo.parser.TaskCommandParser;
 import gazeeebo.commands.tasks.TodoCommand;
 import gazeeebo.commands.tasks.UndoTaskCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,7 +49,8 @@ class UndoCommandTest extends UndoTaskCommand{
     void CommandStackTest() throws IOException, ParseException, DukeException {
         Stack<ArrayList<Task>> CommandStack = new Stack<>();
         Storage storage = new Storage();
-        ArrayList<Task> list = storage.readFromSaveFile();
+        TasksPageStorage tasksPageStorage = new TasksPageStorage();
+        ArrayList<Task> list = tasksPageStorage.readFromSaveFile();
         TodoCommand todoCommand = new TodoCommand();
         Ui ui = new Ui();
         ArrayList<Task> deletedTask = new ArrayList<>();

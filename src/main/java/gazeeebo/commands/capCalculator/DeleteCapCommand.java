@@ -1,7 +1,9 @@
+//@@author JasonLeeWeiHern
+
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
-import gazeeebo.parsers.CAPCommandParser;
+import gazeeebo.parser.CapCommandParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +12,7 @@ import java.util.Map;
 /**
  * Deletes a module from the CAP list.
  */
-public class DeleteCAPCommand {
+public class DeleteCapCommand {
     /**
      * Delete the module from CAPList.
      *
@@ -18,8 +20,9 @@ public class DeleteCAPCommand {
      * @param caplist deals stores
      *                semNumber, moduleCode, moduleCredits and GPA score.
      */
-    public DeleteCAPCommand(final Ui ui,
-                            final Map<String, ArrayList<CAPCommandParser>> caplist) {
+    public DeleteCapCommand(final Ui ui,
+                            final Map<String,
+                                    ArrayList<CapCommandParser>> caplist) {
         try {
             String moduleName = "";
             switch (ui.fullCommand.split(" ").length) {

@@ -45,8 +45,6 @@ public class DeleteNoteCommand extends EditNoteCommand {
                     return deletedNote;
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException("OOPS!!! That note number does not exist.");
-                } catch (IOException f) {
-                    throw new DukeException("The " + fileName + " file cannot be opened.");
                 }
             }
         }

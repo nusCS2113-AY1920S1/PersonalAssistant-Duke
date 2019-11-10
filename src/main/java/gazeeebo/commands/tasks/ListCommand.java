@@ -1,3 +1,5 @@
+//@@author jessteoxizhi
+
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
@@ -23,9 +25,9 @@ public class ListCommand extends Command {
      *                      printing things to the user.
      * @param storage       The object that deals with
      *                      storing data to the Save.txt file.
-     * @param commandStack
-     * @param deletedTask
-     * @param triviaManager
+     * @param commandStack the stack of previous commands.
+     * @param deletedTask the list of deleted task.
+     * @param triviaManager the object for triviaManager
      * @throws ParseException Catch error if parsing of command fails
      * @throws IOException    Catch error if the read file fails
      */

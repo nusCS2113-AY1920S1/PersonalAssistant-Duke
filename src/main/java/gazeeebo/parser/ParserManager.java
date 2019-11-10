@@ -1,18 +1,21 @@
-package gazeeebo.parsers;
+
+package gazeeebo.parser;
 
 import gazeeebo.commands.Command;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.tasks.ByeCommand;
-
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.help.HelpCommand;
+
+import java.io.IOException;
+import java.text.ParseException;
 
 
 public class ParserManager {
     public static Command parse(final String command,
                                 final Ui ui)
-            throws DukeException {
+            throws DukeException, IOException, ParseException {
         String[] splitCommand = command.split(" ");
         if (splitCommand[0].equals("help") || command.equals("1")) {
             return new HelpCommand();
@@ -28,15 +31,22 @@ public class ParserManager {
             return new SpecializationCommandParser();
         } else if (splitCommand[0].equals("tasks") || command.equals("5")) {
             return new TaskCommandParser();
-        } else if (splitCommand[0].equals("moduleplanner") || command.equals("8")) {
-            return new studyassistCommandParser();
+        } else if (splitCommand[0].equals("moduleplanner")
+                || command.equals("8")) {
+            return new StudyAssistCommandParser();
         } else if (splitCommand[0].equals("cap") || command.equals("6")) {
             String moduleCode = "";
             int moduleCredit = 0;
             String grade = "";
-            return new CAPCommandParser(moduleCode, moduleCredit, grade);
-        } else if (splitCommand[0].equals("notes") || command.equals("9")) {
+            return new CapCommandParser(moduleCode, moduleCredit, grade);
+        } else if (splitCommand[0].equals("notes")
+                || command.equals("9")) {
             return new GeneralNoteCommandParser();
+        } else if (command.equals("change password")
+                || command.equals("10")) {
+            new ChangePasswordCommandParser().execute(null, ui, null,
+                    null, null, null);
+            return null;
         } else {
             ui.showDontKnowErrorMessage();
             return null;

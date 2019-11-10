@@ -1,4 +1,4 @@
-package gazeeebo.parsers;
+package gazeeebo.parser;
 
 
 import gazeeebo.commands.expenses.AddExpenseCommand;
@@ -109,6 +109,7 @@ public class ExpenseCommandParser extends Command {
                         + "7. spec\n"
                         + "8. moduleplanner\n"
                         + "9. notes\n"
+                        + "10. change password\n"
                         + "To exit: bye\n"
                 );
             } else {

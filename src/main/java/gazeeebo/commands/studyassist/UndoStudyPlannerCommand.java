@@ -1,3 +1,5 @@
+//@@author jessteoxizhi
+
 package gazeeebo.commands.studyassist;
 
 import gazeeebo.storage.Storage;
@@ -15,9 +17,11 @@ public class UndoStudyPlannerCommand {
      * @param storage The object deals with access,modify and save external
      *                txt files.
      * @return Data structure that the system now holds
-     * @throws IOException
+     * @throws IOException Exception when there is an error reading or writing the file
      */
-    public ArrayList<ArrayList<String>> undoStudyPlanner(Stack<ArrayList<ArrayList<String>>> oldStudyPlan, ArrayList<ArrayList<String>> currentPlan, Storage storage) throws IOException {
+    public ArrayList<ArrayList<String>> undoStudyPlanner(Stack<ArrayList<ArrayList<String>>> oldStudyPlan,
+                                                         ArrayList<ArrayList<String>> currentPlan,
+                                                         Storage storage) throws IOException {
         if (!oldStudyPlan.empty()) {
             currentPlan = oldStudyPlan.peek();
             String toStore = "";
@@ -26,9 +30,9 @@ public class UndoStudyPlannerCommand {
                 toStore += "\n";
             }
             storage.Storage_StudyPlan(toStore);
-            System.out.println("I've undo your previous command");
+            System.out.println("You have undo the previous command.");
         } else {
-            System.out.println("The previous command cannot be undo");
+            System.out.println("The previous command cannot be undo.");
         }
         return currentPlan;
     }

@@ -1,5 +1,7 @@
+//@@author jessteoxizhi
+
 import gazeeebo.TriviaManager.TriviaManager;
-import gazeeebo.parsers.PlacesCommandParser;
+import gazeeebo.parser.PlacesCommandParser;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.UI.Ui;
@@ -61,7 +63,7 @@ class PlacesCommandParserTest {
                 "__________________________________________________________\n" +
                 "\n" +
                 "\r\n" +
-                "Go back to Main Menu...\n" +
+                "Going back to Main Menu...\n" +
                 "Content Page:\n" +
                 "------------------ \n" +
                 "1. help\n" +
@@ -73,21 +75,8 @@ class PlacesCommandParserTest {
                 "7. spec\n" +
                 "8. moduleplanner\n" +
                 "9. notes\n" +
+                "10. change password\n" +
+                "To exit: bye\n" +
                 "\r\n",output.toString());
-    }
-
-    @Test
-    void testWrongCommandPlacesCommand() throws IOException, ParseException {
-        try {
-            TriviaManager triviaManager = new TriviaManager(storage);
-            ArrayList<Task> list = new ArrayList<>();
-            ui.fullCommand = "asdasd";
-            Stack<ArrayList<Task>> commandStack = new Stack<>();
-            ArrayList<Task> deletedTask = new ArrayList<>();
-            new PlacesCommandParser().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
-            fail();
-        } catch (DukeException d) {
-            assertEquals("Check input format again", d.getMessage());
-        }
     }
 }

@@ -1,3 +1,5 @@
+//@@author jessteoxizhi
+
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.places.AddPlacesCommand;
 import gazeeebo.storage.Storage;
@@ -32,22 +34,21 @@ public class PlacesAddCommandTest {
         System.setOut(original);
     }
 
-
     @Test
     void testAddPlacesCommand() throws IOException {
-        HashMap<String, String> map = storage.readPlaces(); //Read the file
+        HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         ui.fullCommand = "add-Test,COM3";
-        AddPlacesCommand test = new AddPlacesCommand(ui, storage, places);
+        AddPlacesCommand test = new AddPlacesCommand(ui, places);
         assertEquals("Successfully added :Test,COM3\r\n", output.toString());
     }
 
     @Test
     void testAddWrongPlacesCommand() throws IOException {
-        HashMap<String, String> map = storage.readPlaces(); //Read the file
+        HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         ui.fullCommand = "add-TestCOM3";
-        AddPlacesCommand test = new AddPlacesCommand(ui, storage, places);
+        AddPlacesCommand test = new AddPlacesCommand(ui, places);
         assertEquals("Please Input in the correct format\r\n", output.toString());
     }
 }

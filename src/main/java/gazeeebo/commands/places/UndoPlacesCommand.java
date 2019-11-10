@@ -14,19 +14,13 @@ public class UndoPlacesCommand {
      *
      * @param places map of current places
      * @param oldplaces stack of map of previous places
-     * @param storage object that stores and read from txt files
      * @return previous map before the command.
      * @throws IOException input or output error when interacting with user.
      */
-    public static Map<String,String> undoPlaces(Map<String, String> places, Stack<Map<String, String>> oldplaces,
-                                         Storage storage) throws IOException {
+    public static Map<String,String> undoPlaces(Map<String, String> places, Stack<Map<String, String>> oldplaces
+                                                ) throws IOException {
         if (!oldplaces.empty()) {
             places = oldplaces.peek();
-            String toStore = "";
-            for (String key:places.keySet()) {
-            toStore = toStore.concat(key + "|" + places.get(key) + "\n");
-            }
-            storage.storagesPlaces(toStore);
             oldplaces.pop();
             System.out.println("You have undo the previous command.");
         } else {

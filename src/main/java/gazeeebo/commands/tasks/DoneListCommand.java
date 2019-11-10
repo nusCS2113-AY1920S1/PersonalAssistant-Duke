@@ -3,6 +3,7 @@
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -66,7 +67,8 @@ public class DoneListCommand extends Command {
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i).toString() + "\n");
             }
-            storage.writeToSaveFile(sb.toString());
+            TasksPageStorage tasksPageStorage = new TasksPageStorage();
+            tasksPageStorage.writeToSaveFile(sb.toString());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
 

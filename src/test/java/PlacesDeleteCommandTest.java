@@ -1,3 +1,5 @@
+//@@author jessteoxizhi
+
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.places.DeletePlacesCommand;
 import gazeeebo.storage.Storage;
@@ -34,31 +36,31 @@ public class PlacesDeleteCommandTest {
 
     @Test
     void testDeleteInPlacesCommand() throws IOException {
-        HashMap<String, String> map = storage.readPlaces(); //Read the file
+        HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         places.put("LT19", "COM5");
         ui.fullCommand = "delete-LT19";
-        DeletePlacesCommand test = new DeletePlacesCommand(ui, storage, places);
+        DeletePlacesCommand test = new DeletePlacesCommand(ui, places);
         assertEquals("Successfully deleted: LT19\r\n", output.toString());
     }
 
     @Test
     void testDeleteNotInPlacesCommand() throws IOException {
-        HashMap<String, String> map = storage.readPlaces(); //Read the file
+        HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         places.put("LT19", "COM5");
         ui.fullCommand = "delete-LT30";
-        DeletePlacesCommand test = new DeletePlacesCommand(ui, storage, places);
+        DeletePlacesCommand test = new DeletePlacesCommand(ui, places);
         assertEquals("LT30 is not found in the list.\r\n", output.toString());
     }
 
     @Test
     void testDeleteWrongFormatPlacesCommand() throws IOException {
-        HashMap<String, String> map = storage.readPlaces(); //Read the file
+        HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         places.put("LT19", "COM5");
         ui.fullCommand = "delete";
-        DeletePlacesCommand test = new DeletePlacesCommand(ui, storage, places);
-        assertEquals("Incorrect format: delete-place\r\n", output.toString());
+        DeletePlacesCommand test = new DeletePlacesCommand(ui, places);
+        assertEquals("null is not found in the list.\r\n", output.toString());
     }
 }

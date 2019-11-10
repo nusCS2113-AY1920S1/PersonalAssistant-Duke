@@ -5,6 +5,7 @@ import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
 
 import java.io.IOException;
@@ -37,7 +38,8 @@ public class ChangePriority extends Command {
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i).toString() + "\n");
             }
-            storage.writeToSaveFile(sb.toString());
+            TasksPageStorage tasksPageStorage = new TasksPageStorage();
+            tasksPageStorage.writeToSaveFile(sb.toString());
 
         } catch (DukeException e) {
             System.out.println(e.getMessage());

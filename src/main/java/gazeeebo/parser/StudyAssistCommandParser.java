@@ -1,4 +1,4 @@
-package gazeeebo.parsers;
+package gazeeebo.parser;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class studyassistCommandParser extends Command {
+public class    StudyAssistCommandParser extends Command {
     /** This method allows user to enter the module planner page,
      * Delete/shift/add/view their 4 year study plan, view prerequisite tree of modules
      * the method keeps repeating in while loop unless esc command is given.
@@ -55,8 +55,10 @@ public class studyassistCommandParser extends Command {
                 copyStudyPlan(oldStudyPlan,StudyPlan.StudyPlan);
                 new addModuleCommand().execute(StudyPlan,storage,ui);
             } else if (splitCommand[0].equals("delete")) {
+                copyStudyPlan(oldStudyPlan,StudyPlan.StudyPlan);
                 new deleteModuleCommand().execute(StudyPlan,storage,ui);
             } else if (splitCommand[0].equals("shift")) {
+                copyStudyPlan(oldStudyPlan,StudyPlan.StudyPlan);
                 new shiftModuleCommand().execute(StudyPlan,storage,ui);
             } else if (splitCommand[0].equals("prerequisite")) {
                 new checkPrerequisiteCommand().execute(ui, storage);
@@ -67,19 +69,20 @@ public class studyassistCommandParser extends Command {
             }
             ui.readCommand();
         }
-        System.out.println("Going back to Main Menu...\n" +
-                "Content Page:\n" +
-                "------------------ \n" +
-                "1. help\n" +
-                "2. contacts\n" +
-                "3. expenses\n" +
-                "4. places\n" +
-                "5. tasks\n" +
-                "6. cap\n" +
-                "7. spec\n" +
-                "8. moduleplanner\n" +
-                "9. notes\n" +
-                "To exit: bye\n");
+        System.out.println("Going back to Main Menu...\n"
+                + "Content Page:\n"
+                + "------------------ \n"
+                + "1. help\n"
+                + "2. contacts\n"
+                + "3. expenses\n"
+                + "4. places\n"
+                + "5. tasks\n"
+                + "6. cap\n"
+                + "7. spec\n"
+                + "8. moduleplanner\n"
+                + "9. notes\n"
+                + "10. change password\n"
+                + "To exit: bye\n");
     }
 
     private void copyStudyPlan(Stack<ArrayList<ArrayList<String>>> oldStudyPlan, ArrayList<ArrayList<String>> currentMods) {

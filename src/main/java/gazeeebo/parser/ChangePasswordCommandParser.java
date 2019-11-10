@@ -1,6 +1,9 @@
-package gazeeebo.commands.tasks;
+//@@author JasonLeeWeiHern
+
+package gazeeebo.parser;
 
 import gazeeebo.commands.Command;
+import gazeeebo.storage.PasswordStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -16,25 +19,16 @@ import java.util.Stack;
  * Allows user to change their current password
  * to a new password.
  */
-public class ChangePasswordCommand extends Command {
+public class ChangePasswordCommandParser extends Command {
     /**
      * This method will verify current password and
      * write the new password to the Password.txt file.
      *
-<<<<<<< HEAD
      * @param list         task lists
      * @param ui           deals with printing things to the user.
      * @param storage      deals with storing data.
      * @param commandStack keep stack of previous commands.
      * @throws IOException catch the error if the read file fails.
-=======
-     * @param list         Task lists
-     * @param ui           The object that deals
-     *                     with printing things to the user.
-     * @param storage      The object that deals with storing data.
-     * @param commandStack
-     * @throws IOException Catch the error if the read file fails.
->>>>>>> 7b39e99af9747527697bf0b67af93c7dfcdfe446
      */
     @Override
     public void execute(final ArrayList<Task> list, final Ui ui,
@@ -45,9 +39,10 @@ public class ChangePasswordCommand extends Command {
             throws DukeException, ParseException, IOException {
         System.out.println("Enter your current password:");
         ui.readCommand();
+        PasswordStorage passwordStorage = new PasswordStorage();
         while (!ui.fullCommand.equals("esc")) {
-            if (ui.fullCommand.equals(storage.
-                    readFromPasswordFile().get(0).toString())) {
+            if (ui.fullCommand.equals(passwordStorage
+                    .readFromPasswordFile().get(0).toString())) {
                 System.out.println("Enter new password:");
                 ui.readCommand();
                 String realPassword = ui.fullCommand;
@@ -56,11 +51,10 @@ public class ChangePasswordCommand extends Command {
                 for (int i = realPassword.length() - 1; i >= 0; i--) {
                     decodedPassword.append(decryption[i]);
                 }
-                storage.writeToPasswordFile(decodedPassword.toString());
+                passwordStorage.writeToPasswordFile(decodedPassword.toString());
                 System.out.println("Password successfully changed.");
                 break;
             } else {
-
                 System.out.println("Wrong password, "
                         + "exit by entering esc or try again:");
                 ui.readCommand();
@@ -69,11 +63,9 @@ public class ChangePasswordCommand extends Command {
     }
 
     /**
-     * Program does not exit and continues running
-     * since command "bye" is not called.
+     * Exits program.
      *
-     * @return false
-     * Exit the program if isExit is true.
+     * @return true to exit
      */
     @Override
     public boolean isExit() {

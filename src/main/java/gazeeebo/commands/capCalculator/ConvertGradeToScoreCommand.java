@@ -1,3 +1,5 @@
+//@@author JasonLeeWeiHern
+
 package gazeeebo.commands.capCalculator;
 
 /**

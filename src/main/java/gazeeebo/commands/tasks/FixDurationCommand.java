@@ -1,8 +1,10 @@
+//@@author JasonLeeWeiHern
 
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
 import gazeeebo.storage.Storage;
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.FixedDuration;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -28,9 +30,9 @@ public class FixDurationCommand extends Command {
      *                      printing things to the user.
      * @param storage       The object that deals with
      *                      storing data to the Save.txt file.
-     * @param commandStack
-     * @param deletedTask
-     * @param triviaManager
+     * @param commandStack the stack of previous commands.
+     * @param deletedTask the list of deleted task.
+     * @param triviaManager the object for triviaManager
      * @throws DukeException  Throws custom exception when
      *                        format of fixed duration command is wrong
      * @throws ParseException Catch error if parsing of command fails
@@ -61,7 +63,8 @@ public class FixDurationCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.writeToSaveFile(sb.toString());
+        TasksPageStorage tasksPageStorage = new TasksPageStorage();
+        tasksPageStorage.writeToSaveFile(sb.toString());
     }
 
     /**

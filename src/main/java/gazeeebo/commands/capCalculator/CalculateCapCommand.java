@@ -1,6 +1,8 @@
+//@@author JasonLeeWeiHern
+
 package gazeeebo.commands.capCalculator;
 
-import gazeeebo.parsers.CAPCommandParser;
+import gazeeebo.parser.CapCommandParser;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -8,7 +10,7 @@ import java.util.Map;
 /**
  * Calculate the cap by using a formula.
  */
-public class CalculateCAPCommand {
+public class CalculateCapCommand {
     /**
      * Modules without a grade score (S/US/CS) = 0.1.
      */
@@ -21,9 +23,9 @@ public class CalculateCAPCommand {
      *                stores semNumber, moduleCode, moduleCredits and CAP score.
      * @return the CAP.
      */
-    public double calculateCAP(final Map<String,
-            ArrayList<CAPCommandParser>> caplist) {
-        double sumGPAMCS = 0;
+    public double calculateCap(final Map<String,
+            ArrayList<CapCommandParser>> caplist) {
+        double sumCapMCS = 0;
         int sumMCS = 0;
         double scoreNotToCount = DONT_COUNT_SCORE;
         for (String key : caplist.keySet()) {
@@ -31,26 +33,26 @@ public class CalculateCAPCommand {
                 double score = new ConvertGradeToScoreCommand().
                         converter(caplist.get(key).get(i).grade);
                 if (score != scoreNotToCount) {
-                    sumGPAMCS += caplist.get(key).get(i).moduleCredit * score;
+                    sumCapMCS += caplist.get(key).get(i).moduleCredit * score;
                     sumMCS += caplist.get(key).get(i).moduleCredit;
                 }
             }
         }
-        double cap = sumGPAMCS / sumMCS;
+        double cap = sumCapMCS / sumMCS;
         return cap;
     }
 
     /**
-     * Calculate the GPA of the particular sem.
+     * Calculate the CAP of the particular sem.
      *
      * @param caplist   the object that deals stores
-     *                  semNumber, moduleCode, moduleCredits and GPA.
-     * @param semNumber the sem which you want to find the GPA.
-     * @return the GPA.
+     *                  semNumber, moduleCode, moduleCredits and CAP.
+     * @param semNumber the sem which you want to find the CAP.
+     * @return the CAP.
      */
-    public double calculateCAPPerSem(final Map<String,
-            ArrayList<CAPCommandParser>> caplist, final String semNumber) {
-        double sumGPAMCS = 0;
+    public double calculateCapPerSem(final Map<String,
+            ArrayList<CapCommandParser>> caplist, final String semNumber) {
+        double sumCapMCS = 0;
         int sumMCS = 0;
         for (String key : caplist.keySet()) {
             if (key.equals(semNumber)) {
@@ -59,14 +61,14 @@ public class CalculateCAPCommand {
                             new ConvertGradeToScoreCommand().
                                     converter(caplist.get(key).get(i).grade);
                     if (score != DONT_COUNT_SCORE) {
-                        sumGPAMCS += caplist.get(key).get(i).moduleCredit
+                        sumCapMCS += caplist.get(key).get(i).moduleCredit
                                 * score;
                         sumMCS += caplist.get(key).get(i).moduleCredit;
                     }
                 }
             }
         }
-        double cap = sumGPAMCS / sumMCS;
+        double cap = sumCapMCS / sumMCS;
         return cap;
     }
 }

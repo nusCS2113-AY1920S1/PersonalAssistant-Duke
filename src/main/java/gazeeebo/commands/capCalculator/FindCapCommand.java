@@ -1,7 +1,9 @@
+//@@author JasonLeeWeiHern
+
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
-import gazeeebo.parsers.CAPCommandParser;
+import gazeeebo.parser.CapCommandParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +12,7 @@ import java.util.Map;
 /**
  * Find a module by semNumber or moduleCode.
  */
-public class FindCAPCommand {
+public class FindCapCommand {
     /**
      * Printing blank spaces.
      */
@@ -24,8 +26,9 @@ public class FindCAPCommand {
      *                  semNumber, moduleCode, moduleCredits and CAP score.
      * @param lineBreak print out a separator to separate each line in the list.
      */
-    public FindCAPCommand(final Ui ui,
-                          final Map<String, ArrayList<CAPCommandParser>> caplist,
+    public FindCapCommand(final Ui ui,
+                          final Map<String,
+                                  ArrayList<CapCommandParser>> caplist,
                           final String lineBreak) {
         try {
             String findInput = "";

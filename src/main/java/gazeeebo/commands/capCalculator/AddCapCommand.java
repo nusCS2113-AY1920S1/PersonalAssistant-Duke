@@ -1,8 +1,9 @@
+//@@author JasonLeeWeiHern
 
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
-import gazeeebo.parsers.CAPCommandParser;
+import gazeeebo.parser.CapCommandParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,21 +13,21 @@ import java.util.Map;
  * Adds a new module to the CAP list.
  */
 
-public class AddCAPCommand {
+public class AddCapCommand {
     /**
      * Index of the grade.
      */
     private static final int GRADE_INDEX = 3;
 
     /**
-     * Add a new module into GPAList.
+     * Add a new module into caplist.
      *
      * @param ui      prints things to the user.
      * @param caplist deals stores
      *                semNumber, moduleCode, moduleCredits and CAP score.
      */
-    public AddCAPCommand(final Ui ui, final Map<String,
-            ArrayList<CAPCommandParser>> caplist) {
+    public AddCapCommand(final Ui ui, final Map<String,
+            ArrayList<CapCommandParser>> caplist) {
         try {
             String toAdd = "";
             switch (ui.fullCommand.split(" ").length) {
@@ -47,11 +48,12 @@ public class AddCAPCommand {
             String moduleCode = splitAddInput[1];
             int moduleCredit = Integer.parseInt(splitAddInput[2]);
             String grade = splitAddInput[GRADE_INDEX];
-            CAPCommandParser newCAP = new CAPCommandParser(moduleCode, moduleCredit, grade);
+            CapCommandParser newCAP =
+                    new CapCommandParser(moduleCode, moduleCredit, grade);
             if (caplist.containsKey(semNumber)) {
                 caplist.get(semNumber).add(newCAP);
             } else {
-                ArrayList<CAPCommandParser> semInfo = new ArrayList<>();
+                ArrayList<CapCommandParser> semInfo = new ArrayList<>();
                 semInfo.add(newCAP);
                 caplist.put(semNumber, semInfo);
             }
