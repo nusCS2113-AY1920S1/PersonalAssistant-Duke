@@ -12,10 +12,10 @@ import user.UserList;
 
 import java.io.IOException;
 
+//@@author AmirAzhar
 public class RemoveUserCommand extends Command {
     private String[] splitL;
 
-    //@@ AmirAzhar
     /**
      * User login.
      * @param input from user

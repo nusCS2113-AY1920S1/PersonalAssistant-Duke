@@ -3,7 +3,7 @@ import user.UserList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//@@ author AmirAzhar
+//@@author AmirAzhar
 //LogoutTest1 is used to test if the variables currentUser and loginStatus are updated when logout is performed
 public class LogoutTest1 {
     @Test

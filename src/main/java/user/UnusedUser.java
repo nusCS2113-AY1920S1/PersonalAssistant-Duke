@@ -1,5 +1,6 @@
 package user;
 
+//@@author AmirAzhar
 public class UnusedUser {
     protected String email;
     protected String password;
