@@ -31,8 +31,8 @@ public class ReminderCommand extends Command {
      */
     @Override
     public CommandOutput execute(Model model) {
-        if (taskIndex > model.getTaskListSize()) {
-            return new CommandOutput("Please provide a valid task index");
+        if (taskIndex > model.getTaskListSize() || taskIndex <= 0) {
+            return new CommandOutput("Please provide a valid task number");
         } else if (model.getTasksManager().getTaskById(taskIndex - 1).getTime() == null) {
             return new CommandOutput("Please set a time for the task first");
         } else {
