@@ -9,6 +9,8 @@ An application developed in Java for prospective applicants to the NUS Faculty o
 * Accepts commands for input
 * Task manager to organise faculty events
 * Compares degrees and modules offered
+* Display employment statistics of recent graduates
+* Display recent cohort sizes of each degree 
 
 
 ## Technologies Used
