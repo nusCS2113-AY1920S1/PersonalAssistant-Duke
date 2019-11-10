@@ -40,7 +40,7 @@ public class ReserveCommandTest {
         });
 
         assertEquals("We don't have this resource currently available in our inventory!", e.getMessage());
-        System.out.print("Test 1 : Reserving a non-existing item\nStatus: Passed\n");
+        System.out.print("Test: Reserving a non-existing item\nStatus: Passed\n");
     }
 
     /**
@@ -58,7 +58,7 @@ public class ReserveCommandTest {
             commandUnderTest.execute(ui, storage, listUnderTest);
         });
         assertEquals("Your date of return must be after your date of borrowing!", e.getMessage());
-        System.out.print("Test 2 : A return date before borrow date\nStatus: Passed\n");
+        System.out.print("Test: A return date before borrow date\nStatus: Passed\n");
         listUnderTest.deleteResourceByName("TestObject");
     }
 
@@ -79,7 +79,7 @@ public class ReserveCommandTest {
             commandUnderTest.execute(ui, storage, listUnderTest);
         });
         assertEquals("Your date of return must be a date in the future!", e.getMessage());
-        System.out.print("Test 3 : A pair of dates in the past\nStatus: Passed\n");
+        System.out.print("Test: A pair of dates in the past\nStatus: Passed\n");
         listUnderTest.deleteResourceByName("TestObject");
     }
 
@@ -97,7 +97,7 @@ public class ReserveCommandTest {
             commandUnderTest.execute(ui, storage, listUnderTest);
         });
         assertEquals("Reservation is not made because the user has entered 0 or a negative quantity!", e.getMessage());
-        System.out.print("Test 4 : A negative quantity is parsed\nStatus: Passed\n");
+        System.out.print("Test: A negative quantity is parsed\nStatus: Passed\n");
         listUnderTest.deleteResourceByName("TestObject");
     }
 
@@ -114,7 +114,7 @@ public class ReserveCommandTest {
             commandUnderTest.execute(ui, storage, listUnderTest);
         });
         assertEquals("We don't have that many of this resource currently available!", e.getMessage());
-        System.out.print("Test 5 : Resource list has insufficient quantity for requested resource\nStatus: Passed\n");
+        System.out.print("Test: Resource list has insufficient quantity for requested resource\nStatus: Passed\n");
         listUnderTest.deleteResourceByName("TestObject");
     }
 }

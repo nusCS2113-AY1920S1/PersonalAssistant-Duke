@@ -76,7 +76,7 @@ public class DeleteCommand extends Command {
                     ui.print("No bookings for this resource yet!");
                 }
             }
-            // @@author rabhijit
+            //@@author rabhijit
             ui.printDash();
             String idInput = ui.getInput(
                     "Type in the resource ID(s) (separated by a space for multiple IDs) that you wish to delete:");
@@ -105,6 +105,7 @@ public class DeleteCommand extends Command {
         }
     }
 
+    //@@author hin1
     private void addIdsToCommandUserInput(ArrayList<Integer> IdArray) {
         for (int i : IdArray) {
             commandUserInput += (i + ", ");

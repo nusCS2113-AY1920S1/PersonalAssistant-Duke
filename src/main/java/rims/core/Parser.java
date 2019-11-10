@@ -35,7 +35,7 @@ public class Parser {
 
     /**
      * Constructor for the Parser.
-     * 
+     *
      * @param ui        An instance of the user interface class.
      * @param resources An instance of the resource list.
      */
@@ -44,20 +44,24 @@ public class Parser {
         this.resources = resources;
     }
 
+    //@@author hin1
     /**
      * Saves the last executed command that modified data
      * in Parser.
      * @param c Previous command that modified data in ResourceList.
      */
     public void setPrevCommand(Command c) {
-        if (c.canModifyData()) { prevCommand = c; }
+        if (c.canModifyData()) {
+            prevCommand = c; 
+        }
     }
 
+    //@@author rabhijit
     /**
      * Converts a 'natural date' (just a day and date) into a String version of a
      * date, in the format DD/MM/YYYY HHmm by finding the next date of the requested
      * day.
-     * 
+     *
      * @param day  the day whose next date is to be obtained.
      * @param time the time to be appended to the date obtained above.
      * @return a String version of the requested date, in DD/MM/YYYY HHmm format.
@@ -125,17 +129,20 @@ public class Parser {
     }
 
     /**
-     * Checks if a String inputted by the user is a valid integer.
+     * Checks if a String inputted by the user is a valid positive integer.
      * @param input the String inputted by the user.
-     * @return the integer conversion of the String, if it does represent a valid integer.
-     * @throws RimsException if the String does not represent a valid integer.
+     * @return the integer conversion of the String, if it does represent a valid positive integer.
+     * @throws RimsException if the String does not represent a valid positive integer.
      */
     public int parseInt(String input) throws RimsException {
         try {
-            return Integer.parseInt(input);
-        }
-        catch (NumberFormatException e) {
-            throw new RimsException("Please use a valid integer value!");
+            int parsedInt = Integer.parseInt(input);
+            if (parsedInt < 0) {
+                throw new RimsException("Please use a valid non-negative integer value!");
+            }
+            return parsedInt;
+        } catch (NumberFormatException e) {
+            throw new RimsException("Please use a valid non-negative integer value!");
         }
     }
 
@@ -149,8 +156,8 @@ public class Parser {
      */
     public Command parseInput(String input) throws RimsException, ParseException {
         input = input.trim();
-        Command c;
         String[] words = input.split(" ");
+        Command c;
 
         if (input.equals("bye") && words.length == 1) {
             c = new CloseCommand();
@@ -174,7 +181,7 @@ public class Parser {
         } else if (words[0].equals("calendar-") && words.length == 1) {
             CalendarCommand.decreaseSize(resources, ui);
             c = new ListCommand();
-         //@@author rabhijit
+        //@@author rabhijit
         } else if (words[0].equals("add")) {
             c = AddParser(input, words);
         } else if (words[0].equals("delete")) {
@@ -212,8 +219,11 @@ public class Parser {
         if (!(paramType.equals("date") || paramType.equals("room") || paramType.equals("item"))) {
             throw new RimsException("Invalid list parameter! Please specify '/date', '/room' or '/item' to view a detailed list.");
         }
-        String param = input.substring(paramIndex + 1);
-        return new ListCommand(paramType, param.trim());
+        String param = input.substring(paramIndex + 1).trim();
+        if (paramType.equals("date")) {
+            parseDate(param);
+        }
+        return new ListCommand(paramType, param);
     }
 
     /**
@@ -241,6 +251,9 @@ public class Parser {
                 throw new RimsException("Please specify the item to add to your inventory.");
             }
             int qty = parseInt(input.replaceFirst("add /item " + item + " /qty ", "").trim());
+            if (qty == 0) {
+                throw new RimsException("Please use a valid integer value above zero!");
+            }
             return new AddCommand(item.trim(), qty);
         } else if (words[1].equals("/room")) {
             int roomIndex = input.indexOf("/room") + 6;
@@ -278,8 +291,8 @@ public class Parser {
             if (roomIndex > input.length()) {
                 throw new RimsException("Please specify the room to delete from your inventory.");
             }
-            String roomName = input.substring(roomIndex);
-            return new DeleteCommand(roomName.trim(), "room");
+            String roomName = input.substring(roomIndex).trim();
+            return new DeleteCommand(roomName, "room");
         } else {
             throw new RimsException("Please choose a room or item to delete from your inventory.");
         }
@@ -320,6 +333,9 @@ public class Parser {
                 throw new RimsException("Please specify the quantity of this item to be loaned out.");
             }
             int qty = parseInt(input.substring(qtyIndex + 6, idIndex).trim());
+            if (qty == 0) {
+                throw new RimsException("Please use a valid integer value above zero!");
+            }
             int byIndex = input.indexOf(" /by");
             if (byIndex == -1) {
                 throw new RimsException("Please specify the date by which the item is to be returned.");
@@ -428,7 +444,7 @@ public class Parser {
             }
             int qty = parseInt(input.substring(qtyIndex + 6, idIndex).trim());
             if ( qty <= 0 ){
-                throw new RimsException("The quantity cannot be less or equals to 0.");
+                throw new RimsException("Please use a valid integer value above zero!");
             }
             int fromIndex = input.indexOf(" /from");
             if (fromIndex == -1) {
@@ -524,6 +540,9 @@ public class Parser {
             int idIndex = input.indexOf(" /id") + 5;
             int userId = parseInt(input.substring(idIndex).trim());
             ReservationList userReservations = resources.getUserBookings(userId);
+            if (userReservations.isEmpty()) {
+                throw new RimsException("User " + userId + " has not made any bookings yet!");
+            }
             ui.printLine();
             for (int i = 0; i < userReservations.size(); i++) {
                 Reservation thisReservation = userReservations.getReservationByIndex(i);
@@ -561,8 +580,8 @@ public class Parser {
         if (dateFromIndex + 7 > dateTillIndex) {
             throw new RimsException("Please specify the date for which you want to view statistics.");
         }
-        String dateFrom = parseDate(input.substring(dateFromIndex + 7, dateTillIndex));
-        String dateTill = parseDate(input.substring(dateTillIndex + 7));
+        String dateFrom = parseDate(input.substring(dateFromIndex + 7, dateTillIndex).trim());
+        String dateTill = parseDate(input.substring(dateTillIndex + 7).trim());
         return new StatsCommand(dateFrom, dateTill);
     }
 
