@@ -3,7 +3,7 @@ package entertainment.pro.storage.utils;
 import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.ParseExceptionInExtraction;
-import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -61,6 +61,7 @@ public class OfflineSearchStorage {
             jsonObject = (JSONObject) jsonParser.parse(dataFromJSON);
             searchData = (JSONArray) jsonObject.get(KEYWORD_FOR_SEARCH_REQUESTS);
         } catch (ParseException e) {
+            logger.log(Level.SEVERE, PromptMessages.PARSE_EXCEPTION_IN_EXTRACTION);
             throw new ParseExceptionInExtraction();
         }
         return searchData;
@@ -166,7 +167,7 @@ public class OfflineSearchStorage {
             try {
                 jsonArray = (JSONArray) jsonParser.parse(dataFromJSON);
             } catch (ParseException e) {
-                logger.log(Level.INFO, PromptMessages.PARSE_EXCEPTION_IN_EXTRACTION);
+                logger.log(Level.SEVERE, PromptMessages.PARSE_EXCEPTION_IN_EXTRACTION);
                 throw new ParseExceptionInExtraction();
             }
             System.out.println(filename);

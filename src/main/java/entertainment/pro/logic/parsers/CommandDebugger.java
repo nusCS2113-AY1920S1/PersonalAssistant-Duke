@@ -29,9 +29,8 @@ public class CommandDebugger {
      * @param controller UI controller
      * @return
      */
-    public static CommandPair commandSpellChecker(String[] undefinedCommandArr
-            , COMMANDKEYS root
-            , Controller controller)
+    public static CommandPair commandSpellChecker(String[] undefinedCommandArr,
+                                                  COMMANDKEYS root, Controller controller)
         throws MissingInfoException {
 
 
@@ -53,9 +52,9 @@ public class CommandDebugger {
 
     /**
      * Get the corrected Root.
-     * @param undefinedCommandArr user input in array form
-     * @param root root command
-     * @return the corrected root command
+     * @param undefinedCommandArr user input in array form.
+     * @param root root command.
+     * @return the corrected root command.
      */
     private static COMMANDKEYS getCorrectedSubRoot(String[] undefinedCommandArr, COMMANDKEYS root)
             throws MissingInfoException {
@@ -64,7 +63,7 @@ public class CommandDebugger {
         COMMANDKEYS mostSimilarSub = COMMANDKEYS.NONE;
 
         if (undefinedCommandArr.length <= 1) {
-            logger.log(Level.INFO , PromptMessages.COMMAND_MISSING_ARGS);
+            logger.log(Level.INFO, PromptMessages.COMMAND_MISSING_ARGS);
             throw new MissingInfoException("You are missing a few arguments and presumably have a typo as well");
         }
 
@@ -91,8 +90,8 @@ public class CommandDebugger {
         double score = INITSCORE;
         if (root == COMMANDKEYS.NONE && undefinedCommandArr.length > 0) {
             for (COMMANDKEYS s : CommandStructure.AllRoots) {
-                double temp = calculateJaccardSimilarity(s.toString().toLowerCase()
-                        , undefinedCommandArr[0]);
+                double temp = calculateJaccardSimilarity(s.toString().toLowerCase(),
+                        undefinedCommandArr[0]);
                 if (temp > score) {
                     root = s;
                     score = temp;

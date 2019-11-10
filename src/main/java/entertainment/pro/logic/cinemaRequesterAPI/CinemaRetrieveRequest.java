@@ -2,8 +2,8 @@ package entertainment.pro.logic.cinemaRequesterAPI;
 
 import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.logic.movieRequesterAPI.RequestListener;
-import entertainment.pro.logic.movieRequesterAPI.URLRetriever;
+import entertainment.pro.logic.movierequesterapi.RequestListener;
+import entertainment.pro.logic.movierequesterapi.UrlRetriever;
 import entertainment.pro.model.CinemaInfoObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -50,8 +50,8 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
                 if (i != token.length - 1) result += "%20";
             }
             String url = MAIN_URL + result + "&key=" + API_KEY;
-            URLRetriever retrieve = new URLRetriever();
-            String json = retrieve.readURLAsString(new URL(url));
+            UrlRetriever retrieve = new UrlRetriever();
+            String json = retrieve.readUrlAsString(new URL(url));
             fetchedCinemasJSON(json);
         } catch (MalformedURLException e) {
             e.printStackTrace();

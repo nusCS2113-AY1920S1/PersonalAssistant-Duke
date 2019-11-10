@@ -1,18 +1,29 @@
 package entertainment.pro.ui;
 
 import entertainment.pro.commons.strings.PromptMessages;
-import entertainment.pro.commons.exceptions.*;
+import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.EmptyCommandException;
+import entertainment.pro.commons.exceptions.MissingInfoException;
+import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.logic.cinemaRequesterAPI.CinemaRetrieveRequest;
 import entertainment.pro.logic.contexts.CommandContext;
 import entertainment.pro.logic.contexts.ContextHelper;
 import entertainment.pro.logic.contexts.SearchResultContext;
 import entertainment.pro.logic.execution.CommandStack;
-import entertainment.pro.logic.movieRequesterAPI.RequestListener;
-import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
-import entertainment.pro.model.*;
+import entertainment.pro.logic.movierequesterapi.RequestListener;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
+import entertainment.pro.model.MovieInfoObject;
+import entertainment.pro.model.PageTracker;
+import entertainment.pro.model.UserProfile;
+import entertainment.pro.model.SearchProfile;
+import entertainment.pro.model.Playlist;
+import entertainment.pro.model.PlaylistMovieInfoObject;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.user.ProfileCommands;
-import entertainment.pro.storage.utils.*;
+import entertainment.pro.storage.utils.EditProfileJson;
+import entertainment.pro.storage.utils.EditPlaylistJson;
+import entertainment.pro.storage.utils.BlacklistStorage;
+import entertainment.pro.storage.utils.HelpStorage;
 //import entertainment.pro.xtra.PastCommands;
 //import entertainment.pro.storage.utils.PastUserCommands;
 
@@ -77,7 +88,7 @@ public class MovieHandler extends Controller implements RequestListener {
     @FXML
     private ProgressBar mProgressBar;
 
-    private final static Logger LOGGER = Logger.getLogger(MovieHandler.class.getName());
+    private final static Logger logger = Logger.getLogger(MovieHandler.class.getName());
     private boolean isViewMoreInfoPage = false;
     private AnchorPane anchorPane;
     UserProfile userProfile;
@@ -132,7 +143,8 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     @FXML
     public void setLabels() throws IOException {
-        System.out.println("called setlabels");
+        //System.out.println("called setlabels");
+        logger.log(Level.INFO, PromptMessages.SETTING_LABELS_UI);
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
         System.out.println("hehehehehahahahaha" + userProfile.getUserName());
@@ -141,7 +153,7 @@ public class MovieHandler extends Controller implements RequestListener {
         playlists = userProfile.getPlaylistNames();
         ProfileCommands command = new ProfileCommands(userProfile);
         userPlaylistsLabel.setText(Integer.toString(userProfile.getPlaylistNames().size()));
-        System.out.println("changed age");
+        //System.out.println("changed age");
 
         //setting adult label
         if (command.getAdultLabel().equals("allow")) {
@@ -172,11 +184,11 @@ public class MovieHandler extends Controller implements RequestListener {
         mMovieRequest = new RetrieveRequest(this);
         mMovieRequest.setSearchProfile(searchProfile);
         mCinemaRequest = new CinemaRetrieveRequest(this);
-        LOGGER.setLevel(Level.ALL);
-        LOGGER.log(Level.INFO , "MAIN UI INITIALISED");
+        logger.setLevel(Level.ALL);
+        logger.log(Level.INFO , "MAIN UI INITIALISED");
         CommandContext.initialiseContext();
         BlacklistStorage bp = new BlacklistStorage();
-        System.out.println("Tgt we are winners");
+        //System.out.println("Tgt we are winners");
         bp.load();
         HelpStorage.initialiseAllHelp();
         setUpEventSearchField();
@@ -190,11 +202,11 @@ public class MovieHandler extends Controller implements RequestListener {
     private void setUpEventSearchField() {
         mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
-                System.out.println("Tab pressed");
+                //System.out.println("Tab pressed");
                 setAutoCompleteText(ContextHelper.getAllHints(mSearchTextField.getText(), this));
                 event.consume();
             } else if (event.getCode().equals(KeyCode.ALT_GRAPH) || event.getCode().equals(KeyCode.ALT)) {
-                System.out.println("I pressed bit");
+                //System.out.println("I pressed bit");
                 mSearchTextField.clear();
                 String cmd = CommandStack.nextCommand();
                 if (cmd == null) {
@@ -211,9 +223,9 @@ public class MovieHandler extends Controller implements RequestListener {
                 try {
                     CommandParser.parseCommands(command, this);
                 } catch (IOException | Exceptions e) {
-                    LOGGER.log(Level.SEVERE , "Exception in parsing command" + e);
+                    logger.log(Level.SEVERE , "Exception in parsing command" + e);
                 } catch (EmptyCommandException e) {
-                    LOGGER.log(Level.SEVERE , PromptMessages.MISSING_COMMAND + e);
+                    logger.log(Level.SEVERE , PromptMessages.MISSING_COMMAND + e);
                     setGeneralFeedbackText(PromptMessages.MISSING_COMMAND);
                 } catch (MissingInfoException e) {
                     setGeneralFeedbackText(PromptMessages.MISSING_ARGUMENTS);
@@ -366,7 +378,8 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public void obtainedResultsData(ArrayList<MovieInfoObject> moviesInfo) {
         isViewMoreInfoPage = false;
-        ArrayList<MovieInfoObject> filteredMovies = Blacklist.filter(moviesInfo);
+        logger.log(Level.INFO, PromptMessages.REMOVE_BLACLISTED_ITEMS_FROM_SEARCH);
+                ArrayList<MovieInfoObject> filteredMovies = Blacklist.filter(moviesInfo);
         final ArrayList<MovieInfoObject> MoviesFinal = filteredMovies;
         mMovies.clear();
         System.out.println("cleared");
@@ -420,7 +433,6 @@ public class MovieHandler extends Controller implements RequestListener {
         mProgressBar.setProgress(0.0);
         mProgressBar.setVisible(true);
         mStatusLabel.setText("Loading..");
-
         mMoviesFlowPane = new FlowPane(Orientation.HORIZONTAL);
         mMoviesFlowPane.setHgap(4);
         mMoviesFlowPane.setVgap(10);
@@ -473,7 +485,6 @@ public class MovieHandler extends Controller implements RequestListener {
                     controller.getPosterImageView().setImage(posterImage);
 
                 } else {
-
                     System.out.println("hi1");
                     File fakePoster = new File("./data/FakeMoviePoster.png");
                     Image posterImage = new Image(fakePoster.toURI().toString());
@@ -538,13 +549,14 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public void showMovie(int num) throws Exceptions {
         try {
-            MovieInfoObject movie = mMovies.get(num - 1);
-            moviePosterClicked(movie);
-            System.out.println("this is it 4");
-        } catch (IndexOutOfBoundsException e) {
-            setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
-            throw new InvalidFormatCommandException(PromptMessages.INVALID_FORMAT);
-        }
+           MovieInfoObject movie = mMovies.get(num - 1);
+           moviePosterClicked(movie);
+           System.out.println("this is it 4");
+       } catch (IndexOutOfBoundsException e) {
+           logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
+           setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+           throw new InvalidFormatCommandException(PromptMessages.INVALID_FORMAT);
+       }
     }
 
 
@@ -732,6 +744,7 @@ public class MovieHandler extends Controller implements RequestListener {
     public void moviePosterClicked(MovieInfoObject movie) throws Exceptions {
         try {
             //mMainApplication.transitToMovieInfoController(movie);
+            logger.log(Level.INFO, PromptMessages.DISPLAYING_MORE_INFO);
             mMoviesFlowPane.getChildren().clear();
             mMoviesFlowPane = new FlowPane(Orientation.HORIZONTAL);
             mMoviesFlowPane.setHgap(4);
@@ -963,6 +976,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * Called to update the user's preferred sort label.
      */
     private void updateSortInterface(UserProfile userProfile) {
+        logger.log(Level.INFO, PromptMessages.UPDATING_SORT_IN_UI);
         if (userProfile.isSortByAlphabetical()) {
             sortAlphaOrderLabel.setText("Y");
             sortLatestDateLabel.setText("N");

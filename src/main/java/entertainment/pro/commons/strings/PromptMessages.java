@@ -19,7 +19,19 @@ public class PromptMessages {
     public static final String GENRE_DOES_NOT_EXIST = "I'm sorry but the genre entered by you does not exists " +
             "under your preferences";
 
+    //ui related messages
+    public static final String SETTING_LABELS_UI = "Setting/editing labels in UI";
+
+    // general search related messages
+    public static final String STARTING_SEARCH_MESSAGE = "Starting search request...";
+    public static final String RETRIEVING_SEARCH_PROFILE = "Retrieving seacrh profile set by user...";
+    public static final String REMOVE_BLACLISTED_ITEMS_FROM_SEARCH = "Removing blacklisted items from search results.";
+    public static final String DISPLAYING_MORE_INFO = "Displaying more info about a movie/TV";
+    public static final String UPDATING_SORT_IN_UI = "Updating sort options in the UI";
+    public static final String UNSUPPORTED_ENCODING_SEARCH = "Unsupported Encoding Exception detected";
+
     // search for movies related messages
+    public static final String SEARCH_TYPE_IS_MOVIES = "Search type is movies...";
     public static final String VIEW_CURRENT_MOVIES_SUCCESS =
             "Data fetch is complete! Displaying list of currently showing movies...";
     public static final String VIEW_UPCOMING_MOVIES_SUCCESS =
@@ -46,6 +58,7 @@ public class PromptMessages {
             "Search type is movies related to the title entered...";
 
     // search for tv related messages
+    public static final String SEARCH_TYPE_IS_TV = "Search type is TV shows...";
     public static final String VIEW_CURRENT_TV_SUCCESS =
             "Data fetch is complete! Displaying list of currently showing TV shows...";
     public static final String VIEW_TRENDING_TV_SUCCESS =
@@ -84,6 +97,7 @@ public class PromptMessages {
                     + "Try entering a different command!";
 
     // API related message
+    public static final String STARTING_DATA_FETCH_FROM_API = "Starting data fetch from MovieDB API";
     public static final String DATA_OBTAINED_FROM_API =
             "[Data displayed here was obtained from an external source]";
     public static final String RECACHING_DATA_API_ERROR = "Sorry, but something went wrong when recaching data";
@@ -104,6 +118,31 @@ public class PromptMessages {
     public static final String UNABLE_TO_EXTRACT_CAST = "Unable to extract cast details from API";
     public static final String UNABLE_TO_EXTRACT_CERT = "Unable to extract cert details from API";
 
+    // exit related message
+    public static final String EXIT = "App is going to close.";
+
+    // data parsing and filtering related messages
+    public static final String NO_GENRES_PREF_SET = "No genre preference was set by user for this search request";
+    public static final String NO_GENRES_RESTRICT_SET = "No genre preference was set by user for this search request";
+    public static final String FAILED_ADULT_REQUIREMENT = "This movie/TV show will not be added to the search results because " +
+            "it failed adult requirement";
+    public static final String FAILED_NAME_REQUIREMENT = "This movie/TV show will not be added to the search results because " +
+            "it failed to match the name entered by user";
+    public static final String FAILED_GENRE_PREF_REQUIREMENT = "This movie/TV show will not be added to the search results because " +
+            "it does not contains the genre wanted by user";
+    public static final String FAILED_GENRE_RESTRICT_REQUIREMENT = "This movie/TV show will not be added to the search results because " +
+            "it contains the genre restricted by user";
+    public static final String PASSED_REQUIREMENT = "This movie/TV show will be added to the search results because " +
+            "it passed the requirements";
+    public static final String RATINGS_FOUND_AS_LONG = "Ratings for a movie/TV show was found to be in long";
+    public static final String DATA_PARSING_BEGINS = "Beginning data parsing";
+    public static final String CHECK_CONDITION = "Checking whether the search results meet user' wants if any";
+    public static final String CHECK_SORT_CONDITION = "Checking whether the search results need to be sorted " +
+            "according to users' needs";
+    public static final String SORT_ALPHA_ORDER = "Succssfully sorted results in alphabetical order";
+    public static final String SORT_BY_RATINGS = "Succssfully sorted results by ratings";
+    public static final String SORT_BY_RELEASE_DATE = "Succssfully sorted results by release dates";
+    public static final String DATA_PROCESSING_IS_COMPLETE = "Data processing is complete. Sending data to MovieHandler class.";
 
 
     // retrieve data from local files message
@@ -124,9 +163,23 @@ public class PromptMessages {
     public static final String TO_VIEW_MORE_INFO = "To view more information about a movie/TV show, enter the command, "
             + "'view entry NUM' where NUM is the integer of the movie/TV show printed below its title.";
 
-    // editing preference related messages
+    // preference related messages
+    public static final String EDIT_PREFERENCES_COMMAND = "User have entered command to edit preferences.";
+    public static final String CHECKING_FLAGS = "Starting to check which categories user want to edit";
+    public static final String INVALID_PREFERENCE_FLAGS = "Invalid flag detected";
+    public static final String EMPTY_PREFERENCE_FLAGS = "No flags detected";
     public static final String PREFERENCES_SUCCESS = "Nice! You have successfully updated your preferences";
-
+    public static final String SUBROOT_PREFERENCE = "Checking for subroot command entered...";
+    public static final String SUBROOT_PREFERENCE_ADD = "Subroot command entered is add...";
+    public static final String SUBROOT_PREFERENCE_REMOVE = "Subroot command entered is remove...";
+    public static final String SUBROOT_PREFERENCE_CLEAR = "Subroot command entered is clear...";
+    public static final String NO_SUBROOT_PREFERENCE = "No subroot command detected";
+    public static final String UPDATING_INTEREFACE = "Editing preferences done. Now, updating interface..";
+    public static final String INVALID_GENRE_NAME_ERROR = "I'm sorry but you have entered a invalid genre...";
+    public static final String REPETITVE_GENRE_NAME_ERROR = "I'm sorry but the genre entered by you already exists " +
+            "or you are entering the same genre more than a time...";
+    public static final String GENRE_DOES_NOT_EXIST_ERROR = "I'm sorry but the genre entered by you does not exists " +
+            "under your preferences";
 
     public static final String DID_YOU_MEAN = "Did you mean:";
 
@@ -163,6 +216,8 @@ public class PromptMessages {
     // file related messages
     public static final String FILE_NOT_FOUND = "File not found!";
     public static final String FILES_NOT_FOUND = "File not found! Please wait for next update!";
+
+
 
     //PlaylistExceptions / SetExceptions messages
     public static final String PLAYLIST_PAYLOAD_EMPTY =
