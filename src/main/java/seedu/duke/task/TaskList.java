@@ -1,5 +1,6 @@
 package seedu.duke.task;
 
+import seedu.duke.common.command.Command;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.task.command.TaskParseNaturalDateHelper;
 import seedu.duke.task.entity.Deadline;
@@ -14,6 +15,8 @@ import java.util.Comparator;
  * manipulate the tasks in this list.
  */
 public class TaskList extends ArrayList<Task> {
+
+    private SortBy sortType = SortBy.TIME;
 
     /**
      * Converts the task list to a string of the pre-determined format that is ready to be displayed by the
@@ -175,9 +178,17 @@ public class TaskList extends ArrayList<Task> {
      * @return snooze message
      */
     private String constructSnoozeMessage(Task task, int duration, int index) {
+        String msg = "";
         if (task.getTaskType() != Task.TaskType.TODO) {
+            String snoozeString = Integer.toString(duration);
+            if (CommandParseHelper.isNumberTooLarge(snoozeString)) {
+                return "Number of days snoozed should be integer of range 1 ~ 99999.";
+            } else if (duration == -1) {
+                msg = "Number of days snoozed not specified. Default is used. ";
+                duration = 3;
+            }
             task.snooze(duration);
-            return "Noted. I've snoozed task " + (index + 1) + " by " + duration + " days";
+            return msg + "Noted. I've snoozed task " + (index + 1) + " by " + duration + " days";
         } else {
             return "This task cannot be snoozed";
         }
@@ -293,6 +304,15 @@ public class TaskList extends ArrayList<Task> {
         return "Priority of task " + size + " is set to " + priority.name();
     }
 
+    public String setSortType(SortBy sortType) {
+        this.sortType = sortType;
+        return constructSortMessage(sortType);
+    }
+
+    private String constructSortMessage(SortBy sortType) {
+        return "Task List is now sorted by " + sortType.name();
+    }
+
     /**
      * Adds or modifies tags of a task.
      *
@@ -362,7 +382,26 @@ public class TaskList extends ArrayList<Task> {
     /**
      * Sorts task list by priority.
      */
-    public void sortListByPriority() {
-        sort(Comparator.comparing(Task::getPriority));
+    public void sortByType() {
+        switch (sortType) {
+        case PRIORITY:
+            sort(Comparator.comparing(Task::getPriority));
+            break;
+        case STATUS:
+            sort(Comparator.comparing(Task::getDone));
+            break;
+        case TIME:
+            sort(Comparator.comparing(Task::getTime, Comparator.nullsLast(Comparator.naturalOrder())));
+            break;
+        default:
+            return;
+        }
+    }
+
+    /**
+     * The enumeration of types of sorting.
+     */
+    public enum SortBy {
+        PRIORITY, TIME, STATUS
     }
 }
