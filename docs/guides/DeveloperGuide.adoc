@@ -18,18 +18,18 @@ Welcome to the *Email Manager* Developer Guide!
 
 [#img-UI]
 [caption="Figure N: UI"]
-image::Ui.png[UI, 800]
+image::Ui.png[UI,800]
 
-*Email Manager* is an email and task manager app, specifically designed for NUS School of Computing Students
-to manage their emails and busy schedules. As a text-based application, it is optimized for those who prefer
-typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical User
-Interface (GUI) that allows users to view email and task details in an appealing, well-organized format.
+*Email Manager* is an email and task manager app, specifically designed for NUS School of Computing Students to manage their emails and busy schedules.
+As a text-based application, it is optimized for those who prefer typing and working with Command Line Interface (CLI).
+Email Manager also has a developed Graphical User Interface (GUI) that allows users to view email and task details in an appealing, well-organized format.
 
 == About the Developer Guide
 
-This developer guide provides detailed documentation on the implementation of all the various
-features Email Manager offers. It also suggests methods for you to modify and build upon it. +
+This developer guide provides detailed documentation on the implementation of all the various features Email Manager offers.
+It also suggests methods for you to modify and build upon it. +
 Throughout this developer guide, there will be various icons used, as shown below:
+
 |===
 |💡|This is a tip. Follow these tips to aid your development of Email Manager.
 
@@ -50,6 +50,7 @@ Throughout this developer guide, there will be various icons used, as shown belo
 This section shows how to set up Email Manager on your desktop and begin your development journey.
 
 == Design
+
 === Architecture
 
 ==== Overall Architecture
@@ -68,6 +69,7 @@ update the local files.
 
 ==== UI component
 
+<<<<<<< HEAD
 [#ui-component]
 .UI Component
 image::UIComponent.png[UI Component, 400]
@@ -105,6 +107,12 @@ image::ModelComponent.png[Model Component, 600]
 The `Model` contains a `TaskList`, a `EmailList` and a `EmailKeywordPairList`. They store `Task`, `Email`
 and `KeywordPair` respectively. The three lists all inherit from `ArrayList`. 
 
+=======
+==== Logic component
+
+==== Model component
+
+>>>>>>> branch-master
 ==== Common classes
 
 == Implementation
@@ -113,63 +121,239 @@ This section describes some noteworthy details on how certain features in *Email
 // Maybe in the future we split the sub-sections into overall command structure, email management, task management and GUI?
 
 === Task Management
-There are three main types of tasks that Email Manager works with: `todo`, `deadline` and `event`.
+
+There are three main types of tasks that Duke Email Manager works with: `todo`, `deadline` and `event`.
 
 ==== Natural Dates Support
 
-The email manager aims to help computing students handle their tasks efficiently. Therefore, one of its main
-goals is to speed up the process at which students enter their task details so that their task can be added
-into the task list quickly. The benefits of having this Natural Dates support are:
+Natural dates support helps to speed up the process at which users enter their task details so that their
+task can be added into the task list quickly. The benefits of having this Natural Dates support are:
 
 * Reduce the time and effort needed to key in the date and time for deadline and event tasks.
 
-The Natural Dates support is facilitated by two main classes, namely `TaskCommandParseHelper` and `TaskParseNaturalDateHelper`.
+|===
+|ℹ️|This feature only works with `deadline` and `event` tasks.
 
-`TaskParseNaturalDateHelper` is an element of the will retrieve the parsed time string from
-`TaskCommandParseHelper` and convert
-the extracted string to LocalDateTime format. It implements the following operations:
+|===
 
-* `TaskParseNaturalDateHelper#isCorrectNaturalDate(input)` - Checks if input contains natural date format.
-* `TaskParseNaturalDateHelper#convertNaturalDate(day, time)` - Converts string day and time to local date in
-LocalTimeDate format.
-* `TaskParseNaturalDateHelper#getDate(input)` - Returns a date and time(if applicable) after checking if
-natural date input contains a time element.
+===== Implementation
 
-`TaskCommandParseHelper` is an element of the Command component. It handles all parsing of inputs when the
-input type is set to `task`.
+The following sequence diagram below illustrates how this feature works:
+
+.Natural Dates Support Sequence diagram
+[#img-natural-dates-support]
+[caption="Figure N: "]
+image::TaskParseNaturalDate (1).png[Natural Dates Support, 800]
+
+As seen from the diagram above, the Natural Dates support is facilitated by four classes, namely
+`TaskCommandParseHelper`, `CommandParseHelper`, `TaskParseNaturalDateHelper` and `Task`.
+
+`TaskParseNaturalDateHelper` is under the Command component.
+It implements the following operations:
+
+* `TaskParseNaturalDateHelper#isCorrectNaturalDate(day)` - Checks if `day` is a day of the week
+* `TaskParseNaturalDateHelper#convertNaturalDate(day, time)` - Converts string day and time to local date and time in LocalTimeDate format
+* `TaskParseNaturalDateHelper#getDate(timeString)` - Returns a dateTime in LocalDateTime format
+
+`TaskCommandParseHelper` and `CommandParseHelper` are under the Parser component.
+It implements the following operations:
+
+* `TaskCommandParseHelper#parseTaskTime(optionList)` - Parses time string extracted from optionList and returns a dateTime in LocalDateTime format
+* `TaskCommandParseHelper#checkTimeString(timeString)` - Checks if time string contains time component and returns a pair with day as key and timing as value
+* `CommandParseHelper#extractTime(optionList)` - Extracts and returns the time string from the input
+
+`Task` is under the Entity component.
+It implements the following operations:
+
+* `Task#parseDate(timeString)` - Converts timeString to LocalDateTime format if timeString is of `dd/MM/uuuu HHmm`
+format
 
 Given below is an example usage scenario and how Natural Dates Support behaves at each step.
 
-Step 1: The user launches the application. The input type is currently in `email` mode. The user wishes
-to add a task and key in `flip` to switch input type to `task` mode.
+*Step 1*: The user launches the application. The input type is currently in `email` mode.
+The user wishes to add a task and keys in `flip` to switch input type to `task` mode.
 
-Step 2: The user executes `deadline homework -time Mon 1200` to add a new deadline task.
+*Step 2*: The user executes `deadline homework -time Mon 1200` to add a new deadline task. `UI` component captures the input and passes to `Logic` component to parse the input.
 
-* `TaskCommandParseHelper` takes in the command, parses and extracts the date and time information of the task
- and saves it inside a list of type `ArrayList<Command.Option>`.
-* The extracted date and time will go through `TaskParseNaturalDateHelper#getDate()`, which calls the relevant
- methods in the class to process the date and time.
+* `CommandParseHelper` takes in the `input`, parses and extracts the options and stores it inside ArrayList<Option>  `optionList`, then passes the `input` and `optionList` to `TaskCommandParseHelper`.
 
-Step 3: The user wishes to update the date and time for the task above, let the task above be task 1 in the
-task list. The user executes `update 1 -time Tue` to change the task date from Mon to Tue.
+*Step 3*: `TaskCommandParseHelper` takes in the command, parses and extracts the time string of the task by calling `CommandParseHelper#extractTime(optionList)`.
 
-* `TaskParseNaturalDateHelper` will be called to process the time information and update the task accordingly.
- When no time is entered, the time is set to 0000 (HHmm).
+*Step 4*: The extracted time string will go through `TaskParseNaturalDateHelper#getDate(timeString)`, which calls `TaskCommandParseHelper#checkTimeString(timeString)` and retrieves dateTimeString = new Pair<>(day, time).
+
+*Step 5*: If `TaskParseNaturalDateHelper#isCorrectNaturalDate(day)` is true,
+`TaskParseNaturalDateHelper#convertNaturalDate(day, time)` is called, else `Task#parseDate(timeString)` is called.
+
+*Step 6*: `TaskCommandParseHelper#parseTaskTime(optionList)` retrieve dateTime from
+`TaskParseNaturalDateHelper` and returns it.
+
+* The next nearest date is returned according to the input day
+** E.g. When the timeString inputted is `sun 1200`, the date of the next nearest Sunday is returned.
+
+===== Design Considerations
+
+Aspect: Handling of parsed time string
+
+* Alternative 1 (chosen): `TaskCommandParseHelper#checkTimeString(timeString)` parses and returns the time
+string as a string pair that stores day as key and time as value.
+** Pros: Easier to use the day and time in the pair in other methods without having to extract it from time
+string again.
+** Cons: Does not check whether day and time in the pair is valid, the pair can be any string.
+`TaskCommandParseHelper#checkTimeString(timeString)` is called from another class which increase dependency.
+
+* Alternative 2: Parse the time string and extract day or time before each use in `TaskParseNaturalDateHelper`
+** Pros: Able to validate if time string is valid before it is called by other methods. Easier to write tests.
+** Cons: Might have duplicated codes.
+
+==== Sorting of Task List
+
+The task list can be sorted according to what the user prefer.
+The benefits of having this sorting feature are:
+
+* Easier viewing of task list when the list is sorted.
+* Faster checking of task list when the list is sorted.
+
+|===
+|ℹ️|Task list can be sorted by `priority`, `status` and `time` only.
+
+|===
+
+===== Implementation
+
+The following sequence diagram below illustrates how the sort command is parsed:
+
+.parseSortCommand Sequence diagram
+[#img-parse-sort-command]
+[caption="Figure N: "]
+image::parseSortCommand (1).png[Parse Sort Command, 800]
+
+As seen from the diagram above, the parsing of sort command is facilitated by two class, namely
+`TaskCommandParseHelper` and `TaskSortCommand`.
+
+`TaskCommandParseHelper` is under the Parser component.
+It implements the following operations:
+
+* `TaskCommandParseHelper#parseSortCommand(input)` - Parse the input and extracts the sort type(sortBy) after the command `sort`
+** E.g. `sort priority` -> sortBy = "priority"
+
+`TaskSortCommand` is under the Command component.
+It implements the following operations:
+
+* `TaskSortCommand#getSortType(sortBy)` - Checks sortBy and returns the sort type if sortBy is valid
+
+Given below is an example usage scenario and how `parseSortCommand` behaves at each step.
+
+*Step 1*: The user launches the application.
+The input type is currently in `email` mode.
+The user wishes to check the task list and key in `flip` to switch input type to `task` mode.
+
+*Step 2*: The user executes `sort priority` to sort the task list according to its priority. `UI` component captures the input and passes to `Logic` component to parse the input.
+
+*Step 3*:  `TaskCommandParseHelper#parseSortCommand(input)` is called and extracts the sort type called
+sortBy.
+
+*Step 4*:  `TaskSortCommand#getSortType(sortBy)` is then called and returns the sort type according to sortBy
+
+* E.g. If sortBy = "priority", sortType.PRIORITY will be returned.
+
+*Step 5*: `TaskCommandParseHelper` returns new `TaskSortCommand(sortType)`
+
+The following sequence diagram below illustrates how the sort command works:
+
+.TaskSortCommand Sequence diagram
+[#img-task-sort-command]
+[caption="Figure N: "]
+image::TaskSortCommand.png[Task Sort Command, 800]
+
+As seen from the diagram above, the sort command is facilitated by four class, namely `TaskSortCommand`,
+`Model`, `TaskList` and `UI`.
+
+The following operations are implemented:
+
+* `TaskSortCommand#execute(model)` - executes the sort command
+* `Model#getTaskList()` - returns current task list
+* `TaskList#setSortType(sortType)` - sets the sort type of the task list to `sortType`
+* `TaskList#constructSortMessage(sortType)` - returns responseMsg
+* `UI#showResponse(responseMSg)` - display responseMsg
+
+Given below is an example usage scenario and how `TaskSortCommand` behaves at each step.
+
+*Step 1*: The user executes `sort status` to sort the task list according to whether it is completed or not.
+
+*Step 2*: `Model#getTaskList()` is called and the current taskList is returned.
+
+*Step 3*: `TaskList#setSortType(sortType)` is called and returns a response message after calling
+`TaskList#constructSortMessage(sortType)`.
+
+*Step 4*: The UI displays the response message and `TaskSortCommand#execute(model)` returns true if the
+sort type in `TaskList` is set correctly.
+
+The following activity diagram shows the method `sortByType()` that changes how the task list is sorted
+according to the sort type:
+
+.sortByType activity diagram
+[#img-sort-by-type]
+[caption="Figure N: "]
+image::sortByType.png[Sort By Type, 800]
+
+|===
+|ℹ️|The task list is sorted according to time by default.
+
+|===
+
+Given below is an example usage scenario and how `TaskSortCommand` behaves at each step.
+
+*Step 1*: The user wishes sort the task list according to the priority level of the tasks and executes
+`sort priority`.
+
+*Step 2*: The sort type is changed to `PRIORITY` from `TIME`, and the sorting method is changed.
+
+*Step 3*: `sortByType() is called by `Model#updateGuiTaskList()` on every user input to keep task list sorted.
+
+|===
+|ℹ️|
+|sorted by `priority`|tasks with higher priority will be at the top of the task list.
+|sorted by `status`|tasks that are not completed will be at the top of the task list.
+|sorted by `time`|deadline or event tasks with nearing date and time will be at the top of the task list.
+|===
+
+===== Design Considerations
+
+Aspect: When the sorting of task list occurs
+
+* Alternative 1 (chosen): The task list is sorted whenever the GUI is updated.
+** Pros: Ensures that the task list will always be sorted according to how the user wants.
+** Cons: Sort command is executed on every user input to keep task list sorted and task list view in GUI
+updated, which increases the computational load.
+
+* Alternative 2: The task list is sorted in `TaskList` class before it is displayed by the GUI
+** Pros: Sort command is called only when needed.
+** Cons: Have to consider other commands (e.g. `update`) that will change the task list and requires the
+task list to be sorted.
+
+//==== Set priority
+//
+//Priority levels can be added to tasks. The benefits of having this feature are:
+//
+//* Distinguish more pressing tasks from others.
+//
+//===== Implementation
+//
+//The following sequence diagram below illustrates how this feature works:
 
 ==== Updating of Tags
 
-Tasks have a variety of attributes that a user may want to add or change. The current attributes that
-can be modified are: `time`, `doafter`, `priority` and `tags`.
-The updating of task details is facilitated by `TaskUpdateCommand`. It extends `Command`, overriding the `execute` method.
+Tasks have a variety of attributes that a user may want to add or change.
+The current attributes that can be modified are: `time`, `doafter`, `priority` and `tags`.
+The updating of task details is facilitated by `TaskUpdateCommand`.
+It extends `Command`, overriding the `execute` method.
 
 The details of the update mechanism are as follows:
 
 Step 1: `TaskCommandParseHelper` takes in the command from the user input text field, and parses it.
-If the command starts with `update` than it will separate all the parameters into an ArrayList,
-passing it into the `TaskUpdateCommand`.
+If the command starts with `update` than it will separate all the parameters into an ArrayList, passing it into the `TaskUpdateCommand`.
 
-Step 2: `TaskUpdateCommand.execute()` will then go through the ArrayList, calling the appropriate
-method in `TaskList`.
+Step 2: `TaskUpdateCommand.execute()` will then go through the ArrayList, calling the appropriate method in `TaskList`.
 
 Step 3: The method in `TaskList` will retrieve the specified task and call the related setter to change the value.
 
@@ -177,60 +361,60 @@ Step 3: The method in `TaskList` will retrieve the specified task and call the r
 
 ==== Email Auto Parsing
 
-The emails fetched or stored locally will be automatically parsed to extract important information for
-tagging, task creation and reminder purposes. The parsing consists of two stages, the *format parsing* and
-*content parsing*. Email format parsing is to parse the email components like subject, sender and body from
-the raw string fetched from the server or stored in local file. The content parsing is to parse the keyword
-included all components of email.
+The emails fetched or stored locally will be automatically parsed to extract important information for tagging, task creation and reminder purposes.
+The parsing consists of two stages, the *format parsing* and *content parsing*.
+Email format parsing is to parse the email components like subject, sender and body from the raw string fetched from the server or stored in local file.
+The content parsing is to parse the keyword included all components of email.
 
 ===== Email Format Parsing
+
 .Email Format Parsing
 [#img-email-format-parsing]
 [caption="Figure N: "]
-image::EmailFormatParseHelper.png[Format Parsing, 800]
-The email format parsing starts at the call of `ParseFetchResponse(response)`. The variable `response` here
-is a string of the http response from the Outlook server to the fetch API call.
+image::EmailFormatParseHelper.png[Format Parsing,800]
+The email format parsing starts at the call of `ParseFetchResponse(response)`.
+The variable `response` here is a string of the http response from the Outlook server to the fetch API call.
 
-It first creates an `EmailList` to store all the emails parsed from the response. This function only
-returns the list instead of directly adding the
-email parsed to the model because the storage or network component will decide whether and how the emails
-are to added to the model.
+It first creates an `EmailList` to store all the emails parsed from the response.
+This function only returns the list instead of directly adding the email parsed to the model because the storage or network component will decide whether and how the emails are to added to the model.
 
-Then each email contained in the response of is parsed to a `JSONObject` called `emailJson` for easier
-manipulation.
+Then each email contained in the response of is parsed to a `JSONObject` called `emailJson` for easier manipulation.
 
-With this `emailJson`, `parseComponentsToEmail(emailJson)` is called to extract different components of the
-json and instantiate an `Email` object to be added to the `emailList` created earlier.
+With this `emailJson`, `parseComponentsToEmail(emailJson)` is called to extract different components of the json and instantiate an `Email` object to be added to the `emailList` created earlier.
 
 This process repeats until all the email information in the response is processed.
 
 ===== Email Content Parsing
+
 .Email Content Parsing
 [#img-email-content-parsing]
 [caption="Figure N+1: "]
-image::EmailContentParseHelper.png[Content Parsing, 800]
+image::EmailContentParseHelper.png[Content Parsing,800]
 
 Email content parsing is to parse the keyword from different components of an email.
 
 Email content parsing starts with the calling of `allKeywordInEmail(email)` and parse in the email in
 `Email` type.
 
-It then gets all the `KeywordPair` from the `KeywordList`. A `KeywordPair` contains a human readable
-`keyword` signifying the "meaning" of the keyword. It also contains multiple `expressions` which will be
-looked through the email for matches.
+It then gets all the `KeywordPair` from the `KeywordList`.
+A `KeywordPair` contains a human readable
+`keyword` signifying the "meaning" of the keyword.
+It also contains multiple `expressions` which will be looked through the email for matches.
 
-For each email component (subject, sender, body etc), the `keywordInString(emailComponent, keywordPair)` is
-called to search for matches across these components. It will then return a relevance score. Higher
-relevance score means a more occurrence. Keyword with all its expressions absent in the email will get a 0
-relevance score. Also, subject and sender will have a higher weights compared to the email body.
+For each email component (subject, sender, body etc), the `keywordInString(emailComponent, keywordPair)` is called to search for matches across these components.
+It will then return a relevance score.
+Higher relevance score means a more occurrence.
+Keyword with all its expressions absent in the email will get a 0 relevance score.
+Also, subject and sender will have a higher weights compared to the email body.
 
-Each keyword searched in the email with a relevance score higher than 0 (at least 1 occurrence), will be
-added to the email as a tag by calling `addTag(keywordPair, relevanceScore)`.
+Each keyword searched in the email with a relevance score higher than 0 (at least 1 occurrence), will be added to the email as a tag by calling `addTag(keywordPair, relevanceScore)`.
 
 ==== Email Tagging
+
 *Email Manager* allows user to tag emails by tags.
 
 ===== Current Implementation
+
 * Format: `email update ITEM_NUMBER [-tag TAG1] [-tag TAG2]…`​
 * Note: Tags the specified item with the tag(s) minimum number of tags is 1.
 * Eg: `email update 2 -tag Fun -tag Project` : tags 2nd email in the list with the tags "Fun" and "Project".
@@ -238,31 +422,29 @@ added to the email as a tag by calling `addTag(keywordPair, relevanceScore)`.
 Following is the activity diagram when the command is executed:
 [#img-email-tag-activity-diagram]
 [caption="Figure N+1: "]
-image::emailTagActivityDiagram.jpg[Email Tag Activity Diagram, 800, caption="sf"]
+image::emailTagActivityDiagram.jpg[Email Tag Activity Diagram,800,caption="sf"]
 
 The following sequence diagram below will explain how the `email update` command works in detail:
 
 [#img-email-tag-sequence-diagram]
 [caption="Figure N+1: "]
-image::emailTagSequenceDiagram.jpg[Email Tag Sequence Diagram, 800]
+image::emailTagSequenceDiagram.jpg[Email Tag Sequence Diagram,800]
 
 An example usage of the command is as follows:
 
-*Step 1*: The user launches the application. The user inputs `email update 2 -tag Fun -tag Project`
+*Step 1*: The user launches the application.
+The user inputs `email update 2 -tag Fun -tag Project`
 
-*Step 2*: `UI` component captures the input and passes to `Logic` component to parse the input. Section below
-explains how `Logic` component parse the input.
+*Step 2*: `UI` component captures the input and passes to `Logic` component to parse the input.
+Section below explains how `Logic` component parse the input.
 
-* `CommandParseHelper` takes in the `input`, parses and extracts tags information and stores it
-inside ArrayList<Option>  `optionList`, then passes the `input` and `optionList` to `EmailCommandParseHelper`.
+* `CommandParseHelper` takes in the `input`, parses and extracts tags information and stores it inside ArrayList<Option>  `optionList`, then passes the `input` and `optionList` to `EmailCommandParseHelper`.
 ** `input` here is `email update 2`
 ** `optionList` here is `[tag=Fun, tag=Project]`
-* `EmailCommandParseHelper` parses the `index` of email and extract tags information `optionList` and
-stores it in ArrayList<String> `tags`.
+* `EmailCommandParseHelper` parses the `index` of email and extract tags information `optionList` and stores it in ArrayList<String> `tags`.
 ** `index` here is `2`
 ** `tags` here is `[Fun, Project]`
-* `EmailCommandParseHelper` creates a new `EmailTagCommand` by passing in `index` and `tags`, then return
-the `EmailTagCommand` to `CommandParseHelper` and then to `UI`
+* `EmailCommandParseHelper` creates a new `EmailTagCommand` by passing in `index` and `tags`, then return the `EmailTagCommand` to `CommandParseHelper` and then to `UI`
 
 *Step 3* : `EmailTagCommand#execute(model)` is called by `UI`.
 
@@ -295,62 +477,60 @@ Aspect: Handling updating of tags
 ** Cons: added complexity in commands
 
 ==== Email Filtering by Tag(s)
+
 *Email Manager* allows user to filter emails by tag(s).
 
 ===== Current Implementation
+
 * Format: `list [-tag TAG1] [-tag TAG2]…`
-* Note: Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum is 2.
+
+* Note: Gives a list of emails with the tags.
+Minimum number of tags is 1, and the maximum is 2.
 * Eg: `email list -tag Fun -tag Project`
 
 Following is the activity diagram when the command is executed:
 [#img-email-filter]
 [caption="Figure n: "]
-image::emailFilterActivityDiagram.jpg[Email Filtering Activity Diagram, 800]
+image::emailFilterActivityDiagram.jpg[Email Filtering Activity Diagram,800]
 
 The following sequence diagram below will explain how the `email update` command works in detail:
 
 [#img-email-filter-sequence-diagram]
 [caption="Figure N+1: "]
-image::emailFilterSequenceDiagram.jpg[Email Filter Sequence Diagram, 800]
+image::emailFilterSequenceDiagram.jpg[Email Filter Sequence Diagram,800]
 
 An example usage of the command is as follows:
 
-*Step 1* : The user launches the application. The user wishes to tag the 2nd email in the list with "Fun"
-and "Project" (Implementation of part is explained in Section 5.3.2). After tagging the email, the user wishes
-to view the list of emails with these tags, hence the user inputs `email list -tag Fun -tag Project`.
+*Step 1* : The user launches the application.
+The user wishes to tag the 2nd email in the list with "Fun" and "Project" (Implementation of part is explained in Section 5.3.2).
+After tagging the email, the user wishes to view the list of emails with these tags, hence the user inputs `email list -tag Fun -tag Project`.
 
-*Step 2* : `UI` component captures the input and passes to `Logic` component to parse the input. Section below
-explains how `Logic` component parse the input.
+*Step 2* : `UI` component captures the input and passes to `Logic` component to parse the input.
+Section below explains how `Logic` component parse the input.
 
-* `CommandParseHelper` takes in the `input`, parses and extracts tags information and stores it
-inside ArrayList<Option>  `optionList`, then passes the `input` and `optionList` to `EmailCommandParseHelper`.
+* `CommandParseHelper` takes in the `input`, parses and extracts tags information and stores it inside ArrayList<Option>  `optionList`, then passes the `input` and `optionList` to `EmailCommandParseHelper`.
 ** `input` here is `email list`
 ** `optionList` here is `[tag=Fun, tag=Project]`
-* `EmailCommandParseHelper` parses the `input` and extract tags information `optionList` and
-stores it in ArrayList<String> `tags`.
+* `EmailCommandParseHelper` parses the `input` and extract tags information `optionList` and stores it in ArrayList<String> `tags`.
 ** `tags` here is `[Fun, Project]`
-* `EmailCommandParseHelper` creates a new `EmailTagListCommand` by passing in `tags`, then return
-the `EmailTagListCommand` to `CommandParseHelper` and then to `UI`
+* `EmailCommandParseHelper` creates a new `EmailTagListCommand` by passing in `tags`, then return the `EmailTagListCommand` to `CommandParseHelper` and then to `UI`
 
 *Step 3* : `EmailTagListCommand#execute(model)` is called by `UI`.
 
 *Step 4*: `EmailTagListCommand` calls `EmailTags#displayEmailTagList(tags)`.
 
-*Step 5*: `EmailTags` checks the conditions of the each tags in `tags`, we say that a tag exists if there
-is email with the tag. If none of the emails has the tag, we say that the tag does not exist. We say that
-both tags co-exist if there is email tagged with both tags.
+*Step 5*: `EmailTags` checks the conditions of the each tags in `tags`, we say that a tag exists if there is email with the tag.
+If none of the emails has the tag, we say that the tag does not exist.
+We say that both tags co-exist if there is email tagged with both tags.
 
 ** In this example, both tags `Fun` and `Project` co-exist.
 
-*Step 6*: `EmailTags` call `TagMap.get("Fun").get("Project")`. `TagMap` returns `emailList` which is the
-email(s) tagged with both `Fun` and `Project`.
+*Step 6*: `EmailTags` call `TagMap.get("Fun").get("Project")`. `TagMap` returns `emailList` which is the email(s) tagged with both `Fun` and `Project`.
 
 *Step 7*: `EmailTags` returns a String `responseMsg` to `EmailTagListCommand`.
 
 ** `responseMsg` here is: +
-"Here is the email tagged with both #Project and #Fun: <list of title of email(s)
-with both tags>"
-
+"Here is the email tagged with both #Project and #Fun: <list of title of email(s) with both tags>"
 
 ===== Design Considerations
 
@@ -363,12 +543,12 @@ The tags associated with emails is stored in `TagMap`:
 
 ** `SubTagMap` is a `HashMap<String, EmailList>`:
 *** Each `key` in the HashMap is a tag name (we call it `sub tag name` here) that co-exists with the `root tag
-name` from the `TagMap`. We say that both tags co-exist if there is email tagged with both tags.
+name` from the `TagMap`.
+We say that both tags co-exist if there is email tagged with both tags.
 *** The `value` associated with each `key` is an `EmailList`, which is the list of emails tagged with both
 `root tag name` and `sub tag name`.
 
-** For example, let `emailOne` be an email tagged with `Tutorial` and `CS2113T`, `emailTwo` be an email tagged
-with `Tutorial` and `CG2271`.
+** For example, let `emailOne` be an email tagged with `Tutorial` and `CS2113T`, `emailTwo` be an email tagged with `Tutorial` and `CG2271`.
 *** After calling `EmailTags#updateEmailTagList`, the TagMap has the following structure: +
 { +
     Tutorial={Tutorial=emailOne emailTwo, CS2113T=emailOne, CG2271=emailTwo}, +
@@ -376,69 +556,71 @@ with `Tutorial` and `CG2271`.
     CG2271={CG2271=emailTwo, Tutorial= emailTwo} +
 }
 
-** Pros: Faster search when user invokes `EmailTagListCommand`, since `EmailTags#displayEmailTagList` is
-navigating in the HashMap.
-** Cons: Current implementation invokes the `EmailTags#updateEmailTagList` on every user input to keep the
-tagMap and email list view in GUI updated, which increases the computational load.
+** Pros: Faster search when user invokes `EmailTagListCommand`, since `EmailTags#displayEmailTagList` is navigating in the HashMap.
+** Cons: Current implementation invokes the `EmailTags#updateEmailTagList` on every user input to keep the tagMap and email list view in GUI updated, which increases the computational load.
 
 * Alternative 2: +
-Loop through each tag of each email in the list of emails, and check if the each tag equals to the tag
-requested by the user, if yes, add the email to the list, if no, continue with the loop. After finishing
-the loop, output the email(s) in the list.
+Loop through each tag of each email in the list of emails, and check if the each tag equals to the tag requested by the user, if yes, add the email to the list, if no, continue with the loop.
+After finishing the loop, output the email(s) in the list.
 
-** Pros: This implementation does not have to maintain a TagMap structure to keep track of the emails with
-the tags, therefore does not requires update of the TagMap, this saves the space and computational load of the program.
-** Cons: Slower search when user invokes `EmailTagListCommand`, since it has to loop through each tag of
-each email in the list of emails.
+** Pros: This implementation does not have to maintain a TagMap structure to keep track of the emails with the tags, therefore does not requires update of the TagMap, this saves the space and computational load of the program.
+** Cons: Slower search when user invokes `EmailTagListCommand`, since it has to loop through each tag of each email in the list of emails.
 
 === Logging
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the
-logging levels and logging destinations.
+
+We are using `java.util.logging` package for logging.
+The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 ===== Current Implementation
+
 * The logging level can be controlled using the logLevel
-* The Logger for a class can be obtained using LogsCenter.getLogger(Class) which will log messages according
-to the specified logging level
+* The Logger for a class can be obtained using LogsCenter.getLogger(Class) which will log messages according to the specified logging level
 * Currently log messages are output through: Console and to a .log file in `data/logs` folder with the format
 `"log" + "yyyyMMdd_HHmm" + ".log"`.
 * Logging Levels
 ** SEVERE : Critical problem detected which may possibly cause the termination of the application
 ** WARNING : Can continue, but with caution
 ** INFO : Information showing the noteworthy actions by the App
-** FINE : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list
-instead of just its size
+** FINE : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 == Documentation
 
 == Testing
 
 == Dev Ops
+
 === Build Automation
+
 We use https://gradle.org/[Gradle] for _build automation.
 See link:{repoURL}/tutorials/gradleTutorial.md[Gradle Tutorial] for more details.
 
 === Continuous Integration
+
 We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects.
 
 === Coverage Reporting
+
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects.
 
 === Making a Release
+
 Here are the steps to create a new release.
 
-.  Update the archiveVersion number of shadowJar in link:{repoURL}/build.gradle[`build.gradle`].
-.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
-.  Tag the repo with the version number. e.g. `v0.1`
-.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+. Update the archiveVersion number of shadowJar in link:{repoURL}/build.gradle[`build.gradle`].
+. Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+. Tag the repo with the version number. e.g. `v0.1`
+. https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
-A project often depends on third-party libraries. For example, *Email manager* depends on the https://openjfx.io/[JavaFX] for GUI support. Managing these _dependencies_ can be automated using Gradle.
+
+A project often depends on third-party libraries.
+For example, *Email manager* depends on the https://openjfx.io/[JavaFX] for GUI support.
+Managing these _dependencies_ can be automated using Gradle.
 For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
 . Require developers to download those libraries manually (this creates extra work for developers)
-
 
 [appendix]
 == Suggested Programming Tasks to Get Started
@@ -471,6 +653,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |active student|get emails filtered out on student-life activities|I can get the interesting event info
 immediately|`* * *`
 |advanced user|tag the emails|I can search for them efficiently|`* * *`
+|busy student|sort my task list according to my preferences|I can view and keep track of the tasks more
+easily|`* * *`
 |busy student|prioritize my tasks by setting priority levels|I can work on more pressing task first|`* * *`
 |busy student|assign emails with color codes according to priority|I can have a clear view of priorities|`* * *`
 |computing student|filter out different types of emails by specifying the type we want to filter|I can access the type of emails we want easily|`* * *`
@@ -512,27 +696,117 @@ immediately|`* * *`
 *Actor*: `User` (SoC student)
 
 [discrete]
-=== Use Case: Fetch email from account
+=== Use Case: Snooze task
+
 *MSS*
 
-. User starts system or enters the fetch command.
-. System retrieves account key from file, connects to Microsoft and logs in. New emails are retrieved,
-combined with those from local storage and displayed.
-
+. User enters `snooze` command to snooze a task.
+. Task is snoozed by default 3 days.
++
 Use case ends.
 
 *Extensions*
 
-* 2a. System is unable to retrieve a valid account key, receives error from Microsoft.
+* 1a. User wants to snooze task by a specific duration.
 +
-** 2a1. Opens Microsoft portal in browser. +
-** 2a2. The user types in the username and password into Microsoft portal. +
-** 2a3. System saves the account key from Microsoft for future logins, downloads new emails, and displays
-email.
+** 1a1. User enters snooze duration after `snooze` command.
+** 1a2. Task snoozed by the specific duration.
 +
 Use case ends.
 
-* 2b. System does not receive a response from Microsoft server.
+* 1b. User snooze a task with invalid index.
++
+** 1b1. Displays index out of bound message
++
+Use case ends.
+
+* 1c. User snooze a invalid task.
++
+** 1c1. Displays task cannot be snoozed message
++
+Use case ends.
+
+[discrete]
+=== Use Case: Sort task list
+
+*MSS*
+
+. User keys in `sort` command to sort task list by `sortType`.
+. Task list is sorted according to `sortType`.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. Invalid `sortType` keyed after `sort` command.
+** 1a1. Displays invalid sort type message
++
+Use case ends.
+
+[discrete]
+=== Use Case: Add priority to task
+
+*MSS*
+
+. User keys in add priority command.
+. Priority is added to the task.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User keys in add priority command to the same task as above.
+** 1a1. Priority of task is overwritten by new priority.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Clear task list
+
+*MSS*
+
+. User keys in `clear` command.
+. Task list is cleared.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User keys in `clear` command when task list is empty.
+** 1a1. Displays message saying that task list has already been cleared.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Fetch email from account
+
+*MSS*
+
+. User starts system or enters the fetch command.
+<<<<<<< HEAD
+. System retrieves account key from file, connects to Microsoft and logs in. New emails are retrieved,
+combined with those from local storage and displayed.
+
+=======
+. System retrieves account key from file, connects to Microsoft and logs in.
+New emails are retrieved, combined with those from local storage and displayed.
++
+>>>>>>> branch-master
+Use case ends.
+
+*Extensions*
+
+* 2a.
+System is unable to retrieve a valid account key, receives error from Microsoft.
++
+** 2a1. Opens Microsoft portal in browser. +
+** 2a2. The user types in the username and password into Microsoft portal. +
+** 2a3. System saves the account key from Microsoft for future logins, downloads new emails, and displays email.
++
+Use case ends.
+
+* 2b.
+System does not receive a response from Microsoft server.
 +
 ** 2b1. System notifies user of failure to log in and loads email from local file.
 +
@@ -540,6 +814,7 @@ Use case ends.
 
 [discrete]
 === Use Case: Set priority to different keyword
+
 *MSS*
 
 . The user selects the “Keyword Priority” from the menu
@@ -552,6 +827,7 @@ Use case ends.
 
 [discrete]
 === Use Case: View Email List with Priority
+
 *MSS*
 
 . The user selects “All Email” from the menu
@@ -563,12 +839,14 @@ Use case ends.
 Use case ends.
 
 *Extensions*
-* 3a. The user can include or exclude a particular keyword from that priority
+* 3a.
+The user can include or exclude a particular keyword from that priority
 +
 Use case ends.
 
 [discrete]
 === Use Case: Auto categorisation of emails
+
 *MSS*
 
 . User creates a new categorize name.
@@ -593,7 +871,8 @@ Email Manager meets the following non-functional requirements:
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
+[[mainstream-os]]
+Mainstream OS::
 * Windows
 * macOS
 * Linux
@@ -603,6 +882,7 @@ Email Manager meets the following non-functional requirements:
 //
 [appendix]
 == Instructions for Manual Testing
+<<<<<<< HEAD
 Please follow the following feature testing tables to do the manual testing. The actual output and error
 message are to be checked against the expected output in the table. If Internet access is not available,
 please copy the content in the `/data/test_data` folder to the `/data` folder and overwrite all. These two
@@ -698,3 +978,32 @@ Expected: Shows the GUI with a set of sample tasks and emails. The window size m
 . Exiting the program
 ... Type exit into the user input box.
 ... Expected: Application will shut down and close itself.
+=======
+
+=== Natural dates support
+|=======================================================================
+|Mode|Input|Expected Result|Purpose of Testing
+
+|Task|deadline submission -time mon|deadline task will be added into the task list with time `0000`|Normal
+use case without time inputted
+|Task|deadline submission -time mon 2359|deadline task will be added into the task list with time
+`2359`|Normal use case with time inputted
+|Task|deadline submission -time|Invalid command format reported|Empty time in time option triggers
+invalid command format as deadline task requires a time option
+|Task|deadline submission -time random|Invalid command reported asking for correct date time format|Invalid
+input with wrong date time format
+|Task|todo tutorials -time|Invalid command format reported|Invalid input with time present in todo task
+|Task|todo tutorial -time mon 1200|Invalid command reported saying date time not allowed for todo
+task|Invalid input with time present in todo task
+|=======================================================================
+
+=== Sorting of task list
+|=======================================================================
+|Mode|Input|Expected Result|Purpose of Testing
+
+|Task|sort priority|Task List is sorted according to the priority level of the task, with `high` being at
+the top of the list|Normal use case
+|Task|sort|Invalid command reported asking for sort type after `sort`|Invalid input without sort type
+|Task|sort abc|Invalid command reported saying invalid sorting type|Invalid input with invalid sort type
+|=======================================================================
+>>>>>>> branch-master
