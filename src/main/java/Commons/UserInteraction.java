@@ -78,7 +78,7 @@ public class UserInteraction {
     }
 
     public String showSelectionOption(Integer option, String selectedOption) {
-        return "Selected option " + option + "\n" + selectedOption;
+        return "Selected option " + option + ":\n" + selectedOption;
     }
 
     /**

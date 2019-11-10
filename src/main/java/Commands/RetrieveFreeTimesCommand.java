@@ -28,7 +28,7 @@ public class RetrieveFreeTimesCommand extends Command {
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) {
         ArrayList<Pair<String, String>> retrievedFreeTimes = FindFreeTimesCommand.getCompiledFreeTimesList();
-        Integer indexOfOption = option-1;
+        Integer indexOfOption = option - 1;
         selectedOption = retrievedFreeTimes.get(indexOfOption).getKey();
         selectedOptionCommand = retrievedFreeTimes.get(indexOfOption).getValue();
         return ui.showSelectionOption(option, selectedOption);

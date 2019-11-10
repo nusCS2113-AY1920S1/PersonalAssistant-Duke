@@ -13,17 +13,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * This class tests FindFreeTimesParse.
  */
 public class FindFreeTimesParseTest {
-    private final String invalidInput = "Invalid input. Please enter the command as follows. \n" +
+    private final String INVALID_INPUT = "Invalid input. Please enter the command as follows. \n" +
             "find/time 'x' hours , where 'x' is a digit between 1 - 16";
-    private final String invalidDuration = "Invalid duration. Please enter the command as follows. \n" +
+    private final String INVALID_DURATION = "Invalid duration. Please enter the command as follows. \n" +
             "find/time 'x' hours , where 'x' is a digit between 1 - 16";
-    private final String invalidEmptyDuration = "Invalid input." +
+    private final String INVALID_EMPTY_DURATION = "Invalid input." +
             "\nDuration cannot be blank.\nPlease enter the command as follows.\n"
             + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
 
     private static String validUserInputWithDuration;
     //TODO: ask if should take 0 and 17 instead of negative
-    private static String userInputWithNegativeDuration;
+    private static String userInputWithZeroDuration;
+    private static String userInputWithSeventeenDuration;
     private static String userInputWithInvalidDuration;
     private static String userInputWithDurationInDecimal;
 
@@ -35,7 +36,8 @@ public class FindFreeTimesParseTest {
     public static void setAllVariables() {
         validUserInputWithDuration = "find/time 5 hours";
 
-        userInputWithNegativeDuration = "find/time -100 hours";
+        userInputWithZeroDuration = "find/time 0 hours";
+        userInputWithSeventeenDuration = "find/time 17 hours";
         userInputWithInvalidDuration = "find/time abc hours";
         userInputWithDurationInDecimal = "find/time 5.6 hours";
 
@@ -44,12 +46,25 @@ public class FindFreeTimesParseTest {
     }
 
     @Test
-    public void findFreeTimesWithNegativeDuration() {
-        String expected = invalidDuration;
+    public void findFreeTimesWithZeroDuration() {
+        String expected = INVALID_DURATION;
         String actual = null;
         Command command = null;
         try {
-            command = new FindFreeTimesParse(userInputWithNegativeDuration).parse();
+            command = new FindFreeTimesParse(userInputWithZeroDuration).parse();
+        } catch (DukeInvalidFormatException e) {
+            actual = e.getMessage();
+        }
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findFreeTimesWithSeventeenDuration() {
+        String expected = INVALID_DURATION;
+        String actual = null;
+        Command command = null;
+        try {
+            command = new FindFreeTimesParse(userInputWithSeventeenDuration).parse();
         } catch (DukeInvalidFormatException e) {
             actual = e.getMessage();
         }
@@ -58,7 +73,7 @@ public class FindFreeTimesParseTest {
 
     @Test
     public void findFreeTimesWithInvalidDuration() {
-        String expected = invalidDuration;
+        String expected = INVALID_DURATION;
         String actual = null;
         Command command = null;
         try {
@@ -71,7 +86,7 @@ public class FindFreeTimesParseTest {
 
     @Test
     public void findFreeTimesWithDurationInDecimal() {
-        String expected = invalidDuration;
+        String expected = INVALID_DURATION;
         String actual = null;
         Command command = null;
         try {
@@ -84,7 +99,7 @@ public class FindFreeTimesParseTest {
 
     @Test
     public void findFreeTimesWithoutPostFix() {
-        String expected = invalidInput;
+        String expected = INVALID_INPUT;
         String actual = null;
         Command command = null;
         try {
@@ -97,7 +112,7 @@ public class FindFreeTimesParseTest {
 
     @Test
     public void findFreeTimesWithoutDuration() {
-        String expected = invalidEmptyDuration;
+        String expected = INVALID_EMPTY_DURATION;
         String actual = null;
         Command command = null;
         try {
