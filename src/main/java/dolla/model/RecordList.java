@@ -51,7 +51,7 @@ public class RecordList {
      * @param modifyIndex Index where the record should be added into the recordList.
      * @param newRecord The record to be added.
      */
-    protected void addWithIndex(int modifyIndex, Record newRecord) {
+    public void addWithIndex(int modifyIndex, Record newRecord) {
         recordArrayList.add(modifyIndex, newRecord);
     }
 

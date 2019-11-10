@@ -33,7 +33,7 @@ public class LimitList extends RecordList {
     }
 
     @Override
-    protected void addWithIndex(int modifyIndex, Record newRecord) {
+    public void addWithIndex(int modifyIndex, Record newRecord) {
         super.addWithIndex(modifyIndex, newRecord);
         StorageWrite.setLimits(get());
     }

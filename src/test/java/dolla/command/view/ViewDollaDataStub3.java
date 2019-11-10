@@ -12,15 +12,15 @@ import dolla.model.ShortcutList;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ViewDollaDataStub2 extends DollaData {
+public class ViewDollaDataStub3 extends DollaData {
 
     private Entry createNewEntry1() {
-        return new Entry("expense", 100, "Expense Description",
+        return new Entry("expense", 200, "Expense Description",
                 LocalDate.parse("1111-11-11"));
     }
 
     private Entry createNewEntry2() {
-        return new Entry("income", 200, "Income Description",
+        return new Entry("income", 100, "Income Description",
                 LocalDate.parse("1111-11-11"));
     }
 
@@ -37,7 +37,7 @@ public class ViewDollaDataStub2 extends DollaData {
         return newRecordList;
     }
 
-    public ViewDollaDataStub2() {
+    public ViewDollaDataStub3() {
         this.entryList = new EntryList(createNewEntryArrayList());
         this.limitList = new LimitList(new ArrayList<Record>());
         this.debtList = new DebtList(new ArrayList<Record>());
