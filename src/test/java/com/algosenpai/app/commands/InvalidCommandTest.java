@@ -128,22 +128,6 @@ public class InvalidCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testInvalidWithMultipleMinEditDistance() throws IOException, FileParsingException {
-        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
-        Logic logic = new Logic(previousStats);
-        Command command = logic.executeCommand("ter");
-        String actualText = command.execute();
-        if (previousStats.getUsername().equals("Default")) {
-            Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
-                    + "Can I have your name and gender in the format : "
-                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
-        } else if (!previousStats.getUsername().equals("Default")) {
-            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
-                    + "menu, clear, help?", actualText);
-        }
-    }
-
-    @Test
     void testInvalidWithCharacterAbsentFromAllCommands() throws IOException, FileParsingException {
         UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
         Logic logic = new Logic(previousStats);

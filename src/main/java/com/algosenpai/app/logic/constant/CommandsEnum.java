@@ -22,11 +22,11 @@ public enum CommandsEnum {
     volume, //11
     print, //12
     archive, //13
-    save, //14
     stats, //15
     result,//16
     exit, //17
-    load; //18
+    load, //18
+    start; //19
 
     private static List<String> enumNames = Stream.of(CommandsEnum.values())
             .map(CommandsEnum::name)
@@ -47,7 +47,7 @@ public enum CommandsEnum {
      */
     public static List<String> getQuizBlockedNames() {
         List<String> blockedNames = new LinkedList<>(enumNames);
-        blockedNames.remove(16); //exit
+        blockedNames.remove(17); //exit
         blockedNames.remove(11); //volume
         blockedNames.remove(2); //quiz
         return blockedNames;
@@ -59,7 +59,7 @@ public enum CommandsEnum {
      */
     public static List<String> getLectureBlockedNames() {
         List<String> blockedNames = new LinkedList<>(enumNames);
-        blockedNames.remove(16); //exit
+        blockedNames.remove(17); //exit
         blockedNames.remove(11); //volume
         blockedNames.remove(1); //lecture
         return blockedNames;
@@ -71,7 +71,7 @@ public enum CommandsEnum {
      */
     public static List<String> getArcadeBlockedNames() {
         List<String> blockedNames = new LinkedList<>(enumNames);
-        blockedNames.remove(16); //exit
+        blockedNames.remove(17); //exit
         blockedNames.remove(11); //volume
         blockedNames.remove(3); //arcade
         return blockedNames;

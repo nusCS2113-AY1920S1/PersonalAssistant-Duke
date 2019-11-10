@@ -117,7 +117,7 @@ public class LectureCommandTest extends ApplicationTest {
         String actualText;
         String expectedText;
         actualText = logic.executeCommand("back").execute();
-        expectedText = "OOPS!!! Error occurred. Please input a valid command. Did you mean... save?";
+        expectedText = "OOPS!!! Error occurred. Please input a valid command. Did you mean... stats, load, start?";
         Assertions.assertEquals(expectedText, actualText);
     }
 

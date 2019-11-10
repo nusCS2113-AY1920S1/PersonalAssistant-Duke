@@ -479,18 +479,24 @@ the software at our https://github.com/AY1920S1-CS2113T-T09-3/main/releases[rele
 * *hello* `hello`
 * *menu* : `menu`
 * *chapters* : `chapters`
-* *select* : `select CHAPTER`
-e.g. `select sorting`
-* *quiz* : `quiz`
-* *quiz ANSWER* : `ANSWER`
-* *quiz BACK* : `back`
-* *quiz NEXT* : `next`
-* *quiz END* : `end`
+* *lecture* : `lecture CHAPTER` +
+e.g. `lecture sorting`
+* *quiz* : `quiz CHAPTER` +
+e.g. `quiz sorting`
+* *arcade* : `arcade`
+* *start* : `start`
+* *next* : `next`, can only be used during a lecture/quiz
+* *back* : `back`, can only be used during a lecture/quiz
+* *end* : `end`, can only be used during a lecture/quiz
+* *answer*: `<answer separated by ", ">` +
+e.g. `40, 50, 30`
 * *result* : `result`
+* *review* : `review QUESTION_NUMBER` +
+e.g. `review 6`
 * *history* : `history NUMBER` +
 e.g. `history 5`
-* *Undo* : `undo NUMBER` +
-e.g. `undo` or `undo 4`
+* *undo* : `undo || undo NUMBER` +
+e.g. `undo` gives a default NUMBER as 1 or `undo 4`
 * *clear* : `clear`
 * *help* : `help CHAPTER` +
 e.g. `help sorting`
@@ -500,6 +506,8 @@ e.g. `volume 1`
 e.g `print user MyData.pdf`
 * *archive* : `archive QUESTION_NUMBER` +
 e.g. `archive 1`
-* *save* : `save`
+* *load* : `load <filename>.txt` +
+e.g. `load UserData.txt`
+* *stats* : `stats`
 * *reset* : `reset`
 * *exit* : `exit`
