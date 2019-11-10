@@ -299,6 +299,8 @@ public class Parser {
                 }
                 return new AddCommand(taskObj);
             }
+
+            //@@author Dou-Maokang
         } else if (!emptyString
                 && (arr[Numbers.ZERO.value].equals("fixedduration") || arr[Numbers.ZERO.value].equals("fd"))) {
             String description = "";
@@ -470,6 +472,9 @@ public class Parser {
             displayDT = suffixStr + " of " + displayDT;
 
             return new FindTasksByDateCommand(displayDT);
+            //@@author
+
+            
             //@@author gervaiseang
         } else if (!emptyString && arr[Numbers.ZERO.value].equals("remind")) {
             //remind <taskNumber> /in <howManyDays>
