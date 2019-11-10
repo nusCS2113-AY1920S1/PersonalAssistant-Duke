@@ -65,7 +65,6 @@ public class DuqueParser {
             }
             System.out.println("You don't need anything but help but okay....");
             return new HelpCommand();
-            //update with more detailed help command
         case "list":
             if (1 == fcArray.length) {
                 return new ListCommand(filter);

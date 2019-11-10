@@ -72,8 +72,11 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private void getTypeAndDescription(String s) throws DukeException {
         String[] typeArray = s.split(" ", 2);
+        if (typeArray[1].charAt(0) == '-') {
+            throw new DukeException("Please type something for the description!");
+        }
         this.taskType = typeArray[0];
-        String[] descriptionArray = typeArray[1].split(" -", 2);
+        String[] descriptionArray = typeArray[1].split("-", 2);
         this.description = descriptionArray[0];
     }
 

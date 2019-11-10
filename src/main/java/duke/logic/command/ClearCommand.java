@@ -36,14 +36,13 @@ public class ClearCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException, IOException {
-        if (filter.isPresent()) {
-            String printFilter = filter.toString().substring(9);
-            printFilter = printFilter.replaceAll("]", "");
-            ui.showLine("You've cleared your " + printFilter + " task list!");
+        if (tasks.clear(filter)) {
+            throw new DukeException("Your" + (filter.isPresent() ? " " + filter.get() : "") +
+                    " task list is already empty!");
         } else {
-            ui.showLine("You've cleared your task list!");
+            ui.showLine("Your" + (filter.isPresent() ? " " + filter.get() : "") +
+                    " task list has been cleared!");
         }
-        tasks.clear(filter);
         storage.save(tasks);
     }
 

@@ -91,17 +91,26 @@ public class TaskList {
         return temp;
     }
 
-    public void clear(Optional<String> filter) {
+    public boolean clear(Optional<String> filter) {
+        boolean isEmptyList = true;
         if (filter.isPresent()) {
-            for (int i = 0; i < taskList.size(); i++) {
+            int i = 0;
+            while (i < taskList.size()) {
                 Task t = taskList.get(i);
                 if (t.getFilter().equals(filter)) {
+                    isEmptyList = false;
                     taskList.remove(i);
+                } else {
+                    i++;
                 }
             }
         } else {
-            taskList = new ArrayList<>();
+            while(taskList.size() > 0) {
+                isEmptyList = false;
+                taskList.remove(0);
+            }
         }
+        return isEmptyList;
     }
 
     /**
