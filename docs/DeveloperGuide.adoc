@@ -550,6 +550,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 === Use case 6: Viewing Product's ingredients
 
 *Precondition:* BakingHome has at least 1 product in the product list.
