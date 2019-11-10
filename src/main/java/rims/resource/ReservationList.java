@@ -62,7 +62,7 @@ public class ReservationList {
                 return thisReservation;
             }
         }
-        throw new RimsException("No such reservation ID!");
+        throw new RimsException("Reservation not found for given reservation id!");
     }
 
     /**
@@ -110,7 +110,7 @@ public class ReservationList {
      */
     public void cancelReservationById(int reservationId) throws RimsException {
         boolean deleted = false;
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < reservations.size(); i++) {
             if (reservations.get(i).getReservationId() == reservationId) {
                 reservations.remove(i);
                 deleted = true;
@@ -118,7 +118,7 @@ public class ReservationList {
             }
         }
         if (!deleted) {
-            throw new RimsException("No such reservation ID!");
+            throw new RimsException("Reservation not found for given reservation id!");
         }
     }
 

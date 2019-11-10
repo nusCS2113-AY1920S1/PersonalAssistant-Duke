@@ -443,7 +443,7 @@ public class Parser {
                 throw new RimsException("Please specify the quantity of this item to be loaned out.");
             }
             int qty = parseInt(input.substring(qtyIndex + 6, idIndex).trim());
-            if (qty == 0) {
+            if ( qty <= 0 ){
                 throw new RimsException("Please use a valid integer value above zero!");
             }
             int fromIndex = input.indexOf(" /from");
