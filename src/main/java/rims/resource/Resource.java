@@ -158,4 +158,5 @@ public abstract class Resource {
     public ReservationList getDueReservations(int daysDue) {
         return reservations.getDueReservations(daysDue);
     }
+
 }
