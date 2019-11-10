@@ -22,11 +22,11 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Terminates the program.
+     * Terminates the program after saving the file.
      */
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         storage.saveFile(tasks.getTasks());
-        System.exit(0);
+        Runtime.getRuntime().exit(0);
     }
 
 }

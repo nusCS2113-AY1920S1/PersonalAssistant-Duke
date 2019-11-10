@@ -11,7 +11,7 @@ import chronologer.ui.UiMessageHandler;
  * Allows the user to delete a particular task from their task list based on index.
  *
  * @author Sai Ganesh Suresh
- * @version v1.3
+ * @version v1.4
  */
 public class DeleteCommand extends Command {
 

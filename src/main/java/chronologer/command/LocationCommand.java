@@ -29,8 +29,7 @@ public class LocationCommand extends Command {
     }
 
     /**
-     * Adds the location to the task as a comment and saves the updated TaskList it
-     * to persistent storage.
+     * Adds the location to the task and saves the updated TaskList to persistent storage.
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.

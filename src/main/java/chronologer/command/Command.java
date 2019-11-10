@@ -10,11 +10,10 @@ import chronologer.ui.UiMessageHandler;
 import java.util.ArrayList;
 
 /**
- * Ensures that all the classes of command type have implementations of the
- * method execute.
+ * Ensures that all the classes of command type have implementations of the method execute.
  *
  * @author Sai Ganesh Suresh
- * @version v2.0
+ * @version v1.4
  */
 public abstract class Command {
 
@@ -58,5 +57,4 @@ public abstract class Command {
      *                              user-defined list: DukeException.
      */
     public abstract void execute(TaskList tasks, Storage storage) throws ChronologerException;
-
 }
