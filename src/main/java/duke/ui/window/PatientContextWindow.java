@@ -1,17 +1,16 @@
 package duke.ui.window;
 
 import com.jfoenix.controls.JFXListView;
+import duke.data.DukeData;
 import duke.data.DukeObject;
-import duke.data.Evidence;
 import duke.data.Impression;
-import duke.data.Investigation;
 import duke.data.Patient;
 import duke.data.Treatment;
 import duke.exception.DukeFatalException;
-import duke.ui.commons.UiStrings;
 import duke.ui.card.ImpressionCard;
 import duke.ui.card.TreatmentCard;
 import duke.ui.card.UiCard;
+import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -47,7 +46,7 @@ public class PatientContextWindow extends ContextWindow {
     @FXML
     private JFXListView<UiCard> criticalListPanel;
     @FXML
-    private JFXListView<TreatmentCard> investigationListPanel;
+    private JFXListView<TreatmentCard> followUpListPanel;
 
     private Patient patient;
     private List<DukeObject> indexedImpressionList;
@@ -125,8 +124,8 @@ public class PatientContextWindow extends ContextWindow {
             card.setIndex(criticalListPanel.getItems().indexOf(card) + 1);
         });
 
-        investigationListPanel.getItems().forEach(card -> {
-            card.setIndex(investigationListPanel.getItems().indexOf(card) + 1);
+        followUpListPanel.getItems().forEach(card -> {
+            card.setIndex(followUpListPanel.getItems().indexOf(card) + 1);
         });
     }
 
@@ -143,30 +142,14 @@ public class PatientContextWindow extends ContextWindow {
                 impressionListPanel.getItems().add(impressionCard);
                 indexedImpressionList.add(impression);
             }
+        }
 
-            // Critical list
-            for (Treatment treatment : impression.getTreatments()) {
-                if (treatment.getPriority() == 1) {
-                    criticalListPanel.getItems().add(treatment.toCard());
-                    indexedCriticalList.add(treatment);
-                }
-            }
+        for (DukeData criticalData : patient.getCriticalList()) {
+            criticalListPanel.getItems().add(criticalData.toCard());
+        }
 
-            for (Evidence evidence : impression.getEvidences()) {
-                if (evidence.getPriority() == 1) {
-                    criticalListPanel.getItems().add(evidence.toCard());
-                    indexedCriticalList.add(evidence);
-                }
-            }
-
-            // Investigation list
-            for (Treatment treatment : impression.getTreatments()) {
-                if (treatment instanceof Investigation && treatment.getPriority() != 1) {
-                    // only display investigations not seen in criticals
-                    investigationListPanel.getItems().add(treatment.toCard());
-                    indexedInvestigationList.add(treatment);
-                }
-            }
+        for (Treatment followUps : patient.getFollowUpList()) {
+            followUpListPanel.getItems().add(followUps.toCard());
         }
     }
 
