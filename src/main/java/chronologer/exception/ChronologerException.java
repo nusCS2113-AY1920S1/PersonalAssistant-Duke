@@ -1,6 +1,6 @@
 package chronologer.exception;
 
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * This Exception class is used to handle all of the expected exceptions and
@@ -12,17 +12,13 @@ import chronologer.ui.UiTemporary;
  */
 public class ChronologerException extends Exception {
     private static final String WRONG_FORMAT_MSG = "OOPS!!! The date or time of this add type command is not of the "
-        + "correct format. See the manual above!";
+        + "correct format.";
     private static final String TASK_CLASH_MSG = "OOPS!!! There is already a task scheduled at the same time, use view "
         + "command to check your schedule for the day";
-    private static final String MISSING_DESCRIPTION_MSG = "OOPS!!! The description of the command is missing. See "
-        + "the manual above!";
-    private static final String UNKNOWN_COMMAND_MSG = "OOPS!!! The command you have entered is not of a valid type. "
-        + "See the manual above!";
-    private static final String MISSING_DATETIME_MSG = "OOPS!!! The date or time of this add type command is missing. "
-        + "See the manual above!";
-    private static final String NONEXISTING_TASK_MSG = "OOPS!!! The task you searched for does not exist. "
-        + "See the manual above!";
+    private static final String MISSING_DESCRIPTION_MSG = "OOPS!!! The description of the command is missing.";
+    private static final String UNKNOWN_COMMAND_MSG = "OOPS!!! The command you have entered is not of a valid type.";
+    private static final String MISSING_DATETIME_MSG = "OOPS!!! The date or time of this add type command is missing.";
+    private static final String NONEXISTING_TASK_MSG = "OOPS!!! The task you searched for does not exist.";
     private static final String WRITE_ERROR_MSG = "OOPS!!! Unable to write file.";
     private static final String READ_ERROR_MSG = "OOPS!!! Unable to read from file.";
     private static final String NONEXISTING_CLASS_MSG = "OOPS!!! Unable to extract certain features of the Duke Project"
@@ -38,7 +34,7 @@ public class ChronologerException extends Exception {
     private static final String INVALID_LOCATION_MSG = "OOPS!!! The location portion is not provided. Please try again";
     private static final String MISSING_COMMENT_MSG = "OOPS!!! The comment section is empty. Please try again";
     private static final String CALENDAR_WRITE_ERROR = " OOPS!!! Unable to write calendar file.";
-    private static final String MISSING_MODULE_MSG = " OOPS!!! The needed module code is missing.";
+    private static final String MISSING_MODULE_MSG = " OOPS!!! The needed module code is missing or invalid.";
     private static final String EMPTY_EXPORT_MSG = "OOPS!! There are no tasks to export with!";
     private static final String EMPTY_CALENDAR = "OOPS!! Your list only have dateless tasks and they can't be exported";
     private static final String EARLY_DATE_MSG = "OOPS!! The date you are postponing to is earlier than the old date";
@@ -46,6 +42,7 @@ public class ChronologerException extends Exception {
     private static final String INVALID_WEEK = "OOPS!! Your week is invalid!";
     private static final String INVALID_VERSION = "OOPS!! Your version is invalid!";
     private static final String INVALID_DURATION = "OOPS!! The duration given is invalid!";
+    private static final String WEBLINK_BROKEN = "OOPS!! We are unable to launch our online guide!";
 
 
     /**
@@ -54,8 +51,6 @@ public class ChronologerException extends Exception {
      * @return message to be displayed
      */
     public static String wrongDateOrTime() {
-        UiTemporary.printManual();
-        UiTemporary.printDash();
         return WRONG_FORMAT_MSG;
     }
 
@@ -65,7 +60,6 @@ public class ChronologerException extends Exception {
      * @return message to be displayed
      */
     public static String taskClash() {
-        UiTemporary.printDash();
         return TASK_CLASH_MSG;
     }
 
@@ -75,8 +69,6 @@ public class ChronologerException extends Exception {
      * @return message to be displayed
      */
     public static String emptyUserDescription() {
-        UiTemporary.printManual();
-        UiTemporary.printDash();
         return MISSING_DESCRIPTION_MSG;
     }
 
@@ -86,8 +78,6 @@ public class ChronologerException extends Exception {
      * @return message to be displayed
      */
     public static String unknownUserCommand() {
-        UiTemporary.printManual();
-        UiTemporary.printDash();
         return UNKNOWN_COMMAND_MSG;
     }
 
@@ -97,8 +87,6 @@ public class ChronologerException extends Exception {
      * @return message to be displayed
      */
     public static String emptyDateOrTime() {
-        UiTemporary.printManual();
-        UiTemporary.printDash();
         return MISSING_DATETIME_MSG;
     }
 
@@ -228,7 +216,12 @@ public class ChronologerException extends Exception {
         return INVALID_DURATION;
     }
 
+    public static String websiteMissing() {
+        return WEBLINK_BROKEN;
+    }
+
     public ChronologerException(String message) {
         super(message);
+        UiMessageHandler.outputMessage(message);
     }
 }

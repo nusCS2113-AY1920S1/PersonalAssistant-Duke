@@ -8,7 +8,7 @@ import chronologer.storage.Storage;
 import chronologer.task.Event;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 //@@author hanskw4267
 /**
@@ -48,7 +48,7 @@ public class AddRecurringCommand extends AddCommand {
         }
         ChronologerStateList.addState(tasks.getTasks());
         storage.saveFile(tasks.getTasks());
-        UiTemporary.printOutput(
+        UiMessageHandler.outputMessage(
                 "Got it! I've added this task" + "\nNow you have " + tasks.getSize() + " task(s) in the list.");
     }
 }

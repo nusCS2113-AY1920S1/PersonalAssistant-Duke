@@ -6,12 +6,10 @@ import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.task.Deadline;
-import chronologer.task.Event;
 import chronologer.task.Todo;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 /**
@@ -96,17 +94,17 @@ public class TaskScheduleCommand extends Command {
 
         if (deadlineDate == null) {
             result = TaskScheduler.scheduleTask(tasks, duration);
-            UiTemporary.printOutput(result);
+            UiMessageHandler.outputMessage(result);
             return;
         }
 
         if (LocalDateTime.now().isAfter(deadlineDate)) {
-            UiTemporary.printOutput(OVERDUE_DEADLINE);
+
             throw new ChronologerException(OVERDUE_DEADLINE);
         }
 
         result = TaskScheduler.scheduleByDeadline(tasks, duration, deadlineDate);
-        UiTemporary.printOutput(result);
+        UiMessageHandler.outputMessage(result);
     }
 
     private long retrieveDuration(TaskList tasks) throws ChronologerException {
@@ -115,7 +113,6 @@ public class TaskScheduleCommand extends Command {
             return this.durationToSchedule;
         }
         if (indexOfTask < 0 || indexOfTask >= tasks.getTasks().size()) {
-            UiTemporary.printOutput(ChronologerException.invalidIndex());
             throw new ChronologerException(ChronologerException.invalidIndex());
         }
 
@@ -123,7 +120,6 @@ public class TaskScheduleCommand extends Command {
         try {
             todo = (Todo) tasks.getTasks().get(indexOfTask);
         } catch (ClassCastException e) {
-            UiTemporary.printOutput(NOT_TODO);
             logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(NOT_TODO);
         }
@@ -135,7 +131,6 @@ public class TaskScheduleCommand extends Command {
             return this.deadlineDate;
         }
         if (indexOfDeadline < 0 || indexOfDeadline >= tasks.getTasks().size()) {
-            UiTemporary.printOutput(ChronologerException.invalidIndex());
             throw new ChronologerException(ChronologerException.invalidIndex());
         }
 
@@ -143,7 +138,6 @@ public class TaskScheduleCommand extends Command {
         try {
             deadline = (Deadline) tasks.getTasks().get(indexOfDeadline);
         } catch (ClassCastException e) {
-            UiTemporary.printOutput(NOT_DEADLINE);
             logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(NOT_DEADLINE);
         }

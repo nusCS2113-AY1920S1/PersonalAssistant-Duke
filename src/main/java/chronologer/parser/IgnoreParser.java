@@ -14,7 +14,7 @@ public class IgnoreParser extends IndexParser {
 
     private Boolean isIgnore;
 
-    public IgnoreParser(String userInput, String command, Boolean isIgnore) {
+    IgnoreParser(String userInput, String command, Boolean isIgnore) {
         super(userInput, command);
         this.isIgnore = isIgnore;
     }

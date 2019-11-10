@@ -12,7 +12,7 @@ import chronologer.exception.ChronologerException;
  */
 public class DoneParser extends IndexParser {
 
-    public DoneParser(String userInput, String command) {
+    DoneParser(String userInput, String command) {
         super(userInput, command);
     }
 

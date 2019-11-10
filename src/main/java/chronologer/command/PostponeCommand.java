@@ -7,7 +7,7 @@ import chronologer.task.Deadline;
 import chronologer.task.Event;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * Postpones a task to different times.
  *
  * @author Tan Yi Xiang
- * @version 1.8
+ * @version 1.9
  */
 public class PostponeCommand extends Command {
 
@@ -69,18 +69,18 @@ public class PostponeCommand extends Command {
 
         if (isDeadlinePostponeable(taskToBePostponed, tasks)) {
             postponeDate(taskToBePostponed, startDate, tasks, storage);
-            UiTemporary.printOutput(POSTPONED_DEADLINE + taskToBePostponed.toString());
+            UiMessageHandler.outputMessage(POSTPONED_DEADLINE + taskToBePostponed.toString());
 
         } else if (isEventPostponeable(taskToBePostponed, tasks)) {
             postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage);
-            UiTemporary.printOutput(POSTPONED_EVENT + taskToBePostponed.toString());
+            UiMessageHandler.outputMessage(POSTPONED_EVENT + taskToBePostponed.toString());
 
         } else if (isTodoPeriod(taskToBePostponed)) {
             postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage);
-            UiTemporary.printOutput(POSTPONED_TODO + taskToBePostponed.toString());
+            UiMessageHandler.outputMessage(POSTPONED_TODO + taskToBePostponed.toString());
 
         } else {
-            UiTemporary.printOutput(UNABLE_TO_POSTPONE);
+            UiMessageHandler.outputMessage(UNABLE_TO_POSTPONE);
         }
     }
 
@@ -91,7 +91,6 @@ public class PostponeCommand extends Command {
      */
     private void isIndexValid(TaskList tasks) throws ChronologerException {
         if (!isIndexValid(indexOfTask, tasks.getSize())) {
-            UiTemporary.printOutput(ChronologerException.taskDoesNotExist());
             throw new ChronologerException(ChronologerException.taskDoesNotExist());
         }
     }
@@ -107,7 +106,6 @@ public class PostponeCommand extends Command {
 
         if (isDeadline(taskToBePostponed)) {
             if (isDeadlineClash(taskToBePostponed.getDescription(), startDate, tasks)) {
-                UiTemporary.printOutput(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             } else {
                 return true;
@@ -126,7 +124,6 @@ public class PostponeCommand extends Command {
     private boolean isEventPostponeable(Task taskToBePostponed, TaskList tasks) throws ChronologerException {
         if (isEvent(taskToBePostponed)) {
             if (isEventClash(taskToBePostponed.getDescription(), startDate, toDate, tasks)) {
-                UiTemporary.printOutput(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             } else {
                 return true;
@@ -177,7 +174,7 @@ public class PostponeCommand extends Command {
         taskToBePostponed.setStartDate(startDate);
         taskToBePostponed.setEndDate(toDate);
         ChronologerStateList.addState((tasks.getTasks()));
-        tasks.updatePriority(null);
+        tasks.updateGui(null);
         storage.saveFile(tasks.getTasks());
     }
 
@@ -196,7 +193,7 @@ public class PostponeCommand extends Command {
         checkDeadlineDate(startDate, taskToBePostponed.getStartDate());
         taskToBePostponed.setStartDate(startDate);
         ChronologerStateList.addState((tasks.getTasks()));
-        tasks.updatePriority(null);
+        tasks.updateGui(null);
         storage.saveFile(tasks.getTasks());
     }
 
@@ -209,7 +206,6 @@ public class PostponeCommand extends Command {
      */
     private void checkDeadlineDate(LocalDateTime newStartDate, LocalDateTime oldStartDate) throws ChronologerException {
         if (newStartDate.isBefore(oldStartDate)) {
-            UiTemporary.printOutput(ChronologerException.postponeDateError());
             throw new ChronologerException(ChronologerException.postponeDateError());
         }
     }
@@ -226,25 +222,38 @@ public class PostponeCommand extends Command {
     private void checkEventTodoDate(LocalDateTime newStartDate, LocalDateTime oldStartDate, LocalDateTime
         newEndDate, LocalDateTime oldEndDate) throws ChronologerException {
         if (newStartDate.isBefore(oldStartDate) || newEndDate.isBefore(oldEndDate)) {
-            UiTemporary.printOutput(ChronologerException.postponeDateError());
             throw new ChronologerException(ChronologerException.postponeDateError());
         }
 
         if (newEndDate.isBefore(newStartDate)) {
-            UiTemporary.printOutput(ChronologerException.endDateError());
             throw new ChronologerException(ChronologerException.endDateError());
         }
 
     }
 
+    /**
+     * Check whether the task is of deadline type.
+     *
+     * @return True if the task is a deadline.
+     */
     private boolean isDeadline(Task task) {
         return (DEADLINE.equals(task.getType()));
     }
 
+    /**
+     * Check whether the task is of event type.
+     *
+     * @return True if the task is an event.
+     */
     private boolean isEvent(Task task) {
         return (EVENT.equals(task.getType()));
     }
 
+    /**
+     * Check whether the task is of todo period type.
+     *
+     * @return True if the task is a todo period.
+     */
     private boolean isTodoPeriod(Task task) {
         return (TODO_PERIOD.equals(task.getType()));
     }

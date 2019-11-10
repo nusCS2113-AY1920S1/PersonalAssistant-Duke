@@ -3,8 +3,7 @@ package chronologer.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import chronologer.ui.UiTemporary;
-import javafx.beans.value.ObservableIntegerValue;
+import chronologer.ui.UiMessageHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -22,6 +21,11 @@ import java.util.Comparator;
  */
 public class TaskList {
 
+    private static final String ZERO_PADDING = "0";
+    private static final String EMPTY = "";
+    private static final String DEADLINE_TIMING_PREFIX = "D: ";
+    private static final String START_TIME_PREFIX = "S: ";
+    private static final String END_TIME_PREFIX = "E: ";
     private ArrayList<Task> listOfTasks;
     private ObservableList<Task> observableListOfTasks;
 
@@ -272,23 +276,31 @@ public class TaskList {
     }
 
     /**
-     * Fetches all reminders for the current date.
+     * Fetches all reminders for the current date. (Tasks within the next 3 days)
      *
      * @return Holds reminders for the current date.
      */
-    public ArrayList<String> fetchReminders(LocalDateTime currentDateTime) {
+    public ArrayList<String> fetchReminders() {
         ArrayList<String> reminders = new ArrayList<>();
-        for (Task listOfTask : listOfTasks) {
-            if (listOfTask.isReminderTrigger() && listOfTask.reminder.reminderDate == currentDateTime) {
-                reminders.add(listOfTask.getDescription());
+        for (Task task : listOfTasks) {
+            if (task.isReminderTrigger()) {
+                if (task.getModCode().equals("")) {
+                    reminders.add(task.getDescription().trim() + "\n"
+                        + getStartTime(task)
+                        + getEndTime(task));
+                } else {
+                    reminders.add(task.getModCode().trim() + " "
+                        + task.getDescription().trim() + "\n"
+                        + getStartTime(task)
+                        + getEndTime(task));
+                }
             }
         }
         return reminders;
     }
 
-    //@@author E0310898
     /**
-     * This function allows the user to obtain the tasks on a particular date, but
+     * Allows the GUI to obtain the tasks on a particular date, but
      * only with description.
      *
      * @param dayToFind is of String type which contains the desired date of
@@ -299,10 +311,63 @@ public class TaskList {
         ArrayList<Task> obtainDescriptions = schedule(dayToFind);
         ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
         for (Task task : obtainDescriptions) {
-            scheduleDescriptionOnly.add(task.getModCode().trim() + " "
-                    + task.getDescription().trim());
+            if (task.getModCode().equals("")) {
+                scheduleDescriptionOnly.add(task.getDescription().trim() + "\n"
+                    + getStartTime(task)
+                    + getEndTime(task));
+            } else {
+                scheduleDescriptionOnly.add(task.getModCode().trim() + " "
+                    + task.getDescription().trim() + "\n"
+                    + getStartTime(task)
+                    + getEndTime(task));
+            }
         }
         return scheduleDescriptionOnly;
+    }
+
+    private String getStartTime(Task task) {
+        String time;
+
+        assert task.startDate != null;
+        int hour = task.startDate.getHour();
+        int minute = task.startDate.getMinute();
+        time = getFormattedTime(hour, minute);
+        if (task.endDate == null) {
+            time = DEADLINE_TIMING_PREFIX + time;
+        } else {
+            time = START_TIME_PREFIX + time + " ";
+        }
+
+        return time;
+    }
+
+    private String getEndTime(Task task) {
+        if (task.endDate == null) {
+            return EMPTY;
+        }
+
+        String time;
+
+        int hour = task.endDate.getHour();
+        int minute = task.endDate.getMinute();
+        time = getFormattedTime(hour, minute);
+        time = END_TIME_PREFIX + time;
+
+        return time;
+    }
+
+    private String getFormattedTime(int hour, int minute) {
+        String time;
+        String formattedHour = Integer.toString(hour);
+        String formattedMinute = Integer.toString(minute);
+        if (formattedHour.length() == 1) {
+            formattedHour = ZERO_PADDING + formattedHour;
+        }
+        if (formattedMinute.length() == 1) {
+            formattedMinute = ZERO_PADDING + formattedMinute;
+        }
+        time = formattedHour + formattedMinute;
+        return time;
     }
 
     //@@ author
@@ -336,7 +401,7 @@ public class TaskList {
         return taskToBeEdited;
     }
 
-    public void updatePriority(Task task) {
+    public void updateGui(Task task) {
         observableListOfTasks.add(task);
         observableListOfTasks.remove(task);
     }
@@ -359,9 +424,9 @@ public class TaskList {
             currentSetting.remove(0);
             currentSetting.add(0, choiceOfTheme);
             prevTheme = choiceOfTheme;
-            UiTemporary.printOutput("Theme changed!");
+            UiMessageHandler.outputMessage("Theme changed!");
         } else {
-            UiTemporary.printOutput("Theme cannot be changed!");
+            UiMessageHandler.outputMessage("Theme cannot be changed!");
         }
     }
 
@@ -374,9 +439,9 @@ public class TaskList {
             currentSetting.remove(1);
             currentSetting.add(1, choiceOfWeek);
             prevWeek = choiceOfWeek;
-            UiTemporary.printOutput("Week being viewed has changed!");
+            UiMessageHandler.outputMessage("Week being viewed has changed!");
         } else {
-            UiTemporary.printOutput("You are viewing the same week!");
+            UiMessageHandler.outputMessage("You are viewing the same week!");
         }
     }
 

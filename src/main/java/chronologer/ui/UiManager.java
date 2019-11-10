@@ -34,7 +34,6 @@ public class UiManager implements Ui {
             showMainWindow(primaryStage);
         } catch (Throwable e) {
             System.out.println(e.getMessage());
-            //showErrorAndCloseApplication("Fatal error encountered while application was launched", e);
         }
     }
 
@@ -47,7 +46,6 @@ public class UiManager implements Ui {
         mainWindow = new MainWindow(baseStage, main);
         mainWindow.show();
     }
-
 
     /**
      * Prints a message.
@@ -66,25 +64,4 @@ public class UiManager implements Ui {
         baseStage.getIcons().add(GUI_ICON);
     }
 
-
-    /**
-     * Shows an error alert dialog with and error message.
-     * Exits the application after the user closes the alert dialog.
-     *
-     * @param title Holds the corresponding title of the error dialog.
-     * @param error Holds the error.
-     */
-    private void showErrorAndCloseApplication(String title, Throwable error) {
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.initOwner(mainWindow.getBaseStage());
-        errorAlert.setHeaderText(error.getMessage());
-        errorAlert.setContentText(error.toString());
-
-        errorAlert.setTitle(title);
-
-        errorAlert.showAndWait();
-
-        Platform.exit();
-        System.exit(1);
-    }
 }

@@ -12,7 +12,7 @@ import chronologer.exception.ChronologerException;
  */
 public class TodoParser extends DescriptionParser {
 
-    public TodoParser(String userInput, String command) {
+    TodoParser(String userInput, String command) {
         super(userInput, command);
     }
 

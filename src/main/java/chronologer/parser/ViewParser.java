@@ -12,7 +12,7 @@ import chronologer.exception.ChronologerException;
  */
 public class ViewParser extends DescriptionParser {
 
-    public ViewParser(String userInput, String command) {
+    ViewParser(String userInput, String command) {
         super(userInput, command);
     }
 

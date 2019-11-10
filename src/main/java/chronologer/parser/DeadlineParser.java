@@ -3,9 +3,8 @@ package chronologer.parser;
 import chronologer.command.AddCommand;
 import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -18,19 +17,15 @@ import java.time.format.DateTimeParseException;
 public class DeadlineParser extends DescriptionParser {
 
     /**
-     * creates new parser for deadline.
-     * 
-     * @param userInput  input from user
-     * @param command    command type
+     * Creates new parser for deadline.
+     *
+     * @param userInput input from user
+     * @param command   command type
      */
-    public DeadlineParser(String userInput, String command) {
+    DeadlineParser(String userInput, String command) {
         super(userInput, command);
         this.checkType = Flag.BY.getFlag();
-        if (userInput.contains("/m")) {
-            this.hasModCode = true;
-        } else {
-            this.hasModCode = false;
-        }
+        this.hasModCode = userInput.contains("/m");
     }
 
     @Override
@@ -44,18 +39,25 @@ public class DeadlineParser extends DescriptionParser {
         return new AddCommand(command, taskDescription, startDate, null);
     }
 
+    /**
+     * Extract and converts start date component in user input.
+     *
+     * @param taskFeatures The user input.
+     * @return The converted start date.
+     * @throws ChronologerException If there's error parsing the start date component or if isn't any.
+     */
     private LocalDateTime extractStartDate(String taskFeatures) throws ChronologerException {
         String dateTimeFromUser;
         LocalDateTime startDate;
         try {
             dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
-            startDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
+            startDate = DateTimeExtractor.extractDateTime(dateTimeFromUser);
         } catch (ArrayIndexOutOfBoundsException e) {
-            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         } catch (DateTimeParseException e) {
-            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }

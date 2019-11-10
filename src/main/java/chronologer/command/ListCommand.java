@@ -3,7 +3,7 @@ package chronologer.command;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 import java.util.ArrayList;
 
@@ -29,11 +29,9 @@ public class ListCommand extends Command {
     public void execute(TaskList tasks, Storage storage) {
         ArrayList<Task> currentList = tasks.getTasks();
         if (tasks.getSize() == 0) {
-            UiTemporary.printOutput(EMPTY_LIST);
+            UiMessageHandler.outputMessage(EMPTY_LIST);
         } else {
-            UiTemporary.printDash();
-            UiTemporary.printOutput(PRESENT_LIST);
-            outputRequiredList(currentList);
+            outputRequiredList(currentList, PRESENT_LIST);
         }
     }
 }
