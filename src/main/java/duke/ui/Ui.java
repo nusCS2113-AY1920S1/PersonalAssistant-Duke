@@ -178,7 +178,6 @@ public class Ui {
 
     public void showExpiredIngredients(IngredientsList ingredientsList) {
         System.out.println("\tExpired " + ingredientsList);
-
     }
 
     public void showOrderTemplate() {

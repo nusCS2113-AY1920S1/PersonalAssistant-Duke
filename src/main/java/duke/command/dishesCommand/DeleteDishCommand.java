@@ -21,11 +21,7 @@ public class DeleteDishCommand extends Command {
 
     //@@ Author Hafidz
     /**
-     *
-     * @param dish1
-     * @param ui
-     * @param storage
-     * @throws DukeException
+     * Who wants to delete my dish?.
      */
     @Override
     public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
