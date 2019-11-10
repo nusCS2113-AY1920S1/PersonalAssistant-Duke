@@ -303,6 +303,8 @@ public class Parser {
                 }
                 return new AddCommand(taskObj);
             }
+
+            //@@author Dou-Maokang
         } else if (!emptyString
                 && (arr[Numbers.ZERO.value].equals("fixedduration") || arr[Numbers.ZERO.value].equals("fd"))) {
             String description = "";
@@ -344,11 +346,17 @@ public class Parser {
                     throw new DukeException("     (>_<) OOPS!!! The unit of a "
                             + arr[Numbers.ZERO.value] + " cannot be empty.");
                 }
+
                 unit = durDesc.split(" ")[Numbers.ONE.value].trim();
                 if (unit.isEmpty() || (!unit.toLowerCase().contains("min") && !unit.toLowerCase().contains("h"))) {
                     throw new DukeException(ErrorMessages.FIXEDDURATION_FORMAT.message);
+                } else if ((!unit.toLowerCase().equals("minute"))
+                        && (!unit.toLowerCase().equals("minutes"))
+                        && (!unit.toLowerCase().equals("hour"))
+                        && (!unit.toLowerCase().equals("hours"))) {
+                    throw new DukeException("     (>_<) OOPS!!! <unit> can only be minute(s) or hour(s)!");
                 } else {
-                    if (unit.contains("min")) {
+                    if (unit.equals("min") || unit.equals("minutes")) {
                         unit = (duration > Numbers.ONE.value) ? "minutes" : "minute";
                     } else if (unit.contains("h")) {
                         unit = (duration > Numbers.ONE.value) ? "hours" : "hour";
@@ -426,6 +434,10 @@ public class Parser {
             for (int i = Numbers.ONE.value; i < arr.length; i++) {
                 description += arr[i] + " ";
             }
+
+            if (!description.contains("/on")) {
+                throw new DukeException("     (>_<) OOPS!!! The format for finddate is 'finddate /on <dd/mm/yyyy>'");
+            }
             String[] holder =  description.split("/on");
             if (holder.length == 1) {
                 throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
@@ -464,6 +476,43 @@ public class Parser {
             displayDT = suffixStr + " of " + displayDT;
 
             return new FindTasksByDateCommand(displayDT);
+
+            //@@author
+
+
+            //@@author gervaiseang
+        } else if (!emptyString && arr[Numbers.ZERO.value].equals("remind")) {
+            //remind <taskNumber> /in <howManyDays>
+            String afterTaskDesc = "";
+            boolean detectBackSlash = false;
+            int duration;
+            for (int i = Numbers.ONE.value; i < arr.length; i++) {
+                if ((arr[i].trim().isEmpty()
+                        || !arr[i].substring(Numbers.ZERO.value, Numbers.ONE.value).equals("/")) && !detectBackSlash) {
+                    taskDesc += arr[i] + " ";
+                } else {
+                    if (!detectBackSlash) {
+                        detectBackSlash = true;
+                    } else {
+                        afterTaskDesc += arr[i] + " ";
+                    }
+                }
+            }
+            taskDesc = taskDesc.trim();
+            afterTaskDesc = afterTaskDesc.trim();
+            if (taskDesc.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of a "
+                        + arr[Numbers.ZERO.value] + " cannot be empty.");
+            } else if (afterTaskDesc.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description for "
+                        + arr[Numbers.ZERO.value] + " cannot be empty.");
+            } else {
+                duration = Integer.parseInt(taskDesc.split("/in",
+                        Numbers.TWO.value)[Numbers.ZERO.value].trim()) - Numbers.ONE.value;
+                int howManyDays = Integer.parseInt(afterTaskDesc);
+                return new RemindCommand(duration, howManyDays);
+            }  //@@author talesrune
+
 
             //@@author talesrune
         } else if (!emptyString && (arr[Numbers.ZERO.value].equals("update"))) {
