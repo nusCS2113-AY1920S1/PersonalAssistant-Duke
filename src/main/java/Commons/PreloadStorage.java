@@ -24,8 +24,8 @@ public class PreloadStorage extends Storage {
     @Override
     public void readEventList(TaskList list) throws DukeIOException {
         try {
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/" +
-                    "preloadevent.txt");
+            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/"
+                    + "preloadevent.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line;
@@ -46,8 +46,8 @@ public class PreloadStorage extends Storage {
     @Override
     public void readDeadlineList(TaskList list) throws DukeIOException {
         try {
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/" +
-                    "preloaddeadline.txt");
+            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/"
+                    + "preloaddeadline.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line;
