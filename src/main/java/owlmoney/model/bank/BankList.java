@@ -276,7 +276,7 @@ public class BankList {
                 return;
             }
         }
-        throw new BankException("There are no bank with the name: " + bankName);
+        throw new BankException("There are no savings account with the name: " + bankName);
     }
 
     /**

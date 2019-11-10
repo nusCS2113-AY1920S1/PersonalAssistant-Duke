@@ -272,6 +272,9 @@ There can only be a maximum of *7* savings account.
 
 * `/add /savings /name JunBank Savings Account /amount 218.90 /income 2000`
 
+.Successful adding of savings account after using `/add /savings`.
+image::AddSavings.png[Caption="Figure : "]
+
 Adds a savings account named `JunBank Savings Account` which has an initial amount
 of $`218.90` inside with a monthly income of `2000` automatically credited into the account
 every start of the month.
@@ -300,6 +303,9 @@ Edits `JunBank Savings Account` name to `JulyBank Savings Account`.
 
 * `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account /amount 2000.25`
 
+.Successful editing of savings account after using `/edit /savings`.
+image::EditSavings1.png[Caption="Figure : "]
+
 Edits `JunBank Savings Account` name to `JulyBank Savings Account` and sets the new amount in the account to $`2000.25`.
 
 * `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account /amount 2000.25 /income 5000`
@@ -312,6 +318,9 @@ with a new income of $`5000`.
 Edits `JunBank Savings Account` by setting the new amount in the account to $`2000.25`.
 
 * `/edit /savings /name JunBank Savings Account /amount 2000.25 /income 5000`
+
+.Successful editing of savings account after using `/edit /savings`.
+image::EditSavings2.png[Caption="Figure : "]
 
 Edits `JunBank Savings Account` by setting the new amount in the account to $`2000.25` with an income of $`5000`.
 
@@ -337,6 +346,9 @@ All transactions (e.g. expenditures and deposits) related to the savings account
 
 * `/delete /savings /name JunBank Savings Account`
 
+.Successful deletion of a savings account after using `/delete /savings`.
+image::DeleteSavings.png[Caption="Figure : "]
+
 Deletes a savings account named `JunBank Savings Account`.
 
 ===== Adding expenditures for savings bank account `/add /bankexpenditure`
@@ -357,6 +369,9 @@ An expenditure cannot be added to an investment bank account.
 
 * `/add /bankexpenditure /amount 1.20 /from JunBank Savings Account /date 28/09/2019 /desc bubble tea /category
 Dining`
+
+.Successful adding of bank expenditure after using `/add /bankexpenditure`.
+image::AddBankExpenditure.png[Caption="Figure : "]
 
 Adds an expenditure that deducts from `JunBank Savings Account` dated on `28/09/2019` that costs $`1.20` with
 the description of `bubble tea` and category of `Dining`.
@@ -384,15 +399,24 @@ To find out which transaction to edit, use the `/list` or `/find` function to fi
 
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 2 /desc Uniwlo Shirt`
 
+.Successful editing of bank expenditure after using `/edit /bankexpenditure`.
+image::EditBankExpenditure1.png[Caption="Figure : "]
+
 Edits expenditure `2` that was charged to `JunBank Savings Account` to a new description of `Uniwlo Shirt`.
 
 // end::deleteSavings[]
 
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 4 /category miscellaneous`
 
+.Successful editing of bank expenditure after using `/edit /bankexpenditure`.
+image::EditBankExpenditure2.png[Caption="Figure : "]
+
 Edits expenditure `4` that was charged to `JunBank Savings Account` to a new category of `miscellaneous`.
 
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 5 /amount 3.50`
+
+.Successful editing of bank expenditure after using `/edit /bankexpenditure`.
+image::EditBankExpenditure3.png[Caption="Figure : "]
 
 Edits expenditure `5` that was charged to `JunBank Savings Account` to an amount of $`3.50`.
 
@@ -415,6 +439,9 @@ To find out which expenditure to delete, use the `/list` or `/find` function to 
 
 * `/delete /bankexpenditure /from JunBank Savings Account /transno 1`
 
+.Successful deleting of bank expenditure after using `/delete /bankexpenditure`.
+image::DeleteBankExpenditure.png[Caption="Figure : "]
+
 Deletes an expenditure from `JunBank Savings Account with transaction number` `1`.
 
 ===== Adding deposit to savings bank account `/add /deposit`
@@ -428,6 +455,9 @@ Saved up some spare cash to deposit into your bank account? Record them here!
 *Example*
 
 * `/add /deposit /to JunBank Savings Account /amount 300 /desc FREELANCE WORK /date 10/10/2019`
+
+.Successful adding of deposit after using `/add /deposit`.
+image::AddDeposit.png[Caption="Figure : "]
 
 Deposits $`300` earned from `FREELANCE WORK` work into `JunBank Savings Account`.
 
@@ -451,14 +481,20 @@ To find which to deposit to edit, use the `/list` or `/find` function to find th
 
 *Example*
 
-* `/edit /deposit /from JunBank Savings Account /transno 11 /desc FREELANCE WORK /amount 270 /date 29/11/2019`
+* `/edit /deposit /from JunBank Savings Account /transno 11 /desc FREELANCE WORK /amount 270 /date 29/10/2019`
 
 Edits the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new description of
 `FREELANCE WORK`, setting a new amount of $`270` and a new date of `29/11/2019`
 
+.Successful editing of deposit after using `/edit /deposit`.
+image::EditDeposit1.png[Caption="Figure : "]
+
 // end::deleteExpenditure[]
 
 * `/edit /deposit /from JunBank Savings Account /transno 11 /amount 500`
+
+.Successful editing of deposit after using `/edit /deposit`.
+image::EditDeposit2.png[Caption="Figure : "]
 
 Edits the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new amount of $`500`.
 
@@ -480,6 +516,9 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 *Example*
 
 * `/delete /deposit /from JunBank Savings Account /transno 11`
+
+.Successful deleting of deposit after using `/delete /deposit`.
+image::DeleteDeposit.png[Caption="Figure : "]
 
 Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
 
@@ -1810,6 +1849,9 @@ Postpaid mobile plan bills that are consistent monthly? We can save you the hass
 
 `/add /recurbankexp /amount 72.90 /from JunBank Savings Account /desc Telco Bills /category Bills`
 
+.Successful adding of recurring expenditure after using `/add /recurbankexp`.
+image::AddRecurringExpenditure.png[Caption="Figure : "]
+
 Adds a recurring expenditure that deducts $`72.90` every *1st* of the month to pay `Telco Bills` charged to `JunBank
 Savings
 Account` categorised under the `Bills` category.
@@ -1830,6 +1872,9 @@ At least one of `/desc`, `/category` or `/amount` must be used.
 
 * `/edit /recurbankexp /from JunBank Savings Account /transno 2 /desc Telco Bills /amount 119.90`
 
+.Successful editing of recurring expenditure after using `/edit /recurbankexp`.
+image::EditRecurringExpenditure.png[Caption="Figure : "]
+
 Edits recurring expenditure number `2` description to `Telco Bills` to charge $`119.90`.
 
 ===== Deleting recurring expenditure `/delete /recurbankexp`
@@ -1840,6 +1885,9 @@ Cancelled your recurring bill? You can delete it!
 
 `/delete /recurbankexp /from ACCOUNT_NAME /transno TRANSACTION_NUMBER`
 
+.Successful deleting of recurring expenditure after using `/delete /recurbankexp`.
+image::DeleteRecurringExpenditure.png[Caption="Figure : "]
+
 [TIP]
 ====
 To find out which recurring expenditure to delete, use the `/list` or `/find` function to find the description.
@@ -1847,7 +1895,7 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 
 *Example*
 
-* `/delete /recurexpenditure /from JunBank Savings Account /transno 1`
+* `/delete /recurbankexp /from JunBank Savings Account /transno 1`
 
 Deletes a recurring expenditure from `JunBank Savings Account` with transaction number `1`.
 
