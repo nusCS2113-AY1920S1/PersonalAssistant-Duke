@@ -34,6 +34,9 @@ import static util.constant.ConstantHelper.COMMAND_DELETE_TASK;
 import static util.constant.ConstantHelper.COMMAND_VIEW_TASK_REQ;
 import static util.constant.ConstantHelper.COMMAND_EDIT_TASK_REQ;
 import static util.constant.ConstantHelper.COMMAND_VIEW_TASKS;
+import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_TASKS;
+import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_ASSIGNMENT_RESULTS;
+import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_REMINDER_CATEGORY;
 
 
 
@@ -541,8 +544,8 @@ public class ProjectInputController implements IController {
                 taskTable.add(allTaskDetailsForTable.get(0).get(0));
                 return viewHelper.consolePrintTable(taskTable, DEFAULT_HORI_BORDER_LENGTH);
             }
-            return viewHelper.consolePrintMultipleTables(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH, 2,
-                    "Tasks of " + projectToManage.getName() + ":");
+            return viewHelper.consolePrintMultipleTables(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH,
+                    NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_TASKS, "Tasks of " + projectToManage.getName() + ":");
         } catch (IndexOutOfBoundsException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAssignTask] "
                 + "Currently there are no tasks with the specified attribute.");
@@ -571,8 +574,8 @@ public class ProjectInputController implements IController {
         if (successMessages.isEmpty()) {
             return new String[]{"No valid assignment input detected! Please refer to the user guide for help."};
         }
-        return viewHelper.consolePrintMultipleTables(successMessages,
-                DEFAULT_HORI_BORDER_LENGTH, 1, "Results from task assignments:");
+        return viewHelper.consolePrintMultipleTables(successMessages, DEFAULT_HORI_BORDER_LENGTH,
+                NUM_OF_TABLE_COLUMNS_FOR_ASSIGNMENT_RESULTS, "Results from task assignments:");
     }
 
     /**
@@ -776,7 +779,8 @@ public class ProjectInputController implements IController {
             reminderCategory.add(categoryOfReminder);
             indexCategory++;
         }
-        return viewHelper.consolePrintMultipleTables(reminderCategory, DEFAULT_HORI_BORDER_LENGTH, 2,
+        return viewHelper.consolePrintMultipleTables(reminderCategory, DEFAULT_HORI_BORDER_LENGTH,
+                NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_REMINDER_CATEGORY,
                 "Reminders of " + projectToManage.getName() + ":");
     }
 }

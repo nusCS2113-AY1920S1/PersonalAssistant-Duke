@@ -84,4 +84,13 @@ public class ConstantHelper {
 
     public static final String COMMAND_VIEW_TASKS = "view tasks ";
 
+    public static final int NUM_OF_TABLE_COLUMNS_FOR_COMMAND_LIST = 1;
+
+    public static final int NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_ASSIGNMENTS = 2;
+
+    public static final int NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_TASKS = 2;
+
+    public static final int NUM_OF_TABLE_COLUMNS_FOR_ASSIGNMENT_RESULTS = 1;
+
+    public static final int NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_REMINDER_CATEGORY = 2;
 }

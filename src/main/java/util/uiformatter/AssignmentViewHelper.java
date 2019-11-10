@@ -5,6 +5,7 @@ import static util.constant.ConstantHelper.COMMAND_VIEW_ASSIGNMENTS_MEMBER_FLAG;
 import static util.constant.ConstantHelper.COMMAND_VIEW_ASSIGNMENTS_TASK_FLAG;
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
 import static util.constant.ConstantHelper.VALID_VIEW_ASSIGNMENT_LENGTH;
+import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_ASSIGNMENTS;
 
 import controllers.ProjectInputController;
 import java.util.ArrayList;
@@ -121,8 +122,8 @@ public class AssignmentViewHelper {
             }
             totalOutputToPrint.add(outputToPrint);
         }
-        return viewHelper.consolePrintMultipleTables(totalOutputToPrint, DEFAULT_HORI_BORDER_LENGTH, 2,
-                "Here are each member's tasks:");
+        return viewHelper.consolePrintMultipleTables(totalOutputToPrint, DEFAULT_HORI_BORDER_LENGTH,
+                NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_ASSIGNMENTS, "Here are each member's tasks:");
     }
 
     /**
@@ -156,8 +157,8 @@ public class AssignmentViewHelper {
             }
             totalOutputToPrint.add(outputToPrint);
         }
-        return viewHelper.consolePrintMultipleTables(totalOutputToPrint, DEFAULT_HORI_BORDER_LENGTH, 2,
-                "Here are the members assigned to each task:");
+        return viewHelper.consolePrintMultipleTables(totalOutputToPrint, DEFAULT_HORI_BORDER_LENGTH,
+                NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_ASSIGNMENTS, "Here are the members assigned to each task:");
     }
 
 }
