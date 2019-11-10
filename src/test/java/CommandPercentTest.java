@@ -26,7 +26,7 @@ public class CommandPercentTest {
         CommandPercent percentOne = new CommandPercent("percent transport");
         percentOne.execute(storageManager);
         String output = percentOne.getInfoCapsule().getOutputStr();
-        assertEquals("50.0% of your wallet expenses is spent on transport\n", output);
+        assertEquals("50.00% of your wallet expenses is spent on transport\n", output);
 
         CommandPercent percentTwo = new CommandPercent("percent");
         percentTwo.execute(storageManager);
@@ -36,7 +36,7 @@ public class CommandPercentTest {
         CommandPercent percentThree = new CommandPercent("percent books");
         percentThree.execute(storageManager);
         String result2 = percentThree.getInfoCapsule().getOutputStr();
-        assertEquals("0.0% of your wallet expenses is spent on books\n", result2);
+        assertEquals("0.00% of your wallet expenses is spent on books\n", result2);
 
     }
 
