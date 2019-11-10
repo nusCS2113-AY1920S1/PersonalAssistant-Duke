@@ -2,9 +2,10 @@ package duke.ui.window;
 
 import duke.exception.DukeException;
 import duke.ui.commons.UiElement;
+import duke.ui.commons.UiStrings;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
@@ -16,43 +17,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/* @@author gowgos5 */
+//@@author gowgos5
+/**
+ * UI window that tracks and saves the input history of the user.
+ */
 public abstract class InputHistoryWindow extends UiElement<Region> {
     @FXML
     protected TextArea inputTextField;
 
+    private File historyFile;
     private List<String> inputHistory;
     private int historyPointer;
     private String currentInput = "";
-    private File historyFile;
 
     /**
-     * Constructs the command window of the application.
+     * Constructs the input history window of the application.
      */
     public InputHistoryWindow(String fxmlFileName, Region root) {
         super(fxmlFileName, root);
 
-        // listen for updates to text field, and save partial input to currentInput if not viewing history
+        attachKeyListenerToTextField();
+        readFromHistoryFile();
+
         inputTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (historyPointer == inputHistory.size()) {
                 currentInput = newValue;
             }
         });
-
-        attachListenerToInput();
-
-        historyFile = new File("data/history.txt");
-        try {
-            Scanner commandScanner = new Scanner(historyFile);
-            inputHistory = new ArrayList<>();
-            while (commandScanner.hasNextLine()) {
-                inputHistory.add(commandScanner.nextLine());
-            }
-            historyPointer = inputHistory.size();
-        } catch (FileNotFoundException excp) {
-            inputHistory = new ArrayList<>();
-            historyPointer = 0;
-        }
     }
 
     /**
@@ -61,7 +52,7 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
      */
     private void navigateToPreviousInput() {
         if (historyPointer > 0) {
-            --historyPointer;
+            historyPointer = historyPointer - 1;
             setText(inputHistory.get(historyPointer));
         }
     }
@@ -72,18 +63,18 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
      */
     private void navigateToNextInput() {
         if (historyPointer < inputHistory.size() - 1) {
-            ++historyPointer;
+            historyPointer = historyPointer + 1;
             setText(inputHistory.get(historyPointer));
         } else if (historyPointer == inputHistory.size() - 1) {
-            ++historyPointer;
+            historyPointer = historyPointer + 1;
             setText(currentInput);
-        } //ignore if already viewing current input
+        }
     }
 
     /**
      * Sets {@code inputTextField} with {@code text} and positions the caret to the end of the {@code text}.
      *
-     * @param text Text to be set in the input text field of the command window.
+     * @param text Text to be set in the {@code inputTextField}.
      */
     private void setText(String text) {
         inputTextField.setText(text);
@@ -91,24 +82,18 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
     }
 
     /**
-     * Attaches a listener to the {@code inputTextField}.
+     * Attaches a listener to the {@code inputTextField} to listen for key presses.
      */
-    private void attachListenerToInput() {
-        inputTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+    private void attachKeyListenerToTextField() {
+        inputTextField.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
             switch (event.getCode()) {
-            case UP:
-                if (event.isShiftDown()) {
-                    event.consume();
-                    this.navigateToPreviousInput();
-                }
-
+            case PAGE_UP:
+                event.consume();
+                this.navigateToPreviousInput();
                 break;
-            case DOWN:
-                if (event.isShiftDown()) {
-                    event.consume();
-                    this.navigateToNextInput();
-                }
-
+            case PAGE_DOWN:
+                event.consume();
+                this.navigateToNextInput();
                 break;
             case ENTER:
                 event.consume();
@@ -126,7 +111,20 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
         });
     }
 
-    /* @@author aquohn */
+    /**
+     * Attaches a listener to the {@code inputTextField} to listen for text changes.
+     */
+    public void attachTextListenerToTextField(ChangeListener<String> listener) {
+        inputTextField.textProperty().addListener(listener);
+    }
+
+    /**
+     * Handles the event where the user presses "Enter" after he/she has finished
+     * typing his/her command in the {@code inputTextField}.
+     */
+    protected abstract void handleAction();
+
+    //@@author aquohn
     protected void storeInput(String input) {
         if (historyPointer != inputHistory.size() - 1 || (historyPointer == inputHistory.size() - 1
                 && !input.equals(inputHistory.get(historyPointer)))) {
@@ -137,6 +135,7 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
         currentInput = "";
     }
 
+    //@@author aquohn
     protected void writeHistory() throws DukeException {
         try {
             FileWriter cmdFileWr = new FileWriter(historyFile);
@@ -147,13 +146,23 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
             cmdFileWr.write(cmdStrBuilder.toString());
             cmdFileWr.close();
         } catch (IOException e) {
-            throw new DukeException("Unable to write command history! Some data may have been lost,");
+            throw new DukeException(UiStrings.MESSAGE_ERROR_WRITE_COMMAND_HISTORY);
         }
     }
 
-    /**
-     * Handles the event where the user presses "Enter" after he/she has finished
-     * typing the command in {@code inputTextField}.
-     */
-    protected abstract void handleAction();
+    //@@author aquohn
+    private void readFromHistoryFile() {
+        historyFile = new File("data/history.txt");
+        try {
+            Scanner commandScanner = new Scanner(historyFile);
+            inputHistory = new ArrayList<>();
+            while (commandScanner.hasNextLine()) {
+                inputHistory.add(commandScanner.nextLine());
+            }
+            historyPointer = inputHistory.size();
+        } catch (FileNotFoundException excp) {
+            inputHistory = new ArrayList<>();
+            historyPointer = 0;
+        }
+    }
 }

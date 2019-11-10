@@ -110,7 +110,6 @@ public class DukeCore extends Application {
         ui.stop();
     }
 
-
     private void setupLoggers() throws DukeFatalException {
         File logDir = new File("data/logs");
         if (!logDir.exists() && !logDir.mkdir()) {

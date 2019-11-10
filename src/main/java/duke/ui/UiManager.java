@@ -14,21 +14,20 @@ import javafx.util.Duration;
 
 import java.util.List;
 
+//@@author gowgos5
 /**
  * Class that manages the UI module of Dr. Duke.
  */
 public class UiManager implements Ui {
-    // TODO: Move to UiUtils class.
-    private static final Image ICON_APPLICATION = new Image(DukeCore.class.getResourceAsStream("/images/icon.png"));
+    private static final Image ICON_APPLICATION = new Image(UiManager.class.getResourceAsStream("/images/icon.png"));
 
     private DukeCore core;
     private MainWindow mainWindow;
 
     /**
-     * Constructs the manager to manage the UI module.
+     * Constructs the manager to manage the UI module of Dr. Duke.
      */
     public UiManager(DukeCore core) {
-        // TODO: We do not need the entire core in here.
         this.core = core;
     }
 
@@ -65,7 +64,6 @@ public class UiManager implements Ui {
     public void showMessage(String message) {
         final String displayMessage = message.replace("\t", "\n");
 
-        // TODO: temporary workaround for JUnit tests
         if (mainWindow != null) {
             mainWindow.showMessage(displayMessage);
         }
@@ -91,7 +89,6 @@ public class UiManager implements Ui {
         errorAlert.setHeaderText(error.getMessage());
         errorAlert.setContentText(error.toString());
         errorAlert.showAndWait();
-
         Platform.exit();
     }
 
@@ -114,7 +111,6 @@ public class UiManager implements Ui {
         mainWindow.show();
     }
 
-    /* TODO: TEMPORARY */
     /**
      * {@inheritDoc}
      */
