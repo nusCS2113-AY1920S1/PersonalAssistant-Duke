@@ -27,7 +27,7 @@ public class Parser {
             + "'<action> <page> / <content>' or 'bye'";
     private static final String PARSING_INPUT = "Parsing input into command: ";
     private static final String LOGGER_INVALID_COMMAND = "Invalid command entered, error propagated upwards.";
-    private static final String EXIT_STATIC_METHOD = "Exiting static method commandBuilder with pageData: ";
+    private static final String EXITING_COMMAND_BUILDER = "Exiting static method commandBuilder with pageData: ";
     private static final String ENTERING_COMMAND_BUILDER = "Entering static method commandBuilder";
     private static final int PAGEDATA_COMPONENT_MAX = 10;
 
@@ -150,7 +150,7 @@ public class Parser {
             throw new InputException(INVALID_COMMAND);
         }
         assert !pageData.isEmpty();
-        LOGGER.info(EXIT_STATIC_METHOD + pageData);
+        LOGGER.info(EXITING_COMMAND_BUILDER + pageData);
         return pageData;
     }
 
