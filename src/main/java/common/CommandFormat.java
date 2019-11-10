@@ -82,6 +82,46 @@ public class CommandFormat {
         return "show budget pr/PROJECT_NAME";
     }
 
+    public String addTodoFormat() {
+        return "add todo d/DESCRIPTION";
+    }
+
+    public String addDeadlineFormat() {
+        return "add deadline d/DESCRIPTION by/DATE.";
+    }
+
+    public String doneTaskFormat() {
+        return "done id/ID";
+    }
+
+    public String deleteTaskFormat() {
+        return "delete id/ID";
+    }
+
+    public String findTaskFormat() {
+        return "find task key/KEY_WORD";
+    }
+
+    public String listTasksFormat() {
+        return "list tasks";
+    }
+
+    public String viewScheduleFormat() {
+        return "view schedule d/DATE";
+    }
+
+    public String snoozeFormat() {
+        return "snooze id/ID";
+    }
+
+    public String postponeFormat() {
+        return "postpone id/ID n/DAYS";
+    }
+
+    public String rescheduleFormat() {
+        return "reschedule id/ID d/DATE";
+    }
+
     public String historyFormat() {
         return "history";
     }

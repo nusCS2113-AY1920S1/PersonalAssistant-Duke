@@ -555,17 +555,20 @@ public class Ui {
         System.out.print(line);
         System.out.println("\t" + "*Help*");
         System.out.println("");
+        System.out.println("Project:");
         System.out.println("\t" + "Add Project:          " + commandFormat.addProjectFormat());
         System.out.println("\t" + "Delete Project:       " + commandFormat.deleteProjectFormat());
         System.out.println("\t" + "List Projects:        " + commandFormat.listProjectFormat());
         System.out.println("\t" + "Go to a Project:      " + commandFormat.gotoProjectFormat());
+        System.out.println("\t" + "Show Budget:          " + commandFormat.showBudgetFormat());
+        System.out.println("\t" + "Reduce Budget:          " + commandFormat.reducebudgetFormat());
+        System.out.println("Fund:");
         System.out.println("\t" + "Set Fund:             " + commandFormat.setFundFormat());
         System.out.println("\t" + "Add Fund:             " + commandFormat.addFundFormat());
         System.out.println("\t" + "Assign Fund:          " + commandFormat.assignFundFormat());
-        System.out.println("\t" + "Reduce Budget:          " + commandFormat.reducebudgetFormat());
         System.out.println("\t" + "Reset Fund:           " + commandFormat.resetFundFormat());
         System.out.println("\t" + "Show Fund:            " + commandFormat.showFundFormat());
-        System.out.println("\t" + "Show Budget:          " + commandFormat.showBudgetFormat());
+        System.out.println("Payment and Payee:");
         System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
         System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
         System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
@@ -575,9 +578,21 @@ public class Ui {
         System.out.println("\t" + "Total cost:           " + commandFormat.totalCostFormat());
         System.out.println("\t" + "Edit Payment/Payee:   " + commandFormat.editPaymentFormat());
         System.out.println("\t" + "Reminder:             " + commandFormat.reminderFormat());
-        System.out.println("\t" + "History of Commands:  " + commandFormat.historyFormat());
+        System.out.println("Tasks:");
+        System.out.println("\t" + "Add Todo:            " + commandFormat.addTodoFormat());
+        System.out.println("\t" + "Add Deadline:        " + commandFormat.addDeadlineFormat());
+        System.out.println("\t" + "Done Task:           " + commandFormat.doneTaskFormat());
+        System.out.println("\t" + "Delete Task:         " + commandFormat.deleteTaskFormat());
+        System.out.println("\t" + "Find Task:           " + commandFormat.findTaskFormat());
+        System.out.println("\t" + "List Tasks:          " + commandFormat.listTasksFormat());
+        System.out.println("\t" + "Snooze Deadline:     " + commandFormat.snoozeFormat());
+        System.out.println("\t" + "Postpone Deadline:   " + commandFormat.postponeFormat());
+        System.out.println("\t" + "Reschedule Deadline: " + commandFormat.rescheduleFormat());
+        System.out.println("\t" + "View Schedule:       " + commandFormat.viewScheduleFormat());
+        System.out.println("History:");
+        System.out.println("\t" + "History of Commands: " + commandFormat.historyFormat());
         System.out.println("\t" + "View History within a certain period:         " + commandFormat.viewhistoryFormat());
-        System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());
+        System.out.println("\t" + "Exit:                " + commandFormat.exitFormat());
         System.out.print(line);
     }
 

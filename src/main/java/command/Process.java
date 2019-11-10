@@ -516,7 +516,7 @@ public class Process {
 
     /**
      * Processes the list tasks command.
-     * format: list tasks
+     * format: list tasks.
      * @param input Input from the user.
      * @param taskList Tasklist of the user.
      * @param ui Ui that interacts with the user.
@@ -535,7 +535,7 @@ public class Process {
 
     /**
      * Processes the View Schedule command and outputs the schedule for the specific date entered in the input.
-     * format: view schedule d/DATE
+     * format: view schedule d/DATE.
      * @param input    Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui       Ui that interacts with the user.
@@ -630,7 +630,7 @@ public class Process {
     //@@author lijiayu980606
     /**
      * Process the snooze command and automatically postpone the selected deadline task by 1 hour.
-     * format: snooze id/ID
+     * format: snooze id/ID.
      * @param input    Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui       Ui that interacts with the user.
@@ -665,7 +665,7 @@ public class Process {
     //@@author lijiayu980606
     /**
      * Process the postpone command and postpone the selected deadline task by required number of hours.
-     * format: postpone id/ n/DAYS.
+     * format: postpone id/ID n/DAYS.
      * @param input    Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui       Ui that interacts with the user.
@@ -703,7 +703,7 @@ public class Process {
     //@@author lijiayu980606
     /**
      * Process the reschedule command and reschedule the selected deadline task.
-     * format: reschedule id/ d/DATE.
+     * format: reschedule id/ID d/DATE.
      * @param input    Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui       Ui that interacts with the user.
@@ -727,7 +727,7 @@ public class Process {
 
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Wrong input format. "
-                    + "Correct format: reschedule id/ d/DATE");
+                    + "Correct format: reschedule id/ID d/DATE");
         } catch (NumberFormatException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The id must be positive integer and must not be empty!");
         } catch (ParseException e) {
