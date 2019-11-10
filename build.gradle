@@ -11,7 +11,6 @@ tasks.withType(JavaCompile) {
 }
 checkstyle {
     toolVersion = '8.23'
-    ignoreFailures = true
 }
 
 shadowJar {
