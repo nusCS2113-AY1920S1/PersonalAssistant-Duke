@@ -72,7 +72,7 @@ public class CapTest extends InputTest {
      */
     @Test
     public void capInputTest() {
-        final String capTest1 ="cap overall\n" + "CS1010 A\n" + "CG1111 A-\n" + "done\n";
+        final String capTest1 = "cap overall\n" + "CS1010 A\n" + "CG1111 A-\n" + "done\n";
         final String[] hold = {""};
         provideInput(capTest1);
         String capString = outContent.toString();
@@ -91,7 +91,7 @@ public class CapTest extends InputTest {
             +
             "Start typing the module you have taken, along with it's letter grade\n"
             +
-            "Type 'done' when you are ready to calculate your CAP"
+            "Type 'done' when you are ready to calculate your CAP\n"
             +
             "_______________________________\n"
             +
@@ -122,7 +122,7 @@ public class CapTest extends InputTest {
 
     @Test
     public void capListTest() {
-        final String capListTest ="cap list\n" + "bye";
+        final String capListTest = "cap list\n" + "bye";
         final String[] hold = {""};
         provideInput(capListTest);
         CliLauncher.main(hold);
