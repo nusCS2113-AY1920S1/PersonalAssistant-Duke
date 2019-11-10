@@ -1,8 +1,9 @@
+//@@author HUANGXUANKUN
+
 package duke.util;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
 
-//@@author HUANGXUANKUN
 /**
  * This is a command typo corrector for Duke user command.
  * It provides a method TypoCorrector.CommandCorrection which takes in an invalid input command
@@ -17,10 +18,11 @@ public class TypoCorrector {
     private static final double MAX_DISTANCE_DIFF_RATIO = 0.8;
 
     //Sets of "Dictionaries" for the command keyword, categorised by number of keywords contain in a supported commands.
-    private static final String[] SIMPLE_COMMANDS = {"bye", "duke", "help", "list patients", "list tasks"};
+    private static final String[] SIMPLE_COMMANDS = {"bye", "duke", "help", "list patients", "list tasks",
+        "show patients", "show tasks", "show assigned tasks", "show help guide", "clear filter"};
     private static final String[] OTHER_COMMANDS = {"update patient", "update task", "delete patient",
         "delete task", "delete assigned task", "add task", "add patient", "find patient", "find task",
-        "find assigned tasks", "assign deadline task", "assign period task"};
+        "find assigned tasks", "assign deadline task", "assign period task", "filter"};
 
     private boolean isCorrected = false;
     private String correctedCommand;

@@ -1,3 +1,5 @@
+//@@author HUANGXUANKUN
+
 package duke;
 
 import duke.models.tasks.TaskManager;
@@ -13,8 +15,6 @@ import duke.models.assignedtasks.AssignedTaskManager;
 import duke.models.counter.Counter;
 import duke.storages.StorageManager;
 
-//@@author HUANGXUANKUN
-
 /**
  * Represents Duke, a Personal Assistant to help
  * users tracking their progress.
@@ -27,6 +27,7 @@ public class Duke {
     private MementoManager mementoManager;
     private Counter counter;
     private DukeUi dukeUi;
+    private Command command;
 
     /**
      * Constructs a Duke object with a relative file path.
@@ -65,25 +66,25 @@ public class Duke {
         try {
             dukeUi.readUserInputFromGui(userInput);
             dukeUi.showLine();
-            Command c = CommandManager.manageCommand(userInput);
-            if (MementoParser.getSaveFlag(c).equals("save")) {
+            command = CommandManager.manageCommand(userInput);
+            if (MementoParser.getSaveFlag(command).equals("save")) {
                 Memento newMem = mementoManager.saveDukeStateToMemento(taskManager, assignedTaskManager,
                     patientManager);
-                c.execute(assignedTaskManager, taskManager, patientManager,
+                command.execute(assignedTaskManager, taskManager, patientManager,
                     dukeUi, storageManager);
                 mementoManager.add(newMem);
-            } else if (MementoParser.getSaveFlag(c).equals("pop")) {
+            } else if (MementoParser.getSaveFlag(command).equals("pop")) {
                 Memento newMem = mementoManager.pop();
                 this.assignedTaskManager = newMem.getPatientTaskState();
                 this.taskManager = newMem.getTaskState();
                 this.patientManager = newMem.getPatientState();
-                c.execute(assignedTaskManager, taskManager, patientManager,
+                command.execute(assignedTaskManager, taskManager, patientManager,
                     dukeUi, storageManager);
             } else {
-                c.execute(assignedTaskManager, taskManager, patientManager,
+                command.execute(assignedTaskManager, taskManager, patientManager,
                     dukeUi, storageManager);
             }
-            counter.runCommandCounter(c, storageManager, counter);
+            counter.runCommandCounter(command, storageManager, counter);
             return dukeUi.getDukeResponses();
         } catch (DukeException e) {
             dukeUi.clearResponses();
@@ -91,6 +92,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Return the current running command.
+     */
+    public Command getRunningCommand() {
+        return command;
+    }
 
     /**
      * It clears all duke's dialog.
