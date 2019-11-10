@@ -72,7 +72,7 @@ Examples:
 `Todo homework /for 4`
 
 ### 3.1.5) Adding a todo task with period: todo
-Adds a todo task with period to the task manager.<br />
+Adds a todo task with period to the task manager.
 Format: `<todo> <description></between> <start_datetime - end_datetime>`
 - Time must be in 24 hour format (dd/mm/yyyy)
 - /between flag is required to separate the date-time components from the Todo description.
@@ -81,7 +81,7 @@ Examples:
 `Todo homework /between 29/9/2019 1900 - 30/9/2019 1600`
  
 ### 3.1.6) Adding an assignment: assignment
-Adds an assignment task to the task manager list.<br />
+Adds an assignment task to the task manager list.
 Format: `assignment </m> <module code of assignment> </by> <end_datetime>`
 - Time must be in 24 hour format (dd/mm/yyyy HHmm)
 - Module code must be given in one word
@@ -292,7 +292,7 @@ Example output:
 `You can schedule this task from now till 08/11/2019 1400`
 
 ### 3.6.2) Schedule a todo with duration by a date
-Alternatively, the scheduling featuring can also be done with a raw date-time input as a deadline.<br />
+Alternatively, the scheduling featuring can also be done with a raw date-time input as a deadline.
 Format: `schedule <INDEX_OF_TODO> [/by <DATE_TIME>]`
 
 - <INDEX_OF_TODO> must be a positive integer and not be greater than the size of existing tasks in the list.
