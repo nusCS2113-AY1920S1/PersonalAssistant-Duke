@@ -1383,7 +1383,7 @@ Expected: An error would be displayed regarding a missing and an invalid command
 In the provided `.jar` file, the semester at index 1 has been rigorously populated with test data for testing purposes. You are recommended to add your own semester before testing the `semester /delete` command to prevent the deletion of the populated semester.
 
 . Test case: `semester /delete 2` +
-Expected: The second semester is deleted from the list. Details of the semester being deleted will be echoed as an acknowledgement message.
+Expected: The 2nd semester is deleted from the list. Details of the deleted semester will be echoed as an acknowledgement message.
 
 . Test case: `semester /delete 0` +
 Expected: Error displayed regarding an invalid index.
@@ -1421,7 +1421,7 @@ Expected: Error displayed about requiring a module name argument.
 . Prerequisites: Semester has been selected using the `semester /select` command. List all modules using the `module /view` command. At least 1 module is on the list.
 
 . Test case: `module /delete 2` +
-Expected: The second module is deleted from the list. Details of the module being deleted will be echoed as an acknowledgement message.
+Expected: The 2nd module is deleted from the list. Details of the deleted module will be echoed as an acknowledgement message.
 
 . Test case: `module /delete 0` +
 Expected: Error displayed regarding an invalid index.
@@ -1458,12 +1458,11 @@ Expected: Error displayed about invalid argument.
 . Other incorrect commands to try: `lesson /add Tutorial /day APPLE /from 10:00 /to 12:00`, `lesson /add Tutorial /day TUESDAY /from 10:00 /to 10:00`
 Expected: Similar to previous.
 
-
 ==== Deleting a `lesson`
 . Prerequisites: Module has been selected using the `module /select` command. List all lessons using the `lesson` command. At least 1 lesson is on the list.
 
 . Test case: `lesson /delete 1` +
-Expected: The first lesson is deleted from the list. Details of the lesson being deleted will be echoed as an acknowledgement message.
+Expected: The 1st lesson is deleted from the list. Details of the deleted lesson will be echoed as an acknowledgement message.
 
 . Test case: `lesson /delete 0` +
 Expected: Error displayed regarding an invalid index.
@@ -1509,11 +1508,10 @@ Expected: An acknowledgement message displayed regarding the successful addition
 Expected: Error displayed regarding a missing argument.
 
 . Test case: `assignment Lab /by` +
-Expected: Similar to previous
+Expected: Similar to previous.
 
 . Test case: `assignment Lab /by a` +
 Expected: Error displayed regarding an invalid argument.
-
 
 ==== Adding an `Event` task
 . Test case: `event date with girlfriend /from 15-11-2019 18:00 /to 15-11-2019 23:00` +
@@ -1527,7 +1525,6 @@ Expected: Error displayed regarding starting date and time being after ending da
 
 . Test case: `event date with girlfriend /from a /to 15-11-2019 15:00` +
 Expected: Error displayed regarding an invalid argument.
-
 
 ==== Adding a `Assessment` task
 . Prerequisites: Module has been selected using the `module /select command`.
@@ -1543,6 +1540,18 @@ Expected: Similar to previous
 
 . Test case: `assessment Finals /from a /to 30-11-2019 12:00` +
 Expected: Error displayed regarding an invalid argument.
+
+==== Deleting a task
+. Prerequisites: List all tasks using the `list` command. At list 1 task is on the list.
+
+. Test case: `delete 1` +
+Expected: The 1st task is deleted from the list of tasks. Details of the deleted task will be echoed as an acknowledgement message.
+
+. Test case: `delete 0` +
+Expected: Error displayed regarding an invalid index.
+
+. Other incorrect delete commands to try: `delete a`, `delete -1` +
+Expected: Similar to previous.
 
 === Starting Task Tracker
 
