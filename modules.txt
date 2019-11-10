@@ -17,7 +17,7 @@ final quiz
 presentation
 5
 group discussion
-7
+15
 participation
 2
 attendance

@@ -317,7 +317,7 @@ public class HelpText {
     private static final String UNDO_COMMANDS =
             "\t[ Undo commands: undo ]\n"
                     + "\tUndo previous tasks commands\n"
-                    +"\tFormat: undo\n"
+                    + "\tFormat: undo\n"
                     + "\n"
                     + "\tPrevious commands that you can undo:\n"
                     + "\t\t- EventCommand\n"
@@ -457,7 +457,8 @@ public class HelpText {
                     + "\t\t1. Type in the command add-room,location in the above format. Eg. LT19,COM2 Level 1\n"
                     + "\t\t2. Press ENTER.\n"
                     + "\t\t3. Alternatively, you can input the index of the add command, 1.\n"
-                    + "\t\t4. The system will prompt you to enter the room and location in this format, room,location.\n";
+                    + "\t\t4. The system will prompt you to enter the room and location in this format, "
+                    + "room,location.\n";
 
     private static final String PLACES_FIND =
             "\t[ Finding a place in NUS School of Computing (SOC): find-place ]\n"
@@ -780,13 +781,13 @@ public class HelpText {
                     + "\t\t- delete Jason\n";
 
     private  static final String CONTACT_UNDO =
-            "\t[ Undo previous contact command ]\n" +
-                    "\tUndo the previous contact command.\n" +
-                    "\tCommands that can be undone:\n" +
-                    "\t\tadd\n" +
-                    "\t\tdelete\n" +
-                    "\n" +
-                    "\tFormat :  undo\n";
+            "\t[ Undo previous contact command ]\n"
+                    + "\tUndo the previous contact command.\n"
+                    + "\tCommands that can be undone:\n"
+                    + "\t\tadd\n"
+                    + "\t\tdelete\n"
+                    + "\n"
+                    + "\tFormat :  undo\n";
     //--------------------------------------CAP-----------------------------------------------
     private static final String HEADER_CAP_PAGE = "********** CAP page: cap **********\n"
             + "\n"
@@ -885,13 +886,13 @@ public class HelpText {
             + "\t\t2. Type the index of the expense you want to delete and press ENTER.\n";
 
     private  static final String EXP_UNDO =
-            "\t[ Undo previous expenses command ]\n" +
-                    "\tUndo the previous expenses command.\n" +
-                    "\tCommands that can be undone:\n" +
-                    "\t\tadd\n" +
-                    "\t\tdelete\n" +
-                    "\n" +
-                    "\tFormat :  undo\n";
+            "\t[ Undo previous expenses command ]\n"
+                    + "\tUndo the previous expenses command.\n"
+                    + "\tCommands that can be undone:\n"
+                    + "\t\tadd\n"
+                    + "\t\tdelete\n"
+                    + "\n"
+                    + "\tFormat :  undo\n";
 
     //----------------------------------specialisation-----------------------------
     private static final String HEADER_SPECIALISATION_PAGE = "********** Specialization page: spec **********\n"
