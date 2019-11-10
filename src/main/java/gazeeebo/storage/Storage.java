@@ -151,7 +151,7 @@ public class Storage {
     /**
      * This method read Trivia.txt, get users' past inputs from the file.
      * @return hash-map of keywords and inputs
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if reading fail.
      */
     public Map<String, ArrayList<String>> Read_Trivia() throws FileNotFoundException {
         Map<String, ArrayList<String>> CommandMemory = new HashMap<>();
@@ -178,8 +178,8 @@ public class Storage {
 
     /**
      * This method writes to Trivia.txt file, record down updates in record of user inputs.
-     * @param fileContent
-     * @throws IOException
+     * @param fileContent String of content to be saved
+     * @throws IOException if the saving process goes wrong.
      */
     public void Storage_Trivia(String fileContent) throws IOException {
         File file = new File(relativePathTriviaResource);
@@ -194,7 +194,7 @@ public class Storage {
             bufferedWriter.write(fileContent);
             bufferedWriter.flush();
             bufferedWriter.close();
-        }catch (IOException e){
+        } catch (IOException e){
             System.out.println(e.getMessage());
         }
     }
@@ -278,8 +278,8 @@ public class Storage {
 
     /**
      * This method writes to Study_Plan.txt, updates changes in module plan.
-     * @param fileContent
-     * @throws IOException
+     * @param fileContent String of content to be saved.
+     * @throws IOException if the saving process goes wrong.
      */
     public void Storage_StudyPlan(String fileContent) throws IOException {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(relativePathStudyPlannerResource));
@@ -290,8 +290,8 @@ public class Storage {
 
     /**
      * This method reads from prerequisite txt file, gets information about courses' prerequisites.
-     * @return
-     * @throws IOException
+     * @return a data structure containing information of prerequisites.
+     * @throws IOException if reading went wrong.
      */
     public HashMap<String, ArrayList<String>> readFromPrerequisiteFile() throws IOException {
         HashMap<String, ArrayList<String>> PrerequisiteList = new HashMap<String, ArrayList<String>>();

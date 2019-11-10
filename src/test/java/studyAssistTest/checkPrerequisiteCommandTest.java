@@ -1,6 +1,6 @@
-//@@ author mononokehime14
+//@@author mononokehime14
 package studyAssistTest;
-import gazeeebo.commands.studyassist.checkPrerequisiteCommand;
+import gazeeebo.commands.studyassist.CheckPrerequisiteCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
@@ -33,7 +33,7 @@ public class checkPrerequisiteCommandTest {
         Ui ui =new Ui();
         ui.fullCommand = "prerequisite CS2";
         try {
-            new checkPrerequisiteCommand().execute(ui,storage);
+            new CheckPrerequisiteCommand().execute(ui,storage);
         }catch (DukeException | IOException e){
             assertEquals("We currently do not support this module",e.getMessage());
         }
@@ -44,7 +44,7 @@ public class checkPrerequisiteCommandTest {
         Ui ui =new Ui();
         ui.fullCommand = "prerequisite CS2040C";
         try {
-            new checkPrerequisiteCommand().execute(ui,storage);
+            new CheckPrerequisiteCommand().execute(ui,storage);
         }catch (DukeException | IOException e){
             assertEquals("CS2040C\n" +
                     "└── CS1010\n",outContent.toString());

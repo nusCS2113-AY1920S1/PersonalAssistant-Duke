@@ -1,9 +1,9 @@
-//@@ author mononokehime14
+//@@author mononokehime14
 package studyAssistTest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.studyassist.StudyPlannerCommand;
-import gazeeebo.commands.studyassist.deleteModuleCommand;
+import gazeeebo.commands.studyassist.DeleteModuleCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import org.junit.jupiter.api.AfterEach;
@@ -36,7 +36,7 @@ public class deleteModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "delete";
         try {
-            new deleteModuleCommand().execute(StudyPlan,storage,ui);
+            new DeleteModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException e){
             assertEquals("Please follow the correct input format~",e.getMessage());
@@ -50,7 +50,7 @@ public class deleteModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "delete CD1234 from 5";
         try {
-            new deleteModuleCommand().execute(StudyPlan,storage,ui);
+            new DeleteModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException e){
             assertEquals("We currently do not have this module.",e.getMessage());
@@ -63,7 +63,7 @@ public class deleteModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "delete CS2040C from 9";
         try {
-            new deleteModuleCommand().execute(StudyPlan,storage,ui);
+            new DeleteModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("Please input correct Semester number.",e.getMessage());
@@ -76,7 +76,7 @@ public class deleteModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "delete CS2040C from";
         try {
-            new deleteModuleCommand().execute(StudyPlan,storage,ui);
+            new DeleteModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("Please follow the correct input format~",e.getMessage());
@@ -89,7 +89,7 @@ public class deleteModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "delete CS3230 sem 5";
         try {
-            new deleteModuleCommand().execute(StudyPlan,storage,ui);
+            new DeleteModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("This module is not inside the study plan",e.getMessage());
@@ -113,14 +113,14 @@ public class deleteModuleCommandTest {
         }
         if(!flag){
             try {
-                new deleteModuleCommand().execute(StudyPlan, storage, ui);
+                new DeleteModuleCommand().execute(StudyPlan, storage, ui);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module is not inside the study plan", e.getMessage());
             }
         }else if(flag && semester_number != Semester){
             try {
-                new deleteModuleCommand().execute(StudyPlan, storage, ui);
+                new DeleteModuleCommand().execute(StudyPlan, storage, ui);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module is not in Sem "+(Semester+1)+" but inside Sem "+(semester_number+1), e.getMessage());
@@ -128,7 +128,7 @@ public class deleteModuleCommandTest {
 
         }else {
             try {
-                new deleteModuleCommand().execute(StudyPlan, storage, ui);
+                new DeleteModuleCommand().execute(StudyPlan, storage, ui);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module " + ModuleCode + " has been successfully deleted from Sem" + 5+".", e.getMessage());

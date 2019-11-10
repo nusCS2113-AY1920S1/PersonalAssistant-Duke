@@ -1,8 +1,8 @@
-//@@ author mononokehime14
+//@@author mononokehime14
 package studyAssistTest;
 
 import gazeeebo.commands.studyassist.StudyPlannerCommand;
-import gazeeebo.commands.studyassist.addModuleCommand;
+import gazeeebo.commands.studyassist.AddModuleCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
@@ -35,7 +35,7 @@ public class addModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "add";
         try {
-            new addModuleCommand().execute(StudyPlan,storage,ui);
+            new AddModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException e){
             assertEquals("Please follow the correct input format~",e.getMessage());
@@ -49,7 +49,7 @@ public class addModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "add CD1234 to 5";
         try {
-            new addModuleCommand().execute(StudyPlan,storage,ui);
+            new AddModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException e){
             assertEquals("We currently do not support this module.",e.getMessage());
@@ -62,7 +62,7 @@ public class addModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "add CS2040C to 9";
         try {
-            new addModuleCommand().execute(StudyPlan,storage,ui);
+            new AddModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("Please input correct Semester number.",e.getMessage());
@@ -75,7 +75,7 @@ public class addModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "add CS2040C to";
         try {
-            new addModuleCommand().execute(StudyPlan,storage,ui);
+            new AddModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("Please follow the correct input format~",e.getMessage());
@@ -88,7 +88,7 @@ public class addModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "add CS2113T sem 5";
         try {
-            new addModuleCommand().execute(StudyPlan,storage,ui);
+            new AddModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("This module is already inside the study plan",e.getMessage());
@@ -107,14 +107,14 @@ public class addModuleCommandTest {
         }
         if(flag){
             try {
-                new addModuleCommand().execute(StudyPlan, storage, ui);
+                new AddModuleCommand().execute(StudyPlan, storage, ui);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module is already inside the study plan", e.getMessage());
             }
         }else {
             try {
-                new addModuleCommand().execute(StudyPlan, storage, ui);
+                new AddModuleCommand().execute(StudyPlan, storage, ui);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module " + ModuleCode + " has been successfully added to Sem" + 5+".", e.getMessage());

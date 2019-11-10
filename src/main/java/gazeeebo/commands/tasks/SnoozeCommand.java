@@ -23,6 +23,20 @@ import java.util.*;
 
 
 public class SnoozeCommand extends Command {
+    /**
+     * This method snooze the date of deadline and event
+     * @param list          List of all tasks
+     * @param ui            the object that deals with
+     *                      printing things to the user
+     * @param storage       The object that deals with storing data
+     * @param commandStack the stack of previous commands.
+     * @param deletedTask the list of deleted task.
+     * @param triviaManager the object for triviaManager
+     * @throws DukeException  Throws custom exception when
+     *                        format of find command is wrong
+     * @throws ParseException Catch error if parsing of command fails
+     * @throws IOException    Catch error if the read file fails
+     */
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         try {

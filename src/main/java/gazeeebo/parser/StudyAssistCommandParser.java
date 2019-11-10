@@ -44,7 +44,7 @@ public class    StudyAssistCommandParser extends Command {
         System.out.println("__________________________________________________________");
         StudyPlannerCommand StudyPlan =  new StudyPlannerCommand(storage);
         Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
-        while(!ui.fullCommand.equals("esc")) {
+        while (!ui.fullCommand.equals("esc")) {
             String command = ui.fullCommand;
             String[] splitCommand = command.split(" ");
             if (splitCommand[0].equals("help")) {
@@ -53,18 +53,18 @@ public class    StudyAssistCommandParser extends Command {
                 StudyPlan.showPlan();
             } else if (splitCommand[0].equals("add")) {
                 copyStudyPlan(oldStudyPlan,StudyPlan.StudyPlan);
-                new addModuleCommand().execute(StudyPlan,storage,ui);
+                new AddModuleCommand().execute(StudyPlan,storage,ui);
             } else if (splitCommand[0].equals("delete")) {
                 copyStudyPlan(oldStudyPlan,StudyPlan.StudyPlan);
-                new deleteModuleCommand().execute(StudyPlan,storage,ui);
+                new DeleteModuleCommand().execute(StudyPlan,storage,ui);
             } else if (splitCommand[0].equals("shift")) {
                 copyStudyPlan(oldStudyPlan,StudyPlan.StudyPlan);
-                new shiftModuleCommand().execute(StudyPlan,storage,ui);
+                new ShiftModuleCommand().execute(StudyPlan,storage,ui);
             } else if (splitCommand[0].equals("prerequisite")) {
-                new checkPrerequisiteCommand().execute(ui, storage);
+                new CheckPrerequisiteCommand().execute(ui, storage);
             } else if (ui.fullCommand.equals("undo")) {
                StudyPlan.StudyPlan = new UndoStudyPlannerCommand().undoStudyPlanner(oldStudyPlan,StudyPlan.StudyPlan, storage);
-            } else if(!ui.fullCommand.equals("moduleplanner")){
+            } else if (!ui.fullCommand.equals("moduleplanner")) {
                 System.out.println("Invalid input that i could not understand~");
             }
             ui.readCommand();

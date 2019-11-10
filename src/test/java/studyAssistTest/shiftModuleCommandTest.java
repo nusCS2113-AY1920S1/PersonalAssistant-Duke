@@ -1,9 +1,9 @@
-//@@ author mononokehime14
+//@@author mononokehime14
 package studyAssistTest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.studyassist.StudyPlannerCommand;
-import gazeeebo.commands.studyassist.shiftModuleCommand;
+import gazeeebo.commands.studyassist.ShiftModuleCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import org.junit.jupiter.api.AfterEach;
@@ -36,7 +36,7 @@ public class shiftModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "shift";
         try {
-            new shiftModuleCommand().execute(StudyPlan,storage,ui);
+            new ShiftModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException e){
             assertEquals("Please follow the correct input format~",e.getMessage());
@@ -50,7 +50,7 @@ public class shiftModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "shift CD1234 to 5";
         try {
-            new shiftModuleCommand().execute(StudyPlan,storage,ui);
+            new ShiftModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException e){
             assertEquals("We currently do not support this module.",e.getMessage());
@@ -63,7 +63,7 @@ public class shiftModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "shift CS2040C to 9";
         try {
-            new shiftModuleCommand().execute(StudyPlan,storage,ui);
+            new ShiftModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("Please input correct Semester number.",e.getMessage());
@@ -76,7 +76,7 @@ public class shiftModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "shift CS2040C to";
         try {
-            new shiftModuleCommand().execute(StudyPlan,storage,ui);
+            new ShiftModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("Please follow the correct input format~",e.getMessage());
@@ -89,7 +89,7 @@ public class shiftModuleCommandTest {
         StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
         ui.fullCommand = "shift CS2040C to 2";
         try {
-            new shiftModuleCommand().execute(StudyPlan,storage,ui);
+            new ShiftModuleCommand().execute(StudyPlan,storage,ui);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("This module is already inside Sem "+(Integer.parseInt(ui.fullCommand.split(" ")[3]))+".",e.getMessage());
@@ -113,21 +113,21 @@ public class shiftModuleCommandTest {
         }
         if(!flag){
             try {
-                new shiftModuleCommand().execute(StudyPlan, storage, ui);
+                new ShiftModuleCommand().execute(StudyPlan, storage, ui);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module is not inside the study plan", e.getMessage());
             }
         }else if(Semester==semester_number) {
             try {
-                new shiftModuleCommand().execute(StudyPlan, storage, ui);
+                new ShiftModuleCommand().execute(StudyPlan, storage, ui);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module is already inside Sem "+(Semester+1)+".", e.getMessage());
             }
         }else {
             try {
-                new shiftModuleCommand().execute(StudyPlan, storage, ui);
+                new ShiftModuleCommand().execute(StudyPlan, storage, ui);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module " + ModuleCode + " has been successfully shifted to Sem" + (Semester + 1) + ".", e.getMessage());

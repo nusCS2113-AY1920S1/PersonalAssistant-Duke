@@ -1,4 +1,4 @@
-//@@ author mononokehime14
+//@@author mononokehime14
 
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
