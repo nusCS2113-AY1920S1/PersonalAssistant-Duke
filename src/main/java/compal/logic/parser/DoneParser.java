@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 //@@author SholihinK
 public class DoneParser implements CommandParser {
     private static final Logger logger = LogUtils.getLogger(DoneParser.class);
-    public static final String MESSAGE_INVALID_PARAM = "Whoops! Looks like there's an invalid parameter inserted!\n"
+    public static final String MESSAGE_INVALID_PARAM = "Whoops! Looks like that's an invalid command!\n"
         + "This is how you use the done command:\n\n" + DoneCommand.MESSAGE_USAGE;
 
     @Override

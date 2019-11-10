@@ -71,6 +71,14 @@ public class Main extends Application {
         logicManager.logicExecute("event Lunch Appointment /date 18/11/2019 /start 1200 /end 1400 "
             + "/priority medium");
 
+        logicManager.logicExecute("event quick breakfast /date 11/11/2019 /start 0800 /end 0805 "
+            + "/priority high");
+        logicManager.logicExecute("event team meeting /date 11/11/2019 /start 0800 /end 0900 "
+            + "/priority low");
+        logicManager.logicExecute("event job interview at google /date 11/11/2019 /start 0900 /end 1000 "
+            + "/priority medium");
+
+
         logicManager.logicExecute("event ST2334 Lecture /date 01/10/2019 03/10/2019"
             + " /start 1000 /end 1200 /final-date 14/11/2019");
         logicManager.logicExecute("event CCA Training /date 01/10/2019 03/10/2019"
@@ -125,14 +133,15 @@ public class Main extends Application {
         logicManager.logicExecute("event ST2334 Exam "
             + "/date 03/12/2019 /start 1700 /end 1900 /priority high");
 
-        logicManager.logicExecute("done /id 109 /status y");
-        logicManager.logicExecute("done /id 110 /status y");
-        logicManager.logicExecute("done /id 101 /status y");
-        logicManager.logicExecute("done /id 99 /status y");
+        logicManager.logicExecute("done /id 112 /status y");
+        logicManager.logicExecute("done /id 113 /status y");
+        logicManager.logicExecute("done /id 104 /status y");
         logicManager.logicExecute("done /id 102 /status y");
+        logicManager.logicExecute("done /id 105 /status y");
+        logicManager.logicExecute("done /id 109 /status y");
+        logicManager.logicExecute("done /id 114 /status y");
         logicManager.logicExecute("done /id 106 /status y");
-        logicManager.logicExecute("done /id 111 /status y");
-        logicManager.logicExecute("done /id 103 /status y");
-        logicManager.logicExecute("done /id 98 /status y");
+        logicManager.logicExecute("done /id 101 /status y");
+
     }
 }
