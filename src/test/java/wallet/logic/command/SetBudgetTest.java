@@ -33,7 +33,7 @@ public class SetBudgetTest {
 
         testWallet.getExpenseList().addExpense(new Expense("Lunch", localDate1, 3, Category.FOOD, false, null));
         testWallet.getExpenseList().addExpense(new Expense("Dinner", localDate2, 5, Category.FOOD, false, null));
-        testWallet.getBudgetList().addBudget(new Budget(100, 10, 2019));
+        testWallet.getBudgetList().addBudget(new Budget(100, 10, 2019, false, 0));
     }
 
     /**
@@ -41,7 +41,7 @@ public class SetBudgetTest {
      */
     @Test
     public void executeAddBudgetFail() {
-        Budget budget = new Budget(-10, 3, 2019);
+        Budget budget = new Budget(-10, 3, 2019, false, 0);
         SetBudgetCommand budgetCommand = new SetBudgetCommand(budget);
         budgetCommand.execute(testWallet);
         assertEquals(3, testWallet.getBudgetList().getBudgetList().size());
@@ -52,7 +52,7 @@ public class SetBudgetTest {
      */
     @Test
     public void executeAddBudgetSuccess() {
-        Budget budget = new Budget(50, 3, 2019);
+        Budget budget = new Budget(50, 3, 2019, false, 0);
         SetBudgetCommand budgetCommand = new SetBudgetCommand(budget);
         budgetCommand.execute(testWallet);
         assertEquals(3, testWallet.getBudgetList().getBudgetList().size());
@@ -63,7 +63,7 @@ public class SetBudgetTest {
      */
     @Test
     public void executeRemoveBudget() {
-        Budget budget = new Budget(0, 3, 2019);
+        Budget budget = new Budget(0, 3, 2019, false, 0);
         SetBudgetCommand budgetCommand = new SetBudgetCommand(budget);
         budgetCommand.execute(testWallet);
         assertEquals(1, testWallet.getBudgetList().getBudgetList().size());
@@ -75,7 +75,7 @@ public class SetBudgetTest {
      */
     @Test
     public void executeEditBudget() {
-        Budget budget = new Budget(150, 10, 2019);
+        Budget budget = new Budget(150, 10, 2019, false, 0);
         SetBudgetCommand budgetCommand = new SetBudgetCommand(budget);
         budgetCommand.execute(testWallet);
         assertEquals(150, budget.getAmount());
@@ -94,7 +94,7 @@ public class SetBudgetTest {
         addCommand.execute(testWallet);
         for (Budget b : testWallet.getBudgetList().getBudgetList()) {
             if (b.getMonth() == expense.getDate().getMonthValue() && b.getYear() == expense.getDate().getYear()) {
-                assertEquals(90, b.getAmount());
+                assertEquals(100, b.getAmount());
             }
         }
     }
@@ -104,7 +104,7 @@ public class SetBudgetTest {
      */
     @Test
     public void executeAddBudgetWithExistingExpensesWithUserInputYes() {
-        Budget budget = new Budget(100, 1, 2019);
+        Budget budget = new Budget(100, 1, 2019, false, 0);
         SetBudgetCommand budgetCommand = new SetBudgetCommand(budget);
 
         String input = "yes";
@@ -114,7 +114,7 @@ public class SetBudgetTest {
         double remainingBudget = budget.getAmount()
                 - testWallet.getExpenseList().getMonthExpenses(budget.getMonth(), budget.getYear());
         budgetCommand.execute(testWallet);
-        assertEquals(100, budget.getAmount());
+        assertEquals(97, budget.getAmount());
         assertEquals(97, remainingBudget);
     }
 
@@ -123,7 +123,7 @@ public class SetBudgetTest {
      */
     @Test
     public void executeAddBudgetWithExistingExpensesWithUserInputNo() {
-        Budget budget = new Budget(100, 1, 2019);
+        Budget budget = new Budget(100, 1, 2019, false, 0);
         SetBudgetCommand budgetCommand = new SetBudgetCommand(budget);
 
         String input = "no";
