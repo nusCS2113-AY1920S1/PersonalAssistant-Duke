@@ -11,6 +11,7 @@ import seedu.hustler.logic.CommandLineException;
  * tasks to complete, time spent on each task,
  * and priority of each task, which is together called
  * an entry. Scheduler handles all these entries.
+ * Recommendations are also made as to which tasks to work on.
  */
 public class Scheduler {
     private Ui ui = new Ui();
@@ -37,18 +38,6 @@ public class Scheduler {
     public ArrayList<ScheduleEntry> recommended 
         = new ArrayList<>();
 
-    /**
-     * Add an entry to the schedule based on the task
-     * supplied as input, only if the task is not done.
-     *
-     * @param task task to be added as entry
-     */
-    public void add(Task task) {
-        if (task.isCompleted()) {
-            return;
-        }
-        schedule.add(new ScheduleEntry(task, 0));
-    }
 
     public static Scheduler getInstance() {
         return (new Scheduler()); 
@@ -67,6 +56,19 @@ public class Scheduler {
         }
         schedule.add(new ScheduleEntry(task, timeSpent));
     }
+
+    /**
+     * Adds task as ScheduleEntry to schedule.
+     *
+     * @param task task to add
+     */
+    public void add(Task task) {
+        if (task.isCompleted()) {
+            return;
+        }
+        schedule.add(new ScheduleEntry(task, 0));
+    }
+
     
     /**
      * Returns an entry based on supplied index.
@@ -163,6 +165,10 @@ public class Scheduler {
         recommended = recommender.recommend(seconds);
     }
 
+    /**
+     * Displays the recommended list of shedule entries/tasks
+     * to work on.
+     */
     public void displayRecommendedSchedule() {
         if (recommended.size() == 0) {
             ui.showMessage("There are no tasks to complete. "
@@ -181,7 +187,13 @@ public class Scheduler {
         }
         ui.showMessage(output);
     }
-
+    
+    /**
+     * Add task to recommended.
+     *
+     * @param task task to add
+     * @throws CommandLineException if task is already present or completed
+     */
     public void addToRecommended(Task task) throws CommandLineException {
         if (task.isCompleted()) {
             throw new CommandLineException("Task has already been completed");
@@ -194,7 +206,11 @@ public class Scheduler {
             .findAny()
             .ifPresent(recommended::add);
     }    
-
+    
+    /**
+     * Stores allocated time in recommended as time spent in schedule
+     * and clears recommended. Executed at the end of the timer.
+     */
     public void confirm() {
         for (ScheduleEntry entry : recommended) {
             entry.updateTimeSpent(entry.getTimeAlloc());
@@ -202,7 +218,12 @@ public class Scheduler {
         recommended.clear();
         displayEntries();
     }
-
+    
+    /**
+     * Removes tasks/schedule entry at index.
+     *
+     * @param index at which entry is removed
+     */
     public void removeFromRecommended(int index) {
         recommended.remove(index); 
     }

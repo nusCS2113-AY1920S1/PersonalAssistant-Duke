@@ -42,7 +42,15 @@ public class ScheduleEntry {
         this.task = task;
         this.secondsSpent = secondsSpent;
     }
-
+    
+    /**
+     * Initializes task, seconds spent and the object that is used
+     * to find time remaining before task is due for priority calculation.
+     *
+     * @param task incomplete task
+     * @param secondsSpent amount of time spent on it
+     * @param time object used to find time remaining for priority calculation
+     */
     public ScheduleEntry(Task task, long secondsSpent, Timing time) {
         this.task = task;
         this.secondsSpent = secondsSpent;

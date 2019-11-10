@@ -12,7 +12,7 @@ import seedu.hustler.task.Task;
 import java.io.IOException;
 
 /**
- * Command to do task in list.
+ * Command to edit difficulty of task.
  */
 public class EditDifficultyCommand extends Edit {
     /**
