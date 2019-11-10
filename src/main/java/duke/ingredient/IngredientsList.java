@@ -1,6 +1,8 @@
 package duke.ingredient;
+
 import duke.exception.DukeException;
 import duke.list.GenericList;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -140,8 +142,8 @@ public class IngredientsList extends GenericList<Ingredient> {
         }
         sortByExpiryDate();
         int neededAmount = ingredient.getAmount();
+        Ingredient toUse = null;
         while (neededAmount > 0) {
-            Ingredient toUse = null;
             try {
                 toUse = getNonExpiredEntry(ingredient);
             } catch (DukeException e) {
@@ -154,9 +156,23 @@ public class IngredientsList extends GenericList<Ingredient> {
                 return true;
             }
             neededAmount -= toUse.getAmount();
-            genList.remove(toUse);
+            if(!removeExactIngredient(toUse))
+                return false;
         }
         sortByExpiryDate();
         return true;
+    }
+
+    private boolean removeExactIngredient(Ingredient ingredient) {
+        for (int i = 0; i < genList.size(); i++) {
+            if (genList.get(i).equalsCompletely(ingredient)) {
+                //cannot simply do genList.remove(ingredient),
+                // because remove from List takes into consideration the equals method that only compares ingredients by name,
+                // this method removes the exact ingredient, same name and same expiry date!
+                genList.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 }
