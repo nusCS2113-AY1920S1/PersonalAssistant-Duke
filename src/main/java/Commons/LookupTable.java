@@ -45,7 +45,7 @@ public class LookupTable {
      * @return date of activity
      */
     public String getValue(String weekAndDay) {
-       return map.get(weekAndDay.toLowerCase().trim());//week_day in the format of (week x day x)
+       return map.get(weekAndDay.toLowerCase().trim());
     }
 
     /**

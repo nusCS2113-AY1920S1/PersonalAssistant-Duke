@@ -4,6 +4,7 @@ import Commands.Command;
 import Commands.DeleteCommand;
 import Commons.DukeConstants;
 import Commons.DukeLogger;
+import Commons.ModCodeChecker;
 import DukeExceptions.DukeInvalidCommandException;
 import DukeExceptions.DukeInvalidDateTimeException;
 import DukeExceptions.DukeInvalidFormatException;
@@ -20,6 +21,7 @@ public class DeleteParse extends Parse {
     private static String[] modCodeAndDescriptionSplit;
     private static String fullCommand;
     private final Logger LOGGER = DukeLogger.getLogger(DeleteParse.class);
+    private ModCodeChecker modCodeChecker = ModCodeChecker.getInstance();
 
     /**
      * Creates a DeleteParse object.
@@ -45,7 +47,7 @@ public class DeleteParse extends Parse {
                     throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_EMPTY_MODCODE_DESCRIPTION_ERROR);
                 }
                 String modCode = modCodeAndDescriptionSplit[0];
-                if (!super.isModCode(modCode)) {
+                if (!modCodeChecker.isModCode(modCode)) {
                     throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.INVALID_MODCODE_ERROR);
                 }
                 if(!super.isValidDescription(modCodeAndDescriptionSplit)) {
@@ -75,7 +77,7 @@ public class DeleteParse extends Parse {
                     throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.DEADLINE_EMPTY_MODCODE_DESCRIPTION_ERROR);
                 }
                 String modCode = modCodeAndDescriptionSplit[0];
-                if (!super.isModCode(modCode)) {
+                if (!modCodeChecker.isModCode(modCode)) {
                     throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.INVALID_MODCODE_ERROR);
                 }
                 if(!super.isValidDescription(modCodeAndDescriptionSplit)) {
