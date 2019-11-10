@@ -1,6 +1,6 @@
 //@@author qjie7
 
-package duke.util;
+package abandon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,6 +10,13 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+/**
+ * Junit test for abandon ShortCutter class.
+ *
+ * @author Qian Jie
+ * @version 1.4
+ */
 
 public class ShortCutterTest {
 

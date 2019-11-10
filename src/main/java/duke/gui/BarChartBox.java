@@ -17,6 +17,8 @@ public class BarChartBox {
      * Show BarChart.
      * @param frequencyList   a list of command frequency
      * @param commandNameList a list of command name
+     * @author Qian Jie
+     * @version v1.4
      */
     public static void showBarChartBox(ArrayList<Integer> frequencyList, ArrayList<String> commandNameList) {
 

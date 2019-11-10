@@ -16,6 +16,8 @@ public class PieChartBox {
      * Show PieChart.
      * @param frequencyList   a list of command frequency
      * @param commandNameList a list of command name
+     * @author Qian Jie
+     * @version v1.4
      */
     public static void showPieChartBox(ArrayList<Integer> frequencyList, ArrayList<String> commandNameList) {
         final Scene scene = new Scene(new Group());

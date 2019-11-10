@@ -13,7 +13,12 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Junit test for Counter class.
+ *
+ * @author Qian Jie
+ * @version 1.4
+ */
 public class CounterTest {
 
     @Test
