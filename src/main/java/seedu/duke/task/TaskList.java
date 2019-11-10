@@ -46,6 +46,12 @@ public class TaskList extends ArrayList<Task> {
         return constructSearchMessage(searchResult);
     }
 
+    /**
+     * Constructs search message.
+     *
+     * @param searchResult list of tasks
+     * @return search message
+     */
     private String constructSearchMessage(ArrayList<Task> searchResult) {
         String msg = "";
         if (searchResult.size() > 0) {
@@ -59,6 +65,12 @@ public class TaskList extends ArrayList<Task> {
         return msg;
     }
 
+    /**
+     * Prepares search result of keyword in task list.
+     *
+     * @param keyword to be searched.
+     * @return list of task in which the keyword is found
+     */
     private ArrayList<Task> prepareSearchResult(String keyword) {
         ArrayList<Task> searchResult = new ArrayList<>();
         for (Task task : this) {
@@ -85,6 +97,12 @@ public class TaskList extends ArrayList<Task> {
         return constructDoneMessage(index);
     }
 
+    /**
+     * Constructs done message.
+     *
+     * @param index of task done
+     * @return done message
+     */
     private String constructDoneMessage(int index) {
         String msg = "Nice! I've marked this task as done:" + System.lineSeparator();
         msg += this.get(index).toString() + System.lineSeparator();
@@ -107,6 +125,12 @@ public class TaskList extends ArrayList<Task> {
         return constructDeleteMessage(deleted);
     }
 
+    /**
+     * Constructs delete message.
+     *
+     * @param deleted task deleted
+     * @return delete message
+     */
     private String constructDeleteMessage(Task deleted) {
         String msg = "Noted. I've removed this task:" + System.lineSeparator();
         msg += deleted + System.lineSeparator();
@@ -142,6 +166,14 @@ public class TaskList extends ArrayList<Task> {
         return constructSnoozeMessage(task, duration, index);
     }
 
+    /**
+     * Constructs snooze message.
+     *
+     * @param task to be snoozed
+     * @param duration of snooze
+     * @param index of task
+     * @return snooze message
+     */
     private String constructSnoozeMessage(Task task, int duration, int index) {
         if (task.getTaskType() != Task.TaskType.TODO) {
             task.snooze(duration);
@@ -166,6 +198,13 @@ public class TaskList extends ArrayList<Task> {
         return constructDoAfterMessage(description, index + 1);
     }
 
+    /**
+     * Constructs do after message.
+     *
+     * @param description for do after
+     * @param size of task
+     * @return do after message
+     */
     private String constructDoAfterMessage(String description, int size) {
         return "Do after task " + description + " has been added to task " + size;
     }
@@ -184,6 +223,13 @@ public class TaskList extends ArrayList<Task> {
         return constructSetTimeMessage(index, description);
     }
 
+    /**
+     * Sets time by task type.
+     *
+     * @param description of set time
+     * @param task task to be set
+     * @throws CommandParseHelper.CommandParseException if input is invalid
+     */
     private void setTimeByType(String description, Task task) throws CommandParseHelper.CommandParseException {
         if (task.getTaskType() == Task.TaskType.DEADLINE) {
             ((Deadline) task).setTime(TaskParseNaturalDateHelper.getDate(description));
@@ -192,6 +238,13 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Construct set time message.
+     *
+     * @param index of email
+     * @param description of set time
+     * @return set time message
+     */
     private String constructSetTimeMessage(int index, String description) {
         return "Time for task " + (index + 1) + " has been changed to " + description;
     }
@@ -224,6 +277,12 @@ public class TaskList extends ArrayList<Task> {
         return constructSetPriorityMessage(priority, index + 1);
     }
 
+    /**
+     * Validates a index within the bound of size of task list.
+     *
+     * @param index index of email
+     * @throws CommandParseHelper.CommandParseException if index out of bound
+     */
     private void validateIndex(int index) throws CommandParseHelper.CommandParseException {
         if (index < 0 || index >= this.size()) {
             throw new CommandParseHelper.CommandParseException("Invalid index");
@@ -249,6 +308,12 @@ public class TaskList extends ArrayList<Task> {
         return constructSetTagsMessage(index + 1);
     }
 
+    /**
+     * Constructs set tags message.
+     *
+     * @param size size of tag list
+     * @return set Tags message
+     */
     private String constructSetTagsMessage(int size) {
         return "Tags of task " + size + " has been updated";
     }
@@ -285,10 +350,18 @@ public class TaskList extends ArrayList<Task> {
         return constructClearListMessage();
     }
 
+    /**
+     * Constructs clear list message.
+     *
+     * @return clear list message
+     */
     private String constructClearListMessage() {
         return "Task List has been cleared";
     }
 
+    /**
+     * Sorts task list by priority.
+     */
     public void sortListByPriority() {
         sort(Comparator.comparing(Task::getPriority));
     }
