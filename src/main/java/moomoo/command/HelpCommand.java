@@ -26,7 +26,10 @@ public class HelpCommand extends Command {
                 + "add n/[NAME] a/[AMOUNT SPENT] c/[CATEGORY] (optional: d/[YYYY-MM-DD])\n"
                 + "delete i/[INDEX] c/[Category]\n"
                 + "sort [TYPE]\n"
-                + "budget\n"
+                + "budget add c/[CATEGORY NAME] b/[BUDGET]\n"
+                + "budget edit c/[CATEGORY NAME] b/[BUDGET]\n"
+                + "budget list c/[CATEGORY NAME] \n"
+                + "budget savings c/[CATEGORY NAME] s/STARTMONTHYEAR e/[ENDMONTHYEAR]\n"
                 + "schedule\n"
                 + "graph\n";
         Ui.setOutput(text);
