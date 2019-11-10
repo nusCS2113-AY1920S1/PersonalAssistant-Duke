@@ -1,20 +1,18 @@
 package dolla.parser;
 
-import dolla.Time;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.modify.FullModifyDebtCommand;
 import dolla.command.modify.FullModifyEntryCommand;
 import dolla.command.modify.FullModifyLimitCommand;
 import dolla.command.modify.RevertFromModifyCommand;
-import dolla.ui.DebtUi;
 import dolla.ui.LimitUi;
 
 //@@author omupenguin
 public class ModifyParser extends Parser {
 
     private String modeToModify;
-    private static final String CANCEL_MODIFY = "CANCEL";
+    private static final String MODIFY_CANCEL = "CANCEL";
 
     public ModifyParser(String mode, String inputLine) {
         super(inputLine);
@@ -24,7 +22,7 @@ public class ModifyParser extends Parser {
     @Override
     public Command parseInput() {
 
-        if (checkCancellation()) {
+        if (isModifyCancelled()) {
             return new RevertFromModifyCommand();
         }
 
@@ -33,48 +31,36 @@ public class ModifyParser extends Parser {
         switch (modeToModify) {
         case MODE_ENTRY:
             if (verifyAddCommand()) {
-                return new FullModifyEntryCommand(inputArray[1], amount, inputArray[3], date);
+                return new FullModifyEntryCommand(type, amount, description, date);
             } else {
                 return new ErrorCommand();
             }
+
         case MODE_DEBT:
-            // need to compress
-            String type = commandToRun;
-            String name;
-            double amount;
-            try {
-                name = inputArray[1];
-                amount = stringToDouble(inputArray[2]);
-                String[] desc = inputLine.split(inputArray[2] + " ");
-                String[] dateString = desc[1].split(" /due ");
-                description = dateString[0];
-                date = Time.readDate(dateString[1]);
-            } catch (IndexOutOfBoundsException e) {
-                DebtUi.printInvalidDebtFormatError();
-                return new ErrorCommand();
-            } catch (Exception e) {
+            if (verifyDebtCommand()) {
+                return new FullModifyDebtCommand(commandToRun, inputArray[1], amount, description, date);
+            } else {
                 return new ErrorCommand();
             }
-            return new FullModifyDebtCommand(type, name, amount, description, date);
+
         case MODE_LIMIT:
             if (verifySetCommand()) {
                 String typeStr = inputArray[1];
                 String durationStr = inputArray[3];
-                return new FullModifyLimitCommand(typeStr, this.amount, durationStr);
+                return new FullModifyLimitCommand(typeStr, amount, durationStr);
             } else {
                 LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();
             }
-        case MODE_SHORTCUT:
-            // TODO
+
         default:
             return new ErrorCommand();
         }
 
     }
 
-    private boolean checkCancellation() {
-        return inputLine.equals(CANCEL_MODIFY);
+    private boolean isModifyCancelled() {
+        return inputLine.equals(MODIFY_CANCEL);
     }
 
     private void getModeToModify() {
