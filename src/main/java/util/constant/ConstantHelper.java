@@ -56,39 +56,39 @@ public class ConstantHelper {
 
     public static final String[] VIEW_ASSIGNMENTS_INSUFFICIENT_PARAMS_MESSAGE = new String[]
         {"Please input the parameters to view assignments:",
-         "**\t-m for viewing by member, -t for viewing by task.",
-         "**\t\"all\" to view all assignments + or enter selected task/member index numbers.",
-         "You may refer to the user guide or enter \"help\" for the list of possible commands."};
+            "**\t-m for viewing by member, -t for viewing by task.",
+            "**\t\"all\" to view all assignments + or enter selected task/member index numbers.",
+            "You may refer to the user guide or enter \"help\" for the list of possible commands."};
 
     public static final String[] VIEW_ASSIGNMENTS_INVALID_FLAG_MESSAGE = new String[]
         {"Could not understand your command! Please use:",
-         "**\t-m for viewing by member, -t for viewing by task.",};
+            "**\t-m for viewing by member, -t for viewing by task.",};
 
     public static final String[] VIEW_ASSIGNMENTS_NO_TASKS_MESSAGE = new String[]
         {"No tasks in project yet.",
-         "Please add tasks and assign them to members before using this command!"};
+            "Please add tasks and assign them to members before using this command!"};
 
     public static final String[] VIEW_ASSIGNMENTS_NO_MEMBERS_MESSAGE = new String[]
         {"No members in project yet.",
-         "Please add members and assign them tasks before using this command!"};
+            "Please add members and assign them tasks before using this command!"};
 
 
     public static final String[] ASSIGN_TASKS_INSUFFICIENT_PARAMS_MESSAGE = new String[]
         {"Insufficient parameters! "
             + "Indicate the tasks and members whom you wish to assign or remove!",
-         "Format is \"assign task -i TASK_INDEX [-to MEMBER_INDEX] [-rm MEMBER_INDEX]\"",
-         "You must either assign a task to someone, or remove, or both!"};
+            "Format is \"assign task -i TASK_INDEX [-to MEMBER_INDEX] [-rm MEMBER_INDEX]\"",
+            "You must either assign a task to someone, or remove, or both!"};
 
 
     public static final String[] ASSIGN_TASKS_NO_VALID_TASKS_MESSAGE = new String[]
         {"No valid task numbers detected. Cannot assign/unassign any tasks.",
-         "Please check that the task index number(s) are valid, and input them in"
-             + "this format: -i TASK_INDEX1 [TASK_INDEX2]"};
+            "Please check that the task index number(s) are valid, and input them in"
+                    + "this format: -i TASK_INDEX1 [TASK_INDEX2]"};
 
     public static final String[] ASSIGN_TASKS_NO_VALID_MEMBERS_MESSAGE = new String[]
         {"No valid member indexes detected. No tasks can be assigned/unassigned.",
-         "Please check that you are using valid member indexes.",
-         "Also ensure that the correct flags are used: '-to' for assignees, '-rm' for unassignees."};
+            "Please check that you are using valid member indexes.",
+            "Also ensure that the correct flags are used: '-to' for assignees, '-rm' for unassignees."};
 
 
 
@@ -126,4 +126,13 @@ public class ConstantHelper {
 
     public static final String COMMAND_VIEW_TASKS = "view tasks ";
 
+    public static final int NUM_OF_TABLE_COLUMNS_FOR_COMMAND_LIST = 1;
+
+    public static final int NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_ASSIGNMENTS = 2;
+
+    public static final int NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_TASKS = 2;
+
+    public static final int NUM_OF_TABLE_COLUMNS_FOR_ASSIGNMENT_RESULTS = 1;
+
+    public static final int NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_REMINDER_CATEGORY = 2;
 }

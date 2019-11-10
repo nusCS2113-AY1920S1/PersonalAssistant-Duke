@@ -10,6 +10,8 @@ import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH_70_FOR_TEST;
+import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_LIST;
+import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_ASSIGNMENTS;
 
 class ViewHelperTest {
     private ViewHelper viewHelper;
@@ -121,7 +123,7 @@ class ViewHelperTest {
         input.add(sampleTableContent1);
         input.add(sampleTableContent2);
         String[] actualOutput = viewHelper.consolePrintMultipleTables(input, DEFAULT_HORI_BORDER_LENGTH_70_FOR_TEST,
-                1, "Here are all the Projects you are managing:");
+                NUM_OF_TABLE_COLUMNS_FOR_COMMAND_LIST, "Here are all the Projects you are managing:");
         String[] expectedOutput = new String[] {
             "+----------------------------------------------------------------------+",
             "|Here are all the Projects you are managing:                           |",
@@ -173,7 +175,7 @@ class ViewHelperTest {
         input.add(sampleTableContent2);
         input.add(sampleTableContent3);
         String[] actualOutput = viewHelper.consolePrintMultipleTables(input, DEFAULT_HORI_BORDER_LENGTH_70_FOR_TEST,
-                2, "Here are the members assigned to each task:");
+                NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_ASSIGNMENTS, "Here are the members assigned to each task:");
         String[] expectedOutput = new String[] {
             "+----------------------------------------------------------------------+",
             "|Here are the members assigned to each task:                           |",
