@@ -28,20 +28,32 @@ public abstract class Record {
 
     public abstract String formatSave();
 
-    public LocalDate getDate() {
-        return date;
+    public ArrayList<String> getNameList() {
+        return nameList;
     }
 
-    public String getDescription() {
-        return description;
+    public String getType() {
+        return type;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getType() {
-        return type;
+    public double getAmount() {
+        return amount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 
     public String getRecordType() {
@@ -52,16 +64,16 @@ public abstract class Record {
         return userInput;
     }
 
-    public String getDuration() {
-        return duration;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
     public void setDescription(String s) {
         description = s;
+    }
+
+    public int getPeople() {
+        return people;
+    }
+
+    public double getBillAmount() {
+        return amount;
     }
 
     public void setAmount(double d) {
@@ -76,19 +88,7 @@ public abstract class Record {
         date = ld;
     }
 
-    public ArrayList<String> getNameList() {
-        return nameList;
-    }
-
-    public int getPeople() {
-        return people;
-    }
-
-    public double getBillAmount() {
-        return amount;
-    }
-
-    public String amountToMoney() {
+    protected String amountToMoney() {
         return "$" + amount;
     }
 }
