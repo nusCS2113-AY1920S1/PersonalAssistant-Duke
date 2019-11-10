@@ -1,6 +1,8 @@
 package com.algosenpai.app;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.stats.UserStats;
+import com.algosenpai.app.storage.Storage;
 import com.algosenpai.app.ui.Ui;
 import com.algosenpai.app.ui.controller.MusicController;
 import javafx.animation.PauseTransition;
@@ -32,6 +34,8 @@ public class MainApp extends Application {
     private static MusicController musicController;
     private UserStats stats;
 
+    private boolean wasDatafileCorrupted = false;
+
     static {
         try {
             musicController = MusicController.getMusicController();
@@ -41,8 +45,18 @@ public class MainApp extends Application {
         }
     }
 
-    private void initialize() throws IOException {
-        stats = new UserStats("./UserData.txt");
+    private void initialize() {
+
+        // Ignore the parsing error here, as it is properly dealt with later in the Ui.initialize
+        // SetupCommand.
+        try {
+            stats = new UserStats("./UserData.txt");
+        } catch (FileParsingException ignored) {
+            stats = UserStats.getDefaultUserStats();
+            Storage.saveData("UserData.txt",stats.toString());
+            wasDatafileCorrupted = true;
+        }
+
         logic = new Logic(stats);
     }
 
@@ -78,7 +92,7 @@ public class MainApp extends Application {
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap, MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
         stage.setScene(scene);
-        fxmlLoader.<Ui>getController().setLogic(logic, stats);
+        fxmlLoader.<Ui>getController().setLogic(logic, stats, wasDatafileCorrupted);
         stage.setResizable(false);
         stage.setTitle(APPLICATION_TITLE);
         stage.show();

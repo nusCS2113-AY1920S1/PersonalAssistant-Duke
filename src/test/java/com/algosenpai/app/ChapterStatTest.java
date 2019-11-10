@@ -14,7 +14,7 @@ public class ChapterStatTest {
      * Create a chapterStat, convert it to string then back, and compare the 2 objects to see if they are equal.
      */
     @Test
-    public void stringParsingTest() {
+    public void stringParsingTest() throws Exception {
         ChapterStat chapterStat = new ChapterStat("Foo Bar",1,2,3,4,1,75.0,"Sample Comment");
 
         String storage = chapterStat.toString();
@@ -27,7 +27,7 @@ public class ChapterStatTest {
      * Tests the parsing of the edge case of empty strings.
      */
     @Test
-    public void stringParsing_emptyStrings() {
+    public void stringParsing_emptyStrings() throws Exception {
         ChapterStat chapterStat = new ChapterStat("",0,0,0,0,0,0,"");
 
         String storage = chapterStat.toString();
@@ -40,7 +40,7 @@ public class ChapterStatTest {
      * Performs stringParsingTest on 1000 randomly generated ChapterStats.
      */
     @Test
-    public void stringParsing_randomTest() {
+    public void stringParsing_randomTest() throws Exception {
 
         ChapterStat chapterStat;
         ChapterStat copy;

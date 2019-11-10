@@ -1,5 +1,6 @@
 package com.algosenpai.app.commands;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.logic.Logic;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.UserStats;
@@ -12,7 +13,7 @@ import java.io.IOException;
 public class PrintCommandTest {
 
     @Test
-    void testPrintMissingInput() throws IOException {
+    void testPrintMissingInput() throws IOException, FileParsingException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("print");
@@ -22,7 +23,7 @@ public class PrintCommandTest {
     }
 
     @Test
-    void testPrintWrongFileExtension() throws IOException {
+    void testPrintWrongFileExtension() throws IOException, FileParsingException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("print user testing.ppp");
@@ -31,7 +32,7 @@ public class PrintCommandTest {
     }
 
     @Test
-    void testPrintCorrectInput() throws IOException {
+    void testPrintCorrectInput() throws IOException, FileParsingException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("print user testing.pdf");
@@ -40,7 +41,7 @@ public class PrintCommandTest {
     }
 
     @Test
-    void testPrintWrongDataSource() throws IOException {
+    void testPrintWrongDataSource() throws IOException, FileParsingException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("print hello testing.pdf");

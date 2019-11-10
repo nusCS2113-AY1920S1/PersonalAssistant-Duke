@@ -1,9 +1,11 @@
 package com.algosenpai.app.stats;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.storage.Storage;
 
 import javafx.util.Pair;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +49,7 @@ public class UserStats {
      * If the text file doesn't exist, the UserStats variables are populated with default values.
      * @param userDataFilePath the file path to the text file.
      */
-    public UserStats(String userDataFilePath) throws IOException {
+    public UserStats(String userDataFilePath) throws FileParsingException {
         chapterData = new ArrayList<>();
         this.chapterNumber.put("sorting", 1);
         this.chapterNumber.put("linkedlist", 2);
@@ -57,32 +59,30 @@ public class UserStats {
         File file = new File(userDataFilePath);
         if (!file.isFile()) {
             this.userName = "Default";
-            this.gender = "???";
+            this.gender = "????";
             this.level = 1;
             this.expLevel = 0;
             final String INIT_COMMENT = "You have not attempted this chapter yet";
             chapterData.add(new ChapterStat("Sorting",1,0,0,0,0,0,INIT_COMMENT));
             chapterData.add(new ChapterStat("Linked List",2,0,0,0,0,0,INIT_COMMENT));
             chapterData.add(new ChapterStat("Bitmask",3,0,0,0,0,0,INIT_COMMENT));
-            Storage.saveData("./UserData.txt", this.toString());
+            Storage.saveData(userDataFilePath, this.toString());
         } else {
-            String fileContents = Storage.loadData("./UserData.txt");
-
-            // Get the first 6 lines. 6th line contains the chapterData.
-            String [] tokens = fileContents.split("\n",8);
-            this.userName = tokens[2];
-            this.gender = tokens[3];
-            this.level = Integer.parseInt(tokens[4]);
-            this.expLevel = Integer.parseInt(tokens[5]);
-
-            // No chapters in the list, so exit early, otherwise will cause parsing error.
-            if (tokens.length > 7) {
-                // Each chapter's data is separated by 2 newlines, so split like this to get the chapterData
-                String[] chapterDataTokens = tokens[7].split("\n\n");
-                for (String chapterString: chapterDataTokens) {
-                    this.chapterData.add(ChapterStat.parseString(chapterString));
-                }
+            String fileContents = null;
+            try {
+                fileContents = Storage.loadData(userDataFilePath);
+            } catch (FileNotFoundException ignored) {
+                throw new FileParsingException("The file does not exist!");
             }
+            UserStats dummy = UserStats.parseString(fileContents);
+
+            // Call the parsing method and copy over the values.
+            // Idk any better way to do this.
+            this.userName = dummy.userName;
+            this.gender = dummy.gender;
+            this.level = dummy.level;
+            this.expLevel = dummy.expLevel;
+            this.chapterData = dummy.chapterData;
         }
     }
 
@@ -286,7 +286,7 @@ public class UserStats {
      * @param string The string version of the UserStats (obtained by calling toString()).
      * @return The UserStats object.
      */
-    public static UserStats parseString(String string) {
+    public static UserStats parseString(String string) throws FileParsingException {
         try {
 
             // Get the first 6 lines. 6th line contains the chapterData.
@@ -307,11 +307,8 @@ public class UserStats {
                 chapterStats.add(ChapterStat.parseString(chapterString));
             }
             return new UserStats(userName, gender, level, expLevel, chapterStats);
-        } catch (Exception e) {
-            e.printStackTrace();
-            UserStats u = getDefaultUserStats();
-            u.setUsername("UserStats parsing error, please do not edit data files");
-            return u;
+        } catch (Exception ignored) {
+            throw new FileParsingException();
         }
 
     }
@@ -321,7 +318,7 @@ public class UserStats {
      */
     public void resetAll() {
         expLevel = 0;
-        level = 0;
+        level = 1;
 
         for (int i = 0; i < chapterData.size(); i++) {
             chapterData.get(i).resetAll();
@@ -381,5 +378,19 @@ public class UserStats {
         } else {
             return false;
         }
+    }
+
+    /**
+     * A utility function to set the properties of a UserStats to another UserStats.
+     * This is different from direct assignment, as the reference to this object is maintained.
+     * @param temp The other UserStats to copy from.
+     */
+    public void copy(UserStats temp) {
+
+        this.userName = temp.userName;
+        this.chapterData = temp.chapterData;
+        this.level = temp.level;
+        this.gender = temp.gender;
+        this.expLevel = temp.expLevel;
     }
 }

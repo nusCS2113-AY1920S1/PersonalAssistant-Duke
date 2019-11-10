@@ -1,5 +1,6 @@
 package com.algosenpai.app.commands;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.logic.Logic;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.UserStats;
@@ -28,9 +29,9 @@ public class UndoCommandTest extends ApplicationTest {
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap, 500, 650);
         stage.setScene(scene);
-        UserStats stats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
-        fxmlLoader.<Ui>getController().setLogic(logic, stats);
+        fxmlLoader.<Ui>getController().setLogic(logic, stats, false);
         stage.setResizable(false);
         stage.setTitle("AlgoSenpai Adventures");
         stage.show();
@@ -43,6 +44,7 @@ public class UndoCommandTest extends ApplicationTest {
     @AfterEach
     void tearDown() throws Exception {
         FxToolkit.hideStage();
+        System.gc();
     }
 
     @Test
@@ -97,7 +99,7 @@ public class UndoCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testSoundLevelUpperBoundary() throws IOException {
+    void testSoundLevelUpperBoundary() throws IOException, FileParsingException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("undo testing");
