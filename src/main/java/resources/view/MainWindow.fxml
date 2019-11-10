@@ -55,10 +55,10 @@
          <children>
             <HBox prefHeight="66.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                <children>
-                  <GridPane prefHeight="65.0" prefWidth="989.0">
+                  <GridPane prefHeight="65.0" prefWidth="989.0" HBox.hgrow="ALWAYS">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="903.0" minWidth="10.0" prefWidth="844.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.0" minWidth="10.0" prefWidth="145.0" />
+                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="903.0" minWidth="10.0" prefWidth="844.0" />
+                      <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER" maxWidth="490.0" minWidth="10.0" prefWidth="145.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="48.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
@@ -70,10 +70,10 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Label>
-                        <Label id="scrollPaneGuideLabel" prefHeight="17.0" prefWidth="201.0" text="Please click and hold to navigate" GridPane.rowIndex="1" />
-                        <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1">
+                        <Label id="scrollPaneGuideLabel" prefHeight="17.0" prefWidth="201.0" text="Please click and hold to navigate" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER" />
+                        <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                           <items>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                  <children>
                                     <Label text="For the list of commands" />
                                     <Label prefHeight="12.0" prefWidth="228.0" text="Enter: " />
