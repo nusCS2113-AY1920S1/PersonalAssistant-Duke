@@ -1,6 +1,6 @@
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.parsers.TaskCommandParser;
+import gazeeebo.parser.TaskCommandParser;
 import gazeeebo.commands.tasks.TodoCommand;
 import gazeeebo.commands.tasks.UndoTaskCommand;
 import gazeeebo.exception.DukeException;

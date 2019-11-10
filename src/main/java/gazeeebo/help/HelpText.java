@@ -317,7 +317,7 @@ public class HelpText {
     private static final String UNDO_COMMANDS =
             "\t[ Undo commands: undo ]\n"
                     + "\tUndo previous tasks commands\n"
-                    + "\tFormat: undo\n"
+                    +"\tFormat: undo\n"
                     + "\n"
                     + "\tPrevious commands that you can undo:\n"
                     + "\t\t- EventCommand\n"
@@ -330,7 +330,16 @@ public class HelpText {
                     + "\t\t- TimeBoundCommand\n"
                     + "\t\t- FixDurationCommand\n"
                     + "\t\t- ConfirmTentativeCommand\n"
-                    + "\t\t- UndoneCommand\n";
+                    + "\t\t- UndoneCommand\n"
+                    + "\t\t- AddPlacesCommand\n"
+                    + "\t\t- DeletePlacesCommand\n"
+                    + "\t\t- AddContactCommand\n"
+                    + "\t\t- DeleteContactCommand\n"
+                    + "\t\t- AddExpensesCommand\n"
+                    + "\t\t- DeleteExpensesCommand\n"
+                    + "\t\t- addModuleCommand\n"
+                    + "\t\t- deleteModuleCommand\n"
+                    + "\t\t- shiftModuleCommand\n";
 
     private static final String PERIOD_NOTE_ADD =
             "\t[ Adding a note to a particular day/week/month: addNote ]\n"
@@ -442,11 +451,13 @@ public class HelpText {
     private static final String PLACES_ADD =
             "\t[ Adds and stores a new place and location. ]\n"
                     + "\n"
-                    + "\tFormat: room,location\n"
+                    + "\tFormat: add-room,location\n"
                     + "\n"
                     + "\tSteps for adding a place:\n"
-                    + "\t\t1. Type in the command add and press ENTER.\n"
-                    + "\t\t2. Type the room and location in the above format. Eg. LT19,COM2 Level 1";
+                    + "\t\t1. Type in the command add-room,location in the above format. Eg. LT19,COM2 Level 1\n"
+                    + "\t\t2. Press ENTER.\n"
+                    + "\t\t3. Alternatively, you can input the index of the add command, 1.\n"
+                    + "\t\t4. The system will prompt you to enter the room and location in this format, room,location.\n";
 
     private static final String PLACES_FIND =
             "\t[ Finding a place in NUS School of Computing (SOC): find-place ]\n"
@@ -478,7 +489,9 @@ public class HelpText {
                     + "\n"
                     + "\tSteps for deleting a place:\n"
                     + "\t\t1. Type in the command in the format specified above. Eg. delete-LT19\n"
-                    + "\t\t2. Press ENTER.\n";
+                    + "\t\t2. Press ENTER.\n"
+                    + "\t\t3. Alternatively, you can input the index of the delete command, 3.\n"
+                    + "\t\t4. The system will prompt you to enter the name of the room you wish to delete.\n";
 
     private static final String PLACES_UNDO =
             "\t[ Undo previous places command: undo]\n"
@@ -766,6 +779,14 @@ public class HelpText {
                     + "\tExample:\n"
                     + "\t\t- delete Jason\n";
 
+    private  static final String CONTACT_UNDO =
+            "\t[ Undo previous contact command ]\n" +
+                    "\tUndo the previous contact command.\n" +
+                    "\tCommands that can be undone:\n" +
+                    "\t\tadd\n" +
+                    "\t\tdelete\n" +
+                    "\n" +
+                    "\tFormat :  undo\n";
     //--------------------------------------CAP-----------------------------------------------
     private static final String HEADER_CAP_PAGE = "********** CAP page: cap **********\n"
             + "\n"
@@ -863,6 +884,15 @@ public class HelpText {
             + "\t\t1. Type the command delete and press ENTER.\n"
             + "\t\t2. Type the index of the expense you want to delete and press ENTER.\n";
 
+    private  static final String EXP_UNDO =
+            "\t[ Undo previous expenses command ]\n" +
+                    "\tUndo the previous expenses command.\n" +
+                    "\tCommands that can be undone:\n" +
+                    "\t\tadd\n" +
+                    "\t\tdelete\n" +
+                    "\n" +
+                    "\tFormat :  undo\n";
+
     //----------------------------------specialisation-----------------------------
     private static final String HEADER_SPECIALISATION_PAGE = "********** Specialization page: spec **********\n"
             + "\n"
@@ -893,16 +923,17 @@ public class HelpText {
             + "\t\t5. Type the index of the module completed and press ENTER.\n";
 
     //--------------------------------------password-----------------------------
-    public static final String PASSWORD_PLANNER =
-            "********** Password to enter the planner **********\n"
+    public static final String PASSWORD_PLANNER = SEPARATOR_PAGE
+            + "********** Password to enter the planner **********\n"
                     + "Enter the correct password set\n"
                     + "Format: PASSWORD_TEXT\n"
                     + "\n"
                     + "Example:\n"
-                    + "\t- password123\n";
+                    + "\t- password123\n"
+                    + SEPARATOR_PAGE;
 
-    public static final String PASSWORD_CHANGE =
-            "********** Change Password based on keyword: change password ********** \n"
+    public static final String PASSWORD_CHANGE = SEPARATOR_PAGE
+            + "********** Change Password based on keyword: change password ********** \n"
                     + "Change Password\n"
                     + "Format: Change password\n"
                     + "\n"
@@ -919,7 +950,8 @@ public class HelpText {
                     + "Format: new_password\n"
                     + "\n"
                     + "Example:\n"
-                    + "\t- Secret_password\n";
+                    + "\t- Secret_password\n"
+                    + SEPARATOR_PAGE;
 
     //----------------------------module planner-----------------------------------
     private static final String HEADER_MODULE_PLANNER_PAGE = "********** Module Planner Page **********\n"
@@ -1007,7 +1039,8 @@ public class HelpText {
             + CONTACT_ADD + SEPARATOR_COMMAND
             + CONTACT_FIND + SEPARATOR_COMMAND
             + CONTACT_LIST + SEPARATOR_COMMAND
-            + CONTACT_DELETE + SEPARATOR_PAGE;
+            + CONTACT_DELETE  + SEPARATOR_COMMAND
+            + CONTACT_UNDO + SEPARATOR_PAGE;
 
     public static final String CAP_PAGE = SEPARATOR_PAGE
             + HEADER_CAP_PAGE + SEPARATOR_COMMAND
@@ -1021,12 +1054,14 @@ public class HelpText {
             + EXP_LIST + SEPARATOR_COMMAND
             + EXP_FIND + SEPARATOR_COMMAND
             + EXP_ADD + SEPARATOR_COMMAND
-            + EXP_DELETE + SEPARATOR_PAGE;
+            + EXP_DELETE + SEPARATOR_COMMAND
+            + EXP_UNDO + SEPARATOR_PAGE;
 
     public static final String SPECIALIZATION_PAGE = SEPARATOR_PAGE
             + HEADER_SPECIALISATION_PAGE + SEPARATOR_COMMAND
             + SPEC_LIST + SEPARATOR_COMMAND
             + SPEC_COMPLETE + SEPARATOR_PAGE;
+
 }
 
 

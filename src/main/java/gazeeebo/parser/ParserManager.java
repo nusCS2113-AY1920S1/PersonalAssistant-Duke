@@ -1,4 +1,4 @@
-package gazeeebo.parsers;
+package gazeeebo.parser;
 
 import gazeeebo.commands.Command;
 
@@ -29,7 +29,7 @@ public class ParserManager {
         } else if (splitCommand[0].equals("tasks") || command.equals("5")) {
             return new TaskCommandParser();
         } else if (splitCommand[0].equals("moduleplanner") || command.equals("8")) {
-            return new studyassistCommandParser();
+            return new StudyAssistCommandParser();
         } else if (splitCommand[0].equals("cap") || command.equals("6")) {
             String moduleCode = "";
             int moduleCredit = 0;
