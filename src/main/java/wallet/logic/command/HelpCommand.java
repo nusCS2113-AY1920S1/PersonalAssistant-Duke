@@ -1,6 +1,7 @@
 package wallet.logic.command;
 
 import wallet.model.Wallet;
+import wallet.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class HelpCommand extends Command {
         try {
             chosenIndex = Integer.parseInt(input);
             if (chosenIndex <= 0 || chosenIndex > wallet.getHelpList().size()) {
-                System.out.println(MESSAGE_ERROR_INDEX);
+                Ui.printError(MESSAGE_ERROR_INDEX);
                 return false;
             }
             ArrayList<String> sectionData = wallet.getHelpList().get(chosenIndex - 1).getSectionData();
@@ -38,7 +39,7 @@ public class HelpCommand extends Command {
                 System.out.println(s);
             }
         } catch (NumberFormatException e) {
-            System.out.println(MESSAGE_ERROR_INDEX);
+            Ui.printError(MESSAGE_ERROR_INDEX);
         }
         return false;
         //@@author

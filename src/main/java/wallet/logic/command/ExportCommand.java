@@ -4,6 +4,7 @@ package wallet.logic.command;
 
 import com.opencsv.CSVWriter;
 import wallet.model.Wallet;
+import wallet.ui.Ui;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -16,7 +17,7 @@ import java.util.List;
 public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
-    private static final String MESSAGE_ERROR_WRITING_CSV = "Error in writing to csv!";
+    private static final String MESSAGE_ERROR_WRITING_CSV = "Error in exporting data to csv!";
     private static final String MESSAGE_SUCCESS_WRITING_CSV = "Export success! File saved to -> ";
     private List<String[]> data;
     private String type;
@@ -64,11 +65,11 @@ public class ExportCommand extends Command {
                 output.close();
                 System.out.println(MESSAGE_SUCCESS_WRITING_CSV + csv);
             } else {
-                System.out.println(MESSAGE_ERROR_WRITING_CSV);
+                Ui.printError(MESSAGE_ERROR_WRITING_CSV);
             }
 
         } catch (URISyntaxException | IOException e) {
-            System.out.println(MESSAGE_ERROR_WRITING_CSV);
+            Ui.printError(MESSAGE_ERROR_WRITING_CSV);
         }
 
 

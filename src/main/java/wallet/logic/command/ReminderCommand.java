@@ -36,7 +36,7 @@ public class ReminderCommand extends Command {
         if (info.length == 1) {
             if (info[0].equals("on")) {
                 if (LogicManager.getReminder().getAutoRemind()) {
-                    System.out.println(MESSAGE_FAILURE_REMINDER_ON);
+                    Ui.printError(MESSAGE_FAILURE_REMINDER_ON);
                 } else {
                     LogicManager.getReminder().setAutoRemind(true);
                     LogicManager.getReminder().autoRemindStart();
@@ -44,7 +44,7 @@ public class ReminderCommand extends Command {
                 }
             } else if (info[0].equals("off")) {
                 if (!LogicManager.getReminder().getAutoRemind()) {
-                    System.out.println(MESSAGE_FAILURE_REMINDER_OFF);
+                    Ui.printError(MESSAGE_FAILURE_REMINDER_OFF);
                 } else {
                     LogicManager.getReminder().autoRemindStop();
                     System.out.println(ReminderCommand.MESSAGE_SUCCESS_REMINDER_OFF);
@@ -70,7 +70,7 @@ public class ReminderCommand extends Command {
                 }
             }
         } else {
-            System.out.println(MESSAGE_USAGE);
+            Ui.printError(MESSAGE_USAGE);
         }
         return false;
     }

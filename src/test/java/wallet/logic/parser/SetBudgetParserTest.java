@@ -20,16 +20,12 @@ public class SetBudgetParserTest {
     public void parseBudgetValidInputSuccess() {
         SetBudgetParser setBudgetParser = new SetBudgetParser();
         String input = "$1000 01/2019";
-        try {
-            SetBudgetCommand setBudgetCommand = setBudgetParser.parse(input);
-            setBudgetCommand.execute(testWallet);
-            assertAll("Budget should contain these values",
-                () -> assertEquals(1000, testWallet.getBudgetList().getBudgetList().get(0).getAmount()),
-                () -> assertEquals(1, testWallet.getBudgetList().getBudgetList().get(0).getMonth()),
-                () -> assertEquals(2019, testWallet.getBudgetList().getBudgetList().get(0).getYear())
-            );
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        SetBudgetCommand setBudgetCommand = setBudgetParser.parse(input);
+        setBudgetCommand.execute(testWallet);
+        assertAll("Budget should contain these values",
+            () -> assertEquals(1000, testWallet.getBudgetList().getBudgetList().get(0).getAmount()),
+            () -> assertEquals(1, testWallet.getBudgetList().getBudgetList().get(0).getMonth()),
+            () -> assertEquals(2019, testWallet.getBudgetList().getBudgetList().get(0).getYear())
+        );
     }
 }

@@ -6,6 +6,7 @@ import wallet.model.Wallet;
 import wallet.model.record.Budget;
 import wallet.model.record.BudgetList;
 import wallet.model.record.Expense;
+import wallet.ui.Ui;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
@@ -44,7 +45,7 @@ public class SetBudgetCommand extends Command {
             if (budget != null) {
                 BudgetList budgetList = wallet.getBudgetList();
                 if (budget.getAmount() < 0) {
-                    System.out.println(MESSAGE_NO_NEGATIVE_BUDGET);
+                    Ui.printError(MESSAGE_NO_NEGATIVE_BUDGET);
                     System.out.println(MESSAGE_USAGE);
                     return false;
                 } else if (budget.getAmount() > 0) {
@@ -88,7 +89,7 @@ public class SetBudgetCommand extends Command {
                     return false;
                 } else if (budget.getAmount() == 0) {
                     if (budgetList.getBudgetList().size() == 0) {
-                        System.out.println(MESSAGE_NO_BUDGET_TO_REMOVE);
+                        Ui.printError(MESSAGE_NO_BUDGET_TO_REMOVE);
                         return false;
                     } else {
                         int index = checkDuplicates(budgetList);
@@ -99,7 +100,7 @@ public class SetBudgetCommand extends Command {
                                     + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
                                     + " " + budget.getYear());
                         } else {
-                            System.out.println(MESSAGE_NO_BUDGET_TO_REMOVE);
+                            Ui.printError(MESSAGE_NO_BUDGET_TO_REMOVE);
                         }
                         return false;
                     }
