@@ -26,7 +26,7 @@ public class ShowBillListCommand extends Command {
         boolean listIsEmpty = (recordList.size() == 0);
 
         if (listIsEmpty) { // TODO: Place this in proper place
-            ListUi.printEmptyListError(mode);
+            ListUi.printEmptyListError("bill");
         } else {
             DebtUi.printBillList(recordList);
         }

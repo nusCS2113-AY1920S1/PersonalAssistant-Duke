@@ -53,7 +53,7 @@ public class DebtUi extends Ui {
     public static void printInvalidBillFormatError() {
         System.out.println(line);
         System.out.println("\tplease follow the format "
-                + "'bill [NUMBER OF PEOPLE] [TOTAL AMOUNT] [NAME 1] [NAME 2]...[NAME NUMBER OF PEOPLE]");
+                + "'bill [NUMBER OF PEOPLE] [TOTAL AMOUNT] [NAME 1] [NAME 2]...[NAME N]");
         System.out.println(line);
     }
 
@@ -137,6 +137,34 @@ public class DebtUi extends Ui {
     public static void printBillFeature() {
         System.out.println(line);
         System.out.println("\tYou can also add bills under this mode :)");
+        System.out.println(line);
+    }
+
+    /**
+     * Print remove bill message.
+     */
+    public static void printRemoveBillMessage() {
+        System.out.println(line);
+        System.out.println("\tGot it! This bill is removed.");
+        System.out.println(line);
+    }
+
+    /**
+     * Print remove bill format error.
+     */
+    public static void printRemoveBillFormatError() {
+        System.out.println(line);
+        System.out.println("\tIf you want to remove a bill, Please follow the format: remove bill [BILL NUMBER]");
+        System.out.println(line);
+    }
+
+    /**
+     * Print error message if the number of people is not the same as the number of names.
+     * @param people the number of people.
+     */
+    public static void printInvalidNameNumberError(int people) {
+        System.out.println(line);
+        System.out.println("\tPlease enter " + people + " names.");
         System.out.println(line);
     }
 

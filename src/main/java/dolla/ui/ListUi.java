@@ -29,8 +29,8 @@ public class ListUi extends Ui {
     public static void printEmptyListError(String mode) {
         System.out.println(line);
         System.out.println("\tI'm sorry, but there doesn't seem to be anything in "
-                + mode + "for me to through. ");
-        System.out.println("Try adding a new " + mode + "and try again!");
+                + mode + " for me to through. ");
+        System.out.println("\tTry adding a new " + mode + " and try again!");
         System.out.println(line);
     }
 
@@ -46,6 +46,4 @@ public class ListUi extends Ui {
         System.out.println("\tTry looking through the list of " + mode + "again.");
         System.out.println(line);
     }
-
-
 }

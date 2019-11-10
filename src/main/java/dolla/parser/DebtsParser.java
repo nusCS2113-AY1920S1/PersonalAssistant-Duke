@@ -1,19 +1,20 @@
 package dolla.parser;
 
+import dolla.command.RemoveBillCommand;
+import dolla.command.Command;
+import dolla.command.AddBillCommand;
+import dolla.command.RemoveCommand;
+import dolla.command.SortCommand;
+import dolla.command.ErrorCommand;
+import dolla.command.ShowBillListCommand;
+import dolla.command.SearchCommand;
+import dolla.command.AddDebtsCommand;
+import dolla.command.ShowListCommand;
+import dolla.command.RemoveNameCommand;
+import dolla.command.ActionCommand;
 import dolla.command.modify.PartialModifyDebtCommand;
 import dolla.model.DollaData;
-import dolla.command.Command;
 import dolla.command.modify.InitialModifyCommand;
-import dolla.command.ShowListCommand;
-import dolla.command.ShowBillListCommand;
-import dolla.command.ErrorCommand;
-import dolla.command.AddDebtsCommand;
-import dolla.command.AddBillCommand;
-import dolla.command.SortCommand;
-import dolla.command.ActionCommand;
-import dolla.command.RemoveCommand;
-import dolla.command.SearchCommand;
-import dolla.command.RemoveNameCommand;
 
 import dolla.model.RecordList;
 import dolla.ui.DebtUi;
@@ -94,12 +95,20 @@ public class DebtsParser extends Parser {
             }
 
         } else if (commandToRun.equals(COMMAND_REMOVE)) {
-            if (verifyRemove()) {
-                return new RemoveCommand(mode, inputArray[1]);
+            RecordList recordList;
+            DollaData dollaData = new DollaData();
+            recordList = dollaData.getBillRecordList();
+            if (verifyRemoveLength()) {
+                if (verifyRemoveForDebtMode()) {
+                    return new RemoveCommand(mode, inputArray[1]);
+                } else if (verifyRemoveBill(recordList)) {
+                    return new RemoveBillCommand(Integer.parseInt(inputArray[2]));
+                } else {
+                    return new ErrorCommand();
+                }
             } else {
                 return new ErrorCommand();
             }
-
         } else if (commandToRun.equals(COMMAND_REDO)
                 || commandToRun.equals(COMMAND_UNDO)) {
             return new ActionCommand(mode, commandToRun);
