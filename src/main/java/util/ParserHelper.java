@@ -1,18 +1,14 @@
 package util;
 
-import models.member.Member;
 import models.project.Project;
 import models.task.Task;
 import util.validation.ValidityHelper;
-import static util.constant.ConstantHelper.ALL_MARKER;
-import static util.constant.ConstantHelper.ASSIGNEE_MARKER;
-import static util.constant.ConstantHelper.BLANK;
-import static util.constant.ConstantHelper.INDEX_NUMBER_MARKER;
-import static util.constant.ConstantHelper.UNASSIGNEE_MARKER;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import static util.constant.ConstantHelper.*;
 
 public class ParserHelper {
     private SortHelper sortHelper;
@@ -310,25 +306,25 @@ public class ParserHelper {
         String sortCriteria, Project project) {
         ArrayList<String> taskDetails = new ArrayList<>();
         if (sortCriteria.length() >= 4) {
-            String[] detailedCriteria = sortCriteria.split("-");
+            String[] detailedCriteria = sortCriteria.split(" ",2);
             switch (detailedCriteria[0]) {
-            case "/NAME":
+            case "-name":
                 taskDetails = this.sortHelper.sortTaskName(taskList);
                 break;
-            case "/DATE":
+            case "-date":
                 taskDetails = this.sortHelper.sortTaskDueDate(taskList);
                 break;
-            case "/PRIORITY":
+            case "-priority":
                 taskDetails = this.sortHelper.sortTaskPriority(taskList);
                 break;
-            case "/CREDIT":
+            case "-credit":
                 taskDetails = this.sortHelper.sortTaskCredit(taskList);
                 break;
-            case "/WHO":
+            case "-who":
                 taskDetails = this.sortHelper.sortTaskMember(tasksAndAssignedMembers, taskList,
                     detailedCriteria[1], project);
                 break;
-            case "/KANBAN":
+            case "-state":
                 taskDetails = this.sortHelper.sortTaskState(taskList, detailedCriteria[1]);
                 break;
             default:
