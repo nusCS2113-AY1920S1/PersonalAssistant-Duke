@@ -37,7 +37,7 @@ public final class TaskScheduler {
         assert durationToSchedule != null;
         assert deadlineDate != null;
 
-        if (!isThereEnoughTime(durationToSchedule, deadlineDate)) {
+        if (isThereNotEnoughTime(durationToSchedule, deadlineDate)) {
             return NOT_ENOUGH_TIME;
         }
         setupEventList(tasks, deadlineDate);
@@ -58,7 +58,7 @@ public final class TaskScheduler {
         assert tasks != null;
         assert durationToSchedule != null;
 
-        if (!isThereEnoughTime(durationToSchedule, hardLimitDeadlineDate)) {
+        if (isThereNotEnoughTime(durationToSchedule, hardLimitDeadlineDate)) {
             return NOT_ENOUGH_TIME_HARD_LIMIT;
         }
         setupEventList(tasks, hardLimitDeadlineDate);
@@ -72,10 +72,11 @@ public final class TaskScheduler {
 
     private static void setupEventList(TaskList tasks, LocalDateTime deadlineDate) {
         eventList = tasks.obtainEventList(deadlineDate);
+        isFreeBetweenEvents = false;
     }
 
-    private static boolean isThereEnoughTime(Long durationToSchedule, LocalDateTime deadlineDate) {
-        return durationToSchedule <= ChronoUnit.HOURS.between(LocalDateTime.now(),deadlineDate);
+    private static boolean isThereNotEnoughTime(Long durationToSchedule, LocalDateTime deadlineDate) {
+        return durationToSchedule > ChronoUnit.HOURS.between(LocalDateTime.now(), deadlineDate);
     }
 
     private static boolean isEventListEmpty() {

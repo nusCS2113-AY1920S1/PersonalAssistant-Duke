@@ -14,7 +14,6 @@ import java.time.format.DateTimeParseException;
 public class DateTimeExtractor {
 
     public static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private static LocalDateTime dateToReturn;
 
     /**
      * This function appends the end time of an event to provide a standardised
@@ -28,7 +27,6 @@ public class DateTimeExtractor {
      *                        format provided by the user is incorrect!
      */
     public static LocalDateTime extractDateTime(String dateTimeFromUser) throws DateTimeParseException {
-        dateToReturn = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
-        return dateToReturn;
+        return LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
     }
 }

@@ -96,7 +96,6 @@ public class TaskScheduleCommand extends Command {
         }
 
         if (LocalDateTime.now().isAfter(deadlineDate)) {
-
             throw new ChronologerException(OVERDUE_DEADLINE);
         }
 

@@ -34,8 +34,25 @@ public class ScheduleParser extends IndexParser {
     @Override
     public Command parse() throws ChronologerException {
         super.extract();
-        int type = checkInputType(taskFeatures);
-        switch (type) {
+        if (isProcessingRawDuration(taskFeatures)) {
+            int deadlineType = checkInputType(taskFeatures);
+            Long duration = getRawDuration();
+            switch (deadlineType) {
+            case INDEX_INPUT:
+                int indexOfDeadline = extractDeadlineIndex(taskFeatures);
+                return new TaskScheduleCommand(duration, indexOfDeadline);
+            case DATE_INPUT:
+                LocalDateTime dateOfDeadline = extractDeadlineDate(taskFeatures);
+                return new TaskScheduleCommand(duration, dateOfDeadline);
+            case NO_DEADLINE_INPUT:
+                return new TaskScheduleCommand(duration, null);
+            default:
+                return null;
+            }
+        }
+
+        int deadlineType = checkInputType(taskFeatures);
+        switch (deadlineType) {
         case INDEX_INPUT:
             int indexOfDeadline = extractDeadlineIndex(taskFeatures);
             return new TaskScheduleCommand(indexOfTask, indexOfDeadline);
@@ -55,9 +72,8 @@ public class ScheduleParser extends IndexParser {
         try {
             convertedIndex = Integer.parseInt(extractedIndex) - 1;
         } catch (NumberFormatException e) {
-            UiMessageHandler.outputMessage(ChronologerException.unknownUserCommand());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            throw new ChronologerException(ChronologerException.unknownUserCommand());
+            throw new ChronologerException(ChronologerException.invalidInput());
         }
 
         return convertedIndex;
@@ -83,11 +99,24 @@ public class ScheduleParser extends IndexParser {
         }
         String stringToCheck = taskFeatures.split(Flag.BY.getFlag(), 2)[1].trim();
         if (stringToCheck.isEmpty()) {
-            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
-        } else if (stringToCheck.contains("/")) {
+        }
+        if (stringToCheck.contains("/")) {
             return DATE_INPUT;
         }
         return INDEX_INPUT;
+    }
+
+    private boolean isProcessingRawDuration(String taskFeatures) {
+        String[] tokens = taskFeatures.split(Flag.RAW.getFlag(), 2);
+        if (tokens.length == 1) {
+            return false;
+        }
+        this.taskFeatures = taskFeatures.replace(Flag.RAW.getFlag(), "");
+        return true;
+    }
+
+    private long getRawDuration() {
+        return (long) indexOfTask + 1;
     }
 }
