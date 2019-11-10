@@ -11,6 +11,7 @@ import Operations.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Main class of the RoomShare program.
@@ -385,11 +386,20 @@ public class RoomShare {
                 try {
                     overdueList.list();
                     String input = parser.getCommandLine();
-                    int index = parser.getIndex(input);
-                    Task oldTask = overdueList.get(index);
-                    taskCreator.rescheduleTask(input,oldTask);
-                    overdueList.reschedule(index, taskList);
-                    ui.showUpdated(index+1);
+                    String[] range = input.split(" ");
+                   int[] indexes = parser.getIndexRange(range[0]);
+                      if (indexes.length != 1) {
+                          for (int i = indexes[0]; i <= indexes[1]; i++) {
+                              Task oldTask = overdueList.get(i);
+                              taskCreator.rescheduleTask(input, oldTask);
+                              ui.showUpdated(i + 1);
+                          }
+                    } else {
+                          Task oldTask = overdueList.get(indexes[0]);
+                          taskCreator.rescheduleTask(input, oldTask);
+                          ui.showUpdated(indexes[0] + 1);
+                      }
+                    overdueList.reschedule(indexes, taskList);
                     storage.writeFile(TaskList.currentList(), "data.txt");
                     storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
                 } catch (RoomShareException e) {

@@ -32,18 +32,31 @@ public class OverdueList {
      * Reschedules an overdue task that was in the overdued list to be placed back into
      * the original task list for the user.
      *
-     * @param index index of the task in the Overdued task list that is being rescheduled.
+     * @param idx index of the task in the Overdued task list that is being rescheduled.
      * @throws RoomShareException if the index entered is not valid
      */
-    public void reschedule(int index, TaskList taskList) throws RoomShareException {
-        if (index < 0 || index > Overdue.size() - 1) {
-            System.out.println("This are your tasks in your Overdue list");
-            list();
-            throw new RoomShareException(ExceptionType.outOfBounds);
+    public void reschedule(int[] idx, TaskList taskList) throws RoomShareException {
+        int[] index = idx.clone();
+        if (index.length ==1) {
+            if (index[0] < 0 || index[0] >= Overdue.size()) {
+                System.out.println("This are your tasks in your Overdue list");
+                list();
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            } else {
+                taskList.add(Overdue.get(index[0]));
+                Overdue.get(index[0]).setOverdue(false);
+            }
         } else {
-            taskList.add(Overdue.get(index));
-            Overdue.get(index).setOverdue(false);
-            Overdue.remove(index);
+            if (index[0] < 0 || index[0] >= Overdue.size() || index[1] < 0 || index[1] >= Overdue.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
+            for (int i = index[0]; i <= index[1]; i++){
+                taskList.add(Overdue.get(i));
+                Overdue.get(i).setOverdue(false);
+            }
+        }
+        for (int i = 0; i < index.length; i++){
+            Overdue.removeIf(n -> !n.getOverdue());
         }
     }
 
