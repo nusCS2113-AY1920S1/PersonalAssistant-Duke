@@ -55,11 +55,11 @@ public class GraphCategoryCommand extends Command {
         Category cat;
         try {
             cat = catList.get(categoryName);
+            if (cat.size() == 0) {
+                throw new MooMooException("OOPS!!! MooMoo cannot find any expenditure data :(");
+            }
         } catch (Exception e) {
             throw new MooMooException("OH NO! No such category exists!");
-        }
-        if (cat.size() == 0) {
-            throw new MooMooException("OOPS!!! MooMoo cannot find any expenditure data :(");
         }
         
         double grandTotal = cat.getTotal(month, year);
@@ -109,6 +109,8 @@ public class GraphCategoryCommand extends Command {
             }
         }
         output += topSpace + horizontalAxisBottom + "\n";
+        
+        
         ui.setOutput(output);
     }
 }
