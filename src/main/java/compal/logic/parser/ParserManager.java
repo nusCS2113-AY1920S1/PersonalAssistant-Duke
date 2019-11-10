@@ -1,6 +1,5 @@
 package compal.logic.parser;
 
-import compal.logic.command.ByeCommand;
 import compal.logic.command.Command;
 
 import compal.logic.parser.exceptions.ParserException;
@@ -47,7 +46,7 @@ public class ParserManager {
         }
         switch (commandWord) {
         case CMD_EXIT:
-            return new ByeCommand();
+            return new ByeCommandParser().parseCommand(restOfInput);
         case CMD_VIEW:
             return new ViewCommandParser().parseCommand(restOfInput);
         case CMD_SET_REMINDER:
