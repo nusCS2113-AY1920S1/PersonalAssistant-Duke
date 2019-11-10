@@ -60,34 +60,23 @@ public class GradeTest extends InputTest {
      */
     @Test
     public void gradeTestUserInput() {
-        final String moduleTest1 = "password\n" + "grade CS1010 A\n" + "bye"; //This affects the user's list
+        final String moduleTest1 =  "grade CS1010 A\n" + "bye"; //This affects the user's list
         final String[] hold = {""};
         provideInput(moduleTest1);
         CliLauncher.main(hold);
         String temp =
-            "Please enter your password to continue:\n"
-            + "_______________________________\n"
+            "_______________________________\n"
             + "Welcome to ModPlanner, your one stop solution to module planning!\n"
-            +
-            "Begin typing to get started!\n"
-            +
-            "_______________________________\n"
-            +
-            "_______________________________\n"
-            +
-            "Got it, graded CS1010 with grade: A\n"
-            +
-            "_______________________________\n"
-            +
-            "_______________________________\n"
-            +
-            "Thanks for using ModPlanner!\n"
-            +
-            "Your data will be stored in file shortly!\n"
-            +
-            "_______________________________\n"
-            +
-            "_______________________________\n";
+            + "Begin typing to get started!\n"
+            + "_______________________________\n"
+            + "_______________________________\n"
+            + "Got it, graded CS1010 with grade: A\n"
+            + "_______________________________\n"
+            + "_______________________________\n"
+            + "Thanks for using ModPlanner!\n"
+            + "Your data will be stored in file shortly!\n"
+            + "_______________________________\n"
+            + "_______________________________\n";
         String expectedAddModule = "_______________________________\n"
             +
             "Welcome to ModPlanner, your one stop solution to module planning!\n"
@@ -99,7 +88,7 @@ public class GradeTest extends InputTest {
             "Got it, graded CS1010 with grade: A\n"
             +
             "_______________________________\n" + expectedBye;
-        assertEquals(temp, temp);
+        assertEquals(temp, getReplace());
     }
 
     /*@Test
