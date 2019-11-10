@@ -21,6 +21,7 @@ import gazeeebo.tasks.DoAfter;
  */
 public class DoAfterCommand extends Command {
     /**
+     * Shows what tasks to do after wehn another task is completed.
      * @param list         task lists
      * @param ui           the object that deals with printing things to the user.
      * @param storage      the object that deals with storing data.
