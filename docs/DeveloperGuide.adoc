@@ -638,7 +638,7 @@ E.g `profile sports true`
 The only valid preference currently in V 1.4 are sports,lifestyle,arts and entertainment. Additional preferences could be added by just adding additional field in `preferences`.
 ====
 
-.Profile Sequence Diagram
+.addFav Sequence Diagram
 image::addFavSequenceDiagram.png[]
 
 The figure above shows the mechanism of `addFav`. Given below is an example usage scenario and how the `addFav` mechanism behaves at each step:
