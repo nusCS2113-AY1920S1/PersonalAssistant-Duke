@@ -47,8 +47,15 @@ public class PlannerUi {
         scan.close();
     }
 
+    /**
+     * Read input.
+     * @return input if exists else null
+     */
     public String readInput() {
-        return scan.nextLine().strip();
+        if (scan.hasNextLine()) {
+            return scan.nextLine().strip();
+        }
+        return null;
     }
 
     public String readPassword() {
@@ -355,54 +362,6 @@ public class PlannerUi {
     }
 
     /**
-     * Message to print out CoreModuleReport.
-     */
-    public void coreModReport() {
-        System.out.println("Here is your list of core modules being added:");
-    }
-
-    /**
-     * Message to print out the number of core modules left to take.
-     */
-    public void coreModLeft() {
-        System.out.println("\n"
-                            +
-                            "Number of core modules required to take for graduation:");
-    }
-
-    /**
-     * Message to print out GEModuleReport.
-     */
-    public void geModReport() {
-        System.out.println("Here is your list of general education modules being added:");
-    }
-
-    /**
-     * Message to print out the number of ge modules left to take.
-     */
-    public void geModLeft() {
-        System.out.println("\n"
-                            +
-                            "Number of general education modules required to take for graduation:");
-    }
-
-    /**
-     * Message to print out UEModuleReport.
-     */
-    public void ueModReport() {
-        System.out.println("Here is your list of unrestricted elective modules being added:");
-    }
-
-    /**
-     * Message to print out the number of ue modules left to take.
-     */
-    public void ueModLeft() {
-        System.out.println("\n"
-                            +
-                            "Number of unrestricted elective modules required to take for graduation:");
-    }
-
-    /**
      * Prints all tasks in upcomingTasksList.
      *
      * @param upcomingTasksList contains all upcoming tasks.
@@ -438,6 +397,56 @@ public class PlannerUi {
         System.out.println("Your module data files has been updated!");
     }
 
+    //@@author kyawtsan99
+
+    /**
+     * Message to print out CoreModuleReport.
+     */
+    public void coreModReport() {
+        System.out.println("Here is your list of core modules being added:");
+    }
+
+    /**
+     * Message to print out the number of core modules left to take.
+     */
+    public void coreModLeft() {
+        System.out.println("\n"
+                +
+                "Number of core modules required to take for graduation:");
+    }
+
+    /**
+     * Message to print out GEModuleReport.
+     */
+    public void geModReport() {
+        System.out.println("Here is your list of general education modules being added:");
+    }
+
+    /**
+     * Message to print out the number of ge modules left to take.
+     */
+    public void geModLeft() {
+        System.out.println("\n"
+                +
+                "Number of general education modules required to take for graduation:");
+    }
+
+    /**
+     * Message to print out UEModuleReport.
+     */
+    public void ueModReport() {
+        System.out.println("Here is your list of unrestricted elective modules being added:");
+    }
+
+    /**
+     * Message to print out the number of ue modules left to take.
+     */
+    public void ueModLeft() {
+        System.out.println("\n"
+                +
+                "Number of unrestricted elective modules required to take for graduation:");
+    }
+
     /**
      * Message to print the reminder list.
      */
@@ -448,7 +457,6 @@ public class PlannerUi {
                             "To do so, you can input the update command in the following format:\n"
                             +
                             "update YEAR_SEM_1-YEAR_SEM_2 ");
-        showLine();
     }
 
     /**

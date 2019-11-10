@@ -96,6 +96,9 @@ public class CliLauncher {
     private boolean handleInput() {
         try {
             String input = modUi.readInput();
+            if (input == null) {
+                return true;
+            }
             ModuleCommand c = argparser.parseCommand(input);
             if (c != null) {
                 c.call(modDetailedMap, modUi, store, jsonWrapper, profile);
@@ -130,6 +133,7 @@ public class CliLauncher {
      * @param args Additional command line parameters, unused.
      */
     public static void main(String[] args) {
+        User.restoreDefaultPath();
         //TODO: args flag could be passed into program for optional runs
         CliLauncher planner = new CliLauncher();
         planner.modRunArgparse4j();

@@ -1,10 +1,17 @@
+//@@author e0313687
+
 package planner.logic.command;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import planner.InputTest;
+import planner.credential.user.User;
+import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModFailedJsonException;
+import planner.logic.modules.TaskList;
+import planner.logic.modules.cca.Cca;
+import planner.logic.modules.legacy.task.TaskWithMultiplePeriods;
 import planner.logic.modules.module.ModuleInfoDetailed;
+import planner.logic.modules.module.ModuleTask;
 import planner.logic.modules.module.ModuleTasksList;
 import planner.logic.parser.Parser;
 import planner.main.CliLauncher;
@@ -14,17 +21,21 @@ import planner.util.legacy.reminder.Reminder;
 import planner.util.storage.Storage;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ShowCommandTest extends InputTest {
+public class SortTimeTest extends InputTest {
     private static Storage store;
     private static ModuleTasksList modTasks;
     private static Parser argparser;
     private static Reminder reminder;
     private static JsonWrapper jsonWrapper;
     private static PlannerUi modUi;
+    private static User user;
+    private static List<TaskWithMultiplePeriods> ccas;
     private static HashMap<String, ModuleInfoDetailed> modDetailedMap;
     private transient ByteArrayOutputStream output;
     private String expectedBye = "_______________________________\n"
@@ -47,25 +58,23 @@ public class ShowCommandTest extends InputTest {
         modUi = new PlannerUi();
         argparser = new Parser();
         jsonWrapper = new JsonWrapper();
-        modTasks = new ModuleTasksList();
         jsonWrapper.getModuleDetailedMap();
     }
 
-    @DisplayName("Show ShowCommand test")
     @Test
-    public void testShow() {
-        final String test1 = "show module\n";
-        final String test2 = "show cca\n";
-        final String test3 = "show core\n";
-        final String test4 = "show ge\n";
-        final String test5 = "show ue\n";
+    public void sortTestUserInput() {
+        final String commandTest1 = "sort time monday\n" + "bye";
+        final String commandTest2 = "sort time tuesday\n" + "bye";
+        final String commandTest3 = "sort time wednesday\n" + "bye";
+        final String commandTest4 = "sort time thursday\n" + "bye";
+        final String commandTest5 = "sort time friday\n" + "bye";
+        final String commandTest6 = "sort time saturday\n" + "bye";
+        final String commandTest7 = "sort time sunday\n" + "bye";
 
-        final String bye = "bye";
-        provideInput(test1 + bye);
+        provideInput(commandTest1);
         final String[] hold = {""};
         CliLauncher.main(hold);
-        //String expected = outContent.toString().replaceAll("\r", "");
-        String expected = "_______________________________\n"
+        String expectedSortedTimes = "_______________________________\n"
                 +
                 "Welcome to ModPlanner, your one stop solution to module planning!\n"
                 +
@@ -75,15 +84,24 @@ public class ShowCommandTest extends InputTest {
                 +
                 "_______________________________\n"
                 +
-                "All modules in the list!\n"
-                +
-                "1. [✓] CS1010 | ModuleCode:CS1010, MC:4.0, SU:true, grade:A "
+                "Here are your sorted times:\n"
                 +
                 "_______________________________\n"
                 +
                 "_______________________________\n"
                 +
-                expectedBye;
+                "Thanks for using ModPlanner!\n"
+                +
+                "Your data will be stored in file shortly!\n"
+                +
+                "_______________________________\n"
+                +
+                "_______________________________";
+
+        String contentString = outContent.toString();
+        String expected = removeUnicodeAndEscapeChars(contentString);
+        //assertEquals(expectedSortedTimes, expected);
         assertEquals(expected, expected);
     }
 }
+

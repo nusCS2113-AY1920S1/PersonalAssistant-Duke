@@ -4,6 +4,7 @@ package planner.logic.command;
 
 import java.util.HashMap;
 
+import planner.credential.user.CredentialManager;
 import planner.credential.user.User;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.ui.cli.PlannerUi;
@@ -34,6 +35,22 @@ public class ClearCommand extends ModuleCommand {
 
                 case ("ccas"): {
                     profile.getCcas().clear();
+                    break;
+                }
+
+                case ("password"): {
+                    if (profile.isPasswordProtected()) {
+                        String oldPassword = CredentialManager.requirePassword(plannerUi);
+                        if (profile.isValidPassword(oldPassword)) {
+                            profile.clearPassword();
+                        } else {
+                            plannerUi.println("Failed to clear password!");
+                            return;
+                        }
+                    } else {
+                        plannerUi.println("No active password found!");
+                        return;
+                    }
                     break;
                 }
 
