@@ -201,7 +201,7 @@ It is possible that there can be more than one eligible filter to be recommended
     N
     Alright then.
     The closest filter is "cooking" based on similar words.
-    Would you like to assign task "prepare food for mom" to filter "cooking"? (Y/N)
+    Would you like to assign task "prepare food for cs party" to filter "cooking"? (Y/N)
     Y
 
 //end::ajl[]
