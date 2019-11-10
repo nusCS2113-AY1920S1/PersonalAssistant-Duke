@@ -78,7 +78,6 @@ public class FileUtilJsonTest {
         assertEquals(resultStorageManager.getConfig().getUiConfig().toString(), storageManager.getConfig().getUiConfig().toString());
         assertEquals(resultStorageManager.getConfig().getLogConfig().toString(), storageManager.getConfig().getLogConfig().toString());
         assertEquals(resultStorageManager.getPromotionList().getPromotionList().toString(), storageManager.getPromotionList().getPromotionList().toString());
-        assertEquals(resultStorageManager.getRevenue(), storageManager.getRevenue());
     }
 
     /**
