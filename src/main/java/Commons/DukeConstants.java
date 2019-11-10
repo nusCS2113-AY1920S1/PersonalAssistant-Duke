@@ -51,7 +51,7 @@ public class DukeConstants {
     //SHOW
     public static final String SHOW_WORKLOAD_HEADER = "show/workload";
     public static final String SHOW_FILTER_HEADER ="show/filter";
-    public static final String HELP_HEADER = "help";
+    public static final String HELP_HEADER = "show/help";
     public static final String FIND_TIME_HEADER ="find/time";
     public static final String FIND_TIME_KEYWORD_HOUR = "hour";
     public static final String FIND_TIME_KEYWORD_HOURS = "hours";
@@ -141,6 +141,7 @@ public class DukeConstants {
     public static final String NO_TIMING_ERROR ="Sorry, you have no such timing entered in your deadline table!";
     public static final String REMINDER_AFTER_TASK_ERROR ="Sorry, you cannot set a reminder after the date of the task.";
     public static final String INVALID_DATE_ERROR = "Sorry, please enter the correct date format";
+    public static final String INVALID_ACADEMIC_YEAR_DATE = "Sorry, please enter a valid date within academic year.";
     public static final String HAS_REMINDER_INDICATOR = "[HR]";
     public static final String NO_REMINDER_INDICATOR ="[NR]";
 

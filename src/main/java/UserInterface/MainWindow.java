@@ -47,7 +47,7 @@ import java.util.logging.Logger;
  */
 public class MainWindow extends BorderPane implements Initializable {
     @FXML
-    private Label currentWeek;
+    private Label weekLabel;
     @FXML
     private TextField userInput;
     @FXML
@@ -240,13 +240,9 @@ public class MainWindow extends BorderPane implements Initializable {
     }
 
     private void setDukeResponse() {
-        dukeResponseTable.getColumns().clear();
-        dukeResponseColumn = new TableColumn<>();
-        dukeResponseColumn.setText("Duke Response");
         dukeResponseColumn.setSortable(false);
         dukeResponseColumn.setCellValueFactory(new PropertyValueFactory("response"));
         dukeResponseTable.setItems(betterDukeResponse);
-        dukeResponseTable.getColumns().add(dukeResponseColumn);
         dukeResponseTable.scrollTo(betterDukeResponse.size() - 1);
         dukeResponseTable.getSelectionModel().select(betterDukeResponse.size() - 1);
         dukeResponseTable.getSelectionModel().getFocusedIndex();
@@ -262,6 +258,7 @@ public class MainWindow extends BorderPane implements Initializable {
                 setWeek(false, WeekParse.getWeek(input));
             }
         }
+
         retrieveList();
         duke.getResponse(week);
         outputWeekList = WeekCommand.getWeekList();
@@ -269,11 +266,6 @@ public class MainWindow extends BorderPane implements Initializable {
 
         outputList = ShowPreviousCommand.getOutputList();
 
-        overdueTable.getColumns().clear();
-        overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
-        overdueDaysColumn.setCellValueFactory(new PropertyValueFactory<>("overDays"));
-        overdueTable.getColumns().addAll(overdueTaskColumn,overdueDateColumn, overdueDaysColumn);
         overdueTable.setItems(setDeadlineTable());
 
         setProgressContainer();
@@ -310,7 +302,7 @@ public class MainWindow extends BorderPane implements Initializable {
     private String week = DukeConstants.NO_FIELD;
 
     /**
-     * This method updates currentWeek Label.
+     * This method updates weekLabel Label.
      * @param onStart The flag which indicates program startup
      * @param selectedWeek The week selected
      */
@@ -319,13 +311,13 @@ public class MainWindow extends BorderPane implements Initializable {
             Date dateTime = new Date();
             String date = DukeConstants.EVENT_DATE_INPUT_FORMAT.format(dateTime);
             selectedWeek = lookupTable.getValue(date);
-            currentWeek.setText(selectedWeek + START_WEEK_DELIMITER + lookupTable.getValue(selectedWeek.toLowerCase()) + END_WEEK_DELIMITER);
+            weekLabel.setText(selectedWeek + START_WEEK_DELIMITER + lookupTable.getValue(selectedWeek.toLowerCase()) + END_WEEK_DELIMITER);
 
             week = WeekParse.getWeekCommandFormat(selectedWeek);
-            currentWeek.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,30));
-            currentWeek.setTextFill(Color.GOLDENROD);
+            weekLabel.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,30));
+            weekLabel.setTextFill(Color.GOLDENROD);
         } else {
-            currentWeek.setText(selectedWeek + START_WEEK_DELIMITER + lookupTable.getValue(selectedWeek.toLowerCase()) + END_WEEK_DELIMITER);
+            weekLabel.setText(selectedWeek + START_WEEK_DELIMITER + lookupTable.getValue(selectedWeek.toLowerCase()) + END_WEEK_DELIMITER);
         }
     }
 

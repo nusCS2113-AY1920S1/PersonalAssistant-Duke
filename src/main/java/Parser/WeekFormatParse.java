@@ -27,6 +27,10 @@ public class WeekFormatParse {
                 throw new DukeInvalidDateTimeException(DukeConstants.INVALID_DATE_ERROR);
             }
         } else {
+            String nullChecker = lookupTable.getValue(weekDate);
+            if (nullChecker == null) {
+                throw new DukeInvalidDateTimeException(DukeConstants.INVALID_ACADEMIC_YEAR_DATE);
+            }
             weekDate = date;
         }
         return weekDate;
