@@ -45,14 +45,14 @@ public class ImpressionMoveSpec extends ObjSpec {
 
     @Override
     protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
-        DukeData moveData;
+        DukeData data;
         Impression currImpression = ImpressionUtils.getImpression(core);
-        if (newImpression == null) {
+        if (newImpression == null) { // impression has not been identified
             newImpression = (Impression) obj;
-            moveData = ImpressionUtils.getDataByIdx(cmd.getArg(), cmd.getSwitchVal("evidence"),
+            data = ImpressionUtils.getDataByIdx(cmd.getArg(), cmd.getSwitchVal("evidence"),
                     cmd.getSwitchVal("treatment"), currImpression);
 
-            if (moveData == null) {
+            if (data == null) { // data could not be identified unambiguously
                 SearchResults results = ImpressionUtils.searchData(cmd.getArg(), cmd.getSwitchVal("evidence"),
                         cmd.getSwitchVal("treatment"), ImpressionUtils.getImpression(core));
                 List<DukeObject> resultList = results.getSearchList();
@@ -62,23 +62,25 @@ public class ImpressionMoveSpec extends ObjSpec {
                     results = new SearchResults(results.getName(), resultList, results.getParent());
                 }
                 processResults(core, results);
+                return;
             }
         } else {
-            moveData = (DukeData) obj;
-            moveData.setParent(newImpression);
-            if (moveData instanceof Evidence) {
-                Evidence evidence = (Evidence) moveData;
-                newImpression.addNewEvidence(evidence);
-                currImpression.deleteEvidence(evidence.getName());
-            } else if (moveData instanceof Treatment) {
-                Treatment treatment = (Treatment) moveData;
-                newImpression.addNewTreatment(treatment);
-                currImpression.deleteTreatment(treatment.getName());
-            }
-            core.writeJsonFile();
-            core.updateUi("'" + moveData.getName() + "' moved from '" + currImpression.getName() + "' to '"
-                    + newImpression.getName() + "'");
-            newImpression = null;
+            data = (DukeData) obj;
         }
+
+        if (data instanceof Evidence) {
+            Evidence evidence = (Evidence) data;
+            newImpression.addNewEvidence(evidence);
+            currImpression.deleteEvidence(evidence.getName());
+        } else if (data instanceof Treatment) {
+            Treatment treatment = (Treatment) data;
+            newImpression.addNewTreatment(treatment);
+            currImpression.deleteTreatment(treatment.getName());
+        }
+        data.setParent(newImpression);
+        core.writeJsonFile();
+        core.updateUi("'" + data.getName() + "' moved from '" + currImpression.getName() + "' to '"
+                + newImpression.getName() + "'");
+        newImpression = null;
     }
 }

@@ -57,7 +57,7 @@ public class DukeCore extends Application {
      */
     public void search(SearchResults results, ObjCommand objCmd) throws DukeException {
         queuedCmd = objCmd;
-        ui.showMessage("Displaying objects matching " + results.getName() + ".");
+        ui.showMessage("Here are all the results for '" + results.getName() + "'.");
         uiContext.open(results);
     }
 
