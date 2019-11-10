@@ -563,63 +563,6 @@ The given index(indices) is(are) invalid.
 +
 Use case resumes at step 2.
 
-[discrete]
-=== Use case: Completing an Order
-
-*MSS*
-
-1. User requests to list all orders
-2. BakingHome shows a list of orders
-3. User requests to complete a specific order or multiple orders in the list
-4. BakingHome checks inventory for the required ingredients by the order and deducts the necessary amount from inventory (if insufficient it deducts to zero)
-6. BakingHome marks the order(s) as complete.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a.
-The list is empty.
-+
-Use case ends.
-
-* 3a.
-The given index(indices) is(are) invalid.
-+
-[none]
-** 3a1. BakingHome shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: Delete a Sale
-
-*MSS*
-
-1. User requests to list all sales
-2. BakingHome shows a list of sales
-3. User requests to delete a specific sale or multiple sales in the list
-4. BakingHome deletes the sale(s).
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a.
-The list is empty.
-+
-Use case ends.
-
-* 3a.
-The given index(indices) is(are) invalid.
-+
-[none]
-** 3a1. BakingHome shows an error message.
-+
-Use case resumes at step 2.
-
 === Use case: Show a Product
 
 *Precondition:* Bakery manager has at least 1 product in the product list.
@@ -767,6 +710,16 @@ Error details shown in the pop-up bar.
    Expected: Error details shown in the pop-up bar.
 .. Other incorrect commands to try: `sale remove 1,x` (where x is larger than the list size), `sale remove 2~1`
 Expected: Similar to previous
+
+=== Filtering Sales
+
+. Showing only sales between two dates not inclusive of date itself.
+.. Test case: `sale filter -from 01/01/2019 06:00 -to 10/01/2019 06:00` +
+   Expected: Sale entries starting from 02/01/2019 00:00 to 09/01/2019 23:59 are shown.
+.. Test case: `sale -from 01/01/2019 15:00 -to 32/01/2019 15:00` +
+   Expected: Error is shown. Nothing changes to sale.
+Error details shown in the pop-up bar.
+.. Other incorrect delete commands to try: `sale filter -from 02/01/2019 00:00`, `sale filter -to 02/01/2019 00:00` Expected: Similar to previous.
 
 === Buying ingredients 
 
