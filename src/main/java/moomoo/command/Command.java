@@ -1,12 +1,10 @@
 package moomoo.command;
 
-import moomoo.task.ScheduleList;
-import moomoo.task.Budget;
-import moomoo.task.MooMooException;
-import moomoo.task.category.CategoryList;
-import moomoo.task.Ui;
-import moomoo.task.Storage;
-import moomoo.task.category.Category;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.Budget;
+import moomoo.feature.MooMooException;
+import moomoo.feature.category.CategoryList;
+import moomoo.feature.storage.Storage;
 
 /**
  * Represents the various commands to be executed.
@@ -29,13 +27,11 @@ public abstract class Command {
     /**
      * Executes necessary functions for each different command.
      * @param budget Budget object containing the budget.
-     * @param catList CategoryList object containing the categories
-     * @param category Category object containing the expenditures
-     * @param ui Ui object for interaction with user interface.
+     * @param categoryList CategoryList object containing the categories
      * @param storage Storage object for interaction with filesystem.
      * @throws MooMooException Thrown when error such as invalid input occurs
      */
-    public abstract void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
-                        Ui ui, Storage storage)
+    public abstract void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
+                                 Storage storage)
             throws MooMooException;
 }

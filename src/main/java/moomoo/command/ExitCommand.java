@@ -1,12 +1,11 @@
 package moomoo.command;
 
-import moomoo.task.Budget;
-import moomoo.task.MooMooException;
-import moomoo.task.ScheduleList;
-import moomoo.task.Storage;
-import moomoo.task.Ui;
-import moomoo.task.category.CategoryList;
-import moomoo.task.category.Category;
+import moomoo.feature.MooMooException;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.Budget;
+import moomoo.feature.Ui;
+import moomoo.feature.category.CategoryList;
+import moomoo.feature.storage.Storage;
 
 import java.io.IOException;
 
@@ -24,8 +23,8 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
-                        Ui ui, Storage storage) throws MooMooException {
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Storage storage)
+            throws MooMooException {
         try {
             ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c",
                     "chcp", "437", ">", "nul", "2>&1").inheritIO();
@@ -33,6 +32,6 @@ public class ExitCommand extends Command {
         } catch (IOException e) {
             throw new MooMooException("An error has occurred. Please close the terminal.");
         }
-        ui.showGoodbye();
+        Ui.showGoodbye();
     }
 }

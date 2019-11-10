@@ -1,12 +1,11 @@
 package moomoo.command;
 
-import moomoo.task.Budget;
-import moomoo.task.ScheduleList;
-import moomoo.task.Storage;
-import moomoo.task.Ui;
-import moomoo.task.MooMooException;
-import moomoo.task.category.Category;
-import moomoo.task.category.CategoryList;
+import moomoo.feature.Budget;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.Ui;
+import moomoo.feature.storage.Storage;
+import moomoo.feature.MooMooException;
+import moomoo.feature.category.CategoryList;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -30,13 +29,13 @@ public class ListBudgetCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
-                        Ui ui, Storage storage) throws MooMooException {
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
+                        Storage storage) throws MooMooException {
         String outputValue = "";
         double currentBudget = 0;
         if (categories.size() == 0) {
-            for (int i = 0; i < catList.getCategoryList().size(); ++i) {
-                String categoryName = catList.getCategoryList().get(i).toString().toLowerCase();
+            for (int i = 0; i < categoryList.getCategoryList().size(); ++i) {
+                String categoryName = categoryList.getCategoryList().get(i).name().toLowerCase();
                 currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
                     outputValue += "Budget for " + categoryName + " has not been set\n";
@@ -48,7 +47,7 @@ public class ListBudgetCommand extends Command {
             if (outputValue.equals("")) {
                 throw new MooMooException("You have yet to set a budget for any category.");
             }
-            ui.setOutput(outputValue);
+            Ui.setOutput(outputValue);
             return;
         }
 
@@ -56,7 +55,7 @@ public class ListBudgetCommand extends Command {
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i).toLowerCase();
 
-            if (catList.get(categoryName) != null) {
+            if (categoryList.get(categoryName) != null) {
                 currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
                     outputValue += "Budget for " + categoryName + " has not been set.\n";
@@ -68,6 +67,6 @@ public class ListBudgetCommand extends Command {
                 outputValue += categoryName + " category does not exist. Please add it first.\n";
             }
         }
-        ui.setOutput(outputValue);
+        Ui.setOutput(outputValue);
     }
 }
