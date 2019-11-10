@@ -33,6 +33,14 @@ public class SearchCommandTest {
     }
 
     @Test
+    @DisplayName("Test Parser with negative search input")
+    void testParserNegative() {
+        Assertions.assertThrows(ChronologerException.class, () -> {
+            ParserFactory.parse("search -3");
+        });
+    }
+
+    @Test
     @DisplayName("Test Parser with invalid search input")
     void testParserInvalidLong() {
         Assertions.assertThrows(ChronologerException.class, () -> {
