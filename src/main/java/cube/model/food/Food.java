@@ -175,7 +175,7 @@ public class Food {
 	}
 
 	/**
-	 * Check if the product already exists in the inventory.
+	 * Check if the food already exists in the inventory.
 	 *
 	 * @return true if exists, false if otherwise.
 	 */

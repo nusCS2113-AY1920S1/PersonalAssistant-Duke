@@ -68,3 +68,15 @@ public class ProfitCommandTest extends ProfitCommand {
         junit.textui.TestRunner.run(suite());
     }
 }
+
+/*
+
+    // attempt to retrieve a course that does not exist
+     try {
+         stu.getGrade("cs21002");
+         fail("fail to catch non-existent course name");
+    } catch (RuntimeException e) {
+    }
+    public static void main(String arg[]) {
+    }
+ */
