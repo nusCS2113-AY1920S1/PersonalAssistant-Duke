@@ -7,6 +7,7 @@ public class Ui {
     private Scanner scanner;
     private static String outputString = "";
     private static String graphContainerString = "";
+    //@@author chengweixuan
     private String display =
             " _______      __     __     _         _        __      _    _____    __       _           _\n"
                     + "|   _____/    |  |   |   \\   |  |       /_\\      |  "

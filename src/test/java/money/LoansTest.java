@@ -369,7 +369,7 @@ class LoansTest {
         ui.clearOutputString();
         settleEntireLoanCommand.undo(account, ui, storage);
         assertEquals(" Last command undone: \n" + "[Settled] [O] my friends(loan: $500.00) "
-                + "(Lent On: 9/10/1997) (Paid Back On: 9/11/2019)"
+                + "(Lent On: 9/10/1997) (Paid Back On: 10/11/2019)"
                 + " reverted back to previous state.\n", ui.getOutputString());
         MoneyCommand exitCommand = new ExitMoneyCommand();
         exitCommand.execute(account, ui, storage);

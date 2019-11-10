@@ -159,6 +159,10 @@ public class SettleLoanCommand extends MoneyCommand {
                 amount = Float.parseFloat(splitStr[0]);
             }
 
+            if (amount <= 0) {
+                throw new DukeException("Amount settled must be more than zero!\n");
+            }
+
             if (Parser.isNumeric(splitStr[1])) {
                 serialNo = Integer.parseInt(splitStr[1]) - 1;
             } else {
