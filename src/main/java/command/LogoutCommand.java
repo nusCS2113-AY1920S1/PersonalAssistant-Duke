@@ -24,8 +24,7 @@ public class LogoutCommand extends Command {
         if (!userList.getLoginStatus()) {
             throw new DukeException("OOPS!!! You are not currently logged in!");
         }
-        userList.logout();
         ui.addToOutput("You have successfully logged out from: " + userList.getCurrentUser());
-        userList.setCurrentUser(null);
+        userList.logout();
     }
 }

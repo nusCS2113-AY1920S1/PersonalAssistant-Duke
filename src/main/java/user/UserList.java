@@ -26,14 +26,13 @@ public class UserList extends ArrayList<User> {
 
     /**
      * checkExistence checks if the email supplied exists in the user list or not.
-     * @param userList ArrayList of registered usernames
      * @param username username input
      * @return boolean value "found" if email ca be already found in system
      */
-    public static boolean checkExistence(UserList userList, String username) {
+    public boolean checkExistence(String username) {
         boolean found = false;
 
-        for (User i : userList) {
+        for (User i : this) {
             if (i.username.equals(username)) {
                 found = true;
                 break;
@@ -56,23 +55,25 @@ public class UserList extends ArrayList<User> {
         }
     }
 
-    public String getCurrentUser() {
-        return currentUser;
+    public void login(String username) {
+        loginStatus = true;
+        setCurrentUser(username);
     }
 
     public void logout() {
         loginStatus = false;
-    }
-
-    public void setCurrentUser(String username) {
-        currentUser = username;
-    }
-
-    public void login() {
-        loginStatus = true;
+        setCurrentUser(null);
     }
 
     public boolean getLoginStatus() {
         return loginStatus;
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String username) {
+        currentUser = username;
     }
 }
