@@ -228,7 +228,7 @@ public class Storage {
                 String startTimeString = DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(startTime);
                 String endTimeString = DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(endTime);
                 String modCode = string.substring(START_OF_DATA_STRING, string.indexOf(DukeConstants.EVENT_INDICATOR) - LENGTH_TO_END_MODCODE);
-                String description = string.substring(string.indexOf(DukeConstants.REMINDER_TIME_END_KEYWORD) + LENGTH_TO_DESCRIPTION, string.indexOf(EVENT_DATA_TIME_START_KEYWORD) - LENGTH_TO_END_DESCRIPTION);
+                String description = string.substring(string.indexOf(DukeConstants.REMINDER_TIME_END_KEYWORD) + LENGTH_TO_DESCRIPTION, string.indexOf(EVENT_DATA_DATE_START_KEYWORD) - LENGTH_TO_END_DESCRIPTION);
                 line = new Event( modCode+ " " + description, dateString, startTimeString, endTimeString);
             }
             if (string.contains(DukeConstants.DONE_INDICATOR)) {
