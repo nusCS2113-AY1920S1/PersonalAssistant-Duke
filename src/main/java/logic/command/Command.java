@@ -10,8 +10,8 @@ import common.DukeException;
  */
 public abstract class Command {
 
-    public static final String INDEX_NOT_IN_MEMlIST_MESSAGE = "Index is not within the member list.";
-    public static final String INDEX_NOT_IN_TASK_MESSAGE = "Index is not within the task list.";
+    public static final String NAME_NOT_IN_MEMlIST_MESSAGE = " is not in the member list.";
+    public static final String INDEX_NOT_IN_TASK_MESSAGE = " index is not within the task list.";
 
     /**
      * Executes the command and returns the output message. Every command MUST be passed a model
@@ -42,6 +42,16 @@ public abstract class Command {
         } else {
             return true;
         }
+    }
+
+    public boolean checkMemberName(String name, Model model) {
+        int size = model.getMemberListSize();
+        for (int i = 0; i < size; i++) {
+            if (name.equals(model.getMemberNameById(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
