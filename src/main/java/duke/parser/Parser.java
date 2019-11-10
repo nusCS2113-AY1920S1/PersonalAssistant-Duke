@@ -230,9 +230,13 @@ public class Parser {
                     if (typeOfNotes == Numbers.THREE.value) {
                         return new ShowNotesCommand(tasknum);
                     } else if (typeOfNotes == Numbers.TWO.value) {
+                        if (items.get(tasknum).getNotes().equals("empty")) {
+                            throw new DukeException("     (>_<) OOPS!!! The notes description of "
+                                    + items.get(tasknum).toString() + " is already empty!");
+                        }
                         return new DeleteNotesCommand(tasknum);
                     } else if (typeOfNotes == Numbers.ONE.value && notesDesc.isEmpty()) {
-                        throw new DukeException("     (>_<) OOPS!!! The notes description of a "
+                        throw new DukeException("     (>_<) OOPS!!! The notes description of "
                                 + arr[Numbers.ZERO.value] + " cannot be empty.");
                     } else if (typeOfNotes != Numbers.MINUS_ONE.value) {
                         return new AddNotesCommand(notesDesc,tasknum);
