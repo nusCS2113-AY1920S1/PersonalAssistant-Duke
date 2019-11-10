@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 /**
  * This class parses the full command that calls for ShowPreviousParse.
  */
-public class ShowPreviousParse extends Parse{
+public class ShowPreviousParse extends Parse {
     private final Logger LOGGER = DukeLogger.getLogger(ShowPreviousParse.class);
-    private final Integer TOTAL_NUM_OF_COMMANDS = 22;
+    private static final Integer TOTAL_NUM_OF_COMMANDS = 22;
     private String fullCommand;
 
     public ShowPreviousParse(String fullCommand) {
@@ -41,14 +41,16 @@ public class ShowPreviousParse extends Parse{
             isNumber = false;
         }
 
-        String[] listOfAllCommands = {DukeConstants.ADD_DEADLINE_HEADER, DukeConstants.ADD_EVENT_HEADER,
-                DukeConstants.DELETE_DEADLINE_HEADER, DukeConstants.DELETE_EVENT_HEADER, DukeConstants.RECUR_WEEKLY_HEADER,
-                DukeConstants.RECUR_BIWEEKLY_HEADER, DukeConstants.REMOVE_RECUR_WEEKLY_HEADER, DukeConstants.REMOVE_RECUR_BIWEEKLY_HEADER,
-                DukeConstants.REMIND_SET_HEADER, DukeConstants.REMIND_CHECK_HEADER, DukeConstants.REMOVE_REMIND_HEADER,
-                DukeConstants.SHOW_WEEK_HEADER, DukeConstants.SHOW_FILTER_HEADER, DukeConstants.HELP_HEADER,
-                DukeConstants.DONE_EVENT_HEADER, DukeConstants.DONE_DEADLINE_HEADER, DukeConstants.FIND_TIME_HEADER,
-                DukeConstants.SHOW_PREVIOUS_HEADER, DukeConstants.RETRIEVE_PREVIOUS_HEADER,
-                DukeConstants.RETRIEVE_TIME_HEADER, DukeConstants.SHOW_WORKLOAD_HEADER, DukeConstants.BYE_HEADER,};
+        String[] listOfAllCommands = { DukeConstants.ADD_DEADLINE_HEADER, DukeConstants.ADD_EVENT_HEADER,
+            DukeConstants.DELETE_DEADLINE_HEADER, DukeConstants.DELETE_EVENT_HEADER,
+            DukeConstants.RECUR_WEEKLY_HEADER, DukeConstants.RECUR_BIWEEKLY_HEADER,
+            DukeConstants.REMOVE_RECUR_WEEKLY_HEADER, DukeConstants.REMOVE_RECUR_BIWEEKLY_HEADER,
+            DukeConstants.REMIND_SET_HEADER, DukeConstants.REMIND_CHECK_HEADER, DukeConstants.REMOVE_REMIND_HEADER,
+            DukeConstants.SHOW_WEEK_HEADER, DukeConstants.SHOW_FILTER_HEADER, DukeConstants.HELP_HEADER,
+            DukeConstants.DONE_EVENT_HEADER, DukeConstants.DONE_DEADLINE_HEADER, DukeConstants.FIND_TIME_HEADER,
+            DukeConstants.SHOW_PREVIOUS_HEADER, DukeConstants.RETRIEVE_PREVIOUS_HEADER,
+            DukeConstants.RETRIEVE_TIME_HEADER, DukeConstants.SHOW_WORKLOAD_HEADER, DukeConstants.BYE_HEADER
+        };
 
         boolean isValid = false;
         if (isNumber && number < 0) {
@@ -65,12 +67,10 @@ public class ShowPreviousParse extends Parse{
                 entireCommand = entireCommand.replace(".", DukeConstants.NO_FIELD);
                 if (entireCommand.matches("[0-9]+")) {
                     throw new DukeInvalidFormatException(DukeConstants.INVALID_DECIMAL_NUMBER);
-                }
-                else {
+                } else {
                     throw new DukeInvalidFormatException(DukeConstants.NO_AND_INVALID_COMMAND_TYPE);
                 }
-            }
-            else if (!isValid) {
+            } else if (!isValid) {
                 throw new DukeInvalidFormatException(DukeConstants.NO_AND_INVALID_COMMAND_TYPE);
             }
         } else if (number == 0) {

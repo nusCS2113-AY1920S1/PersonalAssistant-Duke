@@ -37,7 +37,8 @@ public class RetrievePreviousCommand extends Command {
      * @throws DukeInvalidCommandException on empty list and invalid index input
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidCommandException, DukeNoValidDataException {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage)
+            throws DukeInvalidCommandException, DukeNoValidDataException {
         fullCommand = fullCommand.replace(DukeConstants.RETRIEVE_PREVIOUS_HEADER, DukeConstants.NO_FIELD);
 
         if (!fullCommand.isEmpty()) {
@@ -73,13 +74,13 @@ public class RetrievePreviousCommand extends Command {
         }
 
         if (isNumber) {
-            if (intFullCommand <= 0 ) {
+            if (intFullCommand <= 0) {
                 isValid = false;
                 throw new DukeInvalidCommandException(DukeConstants.STR_RANGE_FOR_BETWEEN + size + " ,inclusive.");
             } else if (intFullCommand > size) {
                 isValid = false;
                 throw new DukeInvalidCommandException("There are only " + size + " of previous commands."
-                        + DukeConstants.STR_RANGE_FOR_LESS_THAN + size + " .");
+                        + DukeConstants.STR_RANGE_FOR_LESS_THAN + size + " but greater than 0.");
             }
             int index = intFullCommand - 1;
             retrievedOutput = retrievedList.get(index);

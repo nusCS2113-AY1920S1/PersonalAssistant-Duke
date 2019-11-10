@@ -2,7 +2,6 @@ package Commons;
 
 import DukeExceptions.DukeIOException;
 import Tasks.TaskList;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,21 +10,22 @@ import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 /**
- * Deals with pre-loading the jar file with tasks
+ * Deals with pre-loading the jar file with tasks.
  */
 public class PreloadStorage extends Storage {
 
     private final Logger LOGGER = DukeLogger.getLogger(PreloadStorage.class);
 
     /**
-     * Reads and populates the TaskList of events from preloadevent.txt
+     * Reads and populates the TaskList of events from preloadevent.txt.
      * @param list TaskList of events
      * @throws DukeIOException when preloadevent.txt is not found
      */
     @Override
     public void readEventList(TaskList list) throws DukeIOException {
         try {
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/preloadevent.txt");
+            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/"
+                    + "preloadevent.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line;
@@ -39,14 +39,15 @@ public class PreloadStorage extends Storage {
     }
 
     /**
-     * Reads and populates the TaskList of deadlines from preloaddeadline.txt
+     * Reads and populates the TaskList of deadlines from preloaddeadline.txt.
      * @param list TaskList of deadlines
      * @throws DukeIOException when preloaddeadline.txt is not found
      */
     @Override
     public void readDeadlineList(TaskList list) throws DukeIOException {
         try {
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/preloaddeadline.txt");
+            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/"
+                    + "preloaddeadline.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line;

@@ -39,6 +39,9 @@ public class RetrievePreviousCommandTest {
     private StorageStub storageStub = new StorageStub();
     private UserInteraction ui = new UserInteraction();
 
+    /**
+     * This method initializes the variables required.
+     */
     @BeforeAll
     public static void setAllVariables() {
         userInputWithInvalidNumberGreaterThanSize = "retrieve/previous 3";
@@ -51,6 +54,9 @@ public class RetrievePreviousCommandTest {
         userInputWithNegativeNumber = "retrieve/previous -10";
     }
 
+    /**
+     * This method initializes the variables required before a test.
+     */
     @Before
     public void runWeekCommand() {
         String actual = "No error";
@@ -67,6 +73,9 @@ public class RetrievePreviousCommandTest {
         assertNotNull(command, actual);
     }
 
+    /**
+     * This method initializes the variables required before a test.
+     */
     @Before
     public void setRetrievedFreeTimesList() {
         String actual = "No error";
@@ -83,6 +92,9 @@ public class RetrievePreviousCommandTest {
         assertNotNull(command, actual);
     }
 
+    /**
+     * This method initializes the variables required before a test.
+     */
     @Before
     public void showPreviousCommandList() {
         setRetrievedFreeTimesList();
@@ -112,7 +124,7 @@ public class RetrievePreviousCommandTest {
         int sizeOfList = previousInputList.size();
         Command command = new RetrievePreviousCommand(userInputWithInvalidNumberGreaterThanSize);
         String expected = "There are only " + sizeOfList + " of previous commands."
-                + "Please enter a valid number less than or equal to " + sizeOfList + " .";
+                + "Please enter a valid number less than or equal to " + sizeOfList + " but greater than 0.";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);

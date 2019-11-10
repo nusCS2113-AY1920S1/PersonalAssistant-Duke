@@ -39,7 +39,8 @@ public class AddCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display add task message
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidFormatException {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage)
+            throws DukeInvalidFormatException {
         String out = DukeConstants.NO_FIELD;
 
         ArrayList<String> eventConflict;
@@ -49,7 +50,7 @@ public class AddCommand extends Command {
                 eventConflict = checkEventConflict(events, this.task);
             } catch (ParseException e) {
                 LOGGER.severe("Invalid format for adding event");
-                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE +DukeConstants.EVENT_FORMAT);
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_FORMAT);
             }
             int size = events.taskListSize() + 1;
 

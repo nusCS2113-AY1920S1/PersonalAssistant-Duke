@@ -23,7 +23,7 @@ public class DoneCommand extends Command {
      * @param task The task to be mask as done
      * @param list The name of the TaskList that requires changing
      */
-    public DoneCommand(String list, Assignment task){
+    public DoneCommand(String list, Assignment task) {
         this.task = task;
         this.list = list;
     }
@@ -38,7 +38,8 @@ public class DoneCommand extends Command {
      * @throws DukeException On ArrayList out of bound error
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeException {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage)
+            throws DukeException {
         HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
 

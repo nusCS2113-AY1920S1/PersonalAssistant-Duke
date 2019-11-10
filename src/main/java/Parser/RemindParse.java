@@ -2,7 +2,6 @@ package Parser;
 
 import Commands.Command;
 import Commands.RemindCommand;
-import Commons.Duke;
 import Commons.DukeConstants;
 import Commons.DukeLogger;
 import Commons.ModCodeChecker;
@@ -46,7 +45,8 @@ public class RemindParse extends Parse {
         try {
             if (fullCommand.contains(DukeConstants.REMIND_CHECK_KEYWORD)) {
                 Date dummyDate = new Date();
-                return new RemindCommand(new Deadline(DukeConstants.NO_FIELD, DukeConstants.NO_FIELD, DukeConstants.NO_FIELD), dummyDate, false);
+                return new RemindCommand(new Deadline(DukeConstants.NO_FIELD, DukeConstants.NO_FIELD,
+                        DukeConstants.NO_FIELD), dummyDate, false);
             }
             boolean isRemind = false;
             String description;
@@ -61,7 +61,8 @@ public class RemindParse extends Parse {
                 description = modDescriptionCommand.substring(LENGTH_OF_RM).trim();
             }
             if (!super.isValidModCodeAndDescription(description)) {
-                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.DEADLINE_EMPTY_MODCODE_DESCRIPTION_ERROR);
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE
+                        + DukeConstants.DEADLINE_EMPTY_MODCODE_DESCRIPTION_ERROR);
             }
             String checkModCodeString = modDescriptionCommandsplit[1];
             if (!modCodeChecker.isModCode(checkModCodeString)) {
@@ -69,19 +70,24 @@ public class RemindParse extends Parse {
             }
             String taskDescription;
             if (isRemind) {
-                taskDescription = dateDescriptionSplit[0].substring(LENGTH_OF_SET + checkModCodeString.length() + LENGTH_OF_SPACE).trim();
+                taskDescription = dateDescriptionSplit[0].substring(LENGTH_OF_SET + checkModCodeString.length()
+                        + LENGTH_OF_SPACE).trim();
             } else {
-                taskDescription = dateDescriptionSplit[0].substring(LENGTH_OF_RM + checkModCodeString.length() + LENGTH_OF_SPACE).trim();
+                taskDescription = dateDescriptionSplit[0].substring(LENGTH_OF_RM + checkModCodeString.length()
+                        + LENGTH_OF_SPACE).trim();
             }
             if (taskDescription.isEmpty()) {
-                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.DEADLINE_EMPTY_DESCRIPTION_ERROR);
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE
+                        + DukeConstants.DEADLINE_EMPTY_DESCRIPTION_ERROR);
             }
             String deadlineDateRemindDateString = dateDescriptionSplit[1].trim();
-            String[] deadlineDateRemindDateSplit = deadlineDateRemindDateString.split(DukeConstants.REMIND_DATE_DEADLINE_DATE_SPLIT_KEYWORD);
+            String[] deadlineDateRemindDateSplit = deadlineDateRemindDateString.split(
+                    DukeConstants.REMIND_DATE_DEADLINE_DATE_SPLIT_KEYWORD);
             String deadlineDateString = deadlineDateRemindDateSplit[0];
             String remindDateString = deadlineDateRemindDateSplit[1];
             if (!super.isValidTime(deadlineDateString)) {
-                throw new DukeInvalidDateTimeException(DukeConstants.SAD_FACE + DukeConstants.DEADLINE_TIME_FORMAT_ERROR);
+                throw new DukeInvalidDateTimeException(DukeConstants.SAD_FACE
+                        + DukeConstants.DEADLINE_TIME_FORMAT_ERROR);
             }
             if (!super.isValidTime(remindDateString)) {
                 throw new DukeInvalidDateTimeException(DukeConstants.SAD_FACE + DukeConstants.REMIND_TIME_FORMAT_ERROR);
@@ -91,7 +97,8 @@ public class RemindParse extends Parse {
             String deadlineTimeString = dateTime[1];
             remindDateString = dateTime[2];
             Date remindDate = DateTimeParser.deadlineInputStringToDate(remindDateString);
-            return new RemindCommand(new Deadline(description, deadlineDateString, deadlineTimeString), remindDate, isRemind);
+            return new RemindCommand(new Deadline(description, deadlineDateString, deadlineTimeString),
+                    remindDate, isRemind);
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
             LOGGER.severe("Invalid remind format");
             throw new DukeInvalidFormatException(DukeConstants.REMIND_FORMAT);

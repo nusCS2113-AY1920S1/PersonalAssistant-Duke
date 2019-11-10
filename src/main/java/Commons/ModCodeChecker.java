@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 public class ModCodeChecker {
@@ -26,9 +27,9 @@ public class ModCodeChecker {
                 char firstChar = Character.toLowerCase(line.charAt(0));
                 char secondChar = Character.toLowerCase(line.charAt(1));
                 if (!this.mods.containsKey(firstChar)) {
-                   this.mods.put(firstChar, new HashMap<>());
-                   this.mods.get(firstChar).put(secondChar, new TreeSet<>());
-                   this.mods.get(firstChar).get(secondChar).add(line.toLowerCase());
+                    this.mods.put(firstChar, new HashMap<>());
+                    this.mods.get(firstChar).put(secondChar, new TreeSet<>());
+                    this.mods.get(firstChar).get(secondChar).add(line.toLowerCase());
                 } else if (!this.mods.get(firstChar).containsKey(secondChar)) {
                     this.mods.get(firstChar).put(secondChar, new TreeSet<>());
                     this.mods.get(firstChar).get(secondChar).add(line.toLowerCase());
@@ -45,7 +46,7 @@ public class ModCodeChecker {
     }
 
     /**
-     * This method checks if user inputted modCode exist
+     * This method checks if user inputted modCode exist.
      * @param modCode The string of mod code
      * @return true if modCode exist
      */

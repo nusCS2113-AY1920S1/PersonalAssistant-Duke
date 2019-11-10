@@ -22,7 +22,7 @@ public class DateTimeParser {
      * @return The String array containing all the dates.
      * @throws ParseException On wrong date format to parse.
      */
-    public static String[] EventParse(String input) throws ParseException, DukeInvalidDateTimeException {
+    public static String[] eventParse(String input) throws ParseException, DukeInvalidDateTimeException {
 
         dateTimeStringSplit = input.trim().split(DukeConstants.EVENT_DATE_SPLIT_KEYWORD);
         String weekDate = DukeConstants.NO_FIELD;
@@ -49,14 +49,14 @@ public class DateTimeParser {
      * @return The String array containing all the dates.
      * @throws ParseException On wrong date format to parse.
      */
-    public static String[] DeadlineParse(String input) throws ParseException, DukeInvalidDateTimeException {
+    public static String[] deadlineParse(String input) throws ParseException, DukeInvalidDateTimeException {
 
         dateTimeStringSplit = input.trim().split(DukeConstants.BLANK_SPACE);
         String weekDate;
         String commandSplit;
         dateStringSplit = dateTimeStringSplit[0].trim().split(DukeConstants.BLANK_SPACE);
         weekDate = dateStringSplit[0];
-        int dateOfTask =  input.length()-DukeConstants.LENGTH_OF_TIME_FORMAT;
+        int dateOfTask =  input.length() - DukeConstants.LENGTH_OF_TIME_FORMAT;
         commandSplit = input.substring(0, dateOfTask);
         weekDate = WeekFormatParse.acadWeekToString(weekDate,commandSplit.trim());
         String time = input.substring(dateOfTask).trim();
@@ -112,14 +112,14 @@ public class DateTimeParser {
         dateTimeStringSplit = input.trim().split(DukeConstants.REMIND_DATE_DEADLINE_DATE_SPLIT_KEYWORD);
         String[] taskDateTimeStringSplit = dateTimeStringSplit[0].trim().split(DukeConstants.BLANK_SPACE);
         String weekDate = taskDateTimeStringSplit[0].trim();
-        int deadlineDateLength = dateTimeStringSplit[0].length()-DukeConstants.LENGTH_OF_TIME_FORMAT;
+        int deadlineDateLength = dateTimeStringSplit[0].length() - DukeConstants.LENGTH_OF_TIME_FORMAT;
         String deadlineDate = dateTimeStringSplit[0].substring(0, deadlineDateLength);
         deadlineDate = WeekFormatParse.acadWeekToString(weekDate, deadlineDate);
         String time = dateTimeStringSplit[0].substring(deadlineDateLength);
         deadlineDate = deadlineDate + time;
         String[] reminderDateTimeStringSplit = dateTimeStringSplit[1].trim().split(DukeConstants.BLANK_SPACE);
         weekDate = reminderDateTimeStringSplit[0].trim();
-        int reminderDateLength = dateTimeStringSplit[1].length()-DukeConstants.LENGTH_OF_TIME_FORMAT;
+        int reminderDateLength = dateTimeStringSplit[1].length() - DukeConstants.LENGTH_OF_TIME_FORMAT;
         String reminderDate = dateTimeStringSplit[1].substring(0, reminderDateLength);
         reminderDate = WeekFormatParse.acadWeekToString(weekDate, reminderDate);
         time = dateTimeStringSplit[1].substring(reminderDateLength);

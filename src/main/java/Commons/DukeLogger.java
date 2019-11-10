@@ -3,7 +3,11 @@ package Commons;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.logging.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 
 /**
  * Custom log handler solution taken from
@@ -13,7 +17,8 @@ import java.util.logging.*;
 public class DukeLogger {
     private static final int MAX_FILE_COUNT = 5;
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
-    private static final String LOG_FILE = System.getProperty("user.dir") + File.separator + "data" + File.separator + "dukeLogger.log";
+    private static final String LOG_FILE = System.getProperty("user.dir") + File.separator + "data"
+            + File.separator + "dukeLogger.log";
     private static Level currentLogLevel = Level.INFO;
     private static final Logger logger = DukeLogger.getLogger(DukeLogger.class);
     private static FileHandler fileHandler;

@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class WeekParseTest {
     private static final String INVALID_EMPTY_WEEK = "Invalid Input.\n"
             + "The week cannot be blank.\nPlease enter the command as follows.\n"
-            + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
-            + "'x' is either 'recess', 'reading', or 'exam'";
+            + "show/week <x> , where x is a digit between 1 - 13, inclusive or \n"
+            + "x is either 'recess', 'reading', or 'exam'";
     private static final String INVALID_WEEK = "Invalid Week. Please enter the command as follows. \n"
-            + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
-            + "'x' is either 'recess', 'reading', or 'exam'";
+            + "show/week <x> , where x is a digit between 1 - 13, inclusive or \n"
+            + "x is either 'recess', 'reading', or 'exam'";
 
     private static String validUserInputWithDigitWeek;
     private static String validUserInputWithRecessWeek;
@@ -34,6 +34,9 @@ public class WeekParseTest {
 
     private static String userInputWithoutWeek;
 
+    /**
+     * This method initializes the variables required.
+     */
     @BeforeAll
     public static void setAllVariables() {
         validUserInputWithDigitWeek = "show/week 5";

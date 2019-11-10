@@ -86,20 +86,20 @@ public class ShowWorkloadCommand extends Command {
      */
     private int dayToInt(String day) {
         switch (day) {
-            case "Mon":
-                return 1;
-            case "Tue":
-                return 2;
-            case "Wed":
-                return 3;
-            case "Thu":
-                return 4;
-            case "Fri":
-                return 5;
-            case "Sat":
-                return 6;
-            default:
-                return 7;
+        case "Mon":
+            return 1;
+        case "Tue":
+            return 2;
+        case "Wed":
+            return 3;
+        case "Thu":
+            return 4;
+        case "Fri":
+            return 5;
+        case "Sat":
+            return 6;
+        default:
+            return 7;
         }
     }
 
@@ -113,7 +113,8 @@ public class ShowWorkloadCommand extends Command {
      * @throws ParseException on array index out of bound
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws ParseException {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage)
+            throws ParseException {
         String workloadWeek = lookupTable.getValue(week);
         HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();

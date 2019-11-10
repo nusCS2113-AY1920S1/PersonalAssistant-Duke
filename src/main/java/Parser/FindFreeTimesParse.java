@@ -5,8 +5,6 @@ import Commands.FindFreeTimesCommand;
 import Commons.DukeConstants;
 import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidFormatException;
-
-import java.text.ParseException;
 import java.util.logging.Logger;
 
 /**
@@ -15,7 +13,6 @@ import java.util.logging.Logger;
 public class FindFreeTimesParse extends Parse {
     private final Logger LOGGER = DukeLogger.getLogger(FindFreeTimesParse.class);
     private String fullCommand;
-
 
     /**
      * Creates FindFreeTimesParse object.
