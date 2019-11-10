@@ -26,7 +26,7 @@ public class FullModifyLimitCommand extends ModifyLimitCommand {
     public void execute(DollaData dollaData) {
         Limit newLimit = new Limit(type, amount, duration);
         LimitList limitList = (LimitList) dollaData.getRecordListObj(mode);
-        int duplicateLimitIndex = limitList.findExistingRecordIndex(dollaData, newLimit, mode);
+        int duplicateLimitIndex = limitList.findExistingLimitIndex(dollaData, newLimit, mode);
         int indexToModify = dollaData.getModifyIndex();
 
         if (isNewLimitValid(duplicateLimitIndex, indexToModify)) {

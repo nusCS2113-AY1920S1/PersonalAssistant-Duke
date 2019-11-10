@@ -54,15 +54,28 @@ public class RecordList {
         list.add(modifyIndex, newRecord);
     }
 
-    public int findExistingRecordIndex(DollaData dollaData, Record record, String mode) {
-        return 0;
-    }
-
     public void setRecordList(ArrayList<Record> recordList) {
         this.list = recordList;
     }
 
     public boolean isEmpty() {
         return list.isEmpty();
+    }
+
+    /**
+     * Method checks to see if the specified record already exists.
+     * @param inputRecord The record to be compared against.
+     * @return index of the currently existing record (is - 1 if not found)
+     */
+    public int findExistingRecordIndex(Record inputRecord) {
+        for (int i = 0; i < list.size(); i += 1) {
+            Record cmpRecord = list.get(i);
+            System.out.println(inputRecord.getRecordDetail());
+            System.out.println(cmpRecord.getRecordDetail());
+            if (inputRecord.getRecordDetail().equals(cmpRecord.getRecordDetail())) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

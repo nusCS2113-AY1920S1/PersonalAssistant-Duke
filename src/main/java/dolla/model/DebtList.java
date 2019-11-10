@@ -2,7 +2,6 @@ package dolla.model;
 
 import dolla.storage.StorageWrite;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 //@@author tatayu
@@ -33,36 +32,6 @@ public class DebtList extends RecordList {
         StorageWrite.setDebts(get());
     }
 
-    /**
-     * Method to check if input debt already exists.
-     * @param dollaData The storage container for all the lists.
-     * @param inputRecord The debt being input by the user.
-     * @param mode The mode the user is on (debt).
-     * @return index of the currently existing debt (is - 1 if not found)
-     */
-    @Override
-    public int findExistingRecordIndex(DollaData dollaData, Record inputRecord, String mode) {
-        Debt debt = (Debt) inputRecord;
-        int index = - 1;
-        DebtList debtList = (DebtList) dollaData.getRecordListObj(mode);
-        for (int i = 0; i < debtList.size(); i++) {
-            Debt currDebt = (Debt) (debtList.getFromList(i));
-            String currType = currDebt.type;
-            String currName = currDebt.name;
-            double currAmount = currDebt.amount;
-            String currDescription = currDebt.description;
-            LocalDate currDate = currDebt.date;
-            if (currType.equals(debt.type)
-                && currAmount == debt.amount
-                && currDescription.equals(debt.description)
-                && currDate.equals(debt.date)
-                && currName.equals(debt.name)) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
 
     @Override
     protected void addWithIndex(int modifyIndex, Record newRecord) {

@@ -38,7 +38,7 @@ public class AddLimitCommand extends Command {
         UndoStateList.addState(new LimitState(limitList.get()), mode);///////////////////////////////////////
         Redo.clearRedoState(mode);
 
-        int duplicateLimitIndex = limitList.findExistingRecordIndex(dollaData, newLimit, mode);
+        int duplicateLimitIndex = limitList.findExistingLimitIndex(dollaData, newLimit, mode);
         if (recordDoesNotExist(duplicateLimitIndex)) {
             dollaData.addToRecordList(mode, newLimit);
             LimitUi.echoAddRecord(newLimit);

@@ -45,8 +45,7 @@ public class LimitList extends RecordList {
      * @param mode The mode the user is on.
      * @return index of the currently existing limit (is - 1 if not found)
      */
-    @Override
-    public int findExistingRecordIndex(DollaData dollaData, Record inputRecord, String mode) {
+    public int findExistingLimitIndex(DollaData dollaData, Record inputRecord, String mode) {
         Limit inputLimit = (Limit) inputRecord;
         int index = - 1;
         LimitList limitList = (LimitList) dollaData.getRecordListObj(mode);
