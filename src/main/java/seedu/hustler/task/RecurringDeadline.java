@@ -1,6 +1,8 @@
 package seedu.hustler.task;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import seedu.hustler.Hustler;
 import seedu.hustler.task.variables.Difficulty;
 import seedu.hustler.task.variables.Tag;
@@ -60,7 +62,7 @@ public class RecurringDeadline extends Deadline {
     @Override
     public LocalDateTime getDateTime() {
         if (LocalDateTime.now().isAfter(this.by) && !hasRecurred) {
-            addNextRecurrence();
+            addNextRecurrence(Hustler.list);
         }
         return this.by;
     }
@@ -69,7 +71,7 @@ public class RecurringDeadline extends Deadline {
     public void markAsDone() {
         this.isDone = true;
         if (!hasRecurred) {
-            addNextRecurrence();
+            addNextRecurrence(Hustler.list);
         }
     }
 
@@ -77,11 +79,21 @@ public class RecurringDeadline extends Deadline {
      * Adds the next recurrence of the RecurringDeadline
      * to the task list based on its period.
      */
-    public void addNextRecurrence() {
+    public void addNextRecurrence(TaskList list) {
         LocalDateTime nextBy = this.by.plusMinutes(period);
         System.out.println("\tNext recurrence of this Deadline has been added!");
-        Hustler.list.add(new RecurringDeadline(description, nextBy, difficulty, tag,
+        list.add(new RecurringDeadline(description, nextBy, difficulty, tag,
                 LocalDateTime.now(), frequency, period));
         this.hasRecurred = true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RecurringDeadline // instanceof handles nulls
+                && description.equals(((RecurringDeadline) other).description) // check various attributes
+                && getDateTime().equals(((RecurringDeadline) other).getDateTime())
+                && frequency.equals(((RecurringDeadline) other).frequency)
+                && (period == ((RecurringDeadline) other).period));
     }
 }
