@@ -75,6 +75,7 @@ For Windows 10:
 
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/date_format_windows.png">
 For Mac OS:  
+
 1. Press command + space (opens spotlight search)  
 2. Key in Date & Time  
 3. Press enter  
@@ -101,11 +102,9 @@ _Adds a task to the list_
   <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_E_INPUT.png">
 2. System: Shows progress indicator
   <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_E_PI.png">
-3. System: Shows response  
-Event will be added.
+3. System: Shows response: Event will be added.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_E_RESPONSE.png">
-4. System: Update Calendar   
-Event will be populated.
+4. System: Update Calendar: Event will be populated.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_E_CALENDAR.png">
 
 ### Example: Adding a deadline
@@ -114,11 +113,9 @@ Event will be populated.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_D_INPUT.png">
 2. System: Shows progress indicator
   <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_D_PI.png">
-3. System: Shows response  
-Event will be added.
+3. System: Shows response: Event will be added.
     <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_D_RESPONSE.png">
-4. System: Update Calendar   
-Event will be populated.
+4. System: Update Calendar: Event will be populated.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_D_LIST.png">
 
 
@@ -135,11 +132,9 @@ Event will be populated.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_E_INPUT.png">
 2.System: Shows progress indicator
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_E_PI.png">
-3.System: Shows response  
-Task will be marked done.
+3.System: Shows response: Task will be marked done.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_E_RESPONSE.png">
-4.System: Update Calendar   
-Task will be striked out.
+4.System: Update Calendar: Task will be striked out.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_E_CALENDAR.png">
 
 ### Example: Set an deadline as done
@@ -148,8 +143,7 @@ Task will be striked out.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_D_INPUT.png">
 2.System: Shows progress indicator
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_D_PI.png">
-3.System: Shows response  
-Task will be marked done.
+3.System: Shows response :Task will be marked done.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_D_RESPONSE.png">
 
 
@@ -165,11 +159,9 @@ _Delete a task from the list_
 2. System: Shows progress indicator  
 Progress bar would be removed if no tasks are in the module.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DELETE/DELETE_E_PI.png">
-3. System: Shows response  
-Task will be removed.
+3. System: Shows response : Task will be removed.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DELETE/DELETE_E_RESPONSE.png">   
-4. System: Update Calendar 
-Task is removed.
+4. System: Update Calendar : Task is removed.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DELETE/DELETE_E_CALENDAR.png">
 
 ### Example: Deleting a deadline
@@ -179,8 +171,7 @@ Task is removed.
 2. System: Shows progress indicator  
 Progress bar would be removed if no tasks are in the module.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DELETE/DELETE_D_PI.png">
-3. System: Shows response  
-Task will be removed.
+3. System: Shows response  : Task will be removed.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DELETE/DELETE_D_RESPONSE.png">
 
 
