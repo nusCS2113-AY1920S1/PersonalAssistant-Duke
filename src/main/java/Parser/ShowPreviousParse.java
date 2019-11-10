@@ -2,6 +2,7 @@ package Parser;
 
 import Commands.Command;
 import Commands.ShowPreviousCommand;
+import Commons.Duke;
 import Commons.DukeConstants;
 import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidFormatException;
@@ -29,8 +30,7 @@ public class ShowPreviousParse extends Parse{
         entireCommand = entireCommand.trim();
 
         if (entireCommand.isEmpty()) {
-            throw new DukeInvalidFormatException("Invalid input. Please enter format: show/previous <num>" +
-                    "OR show/previous <command type>");
+            throw new DukeInvalidFormatException(DukeConstants.SHOW_PREVIOUS_FORMAT);
         }
 
         boolean isNumber = true;
@@ -53,7 +53,7 @@ public class ShowPreviousParse extends Parse{
 
         boolean isValid = false;
         if (isNumber && number < 0) {
-            throw new DukeInvalidFormatException("Invalid Input. Cannot enter negative number. Please enter a valid integer greater than 0");
+            throw new DukeInvalidFormatException(DukeConstants.INVALID_NEGATIVE_NUMBER);
         } else if (!isNumber) {
             for (int i = 0; i < TOTAL_NUM_OF_COMMANDS; i++) {
                 String currCommand = listOfAllCommands[i];
@@ -65,17 +65,17 @@ public class ShowPreviousParse extends Parse{
             if (entireCommand.contains(".")) {
                 entireCommand = entireCommand.replace(".", "");
                 if (entireCommand.matches("[0-9]+")) {
-                    throw new DukeInvalidFormatException("Please enter an integer for x for the command show/previous <x>.");
+                    throw new DukeInvalidFormatException(DukeConstants.INVALID_DECIMAL_NUMBER);
                 }
                 else {
-                    throw new DukeInvalidFormatException("Invalid Input. There is no such command type in previous input");
+                    throw new DukeInvalidFormatException(DukeConstants.NO_AND_INVALID_COMMAND_TYPE);
                 }
             }
             else if (!isValid) {
-                throw new DukeInvalidFormatException("Invalid Input. There is no such command type in previous input");
+                throw new DukeInvalidFormatException(DukeConstants.NO_AND_INVALID_COMMAND_TYPE);
             }
         } else if (number == 0) {
-            throw new DukeInvalidFormatException("Please enter a valid integer greater than 0");
+            throw new DukeInvalidFormatException(DukeConstants.INVALID_NUMBER_ZERO);
         }
         return new ShowPreviousCommand(entireCommand);
     }

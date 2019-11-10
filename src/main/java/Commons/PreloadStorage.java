@@ -26,7 +26,7 @@ public class PreloadStorage extends Storage {
             }
         } catch (IOException e) {
             LOGGER.severe("There is no event.txt to read from.");
-            throw new DukeIOException("There is no preloadevent.txt to read from. Please create one.");
+            throw new DukeIOException(DukeConstants.NO_PRELOAD_EVENT_TXT);
         }
     }
 
@@ -42,7 +42,7 @@ public class PreloadStorage extends Storage {
             }
         } catch (IOException e) {
             LOGGER.severe("There is no event.txt to read from.");
-            throw new DukeIOException("There is no preloaddeadline.txt to read from. Please create one.");
+            throw new DukeIOException(DukeConstants.NO_PRELOAD_DEADLINE_TXT);
         }
     }
 }
