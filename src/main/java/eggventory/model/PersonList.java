@@ -151,14 +151,13 @@ public final class PersonList {
      * @return The String will be directly saved into a saved_stocktypes file.
      */
     public String savePersonListString() {
-        StringBuilder stockTypesString = new StringBuilder();
+        StringBuilder personString = new StringBuilder();
 
         for (Person person : personList) {
-            stockTypesString.append(person.savedPersonString()).append("\n");
+            personString.append(person.savedPersonString()).append("\n");
         }
-        System.out.println(stockTypesString.toString());
 
-        return stockTypesString.toString();
+        return personString.toString();
     }
     //@@author
 

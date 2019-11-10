@@ -43,6 +43,15 @@ public class AddStockCommand extends Command {
         this.minimumQuantity = minimumQuantity;
     }
 
+    //@@author cyanoei
+
+    /**
+     * Handles the adding of a minimum quantity to the stock's record.
+     * @param list the stockList the stock is stored in.
+     * @param minimumQuantity the integer value of the minimum quantity.
+     * @return the output string to print.
+     * @throws BadInputException if the minimum quantity is negative.
+     */
     private String addMinQuantity(StockList list, int minimumQuantity) throws BadInputException {
         String output = "";
         list.setStock(stockCode, StockProperty.MINIMUM, Integer.toString(minimumQuantity));
@@ -51,6 +60,21 @@ public class AddStockCommand extends Command {
         output += QuantityManager.checkMinimum(list.findStock(stockCode));
         return output;
     }
+
+    /**
+     * If stockType is already in the list, returns the stockType. Else converts the stockType to Uncategorised.
+     * @param list the stockList to search.
+     * @param stockType the stockType of the stock being added.
+     * @return the actual stockType assigned by the system.
+     */
+    private String specifyUncategorisedStockType(StockList list, String stockType) {
+        if (!list.isExistingStockType(stockType)) {
+            return "Uncategorised";
+        }
+        return stockType;
+    }
+
+    //@@author
 
     /**
      * Executes the actual adding of stock to the StockType.
@@ -68,6 +92,9 @@ public class AddStockCommand extends Command {
                     + " assigned to a stock in the system. Please enter a different stock code.", stockCode));
         } else {
             list.addStock(stockType, stockCode, quantity, description);
+
+            stockType = specifyUncategorisedStockType(list, stockType);
+
             output = String.format("Nice! I have successfully added the stock: StockType: %s StockCode: %s "
                     + "Quantity: %d Description: %s", stockType, stockCode, quantity, description);
 
