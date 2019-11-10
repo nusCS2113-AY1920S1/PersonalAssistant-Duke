@@ -10,7 +10,6 @@ import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
 import static duke.logic.message.ProductMessageUtils.MESSAGE_EMPTY_INDICES;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INDEX;
 
 public class ShowProductCommandParser implements Parser<ShowProductCommand> {
 

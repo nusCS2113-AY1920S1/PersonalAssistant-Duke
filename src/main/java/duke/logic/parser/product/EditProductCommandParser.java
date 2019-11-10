@@ -8,7 +8,6 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INDEX;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
@@ -21,7 +20,6 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
     @Override
     public EditProductCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
-                PREFIX_PRODUCT_INDEX,
                 PREFIX_PRODUCT_NAME,
                 PREFIX_PRODUCT_INGREDIENT,
                 PREFIX_PRODUCT_RETAIL_PRICE,
@@ -32,7 +30,7 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(map.getValue(PREFIX_PRODUCT_INDEX).orElse(""));
+            index = ParserUtil.parseIndex(map.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(Message.MESSAGE_INVALID_INDEX);
         }
