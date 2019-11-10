@@ -16,21 +16,25 @@ public class PartialModifyEntryCommandTest implements ModeStringList {
     @Test
     public void execute() {
         DollaData dollaData = new DollaDataEntryStub1();
+        int indexToModify = 1;
+        int recordNum = indexToModify + 1;
 
         String newType = "expense";
         double newAmount = 999;
-        String newDesc = "WOW";
-        LocalDate newDate = LocalDate.parse("2000-11-11");
-        Entry newEntry = new Entry(newType, newAmount, newDesc, newDate);
+        String newDesc = null;
+        LocalDate newDate = null;
 
-        int indexToModify = 1;
-        int recordNum = indexToModify + 1;
+        Record ogEntry = dollaData.getRecordFromList(MODE_ENTRY, indexToModify);
+        String ogDesc = ogEntry.getDescription();
+        LocalDate ogDate = ogEntry.getDate();
+
+        Entry modifiedEntry = new Entry(newType, newAmount, ogDesc, ogDate);
 
         PartialModifyEntryCommand modifyCommand =
                 new PartialModifyEntryCommand(recordNum, newType, newAmount, newDesc, newDate);
         modifyCommand.execute(dollaData);
 
         Record cmpEntry = dollaData.getRecordFromList(MODE_ENTRY, indexToModify);
-        assertEquals(newEntry.getRecordDetail(), cmpEntry.getRecordDetail());
+        assertEquals(modifiedEntry.getRecordDetail(), cmpEntry.getRecordDetail());
     }
 }

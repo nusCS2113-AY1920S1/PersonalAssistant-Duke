@@ -16,22 +16,25 @@ public class PartialModifyDebtCommandTest implements ModeStringList {
     @Test
     public void execute() {
         DollaData dollaData = new DollaDataDebtStub1();
-
-        String newType = "owe";
-        double newAmount = 999;
-        String newName = "Alexander";
-        String newDesc = "Owe Money Pay Money";
-        LocalDate newDate = LocalDate.parse("2000-11-11");
-        Debt newDebt = new Debt(newType, newName, newAmount, newDesc, newDate);
-
         int indexToModify = 1;
         int recordNum = indexToModify + 1;
+
+        String newType = null;
+        double newAmount = 999;
+        String newName = null;
+        String newDesc = "Owe Money Pay Money";
+        LocalDate newDate = LocalDate.parse("2000-11-11");
+
+        Record ogDebt = dollaData.getRecordFromList(MODE_DEBT, indexToModify);
+        String ogType = ogDebt.getType();
+        String ogName = ogDebt.getName();
+        Debt modifiedDebt = new Debt(ogType, ogName, newAmount, newDesc, newDate);
 
         PartialModifyDebtCommand modifyCommand =
                 new PartialModifyDebtCommand(recordNum, newType, newName, newAmount, newDesc, newDate);
         modifyCommand.execute(dollaData);
 
         Record cmpDebt = dollaData.getRecordFromList(MODE_DEBT, indexToModify);
-        assertEquals(newDebt.getRecordDetail(), cmpDebt.getRecordDetail());
+        assertEquals(modifiedDebt.getRecordDetail(), cmpDebt.getRecordDetail());
     }
 }
