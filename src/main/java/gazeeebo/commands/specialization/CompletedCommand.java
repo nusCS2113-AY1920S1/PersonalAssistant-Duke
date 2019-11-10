@@ -23,7 +23,7 @@ public class CompletedCommand {
      * @param specMap       the map that map list of respective specializations
      * @param completedEMap the map that maps the completed electives to
      *                      their respective specializations
-     * @throws IOException   catch any error if read file fails
+     * @throws IOException catch any error if read file fails
      */
     public CompletedCommand(final Ui ui, final Storage storage,
                             final Map<String, ArrayList<ModuleCategory>>
@@ -37,21 +37,21 @@ public class CompletedCommand {
         final int interactiveDigitalMediaIndex = 4;
         final int largeScaleComputingIndex = 5;
         final int sysDesignIndex = 6;
-        try {
-            ArrayList<String> completedElectiveList = new ArrayList();
-            System.out.println("Which specialization number "
-                    + "is your module under?");
-            ArrayList<String> specList = new ArrayList<String>();
-            specList.add("Communications & Networking"); //index 0
-            specList.add("Embedded Computing"); //index 1
-            specList.add("Intelligent Systems"); //index 2
-            specList.add("Interactive Digital Media"); //index 3
-            specList.add("Large-Scale Computing"); //index 4
-            specList.add("System-On-A-Chip Design"); //index 5
-            for (int i = 0; i < specList.size(); i++) {
-                System.out.println(i + 1 + ". " + specList.get(i));
-            }
 
+        ArrayList<String> completedElectiveList = new ArrayList();
+        System.out.println("Which specialization number "
+                + "is your module under?");
+        ArrayList<String> specList = new ArrayList<String>();
+        specList.add("Communications & Networking"); //index 0
+        specList.add("Embedded Computing"); //index 1
+        specList.add("Intelligent Systems"); //index 2
+        specList.add("Interactive Digital Media"); //index 3
+        specList.add("Large-Scale Computing"); //index 4
+        specList.add("System-On-A-Chip Design"); //index 5
+        for (int i = 0; i < specList.size(); i++) {
+            System.out.println(i + 1 + ". " + specList.get(i));
+        }
+        try {
             ui.readCommand();
             int specNumber = Integer.parseInt(ui.fullCommand);
             if (specNumber < 0 || specNumber == 0
@@ -81,11 +81,7 @@ public class CompletedCommand {
 
             ui.readCommand();
             int moduleCodeIndex = Integer.parseInt(ui.fullCommand);
-            if (moduleCodeIndex < 0 || moduleCodeIndex == 0 || moduleCodeIndex
-                    > specMap.get(checkKey).size()) {
-                throw new DukeException("The module index"
-                        + " does not exist.");
-            }
+
             String moduleCode
                     = specMap.get(checkKey).get(moduleCodeIndex - 1).code;
             boolean isEqual = false;
@@ -172,10 +168,12 @@ public class CompletedCommand {
                         + toStoreLS + "\n" + toStoreSC;
                 completedElectivesStorage.writeToCompletedElectivesFile(allCompletedE);
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Please only key in the index.");
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Please key in numbers only.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.print("Specialization index does not exist.\n");
         }
     }
 }

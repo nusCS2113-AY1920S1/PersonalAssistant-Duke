@@ -69,9 +69,6 @@ public class ListSpecializationCommand {
             String specNumber = ui.fullCommand;
             int specChosen = Integer.parseInt(specNumber);
 
-            if (specChosen < 0 || specChosen > specList.size()) {
-                throw new DukeException("Specialization index does not exist.");
-            }
             System.out.println("You have chosen "
                     + specList.get(specChosen - 1)
                     + ".");
@@ -102,29 +99,24 @@ public class ListSpecializationCommand {
 
                 System.out.println("\n");
                 System.out.println("You have completed:");
-                if (completedEMap.isEmpty()) {
-                    System.out.println("NIL");
-                } else {
-                    for (int i = 0;
-                         i < completedEMap.get(
-                                 specList.get(specChosen - 1)
-                         ).size();
-                         i++) {
-                        System.out.println(i + 1 + ". "
-                                + completedEMap.get(
-                                specList.get(specChosen - 1)
-                        ).get(i));
+                for (String key : completedEMap.keySet()) {
+                    if (key.equals(specList.get(specChosen - 1))) {
+                        for (int i = 0; i < completedEMap.get(specList.get(specChosen - 1)).size(); i++) {
+                            System.out.println(i + 1 + ". "
+                                    + completedEMap.get(specList.get(specChosen - 1)).get(i));
+                        }
                     }
                 }
+
                 System.out.println("\n");
                 System.out.println("MCs completed:");
-                if (completedEMap.isEmpty()) {
-                    System.out.println("NIL");
-                } else {
-                    System.out.println(completedEMap.get(
-                            specList.get(specChosen - 1)
-                    ).size() * MODULAR_CREDITS + "/20");
+                for (String key : completedEMap.keySet()) {
+                    if (key.equals(specList.get(specChosen - 1))) {
+                        System.out.println(completedEMap.get(specList.get(specChosen - 1)).size()
+                                * MODULAR_CREDITS + "/20");
+                    }
                 }
+
             } else if (specChosen == EMBEDDED_COMPUTING_INDEX) {
                 System.out.println("Breadth:");
                 for (int i = 0; i < specMap.get("Embedded"
@@ -152,26 +144,22 @@ public class ListSpecializationCommand {
 
                 System.out.println("\n");
                 System.out.println("You have completed:");
-                if (completedEMap.isEmpty()) {
-                    System.out.println("NIL");
-                } else {
-                    for (int i = 0; i < completedEMap.get(
-                            specList.get(specChosen - 1)
-                    ).size(); i++) {
-                        System.out.println(i + 1 + ". "
-                                + completedEMap.get(
-                                specList.get(specChosen - 1)
-                        ).get(i));
+                for (String key : completedEMap.keySet()) {
+                    if (key.equals(specList.get(specChosen - 1))) {
+                        for (int i = 0; i < completedEMap.get(specList.get(specChosen - 1)).size(); i++) {
+                            System.out.println(i + 1 + ". "
+                                    + completedEMap.get(specList.get(specChosen - 1)).get(i));
+                        }
                     }
                 }
+
                 System.out.println("\n");
                 System.out.println("MCs completed:");
-                if (completedEMap.isEmpty()) {
-                    System.out.println("NIL");
-                } else {
-                    System.out.println(completedEMap.get(
-                            specList.get(specChosen - 1)
-                    ).size() * MODULAR_CREDITS + "/20");
+                for (String key : completedEMap.keySet()) {
+                    if (key.equals(specList.get(specChosen - 1))) {
+                        System.out.println(completedEMap.get(specList.get(specChosen - 1)).size()
+                                * MODULAR_CREDITS + "/20");
+                    }
                 }
             } else if (specChosen == INTELLIGENT_SYSTEMS_INDEX) {
                 System.out.println("Breadth:");
@@ -198,26 +186,22 @@ public class ListSpecializationCommand {
 
                 System.out.println("\n");
                 System.out.println("You have completed:");
-                if (completedEMap.isEmpty()) {
-                    System.out.println("NIL");
-                } else {
-                    for (int i = 0; i < completedEMap.get(
-                            specList.get(specChosen - 1)
-                    ).size(); i++) {
-                        System.out.println(i + 1 + ". "
-                                + completedEMap.get(
-                                specList.get(specChosen - 1)
-                        ).get(i));
+                for (String key : completedEMap.keySet()) {
+                    if (key.equals(specList.get(specChosen - 1))) {
+                        for (int i = 0; i < completedEMap.get(specList.get(specChosen - 1)).size(); i++) {
+                            System.out.println(i + 1 + ". "
+                                    + completedEMap.get(specList.get(specChosen - 1)).get(i));
+                        }
                     }
                 }
+
                 System.out.println("\n");
                 System.out.println("MCs completed:");
-                if (completedEMap.isEmpty()) {
-                    System.out.println("NIL");
-                } else {
-                    System.out.println(completedEMap.get(
-                            specList.get(specChosen - 1)
-                    ).size() * MODULAR_CREDITS + "/20");
+                for (String key : completedEMap.keySet()) {
+                    if (key.equals(specList.get(specChosen - 1))) {
+                        System.out.println(completedEMap.get(specList.get(specChosen - 1)).size()
+                                * MODULAR_CREDITS + "/20");
+                    }
                 }
             } else if (specChosen == INTERACTIVE_DIGITAL_MEDIA_INDEX) {
                 System.out.println("Breadth:");
@@ -244,26 +228,22 @@ public class ListSpecializationCommand {
 
                 System.out.println("\n");
                 System.out.println("You have completed:");
-                if (completedEMap.isEmpty()) {
-                    System.out.println("NIL");
-                } else {
-                    for (int i = 0; i < completedEMap.get(
-                            specList.get(specChosen - 1)
-                    ).size(); i++) {
-                        System.out.println(i + 1 + ". "
-                                + completedEMap.get(
-                                specList.get(specChosen - 1)
-                        ).get(i));
+                for (String key : completedEMap.keySet()) {
+                    if (key.equals(specList.get(specChosen - 1))) {
+                        for (int i = 0; i < completedEMap.get(specList.get(specChosen - 1)).size(); i++) {
+                            System.out.println(i + 1 + ". "
+                                    + completedEMap.get(specList.get(specChosen - 1)).get(i));
+                        }
                     }
                 }
+
                 System.out.println("\n");
                 System.out.println("MCs completed:");
-                if (completedEMap.isEmpty()) {
-                    System.out.println("NIL");
-                } else {
-                    System.out.println(completedEMap.get(
-                            specList.get(specChosen - 1)
-                    ).size() * MODULAR_CREDITS + "/20");
+                for (String key : completedEMap.keySet()) {
+                    if (key.equals(specList.get(specChosen - 1))) {
+                        System.out.println(completedEMap.get(specList.get(specChosen - 1)).size()
+                                * MODULAR_CREDITS + "/20");
+                    }
                 }
             } else if (specChosen == LARGE_SCALE_COMPUTING_INDEX) {
                 System.out.println("Breadth:");
@@ -290,28 +270,23 @@ public class ListSpecializationCommand {
 
                 System.out.println("\n");
                 System.out.println("You have completed:");
-                if (completedEMap.isEmpty()) {
-                    System.out.println("NIL");
-                } else {
-                    for (int i = 0; i < completedEMap.get(
-                            specList.get(specChosen - 1)
-                    ).size(); i++) {
-                        System.out.println(i + 1 + ". "
-                                + completedEMap.get(
-                                specList.get(specChosen - 1)
-                        ).get(i));
+                for (String key : completedEMap.keySet()) {
+                    if (key.equals(specList.get(specChosen - 1))) {
+                        for (int i = 0; i < completedEMap.get(specList.get(specChosen - 1)).size(); i++) {
+                            System.out.println(i + 1 + ". "
+                                    + completedEMap.get(specList.get(specChosen - 1)).get(i));
+                        }
                     }
                 }
+
                 System.out.println("\n");
                 System.out.println("MCs completed:");
-                if (completedEMap.isEmpty()) {
-                    System.out.println("NIL");
-                } else {
-                    System.out.println(completedEMap.get(
-                            specList.get(specChosen - 1)
-                    ).size() * MODULAR_CREDITS + "/20");
+                for (String key : completedEMap.keySet()) {
+                    if (key.equals(specList.get(specChosen - 1))) {
+                        System.out.println(completedEMap.get(specList.get(specChosen - 1)).size()
+                                * MODULAR_CREDITS + "/20");
+                    }
                 }
-            } else if (specChosen == SYS_ON_A_CHIP_DESIGN_INDEX) {
                 System.out.println("Breadth:");
                 for (int i = 0; i < specMap.get("System-On-A-Chip"
                         + " Design").size(); i++) {
@@ -336,26 +311,22 @@ public class ListSpecializationCommand {
 
                 System.out.println("\n");
                 System.out.println("You have completed:");
-                if (completedEMap.isEmpty()) {
-                    System.out.println("NIL");
-                } else {
-                    for (int i = 0; i < completedEMap.get(
-                            specList.get(specChosen - 1)
-                    ).size(); i++) {
-                        System.out.println(i + 1 + ". "
-                                + completedEMap.get(
-                                specList.get(specChosen - 1)
-                        ).get(i));
+                for (String key : completedEMap.keySet()) {
+                    if (key.equals(specList.get(specChosen - 1))) {
+                        for (int i = 0; i < completedEMap.get(specList.get(specChosen - 1)).size(); i++) {
+                            System.out.println(i + 1 + ". "
+                                    + completedEMap.get(specList.get(specChosen - 1)).get(i));
+                        }
                     }
                 }
+
                 System.out.println("\n");
                 System.out.println("MCs completed:");
-                if (completedEMap.isEmpty()) {
-                    System.out.println("NIL");
-                } else {
-                    System.out.println(completedEMap.get(
-                            specList.get(specChosen - 1)
-                    ).size() * MODULAR_CREDITS + "/20");
+                for (String key : completedEMap.keySet()) {
+                    if (key.equals(specList.get(specChosen - 1))) {
+                        System.out.println(completedEMap.get(specList.get(specChosen - 1)).size()
+                                * MODULAR_CREDITS + "/20");
+                    }
                 }
             }
             String toStoreCommsB = "";
@@ -501,9 +472,10 @@ public class ListSpecializationCommand {
 
             SpecializationPageStorage specPageStorage = new SpecializationPageStorage();
             specPageStorage.writeToSpecializationFile(totalStoringOfSpec);
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.print("Please key in numbers only.\n");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.print("Specialization index does not exist.\n");
         }
     }
-
 }
