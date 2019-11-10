@@ -47,10 +47,9 @@ public class EditBarCommand extends Command<SongList> {
             barNo = Integer.parseInt(sections[0].substring(4));
             int notesIndex = message.indexOf(sections[1]);
             Bar newBar = new Bar(barNo, message.substring(notesIndex));
-
-            song.getBars().add(barNo - 1, newBar);
-            Bar oldBar = song.getBars().get(barNo);
-            song.getBars().remove(barNo);
+            
+            Bar oldBar = song.getBars().get(barNo - 1);
+            song.getBars().set(barNo - 1, newBar);
 
             storage.updateFile(songList);
             ArrayList<Song> temp = songList.getSongList();
