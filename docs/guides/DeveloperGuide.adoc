@@ -78,10 +78,14 @@ There are three main types of tasks that Duke Email Manager works with: `todo`, 
 ==== Natural Dates Support
 
 Natural dates support helps to speed up the process at which users enter their task details so that their
-task can be added into the task list quickly. This feature only works with `deadline` and `event` tasks.
-The benefits of having this Natural Dates support are:
+task can be added into the task list quickly. The benefits of having this Natural Dates support are:
 
 * Reduce the time and effort needed to key in the date and time for deadline and event tasks.
+
+|===
+|ℹ️|This feature only works with `deadline` and `event` tasks.
+
+|===
 
 ===== Implementation
 
@@ -90,10 +94,10 @@ The following sequence diagram below illustrates how this feature works:
 .Natural Dates Support Sequence diagram
 [#img-natural-dates-support]
 [caption="Figure N: "]
-image::TaskParseNaturalDate.png[Natural Dates Support, 800]
+image::TaskParseNaturalDate (1).png[Natural Dates Support, 800]
 
-The Natural Dates support is facilitated by four classes, namely `TaskCommandParseHelper`,
-`CommandParseHelper`, `TaskParseNaturalDateHelper` and `Task`.
+As seen from the diagram above, the Natural Dates support is facilitated by four classes, namely
+`TaskCommandParseHelper`, `CommandParseHelper`, `TaskParseNaturalDateHelper` and `Task`.
 
 `TaskParseNaturalDateHelper` is under the Command component.
 It implements the following operations:
@@ -137,38 +141,20 @@ The user wishes to add a task and keys in `flip` to switch input type to `task` 
 * The next nearest date is returned according to the input day
 ** E.g. When the timeString inputted is `sun 1200`, the date of the next nearest Sunday is returned.
 
-===== Test Guide
-
-|=======================================================================
-|Mode|Input|Expected Result|Purpose of Testing
-
-|Task|deadline submission -time mon|deadline task will be added into the task list with time `0000`|Normal
-use case without time inputted
-|Task|deadline submission -time mon 2359|deadline task will be added into the task list with time
-`2359`|Normal use case with time inputted
-|Task|deadline submission -time|Invalid command format reported|Empty time in time option triggers
-invalid command format as deadline task requires a time option
-|Task|deadline submission -time random|Invalid command reported asking for correct date time format|Invalid
-input with wrong date time format
-|Task|todo tutorials -time|Invalid command format reported|Invalid input with time present in todo task
-|Task|todo tutorial -time mon 1200|Invalid command reported saying date time not allowed for todo
-task|Invalid input with time present in todo task
-|=======================================================================
-
 ===== Design Considerations
 
 Aspect: Handling of parsed time string
 
-* Alternative 1 (chosen): Parse and return the time string as a pair that stores day as key and time as
-value in a separate method.
+* Alternative 1 (chosen): `TaskCommandParseHelper#checkTimeString(timeString)` parses and returns the time
+string as a string pair that stores day as key and time as value.
 ** Pros: Easier to use the day and time in the pair in other methods without having to extract it from time
 string again.
-** Cons: Does not check whether day and time in the pair is valid. The day and time in the pair can be any
-string. Have to call this method from another class which increase dependencies.
+** Cons: Does not check whether day and time in the pair is valid, the pair can be any string.
+`TaskCommandParseHelper#checkTimeString(timeString)` is called from another class which increase dependency.
 
 * Alternative 2: Parse the time string and extract day or time before each use in `TaskParseNaturalDateHelper`
 ** Pros: Able to validate if time string is valid before it is called by other methods. Easier to write tests.
-** Cons:
+** Cons: Might have duplicated codes.
 
 ==== Sorting of Task List
 
@@ -178,6 +164,11 @@ The benefits of having this sorting feature are:
 * Easier viewing of task list when the list is sorted.
 * Faster checking of task list when the list is sorted.
 
+|===
+|ℹ️|Task list can be sorted by `priority`, `status` and `time` only.
+
+|===
+
 ===== Implementation
 
 The following sequence diagram below illustrates how the sort command is parsed:
@@ -185,9 +176,10 @@ The following sequence diagram below illustrates how the sort command is parsed:
 .parseSortCommand Sequence diagram
 [#img-parse-sort-command]
 [caption="Figure N: "]
-image::parseSortCommand.png[Parse Sort Command, 800]
+image::parseSortCommand (1).png[Parse Sort Command, 800]
 
-Parsing of sort command is facilitated by two class, namely `TaskCommandParseHelper` and `TaskSortCommand`.
+As seen from the diagram above, the parsing of sort command is facilitated by two class, namely
+`TaskCommandParseHelper` and `TaskSortCommand`.
 
 `TaskCommandParseHelper` is under the Parser component.
 It implements the following operations:
@@ -224,7 +216,8 @@ The following sequence diagram below illustrates how the sort command works:
 [caption="Figure N: "]
 image::TaskSortCommand.png[Task Sort Command, 800]
 
-The sort command is facilitated by four class, namely `TaskSortCommand`, `Model`, `TaskList` and `UI`.
+As seen from the diagram above, the sort command is facilitated by four class, namely `TaskSortCommand`,
+`Model`, `TaskList` and `UI`.
 
 The following operations are implemented:
 
@@ -254,7 +247,10 @@ according to the sort type:
 [caption="Figure N: "]
 image::sortByType.png[Sort By Type, 800]
 
-The task list is sorted according to time by default.
+|===
+|ℹ️|The task list is sorted according to time by default.
+
+|===
 
 Given below is an example usage scenario and how `TaskSortCommand` behaves at each step.
 
@@ -265,28 +261,26 @@ Given below is an example usage scenario and how `TaskSortCommand` behaves at ea
 
 *Step 3*: `sortByType() is called by `Model#updateGuiTaskList()` on every user input to keep task list sorted.
 
-===== Test Guide
-
-|=======================================================================
-|Mode|Input|Expected Result|Purpose of Testing
-
-|Task|sort priority|
-|=======================================================================
-
+|===
+|ℹ️|
+|sorted by `priority`|tasks with higher priority will be at the top of the task list.
+|sorted by `status`|tasks that are not completed will be at the top of the task list.
+|sorted by `time`|deadline or event tasks with nearing date and time will be at the top of the task list.
+|===
 
 ===== Design Considerations
 
-Aspect: When sorting of taskList occurs
+Aspect: When the sorting of task list occurs
 
 * Alternative 1 (chosen): The task list is sorted whenever the GUI is updated.
-** Pros: Task list will always be sorted according to how the user wants
-** Cons: Sort command is executed even when the taskList does not need to be sorted
-Current implementation invokes the `EmailTags#updateEmailTagList` on every user input to keep the tagMap and email list view in GUI updated, which increases the computational load.
+** Pros: Ensures that the task list will always be sorted according to how the user wants.
+** Cons: Sort command is executed on every user input to keep task list sorted and task list view in GUI
+updated, which increases the computational load.
 
-
-* Alternative 2: The task list is sorted in TaskList class before it is displayed by the GUI
-** Pros: Sort command is called only when needed
-** Cons: Harder to sort task list according to different sort type
+* Alternative 2: The task list is sorted in `TaskList` class before it is displayed by the GUI
+** Pros: Sort command is called only when needed.
+** Cons: Have to consider other commands (e.g. `update`) that will change the task list and requires the
+task list to be sorted.
 
 ==== Updating of Tags
 
@@ -642,6 +636,88 @@ easily|`* * *`
 *Actor*: `User` (SoC student)
 
 [discrete]
+=== Use Case: Snooze task
+
+*MSS*
+
+. User enters `snooze` command to snooze a task.
+. Task is snoozed by default 3 days.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User wants to snooze task by a specific duration.
++
+** 1a1. User enters snooze duration after `snooze` command.
+** 1a2. Task snoozed by the specific duration.
++
+Use case ends.
+
+* 1b. User snooze a task with invalid index.
++
+** 1b1. Displays index out of bound message
++
+Use case ends.
+
+* 1c. User snooze a invalid task.
++
+** 1c1. Displays task cannot be snoozed message
++
+Use case ends.
+
+[discrete]
+=== Use Case: Sort task list
+
+*MSS*
+
+. User keys in `sort` command to sort task list by `sortType`.
+. Task list is sorted according to `sortType`.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. Invalid `sortType` keyed after `sort` command.
+** 1a1. Displays invalid sort type message
++
+Use case ends.
+
+[discrete]
+=== Use Case: Add priority to task
+
+*MSS*
+
+. User keys in add priority command.
+. Priority is added to the task.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User keys in add priority command to the same task as above.
+** 1a1. Priority of task is overwritten by new priority.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Clear task list
+
+*MSS*
+
+. User keys in `clear` command.
+. Task list is cleared.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User keys in `clear` command when task list is empty.
+** 1a1. Displays message saying that task list has already been cleared.
++
+Use case ends.
+
+[discrete]
 === Use Case: Fetch email from account
 
 *MSS*
@@ -738,5 +814,32 @@ Mainstream OS::
 //[appendix]
 //== Product Survey
 //
-//[appendix]
-//== Instructions for Manual Testing
+[appendix]
+== Instructions for Manual Testing
+
+=== Natural dates support
+|=======================================================================
+|Mode|Input|Expected Result|Purpose of Testing
+
+|Task|deadline submission -time mon|deadline task will be added into the task list with time `0000`|Normal
+use case without time inputted
+|Task|deadline submission -time mon 2359|deadline task will be added into the task list with time
+`2359`|Normal use case with time inputted
+|Task|deadline submission -time|Invalid command format reported|Empty time in time option triggers
+invalid command format as deadline task requires a time option
+|Task|deadline submission -time random|Invalid command reported asking for correct date time format|Invalid
+input with wrong date time format
+|Task|todo tutorials -time|Invalid command format reported|Invalid input with time present in todo task
+|Task|todo tutorial -time mon 1200|Invalid command reported saying date time not allowed for todo
+task|Invalid input with time present in todo task
+|=======================================================================
+
+=== Sorting of task list
+|=======================================================================
+|Mode|Input|Expected Result|Purpose of Testing
+
+|Task|sort priority|Task List is sorted according to the priority level of the task, with `high` being at
+the top of the list|Normal use case
+|Task|sort|Invalid command reported asking for sort type after `sort`|Invalid input without sort type
+|Task|sort abc|Invalid command reported saying invalid sorting type|Invalid input with invalid sort type
+|=======================================================================
