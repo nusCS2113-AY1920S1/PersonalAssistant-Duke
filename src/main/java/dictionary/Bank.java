@@ -88,7 +88,6 @@ public class Bank {
     public void addWordToBank(Word word) throws WordAlreadyExistsException {
         wordBank.addWord(word);
         tagBank.addWordToAllTags(word);
-        //synonymBank.add(word);
         wordCount.addWord(word);
     }
 
@@ -100,7 +99,6 @@ public class Bank {
     public void deleteWordFromBank(Word word) throws NoWordFoundException {
         wordBank.deleteWord(word);
         tagBank.deleteWordAllTags(word);
-        //synonymBank.deleteWordAllSynonyms(word);
         wordCount.deleteWord(word);
     }
 
@@ -130,20 +128,15 @@ public class Bank {
      * @param synonyms list of tags to add
      * @return all synonyms of the word after adding to show to user
      * @throws NoWordFoundException if the word doesn't exist in the WordBank
-     * @author Ng Jian Wei
      */
-    public HashSet<String> addWordToSomeSynonyms(String wordDescription, ArrayList<String> synonyms)
+    public ArrayList<String> addWordToSomeSynonyms(String wordDescription, ArrayList<String> synonyms)
             throws NoWordFoundException {
-        HashSet<String> synonymsOfWord = wordBank.addWordToSomeSynonym(wordDescription, synonyms);
-        synonymBank.addWordToSomeSynonyms(wordDescription, synonyms);
-        return synonymsOfWord;
+        if (!wordBank.contains(wordDescription)) {
+            throw new NoWordFoundException(wordDescription);
+        }
+        synonymBank.joinSynonymWords(wordDescription, synonyms);
+        return synonymBank.getAllSynonymsOfWord(wordDescription);
     }
-/*
-    public void deleteSynonyms(String deletedWord, ArrayList<String> synonyms,
-                               ArrayList<String> deletedSynonyms, ArrayList<String> nullSynonyms) {
-        wordBank.deleteSynonyms(deletedWord, synonyms, deletedSynonyms, nullSynonyms);
-        synonymBank.deleteWordSomeSynonyms(deletedSynonyms, deletedWord);
-    }*/
 
     public Word editWordMeaning(String editedWord, String newMeaning) throws NoWordFoundException {
         return wordBank.editWordMeaningAndGetWord(editedWord, newMeaning);
@@ -175,7 +168,6 @@ public class Bank {
     }
 
     public void addSynonymToWord(String word, String synonym) {
-        wordBank.addSynonymToWord(word,synonym);
         synonymBank.addWordToOneSynonym(word, synonym);
     }
 
@@ -200,12 +192,10 @@ public class Bank {
         return tagBank.getAllTagsAsList();
     }
 
-    public String[] getAllSynonyms() { return synonymBank.getAllSynonymsAsList(); }
-
-    public String[] getWordsOfSynonym(String searchWord) throws NoSynonymFoundException {
+    public ArrayList<String> getSynonymsOfWord(String searchWord) throws NoSynonymFoundException {
         if (!synonymBank.contains(searchWord)) {
             throw new NoSynonymFoundException(searchWord);
         }
-        return synonymBank.getAllWordsOfSynonym(searchWord);
+        return synonymBank.getAllSynonymsOfWord(searchWord);
     }
 }

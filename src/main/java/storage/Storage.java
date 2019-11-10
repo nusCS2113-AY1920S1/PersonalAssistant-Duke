@@ -52,7 +52,6 @@ public class Storage {
     private File excelFile;
 
 
-
     /**
      * Creates new text file if no such file already exists and sets FILE_PATH to the absolute path of the text file.
      * Creates new excel file if no such file exists and sets EXCEL_PATH to the absolute path of excel file.
@@ -167,8 +166,8 @@ public class Storage {
 
     /**
      * Writes data to an extracted file.
-     * @param s new word to be added
-     * @param append return true if the file can be appended
+     * @param s        new word to be added
+     * @param append   return true if the file can be appended
      * @param fileType indicates the file to be edited, reminders.txt or wordup.txt
      */
     public void writeFile(String s, boolean append, String fileType) {
@@ -204,7 +203,7 @@ public class Storage {
      * Updates a word in extracted file.
      * @param oldString value of old word
      * @param newString value of word after updated
-     * @param fileType indicates the file to be edited, reminders.txt or wordup.txt
+     * @param fileType  indicates the file to be edited, reminders.txt or wordup.txt
      */
     public void updateFile(String oldString, String newString, String fileType) {
         File file;
@@ -230,7 +229,7 @@ public class Storage {
             }
             oldContent = oldContent.substring(0, oldContent.length() - 1);
             String newContent = oldContent.replace(oldString, newString).trim();
-            this.writeFile(newContent,false,fileType);
+            this.writeFile(newContent, false, fileType);
         } catch (IOException | UnableToWriteFileException e) {
             e.printStackTrace();
         } finally {
@@ -295,11 +294,10 @@ public class Storage {
             while (rowIteratorSynonymBank.hasNext()) {
                 Row row = rowIteratorSynonymBank.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
-                String synonym = cellIterator.next().getStringCellValue();
                 String[] allWords = cellIterator.next().getStringCellValue().split(", ");
 
                 for (int i = 0; i < allWords.length; i++) {
-                    bank.addSynonymToWord(allWords[i], synonym);
+                    bank.addSynonymToWord(allWords[i], allWords[0]);
                 }
             }
             fileInputStream.close();
@@ -364,15 +362,10 @@ public class Storage {
         headerRow = synonymBankSheet.createRow(0);
 
         cell = headerRow.createCell(0);
-        cell.setCellValue("Synonym");
-        cell.setCellStyle(headerCellStyle);
-
-        cell = headerRow.createCell(1);
         cell.setCellValue("Word with same meaning");
         cell.setCellStyle(headerCellStyle);
 
         synonymBankSheet.autoSizeColumn(0);
-        synonymBankSheet.autoSizeColumn(1);
 
         try {
             FileOutputStream fileOut = new FileOutputStream(EXCEL_PATH);
@@ -386,7 +379,7 @@ public class Storage {
 
     /**
      * Deletes multiple of redundant rows in WordBank sheet in excel file after DeleteCommand.
-     * @param lastRow last row in excel file after deletion
+     * @param lastRow          last row in excel file after deletion
      * @param lastRedundantRow last row in excel file before deletion
      */
     public void deleteRowsWordBankSheet(int lastRow, int lastRedundantRow) {
@@ -412,7 +405,8 @@ public class Storage {
 
     /**
      * Deletes multiple of redundant rows in TagBank sheet in excel file after DeleteCommand.
-     * @param lastRow last row in excel file after deletion
+     *
+     * @param lastRow          last row in excel file after deletion
      * @param lastRedundantRow last row in excel file before deletion
      */
     public void deleteRowsTagBankSheet(int lastRow, int lastRedundantRow) {
@@ -497,9 +491,8 @@ public class Storage {
             Workbook workbook = WorkbookFactory.create(fileInputStream);
 
             Sheet sheet = workbook.getSheetAt(2);
-            String[] allSynonyms = synonymBank.getAllSynonymsAsList();
-            String[] allWordsOfSynonym;
-            for (int i = 1; i <= allSynonyms.length; i++) {
+            ArrayList<ArrayList<String>> allSynonyms = synonymBank.getAllSynonymsAsList();
+            for (int i = 1; i <= allSynonyms.size(); i++) {
                 Row row = sheet.getRow(i);
                 if (row == null) {
                     row = sheet.createRow(i);
@@ -511,16 +504,8 @@ public class Storage {
                 }
 
                 cell.setCellType(CellType.STRING);
-                String synonym = allSynonyms[i - 1];
-                cell.setCellValue(synonym);
-
-                allWordsOfSynonym = synonymBank.getAllWordsOfSynonym(synonym);
-
-                cell = row.getCell(1);
-                if (cell == null) {
-                    cell = row.createCell(1);
-                }
-                cell.setCellValue(String.join(", ", allWordsOfSynonym));
+                ArrayList<String> synonym = allSynonyms.get(i - 1);
+                cell.setCellValue(String.join(", ", synonym));
             }
 
             sheet.autoSizeColumn(0);
