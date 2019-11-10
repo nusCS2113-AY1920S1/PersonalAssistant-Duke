@@ -69,7 +69,6 @@ update the local files.
 
 ==== UI component
 
-<<<<<<< HEAD
 [#ui-component]
 .UI Component
 image::UIComponent.png[UI Component, 400]
@@ -105,14 +104,8 @@ for the email. Then the `Command` is executed which modifies the `Model`.
 image::ModelComponent.png[Model Component, 600]
 
 The `Model` contains a `TaskList`, a `EmailList` and a `EmailKeywordPairList`. They store `Task`, `Email`
-and `KeywordPair` respectively. The three lists all inherit from `ArrayList`. 
+and `KeywordPair` respectively. The three lists all inherit from `ArrayList`.
 
-=======
-==== Logic component
-
-==== Model component
-
->>>>>>> branch-master
 ==== Common classes
 
 == Implementation
@@ -142,7 +135,7 @@ The following sequence diagram below illustrates how this feature works:
 
 .Natural Dates Support Sequence diagram
 [#img-natural-dates-support]
-[caption="Figure N: "]
+[caption="Figure 5: "]
 image::TaskParseNaturalDate (1).png[Natural Dates Support, 800]
 
 As seen from the diagram above, the Natural Dates support is facilitated by four classes, namely
@@ -224,7 +217,7 @@ The following sequence diagram below illustrates how the sort command is parsed:
 
 .parseSortCommand Sequence diagram
 [#img-parse-sort-command]
-[caption="Figure N: "]
+[caption="Figure 6: "]
 image::parseSortCommand (1).png[Parse Sort Command, 800]
 
 As seen from the diagram above, the parsing of sort command is facilitated by two class, namely
@@ -262,7 +255,7 @@ The following sequence diagram below illustrates how the sort command works:
 
 .TaskSortCommand Sequence diagram
 [#img-task-sort-command]
-[caption="Figure N: "]
+[caption="Figure 7: "]
 image::TaskSortCommand.png[Task Sort Command, 800]
 
 As seen from the diagram above, the sort command is facilitated by four class, namely `TaskSortCommand`,
@@ -293,7 +286,7 @@ according to the sort type:
 
 .sortByType activity diagram
 [#img-sort-by-type]
-[caption="Figure N: "]
+[caption="Figure 8: "]
 image::sortByType.png[Sort By Type, 800]
 
 |===
@@ -783,15 +776,9 @@ Use case ends.
 *MSS*
 
 . User starts system or enters the fetch command.
-<<<<<<< HEAD
 . System retrieves account key from file, connects to Microsoft and logs in. New emails are retrieved,
 combined with those from local storage and displayed.
-
-=======
-. System retrieves account key from file, connects to Microsoft and logs in.
-New emails are retrieved, combined with those from local storage and displayed.
 +
->>>>>>> branch-master
 Use case ends.
 
 *Extensions*
@@ -882,7 +869,6 @@ Mainstream OS::
 //
 [appendix]
 == Instructions for Manual Testing
-<<<<<<< HEAD
 Please follow the following feature testing tables to do the manual testing. The actual output and error
 message are to be checked against the expected output in the table. If Internet access is not available,
 please copy the content in the `/data/test_data` folder to the `/data` folder and overwrite all. These two
@@ -902,6 +888,46 @@ exploratory testing.
 
 
 === Feature Testing
+
+==== Natural dates support
+
+|===
+|ℹ️|All dates in natural dates format are case-insensitive
+
+|===
+
+|===
+|Mode|Input|Expected Result|Purpose of Testing
+
+|Task|deadline submission -time mon|deadline task will be added into the task list with time `0000`|Normal
+use case without time inputted
+|Task|deadline submission -time mon 2359|deadline task will be added into the task list with time
+`2359`|Normal use case with time inputted
+|Task|deadline submission -time|Invalid command format reported|Empty time in time option triggers
+invalid command format as deadline task requires a time option
+|Task|deadline submission -time random|Invalid command reported asking for correct date time format|Invalid
+input with wrong date time format
+|Task|todo tutorials -time|Invalid command format reported|Invalid input with time present in todo task
+|Task|todo tutorial -time mon 1200|Invalid command reported saying date time not allowed for todo
+task|Invalid input with time present in todo task
+|===
+
+==== Sorting of task list
+
+|===
+|ℹ️|Inputs after `sort` are case-insensitive.
+
+|===
+
+|===
+|Mode|Input|Expected Result|Purpose of Testing
+
+|Task|sort priority|Task List is sorted according to the priority level of the task, with `high` being at
+the top of the list|Normal use case
+|Task|sort|Invalid command reported asking for sort type after `sort`|Invalid input without sort type
+|Task|sort prio|Invalid command reported saying invalid sorting type|Invalid input with invalid sort type
+|===
+
 
 ==== Email Auto Parsing and AddKeyword Command
 Since the email content parsing is automatic, it is easier to be tested together with the addKeyword command.
@@ -978,32 +1004,3 @@ Expected: Shows the GUI with a set of sample tasks and emails. The window size m
 . Exiting the program
 ... Type exit into the user input box.
 ... Expected: Application will shut down and close itself.
-=======
-
-=== Natural dates support
-|=======================================================================
-|Mode|Input|Expected Result|Purpose of Testing
-
-|Task|deadline submission -time mon|deadline task will be added into the task list with time `0000`|Normal
-use case without time inputted
-|Task|deadline submission -time mon 2359|deadline task will be added into the task list with time
-`2359`|Normal use case with time inputted
-|Task|deadline submission -time|Invalid command format reported|Empty time in time option triggers
-invalid command format as deadline task requires a time option
-|Task|deadline submission -time random|Invalid command reported asking for correct date time format|Invalid
-input with wrong date time format
-|Task|todo tutorials -time|Invalid command format reported|Invalid input with time present in todo task
-|Task|todo tutorial -time mon 1200|Invalid command reported saying date time not allowed for todo
-task|Invalid input with time present in todo task
-|=======================================================================
-
-=== Sorting of task list
-|=======================================================================
-|Mode|Input|Expected Result|Purpose of Testing
-
-|Task|sort priority|Task List is sorted according to the priority level of the task, with `high` being at
-the top of the list|Normal use case
-|Task|sort|Invalid command reported asking for sort type after `sort`|Invalid input without sort type
-|Task|sort abc|Invalid command reported saying invalid sorting type|Invalid input with invalid sort type
-|=======================================================================
->>>>>>> branch-master

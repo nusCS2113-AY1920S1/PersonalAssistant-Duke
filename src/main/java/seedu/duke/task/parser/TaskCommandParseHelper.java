@@ -437,11 +437,7 @@ public class TaskCommandParseHelper {
             String priority = extractPriority(optionList);
             ArrayList<String> links = extractLinks(optionList);
             String timeString = extractTime(optionList);
-<<<<<<< HEAD
-            if (input.startsWith("todo") && !"".equals(timeString)) {
-=======
             if (input.startsWith("todo") && (!"".equals(timeString))) {
->>>>>>> branch-master
                 return new InvalidCommand("Date Time not allowed in todo tasks");
             }
             return constructAddCommandByType(input, doAfter, time, tags, priority, links);
@@ -530,13 +526,8 @@ public class TaskCommandParseHelper {
             return new InvalidCommand("Please enter a name after \'event\'");
         }
         if (time == null) {
-<<<<<<< HEAD
             return new InvalidCommand("Please enter a time of correct format (dd/mm/yyyy HHMM) or "
                     + "(day HHMM) after \'-time\'");
-=======
-            return new InvalidCommand("Please enter a time of correct format (dd/mm/yyyy HHMM) or (day "
-                    + "HHMM) after \'-time\'");
->>>>>>> branch-master
         }
         String name = eventMatcher.group("name");
         return new TaskAddCommand(Task.TaskType.EVENT, name, time, doAfter, tags, priority, links);
