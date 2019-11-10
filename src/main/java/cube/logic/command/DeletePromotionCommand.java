@@ -1,6 +1,5 @@
 /**
  * The command deletes a promotion from the promotion list.
- *
  * @@author parvathi14
  */
 
@@ -14,7 +13,7 @@ import cube.model.promotion.Promotion;
 import cube.model.promotion.PromotionList;
 import cube.storage.StorageManager;
 
-public class DeletePromotionCommand extends Command{
+public class DeletePromotionCommand extends Command {
 
     /**
      * Use enums to specify which promotion is to be deleted.
@@ -31,13 +30,15 @@ public class DeletePromotionCommand extends Command{
             + "%1$s\n"
             + "Now you have %2$s promotions in the list.\n";
     public static final String MESSAGE_SUCCESS_ALL = "Nice! I've removed all the promotions from your list. \n"
-            +"Total number removed is:"
+            + "Total number removed is:"
             + "%1$s.\n";
 
     /**
      * Default constructor of ListPromotionCommand.
      */
-    public DeletePromotionCommand() {}
+    public DeletePromotionCommand() {
+
+    }
 
     /**
      * The constructor for deleting based on index value.
@@ -86,8 +87,8 @@ public class DeletePromotionCommand extends Command{
                 list.clear();
                 storage.storePromotionList(list);
                 return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, count));
+            default:
+                return null;
         }
-         return null;
-
     }
 }

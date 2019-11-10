@@ -4,9 +4,9 @@
  *
  * @author tygq13
  */
+
 package cube.logic.command;
 
-import cube.logic.parser.exception.ParserException;
 import cube.model.food.FoodList;
 import cube.model.food.Food;
 import cube.model.promotion.Promotion;
@@ -19,12 +19,10 @@ import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class SoldCommand extends Command{
+public class SoldCommand extends Command {
 	String foodName;
 	int quantity;
 	Date soldDate;
@@ -45,7 +43,7 @@ public class SoldCommand extends Command{
 	}
 
 	/**
-	 * Constructor with three arguemtns.
+	 * Constructor with three arguments.
 	 * @param foodName The name of the food to be sold.
 	 * @param quantity The quantity of food sold.
 	 * @param soldDate The date of the food sold.
@@ -59,7 +57,7 @@ public class SoldCommand extends Command{
 	/**
 	 * Acquires the food to sold for this command.
 	 * @param list The food list.
-	 * @throws CommandException
+	 * @throws CommandException when the command requirements are not met.
 	 */
 	public void obtainFoodSold(FoodList list) throws CommandException {
 		CommandUtil.requireValidName(list, foodName);
@@ -76,10 +74,9 @@ public class SoldCommand extends Command{
 	 */
 	@Override
 	public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
-		//TODO: check if the user has set price and cost
 		FoodList list = ModelManager.getFoodList();
-		PromotionList promotionList = model.getPromotionList();
-		SalesHistory salesHistory = model.getSalesHistory();
+		final PromotionList promotionList = model.getPromotionList();
+		final SalesHistory salesHistory = model.getSalesHistory();
 		obtainFoodSold(list);
 		CommandUtil.requireValidQuantity(toSold, quantity);
 
@@ -94,7 +91,8 @@ public class SoldCommand extends Command{
 			Date modifiedDate = cal.getTime();
 			//cal.add(Calendar.DATE, -1);
 
-			if (currentDate.before(promotion.getEndDate()) && modifiedDate.after(promotion.getStartDate())) {
+			if (currentDate.before(promotion.getEndDate())
+					&& modifiedDate.after(promotion.getStartDate())) {
 				price = promotion.getPromotionalPrice();
 			} else {
 				price = toSold.getPrice();
@@ -117,7 +115,6 @@ public class SoldCommand extends Command{
 		salesHistory.add(saleRecord);
 		storage.storeSalesHistory(salesHistory);
 
-		storage.storeRevenue(Food.getRevenue());
 		return new CommandResult(String.format(MESSAGE_SUCCESS, quantity, foodName, revenue, profit));
 	}
 }

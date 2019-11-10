@@ -1,5 +1,10 @@
 package cube.model.food;
 
+import cube.model.food.foolUtil.SortByExpiry;
+import cube.model.food.foolUtil.SortByName;
+import cube.model.food.foolUtil.SortByPrice;
+import cube.model.food.foolUtil.SortByStock;
+
 import java.util.ArrayList;
 import java.util.Collections;
 

@@ -4,6 +4,7 @@ import cube.model.food.Food;
 import cube.model.food.FoodList.SortType;
 import cube.model.food.FoodList;
 import cube.model.ModelManager;
+import cube.storage.ProfitStorage;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.exception.CommandException;
@@ -47,7 +48,7 @@ public class ListCommandTest {
     	ListCommand command = new ListCommand();
     	CommandResult result = command.execute(model, new StorageManager());
         
-    	CommandResult expectedResult = new CommandResult(String.format(ListCommand.MESSAGE_SUCCESS, list, Food.getRevenue()), false, false);
+    	CommandResult expectedResult = new CommandResult(String.format(ListCommand.MESSAGE_SUCCESS, list, ProfitStorage.getAnnualRevenue()), false, false);
     	assertEquals(result, expectedResult);
     }
 }

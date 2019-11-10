@@ -70,7 +70,6 @@ dependencies {
 
 checkstyle {
     toolVersion = '8.23'
-    ignoreFailures = true
 }
 
 shadowJar {

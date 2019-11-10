@@ -2,12 +2,16 @@ package cube.ui;
 
 import cube.exception.CubeException;
 import cube.logic.command.Command;
+import cube.logic.command.ConfigCommand;
+import cube.logic.command.ProfitCommand;
+import cube.logic.command.SoldCommand;
 import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
 import cube.logic.parser.ParserUtil;
 import cube.model.ModelManager;
 import cube.model.food.Food;
 import cube.storage.ConfigStorage;
+import cube.storage.ProfitStorage;
 import cube.storage.StorageManager;
 import cube.storage.config.UiConfig;
 import cube.util.FileUtilJson;
@@ -91,7 +95,8 @@ public class MainWindow extends UiManager<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         resultDisplay.setResultText("Welcome to Cube!\nEnter 'help' to see the list of available commands.");
 
-        overviewDisplay = new OverviewDisplay(storageManager.getFoodList().size(), Food.getRevenue(), Food.getRevenue());
+        ProfitCommand.generateAnnualProfitRevenue(modelManager);
+        overviewDisplay = new OverviewDisplay(storageManager.getFoodList().size(), ProfitStorage.getAnnualProfit(), ProfitStorage.getAnnualRevenue());
         overviewDisplayPlaceholder.getChildren().add(overviewDisplay.getRoot());
 
         listPanel = new ListPanel(storageManager.getFoodList(), this::executeSell, this::executeEdit);
@@ -151,11 +156,14 @@ public class MainWindow extends UiManager<Stage> {
             resultDisplay.setResultText(result.getFeedbackToUser());
             // Updates GUI components
             listPanel.updateProductList(storageManager.getFoodList());
-            // TODO: Updated profits and revenue respectively
-            overviewDisplay.updateOverview(storageManager.getFoodList().size(), Food.getRevenue(), Food.getRevenue());
 
-            // TODO: isConfig()
-            initWindowSize();
+            if (c instanceof SoldCommand) {
+                ProfitCommand.generateAnnualProfitRevenue(modelManager);
+                overviewDisplay.updateOverview(storageManager.getFoodList().size(), ProfitStorage.getAnnualProfit(), ProfitStorage.getAnnualRevenue());
+            }
+            if (c instanceof ConfigCommand) {
+                initWindowSize();
+            }
             if (result.isShowHelp()) {
                 handleHelp();
             }

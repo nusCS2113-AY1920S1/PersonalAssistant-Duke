@@ -3,6 +3,7 @@
  *
  * @author tygq13
  */
+
 package cube.logic.command.util;
 
 import static java.util.Objects.requireNonNull;
