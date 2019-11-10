@@ -19,6 +19,9 @@ public class DeadlineCommandParser implements CommandParser {
     private static final Logger logger = LogUtils.getLogger(DeadlineCommand.class);
     private static final ArrayList<String> key = new ArrayList<>(Arrays.asList(TOKEN_END_TIME,
             TOKEN_DATE, TOKEN_PRIORITY, TOKEN_FINAL_DATE, TOKEN_INTERVAL));
+    public static final String MESSAGE_INVALID_PARAM = "Whoops! Looks like there's an invalid parameter inserted!\n"
+        + "This is how you use the deadline command:\n\n" + DeadlineCommand.MESSAGE_USAGE;
+
 
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {
@@ -37,7 +40,7 @@ public class DeadlineCommandParser implements CommandParser {
         }
         isFinalDateAfterStartDate(startDateList.get(INDEX_ZERO), finalDate);
         isValidInterval(interval);
-        isValidKey(key, restOfInput);
+        isValidKey(key, restOfInput,MESSAGE_INVALID_PARAM);
         logger.info("Successfully parse deadline command");
         return new DeadlineCommand(description, priority, startDateList, endTime, finalDate, interval);
     }

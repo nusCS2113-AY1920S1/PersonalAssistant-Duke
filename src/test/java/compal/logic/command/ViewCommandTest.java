@@ -62,19 +62,19 @@ class ViewCommandTest {
 
         String type = "";
         expected = new ViewCommand(viewType, finalDate).commandExecute(taskListMain).feedbackToUser;
-        tested = displayWeekView(finalDate, taskArrListMain, type);
+        tested = displayWeekViewStub(finalDate, taskArrListMain, type);
         Assertions.assertEquals(expected, tested);
 
         type = "D";
         finalDate = "01/10/2019";
         expected = new ViewCommand(viewType, finalDate, "deadline").commandExecute(taskListMain).feedbackToUser;
-        tested = displayWeekView(finalDate, taskArrListMain, type);
+        tested = displayWeekViewStub(finalDate, taskArrListMain, type);
         Assertions.assertEquals(expected, tested);
 
         type = "E";
         finalDate = "01/10/2019";
         expected = new ViewCommand(viewType, finalDate, "event").commandExecute(taskListMain).feedbackToUser;
-        tested = displayWeekView(finalDate, taskArrListMain, type);
+        tested = displayWeekViewStub(finalDate, taskArrListMain, type);
         Assertions.assertEquals(expected, tested);
     }
 
@@ -89,21 +89,22 @@ class ViewCommandTest {
 
         String type = "";
         expected = new ViewCommand(viewType, date).commandExecute(taskListMain).feedbackToUser;
-        tested = displayMonthView(month, year, taskArrListMain, type);
+        tested = displayMonthViewStub(month, year, taskArrListMain, type);
         Assertions.assertEquals(expected, tested);
 
         type = "E";
         expected = new ViewCommand(viewType, date, "event").commandExecute(taskListMain).feedbackToUser;
-        tested = displayMonthView(month, year, taskArrListMain, type);
+        tested = displayMonthViewStub(month, year, taskArrListMain, type);
         Assertions.assertEquals(expected, tested);
 
         type = "D";
         expected = new ViewCommand(viewType, date, "deadline").commandExecute(taskListMain).feedbackToUser;
-        tested = displayMonthView(month, year, taskArrListMain, type);
+        tested = displayMonthViewStub(month, year, taskArrListMain, type);
         Assertions.assertEquals(expected, tested);
     }
 
-    private String displayMonthView(int givenMonth, int givenYear, ArrayList<Task> currList, String type) {
+
+    private String displayMonthViewStub(int givenMonth, int givenYear, ArrayList<Task> currList, String type) {
         String[] months = {"", "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"};
 
@@ -113,17 +114,29 @@ class ViewCommandTest {
         StringBuilder monthlyTask = new StringBuilder("Your monthly schedule for "
             + months[givenMonth] + " " + givenYear + " :\n");
 
+        String tempDate;
+        String tempMonth;
+        String tempYear;
         for (int i = 1; i <= days; i++) {
             if (i <= 9) {
-                monthlyTask.append(displayDayView("0" + i + "/" + givenMonth + "/" + givenYear, currList, type));
+                tempDate = "0" + i;
             } else {
-                monthlyTask.append(displayDayView(i + "/" + givenMonth + "/" + givenYear, currList, type));
+                tempDate = Integer.toString(i);
             }
+
+            if (givenMonth <= 9) {
+                tempMonth = "0" + givenMonth;
+            } else {
+                tempMonth = Integer.toString(givenMonth);
+            }
+
+            tempYear = Integer.toString(givenYear);
+            monthlyTask.append(displayDayViewStub(tempDate + "/" + tempMonth + "/" + tempYear, currList,type));
         }
         return monthlyTask.toString();
     }
 
-    private String displayWeekView(String dateInput, ArrayList<Task> currList, String type) {
+    private String displayWeekViewStub(String dateInput, ArrayList<Task> currList, String type) {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -136,7 +149,6 @@ class ViewCommandTest {
 
         for (int i = 0; i < daysInWeek; i++) {
             dates[i] = dateFormat.format(cal.getTime());//Date of Monday of current week
-            //calenderUtil.dateViewRefresh(dates[i]);
             dailyTask[i] = new StringBuilder();
             cal.add(Calendar.DATE, 1);
         }
@@ -145,14 +157,14 @@ class ViewCommandTest {
             + dates[0] + " to " + dates[6] + " :\n");
 
         for (int i = 0; i < daysInWeek; i++) {
-            dailyTask[i].append(displayDayView(dates[i], currList, type));
+            dailyTask[i].append(displayDayViewStub(dates[i], currList, type));
             weeklyTask.append(dailyTask[i]);
 
         }
         return weeklyTask.toString();
     }
 
-    private String displayDayView(String dateInput, ArrayList<Task> currList, String type) {
+    private String displayDayViewStub(String dateInput, ArrayList<Task> currList, String type) {
 
         StringBuilder allTask = new StringBuilder();
 
@@ -162,9 +174,9 @@ class ViewCommandTest {
             }
 
             if (t.getStringMainDate().equals(dateInput)) {
-                allTask.append(getAsStringView(t, dateInput));
+                allTask.append(getAsStringViewStub(t, dateInput));
             } else if (!t.getStringTrailingDate().equals("-") && t.getStringTrailingDate().equals(dateInput)) {
-                allTask.append(getAsStringView(t, dateInput));
+                allTask.append(getAsStringViewStub(t, dateInput));
             }
         }
 
@@ -182,7 +194,7 @@ class ViewCommandTest {
 
     }
 
-    private String getAsStringView(Task t, String dateInput) {
+    private String getAsStringViewStub(Task t, String dateInput) {
 
 
         StringBuilder taskDetails = new StringBuilder();

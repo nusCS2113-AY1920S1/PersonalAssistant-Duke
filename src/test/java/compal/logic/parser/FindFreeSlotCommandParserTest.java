@@ -1,4 +1,3 @@
-/*
 package compal.logic.parser;
 
 import compal.logic.command.exceptions.CommandException;
@@ -13,9 +12,7 @@ import java.util.ArrayList;
 
 import static compal.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-*/
 
-/*
 //@@author Catherinetan99
 public class FindFreeSlotCommandParserTest {
     private FindFreeSlotCommandParser parser = new FindFreeSlotCommandParser();
@@ -43,12 +40,12 @@ public class FindFreeSlotCommandParserTest {
 
     @Test
     void parser_missingHourToken_exceptionThrown() {
-        assertParseFailure(parser, "/date 26/10/2019", "ArgumentError: Missing /hour");
+        assertParseFailure(parser, "/date 10/12/2019", "ArgumentError: Missing /hour");
     }
 
     @Test
     void parser_missingMinToken_exceptionThrown() {
-        assertParseFailure(parser, "/date 26/10/2019 /hour 5", "ArgumentError: Missing /min");
+        assertParseFailure(parser, "/date 10/12/2019 /hour 5", "ArgumentError: Missing /min");
     }
 
     @Test
@@ -58,12 +55,12 @@ public class FindFreeSlotCommandParserTest {
 
     @Test
     void parser_missingHourInput_exceptionThrown() {
-        assertParseFailure(parser, "/date 26/10/2019 /hour", "Error: Missing input!");
+        assertParseFailure(parser, "/date 26/12/2019 /hour", "Error: Missing input!");
     }
 
     @Test
     void parser_missingMinInput_exceptionThrown() {
-        assertParseFailure(parser, "/date 26/10/2019 /hour 5 /min", "Error: Missing input!");
+        assertParseFailure(parser, "/date 26/12/2019 /hour 5 /min", "Error: Missing input!");
     }
 
     @Test
@@ -73,24 +70,30 @@ public class FindFreeSlotCommandParserTest {
 
     @Test
     void parser_invalidHourInput_exceptionThrown() {
-        assertParseFailure(parser, "/date 26/10/2019 /hour invalid", "Invalid hour input!");
+        assertParseFailure(parser, "/date 26/12/2019 /hour invalid", "Invalid hour input!");
     }
 
     @Test
     void parser_invalidMinInput_exceptionThrown() {
-        assertParseFailure(parser, "/date 26/10/2019 /hour 1 /min abc", "Invalid min input!");
+        assertParseFailure(parser, "/date 26/12/2019 /hour 1 /min abc", "Invalid min input!");
     }
 
     @Test
     void parser_exceededHourInput_exceptionThrown() {
-        assertParseFailure(parser, "/date 26/10/2019 /hour 234567897891 /min 30",
+        assertParseFailure(parser, "/date 26/12/2019 /hour 234567897891 /min 30",
                 "Error: Input entered is out of range!");
     }
 
     @Test
     void parser_exceededMinInput_exceptionThrown() {
-        assertParseFailure(parser, "/date 26/10/2019 /hour 1 /min 123456789045",
+        assertParseFailure(parser, "/date 26/12/2019 /hour 1 /min 123456789045",
                 "Error: Input entered is out of range!");
+    }
+
+    @Test
+    void parser_pastDateInput_exceptionThrown() {
+        assertParseFailure(parser, "/date 26/10/2019 /hour 1 /min 1",
+                "Error: Date entered cannot be a past date!");
     }
 
     @Test
@@ -113,11 +116,10 @@ public class FindFreeSlotCommandParserTest {
     @Test
     void parser_findFreeSlotParser_noTasksOnInputDate() throws ParseException, ParserException, CommandException {
         String testInput = "/date 06/12/2019 /hour 1 /min 30";
-        String freeSlot = "You are free for the entire day! You have no tasks on 06/12/2019!";
-        assertEquals(freeSlot, parser.parseCommand(testInput).commandExecute(taskList).feedbackToUser);
+        StringBuilder freeSlot = new StringBuilder("Here are the available time slots for 06/12/2019:\n");
+        freeSlot.append("1. 0000 to 2400\n");
+        String result = freeSlot.toString();
+        assertEquals(result, parser.parseCommand(testInput).commandExecute(taskList).feedbackToUser);
     }
 
-
 }
-
-     */
