@@ -1,12 +1,13 @@
 package util;
 
+import models.member.IMember;
+import models.project.Project;
+import models.task.Task;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import models.member.IMember;
-import models.project.Project;
-import models.task.Task;
 
 public class SortHelper {
     //@@author iamabhishek98
@@ -118,7 +119,7 @@ public class SortHelper {
         ArrayList<String> taskDetails = new ArrayList<>();
         int taskIndex = 1;
         for (Task task : taskList) {
-            if (state.equals(task.getTaskState().toString())) {
+            if (state.equals(task.getTaskState().toString().toLowerCase())) {
                 taskDetails.add(taskIndex + ". " + task.getDetails());
             }
             taskIndex++;
