@@ -3,6 +3,7 @@
  *
  * @author tygq13
  */
+
 package cube.model;
 
 import cube.model.food.FoodList;
@@ -25,7 +26,7 @@ public class ModelManager {
 	}
 
 	/**
-	 * Constructor with three arguments
+	 * Constructor with three arguments.
 	 * @param foodList The food list to be managed.
 	 * @param salesHistory The sales history to be managed.
 	 * @param promotionList The promotion list to be managed.
@@ -64,5 +65,7 @@ public class ModelManager {
 	 * Gets the promotion list.
 	 * @return The promotion list.
 	 */
-	public PromotionList getPromotionList() { return promotionList; }
+	public PromotionList getPromotionList() {
+		return promotionList;
+	}
 }

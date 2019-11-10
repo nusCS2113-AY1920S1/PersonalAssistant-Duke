@@ -1,8 +1,9 @@
 /**
- * The command add a food to food list and storage
+ * The command add a food to food list and storage.
  *
  * @author tygq13
  */
+
 package cube.logic.command;
 
 import cube.model.food.FoodList;
@@ -13,7 +14,7 @@ import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;
 
-public class AddCommand extends Command{
+public class AddCommand extends Command {
 	private final Food toAdd;
 
 	public static final String MESSAGE_SUCCESS = "New Food added: \n" 
@@ -24,7 +25,7 @@ public class AddCommand extends Command{
 	 * Default constructor.
 	 * @param food the food to be added.
 	 */
-	public AddCommand (Food food) {
+	public AddCommand(Food food) {
 		this.toAdd = food;
 	}
 

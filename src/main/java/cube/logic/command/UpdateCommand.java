@@ -8,7 +8,7 @@ import cube.model.food.Food;
 import cube.model.food.FoodList;
 import cube.storage.StorageManager;
 
-public class UpdateCommand extends Command{
+public class UpdateCommand extends Command {
 
     private Food newFood;
     private int[] changeBit;
@@ -22,7 +22,7 @@ public class UpdateCommand extends Command{
      * Default constructor.
      * @param food the food to be added.
      */
-    public UpdateCommand (Food food, int[] changeBit) {
+    public UpdateCommand(Food food, int[] changeBit) {
         this.newFood = food;
         this.changeBit = changeBit;
     }
@@ -38,20 +38,20 @@ public class UpdateCommand extends Command{
     public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
         FoodList list = model.getFoodList();
         CommandUtil.requireValidName(list, newFood.getName());
-        String oldInfo = list.get(newFood.getName()).toString();
-        if(changeBit[0] == 1){
+        final String oldInfo = list.get(newFood.getName()).toString();
+        if (changeBit[0] == 1) {
             //type
             list.get(newFood.getName()).setType(newFood.getType());
         }
-        if(changeBit[1] == 1){
+        if (changeBit[1] == 1) {
             //price
             list.get(newFood.getName()).setPrice(newFood.getPrice());
         }
-        if(changeBit[2] == 1){
+        if (changeBit[2] == 1) {
             //stock
             list.get(newFood.getName()).setStock(newFood.getStock());
         }
-        if(changeBit[1] == 1){
+        if (changeBit[1] == 1) {
             //expiry date
             list.get(newFood.getName()).setExpiryDate(newFood.getExpiryDate());
         }

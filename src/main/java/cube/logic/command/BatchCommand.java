@@ -1,5 +1,5 @@
 /**
- * BatchCommand.java
+ * BatchCommand.java.
  * Support commands related to batch file imports & exports.
  *
  * @author kuromono
