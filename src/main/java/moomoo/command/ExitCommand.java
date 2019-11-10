@@ -26,7 +26,8 @@ public class ExitCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Storage storage)
             throws MooMooException {
 
-        if (DetectOsCommand.osName.contains("win")) {
+        DetectOsCommand getOS = new DetectOsCommand();
+        if (getOS.osName.contains("win")) {
             try {
                 ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c",
                         "chcp", "437", ">", "nul", "2>&1").inheritIO();
