@@ -59,6 +59,7 @@ public class HelpWindow extends AnchorPane {
                 "setpriority",
                 "findpriority",
                 "finddate",
+                "backup",
                 "friendlier syntax"
         );
 
@@ -161,6 +162,10 @@ public class HelpWindow extends AnchorPane {
                     getDescription.setText(" Delete an existing task");
                     getFormat.setText(cbCommands.getValue() + " [INDEX]");
                     getExample.setText(cbCommands.getValue() + " 3");
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("backup")) {
+                    getDescription.setText(" Saves the state of the data and shows the data folder");
+                    getFormat.setText(cbCommands.getValue());
+                    getExample.setText(cbCommands.getValue());
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("friendlier syntax")) {
                     getDescription.setText(" Alternative shortened commands for inputting the equivalent commands.\n"
                                             + " Format is as follows : | command: shortened cmd |");
