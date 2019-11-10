@@ -19,12 +19,14 @@ import chronologer.parser.ParserFactory;
  */
 public class AddRecurringTest {
 
-    LocalDateTime startDate = LocalDateTime.of(2020, 01, 12, 21, 30);
-    LocalDateTime endDate = LocalDateTime.of(2020, 01, 12, 22, 0);
-    String modCode = "CS2113";
-    DayOfWeek day = DayOfWeek.MONDAY;
-    AddRecurringCommand lecture = new AddRecurringCommand("lecture", "lecture", startDate, endDate, modCode, day);
-    AddRecurringCommand tutorial = new AddRecurringCommand("tutorial", "tutorial", startDate, endDate, modCode, day);
+    private LocalDateTime startDate = LocalDateTime.of(2020, 01, 12, 21, 30);
+    private LocalDateTime endDate = LocalDateTime.of(2020, 01, 12, 22, 0);
+    private String modCode = "CS2113";
+    private DayOfWeek day = DayOfWeek.MONDAY;
+    private AddRecurringCommand lecture = new AddRecurringCommand("lecture", "lecture", startDate, endDate, modCode,
+            day);
+    private AddRecurringCommand tutorial = new AddRecurringCommand("tutorial", "tutorial", startDate, endDate, modCode,
+            day);
 
     private Field[] getAddRecurringCommandFields(Command command) throws NoSuchFieldException {
         Field[] commandFields = new Field[5];

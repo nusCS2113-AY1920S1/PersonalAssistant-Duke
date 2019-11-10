@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import chronologer.exception.ChronologerException;
-import chronologer.exception.MyLogger;
 
 /**
  * This DateTimeExtractor class allows the identification of dates and is used

@@ -113,12 +113,14 @@ public class EventParser extends DescriptionParser {
      * @param toDate the supposed end date of task
      * @return pair with dates in the correct order
      */
-    Pair<LocalDateTime, LocalDateTime> checkDateOrder(LocalDateTime fromDate, LocalDateTime toDate) {
+    protected Pair<LocalDateTime, LocalDateTime> checkDateOrder(LocalDateTime fromDate, LocalDateTime toDate) {
+        LocalDateTime newfromDate = fromDate;
+        LocalDateTime newtoDate = toDate;
         if (fromDate.isAfter(toDate)) {
             LocalDateTime temp = fromDate;
-            fromDate = toDate;
-            toDate = temp;
+            newfromDate = toDate;
+            newtoDate = temp;
         }
-        return new Pair<LocalDateTime, LocalDateTime>(fromDate, toDate);
+        return new Pair<LocalDateTime, LocalDateTime>(newfromDate, newtoDate);
     }
 }
