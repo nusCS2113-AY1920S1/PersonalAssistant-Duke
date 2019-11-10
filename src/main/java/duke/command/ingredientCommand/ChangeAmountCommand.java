@@ -23,7 +23,8 @@ public class ChangeAmountCommand extends Command {
 
     /**
      * Constructor of the class {@link ChangeAmountCommand}
-     * Creates a new {@link ChangeAmountCommand} with the indicated ingredient's index and new amount
+     * Creates a new {@link ChangeAmountCommand} to change an ingredient's amount using its index number
+     * in the {@link Fridge}
      *
      * @param index,     the index number of the ingredient that we want to modify
      * @param newAmount, the new amount of the ingredient

@@ -22,7 +22,8 @@ public class ChangeNameCommand extends Command {
 
     /**
      * Constructor of the class {@link ChangeNameCommand}
-     * Creates a new {@link ChangeNameCommand} with the indicated ingredient's index and new name
+     * Creates a new {@link ChangeAmountCommand} to change an ingredient's name using its index number
+     * in the {@link Fridge}
      *
      * @param index,   the index number of the ingredient that we want to modify
      * @param newName, the new name of the ingredient

@@ -14,7 +14,7 @@ import duke.ui.Ui;
 import java.text.SimpleDateFormat;
 
 /**
- * Represents a specific {@link Command} used to find a String occurring in the {@link Fridge}.
+ * Represents a specific {@link Command} used to find an ingredient in the {@link Fridge}.
  *
  * @@author x3chillax
  */

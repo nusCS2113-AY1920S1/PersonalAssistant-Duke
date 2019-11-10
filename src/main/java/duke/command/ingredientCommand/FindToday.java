@@ -13,7 +13,8 @@ import duke.ui.Ui;
 import java.text.SimpleDateFormat;
 
 /**
- * Represents a specific {@link Command} used to list Expired Ingredients occurring in the {@link Fridge}.
+ * Represents a specific {@link Command} used to list Ingredients that have expired today
+ * in the {@link Fridge}.
  *
  * @@author x3chillax
  */
@@ -23,7 +24,7 @@ public class FindToday extends Command {
 
     /**
      * Constructor of the class {@link FindToday}
-     * Creates a new {@link FindToday} to all ingredients that have expired today in {@link Fridge}
+     * Creates a new {@link FindToday} to format the dates
      */
     public FindToday() {
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
