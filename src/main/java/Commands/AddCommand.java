@@ -22,7 +22,6 @@ public class AddCommand extends Command {
 
     /**
      * Creates an AddCommand object.
-     *
      * @param task The Task object to be added
      */
     public AddCommand(Assignment task) {

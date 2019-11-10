@@ -14,8 +14,6 @@ public class DateTimeParser {
     private static String[] dateStringSplit;
     private static String[] timeStringSplit;
 
-
-
     /**
      * Parses any date that is tagged with event.
      * @param input The date input

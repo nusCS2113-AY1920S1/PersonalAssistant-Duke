@@ -30,7 +30,6 @@ public class FindFreeTimesParseTest {
     private static String userInputWithoutPostFix;
     private static String userInputWithoutDuration;
 
-
     @BeforeAll
     public static void setAllVariables() {
         validUserInputWithDuration = "find/time 5 hours";

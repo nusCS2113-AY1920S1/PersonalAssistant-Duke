@@ -66,7 +66,7 @@ public class ProgressController extends HBox {
     private ArrayList<Pair<String, Pair<String, String>>> arrList;
 
     /**
-     * This function gets the arraylist containing tasks in terms of Pair(module code (status icon, description)) and
+     * This method gets the arraylist containing tasks in terms of Pair(module code (status icon, description)) and
      * determine the modules taken by user.
      * @param eventsList the list containing the event tasks
      * @param deadlineList the list containing the deadline tasks
@@ -103,7 +103,7 @@ public class ProgressController extends HBox {
     }
 
     /**
-     * This function sets the text for moduleCodeLabel, completedValueLabel and overdueValueLabel and
+     * This method sets the text for moduleCodeLabel, completedValueLabel and overdueValueLabel and
      * sets the progress for progressIndicator.
      * @param mc the module code
      * @param totalValue the total number of event and deadline tasks

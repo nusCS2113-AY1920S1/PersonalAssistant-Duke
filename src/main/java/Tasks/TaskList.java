@@ -1,7 +1,6 @@
 package Tasks;
 
 import Commons.DukeConstants;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,7 +20,6 @@ public class TaskList {
         this.map = new HashMap<>();
     }
 
-
     /**
      * Retrieves the list of deadlines/events.
 
@@ -29,7 +27,6 @@ public class TaskList {
     public ArrayList<Assignment> getList() {
         return list;
     }
-
 
     /**
      * Retrieved the map of deadlines/events.
