@@ -47,12 +47,9 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "FG"
-    archiveVersion = "v1.4-test"
+    archiveVersion = "v1.4-nick-test"
     archiveClassifier = null
     archiveAppendix = null
-    from('src/main/resoources'){
-        include 'moneyAccount.txt'
-    }
 }
 
 group 'seedu.duke'

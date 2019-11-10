@@ -58,12 +58,18 @@ public class AddGoalCommand extends MoneyCommand {
             byDate = Parser.shortcutTime(inputString.split("/by ")[1].split(" /priority ")[0]);
             priorityLevel = inputString.split("/priority ")[1];
             category = "GS";
+            if (price <= 0) {
+                throw new DukeException("Price must be more than zero!\n");
+            }
+            if (byDate.isBefore(LocalDate.now())) {
+                throw new DukeException("Target date must be before current date!\n");
+            }
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter in the format: "
                     + "goal <desc> /amt <amount> /by <date> /priority <HIGH/MEDIUM/LOW>\n");
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("Please enter in the format: "
                     + "goal <desc> /amt <amount> /by <date> /priority <HIGH/MEDIUM/LOW>\n");
         }
