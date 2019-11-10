@@ -62,7 +62,7 @@ public class Ui {
      * @return an event requesting to view the help page
      */
     public static String showHelpGui() {
-        String str = "     HelpWindow will pop up:\n    Shows the commands available in Duke Manager";
+        String str = "    Help window will pop up:\n    Shows all the commands available in Duke Manager";
         return str;
     }
 

@@ -9,14 +9,9 @@ import java.io.IOException;
 
 //@@author gervaiseang
 /**
- * Displays full help instructions that list down all functions and commands available.
+ * Displays HelpWindow that shows all functions and commands available.
  */
 public class HelpCommand extends Command {
-    protected String taskType;
-
-//    public HelpCommand(String taskType) {
-//        this.taskType = taskType;
-//    }
 
     /**
      * Executes a command that adds the task into task list and outputs the result (GUI).

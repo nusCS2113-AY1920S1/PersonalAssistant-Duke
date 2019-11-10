@@ -613,11 +613,12 @@ public class Parser {
                             + "\n     budget <cmd> <amount> <desc(Optional)>"
                             + "\n     ,where cmd can be add/minus/view/reset. ");
                 }
-            }
+            } //@@author
         } else if (sentence.equals("backup")) {
             return new BackupCommand(); //@@author
         } else if (sentence.equals("bye") || sentence.equals("exit")) {
             return new ExitCommand();
+            //@@author gervaiseang
         } else if (sentence.equals("help")) {
             return new HelpCommand();
         } else {
