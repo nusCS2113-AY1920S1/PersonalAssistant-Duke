@@ -1,13 +1,13 @@
 {
   "orders": [
     {
-      "id": 1573354012287,
-      "creationDate": "2019-11-10T02:46:52.287+0000",
+      "id": 1573352739973,
+      "creationDate": "2019-11-10T02:25:39.974+0000",
       "name": "Arron",
       "contact": "81029010",
       "remarks": "For birthday party",
       "deliveryDate": "2019-10-30T14:02:52.448+0000",
-      "status": "COMPLETED",
+      "status": "ACTIVE",
       "total": 85.0,
       "items": [
         {
@@ -123,47 +123,14 @@
       ]
     },
     {
-      "id": 1573354972565,
-      "creationDate": "2019-11-10T03:02:52.565+0000",
-      "name": "customer",
-      "contact": "N/A",
-      "remarks": "N/A",
-      "deliveryDate": "2019-11-10T03:02:52.565+0000",
+      "id": 1572357868124,
+      "creationDate": "2019-10-29T14:04:28.124+0000",
+      "name": "Arron",
+      "contact": "terrence@nus.edu",
+      "remarks": "email before delivery",
+      "deliveryDate": "2019-10-30T14:04:28.123+0000",
       "status": "ACTIVE",
-      "total": 0.0,
-      "items": [
-        {
-          "product": {
-            "productName": "Cake",
-            "ingredientItems": [],
-            "ingredientCost": 0.0,
-            "retailPrice": 0.0,
-            "status": "ACTIVE"
-          },
-          "amount": 1.0
-        }
-      ]
-    },
-    {
-      "id": 1573356779508,
-      "creationDate": "2019-11-10T03:32:59.508+0000",
-      "name": "customer",
-      "contact": "N/A",
-      "remarks": "N/A",
-      "deliveryDate": "2019-11-10T03:32:59.503+0000",
-      "status": "CANCELED",
-      "total": 0.0,
-      "items": []
-    },
-    {
-      "id": 1573356990570,
-      "creationDate": "2019-11-10T03:36:30.570+0000",
-      "name": "customer",
-      "contact": "N/A",
-      "remarks": "N/A",
-      "deliveryDate": "2019-11-10T03:36:30.565+0000",
-      "status": "COMPLETED",
-      "total": 30.0,
+      "total": 38.5,
       "items": [
         {
           "product": {
@@ -207,38 +174,18 @@
             "status": "ACTIVE"
           },
           "amount": 10.0
-        }
-      ]
-    },
-    {
-      "id": 1573357713635,
-      "creationDate": "2019-11-10T03:48:33.635+0000",
-      "name": "customer",
-      "contact": "N/A",
-      "remarks": "N/A",
-      "deliveryDate": "2019-11-10T03:48:33.635+0000",
-      "status": "ACTIVE",
-      "total": 3000.0,
-      "items": [
+        },
         {
           "product": {
-            "productName": "Cookie",
+            "productName": "Waffle",
             "ingredientItems": [
-              {
-                "ingredient": {
-                  "name": "Sugar",
-                  "unitPrice": 0.0,
-                  "remarks": "-"
-                },
-                "amount": 30.0
-              },
               {
                 "ingredient": {
                   "name": "Skimmed milk",
                   "unitPrice": 0.0,
                   "remarks": "-"
                 },
-                "amount": 25.0
+                "amount": 100.0
               },
               {
                 "ingredient": {
@@ -254,14 +201,85 @@
                   "unitPrice": 0.0,
                   "remarks": "-"
                 },
-                "amount": 52.0
+                "amount": 100.0
+              },
+              {
+                "ingredient": {
+                  "name": "Butter",
+                  "unitPrice": 0.0,
+                  "remarks": "-"
+                },
+                "amount": 20.0
               }
             ],
-            "ingredientCost": 4.0,
-            "retailPrice": 3.0,
+            "ingredientCost": 1.0,
+            "retailPrice": 1.7,
             "status": "ACTIVE"
           },
-          "amount": 1000.0
+          "amount": 5.0
+        }
+      ]
+    },
+    {
+      "id": 1572396521864,
+      "creationDate": "2019-10-30T00:48:41.864+0000",
+      "name": "Jiajun",
+      "contact": "12390912",
+      "remarks": "No nuts",
+      "deliveryDate": "2019-11-05T13:55:26.486+0000",
+      "status": "CANCELED",
+      "total": 25.0,
+      "items": [
+        {
+          "product": {
+            "productName": "Tart",
+            "ingredientItems": [
+              {
+                "ingredient": {
+                  "name": "Sugar",
+                  "unitPrice": 0.0,
+                  "remarks": "-"
+                },
+                "amount": 15.0
+              },
+              {
+                "ingredient": {
+                  "name": "Egg",
+                  "unitPrice": 0.0,
+                  "remarks": "-"
+                },
+                "amount": 1.0
+              },
+              {
+                "ingredient": {
+                  "name": "Sour cream",
+                  "unitPrice": 0.0,
+                  "remarks": "-"
+                },
+                "amount": 20.0
+              },
+              {
+                "ingredient": {
+                  "name": "Plain flour",
+                  "unitPrice": 0.0,
+                  "remarks": "-"
+                },
+                "amount": 50.0
+              },
+              {
+                "ingredient": {
+                  "name": "Butter",
+                  "unitPrice": 0.0,
+                  "remarks": "-"
+                },
+                "amount": 15.0
+              }
+            ],
+            "ingredientCost": 3.2,
+            "retailPrice": 5.0,
+            "status": "ACTIVE"
+          },
+          "amount": 5.0
         }
       ]
     }
@@ -312,7 +330,7 @@
         }
       ],
       "ingredientCost": 3.2,
-      "retailPrice": 10000.0,
+      "retailPrice": 5.0,
       "status": "ACTIVE"
     },
     {
@@ -492,14 +510,46 @@
       "status": "ACTIVE"
     },
     {
-      "productName": "================================================================================================================================================================",
+      "productName": "Cheese cake",
+      "ingredientItems": [
+        {
+          "ingredient": {
+            "name": "Sugar",
+            "unitPrice": 0.0,
+            "remarks": ""
+          },
+          "amount": 3.0
+        },
+        {
+          "ingredient": {
+            "name": "Butter milk",
+            "unitPrice": 0.0,
+            "remarks": ""
+          },
+          "amount": 1.0
+        },
+        {
+          "ingredient": {
+            "name": "Cream cheese",
+            "unitPrice": 0.0,
+            "remarks": ""
+          },
+          "amount": 3.0
+        }
+      ],
+      "ingredientCost": 3.0,
+      "retailPrice": 5.9,
+      "status": "ACTIVE"
+    },
+    {
+      "productName": "Oooooooooooooooooooooooooooooooooooooo",
       "ingredientItems": [],
       "ingredientCost": 0.0,
       "retailPrice": 0.0,
       "status": "ACTIVE"
     },
     {
-      "productName": "Cake",
+      "productName": "New york cheese cake in the cloud computing",
       "ingredientItems": [],
       "ingredientCost": 0.0,
       "retailPrice": 0.0,
@@ -513,7 +563,7 @@
         "unitPrice": 0.0,
         "remarks": "gram"
       },
-      "amount": 0.0
+      "amount": 200.0
     },
     {
       "ingredient": {
@@ -521,7 +571,7 @@
         "unitPrice": 0.0,
         "remarks": "gram"
       },
-      "amount": 38.0
+      "amount": 258.0
     },
     {
       "ingredient": {
@@ -529,7 +579,7 @@
         "unitPrice": 0.0,
         "remarks": ""
       },
-      "amount": 0.0
+      "amount": 30.0
     },
     {
       "ingredient": {
@@ -537,7 +587,7 @@
         "unitPrice": 0.0,
         "remarks": "gram"
       },
-      "amount": 0.0
+      "amount": 500.0
     },
     {
       "ingredient": {
@@ -545,7 +595,7 @@
         "unitPrice": 0.0,
         "remarks": ""
       },
-      "amount": 7.0
+      "amount": 10.0
     },
     {
       "ingredient": {
@@ -553,7 +603,7 @@
         "unitPrice": 0.0,
         "remarks": "ml"
       },
-      "amount": 0.0
+      "amount": 1000.0
     },
     {
       "ingredient": {
@@ -561,7 +611,7 @@
         "unitPrice": 0.0,
         "remarks": "gram"
       },
-      "amount": 2856.0
+      "amount": 6000.0
     },
     {
       "ingredient": {
@@ -570,6 +620,14 @@
         "remarks": ""
       },
       "amount": 50000.0
+    },
+    {
+      "ingredient": {
+        "name": "Iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
+        "unitPrice": 0.0,
+        "remarks": ""
+      },
+      "amount": 0.0
     }
   ],
   "shoppingList": [
@@ -620,6 +678,22 @@
         "remarks": "-"
       },
       "amount": 0.0
+    },
+    {
+      "ingredient": {
+        "name": "Butter milk",
+        "unitPrice": 0.0,
+        "remarks": ""
+      },
+      "amount": 0.0
+    },
+    {
+      "ingredient": {
+        "name": "Cream cheese",
+        "unitPrice": 0.0,
+        "remarks": ""
+      },
+      "amount": 0.0
     }
   ],
   "sales": [
@@ -638,30 +712,6 @@
       "isSpend": false,
       "saleDate": "2019-11-08T14:29:45.587+0000",
       "remarks": "Event revenue"
-    },
-    {
-      "id": 1573354012287,
-      "description": "Order 1573354012287 completed.",
-      "value": 85.0,
-      "isSpend": false,
-      "saleDate": "2019-10-30T14:02:52.448+0000",
-      "remarks": "For birthday party"
-    },
-    {
-      "id": 1573355128374,
-      "description": "Order 1573355128374 completed.",
-      "value": 35.0,
-      "isSpend": false,
-      "saleDate": "2019-01-01T10:00:00.000+0000",
-      "remarks": "Customer is allergic to nuts"
-    },
-    {
-      "id": 1573355128378,
-      "description": "Order 1573355128378 completed.",
-      "value": 35.0,
-      "isSpend": false,
-      "saleDate": "2019-01-01T10:00:00.000+0000",
-      "remarks": "Customer is allergic to nuts"
     }
   ],
   "shortcuts": [
@@ -677,25 +727,6 @@
       "userInputs": [
         "order add",
         " order add"
-      ]
-    },
-    {
-      "name": "aaa",
-      "userInputs": [
-        "-a -a"
-      ]
-    },
-    {
-      "name": "a",
-      "userInputs": [
-        "a"
-      ]
-    },
-    {
-      "name": "demo",
-      "userInputs": [
-        "product add -name cake",
-        " order add -item cake, 1"
       ]
     }
   ]
