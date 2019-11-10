@@ -10,7 +10,7 @@ public class Difficulty {
      * Enumerator that separates the level of the difficulty.
      */
     enum Level {
-        E,
+        L,
         M,
         H
     }
@@ -28,8 +28,8 @@ public class Difficulty {
      */
     public Difficulty(String difficulty) {
         switch (difficulty.toLowerCase()) {
-        case "e":
-            this.level = Level.E;
+        case "l":
+            this.level = Level.L;
             break;
         case "m":
         default:

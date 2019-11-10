@@ -226,7 +226,7 @@ public class TaskList {
      * @param i index at which task is snoozed.
      * @param userInput full description of the user's input.
      */
-    public void snoozeTask(int i, String[] userInput) {
+    public void snoozeTask(TaskList list, int i, String[] userInput) {
         if (userInput[1].contains("/")) {
             LocalDateTime localDateTime = getDateTime(userInput[1] + " " + userInput[2]);
             list.get(i).setDateTime(localDateTime);

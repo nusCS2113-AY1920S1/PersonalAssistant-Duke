@@ -77,4 +77,11 @@ public class Event extends Task {
     public void setDateTime(LocalDateTime localDateTime) {
         this.at = localDateTime;
     }
+
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Event
+                && description.equals(((Event) other).description) // check various attributes
+                && getDateTime().equals(((Event) other).getDateTime()));
+    }
 }

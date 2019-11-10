@@ -60,7 +60,7 @@ public class RecurringEvent extends Event {
     @Override
     public LocalDateTime getDateTime() {
         if (LocalDateTime.now().isAfter(this.at) && !hasRecurred) {
-            addNextRecurrence();
+            addNextRecurrence(Hustler.list);
         }
         return this.at;
     }
@@ -69,7 +69,7 @@ public class RecurringEvent extends Event {
     public void markAsDone() {
         this.isDone = true;
         if (!hasRecurred) {
-            addNextRecurrence();
+            addNextRecurrence(Hustler.list);
         }
     }
 
@@ -77,11 +77,21 @@ public class RecurringEvent extends Event {
      * Adds the next recurrence of the RecurringEvent
      * to the task list based on its period.
      */
-    public void addNextRecurrence() {
+    public void addNextRecurrence(TaskList list) {
         LocalDateTime nextAt = this.at.plusMinutes(period);
         System.out.println("\tNext recurrence of this Event has been added!");
-        Hustler.list.add(new RecurringEvent(description, nextAt, difficulty, tag,
+        list.add(new RecurringEvent(description, nextAt, difficulty, tag,
                 LocalDateTime.now(), frequency, period));
         this.hasRecurred = true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RecurringEvent // instanceof handles nulls
+                && description.equals(((RecurringEvent) other).description) // check various attributes
+                && getDateTime().equals(((RecurringEvent) other).getDateTime())
+                && frequency.equals(((RecurringEvent) other).frequency)
+                && (period == ((RecurringEvent) other).period));
     }
 }

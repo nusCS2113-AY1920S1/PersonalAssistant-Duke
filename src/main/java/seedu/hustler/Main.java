@@ -24,6 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setHustler(hustler);
             stage.show();
+            stage.setOnCloseRequest(t -> Hustler.run("/bye"));
         } catch (IOException e) {
             e.printStackTrace();
         }
