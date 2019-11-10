@@ -107,7 +107,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * @param tag Specific String to be filtered with.
      * @return ArrayList containing all the Receipts with the specific tag
      */
-    public ReceiptTracker getReceiptsByTag(String tag) {
+    public ReceiptTracker getReceiptsByTag(String tag)  {
         ReceiptTracker taggedReceipts = new ReceiptTracker();
         taggedReceipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
@@ -152,7 +152,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
             }
         }
         if (receipts.isEmpty()) {
-            throw new DukeException("Unable to get major expenses for this case");
+            throw new DukeException("No major expenses above/equal to $100 was found");
         }
         return receipts;
     }
