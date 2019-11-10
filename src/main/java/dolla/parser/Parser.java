@@ -74,7 +74,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * Splits the input from the user and assigns the relevant data into description and date variables.
      * If the incorrect format is given in the input, the corresponding alert will be printed.
      */
-    public void extractDescTime() throws Exception {
+    protected void extractDescTime() throws Exception {
         // dataArray[0] is command, amount and description, dataArray[1] is time and tag
         String[] dataArray = inputLine.split(" " + COMPONENT_DATE + " ");
         String dateString = (dataArray[1].split(" " + COMPONENT_TAG))[0];
@@ -123,7 +123,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * Alerts the user that the input is invalid, and returns an ErrorCommand.
      * @return an ErrorCommand
      */
-    public Command invalidCommand() {
+    protected Command invalidCommand() {
         Ui.printInvalidCommandError();
         return new ErrorCommand();
     }
@@ -134,7 +134,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return Either 'expense' or 'income' if either are passed in.
      * @throws Exception ???
      */
-    public static String verifyAddType(String s) throws Exception {
+    private static String verifyAddType(String s) throws Exception {
         if (s.equals("income") || s.equals("expense")) {
             return s;
         } else {
@@ -148,7 +148,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * Also splits description and time components in the process.
      * @return true if no error occurs.
      */
-    public boolean verifyAddCommand() {
+    protected boolean verifyAddCommand() {
         try {
             type = verifyAddType(inputArray[1]);
             amount = stringToDouble(inputArray[2]);
@@ -296,7 +296,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * Returns true if the only element in the input that follows 'modify' is a number.
      * @return true if the only element in the input that follows 'modify' is a number.
      */
-    public boolean verifyFullModifyCommand() {
+    protected boolean verifyFullModifyCommand() {
         if (inputArray.length != 2) {
             return false;
         }
@@ -314,7 +314,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * Also designates the correct information to the relevant variables.
      * @return true if the input has no formatting issues.
      */
-    public boolean verifyPartialModifyCommand() {
+    protected boolean verifyPartialModifyCommand() {
 
         type = null;
         amount = -1;
@@ -448,7 +448,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return Either 'expense' or 'income' if either are passed in.
      * @throws Exception ???
      */
-    public static String verifyDebtType(String s) throws Exception {
+    private static String verifyDebtType(String s) throws Exception {
         if (s.equals(TYPE_OWE) || s.equals(TYPE_BORROW)) {
             return s;
         } else {

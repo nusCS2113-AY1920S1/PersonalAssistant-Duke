@@ -22,7 +22,7 @@ public class ModifyParser extends Parser {
     @Override
     public Command parseInput() {
 
-        if (checkCancellation()) {
+        if (isModifyCancelled()) {
             return new RevertFromModifyCommand();
         }
 
@@ -59,7 +59,7 @@ public class ModifyParser extends Parser {
 
     }
 
-    private boolean checkCancellation() {
+    private boolean isModifyCancelled() {
         return inputLine.equals(MODIFY_CANCEL);
     }
 

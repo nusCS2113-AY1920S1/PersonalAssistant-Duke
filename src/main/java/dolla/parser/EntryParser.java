@@ -23,7 +23,7 @@ public class EntryParser extends Parser {
     @Override
     public Command parseInput() {
 
-        if (commandToRun.equals(ENTRY_COMMAND_LIST)) { //show entry list
+        if (commandToRun.equals(ENTRY_COMMAND_LIST)) {
             return new ShowListCommand(mode);
 
         } else if (commandToRun.equals(ENTRY_COMMAND_ADD)) {

@@ -19,14 +19,6 @@ public class RecordList {
         return new ArrayList<>(list);
     }
 
-    public void add(Record newRecord) {
-        list.add(newRecord);
-    }
-
-    public int size() {
-        return list.size();
-    }
-
     public Record getFromList(int index) {
         return list.get(index);
     }
@@ -47,20 +39,33 @@ public class RecordList {
         list.get(index).setDate(ld);
     }
 
-    public void removeFromList(int index) {
-        list.remove(index);
+    public void setRecordList(ArrayList<Record> recordList) {
+        this.list = recordList;
     }
 
+    public void add(Record newRecord) {
+        list.add(newRecord);
+    }
+
+    /**
+     * Inserts a new record at the specified modifyIndex.
+     * @param modifyIndex Index where the record should be added into the recordList.
+     * @param newRecord The record to be added.
+     */
     public void addWithIndex(int modifyIndex, Record newRecord) {
         list.add(modifyIndex, newRecord);
     }
 
-    public int findExistingRecordIndex(DollaData dollaData, Record record, String mode) {
-        return 0;
+    public int size() {
+        return list.size();
     }
 
-    public void setRecordList(ArrayList<Record> recordList) {
-        this.list = recordList;
+    public void removeFromList(int index) {
+        list.remove(index);
+    }
+
+    public int findExistingRecordIndex(DollaData dollaData, Record record, String mode) {
+        return 0;
     }
 
     public boolean isEmpty() {
