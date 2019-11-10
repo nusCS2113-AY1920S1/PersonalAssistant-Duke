@@ -3,6 +3,12 @@ package ducats;
 import java.util.Timer;
 import java.util.TimerTask;
 
+//@@author rohan-av
+/**
+ * Metronome class used to output a metronome to the command line based on the given tempo, duration and time
+ * signature.
+ *
+ */
 public class Metronome {
 
     private static final String TIMER_COMPLETE = "Done!\n\n";
@@ -13,7 +19,18 @@ public class Metronome {
     private int completedBars;
     private int noteNumber;
 
-    //@@author rohan-av
+    public int getDuration() {
+        return duration;
+    }
+
+    public int getTempo() {
+        return tempo;
+    }
+
+    public int[] getTimeSig() {
+        return timeSig;
+    }
+
     /**
      * Helper function to initialize the Metronome attributes from the given parameters.
      *

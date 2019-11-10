@@ -88,7 +88,7 @@ public class Bar extends CopyObject<Bar> implements Serializable {
      * @param noteList an ArrayList of Note objects, which can be of different durations
      * @return an ArrayList of Chord objects with the specified duration of an 1/8th note
      */
-    static ArrayList<Chord> compileNotesToChords(ArrayList<Note> noteList) {
+    static ArrayList<Chord> compileNotesToChords(ArrayList<Note> noteList) throws DucatsException {
         ArrayList<Chord> result = new ArrayList<>();
         for (Note note: noteList) {
             for (int i = 0; i < note.getRelativeUnitDuration(); i++) {

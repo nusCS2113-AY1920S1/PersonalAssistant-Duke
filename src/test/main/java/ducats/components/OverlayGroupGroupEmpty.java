@@ -7,16 +7,20 @@ import ducats.components.SongList;
 import junit.framework.TestCase;
 import ducats.commands.OverlayGroupGroup;
 import org.junit.Test;
+
 import ducats.Ui;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import ducats.components.Song;
 
-public class OverlayGroupGroupTest extends TestCase {
+public class OverlayGroupGroupEmpty extends TestCase {
+
     @Test
+
+    //this test must fail as the song does not exist and must return a Duke exception with the message "no_song"
+    // denoting that no such song exists.
+
     public void testGroupGroup() {
-        //ducats.Storage storage = new ducats.Storage(Paths.get
-        // ("/home/rishi/Desktop/cs2113t/team/main/data/todo_list" +".txt"));
         String fileDelimiter = System.getProperty("file.separator");
         ducats.Storage storage = new ducats.Storage (System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
         //ducats.Storage storage = new ducats.Storage(Paths.get("data", "songlist.txt"));
@@ -64,7 +68,32 @@ public class OverlayGroupGroupTest extends TestCase {
                 "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|" +
                 "{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|" +
                 "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|";
-
+        /*
+        String expected = "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|" +
+                "{UPPER_E UPPER_A }{UPPER_E UPPER_A }{UPPER_E UPPER_A }{UPPER_E UPPER_A }|" +
+                "{MIDDLE_C UPPER_E }{MIDDLE_C UPPER_E }{MIDDLE_C UPPER_E }{MIDDLE_C UPPER_E }|" +
+                "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|" +
+                "{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|" +
+                "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|" +
+                "{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|" +
+                "{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|" +
+                "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|" +
+                "{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|" +
+                "{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|" +
+                "{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|" +
+                "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|" +
+                "{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|" +
+                "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|" +
+                "{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|" +
+                "{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|" +
+                "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|" +
+                "{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|" +
+                "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|" +
+                "{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|" +
+                "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|" +
+                "{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|" +
+                "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|";
+        */
         String expected = "{UPPER_A UPPER_E UPPER_A }{UPPER_A UPPER_E UPPER_A }{UPPER_A UPPER_E UPPER_A }{UPPER_A UPPER_E UPPER_A }|" +
                 "{UPPER_E UPPER_A MIDDLE_C UPPER_E }{UPPER_E UPPER_A MIDDLE_C UPPER_E }{UPPER_E UPPER_A MIDDLE_C UPPER_E }{UPPER_E UPPER_A MIDDLE_C UPPER_E }|" +
                 "{MIDDLE_C UPPER_E UPPER_A }{MIDDLE_C UPPER_E UPPER_A }{MIDDLE_C UPPER_E UPPER_A }{MIDDLE_C UPPER_E UPPER_A }|" +
@@ -80,7 +109,6 @@ public class OverlayGroupGroupTest extends TestCase {
                 "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|" +
                 "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|";
 
-
         ducats.commands.GroupCommand grouper = new ducats.commands.GroupCommand("group 1 3 twinkle1");
         ducats.commands.GroupCommand grouper1 = new ducats.commands.GroupCommand("group 2 4 twinkle2");
         Ui ui = new Ui();
@@ -91,15 +119,21 @@ public class OverlayGroupGroupTest extends TestCase {
         catch (Exception e) {
             System.out.print(e);
         }
-        OverlayGroupGroup tester = new OverlayGroupGroup("overlay_group_group twinkle 2 twinkle 1");
+
+        OverlayGroupGroup tester = new OverlayGroupGroup("overlay_group_group ");
         try {
             tester.execute(songs,ui,storage);
         }
-        catch( Exception e) {
-            System.out.println(e);
+        catch( ducats.DucatsException e) {
+
+            assertEquals("overlay_group_group_format",e.getType());
+            //assert true;
+            //System.out.println(e.getMessage());
+            return;
         }
         //ducats.components.SongList songList = new SongList();
         ArrayList<ducats.components.Song> findList = songs.findSong("twinkle");
-        assertEquals(expected,findList.get(0).showSongChart());
+        //assertEquals(expected,findList.get(0).showSongChart());
+        assert false;
     }
 }
