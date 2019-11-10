@@ -23,7 +23,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_SUCCESS_EDIT_CONTACT = "Successfully edited this contact:";
     public static final String MESSAGE_SUCCESS_EDIT_LOAN = "Successfully edited this loan:";
     public static final String MESSAGE_ERROR_FORMAT = "Your format for edit command is wrong.";
-    public static final String MESSAGE_ERROR_COMMAND = "An error encountered while executing command.";
+    public static final String MESSAGE_ERROR_COMMAND = "An error encountered while executing edit command.";
     public static final String MESSAGE_ERROR_ID_DOES_NOT_EXIST = "The ID given does not exist.";
 
 
@@ -67,7 +67,7 @@ public class EditCommand extends Command {
             try {
                 currentExpense = wallet.getExpenseList().getExpense(index);
             } catch (IndexOutOfBoundsException ex) {
-                System.out.println(MESSAGE_ERROR_ID_DOES_NOT_EXIST);
+                Ui.printError(MESSAGE_ERROR_ID_DOES_NOT_EXIST);
                 return false;
             }
             if (expense.getRecFrequency() != null) {
@@ -128,7 +128,7 @@ public class EditCommand extends Command {
                 System.out.println(MESSAGE_SUCCESS_EDIT_CONTACT);
                 Ui.printContact(currentContact);
             } else {
-                System.out.println(MESSAGE_ERROR_COMMAND);
+                Ui.printError(MESSAGE_ERROR_COMMAND);
             }
             //@@author
         } else if (loan != null) {
@@ -152,7 +152,7 @@ public class EditCommand extends Command {
                 Ui.printLoanRow(updatedLoan);
                 Ui.printLoanTableClose();
             } else {
-                System.out.println(MESSAGE_ERROR_COMMAND);
+                Ui.printError(MESSAGE_ERROR_COMMAND);
             }
         }
         //@@author

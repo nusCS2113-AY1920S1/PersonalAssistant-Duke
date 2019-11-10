@@ -42,12 +42,12 @@ public class DoneCommand extends Command {
             Loan loan = wallet.getLoanList().findLoanWithId(id);
             if (loan != null) {
                 if (loan.getIsSettled()) {
-                    System.out.println(MESSAGE_FAILURE_ALREADY_DONE);
+                    Ui.printError(MESSAGE_FAILURE_ALREADY_DONE);
                     return false;
                 }
                 loan.setIsSettled(true);
             } else {
-                System.out.println(MESSAGE_FAILURE_NO_SUCH_ID);
+                Ui.printError(MESSAGE_FAILURE_NO_SUCH_ID);
                 return false;
             }
             wallet.getLoanList().setModified(true);
@@ -61,7 +61,7 @@ public class DoneCommand extends Command {
                 System.out.println("Great! All loans have been settled!");
             }
         } catch (Exception e) {
-            System.out.println(MESSAGE_FAILURE_DONE);
+            Ui.printError(MESSAGE_FAILURE_DONE);
         }
         return false;
     }

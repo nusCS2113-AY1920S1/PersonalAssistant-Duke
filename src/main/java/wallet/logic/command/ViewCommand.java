@@ -9,6 +9,7 @@ import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.ui.Ui;
 
+import java.math.BigDecimal;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,16 +58,19 @@ public class ViewCommand extends Command {
                                     + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                             System.out.println("$" + b.getAmount());
 
-                            double remainingBudget = b.getAmount()
-                                    - wallet.getExpenseList().getMonthExpenses(b.getMonth(), b.getYear());
+                            BigDecimal monthBudget = BigDecimal.valueOf(b.getAmount());
+                            BigDecimal expenseSum = BigDecimal.valueOf(wallet.getExpenseList()
+                                .getMonthExpenses(b.getMonth(), b.getYear()));
+                            double remainingBudget = monthBudget.subtract(expenseSum).doubleValue();
+
                             System.out.println(MESSAGE_REMAINING_BUDGET
-                                    + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
+                                + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                             System.out.println("$" + remainingBudget);
                             return false;
                         }
                     }
                     System.out.println(MESSAGE_EMPTY_BUDGET
-                            +  new DateFormatSymbols().getMonths()[month - 1] + " " + year);
+                            + new DateFormatSymbols().getMonths()[month - 1] + " " + year);
                 } else if (type[0].equals("stats")) {
                     //@@author kyang96
                     HashMap<Category, ArrayList<Expense>> categoryMap
@@ -107,17 +111,19 @@ public class ViewCommand extends Command {
             ui.drawPieChart(expenseList);
             return false;
         } else {
-            System.out.println(MESSAGE_USAGE);
+            Ui.printError(MESSAGE_USAGE);
         }
         return false;
     }
 
     //@@author kyang96
+
     /**
      * Generate a HashMap containing all expenses of a certain month in each category.
+     *
      * @param expenseList The entire list of expenses.
-     * @param month The month to filter.
-     * @param year The year to filter.
+     * @param month       The month to filter.
+     * @param year        The year to filter.
      */
     public HashMap<Category, ArrayList<Expense>> getCategoryMap(ArrayList<Expense> expenseList, int month, int year) {
         HashMap<Category, ArrayList<Expense>> categoryMap = new HashMap<>();

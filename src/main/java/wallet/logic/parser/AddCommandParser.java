@@ -19,8 +19,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class AddCommandParser implements Parser<AddCommand> {
-    public static final String MESSAGE_ERROR_ADD_CONTACT = "Error in input format when adding contact.";
-    public static final String MESSAGE_ERROR_INSUFFICIENT_PARAMETERS = "There are insufficient parameters provided.";
+    public static final String MESSAGE_ERROR_ADD_CONTACT = "Error in command syntax when adding contact.";
     public static final String MESSAGE_ERROR_WRONG_DATETIME_FORMAT = "Wrong date format, use \"dd/MM/yyyy\".";
     public static final String MESSAGE_ERROR_INVALID_CATEGORY
             = "Category can only be Bills, Food, Others, Shopping or Transport.";
@@ -42,8 +41,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             Expense expense;
             try {
                 expense = parseExpense(arguments[1]);
-            } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters(MESSAGE_ERROR_INSUFFICIENT_PARAMETERS);
             } catch (DateTimeParseException dt) {
                 throw new WrongDateTimeFormat(MESSAGE_ERROR_WRONG_DATETIME_FORMAT);
             }
@@ -55,11 +52,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         case "contact":
             Contact contact;
-            try {
-                contact = parseContact(arguments[1]);
-            } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters(MESSAGE_ERROR_INSUFFICIENT_PARAMETERS);
-            }
+            contact = parseContact(arguments[1]);
             if (contact != null) {
                 return new AddCommand(contact);
             } else {
@@ -69,8 +62,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             Loan loan;
             try {
                 loan = parseLoan(arguments[1]);
-            } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters(MESSAGE_ERROR_INSUFFICIENT_PARAMETERS);
             } catch (DateTimeParseException dt) {
                 throw new WrongDateTimeFormat(MESSAGE_ERROR_WRONG_DATETIME_FORMAT);
             }
@@ -79,7 +70,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             }
             break;
         default:
-            System.out.println(AddCommand.MESSAGE_USAGE);
+            Ui.printError(AddCommand.MESSAGE_USAGE);
             return null;
         }
         return null;
@@ -193,7 +184,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         ContactParserHelper contactHelper = new ContactParserHelper();
         Contact contact = contactHelper.newInput(info);
         if (contact == null) {
-            System.out.println(MESSAGE_ERROR_ADD_CONTACT);
+            Ui.printError(MESSAGE_ERROR_ADD_CONTACT);
             return null;
         } else {
             return contact;

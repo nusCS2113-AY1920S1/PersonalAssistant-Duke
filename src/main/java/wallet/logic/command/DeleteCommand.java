@@ -16,10 +16,10 @@ public class DeleteCommand extends Command {
             + "\ndelete expense <id>"
             + "\nExample: " + COMMAND_WORD + " expense 2";
     public static final String MESSAGE_SUCCESS_DELETE_EXPENSE = "Noted. I've removed this expense:";
-    public static final String MESSAGE_ERROR_DELETE_EXPENSE = "An error occurred when trying to delete expense.";
     public static final String MESSAGE_SUCCESS_DELETE_LOAN = "Noted. I've removed this loan:";
-    public static final String MESSAGE_ERROR_DELETE_LOAN = "An error occurred when trying to delete loan.";
     public static final String MESSAGE_SUCCESS_DELETE_CONTACT = "Noted. I've removed this contact:";
+    public static final String MESSAGE_ERROR_DELETE_EXPENSE = "An error occurred when trying to delete expense.";
+    public static final String MESSAGE_ERROR_DELETE_LOAN = "An error occurred when trying to delete loan.";
     public static final String MESSAGE_ERROR_DELETE_CONTACT = "An error occurred when trying to delete contact.";
     public static final String MESSAGE_ERROR_LOAN_USAGE = "There are loans using this contact. Unable to delete!";
     private String object;
@@ -54,7 +54,7 @@ public class DeleteCommand extends Command {
                 System.out.println(MESSAGE_SUCCESS_DELETE_EXPENSE);
                 Ui.printExpense(expense);
             } else {
-                System.out.println(MESSAGE_ERROR_DELETE_EXPENSE);
+                Ui.printError(MESSAGE_ERROR_DELETE_EXPENSE);
             }
             break;
         //@@author
@@ -73,7 +73,7 @@ public class DeleteCommand extends Command {
                     System.out.println("Turning off auto reminders because all loans have been settled!");
                 }
             } else {
-                System.out.println(MESSAGE_ERROR_DELETE_LOAN);
+                Ui.printError(MESSAGE_ERROR_DELETE_LOAN);
             }
             break;
         //@@author
@@ -82,7 +82,7 @@ public class DeleteCommand extends Command {
             //@@author Xdecosee
             for (Loan l : wallet.getLoanList().getLoanList()) {
                 if (l.getPerson().getId() == id) {
-                    System.out.println(MESSAGE_ERROR_LOAN_USAGE);
+                    Ui.printError(MESSAGE_ERROR_LOAN_USAGE);
                     return false;
                 }
             }
@@ -93,7 +93,7 @@ public class DeleteCommand extends Command {
                 System.out.println(MESSAGE_SUCCESS_DELETE_CONTACT);
                 Ui.printContact(contact);
             } else {
-                System.out.println(MESSAGE_ERROR_DELETE_CONTACT);
+                Ui.printError(MESSAGE_ERROR_DELETE_CONTACT);
             }
             break;
             //@@author

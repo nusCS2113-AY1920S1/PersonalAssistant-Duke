@@ -1,6 +1,5 @@
 package wallet.logic.parser;
 
-import wallet.exception.InsufficientParameters;
 import wallet.exception.WrongParameterFormat;
 import wallet.logic.command.DeleteCommand;
 import java.text.ParseException;
@@ -11,7 +10,6 @@ import java.text.ParseException;
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
     public static final String MESSAGE_ERROR_INVALID_ID = "You need to provide a valid ID (Number) when deleting.";
-    public static final String MESSAGE_ERROR_MISSING_ID = "You need to provide an ID when deleting.";
 
     /**
      * Changes user input String to appropriate parameters
@@ -27,8 +25,6 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         int id = 0;
         try {
             id = Integer.parseInt(arguments[1]);
-        } catch (ArrayIndexOutOfBoundsException err) {
-            throw new InsufficientParameters(MESSAGE_ERROR_MISSING_ID);
         } catch (NumberFormatException err) {
             throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_ID);
         }

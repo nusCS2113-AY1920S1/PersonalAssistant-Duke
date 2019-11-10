@@ -11,6 +11,7 @@ import wallet.model.record.ExpenseList;
 import wallet.model.record.Loan;
 import wallet.model.record.LoanList;
 import wallet.model.record.RecurrenceRate;
+import wallet.ui.Ui;
 
 import java.io.File;
 import java.io.FileReader;
@@ -23,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImportCommandParser implements Parser<ImportCommand> {
-    public static final String MESSAGE_ERROR_WRONG_FORMAT = "Wrong Format input for import!";
-    public static final String MESSAGE_ERROR_READING_CSV = "Error in reading csv!";
+    public static final String MESSAGE_ERROR_WRONG_FORMAT = "Wrong import command syntax!";
+    public static final String MESSAGE_ERROR_READING_CSV = "Error in importing csv!";
     public static final String MESSAGE_ERROR_CSV_FORMAT = "CSV is formatted wrongly";
 
     /**
@@ -37,7 +38,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     public ImportCommand parse(String input) {
         String[] arguments = input.split(" ", 2);
         if (arguments.length != 2) {
-            System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
+            Ui.printError(MESSAGE_ERROR_WRONG_FORMAT);
             return null;
         }
         arguments[0] = arguments[0].toLowerCase();
@@ -61,7 +62,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             }
         }
 
-        System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
+        Ui.printError(MESSAGE_ERROR_WRONG_FORMAT);
         return null;
     }
 
@@ -97,7 +98,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 } else if (s[3].trim().equalsIgnoreCase("borrow")) {
                     isLend = false;
                 } else {
-                    System.out.println(MESSAGE_ERROR_CSV_FORMAT);
+                    Ui.printError(MESSAGE_ERROR_CSV_FORMAT);
                     return null;
                 }
 
@@ -106,12 +107,12 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 } else if (s[4].trim().equalsIgnoreCase("no")) {
                     isSettled = false;
                 } else {
-                    System.out.println(MESSAGE_ERROR_CSV_FORMAT);
+                    Ui.printError(MESSAGE_ERROR_CSV_FORMAT);
                     return null;
                 }
 
                 if (s[5].trim().isEmpty()) {
-                    System.out.println(MESSAGE_ERROR_CSV_FORMAT);
+                    Ui.printError(MESSAGE_ERROR_CSV_FORMAT);
                     return null;
                 } else {
                     name = s[5].trim();
@@ -143,10 +144,10 @@ public class ImportCommandParser implements Parser<ImportCommand> {
 
 
         } catch (URISyntaxException | IOException | NullPointerException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
+            Ui.printError(MESSAGE_ERROR_READING_CSV);
             return null;
         } catch (DateTimeParseException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.out.println(MESSAGE_ERROR_CSV_FORMAT);
+            Ui.printError(MESSAGE_ERROR_CSV_FORMAT);
             return null;
         }
         return data;
@@ -177,7 +178,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 Category cat = Category.getCategory(s[3]);
 
                 if (cat == null) {
-                    System.out.println(MESSAGE_ERROR_CSV_FORMAT);
+                    Ui.printError(MESSAGE_ERROR_CSV_FORMAT);
                     return null;
                 }
                 boolean isRecurring = false;
@@ -187,7 +188,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                     date = LocalDate.parse(s[1].trim(), formatter);
                     freq = RecurrenceRate.getRecurrence(s[5].trim());
                     if (freq == null) {
-                        System.out.println(MESSAGE_ERROR_CSV_FORMAT);
+                        Ui.printError(MESSAGE_ERROR_CSV_FORMAT);
                         return null;
                     }
                 }
@@ -198,10 +199,10 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             filereader.close();
 
         } catch (URISyntaxException | IOException | NullPointerException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
+            Ui.printError(MESSAGE_ERROR_READING_CSV);
             return null;
         } catch (NumberFormatException | DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            System.out.println(MESSAGE_ERROR_CSV_FORMAT);
+            Ui.printError(MESSAGE_ERROR_CSV_FORMAT);
             return null;
         }
         return data;

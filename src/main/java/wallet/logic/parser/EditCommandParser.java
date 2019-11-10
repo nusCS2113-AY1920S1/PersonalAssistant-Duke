@@ -11,6 +11,7 @@ import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.model.record.RecurrenceRate;
+import wallet.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +22,7 @@ import java.time.format.DateTimeParseException;
  * change user input String into appropriate parameters.
  */
 public class EditCommandParser implements Parser<EditCommand> {
-    public static final String MESSAGE_ERROR_EDIT_CONTACT = "Error in input format when editing contact.";
+    public static final String MESSAGE_ERROR_EDIT_CONTACT = "Error in command syntax when editing contact.";
     public static final String MESSAGE_ERROR_NOT_NUMBER = "Error when parsing number, please provide proper input.";
     public static final String MESSAGE_ERROR_WRONG_DATE_FORMAT = "Error when parsing date, format is \"dd/MM/yyyy\".";
     public static final String MESSAGE_ERROR_INVALID_RECURRENCE_RATE = "Invalid value for rate of recurrence. "
@@ -35,8 +36,6 @@ public class EditCommandParser implements Parser<EditCommand> {
             Expense expense;
             try {
                 expense = parseExpense(arguments[1]);
-            } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters("There are no arguments when editing the expense!");
             } catch (NumberFormatException nf) {
                 throw new WrongParameterFormat(MESSAGE_ERROR_NOT_NUMBER);
             } catch (DateTimeParseException dt) {
@@ -50,11 +49,9 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         case "loan":
             Loan loan;
-            try {
-                loan = parseLoan(arguments[1]);
-            } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters("There are no arguments when editing the loan!");
-            }
+
+            loan = parseLoan(arguments[1]);
+
             if (loan != null) {
                 return new EditCommand(loan);
             }
@@ -62,11 +59,9 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         case "contact":
             Contact contact;
-            try {
-                contact = parseContact(arguments[1]);
-            } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters("There are no arguments when editing the contact!");
-            }
+
+            contact = parseContact(arguments[1]);
+
             if (contact != null) {
                 return new EditCommand(contact);
             } else {
@@ -74,7 +69,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             }
 
         default:
-            System.out.println(EditCommand.MESSAGE_USAGE);
+            Ui.printError(EditCommand.MESSAGE_USAGE);
             return null;
         }
         return null;
@@ -96,18 +91,18 @@ public class EditCommandParser implements Parser<EditCommand> {
                 ContactParserHelper contactHelper = new ContactParserHelper();
                 Contact contact = contactHelper.updateInput(parameters);
                 if (contact == null) {
-                    System.out.println(MESSAGE_ERROR_EDIT_CONTACT);
+                    Ui.printError(MESSAGE_ERROR_EDIT_CONTACT);
                     return null;
                 }
                 contact.setId(id);
                 return contact;
             } catch (NumberFormatException e) {
-                System.out.println(MESSAGE_ERROR_EDIT_CONTACT);
+                Ui.printError(MESSAGE_ERROR_EDIT_CONTACT);
                 return null;
             }
 
         }
-        System.out.println(MESSAGE_ERROR_EDIT_CONTACT);
+        Ui.printError(MESSAGE_ERROR_EDIT_CONTACT);
         return null;
         //@@author
 
@@ -225,12 +220,12 @@ public class EditCommandParser implements Parser<EditCommand> {
                     expense.setRecurring(false);
                     expense.setRecFrequency(rec);
                 } else {
-                    System.out.println(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
+                    Ui.printError(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
                     return null;
                 }
                 parameters = getRecurring[0].trim();
             } else {
-                System.out.println(EditCommand.MESSAGE_ERROR_FORMAT);
+                Ui.printError(EditCommand.MESSAGE_ERROR_FORMAT);
                 return null;
             }
         }
@@ -242,7 +237,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 expense.setDate(date);
                 parameters = getDate[0].trim();
             } else {
-                System.out.println(EditCommand.MESSAGE_ERROR_FORMAT);
+                Ui.printError(EditCommand.MESSAGE_ERROR_FORMAT);
                 return null;
             }
         }
@@ -252,7 +247,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 expense.setCategory(Category.getCategory(getCategory[1].trim()));
                 parameters = getCategory[0].trim();
             } else {
-                System.out.println(EditCommand.MESSAGE_ERROR_FORMAT);
+                Ui.printError(EditCommand.MESSAGE_ERROR_FORMAT);
                 return null;
             }
         }
@@ -262,7 +257,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 expense.setAmount(Double.parseDouble(getAmount[1].trim()));
                 parameters = getAmount[0].trim();
             } else {
-                System.out.println(EditCommand.MESSAGE_ERROR_FORMAT);
+                Ui.printError(EditCommand.MESSAGE_ERROR_FORMAT);
                 return null;
             }
         }

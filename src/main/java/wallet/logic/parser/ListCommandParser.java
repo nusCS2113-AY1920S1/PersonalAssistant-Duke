@@ -1,6 +1,7 @@
 package wallet.logic.parser;
 
 import wallet.logic.command.ListCommand;
+import wallet.ui.Ui;
 
 /**
  * The ListCommandParser class helps to
@@ -14,7 +15,7 @@ public class ListCommandParser implements Parser<ListCommand> {
             return new ListCommand(input);
         }
 
-        System.out.println(ListCommand.MESSAGE_USAGE);
+        Ui.printError(ListCommand.MESSAGE_USAGE);
         return null;
     }
 }
