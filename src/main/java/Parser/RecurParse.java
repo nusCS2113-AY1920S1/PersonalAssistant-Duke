@@ -68,6 +68,7 @@ public class RecurParse extends Parse {
             String endDateString = in[1];
             String startTimeString = in[2];
             String endTimeString = in[3];
+            if (!super.isValidDateRecurring(in[0], in[1])) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.RECUR_EVENT_DATE_FORMAT_ERROR);
             return new RecurringCommand(modCodeAndDescription, startDateString, endDateString, startTimeString, endTimeString, isBiweekly, isRecur);
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
             LOGGER.severe("Invalid recur format");

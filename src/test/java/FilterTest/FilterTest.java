@@ -59,8 +59,8 @@ public class FilterTest {
         events.addTask(eventWithKeyword);
         Command command = new FilterCommand(keyword);
         String w1 = "Here are the following events/deadline with the keyword key\n"
-                + "1. [E]EventWithKey CS2101 12/10/2019 1300 to 1301\n"
-                + "2. [D]DeadlineWithKey CS2101 13/10/2019 1200\n";
+                + "1. [E]CS2101 EventWithKey at 12/10/2019 1300 to 1301\n"
+                + "2. [D]CS2101 DeadlineWithKey by 13/10/2019 1200\n";
         String w2;
         try {
             w2 = command.execute(events, deadlines, ui, storage);
