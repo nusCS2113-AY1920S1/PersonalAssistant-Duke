@@ -1,35 +1,150 @@
 package spinbox;
 
 import com.joestelmach.natty.Parser;
+import spinbox.exceptions.DateFormatException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
 public class DateTime implements Comparable<DateTime> {
+    private static final String[] NATURAL_LANGUAGE_WORDS = {"today", "tomorrow", "next", "yesterday", "day", "after"};
     private Date dateTime;
 
     /**
-     * Constructor for simple dateTime object.
+     * Constructor for simple DateTime object.
      * @param dateTime A Date Object with date and time.
      */
     public DateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 
-    public DateTime(String dateTime) {
+    /**
+     * Constructor for DateTime object from a String.
+     * @param dateTime dateTime String.
+     * @throws DateFormatException Date formatting exception.
+     */
+    public DateTime(String dateTime) throws DateFormatException {
+        validateDateTime(dateTime);
         Parser parser = new Parser();
         this.dateTime = parser.parse(dateTime).get(0).getDates().get(0);
     }
 
-    public DateTime(String dateTime, int index) {
+    /**
+     * Contructor for DateTime object from a String with more than
+     * one date and time.
+     * @param dateTime date and time string.
+     * @param index index showing where the date and time should be.
+     * @throws DateFormatException Date formatting exception
+     */
+    public DateTime(String dateTime, int index) throws DateFormatException {
+        validateDateTime(extractDateTimeFromIndex(dateTime, index));
         Parser parser = new Parser();
         this.dateTime = parser.parse(dateTime).get(0).getDates().get(index);
     }
 
     public Date getDateTime() {
         return dateTime;
+    }
+
+    private String extractDateTimeFromIndex(String dateTime, int index) throws DateFormatException {
+        String[] dateTimeArray = dateTime.split(" to ");
+
+        if (dateTimeArray.length != 2) {
+            throw new DateFormatException("You input:"
+                    + dateTime
+                    + " Format should be at: MM/dd/yyyy HH:mm to MM/dd/yyyy HH:mm");
+        }
+
+        return dateTimeArray[index];
+    }
+
+    /**
+     * Checks if there is any words for natty to parse,
+     * if not validate the date and time input.
+     * @param dateTime date and time string.
+     */
+    private void validateDateTime(String dateTime) throws DateFormatException {
+        for (String word : NATURAL_LANGUAGE_WORDS) {
+            if (dateTime.contains(word)) {
+                return;
+            }
+        }
+
+        dateTime = dateTime.trim();
+        String[] dateTimeArray = dateTime.split(" ");
+        dateTimeArray = Arrays.stream(dateTimeArray).filter(s -> !s.isEmpty()).toArray(String[]::new);
+
+        if (dateTimeArray.length != 2) {
+            throw new DateFormatException("DateTime: " + dateTime + " is invalid."
+                    + " Please provide both date and time in the format of MM/dd/yyyy HH:mm!");
+        }
+
+        validateDate(dateTimeArray[0]);
+        validateTime(dateTimeArray[1]);
+    }
+
+    private void  validateDate(String date) throws DateFormatException {
+        int[] numberOfDaysEachMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+        if (!date.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            throw new DateFormatException("Date must be in MM/dd/yyyy format.");
+        }
+
+        String[] dateArray = date.split("/");
+        int month = Integer.parseInt(dateArray[0]);
+        int day = Integer.parseInt(dateArray[1]);
+        int year = Integer.parseInt(dateArray[2]);
+
+        if (checkLeapYear(year)) {
+            numberOfDaysEachMonth[1] = 29;
+        }
+
+        if (month > 12 || month < 1) {
+            throw new DateFormatException("Month must be from 1 - 12 range.");
+        }
+
+        int maxDay = numberOfDaysEachMonth[month - 1];
+
+        if (day < 1 || day > maxDay) {
+            throw new DateFormatException("Day must be from 1 - " + maxDay + " range for this month and year.");
+        }
+    }
+
+    private boolean checkLeapYear(int year) {
+        if (year % 400 == 0) {
+            return true;
+        }
+
+        if (year % 100 == 0) {
+            return false;
+        }
+
+        if (year % 4 == 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void validateTime(String time) throws DateFormatException {
+        if (!time.matches("\\d{2}:\\d{2}")) {
+            throw new DateFormatException("Time must be in HH:mm format.");
+        }
+
+        String[] timeArray = time.split(":");
+        int hours = Integer.parseInt(timeArray[0]);
+        int minutes = Integer.parseInt(timeArray[1]);
+
+        if (hours > 23 || hours < 0) {
+            throw new DateFormatException("Hour must be from 0 - 23 range.");
+        }
+
+        if (minutes > 59 || minutes < 0) {
+            throw new DateFormatException("Minutes must be from 0 - 59 range");
+        }
     }
 
     /**

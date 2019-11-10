@@ -9,14 +9,20 @@ import spinbox.entities.items.tasks.Lab;
 import spinbox.entities.items.tasks.Lecture;
 import spinbox.entities.items.tasks.Todo;
 import spinbox.entities.items.tasks.Tutorial;
+import spinbox.exceptions.DateFormatException;
 import spinbox.exceptions.ScheduleDateException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskTest {
-    private DateTime startDateTime = new DateTime("01/01/2030 00:00");
-    private DateTime endDateTime = new DateTime("01/01/2030 01:00");
+    private DateTime startDateTime;
+    private DateTime endDateTime;
+
+    public TaskTest() throws DateFormatException {
+        startDateTime = new DateTime("01/01/2030 00:00");
+        endDateTime = new DateTime("01/01/2030 01:00");
+    }
 
     @Test
     public void createTodoSuccessful_createNewTodoTask_todoSuccessfullyCreated() {
@@ -40,8 +46,8 @@ public class TaskTest {
             deadline.markDone();
             assertEquals(deadline.storeString(), "D | 1 | Test 2 | 01/01/2030 00:00");
             assertEquals(deadline.toString(), "[D][DONE] Test 2 (by: 01/01/2030 00:00)");
-        } catch (ScheduleDateException ede) {
-            fail(ede.getMessage());
+        } catch (ScheduleDateException | DateFormatException e) {
+            fail(e.getMessage());
         }
     }
 
@@ -58,8 +64,8 @@ public class TaskTest {
             event.markDone();
             assertEquals(event.storeString(), "E | 1 | Test 3 | 01/01/2030 00:00 | 01/01/2030 01:00");
             assertEquals(event.toString(), "[E][DONE] Test 3 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
-        } catch (ScheduleDateException ede) {
-            fail(ede.getMessage());
+        } catch (ScheduleDateException | DateFormatException e) {
+            fail(e.getMessage());
         }
     }
 
@@ -76,8 +82,8 @@ public class TaskTest {
             exam.markDone();
             assertEquals(exam.storeString(), "EXAM | 1 | Test 4 | 01/01/2030 00:00 | 01/01/2030 01:00");
             assertEquals(exam.toString(), "[EXAM][DONE] Test 4 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
-        } catch (ScheduleDateException ede) {
-            fail(ede.getMessage());
+        } catch (ScheduleDateException | DateFormatException e) {
+            fail(e.getMessage());
         }
 
     }
@@ -95,8 +101,8 @@ public class TaskTest {
             lab.markDone();
             assertEquals(lab.storeString(), "LAB | 1 | Test 5 | 01/01/2030 00:00 | 01/01/2030 01:00");
             assertEquals(lab.toString(), "[LAB][DONE] Test 5 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
-        } catch (ScheduleDateException ede) {
-            fail(ede.getMessage());
+        } catch (ScheduleDateException | DateFormatException e) {
+            fail(e.getMessage());
         }
     }
 
@@ -113,8 +119,8 @@ public class TaskTest {
             lecture.markDone();
             assertEquals(lecture.storeString(), "LEC | 1 | Test 6 | 01/01/2030 00:00 | 01/01/2030 01:00");
             assertEquals(lecture.toString(), "[LEC][DONE] Test 6 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
-        } catch (ScheduleDateException ede) {
-            fail(ede.getMessage());
+        } catch (ScheduleDateException | DateFormatException e) {
+            fail(e.getMessage());
         }
 
     }
@@ -132,8 +138,8 @@ public class TaskTest {
             tutorial.markDone();
             assertEquals(tutorial.storeString(), "TUT | 1 | Test 7 | 01/01/2030 00:00 | 01/01/2030 01:00");
             assertEquals(tutorial.toString(), "[TUT][DONE] Test 7 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
-        } catch (ScheduleDateException ede) {
-            fail(ede.getMessage());
+        } catch (ScheduleDateException | DateFormatException e) {
+            fail(e.getMessage());
         }
 
 

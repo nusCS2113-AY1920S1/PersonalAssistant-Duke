@@ -40,9 +40,8 @@ import spinbox.entities.items.tasks.Exam;
 import spinbox.entities.items.tasks.Schedulable;
 import spinbox.entities.items.tasks.Task;
 import spinbox.entities.items.tasks.TaskType;
+import spinbox.exceptions.DateFormatException;
 import spinbox.exceptions.SpinBoxException;
-import spinbox.exceptions.CalendarSelectorException;
-
 import spinbox.gui.boxes.FileBox;
 import spinbox.gui.boxes.GradedComponentBox;
 import spinbox.gui.boxes.ModuleBox;
@@ -123,11 +122,7 @@ public class MainWindow extends GridPane {
                     updateMain();
                     break;
                 case 1:
-                    try {
-                        updateCalendar();
-                    } catch (CalendarSelectorException e) {
-                        e.printStackTrace();
-                    }
+                    updateCalendar();
                     break;
                 default:
                     updateModules();
@@ -172,8 +167,7 @@ public class MainWindow extends GridPane {
      * them to the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput()
-            throws CalendarSelectorException {
+    private void handleUserInput() {
         LOGGER.entering(getClass().getName(), "handleUserInput");
         commandHistory.add(0, userInput.getText());
         commandCount = 0;
@@ -225,7 +219,7 @@ public class MainWindow extends GridPane {
     /**
      * Initializes the contents of the Main tab, which is the default upon startup.
      */
-    public void initializeGui() throws CalendarSelectorException {
+    public void initializeGui() throws DateFormatException {
         if (spinBox == null) {
             return;
         }
@@ -245,8 +239,7 @@ public class MainWindow extends GridPane {
         }
     }
 
-    private void updateAll()
-            throws CalendarSelectorException {
+    private void updateAll() {
         updateMain();
         updateModules();
         updateCalendar();
@@ -399,11 +392,7 @@ public class MainWindow extends GridPane {
 
             wrappedModule.setOnMouseClicked(event -> {
                 userInput.setText("view / modules " + currentModule.getModuleCode() + " tasks");
-                try {
-                    handleUserInput();
-                } catch (SpinBoxException e) {
-                    e.printStackTrace();
-                }
+                handleUserInput();
             });
             modulesList.getChildren().add(wrappedModule);
         }
@@ -580,7 +569,7 @@ public class MainWindow extends GridPane {
         }
     }
 
-    private void updateCalendar() throws CalendarSelectorException {
+    private void updateCalendar() {
         CalendarMonthBox monthBox = new CalendarMonthBox("today", allTasks);
         calendarView.getChildren().clear();
         calendarView.getChildren().add(monthBox);

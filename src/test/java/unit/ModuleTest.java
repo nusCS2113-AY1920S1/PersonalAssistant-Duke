@@ -6,6 +6,7 @@ import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.StorageException;
+import spinbox.exceptions.DateFormatException;
 import spinbox.containers.ModuleContainer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,7 +15,7 @@ public class ModuleTest {
 
     @Test
     public void moduleCreation_variousModules_successfulCreationWithWorkingGetters() throws FileCreationException,
-            CorruptedDataException, DataReadWriteException {
+            CorruptedDataException, DataReadWriteException, DateFormatException {
         ModuleContainer testContainer = new ModuleContainer();
         Module testModuleOne = new Module("testMod1", "Engineering Principles & Practice I");
 
@@ -36,7 +37,8 @@ public class ModuleTest {
     }
 
     @Test
-    public void storageStringRecreation_oneModule_expectedRecreatedObject() throws StorageException {
+    public void storageStringRecreation_oneModule_expectedRecreatedObject()
+            throws StorageException, DateFormatException {
         ModuleContainer testContainer = new ModuleContainer();
         Module testModuleOne = new Module("testMod4", "Engineering Principles & Practice I");
 

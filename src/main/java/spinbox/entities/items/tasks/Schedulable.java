@@ -2,6 +2,7 @@ package spinbox.entities.items.tasks;
 
 import spinbox.DateTime;
 import spinbox.exceptions.CorruptedDataException;
+import spinbox.exceptions.DateFormatException;
 import spinbox.exceptions.ScheduleDateException;
 
 public abstract class Schedulable extends Task {
@@ -43,7 +44,7 @@ public abstract class Schedulable extends Task {
      * and if it is, throw exception.
      * @throws ScheduleDateException Exception of Schedulable.
      */
-    public void checkValidStartDate() throws ScheduleDateException {
+    public void checkValidStartDate() throws ScheduleDateException, DateFormatException {
         DateTime now = new DateTime(TODAY_STRING);
         if (startDate.before(now)) {
             throw new ScheduleDateException(EXCEPTION_MESSAGE_START_DATE_TIME);
@@ -61,7 +62,7 @@ public abstract class Schedulable extends Task {
             int done = Integer.parseInt(arguments[1]);
             this.updateDone(done == 1);
             this.setName(arguments[2]);
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException | DateFormatException e) {
             throw new CorruptedDataException();
         }
     }

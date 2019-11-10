@@ -3,14 +3,11 @@ package unit;
 import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
 import spinbox.DateTime;
-import spinbox.containers.lists.TaskList;
 import spinbox.entities.Calendar;
 import spinbox.entities.items.tasks.Lecture;
 import spinbox.entities.items.tasks.Task;
-import spinbox.exceptions.CalendarSelectorException;
-import spinbox.exceptions.DataReadWriteException;
+import spinbox.exceptions.DateFormatException;
 import spinbox.exceptions.ScheduleDateException;
-import spinbox.exceptions.FileCreationException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,29 +23,14 @@ public class CalendarTest {
         Calendar test2 = null;
         Calendar test3 = null;
 
-        try {
-            test1 = new Calendar(1,"12/07/2029");
-            test2 = new Calendar(2,"11/07/2029");
-            test3 = new Calendar(3,"11/04/2029");
-        } catch (CalendarSelectorException cse) {
-            fail(cse.getMessage());
-        }
-        assertEquals(6, test1.getStartDateDay());
-        assertEquals(1, test2.getStartDateDay());
+        test1 = new Calendar("12/07/2029");
+        test2 = new Calendar("11/07/2029");
+        test3 = new Calendar("11/04/2029");
+        assertEquals(7, test1.getStartDateDay());
+        assertEquals(5, test2.getStartDateDay());
         assertEquals(5, test3.getStartDateDay());
     }
 
-    @Test
-    public void dateTimeCreation_wrongModifierAndDateTimeString_ExceptionThrown() {
-        try {
-            new Calendar(0,"12/07/2029");
-            new Calendar(4,"11/07/2029");
-            new Calendar(5,"11/04/2029");
-            fail("Exception not Thrown");
-        } catch (CalendarSelectorException cse) {
-            assertTrue(true);
-        }
-    }
 
     @Test
     public void getEndOfMonthDay_variousDateTimeString_successfulCreationAndExpectedEndOfMonthDay() {
@@ -56,13 +38,9 @@ public class CalendarTest {
         Calendar test2 = null;
         Calendar test3 = null;
 
-        try {
-            test1 = new Calendar(3,"02/07/2029");
-            test2 = new Calendar(3,"11/07/2029");
-            test3 = new Calendar(3,"08/04/2029");
-        } catch (CalendarSelectorException cse) {
-            fail("Unable to create Calendar Object");
-        }
+        test1 = new Calendar("02/07/2029");
+        test2 = new Calendar("11/07/2029");
+        test3 = new Calendar("08/04/2029");
         assertEquals(28, test1.getEndOfMonthDay());
         assertEquals(30, test2.getEndOfMonthDay());
         assertEquals(31, test3.getEndOfMonthDay());
@@ -74,13 +52,9 @@ public class CalendarTest {
         Calendar test2 = null;
         Calendar test3 = null;
 
-        try {
-            test1 = new Calendar(2,"02/01/2029");
-            test2 = new Calendar(3,"11/07/2010");
-            test3 = new Calendar(1,"08/04/2011");
-        } catch (CalendarSelectorException cse) {
-            fail(cse.getMessage());
-        }
+        test1 = new Calendar("02/01/2029");
+        test2 = new Calendar("11/07/2010");
+        test3 = new Calendar("08/04/2011");
 
         assertEquals("2029", test1.getYearString());
         assertEquals("2010", test2.getYearString());
@@ -93,15 +67,11 @@ public class CalendarTest {
         Calendar test2 = null;
         Calendar test3 = null;
 
-        try {
-            test1 = new Calendar(2,"02/01/2029");
-            test2 = new Calendar(3,"11/07/2010");
-            test3 = new Calendar(1,"08/04/2011");
-        } catch (CalendarSelectorException cse) {
-            fail("Unable to create Calendar Object");
-        }
+        test1 = new Calendar("02/01/2029");
+        test2 = new Calendar("11/07/2010");
+        test3 = new Calendar("08/04/2011");
 
-        assertEquals("January", test1.getMonthString());
+        assertEquals("February", test1.getMonthString());
         assertEquals("November", test2.getMonthString());
         assertEquals("August", test3.getMonthString());
     }
@@ -111,7 +81,7 @@ public class CalendarTest {
 
         try {
             List<Pair<String, Task>> testTaskList = new ArrayList<>();
-            Calendar testCalendar = new Calendar(3, "11/07/2029");
+            Calendar testCalendar = new Calendar("11/07/2029");
             testTaskList.add(new Pair<>("CS1231", new Lecture("lecture 1",
                     new DateTime("11/08/2029 14:00"), new DateTime("11/08/2029 18:00"))));
             testTaskList.add(new Pair<>("CS2040C", new Lecture("lecture 2",
@@ -128,7 +98,7 @@ public class CalendarTest {
                     lectureTwo.toString());
             Boolean overlap = testCalendar.taskInCalendarByDayInMonth(testTaskList).get(9).getValue().isEmpty();
             assertEquals(false, overlap);
-        } catch (CalendarSelectorException | ScheduleDateException e) {
+        } catch (ScheduleDateException | DateFormatException e) {
             fail(e.getMessage());
         }
 

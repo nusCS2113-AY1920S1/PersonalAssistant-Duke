@@ -3,6 +3,7 @@ package spinbox.entities;
 import spinbox.containers.Notepad;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
+import spinbox.exceptions.DateFormatException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.containers.lists.FileList;
 import spinbox.containers.lists.GradeList;
@@ -24,7 +25,7 @@ public class Module implements Storable {
      * Constructor for module.
      */
     public Module(String moduleCode, String moduleName) throws FileCreationException,
-            DataReadWriteException, CorruptedDataException {
+            DataReadWriteException, CorruptedDataException, DateFormatException {
         this.moduleCode = moduleCode;
         this.moduleName = moduleName;
         this.files = new FileList(moduleCode);
@@ -75,7 +76,8 @@ public class Module implements Storable {
             this.grades = new GradeList(moduleCode);
             this.notepad = new Notepad(moduleCode);
             this.loadData();
-        } catch (ArrayIndexOutOfBoundsException | FileCreationException | DataReadWriteException e) {
+        } catch (ArrayIndexOutOfBoundsException | FileCreationException
+                | DataReadWriteException | DateFormatException e) {
             throw new CorruptedDataException();
         }
     }
@@ -133,7 +135,7 @@ public class Module implements Storable {
      * @throws DataReadWriteException I/O error.
      * @throws CorruptedDataException Data has been modified incorrectly within the .txt files.
      */
-    public void loadData() throws DataReadWriteException, CorruptedDataException {
+    public void loadData() throws DataReadWriteException, CorruptedDataException, DateFormatException {
         this.files.loadData();
         this.tasks.loadData();
         this.grades.loadData();

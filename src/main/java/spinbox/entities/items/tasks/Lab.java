@@ -1,6 +1,7 @@
 package spinbox.entities.items.tasks;
 
 import spinbox.DateTime;
+import spinbox.exceptions.DateFormatException;
 import spinbox.exceptions.ScheduleDateException;
 
 public class Lab extends Schedulable {
@@ -10,7 +11,8 @@ public class Lab extends Schedulable {
      * @param startDate Date object for start DateTime.
      * @param endDate Date object for end DateTime.
      */
-    public Lab(String description, DateTime startDate, DateTime endDate) throws ScheduleDateException {
+    public Lab(String description, DateTime startDate, DateTime endDate)
+            throws ScheduleDateException, DateFormatException {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -26,7 +28,8 @@ public class Lab extends Schedulable {
      * @param startDate Date object for start DateTime.
      * @param endDate Date object for end DateTime.
      */
-    public Lab(int done, String description, DateTime startDate, DateTime endDate) throws ScheduleDateException {
+    public Lab(int done, String description, DateTime startDate, DateTime endDate)
+            throws ScheduleDateException, DateFormatException {
         super(description);
         this.updateDone(done == 1);
         this.startDate = startDate;

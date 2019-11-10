@@ -5,6 +5,7 @@ import spinbox.DateTime;
 import spinbox.entities.items.tasks.Deadline;
 import spinbox.entities.items.tasks.Event;
 import spinbox.entities.items.tasks.Schedulable;
+import spinbox.exceptions.DateFormatException;
 import spinbox.exceptions.ScheduleDateException;
 
 import java.util.Calendar;
@@ -30,8 +31,8 @@ public class ViewScheduleTest {
 
             DateTime inputDateTimeTwo = new DateTime(inputDateTwo.getTime());
             assertFalse(task.compareEquals(inputDateTimeTwo));
-        } catch (ScheduleDateException sde) {
-            fail(sde.getMessage());
+        } catch (ScheduleDateException | DateFormatException e) {
+            fail(e.getMessage());
         }
     }
 
@@ -60,8 +61,8 @@ public class ViewScheduleTest {
             inputFour.set(2029, 9, 23);
             DateTime inputDateTwo = new DateTime(inputFour.getTime());
             assertFalse(task.compareEquals(inputDateTwo));
-        } catch (ScheduleDateException ede) {
-            fail(ede.getMessage());
+        } catch (ScheduleDateException | DateFormatException e) {
+            fail(e.getMessage());
         }
     }
 }

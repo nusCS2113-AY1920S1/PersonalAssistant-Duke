@@ -9,10 +9,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
-import spinbox.containers.lists.TaskList;
 import spinbox.entities.Calendar;
 import spinbox.entities.items.tasks.Task;
-import spinbox.exceptions.CalendarSelectorException;
+import spinbox.exceptions.DateFormatException;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,7 +27,7 @@ public class CalendarMonthBox extends AnchorPane {
     private Calendar calendarMonth;
 
 
-    CalendarMonthBox(String date, List<Pair<String, Task>> taskList) throws CalendarSelectorException {
+    CalendarMonthBox(String date, List<Pair<String, Task>> taskList) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(CalendarMonthBox.class.getResource("/view/CalendarMonthBox.fxml"));
             fxmlLoader.setController(this);
@@ -37,7 +36,7 @@ public class CalendarMonthBox extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        calendarMonth = new Calendar(3, date);
+        calendarMonth = new Calendar(date);
         setHeadings(calendarMonth.getMonthString(), calendarMonth.getYearString());
         setMonthBox(taskList);
     }

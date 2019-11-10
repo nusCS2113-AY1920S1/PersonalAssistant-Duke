@@ -9,6 +9,7 @@ import spinbox.entities.Module;
 import spinbox.entities.items.File;
 import spinbox.entities.items.GradedComponent;
 import spinbox.entities.items.tasks.Todo;
+import spinbox.exceptions.DateFormatException;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.StorageException;
 import spinbox.exceptions.InputException;
@@ -28,7 +29,8 @@ public class ModuleIntegrationTest {
     private Ui ui;
 
     @Test
-    public void loadDataFromStorageSuccessful_oneModule_expectedFilesLoaded() throws StorageException {
+    public void loadDataFromStorageSuccessful_oneModule_expectedFilesLoaded()
+            throws StorageException, DateFormatException {
         Module testModuleOne = new Module("testMod5", "Engineering Principles & Practice III");
 
         testModuleOne.getFiles().add(new File(0, "testFile1"));

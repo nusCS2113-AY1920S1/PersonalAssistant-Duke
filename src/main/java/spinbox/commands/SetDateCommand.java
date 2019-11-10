@@ -93,7 +93,8 @@ public class SetDateCommand extends Command {
                                 + 2, fullTaskDescription.lastIndexOf("(at: ") - 1);
                         replaceStart = new DateTime(replaceDateTime.substring(0,
                                 replaceDateTime.lastIndexOf(" to")));
-                        replaceEnd = new DateTime(replaceDateTime.substring(replaceDateTime.lastIndexOf("to ")));
+                        replaceEnd = new DateTime(replaceDateTime.substring(
+                                replaceDateTime.lastIndexOf("to ") + 3));
                     } else if (taskType.equals("DEADLINE") && dateTimeLength <= 2) {
                         taskDescription = fullTaskDescription.substring(fullTaskDescription.lastIndexOf("] ")
                                 + 2, fullTaskDescription.lastIndexOf("(by: ") - 1);

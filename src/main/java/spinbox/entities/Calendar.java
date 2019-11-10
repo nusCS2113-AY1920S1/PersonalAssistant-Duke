@@ -4,40 +4,33 @@ import javafx.util.Pair;
 import spinbox.DateTime;
 import spinbox.entities.items.tasks.Schedulable;
 import spinbox.entities.items.tasks.Task;
-import spinbox.exceptions.CalendarSelectorException;
+import spinbox.exceptions.DateFormatException;
+import spinbox.gui.MainWindow;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Calendar {
+    private static final Logger LOGGER = Logger.getLogger(MainWindow.class.getName());
+    private static final String LOG_CORRUPTED = "Calendar fail to initialise";
     private static final String MIDNIGHT = " 00:00";
     private static final String BEFORE_MIDNIGHT = " 23:59";
     DateTime startDate;
     DateTime endDate;
-    int modifier;
 
-    public Calendar(int modifier, String date) throws CalendarSelectorException {
-        this.modifier = modifier;
+    public Calendar(String date) {
         setDates(date);
     }
 
-    private void setDates(String date) throws CalendarSelectorException {
-        switch (modifier) {
-        case 1:
-            startDate = new DateTime(date + MIDNIGHT);
-            endDate = new DateTime(date + BEFORE_MIDNIGHT);
-            break;
-        case 2:
-            startDate = new DateTime(date + MIDNIGHT).getStartOfTheWeek();
-            endDate = new DateTime(date + BEFORE_MIDNIGHT).getEndOfTheWeek();
-            break;
-        case 3:
+    private void setDates(String date) {
+        try {
             startDate = new DateTime(date + MIDNIGHT).getStartOfTheMonth();
             endDate = new DateTime(date + BEFORE_MIDNIGHT).getEndOfTheMonth();
-            break;
-        default:
-            throw new CalendarSelectorException();
+        } catch (DateFormatException e) {
+            LOGGER.severe(LOG_CORRUPTED + e.getMessage());
         }
+
     }
 
     public String getMonthString() {
