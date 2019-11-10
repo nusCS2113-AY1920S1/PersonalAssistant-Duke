@@ -1,8 +1,6 @@
 package duke.ingredient;
-
 import duke.exception.DukeException;
 import duke.list.GenericList;
-
 import java.util.Comparator;
 import java.util.List;
 
@@ -45,7 +43,7 @@ public class IngredientsList extends GenericList<Ingredient> {
             if (genList.contains(ingredient) && this.getEntry(ingredient).getExpiryDate().equals(ingredient.getExpiryDate())) {
                 //If the new ingredient is the exact same as what we had, update the amount.
                 int currentAmount = this.getEntry(ingredient).getAmount();
-                this.getEntry(ingredient).changeAmount(currentAmount + ingredient.getAmount());
+                this.getEntry(ingredient).setAmount(currentAmount + ingredient.getAmount());
             } else
                 genList.add(ingredient); // if the ingredient was not in the fridge already or it's expiry date was different than the one stored
         } catch (DukeException e) {
