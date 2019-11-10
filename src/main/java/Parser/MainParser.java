@@ -16,7 +16,7 @@ public class MainParser {
         if(fullCommand.isEmpty()) {
             throw new DukeInvalidCommandException("Invalid input the command cannot be blank. Please type help to see all commands");
         }
-        String [] stringSplit = fullCommand.split(" ");
+        String [] stringSplit = fullCommand.split(DukeConstants.BLANK_SPACE);
         String command = stringSplit[0];
         switch (command) {
             case DukeConstants.ADD_EVENT_HEADER:

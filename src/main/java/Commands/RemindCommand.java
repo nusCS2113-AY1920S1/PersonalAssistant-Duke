@@ -9,8 +9,6 @@ import Commons.UserInteraction;
 import Parser.DateTimeParser;
 import Tasks.Assignment;
 import Tasks.TaskList;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -90,7 +88,7 @@ public class RemindCommand extends Command {
             throw new DukeException(DukeConstants.NO_TIMING_ERROR);
         } else if (remindMap.containsKey(time)) {
             Assignment remindedTask = remindMap.get(time);
-            throw new DukeInvalidDateTimeException("Sorry, you have a reminder set for " + remindedTask.getModCode() + " " + remindedTask.getDescription() + " by: " + task.getDateTime());
+            throw new DukeInvalidDateTimeException("Sorry, you have a reminder set for " + remindedTask.getModCode() + DukeConstants.BLANK_SPACE + remindedTask.getDescription() + " by: " + task.getDateTime());
         } else {
             Date inputTaskDate = DukeConstants.DEADLINE_DATE_FORMAT.parse(task.getDateTime());
             if (inputTaskDate.before(time)) {

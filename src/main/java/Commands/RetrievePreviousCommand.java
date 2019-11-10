@@ -10,6 +10,9 @@ import Tasks.TaskList;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+/**
+ * Represents the command to retrieve the previous command requested by the user.
+ */
 public class RetrievePreviousCommand extends Command {
     private String fullCommand;
     public static String retrievedOutput;
@@ -26,13 +29,16 @@ public class RetrievePreviousCommand extends Command {
 
     /**
      * Retrieves the chosen input that the user wish to get.
+     * @param events The TaskList object for events
+     * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the message for chosen input
+     * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display retrieve previous message
-     * @throws DukeInvalidCommandException on emtpy list and invalid index input
+     * @throws DukeInvalidCommandException on empty list and invalid index input
      */
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidCommandException, DukeNoValidDataException {
-        fullCommand = fullCommand.replace(DukeConstants.RETRIEVE_PREVIOUS_HEADER, "");
+        fullCommand = fullCommand.replace(DukeConstants.RETRIEVE_PREVIOUS_HEADER, DukeConstants.NO_FIELD);
 
         if (!fullCommand.isEmpty()) {
             char checkSpace = fullCommand.charAt(0);
@@ -91,7 +97,6 @@ public class RetrievePreviousCommand extends Command {
 
     /**
      * This method checks if the input by the user is an integer.
-     * @return
      */
     public static boolean isValid() {
         return isValid;
