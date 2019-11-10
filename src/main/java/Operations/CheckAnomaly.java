@@ -42,11 +42,11 @@ public class CheckAnomaly {
         String assignee = task.getAssignee();
         String date = task.getDate().toString();
         ArrayList<Task> temp = OverdueList.getOverdueList();
-        for (int i = 0; i < temp.size(); i++) {
-            if (temp.get(i).getDescription().equals(name)
-                    && temp.get(i).getAssignee().equals(assignee)
-                    && temp.get(i).getDate().toString().equals(date)
-                    && temp.get(i).getClass().equals(task.getClass())) {
+        for (Task value : temp) {
+            if (value.getDescription().equals(name)
+                    && value.getAssignee().equals(assignee)
+                    && value.getDate().toString().equals(date)
+                    && value.getClass().equals(task.getClass())) {
                 return true;
             }
         }
