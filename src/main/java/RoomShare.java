@@ -408,7 +408,6 @@ public class RoomShare {
                         } catch (RoomShareException e) {
                             ui.showError(e);
                         }
-                        listRoutine.list();
                     } else {
                         ui.showTagged(input);
                         int[] doneArray = taskList.listTagged(input);
