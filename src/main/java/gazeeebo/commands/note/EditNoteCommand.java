@@ -41,8 +41,6 @@ public class EditNoteCommand extends AddNoteCommand {
                     return;
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException("OOPS!!! That note number does not exist.");
-                } catch (IOException f) {
-                    throw new DukeException("The " + fileName + " file cannot be opened.");
                 }
             }
         }
