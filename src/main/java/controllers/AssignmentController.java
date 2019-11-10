@@ -1,8 +1,12 @@
 package controllers;
 
+import static util.constant.ConstantHelper.ASSIGN_TASKS_INSUFFICIENT_PARAMS_MESSAGE;
+import static util.constant.ConstantHelper.ASSIGN_TASKS_NO_VALID_MEMBERS_MESSAGE;
+import static util.constant.ConstantHelper.ASSIGN_TASKS_NO_VALID_TASKS_MESSAGE;
 import static util.constant.ConstantHelper.COMMAND_ASSIGN_TASK;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import models.member.IMember;
 import models.member.Member;
 import models.project.Project;
@@ -34,12 +38,8 @@ public class AssignmentController {
      * @param input The input from the user.
      */
     public void assignAndUnassign(String input) {
-        assert input != null;
         if (input.length() < COMMAND_ASSIGN_TASK.length()) {
-            errorMessages.add("Insufficient parameters!"
-                + "Indicate the tasks and members whom you wish to assign or remove!");
-            errorMessages.add("Format is \"assign task -i TASK_INDEX [-to MEMBER_INDEX] [-rm MEMBER_INDEX]\"");
-            errorMessages.add("You must either assign a task to someone, or remove, or both!");
+            errorMessages.addAll(Arrays.asList(ASSIGN_TASKS_INSUFFICIENT_PARAMS_MESSAGE));
             return;
         }
         input = input.substring(COMMAND_ASSIGN_TASK.length()); //remove the "assign task " portion
@@ -50,17 +50,12 @@ public class AssignmentController {
         ArrayList<Integer> validUnassignees = assignmentParams.get(2);
 
         if (validTaskIndexes.size() == 0) {
-            errorMessages.add("No valid task numbers detected. Cannot assign/unassign any tasks.");
-            errorMessages.add("Please check that the task index number(s) are valid, and input them in "
-                + "this format: -i TASK_INDEX1 [TASK_INDEX2]");
+            errorMessages.addAll(Arrays.asList(ASSIGN_TASKS_NO_VALID_TASKS_MESSAGE));
             return;
         }
 
         if (validAssignees.size() == 0 && validUnassignees.size() == 0) {
-            errorMessages.add("No valid member indexes detected. No tasks can be assigned/unassigned.");
-            errorMessages.add("Please check that you are using valid member indexes.");
-            errorMessages.add("Also ensure that the correct flags are used: "
-                + "'-to' for assignees, '-rm' for unassignees.");
+            errorMessages.addAll(Arrays.asList(ASSIGN_TASKS_NO_VALID_MEMBERS_MESSAGE));
             return;
         }
 
