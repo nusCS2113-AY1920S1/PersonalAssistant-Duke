@@ -132,6 +132,15 @@ public abstract class Transaction {
     }
 
     /**
+     * Gets the bill date of the card bill expenditure.
+     *
+     * @return Bill date of the card bill expenditure.
+     */
+    public YearMonth getBillDate() {
+        return this.billDate;
+    }
+
+    /**
      * Gets the category of that the expenditure was tagged to.
      *
      * @return The category of the expenditure that it was tagged to.
