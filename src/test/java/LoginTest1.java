@@ -5,7 +5,7 @@ import user.UserList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-//@@ author AmirAzhar
+//@@author AmirAzhar
 //LoginTest1 is used to test if the variables currentUser and loginStatus are updated when login is performed
 public class LoginTest1 {
     @Test

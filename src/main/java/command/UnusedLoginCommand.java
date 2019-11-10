@@ -18,10 +18,10 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 
+//@@author AmirAzhar
 public class UnusedLoginCommand extends Command {
     private String[] splitL;
 
-    //@@author AmirAzhar
     /**
      * User login.
      * @param input from user

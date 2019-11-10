@@ -6,7 +6,7 @@ import user.UserList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//@@ author AmirAzhar
+//@@author AmirAzhar
 //AddUserTest2 is used to test if the UserList adds the new user as expected by checking its existence in the userList
 public class AddUserTest1 {
     @Test
