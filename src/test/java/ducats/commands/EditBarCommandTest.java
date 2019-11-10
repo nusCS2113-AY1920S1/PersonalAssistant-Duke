@@ -9,8 +9,7 @@ import ducats.components.SongList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EditBarCommandTest {
     private static SongList dummySongList;
@@ -25,19 +24,23 @@ public class EditBarCommandTest {
      */
     @BeforeEach
     public void executedBeforeEach() throws DucatsException {
-        dummySongList = new SongList();
-        dummyUi = new Ui();
-        dummyFileDelimiter = System.getProperty("file.separator");
-        dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
+        try {
+            dummySongList = new SongList();
+            dummyUi = new Ui();
+            dummyFileDelimiter = System.getProperty("file.separator");
+            dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
 
-        Song dummySong = new Song("dummy", "aminor", 120);
-        Bar dummyBar1 = new Bar(1, "1_UA");
-        Bar dummyBar2 = new Bar(2, "1_UB");
-        dummySong.addBar(dummyBar1);
-        dummySong.addBar(dummyBar2);
+            Song dummySong = new Song("dummy", "aminor", 120);
+            Bar dummyBar1 = new Bar(1, "1_UA");
+            Bar dummyBar2 = new Bar(2, "1_UB");
+            dummySong.addBar(dummyBar1);
+            dummySong.addBar(dummyBar2);
 
-        dummySongList.add(dummySong);
-        dummyStorage.updateFile(dummySongList);
+            dummySongList.add(dummySong);
+            dummyStorage.updateFile(dummySongList);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -139,5 +142,11 @@ public class EditBarCommandTest {
         });
         DucatsException expectedDucatsException12 = new DucatsException("editbar bar:1 ", "edit");
         assertEquals(expectedDucatsException12.getMessage(), testDucatsException12.getMessage());
+    }
+
+    @Test
+    public void isExit_normalInput_success(){
+        EditBarCommand editBarTest1 = new EditBarCommand("editbar bar:1 2_MC 2_MC");
+        assertEquals(false, editBarTest1.isExit());
     }
 }

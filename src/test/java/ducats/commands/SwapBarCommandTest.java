@@ -9,8 +9,7 @@ import ducats.components.SongList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SwapBarCommandTest {
     private static SongList dummySongList;
@@ -25,21 +24,25 @@ public class SwapBarCommandTest {
      */
     @BeforeEach
     public void executedBeforeEach() throws DucatsException {
-        dummySongList = new SongList();
-        dummyUi = new Ui();
-        dummyFileDelimiter = System.getProperty("file.separator");
-        dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
+        try {
+            dummySongList = new SongList();
+            dummyUi = new Ui();
+            dummyFileDelimiter = System.getProperty("file.separator");
+            dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
 
-        Song dummySong = new Song("dummy", "aminor", 120);
-        Bar dummyBar1 = new Bar(1, "1_UA");
-        Bar dummyBar2 = new Bar(2, "1_UB");
-        Bar dummyBar3 = new Bar(3, "1_MC");
-        dummySong.addBar(dummyBar1);
-        dummySong.addBar(dummyBar2);
-        dummySong.addBar(dummyBar3);
+            Song dummySong = new Song("dummy", "aminor", 120);
+            Bar dummyBar1 = new Bar(1, "1_UA");
+            Bar dummyBar2 = new Bar(2, "1_UB");
+            Bar dummyBar3 = new Bar(3, "1_MC");
+            dummySong.addBar(dummyBar1);
+            dummySong.addBar(dummyBar2);
+            dummySong.addBar(dummyBar3);
 
-        dummySongList.add(dummySong);
-        dummyStorage.updateFile(dummySongList);
+            dummySongList.add(dummySong);
+            dummyStorage.updateFile(dummySongList);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -129,5 +132,11 @@ public class SwapBarCommandTest {
         });
         DucatsException expectedDucatsException9 = new DucatsException("swapbar bar:4 bar:1", "swap");
         assertEquals(expectedDucatsException9.getMessage(), testDucatsException9.getMessage());
+    }
+
+    @Test
+    public void isExit_normalInput_success() {
+        SwapBarCommand swapBarTest1 = new SwapBarCommand("swapbar bar:1 bar:2");
+        assertEquals(false, swapBarTest1.isExit());
     }
 }

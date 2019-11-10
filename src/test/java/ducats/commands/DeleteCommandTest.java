@@ -8,8 +8,7 @@ import ducats.components.SongList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeleteCommandTest {
     private static SongList dummySongList;
@@ -24,17 +23,21 @@ public class DeleteCommandTest {
      */
     @BeforeEach
     public void executedBeforeEach() throws DucatsException {
-        dummySongList = new SongList();
-        dummyUi = new Ui();
-        dummyFileDelimiter = System.getProperty("file.separator");
-        dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
+        try {
+            dummySongList = new SongList();
+            dummyUi = new Ui();
+            dummyFileDelimiter = System.getProperty("file.separator");
+            dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
 
-        Song dummySong1 = new Song("dummy1", "aminor", 120);
-        Song dummySong2 = new Song("dummy2", "cmajor", 60);
+            Song dummySong1 = new Song("dummy1", "aminor", 120);
+            Song dummySong2 = new Song("dummy2", "cmajor", 60);
 
-        dummySongList.add(dummySong1);
-        dummySongList.add(dummySong2);
-        dummyStorage.updateFile(dummySongList);
+            dummySongList.add(dummySong1);
+            dummySongList.add(dummySong2);
+            dummyStorage.updateFile(dummySongList);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -97,5 +100,11 @@ public class DeleteCommandTest {
         });
         DucatsException expectedDucatsException7 = new DucatsException("", "index");
         assertEquals(expectedDucatsException7.getMessage(), testDucatsException7.getMessage());
+    }
+
+    @Test
+    public void isExit_normalInput_success() throws DucatsException {
+        DeleteCommand deleteTest1 = new DeleteCommand("delete dummy2");
+        assertEquals(false, deleteTest1.isExit());
     }
 }

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ViewCommandTest {
     private static SongList dummySongList;
@@ -24,22 +25,26 @@ public class ViewCommandTest {
      */
     @BeforeEach
     public void executedBeforeEach() throws DucatsException {
-        dummySongList = new SongList();
-        dummyUi = new Ui();
-        dummyFileDelimiter = System.getProperty("file.separator");
-        dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
+        try {
+            dummySongList = new SongList();
+            dummyUi = new Ui();
+            dummyFileDelimiter = System.getProperty("file.separator");
+            dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
 
-        Song dummySong1 = new Song("dummy1", "aminor", 120);
-        Song dummySong2 = new Song("dummy2", "cmajor", 60);
+            Song dummySong1 = new Song("dummy1", "aminor", 120);
+            Song dummySong2 = new Song("dummy2", "cmajor", 60);
 
-        Bar dummyBar1 = new Bar(1, "1_UA");
-        Bar dummyBar2 = new Bar(2, "1_UB");
-        dummySong1.addBar(dummyBar1);
-        dummySong2.addBar(dummyBar2);
+            Bar dummyBar1 = new Bar(1, "1_UA");
+            Bar dummyBar2 = new Bar(2, "1_UB");
+            dummySong1.addBar(dummyBar1);
+            dummySong2.addBar(dummyBar2);
 
-        dummySongList.add(dummySong1);
-        dummySongList.add(dummySong2);
-        dummyStorage.updateFile(dummySongList);
+            dummySongList.add(dummySong1);
+            dummySongList.add(dummySong2);
+            dummyStorage.updateFile(dummySongList);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -53,5 +58,11 @@ public class ViewCommandTest {
         String testOutput2 = listTest2.execute(dummySongList, dummyUi, dummyStorage);
         String expectedOutput2 = "{UPPER_B }{UPPER_B }{UPPER_B }{UPPER_B }|";
         assertEquals(expectedOutput2, testOutput2);
+    }
+
+    @Test
+    public void isExit_normalInput_success() {
+        ViewCommand viewTest1 = new ViewCommand("view dummy1");
+        assertEquals(false, viewTest1.isExit());
     }
 }

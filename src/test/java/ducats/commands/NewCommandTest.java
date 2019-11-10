@@ -7,8 +7,7 @@ import ducats.components.SongList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NewCommandTest {
 
@@ -24,11 +23,15 @@ public class NewCommandTest {
      */
     @BeforeEach
     public void executedBeforeEach() throws DucatsException {
-        dummySongList = new SongList();
-        dummyUi = new Ui();
-        dummyFileDelimiter = System.getProperty("file.separator");
-        dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
-        dummyStorage.updateFile(dummySongList);
+        try {
+            dummySongList = new SongList();
+            dummyUi = new Ui();
+            dummyFileDelimiter = System.getProperty("file.separator");
+            dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
+            dummyStorage.updateFile(dummySongList);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -77,5 +80,11 @@ public class NewCommandTest {
     @Test
     public void execute_invalidTime_exceptionThrown() throws DucatsException {
         //to be completed
+    }
+
+    @Test
+    public void isExit_normalInput_success() {
+        NewCommand newTest1 = new NewCommand("new test aminor 4/4 120");
+        assertEquals(false, newTest1.isExit());
     }
 }

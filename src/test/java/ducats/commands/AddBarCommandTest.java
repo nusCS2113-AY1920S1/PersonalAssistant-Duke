@@ -8,8 +8,7 @@ import ducats.components.SongList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AddBarCommandTest {
     private static SongList dummySongList;
@@ -24,14 +23,18 @@ public class AddBarCommandTest {
      */
     @BeforeEach
     public void executedBeforeEach() throws DucatsException {
-        dummySongList = new SongList();
-        dummyUi = new Ui();
-        dummyFileDelimiter = System.getProperty("file.separator");
-        dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
+        try {
+            dummySongList = new SongList();
+            dummyUi = new Ui();
+            dummyFileDelimiter = System.getProperty("file.separator");
+            dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
 
-        Song dummySong = new Song("dummy", "aminor", 120);
-        dummySongList.add(dummySong);
-        dummyStorage.updateFile(dummySongList);
+            Song dummySong = new Song("dummy", "aminor", 120);
+            dummySongList.add(dummySong);
+            dummyStorage.updateFile(dummySongList);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -97,5 +100,11 @@ public class AddBarCommandTest {
         });
         DucatsException expectedDucatsException6 = new DucatsException("addbar 2_UA, 2_MA", "addbar");
         assertEquals(expectedDucatsException6.getMessage(), testDucatsException6.getMessage());
+    }
+
+    @Test
+    public void isExit_normalInput_success() {
+        AddBarCommand addBarTest1 = new AddBarCommand("addbar 2_UA 4_MC 8_LC 8_LF");
+        assertEquals(false, addBarTest1.isExit());
     }
 }

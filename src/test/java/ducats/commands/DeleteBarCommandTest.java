@@ -9,8 +9,7 @@ import ducats.components.SongList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeleteBarCommandTest {
     private static SongList dummySongList;
@@ -25,19 +24,23 @@ public class DeleteBarCommandTest {
      */
     @BeforeEach
     public void executedBeforeEach() throws DucatsException {
-        dummySongList = new SongList();
-        dummyUi = new Ui();
-        dummyFileDelimiter = System.getProperty("file.separator");
-        dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
+        try {
+            dummySongList = new SongList();
+            dummyUi = new Ui();
+            dummyFileDelimiter = System.getProperty("file.separator");
+            dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
 
-        Song dummySong = new Song("dummy", "aminor", 120);
-        Bar dummyBar1 = new Bar(1, "1_UA");
-        Bar dummyBar2 = new Bar(2, "1_UB");
-        dummySong.addBar(dummyBar1);
-        dummySong.addBar(dummyBar2);
+            Song dummySong = new Song("dummy", "aminor", 120);
+            Bar dummyBar1 = new Bar(1, "1_UA");
+            Bar dummyBar2 = new Bar(2, "1_UB");
+            dummySong.addBar(dummyBar1);
+            dummySong.addBar(dummyBar2);
 
-        dummySongList.add(dummySong);
-        dummyStorage.updateFile(dummySongList);
+            dummySongList.add(dummySong);
+            dummyStorage.updateFile(dummySongList);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -119,4 +122,9 @@ public class DeleteBarCommandTest {
         assertEquals(expectedDucatsException9.getMessage(), testDucatsException9.getMessage());
     }
 
+    @Test
+    public void isExit_normalInput_success() throws DucatsException {
+        DeleteBarCommand deleteBarTest1 = new DeleteBarCommand("deletebar bar:1");
+        assertEquals(false, deleteBarTest1.isExit());
+    }
 }

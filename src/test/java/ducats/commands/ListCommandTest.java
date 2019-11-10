@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ListCommandTest {
     private static SongList dummySongList;
@@ -23,17 +24,21 @@ public class ListCommandTest {
      */
     @BeforeEach
     public void executedBeforeEach() throws DucatsException {
-        dummySongList = new SongList();
-        dummyUi = new Ui();
-        dummyFileDelimiter = System.getProperty("file.separator");
-        dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
+        try {
+            dummySongList = new SongList();
+            dummyUi = new Ui();
+            dummyFileDelimiter = System.getProperty("file.separator");
+            dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
 
-        Song dummySong1 = new Song("dummy1", "aminor", 120);
-        Song dummySong2 = new Song("dummy2", "cmajor", 60);
+            Song dummySong1 = new Song("dummy1", "aminor", 120);
+            Song dummySong2 = new Song("dummy2", "cmajor", 60);
 
-        dummySongList.add(dummySong1);
-        dummySongList.add(dummySong2);
-        dummyStorage.updateFile(dummySongList);
+            dummySongList.add(dummySong1);
+            dummySongList.add(dummySong2);
+            dummyStorage.updateFile(dummySongList);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -67,6 +72,12 @@ public class ListCommandTest {
                 + "2. dummy3 fmajor 80 \n"
                 + "_____________________________________________\n";
         assertEquals(expectedOutput3, testOutput3);
+    }
+
+    @Test
+    public void isExit_normalInput_success(){
+        ListCommand listTest1 = new ListCommand();
+        assertEquals(false, listTest1.isExit());
     }
 
 }
