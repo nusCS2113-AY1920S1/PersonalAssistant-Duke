@@ -25,7 +25,7 @@ public class Task {
         done = true;
     }
 
-    public String getTask() {
+    public String getName() {
         return task;
     }
 
@@ -41,7 +41,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String completed = (done) ? "[✓] " : "[✗] "; // \u2713, \u2717
+        String completed = (done) ? "[taken] " : "[not taken] "; // \u2713, \u2717
         return completed + task;
     }
 
@@ -54,7 +54,7 @@ public class Task {
             return false;
         }
         Task otherTask = (Task) other;
-        return otherTask.getTask().equals(this.getTask());
+        return otherTask.getName().equals(this.getName());
     }
 
     @Override
@@ -68,10 +68,6 @@ public class Task {
 
     public String type() {
         return "task";
-    }
-
-    public String getName() {
-        return this.task;
     }
 
     public String getTaskToLowerCase() {

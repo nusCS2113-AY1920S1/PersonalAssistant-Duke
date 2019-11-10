@@ -5,6 +5,9 @@ package planner.credential.cryptography;
 import java.io.Serializable;
 import java.security.Key;
 
+/**
+ * Wrapper for KeyPair to overcome some encryption implementation difficulties.
+ */
 public class KeyPair implements Serializable {
     private static final long serialVersionUID = -7565189502268009837L;
     private Key privateKey;

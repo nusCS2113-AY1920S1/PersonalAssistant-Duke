@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
-import planner.InputTest;
+import planner.main.InputTest;
 import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModFailedJsonException;
@@ -157,5 +157,10 @@ public class CapTest extends InputTest {
         expectedCapListMessage = expectedCapListMessage.replaceAll("\n", "");
         //assertEquals(escaped, expectedCapListMessage + expectedBye);
         assertEquals(escaped, escaped);
+    }
+
+    @Test
+    public void capMethodTest() {
+
     }
 }

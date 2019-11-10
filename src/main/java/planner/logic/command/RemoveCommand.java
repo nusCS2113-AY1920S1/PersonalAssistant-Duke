@@ -53,5 +53,6 @@ public class RemoveCommand extends ModuleCommand {
                 break;
             }
         }
+        profile.saveProfile();
     }
 }

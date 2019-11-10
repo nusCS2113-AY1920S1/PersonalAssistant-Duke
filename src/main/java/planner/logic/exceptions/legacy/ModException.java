@@ -29,6 +29,10 @@ public class ModException extends Throwable {
 
     @Override
     public String getMessage() {
-        return "Error: ";
+        String extraMessage = "";
+        if (super.getMessage() != null) {
+            extraMessage = super.getMessage();
+        }
+        return "Error: " + extraMessage;
     }
 }

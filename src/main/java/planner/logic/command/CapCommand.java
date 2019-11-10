@@ -54,6 +54,13 @@ public class CapCommand extends ModuleCommand {
         projectedCap = 0;
     }
 
+    /**
+     * Constructor for testing.
+     */
+    public CapCommand(String fill) {
+
+    }
+
     public boolean isComplete(String input) {
         return input.equalsIgnoreCase("done");
     }

@@ -30,7 +30,7 @@ public class ModuleTasksList {
     public List<ModuleTask> find(String input) {
         List<ModuleTask> temp = new ArrayList<>();
         for (ModuleTask hold : tasks) {
-            if (hold.getTask().contains(input)) {
+            if (hold.getName().contains(input)) {
                 temp.add(hold);
             }
         }

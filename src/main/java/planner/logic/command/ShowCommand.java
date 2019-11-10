@@ -87,7 +87,7 @@ public class ShowCommand extends ModuleCommand {
                 }
                 plannerUi.coreModLeft();
                 int numOfCoreMods = 22;
-                System.out.println(numOfCoreMods - count);
+                System.out.println(numOfCoreMods - count + 1);
                 break;
             }
 
@@ -102,7 +102,7 @@ public class ShowCommand extends ModuleCommand {
                 }
                 plannerUi.geModLeft();
                 int numOfGeMods = 5;
-                System.out.println(numOfGeMods - count);
+                System.out.println(numOfGeMods - count + 1);
                 break;
             }
 
@@ -118,7 +118,7 @@ public class ShowCommand extends ModuleCommand {
                 }
                 plannerUi.ueModLeft();
                 int numOfUeMods = 8;
-                System.out.println(numOfUeMods - count);
+                System.out.println(numOfUeMods - count + 1);
                 break;
             }
 

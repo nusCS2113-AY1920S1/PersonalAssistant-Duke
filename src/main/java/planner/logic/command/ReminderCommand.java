@@ -66,8 +66,11 @@ public class ReminderCommand extends ModuleCommand {
         for (Timer timer: CliLauncher.timerPool) {
             timer.cancel();
         }
-        System.out.println("Your reminder for the update is being stopped.\n"
-                            + "To activate the reminder again, type reminder list.");
+        System.out.println("_______________________________\n"
+                            +
+                            "Your reminder for the update is being stopped.\n"
+                            +
+                            "To activate the reminder again, type reminder list.");
     }
 
     @Override
