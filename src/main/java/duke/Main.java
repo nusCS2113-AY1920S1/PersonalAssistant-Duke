@@ -1,6 +1,7 @@
 package duke;
 
 import duke.Duke;
+import duke.enums.Numbers;
 import duke.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -46,6 +47,7 @@ public class Main extends Application {
     public void stop() {
         logger.info("ALERT: Duke is shutting down! Attempting to save Data... ");
         duke.suddenStop();
+        System.exit(Numbers.ZERO.value);
     } //@@author
 }
 //@@author

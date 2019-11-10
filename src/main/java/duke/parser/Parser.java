@@ -53,6 +53,7 @@ public class Parser {
 
     private static final String EMPTY_STRING = "";
     private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static DateParser dateParser = new DateParser();
 
     //@@author maxxyx96
     /**
@@ -291,6 +292,7 @@ public class Parser {
             } else if (detectDuplicate.isDuplicate(arr[Numbers.ZERO.value], taskDesc)) {
                 return new DuplicateFoundCommand();
             } else {
+                dateParser.isValidDateTime(dateDesc);
                 Task taskObj;
                 taskObj = new Deadline(taskDesc, dateDesc);
 
@@ -450,7 +452,7 @@ public class Parser {
                 throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
                         + arr[Numbers.ZERO.value] + " cannot be empty.");
             }
-
+            dateParser.isValidDateTime(dateDesc);
             Date date;
             try {
                 date = datetimeFormat.parse(dateDesc);
@@ -536,6 +538,7 @@ public class Parser {
                     } else if (detectDuplicate.isDuplicate(arr[Numbers.ZERO.value], taskDesc)) {
                         return new DuplicateFoundCommand();
                     } else if (typeOfUpdate != Numbers.MINUS_ONE.value) {
+
                         for (int i = Numbers.ZERO.value; i < items.size(); i++) {
                             if (dateDesc.equals(items.get(i).getDateTime()) && !items.get(i).isDone()) {
                                 throw new DukeException("     (>_<) OOPS!!! The date/time for "
@@ -543,6 +546,9 @@ public class Parser {
                                         + "\n     Please choose another date/time! "
                                         + "Or mark the above task as Done first!");
                             }
+                        }
+                        if (typeOfUpdate == Numbers.TWO.value) {
+                            dateParser.isValidDateTime(dateDesc);
                         }
                         return new UpdateCommand(taskDesc, dateDesc, typeDesc, typeOfUpdate, tasknum);
                     } else {
