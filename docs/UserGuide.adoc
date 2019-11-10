@@ -237,7 +237,8 @@ To discard the changes, type `close` or `end`.
 
 [WARNING]
 ====
-Changes will not be saved if user attempts to store 2 or more events at the same location
+* Other commands will not work while in edit mode to avoid conflicts
+* Changes will not be saved if user attempts to store 2 or more events at the same location
 
 Examples:
 
@@ -323,8 +324,8 @@ Format: `recommend itinerary between START_DATE and END_DATE`
 [WARNING]
 ====
 This command still works if u enter 23/04/20 and 31/04/20 (invalid date). This is just the
- Java Library automatically changing 31/04/20 to 30/04/20. 
-Hence, do not enter invalid dates (known bug).
+ Java Library automatically changing 31/04/20 to 01/05/20. 
+Hence, do not enter invalid dates (This is not a bug, the smart feature is enabled by default).
 ====
 
 image::RecommendationsCommand.png[width="380" height="447"]
