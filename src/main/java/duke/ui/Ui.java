@@ -107,6 +107,7 @@ public class Ui {
         for (int i = Numbers.ZERO.value; i < items.size() || i < priorities.getSize(); i++) {
             str  += "        [" + pair.get(i).getKey() + "]\t  |\t" + pair.get(i).getValue() + "\n";
         }
+
         return str;
     }
     //@@author
@@ -311,6 +312,7 @@ public class Ui {
         }
         return str;
     }
+    //@@author
 
     //@@author Dou-Maokang
     //    /**
@@ -353,6 +355,7 @@ public class Ui {
         }
         return str;
     }
+    //@@author
 
     //@@author talesrune
     /**
@@ -476,6 +479,8 @@ public class Ui {
         str += "\tCurrent priority: " + priority;
         return str;
     }
+
+    //@@author
 
     //@@author e0318465
     /**
