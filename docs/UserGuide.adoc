@@ -84,20 +84,20 @@ Examples:
 Adds an assignment task to the task manager list.
 Format: `assignment </m> <module code of assignment> </by> <end_datetime>`
 - Time must be in 24 hour format (dd/mm/yyyy HHmm)
-- Module code must be given in one word
+- A valid module code must be given in one word
 
 Example:
-`Assignment /m 2040c /by 28/10/2019 2000`
+`Assignment /m cs2040c /by 28/10/2019 2000`
 
 
 ### 3.1.7) Adding an examination: exam
 Adds an examination task to the task manager list.
 Format: `exam </m> <module code of examination> </at> <start_datetime - end_datetime>`
 - Time must be in 24 hour format (dd/mm/yyyy HHmm)
-- Module code must be given in one word
+- A valid module code must be given in one word
 
 Example:
-`exam /m 2040c /by 28/10/2019 1000 - 28/10/2019 1200`
+`exam /m MA1508E /by 28/10/2019 1000 - 28/10/2019 1200`
 
 ### 3.1.8) Adding an lecture: lecture
 Adds weekly recurring lecture tasks to the task manager list.
@@ -108,7 +108,7 @@ Format: lecture </m> <module code of examination> </at> <day_of_week start_time-
 - Time must be in 24hours format (HHmm-HHmm)
 
 Example:
-'lecture /m 2040c /at mondays 1200-1400 /till 01/01/2020'
+'lecture /m Ec1301 /at mondays 1200-1400 /till 01/01/2020'
 
 ### 3.1.9) Adding a tutorial: tutorial
 Adds weekly recurring tutorial tasks to the task manager list.
@@ -119,7 +119,7 @@ Format: tutorial </m> <module code of examination> </at> <day_of_week start_time
 - Time must be in 24hours format (HHmm-HHmm)
 
 Example:
-'tutorial /m 2040c /at tuesdays 0800-1000 /till 25/12/2020'
+'tutorial /m cs2040c /at tuesdays 0800-1000 /till 25/12/2020'
 
 ### 3.1.10) Deleting a task: delete
 Deletes a task from the task manager list.
@@ -241,7 +241,7 @@ Expected outcome:
 
 ## 3.5 Export command
 ### 3.5.1) Export: 'export'
-Create an ICS file which can be used to import your tasklist to other applications that support calendar files.<br/>
+Create an ICS file which can be used to import your tasklist to other applications that support calendar files.
 Format: `export <file name>`
 
 - Only deadlines,events and todo tasks with period will be exported as most calendar applications won’t support dateless tasks.
