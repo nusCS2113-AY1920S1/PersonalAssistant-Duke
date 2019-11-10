@@ -690,9 +690,11 @@ public class Ui {
         System.out.println("\tReschedule Deadline: " + commandFormat.rescheduleFormat());
         System.out.println("\tView Schedule:       " + commandFormat.viewScheduleFormat());
         System.out.println("History:");
+
         System.out.println("\tHistory of Commands: " + commandFormat.historyFormat());
-        System.out.println("\tView History within a certain period:         " + commandFormat.viewhistoryFormat());
+        System.out.println("\tView History within a certain period: " + commandFormat.viewhistoryFormat());
         System.out.println("\tExit:                " + commandFormat.exitFormat());
+
         System.out.print(line);
     }
 
