@@ -1,3 +1,5 @@
+package junittesting.notetest;
+
 import javacake.JavaCake;
 import org.apache.commons.io.FileUtils;
 
@@ -42,23 +44,23 @@ public class NoteTest {
         String expectedOutput;
 
         actualOutput = javaCake.getResponse("createnote ../hi");
-        expectedOutput = "Invalid file name: Illegal character in file name detected!";
+        expectedOutput = "Special Character(s) detected! Please use another file name!";
         assertEquals(expectedOutput, actualOutput);
 
         actualOutput = javaCake.getResponse("createnote hi,hello");
-        expectedOutput = "Invalid file name: Illegal character in file name detected!";
+        expectedOutput = "Special Character(s) detected! Please use another file name!";
         assertEquals(expectedOutput, actualOutput);
 
         actualOutput = javaCake.getResponse("createnote >__<");
-        expectedOutput = "Invalid file name: Illegal character in file name detected!";
+        expectedOutput = "Special Character(s) detected! Please use another file name!";
         assertEquals(expectedOutput, actualOutput);
 
         actualOutput = javaCake.getResponse("createnote txt.txt");
-        expectedOutput = "Invalid file name: Illegal character in file name detected!";
+        expectedOutput = "Special Character(s) detected! Please use another file name!";
         assertEquals(expectedOutput, actualOutput);
 
         actualOutput = javaCake.getResponse("createnote txt/");
-        expectedOutput = "Invalid file name: Illegal character in file name detected!";
+        expectedOutput = "Special Character(s) detected! Please use another file name!";
         assertEquals(expectedOutput, actualOutput);
     }
 
@@ -102,10 +104,33 @@ public class NoteTest {
     }
 
     @Test
-    void viewExistingNoteTest() {
+    void errorMessageInViewNoteTest() {
+
         String actualOutput;
         String expectedOutput;
-        javaCake.getResponse("createnote dummytext");
+
+        actualOutput = javaCake.getResponse("viewnote    ");
+        expectedOutput = "Please input the name of the file you wish to view!"
+                + "E.g. viewnote [name of file]";
+        assertEquals(expectedOutput, actualOutput);
+
+        actualOutput = javaCake.getResponse("viewnote createnote deletenote");
+        expectedOutput = "Please only enter one file name! E.g. viewnote [name of file]";
+        assertEquals(expectedOutput, actualOutput);
+
+        actualOutput = javaCake.getResponse("viewnote .___.");
+        expectedOutput = "Invalid file name: Special character(s) in file name detected!";
+        assertEquals(expectedOutput, actualOutput);
+
+        actualOutput = javaCake.getResponse("viewnote dummyfile");
+        expectedOutput = "File specified does not exist! "
+                + "Please refer to the notes window to view existing notes file!";
+        assertEquals(expectedOutput, actualOutput);
+
+        actualOutput = javaCake.getResponse("viewnote 2113rocks!");
+        expectedOutput = "File specified is empty! "
+                + "Use 'editnote [name of file]' to write new content!";
+        assertEquals(expectedOutput, actualOutput);
     }
 
 }
