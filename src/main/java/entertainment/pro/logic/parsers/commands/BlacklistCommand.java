@@ -79,21 +79,28 @@ public class BlacklistCommand extends CommandSuper {
      *
      */
     public void addToBlackList() {
-        String movie = getPayload().trim();
+        String payload = getPayload().trim();
 
         try {
 
             if (getFlagMap().get("-k") != null) {
-                if (isInteger(movie, 10)) {
-                    Blacklist.addToBlacklistKeyWord(SearchResultContext.getIndex(Integer.parseInt(movie)).getTitle());
-                } else {
-                    Blacklist.addToBlacklistKeyWord(movie);
+                String movies[] = payload.split(",");
+                for (String movie : movies) {
+                    if (isInteger(movie.trim(), 10)) {
+                        Blacklist.addToBlacklistKeyWord(SearchResultContext
+                                .getIndex(Integer.parseInt(movie.trim())).getTitle());
+                    } else {
+                        Blacklist.addToBlacklistKeyWord(movie.toLowerCase().trim());
+                    }
                 }
             } else {
-                if (isInteger(movie, 10)) {
-                    Blacklist.addToBlacklistMoviesID(SearchResultContext.getIndex(Integer.parseInt(movie)));
-                } else {
-                    Blacklist.addToBlacklistMovie(movie);
+                String movies[] = payload.split(",");
+                for (String movie : movies) {
+                    if (isInteger(movie.trim(), 10)) {
+                        Blacklist.addToBlacklistMoviesID(SearchResultContext.getIndex(Integer.parseInt(movie.trim())));
+                    } else {
+                        Blacklist.addToBlacklistMovie(movie.toLowerCase().trim());
+                    }
                 }
 
             }
@@ -115,21 +122,30 @@ public class BlacklistCommand extends CommandSuper {
      */
     private void removeFromBlackList() {
 
-        String movie = getPayload();
+        String payload = getPayload();
 
         boolean stat = false;
         if (getFlagMap().get("-k") != null) {
-            if (isInteger(movie, 10)) {
-                stat = Blacklist.removeFromBlacklistKeyWord(SearchResultContext.getIndex(Integer.parseInt(movie))
-                        .getTitle());
-            } else {
-                stat = Blacklist.removeFromBlacklistKeyWord(movie);
+            String movies[] = payload.split(",");
+            for (String movie : movies) {
+                if (isInteger(movie.trim(), 10)) {
+                    stat = Blacklist.removeFromBlacklistKeyWord(SearchResultContext
+                            .getIndex(Integer.parseInt(movie.trim()))
+                            .getTitle());
+                } else {
+                    stat = Blacklist.removeFromBlacklistKeyWord(movie.toLowerCase().trim());
+                }
             }
+
         } else {
-            if (isInteger(movie, 10)) {
-                stat = Blacklist.removeFromBlacklistMovies(SearchResultContext.getIndex(Integer.parseInt(movie)));
-            } else {
-                stat = Blacklist.removeFromBlacklistMovieTitle(movie);
+            String movies[] = payload.split(",");
+            for (String movie : movies) {
+                if (isInteger(movie.trim(), 10)) {
+                    stat = Blacklist.removeFromBlacklistMovies(SearchResultContext
+                            .getIndex(Integer.parseInt(movie.trim())));
+                } else {
+                    stat = Blacklist.removeFromBlacklistMovieTitle(movie.toLowerCase().trim());
+                }
             }
 
         }
