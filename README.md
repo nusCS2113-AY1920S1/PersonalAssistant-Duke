@@ -29,9 +29,9 @@ For a quick guide to modifying gradle for this project, refer to [this guide](do
 
 ## Status
 
-Currently, this project only contains a task manager. We are currently in the process of designing a UI that best displays the course information and adding functions to manage the course data.
+Currently, this project only has support for 9 degrees in the NUS Faculty of Engineering. We plan to expand and eventually include all degrees and courses available in NUS, and maybe even include other Universities in Singapore. We also plan to add automatic scrapping of course and module information from the NUS database to reduce the workload on the development team and to ensure that the course information is always up-to-date.
 
-## UI Mock-ups
+## UI Screenshots
 
 ![UI](docs/images/Ui.png)
 
