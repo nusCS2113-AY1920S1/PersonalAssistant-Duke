@@ -10,7 +10,7 @@ import java.io.BufferedWriter;
 
 
 import gazeeebo.commands.specialization.ModuleCategory;
-import gazeeebo.parsers.CAPCommandParser;
+import gazeeebo.parser.CAPCommandParser;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.DoAfter;
 import gazeeebo.tasks.Event;
@@ -25,18 +25,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Storage {
-
-//    private String relative_Path = "Save.txt";
-//    private String relativePath_password = "Password.txt";
-//    private String relativePath_Contact = "Contact.txt";
-//    private String relativePath_Expenses = "Expenses.txt";
-//    private String relativePath_Places = "Places.txt";
-//    private String relativePath_Trivia = "Trivia.txt";
-//    private String relativePath_CAP = "CAP.txt";
-//    private String relativePath_Specialization = "Specialization.txt";
-//    private String relativePath_StudyPlanner = "Study_Plan.txt";
-//    private String relativePath_CompletedElectives = "CompletedElectives.txt";
-//    private String relativePath_Prerequisite = "Prerequisite.txt";
 
     private String[] relativePath
             = {"Save.txt", "/Save.txt"};
@@ -92,7 +80,13 @@ public class Storage {
             = "CompletedElectives.txt";
     private String relativePathPrerequisiteResource
             = "Prerequisite.txt";
+    //@@author jessteoxizhi
 
+    /**
+     * Check if there are save txt file in the directory, if there is not, create a new txt file and copy
+     * preloaded data into the new txt file
+     * @throws IOException exception when there is an error read the txt file
+     */
     public void startUp() throws IOException {
         ArrayList<String[]> resourcelist = new ArrayList<>();
         resourcelist.add(relativePath);
@@ -132,6 +126,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Save the task list to Save.txt
+     * @param fileContent concatenate the list into a single string.
+     * @throws IOException exception when there is an error writing to the file
+     */
     public void writeToSaveFile(final String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(relativePathResource);
         fileWriter.write(fileContent);
@@ -139,6 +138,11 @@ public class Storage {
         fileWriter.close();
     }
 
+    /**
+     * Read from Save.txt file
+     * @return ArrayList of Tasks
+     * @throws FileNotFoundException exception if the file path is invalid.
+     */
     public ArrayList<Task> readFromSaveFile() throws FileNotFoundException {
         ArrayList<Task> tList = new ArrayList<Task>();
         File f = new File(relativePathResource);
@@ -313,7 +317,12 @@ public class Storage {
         fileWriter.close();
     }
 
-    public void storagesPlaces(String fileContent) throws IOException {
+    /**
+     * Write to Places.txt file
+     * @param fileContent Concatenate all the places into a single string
+     * @throws IOException exception when the file is unable to be written
+     */
+    public void writePlacesFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(relativePathPlacesResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -345,17 +354,24 @@ public class Storage {
         return expenses;
     }
 
+    /**
+     * Read Places.txt file
+     * @return A HashMap of the places and their locations.
+     * @throws IOException exception when the file is unable to be read
+     */
     public HashMap<String, String> readPlaces() throws IOException {
-        HashMap<String, String> placesList = new HashMap<String, String>();
-
-
-        File f = new File(relativePathPlacesResource);
-        Scanner sc = new Scanner(f);
-        while (sc.hasNext()) {
-            String[] split = sc.nextLine().split("\\|");
-            placesList.put(split[0], split[1]);
-        }
-        return placesList;
+            HashMap<String, String> placesList = new HashMap<String, String>();
+            File f = new File(relativePathPlacesResource);
+            Scanner sc = new Scanner(f);
+            while (sc.hasNext()) {
+                try {
+                    String[] split = sc.nextLine().split("\\|");
+                    placesList.put(split[0], split[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Places.txt cannot be read, check format of Places.txt");
+                }
+            }
+            return placesList;
     }
 
     /**
@@ -470,8 +486,6 @@ public class Storage {
 
         File file = new File(relativePathSpecializationResource);
         Scanner sc = new Scanner(file);
-//        InputStream inputStream = Storage.class.getResourceAsStream(relativePathSpecialization);
-//        Scanner sc = new Scanner(inputStream);
         while (sc.hasNext()) {
             String[] split = sc.nextLine().split("\\|");
             ArrayList<ModuleCategory> moduleBD = new ArrayList<>();
@@ -492,10 +506,6 @@ public class Storage {
 
     public HashMap<String, ArrayList<String>> readFromCompletedElectivesFile() throws IOException {
         HashMap<String, ArrayList<String>> completedEMap = new HashMap<>();
-//        InputStream inputStream = Storage.class.getResourceAsStream(relativePathCompletedElectives);
-//        Scanner sc = new Scanner(inputStream);
-
-//        if (new File(relativePathCompletedElectives).exists()) {
         File file = new File(relativePathCompletedElectivesResource);
         Scanner sc = new Scanner(file);
         while (sc.hasNext()) {
@@ -525,10 +535,6 @@ public class Storage {
      */
     public ArrayList<ArrayList<String>> Read_StudyPlan() throws IOException {
         ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
-//        InputStream inputStream = Storage.class.getResourceAsStream(relativePath_StudyPlanner);
-//        Scanner sc = new Scanner(inputStream);
-        //  if (new File(relativePath_StudyPlanner).exists()) {
-
         File file = new File(relativePathStudyPlannerResource);
         Scanner sc = new Scanner(file);
         for (int i = 0; i < 8; i++) {
@@ -564,9 +570,6 @@ public class Storage {
      */
     public HashMap<String, ArrayList<String>> readFromPrerequisiteFile() throws IOException {
         HashMap<String, ArrayList<String>> PrerequisiteList = new HashMap<String, ArrayList<String>>();
-
-//        InputStream inputStream = Storage.class.getResourceAsStream(relativePath_Prerequisite);
-//        Scanner sc = new Scanner(inputStream);
         File file = new File(relativePathPrerequisiteResource);
         Scanner sc = new Scanner(file);
         while (sc.hasNext()) {

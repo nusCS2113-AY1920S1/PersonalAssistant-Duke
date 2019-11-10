@@ -1,4 +1,4 @@
-package gazeeebo.parsers;
+package gazeeebo.parser;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;

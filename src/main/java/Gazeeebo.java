@@ -5,7 +5,7 @@ import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 import gazeeebo.commands.Command;
 import gazeeebo.notes.NoteList;
-import gazeeebo.parsers.ParserManager;
+import gazeeebo.parser.ParserManager;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.NoteStorage;
 
