@@ -390,13 +390,18 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*:
 Tech-savvy english language students
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Learns many new words consistently over an extended duration
+* Needs a space-efficient way of storing their words
+* Prefers digital recording of words instead of writing by hand in notebooks
+* Wants to practice spelling and typing words
+* Needs to catalog words according to their meaning and/or alphabetical order for better future referencing
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage vocabulary collection, revision and searching faster than a typical handwritten/GUI driven app
+
+*Product rationale*: Language students usually have a list of vocabulary to learn and master with each chapter of material taught. It is sometimes difficult to track all the words learnt, and even less easy to sort and categorise them by handwritten or analog means.
+
+Our app aims to allow these students to easily store and collate new words learnt easily through a CLI. With a CLI, the word storage process may be much faster compared to handwriting notes for a user who types quickly, especially since the new students may be still unfamiliar with hand-writing the characters in the English alphabet. In addition to recording words, the app also aims to assist students in revising the words in an interactive and automated manner, which is a feature lacking in traditional analog recording methods. This app is developed with the aim of providing a simple, fast and value-adding service for English language students.
+
 
 [appendix]
 == User Stories
@@ -406,17 +411,23 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |English learner |store new words I have learnt in one place |refer back to it to refresh my memory
 
-|`* * *` |user |add a new person |
+|`* * *` |English learner who prefers interactive learning methods |have vocabulary quizzes |practice how well I can remember the new words
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |time-conscious English learner |record the meaning of the word on keying in just the word |do not have to copy and paste it from the net manually
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |English learner |categorise the words I have learnt into different subgroups |conveniently find a group of words I need to use (e.g. a subgroup can be all the words from a particular lesson/chapter)
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |English learner who likes to pace my learning |schedule words for revision and get reminders for them |effectively revise selected words before a test/custom deadline
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |statistically oriented English learner |view my search history |check which words I keep needing to review on and put in more effort to learn those words
+
+|`* *` |English learner |enter letter to display words starting with it |type a word correctly even if I am unfamiliar with how to spell it
+
+|`* *` |English learner |see how much I have searched for a word |track the most “forgotten” words and target those words specifically in my learning
+
+|`*` |English learner |export my wordbank to word or pdf |print them out and read them on the go during revision for any tests/just for my own ease of learning
 |=======================================================================
 
 _{More to be added}_
@@ -424,44 +435,96 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below: System is defined to be WordUp and User is an English language learner for all following use cases:)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Adding a word to the word bank
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User enters command to add a word.
+2.  System adds the word and its meaning to the word bank.
+3.  System displays the added word and its meaning.
++
+Use case ends.
+
+=== Use case: Finding the meaning of a word
+
+*MSS*
+
+1.  User enters command to add a word.
+2.  System adds the word and its meaning to the word bank.
+3.  System displays the added word and its meaning.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 5a. There is no such word in the word bank.
+** 5a.1. System throws an error to inform user that the word is not in word bank.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+=== Use case: Making quizzes
 
-_{More to be added}_
+*MSS*
+
+1.  User enters command to start a quiz.
+2.  System searches for recorded word and meanings.
+3.  System generates a question from the search.
+4.  User answers the question.
+5.  Repeat step 2 to 5 until all questions are done.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. There is no such word in the word bank.
+** 4a.1. System throws an error to inform user that the word is not in word bank.
+** 4a.2. System displays the correct meaning.
++
+Use case ends.
+
+=== Use case: Checking recently added words
+
+*MSS*
+
+1.  User enters command to ask for recent words he has added.
+2.  System checks the wordHistory containing the words in the order they were added in.
+3.  System displays the words in order of latest added words to the oldest added word.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There were no words added before the command.
+** 1a.1. System throws an error to inform user that the wordbank is empty.
+** 1a.2. System suggests user to enter new words first and exits the command.
++
+Use case ends.
+
+=== Use case: Scheduling reminders
+
+*MSS*
+
+1.  User enters command to start a schedule reminder.
+2.  User enters a list of words to be scheduled.
+3.  System prompts user for the reminder date and time.
+4.  User enters the reminder date and time.
+5.  System shows the summary of the reminder details.
++
+Use case ends.
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should be able to hold up to 1000 words without a noticeable sluggishness in performance for typical usage.
+.  Users should be able to accomplish each task without typing more than 10 words in a user input line.
 
 [appendix]
 == Glossary
@@ -469,25 +532,11 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[main-success-scenario]] MSS::
+Main Success Scenario
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[word-bank]] Word Bank::
+A collection of words the user has added into our program, stored on user's hard disk
 
 [appendix]
 == Instructions for Manual Testing
