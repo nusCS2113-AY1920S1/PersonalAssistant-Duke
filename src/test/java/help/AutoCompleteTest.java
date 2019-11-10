@@ -56,6 +56,7 @@ public class AutoCompleteTest {
         "graph expenditure trend line_graph",
         "graph expenditure trend pie_chart",
         "graph finance status /until [date]",
+        "change icon",
         "undo",
         "bye"
     };
