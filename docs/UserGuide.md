@@ -34,6 +34,10 @@
 
    ​	3.3.6 Using an Ingredient
 
+   ​	3.3.7 Changing the amount of an ingredient
+
+   ​	3.3.8 Changing the name of an ingredient
+
    3.4 Fridge
 
    ​	3.4.1 Add an Ingredient to Fridge
@@ -502,7 +506,7 @@ salt, amount is: 50, expired on 31st of October 2019
 milk, amount is: 150, expired on 11th of October 2019
 ```
 
-#### 3.3.6 Changing the amount of an ingredient
+#### 3.3.7 Changing the amount of an ingredient
 
 To change the amount of an ingredient, the user will have to first type show to know the index of the ingredient. 
 
@@ -538,7 +542,7 @@ Otherwise,
 	 4.chicken, amount is: 22 expiring on 2nd of March 2020
 ```
 
-#### 3.3.6 Changing the name of an ingredient
+#### 3.3.8 Changing the name of an ingredient
 
 To change the name of an ingredient, the user will have to first type show to know the index of the ingredient. 
 
