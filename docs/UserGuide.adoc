@@ -139,7 +139,6 @@ Examples will be provided to aid in your understanding of the commands.
 
 Now that you have familiarized yourself with the command syntax that will be used, lets move on to the actual commands that can be used in *DIYeats*!
 
-=== General commands
 ==== Viewing help : `help`
 Lost? Simply open up this user guide from inside the application by entering the command `help` in the CLI.
 
@@ -172,8 +171,6 @@ The dates entered which are marked for deletion are *inclusive*. E.g `clear` `to
 ==== Exiting the application: `exit`
 
 To exit the application, simply enter `exit` in the CLI. All of your changes are automatically saved, before ending the current session.
-
-=== Functional commands
 
 ==== Listing nutritional intake for the day: `list`
 Format: `list [/date] <DATE>`
@@ -514,7 +511,6 @@ Examples:
 * If `AMOUNT` exceeds the current account balance. It is possible for the account balance to become negative.
 ====
 
-=== Data analysis commands
 ==== Displaying nutrition track record: `stats`
 
 Format: `stats [/date]<START_DATE> <END_DATE>`
