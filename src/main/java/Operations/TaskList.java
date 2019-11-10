@@ -173,19 +173,24 @@ public class TaskList {
     }
 
     /**
-     * Overload function for done to complete subTasks.
-     * @param index index of task
-     * @param subTaskIndex index of subtask completed
+     * Set a subtask from an assignment as done
+     * @param input the String containing the index of the Assignment and subtask
+     * @throws RoomShareException if there are formatting error or the task entered is not an Assignment
      */
-    public void done(int index, int subTaskIndex) throws RoomShareException {
-        if (TaskList.get(index) instanceof Assignment) {
-            try {
-                ((Assignment) TaskList.get(index - 1)).doneSubtask(subTaskIndex - 1);
-            } catch (ClassCastException e) {
+    public void doneSubTask(String input) throws RoomShareException {
+        int index;
+        int subTaskIndex;
+        try {
+            String[] arr = input.split(" ");
+            index = Integer.parseInt(arr[1]) - 1;
+            subTaskIndex = Integer.parseInt(arr[2]) - 1;
+            if (TaskList.get(index) instanceof Assignment) {
+                ((Assignment) TaskList.get(index)).doneSubtask(subTaskIndex);
+            } else {
                 throw new RoomShareException(ExceptionType.subTaskError);
             }
-        } else {
-            throw new RoomShareException(ExceptionType.subTaskError);
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e1) {
+            throw new RoomShareException(ExceptionType.wrongIndexFormat);
         }
     }
 
