@@ -92,8 +92,6 @@ Duke is targeted towards restaurant chefs who wants to be able to consolidate mo
 
 8. Refer to Section 4 for the full list of commands
 
-
-
 ## 3. Features
 
 **Command Format**
@@ -114,11 +112,9 @@ The user is greeted depending on the time of day, `good morning` , `good evening
 - `t`, view today's **todo** list
 - `q` , **exits** the application
 
-
-
 ### 3.2 Recipe Book Management
 
-the user needs to enter command `d` from the Main menu to enter the Dish template.
+the user needs to enter command `d` from the Main menu to enter the Dish template. this template allows the user to modify the recipe book.
 
 add ui here
 
@@ -187,21 +183,24 @@ If there are no dishes in list, the program will output the following message:
 If user enters a valid command and the dish list is not empty, the result will be as follows.
 
 ```
-   ____________________________
-   | Dish          | ingredient|
-   |===========================|
-1. | chicken rice  |           |
-2. | chicken noodle|           |
-3. | pizza         |           |
-4. | aglio olio    |           |
+_________________________________________________________________________________________
+    Here are the dishes in your list:
+	1. Recipe for chicken rice
+	2. Recipe for chicken noodle
+	3. Recipe for pizza
+________________________________________________________________________________________
 ```
 
 ```
-   _______________________________
-   | Dish          | ingredient   |
-   |==============================|
-1. | chicken rice  | rice,salt,   |
-2. | chicken noodle| noodle,flour,|
+	 Here are the dishes in your list:
+	1. Recipe for chicken rice
+	 rice, 10
+	 salt, 20
+	2. Recipe for chicken noodle
+	 noolde, 100
+	 chicken, 50
+	3. Recipe for pizza
+	 _________________________________________________________________________________________
 ```
 
 #### 3.2.4 Initializing the Dish List
@@ -257,13 +256,85 @@ Otherwise, it will print out the information of the removed dishes.
          _________________________________________________________________________________________
 ```
 
+#### 3.2.6 Finding Dish
+
+user needs to enter the command below:
+
+Format: `find DESCRIPTION`
+
+examples:
+
+- `find chicken`
+- `find rice`
+
+```
+________________________________________________________________________________________
+dishes that contain, chicken:
+
+	 index:1	 dish:chicken rice
+	 Recipe for chicken rice
+	 index:2	 dish:chicken noodle
+	 Recipe for chicken noodle
+	 _________________________________________________________________________________________
+```
+
+```
+_________________________________________________________________________________________
+dishes that contain, rice:
+
+	 index:1	 dish:chicken rice
+	 Recipe for chicken rice
+	 _________________________________________________________________________________________
+```
+
+if there are no dishes containing the keyword, program will output below:
+
+```
+________________________________________________________________________________________
+dishes that contain, test:
+
+	 No dishes found
+	 _________________________________________________________________________________________
+```
+
+#### 3.2.7 Changing name of Dish
+
+user needs to enter the command below:
+
+Format: `change INDEX DESCRIPTION`
+
+examples:
+
+- `change 1 pizza`
+- `change 2 spaghetti`
+
+```
+________________________________________________________________________________________
+	 dish: chicken rice
+	 changed to: pizza
+	 _________________________________________________________________________________________
+```
+
+```
+_________________________________________________________________________________________
+	 dish: chicken noodle
+	 changed to: spaghetti
+	 _________________________________________________________________________________________
+```
+
+other wise, if user enters an invalid command, 
+
+	_________________________________________________________________________________________OOPS!!! enter a valid index/description 
+	 You can type: 
+	 'template' to see the format of the commands, 
+	 'back' to see all your options, 
+	 'q' to exit
+	 _________________________________________________________________________________________
 ### 3.3 Ingredient Management by Fridge Storage
 
 To begin with, the user needs to enter command `'a'- remove all expired` or `'b' - add/remove/use an ingredient` in the main menu. In mode `a`, all expired ingredients would be removed after execution of the command `a`. While the execution of command  `b`, directs the user into Ingredient management menu. The below commands, except for removing all expired, are all executed in the Ingredient management menu.
 
 #### 3.3.1 Adding Ingredient
-
-To add an ingredient to the IngredientsList, user needs to execute command below:
 
 To add an ingredient to the IngredientsList, the user needs to execute command below:
 
@@ -320,8 +391,6 @@ Examples:
 
 To find an ingredient from the IngredientsList, user needs to execute command below:
 
-To find an ingredient from the IngredientsList, user needs to execute command below:
-
 Format: `find` `INGREDIENT_NAME`
 
 If the ingredient index does not exist in the list, message is output:
@@ -366,8 +435,6 @@ Examples:
 Also, once amount reaches 0, the ingredient will be deleted off from the IngredientsList. 
 
 #### 3.3.5 Listing all expired ingredients on the date itself
-
-To list all expired ingredient from the IngredientsList on the date itself, user needs to execute command below:
 
 To list all expired ingredient from the IngredientsList on the date itself, user needs to execute command below:
 
@@ -748,10 +815,12 @@ Dish Template
 | Index | Keyword    | Usage                              | Description               |
 | ----- | ---------- | ---------------------------------- | ------------------------- |
 | 1     | add        | add <desc>                         | adds a dish to the list   |
-| 2     | remove     | remove <index>                     | removes a dish from list  |
-| 3     | list       | list                               | list all dishes           |
-| 4     | initialize | initialize                         | clears the dish list      |
-| 5     | ingredient | ingredient <desc> <amount> <index> | add an ingredient to dish |
+| 2     | find       | find <desc>                        | find dish by keyword      |
+| 3     | change     | change <index> <desc>              | change name of dish       |
+| 4     | remove     | remove <index>                     | removes a dish from list  |
+| 5     | list       | list                               | list all dishes           |
+| 6     | initialize | initialize                         | clears the dish list      |
+| 7     | ingredient | ingredient <desc> <amount> <index> | add an ingredient to dish |
 
 common commands in template
 

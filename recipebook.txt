@@ -1,0 +1,6 @@
+chicken rice|rice|1|salt|20|sugar|50
+cake
+cake|milk|3
+cake|milk|3|wheat|3
+cake|milk|3|wheat|3|sugar|2
+cake|milk|3|wheat|3|sugar|2|egg|1

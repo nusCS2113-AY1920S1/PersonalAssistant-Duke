@@ -8,6 +8,7 @@ import duke.ingredient.Ingredient;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 //Adds an ingredient to the dish
@@ -15,29 +16,39 @@ public class AddIngredient extends Command {
 
     private Ingredient ingredient;
     private int index;
+    private int amount;
 
     //constructor
-    public AddIngredient(Ingredient ingredient, int index) {
+    public AddIngredient(Ingredient ingredient, int amount, int index) {
         super();
         this.ingredient = ingredient;
         this.index = index;
+        this.amount = amount;
     }
 
-    //@@ Author Hafidz
+    //@@ Author 9hafidz6
     /**
-     *
-     * @param dishList
-     * @param ui
-     * @param storage
+     * adds an ingredient to the dish. if the ingredient already exist and amount is the same
+     * prints out ingredient already exist
+     * @param fridge ingredients found in fridge
+     * @param dishList list of dishes
+     * @param ol list of orders
+     * @param ui prints output for user
+     * @param fs storage for fridge
+     * @param os storage for order
      * @throws DukeException
      */
     @Override
-    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         try {
-            dishList.getEntry(index - 1).addIngredients(ingredient);
-            ui.showIngredients(ingredient,dishList.getEntry(index - 1));
+            boolean flag;
+            flag = dishList.getEntry(index - 1).addIngredients(ingredient,amount);
+            rs.addInFile(dishList.getEntry(index - 1).printInFile());
+            if(flag) {
+                ui.showIngredients(ingredient,dishList.getEntry(index - 1));
+            }
         } catch (Exception e) {
-            throw new DukeException("cannot add ingredient as the dish is not in list");
+            throw new DukeException("cannot add ingredient, enter a valid command");
         }
     }
 }

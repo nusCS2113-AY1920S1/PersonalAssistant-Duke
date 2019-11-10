@@ -43,7 +43,7 @@ public class Ui {
     }
 
     public void chefDrawing() {
-        if(!DRAW) return;
+        if (!DRAW) return;
         System.out.println("                           (c)___c____(c)           ");
         System.out.println("                            \\ ........../          ");
         System.out.println("                             |.........|            ");
@@ -80,7 +80,7 @@ public class Ui {
     }
 
     public void dishDrawing() {
-        if(!DRAW) return;
+        if (!DRAW) return;
         System.out.println("            (\\                                      ");
         System.out.println("             \\ \\                                   ");
         System.out.println("               \\/ ___,.-------..__                  ");
@@ -146,7 +146,7 @@ public class Ui {
         System.out.println("\t type 'template' to see the format of the commands");
     }
 
-    public void showIngredientTemplate(){
+    public void showIngredientTemplate() {
         System.out.println("\t Continue by adding, removing,using or finding an ingredient. \n\t");
         System.out.println("\t You can also edit the Name or Amount of an ingredient(using its index number). \n\t Template: ");
         showLine();
@@ -176,6 +176,11 @@ public class Ui {
         showLine();
     }
 
+    public void showExpiredIngredients(IngredientsList ingredientsList) {
+        System.out.println("\tExpired " + ingredientsList);
+
+    }
+
     public void showOrderTemplate() {
         showLine();
         System.out.println("\t Continue by adding, removing, altering, listing order and initializing order list. \n\t Command Template: ");
@@ -191,7 +196,11 @@ public class Ui {
         showLine();
     }
 
-
+    /**
+     * Shows all the {@link Ingredient}s currently in the fridge, listed by expiry date
+     *
+     * @param ingredientsList the {@link IngredientsList} whose ingredients are to be shown
+     */
     public void showIngredientsInFridge(IngredientsList ingredientsList) {
         if (ingredientsList.isEmpty())
             System.out.println("\t The fridge is empty, better go buy some ingredients! ");
@@ -269,11 +278,11 @@ public class Ui {
     public void showSize(int size) {
         System.out.print("\t Now you have " + size);
         if (size == 1) {
-            System.out.print(" task");
+            System.out.print(" ingredient");
         } else {
-            System.out.print(" tasks");
+            System.out.print(" ingredients");
         }
-        System.out.println(" in the list.");
+        System.out.println(" in the Fridge.");
     }
 
     /**
@@ -300,14 +309,13 @@ public class Ui {
     public void showAddCommand(String command, int size) {
         System.out.println("\t Got it. I've added this: ");
         System.out.println("\t " + command);
-        // showSize(size);
     }
 
     /**
      * Shows that a order has been added.
      *
      * @param description information of the order be added
-     * @param size  current size of the whole order list
+     * @param size        current size of the whole order list
      */
     public void showAddOrder(String description, int size) {
         System.out.println("\t Got it. New order added! ");
@@ -346,8 +354,8 @@ public class Ui {
         showLine();
     }
 
-    public void showAddedIngredient(String ingredient) {
-        System.out.println("\t you have added the following ingredient: ");
+    public void showAddedIngredient(Ingredient ingredient) {
+        System.out.println("\t Got it. I've added " + ingredient.getName() + " to the fridge, you currently have:");
         System.out.println("\t " + ingredient);
     }
 
@@ -372,6 +380,7 @@ public class Ui {
     /**
      * WARNING: DO NOT USE THIS METHOD as it is not compatible with Mac comp.
      * Every time this method is executed, it clears the console screen.
+     *
      * @throws IOException
      * @throws InterruptedException
      */

@@ -8,6 +8,7 @@ import duke.order.Order;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -37,7 +38,7 @@ public class AddOrderCommand extends Command {
      * @throws DukeException Error while adding the command to the duke.txt file
      */
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage) throws DukeException, IOException {
+    public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage, RecipeStorage rs) throws DukeException, IOException {
         orderList.addEntry(order);
         orderList.getTodoList().addTodoFromOrder(order);
         orderStorage.addInFile(order.printInFile());

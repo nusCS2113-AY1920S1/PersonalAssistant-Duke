@@ -7,6 +7,7 @@ import duke.fridge.Fridge;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 public class DeleteDishCommand extends Command {
@@ -27,7 +28,7 @@ public class DeleteDishCommand extends Command {
      * @throws DukeException
      */
     @Override
-    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         try {
             ui.showDeletedDIsh(dishList.getEntry(Nb - 1).getDishname());
             dishList.removeEntry(Nb - 1);
