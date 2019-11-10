@@ -15,7 +15,7 @@ public class CompletionistTest {
      */
     @Test
     public void checkCompletionistBusyBee() {
-        DoneTask doneTask = new DoneTask("Bronze");
+        AchievementsStub doneTask = new AchievementsStub("Bronze");
         doneTask.setLock(false);
         assertEquals(false, doneTask.checkLock());
     }
@@ -25,9 +25,9 @@ public class CompletionistTest {
      */
     @Test
     public void checkCompletionistInformation() {
-        DoneTask bronze = new DoneTask("Bronze");
-        DoneTask silver = new DoneTask("Silver");
-        DoneTask gold = new DoneTask("Gold");
+        AchievementsStub bronze = new AchievementsStub("Bronze");
+        AchievementsStub silver = new AchievementsStub("Silver");
+        AchievementsStub gold = new AchievementsStub("Gold");
 
         //checks if the condition for getting bronze achievement level is correct
         assertEquals("(User completes 5 tasks)", bronze.getInformation());
@@ -46,8 +46,8 @@ public class CompletionistTest {
     @Test
     public void checkPrintingToTxt() {
 
-        DoneTask lockedBronze = new DoneTask("Bronze");
-        DoneTask unlockedBronze = new DoneTask("Bronze");
+        AchievementsStub lockedBronze = new AchievementsStub("Bronze");
+        AchievementsStub unlockedBronze = new AchievementsStub("Bronze");
 
         unlockedBronze.setLock(false);
         unlockedBronze.setPoints(5);
@@ -64,10 +64,82 @@ public class CompletionistTest {
     @Test
     public void checkPrintingToString() {
 
-        DoneTask lockedBronze = new DoneTask("Bronze");
+        AchievementsStub lockedBronze = new AchievementsStub("Bronze");
 
         //String should represents the current status of Busybee.
         assertEquals("Gained: 0 Completionist Bronze (User completes 5 tasks) Progress: [0%]", lockedBronze.toString());
+    }
+
+    private class AchievementsStub extends Achievements implements Achievement {
+
+        String achievementLevel;
+        Boolean lock;
+
+        public AchievementsStub(String achievementLevel) {
+            this.lock = true;
+            this.achievementLevel = achievementLevel;
+        }
+
+        int points = 0;
+
+        @Override
+        public String getAchievementLevel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getDescription() {
+            return "Completionist";
+        }
+
+        @Override
+        public String getInformation() {
+            switch(this.achievementLevel) {
+                case "Bronze" : {
+                    return "(User completes 5 tasks)";
+                }
+                case "Silver" : {
+                    return "(User completes 10 tasks)";
+                }
+                case "Gold" : {
+                    return "(User completes 15 tasks)";
+                }
+                default:
+                    break;
+            }
+            return "(User completes 0 tasks)";
+        }
+
+        @Override
+        public int getPoints() {
+            return this.points;
+        }
+
+        @Override
+        public int setPoints(int points) {
+            this.points = points;
+            return this.points;
+        }
+
+        @Override
+        public Boolean checkLock() {
+            return this.lock;
+        }
+
+        @Override
+        public Boolean setLock(Boolean lock) {
+            return this.lock = lock;
+        }
+
+        @Override
+        public String toTxt() {
+            return checkLock() + "|" + this.points + "|" + achievementLevel + "|" + getDescription() + "|" + getInformation();
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + " 0 Completionist Bronze (User completes 5 tasks) Progress: [0%]";
+        }
     }
 
 

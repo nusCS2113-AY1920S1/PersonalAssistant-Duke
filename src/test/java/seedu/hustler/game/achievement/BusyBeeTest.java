@@ -15,9 +15,9 @@ public class BusyBeeTest {
      */
     @Test
     public void checkUnlockBusybee() {
-        AddTask addTask = new AddTask("Bronze");
-        addTask.setLock(false);
-        assertEquals(false, addTask.checkLock());
+        AchievementsStub busyBee = new AchievementsStub("Bronze");
+        busyBee.setLock(false);
+        assertEquals(false, busyBee.checkLock());
     }
 
     /**
@@ -25,9 +25,11 @@ public class BusyBeeTest {
      */
     @Test
     public void checkBusybeeInformation() {
-        AddTask bronze = new AddTask("Bronze");
-        AddTask silver = new AddTask("Silver");
-        AddTask gold = new AddTask("Gold");
+
+        AchievementsStub bronze = new AchievementsStub("Bronze");
+        AchievementsStub silver = new AchievementsStub("Silver");
+        AchievementsStub gold = new AchievementsStub("Gold");
+
 
         //checks if the condition for getting bronze achievement level is correct
         assertEquals("(User adds 5 tasks)", bronze.getInformation());
@@ -46,8 +48,8 @@ public class BusyBeeTest {
     @Test
     public void checkPrintingToTxt() {
 
-        AddTask lockedBronze = new AddTask("Bronze");
-        AddTask unlockedBronze = new AddTask("Bronze");
+        AchievementsStub lockedBronze = new AchievementsStub("Bronze");
+        AchievementsStub unlockedBronze = new AchievementsStub("Bronze");
 
         unlockedBronze.setLock(false);
         unlockedBronze.setPoints(5);
@@ -64,10 +66,82 @@ public class BusyBeeTest {
     @Test
     public void checkPrintingToString() {
 
-        AddTask lockedBronze = new AddTask("Bronze");
+        AchievementsStub lockedBronze = new AchievementsStub("Bronze");
 
         //String should represents the current status of Busybee.
         assertEquals("Gained: 0 Busybee Bronze (User adds 5 tasks) Progress: [0%]", lockedBronze.toString());
+    }
+
+    private class AchievementsStub extends Achievements implements Achievement {
+
+        String achievementLevel;
+        Boolean lock;
+
+        public AchievementsStub(String achievementLevel) {
+            this.lock = true;
+            this.achievementLevel = achievementLevel;
+        }
+
+        int points = 0;
+
+        @Override
+        public String getAchievementLevel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getDescription() {
+           return "Busybee";
+        }
+
+        @Override
+        public String getInformation() {
+            switch(this.achievementLevel) {
+            case "Bronze" : {
+                return "(User adds 5 tasks)";
+            }
+            case "Silver" : {
+                return "(User adds 10 tasks)";
+            }
+            case "Gold" : {
+                return "(User adds 15 tasks)";
+            }
+            default:
+                break;
+            }
+            return "(User adds 0 tasks)";
+        }
+
+        @Override
+        public int getPoints() {
+            return this.points;
+        }
+
+        @Override
+        public int setPoints(int points) {
+            this.points = points;
+            return this.points;
+        }
+
+        @Override
+        public Boolean checkLock() {
+            return this.lock;
+        }
+
+        @Override
+        public Boolean setLock(Boolean lock) {
+            return this.lock = lock;
+        }
+
+        @Override
+        public String toTxt() {
+            return checkLock() + "|" + this.points + "|" + achievementLevel + "|" + getDescription() + "|" + getInformation();
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + " 0 Busybee Bronze (User adds 5 tasks) Progress: [0%]";
+        }
     }
 
 }
