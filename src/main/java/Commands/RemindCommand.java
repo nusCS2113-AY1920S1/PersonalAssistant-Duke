@@ -75,7 +75,7 @@ public class RemindCommand extends Command {
             if (!remindMap.containsKey(time)) {
                 throw new DukeInvalidDateTimeException("Sorry, you have no such reminder at that inputted time.");
             } else if (!remindMap.get(time).getDescription().equals(task.getDescription())) {
-                throw new DukeInvalidDateTimeException("Sorry, you have no such reminder with inputted description at that time.");
+                throw new DukeException("Sorry, you have no such reminder with inputted description at that time.");
             } else if (!remindMap.get(time).getDateTime().equals(task.getDateTime())) {
                 throw new DukeInvalidDateTimeException("Sorry you have no such reminder task with inputted date and time.");
             }
