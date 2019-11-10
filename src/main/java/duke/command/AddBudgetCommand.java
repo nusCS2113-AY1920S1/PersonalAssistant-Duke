@@ -36,10 +36,7 @@ public class AddBudgetCommand extends Command {
      * @return Returns true if the amount is within limit, false otherwise.
      */
     public boolean isExceedLimit(float amount) {
-        if (amount < -MAX_BUDGET || amount > MAX_BUDGET) {
-            return true;
-        }
-        return false;
+        return (amount < -MAX_BUDGET || amount > MAX_BUDGET);
     }
 
     /**

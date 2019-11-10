@@ -4,3 +4,6 @@ Olivia - https://github.com/nus-cs2103-AY1920S1/duke/pull/186/commits/4e4fd3d9fe
 sven - http://www.javased.com/index.php?source_dir=AndroidCommon/src/com/asksven/android/common/kernelutils/Wakelocks.java
 SingleShot - https://stackoverflow.com/questions/1377279/find-a-line-in-a-file-and-remove-it/1377322#1377322
 Jefferson - https://github.com/Jefferson111/main/blob/master/src/main/java/duke/commons/DukeException.java
+Drew Maclnnis - https://stackoverflow.com/questions/20389255/reading-a-resource-file-from-within-jar
+Zixradoom - https://stackoverflow.com/questions/7357969/how-to-use-java-code-to-open-windows-file-explorer-and-highlight-the-specified-f/39445156
+monarch - https://www.programcreek.com/java-api-examples/?class=java.util.logging.Handler&method=close
