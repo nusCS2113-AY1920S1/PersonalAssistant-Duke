@@ -3,8 +3,6 @@ package statistics;
 import java.util.ArrayList;
 import org.jfree.ui.RefineryUtilities;
 
-import javax.swing.*;
-
 public class GraduateEmploymentDisplay {
     private static ArrayList<MyClass> Stats = new ArrayList<>();
 
@@ -18,7 +16,7 @@ public class GraduateEmploymentDisplay {
                 System.out.println(Stats.get(i).getB() + " " + Stats.get(i).getC());
             }
         }
-        final BarChart_AWT demo = new BarChart_AWT("Basic Mean Salary and Employment rates", input);
+        final Employment_BarChart demo = new Employment_BarChart("Basic Mean Salary and Employment rates", input);
         demo.pack();
         RefineryUtilities.centerFrameOnScreen(demo);
         demo.setVisible(true);

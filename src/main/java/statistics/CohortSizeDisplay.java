@@ -16,7 +16,7 @@ public class CohortSizeDisplay {
                 System.out.println(cohortStats.get(i).getB() + " " + cohortStats.get(i).getC() + " " + cohortStats.get(i).getD());
             }
         }
-        BarChart chart = new BarChart("Cohort Size Statistics",
+        Cohort_BarChart chart = new Cohort_BarChart("Cohort Size Statistics",
                 "Cohort Size", input);
         chart.pack();
         RefineryUtilities.centerFrameOnScreen(chart);

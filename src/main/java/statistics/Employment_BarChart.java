@@ -28,7 +28,7 @@ import javax.swing.*;
  * to each dataset, and the getLegendItems() method in the plot is overridden.
  *
  */
-public class BarChart_AWT extends JFrame {
+public class Employment_BarChart extends JFrame {
     ArrayList<MyClass> cohortStats = GraduateEmploymentDisplay.getStats();
     ArrayList<Double> percentage = new ArrayList<>();
     ArrayList<Integer> salary = new ArrayList<>();
@@ -39,7 +39,7 @@ public class BarChart_AWT extends JFrame {
      *
      * @param title  the frame title.
      */
-    public BarChart_AWT(final String title, String input_degree) {
+    public Employment_BarChart(final String title, String input_degree) {
         super(title);
         degree = input_degree;
         final CategoryDataset dataset1 = createDataset1();
