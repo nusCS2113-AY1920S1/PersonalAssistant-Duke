@@ -46,10 +46,10 @@ class ExportTest {
         list = new ArrayList<>();
         tasks = new TaskList(list);
         file = new File(System.getProperty("user.dir") + "/src/test/Test");
-
         placeholder = new File(System.getProperty("user.dir") + "/src/test/States");
         storage = new Storage(file);
         history = new ChronologerStateList(placeholder, placeholder, placeholder);
+
         LocalDateTime startDate = LocalDateTime.now().plusDays(3);
         Deadline deadline = new Deadline("Test", startDate);
         deadline.setComment("Testing description");
@@ -91,8 +91,8 @@ class ExportTest {
         Assertions.assertEquals(deadlineConverted, testDeadlineDate);
 
         inputStream.close();
-        assert calendarFile.delete();
-        //assert file.delete();
+        calendarFile.delete();
+        file.delete();
     }
 
 }
