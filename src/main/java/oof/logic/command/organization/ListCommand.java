@@ -1,5 +1,6 @@
 package oof.logic.command.organization;
 
+import oof.commons.exceptions.command.EmptyListException;
 import oof.logic.command.Command;
 import oof.model.university.SemesterList;
 import oof.ui.Ui;
@@ -27,8 +28,13 @@ public class ListCommand extends Command {
      * @param taskList       Instance of TaskList that stores Task objects.
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
+     * @throws EmptyListException if taskList is empty
      */
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) throws
+            EmptyListException {
+        if (taskList.isEmpty()) {
+            throw new EmptyListException("OOPS!!! Task list is empty!");
+        }
         ui.printTaskList(taskList);
     }
 }

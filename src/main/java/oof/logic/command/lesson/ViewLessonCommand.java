@@ -4,7 +4,7 @@ import oof.logic.command.Command;
 import oof.model.university.SelectedInstance;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
-import oof.logic.command.organization.exceptions.EmptyListException;
+import oof.commons.exceptions.command.EmptyListException;
 import oof.model.university.Module;
 import oof.model.university.SemesterList;
 import oof.model.task.TaskList;
