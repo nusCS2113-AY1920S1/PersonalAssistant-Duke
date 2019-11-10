@@ -81,20 +81,27 @@ public class JsonConverter {
      * @return : Returns an ArrayList of Project representing all Projects packaged in the jar file.
      */
     public ArrayList<Project> getResourcesInJar() {
-        Gson gson = new Gson();
         ArrayList<Project> allProjects = new ArrayList<>();
         try {
-            InputStream is = getClass().getResourceAsStream("/initdata/avengers.json");
-            InputStreamReader isr = new InputStreamReader(is);
-            Project newProject = gson.fromJson(isr, new TypeToken<Project>(){}.getType());
-            allProjects.add(newProject);
-            is = getClass().getResourceAsStream("/initdata/CS1010.json");
-            isr = new InputStreamReader(is);
-            newProject = gson.fromJson(isr, new TypeToken<Project>(){}.getType());
-            allProjects.add(newProject);
+            allProjects.add(getProjectJsonFromJar("avengers.json"));
+            allProjects.add(getProjectJsonFromJar("CS1010.json"));
         } catch (NullPointerException err) {
             return allProjects;
         }
         return allProjects;
+    }
+
+    /**
+     * Function to pull Projects Json packaged inside Jar file.
+     * @param nameOfJsonFile : name of JSON file you wish to pull from resources/initdata folder.
+     * @return : Returns a Project object deserialize from JSON file.
+     */
+    private Project getProjectJsonFromJar(String nameOfJsonFile) {
+        Gson gson = new Gson();
+        InputStream is = getClass().getResourceAsStream("/initdata/" + nameOfJsonFile);
+        InputStreamReader isr = new InputStreamReader(is);
+        Project newProject = gson.fromJson(isr, new TypeToken<Project>(){}.getType());
+        saveProject(newProject);
+        return newProject;
     }
 }
