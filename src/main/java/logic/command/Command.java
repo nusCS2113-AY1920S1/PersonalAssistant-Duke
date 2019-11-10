@@ -20,21 +20,14 @@ public abstract class Command {
      */
     public abstract CommandOutput execute(Model model) throws DukeException;
 
-    //@@author yuyanglin28
-    /**
-     * javadoc
-     */
-    public boolean checkMemberIndex(int index, Model model) {
-        if (index < 1 || index > model.getMemberListSize()) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     //@@author yuyanglin28
     /**
-     * java doc
+     * This method is to check input task index
+     *
+     * @param index the input index ( index in list -1)
+     * @param model Model interface
+     * @return if valid return true, else return false
      */
     public boolean checkTaskIndex(int index, Model model) {
         if (index < 1 || index > model.getTaskListSize()) {
@@ -44,6 +37,14 @@ public abstract class Command {
         }
     }
 
+    //@@author yuyanglin28
+    /**
+     * This method is to check input member name
+     *
+     * @param name the input member name
+     * @param model Model interface
+     * @return if the member name exists return true, else return false
+     */
     public boolean checkMemberName(String name, Model model) {
         int size = model.getMemberListSize();
         for (int i = 0; i < size; i++) {

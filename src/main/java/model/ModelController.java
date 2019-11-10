@@ -216,12 +216,10 @@ public class ModelController implements Model {
      * if fail (the member name doesn't exist), return false.
      */
     @Override
-    public String deleteMember(int index) {
-        String name = memberManager.getMemberNameById(index);
-        tasksManager.deleteMemberInTasks(name);
-        Member toDelete = memberManager.getMemberById(index);
+    public void deleteMember(String memberName) {
+        tasksManager.deleteMemberInTasks(memberName);
+        Member toDelete = memberManager.getMemberByName(memberName);
         memberManager.deleteMember(toDelete);
-        return name;
     }
 
     //@@author yuyanglin28
@@ -238,13 +236,13 @@ public class ModelController implements Model {
         return name;
     }
 
-    public String scheduleMemberAll(int memberIndex) {
-        ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberIndex);
+    public String scheduleMemberAll(String memberName) {
+        ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
         return tasksManager.tasksAllInorderTime(tasksName);
     }
 
-    public String scheduleMemberTodo(int memberIndex) {
-        ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberIndex);
+    public String scheduleMemberTodo(String memberName) {
+        ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
         return tasksManager.tasksTodoInorderTime(tasksName);
     }
 

@@ -8,21 +8,23 @@ import model.Model;
 public class ScheduleTeamAllCommand extends Command {
 
     private static final String SUCCESS_MSSAGE = "Schedule all tasks of the whole team: ";
-    private static final String FAIL_MSSAGE = "fail to schedule all tasks of the whole team.";
-    private static final String EMPTY_MSSAGE = "no task for the whole team.";
+    private static final String EMPTY_MSSAGE = "No task for the whole team.";
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to schedule all tasks
+     * @param model Model interface
+     * @return sorted tasks
+     */
     @Override
-    public CommandOutput execute(Model model) throws DukeException {
-        try {
+    public CommandOutput execute(Model model) {
             String tasks = model.tasksAllInorderTime();
             if (tasks.equals("")) {
                 return new CommandOutput(EMPTY_MSSAGE);
             } else {
                 return new CommandOutput(SUCCESS_MSSAGE + tasks);
             }
-        } catch (Exception e) {
-            throw new DukeException(FAIL_MSSAGE);
-        }
 
     }
 }

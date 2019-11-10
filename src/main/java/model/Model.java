@@ -33,15 +33,15 @@ public interface Model {
 
     TasksManager getTasksManager();
 
-    String getTasksByKeyword(String keyword) throws DukeException;
+    String getTasksByKeyword(String keyword);
 
     Task addTask(String name) throws DukeException;
 
     boolean hasTask(String name) throws DukeException;
 
-    String tasksAllInorderTime() throws DukeException;
+    String tasksAllInorderTime();
 
-    String tasksTodoInorderTime() throws DukeException;
+    String tasksTodoInorderTime();
 
     String tasksAllInorderPicNum();
 
@@ -83,13 +83,13 @@ public interface Model {
 
     void unlink(int tasksIndexes, String memberNames) throws DukeException;
 
-    String deleteTask(int index) throws DukeException;
+    String deleteTask(int index);
 
-    String deleteMember(int index) throws DukeException;
+    void deleteMember(String memberName);
 
-    String scheduleMemberAll(int memberIndex);
+    String scheduleMemberAll(String memberName);
 
-    String scheduleMemberTodo(int memberIndex);
+    String scheduleMemberTodo(String memberName);
 
     String check();
 }

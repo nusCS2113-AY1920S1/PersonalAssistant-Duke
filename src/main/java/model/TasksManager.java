@@ -5,6 +5,7 @@ import common.DukeException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -99,8 +100,17 @@ public class TasksManager implements Serializable {
     }
 
     public String getTaskDes(int index) {
-        Task task = getTaskById(index);
-        return task.getDescription();
+        return getTaskById(index).getDescription();
+    }
+
+    public String getTaskStatusString(int index) {
+        return "[" + getTaskById(index).getStatusIcon() + "]";
+    }
+
+    public String getTaskTimeString(int index) {
+        Date time = getTaskDateTimeById(index);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE dd-MM-yyyy HH:mm'H'");
+        return time == null ? "" : (" (due: " + sdf.format(time) + ")");
     }
 
     //@@author JasonChanWQ
@@ -286,13 +296,35 @@ public class TasksManager implements Serializable {
             String name = getNameById(i);
             int indexInList = i + 1;
             if (name.contains(keyword)) {
-                result += "\n" + indexInList + ". " + taskList.get(i);
+                result += "\n" + indexInList + ". " + getByKeyWordInName(i, keyword);
             } else if (des != null && des.contains(keyword)) {
-                result += "\n" + indexInList + ". " + taskList.get(i);
+                result += "\n" + indexInList + ". " + getByKeyWordInDes(i, keyword);
             }
         }
         return result;
     }
+
+    private String getByKeyWordInName(int i, String keyword) {
+        String name = getNameById(i);
+        int index = name.indexOf(keyword);
+        String front = name.substring(0, index);
+        String back = name.substring(index + keyword.length() + 1);
+        return getTaskStatusString(i)
+                + front + "[[" + keyword + "]]" + back
+                + getTaskTimeString(i);
+
+    }
+
+    private String getByKeyWordInDes(int i, String keyword) {
+        String des = getTaskDes(i);
+        int index = des.indexOf(keyword);
+        String front = des.substring(0, index);
+        String back = des.substring(index + keyword.length() + 1);
+        return taskList.get(i) + "\n" + "Description: "
+                + front + "[[" + keyword + "]]" + back;
+
+    }
+
 
     //================== For tasks in order of time =====================
 

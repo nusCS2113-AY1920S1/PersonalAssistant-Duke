@@ -11,16 +11,10 @@ import gui.Window;
 
 public class ListMembersCommand extends Command {
 
-    public static final String COMMAND_WORD = "members";
-    public static final String EMPTY_MEMBERS_LIST = "There are currently no member in project manager";
-    private String arguments;
+    static final String EMPTY_MEMBERS_LIST = "There are currently no member in project manager";
 
     public ListMembersCommand() {
 
-    }
-
-    public ListMembersCommand(String arguments) {
-        this.arguments = arguments;
     }
 
     @Override
@@ -37,8 +31,9 @@ public class ListMembersCommand extends Command {
     public String convertArrayListToText(ArrayList<Member> members) {
         String finalOutput = "";
         if (members.size() > 0) {
+            finalOutput += "These are members in member list:\n";
             for (int i = 0; i < members.size(); i += 1) {
-                finalOutput += (i + 1) + " : " + "Name: "
+                finalOutput += (i + 1) + ". "
                         + members.get(i).getName() + "\n";
             }
         } else {

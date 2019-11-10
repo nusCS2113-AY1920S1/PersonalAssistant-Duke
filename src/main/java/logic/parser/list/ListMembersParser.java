@@ -8,13 +8,14 @@ import logic.command.list.ListMembersTodoNumCommand;
 
 public class ListMembersParser {
 
-    private static final String LIST_MEMBER_USAGE = "Usage: list members (todonum/progress)";
+    private static final String LIST_MEMBER_USAGE = "Usage: list members ({todonum/progress})";
     private static final String TODO = "todonum";
     private static final String PROGRESS = "progress";
 
     //@@author yuyanglin28
     /**
      * parse list member command, according to the list type, todonum/progress/'nothing'
+     *
      * @param argument command after members
      * @return a list member command
      * @throws DukeException throw exception when list type is not correct

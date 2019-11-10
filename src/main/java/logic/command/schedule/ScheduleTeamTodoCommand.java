@@ -8,12 +8,17 @@ import model.Model;
 public class ScheduleTeamTodoCommand extends Command {
 
     private static final String SUCCESS_MSSAGE = "Schedule todo tasks of the whole team: ";
-    private static final String FAIL_MSSAGE = "fail to schedule todo tasks of the whole team.";
-    private static final String EMPTY_MSSAGE = "no todo task for the whole team.";
+    private static final String EMPTY_MSSAGE = "No todo task for the whole team.";
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to schedule todo tasks
+     * @param model Model interface
+     * @return sorted todo tasks
+     */
     @Override
-    public CommandOutput execute(Model model) throws DukeException {
-        try {
+    public CommandOutput execute(Model model) {
             String tasks = model.tasksTodoInorderTime();
             if (tasks.equals("")) {
                 return new CommandOutput(EMPTY_MSSAGE);
@@ -21,9 +26,6 @@ public class ScheduleTeamTodoCommand extends Command {
                 return new CommandOutput(SUCCESS_MSSAGE + tasks);
             }
 
-        } catch (Exception e) {
-            throw new DukeException(FAIL_MSSAGE);
-        }
 
     }
 }
