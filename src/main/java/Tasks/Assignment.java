@@ -42,7 +42,7 @@ public abstract class Assignment {
      * @return This returns a tick or cross depending on the boolean value of isDone
      */
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718");
+        return (isDone ? DukeConstants.DONE_INDICATOR : DukeConstants.NOT_DONE_INDICATOR);
     }
 
     public boolean getStatus() {
@@ -50,7 +50,7 @@ public abstract class Assignment {
     }
 
     private String getReminderStatus() {
-        return (isReminder ? DukeConstants.HAS_RECURRING_MESSAGE : DukeConstants.NO_RECURRING_MESSAGE);
+        return (isReminder ? DukeConstants.HAS_REMINDER_INDICATOR : DukeConstants.NO_REMINDER_INDICATOR);
     }
 
     public void setDone(boolean done) {
@@ -61,7 +61,7 @@ public abstract class Assignment {
      * This method gets the description of the assignment.
      */
     public String getDescription() {
-        String[] split = description.split(" ");
+        String[] split = description.split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
         String taskDescription = "";
         for (int i = 0; i < split.length; i++) {
             if (!split[i].toUpperCase().equals(getModCode())) {
@@ -72,7 +72,7 @@ public abstract class Assignment {
     }
 
     public String remindTimeToString() {
-        return "[<R" + remindTime + "/R>] ";
+        return DukeConstants.REMINDER_TIME_START_KEYWORD + remindTime + DukeConstants.REMINDER_TIME_END_KEYWORD + " ";
     }
 
     public String toString() {
@@ -87,7 +87,7 @@ public abstract class Assignment {
      * This method gets the module code of the assignment.
      */
     public String getModCode() {
-        String[] split = description.trim().split(" ");
+        String[] split = description.trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
         String moduleCode = split[0].toUpperCase();
         return moduleCode;
     }

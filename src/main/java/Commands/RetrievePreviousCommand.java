@@ -32,7 +32,7 @@ public class RetrievePreviousCommand extends Command {
      */
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidCommandException, DukeNoValidDataException {
-        fullCommand = fullCommand.replace("retrieve/previous", "");
+        fullCommand = fullCommand.replace(DukeConstants.RETRIEVE_PREVIOUS_HEADER, "");
 
         if (!fullCommand.isEmpty()) {
             char checkSpace = fullCommand.charAt(0);
@@ -69,11 +69,11 @@ public class RetrievePreviousCommand extends Command {
         if (isNumber) {
             if (intFullCommand <= 0 ) {
                 isValid = false;
-                throw new DukeInvalidCommandException("Please enter a valid integer x between 0 to " + size);
+                throw new DukeInvalidCommandException(DukeConstants.STR_RANGE_FOR_BETWEEN + size);
             } else if (intFullCommand > size) {
                 isValid = false;
                 throw new DukeInvalidCommandException("There are only " + size + " of previous commands."
-                        + "Please enter a valid number less than or equal to " + size + " .");
+                        + DukeConstants.STR_RANGE_FOR_LESS_THAN + size + " .");
             }
             int index = intFullCommand - 1;
             retrievedOutput = retrievedList.get(index);
@@ -82,10 +82,17 @@ public class RetrievePreviousCommand extends Command {
         return ui.showChosenPreviousChoice(retrievedOutput);
     }
 
+    /**
+     * This method get the chosen output requested by the user.
+     */
     public static String getChosenOutput() {
         return retrievedOutput;
     }
 
+    /**
+     * This method checks if the input by the user is an integer.
+     * @return
+     */
     public static boolean isValid() {
         return isValid;
     }
