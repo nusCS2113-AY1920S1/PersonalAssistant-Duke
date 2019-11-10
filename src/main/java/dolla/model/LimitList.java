@@ -28,7 +28,7 @@ public class LimitList extends RecordList {
 
     @Override
     public void setRecordList(ArrayList<Record> recordList) {
-        this.list = recordList;
+        this.recordArrayList = recordList;
         StorageWrite.setLimits(get());
     }
 

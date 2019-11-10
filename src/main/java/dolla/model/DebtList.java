@@ -29,7 +29,7 @@ public class DebtList extends RecordList {
 
     @Override
     public void setRecordList(ArrayList<Record> recordList) {
-        this.list = recordList;
+        this.recordArrayList = recordList;
         StorageWrite.setDebts(get());
     }
 

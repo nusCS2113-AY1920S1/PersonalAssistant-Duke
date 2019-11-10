@@ -88,22 +88,6 @@ public abstract class Ui {
     }
 
     /**
-     * This method prints the strings of text from 's' with the proper format. Each element
-     * from 's' is a line of text to be printed.
-     *
-     * @param s containing the messages to be printed.
-     */
-    public static void printMsg(String... s) {
-        final StringBuilder messageAccumulator = new StringBuilder();
-        for (String str : s) {
-            messageAccumulator.append(str);
-        }
-        System.out.println(line);
-        System.out.println("\t" + messageAccumulator);
-        System.out.println(line);
-    }
-
-    /**
      * Prints the details of the specified record and is typically called when a new record is entered,
      * so that the user can check the details of the created record.
      *
@@ -191,7 +175,7 @@ public abstract class Ui {
     }
 
     /**
-     * This method will print input String in typewriter style.
+     * Prints input String in typewriter style.
      * @param message the message to print in typewriter style.
      */
     public static void typewriter(String message) {
@@ -202,7 +186,7 @@ public abstract class Ui {
     }
 
     /**
-     * This method will print the error message if user is trying trying to remove a non-existing record.
+     * Prints the error message if user is trying trying to remove a non-existing record.
      * @param number the total number of record.
      */
     public static void printNumberOfRecords(int number) {
