@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static duke.common.Messages.filePathBookingTest;
 
@@ -73,15 +74,29 @@ public class BookingStorage {
             FileReader fileReader = new FileReader(filePath);
             BufferedReader bufferedReader1 = new BufferedReader(fileReader);
             String content = "";
-            while ((content = bufferedReader.readLine()) != null || (content = bufferedReader1.readLine()) != null) {
+            ArrayList<String> arrayList1 = new ArrayList<>();
+            ArrayList<String> arrayList2 = new ArrayList<>();
 
-                if(content.split("\\|",6)[0].trim().equals("booking")) {
+            while ((content = bufferedReader.readLine()) != null){
+                arrayList1.add(content);
+            }
 
-                    String customerName = content.split("\\|",6)[1].trim();
-                    String customerContact = content.split("\\|",6)[2].trim();
-                    String numberOfPax = content.split("\\|",6)[3].trim();
-                    String bookingDate = content.split("\\|",6)[4].trim();
-                    String orderName = content.split("\\|",6)[5].trim();
+            while ((content = bufferedReader1.readLine()) != null){
+                arrayList2.add(content);
+            }
+            List<String> listTwoCopy = new ArrayList<>(arrayList2);
+            listTwoCopy.removeAll(arrayList1);
+            arrayList1.addAll(listTwoCopy);
+
+            for (String item : arrayList1){
+
+                if(item.split("\\|",6)[0].trim().equals("booking")) {
+
+                    String customerName = item.split("\\|",6)[1].trim();
+                    String customerContact = item.split("\\|",6)[2].trim();
+                    String numberOfPax = item.split("\\|",6)[3].trim();
+                    String bookingDate = item.split("\\|",6)[4].trim();
+                    String orderName = item.split("\\|",6)[5].trim();
                     Booking booking = new Booking(customerName, customerContact, numberOfPax, bookingDate, orderName);
                     arrBookingList.add(booking);
                 }
