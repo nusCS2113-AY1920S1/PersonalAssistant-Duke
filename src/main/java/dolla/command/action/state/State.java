@@ -12,10 +12,6 @@ public class State {
     protected ArrayList<Record> shortcutState = new ArrayList<>();
     protected String mode;
 
-    public void setShortcutState(ArrayList<Record> shortcutState) {
-        this.shortcutState = shortcutState;
-    }
-
     public ArrayList<Record> getShortcutState() {
         return shortcutState;
     }

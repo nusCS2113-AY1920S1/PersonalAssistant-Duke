@@ -1,0 +1,52 @@
+@startuml
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":ActionCommand" as ActionCommand LOGIC_COLOR_T3
+participant ":Redo" as Redo LOGIC_COLOR_T3
+participant ":RedoStateList" as RedoStateList LOGIC_COLOR_T3
+participant ":State" as State LOGIC_COLOR_T3
+participant ":Undo" as Undo LOGIC_COLOR_T3
+participant ":UndoStateList" as UndoStateList LOGIC_COLOR_T3
+participant "dollaData:DollaData" as DollaData LOGIC_COLOR_T3
+end box
+
+box Ui UI_COLOR_T1
+participant ":ActionUi" as ActionUi UI_COLOR_T3
+end box
+
+ -> ActionCommand : execute()
+activate DollaData
+activate ActionCommand
+ActionCommand -> Redo : processRedoState()
+activate Redo
+Redo -> Redo : receiveRedoState()
+activate Redo
+Redo -> RedoStateList : getState()
+activate RedoStateList
+RedoStateList --> Redo
+deactivate RedoStateList
+deactivate Redo
+Redo -> State : getDebtState()
+activate State
+State --> Redo
+deactivate State
+Redo --> ActionCommand
+deactivate Redo
+ActionCommand -> Undo : addToStateList()
+activate Undo
+Undo -> UndoStateList : addState()
+
+activate UndoStateList
+deactivate Undo
+deactivate UndoStateList
+
+ActionCommand -> DollaData : setRecordList()
+ActionCommand -> ActionUi : printActionMessage()
+activate ActionUi
+deactivate ActionUi
+deactivate ActionCommand
+deactivate DollaData
+
+
+
+@enduml

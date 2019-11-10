@@ -2,8 +2,7 @@ package dolla.command.modify;
 
 import dolla.command.Command;
 import dolla.command.action.Redo;
-import dolla.command.action.state.EntryState;
-import dolla.command.action.state.UndoStateList;
+import dolla.command.action.Undo;
 import dolla.model.DollaData;
 import dolla.model.EntryList;
 
@@ -19,7 +18,7 @@ public abstract class ModifyEntryCommand extends Command {
 
     protected void updateUndoState(DollaData dollaData) {
         EntryList entryList = (EntryList) dollaData.getRecordListObj(mode);
-        UndoStateList.addState(new EntryState(entryList.get()), mode);///////////////////////////////////////
+        Undo.addToStateList(mode,entryList.get());
         Redo.clearRedoState(mode);
     }
 }

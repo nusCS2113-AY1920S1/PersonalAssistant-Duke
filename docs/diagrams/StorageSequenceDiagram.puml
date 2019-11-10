@@ -2,11 +2,11 @@
 !include style.puml
 box Logic STORAGE_COLOR_T1
 participant ":Dolla" as Dolla STORAGE_COLOR
-participant "dollaData:DollaData" as DollaData STORAGE_COLOR
 participant ":StorageRead" as StorageRead STORAGE_COLOR
-participant ":StorageWrite" as StorageWrite STORAGE_COLOR
 participant ":Storage" as Storage STORAGE_COLOR
+participant "dollaData:DollaData" as DollaData STORAGE_COLOR
 participant ":DebtList" as DebtList STORAGE_COLOR
+participant ":StorageWrite" as StorageWrite STORAGE_COLOR
 end box
 
 activate Dolla
@@ -17,6 +17,7 @@ deactivate Dolla
 
 activate StorageRead
 StorageRead -> Storage : addToList()
+deactivate StorageRead
 activate Storage
 
 create DollaData

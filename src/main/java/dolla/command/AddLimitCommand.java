@@ -1,9 +1,8 @@
 package dolla.command;
 
+import dolla.command.action.Undo;
 import dolla.model.DollaData;
-import dolla.command.action.state.LimitState;
 import dolla.command.action.Redo;
-import dolla.command.action.state.UndoStateList;
 import dolla.model.Limit;
 import dolla.model.LimitList;
 import dolla.model.Record;
@@ -35,7 +34,7 @@ public class AddLimitCommand extends Command {
     public void execute(DollaData dollaData) {
         Limit newLimit = new Limit(type, amount, duration);
         LimitList limitList = (LimitList) dollaData.getRecordListObj(mode);
-        UndoStateList.addState(new LimitState(limitList.get()), mode);///////////////////////////////////////
+        Undo.addToStateList(mode,limitList.get());
         Redo.clearRedoState(mode);
 
         int duplicateLimitIndex = limitList.findExistingRecordIndex(dollaData, newLimit, mode);

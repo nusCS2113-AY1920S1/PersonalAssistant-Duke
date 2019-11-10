@@ -1,6 +1,7 @@
 package dolla.command;
 
 
+import dolla.command.action.Undo;
 import dolla.command.action.state.DebtState;
 import dolla.command.action.state.EntryState;
 import dolla.command.action.state.LimitState;
@@ -36,15 +37,7 @@ public class RemoveCommand extends Command {
         int recordNumInt;
         ArrayList<Record> recordList = dollaData.getRecordList(mode);
         try {
-            if (mode.equals(MODE_ENTRY)) {
-                UndoStateList.addState(new EntryState(recordList), mode);
-            } else if (mode.equals(MODE_DEBT)) {
-                UndoStateList.addState(new DebtState(recordList), mode);
-            } else if (mode.equals(MODE_LIMIT)) {
-                UndoStateList.addState(new LimitState(recordList), mode);
-            } else if (mode.equals(MODE_SHORTCUT)) {
-                UndoStateList.addState(new ShortcutState(recordList), mode);
-            }
+            Undo.addToStateList(mode,recordList);
             Redo.clearRedoState(mode);
             recordNumInt = stringToInt(logNumStr) - 1;
             Record record = recordList.get(recordNumInt);

@@ -1,10 +1,9 @@
 package dolla.command;
 
+import dolla.command.action.Undo;
 import dolla.model.DollaData;
 
 import dolla.command.action.Redo;
-import dolla.command.action.state.DebtState;
-import dolla.command.action.state.UndoStateList;
 import dolla.model.DebtList;
 import dolla.model.Record;
 import dolla.ui.Ui;
@@ -42,7 +41,7 @@ public class AddDebtsCommand extends Command {
     public void execute(DollaData dollaData) {
         index = dollaData.getRecordListObj(mode).size();
         DebtList debtList = (DebtList) dollaData.getRecordListObj(mode);
-        UndoStateList.addState(new DebtState(debtList.get()), mode);
+        Undo.addToStateList(mode,debtList.get());
         Redo.clearRedoState(mode);
         Debt newDebt = new Debt(type, name, amount, description, date);
         int duplicateDebtIndex = debtList.findExistingRecordIndex(dollaData, newDebt, mode);
