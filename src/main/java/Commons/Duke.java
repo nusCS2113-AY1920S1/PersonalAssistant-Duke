@@ -9,6 +9,7 @@ import Parser.MainParser;
 import UserInterface.MainWindow;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -63,7 +64,7 @@ public class Duke  {
             Command c = MainParser.parse(input);
             return c.execute(events, deadlines, ui, storage);
         } catch (Exception e) {
-            LOGGER.severe(e.toString());
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
             return ui.getError(e);
         }
     }

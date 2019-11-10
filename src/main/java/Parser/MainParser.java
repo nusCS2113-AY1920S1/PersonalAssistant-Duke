@@ -1,9 +1,10 @@
 package Parser;
-import Commands.*;
+import Commands.ByeCommand;
+import Commands.Command;
+import Commands.HelpCommand;
+import Commands.RetrievePreviousCommand;
 import Commons.DukeConstants;
-import DukeExceptions.DukeException;
 import DukeExceptions.DukeInvalidCommandException;
-import DukeExceptions.DukeInvalidFormatException;
 
 /**
  * This class distinguishes the main command and calls for methods with respect to the main command.
@@ -12,7 +13,7 @@ public class MainParser {
 
 
     public static Command parse(String fullCommand) throws Exception {
-        fullCommand = fullCommand.trim();
+        fullCommand = fullCommand.trim().replaceAll(" +", " ");
         if(fullCommand.isEmpty()) {
             throw new DukeInvalidCommandException("Invalid input the command cannot be blank. Please type help to see all commands");
         }
