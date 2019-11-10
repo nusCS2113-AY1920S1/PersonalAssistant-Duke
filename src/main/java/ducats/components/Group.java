@@ -57,4 +57,18 @@ public class Group implements Serializable {
         return bars.get(i);
     }
 
+    //@@author rohan-av
+    /**
+     * Returns a String representation of the group to be used in persistent storage.
+     *
+     * @return a storage-friendly String representation of the group
+     */
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append(name).append(" ");
+        for (Bar bar: bars) {
+            result.append(bar).append(" ");
+        }
+        return result.toString();
+    }
 }

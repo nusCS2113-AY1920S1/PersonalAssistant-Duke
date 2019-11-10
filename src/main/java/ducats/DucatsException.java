@@ -101,6 +101,7 @@ public class DucatsException extends Exception {
                 message = "OOPS!!! An IO exception has occurred.";
                 break;
             }
+
             case "no_index": {
                 message = "The index does not exist!";
                 break;
@@ -146,8 +147,48 @@ public class DucatsException extends Exception {
                 message = "OOPS!!! The data is corrupted.";
                 break;
             }
+            case "IO": {
+                message = "IO exception when serializing!";
+                break;
+            }
             case "AsciiCommand": {
                 message = "OOPS!!! Your Ascii Command is not recognised.";
+                break;
+            }
+            case "no_song": {
+                message = "OOPS!! No such song exists! Can you check if you have spelt it right?";
+                break;
+            }
+            case "number_index": {
+                message = "OOPS!! An index must be a number not a string!";
+                break;
+            }
+            case "special_characters": {
+                message = "OOPS!! No special characters allowed";
+                break;
+            }
+            case "whitespace_name": {
+                message = "OOPS!! You cant just have a space as a song name!!";
+                break;
+            }
+            case "overlay_bar_song_format" : {
+                message = "OOPS!! Please follow this format: overlay_bar_song <song_name_to_be_copied_from> "
+                    + "bar_num_copied_from <song_name_to_be_copied_to> bar_num_copied_to";
+                break;
+            }
+            case "overlay_format" : {
+                message = "OOPS!! Please follow this format: overlay <bar_num_to_be_copied_from> "
+                    + "<bar_num_copied_to>";
+                break;
+            }
+            case "overlay_bar_group_format" : {
+                message = "OOPS!! Please follow this format: overlay_bar_group <bar_num_to_be_copied_from> "
+                        + "<group_num_copied_to>";
+                break;
+            }
+            case "overlay_group_group_format" : {
+                message = "OOPS!! Please follow this format: overlay_group_group <song_name_to_be_copied_from> "
+                        + "<group_num_to_be_copied_from> <song_name_to_be_copied_to> <group_num_to_be_copied_to>";
                 break;
             }
             default: {

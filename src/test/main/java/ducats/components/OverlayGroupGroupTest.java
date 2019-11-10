@@ -81,8 +81,8 @@ public class OverlayGroupGroupTest extends TestCase {
                 "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|";
 
 
-        ducats.commands.GroupCommand grouper = new ducats.commands.GroupCommand("group 1 3 twinkle");
-        ducats.commands.GroupCommand grouper1 = new ducats.commands.GroupCommand("group 2 4 twinkle");
+        ducats.commands.GroupCommand grouper = new ducats.commands.GroupCommand("group 1 3 twinkle1");
+        ducats.commands.GroupCommand grouper1 = new ducats.commands.GroupCommand("group 2 4 twinkle2");
         Ui ui = new Ui();
         try {
             grouper.execute(songs,ui,storage);
@@ -91,7 +91,7 @@ public class OverlayGroupGroupTest extends TestCase {
         catch (Exception e) {
             System.out.print(e);
         }
-        OverlayGroupGroup tester = new OverlayGroupGroup("overlay_group_group 1 2 1 1");
+        OverlayGroupGroup tester = new OverlayGroupGroup("overlay_group_group twinkle 2 twinkle 1");
         try {
             tester.execute(songs,ui,storage);
         }
