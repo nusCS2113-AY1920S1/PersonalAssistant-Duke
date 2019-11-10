@@ -1,4 +1,4 @@
-package duke.data;
+package duke.data.storage;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -8,12 +8,13 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import duke.data.Evidence;
 
 import java.lang.reflect.Type;
 
-public class TreatmentAdaptor implements JsonSerializer<Treatment>, JsonDeserializer<Treatment> {
+public class EvidenceAdaptor implements JsonSerializer<Evidence>, JsonDeserializer<Evidence> {
     @Override
-    public Treatment deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+    public Evidence deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
         JsonObject result = json.getAsJsonObject();
         String type = result.get("type").getAsString();
@@ -26,7 +27,7 @@ public class TreatmentAdaptor implements JsonSerializer<Treatment>, JsonDeserial
     }
 
     @Override
-    public JsonElement serialize(Treatment src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(Evidence src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject result = new JsonObject();
         result.add("type", new JsonPrimitive(src.getClass().getSimpleName()));
         result.add("properties", context.serialize(src, src.getClass()));

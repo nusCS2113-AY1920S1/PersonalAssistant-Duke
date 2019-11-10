@@ -49,9 +49,11 @@ public class Parser {
      * @throws DukeException If there is no matching command or the arguments do not meet the command's requirements.
      */
     public Command parse(String inputStr) throws DukeException {
-        String cleanInputStr = inputStr.strip().replace("\t", "    "); //sanitise input
+        //sanitise input and standardise line separators for internal manipulation
+        String cleanInputStr = inputStr.strip().replace("\t", "    ")
+                .replaceAll("(\\r\\n|\\n|\\r)", "\n");
         int spaceIdx = cleanInputStr.indexOf(" ");
-        int sepIdx = cleanInputStr.indexOf(System.lineSeparator());
+        int sepIdx = cleanInputStr.indexOf("\n");
         String cmdStr = cleanInputStr;
         if (!(spaceIdx == -1 && sepIdx == -1)) {
             if (spaceIdx == -1) {
@@ -69,8 +71,6 @@ public class Parser {
         // TODO: autocorrect system
         // trim command and first space after it from input if needed, and standardise newlines
         if (command instanceof ArgCommand) { // stripping not required otherwise
-            //standardise line separators for internal manipulation
-            cleanInputStr = cleanInputStr.replaceAll("(\\r\\n|\\n|\\r)", "\n");
             try {
                 argParser.parseArgument((ArgCommand) command, cleanInputStr.substring(cmdStr.length()));
             } catch (DukeUtilException excp) {

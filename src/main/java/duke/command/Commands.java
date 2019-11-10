@@ -4,7 +4,6 @@ package duke.command;
 
 import duke.command.home.HomeDischargeSpec;
 import duke.command.home.HomeFindSpec;
-import duke.command.home.HomeHistorySpec;
 import duke.command.home.HomeNewSpec;
 import duke.command.home.HomeOpenSpec;
 import duke.command.home.HomeReportSpec;
@@ -13,6 +12,7 @@ import duke.command.impression.ImpressionEditSpec;
 import duke.command.impression.ImpressionFindSpec;
 import duke.command.impression.ImpressionMoveSpec;
 import duke.command.impression.ImpressionNewSpec;
+import duke.command.impression.ImpressionOpenSpec;
 import duke.command.impression.ImpressionPrimarySpec;
 import duke.command.impression.ImpressionPrioritySpec;
 import duke.command.impression.ImpressionResultSpec;
@@ -69,8 +69,6 @@ public class Commands {
                 return new ObjCommand(HomeReportSpec.getSpec());
             case "discharge":
                 return new ObjCommand(HomeDischargeSpec.getSpec());
-            case "history":
-                return new ObjCommand(HomeHistorySpec.getSpec());
             default:
                 return null;
             }
@@ -115,6 +113,8 @@ public class Commands {
                 return new ObjCommand(ImpressionPrioritySpec.getSpec());
             case "status":
                 return new ObjCommand(ImpressionStatusSpec.getSpec());
+            case "open":
+                return new ObjCommand(ImpressionOpenSpec.getSpec());
             case "primary":
                 return new Command(ImpressionPrimarySpec.getSpec());
             default:

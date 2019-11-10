@@ -23,11 +23,6 @@ public class Result extends Evidence {
     }
 
     @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    @Override
     public String toReportString() {
         // todo
         return null;

@@ -3,9 +3,9 @@ package duke;
 import duke.command.ObjCommand;
 import duke.command.Parser;
 import duke.data.DukeObject;
-import duke.data.GsonStorage;
 import duke.data.PatientData;
 import duke.data.SearchResults;
+import duke.data.storage.GsonStorage;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.ui.Ui;
@@ -51,20 +51,21 @@ public class DukeCore extends Application {
 
     /**
      * Displays a set of search results, while storing a {@link ObjCommand} object (the one that calls the search),
-     * so that it can resume execution after receiving the search results.
+     * so that it can resume execution after receiving the search results. Note that {@code queuedCmd} is saved between
+     * invocations and cannot be used as a marker for command execution.
      *
      * @throws DukeFatalException If the file writer cannot be setup.
      */
     public void search(SearchResults results, ObjCommand objCmd) throws DukeException {
         queuedCmd = objCmd;
-        ui.showMessage("Couldn't identify '" + results.getName() + "', displaying objects with matching names.");
+        ui.showMessage("Here are all the results for '" + results.getName() + "'.");
         uiContext.open(results);
     }
 
     /**
      * Executes the queued ObjCommand with the object found from search.
      *
-     * @throws DukeFatalException If the file writer cannot be setup.
+     * @throws DukeException If an error occurs during command execution.
      */
     public void executeQueuedCmd(DukeObject obj) throws DukeException {
         uiContext.moveBackOneContext();
@@ -75,7 +76,6 @@ public class DukeCore extends Application {
                     + System.lineSeparator() + excp.getMessage());
             ui.showMessage(queuedCmd.getClass().getSimpleName() + " failed! See log for details.");
         }
-        queuedCmd = null;
     }
 
     /**

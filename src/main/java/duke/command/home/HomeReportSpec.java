@@ -33,11 +33,10 @@ public class HomeReportSpec extends HomeObjSpec {
         String header = "PATIENT REPORT";
         String explanation = "This report shows all the data that was stored about a patient at the time the report was"
                 + " created.";
+        Patient patient = (Patient) obj;
 
-        createReport(core.patientData.getPatientByBed(cmd.getSwitchVal("bed")), header, explanation,
-                cmd.getSwitchVal("summary"));
-        core.updateUi("Patient report created for "
-                + core.patientData.getPatientByBed(cmd.getSwitchVal("bed")).getName());
+        createReport(patient, header, explanation, cmd.getSwitchVal("summary"));
+        core.updateUi("Patient report created for " + patient.getName());
     }
 
     /**

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Plan extends Treatment {
+public class Plan extends SummaryTreatment {
 
     private static final List<String> statusArr = Arrays.asList("Not done/ordered", "In progress", "Completed");
 
@@ -27,15 +27,7 @@ public class Plan extends Treatment {
      * @param summary the summary of what the plan entails
      */
     public Plan(String name, Impression impression, int priority, String status, String summary) throws DukeException {
-        super(name, impression, priority, status);
-        this.summary = summary;
-    }
-
-    @Override
-    public String toString() {
-        String informationString;
-        informationString = "Summary: " + this.summary + "\n";
-        return super.toString() + informationString;
+        super(name, impression, priority, status, summary);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package duke.ui.window;
 
 import com.jfoenix.controls.JFXListView;
-import duke.data.GsonStorage;
+import duke.data.storage.GsonStorage;
 import duke.data.Help;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;

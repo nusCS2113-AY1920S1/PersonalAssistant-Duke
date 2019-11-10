@@ -209,11 +209,10 @@ public class Patient extends DukeObject {
     public SearchResults searchAll(String searchTerm) throws DukeException {
         String lowerSearchTerm = searchTerm.toLowerCase();
         SearchResults results = findImpressions(lowerSearchTerm);
-        ArrayList<DukeObject> resultList = new ArrayList<>();
         for (Impression imp : impressionList) {
             results.addAll(imp.searchAll(searchTerm));
         }
-        return new SearchResults(searchTerm, resultList, this);
+        return results;
     }
 
     /**
@@ -225,7 +224,7 @@ public class Patient extends DukeObject {
     public String appendHistory(String addition) {
         String newHistory;
         if (this.history != null && !this.history.equals("")) {
-            newHistory = this.history + System.lineSeparator() + addition;
+            newHistory = this.history + "\n\n" + addition;
         } else {
             newHistory = addition;
         }
@@ -434,9 +433,8 @@ public class Patient extends DukeObject {
      */
     public boolean contains(String searchTerm) {
         String lowerSearchTerm = searchTerm.toLowerCase();
-        return allergies.toLowerCase().contains(lowerSearchTerm)
+        return super.contains(searchTerm) || allergies.toLowerCase().contains(lowerSearchTerm)
                 || history.toLowerCase().contains(lowerSearchTerm)
-                || getName().toLowerCase().contains(lowerSearchTerm)
                 || address.toLowerCase().contains(lowerSearchTerm);
     }
 
