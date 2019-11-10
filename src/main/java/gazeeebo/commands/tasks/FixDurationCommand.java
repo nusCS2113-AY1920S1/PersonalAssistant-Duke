@@ -29,9 +29,9 @@ public class FixDurationCommand extends Command {
      *                      printing things to the user.
      * @param storage       The object that deals with
      *                      storing data to the Save.txt file.
-     * @param commandStack
-     * @param deletedTask
-     * @param triviaManager
+     * @param commandStack the stack of previous commands.
+     * @param deletedTask the list of deleted task.
+     * @param triviaManager the object for triviaManager
      * @throws DukeException  Throws custom exception when
      *                        format of fixed duration command is wrong
      * @throws ParseException Catch error if parsing of command fails
