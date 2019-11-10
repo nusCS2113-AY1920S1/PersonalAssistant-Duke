@@ -37,6 +37,9 @@ public class DuqueParser {
         if (fullCommand.equals("")) {
             throw new DukeException("Please type something for me to do!");
         }
+        fullCommand = fullCommand.replaceAll("\t", " ");
+        fullCommand = fullCommand.replaceAll("( )+", " ");
+        fullCommand = fullCommand.trim();
         if (fullCommand.charAt(0) == '-') {
             if (fullCommand.length() == 1 || !fullCommand.contains(" ")) {
                 throw new DukeException("Sorry I don't understand what you mean.");

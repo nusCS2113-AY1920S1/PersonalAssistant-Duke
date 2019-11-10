@@ -29,7 +29,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws DukeException throws an exception of wrong format entered
      */
     private void getKeywordAndFields(String rawParameters) throws DukeException {
-        String[] splitParameters = rawParameters.split(" -");
+        String[] splitParameters = rawParameters.split("-");
 
         for (int i = 1; i < splitParameters.length; i++) {
             String[] s = splitParameters[i].split(" ", 2);
@@ -40,7 +40,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             String field = s[1];
             switch (keyword) {
             case "r":
-                recurrence = Optional.of(field);
+                recurrence = Optional.of(field.trim());
                 break;
             case "d":
                 try {

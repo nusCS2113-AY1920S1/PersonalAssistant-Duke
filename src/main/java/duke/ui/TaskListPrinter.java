@@ -22,7 +22,8 @@ public class TaskListPrinter {
         int filterLength = list.getLongestFilter();
         String filterHead = createFilterHead(filterLength);
         filterLength = filterHead.length();
-        ui.showLine("ID | " + filterHead + " |  Type  | Priority | Recurrence | Duration | Done? | Description");
+        ui.showLine("ID | " + filterHead + " |  Type  | Priority | Recurrence | " +
+                "Duration | Done? |     DateTime     | Description");
         String rowBreak = createRowBreak(filterLength);
         for (int i = 0; i < taskCount; i++) {
             ui.showLine(rowBreak);
@@ -39,7 +40,8 @@ public class TaskListPrinter {
             curr.append(" | ").append(padRecurrence(t.getRecurrenceCode()));
             curr.append(" | ").append(padDuration(t.getDuration()));
             curr.append(" |   ").append(t.getStatusIcon());
-            curr.append("   | ").append(t.getDescription());
+            curr.append("   | ").append(t.getDTString());
+            curr.append(" | ").append(t.getDescription());
             ui.showLine(curr.toString());
         }
     }
@@ -136,7 +138,7 @@ public class TaskListPrinter {
         while (filterLength-- > 0) {
             result.append("-");
         }
-        return result + " | ------ | -------- | ---------- | -------- | ----- | -----------";
+        return result + " | ------ | -------- | ---------- | -------- | ----- | ---------------- | -----------";
     }
 
     private static String padFilter(Optional<String> filter, int filterLength) {

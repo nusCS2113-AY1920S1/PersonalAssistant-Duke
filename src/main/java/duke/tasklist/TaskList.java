@@ -183,7 +183,7 @@ public class TaskList {
             temp.add(t);
         }
         temp.sort((a, b) -> a.getPriorityLevel() < b.getPriorityLevel() ? 1 : -1);
-        return new TaskList(temp);
+        return new TaskList(temp).undoneView();
     }
 
     /**

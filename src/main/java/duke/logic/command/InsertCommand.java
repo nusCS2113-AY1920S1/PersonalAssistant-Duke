@@ -42,6 +42,7 @@ public class InsertCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.insert(filter, index, t);
+        ui.showLine(t + " has been added back into your task list!");
     }
 
     /**

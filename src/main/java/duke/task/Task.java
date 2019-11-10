@@ -3,6 +3,7 @@ package duke.task;
 import javax.sound.midi.Soundbank;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -172,10 +173,13 @@ public class Task {
      * @return the description of the task
      */
     public String getDescription() {
+        return this.description;
+    }
+
+    public String getDTString() {
         return dateTime.map(localDateTime ->
-                this.description + " "
-                        + localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")))
-                .orElseGet(() -> this.description);
+                localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")))
+                .orElseGet(() -> "       NA       ");
     }
 
     /**
