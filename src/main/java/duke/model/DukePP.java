@@ -53,7 +53,7 @@ public class DukePP implements Model {
     public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, IncomeList incomeList, Budget budget, BudgetView budgetView, Optional<PaymentList> optionalPayments) throws DukeException {
 
         this.expenseList = expenseList;
-        this.planBot = new PlanBot(planAttributes);
+        this.planBot =  PlanBot.getInstance(planAttributes);
         this.incomeList = incomeList;
         this.budget = budget;
         this.budgetView = budgetView;

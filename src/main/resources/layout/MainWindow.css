@@ -24,5 +24,6 @@ VBox {
 }
 
 #MainContainer {
-    -fx-background-color: 	LIGHTSLATEGREY;
+    -fx-background-color: LIGHTSLATEGRAY
+;
 }

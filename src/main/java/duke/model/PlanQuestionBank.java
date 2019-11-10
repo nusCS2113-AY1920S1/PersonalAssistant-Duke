@@ -16,10 +16,10 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 public class PlanQuestionBank {
+    private static PlanQuestionBank planQuestionBank;
     private Map<Integer, PlanQuestion> questionList;
 
     private static final Logger logger = LogsCenter.getLogger(PlanQuestionBank.class);
-
 
     private static final String[] BOOL_ANSWERS = {"YES", "Y", "NO", "N"};
     private static final String[] BOOL_ATTRIBUTE_VALUES = {"TRUE", "TRUE", "FALSE", "FALSE"};
@@ -31,7 +31,7 @@ public class PlanQuestionBank {
      *
      * @throws DukeException on Error constructing the QuestionBank
      */
-    public PlanQuestionBank() throws DukeException {
+    private PlanQuestionBank() throws DukeException {
         this.questionList = new HashMap<>();
         PlanQuestion question1 = new PlanQuestion("Are you a student from NUS? <yes/no>",
                 BOOL_ANSWERS,
@@ -124,6 +124,13 @@ public class PlanQuestionBank {
                 DOUBLE,
                 "ONLINE_SHOPPING"));
         logger.info("QuestionBank generated successfully!");
+    }
+
+    public static PlanQuestionBank getInstance() throws DukeException {
+        if (planQuestionBank == null) {
+            planQuestionBank = new PlanQuestionBank();
+        }
+        return planQuestionBank;
     }
 
     /**
@@ -312,14 +319,17 @@ public class PlanQuestionBank {
                     recommendationExpenseList.add(spotifyExpenseBuilder.build());
                 }
                 if (Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")).compareTo(BigDecimal.ZERO) == 1) {
-                    budgetRecommendation.put("online shopping", Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")));
+                    budgetRecommendation.put("online shopping",
+                            Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")));
                     recommendation.append("You should allocate $"
                             + planAttributes.get("ONLINE_SHOPPING")
                             + " to online shopping.");
                 }
             }
         } catch (NullPointerException | NumberFormatException e) {
-            throw new DukeException("Missing attributes to make recommendation!" + e.getMessage());
+            throw new DukeException("Error in making recommendation! "
+                    + "Most likely there's something wrong in the the storage file"
+                    + e.getMessage());
         }
         if (recommendation.toString().isEmpty()) {
             return new PlanRecommendation("I can't make any recommendations for you"

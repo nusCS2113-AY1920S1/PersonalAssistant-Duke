@@ -9,9 +9,9 @@ import java.util.Map;
 
 public class PlanBotTest {
     @Test
-    public void PlanBotTest() {
+    public void testPositive() {
         Map<String, String> knownAttributes = new HashMap<>();
-        PlanBot planBot = new PlanBot(knownAttributes);
+        PlanBot planBot = PlanBot.getInstance(knownAttributes);
         Assertions.assertNotNull(planBot.getDialogObservableList());
         Assertions.assertFalse(planBot.getDialogObservableList().isEmpty());
         int currSize = planBot.getDialogObservableList().size();
@@ -25,7 +25,7 @@ public class PlanBotTest {
     @Test
     public void testInvalidInput() {
         Map<String, String> knownAttributes = new HashMap<>();
-        PlanBot planBot = new PlanBot(knownAttributes);
+        PlanBot planBot = PlanBot.getInstance(knownAttributes);
         Assertions.assertNull(planBot.getPlanBudgetRecommendation());
         planBot.processInput("random string of inputs");
         PlanBot.PlanDialog planDialog = new PlanBot.PlanDialog("Please enter a valid reply!", PlanBot.Agent.BOT);
