@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 /**
+ * @author VirginiaYu
+ *
  * Represents a list of {@link Order}s added by {@link Duke}.
  */
 public class OrderList extends GenericList<Order> {
@@ -39,7 +42,7 @@ public class OrderList extends GenericList<Order> {
     public TodayTodoList getTodoList() { return this.todoList; }
 
     /**
-     * init chef's today Todo list
+     * initialize chef's today Todo list
      */
     public void initTodoList() { this.todoList = new TodayTodoList(); }
 

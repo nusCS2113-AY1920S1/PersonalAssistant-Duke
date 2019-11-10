@@ -13,8 +13,10 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+//@@author VirginiaYu
+
 /**
- * Represents a specific {@link Command} used to cancel/delete a {@link Order} from the {@link OrderList}.
+ * Represents a specific {@link Command} used to cancel an undone {@link Order} from the {@link OrderList}.
  */
 public class CancelOrderCommand extends Command {
     private int orderIndex;

@@ -1,5 +1,6 @@
 package duke.list;
 
+import duke.Duke;
 import duke.exception.DukeException;
 import duke.order.Order;
 
@@ -8,6 +9,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author VirginiaYu
+ *
+ * Represents a general Order to be added by {@link Duke}.
+ */
 public class TodayTodoList {
     private Map<String, Integer> tasks;
 

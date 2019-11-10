@@ -11,8 +11,10 @@ import duke.storage.OrderStorage;
 import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
+//@@author VirginiaYu
+
 /**
- * Represents a specific {@link Command} used to mark a {@link Order} as done.
+ * Represents a specific {@link Command} used to mark an {@link Order} as done.
  */
 public class DoneOrderCommand extends Command {
     private int orderIndex;
