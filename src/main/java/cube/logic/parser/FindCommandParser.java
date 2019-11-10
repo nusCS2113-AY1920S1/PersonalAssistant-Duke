@@ -23,7 +23,7 @@ public class FindCommandParser implements ParserPrototype<FindCommand> {
 
         switch (args[1]) {
             case "-i":
-                if(!ParserUtil.isValidNumber(args[2])){
+                if(!ParserUtil.isValidInteger(args[2])){
                     throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
                 }
                 return new FindCommand(Integer.parseInt(args[2]),"INDEX");

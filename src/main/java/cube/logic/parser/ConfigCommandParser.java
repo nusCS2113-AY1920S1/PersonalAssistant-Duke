@@ -96,7 +96,7 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
                 if (!ParserUtil.hasField(args, maxFileCountIndex + 1)) {
                     throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
                 }
-                if (!ParserUtil.isValidNumber(args[maxFileCountIndex + 1])) {
+                if (!ParserUtil.isValidInteger(args[maxFileCountIndex + 1])) {
                     throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
                 }
                 logConfig.setMaxFileCount(Integer.parseInt(args[maxFileCountIndex + 1]));
@@ -105,7 +105,7 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
                 if (!ParserUtil.hasField(args, maxFileSizeIndex + 1)) {
                     throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
                 }
-                if (!ParserUtil.isValidNumber(args[maxFileSizeIndex + 1])) {
+                if (!ParserUtil.isValidInteger(args[maxFileSizeIndex + 1])) {
                     throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
                 }
                 logConfig.setMaxFileSizeMB(Integer.parseInt(args[maxFileSizeIndex + 1]));

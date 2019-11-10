@@ -16,7 +16,7 @@ import cube.model.promotion.Promotion;
 import cube.model.promotion.PromotionList;
 import cube.storage.StorageManager;
 
-public class PromotionCommand extends Command{
+public class AddPromotionCommand extends Command{
     private final Promotion newPromotion;
     public Food promotionFood;
     public static final String MESSAGE_SUCCESS = "New promotion added: \n"
@@ -27,7 +27,7 @@ public class PromotionCommand extends Command{
      * Default constructor.
      * @param promotion the promotion to be added.
      */
-    public PromotionCommand(Promotion promotion) {
+    public AddPromotionCommand(Promotion promotion) {
         this.newPromotion = promotion;
     }
 
@@ -62,7 +62,7 @@ public class PromotionCommand extends Command{
         newPromotion.setPromotionalPrice(newPrice);
 
         promotionList.add(newPromotion);
-        //storage.storePromotionList(promotionList);
+        storage.storePromotionList(promotionList);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, newPromotion, promotionList.size()));
     }

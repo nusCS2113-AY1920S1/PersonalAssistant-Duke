@@ -25,7 +25,7 @@ public class RevenueCommandParser implements ParserPrototype<RevenueCommand> {
             case "-all":
                 return new RevenueCommand("ALL");
             case "-i":
-                if(!ParserUtil.isValidNumber(args[2])){
+                if(!ParserUtil.isValidInteger(args[2])){
                     throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
                 }
                 return new RevenueCommand(Integer.parseInt(args[2]),"INDEX");

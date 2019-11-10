@@ -58,13 +58,13 @@ public class AddCommandParser implements ParserPrototype<AddCommand> {
             if(!ParserUtil.isValidNumber(args[priceIndex+1])){
                 throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
             }
-			tempFood.setPrice(Integer.parseInt(args[priceIndex+1]));
+			tempFood.setPrice(Double.parseDouble(args[priceIndex+1]));
 		}
 		if (stockIndex != -1) {
 			if (!ParserUtil.hasField(args,stockIndex+1)) {
 				throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
 			}
-		    if(!ParserUtil.isValidNumber(args[stockIndex+1])){
+		    if(!ParserUtil.isValidInteger(args[stockIndex+1])){
 		        throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
             }
 			tempFood.setStock(Integer.parseInt(args[stockIndex+1]));

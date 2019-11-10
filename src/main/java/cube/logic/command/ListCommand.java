@@ -16,7 +16,7 @@ public class ListCommand extends Command{
 	public SortType sortType;
 
 	public static final String MESSAGE_SUCCESS = "Here are the food in your list: \n"
-		+ "%1$s\n" // todo: toString for list
+		+ "%1$s\n"
 		+ "The total revenue so far is $ %2$f\n";
 
 	/**

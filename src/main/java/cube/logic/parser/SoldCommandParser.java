@@ -39,7 +39,7 @@ public class SoldCommandParser implements ParserPrototype<SoldCommand> {
 			}
 			throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
 		}
-		if(!ParserUtil.isValidNumber(args[quantityIndex + 1])){
+		if(!ParserUtil.isValidInteger(args[quantityIndex + 1])){
 			throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
 		}
 		if(dateIndex == -1) {

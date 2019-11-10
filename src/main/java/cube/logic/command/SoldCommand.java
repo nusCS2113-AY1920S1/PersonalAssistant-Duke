@@ -6,7 +6,6 @@
  */
 package cube.logic.command;
 
-import cube.logic.parser.exception.ParserException;
 import cube.model.food.FoodList;
 import cube.model.food.Food;
 import cube.model.promotion.Promotion;
@@ -19,8 +18,6 @@ import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -45,7 +42,7 @@ public class SoldCommand extends Command{
 	}
 
 	/**
-	 * Constructor with three arguemtns.
+	 * Constructor with three arguments.
 	 * @param foodName The name of the food to be sold.
 	 * @param quantity The quantity of food sold.
 	 * @param soldDate The date of the food sold.
@@ -76,7 +73,6 @@ public class SoldCommand extends Command{
 	 */
 	@Override
 	public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
-		//TODO: check if the user has set price and cost
 		FoodList list = ModelManager.getFoodList();
 		PromotionList promotionList = model.getPromotionList();
 		SalesHistory salesHistory = model.getSalesHistory();
