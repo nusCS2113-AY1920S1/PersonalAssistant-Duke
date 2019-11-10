@@ -75,8 +75,8 @@ public class MealList {
      * @return Returns the meal that was deleted.
      */
     public Meal delete(LocalDate date, int index) {
-        Meal deletedMeal = this.mealTracker.get(date).get(index - 1);
-        this.mealTracker.get(date).remove(index - 1);
+        Meal deletedMeal = this.mealTracker.get(date).get(index);
+        this.mealTracker.get(date).remove(index);
         return deletedMeal;
     }
 
