@@ -154,10 +154,10 @@ public class Ui {
         // prints list or matching tasks in list
         if (command.equals("list")) {
             System.out.print(line + "     Here are the tasks in your list:\n");
-        } else {
-            if (command.equals("find")) {
+        } else if (command.equals("find")) {
                 System.out.print(line + "     Here are the matching tasks in your list:\n");
-            }
+        } else if (command.equals("View Schedule")) {
+            System.out.print(line + "     Here are the tasks on this day:\n");
         }
         for (int i = 0; i < listsize; i++) {
             int listnum = i + 1;
@@ -262,6 +262,30 @@ public class Ui {
     }
 
     /**
+     * Prints message to indicate a Task is done.
+     * @param id Index of the Task in the TaskList.
+     * @param tasklist TaskList of the user.
+     */
+    public void printDeleteTaskMessage(int id, TaskList tasklist) {
+        System.out.print(line + "     Got it! I've removed this task from the list: \n");
+        System.out.print("       " + tasklist.get(id).giveTask() + "\n");
+        System.out.print(line);
+    }
+
+    /**
+     * Print all tasks in a tasklist.
+     * @param tasklist TaskList of the user.
+     */
+    public void printTaskList(TaskList tasklist) {
+        System.out.print(line);
+        System.out.println("\tYour result is as follow:");
+        for ( int i  = 0 ; i < tasklist.size(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + tasklist.get(i).giveTask() );
+        }
+        System.out.print(line);
+    }
+
+    /**
      * Prints message to indicate a task being added.
      * @param task Task.
      * @param tasklist Tasklist.
@@ -279,7 +303,7 @@ public class Ui {
      * @param task Task to be snoozed.
      */
     public void printSnoozeMessage(Task task) {
-        System.out.print(line + "     Got it. I've snoozed this task:  \n");
+        System.out.print(line + "     Got it. I've snoozed this task by 1 day:  \n");
         System.out.print("       " + task.giveTask() + "\n");
         System.out.print(line);
     }
