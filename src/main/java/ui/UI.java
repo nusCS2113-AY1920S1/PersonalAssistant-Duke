@@ -17,7 +17,7 @@ public class UI {
     private String loadingError = "Formatting Issues Encountered. New Task List initialized";
     private String line = "_______________________________________________________________________________________"
             + "_______";
-    private String goodBye = "Bye. Hope to see you again soon!";
+    private String goodBye = "Bye! This program will exit in a short while. Hope to see you again soon!";
     private String closeSuccess = "File successfully saved!";
     private String closeFail = "File failed to save";
 

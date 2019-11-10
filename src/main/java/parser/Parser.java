@@ -16,9 +16,7 @@ import java.util.Scanner;
 public class Parser {
     public static String deadline = "\\s*/by\\s*";
     public static String event = "\\s*/at\\s*";
-    public static String recurring = "\\s*/every\\s*";
     public static String after = "\\s*/after\\s*";
-    public static String within = "\\s*/between\\s*";
     public static String priority = "\\s*/priority\\s*";
     public static String taskSeparator = "\\s*\\|\\s*";
     public static String dateSeparator = "\\s*\\&\\s*";
@@ -28,14 +26,70 @@ public class Parser {
     public static int windowWidth = 80;
     public static String acceptedExtensions = "txt|csv";
     public static String moduleFormat = "[A-Z]{2,3}[1-9]([0-9]{3}|X{3})[A-Z]{0,1}";
-    public static final Map<String, Integer> userPriorityMap;
+    public static final Map<String, String> userPriorityMap;
+
     static {
-        Map<String, Integer> aMap = new HashMap<>();
-        aMap.put("high", 0);
-        aMap.put("medium", 1);
-        aMap.put("low", 2);
+        Map<String, String> aMap = new HashMap<>();
+        aMap.put("very high", "Very High");
+        aMap.put("high", "High");
+        aMap.put("normal", "Normal");
+        aMap.put("low", "Low");
         userPriorityMap = Collections.unmodifiableMap(aMap);
     }
+
+
+    public static final Map<String, String> degreeFullNameMap;
+    static {
+        Map<String, String> aMap = new HashMap<>();
+
+        aMap.put("biomedical engineering", "Biomedical Engineering");
+        aMap.put("biomed", "Biomedical Engineering");
+        aMap.put("biomedical", "Biomedical Engineering");
+        aMap.put("bio eng", "Biomedical Engineering");
+        aMap.put("bm", "Biomedical Engineering");
+        aMap.put("bme", "Biomedical Engineering");
+
+        aMap.put("chemical engineering", "Chemical Engineering");
+        aMap.put("chem eng", "Chemical Engineering");
+        aMap.put("che", "Chemical Engineering");
+
+        aMap.put("civil engineering", "Civil Engineering");
+        aMap.put("cive", "Civil Engineering");
+        aMap.put("civil e", "Civil Engineering");
+        aMap.put("civil", "Civil Engineering");
+        aMap.put("civ", "Civil Engineering");
+
+        aMap.put("computer engineering", "Computer Engineering");
+        aMap.put("ceg", "Computer Engineering");
+        aMap.put("come", "Computer Engineering");
+        aMap.put("com e", "Computer Engineering");
+
+        aMap.put("electrical engineering", "Electrical Engineering");
+        aMap.put("ee", "Electrical Engineering");
+        aMap.put("elece", "Electrical Engineering");
+
+        aMap.put("environmental engineering", "Environmental Engineering");
+        aMap.put("enve", "Environmental Engineering");
+        aMap.put("env", "Environmental Engineering");
+
+        aMap.put("industrial and systems engineering", "Industrial and Systems Engineering");
+        aMap.put("ise", "Industrial and Systems Engineering");
+        aMap.put("ie", "Industrial and Systems Engineering");
+        aMap.put("industrial systems engineering", "Industrial and Systems Engineering");
+
+        aMap.put("mechanical engineering", "Mechanical Engineering");
+        aMap.put("mecheng", "Mechanical Engineering");
+        aMap.put("me", "Mechanical Engineering");
+        aMap.put("mech eng", "Mechanical Engineering");
+
+        aMap.put("materials science and engineering", "Materials Science and Engineering");
+        aMap.put("mse", "Materials Science and Engineering");
+        aMap.put("material science engineering", "Materials Science and Engineering");
+        aMap.put("materials science engineering", "Materials Science and Engineering");
+        degreeFullNameMap = Collections.unmodifiableMap(aMap);
+    }
+
+
     Parser() {
     }
 
@@ -48,7 +102,6 @@ public class Parser {
      */
     public static Command parse(String line) throws DukeException {
         Scanner temp = new Scanner(line);
-
 
         if (!temp.hasNext()) {
             throw new DukeException("Empty Command!");
@@ -74,8 +127,8 @@ public class Parser {
             } else { //if the user wants to display help for only one command
                 String input = temp.nextLine();
                 input = input.strip();
-                if (input.matches("help|detail|compare|add|degreelist|swap|replace|delete|clear|custom"
-                        + "|bye|undo|redo")) {
+                if (input.matches("help|detail|compare|add|swap|delete|bye|undo|redo|schedule|event|todo"
+                        + "|deadline|view_employment|cohort_size|done|choices|find|remove|snooze|sort|tasks")) {
                     return new HelpCommand(command, input);
                 } else {
                     throw new DukeException("I do not understand that command. "

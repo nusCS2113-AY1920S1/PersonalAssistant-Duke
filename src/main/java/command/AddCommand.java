@@ -1,8 +1,9 @@
 package command;
 
 import degree.DegreeManager;
+import parser.Parser;
 import storage.Storage;
-import task.NUSEvents;
+import task.NUSEventList;
 import ui.UI;
 import task.TaskList;
 import exception.DukeException;
@@ -55,22 +56,20 @@ public class AddCommand extends Command {
             tasks.conflict_check();
         }
         else if (this.command.matches("add")) {
-            this.listType = 2; //1 for degree list
-
-            degreesBuffer = lists.deepClone();
-            tasksBuffer = tasks.deepClone();
-            memento1 = new Memento(degreesBuffer);
-            memento2 = new Memento(tasksBuffer);
+            this.listType = 2; //2 for both degree list and task list
 
 
-            if(this.arguments.matches("Materials Science and Engineering|Biomedical Engineering|Chemical Engineering|Civil Engineering|"
-                    + "Computer Engineering|Electrical Engineering|Environmental Engineering|"
-                    + "Industrial and Systems Engineering|Mechanical Engineering|BME|"
-                    + "BME|BioMed|Bio Eng|BM|ChE|Chem Eng|CivE|Civil E|Civil|CEG|Com E|EE|ElecE|ENVE|Mech Eng|ME|ISE|"
-                    + "IE|Industrial Systems|Materials Science Engineering|MSE")) {
+            String fullDegreeName = Parser.degreeFullNameMap.get(this.arguments.toLowerCase());
+            if(fullDegreeName.matches("Biomedical Engineering|Chemical Engineering|Civil Engineering|Computer Engineering" +
+                            "|Electrical Engineering|Environmental Engineering|Industrial and Systems Engineering" +
+                            "|Mechanical Engineering|Materials Science and Engineering")) {
+                degreesBuffer = lists.deepClone();
+                tasksBuffer = tasks.deepClone();
+                memento1 = new Memento(degreesBuffer);
+                memento2 = new Memento(tasksBuffer);
                 lists.add_custom(this.arguments, storage);
-                NUSEvents NUSEvents = new NUSEvents();
-                NUSEvents.addDegreeTasks(this.arguments, tasks);
+                NUSEventList NUSEventList = new NUSEventList();
+                NUSEventList.addDegreeTasks(fullDegreeName, tasks);
             }
             else {
                 throw new DukeException("Wrong formatting convention is used to add degree");
@@ -83,6 +82,13 @@ public class AddCommand extends Command {
             memento = new Memento(tasksBuffer);
 
             tasks.add(this.command, this.arguments);
+        }
+
+        try {
+            storage.store(tasks);
+            storage.add_degrees(lists);
+        } catch (DukeException e) {
+            throw new DukeException("Save Error: " + e.getLocalizedMessage());
         }
     }
 

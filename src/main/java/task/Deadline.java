@@ -34,13 +34,13 @@ public class Deadline extends Task {
             if (splitPriority.length < 2){
                 throw new DukeException("Please enter a priority level!");
             }
-            if (!splitPriority[1].toLowerCase().matches("high|medium|low")){
-                throw new DukeException("Please ensure that priority level is either High, Medium, or Low");
+            if (!splitPriority[1].toLowerCase().matches("very high|high|normal|low")){
+                throw new DukeException("Please ensure that priority level is either Very High, High, Normal, or Low");
             }
             this.isDone = false;
             this.description = split[0];
             this.readDate(splitPriority[0]);
-            this.userDefinedPriority = splitPriority[1].toLowerCase();
+            this.userDefinedPriority = Parser.userPriorityMap.get(splitPriority[1].toLowerCase());
             this.calculatePriorityScore();
         }
 
@@ -48,7 +48,7 @@ public class Deadline extends Task {
             this.description = split[0];
             this.readDate(split[1]);
             this.isDone = false;
-            this.userDefinedPriority = "low";
+            this.userDefinedPriority = "Normal";
             this.calculatePriorityScore();
         }
     }
@@ -65,6 +65,7 @@ public class Deadline extends Task {
         this.readDate(dueDate);
         this.isDone = (1 == Integer.parseInt(bool));
         this.userDefinedPriority = (priority);
+        this.setNusDegreeName();
     }
 
 

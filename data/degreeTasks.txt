@@ -1,33 +1,33 @@
 bme
-E | 0 | [BME] Open House for Prospective Students | 11-5-2020 1030 | 1
-E | 0 | [BME] NUS-BME Open House | 18-5-2020 1330 | 1
+E | 0 | [BME] Open House for Prospective Students | 11-5-2020 1030 | Normal
+E | 0 | [BME] NUS-BME Open House | 18-5-2020 1330 | Normal
 che
-D | 0 | [CHE] Chemical Engineering Camp Application | 26-6-2020 1700 | 1
-D | 0 | [CHE] Math Refresher Course Application | 30-6-2020 2359 | 1
+D | 0 | [CHE] Chemical Engineering Camp Application | 26-6-2020 1700 | Normal
+D | 0 | [CHE] Math Refresher Course Application | 30-6-2020 2359 | Normal
 cive
-D | 0 | [CIVE] Math Refresher Course Application | 30-6-2020 2359 | 1
-E | 0 | [CIVE] Civil Engineering Freshmen Welcome Tea | 22-7-2020 0900 | 1
+D | 0 | [CIVE] Math Refresher Course Application | 30-6-2020 2359 | Normal
+E | 0 | [CIVE] Civil Engineering Freshmen Welcome Tea | 22-7-2020 0900 | Normal
 come
-E | 0 | [CEG] Open House for Prospective Students | 11-5-2020 1030 | 1
-E | 0 | [CEG] NUS-ECE Open House | 18-5-2019 1330 | 1
-D | 0 | [CEG] CS1010 Placement Examination Application | 26-6-2020 1700 | 1
-D | 0 | [CEG] Math Refresher Course Application | 30-6-2020 2359 | 1
-E | 0 | [CEG] CEG Freshmen Welcome Tea | 22-7-2020 0900 | 1
+E | 0 | [CEG] Open House for Prospective Students | 11-5-2020 1030 | Normal
+E | 0 | [CEG] NUS-ECE Open House | 18-5-2019 1330 | Normal
+D | 0 | [CEG] CS1010 Placement Examination Application | 26-6-2020 1700 | Normal
+D | 0 | [CEG] Math Refresher Course Application | 30-6-2020 2359 | Normal
+E | 0 | [CEG] CEG Freshmen Welcome Tea | 22-7-2020 0900 | Normal
 elece
-E | 0 | [EE] Open House for Prospective Students | 11-5-2020 1030 | 1
-E | 0 | [EE] NUS-ECE Open House | 18-5-2020 1330 | 1
-E | 0 | [EE] NUS-ECE Freshmen Orientation Programme | 18-5-2020 1330 | 1
+E | 0 | [EE] Open House for Prospective Students | 11-5-2020 1030 | Normal
+E | 0 | [EE] NUS-ECE Open House | 18-5-2020 1330 | Normal
+E | 0 | [EE] NUS-ECE Freshmen Orientation Programme | 18-5-2020 1330 | Normal
 enve
-E | 0 | [ENVE] Open House for Prospective Students | 11-5-2020 1030 | 1
-E | 0 | [ENVE] NUS-EnvE Open House | 18-5-2020 1330 | 1
+E | 0 | [ENVE] Open House for Prospective Students | 11-5-2020 1030 | Normal
+E | 0 | [ENVE] NUS-EnvE Open House | 18-5-2020 1330 | Normal
 ise
-E | 0 | [ISE] Open House for Prospective Students | 11-5-2020 1030 | 1
-E | 0 | [ISE] NUS-ISE Open House | 18-5-2020 1330 | 1
-D | 0 | [ISE] CS1010 Placement Examination Application | 26-6-2020 1700 | 1
+E | 0 | [ISE] Open House for Prospective Students | 11-5-2020 1030 | Normal
+E | 0 | [ISE] NUS-ISE Open House | 18-5-2020 1330 | Normal
+D | 0 | [ISE] CS1010 Placement Examination Application | 26-6-2020 1700 | Normal
 me
-E | 0 | [ME] Open House for Prospective Students | 11-5-2020 1030 | 1
-E | 0 | [ME] NUS-ME Open House | 18-5-2020 1330 | 1
-D | 0 | [ME] CS1010 Placement Examination Application | 26-6-2020 1700 | 1
+E | 0 | [ME] Open House for Prospective Students | 11-5-2020 1030 | Normal
+E | 0 | [ME] NUS-ME Open House | 18-5-2020 1330 | Normal
+D | 0 | [ME] CS1010 Placement Examination Application | 26-6-2020 1700 | Normal
 mse
-D | 0 | [MSE] Material Science Engineering Camp Application | 26-6-2020 1700 | 1
-D | 0 | [MSE] Math Refresher Course Application | 30-6-2020 2359 | 1
+D | 0 | [MSE] Material Science Engineering Camp Application | 26-6-2020 1700 | Normal
+D | 0 | [MSE] Math Refresher Course Application | 30-6-2020 2359 | Normal

@@ -8,10 +8,7 @@ import main.Duke;
 import parser.Parser;
 import task.TaskList;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
@@ -54,7 +51,7 @@ public class Storage {
      *
      * @param filePath is name of save file as a string
      */
-    public Storage(String filePath, String another_FilePath) {
+    public Storage(String filePath, String another_FilePath) throws IOException {
         try {
             if(filePath.isBlank()) {
                 throw new DukeException("Save File Must be specified");
@@ -75,6 +72,18 @@ public class Storage {
         }
         finally
         {
+            /*
+            InputStream in = getClass().getResourceAsStream("/data/save.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            StringBuffer sb = new StringBuffer();
+            String str;
+            while((str = reader.readLine())!= null){
+                sb.append(str);
+            }
+            System.out.println(sb.toString());
+
+             */
+
             if(input.isBlank()) {
                 setSaveFile("save.txt", "savedegree.txt");
             }
@@ -89,7 +98,7 @@ public class Storage {
 
 
     /**
-     * Sets up a save file for the lists of tasks
+     * Sets up a save file for the lists of tasks and degrees.
      *
      * @param file is the name of the save file
      */
