@@ -29,6 +29,10 @@ public class Parser {
     private ParseList listParser;
     private ParseFind findParser;
 
+    public static HashSet<String> getReservedNames() {
+        return reservedNames;
+    }
+
     /**
      * Parser object contains submodules for parsing commands with many different options.
      */

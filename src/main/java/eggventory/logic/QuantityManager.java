@@ -75,7 +75,7 @@ public class QuantityManager {
     /**
      * Creates a list of all stocks that are below their minimum required quantity.
      * @param list the StockList.
-     * @return a string containing the formatted list.
+     * @return an ArrayList containing stocks below minimum quantity.
      */
     private static ArrayList<Stock> lessThanMinimumList(StockList list) {
         ArrayList<Stock> minimumList = new ArrayList<>();
@@ -88,6 +88,15 @@ public class QuantityManager {
             }
         }
         return minimumList;
+    }
+
+    /**
+     * Public access to lessThanMinimumList method.
+     * @param list the StockList.
+     * @return
+     */
+    public ArrayList<Stock> getLessThanMinimumList(StockList list) {
+        return lessThanMinimumList(list);
     }
 
     /**

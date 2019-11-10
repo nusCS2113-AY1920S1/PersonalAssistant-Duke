@@ -27,11 +27,7 @@ public class ParseEdit {
         switch (editInput[1]) {
         case "stockcode":
             throw new BadInputException("Sorry, stockCode cannot be edited in v1.4.");
-            /*
-            checkStockCode(editInput[2]);
-            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.STOCKCODE,
-                    editInput[2].toLowerCase());
-            */
+
         case "quantity":
             Parser.isCheckIsInteger(editInput[2], "quantity");
             return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.QUANTITY,

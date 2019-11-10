@@ -156,7 +156,6 @@ public class ParseAdd {
     private Command processAddLoan(String input) throws InsufficientInfoException, BadInputException {
         String[] addInput = input.split(" +");
 
-        System.out.println("Working");
         if (TemplateList.templateExists(addInput[1])) {
             return new AddLoanByTemplateCommand(CommandType.ADD, addInput[0], addInput[1]);
         }

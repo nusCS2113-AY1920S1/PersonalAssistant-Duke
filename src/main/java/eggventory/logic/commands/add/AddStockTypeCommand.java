@@ -57,7 +57,6 @@ public class AddStockTypeCommand extends Command {
             //This is to prevent Uncategorised from being loaded multiple times
         } else {
             list.addStockType(name);
-            System.out.println(name);
         }
     }
     //@@author

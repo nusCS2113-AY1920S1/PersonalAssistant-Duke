@@ -51,7 +51,6 @@ public class HelpCommand extends Command {
         if (this.options == null) {
             try {
                 output = getStringFromFile("/help/Help.txt");
-                System.out.println(output);
             } catch (IOException e) {
                 output = "Error in reading Help.txt";
             }

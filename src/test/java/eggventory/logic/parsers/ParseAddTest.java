@@ -80,5 +80,19 @@ class ParseAddTest {
         assertEquals("'all' is an invalid name as it is a keyword for an existing command.",
                 exception.getMessage());
     }
-    //@@author
+
+    //@@author cyanoei
+
+    @Test
+    public void testParse_NonIntegerQuantity_ThrowsBadInputException()  {
+        //add stock, quantity requires integer input
+        assertDoesNotThrow(() -> testParser.parse("stock resistor r500 500 desc"));
+        assertThrows(BadInputException.class, () -> testParser.parse("stock resistor r500 abc desc"));
+
+        //add loan, quantity requires integer input
+        assertDoesNotThrow(() -> testParser.parse("loan A1 r500 500"));
+        assertThrows(BadInputException.class, () -> testParser.parse("loan A1 r500 abc"));
+    }
+
+
 }

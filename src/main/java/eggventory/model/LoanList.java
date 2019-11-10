@@ -315,7 +315,6 @@ public final class LoanList {
         for (Loan loan : loansList) {
             stockTypesString.append(loan.savedLoanString()).append("\n");
         }
-        System.out.println(stockTypesString.toString());
 
         return stockTypesString.toString();
     }
