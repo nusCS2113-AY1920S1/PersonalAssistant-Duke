@@ -1,8 +1,8 @@
 package executor.command;
 
+import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
-import ui.ReceiptTracker;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -13,15 +13,19 @@ import java.util.ArrayList;
 public class CommandEdit extends Command {
     protected String userInput;
     protected int index = 0;
-    protected int receiptNumber = 0;
-    protected String newTag = null;
-    protected String newValue = null;
-    protected String newDate = null;
-    protected Double oldValue = 0.0;
-    protected Double changeValue = 0.0;
-    protected Double roundedChangeValue = 0.0;
-    protected ArrayList<String> oldTag;
-    protected LocalDate oldDate;
+    private int receiptNumber = 0;
+    private String newTag = null;
+    private String newValue = null;
+    private String newDate = null;
+    private ArrayList<String> changeTag = new ArrayList<>();
+    private Double oldValue = 0.0;
+    private Double changeValue = 0.0;
+    private Double roundedChangeValue = 0.0;
+    private ArrayList<String> oldTag ;
+    private LocalDate oldDate;
+    private  LocalDate changeDate;
+    private boolean moreThanTwoDP = false;
+    private boolean isFutureDate = false;
 
     /**
      * Constructor explaining about the command.
@@ -31,80 +35,59 @@ public class CommandEdit extends Command {
         super();
         this.userInput = userInput;
         this.description = "Allows the user to edit parts of their previous receipt input \n"
-                + "FORMAT : edit <index> /<part to be editted> <new-input>";
+                + "FORMAT : edit <index> /<part to be edited> <new-input>";
         this.commandType = CommandType.EDIT;
     }
 
     @Override
     public void execute(StorageManager storageManager) {
-        ReceiptTracker receiptTracker = new ReceiptTracker();
-        boolean moreThanTwoDP = false;
         try {
-            if (indexEmpty(userInput, CommandType.EDIT)) {
-                outputError("No Index input detected");
-                return;
-            }
             index = Integer.parseInt(Parser.parseForPrimaryInput(CommandType.EDIT, userInput)) - 1;
             receiptNumber = index + 1;
-
-            if (index < 0 || index >= storageManager.getWallet().getReceipts().size()) {
-                outputError("Index out of bounds.");
-                return;
-            }
-
+            indexChecker(storageManager);
             newTag = Parser.parseForFlag("tag", this.userInput);
             newValue = Parser.parseForFlag("value", this.userInput);
             newDate = Parser.parseForFlag("date", this.userInput);
-
-            if (newTag != null) {
-                ArrayList<String> changeTag = new ArrayList<String>();
-                changeTag.add(newTag);
-                oldTag = storageManager.getWallet().getReceipts().get(index).getTags();
-                storageManager.getWallet().getReceipts().get(index).setTags(changeTag);
-
-                if (newTag.isEmpty()) {
-                    outputErrorMessageOnGui(messageForTagChange() + noteTagEmpty());
-                } else if (isAlpha(newTag)) {
-                    outputErrorMessageOnGui(messageForTagChange());
-                } else {
-                    outputErrorMessageOnGui(messageForTagChange() + noteHasNonAlphabets());
-                }
-            } else if (newValue != null) {
-                try {
-                    if (cashValueEmpty(userInput)) {
-                        outputError("Cash value is empty. Please key in an INTEGER/DOUBLE value");
-                        return;
-                    }
-                    changeValue = Double.parseDouble(newValue);
-                    if (BigDecimal.valueOf(changeValue).scale() > 2) {
-                        roundedChangeValue = round(changeValue, 2);
-                        moreThanTwoDP = true;
-                    }
-                    oldValue = storageManager.getWallet().getReceipts().get(index).getCashSpent();
-                    storageManager.getWallet().getReceipts().get(index).setCashSpent(roundedChangeValue);
-                    if (moreThanTwoDP) {
-                        outputErrorMessageOnGui(messageForValueChange() + noteMoreThanTwoDP());
-                    } else {
-                        outputErrorMessageOnGui(messageForValueChange());
-                    }
-                } catch (NumberFormatException e) {
-                    outputError("Cash value has be an INTEGER/DOUBLE");
-                }
-
-            } else if (newDate != null) {
-                try {
-                    LocalDate changeDate = LocalDate.parse(newDate);
-                    oldDate = storageManager.getWallet().getReceipts().get(index).getDate();
-                    storageManager.getWallet().getReceipts().get(index).setDate(changeDate);
-                    outputErrorMessageOnGui(messageForDateChange());
-                } catch (DateTimeParseException e) {
-                    outputError("Invalid date input. FORMAT : YYYY-MM-DD");
-                }
-            } else {
-                outputError("Flag invalid. Valid input : tag/value/date");
-            }
+            checkAndUpdateFlag(storageManager);
         } catch (NumberFormatException e) {
             outputError("Index has be an INTEGER");
+        } catch (DukeException f) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr(f.getMessage());
+        }
+    }
+
+    /**
+     * Function to check and update the receipt according to the flag variable input by user.
+     * @param storageManager is the class to access the getter functions for wallet
+     * @throws DukeException is the error message
+     */
+    private void checkAndUpdateFlag(StorageManager storageManager) throws DukeException {
+        if (newTag != null) {
+            updateTag(storageManager);
+        } else if (newValue != null) {
+            updateCashValue(storageManager);
+        } else if (newDate != null) {
+            updateDate(storageManager);
+        } else {
+            throw new DukeException ("Flag invalid. Valid input : tag/value/date");
+        }
+    }
+
+    /**
+     * Function to check all the exception pertaining the index output of the user.
+     * @param storageManager is the class to access the getter functions for wallet
+     * @throws DukeException is the error message
+     */
+    private void indexChecker(StorageManager storageManager) throws DukeException {
+        if (storageManager.getWallet().getReceipts().size() == 0) {
+            throw new DukeException ("No receipts to edit");
+        }
+        if (indexEmpty(userInput)) {
+            throw new DukeException ("No Index input detected");
+        }
+        if (index < 0 || index >= storageManager.getWallet().getReceipts().size()) {
+            throw new DukeException ("Index out of bounds.");
         }
     }
 
@@ -113,7 +96,7 @@ public class CommandEdit extends Command {
      * @param name is the input from user
      * @return true if input string contains only alphabets
      */
-    public boolean isAlpha(String name) {
+    private boolean isAlpha(String name) {
         return name.matches("[a-zA-Z]+");
     }
 
@@ -123,7 +106,7 @@ public class CommandEdit extends Command {
      * @param places is the number of decimal places to which the user input is rounded up to
      * @return is the rounded up value of the user input
      */
-    public static double round(double value, int places) {
+    private static double round(double value, int places) {
         if (places < 0) {
             throw new IllegalArgumentException();
         }
@@ -133,10 +116,21 @@ public class CommandEdit extends Command {
     }
 
     /**
+     * Function to check if user input has more than 2 decimal places
+     * and if it is more than 2 decimal places it will be rounded up to 2 DP.
+     */
+    private void checkAndChangeToTwoDP() {
+        if (BigDecimal.valueOf(changeValue).scale() > 2) {
+            roundedChangeValue = round(changeValue, 2);
+            moreThanTwoDP = true;
+        }
+    }
+
+    /**
      * Function to output a String message as a pop-up below GUI when an error is encountered.
      * @param data is the output message
      */
-    public void outputError(String data) {
+    private void outputError(String data) {
         this.infoCapsule.setCodeError();
         this.infoCapsule.setOutputStr(data);
     }
@@ -145,7 +139,7 @@ public class CommandEdit extends Command {
      * Function to output a String message on the GUI when an error is encountered.
      * @param errorMessage is the output message
      */
-    public void outputErrorMessageOnGui(String errorMessage) {
+    private void outputMessageOnGui(String errorMessage) {
         this.infoCapsule.setCodeCli();
         this.infoCapsule.setOutputStr(errorMessage);
     }
@@ -154,20 +148,27 @@ public class CommandEdit extends Command {
      * Function to output a String message if the cash value input by user contains more than 2 decimal places.
      * @return is the output message
      */
-    public String noteMoreThanTwoDP() {
-        String output = "\nNOTE : The cash value had more then 2 decimal points, thus it was \nrounded up"
+    private String noteMoreThanTwoDP() {
+        return "\nNOTE : The cash value had more then 2 decimal points, thus it was \nrounded up"
                 + " from "
                 + changeValue
                 + " to "
                 + roundedChangeValue;
-        return output;
+    }
+
+    /**
+     * Function to return a output string if the user input date is in the future.
+     * @return is the output string
+     */
+    private String noteFutureYear() {
+        return "\nNOTE : The year input is in the future";
     }
 
     /**
      * Function to output a String message if the tag input by user contains characters apart from alphabets.
      * @return is the output message
      */
-    public String noteHasNonAlphabets() {
+    private String noteHasNonAlphabets() {
         return "\nNOTE : Tag contains other characters apart from alphabets";
     }
 
@@ -175,15 +176,85 @@ public class CommandEdit extends Command {
      * Function to output a String message if the tag input by user is empty.
      * @return is the output message
      */
-    public String noteTagEmpty() {
+    private String noteTagEmpty() {
         return "\nNOTE : Tag is empty";
+    }
+
+    /**
+     * Function to update the tag with the new input by the user.
+     * @param storageManager is the class to access the getter functions for wallet
+     */
+    private void updateTag(StorageManager storageManager) {
+        changeTag.add(newTag);
+        oldTag = storageManager.getWallet().getReceipts().get(index).getTags();
+        storageManager.getWallet().getReceipts().get(index).setTags(changeTag);
+        if (newTag.isEmpty()) {
+            outputMessageOnGui(messageForTagChange() + noteTagEmpty());
+        } else if (isAlpha(newTag)) {
+            outputMessageOnGui(messageForTagChange());
+        } else {
+            outputMessageOnGui(messageForTagChange() + noteHasNonAlphabets());
+        }
+    }
+
+    /**
+     * Function to update the cash value with the new input by the user.
+     * @param storageManager is the class to access the getter functions for wallet
+     */
+    private void updateCashValue(StorageManager storageManager) {
+        try {
+            if (cashValueEmpty(userInput)) {
+                outputError("Cash value is empty. Please key in an INTEGER/DOUBLE value");
+                return;
+            }
+            changeValue = Double.parseDouble(newValue);
+            checkAndChangeToTwoDP();
+            oldValue = storageManager.getWallet().getReceipts().get(index).getCashSpent();
+            storageManager.getWallet().getReceipts().get(index).setCashSpent(roundedChangeValue);
+            if (moreThanTwoDP) {
+                outputMessageOnGui(messageForValueChange() + noteMoreThanTwoDP());
+            } else {
+                outputMessageOnGui(messageForValueChange());
+            }
+        } catch (NumberFormatException e) {
+            outputError("Cash value has be an INTEGER/DOUBLE");
+        }
+    }
+
+    /**
+     * Function to update the date with the new input by the user.
+     * @param storageManager is the class to access the getter functions for wallet
+     */
+    private void updateDate(StorageManager storageManager) {
+        try {
+            changeDate = LocalDate.parse(newDate);
+            checkIfDateIsInFuture();
+            oldDate = storageManager.getWallet().getReceipts().get(index).getDate();
+            storageManager.getWallet().getReceipts().get(index).setDate(changeDate);
+            if(isFutureDate) {
+                outputMessageOnGui(messageForDateChange() + noteFutureYear());
+            } else {
+                outputMessageOnGui(messageForDateChange());
+            }
+        } catch (DateTimeParseException e) {
+            outputError("Invalid date input. FORMAT : YYYY-MM-DD");
+        }
+    }
+
+    /**
+     * Function to set boolean to true if the date input by user is in the future.
+     */
+    private void checkIfDateIsInFuture() {
+        if(changeDate.isAfter(LocalDate.now())){
+            isFutureDate = true;
+        }
     }
 
     /**
      * Function to output a String message if the date is successfully changed.
      * @return is the output message
      */
-    public String messageForDateChange() {
+    private String messageForDateChange() {
         return "The date for receipt "
                 + receiptNumber
                 + " was changed from "
@@ -197,7 +268,7 @@ public class CommandEdit extends Command {
      * Function to output a String message if the cash value is successfully changed.
      * @return is the output message
      */
-    public String messageForValueChange() {
+    private String messageForValueChange() {
         return "The cashspent for receipt "
                 + receiptNumber
                 + " was changed from "
@@ -211,7 +282,7 @@ public class CommandEdit extends Command {
      * Function to output a String message if the tag is successfully changed.
      * @return is the output message
      */
-    public String messageForTagChange() {
+    private String messageForTagChange() {
         return "The tag for receipt "
                 + receiptNumber
                 + " was changed from "
@@ -224,15 +295,11 @@ public class CommandEdit extends Command {
     /**
      * Boolean function to check if the index input by user is empty.
      * @param userInput is the index input by user
-     * @param command is the command that is called to access the primary input of userInput
      * @return true if the index input by user is empty
      */
-    public boolean indexEmpty(String userInput, CommandType command) {
-        String indexStr = Parser.parseForPrimaryInput(command, userInput);
-        if (indexStr.isEmpty()) {
-            return true;
-        }
-        return false;
+    private boolean indexEmpty(String userInput) {
+        String indexStr = Parser.parseForPrimaryInput(CommandType.EDIT, userInput);
+        return indexStr.isEmpty();
     }
 
     /**
@@ -240,11 +307,9 @@ public class CommandEdit extends Command {
      * @param userInput is the cash value input by user
      * @return true if userinput is empty
      */
-    public boolean cashValueEmpty(String userInput) {
+    private boolean cashValueEmpty(String userInput) {
         String cashValueStr = Parser.parseForFlag("value", userInput);
-        if (cashValueStr.isEmpty()) {
-            return true;
-        }
-        return false;
+        assert cashValueStr != null;
+        return cashValueStr.isEmpty();
     }
 }

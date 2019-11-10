@@ -12,6 +12,11 @@ public class CommandEditTest {
     void execute() {
         StorageManager storageManager = new StorageManager();
 
+        CommandEdit c0 = new CommandEdit("edit");
+        c0.execute(storageManager);
+        String ans0 = c0.getInfoCapsule().getOutputStr();
+        assertEquals("No receipts to edit",ans0);
+
         Receipt receipt1 = new Receipt(5.0);
         receipt1.addTag("food");
         receipt1.setDate(LocalDate.parse("2019-10-10"));
@@ -148,6 +153,19 @@ public class CommandEditTest {
                         + "2019-01-01"
                         + ".",
                 ans15);
+
+        CommandEdit c16 = new CommandEdit("edit 2 /date 2097-01-01");
+        c16.execute(storageManager);
+        String ans16 = c16.getInfoCapsule().getOutputStr();
+        assertEquals("The date for receipt "
+                + 2
+                + " was changed from "
+                + "2019-01-01"
+                + " to "
+                + "2097-01-01"
+                + "."
+                + "\nNOTE : The year input is in the future",
+                ans16);
     }
 }
 
