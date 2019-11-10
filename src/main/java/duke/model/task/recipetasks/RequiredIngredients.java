@@ -87,12 +87,12 @@ public class RequiredIngredients {
     public String toViewString() {
         String joinedString = "";
         if (requiredIngredientList.isEmpty()) {
-            joinedString = "No required ingredient.\n";
+            joinedString = "    " + "No required ingredient.\n";
         } else {
             int i = 0;
             for (Ingredient ingredient : requiredIngredientList) {
                 ++i;
-                joinedString = joinedString.concat(i + ".  " + ingredient.toString() + "\n");
+                joinedString = joinedString.concat("    " + i + ".  " + ingredient.toString() + "\n");
             }
         }
         return joinedString;

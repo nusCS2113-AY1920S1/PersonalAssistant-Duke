@@ -8,10 +8,9 @@ import duke.ui.MainWindow;
 import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
-import static duke.common.Messages.filePathRecipesTest;
+import static duke.common.Messages.filePathRecipeTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@author wjlingg
@@ -23,9 +22,9 @@ public class AddRecipeCommandTest {
     private RecipeList recipeList;
 
     @Test
-    public void testAddRecipeCommand() throws ParseException {
+    public void testAddRecipeCommand() {
         ui = new Ui(mainWindow);
-        recipeStorage = new RecipeStorage(filePathRecipesTest);
+        recipeStorage = new RecipeStorage(filePathRecipeTest);
         recipeList = new RecipeList(recipeStorage.load());
 
         ArrayList<String> arrayListExpectedOutput = new ArrayList<>();
@@ -39,6 +38,6 @@ public class AddRecipeCommandTest {
 
         assertEquals(arrayListExpectedOutput, arrayListActualOutput);
         DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand("deleterecipe testrecipe");
-        ArrayList<String> arrayListDummy = new ArrayList<>(deleteRecipeCommand.execute(recipeList, ui, recipeStorage));
+        deleteRecipeCommand.execute(recipeList, ui, recipeStorage);
     }
 }

@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.TreeMap;
 
-import static duke.common.Messages.filePathRecipesTest;
+import static duke.common.Messages.filePathRecipeTest;
 
 /**
  * Handles the ability to read and write to the recipe storage location.
@@ -65,18 +65,13 @@ public class RecipeStorage {
             } catch (IOException e) {
                 System.out.println("Unknown IO error when creating 'data/' folder.");
             }
-
-//            try {
-//                Files.createDirectory(Paths.get("data/"));
-//            } catch (IOException e) {
-//                System.out.println("Unknown IO error when creating 'data/' folder.");
-//            }
         }
         try {
             InputStream inputStream;
-            if (filePathRecipes.equals(filePathRecipesTest)) {
-                inputStream = getClass().getResourceAsStream("/data/recipesTest.txt");
+            if (filePathRecipes.equals(filePathRecipeTest)) {
+                inputStream = getClass().getResourceAsStream("/datatest/recipesTest.txt");
             } else {
+                System.out.println("is here gg.com...");
                 inputStream = getClass().getResourceAsStream("/data/recipes.txt");
             }
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);

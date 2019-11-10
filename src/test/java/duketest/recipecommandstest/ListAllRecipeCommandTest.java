@@ -7,7 +7,7 @@ import duke.ui.MainWindow;
 import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
-import static duke.common.Messages.filePathRecipesTest;
+import static duke.common.Messages.filePathRecipeTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -25,15 +25,15 @@ public class ListAllRecipeCommandTest {
         @Test
         public void testListAllRecipeCommand() {
             ui = new Ui(mainWindow);
-            recipeStorage = new RecipeStorage(filePathRecipesTest);
+            recipeStorage = new RecipeStorage(filePathRecipeTest);
             recipeList = new RecipeList(recipeStorage.load());
 
         ArrayList<String> arrayListExpectedOutput = new ArrayList<>();
         arrayListExpectedOutput.add(MESSAGE_HERE_ARE_THE_RECIPES);
-        arrayListExpectedOutput.add("1. chicken rice");
-        arrayListExpectedOutput.add("2. duck rice");
-        arrayListExpectedOutput.add("3. rice");
-        arrayListExpectedOutput.add("4. sphagetti");
+        arrayListExpectedOutput.add("    1. chicken rice");
+        arrayListExpectedOutput.add("    2. duck rice");
+        arrayListExpectedOutput.add("    3. rice");
+        arrayListExpectedOutput.add("    4. sphagetti");
 
         ListAllRecipeCommand listAllRecipeCommand = new ListAllRecipeCommand("listallrecipes");
         ArrayList<String> arrayListActualOutput = new ArrayList<>(listAllRecipeCommand.execute(recipeList, ui, recipeStorage));

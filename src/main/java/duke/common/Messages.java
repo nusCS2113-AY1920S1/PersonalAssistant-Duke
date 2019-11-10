@@ -7,9 +7,9 @@ public class Messages {
 
     public static final int DISPLAYED_INDEX_OFFSET = 1;
 
-    public static final String filePathRecipesTest = "\\data\\recipesTest.txt";
-    public static final String filePathBookingTest = "\\data\\bookingsTest.txt";
-    public static final String filePathInventoryTest = "\\data\\recipesTest.txt";
+    public static final String filePathRecipeTest = "\\datatest\\recipesTest.txt";
+    public static final String filePathBookingTest = "\\datatest\\bookingsTest.txt";
+    public static final String filePathInventoryTest = "\\datatest\\inventoriesTest.txt";
 
     public static final String filePathInventory = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\inventories.txt";
     public static final String filePathBookings = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\bookings.txt";

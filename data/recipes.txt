@@ -1,15 +1,16 @@
 cake | Unknown preparation time | Unrated | No preparation steps provided yet. | sugar , 3.5 , G , No additional information. | No feedback yet.
-chicken rice | 100 | Average | rinse first | jasmine rice , 15.0 , KG , fried with garlic / brown rice , 1.0 , G , No additional information. / rice , 1.0 , KG , 50% brown rice | too salty
+chicken rice | 100 | Average | rinse first | brown rice , 1.0 , G , No additional information. / rice , 1.0 , KG , 50% brown rice / jasmine rice , 15.0 , KG , fried with garlic | too salty
 duck rice | 10 | Unrated | No preparation steps provided yet. | jasmine rice , 10.0 , G , No additional information. / brown rice , 1.0 , G , No additional information. | No feedback yet.
 FFEefwFDwwdDEW | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 garlic prawn | Unknown preparation time | Good | No preparation steps provided yet. | garlic , 1.0 , G , No additional information. | No feedback yet.
 rice | 10 | Unrated | No preparation steps provided yet. | brown rice , 1.0 , G , No additional information. | No feedback yet.
 sphagetti | 10 | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
-test | Unknown preparation time | Unrated | No preparation steps provided yet.        /      rinse first     /     rinse second | No required ingredient. | No feedback yet.
+test | Unknown preparation time | Unrated | No preparation steps provided yet.          /        rinse first       /       rinse second | No required ingredient. | No feedback yet.
 test rice | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 testcake | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 testest | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 testtest | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
+tr | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 tt | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 ttt | Unknown preparation time | Unrated | rinse first | No required ingredient. | No feedback yet.
 tttt | Unknown preparation time | Unrated | rinse first | No required ingredient. | No feedback yet.

@@ -76,7 +76,7 @@ public class InventoryStorage {
         try {
             InputStream inputStream;
             if (filePathInventory.equals(filePathInventoryTest)) {
-                inputStream = getClass().getResourceAsStream("/data/inventoriesTest.txt");
+                inputStream = getClass().getResourceAsStream("/datatest/inventoriesTest.txt");
             } else {
                 inputStream = getClass().getResourceAsStream("/data/inventories.txt");
             }

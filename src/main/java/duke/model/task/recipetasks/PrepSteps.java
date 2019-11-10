@@ -61,7 +61,7 @@ public class PrepSteps {
                     System.out.println(step + ".....");
                     prepStepsList.remove("No preparation steps provided yet.");
                     ++i;
-                    joinedString = joinedString.concat(Integer.toString(i) + ". " + step + "\n");
+                    joinedString = joinedString.concat("    " + i + ". " + step + "\n");
                     // joinedString = joinedString.concat(String.join("\n", Integer.toString(i) + ". " + ingredient.toString()));
                 }
             }
