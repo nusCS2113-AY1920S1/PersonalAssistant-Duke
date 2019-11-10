@@ -61,10 +61,16 @@ This section describes the design of Ducats, starting with the overall architect
 
 === Overall Architecture
 
-Ducats is based on the n-tier architecture design, with higher level tiers depending on the resources provided by the lower level tiers. The diagram below showcases the high-level architecture of Ducats:
+Ducats consists of multiple components implemented as objects that work together to fulfill the program's objectives. The diagram below showcases the high-level architecture of Ducats:
 
 <insert high level archi diagram here>
 
+
+Ducats, the main class, is responsible for the initialization of the different components, as well as the highest level of logic.
+
+DucatsLogger is a common class used by many of the components in order to log information, warnings and errors in a `.log` file.
+
+Other than the two components mentioned above, the rest of the components are linked in a way reminiscent of an n-tier architectural style, with the higher-level components depending on the resources provided by the lower-level components.
 
 === UI
 
@@ -129,6 +135,18 @@ In order to enable the modification of certain songs when there are multiple son
 === Display
 
 === Metronome
+
+A metronome is a device that outputs sound at regular, adjustable intervals, commonly used by musicians to more easily play at a particular tempo. In Ducats, the main purpose of the Metronome functionality (accessed through `MetronomeCommand`) is to provide a visual presentation of a particular tempo and time signature, so that the user can more easily understand what an appropriate tempo for their song would be.
+
+Due to a reliance on multi-threading through the Timer library, the execution of the functionality is not carried out in the `UI` task, whose primary purpose is to display and read console content. Instead, a `Metronome` object is initialized in the main class, and `MetronomeCommand` will provide the object with the following parameters:
+
+* duration (in bars)
+* tempo (in BPM)
+* time signature
+
+Following this, the `TimerTask` of generating the appropriate output to the console will be executed by a new `Timer` object initialized in the `start()` method of the `Metronome` object. The overall sequence diagram can be seen in Figure X.
+
+<insert seq diagram specific to Metronome>
 
 === Autosuggest
 
