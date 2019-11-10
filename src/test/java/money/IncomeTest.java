@@ -3,6 +3,9 @@ package money;
 import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
+
+import moneycommands.*;
+import org.junit.jupiter.api.Assertions;
 import moneycommands.AddIncomeCommand;
 import moneycommands.MoneyCommand;
 import moneycommands.DeleteIncomeCommand;
@@ -133,5 +136,33 @@ public class IncomeTest {
             assertThat(e.getMessage(),
                     is("Please enter a numerical number as the index of the income source to be deleted\n"));
         }
+    }
+
+    @Test
+    void testUndoAddIncome() throws ParseException, DukeException {
+        AddIncomeCommand test = new AddIncomeCommand("add income TA /amt 560 /on 9/10/2015");
+        Income incomeTest = new Income(560, "TA ", testDate);
+        test.execute(account, ui, moneyStorage);
+        ui.clearOutputString();
+        test.undo(account, ui, moneyStorage);
+        Assertions.assertEquals(" Last command undone: \n" + incomeTest.toString() + "\n Now you have "
+                + account.getIncomeListTotal().size() + " income sources listed\n", ui.getOutputString());
+        MoneyCommand exitCommand = new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
+
+    @Test
+    void testUndoDeleteIncome() throws DukeException, ParseException {
+        account.getIncomeListTotal().clear();
+        Income i = new Income(560, "TA ", testDate);
+        account.getIncomeListTotal().add(i);
+        DeleteIncomeCommand deleteIncomeCommand = new DeleteIncomeCommand("delete income 1");
+        deleteIncomeCommand.execute(account, ui, moneyStorage);
+        ui.clearOutputString();
+        deleteIncomeCommand.undo(account, ui, moneyStorage);
+        assertEquals(" Last command undone: \n" + i.toString() + "\n Now you have "
+                + account.getIncomeListTotal().size() + " income sources listed\n", ui.getOutputString());
+        MoneyCommand exitCommand = new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
     }
 }

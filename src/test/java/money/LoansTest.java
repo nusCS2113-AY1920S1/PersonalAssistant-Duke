@@ -1,12 +1,9 @@
 package money;
 
 import controlpanel.MoneyStorage;
-import moneycommands.AddLoanCommand;
+import moneycommands.*;
 import controlpanel.DukeException;
 import controlpanel.Ui;
-import moneycommands.MoneyCommand;
-import moneycommands.ListLoansCommand;
-import moneycommands.DeleteLoanCommand;
 import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.nio.file.Path;
@@ -14,7 +11,6 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import moneycommands.SettleLoanCommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -54,9 +50,9 @@ class LoansTest {
     @Test
     void testAddIncomingLoan() throws ParseException, DukeException {
         String addInput = "borrowed my daddy /amt 1000 /on 9/10/1997";
-        MoneyCommand addOutgoingLoanCommand = new AddLoanCommand(addInput);
+        MoneyCommand addIncomingLoanCommand = new AddLoanCommand(addInput);
         ui.clearOutputString();
-        addOutgoingLoanCommand.execute(account, ui, storage);
+        addIncomingLoanCommand.execute(account, ui, storage);
         assertEquals(" Got it. I've added this incoming loan: \n"
                 + "     [Outstanding] [I] my daddy(loan: $1000.00) (Lent On: 9/10/1997) "
                 + "Outstanding Amount: $1000.00\n" + " Now you have "
@@ -302,5 +298,98 @@ class LoansTest {
         } catch (DukeException | ParseException e) {
             assertThat(e.getMessage(), is("The serial number of the loan is Out Of Bounds!"));
         }
+    }
+
+    @Test
+    void testUndoAddLoans() throws ParseException, DukeException {
+        account.getLoans().clear();
+        String addInputOut = "lent my friends /amt 500 /on 9/10/1997";
+        Loan l = new Loan(500, "my friends", testDate, Loan.Type.OUTGOING);
+        MoneyCommand addOutgoingLoanCommand = new AddLoanCommand(addInputOut);
+        addOutgoingLoanCommand.execute(account, ui, storage);
+        ui.clearOutputString();
+        addOutgoingLoanCommand.undo(account, ui, storage);
+        assertEquals(" Last command undone: \n" + l.toString() + "\n Now you have "
+                + account.getLoans().size() + " loans listed\n", ui.getOutputString());
+
+        String addInputIn = "borrowed my daddy /amt 1000 /on 9/10/1997";
+        MoneyCommand addIncomingLoanCommand = new AddLoanCommand(addInputIn);
+        Loan l1 = new Loan(1000, "my daddy", testDate, Loan.Type.INCOMING);
+        addIncomingLoanCommand.execute(account, ui, storage);
+        ui.clearOutputString();
+        addIncomingLoanCommand.undo(account, ui, storage);
+        assertEquals(" Last command undone: \n" + l1.toString() + "\n Now you have "
+                + account.getLoans().size() + " loans listed\n", ui.getOutputString());
+        account.getLoans().clear();
+        MoneyCommand exitCommand = new ExitMoneyCommand();
+        exitCommand.execute(account, ui, storage);
+    }
+
+    @Test
+    void testUndoDeleteLoans() throws ParseException, DukeException {
+        account.getLoans().clear();
+        Loan outgoingLoan = new Loan(500, "my bros", testDate, Loan.Type.OUTGOING);
+        Loan incomingLoan = new Loan(1000, "my daddy", testDate, Loan.Type.INCOMING);
+        account.getLoans().add(outgoingLoan);
+        account.getLoans().add(incomingLoan);
+        String deleteFirstInput = "delete loan 2";
+        MoneyCommand deleteLoanCommand = new DeleteLoanCommand(deleteFirstInput);
+        deleteLoanCommand.execute(account, ui, storage);
+        ui.clearOutputString();
+        deleteLoanCommand.undo(account, ui, storage);
+        assertEquals(" Last command undone: \n" + incomingLoan.toString() + "\n Now you have "
+                + account.getLoans().size() + " loans listed\n", ui.getOutputString());
+        String deleteSecondInput = "delete loan 1";
+        MoneyCommand deleteSecondLoanCommand = new DeleteLoanCommand(deleteSecondInput);
+        deleteSecondLoanCommand.execute(account, ui, storage);
+        ui.clearOutputString();
+        deleteSecondLoanCommand.undo(account, ui, storage);
+        assertEquals(" Last command undone: \n" + outgoingLoan.toString() + "\n Now you have "
+                + account.getLoans().size() + " loans listed\n", ui.getOutputString());
+        MoneyCommand exitCommand = new ExitMoneyCommand();
+        exitCommand.execute(account, ui, storage);
+    }
+
+    @Test
+    void testUndoSettleOutgoingLoan() throws ParseException, DukeException {
+        account.getLoans().clear();
+        Loan settleLoan = new Loan(500, "my friends", testDate, Loan.Type.OUTGOING);
+        account.getLoans().add(settleLoan);
+        String settleInput = "received 300 /from my friends";
+        MoneyCommand settleOutgoingLoanCommand = new SettleLoanCommand(settleInput);
+        settleOutgoingLoanCommand.execute(account, ui, storage);
+        ui.clearOutputString();
+        settleOutgoingLoanCommand.undo(account, ui, storage);
+        assertEquals(" Last command undone: \n" + "[Outstanding] [O] my friends(loan: $500.00) "
+                + "(Lent On: 9/10/1997) Outstanding Amount: $200.00"
+                + " reverted back to previous state.\n", ui.getOutputString());
+        String settleAllInput = "received all /from my friends";
+        MoneyCommand settleEntireLoanCommand = new SettleLoanCommand(settleAllInput);
+        settleEntireLoanCommand.execute(account, ui, storage);
+        ui.clearOutputString();
+        settleEntireLoanCommand.undo(account, ui, storage);
+        assertEquals(" Last command undone: \n" + "[Settled] [O] my friends(loan: $500.00) "
+                + "(Lent On: 9/10/1997) (Paid Back On: 9/11/2019)"
+                + " reverted back to previous state.\n", ui.getOutputString());
+        MoneyCommand exitCommand = new ExitMoneyCommand();
+        exitCommand.execute(account, ui, storage);
+    }
+
+    @Test
+    void testUndoSettleIncomingLoan() throws ParseException, DukeException {
+        account.getLoans().clear();
+        Loan settleLoan = new Loan(1000, "my daddy", testDate, Loan.Type.INCOMING);
+        account.getLoans().add(settleLoan);
+        String settleInput = "paid 400 /to my daddy";
+        MoneyCommand settleOutgoingLoanCommand = new SettleLoanCommand(settleInput);
+        ui.clearOutputString();
+        settleOutgoingLoanCommand.execute(account, ui, storage);
+        assertEquals(" Got it. An amount of $400.00 has been paid to my daddy for the"
+                + " following loan: \n" + "     [Outstanding] [I] my daddy(loan: $1000.00) "
+                + "(Lent On: 9/10/1997) Outstanding Amount: $600.00\n", ui.getOutputString());
+        String settleAllInput = "paid all /to my daddy";
+        MoneyCommand settleEntireLoanCommand = new SettleLoanCommand(settleAllInput);
+        ui.clearOutputString();
+        settleEntireLoanCommand.execute(account, ui, storage);
     }
 }
