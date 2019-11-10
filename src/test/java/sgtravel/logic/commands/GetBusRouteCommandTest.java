@@ -64,8 +64,8 @@ class GetBusRouteCommandTest {
 
         //test for string
         GetBusRouteCommand command5 = new GetBusRouteCommand("test");
-        assertThrows(AssertionError.class, () -> {
-            command5.execute(model).getMessage();
+        assertThrows(NoSuchBusServiceException.class, () -> {
+            command5.execute(model);
         });
     }
 }
