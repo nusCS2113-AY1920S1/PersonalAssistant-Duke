@@ -143,7 +143,7 @@ public class RouteGenerateCommand extends Command {
             throws QueryFailedException, RouteGenerateFailException {
         if ((startVenue instanceof BusStop && endVenue instanceof BusStop)
                 || (startVenue instanceof TrainStation && endVenue instanceof TrainStation)) {
-            ArrayList<Venue> inBetweenNodes = PathFinder.generateInbetweenNodes(startVenue, endVenue, model);
+            ArrayList<Venue> inBetweenNodes = PathFinder.generateInBetweenNodes(startVenue, endVenue, model);
 
             for (Venue inbetweenVenue : inBetweenNodes) {
                 try {

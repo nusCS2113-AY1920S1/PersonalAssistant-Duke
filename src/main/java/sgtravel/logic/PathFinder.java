@@ -264,7 +264,7 @@ public class PathFinder {
      * @return result The ArrayList of Venues.
      * @throws QueryFailedException If a TrainStation cannot be queried.
      */
-    public static ArrayList<Venue> generateInbetweenNodes(Venue startVenue, Venue endVenue, Model model)
+    public static ArrayList<Venue> generateInBetweenNodes(Venue startVenue, Venue endVenue, Model model)
             throws QueryFailedException {
         ArrayList<Venue> result = new ArrayList<>();
 
