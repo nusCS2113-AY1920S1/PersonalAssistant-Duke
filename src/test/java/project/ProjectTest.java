@@ -64,7 +64,7 @@ public class ProjectTest {
         testProject.createAssignment(testTask, testMember);
         ArrayList<String> actualOutput = testProject.getCredits();
         String[] expectedOutput = new String[] {
-            "1. Test Member: 0 credits",
+            "1. Test Member: 0.0 credits",
             "   Progress: .................... (0%)"
         };
         assertEquals(expectedOutput[0], actualOutput.get(0));
@@ -88,7 +88,7 @@ public class ProjectTest {
         testProject.addMember(testMember);
         testProject.createAssignment(testTask, testMember);
         ArrayList<String> actualOutput = testProject.getCredits();
-        String[] expectedOutput = new String[] {"1. Test Member: 1 credits",
+        String[] expectedOutput = new String[] {"1. Test Member: 1.0 credits",
             "   Progress: #################### (100%)"};
         assertEquals(expectedOutput[0], actualOutput.get(0));
         assertEquals(expectedOutput[1], actualOutput.get(1));
@@ -111,9 +111,9 @@ public class ProjectTest {
         testProject.createAssignment(testTask, testMember2);
         ArrayList<String> actualOutput = testProject.getCredits();
         String[] expectedOutput = new String[] {
-            "1. Test Member: 10 credits",
+            "1. Test Member: 10.0 credits",
             "   Progress: #############....... (65%)",
-            "2. Test Member 2: 0 credits",
+            "2. Test Member 2: 0.0 credits",
             "   Progress: .................... (0%)"};
         assertArrayEquals(expectedOutput, actualOutput.toArray(new String[0]));
     }
