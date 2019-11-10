@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Stats Command requires the user to enter a pair of dates with interval less
  * than 14 days. It will query for the following information and display them to
- * the user: average resource borrowed per day number of resource in use per day
+ * the user: average resource borrowed per day number of resource in use per day.
  */
 public class StatsCommand extends Command {
     private Date dateFrom;
@@ -28,8 +28,8 @@ public class StatsCommand extends Command {
     private String dateTillString;
 
     /**
-     * Constructor of an Statscommand, which takes in a pair of specified dates.
-     * 
+     * Constructor of an StatsCommand, which takes in a pair of specified dates.
+     *
      * @throws ParseException catches parse exception when handling dates.
      */
     public StatsCommand(String dateFrom, String dateTill) throws RimsException {
@@ -89,7 +89,7 @@ public class StatsCommand extends Command {
     /**
      * Converts a date and time inputted by the user in String format, into a Date
      * object.
-     * 
+     *
      * @param stringDate the date and time inputted by the user in String format.
      * @return a Date object representing the date and time inputted by the user.
      * @throws RimsException stringDate cannot be formatted.
@@ -107,7 +107,7 @@ public class StatsCommand extends Command {
 
     /**
      * Converts a Date object to a compact String, to be saved into a data file.
-     * 
+     *
      * @param thisDate the Date object to be converted into a String.
      * @return a String representing the Date object.
      */
@@ -132,7 +132,7 @@ public class StatsCommand extends Command {
 
     /**
      * This utility method takes in a date, increment it by 1 day, then return it.
-     * 
+     *
      * @param thisDate
      * @return
      * @throws RimsException if newDate cannot be formatted into a Date from a String.

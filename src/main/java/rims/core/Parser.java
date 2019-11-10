@@ -165,25 +165,20 @@ public class Parser {
             c = new CloseCommand();
         } else if (input.equals("list") && words.length == 1) {
             c = new ListCommand();
-        // fix for date
         } else if (words[0].equals("list") && words.length > 1) {
             c = ListParser(input, words);
         //@@author aarushisingh1
         } else if (input.equals("deadlines") && words.length == 1) {
             c = new ViewDeadlinesCommand();
+        //@@author rabhijit
         } else if (input.equals("help") && words.length == 1) {
             c = new HelpCommand();
-        // @@author danielcyc
-        } else if (words[0].equals("calendar") && words.length == 1) {
-            CalendarCommand.printCal(resources, ui);
-            c = new ListCommand();
-        } else if (words[0].equals("calendar+") && words.length == 1) {
-            CalendarCommand.increaseSize(resources, ui);
-            c = new ListCommand();
-        } else if (words[0].equals("calendar-") && words.length == 1) {
-            CalendarCommand.decreaseSize(resources, ui);
-            c = new ListCommand();
-        //@@author rabhijit
+        } else if (input.equals("calendar")) {
+            c = new CalendarCommand(resources, ui);
+        } else if (input.equals("calendar+")) {
+            c = new CalendarCommand(resources, ui, "+");
+        } else if (input.equals("calendar-")) {
+            c = new CalendarCommand(resources, ui, "-");
         } else if (words[0].equals("add")) {
             c = AddParser(input, words);
         } else if (words[0].equals("delete")) {
@@ -261,6 +256,9 @@ public class Parser {
             }
             return new AddCommand(item.trim(), qty);
         } else if (words[1].equals("/room")) {
+            if (input.contains("/qty")) {
+                throw new RimsException("Rooms do not require quantity!");
+            }
             int roomIndex = input.indexOf("/room") + 6;
             if (roomIndex > input.length()) {
                 throw new RimsException("Please specify the room to add to your inventory.");
