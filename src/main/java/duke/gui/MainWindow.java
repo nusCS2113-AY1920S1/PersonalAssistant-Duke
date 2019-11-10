@@ -792,6 +792,8 @@ public class MainWindow extends UiPart<Stage> {
         assignTaskPatientIdField.clear();
         assignTaskStartTimeField.clear();
         assignTaskEndTimeField.clear();
+        assignTaskStartDatePicker.setValue(null);
+        assignTaskEndDatePicker.setValue(null);
     }
 
     /**
@@ -812,6 +814,7 @@ public class MainWindow extends UiPart<Stage> {
         assignTaskIdField.clear();
         assignTaskPatientIdField.clear();
         assignDeadlineTaskTimeField.clear();
+        assignDeadlineTaskDatePicker.setValue(null);
     }
 
     /**
