@@ -58,7 +58,9 @@ public class HelpWindow extends AnchorPane {
                 "update",
                 "setpriority",
                 "findpriority",
-                "finddate"
+                "finddate",
+                "backup",
+                "friendlier syntax"
         );
 
         /**
@@ -160,6 +162,19 @@ public class HelpWindow extends AnchorPane {
                     getDescription.setText(" Delete an existing task");
                     getFormat.setText(cbCommands.getValue() + " [INDEX]");
                     getExample.setText(cbCommands.getValue() + " 3");
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("backup")) {
+                    getDescription.setText(" Saves the state of the data and shows the data folder");
+                    getFormat.setText(cbCommands.getValue());
+                    getExample.setText(cbCommands.getValue());
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("friendlier syntax")) {
+                    getDescription.setText(" Alternative shortened commands for inputting the equivalent commands.\n"
+                                            + " Format is as follows : | command: shortened cmd |");
+                    getFormat.setText(" | deadline: dl | fixedduration: fd | setpriority: sp | findpriority: fp |\n"
+                            + " | addcontacts: ac | listcontacts: lc | deletecontacts: dc | findcontacts: fc |\n"
+                            + " | budget add: budget + | budget minus: budget - | budget view: budget list |\n");
+                    getExample.setText(" ac Prof Lim, 81234567, limkopi@nus.edu.sg, Singapore \n"
+                                        + " dl computing project /by 19/11/2019 2359 \n"
+                                        + " budget - 1000 New Laptop ");
                 }
             }
         };

@@ -1,6 +1,5 @@
 package duke;
 
-import duke.Duke;
 import duke.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +8,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +21,7 @@ import java.util.logging.Logger;
  */
 public class Main extends Application {
     private Duke duke = new Duke();
+    private MainWindow mainWindow = new MainWindow();
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     public Main() throws IOException {
@@ -46,6 +49,9 @@ public class Main extends Application {
     public void stop() {
         logger.info("ALERT: Duke is shutting down! Attempting to save Data... ");
         duke.suddenStop();
+        mainWindow.exitProgramAbrupt();
+
     } //@@author
+
 }
 //@@author

@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 public class Storage {
     protected static String filePath = System.getProperty("user.dir") + "/";   //27-28, 40-47
     private static final String CREDITS_PATH = "credits/credits.txt";
-    private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Creates a storage with a specified filePath.
@@ -121,7 +121,7 @@ public class Storage {
                 }
             } catch (Exception e) {
                 ui.showErrorMsg("     Error when reading current line, please fix the text file:");
-                logr.log(Level.SEVERE,"Error when reading current line, please fix the text file", e);
+                logger.log(Level.SEVERE,"Error when reading current line, please fix the text file", e);
                 e.printStackTrace();
                 ui.showErrorMsg("     Duke will continue reading the rest of file");
             }

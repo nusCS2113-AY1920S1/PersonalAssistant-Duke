@@ -455,6 +455,13 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Exits the program without saving.
+     */
+    public void exitProgramAbrupt() {
+        timer.schedule(exitDuke, createTimerDelay());
+    }
+
+    /**
      * Creates a new window to allow the user to add a new task via user friendly interface.
      */
     @FXML
