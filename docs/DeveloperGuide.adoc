@@ -195,7 +195,7 @@ This section describes some noteworthy details on how certain features are imple
 ==== Implementation
 
 .Sequence diagram of how user input is handled
-image::HandleUserInputDiagram.png[width="800" align="left"]
+image::SGTravel_handleUserInput_diagram.png[width="800" align="left"]
 
 Given below is an example usage scenario of how user input is handled:
 
@@ -210,7 +210,7 @@ Given below is an example usage scenario of how user input is handled:
 ==== Implementation
 
 .Sequence diagram of how user input is parsed into a command
-image::ParseCommandDiagram.png[width="800" align="left"]
+image::SGTravel_parseUserInput_diagram.png[width="1050" align="left"]
 
 Given below is an example usage scenario of how user input is handled:
 
@@ -221,7 +221,7 @@ Given below is an example usage scenario of how user input is handled:
 .  The `LogicManager` will then execute the `Command` and return a `CommandResult` to the `Ui`.
 
 .Sequence diagram of how Command is created by ConversationManager
-image::ConversationDiagram.png[width="600" align="left"]
+image::SGTravel_commandCreation.png[width="960" align="left"]
 
 ==== Design Considerations
 
