@@ -1,11 +1,13 @@
 package duke.logic.command;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import duke.exception.DukeException;
 import duke.logic.TaskAssigner;
 import duke.storage.Storage;
 import duke.storage.UndoStack;
+import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
@@ -50,6 +52,7 @@ public class AutoAssignCommand extends Command {
      */
     @Override
     public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
-
+        Task t = tasks.get(index);
+        undoStack.addAction(new SetCommand(Optional.empty(), index, new Task(t)));
     }
 }
