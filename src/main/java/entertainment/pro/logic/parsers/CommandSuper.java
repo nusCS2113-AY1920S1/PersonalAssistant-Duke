@@ -7,7 +7,7 @@ import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.model.CommandPair;
 
 import java.io.IOException;
@@ -28,11 +28,11 @@ public abstract class CommandSuper {
 
     private Controller uicontroller;
 
-    private COMMANDKEYS[] subCommand;
-    private COMMANDKEYS root;
+    private CommandKeys[] subCommand;
+    private CommandKeys root;
 
     private TreeMap<String, ArrayList<String>> flagMap = new TreeMap<String, ArrayList<String>>();
-    private COMMANDKEYS subRootCommand;
+    private CommandKeys subRootCommand;
     private String payload;
     private boolean execute = false;
 
@@ -60,7 +60,7 @@ public abstract class CommandSuper {
         this.execute = execute;
     }
 
-    public COMMANDKEYS getRoot() {
+    public CommandKeys getRoot() {
         return root;
     }
 
@@ -68,7 +68,7 @@ public abstract class CommandSuper {
         return flagMap;
     }
 
-    public COMMANDKEYS getSubRootCommand() {
+    public CommandKeys getSubRootCommand() {
         return subRootCommand;
     }
 
@@ -79,7 +79,7 @@ public abstract class CommandSuper {
     /**
      * Constructor for each Command Super class.
      */
-    public CommandSuper(COMMANDKEYS root, COMMANDKEYS[] subCommand, Controller uicontroller) {
+    public CommandSuper(CommandKeys root, CommandKeys[] subCommand, Controller uicontroller) {
 
         this.uicontroller = uicontroller;
         this.subCommand = subCommand;
@@ -100,7 +100,7 @@ public abstract class CommandSuper {
      * @param command   command that was entered by the user.
      */
 
-    public boolean initCommand(String[] commandArr , String command) throws MissingInfoException {
+    public boolean initCommand(String[] commandArr, String command) throws MissingInfoException {
 
         assert (CommandAssertions.assertIsLowerString(command));
         assert (CommandAssertions.assertIsLowerStringArr(commandArr));
@@ -127,7 +127,7 @@ public abstract class CommandSuper {
      * @param command   command that was entered by the user.
      * @param subRootCommand the subRoot command  that was found
      */
-    public void initCommand(String[] commandArr, String command, COMMANDKEYS subRootCommand) {
+    public void initCommand(String[] commandArr, String command, CommandKeys subRootCommand) {
 
         this.subRootCommand = subRootCommand;
 
@@ -148,7 +148,7 @@ public abstract class CommandSuper {
      */
     public boolean subCommand(String[] commandArr) throws MissingInfoException {
         if (commandArr.length <= 1) {
-            subRootCommand = COMMANDKEYS.NONE;
+            subRootCommand = CommandKeys.NONE;
             if (CommandStructure.cmdStructure.get(root).length > 0) {
                 setExecute(false);
                 if (uicontroller != null) {
@@ -162,9 +162,9 @@ public abstract class CommandSuper {
 
         } else {
             try {
-                for (COMMANDKEYS cmd : subCommand) {
+                for (CommandKeys cmd : subCommand) {
                     assert (CommandAssertions.assertIsLowerString(commandArr[1]));
-                    if (COMMANDKEYS.valueOf(commandArr[1].toUpperCase()) == cmd) {
+                    if (CommandKeys.valueOf(commandArr[1].toUpperCase()) == cmd) {
                         subRootCommand = cmd;
                         execute = true;
                         return true;
@@ -210,7 +210,6 @@ public abstract class CommandSuper {
 
         String f = "";
         boolean found = false;
-        String[] commandFlagSplit = command.split("-[a-z,A-Z]");
 
         ArrayList<String> flagOrder = new ArrayList<>();
 
@@ -228,6 +227,8 @@ public abstract class CommandSuper {
         }
 
         int counter = 0;
+
+        String[] commandFlagSplit = command.split("-[a-z,A-Z]");
 
         for (String flagValues : commandFlagSplit) {
             if (first) {
@@ -271,8 +272,8 @@ public abstract class CommandSuper {
      * @param commandArr command that was entered by the user in split array form
      */
     public void processPayload(String []commandArr) {
-        if (this.root != COMMANDKEYS.NONE) {
-            if (this.subRootCommand != COMMANDKEYS.NONE) {
+        if (this.root != CommandKeys.NONE) {
+            if (this.subRootCommand != CommandKeys.NONE) {
                 payload =  getThePayload(2, commandArr);
             } else {
                 payload = getThePayload(1, commandArr);

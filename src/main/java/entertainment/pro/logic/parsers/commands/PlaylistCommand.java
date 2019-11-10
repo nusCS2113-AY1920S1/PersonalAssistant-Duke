@@ -11,7 +11,7 @@ import entertainment.pro.storage.utils.EditProfileJson;
 import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class PlaylistCommand extends CommandSuper {
 
     public PlaylistCommand(Controller uicontroller) {
-        super(COMMANDKEYS.PLAYLIST, CommandStructure.cmdStructure.get(COMMANDKEYS.PLAYLIST), uicontroller);
+        super(CommandKeys.PLAYLIST, CommandStructure.cmdStructure.get(CommandKeys.PLAYLIST), uicontroller);
     }
 
     @Override

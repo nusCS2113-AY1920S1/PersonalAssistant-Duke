@@ -3,13 +3,9 @@ package entertainment.pro.logic.contexts;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import entertainment.pro.commons.enums.COMMANDKEYS;
-import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.ui.MovieHandler;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 

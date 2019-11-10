@@ -1,7 +1,7 @@
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.strings.PromptMessages;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.storage.user.Blacklist;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
      * @param uicontroller Ui controller class.
      */
     public ViewCommand(Controller uicontroller) {
-        super(COMMANDKEYS.VIEW, CommandStructure.cmdStructure.get(COMMANDKEYS.VIEW), uicontroller);
+        super(CommandKeys.VIEW, CommandStructure.cmdStructure.get(CommandKeys.VIEW), uicontroller);
     }
 
     @Override

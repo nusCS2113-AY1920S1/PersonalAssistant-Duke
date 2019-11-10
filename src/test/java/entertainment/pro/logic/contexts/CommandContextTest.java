@@ -2,9 +2,7 @@ package entertainment.pro.logic.contexts;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import entertainment.pro.logic.contexts.CommandContext;
-import entertainment.pro.commons.enums.COMMANDKEYS;
-import entertainment.pro.logic.contexts.CommandContext;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import org.junit.jupiter.api.Test;
 
@@ -38,12 +36,12 @@ public class CommandContextTest {
     @Test
     public void getRoot_validInputs_success(){
         CommandContext.initialiseContext();
-        ArrayList<COMMANDKEYS> a = new ArrayList<>();
+        ArrayList<CommandKeys> a = new ArrayList<>();
         Collections.addAll(a, CommandStructure.AllRoots);
         a.sort(null);
-        ArrayList<COMMANDKEYS> b = new ArrayList<>();
+        ArrayList<CommandKeys> b = new ArrayList<>();
         for(String s :CommandContext.getRoot()) {
-            b.add(COMMANDKEYS.valueOf(s.toUpperCase()));
+            b.add(CommandKeys.valueOf(s.toUpperCase()));
         }
         b.sort(null);
         assertEquals(true , a.equals(b));
@@ -85,11 +83,11 @@ public class CommandContextTest {
     @Test
     public void getPossibilitiesSubRootGivenRoot_validInputs_success(){
         CommandContext.initialiseContext();
-        for(COMMANDKEYS ck: CommandStructure.AllRoots){
+        for(CommandKeys ck: CommandStructure.AllRoots){
             ArrayList<String> possible = CommandContext.getPossibilitiesSubRootGivenRoot(ck.toString());
             possible.sort(null);
             ArrayList<String> actual =  new ArrayList<>();
-            for (COMMANDKEYS c : CommandStructure.cmdStructure.get(ck)){
+            for (CommandKeys c : CommandStructure.cmdStructure.get(ck)){
                 actual.add(c.toString().toLowerCase());
             }
             actual.sort(null);

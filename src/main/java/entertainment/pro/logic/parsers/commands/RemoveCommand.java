@@ -3,7 +3,7 @@ package entertainment.pro.logic.parsers.commands;
 import entertainment.pro.storage.user.WatchlistHandler;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
@@ -14,7 +14,7 @@ public class RemoveCommand extends CommandSuper {
      * Constructor for each Command Super class.
      */
     public RemoveCommand(Controller uicontroller) {
-        super(COMMANDKEYS.REMOVE, CommandStructure.cmdStructure.get(COMMANDKEYS.REMOVE), uicontroller);
+        super(CommandKeys.REMOVE, CommandStructure.cmdStructure.get(CommandKeys.REMOVE), uicontroller);
     }
 
     /**

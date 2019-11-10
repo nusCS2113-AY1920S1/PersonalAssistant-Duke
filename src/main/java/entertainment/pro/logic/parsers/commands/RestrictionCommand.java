@@ -3,7 +3,7 @@ package entertainment.pro.logic.parsers.commands;
 import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class RestrictionCommand extends CommandSuper {
     public RestrictionCommand(Controller uiController) {
-        super(COMMANDKEYS.RESTRICTION, CommandStructure.cmdStructure.get(COMMANDKEYS.RESTRICTION), uiController);
+        super(CommandKeys.RESTRICTION, CommandStructure.cmdStructure.get(CommandKeys.RESTRICTION), uiController);
     }
 
     @Override

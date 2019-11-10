@@ -3,7 +3,7 @@ package entertainment.pro.commons.enums;
 /**
  * This class enumerates different Keywords used in command.
  */
-public enum COMMANDKEYS {
+public enum CommandKeys {
     SEARCH,
     MOVIES,
     TVSHOWS,

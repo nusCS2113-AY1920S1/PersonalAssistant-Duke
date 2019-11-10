@@ -1,6 +1,6 @@
 package entertainment.pro.logic.parsers;
 
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 
 import java.util.TreeMap;
 
@@ -13,52 +13,52 @@ public class CommandStructure {
      * Defining the Command structure for the program.
      *
      */
-    public static TreeMap<COMMANDKEYS, COMMANDKEYS[]> cmdStructure = new TreeMap<COMMANDKEYS, COMMANDKEYS[]>() {{
-            put(COMMANDKEYS.SEARCH, new COMMANDKEYS[] {
-                COMMANDKEYS.MOVIES, COMMANDKEYS.TVSHOWS, COMMANDKEYS.CAST, COMMANDKEYS.FILTERS
+    public static TreeMap<CommandKeys, CommandKeys[]> cmdStructure = new TreeMap<CommandKeys, CommandKeys[]>() {{
+            put(CommandKeys.SEARCH, new CommandKeys[] {
+                CommandKeys.MOVIES, CommandKeys.TVSHOWS, CommandKeys.CAST, CommandKeys.FILTERS
             });
 
-            put(COMMANDKEYS.VIEW, new COMMANDKEYS[] {
-                COMMANDKEYS.PROFILE, COMMANDKEYS.FILTERS, COMMANDKEYS.PREFERENCE, COMMANDKEYS.WATCHLIST,
-                COMMANDKEYS.INFO, COMMANDKEYS.BLACKLIST,
-                COMMANDKEYS.MOVIES, COMMANDKEYS.TV, COMMANDKEYS.BACK, COMMANDKEYS.ENTRY, COMMANDKEYS.RECOMMENDATION
+            put(CommandKeys.VIEW, new CommandKeys[] {
+                CommandKeys.PROFILE, CommandKeys.FILTERS, CommandKeys.PREFERENCE, CommandKeys.WATCHLIST,
+                CommandKeys.INFO, CommandKeys.BLACKLIST,
+                CommandKeys.MOVIES, CommandKeys.TV, CommandKeys.BACK, CommandKeys.ENTRY, CommandKeys.RECOMMENDATION
 
             });
 
-            put(COMMANDKEYS.BLACKLIST, new COMMANDKEYS[] {
-                COMMANDKEYS.ADD, COMMANDKEYS.REMOVE
+            put(CommandKeys.BLACKLIST, new CommandKeys[] {
+                CommandKeys.ADD, CommandKeys.REMOVE
             });
 
-            put(COMMANDKEYS.HELP, new COMMANDKEYS[]{
-                COMMANDKEYS.SEARCH, COMMANDKEYS.VIEW, COMMANDKEYS.HELP, COMMANDKEYS.MORE,
-                COMMANDKEYS.SET,  COMMANDKEYS.PLAYLIST, COMMANDKEYS.ME, COMMANDKEYS.BLACKLIST,
-                COMMANDKEYS.WATCHLIST, COMMANDKEYS.GET, COMMANDKEYS.PREFERENCE, COMMANDKEYS.RESTRICTION,
-                COMMANDKEYS.FIND, COMMANDKEYS.EXIT
+            put(CommandKeys.HELP, new CommandKeys[]{
+                CommandKeys.SEARCH, CommandKeys.VIEW, CommandKeys.HELP, CommandKeys.MORE,
+                CommandKeys.SET,  CommandKeys.PLAYLIST, CommandKeys.ME, CommandKeys.BLACKLIST,
+                CommandKeys.WATCHLIST, CommandKeys.GET, CommandKeys.PREFERENCE, CommandKeys.RESTRICTION,
+                CommandKeys.FIND, CommandKeys.EXIT
             });
 
-            put(COMMANDKEYS.YES, new COMMANDKEYS[] {
+            put(CommandKeys.YES, new CommandKeys[] {
                 //EMPTY
             });
 
-            put(COMMANDKEYS.EXIT, new COMMANDKEYS[] {
+            put(CommandKeys.EXIT, new CommandKeys[] {
                     //EMPTY
             });
 
-            put(COMMANDKEYS.SET, new COMMANDKEYS[] {
-                COMMANDKEYS.NAME, COMMANDKEYS.AGE, COMMANDKEYS.PREFERENCE, COMMANDKEYS.SORT, COMMANDKEYS.RESTRICTION
+            put(CommandKeys.SET, new CommandKeys[] {
+                CommandKeys.NAME, CommandKeys.AGE, CommandKeys.PREFERENCE, CommandKeys.SORT, CommandKeys.RESTRICTION
             });
 
-            put(COMMANDKEYS.PREFERENCE, new COMMANDKEYS[] {
-                COMMANDKEYS.ADD, COMMANDKEYS.REMOVE, COMMANDKEYS.CLEAR
+            put(CommandKeys.PREFERENCE, new CommandKeys[] {
+                CommandKeys.ADD, CommandKeys.REMOVE, CommandKeys.CLEAR
             });
 
-            put(COMMANDKEYS.PLAYLIST, new COMMANDKEYS[] {
-                COMMANDKEYS.CREATE, COMMANDKEYS.DELETE, COMMANDKEYS.ADD, COMMANDKEYS.REMOVE,
-                COMMANDKEYS.SET, COMMANDKEYS.LIST, COMMANDKEYS.CLEAR, COMMANDKEYS.BACK
+            put(CommandKeys.PLAYLIST, new CommandKeys[] {
+                CommandKeys.CREATE, CommandKeys.DELETE, CommandKeys.ADD, CommandKeys.REMOVE,
+                CommandKeys.SET, CommandKeys.LIST, CommandKeys.CLEAR, CommandKeys.BACK
             });
 
-            put(COMMANDKEYS.RESTRICTION, new COMMANDKEYS[] {
-                COMMANDKEYS.ADD, COMMANDKEYS.REMOVE, COMMANDKEYS.CLEAR
+            put(CommandKeys.RESTRICTION, new CommandKeys[] {
+                CommandKeys.ADD, CommandKeys.REMOVE, CommandKeys.CLEAR
             });
 
             /*
@@ -67,37 +67,37 @@ public class CommandStructure {
             });
             */
 
-            put(COMMANDKEYS.WATCHLIST, new COMMANDKEYS[] {
-                COMMANDKEYS.ADD,  COMMANDKEYS.SET,  COMMANDKEYS.DELETE
+            put(CommandKeys.WATCHLIST, new CommandKeys[] {
+                CommandKeys.ADD,  CommandKeys.SET,  CommandKeys.DELETE
             });
-            put(COMMANDKEYS.FIND, new COMMANDKEYS[] {
-                COMMANDKEYS.CINEMA
+            put(CommandKeys.FIND, new CommandKeys[] {
+                CommandKeys.CINEMA
             });
         }};
 
 
-    public static boolean hasSubRoot(COMMANDKEYS root) {
+    public static boolean hasSubRoot(CommandKeys root) {
         return CommandStructure.cmdStructure.get(root).length != 0;
     }
 
     public static boolean hasSubRoot(String root) {
-        return CommandStructure.cmdStructure.get(COMMANDKEYS.valueOf(root)).length != 0;
+        return CommandStructure.cmdStructure.get(CommandKeys.valueOf(root)).length != 0;
     }
 
 
 
-    public static COMMANDKEYS[] AllRoots = new COMMANDKEYS[]{
-        COMMANDKEYS.SEARCH,
-        COMMANDKEYS.VIEW,
-        COMMANDKEYS.HELP,
-        COMMANDKEYS.YES,
-        COMMANDKEYS.SET,
-        COMMANDKEYS.PLAYLIST,
-        COMMANDKEYS.BLACKLIST,
-        COMMANDKEYS.WATCHLIST,
-        COMMANDKEYS.PREFERENCE,
-        COMMANDKEYS.RESTRICTION,
-        COMMANDKEYS.FIND,
-        COMMANDKEYS.EXIT
+    public static CommandKeys[] AllRoots = new CommandKeys[]{
+        CommandKeys.SEARCH,
+        CommandKeys.VIEW,
+        CommandKeys.HELP,
+        CommandKeys.YES,
+        CommandKeys.SET,
+        CommandKeys.PLAYLIST,
+        CommandKeys.BLACKLIST,
+        CommandKeys.WATCHLIST,
+        CommandKeys.PREFERENCE,
+        CommandKeys.RESTRICTION,
+        CommandKeys.FIND,
+        CommandKeys.EXIT
     };
 }

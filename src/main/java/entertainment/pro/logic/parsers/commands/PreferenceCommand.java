@@ -10,11 +10,10 @@ import entertainment.pro.commons.exceptions.InvalidGenreNameEnteredException;
 import entertainment.pro.storage.utils.EditProfileJson;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
-import javax.sound.sampled.LineEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,7 +44,7 @@ public class PreferenceCommand extends CommandSuper {
      * @param uiController Controller Class.
      */
     public PreferenceCommand(Controller uiController) {
-        super(COMMANDKEYS.PREFERENCE, CommandStructure.cmdStructure.get(COMMANDKEYS.PREFERENCE), uiController);
+        super(CommandKeys.PREFERENCE, CommandStructure.cmdStructure.get(CommandKeys.PREFERENCE), uiController);
     }
 
     /**

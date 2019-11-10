@@ -1,6 +1,6 @@
 package entertainment.pro.logic.parsers.commands;
 
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
@@ -20,7 +20,7 @@ public class FindCommand extends CommandSuper {
      * @param uicontroller UI controller for javafx
      */
     public FindCommand(Controller uicontroller) {
-        super(COMMANDKEYS.FIND, CommandStructure.cmdStructure.get(COMMANDKEYS.FIND), uicontroller);
+        super(CommandKeys.FIND, CommandStructure.cmdStructure.get(CommandKeys.FIND), uicontroller);
     }
 
     /**

@@ -2,7 +2,7 @@ package entertainment.pro.logic.execution;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.parsers.commands.BlacklistCommand;
 import entertainment.pro.logic.parsers.commands.SearchCommand;
@@ -19,16 +19,16 @@ public class CommandStacktest {
         try {
             CommandStack.pushCmd(new SearchCommand(null));
             assertEquals(1 , CommandStack.getSize());
-            assertEquals(COMMANDKEYS.SEARCH,CommandStack.topCmd().getRoot());
+            assertEquals(CommandKeys.SEARCH,CommandStack.topCmd().getRoot());
 
             CommandStack.pushCmd(new BlacklistCommand(null));
             assertEquals(2 , CommandStack.getSize());
-            assertEquals(COMMANDKEYS.BLACKLIST,CommandStack.topCmd().getRoot());
+            assertEquals(CommandKeys.BLACKLIST,CommandStack.topCmd().getRoot());
 
 
             CommandStack.pushCmd(new WatchlistCommand(null));
             assertEquals(3 , CommandStack.getSize());
-            assertEquals(COMMANDKEYS.WATCHLIST,CommandStack.topCmd().getRoot());
+            assertEquals(CommandKeys.WATCHLIST,CommandStack.topCmd().getRoot());
         }catch (IOException e){
 
         }catch (Exceptions e){

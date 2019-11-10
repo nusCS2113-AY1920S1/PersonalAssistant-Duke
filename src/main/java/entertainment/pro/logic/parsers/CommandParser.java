@@ -2,7 +2,7 @@ package entertainment.pro.logic.parsers;
 
 
 import entertainment.pro.commons.assertions.CommandAssertions;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.MissingInfoException;
@@ -54,7 +54,7 @@ public class CommandParser {
             logger.log(Level.SEVERE, PromptMessages.MISSING_COMMAND);
             throw new EmptyCommandException(PromptMessages.MISSING_COMMAND);
         }
-        String commandArr[] = command.split(" ");
+        String commandArr [] = command.split(" ");
         rootCommand(commandArr, command, uicontroller);
     }
 
@@ -177,7 +177,7 @@ public class CommandParser {
             }
             break;
         default:
-            CommandPair pair = CommandDebugger.commandSpellChecker(commandArr, COMMANDKEYS.NONE, uicontroller);
+            CommandPair pair = CommandDebugger.commandSpellChecker(commandArr, CommandKeys.NONE, uicontroller);
             ((MovieHandler) uicontroller).setGeneralFeedbackText(PromptMessages.UNABLE_TO_PROCESS);
 
         }
@@ -190,8 +190,8 @@ public class CommandParser {
      * @param command   command that was entered by the user.
      * @param uicontroller the controller for the UI
      */
-    public static void rootCommand(String[] commandArr , String command ,
-                                   Controller uicontroller) throws IOException, Exceptions , MissingInfoException {
+    public static void rootCommand(String[] commandArr, String command,
+                                   Controller uicontroller) throws IOException, Exceptions, MissingInfoException {
 
         switch (commandArr[0].toLowerCase()) {
         case CommandRootKeyStrings.SEARCH:
@@ -268,7 +268,7 @@ public class CommandParser {
             }
             break;
         default:
-            CommandPair pair = CommandDebugger.commandSpellChecker(commandArr, COMMANDKEYS.NONE, uicontroller);
+            CommandPair pair = CommandDebugger.commandSpellChecker(commandArr, CommandKeys.NONE, uicontroller);
             askUserConfirmation(pair, uicontroller, commandArr);
             processCommand(pair, commandArr, command, uicontroller);
             break;
@@ -276,7 +276,7 @@ public class CommandParser {
     }
 
     private static void askUserConfirmation(CommandPair pair, Controller uicontroller, String[] commandArr) {
-        if (pair.getSubRootCommand() == COMMANDKEYS.NONE) {
+        if (pair.getSubRootCommand() == CommandKeys.NONE) {
             ((MovieHandler) uicontroller).setAutoCompleteText(PromptMessages.DID_YOU_MEAN + pair.getRootCommandStr());
         } else {
             ((MovieHandler) uicontroller).setAutoCompleteText(PromptMessages.DID_YOU_MEAN + pair.getRootCommandStr()

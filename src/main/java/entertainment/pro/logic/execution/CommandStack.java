@@ -1,7 +1,7 @@
 package entertainment.pro.logic.execution;
 
 import entertainment.pro.commons.strings.PromptMessages;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.parsers.CommandSuper;
 
@@ -24,7 +24,7 @@ public class CommandStack {
      * Adds the command to the command Stack.
      */
     public static void pushCmd(CommandSuper cmd) throws IOException, Exceptions {
-        if (cmd.getRoot() == COMMANDKEYS.YES) {
+        if (cmd.getRoot() == CommandKeys.YES) {
             executeLastCommand();
         } else {
             myStack.add(cmd);
