@@ -441,6 +441,7 @@ public abstract class Bank {
             exportArrayList.add(new String[] {description,stringAmount,date,category,stringSpent,
                 stringUuid,stringBillDate});
         }
+        logger.info("Successfully prepared card list for exporting");
         return exportArrayList;
     }
 

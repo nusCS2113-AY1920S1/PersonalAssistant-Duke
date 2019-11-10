@@ -1,5 +1,7 @@
 package owlmoney.model.bank;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DateFormat;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.transaction.Deposit;
@@ -37,6 +40,9 @@ public class Saving extends Bank {
     private Storage storage;
     private static final String FILE_PATH = "data/";
     private static final String INCOME_CATEGORY = "Income";
+    private static final int OBJ_DOES_NOT_EXIST = -1;
+    private static final Logger logger = getLogger(Saving.class);
+
 
     /**
      * Creates an instance of a savings account.
@@ -444,7 +450,8 @@ public class Saving extends Bank {
     void exportBankRecurringTransactionList(String prependFileName) throws IOException {
         ArrayList<String[]> inputData = prepareExportRecurringTransactionList();
         try {
-            storage.writeFile(inputData, prependFileName + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
+            storage.writeFile(inputData, prependFileName
+                    + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
         } catch (IOException e) {
             throw new IOException(e);
         }
@@ -553,7 +560,8 @@ public class Saving extends Bank {
                 return i;
             }
         }
-        return -1;
+        logger.info("Card bill expenditure does not exist");
+        return OBJ_DOES_NOT_EXIST;
     }
 
     /**
@@ -578,7 +586,8 @@ public class Saving extends Bank {
                 return i;
             }
         }
-        return -1;
+        logger.info("Card bill rebate deposit does not exist");
+        return OBJ_DOES_NOT_EXIST;
     }
 
     /**
