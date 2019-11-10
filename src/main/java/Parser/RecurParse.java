@@ -5,7 +5,6 @@ import Commands.RecurringCommand;
 import Commons.DukeConstants;
 import Commons.DukeLogger;
 import Commons.ModCodeChecker;
-import DukeExceptions.DukeInvalidCommandException;
 import DukeExceptions.DukeInvalidDateTimeException;
 import DukeExceptions.DukeInvalidFormatException;
 
@@ -55,21 +54,34 @@ public class RecurParse extends Parse {
                 isRecur = true;
             }
 
-            if (!super.isValidModCodeAndDescription(modCodeAndDescription)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_EMPTY_MODCODE_DESCRIPTION_ERROR);
+            if (!super.isValidModCodeAndDescription(modCodeAndDescription)) {
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE
+                        + DukeConstants.EVENT_EMPTY_MODCODE_DESCRIPTION_ERROR);
+            }
             String[] checkSplit = modCodeAndDescription.trim().split(DukeConstants.BLANK_SPACE);
             String modCode = checkSplit[0];
             if (!modCodeChecker.isModCode(modCode)) {
                 throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.INVALID_MODCODE_ERROR);
             }
-            if (!super.isValidDescription(checkSplit)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_EMPTY_DESCRIPTION_ERROR);
-            if(!super.isValidTimePeriod(dateAndTime)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_TIME_FORMAT_ERROR);
+            if (!super.isValidDescription(checkSplit)) {
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE
+                        + DukeConstants.EVENT_EMPTY_DESCRIPTION_ERROR);
+            }
+            if (!super.isValidTimePeriod(dateAndTime)) {
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE
+                        + DukeConstants.EVENT_TIME_FORMAT_ERROR);
+            }
             String[] in = DateTimeParser.recurringEventParse(dateAndTime);
             String startDateString = in[0];
             String endDateString = in[1];
             String startTimeString = in[2];
             String endTimeString = in[3];
-            if (!super.isValidDateRecurring(startDateString, endDateString)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.RECUR_EVENT_DATE_FORMAT_ERROR);
-            return new RecurringCommand(modCodeAndDescription, startDateString, endDateString, startTimeString, endTimeString, isBiweekly, isRecur);
+            if (!super.isValidDateRecurring(startDateString, endDateString)) {
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE
+                        + DukeConstants.RECUR_EVENT_DATE_FORMAT_ERROR);
+            }
+            return new RecurringCommand(modCodeAndDescription, startDateString, endDateString, startTimeString,
+                    endTimeString, isBiweekly, isRecur);
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
             LOGGER.severe("Invalid recur format");
             throw new DukeInvalidFormatException(DukeConstants.RECUR_EVENT_FORMAT);

@@ -5,9 +5,7 @@ import Commands.ShowWorkloadCommand;
 import Commons.DukeConstants;
 import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidFormatException;
-import Commons.LookupTable;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -15,7 +13,7 @@ import java.util.logging.Logger;
 /**
  * This class parses the full command that calls for WorkloadParse.
  */
-public class WorkloadParse extends Parse{
+public class WorkloadParse extends Parse {
     private static String fullCommand;
     private static final int HOURS = 24;
     private static final int MINUTES = 60;
@@ -26,7 +24,7 @@ public class WorkloadParse extends Parse{
 
     /**
      * Creates a WorkloadParse object.
-     * @param fullCommand
+     * @param fullCommand The user's input
      */
     public WorkloadParse(String fullCommand) {
         this.fullCommand = fullCommand;
@@ -37,7 +35,7 @@ public class WorkloadParse extends Parse{
      * @param inDate date
      * @return date of 7 days later
      */
-    private Date getNextWeekDate (Date inDate) {
+    private Date getNextWeekDate(Date inDate) {
         Date nextWeek = new Date(inDate.getTime() + ONE_WEEK * HOURS * MINUTES * SECONDS * MILLISECONDS);
         return nextWeek;
     }

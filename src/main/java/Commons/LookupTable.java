@@ -12,7 +12,7 @@ public class LookupTable {
     private static Map<String, String> map = new HashMap<>();
     private final Logger LOGGER = DukeLogger.getLogger(LookupTable.class);
     private static LookupTable lookupTable;
-    private static final int LENGTH_OF_LINE= 2;
+    private static final int LENGTH_OF_LINE = 2;
 
     /**
      * Creates a lookup table object and read from Lookup.txt file.
@@ -46,7 +46,7 @@ public class LookupTable {
      * @return date of activity
      */
     public String getValue(String weekAndDay) {
-       return map.get(weekAndDay.toLowerCase().trim());
+        return map.get(weekAndDay.toLowerCase().trim());
     }
 
     /**
