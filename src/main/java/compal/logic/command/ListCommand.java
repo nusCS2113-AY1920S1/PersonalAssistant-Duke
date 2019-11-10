@@ -112,12 +112,12 @@ public class ListCommand extends Command {
                 }
             } else if (type.isEmpty() && !status.isEmpty()) {
                 if (isDue) {
-                    if (t.getStringisDone().equals(status) && t.getMainDate().before(currentDate)) {
+                    if (t.getStringisDone().equals(status) && t.getDateObgDateAndEndTime().before(currentDate)) {
                         String taskString = t.toString() + "\n";
                         finalList.append(taskString);
                     }
                 } else if (isOngoing) {
-                    if (t.getStringisDone().equals(status) && t.getMainDate().after(currentDate)) {
+                    if (t.getStringisDone().equals(status) && t.getDateObgDateAndEndTime().after(currentDate)) {
                         String taskString = t.toString() + "\n";
                         finalList.append(taskString);
                     }
@@ -131,13 +131,13 @@ public class ListCommand extends Command {
             } else if (!status.isEmpty() && !type.isEmpty()) {
                 if (isDue) {
                     if (t.getSymbol().equals(type) && t.getStringisDone().equals(status)
-                        && t.getMainDate().before(currentDate)) {
+                        && t.getDateObgDateAndEndTime().before(currentDate)) {
                         String taskString = t.toString() + "\n";
                         finalList.append(taskString);
                     }
                 } else if (isOngoing) {
                     if (t.getSymbol().equals(type) && t.getStringisDone().equals(status)
-                        && t.getMainDate().after(currentDate)) {
+                        && t.getDateObgDateAndEndTime().after(currentDate)) {
                         String taskString = t.toString() + "\n";
                         finalList.append(taskString);
                     }
