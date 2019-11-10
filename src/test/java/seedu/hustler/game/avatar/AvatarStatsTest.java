@@ -33,7 +33,6 @@ public class AvatarStatsTest {
         equipmentStub = Optional.of(new EquipmentStub());
     }
 
-
     /**
      * Tests if the given stats of a newly constructed stats are correct. Also tests if
      * the getter functions are correct.
@@ -68,7 +67,7 @@ public class AvatarStatsTest {
     }
 
     /**
-     * Tests if  the given stats are correct in the txt format.
+     * Tests if the given stats are correct in the txt format.
      */
     @Test
     public void toTxtCheck() {

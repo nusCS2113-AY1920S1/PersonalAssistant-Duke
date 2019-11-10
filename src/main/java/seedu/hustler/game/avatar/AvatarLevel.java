@@ -104,7 +104,8 @@ public class AvatarLevel implements Level {
     @Override
     public boolean equals(Object obj) {
         return obj == this || (obj instanceof AvatarLevel
-                && this.toString().equals(obj.toString()));
+                && this.getLevel() == (((AvatarLevel)obj).getLevel())
+                && this.getXp() == (((AvatarLevel)obj).getXp()));
     }
 
 }
