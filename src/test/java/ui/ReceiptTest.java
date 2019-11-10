@@ -2,20 +2,22 @@ package ui;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ReceiptTest {
 
     @Test
     void addTagTest() {
         Receipt receipt = new Receipt(5.00);
-        assertEquals(true, receipt.areTagsEmpty());
+        assertTrue(receipt.containsTag("Expenses"));
 
         receipt.addTag("Fire");
-        assertEquals(false, receipt.areTagsEmpty());
-        assertEquals("Fire", receipt.getTags().get(0));
+        assertFalse(receipt.areTagsEmpty());
+        assertEquals("Fire", receipt.getTags().get(1));
 
         receipt.addTag("abc");
-        assertEquals("Fire", receipt.getTags().get(0));
-        assertEquals("abc", receipt.getTags().get(1));
+        assertEquals("Fire", receipt.getTags().get(1));
+        assertEquals("abc", receipt.getTags().get(2));
     }
 }
