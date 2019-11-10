@@ -27,6 +27,9 @@ public class JavaCake {
      * Constructor for main class to initialise the settings.
      */
     public JavaCake() throws CakeException {
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.entering(getClass().getName(), "JavaCake");
         logger.log(Level.INFO, "Starting JavaCake Constructor!");
         ui = new Ui();
         try {
@@ -40,9 +43,11 @@ public class JavaCake {
             checkIfNewUser("NEW_USER_!@#");
         } catch (CakeException e) {
             ui.showLoadingError();
-            logger.log(Level.WARNING, "Profile set-up failed.");
+            logger.log(Level.WARNING, "Loading SM set-up failed.");
+            LOGGER.severe("[GUI] Storage/Profile Load failed, taking out the trash...");
             throw new CakeException(e.getMessage());
         }
+        LOGGER.exiting(getClass().getName(), "initialize");
     }
 
     /**
@@ -62,6 +67,7 @@ public class JavaCake {
         } catch (CakeException e) {
             ui.showLoadingError();
             logger.log(Level.WARNING, "Profile set-up failed.");
+            LOGGER.severe("[CLI] Storage/Profile Load failed, taking out the trash...");
         }
     }
 
@@ -140,12 +146,15 @@ public class JavaCake {
      * Public Method to get String response: GUI MODE.
      */
     public String getResponse(String input) {
+        LOGGER.entering(getClass().getName(), "getResponse");
         logger.log(Level.INFO, "Getting response from input...");
         storageManager.profile.isCli = false;
         try {
             Command c = Parser.parse(input);
+            LOGGER.exiting(getClass().getName(), "getResponse");
             return c.execute(logic, ui, storageManager);
         } catch (CakeException e) {
+            LOGGER.warning(e.getMessage());
             return e.getMessage();
         }
     }

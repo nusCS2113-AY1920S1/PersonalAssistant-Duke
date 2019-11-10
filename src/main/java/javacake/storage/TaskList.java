@@ -1,20 +1,17 @@
 package javacake.storage;
 
-import javacake.JavaCake;
 import javacake.exceptions.CakeException;
 import javacake.tasks.Deadline;
 import javacake.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TaskList {
+    private static final Logger LOGGER = Logger.getLogger(TaskList.class.getPackageName());
     private ArrayList<Task> data;
     private static final int maxDeadlineLength = 39;
-
-    public enum TaskState {
-        NOT_DONE, DONE
-    }
 
     /**
      * Initialises data from current taskList being passed.
@@ -90,11 +87,15 @@ public class TaskList {
 
 
     public static String runDeadline(ArrayList<Task> data, String inputCommand, TaskState state) throws CakeException {
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
         String[] listStr = inputCommand.split("\\s+");
         if (inputCommand.length() <= 9) {
+            LOGGER.warning("Empty Deadline");
             throw new CakeException("[!] No task description\nPlease input:\n'deadline TASK /by TASK_DATE'");
         }
         if (listStr.length < 4) {
+            LOGGER.warning("Wrong Deadline Format");
             throw new CakeException("[!] Improper format\nPlease input:\n'deadline TASK /by TASK_DATE'");
         }
         String taskInput;
@@ -102,7 +103,7 @@ public class TaskList {
         int idxSlash = getSlashIndex(listStr);
 
         if (idxSlash == -1 || idxSlash == (listStr.length - 1)) {
-            JavaCake.logger.log(Level.WARNING, "INVALID DEADLINE! slashIdx: " + idxSlash);
+            LOGGER.warning("INVALID DEADLINE! slashIdx: " + idxSlash);
             throw new CakeException("[!] Improper format\nPlease input:\n'deadline TASK /by TASK_DATE'");
         } else {
             taskInput = getParamString(listStr, 1, idxSlash);
@@ -112,7 +113,7 @@ public class TaskList {
         }
 
         if (taskInput.length() > maxDeadlineLength) {
-            JavaCake.logger.log(Level.WARNING, "Deadline Task length exceeded!");
+            LOGGER.warning("Deadline Task length exceeded!");
             throw new CakeException("[!] Task length too long\nPlease input task with < 40 characters!");
         }
         Task tempTask = new Deadline(taskInput, argumentDate);
@@ -139,9 +140,9 @@ public class TaskList {
         return -1;
     }
 
-    private static String getString(ArrayList<Task> data, TaskList.TaskState state, Task tempTask) {
+    private static String getString(ArrayList<Task> data, TaskState state, Task tempTask) {
         StringBuilder stringBuilder = new StringBuilder();
-        if (state == TaskList.TaskState.DONE) {
+        if (state == TaskState.DONE) {
             tempTask.markAsDone();
         }
         data.add(tempTask);
