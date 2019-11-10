@@ -1927,7 +1927,11 @@ Deletes a recurring expenditure from `JunBank Savings Account` with transaction 
 Have some recurring transactions which have not been reflected yet? You can update your profile!
 
 *Command Syntax*
+
 `/update`
+
+This updates any incoming income or interest that you are potentially scheduled to earn or any
+recurring expenditures that are supposed to be charged.
 
 == Future Enhancements `[coming in v2.0]`
 === Multi-Currency Support `/currency USD`
@@ -1955,7 +1959,9 @@ saved automatically in the `data` directory.
 function optimally if malformed inputs are loaded in from corrupted save files.
 
 *Q*: How do I edit the data stored in the files of `data` directory? +
-*A*: The data of the files are clearly labelled with column names in the `.csv` files and you can easily make sense of
+*A*: We recommend you *NOT* to use *Microsoft Excel* to perform your edits because it modifies the formatting of the
+`.csv` file. Therefore, use alternative tools like *Notepad++* to perform your edits.
+The data in the files are clearly labelled with column names in the `.csv` files and you can easily make sense of
 it! As long as you follow the constraints set out for each `PARAMETER` as mentioned in all previous sections, you
 should be fine!
 
@@ -2292,6 +2298,9 @@ specified by the user*
 
 | *Update outdated profile*
 | Checks all recurring transactions and update the profile if needed.
+
+This includes income, recurring expenditures, interests from bonds.
+
 | `/update`
 | `/update`
 
