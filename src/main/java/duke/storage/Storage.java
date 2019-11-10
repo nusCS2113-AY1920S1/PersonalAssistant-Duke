@@ -2,7 +2,6 @@ package duke.storage;
 
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
-import duke.ingredient.IngredientsList;
 import duke.list.GenericList;
 
 import java.io.File;
@@ -132,7 +131,10 @@ public abstract class Storage<T> {
     }
 
     /**
-     * Used to clear all info in the storage file.
+     * @author VirginiaYu
+     *
+     * Used to clear all info in the storage txt file.
+     *
      */
     public void clearInfoForFile() throws DukeException {
         File file = new File(filePath);

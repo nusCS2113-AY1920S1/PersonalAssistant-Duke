@@ -42,23 +42,39 @@ public class Parser {
         }
     }
 
-    //@@author VirginiaYu
+    /**
+     * @author VirginiaYu
+     *
+     * commands for Order
+     * add: add a new order to the order list
+     * alter:alter order serving date
+     * cancel: cancel an undone order
+     * done: mark an order as done
+     * init: initialize the order list
+     * list: list all orders, list all undone orders,
+     *      list all today's orders, list all today's undone orders
+     *      list orders on a fixed date, list orders containing some dish
+     *
+     * @param fullCommand input command from the user
+     * @return a command to be executed
+     * @throws DukeException
+     */
     private static Command order(String fullCommand) throws DukeException {
         String[] part = fullCommand.split(" ", 2);
         if (part.length > 4)
             throw new DukeException("must specify ordered dishes and order date");
         else {
             switch (part[0]) {
-                case "add":   //add a new order
+                case "add":   // add a new order
                     return addOrderParser(part);
-                case "alter":  //alter order date
+                case "alter": // alter order date
                     return alterOrderDateParser(part);
-                case "cancel": //fall through onto next case
-                case "done":  //remove or done an order
+                case "cancel":// cancel an undone order
+                case "done":  // remove or done an order
                     return cancelOrDoneOrderParser(part);
-                case "init":
+                case "init":  // initialize
                     return new InitOrderListCommand();
-                case "list": //list orders
+                case "list":  // list orders
                     String[] listType;
                     if (part.length == 1) {
                         listType = "-l all".split(" ", 2);
@@ -144,6 +160,7 @@ public class Parser {
         }
     }
 
+    //@@author x3chillax
     /**
      * commands for Ingredient
      * add: adds an ingredient to the fridge, by adding more to an existing ingredient or creating a new one
@@ -158,9 +175,6 @@ public class Parser {
      * @return a command to be executed
      * @throws DukeException
      */
-
-    //@@author x3chillax
-
     private static Command ingredient(String fullCommand) throws DukeException {
         String[] part = fullCommand.split(" ");
         switch (part[0]) {
@@ -255,7 +269,16 @@ public class Parser {
         return parseInt(str, MAX);
     }
 
-    //@@author VirginiaYu
+    /**
+     * @author VirginiaYu
+     *
+     * to parse remaining information (order serving date, and dishes name and amount)
+     * in the user add command
+     *
+     * @param splitter split user command, containing valuable info
+     * @return a command to be executed
+     * @throws DukeException
+     */
     public static Command addOrderParser(String[] splitter) throws DukeException {
         Order newOrder;
         Date orderDate;
@@ -295,7 +318,16 @@ public class Parser {
         return new AddOrderCommand(newOrder);
     }
 
-    //@@author VirginiaYu
+    /**
+     * @author VirginiaYu
+     *
+     * to parse remaining information (newly set order serving date,
+     * and target order index) in the user add command
+     *
+     * @param splitter split user command, containing valuable info
+     * @return a command to be executed
+     * @throws DukeException
+     */
     public static Command alterOrderDateParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
             throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");
@@ -320,7 +352,16 @@ public class Parser {
         return new AlterDateCommand(orderIndex - 1, orderDate);
     }
 
-    //@@author VirginiaYu
+    /**
+     * @author VirginiaYu
+     *
+     * to parse remaining information (cancelled order index) in the user add command
+     *
+     *
+     * @param splitter split user command, containing valuable info
+     * @return a command to be executed
+     * @throws DukeException
+     */
     public static Command cancelOrDoneOrderParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
             throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");
