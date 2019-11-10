@@ -462,6 +462,43 @@ the `Parser` class.
 
 image::images/devguide/DG_Alias_CodeBlock.png[align="center"]
 
+== Documentation
+We use asciidoc for writing documentation.
+
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+=== Editing Documentation
+
+Download the AsciiDoc plugin for IntelliJ, this allows you to preview the changes you have made to your `.adoc` files in real-time.
+
+
+
+== Testing
+
+== Dev Ops
+
+=== Build Automation
+
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> for more details.
+
+=== Making a Release
+
+Here are the steps to create a new release.
+
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
+=== Managing Dependencies
+
+A project often depends on third-party libraries. For example, Optix depends on the https://github.com/jfoenixadmin/JFoenix[JFoenix library] for other JavaFX elements. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+a. Include those libraries in the repo (this bloats the repo size) +
+b. Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
 == Product Scope
@@ -608,9 +645,6 @@ Use case resumes from step 1 of MSS.
 Steps i to iii are repeated until details entered are correct.
 Use case resumes from step 2 of MSS.
 
-
-
-
 === Use case: UC03 - Delete a single show scheduled on a particular date
 
 *Actor*: Theatre manager
@@ -633,9 +667,6 @@ Use case ends.
 
 Steps i to iii are repeated until shows entered are correct.
 Use case resumes from step 2 of MSS.
-
-
-
 
 === Use case: UC04 - Delete multiple shows by show name
 
