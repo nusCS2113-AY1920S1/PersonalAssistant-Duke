@@ -166,7 +166,7 @@ public class Process {
             fund.addFund(budget);
             Project deletedProject = projectManager.deleteProject(projectname);
             int projectsize = projectManager.projectmap.size();
-            ui.printDeleteProject(deletedProject, projectsize);
+            ui.printDeleteProject(deletedProject, projectsize, fund);
             BeforeAfterCommand.afterCommand(storage, projectManager);
         } catch (AlphaNUSException | ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("\t" + "☹ OOPS!!! Wrong input format!"
