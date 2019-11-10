@@ -24,7 +24,8 @@ public class FindFreeTimesCommand extends Command {
     private static final String TWELVE_HOUR_TIME_AM_POST_FIX = "AM";
     private static final String TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR = "12";
     private static final String TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR = ":";
-    private static final String OPTION_DISPLAY_KEYWORD = "Option";
+    private static final String DISPLAY_KEYWORD_OPTION = "Option";
+    private static final String DISPLAY_KEYWORD_TO = " to ";
 
     private static final int SECOND_TO_MILLISECONDS = 1000;
     private static final int MAX_SECOND = 60;
@@ -488,7 +489,7 @@ public class FindFreeTimesCommand extends Command {
 
             compiledFreeTimeToShow = DukeConstants.DAY_DATE_FORMAT.format(freeTimeData.get(i).getKey()) + "\n"
                     + DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(freeTimeData.get(i).getKey())
-                    + " to " + DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(freeTimeData.get(i).getValue());
+                    + DISPLAY_KEYWORD_TO + DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(freeTimeData.get(i).getValue());
 
             String dateTime = DukeConstants.TWENTYFOUR_HOUR_DATE_FORMAT.format(freeTimeData.get(i).getKey());
             String[] spiltDateTime = dateTime.split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD, 3);
@@ -513,7 +514,7 @@ public class FindFreeTimesCommand extends Command {
         for (int i = 0; i < sortCompiledFreeTimes.size(); i++) {
             compiledFreeTimes.add(sortCompiledFreeTimes.get(i).getValue());
             int optionNo = i + 1;
-            message += (OPTION_DISPLAY_KEYWORD + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + (optionNo) + ":\n" + sortCompiledFreeTimes.get(i).getValue().getKey()) + "\n\n";
+            message += (DISPLAY_KEYWORD_OPTION + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + (optionNo) + ":\n" + sortCompiledFreeTimes.get(i).getValue().getKey()) + "\n\n";
         }
     }
 
