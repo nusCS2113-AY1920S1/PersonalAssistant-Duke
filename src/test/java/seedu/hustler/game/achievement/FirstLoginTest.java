@@ -14,7 +14,7 @@ public class FirstLoginTest {
      */
     @Test
     public void checkUnlockFirstLogin() {
-        FirstLogin firstLogin = new FirstLogin();
+        AchievementsStub firstLogin = new AchievementsStub("Gold");
         firstLogin.setLock(false);
         assertEquals(false, firstLogin.checkLock());
     }
@@ -24,10 +24,10 @@ public class FirstLoginTest {
      */
     @Test
     public void checkFirstLoginInformation() {
-        FirstLogin gold = new FirstLogin();
+        AchievementsStub gold = new AchievementsStub("Gold");
 
         //checks if the condition for getting bronze achievement level is correct
-        assertEquals("(User use Hustler for the first time) Progress: [100%]", gold.getInformation());
+        assertEquals("(User use Hustler for the first time)", gold.getInformation());
     }
 
     /**
@@ -36,7 +36,7 @@ public class FirstLoginTest {
     @Test
     public void checkPrintingToTxt() {
 
-        FirstLogin unlockedGold = new FirstLogin();
+        AchievementsStub unlockedGold = new AchievementsStub("Gold");
 
         //String should represents the current status of Busybee.
         assertEquals("false|15|Gold|Fresh off the boat|(User use Hustler for the first time) Progress: [100%]", unlockedGold.toTxt());
@@ -49,9 +49,67 @@ public class FirstLoginTest {
     @Test
     public void checkPrintingToString() {
 
-        FirstLogin lockedGold = new FirstLogin();
+        AchievementsStub lockedGold = new AchievementsStub("Gold");
 
         //String should represents the current status of Busybee.
         assertEquals("Gained: 15 Fresh off the boat Gold(User use Hustler for the first time) Progress: [100%]", lockedGold.toString());
     }
+    private class AchievementsStub extends Achievements implements Achievement {
+
+        String achievementLevel;
+        Boolean lock;
+        int points = 15;
+
+        public AchievementsStub(String achievementLevel) {
+            this.lock = false;
+            this.achievementLevel = achievementLevel;
+        }
+
+        @Override
+        public String getAchievementLevel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getDescription() {
+            return "Fresh off the boat";
+        }
+
+        @Override
+        public String getInformation() {
+            return "(User use Hustler for the first time)";
+        }
+
+        @Override
+        public int getPoints() {
+            return this.points;
+        }
+
+        @Override
+        public int setPoints(int points) {
+            this.points = points;
+            return this.points;
+        }
+
+        @Override
+        public Boolean checkLock() {
+            return this.lock;
+        }
+
+        @Override
+        public Boolean setLock(Boolean lock) {
+            return this.lock = lock;
+        }
+
+        @Override
+        public String toTxt() {
+            return checkLock() + "|" + this.points + "|" + achievementLevel + "|" + getDescription() + "|" + getInformation() + " Progress: [100%]";
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + " 15 Fresh off the boat Gold(User use Hustler for the first time) Progress: [100%]";
+        }
+    }
+
 }
