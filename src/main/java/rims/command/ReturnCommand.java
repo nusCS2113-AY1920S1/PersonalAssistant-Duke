@@ -47,9 +47,10 @@ public class ReturnCommand extends Command {
         ArrayList<Reservation> cancelledReservations = new ArrayList<Reservation>();
         for (int i = 0; i < resourceIds.size(); i++) {
             Resource thisResource = resources.getResourceById(resourceIds.get(i));
-            Reservation cancelledReservation = thisResource.getReservations().getReservationById(reservationIds.get(i));
+            //Reservation cancelledReservation = thisResource.getReservations().getReservationById(reservationIds.get(i));
+            System.out.print("passing to delete: " + reservationIds.get(i) + "\n");
             thisResource.getReservations().cancelReservationById(reservationIds.get(i));
-            cancelledReservations.add(cancelledReservation);
+            //cancelledReservations.add(cancelledReservation);
         }
         ui.printLine();
         ui.print("Done! I've removed the following reservation(s):\n");

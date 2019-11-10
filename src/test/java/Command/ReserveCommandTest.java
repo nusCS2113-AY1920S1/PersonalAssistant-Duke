@@ -1,5 +1,7 @@
-import rims.core.*;
-import rims.command.*;
+import rims.core.ResourceList;
+import rims.core.Ui;
+import rims.core.Storage;
+import rims.command.ReserveCommand;
 import rims.exception.*;
 import rims.resource.*;
 
@@ -12,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ReserveCommandTest {
     private ReserveCommand commandUnderTest;
-    private ListCommand List;
     private static Ui ui;
     private static Storage storage;
     private static ResourceList listUnderTest;
@@ -63,7 +64,7 @@ public class ReserveCommandTest {
 
     /**
      * This test creates a test list with one item. It tries to reserve an item with
-     * a return date and a date of borrowing that are in the past
+     * a return date and a date of borrowing that are in the past.
      * @throws ParseException
      * @throws RimsException
      */
