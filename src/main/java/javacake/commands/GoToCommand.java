@@ -66,11 +66,20 @@ public class GoToCommand extends Command {
         int gotoIndex = returnsGoToIndex();
         logic.updateFilePath(logic.gotoFilePath(gotoIndex));
         String filePath = logic.getFullFilePath();
-        if (filePath.contains("Quiz")) {
+        if (programIsAtQuiz(filePath)) {
             return processQuiz(logic, ui, storageManager, filePath);
         }
         logic.insertQueries();
         return processDirectoryOrText(logic, ui, storageManager);
+    }
+
+    /**
+     * Checks if program current location is a quiz.
+     * @param filePath Current file path in the program.
+     * @return True if file path contains quiz.
+     */
+    private boolean programIsAtQuiz(String filePath) {
+        return (filePath.contains("Quiz"));
     }
 
     /**

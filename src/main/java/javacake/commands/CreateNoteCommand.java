@@ -16,6 +16,7 @@ public class CreateNoteCommand extends Command {
     private static String defaultDirectoryPath = "data/notes/";
     private static final int MAXIMUM_PARAMETER = 2;
     private static final int MAX_FILENAME_LENGTH = 20;
+    private static final String BY_SPACES = "\\s+";
 
     /**
      * Constructor for CreateNoteCommand.
@@ -46,9 +47,7 @@ public class CreateNoteCommand extends Command {
      * @throws CakeException If the input command is invalid.
      */
     private void checksValidityOfCommand(String inputCommand) throws CakeException {
-        String bySpaces = "\\s+";
-        String[] wordsInInputCommand = inputCommand.split(bySpaces);
-
+        String[] wordsInInputCommand = inputCommand.split(BY_SPACES);
 
         if (commandHasMultipleParameters(wordsInInputCommand)) {
             throw new CakeException("Additional Parameters in command detected!\n"
@@ -82,8 +81,7 @@ public class CreateNoteCommand extends Command {
      * @throws CakeException If user fails the checks listed above.
      */
     private void validateFileName(String inputCommand) throws CakeException {
-        String bySpaces = "\\s+";
-        String[] parameters = inputCommand.split(bySpaces);
+        String[] parameters = inputCommand.split(BY_SPACES);
         String fileName = parameters[1];
         if (Command.containsIllegalCharacter(inputCommand)) {
             throw new CakeException("Special Character(s) detected! Please use another file name!");
@@ -116,9 +114,8 @@ public class CreateNoteCommand extends Command {
      * @return True if CreateNoteCommand has a specified file name.
      */
     private boolean createNoteCommandHasSpecifiedFileName(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] wordsInInputCommand = inputCommand.split(bySpaces);
-        return wordsInInputCommand.length == 2;
+        String[] wordsInInputCommand = inputCommand.split(BY_SPACES);
+        return (wordsInInputCommand.length == 2);
     }
 
     /**
@@ -127,8 +124,8 @@ public class CreateNoteCommand extends Command {
      * @return True if CreateNoteCommand with no parameter is valid.
      */
     private boolean validCommandWithNoSpecifiedFileName(String inputCommand) {
-        String[] wordsInInputCommand = inputCommand.split("\\s+");
-        return wordsInInputCommand.length == 1;
+        String[] wordsInInputCommand = inputCommand.split(BY_SPACES);
+        return (wordsInInputCommand.length == 1);
     }
 
     /**
