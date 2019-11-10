@@ -26,6 +26,7 @@ public class WordBank {
 
     /**
      * Searched for the Word object containing the word.
+     *
      * @param word the word to be found
      * @return a Word object containing the word and its meaning
      * @throws NoWordFoundException when the wordBank does not contain the word
@@ -44,6 +45,7 @@ public class WordBank {
 
     /**
      * Deletes a word with a specific description.
+     *
      * @param word string represents a word to be deleted
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
@@ -57,6 +59,7 @@ public class WordBank {
 
     /**
      * Adds a word to the WordBank.
+     *
      * @param word Word object represents the word to be added
      * @throws WordAlreadyExistsException if the word has already exists in the WordBank
      */
@@ -69,6 +72,7 @@ public class WordBank {
 
     /**
      * Looks up for meaning of a specific word.
+     *
      * @param word word to be searched for its meaning
      * @return a string represents meaning of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank nor Oxford dictionary
@@ -85,6 +89,7 @@ public class WordBank {
 
     /**
      * Searches for all words with a few beginning characters.
+     *
      * @param word a string represents the beginning substring
      * @return list of words that have that beginning substring
      * @throws NoWordFoundException if no words in the WordBank have that beginning substring
@@ -108,6 +113,7 @@ public class WordBank {
 
     /**
      * Updates the meaning of a specific word.
+     *
      * @param wordToBeEdited word whose meaning is updated
      * @return word object which just be edited
      * @throws NoWordFoundException if the word doesn't exist in the word bank
@@ -125,8 +131,9 @@ public class WordBank {
 
     /**
      * Adds a tag to a specific word in word bank.
+     *
      * @param wordToBeAddedTag word that the tag is set for
-     * @param tags new tags input by user
+     * @param tags             new tags input by user
      * @return tags lists of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
@@ -144,9 +151,10 @@ public class WordBank {
 
     /**
      * Deletes tags from a word.
-     * @param word string represent the word
-     * @param tagList list of tags to be deleted
-     * @param deletedTags tags to be deleted
+     *
+     * @param word         string represent the word
+     * @param tagList      list of tags to be deleted
+     * @param deletedTags  tags to be deleted
      * @param nonExistTags tags that doesn't exist in the word
      */
     public void deleteTags(String word, ArrayList<String> tagList,
@@ -167,6 +175,7 @@ public class WordBank {
      * A word is considered to be close will must differs in less than its length
      * compared to the searched word.
      * Also consider words with one swap between any 2 characters.
+     *
      * @param word word to be searched
      * @return list of words that is considered to be close from the word user is looking for
      */

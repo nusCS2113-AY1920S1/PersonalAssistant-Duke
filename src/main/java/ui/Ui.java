@@ -296,10 +296,14 @@ public class Ui {
                     + "Format:\n"
                     + "Searching for words of a tag: search_tag t/TAG\n"
                     + "Searching for tags of a word: search_tag w/WORD";
+        } else if (instruction.equals("search_syn")) {
+            return "Search for synonyms of a word.\n"
+                    + "Format:\n"
+                    + "search_syn w/WORD\n";
         } else {
             return "Here are the commands for WordUp.\n"
-                    + "add, delete, edit, exit, freq, help, history, list, list_tag"
-                    + " schedule, search, search_begin, search_tag, tag, addsyn, quiz\n"
+                    + "add, delete, edit, exit, freq, help, history, list, list_tags"
+                    + " schedule, search, search_begin,search_syn, search_tag, tag, addsyn, quiz\n"
                     + "Enter \"help [command]\" for more details.";
         }
     }
@@ -370,7 +374,7 @@ public class Ui {
     public String showSearchBegin(String begin, ArrayList<String> wordWithBegins) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append((wordWithBegins.size() == 1) ? "This is a word that has " : "These are words that have ");
-        stringBuilder.append("the same meaning as " + begin + "\n");
+        stringBuilder.append("the beginning " + begin + "\n");
         for (String s : wordWithBegins) {
             stringBuilder.append(s + "\n");
         }
@@ -416,14 +420,6 @@ public class Ui {
         StringBuilder stringBuilder = new StringBuilder("Here are all of your tags:\n");
         for (String tag : tagList) {
             stringBuilder.append(tag + "\n");
-        }
-        return stringBuilder.toString();
-    }
-
-    public String showAllSynonyms(String[] synonymList) {
-        StringBuilder stringBuilder = new StringBuilder("Here are all your synonyms:\n");
-        for (String synonym : synonymList){
-            stringBuilder.append(synonym + "\n");
         }
         return stringBuilder.toString();
     }
