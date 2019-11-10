@@ -1,6 +1,7 @@
 package duke.ui.window;
 
 import duke.data.Investigation;
+import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -20,11 +21,10 @@ public class InvestigationContextWindow extends DukeDataContextWindow {
      *
      * @param investigation Investigation object.
      */
-    public InvestigationContextWindow(Investigation investigation) {
+    public InvestigationContextWindow(Investigation investigation) throws DukeFatalException {
         super(FXML, investigation);
 
         this.investigation = investigation;
-
         updateUi();
     }
 
@@ -34,7 +34,6 @@ public class InvestigationContextWindow extends DukeDataContextWindow {
     @Override
     public void updateUi() {
         super.updateUi();
-
         statusLabel.setText(investigation.getStatusStr());
     }
 }

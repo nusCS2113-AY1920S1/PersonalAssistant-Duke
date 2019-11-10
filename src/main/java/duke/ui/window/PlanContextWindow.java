@@ -1,6 +1,7 @@
 package duke.ui.window;
 
 import duke.data.Plan;
+import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -20,11 +21,10 @@ public class PlanContextWindow extends DukeDataContextWindow {
      *
      * @param plan Plan object.
      */
-    public PlanContextWindow(Plan plan) {
+    public PlanContextWindow(Plan plan) throws DukeFatalException {
         super(FXML, plan);
 
         this.plan = plan;
-
         updateUi();
     }
 
@@ -34,7 +34,6 @@ public class PlanContextWindow extends DukeDataContextWindow {
     @Override
     public void updateUi() {
         super.updateUi();
-
         statusLabel.setText(plan.getStatusStr());
     }
 }

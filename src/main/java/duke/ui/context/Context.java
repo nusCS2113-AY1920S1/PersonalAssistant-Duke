@@ -12,7 +12,5 @@ public enum Context {
     PLAN,
     RESULT,
     MEDICINE,
-    TREATMENT,
-    EVIDENCE,
     SEARCH
 }

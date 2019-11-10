@@ -120,22 +120,6 @@ public class Commands {
             default:
                 return null;
             }
-        case TREATMENT:
-            if ("status".equals(cmdStr)) {
-                //return new TreatmentStatusCommand();
-                break;
-            }
-            //fallthrough
-
-        case INVESTIGATION:
-            if ("result".equals(cmdStr)) {
-                //return new InvxResultCommand();
-                break;
-            }
-            //fallthrough
-
-        case EVIDENCE:
-
         default:
             break;
         }

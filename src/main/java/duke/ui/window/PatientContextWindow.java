@@ -14,8 +14,9 @@ import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-import java.util.ArrayList;
 import java.util.List;
+
+//@@author gowgos5
 
 /**
  * UI window for the Patient context.
@@ -49,9 +50,6 @@ public class PatientContextWindow extends ContextWindow {
     private JFXListView<TreatmentCard> followUpListPanel;
 
     private Patient patient;
-    private List<DukeObject> indexedImpressionList;
-    private List<DukeObject> indexedCriticalList;
-    private List<DukeObject> indexedInvestigationList;
 
     /**
      * Constructs the patient UI window.
@@ -59,14 +57,11 @@ public class PatientContextWindow extends ContextWindow {
     public PatientContextWindow(Patient patient) throws DukeFatalException {
         super(FXML);
 
-        this.patient = patient;
-        this.indexedImpressionList = new ArrayList<>();
-        this.indexedCriticalList = new ArrayList<>();
-        this.indexedInvestigationList = new ArrayList<>();
-
         if (patient == null) {
-            return;
+            throw new DukeFatalException(UiStrings.MESSAGE_ERROR_UNINITIALISED_PATIENT);
         }
+
+        this.patient = patient;
 
         updateUi();
     }
@@ -78,27 +73,36 @@ public class PatientContextWindow extends ContextWindow {
         indexLists();
     }
 
+    /**
+     * Fills {@code patient}'s biometric details and particulars.
+     */
     private void fillPatientDetails() {
-        nameLabel.setText(String.valueOf(patient.getName()));
-        bedLabel.setText(String.valueOf(patient.getBedNo()));
+        nameLabel.setText(patient.getName());
+
+        bedLabel.setText(patient.getBedNo());
+
         int ageNum = patient.getAge();
         ageLabel.setText((ageNum == -1) ? UiStrings.DISPLAY_AGE_NOT_SET : ageNum + " years old");
+
         int heightNum = patient.getHeight();
         heightLabel.setText((heightNum == -1) ? UiStrings.DISPLAY_HEIGHT_NOT_SET : patient.getHeight() + " cm");
+
         int weightNum = patient.getWeight();
         weightLabel.setText((weightNum == -1) ? UiStrings.DISPLAY_WEIGHT_NOT_SET : patient.getWeight() + " kg");
+
         int number = patient.getNumber();
         phoneLabel.setText((number == -1) ? UiStrings.DISPLAY_NUMBER_NOT_SET : String.valueOf(number));
+
         String addressStr = patient.getAddress();
         addressLabel.setText(("".equals(addressStr)) ? UiStrings.DISPLAY_ADDRESS_NOT_SET : addressStr);
+
         String historyStr = patient.getHistory();
         historyLabel.setText(("".equals(historyStr)) ? UiStrings.DISPLAY_HISTORY_NOT_SET : historyStr);
-        StringBuilder allergies = new StringBuilder();
 
+        StringBuilder allergies = new StringBuilder();
         if ("".equals(patient.getAllergies())) {
             allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
         } else {
-            // TODO: document the fact that comma separated allergies are displayed on distinct rows
             for (String allergy : patient.getAllergies().split(",")) {
                 allergies.append(allergy.strip()).append(System.lineSeparator());
             }
@@ -106,15 +110,19 @@ public class PatientContextWindow extends ContextWindow {
         }
     }
 
+
+    /**
+     * Clears all card and UI lists.
+     */
     private void clearLists() {
-        indexedImpressionList.clear();
-        indexedCriticalList.clear();
-        indexedInvestigationList.clear();
         impressionListPanel.getItems().clear();
         criticalListPanel.getItems().clear();
-        indexedInvestigationList.clear();
+        followUpListPanel.getItems().clear();
     }
 
+    /**
+     * Fills all UI lists in this window.
+     */
     private void indexLists() {
         impressionListPanel.getItems().forEach(card -> {
             card.setIndex(impressionListPanel.getItems().indexOf(card) + 1);
@@ -136,11 +144,9 @@ public class PatientContextWindow extends ContextWindow {
             if (patient.getPrimaryDiagnosis() != null && impression.equals(patient.getPrimaryDiagnosis())) {
                 impressionCard = new ImpressionCard(impression, true);
                 impressionListPanel.getItems().add(0, impressionCard);
-                indexedImpressionList.add(0, impression);
             } else {
                 impressionCard = new ImpressionCard(impression, false);
                 impressionListPanel.getItems().add(impressionCard);
-                indexedImpressionList.add(impression);
             }
         }
 
@@ -165,14 +171,6 @@ public class PatientContextWindow extends ContextWindow {
      */
     @Override
     public List<DukeObject> getIndexedList(String type) {
-        if ("impression".equals(type)) {
-            return indexedImpressionList;
-        } else if ("critical".equals(type)) {
-            return indexedCriticalList;
-        } else if ("investigation".equals(type)) {
-            return indexedInvestigationList;
-        } else {
-            return null;
-        }
+        return null;
     }
 }

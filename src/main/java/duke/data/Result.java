@@ -34,6 +34,6 @@ public class Result extends Evidence {
 
     @Override
     public Context toContext() {
-        return Context.EVIDENCE;
+        return Context.RESULT;
     }
 }

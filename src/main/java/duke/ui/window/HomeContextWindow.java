@@ -6,12 +6,14 @@ import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.exception.DukeFatalException;
 import duke.ui.card.PatientCard;
+import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 
 import java.util.ArrayList;
 import java.util.List;
 
+//@@author gowgos5
 /**
  * UI window for the Home context.
  */
@@ -29,13 +31,13 @@ public class HomeContextWindow extends ContextWindow {
     /**
      * Constructs the Home UI window.
      *
-     * @param patientList List of {@code Patient} objects.
+     * @param patientList List of {@link Patient} objects.
      */
     public HomeContextWindow(ArrayList<Patient> patientList) throws DukeFatalException {
         super(FXML);
 
         if (patientList == null) {
-            throw new DukeFatalException("Patient list has not been initialised.");
+            throw new DukeFatalException(UiStrings.MESSAGE_ERROR_UNINITIALISED_PATIENT_LIST);
         }
 
         this.patientList = patientList;

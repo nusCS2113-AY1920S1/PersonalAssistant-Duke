@@ -52,7 +52,7 @@ public class Plan extends SummaryTreatment {
 
     @Override
     public Context toContext() {
-        return Context.TREATMENT;
+        return Context.PLAN;
     }
 
     @Override
