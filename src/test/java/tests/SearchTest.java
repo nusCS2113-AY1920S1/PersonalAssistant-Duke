@@ -40,7 +40,7 @@ public class SearchTest {
             patientData.addPatient(setupPatient(pattern1, i));
             i += 1;
             patientData.addPatient(setupPatient(pattern2, i));
-            Patient temp = patientData.getPatientByBed(duplicateBed+i);
+            Patient temp = patientData.getPatientByBed(duplicateBed + i);
             temp.addNewImpression(setUpComplexImpression(pattern3, temp));
             temp.addNewImpression(setupImpressionSimple(pattern3, temp));
         } catch (DukeException e) {
@@ -64,7 +64,7 @@ public class SearchTest {
     @Test
     public void getSearchResultPatientTest() {
         try {
-            patient = patientData.getPatientByBed(duplicateBed+1);
+            patient = patientData.getPatientByBed(duplicateBed + 1);
             patient.update();
             assertEquals(patient.findImpressions("testImpression").getSearchList().size(), 1);
             assertEquals(patient.searchAll(pattern3).getSearchList().size(), 4);
@@ -81,6 +81,13 @@ public class SearchTest {
         return new Impression("testImpression", pattern, parent);
     }
 
+    /**
+     * Sets up a complex impression.
+     * @param pattern the pattern to be used for the impression
+     * @param parent patient
+     * @return the impression set up
+     * @throws DukeException if the treatments and evidences cannot be added
+     */
     public Impression setUpComplexImpression(String pattern, Patient parent) throws DukeException {
         Impression imp = new Impression(pattern, "blah", parent);
         setupEvidences(pattern3, pattern1, imp);
@@ -88,6 +95,12 @@ public class SearchTest {
         return imp;
     }
 
+    /**
+     * Sets up Patients.
+     * @param pattern the pattern to be enbedded in the patient
+     * @param x to prevent duplicate beds
+     * @return the patient constructed
+     */
     public Patient setupPatient(String pattern, int x) {
         if (pattern.charAt(0) > 'i') {
             return new Patient("name", duplicateBed + x, "allergies", 0, 0,
@@ -106,7 +119,8 @@ public class SearchTest {
      * @param medName  medicine
      * @throws DukeException duplicate names found
      */
-    public void setupTreatments(String invName, String planName, String medName, Impression impression) throws DukeException {
+    public void setupTreatments(String invName, String planName, String medName, Impression impression)
+            throws DukeException {
         impression.addNewTreatment(createPlan(planName, impression));
         impression.addNewTreatment(createInvestigation(invName, impression));
         impression.addNewMedicine(createMedicine(medName, impression));
