@@ -18,6 +18,7 @@ import java.util.List;
 public class ImpressionMoveSpec extends ObjSpec {
     private static final ImpressionMoveSpec spec = new ImpressionMoveSpec();
     private Impression newImpression = null;
+    private DukeData moveData = null;
 
     public static ImpressionMoveSpec getSpec() {
         return spec;
@@ -38,6 +39,11 @@ public class ImpressionMoveSpec extends ObjSpec {
         Impression impression = ImpressionUtils.getImpression(core);
         String targetImpressionName = cmd.getSwitchVal("impression");
         Patient patient = impression.getParent();
+        // sanity check
+        if (cmd.getArg() == null && cmd.getSwitchVal("evidence") == null
+                && cmd.getSwitchVal("treatment") == null) {
+            throw new DukeException("You didn't tell me what you want to move!");
+        }
         SearchResults results;
         if (targetImpressionName == null) {
             results = new SearchResults("Impressions of this Patient", patient.getImpressionList(),
