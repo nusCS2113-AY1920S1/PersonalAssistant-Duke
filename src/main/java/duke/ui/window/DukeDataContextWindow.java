@@ -1,13 +1,10 @@
 package duke.ui.window;
 
 import duke.data.DukeData;
-import duke.data.DukeObject;
 import duke.exception.DukeFatalException;
 import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-
-import java.util.List;
 
 /**
  * Generic UI window for the DukeData (Treatment / Evidence) context.
@@ -15,8 +12,6 @@ import java.util.List;
 public class DukeDataContextWindow extends ContextWindow {
     @FXML
     private Label nameLabel;
-    @FXML
-    private Label summaryLabel;
     @FXML
     private Label priorityLabel;
 
@@ -44,7 +39,6 @@ public class DukeDataContextWindow extends ContextWindow {
     @Override
     public void updateUi() {
         nameLabel.setText(data.getName());
-        summaryLabel.setText(data.toString());
         priorityLabel.setText(String.valueOf(data.getPriority()));
     }
 

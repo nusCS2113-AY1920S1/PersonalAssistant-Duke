@@ -8,81 +8,73 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="582.0" prefWidth="673.0"
-            xmlns="http://javafx.com/javafx/11.0.1">
+<AnchorPane prefHeight="582.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <AnchorPane layoutX="10.0" layoutY="137.0" prefHeight="33.0" prefWidth="265.0">
             <children>
-                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="2.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="4.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/impression_details.png"/>
+                        <Image url="@../images/impression_details.png" />
                     </image>
                 </ImageView>
                 <Label layoutX="44.0" layoutY="7.0" prefHeight="22.0" prefWidth="202.0" text="IMPRESSION DESCRIPTION">
                     <font>
-                        <Font name="System Bold" size="15.0"/>
+                        <Font name="System Bold" size="15.0" />
                     </font>
                 </Label>
             </children>
         </AnchorPane>
         <AnchorPane layoutX="1.0" layoutY="7.0" prefHeight="22.0" prefWidth="210.0">
             <children>
-                <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="15.0" layoutY="-1.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="15.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/patient_home.png"/>
+                        <Image url="@../images/patient_home.png" />
                     </image>
                 </ImageView>
                 <Label layoutX="52.0" layoutY="1.0" prefHeight="22.0" prefWidth="134.0" text="PATIENT">
                     <font>
-                        <Font name="System Bold" size="15.0"/>
+                        <Font name="System Bold" size="15.0" />
                     </font>
                 </Label>
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="255.0" layoutY="3.0" prefHeight="30.0" prefWidth="134.0">
+        <AnchorPane layoutX="255.0" layoutY="3.0" prefHeight="30.0" prefWidth="280.0">
             <children>
                 <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="6.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/impression_name.png"/>
+                        <Image url="@../images/impression_name.png" />
                     </image>
                 </ImageView>
-                <Label layoutX="47.0" layoutY="5.0" prefHeight="22.0" prefWidth="154.0" text="IMPRESSION SUMMARY">
+                <Label layoutX="47.0" layoutY="5.0" prefHeight="22.0" prefWidth="190.0" text="IMPRESSION SUMMARY">
                     <font>
-                        <Font name="System Bold" size="15.0"/>
+                        <Font name="System Bold" size="15.0" />
                     </font>
                 </Label>
             </children>
         </AnchorPane>
-        <ScrollPane layoutX="9.0" layoutY="36.0" prefHeight="93.0" prefWidth="235.0"
-                    style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+        <ScrollPane layoutX="9.0" layoutY="36.0" prefHeight="93.0" prefWidth="235.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="88.0" prefWidth="231.0">
                     <children>
 
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true"
-                                   preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/patient_name.png"/>
+                                <Image url="@../images/patient_name.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="patientNameLabel" layoutX="49.0" layoutY="9.0" prefHeight="22.0" prefWidth="180.0"
-                               text="Name">
+                        <Label fx:id="patientNameLabel" layoutX="49.0" layoutY="9.0" prefHeight="22.0" prefWidth="180.0" text="Name">
                             <font>
-                                <Font name="System Bold" size="15.0"/>
+                                <Font name="System Bold" size="15.0" />
                             </font>
                         </Label>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="49.0" pickOnBounds="true"
-                                   preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/ward.png"/>
+                                <Image url="@../images/ward.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="patientBedLabel" layoutX="49.0" layoutY="54.0" prefHeight="22.0" prefWidth="180.0"
-                               text="Bed">
+                        <Label fx:id="patientBedLabel" layoutX="49.0" layoutY="54.0" prefHeight="22.0" prefWidth="180.0" text="Bed">
                             <font>
-                                <Font size="15.0"/>
+                                <Font size="15.0" />
                             </font>
                         </Label>
                     </children>
@@ -91,61 +83,49 @@
         </ScrollPane>
         <AnchorPane layoutX="9.0" layoutY="316.0" prefHeight="30.0" prefWidth="200.0">
             <children>
-                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="-1.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/allergies.png"/>
+                        <Image url="@../images/allergies.png" />
                     </image>
                 </ImageView>
                 <Label layoutX="46.0" layoutY="4.0" prefHeight="22.0" prefWidth="134.0" text="ALLERGIES">
                     <font>
-                        <Font name="System Bold" size="15.0"/>
+                        <Font name="System Bold" size="15.0" />
                     </font>
                 </Label>
             </children>
         </AnchorPane>
-        <ScrollPane layoutX="256.0" layoutY="36.0" prefWidth="405.0"
-                    style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+        <ScrollPane layoutX="256.0" layoutY="36.0" prefWidth="405.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
             <content>
                 <AnchorPane maxWidth="400.0" minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="400.0">
                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="228.0" layoutY="10.0" pickOnBounds="true"
-                                   preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="228.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/impression_critical.png"/>
+                                <Image url="@../images/impression_critical.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="criticalLabel" layoutX="267.0" layoutY="15.0" maxHeight="-Infinity"
-                               maxWidth="-Infinity" prefHeight="22.0" prefWidth="128.0" text="Critical Issues">
+                        <Label fx:id="criticalLabel" layoutX="267.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="22.0" prefWidth="128.0" text="Critical Issues">
                             <font>
-                                <Font name="System Bold" size="14.0"/>
+                                <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="228.0" layoutY="50.0" pickOnBounds="true"
-                                   preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="228.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/impression_follow-up.png"/>
+                                <Image url="@../images/impression_follow-up.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="followUpLabel" layoutX="268.0" layoutY="54.0" maxHeight="-Infinity"
-                               maxWidth="-Infinity" prefHeight="22.0" prefWidth="127.0" text="Follow-up">
+                        <Label fx:id="followUpLabel" layoutX="268.0" layoutY="54.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="22.0" prefWidth="127.0" text="Follow-up">
                             <font>
-                                <Font name="System Bold" size="14.0"/>
+                                <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <ScrollPane layoutX="7.0" layoutY="5.0" prefHeight="82.0" prefWidth="210.0"
-                                    style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+                        <ScrollPane layoutX="7.0" layoutY="5.0" prefHeight="82.0" prefWidth="210.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
                             <content>
-                                <AnchorPane maxWidth="383.0" minHeight="0.0" minWidth="0.0" prefHeight="90.0"
-                                            prefWidth="188.0">
+                                <AnchorPane maxWidth="383.0" minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="188.0">
                                     <children>
-                                        <Label fx:id="impressionNameLabel" alignment="TOP_LEFT" layoutX="8.0"
-                                               layoutY="2.0"
-                                               prefHeight="610.0" prefWidth="176.0"
-                                               text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut turpis sit amet justo dapibus blandit vel a augue. Suspendisse placerat dapibus porta. Donec finibus augue euismod vestibulum iaculis. Maecenas vitae suscipit nisi. Fusce quis ante quis leo pellentesque mattis at id ante. Ut aliquam, sem ac aliquam pharetra, mi leo eleifend magna, nec gravida nunc magna quis urna. Nunc vel massa porta, consequat mauris ac, lacinia mauris. Nulla eget laoreet erat, in pellentesque lectus. Nunc purus magna, bibendum ut semper in, sollicitudin ut lectus. Ut sed est sem. Nullam dictum sagittis varius. Vivamus sed justo vitae lectus finibus ultrices vitae id erat. Nunc ornare faucibus leo, rhoncus viverra nisl malesuada a. Nunc vitae nisl quam."
-                                               wrapText="true">
+                                        <Label fx:id="impressionNameLabel" alignment="TOP_LEFT" layoutX="8.0" layoutY="2.0" prefHeight="610.0" prefWidth="176.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut turpis sit amet justo dapibus blandit vel a augue. Suspendisse placerat dapibus porta. Donec finibus augue euismod vestibulum iaculis. Maecenas vitae suscipit nisi. Fusce quis ante quis leo pellentesque mattis at id ante. Ut aliquam, sem ac aliquam pharetra, mi leo eleifend magna, nec gravida nunc magna quis urna. Nunc vel massa porta, consequat mauris ac, lacinia mauris. Nulla eget laoreet erat, in pellentesque lectus. Nunc purus magna, bibendum ut semper in, sollicitudin ut lectus. Ut sed est sem. Nullam dictum sagittis varius. Vivamus sed justo vitae lectus finibus ultrices vitae id erat. Nunc ornare faucibus leo, rhoncus viverra nisl malesuada a. Nunc vitae nisl quam." wrapText="true">
                                             <font>
-                                                <Font size="14.0"/>
+                                                <Font size="14.0" />
                                             </font>
                                         </Label>
                                     </children>
@@ -158,66 +138,54 @@
         </ScrollPane>
         <AnchorPane layoutX="215.0" layoutY="313.0" prefHeight="30.0" prefWidth="210.0">
             <children>
-                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="1.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/evidence.png"/>
+                        <Image url="@../images/evidence.png" />
                     </image>
                 </ImageView>
                 <Label layoutX="58.0" layoutY="6.0" text="EVIDENCE">
                     <font>
-                        <Font name="System Bold" size="15.0"/>
+                        <Font name="System Bold" size="15.0" />
                     </font>
                 </Label>
             </children>
         </AnchorPane>
-        <JFXListView fx:id="evidenceListPanel" layoutX="221.0" layoutY="353.0" prefHeight="194.0" prefWidth="210.0"
-                     style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;"/>
+        <JFXListView fx:id="evidenceListPanel" layoutX="221.0" layoutY="353.0" prefHeight="194.0" prefWidth="210.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" />
         <AnchorPane layoutX="440.0" layoutY="314.0" prefHeight="30.0" prefWidth="210.0">
             <children>
-                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="1.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/treatment.png"/>
+                        <Image url="@../images/treatment.png" />
                     </image>
                 </ImageView>
                 <Label layoutX="58.0" layoutY="6.0" text="TREATMENT">
                     <font>
-                        <Font name="System Bold" size="15.0"/>
+                        <Font name="System Bold" size="15.0" />
                     </font>
                 </Label>
             </children>
         </AnchorPane>
-        <JFXListView fx:id="treatmentListPanel" layoutX="442.0" layoutY="353.0" prefHeight="193.0" prefWidth="219.0"
-                     style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;"/>
-        <ScrollPane layoutX="9.0" layoutY="176.0" prefHeight="130.0" prefWidth="651.0"
-                    style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+        <JFXListView fx:id="treatmentListPanel" layoutX="442.0" layoutY="353.0" prefHeight="193.0" prefWidth="219.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" />
+        <ScrollPane layoutX="9.0" layoutY="176.0" prefHeight="130.0" prefWidth="651.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="646.0">
                     <children>
-                        <Label fx:id="impressionDescriptionLabel" alignment="TOP_LEFT" layoutX="6.0" layoutY="5.0"
-                               maxWidth="639.0" prefWidth="639.0"
-                               text="Vestibulum maximus nulla mi, a cursus sem iaculis non. Vestibulum a nibh odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus sem, egestas vel risus ac, volutpat vestibulum tortor. Nam at diam non est euismod finibus eu nec mi. Mauris vitae libero efficitur, vestibulum nulla in, euismod ex. Ut ut rutrum libero. Morbi et nisl dictum, semper mi et, iaculis augue. Phasellus eleifend tortor eget ante venenatis euismod. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
-                               wrapText="true">
+                        <Label fx:id="impressionDescriptionLabel" alignment="TOP_LEFT" layoutX="6.0" layoutY="5.0" maxWidth="639.0" prefWidth="639.0" text="Vestibulum maximus nulla mi, a cursus sem iaculis non. Vestibulum a nibh odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus sem, egestas vel risus ac, volutpat vestibulum tortor. Nam at diam non est euismod finibus eu nec mi. Mauris vitae libero efficitur, vestibulum nulla in, euismod ex. Ut ut rutrum libero. Morbi et nisl dictum, semper mi et, iaculis augue. Phasellus eleifend tortor eget ante venenatis euismod. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos." wrapText="true">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </Label>
                     </children>
                 </AnchorPane>
             </content>
         </ScrollPane>
-        <ScrollPane layoutX="9.0" layoutY="353.0" prefHeight="194.0" prefWidth="200.0"
-                    style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+        <ScrollPane layoutX="9.0" layoutY="353.0" prefHeight="194.0" prefWidth="200.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
             <content>
                 <AnchorPane maxWidth="170.0" minHeight="0.0" minWidth="0.0" prefWidth="170.0">
                     <children>
-                        <Label fx:id="allergiesLabel" alignment="TOP_LEFT" layoutX="6.0" layoutY="5.0" maxWidth="170.0"
-                               prefWidth="170.0"
-                               text="Ut pellentesque, urna nec dictum ullamcorper, dolor nisl convallis elit, ac iaculis tellus sem id felis. Fusce consectetur ex sit amet ligula bibendum maximus. Fusce tristique dolor vel pharetra ultrices. Mauris et neque imperdiet, cursus eros eu, vestibulum purus. Mauris suscipit, dolor sit amet scelerisque sagittis, augue neque pulvinar diam, sit amet efficitur dolor risus et justo. Maecenas accumsan a augue non semper. Nullam viverra consequat ipsum. Suspendisse auctor turpis nibh, eu hendrerit dui vehicula in. Suspendisse feugiat fringilla diam, quis suscipit massa mollis sed. Nam tempus tincidunt est, ac ultrices dui pharetra id."
-                               wrapText="true">
+                        <Label fx:id="allergiesLabel" alignment="TOP_LEFT" layoutX="6.0" layoutY="5.0" maxWidth="170.0" prefWidth="170.0" text="Ut pellentesque, urna nec dictum ullamcorper, dolor nisl convallis elit, ac iaculis tellus sem id felis. Fusce consectetur ex sit amet ligula bibendum maximus. Fusce tristique dolor vel pharetra ultrices. Mauris et neque imperdiet, cursus eros eu, vestibulum purus. Mauris suscipit, dolor sit amet scelerisque sagittis, augue neque pulvinar diam, sit amet efficitur dolor risus et justo. Maecenas accumsan a augue non semper. Nullam viverra consequat ipsum. Suspendisse auctor turpis nibh, eu hendrerit dui vehicula in. Suspendisse feugiat fringilla diam, quis suscipit massa mollis sed. Nam tempus tincidunt est, ac ultrices dui pharetra id." wrapText="true">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </Label>
                     </children>
