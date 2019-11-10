@@ -16,7 +16,8 @@ features of the application BetterDuke.
 # 1. Introduction
     Betterduke is a desktop application for NUS students with poor time management. 
     Students, more often than not, are on their laptops, hence Betterduke
-    will provide a convenient platform for students to toggle between checking their timetables and scheduling their tasks. More importantly, Betterduke is optimized for those who
+    will provide a convenient platform for students to toggle between checking their timetables
+    and scheduling their tasks. More importantly, Betterduke is optimized for those who
     prefer to work with a Command Line Interface (CLI) while still having the benefits
     of a Graphical User Interface (GUI). If you can type fast, Betterduke can
     schedule your tasks faster than traditional GUI apps.  Enjoy!
