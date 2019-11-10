@@ -57,7 +57,7 @@ way to review their credit card expenses.
 * *Highlights*: This enhancement involves adding several new commands to *OwlMoney*. As such it requires an
 understanding of the underlying architecture and the components `logic`, `model` and `storage`.
 
-* *Credits: The implementation of *Card* feature was collaborated with Terence, as the implementation of the *Card
+* *Credits*: The implementation of *Card* feature was collaborated with Terence, as the implementation of the *Card
 Expenditure* feature depends on the implementation of the *Card* feature.
 
 ==== 3.1.2 Enhancement added: *Find* feature
