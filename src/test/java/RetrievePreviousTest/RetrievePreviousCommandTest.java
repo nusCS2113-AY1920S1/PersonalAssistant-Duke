@@ -160,7 +160,7 @@ public class RetrievePreviousCommandTest {
         previousInputList = ShowPreviousCommand.getOutputList();
         int sizeOfList = previousInputList.size();
         Command command = new RetrievePreviousCommand(userInputWithNumberZero);
-        String expected = "Please enter a valid integer x between 0 and " + sizeOfList;
+        String expected = "Please enter a valid integer x between 0 and " + sizeOfList + " ,inclusive.";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -178,7 +178,7 @@ public class RetrievePreviousCommandTest {
         previousInputList = ShowPreviousCommand.getOutputList();
         int sizeOfList = previousInputList.size();
         Command command = new RetrievePreviousCommand(userInputWithNegativeNumber);
-        String expected = "Please enter a valid integer x between 0 and " + sizeOfList;
+        String expected = "Please enter a valid integer x between 0 and " + sizeOfList + " ,inclusive.";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
