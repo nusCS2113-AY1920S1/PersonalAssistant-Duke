@@ -1,9 +1,8 @@
-package chronologer;
+package chronologer.command;
 
 import chronologer.parser.DateTimeExtractor;
 import chronologer.task.Event;
 import chronologer.task.TaskList;
-import chronologer.ui.MessageBuilder;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -19,6 +18,9 @@ public final class TaskScheduler {
     private static final String SCHEDULE_FROM_TILL_FORMAT = "You can schedule this task from %s till %s\n";
     private static final String NO_FREE_SLOTS =
             "There is no free slot to insert the task. Consider freeing up your schedule.\n";
+    private static final String NOT_ENOUGH_TIME = "The duration is too long to be done within now and the deadline.\n";
+    private static final String NOT_ENOUGH_TIME_HARD_LIMIT =
+            "The duration is too long to be done within the next 30 days.\n";
 
     private static ArrayList<Event> eventList;
     private static LocalDateTime hardLimitDeadlineDate = LocalDateTime.now().plusDays(SEARCH_HARD_LIMIT);
@@ -35,6 +37,9 @@ public final class TaskScheduler {
         assert durationToSchedule != null;
         assert deadlineDate != null;
 
+        if (isThereNotEnoughTime(durationToSchedule, deadlineDate)) {
+            return NOT_ENOUGH_TIME;
+        }
         setupEventList(tasks, deadlineDate);
         if (isEventListEmpty()) {
             return SCHEDULE_ANYTIME_BY_DEADLINE;
@@ -53,6 +58,9 @@ public final class TaskScheduler {
         assert tasks != null;
         assert durationToSchedule != null;
 
+        if (isThereNotEnoughTime(durationToSchedule, hardLimitDeadlineDate)) {
+            return NOT_ENOUGH_TIME_HARD_LIMIT;
+        }
         setupEventList(tasks, hardLimitDeadlineDate);
         if (isEventListEmpty()) {
             return SCHEDULE_ANYTIME;
@@ -64,6 +72,11 @@ public final class TaskScheduler {
 
     private static void setupEventList(TaskList tasks, LocalDateTime deadlineDate) {
         eventList = tasks.obtainEventList(deadlineDate);
+        isFreeBetweenEvents = false;
+    }
+
+    private static boolean isThereNotEnoughTime(Long durationToSchedule, LocalDateTime deadlineDate) {
+        return durationToSchedule > ChronoUnit.HOURS.between(LocalDateTime.now(), deadlineDate);
     }
 
     private static boolean isEventListEmpty() {
@@ -92,6 +105,9 @@ public final class TaskScheduler {
 
     private static boolean isFreeFromNowTillFirstEvent(Long durationToSchedule) {
         LocalDateTime nextStartDate = eventList.get(0).getStartDate();
+        if (nextStartDate.isBefore(LocalDateTime.now())) {
+            return false;
+        }
         Long duration = ChronoUnit.HOURS.between(LocalDateTime.now(), nextStartDate);
         if (durationToSchedule <= duration) {
             isFreeBetweenEvents = true;

@@ -16,7 +16,6 @@ import chronologer.exception.ChronologerException;
 public class DateTimeExtractor {
 
     public static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private static LocalDateTime dateToReturn;
 
     /**
      * This function appends the end time of an event to provide a standardised
@@ -30,6 +29,7 @@ public class DateTimeExtractor {
      *                              provided by the user is incorrect!
      */
     public static LocalDateTime extractDateTime(String dateTimeFromUser) throws ChronologerException {
+        LocalDateTime dateToReturn;
         try {
             dateToReturn = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
         } catch (DateTimeParseException e) {

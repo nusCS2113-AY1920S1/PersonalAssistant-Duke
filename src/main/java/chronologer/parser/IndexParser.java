@@ -32,7 +32,7 @@ public abstract class IndexParser extends Parser {
             index = Integer.parseInt(taskFeatures.split("\\s+", 2)[0].trim()) - 1;
         } catch (NumberFormatException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            throw new ChronologerException(ChronologerException.unknownUserCommand());
+            throw new ChronologerException(ChronologerException.invalidInput());
         }
         if (index < 0) {
             throw new ChronologerException(NEGATIVE_NUM_DETECTED);

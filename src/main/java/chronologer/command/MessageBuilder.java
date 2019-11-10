@@ -1,4 +1,4 @@
-package chronologer.ui;
+package chronologer.command;
 
 public class MessageBuilder {
 
