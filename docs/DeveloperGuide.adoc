@@ -161,7 +161,7 @@ The *_Class Diagram_* above illustrates the relationship between the individual 
 .Structure of the lesson subpackage in the Logic Component
 image::LogicLessonClassDiagram.png[LogicLessonClassDiagram]
 
-The *_Class Diagram_* above illustrates the relationship between the individual components of the `lesson ` subpackage in the `Logic` component.
+The *_Class Diagram_* above illustrates the relationship between the individual components of the `lesson` subpackage in the `Logic` component.
 
 The `Logic` component is responsible for:
 
@@ -202,7 +202,6 @@ The  *_Class Diagram_* above illustrates the relationship between the individual
 The `Storage` component is responsible for: 
 
 * Parsing data from/to persistent storage via the `StorageParser` component. 
-* Listening for incoming data from `StorageParser` component to write to persistent storage. 
 * Loading and writing data from/to persistent storage which is managed by the `StorageManager` component. 
 
 === Common classes
