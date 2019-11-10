@@ -275,17 +275,26 @@ public class TaskList {
     }
 
     /**
-     * Fetches all reminders for the current date.
+     * Fetches all reminders for the current date. (Tasks within the next 3 days)
      *
      * @return Holds reminders for the current date.
      */
     public ArrayList<String> fetchReminders() {
         ArrayList<String> reminders = new ArrayList<>();
-        for (Task listOfTask : listOfTasks) {
-            if (listOfTask.isReminderTrigger()) {
-                reminders.add(listOfTask.getDescription());
+        for (Task task : listOfTasks) {
+            if (task.isReminderTrigger()) {
+                    if (task.getModCode().equals("")) {
+                        reminders.add(task.getDescription().trim() + "\n"
+                            + getStartTime(task)
+                            + getEndTime(task));
+                    } else {
+                        reminders.add(task.getModCode().trim() + " "
+                            + task.getDescription().trim() + "\n"
+                            + getStartTime(task)
+                            + getEndTime(task));
+                    }
+                }
             }
-        }
         return reminders;
     }
 
@@ -301,10 +310,16 @@ public class TaskList {
         ArrayList<Task> obtainDescriptions = schedule(dayToFind);
         ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
         for (Task task : obtainDescriptions) {
-            scheduleDescriptionOnly.add(task.getModCode().trim()
-                + task.getDescription().trim() + "\n"
-                + getStartTime(task)
-                + getEndTime(task));
+            if (task.getModCode().equals("")) {
+                scheduleDescriptionOnly.add(task.getDescription().trim() + "\n"
+                    + getStartTime(task)
+                    + getEndTime(task));
+            } else {
+                scheduleDescriptionOnly.add(task.getModCode().trim() + " "
+                    + task.getDescription().trim() + "\n"
+                    + getStartTime(task)
+                    + getEndTime(task));
+            }
         }
         return scheduleDescriptionOnly;
     }
