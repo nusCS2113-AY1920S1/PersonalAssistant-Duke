@@ -140,6 +140,15 @@ public class DukeConstants {
     public static final String HAS_REMINDER_INDICATOR = "[HR]";
     public static final String NO_REMINDER_INDICATOR ="[NR]";
 
+    //WEEK
+    public static final String INVALID_EMPTY_WEEK = "Invalid Input.\n"
+            + "The week cannot be blank.\nPlease enter the command as follows.\n"
+            + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
+            + "'x' is either 'recess', 'reading', or 'exam'";
+    public static final String INVALID_WEEK = "Invalid Week. Please enter the command as follows. \n"
+            + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
+            + "'x' is either 'recess', 'reading', or 'exam'";
+
 
     //MISC
     public static final String STRING_SPACE_SPLIT_KEYWORD = " ";
