@@ -35,7 +35,7 @@ public class ParseAddInvestment extends ParseInvestment {
         while (investmentIterator.hasNext()) {
             String key = investmentIterator.next();
             String value = investmentParameters.get(key);
-            if (!NEW_NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (!NEW_NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when adding investment account");
             }
             if (NAME_PARAMETER.equals(key)) {

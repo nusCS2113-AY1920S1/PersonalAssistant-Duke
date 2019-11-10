@@ -40,12 +40,12 @@ public class ParseListBond extends ParseBond {
         while (bondIterator.hasNext()) {
             String key = bondIterator.next();
             String value = bondParameters.get(key);
-            if (NUM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NUM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 bondParameters.put(NUM_PARAMETER, "30");
             } else if (NUM_PARAMETER.equals(key)) {
                 checkInt(NUM_PARAMETER, value);
             }
-            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when deleting a bond");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(FROM_PARAMETER, value);

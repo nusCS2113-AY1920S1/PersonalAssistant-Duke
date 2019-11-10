@@ -5,7 +5,7 @@ package owlmoney.logic.regex;
  */
 public final class RegexUtil {
 
-    private static final String INTERSET_RATE_REGEX = "^\\s*(?=.*[1-9])\\d{1,2}(\\.\\d{1,2})?$";
+    private static final String INTEREST_RATE_REGEX = "^\\s*(?=.*[1-9])\\d{1,2}(\\.\\d{1,2})?$";
 
     /**
      * Checks whether amount input by user is within the 9 digit constraints with a max of 2 decimal places.
@@ -38,7 +38,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckInterestRate(String input) {
-        if (input.matches(INTERSET_RATE_REGEX)) {
+        if (input.matches(INTEREST_RATE_REGEX)) {
             double parsedInput = Double.parseDouble(input);
             return (parsedInput < 100.00);
         } else {
@@ -55,7 +55,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckCashbackRate(String input) {
-        if (input.matches(INTERSET_RATE_REGEX)) {
+        if (input.matches(INTEREST_RATE_REGEX)) {
             double parsedInput = Double.parseDouble(input);
             return (parsedInput <= 20.00);
         } else {
@@ -97,7 +97,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckName(String input) {
-        if (input.isBlank() || input.isEmpty()) {
+        if (input == null || input.isBlank()) {
             return false;
         }
         final String nameRegex = "^[a-zA-Z0-9 ]{1,30}$";
@@ -111,7 +111,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckDescription(String input) {
-        if (input.isBlank() || input.isEmpty()) {
+        if (input == null || input.isBlank()) {
             return false;
         }
         final String descriptionRegex = "^[a-zA-Z0-9 ]{1,50}$";
@@ -126,7 +126,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckCategory(String input) {
-        if (input.isBlank() || input.isEmpty()) {
+        if (input == null || input.isBlank()) {
             return false;
         }
         final String categoryRegex = "^[a-zA-Z ]{1,15}$";
@@ -175,5 +175,19 @@ public final class RegexUtil {
     public static boolean regexCheckExactNumFormat(String input) {
         String intRegex = "1";
         return input.matches(intRegex);
+    }
+
+    /**
+     * Checks whether input entered by user is alphanumeric with a maximum of 20 characters only.
+     *
+     * @param input The user input that is subject to Regex checking.
+     * @return the result of the check on whether it fulfills the criteria.
+     */
+    public static boolean regexCheckGoalsName(String input) {
+        if (input.isBlank() || input.isEmpty()) {
+            return false;
+        }
+        final String nameRegex = "^[a-zA-Z0-9 ]{1,20}$";
+        return input.matches(nameRegex);
     }
 }

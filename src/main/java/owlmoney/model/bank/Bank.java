@@ -29,7 +29,7 @@ public abstract class Bank {
     private double currentAmount;
     TransactionList transactions;
     private static final Logger logger = getLogger(Bank.class);
-
+    static final double MAX_AMOUNT = 999999999.99;
 
     /**
      * Allows the child class to create an instance with name and current amount.
@@ -120,10 +120,12 @@ public abstract class Bank {
      *
      * @param expenditureIndex Transaction number.
      * @param ui    Ui of OwlMoney.
+     * @param isCreditCardBill Is the command affecting a credit card bill.
      * @throws TransactionException If invalid transaction.
      * @throws BankException        If used on investment account.
      */
-    public void deleteExpenditure(int expenditureIndex, Ui ui) throws TransactionException, BankException {
+    public void deleteExpenditure(int expenditureIndex, Ui ui, boolean isCreditCardBill)
+            throws TransactionException, BankException {
         throw new BankException("This account does not support this feature");
     }
 
@@ -209,10 +211,11 @@ public abstract class Bank {
      *
      * @param index Transaction number.
      * @param ui    Ui of OwlMoney.
+     * @param isCardBill Is affecting credit card bill deposit.
      * @throws TransactionException If transaction is not a deposit.
      * @throws BankException        If amount becomes negative after deleting deposit.
      */
-    void deleteDepositTransaction(int index, Ui ui) throws TransactionException, BankException {
+    void deleteDepositTransaction(int index, Ui ui, boolean isCardBill) throws TransactionException, BankException {
         throw new BankException("This account does not support this feature");
     }
 
@@ -381,17 +384,6 @@ public abstract class Bank {
     }
 
     /**
-     * Returns expenditure amount based on the specified expenditure id.
-     *
-     * @param expno Expenditure id of the expenditure to be searched.
-     * @return Expenditure amount based on the specified expenditure id.
-     * @throws TransactionException If transaction is not an expenditure.
-     */
-    double getExpAmountById(int expno) throws TransactionException {
-        throw new TransactionException("This account does not support this feature");
-    }
-
-    /**
      * Finds the transactions from the bank object that matches with the keywords specified by the user.
      *
      * @param fromDate The date to search from.
@@ -427,8 +419,7 @@ public abstract class Bank {
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         decimalFormat.setRoundingMode(RoundingMode.DOWN);
         SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        exportArrayList.add(new String[]{"description","amount","date","category","spent"});
-
+        exportArrayList.add(new String[]{"description","amount","date","category","spent","cardId","billDate"});
         for (int i = 0; i < transactions.getSize(); i++) {
             String description = transactions.get(i).getDescription();
             double amount = transactions.get(i).getAmount();
@@ -437,7 +428,18 @@ public abstract class Bank {
             boolean spent = transactions.get(i).getSpent();
             String stringAmount = decimalFormat.format(amount);
             String stringSpent = String.valueOf(spent);
-            exportArrayList.add(new String[] {description,stringAmount,date,category,stringSpent});
+            UUID cardId = transactions.get(i).getTransactionCardID();
+            YearMonth billDate = transactions.get(i).getBillDate();
+            String stringUuid = "";
+            if (cardId != null) {
+                stringUuid = cardId.toString();
+            }
+            String stringBillDate = "";
+            if (billDate != null) {
+                stringBillDate = billDate.toString();
+            }
+            exportArrayList.add(new String[] {description,stringAmount,date,category,stringSpent,
+                stringUuid,stringBillDate});
         }
         return exportArrayList;
     }
@@ -568,5 +570,17 @@ public abstract class Bank {
      */
     public int getCardBillDepositId(UUID cardId, YearMonth billDate) throws BankException {
         throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Checks if the receiving bank account will exceed 9 digits after transfer.
+     *
+     * @param amount Amount to receive.
+     * @throws BankException If the bank amount exceeds 9 digits.
+     */
+    public void enoughForTransfer(double amount) throws BankException {
+        if (this.currentAmount + amount > MAX_AMOUNT) {
+            throw new BankException("The amount in the receiving bank account cannot exceed 9 digits");
+        }
     }
 }

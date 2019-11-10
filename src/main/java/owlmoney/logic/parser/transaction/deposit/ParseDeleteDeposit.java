@@ -40,7 +40,7 @@ public class ParseDeleteDeposit extends ParseDeposit {
             String key = savingsIterator.next();
             String value = depositParameters.get(key);
             if ((TRANSACTION_NUMBER_PARAMETER.equals(key) || FROM_PARAMETER.equals(key))
-                    && (value.isEmpty() || value.isBlank())) {
+                    && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when adding a new deposit");
             }
             if (TRANSACTION_NUMBER_PARAMETER.equals(key)) {

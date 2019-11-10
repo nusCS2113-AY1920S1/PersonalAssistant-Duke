@@ -39,21 +39,21 @@ public class ParseEditBond extends ParseBond {
         while (bondIterator.hasNext()) {
             String key = bondIterator.next();
             String value = bondParameters.get(key);
-            if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when editing a bond");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(NAME_PARAMETER, value);
             }
-            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when editing a bond");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(FROM_PARAMETER, value);
             }
-            if (RATE_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (RATE_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkInterestRate(value);
                 changeCounter++;
             }
-            if (YEAR_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (YEAR_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkYear(value);
                 changeCounter++;
             }

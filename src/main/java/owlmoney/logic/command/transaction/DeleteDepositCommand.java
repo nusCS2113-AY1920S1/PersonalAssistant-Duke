@@ -34,7 +34,7 @@ public class DeleteDepositCommand extends Command {
      * @throws TransactionException If transaction is not a deposit.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
-        profile.profileDeleteDeposit(this.expNumber, this.from, ui);
+        profile.profileDeleteDeposit(this.expNumber, this.from, ui, false);
         return this.isExit;
     }
 }

@@ -273,25 +273,25 @@ class ParseType extends Parser {
      */
     private Command menuForBankExpenditure(String command, String rawData) throws ParserException {
         if (ADD_COMMAND.equals(command)) {
-            ParseExpenditure addExp = new ParseAddExpenditure(rawData, BANK);
-            addExp.fillHashTable();
-            addExp.checkParameter();
-            return addExp.getCommand();
+            ParseExpenditure parseAddExpenditure = new ParseAddExpenditure(rawData, BANK);
+            parseAddExpenditure.fillHashTable();
+            parseAddExpenditure.checkParameter();
+            return parseAddExpenditure.getCommand();
         } else if (LIST_COMMAND.equals(command)) {
-            ParseExpenditure listExp = new ParseListExpenditure(rawData, BANK);
-            listExp.fillHashTable();
-            listExp.checkParameter();
-            return listExp.getCommand();
+            ParseExpenditure parseListExpenditure = new ParseListExpenditure(rawData, BANK);
+            parseListExpenditure.fillHashTable();
+            parseListExpenditure.checkParameter();
+            return parseListExpenditure.getCommand();
         } else if (DELETE_COMMAND.equals(command)) {
-            ParseExpenditure deleteExp = new ParseDeleteExpenditure(rawData, BANK);
-            deleteExp.fillHashTable();
-            deleteExp.checkParameter();
-            return deleteExp.getCommand();
+            ParseExpenditure parseDeleteExpenditure = new ParseDeleteExpenditure(rawData, BANK);
+            parseDeleteExpenditure.fillHashTable();
+            parseDeleteExpenditure.checkParameter();
+            return parseDeleteExpenditure.getCommand();
         } else if (EDIT_COMMAND.equals(command)) {
-            ParseExpenditure editExp = new ParseEditExpenditure(rawData, BANK);
-            editExp.fillHashTable();
-            editExp.checkParameter();
-            return editExp.getCommand();
+            ParseExpenditure parseEditExpenditure = new ParseEditExpenditure(rawData, BANK);
+            parseEditExpenditure.fillHashTable();
+            parseEditExpenditure.checkParameter();
+            return parseEditExpenditure.getCommand();
         }
         throw new ParserException("You entered an invalid type for bank expenditure");
     }
@@ -306,25 +306,25 @@ class ParseType extends Parser {
      */
     private Command menuForCardExpenditure(String command, String rawData) throws ParserException {
         if (ADD_COMMAND.equals(command)) {
-            ParseExpenditure addExp = new ParseAddExpenditure(rawData, CARD);
-            addExp.fillHashTable();
-            addExp.checkParameter();
-            return addExp.getCommand();
+            ParseExpenditure parseAddExpenditure = new ParseAddExpenditure(rawData, CARD);
+            parseAddExpenditure.fillHashTable();
+            parseAddExpenditure.checkParameter();
+            return parseAddExpenditure.getCommand();
         } else if (LIST_COMMAND.equals(command)) {
-            ParseExpenditure listExp = new ParseListExpenditure(rawData, CARD);
-            listExp.fillHashTable();
-            listExp.checkParameter();
-            return listExp.getCommand();
+            ParseExpenditure parseListExpenditure = new ParseListExpenditure(rawData, CARD);
+            parseListExpenditure.fillHashTable();
+            parseListExpenditure.checkParameter();
+            return parseListExpenditure.getCommand();
         } else if (DELETE_COMMAND.equals(command)) {
-            ParseExpenditure deleteExp = new ParseDeleteExpenditure(rawData, CARD);
-            deleteExp.fillHashTable();
-            deleteExp.checkParameter();
-            return deleteExp.getCommand();
+            ParseExpenditure parseDeleteExpenditure = new ParseDeleteExpenditure(rawData, CARD);
+            parseDeleteExpenditure.fillHashTable();
+            parseDeleteExpenditure.checkParameter();
+            return parseDeleteExpenditure.getCommand();
         } else if (EDIT_COMMAND.equals(command)) {
-            ParseExpenditure editExp = new ParseEditExpenditure(rawData, CARD);
-            editExp.fillHashTable();
-            editExp.checkParameter();
-            return editExp.getCommand();
+            ParseExpenditure parseEditExpenditure = new ParseEditExpenditure(rawData, CARD);
+            parseEditExpenditure.fillHashTable();
+            parseEditExpenditure.checkParameter();
+            return parseEditExpenditure.getCommand();
         }
         throw new ParserException("You entered an invalid type for card expenditure");
     }
@@ -339,25 +339,25 @@ class ParseType extends Parser {
      */
     private Command menuForDeposit(String command, String rawData) throws ParserException {
         if (ADD_COMMAND.equals(command)) {
-            ParseDeposit addDep = new ParseAddDeposit(rawData);
-            addDep.fillHashTable();
-            addDep.checkParameter();
-            return addDep.getCommand();
+            ParseDeposit parseAddDeposit = new ParseAddDeposit(rawData);
+            parseAddDeposit.fillHashTable();
+            parseAddDeposit.checkParameter();
+            return parseAddDeposit.getCommand();
         } else if (LIST_COMMAND.equals(command)) {
-            ParseDeposit listDep = new ParseListDeposit(rawData);
-            listDep.fillHashTable();
-            listDep.checkParameter();
-            return listDep.getCommand();
+            ParseDeposit parseListDeposit = new ParseListDeposit(rawData);
+            parseListDeposit.fillHashTable();
+            parseListDeposit.checkParameter();
+            return parseListDeposit.getCommand();
         } else if (DELETE_COMMAND.equals(command)) {
-            ParseDeposit deleteDep = new ParseDeleteDeposit(rawData);
-            deleteDep.fillHashTable();
-            deleteDep.checkParameter();
-            return deleteDep.getCommand();
+            ParseDeposit parseDeleteDeposit = new ParseDeleteDeposit(rawData);
+            parseDeleteDeposit.fillHashTable();
+            parseDeleteDeposit.checkParameter();
+            return parseDeleteDeposit.getCommand();
         } else if (EDIT_COMMAND.equals(command)) {
-            ParseDeposit editDep = new ParseEditDeposit(rawData);
-            editDep.fillHashTable();
-            editDep.checkParameter();
-            return editDep.getCommand();
+            ParseDeposit parseEditDeposit = new ParseEditDeposit(rawData);
+            parseEditDeposit.fillHashTable();
+            parseEditDeposit.checkParameter();
+            return parseEditDeposit.getCommand();
         }
         throw new ParserException("You entered an invalid type for deposit");
     }
@@ -372,22 +372,22 @@ class ParseType extends Parser {
      */
     private Command menuForCard(String command, String rawData) throws ParserException {
         if (ADD_COMMAND.equals(command)) {
-            ParseCard addCard = new ParseAddCard(rawData);
-            addCard.fillHashTable();
-            addCard.checkParameter();
-            return addCard.getCommand();
+            ParseCard parseAddCard = new ParseAddCard(rawData);
+            parseAddCard.fillHashTable();
+            parseAddCard.checkParameter();
+            return parseAddCard.getCommand();
         } else if (DELETE_COMMAND.equals(command)) {
-            ParseCard deleteCard = new ParseDeleteCard(rawData);
-            deleteCard.fillHashTable();
-            deleteCard.checkParameter();
-            return deleteCard.getCommand();
+            ParseCard parseDeleteCard = new ParseDeleteCard(rawData);
+            parseDeleteCard.fillHashTable();
+            parseDeleteCard.checkParameter();
+            return parseDeleteCard.getCommand();
         } else if (LIST_COMMAND.equals(command)) {
             return new ListCardCommand();
         } else if (EDIT_COMMAND.equals(command)) {
-            ParseCard editCard = new ParseEditCard(rawData);
-            editCard.fillHashTable();
-            editCard.checkParameter();
-            return editCard.getCommand();
+            ParseCard parseEditCard = new ParseEditCard(rawData);
+            parseEditCard.fillHashTable();
+            parseEditCard.checkParameter();
+            return parseEditCard.getCommand();
         } else if (FIND_COMMAND.equals(command)) {
             ParseFindBankOrCard parseFindCard = new ParseFindBankOrCard(rawData, CARD);
             parseFindCard.fillHashTable();
@@ -407,20 +407,20 @@ class ParseType extends Parser {
      */
     private Command menuForGoals(String command, String rawData) throws ParserException {
         if (ADD_COMMAND.equals(command)) {
-            ParseGoals addGoals = new ParseAddGoals(rawData);
-            addGoals.fillHashTable();
-            addGoals.checkParameter();
-            return addGoals.getCommand();
+            ParseGoals parseAddGoals = new ParseAddGoals(rawData);
+            parseAddGoals.fillHashTable();
+            parseAddGoals.checkParameter();
+            return parseAddGoals.getCommand();
         } else if (DELETE_COMMAND.equals(command)) {
-            ParseGoals deleteGoals = new ParseDeleteGoals(rawData);
-            deleteGoals.fillHashTable();
-            deleteGoals.checkParameter();
-            return deleteGoals.getCommand();
+            ParseGoals parseDeleteGoals = new ParseDeleteGoals(rawData);
+            parseDeleteGoals.fillHashTable();
+            parseDeleteGoals.checkParameter();
+            return parseDeleteGoals.getCommand();
         } else if (EDIT_COMMAND.equals(command)) {
-            ParseGoals editGoals = new ParseEditGoals(rawData);
-            editGoals.fillHashTable();
-            editGoals.checkParameter();
-            return editGoals.getCommand();
+            ParseGoals parseEditGoals = new ParseEditGoals(rawData);
+            parseEditGoals.fillHashTable();
+            parseEditGoals.checkParameter();
+            return parseEditGoals.getCommand();
         } else if (LIST_COMMAND.equals(command)) {
             return new ListGoalsCommand();
         }
@@ -437,26 +437,26 @@ class ParseType extends Parser {
      */
     private Command menuForRecurringExpenditure(String command, String rawData) throws ParserException {
         if (ADD_COMMAND.equals(command)) {
-            ParseRecurringExpenditure addRecurringExpenditure = new ParseAddRecurringExpenditure(rawData, BANK);
-            addRecurringExpenditure.fillHashTable();
-            addRecurringExpenditure.checkParameter();
-            return addRecurringExpenditure.getCommand();
+            ParseRecurringExpenditure parseAddRecurringExpenditure = new ParseAddRecurringExpenditure(rawData, BANK);
+            parseAddRecurringExpenditure.fillHashTable();
+            parseAddRecurringExpenditure.checkParameter();
+            return parseAddRecurringExpenditure.getCommand();
         } else if (DELETE_COMMAND.equals(command)) {
             ParseDeleteRecurringExpenditure
-                    deleteRecurringExpenditure = new ParseDeleteRecurringExpenditure(rawData, BANK);
-            deleteRecurringExpenditure.fillHashTable();
-            deleteRecurringExpenditure.checkParameter();
-            return deleteRecurringExpenditure.getCommand();
+                    parseDeleteRecurringExpenditure = new ParseDeleteRecurringExpenditure(rawData, BANK);
+            parseDeleteRecurringExpenditure.fillHashTable();
+            parseDeleteRecurringExpenditure.checkParameter();
+            return parseDeleteRecurringExpenditure.getCommand();
         } else if (EDIT_COMMAND.equals(command)) {
-            ParseRecurringExpenditure editRecurringExpenditure = new ParseEditRecurringExpenditure(rawData, BANK);
-            editRecurringExpenditure.fillHashTable();
-            editRecurringExpenditure.checkParameter();
-            return editRecurringExpenditure.getCommand();
+            ParseRecurringExpenditure parseEditRecurringExpenditure = new ParseEditRecurringExpenditure(rawData, BANK);
+            parseEditRecurringExpenditure.fillHashTable();
+            parseEditRecurringExpenditure.checkParameter();
+            return parseEditRecurringExpenditure.getCommand();
         } else if (LIST_COMMAND.equals(command)) {
-            ParseRecurringExpenditure listRecurringExpenditure = new ParseListRecurringExpenditure(rawData, BANK);
-            listRecurringExpenditure.fillHashTable();
-            listRecurringExpenditure.checkParameter();
-            return listRecurringExpenditure.getCommand();
+            ParseRecurringExpenditure parseListRecurringExpenditure = new ParseListRecurringExpenditure(rawData, BANK);
+            parseListRecurringExpenditure.fillHashTable();
+            parseListRecurringExpenditure.checkParameter();
+            return parseListRecurringExpenditure.getCommand();
         } else if (FIND_COMMAND.equals(command)) {
             ParseFindRecurring parseFindRecurringExpenditure = new ParseFindRecurring(rawData, RECURRING);
             parseFindRecurringExpenditure.fillHashTable();

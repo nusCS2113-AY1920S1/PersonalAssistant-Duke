@@ -86,6 +86,9 @@ public class Saving extends Bank {
      */
     private boolean earnedIncome(Ui ui) throws BankException {
         if (new Date().compareTo(nextIncomeDate) >= 0) {
+            if (this.getCurrentAmount() + this.income > MAX_AMOUNT) {
+                throw new BankException("Amount in bank account cannot exceed 9 digits");
+            }
             if (income > 0) {
                 Deposit addIncome = new Deposit("Income", this.income, this.nextIncomeDate, INCOME_CATEGORY);
                 addDepositTransaction(addIncome, ui, ACCOUNT_TYPE);
@@ -159,11 +162,18 @@ public class Saving extends Bank {
      *
      * @param expenditureIndex The index of the expenditure in ExpenditureList.
      * @param ui               required for printing.
+     * @param isCreditCardBill Is the command affecting a credit card bill.
      * @throws TransactionException If invalid transaction.
+     * @throws BankException If the bank amount exceeds 9 digits.
      */
     @Override
-    public void deleteExpenditure(int expenditureIndex, Ui ui) throws TransactionException {
-        addToAmount(transactions.deleteExpenditureFromList(expenditureIndex, ui));
+    public void deleteExpenditure(int expenditureIndex, Ui ui, boolean isCreditCardBill)
+            throws TransactionException, BankException {
+        double expenditureAmount = transactions.getExpenditureAmount(expenditureIndex, isCreditCardBill);
+        if (this.getCurrentAmount() + expenditureAmount > MAX_AMOUNT) {
+            throw new BankException("The amount in the bank account cannot exceed 9 digits");
+        }
+        addToAmount(transactions.deleteExpenditureFromList(expenditureIndex, ui, isCreditCardBill));
     }
 
     /**
@@ -192,11 +202,16 @@ public class Saving extends Bank {
     void editExpenditureDetails(
             int expenditureIndex, String description, String amount, String date, String category, Ui ui)
             throws TransactionException, BankException {
-        if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
-                + transactions.getExpenditureAmount(expenditureIndex) < Double.parseDouble(amount)) {
+        if (!(amount == null || amount.isBlank()) && (this.getCurrentAmount()
+                + transactions.getExpenditureAmount(expenditureIndex, false) - Double.parseDouble(amount)
+                > MAX_AMOUNT)) {
+            throw new BankException("The amount in the bank cannot exceed 9 digits.");
+        }
+        if (!(amount == null || amount.isBlank()) && this.getCurrentAmount()
+                + transactions.getExpenditureAmount(expenditureIndex, false) < Double.parseDouble(amount)) {
             throw new BankException("Bank account cannot have a negative amount");
         }
-        double oldAmount = transactions.getExpenditureAmount(expenditureIndex);
+        double oldAmount = transactions.getExpenditureAmount(expenditureIndex, false);
         double newAmount = transactions.editExpenditure(expenditureIndex, description, amount, date, category, ui);
         this.addToAmount(oldAmount);
         this.deductFromAmount(newAmount);
@@ -216,11 +231,15 @@ public class Saving extends Bank {
     @Override
     void editDepositDetails(int depositIndex, String description, String amount, String date, Ui ui)
             throws TransactionException, BankException {
-        if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
-                + Double.parseDouble(amount) < transactions.getDepositValue(depositIndex)) {
+        if (!(amount == null || amount.isBlank()) && (this.getCurrentAmount()
+                - transactions.getDepositValue(depositIndex, false) + Double.parseDouble(amount)
+                > MAX_AMOUNT)) {
+            throw new BankException("The amount in the bank cannot exceed 9 digits.");
+        } else if (!(amount == null || amount.isBlank()) && this.getCurrentAmount()
+                + Double.parseDouble(amount) < transactions.getDepositValue(depositIndex, false)) {
             throw new BankException("Bank account cannot have a negative amount");
         }
-        double oldAmount = transactions.getDepositValue(depositIndex);
+        double oldAmount = transactions.getDepositValue(depositIndex, false);
         double newAmount = transactions.editDeposit(depositIndex, description, amount, date, ui);
         this.addToAmount(newAmount);
         this.deductFromAmount(oldAmount);
@@ -238,6 +257,9 @@ public class Saving extends Bank {
         if (!"bank".equals(bankType) && !"savings transfer".equals(bankType)) {
             throw new BankException("This account does not support investment account deposits");
         }
+        if (this.getCurrentAmount() + deposit.getAmount() > MAX_AMOUNT) {
+            throw new BankException("The amount in the bank cannot exceed 9 digits");
+        }
         transactions.addDepositToList(deposit, ui, bankType);
         addToAmount(deposit.getAmount());
     }
@@ -247,12 +269,13 @@ public class Saving extends Bank {
      *
      * @param index Transaction number.
      * @param ui    Ui of OwlMoney.
+     * @param isCardBill Is affecting credit card bill deposit.
      * @throws TransactionException If transaction is not a deposit.
      * @throws BankException        If amount becomes negative after editing deposit.
      */
     @Override
-    void deleteDepositTransaction(int index, Ui ui) throws TransactionException, BankException {
-        double depositValue = transactions.getDepositValue(index);
+    void deleteDepositTransaction(int index, Ui ui, boolean isCardBill) throws TransactionException, BankException {
+        double depositValue = transactions.getDepositValue(index, isCardBill);
         if (this.getCurrentAmount() < depositValue) {
             throw new BankException("Bank account cannot have a negative amount");
         } else {
@@ -264,21 +287,20 @@ public class Saving extends Bank {
      * Updates the recurring expenditure to the net date and add an expenditure to expenditure list if overdue.
      *
      * @param recurringExpenditure The recurring expenditure to check.
-     * @param outdatedState        The state of the recurring expenditure if it is outdated.
      * @param ui                   Used for printing.
      * @return Outdated state of the expenditure.
      * @throws BankException If bank amount becomes negative.
      */
-    private boolean savingUpdateRecurringExpenditure(Transaction recurringExpenditure, boolean outdatedState, Ui ui)
+    private boolean savingUpdateRecurringExpenditure(Transaction recurringExpenditure, Ui ui)
             throws BankException {
         DateFormat dateOutputFormat = new SimpleDateFormat("dd MMMM yyyy");
         Date expenditureDate = null;
-        boolean currentState = outdatedState;
         try {
             expenditureDate = dateOutputFormat.parse(recurringExpenditure.getDate());
         } catch (ParseException e) {
             //check is already done when adding expenditure
         }
+        boolean currentState = false;
         if (new Date().compareTo(expenditureDate) >= 0) {
             Transaction newExpenditure = new Expenditure(
                     recurringExpenditure.getDescription(), recurringExpenditure.getAmount(),
@@ -302,21 +324,25 @@ public class Saving extends Bank {
      */
     @Override
     void updateRecurringTransactions(Ui ui) throws BankException {
-        boolean outdatedIncome;
         boolean outdatedExpenditure;
-        do {
-            outdatedExpenditure = false;
-            outdatedIncome = earnedIncome(ui);
-            for (int i = 0; i < recurringExpenditures.getListSize(); i++) {
-                try {
-                    outdatedExpenditure = savingUpdateRecurringExpenditure(
-                            recurringExpenditures.getRecurringExpenditure(i), outdatedExpenditure, ui);
-                } catch (BankException errorMessage) {
-                    ui.printError("There is not enough money in the bank for: "
-                            + recurringExpenditures.getRecurringExpenditure(i).getDescription());
-                }
+        while (true) {
+            if (!earnedIncome(ui)) {
+                break;
             }
-        } while (outdatedIncome || outdatedExpenditure);
+        }
+        for (int i = 0; i < recurringExpenditures.getListSize();) {
+            outdatedExpenditure = false;
+            try {
+                outdatedExpenditure = savingUpdateRecurringExpenditure(
+                        recurringExpenditures.getRecurringExpenditure(i), ui);
+            } catch (BankException errorMessage) {
+                ui.printError("There is not enough money in the bank for: "
+                        + recurringExpenditures.getRecurringExpenditure(i).getDescription());
+            }
+            if (!outdatedExpenditure) {
+                i++;
+            }
+        }
     }
 
     /**
@@ -466,18 +492,6 @@ public class Saving extends Bank {
     @Override
     public void importNewRecurringExpenditure(Transaction expenditure) {
         recurringExpenditures.importRecurringExpenditureToList(expenditure);
-    }
-
-    /**
-     * Returns expenditure amount based on the specified expenditure id.
-     *
-     * @param expenditureId Expenditure id of the expenditure to be searched.
-     * @return Expenditure amount based on the specified expenditure id.
-     * @throws TransactionException If transaction is not an expenditure.
-     */
-    @Override
-    double getExpAmountById(int expenditureId) throws TransactionException {
-        return transactions.getExpenditureAmount(expenditureId);
     }
 
     /**

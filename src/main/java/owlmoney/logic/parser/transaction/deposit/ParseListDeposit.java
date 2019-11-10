@@ -38,12 +38,12 @@ public class ParseListDeposit extends ParseDeposit {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = depositParameters.get(key);
-            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when listing deposits from a bank");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value, FROM_PARAMETER);
             }
-            if (NUM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NUM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 depositParameters.put(key, "30");
             } else if (NUM_PARAMETER.equals(key)) {
                 checkInt(NUM_PARAMETER, value);

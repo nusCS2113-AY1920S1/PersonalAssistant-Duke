@@ -39,7 +39,7 @@ public class DeleteExpenditureCommand extends Command {
      * @throws CardException        If card does not exist.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
-        profile.profileDeleteExpenditure(this.expNumber, this.from, ui, this.type);
+        profile.profileDeleteExpenditure(this.expNumber, this.from, ui, this.type, false);
         return this.isExit;
     }
 }

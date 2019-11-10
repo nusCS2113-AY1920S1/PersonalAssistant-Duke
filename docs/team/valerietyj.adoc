@@ -2,6 +2,8 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 :repoURL: https://github.com/AY1920S1-CS2113T-W17-3/main
+:ArchDukeURL: https://github.com/AY1920S1-CS2113-T13-1/main
+:pedURL: https://github.com/valerietyj/ped/issues
 :experimental:
 
 == *Valerie Tan* - Project Portfolio for OwlMoney
@@ -22,12 +24,6 @@ implementing a command-line based personal assistant.
 
 We decided to name it [.underline]*OwlMoney* as it equipped with the mission to help Undergraduates / Fresh Graduates
 *_manage and track their finances efficiently, effectively, and more conveniently._*
-
-At first start, OwlMoney provides users with a fresh look and thereafter, a
-direct way of entering and accessing the features in OwlMoney:
-[[CLI]]
-.OwlMoney's Command Line Interface
-image::UiReadMe.png[width="800"]
 
 My main responsibility when developing this application was to implement and
 design the code for `goals` feature. The following sections will go in-depth on `goals` feature and
@@ -90,22 +86,32 @@ identify suitable target users, user stories and use cases.
 ** Reviewed Pull Requests
 ** Fixed bugs and errors on Developer Guide, User Guide as per Tutor's advice
 ** Fixed code bugs and implemented ability to edit profile.
+* Community:
+** Reported critical and helpful bugs in another team's project, link:{ArchDukeURL}[ArchDuke] +
+(Full issues reported can be found {pedURL}[here] and some examples are: {ArchDukeURL}/issues/296[#296], {ArchDukeURL}/issues/297[#297],
+{ArchDukeURL}/issues/298[#296], {ArchDukeURL}/issues/306[#306], {ArchDukeURL}/issues/307[#307],
+{ArchDukeURL}/issues/308[#308])
 
 
 
 === Contributions to User Guide
 |===
-|_Listed below are my additions to OwlMoney's User Guide that are specific to end-users which is helpful for them
-to get started with OwlMoney._
+|_The following areas some helpful information specific to guide end-users with `goals` feature on
+OwlMoney's application._
 |===
 
 include::../UserGuide.adoc[tag=goals]
 
 === Contributions to Developer Guide
 |===
-|_Listed below are the areas which I have currently contributed to `goals` features in the Developer Guide, which aims
+|_Listed below are some elaborations on the implementation of `goals` features, which aims
 to provide experienced end-users a walk-through on the design implementation and frameworks of OwlMoney._
 |===
+
+==== Goals Package Class Diagram
 include::../DeveloperGuide.adoc[tag=goals_class]
 
+include::../DeveloperGuide.adoc[tags=goals_sequence]
+
+==== Use Cases for implementation of goals
 include::../DeveloperGuide.adoc[tag=goals_usecase]

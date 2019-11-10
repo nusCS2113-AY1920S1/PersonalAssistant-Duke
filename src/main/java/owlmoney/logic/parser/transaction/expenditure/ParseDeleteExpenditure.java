@@ -41,8 +41,8 @@ public class ParseDeleteExpenditure extends ParseExpenditure {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
             if ((TRANSACTION_NUMBER_PARAMETER.equals(key) || FROM_PARAMETER.equals(key))
-                    && (value.isBlank() || value.isEmpty())) {
-                throw new ParserException(key + " cannot be empty when adding a new expenditure");
+                    && (value == null || value.isBlank())) {
+                throw new ParserException(key + " cannot be empty when deleting an expenditure");
             }
             if (TRANSACTION_NUMBER_PARAMETER.equals(key)) {
                 checkInt(TRANSACTION_NUMBER_PARAMETER, value);

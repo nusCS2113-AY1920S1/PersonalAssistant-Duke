@@ -50,7 +50,7 @@ public class EditGoalsCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws GoalsException, BankException {
-        if (!(savingName.isEmpty() || savingName.isBlank())) {
+        if (!(savingName == null || savingName.isBlank())) {
             savingAccount = profile.profileGetSavingAccount(savingName);
         }
         profile.profileEditGoals(name, amount, date, newName, savingAccount, markDone, ui);

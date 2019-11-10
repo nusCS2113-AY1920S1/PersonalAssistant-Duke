@@ -35,7 +35,7 @@ public class ParseDeleteInvestment extends ParseInvestment {
         while (investmentIterator.hasNext()) {
             String key = investmentIterator.next();
             String value = investmentParameters.get(key);
-            if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when deleting an investment account");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(NAME_PARAMETER, value);

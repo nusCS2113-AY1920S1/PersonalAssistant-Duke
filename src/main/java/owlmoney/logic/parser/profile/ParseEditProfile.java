@@ -83,12 +83,12 @@ public class ParseEditProfile {
             String key = profileIterator.next();
             String value = profileParameters.get(key);
 
-            if (NAME_PARAMETER.equals(key) && (value.isEmpty() || value.isBlank())) {
+            if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException("/name cannot be empty.");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(NAME_PARAMETER, value);
             }
-            if (NEW_NAME_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (NEW_NAME_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkName(NEW_NAME_PARAMETER, value);
                 changeCounter++;
             }

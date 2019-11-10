@@ -47,7 +47,7 @@ class Main {
      * @throws MainException If name is empty or if name contain special characters
      */
     private void checkUserName(String name) throws MainException {
-        if (name.isEmpty() || name.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new MainException("Name cannot be empty!");
         }
         if (!RegexUtil.regexCheckName(name)) {
@@ -91,6 +91,8 @@ class Main {
             profile.profileReminderForGoals();
         } catch (IOException exceptionMessage) {
             ui.printError("Unable to import profile files, starting fresh");
+            MainImport mainImport = new MainImport();
+            mainImport.createAllFiles();
             ui.firstTimeRun();
             getUserName();
             ui.greet(profile.profileGetUsername());
@@ -106,8 +108,7 @@ class Main {
             try {
                 Command command = parser.parseLine();
                 hasExited = command.execute(profile, ui);
-                Command updateProfile = new UpdateCommand(false);
-                updateProfile.execute(profile, ui);
+                profile.profileAddAchievement();
                 if (hasExited) {
                     break;
                 }

@@ -68,7 +68,7 @@ public class ParseCommand extends Parser {
      * @throws ParserException if it is blank or full of spaces.
      */
     private void parseIsBlank(String input) throws ParserException {
-        if (input.isBlank() || input.isEmpty()) {
+        if (input == null || input.isBlank()) {
             throw new ParserException("Input cannot be blank or space-bar only");
         }
     }

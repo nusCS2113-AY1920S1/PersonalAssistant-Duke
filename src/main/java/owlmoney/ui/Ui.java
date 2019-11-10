@@ -36,6 +36,9 @@ public class Ui {
     private static final String RECURRING_TRANSACTION_TYPE = "recurTransaction";
     private static final String NEXT_EXPENSE_DATE = "Next Expense Date";
     private static final String RECURRING_ITEM_TYPE = "recurItem";
+    private static final String ACHIEVEMENT_NAME = "Achievement Name";
+    private static final String ACHIEVEMENT_AMOUNT = "Amount saved";
+    private static final String ACHIEVEMENT_DATE = "Date set to achieve";
     private static final String NEWLINE = System.lineSeparator();
 
     /**
@@ -147,26 +150,48 @@ public class Ui {
      * Prints the goal header.
      */
     public void printGoalHeader() {
-        System.out.printf("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %n", ITEMNO, GOAL_NAME, GOAL_AMOUNT,
-                GOAL_BANK_NAME,
+        System.out.printf("%-9s %-22s %-20s %-30s %-20s %-20s %-20s %n", ITEMNO, GOAL_NAME, GOAL_AMOUNT, GOAL_BANK_NAME,
                 GOAL_PROGRESS, GOAL_DATE, GOAL_ACHIEVED);
 
         System.out.println("-----------------------------------------------------------------------------"
-                + "--------------------------------------------------------------");
+                + "---------------------------------------------------------------");
     }
 
     /**
      * Prints the goal details being specified.
      *
      * @param num    Represents the numbering of the goal.
-     * @param name   Represents the goal name
+     * @param name   Represents the goal name.
      * @param amount Represents the amount to save up in the goal.
      * @param date   Represents the date to accomplish the goal.
      */
-    public void printGoal(int num, String name, String amount, String bankName, String progress,
-            String date, String achieved) {
-        System.out.printf("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %n", num, name, amount,
-                bankName, progress, date, achieved);
+    public void printGoal(int num, String name, String amount, String bankName, String progress, String date,
+            String achieved) {
+        System.out.printf("%-9s %-22s %-20s %-30s %-20s %-20s %-20s %n", num, name, amount, bankName, progress,
+                date, achieved);
+    }
+
+    /**
+     * Prints the achievement header.
+     */
+    public void printAchievementHeader() {
+        System.out.printf("%-9s %-22s %-20s %-20s %n", ITEMNO, ACHIEVEMENT_NAME,
+                ACHIEVEMENT_AMOUNT, ACHIEVEMENT_DATE);
+
+        System.out.println("-----------------------------------------------------------------------------"
+                + "----------------------------------------------------");
+    }
+
+    /**
+     * Prints the achievement details being specified.
+     *
+     * @param num    Represents the numbering of the achievement.
+     * @param name   Represents the achievement name.
+     * @param amount Represents the amount to save up in the goal.
+     * @param date   Represents the date to accomplish the goal.
+     */
+    public void printAchievement(int num, String name, String amount, String date) {
+        System.out.printf("%-9s %-22s %-20s %-20s %n", num, name, amount, date);
     }
 
     /**
@@ -208,7 +233,7 @@ public class Ui {
      */
     public void printGoalDivider() {
         System.out.println("-----------------------------------------------------------------------------"
-                + "--------------------------------------------------------------");
+                + "---------------------------------------------------------------");
     }
 
     /**

@@ -533,19 +533,28 @@ class CardTest {
                 dateFormat.parse("06/06/2019"), "Food");
         Expenditure newExpenditure2 = new Expenditure("Fried Rice", 300,
                 dateFormat.parse("10/07/2019"), "Food");
+        String expectedOutput = EXPECTED_BUT_NO_PAID_EXPENDITURE
+                + NEWLINE + NEWLINE
+                + HEADER_LIST_UNPAID_EXPENDITURE + DIVIDER
+                + "3                    Fried Rice                                              "
+                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
+                + "2                    Curry Rice                                              "
+                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "1                    Chicken Rice                                            "
+                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + DIVIDER;
         try {
             testCard.addInExpenditure(newExpenditure0, testUi, "card");
             testCard.addInExpenditure(newExpenditure1, testUi, "card");
             testCard.addInExpenditure(newExpenditure2, testUi, "card");
+            System.setOut(new PrintStream(outContent));
             testCard.transferExpUnpaidToPaid(YearMonth.parse("2019-10"), "bank");
+            testCard.listAllExpenditure(testUi, 10);
         } catch (CardException | TransactionException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
         }
-        assertEquals(0, testCard.getPaidSize());
-        assertEquals(3, testCard.getUnpaidSize());
-        assertEquals(newExpenditure0, testCard.getUnpaid(0));
-        assertEquals(newExpenditure1, testCard.getUnpaid(1));
-        assertEquals(newExpenditure2, testCard.getUnpaid(2));
+        assertEquals(expectedOutput, outContent.toString());
+        outContent.reset();
     }
 
     @Test
@@ -558,19 +567,27 @@ class CardTest {
                 dateFormat.parse("06/06/2019"), "Food");
         Expenditure newExpenditure2 = new Expenditure("Fried Rice", 300,
                 dateFormat.parse("10/07/2019"), "Food");
+        String expectedOutput = HEADER_LIST_PAID_EXPENDITURE + DIVIDER
+                + "3                    Fried Rice                                              "
+                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
+                + "2                    Curry Rice                                              "
+                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "1                    Chicken Rice                                            "
+                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + DIVIDER + NEWLINE
+                + EXPECTED_BUT_NO_UNPAID_EXPENDITURE + NEWLINE;
         try {
             testCard.addInPaidExpenditure(newExpenditure0, testUi, "card");
             testCard.addInPaidExpenditure(newExpenditure1, testUi, "card");
             testCard.addInPaidExpenditure(newExpenditure2, testUi, "card");
+            System.setOut(new PrintStream(outContent));
             testCard.transferExpPaidToUnpaid(YearMonth.parse("2019-10"), "bank");
+            testCard.listAllExpenditure(testUi, 10);
         } catch (CardException | TransactionException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
         }
-        assertEquals(3, testCard.getPaidSize());
-        assertEquals(0, testCard.getUnpaidSize());
-        assertEquals(newExpenditure0, testCard.getPaid(0));
-        assertEquals(newExpenditure1, testCard.getPaid(1));
-        assertEquals(newExpenditure2, testCard.getPaid(2));
+        assertEquals(expectedOutput, outContent.toString());
+        outContent.reset();
     }
 
     @Test
@@ -583,19 +600,28 @@ class CardTest {
                 dateFormat.parse("06/06/2019"), "Food");
         Expenditure newExpenditure2 = new Expenditure("Fried Rice", 300,
                 dateFormat.parse("10/07/2019"), "Food");
+        String expectedOutput = HEADER_LIST_PAID_EXPENDITURE + DIVIDER
+                + "1                    Fried Rice                                              "
+                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
+                + DIVIDER + NEWLINE
+                + HEADER_LIST_UNPAID_EXPENDITURE + DIVIDER
+                + "2                    Curry Rice                                              "
+                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "1                    Chicken Rice                                            "
+                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + DIVIDER;
         try {
             testCard.addInPaidExpenditure(newExpenditure0, testUi, "card");
             testCard.addInPaidExpenditure(newExpenditure1, testUi, "card");
             testCard.addInPaidExpenditure(newExpenditure2, testUi, "card");
+            System.setOut(new PrintStream(outContent));
             testCard.transferExpPaidToUnpaid(YearMonth.parse("2019-06"), "bank");
+            testCard.listAllExpenditure(testUi, 10);
         } catch (CardException | TransactionException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
         }
-        assertEquals(1, testCard.getPaidSize());
-        assertEquals(2, testCard.getUnpaidSize());
-        assertEquals(newExpenditure2, testCard.getPaid(0));
-        assertEquals(newExpenditure0, testCard.getUnpaid(0));
-        assertEquals(newExpenditure1, testCard.getUnpaid(1));
+        assertEquals(expectedOutput, outContent.toString());
+        outContent.reset();
     }
 
     @Test
@@ -608,19 +634,28 @@ class CardTest {
                 dateFormat.parse("06/06/2019"), "Food");
         Expenditure newExpenditure2 = new Expenditure("Fried Rice", 300,
                 dateFormat.parse("10/07/2019"), "Food");
+        String expectedOutput = HEADER_LIST_PAID_EXPENDITURE + DIVIDER
+                + "3                    Fried Rice                                              "
+                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
+                + "2                    Curry Rice                                              "
+                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "1                    Chicken Rice                                            "
+                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + DIVIDER + NEWLINE
+                + EXPECTED_BUT_NO_UNPAID_EXPENDITURE
+                + NEWLINE;
         try {
             testCard.addInPaidExpenditure(newExpenditure0, testUi, "card");
             testCard.addInPaidExpenditure(newExpenditure1, testUi, "card");
             testCard.addInPaidExpenditure(newExpenditure2, testUi, "card");
+            System.setOut(new PrintStream(outContent));
             testCard.transferExpPaidToUnpaid(YearMonth.parse("2019-10"), "bank");
+            testCard.listAllExpenditure(testUi, 10);
         } catch (CardException | TransactionException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
         }
-        assertEquals(3, testCard.getPaidSize());
-        assertEquals(0, testCard.getUnpaidSize());
-        assertEquals(newExpenditure0, testCard.getPaid(0));
-        assertEquals(newExpenditure1, testCard.getPaid(1));
-        assertEquals(newExpenditure2, testCard.getPaid(2));
+        assertEquals(expectedOutput, outContent.toString());
+        outContent.reset();
     }
 
     @Test
@@ -633,19 +668,28 @@ class CardTest {
                 dateFormat.parse("06/06/2019"), "Food");
         Expenditure newExpenditure2 = new Expenditure("Fried Rice", 300,
                 dateFormat.parse("10/07/2019"), "Food");
+        String expectedOutput = EXPECTED_BUT_NO_PAID_EXPENDITURE
+                + NEWLINE + NEWLINE
+                + HEADER_LIST_UNPAID_EXPENDITURE + DIVIDER
+                + "3                    Fried Rice                                              "
+                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
+                + "2                    Curry Rice                                              "
+                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "1                    Chicken Rice                                            "
+                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + DIVIDER;
         try {
             testCard.addInExpenditure(newExpenditure0, testUi, "card");
             testCard.addInExpenditure(newExpenditure1, testUi, "card");
             testCard.addInExpenditure(newExpenditure2, testUi, "card");
+            System.setOut(new PrintStream(outContent));
             testCard.transferExpPaidToUnpaid(YearMonth.parse("2019-10"), "bank");
+            testCard.listAllExpenditure(testUi, 10);
         } catch (CardException | TransactionException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
         }
-        assertEquals(0, testCard.getPaidSize());
-        assertEquals(3, testCard.getUnpaidSize());
-        assertEquals(newExpenditure0, testCard.getUnpaid(0));
-        assertEquals(newExpenditure1, testCard.getUnpaid(1));
-        assertEquals(newExpenditure2, testCard.getUnpaid(2));
+        assertEquals(expectedOutput, outContent.toString());
+        outContent.reset();
     }
 }
 
