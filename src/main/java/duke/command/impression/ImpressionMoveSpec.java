@@ -57,7 +57,7 @@ public class ImpressionMoveSpec extends ObjSpec {
         } else if (impressionResults.getCount() == 1) {
             newImpression = (Impression) impressionResults.getResult(0);
         } else {
-            core.uiContext.open(impressionResults);
+            core.search(impressionResults, cmd);
         }
 
         if (moveData != null && newImpression != null) {
@@ -70,7 +70,7 @@ public class ImpressionMoveSpec extends ObjSpec {
         if (newImpression == null) { // impression has not been identified
             newImpression = (Impression) obj;
             if (moveData == null) {
-                core.uiContext.open(dataResults);
+                core.search(dataResults, cmd);
                 return;
             }
         } else if (moveData == null) {
