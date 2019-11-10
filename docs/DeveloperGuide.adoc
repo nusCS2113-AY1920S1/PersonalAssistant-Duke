@@ -31,6 +31,9 @@ and completed.
 [width="100%",cols="25%, <75%", options="header"]
 |=======================================================================
 | Revision Date | Summary of Changes
+| 10 November 2019  | Version 1.8: Included Class Diagrams for Storage layer and Repository layer
+| 9 November 2019   | Version 1.7: Added more documentation regarding implementation of Assignment
+| 8 November 2019   | Version 1.6: Added documentation regarding CI and Code Quality
 | 5 November 2019   | Version 1.5: Small updates to AssignmentController and reorganising content
 | 1 November 2019   | Version 1.4: Added documentation on Reminder and logging functionality
 | 31 October 2019   | Version 1.3: Added documentation for Member and Tasks functionality
