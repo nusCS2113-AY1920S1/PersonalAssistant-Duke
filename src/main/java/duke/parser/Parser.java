@@ -428,6 +428,10 @@ public class Parser {
             for (int i = Numbers.ONE.value; i < arr.length; i++) {
                 description += arr[i] + " ";
             }
+
+            if (!description.contains("/on")) {
+                throw new DukeException("     (>_<) OOPS!!! The format for finddate is 'finddate /on <dd/mm/yyyy>'");
+            }
             String[] holder =  description.split("/on");
             if (holder.length == 1) {
                 throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
