@@ -1,3 +1,4 @@
+//@@author
 
 package mistermusik;
 
@@ -37,7 +38,7 @@ public class Main {
             userInput = parser.readUserInput();
         }
 
-        ui.bye();
+        ui.printGoodbyeMsg();
     }
 
     /**

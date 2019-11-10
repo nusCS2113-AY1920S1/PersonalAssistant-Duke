@@ -5,6 +5,7 @@ package mistermusik.commons.events.formatting;
  * certain predicate.
  */
 
+//@@author
 public class Predicate<T> {
 
     /**
@@ -77,7 +78,7 @@ public class Predicate<T> {
         }
         return false;
     }
-    
+
     /**
      * Compares the input string against the reference to check if the predicate is true.
      */
