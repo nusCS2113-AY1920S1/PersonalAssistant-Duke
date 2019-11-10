@@ -13,9 +13,9 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
-//@@author VirginiaYu
-
 /**
+ * @author VirginiaYu
+ *
  * Represents a specific {@link Command} used to cancel an undone {@link Order} from the {@link OrderList}.
  */
 public class CancelOrderCommand extends Command {
@@ -30,6 +30,15 @@ public class CancelOrderCommand extends Command {
         this.orderIndex = orderNumber;
     }
 
+    /**
+     * Public method used to cancel an existing undone order in the orderList, and delete it from the hard disc.
+     * Print out corresponding info if removing successfully
+     *
+     * @param orderList the {@link OrderList} to be expanded
+     * @param ui       {@link Ui} used for printing the order output
+     * @param orderStorage  {@link OrderStorage} writes in the file on the hard disc
+     * @throws DukeException Error while cancelling the order, or updating to the hard disc
+     */
     @Override
     public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage, RecipeStorage rs) throws DukeException, IOException {
 
