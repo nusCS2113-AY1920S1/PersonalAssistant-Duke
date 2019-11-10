@@ -25,7 +25,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Finds all the tasks with a particular keyword and passes it to UI which prints to user.
+     * Finds all the tasks with a particular keyword and passes it to UIMessageHandler which prints to user.
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
