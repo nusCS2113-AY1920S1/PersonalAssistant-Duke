@@ -1,5 +1,6 @@
 package sgtravel.logic;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.ApiException;
 import sgtravel.commons.exceptions.ChronologyAfterPresentException;
 import sgtravel.commons.exceptions.ChronologyBeforePresentException;
@@ -16,7 +17,10 @@ import sgtravel.model.Model;
 import sgtravel.model.ModelManager;
 
 import javafx.scene.input.KeyCode;
+import sgtravel.model.lists.RouteList;
+import sgtravel.model.planning.Itinerary;
 
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -84,11 +88,19 @@ public class LogicManager implements Logic {
         return conversationManager.getCommand();
     }
 
-    public String getName() {
-        return model.getName();
-    }
-
-    public Model getModel() {
-        return model;
+    /**
+     * Gets the welcome message.
+     * @return The welcome message.
+     */
+    public String getWelcomeMessage() {
+        HashMap<String, Itinerary> itineraries = model.getItineraryTable();
+        RouteList routes = model.getRoutes();
+        String message = Messages.STARTUP_WELCOME_MESSAGE + model.getName() + "\n\n";
+        message += Messages.STARTUP_WELCOME_MESSAGE_ITINERARY_START + itineraries.size()
+                + Messages.STARTUP_WELCOME_MESSAGE_ITINERARY_END;
+        message += Messages.STARTUP_WELCOME_MESSAGE_ROUTE_START + routes.size()
+                + Messages.STARTUP_WELCOME_MESSAGE_ROUTE_END;
+        message += Messages.STARTUP_WELCOME_MESSAGE_HELP;
+        return message;
     }
 }

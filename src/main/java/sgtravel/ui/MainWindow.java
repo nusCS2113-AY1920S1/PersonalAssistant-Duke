@@ -200,17 +200,7 @@ public class MainWindow extends UiPart<Stage> {
      * Shows the welcome message.
      */
     private void sgTravelShowWelcome() {
-        Model model = logic.getModel();
-        HashMap<String, Itinerary> itineraries = model.getItineraryTable();
-        RouteList routes = model.getRoutes();
-
-        String message = Messages.STARTUP_WELCOME_MESSAGE + logic.getName() + "\n\n";
-        message += Messages.STARTUP_WELCOME_MESSAGE_ITINERARY_START + itineraries.size()
-                + Messages.STARTUP_WELCOME_MESSAGE_ITINERARY_END;
-        message += Messages.STARTUP_WELCOME_MESSAGE_ROUTE_START + routes.size()
-                + Messages.STARTUP_WELCOME_MESSAGE_ROUTE_END;
-        message += Messages.STARTUP_WELCOME_MESSAGE_HELP;
-
+        String message = logic.getWelcomeMessage();
         sgTravelShow(message);
     }
 
