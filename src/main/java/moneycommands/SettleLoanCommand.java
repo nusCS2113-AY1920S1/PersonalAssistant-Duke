@@ -116,6 +116,9 @@ public class SettleLoanCommand extends MoneyCommand {
             throw new DukeException("Whoa! The amount entered is more than debt! "
                     + "Type 'all' to settle the entire debt\n");
         }
+        if (loanList.get(serialNo).getOutstandingLoan() == 0) {
+            throw new DukeException("Whoa! The loan has already been settled!\n");
+        }
         Loan l = loanList.get(serialNo);
         amount = (amount == SETTLE_ALL_FLAG) ? l.getOutstandingLoan() : amount;
         l.settleLoanDebt(amount);
@@ -157,6 +160,10 @@ public class SettleLoanCommand extends MoneyCommand {
                 amount = SETTLE_ALL_FLAG;
             } else {
                 amount = Float.parseFloat(splitStr[0]);
+            }
+
+            if (amount <= 0 && amount != SETTLE_ALL_FLAG) {
+                throw new DukeException("Amount settled must be more than zero!\n");
             }
 
             if (Parser.isNumeric(splitStr[1])) {

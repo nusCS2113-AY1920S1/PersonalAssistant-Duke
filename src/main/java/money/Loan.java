@@ -53,16 +53,20 @@ public class Loan extends Item {
     @Override
     public String toString() {
         String typeStr;
+        String loanDirectionStr;
         if (type == Type.OUTGOING) {
             typeStr = " [O]";
+            loanDirectionStr = "Lent";
         } else if (type == Type.INCOMING) {
             typeStr = " [I]";
+            loanDirectionStr = "Borrowed";
         } else {
             typeStr = null;
+            loanDirectionStr = null;
         }
         String status = isSettled ? "[Settled]" : "[Outstanding]";
-        return status + typeStr + " " + super.getDescription() + "(loan: $" + super.getPriceStr() + ") (Lent On: "
-                + getStartDate() + ")" + getEndDateString();
+        return status + typeStr + " " + super.getDescription() + "(loan: $" + super.getPriceStr() + ") ("
+                + loanDirectionStr + " On: " + getStartDate() + ")" + getEndDateString();
     }
 
     public boolean getStatus() {

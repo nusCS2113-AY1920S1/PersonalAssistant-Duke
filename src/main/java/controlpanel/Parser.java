@@ -164,9 +164,8 @@ public class Parser {
      * Returns the formatted Date from user inputted date.
      * @param dateStr user input of date
      * @return formatted Date based on user inputted date
-     * @throws ParseException if invalid date is parsed
      */
-    public static LocalDate shortcutTime(String dateStr) throws ParseException {
+    public static LocalDate shortcutTime(String dateStr) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String time = dateStr.replaceAll(" ", "");
         final Calendar cal = Calendar.getInstance();
