@@ -651,41 +651,54 @@ public class Command {
             if (goalCommand.length == 3) {
                 int goalIndex = Integer.parseInt(goalCommand[2]);
                 switch (goalCommand[0]) {
-                case "delete":
-                    if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                        String deletedGoal = events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getGoal();
-                        events.getEvent(eventIndex).removeGoal(goalIndex - 1);
-                        ui.printGoalDeleted(deletedGoal);
-                    } else {
-                        ui.printNoSuchGoal();
-                    }
-                    break;
-
-                case "edit":
-                    if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                        Goal newGoal = new Goal(splitGoal[1]);
-                        events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
-                        ui.printGoalUpdated(events, eventIndex, goalIndex - 1);
-                    } else {
-                        ui.printNoSuchGoal();
-                    }
-                    break;
-
-                case "achieved":
-                    if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                        if(events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
-                            ui.printGoalAlreadyAchieved();
+                    case "delete":
+                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                            try {
+                                String deletedGoal = events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getGoal();
+                                events.getEvent(eventIndex).removeGoal(goalIndex - 1);
+                                ui.printGoalDeleted(deletedGoal);
+                            } catch (IndexOutOfBoundsException iE) {
+                                ui.printNoSuchGoal();
+                            }
                         } else {
-                            events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
-                            ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                            ui.printNoSuchGoal();
                         }
-                    } else {
-                        ui.printNoSuchGoal();
-                    }
-                    break;
-                default:
-                    ui.printGoalCommandInvalid();
-                    break;
+                        break;
+
+                    case "edit":
+                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                            try {
+                                Goal newGoal = new Goal(splitGoal[1]);
+                                events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
+                                ui.printGoalUpdated(events, eventIndex, goalIndex - 1);
+                            } catch (IndexOutOfBoundsException iE) {
+                                ui.printNoSuchGoal();
+                            }
+                        } else {
+                            ui.printNoSuchGoal();
+                        }
+                        break;
+
+                    case "achieved":
+                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                            try {
+                                if (events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
+                                    ui.printGoalAlreadyAchieved();
+                                } else {
+                                    events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
+                                    ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                                }
+                            } catch (IndexOutOfBoundsException iE) {
+                                ui.printNoSuchGoal();
+                            }
+                        } else {
+                            ui.printNoSuchGoal();
+                        }
+                        break;
+
+                    default:
+                        ui.printGoalCommandInvalid();
+                        break;
                 }
             } else {
                 switch (goalCommand[0]) {
@@ -710,6 +723,7 @@ public class Command {
             ui.printNotAnInteger();
         }
     }
+
 
     //@@author YuanJiayi
 
