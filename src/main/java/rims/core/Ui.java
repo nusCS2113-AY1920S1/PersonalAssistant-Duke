@@ -1,12 +1,12 @@
 package rims.core;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 //@@author rabhijit
 /**
@@ -31,18 +31,23 @@ public class Ui {
         "How can I help you?",
         "\n",
         "Type 'help' to display a list of all commands supported by RIMS."));
-    protected ArrayList<String> commands = new ArrayList<String>(Arrays.asList("COMMANDS CURRENTLY SUPPORTED BY RIMS:\n",
-        "add - add a new resource to inventory",
-        "delete - delete an existing resource from inventory",
-        "loan - loan out an item from now till your desired future date",
-        "reserve - reserve an item between two future dates",
-        "return - return a loan or reservation",
-        "list - see all resources and current reservations",
-        "\t" + "list /item - see all loans and future reservations of a particular item",
-        "\t" + "list /room - see all loans and future reservations of a particular room",
-        "deadlines - view all currently active loans and reservations",
-        "stats - view loan and reservation statistics",
-        "undo - undo the last command that modified inventory data"));
+    protected ArrayList<String> commands = new ArrayList<String>(
+            Arrays.asList("COMMANDS CURRENTLY SUPPORTED BY RIMS:\n",
+            "add - add a new resource to inventory",
+            "delete - delete an existing resource from inventory",
+            "loan - loan out an item from now till your desired future date",
+            "reserve - reserve an item between two future dates",
+            "return - return a loan or reservation",
+            "list - see all resources and current reservations",
+            "\t" + "list /item - see all loans and future reservations of a particular item",
+            "\t" + "list /room - see all loans and future reservations of a particular room",
+            "\t" + "list /date - see all resources available on a particular date",
+            "deadlines - view all currently active loans and reservations",
+            "stats - view loan and reservation statistics",
+            "calendar - view a monthly calendar showing all booked resources",
+            "\t" + "calendar+ - enlarge the cell size of the calendar",
+            "\t" + "calendar- - reduce the cell size of the calendar",
+            "undo - undo the last command that modified inventory data"));
 
     public Ui() {
         inputScanner = new Scanner(System.in);
@@ -51,7 +56,7 @@ public class Ui {
 
     /**
      * Obtains a new String input from the user.
-     * 
+     *
      * @return the new input typed by the user.
      */
     public String getInput() {
@@ -64,7 +69,7 @@ public class Ui {
     /**
      * Prints a question for the user, before obtaining a new String input in
      * response from the user.
-     * 
+     *
      * @return the new input typed by the user.
      */
     public String getInput(String question) {
@@ -77,7 +82,7 @@ public class Ui {
     /**
      * Obtains a new integer input from the user, without requiring conversion from
      * String to integer format.
-     * 
+     *
      * @return the new integer input typed by the user.
      */
     public int getIntegerInput() {
@@ -89,7 +94,7 @@ public class Ui {
     /**
      * Prints a question for the user, before obtaining a new integer input in
      * response from the user.
-     * 
+     *
      * @return the new integer input typed by the user.
      */
     public int getIntegerInput(String question) {
@@ -184,7 +189,7 @@ public class Ui {
      * Prints the RIMS logo, as part of the RIMS welcome message.
      */
     public void printLogo() {
-        String logo = "\n" 
+        String logo = "\n"
                 +
                 tab + "          _____                    _____"
                 + "                    _____                    _____          \n"

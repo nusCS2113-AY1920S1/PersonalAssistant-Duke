@@ -1,15 +1,18 @@
 package rims.command;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 
 import rims.core.ResourceList;
 import rims.core.Ui;
 import rims.core.Storage;
+
 import rims.resource.Resource;
 import rims.resource.Item;
 import rims.resource.Room;
 import rims.resource.ReservationList;
+
 import rims.exception.RimsException;
 
 //@@author hin1
@@ -24,7 +27,7 @@ public class DeleteCommand extends Command {
     /**
      * Constructor for a DeleteCommand, that takes in the name and type of the
      * Resource to be deleted.
-     * 
+     *
      * @param resourceName the name of the Resource to be deleted.
      * @param resourceType the type (Item or Room) of the Resource to be deleted.
      */
@@ -38,8 +41,8 @@ public class DeleteCommand extends Command {
     /**
      * Obtains the resource IDs of the Resources to be deleted from the user,
      * removes them from the ResourceList, and prints a message to the CLI that the
-     * Resource objects have been succesfully deleted.
-     * 
+     * Resource objects have been successfully deleted.
+     *
      * @param ui        An instance of the user interface.
      * @param storage   An instance of the Storage class.
      * @param resources The ResourceList, containing all the created Resources thus
@@ -47,9 +50,8 @@ public class DeleteCommand extends Command {
      * @throws RimsException if the resource IDs specified by the user are invalid
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException, IOException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
         storage.saveToFile(resources.getResources());
-
         if (resourceType.equals("room")) {
             Resource thisResource = resources.getResourceByName(resourceName);
             resources.deleteResourceByName(resourceName);
@@ -79,10 +81,14 @@ public class DeleteCommand extends Command {
             //@@author rabhijit
             ui.printDash();
             String idInput = ui.getInput(
-                    "Type in the resource ID(s) (separated by a space for multiple IDs) that you wish to delete:");
+                    "Type in the resource ID(s) (separated by a space for multiple IDs)"
+                    + "that you wish to delete:").trim();
+            if (idInput.isEmpty()) {
+                throw new RimsException("Please specify the IDs of the resources you wish to delete!");
+            }
             String[] splitIdInput = idInput.split(" ");
             ArrayList<Integer> intIdInput = new ArrayList<Integer>();
-            for (int i = 0; i < splitIdInput.length; i++) { ;
+            for (int i = 0; i < splitIdInput.length; i++) {
                 intIdInput.add(Integer.parseInt(splitIdInput[i]));
             }
             ArrayList<Resource> deletedResources = new ArrayList<Resource>();
@@ -97,7 +103,8 @@ public class DeleteCommand extends Command {
             ui.print("The following item(s) have been successfully deleted:");
             for (int k = 0; k < deletedResources.size(); k++) {
                 Resource thisDeletedResource = deletedResources.get(k);
-                ui.print(thisDeletedResource.toString() + " (resource ID: " + thisDeletedResource.getResourceId() + ")");
+                ui.print(thisDeletedResource.toString()
+                        + " (resource ID: " + thisDeletedResource.getResourceId() + ")");
             }
             ui.printLine();
 
@@ -106,8 +113,8 @@ public class DeleteCommand extends Command {
     }
 
     //@@author hin1
-    private void addIdsToCommandUserInput(ArrayList<Integer> IdArray) {
-        for (int i : IdArray) {
+    private void addIdsToCommandUserInput(ArrayList<Integer> idArray) {
+        for (int i : idArray) {
             commandUserInput += (i + ", ");
         }
     }

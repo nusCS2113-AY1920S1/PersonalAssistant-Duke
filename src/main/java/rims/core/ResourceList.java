@@ -1,20 +1,24 @@
 package rims.core;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import rims.core.Ui;
+
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
 import rims.resource.Item;
 import rims.resource.Room;
+
 import rims.exception.RimsException;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 
 //@@author rabhijit
 /**
@@ -29,7 +33,7 @@ public class ResourceList {
     /**
      * Constructor for the ResourceList. Takes in an array of Resources from the
      * Storage instance and saves it.
-     * 
+     *
      * @param resources the array of Resources, as converted from text in the
      *                  save-file by the Storage instance
      */
@@ -39,7 +43,7 @@ public class ResourceList {
         printResourcesDueSoon(3);
     }
 
-    // @author rabhijit
+    // @author hin1
     /**
      * This method prints all the resources that are due soon (deadline within 3 days).
      */
@@ -76,9 +80,10 @@ public class ResourceList {
         ui.printLine();
     }
 
+    //@@author rabhijit
     /**
      * Adds a new Resource to the ResourceList.
-     * 
+     *
      * @param thisResource the newly created Resource.
      */
     public void add(Resource thisResource) {
@@ -88,7 +93,7 @@ public class ResourceList {
     /**
      * Removes a Resource from the ResourceList, as specified by the resource's
      * name.
-     * 
+     *
      * @param resourceName the name of the Resource
      * @throws RimsException if there is no such Resource of that name.
      */
@@ -111,7 +116,7 @@ public class ResourceList {
     /**
      * Removes a Resource from the ResourceList, as specified by the ID of that
      * resource.
-     * 
+     *
      * @param resourceId the ID of the Resource
      * @throws RimsException if there is no such resource with that ID.
      */
@@ -231,7 +236,7 @@ public class ResourceList {
     }
 
     /**
-     * Checks if a Resource is an Room.
+     * Checks if a Resource is a Room.
      *
      * @param resourceName the name of the Resource to be checked.
      * @return a boolean: true if it is a room, false if it is an item.
@@ -262,7 +267,7 @@ public class ResourceList {
     // @@author isbobby
     /**
      * Returns the number of resources of a certain name.
-     * 
+     *
      * @param resourceName the name of the Resources to be counted.
      * @return the number of Resources with that name.
      */
@@ -280,7 +285,7 @@ public class ResourceList {
     /**
      * Returns the number of resources of a certain name that are currently
      * available to be booked.
-     * 
+     *
      * @param resourceName the name of the Resource in question.
      * @return the number of available Resources with that name.
      */
@@ -299,7 +304,7 @@ public class ResourceList {
     /**
      * Returns the number of resources of a certain name that are available between
      * two given dates.
-     * 
+     *
      * @param resourceName the name of the Resource in question.
      * @param dateFrom     the date from which the Resource should be available.
      * @param dateTill     the date till which the Resource should be availble.
@@ -320,12 +325,12 @@ public class ResourceList {
     /**
      * Returns the number of resources of a certain name that are currently
      * available to be booked.
-     * 
+     *
      * @param resourceName the name of the Resource in question.
      * @param date         the date that is being checked.
      * @return the number of available Resources with that name on that date.
      */
-    public int getAvailableNumberOfResourceForDate(String resourceName, String date) throws ParseException {
+    public int getAvailableNumberOfResourceForDate(String resourceName, String date) throws RimsException {
         ArrayList<Resource> allOfResource = getAllOfResource(resourceName);
         Date checkedDate = stringToDate(date);
         int number = 0;
@@ -337,9 +342,10 @@ public class ResourceList {
         return number;
     }
 
+    //@@author rabhijit
     /**
      * Returns the number of resources of a certain name that are currently booked.
-     * 
+     *
      * @param resourceName the name of the Resource in question.
      * @return the number of booked Resources with that name.
      */
@@ -357,12 +363,13 @@ public class ResourceList {
     // @@author aarushisingh1
     /**
      * Returns the number of resources of a certain name that are currently booked.
-     * 
+     *
      * @param resourceName the name of the Resource in question.
      * @param date         the date that that is being checked
      * @return the number of booked Resources with that name on that date.
+     * @throws ParseException if the date is in an invalid format.
      */
-    public int getBookedNumberOfResourceForDate(String resourceName, String date) throws ParseException {
+    public int getBookedNumberOfResourceForDate(String resourceName, String date) throws RimsException {
         ArrayList<Resource> allOfResource = getAllOfResource(resourceName);
         Date checkedDate = stringToDate(date);
         int number = 0;
@@ -374,13 +381,13 @@ public class ResourceList {
         return number;
     }
 
-    /**
+    /** Returns the number of resources that are currently booked on a certain date.
      *
-     * @param date
-     * @return
-     * @throws ParseException
+     * @param date the date for which the number resources are to be obtained.
+     * @return the number of booked Resources on that date.
+     * @throws ParseException if the date is in an invalid format.
      */
-    public int getBookedNumberOfResourceForDate(Date date) throws ParseException {
+    public int getBookedNumberOfResourceForDate(Date date) {
         int number = 0;
         for (int i = 0; i < resources.size(); i++) {
             if (!resources.get(i).isAvailableOnDate(date)) {
@@ -393,7 +400,7 @@ public class ResourceList {
     //@@author rabhijit
     /**
      * Returns the list of reservations made by a user, given the user's ID.
-     * 
+     *
      * @param userId the ID of the user whose reservations are to be obtained.
      * @return the list of reservations made by the aforementioned user.
      */
@@ -411,7 +418,7 @@ public class ResourceList {
     /**
      * Generates a unique reservation ID for each new reservation made, regardless
      * of which resource that reservation is made for.
-     * 
+     *
      * @return a unique reservation ID.
      */
     public int generateReservationId() {
@@ -436,19 +443,25 @@ public class ResourceList {
     /**
      * Converts a date and time inputted by the user in String format, into a Date
      * object.
-     * 
+     *
      * @param stringDate the date and time inputted by the user in String format.
      * @return a Date object representing the date and time inputted by the user.
+     * @throws RimsException if stringDate cannot be formatted into a date.
      */
-    public Date stringToDate(String stringDate) throws ParseException {
+    public Date stringToDate(String stringDate) throws RimsException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        Date dateValue = formatter.parse(stringDate);
+        Date dateValue;
+        try {
+            dateValue = formatter.parse(stringDate);
+        } catch (ParseException e) {
+            throw new RimsException("Invalid format of date " + stringDate + "!");
+        }
         return dateValue;
     }
 
     /**
      * Converts a Date object to a compact String, to be saved into a data file.
-     * 
+     *
      * @param thisDate the Date object to be converted into a String.
      * @return a String representing the Date object.
      */
@@ -460,7 +473,7 @@ public class ResourceList {
 
     /**
      * Converts a Date object into a human-readable String, for the user's reading.
-     * 
+     *
      * @param date the Date object to be converted into a String.
      * @return a human-readable String representing the Date object.
      */

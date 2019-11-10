@@ -1,23 +1,27 @@
 package rims.command;
 
 import java.text.ParseException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
+
 import rims.resource.Resource;
+
 import rims.exception.RimsException;
 
+// @@author aarushisingh1
 /**
  * Shows a sorted list of all the upcoming/overdue deadlines.
  */
-// @@author aarushisingh1
 public class ViewDeadlinesCommand extends Command {
     /**
      * Prints out a sorted list of all the upcoming/overdue deadlines.
-     * 
+     *
      * @param ui        An instance of the user interface.
      * @param storage   An instance of the Storage class.
      * @param resources The ResourceList, containing all the created Resources thus
@@ -29,7 +33,7 @@ public class ViewDeadlinesCommand extends Command {
         ui.printLine();
         ArrayList<String> coveredResources = new ArrayList<String>();
         ArrayList<Resource> sortedList = new ArrayList<Resource>();
-        ui.print("CURRENTLY ACTIVE LOANS AND RESERVATIONS:");
+        ui.print("CURRENTLY ACTIVE LOANS AND RESERVATIONS: (sorted by end-date)");
         ui.printEmptyLine();
         for (int i = 0; i < resources.size(); i++) {
             Resource thisResource = resources.getResourceByIndex(i);
