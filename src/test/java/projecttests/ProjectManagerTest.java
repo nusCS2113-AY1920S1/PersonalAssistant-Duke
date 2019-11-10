@@ -97,19 +97,6 @@ class ProjectManagerTest {
     }
 
     @Test
-    void testGotoProject() {
-        assertEquals("Rag", projectmanager.currentprojectname);
-        String expectedcurrentproject = "Flag";
-
-        String outputcurrentproject = projectmanager.gotoProject(2);
-        assertEquals(expectedcurrentproject, outputcurrentproject);
-
-        expectedcurrentproject = "Rag";
-        outputcurrentproject = projectmanager.gotoProject(0);
-        assertEquals(expectedcurrentproject, outputcurrentproject);
-    }
-
-    @Test
     void testListProjects() {
         Project project1 = new Project("Rag");
         Project project2 = new Project("Flag", 100.0);
@@ -125,7 +112,6 @@ class ProjectManagerTest {
     //TODO jiayu
     @Test
     void testAssignBudget() {
-
     }
 
     @Test

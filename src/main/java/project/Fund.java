@@ -8,7 +8,7 @@ public class Fund {
     private double fundTaken;
     private double fundRemaining;
 
-    public static final double NOFUND = 0.0;
+    private static final double NOFUND = 0.0;
 
     /**
      * Instantiates the fund object.
@@ -89,6 +89,13 @@ public class Fund {
             + "Remaining Fund = " + getFundRemaining() + "\n";
     }
 
+    /**
+     * Loads backup fund from storage.
+     * Also used for Junit testing.
+     * @param fund Overall fund.
+     * @param fundTaken Fund taken.
+     * @param fundRemaining Fund remaining.
+     */
     public void loadFund(double fund, double fundTaken, double fundRemaining) {
         this.fund = fund;
         this.fundTaken = fundTaken;

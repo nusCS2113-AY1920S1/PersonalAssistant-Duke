@@ -12,6 +12,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+//@@author leowyh
 /**
  * Storage.Storage that saves and loads the tasklist of the user.
  */
@@ -102,6 +103,7 @@ public class Storage {
         }
     }
 
+    //@@author E0373902
     /**
      * Writes the projectmap, before the current command is executed, to local storage.
      * @param projectmap LinkedHashMap of projects.
@@ -126,6 +128,7 @@ public class Storage {
         }
     }
 
+    //@@author E0373902
     /**
      * Writes the projectmap, after current command is executed, to local storage.
      * @param projectmap LinkedHashMap of projects.
@@ -150,6 +153,7 @@ public class Storage {
         }
     }
 
+    //@@author leowyh
     /**
      * Read HashMap of projects from local storage and returns it.
      * @return HashMap of Project objects stored in local storage.
@@ -225,6 +229,7 @@ public class Storage {
         return fund;
     }
 
+    //@@author E0373902
     /**
      * Read HashMap of projects in the undo file from local storage and returns it.
      * @return HashMap of Project objects stored in the undo file in local storage.
@@ -249,6 +254,7 @@ public class Storage {
         return projectmap;
     }
 
+    //@@author E0373902
     /**
      * Read HashMap of projects in the redo file from local storage and returns it.
      * @return HashMap of Project objects stored in the redo file in local storage.
@@ -329,6 +335,7 @@ public class Storage {
         return list;
     }
 
+    //@@author leowyh
     /**
      * Reads array list of input commands from local storage and returns it.
      * @return ArrayList of input commands stored in local storage.
