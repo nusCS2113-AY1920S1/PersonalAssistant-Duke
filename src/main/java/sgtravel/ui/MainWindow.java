@@ -1,7 +1,6 @@
 package sgtravel.ui;
 
 import sgtravel.Main;
-import sgtravel.commons.Messages;
 import sgtravel.logic.commands.results.CommandResult;
 import sgtravel.logic.commands.results.CommandResultCalender;
 import sgtravel.logic.commands.results.CommandResultExit;
@@ -10,9 +9,6 @@ import sgtravel.logic.commands.results.CommandResultMap;
 import sgtravel.commons.exceptions.DukeException;
 import sgtravel.logic.LogicManager;
 import sgtravel.logic.commands.results.PanelResult;
-import sgtravel.model.Model;
-import sgtravel.model.lists.RouteList;
-import sgtravel.model.planning.Itinerary;
 import sgtravel.ui.calendar.CalendarWindow;
 import sgtravel.ui.dialogbox.DialogBox;
 import sgtravel.ui.dialogbox.DialogBoxImage;
@@ -29,7 +25,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
