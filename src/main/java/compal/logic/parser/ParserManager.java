@@ -1,6 +1,5 @@
 package compal.logic.parser;
 
-import compal.logic.command.ByeCommand;
 import compal.logic.command.Command;
 
 import compal.logic.parser.exceptions.ParserException;
@@ -38,6 +37,7 @@ public class ParserManager {
      * @throws ParserException If command input is unknown or user input is empty.
      */
     public Command processCmd(String userInput) throws ParserException, ParseException {
+        userInput = userInput.stripLeading();
         String[] args = userInput.split(" ", 2);
         String commandWord = args[0];
         String restOfInput = "";
@@ -46,7 +46,7 @@ public class ParserManager {
         }
         switch (commandWord) {
         case CMD_EXIT:
-            return new ByeCommand();
+            return new ByeCommandParser().parseCommand(restOfInput);
         case CMD_VIEW:
             return new ViewCommandParser().parseCommand(restOfInput);
         case CMD_SET_REMINDER:
