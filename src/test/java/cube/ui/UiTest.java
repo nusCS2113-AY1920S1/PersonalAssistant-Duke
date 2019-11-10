@@ -10,4 +10,5 @@ public class UiTest {
     public void dummyTest() {
         assertEquals(2, 2);
     }
+    //nothing much to be tested here
 }
