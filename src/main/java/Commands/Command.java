@@ -1,5 +1,6 @@
 package Commands;
 
+import Commons.DukeConstants;
 import Commons.Storage;
 import Commons.UserInteraction;
 import DukeExceptions.DukeException;
@@ -30,32 +31,22 @@ public abstract class Command {
         String modCode = task.getModCode();
         String dateOfTask = task.getDate();
         if (!map.containsKey(modCode)) {
-            throw new DukeException("Sorry, you have no such mod in the system");
+            throw new DukeException(DukeConstants.NO_MOD_ERROR);
         } else if (!map.get(modCode).containsKey(dateOfTask)) {
-            throw new DukeException("Sorry, you have no such date of the mod in the system");
+            throw new DukeException(DukeConstants.NO_DATE_ERROR);
         } else {
             for (Assignment taskInList : map.get(modCode).get(dateOfTask)) {
                 if (taskInList.getDateTime().equals(task.getDateTime())) {
                     if (!taskInList.getDescription().equals(task.getDescription())) {
-                        throw new DukeException("Sorry, the description of your task mismatches");
+                        throw new DukeException(DukeConstants.MISMATCH_DATE);
                     } else {
                         return;
                     }
                 }
             }
-            throw new DukeException("Sorry, you have no timing of the task in the system");
+            throw new DukeException(DukeConstants.NO_TASK_TIMING_ERROR);
         }
     }
-
-   /* public void addInsideMapChecker(HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap, Assignment task) throws DukeException {
-        String modCode = task.getModCode();
-        String dateOfTask = task.getDate();
-        if (eventMap.containsKey(modCode) && eventMap.get(modCode).containsKey(dateOfTask)) {
-            throw new DukeException("Sorry, you have similar event at the same time on the same day");
-        } else {
-            return;
-        }
-    } */
 
     /**
      * This method checks whether there is a conflict in the adding of events based on module code and timing.

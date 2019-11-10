@@ -64,6 +64,10 @@ public class Storage {
         return this.reminder;
     }
 
+    /**
+     * Saves the TaskList of events into event.txt
+     * @param list TaskList of events
+     */
     public void updateEventList(TaskList list) {
         PrintWriter outputStream = null;
         try {
@@ -85,6 +89,11 @@ public class Storage {
         outputStream.close();
     }
 
+    /**
+     * Reads and populates the TaskList of events from event.txt
+     * @param list TaskList of events
+     * @throws DukeIOException when event.txt is not found
+     */
     public void readEventList(TaskList list) throws DukeIOException {
         ArrayList<String> temp = null;
         try {
@@ -93,26 +102,30 @@ public class Storage {
             temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathEvent)));
         } catch (IOException e) {
             LOGGER.severe("There is no event.txt to read from");
-            throw new DukeIOException("There is no event.txt file to read from. Please create one.");
+            throw new DukeIOException(DukeConstants.NO_EVENT_TXT);
         }
         for (String string : temp) {
             if (string.isEmpty()) {
                 continue;
             }
             boolean isValid = true;
-            for(int i = 0; i < eventDelimiter.length; i++) {
+            for (int i = 0; i < eventDelimiter.length; i++) {
                 if (!string.contains(eventDelimiter[i])) {
                     isValid = false;
                     break;
                 }
             }
-            if(isValid) {
+            if (isValid) {
                 Assignment task = stringToTask(string);
                 list.addTask(task);
             }
         }
     }
 
+    /**
+     * Saves the TaskList of deadlines into deadline.txt
+     * @param list TaskList of deadlines
+     */
     public void updateDeadlineList(TaskList list) {
         PrintWriter outputStream = null;
         try {
@@ -134,6 +147,11 @@ public class Storage {
         outputStream.close();
     }
 
+    /**
+     * Reads and populates the TaskList of deadlines from deadline.txt
+     * @param list TaskList of deadlines
+     * @throws DukeIOException when deadline.txt is not found
+     */
     public void readDeadlineList(TaskList list) throws DukeIOException {
         ArrayList<String> temp;
         try {
@@ -142,7 +160,7 @@ public class Storage {
             temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathDeadline)));
         } catch (IOException e) {
             LOGGER.severe("There is no deadline.txt to read from");
-            throw new DukeIOException("There is no deadline.txt file to read from. Please create one.");
+            throw new DukeIOException(DukeConstants.NO_DEADLINE_TXT);
         }
         for (String string : temp) {
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
@@ -169,11 +187,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Retrieves reminderMap
+     */
     public HashMap<Date, Assignment> getReminderMap() {
         return this.reminderMap;
     }
 
-    private Assignment stringToTask(String string) {
+    protected Assignment stringToTask(String string) {
         Assignment line = null;
         try {
             if (string.contains("[D]")) {

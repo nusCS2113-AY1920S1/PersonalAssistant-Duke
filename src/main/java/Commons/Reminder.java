@@ -81,7 +81,7 @@ public class Reminder {
      */
     public void setReminderThread(Date date, Assignment task) throws DukeInvalidDateTimeException {
         if (timerMap.containsKey(date)) {
-            throw new DukeInvalidDateTimeException("You already have a reminder set at that time. Please remove reminder and set again");
+            throw new DukeInvalidDateTimeException(DukeConstants.REPEATED_REMINDER);
         }
         img = new Image("/images/DaDuke.png");
         Date currentDate = new Date();

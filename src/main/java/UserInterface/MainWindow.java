@@ -84,11 +84,9 @@ public class MainWindow extends BorderPane implements Initializable {
     private TableColumn<DukeResponseView, String> dukeResponseColumn;
 
     private Duke duke;
-    private Storage storage;
+    private static Storage storage;
     private ArrayList<Assignment> events;
     private ArrayList<Assignment> deadlines;
-    private ArrayList<Assignment> todos;
-    private ArrayList<Assignment> overdue;
     private TaskList eventsList;
     private TaskList deadlinesList;
     public static ArrayList<String> outputList = new ArrayList<>();
@@ -104,13 +102,10 @@ public class MainWindow extends BorderPane implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             events = new ArrayList<>();
-            todos = new ArrayList<>();
             deadlines = new ArrayList<>();
             setWeek(true, NO_FIELD);
             displayQuoteOfTheDay();
-
             retrieveList();
-            openReminderBox();
 
             setDeadlineTableContents();
             setProgressContainer();
@@ -173,10 +168,16 @@ public class MainWindow extends BorderPane implements Initializable {
 
     /**
      * Initialize Duke object in MainWindow controller with Duke object from Main.
-     * @param d Duke object from Main bridge
      */
     public void setDuke(Duke d) {
         duke = d;
+    }
+
+    /**
+     * Initialize Storage object in MainWindow controller with storage object from Duke.
+     */
+    public static void setStorage(Storage storageFromDuke) {
+        storage = storageFromDuke;
     }
 
     static ArrayList<String> filteredInput = new ArrayList<>();
@@ -187,10 +188,8 @@ public class MainWindow extends BorderPane implements Initializable {
      * @throws ParseException On conversion error from string to Task object
      */
     private void retrieveList() throws DukeIOException {
-        storage = new Storage();
         eventsList = new TaskList();
         deadlinesList = new TaskList();
-        overdue = new ArrayList<>();
         storage.readEventList(eventsList);
         storage.readDeadlineList(deadlinesList);
         events = eventsList.getList();
@@ -239,33 +238,6 @@ public class MainWindow extends BorderPane implements Initializable {
             deadlineViews.add(new DeadlineView(textModCodeAndTask, textDateTime, textOverDays));
         }
         return deadlineViews;
-    }
-
-    private void openReminderBox() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        for (int i = 0; i < todos.size(); i++) {
-            if (todos.get(i).getDescription().contains("(from") && todos.get(i).getDescription().contains("to")) {
-                String description = todos.get(i).getDescription();
-                int index = description.indexOf("(from");
-                String taskDescription = description.substring(0, index);
-                description = description.replace(taskDescription, "");
-                description = description.replace("(from", "").trim();
-                String[] dateString = description.split(" to ", 2);
-                String startDate = dateString[0];
-                String endDate = dateString[1].replace(")", "").trim();
-
-                if (formatter.format(date).equals(startDate)) {
-                    AlertBox.display("Reminder Alert", " To Do Within Period Task: " + taskDescription,
-                            "Reminder starts today. On: " + startDate, Alert.AlertType.INFORMATION);
-
-                } else if (formatter.format(date).equals(endDate)) {
-                    AlertBox.display("Reminder Alert", "To Do Within Period Task: " + taskDescription,
-                            "Reminder ends today. On: " + endDate, Alert.AlertType.INFORMATION);
-
-                }
-            }
-        }
     }
 
     private void setDukeResponse() {
