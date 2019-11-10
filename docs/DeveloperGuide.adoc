@@ -576,6 +576,8 @@ fund transfer.
 . Once the transfer has been completed, the details of the transfer will be displayed to inform the user of the
 *successful* fund transfer.
 
+// tag::goals_sequence[]
+
 === Adding Goals
 
 The `/add /goals` feature allows user to add in any financial goals they have in mind to achieve for their future plans.
@@ -661,6 +663,8 @@ Firstly, the original intention of `goals` feature is to model real-life impleme
 encourages users to save and enable an easy yet convenient way of tracking on status of goals.
 Although it may increase coupling and dependencies, the implementation of `goals` evidently shows that the pros
 outweighs the cons despite these trade-offs.
+
+// end::goals_sequence[]
 
 == Documentation
 
@@ -2654,3 +2658,101 @@ Expected: Found matching recurring expenditure in `savings` account and displays
 .. Test case:
 `/find /recurbankexp /name JunBank Savings Account /category food` +
 Expected: Found matching recurring expenditure in `savings` account and displays the results.
+
+=== Adding new goals
+
+. Add new goals by specifying the date, name and amount to achieve
+
+.. Test case:
+`/add /goals /name GRAD TRIP /by 10/11/2020 /amount 3000` +
+Expected: New details of goal displayed
+
+. Add new goals by specifying number of days, name and amount
+
+.. Test case:
+`/add /goals /name GRAD TRIP /amount 3000 /in 365` +
+Expected: New details of goal displayed
+
+. Add new goals by specifying number of days, name and existing saving accounts
+
+.. Pre-requisites: A savings account with specified name should exist.
+.. Test case:
+`/add /goals /name GRAD TRIP /from JunBank /amount 3000 /in 365` +
+Expected: New details of goal displayed
+
+. Add duplicate goals
+.. Test case:
+`/add /goals /name GRAD TRIP /from 10/11/2020 /amount 3000 /in 365` +
+Expected: There is already a goal with the same name: GRAD TRIP
+
+=== Edit goals
+. Edit goals name
+.. Pre-requisites: Goal with specified name must exist
+.. Test case:
+`/edit /goals /name GRAD TRIP /newname KOREA GRAD` +
+Expected: New edited details is displayed
+
+. Edit goals amount
+.. Pre-requisites: Goal with specified name must exist
+.. Test case:
+`/edit /goals /name GRAD TRIP /amount 5000` +
+Expected: New edited details is displayed
+
+. Edit goals date
+.. Pre-requisites: Goal with specified name must exist
+.. Test case:
+`/edit /goals /name GRAD TRIP /in 300` +
+Expected: New edited details is displayed
+
+. Edit the saving account tied to goals (can either add / edit / delete)
+.. Pre-requisites: Goal with specified name must exist and saving account specified must exist
+.. Test case:
+`/edit /goals /name GRAD TRIP /from JunBank` +
+Expected: New edited details is displayed
+
+. Mark un-tracked goals as done
+.. Pre-requisites: Goal with specified name must exist, goals must not have a saving account tied to it
+.. Test case:
+`/edit /goals /name GRAD TRIP /mark 1` +
+Expected: New edited details is displayed
+
+. Mark un-tracked goals as done with savings account tied
+.. Pre-requisites: Goal with specified name must exist and savings account tied
+.. Test case:
+`/edit /goals /name GRAD TRIP /mark 1` +
+Expected: You cannot mark a goal that is linked to a saving account!
+
+. Edit goal when goal is achieved
+.. Pre-requisites: Goal with specified name must exist and goal has already been achieved
+.. Test case:
+`/edit /goals /name GRAD TRIP /mark 1` +
+Expected: Sorry, you cannot edit a goal that's already achieved! Try creating a new goal instead!
+
+=== Delete goals
+. Delete existing goals
+.. Pre-requisites: Goal specified should exist
+.. Test case:
+`/delete /goals /name GRAD TRIP` +
+Expected: Details of goal deleted being displayed
+
+. Delete a non-existent goals
+.. Test case:
+`/delete /goals /name GRAD TRIP 1` +
+Expected: There are no goals with the name: GRAD TRIP 1
+
+. Delete when goal list is empty
+.. Test case:
+`/delete /goals /name any` +
+Expected: There are no goals set!
+
+=== List goals and achievement
+. List goals
+.. Pre-requisites: Goals list must not be empty
+.. Test case:
+`/list /goals` +
+Expected: Details of goals being displayed
+
+. List goals when list is empty
+.. Test case:
+`/list /goals` +
+Expected: There are no goals set!

@@ -1106,18 +1106,44 @@ YOU CAN ONLY ADD UP TO *20* GOALS
 
 *Example*
 
-* `/add /goals /name Dinner at WAA COW /amount 50 /in 15`
+* `/add /goals /name Dinner at WAA COW /amount 50 */in* 15`
 
-Adds a goal named `Dinner at WAA COW` which aims to save $`50` in `15` days.
+Adds a goal named `Dinner at WAA COW` which aims to save $`50` *in* `15` days.
 
-* `/add /goals /name BTO for Punggol HDB /amount 20000 /by 10/10/2020`
+.Successful addition of goals using `/add /goals /in`
+ifdef::env-github[]
+image::GoalsAddIn.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::GoalsAddIn.png[width="970"]
+endif::[]
+* `/add /goals /name BTO for Punggol HDB /amount 20000 */by* 10/10/2020`
 
 Adds a goal named `BTO for Punggol HDB` which aims to save $`20000` by `10/10/2020`.
 
-* `/add /goals /name GRAD TRIP /amount 2000 /by 30/12/2020 /from JunBank Savings Account`
+.Successful addition of goals after using `/add /goals /by`
+ifdef::env-github[]
+image::GoalsAddBy.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::GoalsAddBy.png[width="970"]
+endif::[]
+
+* `/add /goals /name GRAD TRIP /amount 2000 /by 30/12/2020 */from* JunBank Savings Account`
 
 Adds a goal named GRAD TRIP which aims to save $`2000` by `30/12/2020` and ties it to a savings account named `JunBank
 Savings Account`.
+
+.Successful addition of goals tied to existing savings account after using `/add /goals /from`
+ifdef::env-github[]
+image::GoalsAddSaving.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::GoalsAddSaving.png[width="970"]
+endif::[]
 
 ===== Editing financial goals `/edit /goals`
 
@@ -1142,17 +1168,31 @@ Untie your currently linked goals with the same ACCOUNT_NAME `/from ACCOUNT_NAME
 
 *Example*
 
-* `/edit /goals /name BTO for Punggol HDB /newname BTO for Tampines HDB`
+* `/edit /goals /name BTO for Punggol HDB */newname* BTO for Tampines HDB`
 
 Edits the name of the goal from `BTO for Punggol HDB` to `BTO for Tampines HDB`.
 
-* `/edit /goals /name BTO for Tampines HDB /amount 27500`
+.Successful edition of goal name after using `/edit /goals /newname`
+ifdef::env-github[]
+image::GoalsEditName.png[width="800"]
+endif::[]
 
-Edits the goal of `BTO for Tampines HDB` amount to $`27500`.
+ifndef::env-github[]
+image::GoalsEditName.png[width="970"]
+endif::[]
 
-* `/edit /goals /name BTO for Tampines HDB /by 11/11/2021`
+* `/edit /goals /name BTO for Tampines HDB */amount* 27500`
 
-Edits the goal of `BTO for Tampines HDB` to a new date of `11/11/2021`.
+Edits the goal of `BTO for Tampines HDB` to a new date of `11/11/2021` and amount to `$27500`.
+
+.Successful edition of goal date and amount after using `/edit /goals /by /amount `
+ifdef::env-github[]
+image::GoalsEditDate.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::GoalsEditDate.png[width="970"]
+endif::[]
 
 * `/edit /goals /name BTO for Tampines HDB /from JunBank Savings Account`
 
@@ -1164,6 +1204,16 @@ Change your current goal to an un-tracked goals.
 
 * `/edit /goals /name BTO for Tampines HDB /mark 1`
 Marks un-tracked goals as done.
+
+.Successful edition of goal to link to savings account, untie from savings account and marking an
+un-tracked goal as achieved.
+ifdef::env-github[]
+image::GoalsEditMultiple.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::GoalsEditMultiple.png[width="970"]
+endif::[]
 
 [TIP]
 ====
@@ -1186,6 +1236,15 @@ Or achieved your goal? You can safely delete them!
 
 Deletes a goal named `BTO for Tampines HDB`.
 
+.Successful deletion of goal after using `/delete /goals /name`
+ifdef::env-github[]
+image::GoalsDelete.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::GoalsDelete.png[width="970"]
+endif::[]
+
 // end::goals[]
 
 // tag::edit_profile[]
@@ -1204,6 +1263,15 @@ Thought of a new idea for your profile name? Change it now!
 `/edit /profile /name john /newname jun`
 
 Edits the profile name from `john` to `jun`
+
+.Successful edition of goal amount after using `/edit /profile /name`
+ifdef::env-github[]
+image::ProfileEdit.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::ProfileEdit.png[width="800"]
+endif::[]
 
 // end::edit_profile[]
 
