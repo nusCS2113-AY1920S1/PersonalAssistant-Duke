@@ -122,12 +122,4 @@ public class ImpressionContextWindow extends ContextWindow {
             treatmentListPanel.getItems().add(newTreatmentCard(treatment, index));
         }
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<DukeObject> getIndexedList(String type) {
-        return null;
-    }
 }

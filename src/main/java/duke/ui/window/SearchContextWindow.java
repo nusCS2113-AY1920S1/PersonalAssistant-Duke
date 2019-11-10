@@ -57,7 +57,7 @@ class SearchContextWindow extends ContextWindow {
         searchDetailsLabel.setText(searchResults.toString());
         for (DukeObject obj : searchResults.getSearchList()) {
             UiCard card = obj.toCard();
-            card.setIndex(getIndexedList(null).indexOf(obj) + 1);
+            card.setIndex(searchResults.getSearchList().indexOf(obj) + 1);
             searchListPanel.getItems().add(card);
         }
     }
@@ -76,10 +76,5 @@ class SearchContextWindow extends ContextWindow {
     @Override
     public void updateUi() throws DukeFatalException {
         setSearchWindow();
-    }
-
-    @Override
-    public List<DukeObject> getIndexedList(String type) {
-        return searchResults.getSearchList();
     }
 }

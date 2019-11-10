@@ -110,12 +110,4 @@ public class UiManager implements Ui {
         mainWindow = new MainWindow(primaryStage, core);
         mainWindow.show();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<DukeObject> getIndexedList(String type) {
-        return mainWindow.getIndexedList(type);
-    }
 }

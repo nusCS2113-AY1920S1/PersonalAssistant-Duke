@@ -52,13 +52,4 @@ public interface Ui {
      * @param error      Thrown error.
      */
     void showErrorDialogAndShutdown(String errorTitle, Throwable error);
-
-    /**
-     * Retrieves indexed list of DukeObjects.
-     * List is dependent on the current {@link UiContext}.
-     *
-     * @param type DukeObject type.
-     * @return UI indexed list of DukeObjects.
-     */
-    List<DukeObject> getIndexedList(String type);
 }

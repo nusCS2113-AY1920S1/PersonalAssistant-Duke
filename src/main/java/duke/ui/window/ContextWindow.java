@@ -26,11 +26,4 @@ public abstract class ContextWindow extends UiElement<Region> {
      * Updates all UI elements in the context window.
      */
     public abstract void updateUi() throws DukeFatalException;
-
-    /**
-     * Retrieves indexed list of {@code DukeObject}.
-     *
-     * @return Indexed list of DukeObjects.
-     */
-    public abstract List<DukeObject> getIndexedList(String type);
 }
