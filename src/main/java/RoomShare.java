@@ -22,7 +22,6 @@ public class RoomShare {
     private TaskList taskList;
     private OverdueList overdueList;
     private Parser parser;
-    private RecurHandler recurHandler;
     private TempDeleteList tempDeleteList;
     private TaskCreator taskCreator;
     private Help help;
@@ -32,7 +31,7 @@ public class RoomShare {
      * Constructor of a RoomShare class. Creates all necessary objects and collections for RoomShare to run
      * Also loads the ArrayList of tasks from the data.txt file
      */
-    public RoomShare() throws RoomShareException {
+    private RoomShare() throws RoomShareException {
         ui = new Ui();
         help = new Help();
         ui.startUp();
@@ -57,7 +56,7 @@ public class RoomShare {
             overdueList = new OverdueList(emptyList);
         }
         listRoutine = new ListRoutine(taskList, overdueList);
-        recurHandler = new RecurHandler(taskList);
+        RecurHandler recurHandler = new RecurHandler(taskList);
         if (recurHandler.checkRecurrence()) {
             ui.showChangeInTaskList();
             taskList.list(overdueList);
@@ -68,7 +67,7 @@ public class RoomShare {
     /**
      * Deals with the operation flow of RoomShare.
      */
-    public void run() throws RoomShareException, IOException, InterruptedException {
+    private void run() throws RoomShareException, IOException, InterruptedException {
         boolean isExit = false;
         while (!isExit) {
             TaskType type;
@@ -408,7 +407,6 @@ public class RoomShare {
                         } catch (RoomShareException e) {
                             ui.showError(e);
                         }
-                        listRoutine.list();
                     } else {
                         ui.showTagged(input);
                         int[] doneArray = taskList.listTagged(input);

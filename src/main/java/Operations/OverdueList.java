@@ -38,25 +38,25 @@ public class OverdueList {
     public void reschedule(int[] idx, TaskList taskList) throws RoomShareException {
         int[] index = idx.clone();
         if (index.length ==1) {
-            if (index[0] < 0 || index[0] >= Overdue.size()) {
+            if (index[0] < 0 || index[0] >= overdue.size()) {
                 System.out.println("This are your tasks in your Overdue list");
                 list();
                 throw new RoomShareException(ExceptionType.outOfBounds);
             } else {
-                taskList.add(Overdue.get(index[0]));
-                Overdue.get(index[0]).setOverdue(false);
+                taskList.add(overdue.get(index[0]));
+                overdue.get(index[0]).setOverdue(false);
             }
         } else {
-            if (index[0] < 0 || index[0] >= Overdue.size() || index[1] < 0 || index[1] >= Overdue.size()) {
+            if (index[0] < 0 || index[0] >= overdue.size() || index[1] < 0 || index[1] >= overdue.size()) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
             for (int i = index[0]; i <= index[1]; i++){
-                taskList.add(Overdue.get(i));
-                Overdue.get(i).setOverdue(false);
+                taskList.add(overdue.get(i));
+                overdue.get(i).setOverdue(false);
             }
         }
         for (int i = 0; i < index.length; i++){
-            Overdue.removeIf(n -> !n.getOverdue());
+            overdue.removeIf(n -> !n.getOverdue());
         }
     }
 
