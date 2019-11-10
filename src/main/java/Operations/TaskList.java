@@ -80,7 +80,7 @@ public class TaskList {
             for (int i = 0; i < tasks.size(); i++) {
                 if (new Date().after(tasks.get(i).getDate()) && !(tasks.get(i) instanceof Leave)) {
                     tasks.get(i).setOverdue(true);
-                    if (CheckAnomaly.checkDuplicateOverdue(tasks.get(i))) {
+                    if (!CheckAnomaly.checkDuplicateOverdue(tasks.get(i))) {
                         // no duplicates in overdue list
                         overdueList.add(tasks.get(i));
                     }
