@@ -43,9 +43,9 @@ public class Scheduler {
      *
      * @param task task to be added as entry
      */
-    public void add(Task task) {
+    public void add(Task task) throws CommandLineException {
         if (task.isCompleted()) {
-            return;
+            throw new CommandLineException("Task already been completed.");
         }
         schedule.add(new ScheduleEntry(task, 0));
     }
@@ -102,7 +102,11 @@ public class Scheduler {
      * the original TaskList.
      */
     public void update() {
-        add(Hustler.list.getLastTask());
+        try {
+            add(Hustler.list.getLastTask());
+        } catch(CommandLineException e){
+            ui.showMessage(e.getMessage());
+        }
     }
     
     /**
@@ -177,7 +181,7 @@ public class Scheduler {
             long minutes = (recommended.get(i).getTimeAlloc() / 60) % 60;
             long seconds = recommended.get(i).getTimeAlloc() % 60;
             output += (i + 1) + ". " + recommended.get(i).getTask().toString() 
-                + " time alloted: " + hours + ":" + minutes + ":" + seconds + "\n\t";
+                + " time alloted: " + hours + ":" + minutes + ":" + seconds + " " + recommended.get(i).getPriorityScore() + "\n\t";
         }
         ui.showMessage(output);
     }

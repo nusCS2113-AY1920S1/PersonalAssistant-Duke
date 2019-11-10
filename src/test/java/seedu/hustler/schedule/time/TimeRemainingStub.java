@@ -8,13 +8,16 @@ import seedu.hustler.task.ToDo;
 import seedu.hustler.task.Task;
 
 /**
- * Class that gives the time remaining
- * for a task to be due.
+ * Class that gives that gives time remaining starting from a fixed
+ * time for testing.
  */
-public class TimeRemaining implements Timing {
+public class TimeRemainingStub implements Timing {
+
+    public static LocalDateTime startTime = LocalDateTime.of(2019, 11, 1, 0, 0);
 
     /**
-     * Computes amount of time available before task is due.
+     * Computes amount of time available before task is due from
+     * a fixed starting point.
      *
      * @param task task to be checked.
      * @return amount of time available (14 days in case of todo)
@@ -23,7 +26,7 @@ public class TimeRemaining implements Timing {
         if (task instanceof ToDo) {
             return Duration.ofDays(14);
         } else {
-            return Duration.between(LocalDateTime.now(), task.getDateTime());
+            return Duration.between(startTime, task.getDateTime());
         }
 
     }

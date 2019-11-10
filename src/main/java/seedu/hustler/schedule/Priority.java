@@ -4,6 +4,7 @@ import java.time.Duration;
 import seedu.hustler.task.variables.Difficulty;
 import seedu.hustler.schedule.time.TimeRemaining;
 import seedu.hustler.task.Task;
+import seedu.hustler.schedule.time.Timing;
 
 /**
  * A class that assigns a priority score to
@@ -15,6 +16,12 @@ public class Priority {
      * The priority score of a task.
      */
     private double priorityScore;
+
+    private Timing time;
+
+    public Priority(Timing time) {
+        this.time = time;
+    }
     
     /**
      * Updates priorityScore and returns it.
@@ -45,7 +52,7 @@ public class Priority {
             this.priorityScore = 1;
         }
 
-        Duration timeRemaining = TimeRemaining.secondsLeft(task);
+        Duration timeRemaining = time.secondsLeft(task);
         long secondsRemaining = timeRemaining.getSeconds();
 
         long timeForScoring = secondsRemaining + timeSpent; 
