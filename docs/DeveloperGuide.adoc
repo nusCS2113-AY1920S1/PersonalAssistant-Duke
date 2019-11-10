@@ -437,49 +437,53 @@ image::SGTravel_routeGenerate_diagram.png[height="1150" width="1030"]
 
 ==== Implementation
 
-SGTravel facilitates the user to create itineraries for their Singapore trip either on their own liking or based on recommendations given. The user can then store these itineraries and access them at any time leading to effective trip planning and scheduling. The itinerary feature is facilitated by the Itinerary class. This section will document the implementation of the Itinerary feature and its various components. Included below is the class diagram for Itinerary:
+SGTravel facilitates the user to create itineraries for their Singapore trip either on their own liking or based on recommendations given. The user can then store these itineraries and access them at any time leading to effective trip planning and scheduling. The `Itinerary` feature is facilitated by the `Itinerary` class. This section will document the implementation of the Itinerary feature and its various components. Included below is the class diagram for `Itinerary`:
 
-.The class diagram for Itinerary and associated classes
-image::SGTravel_Itinerary_class_diagram.png[height="400" width="700"]
+.The class diagram for `Itinerary` and associated classes
+image::SGTravel_Itinerary_class_diagram.png[height="500" width="800"]
 
-As can be seen from the diagram above. The main itinerary class has different fields such as the start and end dates (to calculate the number of days) and a list of Agendas. Here the agenda class models the activities and locations to be seen in one day. Hence, it contains a list of Venues and Todos. 
 
-Given below is an example usage scenario and how the newItinerary mechanism behaves at each step:
+As can be seen from the diagram above. The main `Itinerary` class has different fields such as the `startDate` and `endDates` (to calculate the number of days) and a list of `Agenda`s. Here the `Agenda` class models the activities and locations to be seen in one day. Hence, it contains a list of `Venues` and `Todos`. 
+
+Given below is an example usage scenario and how the `newItinerary` mechanism behaves at each step:
 
 .  The user calls the `NewItineraryCommand` with its relevant parameters. +
 e.g. `newItinerary 23/04/20 24/04/20 NewItinerary 1 /venue MBS /do sightseeing /and eating.`
 . The `LogicManager` parses the user input using the `Parser`.
-. The Parser calls `CreateNewItineraryParser` and returns an NewItineraryCommand Object and passes the created itinerary in the constructor.
-. The `LogicManager` will call `execute()` on the `NewItineraryCommand` object which interacts with and stores the new itinerary in the Model component.
+. The `Parser` calls `CreateNewItineraryParser` and returns an `NewItineraryCommand` Object and passes the created itinerary in the constructor.
+. The `LogicManager` will call `execute()` on the `NewItineraryCommand` object which interacts with and stores the new itinerary in the `Model` component.
 . A new `Route` is created with the relevant parameters and is added to the `RouteList` via the `add()` method in the `RouteList`.
 . The method `save()` is invoked in the `Model`, and a `CommandResultText` object is created with an appropriate message to show that the command has been executed properly
-. If no Itinerary is created, it would return a string of message MESSAGE_IRINERARY_FAIL_CREATION.
+. If no `Itinerary` is created, it would return a string of message `MESSAGE_IRINERARY_FAIL_CREATION`.
 
-The activity diagram given above shows how the NewItineraryCommand interacts with the model interface to save the new Itinerary. 
+The activity diagram given below shows how the `NewItineraryCommand` interacts with the `Model` interface to save the new `Itinerary`. 
 
 .Activity diagram for the execute() method in newItineraryCommand
-image::SGTravel_newItinerary_Command_diagram.png[height="640" width="1400"]
+image::SGTravel_newItinerary_Command_diagram.png[height="640" width="700"]
 
-Alternatively, the creation of itineraries can be facilitated by the Recommendations and AddListCommands in the Logic Component. 
 
-Given below is an example usage scenario and how the Recommendation mechanism behaves and interacts in the Model :
+Alternatively, the creation of itineraries can be facilitated by the `Recommendations` and `AddListCommands` in the `Logic` Component. 
+
+Given below is an example usage scenario and how the `Recommendation` mechanism behaves and interacts with the `Model` :
 
 .  The user calls the `RecommendationsCommand` with its relevant parameters. +
 e.g. `recommend itinerary between 23/04/20 and 24/04/20`
 . The `LogicManager` parses the user input using the `RecommendationsCommandParser`. 
-. The RecommendationParser returns a RecommendationsCommand object and passes the relevant String Array of date details. 
+. The `RecommendationParser` returns a `RecommendationsCommand` object and passes the relevant array of date details. 
 . The `LogicManager` will call `execute()` on the `RecommendationsCommand` object which return a `CommandResultText` Object containing a message.
 . During the `execute()` method a recommendation Object containing all of SGTravels possible locations is created.
-. The recommendation object then calls on the makeItinerary function. This then returns an itinerary objects containing only the specified amount worth of days. If more than 9 days are entered a RecommendationsFailException is passed.
-. This returned itinerary is then stored into the Model component via the setRecentItinerary method. This makes the recommendation easily accessible to the addThisList command. 
+. The recommendation object then calls on the `makeItinerary()` function. This then returns an itinerary objects containing only the specified amount worth of days. If more than 9 days are entered a `RecommendationsFailException` is passed.
+. This returned itinerary is then stored into the `Model` component via the `setRecentItinerary()` method. This makes the recommendation easily accessible to the `addThisList` command. 
 . A `CommandResultText` object is created with an appropriate message to show that the command has been executed properly.
+
 
 Given below is the sequence diagram of how the various components work in the `execute()` method of the `RecommendationsCommand` command:
 
 .Sequence diagram for the execute() method in RecommendationsCommand
-image::SGTravel_recommend_command_diagram.png[height="950" width="1380"]
 
-Given below is an example usage scenario and how the AddList mechanism behaves and interacts in the Model after a recommendation has been added :
+image::SGTravel_recommend_command_diagram.png[height="550" width="980"]
+
+Given below is an example usage scenario and how the `AddList` mechanism behaves and interacts in the `Model` after a `Recommendation` has been added :
 
 .  The user calls the `AddThisListCommand` with its relevant parameters. +
 e.g. `addThisList MyNewVacation`
@@ -487,14 +491,15 @@ e.g. `addThisList MyNewVacation`
 . The `Parser` returns a AddThisListCommand object and passes the relevant newName with it. 
 . The `LogicManager` will call `execute()` on the `AddThisListCommand` object which return a `CommandResultText` Object containing the add itinerary in full.
 . During the `execute()` method the recent recommendation is received from storage. If no recent recommendation is present a `NoRecentItineraryException` is returned
-. The confirmRecentItinerary() method is called. This saves the current recommendation with the new name entered.
+. The `confirmRecentItinerary()` method is called. This saves the current recommendation with the new name entered.
 . The recentItinerary (recomendation) is set to null such that the same recommendation cannot  be added twice.
 . The method `save()` is invoked in the `Model`, and a `CommandResultText` object is created with an appropriate message to show the stored itinerary. 
 
 Given below is the sequence diagram of how the various components work in the `execute()` method of the `AddThisListCommand` command:
 
 .Sequence diagram for the execute() method in RecommendationsCommand
-image::SGTravel_addList_command_diagram.png[height="950" width="1380"]
+
+image::SGTravel_addList_command_diagram.png[height="550" width="980"]
 
 
 Other helper commands such as list,show and doneItineraries have not been shown but are an important interface to the user.
