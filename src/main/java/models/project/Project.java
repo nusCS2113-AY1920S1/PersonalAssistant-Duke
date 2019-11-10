@@ -41,6 +41,10 @@ public class Project implements IProject {
         return this.name;
     }
 
+    public void setName(String input) {
+        this.name = input;
+    }
+
     @Override
     public MemberList getMemberList() {
         return this.memberList;

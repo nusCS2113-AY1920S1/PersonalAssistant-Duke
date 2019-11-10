@@ -126,8 +126,8 @@ public class ProjectInputController implements IController {
             responseToView = projectSetReminderStatus(this.projectToManage,projectFullCommand);
         } else if (projectFullCommand.matches("view")) {
             responseToView = projectViewSelf(this.projectToManage);
-//        } else if (projectFullCommand.matches("rename.*")) {
-//            responseToView = projectRename(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("rename.*")) {
+            responseToView = projectRename(this.projectToManage, projectFullCommand);
         } else if (projectFullCommand.matches("agenda")) {
             responseToView = projectViewCalender(this.projectToManage);
         } else if (projectFullCommand.matches("help")) {
@@ -141,11 +141,23 @@ public class ProjectInputController implements IController {
         return responseToView;
     }
 
-//    private String[] projectRename(Project projectToManage, String projectCommand) {
-//        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectRename] User input: '"
-//                + projectCommand + "'");
-//        String parsedCommands = projectCommand.substring(7);
-//    }
+    private String[] projectRename(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectRename] User input: '"
+                + projectCommand + "'");
+        if (projectCommand.length() < 7) {
+            return new String[] {"Please enter the command correctly in the format rename PROJECT_NAME"};
+        }
+        String parsedName = projectCommand.substring(7);
+        if (("").equals(parsedName)) {
+            return new String[] {"Project Name cannot be empty!"};
+        }
+        boolean isProjectEdited = projectRepository.updateItem(projectToManage, parsedName);
+        if (isProjectEdited) {
+            return new String[] {"Project name has been updated to " + parsedName + "."};
+        } else {
+            return new String[] {"An error has occurred! Project JSON is not updated correctly!"};
+        }
+    }
 
     private String[] projectViewCalender(Project projectToManage) {
         HashMap<Integer, Integer> currentMonthTasks = projectRepository.getAllTasksInCurrentMonth(projectToManage);

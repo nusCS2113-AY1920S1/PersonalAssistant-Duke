@@ -56,17 +56,23 @@ public class ProjectRepository implements IRepository<Project> {
         return this.allProjects.get(indexNumber - 1);
     }
 
-    public boolean updateItem(String input) {
-
+    public boolean updateItem(Project project, String input) {
+        try {
+            jsonConverter.deleteProject(project);
+        } catch (DukeException e) {
+            return false;
+        }
+        project.setName(input);
+        jsonConverter.saveProject(project);
         return true;
     }
 
     /**
      * Method to force save an Object to the Data layer.
-     * @param object : Object to be saved.
+     * @param project : Object to be saved.
      */
-    public void saveToRepo(Project object) {
-        jsonConverter.saveProject(object);
+    public void saveToRepo(Project project) {
+        jsonConverter.saveProject(project);
     }
 
     /**
