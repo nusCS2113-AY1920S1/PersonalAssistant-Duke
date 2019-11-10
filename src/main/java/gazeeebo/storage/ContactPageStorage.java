@@ -11,7 +11,9 @@ import java.util.Scanner;
 
 public class ContactPageStorage {
 
-    /** Contact storage file name. */
+    /**
+     * Contact storage file name.
+     */
     private String relativePathContactResource
             = "Contact.txt";
 

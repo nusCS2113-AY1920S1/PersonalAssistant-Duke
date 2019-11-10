@@ -5,14 +5,14 @@ package gazeeebo.parser;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
-import gazeeebo.commands.capCalculator.CalculateCAPCommand;
-import gazeeebo.commands.capCalculator.AddCAPCommand;
-import gazeeebo.commands.capCalculator.DeleteCAPCommand;
-import gazeeebo.commands.capCalculator.ListCAPCommand;
-import gazeeebo.commands.capCalculator.FindCAPCommand;
+import gazeeebo.commands.capCalculator.CalculateCapCommand;
+import gazeeebo.commands.capCalculator.AddCapCommand;
+import gazeeebo.commands.capCalculator.DeleteCapCommand;
+import gazeeebo.commands.capCalculator.ListCapCommand;
+import gazeeebo.commands.capCalculator.FindCapCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
-import gazeeebo.storage.CAPPageStorage;
+import gazeeebo.storage.CapPageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 
@@ -27,7 +27,7 @@ import java.util.Stack;
 /**
  * Deals with the user in the main CAP page.
  */
-public class CAPCommandParser extends Command {
+public class CapCommandParser extends Command {
     /**
      * module name of the module.
      */
@@ -62,13 +62,13 @@ public class CAPCommandParser extends Command {
             + "What would you like to do?\n\n";
 
     /**
-     * Constructor for CAPCommandParser.
+     * Constructor for CapCommandParser.
      *
      * @param moduleCode   name of the module
      * @param moduleCredit about of Modular Credit of the module
      * @param grade        Alphabetical score attained
      */
-    public CAPCommandParser(final String moduleCode,
+    public CapCommandParser(final String moduleCode,
                             final int moduleCredit, final String grade) {
         this.moduleCode = moduleCode;
         this.moduleCredit = moduleCredit;
@@ -105,10 +105,10 @@ public class CAPCommandParser extends Command {
             throws DukeException, ParseException,
             IOException, NullPointerException {
         try {
-            CAPPageStorage capPageStorage = new CAPPageStorage();
-            HashMap<String, ArrayList<CAPCommandParser>> map
-                    = capPageStorage.readFromCAPFile(); //Read the file
-            Map<String, ArrayList<CAPCommandParser>> caplist
+            CapPageStorage capPageStorage = new CapPageStorage();
+            HashMap<String, ArrayList<CapCommandParser>> map
+                    = capPageStorage.readFromCapFile(); //Read the file
+            Map<String, ArrayList<CapCommandParser>> caplist
                     = new TreeMap<>(map);
             System.out.print(WELCOME);
             showListOfCommands();
@@ -116,19 +116,19 @@ public class CAPCommandParser extends Command {
             ui.readCommand();
             while (!(ui.fullCommand.equals("esc")
                     || ui.fullCommand.equals("7"))) {
-                double cap = new CalculateCAPCommand().calculateCAP(caplist);
+                double cap = new CalculateCapCommand().calculateCap(caplist);
                 if (ui.fullCommand.split(" ")[0].equals("add")
                         || ui.fullCommand.equals("1")) {
-                    new AddCAPCommand(ui, caplist);
+                    new AddCapCommand(ui, caplist);
                 } else if (ui.fullCommand.split(" ")[0].equals("find")
                         || ui.fullCommand.equals("2")) {
-                    new FindCAPCommand(ui, caplist, lineBreak);
+                    new FindCapCommand(ui, caplist, lineBreak);
                 } else if (ui.fullCommand.split(" ")[0].equals("list")
                         || ui.fullCommand.equals("4")) {
-                    new ListCAPCommand(ui, caplist, lineBreak);
+                    new ListCapCommand(ui, caplist, lineBreak);
                 } else if (ui.fullCommand.split(" ")[0].equals("delete")
                         || ui.fullCommand.equals("3")) {
-                    new DeleteCAPCommand(ui, caplist);
+                    new DeleteCapCommand(ui, caplist);
                 } else if (ui.fullCommand.split(" ")[0].equals("help")
                         || ui.fullCommand.equals("6")) {
                     (new HelpCommand()).execute(null, ui, null,
@@ -149,7 +149,7 @@ public class CAPCommandParser extends Command {
 
 
                     }
-                    capPageStorage.writeToCAPFile(toStore);
+                    capPageStorage.writeToCapFile(toStore);
                     System.out.println("What do you want to do next ?");
                     ui.readCommand();
                 }
