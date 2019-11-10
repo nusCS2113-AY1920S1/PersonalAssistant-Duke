@@ -61,9 +61,9 @@ public class DoneOrderCommand extends Command {
             ui.showLine();
         } else {
             if (orderList.size()==1) {
-                throw new DukeException("You've got only 1 order in the list.\n\t Enter 'done 1' to mark current order done");
+                throw new DukeException("Got only 1 order in the order list.\n\t Enter '1' as order index");
             } else {
-                throw new DukeException("Must enter a valid order number, between 1 and " + orderList.size() + " to be done");
+                throw new DukeException("Must enter a valid order index number between 1 and "+orderList.size());
             }
         }
     }

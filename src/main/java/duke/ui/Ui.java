@@ -352,7 +352,7 @@ public class Ui {
      * @param size    size of current order list
      */
     public void showRemovedOrder(String removed, int size) {
-        System.out.println("\t Noted. I've cancelled this order: ");
+        System.out.println("\t Noted. You've cancelled this order: ");
         System.out.println("\t " + removed);
         showOrderListSize(size);
     }

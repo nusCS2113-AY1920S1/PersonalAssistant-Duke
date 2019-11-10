@@ -50,14 +50,13 @@ public class InitOrderListCommand extends Command {
             System.out.println("\n\t Continue by adding order. Template:");
             System.out.println("\t add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]");
             ui.showLine();
-        } else if(command.toLowerCase().equals("n")){
+        } else {
             ui.showLine();
             System.out.println("\t ORDER LIST NOT CLEARED");
             System.out.println("\n\t Continue by adding, cancelling, altering, listing order.");
             System.out.println("\t Type 'template' to see command format.");
             ui.showLine();
-        } else { throw new DukeException("Please enter 'y' or 'n' after the second 'init' command"); }
-
+        }
     }
 
 }
