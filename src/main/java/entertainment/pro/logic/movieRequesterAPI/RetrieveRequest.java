@@ -4,8 +4,10 @@ import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.FailedAPIException;
 import entertainment.pro.commons.exceptions.EmptyResultExceptions;
+import entertainment.pro.commons.exceptions.ParseExceptionInExtraction;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
+import org.apache.commons.logging.Log;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -47,6 +49,7 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String UNAVAILABLE_INFO = "Unavailable";
     private static final String RECACHE_PARSE_ERROR = "Parsing error took place when recaching data";
     private static final String TO_SPECIFY_ADULT = "adult";
+    private static final int MAX_FILES = 20;
     private static RequestListener requestListener;
     public static ArrayList<MovieInfoObject> finalSearchResults = new ArrayList<>();
     public static SearchProfile searchProfile;
@@ -540,7 +543,8 @@ public class RetrieveRequest implements InfoFetcher {
             data = (JSONObject) parser.parse(json);
             searchResults = (JSONArray) data.get(KEYWORD_FOR_SEARCH_REQUESTS);
         } catch (org.json.simple.parser.ParseException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, PromptMessages.PARSE_EXCEPTION_IN_EXTRACTION);
+            requestListener.emptyResults();
         }
         parseJSON(searchResults);
     }
@@ -552,25 +556,28 @@ public class RetrieveRequest implements InfoFetcher {
      * @param searchResults JSONArray that contains data about all the search results.
      */
     public static void parseJSON(JSONArray searchResults) {
+        logger.log(Level.INFO, PromptMessages.DATA_PARSING_BEGINS);
         ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
         int size = 0;
         //max size of results that are to be displayed set at 20
         for (int i = 0; i < searchResults.size(); i++) {
-            if (size > 20) {
+            if (size > MAX_FILES) {
                 break;
             }
             // add results that meet user stated preferences
+            logger.log(Level.INFO, PromptMessages.CHECK_CONDITION);
             if (checkCondition((JSONObject) searchResults.get(i))) {
                 parsedMovies.add(parseMovieJSON((JSONObject) searchResults.get(i)));
                 size += 1;
-                //System.out.println("yeesss");
             }
         }
         if (parsedMovies.isEmpty()) {
+            logger.log(Level.INFO, PromptMessages.NO_RESULTS_FOUND);
             requestListener.emptyResults();
             return;
         }
         finalSearchResults = parsedMovies;
+
         if (searchProfile.isSortByAlphabetical()) {
             sortByAlphaOrder();
         } else if (searchProfile.isSortByLatestRelease()) {
@@ -589,6 +596,7 @@ public class RetrieveRequest implements InfoFetcher {
             messageToBePrinted += "\n" + PromptMessages.TO_VIEW_MORE_INFO;
             requestListener.requestCompleted(messageToBePrinted);
         }
+        logger.log(Level.INFO, PromptMessages.DATA_PROCESSING_IS_COMPLETE);
         requestListener.obtainedResultsData(finalSearchResults);
     }
 
@@ -601,6 +609,7 @@ public class RetrieveRequest implements InfoFetcher {
                 return Double.compare(v2.getRatingInfo(), v1.getRatingInfo());
             }
         });
+        logger.log(Level.INFO, PromptMessages.SORT_BY_RATINGS);
     }
 
     /**
@@ -612,6 +621,7 @@ public class RetrieveRequest implements InfoFetcher {
                 return v2.getReleaseDateInfo().compareTo(v1.getReleaseDateInfo());
             }
         });
+        logger.log(Level.INFO, PromptMessages.SORT_BY_RELEASE_DATE);
     }
 
 
@@ -624,6 +634,7 @@ public class RetrieveRequest implements InfoFetcher {
                 return v1.getTitle().compareTo(v2.getTitle());
             }
         });
+        logger.log(Level.INFO, PromptMessages.SORT_ALPHA_ORDER);
     }
 
 
@@ -646,11 +657,12 @@ public class RetrieveRequest implements InfoFetcher {
     private void fetchJSONData(String URLString) {
         Thread fetchThread = null;
         if (URLString.isEmpty() || URLString.isBlank()) {
-            logger.log(Level.SEVERE, PromptMessages.API_INVALID_REQUEST);
+            logger.log(Level.SEVERE, PromptMessages.NULL_URL);
             messageToBePrinted = PromptMessages.API_INVALID_REQUEST;
             requestListener.requestTimedOut(messageToBePrinted);
         }
         try {
+            logger.log(Level.INFO, PromptMessages.STARTING_DATA_FETCH_FROM_API);
             fetchThread = new Thread(new MovieInfoFetcher(new URL(URLString), this));
             fetchThread.start();
             //System.out.println("bef MovieInfoFetcher");
@@ -670,7 +682,6 @@ public class RetrieveRequest implements InfoFetcher {
     public static MovieInfoObject parseMovieJSON(JSONObject data) {
         String title = UNAVAILABLE_INFO;
         boolean isMovie = false;
-
         // Parse title
         //if the search request was for movies
         if (searchProfile.isMovie()) {
@@ -687,6 +698,7 @@ public class RetrieveRequest implements InfoFetcher {
             rating = (double) data.get(RATING);
         } catch (ClassCastException ex) {
             // the rating was parsed with a long value, cast to double (issue in simple json library)
+            logger.log(Level.INFO, PromptMessages.RATINGS_FOUND_AS_LONG);
             Long longRating = (Long) data.get(RATING);
             rating = longRating.doubleValue();
         }
@@ -709,8 +721,6 @@ public class RetrieveRequest implements InfoFetcher {
         if (releaseDateString != null) {
             try {
                 releaseDate = formatter1.parse(releaseDateString);
-                //System.out.println("this is " + releaseDate);
-                //System.out.println(releaseDate);
             } catch (ParseException e) {
                 releaseDate = new Date();
             }
@@ -884,6 +894,7 @@ public class RetrieveRequest implements InfoFetcher {
         if (isOffline) {
             System.out.println(entryInfo.get("name"));
             if ((!(searchProfile.isAdult())) && (entryInfo.get(TO_SPECIFY_ADULT).equals(TO_SPECIFY_TRUE))) {
+                logger.log(Level.INFO, PromptMessages.FAILED_ADULT_REQUIREMENT);
                 return false;
             }
             if ((getType.equals(MoviesRequestType.SEARCH_MOVIES)) ||
@@ -892,6 +903,7 @@ public class RetrieveRequest implements InfoFetcher {
                 String entryInfoName = extractName(entryInfo);
                 if (entryInfoName.indexOf(searchName) == -1) {
                     //if (!(searchName.contains(entryInfoName))) {
+                    logger.log(Level.INFO, PromptMessages.FAILED_NAME_REQUIREMENT);
                     return false;
                 }
             }
@@ -905,9 +917,11 @@ public class RetrieveRequest implements InfoFetcher {
                 genrePref.add(Long.valueOf(searchProfile.getGenreIdPreference().get(i)));
             }
         } catch (NullPointerException e) {
+            logger.log(Level.INFO, PromptMessages.INVALID_GENRE_NAME);
             haveGenrePref = false;
         }
         if (genrePref.size() == 0) {
+            logger.log(Level.INFO, PromptMessages.NO_GENRES_PREF_SET);
             haveGenrePref = false;
         }
         try {
@@ -915,9 +929,11 @@ public class RetrieveRequest implements InfoFetcher {
                 genreRestric.add(Long.valueOf(searchProfile.getGenreIdRestriction().get(i)));
             }
         } catch (NullPointerException e) {
+            logger.log(Level.INFO, PromptMessages.INVALID_GENRE_NAME);
             haveGenreRestrict = false;
         }
         if (genreRestric.size() == 0) {
+            logger.log(Level.INFO, PromptMessages.NO_GENRES_RESTRICT_SET);
             haveGenreRestrict = false;
         }
         JSONArray jsonArray = (JSONArray) entryInfo.get(GENRES);
@@ -926,6 +942,7 @@ public class RetrieveRequest implements InfoFetcher {
             // System.out.println(jsonArray.get(i));
             if (genreRestric.contains((long) jsonArray.get(i))) {
                 // System.out.println("this2");
+                logger.log(Level.INFO, PromptMessages.FAILED_GENRE_RESTRICT_REQUIREMENT);
                 return false;
             } else if (genrePref.contains((long) jsonArray.get(i))) {
                 containPrefGenre = true;
@@ -933,8 +950,10 @@ public class RetrieveRequest implements InfoFetcher {
             }
         }
         if ((containPrefGenre) || !(haveGenrePref)) {
+            logger.log(Level.INFO, PromptMessages.PASSED_REQUIREMENT);
             return true;
         } else {
+            logger.log(Level.INFO, PromptMessages.FAILED_GENRE_PREF_REQUIREMENT);
             return false;
 
         }
@@ -942,6 +961,7 @@ public class RetrieveRequest implements InfoFetcher {
 
     /**
      * Responsible for extracting movie/TV show name from the JSONObject.
+     *
      * @param entryInfo JSONObject from which movie/TV show name will be extacted.
      * @return The movie/TV show name from the JSONObject.
      */

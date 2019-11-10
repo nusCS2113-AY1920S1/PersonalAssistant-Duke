@@ -34,25 +34,20 @@ public class URLRetriever {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod(TO_SPECIFY_GET);
             connection.setReadTimeout(SET_REQUEST_TIME);
-
             int statusCode = connection.getResponseCode();
             String line = null;
             StringBuilder dataStr = null;
-
             // Status OK - get the data from the stream
             if (statusCode == STATUS_OK) {
                 dataStr = new StringBuilder();
                 BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
                 line = input.readLine();
                 while (line != null) {
                     dataStr.append(line);
                     line = input.readLine();
                 }
-
                 return dataStr.toString();
             }
-
             return null;
         } catch (SocketTimeoutException ex) {
             logger.log(Level.SEVERE, PromptMessages.SOCKET_TIMEOUT_URL);
