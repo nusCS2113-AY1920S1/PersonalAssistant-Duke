@@ -6,7 +6,7 @@ features of the application BetterDuke._
 
 ## Table of Contents
 
-- [Introduction](#Introduction)
+- [Introduction](#introduction)
 - [Quick Start](#QuickStart)
 - [Features](#Features)
 - [FAQ](#FAQ)
@@ -29,11 +29,11 @@ Installation guide:
    [JAR](https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/jar-release/v1.3.1.jar)
    
 2. Copy the file to the folder you want to use as the home folder for your BetterDuke.
-3. Double-click the file to start the app. The GUI should appear in a few seconds.
-3.1. Open Terminal
-3.2. Change the path to the directory the file is located. By using the command ‘cd’. E.g. Type ‘cd Desktop/’ this changes the path to Desktop if the folder exist.
-3.3. Next, type the command shown, ‘java -jar v1.4.jar‘. This will startup the application.
-3.4. Initially, the week view timetable for event is not populated, upon entering a command, the timetable will display the week based on the week label shown in the GUI. 
+3. Double-click the file to start the app. The GUI should appear in a few seconds.  
+3.1. Open Terminal  
+3.2. Change the path to the directory the file is located. By using the command ‘cd’. E.g. Type ‘cd Desktop/’ this changes the path to Desktop if the folder exist.  
+3.3. Next, type the command shown, ‘java -jar v1.4.jar‘. This will startup the application.  
+3.4. Initially, the week view timetable for event is not populated, upon entering a command, the timetable will display the week based on the week label shown in the GUI.   
 3.5 If you wish to navigate to other week please enter the command: show/week <x> where <x> is an integer between 1 and 13 inclusive, or ‘recess’, ‘reading’ or ‘exam’.
        
  <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/Example%20UI1.png" width = 800 length = 450>
@@ -74,10 +74,11 @@ For Windows 10:
 6. Ensure your settings are as follows
 
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/date_format_windows.png">
-For Mac OS:
-1. Press command + space (opens spotlight search)
-2. Key in Date & Time
-3. Press enter
+For Mac OS:  
+
+1. Press command + space (opens spotlight search)  
+2. Key in Date & Time  
+3. Press enter  
 4. Click unlock to set changes for the date and time. 
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/date_format_MAC.png">
 5. Set date and time automatically to Apple Asia time as shown in the figure below.
@@ -101,11 +102,9 @@ _Adds a task to the list_
   <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_E_INPUT.png">
 2. System: Shows progress indicator
   <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_E_PI.png">
-3. System: Shows response
-   _Event will be added._
-    <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_E_RESPONSE.png">
-4. System: Update Calendar 
-_Event will be populated._
+3. System: Shows response: Event will be added.
+<img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_E_RESPONSE.png">
+4. System: Update Calendar: Event will be populated.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_E_CALENDAR.png">
 
 ### Example: Adding a deadline
@@ -114,11 +113,9 @@ _Event will be populated._
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_D_INPUT.png">
 2. System: Shows progress indicator
   <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_D_PI.png">
-3. System: Shows response
-   _Event will be added._
+3. System: Shows response: Event will be added.
     <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_D_RESPONSE.png">
-4. System: Update Calendar 
-_Event will be populated._
+4. System: Update Calendar: Event will be populated.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD_D_LIST.png">
 
 
@@ -135,11 +132,9 @@ _Event will be populated._
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_E_INPUT.png">
 2.System: Shows progress indicator
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_E_PI.png">
-3.System: Shows response
-_Task will be marked done._
+3.System: Shows response: Task will be marked done.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_E_RESPONSE.png">
-4.System: Update Calendar 
-_Task will be striked out._
+4.System: Update Calendar: Task will be striked out.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_E_CALENDAR.png">
 
 ### Example: Set an deadline as done
@@ -148,8 +143,7 @@ _Task will be striked out._
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_D_INPUT.png">
 2.System: Shows progress indicator
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_D_PI.png">
-3.System: Shows response
-_Task will be marked done._
+3.System: Shows response :Task will be marked done.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE_D_RESPONSE.png">
 
 
@@ -162,25 +156,22 @@ _Delete a task from the list_
 #### STEPS
 1. User input command :  delete/e CS2101 meeting /at 25/11/2019 /from 1200 /to 1300
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DELETE/DELETE_E_INPUT.png">
-2. System: Shows progress indicator
-_Progress bar would be removed if no tasks are in the module._ 
+2. System: Shows progress indicator  
+Progress bar would be removed if no tasks are in the module.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DELETE/DELETE_E_PI.png">
-3. System: Shows response
-_Task will be removed._
+3. System: Shows response : Task will be removed.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DELETE/DELETE_E_RESPONSE.png">   
-4. System: Update Calendar 
-Task is removed.
+4. System: Update Calendar : Task is removed.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DELETE/DELETE_E_CALENDAR.png">
 
 ### Example: Deleting a deadline
 #### STEPS
 1. User input command :  delete/d CS2101 assignment /by week 13 sat 1200
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DELETE/DELETE_D_INPUT.png">
-2. System: Shows progress indicator
-_Progress bar would be removed if no tasks are in the module._ 
+2. System: Shows progress indicator  
+Progress bar would be removed if no tasks are in the module.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DELETE/DELETE_D_PI.png">
-3. System: Shows response
-_Task will be removed._
+3. System: Shows response  : Task will be removed.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DELETE/DELETE_D_RESPONSE.png">
 
 
@@ -195,8 +186,8 @@ _Task will be removed._
  #### STEPS
 1. User input command :show/filter tutorial
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/FILTER/FILTER_INPUT.png">
-2.System: Shows response
-_Returns any task with tutorial in the description_ 
+2.System: Shows response  
+Returns any task with tutorial in the description
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/FILTER/FILTER_RESPONSE.png">
 
   ##  3.5. Set reminder for upcoming task: remind    
@@ -216,11 +207,11 @@ Check reminder: To check if there are already reminders set to facilitate remova
  
 1. User input command : remind/set CS2101 assignment /by week 13 sat 1200 /on week 13 fri 2200
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/REMIND/REMIND_SET_INPUT.png">
-2. System: Shows response
-_Reminder will be added. Reminder must be after current date but before date of deadline._
+2. System: Shows response  
+Reminder will be added. Reminder must be after current date but before date of deadline.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/REMIND/REMIND_SET_RESPONSE.png">
-3. System: Show reminder notification
-_There will be a blank window that will open. Clicking on the reminder notification will close it, or it can manually be closed._
+3. System: Show reminder notification  
+There will be a blank window that will open. Clicking on the reminder notification will close it, or it can manually be closed.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/REMIND/REMIND_SET_NOTIF.png">
 
 ### Example: Removing a reminder
@@ -229,8 +220,8 @@ _Assuming that there is a reminder that was set using the above command with exi
  
 1. User input command : remind/rm CS2101 assignment /by week 13 sat 1200 /on week 13 fri 2200
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/REMIND/REMIND_RM_INPUT.png">
-2. System: Shows response
-_Reminder will be removed. Reminder’s date must be after the current date but before date of deadline._
+2. System: Shows response   
+Reminder will be removed. Reminder’s date must be after the current date but before date of deadline.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/REMIND/REMIND_RM_RESPONSE.png">
 
 ### Example: Checking a reminder
@@ -238,8 +229,8 @@ _Reminder will be removed. Reminder’s date must be after the current date but 
 _Assuming that there is a reminder set using remind/set CS2101 assignment /by week 13 sat 1200 /on week 13 fri 2200_
 1. User input command : remind/check
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/REMIND/REMIND_CHECK_INPUT.png">
-2. System: Shows response
-_A message will show what reminders have been set._
+2. System: Shows response  
+A message will show what reminders have been set.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/REMIND/REMIND_CHECK_RESPONSE.png">
 
  ## 3.6. View the previous inputs: show/previous
@@ -253,11 +244,11 @@ _Displays previous inputs entered based on your choice_
  #### STEPS
 1.User input command : show/previous 3
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/SHOW/SHOW_PRE_INPUT.pngG"> 
-2.System: Shows response
-_This command will show the 3 previous input from the current input in the response box as shown below._
+2.System: Shows response  
+This command will show the 3 previous input from the current input in the response box as shown below.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/SHOW/SHOW_PRE_RESPONSE.png"> 
 
-## 3.7.Retrieve the previous input that users want to re-enter: retrieve/previous
+## 3.7.Retrieve the previous input that users want to re-enter: retrieve/previous  
 _DISCLAIMER: This command, retrieve/previous will only work if show/previous command is entered. 
 Set the command line text to the chosen previous command retrieved_
 ### Format : 
@@ -296,8 +287,8 @@ Instead, it will show (7.00 am to 12.00 pm) the next day_
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/FIND/FIND_TIME_RESPONSE.png">
 
 
- ## 3.9. Retrieve earliest free time found based on the given schedule : retrieve/ft 
-_Retrieves anything 1 of the 5 earliest free time block offered and populates into the command line_
+ ## 3.9. Retrieve earliest free time found based on the given schedule : retrieve/ft   
+ Retrieves anything 1 of the 5 earliest free time block offered and populates into the command line
 
 ### Format:
 - retrieve/time <x>
@@ -329,8 +320,8 @@ where ‘x’ is an integer between 1 - 13 or ‘x’ is non-integer either 'rec
  #### STEPS
  1. User inputs command: show/week 1
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/SHOW/SHOW_WEEK_INPUT.png">
-2. System response 
-_The Week and calendar display will be switched to week 1._
+2. System response   
+The Week and calendar display will be switched to week 1.
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/SHOW/SHOW_WEEK_RESPONSE.png">
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/SHOW/SHOW_WEEK_RESPONSE2.png">
 
