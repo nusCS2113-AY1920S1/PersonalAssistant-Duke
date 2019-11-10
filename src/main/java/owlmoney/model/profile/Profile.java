@@ -1338,7 +1338,7 @@ public class Profile {
         }
         if (isThrowException) {
             logger.warning("Card Bill expenditure and rebate deposit does not exist in savings"
-            + "transaction list");
+                + "transaction list");
             throw new CardException("Unable to delete credit card bill because " + accountType
                     + " does not exist in savings account anymore!\nEither the card bill was not paid "
                     + "with " + bankName + " or the bill was deleted due to too many transactions after it");
