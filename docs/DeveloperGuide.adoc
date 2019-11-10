@@ -18,6 +18,33 @@ By: `Team CS2113T-F11-4`      Since: `Aug 2019`      Licence: `MIT`
 
 
 == Setting up
+=== Prerequisites
+. *JDK 11* or above is required
+. *IntelliJ* IDE is recommended
+[NOTE]
+IntelliJ by default has Gradle plugin installed. +
+ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+=== Setting up the project environment on your local machine
+. Fork and clone the forked remote on your local machine
+. Launch IntelliJ (If you’re not on the IntelliJ Welcome screen please close your existing project by going to `File` >
+`Close Project`)
+. Set up the correct JDK version for Gradle
+.. Click `Configure` > `Structure for New Projects`
+.. Under `Project Settings` Click on `Project`
+.. Under `Project SDK` Click `New…` and point it to JDK 11 path
+.. Click `OK` to save the configuration
+. Click `Import Project`
+. Locate the `build.gradle` file and select it. Click `Open`
+. Open the IntelliJ console/terminal and run the gradle command `gradlew processResource` on *Windows* or
+`./gradlew processResource` on *Mac/Linux* (If you are encountered a permission error: `./gradlew: Permission denied`
+add the executable permission to the the shell script by running `chmod 744 gradlew` in your terminal) It should finish
+with the `BUILD SUCCESSFUL` message. This will generate the resources required by the application and tests.
+
+=== Verifying the setup
+. Run MisterMusik to verify and try a few commands.
+. Run the JUNIT Test/gradlew test command to ensure that all the test case passes.
+
 == Design
 === Overall Architecture
 This image shows the overall architecture of our program
@@ -199,9 +226,12 @@ application without affecting the clash handling
 ==== Expected behaviour of functionality
 When a user attempts to add an event(recurring or otherwise) and the program detects a clash with an existing event
 in the pre-existing list, the following output should be printed: +
-#"That event clashes with another in the schedule! Please resolve the conflict and try again!"# +
+
+    "That event clashes with another in the schedule! Please resolve the conflict and try again!"
+
 This is followed by the following line indicating the details of the detected clash: +
-#"Clashes with: [E][X] YST Final project review START: Tue, 03 Dec 2019, 15:00 END: Tue, 03 Dec 2019, 18:00#
+
+    "Clashes with: [E][X] YST Final project review START: Tue, 03 Dec 2019, 15:00 END: Tue, 03 Dec 2019, 18:00
 
 ==== Design considerations
 While designing the clash handling system, i had to decide how best to: +
@@ -286,14 +316,14 @@ image::recurringEventSequenceDiagram.png[width="800"]
 ==== Design considerations
 Aspect: How to avoid adding infinite events +
 
-- *Alternative 1 (current choice):* Set a upper limit to ensure the interval between the first and last events added to
+* *Alternative 1 (current choice):* Set a upper limit to ensure the interval between the first and last events added to
 list is not too long.
-    - Pros: Easy to implement. Easy to add lesson and practice in one semester.
-    - Cons: Not agility. May add too many extra events if users want short interval between the first and last
+** Pros: Easy to implement. Easy to add lesson and practice in one semester.
+** Cons: Not agility. May add too many extra events if users want short interval between the first and last
 recurring events.
-- *Alternative 2:* Let users to set the interval between the first and last recurring events.
-    - Pros: Will be more agility and user friendly.
-    - Cons: Hard to unify the command format.
+* *Alternative 2:* Let users to set the interval between the first and last recurring events.
+** Pros: Will be more agility and user friendly.
+** Cons: Hard to unify the command format.
 
 === Contacts list
 ==== How is it implemented
@@ -302,14 +332,46 @@ users. The list is stored in each individual event. When the user first creates 
 empty contact list. +
 *Users can add, edit, delete a specified contact item, and view the contacts list of a specified event.*
 
-- Given below is an example to adding a contact: +
+===== Adding a contact
+====
+Given below is an example to adding a contact: +
 `contact add <event number> /<name>, <email address>, <phone number>`
-- To view contact list of an event: +
+====
+.. When the command is entered, the manageContacts() method will be called.
+.. The method will check whether the event ID is valid. Add a new Contact will be created with contact information in it.
+.. The event corresponding to the ID entered along with its method addContact() will be called to add the contact into
+the contact list in the event.
+.. The printContactAdded() method of the UI class will be called to reflect the change to the user.
+
+===== Viewing the contact list
+====
+Given below is an example to view contact list of an event: +
 `contact view <event number>`
-- To edit a contact in the contact list: +
-`contact edit <event number> <contact number> <name|email|phone> /<new contact>`
-- To delete a contact in the contact list: +
+====
+.. When the command is entered, the manageContacts() method will be called.
+.. The method will check whether the event ID is valid, and whether the contact list of the event is empty.
+.. If the contact list is empty, printNoContactInEvent() will be called to inform the user that contact list is empty.
+If the contact list is not empty, printEventContacts() will be called ang print all the contacts in the list under the event.
+
+===== Editing a contact
+====
+Given below is an example to edit a contact in the contact list: +
+`contact edit <event number> <contact number> name|email|phone /<new contact>`
+====
+.. When the command is entered, the manageContacts() method will be called.
+.. The method will check whether the event ID, the contact ID, and the edit type are valid.
+.. The contact information will be changed.
+.. The printContactEdited() method of the UI class will be called to reflect the change to the user.
+
+===== Deleting a contact
+====
+Given below is an example to delete a contact in the contact list: +
 `contact delete <event number> <contact number>`
+====
+.. When the command is entered, the manageContacts() method will be called.
+.. The method will check whether the event ID and the contact ID are valid.
+.. The contact will be deleted from the list.
+.. The printContactDeleted() method of the UI class will be called to reflect the change to the user.
 
 ==== Why is it implemented this way
 . For different events, users may have different people to contact with. So a empty contact list is created under each
@@ -451,12 +513,61 @@ will then be mapped to their corresponding events. This implementation method wo
 in identifying the ID of a particular goal and would generally makes the goal list less organised.
 
 === Past event management
-This functionality basically tracks which tasks in the list have already passed, and subsequently only displaying future
+This functionality basically tracks which tasks in the list have already passed, and subsequently only displays future
 tasks when the user uses the "list" command to view the list. This function is linked with the goals management function
 as it also detects unachieved goals in events that are already over.
 
 ==== How is it implemented
+The EventList class contains an integer attribute called currentDateIndex, which will be initialised to 0. The system will
+then compare the current date with the start dates of each of the events in the event list. Once an event that is in the
+future has been reached, the index of the event will be assigned to the currentDateIndex. After this has been done, the
+"list" command will only list out events starting from that particular index.
 
+Step 1: The integer attribute currentDateIndex in the EventList class instance will be initialised to 0 and the Date class
+currentDate attribute will be initialised to the system date and time of that instance
+
+Step 2: Whenever the user inputs the "list" command, the listOfEvents_String() method is called which will in turn call the
+findNextEventAndSetBoolean() method which takes in the Date class that has been initialised in step 1.
+
+Step 3: In the findNextEventAndSetBoolean() method, the start dates of each event are compared to the current date using
+Date class's compareTo() method using a for loop.
+
+Step 4: The moment the loop reaches an event that has not happened yet i.e. its start date is later than the current date,
+the index of the event in the list will be assigned to the currentDateIndex and the loop terminates.
+
+Step 5: Back in the listOfEvents_String() method, the list of events starting from the one with the same index integer as
+currentDateIndex will be returned to the UI class to be printed out.
+
+==== Why is it implemented this way
+This function is implemented this way to maximise the usefulness of the indexing nature of ArrayList. Even if an
+event has passed and the list no longer shows it, the indexes of all the events are kept constant. This is crucial as the
+commands for most of our functions require the user to indicate the index of an event they want to manipulate, and keeping
+them constant makes it very easy for the user to input commands without having to take note of the change in the event indexes
+after making any changes to the list.
+
+==== Alternatives considered
+We have considered the possibility of deleting the past events that are over. However, as mentioned above we require the indexing
+of the events to stay constant and by deleting the past events, the event indexes will change as well.
+
+==== Integration with goal list management
+===== Implementation
+The management of goals list can be integrated with the ability to track past events. This is done through a boolean attribute
+gotPastUnachieved in the EventList class. If true, there are unachieved goals for past events and vice versa.
+
+Step 1: User enters the "list" command. The listOfEvents_String() method is called which then calls the findNextEventAndSetBoolean() method.
+
+Step 1: Within the findNextEventAndSetBoolean() method, the attribute currentDateIndex is checked to see if it is more than 0. If it
+is, that means there are past events.
+
+Step 2: If there are past events, the method will enter a nest of two for loops. The outer loop runs through all the past events,
+while the inner loop iterates through the goal list for each individual past event.
+
+Step 3: Each time an inner loop is iterated through, the getBooleanStatus() method for the particular event will be called. If returns
+true, gotPastUnachieved will be assigned as true and the method will break out of the loop.
+
+Step 4: After the event list has been printed out, the method getPastEventsWithUnachievedGoals() is called. This method utilises two
+nested for loops to identify the unachieved goals among all the past events and passes both the past events along with all their
+unachieved goals to the UI class to be printed out below the event list.
 
 === Reminders
 
@@ -498,11 +609,14 @@ prints the output to the user interface, EventList.getReminder is responsible fo
 obtains the filtered list of events from `eventArrayList`.
 
 This implementation also implements scalability as the Predicate class and the EventList.filteredList method can be reused for other
-functionalities.
+functions.
 
 
 == Documentation
-
+We use asciidoc for writing documentation.
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility
+in formatting.
 
 == Testing
 
@@ -662,10 +776,10 @@ Expected: The list of command formats of changing event's information including 
 
 === Add an Event
 . Add Todo +
-   Key in `todo tdtask /01-01-2011 0100` +
+   Key in `todo tdtask /01-01-2011` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [x][T] tdtask  BY: Sat, 01 Jan 2011, 01:00 +
+   [x][T] tdtask  BY: Sat, 01 Jan 2011 +
    Now you have <previous number of items + 1> items in the list.
 
 . Add Exam +
@@ -799,12 +913,18 @@ Expected: Prints the success of editing the contact, and the contact details.
 
 === Budgeting
 . Each concert added to the list has a cost denoted at the end of the user input.
-For example, the user input command "concert MyConcert/2-12-2019 1500 1600/30" will
+For example, the user input command `concert MyConcert/2-12-2019 1500 1600/30` will
 have a cost of $30.
 
-. Attempting to add two concerts to the same month that exceeds the stipulated budget
+.. Attempting to add two concerts to the same month that exceeds the stipulated budget
 (set at $50) will result in a message telling the user so, and that the operation has been
 cancelled.
+.. Entering the command `concert MyConcert/2-12-2019 1500 1600/30` followed by the command
+`concert MyConcert/27-12-2019 1200 1400/21` will result in the system cancelling the second
+operation due to exceeding of budget for the month of december 2019.
 
-. The user command "budget MM-yyyy" will result in the program displaying the costs
+. The user command `budget MM-yyyy` will result in the program displaying the costs
 of all concerts in the month denoted by MM-yyyy.
+
+. The user command `budget set 35` will change the stipulated budget to the value stated ($35).
+Similarly, `budget set 70` will set the budget to a value of $70.
