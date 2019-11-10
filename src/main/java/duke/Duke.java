@@ -23,6 +23,7 @@ import duke.DukeLogger;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -309,17 +310,18 @@ public class Duke {
 
     //@@author maxxyx96
     /**
-     * Forces the saving of current lists upon external exiting such as clicking on "X".
+     * Saves the current state of the lists upon closing by "x" or "alt + f4".
      *
      */
     public void suddenStop() {
         try {
+            TimeUnit.SECONDS.sleep(1);
             priorityStorage.write(priorityList);
             contactStorage.write(contactList);
             budgetStorage.write(budgetList);
             storage.write(items);
             new DukeLogger().stopLogger(logger);
-        } catch (IOException i) {
+        } catch (IOException | InterruptedException i) {
             logger.severe("Error saving storage files upon exiting.");
         }
     } //@@author
