@@ -111,10 +111,10 @@ public class ProjectTest {
         testProject.createAssignment(testTask, testMember2);
         ArrayList<String> actualOutput = testProject.getCredits();
         String[] expectedOutput = new String[] {
-                "1. Test Member: 10 credits",
-                "   Progress: #############....... (65%)",
-                "2. Test Member 2: 0 credits",
-                "   Progress: .................... (0%)"};
+            "1. Test Member: 10 credits",
+            "   Progress: #############....... (65%)",
+            "2. Test Member 2: 0 credits",
+            "   Progress: .................... (0%)"};
         assertArrayEquals(expectedOutput, actualOutput.toArray(new String[0]));
     }
 
