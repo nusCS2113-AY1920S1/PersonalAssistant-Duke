@@ -212,7 +212,8 @@ public class Ui {
     public String showReminderSetup(int state) {
         switch (state) {
             case 1: //request for the list of words user wants to be reminded of
-                return "Please enter the list of words.\n" + "Enter an empty line to end input";
+                return "Please enter the list of words.\n"
+                        + "Enter an empty line to end input";
             case 2:
                 return "Enter next word or an empty line to end input\n";
             case 3: //request the reminder date and time from user
@@ -303,7 +304,7 @@ public class Ui {
         } else {
             return "Here are the commands for WordUp.\n"
                     + "add, delete, edit, exit, freq, help, history, list, list_tags"
-                    + " schedule, search, search_begin,search_syn, search_tag, tag, addsyn, quiz\n"
+                    + " schedule, search, search_begin, search_syn, search_tag, tag, addsyn, quiz\n"
                     + "Enter \"help [command]\" for more details.";
         }
     }

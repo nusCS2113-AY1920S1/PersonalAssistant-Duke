@@ -109,8 +109,7 @@ public class Parser {
                 command = parseSearchTag(taskInfo);
             } else if (userCommand.equals("search_syn")) {
                 command = parseSearchSynonym(taskInfo);
-            }
-            else {
+            } else {
                 try {
                     throw new CommandInvalidException(input);
                 } catch (CommandInvalidException e) {
@@ -487,7 +486,7 @@ public class Parser {
         String wordDescription = wordAndSynonyms[0].substring(2).trim();
         String[] synonymsString = wordAndSynonyms[1].trim().split(" ");
         ArrayList<String> synonyms = new ArrayList<>();
-        for (String synonym : synonymsString){
+        for (String synonym : synonymsString) {
             synonyms.add(synonym.trim());
         }
         return new AddSynonymCommand(wordDescription, synonyms);

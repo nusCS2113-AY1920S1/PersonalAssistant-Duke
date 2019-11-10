@@ -59,7 +59,9 @@ public class Bank {
         return synonymBank;
     }
 
-    public int getSynonymBankSize() { return synonymBank.getSize(); }
+    public int getSynonymBankSize() {
+        return synonymBank.getSize();
+    }
 
     /**
      * Adds a word into bank and updates wordBank, tagBank, and wordCount with the new word.
@@ -171,7 +173,7 @@ public class Bank {
         synonymBank.addWordToOneSynonym(word, synonym);
     }
 
-    public boolean synonymBankEmpty(){
+    public boolean synonymBankEmpty() {
         return synonymBank.isEmpty();
     }
 
@@ -192,6 +194,11 @@ public class Bank {
         return tagBank.getAllTagsAsList();
     }
 
+    /**Obtains the synonyms of the word
+     * @param searchWord
+     * @return ArrayList of synonyms
+     * @throws NoSynonymFoundException
+     */
     public ArrayList<String> getSynonymsOfWord(String searchWord) throws NoSynonymFoundException {
         if (!synonymBank.contains(searchWord)) {
             throw new NoSynonymFoundException(searchWord);

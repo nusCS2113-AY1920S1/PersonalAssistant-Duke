@@ -503,6 +503,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes data to SynonymBank sheet in excel file.
+     * @param synonymBank data to be written into sheet
+     */
     public void writeSynonymBankExcelFile(SynonymBank synonymBank) {
         FileInputStream fileInputStream;
         FileOutputStream fileOut;

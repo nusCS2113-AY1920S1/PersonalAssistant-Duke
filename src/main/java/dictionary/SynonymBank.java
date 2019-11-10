@@ -33,7 +33,9 @@ public class SynonymBank {
         }
     }
 
-    public int getSize() { return synonymBank.size(); }
+    public int getSize() {
+        return synonymBank.size();
+    }
 
     /**
      * Gets all sets of words that have the same meaning in the synonym bank.
@@ -45,7 +47,7 @@ public class SynonymBank {
         for (String word : synonymBank.keySet()) {
             String parent = findSet(word);
             if (!roots.contains(parent)) {
-                ArrayList<String>temp = getAllSynonymsOfWord(word);
+                ArrayList<String> temp = getAllSynonymsOfWord(word);
                 temp.add(word);
                 arrayList.add(temp);
                 roots.add(parent);

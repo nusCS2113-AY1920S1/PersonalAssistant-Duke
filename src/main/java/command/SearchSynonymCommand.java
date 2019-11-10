@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class SearchSynonymCommand extends Command {
     private String searchWord;
 
-    public SearchSynonymCommand(String searchWord){
+    public SearchSynonymCommand(String searchWord) {
         this.searchWord = searchWord;
     }
 
