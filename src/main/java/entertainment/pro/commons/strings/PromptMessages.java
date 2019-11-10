@@ -136,6 +136,7 @@ public class PromptMessages {
             + "it does not contains the genre wanted by user";
     public static final String FAILED_GENRE_RESTRICT_REQUIREMENT = "This movie/TV show will not be added "
             + "to the search results because it contains the genre restricted by user";
+
     public static final String PASSED_REQUIREMENT = "This movie/TV show will be added to the search results because "
             + "it passed the requirements";
     public static final String RATINGS_FOUND_AS_LONG = "Ratings for a movie/TV show was found to be in long";
@@ -148,6 +149,7 @@ public class PromptMessages {
     public static final String SORT_BY_RELEASE_DATE = "Succssfully sorted results by release dates";
     public static final String DATA_PROCESSING_IS_COMPLETE = "Data processing is complete. "
             + "Sending data to MovieHandler class.";
+
 
 
     // retrieve data from local files message

@@ -59,7 +59,7 @@ public class ViewCommandTest extends MovieHandler{
         movieHandler.setSearchProfile(searchProfile);
         for (int i = 0; i < jsonArray.size(); i += 1) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-            MovieInfoObject movieInfoObject = RetrieveRequest.parseMovieJSON(jsonObject);
+            MovieInfoObject movieInfoObject = RetrieveRequest.parseMovieJson(jsonObject);
             movieHandler.mMovies.add(movieInfoObject);
         }
         assertThrows(InvalidFormatCommandException.class, () -> {

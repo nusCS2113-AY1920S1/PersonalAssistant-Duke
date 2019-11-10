@@ -184,7 +184,7 @@ public class ContextHelper {
      * @param incompleteCmd incomplete command
      * @return possible hints based on incomplete Command.
      */
-    private static ArrayList<String> filterHints(ArrayList<String> hints , String incompleteCmd) {
+    private static ArrayList<String> filterHints(ArrayList<String> hints, String incompleteCmd) {
         assert (CommandAssertions.assertIsLowerString(incompleteCmd));
         ArrayList<String> filteredHints =  new ArrayList<>();
 
@@ -243,9 +243,9 @@ public class ContextHelper {
      * @param allPossibilities  All possible suggestions for incomplete command
      * @param incompleteCommand The incomplete part of the command
      */
-    private static void updateCommandInputFieldWithHints(Controller controller
-            , ArrayList<String> allPossibilities
-            , String incompleteCommand) {
+    private static void updateCommandInputFieldWithHints(Controller controller,
+                                                         ArrayList<String> allPossibilities,
+                                                         String incompleteCommand) {
 
         String update = completeCommand(allPossibilities, incompleteCommand);
         ((MovieHandler) controller).updateTextField(update);
