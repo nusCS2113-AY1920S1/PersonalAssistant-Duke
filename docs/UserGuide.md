@@ -332,37 +332,61 @@ other wise, if user enters an invalid command,
 	 _________________________________________________________________________________________
 ### 3.3 Ingredient Management by Fridge Storage
 
-To begin with, the user needs to enter command `'a'- remove all expired` or `'b' - add/remove/use an ingredient` in the main menu. In mode `a`, all expired ingredients would be removed after execution of the command `a`. While the execution of command  `b`, directs the user into Ingredient management menu. The below commands, except for removing all expired, are all executed in the Ingredient management menu.
+To begin with, the user needs to enter command `'a'- remove all expired` or `'b' - add/remove/use an ingredient` in the main menu. In mode `a`, all expired ingredients would be removed after execution of the command `a`. While the execution of command  `b`, redirects the user into Ingredients management menu. The below commands, except for removing all expired, are all executed in the Ingredient management menu, upon choosing option `b`.
 
 #### 3.3.1 Adding Ingredient
 
-To add an ingredient to the IngredientsList, the user needs to execute command below:
+To add an ingredient to the `Fridge`, the user needs to execute command below:
 
 Format: `add `  `INGREDIENT_NAME` `INGREDIENT_AMOUNT` `INGREDIENT_EXPIRY_DATE-(dd/mm/yyyy)`
 
-If the ingredient already exist in the list, but **do not have the same expiry date**, another entry of the ingredient will be created in the ingredient list. **However**, if the ingredient also **have the same expiry date as the existing ingredient in the ingredient list**, the amount of the existing ingredient amount will be added on and no new entry will be created in the ingredient list.
+If the ingredient already exist in the `IngredientList` of the `Fridge`, but **does not have the same expiry date as the ingredient to be added**, another entry of the ingredient will be created in the ingredient list, differing from the existing one by the expiry date. **However**, if the ingredient to be added also **has the same expiry date as an existing ingredient in the ingredient list with the same name**, the amount of the ingredient to be added will be added onto the amount of the existing ingredient and no new entry will be created in the `IngredientList` of the `Fridge`.
 
 Examples: 
 
-- `add ` `salt` `50` `31/10/2019` 
+- `add ` `chicken` `3  ` `1/2/2020`
 - `add` `chilli` `70` `29/04/2019`  
 
 ```
          _________________________________________________________________________________________
-         you have added the following ingredient:
-         salt 50 31/10/2019
+add chicken 3 1/2/2020
+     Got it. I've added chicken to the fridge, you currently have:
+	 chicken, amount is: 3 expiring on 1st of February 2020
+	 
+add chicken 2 1/2/2020
+
+	Got it. I've added chicken to the fridge, you currently have:
+	chicken, amount is: 5 expiring on 1st of February 2020
+	
+add chicken 4 2/3/2020
+
+	Got it. I've added chicken to the fridge, you currently have:
+	chicken, amount is: 4 expiring on 2nd of March 2020
          _________________________________________________________________________________________
+```
+
+Furthermore, if the user adds an expired ingredient, he gets a `WARNING!!! Adding an expired ingredient in the fridge, do you want to proceed adding it? ` 
+
+```
+         _________________________________________________________________________________________
+add milk 250 9/11/2019
+
+ 	WARNING!!! Adding an expired ingredient in the fridge, do you want to proceed adding     it? 
+    Type yes to confirm, typing anything else will result in not adding the ingredient
+    
+yes
+		Got it. I've added milk to the fridge, you currently have:
+		WARNING! expired ingredient: milk, amount is: 250 expired on 9th of November 2019
+	 _________________________________________________________________________________________
 ```
 
 #### 3.3.2 Removing Ingredient
 
-To remove an ingredient from the IngredientsList, user needs to execute command below:
-
-To remove an ingredient from the IngredientsList, the user needs to execute command below:
+To remove an ingredient from the `Fridge`, user needs to execute command below:
 
 Format: `remove ` `ingredient index`
 
-If the ingredient index does not exist in the list, message is output:
+If the ingredient index does not exist in the list, the following message is printed :
 
 ```
 	 ☹ OOPS!!! Enter a valid ingredient index number after delete, between 1 and 14.
@@ -381,15 +405,15 @@ Examples:
 
 ```
          _________________________________________________________________________________________
-         Noted. I've removed this ingredient:
-	 salt, amount is: 50 expiring on 31st of Octoboer 2019
+     Noted. I've removed this ingredient:
+	 salt, amount is: 50 expiring on 31st of October 2019
 	 Now you have 14 ingredients in the list.
          _________________________________________________________________________________________
 ```
 
 #### 3.3.3 Finding Ingredient
 
-To find an ingredient from the IngredientsList, user needs to execute command below:
+To find an ingredient from the `Fridge`, user needs to execute command below:
 
 Format: `find` `INGREDIENT_NAME`
 
@@ -413,11 +437,13 @@ These are the ingredients you searched for!
 
 #### 3.3.4 Using an ingredient 
 
-To use an ingredient from the ingredient list, the user needs to execute command below:
+To use an ingredient from the `Fridge`, the user needs to execute the command below:
 
 Format: `use`  `INGREDIENT_NAME` `INGREDIENT_AMOUNT` 
 
-If there are not enough required ingredients, message is output:
+A warning:  `*always use most recently expiring ingredients first, to prevent food waste!*` is printed when showing the example use of this command. This notifies the chef that he should be using the ingredients with the most recent expiry date first. This command will look through all the ingredients matching the ingredient name, sorted by ascending expiry date, and continue removing them (considering the amount of the ingredient they contain ) until the total  `INGREDIENT_AMOUNT` is used/reached. Furthermore, if the `Fridge` contains expired ingredients matching the  `INGREDIENT_NAME`, they are not taken into consideration, since the Chef should not be able to use an expired ingredient in his dishes!
+
+If there are not enough required ingredients, the following message is printed:
 
 ```
 	 There is not a sufficient amount of rice that is not expired, maybe you could buy some first? 
@@ -432,7 +458,7 @@ Examples:
 	 Great you used salt amount: 50
 ```
 
-Also, once amount reaches 0, the ingredient will be deleted off from the IngredientsList. 
+Also, once amount reaches 0, the ingredient will be deleted off from the `IngredientsList` of the `Fridge` .
 
 #### 3.3.5 Listing all expired ingredients on the date itself
 
@@ -456,21 +482,22 @@ Otherwise,
 
 #### 3.3.6 Removing all expired ingredients 
 
-User needs to enter `a` in the menu.
+To be able to use this feature, the user needs to enter `a` in the menu, and it will remove all of the expired ingredients currently in the `Fridge`.
 
-*Note that*: this removing all expired command is executed by the user entering `a` in the **main menu**.
+*Note that*: removing all expired command is executed by the user entering `a` in the **main menu**.
 
-If there are no expired ingredients for the date itself, message is output:
+If there are no expired ingredients in the `Fridge`, the user gets the following output upon trying to use this feature.
 
 ```
-	 ☹ OOPS!!! Seems like you don't have any expired ingredients in the fridge!. 
+	 ☹ OOPS!!! Seems like you don't have any expired ingredients in the fridge!
 ```
 
 Otherwise,
 
 ```
-	Removed:  ingredients: 
-	salt, amount is: 50 expired on 31st of October 2019
+	Removed ingredients: 
+salt, amount is: 50, expired on 31st of October 2019
+milk, amount is: 150, expired on 11th of October 2019
 ```
 
 ### 3.5 Order Management
@@ -779,21 +806,21 @@ Index | Keyword  | Usage | Description
 1 | options | options | show options 
 2 | q       | q | exit program 
  3 | t | t | view todo list 
- 4 | a | a | remove expired ingredients 
+ 4 | a | a | remove all expired ingredients 
  5 | b | b | go into ingredient template 
  6 | c | c | go into order template 
  7 | d | d | go into dish template 
 
 Ingredient template
 
-| Index | Keyword   | Usage                      | Description                    |
-| ----- | --------- | -------------------------- | ------------------------------ |
-| 1     | add       | add <desc> <amount> <Date> | add an Ingredient to the list  |
-| 2     | remove    | remove <index>             | remove an ingredient from list |
-| 3     | find      | find <desc>                | find an ingredient in list     |
-| 4     | listtoday | listtoday                  | list all expired ingredient    |
-| 5     | a         | a                          | removes expired ingredient     |
-| 6     | use       | use <desc> <amount>        | use an ingredient              |
+| Index | Keyword   | Usage                      | Description                       |
+| ----- | --------- | -------------------------- | --------------------------------- |
+| 1     | add       | add <desc> <amount> <Date> | add an Ingredient to the fridge   |
+| 2     | remove    | remove <index>             | remove an ingredient from fridge  |
+| 3     | find      | find <desc>                | find an ingredient in the fridge  |
+| 4     | listtoday | listtoday                  | list all expired ingredient       |
+| 5     | a         | a                          | removes all expired ingredient    |
+| 6     | use       | use <desc> <amount>        | use an ingredient from the fridge |
 
 Order Template
 

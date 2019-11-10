@@ -34,7 +34,7 @@ public class RemoveAllExpired extends Command {
         if (this.fridge.hasExpiredIngredients()) {
             IngredientsList expired = this.fridge.removeExpired();
             fs.update(); //updating the fridgeStorage
-            ui.show(" Removed " + expired.toString());
+            ui.show(" Removed" + expired.toString());
         } else
             throw new DukeException("Seems like you don't have any expired ingredients in the fridge!");
     }

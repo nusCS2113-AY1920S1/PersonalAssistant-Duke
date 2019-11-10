@@ -147,6 +147,7 @@ public class Ui {
     }
 
     public void showIngredientTemplate() {
+
         System.out.println("\t Continue by adding, removing,using or finding an ingredient. \n\t");
         System.out.println("\t You can also edit the Name or Amount of an ingredient(using its index number). \n\t Template: ");
         showLine();
@@ -278,11 +279,11 @@ public class Ui {
     public void showSize(int size) {
         System.out.print("\t Now you have " + size);
         if (size == 1) {
-            System.out.print(" task");
+            System.out.print(" ingredient");
         } else {
-            System.out.print(" tasks");
+            System.out.print(" ingredients");
         }
-        System.out.println(" in the list.");
+        System.out.println(" in the Fridge.");
     }
 
     /**
@@ -352,6 +353,10 @@ public class Ui {
         System.out.println("\t you have added the following dish: ");
         System.out.println("\t " + dish);
         showLine();
+    }
+
+    public void showDialogAddingExpired() {
+        System.out.println(" WARNING!!! Adding an expired ingredient in the fridge, do you want to proceed adding it? \n Type yes to confirm, typing anything else will result in not adding the ingredient");
     }
 
     public void showAddedIngredient(Ingredient ingredient) {
