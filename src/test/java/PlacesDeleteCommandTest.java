@@ -34,7 +34,7 @@ public class PlacesDeleteCommandTest {
 
     @Test
     void testDeleteInPlacesCommand() throws IOException {
-        HashMap<String, String> map = storage.readPlaces(); //Read the file
+        HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         places.put("LT19", "COM5");
         ui.fullCommand = "delete-LT19";
@@ -44,7 +44,7 @@ public class PlacesDeleteCommandTest {
 
     @Test
     void testDeleteNotInPlacesCommand() throws IOException {
-        HashMap<String, String> map = storage.readPlaces(); //Read the file
+        HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         places.put("LT19", "COM5");
         ui.fullCommand = "delete-LT30";
@@ -54,7 +54,7 @@ public class PlacesDeleteCommandTest {
 
     @Test
     void testDeleteWrongFormatPlacesCommand() throws IOException {
-        HashMap<String, String> map = storage.readPlaces(); //Read the file
+        HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         places.put("LT19", "COM5");
         ui.fullCommand = "delete";

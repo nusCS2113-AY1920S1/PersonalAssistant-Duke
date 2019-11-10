@@ -20,6 +20,7 @@ import java.util.Stack;
  */
 public class DeleteCommand extends Command {
     /**
+     * The string "delete" has 6 characters.
      * Calls delete function to delete tasks from list.
      * Able to delete one or more tasks at time.
      *
@@ -28,7 +29,8 @@ public class DeleteCommand extends Command {
      * @param storage      deals with storing data.
      * @param commandStack keep stack of previous commands.
      * @param deletedTask  keep stack of deleted tasks.
-     * @throws DukeException
+     * @throws DukeException Throws custom exception when
+     *                       format of delete command is wrong
      * @throws ParseException catch error if parse string to date fails.
      * @throws IOException catch the error if the read file fails.
      */
@@ -92,7 +94,7 @@ public class DeleteCommand extends Command {
                     }
                     System.out.println("Now you have " + list.size()
                             + " tasks in the list.");
-                } else if (ui.fullCommand.split(" ")[1] != null) {
+                } else if (ui.fullCommand.split(" ")[1] != null) { //@@author jessteoxizhi
                     try {
                         int index = Integer.parseInt(ui.fullCommand.substring(
                                 DELETE_CHAR_COUNT).trim()) - 1;
@@ -108,12 +110,12 @@ public class DeleteCommand extends Command {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Task number not found");
                     }
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < list.size(); i++) {
-                        sb.append(list.get(i).toString() + "\n");
-                    }
-                    storage.writeToSaveFile(sb.toString());
                 }
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < list.size(); i++) {
+                    sb.append(list.get(i).toString() + "\n");
+                }
+                storage.writeToSaveFile(sb.toString());
             }
         } catch (DukeException e) {
             System.out.println(e.getMessage());

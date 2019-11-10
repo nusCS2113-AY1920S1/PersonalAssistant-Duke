@@ -3,7 +3,7 @@ package capCalculatorTest;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
-import gazeeebo.parsers.CAPCommandParser;
+import gazeeebo.parser.CAPCommandParser;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.AfterEach;

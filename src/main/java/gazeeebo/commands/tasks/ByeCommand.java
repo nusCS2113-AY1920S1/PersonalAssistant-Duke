@@ -1,3 +1,5 @@
+//@@author jessteoxizhi
+
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
@@ -22,8 +24,9 @@ public class ByeCommand extends Command {
      * @param list         An array list of type gazeeebo.Tasks.Task.
      * @param ui           Class ui
      * @param storage      class storage
-     * @param commandStack
-     * @param deletedTask
+     * @param commandStack the stack of previous commands.
+     * @param deletedTask the list of deleted task.
+     * @param triviaManager the object for triviaManager
      * @throws DukeException | ParseException | IOException
      */
     @Override

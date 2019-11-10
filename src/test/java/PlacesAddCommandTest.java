@@ -32,10 +32,9 @@ public class PlacesAddCommandTest {
         System.setOut(original);
     }
 
-
     @Test
     void testAddPlacesCommand() throws IOException {
-        HashMap<String, String> map = storage.readPlaces(); //Read the file
+        HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         ui.fullCommand = "add-Test,COM3";
         AddPlacesCommand test = new AddPlacesCommand(ui, storage, places);
@@ -44,7 +43,7 @@ public class PlacesAddCommandTest {
 
     @Test
     void testAddWrongPlacesCommand() throws IOException {
-        HashMap<String, String> map = storage.readPlaces(); //Read the file
+        HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         ui.fullCommand = "add-TestCOM3";
         AddPlacesCommand test = new AddPlacesCommand(ui, storage, places);
