@@ -72,21 +72,24 @@ public class Parser {
         Date todayDate = new Date(System.currentTimeMillis());
         String stringDate = null;
         boolean validDay = false;
-        for (int i = 0; i < 7; i++) {
-            if (new SimpleDateFormat("EEEEE").format(todayDate).equals(day)) {
+        for (int i = 0; i < 8; i++) {
+            if (new SimpleDateFormat("EEEEE").format(todayDate).equals(day)
+                && !(i == 0 && (new SimpleDateFormat("HHmm").format(todayDate).compareTo(time) > 0))) {
                 validDay = true;
                 DateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
                 stringDate = format.format(todayDate);
                 stringDate = stringDate.substring(0, stringDate.length() - 4);
                 stringDate += time;
+                break;
             } else {
+                System.out.println("BF");
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(todayDate);
                 cal.add(Calendar.DATE, 1);
                 todayDate = cal.getTime();
             }
         }
-        if (!(validDay) || stringDate == null) {
+        if (!validDay || stringDate == null) {
             throw new RimsException("Please enter a valid day / time.");
         } else {
             return stringDate;
@@ -253,6 +256,9 @@ public class Parser {
             int qty = parseInt(input.replaceFirst("add /item " + item + " /qty ", "").trim());
             if (qty == 0) {
                 throw new RimsException("Please use a valid integer value above zero!");
+            }
+            if (qty > 100) {
+                throw new RimsException("You can only add up to 100 items at a time!");
             }
             return new AddCommand(item.trim(), qty);
         } else if (words[1].equals("/room")) {

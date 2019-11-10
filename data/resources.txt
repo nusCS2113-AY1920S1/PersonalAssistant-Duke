@@ -14,3 +14,5 @@
 11,I,test
 14,I,bigwig
 15,I,bigwig
+16,I,shuttle
+17,I,shuttle
