@@ -33,7 +33,9 @@ class ExportTest {
     private static ArrayList<Task> list;
     private static TaskList tasks;
     private static File file;
-    private static File placeholder;
+    private static File v1;
+    private static File v2;
+    private static File v3;
     private static File calendarFile;
     private static Storage storage;
     private static ChronologerStateList history;
@@ -46,9 +48,11 @@ class ExportTest {
         list = new ArrayList<>();
         tasks = new TaskList(list);
         file = new File(System.getProperty("user.dir") + "/src/test/Test");
-        placeholder = new File(System.getProperty("user.dir") + "/src/test/States");
+        v1 = new File(System.getProperty("user.dir") + "/src/test/v1");
+        v2 = new File(System.getProperty("user.dir") + "/src/test/v2");
+        v3 = new File(System.getProperty("user.dir") + "/src/test/v3");
         storage = new Storage(file);
-        history = new ChronologerStateList(placeholder, placeholder, placeholder);
+        history = new ChronologerStateList(v1, v2, v3);
         LocalDateTime startDate = LocalDateTime.now().plusDays(3);
         Deadline deadline = new Deadline("Test", startDate);
         deadline.setComment("Testing description");
@@ -70,7 +74,6 @@ class ExportTest {
     void testExport() throws ChronologerException, IOException, ParserException, ParseException {
         Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
         export.execute(tasks, storage, history);
-
         System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
         calendarFile = new File(System.getProperty("user.dir") + "/src/ChronologerDatabase/ExportTest.ics");
         FileInputStream inputStream = new FileInputStream(calendarFile);
