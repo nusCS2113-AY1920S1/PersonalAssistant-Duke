@@ -3,7 +3,6 @@
 package wallet.logic.command;
 
 import wallet.exception.WrongParameterFormat;
-import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.record.Budget;
 import wallet.model.record.Category;
@@ -59,22 +58,22 @@ public class ViewCommand extends Command {
                                     + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                             System.out.println("$" + b.getAmount());
 
-                           // double remainingBudget = b.getAmount()
-                                   // - wallet.getExpenseList().getMonthExpenses(b.getMonth(), b.getYear());
+                            // double remainingBudget = b.getAmount()
+                            // - wallet.getExpenseList().getMonthExpenses(b.getMonth(), b.getYear());
 
                             BigDecimal monthBudget = BigDecimal.valueOf(b.getAmount());
-                            BigDecimal expenseSum = BigDecimal.valueOf( wallet.getExpenseList()
+                            BigDecimal expenseSum = BigDecimal.valueOf(wallet.getExpenseList()
                                 .getMonthExpenses(b.getMonth(), b.getYear()));
                             double remainingBudget = monthBudget.subtract(expenseSum).doubleValue();
 
                             System.out.println(MESSAGE_REMAINING_BUDGET
-                                    + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
+                                + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                             System.out.println("$" + remainingBudget);
                             return false;
                         }
                     }
                     System.out.println(MESSAGE_EMPTY_BUDGET
-                            +  new DateFormatSymbols().getMonths()[month - 1] + " " + year);
+                            + new DateFormatSymbols().getMonths()[month - 1] + " " + year);
                 } else if (type[0].equals("stats")) {
                     //@@author kyang96
                     HashMap<Category, ArrayList<Expense>> categoryMap
@@ -121,48 +120,50 @@ public class ViewCommand extends Command {
     }
 
     //@@author kyang96
+
     /**
      * Generate a HashMap containing all expenses of a certain month in each category.
+     *
      * @param expenseList The entire list of expenses.
-     * @param month The month to filter.
-     * @param year The year to filter.
+     * @param month       The month to filter.
+     * @param year        The year to filter.
      */
     public HashMap<Category, ArrayList<Expense>> getCategoryMap(ArrayList<Expense> expenseList, int month, int year) {
         HashMap<Category, ArrayList<Expense>> categoryMap = new HashMap<>();
         for (Expense expense : expenseList) {
             if (expense.getDate().getMonthValue() == month && expense.getDate().getYear() == year) {
                 switch (expense.getCategory()) {
-                case FOOD:
-                    if (categoryMap.get(Category.FOOD) == null) {
-                        categoryMap.put(Category.FOOD, new ArrayList<Expense>());
-                    }
-                    categoryMap.get(Category.FOOD).add(expense);
-                    break;
-                case BILLS:
-                    if (categoryMap.get(Category.BILLS) == null) {
-                        categoryMap.put(Category.BILLS, new ArrayList<Expense>());
-                    }
-                    categoryMap.get(Category.BILLS).add(expense);
-                    break;
-                case TRANSPORT:
-                    if (categoryMap.get(Category.TRANSPORT) == null) {
-                        categoryMap.put(Category.TRANSPORT, new ArrayList<Expense>());
-                    }
-                    categoryMap.get(Category.TRANSPORT).add(expense);
-                    break;
-                case SHOPPING:
-                    if (categoryMap.get(Category.SHOPPING) == null) {
-                        categoryMap.put(Category.SHOPPING, new ArrayList<Expense>());
-                    }
-                    categoryMap.get(Category.SHOPPING).add(expense);
-                    break;
-                case OTHERS:
-                    if (categoryMap.get(Category.OTHERS) == null) {
-                        categoryMap.put(Category.OTHERS, new ArrayList<Expense>());
-                    }
-                    categoryMap.get(Category.OTHERS).add(expense);
-                    break;
-                default:
+                    case FOOD:
+                        if (categoryMap.get(Category.FOOD) == null) {
+                            categoryMap.put(Category.FOOD, new ArrayList<Expense>());
+                        }
+                        categoryMap.get(Category.FOOD).add(expense);
+                        break;
+                    case BILLS:
+                        if (categoryMap.get(Category.BILLS) == null) {
+                            categoryMap.put(Category.BILLS, new ArrayList<Expense>());
+                        }
+                        categoryMap.get(Category.BILLS).add(expense);
+                        break;
+                    case TRANSPORT:
+                        if (categoryMap.get(Category.TRANSPORT) == null) {
+                            categoryMap.put(Category.TRANSPORT, new ArrayList<Expense>());
+                        }
+                        categoryMap.get(Category.TRANSPORT).add(expense);
+                        break;
+                    case SHOPPING:
+                        if (categoryMap.get(Category.SHOPPING) == null) {
+                            categoryMap.put(Category.SHOPPING, new ArrayList<Expense>());
+                        }
+                        categoryMap.get(Category.SHOPPING).add(expense);
+                        break;
+                    case OTHERS:
+                        if (categoryMap.get(Category.OTHERS) == null) {
+                            categoryMap.put(Category.OTHERS, new ArrayList<Expense>());
+                        }
+                        categoryMap.get(Category.OTHERS).add(expense);
+                        break;
+                    default:
                 }
             }
         }
