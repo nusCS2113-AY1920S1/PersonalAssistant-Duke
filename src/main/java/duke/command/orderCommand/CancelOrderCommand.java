@@ -63,7 +63,12 @@ public class CancelOrderCommand extends Command {
             ui.showLine();
 
         } else {
-            throw new DukeException("Please enter a valid order number between 1 and " + orderList.size() + " to remove");
+            if (orderList.size()==1) {
+                throw new DukeException("Got only 1 order in the order list.\n\t Enter '1' as order index");
+            } else {
+                throw new DukeException("Must enter a valid order index number between 1 and "+orderList.size());
+            }
+
         }
     }
 }
