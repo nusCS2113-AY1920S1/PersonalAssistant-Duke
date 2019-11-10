@@ -661,6 +661,9 @@ representing one row of the table
 the line
 * `getArrayOfSplitStrings()` -- When a String that is meant to be in one row in the table is too long, it is passed
 into this method to split the string up into an array of Strings of suitable length to fit into one row of the table
+* `consolePrintMultipleTables()` -- This method reuses `consolePrintTable()` and expands on it to create a table containing
+multiple smaller tables each with its own header. Returns a String array with each element containing the String corresponding
+to the line of the table to be printed
 
 The following steps show how the UI table display are made in ArchDuke.
 
@@ -670,28 +673,40 @@ Step 1) User enters a command that requires information to be presented in a cle
 Step 2) Assume the command `list` is entered. The user is requesting an overview of all the projects that he is currently doing.
 This would call the method `getAllProjectDetailsForTable()` in `ProjectRepository`.
 
-Step 3) The method `getAllProjectDetailsForTable()` would return an ArrayList containing multiple ArrayLists of String, with each
-ArrayList of String containing all the details of each project which will be stored in one table. The parent ArrayList
-would then contain information to be printed in different tables. In this case, each project will fill one table.
+Step 3) The method `getAllProjectDetailsForTable()` would return an ArrayList containing multiple ArrayLists of String,
+with each ArrayList of String containing all the details of each project which will be stored in one table. The parent
+ArrayList would then contain information to be printed in different tables. In this case, each project will fill one table.
 
-Step 4) The ArrayList of ArrayLists would then be passed into the `consolePrintTable()` method, which will pack each individual
+Step 4) The ArrayList of ArrayLists would then be passed into the `consolePrintMultipleTables()` method in the `ViewHelper`
+class, which will create an overall table containing information to all the projects and pack each individual
 ArrayList of Strings into a formatted table. Each String in the ArrayList of Strings is an entry that is meant to be presented
 in one line of the table.
 
-Step 5) When the String is shorter that the full table width, there are spaces that need to be added to maintain the visual
-implementation of the table. Hence, the `getRemainingSpaces()` method is called to fill up the remaining spaces.
+Step 5) Within the `consolePrintMutlipleTables()` method, each ArrayList of String is supposed to be stored within one
+smaller table. Hence, for each ArrayList of String, the `consolePrintTable()` method is used to generate a string array
+containing the contents in the ArrayList of String. The width of each of the smaller tables will be calculated based on
+the width of the overall table and the input parameter for the number of columns required.
 
-Step 6) When the String is longer than the full table width, it needs to be split into multiple lines in order to fit it
+Step 6) Within the `consolePrintTable()` method, when the String is shorter that the full table width, there are spaces
+that need to be added to maintain the visual implementation of the table. Hence, the `getRemainingSpaces()` method is
+called to fill up the remaining spaces.
+
+Step 7) When the String is longer than the full table width, it needs to be split into multiple lines in order to fit it
 within the table. Hence, the `getArrayOfSplitStrings()` method is called to split the string up nicely to fit the table width.
-It will ensure that the String is split at the spaces so that the words remain intact. The only exception is when the length
-of a word is longer than the table width. the method would append a hyphen '-' at the point of the word where it exceeds table width
-and push the remainder to the next line.
+It will ensure that the String is split at the spaces so that the words remain intact. If the point of the string that
+exceeds the table width is in the middle of a word and it is within a predefined length, the entire word will be shifted
+to the next line. If it exceeds that predefined length, that word will be split with a hyphen '-' with the remaining half
+of the word to be pushed to the next line. This process repeats and each line will be stored in an individual string.
 
-Step 7) The `consolePrintTableHoriBorder()` method is called at any point where the horizontal border of the table is required.
+Step 8) The `consolePrintTableHoriBorder()` method is called at any point where the horizontal border of the table is required.
 
-Step 8) The `consolePrintTable()` method would then store the entire series of tables to be displayed into a String array
-with each element containing a line to be printed to be passed into `consolePrint()` where it will be printed with
-indentation and horizontal borders on the top and bottom.
+Step 9) After the tables are generated, the tables would be lined up in each column one by one. The tables will be added
+to the shortest column at any point in time. If 2 or more columns are of the same length, the next table will be added to
+the left most column.
+
+Step 10) The `consolePrintMMultipleTables()` method would then store the entire series of tables to be displayed into a
+String array with each element containing a line to be printed to be passed into `consolePrint()` where it will be
+printed with indentation and horizontal borders on the top and bottom.
 
 The following sequence diagram show how `list` operation works.
 

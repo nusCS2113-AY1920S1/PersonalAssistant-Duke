@@ -16,8 +16,16 @@ public class ProjectRepository implements IRepository<Project> {
     private ProjectFactory projectFactory = new ProjectFactory();
     private JsonConverter jsonConverter = new JsonConverter();
 
+    /**
+     * Constructor of ProjectRepository.
+     * It first gets resources from packaged jar.
+     * Next, it loads any projects data in the current working directory.
+     * Lastly, it adds any resources found in packaged jar into the data found in current working directory.
+     */
     public ProjectRepository() {
+        ArrayList<Project> projectsFromResource = jsonConverter.getResourcesInJar();
         allProjects = jsonConverter.loadAllProjectsData();
+        allProjects.addAll(projectsFromResource);
     }
 
     @Override
@@ -49,11 +57,28 @@ public class ProjectRepository implements IRepository<Project> {
     }
 
     /**
-     * Method to force save an Object to the Data layer.
-     * @param object : Object to be saved.
+     * Method responsible for deleting an old JSON and creating a new JSON file after a Project renames itself.
+     * @param project : Project that is being renamed.
+     * @param input : New name for the Project.
+     * @return : Returns a boolean flag stating whether the deletion and recreation of JSon was successful or not.
      */
-    public void saveToRepo(Project object) {
-        jsonConverter.saveProject(object);
+    public boolean updateItem(Project project, String input) {
+        try {
+            jsonConverter.deleteProject(project);
+        } catch (DukeException e) {
+            return false;
+        }
+        project.setName(input);
+        jsonConverter.saveProject(project);
+        return true;
+    }
+
+    /**
+     * Method to force save an Object to the Data layer.
+     * @param project : Object to be saved.
+     */
+    public void saveToRepo(Project project) {
+        jsonConverter.saveProject(project);
     }
 
     /**
@@ -66,7 +91,10 @@ public class ProjectRepository implements IRepository<Project> {
             jsonConverter.deleteProject(allProjects.get(indexNumber - 1));
             this.allProjects.remove(indexNumber - 1);
             return true;
-        } catch (IndexOutOfBoundsException | DukeException err) {
+        } catch (IndexOutOfBoundsException err) {
+            return false;
+        } catch (DukeException err) {
+            this.allProjects.remove(indexNumber - 1);
             return false;
         }
     }

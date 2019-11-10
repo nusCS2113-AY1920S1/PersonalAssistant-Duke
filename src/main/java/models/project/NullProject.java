@@ -18,6 +18,13 @@ public class NullProject implements IProject {
     }
 
     @Override
+    public void setName(String input) {
+        /*
+        Empty method
+         */
+    }
+
+    @Override
     public MemberList getMemberList() {
         return null;
     }

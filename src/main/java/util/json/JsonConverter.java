@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class JsonConverter {
@@ -69,6 +71,26 @@ public class JsonConverter {
                 ArchDukeLogger.logError(JsonConverter.class.getName(), "Saved file not loaded");
                 return allProjects;
             }
+        }
+
+        return allProjects;
+    }
+
+    /**
+     * Opens an InputStream to try get resources from within a packaged jar.
+     * Resources are hardcoded in.
+     * @return : Returns an ArrayList of Project representing all Projects packaged in the jar file.
+     */
+    public ArrayList<Project> getResourcesInJar() {
+        Gson gson = new Gson();
+        ArrayList<Project> allProjects = new ArrayList<>();
+        try {
+            InputStream is = getClass().getResourceAsStream("/initdata/avengers.json");
+            InputStreamReader isr = new InputStreamReader(is);
+            Project newProject = gson.fromJson(isr, new TypeToken<Project>(){}.getType());
+            allProjects.add(newProject);
+        } catch (NullPointerException err) {
+            return allProjects;
         }
         return allProjects;
     }

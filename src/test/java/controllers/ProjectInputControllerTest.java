@@ -183,9 +183,9 @@ class ProjectInputControllerTest {
         for (String message : project.getCredits().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Dillen: 0 credits   Progress: .................... (0%)"
-                + "2. Jerry: 0 credits   Progress: .................... (0%)"
-                + "3. Sean: 0 credits   Progress: .................... (0%)";
+        expectedOutput = "1. Dillen: 0.0 credits   Progress: .................... (0%)"
+                + "2. Jerry: 0.0 credits   Progress: .................... (0%)"
+                + "3. Sean: 0.0 credits   Progress: .................... (0%)";
         assertEquals(expectedOutput, actualOutput);
 
         simulatedUserInput = "assign task -i 1 -to 1 2";
@@ -198,9 +198,9 @@ class ProjectInputControllerTest {
         for (String message : project.getCredits().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Dillen: 3 credits   Progress: ##########.......... (50%)"
-                + "2. Jerry: 0 credits   Progress: .................... (0%)"
-                + "3. Sean: 3 credits   Progress: #################### (100%)";
+        expectedOutput = "1. Dillen: 3.3 credits   Progress: ##########.......... (50%)"
+                + "2. Jerry: 0.0 credits   Progress: .................... (0%)"
+                + "3. Sean: 3.3 credits   Progress: #################### (100%)";
         assertEquals(expectedOutput, actualOutput);
 
         simulatedUserInput = "edit task 1 -c 45";
@@ -210,9 +210,9 @@ class ProjectInputControllerTest {
         for (String message : project.getCredits().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Dillen: 3 credits   Progress: ###................. (15%)"
-                + "2. Jerry: 0 credits   Progress: .................... (0%)"
-                + "3. Sean: 3 credits   Progress: #################### (100%)";
+        expectedOutput = "1. Dillen: 3.3 credits   Progress: ###................. (15%)"
+                + "2. Jerry: 0.0 credits   Progress: .................... (0%)"
+                + "3. Sean: 3.3 credits   Progress: #################### (100%)";
         assertEquals(expectedOutput, actualOutput);
 
         simulatedUserInput = "edit task 1 -s done";
@@ -222,9 +222,9 @@ class ProjectInputControllerTest {
         for (String message : project.getCredits().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Dillen: 18 credits   Progress: #################### (100%)"
-                + "2. Jerry: 15 credits   Progress: #################### (100%)"
-                + "3. Sean: 3 credits   Progress: #################### (100%)";
+        expectedOutput = "1. Dillen: 18.3 credits   Progress: #################### (100%)"
+                + "2. Jerry: 15.0 credits   Progress: #################### (100%)"
+                + "3. Sean: 3.3 credits   Progress: #################### (100%)";
         assertEquals(expectedOutput, actualOutput);
 
     }
