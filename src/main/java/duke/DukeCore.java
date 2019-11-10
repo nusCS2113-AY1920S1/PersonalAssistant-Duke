@@ -56,7 +56,7 @@ public class DukeCore extends Application {
      *
      * @throws DukeFatalException If the file writer cannot be setup.
      */
-    public void search(SearchResults results, ObjCommand objCmd) throws DukeException {
+    public void search(SearchResults results, ObjCommand objCmd) {
         queuedCmd = objCmd;
         ui.showMessage("Here are all the results for '" + results.getName() + "'.");
         uiContext.open(results);
@@ -91,7 +91,9 @@ public class DukeCore extends Application {
      * Update UI to reflect current state of data.
      */
     public void updateUi(String message) throws DukeFatalException {
-        uiContext.getObject().update();
+        if (uiContext.getObject() != null) {
+            uiContext.getObject().update();
+        }
         ui.updateUi(message);
     }
 

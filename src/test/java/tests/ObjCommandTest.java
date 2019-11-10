@@ -131,14 +131,13 @@ public class ObjCommandTest extends CommandTest {
         try {
             openCmd.execute(core); // opens search results
             assertTrue(correctPatientSearchResults(getSearchResultList()));
+            core.uiContext.openWithoutHistory(impression1);
             openCmd.execute(core, patient1);
             assertEquals(core.uiContext.getObject(), patient1);
         } catch (DukeException excp) {
             fail("Exception thrown while executing home open command: " + excp.getMessage());
         }
     }
-
-
 
     private void setupCommand(ObjSpec spec) {
         String[] switchNames = {};

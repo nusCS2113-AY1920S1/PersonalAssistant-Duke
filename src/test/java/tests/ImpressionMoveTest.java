@@ -108,7 +108,7 @@ public class ImpressionMoveTest extends CommandTest {
         }
 
         try {
-            moveCmd.execute(core, newImpression);
+            moveCmd.execute(core);
             core.uiContext.open(impression);
             moveCmd.execute(core, obsv);
         } catch (DukeException excp) {
