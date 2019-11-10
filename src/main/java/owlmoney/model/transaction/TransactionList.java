@@ -264,7 +264,6 @@ public class TransactionList {
      */
     public double editDeposit(int depositIndex, String description, String amount, String date, Ui ui)
             throws TransactionException {
-        ui.printMessage("Editing transaction...\n");
         if (!(description == null || description.isBlank())) {
             transactionLists.get(depositIndex - ONE_INDEX).setDescription(description);
         }
