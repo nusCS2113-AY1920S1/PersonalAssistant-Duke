@@ -10,7 +10,7 @@ public class DukeResetException extends DukeException {
      * should have access to the Ui and Storage objects, ask the user if he wants to reset his data, and reset it if so.
      */
     public DukeResetException(String msg) {
-        super(msg + " You can back up the file, and/or reset it!" + System.lineSeparator()
+        super(msg + " You can back up the file, and/or reset it!" + "\n\n"
                 + "Do you want to reset your Duke data now," + " to continue using Duke? (y/n)");
     }
 }

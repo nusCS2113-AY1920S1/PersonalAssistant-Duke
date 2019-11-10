@@ -224,7 +224,7 @@ public class Patient extends DukeObject {
     public String appendHistory(String addition) {
         String newHistory;
         if (this.history != null && !this.history.equals("")) {
-            newHistory = this.history + System.lineSeparator() + addition;
+            newHistory = this.history + "\n\n" + addition;
         } else {
             newHistory = addition;
         }

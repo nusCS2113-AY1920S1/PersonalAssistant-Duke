@@ -59,8 +59,7 @@ public class SearchResults extends DukeObject {
     @Override
     public String toString() {
         StringBuilder searchDetails = new StringBuilder();
-        searchDetails.append("There are ").append(searchList.size()).append(" result(s).");
-        searchDetails.append(System.lineSeparator());
+        searchDetails.append("There are ").append(searchList.size()).append(" result(s).").append("\n");
         int patCount = 0;
         int impCount = 0;
         int evCount = 0;
@@ -79,16 +78,13 @@ public class SearchResults extends DukeObject {
         }
 
         if (patCount != 0) {
-            searchDetails.append("There are ").append(patCount).append(" patient(s)");
-            searchDetails.append(System.lineSeparator());
+            searchDetails.append("There are ").append(patCount).append(" patient(s)").append("\n");
         }
         if (impCount != 0) {
-            searchDetails.append("There are ").append(impCount).append(" impression(s)");
-            searchDetails.append(System.lineSeparator());
+            searchDetails.append("There are ").append(impCount).append(" impression(s)").append("\n");
         }
         if (evCount != 0) {
-            searchDetails.append("There are ").append(evCount).append(" evidence(s)");
-            searchDetails.append(System.lineSeparator());
+            searchDetails.append("There are ").append(evCount).append(" evidence(s)").append("\n");
         }
         if (treatCount != 0) {
             searchDetails.append("There are ").append(treatCount).append(" treatment(s)");

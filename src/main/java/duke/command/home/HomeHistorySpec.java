@@ -38,6 +38,6 @@ public class HomeHistorySpec extends HomeObjSpec {
             newHistory = patient.appendHistory(message);
         }
         core.writeJsonFile();
-        core.updateUi("History of " + patientDetails + " updated with:\n" + newHistory + "\n");
+        core.updateUi(patient.getName() + "'s history updated to:\n\n" + newHistory + "\n");
     }
 }

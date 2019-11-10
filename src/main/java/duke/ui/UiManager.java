@@ -63,7 +63,7 @@ public class UiManager implements Ui {
      */
     @Override
     public void showMessage(String message) {
-        final String displayMessage = message.replace("\t", "\n");
+        final String displayMessage = message.replaceAll("(\\t|\\n)", System.lineSeparator());
 
         // TODO: temporary workaround for JUnit tests
         if (mainWindow != null) {
