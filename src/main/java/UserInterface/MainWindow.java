@@ -83,7 +83,7 @@ public class MainWindow extends BorderPane implements Initializable {
     private TableColumn<DukeResponseView, String> dukeResponseColumn;
 
     private Duke duke;
-    private Storage storage;
+    private static Storage storage;
     private ArrayList<Assignment> events;
     private ArrayList<Assignment> deadlines;
     private ArrayList<Assignment> todos;
@@ -107,7 +107,11 @@ public class MainWindow extends BorderPane implements Initializable {
             deadlines = new ArrayList<>();
             setWeek(true, NO_FIELD);
             displayQuoteOfTheDay();
-
+            eventsList = new TaskList();
+            deadlinesList = new TaskList();
+            PreloadStorage preloadStorage = new PreloadStorage();
+            preloadStorage.readEventList(eventsList);
+            preloadStorage.readDeadlineList(deadlinesList);
             retrieveList();
             openReminderBox();
 
@@ -178,6 +182,10 @@ public class MainWindow extends BorderPane implements Initializable {
         duke = d;
     }
 
+    public static void setStorage(Storage storageFromDuke) {
+        storage = storageFromDuke;
+    }
+
     static ArrayList<String> filteredInput = new ArrayList<>();
 
     /**
@@ -186,9 +194,6 @@ public class MainWindow extends BorderPane implements Initializable {
      * @throws ParseException On conversion error from string to Task object
      */
     private void retrieveList() throws DukeIOException {
-        storage = new Storage();
-        eventsList = new TaskList();
-        deadlinesList = new TaskList();
         overdue = new ArrayList<>();
         storage.readEventList(eventsList);
         storage.readDeadlineList(deadlinesList);
