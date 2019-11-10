@@ -84,12 +84,11 @@ public class ReservationList {
      *                      being created.
      * @param userId        the ID of the user creating this Reservation.
      * @param startDate     the date from which this Reservation takes effect.
-     * @param endDate       the date till which this Reservation will be in effect.
-     * @throws ParseException if the dates given are in an invalid format.
-     * @throws RimsException  if the date of return is before the date of borrowing.
+     * @param endDate       the date till which this Reservation will be in effect.if the dates given are in an invalid format.
+     * @throws RimsException  if date is invalid, or if the date of return is before the date of borrowing.
      */
     public void createReservation(int reservationId, int resourceId, int userId, Date startDate, Date endDate)
-            throws ParseException, RimsException {
+            throws RimsException {
         Date currentDate = new Date(System.currentTimeMillis());
         if (startDate.after(endDate)) {
             throw new RimsException("Your date of return must be after your date of borrowing!");

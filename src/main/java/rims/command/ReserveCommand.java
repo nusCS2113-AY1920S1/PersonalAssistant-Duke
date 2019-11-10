@@ -145,9 +145,9 @@ public class ReserveCommand extends Command {
      * @throws ParseException if the dates specified are invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources)
-            throws RimsException, ParseException, IOException {
-        //storage.saveToFile(resources.getResources());
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
+        storage.saveToFile(resources.getResources());
+
         if (!(stringDateFrom == null)) {
             dateFrom = resources.stringToDate(stringDateFrom);
         }

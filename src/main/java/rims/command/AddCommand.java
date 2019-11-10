@@ -3,6 +3,7 @@ package rims.command;
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
+import rims.exception.RimsException;
 import rims.resource.Item;
 import rims.resource.Room;
 import rims.resource.ReservationList;
@@ -52,7 +53,7 @@ public class AddCommand extends Command {
      * @param resources The ResourceList, containing all the created Resources thus far.
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws IOException, RimsException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
         storage.saveToFile(resources.getResources());
         if (resourceType.equals("room")) {
             int resourceId = resources.generateResourceId();

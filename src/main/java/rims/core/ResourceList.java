@@ -326,7 +326,7 @@ public class ResourceList {
      * @param date         the date that is being checked.
      * @return the number of available Resources with that name on that date.
      */
-    public int getAvailableNumberOfResourceForDate(String resourceName, String date) throws ParseException {
+    public int getAvailableNumberOfResourceForDate(String resourceName, String date) throws RimsException {
         ArrayList<Resource> allOfResource = getAllOfResource(resourceName);
         Date checkedDate = stringToDate(date);
         int number = 0;
@@ -365,7 +365,7 @@ public class ResourceList {
      * @return the number of booked Resources with that name on that date.
      * @throws ParseException if the date is in an invalid format.
      */
-    public int getBookedNumberOfResourceForDate(String resourceName, String date) throws ParseException {
+    public int getBookedNumberOfResourceForDate(String resourceName, String date) throws RimsException {
         ArrayList<Resource> allOfResource = getAllOfResource(resourceName);
         Date checkedDate = stringToDate(date);
         int number = 0;
@@ -383,7 +383,7 @@ public class ResourceList {
      * @return the number of booked Resources on that date.
      * @throws ParseException if the date is in an invalid format.
      */
-    public int getBookedNumberOfResourceForDate(Date date) throws ParseException {
+    public int getBookedNumberOfResourceForDate(Date date) {
         int number = 0;
         for (int i = 0; i < resources.size(); i++) {
             if (!resources.get(i).isAvailableOnDate(date)) {
@@ -442,10 +442,16 @@ public class ResourceList {
      *
      * @param stringDate the date and time inputted by the user in String format.
      * @return a Date object representing the date and time inputted by the user.
+     * @throws RimsException if stringDate cannot be formatted into a date.
      */
-    public Date stringToDate(String stringDate) throws ParseException {
+    public Date stringToDate(String stringDate) throws RimsException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        Date dateValue = formatter.parse(stringDate);
+        Date dateValue;
+        try {
+            dateValue = formatter.parse(stringDate);
+        } catch (ParseException e) {
+            throw new RimsException("Invalid format of date " + stringDate + "!");
+        }
         return dateValue;
     }
 

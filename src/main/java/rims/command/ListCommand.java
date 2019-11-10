@@ -50,9 +50,14 @@ public class ListCommand extends Command {
      * @param stringDate the date and time inputted by the user in String format.
      * @return a Date object representing the date and time inputted by the user.
      */
-    public static Date stringToDate(String stringDate) throws ParseException {
+    public static Date stringToDate(String stringDate) throws RimsException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        Date dateValue = formatter.parse(stringDate);
+        Date dateValue;
+        try {
+            dateValue = formatter.parse(stringDate);
+        } catch (ParseException e) {
+            throw new RimsException("Invalid format of date " + stringDate + "!");
+        }
         return dateValue;
     }
 
@@ -87,7 +92,7 @@ public class ListCommand extends Command {
      * @throws RimsException  for any other unexpected error
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws ParseException, RimsException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
         if (listType == null) {
             ui.printLine();
             ArrayList<String> coveredResources = new ArrayList<String>();

@@ -47,7 +47,7 @@ public class DeleteCommand extends Command {
      * @throws RimsException if the resource IDs specified by the user are invalid
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException, IOException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
         storage.saveToFile(resources.getResources());
         if (resourceType.equals("room")) {
             Resource thisResource = resources.getResourceByName(resourceName);
