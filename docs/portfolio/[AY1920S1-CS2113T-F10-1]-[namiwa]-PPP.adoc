@@ -1,4 +1,4 @@
-= Khairul Iman - Project Portfolio
+= Khairul Iman Nasri Bin Azharie - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -10,9 +10,9 @@
 
 ModPlanner is a command line interface application written in Java. It aims to help Computer Engineering students plan their modules throughout their entire university tenure.
 
-This was done in apart to learn the basic concepts of software engineering in a non-trivial project, consisting of about 5KSoC. We chose to morph the existing Duke personal assistant into our ModPlanner application.
+This was done in apart to learn the basic concepts of software engineering in a non-trivial project, consisting of about 7000 Significant Lines of Code(SoC). We chose to morph the existing Duke personal assistant into our ModPlanner application.
 
-This document details my overall contribution to the project. The code repository is maintained using {repoURL}/main[GitHub.]
+This document details my overall https://nuscs2113-ay1920s1.github.io/dashboard/#search=f10-1&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=namiwa&tabRepo=AY1920S1-CS2113T-F10-1%2Fmain%5Bmaster%5D[contribution] to the project. The code repository is maintained using {repoURL}/main[GitHub.]
 
 == Feature contribution
 
@@ -32,6 +32,12 @@ This document details my overall contribution to the project. The code repositor
 ** Through the `Storage` and `Logger` classes, user's current data would be instantly stored in JSON file format. This process is done automatically without
 needing the user to be aware of the process.
 
+* Implemented integration with external libraries
+** Since our project requires date and time processing, I integrated the external `Natty` Library for relative time and
+date parsing.
+** This is inline with the integration with of the `GSON` library as well as adding support for `Junit 5` to give our team access to
+a streamlined testing framework.
+
 == Summary of contributions
 
 * *Feature Enhancement*:
@@ -48,7 +54,7 @@ needing the user to be aware of the process.
     ** Added support for Gradle build automation, to ensuring ease of project builds https://github.com/AY1920S1-CS2113T-F10-1/main/pull/9[#9]
     ** Added support for TravisCI, for continuous integration https://github.com/AY1920S1-CS2113T-F10-1/main/pull/49[#49]
     ** Added support for checkstyle in TravisCI for code quality monitoring https://github.com/AY1920S1-CS2113T-F10-1/main/pull/53[#53]
-    ** Added support for Coveralls, for efficient tracking of code coverage https://github.com/AY1920S1-CS2113T-F10-1/main/pull/122[#122]
+    ** Added support for Coveralls, for efficient tracking of code coverage https://github.com/AY1920S1-CS2113T-F10-1/main/pull/122[#122], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/215[#215]
 
 * Project management:
     ** Managed releases https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/A-Jar[`mid-v1.1`], https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/v1.1[`v1.1`] and https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/v1.2.1[`v1.2.1`]
@@ -63,8 +69,10 @@ needing the user to be aware of the process.
 * Community:
     ** Requested permission to utilize NUSMODS API in the course forum https://github.com/nusCS2113-AY1920S1/forum/issues/53[#53]
 * Tools:
-*** Integrated a third party library (Natty) to the project, for improved date parsing https://github.com/AY1920S1-CS2113T-F10-1/main/pull/59[#59]
-*** Integrated Github plugins (TravisCI and Coveralls) to the team repository
+*** Integrated a third party library (https://github.com/joestelmach/natty[Natty]) to the project, for improved date parsing https://github.com/AY1920S1-CS2113T-F10-1/main/pull/59[#59]
+*** Integrated https://github.com/google/gson[GSON] for efficient `JSON` data parsing
+*** Added https://github.com/junit-team/junit5[JUnit 5] support to give team access to a testing framework https://github.com/AY1920S1-CS2113T-F10-1/main/pull/9[#9]
+*** Integrated Github plugins (TravisCI and Coveralls) to the team repository https://github.com/AY1920S1-CS2113T-F10-1/main/pull/53[#53], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/215[#215]
 
 == Contributions to the User Guide
 
