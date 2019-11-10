@@ -127,7 +127,7 @@ public class DukeConstants {
     public static final String CONFLICTING_DEADLINE ="Sorry, you have conflicting deadlines \n";
     public static final String NO_MOD_ERROR ="Sorry, you have no such mod in the system";
     public static final String NO_DATE_ERROR = "Sorry, you have no such date of the mod in the system";
-    public static final String MISMATCH_DATE ="Sorry, the description of your task mismatches";
+    public static final String MISMATCH_DESCRIPTION ="Sorry, the description of your task mismatches";
     public static final String NO_TASK_TIMING_ERROR = "Sorry, you have no timing of the task in the system";
     public static final String REMINDER_TIME_PASSED_ERROR ="Sorry, your selected task has already passed!";
     public static final String NO_REMINDER_TIME_ERROR = "Sorry, you have no such reminder at that inputted time.";

@@ -27,7 +27,7 @@ public class RecurParseTest {
     }
 
     @Test
-    public void recurParseTestWIthInvalidModCode() {
+    public void recurParseTest_withInvalidModCode_throwDukeInvalidFormatException() {
         String recurSet = "recur/weekly 2101 tutorial /start " + startDate + " /to " + endDate
                 + " /from " + startTime + " /to " + endTime;
         String expected = "\u2639" + " OOPS!!! The ModCode is invalid";
@@ -43,7 +43,7 @@ public class RecurParseTest {
     }
 
    @Test
-    public void recurParseTestWIthInvalidDescription() {
+    public void recurParseTest_withInvalidDescription_throwDukeInvalidFormatException() {
         String recurSet = "recur/weekly CS2101 /start " + startDate + " /to " + endDate
                 + " /from " + startTime + " /to " + endTime;
         String expected = "\u2639" + " OOPS!!! The description of an event cannot be empty.";
@@ -59,7 +59,7 @@ public class RecurParseTest {
     }
 
     @Test
-    public void recurParseTestWIthInvalidFormat() {
+    public void recurParseTest_withInvalidFormat_throwDukeInvalidFormatException() {
         String recurSet = "recur/weekly CS2101 tutorial " + startDate + " /to " + endDate + " /from " + startTime
                 + " /to " + endTime;
         String expected = "OOPS!!! Please enter recurring event as follows:\n"
@@ -78,7 +78,7 @@ public class RecurParseTest {
     }
 
     @Test
-    public void recurWeeklyParseWithValidFormat() {
+    public void recurWeeklyParse_withValidFormat() {
         String recurSet = "recur/weekly CS2101 tutorial /start " + startDate + " /to " + endDate
                 + " /from " + startTime + " /to " + endTime;
         Command command = null;
@@ -92,7 +92,7 @@ public class RecurParseTest {
     }
 
     @Test
-    public void recurBiweeklyParseWithValidFormat() {
+    public void recurBiweeklyParse_withValidFormat() {
         String recurSet = "recur/biweekly CS2101 tutorial /start " + startDate + " /to " + endDate
                 + " /from " + startTime + " /to " + endTime;
         Command command = null;
@@ -106,7 +106,7 @@ public class RecurParseTest {
     }
 
     @Test
-    public void recurRmweeklyParseWithValidFormat() {
+    public void recurRmweeklyParse_withValidFormat() {
         String recurSet = "recur/rmweekly CS2101 tutorial /start " + startDate + " /to " + endDate
                 + " /from " + startTime + " /to " + endTime;
         Command command = null;
@@ -120,7 +120,7 @@ public class RecurParseTest {
     }
 
     @Test
-    public void recurRmbiweeklyParseWithValidFormat() {
+    public void recurRmbiweeklyParse_withValidFormat() {
         String recurSet = "recur/rmbiweekly CS2101 tutorial /start " + startDate + " /to " + endDate
                 + " /from " + startTime + " /to " + endTime;
         Command command = null;

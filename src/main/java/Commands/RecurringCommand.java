@@ -83,7 +83,6 @@ public class RecurringCommand extends Command {
         HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
         ArrayList<Assignment> temp = new ArrayList<>();
 
-
         if (isRecur && isBiweekly) {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
