@@ -37,7 +37,7 @@ public class Messages {
     public static final String ERROR_FILE_NOT_SAVED = "File not saved! :-(";
     public static final String ERROR_RESOURCE_NOT_FOUND = "Resource not found! :-( Missing: ";
     public static final String ERROR_OBJECT_NOT_CREATED = "Item could not be created! :-(";
-    public static final String ERROR_TASK_DUPLICATED = "Task already exists! :-(";
+    public static final String ERROR_EVENT_DUPLICATED = "Event already exists! :-(";
     public static final String ERROR_ROUTE_DUPLICATE = "Route already exists! :-(";
     public static final String ERROR_ROUTE_NOT_FOUND = "Route not found! :-(";
     public static final String ERROR_ROUTE_NODE_DUPLICATE = "Node already exists! :-(";

@@ -1,6 +1,6 @@
 package sgtravel.logic.commands;
 
-import sgtravel.commons.exceptions.DuplicateTaskException;
+import sgtravel.commons.exceptions.DuplicateEventException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Event;
@@ -27,10 +27,10 @@ public class AddCommand extends Command {
      *
      * @param model The model object containing event list.
      * @throws FileNotSavedException If the data could not be saved.
-     * @throws DuplicateTaskException If there is a duplicated event.
+     * @throws DuplicateEventException If there is a duplicated event.
      */
     @Override
-    public CommandResultText execute(Model model) throws DuplicateTaskException, FileNotSavedException {
+    public CommandResultText execute(Model model) throws DuplicateEventException, FileNotSavedException {
         model.getEvents().add(event);
         model.save();
         return new CommandResultText(MESSAGE_ADDITION + event);

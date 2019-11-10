@@ -1,6 +1,6 @@
 package sgtravel.ui.calendar;
 
-import sgtravel.commons.exceptions.DuplicateTaskException;
+import sgtravel.commons.exceptions.DuplicateEventException;
 import sgtravel.logic.commands.results.CommandResultCalender;
 import sgtravel.model.lists.EventList;
 import sgtravel.model.Event;
@@ -163,7 +163,7 @@ public class CalendarWindow extends UiPart<Stage> {
             if (isSameYearMonth(startDate)) {
                 try {
                     filteredEvents.get(startDate.getDayOfMonth()).add(task);
-                } catch (DuplicateTaskException e) {
+                } catch (DuplicateEventException e) {
                     logger.log(Level.WARNING, "Duplicated tasks should not exists.");
                 }
             }

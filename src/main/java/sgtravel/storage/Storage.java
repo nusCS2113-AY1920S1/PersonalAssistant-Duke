@@ -3,7 +3,7 @@ package sgtravel.storage;
 
 import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.DuplicateRouteNodeException;
-import sgtravel.commons.exceptions.DuplicateTaskException;
+import sgtravel.commons.exceptions.DuplicateEventException;
 import sgtravel.commons.exceptions.FileLoadFailException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.ParseException;
@@ -146,7 +146,7 @@ public class Storage {
             }
             s.close();
             this.events.setEvents(events);
-        } catch (FileNotFoundException | ParseException | DuplicateTaskException e) {
+        } catch (FileNotFoundException | ParseException | DuplicateEventException e) {
             throw new FileLoadFailException(EVENTS_FILE_PATH);
         }
     }

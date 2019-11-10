@@ -1,7 +1,7 @@
 package sgtravel.logic.commands;
 
 import sgtravel.ModelStub;
-import sgtravel.commons.exceptions.DuplicateTaskException;
+import sgtravel.commons.exceptions.DuplicateEventException;
 import sgtravel.commons.exceptions.DukeException;
 import sgtravel.model.Event;
 import sgtravel.model.Model;
@@ -22,7 +22,7 @@ class AddCommandTest {
         AddCommand addCommand = new AddCommand(event);
         addCommand.execute(model);
         assertTrue(model.getEvents().contains(event));
-        assertThrows(DuplicateTaskException.class, () -> addCommand.execute(model));
+        assertThrows(DuplicateEventException.class, () -> addCommand.execute(model));
         Event event2 = new Event("NTU", LocalDateTime.now(), LocalDateTime.now());
         AddCommand addCommand2 = new AddCommand(event2);
         addCommand2.execute(model);

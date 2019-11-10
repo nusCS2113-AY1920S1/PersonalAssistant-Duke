@@ -1,6 +1,6 @@
 package sgtravel.model.lists;
 
-import sgtravel.commons.exceptions.DuplicateTaskException;
+import sgtravel.commons.exceptions.DuplicateEventException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.model.Event;
 import sgtravel.model.TaskWithDates;
@@ -40,9 +40,9 @@ public class EventList implements Iterable<Event>, Listable<Event>, Serializable
      * @param event The Event to add.
      */
     @Override
-    public void add(Event event) throws DuplicateTaskException {
+    public void add(Event event) throws DuplicateEventException {
         if (contains(event)) {
-            throw new DuplicateTaskException();
+            throw new DuplicateEventException();
         }
         events.add(event);
     }
@@ -105,11 +105,11 @@ public class EventList implements Iterable<Event>, Listable<Event>, Serializable
      * Sets the contents of this list with a given list of events.
      *
      * @param events The List of Events to set to.
-     * @throws DuplicateTaskException If there is a duplicate Event.
+     * @throws DuplicateEventException If there is a duplicate Event.
      */
-    public void setEvents(List<Event> events) throws DuplicateTaskException {
+    public void setEvents(List<Event> events) throws DuplicateEventException {
         if (!eventsAreUnique(events)) {
-            throw new DuplicateTaskException();
+            throw new DuplicateEventException();
         }
         this.events = events;
     }
