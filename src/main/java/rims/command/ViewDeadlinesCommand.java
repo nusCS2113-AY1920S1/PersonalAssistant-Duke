@@ -29,7 +29,7 @@ public class ViewDeadlinesCommand extends Command {
         ui.printLine();
         ArrayList<String> coveredResources = new ArrayList<String>();
         ArrayList<Resource> sortedList = new ArrayList<Resource>();
-        ui.print("CURRENTLY ACTIVE LOANS AND RESERVATIONS:");
+        ui.print("CURRENTLY ACTIVE LOANS AND RESERVATIONS: (sorted by end-date)");
         ui.printEmptyLine();
         for (int i = 0; i < resources.size(); i++) {
             Resource thisResource = resources.getResourceByIndex(i);
