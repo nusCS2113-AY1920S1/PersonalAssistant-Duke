@@ -35,8 +35,7 @@ public class ViewCommand extends Command {
     private static final String NON_EXISTENT_PAGE = "Sorry, that page does not exist."
             + " Please choose 'main', 'calendar', or 'modules'.";
     private static final String NON_EXISTENT_MODULE = "Sorry, that module or module tab does not exist. "
-            + "These are the current "
-            + "modules:";
+            + "These are the current modules:";
     private static final String NON_EXISTENT_TAB = "Sorry, that tab does not exist."
             + " Please choose 'tasks', 'files', 'notes' or 'grades'.";
 
@@ -56,8 +55,8 @@ public class ViewCommand extends Command {
 
     /**
      * Constructs by splitting the input and pageTrace and storing it in private variables.
-     * @param pageDataComponents the page trace from parser.
-     * @param content the content of input.
+     * @param pageDataComponents The page trace from parser.
+     * @param content The content of input.
      * @throws InputException if invalid view command.
      */
     public ViewCommand(String[] pageDataComponents, String content) throws InputException {
