@@ -84,8 +84,8 @@ public class Parser {
         try {
             input = scanner.next();
         } catch (Exception e) {
-            throw new MooMooException("Try adding c/[CATEGORY] m/[MONTH] y/[YEAR] or \"total\"!\n" +
-                    "*month and year are optional!");
+            throw new MooMooException("Try adding c/[CATEGORY] m/[MONTH] y/[YEAR] or \"total\"!\n"
+                    + "*month and year are optional!");
         }
         
         try {
