@@ -366,9 +366,9 @@ Since `SortCommand` inherits the `ModuleCommand` class, it must override the `ex
 
 The parameter `TYPE` can take three main forms according to the user input:
 ****
-*`sort cca` Where the user receives a sorted list of their ccas in alphabetical order.
-*`sort time DAY_OF_WEEK` Where the user receives a list of ccas and/or modules in a timely order for the day of week they choose.
-*`sort module BY` Where the user receives a sorted list of their modules in the order they specifies.
+* `sort cca` Where the user receives a sorted list of their ccas in alphabetical order. +
+* `sort time DAY_OF_WEEK` Where the user receives a list of ccas and/or modules in a timely order for the day of week they choose. +
+* `sort module BY` Where the user receives a sorted list of their modules in the order they specifies. +
 ****
 
 These `TYPE` parameters will be parsed by the `Parser` class and pass the corresponding argument of `toSort` into the `SortCommand` class. A switch case statement will handle the `toSort` argument, and choose to execute the corresponding sorting. 
