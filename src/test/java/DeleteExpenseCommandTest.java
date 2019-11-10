@@ -18,11 +18,30 @@ import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Testing DeleteExpenseCommand for successful deletion
+ * of expenses and deletion of nonexistent items.
+ */
 public class DeleteExpenseCommandTest {
+    /**
+     * Message shown when user tries to delete nonexistent item.
+     */
     private static final String ITEM_NOT_FOUND_MESSAGE = "Item not found!\r\n";
+    /**
+     * Create UI object that deals with printing things to user.
+     */
     private Ui ui = new Ui();
+    /**
+     * Output stream in which data is written into a byte array.
+     */
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
+    /**
+     * Print representation of actual data values.
+     */
     private PrintStream mine = new PrintStream(output);
+    /**
+     * Print representation of original data values.
+     */
     private PrintStream original = System.out;
 
     @BeforeEach
@@ -36,6 +55,10 @@ public class DeleteExpenseCommandTest {
         System.setOut(original);
     }
 
+    /**
+     * Test when deletion of expense is successful.
+     * @throws IOException Catch error when read file fails
+     */
     @Test
     void testDeleteExpenseCommand() throws IOException {
         HashMap<LocalDate, ArrayList<String>> map = new HashMap<>();
@@ -48,10 +71,14 @@ public class DeleteExpenseCommandTest {
         expenses.put(bookDateOfPurchase, itemAndPriceList1);
         ui.fullCommand = "delete book";
         new DeleteExpenseCommand(ui, expenses);
-        assertEquals("Successfully deleted: book, $3" +
-                " | bought on 2019-09-09\r\n", output.toString());
+        assertEquals("Successfully deleted: book, $3"
+                + " | bought on 2019-09-09\r\n", output.toString());
     }
 
+    /**
+     * Test deleting of nonexistent item.
+     * @throws IOException Catch error when read file fails
+     */
     @Test
     void testDeleteNotInExpenseCommand() throws IOException {
         HashMap<LocalDate, ArrayList<String>> map = new HashMap<>();
@@ -67,6 +94,9 @@ public class DeleteExpenseCommandTest {
         assertItemNotFoundErrorMessageDisplayed();
     }
 
+    /**
+     * Display assertion of deletion of nonexistent item format error message.
+     */
     private void assertItemNotFoundErrorMessageDisplayed() {
         assertEquals(ITEM_NOT_FOUND_MESSAGE, output.toString());
     }

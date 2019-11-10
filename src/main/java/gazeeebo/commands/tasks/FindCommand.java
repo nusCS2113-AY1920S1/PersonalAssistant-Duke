@@ -21,11 +21,11 @@ public class FindCommand extends Command {
     /**
      * The string "find" has 4 characters.
      */
-    static final int FIND_CHAR_COUNT = 4;
+    private static final int FIND_CHAR_COUNT = 4;
     /**
      * The string "find " has 5 characters.
      */
-    static final int FIND_AND_SPACE_CHAR_COUNT = 5;
+    private static final int FIND_AND_SPACE_CHAR_COUNT = 5;
 
 
     /**
@@ -35,8 +35,8 @@ public class FindCommand extends Command {
      * @param ui            the object that deals with
      *                      printing things to the user
      * @param storage       The object that deals with storing data
-     * @param commandStack the stack of previous commands.
-     * @param deletedTask the list of deleted task.
+     * @param commandStack  the stack of previous commands.
+     * @param deletedTask   the list of deleted task.
      * @param triviaManager the object for triviaManager
      * @throws DukeException  Throws custom exception when
      *                        format of find command is wrong
@@ -52,22 +52,22 @@ public class FindCommand extends Command {
             throws DukeException, ParseException, IOException {
         try {
             if (ui.fullCommand.length() == FIND_AND_SPACE_CHAR_COUNT
-            || ui.fullCommand.length() == FIND_CHAR_COUNT) {
+                    || ui.fullCommand.length() == FIND_CHAR_COUNT) {
                 throw new DukeException("OOPS!!! The description of a"
                         + "search cannot be empty.");
             } else {
-                ArrayList<Task> searchedlist = new ArrayList<Task>();
+                ArrayList<Task> searchedList = new ArrayList<Task>();
                 for (Task it : list) {
                     if (it.description.contains(
                             ui.fullCommand.substring(FIND_CHAR_COUNT).trim())) {
-                        searchedlist.add(it);
+                        searchedList.add(it);
                     }
                 }
                 System.out.println("Here are the"
                         + "matching tasks in your list:");
-                for (int i = 0; i < searchedlist.size(); i++) {
+                for (int i = 0; i < searchedList.size(); i++) {
                     System.out.println(i + 1 + "."
-                            + searchedlist.get(i).listFormat());
+                            + searchedList.get(i).listFormat());
                 }
             }
 

@@ -36,7 +36,7 @@ public class ExpenseCommandParserTest {
             + "8. Exit Expense page: esc\n"
             + "_________________________"
             + "_________________________________"
-            + "\r\n"
+            + "\n"
             + "Going back to Main Menu...\n"
             + "Content Page:\n"
             + "------------------ \n"

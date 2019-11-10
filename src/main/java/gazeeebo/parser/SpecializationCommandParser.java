@@ -9,6 +9,8 @@ import gazeeebo.commands.specialization.ListOfSpecializationAndModules;
 import gazeeebo.commands.specialization.ListSpecializationCommand;
 import gazeeebo.commands.specialization.ModuleCategory;
 import gazeeebo.exception.DukeException;
+import gazeeebo.storage.CompletedElectivesStorage;
+import gazeeebo.storage.SpecializationPageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 
@@ -29,9 +31,9 @@ public class SpecializationCommandParser extends Command {
      * @param ui            the object that deals with
      *                      printing things to the user
      * @param storage       the object that deals with storing data
-     * @param commandStack
-     * @param deletedTask
-     * @param triviaManager
+     * @param commandStack  Stores the stack of previous commands
+     * @param deletedTask   Stores the list of deleted tasks
+     * @param triviaManager The object for TriviaManager
      * @throws IOException   Catch error if the read file fails
      * @throws DukeException throws a custom exception if
      *                       module index does not exist.
@@ -43,12 +45,17 @@ public class SpecializationCommandParser extends Command {
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
             throws IOException, DukeException {
-        HashMap<String, ArrayList<ModuleCategory>> sMap
-                = storage.readFromSpecializationFile(); //Read the file
-        Map<String, ArrayList<ModuleCategory>> specMap = new TreeMap<>(sMap);
-        HashMap<String, ArrayList<String>> eMap
-                = storage.readFromCompletedElectivesFile(); //Read the file
-        Map<String, ArrayList<String>> completedEMap = new TreeMap<>(eMap);
+        SpecializationPageStorage specPageStorage = new SpecializationPageStorage();
+        HashMap<String, ArrayList<ModuleCategory>> smap
+                = specPageStorage.readFromSpecializationFile(); //Read the file
+        Map<String, ArrayList<ModuleCategory>> specMap = new TreeMap<>(smap);
+
+        CompletedElectivesStorage completedElectivesStorage = new CompletedElectivesStorage();
+        HashMap<String, ArrayList<String>> emap
+                = completedElectivesStorage.readFromCompletedElectivesFile(); //Read the file
+
+        Map<String, ArrayList<String>> completedEMap = new TreeMap<>(emap);
+
         new ListOfSpecializationAndModules(specMap);
 
         System.out.println("Welcome to your specialization page!"

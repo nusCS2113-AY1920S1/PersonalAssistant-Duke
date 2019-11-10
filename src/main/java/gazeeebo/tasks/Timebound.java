@@ -14,7 +14,7 @@ public class Timebound extends Task {
     /**
      * Timebound command, Tasks with a specific time period.
      * @param description Name of the task
-     * @param period The specific time period
+     * @param period The specific time period of time the task lasts (e.g. 2h)
      */
 
     public Timebound(String description, String period) {
