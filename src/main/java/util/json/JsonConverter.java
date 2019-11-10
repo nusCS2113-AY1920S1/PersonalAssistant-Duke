@@ -83,8 +83,8 @@ public class JsonConverter {
     public ArrayList<Project> getResourcesInJar() {
         ArrayList<Project> allProjects = new ArrayList<>();
         try {
-            allProjects.add(getProjectJsonFromJar("avengers.json"));
-            allProjects.add(getProjectJsonFromJar("CS1010.json"));
+            getProjectJsonFromJar("avengers.json");
+            getProjectJsonFromJar("CS1010.json");
         } catch (NullPointerException err) {
             return allProjects;
         }
@@ -94,14 +94,12 @@ public class JsonConverter {
     /**
      * Function to pull Projects Json packaged inside Jar file.
      * @param nameOfJsonFile : name of JSON file you wish to pull from resources/initdata folder.
-     * @return : Returns a Project object deserialize from JSON file.
      */
-    private Project getProjectJsonFromJar(String nameOfJsonFile) {
+    private void getProjectJsonFromJar(String nameOfJsonFile) {
         Gson gson = new Gson();
         InputStream is = getClass().getResourceAsStream("/initdata/" + nameOfJsonFile);
         InputStreamReader isr = new InputStreamReader(is);
         Project newProject = gson.fromJson(isr, new TypeToken<Project>(){}.getType());
         saveProject(newProject);
-        return newProject;
     }
 }
