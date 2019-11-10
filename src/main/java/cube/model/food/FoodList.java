@@ -26,6 +26,7 @@ public class FoodList {
 		 * @return true if is defined, false otherwise.
 		 */
         public static boolean isDefined(String temp) {
+        	temp = temp.toUpperCase();
             if (temp.equals("EXPIRY") || temp.equals("NAME")
 					|| temp.equals("STOCK") || temp.equals("PRICE")) {
                 return true;
