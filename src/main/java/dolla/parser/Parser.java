@@ -270,7 +270,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     protected boolean verifyRemove() {
         if (inputArray.length != 2) {
-            RemoveUi.printInvalidRemoveFormat();
+            RemoveUi.printInvalidRemoveMessage();
             return false;
         }
         try {
@@ -287,23 +287,61 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     //@@author tatayu
     /**
+     * Check if th remove command is valid in detb mode.
+     * @return true if the remove command is valid.
+     */
+    protected boolean verifyRemoveForDebtMode() {
+        if (inputArray.length != 2) {
+            RemoveUi.printInvalidRemoveFormatInDebtMode();
+            return false;
+        }
+        try {
+            if (Integer.parseInt(inputArray[1]) < 1) {
+                RemoveUi.printInvalidRemoveFormatInDebtMode();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            RemoveUi.printInvalidRemoveFormatInDebtMode();
+            return false;
+        }
+        return true;
+    }
+
+
+    //@@author tatayu
+    /**
+     * Check if the command is one word only
+     * @return true if the command is more than one words
+     */
+    protected boolean verifyRemoveLength() {
+        if(inputArray.length == 1) {
+            RemoveUi.printInvalidRemoveMessage();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //@@author tatayu
+    /**
      * Check if the command to remove bill is valid
      * @return true if the remove bill command is valid
      */
     protected boolean verifyRemoveBill(RecordList recordList) {
         if (inputArray.length != 3) {
+            DebtUi.printRemoveBillFormatError();
             return false;
         }
         if (inputArray[1].equals(BILL_COMMAND_BILL)) {
             try {
                 if (Integer.parseInt(inputArray[2]) < 1
                         || Integer.parseInt(inputArray[2]) > recordList.size()) {
-                    RemoveUi.printInvalidRemoveMessage();
+                    DebtUi.printRemoveBillFormatError();
                     return false;
                 } else {
                     return true;
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 DebtUi.printRemoveBillFormatError();
                 return false;
             }

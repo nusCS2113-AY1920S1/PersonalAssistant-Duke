@@ -23,12 +23,13 @@ public class RemoveUi extends Ui {
         System.out.println(line);
     }
 
+    //@@author tatayu
     /**
-     *
+     * Print the error message if the remove command is invalid
      */
-    public static void printInvalidRemoveFormat() {
+    public static void printInvalidRemoveFormatInDebtMode() {
         System.out.println(line);
-        System.out.println("\tPlease follow the format: remove [LIST NUM]");
+        System.out.println("\tIf you want to remove a debt, please follow the format: remove [LIST NUM]");
         System.out.println(line);
     }
 }

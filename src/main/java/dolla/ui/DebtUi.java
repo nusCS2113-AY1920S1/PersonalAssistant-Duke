@@ -154,7 +154,7 @@ public class DebtUi extends Ui {
      */
     public static void printRemoveBillFormatError() {
         System.out.println(line);
-        System.out.println("\tPlease follow the format: remove bill [BILL NUMBER]");
+        System.out.println("\tIf you want to remove a bill, Please follow the format: remove bill [BILL NUMBER]");
         System.out.println(line);
     }
 

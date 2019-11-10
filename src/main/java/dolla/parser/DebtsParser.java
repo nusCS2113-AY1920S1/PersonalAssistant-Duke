@@ -87,14 +87,17 @@ public class DebtsParser extends Parser {
             RecordList recordList;
             DollaData dollaData = new DollaData();
             recordList = dollaData.getBillRecordList();
-            if (verifyRemove()) {
-                return new RemoveCommand(mode, inputArray[1]);
-            } else if (verifyRemoveBill(recordList)) {
-                return new RemoveBillCommand(Integer.parseInt(inputArray[2]));
+            if (verifyRemoveLength()) {
+                if (verifyRemoveForDebtMode()) {
+                    return new RemoveCommand(mode, inputArray[1]);
+                } else if (verifyRemoveBill(recordList)) {
+                    return new RemoveBillCommand(Integer.parseInt(inputArray[2]));
+                } else {
+                    return new ErrorCommand();
+                }
             } else {
                 return new ErrorCommand();
             }
-
         } else if (commandToRun.equals(COMMAND_REDO)
                 || commandToRun.equals(COMMAND_UNDO)) {
             return new ActionCommand(mode, commandToRun);

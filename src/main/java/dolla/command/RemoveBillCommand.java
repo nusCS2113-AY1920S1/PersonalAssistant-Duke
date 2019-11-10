@@ -2,7 +2,6 @@ package dolla.command;
 
 import dolla.exception.DollaException;
 import dolla.model.DollaData;
-import dolla.model.RecordList;
 import dolla.ui.DebtUi;
 
 public class RemoveBillCommand extends Command {
