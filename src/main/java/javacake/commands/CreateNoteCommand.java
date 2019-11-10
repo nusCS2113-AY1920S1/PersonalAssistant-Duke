@@ -15,6 +15,7 @@ public class CreateNoteCommand extends Command {
     private static int defaultFileNameCounter = 1;
     private static String defaultDirectoryPath = "data/notes/";
     private static final int MAXIMUM_PARAMETER = 2;
+    private static final int MAX_FILENAME_LENGTH = 20;
 
     /**
      * Constructor for CreateNoteCommand.
@@ -97,7 +98,7 @@ public class CreateNoteCommand extends Command {
      * @return True if file name exceeds word limit of 20.
      */
     private boolean fileNameExceedsWordLimit(String fileName) {
-        return (fileName.length() > 20);
+        return (fileName.length() > MAX_FILENAME_LENGTH);
     }
 
     /**

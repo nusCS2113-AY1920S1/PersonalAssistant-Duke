@@ -26,7 +26,6 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
         type = CmdType.DELETE_NOTE;
         String nameOfFile = returnFileName(inputCommand);
         this.fileName = IFileUtilities.returnOriginalFileName(defaultFilePath, nameOfFile);
-        System.out.println("fileName is:" + fileName);
     }
 
     /**
@@ -65,7 +64,7 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
 
     /**
      * Method used for verification process.
-     * Checks for illegal characters and if file exists.
+     * Checks for special characters and if file exists.
      * Assigns inputFileName to fileName to prepare for deletion.
      * @param inputCommand Input command by user.
      * @throws CakeException If illegal character or invalid file name detected.
@@ -79,7 +78,7 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
         } else if (hasMultipleParams(parameters)) {
             throw new CakeException("Please only enter one file name! E.g. deletenote [name of file]");
         } else if (Command.containsIllegalCharacter(inputCommand)) {
-            throw new CakeException("Invalid file name: Illegal character in file name detected!");
+            throw new CakeException("Invalid file name: Special character in file name detected!");
         } else if (fileDoesNotExist(parameters[1])) {
             throw new CakeException("Invalid file name: No such file!");
         }
@@ -111,7 +110,6 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
      */
     private String processFilePath(String inputFileName) {
         String filePath = updateDefaultDirectoryPath();
-        System.out.println(filePath);
         defaultFilePath = filePath;
         fullFilePath = filePath + inputFileName + ".txt" + "/";
         return fullFilePath;
