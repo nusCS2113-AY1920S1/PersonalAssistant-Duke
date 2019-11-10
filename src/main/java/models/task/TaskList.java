@@ -71,7 +71,6 @@ public class TaskList {
         } else {
             ArrayList<String> allTaskDetails = this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,
                     taskList, sortCriteria, project);
-            System.out.println(allTaskDetails);
             if (sortCriteria.substring(0, 5).equals("-who ") && allTaskDetails.size() == 0) {
                 messageForEmptyTaskTable.add(" - There are no tasks assigned to " + sortCriteria.substring(5) + "! -");
                 allTaskDetailsForTable.add(messageForEmptyTaskTable);

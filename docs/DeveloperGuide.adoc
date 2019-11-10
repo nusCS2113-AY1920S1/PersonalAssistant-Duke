@@ -386,7 +386,7 @@ values.
 
 * `view tasks` -- Displays all tasks in current project.
 
-* `view tasks /MODIFIER` -- Displays tasks sorted based on the attribute specified by the user.
+* `view tasks [-MODIFIER]` -- Displays tasks sorted based on the attribute specified by the user.
 
 * `view task requirements TASK_INDEX` -- Displays all additional requirements of a specified task.
 
