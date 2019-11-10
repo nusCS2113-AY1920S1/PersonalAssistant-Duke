@@ -249,7 +249,7 @@ The naive editing mechanism is facilitated by the `QuickEditCommand` from the `L
 Given below is an example usage scenario and how the editing mechanism behaves at each step:
 
 . The user calls the edit command with its relevant parameters. +
-e.g. `e 1 Bukit Batok 12/02/29 14/02/29`
+e.g. `e 1 Bishan 12/02/29 14/02/29`
 
 . The `LogicManager` parses the user input using the `Parser`.
 . The `Parser` calls `QuickEditParser` and returns an `QuickEditCommand` Object.
@@ -413,11 +413,25 @@ e.g. `routeNodeShow 1 1`
 . The `LogicManager` parses the user input using the `Parser`.
 . The `Parser` breakdowns the user input into and returns an `RouteNodeShowCommand` Object.
 . During the `execute()` method, the `Route` that the `RouteNode` that is being shown is obtained by calling the `getRoute()` method in the `Model`. By calling `getNode()` on the `Route`, the `RouteNode` being shown will be obtained.
-. The `generateRouteNodeShow()` method is called in the `ApiParser` class. This method constructs a `String` from the parameters of the `RouteNode` object, and obtains an `Image` object from the `getStaticMap` method in the `ApiParser`.
+. The `generateRouteNodeShow()` method is called in the `ApiParser` class. This method constructs a string from the parameters of the `RouteNode` object, and obtains an `Image` object from the `getStaticMap` method in the `ApiParser`.
 . A `StaticMapUrlRequest` object is created, which will send a request to the OneMap API. The API returns an `Image` object back to the `StaticMapUrlRequest`, which will return the object back to the `ApiParser`. This `Image` is returned back to the `RouteNodeShowCommand` object, which will then return a `ComandResultImage` object with the `Image` and the parameters of the `RouteNode`.
 
 .Activity diagram for the execute() method in RouteNodeShowCommand
 image::SGTravel_routeNodeShow_diagram.png[height="1150" width="850"]
+
+The user can also show the map of a `RouteNode` and nearby `BusStop` and `TrainStation` objects by using the `RouteNodeNearbyCommand`. Given below is an example usage scenario and how the `Model`, `RouteList`, `Route` and `RouteNode` object behave at each step:
+
+.  The user calls the `RouteNodeNearbyCommand` with its relevant parameters. +
+e.g. `routeNodeNearby 1 1`
+. The `LogicManager` parses the user input using the `Parser`.
+. The `Parser` breakdowns the user input into and returns an `RouteNodeShowCommand` Object.
+. During the `execute()` method, the `Route` that the `RouteNode` that is being shown is obtained by calling the `getRoute()` method in the `Model`. By calling `getNode()` on the `Route`, the `RouteNode` being shown will be obtained.
+. The list of nearby `RouteNode` (`BusStop` and `TrainStation`) are obtained by calling the `getNeighbour()` method in the `ApiParser` class.
+. The `generateStaticMapNeighbours()` method is called in the `ApiParser` class. This method constructs a string from the parameters of the `RouteNode` object and the list of nearby `RouteNodes`, and obtains an `Image` object from the `getStaticMap` method in the `ApiParser`.
+. A `StaticMapUrlRequest` object is created, which will send a request to the OneMap API. The API returns an `Image` object back to the `StaticMapUrlRequest`, which will return the object back to the `ApiParser`. This `Image` is returned back to the `RouteNodeNearbyCommand` object, which will then return a `ComandResultImage` object with the `Image` and list of nearby `RouteNodes`.
+
+.Activity diagram for the execute() method in RouteNodeShowCommand
+image::SGTravel_routeNodeNearby_diagram.png[height="1290" width="850"]
 
 The user can also automatically generate a new `Route` by using the `RouteGenerateCommand`. Given below is an exmample usage scenario and how the `Model`, `RouteList` and `PathFinder` object behave at each step.
 
@@ -433,76 +447,137 @@ e.g. `routeGenerate amk hub to nus by bus`
 .Activity diagram for the execute() method in RouteGenerateCommand
 image::SGTravel_routeGenerate_diagram.png[height="1150" width="1030"]
 
+==== Design Considerations
+
+===== **Aspect:  How RouteNodes are stored**
+
+* **Alternative 1:** `RouteNode` is stored as an object.
+** Pros: Easy to edit and interact with.
+** Cons: Requires making a `BusStop`, `TrainStation` and `CustomNode` object, as all 3 items have different properties.
+
+* **Alternative 2:** `RouteNode` would be stored as a String instead, and is broken up into its individual parts when manipulated.
+** Pros: Easy to implement.
+** Cons: Prone to errors in breaking up the String because of its contents, and hard to maintain.
+
+===== **Aspect:  How Routes are stored**
+
+* **Alternative 1:** A `RouteList` object holds several Routes in an ArrayList. 
+** Pros: Easy to interact with and modify a `Route`. Keeps the `Model` simple.
+** Cons: Will require more work to implement.
+
+* **Alternative 2:** `Routes` would be located in an ArrayList in the SGTravel’s model.
+** Pros: Quick and easy to implement.
+** Cons: Limited ability to manipulate a `Route`. Additional manipulation commands will bloat up the model.
+
+==== [Proposed] Route Manager
+
+The completed Route feature would include a `RouteManager` class in v2.0. The `RouteManager` will be similar to the `EditorManager` class, and will be activated by entering a specific command. With the `RouteManager` turned on, ther user interacts in multi-step commands instead. In order to simplify the user experience, the `Route` and `RouteNode` that the user wants to interact with, are stored in the `RouteManager`. Commands entered will directly affect the `Route` and `RouteNode` stored in the `RouteManager`, and the user can easily change the `Route` and `RouteNode` that are selected by commands too. A saving feature as seen in the `EditorManager` class will also be implemented, allowing the user to easily save or discard changes. 
+
 === Itinerary Feature
 
 ==== Implementation
 
-SGTravel facilitates the user to create itineraries for their Singapore trip either on their own liking or based on recommendations given. The user can then store these itineraries and access them at any time leading to effective trip planning and scheduling. The itinerary feature is facilitated by the Itinerary class. This section will document the implementation of the Itinerary feature and its various components. Included below is the class diagram for Itinerary:
+SGTravel facilitates the user to create itineraries for their Singapore trip either from scratch or based on recommendations given. The user can then store these itineraries and access them at any time leading to effective trip planning and scheduling. This section will document the implementation of the `Itinerary` feature and its various components. The `Itinerary` feature is facilitated by the `Itinerary` class as well as the commands outlined below. Below is the class diagram for `Itinerary`:
 
-.The class diagram for Itinerary and associated classes
-image::SGTravel_Itinerary_class_diagram.png[height="400" width="700"]
+.The class diagram for `Itinerary` and associated classes
 
-As can be seen from the diagram above. The main itinerary class has different fields such as the start and end dates (to calculate the number of days) and a list of Agendas. Here the agenda class models the activities and locations to be seen in one day. Hence, it contains a list of Venues and Todos. 
+image::SGTravel_Itinerary_class_diagram.png[height="500" width="800"]
 
-Given below is an example usage scenario and how the newItinerary mechanism behaves at each step:
+
+
+As can be seen from the diagram above. The main `Itinerary` class has different fields such as the `startDate` and `endDates` (to calculate the number of days) and a list of `Agenda`. Here the `Agenda` class models the activities and locations to be seen in one day. Hence, it contains a list of `Todos` and extends `VenueList`. 
+
+Given below is an example usage scenario and how the `newItinerary` mechanism behaves at each step:
 
 .  The user calls the `NewItineraryCommand` with its relevant parameters. +
 e.g. `newItinerary 23/04/20 24/04/20 NewItinerary 1 /venue MBS /do sightseeing /and eating.`
 . The `LogicManager` parses the user input using the `Parser`.
-. The Parser calls `CreateNewItineraryParser` and returns an NewItineraryCommand Object and passes the created itinerary in the constructor.
-. The `LogicManager` will call `execute()` on the `NewItineraryCommand` object which interacts with and stores the new itinerary in the Model component.
-. A new `Route` is created with the relevant parameters and is added to the `RouteList` via the `add()` method in the `RouteList`.
-. The method `save()` is invoked in the `Model`, and a `CommandResultText` object is created with an appropriate message to show that the command has been executed properly
-. If no Itinerary is created, it would return a string of message MESSAGE_IRINERARY_FAIL_CREATION.
+. The `Parser` calls `CreateNewItineraryParser` and returns an `NewItineraryCommand` object and passes the created itinerary in its constructor.
+. The `LogicManager` will call `execute()` on the `NewItineraryCommand` object which interacts with and stores the new itinerary in the `Model`.
+. The method `save()` is invoked in the `Model`, and a `CommandResultText` object is created with an appropriate message to show that the command has been executed properly and the itinerary has been created.
+. If no `Itinerary` is created, it would return a message string `MESSAGE_ITINERARY_FAIL_CREATION`.
 
-The activity diagram given above shows how the NewItineraryCommand interacts with the model interface to save the new Itinerary. 
+The activity diagram given below shows how the `NewItineraryCommand` interacts with the `Model` interface to save the new `Itinerary`. 
 
 .Activity diagram for the execute() method in newItineraryCommand
-image::SGTravel_newItinerary_Command_diagram.png[height="640" width="1400"]
+image::SGTravel_newItinerary_Command_diagram.png[height="640" width="700"]
 
-Alternatively, the creation of itineraries can be facilitated by the Recommendations and AddListCommands in the Logic Component. 
 
-Given below is an example usage scenario and how the recommendation mechanism behaves and interacts in the Model :
+Alternatively, the creation of itineraries can be facilitated by the `RecommendationsCommand` and the `AddListCommand`. 
+
+Given below is an example usage scenario and how the `Recommendation` mechanism behaves and interacts with the `Model`:
 
 .  The user calls the `RecommendationsCommand` with its relevant parameters. +
 e.g. `recommend itinerary between 23/04/20 and 24/04/20`
 . The `LogicManager` parses the user input using the `RecommendationsCommandParser`. 
-. The RecommendationParser returns a RecommendationsCommand object and passes the relevant String Array of date details. 
-. The `LogicManager` will call `execute()` on the `RecommendationsCommand` object which return a `CommandResultText` Object containing a message.
-. During the `execute()` method a recommendation Object containing all of SGTravels possible locations is created.
-. The recommendation object then calls on the makeItinerary function. This then returns an itinerary objects containing only the specified amount worth of days. If more than 9 days are entered a RecommendationsFailException is passed.
-. This returned itinerary is then stored into the Model component via the setRecentItinerary method. This makes the recommendation easily accessible to the addThisList command. 
+. The `RecommendationsCommandParser` returns a `RecommendationsCommand` object and passes the relevant array of date details. 
+. The `LogicManager` will call `execute()` on the `RecommendationsCommand` object which returns a `CommandResultText` object containing the recommended itinerary. 
+. During the `execute()` method a recommendation object containing all of SGTravel's possible locations is created.
+. The recommendation object then calls on the `makeItinerary()` function. This then returns an itinerary object contains details of a recommended trip of the specified length. If more than 9 days are entered a `RecommendationsFailException` is passed.
+. This returned recommended itinerary is then stored into the `Model` component via the `setRecentItinerary()` method. This makes the recommendation easily accessible to the `addThisList` command. 
 . A `CommandResultText` object is created with an appropriate message to show that the command has been executed properly.
+
 
 Given below is the sequence diagram of how the various components work in the `execute()` method of the `RecommendationsCommand` command:
 
 .Sequence diagram for the execute() method in RecommendationsCommand
-image::SGTravel_recommend_command_diagram.png[height="950" width="1380"]
 
-Other helper commands such as list,show and doneItineraries have not been shown but are an important interface to the user.
+image::SGTravel_recommend_command_diagram.png[height="750" width="980"]
+
+Given below is an example usage scenario and how the `AddList` mechanism behaves and interacts in the `Model` after a `Recommendation` has been added :
+
+.  The user calls the `AddThisListCommand` with its relevant parameters. +
+e.g. `addThisList MyNewVacation`
+. The `LogicManager` parses the user input using the `Parser`.
+. The `Parser` returns a `AddThisListCommand` object and passes the relevant newName with it. 
+. The `LogicManager` will call `execute()` on the `AddThisListCommand` object which returns a `CommandResultText` object containing the newly added recommendation in full.
+. During the `execute()` method the recommendation given most recently is retrieved from storage. If no recent recommendation is present a `NoRecentItineraryException` is returned.
+. The `confirmRecentItinerary()` method is called. This saves the current recommendation with the new name entered.
+. The `setRecentItinerary()` sets the recentItinerary (recommendation) to null so that the same recommendation cannot be added twice.
+. The method `save()` is invoked in the `Model`, and a `CommandResultText` object is created with an appropriate message to show the stored itinerary has succeeded 
+
+Given below is the sequence diagram of how the various components work in the `execute()` method of the `AddThisListCommand` command:
+
+.Sequence diagram for the execute() method in RecommendationsCommand
+
+image::SGTravel_addList_command_diagram.png[height="750" width="980"]
+
+
+Other helper commands such as:
+`listItinerary`, `showItinerary` and `doneItinerary` have not been shown here as they are simple text displaying commands. These commands offer an important interface to the user so that they can manage and create itineraries with greater ease.
 
 ==== Design Considerations
 
 ===== **Aspect:  How a new Itinerary is entered**
 
-* **Alternative 1:** Through a conversation
-** Pros: Easier for the users to understand and learn
-** Cons:  Harder to implement
-* **Alternative 2:** Through an interactable UI Component
-** Pros:  Much easier for the user to use
-** Cons: Not command line based
+* **Alternative 1:** Currently, `newItinerary` command offers a one-shot command alternative.
+** Pros: Easy to use and learn. Easy to implement. 
+** Cons: Parsing function is complicated and error prone. 
+* **Alternative 2:** Through a GUI Interface.
+** Pros: Much easier for the user to use. Less error prone.
+** Cons: Difficult to implement. Does not add to showcasing OOP skill. 
+
+===== **Aspect: How SGTravel Saves Itineraries**
+
+* **Alternative 1:** Currently, SGTravel rewrites the hashmap every time a command is entered.
+** Pros: Easy to implement with little lines of code. Easy to understand. 
+** Cons: Decreases efficiency of code and reduces performance.
+* **Alternative 2:** Option to only update the recently added list.
+** Pros: Increases program efficiency.
+** Cons: Difficult to implement. 
 
 ==== [Proposed] Itinerary Builder Command
 
-The completed itinerary feature would allow the user to create an itinerary like a conversation. This process would also allow the user to edit the itinerary before confirming and storing it. The app would use an algorithm to find the nearest attractions to the user's hotel stay (currently not implemented). It also recommend the most popular attractions based on the user's length of stay. The activity diagram for this feature is given below:
+The completed itinerary feature would allow the user to create an itinerary as if they were engaging in a conversation with SGTravel. This process would also allow the user to edit the itinerary before confirming and storing it. The app would use an algorithm to find the nearest attractions to the user's hotel stay. The activity diagram for this feature is given below:
 
 .Activity diagram for the Itinerary Builder command 
-image::SGTravel_v.20_newItinerary_builder_diagram.png[height="950" width="1380"]
+image::SGTravel_v.20_newItinerary_builder_diagram.png[height="550" width="680"]
 
-There are two main additions coming in v2.0 which are :
+There are two main additions coming in v2.0 are :
 
-.  A logic algorithm, would find the best places to visit based on a users hotel of choice
-.  Once an itinerary has been entered, SGTravel gives the user a chance to edit any day’s agenda they wish to. The user could then edit and confirm once they were satisfied. Given below is the workflow diagram, for the edit/update command. 
+. Recommendations based on `hotel location`
+
+. `Edit` feature during and after itinerary creation. 
  
 
 === [Proposed] Data Encryption
