@@ -42,10 +42,9 @@ endif::[]
 
 == Acknowledgements
 
-* Most parts of this sample application came from https://github.com/j-lum/duke[duke.Duke].
 * Data for movies and TV shows displayed in this app was extracted from https://www.themoviedb.org/documentation/api[MovieDB API].
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://github.com/TestFX/TestFX[TestFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://code.google.com/archive/p/json-simple/[Simple JSON], https://github.com/TestFX/TestFX[TestFX], https://github.com/google/gson[GSON], https://github.com/junit-team/junit5[JUnit5]
 
 
