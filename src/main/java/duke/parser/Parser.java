@@ -472,6 +472,7 @@ public class Parser {
             displayDT = suffixStr + " of " + displayDT;
 
             return new FindTasksByDateCommand(displayDT);
+
             //@@author
 
 
@@ -507,6 +508,9 @@ public class Parser {
                 int howManyDays = Integer.parseInt(afterTaskDesc);
                 return new RemindCommand(duration, howManyDays);
             }  //@@author talesrune
+
+
+            //@@author talesrune
         } else if (!emptyString && (arr[Numbers.ZERO.value].equals("update"))) {
             if (arr.length == Numbers.ONE.value) {
                 throw new DukeException(ErrorMessages.TASKNUM_IS_EMPTY.message);
