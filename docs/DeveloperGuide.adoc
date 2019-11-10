@@ -61,9 +61,10 @@ This section describes the design of Ducats, starting with the overall architect
 
 === Overall Architecture
 
-Ducats consists of multiple components implemented as objects that work together to fulfill the program's objectives. The diagram below showcases the high-level architecture of Ducats:
+Ducats consists of multiple components implemented as objects that work together to fulfill the program's objectives. Figure 1 below showcases the high-level architecture of Ducats:
 
-<insert high level archi diagram here>
+.Architecture Diagram
+image::Architecture_Diagram.png[]
 
 
 Ducats, the main class, is responsible for the initialization of the different components, as well as the highest level of logic.
@@ -94,7 +95,10 @@ This section describes in detail the implementation of the various features, as 
 
 Since Ducats is a CLI app, it works by reading user input and carrying out the command the user wants it to execute. In line with this objective, the different components of Ducats have been designed to interact in the sequence as depicted by Figure X.
 
-<insert Sequence Diagram of Ducats here>
+.Command Parsing and Execution Sequence Diagram
+image::Command_Sequence_Diagram.png[]
+
+In the above diagram, 'XYZ' is used to represent a general command or function. There are several different types of possible commands that can be created after parsing, and hence the object is labelled "XYZCommand". Similarly, to format the output string, there are multiple method within the UI class of doing so, hence being represented here by "XYZFormat()".
 
 It can be seen that, for all commands, the `Parser` class is used to determine what type of command the user intends for the program to execute. In accordance with this, a new `Command` object is created and then the `execute()` method of the Command is called, modifying the `SongList` and `Storage`, and returning a String to be displayed on the console through the `UI` class.
 
