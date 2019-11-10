@@ -1,6 +1,7 @@
 import executor.command.CommandMajorExpense;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
+import ui.IncomeReceipt;
 import ui.Receipt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -54,7 +55,32 @@ public class CommandMajorExpenseTest {
     }
 
     @Test
-    void onlyIncomeReceipts(){
+    void onlyIncomeReceipts() {
+        StorageManager storageManager = new StorageManager();
 
+        IncomeReceipt receipt = new IncomeReceipt(23.0);
+        receipt.addTag("work");
+        receipt.setDate(LocalDate.parse("2019-02-02"));
+        storageManager.getWallet().addReceipt(receipt);
+
+        CommandMajorExpense m5 = new CommandMajorExpense("majorexpense 20");
+        m5.execute(storageManager);
+        String output1 = m5.getInfoCapsule().getOutputStr();
+        assertEquals("Unable to get major expenses for this case", output1);
+    }
+
+    @Test
+    void noReceipts() {
+        StorageManager storageManager = new StorageManager();
+
+        CommandMajorExpense m6 = new CommandMajorExpense("majorexpense");
+        m6.execute(storageManager);
+        String output2 = m6.getInfoCapsule().getOutputStr();
+        assertEquals("No major expenses above/equal to $100 was found", output2);
+
+        CommandMajorExpense m7 = new CommandMajorExpense("majorexpense 20");
+        m7.execute(storageManager);
+        String output3 = m7.getInfoCapsule().getOutputStr();
+        assertEquals("Unable to get major expenses for this case", output3);
     }
 }
