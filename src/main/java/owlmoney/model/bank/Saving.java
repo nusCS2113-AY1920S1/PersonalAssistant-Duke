@@ -43,7 +43,6 @@ public class Saving extends Bank {
     private static final int OBJ_DOES_NOT_EXIST = -1;
     private static final Logger logger = getLogger(Saving.class);
 
-
     /**
      * Creates an instance of a savings account.
      *
@@ -103,6 +102,7 @@ public class Saving extends Bank {
             calendar.setTime(nextIncomeDate);
             calendar.add(Calendar.MONTH, 1);
             nextIncomeDate = calendar.getTime();
+            logger.info("Successful added earned income");
             return true;
         }
         return false;
@@ -129,13 +129,16 @@ public class Saving extends Bank {
     @Override
     public void addInExpenditure(Transaction expenditure, Ui ui, String bankType) throws BankException {
         if (!"bank".equals(bankType) && !"savings transfer".equals(bankType)) {
+            logger.warning("Bonds cannot be added to this account");
             throw new BankException("Bonds cannot be added to this account");
         }
         if (expenditure.getAmount() > this.getCurrentAmount()) {
+            logger.warning("Bank account cannot have a negative amount");
             throw new BankException("Bank account cannot have a negative amount");
         } else {
             transactions.addExpenditureToList(expenditure, ui, bankType);
             deductFromAmount(expenditure.getAmount());
+            logger.info("Successful adding of expenditure");
         }
     }
 
@@ -149,6 +152,7 @@ public class Saving extends Bank {
     @Override
     void listAllDeposit(Ui ui, int depositsToDisplay) throws TransactionException {
         transactions.listDeposit(ui, depositsToDisplay);
+        logger.info("Successfully listed deposits");
     }
 
     /**
@@ -161,6 +165,7 @@ public class Saving extends Bank {
     @Override
     void listAllExpenditure(Ui ui, int expendituresToDisplay) throws TransactionException {
         transactions.listExpenditure(ui, expendituresToDisplay);
+        logger.info("Successfully listed expenditures");
     }
 
     /**
@@ -177,9 +182,11 @@ public class Saving extends Bank {
             throws TransactionException, BankException {
         double expenditureAmount = transactions.getExpenditureAmount(expenditureIndex, isCreditCardBill);
         if (this.getCurrentAmount() + expenditureAmount > MAX_AMOUNT) {
+            logger.warning("The amount in the bank account cannot exceed 9 digits");
             throw new BankException("The amount in the bank account cannot exceed 9 digits");
         }
         addToAmount(transactions.deleteExpenditureFromList(expenditureIndex, ui, isCreditCardBill));
+        logger.info("Successfully deleted expenditure");
     }
 
     /**
@@ -211,16 +218,19 @@ public class Saving extends Bank {
         if (!(amount == null || amount.isBlank()) && (this.getCurrentAmount()
                 + transactions.getExpenditureAmount(expenditureIndex, false) - Double.parseDouble(amount)
                 > MAX_AMOUNT)) {
-            throw new BankException("The amount in the bank cannot exceed 9 digits.");
+            logger.warning("The amount in the bank cannot exceed 9 digits");
+            throw new BankException("The amount in the bank cannot exceed 9 digits");
         }
         if (!(amount == null || amount.isBlank()) && this.getCurrentAmount()
                 + transactions.getExpenditureAmount(expenditureIndex, false) < Double.parseDouble(amount)) {
+            logger.warning("Bank account cannot have a negative amount");
             throw new BankException("Bank account cannot have a negative amount");
         }
         double oldAmount = transactions.getExpenditureAmount(expenditureIndex, false);
         double newAmount = transactions.editExpenditure(expenditureIndex, description, amount, date, category, ui);
         this.addToAmount(oldAmount);
         this.deductFromAmount(newAmount);
+        logger.info("Successfully edited expenditure");
     }
 
     /**
@@ -240,15 +250,18 @@ public class Saving extends Bank {
         if (!(amount == null || amount.isBlank()) && (this.getCurrentAmount()
                 - transactions.getDepositValue(depositIndex, false) + Double.parseDouble(amount)
                 > MAX_AMOUNT)) {
-            throw new BankException("The amount in the bank cannot exceed 9 digits.");
+            logger.warning("The amount in the bank cannot exceed 9 digits");
+            throw new BankException("The amount in the bank cannot exceed 9 digits");
         } else if (!(amount == null || amount.isBlank()) && this.getCurrentAmount()
                 + Double.parseDouble(amount) < transactions.getDepositValue(depositIndex, false)) {
+            logger.warning("Bank account cannot have a negative amount");
             throw new BankException("Bank account cannot have a negative amount");
         }
         double oldAmount = transactions.getDepositValue(depositIndex, false);
         double newAmount = transactions.editDeposit(depositIndex, description, amount, date, ui);
         this.addToAmount(newAmount);
         this.deductFromAmount(oldAmount);
+        logger.info("Successfully edited deposit");
     }
 
     /**
@@ -261,13 +274,16 @@ public class Saving extends Bank {
     @Override
     void addDepositTransaction(Transaction deposit, Ui ui, String bankType) throws BankException {
         if (!"bank".equals(bankType) && !"savings transfer".equals(bankType)) {
+            logger.warning("This account does not support investment account deposits");
             throw new BankException("This account does not support investment account deposits");
         }
         if (this.getCurrentAmount() + deposit.getAmount() > MAX_AMOUNT) {
+            logger.warning("The amount in the bank cannot exceed 9 digits");
             throw new BankException("The amount in the bank cannot exceed 9 digits");
         }
         transactions.addDepositToList(deposit, ui, bankType);
         addToAmount(deposit.getAmount());
+        logger.info("Successfully added deposit");
     }
 
     /**
@@ -283,9 +299,11 @@ public class Saving extends Bank {
     void deleteDepositTransaction(int index, Ui ui, boolean isCardBill) throws TransactionException, BankException {
         double depositValue = transactions.getDepositValue(index, isCardBill);
         if (this.getCurrentAmount() < depositValue) {
+            logger.warning("Bank account cannot have a negative amount");
             throw new BankException("Bank account cannot have a negative amount");
         } else {
             this.deductFromAmount(transactions.deleteDepositFromList(index, ui));
+            logger.info("Successfully deleted deposit");
         }
     }
 
@@ -318,6 +336,7 @@ public class Saving extends Bank {
             calendar.add(Calendar.MONTH, 1);
             recurringExpenditure.setDate(calendar.getTime());
             currentState = true;
+            logger.info("Successfully added recurring expenditure transaction");
         }
         return currentState;
     }
@@ -342,6 +361,8 @@ public class Saving extends Bank {
                 outdatedExpenditure = savingUpdateRecurringExpenditure(
                         recurringExpenditures.getRecurringExpenditure(i), ui);
             } catch (BankException errorMessage) {
+                logger.warning("There is not enough money in the bank for: "
+                        + recurringExpenditures.getRecurringExpenditure(i).getDescription());
                 ui.printError("There is not enough money in the bank for: "
                         + recurringExpenditures.getRecurringExpenditure(i).getDescription());
             }
@@ -360,6 +381,7 @@ public class Saving extends Bank {
      */
     void savingAddRecurringExpenditure(Transaction newExpenditure, Ui ui) throws TransactionException {
         recurringExpenditures.addRecurringExpenditure(newExpenditure, ui);
+        logger.info("Successfully added recurring expenditure entry");
     }
 
     /**
@@ -371,6 +393,7 @@ public class Saving extends Bank {
      */
     void savingDeleteRecurringExpenditure(int index, Ui ui) throws TransactionException {
         recurringExpenditures.deleteRecurringExpenditure(index, ui);
+        logger.info("Successfully deleted recurring expenditure entry");
     }
 
     /**
@@ -386,6 +409,7 @@ public class Saving extends Bank {
     void savingEditRecurringExpenditure(int index, String description, String amount, String category, Ui ui)
             throws TransactionException {
         recurringExpenditures.editRecurringExpenditure(index, description, amount, category, ui);
+        logger.info("Successfully edited recurring expenditure entry");
     }
 
     /**
@@ -396,6 +420,7 @@ public class Saving extends Bank {
      */
     void savingListRecurringExpenditure(Ui ui) throws TransactionException {
         recurringExpenditures.listRecurringExpenditure(ui);
+        logger.info("Successfully listed recurring expenditures");
     }
 
     /**
@@ -409,8 +434,10 @@ public class Saving extends Bank {
         ArrayList<String[]> inputData = prepareExportTransactionList();
         try {
             storage.writeFile(inputData, prependFileName + SAVING_TRANSACTION_LIST_FILE_NAME);
-        } catch (IOException e) {
-            throw new IOException(e);
+            logger.warning("Successfully exported: " + prependFileName + SAVING_TRANSACTION_LIST_FILE_NAME);
+        } catch (IOException exceptionMessage) {
+            logger.warning("Error exporting: " + prependFileName + SAVING_TRANSACTION_LIST_FILE_NAME);
+            throw new IOException(exceptionMessage);
         }
     }
 
@@ -437,6 +464,7 @@ public class Saving extends Bank {
             String stringSpent = String.valueOf(spent);
             exportArrayList.add(new String[] {description, stringAmount, date, category, stringSpent});
         }
+        logger.info("Successfully prepared recurringExpenditureList for exporting");
         return exportArrayList;
     }
 
@@ -452,7 +480,10 @@ public class Saving extends Bank {
         try {
             storage.writeFile(inputData, prependFileName
                     + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
+            logger.info("Successfully exported: "
+                    + prependFileName + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
         } catch (IOException e) {
+            logger.warning("Error exporting: " + prependFileName + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
             throw new IOException(e);
         }
     }
@@ -467,12 +498,15 @@ public class Saving extends Bank {
     @Override
     public void importNewExpenditure(Transaction expenditure, String bankType) throws BankException {
         if (!"bank".equals(bankType) && !"savings transfer".equals(bankType)) {
+            logger.warning("Bonds cannot be added to this account");
             throw new BankException("Bonds cannot be added to this account");
         }
         if (expenditure.getAmount() > this.getCurrentAmount()) {
+            logger.warning("Bank account cannot have a negative amount");
             throw new BankException("Bank account cannot have a negative amount");
         } else {
             transactions.importExpenditureToList(expenditure);
+            logger.info("Successfully imported expenditure");
         }
     }
 
@@ -486,9 +520,11 @@ public class Saving extends Bank {
     @Override
     public void importNewDeposit(Transaction deposit, String bankType) throws BankException {
         if (!"bank".equals(bankType) && !"savings transfer".equals(bankType)) {
+            logger.warning("This account does not support investment account deposits");
             throw new BankException("This account does not support investment account deposits");
         }
         transactions.importDepositToList(deposit);
+        logger.info("Successfully imported deposit");
     }
 
     /**
@@ -499,6 +535,7 @@ public class Saving extends Bank {
     @Override
     public void importNewRecurringExpenditure(Transaction expenditure) {
         recurringExpenditures.importRecurringExpenditureToList(expenditure);
+        logger.info("Successfully imported recurring expenditure");
     }
 
     /**
@@ -597,9 +634,11 @@ public class Saving extends Bank {
      * @param description The description keyword to match against.
      * @param category    The category keyword to match against.
      * @param ui          The object required for printing.
+     * @throws TransactionException If recurring expenditure list is empty.
      */
     @Override
-    public void findRecurringExpenditure(String description, String category, Ui ui) {
+    public void findRecurringExpenditure(String description, String category, Ui ui) throws TransactionException {
         recurringExpenditures.findMatchingRecurringExpenditure(description, category, ui);
+        logger.info("Completed finding recurring expenditures");
     }
 }

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
@@ -43,8 +44,9 @@ public class FindRecurringExpenditureCommand extends Command {
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      * @throws BankException If bank name specified does not exist.
+     * @throws TransactionException If recurring transaction list is empty.
      */
-    public boolean execute(Profile profile, Ui ui) throws BankException {
+    public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
         profile.findRecurringExpenditure(this.name, this.description, this.category, this.type, ui);
         logger.info("Successful execution of finding recurring expenditures");
         return this.isExit;

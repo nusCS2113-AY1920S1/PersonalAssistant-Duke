@@ -188,6 +188,7 @@ public class Profile {
      */
     public void profileAddNewBank(Bank newBank, Ui ui) throws BankException {
         bankList.bankListAddBank(newBank, ui);
+        logger.info("Successfully added new bank");
     }
 
     /**
@@ -202,6 +203,7 @@ public class Profile {
         if (bankType.equals(SAVING)) {
             goalsList.changeTiedAccountsToNull(bankName);
         }
+        logger.info("Successfully deleted bank");
     }
 
     /**
@@ -212,6 +214,7 @@ public class Profile {
      */
     public void profileListBanks(String bankType, Ui ui) throws BankException {
         bankList.bankListListBankAccount(bankType, ui);
+        logger.info("Successfully listed banks");
     }
 
     /**
@@ -228,6 +231,8 @@ public class Profile {
             throws BankException, CardException {
         if (CARD.equals(type)) {
             if (getCardPaidBillAmount(accountName, expenditure.getYearMonthDate()) != 0) {
+                logger.warning("You cannot add an expenditure with month that the card bill "
+                        + "has already been paid for!");
                 throw new CardException("You cannot add an expenditure with month that the card bill "
                 + "has already been paid for!");
             }
@@ -329,6 +334,7 @@ public class Profile {
     public void profileEditSavingsAccount(String name, String newName, String amount, String income, Ui ui)
             throws BankException {
         bankList.bankListEditSavings(name, newName, amount, income, ui);
+        logger.info("Successful editing of savings account");
     }
 
     /**
@@ -343,6 +349,8 @@ public class Profile {
     public void profileEditInvestmentAccount(String name, String newName, String amount, Ui ui)
             throws BankException {
         bankList.bankListEditInvestment(name, newName, amount, ui);
+        logger.info("Successful editing of investment account");
+
     }
 
     /**
@@ -399,6 +407,7 @@ public class Profile {
      */
     public void profileAddNewCard(Card newCard, Ui ui) throws CardException {
         cardList.cardListAddCard(newCard, ui);
+        logger.info("Successful adding of card");
     }
 
     /**
@@ -414,6 +423,7 @@ public class Profile {
     public void profileEditCardDetails(String name, String newName, String limit, String rebate, Ui ui)
             throws CardException {
         cardList.cardListEditCard(name, newName, limit, rebate, ui);
+        logger.info("Successful editing of card");
     }
 
     /**
@@ -425,6 +435,7 @@ public class Profile {
      */
     public void profileDeleteCard(String name, Ui ui) throws CardException {
         cardList.cardListDeleteCard(name, ui);
+        logger.info("Successful deleting of card");
     }
 
     /**
@@ -435,6 +446,7 @@ public class Profile {
      */
     public void profileListCards(Ui ui) throws CardException {
         cardList.cardListListCards(ui);
+        logger.info("Successful listing of card");
     }
 
     /**
@@ -485,6 +497,7 @@ public class Profile {
      */
     public void profileIsBondUnique(String bankName, Bond bond) throws BankException, BondException {
         bankList.bankListIsBondExist(bankName, bond);
+        logger.info("Bond is unique");
     }
 
     /**
@@ -535,6 +548,7 @@ public class Profile {
      */
     public void profileAddGoals(Goals goals, Ui ui) throws GoalsException {
         goalsList.addToGoals(goals, ui);
+        logger.info("Successful adding of goal");
     }
 
     /**
@@ -546,6 +560,7 @@ public class Profile {
      */
     public void profileDeleteGoals(String name, Ui ui) throws GoalsException {
         goalsList.deleteFromGoalList(name, ui);
+        logger.info("Successful deleting of goal");
     }
 
     /**
@@ -563,6 +578,7 @@ public class Profile {
                                  boolean markDone, Ui ui)
             throws GoalsException {
         goalsList.editGoals(goalName, amount, date, newName, savingName, markDone, ui);
+        logger.info("Successful editing of goal");
     }
 
     /**
@@ -654,13 +670,12 @@ public class Profile {
      * @param ui Used for printing.
      * @throws BankException If cannot add income.
      */
-    public void profileUpdate(Ui ui, boolean manualCall) throws BankException {
+    public void profileUpdate(Ui ui) throws BankException {
         bankList.bankListUpdateRecurringTransactions(ui);
         goalsList.updateGoals();
         profileAddAchievement();
-        if (manualCall) {
-            ui.printMessage("Profile has been updated");
-        }
+        logger.info("Profile updated");
+        ui.printMessage("Profile has been updated");
     }
 
     /**
@@ -765,9 +780,10 @@ public class Profile {
      * @param category    The category keyword to match against.
      * @param ui          The object required for printing.
      * @throws BankException If bank name specified does not exist.
+     * @throws TransactionException If recurring transaction list is empty
      */
     public void findRecurringExpenditure(String name, String description, String category,
-            String type, Ui ui) throws BankException {
+            String type, Ui ui) throws BankException, TransactionException {
         if (RECURRING.equals(type)) {
             bankList.bankListFindRecurringExpenditure(name, description, category, ui);
         }

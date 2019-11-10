@@ -1,6 +1,9 @@
 package owlmoney.logic.parser.saving;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 
@@ -13,6 +16,7 @@ import owlmoney.logic.parser.exception.ParserException;
 public class ParseAddSaving extends ParseSaving {
 
     private static final String ADD_COMMAND = "/add";
+    private static final Logger logger = getLogger(ParseAddSaving.class);
 
     /**
      * Creates an instance of ParseAddSaving.
@@ -38,6 +42,7 @@ public class ParseAddSaving extends ParseSaving {
             String key = savingsIterator.next();
             String value = savingsParameters.get(key);
             if (!NEW_NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when adding savings account");
                 throw new ParserException(key + " cannot be empty when adding savings account");
             }
             if (NAME_PARAMETER.equals(key)) {

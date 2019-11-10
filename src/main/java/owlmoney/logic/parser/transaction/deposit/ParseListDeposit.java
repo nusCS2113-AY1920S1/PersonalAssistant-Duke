@@ -1,6 +1,9 @@
 package owlmoney.logic.parser.transaction.deposit;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.ListDepositCommand;
@@ -11,6 +14,8 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseListDeposit extends ParseDeposit {
     private static final String LIST_COMMAND = "/list";
+    private static final Logger logger = getLogger(ParseListDeposit.class);
+    private static String DEFAULT_NUMBER = "30";
 
     /**
      * Creates an instance of ParseListDeposit.
@@ -39,12 +44,13 @@ public class ParseListDeposit extends ParseDeposit {
             String key = savingsIterator.next();
             String value = depositParameters.get(key);
             if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when listing deposits from a bank");
                 throw new ParserException(key + " cannot be empty when listing deposits from a bank");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value, FROM_PARAMETER);
             }
             if (NUM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
-                depositParameters.put(key, "30");
+                depositParameters.put(key, DEFAULT_NUMBER);
             } else if (NUM_PARAMETER.equals(key)) {
                 checkInt(NUM_PARAMETER, value);
             }

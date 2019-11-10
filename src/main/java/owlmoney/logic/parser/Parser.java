@@ -1,5 +1,9 @@
 package owlmoney.logic.parser;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
@@ -10,6 +14,7 @@ abstract class Parser {
     private static final String UPDATE_COMMAND = "/update";
     private static final String HELP_COMMAND = "/help";
     private static final int SPACE_LENGTH = 1;
+    private static final Logger logger = getLogger(Parser.class);
 
     /**
      * Extracts the first field of the string based on the first space detected.
@@ -37,6 +42,7 @@ abstract class Parser {
         } else if (firstField.length() + SPACE_LENGTH < input.length()) {
             return input.substring(firstField.length() + SPACE_LENGTH);
         } else {
+            logger.warning("Incomplete command provided");
             throw new ParserException("Incomplete command provided");
         }
     }
@@ -58,11 +64,13 @@ abstract class Parser {
             if (input.equals(firstField)) {
                 return "";
             } else {
+                logger.warning("/list " + firstField + " cannot have trailing arguments");
                 throw new ParserException("/list " + firstField + " cannot have trailing arguments");
             }
         } else if (firstField.length() + SPACE_LENGTH < input.length()) {
             return input.substring(firstField.length() + SPACE_LENGTH);
         } else {
+            logger.warning("Incomplete command provided");
             throw new ParserException("Incomplete command provided");
         }
     }

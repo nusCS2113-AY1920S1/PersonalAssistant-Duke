@@ -827,19 +827,14 @@ class TransactionListTest {
     //Tests function for find feature.
     @Test
     void findMatchingTransaction_emptyTransactionList_printErrorMessage() {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
         TransactionList transactionListTemp = new TransactionList();
-        try {
-            transactionListTemp.findMatchingTransaction("", "",
-                    "No such description", "", uiTest);
-        } catch (TransactionException error) {
-            System.out.println("Expected no throw, but error thrown");
-        }
-        String expectedOutput = "Transaction list is empty" + NEWLINE;
-        assertEquals(expectedOutput,outContent.toString());
-
+        TransactionException thrown = assertThrows(TransactionException.class, () ->
+                        transactionListTemp.findMatchingTransaction("", "",
+                                "No such description", "", uiTest),
+                "Expected deleteExpenditureFromList to throw, but it didn't");
+        String expectedOutput = "Transaction list is empty";
+        assertEquals(expectedOutput, thrown.toString());
     }
 
 }

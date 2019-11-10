@@ -1,5 +1,9 @@
 package owlmoney.logic.command.bank;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.Saving;
@@ -14,6 +18,7 @@ public class AddSavingsCommand extends Command {
     private final String name;
     private final double income;
     private final double amount;
+    private static final Logger logger = getLogger(AddSavingsCommand.class);
 
     /**
      * Creates an instance of AddSavingCommand.
@@ -40,6 +45,7 @@ public class AddSavingsCommand extends Command {
     public boolean execute(Profile profile, Ui ui) throws BankException {
         Bank newSaving = new Saving(this.name, this.amount, this.income);
         profile.profileAddNewBank(newSaving, ui);
+        logger.info("Successful execution of AddSavingsCommand");
         return this.isExit;
     }
 }

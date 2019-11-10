@@ -1,5 +1,9 @@
 package owlmoney.logic.command.transaction;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.card.exception.CardException;
@@ -19,6 +23,7 @@ public class EditExpenditureCommand extends Command {
     private final String category;
     private final int index;
     private final String type;
+    private static final Logger logger = getLogger(EditExpenditureCommand.class);
 
     /**
      * Creates an instance of EditExpenditureCommand.
@@ -54,6 +59,7 @@ public class EditExpenditureCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
         profile.profileEditExpenditure(index, accountName, description, amount, date, category, ui, this.type);
+        logger.info("Successful execution of EditExpenditureCommand");
         return this.isExit;
     }
 }
