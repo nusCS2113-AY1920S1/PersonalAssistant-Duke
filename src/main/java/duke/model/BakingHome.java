@@ -66,6 +66,10 @@ public class BakingHome implements ReadOnlyBakingHome {
 
     //================Order operations================
 
+    /**
+     * Sorts orders based on {@code criteria}.
+     * If {@code isReversed} is true, sorts in reversed order.
+     */
     public void sortOrders(SortOrderCommand.SortCriteria criteria, boolean isReversed) {
         requireNonNull(criteria);
 

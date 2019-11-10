@@ -31,7 +31,7 @@ public class SetShortcutCommand extends Command {
      */
     public SetShortcutCommand(Shortcut shortcut) {
         this.shortcut = shortcut;
-        isEmptyShortcut = shortcut.getUserInputs().isEmpty();
+        isEmptyShortcut = shortcut.getCommandStrings().isEmpty();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class SetShortcutCommand extends Command {
      * @throws CommandException if the shortcut has a reference to another shortcut command.
      */
     private void checkShortcutEligibility() throws CommandException {
-        for (String line : shortcut.getUserInputs()) {
+        for (String line : shortcut.getCommandStrings()) {
             if (line.split(" ")[0].equals(ExecuteShortcutCommand.COMMAND_WORD)) {
                 throw new CommandException(MESSAGE_CANNOT_CONTAIN_DO_COMMAND);
             }

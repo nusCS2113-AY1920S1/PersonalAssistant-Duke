@@ -4,33 +4,41 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * TODO: add comments
+ * Represents a collection of multiple commands strings.
+ * Guarantees: immutable.
  */
 public class Shortcut {
 
     //Identity field
     private final String name;
 
-    private final List<String> userInputs;
+    //Data field
+    private final List<String> commandStrings;
 
-    public Shortcut(String name, List<String> userInputs) {
+    /**
+     * Creates a {@code Shortcut}.
+     *
+     * @param name           Name of the shortcut.
+     * @param commandStrings A series of command strings supplied by the user.
+     */
+    public Shortcut(String name, List<String> commandStrings) {
         this.name = name;
-        this.userInputs = userInputs;
+        this.commandStrings = commandStrings;
     }
 
     public String getName() {
         return name;
     }
 
-    public List<String> getUserInputs() {
-        return userInputs;
+    public List<String> getCommandStrings() {
+        return commandStrings;
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (String userInput : userInputs) {
-            stringBuilder.append(userInput).append("; ");
+        for (String commandString : commandStrings) {
+            stringBuilder.append(commandString).append("; ");
         }
         return stringBuilder.toString();
     }

@@ -322,11 +322,11 @@ public class AutoCompleter {
 
         /**
          * Returns the word at {@code caretPosition} in input text. If no word is present, returns an empty string.
-         * <p>
-         * Words are substrings of the inout text separated by one or more spaces. They can contain any characters
+         *
+         * <p>Words are substrings of the inout text separated by one or more spaces. They can contain any characters
          * (including escape characters) except spaces.
-         * <p>
-         * For example, "order add   -name    " is made up of three words: "order", "add" and "-name".
+         *
+         * <p>For example, "order add   -name    " is made up of three words: "order", "add" and "-name".
          * At caret positions 0~5, returns "order";
          * At caret positions 6~9, returns "add"
          * At caret positions 12~17, returns "-name",
