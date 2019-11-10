@@ -54,9 +54,9 @@ public class Storage {
      * Creates new text file if no such file already exists and sets FILE_PATH to the absolute path of the text file.
      * Creates new excel file if no such file exists and sets EXCEL_PATH to the absolute path of excel file.
      */
-    public Storage(String path) {
+    public Storage() {
         File currentDir = new File(System.getProperty("user.dir"));
-        File filePath = new File(currentDir.toString() + path);
+        File filePath = new File(currentDir.toString() + "\\data");
         File dataText = new File(filePath, "wordup.txt");
         File reminderText = new File(filePath, "reminder.txt");
         if (!filePath.exists()) {
