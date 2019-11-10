@@ -66,7 +66,7 @@ public class ProjectManager {
 
     /**
      * Method to go to the project in the projectmap.
-     * @param projectindex Name of project to go to.
+     * @param projectindex Index of project to go to.
      * @return Returns the project object of the project to go to.
      */
     public String gotoProject(int projectindex) {

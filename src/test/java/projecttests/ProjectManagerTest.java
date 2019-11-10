@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 //@@author leowyh
 class ProjectManagerTest {
-    ProjectManager projectmanager = new ProjectManager();
+    private ProjectManager projectmanager = new ProjectManager();
 
     ProjectManagerTest() throws AlphaNUSException {
     }
@@ -87,11 +87,25 @@ class ProjectManagerTest {
     void testGotoProject_withIntegerInput_success() {
         assertEquals("Rag", projectmanager.currentprojectname);
         String expectedcurrentproject = "Flag";
+
+        String outputcurrentproject = projectmanager.gotoProject(1);
+        assertEquals(expectedcurrentproject, outputcurrentproject);
+
+        expectedcurrentproject = "Rag";
+        outputcurrentproject = projectmanager.gotoProject(0);
+        assertEquals(expectedcurrentproject, outputcurrentproject);
+    }
+
+    @Test
+    void testGotoProject() {
+        assertEquals("Rag", projectmanager.currentprojectname);
+        String expectedcurrentproject = "Flag";
+
         String outputcurrentproject = projectmanager.gotoProject(2);
         assertEquals(expectedcurrentproject, outputcurrentproject);
 
         expectedcurrentproject = "Rag";
-        outputcurrentproject = projectmanager.gotoProject(1);
+        outputcurrentproject = projectmanager.gotoProject(0);
         assertEquals(expectedcurrentproject, outputcurrentproject);
     }
 

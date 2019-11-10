@@ -19,6 +19,7 @@ public class Project {
 
     /**
      * Instantiates Project object without a budget allocated.
+     * @param projectname the name of the project.
      */
     public Project(String projectname) {
         this.managermap = new HashMap<>();
@@ -42,7 +43,7 @@ public class Project {
 
     /**
      * Add the budget assigned to the project.
-     * @param amount a double value indicates the assigned amount of budget
+     * @param amount a double value indicates the assigned amount of budget.
      */
     public void addBudget(Double amount) {
         this.budget += amount;
@@ -50,8 +51,17 @@ public class Project {
     }
 
     /**
-     * This function deccribes how the program works when a payment is made to a project
-     * @param amount the amount of money for this payment
+     * Add the budget assigned to the project.
+     * @param amount a double value indicates the assigned amount of budget.
+     */
+    public void retrieveBudget(Double amount) {
+        this.remaining += amount;
+        this.spending -= amount;
+    }
+
+    /**
+     * This function deccribes how the program works when a payment is made to a project.
+     * @param amount the amount of money for this payment.
      */
     public void addPayment(Double amount) {
         this.spending += amount;
@@ -59,13 +69,15 @@ public class Project {
     }
 
     /**
-     * @return total budget assigned to the project
+     * get budget of the project.
+     * @return total budget assigned to the project.
      */
     public double getBudget() {
         return this.budget;
     }
 
     /**
+     * get budget spent of the project.
      * @return budget spent.
      */
     public double getSpending() {
@@ -73,6 +85,7 @@ public class Project {
     }
 
     /**
+     * get budget lrft of the project.
      * @return budget left.
      */
     public double getRemaining() {
@@ -87,6 +100,5 @@ public class Project {
             + "Allocated Budget:  " + this.budget + "\n" + "\t" 
             + "Total Spending: " + this.spending;
     }
-
 
 }
