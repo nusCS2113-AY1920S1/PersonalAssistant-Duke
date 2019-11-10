@@ -1,5 +1,4 @@
-image::https://ci.appveyor.com/api/projects/status/agqgm1oree8iohvq?svg=true[]
-image:https://travis-ci.org/AY1920S1-CS2113-T13-3/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2113-T13-3/main"]
+image:https://ci.appveyor.com/api/projects/status/agqgm1oree8iohvq?svg=true["Build Status", link=https://ci.appveyor.com/project/E0310898/main] image:https://travis-ci.org/AY1920S1-CS2113-T13-3/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2113-T13-3/main"]
 
 image::docs/images/organization logo.png[width="600", align="center"]
 image::docs/images/Ui.png[width="600", align="center"]
