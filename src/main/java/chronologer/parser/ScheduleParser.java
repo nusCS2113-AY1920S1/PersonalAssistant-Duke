@@ -99,31 +99,31 @@ public class ScheduleParser extends IndexParser {
 
     private Command getTaskScheduleCommandForDuration(int deadlineType, Long duration) throws ChronologerException {
         switch (deadlineType) {
-            case INDEX_INPUT:
-                int indexOfDeadline = extractDeadlineIndex(taskFeatures);
-                return new TaskScheduleCommand(duration, indexOfDeadline);
-            case DATE_INPUT:
-                LocalDateTime dateOfDeadline = extractDeadlineDate(taskFeatures);
-                return new TaskScheduleCommand(duration, dateOfDeadline);
-            case NO_DEADLINE_INPUT:
-                return new TaskScheduleCommand(duration, null);
-            default:
-                return null;
+        case INDEX_INPUT:
+            int indexOfDeadline = extractDeadlineIndex(taskFeatures);
+            return new TaskScheduleCommand(duration, indexOfDeadline);
+        case DATE_INPUT:
+            LocalDateTime dateOfDeadline = extractDeadlineDate(taskFeatures);
+            return new TaskScheduleCommand(duration, dateOfDeadline);
+        case NO_DEADLINE_INPUT:
+            return new TaskScheduleCommand(duration, null);
+        default:
+            return null;
         }
     }
 
     private Command getTaskScheduleCommandForIndex(int deadlineType) throws ChronologerException {
         switch (deadlineType) {
-            case INDEX_INPUT:
-                int indexOfDeadline = extractDeadlineIndex(taskFeatures);
-                return new TaskScheduleCommand(indexOfTask, indexOfDeadline);
-            case DATE_INPUT:
-                LocalDateTime dateOfDeadline = extractDeadlineDate(taskFeatures);
-                return new TaskScheduleCommand(indexOfTask, dateOfDeadline);
-            case NO_DEADLINE_INPUT:
-                return new TaskScheduleCommand(indexOfTask, null);
-            default:
-                return null;
+        case INDEX_INPUT:
+            int indexOfDeadline = extractDeadlineIndex(taskFeatures);
+            return new TaskScheduleCommand(indexOfTask, indexOfDeadline);
+        case DATE_INPUT:
+            LocalDateTime dateOfDeadline = extractDeadlineDate(taskFeatures);
+            return new TaskScheduleCommand(indexOfTask, dateOfDeadline);
+        case NO_DEADLINE_INPUT:
+            return new TaskScheduleCommand(indexOfTask, null);
+        default:
+            return null;
         }
     }
 }

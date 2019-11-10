@@ -30,7 +30,7 @@ public class TaskSchedulerTest {
     private static LocalDateTime eventAtNowEndDate = LocalDateTime.now().plusHours(1);
 
     private static LocalDateTime eventAtFirstDeadlineStartDate = firstDeadlineStartDate.minusHours(1);
-    private static LocalDateTime eventAtFirstDeadlineEndDate= firstDeadlineStartDate.plusHours(1);
+    private static LocalDateTime eventAtFirstDeadlineEndDate = firstDeadlineStartDate.plusHours(1);
 
     /**
      * Populates the schedule with necessary tasks to carry out the test operations.
