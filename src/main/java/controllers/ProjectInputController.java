@@ -136,7 +136,7 @@ public class ProjectInputController implements IController {
         } else {
             return new String[] {"Invalid command. Try again!"};
         }
-        jsonConverter.saveProject(this.projectToManage);
+        projectRepository.saveToRepo(this.projectToManage);
         return responseToView;
     }
 
