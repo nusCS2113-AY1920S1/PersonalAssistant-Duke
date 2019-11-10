@@ -26,10 +26,6 @@ public class HelpCommand extends Command {
 					+ "OR -t <food type>'")
 					+ " to generate the profits & revenue for a food product in the list "
 					+ "across a period, -all for all food\n"
-			+ String.format("%1$-50s", "  'revenue -all OR -i <number> "
-					+ "OR -n <food name> OR -t <food type>'")
-					+ "generate the revenue for the specified food product in the list, "
-					+ "-all for total revenue\n"
 			+ String.format("%1$-50s", "  'delete -i <number> OR -n <food name> "
 					+ "OR -t <food type>'")
 					+ "delete the specified food product in the list\n"

@@ -7,16 +7,19 @@
 package cube.logic.command;
 
 import cube.logic.command.exception.CommandException;
+import cube.logic.parser.ParserUtil;
 import cube.model.food.FoodList;
 import cube.model.food.Food;
 import cube.model.ModelManager;
 import cube.model.sale.Sale;
 import cube.model.sale.SalesHistory;
+import cube.storage.ProfitStorage;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -36,6 +39,7 @@ public class ProfitCommand extends Command {
     private Date dateI; //start date (initial)
     private Date dateF; //end date (final)
     private ProfitCommand.ProfitBy param;
+
     public static final String MESSAGE_SUCCESS_ALL
             = "Nice! I've generated the profits and revenue for all the stocks:\n"
             + "profit:  $ %1$s\n"
@@ -101,6 +105,37 @@ public class ProfitCommand extends Command {
         this.dateF = dateF;
         this.profitDescription = profitDescription;
         this.param = ProfitCommand.ProfitBy.valueOf(param);
+    }
+
+    public static void generateAnnualProfitRevenue(ModelManager model) {
+        SalesHistory saleSet = ModelManager.getSalesHistory();
+        Iterator<Sale> it = saleSet.iterator();
+        double toGenerateProfit = 0;
+        double toGenerateRevenue = 0;
+
+        Date currentDate = new Date();
+        Calendar cal = Calendar.getInstance(ParserUtil.getTimeZone());
+        cal.setTime(currentDate);
+
+        cal.set(Calendar.DAY_OF_YEAR, 1);  // Jan, Day 1
+        Date startDate = cal.getTime();
+
+        cal.set(Calendar.MONTH, 11); // December
+        cal.set(Calendar.DAY_OF_MONTH, 31); // Day 31
+        Date endDate = cal.getTime();
+
+        while (it.hasNext()) {
+            Sale tempSale = it.next();
+            Date tempDate = tempSale.getDate();
+            if (tempDate.compareTo(startDate) >= 0 && tempDate.compareTo(endDate) <= 0) {
+                double tempRevenue = tempSale.getRevenue();
+                double tempProfit = tempSale.getProfit();
+                toGenerateRevenue += tempRevenue;
+                toGenerateProfit += tempProfit;
+            }
+        }
+        ProfitStorage.setAnnualRevenue(toGenerateRevenue);
+        ProfitStorage.setAnnualProfit(toGenerateProfit);
     }
 
     /**

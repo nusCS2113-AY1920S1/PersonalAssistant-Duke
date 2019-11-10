@@ -26,7 +26,6 @@ public class Parser {
 	 * list -sort expiry/name/stock
 	 * find -i index / -n foodName / -t foodType --sort expiry/name/stock
 	 * profit -t1 time1 -t2 time2 -i index / -n foodName / -t foodType / -all All
-	 * revenue -i index / -n foodName / -t foodType
 	 * delete -i index / -n foodName / -t foodType
 	 * sold -n foodName -q quantity
 	 * reminder -d daysToExpiry -s stock
@@ -65,8 +64,6 @@ public class Parser {
 				return new PromotionCommandParser().parse(inputs);
 			case "reminder":
 				return new ReminderCommandParser().parse(inputs);
-			case "revenue" :
-				return new RevenueCommandParser().parse(inputs);
 			case "sold":
 				return new SoldCommandParser().parse(inputs);
 			case "update":

@@ -115,7 +115,6 @@ public class SoldCommand extends Command {
 		salesHistory.add(saleRecord);
 		storage.storeSalesHistory(salesHistory);
 
-		storage.storeRevenue(Food.getRevenue());
 		return new CommandResult(String.format(MESSAGE_SUCCESS, quantity, foodName, revenue, profit));
 	}
 }
