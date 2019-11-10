@@ -116,10 +116,6 @@ public class Duke {
         return roomList;
     }
 
-    /*public UserList getUserList() {
-        return userList;
-    }*/
-
     public static UserList getUserList() {
         return userList;
     }

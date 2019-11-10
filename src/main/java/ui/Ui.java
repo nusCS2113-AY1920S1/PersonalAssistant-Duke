@@ -90,6 +90,7 @@ public class Ui extends AnchorPane {
             showList(bookingList);
             break;
         case "addroom":
+        case "deleteroom":
         case "listroom":
             listContainer.getChildren().clear();
             RoomList roomList = duke.getRoomList();
@@ -136,7 +137,7 @@ public class Ui extends AnchorPane {
 
     private void showList(BookingList bookingList) throws DukeException {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
-                "To", "Status", "Purpose", "Approved/ Rejected By:"));
+                "To", "Status", "Purpose", "Approved/\nRejected By"));
         Integer index = 1;
         for (Booking i : bookingList) {
             addToList(customListBox(bookingList, i, index));
