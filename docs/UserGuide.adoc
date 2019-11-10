@@ -158,7 +158,7 @@ Examples:
 [NOTE]
 ====
 * The Dates should be entered in the following format: `dd/mm/yy`, `dd/MM/yy HHmm`, `HHmm`, `dd/mm/yyyy`, `dd/MM/yyyy HHmm` or `DAY_OF_THE_WEEK`
-* e.g. 12/21/20, Mon, Friday, 11/11/2019 2359, etc
+* e.g. 21/12/20, Mon, Friday, 11/12/2019 2359, etc
 ====
 
 === Deleting an event : `delete`
@@ -224,7 +224,7 @@ image::edit2.png[width="600" height="400"]
 Examples:
 
 * `Orchard road` if updating the `VENUE`
-* `Mon` or `12/12/12` if updating a `DATE`
+* `Mon` or `12/12/22` if updating a `DATE`
 
 To save the edits, type `save` or `done`. +
 To discard the changes, type `close` or `end`.
@@ -960,42 +960,10 @@ Examples:
 
 == Command Summary
 
-* *Event* `event TASK /at DESCRIPTOR` +
-e.g. `event Ferris wheel /at Singapore Flyer tomorrow`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Done* : `done INDEX` +
 e.g. `done 2`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find Singapore Korea`
-* *Reminder* : `reminder`
 * *List* : `list`
-* *Bus Stop* : `busstop LOCATION` +
-e.g. `busstop West Mall`
-* *MRT Stop* : `mrtstop LOCATION` +
-e.g. `mrtstop Marina Square`
-* *Bus Route* : `busroute BUS_NUMBER` +
-e.g. `busroute 975`
-* *Bus Tour* : `bustour`
-* *MRT Tour* : `mrttour`
-* *Tour* : `tour`
-* *Bus come* : `buscome BUS_STOP` +
-e.g. `buscome 81024`
-* *Bus Ride* : `busride START DEST` +
-e.g. `busride Paragon Clarke Quay`
-* *MRT Ride* : `mrtride START DEST` +
-e.g. `mrtride Causeway Point Netwon Circus`
-* *Taxi Ride* : `taxiride DEST` +
-e.g. `taxiride Harbourfront`
-* *Taxi* : `taxi`
-* *Train* : `train`
-* *Weather* : `weather`
-* *Undo* : `undo`
-* *Redo* : `redo`
 * *Help* : `help`
 * *Bye* : `bye`
-* *Recommend* : `recommend LOCATION` +
-e.g. `recommend Germany`
-* *Flight info* : `flight LOCATION` +
-e.g. `flight Iceland`
-* *Tour* : `tour`
