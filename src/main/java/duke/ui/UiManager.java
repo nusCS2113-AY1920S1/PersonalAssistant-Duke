@@ -41,7 +41,8 @@ public class UiManager implements Ui {
         try {
             showMainWindow(primaryStage);
         } catch (Throwable t) {
-            showErrorDialogAndShutdown(UiStrings.MESSAGE_ERROR_LAUNCH, t);
+            //showErrorDialogAndShutdown(UiStrings.MESSAGE_ERROR_LAUNCH, t);
+            t.printStackTrace();
         }
     }
 
