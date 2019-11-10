@@ -81,13 +81,6 @@ public class RouteGenerateCommand extends Command {
                 throw new RouteGenerateFailException();
             }
 
-            for (RouteNode node : route.getNodes()) {
-                if (node instanceof TrainStation && node.getAddress() == null) {
-                    node.setAddress(node.getDescription());
-                    updateRouteNode(node, model);
-                }
-            }
-
             RouteList routes = model.getRoutes();
             routes.add(route);
             model.save();
