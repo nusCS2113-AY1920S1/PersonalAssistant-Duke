@@ -184,7 +184,9 @@ public class CapTest extends InputTest {
         assertEquals(0.0, cap.letterGradeToCap("CS"));
         assertEquals(0.0, cap.letterGradeToCap("CU"));
         ArrayList<String> prerequisiteTest = new ArrayList<>();
-        prerequisiteTest.add("CS2040C");
-        assertEquals(cap.parsePrerequisiteTree("CS2040C"), prerequisiteTest);
+        prerequisiteTest.add("CS1010");
+        prerequisiteTest.add("CS1231");
+        String toBeParsed = "CS1010 and its equivalent, and CS1231";
+        assertEquals(cap.parsePrerequisiteTree(toBeParsed), prerequisiteTest);
     }
 }
