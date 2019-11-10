@@ -121,6 +121,10 @@ public class Ui {
         for (int i = Numbers.ZERO.value; i < items.size() || i < priorities.getSize(); i++) {
             str  += "        [" + pair.get(i).getKey() + "]\t  |\t" + pair.get(i).getValue() + "\n";
         }
+
+        for (int i = Numbers.ZERO.value; i < items.size() || i < priorities.getSize(); i++) {
+            out.printf("        [%d]\t  |\t%s\n", pair.get(i).getKey(), pair.get(i).getValue());
+        }
         return str;
     }
     //@@author

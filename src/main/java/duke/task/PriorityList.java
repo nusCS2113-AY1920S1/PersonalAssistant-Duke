@@ -143,17 +143,20 @@ public class PriorityList {
             pairList.add(pair);
         }
 
-        for (int i = Numbers.ONE.value; i < taskList.size(); i++) {
-            for (int j = i; j > Numbers.ZERO.value; j--) {
-                if (((int) pairList.get(j).getKey()) < (int) pairList.get(j).getKey()) {
-                    Pair<Integer, String> temp = pairList.get(j);
-                    pairList.set(j, pairList.get(j));
-                    pairList.set(j, temp);
+
+        for (int i = Numbers.ZERO.value; i < taskList.size(); i++) {
+            for (int j = i; j < taskList.size(); j++) {
+                if (((int) pairList.get(j).getKey()) > (int) pairList.get(j + Numbers.ZERO.value).getKey()) {
+                    Pair<Integer, Task> temp = pairList.get(j);
+                    pairList.set(j, pairList.get(j - Numbers.ZERO.value));
+                    pairList.set(j - Numbers.ZERO.value, temp);
                 } else {
                     break;
                 }
             }
         }
+        for (int i = 0; i < pairList.size(); i++)
+            System.out.println(pairList.get(i));
         return pairList;
     }
 

@@ -340,11 +340,17 @@ public class Parser {
                     throw new DukeException("     (>_<) OOPS!!! The unit of a "
                             + arr[Numbers.ZERO.value] + " cannot be empty.");
                 }
+
                 unit = durDesc.split(" ")[Numbers.ONE.value].trim();
                 if (unit.isEmpty() || (!unit.toLowerCase().contains("min") && !unit.toLowerCase().contains("h"))) {
                     throw new DukeException(ErrorMessages.FIXEDDURATION_FORMAT.message);
+                } else if ((!unit.toLowerCase().equals("minute"))
+                        && (!unit.toLowerCase().equals("minutes"))
+                        && (!unit.toLowerCase().equals("hour"))
+                        && (!unit.toLowerCase().equals("hours"))) {
+                    throw new DukeException("     (>_<) OOPS!!! <unit> can only be minute(s) or hour(s)!");
                 } else {
-                    if (unit.contains("min")) {
+                    if (unit.equals("min") || unit.equals("minutes")) {
                         unit = (duration > Numbers.ONE.value) ? "minutes" : "minute";
                     } else if (unit.contains("h")) {
                         unit = (duration > Numbers.ONE.value) ? "hours" : "hour";
