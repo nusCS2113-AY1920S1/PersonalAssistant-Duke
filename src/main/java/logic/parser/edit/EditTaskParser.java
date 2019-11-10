@@ -10,7 +10,9 @@ import java.util.regex.Pattern;
 public class EditTaskParser {
 
     public static final String EDIT_USAGE = "Usage: edit task {name/time/des} INDEX /to [NEW_CONTENT]";
+
     public static final String TIME = "time";
+    public static final String NAME = "name";
     public static final String DES = "des";
     public static final String INDEX_NO_EMPTY = "The index of task shouldn't be empty.";
 
@@ -36,6 +38,8 @@ public class EditTaskParser {
         switch (editType) {
         case TIME:
             return EditTaskDateTimeParser.parseEditTaskDateTime(arguments);
+        case NAME:
+            return EditTaskNameParser.parseEditTaskName(arguments);
         case DES:
             return EditTaskDesParser.parseEditTaskDes(arguments);
         default:

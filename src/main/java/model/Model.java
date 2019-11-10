@@ -29,7 +29,19 @@ public interface Model {
 
     String getTaskNameById(int index);
 
-    Date getTaskDateTimeById(int indexOfTask);
+    String getTaskNameByIdOnList(int indexOfTask);
+
+    String getTaskIsDoneByIdOnList(int indexOfTask);
+
+    String getTaskDescriptionByIdOnList(int indexOfTask);
+
+    Date getTaskDateTimeByIdOnList(int indexOfTask);
+
+    ArrayList<String> getMemberListOfTaskByIdOnList(int indexOfTask);
+
+    ArrayList<String> getSkillListOfTaskByIdOnList(int indexOfTask);
+
+    Date getTaskReminderByIdOnList(int indexOfTask);
 
     TasksManager getTasksManager();
 
@@ -48,6 +60,8 @@ public interface Model {
     String tasksTodoInorderPicNum();
 
     String updateTaskDes(int index, String des);
+
+    boolean isInTaskList(int taskIndex);
 
     //TODO look into using exceptions instead?
     boolean addTaskReqSkill(String taskName, String skillName);
@@ -77,6 +91,18 @@ public interface Model {
     String membersInorderProgress();
 
     String membersInorderTodoNum();
+
+    int getMemberIdByName(String name);
+
+    String getMemberBioByName(String name);
+
+    String getMemberEmailByName(String name);
+
+    String getMemberPhoneByName(String name);
+
+    ArrayList<String> getTaskListOfMemberByName(String name);
+
+    ArrayList<String> getSkillListOfMemberByName(String name);
 
     //==================Task and Member Interface======================
     void link(int tasksIndexes, String memberNames);

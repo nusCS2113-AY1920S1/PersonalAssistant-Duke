@@ -39,7 +39,7 @@ public class EditMemberParser {
 
         switch (editType) {
         case NAME:
-            return EditMemberDescriptionParser.parseEditMemberDescription(arguments);
+            return EditMemberNameParser.parseEditMemberName(arguments);
         case BIO:
             return EditMemberBioParser.parseEditMemberBio(arguments);
         case EMAIL:

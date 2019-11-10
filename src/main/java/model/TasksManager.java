@@ -501,6 +501,7 @@ public class TasksManager implements Serializable {
         return result;
     }
 
+
     //@@author yuyanglin28
     /**
      * This method is to get time crash string
@@ -536,6 +537,43 @@ public class TasksManager implements Serializable {
             day = "0" + day;
         }
         return year + "/" + mm + "/" + day;
+    }
+
+    //============================= get something from tasks list or task ===================
+
+    //@@author JasonChanWQ
+    public String getTaskNameByIdOnList(int index) {
+        return getTaskById(index - 1).getName();
+    }
+
+    //@@author JasonChanWQ
+    public String getTaskIsDoneByIdOnList(int index) {
+        return getTaskById(index - 1).getStatusIcon();
+    }
+
+    //@@author JasonChanWQ
+    public Date getTaskDateTimeByIdOnList(int index) {
+        return getTaskById(index - 1).getTime();
+    }
+
+    //@@author JasonChanWQ
+    public ArrayList<String> getMemberListOfTaskByIdOnList(int index) {
+        return getTaskById(index - 1).getMemberList();
+    }
+
+    //@@author JasonChanWQ
+    public ArrayList<String> getSkillListOfTaskByIdOnList(int index) {
+        return getTaskById(index - 1).getReqSkills();
+    }
+
+    //@@author JasonChanWQ
+    public String getTaskDescriptionByIdOnList(int index) {
+        return getTaskById(index - 1).getDescription();
+    }
+
+    //@@author JasonChanWQ
+    public Date getTaskReminderByIdOnList(int index) {
+        return getTaskById(index - 1).getReminder();
     }
 
 }
