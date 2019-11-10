@@ -14,8 +14,15 @@ image::lucria.png[width="150", align="left"]
 {empty}[https://github.com/Lucria[github]] [https://github.com/Lucria[portfolio]]
 
 Role: Team Lead +
-Responsibilities: Documentation, Implementation of Data Models, Unit Tests +
-Features Implemented: CRUD of projects, Member Features (roles), Task features (agenda), Persistent data saving
+Responsibilities: +
+- Documentation +
+- Implementation of Data Models +
+- Unit Tests +
+Features Implemented: +
+- Creation/Viewing/Updation/Deletion of projects +
+- Member Features (roles) +
+- Task features (agenda) +
+- Persistent data saving
 
 '''
 
@@ -24,11 +31,15 @@ image::dkenobi.png[width="150", align="left"]
 {empty}[https://github.com/Dkenobi[github]] [https://github.com/Dkenobi[portfolio]]
 
 Role: Architecture Lead +
-Responsibilities:
-- Architecture of ArchDuke 
-- Documentation
-- Implementation of Data models
-Features Implemented: CRUD of reminders, Data Logging, Handling date objects, Task features (Creation of task)
+Responsibilities: +
+- Architecture of ArchDuke +
+- Documentation +
+- Implementation of Data models +
+Features Implemented: +
+- CRUD of reminders +
+- Data Logging +
+- Handling date objects +
+- Task features (Creation of task)
 
 '''
 
