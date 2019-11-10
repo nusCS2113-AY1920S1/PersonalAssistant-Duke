@@ -169,7 +169,7 @@ public class Bank {
         tagBank.addWordToOneTag(word, tag);
     }
 
-    public void addExampleToWord(String word, String example) {
+    public void addExampleToWord(String word, String example) throws NoWordFoundException {
         wordBank.addExampleToWord(word, example);
     }
 

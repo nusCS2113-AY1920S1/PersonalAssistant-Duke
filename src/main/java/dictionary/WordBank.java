@@ -87,6 +87,14 @@ public class WordBank {
         return wordBank.get(word).getMeaning();
     }
 
+    /**
+     * Search example of a word.
+     *
+     * @param word the word description
+     * @return example of a word
+     * @throws WordBankEmptyException if word bank is empty
+     * @throws NoWordFoundException if the word has already exists in the WordBank
+     */
     public String searchWordExample(String word) throws WordBankEmptyException, NoWordFoundException {
         word = word.toLowerCase();
         if (wordBank.isEmpty()) {
@@ -217,7 +225,20 @@ public class WordBank {
         wordBank.get(word).addTag(tag);
     }
 
-    public void addExampleToWord(String word, String example) { wordBank.get(word).addExample(example); }
+    /**
+     * Add example sentence to word.
+     *
+     * @param word word description
+     * @param example example sentence
+     * @throws NoWordFoundException if the word has already exists in the WordBank
+     */
+    public void addExampleToWord(String word, String example) throws NoWordFoundException {
+        if (!wordBank.containsKey(word)) {
+            throw new NoWordFoundException(word);
+        } else {
+            wordBank.get(word).addExample(example);
+        }
+    }
 
     public Word[] getAllWordsAsList() {
         return wordBank.values().toArray(new Word[wordBank.size()]);

@@ -151,9 +151,15 @@ public class Ui {
         return stringBuilder.toString();
     }
 
+    /**
+     * Shows non-existing tags of the words that are searched.
+     * @param description a string represents a word to be searched
+     * @param meaning meaning of a word description
+     * @param example example sentence of a word
+     * @return a string to show search result
+     */
     public String showSearch(String description, String meaning, String example) {
-
-        if(example == null || example.isEmpty()){
+        if (example == null || example.isEmpty()) {
             return ("Here is the meaning of " + description + ": " + meaning + "\n");
         } else {
             return ("Here is the meaning of " + description + ": " + meaning + "\n"
@@ -221,10 +227,14 @@ public class Ui {
      */
     public String showReminderSetup(int state) {
         switch (state) {
-            case 1 : return "Please enter the list of words.\n" + "Enter an empty line to end input";
-            case 2 : return "Enter next word or an empty line to end input\n";
-            case 3 : return "Please enter the date and time of the reminder in the format:" + "dd-MM-yyyy HHmm";
-            default: return "Invalid state";
+          case 1 :
+            return "Please enter the list of words.\n" + "Enter an empty line to end input";
+          case 2 :
+            return "Enter next word or an empty line to end input\n";
+          case 3 :
+            return "Please enter the date and time of the reminder in the format:" + "dd-MM-yyyy HHmm";
+          default:
+            return "Invalid state";
         }
     }
 

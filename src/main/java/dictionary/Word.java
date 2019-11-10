@@ -57,7 +57,9 @@ public class Word {
         return meaning;
     }
 
-    public String getExample() { return this.example; }
+    public String getExample() {
+        return example;
+    }
 
     public HashSet<String> getTags() {
         return tags;

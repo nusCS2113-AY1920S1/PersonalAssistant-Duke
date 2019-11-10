@@ -1,6 +1,7 @@
 package command;
 
 import dictionary.Bank;
+import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
 
@@ -19,11 +20,13 @@ public class AddExampleCommand extends Command {
 
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
-
+        try {
             bank.addExampleToWord(this.wordDescription, this.example);
             storage.writeExcelFile(bank);
             return ui.showAddExample(this.wordDescription, this.example);
-
+        } catch (NoWordFoundException e) {
+            return e.showError();
+        }
         //storage.writeFile(word.toString(), true);
     }
 }
