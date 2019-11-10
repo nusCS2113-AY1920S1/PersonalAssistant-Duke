@@ -132,36 +132,36 @@ public class ModuleCommandParser extends Command {
             } catch (IndexOutOfBoundsException i) {
                 switch (commands[0]) {
                 case EDIT_MODULE:
-                    System.out.println("Please input the command " +
-                            "in the format \'edit mod /n NEW_NAME\'.");
+                    System.out.println("Please input the command "
+                            + "in the format \'edit mod /n NEW_NAME\'.");
                     break;
                 case ADD_ASSMT:
-                    System.out.println("Please input the command " +
-                            "in the format \'add assmt /n NAME /a WEIGHTAGE'.");
+                    System.out.println("Please input the command "
+                            + "in the format \'add assmt /n NAME /a WEIGHTAGE'.");
                     break;
                 case EDIT_ASSMT:
-                    System.out.println("Please input the command " +
-                            "in the format \'edit assmt /n INDEX /a NEW_NAME\'.");
+                    System.out.println("Please input the command "
+                            + "in the format \'edit assmt /n INDEX /a NEW_NAME\'.");
                     break;
                 case EDIT_WEIGHTAGE:
-                    System.out.println("Please input the command " +
-                            "in the format \'edit weight /n INDEX /a NEW_WEIGHTAGE\'.");
+                    System.out.println("Please input the command "
+                            + "in the format \'edit weight /n INDEX /a NEW_WEIGHTAGE\'.");
                     break;
                 case DELETE_ASSMT:
-                    System.out.println("Please input the command " +
-                            "in the format \'delete assmt /n INDEX\'.");
+                    System.out.println("Please input the command "
+                            + "in the format \'delete assmt /n INDEX\'.");
                     break;
                 case ADD_MSC:
-                    System.out.println("Please input the command " +
-                            "in the format \'add msc /n DESCRIPTION\'.");
+                    System.out.println("Please input the command "
+                            + "in the format \'add msc /n DESCRIPTION\'.");
                     break;
                 case EDIT_MSC:
-                    System.out.println("Please input the command " +
-                            "in the format \'edit msc /n INDEX /a NEW_DESCRIPTION\'.");
+                    System.out.println("Please input the command "
+                            + "in the format \'edit msc /n INDEX /a NEW_DESCRIPTION\'.");
                     break;
                 case DELETE_MSC:
-                    System.out.println("Please input the command " +
-                            "in the format \'delete msc /n INDEX\'.");
+                    System.out.println("Please input the command "
+                            + "in the format \'delete msc /n INDEX\'.");
                     break;
                 default:
                     ui.showDontKnowErrorMessage();

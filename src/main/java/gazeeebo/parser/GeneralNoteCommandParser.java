@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package gazeeebo.parser;
 
 import gazeeebo.TriviaManager.TriviaManager;

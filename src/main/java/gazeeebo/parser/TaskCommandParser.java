@@ -249,9 +249,6 @@ public class TaskCommandParser extends Command {
             } else if (splitCommand[0].equals("listNote")) {
                 new ListNoteCommand().execute(list, ui, storage,
                         commandStack, deletedTask, triviaManager);
-            } else if (command.equals("change password")) {
-                new ChangePasswordCommand().execute(list, ui, storage,
-                        commandStack, deletedTask, triviaManager);
             } else if (splitCommand[0].equals("priority")) {
                 new ChangePriority().execute(list, ui, storage,
                         commandStack, deletedTask, triviaManager);
@@ -265,8 +262,7 @@ public class TaskCommandParser extends Command {
             } else if (command.equals("esc")) {
                 System.out.println(MAIN_MENU_PAGE);
             } else {
-                System.out.println("OOPS!!! I'm sorry,"
-                        + "but I don't know what that means :-(");
+                ui.showDontKnowErrorMessage();
             }
 
         }

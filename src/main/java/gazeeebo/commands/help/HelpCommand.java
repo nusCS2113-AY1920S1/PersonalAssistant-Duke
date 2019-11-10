@@ -45,7 +45,9 @@ public class HelpCommand extends Command {
                     + HelpText.CONTACTS_PAGE
                     + HelpText.CAP_PAGE
                     + HelpText.EXPENSES_PAGE
-                    + HelpText.SPECIALIZATION_PAGE;
+                    + HelpText.SPECIALIZATION_PAGE
+                    + HelpText.PASSWORD_PLANNER
+                    + HelpText.PASSWORD_CHANGE;
         } else {
             switch (command[1]) {
             case TASKS: description = HelpText.TASKS_PAGE;
