@@ -8,6 +8,7 @@ import rims.resource.Item;
 import rims.resource.Room;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
+import rims.exception.RimsException;
 
 import java.io.IOException;
 
@@ -57,6 +58,16 @@ public class AddCommand extends Command {
 
         if (resourceType.equals("room")) {
             int resourceId = resources.generateResourceId();
+            boolean resourceExists;
+            try {
+                resources.isRoom(resourceName);
+                resourceExists = true;
+            } catch (RimsException e) {
+                resourceExists = false;
+            }
+            if (resourceExists) {
+                throw new RimsException("A room with the same name already exists in your inventory!");
+            }
             Room newRoom = new Room(resourceId, resourceName);
             resources.add(newRoom);
             ui.printLine();

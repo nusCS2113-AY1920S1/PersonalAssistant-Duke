@@ -35,7 +35,7 @@ public class Parser {
 
     /**
      * Constructor for the Parser.
-     * 
+     *
      * @param ui        An instance of the user interface class.
      * @param resources An instance of the resource list.
      */
@@ -44,20 +44,24 @@ public class Parser {
         this.resources = resources;
     }
 
+    //@@author hin1
     /**
      * Saves the last executed command that modified data
      * in Parser.
      * @param c Previous command that modified data in ResourceList.
      */
     public void setPrevCommand(Command c) {
-        if (c.canModifyData()) { prevCommand = c; }
+        if (c.canModifyData()) {
+            prevCommand = c; 
+        }
     }
 
+    //@@author rabhijit
     /**
      * Converts a 'natural date' (just a day and date) into a String version of a
      * date, in the format DD/MM/YYYY HHmm by finding the next date of the requested
      * day.
-     * 
+     *
      * @param day  the day whose next date is to be obtained.
      * @param time the time to be appended to the date obtained above.
      * @return a String version of the requested date, in DD/MM/YYYY HHmm format.
@@ -68,13 +72,15 @@ public class Parser {
         Date todayDate = new Date(System.currentTimeMillis());
         String stringDate = null;
         boolean validDay = false;
-        for (int i = 0; i < 7; i++) {
-            if (new SimpleDateFormat("EEEEE").format(todayDate).equals(day)) {
+        for (int i = 0; i < 8; i++) {
+            if (new SimpleDateFormat("EEEEE").format(todayDate).equals(day)
+                && !(i == 0 && (new SimpleDateFormat("HHmm").format(todayDate).compareTo(time) > 0))) {
                 validDay = true;
                 DateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
                 stringDate = format.format(todayDate);
                 stringDate = stringDate.substring(0, stringDate.length() - 4);
                 stringDate += time;
+                break;
             } else {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(todayDate);
@@ -82,7 +88,7 @@ public class Parser {
                 todayDate = cal.getTime();
             }
         }
-        if (!(validDay) || stringDate == null) {
+        if (!validDay || stringDate == null) {
             throw new RimsException("Please enter a valid day / time.");
         } else {
             return stringDate;
@@ -99,9 +105,8 @@ public class Parser {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
             formatter.setLenient(false);
             Date dateValue = formatter.parse(date);
-        }
-        catch (ParseException e) {
-            throw new RimsException("Please specify the date using the following format: dd/MM/yyyy HHmm");
+        } catch (ParseException e) {
+            throw new RimsException("Please specify a valid date using the following format: dd/MM/yyyy HHmm");
         }
     }
 
@@ -126,17 +131,20 @@ public class Parser {
     }
 
     /**
-     * Checks if a String inputted by the user is a valid integer.
+     * Checks if a String inputted by the user is a valid positive integer.
      * @param input the String inputted by the user.
-     * @return the integer conversion of the String, if it does represent a valid integer.
-     * @throws RimsException if the String does not represent a valid integer.
+     * @return the integer conversion of the String, if it does represent a valid positive integer.
+     * @throws RimsException if the String does not represent a valid positive integer.
      */
     public int parseInt(String input) throws RimsException {
         try {
-            return Integer.parseInt(input);
-        }
-        catch (NumberFormatException e) {
-            throw new RimsException("Please use a valid integer value!");
+            int parsedInt = Integer.parseInt(input);
+            if (parsedInt < 0) {
+                throw new RimsException("Please specify an integer value that is valid & non-negative!");
+            }
+            return parsedInt;
+        } catch (NumberFormatException e) {
+            throw new RimsException("Please specify an integer value that is valid & non-negative!");
         }
     }
 
@@ -150,8 +158,8 @@ public class Parser {
      */
     public Command parseInput(String input) throws RimsException, ParseException {
         input = input.trim();
-        Command c;
         String[] words = input.split(" ");
+        Command c;
 
         if (input.equals("bye") && words.length == 1) {
             c = new CloseCommand();
@@ -175,7 +183,7 @@ public class Parser {
         } else if (words[0].equals("calendar-") && words.length == 1) {
             CalendarCommand.decreaseSize(resources, ui);
             c = new ListCommand();
-         //@@author rabhijit
+        //@@author rabhijit
         } else if (words[0].equals("add")) {
             c = AddParser(input, words);
         } else if (words[0].equals("delete")) {
@@ -196,6 +204,13 @@ public class Parser {
         return c;
     }
 
+    /**
+     * Parses user input into the parameters for a ListCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return a ListCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for a ListCommand.
+     */
     protected Command ListParser(String input, String[] words) throws RimsException {
         int paramTypeIndex = input.indexOf("/");
         int paramIndex = paramTypeIndex + 5;
@@ -206,10 +221,20 @@ public class Parser {
         if (!(paramType.equals("date") || paramType.equals("room") || paramType.equals("item"))) {
             throw new RimsException("Invalid list parameter! Please specify '/date', '/room' or '/item' to view a detailed list.");
         }
-        String param = input.substring(paramIndex + 1);
-        return new ListCommand(paramType, param.trim());
+        String param = input.substring(paramIndex + 1).trim();
+        if (paramType.equals("date")) {
+            parseDate(param);
+        }
+        return new ListCommand(paramType, param);
     }
 
+    /**
+     * Parses user input into the parameters for an AddCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return an AddCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for an AddCommand.
+     */
     protected Command AddParser(String input, String[] words) throws RimsException {
         if (!(words.length > 1)) {
                 throw new RimsException("Please specify the resource to add to your inventory.");
@@ -228,6 +253,12 @@ public class Parser {
                 throw new RimsException("Please specify the item to add to your inventory.");
             }
             int qty = parseInt(input.replaceFirst("add /item " + item + " /qty ", "").trim());
+            if (qty == 0) {
+                throw new RimsException("Please use a valid integer value above zero!");
+            }
+            if (qty > 100) {
+                throw new RimsException("You can only add up to 100 items at a time!");
+            }
             return new AddCommand(item.trim(), qty);
         } else if (words[1].equals("/room")) {
             int roomIndex = input.indexOf("/room") + 6;
@@ -242,6 +273,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input into the parameters for a DeleteCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return a DeleteCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for a DeleteCommand.
+     */
     protected Command DeleteParser(String input, String[] words) throws RimsException {
         if (!(words.length > 1)) {
                 throw new RimsException("Please specify the resource to delete from your inventory.");
@@ -258,13 +296,20 @@ public class Parser {
             if (roomIndex > input.length()) {
                 throw new RimsException("Please specify the room to delete from your inventory.");
             }
-            String roomName = input.substring(roomIndex);
-            return new DeleteCommand(roomName.trim(), "room");
+            String roomName = input.substring(roomIndex).trim();
+            return new DeleteCommand(roomName, "room");
         } else {
             throw new RimsException("Please choose a room or item to delete from your inventory.");
         }
     }
 
+    /**
+     * Parses user input into the parameters for a LoanCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return a LoanCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for a LoanCommand.
+     */
     protected Command LoanParser(String input, String[] words) throws RimsException {
         if (!(words.length > 1)) {
                 throw new RimsException("Please specify the resource to be loaned out.");
@@ -293,29 +338,15 @@ public class Parser {
                 throw new RimsException("Please specify the quantity of this item to be loaned out.");
             }
             int qty = parseInt(input.substring(qtyIndex + 6, idIndex).trim());
+            if (qty == 0) {
+                throw new RimsException("Please specify a valid integer value above zero!");
+            }
             int byIndex = input.indexOf(" /by");
             if (byIndex == -1) {
                 throw new RimsException("Please specify the date by which the item is to be returned.");
             }
             int userId = parseInt(input.substring(idIndex + 5, byIndex).trim());
             String dateTill = parseDate(input.substring(byIndex + 5).trim());
-            ui.printLine();
-            ArrayList<Resource> allOfItem = resources.getAllOfResource(itemName);
-            for (int i = 0; i < allOfItem.size(); i++) {
-                Resource thisResource = allOfItem.get(i);
-                ReservationList thisResourceReservations = thisResource.getReservations();
-                ui.printDash();
-                ui.print(thisResource.toString() + " (resource ID: " + thisResource.getResourceId() + ")");
-                if (!thisResourceReservations.isEmpty()) {
-                    for (int j = 0; j < thisResourceReservations.size(); j++) {
-                        ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
-                    }
-                } else {
-                    ui.print("No bookings for this resource yet!");
-                }
-            }
-            ui.printDash();
-            ui.printLine();
             return new ReserveCommand(itemName, qty, dateTill, userId);
         }
         else if (words[1].equals("/room")) {
@@ -346,25 +377,19 @@ public class Parser {
                 throw new RimsException("Please specify the date by which the room is to be returned.");
             }
             String dateTill = parseDate(input.substring(byIndex + 5).trim());
-            // get list of rooms
-            ui.printLine();
-            Resource thisResource = resources.getResourceByName(roomName);
-            ReservationList thisResourceReservations = thisResource.getReservations();
-            ui.print(thisResource.toString() + " (resource ID: " + thisResource.getResourceId() + ")");
-            if (!thisResourceReservations.isEmpty()) {
-                for (int j = 0; j < thisResourceReservations.size(); j++) {
-                    ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
-                }
-            } else {
-                ui.print("No bookings for this resource yet!");
-            }
-            ui.printLine();
             return new ReserveCommand(roomName, dateTill, userId);
         } else {
             throw new RimsException("Please choose an item or room to loan out.");
         }
     }
 
+    /**
+     * Parses user input into the parameters for a ReserveCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return a ReserveCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for a ReserveCommand.
+     */
     protected Command ReserveParser(String input, String[] words) throws RimsException {
         if (!(words.length > 1)) {
                 throw new RimsException("Please specify the resource to be reserved.");
@@ -393,6 +418,9 @@ public class Parser {
                 throw new RimsException("Please specify the quantity of this item to be loaned out.");
             }
             int qty = parseInt(input.substring(qtyIndex + 6, idIndex).trim());
+            if ( qty <= 0 ){
+                throw new RimsException("Please specify a valid integer value above zero!");
+            }
             int fromIndex = input.indexOf(" /from");
             if (fromIndex == -1) {
                 throw new RimsException("Please specify the date from which the item is to be reserved.");
@@ -407,24 +435,6 @@ public class Parser {
             }
             String dateFrom = parseDate(input.substring(fromIndex + 7, byIndex).trim());
             String dateTill = parseDate(input.substring(byIndex + 5).trim());
-            // get list of items - move to fn?
-            ui.printLine();
-            ArrayList<Resource> allOfItem = resources.getAllOfResource(itemName);
-            for (int i = 0; i < allOfItem.size(); i++) {
-                Resource thisResource = allOfItem.get(i);
-                ReservationList thisResourceReservations = thisResource.getReservations();
-                ui.printDash();
-                ui.print(thisResource.toString() + " (resource ID: " + thisResource.getResourceId() + ")");
-                if (!thisResourceReservations.isEmpty()) {
-                    for (int j = 0; j < thisResourceReservations.size(); j++) {
-                        ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
-                    }
-                } else {
-                    ui.print("No bookings for this resource yet!");
-                }
-            }
-            ui.printDash();
-            ui.printLine();
             return new ReserveCommand(itemName, qty, dateFrom, dateTill, userId);
         } else if (words[1].equals("/room")) {
             int roomIndex = input.indexOf("/room") + 6;
@@ -456,30 +466,30 @@ public class Parser {
             }
             String dateFrom = parseDate(input.substring(fromIndex + 7, byIndex).trim());
             String dateTill = parseDate(input.substring(byIndex + 5).trim());
-            // get list of rooms
-            ui.printLine();
-            Resource thisResource = resources.getResourceByName(roomName);
-            ReservationList thisResourceReservations = thisResource.getReservations();
-            ui.print(thisResource.toString() + " (resource ID: " + thisResource.getResourceId() + ")");
-            if (!thisResourceReservations.isEmpty()) {
-                for (int j = 0; j < thisResourceReservations.size(); j++) {
-                    ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
-                }
-            } else {
-                ui.print("No bookings for this resource yet!");
-            }
-            ui.printLine();
             return new ReserveCommand(roomName, dateFrom, dateTill, userId);
         } else {
             throw new RimsException("Please choose an item or room to reserve.");
         }
     }
 
+    /**
+     * Parses user input into the parameters for a ReturnCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return a ReturnCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for a ReturnCommand.
+     */
     protected Command ReturnParser(String input, String[] words) throws RimsException {
         if (words[1].equals("/id")) {
             int idIndex = input.indexOf(" /id") + 5;
+            if (idIndex > input.length()) {
+                throw new RimsException("Please specify the borrower's user ID.");
+            }
             int userId = parseInt(input.substring(idIndex).trim());
             ReservationList userReservations = resources.getUserBookings(userId);
+            if (userReservations.isEmpty()) {
+                throw new RimsException("User " + userId + " has not made any bookings yet!");
+            }
             ui.printLine();
             for (int i = 0; i < userReservations.size(); i++) {
                 Reservation thisReservation = userReservations.getReservationByIndex(i);
@@ -491,7 +501,10 @@ public class Parser {
             ArrayList<Integer> reservationsToCancel = new ArrayList<Integer>();
             String stringReservations = ui.getInput(
                 "Enter the reservation ID(s) (separated by a space for multiple IDs) "
-                + "that you wish to return / cancel:");
+                + "that you wish to return / cancel:").trim();
+            if (stringReservations.isEmpty()) {
+                throw new RimsException("Please specify the IDs of the reservations you wish to end!");
+            }
             String[] splitStringReservations = stringReservations.split(" ");
             for (int j = 0; j < splitStringReservations.length; j++) {
                 int thisReservationId = parseInt(splitStringReservations[j]);
@@ -504,14 +517,21 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input into the parameters for a StatsCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return a StatsCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for a StatsCommand.
+     */
     protected Command StatsParser(String input, String[] words) throws RimsException, ParseException {
         int dateFromIndex = input.indexOf(" /from");
         int dateTillIndex = input.indexOf(" /till");
         if (dateFromIndex + 7 > dateTillIndex) {
             throw new RimsException("Please specify the date for which you want to view statistics.");
         }
-        String dateFrom = parseDate(input.substring(dateFromIndex + 7, dateTillIndex));
-        String dateTill = parseDate(input.substring(dateTillIndex + 7));
+        String dateFrom = parseDate(input.substring(dateFromIndex + 7, dateTillIndex).trim());
+        String dateTill = parseDate(input.substring(dateTillIndex + 7).trim());
         return new StatsCommand(dateFrom, dateTill);
     }
 

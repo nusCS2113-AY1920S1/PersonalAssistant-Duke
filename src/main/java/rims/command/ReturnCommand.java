@@ -43,7 +43,6 @@ public class ReturnCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
         storage.saveToFile(resources.getResources());
-
         ArrayList<Reservation> cancelledReservations = new ArrayList<Reservation>();
         for (int i = 0; i < resourceIds.size(); i++) {
             Resource thisResource = resources.getResourceById(resourceIds.get(i));

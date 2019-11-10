@@ -110,6 +110,26 @@ public class ReserveCommand extends Command {
         this.userId = userId;
     }
 
+    public void printResources(String resourceName, Ui ui, ResourceList resources) {
+        ui.printLine();
+        ArrayList<Resource> allOfResource = resources.getAllOfResource(resourceName);
+        for (int i = 0; i < allOfResource.size(); i++) {
+            Resource thisResource = allOfResource.get(i);
+            ReservationList thisResourceReservations = thisResource.getReservations();
+            ui.printDash();
+            ui.print(thisResource.toString() + " (resource ID: " + thisResource.getResourceId() + ")");
+            if (!thisResourceReservations.isEmpty()) {
+                for (int j = 0; j < thisResourceReservations.size(); j++) {
+                    ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
+                }
+            } else {
+                ui.print("No bookings for this resource yet!");
+            }
+        }
+        ui.printDash();
+        ui.printLine();
+    }
+
     // @@author isbobby
     /**
      * Checks if the reservation is possible given the number of available Resources
@@ -127,15 +147,15 @@ public class ReserveCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources)
             throws RimsException {
-                
+
         storage.saveToFile(resources.getResources());
 
         if (!(stringDateFrom == null)) {
             dateFrom = resources.stringToDate(stringDateFrom);
         }
-
         dateTill = resources.stringToDate(stringDateTill);
         if (resources.getAvailableNumberOfResource(resourceName) < qty) {
+            printResources(resourceName, ui, resources);
             if (qty == 1) {
                 throw new RimsException("We don't have this resource currently available in our inventory!");
             } else {
@@ -157,6 +177,7 @@ public class ReserveCommand extends Command {
             }
         }
         if (qtyBooked != 0) {
+            printResources(resourceName, ui, resources);
             ui.printLine();
             ui.print("Done! I've booked these resources:");
             for (int i = 0; i < bookedResources.size(); i++) {
@@ -167,6 +188,7 @@ public class ReserveCommand extends Command {
                     + resources.getDateToPrint(dateTill));
             ui.printLine();
         } else {
+            printResources(resourceName, ui, resources);
             throw new RimsException("This item is not available between the dates you've selected!");
         }
     }
