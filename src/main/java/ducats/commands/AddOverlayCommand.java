@@ -11,6 +11,8 @@ import ducats.components.Chord;
 import ducats.components.Note;
 import ducats.components.Song;
 import ducats.components.SongList;
+import ducats.commands.AsciiCommand;
+import ducats.commands.Command;
 
 import java.util.Iterator;
 
@@ -83,35 +85,40 @@ public class AddOverlayCommand extends Command<SongList> {
         Note note4;
         int barNo;
         if (message.length() < 8 || !message.substring(0, 8).equals("overlay ")) { //exception if not fully spelt
-            throw new DucatsException(message);
+            throw new DucatsException(message,"overlay_format");
         }
         try {
             //the command consists of overlay 10 repeat
             String[] sections = message.substring(8).split(" ");
             //this refers to the bar that needs to be added:
+            if (sections.length < 2) {
+                throw new DucatsException(message,"overlay_format");
+            }
             int barIndexToAdd = Integer.parseInt(sections[0]) - 1;
             songIndex = songList.getActiveIndex();
             //System.out.println(barIndexToAdd);
             if (songList.getSize() > songIndex) {
+
                 Song song = songList.getSongIndex(songIndex);
-                //System.out.println("adjjdsa1213");
+
                 ArrayList<Bar> barList = song.getBars();
                 int barIndexToBeCopiedTo = Integer.parseInt(sections[1]) - 1;
-                ///System.out.print("hellqellwe");
-                //System.out.println(barIndexToBeCopiedTo);
-                Bar overlayingBarToBeCopied = barList.get(barIndexToAdd);
+                Bar overlayingBarToBeCopied;
+                try {
+                    overlayingBarToBeCopied = barList.get(barIndexToAdd);
+                } catch (java.lang.IndexOutOfBoundsException e) {
+                    throw new DucatsException(message, "no_index");
+                }
                 Bar overlayingBar = overlayingBarToBeCopied.copy(overlayingBarToBeCopied);
-                //Bar overlayingBar = barList.get(barIndexToAdd);
-                //System.out.println("adjjdsa");
+
                 ArrayList<Chord> chordsToAdd = overlayingBar.getChords();
-                //System.out.print("sections length ");
-                //System.out.println(sections.length);
+
                 if (sections.length > 2 && sections[2].equals("repeat")) {
                     Iterator<Bar> iterator1 = barList.iterator();
                     int i = 0;
                     while (iterator1.hasNext()) {
                         Bar temp = iterator1.next();
-                        if (i >= barIndexToBeCopiedTo) {
+                        if (i >= barIndexToBeCopiedTo && i != barIndexToAdd) {
                             combineBar(overlayingBar, temp);
                         }
                         i += 1;
@@ -120,24 +127,31 @@ public class AddOverlayCommand extends Command<SongList> {
                 } else {
                     //System.out.println("no repeat found");
                     Bar temp = barList.get(barIndexToBeCopiedTo);
-                    ArrayList<Chord> tempChordList = temp.getChords();
-                    //System.out.println("here i after the chord from bar");
-                    //Iterator<Chord> iterator1 = tempChordList.iterator();
+                    //ArrayList<Chord> tempChordList = temp.getChords();
+
                     combineBar(overlayingBar,temp);
-                    //System.out.println("bar temp gotten");
+
                 }
                 //add the bar to the song in the songlist
                 storage.updateFile(songList);
-                return ui.formatAddOverlay(songList.getSongList(), barIndexToAdd,song);
+                Command ascii = new AsciiCommand("ascii song " + song.getName());
+                return ascii.execute(songList,ui,storage);
+                //return ui.formatAddOverlay(songList.getSongList(), barIndexToAdd,song);
             } else {
                 //System.out.println("no such index");
                 //System.out.println(songList.getSize());
                 throw new DucatsException(message, "no_index");
             }
 
-        } catch (Exception e) {
-            //System.out.println(e);
-            throw new DucatsException(message, "no_index");
+        } catch (DucatsException e) {
+            //System.out.println(e.getType());
+            throw new DucatsException(message, e.getType());
+        } catch (java.io.IOException e) {
+            throw new DucatsException(message,"IO");
+        } catch (java.lang.ClassNotFoundException e) {
+            throw new DucatsException(message,"IO");
+        } catch (java.lang.NumberFormatException e) {
+            throw new DucatsException(message,"number_index");
         }
     }
 
