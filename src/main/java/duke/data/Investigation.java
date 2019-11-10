@@ -41,13 +41,6 @@ public class Investigation extends SummaryTreatment {
                 (resultSummary == null) ? "" : resultSummary);
     }
 
-    @Override
-    public String toString() {
-        String informationString;
-        informationString = "Summary " + this.summary + "\n";
-        return super.toString() + informationString;
-    }
-
     //TODO complete
     @Override
     public String toReportString() {
