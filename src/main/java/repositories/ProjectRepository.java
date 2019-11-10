@@ -13,12 +13,11 @@ import java.util.HashMap;
 //@@author Lucria
 public class ProjectRepository implements IRepository<Project> {
     private ArrayList<Project> allProjects;
-    private ProjectFactory projectFactory;
+    private ProjectFactory projectFactory = new ProjectFactory();
     private JsonConverter jsonConverter = new JsonConverter();
 
     public ProjectRepository() {
         allProjects = jsonConverter.loadAllProjectsData();
-        this.projectFactory = new ProjectFactory();
     }
 
     @Override
