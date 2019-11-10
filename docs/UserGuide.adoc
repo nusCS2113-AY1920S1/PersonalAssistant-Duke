@@ -840,6 +840,9 @@ There can only be a maximum of *20* credit cards.
 
 * `/add /card /name POBB Tomorrow Card /limit 10000 /rebate 1.5`
 
+.Successful addition of card after using `/add /card`
+image::AddCard.png[Caption="Figure : "]
+
 Adds a credit card named `POBB Tomorrow Card` which has a credit limit of $`10 000` and
 cashback rate of `1.5`%
 
@@ -863,13 +866,22 @@ At least one of `/newname`, `/limit` or `/rebate` must be used.
 
 * `/edit /card /name POBB Tomorrow Card /newname JunBank GoodVibes Card`
 
+.Successful edition of card name after using `/edit /card`
+image::EditCard3.png[Caption="Figure : "]
+
 Edits the credit card name from `POBB Tomorrow Card` to `JunBank GoodVibes Card`.
 
 * `/edit /card /name POBB Tomorrow Card /limit 10000`
 
+.Successful edition of card limit after using `/edit /card`
+image::EditCard1.png[Caption="Figure : "]
+
 Edits the credit limit of `POBB Tomorrow Card` to $`10000`.
 
 * `/edit /card /name POBB Tomorrow Card /rebate 2.25`
+
+.Successful edition of card rebate after using `/edit /card`
+image::EditCard2.png[Caption="Figure : "]
 
 Edits the cashback rate of `POBB Tomorrow Card` to `2.25`%.
 
@@ -889,6 +901,9 @@ All transactions (e.g. expenditures) related to the credit card will be deleted.
 *Example*
 
 * `/delete /card /name POBB Tomorrow Card`
+
+.Successful deletion of card after using `/delete /card`
+image::DeleteCard.png[Caption="Figure : "]
 
 Deletes a credit card named `POBB Tomorrow Card`.
 
@@ -1360,6 +1375,9 @@ your bank account as long as you remember part of your account name.
 
 * `/find /savings /name Jun`
 
+.Successful search of savings account after using `/find /savings`
+image::FindSavings.png[Caption="Figure : "]
+
 Finds and lists all savings accounts that have the phrase `Jun` in the account name.
 
 ===== Finding investment account details `/find /investment`
@@ -1380,6 +1398,9 @@ your bank account as long as you remember part of your account name.
 
 * `/find /investment /name Vickers`
 
+.Successful search of investment account after using `/find /investment`
+image::FindInvestment.png[Caption="Figure : "]
+
 Finds and lists all investment accounts that have the phrase `Vickers` in the account name.
 
 ===== Finding credit card details `/find /card`
@@ -1398,6 +1419,9 @@ Searching for a Credit Card but forgot the name? *OwlMoney* helps you by providi
 *Example*
 
 * `/find /card /name POBB`
+
+Successful search of card after using `/find /card`
+image::FindCardCommandExample.png[Caption="Figure : "]
 
 Finds and lists all cards with the name that contains the phrase `POBB`.
 
@@ -1420,6 +1444,9 @@ you various ways to do it!
 *Example*
 
 * `/find /bonds /name SSB /from DBB Vickers Account`
+
+.Successful search of bonds after using `/find /bonds`
+image::FindBond.png[Caption="Figure : "]
 
 Finds and lists all bonds that contain the phrase `SSB` in the name from the investment account called `DBB Vickers`
 Account.
@@ -1451,18 +1478,30 @@ At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
 
 * `/find /banktransaction /name JunBank Savings Account /desc bubble tea`
 
+.Successful search of bank transaction by description after using `/find /banktransaction`
+image::FindBankTransaction1.png[Caption="Figure : "]
+
 Finds and lists all transactions that matches the description `bubble tea` charged to `JunBank Savings Account`.
 
+* `/find /banktransaction /name JunBank Savings Account /category food`
+
+.Successful search of bank transaction by category after using `/find /banktransaction`
+image::FindBankTransaction2.png[Caption="Figure : "]
+
+Finds and lists all transactions that matches the category `food` from the bank named `JunBank Savings Account`
+
 * `/find /banktransaction /name JunBank Savings Account /from 1/1/2019 /to 7/1/2019`
+
+.Successful search of bank transaction by date range after using `/find /banktransaction`
+image::FindBankTransaction3.png[Caption="Figure : "]
 
 Finds and lists all transactions that fall between the date range of `1/1/2019` and `7/1/2019` from the bank named
 `JunBank Savings Account`.
 
-* `/find /banktransaction /name JunBank Savings Account /category food`
-
-Finds and lists all transactions that matches the category `food` from the bank named `JunBank Savings Account`
-
 * `/find /banktransaction /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019 /category food`
+
+.Successful search of bank transaction by description, category and date range after using `/find /banktransaction`
+image::FindBankTransaction4.png[Caption="Figure : "]
 
 Finds and lists all transactions that matches any one of the categories:
 
@@ -1511,18 +1550,30 @@ At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
 
 * `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea`
 
+.Successful search of card transaction by description after using `/find /cardtransaction`
+image::FindCardTransaction1.png[Caption="Figure : "]
+
 Finds and list all transactions that matches with the description `bubble tea` from the credit card named `POBB
 Tomorrow Card`
 
-* `/find /cardtransaction /name POBB Tomorrow Card /from 1/1/2019 /to 7/1/2019`
-
-Finds all transactions charged to `POBB Tomorrow Card` between `1/1/2019` and `7/1/2019`.
-
 * `/find /cardtransaction /name POBB Tomorrow Card /category food`
+
+.Successful search of card transaction by category after using `/find /cardtransaction`
+image::FindCardTransaction2.png[Caption="Figure : "]
 
 Finds and lists all transactions that matches the category `food` from the credit card named `POBB Tomorrow Card`
 
+* `/find /cardtransaction /name POBB Tomorrow Card /from 1/1/2019 /to 7/1/2019`
+
+.Successful search of card transaction by date range after using `/find /cardtransaction`
+image::FindCardTransaction3.png[Caption="Figure : "]
+
+Finds all transactions charged to `POBB Tomorrow Card` between `1/1/2019` and `7/1/2019`.
+
 * `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 /to 7/1/2019 /category food`
+
+.Successful search of card transaction by description, category and date range after using `/find /cardtransaction`
+image::FindCardTransaction4.png[Caption="Figure : "]
 
 Finds and lists all transactions that matches any one of the categories:
 
@@ -1569,21 +1620,30 @@ At least one of `/desc` or `/category` must be used.
 
 *Example*
 
-* `/find /recurbankexp /name JunBank Savings Account /desc bubble tea`
+* `/find /recurbankexp /name JunBank Savings Account /desc spotif`
 
-Finds and lists all recurring expenditures that matches the description `bubble tea` within `JunBank Savings Account`.
+.Successful search of recurring expenditure by description after using `/find /recurbankexp`
+image::FindRecur1.png[Caption="Figure : "]
 
-* `/find /recurbankexp /name JunBank Savings Account /category food`
+Finds and lists all recurring expenditures that matches the description `spotif` within `JunBank Savings Account`.
 
-Finds and lists all recurring expenditures that matches the category `food` within `JunBank Savings Account`
+* `/find /recurbankexp /name JunBank Savings Account /category bills`
 
-* `/find /recurbankexp /name JunBank Savings Account /desc bubble tea /category food`
+.Successful search of recurring expenditure by category after using `/find /recurbankexp`
+image::FindRecur2.png[Caption="Figure : "]
+
+Finds and lists all recurring expenditures that matches the category `bills` within `JunBank Savings Account`
+
+* `/find /recurbankexp /name JunBank Savings Account /desc spotif /category bills`
+
+.Successful search of recurring expenditure by description and category after using `/find /recurbankexp`
+image::FindRecur3.png[Caption="Figure : "]
 
 Finds and lists all recurring expenditures that matches any one of the categories:
 
-* ACCOUNT_NAME -> JunBank Savings Account | DESCRIPTION -> bubble tea
+* ACCOUNT_NAME -> JunBank Savings Account | DESCRIPTION -> spotif
 
-* ACCOUNT_NAME -> JunBank Savings Account | CATEGORY -> food
+* ACCOUNT_NAME -> JunBank Savings Account | CATEGORY -> bills
 
 [TIP]
 ====
@@ -1746,11 +1806,20 @@ investment and vice-versa)
 
 * `/transfer /fund /from JunBank Savings Account /to POBB Savings Account /amount 500 /date 1/1/2019`
 
-Transfers $`500` from `JunBank Savings Account` to `POBB Savings Account` on `1/1/2019`.
+.Successful transfer between two savings account after using `/transfer /fund`
+image::Transferfund1.png[Caption="Figure : "]
+
+Transfers $`500` from `JunBank Savings Account` (savings account) to `POBB Savings Account` (savings account) on
+`1/1/2019`.
 
 * `/transfer /fund /from DBB Vickers Account /to JunBank Savings Account /amount 250 /date 1/1/2019`
 
-Transfers $`250` from `DBB Vickers Account` to `JunBank Savings Account` on `1/1/2019`.
+.Successful transfer between savings and investment account after using `/transfer /fund`
+image::Transferfund2.png[Caption="Figure : "]
+
+Transfers $`250` from `DBB Vickers Account` (investment account) to `JunBank Savings Account` (savings account) on
+`1/1/2019`
+.
 
 // tag::recurringExpenditureSyntax[]
 

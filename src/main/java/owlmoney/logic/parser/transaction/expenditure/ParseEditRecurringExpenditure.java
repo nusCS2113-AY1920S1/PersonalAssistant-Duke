@@ -1,8 +1,11 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.EditRecurringExpenditureCommand;
@@ -19,6 +22,7 @@ public class ParseEditRecurringExpenditure extends ParseRecurringExpenditure {
     private static final String[] RESERVED_CATEGORY = new String[] {
         DEPOSIT_CATEGORY, BONDS_CATEGORY, TRANSFER_CATEGORY, CARD_CATEGORY};
     private static final List<String> RESERVED_CATEGORY_LISTS = Arrays.asList(RESERVED_CATEGORY);
+    private static final Logger logger = getLogger(ParseEditRecurringExpenditure.class);
 
     /**
      * Creates an instance of ParseEditRecurringExpenditure.
@@ -43,17 +47,20 @@ public class ParseEditRecurringExpenditure extends ParseRecurringExpenditure {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
             if (TRANSACTION_NUMBER_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when editing a recurring expenditure");
                 throw new ParserException(key + " cannot be empty when editing a recurring expenditure");
             } else if (TRANSACTION_NUMBER_PARAMETER.equals(key)) {
                 checkInt(TRANSACTION_NUMBER_PARAMETER, value);
             }
             if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when editing a recurring expenditure");
                 throw new ParserException(key + " cannot be empty when editing a recurring expenditure");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
             }
             if (CATEGORY_PARAMETER.equals(key) && value != null
                     && RESERVED_CATEGORY_LISTS.contains(value.toUpperCase())) {
+                logger.warning(key + " cannot be " + value + " when editing a recurring expenditure");
                 throw new ParserException(key + " cannot be " + value + " when editing a recurring expenditure");
             } else if (CATEGORY_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkCategory(value);
@@ -69,7 +76,8 @@ public class ParseEditRecurringExpenditure extends ParseRecurringExpenditure {
             }
         }
         if (changeCounter == 0) {
-            throw new ParserException("Edit should have at least 1 differing parameter to change.");
+            logger.warning("Edit should have at least 1 differing parameter to change");
+            throw new ParserException("Edit should have at least 1 differing parameter to change");
         }
     }
 

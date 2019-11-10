@@ -1,7 +1,10 @@
 package owlmoney.model.transaction;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
@@ -20,6 +23,8 @@ public class RecurringExpenditureList {
     private static final String FINDDESCRIPTION = "description";
     private static final String FINDCATEGORY = "category";
     private static final int ONE_INDEX = 1;
+    private static final Logger logger = getLogger(RecurringExpenditureList.class);
+
 
 
     /**
@@ -39,11 +44,13 @@ public class RecurringExpenditureList {
     public void addRecurringExpenditure(Transaction newExpenditure, Ui ui)
             throws TransactionException {
         if (recurringExpenditures.size() >= MAX_LIST_SIZE) {
+            logger.warning("The list has reach a mix size of " + MAX_LIST_SIZE);
             throw new TransactionException("The list has reach a max size of " + MAX_LIST_SIZE);
         }
         recurringExpenditures.add(newExpenditure);
         ui.printMessage("Added expenditure with the following details:");
         printOneTransaction(1, newExpenditure, ISSINGLE, ui);
+        logger.info("Added recurring expenditure entry");
     }
 
     /**
@@ -55,15 +62,18 @@ public class RecurringExpenditureList {
      */
     public void deleteRecurringExpenditure(int index, Ui ui) throws TransactionException {
         if (recurringExpenditures.size() <= 0) {
+            logger.warning("There are no recurring expenditures in this bank account");
             throw new TransactionException("There are no recurring expenditures in this bank account");
         }
         if (!((index - 1) >= 0 && (index - 1) < recurringExpenditures.size())) {
+            logger.warning("Index is out of transaction list range");
             throw new TransactionException("Index is out of transaction list range");
         }
         Transaction temp = recurringExpenditures.get(index - 1);
         recurringExpenditures.remove(index - 1);
         ui.printMessage("Deleted expenditure with the following details:");
         printOneTransaction(1, temp, ISSINGLE, ui);
+        logger.info("Deleted recurring expenditure entry");
     }
 
     /**
@@ -74,6 +84,7 @@ public class RecurringExpenditureList {
      */
     public void listRecurringExpenditure(Ui ui) throws TransactionException {
         if (recurringExpenditures.size() <= 0) {
+            logger.warning("There are no recurring expenditures in this account");
             throw new TransactionException("There are no recurring expenditures in this account");
         }
         printOneHeader(ui);
@@ -97,9 +108,11 @@ public class RecurringExpenditureList {
             int index, String description, String amount, String category, Ui ui)
             throws TransactionException {
         if (recurringExpenditures.size() <= 0) {
+            logger.warning("There are no recurring expenditures in this account");
             throw new TransactionException("There are no recurring expenditures in this account");
         }
         if (!((index - 1) >= 0 && (index - 1) < recurringExpenditures.size())) {
+            logger.warning("Index is out of transaction list range");
             throw new TransactionException("Index is out of transaction list range");
         }
         if (!description.isBlank()) {
@@ -113,6 +126,7 @@ public class RecurringExpenditureList {
         }
         ui.printMessage("Edited details of the specified expenditure:");
         printOneTransaction(1, recurringExpenditures.get(index - 1), ISSINGLE, ui);
+        logger.info("Edited recurring expenditure details");
     }
 
     /**
@@ -194,6 +208,7 @@ public class RecurringExpenditureList {
      */
     public void findMatchingRecurringExpenditure(String description, String category, Ui ui) {
         if (isRecurringExpendituresEmpty()) {
+            logger.info("Recurring expenditure is empty.");
             ui.printMessage("Recurring expenditure is empty.");
             return;
         }
@@ -215,16 +230,22 @@ public class RecurringExpenditureList {
         String matchingKeyword = keyword.toUpperCase();
         int printCounter = ISZERO;
         for (int i = ISZERO; i < recurringExpenditures.size(); i++) {
-            if (recurringExpenditures.get(i).getDescription().toUpperCase().contains(matchingKeyword)) {
+            Transaction currentExpenditure = recurringExpenditures.get(i);
+            String currentExpenditureDescription = currentExpenditure.getDescription();
+            String capitalCurrentDescription = currentExpenditureDescription.toUpperCase();
+            if (capitalCurrentDescription.contains(matchingKeyword)) {
                 printOneHeaderForFind(printCounter, FINDDESCRIPTION, ui);
                 printOneTransaction((i + ONE_INDEX), recurringExpenditures.get(i), ISMULTIPLE, ui);
                 printCounter++;
             }
         }
+        logger.info("Search for recurring expenditure based on description completed");
         if (printCounter == ISZERO) {
+            logger.info("No matches for the description keyword: " + keyword);
             ui.printMessage("No matches for the description keyword: " + keyword);
         } else {
             ui.printDivider();
+            logger.info("Successfully found matching recurring expenditure based on description");
         }
     }
 
@@ -247,10 +268,13 @@ public class RecurringExpenditureList {
                 printCounter++;
             }
         }
+        logger.info("Search for recurring expenditure based on category completed");
         if (printCounter == ISZERO) {
+            logger.info("No matches for the category keyword: " + keyword);
             ui.printMessage("No matches for the category keyword: " + keyword);
         } else {
             ui.printDivider();
+            logger.info("Successfully found matching recurring expenditure based on category");
         }
     }
 

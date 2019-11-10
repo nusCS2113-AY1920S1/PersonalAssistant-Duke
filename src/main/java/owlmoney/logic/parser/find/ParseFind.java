@@ -1,5 +1,7 @@
 package owlmoney.logic.parser.find;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,6 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseRawData;
@@ -30,6 +33,8 @@ public abstract class ParseFind {
         NAME_PARAMETER, DESCRIPTION_PARAMETER, CATEGORY_PARAMETER, FROM_PARAMETER, TO_PARAMETER
     };
     private static final List<String> FIND_KEYWORD_LISTS = Arrays.asList(FIND_KEYWORD);
+    static final Logger logger = getLogger(ParseFind.class);
+
 
     /**
      * Creates an instance of any ParseFind object.
@@ -51,6 +56,7 @@ public abstract class ParseFind {
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {
         if (rawData.contains(parameter)) {
+            logger.warning(command + " should not contain " + parameter);
             throw new ParserException(command + " should not contain " + parameter);
         }
     }
@@ -63,6 +69,7 @@ public abstract class ParseFind {
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!FIND_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+            logger.warning("Incorrect parameter " + rawDateSplit[0]);
             throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
         }
     }
@@ -93,6 +100,7 @@ public abstract class ParseFind {
      */
     void checkDescription(String descString) throws ParserException {
         if (!RegexUtil.regexCheckDescription(descString)) {
+            logger.warning("/desc can only contain numbers and letters and at most 50 characters");
             throw new ParserException("/desc can only contain numbers and letters and at most 50 characters");
         }
     }
@@ -105,6 +113,7 @@ public abstract class ParseFind {
      */
     void checkCategory(String categoryString) throws ParserException {
         if (!RegexUtil.regexCheckCategory(categoryString)) {
+            logger.warning("/category can only contains letters and at most 15 characters");
             throw new ParserException(
             "/category can only contains letters and at most 15 characters");
         }
@@ -119,6 +128,7 @@ public abstract class ParseFind {
      */
     void checkName(String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
+            logger.warning("/name and /from can only be alphanumeric and at most 30 characters");
             throw new ParserException("/name and /from can only be alphanumeric and at most 30 characters");
         }
     }
@@ -138,15 +148,21 @@ public abstract class ParseFind {
             try {
                 date = temp.parse(dateString);
                 if (date.compareTo(new Date()) > 0) {
+                    logger.warning("/from and /to date cannot be after today");
                     throw new ParserException("/from and /to date cannot be after today");
                 }
                 return date;
             } catch (ParseException e) {
+                logger.warning("Incorrect date format."
+                        + " Date format is dd/mm/yyyy in year range of 1900-2099");
                 throw new ParserException("Incorrect date format."
                         + " Date format is dd/mm/yyyy in year range of 1900-2099");
             }
         }
-        throw new ParserException("Incorrect date format." + " Date format is dd/mm/yyyy in year range of 1900-2099");
+        logger.warning("Incorrect date format."
+                + " Date format is dd/mm/yyyy in year range of 1900-2099");
+        throw new ParserException("Incorrect date format."
+                + " Date format is dd/mm/yyyy in year range of 1900-2099");
     }
 
     /**

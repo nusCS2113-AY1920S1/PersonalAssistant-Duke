@@ -1,5 +1,7 @@
 package owlmoney.model.card;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -10,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Transaction;
@@ -35,6 +38,8 @@ public class Card {
     private static final String FILE_PATH = "data/";
     private static final String CARD_PAID_TRANSACTION_LIST_FILE_NAME = "_card_paid_transactionList.csv";
     private static final String CARD_UNPAID_TRANSACTION_LIST_FILE_NAME = "_card_unpaid_transactionList.csv";
+    private static final Logger logger = getLogger(Card.class);
+
 
 
     /**
@@ -281,8 +286,10 @@ public class Card {
      */
     void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)
             throws TransactionException {
+        logger.info("Searching through: unpaid expenditure");
         ui.printMessage("Searching through: unpaid expenditure");
         unpaid.findMatchingTransaction(fromDate, toDate, description, category, ui);
+        logger.info("Searching through: paid expenditure");
         ui.printMessage("Searching through: paid expenditure");
         paid.findMatchingTransaction(fromDate, toDate, description, category, ui);
     }

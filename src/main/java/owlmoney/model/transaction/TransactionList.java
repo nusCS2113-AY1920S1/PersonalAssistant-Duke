@@ -1,5 +1,7 @@
 package owlmoney.model.transaction;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -12,8 +14,6 @@ import java.util.logging.Logger;
 
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
-
-import static owlmoney.commons.log.LogsCenter.getLogger;
 
 /**
  * Contains a list of all transactions in the bank account.
@@ -32,8 +32,8 @@ public class TransactionList {
     private static final String FINDCATEGORY = "category";
     private static final String FINDDATE = "date range";
     private static final int OBJ_DOES_NOT_EXIST = -1;
-    private static final String CREDIT_CARD_BILL = "Credit Card";
     private static final Logger logger = getLogger(TransactionList.class);
+    private static final String CREDIT_CARD_BILL = "Credit Card";
 
     /**
      * Creates an instance of Transaction list that contains an ArrayList of expenditures and deposits.
@@ -518,16 +518,22 @@ public class TransactionList {
         String matchingKeyword = keyword.toUpperCase();
         int printCounter = 0;
         for (int i = ISZERO; i < transactionLists.size(); i++) {
-            if (transactionLists.get(i).getDescription().toUpperCase().contains(matchingKeyword)) {
+            Transaction currentExpenditure = transactionLists.get(i);
+            String currentExpenditureDescription = currentExpenditure.getDescription();
+            String capitalcurrentDescription = currentExpenditureDescription.toUpperCase();
+            if (capitalcurrentDescription.contains(matchingKeyword)) {
                 printOneHeaderForFind(printCounter, FINDDESCRIPTION, ui);
                 printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
                 printCounter++;
             }
         }
+        logger.info("Search for transaction based on description completed");
         if (printCounter == 0) {
+            logger.info("No matches for the description keyword: " + keyword);
             ui.printMessage("No matches for the description keyword: " + keyword);
         } else {
             ui.printDivider();
+            logger.info("Successfully found matching transaction based on description");
         }
     }
 
@@ -541,16 +547,23 @@ public class TransactionList {
         String matchingKeyword = keyword.toUpperCase();
         int printCounter = 0;
         for (int i = ISZERO; i < transactionLists.size(); i++) {
-            if (transactionLists.get(i).getCategory().toUpperCase().contains(matchingKeyword)) {
+            Transaction currentExpenditure = transactionLists.get(i);
+            String currentExpenditureCategory = currentExpenditure.getCategory();
+            String capitalcurrentCategory = currentExpenditureCategory.toUpperCase();
+            if (capitalcurrentCategory.contains(matchingKeyword)) {
                 printOneHeaderForFind(printCounter, FINDCATEGORY, ui);
                 printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
                 printCounter++;
             }
         }
+        logger.info("Search for transaction based on category completed");
         if (printCounter == 0) {
+            logger.info("No matches for the category keyword: " + keyword);
             ui.printMessage("No matches for the category keyword: " + keyword);
         } else {
             ui.printDivider();
+            logger.info("Successfully found matching transaction based on category");
+
         }
     }
 
@@ -571,21 +584,27 @@ public class TransactionList {
             from = temp.parse(fromDate);
             to = temp.parse(toDate);
         } catch (ParseException error) {
+            logger.warning(error.toString());
             throw new TransactionException(error.toString());
         }
         for (int i = ISZERO; i < transactionLists.size(); i++) {
-            boolean isBeforeFromDate = transactionLists.get(i).getDateInDateFormat().before(from);
-            boolean isAfterToDate = transactionLists.get(i).getDateInDateFormat().after(to);
+            Date beforeFromDate = transactionLists.get(i).getDateInDateFormat();
+            boolean isBeforeFromDate = beforeFromDate.before(from);
+            Date afterToDate = transactionLists.get(i).getDateInDateFormat();
+            boolean isAfterToDate = afterToDate.after(to);
             if (!isBeforeFromDate && !isAfterToDate) {
                 printOneHeaderForFind(printCounter, FINDDATE, ui);
                 printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
                 printCounter++;
             }
         }
+        logger.info("Search for transaction based on date range completed");
         if (printCounter == 0) {
+            logger.info("No matches for the date range specified: " + fromDate + " to " + toDate);
             ui.printMessage("No matches for the date range specified: " + fromDate + " to " + toDate);
         } else {
             ui.printDivider();
+            logger.info("Successfully found matching transaction based on date range");
         }
     }
 

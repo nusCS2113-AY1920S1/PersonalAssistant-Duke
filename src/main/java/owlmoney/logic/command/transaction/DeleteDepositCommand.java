@@ -1,5 +1,9 @@
 package owlmoney.logic.command.transaction;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
@@ -12,6 +16,7 @@ import owlmoney.ui.Ui;
 public class DeleteDepositCommand extends Command {
     private final int expNumber;
     private final String from;
+    private static final Logger logger = getLogger(EditDepositCommand.class);
 
     /**
      * Creates an instance of DeleteDepositCommand.
@@ -35,6 +40,7 @@ public class DeleteDepositCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
         profile.profileDeleteDeposit(this.expNumber, this.from, ui, false);
+        logger.info("Successful execution of DeleteDepositCommand");
         return this.isExit;
     }
 }

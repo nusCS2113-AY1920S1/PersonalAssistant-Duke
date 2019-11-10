@@ -1,8 +1,11 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseRawData;
@@ -27,6 +30,7 @@ public abstract class ParseRecurringExpenditure {
         FROM_PARAMETER, TRANSACTION_NUMBER_PARAMETER
     };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(EXPENDITURE_KEYWORD);
+    private static final Logger logger = getLogger(ParseRecurringExpenditure.class);
 
     /**
      * Creates an instance of any ParseRecurringExpenditure type object.
@@ -48,6 +52,7 @@ public abstract class ParseRecurringExpenditure {
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {
         if (rawData.contains(parameter)) {
+            logger.warning(command + " /expenditure should not contain " + parameter);
             throw new ParserException(command + " /expenditure should not contain " + parameter);
         }
     }
@@ -60,6 +65,7 @@ public abstract class ParseRecurringExpenditure {
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!EXPENDITURE_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+            logger.warning("Incorrect parameter " + rawDateSplit[0]);
             throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
         }
     }
@@ -90,6 +96,8 @@ public abstract class ParseRecurringExpenditure {
      */
     void checkAmount(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckMoney(valueString)) {
+            logger.warning("/amount can only be positive numbers"
+                    + " with at most 9 digits and 2 decimal places");
             throw new ParserException("/amount can only be positive numbers"
                     + " with at most 9 digits and 2 decimal places");
         }
@@ -103,6 +111,7 @@ public abstract class ParseRecurringExpenditure {
      */
     void checkInt(String variable, String valueString) throws ParserException {
         if (!RegexUtil.regexCheckListNumber(valueString)) {
+            logger.warning(variable + " can only be a positive number with at most 9 digits");
             throw new ParserException(variable + " can only be a positive number with at most 9 digits");
         }
     }
@@ -115,6 +124,7 @@ public abstract class ParseRecurringExpenditure {
      */
     void checkDescription(String descString, String keyword) throws ParserException {
         if (!RegexUtil.regexCheckDescription(descString)) {
+            logger.warning(keyword + " can only contain numbers and letters and at most 50 characters");
             throw new ParserException(keyword + " can only contain numbers and letters and at most 50 characters");
         }
     }
@@ -127,6 +137,7 @@ public abstract class ParseRecurringExpenditure {
      */
     void checkCategory(String category) throws ParserException {
         if (!RegexUtil.regexCheckCategory(category)) {
+            logger.warning("/category can only contain numbers and letters and at most 15 characters");
             throw new ParserException("/category can only contain numbers and letters and at most 15 characters");
         }
     }
@@ -139,6 +150,7 @@ public abstract class ParseRecurringExpenditure {
      */
     void checkName(String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
+            logger.warning("/from can only contain letters and at most 30 characters");
             throw new ParserException("/from can only contain letters and at most 30 characters");
         }
     }

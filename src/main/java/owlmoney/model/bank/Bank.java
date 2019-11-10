@@ -1,5 +1,7 @@
 package owlmoney.model.bank;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -8,6 +10,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
@@ -25,6 +28,7 @@ public abstract class Bank {
     private String accountName;
     private double currentAmount;
     TransactionList transactions;
+    private static final Logger logger = getLogger(Bank.class);
     static final double MAX_AMOUNT = 999999999.99;
 
     /**
@@ -122,6 +126,7 @@ public abstract class Bank {
      */
     public void deleteExpenditure(int expenditureIndex, Ui ui, boolean isCreditCardBill)
             throws TransactionException, BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -140,6 +145,7 @@ public abstract class Bank {
     void editExpenditureDetails(
             int expenditureIndex, String description, String amount, String date, String category, Ui ui)
             throws TransactionException, BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -156,6 +162,7 @@ public abstract class Bank {
      */
     void editDepositDetails(int depositIndex, String description, String amount, String date, Ui ui)
             throws TransactionException, BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -360,6 +367,7 @@ public abstract class Bank {
      * @throws BondException If no bonds could be found.
      */
     public void findBondInInvestment(String bondName, Ui ui) throws BankException, BondException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -374,6 +382,7 @@ public abstract class Bank {
      */
     public void findRecurringExpenditure(String description, String category, Ui ui)
             throws BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -400,6 +409,7 @@ public abstract class Bank {
      * @throws IOException if there are problems with loading saved data.
      */
     void exportInvestmentBondList(String prependFileName) throws BankException, IOException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -435,6 +445,7 @@ public abstract class Bank {
             exportArrayList.add(new String[] {description,stringAmount,date,category,stringSpent,
                 stringUuid,stringBillDate});
         }
+        logger.info("Successfully prepared transactionList for exporting");
         return exportArrayList;
     }
 
@@ -442,9 +453,9 @@ public abstract class Bank {
      * Prepares transaction details of the bank account for exporting.
      *
      * @throws BankException if the bank account does not support this feature.
-     * @throws IOException if there are problems with loading saved data.
      */
-    ArrayList<String[]> prepareExportRecurringTransactionList() throws BankException, IOException {
+    ArrayList<String[]> prepareExportRecurringTransactionList() throws BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -456,6 +467,7 @@ public abstract class Bank {
      * @throws IOException if there are problems with loading saved data.
      */
     void exportBankTransactionList(String prependFileName) throws BankException, IOException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -467,6 +479,7 @@ public abstract class Bank {
      * @throws IOException if there are problems with loading saved data.
      */
     void exportBankRecurringTransactionList(String prependFileName) throws BankException, IOException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -477,6 +490,7 @@ public abstract class Bank {
      * @throws BankException if the bank account does not support this feature.
      */
     void importNewBonds(Bond newBond) throws BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -488,6 +502,7 @@ public abstract class Bank {
      * @throws BankException if the bank account does not support this feature.
      */
     void importNewDeposit(Transaction deposit, String bankType) throws BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -498,6 +513,7 @@ public abstract class Bank {
      * @param type the type of expenditure.
      * @throws BankException if the bank account does not support this feature.     */
     void importNewExpenditure(Transaction expenditure, String type) throws BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -508,6 +524,7 @@ public abstract class Bank {
      * @throws BankException if the bank account does not support this feature.
      */
     void importNewRecurringExpenditure(Transaction expenditure) throws BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -518,6 +535,7 @@ public abstract class Bank {
      * @throws BankException If used on savings account.
      */
     boolean investmentIsBondListFull() throws BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -528,6 +546,7 @@ public abstract class Bank {
      * @throws BankException If used on investment account.
      */
     Date getNextIncomeDate() throws BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -551,6 +570,7 @@ public abstract class Bank {
      * @return Index of the expenditure object if found. If not found, return -1.
      */
     public int getCardBillExpenditureId(UUID cardId, YearMonth billDate) throws BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -563,6 +583,7 @@ public abstract class Bank {
      * @return Index of the deposit object if found. If not found, return -1.
      */
     public int getCardBillDepositId(UUID cardId, YearMonth billDate) throws BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -574,6 +595,7 @@ public abstract class Bank {
      */
     public void enoughForTransfer(double amount) throws BankException {
         if (this.currentAmount + amount > MAX_AMOUNT) {
+            logger.warning("The amount in the receiving bank account cannot exceed 9 digits");
             throw new BankException("The amount in the receiving bank account cannot exceed 9 digits");
         }
     }
