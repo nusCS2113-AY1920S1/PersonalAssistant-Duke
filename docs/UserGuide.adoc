@@ -598,14 +598,12 @@ Format: `routeGenerate STARTLOCATION to ENDLOCATION by CONSTRAINT`
 Valid CONSTRAINT:
 
 * `bus`
-* `mrt`
 
 image::routeGenerate1.PNG[width="400" height="200"]
 
 Examples:
 
 * `routeGenerate amk hub to clementi by bus`
-* `routeGenerate amk hub to sungei gedong by mrt`
 
 [TIP]
 ====
