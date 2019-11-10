@@ -145,6 +145,7 @@ public class Project implements IProject {
         return this.taskList.editTask(taskIndexNumber, updatedTaskDetails);
     }
 
+    //@@author seanlimhx
     @Override
     public String[] editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements) {
         return this.taskList.editTaskRequirements(taskIndexNumber, updatedTaskRequirements);

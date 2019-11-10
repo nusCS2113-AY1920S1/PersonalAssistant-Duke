@@ -2,7 +2,7 @@
 :toc:
 :toc-title: Table of Contents
 :toc-placement: preamble
-:repoURL: https://github.com/AY1920S1-CS2113-T13-1/main
+:repoURL: https://github.com/AY1920S1-CS2113-T13-1/main/tree/master
 
 By: `CS2113-T13-1`      Since: `Aug 2019`      Licence: `MIT`
 
@@ -31,6 +31,9 @@ and completed.
 [width="100%",cols="25%, <75%", options="header"]
 |=======================================================================
 | Revision Date | Summary of Changes
+| 10 November 2019  | Version 1.8: Included Class Diagrams for Storage layer and Repository layer
+| 9 November 2019   | Version 1.7: Added more documentation regarding implementation of Assignment
+| 8 November 2019   | Version 1.6: Added documentation regarding CI and Code Quality
 | 5 November 2019   | Version 1.5: Small updates to AssignmentController and reorganising content
 | 1 November 2019   | Version 1.4: Added documentation on Reminder and logging functionality
 | 31 October 2019   | Version 1.3: Added documentation for Member and Tasks functionality
@@ -111,6 +114,7 @@ when the application is modified, we only had to rework the specific layer deali
 helped us in logically structuring the elements which made up ArchDuke. The Architecture Diagram given below explains the
 high-level design of ArchDuke.
 
+// TODO UPDATE architecture DIAGRAM
 .Architecture Diagram
 image::images/ArchDuke_Architecture.png[]
 
@@ -136,29 +140,10 @@ The rest of the App consists of four main layers.
 from the user.
 * `Controller` layer: Responsible for handling user inputs and sending them to the respective classes for parsing,
 cleaning, or object creation.
-* `Repository` layer: Responsible for holding data in-memory
-* `Data` layer: Responsible for saving and loading persistent data from hard disk.
+* `Repository` layer: Responsible for holding data in-memory during program runtime
+* `Storage` layer: Responsible for saving and loading persistent data from hard disk.
 
 Each layer will be discussed in detail below.
-// Each of the four components
-
-// * Defines its _API_ in an `interface` with the same name as the Component.
-// * Exposes its functionality using a `{Component Name}Manager` class.
-
-// For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-// .Class Diagram of the Logic Component
-// // image::LogicClassDiagram.png[]
-
-// [discrete]
-// ==== How the architecture components interact with each other
-
-// The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-// .Component interactions for `delete 1` command
-// // image::ArchitectureSequenceDiagram.png[]
-
-// The sections below give more details of each component.
 
 === 2.1. View Layer
 Our main UI Component is a class called CLIView. It is mainly responsible for reading the user input and displaying
@@ -168,6 +153,7 @@ When ArchDuke is running, CLIView repeatedly reads the user input line by line, 
 (Controllers) to make sense of the input. Eventually, the controllers will retrieve the relevant messages and
 information for CLIView to display.
 
+// TODO Viewlayer Class Diagram
 // .Structure of the UI Component
 // image::UiClassDiagram.png[]
 
@@ -187,7 +173,7 @@ We realized that the commands related to managing a project are extremely comple
 to managing a single project from the `ConsoleInputController` and this resulted in the creation of the `ProjectInputController`.
 
 When the project is being managed, all the commands input by the user are directly handled by the `ProjectInputController`.
-Hence, `ProjectInputController` acts like a parser for commands dealing with the CRUD functionalities for Members, Tasks,
+Hence, `ProjectInputController` acts like a parser for commands dealing with the CRUD functionality for Members, Tasks,
 Task Assignments and Reminders. Control is handed back to the `ConsoleInputController` after exiting from managing a project.
 
 ==== 2.2.3 AssignmentController
@@ -211,37 +197,48 @@ tasks and members are isolated into a single, focused class. It can help to fulf
 
 === 2.3. Repository layer
 
-// .Structure of the Model Component
-// image::ModelClassDiagram.png[]
+.Simplified Class Diagram of Repository Layer
+image::images/classDiagram/RepositoryLayerClassDiagram.png[]
 
-// *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/repositories/IRepository.java[`IRepository.java`]
 
-// The `Model`,
+*An implementation of IRepository: ProjectRepository* link:{repoURL}/src/main/java/repositories/ProjectRepository.java[`ProjectRepository.java`]
 
-// * stores a `UserPref` object that represents the user's preferences.
-// * stores the Address Book data.
-// * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-// * does not depend on any of the other three components.
+The `Repository` Layer is responsible for serving as a boundary between the `Storage` layer and the `Controller` layer.
+It uses the `IRepository` interface, making it easy should other developers choose to implement their own
+`Repository` layer.
 
-// [NOTE]
-// As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
-//  +
-// image:BetterModelClassDiagram.png[]
+The responsibilities of the `Repository` layer includes
 
-=== 2.4. Data Layer
+* Storing the data in-memory during programme runtime. It stores all `Project` objects created in an
+`ArrayList<Project>`.
+* Separation of concern between data and persistence. In a full-fledged application, the `Repository` layer will
+serve as a boundary between the database and the domain logic
 
-// .Structure of the Storage Component
-// image::StorageClassDiagram.png[]
+In our implementation of `ProjectRepository` that implements the `IRepository` interface, it
 
-// *API* : 
-// link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+* Calls `ProjectFactory` for creation of `Project` objects and stores it in an `ArrayList<>`
+* Exposes APIs to retrieve details of the stored `Project` objects for `Controller` to send back to `View` layer.
+* Exposes CRUD APIs for creation, deletion and getting a `Project` object from the stored `ArrayList<Project>`.
 
-//The `Storage` component,
+=== 2.4. Storage Layer
 
-// * can save `UserPref` objects in json format and read it back.
-// * can save the Address Book data in json format and read it back.
+.Simplified Class Diagram of Storage Layer
+image::images/classDiagram/StorageLayerClassDiagram.png[]
 
-//[[Design-Commons]]
+*API* :
+link:{repoURL}/src/main/java/util/json/JsonConverter.java[`JsonConverter.java`]
+
+The `Storage` layer is responsible for saving and loading data to and from persistent data. It utilizes a
+3rd-party plugin called GSON, a serialization and deserialization library by Google to convert Java Objects into JSON
+and back.
+
+* It can save `Project` objects in JSON format and read it back.
+* It saves all JSON in the current working directory that ArchDuke is saved in
+** This can be changed by editing `userDirectory` component to the desired directory where saved data should be.
+* Each new `Project` object saved inside the `Repository` will be saved in a new JSON file, named after the name of
+the `Project`.
+
 === 2.5. Utility Classes
 //Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
@@ -315,7 +312,7 @@ successfully or not.
 
 The following sequence diagram shows how the `create PROJECT_NAME` operation works.
 
-image::images/ProjectCreation_Sequence.png[]
+image::images/sequnceDiagram/ProjectCreation_Sequence.png[]
 
 The `delete PROJECT_INDEX` command works similarly to `create PROJECT_NAME`. Both commands will result in a
 `Boolean` of either `True` or `False` to indicate whether command was executed successfully. There are minor
@@ -329,7 +326,7 @@ differences, listed below:
 
 ArchDuke allows users to manage each individual project in the `ProjectRepository`.
 
-image::images/ManageProject_Sequence.png[]
+image::images/sequenceDiagram/ManageProject_Sequence.png[]
 === 3.2 CRUD functionality for Members
 ==== Implementation
 
@@ -365,7 +362,7 @@ Step 5) `MemberFactory` will create the member based on the information provided
 subsequently be added into `memberList` which holds all the members in the current project. Upon doing successfully or
 unsuccessfully doing so, a String message will be returned.
 
-image::images/CreateMember_Sequence.png[]
+image::images/sequenceDiagram/CreateMember_Sequence.png[]
 
 === 3.3. CRUD functionality for Tasks
 ==== Implementation
@@ -414,7 +411,7 @@ be added into `taskList` managed by the project and a successfully or unsuccessf
 
 The following sequence diagram show how `add task` operation works.
 
-image::images/CreateTask_Sequence.png[]
+image::images/sequenceDiagram/CreateTask_Sequence.png[]
 
 === 3.4. CRUD functionality for Reminder [Plan to do]
 ==== Implementation
@@ -453,7 +450,7 @@ flags and return a `ArrayList<String>` with the relevant details for `ReminderFa
 Step 5) `ReminderFactory` will create the reminder based on the information given by the user. The created Reminder will subsequently
 be added into `ReminderList` managed by the project and a successfully or unsuccessfully a message in String[] will be returned.
 
-image::images/CreateReminder_Sequence.png[]
+image::images/sequenceDiagram/CreateReminder_Sequence.png[]
 
 === 3.5. CRUD functionality for Managing or Viewing Task Assignments
 
@@ -521,7 +518,7 @@ formatted with the help of `ViewHelper`, which organises the information into ea
 The following sequence diagram shows how the `assign task` command works.
 Certain objects, such as `Project` and `ViewHelper` are omitted for simplicity.
 
-image::images/AssignmentSequenceDiagram.png[]
+image::images/sequenceDiagram/AssignmentSequenceDiagram.png[]
 
 
 ==== Viewing Assignments
@@ -559,7 +556,7 @@ to `ProjectInputController`, and subsequently back to `CLIView` to be displayed 
 
 The following sequence diagram shows how the `view assignments` command works.
 
-image::images/ViewAssignmentSequence.png[]
+image::images/sequenceDiagram/ViewAssignmentSequence.png[]
 
 ==== Design Considerations
 
@@ -636,7 +633,7 @@ assignments. This also results in increased and unnecessary coupling.
 
 ==== Implementation
 
-UI functions are handled by `CLIView`, `ViewHelper`, and the data layer which stores the details of projects,
+UI functions are handled by `CLIView`, `ViewHelper`, and the repository layer which stores the details of projects,
 members and tasks. It allows ArchDuke to present useful information to the user in an easily readable format when
 requested. The information will be presented in a table form with a clear header that describes the content and
 has the information in bullet point form.
@@ -684,7 +681,7 @@ indentation and horizontal borders on the top and bottom.
 
 The following sequence diagram show how `list` operation works.
 
-image::images/ViewAllProjects_Sequence.png[]
+image::images/sequenceDiagram/ViewAllProjects_Sequence.png[]
 
 === 3.7. Logging
 

@@ -3,7 +3,6 @@ package util.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import controllers.ConsoleInputController;
 import exceptions.DukeException;
 import models.project.Project;
 import util.log.ArchDukeLogger;
@@ -62,12 +61,12 @@ public class JsonConverter {
         File[] allProjectJson = directory.listFiles((file, name) -> name.endsWith(".json"));
         for (File projectJson : allProjectJson) {
             try (FileReader fileReader = new FileReader(projectJson)) {
-                ArchDukeLogger.logDebug(ConsoleInputController.class.getName(), "Loading saved file.");
+                ArchDukeLogger.logDebug(JsonConverter.class.getName(), "Loading saved file.");
                 Project newProject = gson.fromJson(fileReader, new TypeToken<Project>(){}.getType());
                 allProjects.add(newProject);
-                ArchDukeLogger.logDebug(ConsoleInputController.class.getName(), "Saved file loaded.");
+                ArchDukeLogger.logDebug(JsonConverter.class.getName(), "Saved file loaded.");
             } catch (IOException err) {
-                ArchDukeLogger.logError(ConsoleInputController.class.getName(), "Saved file not loaded");
+                ArchDukeLogger.logError(JsonConverter.class.getName(), "Saved file not loaded");
                 return allProjects;
             }
         }
