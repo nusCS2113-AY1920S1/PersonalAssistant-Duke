@@ -1,17 +1,12 @@
 package entertainment.pro.storage.utils;
 
 import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.annotation.Target;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

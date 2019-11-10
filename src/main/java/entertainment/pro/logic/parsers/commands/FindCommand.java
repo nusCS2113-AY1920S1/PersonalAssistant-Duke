@@ -1,6 +1,6 @@
 package entertainment.pro.logic.parsers.commands;
 
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
@@ -20,7 +20,7 @@ public class FindCommand extends CommandSuper {
      * @param uicontroller UI controller for javafx
      */
     public FindCommand(Controller uicontroller) {
-        super(COMMANDKEYS.find, CommandStructure.cmdStructure.get(COMMANDKEYS.find), uicontroller);
+        super(CommandKeys.FIND, CommandStructure.cmdStructure.get(CommandKeys.FIND), uicontroller);
     }
 
     /**
@@ -29,7 +29,7 @@ public class FindCommand extends CommandSuper {
     @Override
     public void executeCommands() {
         switch (this.getSubRootCommand()) {
-        case cinema:
+        case CINEMA:
             try {
                 findCinemas();
             } catch (Exceptions exceptions) {
@@ -54,8 +54,8 @@ public class FindCommand extends CommandSuper {
         }
         if (length > 0) {
             for (int i = 0; i < length; i++) {
-                display += i + 1 + ". Name: " + cinemas.get(i).getName() + " [Rating: " +
-                        cinemas.get(i).getRating() + "]\n";
+                display += i + 1 + ". Name: " + cinemas.get(i).getName() + " [Rating: "
+                        + cinemas.get(i).getRating() + "]\n";
                 display += "    Address: " + cinemas.get(i).getAddress() + "\n";
                 display += "\n";
             }

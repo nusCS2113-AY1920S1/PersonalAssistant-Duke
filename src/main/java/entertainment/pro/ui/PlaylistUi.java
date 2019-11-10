@@ -5,7 +5,7 @@ import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.Playlist;
 import entertainment.pro.model.PlaylistMovieInfoObject;
 import entertainment.pro.storage.utils.EditPlaylistJson;
-import entertainment.pro.storage.utils.ProfileCommands;
+import entertainment.pro.storage.user.ProfileCommands;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;

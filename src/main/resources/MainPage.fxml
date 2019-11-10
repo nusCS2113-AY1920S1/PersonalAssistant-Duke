@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="676.0" stylesheets="Main_Styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="entertainment.pro.ui.MovieHandler">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1200.0" stylesheets="Main_Styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="entertainment.pro.ui.MovieHandler">
   <bottom>
     <HBox alignment="BOTTOM_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
       <children>
@@ -97,11 +97,11 @@
                     <Insets bottom="5.0" />
                   </VBox.margin>
                 </Label>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0">
-                      <content>
-                          <TextFlow fx:id="genreListText" prefHeight="34.0" prefWidth="109.0" />
-                      </content>
-                  </ScrollPane>
+                <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                  <content>
+                    <TextFlow fx:id="genreListText" prefHeight="34.0" prefWidth="109.0" />
+                  </content>
+                </ScrollPane>
               </children>
               <VBox.margin>
                 <Insets top="5.0" fx:id="x18" />
@@ -167,7 +167,7 @@
     </VBox>
   </left>
   <right>
-    <ScrollPane fx:id="mMoviesScrollPane" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="455.0" prefWidth="510.0" vbarPolicy="ALWAYS">
+    <ScrollPane fx:id="mMoviesScrollPane" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="525.0" prefWidth="1027.0" vbarPolicy="ALWAYS">
       <content>
         <AnchorPane fx:id="movieAnchorPane" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="210.0" prefWidth="115.0" />
       </content>
@@ -176,20 +176,6 @@
   <top>
     <VBox fx:id="mainVBox" maxHeight="1.7976931348623157E308" prefHeight="113.0" BorderPane.alignment="CENTER">
       <children>
-        <MenuBar fx:id="menuBar">
-          <menus>
-            <Menu mnemonicParsing="false" text="File" fx:id="fileMenu">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Close" />
-              </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help" fx:id="helpMenu">
-              <items>
-                <MenuItem mnemonicParsing="false" text="About" />
-              </items>
-            </Menu>
-          </menus>
-        </MenuBar>
         <VBox id="vbox0" fx:id="searchCommandVBox" maxHeight="1.7976931348623157E308" prefHeight="93.0" prefWidth="676.0" VBox.vgrow="SOMETIMES">
           <children>
             <TextField fx:id="mSearchTextField" prefHeight="28.0" prefWidth="656.0" promptText="Enter a command here...">
@@ -199,8 +185,8 @@
             </TextField>
             <VBox fx:id="autoCompleteVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-1.0" prefHeight="40.0" prefWidth="666.0" VBox.vgrow="ALWAYS">
               <children>
-                <Text fx:id="autoCompleteText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Entertainment-Pro! Currently displaying list of movies in cinemas [without any filtering or sorting]!" wrappingWidth="620.0" VBox.vgrow="SOMETIMES" />
-                <Text fx:id="generalFeedbackText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="620.0" VBox.vgrow="SOMETIMES">
+                <Text fx:id="autoCompleteText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Entertainment-Pro! Start exploring now..." wrappingWidth="1100.0" VBox.vgrow="SOMETIMES" />
+                <Text fx:id="generalFeedbackText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="1100.0" VBox.vgrow="SOMETIMES">
                   <VBox.margin>
                     <Insets top="7.0" />
                   </VBox.margin>
@@ -214,6 +200,9 @@
               </VBox.margin>
             </VBox>
           </children>
+          <VBox.margin>
+            <Insets top="10.0" />
+          </VBox.margin>
         </VBox>
       </children>
     </VBox>

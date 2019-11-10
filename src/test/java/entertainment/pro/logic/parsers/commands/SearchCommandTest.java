@@ -1,17 +1,14 @@
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.exceptions.*;
-import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import entertainment.pro.logic.parsers.CommandParser;
 import entertainment.pro.model.SearchProfile;
-import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import static entertainment.pro.ui.MovieHandler.mMovieRequest;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SearchCommandTest extends MovieHandler{

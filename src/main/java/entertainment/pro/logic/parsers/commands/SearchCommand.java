@@ -1,19 +1,24 @@
 package entertainment.pro.logic.parsers.commands;
 
-import entertainment.pro.commons.PromptMessages;
-import entertainment.pro.commons.exceptions.*;
-import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
+import entertainment.pro.commons.exceptions.DuplicateGenreException;
+import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
+import entertainment.pro.commons.exceptions.InvalidGenreNameEnteredException;
+import entertainment.pro.commons.exceptions.InvalidParameterException;
+import entertainment.pro.commons.strings.PromptMessages;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import entertainment.pro.model.SearchProfile;
-import entertainment.pro.storage.utils.ProfileCommands;
+import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
-import javax.print.DocFlavor;
-import java.util.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,34 +27,33 @@ import java.util.logging.Logger;
  */
 public class SearchCommand extends CommandSuper {
 
-    private static String GET_CURRENT = "/current";
-    private static String GET_UPCOMING = "/upcoming";
-    private static String GET_TRENDING = "/trend";
-    private static String GET_POPULAR = "/popular";
-    private static String GET_RATED = "/rated";
-    private static String GET_PREF = "-p";
-    private static String GET_NEW_GENRE_PREF = "-g";
-    private static String GET_NEW_GENRE_RESTRICT = "-r";
-    private static String GET_NEW_SORT = "-s";
-    private static String GET_NEW_ADULT_RATING = "-a";
+    private static final String GET_CURRENT = "/current";
+    private static final String GET_UPCOMING = "/upcoming";
+    private static final String GET_TRENDING = "/trend";
+    private static final String GET_POPULAR = "/popular";
+    private static final String GET_RATED = "/rated";
+    private static final String GET_PREF = "-p";
+    private static final String GET_NEW_GENRE_PREF = "-g";
+    private static final String GET_NEW_GENRE_RESTRICT = "-r";
+    private static final String GET_NEW_SORT = "-s";
+    private static final String GET_NEW_ADULT_RATING = "-a";
     private boolean isMovie = false;
-    private String USER_PREF_FOR_ALPHA_SORT = "1";
-    private String USER_PREF_FOR_RELEASE_DATES_SORT = "2";
-    private String USER_PREF_FOR_RATING_SORT = "3";
-    private String USER_PREF_FOR_ADULT_TRUE = "true";
-    private String USER_PREF_FOR_ADULT_FALSE = "false";
+    private static final String USER_PREF_FOR_ALPHA_SORT = "1";
+    private static final String USER_PREF_FOR_RELEASE_DATES_SORT = "2";
+    private static final String USER_PREF_FOR_RATING_SORT = "3";
+    private static final String USER_PREF_FOR_ADULT_TRUE = "true";
+    private static final String USER_PREF_FOR_ADULT_FALSE = "false";
     private static final Logger logger = Logger.getLogger(SearchCommand.class.getName());
     Set<Integer> genreSet = new HashSet<Integer>();
-
 
 
     /**
      * Constructor for each Command Super class.
      *
-     * @param uicontroller The UI controller.
+     * @param uiController The UI controller.
      */
-    public SearchCommand(Controller uicontroller) {
-        super(COMMANDKEYS.search, CommandStructure.cmdStructure.get(COMMANDKEYS.search), uicontroller);
+    public SearchCommand(Controller uiController) {
+        super(CommandKeys.SEARCH, CommandStructure.cmdStructure.get(CommandKeys.SEARCH), uiController);
     }
 
     /**
@@ -61,25 +65,27 @@ public class SearchCommand extends CommandSuper {
      */
     @Override
     public void executeCommands() throws Exceptions {
+        logger.log(Level.INFO, PromptMessages.STARTING_SEARCH_MESSAGE);
         genreSet.clear();
         String payload = getPayload();
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
-        SearchProfile searchProfile = movieHandler.getSearchProfile();
-        searchProfile.iniitalizeBackSearchProfile(searchProfile);
-        getPreferences(movieHandler, searchProfile, payload, isMovie);
+        logger.log(Level.INFO, PromptMessages.RETRIEVING_SEARCH_PROFILE);
+        SearchProfile searchProfile = getPreferences(movieHandler, payload, isMovie);
         switch (this.getSubRootCommand()) {
-            case movies:
-                isMovie = true;
-                searchProfile.setMovie(true);
-                executeMovieSearch(payload, movieHandler, searchProfile);
-                break;
-            case tvshows:
-                executeTvSearch(payload, movieHandler, searchProfile);
-                break;
-            default:
-                movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
-                logger.log(Level.SEVERE, PromptMessages.INVALID_PARAM_IN_SEARCH);
-                throw new InvalidParameterException(PromptMessages.INVALID_PARAM_IN_SEARCH);
+        case MOVIES:
+            isMovie = true;
+            logger.log(Level.INFO, PromptMessages.SEARCH_TYPE_IS_MOVIES);
+            searchProfile = searchProfile.setMovie(true);
+            executeMovieSearch(payload, movieHandler, searchProfile);
+            break;
+        case TVSHOWS:
+            logger.log(Level.INFO, PromptMessages.SEARCH_TYPE_IS_TV);
+            executeTvSearch(payload, movieHandler, searchProfile);
+            break;
+        default:
+            movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+            logger.log(Level.SEVERE, PromptMessages.INVALID_PARAM_IN_SEARCH);
+            throw new InvalidParameterException(PromptMessages.INVALID_PARAM_IN_SEARCH);
         }
     }
 
@@ -100,8 +106,7 @@ public class SearchCommand extends CommandSuper {
             logger.log(Level.SEVERE, PromptMessages.EMPTY_PARAM_IN_SEARCH);
             throw new Exceptions(PromptMessages.EMPTY_PARAM_IN_SEARCH);
         }
-
-            if (payload.equals(GET_CURRENT)) {
+        if (payload.equals(GET_CURRENT)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
         } else if (payload.equals(GET_UPCOMING)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
@@ -152,49 +157,54 @@ public class SearchCommand extends CommandSuper {
      * Sets these preferences into SearchProfile Object.
      *
      * @param movieHandler    MovieHandler class to call appropriate function if needed
-     * @param searchProfile   Object that contains all the preferences of the search request.
      * @param searchEntryName name of movie/TV show that user want search result to be based on, if any.
      * @param isMovie         whether the search request is movie or TV shows related.
      * @throws InvalidFormatCommandException when user input is invalid.
      */
-    private void getPreferences(MovieHandler movieHandler, SearchProfile searchProfile, String searchEntryName,
-                                boolean isMovie) throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
+    private SearchProfile getPreferences(MovieHandler movieHandler, String searchEntryName, boolean isMovie)
+            throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
+        SearchProfile searchProfile = movieHandler.getSearchProfile();
+        searchProfile = searchProfile.iniitalizeBackSearchProfile();
         if (!(getPayload().isEmpty() || getPayload().isBlank())) {
-            searchProfile.setName(getPayload());
+            searchProfile = searchProfile.setName(getPayload());
         }
         if (this.getFlagMap().containsKey(GET_PREF)) {
             this.getFlagMap().remove(GET_PREF);
             if (this.getFlagMap().isEmpty()) {
-                searchProfile.setFromUserPreference(searchProfile, searchEntryName, isMovie,
-                        movieHandler.getUserProfile());
+                searchProfile = searchProfile.setFromUserPreference(searchEntryName,
+                        isMovie, movieHandler.getUserProfile());
             } else {
                 movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_COMBI_OF_FLAGS);
+                logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
                 throw new InvalidFormatCommandException();
             }
         } else {
             if (this.getFlagMap().containsKey(GET_NEW_GENRE_PREF)) {
                 try {
-                    getGenresPrefForSearch(searchProfile);
+                    searchProfile = getGenresPrefForSearch(searchProfile);
                 } catch (DuplicateGenreException e) {
+                    logger.log(Level.WARNING, PromptMessages.REPETITVE_GENRE_NAME_ERROR);
                     movieHandler.setGeneralFeedbackText(PromptMessages.REPETITVE_GENRE_NAME);
                     throw new DuplicateGenreException();
                 }
             }
             if (this.getFlagMap().containsKey(GET_NEW_GENRE_RESTRICT)) {
                 try {
-                    getGenresRestrictForSearch(searchProfile);
+                    searchProfile = getGenresRestrictForSearch(searchProfile);
                 } catch (DuplicateGenreException e) {
+                    logger.log(Level.WARNING, PromptMessages.REPETITVE_GENRE_NAME_ERROR);
                     movieHandler.setGeneralFeedbackText(PromptMessages.REPETITVE_GENRE_NAME);
                     throw new DuplicateGenreException();
                 }
             }
             if (this.getFlagMap().containsKey(GET_NEW_ADULT_RATING)) {
-                searchProfile.setAdult(getAdultPrefForSearch());
+                searchProfile = searchProfile.setAdult(getAdultPrefForSearch());
             }
             if (this.getFlagMap().containsKey(GET_NEW_SORT)) {
                 ArrayList<String> getUserSortPref = getFlagMap().get(GET_NEW_SORT);
                 ArrayList<String> getParams = getFlagMap().get(GET_NEW_SORT);
                 if (getParams.size() != 1) {
+                    logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
                     ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                     throw new InvalidFormatCommandException();
                 }
@@ -203,18 +213,21 @@ public class SearchCommand extends CommandSuper {
                 try {
                     sortOptionConvertToInt = Integer.parseInt(sortOption);
                     if (sortOptionConvertToInt <= 0 || sortOptionConvertToInt > 3) {
+                        logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
                         movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                         throw new InvalidFormatCommandException();
                     }
                 } catch (NumberFormatException e) {
+                    logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
                     throw new InvalidFormatCommandException();
                 }
-                searchProfile.setSortByAlphabetical(getAlphaSortForSearch(getUserSortPref.get(0)));
-                searchProfile.setSortByLatestRelease(getDatesSortForSearch(getUserSortPref.get(0)));
-                searchProfile.setSortByHighestRating(getRatingSortForSearch(getUserSortPref.get(0)));
-            }
 
+                searchProfile = searchProfile.setSortByAlphabetical(getAlphaSortForSearch(getUserSortPref.get(0)));
+                searchProfile = searchProfile.setSortByLatestRelease(getDatesSortForSearch(getUserSortPref.get(0)));
+                searchProfile = searchProfile.setSortByHighestRating(getRatingSortForSearch(getUserSortPref.get(0)));
+            }
         }
+        return searchProfile;
     }
 
     /**
@@ -266,33 +279,40 @@ public class SearchCommand extends CommandSuper {
      *
      * @param searchProfile Object that contains all the preferences for the particular search request.
      */
-    private void getGenresPrefForSearch(SearchProfile searchProfile) throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
+    private SearchProfile getGenresPrefForSearch(SearchProfile searchProfile) throws InvalidFormatCommandException,
+            InvalidGenreNameEnteredException, DuplicateGenreException {
         ArrayList<String> getParams = getFlagMap().get(GET_NEW_GENRE_PREF);
         if (getParams.size() == 0) {
             ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+            logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
             throw new InvalidFormatCommandException();
         }
+        ArrayList<Integer> genrePreference = searchProfile.getGenreIdPreference();
         for (String log : getFlagMap().get(GET_NEW_GENRE_PREF)) {
             try {
                 if (log.isBlank() || log.isEmpty()) {
                     ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+                    logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
                     throw new InvalidFormatCommandException();
                 }
                 int genre = ProfileCommands.findGenreID(log);
                 if (genre == 0) {
                     ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_GENRE_NAME);
+                    logger.log(Level.WARNING, PromptMessages.INVALID_GENRE_NAME_ERROR);
                     throw new InvalidGenreNameEnteredException();
                 }
                 if (genreSet.contains(genre)) {
+                    logger.log(Level.WARNING, PromptMessages.REPETITVE_GENRE_NAME_ERROR);
                     throw new DuplicateGenreException();
                 }
                 genreSet.add(genre);
-                searchProfile.getGenreIdPreference().add(genre);
+                genrePreference.add(genre);
             } catch (IOException e) {
+                logger.log(Level.WARNING, PromptMessages.INVALID_GENRE_NAME_ERROR);
                 ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_GENRE_NAME);
             }
         }
-
+        return searchProfile.setGenreIdPreference(genrePreference);
     }
 
     /**
@@ -301,32 +321,40 @@ public class SearchCommand extends CommandSuper {
      *
      * @param searchProfile Object that contains all the preferences for the particular search request.
      */
-    private void getGenresRestrictForSearch(SearchProfile searchProfile) throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
-        ArrayList<String> getParams = getFlagMap().get(GET_NEW_GENRE_PREF);
+    private SearchProfile getGenresRestrictForSearch(SearchProfile searchProfile)
+            throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
+        ArrayList<String> getParams = getFlagMap().get(GET_NEW_GENRE_RESTRICT);
         if (getParams.size() == 0) {
+            logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
             ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
             throw new InvalidFormatCommandException();
         }
+        ArrayList<Integer> genreRestriction = searchProfile.getGenreIdRestriction();
         for (String log : getFlagMap().get(GET_NEW_GENRE_RESTRICT)) {
             try {
                 if (log.isBlank() || log.isEmpty()) {
+                    logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
                     ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                     throw new InvalidFormatCommandException();
                 }
                 int genre = ProfileCommands.findGenreID(log);
                 if (genre == 0) {
+                    logger.log(Level.WARNING, PromptMessages.INVALID_GENRE_NAME_ERROR);
                     ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_GENRE_NAME);
                     throw new InvalidGenreNameEnteredException();
                 }
                 if (genreSet.contains(genre)) {
+                    logger.log(Level.WARNING, PromptMessages.REPETITVE_GENRE_NAME_ERROR);
                     throw new DuplicateGenreException();
                 }
                 genreSet.add(genre);
-                searchProfile.getGenreIdRestriction().add(genre);
+                genreRestriction.add(genre);
             } catch (IOException e) {
+                logger.log(Level.WARNING, PromptMessages.INVALID_GENRE_NAME_ERROR);
                 ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_GENRE_NAME);
             }
         }
+        return searchProfile.setGenreIdRestriction(genreRestriction);
     }
 
     /**
@@ -339,6 +367,7 @@ public class SearchCommand extends CommandSuper {
         System.out.println(getFlagMap().get(GET_NEW_ADULT_RATING));
         ArrayList<String> getParams = getFlagMap().get(GET_NEW_ADULT_RATING);
         if (getParams.size() != 1) {
+            logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
             ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
             throw new InvalidFormatCommandException();
         }
@@ -347,9 +376,9 @@ public class SearchCommand extends CommandSuper {
         } else if (getFlagMap().get(GET_NEW_ADULT_RATING).contains(USER_PREF_FOR_ADULT_FALSE)) {
             return false;
         } else {
+            logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
             ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
             throw new InvalidFormatCommandException();
         }
     }
-
 }

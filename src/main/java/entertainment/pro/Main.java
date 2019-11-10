@@ -37,7 +37,7 @@ public class Main extends Application {
     private void setUp() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("trial.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("MainPage.fxml"));
             mainLayout = loader.load();
 
             // setup the controller's window and reference to this main application class

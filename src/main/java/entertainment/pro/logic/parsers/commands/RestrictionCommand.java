@@ -1,9 +1,9 @@
 package entertainment.pro.logic.parsers.commands;
 
-import entertainment.pro.storage.utils.ProfileCommands;
+import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
@@ -11,19 +11,19 @@ import java.io.IOException;
 
 public class RestrictionCommand extends CommandSuper {
     public RestrictionCommand(Controller uiController) {
-        super(COMMANDKEYS.restriction, CommandStructure.cmdStructure.get(COMMANDKEYS.restriction), uiController);
+        super(CommandKeys.RESTRICTION, CommandStructure.cmdStructure.get(CommandKeys.RESTRICTION), uiController);
     }
 
     @Override
     public void executeCommands() throws IOException {
         switch (this.getSubRootCommand()) {
-        case add:
+        case ADD:
             executeAddRestriction();
             break;
-        case remove:
+        case REMOVE:
             executeRemoveRestriction();
             break;
-        case clear:
+        case CLEAR:
             executeClearRestriction();
             break;
         default:

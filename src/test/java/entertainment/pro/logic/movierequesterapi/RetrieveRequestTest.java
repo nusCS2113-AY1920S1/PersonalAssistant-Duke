@@ -1,11 +1,11 @@
-package entertainment.pro.logic.movieRequesterAPI;
+package entertainment.pro.logic.movierequesterapi;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
-import entertainment.pro.ui.MovieHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,13 +13,9 @@ import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static entertainment.pro.ui.MovieHandler.mMovieRequest;
-import static javafx.scene.input.KeyCode.A;
-import static javafx.scene.input.KeyCode.R;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RetrieveRequestTest {
@@ -98,7 +94,7 @@ public class RetrieveRequestTest {
         JSONArray searchData2 = getValidData(data2);
         String cert1 = "Unavailable";
         try {
-            cert1 = RetrieveRequest.getTVCertFromJSON(searchData1);
+            cert1 = RetrieveRequest.getTvCertFromJson(searchData1);
         } catch (NullPointerException e) {
             assertEquals("Unavailable", cert1);
             return;
@@ -107,7 +103,7 @@ public class RetrieveRequestTest {
         String expected1 = "Suitable for 12 years & above";
         String cert2 = null;
         try {
-            cert2 = RetrieveRequest.getMovieCertFromJSON(searchData2);
+            cert2 = RetrieveRequest.getMovieCertFromJson(searchData2);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -122,7 +118,7 @@ public class RetrieveRequestTest {
         JSONArray searchData1 = getValidData(data);
         String cert1 = null;
         try {
-            cert1 = RetrieveRequest.getMovieCertFromJSON(searchData1);
+            cert1 = RetrieveRequest.getMovieCertFromJson(searchData1);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -138,7 +134,7 @@ public class RetrieveRequestTest {
         JSONArray searchData2 = getValidData(data2);
         String cert1 = "Unavailable";
         try {
-            cert1 = RetrieveRequest.getMovieCertFromJSON(searchData1);
+            cert1 = RetrieveRequest.getMovieCertFromJson(searchData1);
         } catch (NullPointerException | ParseException e) {
             assertEquals("Unavailable", cert1);
             return;
@@ -147,7 +143,7 @@ public class RetrieveRequestTest {
         String expected1 = "\"R\"";
         String cert2 = null;
         try {
-            cert2 = RetrieveRequest.getMovieCertFromJSON(searchData2);
+            cert2 = RetrieveRequest.getMovieCertFromJson(searchData2);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -162,7 +158,7 @@ public class RetrieveRequestTest {
         JSONArray searchData1 = getValidData(data);
         String cert1 = null;
         try {
-            cert1 = RetrieveRequest.getMovieCertFromJSON(searchData1);
+            cert1 = RetrieveRequest.getMovieCertFromJson(searchData1);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -260,14 +256,14 @@ public class RetrieveRequestTest {
                 int genreNo = Math.toIntExact(num);
                 genreRestrict.add(genreNo);
             }
-            searchProfile.setGenreIdPreference(genrePref);
-            searchProfile.setGenreIdRestriction(genreRestrict);
-            searchProfile.setAdult((Boolean) jsonObject.get("adult"));
-            searchProfile.setSortByAlphabetical((Boolean) jsonObject.get("sortByAlphabetical"));
-            searchProfile.setSortByHighestRating((Boolean) jsonObject.get("sortByHighestRating"));
-            searchProfile.setSortByHighestRating((Boolean) jsonObject.get("sortByLatestRelease"));
-            searchProfile.setMovie((Boolean) jsonObject.get("isMovie"));
-            searchProfile.setName((String) jsonObject.get("name"));
+            searchProfile = searchProfile.setGenreIdPreference(genrePref);
+            searchProfile = searchProfile.setGenreIdRestriction(genreRestrict);
+            searchProfile = searchProfile.setAdult((Boolean) jsonObject.get("adult"));
+            searchProfile = searchProfile.setSortByAlphabetical((Boolean) jsonObject.get("sortByAlphabetical"));
+            searchProfile = searchProfile.setSortByHighestRating((Boolean) jsonObject.get("sortByHighestRating"));
+            searchProfile = searchProfile.setSortByHighestRating((Boolean) jsonObject.get("sortByLatestRelease"));
+            searchProfile = searchProfile.setMovie((Boolean) jsonObject.get("isMovie"));
+            searchProfile = searchProfile.setName((String) jsonObject.get("name"));
             RetrieveRequest.searchProfile = searchProfile;
             JSONArray jsonArray3 = getOffline();
             ArrayList<String> getResults = getResultsData();
@@ -276,7 +272,7 @@ public class RetrieveRequestTest {
                 if (RetrieveRequest.checkCondition(jsonObject1)) {
                     //    System.out.println("true");
                     //} else {
-                    //  System.out.println("false");
+                     // System.out.println("false");
                     //}
                     assertEquals("true", getResults.get(d));
                     d += 1;

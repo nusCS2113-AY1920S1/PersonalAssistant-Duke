@@ -20,7 +20,7 @@ public class MovieInfoObject extends MovieModel {
     private boolean isAdultContent;
     private String certInfo;
     private ArrayList<String> castInfo;
-    private String DEFAULT_IMAGE_FILENAME = "/images/FakeMoviePoster.png";
+    private final String defaultImageFileName = "/images/FakeMoviePoster.png";
 
 
     /**
@@ -265,8 +265,8 @@ public class MovieInfoObject extends MovieModel {
      */
     public void setPosterRootPath(String rootPath, String posterSize, boolean isOffline) {
         if (isOffline) {
-            fullPosterPathInfo = DEFAULT_IMAGE_FILENAME;
-            fullBackdropPathInfo = DEFAULT_IMAGE_FILENAME;
+            fullPosterPathInfo = defaultImageFileName;
+            fullBackdropPathInfo = defaultImageFileName;
         } else {
             fullPosterPathInfo = String.format("%s%s%s", rootPath, posterSize, posterPathInfo);
             fullBackdropPathInfo = String.format("%s%s%s", rootPath, posterSize, backdropPathInfo);

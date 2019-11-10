@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+/**
+ * This class handles exceptions related to setting genre preferences.
+ * @@author nwenhui
+ */
 public class PreferenceExceptions extends Exceptions {
     public PreferenceExceptions(String message) {
         super(message);

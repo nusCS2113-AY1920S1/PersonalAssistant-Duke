@@ -7,6 +7,7 @@ import entertainment.pro.commons.exceptions.GenreDoesNotExistException;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.InvalidGenreNameEnteredException;
 import entertainment.pro.model.UserProfile;
+import entertainment.pro.storage.user.ProfileCommands;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class ProfileCommandsTest {
     static UserProfile userProfile;
     {
         try {
-            userProfile = EditProfileJson.load();
+            userProfile = new EditProfileJson().load();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -181,13 +182,13 @@ public class ProfileCommandsTest {
         sortOption.add("1");
         flagMap.put("-s", sortOption);
         try {
-            profileCommands.addPreference(flagMap, "-s");
+            UserProfile newUserProfile = profileCommands.addPreference(flagMap, "-s");
+            assertTrue(newUserProfile.isSortByAlphabetical(), "Test failed");
+            assertFalse(newUserProfile.isSortByHighestRating(), "Test failed");
+            assertFalse(newUserProfile.isSortByLatestRelease(), "Test failed");
         } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
             e.printStackTrace();
         }
-        assertTrue(userProfile.isSortByAlphabetical(), "Test failed");
-        assertFalse(userProfile.isSortByHighestRating(), "Test failed");
-        assertFalse(userProfile.isSortByLatestRelease(), "Test failed");
         profileCommands.clearSortPreference();
     }
 
@@ -199,7 +200,7 @@ public class ProfileCommandsTest {
         sortOption.add("4");
         testFlagMap1.put("-s", sortOption);
         assertThrows(InvalidFormatCommandException.class, () -> {
-                profileCommands.addPreference(testFlagMap1, "-s");
+            profileCommands.addPreference(testFlagMap1, "-s");
         });
         testFlagMap1.get("-s").add("4");
         assertThrows(InvalidFormatCommandException.class, () -> {
@@ -220,12 +221,12 @@ public class ProfileCommandsTest {
         adultOption.add("true");
         flagMap.put("-a", adultOption);
         try {
-            profileCommands.addPreference(flagMap, "-a");
+            UserProfile newUserProfile = profileCommands.addPreference(flagMap, "-a");
+            assertTrue(newUserProfile.isAdult(), "Test has failed");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertTrue(userProfile.isAdult(), "Test has failed");
-        profileCommands.clearSortPreference();
+        profileCommands.clearAdultPreference();
     }
 
     @Test
@@ -260,9 +261,10 @@ public class ProfileCommandsTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertFalse(userProfile.isSortByAlphabetical(), "Test failed");
-        assertFalse(userProfile.isSortByHighestRating(), "Test failed");
-        assertFalse(userProfile.isSortByLatestRelease(), "Test failed");
+        UserProfile newUserProfile = new EditProfileJson().load();
+        assertFalse(newUserProfile.isSortByAlphabetical(), "Test failed");
+        assertFalse(newUserProfile.isSortByHighestRating(), "Test failed");
+        assertFalse(newUserProfile.isSortByLatestRelease(), "Test failed");
         profileCommands.clearSortPreference();
     }
 
@@ -272,11 +274,11 @@ public class ProfileCommandsTest {
         ArrayList<String> adultOption = new ArrayList<>();
         flagMap.put("-a", adultOption);
         try {
-            profileCommands.clearPreference(flagMap, "-a");
+            UserProfile newUserProfile = profileCommands.clearPreference(flagMap, "-a");
+            assertFalse(newUserProfile.isAdult(), "Test failed");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertFalse(userProfile.isAdult(), "Test failed");
     }
 
     @Test

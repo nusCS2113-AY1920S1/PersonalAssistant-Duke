@@ -4,44 +4,49 @@ import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.InvalidParameterException;
 import entertainment.pro.commons.exceptions.NoPermissionException;
 import entertainment.pro.commons.exceptions.logic.SetExceptions;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.utils.EditProfileJson;
-import entertainment.pro.storage.utils.ProfileCommands;
+import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.storage.user.WatchlistHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SetCommand extends CommandSuper {
-    public SetCommand(Controller uicontroller) {
-        super(COMMANDKEYS.set, CommandStructure.cmdStructure.get(COMMANDKEYS.set), uicontroller);
+    private Logger logger = Logger.getLogger(this.getClass().getName());
+
+    public SetCommand(Controller uiController) {
+        super(CommandKeys.SET, CommandStructure.cmdStructure.get(CommandKeys.SET), uiController);
     }
 
     @Override
     public void executeCommands() throws IOException {
         switch (this.getSubRootCommand()) {
-        case name:
+        case NAME:
             System.out.println("enter");
             executeSetName();
             break;
-        case age:
+        case AGE:
             executeSetAge();
             break;
-        case preference:
+        case PREFERENCE:
             executeSetPreference();
             break;
-        case watchlist:
+        case WATCHLIST:
             System.out.println("enter");
             executeTaskDone();
             break;
-        case restriction:
+        case RESTRICTION:
             executeSetRestriction();
             break;
-        case sort:
+        case SORT:
             executeSort();
             break;
         default:
@@ -55,16 +60,21 @@ public class SetCommand extends CommandSuper {
             String getQuery = getPayload();
             SetExceptions.checkSortCommand(getQuery);
             ProfileCommands commands = new ProfileCommands(movieHandler.getUserProfile());
+            EditProfileJson editProfileJson = new EditProfileJson();
+            UserProfile userProfile = editProfileJson.load();
             if (getQuery.equals("1")) {
-                commands.setSort(true, false, false);
+                userProfile = commands.setSort(true, false, false);
             } else if (getQuery.equals("2")) {
-                commands.setSort(false, true, false);
+                userProfile = commands.setSort(false, true, false);
             } else if (getQuery.equals("3")) {
-                commands.setSort(false, false, true);
+                userProfile = commands.setSort(false, false, true);
             }
+            editProfileJson.updateProfile(userProfile);
             movieHandler.setLabels();
+            logger.log(Level.INFO, PromptMessages.SORT_SET);
         } catch (InvalidParameterException | IOException e) {
             movieHandler.setGeneralFeedbackText(e.getMessage());
+            logger.log(Level.WARNING, PromptMessages.SORT_SET_ERROR);
         }
     }
 
@@ -81,10 +91,15 @@ public class SetCommand extends CommandSuper {
         try {
             SetExceptions.checkNameCommand(this.getPayload());
             ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-            command.setName(this.getPayload());
+            EditProfileJson editProfileJson = new EditProfileJson();
+            UserProfile userProfile = editProfileJson.load();
+            userProfile = command.setName(this.getPayload());
+            editProfileJson.updateProfile(userProfile);
             movieHandler.setLabels();
+            logger.log(Level.INFO, PromptMessages.NAME_SET);
         } catch (InvalidFormatCommandException | IOException e) {
             movieHandler.setGeneralFeedbackText(e.getMessage());
+            logger.log(Level.WARNING, PromptMessages.NAME_SET_ERROR);
         }
         movieHandler.clearSearchTextField();
     }
@@ -101,10 +116,15 @@ public class SetCommand extends CommandSuper {
         try {
             SetExceptions.checkAgeCommand(this.getPayload());
             ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-            command.setAge(this.getPayload());
+            EditProfileJson editProfileJson = new EditProfileJson();
+            UserProfile userProfile = editProfileJson.load();
+            userProfile = command.setAge(this.getPayload());
+            editProfileJson.updateProfile(userProfile);
             movieHandler.setLabels();
+            logger.log(Level.INFO, PromptMessages.AGE_SET);
         } catch (InvalidParameterException | InvalidFormatCommandException | IOException e) {
             movieHandler.setGeneralFeedbackText(e.getMessage());
+            logger.log(Level.WARNING, PromptMessages.AGE_SET_ERROR);
         }
         movieHandler.clearSearchTextField();
     }
@@ -120,13 +140,17 @@ public class SetCommand extends CommandSuper {
     private void executeSetPreference() throws IOException {
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         try {
-            UserProfile userProfile = new EditProfileJson().load();
+            EditProfileJson editProfileJson = new EditProfileJson();
+            UserProfile userProfile = editProfileJson.load();
             SetExceptions.checkPreferenceCommand(this.getFlagMap(), userProfile);
             ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-            command.setPreference(this.getFlagMap());
+            userProfile = command.setPreference(this.getFlagMap());
+            editProfileJson.updateProfile(userProfile);
             movieHandler.setLabels();
+            logger.log(Level.INFO, PromptMessages.PREFERENCE_SET);
         } catch (InvalidParameterException | NoPermissionException | InvalidFormatCommandException e) {
             movieHandler.setGeneralFeedbackText(e.getMessage());
+            logger.log(Level.WARNING, PromptMessages.PREFERENCE_SET_ERROR);
         }
         movieHandler.clearSearchTextField();
     }
@@ -141,13 +165,17 @@ public class SetCommand extends CommandSuper {
     private void executeSetRestriction() throws IOException {
         MovieHandler movieHandler = ((MovieHandler)this.getUiController());
         try {
-            UserProfile userProfile = new EditProfileJson().load();
+            EditProfileJson editProfileJson = new EditProfileJson();
+            UserProfile userProfile = editProfileJson.load();
             SetExceptions.checkRestrictionCommand(this.getFlagMap(), userProfile);
             ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-            command.setRestriction(this.getFlagMap());
+            userProfile = command.setRestriction(this.getFlagMap());
+            editProfileJson.updateProfile(userProfile);
             movieHandler.setLabels();
+            logger.log(Level.INFO, PromptMessages.RESTRICTION_SET);
         } catch (InvalidFormatCommandException | InvalidParameterException e) {
             movieHandler.setGeneralFeedbackText(e.getMessage());
+            logger.log(Level.WARNING, PromptMessages.RESTRICTION_SET_ERROR);
         }
         movieHandler.clearSearchTextField();
     }

@@ -1,15 +1,20 @@
 package entertainment.pro.storage.utils;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
+import entertainment.pro.commons.exceptions.ParseExceptionInExtraction;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class is responsible for fetching appropriate string data for search requests.
@@ -30,59 +35,65 @@ public class OfflineSearchStorage {
     private static final String MOVIES_DATABASE_FILEPATH = "/data/movieData/";
     private static final String TV_DATABASE_FILEPATH = "/data/tvData/";
     private static final String KEYWORD_FOR_SEARCH_REQUESTS = "results";
+    private static final Logger logger = Logger.getLogger(OfflineSearchStorage.class.getName());
 
     /**
      * Load and fetch appropriate string data for search requests.
+     *
      * @return JSONArray that consist of all the required data for the search request.
      * @throws Exceptions when encounter a failed/interrupted I/O operation.
      */
-    public static JSONArray load() throws IOException, Exceptions {
-        String dataFromJSON = "";
+    public static JSONArray load() throws Exceptions {
+        String datafromjson = "";
         JSONArray searchData = new JSONArray();
         RetrieveRequest.MoviesRequestType type = RetrieveRequest.getGetType();
         String filename = getFileName(type);
-        if ((type.equals(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES)) ||
-                (type.equals(RetrieveRequest.MoviesRequestType.SEARCH_TV))) {
+        if ((type.equals(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES))
+                || (type.equals(RetrieveRequest.MoviesRequestType.SEARCH_TV))) {
             searchData = getSearchData(type);
             return searchData;
         }
-        dataFromJSON = getData(filename);
+        datafromjson = getData(filename);
         System.out.println(filename);
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject = (JSONObject) jsonParser.parse(dataFromJSON);
+            jsonObject = (JSONObject) jsonParser.parse(datafromjson);
             searchData = (JSONArray) jsonObject.get(KEYWORD_FOR_SEARCH_REQUESTS);
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, PromptMessages.PARSE_EXCEPTION_IN_EXTRACTION);
+            throw new ParseExceptionInExtraction();
         }
-        //return jsonArray;
         return searchData;
     }
 
     /**
      * Responsible for fetching the data from the file.
+     *
      * @param filename The name of the file that consists the data.
      * @return String that consists all the data fetched from the file.
      * @throws Exceptions when encounter a failed/interrupted I/O operation.
      */
     public static String getData(String filename) throws Exceptions {
+        logger.log(Level.INFO, PromptMessages.EXTRACTING_FROM_FILE);
         InputStream inputStream = OfflineSearchStorage.class.getResourceAsStream(filename);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         String line = "";
-        String dataFromJSON = "";
+        String datafromjson = "";
         try {
             while ((line = bufferedReader.readLine()) != null) {
-                dataFromJSON += line;
+                datafromjson += line;
             }
             bufferedReader.close();
             inputStreamReader.close();
             inputStream.close();
+            logger.log(Level.INFO, PromptMessages.EXTRACTED_FROM_FILE);
         } catch (IOException e) {
+            logger.log(Level.WARNING, PromptMessages.IO_EXCEPTION_IN_OFFLINE);
             throw new Exceptions(PromptMessages.IO_EXCEPTION_IN_OFFLINE);
         }
-        return dataFromJSON;
+        return datafromjson;
     }
 
     /**
@@ -94,41 +105,43 @@ public class OfflineSearchStorage {
     public static String getFileName(RetrieveRequest.MoviesRequestType type) {
         String filename = "";
         switch (type) {
-            case CURRENT_MOVIES:
-                filename = CURRENT_MOVIES_DATA_FILEPATH;
-                break;
-            case UPCOMING_MOVIES:
-                filename = UPCOMING_MOVIES_DATA_FILEPATH;
-                break;
-            case TRENDING_MOVIES:
-                filename = TRENDING_MOVIES_DATA_FILEPATH;
-                break;
-            case TOP_RATED_MOVIES:
-                filename = TOP_RATED_MOVIES_DATA_FILEPATH;
-                break;
-            case POPULAR_MOVIES:
-                filename = POPULAR_MOVIES_DATA_FILEPATH;
-                break;
-            case CURRENT_TV:
-                filename = CURRENT_TV_DATA_FILEPATH;
-                break;
-            case TRENDING_TV:
-                filename = TRENDING_TV_DATA_FILEPATH;
-                break;
-            case TOP_RATED_TV:
-                filename = TOP_RATED_TV_DATA_FILEPATH;
-                break;
-            case POPULAR_TV:
-                filename = POPULAR_TV_DATA_FILEPATH;
-                break;
-            default:
-                filename = "";
+        case CURRENT_MOVIES:
+            filename = CURRENT_MOVIES_DATA_FILEPATH;
+            ;
+            break;
+        case UPCOMING_MOVIES:
+            filename = UPCOMING_MOVIES_DATA_FILEPATH;
+            break;
+        case TRENDING_MOVIES:
+            filename = TRENDING_MOVIES_DATA_FILEPATH;
+            break;
+        case TOP_RATED_MOVIES:
+            filename = TOP_RATED_MOVIES_DATA_FILEPATH;
+            break;
+        case POPULAR_MOVIES:
+            filename = POPULAR_MOVIES_DATA_FILEPATH;
+            break;
+        case CURRENT_TV:
+            filename = CURRENT_TV_DATA_FILEPATH;
+            break;
+        case TRENDING_TV:
+            filename = TRENDING_TV_DATA_FILEPATH;
+            break;
+        case TOP_RATED_TV:
+            filename = TOP_RATED_TV_DATA_FILEPATH;
+            break;
+        case POPULAR_TV:
+            filename = POPULAR_TV_DATA_FILEPATH;
+            break;
+        default:
+            filename = "";
         }
         return filename;
     }
 
     /**
      * Responsible for fetching data for search by name request.
+     *
      * @return JSONArray that consist of all the required data for the search request.
      * @throws Exceptions when encounter a failed/interrupted I/O operation.
      */
@@ -143,17 +156,19 @@ public class OfflineSearchStorage {
             fileType = TV_DATABASE_FILEPATH;
             maxFileNo = MAX_FILE_NO_FOR_TV;
         }
+        logger.log(Level.INFO, PromptMessages.EXTRACTING_FROM_FILE);
         for (int i = 1; i <= maxFileNo; i += 1) {
             String filename = fileType;
             filename += i + ".json";
             System.out.println(filename);
-            String dataFromJSON = getData(filename);
+            String datafromjson = getData(filename);
             JSONParser jsonParser = new JSONParser();
             JSONArray jsonArray = new JSONArray();
             try {
-                jsonArray = (JSONArray) jsonParser.parse(dataFromJSON);
+                jsonArray = (JSONArray) jsonParser.parse(datafromjson);
             } catch (ParseException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, PromptMessages.PARSE_EXCEPTION_IN_EXTRACTION);
+                throw new ParseExceptionInExtraction();
             }
             System.out.println(filename);
             for (int j = 0; j < jsonArray.size(); j += 1) {
@@ -161,6 +176,7 @@ public class OfflineSearchStorage {
                 searchResults.add(jsonObject);
             }
         }
+        logger.log(Level.INFO, PromptMessages.EXTRACTED_FROM_FILE);
         return searchResults;
     }
 }

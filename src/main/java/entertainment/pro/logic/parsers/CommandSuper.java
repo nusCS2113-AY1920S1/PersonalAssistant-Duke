@@ -1,17 +1,21 @@
 package entertainment.pro.logic.parsers;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
+import entertainment.pro.commons.assertions.CommandAssertions;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.model.CommandPair;
-import org.apache.commons.logging.Log;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.TreeMap;
+import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -24,11 +28,11 @@ public abstract class CommandSuper {
 
     private Controller uicontroller;
 
-    private COMMANDKEYS[] subCommand;
-    private COMMANDKEYS root;
+    private CommandKeys[] subCommand;
+    private CommandKeys root;
 
     private TreeMap<String, ArrayList<String>> flagMap = new TreeMap<String, ArrayList<String>>();
-    private COMMANDKEYS subRootCommand;
+    private CommandKeys subRootCommand;
     private String payload;
     private boolean execute = false;
 
@@ -56,7 +60,7 @@ public abstract class CommandSuper {
         this.execute = execute;
     }
 
-    public COMMANDKEYS getRoot() {
+    public CommandKeys getRoot() {
         return root;
     }
 
@@ -64,7 +68,7 @@ public abstract class CommandSuper {
         return flagMap;
     }
 
-    public COMMANDKEYS getSubRootCommand() {
+    public CommandKeys getSubRootCommand() {
         return subRootCommand;
     }
 
@@ -75,7 +79,7 @@ public abstract class CommandSuper {
     /**
      * Constructor for each Command Super class.
      */
-    public CommandSuper(COMMANDKEYS root, COMMANDKEYS[] subCommand, Controller uicontroller) {
+    public CommandSuper(CommandKeys root, CommandKeys[] subCommand, Controller uicontroller) {
 
         this.uicontroller = uicontroller;
         this.subCommand = subCommand;
@@ -96,13 +100,17 @@ public abstract class CommandSuper {
      * @param command   command that was entered by the user.
      */
 
-    public boolean initCommand(String[] commandArr , String command) throws MissingInfoException {
+    public boolean initCommand(String[] commandArr, String command) throws MissingInfoException {
+
+        assert (CommandAssertions.assertIsLowerString(command));
+        assert (CommandAssertions.assertIsLowerStringArr(commandArr));
 
         if (!subCommand(commandArr)) {
             return false;
         }
+
         try {
-            processFlags(commandArr, command);
+            processFlags(command);
         } catch (InvalidFormatCommandException e) {
             ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
         }
@@ -119,11 +127,12 @@ public abstract class CommandSuper {
      * @param command   command that was entered by the user.
      * @param subRootCommand the subRoot command  that was found
      */
-    public void initCommand(String[] commandArr, String command, COMMANDKEYS subRootCommand) {
+    public void initCommand(String[] commandArr, String command, CommandKeys subRootCommand) {
 
         this.subRootCommand = subRootCommand;
+
         try {
-            processFlags(commandArr, command);
+            processFlags(command);
         } catch (InvalidFormatCommandException e) {
             ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
         }
@@ -139,12 +148,11 @@ public abstract class CommandSuper {
      */
     public boolean subCommand(String[] commandArr) throws MissingInfoException {
         if (commandArr.length <= 1) {
-            subRootCommand = COMMANDKEYS.none;
+            subRootCommand = CommandKeys.NONE;
             if (CommandStructure.cmdStructure.get(root).length > 0) {
-                //Supposed to have Sub root but doesnt
                 setExecute(false);
                 if (uicontroller != null) {
-                    throw new MissingInfoException("You are missing a few Arguments!!");
+                    throw new MissingInfoException(PromptMessages.COMMAND_MISSING_ARGS);
                 }
                 return false;
             } else {
@@ -154,18 +162,17 @@ public abstract class CommandSuper {
 
         } else {
             try {
-                for (COMMANDKEYS cmd : subCommand) {
-                    if (COMMANDKEYS.valueOf(commandArr[1]) == cmd) {
+                for (CommandKeys cmd : subCommand) {
+                    assert (CommandAssertions.assertIsLowerString(commandArr[1]));
+                    if (CommandKeys.valueOf(commandArr[1].toUpperCase()) == cmd) {
                         subRootCommand = cmd;
                         execute = true;
                         return true;
                     }
                 }
             } catch (Exception e) {
-                System.out.println(e);
+                logger.log(Level.SEVERE, e.toString());
             }
-
-            //Matching Subroot command not found
 
             CommandPair cmds = CommandDebugger.commandSpellChecker(commandArr, root, this.uicontroller);
             subRootCommand = cmds.getSubRootCommand();
@@ -187,29 +194,29 @@ public abstract class CommandSuper {
      * @return Feedback to ask user about his/her intentions for the command
      */
     private String getDidYouMeanText(String[] commandArr) {
-        return "Did you mean :" + root + " " + subRootCommand + " "
+        return PromptMessages.DID_YOU_MEAN + root.toString().toLowerCase() + " "
+                + subRootCommand.toString().toLowerCase() + " "
                 + String.join(" ", Arrays.copyOfRange(commandArr, 2, commandArr.length));
     }
 
     /**
      * find flag values.
      *
-     * @param commandArr command that was entered by the user in split array form
      * @param command   command that was entered by the user.
      */
-    public void processFlags(String[] commandArr, String command) throws InvalidFormatCommandException {
+    public void processFlags(String command) throws InvalidFormatCommandException {
+
+        String[] commandArr = command.split(" ");
 
         String f = "";
         boolean found = false;
-        String[] commandFlagSplit = command.split("-[a-z,A-Z]");
 
         ArrayList<String> flagOrder = new ArrayList<>();
 
-        System.out.println("ROLLING");
+        logger.log(Level.INFO, "Finding Flags");
         for (String s :commandArr) {
             if (s.matches("-[a-z,A-Z]")) {
                 flagOrder.add(s);
-                System.out.println(s);
             }
         }
 
@@ -220,6 +227,8 @@ public abstract class CommandSuper {
         }
 
         int counter = 0;
+
+        String[] commandFlagSplit = command.split("-[a-z,A-Z]");
 
         for (String flagValues : commandFlagSplit) {
             if (first) {
@@ -241,7 +250,6 @@ public abstract class CommandSuper {
             }
 
             flagMap.put(flagOrder.get(counter), listOfString);
-            System.out.println("checkpoint " + counter + listOfString.size());
             counter++;
         }
 
@@ -264,8 +272,8 @@ public abstract class CommandSuper {
      * @param commandArr command that was entered by the user in split array form
      */
     public void processPayload(String []commandArr) {
-        if (this.root != COMMANDKEYS.none) {
-            if (this.subRootCommand != COMMANDKEYS.none) {
+        if (this.root != CommandKeys.NONE) {
+            if (this.subRootCommand != CommandKeys.NONE) {
                 payload =  getThePayload(2, commandArr);
             } else {
                 payload = getThePayload(1, commandArr);
@@ -318,7 +326,8 @@ public abstract class CommandSuper {
             flagsStr += " ";
         }
 
-        return getRoot().toString() + " " + getSubRootCommand().toString() + " "  + payload + " " + flagsStr;
+        return getRoot().toString().toLowerCase() + " " + getSubRootCommand().toString().toLowerCase()
+                + " "  + payload + " " + flagsStr;
     }
 
     /**

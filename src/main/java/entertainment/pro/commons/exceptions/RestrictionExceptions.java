@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+/**
+ * This class handles exceptions related to setting genre restrictions.
+ * @@author nwenhui
+ */
 public class RestrictionExceptions extends Exceptions {
     public RestrictionExceptions(String message) {
         super(message);

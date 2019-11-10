@@ -74,9 +74,6 @@ public class Blacklist {
      */
     private static void initialiseBlackListMovieID(ArrayList<MovieModel> movies) {
         for (MovieModel m : movies) {
-
-
-//            System.out.print(m.getSummary());
             blackListMovies.add(m);
         }
     }
@@ -87,9 +84,10 @@ public class Blacklist {
      * @param movie command that was entered by the user in split array form
      */
     public static void addToBlacklistKeyWord(String movie) throws DuplicateEntryException {
-        if (movie.trim() == "") {
+        if (movie.trim().equals("")) {
             return;
         }
+
         if (blackListKeyWords.contains(movie.toLowerCase())) {
             throw new DuplicateEntryException("blacklist");
         }
@@ -102,7 +100,7 @@ public class Blacklist {
      * @param mo movie object
      */
     public static void addToBlacklistMoviesID(MovieInfoObject mo) throws DuplicateEntryException {
-        if (mo == null || mo.getTitle() == "") {
+        if (mo == null || mo.getTitle().equals("")) {
             return;
         }
         for (MovieModel mm: blackListMovies) {
@@ -110,7 +108,7 @@ public class Blacklist {
                 throw new DuplicateEntryException("blacklist");
             }
         }
-        blackListMovies.add(new MovieModel(mo.getId() , mo.getTitle().toLowerCase()));
+        blackListMovies.add(new MovieModel(mo.getId(), mo.getTitle().toLowerCase()));
         saveBlackList();
     }
 
@@ -118,7 +116,7 @@ public class Blacklist {
      * Adding Movies to blacklist.
      */
     public static void addToBlacklistMovie(String movie) throws DuplicateEntryException {
-        if (movie.trim() == "") {
+        if (movie.trim().equals("")) {
             return;
         }
         if (blackListMoviesTitle.contains(movie.toLowerCase().trim())) {
@@ -149,7 +147,7 @@ public class Blacklist {
      * @return true if keyword successfully removed
      */
     public static boolean removeFromBlacklistKeyWord(String keyword)  {
-        if (keyword.trim() == "") {
+        if (keyword.trim().equals("")) {
             return false;
         }
         ArrayList<String> newKeywords = (ArrayList<String>) blackListKeyWords.clone();
@@ -172,7 +170,7 @@ public class Blacklist {
      * @return true if keyword successfully removed
      */
     public static boolean removeFromBlacklistMovieTitle(String movie)  {
-        if (movie.trim() == "") {
+        if (movie.trim().equals("")) {
             return false;
         }
 
@@ -339,12 +337,12 @@ public class Blacklist {
      * Filters search results to exclude blacklisted items.
      * @return filtered search results.
      */
-    public static ArrayList<MovieInfoObject> filter(ArrayList<MovieInfoObject> mMovies) {
-        mMovies = filterByKeyword(mMovies);
-        mMovies = filterById(mMovies);
-        mMovies = filterByTitle(mMovies);
+    public static ArrayList<MovieInfoObject> filter(ArrayList<MovieInfoObject> miMovies) {
+        miMovies = filterByKeyword(miMovies);
+        miMovies = filterById(miMovies);
+        miMovies = filterByTitle(miMovies);
 
-        return mMovies;
+        return miMovies;
     }
 
     /**

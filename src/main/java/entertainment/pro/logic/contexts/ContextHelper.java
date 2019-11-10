@@ -1,8 +1,8 @@
 package entertainment.pro.logic.contexts;
 
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.assertions.CommandAssertions;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
-import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.user.WatchlistHandler;
 import entertainment.pro.storage.utils.EditProfileJson;
@@ -16,7 +16,6 @@ import java.util.Map;
 
 /**
  * Contains helper functions for autocompletion.
- *
  */
 public class ContextHelper {
 
@@ -24,7 +23,6 @@ public class ContextHelper {
     private static final int ONE_WORD = 1;
     private static final int TWO_WORDS = 2;
     private static final int MORE_THAN_TWO_WORDS = 3;
-
 
 
     /**
@@ -45,8 +43,9 @@ public class ContextHelper {
      * @return true if the Root command is completed
      */
     private static boolean isRootCommandComplete(String root) {
-        for (COMMANDKEYS c : CommandStructure.AllRoots) {
-            if (c.toString().equals(root)) {
+        assert (CommandAssertions.assertIsLowerString(root));
+        for (CommandKeys c : CommandStructure.AllRoots) {
+            if (c.toString().toLowerCase().equals(root)) {
                 return true;
             }
         }
@@ -62,6 +61,7 @@ public class ContextHelper {
      * @return true if the testSubRoot command is completed
      */
     public static boolean testisSubRootCommandComplete(String testSubRoot) {
+        assert (CommandAssertions.assertIsLowerString(testSubRoot));
         return isSubRootCommandComplete(testSubRoot);
     }
 
@@ -72,9 +72,11 @@ public class ContextHelper {
      * @return true if the subRoot command is completed
      */
     private static boolean isSubRootCommandComplete(String subRoot) {
-        for (Map.Entry<COMMANDKEYS, COMMANDKEYS[]> e: CommandStructure.cmdStructure.entrySet()) {
-            for (COMMANDKEYS a: e.getValue()) {
-                if (a.toString().equals(subRoot)) {
+        assert (CommandAssertions.assertIsLowerString(subRoot));
+        for (Map.Entry<CommandKeys, CommandKeys[]> e: CommandStructure.cmdStructure.entrySet()) {
+            for (CommandKeys a: e.getValue()) {
+                if (a.toString().toLowerCase().equals(subRoot)) {
+
                     return true;
                 }
             }
@@ -89,7 +91,7 @@ public class ContextHelper {
      * If the incomplete word is only the command, then a single word is returned.
      * If payload is incomplete, the entire payload is returned
      *
-     * @param command Incomplete user input
+     * @param command    Incomplete user input
      * @param controller Ui controller
      * @return String of incomplete words
      */
@@ -109,7 +111,7 @@ public class ContextHelper {
                     Arrays.copyOfRange(splitCommand, 2, splitCommand.length));
             String[] commandFlagSplit = processedCommand.split("-[a-z]");
             String[] lastinput = commandFlagSplit[commandFlagSplit.length - 1].split(",");
-            incompleteCommand = lastinput[lastinput.length - 1 ];
+            incompleteCommand = lastinput[lastinput.length - 1];
 
         }
         return incompleteCommand;
@@ -123,6 +125,9 @@ public class ContextHelper {
      * @return index of the end of common substring
      */
     public static int subStringIndex(String a, String b) {
+
+        assert (CommandAssertions.assertIsLowerString(a));
+        assert (CommandAssertions.assertIsLowerString(b));
         int counter = 0;
         for (int i = 0;; i++) {
             if (i >= a.length() || i >= b.length()) {
@@ -143,11 +148,12 @@ public class ContextHelper {
      * Function returns the difference in string between the
      * incomplete user input and common substring of all ossibilites.
      *
-     * @param allPossibilities Arraylist of all possible Strings the user could be trying to type
+     * @param allPossibilities  Arraylist of all possible Strings the user could be trying to type
      * @param incompleteCommand incomplete String by user
      * @return String to be added to incomplete command by autocomplete
      */
     public static String completeCommand(ArrayList<String> allPossibilities, String incompleteCommand) {
+        assert (CommandAssertions.assertIsLowerString(incompleteCommand));
         if (allPossibilities.size() == 0) {
             return "";
         }
@@ -160,10 +166,6 @@ public class ContextHelper {
             }
         }
 
-        System.out.println(allPossibilities.get(0));
-        System.out.println(incompleteCommand.length());
-        System.out.println(lengthOfLongestCommonSubstring);
-
         if (incompleteCommand.length() > lengthOfLongestCommonSubstring) {
             return "";
         }
@@ -175,25 +177,17 @@ public class ContextHelper {
 
     }
 
-//
-//
-//    private static ArrayList<String> commandSpecificHints(String root) {
-//        switch (root.toLowerCase().trim()) {
-//        case("blacklist"):
-//            System.out.println("BLACKLSITWEDM vervle");
-//            return Blacklist.getBlackListAll();
-//        default:
-//            return new ArrayList<String>() {
-//                {
-//                    add("Do you need help?? Enter (help <Root COMMAND> to learn more about your command)");
-//                }
-//            };
-//        }
-//    }
 
-
-    private static ArrayList<String> filterHints(ArrayList<String> hints , String incompleteCmd) {
+    /**
+     * Function to Filter hints based on incomplete command received.
+     * @param hints all hints
+     * @param incompleteCmd incomplete command
+     * @return possible hints based on incomplete Command.
+     */
+    private static ArrayList<String> filterHints(ArrayList<String> hints, String incompleteCmd) {
+        assert (CommandAssertions.assertIsLowerString(incompleteCmd));
         ArrayList<String> filteredHints =  new ArrayList<>();
+
         for (String s : hints) {
             if (s.toLowerCase().contains(incompleteCmd.toLowerCase())) {
                 filteredHints.add(s);
@@ -205,14 +199,18 @@ public class ContextHelper {
 
     /**
      * Gets all hints pertaining to the current user input and specific to the root command and subRoot command.
-     * @param root Root command entered
-     * @param subRoot SubRoot Command entered
+     *
+     * @param root              Root command entered
+     * @param subRoot           SubRoot Command entered
      * @param incompleteCommand Incomplete portion of the user input
      * @returns all possible strings
      */
     private static ArrayList<String> commandSpecificHints(String root, String subRoot, String incompleteCommand) {
+        assert (CommandAssertions.assertIsLowerString(root));
+        assert (CommandAssertions.assertIsLowerString(subRoot));
+        assert (CommandAssertions.assertIsLowerString(incompleteCommand));
         switch (root) {
-        case("blacklist"):
+        case ("blacklist"):
             ArrayList<String> hints = Blacklist.getBlackListHints(incompleteCommand);
             if (!subRoot.equals("remove")) {
                 hints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
@@ -227,8 +225,8 @@ public class ContextHelper {
 
         case ("playlist"):
             try {
-                ArrayList<String> playlistNames =  new EditProfileJson().load().getPlaylistNames();
-                return filterHints(playlistNames , incompleteCommand);
+                ArrayList<String> playlistNames = new EditProfileJson().load().getPlaylistNames();
+                return filterHints(playlistNames, incompleteCommand);
             } catch (IOException e) {
                 return new ArrayList<String>();
             }
@@ -240,13 +238,14 @@ public class ContextHelper {
 
     /**
      * Updates the command input field based on the hints.
-     * @param controller
-     * @param allPossibilities
-     * @param incompleteCommand
+     *
+     * @param controller MovieUI controller
+     * @param allPossibilities  All possible suggestions for incomplete command
+     * @param incompleteCommand The incomplete part of the command
      */
-    private static void updateCommandInputFieldWithHints(Controller controller
-            , ArrayList<String> allPossibilities
-            , String incompleteCommand) {
+    private static void updateCommandInputFieldWithHints(Controller controller,
+                                                         ArrayList<String> allPossibilities,
+                                                         String incompleteCommand) {
 
         String update = completeCommand(allPossibilities, incompleteCommand);
         ((MovieHandler) controller).updateTextField(update);
@@ -255,11 +254,12 @@ public class ContextHelper {
 
     /**
      * Creates a sublist of size newSize.
-     * @param hints
-     * @param newSize
+     *
+     * @param hints         all of the suggestions for autocomplete.
+     * @param newSize       the required size of the subset.
      * @return a subset of the hints. Used when the number of hints is far too long.
      */
-    private static ArrayList<String> getSubList(ArrayList<String> hints , int newSize) {
+    private static ArrayList<String> getSubList(ArrayList<String> hints, int newSize) {
         ArrayList<String> sublist = new ArrayList<>();
         for (String s : hints) {
             if (newSize-- < 0) {
@@ -275,13 +275,19 @@ public class ContextHelper {
 
     /**
      * Gets all hints pertaining to the current user input.
-     * @param command the current user input
+     *
+     * @param command    the current user input
      * @param controller for the UI.
      * @returns all possible strings
      */
     public static ArrayList<String> getAllHints(String command, Controller controller) {
-        String [] splitCommand = command.toLowerCase().split(" ");
-        String incompleteCommand = getLastIncompleteWords(command.toLowerCase(), controller);
+
+        assert (CommandAssertions.assertIsLowerString(command));
+
+        command = command.toLowerCase();
+        String [] splitCommand = command.split(" ");
+        String incompleteCommand = getLastIncompleteWords(command, controller);
+
 
         ArrayList<String> allPossibilities = new ArrayList<>();
 
@@ -307,7 +313,7 @@ public class ContextHelper {
                     .getPossibilitiesSubRoot(splitCommand[0], incompleteCommand);
             updateCommandInputFieldWithHints(controller, allPossibilities, incompleteCommand);
         } else {
-            allPossibilities  = commandSpecificHints(
+            allPossibilities = commandSpecificHints(
                     splitCommand[0],
                     splitCommand[1],
                     incompleteCommand);
