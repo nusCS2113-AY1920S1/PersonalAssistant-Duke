@@ -201,6 +201,8 @@ Both the `Savings` and `Investments` classes have the following common features:
 `Main` will call the specific `Savings` or `Investment` command class that will construct the *required
 parameters* before calling the `Profile` class in `Model` to *execute*.
 
+// tag::bonds_class_diagram[]
+
 .Bond Command Class Diagram
 image::LogicCommandBondPackage.png[width="800"]
 
@@ -214,6 +216,7 @@ The `logic.command.bond` package consist of `Bond` classes with the following fe
 `Main` will call the specific `Bond` command class that will construct the *required parameters* before calling the
 `Profile` class in `Model` to *execute*.
 
+// end::bonds_class_diagram[]
 
 .Card Command Class Diagram
 image::LogicCommandCardPackage.png[width="800"]
