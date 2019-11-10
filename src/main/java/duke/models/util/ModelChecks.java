@@ -1,6 +1,7 @@
-package duke.models;
+package duke.models.util;
 
 import duke.exceptions.DukeException;
+import duke.models.LockerList;
 import duke.models.locker.Locker;
 import duke.models.locker.LockerDate;
 import duke.models.locker.Usage;
@@ -11,18 +12,22 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.List;
 
+/**
+ * Performs all the sanity checks to ensure that the file from which the data is read is not
+ * corrupted.
+ */
 public class ModelChecks {
 
     private static final String DATE_FORMAT = "dd-MM-uuuu";
 
     /**
-     * checks whether all entries are valid in the lockerList.
+     * Checks whether all entries are valid in the lockerList.
      * @param lockerList stores the entire LockerList to be checked
      * @return true if the entries are valid
      * @throws DukeException caused by chaining of functions
      */
     public static boolean areAllEntriesValid(LockerList lockerList) throws DukeException {
-        List<Locker> lockersToCheck = lockerList.getAllLockers();
+        List<Locker> lockersToCheck = lockerList.getLockerList();
         for (int i = 0; i < lockersToCheck.size(); i++) {
             Locker lockerToCheck = lockersToCheck.get(i);
             lockerList.deleteLocker(lockerToCheck);
@@ -38,6 +43,11 @@ public class ModelChecks {
         return true;
     }
 
+    /**
+     * Checks whether there are any errors with the subscription of the lockers.
+     * @param checkUsage the locker whose subscription is to be checked
+     * @return true if the checks are valid
+     */
     private static boolean areChecksForUsageValid(Locker checkUsage) {
         assert checkUsage.getUsage().isPresent();
         Usage checkForValidity = checkUsage.getUsage().get();
@@ -45,6 +55,10 @@ public class ModelChecks {
                 checkForValidity.getEndDate().getDate());
     }
 
+    /**
+     * Adds a new locker to the list in case the subscription of the current locker is before the
+     * current date.
+     */
     private static Locker getLockerToAdd(Locker locker) throws DukeException {
         if (locker.isOfTypeInUse()) {
             assert locker.getUsage().isPresent();

@@ -1,5 +1,8 @@
 package duke.parser.utilities;
 
+/**
+ * A token that marks the beginning of an argument in an arguments string.
+ */
 public class Token {
     private final String token;
 

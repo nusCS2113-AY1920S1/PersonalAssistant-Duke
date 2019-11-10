@@ -5,36 +5,38 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import duke.exceptions.DukeException;
 import duke.models.LockerList;
-import duke.models.ModelChecks;
+import duke.models.util.ModelChecks;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-
+/**
+ * Saves and loads data from a json file named as <code> fileName</code>.
+ */
 public class FileStorage {
-    private String file;
+    private final String fileName;
 
     private static final String FILE_NOT_FOUND = " Could not find the file. Invalid file name/file path... "
-            + "Will continue with an empty list";
-    private static final String ERROR_READING_FILE = " Unable to read file. Will start with an empty list";
-    private static final String CORRUPTED_FILE = " Corrupted file. Will continue with an empty list";
+            + "Will continue with the default list";
+    private static final String ERROR_READING_FILE = " Unable to read file. Will start with the default list";
+    private static final String CORRUPTED_FILE = " Corrupted file. Will continue with default list";
     private static final String ERROR_WRITING_FILE = " Error occurred while writing data to the file";
 
-    public FileStorage(String file) {
-        this.file = file;
+    public FileStorage(String fileName) {
+        this.fileName = fileName;
     }
 
     /**
-     * This function handles loading data from the file.
-     * @return a list that stores the tasks loaded from the file.
-     * @throws DukeException when there are errors while handling the file.
+     * Handles the loading of data from the file.
+     * @return a list that stores the lockers loaded from the file.
+     * @throws DukeException when there are errors while handling/parsing the file.
      */
     public LockerList retrieveData() throws DukeException {
 
         try {
-            FileInputStream readFile = new FileInputStream(this.file);
+            FileInputStream readFile = new FileInputStream(this.fileName);
             LockerList lockers = getObjectMapper().readValue(readFile, LockerList.class);
             readFile.close();
             if (!ModelChecks.areAllEntriesValid(lockers)) {
@@ -50,14 +52,14 @@ public class FileStorage {
     }
 
     /**
-     * This function is responsible for saving data from the list into the file.
-     * @param storeDataInFile list of tasks that are to be stored in the file.
+     * Saves data from the <code> storeDataInFile</code> list into the file.
+     * @param storeDataInFile list of lockers that are to be stored in the file.
      * @throws DukeException when there are errors while loading data into the file.
      */
     public void saveData(LockerList storeDataInFile) throws DukeException {
 
         try {
-            FileOutputStream write = new FileOutputStream(this.file);
+            FileOutputStream write = new FileOutputStream(this.fileName);
             getObjectMapper().writeValue(write, storeDataInFile);
             write.close();
 

@@ -11,15 +11,18 @@ import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Stores all the information pertaining to a locker.
+ */
 public class Locker {
-    private SerialNumber serialNumber;
-    private Address address;
-    private Zone zone;
+    private final SerialNumber serialNumber;
+    private final Address address;
+    private final Zone zone;
     private Tag tag;
     private Usage usage;
 
     /**
-     * Locker stores all the information regarding the status of the locker.
+     * Stores all the information regarding the status of the locker.
      * @param serialNumber stores the serial numbers associated with each locker
      * @param address      stores the location of the locker
      * @param zone         stores the zone to which the locker belongs
@@ -46,16 +49,25 @@ public class Locker {
         tag.tagName = Tag.IN_USE;
     }
 
+    /**
+     * Checks if the locker is currently being used i.e checks if it is currently subscribed
+     * by a student.
+     * @return true if it is in-use
+     * @throws DukeException if the tag is invalid
+     */
     public boolean isOfTypeInUse() throws DukeException {
         return getUsage().isPresent() && getTag().equals(new Tag(Tag.IN_USE));
     }
 
+    /**
+     * Checks whether the locker as the same status as {@code checkTag} .
+     */
     public boolean hasSameTagAs(Tag checkTag) {
         return getTag().equals(checkTag);
     }
 
     /**
-     * checks if the locker is of invalid type as per the constraints.
+     * Checks if the locker is of invalid type as per the constraints.
      * @return true if the locker is of invalid type, false otherwise
      * @throws DukeException if the Tag is invalid
      */
@@ -66,7 +78,7 @@ public class Locker {
     }
 
     /**
-     * checks if the locker is already present in the lockerList.
+     * Checks if the locker is already present in the lockerList.
      * @param other to check if the object is already present
      * @return true if the object is present, false otherwise
      */
@@ -83,8 +95,7 @@ public class Locker {
     }
 
     /**
-     * This function is used to convert the locker info into displayable strings.
-     *
+     * Converts the locker info into displayable strings.
      * @return a string in a format that can be used for printing out the current locker
      */
     public String toString() {
@@ -130,17 +141,9 @@ public class Locker {
         return tag;
     }
 
-    public void setTag(Tag tag) {
-        this.tag = tag;
-    }
-
     @JsonGetter("LockerSerial")
     public SerialNumber getSerialNumber() {
         return serialNumber;
-    }
-
-    public void setSerialNumber(SerialNumber serialNumber) {
-        this.serialNumber = serialNumber;
     }
 
     @JsonGetter("LockerAddress")
@@ -148,18 +151,9 @@ public class Locker {
         return address;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
     @JsonGetter("LockerZone")
     public Zone getZone() {
         return zone;
-    }
-
-
-    public void setZone(Zone zone) {
-        this.zone = zone;
     }
 
     @JsonGetter("Usage")
@@ -171,7 +165,7 @@ public class Locker {
         this.usage = usage;
     }
 
-    /* We need to override function equals() and hashCode() in order to account
+    /* Need to override function equals() and hashCode() in order to account
        for user defined checks for equality while using streams
      */
     @Override

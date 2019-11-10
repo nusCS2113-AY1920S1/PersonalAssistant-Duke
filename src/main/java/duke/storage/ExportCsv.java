@@ -51,7 +51,7 @@ public class ExportCsv {
 
                 if (details[THIRD_COLUMN].equals("in-use")) {
                     details[FIFTH_COLUMN] = l.getUsage().get().getStudent().getName().getName();
-                    details[SIXTH_COLUMN] = l.getUsage().get().getStudent().getMatricNumber().getMatricId();
+                    details[SIXTH_COLUMN] = l.getUsage().get().getStudent().getStudentId().getStudentId();
                     details[SEVENTH_COLUMN] = l.getUsage().get().getStudent().getMajor().getCourse();
                     details[EIGHTH_COLUMN] = l.getUsage().get().getStudent().getEmail().getEmail();
                 }

@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Stores the list of lockers that are currently being managed by SpongeBob.
+ */
 public class LockerList {
 
     private static final String NO_LOCKER_FOUND = " There are no lockers associated to "
@@ -34,9 +37,9 @@ public class LockerList {
     }
 
     /**
-     * Used to check if the locker is already present in the list.
+     * Checks if the locker is already present in the list.
      * @param newLocker list of lockers to be checked
-     * @return true if at least one of the locker is present
+     * @return true if the locker is present
      */
     public boolean isPresentLocker(Locker newLocker) {
         requireNonNull(newLocker);
@@ -45,9 +48,9 @@ public class LockerList {
     }
 
     /**
-     * Used to check if the lockers are already present in the list.
+     * Checks if the lockers are already present in the list.
      * @param newLockers list of lockers to be checked
-     * @return true if atleast one of the locker is present
+     * @return true if at least one of the locker is present
      */
     public boolean areLockersPresent(List<Locker> newLockers) {
         requireNonNull(newLockers);
@@ -60,7 +63,7 @@ public class LockerList {
     }
 
     /**
-     * returns all the lockers that match a given property.
+     * Returns all the lockers that match a given property.
      * @param isMatching stores the predicate for matching
      * @return list of lockers that match the given predicate
      */
@@ -72,9 +75,9 @@ public class LockerList {
     }
 
     /**
-     * returns a list of lockers that are tagged with availableTag.
+     * Returns a list of lockers that are tagged with the not-in-use tag.
      * @param availableTag tag used to check if the locker is currently not-in-use
-     * @return list of available lockers
+     * @return list of available/not-in-use lockers
      */
     public List<Locker> getAnyAvailableLocker(Tag availableTag) {
         requireNonNull(availableTag);
@@ -84,7 +87,7 @@ public class LockerList {
     }
 
     /**
-     * returns a locker that is associated with the serialNumber.
+     * Returns a locker that is associated with the the serial number.
      * @param serialNumberToFind stores the serial number
      * @return locker with the given serial number
      * @throws DukeException if there are no lockers associated with the serial number
@@ -100,29 +103,51 @@ public class LockerList {
         return checkAllLockers.get(0);
     }
 
-    public void addLocker(Locker locker) {
-        requireNonNull(locker);
-        lockerList.add(locker);
+    /**
+     * Adds a locker to the list of lockers.
+     * @param lockerToAdd stores the locker to be added
+     */
+    public void addLocker(Locker lockerToAdd) {
+        requireNonNull(lockerToAdd);
+        lockerList.add(lockerToAdd);
     }
 
-    public void addLockerAtPosition(Locker locker, int index) {
-        requireNonNull(locker);
-        lockerList.add(index, locker);
+    /**
+     * Adds a locker to the specified position.
+     * @param lockerToAdd stores the locker to be added
+     * @param index stores the zero-based position at which the locker is to be added
+     */
+    public void addLockerAtPosition(Locker lockerToAdd, int index) {
+        requireNonNull(lockerToAdd);
+        lockerList.add(index, lockerToAdd);
     }
 
-    public void setLockerInPosition(Locker locker, int index) {
-        requireNonNull(locker);
-        lockerList.set(index, locker);
+    /**
+     * Sets a locker at the specified position. The locker already present at that position
+     * is replaced by the new locker.
+     * @param newLocker stores the locker to be added
+     * @param index stores the zero-based index at which the locker is to be added
+     */
+    public void setLockerInPosition(Locker newLocker, int index) {
+        requireNonNull(newLocker);
+        lockerList.set(index, newLocker);
     }
 
-    public void addAllLockersInList(List<Locker> lockers) {
-        requireNonNull(lockers);
-        lockerList.addAll(lockers);
+    /**
+     * Adds multiple lockers to the list of lockers.
+     * @param lockersToAdd stores the list of lockers that are to be added
+     */
+    public void addAllLockersInList(List<Locker> lockersToAdd) {
+        requireNonNull(lockersToAdd);
+        lockerList.addAll(lockersToAdd);
     }
 
-    public void deleteLocker(Locker locker) {
-        requireNonNull(locker);
-        lockerList.remove(locker);
+    /**
+     * Deletes the {@lockerToDelete} from the list of lockers.
+     */
+    public void deleteLocker(Locker lockerToDelete) {
+        requireNonNull(lockerToDelete);
+        lockerList.remove(lockerToDelete);
     }
 
     public Locker getLocker(int index) {
@@ -136,10 +161,6 @@ public class LockerList {
 
     public int numLockers() {
         return lockerList.size();
-    }
-
-    public List<Locker> getAllLockers() {
-        return lockerList;
     }
 
     @JsonGetter("lockers")

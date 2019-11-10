@@ -16,12 +16,15 @@ import static duke.parser.utilities.Syntax.TOKEN_STUDENT_COURSE;
 import static duke.parser.utilities.Syntax.TOKEN_STUDENT_NAME;
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Parses the user input and returns a new EditUsageCommand object.
+ */
 public class EditUsageParser {
 
     /**
-     * This function is used to parse the user input for editing the status of a locker.
+     * Parses the user input for editing the subscription details of a in-use locker.
      * @param userInput stores the user input
-     * @return reference to the class EditLockerCommand
+     * @return reference to the class EditUsageCommand
      * @throws DukeException when the user input is invalid
      */
     public EditUsageCommand parse(String userInput) throws DukeException {
@@ -41,6 +44,11 @@ public class EditUsageParser {
         return new EditUsageCommand(serialNumber, editStudent, editDate);
     }
 
+    /**
+     * Stores all the fields associated to a student that are to be edited in {@code editStudent}.
+     * @param mapTokens stores the mapping of tokens to their respective arguments
+     * @throws DukeException when the command format is invalid
+     */
     private void getParametersForStudent(EditStudent editStudent,
                                          MapTokensToArguments mapTokens) throws DukeException {
         if (mapTokens.getValue(TOKEN_STUDENT_NAME).isPresent()) {
@@ -54,7 +62,7 @@ public class EditUsageParser {
         }
 
         if (mapTokens.getValue(TOKEN_STUDENTID).isPresent()) {
-            editStudent.setMatricNumber(ParserCheck.parseMatricNumber(
+            editStudent.setStudentId(ParserCheck.parseMatricNumber(
                     mapTokens.getValue(TOKEN_STUDENTID).get()));
         }
 
@@ -64,6 +72,11 @@ public class EditUsageParser {
         }
     }
 
+    /**
+     * Stores all the fields associated to the rental period that are to be edited in {@code editDate}.
+     * @param mapTokens stores the mapping of tokens to their respective arguments
+     * @throws DukeException when the command format is invalid
+     */
     private void getParametersForLockerDate(EditLockerDate editDate,
                                             MapTokensToArguments mapTokens) throws DukeException {
 

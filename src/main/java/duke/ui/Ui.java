@@ -13,9 +13,8 @@ public class Ui {
         return sc.nextLine();
     }
 
-
     /**
-     * This function responsible for printing a line.
+     * Prints a line indented with four spaces.
      */
     public void printDash() {
         String str = "";
@@ -30,7 +29,7 @@ public class Ui {
     }
 
     /**
-     * This function prints the hello message every time Duke is initiated.
+     * Prints the welcome message every time SpongeBob is initiated.
      */
     public void showWelcome() {
         String logo = "SpongeBob";
@@ -43,8 +42,8 @@ public class Ui {
     }
 
     /**
-     * This function prints the tasks stored in the list.
-     * @param printData stores the list of tasks to be printed.
+     * Prints the lockers stored in the list.
+     * @param printData stores the list of lockers to be printed.
      */
     public void printList(List<Locker> printData) {
         printSpaces(" Here are the lockers in your list:");
@@ -52,7 +51,7 @@ public class Ui {
     }
 
     /**
-     * This function is used to indicate the user that the usage has been deleted.
+     * Indicates the user that the usage has been deleted.
      */
     public void showDeleteUsage() {
         printSpaces(" I have successfully deleted the usage of the locker.");
@@ -60,19 +59,19 @@ public class Ui {
     }
 
     /**
-     * This function tells the user that SpongeBob has added the locker into the list.
-     * @param size used for printing the number of lockers in the list
+     * Tells the user that SpongeBob has added the locker into the list.
+     * @param size stores the number of lockers in the list
      * @param lockerA stores the locker that is added to the list
      */
     public void printAddLocker(int size, String lockerA) {
         printSpaces(" Got it. I have added this locker: ");
         printSpaces(" " + lockerA);
-        printSpaces(" Now, Spongebob is managing " + size + " lockers");
+        printSpaces(" Now, SpongeBob is managing " + size + " lockers");
         printDash();
     }
 
     /**
-     * This function tells the user that SpongeBob has added a batch of lockers to the list.
+     * Indicates the user that SpongeBob has added a batch of lockers to the list.
      * @param num stores the number of lockers that are added
      */
     public void printBatch(int num) {
@@ -104,7 +103,7 @@ public class Ui {
     }
 
     /**
-     * This function is used to notify the user that SpongeBob has successfully assigned
+     * Notifies the user that SpongeBob has successfully assigned
      * the locker for the user.
      * @param locker stores the string to show the locker that has been assigned
      */
@@ -125,6 +124,9 @@ public class Ui {
         printDash();
     }
 
+    /**
+     * Indicates the user that are no available lockers at the moment.
+     */
     public void showNoAvailableLockers() {
         printSpaces(" There are no available lockers at the moment. ");
         printSpaces(" Unfortunately I will have to terminate the subscription of the student");
@@ -138,15 +140,15 @@ public class Ui {
     }
 
     /**
-     * This function prints the exit message every time Duke is closed.
+     * Prints the exit message every time SpongeBob is closed.
      */
-    public void exitDuke() {
+    public void exitSpongeBob() {
         printSpaces(" Bye! Hope to see you again.");
         printDash();
     }
 
     /**
-     * This function prints the error message.
+     * Prints the error message.
      * @param errorMessage stores the error message.
      */
     public void showError(String errorMessage) {
@@ -155,7 +157,7 @@ public class Ui {
     }
 
     /**
-     *  This function is used to notify the user that there were no available lockers in his list
+     * Notifies the user that there were no available lockers in his list
      *  of preferences.
      */
     public void showNoLockersFoundInPreferences() {
@@ -165,8 +167,8 @@ public class Ui {
     }
 
     /**
-     * This function tells the user that SpongeBob has deleted the lockers from the list.
-     * @param numLockers used for showing the number of lockers left in the list.
+     * Notifies the user that SpongeBob has deleted the locker from the list.
+     * @param numLockers stores the number of lockers left in the list.
      * @param lockerA stores the locker that is deleted.
      */
     public void deleteMessage(int numLockers, String lockerA) {
@@ -176,7 +178,7 @@ public class Ui {
     }
 
     /**
-     * This function tells the user that SpongeBob has edited the locker from the list.
+     * Notifies the user that SpongeBob has edited the locker from the list.
      * @param lockerA stores the locker that is edited
      */
     public void editMessage(String lockerA) {
@@ -194,7 +196,7 @@ public class Ui {
     }
 
     /**
-     * This function prints the message when there is an error in loading data from the file.
+     * Prints the message when there is an error in loading data from the file.
      * @param message stores the error message.
      */
     public void showLoadingError(String message) {
@@ -307,8 +309,8 @@ public class Ui {
     }
 
     /**
-     * This function prints required number of empty spaces.
-     * @param num represents the number of wanted empty space.
+     * Prints required number of empty spaces.
+     * @param num represents the number of empty spaces wanted.
      */
     public void printEmptySpace(int num) {
         for (int i = 0; i < num; i++) {

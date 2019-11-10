@@ -7,7 +7,7 @@ import duke.models.locker.Usage;
 import duke.models.locker.Zone;
 import duke.models.student.Email;
 import duke.models.student.Major;
-import duke.models.student.MatricNumber;
+import duke.models.student.StudentId;
 import duke.models.student.Name;
 import duke.models.student.Student;
 import duke.parser.utilities.MapTokensToArguments;
@@ -25,10 +25,13 @@ import static duke.parser.utilities.Syntax.TOKEN_STUDENTID;
 import static duke.parser.utilities.Syntax.TOKEN_STUDENT_COURSE;
 import static duke.parser.utilities.Syntax.TOKEN_STUDENT_NAME;
 
+/**
+ * Parses user input and creates a new AssignLockerCommand object.
+ */
 public class AssignLockerCommandParser {
 
     /**
-     * This function is used to check if all the entries entered by the user are valid as per
+     * Checks if all the entries entered by the user are valid as per
      * the specifications of the assign command.
      * @param userInput stores the userInput
      * @return a reference to the AssignLockerCommand()
@@ -47,7 +50,7 @@ public class AssignLockerCommandParser {
         }
 
         Name name = ParserCheck.parseName(mapTokensToArguments.getValue(TOKEN_STUDENT_NAME).get());
-        MatricNumber matricNumber = ParserCheck.parseMatricNumber(
+        StudentId studentId = ParserCheck.parseMatricNumber(
                 mapTokensToArguments.getValue(TOKEN_STUDENTID).get());
         Email email = ParserCheck.parseEmail(mapTokensToArguments.getValue(TOKEN_EMAIL).get());
         Major major = ParserCheck.parseMajor(mapTokensToArguments.getValue(
@@ -59,11 +62,14 @@ public class AssignLockerCommandParser {
         List<Zone> getPreferences = ParserCheck.parsePreferences(mapTokensToArguments.getValue(
                 TOKEN_PREFERENCES).get());
         ParserCheck.parseDifferenceBetweenStartAndEndDate(startDate, endDate);
-        Student student = new Student(name, matricNumber, email, major);
+        Student student = new Student(name, studentId, email, major);
         Usage usage = new Usage(student, startDate, endDate);
         return new AssignLockerCommand(usage, getPreferences);
     }
 
+    /**
+     * Returns true if there are no tokens with empty values.
+     */
     private static boolean checkAllTokensPresent(
             MapTokensToArguments mapTokensToArguments, Token... tokens) {
         return Stream.of(tokens).allMatch(token -> mapTokensToArguments

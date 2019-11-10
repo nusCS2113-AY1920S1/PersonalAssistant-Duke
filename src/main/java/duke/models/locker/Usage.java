@@ -9,13 +9,16 @@ import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Stores all the information required for the subscription of a locker.
+ */
 public class Usage {
-    private  Student student;
-    private  LockerDate startDate;
-    private  LockerDate endDate;
+    private final Student student;
+    private final LockerDate startDate;
+    private final LockerDate endDate;
 
     /**
-     * This constructor instantiates a locker that is currently being used by a student.
+     * Instantiates the subscription details for the locker.
      * @param student stores the details associated with students
      * @param startDate stores the starting date of the locker subscription
      * @param endDate stores the ending date of the locker subscription
@@ -52,10 +55,10 @@ public class Usage {
     @Override
     public String toString() {
         return super.toString() + "\n      " + "Name: " + student.getName().getName()
-                + " StudentID:" + student.getMatricNumber().getStudentId();
+                + " StudentID:" + student.getStudentId().getStudentId();
     }
 
-    /* We need to override functions equals() and hashCode() in order to account
+    /* Need to override functions equals() and hashCode() in order to account
        for user defined checks for equality while using streams
      */
     @Override

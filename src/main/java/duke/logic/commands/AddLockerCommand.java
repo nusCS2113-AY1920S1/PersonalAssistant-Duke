@@ -8,7 +8,9 @@ import duke.ui.Ui;
 
 import static java.util.Objects.requireNonNull;
 
-
+/**
+ * Command for adding a locker to SpongeBob.
+ */
 public class AddLockerCommand extends Command {
 
     private final Locker addLocker;
@@ -17,6 +19,9 @@ public class AddLockerCommand extends Command {
             + "\n     1. All tokens should be present (s/ z/ a/) "
             + "\n     2. There should not include any text between the command word and the first token.";
 
+    /**
+     * Creates an AddLockerCommand to add {@code Locker}.
+     */
     public AddLockerCommand(Locker addLocker) {
         requireNonNull(addLocker);
         this.addLocker = addLocker;

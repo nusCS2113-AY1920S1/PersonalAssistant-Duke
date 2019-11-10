@@ -8,30 +8,33 @@ import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Stores all the information pertaining to a student renting a locker.
+ */
 public class Student {
-    private Name name;
-    private MatricNumber matricNumber;
-    private Email email;
-    private Major major;
+    private final Name name;
+    private final StudentId studentId;
+    private final Email email;
+    private final Major major;
 
     /**
-     * This constructor instantiates the student and all its properties.
+     * Instantiates the student and all its properties.
      * @param name stores the name of the student
-     * @param matricNumber stores the student ID/ matric number of the student
+     * @param studentId stores the student ID of the student
      * @param email stores the email id of the student
      * @param major stores the major/course of the student
      */
     @JsonCreator
     public Student(@JsonProperty("studentName") Name name,
-                   @JsonProperty("studentId") MatricNumber matricNumber,
+                   @JsonProperty("studentId") StudentId studentId,
                    @JsonProperty("studentEmail") Email email,
                    @JsonProperty("studentMajor") Major major) {
         requireNonNull(name);
-        requireNonNull(matricNumber);
+        requireNonNull(studentId);
         requireNonNull(email);
         requireNonNull(major);
         this.name = name;
-        this.matricNumber = matricNumber;
+        this.studentId = studentId;
         this.email = email;
         this.major = major;
     }
@@ -42,8 +45,8 @@ public class Student {
     }
 
     @JsonGetter("studentId")
-    public MatricNumber getMatricNumber() {
-        return matricNumber;
+    public StudentId getStudentId() {
+        return studentId;
     }
 
     @JsonGetter("studentEmail")
@@ -57,7 +60,7 @@ public class Student {
     }
 
 
-    /* We need to override function equals() and hashCode() in order to account
+    /*Need to override function equals() and hashCode() in order to account
       for user defined checks for equality while using streams
     */
     @Override
@@ -73,12 +76,12 @@ public class Student {
         Student otherStudent = (Student) other;
         return (this.getName().equals(otherStudent.getName())
                 && this.getEmail().equals(otherStudent.getEmail())
-                && this.getMatricNumber().equals(otherStudent.getMatricNumber())
+                && this.getStudentId().equals(otherStudent.getStudentId())
                 && this.getMajor().equals(otherStudent.getMajor())); //checks for equality
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, matricNumber, email, major);
+        return Objects.hash(name, studentId, email, major);
     }
 }

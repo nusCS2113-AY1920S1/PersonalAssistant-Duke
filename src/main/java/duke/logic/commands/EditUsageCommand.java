@@ -8,7 +8,7 @@ import duke.models.locker.LockerDate;
 import duke.models.locker.SerialNumber;
 import duke.models.student.Email;
 import duke.models.student.Major;
-import duke.models.student.MatricNumber;
+import duke.models.student.StudentId;
 import duke.models.student.Name;
 import duke.models.student.Student;
 import duke.storage.Storage;
@@ -18,6 +18,9 @@ import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Command to edit the subscription details of an in-use locker.
+ */
 public class EditUsageCommand extends Command {
 
     private final SerialNumber serialNumberToEdit;
@@ -32,7 +35,7 @@ public class EditUsageCommand extends Command {
             + "only type In-Use Locker";
 
     /**
-     * This constructor instantiates the edit usage command.
+     * Instantiates the edit usage command.
      * @param serialNumber stores the serial number of the locker to edit
      * @param editStudent stores the details of the student to be edited
      * @param editDate stores the details of the dates to be edited for usage
@@ -81,6 +84,10 @@ public class EditUsageCommand extends Command {
                 lockerToEdit.getTag(),editedUsage);
     }
 
+    /**
+     * Creates and returns a {@code Student} with the details of {@code usageToEdit}
+     * edited with {@code editStudent}.
+     */
     private Student createEditedStudent(Usage usageToEdit, EditStudent editStudent) {
         assert usageToEdit != null;
         Name editedName = editStudent.getName()
@@ -89,12 +96,16 @@ public class EditUsageCommand extends Command {
                 .orElse(usageToEdit.getStudent().getMajor());
         Email editedEmail = editStudent.getEmail()
                 .orElse(usageToEdit.getStudent().getEmail());
-        MatricNumber editedMatricNumber = editStudent.getMatricNumber()
-                .orElse(usageToEdit.getStudent().getMatricNumber());
+        StudentId editedStudentId = editStudent.getStudentId()
+                .orElse(usageToEdit.getStudent().getStudentId());
 
-        return new Student(editedName, editedMatricNumber, editedEmail, editedMajor);
+        return new Student(editedName, editedStudentId, editedEmail, editedMajor);
     }
 
+    /**
+     * Creates and returns a {@code LockerDate} with the details of {@code usageToEdit}
+     * edited with {@code editLockerDate}.
+     */
     private LockerDate createEditedStartDate(Usage usageToEdit, EditLockerDate editDate) throws DukeException {
         assert usageToEdit != null;
         return new LockerDate((editDate.getStartDate()
@@ -107,11 +118,14 @@ public class EditUsageCommand extends Command {
                 .orElse(usageToEdit.getEndDate())).getDate());
     }
 
-
+    /**
+     * Stores the details to edit the student with. Each non-empty field value will replace the
+     * corresponding field value of the student.
+     */
     public static class EditStudent {
         private Name name;
         private Email email;
-        private MatricNumber matricNumber;
+        private StudentId studentId;
         private Major major;
 
         public EditStudent() {
@@ -119,12 +133,12 @@ public class EditUsageCommand extends Command {
         }
 
         /**
-         * This is a copy constructor used for editing student details.
+         * A copy constructor used for editing student details.
          * @param copyStudent stores the fields that are to be edited
          */
         public EditStudent(EditStudent copyStudent) {
             setName(copyStudent.name);
-            setMatricNumber(copyStudent.matricNumber);
+            setStudentId(copyStudent.studentId);
             setEmail(copyStudent.email);
             setMajor(copyStudent.major);
         }
@@ -137,17 +151,20 @@ public class EditUsageCommand extends Command {
             this.email = email;
         }
 
-        public void setMatricNumber(MatricNumber matricNumber) {
-            this.matricNumber = matricNumber;
+        public void setStudentId(StudentId studentId) {
+            this.studentId = studentId;
         }
 
         public void setMajor(Major major) {
             this.major = major;
         }
 
+        /**
+         * Returns true if at least one field is updated.
+         */
         public boolean checkAnyFieldUpdated() {
             return name != null || email != null || major != null
-                    || matricNumber != null;
+                    || studentId != null;
         }
 
         public Optional<Name> getName() {
@@ -158,8 +175,8 @@ public class EditUsageCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public Optional<MatricNumber> getMatricNumber() {
-            return Optional.ofNullable(matricNumber);
+        public Optional<StudentId> getStudentId() {
+            return Optional.ofNullable(studentId);
         }
 
         public Optional<Major> getMajor() {
@@ -167,6 +184,10 @@ public class EditUsageCommand extends Command {
         }
     }
 
+    /**
+     * Stores the details to edit the rental period with. Each non-empty field value will replace the
+     * corresponding field value of the rental period.
+     */
     public static class EditLockerDate {
         private LockerDate startDate;
         private LockerDate endDate;
@@ -184,6 +205,9 @@ public class EditUsageCommand extends Command {
             setEndDate(copyEditDate.endDate);
         }
 
+        /**
+         * Returns true if at least one field is updated.
+         */
         public boolean checkAnyFieldUpdated() {
             return startDate != null || endDate != null;
         }

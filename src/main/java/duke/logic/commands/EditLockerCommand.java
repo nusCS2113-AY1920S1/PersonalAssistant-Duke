@@ -18,6 +18,9 @@ import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Command to edit the various fields associated with a locker.
+ */
 public class EditLockerCommand extends Command {
 
     private final SerialNumber serialNumberOfLockerToEdit;
@@ -38,7 +41,7 @@ public class EditLockerCommand extends Command {
             + " is terminated.";
 
     /**
-     * This constructor instantiates the editLockerCommand object.
+     * Instantiates the editLockerCommand object.
      * @param serialNumber stores the serial number of the locker to be edited.
      * @param editLocker stores the contents that are to be edited.
      */
@@ -71,12 +74,14 @@ public class EditLockerCommand extends Command {
         }
 
         if (lockerToEdit.isOfTypeInUse() && !editedLocker.isOfTypeInUse()) {
+            /*Need to assign a new locker to the student as status of the existing in-use locker has
+              been changed to broken
+             */
             assignNewLocker(lockerToEdit, lockerList, ui);
         }
         lockerList.setLockerInPosition(editedLocker, lockerList.getIndexOfLocker(lockerToEdit));
         return editedLocker;
     }
-
 
     private void assignNewLocker(Locker lockerToEdit, LockerList lockerList, Ui ui) throws DukeException {
         assert lockerToEdit.getUsage().isPresent();
@@ -113,6 +118,10 @@ public class EditLockerCommand extends Command {
         return true;
     }
 
+    /**
+     * Creates and returns a {@code Locker} with the details of {@code lockerToEdit}
+     * edited with {@code editLocker}.
+     */
     private Locker createEditedLocker(Locker lockerToEdit, EditLocker editLocker) {
         assert lockerToEdit != null;
         SerialNumber editedSerialNumber = editLocker.getSerialNumber()
@@ -125,6 +134,10 @@ public class EditLockerCommand extends Command {
         return new Locker(editedSerialNumber,editedAddress,editedZone,editedTag,usage);
     }
 
+    /**
+     * Stores the details to edit the locker with. Each non-empty field value will replace the
+     * corresponding field value of the locker.
+     */
     public static class EditLocker {
         private SerialNumber serialNumber;
         private Address address;
@@ -144,6 +157,9 @@ public class EditLockerCommand extends Command {
             setCondition(copyEditLocker.tag);
         }
 
+        /**
+         * Returns true if at least one field is updated.
+         */
         public boolean checkAnyFieldUpdated() {
             return (serialNumber != null || address != null
                     || zone != null || tag != null);

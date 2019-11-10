@@ -6,15 +6,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Stores mapping of tokens to their respective arguments.
+ * Each key may be associated with multiple argument values.
+ * Values for a given key are stored in a list, and the insertion ordering is maintained.
+ * Keys are unique, but the list of argument values may contain duplicate argument values, i.e. the same argument value
+ * can be inserted multiple times for the same token.
+ */
 public class MapTokensToArguments {
     private final Map<Token, List<String>> mapTokensToArguments = new HashMap<>();
     private static final String EMPTY_STRING = "";
 
     /**
-     * This function is used for mapping a given string to its corresponding token.
-     * In this implementation, token is the key for the mapping
-     * @param token stores the token
-     * @param args stores the arguments mapped to a given key
+     * Maps a given string to its corresponding token.
+     * In this implementation, token is the key for the mapping.
+     * @param token stores the token.
+     * @param args stores the arguments mapped to a given key.
      */
     public void setMapping(Token token, String args) {
         List<String> arguments = getAllValues(token);
@@ -23,11 +30,10 @@ public class MapTokensToArguments {
     }
 
     /**
-     * This function is used to get all the arguments mapped to a token.
-     * As per the current implementation, we can have multiple arguments for the
-     * same token.
-     * @param token stores the token/key for the mapping
-     * @return a list of all the arguments mapped to the token
+     * Finds and stores all the arguments mapped to a token.
+     * There can be multiple arguments for the same token.
+     * @param token stores the token/key for the mapping.
+     * @return a list of all the arguments mapped to the token.
      */
     public List<String> getAllValues(Token token) {
 
@@ -38,7 +44,7 @@ public class MapTokensToArguments {
     }
 
     /**
-     * This function is used to get the argument that was mapped to the token.
+     * Finds the argument that was mapped to the token.
      * @param token stores the token
      * @return the argument mapped to the token
      */
@@ -51,6 +57,10 @@ public class MapTokensToArguments {
         return arguments.isEmpty() ? Optional.empty() : Optional.of(arguments.get(arguments.size() - 1));
     }
 
+    /**
+     * Returns the text between the command word and the first valid token.
+     * Trims any leading/trailing spaces.
+     */
     public String getTextBeforeFirstToken() {
         return getValue(new Token(EMPTY_STRING)).orElse(EMPTY_STRING);
     }

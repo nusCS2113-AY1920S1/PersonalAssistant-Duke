@@ -7,17 +7,20 @@ import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Stores the major/course pursued by the student renting a locker.
+ */
 public class Major {
 
     public static final String ERROR_MESSAGE = " Major should contain only alphanumeric characters"
             + " and spaces and it should not be empty";
 
-    public static final String CHECK_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    private static final String CHECK_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public String course;
+    private final String course;
 
     /**
-     * This constructor instantiates the course/major of the student.
+     * Instantiates the course/major of the student.
      * @param course stores the course that the student is currently pursuing
      * @throws DukeException when the course is in invalid format
      */
@@ -30,14 +33,19 @@ public class Major {
         this.course = course;
     }
 
+    /**
+     * Checks if the course pursued by the student is valid or not.
+     * A valid course contains only alpha numeric characters
+     * @param course stores the course tested for its validity
+     * @return true if the course is valid
+     */
+    public static boolean checkIsValidCourse(String course) {
+        return course.matches(CHECK_REGEX);
+    }
 
     @JsonGetter("major")
     public String getCourse() {
         return course;
-    }
-
-    public static boolean checkIsValidCourse(String course) {
-        return course.matches(CHECK_REGEX);
     }
 
     /* We need to override functions equals and hashCode in order to account for

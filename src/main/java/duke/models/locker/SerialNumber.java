@@ -7,6 +7,9 @@ import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Stores the serial number of the locker.
+ */
 public class SerialNumber {
 
     public static final String ERROR_MESSAGE = " Serial number can only be a non-negative integer with no more"
@@ -16,11 +19,11 @@ public class SerialNumber {
     public static final String CHECK_REGEX = "[0-9]+";
     private static final String REGEX_FOR_LEADING_ZEROES = "^0+(?!$)";
 
-    public String serialNumberForLocker;
+    public final String serialNumberForLocker;
 
     /**
-     * This constructor is used to instantiate the class with the serial number passed to it.
-     * @param serialNumber stores the serialnumber assigned to a locker
+     * Instantiates the class with the serial number passed to it.
+     * @param serialNumber stores the serial number assigned to a locker
      * @throws DukeException when the serial number is in invalid format
      */
     @JsonCreator
@@ -29,12 +32,19 @@ public class SerialNumber {
         if (!checkIsValidSerialNumber(serialNumber)) {
             throw new DukeException(ERROR_MESSAGE);
         }
-        this.serialNumberForLocker = serialNumber.replaceFirst("^0+(?!$)", "");
+        this.serialNumberForLocker = serialNumber.replaceFirst(REGEX_FOR_LEADING_ZEROES, "");
     }
 
+    /**
+     * Checks whether the {@code serialNumberForLocker} is valid or not.
+     * A valid serial number is a non-negative integer which has at most six digits
+     * @return true if the serial number is valid
+     */
     public static boolean checkIsValidSerialNumber(String serialNumberForLocker) {
         return serialNumberForLocker.replaceFirst(REGEX_FOR_LEADING_ZEROES, "")
-                .matches(CHECK_REGEX) && serialNumberForLocker.length() <= CHECK_SIX_DIGITS;
+                .matches(CHECK_REGEX)
+                && serialNumberForLocker.replaceFirst(REGEX_FOR_LEADING_ZEROES, "")
+                .length() <= CHECK_SIX_DIGITS;
     }
 
     @JsonGetter("serialNumber")

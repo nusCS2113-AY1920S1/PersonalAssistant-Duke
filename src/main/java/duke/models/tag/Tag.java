@@ -7,6 +7,9 @@ import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Stores the status of a locker.
+ */
 public class Tag {
     public String tagName;
 
@@ -21,9 +24,9 @@ public class Tag {
             + "\n     4.<broken>";
 
     /**
-     * Tag is used to store the status of the locker that it is associated with.
+     * Instantiates the status of the locker that it is associated with.
      * @param tagName stores a valid tagName
-     * @throws DukeException when the tagName is invalid
+     * @throws DukeException if the tagName is invalid
      */
     @JsonCreator
     public Tag(@JsonProperty("tagName") String tagName) throws DukeException {
@@ -34,11 +37,18 @@ public class Tag {
         this.tagName = tagName.toLowerCase();
     }
 
+    /**
+     * Checks if the tag name is valid or not i.e whether it is in-use, not-in-use, available
+     * or broken.
+     * @param test stores the string that is to be tested
+     * @return true if the tag name is valid
+     */
     public static boolean checkValidTagName(String test) {
         return (test.equalsIgnoreCase(IN_USE) || test.equalsIgnoreCase(NOT_IN_USE)
                 || test.equalsIgnoreCase(UNAUTHORIZED) || test.equalsIgnoreCase(BROKEN));
     }
 
+    @Override
     public String toString() {
         return "[" + tagName + "]";
     }
@@ -48,14 +58,15 @@ public class Tag {
         return tagName;
     }
 
-    /* We need to override function equals() and hashCode() in order to account
-          for user defined checks for equality while using streams
-        */
+
+    /* Need to override function equals() and hashCode() in order to account
+       for user defined checks for equality while using streams
+     */
     @Override
     public boolean equals(Object other) {
         return this == other //short circuit for being the same object
                 || (other instanceof Tag //handles all null cases and other irrelevant instances
-                && tagName.equalsIgnoreCase(((Tag) other).tagName));//checks for eqaulity
+                && tagName.equalsIgnoreCase(((Tag) other).tagName));//checks for equality
     }
 
     @Override

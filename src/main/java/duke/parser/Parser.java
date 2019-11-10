@@ -19,8 +19,12 @@ import java.util.regex.Pattern;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
 
+    //separates user input into command word and arguments.
     private static final Pattern GENERAL_COMMAND_FORMAT =
             Pattern.compile("(?<commandType>\\S+)(?<arguments>.*)");
 
@@ -32,10 +36,10 @@ public class Parser {
     private static final String STATS_COMMAND = "stats";
 
     /**
-     * this function is used to parse the command entered by the user.
+     * Parses the command entered by the user.
      * @param fullCommand stores the command entered by the user
      * @return objects of type Command depending on the command given by the user
-     * @throws DukeException when the user inputs invalid command
+     * @throws DukeException if the user inputs invalid command i.e in a an unexpected format
      */
     public Command parse(String fullCommand) throws DukeException {
         requireNonNull(fullCommand);

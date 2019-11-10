@@ -6,11 +6,13 @@ import duke.models.locker.SerialNumber;
 
 import static java.util.Objects.requireNonNull;
 
-
+/**
+ * Parses the user input and creates a new DeleteLocker object.
+ */
 public class DeleteLockerCommandParser {
 
     /**
-     * This function is used to parse the user input for deleting a locker from the list.
+     * Parses the user input for deleting a locker from the list.
      * @param args stores the user input
      * @return reference to the class DeleteLockerCommand
      * @throws DukeException when the command format is invalid

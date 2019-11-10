@@ -19,11 +19,14 @@ import static duke.parser.utilities.Syntax.TOKEN_ADDRESS;
 import static duke.parser.utilities.Syntax.TOKEN_SERIAL;
 import static duke.parser.utilities.Syntax.TOKEN_ZONE;
 
+/**
+ * Parses input arguments and creates a new AddLockerCommand object.
+ */
 public class AddLockerCommandParser {
 
     /**
-     * This function is used to parse the user input for adding a new locker to the list.
-     * Later it will include all checks for validating the user input
+     * Parses the user input for adding a new locker to the list of lockers.
+     * It includes all checks for validating the user input.
      * @param userInput stores the user input
      * @return reference to the class AddLockerCommand
      * @throws DukeException when the command format is invalid
@@ -47,6 +50,9 @@ public class AddLockerCommandParser {
         return new AddLockerCommand(locker);
     }
 
+    /**
+     * Returns true if none of the tokens contain empty values.
+     */
     private static boolean checkAllTokensPresent(MapTokensToArguments mapTokensToArguments,
                                                  Token... tokens) {
 

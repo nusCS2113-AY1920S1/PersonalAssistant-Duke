@@ -6,6 +6,9 @@ import duke.models.LockerList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+/**
+ * Represents a command with hidden internal logic and the ability to be executed.
+ */
 public abstract class Command {
     public boolean isExit = false;
 

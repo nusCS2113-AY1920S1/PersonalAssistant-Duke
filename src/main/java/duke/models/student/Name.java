@@ -7,13 +7,16 @@ import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Stores the name of the student renting a locker.
+ */
 public class Name {
 
     public static final String ERROR_MESSAGE = " Name should contain only alpha numeric characters"
             + " and should not be blank.";
 
-    public static final String CHECK_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-    public String name;
+    private static final String CHECK_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    private final String name;
 
     /**
      * This constructor instantiates the name of the student.
@@ -29,6 +32,11 @@ public class Name {
         this.name = name;
     }
 
+    /**
+     * Checks if the name is invalid i.e whether it contains only alpha numeric characters.
+     * @param name stores the name that is to be tested for its validity
+     * @return true if the name is valid
+     */
     public static boolean checkIsValidName(String name) {
         return name.matches(CHECK_REGEX);
     }

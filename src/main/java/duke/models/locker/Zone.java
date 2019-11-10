@@ -7,14 +7,17 @@ import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Stores the zone associated with a locker.
+ */
 public class Zone {
 
     public static final String ERROR_MESSAGE = " Zone should consist of only 1 letter "
            + "and cannot be empty";
 
     private static final int SINGLE_LETTER = 1;
-    public static final String CHECK_REGEX = "^[a-zA-Z]*$";
-    public String zone;
+    private static final String CHECK_REGEX = "^[a-zA-Z]*$";
+    private final String zone;
 
     /**
      * This constructor is used to instantiate the class with the zone value passed to it.
@@ -30,6 +33,12 @@ public class Zone {
         this.zone = zone.toUpperCase();
     }
 
+    /**
+     * Checks if the zone is valid or not.
+     * A zone is valid if it contains only a single alphabet
+     * @param zone string to be tested for validity
+     * @return true if the zone is valid
+     */
     public static boolean checkIsValidZone(String zone) {
         return zone.matches(CHECK_REGEX)
                 && zone.length() == SINGLE_LETTER;
@@ -40,8 +49,8 @@ public class Zone {
         return zone;
     }
 
-    /* We need to override functions equals() and hashCode() in order to account for
-      used defined checking for equality while using streams
+    /* Need to override functions equals() and hashCode() in order to account for
+       used defined checking for equality while using streams
     */
     @Override
     public boolean equals(Object other) {

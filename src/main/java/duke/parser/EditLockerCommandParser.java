@@ -13,10 +13,13 @@ import static duke.parser.utilities.Syntax.TOKEN_SERIAL;
 import static duke.parser.utilities.Syntax.TOKEN_ZONE;
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Parses the user input and creates a new EditLockerCommand object.
+ */
 public class EditLockerCommandParser {
 
     /**
-     * This function is used to parse the user input for editing the status of a locker.
+     * Parses the user input for editing the various fields associated with a locker.
      * @param userInput stores the user input
      * @return reference to the class EditLockerCommand
      * @throws DukeException when the user input is invalid
@@ -36,6 +39,11 @@ public class EditLockerCommandParser {
         return new EditLockerCommand(serialNumber, editLocker);
     }
 
+    /**
+     * Stores all the fields that are to be edited in {@code editLocker} .
+     * @param mapTokensToArguments stores the mapping of tokens to arguments
+     * @throws DukeException if the command format is invalid
+     */
     private void getParametersForLocker(EditLocker editLocker,
                                         MapTokensToArguments mapTokensToArguments) throws DukeException {
         if (mapTokensToArguments.getValue(TOKEN_SERIAL).isPresent()) {

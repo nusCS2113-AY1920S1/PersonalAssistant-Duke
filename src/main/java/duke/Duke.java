@@ -3,36 +3,41 @@ package duke;
 import duke.logic.commands.Command;
 import duke.exceptions.DukeException;
 import duke.models.LockerList;
+import duke.models.util.SampleData;
 import duke.parser.Parser;
-import duke.storage.FileStorage;
 import duke.storage.Storage;
 import duke.storage.StorageManager;
 import duke.ui.Ui;
 
+/**
+ * Runs the application.
+ */
 public class Duke {
     private Ui ui;
     private Storage storage;
     private LockerList lockers;
     private Parser parser;
 
+    private static final String FILE_NAME_FOR_STORAGE = "data.json";
+
     /**
-     * This constructor instantiates the Duke class by loading data from a file.
+     * Instantiates the SpongeBob class by loading data from a file.
      * @param filename stores the file name from which the data is being loaded.
      */
-    public Duke(String filename) {
+    public Duke(String filename) throws DukeException {
         try {
             ui = new Ui();
             parser = new Parser();
             storage = new StorageManager(filename);
-            lockers = new LockerList(storage.retrieveData().getAllLockers());
+            lockers = new LockerList(storage.retrieveData().getLockerList());
         } catch (DukeException e) {
             ui.showLoadingError(e.getMessage());
-            lockers = new LockerList();
+            lockers = SampleData.getSampleLockerList();
         }
     }
 
     /**
-     * This function is responsible for executing various tasks/commands related to Duke.
+     *  Executes various tasks/commands related to SpongeBob.
      */
     public void run() {
         ui.showWelcome();
@@ -51,11 +56,11 @@ public class Duke {
     }
 
     /**
-     * This function is responsible for instantiating Duke with the file name "storeData.txt".
-     * storeData.txt is the file from which the data is loaded for the list of tasks.
+     * Responsible for instantiating SpongeBob with the file name "data.json".
+     * data.json is the file from which the data is loaded for the list of lockers.
      * @param args contains the supplied command-line arguments as an array of String objects.
      */
-    public static void main(String[] args) {
-        new Duke("storeData.json").run();
+    public static void main(String[] args) throws DukeException {
+        new Duke(FILE_NAME_FOR_STORAGE).run();
     }
 }

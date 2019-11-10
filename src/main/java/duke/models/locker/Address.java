@@ -8,17 +8,20 @@ import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Stores the address associated with a locker.
+ */
 public class Address {
     public static final String ERROR_MESSAGE = " Addresses can take any value,"
             + "but it should not be empty";
 
-    public static final String CHECK_REGEX = "[^\\s].*";
-    public String address;
+    private static final String CHECK_REGEX = "[^\\s].*";
+    private final String address;
 
     /**
-     * This constructor initializes the object with the address value passed to it.
+     * Instantiates the object with the address value passed to it.
      * @param address stores the address
-     * @throws DukeException when the address is in a invalid format
+     * @throws DukeException if the address is in a invalid format
      */
     @JsonCreator
     public Address(@JsonProperty("address") String address) throws DukeException {
@@ -29,6 +32,9 @@ public class Address {
         this.address = address;
     }
 
+    /**
+     * Checks if the address is valid i.e is not empty.
+     */
     public static boolean checkIsValidAddress(String address) {
         return address.matches(CHECK_REGEX);
     }
@@ -38,8 +44,8 @@ public class Address {
         return address;
     }
 
-    /*We need to override equals and hashCode in order to account
-    for user defined checks for streams
+    /*Need to override equals and hashCode in order to account
+      for user defined checks for streams
      */
     @Override
     public boolean equals(Object other) {

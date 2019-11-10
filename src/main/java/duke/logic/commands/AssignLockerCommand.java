@@ -14,20 +14,23 @@ import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Command to assign locker to a student based on preferences.
+ */
 public class AssignLockerCommand extends Command {
 
     private final Usage usage;
     private final List<Zone> preferences;
 
-    public static final int FIRST_FREE_LOCKER = 0;
+    private static final int FIRST_FREE_LOCKER = 0;
     public static final String COMMAND_WORD = "assign";
     public static final String INVALID_FORMAT =  " Invalid command format for assigning lockers."
             + "\n     1. All tokens should be present (n/ i/ m/ e/ f/ t/ p/)"
             + "\n     2.There should not include any text between the command word and the first token";
-    public static final String NO_AVAILABLE_LOCKERS = " There are no available lockers at the moment.";
+    private static final String NO_AVAILABLE_LOCKERS = " There are no available lockers at the moment.";
 
     /**
-     * This constructor instantiates all the fields necessary for assigning a locker to a student.
+     * Instantiates all the fields necessary for assigning a locker to a student.
      * @param usage stores all the information required for locker subscription
      * @param preferences  stores the preferences as a list of zones for the student
      */
@@ -81,7 +84,7 @@ public class AssignLockerCommand extends Command {
         if (freeLockersInAnyZone.size() == 0) {
             throw new DukeException(NO_AVAILABLE_LOCKERS);
         }
-        /* We need to inform the user that a locker has been assigned not in the preferred
+        /*Need to inform the user that a locker has been assigned not in the preferred
           location */
         ui.showNoLockersFoundInPreferences();
         return freeLockersInAnyZone.get(FIRST_FREE_LOCKER);

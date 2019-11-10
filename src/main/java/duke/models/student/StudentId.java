@@ -7,7 +7,10 @@ import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
 
-public class MatricNumber {
+/**
+ * Stores the student id of the student renting a locker.
+ */
+public class StudentId {
 
     public static final String ERROR_MESSAGE = " Matriculation number should contain only "
             + "alpha numeric characters and should have only 9 characters. "
@@ -16,50 +19,47 @@ public class MatricNumber {
             + "\n      2. It should end with a letter"
             + "\n      3. It should contain only digits between the first and the last character";
 
-    public static final String CHECK_REGEX = "[Aa]\\d{7}[a-zA-Z]";
+    private static final String CHECK_REGEX = "[Aa]\\d{7}[a-zA-Z]";
 
-    public String matricId;
+    private final String studentId;
 
     /**
-     * This constructor instantiates the student ID / the matric number of the student.
-     * @param matricId stores the matric number of the student
-     * @throws DukeException when the matric number is in invalid format
+     * Instantiates the student ID  of the student.
+     * @param studentId stores the student ID of the student
+     * @throws DukeException if the student ID is in invalid format
      */
     @JsonCreator
-    public MatricNumber(@JsonProperty("id") String matricId) throws DukeException {
-        requireNonNull(matricId);
-        if (!checkIsValidMatricNumber(matricId)) {
+    public StudentId(@JsonProperty("id") String studentId) throws DukeException {
+        requireNonNull(studentId);
+        if (!checkIsValidStudentId(studentId)) {
             throw new DukeException(ERROR_MESSAGE);
         }
-        this.matricId = matricId;
+        this.studentId = studentId;
     }
 
 
     @JsonGetter("id")
-    public String getMatricId() {
-        return matricId;
-    }
-
-    public static boolean checkIsValidMatricNumber(String matricId) {
-        return matricId.matches(CHECK_REGEX);
-    }
-
     public String getStudentId() {
-        return matricId;
+        return studentId;
     }
 
-    /* We need to override functions equals() and hashCode() in order to account for
+    public static boolean checkIsValidStudentId(String studentId) {
+        return studentId.matches(CHECK_REGEX);
+    }
+
+
+    /* Need to override functions equals() and hashCode() in order to account for
        user defined checks about equality while using streams
      */
     @Override
     public boolean equals(Object other) {
         return this == other //checks if the two objects are the same
-                || (other instanceof MatricNumber //checks for all null instances and irrelevant references
-                && matricId.equalsIgnoreCase(((MatricNumber) other).matricId)); //checks for equality
+                || (other instanceof StudentId //checks for all null instances and irrelevant references
+                && studentId.equalsIgnoreCase(((StudentId) other).studentId)); //checks for equality
     }
 
     @Override
     public int hashCode() {
-        return matricId.hashCode();
+        return studentId.hashCode();
     }
 }

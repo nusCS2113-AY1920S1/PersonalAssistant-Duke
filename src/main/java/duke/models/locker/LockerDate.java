@@ -13,6 +13,9 @@ import java.time.temporal.ChronoUnit;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Stores all the rental subscription date for the locker.
+ */
 public class LockerDate {
 
     public static final String ERROR_MESSAGE = " The date should satisfy the following constraints:"
@@ -29,7 +32,7 @@ public class LockerDate {
     private static final DateTimeFormatter checkDateFormat =
             DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
 
-    public String date;
+    private final String date;
 
     /**
      * This constructor is used to instantiate a valid Date.
@@ -46,7 +49,7 @@ public class LockerDate {
     }
 
     /**
-     * This function is used to check whether the date is in correct format or not.
+     * Check whether the date is in correct format or not.
      * @param date stores the date that is to be tested for its validity.
      * @return true if the date is in valid format, false otherwise.
      */
@@ -59,14 +62,9 @@ public class LockerDate {
         return true;
     }
 
-    @JsonGetter("date")
-    public String getDate() {
-        return date;
-    }
-
     /**
-     * This function is used to check if the there is a difference of at least 7 days
-     * between the two dates.
+     * Check if the there is a difference of at least 7 days
+     * between the two dates (start and end date for rental period).
      * @param startDate the starting date of locker subscription
      * @param endDate the end date of locker subscription
      * @return true if the difference is valid, false otherwise
@@ -82,20 +80,7 @@ public class LockerDate {
     }
 
     /**
-     * checks the ending date for locker subscription from current date.
-     * @param currentDate the current date
-     * @param endDate the rental ending date
-     * @return daysBetween for the total amount of days
-     */
-    public static long differenceBetweenDates(String currentDate, String endDate) {
-        LocalDate localCurrentDate = LocalDate.parse(currentDate, checkDateFormat);
-        LocalDate localEndDate = LocalDate.parse(endDate, checkDateFormat);
-        long daysBetween = localCurrentDate.until(localEndDate, ChronoUnit.DAYS);
-        return daysBetween;
-    }
-
-    /**
-     * checks whether the ending date for locker subscription is before the current date.
+     * Checks whether the ending date for locker subscription is before the current date.
      * @param endDate the rental ending date
      * @param currentDate the current date
      * @return true if the ending date is before the current date, false otherwise
@@ -110,7 +95,12 @@ public class LockerDate {
         return false;
     }
 
-    /* We need to override function equals and hashCode() in order
+    @JsonGetter("date")
+    public String getDate() {
+        return date;
+    }
+
+    /* Need to override function equals and hashCode() in order
        to account for user defined checks for equality using streams
      */
     @Override
