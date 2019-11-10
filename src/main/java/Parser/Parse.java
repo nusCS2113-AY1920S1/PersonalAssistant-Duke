@@ -18,50 +18,6 @@ public abstract class Parse {
     public abstract Command parse() throws Exception;
 
     /**
-     * This method checks if user input mod code actually fits the characteristic of a mod code
-     * @param string The string of mod code
-     * @return true if it matches the characteristics of a mod code.
-     */
-    public boolean isModCode(String string) {
-        if (string.length() < 6){
-            return false;
-        } else if (string.substring(0, 2).matches("\\w+") && string.substring(2, 6).matches("\\d+")) {
-            Integer size = string.length();
-            if (size - 6 > 0 && string.substring(6, 7).matches("\\d+")) return false;
-            return true;
-        } else if (string.length() >= 7 && string.substring(0, 3).matches("\\w+") && string.substring(3, 7).matches("\\d+")) {
-            Integer size = string.length();
-            if (size -  7 > 0 && string.substring(7,8).matches("\\d+")) return false;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-   /* public boolean isModCode2(String string) {
-        if (string.length() < 6) {
-            return false;
-        } else if (string.length() == 6) {
-            if (string.substring(0, 2).matches("\\w+") && string.substring(2, 6).matches("\\d+")) {
-                return true;
-            }
-            return false;
-        } else if (string.length() == 7) {
-            if (string.substring(0, 2).matches("\\w+") && string.substring(2, 6).matches("\\d+") && string.substring(6).matches("\\w+")) {
-                return true;
-            }
-            if (string.substring(0, 3).matches("\\w+") && string.substring(3, 7).matches("\\d+") && string.substring(6).matches("\\w+"))
-            return false;
-        } else if (string.length() == 8) {
-            if (string.substring(0, 2).matches("\\w+") && string.substring(2, 6).matches("\\d+") && string.substring(6, 8).matches("\\w+")) {
-                return true;
-            }
-            if (string.substring(0, 3).matches("\\w+") && string.substring(3, 7).matches("\\d+") && string.substring(7, 8).matches("\\w+"))
-            return false;
-        }
-    } */
-
-    /**
      * This method checks if the user input start and end time actually fits the characteristics of a 24-hour time format.
      * @param input The string that contains the  date, start and end time fields
      * @return true if it matches the characteristics of a 24-hour time format

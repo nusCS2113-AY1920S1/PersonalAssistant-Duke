@@ -64,6 +64,10 @@ public class Storage {
         return this.reminder;
     }
 
+    /**
+     * Saves the TaskList of events into event.txt
+     * @param list TaskList of events
+     */
     public void updateEventList(TaskList list) {
         PrintWriter outputStream = null;
         try {
@@ -85,6 +89,11 @@ public class Storage {
         outputStream.close();
     }
 
+    /**
+     * Reads and populates the TaskList of events from event.txt
+     * @param list TaskList of events
+     * @throws DukeIOException when event.txt is not found
+     */
     public void readEventList(TaskList list) throws DukeIOException {
         ArrayList<String> temp = null;
         try {
@@ -113,6 +122,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the TaskList of deadlines into deadline.txt
+     * @param list TaskList of deadlines
+     */
     public void updateDeadlineList(TaskList list) {
         PrintWriter outputStream = null;
         try {
@@ -134,6 +147,11 @@ public class Storage {
         outputStream.close();
     }
 
+    /**
+     * Reads and populates the TaskList of deadlines from deadline.txt
+     * @param list TaskList of deadlines
+     * @throws DukeIOException when deadline.txt is not found
+     */
     public void readDeadlineList(TaskList list) throws DukeIOException {
         ArrayList<String> temp;
         try {
@@ -169,6 +187,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Retrieves reminderMap
+     */
     public HashMap<Date, Assignment> getReminderMap() {
         return this.reminderMap;
     }

@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 public class Duke  {
 
     private final Storage storage;
+    private final PreloadStorage preloadStorage;
     private final TaskList events;
     private final TaskList deadlines;
     private final UserInteraction ui;
@@ -32,14 +33,19 @@ public class Duke  {
     public Duke() {
         ui = new UserInteraction();
         storage = new Storage();
+        preloadStorage = new PreloadStorage();
         events = new TaskList();
         deadlines = new TaskList();
         reminder = new Reminder();
         storage.setReminderObject(reminder);
         MainWindow.setStorage(storage);
         try {
+            preloadStorage.readDeadlineList(deadlines);
+            preloadStorage.readEventList(events);
             storage.readDeadlineList(deadlines);
             storage.readEventList(events);
+            storage.updateDeadlineList(deadlines);
+            storage.updateEventList(events);
             reminder.setDeadlines(deadlines);
             storage.setReminderOnStart();
         } catch (DukeIOException | DukeInvalidDateTimeException e) {
