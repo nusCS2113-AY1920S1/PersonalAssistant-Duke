@@ -83,6 +83,8 @@ public class Parser {
      * list: list all dishes in list
      * initialize: clears the list
      * ingredient: add an ingredient to a dish
+     * find: find a dish in list key keyword
+     * change: change name of the dish of the given index
      *
      * @param fullCommand command from the user
      * @return a command to be executed
@@ -142,7 +144,6 @@ public class Parser {
         }
     }
 
-
     /**
      * commands for Ingredient
      * add: adds an ingredient to the fridge, by adding more to an existing ingredient or creating a new one
@@ -156,7 +157,6 @@ public class Parser {
      * @param fullCommand command from the user
      * @return a command to be executed
      * @throws DukeException
-     * @author Hafidz
      */
 
     //@@author x3chillax
@@ -206,6 +206,7 @@ public class Parser {
         }
     }
 
+    //@@author CEGLincoln
     /**
      * Checks the length of a String array is of size 2.
      *
@@ -217,6 +218,7 @@ public class Parser {
         }
     }
 
+    //@@author CEGLincoln
     /**
      * Split a string and check its length.
      */
@@ -226,6 +228,7 @@ public class Parser {
         return part;
     }
 
+    //@@author CEGLincoln
     /**
      * Converts a string into a number, and checks if it is out of bounds.
      *
@@ -246,6 +249,7 @@ public class Parser {
         return x;
     }
 
+    //@@author CEGLincoln
     public static int checkInt(String str) throws DukeException {
         final int MAX = Integer.MAX_VALUE;
         return parseInt(str, MAX);

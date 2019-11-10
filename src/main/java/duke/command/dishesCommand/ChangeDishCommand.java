@@ -28,6 +28,7 @@ public class ChangeDishCommand extends Command {
      * @param ui prints output for user
      * @param fs storage for fridge
      * @param os storage for order
+     * @param rs storage for recipe
      * @throws DukeException
      */
     @Override
@@ -36,6 +37,7 @@ public class ChangeDishCommand extends Command {
             System.out.println("\t dish: " + dishList.getEntry(index - 1).getDishname());
             dishList.getEntry(index - 1).changeName(dishname);
             System.out.println("\t changed to: " + dishname);
+            rs.changeContent(index - 1);
         } catch (Exception e) {
             throw new DukeException("dish may not exist, try list command first to get the correct index you want");
         }

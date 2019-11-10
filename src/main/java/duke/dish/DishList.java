@@ -1,17 +1,15 @@
 package duke.dish;
 
-import duke.exception.DukeException;
 import duke.list.GenericList;
-import duke.storage.RecipeStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 
+//@@author CEGLincoln
 /**
  * HAHA :p This is mine now boys.
  * But is there a point in doing this?...
  *
- * @@author CEGLincoln
  * @@author Hafidz
  */
 public class DishList extends GenericList<Dish> {

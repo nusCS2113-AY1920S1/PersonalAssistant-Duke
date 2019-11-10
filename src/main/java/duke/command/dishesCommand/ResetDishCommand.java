@@ -13,16 +13,18 @@ import duke.ui.Ui;
 public class ResetDishCommand extends Command {
 
     //@@author Hafidz
+    //@@author CEGLincoln
     /**
      * this method clears the list, the program asks the user whether they want the list to be cleared
      * user can enter y or n, yes or no.
      *
-     * @param fridge
-     * @param dishList
-     * @param ol
-     * @param ui
-     * @param fs
-     * @param os
+     * @param fridge ingredients found in fridge
+     * @param dishList list of dishes
+     * @param ol list of orders
+     * @param ui prints output for user
+     * @param fs storage for fridge
+     * @param os storage for order
+     * @param rs storage for recipe
      * @throws DukeException
      */
     @Override

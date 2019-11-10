@@ -1,1 +1,3 @@
+pizza|flour|100|cheese|50|chicken|50
 chicken rice|rice|1|salt|20|sugar|50
+cake|flour|500|sugar|100|water|100

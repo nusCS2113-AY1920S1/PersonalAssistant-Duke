@@ -41,6 +41,7 @@ public class IngredientsList extends GenericList<Ingredient> {
     @Override
     public void addEntry(Ingredient ingredient) {
         if (genList.contains(ingredient) && this.getEntry(ingredient).getExpiryDate().equals(ingredient.getExpiryDate())) {
+            //If the new ingredient is the exact same as what we had, update the amount.
             int currentAmount = this.getEntry(ingredient).getAmount();
             this.getEntry(ingredient).changeAmount(currentAmount + ingredient.getAmount());
         } else

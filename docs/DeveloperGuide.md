@@ -1,45 +1,6 @@
-# Duke - Developer Guide
+# Chef Duke - Developer Guide
 
-1. Setting Up
-
-2. Design 
-
-   1. Architecture
-   2. UI
-   3. Command Component
-   4. Parser Component
-   5. Storage Component
-   6. Task Component
-   7. Exception Component
-   8. Recipebook Component
-   9. RecipeCommand Component
-   10. Order Component
-   11. OrderCommand Component
-   12. Fridge Component
-   13. GenericList
-   14. Ingredient
-   15. ingredientCommand Component
-   16. Statistics
-
-3. Implementation
-
-4. Documentation
-
-5. Testing
-
-6. Dev Ops
-
-   Appendix A: Product Scope
-
-   Appendix B: User Stories
-
-   Appendix C: Use Cases
-
-   Appendix D: Non Functional Requirements 
-
-   Appendix E: Glossary 
-
-   Appendix F: Instructions for Manual
+[TOC]
 
 
 
@@ -58,7 +19,7 @@
 - at app launch: Loads all the data in storage into the application, initialize the  components, reads the commands and executes them correctly.
 - at shut down: shuts down all component and exits the application
 
-The Application consist of 11 other components 
+The Application consist of 10 other components 
 
 - `command`: executes the command that is read from the user
   - `dishesCommand`
@@ -72,7 +33,6 @@ The Application consist of 11 other components
 - `order`:  
 - `parser`: determine the next course of action from the user command
 - `storage`: Reads, writes data from and to the hard disk
-- `task`: stores a list of deadline/event/todo that needs to be done
 - `ui`: The UI of the application
 
 ![sequence]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/UMLsequence.png )
@@ -93,6 +53,10 @@ The Ui component contains all the messages or replies whenever the User enters a
 `remove 1`
 
 The Ui will reply to the User with the following messages:
+
+`ui.showAddedDishes(String)`
+
+`ui.showDeletedDish(String)`
 
 ```
 	 ____________________________________________________________
@@ -118,18 +82,18 @@ the ui also consist of templates for the different sections of the program, such
          _________________________________________________________________________________________
          add <Ingredient name> <amount> <expiry date: DD/MM/YYYY>
          remove <ingredient number>
-         use <ingredient name> <amount> *always use most recently expiring ingredients first, to prevent food waste!*
+         use <ingredient name> <amount> *always use most recently expiring ingredients 			 first, to prevent food waste!*
 ```
 
 <u>order</u>
 
 ```
          _________________________________________________________________________________________
-         Continue by adding, removing, altering, listing order and initializing order list.
+         Continue by adding, removing, altering, listing order and initializing order 			 list.
          Command Template:
          _________________________________________________________________________________________
          init
-         add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]
+         add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], 						 	 DISH2_NAME[*DISH_AMOUNT]
          alter ORDER_INDEX ORDER_DATE-(dd/mm/yyyy)
          remove ORDER_INDEX
          done ORDER_INDEX
@@ -157,11 +121,12 @@ the ui also consist of templates for the different sections of the program, such
 The Ui class consists of methods that outputs messages to the user as a response when the user enters a certain command
 
 - reads and return s user input using `scanner.nextLine()`
-- outputs messages to the user as a response such as `AddDishCommand ` `DeleteDishCommand`, etc
+- outputs messages to the user as a response such as `showRemovedIngredient(String,Int)` and `showAddOrder(String,Int)`, etc
+- consist of diagrams of the different template
 
 #### 2.3 Command Component
 
-API: `Command.java`
+API: `Command*.java`
 
 In the project, it has three types of commands: Ingredient Command, Dishes Command, Order Command. The three types of commands are packaged separately.
 
@@ -192,6 +157,7 @@ The Command class is used as an abstract class for other classes, its method `ex
   - RemoveAllExpired
   - UseCommand
   - ViewCommand
+- ViewTodoListCommand
 
 each of the above class has its own implementation of the `execute` method
 
@@ -203,15 +169,31 @@ makes sense of the data that is read by the user from the Duke Class.
 
 this component gets the command from the user through the Duke Class. This component will then make sense of the command by splitting the command into different parts as well as determining the command type.
 
+![Parser](C:\Users\s1014\Desktop\local_clone\docs\images\Parser.png)
 
+| methods                           | description                                       |
+| --------------------------------- | ------------------------------------------------- |
+| parse(String,Type)                | to differentiate the type of command from user    |
+| order(String)                     | method to execute different order commands        |
+| dish(String)                      | method to execute different dish commands         |
+| ingredient(String)                | method to execute different ingerdient commands   |
+| checkLength(String[])             | checks length of the user command                 |
+| parseInt(String,int)              | ensure that int is more the 0 and less than limit |
+| checkInt(String)                  | ensure that int is more the 0 and less than limit |
+| addOrderDateParser(String[])      | returns AddOrderCommand()                         |
+| alterOrderDateParser(String[])    | returns AlterDateCommand()                        |
+| cancelOrDoneOrderParser(String[]) | return DoneOrderCommand() or CancelOrderCommand() |
 
-depending on the content of the splitted value and command type, Parser class will execute different commands.
+firstly the full command read from the user will go through parse method. depending on the the type, it will either return order, dish or ingredient commands. in the order, dish and ingredient methods, the content of the splitted value class will execute different commands.
+
 #### 2.5 Storage Component
 
 API: `Storage.java` 
 
+this component reads from the hard disk and looks for fridge.txt, order.txt and recipebook.txt, it will then store the contents into ingredientList, orderList and dishList respectively. 
 
-This component  stores entries in a certain format, tasks, ingredients that are already in the Fridge, and anything else that needs to be saved on the hard disk.
+
+This component  stores entries in a certain format. some of the data to be store are dishes in the dishList, ingredients that are already in the Fridge, and anything else that needs to be saved on the hard disk.
 
 It is modelled as an abstract class,  with `TaskStorage.java` and `FridgeStorage.java` both inheriting from it. It allows data (tasks in the list, ingredients in the fridge, recipes in the recipe Book...) to be saved and remembered by our program.  
 
@@ -229,98 +211,117 @@ The program can `load` or `generate` an entry from the storage and also `changeC
 
 ![Storage](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/StorageUML1.png)
 
-
-#### 2.6 Task Component
-
-API: `Task.java`
-
-
-
 #### 2.7 Exception Component
 
 API: `DukeException.java`
 
-#### 2.8 Dishes Component
+whenever the program runs into an error, an exception will be thrown notifying the user that they may have entered an invalid command.
+
+eg. `throw new DukeException("enter a valid amount/index")`
+
+DukeException will print out:
+
+```
+	 OOPS!!! enter a valid amount/index 
+	 You can type: 
+	 'template' to see the format of the commands, 
+	 'back' to see all your options, 
+	 'q' to exit
+```
+
+
+
+#### 2.8 Dish Component
+
+API: `Dish.java`, `DishList.java`
 
 The Recipebook contains 2 classes, Dishes Class and DishList Class
 
 ![dishes](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishes.PNG)
 
-**<u>Dishes Class</u>**
+**<u>Dish Class</u>**
 
 This class holds the name of the dish as well the ingredients that are associated to that specific dish. 
 
 | Attributes                       | Description                                     |
 | -------------------------------- | ----------------------------------------------- |
 | dishName: String                 | name of the dish                                |
-| numberOfOrders: int              | the total number of orders for that dish        |
-| rating: float                    | the overall rating for that dish                |
 | ingredientList: `IngredientList` | a list of ingredients associated with that dish |
 
 | Constructor    | Description                              |
 | -------------- | ---------------------------------------- |
 | Dishes(String) | assigns the name of the dish with String |
 
-| Methods                      | Description                                                  |
-| ---------------------------- | ------------------------------------------------------------ |
-| clearOrders(): void          | clears the ingredient list                                   |
-| getDishName(): String        | returns the name of the dish                                 |
-| addIngredients(String): void | takes a string and adds into ingredientlist                  |
-| toString(): String           | it returns a String of all the ingredients that the dish contains |
+| Methods                             | Description                                                  |
+| ----------------------------------- | ------------------------------------------------------------ |
+| changeName(String): void            | change the name of the dish                                  |
+| getDishName(): String               | returns the name of the dish                                 |
+| addIngredients(String,int): boolean | takes a string and integer and adds into ingredientList      |
+| printInFile():String                | formats dish andingredient list for writing into file        |
+| toString(): String                  | it returns a String of all the ingredients that the dish contains |
 **<u>DishList Class</u>**
 
 this class inherits the GenericList class  which takes in a List of Dish. this class holds all the dishes that is stored in the csv file thus this acts as a menu for the chef
 
-| Constructor          | Description                                |
-| -------------------- | ------------------------------------------ |
-| DishList(List<Dish>) | assigns a list of dishes to dishList       |
-| DishList()           | assigns an empty ArrayList<>() to dishList |
+| Constructor          | Description                                      |
+| -------------------- | ------------------------------------------------ |
+| DishList(List<Dish>) | assigns a list of dishes to dishList             |
+| DishList()           | assigns an empty ArrayList<>() to dishList       |
+| toString(): String   | returns all the dishes in the dishList in String |
 
 
 
 #### 2.9 dishesCommand Component
 
+API: `addDishCommand.java` `addIngredient.java` `deleteDishCommand.java` `ListDishCommand.java` `ResetDishCommand.java` `FindDishCommand.java` `ChangeDishCommand.java`
+
 The dishesCommand component  enables the chef to modify the dishList which acts as a menu or recipebook. this component inherits from other classes. 
 
-- addDishCommand and addIngredient inherits from AddCommand class which inherits from the Cmd class
-- deleteDishCommand inherits from the DeleteCommand which inherits from the Cmd class
-- ListDishCommand and InitCommand inherits from the Cmd class
-
-this component allows the chef to add dishes to the current menu, remove it and also to see the menu in the form of a list. this component also allows the chef to initialize his menu which deletes all entries in the dishList. the chef is also able to add ingredients to a specific dish in the dishList. 
+AddDishCommand, AddIngredient, DeleteDishCommand, ListDishCommand, ResetDishCommand, FindDishCommand and ChangeDishCommand inherits from the Command class
 
 - **<u>AddDishCommand</u>**
   
-  user enters the command `addish chicken rice /num 2` which denotes adding the dish called chicken rice into the dishList. the program will enter the AddDishCommand class and executes the method below.
+  user intends to add a dish to the dishList. this command takes in a description which is the dish name. user enters the command `addish chicken rice` which denotes adding the dish called chicken rice into the dishList. the program will enter the AddDishCommand class and executes the method below.
   
   If the dishList is empty(size of dishList is 0), immediately add the dish into the dishList. however, if the dishList is not empty, the program will need to go through the entire dishList to check if the dish has already been added. this is done so that there are no duplicate dishes.
   
   once the dish is added to the dishList, the method will use the Ui class with method call ui.showAddedDishes() as a reply to the user that the dish has been successfully added into the list.
   
-  
-  
 - **<u>AddIngredient</u>**
 
-  user intends to add an ingredient to a certain dish in dishList. thus user enters `ingredient rice 100 1` which denotes adding an ingredient called rice with a amount of 100g to the index of the dish. in this case the index is 1. 
+  user intends to add an ingredient to a certain dish in dishList. this command takes in a description which is the ingredient name, amount and index. thus user enters `ingredient rice 100 1` which denotes adding an ingredient called rice with a amount of 100g to the index of the dish. in this case the index is 1. this command will then call the method`addIngredient` from the Dish class. in this method, it will iterate through the ingredient list to check for duplicates. if there are duplicates, same name and same amount, notify the user that the ingredient already exist. if the name of the ingredient is the same but amount is different, it only change the amount to the new amount. 
 
   if any of the description is empty, an exception will be thrown to inform the user. 
 
 - **<u>DeleteDishCommand</u>**
 
-  user intends to remove a dish in dishList. thus user enters `remove 1` which denotes removing a dish of index 1 from the dishList. 
+  user intends to remove a dish in dishList. thus user enters `remove 1` which denotes removing a dish of index 1 from the dishList. this command takes in an integer index and the command will remove dish from dishList by the given index. 
 
   if there is no such dish with user keyed index, an exception will be thrown to the user.
 
-- **<u>InitCommand</u>**
+- **<u>ResetDishCommand</u>**
 
   user intends to clear the dishList. thus user enters `initialize` which will clear the dishList
 
 - **<u>ListDishCommand</u>**
 
-  user intends to list all the dishes in the dishList. for each dish in the list, there are also ingredients associated to it. hence, this command prints all the dishes as well as the ingredients associated to it.
+  user intends to list all the dishes in the dishList. user needs to enter `list` for the program to list all the dishes in the dishList. for each dish in the list, there are also ingredients associated to it. hence, this command prints all the dishes as well as the ingredients associated to it.
+  
+- **<u>FindDishCommand</u>**
+
+  user intends to find a dish in the dishList by keyword. user enters `find rice`, which denotes to list all the dishes which has the string rice in the name. this command takes in a String keyword and it will iterate through the dishList to find all the dishes that contain the keyword given by user. 
+
+  it will then print out the dish as well as the ingredient list of the dish to the user.
+
+- **<u>ChangeDishCommand</u>**
+
+  user intends to change the name of the dish. user needs to enter `change 1 chicken noodle` which denotes changing name if dish at index 1 to chicken noodle. this command takes in an integer index and string which is the new dish name. it will then change the name of the dish in dishList by the index to the new name.
 
 ![dishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishesCommand.PNG)
 
 **<u>future additions</u>**
+
+- **<u>ChangeIngredientCommand</u>**
 
 #### 2.10 Order Component
 API: `Order.java`, `OrderList.java`
@@ -454,13 +455,13 @@ The Fridge class allows access and modification of the `Ingredient`s used by the
 
 ![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML.png)
 
-#### 2.11 GenericList
+#### 2.12 GenericList
 
 This abstract class allows for creation of different types of lists, and basic list entry manipulations. It is extended by multiple classes, including `IngredientsList.java`, `TaksList.java`, `OrderList.java` and `DishList.java`. All of these classes inherit the basic methods from the Generic List and extend it with their specific methods, eg.  `allUndoneOrders()` from`OrderList.java`, or `changeAmount()` from `IngredientsList.java`. A UML Class Diagram is shown below.
 
 ![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png)
 
-##### <u>Ingredient Class</u>
+**<u>Ingredient Class</u>**
 
 | Constructor                       | Description                                               |
 | --------------------------------- | --------------------------------------------------------- |
@@ -503,7 +504,7 @@ A child class of Ingredients and inherits(extends) the attributes and methods of
 | sortByExpiryDate(): Ingredient Object                        | Sorts the Ingredient lists accordingly by a descending amount |
 | removeEntry(Ingredient Object):  Boolean                     | Looks for the queried Ingredient in the list and remove the amount that we want to use.<br />True:  Enough amount of the queried ingredient<br />False: Not enough amount  of the queriedingredient |
 
-#### 2.15 ingredientCommand Component
+#### 2.13 ingredientCommand Component
 
 API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.java`, `RemoveAllExpired.java,FindIngredientCommand.java, UseCommand.java,`
 
@@ -551,11 +552,11 @@ Target user profile: Restaurant Chef
 | Medium   | restaurant manager | I want to keep track of my company meetings                  | I am able to organize all my employees               |
 | Low      | restaurant manager | note down customer feedbacks regarding dishes                | I can tell if my recipe is doing well or not         |
 | Low      | restaurant manager | I want to keep track of holiday dates                        | I can prepare for special food menus                 |
-| high     | restaurant Chef    | a list to keep all my recipes                                | i can refer to them if needed                        |
+| high     | restaurant Chef    | a list to keep all my recipes                                | I can refer to them if needed                        |
 | high     | restaurant Chef    | keep track of all the ingredients in the kitchen             | there are ample supply and no expired ingredient     |
-| high     | restaurant Chef    | to see dishes that i am able to make                         |                                                      |
-| high     | restaurant Chef    |                                                              |                                                      |
-| high     | restaurant Chef    |                                                              |                                                      |
+| high     | restaurant Chef    | I want to create a recipe book                               | I know which ingredient is needed for that dish      |
+| high     | restaurant Chef    | I want to keep track of the orders                           | I know which to complete first                       |
+| high     | restaurant Chef    | I want to                                                    |                                                      |
 
 ### Appendix C: Use Case
 
@@ -707,8 +708,6 @@ Target user profile: Restaurant Chef
 4. should be easy to use for users with basic knowledge of command line interface
 5. should be able to handle large amounts of data without displaying any slowdown in application performance 
 
-
-
 ### Appendix E: Glossary 
 
 1. 
@@ -763,7 +762,7 @@ in the main page, there are several actions for the user:
 
 1. adding a dish to the dishList
 
-   1. prerequisite: user must be in `dish` template. list all dishes using `list` 
+   1. prerequisite: user must be in `dish` template. list all dishes using `list` 
 
    2. Test case 1: `add chicken rice`
 
@@ -821,7 +820,7 @@ in the main page, there are several actions for the user:
 
 1. finding a dish in list given a keyword
 
-   1. prerequisite: user must be in `dish` template. user must be in `dish` template. list all dishes using `list`
+   1. prerequisite: user must be in `dish` template. list all dishes using `list`
 
    2. Test case 1: `find rice`
 
@@ -829,13 +828,23 @@ in the main page, there are several actions for the user:
 
    3. Test case 2: `find`
 
-      Expected: 
+      Expected: program prints message to user informing that description cannot be empty
 1. prerequisite: list all dishes  using `list`, eg the size 
    
 2. Test case 1: `remove 1`
    
    Expected: deletes the first dish in the list, 
 
-#### E12. Adding an ingredient to a dish
+#### E12. Changing name of a dish
 
-#### E13.
+1. changing the name of a dish in list
+
+   1. prerequisite: user must be in dish template. list all dishes using `list`. dish that intended to be changed must be in the list
+
+   2. Test case1: `change 1 chicken noodle`
+
+      Expected: change the name of dish at index 1 to chicken noodle
+
+   3. Test case 2: `change 1`
+
+      Expected: no changes to the list. program prints message to user asking to enter a valid index/description

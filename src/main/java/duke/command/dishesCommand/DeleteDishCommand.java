@@ -12,26 +12,30 @@ import duke.ui.Ui;
 
 public class DeleteDishCommand extends Command {
 
-    private int Nb;
+    private int index;
 
     //constructor
     public DeleteDishCommand(int dishNb) {
-        this.Nb = dishNb;
+        this.index = dishNb;
     }
 
     //@@ Author Hafidz
     /**
-     *
-     * @param dish1
-     * @param ui
-     * @param storage
+     * @param fridge ingredients found in fridge
+     * @param dishList list of dishes
+     * @param ol list of orders
+     * @param ui prints output for user
+     * @param fs storage for fridge
+     * @param os storage for order
+     * @param rs storage for recipe
      * @throws DukeException
      */
     @Override
     public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         try {
-            ui.showDeletedDIsh(dishList.getEntry(Nb - 1).getDishname());
-            dishList.removeEntry(Nb - 1);
+            ui.showDeletedDIsh(dishList.getEntry(index - 1).getDishname());
+            dishList.removeEntry(index - 1);
+            rs.removeFromFile(index - 1);
         } catch (Exception e) {
             throw new DukeException("dish does not exist");
         }

@@ -5,14 +5,13 @@ import duke.ingredient.IngredientsList;
 import duke.storage.Printable;
 
 //@@author 9hafidz6
-
 public class Dish implements Printable {
 
     private String dishname;
     private IngredientsList ingredientsList;
 
     /**
-     * assigns dishname to name and ingredientList to il
+     * assigns dishname to name and ingredientList to il.
      * @param name name of the dish
      * @param il list of ingredient
      */
@@ -22,8 +21,8 @@ public class Dish implements Printable {
     }
 
     /**
-     * assigns dishname to name and instantiate ingredientList
-     * @param name
+     * assigns dishname to name and instantiate ingredientList.
+     * @param name name of the dish
      */
     public Dish(String name) {
         this.dishname = name;
@@ -39,7 +38,7 @@ public class Dish implements Printable {
     }
 
     /**
-     * get the name of the dish
+     * Get the name of the dish.
      * @return name of dish
      */
     public String getDishname() {
@@ -51,8 +50,8 @@ public class Dish implements Printable {
     }
 
     /**
-     * adding an ingredient to the ingredientList. if there already exist the same ingredient, update the amount
-     * if ingredient and amount is the same then prints to user that it already exist in dish hence break
+     * Adding an ingredient to the ingredientList. If there already exist the same ingredient, update the amount.
+     * If ingredient and amount is the same, then prints to user that it already exist in dish hence break.
      * @param ingredients new ingredient
      * @param amount new amount of ingredient
      * @return boolean flag to indicate if ingredient exist in the dish
@@ -81,8 +80,9 @@ public class Dish implements Printable {
         return flag;
     }
 
+    //@@author CEGLincoln
     /**
-     * a loop to get all the ingredients in the list
+     * A loop to get all the ingredients in the list.
      * @return all ingredients associated to the dish in string format
      */
     public String toString() {
@@ -93,6 +93,7 @@ public class Dish implements Printable {
         return str; //Multi-line depending on the size of ingredient list
     }
 
+    //@@author CEGLincoln
     @Override
     public String printInFile() {
         String str = dishname;

@@ -21,12 +21,13 @@ public class FindDishCommand extends Command {
     /**
      *  finds a dish in dishList that corresponds to dishname. iterate through list,if match, output to user
      *  else output, not found
-     * @param fridge
-     * @param dishList
-     * @param ol
-     * @param ui
-     * @param fs
-     * @param os
+     * @param fridge ingredients found in fridge
+     * @param dishList list of dishes
+     * @param ol list of orders
+     * @param ui prints output for user
+     * @param fs storage for fridge
+     * @param os storage for order
+     * @param rs storage for recipe
      * @throws DukeException
      */
     @Override
@@ -34,7 +35,7 @@ public class FindDishCommand extends Command {
         try {
             boolean flag = true;
             ui.showLine();
-            System.out.println("dishes that contain, " + dishname + ":\n");
+            System.out.println("\t dishes that contain, " + dishname + ":\n");
             for(int a = 0; a < dishList.size(); a++) {
                 if(dishList.getEntry(a).getDishname().contains(dishname)) {
                     flag = false;
