@@ -1,6 +1,6 @@
 # DEGREES.NUS
 
-An application developed in Java for prospective applicants to NUS Faculty of Engineering, who prefer to use a desktop application in order to research on degrees offered by NUS' Faculty of Engineering and pertaining information. 
+An application developed in Java for prospective applicants to the NUS Faculty of Engineering, who prefer to use a desktop application in order to research on degrees and courses offered by the NUS Faculty of Engineering. 
 
 ## Features
 * Scrapes course information from the NUS database
@@ -8,6 +8,7 @@ An application developed in Java for prospective applicants to NUS Faculty of En
 * Display course information and module information
 * Accepts commands for input
 * Task manager to organise faculty events
+* Compares degrees and modules offered
 
 
 ## Technologies Used
