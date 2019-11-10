@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.storage.Storage;
 import duke.task.TaskList;
-import duke.ui.HelpWindow;
 import duke.ui.Ui;
 
 import java.io.IOException;
