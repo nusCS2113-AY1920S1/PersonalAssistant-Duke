@@ -38,11 +38,11 @@ public class SearchCommand extends CommandSuper {
     private static final String GET_NEW_SORT = "-s";
     private static final String GET_NEW_ADULT_RATING = "-a";
     private boolean isMovie = false;
-    private String USER_PREF_FOR_ALPHA_SORT = "1";
-    private String USER_PREF_FOR_RELEASE_DATES_SORT = "2";
-    private String USER_PREF_FOR_RATING_SORT = "3";
-    private String USER_PREF_FOR_ADULT_TRUE = "true";
-    private String USER_PREF_FOR_ADULT_FALSE = "false";
+    private static final String USER_PREF_FOR_ALPHA_SORT = "1";
+    private static final String USER_PREF_FOR_RELEASE_DATES_SORT = "2";
+    private static final String USER_PREF_FOR_RATING_SORT = "3";
+    private static final String USER_PREF_FOR_ADULT_TRUE = "true";
+    private static final String USER_PREF_FOR_ADULT_FALSE = "false";
     private static final Logger logger = Logger.getLogger(SearchCommand.class.getName());
     Set<Integer> genreSet = new HashSet<Integer>();
 
@@ -157,7 +157,6 @@ public class SearchCommand extends CommandSuper {
      * Sets these preferences into SearchProfile Object.
      *
      * @param movieHandler    MovieHandler class to call appropriate function if needed
-     * @param searchProfile   Object that contains all the preferences of the search request.
      * @param searchEntryName name of movie/TV show that user want search result to be based on, if any.
      * @param isMovie         whether the search request is movie or TV shows related.
      * @throws InvalidFormatCommandException when user input is invalid.
@@ -222,6 +221,7 @@ public class SearchCommand extends CommandSuper {
                     logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
                     throw new InvalidFormatCommandException();
                 }
+
                 searchProfile = searchProfile.setSortByAlphabetical(getAlphaSortForSearch(getUserSortPref.get(0)));
                 searchProfile = searchProfile.setSortByLatestRelease(getDatesSortForSearch(getUserSortPref.get(0)));
                 searchProfile = searchProfile.setSortByHighestRating(getRatingSortForSearch(getUserSortPref.get(0)));

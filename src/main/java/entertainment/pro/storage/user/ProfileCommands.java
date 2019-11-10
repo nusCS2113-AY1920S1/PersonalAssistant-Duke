@@ -25,10 +25,10 @@ import java.util.TreeMap;
 public class ProfileCommands {
     UserProfile userProfile;
     private EditProfileJson editProfileJson;
-    private static String GET_NEW_GENRE_PREF = "-g";
-    private static String GET_NEW_GENRE_RESTRICT = "-r";
-    private static String GET_NEW_SORT = "-s";
-    private static String GET_NEW_ADULT_RATING = "-a";
+    private static final String GET_NEW_GENRE_PREF = "-g";
+    private static final String GET_NEW_GENRE_RESTRICT = "-r";
+    private static final String GET_NEW_SORT = "-s";
+    private static final String GET_NEW_ADULT_RATING = "-a";
 
     /**
      * Constructor for ProfileCommands.
@@ -65,7 +65,8 @@ public class ProfileCommands {
      * @throws InvalidGenreNameEnteredException
      * @throws DuplicateGenreException
      */
-    public UserProfile addPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException, InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
+    public UserProfile addPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException,
+            InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
         ArrayList<Integer> genrePreferences = new ArrayList<>();
         ArrayList<Integer> genreRestrict = new ArrayList<>();
         int sortOption = 0;
@@ -317,11 +318,14 @@ public class ProfileCommands {
     /**
      * Updates the components in the SortProfile accordingly.
      *
-     * @param isAlphaOrder true when user have entered command to sort results in alphabetical order and otherwise false.
-     * @param isLatDatesOrder true when user have entered command to sort results based on release dates and otherwise false.
+     * @param isAlphaOrder true when user have entered command to sort results in alphabetical
+     *                     order and otherwise false.
+     * @param isLatDatesOrder true when user have entered command to sort results based on release
+     *                        dates and otherwise false.
      * @param isRatingsOrder  true when user have entered command to sort results based on ratings and otherwise false.
      */
-    public UserProfile setSort(boolean isAlphaOrder, boolean isLatDatesOrder, boolean isRatingsOrder) throws IOException {
+    public UserProfile setSort(boolean isAlphaOrder, boolean isLatDatesOrder, boolean isRatingsOrder)
+            throws IOException {
         userProfile = userProfile.setSortByAlphabetical(isAlphaOrder);
         userProfile = userProfile.setSortByHighestRating(isRatingsOrder);
         userProfile = userProfile.setSortByLatestRelease(isLatDatesOrder);
