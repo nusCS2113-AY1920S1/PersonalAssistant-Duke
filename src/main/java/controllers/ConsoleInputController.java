@@ -81,6 +81,7 @@ public class ConsoleInputController implements IController {
         }
     }
 
+    //@@author
     /**
      * Method called when users wishes to view all Projects
      * that are currently created or stored.

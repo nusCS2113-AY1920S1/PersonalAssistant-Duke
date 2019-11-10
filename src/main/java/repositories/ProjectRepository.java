@@ -56,6 +56,11 @@ public class ProjectRepository implements IRepository<Project> {
         return this.allProjects.get(indexNumber - 1);
     }
 
+    public boolean updateItem(String input) {
+
+        return true;
+    }
+
     /**
      * Method to force save an Object to the Data layer.
      * @param object : Object to be saved.

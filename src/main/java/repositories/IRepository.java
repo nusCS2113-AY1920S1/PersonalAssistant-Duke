@@ -12,5 +12,7 @@ public interface IRepository<T> {
 
     T getItem(int indexNumber);
 
+    boolean updateItem(String input);
+
     void saveToRepo(T object);
 }
