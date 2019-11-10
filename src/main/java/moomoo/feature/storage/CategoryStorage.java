@@ -17,10 +17,9 @@ public class  CategoryStorage extends Storage {
     /**
      * Initializes storage and the filepath for each file.
      *
-     * @param filePath category file path
      */
-    public CategoryStorage(String filePath) {
-        super(filePath, filePath);
+    public CategoryStorage() {
+        super("", "");
     }
 
     /**

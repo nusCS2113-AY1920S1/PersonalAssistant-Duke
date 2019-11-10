@@ -12,6 +12,8 @@ import moomoo.feature.Ui;
 import moomoo.feature.category.Category;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.category.Expenditure;
+import moomoo.feature.storage.CategoryStorage;
+import moomoo.feature.storage.ExpenditureStorage;
 import moomoo.feature.storage.Storage;
 import moomoo.stubs.ScheduleListStub;
 import moomoo.stubs.StorageStub;
@@ -51,7 +53,7 @@ class CategoryCommandTest {
         ScheduleListStub calendar = new ScheduleListStub();
         Budget budget = new Budget();
         CategoryList categoryList = new CategoryList();
-        Storage storage = new StorageStub();
+        Storage storage = new CategoryStorage();
 
         categoryList.add(new Category("food"));
         categoryList.add(new Category("2271    CG"));
@@ -96,7 +98,7 @@ class CategoryCommandTest {
         ScheduleListStub calendar = new ScheduleListStub();
         Budget budget = new Budget();
         CategoryList categoryList = new CategoryList();
-        Storage storage = new StorageStub();
+        Storage storage = new ExpenditureStorage();
 
         categoryList.add(new Category("2271    CG"));
         categoryList.get("2271    CG").add(new Expenditure("module", 99.9, LocalDate.now(),
