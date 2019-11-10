@@ -1,7 +1,6 @@
 package Commons;
 
 import Tasks.Assignment;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,7 +41,7 @@ public class UserInteraction {
      * Displays the delete task message when user wants to delete a task.
      */
     public String showDelete(Assignment task, int listSize) {
-        return "Noted. I've removed this task:\n" +task.displayString() + "\n" + "Now you have "
+        return "Noted. I've removed this task:\n" + task.displayString() + "\n" + "Now you have "
                 + listSize  + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 
@@ -119,20 +118,25 @@ public class UserInteraction {
      * @param startDate start of recurrence
      * @param endDate end of recurrence
      */
-    public String showRecurring(String description, String startDate, String endDate, boolean isBiweekly, boolean isRecur) {
+    public String showRecurring(String description, String startDate, String endDate,
+                                boolean isBiweekly, boolean isRecur) {
         if (isRecur && isBiweekly) {
-            return "Biweekly recurring task: " + description + " has been added between " + startDate + " and " + endDate + "\n";
+            return "Biweekly recurring task: " + description + " has been added between " + startDate
+                    + " and " + endDate + "\n";
         } else if (isRecur) {
-            return "Weekly recurring task: " + description + " has been added between " + startDate + " and " + endDate + "\n";
+            return "Weekly recurring task: " + description + " has been added between " + startDate
+                    + " and " + endDate + "\n";
         } else if (isBiweekly) {
-            return "Biweekly recurring task: " + description + " has been removed between " + startDate + " and " + endDate + "\n";
+            return "Biweekly recurring task: " + description + " has been removed between " + startDate
+                    + " and " + endDate + "\n";
         } else {
-            return "Weekly recurring task: " + description + " has been removed between " + startDate + " and " + endDate + "\n";
+            return "Weekly recurring task: " + description + " has been removed between " + startDate
+                    + " and " + endDate + "\n";
         }
     }
 
     /**
-     * Displays conflicting recurring task
+     * Displays conflicting recurring task.
      * @param conflictList The list of conflicting tasks
      */
     public String showConflictRecurring(ArrayList<String> conflictList) {
@@ -174,7 +178,8 @@ public class UserInteraction {
      * @return This returns the string of workload
      * @throws ParseException on wrong date format
      */
-    public String showWorkload(TreeMap<String, ArrayList<Assignment>> workloadMap, String workloadWeek) throws ParseException {
+    public String showWorkload(TreeMap<String, ArrayList<Assignment>> workloadMap, String workloadWeek)
+            throws ParseException {
         String workloadSchedule = "Here is your recommended schedule for " + workloadWeek + ":\n";
         if (workloadMap.isEmpty()) {
             return "You have no tasks scheduled for " + workloadWeek + "!\n";

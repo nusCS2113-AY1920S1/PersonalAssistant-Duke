@@ -95,7 +95,8 @@ public class WeekParse extends Parse {
                     + DukeConstants.BLANK_SPACE
                     + selectedWeek.toLowerCase();
         } else {
-            week = DukeConstants.SHOW_WEEK_HEADER + selectedWeek.replaceFirst(DukeConstants.WEEK_FORMAT_KEYWORD, DukeConstants.NO_FIELD);
+            week = DukeConstants.SHOW_WEEK_HEADER + selectedWeek.replaceFirst(DukeConstants.WEEK_FORMAT_KEYWORD,
+                    DukeConstants.NO_FIELD);
         }
         return week;
     }
