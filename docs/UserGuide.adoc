@@ -299,18 +299,22 @@ Format: `update YEAR_SEM_1-YEAR_SEM_2`
 * YEAR_SEM_1 and YEAR_SEM_2 must both be in the format YYYY, ie `2019-2020`
 ****
 
-=== Disabling of reminders to update the module data: `reminder`
+=== Enabling and disabling of reminders to update the module data: `reminder`
 
-Allows you the stop the reminder to update the module data for a specified period of time. +
+Allows you the start and stop the reminder to update the module data for a specified period of time. +
 Format: `reminder`
 
-==== Shows the list of the different specified period of time: `reminder list`
+==== Shows the list of the different specified time interval of reminder: `reminder list`
 
-Gives four options to determine how long you want to stop the reminders. 
+Gives four options to determine how often you want to set the reminder. 
 
-==== Choosing the desired period of time: `reminder NUMBER`
+==== Choosing the desired time interval of reminder: `reminder NUMBER`
 
-Allows you to choose the desired period of time for the reminders to stop, which ranges from 30 minutes to 1 day.
+Allows you to choose the desired period of time for the reminder to appear, which ranges from 10 seconds to 2 minutes.
+
+==== Stopping the reminder: `reminder stop`
+
+Allows you to stop the reminder and the reminder message will disappear.
 
 === Exiting the program : `bye`
 
@@ -345,7 +349,7 @@ If you encountered an error message starting with `ModPlanner: error:`, then thi
 There are 4 common types of Parser Errors:
 
 ==== `ModPlanner: error: invalid choice ...`
-This error happens when you input an invalid command or argument to ModPlanner. However, the error message will display the valid options for you. In some cases, ModPlanner may even suggest a possible command that it thinks you intended to write!
+This error appears when you input an invalid command or argument to ModPlanner. However, the error message will display the valid options for you. In some cases, ModPlanner may even suggest a possible command that it thinks you intended to write!
  +
  +
 Example of input that can cause this error: `clean` +
@@ -358,7 +362,7 @@ image::ParserInvalidChoice.png[]
  +
 
 ==== `ModPlanner: error: too few arguments`
-This error occurs when you don't supply enough arguments for a specific command.
+This error appears when you do not supply enough arguments for a specific command.
  +
  +
 Example of input that can cause this error: `add module` +
@@ -372,7 +376,7 @@ image::ParserTooFewArguments.png[]
 image::ParserAddModuleHelp.png[]
 
 ==== `ModPlanner: error: unrecognized arguments: ...`
-This error is triggered when the name of a named argument is specified incorrectly.
+This error appears when the name of a named argument is specified incorrectly.
  +
  +
 Example of input that can cause this error: `add cca test cca --beginTime 15:00 --end 5pm --dayOfWeek MONDAY` +
@@ -385,7 +389,7 @@ image::ParserUnrecognizedArguments.png[]
  +
 
 ==== `ModPlanner: error: argument index: could not convert ...`
-Certain arguments should be parsed in the correct format in order for the value to be evaluated correctly. If you encountered this error, chances are you tried to parse a non-integer value to an integer-type argument.
+Certain arguments should be parsed in the correct format in order for the value to be evaluated correctly. If you encounter this error, chances are you tried to parse a non-integer value to an integer-type argument.
  +
  +
 Example of input that can cause this error: `remove cca notANumber` +
@@ -447,7 +451,10 @@ Example of error message: `Error: This CCA clashes with existing CCA!`
 === `ModBadGradeException`
 This error appears when you input an invalid letter grade.
 
-Example of error message: `Error: Please enter a valid letter grade!`
+Example of input that can cause this error: `grade CS1010 O` +
+Example of error message: 
+
+image::ModBadGradeException.png[width="350"] 
 
 > **_Solving the error:_** +
 > Input one of the following grades: "A+, A, A-, B+, B, B-, C+, C, D+, D, F, S or U".
@@ -455,7 +462,10 @@ Example of error message: `Error: Please enter a valid letter grade!`
 === `ModBadSuException`
 This errors appears when you input an S or U grade for a module that does not have an S/U option.
 
-Example of error message: `S/U option is not allowed for this module!`
+Example of input that can cause this error: `grade CG2028 S` +
+Example of error message: 
+
+image::ModBadSuException.png[width="450"] 
 
 > **_Solving the error:_** +
 > ****
@@ -516,8 +526,13 @@ eg. `sort time monday` +
 ** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK` +
 e.g `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
 * *Update* :
-** `update YEAR_SEM_1-YEAR_SEM_2`
-*** e.g `update 2019-2020`
+** `update YEAR_SEM_1-YEAR_SEM_2` +
+e.g `update 2019-2020`
+* *Reminder* :
+** `reminder list`
+** `reminder NUMBER` +
+eg. `reminder one`
+** `reminder stop`
 * *Exit* :
 ** `bye`
 
