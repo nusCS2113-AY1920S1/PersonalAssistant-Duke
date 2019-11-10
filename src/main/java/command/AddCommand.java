@@ -1,6 +1,7 @@
 package command;
 
 import degree.DegreeManager;
+import parser.Parser;
 import storage.Storage;
 import task.NUSEventList;
 import ui.UI;
@@ -61,16 +62,13 @@ public class AddCommand extends Command {
             tasksBuffer = tasks.deepClone();
             memento1 = new Memento(degreesBuffer);
             memento2 = new Memento(tasksBuffer);
-
-
-            if(this.arguments.matches("Material Science Engineering|Biomedical Engineering|Chemical Engineering|Civil Engineering|"
-                    + "Computer Engineering|Electrical Engineering|Environmental Engineering|"
-                    + "Industrial Systems Engineering|Mechanical Engineering|BME|"
-                    + "BioMed|Bio Eng|BM|ChE|Chem Eng|CivE|Civil E|Civil|CEG|Com E|EE|ElecE|ENVE|Mech Eng|ME|ISE|"
-                    + "IE|MSE")) {
+            String fullDegreeName = Parser.degreeFullNameMap.get(this.arguments.toLowerCase());
+            if(fullDegreeName.matches("Biomedical Engineering|Chemical Engineering|Civil Engineering|Computer Engineering" +
+                            "|Electrical Engineering|Environmental Engineering|Industrial and Systems Engineering" +
+                            "|Mechanical Engineering|Materials Science and Engineering")) {
                 lists.add_custom(this.arguments, storage);
                 NUSEventList NUSEventList = new NUSEventList();
-                NUSEventList.addDegreeTasks(this.arguments, tasks);
+                NUSEventList.addDegreeTasks(fullDegreeName, tasks);
             }
             else {
                 throw new DukeException("Wrong formatting convention is used to add degree");

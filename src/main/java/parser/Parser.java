@@ -37,6 +37,60 @@ public class Parser {
         aMap.put("low", "Low");
         userPriorityMap = Collections.unmodifiableMap(aMap);
     }
+
+
+    public static final Map<String, String> degreeFullNameMap;
+    static {
+        Map<String, String> aMap = new HashMap<>();
+
+        aMap.put("biomedical engineering", "Biomedical Engineering");
+        aMap.put("biomed", "Biomedical Engineering");
+        aMap.put("biomedical", "Biomedical Engineering");
+        aMap.put("bio eng", "Biomedical Engineering");
+        aMap.put("bm", "Biomedical Engineering");
+        aMap.put("bme", "Biomedical Engineering");
+
+        aMap.put("chemical engineering", "Chemical Engineering");
+        aMap.put("chem eng", "Chemical Engineering");
+        aMap.put("che", "Chemical Engineering");
+
+        aMap.put("civil engineering", "Civil Engineering");
+        aMap.put("cive", "Civil Engineering");
+        aMap.put("civil e", "Civil Engineering");
+        aMap.put("civil", "Civil Engineering");
+        aMap.put("civ", "Civil Engineering");
+
+        aMap.put("computer engineering", "Computer Engineering");
+        aMap.put("ceg", "Computer Engineering");
+        aMap.put("come", "Computer Engineering");
+        aMap.put("com e", "Computer Engineering");
+
+        aMap.put("electrical engineering", "Electrical Engineering");
+        aMap.put("ee", "Electrical Engineering");
+        aMap.put("elece", "Electrical Engineering");
+
+        aMap.put("environmental engineering", "Environmental Engineering");
+        aMap.put("enve", "Environmental Engineering");
+        aMap.put("env", "Environmental Engineering");
+
+        aMap.put("industrial and systems engineering", "Industrial and Systems Engineering");
+        aMap.put("ise", "Industrial and Systems Engineering");
+        aMap.put("ie", "Industrial and Systems Engineering");
+        aMap.put("industrial systems engineering", "Industrial and Systems Engineering");
+
+        aMap.put("mechanical engineering", "Mechanical Engineering");
+        aMap.put("mecheng", "Mechanical Engineering");
+        aMap.put("me", "Mechanical Engineering");
+        aMap.put("mech eng", "Mechanical Engineering");
+
+        aMap.put("materials science and engineering", "Materials Science and Engineering");
+        aMap.put("mse", "Materials Science and Engineering");
+        aMap.put("material science engineering", "Materials Science and Engineering");
+        aMap.put("materials science engineering", "Materials Science and Engineering");
+        degreeFullNameMap = Collections.unmodifiableMap(aMap);
+    }
+
+
     Parser() {
     }
 

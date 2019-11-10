@@ -1,6 +1,7 @@
 package task;
 
 import exception.DukeException;
+import list.DegreeList;
 import parser.Parser;
 
 import java.io.*;
@@ -410,6 +411,7 @@ public class TaskList implements Serializable, Cloneable {
     public void sortbyPriority(){
         for (int i = 0 ; i < this.list.size(); i++){
             this.list.get(i).calculatePriorityScore();
+            System.out.println(this.list.get(i).sortingScore);
         }
         Collections.sort(this.list, new Comparator<Task>() {
             @Override
@@ -428,7 +430,6 @@ public class TaskList implements Serializable, Cloneable {
     public void sortbyDate(){
         for (int i = 0 ; i < this.list.size(); i++){
             this.list.get(i).calculateDateScore();
-            System.out.println(this.list.get(i).sortingScore);
         }
         Collections.sort(this.list, new Comparator<Task>() {
             @Override
@@ -437,6 +438,25 @@ public class TaskList implements Serializable, Cloneable {
             }
         });
         System.out.println("Done! Your tasks have been sorted by date; the earliest one is at the top:\n");
+        print();
+    }
+
+
+
+    /**
+     * sorts this tasklist according to degree, in order that the tasklist has them in
+     */
+    public void sortbyDegree(DegreeList list) throws DukeException {
+        for (int i = 0 ; i < this.list.size(); i++){
+            this.list.get(i).calculateDegreeScore(list);
+        }
+        Collections.sort(this.list, new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                return (o2.sortingScore - o1.sortingScore);
+            }
+        });
+        System.out.println("Done! Your tasks have been sorted by degree; with the highest ranked degree tasks at the top:\n");
         print();
     }
 

@@ -1,22 +1,11 @@
-E | 0 | [ISE] Open House for Prospective Students | 11-05-2020 1030 | Normal
-E | 0 | [ISE] NUS-ISE Open House | 18-05-2020 1330 | Normal
-D | 0 | [ISE] CS1010 Placement Examination Application | 26-06-2020 1700 | Normal
-E | 0 | [BME] Open House for Prospective Students | 11-05-2020 1030 | Normal
-E | 0 | [BME] NUS-BME Open House | 18-05-2020 1330 | Normal
-D | 0 | [CHE] Chemical Engineering Camp Application | 26-06-2020 1700 | Normal
-D | 0 | [CHE] Math Refresher Course Application | 30-06-2020 2359 | Normal
-D | 0 | [CIVE] Math Refresher Course Application | 30-06-2020 2359 | Normal
-E | 0 | [CIVE] Civil Engineering Freshmen Welcome Tea | 22-07-2020 0900 | Normal
-E | 0 | [CEG] Open House for Prospective Students | 11-05-2020 1030 | Normal
 E | 0 | [CEG] NUS-ECE Open House | 18-05-2019 1330 | Normal
+E | 0 | Kick a ball | 12-12-2019 1400 | High
+E | 0 | [ISE] Open House for Prospective Students | 11-05-2020 1030 | Normal
+E | 0 | [BME] Open House for Prospective Students | 11-05-2020 1030 | Normal
+E | 0 | [CEG] Open House for Prospective Students | 11-05-2020 1030 | Normal
+E | 0 | [ISE] NUS-ISE Open House | 18-05-2020 1330 | Normal
+E | 0 | [BME] NUS-BME Open House | 18-05-2020 1330 | Normal
+D | 0 | [ISE] CS1010 Placement Examination Application | 26-06-2020 1700 | Normal
 D | 0 | [CEG] CS1010 Placement Examination Application | 26-06-2020 1700 | Normal
 D | 0 | [CEG] Math Refresher Course Application | 30-06-2020 2359 | Normal
 E | 0 | [CEG] CEG Freshmen Welcome Tea | 22-07-2020 0900 | Normal
-E | 0 | [EE] Open House for Prospective Students | 11-05-2020 1030 | Normal
-E | 0 | [EE] NUS-ECE Open House | 18-05-2020 1330 | Normal
-E | 0 | [EE] NUS-ECE Freshmen Orientation Programme | 18-05-2020 1330 | Normal
-E | 0 | [ENVE] Open House for Prospective Students | 11-05-2020 1030 | Normal
-E | 0 | [ENVE] NUS-EnvE Open House | 18-05-2020 1330 | Normal
-E | 0 | [ME] Open House for Prospective Students | 11-05-2020 1030 | Normal
-E | 0 | [ME] NUS-ME Open House | 18-05-2020 1330 | Normal
-D | 0 | [ME] CS1010 Placement Examination Application | 26-06-2020 1700 | Normal
