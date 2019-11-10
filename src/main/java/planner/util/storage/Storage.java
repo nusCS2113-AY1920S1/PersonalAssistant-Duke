@@ -3,7 +3,7 @@
 package planner.util.storage;
 
 import com.google.gson.Gson;
-import planner.logic.exceptions.planner.ModTamperedUserDataException;
+import planner.logic.exceptions.planner.ModTamperedDataException;
 import planner.credential.cryptography.Cipher;
 import planner.credential.cryptography.CipherState;
 import planner.credential.user.CredentialManager;
@@ -160,7 +160,7 @@ public class Storage {
      * @param path file path
      * @param clazz Class of object
      */
-    public <E> E readGsonSecure(String path, Class<E> clazz) throws ModTamperedUserDataException {
+    public <E> E readGsonSecure(String path, Class<E> clazz) throws ModTamperedDataException {
         CipherState state = this.readGson(path, CipherState.class);
         if (state == null) {
             return null;
@@ -168,11 +168,11 @@ public class Storage {
         try {
             state = cipher.decode(state, credential.getEncryptionLayers());
         } catch (Throwable ex) {
-            ex.printStackTrace();
+            throw new ModTamperedDataException();
         }
         int hashLength = credential.getHashLength();
         if (!CryptographyUtils.isOriginal(state.getMessage(), hashLength)) {
-            throw new ModTamperedUserDataException();
+            throw new ModTamperedDataException();
         }
         return gson.fromJson(CryptographyUtils.removeTrailingHash(state.getMessage(), hashLength), clazz);
     }
