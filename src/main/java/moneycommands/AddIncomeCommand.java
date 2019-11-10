@@ -59,6 +59,10 @@ public class AddIncomeCommand extends MoneyCommand {
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
         }
+        if (salary <= 0) {
+            throw new DukeException("Income source must be more than zero!\n");
+        }
+
         Income i = new Income(salary, description, payDay);
         account.getIncomeListTotal().add(i);
         storage.writeToFile(account);

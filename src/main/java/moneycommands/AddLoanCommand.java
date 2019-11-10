@@ -71,6 +71,10 @@ public class AddLoanCommand extends MoneyCommand {
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
         }
+        if (amount <= 0) {
+            throw new DukeException("Loan must be more than zero!\n");
+        }
+
         Loan l = new Loan(amount, description, startDate, type);
         account.getLoans().add(l);
         storage.writeToFile(account);

@@ -64,9 +64,12 @@ public class AddInstalmentCommand extends MoneyCommand {
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException("Please enter in the format: "
                     + "add instalment <desc> /amt <amount> /within <number of months of payment> months "
-                    + "/from <date> @<annual interest rate>%\n");
+                    + "/from <date> /percentage <annual interest rate>%\n");
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
+        }
+        if (amount <= 0) {
+            throw new DukeException("Instalment amount must be more than zero!\n");
         }
 
         Instalment ins = new Instalment(amount, desc, category, boughtDate, numOfPaymentsReq, annualIR);

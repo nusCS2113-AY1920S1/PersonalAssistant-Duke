@@ -62,6 +62,9 @@ public class AddExpenditureCommand extends MoneyCommand {
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
         }
+        if (price <= 0) {
+            throw new DukeException("Expenditure must be more than zero!\n");
+        }
         Expenditure e = new Expenditure(price, description, category, boughtTime);
         account.getExpListTotal().add(e);
         storage.writeToFile(account);
