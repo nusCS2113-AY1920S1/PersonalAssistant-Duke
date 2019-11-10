@@ -23,7 +23,7 @@ public class Duchess {
      *
      * @param filePath name of file to store tasks
      */
-    private Duchess(String filePath) {
+    private Duchess(String filePath) throws DuchessException {
         Logger logger = Logger.getLogger("Duchess");
         logger.setUseParentHandlers(false);
 
@@ -85,7 +85,7 @@ public class Duchess {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DuchessException {
         new Duchess("data.json").run();
     }
 }

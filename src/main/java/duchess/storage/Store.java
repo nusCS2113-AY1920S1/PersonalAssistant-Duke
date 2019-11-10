@@ -2,6 +2,7 @@ package duchess.storage;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import duchess.exceptions.DuchessException;
 import duchess.model.Module;
 import duchess.model.calendar.CalendarEntry;
 import duchess.model.task.Task;
@@ -38,7 +39,7 @@ public class Store {
      *
      * @return the new store
      */
-    public static Store seedStore() {
+    public static Store seedStore() throws DuchessException {
         Store store = new Store();
         Seed.execute(store);
         return store;

@@ -68,7 +68,16 @@ public class Ui {
      */
     public void showWelcome() {
         beginBlock();
-        printIndented("Hello! I'm Duchess.");
+        printIndented("8888888b. 888     888 .d8888b. 888    8888888888888 .d8888b.  .d8888b.");
+        printIndented("888  \"Y88b888     888d88P  Y88b888    888888       d88P  Y88bd88P  Y88b");
+        printIndented("888    888888     888888    888888    888888       Y88b.     Y88b.");
+        printIndented("888    888888     888888       88888888888888888    \"Y888b.   \"Y888b.");
+        printIndented("888    888888     888888       888    888888           \"Y88b.    \"Y88b.");
+        printIndented("888    888888     888888    888888    888888             \"888      \"888");
+        printIndented("888  .d88PY88b. .d88PY88b  d88P888    888888       Y88b  d88PY88b  d88P");
+        printIndented("8888888P\"  \"Y88888P\"  \"Y8888P\" 888    8888888888888 \"Y8888P\"  \"Y8888P");
+        printIndented("");
+        printIndented("Welcome to Duchess, where we live to serve your every need.");
         printIndented("What can I do for you?");
         endBlock();
     }
@@ -106,7 +115,7 @@ public class Ui {
      * Displays the newly added grade as well as other grades.
      *
      * @param module module to which grade is added
-     * @param grade newly added grade
+     * @param grade  newly added grade
      * @param grades existing grades
      */
 
@@ -327,7 +336,7 @@ public class Ui {
     /**
      * Store the display calendar as strings in an array.
      *
-     * @param ceList list of calendar entries
+     * @param ceList  list of calendar entries
      * @param context academic year information
      * @return array list of the display calendar string by string
      */
@@ -371,7 +380,7 @@ public class Ui {
     /**
      * Prints out the a week view of the calendar.
      *
-     * @param ceList calendar
+     * @param ceList  calendar
      * @param context academic year information
      */
     public void displayCalendar(List<CalendarEntry> ceList, String context) {
@@ -384,7 +393,7 @@ public class Ui {
     /**
      * Prints out the a day view of the calendar.
      *
-     * @param ce calendar entry
+     * @param ce      calendar entry
      * @param context academic year information
      */
     public void displayCalendar(CalendarEntry ce, String context) {
