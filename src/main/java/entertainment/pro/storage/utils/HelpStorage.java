@@ -1,7 +1,7 @@
 package entertainment.pro.storage.utils;
 
 import entertainment.pro.commons.strings.PromptMessages;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 
 import java.io.*;
@@ -16,13 +16,13 @@ import java.util.logging.Logger;
 public class HelpStorage {
 
     private static final Logger logger = Logger.getLogger(HelpStorage.class.getName());
-    private static TreeMap<COMMANDKEYS, String> cmdHelp = new TreeMap<>();
+    private static TreeMap<CommandKeys, String> cmdHelp = new TreeMap<>();
 
     /**
      * Initialises help for all root keywords.
      */
     public static void initialiseAllHelp() {
-        for (COMMANDKEYS root: CommandStructure.AllRoots) {
+        for (CommandKeys root: CommandStructure.AllRoots) {
             try {
                 cmdHelp.put(root, getHelpInstructions(root.toString()));
             } catch (IOException e) {
@@ -31,14 +31,14 @@ public class HelpStorage {
         }
 
         try {
-            cmdHelp.put(COMMANDKEYS.ME, getHelpInstructions(COMMANDKEYS.ME.toString()));
+            cmdHelp.put(CommandKeys.ME, getHelpInstructions(CommandKeys.ME.toString()));
         } catch (IOException e) {
             logger.log(Level.SEVERE, PromptMessages.FILE_NOT_FOUND + e.toString());
         }
 
     }
 
-    public static TreeMap<COMMANDKEYS, String> getCmdHelp() {
+    public static TreeMap<CommandKeys, String> getCmdHelp() {
         return cmdHelp;
     }
 

@@ -11,7 +11,7 @@ import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
@@ -53,7 +53,7 @@ public class SearchCommand extends CommandSuper {
      * @param uiController The UI controller.
      */
     public SearchCommand(Controller uiController) {
-        super(COMMANDKEYS.SEARCH, CommandStructure.cmdStructure.get(COMMANDKEYS.SEARCH), uiController);
+        super(CommandKeys.SEARCH, CommandStructure.cmdStructure.get(CommandKeys.SEARCH), uiController);
     }
 
     /**

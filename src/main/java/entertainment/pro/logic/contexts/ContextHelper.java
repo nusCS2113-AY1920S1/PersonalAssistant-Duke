@@ -1,7 +1,7 @@
 package entertainment.pro.logic.contexts;
 
 import entertainment.pro.commons.assertions.CommandAssertions;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.user.WatchlistHandler;
@@ -44,7 +44,7 @@ public class ContextHelper {
      */
     private static boolean isRootCommandComplete(String root) {
         assert (CommandAssertions.assertIsLowerString(root));
-        for (COMMANDKEYS c : CommandStructure.AllRoots) {
+        for (CommandKeys c : CommandStructure.AllRoots) {
             if (c.toString().toLowerCase().equals(root)) {
                 return true;
             }
@@ -73,8 +73,8 @@ public class ContextHelper {
      */
     private static boolean isSubRootCommandComplete(String subRoot) {
         assert (CommandAssertions.assertIsLowerString(subRoot));
-        for (Map.Entry<COMMANDKEYS, COMMANDKEYS[]> e: CommandStructure.cmdStructure.entrySet()) {
-            for (COMMANDKEYS a: e.getValue()) {
+        for (Map.Entry<CommandKeys, CommandKeys[]> e: CommandStructure.cmdStructure.entrySet()) {
+            for (CommandKeys a: e.getValue()) {
                 if (a.toString().toLowerCase().equals(subRoot)) {
 
                     return true;
@@ -255,8 +255,8 @@ public class ContextHelper {
     /**
      * Creates a sublist of size newSize.
      *
-     * @param hints
-     * @param newSize
+     * @param hints         all of the suggestions for autocomplete.
+     * @param newSize       the required size of the subset.
      * @return a subset of the hints. Used when the number of hints is far too long.
      */
     private static ArrayList<String> getSubList(ArrayList<String> hints, int newSize) {

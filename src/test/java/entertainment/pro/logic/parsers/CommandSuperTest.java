@@ -3,8 +3,7 @@ package entertainment.pro.logic.parsers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import entertainment.pro.commons.enums.COMMANDKEYS;
-import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.parsers.commands.SearchCommand;
@@ -22,15 +21,15 @@ public class CommandSuperTest {
         try{
 
             assertEquals(true , sc.subCommand(new String[]{"search" , "movies" , "testing"}));
-            assertEquals( COMMANDKEYS.MOVIES, sc.getSubRootCommand());
+            assertEquals( CommandKeys.MOVIES, sc.getSubRootCommand());
             assertEquals(true, sc.subCommand(new String[]{"search" , "tvshows" , "testing"}));
-            assertEquals(  COMMANDKEYS.TVSHOWS, sc.getSubRootCommand());
+            assertEquals(  CommandKeys.TVSHOWS, sc.getSubRootCommand());
             assertEquals(true, sc.subCommand(new String[]{"search" , "mioivies" , "testing"}));
-            assertEquals(  COMMANDKEYS.MOVIES, sc.getSubRootCommand());
+            assertEquals(  CommandKeys.MOVIES, sc.getSubRootCommand());
             assertEquals(true, sc.subCommand(new String[]{"search" , "telvshows" , "testing"}));
-            assertEquals(  COMMANDKEYS.TVSHOWS, sc.getSubRootCommand());
+            assertEquals(  CommandKeys.TVSHOWS, sc.getSubRootCommand());
             assertEquals(false , sc.subCommand(new String[]{"search"}));
-            assertEquals( COMMANDKEYS.NONE, sc.getSubRootCommand());
+            assertEquals( CommandKeys.NONE, sc.getSubRootCommand());
 
         }catch (Exception e){
 
@@ -60,11 +59,11 @@ public class CommandSuperTest {
         try{
 
             assertEquals(false , sc.subCommand(new String[]{}));
-            assertEquals( COMMANDKEYS.NONE, sc.getSubRootCommand());
+            assertEquals( CommandKeys.NONE, sc.getSubRootCommand());
             assertEquals(false , sc.subCommand(new String[]{"Jupiter is a planet"}));
-            assertEquals( COMMANDKEYS.NONE, sc.getSubRootCommand());
+            assertEquals( CommandKeys.NONE, sc.getSubRootCommand());
             assertEquals(false , sc.subCommand(new String[]{"search"}));
-            assertEquals( COMMANDKEYS.NONE, sc.getSubRootCommand());
+            assertEquals( CommandKeys.NONE, sc.getSubRootCommand());
 
         }catch (MissingInfoException e){
 

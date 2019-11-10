@@ -1,6 +1,6 @@
 package entertainment.pro.logic.contexts;
 
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ public class CommandContext {
     public static void initialiseContext() {
 
         if (keywordsRoot.size() == 0) {
-            for (Map.Entry<COMMANDKEYS, COMMANDKEYS[]> e: CommandStructure.cmdStructure.entrySet()) {
+            for (Map.Entry<CommandKeys, CommandKeys[]> e: CommandStructure.cmdStructure.entrySet()) {
                 keywordsRoot.add(e.getKey().toString().toLowerCase());
-                for (COMMANDKEYS a: e.getValue()) {
+                for (CommandKeys a: e.getValue()) {
                     keywordsSubRoot.add(a.toString().toLowerCase());
 
                 }
@@ -68,10 +68,10 @@ public class CommandContext {
     public static ArrayList<String> getPossibilitiesSubRootGivenRoot(String root) {
         ArrayList<String> hints = new ArrayList<>();
 
-        for (Map.Entry<COMMANDKEYS, COMMANDKEYS[]> e : CommandStructure.cmdStructure.entrySet()) {
+        for (Map.Entry<CommandKeys, CommandKeys[]> e : CommandStructure.cmdStructure.entrySet()) {
 
             if (e.getKey().toString().toLowerCase().trim().equals(root.trim().toLowerCase())) {
-                for (COMMANDKEYS sr: e.getValue()) {
+                for (CommandKeys sr: e.getValue()) {
                     hints.add(sr.toString().toLowerCase());
                 }
 
@@ -111,7 +111,7 @@ public class CommandContext {
     public static ArrayList<String> getPossibilitiesSubRoot(String root, String key) {
         ArrayList<String> hints = new ArrayList<>();
 
-        for (COMMANDKEYS a : CommandStructure.cmdStructure.get(COMMANDKEYS.valueOf(root.toUpperCase()))) {
+        for (CommandKeys a : CommandStructure.cmdStructure.get(CommandKeys.valueOf(root.toUpperCase()))) {
             if (a.toString().toLowerCase().startsWith(key.toLowerCase())) {
                 hints.add(a.toString().toLowerCase());
             }

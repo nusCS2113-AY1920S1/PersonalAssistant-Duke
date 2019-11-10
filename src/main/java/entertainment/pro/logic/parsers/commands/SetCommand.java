@@ -10,7 +10,7 @@ import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.storage.user.WatchlistHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
@@ -18,7 +18,7 @@ import java.io.IOException;
 
 public class SetCommand extends CommandSuper {
     public SetCommand(Controller uiController) {
-        super(COMMANDKEYS.SET, CommandStructure.cmdStructure.get(COMMANDKEYS.SET), uiController);
+        super(CommandKeys.SET, CommandStructure.cmdStructure.get(CommandKeys.SET), uiController);
     }
 
     @Override
