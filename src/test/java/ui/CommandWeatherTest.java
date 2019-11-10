@@ -1,7 +1,6 @@
 package ui;
 
 
-import executor.command.CommandTagList;
 import executor.command.CommandType;
 import executor.command.CommandWeather;
 import org.junit.jupiter.api.Test;
@@ -28,7 +27,7 @@ public class CommandWeatherTest {
         CommandWeather c3 = new CommandWeather("weather /until now");
         c3.execute(storageManager);
         String description = "Command that displays weather for now, tomorrow or later \n"
-                + "FORMAT : weather /until <period> \n";
+                + "FORMAT : weather /until <period>";
         assertEquals(CommandType.WEATHER, c3.getCommandType());
         assertEquals(description, c3.getDescription());
         String headerMessage = "Duke$$$ has predicted the following weather forecast :\n\n";
