@@ -1,7 +1,5 @@
 package command;
 
-//@@author JasonChanWQ
-
 import common.DukeException;
 import logic.command.Command;
 import logic.command.CommandOutput;
