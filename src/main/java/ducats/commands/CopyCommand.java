@@ -17,7 +17,7 @@ public class CopyCommand extends Command<SongList> {
 
     //@@author Samuel787
     private String message;
-    private Song song; //current working song
+    private Song song;
     private Storage storage;
     private SongList songList;
 
@@ -34,6 +34,11 @@ public class CopyCommand extends Command<SongList> {
     /**
      * Copy bars between a certain range and paste it between a certain range
      * in song creator.
+     * The possible combinations are:
+     * copy start_index end_index paste_index
+     * copy start_index end_index
+     * copy group_name paste_index
+     * copy group_name
      *
      * @param songList the ducats.TaskList or ducats.components.SongList object that contains the task list in use
      * @param ui       the Ui object responsible for the reading of user input and the display of
@@ -44,17 +49,15 @@ public class CopyCommand extends Command<SongList> {
      */
     @Override
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
-        //copy 2 4 6
-        //copy 2 4
-        //copy <versename> 6
-        //copy <versename>
         this.storage = storage;
         this.songList = songList;
-        if (message.length() < 5 || !message.substring(0, 4).equals("copy") || songList.getSize() == 0) {
-            //exception if not fully spelt
+        if (message.length() < 5
+                || !message.substring(0, 4).equals("copy")
+                || songList.getSize() == 0) {
             throw new DucatsException(message);
         }
-        song = songList.getSongIndex(songList.getActiveIndex());
+        int activeSong = songList.getActiveIndex();
+        song = songList.getSongIndex(activeSong);
         try {
             message = message.substring(5).trim();
             String[] sections = message.split(" ");
@@ -118,7 +121,7 @@ public class CopyCommand extends Command<SongList> {
      * @param name name of the verse to be added to the end of the current song
      * @throws DucatsException if the verse doesn't exist
      */
-    public void copyVerseToEnd(String name) throws DucatsException {
+    private void copyVerseToEnd(String name) throws DucatsException {
         ArrayList<Group> groupList = song.getGroups();
 
         Group copyGroup = null;
@@ -147,7 +150,7 @@ public class CopyCommand extends Command<SongList> {
      * @param i    index of the song into which the verse is to be inserted
      * @throws DucatsException if verse doesn't exist or if the index to insert is out of range
      */
-    public void insertVerse(String name, int i) throws DucatsException {
+    private void insertVerse(String name, int i) throws DucatsException {
         if (i < 1 || i > song.getNumBars()) {
             throw new DucatsException("", "copy");
         }
@@ -193,7 +196,7 @@ public class CopyCommand extends Command<SongList> {
      * @throws DucatsException if the index to start copying from is more than the index to end
      *                       copying from or if the index specified is out of range of the song.
      */
-    public void copyBarsToEnd(int copyStart, int copyEnd) throws DucatsException {
+    private void copyBarsToEnd(int copyStart, int copyEnd) throws DucatsException {
         int songNumBars = song.getNumBars();
         if (copyStart < 1 || copyEnd < 1
                 || copyStart > songNumBars || copyStart > songNumBars
@@ -223,7 +226,7 @@ public class CopyCommand extends Command<SongList> {
      *                       if the index specified is out of range of the song or if starting index to paste is out of
      *                       range of the current song
      */
-    public void insertCopiedBars(int copyStart, int copyEnd, int pasteStart) throws DucatsException {
+    private void insertCopiedBars(int copyStart, int copyEnd, int pasteStart) throws DucatsException {
         int songNumBars = song.getNumBars();
         if (copyStart < 1 || copyEnd < 1 || pasteStart < 1
                 || copyStart > songNumBars || pasteStart > songNumBars

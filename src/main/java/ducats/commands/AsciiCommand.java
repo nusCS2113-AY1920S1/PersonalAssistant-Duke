@@ -20,7 +20,6 @@ public class AsciiCommand extends Command<SongList> {
     //@@author Samuel787
 
     private String message;
-    private Song song;
 
     /**
      * Constructor for the command to print out a bar, group or song in ASCII.
@@ -41,7 +40,7 @@ public class AsciiCommand extends Command<SongList> {
      */
     @Override
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
-        String result = "";
+        String result;
         if (message.length() < 6 || !message.substring(0, 6).equals("ascii ")) {
             throw new DucatsException(message);
         }
@@ -77,18 +76,7 @@ public class AsciiCommand extends Command<SongList> {
                 }
             } else if (command.equals("song")) {
                 String songName = message.split(" ", 2)[1].trim();
-
-                //Get the song from the storage
-                //Song song = new Song("Test song", "C-Major", 120);
-                ArrayList<Song> songs = songList.findSong(songName);
-                Song song;
-                if (songs.size() == 1) {
-                    song = songs.get(0);
-                } else {
-                    //song does not exist or query returned more than 1 result
-                    throw new DucatsException(message, "AsciiCommand");
-                }
-                //if song exists
+                Song song = findSong(songList, songName);
                 result = printSongAscii(song);
             } else {
                 //wrong command
@@ -99,6 +87,22 @@ public class AsciiCommand extends Command<SongList> {
         }
         return result;
 
+    }
+
+//    private Song getGroupAsSong(SongList songList, String groupName){
+//
+//    }
+
+    private Song findSong(SongList songList, String songName) throws DucatsException{
+        ArrayList<Song> songs = songList.findSong(songName);
+        Song song;
+        if (songs.size() == 1) {
+            song = songs.get(0);
+        } else {
+            //song does not exist
+            throw new DucatsException(message, "AsciiCommand");
+        }
+        return song;
     }
 
     /**
@@ -147,7 +151,6 @@ public class AsciiCommand extends Command<SongList> {
         }
         return printSongAscii(tempSong);
     }
-
 
     private static String wrapContent(String str) {
         String[] strings = str.split("\n");

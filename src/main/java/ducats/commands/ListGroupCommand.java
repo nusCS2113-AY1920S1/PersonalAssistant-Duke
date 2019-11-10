@@ -7,6 +7,7 @@ import ducats.components.SongList;
 
 public class ListGroupCommand extends Command<SongList> {
 
+    //@@author Samuel787
     @Override
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
         return ui.formatListGroups(songList);
