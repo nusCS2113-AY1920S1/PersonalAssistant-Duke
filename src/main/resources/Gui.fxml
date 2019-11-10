@@ -28,9 +28,12 @@
                        <items>
                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                               <children>
-                                 <ScrollPane fx:id="outputTableScroll" fitToHeight="true" fitToWidth="true" focusTraversable="false" maxHeight="1.7976931348623157E308" prefHeight="400.0" prefWidth="200.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <ScrollPane fx:id="outputTableScroll" fitToHeight="true" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" prefHeight="400.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <content>
-                                       <TableView fx:id="outputTable" focusTraversable="false" maxHeight="1.7976931348623157E308" />
+                                       <TableView fx:id="outputTable" fixedCellSize="0.0" focusTraversable="false" maxHeight="1.7976931348623157E308">
+                                          <columnResizePolicy>
+                                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                          </columnResizePolicy></TableView>
                                     </content>
                                  </ScrollPane>
                               </children>
@@ -47,12 +50,12 @@
                        </items>
                      </SplitPane>
                      <Separator focusTraversable="false" prefWidth="200.0" />
-                     <HBox alignment="BOTTOM_CENTER" prefWidth="200.0" VBox.vgrow="NEVER">
+                     <HBox alignment="BOTTOM_CENTER" prefWidth="200.0" VBox.vgrow="SOMETIMES">
                         <children>
                            <AnchorPane fx:id="rectPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
                               <children>
                                  <TextField editable="false" focusTraversable="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                 <TextFlow fx:id="textFlow" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="20.0" prefWidth="720.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" />
+                                 <TextFlow fx:id="textFlow" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" />
                               </children>
                            </AnchorPane>
                         </children>

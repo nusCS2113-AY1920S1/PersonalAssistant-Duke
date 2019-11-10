@@ -155,7 +155,9 @@ public class Gui extends Ui  {
         outputTable.getColumns().clear();
         outputTable.getItems().clear();
         outputTable.refresh();
+
         TableColumn mainColumn = new TableColumn(tableStruct.getTableName());
+        mainColumn.setReorderable(false);
         outputTable.getColumns().add(mainColumn);
 
         // Iterating through columns to setup all columns.
@@ -172,6 +174,7 @@ public class Gui extends Ui  {
             }
 
             // Adding column to table to be visualized.
+            column.setReorderable(false);
             mainColumn.getColumns().add(column);
         }
 

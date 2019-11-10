@@ -8,6 +8,7 @@ import eggventory.storage.Storage;
 import eggventory.commons.enums.CommandType;
 import eggventory.ui.Ui;
 
+//@@author Raghav-B
 public class ByeCommand extends Command {
 
     public ByeCommand(CommandType type) {
@@ -43,3 +44,4 @@ public class ByeCommand extends Command {
         return null;
     }
 }
+//@@author Raghav-B

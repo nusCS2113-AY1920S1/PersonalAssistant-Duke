@@ -20,6 +20,7 @@ public final class PersonList {
      * @throws BadInputException If Person already exists.
      */
     public static void add(String matricNo, String name) throws BadInputException {
+        matricNo = matricNo.toUpperCase();
         if (findPerson(matricNo) != -1) { // Person exists already
             throw new BadInputException("The Person with the specified matriculation number already exists!\n Did you"
                     + " mean to edit this Person's details instead?");
@@ -34,6 +35,7 @@ public final class PersonList {
      * @throws BadInputException If desired Person cannot be found.
      */
     public static Person delete(String matricNo) throws BadInputException {
+        matricNo = matricNo.toUpperCase();
         int personDeleteIndex = findPerson(matricNo);
         if (personDeleteIndex == -1) {
             throw new BadInputException("Could not find a Person with the specified matriculation number.");
@@ -53,6 +55,7 @@ public final class PersonList {
      * @throws BadInputException If no Person could be found.
      */
     public static Person edit(String matricNo, PersonProperty property, String newValue) throws BadInputException {
+        matricNo = matricNo.toUpperCase();
         Person uneditedPerson;
         int editPersonIndex = findPerson(matricNo);
         if (editPersonIndex == -1) {
@@ -82,6 +85,7 @@ public final class PersonList {
      * @return index of Person found in PersonList.
      */
     public static int findPerson(String matricNo) {
+        matricNo = matricNo.toUpperCase();
         for (int i = 0; i < personList.size(); i++) {
             if (personList.get(i).getMatricNo().equals(matricNo)) {
                 return i;
@@ -99,6 +103,7 @@ public final class PersonList {
      * @return The name of the person.
      */
     public static String getName(String matricNo) {
+        matricNo = matricNo.toUpperCase();
         Person person = personList.get(findPerson(matricNo));
 
         return person.getName();

@@ -18,6 +18,7 @@ public class ParseEdit {
             throw new BadInputException("Sorry, the new StockCode cannot contain spaces!");
         }
     }
+    //@@author
 
     //@@author patwaririshab
     private Command processEditStock(String input) throws BadInputException {

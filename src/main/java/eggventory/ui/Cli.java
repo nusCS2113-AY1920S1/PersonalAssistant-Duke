@@ -46,21 +46,4 @@ public class Cli extends Ui {
 
         return output;
     }
-
-    //    public PrintType printCommand(PrintType printType, String ... statement) {
-    //        String output;
-    //        switch(printType){
-    //            case SUCCESS_ADD_COMMAND:
-    //                output = (addIndent() + "Nice! I have successfully added the stock: StockType: " + statement[0]);
-    //                System.out.println(output);
-    //                return PrintType.SUCCESS_ADD_COMMAND;
-    //            break;
-    //            case FAIL_ADD_COMMAND:
-    //                output = (addIndent() + "Sorry! There seems to be an error: StockType" + statement[0] );
-    //                System.out.println(output);
-    //                break;
-    //            default:
-    //                output = "Nothing done";
-    //        }
-    //    }
 }

@@ -32,7 +32,6 @@ public class DeleteStockCommand extends Command {
 
             output = String.format("Sorry, I cannot find the stock that stock code \"%s\" refers to. "
                     + "Please try again.", stockCode);
-            ui.print(output);
             throw new BadInputException(output);
         } else {
             output = String.format("I deleted the following stock: StockType: %s StockCode: %s Quantity: %d "
