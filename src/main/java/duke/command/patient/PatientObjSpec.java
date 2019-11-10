@@ -20,7 +20,7 @@ public abstract class PatientObjSpec extends ObjSpec {
         Map<String, Boolean> conditions = new HashMap<>();
         conditions.put("impression", cmd.isSwitchSet("impression"));
         conditions.put("critical", cmd.isSwitchSet("critical"));
-        conditions.put("followup", cmd.isSwitchSet("follow"));
+        conditions.put("followup", cmd.isSwitchSet("followup"));
 
         String type = null;
         for (Map.Entry<String, Boolean> condition : conditions.entrySet()) {
