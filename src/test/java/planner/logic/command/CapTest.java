@@ -3,6 +3,8 @@
 package planner.logic.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -161,6 +163,8 @@ public class CapTest extends InputTest {
 
     @Test
     public void capMethodTest() {
-
+        CapCommand cap = new CapCommand();
+        assertTrue(cap.isComplete("done"));
+        assertFalse(cap.isComplete("not == done"));
     }
 }

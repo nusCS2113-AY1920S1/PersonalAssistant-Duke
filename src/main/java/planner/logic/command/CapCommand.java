@@ -57,8 +57,11 @@ public class CapCommand extends ModuleCommand {
     /**
      * Constructor for testing.
      */
-    public CapCommand(String fill) {
-
+    public CapCommand() {
+        mcCount = 0;
+        currentCap = 0;
+        projectedModuleCap = 0;
+        projectedCap = 0;
     }
 
     public boolean isComplete(String input) {
