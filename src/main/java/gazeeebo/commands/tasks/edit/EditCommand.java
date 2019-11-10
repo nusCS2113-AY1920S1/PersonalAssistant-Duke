@@ -1,4 +1,5 @@
 //@@author JasonLeeWeiHern
+
 package gazeeebo.commands.tasks.edit;
 
 import gazeeebo.storage.Storage;
@@ -24,14 +25,13 @@ public class EditCommand extends Command {
      * @param list         task lists
      * @param ui           the object that
      *                     deals with printing things to the user.
-     * @param storage      the object that d
-     *                     eals with storing data to the Save.txt file.
+     * @param storage      the object that
+     *                     deals with storing data to the Save.txt file.
      * @param commandStack
      * @param deletedTask
      * @throws IOException
      * @throws NullPointerException if tDate doesn't get updated.
      */
-
     @Override
     public void execute(final ArrayList<Task> list,
                         final Ui ui, final Storage storage,
