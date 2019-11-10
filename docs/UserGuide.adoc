@@ -252,7 +252,11 @@ Format: `history INTEGER`
 Shows search frequency of each word in specified order. +
 Format: `freq o/ORDER`
 
-=======
+=== Adding example sentence : `add_example`
+
+Add example sentence for a word.
+Format: `add_example w/ORDER e/EXAMPLE`
+
 
 === Exiting the program : `exit`
 
