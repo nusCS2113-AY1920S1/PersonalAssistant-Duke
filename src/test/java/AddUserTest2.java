@@ -1,9 +1,6 @@
-import command.AddUserCommand;
 import org.junit.jupiter.api.Test;
 import user.User;
 import user.UserList;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,6 +13,6 @@ public class AddUserTest2 {
         User newUser = new User(username);
         UserList newUserList = new UserList();
         newUserList.add(newUser);
-        assertTrue(newUserList.checkExistence(username));
+        assertTrue(newUserList.doesExist(username));
     }
 }
