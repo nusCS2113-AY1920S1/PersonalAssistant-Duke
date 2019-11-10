@@ -32,7 +32,6 @@ public class ListTransactionCommandParser implements ParserInterface<ListTransac
             }
             if (details.equals("sort")) {
                 sortArgStr = argumentInfoMap.get(details).trim();
-                //TODO: add sorting
             }
             if (details.equals("entry")) {
                 try {
