@@ -183,7 +183,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             String[] desc = inputLine.split(inputArray[2] + SPACE);
             String[] dateString = desc[1].split(" /due ");
             description = dateString[0];
-            return checkTag(dateString[1]);
+            return checkDate(dateString[1]);
         } catch (Exception e) {
             DebtUi.printInvalidDebtFormatError();
             return false;
@@ -193,28 +193,17 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     //@@author tatayu
     /**
      * Returns true if no error occurs while creating the date for 'addDebtCommand'.
-     * @param dateString the string that contains date and tag.
+     * @param dateString the string that contains date.
      * @return true if no error occurs.
      */
-    private boolean checkTag(String dateString) {
-        if (inputLine.contains(COMPONENT_TAG)) {
-            String[] dateAndTag = dateString.split(COMPONENT_TAG);
-            try {
-                date = Time.readDate(dateAndTag[0].trim());
-            } catch (DateTimeParseException e) {
-                Ui.printDateFormatError();
-                return false;
-            }
-            return true;
-        } else {
-            try {
-                date = Time.readDate(dateString.trim());
-            } catch (DateTimeParseException e) {
-                Ui.printDateFormatError();
-                return false;
-            }
-            return true;
+    private boolean checkDate(String dateString) {
+        try {
+            date = Time.readDate(dateString);
+        } catch (DateTimeParseException e) {
+            Ui.printDateFormatError();
+            return false;
         }
+        return true;
     }
 
     //@@author yetong1895
@@ -634,6 +623,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE) || s.equals(SEARCH_NAME);
     }
 
+    //@@author tatayu
     /**
      *check if the people and amount is valid.
      * @return true if they are valid.
