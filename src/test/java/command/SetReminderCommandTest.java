@@ -25,7 +25,7 @@ class SetReminderCommandTest {
     void testSetup() {
         ui = new Ui();
         bank = new Bank();
-        storage = new Storage("setReminderCommandTest.txt");
+        storage = new Storage("setReminderCommandTestData.txt", "setReminderCommandTest.xlsx", "setReminderCommandTestReminder.txt");
     }
 
     @Test
@@ -81,8 +81,10 @@ class SetReminderCommandTest {
 
     @AfterEach
     void cleanUp() {
-        File file = new File(Storage.REMINDER_FILE_PATH);
-        if (file.delete()) {
+        File dataFile = new File(Storage.DATA_FILE_PATH);
+        File reminderFile = new File(Storage.REMINDER_FILE_PATH);
+        File excelFile = new File(Storage.EXCEL_PATH);
+        if ((dataFile.delete()) && (reminderFile.delete()) && (excelFile.delete())) {
             System.out.println("SetReminderCommandTest: File deleted successfully");
         } else {
             System.out.println("SetReminderCommandTest: Failed to delete the file");

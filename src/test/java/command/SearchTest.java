@@ -56,7 +56,7 @@ public class SearchTest {
         writer.close();
 
 
-        storage = new Storage("\\testdata");
+        storage = new Storage();
         ui = new Ui();
         bank = storage.loadExcelFile();
 
