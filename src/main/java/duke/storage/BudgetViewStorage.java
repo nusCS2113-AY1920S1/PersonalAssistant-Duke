@@ -1,5 +1,7 @@
 package duke.storage;
 
+import duke.commons.FileUtil;
+import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import duke.model.BudgetView;
 
@@ -9,21 +11,25 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class BudgetViewStorage {
+
+    private static final Logger logger = LogsCenter.getLogger(BudgetViewStorage.class);
+
     private static final String STORAGE_DELIMITER = "\n";
 
     private static final File DEFAULT_USER_DIRECTORY = new File("data" + File.separator + "duke");
     private static final File BUDGETVIEW_FILE = new File(DEFAULT_USER_DIRECTORY, "budgetView.txt");
 
     /**
-     * Constructor of Budget object.
+     * Constructor of BudgetViewStorage object.
      *
-     * @throws DukeException if the file cannot be created or read.
      * @throws IOException   if the file cannot be created or read.
      */
-    public BudgetViewStorage() throws DukeException, IOException {
-        DEFAULT_USER_DIRECTORY.mkdirs();
+    public BudgetViewStorage() throws IOException {
+        FileUtil.createIfMissing(BUDGETVIEW_FILE.toPath());
+        logger.info("budgetView.txt file created");
     }
 
     /**
@@ -65,8 +71,8 @@ public class BudgetViewStorage {
                 int view = Integer.parseInt(separatedLine[0]);
                 budgetViewCategory.put(view, separatedLine[1]);
             }
-        } catch (IOException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED, BUDGETVIEW_FILE.getPath()));
+        } catch (IOException | NumberFormatException | IllegalStateException e) {
+            logger.info("BudgetView file is corrupted! Overwriting budgetView.txt...");
         }
         return new BudgetView(budgetViewCategory);
     }

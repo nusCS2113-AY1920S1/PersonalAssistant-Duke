@@ -19,7 +19,7 @@ public class DeleteIncomeCommand extends Command {
     private static final String description = "Deletes an Income";
     private static final String usage = "delete $index";
 
-    private static final String COMPLETE_MESSAGE = "Deleted the income!";
+    private static final String COMPLETE_MESSAGE = "Deleted the income(s)!";
 
     private enum SecondaryParam {
         ;
@@ -44,9 +44,13 @@ public class DeleteIncomeCommand extends Command {
     /**
      * Lets the IncomeList of Duke delete the task with the given index(s), or the entire task list and
      * updates content of storage file according to new IncomeList.
-     * Responses the result to user by using ui of Duke.
+     * <p>
+     * Responses the result to user by using ui of Duke++ in Budget Pane.
      *
-     * @param
+     * @param commandParams the parameters given by the user, parsed into a {@code CommandParams} object.
+     * @param model         {@code Model} which the command should operate on.
+     * @param storage       the storage of Duke++.
+     * @return CommandResult the result of the command, which is a completed logger message, with display in budget pane
      * @throws DukeException If the index given is out of range, invalid, or does not exist.
      */
     @Override
@@ -54,20 +58,31 @@ public class DeleteIncomeCommand extends Command {
         if (!commandParams.containsMainParam()) {
             throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "index"));
         }
-
-        if (commandParams.getMainParam().equals("all")) {
-            model.clearIncome();
-        } else if (commandParams.getMainParam().contains("-")) {
-            String[] index = commandParams.getMainParam().split("-");
-            int difference = Integer.parseInt(index[1]) - Integer.parseInt(index[0]);
-            int counter = 0;
-            for (int i = Integer.parseInt(index[0]); counter <= difference; counter++) {
-                model.deleteIncome(i);
+        try {
+            if (commandParams.getMainParam().contains("-")) {
+                String[] index = commandParams.getMainParam().split("-");
+                int difference = Integer.parseInt(index[1]) - Integer.parseInt(index[0]);
+                if (difference <= 0) {
+                    throw new DukeException(String.format(DukeException.MESSAGE_DELETE_FORMAT_INVALID, commandParams.getMainParam()));
+                }
+                if(Integer.parseInt(index[1]) > model.getIncomeList().internalSize()) {
+                    throw new DukeException(String.format(DukeException.MESSAGE_NUMBER_FORMAT_INVALID, Integer.parseInt(index[1])));
+                } else {
+                    int counter = 0;
+                    for (int i = Integer.parseInt(index[0]); counter <= difference; counter++) {
+                        model.deleteIncome(i);
+                    }
+                }
+            } else if (commandParams.getMainParam().equals("all")) {
+                model.clearIncome();
+            } else {
+                model.deleteIncome((Integer.parseInt(commandParams.getMainParam())));
             }
-        } else {
-            model.deleteIncome(Integer.parseInt(commandParams.getMainParam()));
+            storage.saveIncomeList(model.getIncomeList());
+            return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.BUDGET);
+
+        } catch (NumberFormatException e) {
+            throw new DukeException(String.format(DukeException.MESSAGE_NUMBER_FORMAT_INVALID, commandParams.getMainParam()));
         }
-        storage.saveIncomeList((model.getIncomeList()));
-        return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.BUDGET);
     }
 }

@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Represents a specified command as AddCommand by extending the {@code Command} class.
- * Adds various specified incomeList into the IncomeList
+ * Represents a specified command as AddIncomeCommand by extending the {@code Command} class.
+ * Adds various specified income into the IncomeList.
  * Responses with the result.
  */
 public class AddIncomeCommand extends Command {
@@ -45,6 +45,19 @@ public class AddIncomeCommand extends Command {
                         .collect(Collectors.toMap(s -> s.name, s -> s.description))
         );
     }
+
+    /**
+     * Creates a new Income with the corresponding amount and description and
+     * saves it to storage file {@code income.txt}.
+     *
+     * Responses the result to user by using ui of Duke++ in BudgetPane.
+     *
+     * @param commandParams the parameters given by the user, parsed into a {@code CommandParams} object.
+     * @param model         {@code Model} which the command should operate on.
+     * @param storage       the storage of Duke++.
+     * @return CommandResult the result of the command, which is a completed logger message, in budget display pane
+     * @throws DukeException if amount or description of the income is missing
+     */
 
     @Override
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {

@@ -14,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+
+import java.math.BigDecimal;
 import java.util.logging.Logger;
 
 public class BudgetPane extends UiPart<AnchorPane>  {
@@ -47,6 +49,13 @@ public class BudgetPane extends UiPart<AnchorPane>  {
 
     public Logic logic;
 
+    /**
+     * Constructor for BudgetPane
+     *
+     * @param incomeList the list of income from storage
+     * @param logic logic
+     * @param totalIncome total income calculated from storage
+     */
     BudgetPane(ObservableList<Income> incomeList, Logic logic, StringProperty totalIncome) {
         super(FXML_FILE_NAME, null);
         logger.info("incomeList has length " + incomeList.size());
@@ -68,9 +77,13 @@ public class BudgetPane extends UiPart<AnchorPane>  {
         Text text = new Text();
         ProgressBar overallBudget = new ProgressBar();
         double percent = logic.getTotalAmount().doubleValue()/logic.getMonthlyBudget().doubleValue();
-        String remaining = logic.getRemaining(logic.getTotalAmount()).toString();
         overallBudget.setProgress(percent);
-        text.setText("Remaining: $" + remaining);
+        BigDecimal remaining = logic.getRemaining(logic.getTotalAmount());
+        if ((remaining.compareTo(BigDecimal.ZERO) < 0)) {
+            text.setText("Remaining: -$" + remaining.negate());
+        } else {
+            text.setText("Remaining: $" + remaining);
+        }
         text.setStyle("-fx-font-size: 20px;");
         if(percent > 0.9) {
             overallBudget.setStyle("-fx-accent: red;");
@@ -97,6 +110,10 @@ public class BudgetPane extends UiPart<AnchorPane>  {
         totalIncomeLabel.textProperty().bindBidirectional(totalIncome);
     }
 
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Income}
+     * using a {@code IncomeList}.
+     */
     class IncomeListViewCell extends ListCell<Income> {
         @Override
         protected void updateItem(Income income, boolean empty) {

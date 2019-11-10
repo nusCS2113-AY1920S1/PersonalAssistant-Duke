@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.StringJoiner;
 
+/**
+ * Represents an income of the user
+ */
 public class Income extends DukeItem {
     /**
      * The amount of money of the income.
@@ -52,12 +55,12 @@ public class Income extends DukeItem {
          */
         Builder(Map<String, String> mappedStorageString) throws DukeException {
             super(mappedStorageString);
-            if (mappedStorageString.containsKey("amount")) {
-                setAmount(mappedStorageString.get("amount"));
+            if(!mappedStorageString.containsKey("amount") | !mappedStorageString.containsKey("description")) {
+                setAmount((String) null);
+                setDescription(null);
             }
-            if (mappedStorageString.containsKey("description")) {
-                setDescription(mappedStorageString.get("description"));
-            }
+            setAmount(mappedStorageString.get("amount"));
+            setDescription(mappedStorageString.get("description"));
         }
 
         /**
@@ -72,7 +75,7 @@ public class Income extends DukeItem {
         public Builder setAmount(String amount) throws DukeException {
             try {
                 return setAmount(new BigDecimal(amount));
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 throw new DukeException(String.format(DukeException.MESSAGE_INCOME_AMOUNT_INVALID, amount));
             }
         }
