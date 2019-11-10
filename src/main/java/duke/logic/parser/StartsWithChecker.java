@@ -15,8 +15,8 @@ public class StartsWithChecker {
      * @return keyword (may not be changed)
      */
     public static String checkStartsWithAnyCommand(String keyword) {
-        ArrayList<String> commandList = new ArrayList<>(Arrays.asList("bye", "help", "list", "delete", "find",
-                "done", "edit", "task", "autoassign", "pomo"));
+        ArrayList<String> commandList = new ArrayList<>(Arrays.asList("bye", "help", "list", "done", "find",
+                "delete", "event", "task", "autoassign", "pomo", "clear", "undo", "edit"));
         Scanner scanner = new Scanner(System.in);
         for (String command : commandList) {
             if (command.startsWith(keyword)) {
