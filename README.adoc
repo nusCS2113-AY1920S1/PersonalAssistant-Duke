@@ -15,9 +15,13 @@ ifndef::env-github[]
 image::images/Ui.PNG[width="600" height="400"]
 endif::[]
 
-* The project aims to build a product named Duke, a Personal Assistant Chatbot that helps a person to keep track of various things.
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* Project Duke is a **__?small?__** software project designed to take you through the steps of building a small software incrementally, while applying many Java and SE techniques along the way.
+* The project aims to build a product named `SGTravel`, a Personal Assistant Travel Planning application for Singapore Tourists!
+* This app has route planning, profile page, edit location and recommended itineraries feature up and running in v1.4 (11/11/2019)
+* It is a Java application made in the AY19/20 Semester 1 iteration of the CS2113/T module. 
+* This project was originally expanded on the Duke Chatbot project. 
+* The project showcases what we have learnt from our OOP and Software Engineering module and was made in the AY19/20 Semester 1 iteration of CS2113/T
+* Project by - Daniel , Hong Chuan, Sukrut and Jefferson!
+
 
 == Site Map
 
