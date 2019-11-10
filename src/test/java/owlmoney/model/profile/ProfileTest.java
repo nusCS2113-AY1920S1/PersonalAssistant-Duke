@@ -179,7 +179,7 @@ class ProfileTest {
         outContent.reset();
     }
 
-    //Tests function for find feature. Will require data to be in clean state.
+    //Tests function for find feature.
     @Test
     void findBond_BondExist_success() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();

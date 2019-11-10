@@ -537,11 +537,11 @@ class CardTest {
                 + NEWLINE + NEWLINE
                 + HEADER_LIST_UNPAID_EXPENDITURE + DIVIDER
                 + "3                    Fried Rice                                              "
-                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
+                + "[-] $300.00          10 July 2019         Food                 " + NEWLINE
                 + "2                    Curry Rice                                              "
-                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "[-] $200.00          06 June 2019         Food                 " + NEWLINE
                 + "1                    Chicken Rice                                            "
-                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + "[-] $100.00          05 June 2019         Food                 " + NEWLINE
                 + DIVIDER;
         try {
             testCard.addInExpenditure(newExpenditure0, testUi, "card");
@@ -569,11 +569,11 @@ class CardTest {
                 dateFormat.parse("10/07/2019"), "Food");
         String expectedOutput = HEADER_LIST_PAID_EXPENDITURE + DIVIDER
                 + "3                    Fried Rice                                              "
-                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
+                + "[-] $300.00          10 July 2019         Food                 " + NEWLINE
                 + "2                    Curry Rice                                              "
-                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "[-] $200.00          06 June 2019         Food                 " + NEWLINE
                 + "1                    Chicken Rice                                            "
-                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + "[-] $100.00          05 June 2019         Food                 " + NEWLINE
                 + DIVIDER + NEWLINE
                 + EXPECTED_BUT_NO_UNPAID_EXPENDITURE + NEWLINE;
         try {
@@ -602,13 +602,13 @@ class CardTest {
                 dateFormat.parse("10/07/2019"), "Food");
         String expectedOutput = HEADER_LIST_PAID_EXPENDITURE + DIVIDER
                 + "1                    Fried Rice                                              "
-                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
+                + "[-] $300.00          10 July 2019         Food                 " + NEWLINE
                 + DIVIDER + NEWLINE
                 + HEADER_LIST_UNPAID_EXPENDITURE + DIVIDER
                 + "2                    Curry Rice                                              "
-                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "[-] $200.00          06 June 2019         Food                 " + NEWLINE
                 + "1                    Chicken Rice                                            "
-                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + "[-] $100.00          05 June 2019         Food                 " + NEWLINE
                 + DIVIDER;
         try {
             testCard.addInPaidExpenditure(newExpenditure0, testUi, "card");
@@ -636,11 +636,11 @@ class CardTest {
                 dateFormat.parse("10/07/2019"), "Food");
         String expectedOutput = HEADER_LIST_PAID_EXPENDITURE + DIVIDER
                 + "3                    Fried Rice                                              "
-                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
+                + "[-] $300.00          10 July 2019         Food                 " + NEWLINE
                 + "2                    Curry Rice                                              "
-                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "[-] $200.00          06 June 2019         Food                 " + NEWLINE
                 + "1                    Chicken Rice                                            "
-                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + "[-] $100.00          05 June 2019         Food                 " + NEWLINE
                 + DIVIDER + NEWLINE
                 + EXPECTED_BUT_NO_UNPAID_EXPENDITURE
                 + NEWLINE;
@@ -672,11 +672,11 @@ class CardTest {
                 + NEWLINE + NEWLINE
                 + HEADER_LIST_UNPAID_EXPENDITURE + DIVIDER
                 + "3                    Fried Rice                                              "
-                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
+                + "[-] $300.00          10 July 2019         Food                 " + NEWLINE
                 + "2                    Curry Rice                                              "
-                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "[-] $200.00          06 June 2019         Food                 " + NEWLINE
                 + "1                    Chicken Rice                                            "
-                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + "[-] $100.00          05 June 2019         Food                 " + NEWLINE
                 + DIVIDER;
         try {
             testCard.addInExpenditure(newExpenditure0, testUi, "card");
