@@ -1,12 +1,10 @@
 //@@author WEIFENG-NUSCEG
+
 package duke.models.assignedtasks;
 
-import duke.Duke;
 import duke.exceptions.DukeException;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -43,7 +41,7 @@ public class AssignedTaskManagerTest {
         AssignedTask assignedTask100 = new AssignedTaskWithPeriod(42,3,false,false,
                 "11/11/2013 1200","06/08/2019 1200","period");
         assignedTaskManagerTest.addPatientTask(assignedTask100);
-        assertEquals(assignedTaskManagerTest.getAssignTasks().size() , 4);
+        assertEquals(assignedTaskManagerTest.getAssignTasks().size(), 4);
     }
 
     @Test

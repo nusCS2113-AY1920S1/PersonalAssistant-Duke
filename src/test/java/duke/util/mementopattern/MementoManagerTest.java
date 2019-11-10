@@ -1,4 +1,5 @@
 //@@author WEIFENG-NUSCEG
+
 package duke.util.mementopattern;
 
 import duke.exceptions.DukeException;
@@ -26,7 +27,7 @@ public class MementoManagerTest {
                 "07/12/2011 1200","deadline",2);
         assignedTasksTest.add(assignedTask1);
         assignedTasksTest.add(assignedTask7);
-        AssignedTaskManager assignedTaskManagerTest = new AssignedTaskManager(assignedTasksTest);
+        final AssignedTaskManager assignedTaskManagerTest = new AssignedTaskManager(assignedTasksTest);
 
         ArrayList<Patient> testPatientList = new ArrayList<>();
         Patient patient1 = new Patient(1,"Lisa Chew","S1234567T","12A","Nil");
@@ -61,7 +62,7 @@ public class MementoManagerTest {
                 "07/12/2011 1200","deadline",2);
         assignedTasksTest.add(assignedTask1);
         assignedTasksTest.add(assignedTask7);
-        AssignedTaskManager assignedTaskManagerTest = new AssignedTaskManager(assignedTasksTest);
+        final AssignedTaskManager assignedTaskManagerTest = new AssignedTaskManager(assignedTasksTest);
 
         ArrayList<Patient> testPatientList = new ArrayList<>();
         Patient patient1 = new Patient(1,"Lisa Chew","S1234567T","12A","Nil");
@@ -96,14 +97,14 @@ public class MementoManagerTest {
                 "07/12/2011 1200","deadline",2);
         assignedTasksTest.add(assignedTask1);
         assignedTasksTest.add(assignedTask7);
-        AssignedTaskManager assignedTaskManagerTest = new AssignedTaskManager(assignedTasksTest);
+        final AssignedTaskManager assignedTaskManagerTest = new AssignedTaskManager(assignedTasksTest);
 
         ArrayList<Patient> testPatientList = new ArrayList<>();
         Patient patient1 = new Patient(1,"Lisa Chew","S1234567T","12A","Nil");
         testPatientList.add(patient1);
         Patient patient2 = new Patient(2,"Helen Teo","S2234567I","3B","Nil");
         testPatientList.add(patient2);
-        PatientManager patientManager = new PatientManager(testPatientList);
+        final PatientManager patientManager = new PatientManager(testPatientList);
 
         ArrayList<Task> testTaskList = new ArrayList<>();
         Task task1 = new Task(1,"Take medicine Panadol");
