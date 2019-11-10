@@ -63,7 +63,7 @@ public class AddGoalCommand extends MoneyCommand {
                     + "goal <desc> /amt <amount> /by <date> /priority <HIGH/MEDIUM/LOW>\n");
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("Please enter in the format: "
                     + "goal <desc> /amt <amount> /by <date> /priority <HIGH/MEDIUM/LOW>\n");
         }
