@@ -1,6 +1,7 @@
 package dolla.command;
 
 import dolla.exception.DollaException;
+import dolla.model.BillList;
 import dolla.model.DollaData;
 import dolla.ui.DebtUi;
 

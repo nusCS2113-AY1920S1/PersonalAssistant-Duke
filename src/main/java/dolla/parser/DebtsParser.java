@@ -18,6 +18,7 @@ import dolla.command.modify.InitialModifyCommand;
 
 import dolla.model.RecordList;
 import dolla.ui.DebtUi;
+import dolla.ui.RemoveUi;
 
 import java.util.ArrayList;
 
@@ -98,15 +99,25 @@ public class DebtsParser extends Parser {
             RecordList recordList;
             DollaData dollaData = new DollaData();
             recordList = dollaData.getBillRecordList();
-            if (verifyRemoveLength()) {
-                if (verifyRemoveForDebtMode()) {
-                    return new RemoveCommand(mode, inputArray[1]);
-                } else if (verifyRemoveBill(recordList)) {
+            if (verifyRemoveLength() == 1) {
+                if (verifyRemoveBill(recordList)) {
                     return new RemoveBillCommand(Integer.parseInt(inputArray[2]));
                 } else {
+                    RemoveUi.printInvalidRemoveFormatInDebtMode();
+                    DebtUi.printRemoveBillFormatError();
+                    return new ErrorCommand();
+                }
+            } else if (verifyRemoveLength() == 2) {
+                if (verifyRemoveForDebtMode()) {
+                    return new RemoveCommand(mode, inputArray[1]);
+                } else {
+                    RemoveUi.printInvalidRemoveFormatInDebtMode();
+                    DebtUi.printRemoveBillFormatError();
                     return new ErrorCommand();
                 }
             } else {
+                RemoveUi.printInvalidRemoveFormatInDebtMode();
+                DebtUi.printRemoveBillFormatError();
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(COMMAND_REDO)

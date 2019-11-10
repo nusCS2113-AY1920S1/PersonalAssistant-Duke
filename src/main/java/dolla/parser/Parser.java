@@ -2,7 +2,6 @@ package dolla.parser;
 
 import dolla.ModeStringList;
 import dolla.Time;
-import dolla.model.Debt;
 import dolla.model.RecordList;
 import dolla.exception.DollaException;
 
@@ -291,17 +290,12 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return true if the remove command is valid.
      */
     protected boolean verifyRemoveForDebtMode() {
-        if (inputArray.length != 2) {
-            RemoveUi.printInvalidRemoveFormatInDebtMode();
-            return false;
-        }
         try {
             if (Integer.parseInt(inputArray[1]) < 1) {
-                RemoveUi.printInvalidRemoveFormatInDebtMode();
+                RemoveUi.printInvalidRemoveMessage();
                 return false;
             }
         } catch (NumberFormatException e) {
-            RemoveUi.printInvalidRemoveFormatInDebtMode();
             return false;
         }
         return true;
@@ -313,12 +307,15 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * Check if the command is one word only.
      * @return true if the command is more than one words.
      */
-    protected boolean verifyRemoveLength() {
+    protected int verifyRemoveLength() {
         if (inputArray.length == 1) {
-            RemoveUi.printInvalidRemoveMessage();
-            return false;
+            return -1;
+        } else if (inputArray.length == 3) {
+            return 1;
+        } else if (inputArray.length == 2) {
+            return 2;
         } else {
-            return true;
+            return -1;
         }
     }
 
@@ -328,25 +325,25 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return true if the remove bill command is valid.
      */
     protected boolean verifyRemoveBill(RecordList recordList) {
-        if (inputArray.length != 3) {
-            DebtUi.printRemoveBillFormatError();
+        if (recordList.size() == 0) {
+            Ui.printNumberOfRecords(0);
             return false;
-        }
-        if (inputArray[1].equals(BILL_COMMAND_BILL)) {
-            try {
-                if (Integer.parseInt(inputArray[2]) < 1
-                        || Integer.parseInt(inputArray[2]) > recordList.size()) {
-                    DebtUi.printRemoveBillFormatError();
+        } else {
+            if (inputArray[1].equals(BILL_COMMAND_BILL)) {
+                try {
+                    if (Integer.parseInt(inputArray[2]) < 1
+                            || Integer.parseInt(inputArray[2]) > recordList.size()) {
+                        RemoveUi.printInvalidRemoveMessage();
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                     return false;
-                } else {
-                    return true;
                 }
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                DebtUi.printRemoveBillFormatError();
+            } else {
                 return false;
             }
-        } else {
-            return false;
         }
     }
 
@@ -796,7 +793,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         try {
             if (verifyBillPeopleAndAmount()) {
                 int numberOfNames = inputArray.length - 3;
-                if (numberOfNames > Integer.parseInt(inputArray[1])) {
+                if (numberOfNames != Integer.parseInt(inputArray[1])) {
                     DebtUi.printInvalidNameNumberError(Integer.parseInt(inputArray[1]));
                     return false;
                 } else {
