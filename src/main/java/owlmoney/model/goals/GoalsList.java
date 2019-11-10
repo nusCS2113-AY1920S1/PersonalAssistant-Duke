@@ -400,15 +400,55 @@ public class GoalsList {
 
     /**
      * Check goals that is due in 10 days.
-     *
-     * @return Goal due in 10 days.
      */
-    public Goals reminderForGoals() {
-        for (int i = 0; i < goalList.size(); i++) {
-            if (goalList.get(i).convertDateToDays() <= 10 && !goalList.get(i).getRawStatus()) {
-                return goalList.get(i);
+    public void reminderForGoals(Ui ui) {
+        int count = 0;
+        if (goalList.size() <= ISZERO) {
+            ui.printMessage("NO OVERDUE / REMINDER FOR GOALS");
+        } else {
+            ui.printMessage("\nREMINDER FOR GOALS: ");
+            for (int i = 0; i < goalList.size(); i++) {
+                if (goalList.get(i).convertDateToDays() == 0
+                        && !goalList.get(i).getGoalsDateInDateFormat().before(new Date())) {
+                    ui.printMessage("- " + goalList.get(i).getGoalsName() + " is due in 1 day"
+                            + "\n(You still have a remaining of $" + goalList.get(i).getRemainingAmount()
+                            + " to reach your goal!)");
+                    count++;
+                }
+                if (goalList.get(i).convertDateToDays() != 0 && goalList.get(i).convertDateToDays() <= 10
+                        && !goalList.get(i).getRawStatus()) {
+                    ui.printMessage("- " + goalList.get(i).getGoalsName() + " is due in "
+                            + goalList.get(i).convertDateToDays() + " days. " + "\n(You still have a remaining of $"
+                            + goalList.get(i).getRemainingAmount() + " to reach your goal!)");
+                    count++;
+                }
+            }
+            if (count == 0) {
+                ui.printMessage("NO REMINDER FOR GOALS");
             }
         }
-        return null;
+    }
+
+    /**
+     * Check goals that is overdue.
+     */
+    public void overdueGoals(Ui ui) {
+        int count = 0;
+        if (goalList.size() <= ISZERO) {
+            ui.printMessage("NO OVERDUE / REMINDER FOR GOALS");
+        } else {
+            ui.printMessage("\nOVERDUE GOALS: ");
+            for (int i = 0; i < goalList.size(); i++) {
+                if (goalList.get(i).convertDateToDays() == 0 && !goalList.get(i).getRawStatus()
+                        && goalList.get(i).getGoalsDateInDateFormat().before(new Date())) {
+                    ui.printMessage("- " + goalList.get(i).getGoalsName()
+                            + " to save $" + goalList.get(i).getRemainingAmount() + " is overdue!");
+                    count++;
+                }
+            }
+            if (count == 0) {
+                ui.printMessage("NO OVERDUE GOALS");
+            }
+        }
     }
 }
