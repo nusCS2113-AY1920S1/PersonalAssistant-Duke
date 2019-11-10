@@ -15,7 +15,7 @@ image::docs/images/Ui.png[width="600", align="center"]
 * https://github.com/AY1920S1-CS2113-T13-3/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]
 * <<LearningOutcomes#, Learning Outcomes>>
 * https://github.com/AY1920S1-CS2113-T13-3/main/blob/master/docs/AboutUs.adoc[AboutUs]
-* <<ContactUs#, Contact Us>>
+* https://github.com/AY1920S1-CS2113-T13-3/main/blob/master/docs/ContactUs.adoc[ContactUs]
 
 == Acknowledgements
 
