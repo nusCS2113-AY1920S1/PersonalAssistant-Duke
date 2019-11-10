@@ -1,7 +1,9 @@
 package Commands;
 
+import Commons.DukeConstants;
 import Commons.Storage;
 import Commons.UserInteraction;
+import DukeExceptions.DukeInvalidFormatException;
 import Tasks.Assignment;
 import Tasks.TaskList;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ public class FilterCommand extends Command {
      * Creates FilterCommand object.
      * @param Command The full command that calls FilterCommand.
      */
-    public FilterCommand(String Command) {
+    public FilterCommand(String Command)  {
         this.keyword = Command.trim().toLowerCase();
     }
 
@@ -31,7 +33,10 @@ public class FilterCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display list message
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidFormatException {
+        if(keyword.trim().equals(DukeConstants.EMPTY_ERROR)){
+            throw new DukeInvalidFormatException(DukeConstants.SHOW_FILTER_FORMAT );
+        }
         ArrayList<String> out = new ArrayList<>();
         HashMap<String, HashMap<String, ArrayList<Assignment>>> emap = events.getMap();
         Set<String> allMods = emap.keySet();
