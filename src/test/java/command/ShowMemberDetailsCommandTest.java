@@ -48,9 +48,9 @@ public class ShowMemberDetailsCommandTest {
 
         model.addMember("John");
         model.addTask("Complete event poster");
-        model.updateMemberBio(0,"Test Bio");
-        model.updateMemberEmail(0,"abc@gmail.com");
-        model.updateMemberPhone(0, "98761234");
+        model.updateMemberBio("John","Test Bio");
+        model.updateMemberEmail("John","abc@gmail.com");
+        model.updateMemberPhone("John", "98761234");
         model.link(0,"John");
         model.addMemberSkill("John","Java");
         Command command = ShowCommandParser.parseShowCommand("member John");
