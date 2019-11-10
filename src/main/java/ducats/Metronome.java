@@ -30,7 +30,7 @@ public class Metronome {
     public int[] getTimeSig() {
         return timeSig;
     }
-    
+
     /**
      * Helper function to initialize the Metronome attributes from the given parameters.
      *

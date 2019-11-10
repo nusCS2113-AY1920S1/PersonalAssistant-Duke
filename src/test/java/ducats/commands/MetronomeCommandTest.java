@@ -5,10 +5,9 @@ import ducats.Storage;
 import ducats.Ui;
 import ducats.components.Song;
 import ducats.components.SongList;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class MetronomeCommandTest {
 
@@ -29,14 +28,14 @@ public class MetronomeCommandTest {
     void testStartMetronome() throws DucatsException {
         MetronomeCommand metronomeCommand = new MetronomeCommand("metronome 10 120 4/4");
         metronomeCommand.execute(songList, ui, storage);
-        assertArrayEquals(new int[]{10, 120, 4, 4}, metronomeCommand.startMetronome());
+        Assertions.assertArrayEquals(new int[]{10, 120, 4, 4}, metronomeCommand.startMetronome());
         MetronomeCommand badMetronomeCommand = new MetronomeCommand("metronome 10 120 44");
-        assertThrows(DucatsException.class, () -> badMetronomeCommand.execute(songList, ui, storage));
+        Assertions.assertThrows(DucatsException.class, () -> badMetronomeCommand.execute(songList, ui, storage));
     }
 
     @Test
     void testIsExit() {
         MetronomeCommand metronomeCommand = new MetronomeCommand("placeholder");
-        assertFalse(metronomeCommand.isExit());
+        Assertions.assertFalse(metronomeCommand.isExit());
     }
 }
