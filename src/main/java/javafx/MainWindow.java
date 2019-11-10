@@ -298,7 +298,7 @@ public class MainWindow extends AnchorPane {
         } else { //Now for commands with multiple inputs, to swap tabs when the user has modified something in that tab
             Scanner temp = new Scanner(input);
             String command = temp.next();
-            if (command.matches("done|event|todo") && (!typoFlag)) {
+            if (command.matches("done|event|todo|sort|snooze|deadline|schedule|find|delete") && (!typoFlag)) {
                 tabPane.getSelectionModel().select(tabTask);
             } else if (command.matches("swap|remove|add") && (!typoFlag)) {
                 tabPane.getSelectionModel().select(tabChoices);
@@ -579,8 +579,8 @@ public class MainWindow extends AnchorPane {
         //keywords Command.
         description = "Displays the degrees and their accepted key words and aliases.\n"
                 + "Will also switch to the \"Keywords\" tabs.\n"
-                + "These key words and aliases are compatible with the \"add\", \"detail\" command.\n"
-                + "Only KEYWORDS are compatible with the \"compare\" command.";
+                + "These key words and aliases are compatible with the \"add\", \"detail\" and \"compare\" command.\n"
+                + "Only KEYWORDS are compatible with the \"view_employment\" and \"cohort_size\" command.";
         this.dataHelp.add(new HelpFX("keywords", description));
 
         helpView.sort();
