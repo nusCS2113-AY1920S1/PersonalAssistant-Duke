@@ -3,9 +3,19 @@
 package gazeeebo.logger;
 
 import java.io.IOException;
-import java.util.logging.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class LogCenter {
+    /**
+     * Set up the logger.
+     * @param logger Message that is logged.
+     */
+
     public static void setUpLogger(Logger logger) {
         LogManager.getLogManager().reset();
         logger.setLevel(Level.ALL);

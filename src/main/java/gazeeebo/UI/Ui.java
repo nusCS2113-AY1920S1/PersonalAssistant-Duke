@@ -165,6 +165,9 @@ public class Ui {
         System.err.println("An IOException was caught :" + e.getMessage());
     }
 
+    public void showSystemTerminateMessage() {
+        System.err.println("System terminating without an input");
+    }
     public void showErrorMessage(final Exception e) {
         System.out.println(e.getMessage());
     }

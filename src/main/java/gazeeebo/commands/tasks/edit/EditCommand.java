@@ -7,6 +7,7 @@ import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.Command;
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
 
 import java.io.IOException;
@@ -55,7 +56,8 @@ public class EditCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.writeToSaveFile(sb.toString());
+        TasksPageStorage tasksPageStorage = new TasksPageStorage();
+        tasksPageStorage.writeToSaveFile(sb.toString());
     }
 
     /**
