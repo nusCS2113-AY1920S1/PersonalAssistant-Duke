@@ -1,32 +1,6 @@
 package duke.parser;
 
-import duke.command.BackupCommand;
-import duke.command.ExitCommand;
-import duke.command.ListPriorityCommand;
-import duke.command.UndoBudgetCommand;
-import duke.command.Command;
-import duke.command.SetPriorityCommand;
-import duke.command.DeleteCommand;
-import duke.command.FilterCommand;
-import duke.command.FindTasksByPriorityCommand;
-import duke.command.FindTasksByDateCommand;
-import duke.command.ListCommand;
-import duke.command.DoneCommand;
-import duke.command.FindCommand;
-import duke.command.AddCommand;
-import duke.command.ShowNotesCommand;
-import duke.command.AddNotesCommand;
-import duke.command.DeleteNotesCommand;
-import duke.command.DuplicateFoundCommand;
-import duke.command.RemindCommand;
-import duke.command.UpdateCommand;
-import duke.command.ViewBudgetCommand;
-import duke.command.ResetBudgetCommand;
-import duke.command.AddContactsCommand;
-import duke.command.ListContactsCommand;
-import duke.command.DeleteContactCommand;
-import duke.command.FindContactCommand;
-import duke.command.AddBudgetCommand;
+import duke.command.*;
 import duke.dukeexception.DukeException;
 import duke.enums.ErrorMessages;
 import duke.enums.Numbers;
@@ -39,6 +13,7 @@ import duke.task.ContactList;
 import duke.task.DetectDuplicate;
 import duke.task.FixedDuration;
 import duke.task.Contacts;
+import duke.ui.HelpWindow;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -643,6 +618,8 @@ public class Parser {
             return new BackupCommand(); //@@author
         } else if (sentence.equals("bye") || sentence.equals("exit")) {
             return new ExitCommand();
+        } else if (sentence.equals("help")) {
+            return new HelpCommand();
         } else {
             throw new DukeException(ErrorMessages.UNKNOWN_COMMAND.message);
         }

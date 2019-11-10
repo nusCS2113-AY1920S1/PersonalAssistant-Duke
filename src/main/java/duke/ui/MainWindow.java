@@ -2,10 +2,7 @@ package duke.ui;
 
 import duke.Duke;
 import duke.Main;
-import duke.command.Command;
-import duke.command.ExitCommand;
-import duke.command.BackupCommand;
-import duke.command.FilterCommand;
+import duke.command.*;
 import duke.enums.Numbers;
 import duke.dukeexception.DukeException;
 import duke.task.TaskList;
@@ -162,6 +159,13 @@ public class MainWindow extends AnchorPane {
             }  else if (cmd instanceof BackupCommand) {
                 duke.saveState(cmd);
                 response = Ui.showBackupMessageGui();
+                dialogContainer.getChildren().add(
+                        DialogBox.getDukeDialog(response, dukeImage)
+                );
+            } else if (cmd instanceof HelpCommand) {
+                duke.saveState(cmd);
+                response = Ui.showHelpGui();
+                createHelpWindow();
                 dialogContainer.getChildren().add(
                         DialogBox.getDukeDialog(response, dukeImage)
                 );

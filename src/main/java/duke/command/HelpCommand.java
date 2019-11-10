@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.storage.Storage;
 import duke.task.TaskList;
+import duke.ui.HelpWindow;
 import duke.ui.Ui;
 
 import java.io.IOException;
@@ -11,10 +12,11 @@ import java.io.IOException;
  * Displays full help instructions that list down all functions and commands available.
  */
 public class HelpCommand extends Command {
-    public static final String COMMAND_WORD = "help";
+    protected String taskType;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Showing all help instructions.\n"
-            + "Example: " + COMMAND_WORD;
+//    public HelpCommand(String taskType) {
+//        this.taskType = taskType;
+//    }
 
     /**
      * Executes a command that adds the task into task list and outputs the result (GUI).
@@ -25,8 +27,7 @@ public class HelpCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        String str = Ui.helpRequest(items); //replace with events later on
-        return str;
+        return " ";
     }
 
     /**

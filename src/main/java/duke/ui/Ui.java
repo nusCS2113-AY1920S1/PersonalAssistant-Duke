@@ -59,12 +59,11 @@ public class Ui {
     /**
      * Show the help page.
      *
-     * @param items The task list that contains a list of tasks.
      * @return an event requesting to view the help page
      */
-    public static String helpRequest(TaskList items) {
-        String str = "     Here are the commands available in Duke Manager:";
-        return  str;
+    public static String showHelpGui() {
+        String str = "     HelpWindow will pop up:\n    Shows the commands available in Duke Manager";
+        return str;
     }
 
     /**
