@@ -562,7 +562,10 @@ public class Parser {
             ArrayList<Integer> reservationsToCancel = new ArrayList<Integer>();
             String stringReservations = ui.getInput(
                 "Enter the reservation ID(s) (separated by a space for multiple IDs) "
-                + "that you wish to return / cancel:");
+                + "that you wish to return / cancel:").trim();
+            if (stringReservations.isEmpty()) {
+                throw new RimsException("Please specify the IDs of the reservations you wish to end!");
+            }
             String[] splitStringReservations = stringReservations.split(" ");
             for (int j = 0; j < splitStringReservations.length; j++) {
                 int thisReservationId = parseInt(splitStringReservations[j]);
