@@ -41,10 +41,14 @@ public class CommandBudget extends Command {
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());
-            return;
         }
     }
 
+    /**
+     * extractAmount helps to parse the userInput and gets the budget to be set.
+     * @return Double value of the amount of budget is returned
+     * @throws DukeException Exception thrown if format is not followed
+     */
     private Double extractAmount() throws DukeException {
         String userBudget = Parser.parseForPrimaryInput(this.commandType, this.userInput);
         try {
@@ -53,13 +57,19 @@ public class CommandBudget extends Command {
             if (amount <= 0) {
                 throw new Exception();
             }
-            return amount;
+            return roundByDecimalPlace(amount,2);
         } catch (Exception e) {
             throw new DukeException("Please kindly follow the format : budget $<amount> \n"
                     + "Please enter an amount greater than zero!\n");
         }
     }
 
+    /**
+     * percentageOfBudgetExceeded helps to calculate percentage overspent above budget.
+     * @param amountSpent Double is the total wallet expenses
+     * @return String of the percentage calculated is returned
+     * @throws DukeException thrown if unable to calculate percentage overspent
+     */
     private String percentageOfBudgetExceeded(Double amountSpent) throws DukeException {
         try {
             if (amountSpent <= getBudgetAmount()) {
@@ -74,10 +84,16 @@ public class CommandBudget extends Command {
         }
     }
 
+    /**
+     * percentageOfBudgetUsedUp helps to calculate how much of the budget has been reached.
+     * @param amountSpent Double is the total wallet expenses
+     * @return String of the percentage used up is returned
+     * @throws DukeException thrown if unable to calculate percentage used up
+     */
     private String percentageOfBudgetUsedUp(Double amountSpent) throws DukeException {
         try {
             if (amountSpent <= getBudgetAmount()) {
-                Double percent = ((getBudgetAmount() - amountSpent) / getBudgetAmount()) * 100;
+                Double percent = (amountSpent / getBudgetAmount()) * 100;
                 Double percentage = roundByDecimalPlace(percent, 2);
                 return "Percentage of Budget Used Up : " + percentage.toString() + "%";
             }
@@ -85,11 +101,16 @@ public class CommandBudget extends Command {
             return "You have already exceeded your budget !! \n";
 
         } catch (Exception e) {
-            throw new DukeException("Unable to calculate percentage overspent!\n");
+            throw new DukeException("Unable to calculate percentage of budget used up!\n");
         }
     }
 
-
+    /**
+     * roundByDecimalPlace is a helper function to round up to a specific dp.
+     * @param value double is the value ro be rounded off
+     * @param places number of decimal places to round it off
+     * @return double val of the value is returned
+     */
     private double roundByDecimalPlace(double value, int places) {
         if (places < 0) {
             throw new IllegalArgumentException();
