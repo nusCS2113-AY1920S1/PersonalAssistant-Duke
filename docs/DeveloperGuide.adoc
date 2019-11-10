@@ -51,17 +51,16 @@ image::ui_class_diagram.png[]
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that contains 5 separate pages, namely.`SalePage`,
-`ProductPage`, `Shopping`, `InventoryPage` and `OrderPage`.
+`ProductPage`, `ShoppingPage`, `InventoryPage` and `OrderPage`.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-Some page consists of smaller components, for example, `SalePage` has a `SaleCard`, `ProductPage` has a
-`IngredientCard` and `OrderPage` has a `OrderCard` and a `OrderItemBox`.
+Some page consists of smaller components, for example, `SalePage` has a `SaleCard`, `ProductPage` has an
+`IngredientCard` and `OrderPage` has an `OrderCard` and an `OrderItemBox`.
 
 The `UI` component uses JavaFx UI framework.
 The layout of these UI parts are defined in matching `.fxml`
 files that are in the `src/main/resources/view` folder.
-For example, the layout of the link:{https://github
-.com/AY1920S1-CS2113T-T12-3/main.git}/src/main/java/duke/ui/MainWindow.java[`MainWindow`] is specified in
-link:{https://github.com/AY1920S1-CS2113T-T12-3/main.git}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+For example, the layout of the link:https://github.com/AY1920S1-CS2113T-T12-3/main.git}/src/main/java/duke/ui/MainWindow.java[`MainWindow`] is specified in
+link:https://github.com/AY1920S1-CS2113T-T12-3/main.git}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -91,19 +90,18 @@ link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/du
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : 
+link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/duke/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores classes that are used for BakingHome (namely Ingredient, Customer, Order, IngredientInfoList, IngredientItemList, Product, ProductIngredient, Sale)
+
+* exposes unmodifiable ObservableList<> of Orders, Products, Sales, Inventory, and ShoppingList that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+* stores the UniqueEntityLists used for BakingHome and its methods.
 
 [[Design-Storage]]
 === Storage component
@@ -111,7 +109,8 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::storage_diagram.png[]
 
-*API* : link:https://github.com/AY1920S1-CS2113T-T12-3/main/tree/master/src/main/java/duke/storage/BakingHomeStorage.java[`BakingHomeStorage.java`]
+*API* : 
+link:https://github.com/AY1920S1-CS2113T-T12-3/main/tree/master/src/main/java/duke/storage/BakingHomeStorage.java[`BakingHomeStorage.java`]
 
 The `Storage` component,
 
@@ -201,6 +200,7 @@ public class AddOrderCommand extends Command {
 ** Pros: Easy to implement.
 
 ** Cons: Violates the Open-Closed Principle because developers need to modify AutoCompleter's internal structure to add new commands.
+
 Also, it makes code more coupled since if we change parameters of a command, we need to change corresponding fields in AutoCompleter as well.
 
 * Alternative 2 (Current choice): Use Reflection API to obtain command words and arguments from CommandClass at runtime.
@@ -209,7 +209,7 @@ Also, it makes code more coupled since if we change parameters of a command, we 
 
 ** Cons: Since Reflection allows code to perform operations that would be illegal in non-reflective code,
 
-it could lead to unexpected side-effects if implemented wrongly.
+It could lead to unexpected side-effects if implemented wrongly.
 
 ===== Aspect 2: Displaying multiple suggestions
 
@@ -217,6 +217,7 @@ it could lead to unexpected side-effects if implemented wrongly.
 ** Pros: Intuitive and allows users to see all possible commands in one place.
 ** Cons: Hard to implement.
 May require additional components other than JavaFx's built-in components.
+
 * Alternative 2 (Current choice): Navigate between possible suggestions by repeatedly pressing `Tab` key.
 ** Pros: Easier to implement since no additional components are needed
 ** Cons: Cannot display all possible commands in one place.
@@ -227,21 +228,23 @@ May require additional components other than JavaFx's built-in components.
 
 This feature shows only products with a certain status, i.e. shows only products with an ARCHIVE status.
 
-The filter mechanism in product is facilitated by `FilteredList` which wraps a `ObservableList` and filters using the provided Predicate.
+The filter mechanism in product is facilitated by `FilteredList` which wraps an `ObservableList` and filters using the provided Predicate.
 A `FilteredList<Product>`  `filteredProducts` is stored in the `ModelManager`.
 In `BakingHome`, there is an
 `ObservableList<Product>` `products` which contains all products, regardless of the status. `filteredProducts`
-in the ModelManager is initialized with this ObservableList.
+in the ModelManager is initialized with this `ObservableList`.
 
-Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible, the filter mechanism implements the following operation to support filtering:
+Since a `FilteredList` needs a `Predicate`, which matches the elements in the source list that should be visible, the filter mechanism implements the following operation to support filtering:
+
 * `Model#updateFilteredProductList(Predicate<Product> predicate)` -- Sets the value of the property Predicate in the `filteredProducts`.
 The `ListProductCommand` will use this method to change the visibility of products with different status by passing in the corresponding predicate.
 The predicates declared statically in the `Model` interface, namely `PREDICATE_SHOW_ACTIVE_PRODUCTS`,
 * `PREDICATE_SHOW_ARCHIVE_PRODUCTS`, and `PREDICATE_SHOW_ALL_PRODUCT`.
 
 An example usage scenario and how the filter mechanism behaves at each step is shown below.
-**Step1.** The user launched the application for the first time.
-UniqueProductList will be initialized with a list of default products in BakingHome.
+
+**Step1.** The user launches the application for the first time.
+`UniqueProductList` will be initialized with a list of default products in BakingHome.
 This list contains a few active products and a few archived products.
 
 **Step 2.** The user executes `product filter -scope archive` command to list all archived products.
@@ -253,17 +256,17 @@ image::FilterProductSD.png[]
 
 ==== Design considerations
 
-* Alternative 1 (current choice): Save all products in a `ObservableList` in `BakingHome`, and keeps a
-`FilteredList` in the `ModleManager`. `ProductCommandParser` parses the user input and gets the Predicate to update the `FilteredList`.
+* Alternative 1 (current choice): Save all products in an `ObservableList` in `BakingHome`, and keeps a
+`FilteredList` in the `ModelManager`. `ProductCommandParser` parses the user input and gets the Predicate to update the `FilteredList`.
 ** Advantages: Implementation is clearer and code is more human-readable.
 ** Disadvantages: More difficult to write a Predicate.
 
-* Alternative 2: Keep two separate product lists, one for archived products one for active products.
-** Advantages: Fast access to products both status.
+* Alternative 2: Keep two separate product lists, one for archived products and one for active products.
+** Advantages: Fast access to products of both status.
 ** Disadvantages: Implementation will become complicated.
 It also makes it very expensive when adding features like sorting all products according to name, price or cost.
 
-* Alternative 2: Keep only one List of products.
+* Alternative 2: Keep only one list of products.
 Loop through the list to get the products with the desired status.
 ** Advantages: Simplicity in storing data.
 ** Disadvantages: Time complexity is very high, resulting in a slow response of the application when the product list gets long.
@@ -364,13 +367,13 @@ Refer to the guide <<DevOps#, here>>.
 
 Bakery managers of home bakeries, who prefer typing and is willing to use a Desktop application to manage his business.
 
-Such a manager needs to take care of every single aspect of his bakery business, from allocating, from keeping track of revenue, to taking the customers order.
-He might even need to do the baking, since there are limited man power.
+Such a manager needs to take care of every single aspect of his bakery business, from allocating responsibilities and keeping track of revenue, to taking the customer's order.
+He might even need to do the baking, since there is limited manpower.
 
-Though currently there are many well developed applications for the stuff he needs to do, there is not an application that integrates all the features he needs.
-It is hard for him to switch between different apps.
+Though currently there are many well-developed applications for the work he needs to do, there isn't one that integrates all the features he needs.
+Thus, it is hard for him to switch between different apps to manage his bakery business.
 
-BakingHome is an one-stop desktop application that has all the important features for such a manager to eliminate the trouble of changing between different apps.
+BakingHome is a one-stop desktop application that has all the important features for such a manager to eliminate the trouble of changing between different apps.
 
 *Value proposition*: All-in-one bakery management system for home bakeries.
 
@@ -483,6 +486,8 @@ Use case resumes at step 2.
 2. BakingHome shows a list of ingredients.
 3. User requests to buy a specific ingredient or multiple ingredients in the shopping list.
 4. BakingHome transfers these ingredients from the shopping list to the inventory list and adds a sales transaction with the total cost of the bought ingredients to the Sales page.
++
+Use case ends.
 
 *Extensions*
 
@@ -500,40 +505,14 @@ The given index(indices) is(are) invalid.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Buying an ingredient in the shopping list
+=== Use case: Complete an Order
 
 *MSS*
 
-1. User requests to list all ingredients in the shopping list.
-2. BakingHome shows a list of ingredients.
-3. User requests to buy a specific ingredient or multiple ingredients in the shopping list.
-4. BakingHome transfers these ingredients from the shopping list to the inventory list and adds a sales transaction with the total cost of the bought ingredients to the Sales page.
-
-*Extensions*
-
-[none]
-* 2a.
-The list is empty.
-+
-Use case ends.
-
-* 3a.
-The given index(indices) is(are) invalid.
-+
-[none]
-** 3a1. BakingHome shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: Completing an Order
-
-*MSS*
-
-1. User requests to list all orders
-2. BakingHome shows a list of orders
-3. User requests to complete a specific order or multiple orders in the list
-4. BakingHome checks inventory for the required ingredients by the order and deducts the necessary amount from inventory (if insufficient it deducts to zero)
+1. User requests to list all orders.
+2. BakingHome shows a list of orders.
+3. User requests to complete a specific order or multiple orders in the list.
+4. BakingHome checks inventory for the required ingredients by the order and deducts the necessary amount from inventory (if insufficient it deducts to zero).
 6. BakingHome marks the order(s) as complete.
 +
 Use case ends.
@@ -555,13 +534,13 @@ The given index(indices) is(are) invalid.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Delete a Sale
+=== Use case: Delete a Sale Entry
 
 *MSS*
 
-1. User requests to list all sales
-2. BakingHome shows a list of sales
-3. User requests to delete a specific sale or multiple sales in the list
+1. User requests to list all sales.
+2. BakingHome shows a list of sales.
+3. User requests to delete a specific sale or multiple sales in the list.
 4. BakingHome deletes the sale(s).
 +
 Use case ends.
@@ -583,81 +562,27 @@ The given index(indices) is(are) invalid.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Completing an Order
-
-*MSS*
-
-1. User requests to list all orders
-2. BakingHome shows a list of orders
-3. User requests to complete a specific order or multiple orders in the list
-4. BakingHome checks inventory for the required ingredients by the order and deducts the necessary amount from inventory (if insufficient it deducts to zero)
-6. BakingHome marks the order(s) as complete.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a.
-The list is empty.
-+
-Use case ends.
-
-* 3a.
-The given index(indices) is(are) invalid.
-+
-[none]
-** 3a1. BakingHome shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: Delete a Sale
-
-*MSS*
-
-1. User requests to list all sales
-2. BakingHome shows a list of sales
-3. User requests to delete a specific sale or multiple sales in the list
-4. BakingHome deletes the sale(s).
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a.
-The list is empty.
-+
-Use case ends.
-
-* 3a.
-The given index(indices) is(are) invalid.
-+
-[none]
-** 3a1. BakingHome shows an error message.
-+
-Use case resumes at step 2.
-
-_{More to be added}_
-
 === Use case: Show a Product
 
-* **Precondition:** Bakery manager has at least 1 product in the product list
+*Precondition:* Bakery manager has at least 1 product in the product list.
 
-* **MSS**
+*MSS*
 
 1. Manager can be viewing any pages.
 2. Manager enters a ShowProductCommand indicating the index of the product to be shown, e.g. product show 1.
 3. BHS parses the command.
 4. BHS displays the details of the product
-* **Extensions**
+
+*Extensions*
 
 [none]
-** 3a.
+* 3a. 
 BHS detects a invalid command.
++
+[none]
 ** 3a1. BHS shows an error message
-** 3a2. Use case ends.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -749,13 +674,14 @@ Expected: Similar to previous
 . Adding an empty sale
 .. Test case: `sale add` +
    Expected: A new sale with default value 0.0 is added.
-The sale's description and remarks are "N/A" and date is set to current date and time.
-.. Test case: `sale add -desc Refund abcdeabcdeabcdeabcdeabcdeabcdeabcde has been completed`
-Expected: A error message pops up.
-The error message is "Description should be no more than 50 characters"
+   The sale's description and remarks are "N/A" and date is set to current date and time.
+.. Test case: `sale add -desc Refund     abcdeabcdeabcdeabcdeabcdeabcdeabcde has been completed`
+   Expected: A error message pops up.
+   The error message is "Description should be no more than 50 characters"
 .. Test case: `sale add -rmk Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas`
-Expected: A error message pops up.
-The error message is "Remarks should be no more than 50 characters"
+   Expected: A error message pops up.
+   The error message is "Remarks should be no more than 50 characters"
+   
 . Adding a sale with date
 .. Test case: `sale add -at 31/12/2019 23:00` +
    Expected: A new sale with date Tue, Dec 31, 2019 23:00 is added.
@@ -806,26 +732,32 @@ Error details shown in the pop-up bar.
 
 === Adding a Product
 
+. Adding a product with default values
 .. Test case: `product add -name Bread` +
    Expected: A new product named `Bread` is added.
-Ingredient cost and Retail price are both $0.0. Status is active.
+   Ingredient cost and Retail price are both $0.0. Status is active.
+. Adding a product with cost and price
 .. Test case: `product add -name Cheese cake -cost 3.0 -price 5.9` +
    Expected: A new product named `Cheese cake` is added.
-Ingredient cost are $3 and Retail price is $5.9. Status is active.
+   Ingredient cost are $3 and Retail price is $5.9. Status is active.
 
 === Searching a Product
 
-Searching for products whose name contains the given keyword
+. Searching for products whose name contains the given keyword
 .. Test case: `product search -include cake` +
    Expected: All products whose name include `cake` are listed.
-List will be empty if no products' names contain `cake`.
+   List will be empty if no products' names contain `cake`.
 
-== Filtering Products
+=== Filtering Products
+
+. Filters to show only archived products
 .. Test case: `product filter -scope archive` +
-    Expected: All archive products are listed.
-List will be empty if no products have archive status.
+   Expected: All archive products are listed.
+   List will be empty if no products have archive status.
+   
+. No filter
 .. Test case: `product filter -scope all` +
-    Expected: All products, regardless their status, are listed.
+   Expected: All products, regardless their status, are listed.
 
 === Editing data in BakingHome
 
@@ -834,13 +766,13 @@ List will be empty if no products have archive status.
    Expected: In the shopping list, the first ingredient's quantity is changed to 10, and its unit cost is changed to 10. +
    All other data that is not inputted as parameters will be unchanged.
 .. Test case: `order edit 1 -name Eugene -rmk Birthday`
-Expected: In orders, the first order's customer name is changed to Eugene, and the remarks is changed to Birthday` +
+   Expected: In orders, the first order's customer name is changed to Eugene, and the remarks is changed to Birthday` +
    All other data that is not inputted as parameters will be unchanged. +
    This is provided the order status is not completed.
-If the order status is completed, you cannot edit the order. +
+   If the order status is completed, you cannot edit the order. +
 .. Test case: `product edit 1 -name _name -cost 5 -ingt [Cream cheese, 1.0]` +
-    Expected: The name of the first product is changed to `_name`, and cost is changed to $5. It has a ingredient `Cream cheese` associated.
-You can check the ingredient using command `product show 1`.
+   Expected: The name of the first product is changed to `_name`, and cost is changed to $5. It has a ingredient `Cream cheese` associated.
+   You can check the ingredient using command `product show 1`.
 
 === Saving data
 
