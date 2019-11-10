@@ -1,7 +1,14 @@
 package owlmoney.model.profile;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+import owlmoney.model.bank.Bank;
+import owlmoney.model.bank.Investment;
+import owlmoney.model.bank.Saving;
+import owlmoney.model.bank.exception.BankException;
+import owlmoney.model.bond.Bond;
+import owlmoney.model.bond.exception.BondException;
+import owlmoney.model.profile.exception.ProfileException;
+import owlmoney.ui.Ui;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -10,15 +17,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.junit.jupiter.api.Test;
-
-import owlmoney.model.bank.Bank;
-import owlmoney.model.bank.Investment;
-import owlmoney.model.bank.Saving;
-import owlmoney.model.bank.exception.BankException;
-import owlmoney.model.bond.Bond;
-import owlmoney.model.bond.exception.BondException;
-import owlmoney.ui.Ui;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ProfileTest {
     private static final String NEWLINE = System.lineSeparator();
@@ -259,5 +259,37 @@ class ProfileTest {
                 "Expected findBond to throw error, but it didn't");
         assertEquals("Bond with the following keyword could not be found: No Such Bond",
                 thrown.getMessage());
+    }
+
+    @Test
+    void editProfile_validNewName_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        Profile profileTest = new Profile("Test User", uiTest);
+
+        try {
+            profileTest.profileSetUsername("Test User", "User", uiTest);
+        } catch (ProfileException exception) {
+            System.out.println("Expects success but error thrown");
+        }
+        String expectedOutput = NEWLINE + "Profile name was: Test User" + NEWLINE + "Now changed to: User" + NEWLINE;
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    @Test
+    void editProfile_providedWrongName_throwsErrorMessage() {
+        Ui uiTest = new Ui();
+        Profile profileTest = new Profile("Test User", uiTest);
+        try {
+            profileTest.profileSetUsername("TestUser", "User", uiTest);
+        } catch (ProfileException exception) {
+            System.out.println("Expects success but error thrown");
+        }
+        ProfileException thrown = assertThrows(ProfileException.class, () ->
+                        profileTest.profileSetUsername("TestUser", "User", uiTest),
+                "Expected to throw error, but it didn't");
+        String expectedOutput = "No profile name with TestUser found!" + NEWLINE + "Try this instead: Test User";
+        assertEquals(expectedOutput, thrown.toString());
     }
 }

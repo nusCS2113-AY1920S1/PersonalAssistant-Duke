@@ -173,7 +173,7 @@ public class Profile {
      */
     public void checkProfileName(String name, String newName) throws ProfileException {
         if (!name.equals(this.username)) {
-            throw new ProfileException("No profile name with " + name + "found!\nTry this instead: " + this.username);
+            throw new ProfileException("No profile name with " + name + " found!\nTry this instead: " + this.username);
         }
     }
 

@@ -207,10 +207,6 @@ public class Goals {
         this.isAchieved = true;
     }
 
-    double getSavingAmount() {
-        return this.savingAccount.getCurrentAmount();
-    }
-
     public void markDone() {
         done = true;
     }

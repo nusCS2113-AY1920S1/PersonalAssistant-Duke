@@ -87,7 +87,7 @@ public class GoalsListTest {
         GoalsList testList = new GoalsList(storage);
         Ui testUi = new Ui();
         GoalsException thrown = assertThrows(GoalsException.class, () ->
-                testList.deleteFromGoalList("test", testUi),
+                        testList.deleteFromGoalList("test", testUi),
                 "Expected to deleteFromGoalsList to throw, but didn't");
         assertEquals("There are no goals set!", thrown.toString());
     }
@@ -163,8 +163,8 @@ public class GoalsListTest {
                 + "                    $100.00              10 October 2020      N                    "
                 + NEWLINE + "-----------------------------------------------------------------------------------"
                 + "---------------------------------------------------------" + NEWLINE;
-        assertEquals(1,testGoals.getGoalListSize());
-        assertEquals(expectedOutput,outContent.toString());
+        assertEquals(1, testGoals.getGoalListSize());
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     @Test
@@ -175,5 +175,246 @@ public class GoalsListTest {
         Ui testUi = new Ui();
         testGoals.listGoals(testUi);
         assertEquals("OOPS!!! There are no goals set" + NEWLINE, outContent.toString());
+    }
+
+    @Test
+    void goalsListEdit_goalsListDuplicateName_throwException() {
+        GoalsList testGoals = new GoalsList(storage);
+        Ui testUi = new Ui();
+        Goals newGoals = new Goals("test", 100, new Date("10/10/2020"));
+        Goals newGoals1 = new Goals("test1", 100, new Date("10/10/2020"));
+        try {
+            testGoals.addToGoals(newGoals, testUi);
+            testGoals.addToGoals(newGoals1, testUi);
+        } catch (GoalsException error) {
+            System.out.println("Expects success but error was thrown");
+        }
+
+        GoalsException thrown = assertThrows(GoalsException.class, () -> testGoals.editGoals("test",
+                "", null, "test1", null, false, testUi),
+                "Expected to editGoals to throw, but didn't");
+        assertEquals("There is already a goal with the same name: test1", thrown.toString());
+    }
+
+    @Test
+    void goalsListEdit_goalsListInvalidName_throwException() {
+        GoalsList testGoals = new GoalsList(storage);
+        Ui testUi = new Ui();
+
+        GoalsException thrown = assertThrows(GoalsException.class, () -> testGoals.editGoals("test",
+                "", null, "hello", null, false, testUi),
+                "Expected to editGoals to throw, but didn't");
+        assertEquals("There are no goals with the name: test", thrown.toString());
+    }
+
+
+    @Test
+    void goalsListEdit_goalsAchieved_throwException() {
+        GoalsList testGoals = new GoalsList(storage);
+        Ui testUi = new Ui();
+        Goals newGoals = new Goals("test", 100, new Date("10/10/2020"));
+
+        try {
+            testGoals.addToGoals(newGoals, testUi);
+            newGoals.markDone();
+        } catch (GoalsException error) {
+            System.out.println("Expects success but error was thrown");
+        }
+
+        GoalsException thrown = assertThrows(GoalsException.class, () -> testGoals.editGoals("test",
+                "", null, "", null, true, testUi),
+                "Expected to editGoals to throw, but didn't");
+        assertEquals("Sorry, you cannot edit a goal that's already achieved! Try creating a new goal instead!",
+                thrown.toString());
+    }
+
+    @Test
+    void goalsListEdit_goalsListAddSavingAccAmountMoreThanGoalsAmount_throwException() {
+        GoalsList testGoals = new GoalsList(storage);
+        Ui testUi = new Ui();
+        Goals newGoals = new Goals("test", 100, new Date("10/10/2020"));
+        Saving newSaving = new Saving("savings", 100, 100);
+        Goals newGoals1 = new Goals("test1", 1000, new Date("10/10/2020"), newSaving);
+        Saving newSaving1 = new Saving("savings1", 1000, 100);
+        try {
+            testGoals.addToGoals(newGoals, testUi);
+            testGoals.addToGoals(newGoals1, testUi);
+        } catch (GoalsException error) {
+            System.out.println("Expects success but error was thrown");
+        }
+
+        GoalsException thrown = assertThrows(GoalsException.class, () -> testGoals.editGoals("test",
+                "", null, "", newSaving, false, testUi),
+                "Expected to editGoals to throw, but didn't");
+        assertEquals("You cannot add a goal that is already achieved!", thrown.toString());
+
+        GoalsException thrown1 = assertThrows(GoalsException.class, () -> testGoals.editGoals("test1",
+                "", null, "", newSaving1, false, testUi),
+                "Expected to editGoals to throw, but didn't");
+        assertEquals("You cannot add a goal that is already achieved!", thrown1.toString());
+    }
+
+    @Test
+    void goalsListEdit_goalsListMarkGoalsWithSavingsAcc_throwException() {
+        GoalsList testGoals = new GoalsList(storage);
+        Ui testUi = new Ui();
+        Saving newSaving = new Saving("savings", 100, 100);
+        Goals newGoals = new Goals("tests", 10000, new Date("10/10/2020"), newSaving);
+        try {
+            testGoals.addToGoals(newGoals, testUi);
+        } catch (GoalsException error) {
+            System.out.println("Expects success but error was thrown");
+        }
+        GoalsException thrown = assertThrows(GoalsException.class, () -> testGoals.editGoals("tests",
+                "", null, "", null, true, testUi),
+                "Expected to editGoals to throw, but didn't");
+        assertEquals("You cannot mark a goal that is linked to a saving account!", thrown.toString());
+    }
+
+    @Test
+    void goalsListEdit_EditGoalsSuccess_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        GoalsList testGoals = new GoalsList(storage);
+        Ui testUi = new Ui();
+        Goals newGoals = new Goals("test", 100, new Date("10/10/2020"));
+        Goals newGoals1 = new Goals("test1", 100, new Date("10/10/2020"));
+        Saving newSaving = new Saving("savings", 100, 100);
+        Goals newGoals2 = new Goals("test2", 1000, new Date("10/10/2020"), newSaving);
+        try {
+            testGoals.addToGoals(newGoals, testUi);
+            outContent.reset();
+            testGoals.editGoals("test", "200", new Date("10/11/2020"), "test",
+                    newSaving, false, testUi);
+        } catch (GoalsException err) {
+            System.out.println("Expects success but error was thrown");
+        }
+
+        String expectedOutput = "New details of goals changed: "
+                + NEWLINE + "Item No.  To Accomplish          Amount to save       Saving Account"
+                + "                 Save another         To be achieved by    Goal Achieved        "
+                + NEWLINE + "-----------------------------------------------------------------------------------"
+                + "---------------------------------------------------------"
+                + NEWLINE + "1         test                   $200.00              savings"
+                + "                        $100.00              11 October 2020      N                    "
+                + NEWLINE + "-----------------------------------------------------------------------------------"
+                + "---------------------------------------------------------" + NEWLINE;
+        assertEquals(1, testGoals.getGoalListSize());
+        assertEquals(expectedOutput, outContent.toString());
+
+        try {
+            testGoals.addToGoals(newGoals1, testUi);
+            outContent.reset();
+            testGoals.editGoals("test1", "", null, "",
+                    null, true, testUi);
+        } catch (GoalsException e) {
+            System.out.println("Expects success but error was thrown.");
+        }
+        String expectedOutput1 = "New details of goals changed: "
+                + NEWLINE + "Item No.  To Accomplish          Amount to save       Saving Account"
+                + "                 Save another         To be achieved by    Goal Achieved        "
+                + NEWLINE + "-----------------------------------------------------------------------------------"
+                + "---------------------------------------------------------"
+                + NEWLINE + "1         test1                  $100.00              -NOT TIED-"
+                + "                     $100.00              10 October 2020      Y                    "
+                + NEWLINE + "-----------------------------------------------------------------------------------"
+                + "---------------------------------------------------------" + NEWLINE;
+        assertEquals(2, testGoals.getGoalListSize());
+        assertEquals(expectedOutput1, outContent.toString());
+
+        try {
+            testGoals.addToGoals(newGoals2, testUi);
+            outContent.reset();
+            testGoals.editGoals("test2", "", null,
+                    "", newSaving, false, testUi);
+        } catch (GoalsException e) {
+            System.out.println("Expects success but error was thrown.");
+        }
+        String expectedOutput2 = "New details of goals changed: "
+                + NEWLINE + "Item No.  To Accomplish          Amount to save       Saving Account"
+                + "                 Save another         To be achieved by    Goal Achieved        "
+                + NEWLINE + "-----------------------------------------------------------------------------------"
+                + "---------------------------------------------------------"
+                + NEWLINE + "1         test2                  $1000.00             -NOT TIED-   "
+                + "                  $1000.00             10 October 2020      N                    "
+                + NEWLINE + "-----------------------------------------------------------------------------------"
+                + "---------------------------------------------------------" + NEWLINE;
+        assertEquals(3, testGoals.getGoalListSize());
+        assertEquals(expectedOutput2, outContent.toString());
+
+        testGoals.updateGoals();
+    }
+
+    @Test
+    void goalsList_checkForAchievement_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        GoalsList testGoals = new GoalsList(storage);
+        Ui testUi = new Ui();
+
+        Goals newGoals1 = new Goals("test1", 100, new Date("10/10/2020"));
+
+        try {
+            testGoals.addToGoals(newGoals1, testUi);
+            outContent.reset();
+            testGoals.editGoals("test1", "", null, "",
+                    null, true, testUi);
+        } catch (GoalsException e) {
+            System.out.println("Expects success but error was thrown.");
+        }
+        String expectedOutput1 = "New details of goals changed: "
+                + NEWLINE + "Item No.  To Accomplish          Amount to save       Saving Account"
+                + "                 Save another         To be achieved by    Goal Achieved        "
+                + NEWLINE + "-----------------------------------------------------------------------------------"
+                + "---------------------------------------------------------"
+                + NEWLINE + "1         test1                  $100.00              -NOT TIED-"
+                + "                     $100.00              10 October 2020      Y                    "
+                + NEWLINE + "-----------------------------------------------------------------------------------"
+                + "---------------------------------------------------------" + NEWLINE;
+        assertEquals(1, testGoals.getGoalListSize());
+        assertEquals(expectedOutput1, outContent.toString());
+
+        outContent.reset();
+        AchievementList testAchievement = new AchievementList(storage);
+        testAchievement.addAchievement(testGoals.checkForAchievement(0, testUi), testUi);
+
+        String expectedOutput = "Achievement unlocked! Details: " + NEWLINE
+                + "Item No.  Achievement Name       Amount saved         Date set to achieve  "
+                + NEWLINE + "---------------------------------------------------------------------------"
+                + "------------------------------------------------------"
+                + NEWLINE + "1         test1                  $100.00              10 October 2020      "
+                + NEWLINE + "---------------------------------------------------------------------------"
+                + "------------------------------------------------------" + NEWLINE;
+        assertEquals(expectedOutput, outContent.toString());
+
+        outContent.reset();
+        testAchievement.listAchievements(testUi);
+        expectedOutput = "Item No.  Achievement Name       Amount saved         Date set to achieve  " + NEWLINE
+                + "---------------------------------------------------------------------------------------------"
+                + "------------------------------------" + NEWLINE
+                + "1         test1                  $100.00              10 October 2020      " + NEWLINE
+                + "---------------------------------------------------------------------------------------------"
+                + "------------------------------------" + NEWLINE;
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    @Test
+    void goalsList_checkForEmptyAchievement_printsError() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        AchievementList testAchievement = new AchievementList(storage);
+        Ui testUi = new Ui();
+        testAchievement.listAchievements(testUi);
+        assertEquals("OOPS!!! Save more to unlock achievements!" + NEWLINE, outContent.toString());
+    }
+
+    @Test
+    void goalsList_reminderForGoalsEmptyList_printMessage() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        GoalsList testGoals = new GoalsList(storage);
+        Ui testUi = new Ui();
+        testGoals.reminderForGoals(testUi);
+        assertEquals("NO OVERDUE / REMINDER FOR GOALS" + NEWLINE, outContent.toString());
     }
 }

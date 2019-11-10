@@ -130,21 +130,24 @@ public class GoalsList {
     }
 
     /**
-     * Compares if the current goal name is the same as the new intended goal name and if there is already a goal that
-     * exists.
+     * Compares there is already a goal name that exists.
      *
-     * @param currentGoal Current Goal Name of the Goal.
+     *
+     * @param currGoal Name of current goal.
      * @param newGoalName New Goal Name that user intends to change.
      * @throws GoalsException If there's a goal of the same name.
      */
-    private void compareGoals(Goals currentGoal, String newGoalName) throws GoalsException {
-        String currentGoalName = currentGoal.getGoalsName();
+    private void compareGoals(Goals currGoal, String newGoalName) throws GoalsException {
+        String currentGoalName = currGoal.getGoalsName();
         String capitalCurrentGoalName = currentGoalName.toUpperCase();
+        String capitalNewGoalName = newGoalName.toUpperCase();
+
         for (int i = ISZERO; i < goalList.size(); i++) {
             Goals checkGoal = goalList.get(i);
             String checkGoalName = checkGoal.getGoalsName();
             String capitalCheckGoalName = checkGoalName.toUpperCase();
-            if (capitalCheckGoalName.equals(capitalCurrentGoalName) && !checkGoal.equals(currentGoal)) {
+            if (capitalCheckGoalName.equals(capitalNewGoalName) && checkGoalName.equals(newGoalName)
+                    && !currentGoalName.equals(newGoalName) && !capitalCurrentGoalName.equals(capitalNewGoalName)) {
                 throw new GoalsException("There is already a goal with the same name: " + newGoalName);
             }
         }
@@ -221,9 +224,6 @@ public class GoalsList {
                     }
                 }
                 if (markDone) {
-                    if (currentGoal.getRawStatus()) {
-                        throw new GoalsException("Cannot change status of a goal that is already achieved!");
-                    }
                     if (currentGoal.savingAccNotTied()) {
                         currentGoal.markDone();
                     } else {
@@ -275,16 +275,6 @@ public class GoalsList {
         for (int i = 0; i < goalList.size(); i++) {
             goalList.get(i).isDone(Double.parseDouble(goalList.get(i).getRemainingAmount()));
         }
-    }
-
-    /**
-     * Get the goal from the specified index.
-     *
-     * @param index Index of goal in goals list.
-     * @return Goal in the specified index.
-     */
-    private Goals getGoal(int index) {
-        return goalList.get(index);
     }
 
     /**
@@ -374,7 +364,6 @@ public class GoalsList {
      * @return Achievement object to create new achievement.
      */
     public Achievement checkForAchievement(int i, Ui ui) {
-
         Goals checkAchievement = goalList.get(i);
         if (checkAchievement.getRawStatus() && checkAchievement.getGoalsDateInDateFormat().after(new Date())
                 && !checkAchievement.getGoalAchievementStatus()) {
