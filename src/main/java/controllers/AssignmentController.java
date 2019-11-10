@@ -29,9 +29,8 @@ public class AssignmentController {
     }
 
     /**
-     * Does the actual assignment of task by calling on the project and establishing the
-     * necessary links between tasks and members. Collates messages to inform user of
-     * successful assignments/unassignments.
+     * Handles assignment command by user. Collates messages to inform user of successful
+     * assignments/unassignments, or any errors encountered.
      * @param input The input from the user.
      */
     public void assignAndUnassign(String input) {
@@ -58,7 +57,7 @@ public class AssignmentController {
         }
 
         if (validAssignees.size() == 0 && validUnassignees.size() == 0) {
-            errorMessages.add("No valid member indexes detected. No tasks can be assigned.");
+            errorMessages.add("No valid member indexes detected. No tasks can be assigned/unassigned.");
             errorMessages.add("Please check that you are using valid member indexes.");
             errorMessages.add("Also ensure that the correct flags are used: "
                 + "'-to' for assignees, '-rm' for unassignees.");
@@ -85,7 +84,7 @@ public class AssignmentController {
 
 
     /**
-     * Assign valid members to a particular task and updates the associated success or error messages
+     * Assign valid members to a particular task and updates the associated messages
      * relating to the assignment.
      * @param validAssignees ArrayList containing valid member index numbers, for assignees.
      * @param task Task to be assigned to members.
@@ -110,7 +109,7 @@ public class AssignmentController {
     }
 
     /**
-     * Removes valid members from a particular task, and updates the associated success or error messages
+     * Removes valid members from a particular task, and updates the associated messages
      * relating to the removal of assignment.
      * @param validUnassignees ArrayList containing valid member index numbers, for unassignees.
      * @param task Task to be unassigned.

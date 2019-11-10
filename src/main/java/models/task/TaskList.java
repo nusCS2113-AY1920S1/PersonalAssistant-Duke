@@ -1,14 +1,15 @@
 package models.task;
 
+import models.project.Project;
+import util.ParserHelper;
+import util.SortHelper;
+import util.date.DateTimeHelper;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import models.project.Project;
-import util.ParserHelper;
-import util.SortHelper;
-import util.date.DateTimeHelper;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -50,7 +51,7 @@ public class TaskList {
     public ArrayList<String> getAllTaskDetails(
         HashMap<String, ArrayList<String>> tasksAndAssignedMembers, Project project) {
         // after implementing task index, change "/PRIORITY" to "/INDEX"
-        return this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,taskList,"/PRIORITY", project);
+        return this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,taskList,"-priority", project);
     }
 
     /**
@@ -70,10 +71,10 @@ public class TaskList {
         } else {
             ArrayList<String> allTaskDetails = this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,
                     taskList, sortCriteria, project);
-            if (sortCriteria.substring(0, 5).equals("/WHO-") && allTaskDetails.size() == 0) {
+            if (sortCriteria.substring(0, 5).equals("-who ") && allTaskDetails.size() == 0) {
                 messageForEmptyTaskTable.add(" - There are no tasks assigned to " + sortCriteria.substring(5) + "! -");
                 allTaskDetailsForTable.add(messageForEmptyTaskTable);
-            } else if ("/DATE".equals(sortCriteria) && allTaskDetails.size() == 0) {
+            } else if ("-date".equals(sortCriteria) && allTaskDetails.size() == 0) {
                 messageForEmptyTaskTable.add(" - There are no tasks with deadlines! -");
                 allTaskDetailsForTable.add(messageForEmptyTaskTable);
             } else {

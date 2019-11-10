@@ -3,12 +3,12 @@ package util.constant;
 public class ConstantHelper {
     public static final String[]  HELLO_MESSAGE = {
         "=======================================================================================",
-        "  :::.    :::::::..     .,-:::::   ::   .::::::::-.   ...    ::: :::  .   .,:::::: ",
-        "  ;;`;;   ;;;;``;;;;  ,;;;'````'  ,;;   ;;,;;,   `';, ;;     ;;; ;;; .;;,.;;;;'''' ",
-        " ,[[ '[[,  [[[,/[[['  [[[        ,[[[,,,[[[`[[     [[[['     [[[ [[[[[/'   [[cccc   ",
+        "  :::.    :::::::..     .,-:::::  .::   .:: ::::::-.   ...    ::: :::  .   .,:::::: ",
+        "  ;;`;;   ;;;;``;;;;  ,;;;'````'  ,;;   ;;, ;;,   `';, ;;     ;;; ;;; .;;,.;;;;'''' ",
+        " ,[[ '[[,  [[[,/[[['  [[[        ,[[[,,,[[[ `[[     [[[['     [[[ [[[[[/'   [[cccc   ",
         "c$$$cc$$$c $$$$$$c    $$$        \"$$$\"\"\"$$$ $$,    $$$$      $$$_$$$$,     $$\"\"\"\"  ",
-        " 888   888,888b \"88bo,`88bo,__,o, 888   \"88o888_,o8P'88    .d888\"888\"88o,  888oo,__",
-        " YMM   \"\"` MMMM   \"W\"   \"YUMMMMMP\"MMM    YMMMMMMP\"`   \"YmmMMMM\"\" MMM \"MMP\" \"\"\"\"YUMMM",
+        " 888   888,888b \"88bo,`88bo,__,o, 888   \"88 888_,o8P'88    .d888\"888\"88o,  888oo,__",
+        " YMM   \"\"` MMMM   \"W\"   \"YUMMMMMP\"MMM    YM MMMMP\"`   \"YmmMMMM\"\" MMM \"MMP\" \"\"\"\"YUMMM",
         "=======================================================================================",
         "\t Welcome to ArchDuke Project Manager!",
         "\t Enter 'help' for the list of commands."
@@ -32,7 +32,7 @@ public class ConstantHelper {
 
     public static final int LONGEST_WORD_LIMIT_BEFORE_BREAKING_WITH_HYPHEN = 25;
 
-    public static final String INDEX_NUMBER_MARKER = "i";
+    public static final String ASSIGNMENT_INDEX_NUMBER_MARKER = "i";
 
     public static final String ASSIGNEE_MARKER = "to";
 
@@ -56,5 +56,32 @@ public class ConstantHelper {
 
     public static final int VALID_VIEW_ASSIGNMENT_LENGTH = 20;
 
+    public static final String PROJECT_COMMAND_BYE = "bye";
+
+    public static final String PROJECT_COMMAND_CREATE = "create";
+
+    public static final String PROJECT_COMMAND_LIST = "list";
+
+    public static final String PROJECT_COMMAND_MANAGE = "manage";
+
+    public static final String PROJECT_COMMAND_DELETE = "delete";
+
+    public static final String PROJECT_COMMAND_HELP = "help";
+
+    public static final String COMMAND_ADD_MEMBER = "add member ";
+
+    public static final String COMMAND_EDIT_MEMBER = "edit member ";
+
+    public static final String COMMAND_DELETE_MEMBER = "delete member ";
+
+    public static final String COMMAND_EDIT_TASK = "edit task ";
+
+    public static final String COMMAND_DELETE_TASK = "delete task ";
+
+    public static final String COMMAND_EDIT_TASK_REQ = "edit task requirements ";
+
+    public static final String COMMAND_VIEW_TASK_REQ = "view task requirements ";
+
+    public static final String COMMAND_VIEW_TASKS = "view tasks ";
 
 }

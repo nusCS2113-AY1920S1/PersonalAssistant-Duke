@@ -49,7 +49,7 @@ public class CommandHelper {
         helpList.add("");
         helpList.add(" - delete member INDEX");
         helpList.add("");
-        helpList.add(" - view tasks [/MODIFIER]");
+        helpList.add(" - view tasks [-MODIFIER]");
         helpList.add("");
         helpList.add(" - add task -t TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUEDATE-(dd/mm/yyyy)] "
                 + "[-s STATE] [-r TASK_REQUIREMENT1] [-r TASK_REQUIREMENT2]");
@@ -64,7 +64,7 @@ public class CommandHelper {
         helpList.add(" - edit task requirements TASK_INDEX [-r TASK_REQUIREMENT] "
                 + "[-rm TASK_REQUIREMENT_INDEXES_TO_BE_REMOVED]");
         helpList.add("");
-        helpList.add(" - view assignments /MODIFIER");
+        helpList.add(" - view assignments -[MODIFIER]");
         helpList.add("");
         helpList.add(" - assign task -i TASK_INDEX -to [MEMBER1_INDEX] [MEMBER2_INDEX] -rm [MEMBER3_INDEX]");
         helpList.add("");
