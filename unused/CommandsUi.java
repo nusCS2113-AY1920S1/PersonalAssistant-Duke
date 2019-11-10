@@ -289,3 +289,20 @@
 //        out.println("     Nice! I've updated this task ^^:");
 //        out.println("       " + (index + Numbers.ONE.value) + "." + items.get(index).toString());
 //    }
+
+//@@author gervaiseang-unused
+/**
+ * Code snippet from Ui that was used for RemindCommand.
+ */
+//    /**
+//     * Outputs task that is successfully sets a reminder to the user (GUI).
+//     *
+//     * @param items The task list that contains a list of tasks.
+//     * @param index indicated number of days to set the reminder
+//     * @return String of the task that is completed.
+//     */
+//    public String showReminderGui(TaskList items, int index) {
+//            String str = "     You have set a reminder for this task \n"
+//            + items.get(index);
+//            return str;
+//    }
