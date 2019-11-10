@@ -87,7 +87,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void fillInnerPart() {
         expensePane = new ExpensePane(logic.getExternalExpenseList(),
-                logic ,
+                logic,
                 logic.getExpenseListTotalString(),
                 logic.getFilterCriteriaString(),
                 logic.getSortCriteriaString(),

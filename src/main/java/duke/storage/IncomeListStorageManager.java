@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Settles the storage of incomeList
+ * Settles the storage of incomeList.
  */
 public class IncomeListStorageManager implements IncomeListStorage {
 
@@ -29,7 +29,7 @@ public class IncomeListStorageManager implements IncomeListStorage {
     private static String STORAGE_DELIMITER = "\n\n";
 
     /**
-     * Constructor of IncomeListStorageManager
+     * Constructor of IncomeListStorageManager.
      *
      * @throws IOException if I/O error is encountered
      */
@@ -54,8 +54,8 @@ public class IncomeListStorageManager implements IncomeListStorage {
                 }
             }
         } catch (IOException e) {
-            throw new DukeException(String.format(DukeException.
-                    MESSAGE_SAVE_FILE_FAILED, INCOME_FILE.getPath()));
+            throw new DukeException(String.format(
+                    DukeException.MESSAGE_SAVE_FILE_FAILED, INCOME_FILE.getPath()));
         }
     }
 

@@ -72,10 +72,12 @@ public class DeleteExpenseCommand extends Command {
                 String[] index = commandParams.getMainParam().split("-");
                 int difference = Integer.parseInt(index[1]) - Integer.parseInt(index[0]);
                 if (difference <= 0) {
-                    throw new DukeException(String.format(DukeException.MESSAGE_DELETE_FORMAT_INVALID, commandParams.getMainParam()));
+                    throw new DukeException(String.format(DukeException.MESSAGE_DELETE_FORMAT_INVALID,
+                            commandParams.getMainParam()));
                 }
-                if(Integer.parseInt(index[1]) > model.getExpenseList().internalSize()) {
-                    throw new DukeException(String.format(DukeException.MESSAGE_NUMBER_FORMAT_INVALID, Integer.parseInt(index[1])));
+                if (Integer.parseInt(index[1]) > model.getExpenseList().internalSize()) {
+                    throw new DukeException(String.format(DukeException.MESSAGE_NUMBER_FORMAT_INVALID,
+                            Integer.parseInt(index[1])));
                 } else {
                     int counter = 0;
                     for (int i = Integer.parseInt(index[0]); counter <= difference; counter++) {
@@ -91,7 +93,8 @@ public class DeleteExpenseCommand extends Command {
             return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.EXPENSE);
 
         } catch (NumberFormatException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_NUMBER_FORMAT_INVALID, commandParams.getMainParam()));
+            throw new DukeException(String.format(DukeException.MESSAGE_NUMBER_FORMAT_INVALID,
+                    commandParams.getMainParam()));
         }
     }
 }

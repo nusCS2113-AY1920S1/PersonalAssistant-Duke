@@ -389,7 +389,7 @@ public class AutoCompleter {
         while (index >= INITIAL_INDEX) {
             isSpaceNotReached = (fromInput.charAt(index) != SPACE.charAt(INITIAL_INDEX));
 
-            if(isSpaceNotReached) {
+            if (isSpaceNotReached) {
                 index--;
             } else {
                 break;

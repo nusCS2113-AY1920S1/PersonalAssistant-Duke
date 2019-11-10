@@ -5,7 +5,7 @@ import java.util.Map;
 public class BudgetView {
 
     /**
-     * Maps the category set for the view
+     * Maps the category set for the view.
      */
     private Map<Integer, String> budgetViewCategory;
 

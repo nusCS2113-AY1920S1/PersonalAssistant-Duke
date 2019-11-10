@@ -16,39 +16,40 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * Pane that reflects the various budget views
+ * Pane that reflects the various budget views.
  */
 public class BudgetBar extends UiPart<Region> {
     private static final Logger logger = LogsCenter.getLogger(BudgetBar.class);
 
     private static final String FXML_FILE_NAME = "BudgetBar.fxml";
     public Logic logic;
-    private Map <Integer,ProgressBar> budgetBars = new HashMap<>();
+    private Map<Integer,ProgressBar> budgetBars = new HashMap<>();
 
     @FXML
     GridPane gridPane;
 
     @FXML
-    VBox vBox1;
+    VBox vbox1;
 
     @FXML
-    VBox vBox2;
+    VBox vbox2;
 
     @FXML
-    VBox vBox3;
+    VBox vbox3;
 
     @FXML
-    VBox vBox4;
+    VBox vbox4;
 
     @FXML
-    VBox vBox5;
+    VBox vbox5;
 
     @FXML
-    VBox vBox6;
+    VBox vbox6;
 
     /**
-     * Constructor of BudgetBar
-     * @param logic
+     * Constructor of BudgetBar.
+     *
+     * @param logic logic
      */
     public BudgetBar(Logic logic) {
         super(FXML_FILE_NAME,null);
@@ -57,17 +58,20 @@ public class BudgetBar extends UiPart<Region> {
         gridPane.setGridLinesVisible(true);
         gridPane.setSnapToPixel(true);
 
-        for(int viewPane = 1; viewPane <= 6; viewPane++) {
+        for (int viewPane = 1; viewPane <= 6; viewPane++) {
             ProgressBar bar = new ProgressBar();
             Text category = new Text();
             Text remaining = new Text();
+
+            remaining.setStyle("-fx-font-size: 16px;");
+            category.setStyle("-fx-font-size: 25px;");
 
             bar.setPrefWidth(250);
             bar.setPrefHeight(30);
             bar.setProgress(percentage(viewPane,logic));
             budgetBars.put(viewPane,bar);
 
-            if(percentage(viewPane,logic) > 0.9) {
+            if (percentage(viewPane,logic) > 0.9) {
                 bar.setStyle("-fx-accent: red;");
             } else if (percentage(viewPane,logic) > 0.65) {
                 bar.setStyle("-fx-accent: orange;");
@@ -77,25 +81,24 @@ public class BudgetBar extends UiPart<Region> {
                 bar.setStyle("-fx-accent: green");
             }
 
-            if(percentage(viewPane,logic) < 1) {
-                if(remainder(viewPane,logic).compareTo(BigDecimal.ZERO) == 0) {
+            if (percentage(viewPane,logic) < 1) {
+                if (remainder(viewPane,logic).compareTo(BigDecimal.ZERO) == 0) {
                     remaining.setText("     No budget set.");
                 } else {
                     remaining.setText("     Remaining budget: $" + remainder(viewPane, logic));
                 }
-            } else if(percentage(viewPane,logic) == 1) {
-                remaining.setText("     Budget of " + logic.getBudgetTag(logic.getBudgetViewCategory().get(viewPane)) + " reached!");
+            } else if (percentage(viewPane,logic) == 1) {
+                remaining.setText("     Budget of " + logic.getBudgetTag(
+                        logic.getBudgetViewCategory().get(viewPane)) + " reached!");
             } else {
                 remaining.setText("     Exceeded budget by $" + remainder(viewPane,logic).negate() + "!");
             }
 
-            remaining.setStyle("-fx-font-size: 16px;");
-            category.setStyle("-fx-font-size: 25px;");
-
-            if(!logic.getBudgetViewCategory().containsKey(viewPane)) {
+            if (!logic.getBudgetViewCategory().containsKey(viewPane)) {
                 bar.setVisible(false);
                 remaining.setVisible(false);
-                category.setText("Type \"viewBudget " + viewPane + " /tag #category\" to add a budget view in this pane.");
+                category.setText("Type \"viewBudget " + viewPane
+                        + " /tag #category\" to add a budget view in this pane.");
                 category.setWrappingWidth(140);
                 category.setStyle("-fx-font-size: 12px;");
                 category.setTextAlignment(TextAlignment.CENTER);
@@ -104,24 +107,24 @@ public class BudgetBar extends UiPart<Region> {
                 category.setText(tag.toUpperCase());
             }
 
-            if(viewPane == 1) {
-                vBox1.getChildren().addAll(category, bar, remaining);
-                vBox1.setSpacing(10);
-            } else if(viewPane == 2) {
-                vBox2.getChildren().addAll(category, bar, remaining);
-                vBox2.setSpacing(10);
-            } else if(viewPane == 3) {
-                vBox3.getChildren().addAll(category, bar, remaining);
-                vBox3.setSpacing(10);
-            } else if(viewPane == 4) {
-                vBox4.getChildren().addAll(category, bar, remaining);
-                vBox4.setSpacing(10);
-            } else if(viewPane == 5) {
-                vBox5.getChildren().addAll(category, bar, remaining);
-                vBox5.setSpacing(10);
+            if (viewPane == 1) {
+                vbox1.getChildren().addAll(category, bar, remaining);
+                vbox1.setSpacing(10);
+            } else if (viewPane == 2) {
+                vbox2.getChildren().addAll(category, bar, remaining);
+                vbox2.setSpacing(10);
+            } else if (viewPane == 3) {
+                vbox3.getChildren().addAll(category, bar, remaining);
+                vbox3.setSpacing(10);
+            } else if (viewPane == 4) {
+                vbox4.getChildren().addAll(category, bar, remaining);
+                vbox4.setSpacing(10);
+            } else if (viewPane == 5) {
+                vbox5.getChildren().addAll(category, bar, remaining);
+                vbox5.setSpacing(10);
             } else {
-                vBox6.getChildren().addAll(category, bar, remaining);
-                vBox6.setSpacing(10);
+                vbox6.getChildren().addAll(category, bar, remaining);
+                vbox6.setSpacing(10);
             }
         }
     }
@@ -139,7 +142,7 @@ public class BudgetBar extends UiPart<Region> {
         double percent = logic.getTagAmount(category).doubleValue() / logic.getBudgetTag(category).doubleValue();
 
         //In the case where percent is NaN (Not a Number)
-        if(Double.isNaN(percent)) {
+        if (Double.isNaN(percent)) {
             percent = 0.0;
         }
 

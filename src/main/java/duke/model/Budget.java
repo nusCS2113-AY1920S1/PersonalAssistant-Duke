@@ -82,13 +82,13 @@ public class Budget {
     }
 
     /**
-     * Gets the budget of a specific category
+     * Gets the budget of a specific category.
      *
      * @param category the String of the specific category
      * @return BigDecimal value of the budget set for the category
      */
     public BigDecimal getBudgetTag(String category) {
-        if(budgetCategory.containsKey(category)) {
+        if (budgetCategory.containsKey(category)) {
             return budgetCategory.get(category);
         } else {
             return BigDecimal.ZERO;

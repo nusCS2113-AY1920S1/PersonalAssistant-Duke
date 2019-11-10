@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 /**
- * Represents an income of the user
+ * Represents an income of the user.
  */
 public class Income extends DukeItem {
     /**
@@ -55,7 +55,7 @@ public class Income extends DukeItem {
          */
         Builder(Map<String, String> mappedStorageString) throws DukeException {
             super(mappedStorageString);
-            if(!mappedStorageString.containsKey("amount") | !mappedStorageString.containsKey("description")) {
+            if (!mappedStorageString.containsKey("amount") | !mappedStorageString.containsKey("description")) {
                 setAmount((String) null);
                 setDescription(null);
             }
