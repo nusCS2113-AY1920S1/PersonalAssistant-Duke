@@ -10,8 +10,8 @@ import java.util.logging.Logger;
 
 public class LogCenter {
     /**
-     * Set up the logger
-     * @param logger Message that is logged
+     * Set up the logger.
+     * @param logger Message that is logged.
      */
 
     public static void setUpLogger(Logger logger) {

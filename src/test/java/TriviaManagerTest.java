@@ -1,5 +1,5 @@
 //@@ author mononokehime14
-package TriviaTest;
+
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -48,6 +48,6 @@ public class TriviaManagerTest {
         triviaManager.showPossibleInputs("Love");
 //        System.out.print("Could it be one of the below inputs?\n");
 //        System.out.print(triviaManager.CommandMemory.get("Love"));
-        assertEquals("Could it be one of the below inputs?\n"+triviaManager.CommandMemory.get("Love").toString()+"\n",outContent.toString());
+        assertEquals("Could it be one of the below inputs?\r\n"+triviaManager.CommandMemory.get("Love").toString()+"\r\n",outContent.toString());
     }
 }

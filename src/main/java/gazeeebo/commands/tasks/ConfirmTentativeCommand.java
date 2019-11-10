@@ -1,6 +1,7 @@
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -75,7 +76,8 @@ public class ConfirmTentativeCommand extends Command {
                     sb.append(list.get(i).toString() + "\n");
                 }
             }
-            storage.writeToSaveFile(sb.toString());
+            TasksPageStorage tasksPageStorage = new TasksPageStorage();
+            tasksPageStorage.writeToSaveFile(sb.toString());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }

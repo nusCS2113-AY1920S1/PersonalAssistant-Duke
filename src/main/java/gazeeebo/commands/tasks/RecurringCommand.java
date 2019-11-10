@@ -2,6 +2,7 @@
 package gazeeebo.commands.tasks;
 
 import gazeeebo.storage.Storage;
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
@@ -159,6 +160,7 @@ public class RecurringCommand {
         for (Task task : list) {
             sb.append(task.toString() + "\n");
         }
-        storage.writeToSaveFile(sb.toString());
+        TasksPageStorage tasksPageStorage = new TasksPageStorage();
+        tasksPageStorage.writeToSaveFile(sb.toString());
     }
 }

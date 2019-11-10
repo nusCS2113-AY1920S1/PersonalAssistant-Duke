@@ -9,6 +9,7 @@ import gazeeebo.commands.places.DeletePlacesCommand;
 import gazeeebo.commands.places.ListPlacesCommand;
 import gazeeebo.commands.places.FindPlacesCommand;
 import gazeeebo.exception.DukeException;
+import gazeeebo.storage.PlacesPageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -75,7 +76,8 @@ public class PlacesCommandParser extends Command {
         System.out.println(WELCOME_MESSAGE);
         System.out.println(PLACES_COMMANDS);
         try {
-            HashMap<String, String> map = storage.readPlaces();
+            PlacesPageStorage placesPageStorage = new PlacesPageStorage();
+            HashMap<String, String> map = placesPageStorage.readPlaces();
             Map<String, String> places = new TreeMap<String, String>(map);
             Stack<Map<String, String>> oldplaces = new Stack<>();
             boolean isExitFromPlaces = false;
@@ -108,7 +110,7 @@ public class PlacesCommandParser extends Command {
                 for (String key : places.keySet()) {
                     toStore = toStore.concat(key + "|" + places.get(key) + "\n");
                 }
-                storage.writePlacesFile(toStore);
+                placesPageStorage.writePlacesFile(toStore);
             }
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             System.out.println(INVALID_INPUT);

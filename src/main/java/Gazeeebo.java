@@ -1,5 +1,6 @@
 import gazeeebo.logger.LogCenter;
 import gazeeebo.storage.NotePageStorage;
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -31,12 +32,13 @@ public class Gazeeebo {
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage store = new Storage();
         store.startUp();
+        TasksPageStorage tasksPageStorage = new TasksPageStorage();
         TriviaManager triviaManager = new TriviaManager(store);
         boolean isExit = false;
         Ui ui = new Ui();
         try {
             ui.showWelcome();
-            list = store.readFromSaveFile();
+            list = tasksPageStorage.readFromSaveFile();
             NoteStorage.readFromFile("NoteDaily.txt", NoteList.daily);
             NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
             NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);

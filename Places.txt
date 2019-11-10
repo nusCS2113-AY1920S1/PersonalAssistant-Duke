@@ -74,4 +74,4 @@ Video Conference Room (VC)|COM1 02-13 (COM1-VCRM)
 Workstation Lab 1|I3 03-39 (I3-0339)
 Workstation Lab 2|I3 03-38 (I3-0338)
 Workstation Lab 3|I3 03-36 (I3-0336)
-asd|aad
+asd|asd
