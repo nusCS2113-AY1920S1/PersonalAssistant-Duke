@@ -87,6 +87,16 @@ public class WordBank {
         return wordBank.get(word).getMeaning();
     }
 
+    public String searchWordExample(String word) throws WordBankEmptyException, NoWordFoundException {
+        word = word.toLowerCase();
+        if (wordBank.isEmpty()) {
+            throw new WordBankEmptyException();
+        } else if (!(wordBank.containsKey(word))) {
+            throw new NoWordFoundException(word);
+        }
+        return wordBank.get(word).getExample();
+    }
+
     /**
      * Searches for all words with a few beginning characters.
      *
@@ -206,6 +216,8 @@ public class WordBank {
     public void addTagToWord(String word, String tag) {
         wordBank.get(word).addTag(tag);
     }
+
+    public void addExampleToWord(String word, String example) { wordBank.get(word).addExample(example); }
 
     public Word[] getAllWordsAsList() {
         return wordBank.values().toArray(new Word[wordBank.size()]);

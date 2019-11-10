@@ -307,10 +307,18 @@ public class Storage {
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
+                short columnCount = row.getLastCellNum();
+                String word = cellIterator.next().getStringCellValue();
 
                 bank.addWord(new
-                        Word(cellIterator.next().getStringCellValue(), cellIterator.next().getStringCellValue())
+                        Word(word, cellIterator.next().getStringCellValue())
                 );
+                if((int)columnCount > 2){
+                    //System.out.println(columnCount);
+                    String example = cellIterator.next().getStringCellValue();
+                    bank.addExampleToWord(word, example);
+                }
+
             }
 
             Sheet tagBankSheet = workbook.getSheetAt(1);
@@ -380,8 +388,13 @@ public class Storage {
         cell.setCellValue("Meaning");
         cell.setCellStyle(headerCellStyle);
 
+        cell = headerRow.createCell(2);
+        cell.setCellValue("Example");
+        cell.setCellStyle(headerCellStyle);
+
         wordBankSheet.autoSizeColumn(0);
         wordBankSheet.autoSizeColumn(1);
+        wordBankSheet.autoSizeColumn(2);
 
         Sheet tagBankSheet = workbook.createSheet("TagBank");
         headerRow = tagBankSheet.createRow(0);
@@ -602,10 +615,69 @@ public class Storage {
                 }
 
                 cell.setCellValue(allWords[i - 1].getMeaning());
+
+                cell = row.getCell(2);
+                if (cell == null) {
+                    cell = row.createCell(2);
+                }
+
+                cell.setCellValue(allWords[i-1].getExample());
+
             }
 
             sheet.autoSizeColumn(0);
             sheet.autoSizeColumn(1);
+            sheet.autoSizeColumn(2);
+
+            fileOut = new FileOutputStream(EXCEL_PATH);
+            workbook.write(fileOut);
+            fileInputStream.close();
+            fileOut.close();
+            workbook.close();
+        } catch (FileNotFoundException e) {
+            createExcelFile();
+        } catch (IOException | InvalidFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeExampleToExcelFile(WordBank wordBank) {
+        FileInputStream fileInputStream;
+        FileOutputStream fileOut;
+        try {
+            fileInputStream = new FileInputStream(excelFile);
+            Workbook workbook = WorkbookFactory.create(fileInputStream);
+
+            Sheet sheet = workbook.getSheetAt(0);
+            Word[] allWords = wordBank.getAllWordsAsList();
+
+            for (int i = 1; i <= allWords.length; i++) {
+                Row row = sheet.getRow(i);
+                if (row == null) {
+                    row = sheet.createRow(i);
+                }
+
+                Cell cell = row.getCell(0);
+                if (cell == null) {
+                    cell = row.createCell(0);
+                }
+
+                cell.setCellType(CellType.STRING);
+                String word = allWords[i - 1].getWordString();
+
+                cell.setCellValue(word);
+
+                cell = row.getCell(2);
+                if (cell == null) {
+                    cell = row.createCell(2);
+                }
+
+                cell.setCellValue(allWords[i - 1].getExample());
+            }
+
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+            sheet.autoSizeColumn(2);
 
             fileOut = new FileOutputStream(EXCEL_PATH);
             workbook.write(fileOut);

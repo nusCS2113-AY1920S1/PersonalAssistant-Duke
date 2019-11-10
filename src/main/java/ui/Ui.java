@@ -51,6 +51,10 @@ public class Ui {
         return "Got it. I've edited this word:\n" + w.toString();
     }
 
+    public String showAddExample(String word, String example) {
+        return "Got it. I've added the example to " + word + ":\n" + example;
+    }
+
     /**
      * Shows the tags to be added.
      * @param word word to add tag
@@ -147,8 +151,14 @@ public class Ui {
         return stringBuilder.toString();
     }
 
-    public String showSearch(String description, String meaning) {
-        return ("Here is the meaning of " + description + ": " + meaning + "\n");
+    public String showSearch(String description, String meaning, String example) {
+        System.out.println(example);
+        if(example.isEmpty()){
+            return ("Here is the meaning of " + description + ": " + meaning + "\n");
+        } else {
+            return ("Here is the meaning of " + description + ": " + meaning + "\n"
+                    + "and here is the example: " + example);
+        }
     }
 
     /**
