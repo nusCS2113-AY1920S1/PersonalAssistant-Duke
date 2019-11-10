@@ -282,6 +282,16 @@ updated, which increases the computational load.
 ** Cons: Have to consider other commands (e.g. `update`) that will change the task list and requires the
 task list to be sorted.
 
+//==== Set priority
+//
+//Priority levels can be added to tasks. The benefits of having this feature are:
+//
+//* Distinguish more pressing tasks from others.
+//
+//===== Implementation
+//
+//The following sequence diagram below illustrates how this feature works:
+
 ==== Updating of Tags
 
 Tasks have a variety of attributes that a user may want to add or change.
