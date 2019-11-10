@@ -39,25 +39,25 @@ public class Ui {
 
     public void helpList() {
         System.out.println("Here are a list of commands you can input: " +
-                "\n bye " +
+                "\n add " +
                 "\n list " +
+                "\n update " +
                 "\n done " +
                 "\n delete " +
-                "\n removeoverdue " +
-                "\n restore " +
                 "\n find " +
-                "\n priority " +
-                "\n add " +
                 "\n snooze " +
-                "\n reorder " +
-                "\n subtask " +
-                "\n update " +
                 "\n sort " +
-                "\n log " +
+                "\n subtask " +
+                "\n restore " +
+                "\n priority " +
+                "\n reorder " +
                 "\n completed " +
                 "\n overdue " +
                 "\n reschedule " +
-                "\n show \n" +
+                "\n show " +
+                "\n removeoverdue " +
+                "\n log " +
+                "\n bye \n" +
                 "For more information about a specific command you can \nEnter help followed by a command, eg. help add\n");
     }
 
