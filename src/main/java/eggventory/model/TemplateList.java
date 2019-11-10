@@ -10,6 +10,8 @@ import java.util.HashMap;
 
 //@@author Deculsion
 public class TemplateList {
+
+
     private static HashMap<String, Loan[]> templates = new HashMap<>();
 
     /**
@@ -205,5 +207,9 @@ public class TemplateList {
         }
         return saveTemplateListString.toString();
     }
-    //@@ author
+
+    public static HashMap<String, Loan[]> getTemplates() {
+        return templates;
+    }
+    //@@author
 }

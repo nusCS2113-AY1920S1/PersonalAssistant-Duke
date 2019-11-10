@@ -144,6 +144,10 @@ public final class PersonList {
         return sb.toString();
     }
 
+    public static ArrayList<Person> getPersonList() {
+        return personList;
+    }
+
 
     //@@author patwaririshab
     /**

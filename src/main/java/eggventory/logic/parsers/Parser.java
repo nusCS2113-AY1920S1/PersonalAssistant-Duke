@@ -3,10 +3,13 @@ package eggventory.logic.parsers;
 import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;
 import eggventory.commons.exceptions.InsufficientInfoException;
-import eggventory.logic.commands.HelpCommand;
 import eggventory.logic.commands.ByeCommand;
 import eggventory.logic.commands.Command;
 import eggventory.logic.commands.CommandDictionary;
+import eggventory.logic.commands.HelpCommand;
+import eggventory.logic.commands.UndoCommand;
+import eggventory.logic.commands.RedoCommand;
+
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -161,6 +164,14 @@ public class Parser {
                 //display full help.
                 command = new HelpCommand(CommandType.HELP, inputArr[1]);
             }
+            break;
+        }
+        case "undo": {
+            command = new UndoCommand(CommandType.UNDO);
+            break;
+        }
+        case "redo": {
+            command = new RedoCommand(CommandType.REDO);
             break;
         }
         default:

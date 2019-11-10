@@ -4,10 +4,8 @@ import eggventory.logic.commands.ByeCommand;
 import eggventory.logic.commands.Command;
 import eggventory.commons.enums.CommandType;
 import eggventory.logic.parsers.Parser;
-import eggventory.model.LoanList;
-import eggventory.model.PersonList;
-import eggventory.model.StockList;
-import eggventory.model.TemplateList;
+
+import eggventory.model.StateInterface;
 import eggventory.storage.Storage;
 import eggventory.ui.Cli;
 import eggventory.ui.Gui;
@@ -23,10 +21,7 @@ public class Eggventory {
     private static Storage storage;
     private static Parser parser;
     private static Ui ui;
-    private static StockList stockList;
-    private static LoanList loanList;
-    private static PersonList personList;
-    private static TemplateList templateList;
+    private static StateInterface stateInterface;
 
     /**
      * Sets up the frontend, the Gui and the event handlers. This will create an instance of the
@@ -44,10 +39,8 @@ public class Eggventory {
         storage = new Storage(stockFilePath, stockTypesFilePath, loanListFilePath, personListFilePath,
                 templateListFilePath);
         parser = new Parser();
-        stockList = storage.load();
-        loanList = storage.loadLoanList();
-        personList = storage.loadPersonList();
-        templateList = storage.loadTemplateList();
+        stateInterface = new StateInterface(storage.load(), storage.loadLoanList(), storage.loadPersonList(),
+                storage.loadTemplateList());
 
         if (args.length >= 1 && args[0].equals("cli")) {
             ui = new Cli();
@@ -65,13 +58,17 @@ public class Eggventory {
         try {
 
             String userInput = ui.read();
-
+            //TODO: Check whether SLAP is violated
             Command command = parser.parse(userInput);
             if (command.getType().equals(CommandType.BYE)) {
-                ((ByeCommand) command).executeSaveMoreLists(stockList, ui, storage, loanList, personList, templateList);
+                ((ByeCommand) command).executeSaveMoreLists(stateInterface.getStockList(), ui, storage,
+                        stateInterface.getLoanList(), stateInterface.getPersonList(),
+                        stateInterface.getTemplateList());
             }
-            command.execute(stockList, ui, storage);
-            storage.save(stockList, loanList, personList, templateList);
+            command.updateState(stateInterface);
+            command.execute(stateInterface.getStockList(), ui, storage);
+            storage.save(stateInterface.getStockList(), stateInterface.getLoanList(), stateInterface.getPersonList(),
+                    stateInterface.getTemplateList());
 
             if (command.getType() == CommandType.BYE) {
                 System.exit(0);

@@ -17,7 +17,6 @@ import java.util.HashMap;
  * Loans can be printed as a complete list of all loans, or only by the Person or Stock involved.
  */
 public final class LoanList {
-
     private static ArrayList<Loan> loansList = new ArrayList<Loan>();
     private static HashMap<String, Integer> stockLoaned = new HashMap<String, Integer>();
 
@@ -319,6 +318,9 @@ public final class LoanList {
         return stockTypesString.toString();
     }
 
+    public static ArrayList<Loan> getLoansList() {
+        return loansList;
+    }
     //@@author
 
 }
