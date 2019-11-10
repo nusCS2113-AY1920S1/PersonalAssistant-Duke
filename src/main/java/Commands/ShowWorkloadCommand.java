@@ -1,5 +1,6 @@
 package Commands;
 
+import Commons.DukeConstants;
 import Commons.LookupTable;
 import Commons.Storage;
 import Commons.UserInteraction;
@@ -19,8 +20,6 @@ public class ShowWorkloadCommand extends Command {
     private String week;
     private Integer[] counter = {0,0,0,0,0,0,0};
     private LookupTable lookupTable = LookupTable.getInstance();
-    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-    private SimpleDateFormat dayFormatter = new SimpleDateFormat("E");
     private static final int HOURS = 24;
     private static final int MINUTES = 60;
     private static final int SECONDS = 60;
@@ -53,8 +52,8 @@ public class ShowWorkloadCommand extends Command {
      */
     private int findBestDay(HashMap<String, ArrayList<Assignment>> workloadMap, Integer limit) throws ParseException {
         for (Map.Entry<String, ArrayList<Assignment>> date: workloadMap.entrySet()) {
-            Date tempDate = dateFormatter.parse(date.getKey());
-            String tempDay = dayFormatter.format(tempDate);
+            Date tempDate = DukeConstants.EVENT_DATE_INPUT_FORMAT.parse(date.getKey());
+            String tempDay = DukeConstants.DAY_FORMAT.format(tempDate);
             int index = dayToInt(tempDay);
             counter[index - 1]++;
         }
@@ -129,13 +128,13 @@ public class ShowWorkloadCommand extends Command {
                 String strDate = strDayDate[1].trim();
                 String selectedWeek = lookupTable.getValue(strDate);
                 if (isValid(workloadWeek, selectedWeek)) {
-                    Date tempDate = dateFormatter.parse(strDate);
-                    String tempDay = dayFormatter.format(tempDate);
+                    Date tempDate = DukeConstants.EVENT_DATE_INPUT_FORMAT.parse(strDate);
+                    String tempDay = DukeConstants.DAY_FORMAT.format(tempDate);
                     int limit = dayToInt(tempDay);
                     int freeDay = findBestDay(workloadMap, limit - 1);
                     int bestDay = dayToInt(tempDay) - freeDay;
                     tempDate = new Date(tempDate.getTime() - bestDay * HOURS * MINUTES * SECONDS * MILLISECONDS);
-                    String newDate = dateFormatter.format(tempDate).trim();
+                    String newDate = DukeConstants.EVENT_DATE_INPUT_FORMAT.format(tempDate).trim();
                     if (workloadMap.containsKey(newDate)) {
                         for (int i = 0; i < deadlineItem.getValue().size(); i++) {
                             workloadMap.get(newDate).add(deadlineItem.getValue().get(i));
