@@ -167,7 +167,7 @@ public class CapTest extends InputTest {
     public void capMethodTest() {
         CapCommand cap = new CapCommand();
         assertTrue(cap.isComplete("done"));
-        assertFalse(cap.isComplete("not == done"));
+        assertFalse(cap.isComplete("not = = done"));
         assertEquals(5.0, cap.letterGradeToCap("A+"));
         assertEquals(5.0, cap.letterGradeToCap("A"));
         assertEquals(4.5, cap.letterGradeToCap("A-"));
