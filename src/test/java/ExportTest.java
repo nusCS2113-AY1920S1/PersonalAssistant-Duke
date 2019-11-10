@@ -33,7 +33,6 @@ class ExportTest {
     private static ArrayList<Task> list;
     private static TaskList tasks;
     private static File file;
-    private static File placeholder;
     private static File calendarFile;
     private static Storage storage;
     private static ChronologerStateList history;
@@ -46,9 +45,7 @@ class ExportTest {
         list = new ArrayList<>();
         tasks = new TaskList(list);
         file = new File(System.getProperty("user.dir") + "/src/test/Test");
-        placeholder = new File(System.getProperty("user.dir") + "/src/test/States");
         storage = new Storage(file);
-        history = new ChronologerStateList(placeholder, placeholder, placeholder);
         LocalDateTime startDate = LocalDateTime.now().plusDays(3);
         Deadline deadline = new Deadline("Test", startDate);
         deadline.setComment("Testing description");
