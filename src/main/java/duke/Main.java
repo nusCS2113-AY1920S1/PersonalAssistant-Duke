@@ -1,6 +1,5 @@
 package duke;
 
-import duke.Duke;
 import duke.enums.Numbers;
 import duke.ui.MainWindow;
 import javafx.application.Application;
@@ -10,6 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,6 +49,18 @@ public class Main extends Application {
     public void stop() {
         logger.info("ALERT: Duke is shutting down! Attempting to save Data... ");
         duke.suddenStop();
+        timer.schedule(exitDuke, createTimerDelay());
     } //@@author
+
+    Timer timer = new Timer();
+    TimerTask exitDuke = new TimerTask() {
+        public void run() {
+            System.exit(Numbers.ZERO.value);
+        }
+    };
+
+    private Date createTimerDelay() {
+        return new Date(System.currentTimeMillis());
+    }
 }
 //@@author
