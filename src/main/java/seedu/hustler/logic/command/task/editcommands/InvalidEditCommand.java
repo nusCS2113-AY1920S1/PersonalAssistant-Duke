@@ -4,13 +4,17 @@ import seedu.hustler.logic.command.Command;
 import seedu.hustler.ui.Ui;
 
 /**
- * Represents invalid command.
+ * Represents invalid edit command.
  */
 public class InvalidEditCommand extends Edit {
-
+    
+    /**
+     * Initializes index of superclass.
+     */
     public InvalidEditCommand() {
         super(-1); 
     }
+
     /**
      * Print error for InvalidCommand.
      */

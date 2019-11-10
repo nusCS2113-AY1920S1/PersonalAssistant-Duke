@@ -8,8 +8,7 @@ import seedu.hustler.logic.CommandLineException;
 import java.util.PriorityQueue;
 
 /**
- * Extends on the Scheduler in order to provide recommendations
- * for the task completion mode.
+ * Recommends schedule entries/tasks to work on based on priority.
  */
 public class Recommender {
     
@@ -27,19 +26,21 @@ public class Recommender {
      * List of recommended schedule entries.
      */
     private ArrayList<ScheduleEntry> recommended;
-
+    
+    /**
+     * Initializes list of schedule entries/tasks.
+     *
+     * @param schedule list of schedule entries.
+     */
     public Recommender(ArrayList<ScheduleEntry> schedule) {
         this.schedule = schedule;
     }
     
     /**
-     * Initializes recommended based on the supplied time available and priority.
-     * If the amount of hours availabe is 1, the highest priority task is given.
-     * If the amount of hours is greater than 1 but less than two, two tasks are added.
-     * Otherwise, 3 tasks are added based on priority.
-     * Time is allocated evenly to all tasks.
+     * Initializes recommended based using topKAlgorithm algorithm on schedule, where
+     * k is set the number of hours available.
      *
-     * @param timeInSeconds time available for a task.
+     * @param seconds time available to work on tasks.
      */
     public ArrayList<ScheduleEntry> recommend(int seconds) {
         if (schedule.size() == 0) {
@@ -58,7 +59,13 @@ public class Recommender {
         reTime(seconds);
         return recommended;
     }
-
+    
+    /**
+     * Top K topKAlgorithm that uses min heap and can find top k in O(nlogk).
+     *
+     * @param pq the priority queue that acts as a min heap
+     * @param k the number of recommendations
+     */
     private void topKAlgorithm(PriorityQueue<ScheduleEntry> pq, int k) {
         for (int i = 0; i < schedule.size(); i++) {
             if (i < k) {

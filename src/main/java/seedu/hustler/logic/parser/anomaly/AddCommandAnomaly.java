@@ -61,7 +61,7 @@ public class AddCommandAnomaly extends DetectAnomaly {
                 String[] validDifficulty = {"H", "M", "L"};
                 if (!Arrays.asList(validDifficulty).contains(difficulty)) {
                     CommandLog.removeLastCommand();
-                    throw new CommandLineException(MESSAGE_INVALID_DIFFICULTY );
+                    throw new CommandLineException(MESSAGE_INVALID_DIFFICULTY);
                 }
             }
 

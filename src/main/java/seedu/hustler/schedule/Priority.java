@@ -16,9 +16,18 @@ public class Priority {
      * The priority score of a task.
      */
     private double priorityScore;
-
+    
+    /**
+     * The object that calculates time left for a
+     * task.
+     */
     private Timing time;
-
+    
+    /**
+     * Initializes time.
+     *
+     * @param time the supplied object to initialize with
+     */
     public Priority(Timing time) {
         this.time = time;
     }

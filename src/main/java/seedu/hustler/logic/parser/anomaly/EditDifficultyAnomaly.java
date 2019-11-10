@@ -4,14 +4,15 @@ import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
 
 /**
- * Detects anomalies in add command inputted by user.
+ * Detects anomalies in edit difficulty command inputted by user.
  */
 public class EditDifficultyAnomaly {
 
     /**
-     * Detects anomaly in edit description anomaly input.
+     * Detects anomaly in edit difficulty anomaly input.
      *
-     * @param userInput input for which anomaly is detected
+     * @param index index at which edit is made
+     * @param difficulty difficulty to be changed to
      * @throws CommandLineException if the user input does not conform the expected format
      */
     public void detect(int index, String difficulty) throws CommandLineException {

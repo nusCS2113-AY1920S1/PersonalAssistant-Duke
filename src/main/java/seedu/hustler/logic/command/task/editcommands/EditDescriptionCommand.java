@@ -12,7 +12,7 @@ import seedu.hustler.task.Task;
 import java.io.IOException;
 
 /**
- * Command to do task in list.
+ * Command to edit description of task.
  */
 public class EditDescriptionCommand extends Edit {
     /**
@@ -37,7 +37,7 @@ public class EditDescriptionCommand extends Edit {
     }
 
     /**
-     * Does task at index taskIndex inside.
+     * Edits task at index.
      */
     public void execute() {
         Ui ui = new Ui();
@@ -48,7 +48,7 @@ public class EditDescriptionCommand extends Edit {
             String output = "The task description has been changed: \n\t\t" 
                 + Hustler.list.get(this.index).toString();
             ui.showMessage(output); 
-        } catch (CommandLineException e){
+        } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }
     }

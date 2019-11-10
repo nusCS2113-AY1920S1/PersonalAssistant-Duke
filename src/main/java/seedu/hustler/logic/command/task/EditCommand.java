@@ -12,11 +12,12 @@ import seedu.hustler.logic.parser.EditCommandParser;
 import seedu.hustler.logic.command.task.editcommands.Edit;
 
 /**
- * Command to do task in list.
+ * Command to edit tasks in TaskList without
+ * knowing which edits are being done.
  */
 public class EditCommand extends Command {
     /**
-     * User input that contains index of task to do.
+     * User input that contains index of task to edit and the edit.
      */
     private String[] userInput;
     
@@ -35,7 +36,7 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Does task at index taskIndex inside.
+     * Edits a task at an index.
      */
     public void execute() {
         Ui ui = new Ui();

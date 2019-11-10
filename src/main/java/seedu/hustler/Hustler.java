@@ -43,7 +43,6 @@ public class Hustler extends Application {
      */
     public static ShopList shopList = new ShopList().populateShop();
 
-
     /**
      * achievementList stores and manage all the achievements available in Hustler.
      * Achievements can either be locked and unlocked.
@@ -150,7 +149,10 @@ public class Hustler extends Application {
         AchievementStorage.loadStatus();
         AchievementStorage.createBackup(achievementList);
     }
-
+    
+    /**
+     * Reloads avatar backup.
+     */
     public static void reloadBackup() {
         list = new TaskList(taskStorage.reloadBackup());
         avatar = AvatarStorage.reloadBackup();
