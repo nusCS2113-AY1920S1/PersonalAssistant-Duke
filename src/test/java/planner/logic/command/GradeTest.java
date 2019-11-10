@@ -37,7 +37,7 @@ public class GradeTest extends InputTest {
         +
         "_______________________________\n"
         +
-        "_______________________________\n";
+        "_______________________________";
     final String[] hold = {""};
 
     /**
@@ -104,9 +104,112 @@ public class GradeTest extends InputTest {
             "_______________________________\n" + expectedBye;
         String contentString = outContent.toString();
         String newContentString = contentString.replaceAll("\r", "");
+        newContentString = newContentString.replaceAll("\n", "");
         String escaped = removeUnicodeAndEscapeChars(newContentString);
-        //assertEquals(escaped, removeUnicodeAndEscapeChars(expectedAddModule));
-        assertEquals(escaped, escaped);
+        expectedAddModule = expectedAddModule.replaceAll("\n", "");
+        assertEquals(escaped, removeUnicodeAndEscapeChars(expectedAddModule));
+    }
+
+    @Test
+    public void testIncorrectGradeInput() {
+        final String moduleTest1 = "grade CS1010 Z\n" + "bye\n"; //This affects the user's list
+        final String[] hold = {""};
+        provideInput(moduleTest1);
+        CliLauncher.main(hold);
+        String expectedErrorModule = "_______________________________\n"
+            +
+            "Welcome to ModPlanner, your one stop solution to module planning!\n"
+            +
+            "Begin typing to get started!\n"
+            +
+            "_______________________________\n"
+            +
+            "Error: Please enter a valid letter grade!\n"
+            +
+            "_______________________________\n"
+            +
+            "_______________________________\n"
+            +
+            "Thanks for using ModPlanner!\n"
+            +
+            "Your data will be stored in file shortly!\n"
+            +
+            "_______________________________\n"
+            +
+            "_______________________________";
+        String contentString = outContent.toString();
+        String newContentString = contentString.replaceAll("\r", "");
+        newContentString = newContentString.replaceAll("\n", "");
+        String escaped = removeUnicodeAndEscapeChars(newContentString);
+        expectedErrorModule = expectedErrorModule.replaceAll("\n", "");
+        assertEquals(escaped, removeUnicodeAndEscapeChars(expectedErrorModule));
+    }
+
+    @Test
+    public void testMultipleGradeInput() {
+        final String moduleTest1 = "grade CS1010 A\n";
+        final String moduleTest2 = "grade CG1111 A-\n";
+        final String moduleTest3 = "grade CS1231 B+\n";
+        final String moduleTest4 = "grade MA1511 B\n";
+        final String moduleTest5 = "grade MA1512 B-\n" + "bye";
+        final String[] hold = {""};
+        provideInput(moduleTest1 + moduleTest2 + moduleTest3 + moduleTest4 + moduleTest5);
+        CliLauncher.main(hold);
+        String expectedMultipleGrade = "_______________________________\n"
+            +
+            "Welcome to ModPlanner, your one stop solution to module planning!\n"
+            +
+            "Begin typing to get started!\n"
+            +
+            "_______________________________\n"
+            +
+            "_______________________________\n"
+            +
+            "Got it, added the follow module!\n"
+            +
+            "[✓] CS1010 | ModuleCode:CS1010, MC:4.0, SU: can S/U, grade:A\n"
+            +
+            "_______________________________\n"
+            +
+            "Got it, added the follow module!\n"
+            +
+            "[✓] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade:A- \n"
+            +
+            "_______________________________"
+            +
+            "Got it, added the follow module!\n"
+            +
+            "[✓] CS1231 | ModuleCode:CS1231, MC:4.0, SU: can S/U, grade:B+ \n"
+            +
+            "_______________________________"
+            +
+            "Got it, added the follow module!\n"
+            +
+            "[✓] MA1511 | ModuleCode:MA1511, MC:2.0, SU: can S/U, grade:B \n"
+            +
+            "_______________________________"
+            +
+            "Got it, added the follow module!\n"
+            +
+            "[✓] MA1512 | ModuleCode:MA1512, MC:2.0, SU: can S/U, grade:B- \n"
+            +
+            "_______________________________"
+            +
+            "_______________________________\n"
+            +
+            "Thanks for using ModPlanner!\n"
+            +
+            "Your data will be stored in file shortly!\n"
+            +
+            "_______________________________\n"
+            +
+            "_______________________________";
+        String contentString = outContent.toString();
+        String newContentString = contentString.replaceAll("\r", "");
+        newContentString = newContentString.replaceAll("\n", "");
+        String escaped = removeUnicodeAndEscapeChars(newContentString);
+        expectedMultipleGrade = expectedMultipleGrade.replaceAll("\n", "");
+        assertEquals(escaped, removeUnicodeAndEscapeChars(expectedMultipleGrade));
     }
 
     /*@Test
