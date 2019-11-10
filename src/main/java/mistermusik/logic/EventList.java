@@ -148,7 +148,7 @@ public class EventList {
             throw new EndBeforeStartException();
         }
 
-        Event clashEvent = clashEvent(event); //check the list for a schedule clash
+        Event clashEvent = getClashEvent(event); //check the list for a schedule clash
         if (clashEvent == null) { //null means no clash was found
             if (event.getType() == 'C') {
                 this.budgeting.updateMonthlyCost((Concert) event);
@@ -194,7 +194,7 @@ public class EventList {
             }
 
             assert newEvent != null;
-            if (clashEvent(newEvent) == null) {
+            if (getClashEvent(newEvent) == null) {
                 tempEventList.add(newEvent);
             } else {
                 throw new ClashException(newEvent);
@@ -213,9 +213,9 @@ public class EventList {
      * there is a clash, return a reference to the event, if not, return null.
      *
      * @param checkingEvent newly added event
-     * @return event that causes a clash
+     * @return event that causes a clash, null if no clash found
      */
-    private Event clashEvent(Event checkingEvent) {
+    private Event getClashEvent(Event checkingEvent) {
         /*  NOTE: DateObj userInputString is arranged as follows: dd-MM-yyyy HHmm.
             for now, only have one date with differing start time and end time, date in startDateObj will be same as
             in endDateObj */
@@ -234,7 +234,7 @@ public class EventList {
             String[] currEventEndDateTime = currEvent.getEndDate().getUserInputDateString().split(" ");
 
             if (newEventDate.equals(currEventStartDateTime[0]) && //check for same date
-                    timeClash(newEventStartTime, newEventEndTime, currEventStartDateTime[1], currEventEndDateTime[1])) { //check for time clash
+                    checkForTimeClash(newEventStartTime, newEventEndTime, currEventStartDateTime[1], currEventEndDateTime[1])) { //check for time clash
                 return currEvent; //clash found
             }
         }
@@ -242,9 +242,9 @@ public class EventList {
     }
 
     /**
-     * Checks for a clash in time, returns appropriate boolean.
+     * Checks for a clash in time assuming two events have the same date.
      */
-    private boolean timeClash(int newEventStartTime, int newEventEndTime, String s, String s1) {
+    private boolean checkForTimeClash(int newEventStartTime, int newEventEndTime, String s, String s1) {
         int currEventStartTime = Integer.parseInt(s); //assign time
         int currEventEndTime = Integer.parseInt(s1);
 
