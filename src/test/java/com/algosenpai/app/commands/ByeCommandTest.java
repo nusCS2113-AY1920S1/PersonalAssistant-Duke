@@ -1,5 +1,6 @@
 package com.algosenpai.app.commands;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.logic.Logic;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.UserStats;
@@ -14,7 +15,12 @@ public class ByeCommandTest extends ApplicationTest {
 
     @Test
     void testSoundLevelUpperBoundary() throws IOException {
-        UserStats stats = new UserStats("./UserData.txt");
+        UserStats stats = null;
+        try {
+            stats = new UserStats("./UserData.txt");
+        } catch (FileParsingException e) {
+            e.printStackTrace();
+        }
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("exit");
         String actualText = command.execute();

@@ -1,5 +1,9 @@
 package com.algosenpai.app.stats;
 
+import com.algosenpai.app.exceptions.FileParsingException;
+
+import java.io.File;
+
 import static java.lang.Integer.parseInt;
 
 /**
@@ -104,7 +108,7 @@ public class ChapterStat {
      * @param string The string version of the ChapterStat (obtained by calling toString()).
      * @return The ChapterStat object.
      */
-    public static ChapterStat parseString(String string) {
+    public static ChapterStat parseString(String string) throws FileParsingException {
 
         // Split the string into individual lines.
         String[] lines = string.split("\n");
@@ -124,9 +128,7 @@ public class ChapterStat {
             return new ChapterStat(chapterName,chapterNumber,attempts,
                     totalAnswered,correctAnswers,wrongAnswers,percentage,comments);
         } catch (Exception e) {
-            ChapterStat c = getDefaultChapter();
-            c.chapterName = "Chapter parsing error";
-            return c;
+            throw new FileParsingException();
         }
 
     }

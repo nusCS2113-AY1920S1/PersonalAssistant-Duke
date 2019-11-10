@@ -1,7 +1,9 @@
 package com.algosenpai.app;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.stats.ChapterStat;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.storage.Storage;
@@ -9,6 +11,7 @@ import org.assertj.core.internal.bytebuddy.utility.RandomString;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -49,7 +52,7 @@ public class StorageTest {
      * Save it, then load it and compare the 2 copies.
      */
     @Test
-    public void saveAndLoad_randomTest() {
+    public void saveAndLoad_randomTest() throws FileNotFoundException, FileParsingException {
         // create the file.
         UserStats userStats = getRandomUserStats();
 
@@ -65,7 +68,7 @@ public class StorageTest {
      * (empty string parameters, no ChapterStats).
      */
     @Test
-    public void saveAndLoad_emptyUserStats() {
+    public void saveAndLoad_emptyUserStats() throws FileNotFoundException, FileParsingException {
         UserStats userStats = getEmptyUserStats();
 
 
@@ -75,17 +78,21 @@ public class StorageTest {
 
     }
 
-    /**
-     * Is this method name too long? It tests the case where you try to load from a file that doesn't exist.
-     */
     @Test
-    public void loadData_fileDoesNotExist_shouldCreateFileWithDefaultStats() {
-        new File(TEST_PATH).delete();
-        UserStats defaultStats = UserStats.getDefaultUserStats();
+    public void loadData_fileDoesNotExist_shouldThrow() {
+        assertThrows(FileNotFoundException.class,() -> {
+            new File(TEST_PATH).delete();
+            UserStats loadedStats = UserStats.parseString(Storage.loadData(TEST_PATH));
+        });
+    }
 
-        UserStats loadedStats = UserStats.parseString(Storage.loadData(TEST_PATH));
-        assertEquals(defaultStats,loadedStats);
-
+    @Test
+    public void loadData_fileContainsInvalidData_shouldThrow() {
+        assertThrows(FileParsingException.class,() -> {
+            new File(TEST_PATH).delete();
+            Storage.saveData(TEST_PATH,"GARBAGE!!!!");
+            UserStats loadedStats = UserStats.parseString(Storage.loadData(TEST_PATH));
+        });
     }
 
     private UserStats getEmptyUserStats() {

@@ -1,5 +1,6 @@
 package com.algosenpai.app.commands;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.logic.Logic;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.storage.Storage;
@@ -18,6 +19,8 @@ import org.junit.jupiter.api.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import java.io.FileNotFoundException;
+
 public class ClearCommandTest extends ApplicationTest {
 
     @Override
@@ -26,9 +29,14 @@ public class ClearCommandTest extends ApplicationTest {
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap, 500, 650);
         stage.setScene(scene);
-        UserStats stats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        UserStats stats = null;
+        try {
+            stats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        } catch (FileParsingException | FileNotFoundException e) {
+            stats = UserStats.getDefaultUserStats();
+        }
         Logic logic = new Logic(stats);
-        fxmlLoader.<Ui>getController().setLogic(logic, stats);
+        fxmlLoader.<Ui>getController().setLogic(logic, stats,false);
         stage.setResizable(false);
         stage.setTitle("AlgoSenpai Adventures");
         stage.show();
@@ -41,6 +49,7 @@ public class ClearCommandTest extends ApplicationTest {
     @AfterEach
     void tearDown() throws Exception {
         FxToolkit.hideStage();
+        System.gc();
     }
 
     @Test

@@ -1,9 +1,11 @@
 package com.algosenpai.app.logic.command.utility;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.storage.Storage;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class SetupCommand extends Command {
@@ -16,6 +18,7 @@ public class SetupCommand extends Command {
 
     /**
      * Create new command.
+     *
      * @param inputs input from user.
      */
     public SetupCommand(ArrayList<String> inputs) {
@@ -24,8 +27,9 @@ public class SetupCommand extends Command {
 
     /**
      * Initializes quiz command to start quiz.
+     *
      * @param inputs user inputs.
-     * @param stats the UserStats object used.
+     * @param stats  the UserStats object used.
      */
     public SetupCommand(ArrayList<String> inputs, UserStats stats) {
         this(inputs);
@@ -36,10 +40,17 @@ public class SetupCommand extends Command {
     @Override
     public String execute() {
         if (inputs.size() < 3) {
-            UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+            UserStats previousStats = null;
+
+            try {
+                previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+            } catch (FileParsingException | FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
             if (previousStats.getUsername().equals("Default")) {
                 return "Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
-                    + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.";
+                        + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.";
             } else {
                 gender = previousStats.getGender();
                 userName = previousStats.getUsername();
@@ -48,8 +59,6 @@ public class SetupCommand extends Command {
                 stats = new UserStats(previousStats);
                 return "Welcome back " + userName + "! To continue on your adventure, pick a command from 'menu'.";
             }
-        } else if (inputs.size() > 3) {
-            return "Please enter your name and gender in the following format : 'hello NAME GENDER (boy/girl)' please.";
         } else {
             userName = inputs.get(1);
             gender = inputs.get(2).toLowerCase();

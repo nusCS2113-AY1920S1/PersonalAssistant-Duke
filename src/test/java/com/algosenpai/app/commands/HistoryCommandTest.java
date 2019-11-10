@@ -1,5 +1,6 @@
 package com.algosenpai.app.commands;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.logic.Logic;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.UserStats;
@@ -32,9 +33,9 @@ public class HistoryCommandTest extends ApplicationTest {
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap, 500, 650);
         stage.setScene(scene);
-        UserStats stats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
-        fxmlLoader.<Ui>getController().setLogic(logic, stats);
+        fxmlLoader.<Ui>getController().setLogic(logic, stats, false);
         stage.setResizable(false);
         stage.setTitle("AlgoSenpai Adventures");
         stage.show();
@@ -47,6 +48,7 @@ public class HistoryCommandTest extends ApplicationTest {
     @AfterEach
     void tearDown() throws Exception {
         FxToolkit.hideStage();
+        System.gc();
     }
 
     @Test
@@ -78,18 +80,7 @@ public class HistoryCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testHistoryWithLimits() throws IOException {
-        clickOn("#userInput").write("select sorting").clickOn("#sendButton");
-        clickOn("#userInput").write("quiz").clickOn("#sendButton");
-        UserStats stats = new UserStats("./UserData.txt");
-        Logic logic = new Logic(stats);
-        Command command = logic.executeCommand("history 5");
-        String actualText = command.execute();
-        Assertions.assertEquals("OOPS!!! Error occurred. You don't have that many past commands!", actualText);
-    }
-
-    @Test
-    void testHistoryMissingInput() throws IOException {
+    void testHistoryMissingInput() throws IOException, FileParsingException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("history");
@@ -99,7 +90,7 @@ public class HistoryCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testHistoryWrongTypeInput() throws IOException {
+    void testHistoryWrongTypeInput() throws IOException, FileParsingException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("history two");
@@ -109,7 +100,7 @@ public class HistoryCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testHistoryInvalidInputSize() throws IOException {
+    void testHistoryInvalidInputSize() throws IOException, FileParsingException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("history 2 3");
@@ -118,7 +109,7 @@ public class HistoryCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testHistoryLowerBoundary() throws IOException {
+    void testHistoryLowerBoundary() throws IOException, FileParsingException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("history -1");
@@ -126,6 +117,18 @@ public class HistoryCommandTest extends ApplicationTest {
         Assertions.assertEquals("OOPS!!! Error occurred. "
                                           + "Please key in a valid number of commands you'd like to view!", actualText);
     }
+
+    @Test
+    void testHistoryWithLimitsUpperBoundary() throws IOException, FileParsingException {
+        clickOn("#userInput").write("select sorting").clickOn("#sendButton");
+        clickOn("#userInput").write("quiz").clickOn("#sendButton");
+        UserStats stats = new UserStats("./UserData.txt");
+        Logic logic = new Logic(stats);
+        Command command = logic.executeCommand("history 5");
+        String actualText = command.execute();
+        Assertions.assertEquals("OOPS!!! Error occurred. You don't have that many past commands!", actualText);
+    }
+
 
     <T extends Node> T find() {
         return lookup("#dialogContainer").query();

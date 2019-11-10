@@ -2,12 +2,15 @@
 
 package com.algosenpai.app.logic.command.errorhandling;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.constant.CommandsEnum;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.storage.Storage;
 
+import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +26,12 @@ public class InvalidCommand extends Command {
 
     @Override
     public String execute() {
-        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        UserStats previousStats = null;
+        try {
+            previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        } catch (FileParsingException | FileNotFoundException e) {
+            e.printStackTrace();
+        }
         if (previousStats.getUsername().equals("Default")) {
             return "Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
                     + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.";
@@ -38,7 +46,7 @@ public class InvalidCommand extends Command {
                 return "OOPS!!! Error occurred. Please input a valid command. Did you mean... "
                         + compare(input.toString()) + "?";
             } else {
-                return "Sorry please input a valid command. "
+                return "OOPS!!! Error occurred. Please input a valid command. "
                         + "Enter `menu` to view our list of commands "
                         + "and `menu <command> to find out how to use them!";
             }
@@ -56,27 +64,29 @@ public class InvalidCommand extends Command {
         List<String> name = CommandsEnum.getNames();
         ArrayList<String> strings = new ArrayList<>();
 
-        for (String s: name) {
-            if (s.startsWith(input)) {
-                if (!strings.isEmpty()) {
-                    clear(strings);
-                }
-                strings.add(s);
-                break;
-            } else {
-                int temp = editDist(input, s, input.length(), s.length());
-                if (temp < num) {
-                    num = temp;
-                    if (!strings.isEmpty()) {
-                        clear(strings);
-                    }
-                    strings.add(s);
-                } else if (temp == num) {
+        if (hasStartWith(name, input)) {
+            for (String s : name) {
+                if (s.startsWith(input) || s.equals(input)) {
                     strings.add(s);
                 }
             }
+        } else {
+            for (String s : name) {
+                if (contains(s, input)) {
+                    int temp = editDist(input, s, input.length(), s.length());
+                    if (temp < num) {
+                        num = temp;
+                        if (!strings.isEmpty()) {
+                            clear(strings);
+                        }
+                        strings.add(s);
+                    } else if (temp == num) {
+                        strings.add(s);
+                    }
+                }
+            }
         }
-        return strings.toString().replace("[", "").replace("]","");
+        return strings.toString().replace("[", "").replace("]", "");
     }
 
     /**
@@ -136,4 +146,34 @@ public class InvalidCommand extends Command {
         }
         return list;
     }
+
+    private static boolean contains(String known, String input) {
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+            for (int j = 0; j < known.length(); j++) {
+                if (known.charAt(j) == ch) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasStartWith(List<String> list, String input) {
+        for (String s : list) {
+            if (s.startsWith(input)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*private static boolean contains(List<String> list, String input) {
+        for (String s : list) {
+            if (s.contains(input)) {
+                return true;
+            }
+        }
+        return false;
+    }*/
 }

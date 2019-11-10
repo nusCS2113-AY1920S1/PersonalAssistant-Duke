@@ -25,7 +25,8 @@ public enum CommandsEnum {
     save, //14
     stats, //15
     result,//16
-    exit; //17
+    exit, //17
+    load; //18
 
     private static List<String> enumNames = Stream.of(CommandsEnum.values())
             .map(CommandsEnum::name)

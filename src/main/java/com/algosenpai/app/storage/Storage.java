@@ -3,6 +3,7 @@ package com.algosenpai.app.storage;
 import com.algosenpai.app.stats.UserStats;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -16,21 +17,11 @@ public class Storage {
      * @param filePath path to file.
      * @return A string containing the exact text in the file, including newlines.
      */
-    public static String loadData(String filePath) {
+    public static String loadData(String filePath) throws FileNotFoundException {
         File file = new File(filePath);
 
-        // If the file does not exist, create it.
         if (!file.isFile()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            // Fill it with the default UserStats.
-            UserStats newUserStats = UserStats.getDefaultUserStats();
-            saveData(filePath, newUserStats.toString());
-            return newUserStats.toString();
+            throw new FileNotFoundException();
         }
 
         try {
@@ -38,6 +29,7 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return "";
     }
 

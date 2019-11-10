@@ -2,6 +2,7 @@ package com.algosenpai.app;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.stats.ChapterStat;
 import com.algosenpai.app.stats.UserStats;
 import org.assertj.core.internal.bytebuddy.utility.RandomString;
@@ -14,7 +15,7 @@ import java.util.Random;
 public class UserStatsTest {
 
     @Test
-    public void stringParsing_randomTest() {
+    public void stringParsing_randomTest() throws FileParsingException {
 
         //First, create a userStats with 1000 random chapters.
         ArrayList<ChapterStat> chapterStats = new ArrayList<>();
@@ -48,7 +49,7 @@ public class UserStatsTest {
      * Tests if parsing works correctly if all the parameters of userStats are blank.
      */
     @Test
-    public void stringParsing_emptyStats() {
+    public void stringParsing_emptyStats() throws FileParsingException {
         UserStats userStats = new UserStats("","",0,0,new ArrayList<>());
         UserStats copy = UserStats.parseString(userStats.toString());
         assertEquals(copy,userStats);

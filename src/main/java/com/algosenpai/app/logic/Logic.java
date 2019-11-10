@@ -5,6 +5,7 @@ import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.command.ChaptersCommand;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.HelpCommand;
+import com.algosenpai.app.logic.command.QuizNextCommand;
 import com.algosenpai.app.logic.command.critical.ArcadeCommand;
 import com.algosenpai.app.logic.command.critical.ByeCommand;
 import com.algosenpai.app.logic.command.critical.LectureCommand;
@@ -14,20 +15,21 @@ import com.algosenpai.app.logic.command.errorhandling.ArcadeBlockedCommand;
 import com.algosenpai.app.logic.command.errorhandling.InvalidCommand;
 import com.algosenpai.app.logic.command.errorhandling.LectureBlockedCommand;
 import com.algosenpai.app.logic.command.errorhandling.QuizBlockedCommand;
-import com.algosenpai.app.logic.command.QuizNextCommand;
-import com.algosenpai.app.logic.command.utility.VolumeCommand;
 import com.algosenpai.app.logic.command.utility.ArchiveCommand;
 import com.algosenpai.app.logic.command.utility.ClearCommand;
 import com.algosenpai.app.logic.command.utility.HistoryCommand;
+import com.algosenpai.app.logic.command.utility.LoadCommand;
 import com.algosenpai.app.logic.command.utility.MenuCommand;
 import com.algosenpai.app.logic.command.utility.PrintCommand;
 import com.algosenpai.app.logic.command.utility.ResultCommand;
 import com.algosenpai.app.logic.command.utility.ReviewCommand;
+import com.algosenpai.app.logic.command.utility.SaveCommand;
 import com.algosenpai.app.logic.command.utility.SelectLectureChapterCommand;
 import com.algosenpai.app.logic.command.utility.SelectQuizChapterCommand;
 import com.algosenpai.app.logic.command.utility.SetupCommand;
 import com.algosenpai.app.logic.command.utility.ShowStatsCommand;
 import com.algosenpai.app.logic.command.utility.UndoCommand;
+import com.algosenpai.app.logic.command.utility.VolumeCommand;
 import com.algosenpai.app.logic.constant.CommandsEnum;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.parser.Parser;
@@ -158,6 +160,10 @@ public class Logic {
             return new VolumeCommand(parsedUserInputs);
         case "hello":
             return new SetupCommand(parsedUserInputs, userStats);
+        case "save":
+            return new SaveCommand(parsedUserInputs, userStats);
+        case "load":
+            return new LoadCommand(parsedUserInputs, userStats);
         default:
             return new InvalidCommand(parsedUserInputs);
         }

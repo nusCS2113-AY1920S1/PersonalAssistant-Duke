@@ -49,7 +49,7 @@ public class ReviewCommandTest extends ApplicationTest {
         stage.setScene(scene);
         UserStats stats = new UserStats("UserData.txt");
         Logic logic = new Logic(stats);
-        fxmlLoader.<Ui>getController().setLogic(logic, stats);
+        fxmlLoader.<Ui>getController().setLogic(logic, stats, false);
         stage.setResizable(false);
         stage.setTitle("AlgoSenpai Adventures");
         stage.show();
@@ -62,6 +62,7 @@ public class ReviewCommandTest extends ApplicationTest {
     @AfterEach
     void tearDown() throws Exception {
         FxToolkit.hideStage();
+        System.gc();
     }
 
 

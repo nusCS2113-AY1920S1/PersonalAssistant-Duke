@@ -29,6 +29,7 @@ public class SplashScreenTest extends ApplicationTest {
     @AfterAll
     static void tearDown() throws Exception {
         FxToolkit.hideStage();
+        System.gc();
     }
 
     @Test

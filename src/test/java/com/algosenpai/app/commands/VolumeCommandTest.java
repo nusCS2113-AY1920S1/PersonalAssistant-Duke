@@ -13,7 +13,7 @@ import java.io.IOException;
 public class VolumeCommandTest {
 
     @Test
-    void testSoundLevelUpperBoundary() throws IOException {
+    void testSoundLevelUpperBoundary() throws Exception {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("volume 110");
@@ -22,7 +22,7 @@ public class VolumeCommandTest {
     }
 
     @Test
-    void testSoundLevelLowerBoundary() throws IOException {
+    void testSoundLevelLowerBoundary() throws Exception {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("volume -1");
@@ -31,7 +31,7 @@ public class VolumeCommandTest {
     }
 
     @Test
-    void testSoundLevelWrongInput() throws IOException {
+    void testSoundLevelWrongInput() throws Exception {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("volume testing");
@@ -40,7 +40,7 @@ public class VolumeCommandTest {
     }
 
     @Test
-    void testSoundLevelMissingInput() throws IOException {
+    void testSoundLevelMissingInput() throws Exception {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("volume");

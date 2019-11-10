@@ -1,5 +1,6 @@
 package com.algosenpai.app.logic.command.critical;
 
+import com.algosenpai.app.exceptions.ResetExceptions;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.storage.Storage;
@@ -32,8 +33,13 @@ public class ResetCommand extends Command {
     public String execute() {
 
         if (!resetMode.get()) {
-            resetMode.set(true);
-            return "Are you sure you want to reset your progress? (y/n)";
+            try {
+                ResetExceptions.checkResetStatus(userStats);
+                resetMode.set(true);
+                return "Are you sure you want to reset your progress? (y/n)";
+            } catch (ResetExceptions e) {
+                return e.getMessage();
+            }
         } else if (inputs.get(0).equals("y")) {
             resetMode.set(false);
             userStats.resetAll();
