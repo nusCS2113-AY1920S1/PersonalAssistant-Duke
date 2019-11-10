@@ -1,0 +1,71 @@
+= Shaun Teo - Project Portfolio
+:site-section: AboutUs
+:stylesDir: ../stylesheets
+
+== PROJECT: El Duque
+
+== Overview
+
+El Duque is a desktop task manager program developed by a team of 3 software engineering students. We were tasked to create a command line interface desktop task manager for our Software Engineering project.
+We have enhanced the reference Duke task manager program and optimised it specifically for computing students.
+El Duque allows a computing student to better organise all the tasks that he/she must do.
+
+My role was the team lead, I implemented the Edit, Pomodoro and Recurring Tasks features.
+The following section will illustrate these enhancements in more detail as well as the relevant documentation I have added to the user and developer guide in relation to these enhancements.
+
+== Summary of contributions
+
+* *Enhancement*: added *ability to edit tasks*
+** What it does: allows the user to edit every parameter of the task.
+for filtered indexing as well.
+** Justification: This feature improves the product significantly because a user can make mistakes in creating a task and now they can rectify those mistakes.
+** Highlights: This feature built on existing exception handling in order to handle proper passing of parameters in.
+It was slightly challenging to support filtered list indexing as we had only one instance of the task list, had to get index of task list from the filtered list.
+
+* *Enhancement*: added *pomodro timer*
+** What it does: The Pomodoro feature is an inbuilt timer based on the pomodoro workflow.
+It allows the user to run a timer based on the 25-5 work-rest work ratio and reminds users to manage their work-rest ratio properly.
+** Justification: During work sessions, this provides the users the ability to only rely on one app to manage their work session.
+** Highlights: This feature uses the Singleton design pattern as there is only one instance of this object.
+Supports adding and completing of tasks from the task list which required a dependency with the task list class.
+
+* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=shaun97[Code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed issues and milestones for v1.1 and issues for v1.4.
+*** Lead the team to ensure tasks are assigned properly and project requirements met.
+** Enhancements to existing features:
+*** Wrote test code for existing commands.
+*** Refactored code to align with SWE principles.
+*** Enforced code quality.
+** Documentation:
+*** Converted UserGuide from a Google Doc to an AsciiDoc to improve the formatting.
+** Tools:
+*** Implemented and managed checkstyle plugin.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::UserGuide.adoc[tag=logic]
+
+include::UserGuide.adoc[tag=shaun97]
+
+include::UserGuide.adoc[tag=shaun97]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::DeveloperGuide.adoc[tag=logic]
+
+include::DeveloperGuide.adoc[tag=shaun97]
+
+include::DeveloperGuide.adoc[tag=shaun97
