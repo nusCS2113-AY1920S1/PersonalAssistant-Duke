@@ -68,7 +68,7 @@ public class MainWindow extends AnchorPane {
     private GridPane gridPane;
 
     @FXML
-    private Tab tabDegreeChoices;
+    private Tab tabKeywords;
     @FXML
     private Tab tabTask;
     @FXML
@@ -92,8 +92,9 @@ public class MainWindow extends AnchorPane {
     private ModuleList moduleList;
     private boolean typoFlag;
 
-    private Set<String> autoSuggestion = new HashSet<>(Arrays.asList("list", "detail", "help", "todo", "delete", "clear",
-            "add", "swap", "bye", "replace", "undo", "redo", "sort"));
+    private Set<String> autoSuggestion = new HashSet<>(Arrays.asList("help", "detail", "compare", "add", "swap",
+            "delete", "bye", "undo", "redo",  "schedule", "event", "todo", "deadline", "view_employment",
+            "cohort_size", "done", "choices", "find", "remove", "snooze", "sort", "tasks", "keywords"));
     private SuggestionProvider<String> provider = SuggestionProvider.create(autoSuggestion);
 
     private ObservableList<TaskFX> dataTask;
@@ -123,7 +124,8 @@ public class MainWindow extends AnchorPane {
         duke = d;
 
 
-        new AutoCompletionTextFieldBinding<>(this.userInput, provider).setVisibleRowCount(5);
+        //new AutoCompletionTextFieldBinding<>(this.userInput, provider).setVisibleRowCount(1);
+        new AutoCompletionTextFieldBinding<>(this.userInput, provider).setDelay(50); //50ms
 
         String logo = "  _____  ______ _____ _____  ______ ______  _____  _   _ _    _  _____ \n"
                 + " |  __ \\|  ____/ ____|  __ \\|  ____|  ____|/ ____|| \\ | | |  | |/ ____|\n"
@@ -276,6 +278,8 @@ public class MainWindow extends AnchorPane {
             tabPane.getSelectionModel().select(tabTask);
         } else if (input.matches("choices")) {
             tabPane.getSelectionModel().select(tabChoices);
+        } else if (input.matches("keywords")) {
+            tabPane.getSelectionModel().select(tabKeywords);
         } else if (input.matches("help")) {
             tabPane.getSelectionModel().select(tabHelp);
         } else if (input.matches("detail")) {
@@ -570,6 +574,13 @@ public class MainWindow extends AnchorPane {
         description = "Redoes the most recent undone command.\n"
                 + "This only works for commands that modify tasks or choices.";
         this.dataHelp.add(new HelpFX("redo", description));
+
+        //keywords Command.
+        description = "Displays the degrees and their accepted key words and aliases.\n"
+                + "Will also switch to the \"Keywords\" tabs.\n"
+                + "These key words and aliases are compatible with the \"add\", \"detail\" command.\n"
+                + "Only KEYWORDS are compatible with the \"compare\" command.";
+        this.dataHelp.add(new HelpFX("keywords", description));
 
         helpView.sort();
     }
