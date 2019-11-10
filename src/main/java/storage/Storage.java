@@ -4,6 +4,7 @@ import dictionary.Bank;
 import dictionary.TagBank;
 import dictionary.Word;
 import dictionary.WordBank;
+import dictionary.SynonymBank;
 import exception.ReminderWrongDateFormatException;
 import exception.UnableToWriteFileException;
 import exception.WordAlreadyExistsException;
@@ -45,20 +46,18 @@ import java.util.Stack;
  */
 public class Storage {
 
-    private static String REMINDER_FILE_PATH;
-    private static String DATA_FILE_PATH;
-    private static String EXCEL_PATH;
+    public static String REMINDER_FILE_PATH;
+    public static String DATA_FILE_PATH;
+    public static String EXCEL_PATH;
     private File excelFile;
-
-
 
     /**
      * Creates new text file if no such file already exists and sets FILE_PATH to the absolute path of the text file.
      * Creates new excel file if no such file exists and sets EXCEL_PATH to the absolute path of excel file.
      */
-    public Storage(String path) {
+    public Storage() {
         File currentDir = new File(System.getProperty("user.dir"));
-        File filePath = new File(currentDir.toString() + path);
+        File filePath = new File(currentDir.toString() + "\\data");
         File dataText = new File(filePath, "wordup.txt");
         File reminderText = new File(filePath, "reminder.txt");
         if (!filePath.exists()) {
@@ -87,11 +86,47 @@ public class Storage {
     }
 
     /**
+     * Makes files with the specified name.
+     * @param testDataName the name of the text file
+     * @param testExcelName the name of the excel file
+     * @param testReminderName the name of the reminder file
+     */
+    public Storage(String testDataName, String testExcelName, String testReminderName) {
+        File currentDir = new File(System.getProperty("user.dir"));
+        File filePath = new File(currentDir.toString() + "\\data");
+        File dataText = new File(filePath, testDataName);
+        File reminderText = new File(filePath, testReminderName);
+        if (!filePath.exists()) {
+            filePath.mkdir();
+        }
+        if (!dataText.exists()) {
+            try {
+                dataText.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (!reminderText.exists()) {
+            try {
+                reminderText.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        DATA_FILE_PATH = dataText.getAbsolutePath();
+        REMINDER_FILE_PATH = reminderText.getAbsolutePath();
+
+        File dataExcel = new File(filePath, testExcelName);
+        EXCEL_PATH = dataExcel.getAbsolutePath();
+        excelFile = new File(EXCEL_PATH);
+    }
+
+    /**
      * Converts all data from the text file in the displayOrder it is written in.
      * Stack structure used because the first words to be extracted are the last ones added to stack.
      * @return a stack containing all input words ordered by SEQUENCE OF ENTRY
      */
-    public Stack<Word> loadHistoryFromFile() {
+    public Stack<Word> loadHistoryFile() {
         File file = new File(DATA_FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
@@ -129,7 +164,7 @@ public class Storage {
     /**
      * Checks the reminders.txt file and creates reminders from the data stored.
      */
-    public void loadReminders() {
+    public void loadRemindersFile() {
         File file = new File(REMINDER_FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
@@ -163,11 +198,15 @@ public class Storage {
         }
     }
 
+    public void writeStorage(String s, boolean append, String fileType, Bank bank) {
+        writeFile(s, append, fileType);
+        writeExcelFile(bank);
+    }
 
     /**
      * Writes data to an extracted file.
-     * @param s new word to be added
-     * @param append return true if the file can be appended
+     * @param s        new word to be added
+     * @param append   return true if the file can be appended
      * @param fileType indicates the file to be edited, reminders.txt or wordup.txt
      */
     public void writeFile(String s, boolean append, String fileType) {
@@ -203,7 +242,7 @@ public class Storage {
      * Updates a word in extracted file.
      * @param oldString value of old word
      * @param newString value of word after updated
-     * @param fileType indicates the file to be edited, reminders.txt or wordup.txt
+     * @param fileType  indicates the file to be edited, reminders.txt or wordup.txt
      */
     public void updateFile(String oldString, String newString, String fileType) {
         File file;
@@ -229,7 +268,7 @@ public class Storage {
             }
             oldContent = oldContent.substring(0, oldContent.length() - 1);
             String newContent = oldContent.replace(oldString, newString).trim();
-            this.writeFile(newContent,false,fileType);
+            this.writeFile(newContent, false, fileType);
         } catch (IOException | UnableToWriteFileException e) {
             e.printStackTrace();
         } finally {
@@ -285,6 +324,19 @@ public class Storage {
 
                 for (int i = 0; i < allWords.length; i++) {
                     bank.addTagToWord(allWords[i], tag);
+                }
+            }
+
+            Sheet synonymBankSheet = workbook.getSheetAt(2);
+            Iterator<Row> rowIteratorSynonymBank = synonymBankSheet.iterator();
+            rowIteratorSynonymBank.next();
+            while (rowIteratorSynonymBank.hasNext()) {
+                Row row = rowIteratorSynonymBank.next();
+                Iterator<Cell> cellIterator = row.cellIterator();
+                String[] allWords = cellIterator.next().getStringCellValue().split(", ");
+
+                for (int i = 0; i < allWords.length; i++) {
+                    bank.addSynonymToWord(allWords[i], allWords[0]);
                 }
             }
             fileInputStream.close();
@@ -345,6 +397,15 @@ public class Storage {
         tagBankSheet.autoSizeColumn(0);
         tagBankSheet.autoSizeColumn(1);
 
+        Sheet synonymBankSheet = workbook.createSheet("SynonymBank");
+        headerRow = synonymBankSheet.createRow(0);
+
+        cell = headerRow.createCell(0);
+        cell.setCellValue("Word with same meaning");
+        cell.setCellStyle(headerCellStyle);
+
+        synonymBankSheet.autoSizeColumn(0);
+
         try {
             FileOutputStream fileOut = new FileOutputStream(EXCEL_PATH);
             workbook.write(fileOut);
@@ -357,7 +418,7 @@ public class Storage {
 
     /**
      * Deletes multiple of redundant rows in WordBank sheet in excel file after DeleteCommand.
-     * @param lastRow last row in excel file after deletion
+     * @param lastRow          last row in excel file after deletion
      * @param lastRedundantRow last row in excel file before deletion
      */
     public void deleteRowsWordBankSheet(int lastRow, int lastRedundantRow) {
@@ -383,7 +444,8 @@ public class Storage {
 
     /**
      * Deletes multiple of redundant rows in TagBank sheet in excel file after DeleteCommand.
-     * @param lastRow last row in excel file after deletion
+     *
+     * @param lastRow          last row in excel file after deletion
      * @param lastRedundantRow last row in excel file before deletion
      */
     public void deleteRowsTagBankSheet(int lastRow, int lastRedundantRow) {
@@ -443,6 +505,50 @@ public class Storage {
                     cell = row.createCell(1);
                 }
                 cell.setCellValue(String.join(", ", allWordsOfTag));
+            }
+
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+
+            fileOut = new FileOutputStream(EXCEL_PATH);
+            workbook.write(fileOut);
+            fileInputStream.close();
+            fileOut.close();
+            workbook.close();
+        } catch (FileNotFoundException e) {
+            createExcelFile();
+        } catch (IOException | InvalidFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Writes data to SynonymBank sheet in excel file.
+     * @param synonymBank data to be written into sheet
+     */
+    public void writeSynonymBankExcelFile(SynonymBank synonymBank) {
+        FileInputStream fileInputStream;
+        FileOutputStream fileOut;
+        try {
+            fileInputStream = new FileInputStream(excelFile);
+            Workbook workbook = WorkbookFactory.create(fileInputStream);
+
+            Sheet sheet = workbook.getSheetAt(2);
+            ArrayList<ArrayList<String>> allSynonyms = synonymBank.getAllSynonymsAsList();
+            for (int i = 1; i <= allSynonyms.size(); i++) {
+                Row row = sheet.getRow(i);
+                if (row == null) {
+                    row = sheet.createRow(i);
+                }
+
+                Cell cell = row.getCell(0);
+                if (cell == null) {
+                    cell = row.createCell(0);
+                }
+
+                cell.setCellType(CellType.STRING);
+                ArrayList<String> synonym = allSynonyms.get(i - 1);
+                cell.setCellValue(String.join(", ", synonym));
             }
 
             sheet.autoSizeColumn(0);

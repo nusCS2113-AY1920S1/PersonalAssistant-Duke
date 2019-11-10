@@ -77,7 +77,7 @@ public class Ui {
      * @param synonymHashSet hash set represents existed tags of the word
      * @return a string shown when command is completed
      */
-    public String showAddSynonym(String word, ArrayList<String> synonyms, HashSet<String> synonymHashSet) {
+    public String showAddSynonym(String word, ArrayList<String> synonyms, ArrayList<String> synonymHashSet) {
         String returnedString = "I have added "
                 + (synonyms.size() == 1 ? "this synonym \""
                 + synonyms.get(0) + "\"" : "these synonyms")
@@ -211,15 +211,10 @@ public class Ui {
      */
     public String showReminderSetup(int state) {
         switch (state) {
-        case 1: //request for the list of words user wants to be reminded of
-            return "Please enter the list of words.\n" + "Enter an empty line to end input";
-        case 2:
-            return "Enter next word or an empty line to end input\n";
-        case 3: //request the reminder date and time from user
-            return "Please enter the date and time of the reminder in the format:"
-                    + "dd-MM-yyyy HHmm";
-        default:
-            return "Invalid state";
+            case 1 : return "Please enter the list of words.\n" + "Enter an empty line to end input";
+            case 2 : return "Enter next word or an empty line to end input\n";
+            case 3 : return "Please enter the date and time of the reminder in the format:" + "dd-MM-yyyy HHmm";
+            default: return "Invalid state";
         }
     }
 
@@ -284,6 +279,10 @@ public class Ui {
         } else if (instruction.equals("search_begin")) {
             return "Search for words with their prefix.\n"
                     + "Format: search_begin w/d";
+        } else if (instruction.equals("search_syn")) {
+            return "Search for synonyms of a word.\n"
+                    + "Format:\n"
+                    + "search_syn w/WORD\n";
         } else if (instruction.equals("search_tag")) {
             return "Search for all words of a specific tag or all tags of a specific word.\n"
                     + "Format:\n"
@@ -298,8 +297,8 @@ public class Ui {
                     + "Format: quiz";
         } else {
             return "Here are the commands for WordUp.\n"
-                    + "add, addsyn, delete, edit, exit, freq, help, history, list, list_tags,"
-                    + " schedule, search, search_begin, search_tag, tag, quiz\n"
+                    + "add, addsyn, delete, edit, exit, freq, help, history, list, list_tags"
+                    + " schedule, search, search_begin, search_syn, search_tag, tag, quiz\n"
                     + "Enter \"help [command]\" for more details.";
         }
     }
@@ -370,7 +369,7 @@ public class Ui {
     public String showSearchBegin(String begin, ArrayList<String> wordWithBegins) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append((wordWithBegins.size() == 1) ? "This is a word that has " : "These are words that have ");
-        stringBuilder.append("the same meaning as " + begin + "\n");
+        stringBuilder.append("the beginning " + begin + "\n");
         for (String s : wordWithBegins) {
             stringBuilder.append(s + "\n");
         }
@@ -388,6 +387,21 @@ public class Ui {
                 + (words.length == 1 ? " word:\n" : " words:\n"));
         for (int i = 0; i < words.length; i++) {
             stringBuilder.append(words[i] + "\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Shows to user all synonyms of a given word.
+     * @param searchWord tag to be searched
+     * @param words array of words belong to the tag
+     * @return string shown to user
+     */
+    public String showSearchSynonym(String searchWord, ArrayList<String> words) {
+        StringBuilder stringBuilder = new StringBuilder("Your word \"" + searchWord + "\" has " + words.size()
+                + (words.size() == 1 ? " synonym:\n" : " synonyms:\n"));
+        for (int i = 0; i < words.size(); i++) {
+            stringBuilder.append(words.get(i) + "\n");
         }
         return stringBuilder.toString();
     }
