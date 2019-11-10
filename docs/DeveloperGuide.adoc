@@ -120,9 +120,9 @@ checks all the events whether any is in this day.
 . If not, this day will be added into a list.
 . Above process will continue until the list has 3 days, which will then be printed.
 
-The following logic diagram shows how check free days is implemented.
+The following activity diagram shows how check free days is implemented.
 
-image::DGCheck.png[width = "800"]
+image::check_activityDiagram.png[width = "800"]
 
 === Checklists
 Checklist of each event can be used to remind users of certain items (e.g. bring glasses to concert).
