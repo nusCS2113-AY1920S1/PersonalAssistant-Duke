@@ -183,10 +183,21 @@ public class ConsoleInputController implements IController {
         return new String[] { "Bye. Hope to see you again soon!" };
     }
 
+    /**
+     * Method used to call on projectInputController.
+     * This method is used to get the current status whether ArchDuke is still managing a project
+     * @return
+     */
     public boolean getIsManagingAProject() {
         return this.projectInputController.getIsManagingAProject();
     }
 
+    /**
+     * Method used to call on projectInputController.
+     * This method is used to pass user inputs from view to projectInputController.
+     * @param input : User inputs from the Viwe layer.
+     * @return : Returns a String[] for View to output to user.
+     */
     public String[] manageProject(String input) {
         return this.projectInputController.manageProject(input);
     }
