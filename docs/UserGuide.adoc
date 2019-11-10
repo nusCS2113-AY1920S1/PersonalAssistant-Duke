@@ -162,11 +162,11 @@ Format: `bye`
 You can plan ahead for your entire university journey using a few simple commands.
 
 ==== Adding semesters: `semester /add`
-You can add a semester to manage your modules.
+You can add a `semester` to manage your modules.
 
 Format: `semester /add YEAR /name SEMESTER /from START_DATE /to END_DATE`
 
-* `YEAR` represents name of the academic year, `SEMESTER` represents name of the semester, `START_DATE` and `END_DATE` represents the start and end date in `dd-MM-yyyy HH:mm` format.
+* `YEAR` represents name of the academic year, `SEMESTER` represents name of the `semester`, `START_DATE` and `END_DATE` represents the start and end date in `dd-MM-yyyy HH:mm` format.
 
 [NOTE]
 `YEAR` and `SEMESTER` have a character limit of 10 and 100 characters respectively.
@@ -176,10 +176,10 @@ Example:
 * `semester /add 19/20 /name Semester 2 /from 01-01-2020 /to 05-05-2020`
 
 [[SemesterAdd]]
-.Adding a semester
+.Adding a `semester`
 image::SemesterAdd.png[SemesterAdd]
 
-Adds a semester for Academic Year 19/20, Semester 2 which lasts from 01-01-2020 to 05-05-2020.
+Adds a `semester` for Academic Year 19/20, Semester 2 which lasts from 01-01-2020 to 05-05-2020.
 
 ==== Viewing semester data: `semester /view`
 You can use this command to display all the semesters you have added.
@@ -187,11 +187,11 @@ You can use this command to display all the semesters you have added.
 Format: `semester /view`
 
 [[SemesterView]]
-.Viewing a semester
+.Viewing a `semester`
 image::SemesterView.png[SemesterView]
 
 ==== Removing semester data: `semester /delete`
-You can remove unwanted data if you have accidentally added an unwanted semester.
+You can remove unwanted data if you have accidentally added an unwanted `semester`.
 
 Format: `semester /delete INDEX`
 
@@ -202,12 +202,12 @@ Example:
 * `semester /delete 2`
 
 [[SemesterDelete]]
-.Deleting a Semester.
+.Deleting a `semester`.
 image::SemesterDelete.png[SemesterDelete]
 
 
 ==== Selecting a semester: `semester /select`
-You can select a semester in order to add modules to under a semester.
+You can select a `semester` in order to add modules to under that `semester`.
 
 Format: `semester /select INDEX`
 
@@ -218,19 +218,19 @@ Example:
 * `semester /select 1`
 
 [[SemesterSelect]]
-.Selecting a semester
+.Selecting a `semester`
 image::SemesterSelect.png[SemesterSelect]
 
-Selects the 1st semester in the list of semesters.
+Selects the 1st `semester` in the list of semesters.
 
 === Modules
-You can keep track of your modules each semester with the help of the module commands.
+You can keep track of your modules for each `semester` with the help of the `module` commands.
 
 [NOTE]
-All commands under modules require a semester to be selected using `semester /select`.
+All commands under modules require a `semester` to be selected using `semester /select`.
 
 ==== Adding module data: `module /add`
-You can add a module into `Oof` to manage your lessons and assessments.
+You can add a `module` into `Oof` to manage `lesson`, `assignment` and `assessment` that you might have.
 
 Format: `module /add MODULE_CODE /name MODULE_NAME`
 
@@ -244,10 +244,10 @@ Example:
 * `module /add CS1010 /name Programming Methodology`
 
 [[ModuleAdd]]
-.Adding a module
+.Adding a `module`
 image::ModuleAdd.png[ModuleAdd]
 
-Adds a module with module code "CS1010" and name as "Programming Methodology".
+Adds a `module` with module code as "CS1010" and name as "Programming Methodology".
 
 ==== Viewing module data: `module /view`
 You can display all modules in order to have a quick overview of the modules you are taking this semester.
@@ -255,28 +255,28 @@ You can display all modules in order to have a quick overview of the modules you
 Format: `module /view`
 
 [[ModuleView]]
-.Viewing a module
+.Viewing a `module`
 image::ModuleView.png[ModuleView]
 
 ==== Removing module data: `module /delete`
-You can remove unwanted data if you have accidentally added a wrong module.
+You can remove unwanted data if you have accidentally added a wrong `module`.
 
 Format: `module /delete INDEX`
 
-* The `INDEX` refers to the index number displayed in the list of modules recorded. `module /view` can be used to display the saved semesters).
+* The `INDEX` refers to the index number displayed in the list of modules recorded. (`module /view` can be used to display the saved semesters).
 
 Example:
 
 * `module /delete 6`
 
 [[ModuleDelete]]
-.Deleting a module
+.Deleting a `module`
 image::ModuleDelete.png[ModuleDelete]
 
-Deletes the 4th module in the list of modules.
+Deletes the 4th `module` in the list of modules.
 
 ==== Selecting a module: `module /select`
-You can select a module in order to add lessons for a module.
+You can select a `module` in order to add `lesson`, `assignment` or `assessment` for that `module`.
 
 Format: `module /select INDEX`
 
@@ -287,177 +287,177 @@ Example:
 * `module /select 3`
 
 [[ModuleSelect]]
-.Selecting a module
+.Selecting a `module`
 image::ModuleSelect.png[ModuleSelect]
 
-Selects the 1st module in the list of modules.
+Selects the 1st `module` in the list of modules.
 
 === Lessons
-Keep track of your lessons for each module with the use of lesson commands!
+Keep track of your lessons for each `module` with the use of `lesson` commands!
 
 [NOTE]
-All commands under lesson require a module to be selected using `module /select`.
+All commands under `lesson` require a `module` to be selected using `module /select`.
 
 ==== Viewing lesson data: `lesson`
-You can display all the lessons you have added if you wish to view all lessons for a module.
+You can display all the lessons you have added for a `module`.
 
 Format: `lesson`
 
 [[Lesson]]
-.Viewing list of modules
+.Viewing list of `lesson`
 image::Lesson.png[Lesson]
 
 ==== Adding lesson data: `lesson /add`
-You can add a lesson into `Oof`.
+You can add a `lesson` into `Oof`.
 
 Format: `lesson /add NAME /day DAY /from START_TIME /to END_TIME`
 
 [NOTE]
 `NAME` has a character limit of 20 characters.
 
-* `NAME` of the lesson can have multiple words, not just limited to single-word descriptions.
-* `DAY` of the lesson ranges from `MONDAY` to `SUNDAY`.
+* `NAME` of the `lesson` can have multiple words, not just limited to single-word descriptions.
+* `DAY` of the `lesson` ranges from `MONDAY` to `SUNDAY`.
 * `START_TIME` and `END_TIME` have to *strictly* be in the `HH:MM` format.
 
 Example:
 
 * `lesson /add lecture /day FRIDAY /from 14:00 /to 16:00` +
-Adds a lecture on Friday from 14:00 to 16:00 for the selected module.
+Adds a lecture on Friday from 14:00 to 16:00 for the selected `module`.
 
 [[LessonAdd]]
-.Adding a lesson
+.Adding a `lesson`
 image::LessonAdd.png[LessonAdd]
 
 ==== Removing lesson data: `lesson /delete`
-You can remove unwanted data if you have added the wrong date for a lesson.
+You can remove unwanted data if you have added the wrong information for a `lesson`.
 
 Format: `lesson /delete INDEX`
 
-* The `INDEX` refers to the index number displayed in the list of lessons recorded. `lesson /view` can be used to display the saved lessons).
+* The `INDEX` refers to the index number displayed in the list of lessons recorded. `lesson /view` can be used to display the added lessons).
 
 Example:
 
 * `lesson /delete 4`
 
 [[LessonDelete]]
-.Deleting a lesson
+.Deleting a `lesson`
 image::LessonDelete.png[LessonDelete]
 
-Deletes the 4th lesson in the list of lessons.
+Deletes the 4th `lesson` in the list of lessons.
 
 === Adding tasks
 
 ==== Adding assessment data: `assessment`
-You can keep track of assessments by adding assessments.
+You can keep track of all your assessments by using the `assessment` command.
 
 [NOTE]
-Requires a module to be selected using `module /select`.
+Requires a `module` to be selected using `module /select`.
 
 Format: `assessment DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
 [NOTE]
 `DESCRIPTION` has a character limit of 20 characters.
 
-* `Description` of the assessment can have multiple words, not just limited to single-word descriptions.
-* `Date and time` have to *strictly* be in the format as stated above.
+* `DESCRIPTION` of the `assessment` can have multiple words, not just limited to single-word descriptions.
+* Date and time of the `assessment` have to *strictly* be in the format as stated above.
 
 
 Example:
 
 * `assessment Finals /from 31-10-2019 16:00 /to 31-10-2019 18:00`
 
-Adds an assessment for current selected `Module` (`CS2106` in the example) with name, start and end time as `Finals`, `31-10-2019 13:00`, `31-10-2019 15:00` respectively.
+Adds an `assessment` for selected `module` (`CS2106` in the example above) with name, start and end time as `Finals`, `31-10-2019 13:00`, `31-10-2019 15:00` respectively.
 
 [[AssessmentAdd]]
-.Adding an assessment
+.Adding an `assessment`
 image::AssessmentAdd.png[AssessmentAdd]
 
 ==== Adding assignment data: `assignment`
-You can use this command to keep track of an assignment for a particular module.
+You can use this command to keep track of an `assignment` for a particular module.
 
 [NOTE]
-Requires a module to be selected using `module /select`.
+Requires a `module` to be selected using `module /select`.
 
 Format: `assignment DESCRIPTION /by DD-MM-YYYY HH:MM`
 
 [NOTE]
 `DESCRIPTION` has a character limit of 20 characters.
 
-* `Description` of the assessment can have multiple words, not just limited to single-word descriptions.
-* `Date and time` have to *strictly* be in the format as stated above.
+* `DESCRIPTION` of the `assignment` can have multiple words, not just limited to single-word descriptions.
+* Date and time of the `assignment` have to *strictly* be in the format as stated above.
 
 Example:
 
 * `assignment Lab /by 23-11-2019 23:59`
 
-[[AssignmentAdd]]
-.Adding an assignment
+[[AssignmentAdd]] +
+.Adding an `assignment`
 image::AssignmentAdd.png[AssignmentAdd]
 
-Adds an assignment `Lab` for the selected module with the due date as `23-11-2019 23:59`.
+Adds an `assignment` for selected `module` (`CS2106` in the example above) with name and due date as `Lab` and `23-11-2019 23:59` respectively.
 
 ==== Adding a deadline: `deadline`
-You can choose to add a task with a deadline. +
+You can choose to add a task with a `deadline`. +
 
 Format: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
 
 [NOTE]
 `DESCRIPTION` has a character limit of 20 characters.
 
-* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
-* `Date and time` have to *strictly* be in the format as stated above.
+* `DESCRIPTION` of the task to be done can have multiple words, not just limited to single-word descriptions.
+* Date and time of the `deadline` have to *strictly* be in the format as stated above.
 
 Example:
 
 * `deadline homework /by 20-11-2019 13:00` +
 
 [[Deadline]]
-.Example usage of deadline feature
+.Example usage of `deadline` feature
 image::Deadline.png[Deadline]
 
-Adds a task with description and datetime to be `homework` and `20-11-2019 13:00` respectively.
+Adds a `deadline` task with description and deadline as `homework` and `20-11-2019 13:00` respectively.
 
 ==== Adding an event: `event`
-You can add an event with a scheduled starting and ending time. +
+You can add an `event` task with a scheduled starting and ending time. +
 
 Format: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
 [NOTE]
 `DESCRIPTION` has a character limit of 20 characters.
 
-* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
-* `Date and time` have to *strictly* be in the format as stated above.
+* `DESCRIPTION` of the `event` to be done can have multiple words, not just limited to single-word descriptions.
+* Date and time of the `event` have to *strictly* be in the format as stated above.
 
 Example:
 
 * `event project meeting /from 20-11-2019 13:00 /to 20-11-2019 17:00` +
 
 [[Event]]
-.Example usage of event feature
+.Example usage of `event` feature
 image::Event.png[Event]
 
-Adds an event with description, start and end time to be `project meeting`, `20-11-2019 13:00` and `20-11-2019 17:00` respectively.
+Adds an `event` task with description, start and end time as `project meeting`, `20-11-2019 13:00` and `20-11-2019 17:00` respectively.
 
 ==== Adding a todo: `todo`
-You can choose to add a task to be done on a specific day.
+You can choose to add a `todo` task to be done on a specific day.
 
 Format: `todo DESCRIPTION /on DD-MM-YYYY`
 
 [NOTE]
 `DESCRIPTION` has a character limit of 20 characters.
 
-* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
-* `Date` has to *strictly* be in the format as stated above.
+* `DESCRIPTION` of the `todo` task to be done can have multiple words, not just limited to single-word descriptions.
+* Date of the `todo` task has to *strictly* be in the format as stated above.
 
 Example:
 
 * `todo withdraw money /on 19-11-2019` +
 
 [[Todo]]
-.Example usage of todo feature
+.Example usage of `todo` feature
 image::Todo.png[Todo]
 
-Adds a task called `withdraw money` on `19-11-2019`.
+Adds a `todo` task called `withdraw money` on `19-11-2019`.
 
 === Modifying tasks
 
