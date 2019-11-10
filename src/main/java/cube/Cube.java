@@ -1,6 +1,6 @@
 /**
  * Cube.java
- * The driver file, which is the entry point for Command Line Interface.
+ * The driver file, which is the Entry Point for Command Line Interface (CLI).
  */
 
 package cube;
@@ -21,7 +21,7 @@ import cube.util.LogUtil;
 import java.util.logging.Logger;
 
 /**
- * The Entry Point for the Command Line Interface.
+ * The Entry Point for the Command Line Interface (CLI).
  */
 public class Cube {
     private StorageManager storageManager;

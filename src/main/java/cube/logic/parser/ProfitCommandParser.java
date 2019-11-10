@@ -52,6 +52,5 @@ public class ProfitCommandParser implements ParserPrototype<ProfitCommand> {
             default:
                 throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
         }
-
     }
 }
