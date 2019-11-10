@@ -40,7 +40,8 @@ public class StatsCommand extends Command {
     }
 
     /**
-     *
+     * The stats command takes in two dates, and displays the number of resources
+     * being booked in bar graph.
      *
      * @param ui        An instance of the user interface.
      * @param storage   An instance of the Storage class.
@@ -52,9 +53,11 @@ public class StatsCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources)
             throws ParseException, IOException, RimsException {
-        //storage.readResourceFile();
-        //resources.setResources(storage.getResources());
+        long interval = TimeUnit.DAYS.convert((dateTill.getTime() - dateFrom.getTime()), TimeUnit.MILLISECONDS) + 1;
 
+        if (interval >= 15 ){
+            throw new RimsException("The date interval is too large (more than 14 days)");
+        }
         ui.printLine();
         ui.print("Here are the required stats:");
         ui.printLine();
@@ -62,13 +65,16 @@ public class StatsCommand extends Command {
         ui.printDash();
         ui.print("Resource in use each day");
         ui.printDash();
-        long interval = TimeUnit.DAYS.convert((dateTill.getTime() - dateFrom.getTime()), TimeUnit.MILLISECONDS) + 1;
         Date currentDate = dateFrom;
         int total_count = 0;
         for (int i = 0; i < interval; i++) {
             int count = resources.getBookedNumberOfResourceForDate(currentDate);
             total_count += count;
-            ui.print(dateToString(currentDate) + ":" + Integer.toString(count));
+            String bar = "";
+            for (int j = 0; j < count; j++) {
+                bar += "=";
+            }
+            ui.print(dateToStringWithoutTime(currentDate) + "|" + bar);
             currentDate = incrementDay(currentDate);
         }
         double average = total_count / (double) interval;
@@ -106,6 +112,19 @@ public class StatsCommand extends Command {
     }
 
     /**
+     * Converts a Date object to a compact String without time field.
+     * 
+     * @param thisDate the Date object to be converted into a String.
+     * @return a String representing the Date object.
+     */
+    private String dateToStringWithoutTime(Date thisDate) {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        String stringDate = format.format(thisDate);
+        String[] words = stringDate.split(" ");
+        return words[0];
+    }
+
+    /**
      * This utility method takes in a date, increment it by 1 day, then return it.
      * 
      * @param thisDate
@@ -123,7 +142,3 @@ public class StatsCommand extends Command {
     }
 
 }
-
-// stats for individual items e.g. how often a pen is borrowed per week, per
-// month
-// graph

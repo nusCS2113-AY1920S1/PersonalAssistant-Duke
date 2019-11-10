@@ -134,6 +134,10 @@ public class ReserveCommand extends Command {
             dateFrom = resources.stringToDate(stringDateFrom);
         }
 
+        if ( qty <= 0 ){
+            throw new RimsException("Reservation is not made because the user has entered 0 or a negative quantity!");
+        }
+
         dateTill = resources.stringToDate(stringDateTill);
         if (resources.getAvailableNumberOfResource(resourceName) < qty) {
             if (qty == 1) {
