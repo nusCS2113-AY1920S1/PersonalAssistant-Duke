@@ -59,17 +59,17 @@ public class EditTaskDateTimeCommandTest {
         model.addTask("Create event poster");
         Command command = EditTaskDateTimeParser.parseEditTaskDateTime("1 /to 10/10/2020 1010");
         CommandOutput out = command.execute(model);
-        CommandOutput expected = new CommandOutput(
-                "The deadline has been changed to: Sat Oct 10 10:10:00 SGT 2020", false);
+        String actual = out.getOutputToUser();
+        //CommandOutput expected = new CommandOutput(
+        //        "The deadline has been changed to: Sat Oct 10 10:10:00 SGT 2020", false);
         //assertTrue(model.getTaskDateTimeByIdOnList(1).toString().equals("Sat Oct 10 10:10:00 SGT 2020"));
-        assertTrue(out instanceof CommandOutput);
-        assertEquals(expected.isExit(), out.isExit());
-        assertEquals(expected.getOutputToUser(), out.getOutputToUser());
-        System.out.println(out.getOutputToUser());
-        System.out.println(expected.getOutputToUser());
-        assertEquals(expected, out);
-        //assertEquals("The deadline has been changed to: Sat Oct 10 10:10:00 SGT 2020",
-        //        out.getOutputToUser());
+        //assertTrue(out instanceof CommandOutput);
+        //assertEquals(expected.isExit(), out.isExit());
+        //assertEquals(expected.getOutputToUser(), out.getOutputToUser());
+        //System.out.println(out.getOutputToUser());
+        //System.out.println(expected.getOutputToUser());
+        //assertEquals(expected, out);
+        assertEquals("The deadline has been changed to: Sat Oct 10 10:10:00 SGT 2020", actual);
     }
 
 }
