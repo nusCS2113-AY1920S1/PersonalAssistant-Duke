@@ -14,6 +14,7 @@ import java.util.HashMap;
 public class UpdateProgressIndicatorCommand {
     TaskList eventList;
     TaskList deadlineList;
+    private static final String TICK_CROSS = "\u2713";
 
     /**
      * Creates UpdateProgressIndicator object.
@@ -51,7 +52,7 @@ public class UpdateProgressIndicatorCommand {
      * This method calculate the values to be shown in the progress indicator.
      * @param moduleMap The map that contains the module code
      * @param wholeData The entire map which contains the module code, description and tick/cross
-     * @return moduele code, completed tasks and total number of tasks
+     * @return module code, completed tasks and total number of tasks
      */
     public HashMap<String, Pair<Integer, Integer>> getValues(HashMap<String, String> moduleMap, Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> wholeData) {
         HashMap<String, Pair<Integer, Integer>> moduleCodeAndTotalNumOfTasksAndCompletedValue = new HashMap<>();
@@ -62,12 +63,12 @@ public class UpdateProgressIndicatorCommand {
             for (Pair<String, Pair<String, String>> as : tasks) {
                 if (as.getKey().equals(module)) {
                     totalNumTasks += 1;
-                    if (as.getValue().getKey().equals("\u2713")) {
+                    if (as.getValue().getKey().equals(TICK_CROSS)) {
                         completedValue += 1;
                     }
                 }
             }
-            moduleCodeAndTotalNumOfTasksAndCompletedValue.put(module, new Pair(totalNumTasks, completedValue));
+            moduleCodeAndTotalNumOfTasksAndCompletedValue.put(module, new Pair<>(totalNumTasks, completedValue));
         }
         return moduleCodeAndTotalNumOfTasksAndCompletedValue;
     }

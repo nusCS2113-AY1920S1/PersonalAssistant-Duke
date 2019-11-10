@@ -78,6 +78,10 @@ public class ShowPreviousCommand extends Command {
                     + "Please enter a valid number less than or equal to " + sizeOfPreviousList + " .");
         }
 
+        if (!isNumber) {
+            throw new DukeInvalidCommandException("Please enter an integer between 0 and " + sizeOfPreviousList + " .");
+        }
+
         if (isNumber) {
             int startIndex = sizeOfPreviousList - 1;
             for (int i = 0; i < number; i++) {

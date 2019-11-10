@@ -1,5 +1,6 @@
 package Commands;
 
+import Commons.DukeConstants;
 import Commons.Storage;
 import Commons.UserInteraction;
 import DukeExceptions.DukeException;
@@ -74,9 +75,8 @@ public class RecurringCommand extends Command {
 
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws Exception {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
-        Date startDate = dateFormat.parse(startDateString);
-        Date endDate = dateFormat.parse(endDateString);
+        Date startDate = DukeConstants.DAY_DATE_FORMAT.parse(startDateString);
+        Date endDate = DukeConstants.DAY_DATE_FORMAT.parse(endDateString);
         String oldStartDateString = startDateString;
         Date startOfFollowingWeek;
         Date startOfNextWeek;
@@ -93,7 +93,7 @@ public class RecurringCommand extends Command {
                 }
                 temp.add(task);
                 startOfFollowingWeek = getFollowingWeekDate(startDate);
-                startDateString = dateFormat.format(startOfFollowingWeek);
+                startDateString = DukeConstants.DAY_DATE_FORMAT.format(startOfFollowingWeek);
                 startDate = startOfFollowingWeek;
             } while (startOfFollowingWeek.before(endDate) || startOfFollowingWeek.equals(endDate));
         } else if (isRecur) {
@@ -105,7 +105,7 @@ public class RecurringCommand extends Command {
                 }
                 temp.add(task);
                 startOfNextWeek = getNextWeekDate(startDate);
-                startDateString = dateFormat.format(startOfNextWeek);
+                startDateString = DukeConstants.DAY_DATE_FORMAT.format(startOfNextWeek);
                 startDate = startOfNextWeek;
             } while (startOfNextWeek.before(endDate) || startOfNextWeek.equals(endDate));
         } else if (isBiweekly) {
@@ -114,7 +114,7 @@ public class RecurringCommand extends Command {
                 super.insideMapChecker(eventMap, task);
                 temp.add(task);
                 startOfFollowingWeek = getFollowingWeekDate(startDate);
-                startDateString = dateFormat.format(startOfFollowingWeek);
+                startDateString = DukeConstants.DAY_DATE_FORMAT.format(startOfFollowingWeek);
                 startDate = startOfFollowingWeek;
             } while (startOfFollowingWeek.before(endDate) || startOfFollowingWeek.equals(endDate));
         } else {
@@ -123,7 +123,7 @@ public class RecurringCommand extends Command {
                 super.insideMapChecker(eventMap, task);
                 temp.add(task);
                 startOfNextWeek = getNextWeekDate(startDate);
-                startDateString = dateFormat.format(startOfNextWeek);
+                startDateString = DukeConstants.DAY_DATE_FORMAT.format(startOfNextWeek);
                 startDate = startOfNextWeek;
             } while (startOfNextWeek.before(endDate) || startOfNextWeek.equals(endDate));
         }
