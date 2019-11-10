@@ -1,11 +1,8 @@
 [
   {
-    "name": "todo1",
-    "isDone": true,
-    "memberList": [
-      "tester1"
-    ],
-    "skillReqList": [],
-    "time": "Nov 6, 2019, 11:59:00 PM"
+    "name": "test",
+    "isDone": false,
+    "memberList": [],
+    "skillReqList": []
   }
 ]
