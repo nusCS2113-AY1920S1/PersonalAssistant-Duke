@@ -16,7 +16,7 @@ This document details my overall https://nuscs2113-ay1920s1.github.io/dashboard/
 
 == Feature contribution
 
-* Implemented persistent module data during runtime
+* *Implemented persistent module data during runtime*
 ** The implementation of this feature involves using NUSMODS API requests and GSON's JSON parsing to reliably request module data and to store it locally.
 ** This is done so that the user would be able to immediately know if the module exists before adding, and efficiently keep track of the module data.
 ** The user would also be able to independently update their module data anytime to any available year based on NUSMODS API so that they have the flexibility of having the most up to date module information at all times.
@@ -28,11 +28,11 @@ This document details my overall https://nuscs2113-ay1920s1.github.io/dashboard/
     ** Thus, following the discussion made in https://github.com/AY1920S1-CS2113T-F10-1/main/issues/74[#74], I had decided to store the information within a JSON file, before using GSON to parse the data into a `List` object.
     ** Based on the discussion, I implemented to store the module data in a `HashMap` for ease of access.
 
-* Implemented persistent data storage
+* *Implemented persistent data storage*
 ** Through the `Storage` and `Logger` classes, user's current data would be instantly stored in JSON file format. This process is done automatically without
 needing the user to be aware of the process.
 
-* Implemented integration with external libraries
+* *Implemented integration with external libraries*
 ** Since our project requires date and time processing, I integrated the external `Natty` Library for relative time and
 date parsing.
 ** This is inline with the integration with of the `GSON` library as well as adding support for `Junit 5` to give our team access to
@@ -68,6 +68,7 @@ a streamlined testing framework.
 
 * Community:
     ** Requested permission to utilize NUSMODS API in the course forum https://github.com/nusCS2113-AY1920S1/forum/issues/53[#53]
+
 * Tools:
 *** Integrated a third party library (https://github.com/joestelmach/natty[Natty]) to the project, for improved date parsing https://github.com/AY1920S1-CS2113T-F10-1/main/pull/59[#59]
 *** Integrated https://github.com/google/gson[GSON] for efficient `JSON` data parsing
