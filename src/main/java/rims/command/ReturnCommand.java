@@ -43,11 +43,14 @@ public class ReturnCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException, IOException {
         storage.saveToFile(resources.getResources());
-
         ArrayList<Reservation> cancelledReservations = new ArrayList<Reservation>();
         for (int i = 0; i < resourceIds.size(); i++) {
             Resource thisResource = resources.getResourceById(resourceIds.get(i));
+            System.out.println(thisResource.getReservations().getReservationByIndex(0));
             Reservation cancelledReservation = thisResource.getReservations().getReservationById(reservationIds.get(i));
+            if (!(userId == cancelledReservation.getUserId())) {
+                throw new RimsException("Reservation [" + reservationIds.get(i) + "] was not made by this user!");
+            }
             thisResource.getReservations().cancelReservationById(reservationIds.get(i));
             cancelledReservations.add(cancelledReservation);
         }
