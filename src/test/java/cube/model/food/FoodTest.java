@@ -3,15 +3,17 @@
  * FoodTest.java
  * Test whether the Food Class is functioning as expected.
  */
+
 package cube.model.food;
 
 import cube.exception.CubeException;
 import cube.logic.parser.ParserUtil;
-import cube.model.food.Food;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Date;
 
@@ -34,20 +36,20 @@ public class FoodTest extends Food {
      */
     @Test
     public void testConstructor() {
-        String food1Name = "Food1NameWithoutSpace";
-        String food2Name = "Food2 Name With Spaces";
-        Food food1 = new Food(food1Name);
-        Food food2 = new Food(food2Name);
-        int food1Revenue = 0;
-        int food2Revenue = 0;
-        String food1Type = "";
-        String food2Type = "";
-        double food1Price = 0.0;
-        double food2Price = 0.0;
-        double food1Cost = 0.0;
-        double food2Cost = 0.0;
-        int food1Stock = 0;
-        int food2Stock = 0;
+        final String food1Name = "Food1NameWithoutSpace";
+        final String food2Name = "Food2 Name With Spaces";
+        final Food food1 = new Food(food1Name);
+        final Food food2 = new Food(food2Name);
+        final int food1Revenue = 0;
+        final int food2Revenue = 0;
+        final String food1Type = "";
+        final String food2Type = "";
+        final double food1Price = 0.0;
+        final double food2Price = 0.0;
+        final double food1Cost = 0.0;
+        final double food2Cost = 0.0;
+        final int food1Stock = 0;
+        final int food2Stock = 0;
 
         assertEquals(food1Name, food1.getName(), "Food 1 name is wrong.");
         assertEquals(food1Revenue, food1.getFoodRevenue(), "Food1 revenue is not initialized properly.");
@@ -77,10 +79,10 @@ public class FoodTest extends Food {
      */
     @Test
     public void testSettersAndGetters() throws CubeException {
-        Food food1 = new Food("Food1NameWithoutSpaces");
-        Food food2 = new Food("Food 2 Name With Spaces");
-        Food food3 = new Food("Food3NameWithoutSpaces");
-        Food food4 = new Food("Food 4 Name With Spaces");
+        final Food food1 = new Food("Food1NameWithoutSpaces");
+        final Food food2 = new Food("Food 2 Name With Spaces");
+        final Food food3 = new Food("Food3NameWithoutSpaces");
+        final Food food4 = new Food("Food 4 Name With Spaces");
 
         //testing setters and getters for type of the food.
         String food12Type = "TypeA";
@@ -93,18 +95,18 @@ public class FoodTest extends Food {
         assertSame("TypeA", food2.getType(), "Fail to set Food Type for food2.");
         assertSame("TypeB", food3.getType(), "Fail to set Food Type for food3.");
         assertSame("TypeB", food4.getType(), "Fail to set Food Type for food4.");
-        String food1Type = food1.getType();
-        String food2Type = food2.getType();
-        String food3Type = food3.getType();
-        String food4Type = food4.getType();
+        final String food1Type = food1.getType();
+        final String food2Type = food2.getType();
+        final String food3Type = food3.getType();
+        final String food4Type = food4.getType();
         assertSame(food12Type, food1Type, "Fail to get Food Type for food1.");
         assertSame(food12Type, food2Type, "Fail to get Food Type for food2.");
         assertSame(food34Type, food3Type, "Fail to get Food Type for food3.");
         assertSame(food34Type, food4Type, "Fail to get Food Type for food4.");
 
         //try some illegal inputs
-        String IllegalType = null;
-        food1.setType(IllegalType);
+        String illegalType = null;
+        food1.setType(illegalType);
         fail("Setters for Type allows null type.");
 
 
@@ -119,18 +121,18 @@ public class FoodTest extends Food {
         assertEquals(food12Price, food2.getPrice(), "Fail to set Food Price for food2.");
         assertEquals(food34Price, food3.getPrice(), "Fail to set Food Price for food3.");
         assertEquals(food34Price, food4.getPrice(), "Fail to set Food Price for food4.");
-        double food1Price = food1.getPrice();
-        double food2Price = food2.getPrice();
-        double food3Price = food3.getPrice();
-        double food4Price = food4.getPrice();
+        final double food1Price = food1.getPrice();
+        final double food2Price = food2.getPrice();
+        final double food3Price = food3.getPrice();
+        final double food4Price = food4.getPrice();
         assertEquals(food12Price, food1Price, "Fail to get Food Price for food1.");
         assertEquals(food12Price, food2Price, "Fail to get Food Price for food2.");
         assertEquals(food34Price, food3Price, "Fail to get Food Price for food3.");
         assertEquals(food34Price, food4Price, "Fail to get Food Price for food4.");
 
         //try some illegal inputs
-        double IllegalPrice = -1;
-        food1.setPrice(IllegalPrice);
+        double illegalPrice = -1;
+        food1.setPrice(illegalPrice);
         fail("Setters for Price allows negative inputs.");
 
 
@@ -145,18 +147,18 @@ public class FoodTest extends Food {
         assertEquals(food12Date, food2.getExpiryDate(), "Fail to set Expiry Date for food2.");
         assertEquals(food34Date, food3.getExpiryDate(), "Fail to set Expiry Date for food3.");
         assertEquals(food34Date, food4.getExpiryDate(), "Fail to set Expiry Date for food4.");
-        Date food1Date = food1.getExpiryDate();
-        Date food2Date = food2.getExpiryDate();
-        Date food3Date = food3.getExpiryDate();
-        Date food4Date = food4.getExpiryDate();
+        final Date food1Date = food1.getExpiryDate();
+        final Date food2Date = food2.getExpiryDate();
+        final Date food3Date = food3.getExpiryDate();
+        final Date food4Date = food4.getExpiryDate();
         assertEquals(food1Date.compareTo(food12Date), 0, "Fail to get Food Expiry Date for food1.");
         assertEquals(food2Date.compareTo(food12Date), 0, "Fail to get Food Expiry Date for food2.");
         assertEquals(food3Date.compareTo(food34Date), 0, "Fail to get Food Expiry Date for food3.");
         assertEquals(food4Date.compareTo(food34Date), 0, "Fail to get Food Expiry Date for food4.");
 
         //try some illegal inputs
-        Date IllegalExpiryDate = ParserUtil.parseStringToDate("23/03/1998"); //in the past
-        food1.setExpiryDate(IllegalExpiryDate);
+        Date illegalExpiryDate = ParserUtil.parseStringToDate("23/03/1998"); //in the past
+        food1.setExpiryDate(illegalExpiryDate);
         fail("Setters for Expiry Date allows Date in the past.");
 
 
@@ -171,18 +173,18 @@ public class FoodTest extends Food {
         assertEquals(food12Revenue, food2.getFoodRevenue(), "Fail to set Food Revenue for food2.");
         assertEquals(food34Revenue, food3.getFoodRevenue(), "Fail to set Food Revenue for food3.");
         assertEquals(food34Revenue, food4.getFoodRevenue(), "Fail to set Food Revenue for food4.");
-        double food1Revenue = food1.getFoodRevenue();
-        double food2Revenue = food2.getFoodRevenue();
-        double food3Revenue = food3.getFoodRevenue();
-        double food4Revenue = food4.getFoodRevenue();
+        final double food1Revenue = food1.getFoodRevenue();
+        final double food2Revenue = food2.getFoodRevenue();
+        final double food3Revenue = food3.getFoodRevenue();
+        final double food4Revenue = food4.getFoodRevenue();
         assertEquals(food12Revenue, food1Revenue, "Fail to get Food Revenue for food1.");
         assertEquals(food12Revenue, food2Revenue, "Fail to get Food Revenue for food2.");
         assertEquals(food34Revenue, food3Revenue, "Fail to get Food Revenue for food3.");
         assertEquals(food34Revenue, food4Revenue, "Fail to get Food Revenue for food4.");
 
         //try some illegal inputs
-        double IllegalRevenue = -1.00;
-        food1.setFoodRevenue(IllegalRevenue);
+        double illegalRevenue = -1.00;
+        food1.setFoodRevenue(illegalRevenue);
         fail("Setters for Food Revenue allows negative revenue.");
 
 
@@ -197,18 +199,18 @@ public class FoodTest extends Food {
         assertEquals(food12Stock, food2.getStock(), "Fail to set Food Stock for food2.");
         assertEquals(food34Stock, food3.getStock(), "Fail to set Food Stock for food3.");
         assertEquals(food34Stock, food4.getStock(), "Fail to set Food Stock for food4.");
-        int food1Stock = food1.getStock();
-        int food2Stock = food2.getStock();
-        int food3Stock = food3.getStock();
-        int food4Stock = food4.getStock();
+        final int food1Stock = food1.getStock();
+        final int food2Stock = food2.getStock();
+        final int food3Stock = food3.getStock();
+        final int food4Stock = food4.getStock();
         assertEquals(food12Stock, food1Stock, "Fail to get Food Stock for food1.");
         assertEquals(food12Stock, food2Stock, "Fail to get Food Stock for food2.");
         assertEquals(food34Stock, food3Stock, "Fail to get Food Stock for food3.");
         assertEquals(food34Stock, food4Stock, "Fail to get Food Stock for food4.");
 
         //try some illegal inputs
-        int IllegalStock = -5;
-        food1.setStock(IllegalStock);
+        int illegalStock = -5;
+        food1.setStock(illegalStock);
         fail("Setters for Food Stock allows negative stock.");
 
 
@@ -223,18 +225,18 @@ public class FoodTest extends Food {
         assertEquals(food12Cost, food2.getCost(), "Fail to set Food Cost for food2.");
         assertEquals(food34Cost, food3.getCost(), "Fail to set Food Cost for food3.");
         assertEquals(food34Cost, food4.getCost(), "Fail to set Food Cost for food4.");
-        double food1Cost = food1.getCost();
-        double food2Cost = food2.getCost();
-        double food3Cost = food3.getCost();
-        double food4Cost = food4.getCost();
+        final double food1Cost = food1.getCost();
+        final double food2Cost = food2.getCost();
+        final double food3Cost = food3.getCost();
+        final double food4Cost = food4.getCost();
         assertEquals(food12Cost, food1Cost, "Fail to get Food Cost for food1.");
         assertEquals(food12Cost, food2Cost, "Fail to get Food Cost for food2.");
         assertEquals(food34Cost, food3Cost, "Fail to get Food Cost for food3.");
         assertEquals(food34Cost, food4Cost, "Fail to get Food Cost for food4.");
 
         //try some illegal inputs
-        double IllegalCost = -1.00;
-        food1.setCost(IllegalCost);
+        double illegalCost = -1.00;
+        food1.setCost(illegalCost);
         fail("Setters for Food Cost allows negative cost.");
 
 

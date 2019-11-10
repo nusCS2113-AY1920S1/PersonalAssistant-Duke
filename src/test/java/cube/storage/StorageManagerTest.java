@@ -1,5 +1,5 @@
 /**
- * Testing for StorageManager utilities
+ * Testing for StorageManager utilities.
  *
  * @author kuromono
  */
@@ -33,7 +33,7 @@ public class StorageManagerTest {
      */
     @Test
     public void config_storage_test() throws ParserException {
-        ConfigStorage configStorage = new ConfigStorage();
+        final ConfigStorage configStorage = new ConfigStorage();
 
         // Sets UiConfig variables: WindowHeight=888.88, WindowWidth=888.88
         UiConfig uiConfig = new UiConfig();
@@ -50,12 +50,17 @@ public class StorageManagerTest {
         configStorage.setLogConfig(logConfig);
         storageManager.setConfig(configStorage);
 
-        assertEquals(storageManager.getConfig().getUiConfig().getWindowHeight(), uiConfig.getWindowHeight());
-        assertEquals(storageManager.getConfig().getUiConfig().getWindowWidth(), uiConfig.getWindowWidth());
+        assertEquals(storageManager.getConfig().getUiConfig().getWindowHeight(),
+                uiConfig.getWindowHeight());
+        assertEquals(storageManager.getConfig().getUiConfig().getWindowWidth(),
+                uiConfig.getWindowWidth());
 
-        assertEquals(storageManager.getConfig().getLogConfig().getCurrentLogLevel(), logConfig.getCurrentLogLevel());
-        assertEquals(storageManager.getConfig().getLogConfig().getMaxFileCount(), logConfig.getMaxFileCount());
-        assertEquals(storageManager.getConfig().getLogConfig().getMaxFileSizeBytes(), logConfig.getMaxFileSizeBytes());
+        assertEquals(storageManager.getConfig().getLogConfig().getCurrentLogLevel(),
+                logConfig.getCurrentLogLevel());
+        assertEquals(storageManager.getConfig().getLogConfig().getMaxFileCount(),
+                logConfig.getMaxFileCount());
+        assertEquals(storageManager.getConfig().getLogConfig().getMaxFileSizeBytes(),
+                logConfig.getMaxFileSizeBytes());
     }
 
     /**

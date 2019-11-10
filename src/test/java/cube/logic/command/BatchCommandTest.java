@@ -1,5 +1,5 @@
 /**
- * Testing for BatchCommand utilities
+ * Testing for BatchCommand utilities.
  *
  * @author kuromono
  */
@@ -69,7 +69,8 @@ public class BatchCommandTest {
         BatchCommand command = new BatchCommand(fileName, BatchCommand.OperationType.EXPORT);
         CommandResult result = command.execute(model, storage);
 
-        CommandResult expectedResult = new CommandResult(String.format(BatchCommand.MESSAGE_SUCCESS, BatchCommand.MESSAGE_EXPORT, fileName));
+        CommandResult expectedResult = new CommandResult(
+                String.format(BatchCommand.MESSAGE_SUCCESS, BatchCommand.MESSAGE_EXPORT, fileName));
         assertEquals(result, expectedResult);
         assertTrue(StorageUtil.checkFileAvailable(fileName));
     }
@@ -84,7 +85,8 @@ public class BatchCommandTest {
         BatchCommand command = new BatchCommand(fileName, BatchCommand.OperationType.IMPORT);
         CommandResult result = command.execute(model, storage);
 
-        CommandResult expectedResult = new CommandResult(String.format(BatchCommand.MESSAGE_SUCCESS, BatchCommand.MESSAGE_IMPORT, fileName));
+        CommandResult expectedResult = new CommandResult(
+                String.format(BatchCommand.MESSAGE_SUCCESS, BatchCommand.MESSAGE_IMPORT, fileName));
         assertEquals(result, expectedResult);
         assertEquals(storage.getFoodList().toString(), foodList.toString());
     }
@@ -99,7 +101,8 @@ public class BatchCommandTest {
         BatchCommand command = new BatchCommand(fileName, BatchCommand.OperationType.IMPORT);
         CommandResult result = command.execute(model, storage);
 
-        CommandResult expectedResult = new CommandResult(String.format(BatchCommand.MESSAGE_FILE_NOT_FOUND, fileName));
+        CommandResult expectedResult = new CommandResult(
+                String.format(BatchCommand.MESSAGE_FILE_NOT_FOUND, fileName));
         assertEquals(result, expectedResult);
     }
 
@@ -113,7 +116,8 @@ public class BatchCommandTest {
         BatchCommand command = new BatchCommand(fileName, BatchCommand.OperationType.EMPTY);
         CommandResult result = command.execute(model, storage);
 
-        CommandResult expectedResult = new CommandResult(String.format(BatchCommand.MESSAGE_SUCCESS_TEMPLATE, fileName));
+        CommandResult expectedResult = new CommandResult(
+                String.format(BatchCommand.MESSAGE_SUCCESS_TEMPLATE, fileName));
         FoodList expectedList = new FoodList();
 
         assertEquals(result, expectedResult);

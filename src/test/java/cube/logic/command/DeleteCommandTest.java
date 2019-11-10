@@ -22,11 +22,11 @@ public class DeleteCommandTest {
 
     /** 
      * Dependent on correct implementation of following class:
-     *	 ModelManager, StorageManager, FoodList, Food, CommandResult 
+     *	 ModelManager, StorageManager, FoodList, Food, CommandResult.
      * Storage not tested.
      */
     @Test
-    public void execute_valid_index() throws CommandException{
+    public void execute_valid_index() throws CommandException {
         ModelManager model = new ModelManager();
         FoodList list = model.getFoodList();
         Food toDelete = new Food("anyName");
@@ -35,7 +35,8 @@ public class DeleteCommandTest {
         CommandResult result = command.execute(model, new StorageManager());
 
         FoodList expectedList = new FoodList();
-        CommandResult expectedResult = new CommandResult(String.format(DeleteCommand.MESSAGE_SUCCESS_SINGLE, toDelete, 0));
+        CommandResult expectedResult = new CommandResult(
+                String.format(DeleteCommand.MESSAGE_SUCCESS_SINGLE, toDelete, 0));
         assertEquals(model.getFoodList(), expectedList);
         assertEquals(result, expectedResult);
     }
@@ -43,9 +44,15 @@ public class DeleteCommandTest {
     @Test
     public void execute_invalid_index() {
         DeleteCommand deleteTooLargeIndex = new DeleteCommand(1, "INDEX");
-        assertThrowEquals(CommandException.class, CommandErrorMessage.INVALID_INDEX, () -> {deleteTooLargeIndex.execute(new ModelManager(), new StorageManager());});
+        assertThrowEquals(CommandException.class,
+                CommandErrorMessage.INVALID_INDEX, () -> {
+            deleteTooLargeIndex.execute(new ModelManager(), new StorageManager());
+        });
         DeleteCommand deleteNegativeIndex = new DeleteCommand(-1, "INDEX");
-        assertThrowEquals(CommandException.class, CommandErrorMessage.INVALID_INDEX, () -> {deleteNegativeIndex.execute(new ModelManager(), new StorageManager());});
+        assertThrowEquals(CommandException.class,
+                CommandErrorMessage.INVALID_INDEX, () -> {
+            deleteNegativeIndex.execute(new ModelManager(), new StorageManager());
+        });
     }
 
     /** 
@@ -63,7 +70,8 @@ public class DeleteCommandTest {
         CommandResult result = command.execute(model, new StorageManager());
 
         FoodList expectedList = new FoodList();
-        CommandResult expectedResult = new CommandResult(String.format(DeleteCommand.MESSAGE_SUCCESS_SINGLE, toDelete, 0));
+        CommandResult expectedResult = new CommandResult(
+                String.format(DeleteCommand.MESSAGE_SUCCESS_SINGLE, toDelete, 0));
         assertEquals(model.getFoodList(), expectedList);
         assertEquals(result, expectedResult);
     }
@@ -71,7 +79,10 @@ public class DeleteCommandTest {
     @Test
     public void execute_invalid_name() {
         DeleteCommand deleteTooLargeIndex = new DeleteCommand("anyName", "NAME");
-        assertThrowEquals(CommandException.class, CommandErrorMessage.FOOD_NOT_EXISTS, () -> {deleteTooLargeIndex.execute(new ModelManager(), new StorageManager());});
+        assertThrowEquals(CommandException.class,
+                CommandErrorMessage.FOOD_NOT_EXISTS, () -> {
+            deleteTooLargeIndex.execute(new ModelManager(), new StorageManager());
+        });
     }
 
     /** 
@@ -90,7 +101,8 @@ public class DeleteCommandTest {
         CommandResult result = command.execute(model, new StorageManager());
 
         FoodList expectedList = new FoodList();
-        CommandResult expectedResult = new CommandResult(String.format(DeleteCommand.MESSAGE_SUCCESS_MULTIPLE, "anyType", 1, 0));
+        CommandResult expectedResult = new CommandResult(
+                String.format(DeleteCommand.MESSAGE_SUCCESS_MULTIPLE, "anyType", 1, 0));
         assertEquals(model.getFoodList(), expectedList);
         assertEquals(result, expectedResult);
     }
@@ -98,6 +110,9 @@ public class DeleteCommandTest {
     @Test
     public void execute_invalid_type() {
         DeleteCommand deleteTooLargeIndex = new DeleteCommand("anyType", "TYPE");
-        assertThrowEquals(CommandException.class, CommandErrorMessage.INVALID_TYPE, () -> {deleteTooLargeIndex.execute(new ModelManager(), new StorageManager());});
+        assertThrowEquals(CommandException.class,
+                CommandErrorMessage.INVALID_TYPE, () -> {
+            deleteTooLargeIndex.execute(new ModelManager(), new StorageManager());
+        });
     }
 }
