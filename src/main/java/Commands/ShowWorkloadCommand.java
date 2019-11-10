@@ -6,16 +6,16 @@ import Commons.Storage;
 import Commons.UserInteraction;
 import Tasks.Assignment;
 import Tasks.TaskList;
-import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
-
+/**
+ * Represents the command which shows the user the recommended workload for next week.
+ */
 public class ShowWorkloadCommand extends Command {
     private String week;
     private Integer[] counter = {0,0,0,0,0,0,0};
@@ -103,6 +103,15 @@ public class ShowWorkloadCommand extends Command {
         }
     }
 
+    /**
+     * Executes to get the workload for next week when requested by user.
+     * @param events The TaskList object for events
+     * @param deadlines The TaskList object for deadlines
+     * @param ui The Ui object to display the list message
+     * @param storage The Storage object to access file to load or save the tasks
+     * @return This returns the method in the Ui object which returns the string to display the workload message
+     * @throws ParseException on array index out of bound
+     */
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws ParseException {
         String workloadWeek = lookupTable.getValue(week);
@@ -113,7 +122,7 @@ public class ShowWorkloadCommand extends Command {
         for (Map.Entry<String, HashMap<String, ArrayList<Assignment>>> eventModule: eventMap.entrySet()) {
             HashMap<String, ArrayList<Assignment>> eventModuleValue = eventModule.getValue();
             for (Map.Entry<String, ArrayList<Assignment>> eventItem: eventModuleValue.entrySet()) {
-                String[] strDayDate = eventItem.getKey().trim().split(" ");
+                String[] strDayDate = eventItem.getKey().trim().split(DukeConstants.BLANK_SPACE);
                 String strDate = strDayDate[1].trim();
                 String selectedWeek = lookupTable.getValue(strDate);
                 if (selectedWeek.equals(workloadWeek)) {
@@ -124,7 +133,7 @@ public class ShowWorkloadCommand extends Command {
         for (Map.Entry<String, HashMap<String, ArrayList<Assignment>>> deadlineModule: deadlineMap.entrySet()) {
             HashMap<String, ArrayList<Assignment>> deadlineModuleValue = deadlineModule.getValue();
             for (Map.Entry<String, ArrayList<Assignment>> deadlineItem: deadlineModuleValue.entrySet()) {
-                String[] strDayDate = deadlineItem.getKey().trim().split(" ");
+                String[] strDayDate = deadlineItem.getKey().trim().split(DukeConstants.BLANK_SPACE);
                 String strDate = strDayDate[1].trim();
                 String selectedWeek = lookupTable.getValue(strDate);
                 if (isValid(workloadWeek, selectedWeek)) {

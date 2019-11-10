@@ -4,7 +4,6 @@ import Commons.DukeConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * To keep track of the list of task input by user.
@@ -22,15 +21,19 @@ public class TaskList {
         this.map = new HashMap<>();
     }
 
+
     /**
      * Retrieves the list of deadlines/events.
+
      */
     public ArrayList<Assignment> getList() {
         return list;
     }
 
+
     /**
      * Retrieved the map of deadlines/events.
+
      */
     public HashMap<String, HashMap<String, ArrayList<Assignment>>> getMap() {
         return this.map;
@@ -104,7 +107,7 @@ public class TaskList {
     }
 
     /**
-     * This method finds the size fo the taskList.
+     * This method finds the size for the taskList.
      */
     public int taskListSize() {
         int size = 0;

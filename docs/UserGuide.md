@@ -180,7 +180,11 @@ The command retrieve/previous will set the text in the command line to be show/f
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/RETRIEVE/RETRIEVE_PRE_OUTPUT.PNG">
 
    ## 3.8. Finding earliest free time based on the given schedule    
-Finds 5 earliest free time block with a given duration in hours, the information found will be displayed in the ‘Response’ Box.
+_Finds 5 earliest free time block with a given duration in hours, the information found will be displayed in the ‘Response’ Box.
+Note: Only periods within 7am to 12am will be shown.  
+E.g find/time 5  hours will not show (9.30pm to 12.30am)  
+Instead, it will show (7.00 am to 12.00 pm) the next day_
+
 
 ### Format:
 - find/time x hours 

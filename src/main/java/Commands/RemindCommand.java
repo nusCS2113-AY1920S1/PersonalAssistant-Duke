@@ -9,8 +9,6 @@ import Commons.UserInteraction;
 import Parser.DateTimeParser;
 import Tasks.Assignment;
 import Tasks.TaskList;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -53,11 +51,10 @@ public class RemindCommand extends Command {
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
         HashMap<Date, Assignment> remindMap = reminder.getRemindMap();
         Date currentDate = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
         if (task.getDescription().isEmpty()) {
             ArrayList<String> remindList = new ArrayList<>();
             for (Date date : remindMap.keySet()) {
-                String reminderDate = dateFormat.format(date);
+                String reminderDate = DukeConstants.DEADLINE_DATE_FORMAT.format(date);
                 String modCode = remindMap.get(date).getModCode();
                 String description = remindMap.get(date).getDescription();
                 String taskDate = remindMap.get(date).getDateTime();
@@ -66,7 +63,7 @@ public class RemindCommand extends Command {
             }
             return ui.showListOfReminder(remindList);
         }
-        String reminderTime = dateFormat.format(time);
+        String reminderTime = DukeConstants.DEADLINE_DATE_FORMAT.format(time);
         String taskDateTimeString = task.getDateTime();
         Date taskDateTime = DateTimeParser.deadlineTaskStringToDate(taskDateTimeString);
         if (taskDateTime.before(currentDate)) {
@@ -91,9 +88,9 @@ public class RemindCommand extends Command {
             throw new DukeException(DukeConstants.NO_TIMING_ERROR);
         } else if (remindMap.containsKey(time)) {
             Assignment remindedTask = remindMap.get(time);
-            throw new DukeInvalidDateTimeException("Sorry, you have a reminder set for " + remindedTask.getModCode() + " " + remindedTask.getDescription() + " by: " + task.getDateTime());
+            throw new DukeInvalidDateTimeException("Sorry, you have a reminder set for " + remindedTask.getModCode() + DukeConstants.BLANK_SPACE + remindedTask.getDescription() + " by: " + task.getDateTime());
         } else {
-            Date inputTaskDate = dateFormat.parse(task.getDateTime());
+            Date inputTaskDate = DukeConstants.DEADLINE_DATE_FORMAT.parse(task.getDateTime());
             if (inputTaskDate.before(time)) {
                 throw new DukeInvalidDateTimeException(DukeConstants.REMINDER_AFTER_TASK_ERROR);
             }
@@ -106,7 +103,7 @@ public class RemindCommand extends Command {
                 }
             }
             if (!hasTask) {
-                throw new DukeException(DukeConstants.NO_MODULE_ERROR);
+                throw new DukeException(DukeConstants.MISMATCH_DESCRIPTION);
             }
         }
         reminder.setReminderThread(time, task);

@@ -3,12 +3,10 @@ package Commands;
 import Commons.DukeConstants;
 import Commons.Storage;
 import Commons.UserInteraction;
-import DukeExceptions.DukeException;
 import Tasks.Assignment;
 import Tasks.Event;
 import Tasks.TaskList;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -72,7 +70,6 @@ public class RecurringCommand extends Command {
         return followingWeek;
     }
 
-
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws Exception {
         Date startDate = DukeConstants.DAY_DATE_FORMAT.parse(startDateString);
@@ -82,7 +79,6 @@ public class RecurringCommand extends Command {
         Date startOfNextWeek;
         HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
         ArrayList<Assignment> temp = new ArrayList<>();
-
 
         if (isRecur && isBiweekly) {
             do {

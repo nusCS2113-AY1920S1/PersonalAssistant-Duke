@@ -18,6 +18,7 @@ public class AddCommand extends Command {
 
     private final Assignment task;
     private final Logger LOGGER = DukeLogger.getLogger(AddCommand.class);
+    private static final String NUMBERING_DELIMITER = ". ";
 
     /**
      * Creates an AddCommand object.
@@ -39,11 +40,11 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidFormatException {
-        String out = "";
+        String out = DukeConstants.NO_FIELD;
 
         ArrayList<String> eventConflict;
         ArrayList<String> deadlineConflict;
-        if (task.getType().equals("[E]")) {
+        if (task.getType().equals(DukeConstants.EVENT_INDICATOR)) {
             try {
                 eventConflict = checkEventConflict(events, this.task);
             } catch (ParseException e) {
@@ -52,32 +53,30 @@ public class AddCommand extends Command {
             }
             int size = events.taskListSize() + 1;
 
-            if (eventConflict.size() == 0) {
+            if (eventConflict.isEmpty()) {
                 events.addTask(this.task);
                 out = ui.showAdd(this.task,size);
                 storage.updateEventList(events);
             } else {
                 out = DukeConstants.CONFLICTING_EVENT;
                 for (int i = 0; i < eventConflict.size(); i++) {
-                    out += (i + 1) + ". " + eventConflict.get(i) + "\n";
+                    out += (i + 1) + NUMBERING_DELIMITER + eventConflict.get(i) + "\n";
                 }
             }
-        } else if (task.getType().equals("[D]")) {
+        } else if (task.getType().equals(DukeConstants.DEADLINE_INDICATOR)) {
             deadlineConflict = checkDeadlineConflict(deadlines, this.task);
             int size = deadlines.taskListSize() + 1;
-            if (deadlineConflict.size() == 0) {
+            if (deadlineConflict.isEmpty()) {
                 deadlines.addTask(this.task);
                 out = ui.showAdd(this.task,size);
                 storage.updateDeadlineList(deadlines);
             } else {
                 out = DukeConstants.CONFLICTING_DEADLINE;
                 for (int i = 0; i < deadlineConflict.size();i++) {
-                    out += (i + 1) + ". " + deadlineConflict.get(i) + "\n";
+                    out += (i + 1) + NUMBERING_DELIMITER + deadlineConflict.get(i) + "\n";
                 }
             }
         }
         return out;
     }
-
-
 }

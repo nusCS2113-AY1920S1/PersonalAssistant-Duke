@@ -26,10 +26,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * This class tests RetrieveFreeTimesParse.
  */
 public class RetrieveFreeTimesParseTest {
-    private final String INVALID_OPTION = "Invalid option. Please enter the command as follows. \n" +
-            "retrieve/time 'x', where 'x' is a digit between 1 - 5";
-    private final String INVALID_EMPTY_OPTION = "Invalid input.\n" +
-            "Option cannot be blank.\nPlease enter the command as follows.\n"
+    private static final String INVALID_OPTION = "Invalid option. Please enter the command as follows. \n"
+            + "retrieve/time 'x', where 'x' is a digit between 1 - 5";
+    private static final String INVALID_EMPTY_OPTION = "Invalid input.\n"
+            + "Option cannot be blank.\nPlease enter the command as follows.\n"
             + "retrieve/time 'x', where 'x' is a digit between 1 - 5";
 
     private static String validUserInputWithOption;

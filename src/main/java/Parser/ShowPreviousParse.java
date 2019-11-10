@@ -26,7 +26,7 @@ public class ShowPreviousParse extends Parse{
      */
     @Override
     public Command parse() throws DukeInvalidFormatException {
-        String entireCommand = fullCommand.replaceFirst(DukeConstants.SHOW_PREVIOUS_HEADER, "");
+        String entireCommand = fullCommand.replaceFirst(DukeConstants.SHOW_PREVIOUS_HEADER, DukeConstants.NO_FIELD);
         entireCommand = entireCommand.trim();
 
         if (entireCommand.isEmpty()) {
@@ -63,7 +63,7 @@ public class ShowPreviousParse extends Parse{
                 }
             }
             if (entireCommand.contains(".")) {
-                entireCommand = entireCommand.replace(".", "");
+                entireCommand = entireCommand.replace(".", DukeConstants.NO_FIELD);
                 if (entireCommand.matches("[0-9]+")) {
                     throw new DukeInvalidFormatException(DukeConstants.INVALID_DECIMAL_NUMBER);
                 }

@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * This class tests WeekParse.
  */
 public class WeekParseTest {
-    private final String INVALID_EMPTY_WEEK = "Invalid Input.\n" +
-            "The week cannot be blank.\nPlease enter the command as follows.\n" +
-            "show/week 'x' , where 'x' is a digit between 1 - 13 or \n" +
-            "'x' is either 'recess', 'reading', or 'exam'";
-    private final String INVALID_WEEK = "Invalid Week. Please enter the command as follows. \n" +
-            "show/week 'x' , where 'x' is a digit between 1 - 13 or \n" +
-            "'x' is either 'recess', 'reading', or 'exam'";
+    private static final String INVALID_EMPTY_WEEK = "Invalid Input.\n"
+            + "The week cannot be blank.\nPlease enter the command as follows.\n"
+            + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
+            + "'x' is either 'recess', 'reading', or 'exam'";
+    private static final String INVALID_WEEK = "Invalid Week. Please enter the command as follows. \n"
+            + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
+            + "'x' is either 'recess', 'reading', or 'exam'";
 
     private static String validUserInputWithDigitWeek;
     private static String validUserInputWithRecessWeek;
@@ -50,7 +50,7 @@ public class WeekParseTest {
     }
 
     @Test
-    public void weekWithWeekZero(){
+    public void weekWithWeekZero() {
         String expected = INVALID_WEEK;
         String actual = null;
         Command command = null;
@@ -63,7 +63,7 @@ public class WeekParseTest {
     }
 
     @Test
-    public void weekWithWeekFourteen(){
+    public void weekWithWeekFourteen() {
         String expected = INVALID_WEEK;
         String actual = null;
         Command command = null;
@@ -76,7 +76,7 @@ public class WeekParseTest {
     }
 
     @Test
-    public void weekWithRandomStringWeek(){
+    public void weekWithRandomStringWeek() {
         String expected = INVALID_WEEK;
         String actual = null;
         Command command = null;
@@ -89,7 +89,7 @@ public class WeekParseTest {
     }
 
     @Test
-    public void weekWithWeekInDecimal(){
+    public void weekWithWeekInDecimal() {
         String expected = INVALID_WEEK;
         String actual = null;
         Command command = null;
@@ -102,7 +102,7 @@ public class WeekParseTest {
     }
 
     @Test
-    public void weekWithoutWeek(){
+    public void weekWithoutWeek() {
         String expected = INVALID_EMPTY_WEEK;
         String actual = null;
         Command command = null;

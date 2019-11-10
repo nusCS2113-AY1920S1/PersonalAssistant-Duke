@@ -77,7 +77,7 @@ public class ProgressController extends HBox {
         if (eventsList.size() == 0) {
             arrList = addModuleCodeToArrList(deadlineList, moduleCodeMap, moduleCodeStatusIconDescriptionArrList);
         } else {
-            for (int i = 0; i < moduleCodeStatusIconDescriptionArrList.size(); i++) { //checks if the module code of the events hashMap is found in the deadline hashMap
+            for (int i = 0; i < moduleCodeStatusIconDescriptionArrList.size(); i++) {
                 eventsMC = moduleCodeStatusIconDescriptionArrList.get(i).getKey();
                 for (String deadlineMC : deadlineList.keySet()) {
                     if (!eventsMC.equals(deadlineMC)) {

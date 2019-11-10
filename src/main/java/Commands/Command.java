@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -38,7 +37,7 @@ public abstract class Command {
             for (Assignment taskInList : map.get(modCode).get(dateOfTask)) {
                 if (taskInList.getDateTime().equals(task.getDateTime())) {
                     if (!taskInList.getDescription().equals(task.getDescription())) {
-                        throw new DukeException(DukeConstants.MISMATCH_DATE);
+                        throw new DukeException(DukeConstants.MISMATCH_DESCRIPTION);
                     } else {
                         return;
                     }
@@ -56,17 +55,16 @@ public abstract class Command {
      */
     public  ArrayList<String> checkEventConflict(TaskList taskList, Assignment t) throws ParseException {
         ArrayList<String> conflict = new ArrayList<>();
-        Date startTime1 = new SimpleDateFormat("hh:mm a").parse(t.getStartTime());
-        Date endTime1 = new SimpleDateFormat("hh:mm a").parse(t.getEndTime());
+        Date startTime1 = DukeConstants.TWELVE_HOUR_TIME_FORMAT.parse(t.getStartTime());
+        Date endTime1 = DukeConstants.TWELVE_HOUR_TIME_FORMAT.parse(t.getEndTime());
         HashMap<String, HashMap<String, ArrayList<Assignment>>> mapObtained = taskList.getMap();
 
         for (String modCode : mapObtained.keySet()) {
             for (String date : mapObtained.get(modCode).keySet()) {
                 for (Assignment task : mapObtained.get(modCode).get(date)) {
-
                     if (date.equals(t.getDate())) {
-                        Date taskStartTime = new SimpleDateFormat("hh:mm a").parse(task.getStartTime());
-                        Date taskEndTime = new SimpleDateFormat("hh:mm a").parse(task.getEndTime());
+                        Date taskStartTime = DukeConstants.TWELVE_HOUR_TIME_FORMAT.parse(task.getStartTime());
+                        Date taskEndTime = DukeConstants.TWELVE_HOUR_TIME_FORMAT.parse(task.getEndTime());
                         //start time is the same
                         if (taskStartTime.equals(startTime1) || taskStartTime.equals(endTime1)) {
                             conflict.add(task.displayString());

@@ -27,18 +27,18 @@ public class FindFreeTimesParse extends Parse {
 
     @Override
     public Command parse() throws DukeInvalidFormatException {
-        fullCommand = fullCommand.replaceFirst(DukeConstants.FIND_TIME_HEADER, "");
+        fullCommand = fullCommand.replaceFirst(DukeConstants.FIND_TIME_HEADER, DukeConstants.NO_FIELD);
         fullCommand = fullCommand.trim();
         if (fullCommand.equals(DukeConstants.FIND_TIME_KEYWORD_HOUR)
                 || fullCommand.equals(DukeConstants.FIND_TIME_KEYWORD_HOURS)) {
             throw new DukeInvalidFormatException(DukeConstants.INVALID_EMPTY_DURATION);
-        } else if (fullCommand.split(" ").length == 1) {
+        } else if (fullCommand.split(DukeConstants.BLANK_SPACE).length == 1) {
             throw new DukeInvalidFormatException(DukeConstants.INVALID_INPUT);
         }
         if (fullCommand.contains(DukeConstants.FIND_TIME_KEYWORD_HOURS)) {
-            fullCommand = fullCommand.replaceFirst(DukeConstants.FIND_TIME_KEYWORD_HOURS, "");
+            fullCommand = fullCommand.replaceFirst(DukeConstants.FIND_TIME_KEYWORD_HOURS, DukeConstants.NO_FIELD);
         } else if (fullCommand.contains(DukeConstants.FIND_TIME_KEYWORD_HOUR)) {
-            fullCommand = fullCommand.replaceFirst(DukeConstants.FIND_TIME_KEYWORD_HOUR, "");
+            fullCommand = fullCommand.replaceFirst(DukeConstants.FIND_TIME_KEYWORD_HOUR, DukeConstants.NO_FIELD);
         } else {
             throw new DukeInvalidFormatException(DukeConstants.INVALID_INPUT);
         }
