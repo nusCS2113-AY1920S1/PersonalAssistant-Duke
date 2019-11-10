@@ -26,6 +26,7 @@ public class ProjectRepository implements IRepository<Project> {
         ArrayList<Project> projectsFromResource = jsonConverter.getResourcesInJar();
         allProjects = jsonConverter.loadAllProjectsData();
         allProjects.addAll(projectsFromResource);
+        allProjects.forEach((i) -> jsonConverter.saveProject(i));
     }
 
     @Override

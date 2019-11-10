@@ -1,5 +1,13 @@
 package controllers;
 
+import repositories.ProjectRepository;
+import util.log.ArchDukeLogger;
+import util.uiformatter.CommandHelper;
+import util.uiformatter.ViewHelper;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_BYE;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_CREATE;
@@ -8,23 +16,19 @@ import static util.constant.ConstantHelper.PROJECT_COMMAND_HELP;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_LIST;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_MANAGE;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import repositories.ProjectRepository;
-import util.log.ArchDukeLogger;
-import util.uiformatter.CommandHelper;
-import util.uiformatter.ViewHelper;
-
 public class ConsoleInputController implements IController {
 
     private ProjectRepository projectRepository;
     private String managingProjectIndex;
     private ViewHelper viewHelper;
     private CommandHelper commandHelper;
+    private ProjectInputController projectInputController;
 
     //@@author Lucria
     /**
-     * Constructor.
+     * Constructor mainly used for testing.
+     * ConsoleInputController is responsible for understanding inputs from View layer and calling relevant classes
+     * based on the inputs.
      * @param projectRepository : takes in a projectRepository.
      */
     public ConsoleInputController(ProjectRepository projectRepository) {
@@ -32,6 +36,18 @@ public class ConsoleInputController implements IController {
         this.managingProjectIndex = "";
         this.viewHelper = new ViewHelper();
         this.commandHelper = new CommandHelper();
+        this.projectInputController = new ProjectInputController(projectRepository);
+    }
+
+    /**
+     * Constructor called by View layer due to no knowledge of ProjectRepository.
+     */
+    public ConsoleInputController() {
+        this.projectRepository = new ProjectRepository();
+        this.managingProjectIndex = "";
+        this.viewHelper = new ViewHelper();
+        this.commandHelper = new CommandHelper();
+        this.projectInputController = new ProjectInputController(projectRepository);
     }
 
     /**
@@ -113,6 +129,7 @@ public class ConsoleInputController implements IController {
             try {
                 ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "Managing project: "
                         + projectRepository.getItem(Integer.parseInt(managingProjectIndex)).getName());
+                this.projectInputController.onCommandReceived(this.managingProjectIndex);
                 return new String[] {"Now managing "
                         + projectRepository.getItem(Integer.parseInt(managingProjectIndex)).getName()};
             } catch (IndexOutOfBoundsException err) {
@@ -179,4 +196,15 @@ public class ConsoleInputController implements IController {
         return managingProjectIndex;
     }
 
+    public String[] toProjectInputController(String projectNumber) {
+        return this.projectInputController.onCommandReceived(projectNumber);
+    }
+
+    public boolean getIsManagingAProject() {
+        return this.projectInputController.getIsManagingAProject();
+    }
+
+    public String[] manageProject(String input) {
+        return this.projectInputController.manageProject(input);
+    }
 }

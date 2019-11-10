@@ -72,7 +72,6 @@ public class JsonConverter {
                 return allProjects;
             }
         }
-
         return allProjects;
     }
 
