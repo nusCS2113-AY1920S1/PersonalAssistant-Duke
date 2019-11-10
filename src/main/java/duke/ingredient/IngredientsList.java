@@ -40,12 +40,17 @@ public class IngredientsList extends GenericList<Ingredient> {
      */
     @Override
     public void addEntry(Ingredient ingredient) {
-        if (genList.contains(ingredient) && this.getEntry(ingredient).getExpiryDate().equals(ingredient.getExpiryDate())) {
-            //If the new ingredient is the exact same as what we had, update the amount.
-            int currentAmount = this.getEntry(ingredient).getAmount();
-            this.getEntry(ingredient).setAmount(currentAmount + ingredient.getAmount());
-        } else
-            genList.add(ingredient); // if the ingredient was not in the fridge already or it's expiry date was different than the one stored
+        assert ingredient != null;
+        try {
+            if (genList.contains(ingredient) && this.getEntry(ingredient).getExpiryDate().equals(ingredient.getExpiryDate())) {
+                //If the new ingredient is the exact same as what we had, update the amount.
+                int currentAmount = this.getEntry(ingredient).getAmount();
+                this.getEntry(ingredient).setAmount(currentAmount + ingredient.getAmount());
+            } else
+                genList.add(ingredient); // if the ingredient was not in the fridge already or it's expiry date was different than the one stored
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
         sortByExpiryDate();
     }
 
@@ -56,6 +61,7 @@ public class IngredientsList extends GenericList<Ingredient> {
      * @param ingredient {@link Ingredient} containing the name and amount that is requested to be checked
      */
     public boolean hasEnough(Ingredient ingredient) {
+        assert ingredient != null;
         int currAmount = 0;
         for (Ingredient ing : getAllEntries()) {        //for all ingredients,
             if (ing.equals(ingredient) && !ing.isExpired())   //if it has the same name as the required ingredient(equals on ingredient only checks for name equality)
@@ -75,12 +81,18 @@ public class IngredientsList extends GenericList<Ingredient> {
     }
 
     @Override
-    public Ingredient getEntry(Ingredient entry) {
+    public Ingredient getEntry(Ingredient entry) throws DukeException {
+        assert entry != null;
         for (Ingredient ingredient : genList) {
             if (ingredient.equalsCompletely(entry))
                 return ingredient; //if we have an ingredient with the same name and expiry date, we return that one
         }
-        return genList.get(genList.indexOf(entry)); //otherwise we return the first encountered ingredient in the list that has the same name
+        try {
+            Ingredient found = genList.get(genList.indexOf(entry)); //otherwise we return the first encountered ingredient in the list that has the same name
+            return found;
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("The ingredient needed can not be found in the Ingredient List");
+        }
     }
 
     /**
@@ -90,6 +102,7 @@ public class IngredientsList extends GenericList<Ingredient> {
      * @param ingredientNeeded {@link Ingredient} containing the name of the non expired ingredient requested from the {@link IngredientsList}
      */
     public Ingredient getNonExpiredEntry(Ingredient ingredientNeeded) throws DukeException {
+        assert ingredientNeeded != null;
         for (Ingredient ingredient : genList) {
             if (ingredientNeeded.equals(ingredient) && !ingredient.isExpired())
                 return ingredient;
@@ -119,25 +132,47 @@ public class IngredientsList extends GenericList<Ingredient> {
      * Furtermore, only non expired ingredient are used
      *
      * @param ingredient {@link Ingredient} indicating the name and amount to be used
+     * @return true if the amount of the ingredient to use was successfully removed, false otherwise
      */
     @Override
-    public boolean removeEntry(Ingredient ingredient) throws DukeException {
+    public boolean removeEntry(Ingredient ingredient) {
+        assert ingredient != null;
         if (!hasEnough(ingredient)) {
             return false;
         }
         sortByExpiryDate();
         int neededAmount = ingredient.getAmount();
+        Ingredient toUse = null;
         while (neededAmount > 0) {
-            Ingredient toUse = getNonExpiredEntry(ingredient);
+            try {
+                toUse = getNonExpiredEntry(ingredient);
+            } catch (DukeException e) {
+                System.out.println(e);
+                return false;
+            }
             int amountLeft = toUse.getAmount() - neededAmount;
             if (neededAmount < toUse.getAmount()) {
                 toUse.setAmount(amountLeft);
                 return true;
             }
             neededAmount -= toUse.getAmount();
-            genList.remove(toUse);
+            if(!removeExactIngredient(toUse))
+                return false;
         }
         sortByExpiryDate();
         return true;
+    }
+
+    private boolean removeExactIngredient(Ingredient ingredient) {
+        for (int i = 0; i < genList.size(); i++) {
+            if (genList.get(i).equalsCompletely(ingredient)) {
+                //cannot simply do genList.remove(ingredient),
+                // because remove from List takes into consideration the equals method that only compares ingredients by name,
+                // this method removes the exact ingredient, same name and same expiry date!
+                genList.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 }

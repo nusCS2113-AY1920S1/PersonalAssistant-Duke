@@ -81,7 +81,7 @@ public abstract class GenericList<T> {
      * @param entry the entry to be removed from the {@link GenericList}
      * @return true if removal was successful
      */
-    public boolean removeEntry(T entry) throws DukeException {
+    public boolean removeEntry(T entry) {
         return genList.remove(entry);
     }
     /**
@@ -97,7 +97,7 @@ public abstract class GenericList<T> {
      *
      * @return the entry from the generic list, that is still linked to the list, so it can be modified
      */
-    public T getEntry(T entry) {
+    public T getEntry(T entry) throws DukeException {
         for (T e : genList)
             if (e.equals(entry))
                 return e;
