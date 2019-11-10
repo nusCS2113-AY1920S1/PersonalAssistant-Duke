@@ -135,7 +135,7 @@ public abstract class Resource {
      * @throws ParseException if the dates are in an invalid format.
      * @throws RimsException if the date of return is before the date of borrowing.
      */
-    public void book(int reservationId, int userId, Date startDate, Date endDate) throws ParseException, RimsException {
+    public void book(int reservationId, int userId, Date startDate, Date endDate) throws RimsException {
         reservations.createReservation(reservationId, resourceId, userId, startDate, endDate);
     }
 

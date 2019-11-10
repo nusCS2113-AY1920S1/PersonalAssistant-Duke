@@ -15,6 +15,9 @@ import java.text.ParseException;
  * <p>
  * This is done by reloading a screenshot of the previous state of Model from
  * the external .txt files.
+ *
+ * Current list of commands supported:
+ * Add, Delete, Loan, Reserve, Return
  */
 public class UndoCommand extends Command {
 
@@ -47,7 +50,7 @@ public class UndoCommand extends Command {
      * @throws RimsException
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws ParseException, IOException, RimsException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
         if (prevCommand == null) {
             ui.formattedPrint("No command has modified this inventory yet!");
             return;
