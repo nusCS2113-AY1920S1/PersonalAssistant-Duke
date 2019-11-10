@@ -162,22 +162,28 @@ public final class ParserManageStudents {
 
         while (runProgress) {
             new CliView().studentProgressHeading();
-            String input = sc.nextLine();
-            String[] word = input.split(" ");
-            String cmd = word[0];
-            switch (cmd) {
+            String cmd = sc.nextLine();
+            //String[] word = input.split(" ");
+            //String cmd = word[0];
+            switch (sc.nextLine()) {
             case "list":
                 students.listAllStudents();
                 break;
             case "add":
-                String progressDescription = cmd.substring(3);
-                students.getStudent(Integer.parseInt(word[1])).addStudentProgress(progressDescription);
+                System.out.print("Who do you want to add progress for?\n");
+                students.listAllStudents();
+                String input = sc.nextLine();
+                String[] word = input.split(",");
+                students.getStudent(Integer.parseInt(word[0])).addStudentProgress(word[1]);
                 break;
             case "delete":
                 break;
             case "view":
+                System.out.print("Whose progress do you want to see?\n");
+                students.listAllStudents();
+                //int index = sc.nextInt();
                 System.out.println(
-                        students.getStudent(Integer.parseInt(word[1])).getStudentProgress());
+                        students.getStudent(sc.nextInt()).getStudentProgress());
                 break;
             case "back":
                 runProgress = false;
