@@ -35,15 +35,15 @@ public class ProfitCommand extends Command {
     private Date date_i; //start date (initial)
     private Date date_f; //end date (final)
     private ProfitCommand.ProfitBy param;
-    private final String MESSAGE_SUCCESS_ALL = "Nice! I've generated the profits and revenue for all the stocks:\n"
+    public static final String MESSAGE_SUCCESS_ALL = "Nice! I've generated the profits and revenue for all the stocks:\n"
             + "profit:  $ %1$s\n"
             + "revenue: $ %2$s\n"
             + "In total, you have %3$s food in the list.\n";
-    private final String MESSAGE_SUCCESS_SINGLE = "Nice! I've generated the profits and revenue for this food:\n"
+    public static final String MESSAGE_SUCCESS_SINGLE = "Nice! I've generated the profits and revenue for this food:\n"
             + "profit:  $ %1$s\n"
             + "revenue: $ %2$s\n"
             + "In total, you have %3$s food in the list.\n";
-    private final String MESSAGE_SUCCESS_MULTIPLE = "Nice! I've generated the profits and revenue for this type:\n"
+    public static final String MESSAGE_SUCCESS_MULTIPLE = "Nice! I've generated the profits and revenue for this type:\n"
             + "profit:  $ %1$s\n"
             + "revenue: $ %2$s\n"
             + "This type contains "

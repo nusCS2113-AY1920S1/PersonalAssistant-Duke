@@ -1,80 +1,93 @@
-import cube.logic.command.ProfitCommand;
+//@@author LL-Pengfei
+/**
+ * ProfitCommandTest.java
+ * Tests on the functionality of ProfitCommand.
+ */
+package cube.logic.command;
+
+import cube.logic.command.exception.CommandException;
+import cube.logic.command.util.CommandResult;
 import cube.logic.parser.ParserUtil;
 import cube.logic.parser.exception.ParserException;
+import cube.model.ModelManager;
+import cube.model.food.Food;
+import cube.model.food.FoodList;
+import cube.model.sale.Sale;
+import cube.model.sale.SalesHistory;
+import cube.storage.StorageManager;
 
 import java.util.Date;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-package cube.logic.command;
-
+/**
+ * This class test on the functionality of the ProfitCommand.
+ */
 public class ProfitCommandTest extends ProfitCommand {
-    /*public ProfitCommand(Date date_i, Date date_f, String param) {
-        this.date_i = date_i;
-        this.date_f = date_f;
-        this.param = ProfitCommand.ProfitBy.valueOf(param);
-    }*/
-    public void testConstructor() throws ParserException {
+    /**
+     * Tests whether Profit Command behaviour is as expected.
+     *
+     * @throws CommandException If exception occurs when using command.
+     * @throws ParserException If exception occurs when using parser.
+     */
+    @Test
+    public void testProfitCommand() throws CommandException, ParserException {
+        ModelManager model = new ModelManager();
+        StorageManager storage = new StorageManager();
+        SalesHistory salesHistory = new SalesHistory();
+        FoodList list = new FoodList();
+
+        //create a new dummy sales record
+        String foodName = "food1Name";
+        int quantitySold = 20;
+        double revenue = 100.00;
+        double profit = 40.00;
+        Date soldDate = ParserUtil.parseStringToDate("23/03/2018");
+        Sale saleRecord = new Sale(foodName, quantitySold, revenue, profit, soldDate);
+        salesHistory.add(saleRecord);
+
+        //specify the period to search for in the saleshistory, inclusive of the sold date of
+        //the dummy sales record created above
         Date date_i = ParserUtil.parseStringToDate("23/03/1998");
-        Date date_j = ParserUtil.parseStringToDate("23/03/2028");
+        Date date_f = ParserUtil.parseStringToDate("23/03/2028");
 
-        ProfitCommand profit1 = new ProfitCommand(date_i, date_j, "ALL");
-        assertEquals("student name wrong", date_i, profit1.);
-        assertTrue("student no. wrong", stu.getStuNumber().equals(student_no));
+        //search all
+        //should only have the one sales record created above
+        ProfitCommand commandAll = new ProfitCommand(date_i, date_f, "ALL");
+        CommandResult resultAll = commandAll.execute(model, storage);
+        CommandResult expectedResultAll = new CommandResult(String.format(ProfitCommand.MESSAGE_SUCCESS_ALL,
+                profit, revenue, 0));
+        assertEquals(resultAll, expectedResultAll);
 
-        // create some illegal inputs - Note 6
-        try {
-            Student s = new Student("Jimmy", null);
-            fail("Constructor allows null student number");
-        } catch (RuntimeException e) {}
+        //search by name
+        ProfitCommand commandName = new ProfitCommand(date_i, date_f, "food1Name", "NAME");
+        CommandResult resultName = commandName.execute(model, storage);
+        CommandResult expectedResultName = new CommandResult(String.format(ProfitCommand.MESSAGE_SUCCESS_SINGLE,
+                profit, revenue, 0));
+        assertEquals(resultName, expectedResultName);
 
-        try {
-            Student s = new Student(null, "980921C");
-            fail("Constructor allows null student name");
-        } catch (RuntimeException e) {}
-    }
 
-    // method to test the assigning and retrieval of grades
-    public void testAssignAndRetrieveGrades() {
-        // create a student
-        Student stu = new Student("Jimmy", "946302B");
+        //search by index/type, now requiring the FoodList
+        //for testing purposes, only initializing the food name && set its type will do
+        Food dummyFood = new Food(foodName);
+        dummyFood.setType("dummyType");
+        list.add(dummyFood);
 
-        // assign a few grades to this student
-        stu.assignGrade("cs2102", 60);
-        stu.assignGrade("cs2103", 70);
-        stu.assignGrade("cs3214s", 80);
+        //search by index
+        //since it is the only one in the list, it is indexed 0
+        ProfitCommand commandIndex = new ProfitCommand(date_i, date_f, 0, "INDEX");
+        CommandResult resultIndex = commandIndex.execute(model, storage);
+        CommandResult expectedResultIndex = new CommandResult(String.format(ProfitCommand.MESSAGE_SUCCESS_SINGLE,
+                profit, revenue, 1)); //now list has one entry
+        assertEquals(resultIndex, expectedResultIndex);
 
-        // verify that the assignment is correct
-        assertTrue("fail to assign cs2102 grade", stu.getGrade("cs2102") == 60);
-        assertTrue("fail to assign cs2103 grade", stu.getGrade("cs2103") == 70);
-
-        // attempt to retrieve a course that does not exist
-        try {
-            stu.getGrade("cs21002");
-            fail("fail to catch non-existent course name");
-        } catch (RuntimeException e) { }
-    }
-
-    // method create a test suite - Note 7
-    public static Test suite() {
-        return new TestSuite(StudentTest.class);
-    }
-
-    // the main method - Note 8
-    public static void main(String args[]) {
-        junit.textui.TestRunner.run(suite());
+        //search by type
+        ProfitCommand commandType = new ProfitCommand(date_i, date_f, "dummyType", "TYPE");
+        CommandResult resultType = commandType.execute(model, storage);
+        CommandResult expectedResultType = new CommandResult(String.format(ProfitCommand.MESSAGE_SUCCESS_MULTIPLE,
+                profit, revenue, 1)); //now list has one entry
+        assertEquals(resultType, expectedResultType);
     }
 }
-
-/*
-
-    // attempt to retrieve a course that does not exist
-     try {
-         stu.getGrade("cs21002");
-         fail("fail to catch non-existent course name");
-    } catch (RuntimeException e) {
-    }
-    public static void main(String arg[]) {
-    }
- */
