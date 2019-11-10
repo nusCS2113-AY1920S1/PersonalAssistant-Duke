@@ -6,7 +6,7 @@ features of the application BetterDuke._
 
 ## Table of Contents
 
-- [Introduction](#Introduction)
+- [Introduction](#introduction)
 - [Quick Start](#QuickStart)
 - [Features](#Features)
 - [FAQ](#FAQ)
