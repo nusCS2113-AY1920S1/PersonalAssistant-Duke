@@ -33,12 +33,7 @@ public class ListCommand extends Command {
      */
     public ListCommand(LocalDate date) {
         if (date != null) {
-            try {
-                currentDate = date;
-            } catch (DateTimeParseException e) {
-                ui.showMessage("Unable to parse \"" + date.toString() + "\" as a date. Showing list of "
-                        + currentDate.format(dateFormat) + " instead.");
-            }
+            currentDate = date;
         }
     }
 
@@ -61,7 +56,6 @@ public class ListCommand extends Command {
         this.isFail = flag;
         this.errorStr = messageStr;
 
-        // If un-parseble user input date, default to current date.
         if (!this.isFail) {
             ui.showMessage(messageStr);
             ui.showMessage("Showing list of meals from " + currentDate.format(dateFormat) + " instead.");
