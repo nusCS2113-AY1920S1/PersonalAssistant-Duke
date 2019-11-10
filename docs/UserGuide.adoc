@@ -274,7 +274,7 @@ This lists out the instruments stored in the system in order of their indexes.
 This adds the information that the instrument with instrument index `<instrument index>` is serviced on `<date>`.
 
 ==== Viewing list of instruments stored in the system
-`instrument view service <instrument index>`
+`instrument view services <instrument index>`
 This lists out the servicing done to the instrument with instrument index `<instrument index>`.
 
 === Exiting the program : `bye`
