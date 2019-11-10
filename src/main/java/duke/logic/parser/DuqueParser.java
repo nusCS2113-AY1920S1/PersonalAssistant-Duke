@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import duke.exception.DukeException;
 import duke.logic.command.AutoAssignCommand;
+import duke.logic.command.ClearCommand;
 import duke.logic.command.Command;
 import duke.logic.command.DeleteCommand;
 import duke.logic.command.DoneCommand;
@@ -82,6 +83,8 @@ public class DuqueParser {
                 return new RandomCommand(filter);
             }
             return new RandomCommand(fcArray[1], filter);
+        case "clear":
+            return new ClearCommand(filter);
         case "done":
             if (fcArray.length == 1) {
                 throw new DukeException("OOPS!!! The description of done cannot be empty.");
