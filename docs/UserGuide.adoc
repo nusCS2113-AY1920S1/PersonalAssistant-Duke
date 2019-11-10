@@ -960,10 +960,79 @@ Examples:
 
 == Command Summary
 
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Done* : `done INDEX` +
-e.g. `done 2`
-* *List* : `list`
-* *Help* : `help`
-* *Bye* : `bye`
+
+* *Help* : `help` +
+e.g. `help`
+* *Setting a profile* : `profile NAME BIRTHDAY` +
+e.g. `profile James 01/01/00`
+* *Showing a profile* : `profileShow` +
+e.g. `profileShow`
+* *Set the preference in profile* : `profileSet CATEGORY STATE` +
+e.g. `profileSet sports true`
+* *Adding an event* : `event VENUE between DATE and DATE` +
+e.g. `event Geylang between Mon and Wed`
+* *Deleting an event* : `delete INDEX` +
+e.g. `list` , `delete 2`
+* *Marking an event* : `done INDEX` +
+e.g. `list`, `done 2`
+* *Editing places of visit* : `edit` +
+e.g. `Orchard road` if updating the `VENUE`
+`Mon` or `12/12/12` if updating a `DATE`
+* *Listing all places to visit* : `list` +
+e.g. `list`
+* *Finding certain events you have* : `find KEYWORD` +
+e.g. `find Singapore`
+* *Searching for a location in Singapore* : `search KEYWORD` +
+e.g. Multistep version of find
+* *Searching for the map of a location in Singapore* : `map KEYWORD` +
+e.g. `map ntu`
+* *Recommend an Itinerary* : `recommend itinerary between START_DATE and END_DATE` +
+e.g. `recommend itinerary between 23/04/20 and 24/04/20`
+* *Save a Recommended Itinerary* : `addThisList NEW_ITINERARY_NAME` +
+e.g. `addThisList MyBestVacation`
+* *Create new Itinerary* : `newItinerary START_DATE END_DATE ITINERARY_NAME DAY_NUMBER /venue VENUE_NAME /do TODO1 /and TODO2 /venue VENUE_NAME /do TODO1 /and TODO2` +
+e.g. `newItinerary 23/04/20 23/04/20 SundayVacay 1 /venue Bedok /do swimming /and jumping /and swinging /venue Simei /do jogging /and running`
+* *List Saved Itineraries* : `listItinerary` +
+e.g. `listItinerary`
+* *Show a saved Itinerary* : `showItinerary ITIERARY_NAME` +
+e.g. `showItinerary SundayVacay`
+* *Delete an Itinerary* : `doneItinerary ITIERARY_NAME` +
+e.g. `doneItinerary SundayVacay`
+* *Add favourite itinerary* : `addToFav ITIERARY_NAME` +
+e.g. `addToFav SundayVacay`
+* *Delete favourite itinerary* : `deleteFav ITIERARY_NAME` +
+e.g. `deleteFav SundayVacay`
+* *List favourite itineraries* : `listFav` +
+e.g. `listFav`
+* *Show favourite itinerary* : `showFav ITINERARY_NAME` +
+e.g. `showFav my3DayTrip`
+* *Creating a new Route* : `routeAdd NAME` +
+e.g. `routeAdd Day trip to Sentosa`
+* *Creating a new RouteNode* : `routeNodeAdd INDEXROUTE INDEXNODE at LOCATION by CONSTRAINT` +
+e.g. `routeNodeAdd 1 1 at 17009 by bus`
+* *Automatically generating a Route* : `routeGenerate STARTLOCATION to ENDLOCATION by CONSTRAINT` +
+e.g. `routeGenerate amk hub to clementi by bus`
+* *Listing the information of all the Routes* : `routeListAll` +
+e.g. `routeListAll`
+* *Listing the information of a Route* : `routeList INDEX_ROUTE` +
+e.g. `routeList 1`
+* *Showing the map image of a Route* : `routeShow INDEX_ROUTE` +
+e.g. `routeShow 1`
+* *Showing the information of a RouteNode with image* : `routeNodeShow INDEX_ROUTE INDEX_NODE` +
+e.g. `routeNodeShow 4 8`
+* *Showing the information of nearby RouteNodes with image* : `routeNodeNearby INDEX_ROUTE INDEX_NODE` +
+e.g. `routeNodeNearby 9 6`
+* *Editing a Route* : `routeEdit INDEX_ROUTE FIELD VALUE` +
+e.g. `routeEdit 1 name Go to Sentosa for the beach`
+* *Deleting a Route* : `routeDelete INDEX_ROUTE` +
+e.g. `routeDelete 1`
+* *Deleting a RouteNode* : `routeNodeDelete INDEX_ROUTE INDEX_NODE` +
+e.g. `routeNodeDelete 3 10`
+* *List nearby bus stops of destination* : `busStop BUSCODE` +
+e.g. `busStop 17009`
+* *Shows the bus route of a bus service* : `busroute BUS_NUMBER` +
+e.g. `busRoute 96`
+* *Viewing calendar* : `view` +
+e.g. `view`
+* *Exiting the program* : `bye` +
+e.g. `bye`
