@@ -1,3 +1,5 @@
+//@@author LL-Pengfei
+//deprecated - now have profit command to generate both profit and revenue
 /**
  * GenerateRevenueCommand.java
  * Support commands related to generating revenue.

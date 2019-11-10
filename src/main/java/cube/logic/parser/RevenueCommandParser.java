@@ -1,4 +1,5 @@
 //@@author LL-Pengfei
+//deprecated - now have profit command to generate both profits and revenue
 package cube.logic.parser;
 
 import cube.logic.command.RevenueCommand;
