@@ -52,7 +52,11 @@ Format: `help [<command type>]`
 Note: Command types are the first word of following commands or some key words listed in the basic help list.
 
 === List : `list`
-List all the events from the current date. +
+List all the events from the current date. Additionally it tracks which events are already over and prints out only
+future events, starting from the index of the nearest future event e.g. if the first and second events of the list are
+already over, it will list from the third event onwards while keeping the event index the same.
+
+It also gives a reminder of which of the past events contain goals that are not yet marked as achieved. +
 
 Format: `list`
 

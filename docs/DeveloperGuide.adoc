@@ -798,7 +798,7 @@ Key in `reminder` +
 Expected: Prints a list of tasks to be completed in the next three days.
 
 === View all tasks in a certain day
-Key in view `<date>`, where `<date>` has the format dd/MM/yyyy. +
+Key in view `<date>`, where `<date>` has the format dd-MM-yyyy. +
 Expected: Prints a list of tasks that occurs on the given `<date>`.
 
 === Edit description of an event
@@ -830,6 +830,25 @@ Expected: Prints the next 3 days without any events.
 Key in `calendar`.+
 Expected: Prints the calendar table containing all events of the next 7 days,
 where the first column of the table is the current day.
+
+=== Goal management
+. Prerequisites: Event list is not empty, and at least has one type of event.
+. Add goal to an event in the list
+.. Test case: `goal add 1/finish theory chapter 1` +
+Expected: The goal will be added to the event with index 1. Prints out the success of the operation.
+.. Test case: `goal view 1` +
+Expected: Prints out all the goals of event with index 1.
+.. Test case: `goal edit 1 1/finish theory chapter 2` +
+Expected: The goal with index 1 of event 1 will be updated to the new goal. Prints out the success of the operation.
+.. Test case: `goal achieved 1 1` +
+Expected: Goal 1 of event 1 will be set as achieved. Prints out the success of the operation.
+.. Test case: `goal delete 1 1` +
+Expected: Goal 1 of event 1 will be removed from the list. Prints out the success of the operation.
+
+=== Past event management
+Key in `list`. +
+Expected: The printed list does not contain any events that are over, and any unachieved goals for any past events is
+printed out at the bottom of the list.
 
 === Contact management
 . Prerequisites: Event list is not empty, and at least has one type of event.
