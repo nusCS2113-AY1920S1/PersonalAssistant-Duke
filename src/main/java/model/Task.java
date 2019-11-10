@@ -27,9 +27,7 @@ public class Task {
         this.skillReqList = new ArrayList<String>();
     }
 
-    /**
-     * add javadoc please
-     */
+
     public void addMember(String toAdd) {
         if (!memberList.contains(toAdd)) {
             memberList.add(toAdd);

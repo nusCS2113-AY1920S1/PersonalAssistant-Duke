@@ -29,7 +29,7 @@ public class ScheduleMemberTodoCommand extends Command {
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         if (!checkMemberName(memberName, model)) {
-            throw new DukeException(Command.NAME_NOT_IN_MEMlIST_MESSAGE);
+            throw new DukeException(memberName + Command.NAME_NOT_IN_MEMlIST_MESSAGE);
         } else {
             String tasks = model.scheduleMemberTodo(memberName);
             if (tasks.equals("")) {

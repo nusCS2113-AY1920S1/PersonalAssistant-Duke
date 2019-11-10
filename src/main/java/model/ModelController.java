@@ -118,9 +118,6 @@ public class ModelController implements Model {
     }
 
 
-    /**
-     * javadoc please
-     */
     public String updateTaskDes(int index, String des) {
         String oldDes = tasksManager.getTaskDes(index);
         tasksManager.updateTaskDes(index, des);
@@ -200,9 +197,7 @@ public class ModelController implements Model {
         return memberManager.addSkill(memberName, skillName);
     }
 
-    /**
-     * javadoc please
-     */
+
     public String updateMemberBio(String name, String bio) {
         String oldBio = memberManager.getMemberBio(name);
         memberManager.updateMemberBio(name, bio);
@@ -320,14 +315,6 @@ public class ModelController implements Model {
         memberManager.getMemberByName(memberName).deleteTask(task.getName());
     }
 
-    //@@author yuyanglin28
-
-    /**
-     * This method is to delete member in member list and also in task list corresponding member name
-     *
-     * @return if success (the member name exists), return true.
-     * if fail (the member name doesn't exist), return false.
-     */
     @Override
     public void deleteMember(String memberName) {
         tasksManager.deleteMemberInTasks(memberName);
@@ -335,11 +322,7 @@ public class ModelController implements Model {
         memberManager.deleteMember(toDelete);
     }
 
-    //@@author yuyanglin28
 
-    /**
-     * javadoc
-     */
     @Override
     public String deleteTask(int index) {
         String name = tasksManager.getNameById(index);
@@ -382,7 +365,6 @@ public class ModelController implements Model {
         }
         return memberManager.membersInorderProgress(progress);
     }
-
 
 
     @Override

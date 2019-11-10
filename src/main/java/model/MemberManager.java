@@ -92,43 +92,6 @@ public class MemberManager {
         }
     }
 
-    /**
-     * Delete an array of Member objects from the member list.
-     *
-     * @param toDelete The Member objects array to be deleted.
-     */
-    public void deleteMembers(Member[] toDelete) {
-        for (int i = 0; i < toDelete.length; i++) {
-            memberList.remove(toDelete[i]);
-        }
-    }
-
-    /**
-     * Add link(s) from member(s) to task(s). Duplicated link will be cancelled.
-     *
-     * @param members Array of Member objects to link.
-     * @param toAdd   Array of Task objects to link.
-     */
-    public void addTask(Member[] members, Task[] toAdd) {
-        for (int i = 0; i < members.length; i++) {
-            for (int j = 0; j < toAdd.length; j++) {
-                members[i].addTask(toAdd[j].getName());
-            }
-        }
-    }
-
-    /**
-     * Delete link(s) from member(s) to task(s). Non-existing link won't be deleted.
-     * This is the reverse method of <code>addTask(Member[] members, Task[] toAdd)</code> method.
-     *
-     */
-    /*public void deleteTask(Member[] members, Task[] toDelete) {
-        for (int i = 0; i < members.length; i++) {
-            for (int j = 0; j < toDelete.length; j++) {
-                members[i].deleteTask(toDelete[j]);
-            }
-        }
-    }*/
     public ArrayList<Member> getMemberList() {
         return memberList;
     }

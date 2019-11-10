@@ -30,7 +30,7 @@ public class EditMemberEmailCommand extends Command {
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         if (!checkMemberName(memberName, model)) {
-            return new CommandOutput(Command.NAME_NOT_IN_MEMlIST_MESSAGE);
+            return new CommandOutput(memberName + Command.NAME_NOT_IN_MEMlIST_MESSAGE);
         } else {
             String oldemail = model.updateMemberEmail(memberName, email);
 

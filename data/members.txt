@@ -1,9 +1,7 @@
 [
   {
     "name": "tester1",
-    "taskList": [
-      "todo1"
-    ],
+    "taskList": [],
     "skillList": []
   },
   {

@@ -308,9 +308,12 @@ public class TasksManager implements Serializable {
         String name = getNameById(i);
         int index = name.indexOf(keyword);
         String front = name.substring(0, index);
-        String back = name.substring(index + keyword.length() + 1);
+        String back = "";
+        if (index + keyword.length() < name.length()) {
+            back = name.substring(index + keyword.length());
+        }
         return getTaskStatusString(i)
-                + front + "[[" + keyword + "]]" + back
+                + front + "*" + keyword + "*" + back
                 + getTaskTimeString(i);
 
     }
@@ -319,9 +322,12 @@ public class TasksManager implements Serializable {
         String des = getTaskDes(i);
         int index = des.indexOf(keyword);
         String front = des.substring(0, index);
-        String back = des.substring(index + keyword.length() + 1);
+        String back = "";
+        if (index + keyword.length() < des.length()) {
+            back = des.substring(index + keyword.length());
+        }
         return taskList.get(i) + "\n" + "Description: "
-                + front + "[[" + keyword + "]]" + back;
+                + front + "*" + keyword + "*" + back;
 
     }
 
@@ -539,7 +545,7 @@ public class TasksManager implements Serializable {
         return year + "/" + mm + "/" + day;
     }
 
-    //============================= get something from tasks list or task ===================
+    //============================= get something through tasks list or task ===================
 
     //@@author JasonChanWQ
     public String getTaskNameByIdOnList(int index) {

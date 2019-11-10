@@ -31,20 +31,20 @@ public class EditTaskDesCommand extends Command {
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         if (!checkTaskIndex(taskIndexInList, model)) {
-            return new CommandOutput(INDEX_NOT_IN_MEMlIST_MESSAGE);
+            return new CommandOutput(taskIndexInList + INDEX_NOT_IN_MEMlIST_MESSAGE);
         } else {
             String oldDes = model.updateTaskDes(taskIndexInList - 1, des);
             String taskName = model.getTaskNameById(taskIndexInList - 1);
             if (oldDes == null) {
                 model.save();
                 return new CommandOutput(SET_MSSAGE + "[" + taskName + "]"
-                        + " to " + "[" + des + "]");
+                        + " to " + "[[" + des + "]]");
             } else if (oldDes.equals(des)) {
                 throw new DukeException(NO_UPDATE_MSSAGE);
             } else {
                 model.save();
                 return new CommandOutput(UPDATE_MSSAGE + "[" + taskName + "]"
-                        + " from " + "[" + oldDes + "]" + " to " + "[" + des + "]");
+                        + " from " + "[[" + oldDes + "]]" + " to " + "[[" + des + "]]");
             }
         }
 
