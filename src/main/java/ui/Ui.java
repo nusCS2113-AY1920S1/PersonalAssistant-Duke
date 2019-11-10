@@ -152,8 +152,8 @@ public class Ui {
     }
 
     public String showSearch(String description, String meaning, String example) {
-        System.out.println(example);
-        if(example.isEmpty()){
+
+        if(example == null || example.isEmpty()){
             return ("Here is the meaning of " + description + ": " + meaning + "\n");
         } else {
             return ("Here is the meaning of " + description + ": " + meaning + "\n"
