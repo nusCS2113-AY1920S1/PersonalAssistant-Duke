@@ -10,6 +10,13 @@ public class ListTasksTodoCommand extends Command {
     public static final String EMPTY_TASKS_LIST = "There are currently no todo tasks in project manager.";
     private static final String SUCCESS_MESSAGE = "Here are todo tasks in project manager:";
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to list all todo tasks
+     * @param model Model interface
+     * @return todo task list, no special order
+     */
     @Override
     public CommandOutput execute(Model model) {
         String tasks = model.getTodoTasks();

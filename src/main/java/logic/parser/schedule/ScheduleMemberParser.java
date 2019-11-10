@@ -2,16 +2,14 @@ package logic.parser.schedule;
 
 import common.DukeException;
 import logic.command.Command;
+import logic.parser.NewParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ScheduleMemberParser {
 
-    private static final Pattern BASIC_ADD_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final String ALL = "all";
-    private static final String TODO = "todo";
-    private static final String SCHEDULE_USAGE = "Usage: schedule [team/member] [all/todo] {member name}";
+    static final String SCHEDULE_USAGE = "Usage: schedule member {all/todo} [MEMBER_NAME]";
 
     //@@author yuyanglin28
 
@@ -23,9 +21,9 @@ public class ScheduleMemberParser {
      */
     public static Command parseScheduleMember(String partialCommand) throws DukeException {
 
-        final Matcher matcher = BASIC_ADD_COMMAND_FORMAT.matcher(partialCommand.trim());
+        final Matcher matcher = NewParser.BASIC_COMMAND_FORMAT.matcher(partialCommand.trim());
         if (!matcher.matches()) {
-            throw new DukeException("Message is invalid" + "\n" + SCHEDULE_USAGE + "\n");
+            throw new DukeException(SCHEDULE_USAGE);
         }
 
         String scheduleType = matcher.group("commandWord");
@@ -34,9 +32,9 @@ public class ScheduleMemberParser {
         scheduleType = scheduleType.trim();
 
         switch (scheduleType) {
-        case ALL:
+        case ScheduleCommandParser.ALL:
             return ScheduleMemberAllParser.parseScheduleMemberAll(arguments);
-        case TODO:
+        case ScheduleCommandParser.TODO:
             return ScheduleMemberTodoParser.parseScheduleMemberTodo(arguments);
         default:
             throw new DukeException(SCHEDULE_USAGE);

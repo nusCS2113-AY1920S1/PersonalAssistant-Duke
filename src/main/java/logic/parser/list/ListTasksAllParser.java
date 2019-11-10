@@ -10,6 +10,7 @@ public class ListTasksAllParser {
     //@@author yuyanglin28
     /**
      * parse list all task command, according to list type, picnum/'nothing'
+     *
      * @param argument command after all
      * @return a list all task command
      * @throws DukeException throw exception when list type is not correct
