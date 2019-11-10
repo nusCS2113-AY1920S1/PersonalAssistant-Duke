@@ -23,7 +23,7 @@ public class GradeList extends SpinBoxList<GradedComponent> {
     private static final String LOG_CONTAINS_KEYWORD = "Found list of items that contain keyword.";
     private static final String GRADE_LIST_FILE_NAME = "/grades.txt";
     private static final String VIEW_GRADE_LIST_HEADER = "Here are the graded components in your module:";
-    private static final String GRADE_CONTAIN = "Here are the files that contain ";
+    private static final String GRADE_CONTAIN = "Here are the graded components that contain ";
 
     /**
      * Constructor for GradeList.
@@ -115,7 +115,7 @@ public class GradeList extends SpinBoxList<GradedComponent> {
         LOGGER.entering(getClass().getName(), "containsKeyword");
         List<GradedComponent> contains = new ArrayList<>();
         for (GradedComponent gradedComponent : this.getList()) {
-            if (gradedComponent.getName().toLowerCase().contains(keyword)) {
+            if (gradedComponent.getName().toLowerCase().contains(keyword.toLowerCase())) {
                 contains.add(gradedComponent);
             }
         }

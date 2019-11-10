@@ -2,6 +2,7 @@ package spinbox.commands;
 
 import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
+import spinbox.containers.lists.GradeList;
 import spinbox.entities.Module;
 import spinbox.exceptions.InputException;
 import spinbox.containers.lists.TaskList;
@@ -76,6 +77,17 @@ public class FindCommand extends Command {
                 Module module = modules.get(moduleCode);
                 TaskList tasks = module.getTasks();
                 return ui.showFormatted(tasks.containsKeyword(keyword));
+            } else {
+                return NON_EXISTENT_MODULE;
+            }
+
+        case "grade":
+            checkIfOnModulePage(moduleCode);
+            if (moduleContainer.checkModuleExists(moduleCode)) {
+                HashMap<String, Module> modules = moduleContainer.getModules();
+                Module module = modules.get(moduleCode);
+                GradeList grades = module.getGrades();
+                return ui.showFormatted(grades.containsKeyword(keyword));
             } else {
                 return NON_EXISTENT_MODULE;
             }

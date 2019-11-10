@@ -59,6 +59,9 @@ public class HelpCommand extends Command {
             case "populate":
                 helpOutput = helpText.populate;
                 break;
+            case "find":
+                helpOutput = helpText.find;
+                break;
             default:
                 throw new InputException(COMMAND_NOT_FOUND);
             }

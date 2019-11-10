@@ -191,7 +191,7 @@ public class TaskList extends SpinBoxList<Task> {
         LOGGER.entering(getClass().getName(), "containsKeyword");
         List<Task> contains = new ArrayList<>();
         for (Task task : this.getList()) {
-            if (task.getName().toLowerCase().contains(keyword)) {
+            if (task.getName().toLowerCase().contains(keyword.toLowerCase())) {
                 contains.add(task);
             }
         }

@@ -112,7 +112,7 @@ public class FileList extends SpinBoxList<File> {
         LOGGER.entering(getClass().getName(), "containsKeyword");
         List<File> contains = new ArrayList<>();
         for (File file : this.getList()) {
-            if (file.getName().toLowerCase().contains(keyword)) {
+            if (file.getName().toLowerCase().contains(keyword.toLowerCase())) {
                 contains.add(file);
             }
         }
