@@ -34,7 +34,7 @@ public class ChronologerException extends Exception {
     private static final String INVALID_LOCATION_MSG = "OOPS!!! The location portion is not provided. Please try again";
     private static final String MISSING_COMMENT_MSG = "OOPS!!! The comment section is empty. Please try again";
     private static final String CALENDAR_WRITE_ERROR = " OOPS!!! Unable to write calendar file.";
-    private static final String MISSING_MODULE_MSG = " OOPS!!! The needed module code is missing.";
+    private static final String MISSING_MODULE_MSG = " OOPS!!! The needed module code is missing or invalid.";
     private static final String EMPTY_EXPORT_MSG = "OOPS!! There are no tasks to export with!";
     private static final String EMPTY_CALENDAR = "OOPS!! Your list only have dateless tasks and they can't be exported";
     private static final String EARLY_DATE_MSG = "OOPS!! The date you are postponing to is earlier than the old date";

@@ -32,17 +32,14 @@ public class RecurringEventParser extends EventParser {
         super.extract();
         LocalDateTime fromDate;
         LocalDateTime toDate;
+        String modCode = "";
+        modCode = extractModCode(taskFeatures);
         String date = extractDate(taskFeatures);
         String dateTimeFromUser = formatDateTime(date, taskFeatures);
         fromDate = super.extractFromDate(dateTimeFromUser);
         toDate = super.extractToDate(dateTimeFromUser);
         assert toDate != null;
         assert fromDate != null;
-        String modCode = "";
-        if (hasModCode) {
-            modCode = extractModCode(taskFeatures);
-        }
-
         return new AddRecurringCommand(command, taskDescription, fromDate, toDate, modCode);
     }
 
