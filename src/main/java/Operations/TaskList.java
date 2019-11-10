@@ -15,9 +15,11 @@ import java.util.Collections;
 import java.util.Date;
 
 /**
- * A class to perform operations on the task list in Duke
+ * A class to perform operations on the task list in Duke.
  */
 public class TaskList {
+    public static final String COMPLETED_TASKS = "Completed Tasks:";
+    public static final String YOUR_SEARCH_RETURNED_NO_RESULTS_TRY_SEARCHING_WITH_ANOTHER_KEYWORD = "    Your search returned no results.... Try searching with another keyword!";
     private static ArrayList<Task> tasks;
     private static SortType sortType = SortType.priority;
 
@@ -31,7 +33,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a new task into the task list
+     * Adds a new task into the task list.
      * @param newTask Task object to be added into the list of tasks
      */
     public void add(Task newTask) {
@@ -76,8 +78,8 @@ public class TaskList {
         sortTasks();
         if (tasks.size() != 0) {
             int listCount = 1;
-            for(int i=0; i<tasks.size(); i++) {
-                if (new Date().after(tasks.get(i).getDate()) && !(tasks.get(i) instanceof Leave)){
+            for (int i = 0; i < tasks.size(); i++) {
+                if (new Date().after(tasks.get(i).getDate()) && !(tasks.get(i) instanceof Leave)) {
                     tasks.get(i).setOverdue(true);
                     if (CheckAnomaly.checkDuplicateOverdue(tasks.get(i))) {
                         // no duplicates in overdue list
@@ -87,7 +89,7 @@ public class TaskList {
                 }
             }
 
-            for(int i=0; i<tasks.size(); i++) {
+            for (int i = 0; i < tasks.size(); i++) {
                 if (tasks.get(i) instanceof Leave && ((Leave) tasks.get(i)).getEndDate().before(new Date())) {
                     tasks.remove(tasks.get(i));
                 }
@@ -96,18 +98,18 @@ public class TaskList {
             for (Task output : tasks) {
                 if (!output.getDone()) {
                     Priority priority = output.getPriority();
-                    String priorityLVL;
+                    String priorityLvl;
                     if (priority.equals(Priority.low)) {
-                        priorityLVL = " *";
+                        priorityLvl = " *";
                     } else if (priority.equals(Priority.medium)) {
-                        priorityLVL = " **";
+                        priorityLvl = " **";
                     } else {
-                        priorityLVL = " ***";
+                        priorityLvl = " ***";
                     }
                   
                     if (!output.getDone() && !output.getOverdue()) {
-                        System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
-                        if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
+                        System.out.println("\t" + listCount + ". " + output.toString() + priorityLvl);
+                        if (output instanceof Assignment && (((Assignment) output).getSubTasks() != null)) {
                             ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
                             for (String subtask : subTasks) {
                                 System.out.println("\t" + "\t" + "- " + subtask);
@@ -123,18 +125,18 @@ public class TaskList {
     }
 
     /**
-     * Lists out completed tasks in the list
-     * @throws RoomShareException
+     * Lists out completed tasks in the list.
+     * @throws RoomShareException when there are no completed tasks
      */
     public void showCompleted() throws RoomShareException {
         sortTasks();
-        System.out.println("Completed Tasks:");
-        if( tasks.size() != 0 ){
+        System.out.println(COMPLETED_TASKS);
+        if (tasks.size() != 0){
             int listCount = 1;
             for (Task output : tasks) {
-                if( output.getDone() ) {
+                if (output.getDone()) {
                     System.out.println("\t" + listCount + ". " + output.toString());
-                    if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
+                    if (output instanceof Assignment && (((Assignment) output).getSubTasks() != null)) {
                         ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
                         for (String subtask : subTasks) {
                             System.out.println("\t" + "\t" + "- " + subtask);
@@ -160,8 +162,7 @@ public class TaskList {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
             tasks.get(index[0]).setDone(true);
-        }
-        else {
+        } else {
             if (index[0] < 0 || index[0] >= tasks.size() || index[1] < 0 || index[1] >= tasks.size()) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
@@ -198,7 +199,7 @@ public class TaskList {
      * Will prompt that the search has no results if keyword does not exist in the list.
      * @param key Keyword of the search.
      */
-    public void find (String key) {
+    public void find(String key) {
         int queryCount = 1;
         for (Task query : tasks) {
             if (query.toString().toLowerCase().contains(key.trim())) {
@@ -207,12 +208,12 @@ public class TaskList {
             }
         }
         if (queryCount == 1) {
-            System.out.println("    Your search returned no results.... Try searching with another keyword!");
+            System.out.println(YOUR_SEARCH_RETURNED_NO_RESULTS_TRY_SEARCHING_WITH_ANOTHER_KEYWORD);
         }
     }
 
     /**
-     * Returns the entire ArrayList of tasks
+     * Returns the entire ArrayList of tasks.
      * @return tasks The ArrayList of Task objects that is being operated on.
      */
     public static ArrayList<Task> currentList() {
@@ -220,7 +221,7 @@ public class TaskList {
     }
 
     /**
-     * replaces the task at the specified index with a new task
+     * replaces the task at the specified index with a new task.
      * @param index index of the task to be replaced
      * @param replacement the replacement task
      */
@@ -229,7 +230,7 @@ public class TaskList {
     }
 
     /**
-     * Sets priority of task at an index to a new priority
+     * Sets priority of task at an index to a new priority.
      * @param info the information of the task index and the priority it should be set to
      * @throws RoomShareException when the priority specified is wrong or index is out of bounds
      */
@@ -247,12 +248,12 @@ public class TaskList {
     }
 
     /**
-     * Returns priority of the task in the form of an integer
+     * Returns priority of the task in the form of an integer.
      * high = 0, medium = 1, low = 2
      * @param t task in which we are checking the value of
      * @return integer value of the task's priority
      */
-    public static int getValue(Task t) {
+    private static int getValue(Task t) {
         if (t.getPriority().equals(Priority.high)) {
             return 0;
         } else if (t.getPriority().equals(Priority.medium)) {
@@ -263,7 +264,7 @@ public class TaskList {
     }
 
     /**
-     * Changes taskList sort mode
+     * Changes taskList sort mode.
      * @param sortType new sort mode
      */
     public static void changeSort(SortType sortType) {
@@ -272,7 +273,7 @@ public class TaskList {
     }
 
     /**
-     * Sorts the list based on current sort mode
+     * Sorts the list based on current sort mode.
      * @throws IllegalArgumentException when the sort type is not of priority, alphabetical or by deadline
      */
     public static void sortTasks() {
@@ -295,13 +296,13 @@ public class TaskList {
     }
 
     /**
-     * Compare tasks based on priority
+     * Compare tasks based on priority.
      */
-    public static void comparePriority() {
+    private static void comparePriority() {
         Collections.sort(tasks, (task1, task2) -> {
-            if( task1.getDone() && !task2.getDone() ) {
+            if (task1.getDone() && !task2.getDone()) {
                 return 1;
-            } else if( task2.getDone() && !task1.getDone() ) {
+            } else if (task2.getDone() && !task1.getDone()) {
                 return -1;
             } else {
                 return getValue(task1) - getValue(task2);
@@ -310,13 +311,13 @@ public class TaskList {
     }
 
     /**
-     * Compare tasks based on Alphabetical order
+     * Compare tasks based on Alphabetical order.
      */
-    public static void compareAlphabetical() {
+    private static void compareAlphabetical() {
         Collections.sort(tasks, (task1, task2) -> {
-            if( task1.getDone() && !task2.getDone() ) {
+            if (task1.getDone() && !task2.getDone()) {
                 return 1;
-            } else if( task2.getDone() && !task1.getDone() ) {
+            } else if (task2.getDone() && !task1.getDone()) {
                 return -1;
             } else {
                 String name1 = task1.getDescription();
@@ -327,13 +328,13 @@ public class TaskList {
     }
 
     /**
-     * Compare tasks based on Deadline
+     * Compare tasks based on Deadline.
      */
-    public static void compareDeadline() {
+    private static void compareDeadline() {
         Collections.sort(tasks, (task1, task2) -> {
-            if( task1.getDone() && !task2.getDone() ) {
+            if (task1.getDone() && !task2.getDone()) {
                 return 1;
-            } else if( task2.getDone() && !task1.getDone() ) {
+            } else if (task2.getDone() && !task1.getDone()) {
                 return -1;
             } else {
                 Date date1 = task1.getDate();
@@ -344,22 +345,22 @@ public class TaskList {
     }
 
     /**
-     * Compare tasks based on Type
+     * Compare tasks based on Type.
      */
-    public static void compareType() {
+    private static void compareType() {
         Collections.sort(tasks, (task1, task2) -> {
-            if( task1 instanceof Meeting && !(task2 instanceof Meeting) ) {
+            if (task1 instanceof Meeting && !(task2 instanceof Meeting)) {
                 return -1;
-            } else if( task1 instanceof Assignment ) {
-                if( task2 instanceof Meeting ) {
+            } else if (task1 instanceof Assignment) {
+                if (task2 instanceof Meeting) {
                     return 1;
-                } else if( task2 instanceof Leave ) {
+                } else if (task2 instanceof Leave) {
                     return -1;
                 } else {
                     return 0;
                 }
             } else {
-                if( task2 instanceof Meeting || task2 instanceof Assignment ) {
+                if (task2 instanceof Meeting || task2 instanceof Assignment) {
                     return 1;
                 } else {
                     return 0;
@@ -369,7 +370,7 @@ public class TaskList {
     }
 
     /**
-     * Reorder the positions of two tasks inside the task list
+     * Reorder the positions of two tasks inside the task list.
      * @param first the first task
      * @param second the second task
      */
@@ -382,7 +383,7 @@ public class TaskList {
     }
 
     /**
-     * Snooze a specific task indicated by user
+     * Snooze a specific task indicated by user.
      * @param index the index of the task to be snoozed
      * @param amount the amount of time to snooze
      * @param timeUnit unit for snooze time: month, day, hour, minute
@@ -403,21 +404,23 @@ public class TaskList {
             case minutes:
                 tasks.get(index).snoozeMinute(amount);
                 break;
+            default:
+                tasks.get(index).snoozeMinute(0);
+                break;
             }
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.outOfBounds);
         }
     }
 
     /**
-     * Get the number of tasks inside the task list
+     * Get the number of tasks inside the task list.
      * @return the number of tasks inside the task list
      */
-    public int getSize() {
-        int count =0;
+    int getSize() {
+        int count = 0;
         for(Task t : tasks) {
-            if(!t.getOverdue() && !(t instanceof Leave)) {
+            if (!t.getOverdue() && !(t instanceof Leave)) {
                 count += 1;
             }
         }
@@ -425,12 +428,12 @@ public class TaskList {
     }
 
     /**
-     * Get the number of completed tasks inside the task list
+     * Get the number of completed tasks inside the task list.
      * @return the number of completed tasks inside the task list
      */
-    public int getDoneSize(){
+    int getDoneSize() {
         int count = 0;
-        for (Task t: tasks){
+        for (Task t: tasks) {
             if (t.getDone() && !t.getOverdue() && !(t instanceof Leave)) {
                 count++;
             }
@@ -439,12 +442,12 @@ public class TaskList {
     }
 
     /**
-     * Retrieve a task from the list
+     * Retrieve a task from the list.
      * @param index the index of the task
      * @return the task at the specified index of the task list
      * @throws RoomShareException when the index specified is out of bounds
      */
-    public static Task get(int index) throws RoomShareException{
+    public static Task get(int index) throws RoomShareException {
         try {
             return tasks.get(index);
         } catch (IndexOutOfBoundsException e) {
@@ -453,18 +456,20 @@ public class TaskList {
     }
 
     /**
-     * Returns current sort type of list
+     * Returns current sort type of list.
      * @return current sort type of list
      */
-    public static SortType getSortType() { return sortType; }
+    static SortType getSortType() {
+        return sortType;
+    }
 
     /**
-     * lists out all the tasks associated with a certain assignee
+     * lists out all the tasks associated with a certain assignee.
      * will include tasks that are tagged "everyone", since everyone includes the assignee
      * @param user assignee to the tasks
      * @throws RoomShareException when the list is empty
      */
-    public int[] listTagged(String user) throws RoomShareException{
+    public int[] listTagged(String user) throws RoomShareException {
         int listCount = 1;
         int belongCount = 0;
         int doneCount  = 0;
@@ -476,16 +481,16 @@ public class TaskList {
                 }
                 if (!output.getDone()) {
                     Priority priority = output.getPriority();
-                    String priorityLVL;
+                    String priorityLvl;
                     if (priority.equals(Priority.low)) {
-                        priorityLVL = " *";
+                        priorityLvl = " *";
                     } else if (priority.equals(Priority.medium)) {
-                        priorityLVL = " **";
+                        priorityLvl = " **";
                     } else {
-                        priorityLVL = " ***";
+                        priorityLvl = " ***";
                     }
-                    System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
-                    if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
+                    System.out.println("\t" + listCount + ". " + output.toString() + priorityLvl);
+                    if (output instanceof Assignment && (((Assignment) output).getSubTasks() != null)) {
                         ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
                         for (String subtask : subTasks) {
                             System.out.println("\t" + "\t" + "- " + subtask);
@@ -498,7 +503,21 @@ public class TaskList {
         if (belongCount == 0) {
             throw new RoomShareException(ExceptionType.emptyList);
         }
-        int[] done = {belongCount, doneCount};
-        return done;
+        return new int[]{belongCount, doneCount};
+    }
+
+    /**
+     * sets the tasks which are done to an undone state.
+     * @param index index of task
+     * @param date date the new deadline of the task
+     * @throws RoomShareException when the task selected is a Leave
+     */
+    public void reopen(int index, Date date) throws RoomShareException {
+        tasks.get(index).setDate(date);
+        CheckAnomaly.checkDuplicate(tasks.get(index));
+        if (tasks.get(index) instanceof Meeting) {
+            CheckAnomaly.checkTimeClash(tasks.get(index));
+        }
+        tasks.get(index).setDone(false);
     }
 }

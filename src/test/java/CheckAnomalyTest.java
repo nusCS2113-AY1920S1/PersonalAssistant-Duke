@@ -21,13 +21,13 @@ public class CheckAnomalyTest {
 
     static {
         try {
-            at1 = parser.formatDateCustom_1("12/12/2019 17:00");
-            at2 = parser.formatDateCustom_1("12/12/2019 19:00");
-            at3 = parser.formatDateCustom_1("12/12/2019 10:00");
-            at4 = parser.formatDateCustom_1("12/12/2019 09:00");
-            at5 = parser.formatDateCustom_1("21/12/2019 13:00");
-            at6 = parser.formatDateCustom_1("22/12/2019 13:00");
-            at7 = parser.formatDateCustom_1("25/12/2019 13:00");
+            at1 = parser.formatDateDDMMYY("12/12/2019 17:00");
+            at2 = parser.formatDateDDMMYY("12/12/2019 19:00");
+            at3 = parser.formatDateDDMMYY("12/12/2019 10:00");
+            at4 = parser.formatDateDDMMYY("12/12/2019 09:00");
+            at5 = parser.formatDateDDMMYY("21/12/2019 13:00");
+            at6 = parser.formatDateDDMMYY("22/12/2019 13:00");
+            at7 = parser.formatDateDDMMYY("25/12/2019 13:00");
             taskList = new TaskList(storage.loadFile("test.txt"));
             meeting1 = new Meeting("test1", at1, 2, TimeUnit.hours);
             meeting2 = new Meeting("test2", at2);

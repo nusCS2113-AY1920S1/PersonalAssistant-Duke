@@ -4,8 +4,6 @@ import Operations.*;
 import Operations.subTaskCreator;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +18,7 @@ class subTaskCreatorTest {
     static {
         try {
             taskList = new TaskList(storage.loadFile("test.txt"));
-            by = parser.formatDateCustom_1("12/12/2019 17:00");
+            by = parser.formatDateDDMMYY("12/12/2019 17:00");
             assignment = new Assignment("test", by);
             taskList.add(assignment);
             new subTaskCreator(3, "one,two");

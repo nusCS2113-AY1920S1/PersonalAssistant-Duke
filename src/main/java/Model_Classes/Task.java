@@ -8,7 +8,7 @@ import Enums.RecurrenceScheduleType;
 import java.util.Date;
 
 /**
- * Parent class for all other types of tasks
+ * Parent class for all other types of tasks.
  */
 public abstract class Task{
     private String description;
@@ -21,10 +21,11 @@ public abstract class Task{
     private boolean isOverdue;
 
     /**
-     * Constructor for the task object. takes in the description of the task
+     * Constructor for the task object. takes in the description of the task.
      * @param description Description of the task
      */
     public Task(String description, Date date) {
+
         this.description = description;
         this.isDone = false;
         this.isOverdue = false;
@@ -35,7 +36,7 @@ public abstract class Task{
     }
 
     /**
-     * Returns the description of the task
+     * Returns the description of the task.
      * @return description Description of the task
      */
     public String getDescription() {
@@ -43,20 +44,22 @@ public abstract class Task{
     }
 
     /**
-     * Set the description of the task
+     * Set the description of the task.
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * Returns the time of the Task ( deadline of Assignment / time of meeting )
+     * Returns the time of the Task (deadline of Assignment / time of meeting).
      * @return time task is due or starts
      */
-    public Date getDate() { return date; }
+    public Date getDate() {
+        return date;
+    }
 
     /**
-     * Sets the date and time of the task
+     * Sets the date and time of the task.
      * @param date date and time of the task
      */
     public void setDate(Date date) {
@@ -64,7 +67,7 @@ public abstract class Task{
     }
 
     /**
-     * returns whether the task has been done
+     * returns whether the task has been done.
      * @return isDone The state of completion of the task.
      */
     public boolean getDone() {
@@ -75,7 +78,7 @@ public abstract class Task{
      * Sets the task to be done
      */
     public void setDone(boolean done) throws RoomShareException {
-        if( this instanceof Leave ) {
+        if (this instanceof Leave ) {
             throw new RoomShareException(ExceptionType.leaveDone);
         }
         isDone = done;
@@ -90,7 +93,7 @@ public abstract class Task{
     }
 
     /**
-     * Returns String of the assignee that was specified
+     * Returns String of the assignee that was specified.
      * @return name of the user
      */
     public String getAssignee() {
@@ -98,7 +101,7 @@ public abstract class Task{
     }
 
     /**
-     * Set the assignee of the task
+     * Set the assignee of the task.
      * @param assignee name of the assignee
      */
     public void setAssignee(String assignee) {
@@ -106,13 +109,15 @@ public abstract class Task{
     }
 
     /**
-     * Returns the priority of the task
+     * Returns the priority of the task.
      * @return priority of the task
      */
-    public Priority getPriority() { return priority; }
+    public Priority getPriority() {
+        return priority;
+    }
 
     /**
-     * Sets the priority of the task
+     * Sets the priority of the task.
      * @param p priority of the task
      */
     public void setPriority(Priority p) {
@@ -120,7 +125,7 @@ public abstract class Task{
     }
 
     /**
-     * Gets the recurrence schedule of the task
+     * Gets the recurrence schedule of the task.
      * @return the recurrence schedule of the task
      */
     public RecurrenceScheduleType getRecurrenceSchedule() {
@@ -128,7 +133,7 @@ public abstract class Task{
     }
 
     /**
-     * Sets the recurrence schedule of the task
+     * Sets the recurrence schedule of the task.
      * @param recurrenceSchedule the recurrence schedule that the task is set to
      */
     public void setRecurrenceSchedule(RecurrenceScheduleType recurrenceSchedule) {
@@ -141,7 +146,7 @@ public abstract class Task{
     }
 
     /**
-     * Return whether the task is recurred
+     * Return whether the task is recurred.
      * @return hasRecurring: whether the task is recurred
      */
     public boolean hasRecurring() {
@@ -149,7 +154,7 @@ public abstract class Task{
     }
 
     /**
-     * Snoozes the task by set amount of months
+     * Snoozes the task by set amount of months.
      * @param amount number of months to snooze
      */
     public void snoozeMonth(int amount) {
@@ -157,28 +162,26 @@ public abstract class Task{
     }
 
     /**
-     * Snoozes the task by set amount of days
+     * Snoozes the task by set amount of days.
      * @param amount number of days to snooze
      */
     public void snoozeDay(int amount) {
         this.date.setDate(this.date.getDate() + amount);;
     }
 
-
     /**
-     * Snoozes the task by set amount of hours
+     * Snoozes the task by set amount of hours.
      * @param amount number of hours to snooze
      */
-    public void snoozeHour(int amount){
+    public void snoozeHour(int amount) {
         this.date.setHours(this.date.getHours() + amount);
     }
 
-
     /**
-     * Snoozes the task by set amount of hours
+     * Snoozes the task by set amount of hours.
      * @param amount number of minutes to snooze
      */
-    public void snoozeMinute(int amount){
+    public void snoozeMinute(int amount) {
         this.date.setMinutes(this.date.getMinutes() + amount);
     }
 
@@ -187,9 +190,10 @@ public abstract class Task{
      * @return the information of the task, consisting of status icon, description and assignee
      */
     public String toString() {
-        if (hasRecurring)
+        if (hasRecurring) {
             return " " + getDescription() + " " + "(" + getAssignee() + ") (every "
                     + getRecurrenceSchedule().toString() + ")";
+        }
         return " " + getDescription() + " " + "(" + getAssignee() + ")";
     }
 }

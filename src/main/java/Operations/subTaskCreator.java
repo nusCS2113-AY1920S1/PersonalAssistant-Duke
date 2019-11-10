@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class subTaskCreator {
     /**
-     * creates sub tasks for Assignments. Appends the information to the Assignment class
+     * creates sub tasks for Assignments. Appends the information to the Assignment class.
      * checks for duplicate subTasks
      * throws RoomShareException if there are mistakes in the formatting of sub tasks
      * @param index index of the task to add sub tasks to
@@ -22,27 +22,27 @@ public class subTaskCreator {
 
             ArrayList<String> subtasks = new ArrayList<>();
 
-            for( int i=0; i<temp.size(); i++ ) {
+            for (int i = 0; i < temp.size(); i++) {
                 temp.set(i, temp.get(i).trim());
                 if (hasSpecialCharacters(temp.get(i))) {
                     throw new RoomShareException(ExceptionType.invalidInputString);
                 }
                 boolean duplicate = false;
-                if( !subtasks.isEmpty() ) {
-                    for( int m=0; m<subtasks.size(); m++ ) {
-                        if( temp.get(i).equals(subtasks.get(m)) ) {
+                if (!subtasks.isEmpty()) {
+                    for (String subtask : subtasks) {
+                        if (temp.get(i).equals(subtask)) {
                             duplicate = true;
                             error = true;
                             break;
                         }
                     }
                 }
-                if( !duplicate ) {
+                if (!duplicate) {
                     subtasks.add(temp.get(i));
                 }
             }
             ((Assignment) TaskList.currentList().get(index)).addSubTasks(subtasks);
-            if( error ) {
+            if (error) {
                 throw new RoomShareException(ExceptionType.duplicateSubtask);
             }
         } else {
@@ -50,7 +50,7 @@ public class subTaskCreator {
         }
     }
 
-    public boolean hasSpecialCharacters(String input) {
+    private boolean hasSpecialCharacters(String input) {
         boolean isInvalid = false;
         if (input.contains("#")) {
             isInvalid = true;

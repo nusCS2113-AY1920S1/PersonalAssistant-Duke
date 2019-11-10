@@ -11,6 +11,7 @@ import Operations.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Main class of the RoomShare program.
@@ -232,8 +233,9 @@ public class RoomShare {
                     int index = parser.getIndex(input);
                     int amount = parser.getAmount(input);
                     TimeUnit timeUnit = parser.getTimeUnit(input);
-                    if (amount < 0)
+                    if (amount < 0) {
                         throw new RoomShareException(ExceptionType.negativeTimeAmount);
+                    }
                     taskList.snooze(index, amount, timeUnit);
                     ui.showSnoozeComplete(index + 1, amount, timeUnit);
                 } catch (RoomShareException e) {
@@ -395,6 +397,8 @@ public class RoomShare {
                     } catch (RoomShareException e) {
                         ui.showError(e);
                     }
+                    storage.writeFile(TaskList.currentList(), "data.txt");
+                    storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
                     listRoutine.list();
                 } else {
                     ui.showTagged(input);
@@ -403,10 +407,29 @@ public class RoomShare {
                         ui.showTaggedPercentage(input);
                         ProgressBar progressBar = new ProgressBar(doneArray[0], doneArray[1]);
                         ui.showBar(progressBar.showBar());
+                        storage.writeFile(TaskList.currentList(), "data.txt");
+                        storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
                     } catch (RoomShareException e) {
                         ui.showError(e);
                     }
                 }
+                break;
+
+            case reopen:
+                Ui.clearScreen();
+                String userInput = parser.getCommandLine();
+                ui.showDoneList();
+                taskList.showCompleted();
+                try {
+                    int index = parser.getIndex(userInput);
+                    ArrayList<Date> date = taskCreator.extractDate(userInput);
+                    taskList.reopen(index,date.get(0));
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                }
+                storage.writeFile(TaskList.currentList(), "data.txt");
+                storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
+                listRoutine.list();
                 break;
 
             default:
