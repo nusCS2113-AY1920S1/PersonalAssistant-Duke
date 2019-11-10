@@ -13,7 +13,6 @@ import gazeeebo.storage.NotePageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
