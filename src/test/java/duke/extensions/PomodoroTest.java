@@ -10,6 +10,10 @@ import org.junit.jupiter.api.Test;
 class PomodoroTest {
     Pomodoro p = new Pomodoro();
 
+    /**
+     * Tests for correction exception thrown once there is a timer already started
+     * @throws DukeException
+     */
     @Test
     public void testStartTimerTimerAlreadyStarted_failure() throws DukeException {
         p.startTimer();
@@ -19,6 +23,10 @@ class PomodoroTest {
                 exception.getMessage());
     }
 
+    /**
+     * Tests for no exception thrown if timer started and then stop successfully
+     * @throws DukeException
+     */
     @Test
     public void testStopTimerThenStartTimer_Success() throws DukeException {
         p.startTimer();

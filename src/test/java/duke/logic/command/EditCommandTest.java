@@ -26,7 +26,11 @@ public class EditCommandTest {
     private static final UndoStack undoStack = new UndoStack();
     private static final Storage storage = new Storage(FILE_PATH);
 
-
+    /**
+     * Helper method to create a sample task lists for the commands to work on
+     * @return TaskList
+     * @throws DukeException
+     */
     private TaskList createTaskList() throws DukeException {
         TaskList t = new TaskList();
 

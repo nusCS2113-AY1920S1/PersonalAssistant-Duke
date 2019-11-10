@@ -11,6 +11,9 @@ class PomodoroTimerTaskTest {
 
     PomodoroTimerTask timerTask = new PomodoroTimerTask(t, 25);
 
+    /**
+     * Tests for getMinutesRemaining of timer task
+     */
     @Test
     public void testGetMinutesRemaining() {
         int actualMinutesRemaining = timerTask.getMinutesRemaining();
@@ -18,6 +21,9 @@ class PomodoroTimerTaskTest {
         assertEquals(expectedMinutesRemaining, actualMinutesRemaining);
     }
 
+    /**
+     * Tests for setMintuesRemaining for timer task. Assert equals that timer properly set.
+     */
     @Test
     public void testSetMinutesRemaining() {
         int expectedMinutesRemaining = 10;

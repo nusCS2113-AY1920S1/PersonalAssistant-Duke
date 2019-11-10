@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 class BrainteasersTest {
     Brainteasers brainteasers = new Brainteasers();
 
+    /**
+     * Tests for correct brainteaser, assert true if .getRandom() equals one of the questions
+     */
     @Test
     public void getRandomTest() {
         String randomBrainteaser = brainteasers.getRandom();
@@ -34,6 +37,9 @@ class BrainteasersTest {
         assertTrue(result);
     }
 
+    /**
+     * Asserts that answer from getAnswer() equals the expected answer
+     */
     @Test
     public void getAnswerTest() {
         String brainTeaserTest = "A man is looking at a photograph of someone. His friend asks who it is. " +
