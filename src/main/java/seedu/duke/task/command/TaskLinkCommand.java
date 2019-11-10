@@ -63,7 +63,8 @@ public class TaskLinkCommand extends Command {
         msg.append(" with email(s): ");
         Task task = taskList.get(taskIndex);
 
-        for (Integer index : emailIndexList) {
+        for (int i = emailIndexList.size()-1; i >= 0; i--) {
+            int index = emailIndexList.get(i);
             msg.append((index+1) + " ");
             Email email = emailList.get(index);
             if (linkedEmails.contains(email.getShaHash())) {
@@ -78,27 +79,24 @@ public class TaskLinkCommand extends Command {
         if (linkedEmails.isEmpty()) {
             msg.append("No linked emails currently.");
         } else {
-            //TODO make function in EmailList to return Array List of email subjects (and maybe index)
-            //TODO create function to convert SHA to Subject
             msg.append("Here are your linked emails:" + System.lineSeparator());
-            int i = 1;
+            int listIndex = 1;
             for (String filename : linkedEmails) {
-                String name = null;
-                for (int j = 0; j < emailList.size(); j++) {
-                    if (filename.equals(emailList.get(j).getShaHash())) {
-                        name = emailList.get(j).getSubject();
-                        break;
-                    }
+                if (emailList.convertShaToSubject(filename) == null) {
+                    linkedEmails.remove(filename);
+                } else {
+                    String name = emailList.convertShaToSubject(filename);
+                    msg.append(listIndex + ". " + name + System.lineSeparator());
+                    listIndex++;
                 }
-                msg.append(i + ". " + name + System.lineSeparator());
-                i++;
             }
 
+            int firstIndex = emailList.convertShaToIndex(linkedEmails.get(0));
+            String[] parsedMsg = emailList.show(firstIndex);
+            UI.getInstance().setEmailContent(parsedMsg[1]);
+            UI.getInstance().updateHtml();
+            responseMsg = msg.toString();
         }
-        String[] parsedMsg = emailList.show(1);
-        UI.getInstance().setEmailContent(parsedMsg[1]);
-        UI.getInstance().updateHtml();
-        responseMsg = msg.toString();
     }
 
     private void deleteLinks(StringBuilder msg, ArrayList<String> linkedEmails) {
