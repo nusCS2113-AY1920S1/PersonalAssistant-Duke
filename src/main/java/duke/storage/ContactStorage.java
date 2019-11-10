@@ -81,6 +81,7 @@ public class ContactStorage {
     }
 
     //@@author maxxyx96
+    //Solution adapted from https://stackoverflow.com/questions/20389255/reading-a-resource-file-from-within-jar
     /**
      * Extracts the sample data from jar file and moves it to data folder in the computer.
      *

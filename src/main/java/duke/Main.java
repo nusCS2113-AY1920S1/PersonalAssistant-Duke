@@ -41,6 +41,7 @@ public class Main extends Application {
     }
 
     //@@author maxxyx96
+    //Solution adapted from https://github.com/nusCS2113-AY1920S1/addressbook-level3/blob/master/src/main/java/seedu/address/MainApp.java
     @Override
     public void stop() {
         logger.info("ALERT: Duke is shutting down! Stopping duke... ");
