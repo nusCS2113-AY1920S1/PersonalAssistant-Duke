@@ -1,6 +1,6 @@
 package dolla.command.modify;
 
-import dolla.DollaDataStubs.DollaDataDebtStub1;
+import dolla.dolladatastub.DollaDataDebtStub1;
 import dolla.ModeStringList;
 import dolla.model.Debt;
 import dolla.model.DollaData;
@@ -22,7 +22,7 @@ public class FullModifyDebtCommandTest implements ModeStringList {
         String newName = "Alexander";
         String newDesc = "Owe Money Pay Money";
         LocalDate newDate = LocalDate.parse("2000-11-11");
-        Debt newDebt = new Debt(newType, newName, newAmount, newDesc, newDate);
+        final Debt newDebt = new Debt(newType, newName, newAmount, newDesc, newDate);
 
         int indexToModify = 2;
         String currMode = MODE_DEBT;

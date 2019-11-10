@@ -1,13 +1,15 @@
-package dolla.DollaDataStubs;
+package dolla.dolladatastub;
 
 import dolla.model.Debt;
-import dolla.model.Entry;
 import dolla.model.Record;
 import dolla.parser.ParserStringList;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Allows for quick creation of an ArrayList of debts for initialising DollaData.
+ */
 public interface DebtArrayListInterface extends ParserStringList {
 
     private Debt createNewDebt1() {

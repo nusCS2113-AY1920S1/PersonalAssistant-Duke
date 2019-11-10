@@ -1,6 +1,6 @@
 package dolla.command.modify;
 
-import dolla.DollaDataStubs.DollaDataLimitStub1;
+import dolla.dolladatastub.DollaDataLimitStub1;
 import dolla.ModeStringList;
 import dolla.model.DollaData;
 import dolla.model.Limit;

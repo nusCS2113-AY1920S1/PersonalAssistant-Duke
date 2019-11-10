@@ -1,6 +1,6 @@
 package dolla.command.modify;
 
-import dolla.DollaDataStubs.DollaDataEntryStub1;
+import dolla.dolladatastub.DollaDataEntryStub1;
 import dolla.ModeStringList;
 import dolla.model.DollaData;
 import org.junit.jupiter.api.Test;

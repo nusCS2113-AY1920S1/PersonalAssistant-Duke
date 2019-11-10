@@ -1,4 +1,4 @@
-package dolla.DollaDataStubs;
+package dolla.dolladatastub;
 
 import dolla.model.BillList;
 import dolla.model.DebtList;

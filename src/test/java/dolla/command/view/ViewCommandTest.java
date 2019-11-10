@@ -2,9 +2,9 @@ package dolla.command.view;
 
 import java.time.LocalDate;
 
-import dolla.DollaDataStubs.DollaDataStub0;
-import dolla.DollaDataStubs.DollaDataEntryStub1;
-import dolla.DollaDataStubs.DollaDataEntryStub2;
+import dolla.dolladatastub.DollaDataStub0;
+import dolla.dolladatastub.DollaDataEntryStub1;
+import dolla.dolladatastub.DollaDataEntryStub2;
 import dolla.model.DollaData;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

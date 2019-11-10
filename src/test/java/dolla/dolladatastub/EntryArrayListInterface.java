@@ -1,4 +1,4 @@
-package dolla.DollaDataStubs;
+package dolla.dolladatastub;
 
 import dolla.model.Entry;
 import dolla.model.Record;
@@ -7,6 +7,9 @@ import dolla.parser.ParserStringList;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Allows for quick creation of an ArrayList of entries for initialising DollaData.
+ */
 public interface EntryArrayListInterface extends ParserStringList {
 
     private Entry createNewEntry1() {

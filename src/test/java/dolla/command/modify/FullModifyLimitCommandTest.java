@@ -1,6 +1,6 @@
 package dolla.command.modify;
 
-import dolla.DollaDataStubs.DollaDataLimitStub1;
+import dolla.dolladatastub.DollaDataLimitStub1;
 import dolla.ModeStringList;
 import dolla.model.DollaData;
 import dolla.model.Limit;
@@ -18,7 +18,7 @@ public class FullModifyLimitCommandTest implements ModeStringList {
         String newType = "budget";
         double newAmount = 999;
         String newDuration = "weekly";
-        Limit newLimit = new Limit(newType, newAmount, newDuration);
+        final Limit newLimit = new Limit(newType, newAmount, newDuration);
 
         int indexToModify = 0;
         String currMode = MODE_LIMIT;

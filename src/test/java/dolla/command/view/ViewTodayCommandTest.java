@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ViewTodayCommandTest {
 
     @Test
-    public void ViewTodayCommandInfo() {
+    public void viewTodayCommandInfo() {
         Command newViewTodayCommand = new ViewTodayCommand();
         String expected = Time.dateToString(LocalDate.now()) + " " + "today";
         assertEquals(expected, newViewTodayCommand.getCommandInfo());

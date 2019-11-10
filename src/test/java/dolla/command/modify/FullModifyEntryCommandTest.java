@@ -1,6 +1,6 @@
 package dolla.command.modify;
 
-import dolla.DollaDataStubs.DollaDataEntryStub1;
+import dolla.dolladatastub.DollaDataEntryStub1;
 import dolla.ModeStringList;
 import dolla.model.DollaData;
 import dolla.model.Entry;
@@ -21,7 +21,7 @@ public class FullModifyEntryCommandTest implements ModeStringList {
         double newAmount = 999;
         String newDesc = "WOW";
         LocalDate newDate = LocalDate.parse("2000-11-11");
-        Entry newEntry = new Entry(newType, newAmount, newDesc, newDate);
+        final Entry newEntry = new Entry(newType, newAmount, newDesc, newDate);
 
         int indexToModify = 1;
         String currMode = MODE_ENTRY;

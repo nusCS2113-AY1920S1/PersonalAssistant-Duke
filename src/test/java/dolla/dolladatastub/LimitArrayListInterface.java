@@ -1,4 +1,4 @@
-package dolla.DollaDataStubs;
+package dolla.dolladatastub;
 
 import dolla.model.Limit;
 import dolla.model.Record;
@@ -6,6 +6,9 @@ import dolla.parser.ParserStringList;
 
 import java.util.ArrayList;
 
+/**
+ * Allows for quick creation of an ArrayList of limits for initialising DollaData.
+ */
 public interface LimitArrayListInterface extends ParserStringList {
 
     private Limit createNewLimit1() {

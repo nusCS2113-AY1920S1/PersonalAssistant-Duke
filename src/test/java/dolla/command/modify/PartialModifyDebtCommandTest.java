@@ -1,6 +1,6 @@
 package dolla.command.modify;
 
-import dolla.DollaDataStubs.DollaDataDebtStub1;
+import dolla.dolladatastub.DollaDataDebtStub1;
 import dolla.ModeStringList;
 import dolla.model.Debt;
 import dolla.model.DollaData;

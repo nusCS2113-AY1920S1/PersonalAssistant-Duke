@@ -1,4 +1,4 @@
-package dolla.DollaDataStubs;
+package dolla.dolladatastub;
 
 import dolla.model.BillList;
 import dolla.model.DebtList;
@@ -10,16 +10,16 @@ import dolla.model.ShortcutList;
 
 import java.util.ArrayList;
 
-public class DollaDataDebtStub1 extends DollaData implements DebtArrayListInterface {
+public class DollaDataEntryStub1 extends DollaData implements EntryArrayListInterface {
 
     /**
      * Creates an instance of DollaData to store and manipulate data.
      */
-    public DollaDataDebtStub1() {
+    public DollaDataEntryStub1() {
         this.mode = MODE_ENTRY;
-        this.entryList = new EntryList(new ArrayList<Record>());
+        this.entryList = new EntryList(createNewEntryArrayList());
         this.limitList = new LimitList(new ArrayList<Record>());
-        this.debtList = new DebtList(createNewDebtArrayList());
+        this.debtList = new DebtList(new ArrayList<Record>());
         this.shortcutList = new ShortcutList(new ArrayList<Record>());
         this.billList = new BillList(new ArrayList<Record>());
     }

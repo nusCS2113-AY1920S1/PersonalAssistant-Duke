@@ -1,4 +1,4 @@
-package dolla.DollaDataStubs;
+package dolla.dolladatastub;
 
 import dolla.model.BillList;
 import dolla.model.DebtList;
@@ -10,14 +10,21 @@ import dolla.model.ShortcutList;
 
 import java.util.ArrayList;
 
-public class DollaDataLimitStub1 extends DollaData implements LimitArrayListInterface {
+public class DollaDataStub0 extends DollaData {
+
+    private String mode = MODE_DOLLA;
+    private EntryList entryList;
+    private DebtList debtList;
+    private LimitList limitList;
+    private ShortcutList shortcutList;
+    private BillList billList;
 
     /**
-     * Creates an instance of DollaData to store and manipulate data.
+     * Creates an empty instance of DollaData to store and manipulate data.
      */
-    public DollaDataLimitStub1() {
+    public DollaDataStub0() {
         this.entryList = new EntryList(new ArrayList<Record>());
-        this.limitList = new LimitList(createNewLimitArrayList());
+        this.limitList = new LimitList(new ArrayList<Record>());
         this.debtList = new DebtList(new ArrayList<Record>());
         this.shortcutList = new ShortcutList(new ArrayList<Record>());
         this.billList = new BillList(new ArrayList<Record>());
