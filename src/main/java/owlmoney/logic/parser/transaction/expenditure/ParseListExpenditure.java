@@ -1,6 +1,9 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.ListExpenditureCommand;
@@ -11,6 +14,8 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseListExpenditure extends ParseExpenditure {
     private static final String LIST = "/list";
+    private static final Logger logger = getLogger(ParseListExpenditure.class);
+    private static final String DEFAULT_NUM_PARAMETER = "30";
 
     /**
      * Creates an instance of ParseListExpenditure.
@@ -39,12 +44,13 @@ public class ParseListExpenditure extends ParseExpenditure {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
             if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when listing expenditures");
                 throw new ParserException(key + " cannot be empty when listing expenditures");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
             }
             if (NUM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
-                expendituresParameters.put(NUM_PARAMETER, "30");
+                expendituresParameters.put(NUM_PARAMETER, DEFAULT_NUM_PARAMETER);
             } else if (NUM_PARAMETER.equals(key)) {
                 checkInt(NUM_PARAMETER, value);
             }

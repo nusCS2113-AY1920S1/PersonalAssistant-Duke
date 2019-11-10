@@ -1,7 +1,10 @@
 package owlmoney.logic.parser.transaction.deposit;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Date;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.AddDepositCommand;
@@ -13,6 +16,7 @@ import owlmoney.logic.parser.exception.ParserException;
 public class ParseAddDeposit extends ParseDeposit {
     private static final String ADD_COMMAND = "/add";
     private Date date;
+    private static final Logger logger = getLogger(ParseAddDeposit.class);
 
     /**
      * Creates an instance of ParseAddDeposit.
@@ -41,6 +45,7 @@ public class ParseAddDeposit extends ParseDeposit {
             String value = depositParameters.get(key);
             if (!(TRANSACTION_NUMBER_PARAMETER.equals(key) || NUM_PARAMETER.equals(key) || FROM_PARAMETER.equals(key))
                     && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when adding a new deposit");
                 throw new ParserException(key + " cannot be empty when adding a new deposit");
             }
             if (AMOUNT_PARAMETER.equals(key)) {

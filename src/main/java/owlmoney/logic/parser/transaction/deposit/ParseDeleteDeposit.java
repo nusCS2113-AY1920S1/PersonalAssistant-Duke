@@ -1,6 +1,9 @@
 package owlmoney.logic.parser.transaction.deposit;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.DeleteDepositCommand;
@@ -11,6 +14,7 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseDeleteDeposit extends ParseDeposit {
     private static final String DELETE = "/delete";
+    private static final Logger logger = getLogger(ParseDeleteDeposit.class);
 
     /**
      * Creates an instance of ParseDeleteDeposit.
@@ -41,6 +45,7 @@ public class ParseDeleteDeposit extends ParseDeposit {
             String value = depositParameters.get(key);
             if ((TRANSACTION_NUMBER_PARAMETER.equals(key) || FROM_PARAMETER.equals(key))
                     && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when adding a new deposit");
                 throw new ParserException(key + " cannot be empty when adding a new deposit");
             }
             if (TRANSACTION_NUMBER_PARAMETER.equals(key)) {
