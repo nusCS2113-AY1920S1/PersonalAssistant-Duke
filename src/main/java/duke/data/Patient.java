@@ -12,8 +12,8 @@ public class Patient extends DukeObject {
     private String allergies;
     private Impression primaryDiagnosis;
     private ArrayList<Impression> impressionList;
-    private ArrayList<Treatment> followUpList;
-    private ArrayList<DukeData> criticalList;
+    private transient ArrayList<Treatment> followUpList;
+    private transient ArrayList<DukeData> criticalList;
     private Integer height;
     private Integer weight;
     private Integer age;
@@ -72,13 +72,6 @@ public class Patient extends DukeObject {
         }
         impressionList.add(newImpression);
 
-        for (Evidence evidence : newImpression.getEvidences()) {
-            updateCriticalList(newImpression, evidence);
-        }
-        for (Treatment treatment : newImpression.getTreatments()) {
-            updateCriticalList(newImpression, treatment);
-            updateFollowUpList(newImpression, treatment);
-        }
         return newImpression;
     }
 
@@ -461,24 +454,27 @@ public class Patient extends DukeObject {
         return false;
     }
 
-    public void updateCriticalList(Impression impression, DukeData data) {
-        assert (impressionList.contains(impression)
-                && (impression.getEvidence(data.getName()) != null
-                || impression.getTreatment(data.getName()) != null));
-        if (criticalList.contains(data) && data.getPriority() != DukeData.PRIORITY_CRITICAL) {
-            criticalList.remove(data);
-        } else if (data.getPriority() == DukeData.PRIORITY_CRITICAL) {
-            criticalList.add(data);
-        }
-    }
+    @Override
+    public void update() {
+        criticalList = new ArrayList<DukeData>();
+        followUpList = new ArrayList<Treatment>();
 
-    public void updateFollowUpList(Impression impression, Treatment treatment) {
-        assert (impressionList.contains(impression)
-                && impression.getTreatment(treatment.getName()) != null);
-        if (followUpList.contains(treatment) && !treatment.isFollowUp()) {
-            followUpList.remove(treatment);
-        } else if (treatment.isFollowUp()) {
-            followUpList.add(treatment);
+        for (Impression imp : impressionList) {
+            for (Evidence evidence : imp.getEvidences()) {
+                if (evidence.getPriority() == DukeData.PRIORITY_CRITICAL) {
+                    criticalList.add(evidence);
+                }
+            }
+
+            for (Treatment treatment : imp.getTreatments()) {
+                if (treatment.getPriority() == DukeData.PRIORITY_CRITICAL) {
+                    criticalList.add(treatment);
+                }
+
+                if (treatment.isFollowUp()) {
+                    followUpList.add(treatment);
+                }
+            }
         }
     }
 }

@@ -42,8 +42,12 @@ public class UiContext {
      * @param obj     DukeObject whose context we wish to view.
      */
     public void open(DukeObject obj) {
-        Context context = (obj == null) ? Context.HOME : obj.toContext();
+        Context context = Context.HOME;
         contexts.push(new Pair<>(this.context, this.object));
+        if (obj != null) {
+            obj.update();
+            context = obj.toContext();
+        }
         updateContext(context, obj);
     }
 
