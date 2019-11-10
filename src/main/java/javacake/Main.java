@@ -1,5 +1,6 @@
 package javacake;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -24,6 +25,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            File logFile = new File("cakeLog");
+            logFile.mkdirs();
             FileHandler fileHandler = new FileHandler("cakeLog/logFiles.txt", true);
             fileHandler.setFormatter(new SimpleFormatter());
             fileHandler.setLevel(Level.ALL);
@@ -32,7 +35,7 @@ public class Main extends Application {
         } catch (IOException e) {
             LOGGER.warning("Unable to save log file");
         }
-        LOGGER.setLevel(Level.WARNING);
+        LOGGER.setLevel(Level.FINER);
         LOGGER.entering(getClass().getName(), "start");
         JavaCake javaCake;
         boolean hasCrashed = false;

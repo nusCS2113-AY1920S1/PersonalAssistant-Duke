@@ -160,6 +160,9 @@ public class MainWindow extends GridPane {
                 DialogBox.isScrollingText = true;
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
                 String[] inputDivider = input.split("\\s+");
+                if (inputDivider.length == 0) {
+                    throw new CakeException("OOPS!!! I'm sorry, but I don't know what that means.");
+                }
                 if ("exit".equals(input)) {
                     //must be "exit" exactly, else wont exe
                     handleExit();
@@ -240,25 +243,29 @@ public class MainWindow extends GridPane {
         response = javaCake.getResponse(input);
         if (isFirstQuiz()) {
             //do first quiz
+            LOGGER.info("O1: isFirstQuiz");
         } else if (isQuiz) {
             handleQuiz();
+            LOGGER.info("O2: handleQuiz");
         } else if (isDeadlineRelated()) {
             //handles "deadline" and "reminder" and other related
-            LOGGER.info("Deadline Settings");
+            LOGGER.info("O3: Deadline Settings");
         } else if (isColorRelated()) {
             //must be "change" exactly, else wont exe
-        } else if (isFirstQuiz()) {
-            LOGGER.info("Duplicate First Quiz");
+            LOGGER.info("O4: Color Settings");
         } else if (isFirstResetRequest()) {
             //check if need to reset
+            LOGGER.info("O5: isFirstResetRequest");
         } else if (!isQuiz || isStarting) {
             //default start: finding of response
             isStarting = false;
-            LOGGER.info("normal getResponse: " + response);
+            LOGGER.info("O6: normal getResponse: " + response);
             //response = JavaCake.getResponse(input);
             if (response.contains("!@#_EDIT_NOTE")) {
+                LOGGER.info("O6a: handleEditNote");
                 handleEditNote();
             } else {
+                LOGGER.info("O6b: handleNormalCommand");
                 handleNormalCommand();
             }
         }

@@ -19,7 +19,6 @@ public class JavaCake {
     public boolean isFirstTimeUser;
     public String userName;
     public int userProgress = 0;
-    public static Logger logger = Logger.getLogger("JavaCake");
     public static Logger LOGGER = Logger.getLogger(JavaCake.class.getPackageName());
 
 
@@ -30,7 +29,6 @@ public class JavaCake {
         LOGGER.setUseParentHandlers(true);
         LOGGER.setLevel(Level.INFO);
         LOGGER.entering(getClass().getName(), "JavaCake");
-        logger.log(Level.INFO, "Starting JavaCake Constructor!");
         ui = new Ui();
         try {
             logic = Logic.getInstance();
@@ -43,7 +41,6 @@ public class JavaCake {
             checkIfNewUser("NEW_USER_!@#");
         } catch (CakeException e) {
             ui.showLoadingError();
-            logger.log(Level.WARNING, "Loading SM set-up failed.");
             LOGGER.severe("[GUI] Storage/Profile Load failed, taking out the trash...");
             throw new CakeException(e.getMessage());
         }
@@ -54,8 +51,7 @@ public class JavaCake {
      * Constructor for main class to initialise the settings[TEST].
      */
     public JavaCake(String testFilePath) {
-
-        logger.log(Level.INFO, "Starting JavaCake Constructor!");
+        LOGGER.info("Starting JavaCake Constructor!");
         ui = new Ui();
         try {
             logic = Logic.getInstance();
@@ -66,7 +62,6 @@ public class JavaCake {
             checkIfNewUser("NEW_USER_!@#");
         } catch (CakeException e) {
             ui.showLoadingError();
-            logger.log(Level.WARNING, "Profile set-up failed.");
             LOGGER.severe("[CLI] Storage/Profile Load failed, taking out the trash...");
         }
     }
@@ -97,7 +92,7 @@ public class JavaCake {
                 ui.showLine();
             } catch (CakeException e) {
                 ui.showError(e.getMessage());
-                logger.log(Level.WARNING, "Profile overwrite failed.");
+                LOGGER.severe("Profile overwrite failed.");
             }
         }
         ui.showMessage(Ui.showWelcomeMsgPhaseB(isFirstTimeUser, userName, storageManager));
@@ -112,7 +107,7 @@ public class JavaCake {
                     new FileReader("src/main/resources/content/cake.txt"))));
         } catch (CakeException | FileNotFoundException e) {
             ui.showError(e.getMessage());
-            logger.log(Level.WARNING, "Failed to load cake.txt!");
+            LOGGER.severe("Failed to load cake.txt!");
         }
     }
 
@@ -147,7 +142,6 @@ public class JavaCake {
      */
     public String getResponse(String input) {
         LOGGER.entering(getClass().getName(), "getResponse");
-        logger.log(Level.INFO, "Getting response from input...");
         storageManager.profile.isCli = false;
         try {
             Command c = Parser.parse(input);
