@@ -4,8 +4,10 @@ import dolla.model.Record;
 
 import java.util.ArrayList;
 
+//@@author yetong1895
 public class SortUi extends Ui {
-    //@@author yetong1895
+    public static String outputStringTest;
+
     /**
      * This method will print sorted list according to the type to be sorted.
      *
@@ -14,18 +16,23 @@ public class SortUi extends Ui {
      */
     public static void printSortedList(ArrayList<Record> list, String type) {
         System.out.println(line);
+        outputStringTest = line + "\n";
         switch (type) {
         case "date":
             typewriter("\tsorting date.........\n");
+            outputStringTest += "\tsorting date.........\n";
             break;
         case "description":
             typewriter("\tsorting description.........\n");
+            outputStringTest += "\tsorting description.........\n";
             break;
         case "name":
             typewriter("\tsorting name.........\n");
+            outputStringTest += "\tsorting name.........\n";
             break;
         case "amount":
             typewriter("\tsorting amount.........\n");
+            outputStringTest += "\tsorting amount.........\n";
             break;
         default:
             break;
@@ -34,8 +41,10 @@ public class SortUi extends Ui {
         for (int i = 0; i < list.size(); i++) {
             int listNum = i + 1;
             System.out.println("\t" + listNum + ". " + list.get(i).getRecordDetail());
+            outputStringTest += "\t" + listNum + ". " + list.get(i).getRecordDetail() + "\n";
         }
         System.out.println(line);
+        outputStringTest += line + "\n";
     }
 
     /**

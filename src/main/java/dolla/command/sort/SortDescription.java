@@ -1,4 +1,4 @@
-package dolla.sort;
+package dolla.command.sort;
 
 import dolla.ui.SortUi;
 import dolla.model.Record;

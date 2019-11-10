@@ -101,8 +101,7 @@ public class DebtsParser extends Parser {
             }
 
         } else if (commandToRun.equals(COMMAND_REDO)
-                || commandToRun.equals(COMMAND_UNDO)
-                || commandToRun.equals(COMMAND_REPEAT)) {
+                || commandToRun.equals(COMMAND_UNDO)) {
             return new ActionCommand(mode, commandToRun);
 
         } else {

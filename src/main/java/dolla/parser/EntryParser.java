@@ -64,26 +64,25 @@ public class EntryParser extends Parser {
             }
 
         } else if (commandToRun.equals(COMMAND_REDO)
-                || commandToRun.equals(COMMAND_UNDO)
-                || commandToRun.equals(COMMAND_REPEAT)) {
+                || commandToRun.equals(COMMAND_UNDO)) {
             return new ActionCommand(mode, commandToRun);
 
         } else if (commandToRun.equals(SHORTCUT_COMMAND_CREATE)) {
             if (verifyShortcut()) {
-                return new AddShortcutCommand(inputArray[1]);
+                return new AddShortcutCommand(inputArray[1], mode);
             } else {
                 return new ErrorCommand();
             }
 
         } else if (commandToRun.equals(SHORTCUT_COMMAND_EXECUTE)) {
             if (verifyShortcut()) {
-                return new ExecuteShortcutCommand(inputArray[1]);
+                return new ExecuteShortcutCommand(inputArray[1], mode);
             } else {
                 return new ErrorCommand();
             }
 
         } else if (commandToRun.equals(SHORTCUT_COMMAND_LIST)) {
-            return new ShowListCommand(mode);
+            return new ShowListCommand(MODE_SHORTCUT);
         } else {
             return invalidCommand();
         }

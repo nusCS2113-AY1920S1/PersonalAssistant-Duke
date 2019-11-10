@@ -7,7 +7,10 @@ import dolla.command.RemoveCommand;
 import dolla.command.ErrorCommand;
 import dolla.command.AddShortcutCommand;
 import dolla.command.ExecuteShortcutCommand;
+import dolla.command.ActionCommand;
+import dolla.command.SortCommand;
 
+//@@author yetong1895
 public class ShortcutParser extends Parser {
 
     /**
@@ -35,16 +38,24 @@ public class ShortcutParser extends Parser {
             }
         case SHORTCUT_COMMAND_CREATE:
             if (verifyShortcut()) {
-                return new AddShortcutCommand(inputArray[1]);
+                return new AddShortcutCommand(inputArray[1], mode);
             } else {
                 return new ErrorCommand();
             }
         case SHORTCUT_COMMAND_EXECUTE:
             if (verifyShortcut()) {
-                return new ExecuteShortcutCommand(inputArray[1]);
+                return new ExecuteShortcutCommand(inputArray[1], mode);
             } else {
                 return new ErrorCommand();
             }
+        case COMMAND_REDO:
+        case COMMAND_UNDO:
+            return new ActionCommand(mode, commandToRun);
+        case COMMAND_SORT:
+            if (verifySort()) {
+                return new SortCommand(mode, inputArray[1]);
+            }
+            return invalidCommand();
         case COMMAND_SEARCH:
             if (verifyShortcutSearchCommand()) {
                 return new SearchCommand(mode, inputArray[1], inputArray[2]);
