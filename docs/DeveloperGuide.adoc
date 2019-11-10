@@ -18,6 +18,33 @@ By: `Team CS2113T-F11-4`      Since: `Aug 2019`      Licence: `MIT`
 
 
 == Setting up
+=== Prerequisites
+. *JDK 11* or above is required
+. *IntelliJ* IDE is recommended
+[NOTE]
+IntelliJ by default has Gradle plugin installed. +
+ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+=== Setting up the project environment on your local machine
+. Fork and clone the forked remote on your local machine
+. Launch IntelliJ (If you’re not on the IntelliJ Welcome screen please close your existing project by going to `File` >
+`Close Project`)
+. Set up the correct JDK version for Gradle
+.. Click `Configure` > `Structure for New Projects`
+.. Under `Project Settings` Click on `Project`
+.. Under `Project SDK` Click `New…` and point it to JDK 11 path
+.. Click `OK` to save the configuration
+. Click `Import Project`
+. Locate the `build.gradle` file and select it. Click `Open`
+. Open the IntelliJ console/terminal and run the gradle command `gradlew processResource` on *Windows* or
+`./gradlew processResource` on *Mac/Linux* (If you are encountered a permission error: `./gradlew: Permission denied`
+add the executable permission to the the shell script by running `chmod 744 gradlew` in your terminal) It should finish
+with the `BUILD SUCCESSFUL` message. This will generate the resources required by the application and tests.
+
+=== Verifying the setup
+. Run MisterMusik to verify and try a few commands.
+. Run the JUNIT Test/gradlew test command to ensure that all the test case passes.
+
 == Design
 === Overall Architecture
 This image shows the overall architecture of our program
@@ -289,14 +316,14 @@ image::recurringEventSequenceDiagram.png[width="800"]
 ==== Design considerations
 Aspect: How to avoid adding infinite events +
 
-- *Alternative 1 (current choice):* Set a upper limit to ensure the interval between the first and last events added to
+* *Alternative 1 (current choice):* Set a upper limit to ensure the interval between the first and last events added to
 list is not too long.
-    - Pros: Easy to implement. Easy to add lesson and practice in one semester.
-    - Cons: Not agility. May add too many extra events if users want short interval between the first and last
+** Pros: Easy to implement. Easy to add lesson and practice in one semester.
+** Cons: Not agility. May add too many extra events if users want short interval between the first and last
 recurring events.
-- *Alternative 2:* Let users to set the interval between the first and last recurring events.
-    - Pros: Will be more agility and user friendly.
-    - Cons: Hard to unify the command format.
+* *Alternative 2:* Let users to set the interval between the first and last recurring events.
+** Pros: Will be more agility and user friendly.
+** Cons: Hard to unify the command format.
 
 === Contacts list
 ==== How is it implemented
@@ -305,14 +332,46 @@ users. The list is stored in each individual event. When the user first creates 
 empty contact list. +
 *Users can add, edit, delete a specified contact item, and view the contacts list of a specified event.*
 
-- Given below is an example to adding a contact: +
+===== Adding a contact
+====
+Given below is an example to adding a contact: +
 `contact add <event number> /<name>, <email address>, <phone number>`
-- To view contact list of an event: +
+====
+.. When the command is entered, the manageContacts() method will be called.
+.. The method will check whether the event ID is valid. Add a new Contact will be created with contact information in it.
+.. The event corresponding to the ID entered along with its method addContact() will be called to add the contact into
+the contact list in the event.
+.. The printContactAdded() method of the UI class will be called to reflect the change to the user.
+
+===== Viewing the contact list
+====
+Given below is an example to view contact list of an event: +
 `contact view <event number>`
-- To edit a contact in the contact list: +
-`contact edit <event number> <contact number> <name|email|phone> /<new contact>`
-- To delete a contact in the contact list: +
+====
+.. When the command is entered, the manageContacts() method will be called.
+.. The method will check whether the event ID is valid, and whether the contact list of the event is empty.
+.. If the contact list is empty, printNoContactInEvent() will be called to inform the user that contact list is empty.
+If the contact list is not empty, printEventContacts() will be called ang print all the contacts in the list under the event.
+
+===== Editing a contact
+====
+Given below is an example to edit a contact in the contact list: +
+`contact edit <event number> <contact number> name|email|phone /<new contact>`
+====
+.. When the command is entered, the manageContacts() method will be called.
+.. The method will check whether the event ID, the contact ID, and the edit type are valid.
+.. The contact information will be changed.
+.. The printContactEdited() method of the UI class will be called to reflect the change to the user.
+
+===== Deleting a contact
+====
+Given below is an example to delete a contact in the contact list: +
 `contact delete <event number> <contact number>`
+====
+.. When the command is entered, the manageContacts() method will be called.
+.. The method will check whether the event ID and the contact ID are valid.
+.. The contact will be deleted from the list.
+.. The printContactDeleted() method of the UI class will be called to reflect the change to the user.
 
 ==== Why is it implemented this way
 . For different events, users may have different people to contact with. So a empty contact list is created under each
@@ -554,7 +613,10 @@ functions.
 
 
 == Documentation
-
+We use asciidoc for writing documentation.
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility
+in formatting.
 
 == Testing
 

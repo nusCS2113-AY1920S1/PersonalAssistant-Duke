@@ -1,15 +1,10 @@
-import mistermusik.commons.Contact;
 import mistermusik.commons.Goal;
-import mistermusik.commons.budgeting.Budgeting;
 import mistermusik.commons.budgeting.CostExceedsBudgetException;
 import mistermusik.commons.events.eventtypes.Event;
-import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
 import mistermusik.commons.events.eventtypes.eventsubclasses.ToDo;
-import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Exam;
 import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Recital;
 import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Lesson;
 import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Practice;
-import mistermusik.commons.events.formatting.DateStringValidator;
 import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.logic.ClashException;
 import mistermusik.logic.EndBeforeStartException;
@@ -347,157 +342,6 @@ public class MainTest {
                 "|                |                |                |                |                |                |                |\n" +
                 "________________________________________________________________________________________________________________________";
         assertEquals(calendarCompare, calendarTest.getStringForOutput());
-    }
-
-    //@@author YuanJiayi
-    @Test
-    public void addRecurringEventTest() throws ClashException {
-        ArrayList<String> testListString = new ArrayList<>();
-        EventList testList = new EventList(testListString);
-
-        // test practice type
-        Event practiceTest = new Practice("practice 1", "06-11-2019 1200", "06-11-2019 1400");
-        testList.addRecurringEvent(practiceTest, 60);
-        assertEquals(2, testList.getNumEvents());
-
-        // test lesson type
-        Event lessonTest = new Lesson("lesson 1", "13-08-2019 1000", "13-08-2019 1200");
-        testList.addRecurringEvent(lessonTest, 35);
-        assertEquals(6, testList.getNumEvents());
-
-        // test the period larger than one semester
-        Event largePeriodTest = new Practice("practice 2", "23-09-2019 0900", "23-09-2019 1000");
-        testList.addRecurringEvent(largePeriodTest, 113);
-        assertEquals(7, testList.getNumEvents());
-
-        // test the period exactly one semester (112 days)
-        Event exactOneSemesterPeriodTest = new Lesson("lesson 2", "07-10-2019 0800", "07-10-2019 0900");
-        testList.addRecurringEvent(exactOneSemesterPeriodTest, 112);
-        assertEquals(9, testList.getNumEvents());
-
-        // test the period just shorter than 112 days
-        Event smallPeriodTest = new Practice("practice 3", "14-12-2019 1800", "14-12-2019 1900");
-        testList.addRecurringEvent(smallPeriodTest, 111);
-        assertEquals(11, testList.getNumEvents());
-
-        // test recurring lesson with "isDone"
-        Event notDoneLessonTest = new Lesson("lesson", false,"01-01-2020 2200", "01-01-2020 2300");
-        testList.addRecurringEvent(notDoneLessonTest, 120);
-        assertEquals(12, testList.getNumEvents());
-
-        // test clash
-        Event clashTest = new Lesson("lesson 3", "14-12-2019 1800", "14-12-2019 1900");
-        try {
-            testList.addRecurringEvent(clashTest, 100);
-        } catch (ClashException e) {
-            assertEquals(e.getClashEvent().toString(), clashTest.toString());
-        }
-    }
-
-    @Test
-    public void rescheduleStartDateTest() {
-        ArrayList<String> readFromFile = new ArrayList<>();
-        String fileContent;
-        fileContent = "XP/practice 1 /03-12-2019 1500/03-12-2019 1800";
-        readFromFile.add(fileContent);
-        EventList eventListTest = new EventList(readFromFile);
-        // test reschedule start date and time of an event
-        Event practiceTest = eventListTest.getEvent(0);
-        EventDate newPracticeStartDate = new EventDate("09-11-2019 0000");
-        practiceTest.rescheduleStartDate(newPracticeStartDate);
-        assertEquals(newPracticeStartDate, practiceTest.getStartDate());
-    }
-
-    @Test
-    public void rescheduleEndDateTest() {
-        ArrayList<String> readFromFile = new ArrayList<>();
-        String fileContent;
-        fileContent = "XP/practice 1 /03-12-2019 1500/03-12-2019 1800";
-        readFromFile.add(fileContent);
-        EventList eventListTest = new EventList(readFromFile);
-        Event practiceTest = eventListTest.getEvent(0);
-        // test reschedule end date and time of an event
-        EventDate newPracticeEndDate = new EventDate("09-11-2019 0100");
-        practiceTest.rescheduleEndDate(newPracticeEndDate);
-        assertEquals(newPracticeEndDate, practiceTest.getEndDate());
-    }
-
-    @Test
-    public void addContactTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
-        ArrayList<String> testListString = new ArrayList<>();
-        EventList testList = new EventList(testListString);
-        Event eventTest = new Practice("eventTest", "12-12-2019 1200", "12-12-2019 1300");
-        testList.addEvent(eventTest);
-        Contact normalContact = new Contact("name 1", "email 1", "phone 1");
-        //test if contact is added
-        testList.getEvent(0).addContact(normalContact);
-        assertTrue(eventTest.getContactList().contains(normalContact));
-    }
-
-    @Test
-    public void removeContactTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
-        ArrayList<String> testListString = new ArrayList<>();
-        EventList testList = new EventList(testListString);
-        Event eventTest = new Lesson("eventTest", "12-12-2019 1200", "12-12-2019 1300");
-        testList.addEvent(eventTest);
-        Contact normalContact = new Contact("name 1", "email 1", "phone 1");
-        testList.getEvent(0).addContact(normalContact);
-        //test if contact is removed
-        testList.getEvent(0).removeContact(0);
-        assertFalse(eventTest.getContactList().contains(normalContact));
-    }
-
-    @Test
-    public void viewContactTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
-        ArrayList<String> testListString = new ArrayList<>();
-        EventList testList = new EventList(testListString);
-        Event eventTest = new Exam("eventTest", "12-12-2019 1200", "12-12-2019 1300");
-        testList.addEvent(eventTest);
-        Contact contact1 = new Contact("name 1", "email 1", "phone 1");
-        Contact contact2 = new Contact("name 2", "", "phone 2");
-        testList.getEvent(0).addContact(contact1);
-        testList.getEvent(0).addContact(contact2);
-        assertEquals("name 1", testList.getEvent(0).getContactList().get(0).getName());
-        assertEquals("name 2", testList.getEvent(0).getContactList().get(1).getName());
-        assertEquals("email 1", testList.getEvent(0).getContactList().get(0).getEmail());
-        assertEquals("", testList.getEvent(0).getContactList().get(1).getEmail());
-        assertEquals("phone 1", testList.getEvent(0).getContactList().get(0).getPhoneNo());
-        assertEquals("phone 2", testList.getEvent(0).getContactList().get(1).getPhoneNo());
-    }
-
-    @Test
-    public void editContactTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
-        ArrayList<String> testListString = new ArrayList<>();
-        EventList testList = new EventList(testListString);
-        Event eventTest = new Recital("eventTest", "12-12-2019 1200", "12-12-2019 1300");
-        testList.addEvent(eventTest);
-        Contact contact1 = new Contact("name 1", "email 1", "phone 1");
-        testList.getEvent(0).addContact(contact1);
-        int contactIndex = 0;
-
-        //test if name edited
-        String newName = "name a";
-        testList.getEvent(0).editContact(contactIndex, 'N', newName);
-        assertEquals(newName, testList.getEvent(0).getContactList().get(contactIndex).getName());
-        newName = "name";
-        eventTest.getContactList().get(contactIndex).setName(newName);
-        assertEquals(newName, eventTest.getContactList().get(contactIndex).getName());
-
-        //test if email edited
-        String newEmail = "email a";
-        testList.getEvent(0).editContact(contactIndex, 'E', newEmail);
-        assertEquals(newEmail, testList.getEvent(0).getContactList().get(contactIndex).getEmail());
-        newEmail = "email";
-        eventTest.getContactList().get(contactIndex).setEmail(newEmail);
-        assertEquals(newEmail, eventTest.getContactList().get(contactIndex).getEmail());
-
-        //test if phone number is edited
-        String newPhone = "phone a";
-        testList.getEvent(0).editContact(contactIndex, 'P', newPhone);
-        assertEquals(newPhone, testList.getEvent(0).getContactList().get(contactIndex).getPhoneNo());
-        newPhone = "phone";
-        eventTest.getContactList().get(contactIndex).setPhoneNo(newPhone);
-        assertEquals(newPhone, eventTest.getContactList().get(contactIndex).getPhoneNo());
     }
 
     //@@author
