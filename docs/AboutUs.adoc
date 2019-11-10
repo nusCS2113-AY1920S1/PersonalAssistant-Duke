@@ -1,7 +1,7 @@
 = About Us
 :site-section: AboutUs
 :relfileprefix: team/
-:imagesDir: images/AboutUs
+:imagesDir: images/
 :stylesDir: stylesheets
 
 RIMS was developed by the CS2113T-W12-1 team. +
