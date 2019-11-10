@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static diyeats.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
 
@@ -22,6 +24,7 @@ public class Ui {
     private static final String UI_PADDING = "     ";
     private static final String UI_BOUNDARY = "    ____________________________________________________________";
     public Scanner in = new Scanner(System.in);
+    private static Logger logger = Logger.getLogger(Ui.class.getName());
 
     public void showLine() {
         System.out.println(UI_BOUNDARY);
@@ -174,6 +177,8 @@ public class Ui {
         }
     }
 
+
+
     public void showWeightUpdate(User user, int weight, LocalDate date) {
         System.out.println(UI_PADDING + user.getName() + ", your weight has been updated on "
                 + date.format(LOCAL_DATE_FORMATTER) + " to " + weight + "kg.");
@@ -194,6 +199,26 @@ public class Ui {
         System.out.println(UI_PADDING + "Got it. I've added this transaction:");
         System.out.println(UI_PADDING + transaction);
         System.out.println(UI_PADDING + "Your account balance is: " + accountBalance + " SGD");
+    }
+
+    /**
+     * displays the transactions on a certain date and the current account balance.
+     * @param transactions the transactions to be displayed.
+     * @param date the date transactions are to be displayed.
+     * @param wallet the wallet in which account balance is extracted.
+     */
+    public void showTransactions(ArrayList<Transaction> transactions, LocalDate date, Wallet wallet) {
+        if (transactions.isEmpty()) {
+            logger.log(Level.INFO, "There is no transaction on " + date + ".");
+            System.out.println(UI_PADDING + "There is no transaction on " + date + ".");
+        } else {
+            logger.log(Level.INFO, "There are transactions on " + date + ".");
+            System.out.println(UI_PADDING + "These are the transactions on " + date + ":");
+            for (int idx = 0; idx < transactions.size(); idx++) {
+                System.out.println(UI_PADDING + (idx + 1) + ". " + transactions.get(idx));
+            }
+            showAccountBalance(wallet);
+        }
     }
 
     public void showActivityLevel() {
@@ -301,7 +326,7 @@ public class Ui {
     }
 
     public void showAccountBalance(Wallet wallet) {
-        System.out.println(UI_PADDING + "You current account balance is: " + wallet.getAccountBalance());
+        System.out.println(UI_PADDING + "Your current account balance is: " + wallet.getAccountBalance());
     }
 
     public void showInsufficientBalance(Payment payment) {

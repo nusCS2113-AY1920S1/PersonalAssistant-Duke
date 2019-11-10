@@ -20,11 +20,15 @@ public class AddTransactionCommand extends Command {
      * Constructor for AddTransactionCommand.
      * @param transaction the transaction object to be stored within wallet
      */
-
     public AddTransactionCommand(Transaction transaction) {
         this.transaction = transaction;
     }
 
+    /**
+     * Constructor for AddTransactionCommand.
+     * @param flag flag that indicates whether the parser fails.
+     * @param messageStr the error message concerned.
+     */
     public AddTransactionCommand(boolean flag, String messageStr) {
         this.isFail = true;
         this.errorStr = messageStr;

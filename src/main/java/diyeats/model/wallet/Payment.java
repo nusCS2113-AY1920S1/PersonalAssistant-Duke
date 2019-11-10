@@ -16,13 +16,4 @@ public class Payment extends Transaction {
         super(amountString, date);
         super.type = "PAY";
     }
-
-    /**
-     * This function overrides the toString() function in the object class.
-     * @return the string that represents a payment.
-     */
-    @Override
-    public String toString() {
-        return "[PAY]" + super.toString();
-    }
 }

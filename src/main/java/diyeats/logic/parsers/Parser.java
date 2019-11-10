@@ -30,9 +30,9 @@ import static diyeats.commons.constants.CommandSyntax.PARSER_STATS_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_SUGGEST_EXERCISE_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_SUGGEST_MEAL_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_UPDATE_COMMAND;
+import static diyeats.commons.constants.CommandSyntax.PARSER_LIST_TRANSACTION_COMMAND;
 
 //@@author
-
 /**
  * Parser is a public class that help to parse the command that is inputted from the user.
  * And generate the appropriate command with their appropriate arguments
@@ -120,6 +120,8 @@ public class Parser {
                 return new AddExerciseCommandParser().parse(argumentStr);
             case PARSER_DELETE_EXERCISE_COMMAND:
                 return new DeleteExerciseCommandParser().parse(argumentStr);
+            case PARSER_LIST_TRANSACTION_COMMAND:
+                return new ListTransactionCommandParser().parse(argumentStr);
             default:
                 throw new ProgramException("I'm sorry, but I don't know what the command "
                         + "you have just entered means");

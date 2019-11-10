@@ -53,6 +53,6 @@ public class Transaction {
      */
     @Override
     public String toString() {
-        return " SGD" + this.transactionAmount + " | " + getDate().format(LOCAL_DATE_FORMATTER);
+        return "[" + getType() + "]" + " SGD" + this.transactionAmount + " | " + getDate().format(LOCAL_DATE_FORMATTER);
     }
 }

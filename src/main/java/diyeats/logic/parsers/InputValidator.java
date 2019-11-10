@@ -14,6 +14,7 @@ public class InputValidator {
 
     private static final String numericValidator = "-?\\d+(\\.\\d+)?";
     private static final String positiveValidator = "^[0-9]\\d*(\\.\\d+)?$";
+    private static final String wholeNumberValidator = "^\\d+$";
     private static Logger logger = Logger.getLogger(InputValidator.class.getName());
 
     /**
@@ -57,6 +58,18 @@ public class InputValidator {
             throw new ProgramException("Cannot add transaction that happens in the future.");
         }
         logger.log(Level.FINE, "date specified is valid (it's in the past)");
+    }
+
+    /**
+     * validate the nutritional value .
+     * @param valueInput the nutritional value.
+     * @throws ProgramException if the value is not a whole number.
+     */
+    public static void validateNutritionalValue(String valueInput) throws ProgramException {
+        if (!valueInput.matches(wholeNumberValidator)) {
+            logger.log(Level.WARNING, "the value is not a whole number");
+            throw new ProgramException("The value must be a whole number");
+        }
     }
 
 

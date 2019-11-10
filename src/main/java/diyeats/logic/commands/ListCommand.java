@@ -16,7 +16,7 @@ import java.util.ArrayList;
 //@@author GaryStu
 /**
  * ListCommand is a public class that inherits from abstract class Command.
- * It displays all the meals in a relevant day in a list to the user
+ * It displays all the meal(s) in a relevant day in a list to the user
  */
 public class ListCommand extends Command {
     private String sortBy = "default";
@@ -29,16 +29,11 @@ public class ListCommand extends Command {
 
     /**
      * Constructor for ListCommand.
-     * @param date The date of the data to List
+     * @param date The date of the meal(s) to List
      */
     public ListCommand(LocalDate date) {
         if (date != null) {
-            try {
-                currentDate = date;
-            } catch (DateTimeParseException e) {
-                ui.showMessage("Unable to parse \"" + date.toString() + "\" as a date. Showing list of "
-                        + currentDate.format(dateFormat) + " instead.");
-            }
+            currentDate = date;
         }
     }
 
@@ -54,14 +49,13 @@ public class ListCommand extends Command {
 
     /**
      * Constructor when ListCommand encounters error.
-     * @param flag the flag to activate isFail.
-     * @param messageStr the messageStr concerned.
+     * @param flag the flag to indicate whether the parser fails.
+     * @param messageStr the error message concerned.
      */
     public ListCommand(boolean flag, String messageStr) {
         this.isFail = flag;
         this.errorStr = messageStr;
 
-        // If un-parseble user input date, default to current date.
         if (!this.isFail) {
             ui.showMessage(messageStr);
             ui.showMessage("Showing list of meals from " + currentDate.format(dateFormat) + " instead.");
