@@ -3,9 +3,9 @@ package duke;
 import duke.command.ObjCommand;
 import duke.command.Parser;
 import duke.data.DukeObject;
-import duke.data.storage.GsonStorage;
 import duke.data.PatientData;
 import duke.data.SearchResults;
+import duke.data.storage.GsonStorage;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.ui.Ui;
@@ -51,7 +51,8 @@ public class DukeCore extends Application {
 
     /**
      * Displays a set of search results, while storing a {@link ObjCommand} object (the one that calls the search),
-     * so that it can resume execution after receiving the search results.
+     * so that it can resume execution after receiving the search results. Note that {@code queuedCmd} is saved between
+     * invocations and cannot be used as a marker for command execution.
      *
      * @throws DukeFatalException If the file writer cannot be setup.
      */
@@ -62,23 +63,11 @@ public class DukeCore extends Application {
     }
 
     /**
-     * Executes the queued ObjCommand with the object found from search, and sets {@code queuedCmd} to null to indicate
-     * completion of queued command.
+     * Executes the queued ObjCommand with the object found from search.
      *
      * @throws DukeException If an error occurs during command execution.
      */
     public void executeQueuedCmd(DukeObject obj) throws DukeException {
-        executeQueuedCmdPart(obj);
-        queuedCmd = null;
-    }
-
-    /**
-     * Executes the queued ObjCommand with the object found from search without setting {@code queuedCmd} to null,
-     * useful when the command has multiple parts.
-     *
-     * @throws DukeException If an error occurs during command execution.
-     */
-    public void executeQueuedCmdPart(DukeObject obj) throws DukeException {
         uiContext.moveBackOneContext();
         try {
             queuedCmd.execute(this, obj);
