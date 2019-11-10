@@ -2,6 +2,7 @@ package dolla.ui;
 
 import dolla.model.Record;
 
+import static dolla.ModeStringList.MODE_DEBT;
 import static dolla.ModeStringList.MODE_SHORTCUT;
 
 /**
@@ -10,12 +11,10 @@ import static dolla.ModeStringList.MODE_SHORTCUT;
 public abstract class Ui {
 
     protected static final String MSG_MODIFY = "\tPlease use the format 'modify [LIST NUM]' if you wish to modify it.";
-
     private static final String EXISTING_RECORD_MSG = "\tOOPS! You already have the following ";
     private static final String INVALID_AMOUNT_MSG = "\tOOPS! The amount you have entered is invalid.";
-    private static final String VALID_AMOUNT_MSG = "\tPlease key in a non-zero positive "
-                                                    + "value that is less than 1,000,000.";
-
+    private static final String VALID_AMOUNT_MSG = "\tPlease key in a non-zero positive value with an appropriate "
+                                                  + "decimal point that is less than 1,000,000.";
     private static final String EXECUTE_SHORTCUT_MSG = "\tYou can execute 'shortcuts' to view your list of shortcuts!";
     private static final String INVALID_DATE_MSG = "\tPlease use the format 'DD/MM/YYYY'!";
     private static final String INVALID_NUMBER_MSG = " is not a number. Please use a number instead!";
@@ -61,9 +60,6 @@ public abstract class Ui {
         + "\n\tI help keep track of your finance!\n"
         + "\tWhat can I do for you?";
 
-    //private static String dollaMode = ANSI_CYAN + "\t\n°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE: DOLLA "
-    //        + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET;
-
     private static String dollaMode = ANSI_CYAN + "\n\t( o_o)O ~~ MODE: DOLLA "
             + " ~~ \n" + ANSI_RESET;
 
@@ -90,23 +86,6 @@ public abstract class Ui {
         //        + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET);
         System.out.println(ANSI_CYAN + "\t( *_*)O ~~ MODE:  " + newMode.toUpperCase()
                 + "  \n" + ANSI_RESET);
-    }
-
-    // TODO: DELETE
-    /**
-     * This method prints the strings of text from 's' with the proper format. Each element
-     * from 's' is a line of text to be printed.
-     *
-     * @param s containing the messages to be printed.
-     */
-    public static void printMsg(String... s) {
-        final StringBuilder messageAccumulator = new StringBuilder();
-        for (String str : s) {
-            messageAccumulator.append(str);
-        }
-        System.out.println(line);
-        System.out.println("\t" + messageAccumulator);
-        System.out.println(line);
     }
 
     /**
@@ -163,7 +142,7 @@ public abstract class Ui {
         System.out.println(line);
     }
 
-    //@@author
+    //@@author omupenguin
     /**
      * Print exit msg.
      */
@@ -197,7 +176,7 @@ public abstract class Ui {
     }
 
     /**
-     * This method will print input String in typewriter style.
+     * Prints input String in typewriter style.
      * @param message the message to print in typewriter style.
      */
     public static void typewriter(String message) {
@@ -208,7 +187,7 @@ public abstract class Ui {
     }
 
     /**
-     * This method will print the error message if user is trying trying to remove a non-existing record.
+     * Prints the error message if user is trying trying to remove a non-existing record.
      * @param number the total number of record.
      */
     public static void printNumberOfRecords(int number) {
@@ -244,19 +223,5 @@ public abstract class Ui {
         System.out.println(line);
     }
 
-    public static void printSingleOverview(double todayOverview) {
-        System.out.println(line);
-    }
 
-    /**
-     * Prints a message to alert user that the list to be iterated through is empty.
-     * @param mode record name to be used
-     */
-    public static void printEmptyListError(String mode) {
-        System.out.println(line);
-        System.out.println("\tI'm sorry, but there doesn't seem to be anything in "
-                + mode + "for me to through. ");
-        System.out.println("Try adding a new " + mode + "and try again!");
-        System.out.println(line);
-    }
 }

@@ -26,7 +26,13 @@ public class BillList extends RecordList {
 
     @Override
     public void setRecordList(ArrayList<Record> recordList) {
-        this.list = recordList;
+        this.recordArrayList = recordList;
+        StorageWrite.setBill(get());
+    }
+
+    @Override
+    public void addWithIndex(int modifyIndex, Record newRecord) {
+        super.addWithIndex(modifyIndex, newRecord);
         StorageWrite.setBill(get());
     }
 }

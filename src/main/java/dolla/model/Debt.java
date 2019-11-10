@@ -60,10 +60,6 @@ public class Debt extends Record {
         return date;
     }
 
-    public String amountToMoney() {
-        return "$" + amount;
-    }
-
     /**
      * Returns a string with information about the debt to be saved.
      * @return String with information of debt in save format.

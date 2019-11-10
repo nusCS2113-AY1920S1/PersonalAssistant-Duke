@@ -37,6 +37,6 @@ public class AddBillCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return null;
+        return "bill " + people + " " + amount + " " + nameList;
     }
 }

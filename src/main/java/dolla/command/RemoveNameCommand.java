@@ -41,7 +41,7 @@ public class RemoveNameCommand extends Command {
             DebtUi.printRemoveNameMessage(name, nameList);
             recordList.removeFromList(billNum - 1);
             Bill newBill = new Bill("bill", people, amount, nameList);
-            recordList.add(newBill);
+            recordList.addWithIndex(billNum - 1, newBill);
         }
     }
 

@@ -21,11 +21,6 @@ public class Shortcut extends Record {
     }
 
     @Override
-    public String amountToMoney() {
-        return "$" + amount;
-    }
-
-    @Override
     public String getRecordDetail() {
         return "[" + "shortcut" + "] "
                 + "[" + type + "] "
