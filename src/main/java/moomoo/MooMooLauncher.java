@@ -1,6 +1,6 @@
 package moomoo;
 
-import moomoo.task.MooMooException;
+import moomoo.feature.MooMooException;
 
 import java.io.IOException;
 

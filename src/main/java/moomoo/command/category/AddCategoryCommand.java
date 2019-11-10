@@ -1,14 +1,15 @@
 package moomoo.command.category;
 
-import moomoo.MooMoo;
 import moomoo.command.Command;
-import moomoo.task.MooMooException;
-import moomoo.task.Storage;
-import moomoo.task.Ui;
-import moomoo.task.Budget;
-import moomoo.task.category.Category;
-import moomoo.task.category.CategoryList;
-import moomoo.task.ScheduleList;
+import moomoo.feature.Budget;
+import moomoo.feature.MooMooException;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.Ui;
+import moomoo.feature.category.Category;
+import moomoo.feature.category.CategoryList;
+import moomoo.feature.storage.CategoryStorage;
+import moomoo.feature.storage.ExpenditureStorage;
+import moomoo.feature.storage.Storage;
 
 public class AddCategoryCommand extends Command {
 
@@ -21,8 +22,8 @@ public class AddCategoryCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category,
-                        Ui ui, Storage storage) throws MooMooException {
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
+                        Storage storage) throws MooMooException {
 
         Category newCategory = new Category(input.toLowerCase());
         if (categoryList.hasCategory(input)) {
@@ -31,8 +32,8 @@ public class AddCategoryCommand extends Command {
             throw new MooMooException("Please do not use | in your category name");
         } else {
             categoryList.add(newCategory);
-            storage.saveCategoryToFile(input);
-            ui.showNewCategoryMessage(input);
+            CategoryStorage.saveToFile(input);
+            Ui.showCategoryMessage("Added category named : " + input);
         }
     }
 }
