@@ -1,11 +1,11 @@
 package dolla.command.view;
 
+import dolla.Time;
 import dolla.command.Command;
 import dolla.model.DollaData;
 import dolla.model.Record;
 import dolla.model.RecordList;
 import dolla.ui.ListUi;
-import dolla.ui.Ui;
 import dolla.ui.ViewUi;
 
 import java.time.LocalDate;
@@ -59,7 +59,7 @@ public class ViewCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return null;
+        return Time.dateToString(cmpDate) + "" + dateStr;
     }
 
     private boolean isSameDate(LocalDate d1, LocalDate d2) {
