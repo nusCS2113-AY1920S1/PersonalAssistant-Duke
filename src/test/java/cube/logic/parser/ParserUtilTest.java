@@ -4,13 +4,13 @@ import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 
-import static cube.testutil.Assert.assertThrowEquals;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class ParserUtilTest {
 
@@ -145,7 +145,7 @@ class ParserUtilTest {
         String test = "1.1";
         assertFalse(ParserUtil.isValidInteger(test));
     }
-    
+
     @Test
     void getTimeZone() {
         TimeZone expected = TimeZone.getTimeZone("GMT+8:00");

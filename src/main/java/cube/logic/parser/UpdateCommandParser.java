@@ -12,6 +12,7 @@ import cube.model.food.Food;
  */
 public class UpdateCommandParser implements ParserPrototype<UpdateCommand> {
 
+    private Food tempFood = new Food();
     /**
      * Parse user update command.
      * @param args user inputs.
@@ -27,6 +28,9 @@ public class UpdateCommandParser implements ParserPrototype<UpdateCommand> {
         int expiryDateIndex = -1;
         String[] params = new String[]{"-t","-p","-s","-e"};
 
+        if (args.length == 1) {
+            throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
+        }
         if (ParserUtil.hasInvalidParameters(args,params)) {
             throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
         }
@@ -59,7 +63,7 @@ public class UpdateCommandParser implements ParserPrototype<UpdateCommand> {
                 && stockIndex == -1 && expiryDateIndex == -1) {
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
         }
-        Food tempFood = new Food(foodName);
+        tempFood.setName(foodName);
         if (foodTypeIndex != -1) {
             if (!ParserUtil.hasField(args,foodTypeIndex + 1)) {
                 throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
@@ -91,5 +95,13 @@ public class UpdateCommandParser implements ParserPrototype<UpdateCommand> {
             tempFood.setExpiryDate(ParserUtil.parseStringToDate(args[expiryDateIndex + 1]));
         }
         return new UpdateCommand(tempFood,changeBit);
+    }
+
+    /**
+     * Getter for temp food.
+     * @return temp food.
+     */
+    public Food getTempFood() {
+        return tempFood;
     }
 }

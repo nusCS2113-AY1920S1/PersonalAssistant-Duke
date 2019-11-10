@@ -42,6 +42,14 @@ public class Food {
 	}
 
 	/**
+	 * Setter for name.
+	 * @param name name to set.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
 	 * Getter for the name of the food.
 	 *
 	 * @return the name of the food.

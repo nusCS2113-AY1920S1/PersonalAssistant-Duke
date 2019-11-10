@@ -13,7 +13,26 @@ public class Promotion {
     protected Date startDate;
     protected Date endDate;
 
+    /**
+     * Default constructor.
+     */
+    public Promotion() {
+
+    }
+
+    /**
+     * Constructor with food name.
+     * @param foodName food name.
+     */
     public Promotion(String foodName) {
+        this.foodName = foodName;
+    }
+
+    /**
+     * Setter for food name.
+     * @param foodName food name.
+     */
+    public void setFoodName(String foodName) {
         this.foodName = foodName;
     }
 
