@@ -77,7 +77,7 @@ public class Ui {
      * @param synonymHashSet hash set represents existed tags of the word
      * @return a string shown when command is completed
      */
-    public String showAddSynonym(String word, ArrayList<String> synonyms, HashSet<String> synonymHashSet) {
+    public String showAddSynonym(String word, ArrayList<String> synonyms, ArrayList<String> synonymHashSet) {
         String returnedString = "I have added "
                 + (synonyms.size() == 1 ? "this synonym \""
                 + synonyms.get(0) + "\"" : "these synonyms")
@@ -393,16 +393,16 @@ public class Ui {
     }
 
     /**
-     * Shows to user all words of a specific tag.
+     * Shows to user all synonyms of a given word.
      * @param searchWord tag to be searched
      * @param words array of words belong to the tag
      * @return string shown to user
      */
-    public String showSearchSynonym(String searchWord, String[] words) {
-        StringBuilder stringBuilder = new StringBuilder("Your synonym \"" + searchWord + "\" has " + words.length
-                + (words.length == 1 ? " word:\n" : " words:\n"));
-        for (int i = 0; i < words.length; i++) {
-            stringBuilder.append(words[i] + "\n");
+    public String showSearchSynonym(String searchWord, ArrayList<String> words) {
+        StringBuilder stringBuilder = new StringBuilder("Your word \"" + searchWord + "\" has " + words.size()
+                + (words.size() == 1 ? " synonym:\n" : " synonyms:\n"));
+        for (int i = 0; i < words.size(); i++) {
+            stringBuilder.append(words.get(i) + "\n");
         }
         return stringBuilder.toString();
     }

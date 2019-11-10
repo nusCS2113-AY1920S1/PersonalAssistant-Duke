@@ -16,9 +16,11 @@ public class SynonymBank {
      * Adds a word to all synonyms present in the list.
      * @param wordDescription word that need to be added
      * @param synonyms list that will add the word
-     * @author Ng Jian Wei
      */
-    public void addWordToSomeSynonyms(String wordDescription, ArrayList<String> synonyms) {
+    public void joinSynonymWords(String wordDescription, ArrayList<String> synonyms) {
+        if (!synonymBank.containsKey(wordDescription)) {
+            synonymBank.put(wordDescription, wordDescription);
+        }
         for (String synonym : synonyms) {
             if (synonymBank.containsKey(synonym)) {
                 if (!isSameSet(wordDescription, synonym)) {
@@ -34,40 +36,37 @@ public class SynonymBank {
     public int getSize() { return synonymBank.size(); }
 
     /**
-     * Adds a word to all synonyms in SynonymBank of that the word has. Ensures that the synonymBank is updated.
-     * @param word word to add synonym
+     * Gets all sets of words that have the same meaning in the synonym bank.
+     * @return set of words that have the same meaning
      */
-
-    public void addWordAllSynonyms(Word word) {
-        for (String synonym : word.getSynonyms()) {
-            if (synonymBank.containsKey(synonym)) {
-                if (!isSameSet(word.getWordString(), synonym)) {
-                    Union(word.getWordString(), synonym);
-                }
-            } else {
-                synonymBank.put(synonym, synonym);
-                Union(word.getWordString(), synonym);
+    public ArrayList<ArrayList<String>> getAllSynonymsAsList() {
+        ArrayList<ArrayList<String>> arrayList = new ArrayList<>();
+        HashSet<String> roots = new HashSet<>();
+        for (String word : synonymBank.keySet()) {
+            String parent = findSet(word);
+            if (!roots.contains(parent)) {
+                ArrayList<String>temp = getAllSynonymsOfWord(word);
+                temp.add(word);
+                arrayList.add(temp);
+                roots.add(parent);
             }
         }
-    }
-
-    public String[] getAllSynonymsAsList() {
-        return synonymBank.keySet().toArray(new String[synonymBank.size()]);
+        return arrayList;
     }
 
     /**
-     * Gets all words of a specific synonym as an array.
+     * Gets all synonyms of a specific word as an array.
      * @param synonym a string represents the synonym
      * @return an array of words of that tag
      */
-    public String[] getAllWordsOfSynonym(String synonym) {
+    public ArrayList<String> getAllSynonymsOfWord(String synonym) {
         ArrayList<String> allSynonyms = new ArrayList<>();
         for (String s : synonymBank.keySet()) {
             if (!s.equals(synonym) && isSameSet(s, synonym)) {
                 allSynonyms.add(s);
             }
         }
-        return allSynonyms.toArray(new String[allSynonyms.size()]);
+        return allSynonyms;
     }
 
     /**
@@ -88,18 +87,25 @@ public class SynonymBank {
     }
 
     private void Union(String word, String synonym) {
-        synonymBank.replace(synonym, synonymBank.get(word));
+        synonymBank.replace(findSet(synonym), synonymBank.get(findSet(word)));
     }
 
     private boolean isSameSet(String word, String synonym) {
         return findSet(word).equals(findSet(synonym));
     }
 
+    /**
+     * Finds the root word that have the same meaning with the current word.
+     * @param word word to be looked for
+     * @return root word of the current word
+     */
     private String findSet(String word) {
         if (synonymBank.get(word).equals(word)) {
             return word;
         }
-        return synonymBank.replace(word, findSet(synonymBank.get(word)));
+        String newParent = findSet(synonymBank.get(word));
+        synonymBank.replace(word, newParent);
+        return newParent;
     }
 
     public boolean isEmpty() {

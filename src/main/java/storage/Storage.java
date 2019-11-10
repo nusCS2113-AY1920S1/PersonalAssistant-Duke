@@ -294,11 +294,10 @@ public class Storage {
             while (rowIteratorSynonymBank.hasNext()) {
                 Row row = rowIteratorSynonymBank.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
-                String synonym = cellIterator.next().getStringCellValue();
                 String[] allWords = cellIterator.next().getStringCellValue().split(", ");
 
                 for (int i = 0; i < allWords.length; i++) {
-                    bank.addSynonymToWord(allWords[i], synonym);
+                    bank.addSynonymToWord(allWords[i], allWords[0]);
                 }
             }
             fileInputStream.close();
@@ -363,15 +362,10 @@ public class Storage {
         headerRow = synonymBankSheet.createRow(0);
 
         cell = headerRow.createCell(0);
-        cell.setCellValue("Synonym");
-        cell.setCellStyle(headerCellStyle);
-
-        cell = headerRow.createCell(1);
         cell.setCellValue("Word with same meaning");
         cell.setCellStyle(headerCellStyle);
 
         synonymBankSheet.autoSizeColumn(0);
-        synonymBankSheet.autoSizeColumn(1);
 
         try {
             FileOutputStream fileOut = new FileOutputStream(EXCEL_PATH);
@@ -497,9 +491,8 @@ public class Storage {
             Workbook workbook = WorkbookFactory.create(fileInputStream);
 
             Sheet sheet = workbook.getSheetAt(2);
-            String[] allSynonyms = synonymBank.getAllSynonymsAsList();
-            String[] allWordsOfSynonym;
-            for (int i = 1; i <= allSynonyms.length; i++) {
+            ArrayList<ArrayList<String>> allSynonyms = synonymBank.getAllSynonymsAsList();
+            for (int i = 1; i <= allSynonyms.size(); i++) {
                 Row row = sheet.getRow(i);
                 if (row == null) {
                     row = sheet.createRow(i);
@@ -511,16 +504,8 @@ public class Storage {
                 }
 
                 cell.setCellType(CellType.STRING);
-                String synonym = allSynonyms[i - 1];
-                cell.setCellValue(synonym);
-
-                allWordsOfSynonym = synonymBank.getAllWordsOfSynonym(synonym);
-
-                cell = row.getCell(1);
-                if (cell == null) {
-                    cell = row.createCell(1);
-                }
-                cell.setCellValue(String.join(", ", allWordsOfSynonym));
+                ArrayList<String> synonym = allSynonyms.get(i - 1);
+                cell.setCellValue(String.join(", ", synonym));
             }
 
             sheet.autoSizeColumn(0);

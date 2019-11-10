@@ -24,7 +24,6 @@ import dictionary.Word;
 import exception.CommandInvalidException;
 import exception.EmptyTagException;
 import exception.EmptyWordException;
-import exception.EmptySynonymException;
 import exception.InvalidCharacterException;
 import exception.InvalidHistoryIndexException;
 import exception.ReminderWrongDateFormatException;
@@ -158,7 +157,7 @@ public class Parser {
     }
 
     private static Command parseSearchSynonym(String[] taskInfo) throws WrongSearchSynonymFormatException,
-            EmptySynonymException, EmptyWordException, InvalidCharacterException {
+            EmptyWordException, InvalidCharacterException {
         if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
             throw new WrongSearchSynonymFormatException();
         } else {
@@ -169,7 +168,7 @@ public class Parser {
             if (!isValidInputWord(synonym)) {
                 throw new InvalidCharacterException();
             }
-            return new SearchSynonymCommand(synonym, "synonym");
+            return new SearchSynonymCommand(synonym);
         }
     }
 
@@ -299,7 +298,7 @@ public class Parser {
                 }
                 tags.add(wordAndTags[i].trim());
             }
-            return new DeleteCommand(wordDescription, tags,1);
+            return new DeleteCommand(wordDescription, tags);
         }
     }
 
