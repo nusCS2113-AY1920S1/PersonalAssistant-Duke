@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import java.util.HashMap;
 
 import planner.credential.user.User;
-import planner.logic.exceptions.legacy.ModCcaScheduleException;
+import planner.logic.exceptions.legacy.ModScheduleException;
 import planner.logic.exceptions.legacy.ModEmptyListException;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.legacy.ModOutOfBoundException;
@@ -44,10 +44,8 @@ public class AddCcaScheduleCommand extends ModuleCommand {
         LocalTime end = natty.dateToLocalDateTime(arg("end")).toLocalTime();
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(arg("dayOfWeek").toUpperCase());
         TimePeriodWeekly timePeriodWeekly = new TimePeriodWeekly(begin, end, dayOfWeek);
-        for (Cca cca: profile.getCcas()) {
-            if (cca.isClashing(timePeriodWeekly)) {
-                throw new ModCcaScheduleException();
-            }
+        if (profile.getAllTasks().clashes(timePeriodWeekly)) {
+            throw new ModScheduleException("Time period");
         }
         Cca cca = profile.getCcas().get(index);
         cca.addPeriod(timePeriodWeekly);

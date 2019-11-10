@@ -44,7 +44,7 @@ public class SortCommand extends ModuleCommand {
         String toSort = arg("toSort");
         plannerUi.sortMsg(toSort);
         switch (toSort) {
-            case ("ccas"): {
+            case ("cca"): {
                 TaskList<Cca> hold = profile.getCcas();
                 List<TaskWithMultipleWeeklyPeriod> holdForCcas = new ArrayList<>();
                 hold.sort(Comparator.comparing((Object t) -> ((Cca) t).getTaskToLowerCase()));
@@ -59,16 +59,11 @@ public class SortCommand extends ModuleCommand {
                 break;
             }
 
-            case ("times"):
+            case ("time"):
                 List<TaskWithMultipleWeeklyPeriod> holdForTime = new ArrayList<>();
                 List<TaskWithMultipleWeeklyPeriod> holdForTimeReverse = new ArrayList<>();
                 DayOfWeek dayOfWeek = DayOfWeek.valueOf(arg("DayOfTheWeek").toUpperCase());
-                for (Cca t : profile.getCcas()) {
-                    if (t.happensOnThisDayOfWeek(dayOfWeek)) {
-                        holdForTime.add(t);
-                    }
-                }
-                for (ModuleTask t : profile.getModules()) {
+                for (TaskWithMultipleWeeklyPeriod t : profile.getAllTasks()) {
                     if (t.happensOnThisDayOfWeek(dayOfWeek)) {
                         holdForTime.add(t);
                     }
@@ -84,7 +79,7 @@ public class SortCommand extends ModuleCommand {
                 plannerUi.showSortedTimes(holdForTime, dayOfWeek);
                 break;
 
-            case ("modules"):
+            case ("module"):
 
             default:
                 TaskList<ModuleTask> taskList = profile.getModules();
