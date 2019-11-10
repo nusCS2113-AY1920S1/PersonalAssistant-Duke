@@ -65,8 +65,8 @@ public class Storage {
             for (String[] line : inputData) {
                 csvWriter.writeNext(line);
             }
-        } catch (IOException e) {
-            throw new IOException(e);
+        } catch (IOException exceptionMessage) {
+            throw new IOException(exceptionMessage);
         }
     }
 

@@ -1,5 +1,9 @@
 package owlmoney.logic.command.bond;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.exception.BondException;
@@ -14,6 +18,7 @@ public class EditBondCommand extends Command {
     private final String bondName;
     private final String year;
     private final String rate;
+    private static final Logger logger = getLogger(EditBondCommand.class);
 
     /**
      * Creates an instance of EditInvestmentCommand.
@@ -42,6 +47,7 @@ public class EditBondCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws BondException, BankException {
         profile.profileEditBond(this.bankName, this.bondName, this.year, this.rate, ui);
+        logger.info("Successful execution of EditBondCommand");
         return this.isExit;
     }
 }
