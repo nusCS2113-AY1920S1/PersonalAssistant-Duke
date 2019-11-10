@@ -105,20 +105,6 @@ public class Food {
 		return expiryDate;
 	}
 
-	/**
-	 * Getter for the total revenue earned from selling the food.
-	 *
-	 * @return the total revenue earned from selling the food.
-	 */
-	public static double getRevenue() {
-		FoodList list = ModelManager.getFoodList();
-		int size = list.size();
-		double revenue = 0;
-		for (int i = 0; i < size; ++i) {
-			revenue += list.get(i).foodRevenue;
-		}
-		return revenue;
-	}
 
 	/**
 	 * Getter for the revenue of a food.
