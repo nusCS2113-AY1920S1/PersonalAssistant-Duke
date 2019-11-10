@@ -23,7 +23,7 @@ public class ReminderPopup extends NewScene {
      * @param remindInfo the String matching the text stored in reminder.txt for deletion by storage
      */
     public ReminderPopup(ArrayList<String> wordList, String remindInfo) {
-        storage = new Storage();
+        storage = new Storage("\\data");
         storage.updateFile(remindInfo, "", "reminder");
         wordArrayList = wordList;
         makeReminderPopup();

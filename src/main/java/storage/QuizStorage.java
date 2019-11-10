@@ -7,6 +7,7 @@ public class QuizStorage extends Storage {
     protected String quizFilePath;
 
     public QuizStorage(String filepath) {
+        super(filepath);
         this.quizFilePath = filepath;
     }
 

@@ -24,6 +24,9 @@ import parser.Parser;
 import storage.Storage;
 import ui.Ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class NewScene {
     protected ScrollPane scrollPane;
     protected VBox dialogContainer;
@@ -38,10 +41,10 @@ public abstract class NewScene {
     protected Storage storage;
     protected String greet;
     protected Stage window;
-    protected String previousInput = "";
+    protected List<String> inputHistory = new ArrayList<>();
+    protected int inputIndex = 0;
 
     public NewScene() {
-
     }
 
 
@@ -114,7 +117,9 @@ public abstract class NewScene {
     protected void setupHandleInput() {
         sendButton.setOnMouseClicked((event) -> {
             try {
-                this.previousInput = userInput.getText();
+
+                this.inputHistory.add(userInput.getText());
+                this.inputIndex = this.inputHistory.size();
                 handleUserInput();
             } catch (WordUpException e) {
                 resolveException(e);
@@ -123,7 +128,8 @@ public abstract class NewScene {
 
         userInput.setOnAction((event) -> {
             try {
-                this.previousInput = userInput.getText();
+                this.inputHistory.add(userInput.getText());
+                this.inputIndex = this.inputHistory.size();
                 handleUserInput();
             } catch (WordUpException e) {
                 resolveException(e);
@@ -132,8 +138,24 @@ public abstract class NewScene {
 
         userInput.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.UP) {
-                userInput.setText(previousInput);
-                userInput.positionCaret(previousInput.length());
+                if (inputIndex > 0) {
+                    inputIndex -= 1;
+                }
+                if (inputHistory.size() != 0) {
+                    userInput.setText(inputHistory.get(inputIndex));
+                    userInput.positionCaret(inputHistory.get(inputIndex).length());
+                }
+            } else if (event.getCode() == KeyCode.DOWN) {
+                if (inputIndex < inputHistory.size()) {
+                    inputIndex += 1;
+                }
+                if (inputIndex == inputHistory.size()) {
+                    userInput.setText("");
+                } else {
+                    userInput.setText(inputHistory.get(inputIndex));
+                    userInput.positionCaret(inputHistory.get(inputIndex).length());
+                }
+
             }
         });
     }

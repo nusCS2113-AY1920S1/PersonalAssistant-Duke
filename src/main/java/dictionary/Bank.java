@@ -137,8 +137,8 @@ public class Bank {
         synonymBank.deleteWordSomeSynonyms(deletedSynonyms, deletedWord);
     }
 
-    public void editWordMeaning(String editedWord, String newMeaning) throws NoWordFoundException {
-        wordBank.editWordMeaning(editedWord, newMeaning);
+    public Word editWordMeaning(String editedWord, String newMeaning) throws NoWordFoundException {
+        return wordBank.editWordMeaningAndGetWord(editedWord, newMeaning);
     }
 
     public ArrayList<String> searchWordWithBegin(String begin) throws NoWordFoundException {

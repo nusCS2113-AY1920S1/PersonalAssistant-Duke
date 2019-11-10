@@ -14,11 +14,6 @@ public class Word {
     private HashSet<String> synonyms;
 
     /**
-     * Maximum ratio of difference allowed for 2 words to be considered close.
-     */
-    private static final double MAX_DIF_ALLOWED = 0.6;
-
-    /**
      * Number of times that a word is searched.
      */
     private int numberOfSearches;
@@ -89,9 +84,10 @@ public class Word {
     /**
      * Levenshtein distance between 2 strings.
      * Calculates the minimum number of changes from 1 string to get to another
-     * Possible changes are insert, delete or change change characters
+     * Possible changes are insert, delete or change characters
      * @param another string represents word to be compared
      * @return edit distance between 2 words divided by the length of shorter word
+     * @author Cheng Pai Kai
      */
     private double differenceToWord(String another) {
         int[][] dp = new int[word.length() + 1][another.length() + 1];
@@ -112,8 +108,7 @@ public class Word {
                 }
             }
         }
-        int lengthOfShorterWord = Math.min(another.length(), word.length());
-        return dp[word.length()][another.length()] * 1.0 / lengthOfShorterWord;
+        return dp[word.length()][another.length()];
     }
 
     /**
@@ -122,7 +117,7 @@ public class Word {
      * @return true if 2 words are closed with each other
      */
     public boolean isClosed(String another) {
-        return differenceToWord(another) < MAX_DIF_ALLOWED;
+        return differenceToWord(another) * 2 <= word.length();
     }
 
     @Override
