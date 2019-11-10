@@ -4,6 +4,7 @@ import booking.ApprovedList;
 import inventory.Inventory;
 import exception.DukeException;
 import room.RoomList;
+import storage.BookingConstants;
 import storage.Constants;
 import storage.Storage;
 import storage.StorageManager;
@@ -39,18 +40,12 @@ public class AddBookingCommand extends Command {
      */
     public AddBookingCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (!input.contains("/from") || !input.contains("/at") || !input.contains("/to")) {
-            throw new DukeException(Constants.UNHAPPY
-                   + "OOPS!!! Please create your booking with the following format: "
-                    + "add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
-                   + ", DATE TIME format is dd/mm/yyyy HHMM ");
+            throw new DukeException(":-( " + BookingConstants.DATETIMEERROR);
         }
-
         String temp = input.substring(3).trim(); // name description /at roomcode /from dd/mm/yyyy hhmm /to hhmm
         splitC = temp.split("/at", 2); //splitC[] = {name, description, roomcode, dd/mm/yyyy hhmm /to hhmm)
         if (splitC.length < 2) {
-            throw new DukeException(Constants.UNHAPPY
-                    + "OOPS!!! Please create your booking with the following format: "
-                    + "description, roomcode, date and time");
+            throw new DukeException(":-( " + BookingConstants.DATETIMEERROR);
         }
         splitE = splitC[0].split(" ", 2);
         this.name = splitE[0].trim();

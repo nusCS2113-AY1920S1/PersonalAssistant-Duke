@@ -64,6 +64,11 @@ public class AddRoomCommand extends Command {
                         StorageManager allStorage)
             throws IOException, DukeException {
         Room addroom = new Room(roomcode, dateStartTime, endTime);
+        boolean clash = RoomList.checkRoom(roomList, roomcode, dateStartTime, endTime);
+        if (clash) {
+            throw new DukeException(":-("
+                    + " OOPS!!! This room is already added, please add another one.");
+        }
         roomList.add(addroom);
         allStorage.getRoomStorage().saveToFile(roomList);
         ui.addToOutput("Got it, I've added this room.\n"

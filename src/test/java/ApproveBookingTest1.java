@@ -7,7 +7,7 @@ import ui.Ui;
 import user.UserList;
 
 import java.io.FileNotFoundException;
-//@@Alex-Teo
+//@@author Alex-Teo
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ApproveBookingTest1 {

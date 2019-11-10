@@ -4,11 +4,10 @@ package command;
 import booking.ApprovedList;
 import inventory.Inventory;
 
-import booking.Booking;
 import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
-import storage.Storage;
+import storage.BookingConstants;
 import storage.StorageManager;
 import ui.Ui;
 import storage.Constants;
@@ -16,8 +15,6 @@ import user.UserList;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class EditBookingCommand extends Command {
 
@@ -36,14 +33,13 @@ public class EditBookingCommand extends Command {
      */
     public EditBookingCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 2) {
-            throw new DukeException("☹ OOPS!!! Please enter the index of the item you want to edit as well as the "
-                    + "updated description of your booking!");
+            throw new DukeException(BookingConstants.INDEXERROR1);
         }
         try {
             index = Integer.parseInt(splitStr[1]);
             index -= 1;
         } catch (NumberFormatException e) {
-            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please enter the index in integer format");
+            throw new DukeException(BookingConstants.INDEXERROR2);
         }
         splitC = input.split(" ", 3);
         textToEdit = splitC[2];
@@ -55,7 +51,7 @@ public class EditBookingCommand extends Command {
                         StorageManager allStorage)
             throws DukeException, IOException, ParseException {
         bookingList.get(index).setDescription(textToEdit);
-        ui.addToOutput("The description of this request has been changed!");
+        ui.addToOutput(BookingConstants.EDITSUCCESS);
         ui.addToOutput(bookingList.get(index).toString());
         allStorage.getBookingStorage().saveToFile(bookingList);
     }
