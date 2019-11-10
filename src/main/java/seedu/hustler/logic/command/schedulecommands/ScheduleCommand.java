@@ -39,7 +39,7 @@ public class ScheduleCommand extends Command {
         Ui ui = new Ui();
         try {
             anomaly.detect(userInput);
-            Scheduler.displayRecommendedSchedule();
+            Hustler.scheduler.displayRecommendedSchedule();
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }

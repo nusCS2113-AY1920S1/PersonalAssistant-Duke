@@ -1,5 +1,6 @@
 package seedu.hustler.logic.command.schedulecommands;
 
+import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.UpdateEntryAnomaly;
@@ -42,8 +43,8 @@ public class UpdateEntry extends Command {
             int index = Integer.parseInt(numbers[0]);
             int time = this.parseDuration(numbers[1]); 
             index--;
-            Scheduler.updateAllocTime(index, time);
-            Scheduler.displayRecommendedSchedule();
+            Hustler.scheduler.updateAllocTime(index, time);
+            Hustler.scheduler.displayRecommendedSchedule();
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
             return;

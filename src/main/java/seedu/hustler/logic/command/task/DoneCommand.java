@@ -42,14 +42,14 @@ public class DoneCommand extends Command {
         try {
             anomaly.detect(userInput);
             int taskIndex = Integer.parseInt(userInput[1]) - 1;
-            Scheduler.remove(Hustler.list.get(taskIndex));
+            Hustler.scheduler.remove(Hustler.list.get(taskIndex));
             Hustler.list.doTask(taskIndex);
             Hustler.avatar.gainXp();
             if (Hustler.avatar.canLevel()) {
                 Hustler.avatar.levelUp();
                 ui.showCongrats(Hustler.avatar);
             }
-            Scheduler.remove(Hustler.list.get(taskIndex));
+            Hustler.scheduler.remove(Hustler.list.get(taskIndex));
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }

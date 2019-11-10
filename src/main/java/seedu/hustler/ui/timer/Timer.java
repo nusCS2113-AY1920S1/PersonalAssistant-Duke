@@ -1,7 +1,7 @@
 package seedu.hustler.ui.timer;
 
 import seedu.hustler.ui.timer.statusTypes.threadStatus;
-import seedu.hustler.schedule.Scheduler;
+import seedu.hustler.Hustler;
 
 /**
  * The timer device operated by timerManager.
@@ -59,7 +59,7 @@ public class Timer implements Runnable {
         }
         TimerUI.printThreadInterrupt(threadstatus);
         if (isFinished()) {
-            Scheduler.confirm();
+            Hustler.scheduler.confirm();
         }
     }
 

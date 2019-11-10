@@ -49,6 +49,7 @@ public class AddCommand extends Command {
             } else {
                 Hustler.list.add("todo", taskInfo[1]);
             }
+            Hustler.scheduler.update();
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }

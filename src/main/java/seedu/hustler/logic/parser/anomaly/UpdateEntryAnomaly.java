@@ -27,7 +27,7 @@ public class UpdateEntryAnomaly extends DetectAnomaly {
             int index = -1;
             index = Integer.parseInt(numbers[0]);
             index--;
-            Scheduler.recommended.get(index);
+            Hustler.scheduler.recommended.get(index);
             String[] times = numbers[1].split(":");
             Integer.parseInt(times[0]);
             Integer.parseInt(times[1]);
