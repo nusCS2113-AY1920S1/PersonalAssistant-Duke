@@ -16,6 +16,7 @@ public class ListOfSpecializationAndModules {
     private static final int LARGE_SCALE_COMPUTING_INDEX = 5;
     private static final int SYS_ON_A_CHIP_DESIGN_INDEX = 6;
     private static final int MODULAR_CREDITS = 4;
+
     /**
      * Stores all the technical electives and specializations.
      * in this case storing data in the expenses map
@@ -71,17 +72,17 @@ public class ListOfSpecializationAndModules {
         final String cs3241 = "CS3241 Computer Graphics";
         final String cs3242 = "CS3242 3D Modeling and Animation";
         final String cs3247 = "CS3247 Game Development";
-        final String cs4240 = "CS4240 Interaction Design"
+        final String cs4240 = "CS4240 Interaction Design "
                 + "for Virtual and Augmented Reality";
         final String cs4243 = "CS4243 Computer Vision and Pattern Recognition";
         final String cs4247 = "CS4247 Graphics Rendering Techniques";
-        final  String cs4249 = "CS4249 Phenomena and Theories of"
-                + "Human-Computer Interaction";
+        final String cs4249 = "CS4249 Phenomena and Theories of"
+                + " Human-Computer Interaction";
         final String cs4347 = "CS4347 Sound and Music Computing";
         final String cs4351 = "CS4351 Real-Time Graphics";
         final String ee4212 = "EE4212 Computer Vision";
         final String ee4604 = "EE4604 Biological Perception in Digital Media";
-        final String ee4704 = "EE4704 Introduction to"
+        final String ee4704 = "EE4704 Introduction to "
                 + "Computer Vision and Image Processing";
 
         final String cs2101 = "CS2101 Database Systems";
@@ -92,7 +93,7 @@ public class ListOfSpecializationAndModules {
         final String cs4211 = "CS4211 Formal Methods for Software Engineering";
         final String cs4221 = "CS4221 Database Applications Design and Tuning";
         final String cs4224 = "CS4224 Distributed Databases";
-        final String cs4231 = "CS4231 Parallel &"
+        final String cs4231 = "CS4231 Parallel & "
                 + "Distributed Algorithms";
 
         final String ee3104C = "EE3104C Introduction to RF "

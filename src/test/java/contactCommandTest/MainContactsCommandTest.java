@@ -1,9 +1,9 @@
 //@@author JasonLeeWeiHern
-package contactCommandTest;
+package ContactCommandTest;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.parsers.ContactCommandParser;
+import gazeeebo.parser.ContactCommandParser;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;

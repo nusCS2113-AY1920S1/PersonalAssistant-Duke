@@ -136,8 +136,6 @@ public class CategoryListCommandTest {
     /**
      * Test calling category deadline list.
      *
-     * @throws DukeException  Throws custom exception when
-     *                        format of tag command is wrong
      * @throws ParseException Catch error if parsing of commands fails
      * @throws IOException    Catch error if reading of file fails
      */
@@ -168,18 +166,16 @@ public class CategoryListCommandTest {
         catList.execute(list, ui, storage, commandStack,
                 deletedTask, triviaManager);
 
-        assertEquals("List of events tasks:\r\n"
-                + "1.[D][ND]assignment"
+        assertEquals("List of deadlines tasks:\r\n"
+                + "1.[D][ND] assignment"
                 + "(by:01 Feb 2019 12:12:12)\r\n"
-                + "2.[D][ND]essay"
+                + "2.[D][ND] essay"
                 + "(by:03 Jan 2019 01:00:00)\r\n", output.toString());
     }
 
     /**
      * Test calling nonexistent category list.
      *
-     * @throws DukeException  Throws custom exception when
-     *                        format of tag command is wrong
      * @throws ParseException Catch error if parsing of commands fails
      * @throws IOException    Catch error if reading of file fails
      */
@@ -210,8 +206,7 @@ public class CategoryListCommandTest {
         catList.execute(list, ui, storage, commandStack,
                 deletedTask, triviaManager);
 
-        assertEquals("OOPS!!! I'm sorry, but I don't know what "
-                + "that means :-(\r\n", output.toString());
+        assertEquals("", output.toString());
     }
 }
 

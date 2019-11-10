@@ -60,8 +60,7 @@ public class Storage {
             = {"NoteWeekly.txt", "/NoteWeekly.txt"};
     private String relativePathResource
             = "Save.txt";
-    private String relativePathExpensesResource
-            = "Expenses.txt";
+
     private String relativePathPlacesResource
             = "Places.txt";
     private String relativePathTriviaResource
@@ -80,6 +79,7 @@ public class Storage {
     /**
      * Check if there are save txt file in the directory, if there is not, create a new txt file and copy
      * preloaded data into the new txt file
+     *
      * @throws IOException exception when there is an error read the txt file
      */
     public void startUp() throws IOException {
@@ -123,6 +123,7 @@ public class Storage {
 
     /**
      * Save the task list to Save.txt
+     *
      * @param fileContent concatenate the list into a single string.
      * @throws IOException exception when there is an error writing to the file
      */
@@ -135,6 +136,7 @@ public class Storage {
 
     /**
      * Read from Save.txt file
+     *
      * @return ArrayList of Tasks
      * @throws FileNotFoundException exception if the file path is invalid.
      */
@@ -235,15 +237,9 @@ public class Storage {
         return tList;
     }
 
-    public void writeToExpensesFile(String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(relativePathExpensesResource);
-        fileWriter.write(fileContent);
-        fileWriter.flush();
-        fileWriter.close();
-    }
-
     /**
      * Write to Places.txt file
+     *
      * @param fileContent Concatenate all the places into a single string
      * @throws IOException exception when the file is unable to be written
      */
@@ -254,53 +250,30 @@ public class Storage {
         fileWriter.close();
     }
 
-    public HashMap<LocalDate, ArrayList<String>> readFromExpensesFile() throws FileNotFoundException {
-        HashMap<LocalDate, ArrayList<String>> expenses = new HashMap<LocalDate, ArrayList<String>>();
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        File f = new File(relativePathExpensesResource);
-        Scanner sc = new Scanner(f);
-        while (sc.hasNext()) {
-            ArrayList<String> itemAndPriceList = new ArrayList<>();
-            String[] split = sc.nextLine().split("\\|");
-            LocalDate dateOfPurchase = LocalDate.parse(split[0], fmt);
-            boolean isEqual = false;
-            for (LocalDate key : expenses.keySet()) {
-                if (dateOfPurchase.equals(key)) { //if date equal
-                    expenses.get(key).add(split[1]);
-                    isEqual = true;
-                }
-            }
-            if (isEqual == false) {
-                itemAndPriceList.add(split[1]);
-                expenses.put(dateOfPurchase, itemAndPriceList);
-            }
-        }
-        return expenses;
-    }
-
     /**
      * Read Places.txt file
+     *
      * @return A HashMap of the places and their locations.
      * @throws IOException exception when the file is unable to be read
      */
     public HashMap<String, String> readPlaces() throws IOException {
-            HashMap<String, String> placesList = new HashMap<String, String>();
-            File f = new File(relativePathPlacesResource);
-            Scanner sc = new Scanner(f);
-            while (sc.hasNext()) {
-                try {
-                    String[] split = sc.nextLine().split("\\|");
-                    placesList.put(split[0], split[1]);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Places.txt cannot be read, check format of Places.txt");
-                }
+        HashMap<String, String> placesList = new HashMap<String, String>();
+        File f = new File(relativePathPlacesResource);
+        Scanner sc = new Scanner(f);
+        while (sc.hasNext()) {
+            try {
+                String[] split = sc.nextLine().split("\\|");
+                placesList.put(split[0], split[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Places.txt cannot be read, check format of Places.txt");
             }
-            return placesList;
+        }
+        return placesList;
     }
 
     /**
      * This method read Trivia.txt, get users' past inputs from the file.
+     *
      * @return hash-map of keywords and inputs
      * @throws FileNotFoundException
      */
@@ -329,6 +302,7 @@ public class Storage {
 
     /**
      * This method writes to Trivia.txt file, record down updates in record of user inputs.
+     *
      * @param fileContent
      * @throws IOException
      */
@@ -345,7 +319,7 @@ public class Storage {
             bufferedWriter.write(fileContent);
             bufferedWriter.flush();
             bufferedWriter.close();
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -406,6 +380,7 @@ public class Storage {
 
     /**
      * This method reads from Study_Plan.txt, get users' current module plan
+     *
      * @return double ArrayList storing the table.
      * @throws IOException
      */
@@ -429,6 +404,7 @@ public class Storage {
 
     /**
      * This method writes to Study_Plan.txt, updates changes in module plan.
+     *
      * @param fileContent
      * @throws IOException
      */
@@ -441,6 +417,7 @@ public class Storage {
 
     /**
      * This method reads from prerequisite txt file, gets information about courses' prerequisites.
+     *
      * @return
      * @throws IOException
      */
