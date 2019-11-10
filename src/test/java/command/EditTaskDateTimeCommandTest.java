@@ -65,6 +65,8 @@ public class EditTaskDateTimeCommandTest {
         assertTrue(out instanceof CommandOutput);
         assertEquals(expected.isExit(), out.isExit());
         assertEquals(expected.getOutputToUser(), out.getOutputToUser());
+        System.out.println(out.getOutputToUser());
+        System.out.println(expected.getOutputToUser());
         assertEquals(expected, out);
         //assertEquals("The deadline has been changed to: Sat Oct 10 10:10:00 SGT 2020",
         //        out.getOutputToUser());
