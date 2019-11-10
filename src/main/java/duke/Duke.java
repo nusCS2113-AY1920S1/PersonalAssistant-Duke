@@ -320,6 +320,7 @@ public class Duke {
             contactStorage.write(contactList);
             budgetStorage.write(budgetList);
             storage.write(items);
+            logger.info("Save success.");
             new DukeLogger().stopLogger(logger);
         } catch (IOException | InterruptedException i) {
             logger.severe("Error saving storage files upon exiting.");
