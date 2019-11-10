@@ -96,9 +96,60 @@ public class AssignmentControllerTest {
     }
 
     @Test
-    void testAssignAndUnassign_invalidTaskIndex_executionFail() {
+    void testAssignAndUnassign_invalidIndexNumbers_executionFail() {
+        AssignmentController assignmentController = new AssignmentController(project);
+        simulatedUserInput = "assign task -i 5 -to 1";
+        assignmentController.assignAndUnassign(simulatedUserInput);
+        ArrayList<String> errorMessages = assignmentController.getErrorMessages();
+        actualOutput = errorMessages.get(0);
+        expectedOutput = "Task with index 5 does not exist.";
+        assertEquals(expectedOutput, actualOutput);
 
+        assignmentController = new AssignmentController(project);
+        simulatedUserInput = "assign task -i 1 -to 5";
+        assignmentController.assignAndUnassign(simulatedUserInput);
+        errorMessages = assignmentController.getErrorMessages();
+        actualOutput = errorMessages.get(0);
+        expectedOutput = "Member with index 5 does not exist.";
+        assertEquals(expectedOutput, actualOutput);
     }
 
+    @Test
+    void testAssignAndUnassign_repeatedAssignment_executionFail() {
+        //assigning task to someone who is already assigned
+        AssignmentController assignmentController = new AssignmentController(project);
+        simulatedUserInput = "assign task -i 1 -to 1";
+        assignmentController.assignAndUnassign(simulatedUserInput);
+        assertTrue(project.containsAssignment(project.getTask(1), member1));
 
+        simulatedUserInput = "assign task -i 1 -to 1";
+        assignmentController = new AssignmentController(project);
+        assignmentController.assignAndUnassign(simulatedUserInput);
+        ArrayList<ArrayList<String>> successMessages = assignmentController.getSuccessMessages();
+        ArrayList<String> taskMessages = successMessages.get(0);
+        actualOutput = taskMessages.get(0);
+        expectedOutput = "For task 1 (Test task):";
+        assertEquals(expectedOutput, actualOutput);
+        actualOutput = taskMessages.get(1);
+        expectedOutput = "Task has already been assigned to member 1 (Tom).";
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    void testAssignAndUnassign_invalidUnassignment_executionFail() {
+        //unassigning task to someone who has not been assigned yet
+        AssignmentController assignmentController = new AssignmentController(project);
+        simulatedUserInput = "assign task -i 1 -rm 1";
+        assignmentController = new AssignmentController(project);
+        assignmentController.assignAndUnassign(simulatedUserInput);
+        ArrayList<ArrayList<String>> successMessages = assignmentController.getSuccessMessages();
+        ArrayList<String> taskMessages = successMessages.get(0);
+        actualOutput = taskMessages.get(0);
+        expectedOutput = "For task 1 (Test task):";
+        assertEquals(expectedOutput, actualOutput);
+        actualOutput = taskMessages.get(1);
+        expectedOutput = "Task cannot be unassigned from member 1 (Tom) as it was not assigned in the first place!";
+        assertEquals(expectedOutput, actualOutput);
+    }
+    
 }
