@@ -16,74 +16,74 @@ public class HelpText {
             System.lineSeparator();
 
     public static final String COMMAND_FORMAT =
-            "# Command Format #\n"+
-            "Words in UPPER_CASE are the parameters to be supplied by the\n" +
-            "user e.g. in todo TASK_DESCRIPTION, TASK_DESCRIPTION is a\n" +
-            "parameter which can be used as todo eat.\n";
+            "# Command Format #\n" +
+                    "Words in UPPER_CASE are the parameters to be supplied by the\n" +
+                    "user e.g. in todo TASK_DESCRIPTION, TASK_DESCRIPTION is a\n" +
+                    "parameter which can be used as todo eat.\n";
 
     public static final String COMMANDS_HEADER = "# Commands #";
 
     //------------------------------TASKS-------------------------------------------
     private static final String HEADER_TASKS_PAGE = "********** Tasks page: tasks **********\n" +
             "\n" +
-            "Brings you to your tasks page from the main menu page.\n"+
+            "Brings you to your tasks page from the main menu page.\n" +
             "In your tasks page, you can add different kinds of tasks to your schedule and view your upcoming tasks.\n" +
-            "The following commands in this section can only be used in the tasks page.\n"+
-            "\n"+
-            "How to get to the tasks page: \n"+
-            "\t- Type in the command \'tasks\' in the main menu page and press ENTER.\n"+
+            "The following commands in this section can only be used in the tasks page.\n" +
+            "\n" +
+            "How to get to the tasks page: \n" +
+            "\t- Type in the command \'tasks\' in the main menu page and press ENTER.\n" +
             "\t- You can only go to the tasks page from the main menu.\n";
 
     private static final String TODO =
             "\t[ Adding a todo: todo ]\n" +
-            "\tAdds a todo task to the task list.\n" +
-            "\tFormat: todo TASK_DESCRIPTION\n" +
-            "\n" +
-            "\tExamples:\n" +
-            "\t\t- todo eat\n" +
-            "\t\t- todo watch TV\n";
+                    "\tAdds a todo task to the task list.\n" +
+                    "\tFormat: todo TASK_DESCRIPTION\n" +
+                    "\n" +
+                    "\tExamples:\n" +
+                    "\t\t- todo eat\n" +
+                    "\t\t- todo watch TV\n";
 
     private static final String DEADLINE =
             "\t[ Adding a deadline: deadline ]\n" +
-            "\tAdds a deadline task to the task list.\n" +
-            "\tFormat: deadline TASK_DESCRIPTION /by YYYY-MM-DD HH:MM:SS\n" +
-            "\n" +
-            "\tExamples:\n" +
-            "\t\t- deadline assignment /by 2019-12-04 12:07:08\n" +
-            "\t\t- deadline watch TV /by 1988-06-27 08:46:37\n";
+                    "\tAdds a deadline task to the task list.\n" +
+                    "\tFormat: deadline TASK_DESCRIPTION /by YYYY-MM-DD HH:MM:SS\n" +
+                    "\n" +
+                    "\tExamples:\n" +
+                    "\t\t- deadline assignment /by 2019-12-04 12:07:08\n" +
+                    "\t\t- deadline watch TV /by 1988-06-27 08:46:37\n";
 
     private static final String EVENT =
             "\t[ Adding an event: event ]\n" +
-            "\tAdds an event task to the task list.\n" +
-            "\tFormat: event TASK_DESCRIPTION /at YYYY-MM-DD HH:MM:SS-HH:SS:MM\n" +
-            "\n" +
-            "\tExamples: \n" +
-            "\t\t- event party /at 2019-12-04 12:07:08-12:50:00\n" +
-            "\t\t- event project meeting /at 1988-06-27 08:46:37-09:50:10\n";
+                    "\tAdds an event task to the task list.\n" +
+                    "\tFormat: event TASK_DESCRIPTION /at YYYY-MM-DD HH:MM:SS-HH:SS:MM\n" +
+                    "\n" +
+                    "\tExamples: \n" +
+                    "\t\t- event party /at 2019-12-04 12:07:08-12:50:00\n" +
+                    "\t\t- event project meeting /at 1988-06-27 08:46:37-09:50:10\n";
 
     private static final String LIST =
             "\t[ Listing out the task list: list ]\n" +
-            "\tList out all the tasks in the task list.\n" +
-            "\tFormat: list\n";
+                    "\tList out all the tasks in the task list.\n" +
+                    "\tFormat: list\n";
 
     private static final String DELETE =
             "\t[ Delete task(s): delete ]\n" +
-            "\tDeletes n number of tasks at once from the list or delete all tasks at once.\n" +
-            "\tFormat: delete TASK_NUM1 and TASK_NUM2...OR delete all\n" +
-            "\n" +
-            "\tExamples:\n" +
-            "\t\t- delete 3 and 5\n" +
-            "\t\t- delete 6\n" +
-            "\t\t- delete all\n";
+                    "\tDeletes n number of tasks at once from the list or delete all tasks at once.\n" +
+                    "\tFormat: delete TASK_NUM1 and TASK_NUM2...OR delete all\n" +
+                    "\n" +
+                    "\tExamples:\n" +
+                    "\t\t- delete 3 and 5\n" +
+                    "\t\t- delete 6\n" +
+                    "\t\t- delete all\n";
 
     private static final String DONE =
             "\t[ Set a task as done: done]\n" +
-            "\tMarks a task as done.\n" +
-            "\tFormat: done TASK_NUM\n" +
-            "\n" +
-            "\tExamples:\n" +
-            "\t\t- done 1\n" +
-            "\t\t- done 6\n";
+                    "\tMarks a task as done.\n" +
+                    "\tFormat: done TASK_NUM\n" +
+                    "\n" +
+                    "\tExamples:\n" +
+                    "\t\t- done 1\n" +
+                    "\t\t- done 6\n";
 
     private static final String TASKS_FIND =
             "\t[ Find tasks based on a keyword: find ]\n" +
@@ -437,8 +437,8 @@ public class HelpText {
             "A function to locate places and rooms in NUS School of Computing.\n" +
             "In the places page, you can search for a place that you want to find or you can add and \n" +
             "delete places and locations to the current list. \n" +
-            "\n"+
-            "How to get to places page: \n"+
+            "\n" +
+            "How to get to places page: \n" +
             "\t- Type in the command \'places\' in the main menu page and press ENTER.\n" +
             "\t- You can only go to the places page from the main menu.";
 
@@ -793,27 +793,24 @@ public class HelpText {
     private static final String EXP_ADD = "\t[ Adding a new expense: add ]\n" +
             "\tAdds and store the new expenses to a list.\n" +
             "\n" +
-            "\tFormat: add\n" +
+            "\tFormat: add item, price, date\n" +
             "\n" +
             "\tExample: \n" +
-            "\t\t- add\n" +
-            "\tSteps for adding an expense:\n" +
-            "\t\t1. Type the command add and press ENTER.\n" +
-            "\t\t2. You will be prompted with the question \"What did you buy:\"\n" +
-            "\t\t3. Type the item name and press ENTER.\n" +
-            "\t\t4. You will be prompted with the question \"How much did you spend:\"\n" +
-            "\t\t5. Type the price of the item and press ENTER.\n" +
-            "\t\t6. You will be prompted with the hint \"Date of purchase:\"\n" +
-            "\t\t7. Type the date the item was bought in the format YYYY-MM-DD and press ENTER.\n";
+            "\t\t- add bread, $3, 2018-04-04\n";
+
 
     private static final String EXP_DELETE = "\t[ Delete a certain expense: delete expense ]\n" +
             "\tDeletes an expense from your expenses list.\n" +
             "\n" +
-            "\tFormat: delete\n" +
+            "\tFormat: delete OR delete item\n" +
             "\n" +
-            "\tSteps for deleting an expense:\n" +
+            "\tSteps for deleting an expense via index:\n" +
             "\t\t1. Type the command delete and press ENTER.\n" +
-            "\t\t2. Type the index of the expense you want to delete and press ENTER.\n";
+            "\t\t2. Type the index of the expense you want to delete and press ENTER.\n"
+            + "\tFormat: delete date\n" +
+            "\n" +
+            "\tExample: \n" +
+            "\t\t- delete bread\n";
 
     //----------------------------------specialisation-----------------------------
     private static final String HEADER_SPECIALISATION_PAGE = "********** Specialization page: spec **********\n" +
@@ -843,7 +840,7 @@ public class HelpText {
             "\t\t4. You will be prompted with the question \"Which module have you completed?\"\n" +
             "\t\t5. Type the index of the module completed and press ENTER.\n";
     //-----------------------------pages--------------------------------------
-    public static final String TASKS_PAGE =  SEPARATOR_PAGE +
+    public static final String TASKS_PAGE = SEPARATOR_PAGE +
             HEADER_TASKS_PAGE + SEPARATOR_COMMAND +
             TODO + SEPARATOR_COMMAND +
             DEADLINE + SEPARATOR_COMMAND +
@@ -921,7 +918,7 @@ public class HelpText {
             CAP_LIST_MODULE + SEPARATOR_COMMAND +
             CAP_DELETE_MODULE + SEPARATOR_PAGE;
 
-    public static final String EXPENSES_PAGE =  SEPARATOR_PAGE +
+    public static final String EXPENSES_PAGE = SEPARATOR_PAGE +
             HEADER_EXPENSES_PAGE + SEPARATOR_COMMAND +
             EXP_LIST + SEPARATOR_COMMAND +
             EXP_FIND + SEPARATOR_COMMAND +
