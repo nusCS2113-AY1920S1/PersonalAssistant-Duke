@@ -34,6 +34,9 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
         try {
             InputValidator.validate(userInputStr);
             indexAndMealInfo = userInputStr.split(" ", 2);
+            if (indexAndMealInfo.length < 2) {
+                return new EditCommand(true, "No tags specified to update or edit. Nothing updated");
+            }
             InputValidator.validatePositiveInteger(indexAndMealInfo[0]);
             mealIndex = Integer.parseInt(indexAndMealInfo[0]);
             nutritionInfoMap = ArgumentSplitter.splitForwardSlashArguments(indexAndMealInfo[1]);
@@ -63,6 +66,6 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
             }
         }
 
-        return new EditCommand(mealIndex, localDate, nutritionInfoMap);
+        return new EditCommand(mealIndex - 1, localDate, nutritionInfoMap);
     }
 }

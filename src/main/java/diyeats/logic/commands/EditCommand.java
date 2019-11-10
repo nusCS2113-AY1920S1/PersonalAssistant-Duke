@@ -33,7 +33,7 @@ public class EditCommand extends Command {
      * @param newNutritionInfoMap Hashmap with updated tags
      * @return New meal object with updated information
      */
-    public static Meal updateMeal(Meal oldMeal, HashMap<String, String> newNutritionInfoMap) {
+    public static Meal getUpdatedMeal(Meal oldMeal, HashMap<String, String> newNutritionInfoMap) {
         String mealNameStr = oldMeal.getDescription();
         String costStr = oldMeal.getCostStr();
         HashMap<String,Integer> nutritionInfoMap = oldMeal.getNutritionalValue();
@@ -48,10 +48,15 @@ public class EditCommand extends Command {
         }
 
         for (String keyStr : nutritionInfoMap.keySet()) {
-            newNutritionInfoMap.put(keyStr, nutritionInfoMap.get(keyStr).toString());
+            if (!newNutritionInfoMap.containsKey(keyStr)) {
+                newNutritionInfoMap.put(keyStr, nutritionInfoMap.get(keyStr).toString());
+            }
         }
 
-        return new Meal(mealNameStr, oldMeal.getDate(), newNutritionInfoMap, costStr);
+        Meal updatedMeal = new Meal(mealNameStr, oldMeal.getDate(), newNutritionInfoMap, costStr);
+        updatedMeal.setMealType(oldMeal.getMealType());
+
+        return updatedMeal;
     }
 
     /**
@@ -63,14 +68,18 @@ public class EditCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        if (this.mealIndex >= meals.getMealsList(localDate).size()) {
+            ui.showMessage("Edit meal index is out of bounds. Edit not performed");
+            return;
+        }
         Meal oldMeal = meals.getMealsList(localDate).get(mealIndex);
-        Meal updatedMeal = updateMeal(oldMeal, this.nutritionInfoMap);
+        Meal updatedMeal = getUpdatedMeal(oldMeal, this.nutritionInfoMap);
+        meals.getMealsList(localDate).set(mealIndex, updatedMeal);
 
         ui.showLine();
         try {
-            updatedMeal = meals.updateMeal(updatedMeal);
             LocalDate date = updatedMeal.getDate();
-            ui.showUpdated(updatedMeal, meals.getMealsList(updatedMeal.getDate()), user, date);
+            ui.showUpdated(oldMeal, updatedMeal, meals.getMealsList(updatedMeal.getDate()), user, date);
             storage.writeFile(meals);
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
