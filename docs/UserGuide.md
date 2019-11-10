@@ -982,11 +982,13 @@ A: install the application on the other computer and an empty recipe.txt will be
 
 **Q: Who should I assign found bugs to?**
 
-A: Work distribution: 
+A: Work distribution is as follows: 
 
-​		Dishes Component @[9hafidz6](https://github.com/9hafidz6);            Ingredient Component @[x3chillax](https://github.com/x3chillax); 
+- Dishes Component @[9hafidz6](https://github.com/9hafidz6);
+- Ingredient Component @[x3chillax](https://github.com/x3chillax); 
+- Order Component @[VirginiaYu](https://github.com/VirginiaYu);           
+- Fridge Component @3[saradj](https://github.com/saradj); 
+- Recipebook @[CEGLincoln](https://github.com/CEGLincoln).                     
 
-​		Order Component @[VirginiaYu](https://github.com/VirginiaYu);           Fridge Component @3[saradj](https://github.com/saradj); 
-
-​		Recipebook @[CEGLincoln](https://github.com/CEGLincoln).                     Thank you. : )
+​		Thank you for testing our product! : )
 
