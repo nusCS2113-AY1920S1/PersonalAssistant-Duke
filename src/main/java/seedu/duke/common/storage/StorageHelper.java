@@ -157,8 +157,8 @@ public class StorageHelper {
             writeDefaultUserToken();
             return true;
         } catch (IOException e) {
-            UI.getInstance().showError("Prepare data directory failed..." + System.lineSeparator() +
-                    "Please transfer the JAR file to a clean and accessible directory and start again. ");
+            UI.getInstance().showError("Prepare data directory failed..." + System.lineSeparator()
+                    + "Please transfer the JAR file to a clean and accessible directory and start again. ");
             return false;
         }
     }
@@ -169,7 +169,7 @@ public class StorageHelper {
      * @param in the input stream of the file
      * @return content of the file
      * @author Viacheslav Vedenin from https://stackoverflow.com/questions/309424/how-do-i-read-convert-an-
-     * inputstream-into-a-string-in-java
+     *     inputstream-into-a-string-in-java
      */
     public static String readFromInputStream(InputStream in) {
         Scanner s = new Scanner(in).useDelimiter("\\A");
