@@ -10,7 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class LegacyExceptionTest {
 
     private final String test = "test";
+    private ModTestException modTestException = new ModTestException();
     private ModException modException = new ModException();
+    private ModException modExWithMsg = new ModException(test);
+    private ModException modExWithMsgAndCause = new ModException(test, modTestException);
     private ModCommandException modCommandException = new ModCommandException();
     private ModEmptyCommandException modEmptyCommandException = new ModEmptyCommandException();
     private ModEmptyListException modEmptyListException = new ModEmptyListException();
@@ -28,6 +31,14 @@ public class LegacyExceptionTest {
     @Test
     void testModException() {
         assertEquals("Error: ", modException.getMessage());
+        assertEquals("Error: test", modExWithMsg.getMessage());
+        assertNotNull(modExWithMsgAndCause);
+    }
+
+    @Test
+    void testModTestException() {
+        assertNotNull(modTestException);
+        assertEquals("Error: This is a test Exception!", modTestException.getMessage());
     }
 
     @Test
