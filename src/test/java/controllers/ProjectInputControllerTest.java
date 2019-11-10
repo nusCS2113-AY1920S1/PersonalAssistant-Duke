@@ -543,14 +543,19 @@ class ProjectInputControllerTest {
 
     //@@author sinteary
     @Test
-    void testProjectViewAssignments_invalidInputs() {
+    void testProjectViewAssignments_invalidInputs_executionFail() {
         Project project = new Project("New project");
         simulatedUserInput = "view assignments";
         String[] output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("Please input the parameters to view assignments:", output[0]);
+        expectedOutput = "Please input the parameters to view assignments:";
+        actualOutput = output[0];
+        assertEquals(expectedOutput, actualOutput);
+
         simulatedUserInput = "view assignments -";
         output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("Please input the parameters to view assignments:", output[0]);
+        actualOutput = output[0];
+        assertEquals(expectedOutput, actualOutput);
+
         simulatedUserInput = "view assignments atm";
         output = projectInputController.projectViewAssignments(project, simulatedUserInput);
         assertEquals("Please input the parameters to view assignments:",

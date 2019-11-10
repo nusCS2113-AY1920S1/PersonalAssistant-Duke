@@ -34,7 +34,6 @@ public class AssignmentController {
      * @param input The input from the user.
      */
     public void assignAndUnassign(String input) {
-        assert input != null;
         if (input.length() < COMMAND_ASSIGN_TASK.length()) {
             errorMessages.add("Insufficient parameters! "
                 + "Indicate the tasks and members whom you wish to assign or remove!");

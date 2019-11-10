@@ -1,5 +1,9 @@
 package helpertests;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
 import models.member.Member;
 import models.project.Project;
 import models.task.Task;
@@ -7,17 +11,12 @@ import models.task.TaskState;
 import org.junit.jupiter.api.Test;
 import util.uiformatter.AssignmentViewHelper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class AssignmentViewHelperTest {
     private final Project project;
     private final Member member1;
     private final Member member2;
     private final Member member3;
+    private String simulatedUserInput;
 
     /**
      * Test for AssignmentViewHelper. Initialise dummy project and members with assignments upon
@@ -67,10 +66,11 @@ public class AssignmentViewHelperTest {
     }
 
     @Test
-    public void testGetMemberOutput() {
-        ArrayList<Integer> validMembersIndexes = new ArrayList<>(Arrays.asList(1, 2, 3));
-        String[] actualMemberOutput = AssignmentViewHelper.getMemberOutput(validMembersIndexes,
-                project);
+    public void testViewAssignments_validMemberInput_executionSuccess() {
+        simulatedUserInput = "view assignments -m all";
+        //ArrayList<Integer> validMembersIndexes = new ArrayList<>(Arrays.asList(1, 2, 3));
+        AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
+        String[] actualMemberOutput = assignmentViewHelper.viewAssignments(simulatedUserInput, project);
         String[] expectedMemberOutput = new String[] {
             "+----------------------------------------------------------------------+",
             "|Here are each member's tasks:                                         |",
@@ -107,11 +107,13 @@ public class AssignmentViewHelperTest {
          */
     }
 
+
     @Test
-    public void testGetTaskOutput() {
-        ArrayList<Integer> validTasksIndexes = new ArrayList<>(Arrays.asList(1, 2));
-        String[] actualTaskOutput = AssignmentViewHelper.getTaskOutput(validTasksIndexes,
-                project);
+    public void testViewAssignments_validTaskInput_executionSuccess() {
+        //ArrayList<Integer> validTasksIndexes = new ArrayList<>(Arrays.asList(1, 2));
+        simulatedUserInput = "view assignments -t all";
+        AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
+        String[] actualTaskOutput = assignmentViewHelper.viewAssignments(simulatedUserInput, project);
         String[] expectedTaskOutput = new String[] {
             "+----------------------------------------------------------------------+",
             "|Here are the members assigned to each task:                           |",
@@ -142,5 +144,8 @@ public class AssignmentViewHelperTest {
         assertEquals("2. Harry", taskOutput.get(8));
          */
     }
+
+
+
 
 }

@@ -151,5 +151,5 @@ public class AssignmentControllerTest {
         expectedOutput = "Task cannot be unassigned from member 1 (Tom) as it was not assigned in the first place!";
         assertEquals(expectedOutput, actualOutput);
     }
-    
+
 }
