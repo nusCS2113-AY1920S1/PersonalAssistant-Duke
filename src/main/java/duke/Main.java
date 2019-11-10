@@ -1,6 +1,5 @@
 package duke;
 
-import duke.enums.Numbers;
 import duke.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +21,7 @@ import java.util.logging.Logger;
  */
 public class Main extends Application {
     private Duke duke = new Duke();
+    private MainWindow mainWindow = new MainWindow();
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     public Main() throws IOException {
@@ -49,18 +49,9 @@ public class Main extends Application {
     public void stop() {
         logger.info("ALERT: Duke is shutting down! Attempting to save Data... ");
         duke.suddenStop();
-        timer.schedule(exitDuke, createTimerDelay());
+        mainWindow.exitProgramAbrupt();
+
     } //@@author
 
-    Timer timer = new Timer();
-    TimerTask exitDuke = new TimerTask() {
-        public void run() {
-            System.exit(Numbers.ZERO.value);
-        }
-    };
-
-    private Date createTimerDelay() {
-        return new Date(System.currentTimeMillis());
-    }
 }
 //@@author
