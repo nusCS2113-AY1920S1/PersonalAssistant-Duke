@@ -52,7 +52,7 @@ public final class ParserManageStudents {
         final int list = 1;
         final int add = 2;
         final int delete = 3;
-        final int find = 4;
+        final int progress = 4;
         final int view = 5;
         final int back = 6;
         int cmd;
@@ -83,6 +83,10 @@ public final class ParserManageStudents {
                     students.deleteStudent(sc.nextInt());
                     //students.deleteStudent(Integer.parseInt(word[1]));
                     break;
+                case progress:
+                    studentProgressParser();
+                    break;
+
                     /**
                 case find:
                     final int limit = 4;
@@ -118,7 +122,8 @@ public final class ParserManageStudents {
                             + students.getStudentName(
                                     index)
                             + " details:\n");
-                    students.getStudent(index);
+                    System.out.println(
+                            students.getStudent(index).getDetails());
                     break;
                 case back:
                     runManageStudent = false;
@@ -165,7 +170,8 @@ public final class ParserManageStudents {
                 students.listAllStudents();
                 break;
             case "add":
-                students.getStudent(Integer.parseInt(word[1])).addStudentProgress("sd");
+                String progressDescription = cmd.substring(3);
+                students.getStudent(Integer.parseInt(word[1])).addStudentProgress(progressDescription);
                 break;
             case "delete":
                 break;
