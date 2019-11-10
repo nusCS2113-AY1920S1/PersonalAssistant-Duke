@@ -11,13 +11,9 @@ import java.util.Collections;
 
 
 public class DegreeList implements Serializable, Cloneable {
-    private static ArrayList<String> list = new ArrayList<>();
-    public static ArrayList<String> getDegrees(){
-        return list;
-    }
+    private ArrayList<String> list = new ArrayList<>();
 
     //private static final String filename = "../data/savedegree.txt";
-
 
     public DegreeList(){}
     /**
@@ -30,11 +26,11 @@ public class DegreeList implements Serializable, Cloneable {
     }
 
     /**
-     * Method to facilitate the deep cloning of this taskList.
+     * Method to facilitate the deep cloning of this degreeList.
      * Returns a copy of this taskList, but with different references.
-     * This is to avoid shallow copying, which will also modify the saved state of the taskList.
+     * This is to avoid shallow copying, which will also modify the saved state of the degreeList.
      *
-     * @return A copy of this taskList with different references to objects.
+     * @return A copy of this degreeList with different references to objects.
      */
     public DegreeList deepClone() {
         try {
@@ -73,75 +69,72 @@ public class DegreeList implements Serializable, Cloneable {
         list.add(input); //Straightforward and quiet method to add degrees, for backend stuffs
     }
 
-
-
-    /**
-     * Method to add a degree to degree list.
-     * User-friendly method to display the degree added.
-     *
-     * @param input The degree as specified by the user.
-     * @throws DukeException The degree does not exist?
-     */
-    public void add_custom(String input, Storage storage) throws DukeException {
-
-        if(input.matches("Materials Science and Engineering|MSE|Materials Science Engineering")) {
-            if(list.contains("Materials Science and Engineering") || list.contains("MSE") || list.contains("Materials Science Engineering")) {
-                throw new DukeException("The degree already exists in your choices");
-            }
+    private int check_for_duplicates(String input) throws DukeException {
+        int flag = 0;
+        if (list.contains(input)){
+            flag = 1;
         }
-
-        if(input.matches("Computer Engineering|CEG|Com E")) {
-            if(list.contains("Computer Engineering") || list.contains("CEG") || list.contains("Com E")) {
-                throw new DukeException("The degree already exists in your choices");
-            }
-        }
-        if(input.matches("Biomedical Engineering|BME|BioMed|Bio Eng|BM")) {
-            if(list.contains("Biomedical Engineering") || list.contains("BME") || list.contains("BioMed") || list.contains("Bio Eng") || list.contains("BM")) {
-                throw new DukeException("The degree already exists in your choices");
-            }
-        }
-        if(input.matches("Chemical Engineering|Chem Eng|ChE")) {
-            if(list.contains("Chemical Engineering") || list.contains("Chem Eng") || list.contains("ChE")) {
-                throw new DukeException("The degree already exists in your choices");
-            }
-        }
-        if(input.matches("Civil Engineering|Civil E|CivE|Civil")) {
-            if(list.contains("Civil Engineering") || list.contains("Civil E") || list.contains("CivE") || list.contains("Civil")) {
-                throw new DukeException("The degree already exists in your choices");
-            }
-        }
-        if(input.matches("Electrical Engineering|EE|ElecE")) {
-            if(list.contains("Electrical Engineering") || list.contains("EE") || list.contains("ElecE")) {
-                throw new DukeException("The degree already exists in your choices");
-            }
-        }
-        if(input.matches("Environmental Engineering|ENVE")) {
-            if(list.contains("Environmental Engineering") || list.contains("ENVE")) {
-                throw new DukeException("The degree already exists in your choices");
-            }
-        }
-        if(input.matches("Mechanical Engineering|Mech Eng|ME")) {
-            if(list.contains("Mechanical Engineering") || list.contains("Mech Eng") || list.contains("ME")) {
-                throw new DukeException("The degree already exists in your choices");
-            }
-        }
-        if(input.matches("Industrial and Systems Engineering|ISE|IE|Industrial Systems")) {
-            if(list.contains("Industrial and Systems Engineering") || list.contains("ISE") || list.contains("IE") || list.contains("Industrial Systems")) {
-                throw new DukeException("The degree already exists in your choices");
-            }
-        }
-
-        if(input.matches("Materials Science and Engineering|MSE|Materials Science Engineering")) {
-            if(list.contains("Materials Science and Engineering") || list.contains("MSE") || list.contains("Materials Science Engineering")) {
-                throw new DukeException("The degree already exists in your choices");
-            }
-        }
-
-        else {
-            list.add(input);
-            System.out.print("Added " + input + " to your choice of degrees.\n");
-        }
+//        if (input.matches("Computer Engineering|CEG|Com E")) {
+//            if (list.contains("Computer Engineering") || list.contains("CEG") || list.contains("Com E")) {
+//                //throw new DukeException("The degree already exists in your choices");
+//                flag = 1;
+//            }
+//        }
+//        if (input.matches("Materials Science and Engineering|MSE")) {
+//            if (list.contains("Material Science Engineering") || list.contains("MSE")) {
+//                //throw new DukeException("The degree already exists in your choices");
+//                flag = 1;
+//            }
+//        }
+//
+//        if (input.matches("Biomedical Engineering|BME|BioMed|Bio Eng|BM")) {
+//            if (list.contains("Biomedical Engineering") || list.contains("BME") || list.contains("BioMed") || list.contains("Bio Eng") || list.contains("BM")) {
+//                //throw new DukeException("The degree already exists in your choices");
+//                flag = 1;
+//            }
+//        }
+//        if (input.matches("Chemical Engineering|Chem Eng|ChE")) {
+//            if (list.contains("Chemical Engineering") || list.contains("Chem Eng") || list.contains("ChE")) {
+//                //throw new DukeException("The degree already exists in your choices");
+//                flag = 1;
+//            }
+//        }
+//        if (input.matches("Civil Engineering|Civil E|CivE|Civil")) {
+//            if (list.contains("Civil Engineering") || list.contains("Civil E") || list.contains("CivE") || list.contains("Civil")) {
+//                //throw new DukeException("The degree already exists in your choices");
+//                flag = 1;
+//            }
+//        }
+//        if (input.matches("Electrical Engineering|EE|ElecE")) {
+//            if (list.contains("Electrical Engineering") || list.contains("EE") || list.contains("ElecE")) {
+//                //throw new DukeException("The degree already exists in your choices");
+//                flag = 1;
+//            }
+//        }
+//        if (input.matches("Environmental Engineering|ENVE")) {
+//            if (list.contains("Environmental Engineering") || list.contains("ENVE")) {
+//                //throw new DukeException("The degree already exists in your choices");
+//                flag = 1;
+//            }
+//        }
+//
+//        if (input.matches("Industrial and Systems Engineering|ISE|IE")) {
+//            if (list.contains("Industrial Systems Engineering") || list.contains("ISE") || list.contains("IE")) {
+//                //throw new DukeException("The degree already exists in your choices");
+//                flag = 1;
+//            }
+//        }
+//
+//        if (input.matches("Mechanical Engineering|Mech Eng|ME")) {
+//            if (list.contains("Mechanical Engineering") || list.contains("Mech Eng") || list.contains("ME")) {
+//                //throw new DukeException("The degree already exists in your choices");
+//                flag = 1;
+//            }
+//        }
+        return flag;
     }
+
+
 
     /**
      * Displays the degree specified by the user.
@@ -161,6 +154,28 @@ public class DegreeList implements Serializable, Cloneable {
     public String conversion(int request) {
         String imp = list.get(request);
         return imp;
+    }
+
+    /**
+     * Method to add a degree to degree list.
+     * User-friendly method to display the degree added.
+     *
+     * @param input The degree as specified by the user.
+     * @throws DukeException The degree does not exist?
+     */
+    public void add_custom(String input, Storage storage) throws DukeException {
+        String fullDegreeName = Parser.degreeFullNameMap.get(input.toLowerCase());
+        int flag = check_for_duplicates(fullDegreeName);
+        if(flag == 0) {
+            list.add(fullDegreeName);
+            System.out.print("Added " + input + " (also known as " + fullDegreeName + ") to your choice of degrees.\n\n");
+        }
+
+        else {
+            throw new DukeException("The degree already exists in your choices");
+
+        }
+
     }
 
     /**
@@ -241,7 +256,9 @@ public class DegreeList implements Serializable, Cloneable {
         }
     }
 
-
+    public ArrayList<String> getDegrees(){
+        return this.list;
+    }
 
     /**
      * Deletes the entire degree list.

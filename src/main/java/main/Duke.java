@@ -12,13 +12,13 @@ import list.DegreeListStorage;
 import parser.Parser;
 import statistics.CohortSize;
 import storage.Storage;
-import task.UniversityTaskHandler;
 import statistics.GraduateEmployment;
-import task.NUSEvents;
+import task.NUSEventList;
 import task.TaskList;
 import ui.UI;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
 import java.util.ArrayList;
@@ -45,12 +45,10 @@ public class Duke extends Application {
     private Map<String, List<String>> degrees = new HashMap<>();
     private Map<String, Degree> degreeInfo = new HashMap<>();
     private ArrayList<String> mydegrees = new ArrayList<>();
-
-    private UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
     private GraduateEmployment graduateEmployment = new GraduateEmployment();
     private CohortSize cohortSize = new CohortSize();
 
-    private NUSEvents NUSEvents = new NUSEvents();
+    private NUSEventList NUSEventList = new NUSEventList();
 
     private DegreeListStorage DegreeListStorage = new DegreeListStorage();
     private CommandList commandList = new CommandList();
@@ -68,7 +66,7 @@ public class Duke extends Application {
      * @param filePath The file path of the save file.
      */
     //Method to initialize all important classes and data on startup
-    public Duke(String filePath, String another_filePath) {
+    public Duke(String filePath, String another_filePath) throws IOException {
 
         ui = new UI(); //initialize ui class that handles input from user
         this.storage = new Storage(filePath, another_filePath);
@@ -87,7 +85,7 @@ public class Duke extends Application {
             System.out.println("Degree Information Failed to Load, please contact Administrator");
         }
         try {
-            NUSEvents.loadDegreeTasks(storage.fetchListOutput("degreeTasks")); //loads information from degreeTasks.txt
+            NUSEventList.loadEventLists(storage.fetchListOutput("degreeTasks")); //loads information from degreeTasks.txt
         } catch (DukeException e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -102,8 +100,8 @@ public class Duke extends Application {
             System.out.println(e.getLocalizedMessage());
         }
         this.lists = new DegreeList();
+        DegreeListStorage.setDegreeList(lists);
         DegreeListStorage.ReadFile(storage.fetchListOutput("savedegree"));
-
     }
 
 
@@ -146,27 +144,42 @@ public class Duke extends Application {
             }
 
             if (command.matches("undo")) {
-                commandList.undo();
-                this.myList = commandList.getTaskList();
-                this.lists = commandList.getDegreeLists();
+                if (temp.hasNext()) { //Undo should be a single command, reject if there is another input after undo
+                    typoFlag = true;
+                    throw new DukeException("undo should be a single command!");
+                } else {
+                    commandList.undo();
+                    this.myList = commandList.getTaskList();
+                    this.lists = commandList.getDegreeLists();
+                }
             } else if (command.matches("redo")) {
-                commandList.redo();
-                this.myList = commandList.getTaskList();
-                this.lists = commandList.getDegreeLists();
+                if (temp.hasNext()) {
+                    typoFlag = true;
+                    throw new DukeException("redo should be a single command!");
+                } else {
+                    commandList.redo();
+                    this.myList = commandList.getTaskList();
+                    this.lists = commandList.getDegreeLists();
+                }
             } else {
                 Command c = Parser.parse(line);
 
                 if ((c.getClass() == AddCommand.class) | (c.getClass() == ModCommand.class)
                         | (c.getClass() == SortCommand.class) | (c.getClass() == SwapCommand.class)) {
                     commandList.addCommand(c, this.myList, this.ui, this.storage, this.lists, this.degreesManager, line);
-                } else if ((c.getClass() == BadCommand.class) || c.getClass() == null) {
-                    typoFlag = true; //when the user enters a command not understood by the program, trigger flag
+                } else if ((c.getClass() == BadCommand.class) || (c.getClass() == null)) {
+                    typoFlag = true;
                     c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
                 } else {
                     c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
                 }
             }
         } catch (DukeException | NullPointerException e) {
+            if (line.matches("detail") || line.matches("compare")) {
+                typoFlag = false; //when the user enters a command not understood by the program, trigger flag
+            } else {
+                typoFlag = true;
+            }
             ui.showError(e.getLocalizedMessage());
         } finally {
             ui.showLine();
@@ -202,7 +215,7 @@ public class Duke extends Application {
      *
      * @param args A duke program.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         new Duke("save.txt", "savedegree.txt").run();
         System.exit(0);

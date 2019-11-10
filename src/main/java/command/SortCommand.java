@@ -10,9 +10,6 @@ import storage.Storage;
 import task.TaskList;
 import ui.UI;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-
 public class SortCommand extends Command {
     private String arguments;
     private String command;
@@ -31,15 +28,38 @@ public class SortCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager mydegrees) throws DukeException {
+        if (tasks.size() < 1){
+            throw new DukeException("There are no tasks to sort!\n");
+        }
+        else if (tasks.size() < 2){
+            throw new DukeException("There are not enough tasks to sort!\n");
+        }
         TaskList tasksBuffer;
 
         tasksBuffer = tasks.deepClone();
         memento = new Memento(tasksBuffer);
-        if (this.arguments.matches("priority")){
-            tasks.sortPriority();
+        if (this.arguments.matches("by priority")){
+            tasks.sortbyPriority();
         }
-        else{
-            throw new DukeException("That is not a valid way to sort your tasks!\n\n\n");
+        else if (this.arguments.matches("by date")){
+            tasks.sortbyDate();
+        }
+
+        else if (this.arguments.matches("by degree")){
+            tasks.sortbyDegree(lists);
+        } else {
+            throw new DukeException("That is not a valid way to sort your tasks!\n" +
+                    "Try typing:\n" +
+                    "   sort by priority\n" +
+                    "   sort by date\n" +
+                    "   sort by degree" );
+        }
+
+        try {
+            storage.store(tasks);
+            storage.add_degrees(lists);
+        } catch (DukeException e) {
+            throw new DukeException("Save Error: " + e.getLocalizedMessage());
         }
     }
 

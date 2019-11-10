@@ -13,10 +13,10 @@ import java.util.Comparator;
 import java.util.List;
 
 public class DegreeListStorage {
-    private static final String filename = "../data/savedegree.txt"; //text file that stores all the information
+    private final String filename = "../data/savedegree.txt"; //text file that stores all the information
     File file = new File(filename);
-    ArrayList<String> list = DegreeList.getDegrees();
-    private static List<String> lines;
+    ArrayList<String> list;
+    private List<String> lines;
     UpdateFile upd = new UpdateFile();
     List<Pair<String, Integer>> store = new ArrayList<Pair<String, Integer>>();
 
@@ -60,7 +60,7 @@ public class DegreeListStorage {
      * @param imp
      * @return newLines
      */
-    public static List<String> AddRemoved(String imp) {
+    public List<String> AddRemoved(String imp) {
         List<String> newLines = new ArrayList<String>();
         for(String line: lines){
             String [] vals = line.split("-");
@@ -98,7 +98,7 @@ public class DegreeListStorage {
      * @return newLines
      */
 
-    public static List<String> Swap(String degree, String index) {
+    public List<String> Swap(String degree, String index) {
         List<String> newLines = new ArrayList<String>();
         for(String line: lines){
             String [] vals = line.split("-");
@@ -124,5 +124,8 @@ public class DegreeListStorage {
         Files.write(file.toPath(), Swap(degree, index), Charset.defaultCharset());
     }
 
+    public void setDegreeList(DegreeList lists) {
+        this.list = lists.getDegrees();
+    }
 
 }
