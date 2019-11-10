@@ -68,7 +68,7 @@ public class DukeConstants {
     public static final String INVALID_NEGATIVE_NUMBER = "Invalid Input. Cannot enter negative number. Please enter a valid integer greater than 0";
     public static final String INVALID_DECIMAL_NUMBER = "Please enter an integer for x for the command show/previous <x>.";
     public static final String NO_AND_INVALID_COMMAND_TYPE = "Invalid Input. There is no such command type in previous input";
-    public static final String INVALID_NUMBER_ZERO = "PLease enter a valid integer greater than 0";
+    public static final String INVALID_NUMBER_ZERO = "Please enter a valid integer greater than 0";
 
     //RETRIEVE
     public static final String RETRIEVE_TIME_HEADER = "retrieve/time";
