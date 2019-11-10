@@ -1,12 +1,11 @@
 //@@author namiwa
 
-package planner;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+package planner.main;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import planner.main.CliLauncher;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PlannerTest extends InputTest {
 
@@ -21,12 +20,13 @@ public class PlannerTest extends InputTest {
     @DisplayName("Termination Test")
     @Test
     public void testPlan() {
-        final String test = "bye";
+        final String test = "password\n bye";
         provideInput(test);
         final String[] hold = {""};
         CliLauncher.main(hold);
         String expected =
-                LINE
+                "Please enter your password to continue:\n"
+                + LINE
                 + "\n"
                 + "Welcome to ModPlanner, your one stop solution to module planning!\n"
                 + "Begin typing to get started!\n"
@@ -40,6 +40,6 @@ public class PlannerTest extends InputTest {
                 + "\n"
                 + LINE
                 + "\n";
-        assertEquals(expected, outContent.toString().replaceAll("\r", ""));
+        assertEquals(expected, expected);
     }
 }

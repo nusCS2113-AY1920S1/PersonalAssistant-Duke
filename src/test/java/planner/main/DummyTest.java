@@ -1,4 +1,4 @@
-package planner;
+package planner.main;
 
 
 import org.junit.jupiter.api.DisplayName;
