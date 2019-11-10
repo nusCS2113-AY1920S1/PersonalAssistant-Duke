@@ -163,6 +163,12 @@ View a table-format calendar which shows when items/rooms are in use.
 
 === Others
 
+==== Undo last command: `undo`
+Undoes the last command that made changes to RIMS.
+
+.*Format*:
+. `undo`
+
 ==== Exiting the program: `bye`
 Terminates RIMS.
 
