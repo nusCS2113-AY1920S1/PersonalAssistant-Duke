@@ -39,7 +39,8 @@ public class CommandFormat {
     }
 
     public String getPayeeFormat() {
-        return "getpayee PAYEE"; }
+        return "getpayee PAYEE";
+    }
 
     public String deletePayeeFormat() {
         return "delete payee p/PAYEE";
