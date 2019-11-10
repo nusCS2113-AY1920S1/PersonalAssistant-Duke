@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -54,10 +55,39 @@
          <children>
             <HBox prefHeight="66.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="currentWeek" prefHeight="20.0" prefWidth="996.0" text="Label">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font></Label>
+                  <GridPane prefHeight="65.0" prefWidth="989.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="903.0" minWidth="10.0" prefWidth="844.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.0" minWidth="10.0" prefWidth="145.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="48.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="28.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="currentWeek" prefHeight="20.0" prefWidth="996.0" text="Label">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label id="scrollPaneGuideLabel" prefHeight="17.0" prefWidth="149.0" text="Please Scroll to view more" GridPane.rowIndex="1" />
+                        <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1">
+                          <items>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="For the list of commands" />
+                                    <Label prefHeight="12.0" prefWidth="228.0" text="Enter: " />
+                                    <Label style="-fx-font-style: bold;" text="show/help" underline="true">
+                                       <font>
+                                          <Font name="System Font" size="13.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </GridPane>
                </children>
             </HBox>
             <ScrollPane hbarPolicy="NEVER" minHeight="-Infinity" pannable="true" prefHeight="100.0" prefWidth="1000.0" vbarPolicy="NEVER">
