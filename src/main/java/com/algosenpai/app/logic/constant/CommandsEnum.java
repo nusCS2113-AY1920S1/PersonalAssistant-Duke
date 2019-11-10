@@ -22,11 +22,11 @@ public enum CommandsEnum {
     volume, //11
     print, //12
     archive, //13
-    save, //14
-    stats, //15
+    stats, //1
     result,//16
     exit, //17
-    load; //18
+    load, //18
+    start; //19
 
     private static List<String> enumNames = Stream.of(CommandsEnum.values())
             .map(CommandsEnum::name)
