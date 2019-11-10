@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.StrictMath.max;
+
 /**
  * A parser to process the content of emails to support automatic management of email.
  */
@@ -22,6 +24,7 @@ public class EmailContentParseHelper {
     private static int RELEVANCE_SUBJECT_WEIGHTAGE = 5;
     private static int RELEVANCE_SENDER_WEIGHTAGE = 3;
     private static int RELEVANCE_BODY_WEIGHTAGE = 1;
+    private static int RELEVANCE_DISTANCE_WEIGHTAGE = 10;
     private static int INFINITY = 0x3f3f3f;
     private static int FUZZY_LIMIT = 2;
 
@@ -202,7 +205,7 @@ public class EmailContentParseHelper {
                 }
                 int distance = editDistance(inputWord, targetWord);
                 if (distance <= FUZZY_LIMIT) {
-                    score += FUZZY_LIMIT - distance + 1;
+                    score += (FUZZY_LIMIT - distance + 1) * RELEVANCE_DISTANCE_WEIGHTAGE;
                 }
             }
         }
