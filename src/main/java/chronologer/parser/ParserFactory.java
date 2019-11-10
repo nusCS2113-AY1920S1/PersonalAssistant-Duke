@@ -35,9 +35,9 @@ public class ParserFactory {
      *                       and messages!
      */
     public static Command parse(String userInput) throws ChronologerException {
-        String command = userInput.split("\\s+", 2)[0].trim();
+        String command = userInput.split("\\s+", 2)[0].trim().toLowerCase();
 
-        switch (command.toLowerCase()) {
+        switch (command) {
         case "todo":
             if (userInput.contains(Flag.BETWEEN.getFlag())) {
                 return new TodoWithinPeriodParser(userInput, command).parse();
