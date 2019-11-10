@@ -33,7 +33,6 @@ public class HelpCommand extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack,
                         ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException,
             IOException, NullPointerException {
-        //gazeeebo.help COMMAND or just gazeeebo.help
         //description of a gazeeebo.help can be empty
         HelpText help = new HelpText();
         String description;
@@ -42,6 +41,7 @@ public class HelpCommand extends Command {
         if (command.length == 1) {
             description = HelpText.COMMAND_FORMAT + System.lineSeparator() + System.lineSeparator()
                     + HelpText.COMMANDS_HEADER
+                    + HelpText.HELP_PAGE
                     + HelpText.TASKS_PAGE
                     + HelpText.PLACES_PAGE
                     + HelpText.NOTES_PAGE
