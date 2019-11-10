@@ -1,5 +1,9 @@
 package owlmoney.logic.command.bank;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
@@ -11,6 +15,7 @@ import owlmoney.ui.Ui;
 public class DeleteInvestmentCommand extends Command {
     private final String bankName;
     private static final String INVESTMENT_BANK_TYPE = "investment";
+    private static final Logger logger = getLogger(DeleteInvestmentCommand.class);
 
     /**
      * Creates an instance of DeleteInvestmentCommand.
@@ -32,6 +37,7 @@ public class DeleteInvestmentCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
         profile.profileDeleteBank(this.bankName, INVESTMENT_BANK_TYPE, ui);
+        logger.info("Executed DeleteInvestmentCommand Successfully");
         return this.isExit;
     }
 }

@@ -1,5 +1,9 @@
 package owlmoney.logic.command.bond;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.exception.BondException;
@@ -12,6 +16,7 @@ import owlmoney.ui.Ui;
 public class ListBondCommand extends Command {
     private final String bankName;
     private final int displayNum;
+    private static final Logger logger = getLogger(ListBondCommand.class);
 
     /**
      * Constructor to create an instance of ListBondCommand.
@@ -35,6 +40,7 @@ public class ListBondCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, BondException {
         profile.profileListBonds(bankName, ui, displayNum);
+        logger.info("Executed ListBondCommand successfully");
         return this.isExit;
     }
 }
