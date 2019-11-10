@@ -6,9 +6,9 @@
 package cube.logic.command;
 
 import cube.model.food.FoodList;
-import cube.model.food.Food;
 import cube.model.food.FoodList.SortType;
 import cube.model.ModelManager;
+import cube.storage.ProfitStorage;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 
@@ -45,6 +45,6 @@ public class ListCommand extends Command{
 		if (sortType != null) {
 			list.sort(sortType);
 		}
-		return new CommandResult(String.format(MESSAGE_SUCCESS, list, Food.getRevenue()));
+		return new CommandResult(String.format(MESSAGE_SUCCESS, list, ProfitStorage.getAnnualRevenue()));
 	}
 }
