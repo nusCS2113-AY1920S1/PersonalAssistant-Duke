@@ -3,7 +3,12 @@ package guicommand;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,6 +20,14 @@ public class UserIcon {
     private String initialPath;
 
     //@@author cctt1014
+
+    /**
+     * This constructor initialize the user icon related files and directory. Then it will
+     * load the initial icon depending on whether the file exists or not. If the initial file
+     * does not exist, the constructor will assign the default icon. Otherwise, it will
+     * load the icon according to the data in the existing file.
+     * @throws IOException The initial exception
+     */
     public UserIcon() throws IOException {
         File iconDir = new File("dataFG/userCustomizedIcons");
         if (!iconDir.isDirectory()) {
@@ -34,10 +47,20 @@ public class UserIcon {
         }
     }
 
+    /**
+     * The getter which is used to return the current user icon.
+     * @return THe image of the current user icon.
+     */
     public Image getIcon() {
         return icon;
     }
 
+    /**
+     * This method handle the command to change user icon. It will call a file selector
+     * for the user to choose his/her own pictures. Then it will copy the image to a specific
+     * folder to store and save it as the current user icon.
+     * @throws IOException The IOE exception
+     */
     public void changeIcon() throws IOException {
         FileWriter fileWriter = new FileWriter("dataFG/iconPath.txt", false);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);

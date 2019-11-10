@@ -21,6 +21,7 @@ public class InternalTransferTest {
     private static String SAMPLE_DEPOSIT1 = "deposit 200 OCBC /at 3/3/2018";
     private static String SAMPLE_WITHDRAW1 = "withdraw 200 OCBC /at 3/3/2019";
 
+    //@@author cctt1014
     InternalTransferTest() throws IOException {
         ui = new Ui();
         Path currentDir = Paths.get("data/account-test.txt");
@@ -51,7 +52,7 @@ public class InternalTransferTest {
     void execute_validDepositAndWithdraw_success() throws ParseException, DukeException {
         createNewTrackerWithSample1();
         executeInternalTransferCmd(SAMPLE_DEPOSIT1);
-        Assertions.assertEquals("  Got it. Here is the current inf ormation about this account:\n"
+        Assertions.assertEquals("  Got it. Here is the current information about this account:\n"
                 + "  Name: OCBC\n  Balance: 230.00\n  Latest Update Date: 3/3/2018\n  Interest Rate: 0.0\n",
                 ui.getOutputString());
         executeInternalTransferCmd(SAMPLE_WITHDRAW1);
