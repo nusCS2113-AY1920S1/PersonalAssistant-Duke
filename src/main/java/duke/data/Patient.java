@@ -12,6 +12,8 @@ public class Patient extends DukeObject {
     private String allergies;
     private Impression primaryDiagnosis;
     private ArrayList<Impression> impressionList;
+    private ArrayList<Treatment> followUpList;
+    private ArrayList<DukeData> criticalList;
     private Integer height;
     private Integer weight;
     private Integer age;
@@ -198,7 +200,6 @@ public class Patient extends DukeObject {
         return new SearchResults(searchTerm, resultList, this);
     }
 
-
     /**
      * This function find returns a list of all DukeObjects.
      * with names related to the patient containing the search term.
@@ -383,24 +384,6 @@ public class Patient extends DukeObject {
 
     public void setHistory(String history) {
         this.history = history;
-    }
-
-    /**
-     * Delete primary diagnosis of patient. If there exists only 1 impression for the patient, that impression
-     * shall become the primary diagnosis of the patient.
-     *
-     * @throws DukeException If the impressio
-     */
-    public void deletePriDiagnose() throws DukeException {
-        if (this.impressionList.remove(primaryDiagnosis)) {
-            throw new DukeException("Patient has no primary diagnosis at the moment.");
-        }
-
-        this.primaryDiagnosis = null;
-
-        if (impressionList.size() == 1) {
-            this.primaryDiagnosis = impressionList.get(0);
-        }
     }
 
     /**
