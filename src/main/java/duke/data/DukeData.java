@@ -81,7 +81,6 @@ public abstract class DukeData extends DukeObject {
      * Utilises isAppending to determine whether to append or replace the attribute.
      * @param newName the name entered by the user, null if not applicable
      * @param newPriority the priority specified by user, -1 if not applicable
-     * @param newSummary the summary entered by the user, null if not applicable
      * @param editVals unused in this method, used in overridden method
      * @param isAppending true if not a replacement
      * @throws DukeException if priority specified by user is invalid

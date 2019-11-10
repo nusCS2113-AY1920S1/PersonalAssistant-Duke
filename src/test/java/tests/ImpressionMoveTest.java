@@ -115,7 +115,8 @@ public class ImpressionMoveTest extends CommandTest {
         assertNotNull(newImpression.getEvidence("name"));
     }
 
-    private void setupCmdAndData(String[] switchNames, String[] switchVals, Impression newImpression, Observation obsv) {
+    private void setupCmdAndData(String[] switchNames, String[] switchVals, Impression newImpression,
+                                 Observation obsv) {
         try {
             moveCmd = new ObjCommand(ImpressionMoveSpec.getSpec(), null, switchNames, switchVals);
             impression.addNewEvidence(obsv);

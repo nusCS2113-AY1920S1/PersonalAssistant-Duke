@@ -48,13 +48,23 @@ public abstract class SummaryTreatment extends Treatment {
         return informationString;
     }
 
+    /**
+     * Edit this Treatment object. If a parameter is non-null, the corresponding member in the Treatment will be
+     * replaced by the parameter's value.
+     * @param newName The new name to assign to the treatment.
+     * @param newPriority The new priority value to assign to the treatment.
+     * @param editVals A map mapping member names to new values. If a value for "summary" is present, the treatment's
+     *                 summary will be updated to that value.
+     * @param isAppending If true, append all new data to the existing members. If false, overwrite the existing data.
+     * @throws DukeException If a invalid value is supplied for any field.
+     */
     public void edit(String newName, int newPriority, Map<String, String> editVals,
                      boolean isAppending)
             throws DukeException {
         super.edit(newName, newPriority, editVals, isAppending);
         String newSummary = editVals.get("summary");
         if (newSummary != null) {
-            setSummary((isAppending) ? getSummary() + newSummary : newSummary);
+            setSummary((isAppending) ? getSummary() + "\n\n" + newSummary : newSummary);
         }
     }
 
