@@ -174,10 +174,12 @@ public class MainWindow extends UiPart<Stage> {
         switch (keyEvent.getCode()) {
         case UP:
             userInput.setText(inputHistory.getLastInput());
+            userInput.positionCaret(userInput.getText().length());
             break;
 
         case DOWN:
             userInput.setText(inputHistory.getNextInput());
+            userInput.positionCaret(userInput.getText().length());
             break;
 
         default:

@@ -17,12 +17,13 @@ public class DukeException extends Exception {
     public static final String MESSAGE_COMMAND_PARAM_MISSING = "This command needs /%s to be given!";
     public static final String MESSAGE_COMMAND_PARAM_DUPLICATE = "/%s cannot be specified twice!";
     public static final String MESSAGE_COMMAND_NAME_UNKNOWN = "I don't know what command that is!";
+    public static final String MESSAGE_COMMAND_PARAM_REDUNDANT = "Redundant parameter %s!";
     public static final String MESSAGE_BUDGET_AMOUNT_INVALID = "%s is not a valid amount!";
     public static final String MESSAGE_BUDGET_VIEW_INVALID = "%s is not a valid pane! Choose a pane between 1 to 6!";
     public static final String MESSAGE_SORT_CRITERIA_INVALID = "%s is not a valid sort criteria!";
-    public static final String MESSAGE_EXPENSE_VIEW_SCOPE_NAME_INVALID = "%s is not a valid view scope name!";
-    public static final String MESSAGE_EXPENSE_VIEW_SCOPE_NUMBER_INVALID = "%s is not a valid view scope number!";
-    public static final String MESSAGE_DESIRED_PANE_NAME_INVALID = "%s is not an available pane!";
+    public static final String MESSAGE_EXPENSE_VIEW_NAME_INVALID = "%s is not a valid view scope name!";
+    public static final String MESSAGE_EXPENSE_VIEW_NUMBER_INVALID = "%s is not a valid view scope number!";
+    public static final String MESSAGE_PANE_NAME_INVALID = "%s is not an available pane!";
     public static final String MESSAGE_INCOME_AMOUNT_INVALID = "%s is not a valid amount!";
     public static final String MESSAGE_PRIORITY_NAME_INVALID = "%s is not a priority name.";
     public static final String MESSAGE_PAYMENT_STORAGE_MISSING_FIELD = "Payment's %s field is missing!";

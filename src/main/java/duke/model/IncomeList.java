@@ -20,7 +20,6 @@ public class IncomeList extends DukeList<Income> {
     private ObservableList<Income> externalIncomeList;
     private StringProperty totalString;
 
-
     public IncomeList(List<Income> internalList) {
         super(internalList, "income");
 
