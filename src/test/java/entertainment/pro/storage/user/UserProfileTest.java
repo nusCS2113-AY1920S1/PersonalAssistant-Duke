@@ -9,11 +9,13 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * test codes for setting of user profile.
+ */
 public class UserProfileTest {
     private UserProfile testUserProfile = new UserProfile();
     private ProfileCommands profileCommands = new ProfileCommands(testUserProfile);

@@ -293,4 +293,33 @@ public class PromptMessages {
     public static final String IO_EXCEPTION_CACHE_DATA = "IO Exception happened when reading data";
     public static final String CLASS_EXCEPTION_CACHE_DATA = "Class exception happened when reading data";
     public static final String WRITING_CACHE_DATA = "Reading cache data";
+
+    //PlaylistCommand logger/feedback messages
+    public static final String PLAYLIST_CREATED = "Playlist successfully created!";
+    public static final String PLAYLIST_CREATE_ERROR = "An error occurred while trying to create playlist.";
+    public static final String PLAYLIST_DELETED = "Playlist successfully deleted!";
+    public static final String PLAYLIST_DELETE_ERROR = "An error occurred while trying to delete playlist.";
+    public static final String SHOWS_ADDED = "Items successfully added to playlist!";
+    public static final String SHOWS_ADD_ERROR = "An error occurred while trying to add items to playlist.";
+    public static final String SHOWS_REMOVED = "Items successfully removed from playlist!";
+    public static final String SHOWS_REMOVE_ERROR = "An error occurred while trying to remove items from playlist.";
+    public static final String PLAYLIST_CLEARED = "Playlist successfully cleared!";
+    public static final String PLAYLIST_CLEARED_ERROR = "An error occurred while trying to clear playlist.";
+    public static final String PLAYLIST_RENAMED = "Playlist successfully renamed!";
+    public static final String PLAYLIST_DESCRIPTION = "Playlist's description successfully changed!";
+    public static final String SETTING_ERROR = "An error occurred while setting details of playlists.";
+    public static final String PLAYLIST_LISTED = "All playlist successfully listed!";
+    public static final String PLAYLIST_BACKED = "Successfully returned to playlist's information page";
+
+    //SetCommand logger/feedback messages
+    public static final String NAME_SET = "Successfully set user's name!";
+    public static final String AGE_SET = "Successfully set user's age!";
+    public static final String PREFERENCE_SET = "Successfully set user's preferences!";
+    public static final String RESTRICTION_SET = "Successfully set user's restrictions!";
+    public static final String SORT_SET = "Successfully set user's sort preference!";
+    public static final String NAME_SET_ERROR = "An error occurred while setting user's name";
+    public static final String AGE_SET_ERROR = "An error occurred while setting user's age";
+    public static final String PREFERENCE_SET_ERROR = "An error occurred while setting user's preferences";
+    public static final String RESTRICTION_SET_ERROR = "An error occurred while setting user's restrictions";
+    public static final String SORT_SET_ERROR = "An error occurred while setting user's sort preference";
 }
