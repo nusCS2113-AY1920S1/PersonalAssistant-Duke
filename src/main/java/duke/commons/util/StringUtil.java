@@ -1,7 +1,11 @@
 package duke.commons.util;
 
+import duke.logic.parser.exceptions.ParseException;
+import javafx.util.converter.BigIntegerStringConverter;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.math.BigInteger;
 import java.util.Arrays;
 
 import static duke.commons.util.AppUtil.checkArgument;
@@ -57,7 +61,7 @@ public class StringUtil {
      *
      * @throws NullPointerException if {@code s} is null.
      */
-    public static boolean isNonZeroUnsignedInteger(String s) {
+    public static boolean isNonZeroUnsignedInteger(String s) throws ParseException {
         requireNonNull(s);
 
         try {

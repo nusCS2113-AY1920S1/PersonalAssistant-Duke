@@ -261,11 +261,11 @@ through
 the word
 "product".
 It
-then calls
-`ProductCommandParses` to parse the remaining information, i.e. "filter -scope archive".
+then creates a
+`ProductCommandParser` to parse the remaining information, i.e. "filter -scope archive".
 
 **Step 4.** `ProductCommandParser` identifies that this is a `FilterProductCommand` through the word
-"filter". It then calls `FilterProductCommandParser` to parse the scope.
+"filter". It then creates a `FilterProductCommandParser` to parse the scope.
 
 **Step 5.** `FilterProductCommandParser` parse "-scope archive" and get the scope. It then returns a
 `FilterProductCommand` with the scope information.
@@ -285,7 +285,11 @@ change in `Model`.
 The Sequence Diagram below shows how the components interact with each other for the above mentioned
 scenario.
 .Sequence Diagram for Filter Product Mechanism
+
 image::FilterProductSD.png[]
+
+Note that almost all other commands follow the same sequences, with different `Command` and `Parser`
+class.
 
 ==== Design considerations
 
