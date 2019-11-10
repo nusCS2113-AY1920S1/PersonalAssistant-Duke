@@ -46,19 +46,18 @@ import java.util.Stack;
  */
 public class Storage {
 
-    private static String REMINDER_FILE_PATH;
+    public static String REMINDER_FILE_PATH;
     private static String DATA_FILE_PATH;
     private static String EXCEL_PATH;
     private File excelFile;
-
 
     /**
      * Creates new text file if no such file already exists and sets FILE_PATH to the absolute path of the text file.
      * Creates new excel file if no such file exists and sets EXCEL_PATH to the absolute path of excel file.
      */
-    public Storage(String path) {
+    public Storage() {
         File currentDir = new File(System.getProperty("user.dir"));
-        File filePath = new File(currentDir.toString() + path);
+        File filePath = new File(currentDir.toString() + "\\data");
         File dataText = new File(filePath, "wordup.txt");
         File reminderText = new File(filePath, "reminder.txt");
         if (!filePath.exists()) {
@@ -84,6 +83,27 @@ public class Storage {
         File dataExcel = new File(filePath, "wordup.xlsx");
         EXCEL_PATH = dataExcel.getAbsolutePath();
         excelFile = new File(EXCEL_PATH);
+    }
+
+    /**
+     * Makes a text file with the specified name.
+     * @param testFileName the name of the text file
+     */
+    public Storage(String testFileName) {
+        File currentDir = new File(System.getProperty("user.dir"));
+        File filePath = new File(currentDir.toString() + "\\data");
+        File dataText = new File(filePath, testFileName);
+        if (!filePath.exists()) {
+            filePath.mkdir();
+        }
+        if (!dataText.exists()) {
+            try {
+                dataText.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        REMINDER_FILE_PATH = dataText.getAbsolutePath();
     }
 
     /**
@@ -129,7 +149,7 @@ public class Storage {
     /**
      * Checks the reminders.txt file and creates reminders from the data stored.
      */
-    public void loadReminders() {
+    public void loadRemindersFromFile() {
         File file = new File(REMINDER_FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
