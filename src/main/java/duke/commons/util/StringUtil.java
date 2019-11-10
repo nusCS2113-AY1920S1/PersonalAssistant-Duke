@@ -1,11 +1,8 @@
 package duke.commons.util;
 
 import duke.logic.parser.exceptions.ParseException;
-import javafx.util.converter.BigIntegerStringConverter;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.math.BigInteger;
 import java.util.Arrays;
 
 import static duke.commons.util.AppUtil.checkArgument;

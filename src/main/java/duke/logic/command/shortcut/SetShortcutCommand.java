@@ -13,6 +13,7 @@ public class SetShortcutCommand extends Command {
     public static final String COMMAND_WORD = "short";
 
     private static final String MESSAGE_COMMIT = "Set shortcut";
+    private static final String MESSAGE_COMMIT_REMOVE = "Remove shortcut";
     private static final String MESSAGE_SET_SUCCESS = "Shortcut [%s] is set.";
     private static final String MESSAGE_REMOVE_SUCCESS = "Shortcut [%s] is removed.";
     private static final String MESSAGE_EMPTY_SHORTCUT = "Shortcut is not found and thus cannot be removed.";
@@ -38,10 +39,11 @@ public class SetShortcutCommand extends Command {
         //If shortcut has empty user inputs and it is in the Shortcut List
         if (isEmptyShortcut && model.hasShortcut(shortcut)) {
             model.removeShortcut(shortcut);
+            model.commit(MESSAGE_COMMIT_REMOVE);
             return new CommandResult(String.format(MESSAGE_REMOVE_SUCCESS, shortcut.getName()));
 
         } else if (isEmptyShortcut) {
-            return new CommandResult(MESSAGE_EMPTY_SHORTCUT);
+            throw new CommandException(MESSAGE_EMPTY_SHORTCUT);
 
         } else {
             checkShortcutEligibility();
