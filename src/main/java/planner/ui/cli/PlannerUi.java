@@ -1,10 +1,13 @@
 package planner.ui.cli;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 import planner.logic.modules.TaskList;
@@ -17,18 +20,19 @@ import planner.logic.modules.module.ModuleTask;
  */
 public class PlannerUi {
 
-    private Scanner scan;
     private static final String LINE = "_______________________________";
     private static Set<String> yes = new HashSet<>(Arrays.asList("y","yes", "true", "1",
                                                                  "confirm", "t", "yup", "yeah", "positive"));
     private static Set<String> no = new HashSet<>(Arrays.asList("n", "no", "false", "0", "f",
                                                                 "nope", "nah", "negative"));
+    private InputStream inputStream;
 
     /**
      * Default constructor for Ui.
      */
     public PlannerUi() {
-        scan = new Scanner(System.in);
+        this.setInput(System.in);
+        this.setOutput(System.out, System.err);
     }
 
     public void print(Object object) {
@@ -43,19 +47,68 @@ public class PlannerUi {
         System.out.println(LINE);
     }
 
-    private void closeScanner() {
-        scan.close();
+    public void setInput(InputStream inputStream) {
+        this.inputStream = inputStream;
     }
 
     /**
-     * Read input.
-     * @return input if exists else null
+     * Set output stream and error stream.
+     * @param outStream output stream
+     * @param errStream error stream
      */
+    public void setOutput(PrintStream outStream, PrintStream errStream) {
+        this.setOut(outStream);
+        this.setErr(errStream);
+    }
+
+    public void setOut(PrintStream stream) {
+        System.setOut(stream);
+    }
+
+    public void setErr(PrintStream stream) {
+        System.setErr(stream);
+    }
+
+    public void setOut(ByteArrayOutputStream output) {
+        this.setOut(new PrintStream(output));
+    }
+
+    public void setErr(ByteArrayOutputStream error) {
+        this.setErr(new PrintStream(error));
+    }
+
+    public void setOutput(ByteArrayOutputStream output, ByteArrayOutputStream error) {
+        this.setOutput(new PrintStream(output), new PrintStream(error));
+    }
+
     public String readInput() {
-        if (scan.hasNextLine()) {
-            return scan.nextLine().strip();
+        return readInput(this.inputStream);
+    }
+
+    /**
+     * Read input from custom stream.
+     * @param stream stream to read from
+     * @return input by line
+     */
+    public String readInput(InputStream stream) {
+        try {
+            if (stream == null) {
+                return null;
+            }
+            StringBuilder input = new StringBuilder();
+            for (char c = (char) stream.read();
+                 c != '\n' && c != '\uFFFF';
+                 c = (char) stream.read()) {
+                input.append(c);
+            }
+            if (input.length() == 0) {
+                return null;
+            }
+            return input.toString();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public String readPassword() {
