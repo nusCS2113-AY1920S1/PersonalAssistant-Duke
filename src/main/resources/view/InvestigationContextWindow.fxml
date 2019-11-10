@@ -18,7 +18,7 @@
                 <Insets left="10.0" right="10.0" />
             </padding>
         </Label>
-        <Label fx:id="statusLabel" layoutX="527.0" layoutY="25.0" maxWidth="130.0" prefHeight="20.0" text="Status">
+        <Label fx:id="statusLabel" layoutX="350.0" layoutY="79.0" maxWidth="300.0" text="Status">
             <font>
                 <Font name="System Bold" size="20.0" />
             </font>
@@ -28,17 +28,17 @@
                 <Image url="@../images/investigation.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="270.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="292.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/impression_critical.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="473.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="293.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/status.png" />
             </image>
         </ImageView>
-        <Label fx:id="priorityLabel" layoutX="323.0" layoutY="24.0" maxHeight="30.0" maxWidth="130.0" prefHeight="30.0" text="Priority">
+        <Label fx:id="priorityLabel" layoutX="347.0" layoutY="24.0" maxWidth="300.0" text="Priority">
             <font>
                 <Font name="System Bold" size="20.0" />
             </font>

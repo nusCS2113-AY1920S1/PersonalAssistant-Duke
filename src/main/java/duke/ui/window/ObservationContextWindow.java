@@ -13,6 +13,8 @@ public class ObservationContextWindow extends DukeDataContextWindow {
 
     @FXML
     private Label objectivityLabel;
+    @FXML
+    private Label summaryLabel;
 
     private Observation observation;
 
@@ -34,8 +36,8 @@ public class ObservationContextWindow extends DukeDataContextWindow {
     @Override
     public void updateUi() {
         super.updateUi();
-
         String objectivity = observation.isObjective() ? "Objective" : "Subjective";
         objectivityLabel.setText(objectivity);
+        summaryLabel.setText(observation.getSummary());
     }
 }

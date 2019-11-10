@@ -13,6 +13,8 @@ public class InvestigationContextWindow extends DukeDataContextWindow {
 
     @FXML
     private Label statusLabel;
+    @FXML
+    private Label summaryLabel;
 
     private Investigation investigation;
 
@@ -35,5 +37,6 @@ public class InvestigationContextWindow extends DukeDataContextWindow {
     public void updateUi() {
         super.updateUi();
         statusLabel.setText(investigation.getStatusStr());
+        summaryLabel.setText(investigation.getSummary());
     }
 }
