@@ -78,7 +78,7 @@ public class QuizSessionTest {
         String expectedError = "OOPS!!! I'm sorry, but I don't know what that means.";
         for (int j = 0; j < illegal.length; j++) {
             response = javacake.getResponse(illegal[j]);
-            assertEquals(response, expectedError);
+            assertEquals(expectedError, response);
         }
 
         for (int i = 0; i < QuizSession.MAX_QUESTIONS; i++) {
@@ -89,7 +89,7 @@ public class QuizSessionTest {
                 numOfOptions++;
             }
             response = javacake.getResponse(Integer.toString(numOfOptions));
-            assertEquals(response, expectedError);
+            assertEquals(expectedError, response);
         }
     }
 
@@ -115,8 +115,9 @@ public class QuizSessionTest {
         assertEquals(set.size(), testQuesions.getQuestionList().size());
     }
 
-    //TODO add test for other commands not working when quiz session is active
 
+
+    //TODO add test for other commands not working when quiz session is active
     /*@Test
     void testOtherCommands() throws CakeException {
         for (int i = 1; i < topics.length; i++) {
@@ -132,14 +133,7 @@ public class QuizSessionTest {
             for (int j = 0; j < commands.length; j++) {
                 response = javacake.getResponse(commands[j]);
                 if
-
-
-
-
-
             }
-
         }
-
     }*/
 }
