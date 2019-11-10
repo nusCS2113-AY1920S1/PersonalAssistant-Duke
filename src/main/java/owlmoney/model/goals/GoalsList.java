@@ -246,8 +246,8 @@ public class GoalsList {
                     } else if (savingAcc.getCurrentAmount() < currentGoal.getGoalsAmount()) {
                         currentGoal.setSavingAccount(savingAcc);
                     } else {
-                        logger.warning("Attempted to add a goal with lesser amount " +
-                                "then balance of saving account");
+                        logger.warning("Attempted to add a goal with lesser amount "
+                                + "then balance of saving account");
                         throw new GoalsException("You cannot add a goal that is already achieved!");
                     }
                 }

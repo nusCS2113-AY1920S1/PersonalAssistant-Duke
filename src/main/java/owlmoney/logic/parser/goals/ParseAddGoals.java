@@ -6,6 +6,9 @@ import owlmoney.logic.parser.exception.ParserException;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.logging.Logger;
+
+import static owlmoney.commons.log.LogsCenter.getLogger;
 
 /**
  * Represents the parsing of inputs for adding a new goal.
@@ -14,6 +17,7 @@ public class ParseAddGoals extends ParseGoals {
 
     private static final String ADD_COMMAND = "/add";
     private Date by;
+    private static final Logger logger = getLogger(ParseAddGoals.class);
 
     /**
      * Creates instance of ParseAddGoals Class.
@@ -42,14 +46,16 @@ public class ParseAddGoals extends ParseGoals {
             String key = goalsIterator.next();
             String value = goalsParameters.get(key);
             if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning("/name parameter cannot be empty when adding goals");
                 throw new ParserException(key + " cannot be empty when adding new goals");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkGoalsName(NAME_PARAMETER, value);
             }
             if (AMOUNT_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning("/amount parameter cannot be empty when adding goals");
                 throw new ParserException(key + " cannot be empty when adding new goals");
             } else if (AMOUNT_PARAMETER.equals(key)) {
-                checkAmount(value);
+                checkGoalsAmount(value);
             }
             if (BY_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 by = checkDate(value);
@@ -75,8 +81,10 @@ public class ParseAddGoals extends ParseGoals {
      */
     void checkOptionalParameter(String by, String in) throws ParserException {
         if (by.isBlank() && in.isBlank()) {
+            logger.warning("Date parameter not specified, use either /in [DAYS] or /by [DATE]");
             throw new ParserException("/by and /in cannot be both empty when adding new goals");
         } else if (!by.isBlank() && !in.isBlank()) {
+            logger.warning("Cannot specify both /in and /by");
             throw new ParserException("/by and /in cannot be specified concurrently when adding new goals");
         }
     }

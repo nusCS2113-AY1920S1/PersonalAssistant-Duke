@@ -30,6 +30,18 @@ public final class RegexUtil {
     }
 
     /**
+     * Checks whether goal values input by user is within the 9 digit constraints with a max of 2 decimal places
+     * and value of at least 1.
+     *
+     * @param input The user input that is subject to Regex checking.
+     * @return the result of the check on whether it fulfills the criteria.
+     */
+    public static boolean regexCheckGoalsAmount(String input) {
+        final String moneyRegex = "^\\s*(?=.*[1-9])\\d{1,9}(\\.\\d{1,2})?$";
+        return input.matches(moneyRegex);
+    }
+
+    /**
      * Checks whether the interest rate entered is within the 100% limit.
      * The first line of checks determines whether it is a 2 digit number up to 2 decimal places.
      * The second line of checks determines whether it is less than 100%.

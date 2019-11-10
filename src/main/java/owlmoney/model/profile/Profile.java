@@ -163,6 +163,7 @@ public class Profile {
         } catch (IOException ex) {
             ui.printError("Unable to save profile now, your data is at risk, but we will"
                     + " try saving again, feel free to continue using the program.");
+            logger.warning("Error exporting new profile name when /edit /profile");
         }
     }
 

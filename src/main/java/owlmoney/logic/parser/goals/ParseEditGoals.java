@@ -6,6 +6,9 @@ import owlmoney.logic.parser.exception.ParserException;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.logging.Logger;
+
+import static owlmoney.commons.log.LogsCenter.getLogger;
 
 /**
  * Represents the parsing of inputs for editing a goal.
@@ -14,6 +17,7 @@ public class ParseEditGoals extends ParseGoals {
 
     private Date by;
     private boolean markDone;
+    private static final Logger logger = getLogger(ParseEditGoals.class);
 
     /**
      * Creates an instance of ParseEditGoals class.
@@ -34,18 +38,21 @@ public class ParseEditGoals extends ParseGoals {
     @Override
     public void checkParameter() throws ParserException {
         Iterator<String> goalIterator = goalsParameters.keySet().iterator();
+        checkOptionalParameter(goalsParameters.get(BY_PARAMETER), goalsParameters.get(IN_PARAMETER));
+
         int changeCounter = 0;
         int markDoneCounter = 0;
         while (goalIterator.hasNext()) {
             String key = goalIterator.next();
             String value = goalsParameters.get(key);
             if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning("Name provided was empty");
                 throw new ParserException("/name cannot be empty.");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkGoalsName(NAME_PARAMETER, value);
             }
             if (AMOUNT_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
-                checkAmount(value);
+                checkGoalsAmount(value);
                 changeCounter++;
             }
             if (NEW_NAME_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
@@ -72,11 +79,30 @@ public class ParseEditGoals extends ParseGoals {
             }
         }
         if (changeCounter != 0 && markDoneCounter != 0) {
+            logger.warning("/mark cannot be accompanied by additional parameters");
             throw new ParserException("Cannot /mark and edit parameters of your goals!");
         }
 
         if (changeCounter == 0 && markDoneCounter == 0) {
+            logger.warning("Did not provide correct parameters to change");
             throw new ParserException("Edit should have at least 1 differing parameter to change.");
+        }
+    }
+
+    /**
+     * Checks if only one of /by or /in is provided for Goals deadline.
+     *
+     * @param by Date of goals deadline.
+     * @param in Days of goals deadline.
+     * @throws ParserException If both /by and /in provided, or none provided.
+     */
+    void checkOptionalParameter(String by, String in) throws ParserException {
+        if (by.isBlank() && in.isBlank()) {
+            logger.warning("Date parameter not specified, use either /in [DAYS] or /by [DATE]");
+            throw new ParserException("/by and /in cannot be both empty when adding new goals");
+        } else if (!by.isBlank() && !in.isBlank()) {
+            logger.warning("Cannot specify both /in and /by");
+            throw new ParserException("/by and /in cannot be specified concurrently when adding new goals");
         }
     }
 
