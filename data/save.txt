@@ -1,5 +1,0 @@
-E | 0 | [BME] Open House for Prospective Students | 11-05-2020 1030 | Normal
-E | 0 | [BME] NUS-BME Open House | 18-05-2020 1330 | Normal
-E | 0 | [EE] Open House for Prospective Students | 11-05-2020 1030 | Normal
-E | 0 | [EE] NUS-ECE Open House | 18-05-2020 1330 | Normal
-E | 0 | [EE] NUS-ECE Freshmen Orientation Programme | 18-05-2020 1330 | Normal
