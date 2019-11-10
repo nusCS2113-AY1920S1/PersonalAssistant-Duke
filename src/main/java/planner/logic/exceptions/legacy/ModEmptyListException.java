@@ -9,7 +9,7 @@ public class ModEmptyListException extends ModException {
     }
 
     public ModEmptyListException() {
-        this("task");
+        this("tasks");
     }
 
     @Override
