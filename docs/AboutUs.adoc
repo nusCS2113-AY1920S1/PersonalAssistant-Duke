@@ -15,7 +15,7 @@ image::lucria.png[width="150", align="left"]
 
 Role: Team Lead +
 Responsibilities: Documentation, Implementation of Data Models, Unit Tests +
-Features Implemented: CRUD projects, Special features of members (roles) and of tasks (agenda), Persistent data saving
+Features Implemented: CRUD of projects, Member Features (roles), Task features (agenda), Persistent data saving
 
 '''
 
@@ -24,8 +24,11 @@ image::dkenobi.png[width="150", align="left"]
 {empty}[https://github.com/Dkenobi[github]] [https://github.com/Dkenobi[portfolio]]
 
 Role: Architecture Lead +
-Responsibilities: Architecture of ArchDuke, Documentation, Implementation of Data models +
-Features Implemented: CRUD reminders, Data Logging, Handling date objects
+Responsibilities: +
+- Architecture of ArchDuke +
+- Documentation +
+- Implementation of Data models +
+Features Implemented: CRUD of reminders, Data Logging, Handling date objects, Task features (Creation of task)
 
 '''
 
@@ -35,7 +38,7 @@ image::iamabhishek98.png[width="150", align="left"]
 
 Role: Release and Tags Manager +
 Responsibilities: Documentation, Releases, Implementation of Domain Logic +
-Features Implemented: CRUD members, CRUD tasks
+Features Implemented: CRUD of members, RUD of tasks
 
 '''
 
@@ -45,7 +48,7 @@ image::seanlimhx.png[width="150", align="left"]
 
 Role: UI Lead +
 Responsibilities: UI Design, Implementation of UI models, Documentation +
-Features Implemented: Help command, UI printing and formatting, Special features of tasks (CRUD task requirements)
+Features Implemented: Help command, UI printing and formatting, CRUD of task requirements
 
 '''
 
