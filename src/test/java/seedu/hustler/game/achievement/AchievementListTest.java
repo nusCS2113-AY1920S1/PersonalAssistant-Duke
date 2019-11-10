@@ -56,46 +56,86 @@ public class AchievementListTest {
         assertNotEquals(achievementList.get(2).getAchievementLevel(), new AchievementsStub().getAchievementLevel());
     }
 
+    /**
+     * Class of achievement to be used for testing out the different functions.
+     */
     private class AchievementsStub implements Achievement {
 
+        /**
+         * Points attained.
+         */
         int points = 0;
 
+        /**
+         * Current achievement level.
+         * @return Bronze.
+         */
         @Override
         public String getAchievementLevel() {
             return "Bronze";
         }
 
+        /**
+         * Description of achievement.
+         * @return description of achievement.
+         */
         @Override
         public String getDescription() {
             throw new AssertionError("This method should not be called.");
         }
 
+        /**
+         * Information on how to unlock achievement.
+         * @return achievement information.
+         */
         @Override
         public String getInformation() {
             throw new AssertionError("This method should not be called.");
         }
 
+        /**
+         * Get points attained from this achievement.
+         * @return points.
+         */
         @Override
         public int getPoints() {
             return this.points;
         }
 
+        /**
+         * Set points attained from unlocking this achievement.
+         * @param points number of points.
+         * @return points.
+         */
         @Override
         public int setPoints(int points) {
             this.points = points;
             return this.points;
         }
 
+        /**
+         * Check if achievement is unlocked.
+         * @return true or false.
+         */
         @Override
         public Boolean checkLock() {
             return true;
         }
 
+        /**
+         * Unlock or lock achievement.
+         * @param lock lock
+         * @return true or false.
+         */
         @Override
         public Boolean setLock(Boolean lock) {
             return true;
         }
 
+        /**
+         * Format to write to file.
+         * @return correct format.
+         */
         @Override
         public String toTxt() { throw new AssertionError("This method should not be called."); }
     }

@@ -4,7 +4,6 @@ import seedu.hustler.Hustler;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
 import seedu.hustler.logic.parser.DateTimeParser;
-import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.ui.Ui;
 
 import java.time.LocalDateTime;
@@ -62,7 +61,6 @@ public class TaskList {
     public void add(Task task) {
         list.add(task);
         updateBusybeeAchievement();
-        Scheduler.add(this.getLastTask());
     }
 
     /**
@@ -98,7 +96,6 @@ public class TaskList {
             addEvent(splitInput, difficulty, tag);
         }
         updateBusybeeAchievement();
-        Scheduler.add(this.getLastTask());
     }
 
     /**

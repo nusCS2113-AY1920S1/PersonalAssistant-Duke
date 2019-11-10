@@ -8,13 +8,13 @@ import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.game.avatar.Inventory;
 import seedu.hustler.game.shop.ShopList;
-import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.CommandParser;
 import seedu.hustler.task.Reminders;
 import seedu.hustler.task.TaskList;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.ui.timer.TimerManager;
+import seedu.hustler.schedule.Scheduler;
 
 import java.io.IOException;
 
@@ -29,6 +29,12 @@ public class Hustler extends Application {
      * user and from storage.
      */
     public static TaskList list;
+    
+    /**
+     * Stores tasks, amount of time spent on them, their priority 
+     * and makes recommendations.
+     */
+    public static Scheduler scheduler = Scheduler.getInstance();
 
     /**
      * shopList stores and manages the items to purchased in Hustler.

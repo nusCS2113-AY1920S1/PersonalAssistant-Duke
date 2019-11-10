@@ -40,8 +40,8 @@ public class AddEntry extends Command {
             anomaly.detect(userInput);
             int index = Integer.parseInt(this.userInput[1]);
             index--;
-            Scheduler.addToRecommended(Hustler.list.get(index));
-            Scheduler.displayRecommendedSchedule();
+            Hustler.scheduler.addToRecommended(Hustler.list.get(index));
+            Hustler.scheduler.displayRecommendedSchedule();
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }
