@@ -1,11 +1,11 @@
 package statistics;
 
-public class MyClass {
+public class GraduateStats {
     public String a;
     public Double b;
     public Integer c;
 
-    public MyClass(String a, Double b, Integer c) {
+    public GraduateStats(String a, Double b, Integer c) {
         this.a = a;
         this.b = b;
         this.c = c;

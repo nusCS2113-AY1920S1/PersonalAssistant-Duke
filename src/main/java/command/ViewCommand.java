@@ -4,9 +4,8 @@ import degree.DegreeManager;
 import exception.DukeException;
 import list.DegreeList;
 import main.Duke;
-import statistics.CohortSizeDisplay;
+import statistics.CohortSize;
 import statistics.GraduateEmployment;
-import statistics.GraduateEmploymentDisplay;
 import storage.Storage;
 import task.TaskList;
 import ui.UI;
@@ -24,7 +23,7 @@ public class ViewCommand extends Command{
     public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreesManager) throws DukeException {
         switch (this.command) {
         case "view_employment":
-            GraduateEmploymentDisplay ged = new GraduateEmploymentDisplay();
+            GraduateEmployment ged = new GraduateEmployment();
             if(this.arguments.matches("bme|che|cive|ee|enve|me|mse|ise|ceg")) {
                 ged.print(this.arguments);
             }
@@ -33,7 +32,7 @@ public class ViewCommand extends Command{
             }
             break;
         case "cohort_size":
-            CohortSizeDisplay csd = new CohortSizeDisplay();
+            CohortSize csd = new CohortSize();
             if(this.arguments.matches("bme|che|cive|ee|enve|me|mse|ise|ceg")) {
                 csd.print(this.arguments);
             }

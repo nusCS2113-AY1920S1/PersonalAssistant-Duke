@@ -12,14 +12,14 @@ import org.jfree.ui.RefineryUtilities;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class BarChart extends JFrame {
-    ArrayList<CohortStats> cohortStats = CohortSizeDisplay.getCohortStats();
+public class Cohort_BarChart extends JFrame {
+    ArrayList<CohortStats> cohortStats = CohortSize.getCohortStats();
     ArrayList<Integer> Male = new ArrayList<>();
     ArrayList<Integer> Female = new ArrayList<>();
     ArrayList<Integer> Total = new ArrayList<>();
     String degree;
 
-    public BarChart(String applicationTitle, String chartTitle, String input) {
+    public Cohort_BarChart(String applicationTitle, String chartTitle, String input) {
         super(applicationTitle);
         degree = input;
         JFreeChart barChart = ChartFactory.createBarChart(

@@ -1,14 +1,20 @@
 package statistics;
 
 import exception.DukeException;
+import org.jfree.ui.RefineryUtilities;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CohortSize {
-    ArrayList<CohortStats> cohortStats = CohortSizeDisplay.getCohortStats();
+public class CohortSize implements Statistics  {
+    private static ArrayList<CohortStats> cohortStats = new ArrayList<>();
 
-    public void loadCohortStats(List<String> st) throws DukeException {
+    public static ArrayList<CohortStats> getCohortStats(){
+        return cohortStats;
+    }
+
+    @Override
+    public void loadStatistics(List<String> st) throws DukeException {
         for (int i = 1; i < 4; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
@@ -66,4 +72,14 @@ public class CohortSize {
 
 
     }
+
+    @Override
+    public void print(String input) {
+        Cohort_BarChart chart = new Cohort_BarChart("Cohort Size Statistics",
+                "Cohort Size", input);
+        chart.pack();
+        RefineryUtilities.centerFrameOnScreen(chart);
+        chart.setVisible(true);
+    }
+
 }
