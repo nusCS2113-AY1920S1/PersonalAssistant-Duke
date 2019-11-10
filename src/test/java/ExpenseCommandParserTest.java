@@ -1,6 +1,6 @@
 //@@author e0323290
 
-import gazeeebo.parsers.ExpenseCommandParser;
+import gazeeebo.parser.ExpenseCommandParser;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
@@ -49,7 +49,9 @@ public class ExpenseCommandParserTest {
             + "7. spec\n"
             + "8. moduleplanner\n"
             + "9. notes\n"
+            + "10. change password\n"
             + "To exit: bye\n\r\n";
+
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
     private PrintStream original = System.out;
