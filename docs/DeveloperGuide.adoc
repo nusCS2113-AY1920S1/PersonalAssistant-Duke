@@ -108,6 +108,31 @@ The `Ui` component is responsible for: +
 
 === Logic component
 
+The *_Class Diagram_* illustrates the relationship between the individual components of the `Logic` component.
+
+The `Logic` component consists of the `command` subpackage alongside the `CommandParser` and `Reminder` classes.
+
+[[LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[LogicClassDiagram]
+
+The `command` subpackage consists of the following classes and subpackages.
+
+* `HelpCommand` class
+* `ByeCommand` class
+* `productivity` subpackage
+* `task` subpackage
+* `semester` subpackage
+* `organization` subpackage
+* `module` subpackage
+* `lesson` subpackage
+
+The `Logic` component is responsible for:
+
+* Executing user commands.
+* Listening for changes to `Model` data so that the `Logic` component can be updated as expected.
+* Displaying output to the user via the `Ui` component
+
 === Model component
 
 The `Model` component consists of the `task` and `university` packages and shows how they are associated with each other.
@@ -219,6 +244,15 @@ It requires significantly less effort to choose from a default list of four opti
 Users can enter a customised `Frequency` for the `recurring Task`. It may be a viable option to allow users to set such parameters. However, since the `OOF` program is solely a Command Line Interface program, it may not be user-friendly for users to enter so many details just to set a customised `Frequency` for the `recurring Task`.
 
 === Help feature
+
+[[Help]]
+.Output of Help Command
+image::Help.png[Help]
+
+[[HelpCommand]]
+.Output of Individual Help Command
+image::HelpCommand.png[HelpCommand]
+
 ==== Implementation
 The `HelpCommand` class extends the `Command` class by providing functions to display a manual with the list of `Command` available and how they may be used in the main program `OOF`.
 
@@ -514,6 +548,31 @@ Show suggestions directly in the 4 consecutive free time slots instead. This alt
 Thus, showing suggestions in the current implementation gives the user the freedom to plan what to do with their free time. 
 
 === Task Tracker feature
+
+[[ViewTracker]]
+.Output of Tracker View Command
+image::ViewTracker.png[ViewTracker]
+
+[[ListTracker]]
+.Output of Tracker List Command
+image::ListTracker.png[ListTracker]
+
+[[DeleteTracker]]
+.Output of Tracker Delete Command
+image::DeleteTracker.png[DeleteTracker]
+
+[[StartTracker]]
+.Output of Tracker Start Command
+image::StartTracker.png[StartTracker]
+
+[[StopTracker]]
+.Output of Tracker Stop Command
+image::StopTracker.png[StopTracker]
+
+[[PauseTracker]]
+.Output of Tracker Pause Command
+image::PauseTracker.png[PauseTracker]
+
 ==== Implementation
 The `TrackerCommand` class extends the `Command` class by providing functions to start, stop and pause trackers as well as display a histogram
 visualising the amount of time spent on each `Module`. `TrackerCommand` class also provides functions for viewing and deleting tracker entries.

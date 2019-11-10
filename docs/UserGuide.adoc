@@ -607,19 +607,19 @@ pause:: pause tracking a task from the current time.
 stop:: stop tracking a task from the current time.
 view:: view a histogram featuring the total amount fo time spent on each module.
 
-Example: `tracker /start 22 cs2101`
+Example: `tracker /start 13 cs2101`
 
 [[StartTracker]]
 .Starts Task Tracker
 image::StartTracker.png[StartTracker]
 
-Example: `tracker /pause 22 cs2101`
+Example: `tracker /pause 13 cs2101`
 
 [[PauseTracker]]
 .Pauses Task Tracker
 image::PauseTracker.png[PauseTracker]
 
-Example: `tracker /stop 22 cs2101`
+Example: `tracker /stop 13 cs2101`
 
 [[StopTracker]]
 .Stops Task Tracker
@@ -647,16 +647,16 @@ You can view a list of all your Task trackers.
 
 Format: `tracker /list`
 
-[[ViewTrackerList]]
+[[ListTracker]]
 .Displays a list of Task Trackers
-image::ViewTrackerList.png[ViewTrackerList]
+image::ListTracker.png[ListTracker]
 
 ==== Delete a Task Tracker: `tracker`
 You can delete a Task Tracker.
 
 Format: `tracker /delete TRACKER_INDEX`
 
-Example: `tracker /delete `
+Example: `tracker /delete 6`
 
 [[DeleteTracker]]
 .Deletes a Task Tracker
