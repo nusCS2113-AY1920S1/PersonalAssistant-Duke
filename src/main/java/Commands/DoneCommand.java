@@ -28,7 +28,6 @@ public class DoneCommand extends Command {
         this.list = list;
     }
 
-
     /**
      * Executes the mark as done of a task inside the TaskList object with the given index.
      * @param events The TaskList object for events

@@ -8,6 +8,9 @@ import DukeExceptions.DukeInvalidCommandException;
 import Tasks.TaskList;
 import java.util.ArrayList;
 
+/**
+ * Represents the command which shows the previous inputs requested by the user.
+ */
 public class ShowPreviousCommand extends Command {
 
     private final String fullCommand;
@@ -45,7 +48,10 @@ public class ShowPreviousCommand extends Command {
 
     /**
      * Shows the previous user inputs that user requested.
+     * @param events The TaskList object for events
+     * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the message to display all the inputs
+     * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display the lists of user inputs
      * @throws DukeInvalidCommandException when user request to show more
      */

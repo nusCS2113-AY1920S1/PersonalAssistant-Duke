@@ -8,7 +8,6 @@ import StubClasses.StorageStub;
 import Tasks.Assignment;
 import Tasks.Event;
 import Tasks.TaskList;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -164,8 +163,8 @@ public class RecurringCommandTest {
     public void addWeeklyRecurringCommand_withValidFormat() {
         Command command = new RecurringCommand(testDescription, dateBeforeStartDateString, startDateString,
                 testStartTimeString, testEndTimeString, false, true);
-        String expected = "Weekly recurring task: " + testDescription + " has been added between " + dateBeforeStartDateString
-                + " and " + startDateString + "\n";
+        String expected = "Weekly recurring task: " + testDescription + " has been added between "
+                + dateBeforeStartDateString + " and " + startDateString + "\n";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -195,8 +194,8 @@ public class RecurringCommandTest {
     public void addBiweeklyRecurringCommand_withValidFormat() {
         Command command = new RecurringCommand(testDescription, followingDateString, endDateString,
                 testStartTimeString, testEndTimeString, true, true);
-        String expected = "Biweekly recurring task: " + testDescription + " has been added between " + followingDateString
-                + " and " + endDateString + "\n";
+        String expected = "Biweekly recurring task: " + testDescription + " has been added between "
+                + followingDateString + " and " + endDateString + "\n";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);

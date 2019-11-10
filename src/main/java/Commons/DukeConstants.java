@@ -140,6 +140,15 @@ public class DukeConstants {
     public static final String HAS_REMINDER_INDICATOR = "[HR]";
     public static final String NO_REMINDER_INDICATOR ="[NR]";
 
+    //WEEK
+    public static final String INVALID_EMPTY_WEEK = "Invalid Input.\n"
+            + "The week cannot be blank.\nPlease enter the command as follows.\n"
+            + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
+            + "'x' is either 'recess', 'reading', or 'exam'";
+    public static final String INVALID_WEEK = "Invalid Week. Please enter the command as follows. \n"
+            + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
+            + "'x' is either 'recess', 'reading', or 'exam'";
+
 
     //MISC
     public static final String STRING_SPACE_SPLIT_KEYWORD = " ";
@@ -161,7 +170,7 @@ public class DukeConstants {
     public static final SimpleDateFormat DAY_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy");
     public static final SimpleDateFormat TWELVE_HOUR_TIME_FORMAT = new SimpleDateFormat("hh:mm a");
     public static final SimpleDateFormat DEADLINE_INPUT_FORMAT = new SimpleDateFormat("dd/MM/yyyy HHmm");
-    public static final SimpleDateFormat DEADLINE_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy HH:mm a");
+    public static final SimpleDateFormat DEADLINE_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
     public static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("E");
     public static final SimpleDateFormat TWENTYFOUR_HOUR_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy HHmm");
     public static final int LENGTH_OF_TIME_FORMAT = 4;
