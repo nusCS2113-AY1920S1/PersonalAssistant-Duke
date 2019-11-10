@@ -32,9 +32,28 @@ public class ListPriorityCommand extends Command {
      * @return String to be outputted to the user.
      */
     public String executeGui(TaskList items, PriorityList priorities, Ui ui) {
-
+        checkSize(items, priorities);
         String str = ui.showTaskListWithPriorityGui(items, priorities);
         return str;
+    }
+
+    /**
+     * Add or delete values from priority list if there's a mismatch between the sizes of priority list and items.
+     * @param items The task list.
+     * @param priorities The priority list.
+     */
+    public void checkSize(TaskList items, PriorityList priorities) {
+        int prioritySize = priorities.getSize();
+        int taskSize = items.size();
+        if (prioritySize < taskSize) {
+            for (int i = 0; i < taskSize - prioritySize; i++) {
+                priorities.addDefaultPriority();
+            }
+        } else if (prioritySize > taskSize) {
+            for (int i = 0; i < prioritySize - taskSize; i++) {
+                priorities.remove(priorities.getSize() - 1);
+            }
+        }
     }
 
     /**
