@@ -162,8 +162,7 @@ public class UserInteraction {
 
     /**
      * Displays conflicting recurring task
-     * @param conflictList
-     * @return
+     * @param conflictList The list of conflicting tasks
      */
     public String showConflictRecurring(ArrayList<String> conflictList) {
         String out = "Sorry, you have conflicting events \n";
