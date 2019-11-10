@@ -53,7 +53,7 @@ public class DeleteCommandTest {
                 + "_____________________________________________\n";
         assertEquals(expectedOutput1, testOutput1);
 
-        DeleteCommand deleteTest2 = new DeleteCommand("delete song:1");
+        DeleteCommand deleteTest2 = new DeleteCommand("delete 1");
         String testOutput2 = deleteTest2.execute(dummySongList, dummyUi, dummyStorage);
         String expectedOutput2 = "\n" + "_____________________________________________\n"
                 + "Noted! I've removed this song:\n"
@@ -82,21 +82,21 @@ public class DeleteCommandTest {
         DucatsException expectedDucatsException4 = new DucatsException("", "index");
         assertEquals(expectedDucatsException4.getMessage(), testDucatsException4.getMessage());
 
-        DeleteCommand newTest5 = new DeleteCommand("delete song:0");
+        DeleteCommand newTest5 = new DeleteCommand("delete 0");
         DucatsException testDucatsException5 = assertThrows(DucatsException.class, () -> {
             newTest5.execute(dummySongList, dummyUi, dummyStorage);
         });
         DucatsException expectedDucatsException5 = new DucatsException("", "index");
         assertEquals(expectedDucatsException5.getMessage(), testDucatsException5.getMessage());
 
-        DeleteCommand newTest6 = new DeleteCommand("delete song:-1");
+        DeleteCommand newTest6 = new DeleteCommand("delete -1");
         DucatsException testDucatsException6 = assertThrows(DucatsException.class, () -> {
             newTest6.execute(dummySongList, dummyUi, dummyStorage);
         });
         DucatsException expectedDucatsException6 = new DucatsException("", "index");
         assertEquals(expectedDucatsException6.getMessage(), testDucatsException6.getMessage());
 
-        DeleteCommand newTest7 = new DeleteCommand("delete song:3");
+        DeleteCommand newTest7 = new DeleteCommand("delete 3");
         DucatsException testDucatsException7 = assertThrows(DucatsException.class, () -> {
             newTest7.execute(dummySongList, dummyUi, dummyStorage);
         });

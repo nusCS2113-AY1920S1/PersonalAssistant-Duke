@@ -47,7 +47,7 @@ public class EditBarCommandTest {
 
     @Test
     public void execute_normalInput_success() throws DucatsException {
-        EditBarCommand editBarTest1 = new EditBarCommand("editbar bar:1 2_MC 2_MC");
+        EditBarCommand editBarTest1 = new EditBarCommand("editbar 1 2_MC 2_MC");
         String testOutput1 = editBarTest1.execute(dummySongList, dummyUi, dummyStorage);
         String expectedOutput1 = "\n" + "_____________________________________________\n"
                 + "Got it. I've edited this bar:\n"
@@ -56,7 +56,7 @@ public class EditBarCommandTest {
                 + "_____________________________________________\n";
         assertEquals(expectedOutput1, testOutput1);
 
-        EditBarCommand editBarTest2 = new EditBarCommand("editbar bar:2 2_LB 2_LB");
+        EditBarCommand editBarTest2 = new EditBarCommand("editbar 2 2_LB 2_LB");
         String testOutput2 = editBarTest2.execute(dummySongList, dummyUi, dummyStorage);
         String expectedOutput2 = "\n" + "_____________________________________________\n"
                 + "Got it. I've edited this bar:\n"
@@ -78,77 +78,77 @@ public class EditBarCommandTest {
 
     @Test
     public void execute_invalidBarNum_exceptionThrown() throws DucatsException {
-        EditBarCommand newTest4 = new EditBarCommand("editbar bar:random 2_MC 2_MC");
+        EditBarCommand newTest4 = new EditBarCommand("editbar random 2_MC 2_MC");
         DucatsException testDucatsException4 = assertThrows(DucatsException.class, () -> {
             newTest4.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException4 = new DucatsException("editbar bar:random 2_MC 2_MC", "edit");
+        DucatsException expectedDucatsException4 = new DucatsException("editbar random 2_MC 2_MC", "edit");
         assertEquals(expectedDucatsException4.getMessage(), testDucatsException4.getMessage());
 
-        EditBarCommand newTest5 = new EditBarCommand("editbar bar:!@#$%^ 2_MC 2_MC");
+        EditBarCommand newTest5 = new EditBarCommand("editbar !@#$%^ 2_MC 2_MC");
         DucatsException testDucatsException5 = assertThrows(DucatsException.class, () -> {
             newTest5.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException5 = new DucatsException("editbar bar:!@#$%^ 2_MC 2_MC", "edit");
+        DucatsException expectedDucatsException5 = new DucatsException("editbar !@#$%^ 2_MC 2_MC", "edit");
         assertEquals(expectedDucatsException5.getMessage(), testDucatsException5.getMessage());
 
-        EditBarCommand newTest6 = new EditBarCommand("editbar bar: 2_MC 2_MC");
+        EditBarCommand newTest6 = new EditBarCommand("editbar  2_MC 2_MC");
         DucatsException testDucatsException6 = assertThrows(DucatsException.class, () -> {
             newTest6.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException6 = new DucatsException("editbar bar: 2_MC 2_MC", "edit");
+        DucatsException expectedDucatsException6 = new DucatsException("editbar  2_MC 2_MC", "edit");
         assertEquals(expectedDucatsException6.getMessage(), testDucatsException6.getMessage());
 
-        EditBarCommand newTest7 = new EditBarCommand("editbar bar:0 2_MC 2_MC");
+        EditBarCommand newTest7 = new EditBarCommand("editbar 0 2_MC 2_MC");
         DucatsException testDucatsException7 = assertThrows(DucatsException.class, () -> {
             newTest7.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException7 = new DucatsException("editbar bar:0 2_MC 2_MC", "edit");
+        DucatsException expectedDucatsException7 = new DucatsException("editbar 0 2_MC 2_MC", "edit");
         assertEquals(expectedDucatsException7.getMessage(), testDucatsException7.getMessage());
 
-        EditBarCommand newTest8 = new EditBarCommand("editbar bar:-1 2_MC 2_MC");
+        EditBarCommand newTest8 = new EditBarCommand("editbar -1 2_MC 2_MC");
         DucatsException testDucatsException8 = assertThrows(DucatsException.class, () -> {
             newTest8.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException8 = new DucatsException("editbar bar:-1 2_MC 2_MC", "edit");
+        DucatsException expectedDucatsException8 = new DucatsException("editbar -1 2_MC 2_MC", "edit");
         assertEquals(expectedDucatsException8.getMessage(), testDucatsException8.getMessage());
 
-        EditBarCommand newTest9 = new EditBarCommand("editbar bar:3 2_MC 2_MC");
+        EditBarCommand newTest9 = new EditBarCommand("editbar 3 2_MC 2_MC");
         DucatsException testDucatsException9 = assertThrows(DucatsException.class, () -> {
             newTest9.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException9 = new DucatsException("editbar bar:3 2_MC 2_MC", "edit");
+        DucatsException expectedDucatsException9 = new DucatsException("editbar 3 2_MC 2_MC", "edit");
         assertEquals(expectedDucatsException9.getMessage(), testDucatsException9.getMessage());
     }
 
     @Test
     public void execute_invalidBarContent_exceptionThrown() throws DucatsException {
-        EditBarCommand newTest10 = new EditBarCommand("editbar bar:1 2_MC 4_MC");
+        EditBarCommand newTest10 = new EditBarCommand("editbar 1 2_MC 4_MC");
         DucatsException testDucatsException10 = assertThrows(DucatsException.class, () -> {
             newTest10.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException10 = new DucatsException("editbar bar:1 2_MC 4_MC", "edit");
+        DucatsException expectedDucatsException10 = new DucatsException("editbar 1 2_MC 4_MC", "edit");
         assertEquals(expectedDucatsException10.getMessage(), testDucatsException10.getMessage());
 
-        EditBarCommand newTest11 = new EditBarCommand("editbar bar:1 2_UA 4_MC 8_LC 16_LF 16_LD");
+        EditBarCommand newTest11 = new EditBarCommand("editbar 1 2_UA 4_MC 8_LC 16_LF 16_LD");
         DucatsException testDucatsException11 = assertThrows(DucatsException.class, () -> {
             newTest11.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException11 = new DucatsException("editbar bar:1 2_UA 4_MC 8_LC 16_LF 16_LD",
+        DucatsException expectedDucatsException11 = new DucatsException("editbar 1 2_UA 4_MC 8_LC 16_LF 16_LD",
                                                                         "edit");
         assertEquals(expectedDucatsException11.getMessage(), testDucatsException11.getMessage());
 
-        EditBarCommand newTest12 = new EditBarCommand("editbar bar:1 ");
+        EditBarCommand newTest12 = new EditBarCommand("editbar 1 ");
         DucatsException testDucatsException12 = assertThrows(DucatsException.class, () -> {
             newTest12.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException12 = new DucatsException("editbar bar:1 ", "edit");
+        DucatsException expectedDucatsException12 = new DucatsException("editbar 1 ", "edit");
         assertEquals(expectedDucatsException12.getMessage(), testDucatsException12.getMessage());
     }
 
     @Test
     public void isExit_normalInput_success() {
-        EditBarCommand editBarTest1 = new EditBarCommand("editbar bar:1 2_MC 2_MC");
+        EditBarCommand editBarTest1 = new EditBarCommand("editbar 1 2_MC 2_MC");
         assertEquals(false, editBarTest1.isExit());
     }
 }

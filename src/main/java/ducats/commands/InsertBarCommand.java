@@ -46,7 +46,7 @@ public class InsertBarCommand extends Command<SongList> {
             Song activeSong = songList.getSongIndex(songIndex);
 
             String[] sections = message.substring(10).split(" ");
-            barNo = Integer.parseInt(sections[0].substring(4));
+            barNo = Integer.parseInt(sections[0]);
             int notesIndex = message.indexOf(sections[1]);
             Bar newBar = new Bar(barNo, message.substring(notesIndex));
 
