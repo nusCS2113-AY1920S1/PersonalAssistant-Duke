@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+//@@author JasonChanWQ
+
 public class EditTaskNameCommandTest {
 
     @Test
@@ -56,6 +58,7 @@ public class EditTaskNameCommandTest {
         model.addTask("Create event poster");
         Command command = EditTaskNameParser.parseEditTaskName("1 /to Create swimming event poster");
         CommandOutput out = command.execute(model);
-        assertEquals("Create event poster has been renamed to: Create swimming event poster", out.getOutputToUser());
+        assertEquals("Create event poster has been renamed to: Create swimming event poster",
+                out.getOutputToUser());
     }
 }

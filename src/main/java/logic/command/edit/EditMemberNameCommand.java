@@ -1,6 +1,7 @@
 package logic.command.edit;
 
 import common.DukeException;
+import core.Duke;
 import logic.command.Command;
 import logic.command.CommandOutput;
 import model.Member;
@@ -29,9 +30,9 @@ public class EditMemberNameCommand extends Command {
         Member newMember = new Member(newName);
 
         if (!model.getMemberList().contains(oldMember)) {
-            return new CommandOutput(oldName + INPUT_NAME_NOT_IN_MEMBER_lIST_MESSAGE);
+            throw new DukeException(oldName + INPUT_NAME_NOT_IN_MEMBER_lIST_MESSAGE);
         } else if (model.getMemberList().contains(newMember)) {
-            return new CommandOutput(newName + INPUT_NAME_ALREADY_IN_MEMBER_lIST_MESSAGE);
+            throw new DukeException(newName + INPUT_NAME_ALREADY_IN_MEMBER_lIST_MESSAGE);
         } else {
             int memberIndex = model.getMemberIdByName(oldName);
             model.getMemberList().get(memberIndex).setName(newName);
