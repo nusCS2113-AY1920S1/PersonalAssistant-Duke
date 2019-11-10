@@ -21,7 +21,7 @@
                 <Insets left="10.0" right="10.0"/>
             </padding>
         </Label>
-        <Label fx:id="statusLabel" layoutX="527.0" layoutY="25.0" maxWidth="130.0" prefHeight="20.0" text="Objectivity">
+        <Label fx:id="objectivityLabel" layoutX="527.0" layoutY="25.0" maxWidth="130.0" prefHeight="20.0" text="Objectivity">
             <font>
                 <Font name="System Bold" size="20.0"/>
             </font>
