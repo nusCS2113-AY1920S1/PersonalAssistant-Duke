@@ -241,9 +241,6 @@ the filter mechanism implements the following operation to support filtering:
 * `Model#updateFilteredProductList(Predicate<Product> predicate)` -- Sets the value of the property
 Predicate in the `filteredProducts`.
 
-** The `ListProductCommand` will call this method to change the visibility of products with different status
-by passing in the corresponding predicate.
-
 ** Predicates are declared statically in the `Model` interface, namely
 `PREDICATE_SHOW_ACTIVE_PRODUCTS`, `PREDICATE_SHOW_ARCHIVE_PRODUCTS`, and `PREDICATE_SHOW_ALL_PRODUCT`. In
 particular `PREDICATE_SHOW_ARCHIVE_PRODUCTS` is as follow
@@ -252,6 +249,9 @@ particular `PREDICATE_SHOW_ARCHIVE_PRODUCTS` is as follow
         return product.getStatus() == Product.Status.ARCHIVE;
     };
 ```
+
+** The `ListProductCommand` will call this method to change the visibility of products with different status
+by passing in the corresponding predicate.
 
 An example usage scenario and how the filter mechanism behaves at each step is shown below.
 
@@ -290,8 +290,8 @@ change in `Model`.
 
 The Sequence Diagram below shows how the components interact with each other for the above mentioned
 scenario.
-
 .Sequence Diagram for Filter Product Mechanism
+
 image::FilterProductSD.png[]
 
 Note that almost all other commands follow the same sequences, with different `Command` and `Parser`
@@ -635,7 +635,6 @@ BHS detects a invalid command.
 
 _{More to be added}_
 
-
 [appendix]
 == Non Functional Requirements
 
@@ -652,8 +651,7 @@ _{More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]]
-Mainstream OS::
+[[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [appendix]
@@ -839,6 +837,7 @@ Sales can be filtered by time.
 |Test Case
 |Expected Output
 
+\
 .3+|Sales
 2+| Showing only sales between two dates not inclusive of date itself.
 
@@ -869,26 +868,8 @@ Error details shown in the pop-up bar.
    Expected: No ingredients are bought.
 Error details shown in the pop-up bar.
 
-<<<<<<< HEAD
 === Product related operations
 There are many product related operations.
-=======
-=== Adding a Product
-
-. Adding a product with default values
-.. Test case: `product add -name Bread` +
-   Expected: A new product named `Bread` is added.
-Ingredient cost and Retail price are both $0.0. Status is active.
-<<<<<<< HEAD
-.. Test case: `product add -name Cheese cake -ingt [Cream cheese, 3] [Sugar, 5] -cost 3.0 -price 5.9` +
-=======
-. Adding a product with cost and price
-.. Test case: `product add -name Cheese cake -cost 3.0 -price 5.9` +
->>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52 Expected: A new product named `Cheese cake` is added.
-Ingredient cost are $3 and Retail price is $5.9. Status is active.
-Use `product show INDEX_OF_CHEESE_CAKE`
-to check the ingredients.
->>>>>>> 8dd3d2c46aa254438397e59ffb53b50d4a275b12
 
 [cols="1,1,1", options="header"]
 .Filter Operation
@@ -902,7 +883,6 @@ to check the ingredients.
 |All products whose name include `cake` are listed.
 List will be empty if no products' names contain `cake`.
 
-<<<<<<< HEAD
 .2+|Filtering Products by Categories, namely `active`, `archive` and `all`.
 |`product filter -scope active`
 |Only active products are listed.
@@ -914,30 +894,6 @@ are archived.
 .2+|Sorting Products.
 |`product sort -by cost -scope active -re`
 |Active products are sorted by cost in ascending order.
-=======
-=== Filtering Products <<<<<<< HEAD
-=======
-
-. Filters to show only archived products >>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
-.. Test case: `product filter -scope archive` +
-   Expected: All archive products are listed.
-List will be empty if no products have archive status.
-
-. No filter
-.. Test case: `product filter -scope all` +
-<<<<<<< HEAD Expected: All products, regardless their status, are listed.
-.. Test case: `product filter -scope active` +
-    Expected: All active products are listed.
-
-=== Sorting Products
-
-.. Test case: `product sort -by cost -scope active -re` +
-    Expected: Active products are sorted by cost in descending order.
-
-=======
-   Expected: All products, regardless their status, are listed.
->>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
->>>>>>> 8dd3d2c46aa254438397e59ffb53b50d4a275b12
 
 |`product sort -by price`
 |Active products are sorted by price in descending order.
@@ -947,157 +903,3 @@ List will be empty if no products have archive status.
 
 _{ more test cases ... }_
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-BakingHome provides basic Add, Edit, Delete operations for all entity.
-The tables belows provides a few commands for you to try out.
-
-[cols="1,1,2",options="header"]
-[width="100%",cols="10%,45%,45%",options="header",]
-.Add Operation
-|===
-|Entity
-|Test Case
-|Expected Output
-
-|
-|
-|
-
-.3+|`Product`
-|`product add -name Bread`
-|A new product named Bread is added.
-Ingredient cost and Retail price are both $0.0.
-Status is active.
-
-|`product add -name Cheese cake -cost 3.0 -price 5.9`
-|A new product named Cheese cake is added. Ingredient cost are $3 and Retail price is $5.9. Status is active
-
-
-|`product add -name Cheese cake -ingt [Cream cheese, 3] [Sugar, 5] -cost 3.0 -price 5.9`
-to check the ingredients
-|A new product named `Cheese cake` is added.
-Ingredient cost are $3 and Retail price is $5.9. Status is active. Use `product show INDEX_OF_CHEESE_CAKE`
-to check ingredients
-
-.6+|`Order`
-|`order add -name Jiajun`
-|A new order with no item is added. The order’s customer name field is Jiajun
-
-|`order add -name abcdabcdabcdabcdabcdabcd`
-| A error message pops up. The error message is "Name should be no more than 20 characters"
-
-|`order add -rmk abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd`
-|A error message pops up. The error message is "Remarks should be no more than 50 characters"
-
-2+| Pre-requisite for below `Order`: Cake product should be in Product List; Fish product should not be in
-Product List.
-
-|`order add -item Cake, 1`
-|A new order with one item Cake is added.
-
-|`order add -item Fish, 1`
-|A error message pops up.
-
-.5+|`sale`
-2+|Adding an empty sale
-
-|`sale add`
-|A new sale with default value 0.0 is added. The sale’s description and remarks are "N/A" and date is set to current date and time.
-
-|`sale add -desc Refund abcdeabcdeabcdeabcdeabcdeabcdeabcde has been completed`
-|A error message pops up. The error message is "Description should be no more than 50 characters"
-
-|`sale add -rmk Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas`
-|A error message pops up. The error message is "Remarks should be no more than 50 characters"
-
-2+|Adding a sale with date
-
-|`sale add -at 31/12/2019 23:00`
-|A new sale with date Tue, Dec 31, 2019 23:00 is added
-
-|`sale add -at 32/13/2019 23:00`
-|An error message pops up
-|===
-
-=== Delete operation Delete operation is have the same syntax for all entity.
-The table below use order as an example. `order`
-can be replaced with `inv`, `shop`, `product` and `sale`
-
-[cols="1,1,2",options="header"]
-[width="100%",cols="10%,45%,45%",options="header",]
-.Delete Operation
-|===
-|Entity
-|Test Case
-|Expected Output
-
-.7+|`Order`
-2+|Deleting a single order
-
-Prerequisites: At least 1 order in Order List
-
-|`order remove 1`
-|The first order is deleted from the list
-
-
-|`order remove 0`
-|No order is deleted. Error details shown in the pop-up bar
-
-2+|Deleting multiple orders
-
-Prerequisites: At least 2 orders in Order List
-
-
-|`order remove 2, 1`
-|The first and second orders are deleted
-
-
-|`order remove 1~2`
-|The first and second orders are deleted
-
-
-|1. `order remove 1~x`
-
-2. `order remove 1,x` (where x is larger than the list size)
-
-3. `order remove 2~1`
-|Error details shown in the pop-up bar.
-|===
-
-[cols="1,1,2",options="header"]
-[width="100%",cols="10%,45%,45%",options="header",]
-.Edit Operation
-|===
-|Section
-|Test Case
-|Expected Output
-
-|`shop`
-| `shop edit 1 -qty 10 -cost 10`
-|In the shopping list, the first ingredient’s quantity is changed to 10, and its unit cost is changed to 10.
-All other data that is not inputted as parameters will be unchanged.
-
-|`order`
-|`order edit 1 -name Eugene -rmk Birthday`
-|In orders, the first order’s customer name is changed to Eugene, and the remarks is changed to Birthday`
-All other data that is not inputted as parameters will be unchanged.
-This is provided the order status is not completed. If the order status is completed, you cannot edit the order.
-
-|`product`
-|product edit 1 -name _name -cost 5 -ingt [Cream cheese, 1.0]
-|The name of the first product is changed to _name, and cost is changed to $5. It has a ingredient Cream cheese associated. You can check the ingredient using command `product show 1`
-
-
-|===
-
-_{ more test cases ... }_
-=======
-.. Test case (missing data file): Delete the folder `data` in BakingHome's directory and restart BakingHome +
-   Expected: BakingHome loads demo data
-.. Test case (corrupted data file): Change the content of data file at `data/baking.json` to "This file is damaged" and restart BakingHome. +
-   Expected: BakingHome loads demo data >>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
->>>>>>> 8dd3d2c46aa254438397e59ffb53b50d4a275b12
