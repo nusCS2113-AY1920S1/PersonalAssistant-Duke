@@ -30,7 +30,7 @@ public class PlanQuestion {
      * @param answers        an Array of strings of the possible answers
      * @param attributeValue an Array of Attributes the attribute could take,
      *                       its size should be the same as the answer array
-     * @param attribute      the attribute of the user we want to determine from the question
+     * @param attribute      the attribute String of the user we want to determine from the question
      * @throws DukeException when there are errors in the construction of the question
      */
     public PlanQuestion(String question,

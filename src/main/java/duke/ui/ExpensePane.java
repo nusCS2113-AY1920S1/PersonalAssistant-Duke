@@ -29,21 +29,29 @@ public class ExpensePane extends UiPart<AnchorPane> {
     private PieChart pieChartSample;
 
     @FXML
-    private
-    ListView<Expense> expenseListView;
+    private ListView<Expense> expenseListView;
 
     @FXML
-    Label sortLabel;
+    private Label sortLabel;
 
     @FXML
-    Label viewLabel;
+    private Label viewLabel;
 
     @FXML
-    Label totalLabel;
+    private Label totalLabel;
 
     public Logic logic;
     public Set<String> tags;
 
+    /**
+     * Constructor for ExpensePane, the controller class for ExpensePane.fxml.
+     * @param expenseList ObservableList of Expense objects.
+     * @param logic the Logic Object of Duke
+     * @param totalExpense StringProperty of the sum of displayed expenses
+     * @param filterCriteria StringProperty of the current filter criteria of ExpenseList(broken for now, to be fixed in future builds)
+     * @param sortCriteria StringProperty of the sortCriteria of ExpenseList
+     * @param viewCriteria StringProperty of the viewCriteria of ExpenseList
+     */
     public ExpensePane(ObservableList<Expense> expenseList, Logic logic,
                        StringProperty totalExpense,
                        StringProperty filterCriteria,
@@ -96,7 +104,7 @@ public class ExpensePane extends UiPart<AnchorPane> {
     private void getTags() {
         tags = new HashSet<>();
         for (Expense expense : logic.getExternalExpenseList()) {
-            if(!expense.getTag().isEmpty()) {
+            if (!expense.getTag().isEmpty()) {
                 tags.add(expense.getTag());
             }
         }
