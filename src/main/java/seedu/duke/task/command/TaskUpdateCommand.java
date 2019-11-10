@@ -39,28 +39,32 @@ public class TaskUpdateCommand extends Command {
     @Override
     public boolean execute(Model model) {
         TaskList taskList = model.getTaskList();
-        String msg = "";
+        StringBuilder msg = new StringBuilder("Updating is complete");
+        msg.append(System.lineSeparator());
         responseMsg = "";
         try {
             for (int i = 0; i < descriptions.size(); i++) {
                 switch (attributes.get(i)) {
                 case TIME:
-                    msg = updateTime(taskList, i);
+                    msg.append(updateTime(taskList, i));
+                    msg.append(System.lineSeparator());
                     break;
                 case DO_AFTER:
-                    msg = updateDoAfter(taskList, i);
+                    msg.append(updateDoAfter(taskList, i));
+                    msg.append(System.lineSeparator());
                     break;
                 case PRIORITY:
-                    msg = updatePriority(taskList, i);
+                    msg.append(updatePriority(taskList, i));
+                    msg.append(System.lineSeparator());
                     break;
                 case TAG:
-                    msg = updateTags(taskList, i);
+                    msg.append(updateTags(taskList, i));
                     i = descriptions.size();
                     // tags will be the last entries in descriptions ArrayList and updateTags will handle
                     // them all. So skip to the end.
                     break;
                 default:
-                    msg = "Invalid attribute";
+                    msg = new StringBuilder("Invalid attribute");
                     break;
                 }
             }
@@ -72,7 +76,7 @@ public class TaskUpdateCommand extends Command {
             return false;
         }
         if (!silent) {
-            UI.getInstance().showResponse(msg);
+            UI.getInstance().showResponse(msg.toString());
         }
         return true;
     }
