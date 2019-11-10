@@ -1,5 +1,6 @@
 package dolla.command;
 
+import dolla.ModeStringList;
 import dolla.model.DollaData;
 import dolla.model.Bill;
 import dolla.ui.DebtUi;
@@ -37,6 +38,6 @@ public class AddBillCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return null;
+        return "bill " + people + " " + amount + " " + nameList;
     }
 }
