@@ -6,6 +6,7 @@ import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.storage.Storage;
 import com.algosenpai.app.ui.Ui;
+import com.algosenpai.app.ui.components.DialogBox;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -105,6 +106,16 @@ public class UndoCommandTest extends ApplicationTest {
         Command command = logic.executeCommand("undo testing");
         String actualText = command.execute();
         Assertions.assertEquals("Not a valid number", actualText);
+    }
+
+    @Test
+    void testUndoCommandAfterClearCommand() {
+        clickOn("#userInput").write("clear").clickOn("#sendButton");
+        clickOn("#userInput").write("undo").clickOn("#sendButton");
+        VBox container = find();
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(0);
+        String actualText = dialogBox.getDialog().getText();
+        Assertions.assertEquals("There are no more chats to undo!", actualText);
     }
 
 

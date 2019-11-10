@@ -64,14 +64,14 @@ public class InvalidCommand extends Command {
         List<String> name = CommandsEnum.getNames();
         ArrayList<String> strings = new ArrayList<>();
 
-        for (String s: name) {
-            if (s.startsWith(input)) {
-                if (!strings.isEmpty()) {
-                    clear(strings);
+        if (hasStartWith(name, input)) {
+            for (String s : name) {
+                if (s.startsWith(input) || s.equals(input)) {
+                    strings.add(s);
                 }
-                strings.add(s);
-                break;
-            } else {
+            }
+        } else {
+            for (String s : name) {
                 if (contains(s, input)) {
                     int temp = editDist(input, s, input.length(), s.length());
                     if (temp < num) {
@@ -86,7 +86,7 @@ public class InvalidCommand extends Command {
                 }
             }
         }
-        return strings.toString().replace("[", "").replace("]","");
+        return strings.toString().replace("[", "").replace("]", "");
     }
 
     /**
@@ -158,4 +158,22 @@ public class InvalidCommand extends Command {
         }
         return false;
     }
+
+    private static boolean hasStartWith(List<String> list, String input) {
+        for (String s : list) {
+            if (s.startsWith(input)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*private static boolean contains(List<String> list, String input) {
+        for (String s : list) {
+            if (s.contains(input)) {
+                return true;
+            }
+        }
+        return false;
+    }*/
 }
