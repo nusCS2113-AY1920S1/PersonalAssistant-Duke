@@ -14,8 +14,8 @@ public class RemoveUserTest1 {
         User newUser = new User(username);
         UserList newUserList = new UserList();
         newUserList.add(newUser);
-        assertTrue(newUserList.checkExistence(username));
-        UserList.removeUser(newUserList, username);
-        assertFalse(newUserList.checkExistence(username));
+        assertTrue(newUserList.doesExist(username));
+        newUserList.removeUser(username);
+        assertFalse(newUserList.doesExist(username));
     }
 }
