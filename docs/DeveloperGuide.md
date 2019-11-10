@@ -1,8 +1,8 @@
 # Chef Duke - Developer Guide
 
+
+
 [TOC]
-
-
 
 ### 1. Setting Up
 
@@ -529,17 +529,19 @@ Below is a table with some of the methods provided by this class.
 
 #### 2.13 ingredientCommand Component
 
-API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.java`, `RemoveAllExpired.java,FindIngredientCommand.java, UseCommand.java,`
+API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.java`, `RemoveAllExpired.java,FindIngredientCommand.java, UseCommand.java,` `ChangeAmountCommand.java`, `ChangeNameCommand.java`
 
 The `ingredientCommand` classes all inherit from the `Command` class. They all have a specific implementation of the abstract method `execute` of the class `Command`. The `ingredientCommand` classes includes:
 
 - **AddCommand** This command adds an `Ingredient` to the `Fridge`, passed as an argument when creating this command. The `IngredientsList` used by the `Fridge` can also be read from the file when initializing. When adding an ingredient, it is compared to all the existing ingredients in the `Fridge`, if there is an match, having the same name and expiry date, no new entry is created in the `IngredientList` of the `Fridge`, namely, only the amount of the already existing matching ingredient is augmented by the new amount to be added. Otherwise, a new ingredient entry is created in the `IngredientList`. 
-- **DeteleCommand**: This command deletes an ingredient from the `IngredientList` of the `Fridge`, indicated by it's index in the list, passed as a parameter when creating this command. 
-- **FindToday**: This command is used to look for expired ingredients on the date itself.
-- **ListCommand**: This command is used to show the chef's entire IngredientsList.
+- **DeteleCommand**: This command deletes an ingredient from the `IngredientsList` of the `Fridge`, indicated by it's index in the list, passed as a parameter when creating this command. 
+- **FindToday**: This command is used to look for expired ingredients from the `IngredientsList` of the `Fridge`, on the date itself.
+- **ListCommand**: This command is used to show the chef's entire `IngredientsList`.
 - **RemoveAllExpired**: The command is used to remove all expired ingredients from the  `IngredientList` of the `Fridge`.
-- **FindIngredientCommand**: This command is used to find all ingredients with the queried keyword entered by the chef.
+- **FindIngredientCommand**: This command is used to find all the `Ingredient`, with the queried keyword entered by the chef, in the `Fridge`.
 - **UseCommand**: This command is executed to use and remove the specified amount of an ingredient stored in the  `IngredientList` of the `Fridge`, when the Chef wants to use it. An important *note* is that ingredients are used based on their expiry date, meaning the most recently expiring ingredients, matching the ingredient indicated by the chef, are used first. Otherwise, if there is not enough of the required non-expired amount of this ingredient needed by the chef, the program will prompt it to the chef. 
+- **ChangeAmountCommand**: This command is used to change the amount of an `Ingredient` given the index number of the `Ingredient`.
+- **ChangeNameCommand**: This command is used to change the name of an `Ingredient` given the index number of the `Ingredient`.
 
 ### 3. Implementation
 
@@ -768,7 +770,7 @@ in the main page, there are several actions for the user:
 | 6     | c       | c       | go into order template      |
 | 7     | d       | d       | go into dish template       |
 
-#### E2. Launch and shutdown
+#### E1. Launch and shutdown
 
 1. Initial Launch
    1. Download Jar file and copy into empty folder
@@ -814,32 +816,25 @@ Using an ingredient from the Fridge
 
 #### E4. Finding an ingredient
 
+Find an ingredient in the list using a keyword
+
+1. Prerequisite: user must be in `ingredient` template. List all ingredients by typing `show`. Assuming the the fridge currently only has `beef`.
+
+   Test case 1: `find beef` 
+
+​		Expected: Find and list all ingredients that have the keyword `beef` to the user
+
+​		Test case 2: `find cockroach`
+
+​		Expected: Ingredient is not found and program outputs `No such ingredient found!`
+
+​		Test case 3: `find be ef`
+
+​		Expected: Program outputs to user the proper syntax to use the command.
+
 #### E5. Remove an ingredient
 
 Removing an ingredient from the Fridge
-
-
-#### E8. Finding an ingredient
-
-1. Find an ingredient in the list using a keyword
-
-   1.1. Prerequisite: user must be in `ingredient` template.
-
-   1.2. List all ingredients by typing `show`
-
-   1.3. Test case 1: `find beef` 
-
-   ​		Expected: Find and list all ingredients that have the keyword `beef` to the user
-
-   ​		Test case 2: `find cockroach`
-
-   ​		Expected: Ingredient is not found and program outputs `No such ingredient found!`
-
-   ​		Test case 3: `find be ef`
-
-   ​		Expected: Program outputs to user the proper syntax to use the command.
-
-2. 
 
 1. prerequisite: user must be in `b` option of the main menu. Show all ingredients using `show` , assuming the number of ingredients currently  in the Fridge is for eg. 5.
 
@@ -855,6 +850,19 @@ Removing an ingredient from the Fridge
    Test case 3: `remove`
 
    Expected:  no ingredient is removed, outputs to the user that he must specify an index of the ingredient to be removed!
+
+#### E6. Listing all ingredient
+
+#### E7. Removing all expired ingredient
+
+
+#### E8. Listing ingredients that expired today
+
+1. 
+
+#### E9. Changing ingredient name
+
+#### E10. Changing ingredient amount
 
 #### E11. Adding an order
 
