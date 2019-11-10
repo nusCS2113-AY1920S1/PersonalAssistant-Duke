@@ -47,7 +47,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "FG"
-    archiveVersion = "v1.4-nick-test"
+    archiveVersion = "v1.4-nick-help"
     archiveClassifier = null
     archiveAppendix = null
 }
