@@ -56,7 +56,7 @@ class AddCommandParserTest {
         TaskList l = new TaskList();
         AddCommandParser a = new AddCommandParser();
         Optional<String> noFilter = Optional.empty();
-        String command = "task why am i doing this??? -p 3";
+        String command = "task why am i doing this??? -p h";
         AddCommand aCom = a.parse(noFilter, command);
         aCom.execute(l, ui, storage);
         Task actualTask = l.get(0);
@@ -108,7 +108,7 @@ class AddCommandParserTest {
         String command = "task why am i doing this??? -p s";
         Exception exception = assertThrows(DukeException.class, () ->
                 a.parse(noFilter, command));
-        assertEquals("Please enter a numerical field for the priority!",
+        assertEquals("Please enter a valid priority description!",
                 exception.getMessage());
     }
 }

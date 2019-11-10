@@ -53,10 +53,10 @@ public class EditCommandTest {
         String description1 = "cs2113 is the best :')";
         String description2 = "cg2271 is the best :')";
         String description3 = "st2334 is the best :')";
-        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4,1));
-        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4,1));
-        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5,1));
-        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4,1));
+        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4,"l"));
+        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4,"l"));
+        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5,"l"));
+        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4,"l"));
 
         return t;
     }
@@ -71,9 +71,9 @@ public class EditCommandTest {
         String actualTaskDescription = tasks.get(3).getDescription();
         assertEquals(expectedTaskDescription, actualTaskDescription);
 
-        editCommand = new EditCommandParser().parse(Optional.of("cs"), "1 -priority 2");
+        editCommand = new EditCommandParser().parse(Optional.of("cs"), "1 -priority m");
         editCommand.execute(tasks, ui, storage);
-        String expectedTaskPriority = "High";
+        String expectedTaskPriority = "Medium";
         String actualTaskPriority = tasks.get(1).getPriority();
         assertEquals(expectedTaskPriority, actualTaskPriority);
 
@@ -106,7 +106,7 @@ public class EditCommandTest {
         String actualTaskDescription = tasks.get(0).getDescription();
         assertEquals(expectedTaskDescription, actualTaskDescription);
 
-        editCommand = new EditCommandParser().parse(Optional.empty(), "1 -priority 2");
+        editCommand = new EditCommandParser().parse(Optional.empty(), "1 -priority h");
         editCommand.execute(tasks, ui, storage);
         String expectedTaskPriority = "High";
         String actualTaskPriority = tasks.get(0).getPriority();
@@ -136,7 +136,7 @@ public class EditCommandTest {
     void execute_wrongKeywordInput_failure() throws DukeException {
         TaskList tasks = createTaskList();
         EditCommand editCommand;
-        editCommand = new EditCommandParser().parse(Optional.empty(), "1 -desc hello world");
+        editCommand = new EditCommandParser().parse(Optional.empty(), "1 -desasg hello world");
         Exception exception = assertThrows(DukeException.class, () ->
                 editCommand.execute(tasks, ui, storage));
         assertEquals("I'm sorry, I do not know what field you are trying to edit!",
@@ -150,7 +150,7 @@ public class EditCommandTest {
         editCommand = new EditCommandParser().parse(Optional.empty(), "1 -priority hello world");
         Exception exception = assertThrows(DukeException.class, () ->
                 editCommand.execute(tasks, ui, storage));
-        assertEquals("Please enter a numerical field for the priority!", exception.getMessage());
+        assertEquals("Please enter a valid priority description!", exception.getMessage());
     }
 
     @Test
