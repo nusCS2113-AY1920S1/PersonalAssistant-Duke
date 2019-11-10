@@ -56,6 +56,12 @@ public class ProjectRepository implements IRepository<Project> {
         return this.allProjects.get(indexNumber - 1);
     }
 
+    /**
+     * Method responsible for deleting an old JSON and creating a new JSON file after a Project renames itself.
+     * @param project : Project that is being renamed.
+     * @param input : New name for the Project.
+     * @return : Returns a boolean flag stating whether the deletion and recreation of JSon was successful or not.
+     */
     public boolean updateItem(Project project, String input) {
         try {
             jsonConverter.deleteProject(project);
