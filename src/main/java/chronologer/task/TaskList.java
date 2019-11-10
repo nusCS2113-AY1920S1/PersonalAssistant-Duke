@@ -426,7 +426,7 @@ public class TaskList {
             prevTheme = choiceOfTheme;
             messageToUser = "Theme changed!";
         } else {
-           messageToUser = "Theme cannot be changed!";
+            messageToUser = "Theme cannot be changed!";
         }
         return messageToUser;
     }
