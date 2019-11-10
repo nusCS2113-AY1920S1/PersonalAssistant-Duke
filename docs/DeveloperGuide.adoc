@@ -551,22 +551,19 @@ Other helper commands such as:
 ===== **Aspect:  How a new Itinerary is entered**
 
 * **Alternative 1:** Currently, `newItinerary` command offers a one-shot command alternative.
-** Pros: It does not require line by line entering of potentially long lists
-** Pros: Better for CLI Users.
-** Cons: It is prone to many parsing errors and is restrictive on the user
-** Cons: Not as user friendly as a GUI or Multi-Line command.
+** Pros: Easy to use and learn. Easy to implement. 
+** Cons: Parsing function is complicated and error prone. 
 * **Alternative 2:** Through a GUI Interface.
-** Pros:  Much easier for the user to use. Gives insight as to where these locations might be
-** Cons: Not command line based
-** Cons: Cumbursome to implement. 
+** Pros: Much easier for the user to use. Less error prone.
+** Cons: Difficult to implement. Does not add to showcasing OOP skill. 
 
-===== **Aspect:  How SGTravel Recommends a List**
+===== **Aspect: How SGTravel Saves Itineraries**
 
-* **Alternative 1:** Currently, the `recommend` command offers only a fixed recommendation.
-** Pros: Easy to implement and good for first time visitors.
-** Cons: Restrictive on the user as they cannot edit the recommendation.
-* **Alternative 2:** Option to update list before saving
-** Pros: User has greater freedom.
+* **Alternative 1:** Currently, SGTravel rewrites the hashmap every time a command is entered.
+** Pros: Easy to implement with little lines of code. Easy to understand. 
+** Cons: Decreases efficiency of code and reduces performance.
+* **Alternative 2:** Option to only update the recently added list.
+** Pros: Increases program efficiency.
 ** Cons: Difficult to implement. 
 
 ==== [Proposed] Itinerary Builder Command
