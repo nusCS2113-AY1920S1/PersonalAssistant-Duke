@@ -50,6 +50,9 @@ public class AddPromotionCommandParser implements ParserPrototype<AddPromotionCo
             if (!ParserUtil.hasField(args,discountIndex+1)) {
                 throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
             }
+            if(!ParserUtil.isValidNumber(args[discountIndex+1])){
+                throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+            }
             tempPromotion.setDiscount(Double.parseDouble(args[discountIndex+1]));
         }
 

@@ -2,6 +2,8 @@
 
 package cube.model.promotion;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Promotion {
@@ -128,10 +130,13 @@ public class Promotion {
      */
     @Override
     public String toString() {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String start = format.format(startDate);
+        String end = format.format(endDate);
         return foodName + "\n  Discount: " + discount +
                 "\n  Promotional Price: $" + promotionalPrice +
-                "\n  Start Date: " + startDate +
-                "\n  End Date: " + endDate;
+                "\n  Start Date: " + start +
+                "\n  End Date: " + end;
     }
 
     /*@Override
