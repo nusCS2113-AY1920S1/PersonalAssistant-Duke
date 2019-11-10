@@ -676,9 +676,9 @@ public class Profile {
     public void transferFund(String from, String to, double amount, Date date,
             Ui ui) throws BankException {
         String fromType = bankList.getTransferBankType(from, amount);
-        String toType = bankList.getReceiveBankType(to);
         String descriptionTo = TRANSFERFUNDTO + to;
         bankList.bankListCheckTransferExceed(to, amount);
+        String toType = bankList.getReceiveBankType(to);
         Transaction newExpenditure = new Expenditure(descriptionTo, amount, date, TRANSFERCATEGORY);
         bankList.bankListAddExpenditure(from, newExpenditure, ui, checkBankType(fromType));
         logger.info("Successfully added expenditure for the sender");
