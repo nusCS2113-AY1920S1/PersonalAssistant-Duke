@@ -1,13 +1,13 @@
 package moomoo.command;
 
-import moomoo.task.Budget;
-import moomoo.task.category.Category;
-import moomoo.task.category.CategoryList;
-import moomoo.task.category.Expenditure;
-import moomoo.task.MooMooException;
-import moomoo.task.ScheduleList;
-import moomoo.task.Storage;
-import moomoo.task.Ui;
+import moomoo.feature.Budget;
+import moomoo.feature.Ui;
+import moomoo.feature.category.Category;
+import moomoo.feature.category.CategoryList;
+import moomoo.feature.category.Expenditure;
+import moomoo.feature.MooMooException;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.storage.Storage;
 
 public class GraphCategoryCommand extends Command {
     private static final String ANSI_RESET = "\u001B[0m";
@@ -49,17 +49,21 @@ public class GraphCategoryCommand extends Command {
     }
     
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList,
-                        Category category, Ui ui, Storage storage)
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
+                        Storage storage)
             throws MooMooException {
         Category cat;
         try {
-            cat = catList.get(categoryName);
-            if (cat.size() == 0) {
+            cat = categoryList.get(categoryName);
+        } catch (Exception e) {
+            throw new MooMooException("OH NO! No such category exists!");
+        }
+        try {
+            if (cat.size() == 0 || cat.getTotal(month, year) == 0) {
                 throw new MooMooException("OOPS!!! MooMoo cannot find any expenditure data :(");
             }
         } catch (Exception e) {
-            throw new MooMooException("OH NO! No such category exists!");
+            throw new MooMooException("Please enter an existing category!! Moohoohoo");
         }
         
         double grandTotal = cat.getTotal(month, year);
@@ -76,12 +80,12 @@ public class GraphCategoryCommand extends Command {
         output += topSpace + horizontalAxisTop + "\n";
         
         for (int i = 0; i < cat.size(); i += 1) {
-            String expenditureName = cat.get(i).toString();
+            String expenditureName = cat.get(i).getName();
             if (expenditureName.length() > 14) {
                 expenditureName = expenditureName.substring(0, 11) + "...";
-
+                
             }
-    
+            
             if (i % 2 == 0) {
                 output = output + ANSI_CYAN + expenditureName;
             } else {
@@ -103,14 +107,12 @@ public class GraphCategoryCommand extends Command {
                 output = output + halfBlock;
             }
             output = output + "  " + roundToTwoDp(percentage) + "%\n";
-    
+            
             if (i % 2 == 0) {
                 output = output + ANSI_RESET;
             }
         }
         output += topSpace + horizontalAxisBottom + "\n";
-        
-        
-        ui.setOutput(output);
+        Ui.setOutput(output);
     }
 }

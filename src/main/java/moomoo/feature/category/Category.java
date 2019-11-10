@@ -1,12 +1,16 @@
-package moomoo.task.category;
+package moomoo.feature.category;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Category {
+    private static final String DATE = "date";
+    private static final String NAME = "name";
+    private static final String COST = "cost";
     private String categoryName;
     private ArrayList<Expenditure> category;
+    private String sortOrder;
 
     /**
      * Initializes a new category with a name, an empty list of expenditures, and a monthly total.
@@ -15,10 +19,12 @@ public class Category {
     public Category(String name) {
         this.categoryName = name;
         this.category = new ArrayList<>();
+        this.sortOrder = DATE;
     }
 
     public void add(Expenditure newExpenditure) {
         category.add(newExpenditure);
+        sort(sortOrder);
     }
 
     public void delete(int expenditureNumber) {
@@ -33,7 +39,7 @@ public class Category {
         return category.get(i);
     }
 
-    public String toString() {
+    public String name() {
         return categoryName;
     }
 
@@ -54,7 +60,7 @@ public class Category {
         return totalCost;
     }
 
-    public double getTotal(int month) {
+    double getTotal(int month) {
         return getTotal(month, LocalDate.now().getYear());
     }
 
@@ -96,8 +102,8 @@ public class Category {
     public int getLongestExpenditure() {
         int longestName = 0;
         for (Expenditure exp : category) {
-            if (exp.toString().length() > longestName) {
-                longestName = exp.toString().length();
+            if (exp.getName().length() > longestName) {
+                longestName = exp.getName().length();
             }
             if (longestName >= 14) {
                 longestName = 14;
@@ -107,13 +113,20 @@ public class Category {
         return longestName;
     }
 
-    void sort(String type) {
+    /**
+     * Sorts expenditures within each category according to the type specified.
+     * @param type type of sort
+     */
+    public void sort(String type) {
         if ("name".equals(type)) {
-            category.sort(Comparator.comparing(Expenditure::toString));
+            category.sort(Comparator.comparing(Expenditure::getName));
+            sortOrder = NAME;
         } else if ("cost".equals(type)) {
-            category.sort(Comparator.comparing(Expenditure::costToString));
+            category.sort(Comparator.comparingDouble(Expenditure::getCost).reversed());
+            sortOrder = COST;
         } else if ("date".equals(type)) {
             category.sort(Comparator.comparing(Expenditure::dateToString));
+            sortOrder = DATE;
         }
     }
 
@@ -128,8 +141,13 @@ public class Category {
         population.add("Far:Automata");
         population.add("League of Mobile Legends");
         for (int i = 0; i < 5; i += 1) {
-            Expenditure newExp = new Expenditure(population.get(i), i * 100 / (i + 3), LocalDate.now());
+            Expenditure newExp = new Expenditure(population.get(i), i * 100 / (i + 3), LocalDate.now(),
+                    "population");
             category.add(newExp);
         }
+    }
+
+    public ArrayList<Expenditure> getCategory() {
+        return category;
     }
 }
