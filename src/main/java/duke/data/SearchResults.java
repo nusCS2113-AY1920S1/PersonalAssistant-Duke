@@ -7,10 +7,9 @@ import duke.ui.context.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO parametrise types
-
 public class SearchResults extends DukeObject {
 
+    // TODO: separate into different lists, order will always be: Patient -> Impression -> Evidence -> Treatment
     private List<DukeObject> searchList;
 
     /**
@@ -56,39 +55,36 @@ public class SearchResults extends DukeObject {
         return searchList.size();
     }
 
+    // TODO keep track of each type individually
     @Override
     public String toString() {
         StringBuilder searchDetails = new StringBuilder();
-        searchDetails.append("There are ").append(searchList.size()).append(" result(s).");
-        searchDetails.append(System.lineSeparator());
+        searchDetails.append("There are ").append(searchList.size()).append(" result(s).").append("\n");
         int patCount = 0;
         int impCount = 0;
         int evCount = 0;
         int treatCount = 0;
 
         for (DukeObject obj : searchList) {
-            if (obj.getClass() == Patient.class) {
+            if (obj instanceof Patient) {
                 ++patCount;
-            } else if (obj.getClass() == Impression.class) {
+            } else if (obj instanceof Impression) {
                 ++impCount;
-            } else if (obj.getClass() == Evidence.class) {
+            } else if (obj instanceof Evidence) {
                 ++evCount;
-            } else if (obj.getClass() == Treatment.class) {
+            } else if (obj instanceof Treatment) {
                 ++treatCount;
             }
         }
 
         if (patCount != 0) {
-            searchDetails.append("There are ").append(patCount).append(" patient(s)");
-            searchDetails.append(System.lineSeparator());
+            searchDetails.append("There are ").append(patCount).append(" patient(s)").append("\n");
         }
         if (impCount != 0) {
-            searchDetails.append("There are ").append(impCount).append(" impression(s)");
-            searchDetails.append(System.lineSeparator());
+            searchDetails.append("There are ").append(impCount).append(" impression(s)").append("\n");
         }
         if (evCount != 0) {
-            searchDetails.append("There are ").append(evCount).append(" evidence(s)");
-            searchDetails.append(System.lineSeparator());
+            searchDetails.append("There are ").append(evCount).append(" evidence(s)").append("\n");
         }
         if (treatCount != 0) {
             searchDetails.append("There are ").append(treatCount).append(" treatment(s)");

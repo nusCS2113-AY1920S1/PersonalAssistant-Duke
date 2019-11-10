@@ -40,5 +40,10 @@ public abstract class ObjSpec extends ArgSpec {
         }
     }
 
+    @Override
+    protected ArgCommand getCmd() {
+        return cmd;
+    }
+
     protected abstract void executeWithObj(DukeCore core, DukeObject obj) throws DukeException;
 }

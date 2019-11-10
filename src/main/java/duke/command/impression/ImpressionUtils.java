@@ -56,7 +56,7 @@ public class ImpressionUtils {
                     return impression.getTreatmentAtIdx(treatIdx);
                 }
             } else {
-                throw new DukeUtilException("I don't know what index you want me to access!");
+                throw new DukeUtilException("I don't know which list you want me to access!");
             }
         } catch (NumberFormatException excp) {
             return null;

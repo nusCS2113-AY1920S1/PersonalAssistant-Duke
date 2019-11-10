@@ -47,7 +47,6 @@ public class ImpressionCommandTest extends CommandTest {
 
     @Test
     public void impressionNewCommand_fullCommand_correctDataCreated() {
-        //TODO test other DukeData
         String[] switchNames = {"medicine", "name", "priority", "status", "dose", "date", "duration"};
         String[] switchVals = {null, "test", "2", "1", "test dose", "today", "next two weeks"};
 
@@ -108,6 +107,7 @@ public class ImpressionCommandTest extends CommandTest {
         assertEquals(impression, patient.getPrimaryDiagnosis());
     }
 
+    // to test the search system, get the result object from the UiContext and inspect the list
     // assume user manages to identify an object unambiguously when testing ObjCommands
 
     @Test
@@ -145,14 +145,18 @@ public class ImpressionCommandTest extends CommandTest {
             editCmd = new ObjCommand(ImpressionEditSpec.getSpec(), null, switchNames, switchVals);
             newImpression = new Impression("new name", "new description", patient);
         } catch (DukeException excp) {
-            fail("Exception thrown thrown while setting up Command and Result for editing!");
+            fail("Exception thrown thrown while setting up Command and Result for editing: "
+                    + excp.getMessage());
         }
 
         try {
             editCmd.execute(core); // functionality does not require any user input, use regular execute
         } catch (DukeException excp) {
-            fail("Error thrown while executing valid edit in Impression context!");
+            fail("Exception thrown while executing valid edit in Impression context: "
+                    + excp.getMessage());
         }
         assertTrue(newImpression.equals(impression));
     }
+
+
 }

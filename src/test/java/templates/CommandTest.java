@@ -1,7 +1,7 @@
 package templates;
 
 import duke.DukeCore;
-import duke.data.GsonStorage;
+import duke.data.storage.GsonStorage;
 import duke.data.PatientData;
 import duke.exception.DukeException;
 import org.junit.jupiter.api.AfterAll;

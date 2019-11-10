@@ -58,4 +58,8 @@ public abstract class DukeObject {
     public abstract UiCard toCard() throws DukeFatalException;
 
     public abstract Context toContext();
+
+    public boolean contains(String searchTerm) {
+        return name.toLowerCase().contains(searchTerm.toLowerCase());
+    }
 }

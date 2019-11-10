@@ -50,24 +50,29 @@ public class UiContext {
     /**
      * Moves up one in the hierarchy of contexts.
      */
-    public void moveUpOneContext() throws DukeException {
+    public String moveUpOneContext() throws DukeException {
         if (context == Context.HOME) {
             throw new DukeException("You are already in the Home context.");
         } else {
-            open(object.getParent());
+            DukeObject parent = object.getParent();
+            open(parent);
+            return getViewingStr(context, parent);
         }
     }
 
     /**
      * Moves back one context.
      */
-    public void moveBackOneContext() throws DukeException {
+    public String moveBackOneContext() throws DukeException {
         if (contexts.empty()) {
             throw new DukeException("No previous context before this!");
         }
 
         Pair<Context, DukeObject> pair = contexts.pop();
-        updateContext(pair.getKey(), pair.getValue());
+        Context newContext = pair.getKey();
+        DukeObject newObj = pair.getValue();
+        updateContext(newContext, newObj);
+        return getViewingStr(newContext, newObj);
     }
 
     private void updateContext(Context newContext, DukeObject object) {
@@ -83,5 +88,13 @@ public class UiContext {
 
     public DukeObject getObject() {
         return object;
+    }
+
+    private String getViewingStr(Context context, DukeObject obj) {
+        if (obj != null) {
+            return "You are now viewing '" + obj.getName() + "' in the " + context.toString() + " context";
+        } else {
+            return "You are now in the home context!";
+        }
     }
 }
