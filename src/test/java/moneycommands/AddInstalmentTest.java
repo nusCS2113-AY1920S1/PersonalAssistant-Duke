@@ -86,7 +86,7 @@ public class AddInstalmentTest {
         } catch (DukeException e) {
             assertThat(e.getMessage(), is("Please enter in the format: "
                     + "add instalment <desc> /amt <amount> /within <number of months of payment> months "
-                    + "/from <date> @<annual interest rate>%\n"));
+                    + "/from <date> /percentage <annual interest rate>%\n"));
         }
 
         account.getInstalments().clear();
