@@ -1,6 +1,68 @@
 # Chef Duke - Developer Guide
 
-[TOC]
+Setting Up
+
+Design 
+
+- Architecture
+- UI
+- Command Component
+- Parser Component
+- Storage Component
+- Exception Component
+- Dish Component
+- DishesCommand Component
+- Order Component
+- OrderCommand Component
+- Fridge Component
+- GenericList
+- Ingredient
+- ingredientCommand Component
+- Statistics
+
+Implementation
+
+Documentation
+
+Testing
+
+Dev Ops
+
+Appendix A: Product Scope
+
+Appendix B: User Stories
+
+Appendix C: Use Cases
+
+Appendix D: Non Functional Requirements 
+
+Appendix E: Instructions for Manual
+
+​	E1. launch and shutdown
+
+​	E2. adding an ingredient 
+
+​	E3. finding an ingredient
+
+​	E4. remove an ingredient
+
+​	E5. adding an order
+
+​	E6. marking order as done
+
+​	E7. altering order
+
+​	E8. removing order
+
+​	E9. adding a dish
+
+​	E10. removing a dish
+
+​	E11. adding an ingredient to a dish
+
+​	E12. finding a dish 
+
+​	E13. changing the name of a dish
 
 
 
