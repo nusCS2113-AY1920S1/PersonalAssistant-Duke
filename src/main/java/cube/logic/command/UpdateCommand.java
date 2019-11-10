@@ -51,7 +51,7 @@ public class UpdateCommand extends Command {
             //stock
             list.get(newFood.getName()).setStock(newFood.getStock());
         }
-        if (changeBit[1] == 1) {
+        if (changeBit[3] == 1) {
             //expiry date
             list.get(newFood.getName()).setExpiryDate(newFood.getExpiryDate());
         }
