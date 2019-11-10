@@ -3,15 +3,20 @@ package rims.command;
 import rims.core.ResourceList;
 import rims.core.Ui;
 import rims.core.Storage;
+
 import rims.exception.RimsException;
+
+import static rims.command.ListCommand.getListForSpecificDay;
+import static rims.command.ListCommand.stringToDate;
+
 import java.text.ParseException;
+
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Date;
-import static rims.command.ListCommand.getListForSpecificDay;
-import static rims.command.ListCommand.stringToDate;
 
 //@@author danielcyc
 public class CalendarCommand extends Command {

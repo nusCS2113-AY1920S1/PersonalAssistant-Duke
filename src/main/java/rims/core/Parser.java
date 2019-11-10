@@ -1,10 +1,5 @@
 package rims.core;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.text.DateFormat;
+
 import rims.command.Command;
 import rims.command.AddCommand;
 import rims.command.ReserveCommand;
@@ -17,10 +12,21 @@ import rims.command.ReturnCommand;
 import rims.command.StatsCommand;
 import rims.command.UndoCommand;
 import rims.command.ViewDeadlinesCommand;
+
 import rims.exception.RimsException;
+
 import rims.resource.Resource;
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
+
+import java.text.ParseException;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 
 //@@author rabhijit
 /**

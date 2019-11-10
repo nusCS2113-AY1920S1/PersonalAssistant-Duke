@@ -1,15 +1,18 @@
 package rims.command;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 
 import rims.core.ResourceList;
 import rims.core.Ui;
 import rims.core.Storage;
+
 import rims.resource.Resource;
 import rims.resource.Item;
 import rims.resource.Room;
 import rims.resource.ReservationList;
+
 import rims.exception.RimsException;
 
 //@@author hin1
@@ -101,7 +104,7 @@ public class DeleteCommand extends Command {
             for (int k = 0; k < deletedResources.size(); k++) {
                 Resource thisDeletedResource = deletedResources.get(k);
                 ui.print(thisDeletedResource.toString()
-                + " (resource ID: " + thisDeletedResource.getResourceId() + ")");
+                        + " (resource ID: " + thisDeletedResource.getResourceId() + ")");
             }
             ui.printLine();
 
@@ -110,8 +113,8 @@ public class DeleteCommand extends Command {
     }
 
     //@@author hin1
-    private void addIdsToCommandUserInput(ArrayList<Integer> IdArray) {
-        for (int i : IdArray) {
+    private void addIdsToCommandUserInput(ArrayList<Integer> idArray) {
+        for (int i : idArray) {
             commandUserInput += (i + ", ");
         }
     }

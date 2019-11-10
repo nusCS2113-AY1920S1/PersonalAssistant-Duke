@@ -1,18 +1,22 @@
 package rims.command;
 
 import java.io.IOException;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.ArrayList;
 
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
+
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
+
 import rims.exception.RimsException;
 
 //@@author isbobby
