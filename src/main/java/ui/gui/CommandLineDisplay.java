@@ -14,18 +14,18 @@ public class CommandLineDisplay {
     @FXML
     VBox container;
 
-    public static final String LINE = "________________________________________________";
+    private static final String LINE = "________________________________________________";
 
     /**
      * Prints string to CLI Display.
      * @param outputStr String to be printed onto the display
      */
-    public void printToDisplay(String outputStr) {
+    void printToDisplay(String outputStr) {
         Text newOutput = new Text(outputStr);
         container.getChildren().add(newOutput);
     }
 
-    public void setStyle() {
+    void setStyle() {
         this.cliDisplay.vvalueProperty().bind(container.heightProperty());
     }
 
@@ -33,14 +33,21 @@ public class CommandLineDisplay {
      * Helper method to indicate duke is saying something.
      * @param string The message duke wants to say
      */
-    public void dukeSays(String string) {
+    void dukeSays(String string) {
         printToDisplay("Duke: " + string + "\n");
     }
 
     /**
      * Helper method to print Line Separator.
      */
-    public void printSeparator() {
+    void printSeparator() {
         this.printToDisplay(LINE);
+    }
+
+    /**
+     * Clears the current CLI display.
+     */
+    void clearCliDisplay() {
+        this.container.getChildren().clear();
     }
 }
