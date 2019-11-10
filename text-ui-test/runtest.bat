@@ -8,7 +8,7 @@ del ACTUAL.TXT
 del .\data\dolla.txt
 
 REM compile the code into the bin folder
-javac  -cp ..\src\ -Xlint:none -d ..\bin ..\src\main\java\*
+javac  -cp ..\src\ -Xlint:none -d ..\bin ..\src\main\java\dolla\*
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
 	PAUSE

@@ -88,5 +88,7 @@ public abstract class Record {
         return amount;
     }
 
-    public abstract String amountToMoney();
+    public String amountToMoney() {
+        return "$" + amount;
+    }
 }

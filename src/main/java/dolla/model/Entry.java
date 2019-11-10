@@ -30,9 +30,6 @@ public class Entry extends Record {
         this.userInput = type + " " + amount + " " + description + " /on " + Time.dateToString(date);
     }
 
-    public String amountToMoney() {
-        return "$" + amount;
-    }
 
     /**
      * Returns a string to with information about the entry to be displayed
