@@ -20,6 +20,7 @@ public class JavaCake {
     public String userName;
     public int userProgress = 0;
     public static Logger logger = Logger.getLogger("JavaCake");
+    public static Logger LOGGER = Logger.getLogger(JavaCake.class.getPackageName());
 
 
     /**
