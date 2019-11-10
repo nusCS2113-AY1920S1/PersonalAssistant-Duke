@@ -28,7 +28,7 @@ public class HelpCommand extends Command {
                 + "sort [TYPE]\n"
                 + "budget\n"
                 + "schedule\n"
-                + "graph\n";
+                + "graph c/[CATEGORY] (optional: m/[MONTH] y/[YEAR])\n";
         Ui.setOutput(text);
     }
 }

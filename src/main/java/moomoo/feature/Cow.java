@@ -1,4 +1,4 @@
-package moomoo.task;
+package moomoo.feature;
 
 public class Cow {
     private static final String ANSI_RESET = "\u001B[0m";
