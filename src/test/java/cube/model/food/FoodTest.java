@@ -163,11 +163,6 @@ public class FoodTest extends Food {
         assertEquals(food34Revenue, food3Revenue, "Fail to get Food Revenue for food3.");
         assertEquals(food34Revenue, food4Revenue, "Fail to get Food Revenue for food4.");
 
-        //test on the total revenue generation
-        double totalRevenueExpected = food12Revenue * 2 + food34Revenue * 2;
-        double totalRevenueActual = getRevenue();
-        assertEquals(totalRevenueExpected, totalRevenueActual, "Total revenue generation is incorrect.");
-
         //try some illegal inputs
         double IllegalRevenue = -1.00;
         food1.setFoodRevenue(IllegalRevenue);
