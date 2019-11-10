@@ -138,6 +138,9 @@ public class MainWindow extends AnchorPane {
             case DISPLAY_CLI:
                 this.showCliDisplay();
                 break;
+            case CLEAR_CLI:
+                this.cliController.clearCliDisplay();
+                break;
             case UPDATE:
                 break;
             default:

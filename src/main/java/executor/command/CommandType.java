@@ -11,6 +11,7 @@ public enum CommandType {
     DONE(CommandMarkDone.class),
     MAJOREXPENSE(CommandMajorExpense.class),
     QUEUE(CommandQueue.class),
+    STATS(CommandStatistics.class),
     VIEWSCHEDULE(CommandSchedule.class),
     REMINDER(CommandReminder.class),
     BALANCE(CommandDisplayBalance.class),
@@ -44,7 +45,8 @@ public enum CommandType {
     DIV(CommandDiv.class),
     MUL(CommandMul.class),
     TRACK(CommandTrackTag.class),
-    UNTRACK(CommandUntrackTag.class);
+    UNTRACK(CommandUntrackTag.class),
+    CLEAR(CommandClearCli.class);
 
     private final Class commandClass;
 
