@@ -50,7 +50,7 @@ public class UndoCommand extends Command {
      * @throws RimsException
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws ParseException, IOException, RimsException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
         if (prevCommand == null) {
             ui.formattedPrint("No command has modified this inventory yet!");
             return;
