@@ -44,21 +44,21 @@ public class OfflineSearchStorage {
      * @throws Exceptions when encounter a failed/interrupted I/O operation.
      */
     public static JSONArray load() throws Exceptions {
-        String dataFromJSON = "";
+        String datafromjson = "";
         JSONArray searchData = new JSONArray();
         RetrieveRequest.MoviesRequestType type = RetrieveRequest.getGetType();
         String filename = getFileName(type);
-        if ((type.equals(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES)) ||
-                (type.equals(RetrieveRequest.MoviesRequestType.SEARCH_TV))) {
+        if ((type.equals(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES))
+                || (type.equals(RetrieveRequest.MoviesRequestType.SEARCH_TV))) {
             searchData = getSearchData(type);
             return searchData;
         }
-        dataFromJSON = getData(filename);
+        datafromjson = getData(filename);
         System.out.println(filename);
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject = (JSONObject) jsonParser.parse(dataFromJSON);
+            jsonObject = (JSONObject) jsonParser.parse(datafromjson);
             searchData = (JSONArray) jsonObject.get(KEYWORD_FOR_SEARCH_REQUESTS);
         } catch (ParseException e) {
             logger.log(Level.SEVERE, PromptMessages.PARSE_EXCEPTION_IN_EXTRACTION);
@@ -80,10 +80,10 @@ public class OfflineSearchStorage {
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         String line = "";
-        String dataFromJSON = "";
+        String datafromjson = "";
         try {
             while ((line = bufferedReader.readLine()) != null) {
-                dataFromJSON += line;
+                datafromjson += line;
             }
             bufferedReader.close();
             inputStreamReader.close();
@@ -93,7 +93,7 @@ public class OfflineSearchStorage {
             logger.log(Level.WARNING, PromptMessages.IO_EXCEPTION_IN_OFFLINE);
             throw new Exceptions(PromptMessages.IO_EXCEPTION_IN_OFFLINE);
         }
-        return dataFromJSON;
+        return datafromjson;
     }
 
     /**
@@ -105,36 +105,36 @@ public class OfflineSearchStorage {
     public static String getFileName(RetrieveRequest.MoviesRequestType type) {
         String filename = "";
         switch (type) {
-            case CURRENT_MOVIES:
-                filename = CURRENT_MOVIES_DATA_FILEPATH;
-                ;
-                break;
-            case UPCOMING_MOVIES:
-                filename = UPCOMING_MOVIES_DATA_FILEPATH;
-                break;
-            case TRENDING_MOVIES:
-                filename = TRENDING_MOVIES_DATA_FILEPATH;
-                break;
-            case TOP_RATED_MOVIES:
-                filename = TOP_RATED_MOVIES_DATA_FILEPATH;
-                break;
-            case POPULAR_MOVIES:
-                filename = POPULAR_MOVIES_DATA_FILEPATH;
-                break;
-            case CURRENT_TV:
-                filename = CURRENT_TV_DATA_FILEPATH;
-                break;
-            case TRENDING_TV:
-                filename = TRENDING_TV_DATA_FILEPATH;
-                break;
-            case TOP_RATED_TV:
-                filename = TOP_RATED_TV_DATA_FILEPATH;
-                break;
-            case POPULAR_TV:
-                filename = POPULAR_TV_DATA_FILEPATH;
-                break;
-            default:
-                filename = "";
+        case CURRENT_MOVIES:
+            filename = CURRENT_MOVIES_DATA_FILEPATH;
+            ;
+            break;
+        case UPCOMING_MOVIES:
+            filename = UPCOMING_MOVIES_DATA_FILEPATH;
+            break;
+        case TRENDING_MOVIES:
+            filename = TRENDING_MOVIES_DATA_FILEPATH;
+            break;
+        case TOP_RATED_MOVIES:
+            filename = TOP_RATED_MOVIES_DATA_FILEPATH;
+            break;
+        case POPULAR_MOVIES:
+            filename = POPULAR_MOVIES_DATA_FILEPATH;
+            break;
+        case CURRENT_TV:
+            filename = CURRENT_TV_DATA_FILEPATH;
+            break;
+        case TRENDING_TV:
+            filename = TRENDING_TV_DATA_FILEPATH;
+            break;
+        case TOP_RATED_TV:
+            filename = TOP_RATED_TV_DATA_FILEPATH;
+            break;
+        case POPULAR_TV:
+            filename = POPULAR_TV_DATA_FILEPATH;
+            break;
+        default:
+            filename = "";
         }
         return filename;
     }
@@ -161,11 +161,11 @@ public class OfflineSearchStorage {
             String filename = fileType;
             filename += i + ".json";
             System.out.println(filename);
-            String dataFromJSON = getData(filename);
+            String datafromjson = getData(filename);
             JSONParser jsonParser = new JSONParser();
             JSONArray jsonArray = new JSONArray();
             try {
-                jsonArray = (JSONArray) jsonParser.parse(dataFromJSON);
+                jsonArray = (JSONArray) jsonParser.parse(datafromjson);
             } catch (ParseException e) {
                 logger.log(Level.SEVERE, PromptMessages.PARSE_EXCEPTION_IN_EXTRACTION);
                 throw new ParseExceptionInExtraction();
