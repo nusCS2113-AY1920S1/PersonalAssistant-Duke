@@ -9,6 +9,7 @@ import booking.Booking;
 import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
+import storage.BookingConstants;
 import storage.Constants;
 import storage.Storage;
 import storage.StorageManager;
@@ -34,14 +35,12 @@ public class ApproveCommand extends Command {
      */
     public ApproveCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (splitStr.length <= 1) {
-            throw new DukeException("☹ OOPS!!! Please create the booking you want to approve"
-                    + " with the following format: "
-                    + "index");
+            throw new DukeException(BookingConstants.INDEXERROR1);
         }
         try {
             index = Integer.parseInt(splitStr[1]);
         } catch (NumberFormatException e) {
-            throw new DukeException("OOPS!!! Please enter a index in integer form!");
+            throw new DukeException(BookingConstants.INDEXERROR2);
         }
         index -= 1;
     }
