@@ -1,4 +1,5 @@
 /**
+ * Food.java
  * Model the food object.
  */
 
@@ -30,7 +31,7 @@ public class Food {
 	/**
 	 * The constructor with the name of the food object as the argument.
 	 *
-	 * @param name Name of the food object.
+	 * @param name The name of the food object.
 	 */
 	public Food(String name) {
 		this.name = name;
@@ -44,7 +45,7 @@ public class Food {
 	/**
 	 * Getter for the name of the food.
 	 *
-	 * @return the name of the food.
+	 * @return The name of the food.
 	 */
 	public String getName() {
 		return name;
@@ -62,12 +63,11 @@ public class Food {
 	/**
 	 * Getter for the type of the food.
 	 *
-	 * @return the type of the food.
+	 * @return The type of the food.
 	 */
 	public String getType() {
 		return type;
 	}
-
 
 	/**
 	 * Setter for the price of the food.
@@ -81,12 +81,11 @@ public class Food {
 	/**
 	 * Getter for the price of the food.
 	 *
-	 * @return the price of the food.
+	 * @return The price of the food.
 	 */
 	public double getPrice() {
 		return price;
 	}
-
 
 	/**
 	 * Setter for the expiry date of the food.
@@ -100,7 +99,7 @@ public class Food {
 	/**
 	 * Getter for the expiry date of the food.
 	 *
-	 * @return the expiry date of the food.
+	 * @return The expiry date of the food.
 	 */
 	public Date getExpiryDate() {
 		return expiryDate;
@@ -110,7 +109,7 @@ public class Food {
 	/**
 	 * Getter for the revenue of a food.
 	 *
-	 * @return the revenue of a food.
+	 * @return The revenue of a food.
 	 */
 	public double getFoodRevenue() {
 		return foodRevenue;
@@ -119,12 +118,11 @@ public class Food {
 	/**
 	 * Setter for the revenue of a food.
 	 *
-	 * @param revenue the new revenue to be set.
+	 * @param revenue The new revenue to be set.
 	 */
 	public void setFoodRevenue(double revenue) {
 		this.foodRevenue = revenue;
 	}
-
 
 	/**
 	 * Setter for the quantity of the food available in stock.
@@ -138,7 +136,7 @@ public class Food {
 	/**
 	 * Getter for the quantity of the food available in stock.
 	 *
-	 * @return The quantity of food in stock.
+	 * @return The quantity of food available in stock.
 	 */
 	public int getStock() {
 		return stock;
@@ -176,7 +174,7 @@ public class Food {
 	/**
 	 * Cast the information related to the food to a String.
 	 *
-	 * @return the String containing the information associated with the food.
+	 * @return the String containing the all information associated with the food.
 	 */
 	@Override
 	public String toString() {
@@ -208,5 +206,4 @@ public class Food {
 			return false;
 		}
 	}
-
 }
