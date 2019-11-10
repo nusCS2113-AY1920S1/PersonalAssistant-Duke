@@ -391,7 +391,7 @@ Example:
 
 * `assignment Lab /by 23-11-2019 23:59`
 
-[[AssignmentAdd]] +
+[[AssignmentAdd]]
 .Adding an `assignment` task
 image::AssignmentAdd.png[AssignmentAdd]
 
