@@ -1,12 +1,14 @@
 package dolla.command;
 
-import dolla.model.DollaData;
 
-import dolla.command.action.Redo;
 import dolla.command.action.state.DebtState;
 import dolla.command.action.state.EntryState;
 import dolla.command.action.state.LimitState;
+import dolla.command.action.state.ShortcutState;
 import dolla.command.action.state.UndoStateList;
+import dolla.model.DollaData;
+
+import dolla.command.action.Redo;
 import dolla.model.Record;
 import dolla.ui.RemoveUi;
 
@@ -26,19 +28,7 @@ public class RemoveCommand extends Command {
     }
 
     /**
-     * Removes a task from the specified TaskList.
-     * <p>
-     *     The method first converts taskNumStr into an int. It will then check if a task
-     *     corresponding to that number exists in the specified TaskList and subsequently
-     *     remove that task if so.
-     * </p>
-     * <p>
-     *     If taskNumStr is not an int, the method will return without doing anything.
-     * </p>
-     * <p>
-     *     If taskNumInt does not correspond to any task in the specified TaskList, an
-     *     alert is printed to the user, and the method will return.
-     * </p>
+     * THis method will remove the record with respect to the user input position and the mode.
      * @param dollaData dollaData
      */
     @Override
@@ -52,6 +42,8 @@ public class RemoveCommand extends Command {
                 UndoStateList.addState(new DebtState(recordList), mode);
             } else if (mode.equals(MODE_LIMIT)) {
                 UndoStateList.addState(new LimitState(recordList), mode);
+            } else if (mode.equals(MODE_SHORTCUT)) {
+                UndoStateList.addState(new ShortcutState(recordList), mode);
             }
             Redo.clearRedoState(mode);
             recordNumInt = stringToInt(logNumStr) - 1;

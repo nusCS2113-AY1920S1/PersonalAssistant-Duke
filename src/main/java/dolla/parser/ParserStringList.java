@@ -75,7 +75,6 @@ public interface ParserStringList {
     //Components used in Action
     String COMMAND_REDO = "redo";
     String COMMAND_UNDO = "undo";
-    String COMMAND_REPEAT = "repeat";
 
     //Commons
     String SPACE = " ";

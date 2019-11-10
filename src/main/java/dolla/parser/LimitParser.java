@@ -8,14 +8,12 @@ import dolla.command.ShowListCommand;
 import dolla.command.ShowRemainingLimitCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
-import dolla.command.SortCommand;
 import dolla.command.ActionCommand;
 import dolla.command.modify.PartialModifyLimitCommand;
 
 import dolla.exception.DollaException;
 
 import dolla.ui.LimitUi;
-import dolla.ui.SearchUi;
 
 //@@author Weng-Kexin
 public class LimitParser extends Parser {
@@ -63,15 +61,8 @@ public class LimitParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
-        } else if (commandToRun.equals(ParserStringList.COMMAND_SORT)) {
-            if (verifySort()) {
-                return new SortCommand(mode, inputArray[1]);
-            } else {
-                return new ErrorCommand();
-            }
         } else if (commandToRun.equals(COMMAND_REDO)
-                || commandToRun.equals(COMMAND_UNDO)
-                || commandToRun.equals(COMMAND_REPEAT)) {
+                || commandToRun.equals(COMMAND_UNDO)) {
             return new ActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();
