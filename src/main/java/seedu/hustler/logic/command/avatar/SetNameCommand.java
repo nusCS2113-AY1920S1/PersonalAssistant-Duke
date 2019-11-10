@@ -33,11 +33,11 @@ public class SetNameCommand extends Command {
     }
 
     @Override
-    public void execute() throws IOException {
+    public void execute() {
         Ui ui = new Ui();
         try {
             anomaly.detect(userInput);
-            AvatarStorage.save(Hustler.avatar.setName(userInput[1]));
+            Hustler.avatar = Hustler.avatar.setName(userInput[1]);
             ui.showNameChangeSuccess();
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());

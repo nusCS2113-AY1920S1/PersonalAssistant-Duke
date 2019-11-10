@@ -21,7 +21,7 @@ public abstract class Armor implements ShopItem {
     /**
      * The type in string, of each item.
      */
-    protected String type;
+    protected String type = "Armor";
 
     /**
      * The defence increment of the armor.
@@ -44,7 +44,6 @@ public abstract class Armor implements ShopItem {
     public Armor(int cost, boolean hasPurchased, int defIcr, int staIcr) {
         this.cost = cost;
         this.isPurchased = hasPurchased;
-        this.type = "Armor";
         this.DEF_INCR = defIcr;
         this.STA_INCR = staIcr;
     }
@@ -54,7 +53,7 @@ public abstract class Armor implements ShopItem {
      * @param name the name of the armor.
      * @return the armor with the given name, if any.
      */
-    public static Optional<Armor> getArmor(String name) {
+    public static Optional<ShopItem> getArmor(String name) {
         if (name.contains("Chainmail")) {
             return Optional.of(new Chainmail());
         } else if (name.contains("Iron")) {
@@ -63,6 +62,10 @@ public abstract class Armor implements ShopItem {
             return Optional.of(new LeatherArmor());
         }
         return Optional.empty();
+    }
+
+    public int getDamageIncr() {
+        return 0;
     }
 
     /**

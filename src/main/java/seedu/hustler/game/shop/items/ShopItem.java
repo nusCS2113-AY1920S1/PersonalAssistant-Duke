@@ -5,11 +5,15 @@ package seedu.hustler.game.shop.items;
  * purchase the selected item in the shop.
  */
 public interface ShopItem {
-    public int getCost();
-    public Boolean isPurchased();
-    public String getType();
-    public void setPurchased(Boolean purchased);
-    public Boolean isSameType(ShopItem other);
+    int getCost();
+    Boolean isPurchased();
+    String getType();
+    void setPurchased(Boolean purchased);
+    Boolean isSameType(ShopItem other);
+    int getDamageIncr();
+    int getDefenceIncr();
+    int getStaminaIncr();
+
     /**
      * The abstract function that checks if User is able to purchase
      * the item from the shop.

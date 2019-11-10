@@ -22,7 +22,7 @@ public abstract class Weapon implements ShopItem {
     /**
      * The type in string, of each item.
      */
-    protected String type;
+    protected String type = "Weapon";
 
     /**
      * The damage increment of the weapon.
@@ -38,7 +38,6 @@ public abstract class Weapon implements ShopItem {
     public Weapon(int cost, boolean hasPurchased, int dmgIncr) {
         this.cost = cost;
         this.isPurchased = hasPurchased;
-        this.type = "Weapon";
         this.DMG_INCR = dmgIncr;
     }
 
@@ -47,7 +46,7 @@ public abstract class Weapon implements ShopItem {
      * @param name the name of the weapon.
      * @return the weapon with the given name, if any.
      */
-    public static Optional<Weapon> getWeapon(String name) {
+    public static Optional<ShopItem> getWeapon(String name) {
         if (name.contains("Broadsword")) {
             return Optional.of(new Broadsword());
         } else if (name.contains("Mace")) {
@@ -64,6 +63,14 @@ public abstract class Weapon implements ShopItem {
      */
     public int getDamageIncr() {
         return this.DMG_INCR;
+    }
+
+    public int getDefenceIncr() {
+        return 0;
+    }
+
+    public int getStaminaIncr() {
+        return 0;
     }
 
     @Override

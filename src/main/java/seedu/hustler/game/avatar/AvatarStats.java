@@ -1,5 +1,6 @@
 package seedu.hustler.game.avatar;
 
+import seedu.hustler.game.shop.items.ShopItem;
 import seedu.hustler.game.shop.items.armors.Armor;
 import seedu.hustler.game.shop.items.weapons.Weapon;
 import java.util.Optional;
@@ -37,6 +38,17 @@ public class AvatarStats implements Stats {
         this.defence = 1;
         this.stamina = 3;
         this.speed = 1;
+    }
+
+    /**
+     * Constructs a new stats with the same values as another stat.
+     * @param other the other stat.
+     */
+    public AvatarStats(AvatarStats other) {
+        this.damage = other.damage;
+        this.defence = other.defence;
+        this.stamina = other.stamina;
+        this.speed = other.speed;
     }
 
     /**
@@ -105,7 +117,7 @@ public class AvatarStats implements Stats {
      * @param armor the armor equipped, if any.
      * @return the String consisting of the stats.
      */
-    public String getStats(Optional<Weapon> weapon, Optional<Armor> armor) {
+    public String getStats(Optional<ShopItem> weapon, Optional<ShopItem> armor) {
         return "Damage: "  + (this.damage + (weapon.map(value -> + value.getDamageIncr()).orElse(0))) + "\n"
             + "Defence: " + (this.defence + (armor.map(value -> + value.getDefenceIncr()).orElse(0))) + "\n"
             + "Stamina: " + (this.stamina + (armor.map(value -> + value.getStaminaIncr()).orElse(0))) + "\n"

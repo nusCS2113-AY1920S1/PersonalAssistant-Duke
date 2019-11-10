@@ -42,9 +42,9 @@ public class DoneCommand extends Command {
             anomaly.detect(userInput);
             int taskIndex = Integer.parseInt(userInput[1]) - 1;
             Hustler.list.doTask(taskIndex);
-            Hustler.avatar.gainXp();
+            Hustler.avatar = Hustler.avatar.gainXp();
             if (Hustler.avatar.canLevel()) {
-                Hustler.avatar.levelUp();
+                Hustler.avatar = Hustler.avatar.levelUp();
                 ui.showCongrats(Hustler.avatar);
             }
             Scheduler.remove(Hustler.list.get(taskIndex));

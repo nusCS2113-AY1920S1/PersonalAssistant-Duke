@@ -3,7 +3,9 @@ package seedu.hustler.data;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.game.avatar.AvatarLevel;
 import seedu.hustler.game.avatar.AvatarStats;
+import seedu.hustler.game.shop.items.ShopItem;
 import seedu.hustler.game.shop.items.armors.Armor;
+import seedu.hustler.game.shop.items.weapons.Broadsword;
 import seedu.hustler.game.shop.items.weapons.Weapon;
 
 import java.io.FileNotFoundException;
@@ -38,8 +40,8 @@ public class AvatarStorage {
             String name = new String();
             AvatarLevel avatarLevel = new AvatarLevel();
             AvatarStats avatarStats = new AvatarStats();
-            Optional<Weapon> weapon = Optional.empty();
-            Optional<Armor> armor = Optional.empty();
+            Optional<ShopItem> weapon = Optional.empty();
+            Optional<ShopItem> armor = Optional.empty();
             while (avatarTxt.hasNextLine()) {
                 String[] txt = avatarTxt.nextLine().split(" ");
                 if (txt[0].equals("Name")) {
@@ -79,8 +81,8 @@ public class AvatarStorage {
             String name = new String();
             AvatarLevel avatarLevel = new AvatarLevel();
             AvatarStats avatarStats = new AvatarStats();
-            Optional<Weapon> weapon = Optional.empty();
-            Optional<Armor> armor = Optional.empty();
+            Optional<ShopItem> weapon = Optional.empty();
+            Optional<ShopItem> armor = Optional.empty();
             while (avatarBackupTxt.hasNextLine()) {
                 String[] backupTxt = avatarBackupTxt.nextLine().split(" ");
                 if (backupTxt[0].equals("Name")) {

@@ -85,10 +85,8 @@ public class TaskStorage {
             }
             hustlerTxt.close();
         } catch (FileNotFoundException e) {
-            System.out.println("\t_____________________________________");
-            System.out.println("\tNo list saved in database. Please "
-                + "create a list now.");
-            System.out.println("\t_____________________________________\n\n");
+            list = getTestList();
+            return list;
         }
 
         try {
@@ -164,7 +162,11 @@ public class TaskStorage {
     public void save(ArrayList<Task> inputList) throws IOException {
         // if list has nothing just quit
         if (inputList.isEmpty()) {
-            (new File(this.filePath)).delete();
+            BufferedWriter writer = new BufferedWriter(
+                    new FileWriter(new File(filePath))
+            );
+            writer.write("");
+            writer.close();
             saveTimeSpent(inputList);
             return;
         }
@@ -271,5 +273,14 @@ public class TaskStorage {
             );
         writer.write(savedLine);
         writer.close();
+    }
+
+    private ArrayList<Task> getTestList() {
+        LocalDateTime now = LocalDateTime.now();
+        ArrayList<Task> taskList = new ArrayList<>();
+        taskList.add(new ToDo("Ask parents for lunch", "", "mustdo", now));
+        taskList.add(new ToDo("Wash clothes", "H", "", now));
+        taskList.add(new ToDo("Put laundry in dryer", "L", "", now));
+        return taskList;
     }
 }

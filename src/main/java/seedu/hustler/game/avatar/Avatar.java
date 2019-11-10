@@ -14,27 +14,27 @@ public class Avatar implements Convertible {
     /**
      * The name of the avatar.
      */
-    private String name;
+    private final String name;
 
     /**
      * Level of the avatar.
      */
-    private Level level;
+    private final Level level;
 
     /**
      * Stats of the avatar.
      */
-    private Stats stats;
+    private final Stats stats;
 
     /**
      * The equipped weapon of the avatar, if any.
      */
-    private Optional<Weapon> weapon;
+    private Optional<ShopItem> weapon;
 
     /**
      * The equipped armor of the avatar, if any.
      */
-    private Optional<Armor> armor;
+    private Optional<ShopItem> armor;
 
     /**
      * Default initialization of the level and stat.
@@ -55,7 +55,7 @@ public class Avatar implements Convertible {
      * @param weapon the weapon equipped by the avatar, if any.
      * @param armor the armor equipped by the avatar, if any.
      */
-    public Avatar(String name, AvatarLevel avatarLevel, AvatarStats avatarStats, Optional<Weapon> weapon, Optional<Armor> armor) {
+    public Avatar(String name, Level avatarLevel, Stats avatarStats, Optional<ShopItem> weapon, Optional<ShopItem> armor) {
         this.name = name;
         this.level = avatarLevel;
         this.stats = avatarStats;
@@ -66,11 +66,10 @@ public class Avatar implements Convertible {
     /**
      * Sets the name for the avatar.
      * @param preferredName the new name to update to the avatar.
-     * @return the avatar with the updated name.
+     * @return the new instance of the avatar with the updated name.
      */
     public Avatar setName(String preferredName) {
-        this.name = preferredName;
-        return this;
+        return new Avatar(preferredName, this.level, this.stats, this.weapon, this.armor);
     }
 
     /**
@@ -82,11 +81,11 @@ public class Avatar implements Convertible {
 
     /**
      * Increases avatar xp by 1.
-     * @return the updated avatar.
+     * @return the new instance of the avatar with the updated xp.
      */
     public Avatar gainXp() {
-        this.level = level.increaseXp();
-        return this;
+        Level newLevel = new AvatarLevel(this.level.getLevel(), this.level.getXp()).increaseXp();
+        return new Avatar(this.name, newLevel, this.stats, this.weapon, this.armor);
     }
 
     /**
@@ -96,9 +95,9 @@ public class Avatar implements Convertible {
      */
     public Avatar equip(ShopItem equipment) {
         if (equipment.getType().equals("Weapon")) {
-            this.weapon = Optional.of((Weapon) equipment);
+            this.weapon = Optional.of(equipment);
         } else if (equipment.getType().equals("Armor")) {
-            this.armor = Optional.of((Armor) equipment);
+            this.armor = Optional.of(equipment);
         }
         return this;
     }
@@ -113,12 +112,12 @@ public class Avatar implements Convertible {
 
     /**
      * Completes the levelling up by increasing the level and stats of the avatar.
-     * @return the new updated avatar.
+     * @return the new instance of the avatar with the updated Level and Stats.
      */
     public Avatar levelUp() {
-        this.level = this.level.upLevel();
-        this.stats = this.stats.upStats(this.level.getLevel());
-        return this;
+        Level newLevel = new AvatarLevel(this.level.getLevel(), this.level.getXp()).upLevel();
+        Stats newStats = new AvatarStats((AvatarStats) this.stats).upStats(newLevel.getLevel());
+        return new Avatar(this.name, newLevel, newStats, this.weapon, this.armor);
     }
 
     @Override
@@ -135,7 +134,13 @@ public class Avatar implements Convertible {
         return "Name " + this.name + "\n"
             + "Level " + this.level.toTxt() + "\n"
             + "Stats " + this.stats.toTxt() + "\n"
-            + "Weapon " + this.weapon.map(Weapon::toString) + "\n"
-            + "Armor " + this.armor.map(Armor::toString);
+            + "Weapon " + this.weapon.toString() + "\n"
+            + "Armor " + this.armor.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this ||
+                other instanceof Avatar && this.toTxt().equals(((Avatar) other).toTxt());
     }
 }

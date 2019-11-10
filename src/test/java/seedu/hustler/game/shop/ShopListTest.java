@@ -123,6 +123,21 @@ public class ShopListTest {
         }
 
         @Override
+        public int getDamageIncr() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getDefenceIncr() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getStaminaIncr() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canPurchase(int points) {
             return points >= this.getCost();
         }

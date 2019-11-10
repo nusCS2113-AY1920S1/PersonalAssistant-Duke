@@ -1,7 +1,6 @@
 package seedu.hustler.game.avatar;
 
-import seedu.hustler.game.shop.items.armors.Armor;
-import seedu.hustler.game.shop.items.weapons.Weapon;
+import seedu.hustler.game.shop.items.ShopItem;
 import java.util.Optional;
 
 public interface Stats extends Convertible {
@@ -11,5 +10,5 @@ public interface Stats extends Convertible {
     public int getSpeed();
     public int getStamina();
     public Stats upStats(int level);
-    public String getStats(Optional<Weapon> weapon, Optional<Armor> armor);
+    public String getStats(Optional<ShopItem> weapon, Optional<ShopItem> armor);
 }

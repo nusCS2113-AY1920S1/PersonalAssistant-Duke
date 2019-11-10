@@ -19,7 +19,7 @@ public class ShopList {
     /**
      * The ArrayList of ShopItem to be purchased.
      */
-    private final ArrayList<ShopItem> shopList;
+    private ArrayList<ShopItem> shopList;
 
     /**
      * Constructs a ShopList and populate with every existing shopItem.
