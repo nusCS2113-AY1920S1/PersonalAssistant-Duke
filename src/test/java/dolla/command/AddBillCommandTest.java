@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author tatayu
 public class AddBillCommandTest {
     private ArrayList<String> nameList = new ArrayList<>();
 

@@ -1,6 +1,5 @@
 package dolla.command;
 
-import dolla.ModeStringList;
 import dolla.model.DollaData;
 import dolla.model.Bill;
 import dolla.ui.DebtUi;
