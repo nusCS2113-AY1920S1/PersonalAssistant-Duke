@@ -77,7 +77,7 @@ public class Instalment extends Expenditure {
      */
     public void percentPay(int payments) {
         this.paymentsMade = payments;
-        if (paymentsMade == numOfPaymentsReq) {
+        if (paymentsMade >= numOfPaymentsReq) {
             this.percentage = 100;
             return;
         }
