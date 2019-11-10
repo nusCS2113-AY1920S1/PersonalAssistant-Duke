@@ -70,12 +70,12 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
     private void editImpression(Impression impression, boolean isAppending) {
         String newName = cmd.getSwitchVal("name");
         if (newName != null) {
-            impression.setName((isAppending) ? impression.getName() + newName : newName);
+            impression.setName((isAppending) ? impression.getName() + " " + newName : newName);
         }
 
         String newDesc = cmd.getSwitchVal("description");
         if (newDesc != null) {
-            impression.setDescription((isAppending) ? impression.getDescription() + newDesc : newDesc);
+            impression.setDescription((isAppending) ? impression.getDescription() + "\n\n" + newDesc : newDesc);
         }
     }
 }
