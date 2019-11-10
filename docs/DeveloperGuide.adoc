@@ -1380,7 +1380,7 @@ Expected: An error would be displayed regarding a missing and an invalid command
 . Prerequisites: List all semesters using the `semester /view` command. At least 1 semester is on the list.
 
 [NOTE]
-In the provided `.jar` file, the semester at index 1 has been rigorously populated with test data for testing purposes. You are recommended to add your own semester before testing the `semester /delete` command to prevent the deletion of the populated semester.
+In the provided `.jar` file, the semester at index 1 has been rigorously populated with test data for testing purposes. You are recommended to add your own semester before testing the `semester /delete` command to avoid the deletion of the populated semester.
 
 . Test case: `semester /delete 2` +
 Expected: The 2nd semester is deleted from the list. Details of the deleted semester will be echoed as an acknowledgement message.
@@ -1472,9 +1472,9 @@ Expected: Similar to previous.
 
 === Managing Tasks
 
-==== Adding a `Todo` task
+==== Adding a `todo` task
 . Test case: `todo create a todo list /on 15-11-2019` +
-Expected: An acknowledgement message displayed regarding the successful addition of a `Todo` task.
+Expected: An acknowledgement message displayed regarding the successful addition of a `todo` task.
 
 . Test case: `todo /on 15-11-2019` +
 Expected: Error displayed regarding a missing argument.
@@ -1485,9 +1485,9 @@ Expected: Similar to previous.
 . Test case: `todo create a todo list /on a` +
 Expected: Error displayed regarding an invalid argument.
 
-==== Adding a `Deadline` task
+==== Adding a `deadline` task
 . Test case: `deadline volunteering sign up /by 15-11-2019 23:59` +
-Expected: An acknowledgement message displayed regarding the successful addition of a `Deadline` task.
+Expected: An acknowledgement message displayed regarding the successful addition of a `deadline` task.
 
 . Test case: `deadline /by 15-11-2019 23:59` +
 Expected: Error displayed regarding a missing argument.
@@ -1498,11 +1498,11 @@ Expected: Similar to previous.
 . Test case: `deadline volunteering sign up /by a` +
 Expected: Error displayed regarding an invalid argument.
 
-==== Adding a `Assignment` task
+==== Adding an `assignment` task
 . Prerequisites: Module has been selected using the `module /select command`.
 
 . Test case: `assignment Lab /by 15-11-2019 23:59` +
-Expected: An acknowledgement message displayed regarding the successful addition of a `Assignment` task for selected `module`.
+Expected: An acknowledgement message displayed regarding the successful addition of a `assignment` task for selected `module`.
 
 . Test case: `assignment /by 15-11-2019 23:59` +
 Expected: Error displayed regarding a missing argument.
@@ -1513,9 +1513,9 @@ Expected: Similar to previous.
 . Test case: `assignment Lab /by a` +
 Expected: Error displayed regarding an invalid argument.
 
-==== Adding an `Event` task
+==== Adding an `event` task
 . Test case: `event date with girlfriend /from 15-11-2019 18:00 /to 15-11-2019 23:00` +
-Expected: An acknowledgement message displayed regarding the successful addition of an `Event` task.
+Expected: An acknowledgement message displayed regarding the successful addition of an `event` task.
 
 . Test case: `event /from 15-11-2019 18:00 /to 15-11-2019 23:00` +
 Expected: Error displayed regarding a missing argument.
@@ -1526,11 +1526,11 @@ Expected: Error displayed regarding starting date and time being after ending da
 . Test case: `event date with girlfriend /from a /to 15-11-2019 15:00` +
 Expected: Error displayed regarding an invalid argument.
 
-==== Adding a `Assessment` task
+==== Adding an `assessment` task
 . Prerequisites: Module has been selected using the `module /select command`.
 
 . Test case: `assessment Finals /from 30-11-2019 10:00 /to 30-11-2019 12:00` +
-Expected: An acknowledgement message displayed regarding the successful addition of a `Assessment` task for selected `module`.
+Expected: An acknowledgement message displayed regarding the successful addition of a `assessment` task for selected `module`.
 
 . Test case: `assessment /from 30-11-2019 10:00 /to 30-11-2019 12:00` +
 Expected: Error displayed regarding a missing argument.
