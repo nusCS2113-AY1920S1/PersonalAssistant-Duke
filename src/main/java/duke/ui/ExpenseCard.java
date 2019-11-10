@@ -1,21 +1,14 @@
 package duke.ui;
 
 import duke.model.Expense;
-import duke.model.PlanBot;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 
-public class ExpenseCard extends UiPart<Region>{
+public class ExpenseCard extends UiPart<Region> {
     private static final String FXML_FILE_NAME = "ExpenseCard.fxml";
     public final Expense expense;
 
@@ -30,7 +23,11 @@ public class ExpenseCard extends UiPart<Region>{
     @FXML
     private VBox expenseContainer;
 
-
+    /**
+     * Constructor of controller for ExpenseCard.fxml.
+     * @param expense The Expense object we wish to display
+     * @param index the int index of the current Expense in list of Expenses we are displaying
+     */
     public ExpenseCard(Expense expense, int index) {
         super(FXML_FILE_NAME, null);
         this.expense = expense;
@@ -43,7 +40,7 @@ public class ExpenseCard extends UiPart<Region>{
             amount.setTextFill(Color.GREEN);
             tag.setTextFill(Color.GREEN);
             date.setTextFill(Color.GREEN);
-        } else if(expense.isTentative()) {
+        } else if (expense.isTentative()) {
             description.setTextFill(Color.GRAY);
             amount.setTextFill(Color.GRAY);
             tag.setTextFill(Color.GRAY);
