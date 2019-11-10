@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CohortSize implements Statistics  {
     private static ArrayList<CohortStats> cohortStats = new ArrayList<>();
-
+    String title;
     public static ArrayList<CohortStats> getCohortStats(){
         return cohortStats;
     }
@@ -75,8 +75,27 @@ public class CohortSize implements Statistics  {
 
     @Override
     public void print(String input) {
+
+        if(input.equals("bme"))
+            title = "Biomedical Engineering";
+        if(input.equals("ceg"))
+            title = "Computer Engineering";
+        if(input.equals("che"))
+            title = "Chemical Engineering";
+        if(input.equals("mse"))
+            title = "Materials Science Engineering";
+        if(input.equals("enve"))
+            title = "Environmental Engineering";
+        if(input.equals("cive"))
+            title = "Civil Engineering";
+        if(input.equals("ise"))
+            title = "Industrial Systems Engineering";
+        if(input.equals("me"))
+            title = "Mechanical Engineering";
+        if(input.equals("ee"))
+            title = "Electrical Engineering";
         Cohort_BarChart chart = new Cohort_BarChart("Cohort Size Statistics",
-                "Cohort Size", input);
+                title, input);
         chart.pack();
         RefineryUtilities.centerFrameOnScreen(chart);
         chart.setVisible(true);
