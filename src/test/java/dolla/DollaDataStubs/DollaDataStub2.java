@@ -41,6 +41,7 @@ public class DollaDataStub2 extends DollaData {
      * Creates an instance of DollaData to store and manipulate data.
      */
     public DollaDataStub2() {
+        this.mode = MODE_ENTRY;
         this.entryList = new EntryList(createNewEntryArrayList());
         this.limitList = new LimitList(new ArrayList<Record>());
         this.debtList = new DebtList(new ArrayList<Record>());

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FullModifyEntryCommandTest implements ModeStringList {
+public class PartialModifyEntryCommandTest implements ModeStringList {
 
     @Test
     public void execute() {
@@ -24,11 +24,10 @@ public class FullModifyEntryCommandTest implements ModeStringList {
         Entry newEntry = new Entry(newType, newAmount, newDesc, newDate);
 
         int indexToModify = 1;
-        String currMode = MODE_ENTRY;
-        dollaData.updateMode("modify " + currMode);
-        dollaData.prepForModify(currMode, indexToModify);
+        int recordNum = indexToModify + 1;
 
-        FullModifyEntryCommand modifyCommand = new FullModifyEntryCommand(newType, newAmount, newDesc, newDate);
+        PartialModifyEntryCommand modifyCommand =
+                new PartialModifyEntryCommand(recordNum, newType, newAmount, newDesc, newDate);
         modifyCommand.execute(dollaData);
 
         Record cmpEntry = dollaData.getRecordFromList(MODE_ENTRY, indexToModify);
