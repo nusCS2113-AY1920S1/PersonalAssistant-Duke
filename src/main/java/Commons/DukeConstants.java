@@ -104,4 +104,7 @@ public class DukeConstants {
     public static final SimpleDateFormat TWELVE_HOUR_TIME_FORMAT = new SimpleDateFormat("hh:mm a");
     public static final SimpleDateFormat DEADLINE_INPUT_FORMAT = new SimpleDateFormat("dd/MM/yyyy HHmm");
     public static final SimpleDateFormat DEADLINE_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+    public static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("E");
+    public static final SimpleDateFormat TWENTYFOUR_HOUR_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy HHmm");
+    public static final int LENGTH_OF_TIME_FORMAT = 4;
 }
