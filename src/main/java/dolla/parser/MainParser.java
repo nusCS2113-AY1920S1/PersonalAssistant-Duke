@@ -2,7 +2,11 @@ package dolla.parser;
 
 import dolla.ModeStringList;
 
-import dolla.command.*;
+import dolla.command.Command;
+import dolla.command.ErrorCommand;
+import dolla.command.ExitCommand;
+import dolla.command.HelpCommand;
+import dolla.command.SwitchModeCommand;
 import dolla.ui.Ui;
 
 /**

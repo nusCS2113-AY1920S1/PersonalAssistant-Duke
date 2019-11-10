@@ -4,6 +4,7 @@ package dolla.storage;
 public interface StorageStringList {
     String PATH = "./data/dolla.txt";
     String DATA = "data";
+    String PRELOAD_PATH = "/dolla-preload.txt";
     String DELIMITER = " \\| ";
 
     String INCOME_TYPE = "I";

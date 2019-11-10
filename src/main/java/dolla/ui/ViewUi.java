@@ -14,7 +14,7 @@ public class ViewUi extends Ui {
     public static void printViewSingleExpense(double amount, String desc) {
         AnsiColor = setColor(amount);
         absAmount = Math.abs(amount);
-        System.out.println(AnsiColor + "\t[" + sign + absAmount + "] [" + desc + "]"
+        System.out.println(AnsiColor + "\t[" + sign + "$" + absAmount + "] [" + desc + "]"
                 + ANSI_RESET);
     }
 
@@ -24,7 +24,8 @@ public class ViewUi extends Ui {
      * @param date String version of the view date.
      */
     public static void printOverallExpense(double sum, String date) {
-        System.out.println(AnsiColor + "\n\t==Overall Expense for " + date + ": " + sum
+        AnsiColor = setColor(sum);
+        System.out.println(AnsiColor + "\n\t==Overall finances for " + date + ": " + sign + "$" + sum
                 + ANSI_RESET);
         System.out.println(line);
     }
@@ -53,7 +54,7 @@ public class ViewUi extends Ui {
      */
     public static void printNoRelevantExpense(String dateStr) {
         System.out.println("\tI couldn't find any entries from " + dateStr
-                + ", so I guess your overall expense for " + dateStr + "is 0! Hurray!");
+                + ", so I guess your overall expense for " + dateStr + " is 0! Hurray!");
         System.out.println(line);
     }
 

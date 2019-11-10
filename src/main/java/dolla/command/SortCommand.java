@@ -4,12 +4,11 @@ import dolla.model.DollaData;
 import dolla.model.Record;
 import dolla.ui.ListUi;
 import dolla.ui.SortUi;
-import dolla.ui.Ui;
-import dolla.sort.SortAmount;
+import dolla.command.sort.SortAmount;
 import dolla.model.RecordList;
-import dolla.sort.SortDate;
-import dolla.sort.SortDescription;
-import dolla.sort.SortName;
+import dolla.command.sort.SortDate;
+import dolla.command.sort.SortDescription;
+import dolla.command.sort.SortName;
 
 import java.util.ArrayList;
 
@@ -31,20 +30,7 @@ public class SortCommand extends Command {
     public void execute(DollaData dollaData) {
         RecordList recordList = new RecordList(new ArrayList<>());
         ArrayList<Record> list;
-        switch (mode) {
-        case MODE_ENTRY:
-            recordList = dollaData.getRecordListObj(mode);
-            break;
-        case MODE_DEBT:
-            recordList = dollaData.getRecordListObj(mode);
-            break;
-        case MODE_LIMIT:
-            recordList = dollaData.getRecordListObj(mode);
-            break;
-        default:
-            Ui.printInvalidCommandError();
-            break;
-        }
+        recordList = dollaData.getRecordListObj(mode);
 
         try {
             list = recordList.getCloneList();
@@ -85,11 +71,11 @@ public class SortCommand extends Command {
                     break;
                 }
                 break;
-            case MODE_LIMIT:
+            case MODE_SHORTCUT:
                 if (type.equals(TYPE_AMOUNT)) {
                     new SortAmount(list);
-                } else {
-                    SortUi.printInvalidSort(mode);
+                } else if (type.equals(TYPE_DESC)) {
+                    new SortDescription(list);
                 }
                 break;
             default:
@@ -102,6 +88,7 @@ public class SortCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return null;
+        String command = "sort ";
+        return command + type + " in " + mode;
     }
 }

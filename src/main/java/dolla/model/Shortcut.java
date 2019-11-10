@@ -17,11 +17,7 @@ public class Shortcut extends Record {
         this.amount = amount;
         this.description = description;
         this.recordType = RECORD_SHORTCUT;
-    }
-
-    @Override
-    public String amountToMoney() {
-        return "$" + amount;
+        this.userInput = type + " " + amount + " " + description;
     }
 
     @Override
@@ -38,6 +34,11 @@ public class Shortcut extends Record {
                 + type + " | "
                 + amount + " | "
                 + description;
+    }
+
+    @Override
+    public String getUserInput() {
+        return userInput;
     }
 
     public String getDescription() {

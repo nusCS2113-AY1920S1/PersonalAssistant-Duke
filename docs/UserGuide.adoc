@@ -15,9 +15,9 @@ By: `Team AY1920S1-CS2113T-F11-2`      Since: `Sep 2019`      Licence: `MIT`
 image::Ui/Ui.png[width="800", align="center"]
 
 {nbsp} +
-Dolla is a *finance management app* that is specially designed for students who stay in the campus of NUS. It uses chat box style interface to provide a
-more interactive and interesting user experience. Dolla will help the user to keep track of their spending and income, set reminders, give suggestions
-and many other cool features. Users can interact with Dolla with the various keywords such as `expense`, `income`, `reminder` and many more. Proceed to
+Dolla is a *finance management app* that is specially designed for students staying on NUS campus. It uses a chat box style interface to provide a
+more interactive and interesting user experience. Dolla helps the user to keep track of their spending and income, set reminders, give suggestions
+among many other cool features. Users can interact with Dolla with various keywords such as `entry`, `limit`, `debt` and many more. Proceed to
 <<Quick Start>> to get started!
 
 == Quick Start
@@ -28,12 +28,12 @@ and many other cool features. Users can interact with Dolla with the various key
 .  Open the command prompt and go to the path where the jar file is in. Execute the jar file with the
    this command : `java -jar dolla-x.x.x.jar`.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. type `entries` and press kbd:[Enter] will list all the income and expense.
+e.g. type `entries` and press kbd:[Enter] to list all your incomes and expenses in the entry mode.
 .  Here are some example command you can try:
-* `entries` : List all the income and expense with the most recently added on the top
-* **`add expense`**`$7 watch movie /on 24/09/2019` : add an expense of $7 for watching movie on 24/09/2019
-* **`set budget`**`$300 /tag food` : set a budget for the user on the amount of money they can spend on food
-* *`bye`* : exits the app
+* `entries` : List all the income and expense with the most recently added on the top.
+* **`add expense`**`7 watch movie /on 24/09/2019` : Add an expense of $7 for watching a movie on 24/09/2019.
+* **`set budget`**`300 weekly` : Sets a budget for the user on the amount of money they can spend per week.
+* *`bye`* : Exits the app.
 .  Refer to <<Features>> for the details of each command.
 
 [[Features]]
@@ -47,12 +47,12 @@ Data that is input here will then be used for various other features, such as tr
 === Budget and Saving Tracking
 image::Ui/Limits.png[width="500", align="center"]
 {nbsp} +
-Find out your daily, weekly, or monthly progress in cutting down your spending, or see how much more you can spend before you break the savings goal you set for that new speaker!
+Find out your daily, weekly, or monthly progress in cutting down your spending, or see how much money you have to set aside for that new speaker!
 
 === Debts Tracking
 image::Ui/Debts.png[width="500", align="center"]
 {nbsp} +
-Do you lend or borrow money from friends a lot? Keep track of all your money circulation and mark them as done when the debts are repaid!
+Do you tend to lend or borrow money from friends often? Keep track of all your money circulation and mark them as done when the debts are repaid!
 
 === Shortcuts
 image::Ui/Shortcuts.png[width="500", align="center"]
@@ -61,6 +61,9 @@ Love eating pizza everyday but find it a chore to retype the same thing to keep 
 
 === Reminders
 Have Dolla let you know when the due date of your debts is coming soon!
+
+=== Tagging `[coming in v2.0]`
+Add a tag to your inputs by using the keyword /tag followed by the name you wish to tag your input with!
 
 === Settings `[coming in v2.0]`
 Customise various features of Dolla, like how many items to show per page on a list, what kind of things Dolla will remind you about, or even the statistics that's pinned on the app!
@@ -132,18 +135,6 @@ Example:
 
 * `redo`
 
-==== Repeat a command: `repeat`
-
-Repeat a previous `"add"` type of command in a particular mode. +
-Format: +
-`*repeat*`
-
-*NOTE*: This command is only valid if you have previously execute a `"add"` type of command.
-
-Example:
-
-* `repeat`
-
 ==== Remove an record from the list: `remove`
 
 Remove a particular record from the list based on the list number. +
@@ -196,16 +187,31 @@ Example:
 
 * `search duration monthly`
 
-==== Modify an expense/income: `modify`
+==== Partially modify a record: modify
+Modify particular components of a particular record in the list. Components vary according to the current mode and what information is stored in the record. +
+*NOTE*: you can use add as many components as the record allows.
 
-Modify the whole record or a component of a particular record in the list. +
 Format: +
-`*modify* [LIST NO.] {COMPONENT}`
+`*modify* [LIST NO.] {/COMPONENT [NEW DATA]}`
+
+Example:
+
+* `modify 3 /type expense`
+* `modify 4 /type budget /amount 200`
+
+
+==== Fully modify a record: `modify`
+Modify a particular record in the list by essentially adding a new record in the place of the old. +
+
+*Important*: This command is a two step process. The first command is to choose which task to modify.
+After that, to change the record, you have to add it as if you’re adding a new record (ie. add income allowance /on 19/11/2019)
+
+Format: +
+`*modify* [LIST NO.]`
 
 Examples:
 
-* `modify 3` +
-* `modify 4 description`
+* `modify 1`,`add income allowance /on 19/11/2019`
 
 ==== Sort the list by date: `sort date`
 
@@ -328,7 +334,7 @@ Examples:
 
 * `borrow xx 10 lunch`
 
-==== View statistics: `stats`, `view` `[Coming in 1.4]`
+==== Statistics: `stats` `[Coming in 2.0]`
 
 View spending statistics on a specific tag for a specified duration. +
 Format: +
@@ -338,19 +344,27 @@ View spending on specific date/month/year for different tags. +
 Format: +
 `*stats* [DATE/MONTH/YEAR]`
 
-View spending on specific date/month/year in a list form. +
-Format: +
-`*view* [DATE/MONTH/YEAR]`
-
 Examples:
 
 * `stats Food September histogram`
 
 * `stats today`
 
-* `view 11/11/2011`
+==== Overview of finances: `view` `[Coming in 2.0]`
+View overall expenses on specific date/month/year in a list form. +
+Format: +
+`*view* [DATE/MONTH/YEAR]`
 
-{nbsp} +
+Examples:
+
+* `view 11/11/2011`
+* `view July`
+* `view 2018`
+
+==== Overview of today's finances: view today
+View today's overall expenses. +
+Format: +
+`*view* today`
 
 === Switch the mode to Entries: `entry`
 
@@ -359,17 +373,33 @@ Format: +
 `*entry*`
 
 Common Commands Available: +
-`*undo*` `*redo*` `*repeat*` `*page*` `*remove*` `*search description*` `*search date*` `*modify*` `*sort date*` `*sort amount*` `*sort description*` `*sort tag*`
+`*undo*` `*redo*` `*page*` `*remove*` `*search description*` `*search date*` `*modify*` `*sort date*` `*sort amount*` `*sort description*` `*sort tag*`
 
-==== Add to shortcut: `create shortcut` `[Coming in 1.4]`
+==== Create a shortcut: `cs`
 
-Add an existing entry to the shortcut. +
+Add an existing entry to the shortcut. *PS*: `cs` stands for create shortcut. +
 Format: +
-`*create shortcut* [LIST NO.]`
+`*cs* [LIST NO.]`
+
+*NOTE*: This `[LIST NO.]` is the list number from entry list, *not* shortcut list.
 
 Example:
 
-* `create shortcut 3`
+* `cs 3`
+
+==== Execute a shortcut: `es`
+
+Execute an existing shortcut. *PS*: `es` stands for execute shortcut. +
+This command is a two step command. User first have to execute an existing shortcut. The user then have to enter
+a new date for the new entries to be added from shortcut. +
+Format: +
+`*es* [LIST NO.]`
+
+*NOTE*: This `[LIST NO.]` is the list number from shortcut list, *not* entry list.
+
+Example:
+
+* `es 3`, `11/11/2011`
 
 {nbsp} +
 
@@ -414,16 +444,15 @@ Example:
 
 * `set saving 300 monthly`
 
-==== Remove budget: `remove [DURATION] budget`
+==== Remove budget/saving: `remove [LIST NO.]`
 
 Remove a budget. +
 Format: +
-`*remove* [DURATION] *budget*`
+`*remove* [LIST NO>]`
 
 Example:
 
-* `remove monthly saving`
-* `remove daily budget`
+* `remove 1`
 
 {nbsp} +
 
@@ -431,7 +460,7 @@ Example:
 
 Users can look through, edit and remove debts in this mode. +
 Format: +
-`*debts*`
+`*debt*`
 
 Common Commands Available: +
 `*undo*` `*redo*` `*repeat*` `*page*` `*remove*` `*search description*` `*search date*` `*search name*` `*modify*` `*sort date*` `*sort tag*`
@@ -439,24 +468,42 @@ Common Commands Available: +
 
 {nbsp} +
 
-=== Switch the mode to Shortcuts: `shortcuts` `[Coming in 1.4]`
+=== Switch the mode to Shortcuts: `shortcut`
 
 Users can look through, edit and remove shortcuts in this mode. +
 Format: +
-`*shortcuts*`
+`*shortcut*`
 
 Common Commands Available: +
-`*page*` `*remove*` `*search*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*page*` `*remove*` `*search*` `*modify*` `*sort /amount*` `*sort /tag*`
 
-==== Add an entry from your shortcuts to entries: `add shortcut`
+==== Create a shortcut: `cs`
 
-Add an entry from the shortcut to the expense/income list. +
+Add an existing entry to the shortcut. *PS*: `cs` stands for create shortcut. +
 Format: +
-`*add shortcut* [SHORTCUT NO.]`
+`*cs* [LIST NO.]`
+
+*NOTE*: This `[LIST NO.]` is the list number from entry list, *not* shortcut list.
 
 Example:
 
-* `add shortcut 8`
+* `cs 3`
+
+==== Execute a shortcut: `es`
+
+Execute an existing shortcut. *PS*: `es` stands for execute shortcut. +
+This command is a two step command. User first have to execute an existing shortcut. The user then have to enter
+a new date for the new entries to be added from shortcut. +
+Format: +
+`*es* [LIST NO.]`
+
+*NOTE*: This `[LIST NO.]` is the list number from shortcut list, *not* entry list.
+
+Example:
+
+* `es 3`, `11/11/2011`
+
+====
 
 {nbsp} +
 

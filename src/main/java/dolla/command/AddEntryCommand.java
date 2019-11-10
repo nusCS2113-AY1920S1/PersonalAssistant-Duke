@@ -41,7 +41,7 @@ public class AddEntryCommand extends Command {
     public void execute(DollaData dollaData) {
         Entry newEntry = new Entry(type, amount, description, date);
         EntryList entryList = (EntryList) dollaData.getRecordListObj(mode);
-        UndoStateList.addState(new EntryState(entryList.get()), mode);///////////////////////////////////////
+        UndoStateList.addState(new EntryState(entryList.get()), mode);
         Redo.clearRedoState(mode);
         int duplicateEntryIndex = entryList.findExistingRecordIndex(dollaData, newEntry, mode);
         if (recordDoesNotExist(duplicateEntryIndex)) {
