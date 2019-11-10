@@ -18,10 +18,10 @@ public class FilterTest {
     private static Assignment deadlineWithoutKeyword;
     private static Assignment eventWithKeyword;
     private static Assignment deadlineWithKeyword;
-    private static String keyword = "key";
+    private static String keyword;
     private StorageStub storage = new StorageStub();
-    private static TaskList events = new TaskList();
     private UserInteraction ui = new UserInteraction();
+    private static TaskList events = new TaskList();
     private static TaskList deadlines = new TaskList();
 
     @BeforeAll
@@ -33,12 +33,15 @@ public class FilterTest {
     }
 
     @Test
-        public void keywordNotInListTest() {
+        public void execute_keywordNotInList() {
+        events = new TaskList();
+        deadlines = new TaskList();
+        keyword = "key";
         deadlines.addTask(deadlineWithoutKeyword);
         events.addTask(eventWithoutKeyword);
         Command command = new FilterCommand(keyword);
         String w1 = "There are no task(s) matching your keyword.";
-        String w2 = new String();
+        String w2;
         try {
             w2 = command.execute(events, deadlines, ui, storage);
         } catch (Exception e) {
@@ -48,7 +51,10 @@ public class FilterTest {
     }
 
     @Test
-    public void keywordInListTest() {
+    public void execute_keywordInList() {
+        events = new TaskList();
+        deadlines = new TaskList();
+        keyword = "key";
         deadlines.addTask(deadlineWithKeyword);
         events.addTask(eventWithKeyword);
         Command command = new FilterCommand(keyword);
@@ -65,8 +71,9 @@ public class FilterTest {
     }
 
     @Test
-    public void keywordSubstringTest() {
-     //keyword would be changed from key to keyword
+    public void execute_keywordSubstringNotInList() {
+        events = new TaskList();
+        deadlines = new TaskList();
         keyword = "keyword";
         deadlines.addTask(deadlineWithKeyword);
         events.addTask(eventWithKeyword);
@@ -80,4 +87,24 @@ public class FilterTest {
         }
         assertEquals(w1, w2);
     }
+
+    @Test
+    public void execute_emptyKeyword_throwsDukeInvalidFormatException() {
+        events = new TaskList();
+        deadlines = new TaskList();
+        keyword = new String();
+        deadlines.addTask(deadlineWithKeyword);
+        events.addTask(eventWithKeyword);
+        Command command = new FilterCommand(keyword);
+        String w1 = " OOPS!!! Please enter filter command as follows\n"
+                + "show/filter keyword\n";
+        String w2;
+        try {
+            w2 = command.execute(events, deadlines, ui, storage);
+        } catch (Exception e) {
+            w2 = e.getMessage();
+        }
+        assertEquals(w1, w2);
+    }
+
 }

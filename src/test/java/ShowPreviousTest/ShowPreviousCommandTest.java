@@ -35,10 +35,6 @@ public class ShowPreviousCommandTest {
     @BeforeAll
     public static void setAllVariables() {
         userInputWithInvalidNumber = "show/previous 3";
-//        String firstInput = "add/d CS2100 finish tutorial /by 12/10/2019 1300";
-//        String secondInput = "add/d CS2100 assignment 2 /by 13/10/2019 1400";
-//        userInputList.add(firstInput);
-//        userInputList.add(secondInput);
     }
 
     @Before

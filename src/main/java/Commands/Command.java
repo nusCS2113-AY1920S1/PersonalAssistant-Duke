@@ -38,7 +38,7 @@ public abstract class Command {
             for (Assignment taskInList : map.get(modCode).get(dateOfTask)) {
                 if (taskInList.getDateTime().equals(task.getDateTime())) {
                     if (!taskInList.getDescription().equals(task.getDescription())) {
-                        throw new DukeException(DukeConstants.MISMATCH_DATE);
+                        throw new DukeException(DukeConstants.MISMATCH_DESCRIPTION);
                     } else {
                         return;
                     }

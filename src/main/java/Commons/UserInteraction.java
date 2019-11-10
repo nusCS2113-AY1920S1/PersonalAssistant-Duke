@@ -24,7 +24,6 @@ public class UserInteraction {
         return byeMessage;
     }
 
-
     /**
      * Displays add task message when user wants to add a task.
      */
