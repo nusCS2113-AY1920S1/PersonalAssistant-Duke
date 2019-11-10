@@ -1,0 +1,61 @@
+{
+  "2019-11-10" : [ {
+    "Status" : "Upcoming",
+    "Start Time" : "0800",
+    "Name" : "Swimming",
+    "End Time" : "0900",
+    "Location" : "Kr"
+  }, {
+    "Status" : "Upcoming",
+    "Start Time" : "1100",
+    "Name" : "Swimming Test",
+    "End Time" : "1200",
+    "Location" : "Kr"
+  }, {
+    "Status" : "Upcoming",
+    "Start Time" : "1000",
+    "Name" : "Competition",
+    "End Time" : "1100",
+    "Location" : "Kr"
+  } ],
+
+  "2019-11-11" : [ {
+    "Status" : "Upcoming",
+    "Start Time" : "0800",
+    "Name" : "Swimming",
+    "End Time" : "0900",
+    "Location" : "Kr"
+  }, {
+    "Status" : "Upcoming",
+    "Start Time" : "1100",
+    "Name" : "Swimming Test",
+    "End Time" : "1200",
+    "Location" : "Kr"
+  }, {
+    "Status" : "Upcoming",
+    "Start Time" : "1000",
+    "Name" : "Competition",
+    "End Time" : "1100",
+    "Location" : "Kr"
+  } ],
+
+  "2019-11-12" : [ {
+    "Status" : "Upcoming",
+    "Start Time" : "0800",
+    "Name" : "Swimming",
+    "End Time" : "0900",
+    "Location" : "Kr"
+  }, {
+    "Status" : "Upcoming",
+    "Start Time" : "1100",
+    "Name" : "Swimming Test",
+    "End Time" : "1200",
+    "Location" : "Kr"
+  }, {
+    "Status" : "Upcoming",
+    "Start Time" : "1000",
+    "Name" : "Competition",
+    "End Time" : "1100",
+    "Location" : "Kr"
+  } ]
+}

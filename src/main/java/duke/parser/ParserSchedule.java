@@ -2,6 +2,7 @@ package duke.parser;
 
 import duke.data.ScheduleStorage;
 import duke.exceptions.DukeException;
+import duke.util.DateHandler;
 import duke.view.CliView;
 import duke.data.Storage;
 import duke.models.Schedule;
@@ -70,9 +71,6 @@ public class ParserSchedule {
         cliViewSchedule.showSchedulePromptDate();
         sc.nextLine();
         String scheduleDate = sc.nextLine();
-        // String day = schedule.getDay(scheduleDate);
-        // schedule of timeslot.txt cannot be loaded
-        // todo must fix the storage loading capabilities
         String day = "empty";
         if (day.equals("empty")) {
             isRunning = false;
@@ -134,27 +132,25 @@ public class ParserSchedule {
     }
 
     /**
-     * Method to run when entering weekly schedule.
-     */
-    public void weeklySchedule() {
-        System.out.println(schedule.getWeek());
-
-    }
-
-    /**
      * Method selects the month.
      *
      * @param month the selected month
      */
     public void selectMonth(int month) {
-        if (month > 12 || month < 0) {
+        if (month > 13 || month < 1) {
             cliViewSchedule.message("Invalid month");
-        } else if (month < 12) {
+            ApacheLogger.logMessage("ParserSchedule", "Invalid month");
+        } else if (month < 13) {
             cliViewSchedule.bufferLine();
-            schedule.getMonth(month - 1);
+            schedule.getMonth(month);
             cliViewSchedule.bufferLine();
             cliViewSchedule.message("Enter the date of the day you want to plan!");
             int day = sc.nextInt();
+            while (!DateHandler.dateCheck(day, month)) {
+                ApacheLogger.logMessage("ParserSchedule", "Invalid date");
+                cliViewSchedule.message("Enter a valid date!");
+                day = sc.nextInt();
+            }
             schedule.getTable(day, month);
         }
     }
@@ -171,10 +167,12 @@ public class ParserSchedule {
                 runMonth = false;
             } else if (input.equals("help")) {
                 cliViewSchedule.printMonthMenu();
+            } else if (input.equals("list")) {
+                schedule.listAll();
             } else {
                 try {
                     int month = Integer.parseInt(input);
-                    selectMonth(month - 1);
+                    selectMonth(month);
                 } catch (NumberFormatException e) {
                     cliViewSchedule.showDontKnow();
                 }
@@ -193,9 +191,8 @@ public class ParserSchedule {
      */
     public void parseCommand() throws ParseException, IOException {
         final int dailySchedule = 1;
-        final int weeklySchedule = 2;
-        final int monthlySchedule = 3;
-        final int back = 4;
+        final int monthlySchedule = 2;
+        final int back = 3;
         int input;
         boolean runSchedule = true;
         try {
@@ -220,9 +217,6 @@ public class ParserSchedule {
                             cliViewSchedule.showDontKnow();
                         }
                     }
-                    break;
-                case weeklySchedule:
-                    weeklySchedule();
                     break;
                 case monthlySchedule:
                     monthlySchedule();

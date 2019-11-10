@@ -15,6 +15,10 @@ import duke.view.CliView;
  */
 public final class ParserManageStudents {
     /**
+     * Boolean status to check if the class can exit.
+     */
+    private boolean isRunning = true;
+    /**
      * Declaring Manage Students Object.
      */
     private StudentList students;
@@ -48,15 +52,16 @@ public final class ParserManageStudents {
         final int list = 1;
         final int add = 2;
         final int delete = 3;
-        final int progress = 4;
+        final int find = 4;
         final int view = 5;
         final int back = 6;
-        //int cmd;
+        int cmd;
+        boolean runManageStudent = true;
         try {
             while (runManageStudent) {
                 new CliView().manageStudentsHeading();
-                //cmd = sc.nextInt();
-                switch (sc.nextInt()) {
+                cmd = sc.nextInt();
+                switch (cmd) {
                 case list:
                     System.out.println("Here are your list of students: ");
                     students.listAllStudents();
@@ -78,22 +83,43 @@ public final class ParserManageStudents {
                     students.deleteStudent(sc.nextInt());
                     //students.deleteStudent(Integer.parseInt(word[1]));
                     break;
+                    /**
+                case find:
+                    final int limit = 4;
+                    String name = sc.nextLine();
+                   // String name = cmd.substring(limit);
+                    ArrayList<Student> search = new ArrayList<Student>();
+                    for (Student i : students.getStudentList()) {
+                        if (i.getName().contains(name)) {
+                            search.add(i);
+                        }
+                    }
+                    if (search.size() >= 1) {
+                        System.out.println(
+                                "Here are the matching "
+                                        + "names in your list:");
+                        int index = 1;
+                        for (int i = 0; i < search.size(); i++) {
+                            System.out.println(index++ + ". "
+                                    + search.get(i));
+                        }
+                    } else {
+                        System.out.println("Sorry, there are"
+                                + " no names matching your search");
+                    }
+                    break;
+
+                     */
                 case view:
                     System.out.println("Which student details do you want to view?");
                     students.listAllStudents();
                     int index = sc.nextInt();
                     System.out.print("Viewing "
                             + students.getStudentName(
-                            index)
+                                    index)
                             + " details:\n");
-                    System.out.println(
-                            students.getStudent(index).getDetails());
+                    students.getStudent(index);
                     break;
-
-                case progress:
-                    studentProgressParser();
-                    break;
-
                 case back:
                     runManageStudent = false;
                     break;

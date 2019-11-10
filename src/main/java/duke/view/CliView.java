@@ -96,9 +96,8 @@ public class CliView {
         System.out.flush();
         System.out.println("TRAINING SCHEDULE:\n"
             + "1. Daily Schedule\n"
-            + "2. Weekly Schedule\n"
-            + "3. Monthly Schedule\n"
-            + "4. Back");
+            + "2. Monthly Schedule\n"
+            + "3. Back");
     }
 
     /**
@@ -122,11 +121,13 @@ public class CliView {
         printLine();
         System.out.println("MANAGE STUDENTS:\n"
             + "1. Student List \n"
-            + "2. Add student  \n"
+            + "2. Add student \n"
             + "3. Delete Student \n"
-            + "4. Student Progress \n"
+            + "4. Find Student \n"
             + "5. View student details \n"
-            + "6. Back");
+            + "6. Exit ");
+        printLine();
+
     }
 
     /**

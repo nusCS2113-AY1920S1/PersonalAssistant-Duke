@@ -32,7 +32,8 @@ public class ParserCommand implements IParser {
                 break;
             case "2":
                 ParserManageStudents parserManageStudents
-                    = new ParserManageStudents();
+                        = new ParserManageStudents();
+                cliView.manageStudentsHeading();
                 parserManageStudents.parseCommand();
                 break;
             case "3":

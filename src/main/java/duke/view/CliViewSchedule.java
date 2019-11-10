@@ -1,12 +1,10 @@
 package duke.view;
 
 
-import duke.data.ToDo;
+import duke.models.ToDo;
+import duke.util.DateHandler;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 /**
  * Class handles the Schedule specific print commands.
@@ -16,31 +14,29 @@ public class CliViewSchedule extends CliView {
     /**
      * Will print out a formatted calender.
      *
-     * @param numberOfDays days in the month
-     * @param startDay     beginning day in the month
+     * @param daysInMonth days in the month
+     * @param dayOfWeek   beginning day in the month
      */
-    public void printMonth(final int numberOfDays,
-                           final int startDay) {
-        final int numberOfDaysInAWeek = 7;
-        int weekdayIndex = 0;
+    public void printMonth(final int daysInMonth,
+                           final int dayOfWeek) {
         System.out.println("Su  Mo  Tu  We  Th  Fr  Sa");
 
-        for (int day = 1; day < startDay; day++) {
-            System.out.print("    ");
-            weekdayIndex++;
-        }
 
-        for (int day = 1; day <= numberOfDays; day++) {
-            System.out.printf("%1$2d", day);
-            weekdayIndex++;
-            if (weekdayIndex == numberOfDaysInAWeek) {
-                weekdayIndex = 0;
-                System.out.println();
-            } else {
-                System.out.print("  ");
-            }
+        //print initial spaces
+        String initialSpace = "";
+        for (int i = 0; i < dayOfWeek - 1; i++) {
+            initialSpace += "    ";
         }
-        System.out.println();
+        System.out.print(initialSpace);
+
+        //print the days of the month starting from 1
+        for (int i = 0, dayOfMonth = 1; dayOfMonth <= daysInMonth; i++) {
+            for (int j = ((i == 0) ? dayOfWeek - 1 : 0); j < 7 && (dayOfMonth <= daysInMonth); j++) {
+                System.out.printf("%-2d  ", dayOfMonth);
+                dayOfMonth++;
+            }
+            System.out.println();
+        }
     }
 
     /**
@@ -50,7 +46,7 @@ public class CliViewSchedule extends CliView {
      * @param year The year to be printed
      */
     public void printMonthHeader(String date, int year) {
-        System.out.println(date + " " + year);
+        message(date + " " + year);
     }
 
     /**
@@ -61,6 +57,7 @@ public class CliViewSchedule extends CliView {
         message("Please enter a valid month: 1 - 12");
         message("Go back: back");
         message("View commands: help");
+        message("List all days with scheduled classes: list");
         bufferLine();
     }
 
@@ -91,7 +88,7 @@ public class CliViewSchedule extends CliView {
             //Iterate through and print ever item that is listed in the day.
             for (ToDo i : todo) {
                 System.out.println(
-                    String.format("%10s %10s %10s %10s %10s %10s %10s",
+                    String.format("%-19s %-1s %-19s %-1s %-19s %-1s %10s",
                         i.getClassName(), "|",
                         i.getStartTime(), "|",
                         i.getEndTime(), "|",
@@ -113,11 +110,7 @@ public class CliViewSchedule extends CliView {
      * @param month The month selected
      */
     public void tableDate(final int day, final int month) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.MONTH, month);
-        cal.set(Calendar.DAY_OF_MONTH, day);
-        DateFormat df = new SimpleDateFormat("dd MMM yyyy");
-        String date = df.format(cal.getTime());
+        String date = DateHandler.stringDate("dd MMM yyyy", day, month, 2019);
         message(date);
     }
 }

@@ -1,13 +1,14 @@
 package duke.launcher;
 
 import duke.data.ScheduleStorage;
-import duke.data.ToDo;
+import duke.models.ToDo;
 import duke.parser.ParserCommand;
 import duke.data.Storage;
 import duke.models.Schedule;
 import duke.models.students.StudentList;
 import duke.models.MyPlan;
 import duke.task.TaskList;
+import duke.util.ApacheLogger;
 import duke.view.CliView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,10 +23,6 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
-import duke.util.ApacheLogger;
 
 public class Main {
     /**
@@ -72,12 +69,14 @@ public class Main {
 
     /**
      * This program runs the main duke program.
-     *
+     * sad
      * @param args expects array of string objects
      */
     public static void main(final String[] args) throws IOException {
+        ApacheLogger.logMessage("Main", "Start Coach Manager");
         CliView cliView = new CliView();
         cliView.execute();
+        ApacheLogger.logMessage("Main", "Exit Coach Manager");
     }
 
     //    /**

@@ -95,9 +95,9 @@ public class StudentList implements IStudentList {
                 + getStudentList().get(index - 1).getName()
                 + " has been removed from the list.");
             if ((getStudentListSize() - 1) == 0) {
-                System.out.println("\nNow you have no student in your list.");
+                System.out.println("Now you have no student in your list.");
             } else {
-                System.out.println("\nNow you have "
+                System.out.println("Now you have "
                     + (getStudentListSize() - 1)
                     + " students in your list.");
             }
