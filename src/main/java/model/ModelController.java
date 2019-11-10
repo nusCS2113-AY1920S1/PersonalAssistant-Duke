@@ -203,23 +203,23 @@ public class ModelController implements Model {
     /**
      * javadoc please
      */
-    public String updateMemberBio(int index, String bio) {
-        String oldBio = memberManager.getMemberBio(index);
-        memberManager.updateMemberBio(index, bio);
+    public String updateMemberBio(String name, String bio) {
+        String oldBio = memberManager.getMemberBio(name);
+        memberManager.updateMemberBio(name, bio);
         return oldBio;
     }
 
     @Override
-    public String updateMemberEmail(int index, String email) throws DukeException {
-        String oldEmail = memberManager.getMemberEmail(index);
-        memberManager.updateMemberEmail(index, email);
+    public String updateMemberEmail(String name, String email) throws DukeException {
+        String oldEmail = memberManager.getMemberEmail(name);
+        memberManager.updateMemberEmail(name, email);
         return oldEmail;
     }
 
     @Override
-    public String updateMemberPhone(int index, String phone) {
-        String oldPhone = memberManager.getMemberPhone(index);
-        memberManager.updateMemberPhone(index, phone);
+    public String updateMemberPhone(String name, String phone) {
+        String oldPhone = memberManager.getMemberPhone(name);
+        memberManager.updateMemberPhone(name, phone);
         return oldPhone;
     }
 
@@ -250,7 +250,7 @@ public class ModelController implements Model {
         String memberBio = "";
         for (int i = 0; i < memberManager.getMemberList().size(); i++) {
             if (name.equals(memberManager.getMemberNameById(i))) {
-                memberBio = memberManager.getMemberBio(i);
+                memberBio = memberManager.getMemberBio(name);
                 break;
             }
         }
@@ -267,7 +267,7 @@ public class ModelController implements Model {
         String memberEmail = "";
         for (int i = 0; i < memberManager.getMemberList().size(); i++) {
             if (name.equals(memberManager.getMemberNameById(i))) {
-                memberEmail = memberManager.getMemberEmail(i);
+                memberEmail = memberManager.getMemberEmail(name);
                 break;
             }
         }
@@ -284,7 +284,7 @@ public class ModelController implements Model {
         String memberPhone = "";
         for (int i = 0; i < memberManager.getMemberList().size(); i++) {
             if (name.equals(memberManager.getMemberNameById(i))) {
-                memberPhone = memberManager.getMemberPhone(i);
+                memberPhone = memberManager.getMemberPhone(name);
                 break;
             }
         }

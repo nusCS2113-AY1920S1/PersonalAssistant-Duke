@@ -15,19 +15,20 @@ public class EditTaskParser {
     public static final String NAME = "name";
     public static final String DES = "des";
     public static final String INDEX_NO_EMPTY = "The index of task shouldn't be empty.";
+    public static final String GET_INDEX_FAIL = "Wrong index format.";
 
 
     //@@author yuyanglin28
     /**
-     * parse delete command, divide to task or member
-     * @param partialCommand argument part of the command
-     * @return a delete command
-     * @throws DukeException exception
+     * parse edit task command, pass to time, name or description
+     * @param partialCommand command after task
+     * @return edit task command
+     * @throws DukeException throw exception when edit type is not correct
      */
     public static Command parseEditTask(String partialCommand) throws DukeException {
         final Matcher matcher = NewParser.BASIC_COMMAND_FORMAT.matcher(partialCommand.trim());
         if (!matcher.matches()) {
-            throw new DukeException("Message is invalid" + "\n" + EDIT_USAGE + "\n");
+            throw new DukeException(EDIT_USAGE);
         }
 
         String editType = matcher.group("commandWord");

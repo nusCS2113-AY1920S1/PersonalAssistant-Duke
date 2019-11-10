@@ -7,36 +7,43 @@ import model.Model;
 
 public class EditMemberPhoneCommand extends Command {
 
-    private static final String UPDATE_MSSAGE = "you have update the phone of member: ";
-    private static final String SET_MSSAGE = "you have set the phone of member: ";
-    private static final String NO_UPDATE_MSSAGE = "no update, they are the same.";
-    public static final String INDEX_NOT_IN_MEMlIST_MESSAGE = "Index is not within the memberlist list";
-    private int memberIndexInList;
+    private static final String UPDATE_MSSAGE = "You have update the phone of member: ";
+    private static final String SET_MSSAGE = "You have set the phone of member: ";
+    private static final String NO_UPDATE_MSSAGE = "No update, they are the same.";
+    private String memberName;
     private String phone;
 
-    public EditMemberPhoneCommand(int memberIndexInList, String phone) {
-        this.memberIndexInList = memberIndexInList;
+    public EditMemberPhoneCommand(String memberName, String phone) {
+        this.memberName = memberName;
         this.phone = phone;
     }
 
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to edit member phone
+     * @param model Model interface
+     * @return set message or update message
+     * @throws DukeException throw exception when there is no update
+     */
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-        if (!checkMemberIndex(memberIndexInList, model)) {
-            return new CommandOutput(INDEX_NOT_IN_MEMlIST_MESSAGE);
+        if (!checkMemberName(memberName, model)) {
+            return new CommandOutput(Command.NAME_NOT_IN_MEMlIST_MESSAGE);
         } else {
-            String oldphone = model.updateMemberPhone(memberIndexInList - 1, phone);
-            String memberName = model.getMemberNameById(memberIndexInList - 1);
+            String oldphone = model.updateMemberPhone(memberName, phone);
+
             if (oldphone == null) {
                 model.save();
                 return new CommandOutput(SET_MSSAGE + "[" + memberName + "]"
-                        + " to " + "[" + phone + "]");
+                        + " to " + "[[" + phone + "]]");
             } else if (oldphone.equals(phone)) {
                 throw new DukeException(NO_UPDATE_MSSAGE);
             } else {
                 model.save();
                 return new CommandOutput(UPDATE_MSSAGE + "[" + memberName + "]"
-                        + " from " + "[" + oldphone + "]" + " to " + "[" + phone + "]");
+                        + " from " + "[[" + oldphone + "]]" + " to " + "[[" + phone + "]]");
             }
         }
 

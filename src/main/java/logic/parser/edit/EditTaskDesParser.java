@@ -15,10 +15,10 @@ public class EditTaskDesParser {
 
     //@@author yuyanglin28
     /**
-     * parse delete command, divide to task or member
-     * @param partialCommand argument part of the command
-     * @return a delete command
-     * @throws DukeException exception
+     * parse edit task description command
+     * @param partialCommand command after des, [index] /to [new des]
+     * @return edit task des command
+     * @throws DukeException throw exception when task index is empty or change content is empty
      */
     public static Command parseEditTaskDes(String partialCommand) throws DukeException {
 
@@ -27,9 +27,9 @@ public class EditTaskDesParser {
         String changeContent = argumentMultimap.get("/to");
 
         if (name.length() == 0) {
-            throw new DukeException(NAME_NO_EMPTY + "\n" + EDIT_USAGE);
+            throw new DukeException(EditTaskParser.INDEX_NO_EMPTY + "\n" + EditTaskParser.EDIT_USAGE);
         } else if (changeContent.length() == 0) {
-            throw new DukeException(CHANGE_NO_EMPTY + "\n" + EDIT_USAGE);
+            throw new DukeException(CHANGE_NO_EMPTY + "\n" + EditTaskParser.EDIT_USAGE);
         } else {
             name = name.trim();
             try {
@@ -37,7 +37,8 @@ public class EditTaskDesParser {
                 changeContent = changeContent.trim();
                 return new EditTaskDesCommand(indexInList, changeContent);
             } catch (Exception e) {
-                throw new DukeException(GET_INDEX_FAIL + "\n" + EDIT_USAGE);
+                throw new DukeException(EditTaskParser.GET_INDEX_FAIL + "\n"
+                        + EditTaskParser.EDIT_USAGE);
             }
         }
     }

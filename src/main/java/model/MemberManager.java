@@ -187,33 +187,33 @@ public class MemberManager {
         return getMemberById(index).getName();
     }
 
-    public String getMemberBio(int index) {
-        Member member = getMemberById(index);
+    public String getMemberBio(String name) {
+        Member member = getMemberByName(name);
         return member.getBiography();
     }
 
-    public void updateMemberBio(int index, String bio) {
-        Member member = getMemberById(index);
+    public void updateMemberBio(String name, String bio) {
+        Member member = getMemberByName(name);
         member.setBiography(bio);
     }
 
-    public String getMemberEmail(int index) {
-        Member member = getMemberById(index);
+    public String getMemberEmail(String name) {
+        Member member = getMemberByName(name);
         return member.getEmail();
     }
 
-    public void updateMemberEmail(int index, String email) throws DukeException {
-        Member member = getMemberById(index);
+    public void updateMemberEmail(String name, String email) throws DukeException {
+        Member member = getMemberByName(name);
         member.setEmail(email);
     }
 
-    public String getMemberPhone(int index) {
-        Member member = getMemberById(index);
+    public String getMemberPhone(String name) {
+        Member member = getMemberByName(name);
         return member.getPhone();
     }
 
-    public void updateMemberPhone(int index, String phone) {
-        Member member = getMemberById(index);
+    public void updateMemberPhone(String name, String phone) {
+        Member member = getMemberByName(name);
         member.setPhone(phone);
     }
 

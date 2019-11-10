@@ -78,11 +78,11 @@ public interface Model {
 
     void addMember(String name) throws DukeException;
 
-    String updateMemberBio(int index, String bio);
+    String updateMemberBio(String name, String bio);
 
-    String updateMemberEmail(int index, String email) throws DukeException;
+    String updateMemberEmail(String name, String email) throws DukeException;
 
-    String updateMemberPhone(int index, String phone);
+    String updateMemberPhone(String name, String phone);
 
     boolean hasMember(String name) throws DukeException;
 
