@@ -630,17 +630,70 @@ We chose asciidoc over Markdown because asciidoc, although a bit more complex th
 in formatting.
 
 == Testing
+The testing for our application is done through Junit tests (also viable to run these through gradle) and
+manual testing, covered in <<Instructions for Manual Testing, Appendix E: Instructions for manual testing>>
 
+=== Junit testing
+. IntelliJ: Simply right click the src/test/java directory and select `Run 'Tests in 'seedu.duke...'` or right
+click the individual test class you wish to run, and select `Run 'BudgetTest'` for example when testing
+individual components. This can also be done through the Gradle sidebar (double click the corresponding test
+under `run configurations`).
+. Command prompt: Simply type the command `gradlew clean test`
 
 == Dev Ops
+For build automation, we chose to use gradle, allowing for a more convenient process when running tests and
+checking for coding standard violations. Here are some of the gradle tasks that are essential to the
+development of the application.
+
+NOTE: For all the following commands, it is possible to run them through the IntelliJ IDE using the gradle
+task bar. The tasks on the task bar are identical in name to the command line tasks, so the following
+information is still relevant regarding their functions.
+
+=== How to run gradle commands
+Use the command `gradlew <taskname>`
+
+NOTE: Different tasks can be run at the same time by using a format such as
+`gradlew <task1> <task2>...`
+
+WARNING: For Mac users, you will need to add a `./` prefix before the command. For example,
+`./gradlew run`
+
+=== Building a jar file
+The command `shadowJar` will build a jar file using the current source code and store it under
+the #build/libs# directory.
+
+=== Clean
+The command `gradlew clean` will remove the buildDir folder, thus removing everything including leftover
+files from previous builds which are no longer necessary.
+
+WARNING: While running a task, Gradle checks if it is actually necessary to carry out the procedure by default.
+For example, Gradle will not rebuild the jar file if source code has not changed since the last time a jar file
+was packaged.
+
+In order to force gradle to execute the task, the `clean` command can be used. For instance,
+`gradlew clean shadowJar` will force a new jar file to be built.
+
+=== Running the application
+
+==== Run as per normal:
+The command `gradlew run` will build and run the application
+
+==== Run as jar file:
+The command `gradlew runShadow` will build the project as a jar file, and then run it.
+
+=== Checkstyle
+Using the command `checkstyleMain` will check for style violations in the *main* source code.
+Using the command `checkstyleTest` will check for style violations in the *test* source code.
 
 
 [appendix]
 == Product Scope
 === Target User Profile
-MisterMusik is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer.
-The program is designed to automate and streamline most of the process in scheduling and organisation of materials, allowing the students to focus more on the important aspects of their education.
+MisterMusik is a scheduler program created for serious music students pursuing a professional music career as a western
+classical music performer.
 
+The program is designed to automate and streamline most of the process in scheduling and organisation of materials,
+allowing the students to focus more on the important aspects of their education.
 
 [appendix]
 == User Stories
