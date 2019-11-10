@@ -51,8 +51,8 @@ public class EditTaskDateTimeCommandTest {
         CommandOutput out = command.execute(model);
         String expected = "The deadline has been changed to: Sat Oct 10 10:10:00 SGT 2020";
         String actual = out.getOutputToUser();
-        boolean isSame = expected.equals(actual)? true:false;
-        assertTrue(isSame);
+        boolean isSame = expected.equals(actual) ? true : false;
+        assertTrue(isSame); //assertEquals gives problems in Travis Ci but not gradle. Suspect environment issue
     }
 
 }
