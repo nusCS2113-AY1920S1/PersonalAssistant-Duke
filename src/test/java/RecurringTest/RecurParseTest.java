@@ -1,6 +1,7 @@
 package RecurringTest;
 
 import Commands.Command;
+import Commons.DukeConstants;
 import Parser.RecurParse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
@@ -30,7 +31,7 @@ public class RecurParseTest {
     public void recurParseTest_withInvalidModCode_throwDukeInvalidFormatException() {
         String recurSet = "recur/weekly 2101 tutorial /start " + startDate + " /to " + endDate
                 + " /from " + startTime + " /to " + endTime;
-        String expected = "\u2639" + " OOPS!!! The ModCode is invalid";
+        String expected = DukeConstants.SAD_FACE + " OOPS!!! The ModCode is invalid";
         String actual = "";
         Command command = null;
         try {
@@ -42,11 +43,11 @@ public class RecurParseTest {
         assertNull(command);
     }
 
-   @Test
+    @Test
     public void recurParseTest_withInvalidDescription_throwDukeInvalidFormatException() {
         String recurSet = "recur/weekly CS2101 /start " + startDate + " /to " + endDate
                 + " /from " + startTime + " /to " + endTime;
-        String expected = "\u2639" + " OOPS!!! The description of an event cannot be empty.";
+        String expected = DukeConstants.SAD_FACE + " OOPS!!! The description of an event cannot be empty.";
         String actual = "";
         Command command = null;
         try {

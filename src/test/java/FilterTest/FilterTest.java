@@ -33,7 +33,7 @@ public class FilterTest {
     }
 
     @Test
-        public void Execute_keywordNotInList() {
+        public void execute_keywordNotInList() {
         events = new TaskList();
         deadlines = new TaskList();
         keyword = "key";
@@ -51,7 +51,7 @@ public class FilterTest {
     }
 
     @Test
-    public void Execute_keywordInList() {
+    public void execute_keywordInList() {
         events = new TaskList();
         deadlines = new TaskList();
         keyword = "key";
@@ -71,7 +71,7 @@ public class FilterTest {
     }
 
     @Test
-    public void Execute_keywordSubstringNotInList() {
+    public void execute_keywordSubstringNotInList() {
         events = new TaskList();
         deadlines = new TaskList();
         keyword = "keyword";
@@ -89,15 +89,15 @@ public class FilterTest {
     }
 
     @Test
-    public void Execute_EmptyKeyword_ThrowsDukeInvalidFormatException() {
+    public void execute_emptyKeyword_throwsDukeInvalidFormatException() {
         events = new TaskList();
         deadlines = new TaskList();
         keyword = new String();
         deadlines.addTask(deadlineWithKeyword);
         events.addTask(eventWithKeyword);
         Command command = new FilterCommand(keyword);
-        String w1 = " OOPS!!! Please enter filter command as follows\n" +
-                "show/filter keyword\n";
+        String w1 = " OOPS!!! Please enter filter command as follows\n"
+                + "show/filter keyword\n";
         String w2;
         try {
             w2 = command.execute(events, deadlines, ui, storage);

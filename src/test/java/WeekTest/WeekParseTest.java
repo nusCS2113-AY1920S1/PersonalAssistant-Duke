@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * This class tests WeekParse.
  */
 public class WeekParseTest {
-    private final String INVALID_EMPTY_WEEK = "Invalid Input.\n" +
-            "The week cannot be blank.\nPlease enter the command as follows.\n"
+    private static final String INVALID_EMPTY_WEEK = "Invalid Input.\n"
+            + "The week cannot be blank.\nPlease enter the command as follows.\n"
             + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
             + "'x' is either 'recess', 'reading', or 'exam'";
-    private final String INVALID_WEEK = "Invalid Week. Please enter the command as follows. \n"
+    private static final String INVALID_WEEK = "Invalid Week. Please enter the command as follows. \n"
             + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
             + "'x' is either 'recess', 'reading', or 'exam'";
 
