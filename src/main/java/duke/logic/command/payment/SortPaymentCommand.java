@@ -10,6 +10,11 @@ import duke.storage.Storage;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Sets the sorting criteria of visible payments in payment reminder.
+ * Sorting criteria include due, amount and priority.
+ * The default sorting criteria is due.
+ */
 public class SortPaymentCommand extends Command {
 
     private static final String name = "sortPayment";
@@ -17,13 +22,24 @@ public class SortPaymentCommand extends Command {
     private static final String usage = "sortPayment $sortCriteria";
 
     private static final String COMPLETE_MESSAGE = "Payments are sorted!";
+    private static final String EXCEPTION_WORD_SORTING_CRITERIA = "sorting criteria";
 
+    /**
+     * Contains all secondary parameters used by {@code SortPaymentCommand}.
+     * Here the {@code SortPaymentCommand} does not demand secondary parameters.
+     */
     private enum SecondaryParam {
         ;
 
         private String name;
         private String description;
 
+        /**
+         * Constructs a {@code SecondaryParam} with its name and usage.
+         *
+         * @param name        The name of the secondary parameter.
+         * @param description The usage of this parameter.
+         */
         SecondaryParam(String name, String description) {
             this.name = name;
             this.description = description;
@@ -31,9 +47,7 @@ public class SortPaymentCommand extends Command {
     }
 
     /**
-     * Constructs a {@code SortPaymentCommand} object
-     * given the sort criteria of payments.
-     * Sort criteria include time, amount and priority.
+     * Creates a SortPaymentCommand, with its name, description, usage and secondary parameters.
      */
     public SortPaymentCommand() {
         super(name, description, usage, Stream.of(SecondaryParam.values())
@@ -43,12 +57,12 @@ public class SortPaymentCommand extends Command {
     @Override
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
         if (!commandParams.containsMainParam()) {
-            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "sortCriteria"));
+            throw new DukeException(String.format
+                    (DukeException.MESSAGE_COMMAND_PARAM_MISSING, EXCEPTION_WORD_SORTING_CRITERIA));
         }
 
         model.setPaymentSortingCriteria(commandParams.getMainParam());
 
         return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.PAYMENT);
     }
-
 }

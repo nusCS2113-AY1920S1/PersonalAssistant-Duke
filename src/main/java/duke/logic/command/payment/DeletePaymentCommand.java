@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Deletes a payment identified using it's displayed index from the payments reminder.
+ */
 public class DeletePaymentCommand extends Command {
 
     private static final String name = "deletePayment";
@@ -18,13 +21,24 @@ public class DeletePaymentCommand extends Command {
     private static final String usage = "deletePayment $index";
 
     private static final String COMPLETE_MESSAGE = "Deleted the payment!";
+    private static final String EXCEPTION_WORD_INDEX = "index";
 
+    /**
+     * Contains all secondary parameters used by {@code DeletePaymentCommand}.
+     * Here the {@code DeletePaymentCommand} does not demand secondary parameters.
+     */
     private enum SecondaryParam {
         ;
 
         private String name;
         private String description;
 
+        /**
+         * Constructs a {@code SecondaryParam} with its name and usage.
+         *
+         * @param name        The name of the secondary parameter.
+         * @param description The usage of this parameter.
+         */
         SecondaryParam(String name, String description) {
             this.name = name;
             this.description = description;
@@ -32,8 +46,7 @@ public class DeletePaymentCommand extends Command {
     }
 
     /**
-     * Constructs a {@code DeletePaymentCommand} object
-     * given the index of the payment to be deleted.
+     * Creates a DeletePaymentCommand, with its name, description, usage and secondary parameters.
      */
     public DeletePaymentCommand() {
         super(name, description, usage, Stream.of(SecondaryParam.values())
@@ -42,8 +55,10 @@ public class DeletePaymentCommand extends Command {
 
     @Override
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
+
         if (!commandParams.containsMainParam()) {
-            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "index"));
+            throw new DukeException(
+                    String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, EXCEPTION_WORD_INDEX));
         }
 
         String mainParam = commandParams.getMainParam();

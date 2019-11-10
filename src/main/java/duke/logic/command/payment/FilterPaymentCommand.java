@@ -10,6 +10,11 @@ import duke.storage.Storage;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Sets the time scope of visible payments in payment reminder.
+ * Scopes include overdue payments, coming payments in current week, coming payments in current month
+ * and all payments without limit.
+ */
 public class FilterPaymentCommand extends Command {
 
     private static final String name = "viewPayment";
@@ -22,13 +27,24 @@ public class FilterPaymentCommand extends Command {
     private static final String ALL_SCOPE = "all";
 
     private static final String COMPLETE_MESSAGE = "Here are payments!";
+    private static final String EXCEPTION_WORD_TIME_SCOPE = "time scope";
 
+    /**
+     * Contains all secondary parameters used by {@code FilterPaymentCommand}.
+     * Here the {@code FilterPaymentCommand} does not demand secondary parameters.
+     */
     private enum SecondaryParam {
         ;
 
         private String name;
         private String description;
 
+        /**
+         * Constructs a {@code SecondaryParam} with its name and usage.
+         *
+         * @param name        The name of the secondary parameter.
+         * @param description The usage of this parameter.
+         */
         SecondaryParam(String name, String description) {
             this.name = name;
             this.description = description;
@@ -36,9 +52,7 @@ public class FilterPaymentCommand extends Command {
     }
 
     /**
-     * Constructs a {@code FilterPaymentCommand} object
-     * given the time scope of coming payments in future to be showed.
-     * The time scope includes overdue, week, month and all.
+     * Creates a FilterPaymentCommand, with its name, description, usage and secondary parameters.
      */
     public FilterPaymentCommand() {
         super(name, description, usage, Stream.of(SecondaryParam.values())
@@ -48,10 +62,11 @@ public class FilterPaymentCommand extends Command {
     @Override
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
         if (!commandParams.containsMainParam()) {
-            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "timeScope"));
+            throw new DukeException(String.format
+                    (DukeException.MESSAGE_COMMAND_PARAM_MISSING, EXCEPTION_WORD_TIME_SCOPE));
         }
 
-        String timeScope = commandParams.getMainParam().toLowerCase();
+        String timeScope = commandParams.getMainParam().toLowerCase(); // case insensitive
 
         switch (timeScope) {
         case OVERDUE_SCOPE:
@@ -72,5 +87,4 @@ public class FilterPaymentCommand extends Command {
 
         return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.PAYMENT);
     }
-
 }

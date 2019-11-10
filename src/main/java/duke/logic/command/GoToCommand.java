@@ -45,7 +45,7 @@ public class GoToCommand extends Command {
         try {
             displayedPane = CommandResult.DisplayedPane.valueOf(desiredPage.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_DESIRED_PANE_NAME_INVALID, desiredPage));
+            throw new DukeException(String.format(DukeException.MESSAGE_PANE_NAME_INVALID, desiredPage));
         }
         return new CommandResult(COMPLETE_MESSAGE, displayedPane);
     }

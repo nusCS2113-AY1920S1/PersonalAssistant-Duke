@@ -3,10 +3,8 @@ package duke.logic.command.payment;
 import duke.exception.DukeException;
 import duke.logic.CommandParams;
 import duke.logic.CommandResult;
-import duke.logic.command.AddExpenseCommand;
 import duke.logic.command.Command;
 import duke.model.Expense;
-import duke.model.Income;
 import duke.model.Model;
 import duke.model.payment.Payment;
 import duke.storage.Storage;
@@ -15,6 +13,10 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Finishes a payment identified using it's displayed index in the payments reminder.
+ * The finished payment will be automatically recorded in the expense tracker.
+ */
 public class DonePaymentCommand extends Command {
 
     private static final String name = "donePayment";
@@ -22,13 +24,24 @@ public class DonePaymentCommand extends Command {
     private static final String usage = "donePayment $index";
 
     private static final String COMPLETE_MESSAGE = "Finished the payment!";
+    private static final String EXCEPTION_WORD_INDEX = "index";
 
+    /**
+     * Contains all secondary parameters used by {@code DonePaymentCommand}.
+     * Here the {@code DonePaymentCommand} does not demand secondary parameters.
+     */
     private enum SecondaryParam {
         ;
 
         private String name;
         private String description;
 
+        /**
+         * Constructs a {@code SecondaryParam} with its name and usage.
+         *
+         * @param name        The name of the secondary parameter.
+         * @param description The usage of this parameter.
+         */
         SecondaryParam(String name, String description) {
             this.name = name;
             this.description = description;
@@ -36,8 +49,7 @@ public class DonePaymentCommand extends Command {
     }
 
     /**
-     * Constructs a {@code DeletePaymentCommand} object
-     * given the index of the payment to be deleted.
+     * Creates a DonePaymentCommand, with its name, description, usage and secondary parameters.
      */
     public DonePaymentCommand() {
         super(name, description, usage, Stream.of(SecondaryParam.values())
@@ -48,7 +60,8 @@ public class DonePaymentCommand extends Command {
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
 
         if (!commandParams.containsMainParam()) {
-            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "index"));
+            throw new DukeException(String.format
+                    (DukeException.MESSAGE_COMMAND_PARAM_MISSING, EXCEPTION_WORD_INDEX));
         }
 
         String mainParam = commandParams.getMainParam();
@@ -59,9 +72,8 @@ public class DonePaymentCommand extends Command {
             throw new DukeException(String.format(DukeException.MESSAGE_NUMBER_FORMAT_INVALID, mainParam));
         }
 
-        Payment payment = model.getPayment(targetIndex);
-
-        Expense.Builder expenseBuilder = new Expense.Builder(payment);
+        Payment payment = model.getPayment(targetIndex); // Gets the finished payment.
+        Expense.Builder expenseBuilder = new Expense.Builder(payment); // Constructs an expense based on payment
 
         model.addExpense(expenseBuilder.build());
         storage.saveExpenseList(model.getExpenseList());
@@ -75,6 +87,4 @@ public class DonePaymentCommand extends Command {
 
         return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.PAYMENT);
     }
-
-
 }
