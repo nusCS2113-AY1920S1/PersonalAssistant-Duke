@@ -5,7 +5,7 @@ import user.UserList;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-//@@author AmirAzhar
+//@@ author AmirAzhar
 //RemoveUserTest1 is used to test if the removal of user works as expected by checking its existence in the userList
 public class RemoveUserTest1 {
     @Test
