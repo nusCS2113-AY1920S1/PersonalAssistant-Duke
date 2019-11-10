@@ -1,5 +1,6 @@
 package chronologer.command;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 import chronologer.exception.ChronologerException;
@@ -19,6 +20,8 @@ import chronologer.ui.UiMessageHandler;
  */
 public class AddRecurringCommand extends AddCommand {
 
+    protected DayOfWeek dayToAdd;
+
     /**
      * Contructs a new "add recurring command".
      * 
@@ -29,8 +32,9 @@ public class AddRecurringCommand extends AddCommand {
      * @param modCode         module code of task
      */
     public AddRecurringCommand(String command, String taskDescription, LocalDateTime startDate, LocalDateTime endDate,
-            String modCode) {
+            String modCode, DayOfWeek day) {
         super(command, taskDescription, startDate, endDate, modCode);
+        this.dayToAdd = day;
     }
 
     @Override
@@ -41,10 +45,15 @@ public class AddRecurringCommand extends AddCommand {
         Task task;
         LocalDateTime timeNow = LocalDateTime.now();
         while (this.formattedStartDate.isAfter(timeNow)) {
-            task = new Event(taskDescription, formattedStartDate, formattedEndDate, modCode);
-            tasks.add(task);
-            this.formattedEndDate = this.formattedEndDate.minusWeeks(1);
-            this.formattedStartDate = this.formattedStartDate.minusWeeks(1);
+            if (formattedStartDate.getDayOfWeek().equals(this.dayToAdd)) {
+                task = new Event(taskDescription, formattedStartDate, formattedEndDate, modCode);
+                tasks.add(task);
+                this.formattedEndDate = this.formattedEndDate.minusWeeks(1);
+                this.formattedStartDate = this.formattedStartDate.minusWeeks(1);
+            } else {
+                this.formattedEndDate = this.formattedEndDate.minusDays(1);
+                this.formattedStartDate = this.formattedStartDate.minusDays(1);
+            }
         }
         ChronologerStateList.addState(tasks.getTasks());
         storage.saveFile(tasks.getTasks());
