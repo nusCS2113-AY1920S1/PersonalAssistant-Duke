@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
 import gazeeebo.tasks.DoAfter;
 
@@ -33,6 +34,7 @@ public class DoAfterCommand extends Command {
      *                        format of do after command is wrong
      * @throws ParseException catch error if parse string to date fails.
      * @throws IOException    catch error if read file fails.
+
      */
     @Override
     public void execute(final ArrayList<Task> list,
@@ -40,7 +42,7 @@ public class DoAfterCommand extends Command {
                         final Stack<ArrayList<Task>> commandStack,
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
-            throws DukeException, ParseException, IOException {
+            throws ParseException, IOException {
 
         String before = "";
         String after = "";
@@ -58,7 +60,8 @@ public class DoAfterCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.writeToSaveFile(sb.toString());
+        TasksPageStorage tasksPageStorage = new TasksPageStorage();
+        tasksPageStorage.writeToSaveFile(sb.toString());
     }
 
     /**

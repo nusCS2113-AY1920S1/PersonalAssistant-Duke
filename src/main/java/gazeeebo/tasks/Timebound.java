@@ -12,10 +12,11 @@ public class Timebound extends Task {
     public static DateTimeFormatter fmtD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
-     * Constructor of a timebound task.
-     * @param description the description of the task
-     * @param period the duration of time the task lasts (e.g. 2h)
+     * Timebound command, Tasks with a specific time period.
+     * @param description Name of the task
+     * @param period The specific time period of time the task lasts (e.g. 2h)
      */
+
     public Timebound(String description, String period) {
         super(description);
 
@@ -28,14 +29,15 @@ public class Timebound extends Task {
 
     @Override
     public String toString() {
-        return "P" + "|" + super.getStatusIcon() + "|" + super.description
-                + "|" + dateStart.format(fmtD) + " and " + dateEnd.format(fmtD);
+        return "P" + "|" + super.getStatusIcon() + "|" + super.description + "|" + dateStart.format(fmtD) + " and "
+                + dateEnd.format(fmtD);
     }
 
     @Override
+
     public String listFormat() {
-        return "[P]" + "[" + super.getStatusIcon() + "] " + super.description
-                + "(between: " + dateStart.format(DateTimeFormatter.ofPattern("dd LLL yyyy")) + " and "
+        return "[P]" + "[" + super.getStatusIcon() + "] " + super.description + "(between: "
+                + dateStart.format(DateTimeFormatter.ofPattern("dd LLL yyyy")) + " and "
                 + dateEnd.format(DateTimeFormatter.ofPattern("dd LLL yyyy")) + ")";
     }
 }

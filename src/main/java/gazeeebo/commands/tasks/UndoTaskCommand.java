@@ -3,6 +3,7 @@
 package gazeeebo.commands.tasks;
 
 import gazeeebo.storage.Storage;
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
 
 import java.io.IOException;
@@ -29,7 +30,8 @@ public class UndoTaskCommand {
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i).toString() + "\n");
             }
-            storage.writeToSaveFile(sb.toString());
+            TasksPageStorage tasksPageStorage = new TasksPageStorage();
+            tasksPageStorage.writeToSaveFile(sb.toString());
         } else {
             System.out.println("You cannot undo the previous command.");
         }

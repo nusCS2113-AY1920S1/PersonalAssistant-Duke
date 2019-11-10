@@ -1,7 +1,7 @@
-# gazeeebo
+# Gazeeebo
 
 ![](docs/images/Ui.png)
 
-* This is a desktop planner application. 
-* It is a java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is written in OOP fashion. It provies a reasonably well-written code example.
+Gazeeebo is a multifunctional school planner with features that will ease your university life as a Computer Engineering (CEG) student.
+It is optimized for those who prefer to work with a keyboard rather than a mouse as it uses a CLI (Command Line Interface). 
+Moreover, it does not require internet to operate. Gazeeebo will be the CEG planner you never knew you needed! :smile:

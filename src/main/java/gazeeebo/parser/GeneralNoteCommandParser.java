@@ -7,6 +7,7 @@ import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
+import gazeeebo.logger.LogCenter;
 import gazeeebo.notes.GeneralNotePage;
 import gazeeebo.storage.NotePageStorage;
 import gazeeebo.storage.Storage;
@@ -16,11 +17,14 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Deals with the commands input at the note page.
  */
 public class GeneralNoteCommandParser extends Command {
+    private static final Logger logger = Logger.getLogger(GeneralNoteCommandParser.class.getName());
 
     private static final String ESC = "esc";
     private static final String VIEW = "view";
@@ -58,8 +62,10 @@ public class GeneralNoteCommandParser extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack,
                         ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException,
             ParseException, IOException, NullPointerException {
+        LogCenter.setUpLogger(logger);
         System.out.println("Welcome to your note page! What would you like to do?\n");
         showListOfCommands();
+        logger.log(Level.INFO, "entered note page");
         ui.readCommand();
         GeneralNotePage gnp = new GeneralNotePage();
         while (!ui.fullCommand.equals(ESC)) {
@@ -86,7 +92,7 @@ public class GeneralNoteCommandParser extends Command {
                 } else {
                     ui.showDontKnowErrorMessage();
                 }
-            } catch (IndexOutOfBoundsException i) {
+            } catch (IndexOutOfBoundsException e) {
                 switch (commands[0]) {
                 case EDIT_GOAL:
                     System.out.println("Please input the command "
@@ -100,10 +106,11 @@ public class GeneralNoteCommandParser extends Command {
                     System.out.println("Please input the command "
                             + "in the format \'delete /n MODULE_NAME\'.");
                     break;
-                default:
+                case MODULE:
                     System.out.println("Please input the command "
                             + "in the format \'module /n MODULE_NAME\'.");
                     break;
+                default: logger.log(Level.WARNING, "bug in try catch", e);
                 }
             } catch (DukeException d) {
                 ui.showErrorMessage(d);

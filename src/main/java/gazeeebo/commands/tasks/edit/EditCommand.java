@@ -7,6 +7,7 @@ import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.Command;
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
 
 import java.io.IOException;
@@ -27,9 +28,9 @@ public class EditCommand extends Command {
      *                     deals with printing things to the user.
      * @param storage      the object that
      *                     deals with storing data to the Save.txt file.
-     * @param commandStack
-     * @param deletedTask
-     * @throws IOException
+     * @param commandStack keep stack of previous commands.
+     * @param deletedTask  keep stack of deleted tasks.
+     * @throws IOException catch the error if the read file fails.
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
@@ -55,7 +56,8 @@ public class EditCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.writeToSaveFile(sb.toString());
+        TasksPageStorage tasksPageStorage = new TasksPageStorage();
+        tasksPageStorage.writeToSaveFile(sb.toString());
     }
 
     /**
