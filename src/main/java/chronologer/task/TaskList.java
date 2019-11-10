@@ -418,30 +418,34 @@ public class TaskList {
      * Allows the user to change theme - either dark mode or light mode.
      * @param choiceOfTheme Holds the theme that the user wants.
      */
-    public void updateTheme(int choiceOfTheme) {
+    public String updateTheme(int choiceOfTheme) {
+        String messageToUser;
         if (choiceOfTheme != prevTheme && choiceOfTheme != -2) {
             currentSetting.remove(0);
             currentSetting.add(0, choiceOfTheme);
             prevTheme = choiceOfTheme;
-            UiMessageHandler.outputMessage("Theme changed!");
+            messageToUser = "Theme changed!";
         } else {
-            UiMessageHandler.outputMessage("Theme cannot be changed!");
+           messageToUser = "Theme cannot be changed!";
         }
+        return messageToUser;
     }
 
     /**
      * Allows the user to view different weeks, weeks 0 - 18.
      * @param choiceOfWeek Holds the week the user wants.
      */
-    public void updateWeek(int choiceOfWeek) {
+    public String updateWeek(int choiceOfWeek) {
+        String messageToUser;
         if (choiceOfWeek != prevWeek && choiceOfWeek != -2) {
             currentSetting.remove(1);
             currentSetting.add(1, choiceOfWeek);
             prevWeek = choiceOfWeek;
-            UiMessageHandler.outputMessage("Week being viewed has changed!");
+            messageToUser = "Week being viewed has been changed!";
         } else {
-            UiMessageHandler.outputMessage("You are viewing the same week!");
+            messageToUser = "You are viewing the same week!";
         }
+        return messageToUser;
     }
 
     public ArrayList<Task> getTasks() {

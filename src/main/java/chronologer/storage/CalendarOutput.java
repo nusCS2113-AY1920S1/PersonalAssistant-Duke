@@ -39,11 +39,9 @@ public class CalendarOutput {
             UiMessageHandler.outputMessage("Success,ics file written at src/ChronologerDatabase/" + fileName);
             fileOutputStream.close();
         } catch (FileNotFoundException e) {
-            UiMessageHandler.outputMessage(ChronologerException.fileDoesNotExist());
             logger.writeLog(e.toString(), "Calendar Output");
             throw new ChronologerException(ChronologerException.fileDoesNotExist());
         } catch (IOException e) {
-            UiMessageHandler.outputMessage(ChronologerException.errorWriteCalendar());
             logger.writeLog(e.toString(), "Calendar Output");
             throw new ChronologerException(ChronologerException.errorWriteCalendar());
         }

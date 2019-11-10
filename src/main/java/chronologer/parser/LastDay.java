@@ -47,7 +47,6 @@ public class LastDay {
             return formattedDay;
         } catch (IndexOutOfBoundsException e) {
             logger.writeLog(e.toString(), "chronologer.parser.LastDay", dayFromUser);
-            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }

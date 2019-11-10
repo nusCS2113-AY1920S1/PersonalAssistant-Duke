@@ -39,7 +39,6 @@ public class RemindParser extends IndexParser {
         try {
             days = Integer.parseInt(daysString);
         } catch (NumberFormatException e) {
-            UiMessageHandler.outputMessage(ChronologerException.unknownUserCommand());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.unknownUserCommand());
         }

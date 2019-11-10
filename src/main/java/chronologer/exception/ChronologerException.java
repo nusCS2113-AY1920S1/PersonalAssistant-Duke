@@ -42,7 +42,9 @@ public class ChronologerException extends Exception {
     private static final String INVALID_WEEK = "OOPS!! Your week is invalid!";
     private static final String INVALID_VERSION = "OOPS!! Your version is invalid!";
     private static final String INVALID_DURATION = "OOPS!! The duration given is invalid!";
-    private static final String WEBLINK_BROKEN = "OOPS!! We are unable to launch our online guide!";
+    private static final String WEBSITE_BROKEN = "OOPS!! We are unable to launch our online guide!";
+    private static final String UNDO_LIMIT = "OOPS!! Sorry unable to undo further";
+    private static final String REDO_LIMIT = "OOPS!! Sorry unable to redo further";
 
 
     /**
@@ -217,7 +219,15 @@ public class ChronologerException extends Exception {
     }
 
     public static String websiteMissing() {
-        return WEBLINK_BROKEN;
+        return WEBSITE_BROKEN;
+    }
+
+    public static String redoLimitHit() {
+        return UNDO_LIMIT;
+    }
+
+    public static String undoLimitHit() {
+        return REDO_LIMIT;
     }
 
     public ChronologerException(String message) {

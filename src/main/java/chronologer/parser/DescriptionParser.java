@@ -52,7 +52,6 @@ public abstract class DescriptionParser extends Parser {
             return matcher.group().split("\\s")[1].toUpperCase(); // you can get it from desired index as well
         } else {
             logger.writeLog("Missing module code", this.getClass().getName(), userInput);
-            UiMessageHandler.outputMessage(ChronologerException.missingModuleCode());
             throw new ChronologerException(ChronologerException.missingModuleCode());
         }
     }
