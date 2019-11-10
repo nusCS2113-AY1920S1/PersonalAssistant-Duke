@@ -20,7 +20,7 @@ public class TimeRemaining {
      * @param event event to be checked
      * @return amount of time remaining before it is due
      */
-    public static Duration left(Event event) {
+    public static Duration secondsLeft(Event event) {
         return Duration.between(LocalDateTime.now(), event.getDateTime());
     }
     
@@ -31,7 +31,7 @@ public class TimeRemaining {
      * @param deadline deadline to be checked
      * @return amount of time remaining before it is due.
      */
-    public static Duration left(Deadline deadline) {
+    public static Duration secondsLeft(Deadline deadline) {
         return Duration.between(LocalDateTime.now(), deadline.getDateTime());
     }
 
@@ -41,7 +41,7 @@ public class TimeRemaining {
      * @param todo todo task to be checked.
      * @return 365 days by default
      */
-    public static Duration left(ToDo todo) {
+    public static Duration secondsLeft(ToDo todo) {
         return Duration.ofDays(14);
     }
     
@@ -52,7 +52,7 @@ public class TimeRemaining {
      * @return amount of time available (14 days in case of todo)
      */
 
-    public static Duration left(Task task) {
+    public static Duration secondsLeft(Task task) {
         if (task instanceof ToDo) {
             return Duration.ofDays(14);
         } else {

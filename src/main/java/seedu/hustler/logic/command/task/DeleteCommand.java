@@ -40,13 +40,16 @@ public class DeleteCommand extends Command {
             if (userInput[1].equals("all")) {
                 Hustler.list.clearList();
                 Scheduler.schedule.clear();
+                Scheduler.recommended.clear();
                 return;
             } else if (userInput[1].equals("done")) {
                 Hustler.list.clearDone();
                 Scheduler.schedule.clear();
+                Scheduler.recommended.clear();
                 return;
             }
             int taskIndex = Integer.parseInt(userInput[1]) - 1;
+            Scheduler.remove(Hustler.list.get(taskIndex));
             Hustler.list.removeTask(taskIndex);
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());

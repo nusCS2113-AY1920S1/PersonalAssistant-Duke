@@ -1,6 +1,6 @@
 package seedu.hustler.logic.parser.anomaly;
 
-import seedu.hustler.schedule.RecommendedSchedule;
+import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.Hustler;
 
@@ -20,7 +20,7 @@ public class RemoveEntryAnomaly extends DetectAnomaly {
             }
             index = Integer.parseInt(userInput[1]);
             index--;
-            RecommendedSchedule.recommended.get(index);
+            Scheduler.recommended.get(index);
         } catch (NumberFormatException e) {
             throw new CommandLineException("Please issue an index after the command: /command <index>");
         } catch (IndexOutOfBoundsException e) {

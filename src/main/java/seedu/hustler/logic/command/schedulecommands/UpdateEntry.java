@@ -4,7 +4,7 @@ import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.UpdateEntryAnomaly;
 import seedu.hustler.ui.Ui;
-import seedu.hustler.schedule.RecommendedSchedule;
+import seedu.hustler.schedule.Scheduler;
 
 /**
  * Changes the time allocated to an entry in the
@@ -42,8 +42,8 @@ public class UpdateEntry extends Command {
             int index = Integer.parseInt(numbers[0]);
             int time = this.parseDuration(numbers[1]); 
             index--;
-            RecommendedSchedule.updateAllocTime(index, time);
-            RecommendedSchedule.displayRecommendedSchedule();
+            Scheduler.updateAllocTime(index, time);
+            Scheduler.displayRecommendedSchedule();
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
             return;
