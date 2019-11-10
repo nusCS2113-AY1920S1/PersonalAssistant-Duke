@@ -66,6 +66,7 @@ public class Model {
     public void setEmailList(EmailList emailList) {
         this.emailList = emailList;
         updateGuiEmailList();
+        updateEmailTagMap();
         updateEmailTagList();
     }
 
@@ -97,9 +98,12 @@ public class Model {
         }
     }
 
+    public void updateEmailTagMap() {
+        EmailTags.updateTagMap(emailList);
+    }
+
     public void updateEmailTagList() {
         EmailTags.updateEmailTagList(emailList);
-        //UI.getInstance().updateEmailList(emailList.getEmailTagList());
     }
 
     /**
@@ -131,4 +135,5 @@ public class Model {
     public void setIsUpdateGui(boolean isUpdateGui) {
         this.isUpdateGui = isUpdateGui;
     }
+
 }

@@ -1,155 +1,310 @@
 package seedu.duke.email;
 
 import seedu.duke.email.entity.Email;
+import seedu.duke.email.parser.EmailCommandParseHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EmailTags {
     private static TagMap tagMap = new TagMap();
-
-    //private static HashMap<String, SubTagMap> tagMap = new HashMap<>();
+    private static ArrayList<String> emailTagList = new ArrayList<>();
 
     /**
-     * Read emailList to construct a HashMap for tree-structured tagged emails.
+     * Updates the list of tags exist in the emails.
      *
-     * @param emailList Duke emailList.
-     * @return HashMap of tags with their associated emails.
+     * @param emailList email list from model
+     * @return list of tags exist in emails
      */
-    public static HashMap<String, SubTagMap> updateEmailTagList(EmailList emailList) {
+    public static ArrayList<String> updateEmailTagList(EmailList emailList) {
+        emailTagList.clear();
         for (Email email : emailList) {
             ArrayList<Email.Tag> tags = email.getTags();
-            for (Email.Tag rootTag : tags) {
-                String rootTagName = rootTag.getKeywordPair().getKeyword();
-                for (Email.Tag subTag : tags) {
-                    String subTagName = subTag.getKeywordPair().getKeyword();
-
-                    EmailList subEmailList = new EmailList();
-                    SubTagMap subTagMap = new SubTagMap(subTagName, subEmailList);
-
-                    if (tagMap.containsKey(rootTagName)) {
-                        subTagMap = tagMap.get(rootTagName);
-
-                        if (subTagMap.containsKey(subTagName)) {
-                            subEmailList = subTagMap.get(subTagName);
-                        }
-                    }
-
-                    if (!subEmailList.contains(email)) {
-                        subEmailList.add(email);
-                        subTagMap.put(subTagName, subEmailList);
-                        tagMap.put(rootTagName, subTagMap);
-                    }
+            for (Email.Tag tag : tags) {
+                String tagName = tag.getKeywordPair().getKeyword();
+                if (!emailTagList.contains(tagName)) {
+                    emailTagList.add(tagName);
                 }
             }
+        }
+        return emailTagList;
+    }
+
+    /**
+     * Gets list of tags exist in the emails.
+     *
+     * @return list of tags exist in the emails.
+     */
+    public static ArrayList<String> getEmailTagList() {
+        return emailTagList;
+    }
+
+    /**
+     * Construct a HashMap to store the index of emails under the category of tags.
+     *
+     * @param emailList emailList from model.
+     * @return HashMap of tags with their associated emails.
+     * @see TagMap
+     */
+    public static HashMap<String, SubTagMap> updateTagMap(EmailList emailList) {
+        tagMap.clear();
+        for (int index = 0; index < emailList.size(); index++) {
+            Email email = emailList.get(index);
+            updateTagMapFromEachEmail(index, email);
         }
         return tagMap;
     }
 
     /**
-     * Display the tagged emails given the tagName.
+     * Updates TagMap from each emails by processing each tags in the email.
      *
-     * @param tags tag(s) input by users.
-     * @return String of tagged emails.
+     * @param index index of email
+     * @param email email
      */
-    public static String displayEmailTagList(ArrayList<String> tags) {
+    public static void updateTagMapFromEachEmail(int index, Email email) {
+        ArrayList<Email.Tag> tags = email.getTags();
+        for (Email.Tag rootTag : tags) {
+            String rootTagName = rootTag.getKeywordPair().getKeyword();
+            updateRootTagMap(index, tags, rootTagName);
+        }
+    }
+
+    /**
+     * Updates root tag map.
+     *
+     * @param index       index of email
+     * @param tags        list of all tags in the email
+     * @param rootTagName each tags in the email
+     */
+    public static void updateRootTagMap(int index, ArrayList<Email.Tag> tags, String rootTagName) {
+        for (Email.Tag subTag : tags) {
+            String subTagName = subTag.getKeywordPair().getKeyword();
+            updateSubTagMap(index, rootTagName, subTagName);
+        }
+    }
+
+    /**
+     * Inserts the email under its tag category in the HashMap.
+     *
+     * @param index       index of email
+     * @param rootTagName root tag name
+     * @param subTagName  sub tag name
+     */
+    public static void updateSubTagMap(int index, String rootTagName, String subTagName) {
+        ArrayList<Integer> indexList = new ArrayList<Integer>();
+        SubTagMap subTagMap = new SubTagMap(subTagName, indexList);
+        if (tagMap.containsKey(rootTagName)) {
+            subTagMap = tagMap.get(rootTagName);
+            if (subTagMap.containsKey(subTagName)) {
+                indexList = subTagMap.get(subTagName);
+            }
+        }
+        // add the index of the email tagged with both rootTag and subTag to the indexList
+        if (!indexList.contains(index)) {
+            indexList.add(index);
+            subTagMap.put(subTagName, indexList);
+            tagMap.put(rootTagName, subTagMap);
+        }
+    }
+
+    /**
+     * Filters the emails by the specified tags.
+     *
+     * @param tags tags
+     * @param emailList email list from model
+     * @return
+     */
+    public static String filterByEmailTag(ArrayList<String> tags, EmailList emailList) {
         String responseMsg = "";
-        if (tags.size() > 2) {
-            responseMsg = "[Input format error] Maximum of 2 tag names are allowed for email tag-"
-                    + "searching.";
-            return responseMsg;
-        }
-
-        if (tags.size() == 1) {
-            String tagName = tags.get(0);
-            if (!tagMap.containsKey(tagName)) {
-                responseMsg = "[Input content error] The tag #" + tagName + " does not exists.";
-                return responseMsg;
-            }
-            responseMsg += "Here are the email(s) tagged with #" + tagName + ": " + System.lineSeparator()
-                    + System.lineSeparator();
-            EmailList emailList = tagMap.get(tagName).get(tagName);
-            responseMsg += emailList.toString();
-            return responseMsg;
-        }
-
-        if (tags.size() == 2) {
-            String tagNameOne = tags.get(0);
-            String tagNameTwo = tags.get(1);
-            if (!tagMap.containsKey(tagNameOne) && !tagMap.containsKey(tagNameTwo)) {
-                responseMsg = "[Input content error] The tags #" + tagNameOne + " and #" + tagNameTwo
-                        + " does not exists.";
-                return responseMsg;
-            }
-            if (!tagMap.containsKey(tagNameOne)) {
-                responseMsg = "[Input content error] The tag #" + tagNameOne + " does not exists. ";
-                responseMsg += "Here are the email(s) tagged with #" + tagNameTwo + ": " + System.lineSeparator()
-                        + System.lineSeparator();
-                EmailList emailList = tagMap.get(tagNameTwo).get(tagNameTwo);
-                responseMsg += emailList.toString();
-                return responseMsg;
-            }
-            if (!tagMap.containsKey(tagNameTwo)) {
-                responseMsg = "[Input content error] The tag #" + tagNameTwo + " does not exists. ";
-                responseMsg += "Here are the email(s) tagged with #" + tagNameOne + ": "
-                        + System.lineSeparator() + System.lineSeparator();
-                EmailList emailList = tagMap.get(tagNameOne).get(tagNameOne);
-                responseMsg += emailList.toString();
-                return responseMsg;
-            }
-            if (!tagMap.get(tagNameOne).containsKey(tagNameTwo)) {
-                responseMsg = "No email is tagged with both #" + tagNameOne + " and #" + tagNameTwo + ": "
-                        + System.lineSeparator();
-                responseMsg += System.lineSeparator() + "Here are the email(s) tagged with #" + tagNameOne
-                        + ": " + System.lineSeparator() + System.lineSeparator();
-                EmailList emailListOne = tagMap.get(tagNameOne).get(tagNameOne);
-                responseMsg += emailListOne.toString();
-                responseMsg += System.lineSeparator() + System.lineSeparator() + "Here are the email(s) "
-                        + "tagged with #" + tagNameTwo + ": " + System.lineSeparator() + System.lineSeparator();
-                EmailList emailListTwo = tagMap.get(tagNameTwo).get(tagNameTwo);
-                responseMsg += emailListTwo.toString();
-                return responseMsg;
-            }
-            responseMsg = "Here are the email(s) tagged with both #" + tagNameOne + " and #" + tagNameTwo
-                    + ": " + System.lineSeparator() + System.lineSeparator();
-            EmailList emailList = tagMap.get(tagNameOne).get(tagNameTwo);
-            responseMsg += emailList.toString();
+        try {
+            responseMsg = getTaggedEmailList(tags, emailList);
+        } catch (EmailTagParseException e) {
+            responseMsg = e.getMessage();
         }
         return responseMsg;
     }
 
     /**
-     * String for displaying root tagged emails.
+     * Gets list of tagged emails given one or two tags from user input.
      *
-     * @param tagName tagName input by user.
-     * @return String for displaying root tagged emails.
+     * @param tags tag(s) input by users.
+     * @return list of tagged emails.
      */
-    public String displayRootEmailTag(String tagName) {
-        String responseMsg = "Here are the email(s) tagged with #" + tagName + ": " + System.lineSeparator()
+    public static String getTaggedEmailList(ArrayList<String> tags, EmailList emailList) throws EmailTagParseException {
+        if (tags.size() == 1) {
+            String tagName = tags.get(0);
+            return getRootTaggedEmailList(tagName, emailList);
+        }
+
+        String tagOne = tags.get(0);
+        String tagTwo = tags.get(1);
+        // both tags do not exist
+        if (!isOneTagExist(tagOne) && !isOneTagExist(tagTwo)) {
+            throw new EmailTagParseException("[Input content error] The tags #" + tagOne + " and #" + tagTwo
+                            + " does not exists.");
+        }
+        // first tag does not exist, returns only list of emails with the second tag
+        if (!isOneTagExist(tagOne)) {
+            ArrayList<Integer> indexList = tagMap.get(tagTwo).get(tagTwo);
+            return getOneTagMessage(emailList, tagOne, tagTwo, indexList);
+        }
+        // second tag does not exist, returns only list of emails with the first tag
+        if (!isOneTagExist(tagTwo)) {
+            ArrayList<Integer> indexList = tagMap.get(tagOne).get(tagOne);
+            return getOneTagMessage(emailList, tagTwo, tagOne, indexList);
+        }
+        // both tags exist, but do not co-exist, returns list of emails with only the first tag and
+        // second tag respectively
+        if (!isBothTagCoexist(tagOne, tagTwo)) {
+            ArrayList<Integer> indexListOne = tagMap.get(tagOne).get(tagOne);
+            ArrayList<Integer> indexListTwo = tagMap.get(tagTwo).get(tagTwo);
+            return getTagsNotCoexistMessage(emailList, tagOne, tagTwo, indexListOne, indexListTwo);
+        }
+        // both tags exist and co-exist, returns list of emails with both tags
+        ArrayList<Integer> indexList = tagMap.get(tagOne).get(tagTwo);
+        return getTagsCoexistMessage(emailList, tagOne, tagTwo, indexList);
+    }
+
+    /**
+     * Checks the existence of a tag.
+     * A tag exists if there is an email with the tag. If none of the emails has the tag, tag does not exist.
+     *
+     * @param tag tag name
+     * @return true if the tag exists
+     */
+    public static Boolean isOneTagExist(String tag) {
+        if (tagMap.containsKey(tag)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if both tags co-exist.
+     * Both tags co-exist if there is an email tagged with both tags at the same time.
+     * Two tags exist but not co-exist means that no email has both tags at the same time, but some emails
+     * have one of the tags each.
+     *
+     * @param tagOne first tag name
+     * @param tagTwo second tag name
+     * @return true if both tags co-exist
+     */
+    public static Boolean isBothTagCoexist(String tagOne, String tagTwo) {
+        if (!tagMap.containsKey(tagOne) || !tagMap.containsKey(tagTwo)) {
+            return false;
+        }
+        if (tagMap.get(tagOne).containsKey(tagTwo)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Constructs response message for two tags input, only one of the tags exists.
+     *
+     * @param emailList email list from model
+     * @param tagNameNotExist tag name that does not exist
+     * @param tagNameExist tag name that exists
+     * @param indexList index list of tagged emails
+     * @return
+     */
+    public static String getOneTagMessage(EmailList emailList, String tagNameNotExist, String tagNameExist,
+                                        ArrayList<Integer> indexList) {
+        String responseMsg = "[Input content error] The tag #" + tagNameNotExist + " does not exists. ";
+        responseMsg += "Here are the email(s) tagged with #" + tagNameExist + ": "
+                + System.lineSeparator() + System.lineSeparator();
+        responseMsg += emailList.toString(indexList);
+        return responseMsg;
+    }
+
+    /**
+     * Constructs response message for two tags input, both tags co-exist.
+     *
+     * @param emailList email list from model
+     * @param tagNameOne first tag name
+     * @param tagNameTwo second tag name
+     * @param indexList index list of tagged emails
+     * @return
+     */
+    public static String getTagsCoexistMessage(EmailList emailList, String tagNameOne, String tagNameTwo,
+                                               ArrayList<Integer> indexList) {
+        String responseMsg = "Here are the email(s) tagged with both #" + tagNameOne + " and #" + tagNameTwo
+                + ": " + System.lineSeparator() + System.lineSeparator();
+        responseMsg += emailList.toString(indexList);
+        return responseMsg;
+    }
+
+    /**
+     * Constructs response message for two tags input, both tags do not co-exist.
+     *
+     * @param emailList email list from model
+     * @param tagNameOne first tag name
+     * @param tagNameTwo second tag name
+     * @param indexListOne index list of emails with first tag
+     * @param indexListTwo index list of emails with second tag
+     * @return
+     */
+    public static String getTagsNotCoexistMessage(EmailList emailList, String tagNameOne, String tagNameTwo,
+                                                ArrayList<Integer> indexListOne,
+                                                  ArrayList<Integer> indexListTwo) {
+        String responseMsg = "No email is tagged with both #" + tagNameOne + " and #" + tagNameTwo + ": "
                 + System.lineSeparator();
-        SubTagMap subTagMap = tagMap.get(tagName);
-        for (HashMap.Entry<String, EmailList> entry : subTagMap.entrySet()) {
+        responseMsg += System.lineSeparator() + "Here are the email(s) tagged with #" + tagNameOne
+                + ": " + System.lineSeparator() + System.lineSeparator();
+        responseMsg += emailList.toString(indexListOne);
+        responseMsg += System.lineSeparator() + System.lineSeparator() + "Here are the email(s) "
+                + "tagged with #" + tagNameTwo + ": " + System.lineSeparator() + System.lineSeparator();
+        responseMsg += emailList.toString(indexListTwo);
+        return responseMsg;
+    }
+
+    /**
+     * Gets list of tagged emails given a single tag name, namely rootTagName.
+     *
+     * @param rootTagName tag input by user.
+     * @return list of emails with tags co-exist with a given a single tagName.
+     */
+    public static String getRootTaggedEmailList(String rootTagName, EmailList emailList) throws EmailTagParseException {
+        if (!isOneTagExist(rootTagName)) {
+            throw new EmailTagParseException("[Input content error] The tag #" + rootTagName + " does not "
+                    + "exists.");
+        }
+        String responseMsg = "Here are the email(s) tagged with #" + rootTagName + ": " + System.lineSeparator()
+                + System.lineSeparator();
+        SubTagMap subTagMap = tagMap.get(rootTagName);
+        // For each tag that co-exists with rootTagName, namely subTagName, gets the list of emails tagged
+        // with both the rootTagName and subTagName.
+        for (HashMap.Entry<String, ArrayList<Integer>> entry : subTagMap.entrySet()) {
             String subTagName = entry.getKey();
-            EmailList emailList = entry.getValue();
-            if (subTagName.equals(tagName)) {
-                continue;
-            }
-            responseMsg += subTagName + System.lineSeparator() + System.lineSeparator() + ": " + emailList.toString()
-                    + "" + System.lineSeparator() + System.lineSeparator();
+            ArrayList<Integer> indexList = entry.getValue();
+            responseMsg += "[" + subTagName + "]" + System.lineSeparator() + emailList.toString(indexList)
+                    + System.lineSeparator();
         }
         return responseMsg;
     }
 
-    public static class SubTagMap extends HashMap<String, EmailList> {
+    /**
+     * A structure that stores subTagName and its indexlist of emails.
+     * Each entry of SubTagMap is a pair of subTagName and indexList.
+     * SubTagName is the tag that co-exist with the rootTagName.
+     * IndexList is the list of indexes of emails tagged with both rootTag and subTag.
+     * @see TagMap
+     */
+    public static class SubTagMap extends HashMap<String, ArrayList<Integer>> {
         private String subTagName;
-        private EmailList subEmailList;
+        private ArrayList<Integer> indexList;
 
-        public SubTagMap(String subTagName, EmailList subEmailList) {
+        public SubTagMap(String subTagName, ArrayList<Integer> indexList) {
             this.subTagName = subTagName;
-            this.subEmailList = subEmailList;
+            this.indexList = indexList;
         }
     }
 
+    /**
+     * A structure that stores each tags and its subTagMap.
+     * Each entry of TagMap is a pair of rootTagName and subTagMap.
+     * @see SubTagMap
+     */
     public static class TagMap extends HashMap<String, SubTagMap> {
         private String rootTagName;
         private SubTagMap subTagMap;
@@ -164,5 +319,18 @@ public class EmailTags {
         }
     }
 
-
+    /**
+     * An type of exception to handle the unexpected user/file input related to email tags. The message
+     * contains more specific information.
+     */
+    public static class EmailTagParseException extends EmailCommandParseHelper.EmailParseException {
+        /**
+         * Instantiates the exception with a message, which is ready to be displayed by the UI.
+         *
+         * @param msg the message that is ready to be displayed by UI.
+         */
+        public EmailTagParseException(String msg) {
+            super(msg);
+        }
+    }
 }

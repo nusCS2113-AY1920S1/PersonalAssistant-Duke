@@ -9,10 +9,13 @@ import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.common.model.Model;
 import seedu.duke.email.EmailKeywordPairList;
 import seedu.duke.email.command.EmailAddKeywordCommand;
+import seedu.duke.email.command.EmailClearCommand;
+import seedu.duke.email.command.EmailDeleteCommand;
 import seedu.duke.email.command.EmailFetchCommand;
+import seedu.duke.email.command.EmailFilterByTagCommand;
+import seedu.duke.email.command.EmailListAllTagsCommand;
 import seedu.duke.email.command.EmailListCommand;
 import seedu.duke.email.command.EmailListKeywordCommand;
-import seedu.duke.email.command.EmailListTagCommand;
 import seedu.duke.email.command.EmailShowCommand;
 import seedu.duke.email.command.EmailTagCommand;
 import seedu.duke.email.entity.KeywordPair;
@@ -59,10 +62,15 @@ public class EmailCommandParseHelper {
             return new EmailFetchCommand();
         case "listKeyword":
             return new EmailListKeywordCommand();
+        case "listTag":
+            return new EmailListAllTagsCommand();
+        case "clear":
+            return new EmailClearCommand();
         default:
         }
-
         switch (emailCommand) {
+        case "delete":
+            return parseDeleteCommand(strippedPrefixInput);
         case "list":
             return parseEmailListCommand(optionList, strippedPrefixInput);
         case "show":
@@ -80,6 +88,12 @@ public class EmailCommandParseHelper {
         return input.split(" ")[0];
     }
 
+    /**
+     * Removes prefix "email" from the input command.
+     *
+     * @param rawInput input command form user input text field.
+     * @return stripped prefix command
+     */
     private static String stripPrefix(String rawInput) {
         if (!rawInput.contains("email ")) {
             return null;
@@ -87,7 +101,23 @@ public class EmailCommandParseHelper {
         return rawInput.split("email ", 2)[1].strip();
     }
 
-    private static Command parseEmailListCommand(ArrayList<Command.Option> optionList, String input) {
+    private static Command parseDeleteCommand(String input) throws EmailParseException {
+        Pattern deleteCommandPattern = Pattern.compile("^delete\\s+(?<index>\\d+)\\s*$");
+        Matcher deleteCommandMatcher = deleteCommandPattern.matcher(input);
+        if (!deleteCommandMatcher.matches()) {
+            return new InvalidCommand("Please enter a valid index (positive integer equal or less than the "
+                    + "number of emails) after \'delete\'");
+        }
+        try {
+            int index = parseEmailIndex(deleteCommandMatcher.group("index"));
+            return new EmailDeleteCommand(index);
+        } catch (EmailParseException e) {
+            throw new EmailParseException(e.getMessage());
+        }
+    }
+
+    private static Command parseEmailListCommand(ArrayList<Command.Option> optionList, String input)
+            throws EmailParseException {
         if (optionList.size() == 0 && "list".equals(input)) {
             return new EmailListCommand();
         }
@@ -95,7 +125,12 @@ public class EmailCommandParseHelper {
         if (!tagsNotEmpty(tags)) {
             return new InvalidCommand("Please enter a tag name after \'-tag\' option");
         }
-        return new EmailListTagCommand(tags);
+        // only a maximum of 2 input tags is allowed
+        if (tags.size() > 2) {
+            throw new EmailParseException("[Input format error] Maximum of 2 tag names are allowed for email tag-"
+                    + "searching.");
+        }
+        return new EmailFilterByTagCommand(tags);
     }
 
     private static Command parseShowEmailCommand(String input) throws EmailParseException {
@@ -103,7 +138,7 @@ public class EmailCommandParseHelper {
         Matcher showCommandMatcher = showCommandPattern.matcher(input);
         if (!showCommandMatcher.matches()) {
             return new InvalidCommand("Please enter a valid index (positive integer equal or less than the "
-                    + "number of emails) of task after \'show\'");
+                    + "number of emails) after \'show\'");
         }
         try {
             int index = parseEmailIndex(showCommandMatcher.group("index"));
@@ -164,9 +199,13 @@ public class EmailCommandParseHelper {
             throw new EmailParseException("Invalid index. Index of range 1 ~ 99999 is accepted.");
         }
         int index = Integer.parseInt(input) - 1;
-        if (index < 0 || index >= Model.getInstance().getEmailListLength()) {
+        int emailListLength = Model.getInstance().getEmailListLength();
+        if (emailListLength == 0) {
+            throw new EmailParseException("email list is empty");
+        }
+        if (index < 0 || index >= emailListLength) {
             throw new EmailParseException("Index " + (index + 1) + " out of bounds of 1 to "
-                    + Model.getInstance().getEmailListLength());
+                    + emailListLength);
         }
         return index;
     }
@@ -181,7 +220,7 @@ public class EmailCommandParseHelper {
         return expressionList;
     }
 
-    private static class EmailParseException extends CommandParseHelper.CommandParseException {
+    public static class EmailParseException extends CommandParseHelper.CommandParseException {
         /**
          * Instantiates the exception with a message, which is ready to be displayed by the UI.
          *

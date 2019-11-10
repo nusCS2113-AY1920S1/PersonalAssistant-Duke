@@ -8,6 +8,7 @@ public class TimestampHelper {
     public static DateTimeFormatter timestampFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss"
             + "'Z'")
             .withResolverStyle(ResolverStyle.STRICT);
+
     /**
      * Gets a timestamp to be used in file.
      *
