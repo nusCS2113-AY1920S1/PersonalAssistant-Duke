@@ -61,9 +61,6 @@ public abstract class Ui {
         + "\n\tI help keep track of your finance!\n"
         + "\tWhat can I do for you?";
 
-    //private static String dollaMode = ANSI_CYAN + "\t\n°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE: DOLLA "
-    //        + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET;
-
     private static String dollaMode = ANSI_CYAN + "\n\t( o_o)O ~~ MODE: DOLLA "
             + " ~~ \n" + ANSI_RESET;
 
@@ -163,7 +160,7 @@ public abstract class Ui {
         System.out.println(line);
     }
 
-    //@@author
+    //@@author omupenguin
     /**
      * Print exit msg.
      */
@@ -244,19 +241,5 @@ public abstract class Ui {
         System.out.println(line);
     }
 
-    public static void printSingleOverview(double todayOverview) {
-        System.out.println(line);
-    }
 
-    /**
-     * Prints a message to alert user that the list to be iterated through is empty.
-     * @param mode record name to be used
-     */
-    public static void printEmptyListError(String mode) {
-        System.out.println(line);
-        System.out.println("\tI'm sorry, but there doesn't seem to be anything in "
-                + mode + "for me to through. ");
-        System.out.println("Try adding a new " + mode + "and try again!");
-        System.out.println(line);
-    }
 }

@@ -20,7 +20,7 @@ import java.time.LocalDate;
 //@@author omupenguin
 public class DollaParser extends Parser {
 
-    protected static final String TODAY = "today";
+    protected static final String VIEW_TODAY = "today";
 
     public DollaParser(String inputLine) {
         super(inputLine);
@@ -80,7 +80,7 @@ public class DollaParser extends Parser {
 
     private boolean verifyViewTodayCommand() {
         try {
-            return inputArray[1].equals(TODAY);
+            return inputArray[1].equals(VIEW_TODAY);
         } catch (IndexOutOfBoundsException e) {
             ViewUi.printInvalidViewFormatError();
             return false;

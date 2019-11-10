@@ -4,6 +4,7 @@ import dolla.command.Command;
 import dolla.model.DollaData;
 import dolla.model.Record;
 import dolla.model.RecordList;
+import dolla.ui.ListUi;
 import dolla.ui.Ui;
 import dolla.ui.ViewUi;
 
@@ -25,7 +26,7 @@ public class ViewCommand extends Command {
         boolean hasRelevantEntries = false;
 
         if (entryList.isEmpty()) {
-            Ui.printEmptyListError(MODE_ENTRY);
+            ListUi.printEmptyListError(MODE_ENTRY);
             return;
         }
 
