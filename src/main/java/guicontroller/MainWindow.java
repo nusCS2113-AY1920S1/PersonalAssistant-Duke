@@ -1,5 +1,8 @@
+package guicontroller;
+
+import controlpanel.Duke;
 import controlpanel.DukeException;
-import guicommand.UserIcon;
+import controlpanel.GraphSelector;
 import help.AutoComplete;
 import help.History;
 import javafx.application.Platform;
@@ -20,7 +23,7 @@ import java.text.ParseException;
 import java.util.TreeSet;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller for guicontroller.MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -46,7 +49,7 @@ public class MainWindow extends AnchorPane {
 
 
     /**
-     * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
+     * Initialises scroll bar and outputs controlpanel.Duke Welcome message on startup of GUI.
      */
     //@@author {therealnickcheong}
     @FXML
@@ -84,7 +87,7 @@ public class MainWindow extends AnchorPane {
 
     //@@author cctt1014
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to.
+     * Creates two dialog boxes, one echoing user input and the other containing controlpanel.Duke's reply and then appends them to.
      * the dialog container. Clears the user input after processing.
      */
     @FXML

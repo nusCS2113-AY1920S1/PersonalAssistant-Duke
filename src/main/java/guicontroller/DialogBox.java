@@ -1,3 +1,5 @@
+package guicontroller;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -55,7 +57,7 @@ public class DialogBox extends HBox {
      * This method give the GUI in the form of a Dialog Box.
      * @param text string written on the GUI.
      * @param img image show on the GUI.
-     * @return DialogBox a GUI to interact with the user.
+     * @return guicontroller.DialogBox a GUI to interact with the user.
      */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
