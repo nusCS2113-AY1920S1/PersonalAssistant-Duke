@@ -1,4 +1,5 @@
 = MisterMusik - User Guide
+:icons: font
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -52,7 +53,11 @@ Format: `help [<command type>]`
 Note: Command types are the first word of following commands or some key words listed in the basic help list.
 
 === List : `list`
-List all the events from the current date. +
+List all the events from the current date. Additionally it tracks which events are already over and prints out only
+future events, starting from the index of the nearest future event e.g. if the first and second events of the list are
+already over, it will list from the third event onwards while keeping the event index the same.
+
+It also gives a reminder of which of the past events contain goals that are not yet marked as achieved. +
 
 Format: `list`
 
@@ -167,7 +172,7 @@ Format: `edit <index for edition>/<new description>`
 
 
 === Contact management : `contact`
-The user is able to add, delete, view, and edit contacts information of an event.
+The user is able to add, delete, view, and edit contacts information of an event or todo.
 A contact includes name, email address, and phone number.
 
 ==== Add contact item
@@ -213,6 +218,10 @@ This sets the specified goal as achieved.
 `goal view <event index>`
 This displays the goals list of a specified event along with their status - whether a goal is achieved or not.
 
+==== Storing contact lists in a text file : `[coming v2.0]`
+Contact lists now cannot be seen after restarting MisterMusik. In future, contact lists will be stored into a text file
+automatically. The user will be able to edit them in the text file.
+
 === Checklists : `checklist`
 Checklist of each event can be used to remind users of certain items (e.g. bring glasses to concert).
 This is implemented by storing an array list of strings in `Event` objects.
@@ -235,13 +244,19 @@ This edits a specific item in the checklist of an event.
 `checklist delete <event index> <item index>`
 This deletes an item from the checklist of an event.
 
-=== viewing monthly costs of concerts : `budget`
-The total cost of concerts each month can be viewed by the user using the
-`budget` command.
+=== Budget handling : `budget`
+==== Viewing monthly costs of concerts
+The total cost of concerts each month can be viewed by the user using the `budget` command.
 
 Format: `budget MM-yyyy` symbolising the month and year the user wishes to take a look at. +
 Note: MM must be a two digit value. For example, the month of may, 2019 must be entered as
 `05-2019` instead of `5-2019`.
+
+==== Setting new monthly budget
+The user is able to set the budget for concerts of each month by using the `budget` command.
+
+Format: `budget set <new budget>` +
+FOR example, `budget set 87` will set the budget for every month to $87.
 
 === Exiting the program : `bye`
 

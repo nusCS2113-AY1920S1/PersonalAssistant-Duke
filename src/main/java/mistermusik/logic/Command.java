@@ -651,30 +651,46 @@ public class Command {
             if (goalCommand.length == 3) {
                 int goalIndex = Integer.parseInt(goalCommand[2]);
                 switch (goalCommand[0]) {
-                case "delete":
-                    if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                        String deletedGoal = events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getGoal();
-                        events.getEvent(eventIndex).removeGoal(goalIndex - 1);
-                        ui.printGoalDeleted(deletedGoal);
-                    } else {
-                        ui.printNoSuchGoal();
-                    }
-                    break;
+                    case "delete":
+                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                            try {
+                                String deletedGoal = events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getGoal();
+                                events.getEvent(eventIndex).removeGoal(goalIndex - 1);
+                                ui.printGoalDeleted(deletedGoal);
+                            } catch (IndexOutOfBoundsException iE) {
+                                ui.printNoSuchGoal();
+                            }
+                        } else {
+                            ui.printNoSuchGoal();
+                        }
+                        break;
 
-                case "edit":
-                    if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                        Goal newGoal = new Goal(splitGoal[1]);
-                        events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
-                        ui.printGoalUpdated(events, eventIndex, goalIndex - 1);
-                    } else {
-                        ui.printNoSuchGoal();
-                    }
-                    break;
+                    case "edit":
+                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                            try {
+                                Goal newGoal = new Goal(splitGoal[1]);
+                                events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
+                                ui.printGoalUpdated(events, eventIndex, goalIndex - 1);
+                            } catch (IndexOutOfBoundsException iE) {
+                                ui.printNoSuchGoal();
+                            }
+                        } else {
+                            ui.printNoSuchGoal();
+                        }
+                        break;
 
-                case "achieved":
-                    if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                        if(events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
-                            ui.printGoalAlreadyAchieved();
+                    case "achieved":
+                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                            try {
+                                if (events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
+                                    ui.printGoalAlreadyAchieved();
+                                } else {
+                                    events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
+                                    ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                                }
+                            } catch (IndexOutOfBoundsException iE) {
+                                ui.printNoSuchGoal();
+                            }
                         } else {
                             events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
                             ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
@@ -734,9 +750,6 @@ public class Command {
             if (contactCommand.length == 2) {
                 switch (contactCommand[0]) {
                 case "add":
-                    if (!continuation.contains("/")) {
-                        throw new UnsupportedOperationException();
-                    }
                     String[] contactDetails = splitContact[1].split(",");
                     if (contactDetails.length != 3) {
                         throw new UnsupportedOperationException();
@@ -757,10 +770,10 @@ public class Command {
                     throw new UnsupportedOperationException();
                 }
             } else {
-                int contactIndex = Integer.parseInt(contactCommand[2]) - 1;
                 switch (contactCommand[0]) {
                 case "delete":
                     try {
+                        int contactIndex = Integer.parseInt(contactCommand[2]) - 1;
                         events.getEvent(eventIndex).removeContact(contactIndex);
                         ui.printContactDeleted();
                     } catch (IndexOutOfBoundsException e) {
@@ -786,6 +799,7 @@ public class Command {
                             throw new UnsupportedOperationException();
                     }
                     try {
+                        int contactIndex = Integer.parseInt(contactCommand[2]) - 1;
                         events.getEvent(eventIndex).editContact(contactIndex, editType, splitContact[1]);
                         ui.printContactEdited(events.getEvent(eventIndex).getContactList().get(contactIndex));
                     } catch (IndexOutOfBoundsException e) {
