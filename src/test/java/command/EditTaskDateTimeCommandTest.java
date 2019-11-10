@@ -57,7 +57,8 @@ public class EditTaskDateTimeCommandTest {
         model.addTask("Create event poster");
         Command command = EditTaskDateTimeParser.parseEditTaskDateTime("1 /to 10/10/2020 1010");
         CommandOutput out = command.execute(model);
-        assertEquals("The deadline has been changed to: Sat Oct 10 10:10:00 SGT 2020", out.getOutputToUser());
+        String output = out.getOutputToUser();
+        assertEquals("The deadline has been changed to: Sat Oct 10 10:10:00 SGT 2020", output);
     }
 
 }

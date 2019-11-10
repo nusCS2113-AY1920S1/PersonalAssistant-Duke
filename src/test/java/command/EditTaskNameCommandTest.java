@@ -1,12 +1,10 @@
 package command;
 
 import common.DukeException;
-import logic.command.AddTaskCommand;
 import logic.command.Command;
 import logic.command.CommandOutput;
 import logic.parser.edit.EditTaskNameParser;
 import model.Model;
-import model.MemberManager;
 import model.ModelController;
 import org.junit.jupiter.api.Test;
 
