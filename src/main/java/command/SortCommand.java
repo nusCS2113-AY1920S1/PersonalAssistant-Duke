@@ -6,7 +6,6 @@ package command;
 import degree.DegreeManager;
 import exception.DukeException;
 import list.DegreeList;
-import main.Duke;
 import storage.Storage;
 import task.TaskList;
 import ui.UI;
@@ -48,14 +47,19 @@ public class SortCommand extends Command {
 
         else if (this.arguments.matches("by degree")){
             tasks.sortbyDegree(lists);
-        }
-
-        else{
+        } else {
             throw new DukeException("That is not a valid way to sort your tasks!\n" +
                     "Try typing:\n" +
                     "   sort by priority\n" +
                     "   sort by date\n" +
                     "   sort by degree" );
+        }
+
+        try {
+            storage.store(tasks);
+            storage.add_degrees(lists);
+        } catch (DukeException e) {
+            throw new DukeException("Save Error: " + e.getLocalizedMessage());
         }
     }
 

@@ -23,6 +23,8 @@ import java.io.IOException;
 public abstract class Command {
     boolean exit = false;
     Memento memento; //A class to save the previous state of a list after a command
+    Memento memento1; //Additional mementos in the event 2 lists are modified at the same time.
+    Memento memento2;
 
     Command() {
     }

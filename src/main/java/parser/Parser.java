@@ -16,9 +16,7 @@ import java.util.Scanner;
 public class Parser {
     public static String deadline = "\\s*/by\\s*";
     public static String event = "\\s*/at\\s*";
-    public static String recurring = "\\s*/every\\s*";
     public static String after = "\\s*/after\\s*";
-    public static String within = "\\s*/between\\s*";
     public static String priority = "\\s*/priority\\s*";
     public static String taskSeparator = "\\s*\\|\\s*";
     public static String dateSeparator = "\\s*\\&\\s*";
@@ -29,6 +27,7 @@ public class Parser {
     public static String acceptedExtensions = "txt|csv";
     public static String moduleFormat = "[A-Z]{2,3}[1-9]([0-9]{3}|X{3})[A-Z]{0,1}";
     public static final Map<String, String> userPriorityMap;
+
     static {
         Map<String, String> aMap = new HashMap<>();
         aMap.put("very high", "Very High");
@@ -104,7 +103,6 @@ public class Parser {
     public static Command parse(String line) throws DukeException {
         Scanner temp = new Scanner(line);
 
-
         if (!temp.hasNext()) {
             throw new DukeException("Empty Command!");
         }
@@ -129,8 +127,8 @@ public class Parser {
             } else { //if the user wants to display help for only one command
                 String input = temp.nextLine();
                 input = input.strip();
-                if (input.matches("help|detail|compare|add|degreelist|swap|replace|delete|clear|custom"
-                        + "|bye|undo|redo")) {
+                if (input.matches("help|detail|compare|add|swap|delete|bye|undo|redo|schedule|event|todo"
+                        + "|deadline|view_employment|cohort_size|done|choices|find|remove|snooze|sort|tasks")) {
                     return new HelpCommand(command, input);
                 } else {
                     throw new DukeException("I do not understand that command. "
