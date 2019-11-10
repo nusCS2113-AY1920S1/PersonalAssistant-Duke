@@ -10,9 +10,7 @@ import java.util.logging.Logger;
 
 public class Budget {
 
-
     private static final Logger logger = LogsCenter.getLogger(Budget.class);
-
 
     private BigDecimal monthlyBudget;
     /**

@@ -2,28 +2,22 @@ package duke.ui;
 
 import duke.commons.LogsCenter;
 import duke.logic.Logic;
-import duke.model.BudgetView;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-import javax.swing.*;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+/**
+ * Pane that reflects the various budget views
+ */
 public class BudgetBar extends UiPart<Region> {
     private static final Logger logger = LogsCenter.getLogger(BudgetBar.class);
 
@@ -52,6 +46,10 @@ public class BudgetBar extends UiPart<Region> {
     @FXML
     VBox vBox6;
 
+    /**
+     * Constructor of BudgetBar
+     * @param logic
+     */
     public BudgetBar(Logic logic) {
         super(FXML_FILE_NAME,null);
         this.logic = logic;
@@ -128,7 +126,15 @@ public class BudgetBar extends UiPart<Region> {
         }
     }
 
-    public double percentage(int viewPane, Logic logic) {
+    /**
+     * Returns a double percentage of the budget set that has been spent already.
+     * Further reflected in the individual bars.
+     *
+     * @param viewPane the specified pane
+     * @param logic logic
+     * @return percent of budget spent
+     */
+    private double percentage(int viewPane, Logic logic) {
         String category = logic.getBudgetViewCategory().get(viewPane);
         double percent = logic.getTagAmount(category).doubleValue() / logic.getBudgetTag(category).doubleValue();
 
@@ -140,7 +146,15 @@ public class BudgetBar extends UiPart<Region> {
         return percent;
     }
 
-    public BigDecimal remainder(int viewPane, Logic logic) {
+    /**
+     * Returns a BigDecimal remainder of the budget set that has not been spent
+     * Further reflected in the individual panes.
+     *
+     * @param viewPane the specified pane
+     * @param logic logic
+     * @return remaining leftover of the budget yet to be spent
+     */
+    private BigDecimal remainder(int viewPane, Logic logic) {
         String category = logic.getBudgetViewCategory().get(viewPane);
         BigDecimal remaining = logic.getBudgetTag(category).subtract(logic.getTagAmount(category));
 

@@ -11,8 +11,15 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class IncomeList extends DukeList<Income> {
+/**
+ * IncomeList keeps the list of incomes input by the user.
+ * It supports a set of basic operations such as adding incomes, removing incomes,
+ * and getting the entire list. It inherits from DukeList.
+ *
+ * It is reflected in BudgetPane for users to keep track of.
+ */
 
+public class IncomeList extends DukeList<Income> {
 
     private static final Logger logger = LogsCenter.getLogger(IncomeList.class);
 
@@ -20,6 +27,11 @@ public class IncomeList extends DukeList<Income> {
     private ObservableList<Income> externalIncomeList;
     private StringProperty totalString;
 
+    /**
+     * Constructor for IncomeList
+     *
+     * @param internalList loaded income list from storage
+     */
     public IncomeList(List<Income> internalList) {
         super(internalList, "income");
 
@@ -29,12 +41,20 @@ public class IncomeList extends DukeList<Income> {
         updateExternalList();
     }
 
+    /**
+     * Method to update the list upon any changes to income list
+     */
     private void updateExternalList() {
         internalIncomeList = internalList;
         externalList.setAll(FXCollections.observableArrayList(internalIncomeList));
         totalString.setValue("Total Income: $" + getTotalExternalAmount());
     }
 
+    /**
+     * Adds an income to incomeList
+     *
+     * @param income
+     */
     @Override
     public void add(Income income) {
         super.add(income);
@@ -42,23 +62,42 @@ public class IncomeList extends DukeList<Income> {
         logger.info("externalList lengths " + externalList.size());
     }
 
+    /**
+     * Deletes an income from the incomeList according to its index
+     *
+     * @param index the index of the item to in {@code externalList}.
+     * @throws DukeException if index is not valid
+     */
     @Override
     public void remove(int index) throws DukeException {
         super.remove(index);
         updateExternalList();
     }
 
+    /**
+     * Clears the entire incomeList
+     */
     @Override
     public void clear() {
         super.clear();
         updateExternalList();
     }
 
+    /**
+     * Returns list as reflected in BudgetPane
+     *
+     * @return externalIncomeList incomeList in the form of ObservableList<Income>
+     */
     @Override
     public ObservableList<Income> getExternalList() {
         return externalIncomeList;
     }
 
+    /**
+     * Returns internal income list
+     *
+     * @return internalIncomeList incomeList as a List<Income>
+     */
     @Override
     public List<Income> getInternalList() {
         return internalIncomeList;
@@ -87,6 +126,11 @@ public class IncomeList extends DukeList<Income> {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    /**
+     * Returns the total income as a StringProperty
+     *
+     * @return totalString
+     */
     StringProperty getTotalString() {
         return totalString;
     }

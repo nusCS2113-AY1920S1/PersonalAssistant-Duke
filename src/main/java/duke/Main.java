@@ -60,7 +60,6 @@ public class Main extends Application {
 
         logger.info("Initialized the storage");
 
-
         //Demo Code, loads demo data on first boot
         if (storage.loadExpenseList().internalSize() == 0 || storage.loadExpenseList() == null) {
             loadListDemoData(storage);
@@ -77,8 +76,6 @@ public class Main extends Application {
         if (storage.loadBudget() == null) {
             logger.warning("budgetList is not loaded");
         }
-
-
 
         model = new DukePP(storage.loadExpenseList(),
                 storage.loadPlanAttributes(),
@@ -118,40 +115,40 @@ public class Main extends Application {
         Expense.Builder builder = new Expense.Builder();
         try {
             builder.setAmount("3.50");
-            builder.setDescription("chicken rice");
-            builder.setTag("food");
+            builder.setDescription("Chicken Rice");
+            builder.setTag("FOOD");
             builder.setTime("18:00 09/11/2019");
             ExpenseList expenseList = storage.loadExpenseList();
             expenseList.add(builder.build());
 
             builder.setAmount("5.50");
-            builder.setDescription("pineapple friend rice");
-            builder.setTag("food");
+            builder.setDescription("Pineapple Fried Rice");
+            builder.setTag("FOOD");
             builder.setTime("18:00 08/11/2019");
             expenseList.add(builder.build());
 
             builder.setAmount("4.99");
-            builder.setDescription("Might zinger burger");
-            builder.setTag("food");
+            builder.setDescription("Mighty Zinger Burger");
+            builder.setTag("FOOD");
             builder.setTime("12:00 08/11/2019");
             expenseList.add(builder.build());
 
             builder.setAmount("3.80");
-            builder.setDescription("gong cha");
-            builder.setTag("drinks");
+            builder.setDescription("Gong Cha");
+            builder.setTag("DRINKS");
             builder.setTime("14:00 09/11/2019");
             expenseList.add(builder.build());
 
             builder.setAmount("78.50");
-            builder.setDescription("uniqlo");
-            builder.setTag("clothes");
+            builder.setDescription("Uniqlo");
+            builder.setTag("CLOTHES");
             builder.setTime("14:00 09/06/2019");
             expenseList.add(builder.build());
 
 
             builder.setAmount("85");
             builder.setDescription("Mario Kart 8");
-            builder.setTag("games");
+            builder.setTag("GAMES");
             builder.setTime("14:00 09/06/2018");
             expenseList.add(builder.build());
             storage.saveExpenseList(expenseList);
@@ -163,8 +160,6 @@ public class Main extends Application {
             planAttributes.put("PHONE_BILL", "30.00");
             planAttributes.put("NETFLIX", "TRUE");
             storage.savePlanAttributes(planAttributes);
-
-
 
         } catch (DukeException e) {
             e.printStackTrace();
