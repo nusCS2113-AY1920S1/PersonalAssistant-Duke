@@ -1,12 +1,9 @@
 package Parser;
 
-import Commons.DukeConstants;
-import Commons.LookupTable;
-import DukeExceptions.DukeInvalidDateTimeException;
-import DukeExceptions.DukeInvalidFormatException;
 
+import Commons.DukeConstants;
+import DukeExceptions.DukeInvalidDateTimeException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -16,14 +13,8 @@ public class DateTimeParser {
     private static String[] dateTimeStringSplit;
     private static String[] dateStringSplit;
     private static String[] timeStringSplit;
-    private static LookupTable lookupTable = LookupTable.getInstance();
-    private static SimpleDateFormat eventDateInputFormat = new SimpleDateFormat("dd/MM/yyyy"); //format date for event
-    private static SimpleDateFormat eventTimeInputFormat = new SimpleDateFormat("HHmm"); //format time for event
-    private static SimpleDateFormat dateOutputFormat = new SimpleDateFormat("E dd/MM/yyyy");
-    private static SimpleDateFormat timeOutputFormat = new SimpleDateFormat("hh:mm a");
-    private static SimpleDateFormat deadlineInputFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-    private static SimpleDateFormat deadlineDateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-    private static final int LENGTH_OF_TIME_FORMAT = 4;
+
+
 
     /**
      * Parses any date that is tagged with event.
@@ -39,15 +30,15 @@ public class DateTimeParser {
         weekDate = dateStringSplit[0];
         String dateOfTask = dateTimeStringSplit[0].trim();
         weekDate = WeekFormatParse.acadWeekToString(weekDate, dateOfTask);
-        Date date = eventDateInputFormat.parse(weekDate.trim());
+        Date date = DukeConstants.EVENT_DATE_INPUT_FORMAT.parse(weekDate.trim());
         timeStringSplit = dateTimeStringSplit[1].split(DukeConstants.EVENT_TIME_SPLIT_KEYWORD);
         String startTimeOfTask = timeStringSplit[0].trim();
-        Date startTime = eventTimeInputFormat.parse(startTimeOfTask);
+        Date startTime = DukeConstants.EVENT_TIME_INPUT_FORMAT.parse(startTimeOfTask);
         String endTimeOfTask = timeStringSplit[1].trim();
-        Date endTime = eventTimeInputFormat.parse(endTimeOfTask);
-        String dateString = dateOutputFormat.format(date);
-        String startTimeString = timeOutputFormat.format(startTime);
-        String endTimeString = timeOutputFormat.format(endTime);
+        Date endTime = DukeConstants.EVENT_TIME_INPUT_FORMAT.parse(endTimeOfTask);
+        String dateString = DukeConstants.DATE_OUTPUT_FORMAT.format(date);
+        String startTimeString = DukeConstants.TIME_OUTPUT_FORMAT.format(startTime);
+        String endTimeString = DukeConstants.TIME_OUTPUT_FORMAT.format(endTime);
         String[] out = {dateString,startTimeString,endTimeString};
         return out;
     }
@@ -61,18 +52,18 @@ public class DateTimeParser {
     public static String[] DeadlineParse(String input) throws ParseException, DukeInvalidDateTimeException {
 
         dateTimeStringSplit = input.trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
-        String weekDate = new String();
-        String commandSplit = new String();
+        String weekDate;
+        String commandSplit;
         dateStringSplit = dateTimeStringSplit[0].trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
         weekDate = dateStringSplit[0];
-        int dateOfTask =  input.length()-LENGTH_OF_TIME_FORMAT;
+        int dateOfTask =  input.length()-DukeConstants.LENGTH_OF_TIME_FORMAT;
         commandSplit = input.substring(0, dateOfTask);
         weekDate = WeekFormatParse.acadWeekToString(weekDate,commandSplit.trim());
         String time = input.substring(dateOfTask).trim();
         weekDate = weekDate + " " + time;
-        Date date = deadlineInputFormat.parse(weekDate);
-        String dateString = dateOutputFormat.format(date);
-        String timeString = timeOutputFormat.format(date);
+        Date date = DukeConstants.DEADLINE_INPUT_FORMAT.parse(weekDate);
+        String dateString = DukeConstants.DATE_OUTPUT_FORMAT.format(date);
+        String timeString = DukeConstants.TIME_OUTPUT_FORMAT.format(date);
         String[] out = {dateString, timeString};
         return out;
     }
@@ -95,17 +86,17 @@ public class DateTimeParser {
         String endWeekDate = endDateStringSplit[0].trim();
         String endDateOfTask = dateStringSplit[1].trim();
         endWeekDate = WeekFormatParse.acadWeekToString(endWeekDate, endDateOfTask);
-        Date startDate = eventDateInputFormat.parse(startWeekDate);
-        Date endDate = eventDateInputFormat.parse(endWeekDate);
-        String startDateString = dateOutputFormat.format(startDate);
-        String endDateString = dateOutputFormat.format(endDate);
+        Date startDate = DukeConstants.EVENT_DATE_INPUT_FORMAT.parse(startWeekDate);
+        Date endDate = DukeConstants.EVENT_DATE_INPUT_FORMAT.parse(endWeekDate);
+        String startDateString = DukeConstants.DATE_OUTPUT_FORMAT.format(startDate);
+        String endDateString = DukeConstants.DATE_OUTPUT_FORMAT.format(endDate);
         timeStringSplit = dateTimeStringSplit[1].split(DukeConstants.EVENT_TIME_SPLIT_KEYWORD);
         String startTimeOfTask = timeStringSplit[0].trim();
-        Date startTime = eventTimeInputFormat.parse(startTimeOfTask);
+        Date startTime = DukeConstants.EVENT_TIME_INPUT_FORMAT.parse(startTimeOfTask);
         String endTimeOfTask = timeStringSplit[1].trim();
-        Date endTime = eventTimeInputFormat.parse(endTimeOfTask);
-        String startTimeString = timeOutputFormat.format(startTime);
-        String endTimeString = timeOutputFormat.format(endTime);
+        Date endTime = DukeConstants.EVENT_TIME_INPUT_FORMAT.parse(endTimeOfTask);
+        String startTimeString = DukeConstants.TIME_OUTPUT_FORMAT.format(startTime);
+        String endTimeString = DukeConstants.TIME_OUTPUT_FORMAT.format(endTime);
         String[] out = {startDateString, endDateString, startTimeString, endTimeString};
         return out;
     }
@@ -121,30 +112,30 @@ public class DateTimeParser {
         dateTimeStringSplit = input.trim().split(DukeConstants.REMIND_DATE_DEADLINE_DATE_SPLIT_KEYWORD);
         String[] taskDateTimeStringSplit = dateTimeStringSplit[0].trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
         String weekDate = taskDateTimeStringSplit[0].trim();
-        int deadlineDateLength = dateTimeStringSplit[0].length()-LENGTH_OF_TIME_FORMAT;
+        int deadlineDateLength = dateTimeStringSplit[0].length()-DukeConstants.LENGTH_OF_TIME_FORMAT;
         String deadlineDate = dateTimeStringSplit[0].substring(0, deadlineDateLength);
         deadlineDate = WeekFormatParse.acadWeekToString(weekDate, deadlineDate);
         String time = dateTimeStringSplit[0].substring(deadlineDateLength);
         deadlineDate = deadlineDate + time;
         String[] reminderDateTimeStringSplit = dateTimeStringSplit[1].trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
         weekDate = reminderDateTimeStringSplit[0].trim();
-        int reminderDateLength = dateTimeStringSplit[1].length()-LENGTH_OF_TIME_FORMAT;
+        int reminderDateLength = dateTimeStringSplit[1].length()-DukeConstants.LENGTH_OF_TIME_FORMAT;
         String reminderDate = dateTimeStringSplit[1].substring(0, reminderDateLength);
         reminderDate = WeekFormatParse.acadWeekToString(weekDate, reminderDate);
         time = dateTimeStringSplit[1].substring(reminderDateLength);
         reminderDate = reminderDate + time;
-        Date dateOfTask = deadlineInputFormat.parse(deadlineDate);
-        String dateString = dateOutputFormat.format(dateOfTask);
-        String timeString = timeOutputFormat.format(dateOfTask);
+        Date dateOfTask = DukeConstants.DEADLINE_INPUT_FORMAT.parse(deadlineDate);
+        String dateString = DukeConstants.DATE_OUTPUT_FORMAT.format(dateOfTask);
+        String timeString = DukeConstants.TIME_OUTPUT_FORMAT.format(dateOfTask);
         String[] dateTime = {dateString, timeString, reminderDate};
         return dateTime;
     }
 
     public static Date deadlineInputStringToDate(String date) throws ParseException {
-        return deadlineInputFormat.parse(date);
+        return DukeConstants.DEADLINE_INPUT_FORMAT.parse(date);
     }
 
     public static Date deadlineTaskStringToDate(String date) throws ParseException {
-        return deadlineDateFormat.parse(date);
+        return DukeConstants.DEADLINE_DATE_FORMAT.parse(date);
     }
 }

@@ -97,10 +97,14 @@ public class DukeConstants {
     public static final String WEEK_FORMAT_KEYWORD = "Week";
     public static final String BYE_HEADER ="bye";
 
+    //DATE
     public static final SimpleDateFormat EVENT_DATE_INPUT_FORMAT = new SimpleDateFormat("dd/MM/yyyy"); //format date for event
     public static final SimpleDateFormat EVENT_TIME_INPUT_FORMAT = new SimpleDateFormat("HHmm"); //format time for event
     public static final SimpleDateFormat DAY_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy");
     public static final SimpleDateFormat TWELVE_HOUR_TIME_FORMAT = new SimpleDateFormat("hh:mm a");
     public static final SimpleDateFormat DEADLINE_INPUT_FORMAT = new SimpleDateFormat("dd/MM/yyyy HHmm");
     public static final SimpleDateFormat DEADLINE_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+    public static final SimpleDateFormat DATE_OUTPUT_FORMAT = new SimpleDateFormat("E dd/MM/yyyy");
+    public static final SimpleDateFormat TIME_OUTPUT_FORMAT = new SimpleDateFormat("hh:mm a");
+    public static final int LENGTH_OF_TIME_FORMAT = 4;
 }

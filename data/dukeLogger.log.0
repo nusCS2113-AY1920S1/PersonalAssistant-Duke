@@ -2248,3 +2248,69 @@ Nov 09, 2019 12:16:26 PM Commands.RetrievePreviousCommand execute
 SEVERE: Unable to parse string to integer
 Nov 09, 2019 12:16:27 PM Parser.RecurParse parse
 SEVERE: Invalid recur format
+Nov 09, 2019 11:59:43 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidDateTimeException: Sorry, please enter the correct date format
+Nov 10, 2019 12:01:13 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidDateTimeException: Sorry, please enter the correct date format
+Nov 10, 2019 12:01:45 AM UserInterface.Main start
+SEVERE: MainWindow.fxml cannot be found.
+/C:/Users/Kai/Desktop/main1/build/resources/main/view/MainWindow.fxml
+
+Nov 10, 2019 12:02:04 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidDateTimeException: Sorry, please enter the correct date format
+Nov 10, 2019 12:02:55 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidDateTimeException: Sorry, please enter the correct date format
+Nov 10, 2019 12:03:15 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidDateTimeException: Sorry, please enter the correct date format
+Nov 10, 2019 12:04:16 AM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 12:04:16 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidFormatException: OOPS!!! Please enter remind as follows:
+remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time
+For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500
+Nov 10, 2019 12:04:56 AM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 12:04:56 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidFormatException: OOPS!!! Please enter remind as follows:
+remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time
+For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500
+Nov 10, 2019 12:05:10 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidDateTimeException: Sorry, your selected task has already passed!
+Nov 10, 2019 12:05:39 AM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 12:05:39 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidFormatException: OOPS!!! Please enter remind as follows:
+remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time
+For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500
+Nov 10, 2019 12:06:12 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidDateTimeException: Sorry, your selected task has already passed!
+Nov 10, 2019 12:07:34 AM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 12:07:34 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidFormatException: OOPS!!! Please enter remind as follows:
+remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time
+For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500
+Nov 10, 2019 12:07:34 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input the command cannot be blank. Please type help to see all commands
+Nov 10, 2019 12:07:57 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidDateTimeException: Sorry, you cannot set a reminder after the date of the task.
+Nov 10, 2019 12:21:04 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: There are only 0 previous commands. Please enter a valid number less than or equal to 0 .
+Nov 10, 2019 12:22:03 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: ☹Invalid input. Please type help to see all commands
+Nov 10, 2019 12:23:59 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: ☹Invalid input. Please type help to see all commands
+Nov 10, 2019 12:34:15 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: ☹Invalid input. Please type help to see all commands
+Nov 10, 2019 12:41:16 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: ☹Invalid input. Please type help to see all commands
+Nov 10, 2019 12:43:21 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: ☹Invalid input. Please type help to see all commands
+Nov 10, 2019 12:51:55 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: ☹Invalid input. Please type help to see all commands
+Nov 10, 2019 12:54:55 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: ☹Invalid input. Please type help to see all commands
+Nov 10, 2019 1:00:11 AM UserInterface.Main start
+SEVERE: MainWindow.fxml cannot be found.
+/C:/Users/Kai/Desktop/main1/build/resources/main/view/MainWindow.fxml
+
