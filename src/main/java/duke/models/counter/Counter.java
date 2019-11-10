@@ -4,7 +4,7 @@ package duke.models.counter;
 
 import duke.commands.Command;
 import duke.commands.functional.BarChartCommand;
-import duke.commands.functional.DukeCommand;
+import abandon.DukeCommand;
 import duke.commands.functional.ExitCommand;
 import duke.commands.functional.HelpCommand;
 import duke.commands.functional.PieChartCommand;

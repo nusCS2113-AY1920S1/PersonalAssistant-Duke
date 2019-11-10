@@ -5,7 +5,7 @@ package duke.commands;
 import duke.commands.assignedtask.AssignPeriodTaskCommand;
 import duke.commands.assignedtask.DeleteAssignedTaskCommand;
 import duke.commands.assignedtask.FindAssignedTaskCommand;
-import duke.commands.functional.DukeCommand;
+import abandon.DukeCommand;
 import duke.commands.functional.ExitCommand;
 import duke.commands.functional.HelpCommand;
 import duke.commands.functional.UndoCommand;
