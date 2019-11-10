@@ -69,7 +69,7 @@ public class Dish implements Printable {
                 System.out.println("\t ingredient already exist in dish \n\t changed ingredient amount of: " + i.getName());
                 System.out.println("\t from: " + i.getAmount());
                 System.out.println("\t to: " + amount);
-                i.changeAmount(amount);
+                i.setAmount(amount);
                 flag = false;
                 break;
             }
