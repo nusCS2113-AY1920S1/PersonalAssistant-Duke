@@ -591,8 +591,9 @@ public class Ui {
         System.out.println("\t" + "View Schedule:       " + commandFormat.viewScheduleFormat());
         System.out.println("History:");
         System.out.println("\t" + "History of Commands: " + commandFormat.historyFormat());
-        System.out.println("\t" + "View History within a certain period:         " + commandFormat.viewhistoryFormat());
-        System.out.println("\t" + "Exit:                " + commandFormat.exitFormat());
+        System.out.println("\t" + "View History within a certain period: " + commandFormat.viewhistoryFormat());
+        System.out.println("Others:");
+        System.out.println("\t" + "Exit: " + commandFormat.exitFormat());
         System.out.print(line);
     }
 
