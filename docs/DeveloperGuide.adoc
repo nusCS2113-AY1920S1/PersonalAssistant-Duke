@@ -249,22 +249,22 @@ Classes used by multiple components are in the 'util' package. Within this packa
 assist the functionality of ArchDuke. The following table shows a brief description of these classes and a link
 to their API.
 
-[width="100%",cols="22%,<50%,<28%",options="header",]
+[width="100%",cols="22%,<60%,options="header",]
 |=======================================================================
-|Class | Functionality | API
-|ArchDukeLogger|
+|Class | Functionality
+|ArchDukeLogger| Handles logging of different levels.
 |AssignmentViewHelper| Handles `view assignments` commands, retrieves and organises task assignment information to display to the user.
 |CommandHelper|
 |ConstantHelper| Contains most of the constants used throughout ArchDuke.
-|DateTimeHelper|
-|MemberFactory|
-|JsonConverter|
+|DateTimeHelper| Deals with date-related user inputs.
+|MemberFactory| Parses and converts user input into a `Member` object.
+|JsonConverter| Converts information stored by ArchDuke into Json files for persistent storage.
 |ParserHelper| Contains methods used by other classes to parse the user input to retrieve the desired information.
-|ProjectFactory|
-|ReminderFactory|
+|ProjectFactory| Parses and converts user input into a `Project` object.
+|ReminderFactory| Parses and converts user input into a `Reminder` object.
 |SortHelper|
-|TaskFactory|
-|ViewHelper|
+|TaskFactory| Parses and converts user input into a `Task` object.
+|ViewHelper| Formats and organises information in a presentable and user-friendly manner to display to the user.
 |=======================================================================
 
 == 3. Implementation
@@ -761,11 +761,7 @@ is the `logs` directory.
 
 == 4. Documentation
 
-//Refer to the guide <<Documentation#, here>>.
-We chose to use AsciiDoc to write the documentation. This is because Ascii syntax is consistent and there is a flexibility offered
-for essential syntax unlike MarkDown.
-
-
+Refer to the guide <<Documentation#, here>>.
 
 == 5. Testing
 

@@ -2,6 +2,7 @@
 :toc:
 :toc-title: Table of Contents
 :toc-placement: preamble
+:sectnums:
 :repoURL: https://github.com/AY1920S1-CS2113-T13-1/main
 
 By: `CS2113-T13-1`      Since: `Aug 2019`      Licence: `MIT`
@@ -11,8 +12,8 @@ Ever wondered how good it will be to have a Kanban board for all your projects i
 Kanban boards for different group projects? ArchDuke is the application for you!
 
 ArchDuke is a simple desktop application designed by team leaders, for team leaders to manage their multiple projects!
-ArchDuke is optimized for team leaders who wish to work using a Command Line Interface (CLI) while still
-being able to view certain features such as a calendar through a Graphical User Interface (GUI).
+ArchDuke is optimized for team leaders who wish to work using a Command Line Interface (CLI).
+
 
 == Quick Start
 . Ensure *Java `11`* is installed in your computer. To check the version of Java installed in your work environment,
@@ -27,19 +28,112 @@ their usage and their functions.
 . Refer to Command Summary section for a quick summary of all available commands.
 
 == Features
+
 === Command Format
 - Words in UPPER_CASE are the parameters that needs to be specified by each user.
-E.g. `create n/PROJECT_NAME where PROJECT_NAME` is a parameter which can be used as `create n/CS2113_Project`
+** E.g. `create PROJECT_NAME` where PROJECT_NAME is a parameter which can be used as create CS2113_Project
 - Parameters can be typed in any order
-E.g. if the command specifies `n/NAME d/DATE`, `d/DATE n/NAME` is acceptable as well
+** E.g. if the command specifies `-n NAME -d DATE`, `-d DATE -n NAME` is also acceptable
 - Parameters defined in square brackets are optional.
-E.g. `n/NAME [s/PHONE_NUMBER]` can be used as `n/Cynthia s/91234567` or as `n/Cynthia`
-- `n/` indicates a name or string flag
-- `e/` indicates a flag for email
-- `a/` indicates a flag for an address of a member
-- `i/` indicates an integer flag
-- `d/` indicates a flag for a date in the format of ddMMyyyy behind
-- `p/` indicates a flag for task priority, represented in integers.
-- `c/` indicates a flag for the amount of credit awarded for completion of a certain task, represented in integers.
-- `to/` indicates the flag for the index of the member to assign the selected task to
-- `s/` indicates the flag where user can specify the state of the specific task
+** E.g. -n NAME [-i PHONE_NUMBER] can be used as -n Cynthia -i 91234567 or as -n Cynthia
+
+==== Basic Flags
+- `-n` indicates a name or string flag
+- `-e` indicates a flag for email
+- `-a` indicates a flag for an address of a member
+- `-i` indicates an integer flag
+- `-t` indicates the flag for adding task names
+- `-d` indicates a flag for a date in the DD/MM/YYYY format
+- `-p` indicates a flag for task priority, represented in integers.
+- `-c` indicates a flag for the amount of credit awarded for completion of a certain task, represented in integers.
+- `-s` indicates the flag where user can specify the state of the specific task
+
+
+=== Project Commands
+
+==== Create a project: `create`
+This command will create a new project with a given name, which is automatically saved in JSON.
+
+* Format: `create PROJECT_NAME`
+** Example: `create New Project`
+
+==== View all projects: `list`
+Shows a list of all projects and project details: project index number, project name, the names of all
+project members, nearest deadline and overall progress of project.
+
+* Format: `list`
+
+==== Manage a project : `manage`
+Allows user to manage a project at the specified index. The index refers to the index number shown in the list of all projects and project details through the command view. Index number are generated using 1-based indexing.
+
+* Format: `manage PROJECT_INDEX`
+** Example: `manage 1`
+
+[IMPORTANT]
+All Member, Task, Assignment and other commands are only executable after the user has selected a project that he or she wishes to manage.
+
+=== Member Commands
+
+==== Add members to specific project: `add member`
+Adds members to the specific project selected using `manage`.
+
+* Format: `add member -n NAME [-i PHONE_NUMBER] [-e EMAIL_ADDRESS] [-r ROLE]`
+** Example: `add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com -r Lead`
+
+[NOTE]
+Member details should not contain any hyphens (eg. Mary-Jane) or the details will be truncated and not recorded properly.
+
+[NOTE]
+Email must be a valid email address with the format “<String>@<String>.com”.
+
+[NOTE]
+Phone number must be an integer with no more than 8 digits.
+
+==== View members : `view members`
+Displays all members’ details like their name, phone number, email and their role in the project.
+
+* Format: `view members`
+
+==== Edit members : `edit member`
+Edits details of the members. Only fields that need editing need to be entered.
+
+* Format: `edit member INDEX [-n NAME] [-i PHONE_NUMBER] [-e EMAIL]`
+** Example: `edit member 2 -n Jerry Zhang -e zhangjerry@u.nus.edu`
+
+[NOTE]
+The member index must be a positive integer.
+
+[NOTE]
+Email must be a valid email address with the format “<String>@<String>.com”.
+
+[NOTE]
+Phone number must be an integer with no more than 8 digits.
+
+==== Delete members : `delete member`
+Remove selected member(s) from a project based on their index number.
+Index number is generated using 1-based indexing and can be viewed using the view members command.
+Multiple index numbers may be used to delete multiple members at once.
+
+[NOTE]
+The keyword `all` may be used to delete all members in the project. Please use this command
+with caution to avoid losing work.
+
+* Format: `delete member INDEX1 [INDEX2]`
+* Examples:
+** `delete member 4`
+** `delete member 1 2`
+** `delete member all`
+
+[NOTE]
+Index numbers of the remaining members may be changed after deletion.
+(All member index numbers after the deleted member will be shifted up by 1.
+For example, if there are 4 members in the group and member 2 is deleted, then the current members 3 and 4
+will become members 2 and 3 respectively).
+
+[NOTE]
+If multiple index numbers are used, then members will be deleted in descending order of index numbers.
+This is to prevent any errors caused by possible shifting of index numbers during the deletion process.
+
+
+
+
