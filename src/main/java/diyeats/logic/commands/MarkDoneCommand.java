@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 public class MarkDoneCommand extends Command {
     private int index;
     private static Logger logger = Logger.getLogger(MarkDoneCommand.class.getName());
+
     /**
      * Constructor for MarkDoneCommand.
      * @param indexStr the index of meal on the date to be marked as done.

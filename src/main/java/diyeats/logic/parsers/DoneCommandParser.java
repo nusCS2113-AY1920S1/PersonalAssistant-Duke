@@ -12,6 +12,7 @@ import java.util.logging.Logger;
  */
 public class DoneCommandParser implements ParserInterface<MarkDoneCommand> {
     private static Logger logger = Logger.getLogger(DoneCommandParser.class.getName());
+
     /**
      * Parse user input and return MarkDoneCommand.
      * @param userInputStr String input by user.
