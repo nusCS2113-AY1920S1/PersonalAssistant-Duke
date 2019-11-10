@@ -109,6 +109,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public ReceiptTracker getReceiptsByTag(String tag) {
         ReceiptTracker taggedReceipts = new ReceiptTracker();
+        taggedReceipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.containsTag(tag)) {
                 taggedReceipts.addReceipt(receipt);
@@ -125,6 +126,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
     public ReceiptTracker getMajorExpenses(String amount) {
         int input = Integer.parseInt(amount);
         ReceiptTracker expenseReceipts = new ReceiptTracker();
+        expenseReceipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.getCashSpent() >= input) {
                 expenseReceipts.addReceipt(receipt);
@@ -140,6 +142,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public ReceiptTracker getMajorReceipts() {
         ReceiptTracker receipts = new ReceiptTracker();
+        receipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.getCashSpent() >= 100) {
                 receipts.addReceipt(receipt);
@@ -155,6 +158,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public ReceiptTracker getReceiptsByDate(String date) {
         ReceiptTracker dateReceipts = new ReceiptTracker();
+        dateReceipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.equalsDate(date)) {
                 dateReceipts.addReceipt(receipt);
@@ -172,6 +176,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public ReceiptTracker getReceiptsByMonthYear(int month, int year) {
         ReceiptTracker receiptByMonthYear = new ReceiptTracker();
+        receiptByMonthYear.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if ((receipt.getDate().getMonthValue() == month) && (receipt.getDate().getYear() == year)) {
                 receiptByMonthYear.addReceipt(receipt);
@@ -187,6 +192,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public ReceiptTracker getReceiptsByYear(int year) {
         ReceiptTracker receiptByYear = new ReceiptTracker();
+        receiptByYear.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.getDate().getYear() == year) {
                 receiptByYear.addReceipt(receipt);
