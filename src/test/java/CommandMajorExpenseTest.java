@@ -52,4 +52,9 @@ public class CommandMajorExpenseTest {
         assertEquals("Invalid cash input. Please enter integer", result2);
 
     }
+
+    @Test
+    void onlyIncomeReceipts(){
+
+    }
 }
