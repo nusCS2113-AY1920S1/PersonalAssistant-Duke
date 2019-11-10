@@ -23,57 +23,63 @@ public class Help {
             taskType = TaskType.others;
         }
         switch (taskType) {
-        case add:
-            ui.helpAdd();
-            break;
-        case delete:
-            ui.helpDelete();
-            break;
-        case list:
-            ui.helperList();
-            break;
-        case done:
-            ui.helpDone();
-            break;
-        case restore:
-            ui.helpRestore();
-            break;
-        case find:
-            ui.helpFind();
-            break;
-        case priority:
-            ui.helpPriority();
-            break;
-        case snooze:
-            ui.helpSnooze();
-            break;
-        case reorder:
-            ui.helpReorder();
-            break;
-        case subtask:
-            ui.helpSubtask();
-            break;
-        case update:
-            ui.helpUpdate();
-            break;
-        case sort:
-            ui.helpSort();
-            break;
-        case log:
-            ui.helpLog();
-            break;
-        case bye:
-            ui.helpBye();
-            break;
-        case completed:
-            ui.helpCompleted();
-            break;
-        case overdue:
-            ui.helpOverdue();
-            break;
-        case reschedule:
-            ui.helpReschedule();
-            break;
+            case bye:
+                ui.helpBye();
+                break;
+            case list:
+                ui.helperList();
+                break;
+            case done:
+                ui.helpDone();
+                break;
+            case delete:
+                ui.helpDelete();
+                break;
+            case removeoverdue:
+                ui.helpRemoveoverdue();
+                break;
+            case restore:
+                ui.helpRestore();
+                break;
+            case find:
+                ui.helpFind();
+                break;
+            case priority:
+                ui.helpPriority();
+                break;
+            case add:
+                ui.helpAdd();
+                break;
+            case snooze:
+                ui.helpSnooze();
+                break;
+            case reorder:
+                ui.helpReorder();
+                break;
+            case subtask:
+                ui.helpSubtask();
+                break;
+            case update:
+                ui.helpUpdate();
+                break;
+            case sort:
+                ui.helpSort();
+                break;
+            case log:
+                ui.helpLog();
+                break;
+            case completed:
+                ui.helpCompleted();
+                break;
+            case overdue:
+                ui.helpOverdue();
+                break;
+            case reschedule:
+                ui.helpReschedule();
+                break;
+            case show:
+                ui.helpShow();
+                break;
         }
     }
 
