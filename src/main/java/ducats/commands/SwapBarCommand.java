@@ -46,8 +46,8 @@ public class SwapBarCommand extends Command<SongList> {
             Song song = songList.getSongIndex(songIndex);
 
             String[] sections = message.substring(8).split(" ");
-            barNo1 = Integer.parseInt(sections[0].substring(4));
-            barNo2 = Integer.parseInt(sections[1].substring(4));
+            barNo1 = Integer.parseInt(sections[0]);
+            barNo2 = Integer.parseInt(sections[1]);
             Bar tempBar1 = song.getBars().get(barNo1 - 1);
             Bar tempBar2 = song.getBars().get(barNo2 - 1);
 

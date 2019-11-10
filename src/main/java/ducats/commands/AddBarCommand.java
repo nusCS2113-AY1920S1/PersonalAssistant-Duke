@@ -39,7 +39,7 @@ public class AddBarCommand extends Command<SongList> {
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
         int barNo;
-        if (message.length() < 7 || !message.substring(0, 7).equals("addbar ")) { //exception if not fully spelt
+        if (message.length() < 8 || !message.substring(0, 7).equals("addbar ")) { //exception if not fully spelt
             throw new DucatsException(message);
         }
         try {
