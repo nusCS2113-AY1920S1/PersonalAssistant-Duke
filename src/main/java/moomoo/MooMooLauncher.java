@@ -13,7 +13,7 @@ public class MooMooLauncher {
      * Runs the program in CLI mode.
      * @param args If appropriate argument is given, GUI will be launched.
      */
-    public static void main(String[] args) throws MooMooException {
+    public static void main(String[] args) throws Exception {
         String operatingSystem = System.getProperty("os.name").toLowerCase();
         if (operatingSystem.contains("win")) {
             try {
