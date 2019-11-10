@@ -42,7 +42,7 @@ public class DeadlineSnoozeTest {
     }
 
     @Test
-    public void posTest1() {
+    public void snoozeTest1() {
         actualOut = javaCake.getResponse("deadline a /by 01/01/2019");
         actualOut = javaCake.getResponse("snooze 1 /by 02/01/2019");
         actualOut = javaCake.getResponse("reminder");
@@ -52,7 +52,7 @@ public class DeadlineSnoozeTest {
     }
 
     @Test
-    public void posTest2() {
+    public void snoozeTest2() {
         actualOut = javaCake.getResponse("deadline a /by 01/01/2019 0001");
         actualOut = javaCake.getResponse("deadline b /by 01/01/2019");
         //this will sort the deadlines first

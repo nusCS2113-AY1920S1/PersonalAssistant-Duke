@@ -31,7 +31,11 @@ public abstract class Command {
     public static void checksParam(String inputCommand) throws CakeException {
         String bySpaces = "\\s+";
         String[] subStrings = inputCommand.split(bySpaces);
-        if (subStrings.length > 1) {
+        String effectiveInput = "";
+        for (String str : subStrings) {
+            effectiveInput += str;
+        }
+        if (subStrings.length > 1 || !inputCommand.equals(effectiveInput)) {
             throw new CakeException("Please ensure there is no parameter(s) for this command");
         }
     }
