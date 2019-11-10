@@ -3,6 +3,7 @@ package seedu.hustler.game.achievement;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * Test class for achievement list.
@@ -14,12 +15,19 @@ public class AchievementListTest {
      */
     @Test
     public void checkAchievementLockStatus() {
-        //checks if all achievements other than "fresh off the boat" is locked
-        for(int i = 0; i < new AchievementList().size() - 1; i += 1) {
+
+        AchievementList achievementList = new AchievementList();
+
+        //Checks if all achievements other than "fresh off the boat" is locked
+        for(int i = 0; i < achievementList.size() - 1; i += 1) {
             assertEquals(true, new AchievementList().get(i).checkLock());
         }
-        //checks if "fresh off the boat" is unlocked from the start
-        assertEquals(false, new AchievementList().get(9).checkLock());
+        //Checks if "fresh off the boat" is unlocked from the start
+        assertEquals(false, achievementList.get(9).checkLock());
+
+        achievementList.add(new AchievementsStub());
+        //Checks if achievement is locked by default.
+        assertEquals(true, achievementList.get(10).checkLock());
     }
 
     /**
@@ -31,9 +39,22 @@ public class AchievementListTest {
         for(int i = 0; i < 40; i += 1) {
             fiftyAchievementsList.add(new AchievementsStub());
         }
-        assertEquals(50,new AchievementList().size());
+        assertEquals(50,fiftyAchievementsList.size());
     }
 
+    /**
+     * Checks that there is no duplicate of busybee achievement level bronze in achievement list.
+     * Ensure that
+     */
+    @Test
+    public void checkAchievementLevel() {
+        AchievementList achievementList = new AchievementList();
+        assertEquals(achievementList.get(0).getAchievementLevel(), new AchievementsStub().getAchievementLevel());
+        //Silver busybee.
+        assertNotEquals(achievementList.get(1).getAchievementLevel(), new AchievementsStub().getAchievementLevel());
+        //Gold busybee.
+        assertNotEquals(achievementList.get(2).getAchievementLevel(), new AchievementsStub().getAchievementLevel());
+    }
 
     private class AchievementsStub implements Achievement {
 
@@ -67,7 +88,6 @@ public class AchievementListTest {
 
         @Override
         public Boolean checkLock() {
-
             return true;
         }
 
@@ -75,6 +95,9 @@ public class AchievementListTest {
         public Boolean setLock(Boolean lock) {
             return true;
         }
+
+        @Override
+        public String toTxt() { throw new AssertionError("This method should not be called."); }
     }
 
 }
