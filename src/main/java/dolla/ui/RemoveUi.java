@@ -25,7 +25,7 @@ public class RemoveUi extends Ui {
 
     //@@author tatayu
     /**
-     * Print the error message if the remove command is invalid
+     * Print the error message if the remove command is invalid.
      */
     public static void printInvalidRemoveFormatInDebtMode() {
         System.out.println(line);

@@ -310,11 +310,11 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     //@@author tatayu
     /**
-     * Check if the command is one word only
-     * @return true if the command is more than one words
+     * Check if the command is one word only.
+     * @return true if the command is more than one words.
      */
     protected boolean verifyRemoveLength() {
-        if(inputArray.length == 1) {
+        if (inputArray.length == 1) {
             RemoveUi.printInvalidRemoveMessage();
             return false;
         } else {
@@ -324,8 +324,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     //@@author tatayu
     /**
-     * Check if the command to remove bill is valid
-     * @return true if the remove bill command is valid
+     * Check if the command to remove bill is valid.
+     * @return true if the remove bill command is valid.
      */
     protected boolean verifyRemoveBill(RecordList recordList) {
         if (inputArray.length != 3) {
