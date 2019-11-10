@@ -192,27 +192,33 @@ Problem 1: *How to store weight data to be displayed over time*
 .User Initialisation sequence diagram
 image::usersequencediagram.png[width="800"]
 
-=== Add command
+=== Add Default command: `default`
 
-The Add feature gives the user the ability to assign default nutritional values associated with certain meal names.
+The `default` command gives the user the ability to assign default nutritional values associated with certain meal names.
 
-This section describes the implementation and design considerations involved in the Add feature, and how the Add feature expedites user input.
+This section describes the implementation and design considerations involved in the feature, and how the add default feature expedites user input.
 
 ==== Current implementation
-Assuming that there are no preexisting default values assigned to meals, and the user inputs the `add` command `add hotcakes /calories 300`, the application processes the command through the following steps:
+Assuming that there are no preexisting default values assigned to meals, and the user inputs the `default` command `default hotcakes /calories 300`, the application processes the command through the following steps:
 
 . The `Main` class calls the parse function of the `Parser` class to parse the user input.
 
-. After parsing, the data is then used to create an instance of the `AddItemCommand` object, which is then returned to the `Main` function.
-. The `Main` function would then invoke the `AddItemCommand#execute()` function.
-. The `AddItemCommand#execute()` function then further invokes the `MealList#addStoredItem(...)` function, which stores the data in a `storedItems` object of type `HashMap<String, HashMap<String, Integer>>`, in the following format:
+. After parsing, the data is then used to create an instance of the `AddDefaultValueCommand` object, which is then returned to the `Main` function.
+. The `Main` function would then invoke the `AddDefaultValueCommand#execute()` function.
+. The `AddDefaultValueCommand#execute()` function then further invokes the `MealList#addDefaultValues(...)` function, which stores the data in a `storedItems` object of type `HashMap<String, HashMap<String, Integer>>`, in the following format:
 * The key of the encapsulating hashmap is the name of the meal that is to be assigned default values, in this instance, it has only one member `hotcakes`
-* The internal hashmap associated with the key `hotcakes` is used to store the nutritional tags (e.g calories, sodium, etc.), along with the default quantity associated with it. In this case, the internal hashmap only has one key `calories`, which is associated with the integer value `300`
+* The internal hashmap associated with the key `hotcakes` is used to store the nutritional tags (e.g calories, sodium, etc.), along with the default quantity associated with it. In this case, the internal hashmap only has one key `calories`, which is associated with the integer value `300`.
+
++
+After the values are stored in the mealList container, control is returned to AddDefaultValueCommand.
+. The AddDefaultValueCommand then invokes `Ui#showAddedItem()`, which displays the default value added to the user through the CLI. After the method executes, control is returned to AddDefaultValueCommand.
+. AddDefaultValueCommand then invokes `Storage#writeDefaults()`, which writes the contents of storedItems in MealList to persistent storage. After the method executes, control is returned to AddDefaultValueCommand.
+. AddDefaultValueCommand finishes execution, and returns control to main, which awaits the next user input.
 
 The steps carried out by the program as described above are captured in figure 5, the sequence diagram as shown below.
 
-.Add command sequence diagram
-image::addcommand.png[width="800"]
+.AddDefaultValue command sequence diagram
+image::AddDefaultValueUML.png[width="800"]
 
 ==== Design considerations
 
