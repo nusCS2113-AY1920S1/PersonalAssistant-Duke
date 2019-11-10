@@ -24,7 +24,7 @@ public class Rims {
     /**
      * Constructor for RIMS that instantiates the necessary sub-classes for its
      * operation.
-     * 
+     *
      * @param resourceFilePath the file path of the document where resource data is
      *                         stored.
      * @param reserveFilePath  the file path of the document where reservation data
@@ -62,6 +62,9 @@ public class Rims {
     }
 
     //@@author hin1
+    /**
+     *
+     */
     public ArrayList<String> getLocalTextFiles() {
         String dir = System.getProperty("user.dir");
         File directoryToCheck = new File(dir);
@@ -78,6 +81,9 @@ public class Rims {
         return textFileStrings;
     }
 
+    /**
+     *
+     */
     public String getFilePath(Ui ui, String file) {
         String path = ui.getInput("Type the file path of the text file that stores the " + file + ": ");
         File f = new File(path);

@@ -54,7 +54,6 @@ public class AddCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws IOException, RimsException {
         storage.saveToFile(resources.getResources());
-
         if (resourceType.equals("room")) {
             int resourceId = resources.generateResourceId();
             boolean resourceExists;

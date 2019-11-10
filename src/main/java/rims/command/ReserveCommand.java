@@ -34,7 +34,7 @@ public class ReserveCommand extends Command {
     /**
      * Constructor for a ReserveCommand, for a Room which is to be loaned from
      * effective immediately till a certain future date.
-     * 
+     *
      * @param roomName       the name of the Room to be loaned out.
      * @param stringDateTill the date by which the Room must be returned, in String
      *                       format.
@@ -53,7 +53,7 @@ public class ReserveCommand extends Command {
     /**
      * Constructor for a ReserveCommand, for an Item which is to be loaned from
      * effective immediately till a certain future date.
-     * 
+     *
      * @param itemName       the name of the Item to be loaned out.
      * @param qty            the quantity of the Item to be loaned out.
      * @param stringDateTill the date by which the Item(s) must be returned, in
@@ -74,7 +74,7 @@ public class ReserveCommand extends Command {
     /**
      * Constructor for a ReserveCommand, for a Room which is to be reserved from a
      * given date in the future till a further future date.
-     * 
+     *
      * @param roomName       the name of the Room to be reserved.
      * @param stringDateFrom the date from which the Room is to be loaned out, in
      *                       String format.
@@ -93,7 +93,7 @@ public class ReserveCommand extends Command {
     /**
      * Constructor for a ReserveCommand, for an Item which is to be reserved from a
      * given date in the future till a further future date.
-     * 
+     *
      * @param itemName       the name of the Item to be reserved.
      * @param qty            the quantity of the Item to be reserved.
      * @param stringDateFrom the date from which the Item is to be loaned out, in
@@ -135,7 +135,7 @@ public class ReserveCommand extends Command {
      * Checks if the reservation is possible given the number of available Resources
      * and Reservations that are already in place, and if it is possible, creates a
      * Reservation for the desired number of Resources between the given dates.
-     * 
+     *
      * @param ui        An instance of the user interface.
      * @param storage   An instance of the Storage class.
      * @param resources The ResourceList, containing all the created Resources thus
@@ -147,9 +147,7 @@ public class ReserveCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources)
             throws RimsException, ParseException, IOException {
-
         //storage.saveToFile(resources.getResources());
-
         if (!(stringDateFrom == null)) {
             dateFrom = resources.stringToDate(stringDateFrom);
         }

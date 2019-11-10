@@ -30,7 +30,7 @@ public class ReservationList {
 
     /**
      * Returns the ReservationList itself.
-     * 
+     *
      * @return the array of Reservations.
      */
     public ArrayList<Reservation> getReservationList() {
@@ -40,7 +40,7 @@ public class ReservationList {
     /**
      * Returns a Reservation in the Reservation array by its index number in the
      * array.
-     * 
+     *
      * @param indexNo the index number of the desired Reservation.
      * @return the Reservation itself.
      */
@@ -50,7 +50,7 @@ public class ReservationList {
 
     /**
      * Returns a Reservation in the Reservation array by its reservation ID.
-     * 
+     *
      * @param reservationId the reservation ID of the desired Reservation.
      * @return the Reservation itself.
      * @throws RimsException if no reservation has such an ID.
@@ -77,7 +77,7 @@ public class ReservationList {
     /**
      * Creates a new Reservation object and adds it to the ReservationList, given
      * the parameters of the new Reservation.
-     * 
+     *
      * @param reservationId the newly generated reservation ID of the Reservation to
      *                      be created.
      * @param resourceId    the ID of the Resource for which this Reservation is
@@ -104,7 +104,7 @@ public class ReservationList {
     /**
      * Deletes a Reservation object, making that reservation cancelled and no longer
      * valid.
-     * 
+     *
      * @param reservationId the reservation ID of the reservation to be cancelled.
      * @throws RimsException if no such reservation has that ID.
      */
@@ -125,7 +125,7 @@ public class ReservationList {
     // @@author rabhijit
     /**
      * Returns the number of Reservations made for this particular Resource.
-     * 
+     *
      * @return the size of the ReservationList.
      */
     public int size() {
@@ -134,7 +134,7 @@ public class ReservationList {
 
     /**
      * Checks if the ReservationList is empty.
-     * 
+     *
      * @return a boolean: true if no Reservations have been made, false otherwise.
      */
     public boolean isEmpty() {
@@ -144,15 +144,17 @@ public class ReservationList {
     /**
      * Checks if this Resource is currently booked under a Reservation, or is
      * overdue from a previous Reservation.
-     * 
+     *
      * @return a boolean indicating whether this Resource is currently not booked.
      */
     public boolean isCurrentlyAvailable() {
         Date currentDate = new Date(System.currentTimeMillis());
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
-            if ((currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate()))
-                    || thisReservation.isOverdue()) {
+            boolean isCurrentlyBooked = (currentDate.after(thisReservation.getStartDate())
+                    && currentDate.before(thisReservation.getEndDate()));
+            boolean isOverdue = thisReservation.isOverdue();
+            if (isCurrentlyBooked || isOverdue) {
                 return false;
             }
         }
@@ -163,7 +165,7 @@ public class ReservationList {
     /**
      * Checks if this Resource is currently booked under a Reservation, or is
      * overdue from a previous Reservation on the date entered by the user.
-     * 
+     *
      * @param checkedDate The date entered by the user that is being checked
      * @return a boolean indicating whether this Resource is currently not booked on
      *         that date.
@@ -171,9 +173,10 @@ public class ReservationList {
     public boolean isAvailableOnDate(Date checkedDate) {
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
-            if ((checkedDate.after(thisReservation.getStartDate())
-                    && checkedDate.before(thisReservation.getEndDate()))
-                    || thisReservation.isOverdue()) {
+            boolean isUnavailable = (checkedDate.after(thisReservation.getStartDate())
+                    && checkedDate.before(thisReservation.getEndDate()));
+            boolean isOverdue = thisReservation.isOverdue();
+            if (isUnavailable || isOverdue) {
                 return false;
             }
         }
@@ -184,7 +187,7 @@ public class ReservationList {
     /**
      * Checks if this Resource is booked between two given dates, or currently
      * overdue from a previous Reservation.
-     * 
+     *
      * @param startDate the date from which this Resource is being queried.
      * @param endDate   the date till which this Resource is being queried.
      * @return a boolean indicating whether this Resource has been booked at any
@@ -196,11 +199,13 @@ public class ReservationList {
         }
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
-            if (((startDate.after(thisReservation.getStartDate()) && startDate.before(thisReservation.getEndDate()))
-                    || (endDate.after(thisReservation.getStartDate()) && endDate.before(thisReservation.getEndDate())))
-                    || thisReservation.isOverdue()
-                    || startDate.equals(thisReservation.getStartDate())
-                    || endDate.equals(thisReservation.getEndDate())) {
+            boolean startDateIsBetween = (startDate.after(thisReservation.getStartDate()) && startDate.before(thisReservation.getEndDate()));
+            boolean endDateIsBetween = (endDate.after(thisReservation.getStartDate()) && endDate.before(thisReservation.getEndDate()));
+            boolean isBetweenDates = (startDateIsBetween || endDateIsBetween);
+            boolean isOverdue = thisReservation.isOverdue();
+            boolean startDatesAlign = startDate.equals(thisReservation.getStartDate());
+            boolean endDatesAlign = endDate.equals(thisReservation.getEndDate());
+            if (isBetweenDates || isOverdue || startDatesAlign || endDatesAlign) {
                 return false;
             }
         }
@@ -210,7 +215,7 @@ public class ReservationList {
     /**
      * Gets the current Reservation object under which this Resource is currently
      * loaned out, or still overdue.
-     * 
+     *
      * @return the Reservation object under which this Resource is currently booked.
      * @throws RimsException if this Resource is not currently booked.
      */
@@ -218,8 +223,9 @@ public class ReservationList {
         Date currentDate = new Date(System.currentTimeMillis());
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
-            if ((currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate()))
-                    || thisReservation.isOverdue()) {
+            boolean isCurrentlyBooked = (currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate()));
+            boolean isOverdue = thisReservation.isOverdue();
+            if (isCurrentlyBooked || isOverdue) {
                 return thisReservation;
             }
         }
@@ -230,7 +236,7 @@ public class ReservationList {
     /**
      * Gets the list of Reservations that a certain user has made for this
      * particular Resource.
-     * 
+     *
      * @param userId the ID of the user whose Reservations for this Resource are
      *               being obtained.
      * @return a list containing the Reservations made by the user for this object.
@@ -250,7 +256,7 @@ public class ReservationList {
     /**
      * Returns the list of currently active Reservations, including overdue
      * Reservations, which are expiring in a given number of days.
-     * 
+     *
      * @param daysDue the number of days within which Reservations which are
      *                expiring should be returned.
      * @return a list of all Reservations that have expired, or are expiring within

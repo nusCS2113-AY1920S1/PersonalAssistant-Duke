@@ -17,13 +17,12 @@ import java.text.ParseException;
  * the external .txt files.
  */
 public class UndoCommand extends Command {
-
     protected Command prevCommand;
 
     /**
      * Constructor of an UndoCommand, which takes in the parameter of a Command
      * object, for the Ui to notify the user about the command that was undone.
-     * 
+     *
      * @param previousCommand Command inputted by the user that last changed
      *                        ResourceList.
      */

@@ -3,9 +3,11 @@ package rims.resource;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Collections;
+
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.text.ParseException;
+
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -115,8 +117,8 @@ public class Reservation {
      * @return a String version of the attributes of the Reservation.
      */
     public String toString() {
-        String output = "[" + reservationId + "]" + " borrowed by user: " + userId + " from " 
-            + getDateToPrint(dateFrom) + " till " + getDateToPrint(dateTill);
+        String output = "[" + reservationId + "]" + " borrowed by user: " + userId + " from "
+                + getDateToPrint(dateFrom) + " till " + getDateToPrint(dateTill);
         if (isOverdue()) {
             return output + " [OVERDUE]";
         }
@@ -129,7 +131,7 @@ public class Reservation {
      */
     public String toDataFormat() {
         return reservationId + "," + resourceId + "," + userId + ","
-            + dateToString(dateFrom) + "," + dateToString(dateTill);
+                + dateToString(dateFrom) + "," + dateToString(dateTill);
     }
 
     /**
@@ -176,7 +178,7 @@ public class Reservation {
             suffix = "th";
         }
         String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + actualDay + suffix
-            + " " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
+                + " " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
         return stringDate;
     }
 
@@ -187,7 +189,7 @@ public class Reservation {
     public int getDaysDueIn() {
         Date currentDate = new Date(System.currentTimeMillis());
         int daysLeftToDue = (int) (TimeUnit.DAYS.convert((getEndDate().getTime()
-            - currentDate.getTime()), TimeUnit.MILLISECONDS));
+                - currentDate.getTime()), TimeUnit.MILLISECONDS));
         return daysLeftToDue;
     }
 
@@ -208,8 +210,10 @@ public class Reservation {
     public boolean isOverdue() {
         Date currentDate = new Date(System.currentTimeMillis());
         int daysLeftToDue = (int) (TimeUnit.DAYS.convert((getEndDate().getTime()
-            - currentDate.getTime()), TimeUnit.MILLISECONDS));
-        if ((daysLeftToDue < 0) || (daysLeftToDue == 0 && (getEndDate().getTime() - currentDate.getTime() < 0))) {
+                - currentDate.getTime()), TimeUnit.MILLISECONDS));
+        boolean wasDuePast = daysLeftToDue < 0;
+        boolean wasDueEarlierToday = (daysLeftToDue == 0 && (getEndDate().getTime() - currentDate.getTime() < 0));
+        if (wasDuePast || wasDueEarlierToday) {
             return true;
         }
         return false;

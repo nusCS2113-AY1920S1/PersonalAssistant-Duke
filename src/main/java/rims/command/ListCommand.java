@@ -56,6 +56,24 @@ public class ListCommand extends Command {
         return dateValue;
     }
 
+    //@@author danielcyc
+    public static ArrayList<String> getListForSpecificDay(Date day, ResourceList resources, Ui ui)
+            throws ParseException, RimsException {
+        ArrayList<String> coveredResources = new ArrayList<String>();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        String strDate = dateFormat.format(day);
+        for (int i = 0; i < resources.size(); i++) {
+            Resource thisResource = resources.getResourceByIndex(i);
+            int bookedNumberOfResource = resources.getBookedNumberOfResourceForDate(thisResource.getName(), strDate);
+
+            if(!coveredResources.contains(bookedNumberOfResource + "x " + thisResource.getName()) && bookedNumberOfResource > 0) {
+                coveredResources.add(bookedNumberOfResource + "x " + thisResource.getName());
+            }
+        }
+        return coveredResources;
+    }
+
+    //@@author rabhijit
     /**
      * Depending on the type of list desired, either prints out a basic list of all
      * Resources in the ResourceList, or a detailed list of an individual Resource
@@ -194,29 +212,5 @@ public class ListCommand extends Command {
             ui.printLine();
         }
 
-    }
-
-    //@@author danielcyc
-
-    public static ArrayList<String> getListForSpecificDay(Date day, ResourceList resources, Ui ui)
-            throws ParseException, RimsException {
-        ArrayList<String> coveredResources = new ArrayList<String>();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        String strDate = dateFormat.format(day);
-        for (int i = 0; i < resources.size(); i++) {
-            Resource thisResource = resources.getResourceByIndex(i);
-            int bookedNumberOfResource = resources.getBookedNumberOfResourceForDate(thisResource.getName(), strDate);
-
-            if(!coveredResources.contains(bookedNumberOfResource + "x " + thisResource.getName()) && bookedNumberOfResource > 0){
-                coveredResources.add(bookedNumberOfResource + "x " + thisResource.getName());
-            }
-        }
-
-        /*System.out.print("here are the booked items for this day: \n");
-        //System.out.print(Arrays.toString(coveredResources.toArray()));
-        for(int i = 0; i < coveredResources.size(); i++) {
-            System.out.println(coveredResources.get(i));
-        }*/
-        return coveredResources;
     }
 }
