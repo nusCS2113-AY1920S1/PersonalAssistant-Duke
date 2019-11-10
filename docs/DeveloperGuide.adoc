@@ -315,7 +315,7 @@ successfully or not.
 
 The following sequence diagram shows how the `create PROJECT_NAME` operation works.
 
-image::images/ProjectCreation_Sequence.png[]
+image::images/sequnceDiagram/ProjectCreation_Sequence.png[]
 
 The `delete PROJECT_INDEX` command works similarly to `create PROJECT_NAME`. Both commands will result in a
 `Boolean` of either `True` or `False` to indicate whether command was executed successfully. There are minor
@@ -329,7 +329,7 @@ differences, listed below:
 
 ArchDuke allows users to manage each individual project in the `ProjectRepository`.
 
-image::images/ManageProject_Sequence.png[]
+image::images/sequenceDiagram/ManageProject_Sequence.png[]
 === 3.2 CRUD functionality for Members
 ==== Implementation
 
@@ -365,7 +365,7 @@ Step 5) `MemberFactory` will create the member based on the information provided
 subsequently be added into `memberList` which holds all the members in the current project. Upon doing successfully or
 unsuccessfully doing so, a String message will be returned.
 
-image::images/CreateMember_Sequence.png[]
+image::images/sequenceDiagram/CreateMember_Sequence.png[]
 
 === 3.3. CRUD functionality for Tasks
 ==== Implementation
@@ -414,7 +414,7 @@ be added into `taskList` managed by the project and a successfully or unsuccessf
 
 The following sequence diagram show how `add task` operation works.
 
-image::images/CreateTask_Sequence.png[]
+image::images/sequenceDiagram/CreateTask_Sequence.png[]
 
 === 3.4. CRUD functionality for Reminder [Plan to do]
 ==== Implementation
@@ -453,7 +453,7 @@ flags and return a `ArrayList<String>` with the relevant details for `ReminderFa
 Step 5) `ReminderFactory` will create the reminder based on the information given by the user. The created Reminder will subsequently
 be added into `ReminderList` managed by the project and a successfully or unsuccessfully a message in String[] will be returned.
 
-image::images/CreateReminder_Sequence.png[]
+image::images/sequenceDiagram/CreateReminder_Sequence.png[]
 
 === 3.5. CRUD functionality for Managing or Viewing Task Assignments
 
@@ -521,7 +521,7 @@ formatted with the help of `ViewHelper`, which organises the information into ea
 The following sequence diagram shows how the `assign task` command works.
 Certain objects, such as `Project` and `ViewHelper` are omitted for simplicity.
 
-image::images/AssignmentSequenceDiagram.png[]
+image::images/sequenceDiagram/AssignmentSequenceDiagram.png[]
 
 
 ==== Viewing Assignments
@@ -559,7 +559,7 @@ to `ProjectInputController`, and subsequently back to `CLIView` to be displayed 
 
 The following sequence diagram shows how the `view assignments` command works.
 
-image::images/ViewAssignmentSequence.png[]
+image::images/sequenceDiagram/ViewAssignmentSequence.png[]
 
 ==== Design Considerations
 
@@ -684,7 +684,7 @@ indentation and horizontal borders on the top and bottom.
 
 The following sequence diagram show how `list` operation works.
 
-image::images/ViewAllProjects_Sequence.png[]
+image::images/sequenceDiagram/ViewAllProjects_Sequence.png[]
 
 === 3.7. Logging
 
