@@ -35,10 +35,13 @@ public class ShowMemberDetailsCommandTest {
         model.addMember("John");
         Command command = ShowCommandParser.parseShowCommand("member John");
         CommandOutput out = command.execute(model);
-        assertEquals("Here are the details for Member: John\n" + "Member Name: John\n" +
-                "Biography: (No biography saved!)\n" + "Email: (No email saved!)\n" +
-                "Phone: (No phone number saved!)\n" + "Task(s) Assigned: (No tasks assigned!)\n" +
-                "Skills: (No skills saved!)\n", out.getOutputToUser());
+        assertEquals("Here are the details for Member: John\n"
+                + "Member Name: John\n"
+                + "Biography: (No biography saved!)\n"
+                + "Email: (No email saved!)\n"
+                + "Phone: (No phone number saved!)\n"
+                + "Task(s) Assigned: (No tasks assigned!)\n"
+                + "Skills: (No skills saved!)\n", out.getOutputToUser());
     }
 
     @Test
@@ -60,10 +63,13 @@ public class ShowMemberDetailsCommandTest {
         model.addMemberSkill("John","Java");
         Command command = ShowCommandParser.parseShowCommand("member John");
         CommandOutput out = command.execute(model);
-        assertEquals("Here are the details for Member: John\n" + "Member Name: John\n" +
-                "Biography: Test Bio\n" + "Email: abc@gmail.com\n" +
-                "Phone: 98761234\n" + "Task(s) Assigned: [Complete event poster]\n" +
-                "Skills: [Java]\n", out.getOutputToUser());
+        assertEquals("Here are the details for Member: John\n"
+                + "Member Name: John\n"
+                + "Biography: Test Bio\n"
+                + "Email: abc@gmail.com\n"
+                + "Phone: 98761234\n"
+                + "Task(s) Assigned: [Complete event poster]\n"
+                + "Skills: [Java]\n", out.getOutputToUser());
 
     }
 }

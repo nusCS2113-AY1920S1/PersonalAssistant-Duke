@@ -41,11 +41,14 @@ public class ShowTaskDetailsCommandTest {
         model.addTask("Complete event poster");
         Command command = ShowCommandParser.parseShowCommand("task 1");
         CommandOutput out = command.execute(model);
-        assertEquals("Here are the details for Task: 1\n" + "Task Name: Complete event poster ["
-                + model.getTaskIsDoneByIdOnList(1) + "]\n" +
-                "Description: (Please input a description!)\n" + "Deadline: (No deadline assigned!)\n" +
-                "Member(s) assigned: (No members assigned!)\n" + "Skill(s) required: (No skills assigned!)\n" +
-                "Reminder: (No reminder set!)\n", out.getOutputToUser());
+        assertEquals("Here are the details for Task: 1\n"
+                + "Task Name: Complete event poster ["
+                + model.getTaskIsDoneByIdOnList(1) + "]\n"
+                + "Description: (Please input a description!)\n"
+                + "Deadline: (No deadline assigned!)\n"
+                + "Member(s) assigned: (No members assigned!)\n"
+                + "Skill(s) required: (No skills assigned!)\n"
+                + "Reminder: (No reminder set!)\n", out.getOutputToUser());
     }   //model.getTaskIsDoneByIdOnList(1) is used to get symbol
 
     @Test
@@ -71,10 +74,12 @@ public class ShowTaskDetailsCommandTest {
 
         Command command = ShowCommandParser.parseShowCommand("task 1");
         CommandOutput out = command.execute(model);
-        assertEquals("Here are the details for Task: 1\n" + "Task Name: Complete event poster ["
-                + model.getTaskIsDoneByIdOnList(1) + "]\n" +
-                "Description: Complete swim meet poster\n" + "Deadline: Sat Oct 10 10:15:00 SGT 2020\n" +
-                "Member(s) assigned: [John]\n" + "Skill(s) required: [Java]\n" +
-                "Reminder: Sat Oct 10 10:10:00 SGT 2020\n", out.getOutputToUser());
+        assertEquals("Here are the details for Task: 1\n"
+                + "Task Name: Complete event poster ["
+                + model.getTaskIsDoneByIdOnList(1) + "]\n"
+                + "Description: Complete swim meet poster\n"
+                + "Deadline: Sat Oct 10 10:15:00 SGT 2020\n"
+                + "Member(s) assigned: [John]\n" + "Skill(s) required: [Java]\n"
+                + "Reminder: Sat Oct 10 10:10:00 SGT 2020\n", out.getOutputToUser());
     }   //model.getTaskIsDoneByIdOnList(1) is used to get symbol
 }
