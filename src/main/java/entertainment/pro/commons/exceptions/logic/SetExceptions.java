@@ -218,28 +218,6 @@ public class SetExceptions {
         }
     }
 
-    //    /**
-    //     * to check whether a genre id can be added to user's preferences/restrictions.
-    //     * command: preference -g / restriction -g
-    //     * @throws InvalidParameterException when id already belongs to preferences or
-    //     *                                   when id already belongs to restrictions
-    //     */
-    //    private static void checkForSetGenre(int id, ArrayList<Integer> preferences, ArrayList<Integer> restrictions)
-    //            throws InvalidParameterException, IOException {
-    //        for (int log : preferences) {
-    //            if (id == log) {
-    //                throw new InvalidParameterException(PromptMessages.GENRE_IN_PREFERENCE_START + findGenreName(id)
-    //                        + PromptMessages.GENRE_IN_PREFERENCE_END);
-    //            }
-    //        }
-    //        for (int log : restrictions) {
-    //            if (id == log) {
-    //                throw new InvalidParameterException(PromptMessages.GENRE_IN_RESTRICTION_START + findGenreName(id)
-    //                        + PromptMessages.GENRE_IN_RESTRICTION_END);
-    //            }
-    //        }
-    //    }
-
     /**
      * to check whether a genre id can be set to user's preferences.
      * command: preference -g
