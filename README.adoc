@@ -1,0 +1,21 @@
+= Project Cube
+
+link:https://github.com/AY1920S1-CS2103T-W12-2/main/blob/master/LICENSE[image:https://img.shields.io/badge/License-MIT-yellow.svg[MIT License]]
+
+- Cube is a simple Book-keeping and Inventory Management System targeted for sellers looking to set-up a small online marketplace.
+
+ifdef::env-github[]
+image::docs/images/Ui.png[]
+endif::[]
+
+== Site Map
+
+* link:docs/UserGuide.pdf[User Guide]
+* link:docs/DeveloperGuide.pdf[Developer Guide]
+* link:docs/AboutUs.adoc[About Us]
+
+== Acknowledgements
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Some icons used in the application are designed by https://www.flaticon.com/authors/good-ware[Good Ware] from https://www.flaticon.com[Flaticon].
+
+== Licence : link:LICENSE[MIT]
