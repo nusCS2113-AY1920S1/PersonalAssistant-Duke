@@ -58,14 +58,20 @@ public class ViewCommand extends Command {
                                     + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                             System.out.println("$" + b.getAmount());
 
-                            BigDecimal monthBudget = BigDecimal.valueOf(b.getAmount());
-                            BigDecimal expenseSum = BigDecimal.valueOf(wallet.getExpenseList()
-                                .getMonthExpenses(b.getMonth(), b.getYear()));
-                            double remainingBudget = monthBudget.subtract(expenseSum).doubleValue();
-
-                            System.out.println(MESSAGE_REMAINING_BUDGET
-                                + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
-                            System.out.println("$" + remainingBudget);
+                            if (b.getExpenseTakenIntoAccount()) {
+                                BigDecimal monthBudget = BigDecimal.valueOf(b.getAmount());
+                                BigDecimal expenseSum = BigDecimal.valueOf(wallet.getExpenseList()
+                                        .getMonthExpenses(b.getMonth(), b.getYear()));
+                                double remainingBudget = monthBudget.subtract(expenseSum).doubleValue();
+                                remainingBudget += b.getAccountedExpenseAmount();
+                                System.out.println(MESSAGE_REMAINING_BUDGET
+                                        + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
+                                System.out.println("$" + remainingBudget);
+                            } else {
+                                System.out.println(MESSAGE_REMAINING_BUDGET
+                                        + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
+                                System.out.println("$" + b.getAmount());
+                            }
                             return false;
                         }
                     }
