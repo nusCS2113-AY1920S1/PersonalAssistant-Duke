@@ -100,13 +100,13 @@ public class Storage {
                 continue;
             }
             boolean isValid = true;
-            for(int i = 0; i < eventDelimiter.length; i++) {
+            for (int i = 0; i < eventDelimiter.length; i++) {
                 if (!string.contains(eventDelimiter[i])) {
                     isValid = false;
                     break;
                 }
             }
-            if(isValid) {
+            if (isValid) {
                 Assignment task = stringToTask(string);
                 list.addTask(task);
             }
@@ -173,7 +173,7 @@ public class Storage {
         return this.reminderMap;
     }
 
-    private Assignment stringToTask(String string) {
+    protected Assignment stringToTask(String string) {
         Assignment line = null;
         try {
             if (string.contains("[D]")) {
