@@ -47,10 +47,10 @@ public class Item {
 
     @Override
     public String toString() {
-        return (this.roomcode + "|" + this.name + " | " + this.quantity);
+        return (this.roomcode + " | " + this.name + " | " + this.quantity);
     }
 
     public String toWriteFile() {
-        return this.roomcode + "|" + this.name + " | " + this.quantity;
+        return this.roomcode + " | " + this.name + " | " + this.quantity;
     }
 }

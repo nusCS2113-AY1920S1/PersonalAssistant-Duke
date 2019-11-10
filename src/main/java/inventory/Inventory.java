@@ -28,23 +28,15 @@ public class Inventory extends ArrayList<Item> {
     }
 
     /**
-     * To sort the whole inventory according to Roomcode
-     */
-/*
-        System.out.println("\nSorted by rollno");
-        for (int i=0; i<ar.size(); i++)
-            System.out.println(ar.get(i));*/
-
-    /**
      * To check if an item already exists in the current inventory.
      * @param inventory the list of requests
      * @param inputItem the item in question
      * @return if the item already exists
      */
-    public static boolean checkInventory(Inventory inventory, String inputItem) {
+    public static boolean checkInventory(Inventory inventory, String roomcode, String name) {
         boolean found = false;
         for (int i = 0; i < inventory.size(); i++) {
-            if (inventory.get(i).getName().equals(inputItem)) {
+            if (inventory.get(i).getName().equals(name) && inventory.get(i).getRoomcode().equals(roomcode)) { //compare NAME of newitem with name of currentitem
                 found = true;
             }
         }

@@ -11,6 +11,8 @@ import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
 
+import java.util.ArrayList;
+
 public class ListInventoryCommand extends Command{
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
@@ -20,7 +22,9 @@ public class ListInventoryCommand extends Command{
             throw new DukeException("The inventory is empty. Please add an item.");
         }
 
+        //using the sorter
         InventorySorter inventorySorter = new InventorySorter(inventory);
+        ArrayList sortedInventory = inventorySorter.getSortedInvByRoom();
 
         ui.addToOutput("Here are the items in the inventory: ");
         for (int i = 0; i < inventory.size(); i++) {
