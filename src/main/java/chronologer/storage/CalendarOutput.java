@@ -19,10 +19,11 @@ import java.io.IOException;
  * @version v1.1
  */
 public class CalendarOutput {
-
+    private static final String CLASS_NAME = "chronologer.storage.CalenderOutput";
+    private static final String LOG_NAME = "StorageErrors";
     private static CalendarOutputter calendarOutputter = new CalendarOutputter();
     private static String filePath = System.getProperty("user.dir") + "/src/ChronologerDatabase/";
-    private static MyLogger logger = new MyLogger("CalendarOutput class", "StorageErrors");
+    private static MyLogger logger = new MyLogger(CLASS_NAME, LOG_NAME);
 
     /**
      * Process the calendar into an ics file.
@@ -39,10 +40,10 @@ public class CalendarOutput {
             UiMessageHandler.outputMessage("Success,ics file written at src/ChronologerDatabase/" + fileName);
             fileOutputStream.close();
         } catch (FileNotFoundException e) {
-            logger.writeLog(e.toString(), "Calendar Output");
+            logger.writeLog(e.toString(), CLASS_NAME);
             throw new ChronologerException(ChronologerException.fileDoesNotExist());
         } catch (IOException e) {
-            logger.writeLog(e.toString(), "Calendar Output");
+            logger.writeLog(e.toString(), CLASS_NAME);
             throw new ChronologerException(ChronologerException.errorWriteCalendar());
         }
     }

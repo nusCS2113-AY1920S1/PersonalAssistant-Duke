@@ -16,7 +16,9 @@ import chronologer.ui.UiMessageHandler;
  */
 public class LastDay {
     private static HashMap<String, DayOfWeek> days = new HashMap<String, DayOfWeek>();
-    private static MyLogger logger = new MyLogger("chronologer.parser.LastDay", "ParserErrors");
+    private static final String CLASS_NAME = "chronologer.parser.LastDay";
+    private static final String LOG_NAME = "ParserErrors";
+    private static MyLogger logger = new MyLogger(CLASS_NAME, LOG_NAME);
 
     public LastDay() {
 
