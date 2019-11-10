@@ -104,7 +104,7 @@ public class Scheduler {
     public void update() {
         add(Hustler.list.getLastTask());
     }
-    
+
     /**
      * Removes an entry based on the task supplied.
      *
@@ -114,7 +114,7 @@ public class Scheduler {
         schedule.removeIf(n -> (n.getTask() == task));
         recommended.removeIf(n -> (n.getTask() == task));
     }
-    
+
     /**
      * Returns the size of the current list of entries.
      *
@@ -123,7 +123,7 @@ public class Scheduler {
     public int size() {
         return schedule.size();
     }
-    
+
     /**
      * Displays the whole schedule which includes incomplete tasks,
      * and time spent on each of the tasks.
@@ -139,7 +139,7 @@ public class Scheduler {
         }
         ui.showMessage(output);
     }
-    
+
     /**
      * Returns the time spent on each task.
      *
@@ -162,11 +162,11 @@ public class Scheduler {
         recommender = new Recommender(schedule);
         recommended = recommender.recommend(seconds);
     }
-    
+
     public void displayRecommendedSchedule() {
         if (recommended.size() == 0) {
             ui.showMessage("There are no tasks to complete. "
-                + "Please add more tasks."); 
+                    + "Please add more tasks."); 
             return;
         }
 
@@ -181,7 +181,7 @@ public class Scheduler {
         }
         ui.showMessage(output);
     }
-    
+
     public void addToRecommended(Task task) throws CommandLineException {
         if (task.isCompleted()) {
             throw new CommandLineException("Task has already been completed");

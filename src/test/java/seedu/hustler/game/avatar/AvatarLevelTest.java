@@ -100,7 +100,4 @@ public class AvatarLevelTest {
         assertEquals(upgradedAvatarLevel, new AvatarLevel().increaseXp().increaseXp().increaseXp());
 
     }
-
-
-
 }

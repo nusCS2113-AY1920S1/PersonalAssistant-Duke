@@ -1,6 +1,8 @@
 package seedu.hustler.schedule;
 
 import seedu.hustler.task.Task;
+import seedu.hustler.schedule.time.TimeRemaining;
+import seedu.hustler.schedule.time.Timing;
 
 /**
  * Entry of the schedule which symbolizes an
@@ -28,7 +30,7 @@ public class ScheduleEntry {
     /**
      * Priority of the task.
      */
-    private Priority priority = new Priority();
+    private Priority priority = new Priority(new TimeRemaining());
     
     /**
      * Initializes the task and seconds spent on it.
@@ -39,6 +41,12 @@ public class ScheduleEntry {
     public ScheduleEntry(Task task, long secondsSpent) {
         this.task = task;
         this.secondsSpent = secondsSpent;
+    }
+
+    public ScheduleEntry(Task task, long secondsSpent, Timing time) {
+        this.task = task;
+        this.secondsSpent = secondsSpent;
+        priority = new Priority(time);
     }
     
     /**
