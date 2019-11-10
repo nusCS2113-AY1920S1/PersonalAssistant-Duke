@@ -75,24 +75,25 @@ public class PlacesCommandParser extends Command {
             while (!isExitFromPlaces) {
                 ui.readCommand();
                 if (ui.fullCommand.contains("add-") || ui.fullCommand.equals("1")) {
-                    copyMap(places,oldplaces);
+                    copyMap(places, oldplaces);
                     new AddPlacesCommand(ui, places);
                 } else if (ui.fullCommand.equals("find-") || ui.fullCommand.equals("2")) {
                     new FindPlacesCommand(ui, places);
                 } else if (ui.fullCommand.equals("list") || ui.fullCommand.equals("4")) {
                     new ListPlacesCommand(places);
                 } else if (ui.fullCommand.contains("delete-") || ui.fullCommand.equals("3")) {
-                    copyMap(places,oldplaces);
+                    copyMap(places, oldplaces);
                     new DeletePlacesCommand(ui, places);
                 } else if (ui.fullCommand.equals("commands") || ui.fullCommand.equals("6")) {
                     System.out.println(PLACES_COMMANDS);
                 } else if (ui.fullCommand.equals("help") || ui.fullCommand.equals("7")) {
-                    new HelpCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                    new HelpCommand().execute(list, ui, storage,
+                            commandStack, deletedTask, triviaManager);
                 } else if (ui.fullCommand.equals("esc") || ui.fullCommand.equals("8")) {
                     System.out.println(MAIN_MENU_PAGE);
                     isExitFromPlaces = true;
                 } else if (ui.fullCommand.equals("undo") || ui.fullCommand.equals("5")) {
-                    places = UndoPlacesCommand.undoPlaces(places,oldplaces);
+                    places = UndoPlacesCommand.undoPlaces(places, oldplaces);
                 } else {
                     System.out.println(INVALID_COMMAND);
                 }
