@@ -39,10 +39,10 @@ public class Parser {
                                 Storage storage, ArrayList<String> list, Set<String> dict) {
         try {
             if (instr.isBye(input)) {
-                storage.writeToProjectsFile(process.projectmanager.projectmap);
+                storage.writeToProjectsFile(process.projectManager.projectmap);
                 storage.writeToFundFile(fund);
                 storage.writeToDictFile(dict);
-                storage.writeTocurrentprojectnameFile(process.projectmanager.currentprojectname);
+                storage.writeTocurrentprojectnameFile(process.projectManager.currentprojectname);
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;

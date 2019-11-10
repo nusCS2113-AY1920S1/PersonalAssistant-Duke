@@ -8,6 +8,7 @@ import payment.Payments;
 import payment.Status;
 import project.Fund;
 import project.Project;
+import project.ProjectManager;
 import task.Task;
 import ui.Suggest;
 
@@ -124,18 +125,10 @@ public class Ui {
     }
 
     /**
-<<<<<<< HEAD
-     * Prints the number of projects in the projectmap and the current project that
-     * is being worked on.
-     * 
-     * @param currentprojectname Name of the current project.
-     * @param projectsize        The current number of projects in the projectmap.
-=======
      * Prints the number of projects in the projectmap and the current project
      * that is being worked on.
      * @param currentprojectnamename Name of the current project.
      * @param projectsize The current number of projects in the projectmap.
->>>>>>> cc887e1ee8a540f12db2f82642ba1a699386d4c4
      */
     public void printProjectStatus(String currentprojectnamename, int projectsize) {
         System.out.print(line);
@@ -384,6 +377,14 @@ public class Ui {
         System.out.print(line);
     }
 
+    public void printInsufficientBudget(ProjectManager projectManager) {
+        String currProjectName = projectManager.currentprojectname;
+        exceptionMessage("     ☹ OOPS!!! There is not enough budget left.\n"
+                        + " Total budget: " + projectManager.projectmap.get(currProjectName).getBudget() + "\n"
+                        + " Budget spent: " + projectManager.projectmap.get(currProjectName).getSpending() + "\n"
+                        + " Budget remaining: " + projectManager.projectmap.get(currProjectName).getRemaining() + "\n");
+    }
+
     /**
      * Prints message to indicate a Payment being added to a certain Payee.
      * 
@@ -393,15 +394,9 @@ public class Ui {
     public void printAddPaymentMessage(Payments payment, int size, String currentprojectname) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payment:");
-<<<<<<< HEAD
         payment.printPayment();
-        System.out.print(
-                "\t" + payment.payee + " now has " + size + " payments in project " + currentProjectName + ".\n");
-=======
-        payment.givePayments();
         System.out.print("\t" + payment.payee + " now has " + size 
             + " payments in project " + currentprojectname + ".\n");
->>>>>>> cc887e1ee8a540f12db2f82642ba1a699386d4c4
         System.out.print(line);
     }
 
@@ -414,16 +409,6 @@ public class Ui {
     public void printAddPayeeMessage(String name, Payee payee, int payeesize, String currentprojectnameName) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payee:");
-<<<<<<< HEAD
-        payee.printPayee();
-        System.out.print("\t" + "There are " + payeesize + " payees in project " + currentProjectName + ".\n");
-=======
-        System.out.println("\t" + "Payee: " + name);
-        System.out.println("\t" + "Email: " + payee.email);
-        System.out.println("\t" + "Matric No: " + payee.matricNum);
-        System.out.println("\t" + "Phone No: " + payee.phoneNum);
-        System.out.print("\t" + "There are " + payeesize + " payees in project " + currentprojectnameName + ".\n");
-        System.out.print(line);
     }
 
     /**
@@ -437,7 +422,6 @@ public class Ui {
         System.out.println("\t" + "Current project is " + project + ".");
         System.out.println("\t" + "The total cost paid by " + payee + " is: " + amount + " dollars.");
         System.out.println("\t" + "use `find payee " + payee + "` command to see the detail of the payee's payments.");
->>>>>>> cc887e1ee8a540f12db2f82642ba1a699386d4c4
         System.out.print(line);
     }
 
@@ -458,24 +442,15 @@ public class Ui {
      * @param payee Payee containing identification information of Payee.
      * @param name  the name of Payee to make Payments to.
      */
-    public void printdeletePayeeMessage(String name, Payee payee, int payeesize, String currentprojectnameName) {
+    public void printdeletePayeeMessage(String name, Payee payee, int payeesize, String currentProjectName) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've deleted this payee:");
-<<<<<<< HEAD
         payee.printPayee();
         System.out.print("\t" + "There are " + payeesize + " payees in project " + currentProjectName + ".\n");
-=======
-        System.out.println("\t" + "Payee: " + name);
-        System.out.println("\t" + "Email: " + payee.email);
-        System.out.println("\t" + "Matric No: " + payee.matricNum);
-        System.out.println("\t" + "Phone No: " + payee.phoneNum);
-        System.out.print("\t" + "There are " + payeesize + " payees in project " + currentprojectnameName + ".\n");
->>>>>>> cc887e1ee8a540f12db2f82642ba1a699386d4c4
         System.out.print(line);
     }
 
     public void printSuggestion(Set<String> dict, String input, String word) throws AlphaNUSException {
-        
         Suggest suggest = new Suggest();
         String suggestion = suggest.guess(dict, word);
         String replacement = input.replaceFirst(word, suggestion);
@@ -569,7 +544,7 @@ public class Ui {
         System.out.println("\tYour reminder is as follow:\n");
         for(Payments p:paymentlist){
             System.out.println("\t" + p.getProject());
-            p.givePayments();
+            p.printPayment();
         }
         System.out.print(line);
     }

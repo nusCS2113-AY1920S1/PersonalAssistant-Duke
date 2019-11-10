@@ -2,13 +2,9 @@ package payment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
-import command.Storage;
-import common.AlphaNUSException;
 
 //@@author karansarat
 /**
@@ -31,7 +27,7 @@ public class Payments implements Comparable<Payments>{
      * @param cost Cost of the item.
      * @param inv  Invoice for the payment.
      */
-    public Payments(String project, String payee, String item, double cost, String in) {
+    public Payments(String project, String payee, String item, double cost, String inv) {
         this.payee = payee;
         this.item = item;
         this.cost = cost;
@@ -111,7 +107,6 @@ public class Payments implements Comparable<Payments>{
         dict.remove("" + this.cost);
         dict.remove("" + this.deadline);
         dict.remove(this.inv);
-        dict.remove("" + this.status);
     }
     
     @Override

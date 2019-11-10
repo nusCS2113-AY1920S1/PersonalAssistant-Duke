@@ -5,10 +5,11 @@ import ui.Ui;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 import common.AlphaNUSException;
-import project.ProjectManager;
+import project.Project;
 
 //@@author karansarat
 /**
@@ -18,7 +19,7 @@ import project.ProjectManager;
 public abstract class PaymentManager {
 
     private static Field strToField(String str) {
-        switch (str) {
+        switch (str.toUpperCase()) {
         case ("PAYEE"):
             return Field.PAYEE;
         case ("EMAIL"):
@@ -48,61 +49,61 @@ public abstract class PaymentManager {
      *
      * @param payee Payee of the item.
      */
-    public static Payee findPayee(ProjectManager projectManager, String name) {
-        Set<String> projectnames = projectManager.projectmap.keySet();
-        String currProject = projectManager.currentprojectname;
-        while (!projectManager.projectmap.get(currProject).managermap.containsKey(name)) {
+    public static Payee findPayee(LinkedHashMap<String, Project> projectMap, String curr, String name) {
+        Set<String> projectnames = projectMap.keySet();
+        String currProject = curr;
+        while (!projectMap.get(currProject).managermap.containsKey(name)) {
             projectnames.remove(currProject);
             if (projectnames.isEmpty()) {
                 throw new IllegalArgumentException();
             }
             currProject = projectnames.iterator().next();
-            projectManager.gotoProject(currProject);
         }
-        return projectManager.projectmap.get(currProject).managermap.get(name);
+        return projectMap.get(currProject).managermap.get(name);
     }
 
     /**
      * Edits the Payments object details, may overload string to take different ways
      * of inputs.
      */
-    public static void editPayee(String payee, String inv, String fieldToAmend, String replace,
+    public static void editPayee(String payee, String fieldToAmend, String replace,
             HashMap<String, Payee> managermap, Ui ui) {
         Field field = strToField(fieldToAmend);
-        if (inv.isEmpty()) {
-            if (field == Field.PAYEE) {
-                managermap.get(payee).payee = replace;
-            } else if (field == Field.EMAIL) {
-                managermap.get(payee).email = replace;
-            } else if (field == Field.MATRIC) {
-                managermap.get(payee).matricNum = replace;
-            } else if (field == Field.PHONE) {
-                managermap.get(payee).phoneNum = replace;
-            }
-            ui.printEditMessage(managermap.get(payee));
-        } else {
-            for (Payments payment : managermap.get(payee).payments) {
-                if (payment.inv.equals(inv)) {
-                    if (field == Field.ITEM) {
-                        payment.item = replace;
-                    } else if (field == Field.COST) {
-                        payment.cost = Double.parseDouble(replace);
-                    } else if (field == Field.INV) {
-                        payment.inv = replace;
-                    } else if (field == Field.STATUS) {
-                        if (replace.equalsIgnoreCase("pending")) {
-                            payment.status = Status.PENDING;
-                        } else if (replace.equalsIgnoreCase("approved")) {
-                            payment.status = Status.APPROVED;
-                        } else if (replace.equalsIgnoreCase("overdue")) {
-                            payment.status = Status.OVERDUE;
-                        }
+        if (field == Field.PAYEE) {
+            managermap.get(payee).payee = replace;
+        } else if (field == Field.EMAIL) {
+            managermap.get(payee).email = replace;
+        } else if (field == Field.MATRIC) {
+            managermap.get(payee).matricNum = replace;
+        } else if (field == Field.PHONE) {
+            managermap.get(payee).phoneNum = replace;
+        }
+        ui.printEditMessage(managermap.get(payee));
+    }
+
+    public static void editPayment(String payee, String inv, String fieldToAmend, String replace,
+    HashMap<String, Payee> managermap, Ui ui) {
+        Field field = strToField(fieldToAmend);
+        for (Payments payment : managermap.get(payee).payments) {
+            if (payment.inv.equals(inv)) {
+                if (field == Field.ITEM) {
+                    payment.item = replace;
+                } else if (field == Field.COST) {
+                    payment.cost = Double.parseDouble(replace);
+                } else if (field == Field.INV) {
+                    payment.inv = replace;
+                } else if (field == Field.STATUS) {
+                    if (replace.equalsIgnoreCase("pending")) {
+                        payment.status = Status.PENDING;
+                    } else if (replace.equalsIgnoreCase("approved")) {
+                        payment.status = Status.APPROVED;
+                    } else if (replace.equalsIgnoreCase("overdue")) {
+                        payment.status = Status.OVERDUE;
                     }
-                    ui.printEditMessage(payment, payee);
-                    break;
                 }
+                ui.printEditMessage(payment, payee);
+                break;
             }
-            assert (false); // Invalid invoice number <-- TODO : Raise error
         }
     }
 
