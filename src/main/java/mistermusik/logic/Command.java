@@ -692,16 +692,13 @@ public class Command {
                                 ui.printNoSuchGoal();
                             }
                         } else {
-                            events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
-                            ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                            ui.printNoSuchGoal();
                         }
-                    } else {
-                        ui.printNoSuchGoal();
-                    }
-                    break;
-                default:
-                    ui.printGoalCommandInvalid();
-                    break;
+                        break;
+
+                    default:
+                        ui.printGoalCommandInvalid();
+                        break;
                 }
             } else {
                 switch (goalCommand[0]) {
@@ -726,6 +723,7 @@ public class Command {
             ui.printNotAnInteger();
         }
     }
+
 
     //@@author YuanJiayi
 
