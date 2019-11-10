@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class SynonymBank {
-    HashMap<String, HashSet<String>> synonymBank;
+    HashMap<String, String> synonymBank;
 
     public SynonymBank() {
         synonymBank = new HashMap<>();
@@ -16,51 +16,105 @@ public class SynonymBank {
      * Adds a word to all synonyms present in the list.
      * @param wordDescription word that need to be added
      * @param synonyms list that will add the word
-     * @author Ng Jian Wei
      */
-    public void addSynonym(String wordDescription, ArrayList<String> synonyms) {
+    public void joinSynonymWords(String wordDescription, ArrayList<String> synonyms) {
+        if (!synonymBank.containsKey(wordDescription)) {
+            synonymBank.put(wordDescription, wordDescription);
+        }
         for (String synonym : synonyms) {
             if (synonymBank.containsKey(synonym)) {
-                synonymBank.get(synonym).add(wordDescription);
+                if (!isSameSet(wordDescription, synonym)) {
+                    union(wordDescription, synonym);
+                }
             } else {
-                synonymBank.put(synonym, new HashSet<>(Collections.singletonList(wordDescription)));
+                synonymBank.put(synonym, synonym);
+                union(wordDescription, synonym);
             }
         }
     }
-    /**Delete a word from the list of synonyms belonging to one word.
-     * Essentially this removes the selected synonym within the list
-     * @param word word to be deleted
-     */
 
-    public void deleteWordAllSynonyms(Word word) {
-        for (String synonym : word.getSynonyms()) {
-            synonymBank.get(synonym).remove(word.getWordString());
-        }
+    public int getSize() {
+        return synonymBank.size();
     }
-    /**
-     * Deletes a word from some synonyms of that word.
-     *  We want to delete drink from beverage and alcohol only, leaving the rest stationary.
-     * @param deletedSynonyms list of synonyms to delete the word
-     * @param deletedWord word to be deleted
-     */
 
-    public void deleteWordSomeSynonyms(ArrayList<String> deletedSynonyms, String deletedWord) {
-        for (String synonym : deletedSynonyms) {
-            synonymBank.get(synonym).remove(deletedWord); //look up these synonyms and remove the deletedWord
-        }
-    }
     /**
-     * Adds a word to all synonyms in SynonymBank of that the word has. Ensures that the synonymBank is updated.
-     * @param word word to add synonym
+     * Gets all sets of words that have the same meaning in the synonym bank.
+     * @return set of words that have the same meaning
      */
-
-    public void addWordAllSynonyms(Word word) {
-        for (String synonym : word.getSynonyms()) {
-            if (synonymBank.containsKey(synonym)) {
-                synonymBank.get(synonym).add(word.getWordString());
-            } else {
-                synonymBank.put(synonym, new HashSet<>(Collections.singletonList(word.getWordString())));
+    public ArrayList<ArrayList<String>> getAllSynonymsAsList() {
+        ArrayList<ArrayList<String>> arrayList = new ArrayList<>();
+        HashSet<String> roots = new HashSet<>();
+        for (String word : synonymBank.keySet()) {
+            String parent = findSet(word);
+            if (!roots.contains(parent)) {
+                ArrayList<String> temp = getAllSynonymsOfWord(word);
+                temp.add(word);
+                arrayList.add(temp);
+                roots.add(parent);
             }
         }
+        return arrayList;
+    }
+
+    /**
+     * Gets all synonyms of a specific word as an array.
+     * @param synonym a string represents the synonym
+     * @return an array of words of that tag
+     */
+    public ArrayList<String> getAllSynonymsOfWord(String synonym) {
+        ArrayList<String> allSynonyms = new ArrayList<>();
+        for (String s : synonymBank.keySet()) {
+            if (!s.equals(synonym) && isSameSet(s, synonym)) {
+                allSynonyms.add(s);
+            }
+        }
+        return allSynonyms;
+    }
+
+    /**
+     * Adds a word to one specific synonym in synonymBank.
+     * @param word word to be added
+     * @param synonym tag that the word will be added to
+     */
+    public void addWordToOneSynonym(String word, String synonym) {
+        if (!synonymBank.containsKey(word)) {
+            synonymBank.put(word, word);
+        }
+        if (!synonymBank.containsKey(synonym)) {
+            synonymBank.put(synonym, synonym);
+        }
+        if (!isSameSet(word, synonym)) {
+            union(word, synonym);
+        }
+    }
+
+    private void union(String word, String synonym) {
+        synonymBank.replace(findSet(synonym), synonymBank.get(findSet(word)));
+    }
+
+    private boolean isSameSet(String word, String synonym) {
+        return findSet(word).equals(findSet(synonym));
+    }
+
+    /**
+     * Finds the root word that have the same meaning with the current word.
+     * @param word word to be looked for
+     * @return root word of the current word
+     */
+    private String findSet(String word) {
+        if (synonymBank.get(word).equals(word)) {
+            return word;
+        }
+        String newParent = findSet(synonymBank.get(word));
+        synonymBank.replace(word, newParent);
+        return newParent;
+    }
+
+    public boolean isEmpty() {
+        return synonymBank.isEmpty();
+    }
+
+    public boolean contains(String searchTag) {
+        return synonymBank.containsKey(searchTag);
     }
 }
