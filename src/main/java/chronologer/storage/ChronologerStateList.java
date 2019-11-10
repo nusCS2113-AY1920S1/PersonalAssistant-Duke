@@ -93,8 +93,7 @@ public class ChronologerStateList implements Serializable {
     public static ArrayList<Task> undo() throws ChronologerException {
         ArrayList<Task> toReturn;
         if (chronologerUndoStack.size() <= 1) {
-            UiMessageHandler.outputMessage("Sorry unable to undo further");
-            throw new ChronologerException(ChronologerException.fileDoesNotExist());
+            throw new ChronologerException(ChronologerException.undoLimitHit());
         } else {
             chronologerRedoStack.push(chronologerUndoStack.pop());
             toReturn = (ArrayList<Task>) chronologerUndoStack.peek();
@@ -104,13 +103,11 @@ public class ChronologerStateList implements Serializable {
 
     /**
      * Function to redo to a previous state that was undone.
-     *
      */
-    public static ArrayList<Task> redo()  throws ChronologerException {
+    public static ArrayList<Task> redo() throws ChronologerException {
         ArrayList<Task> toReturn;
         if (chronologerRedoStack.size() == 0) {
-            UiMessageHandler.outputMessage("Sorry unable to redo further");
-            throw new ChronologerException(ChronologerException.fileDoesNotExist());
+            throw new ChronologerException(ChronologerException.redoLimitHit());
         } else {
             toReturn = (ArrayList<Task>) chronologerRedoStack.pop();
             chronologerUndoStack.push(SerializationUtils.clone(toReturn));

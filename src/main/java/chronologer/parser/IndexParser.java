@@ -32,11 +32,9 @@ public abstract class IndexParser extends Parser {
             index = Integer.parseInt(taskFeatures.split("\\s+", 2)[0].trim()) - 1;
         } catch (NumberFormatException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiMessageHandler.outputMessage(ChronologerException.unknownUserCommand());
             throw new ChronologerException(ChronologerException.unknownUserCommand());
         }
         if (index < 0) {
-            UiMessageHandler.outputMessage(NEGATIVE_NUM_DETECTED);
             throw new ChronologerException(NEGATIVE_NUM_DETECTED);
         }
         return index;

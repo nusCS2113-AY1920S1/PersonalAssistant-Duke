@@ -69,7 +69,6 @@ public class ScheduleParser extends IndexParser {
         try {
             convertedDate = DateTimeExtractor.extractDateTime(extractedDate);
         } catch (DateTimeParseException e) {
-            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
@@ -83,7 +82,6 @@ public class ScheduleParser extends IndexParser {
         }
         String stringToCheck = taskFeatures.split(Flag.BY.getFlag(), 2)[1].trim();
         if (stringToCheck.isEmpty()) {
-            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         } else if (stringToCheck.contains("/")) {
             return DATE_INPUT;

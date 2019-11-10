@@ -18,7 +18,6 @@ public class ViewCommand extends Command {
     private String dateToFind;
     private static final String NO_TASK_SCHEDULED = "There are no tasks scheduled on that date.";
     private static final String PRESENT_SCHEDULE = "Here is your schedule for that day:";
-    private static final String TODAY_TASK = "The tasks you have on this date are:";
 
     public ViewCommand(String dateToFind) {
         this.dateToFind = dateToFind;
@@ -32,19 +31,16 @@ public class ViewCommand extends Command {
      */
     public void execute(TaskList tasks, Storage storage) {
         ArrayList<Task> sortedRequiredSchedule = tasks.schedule(dateToFind);
+        String messageForUser;
         if (sortedRequiredSchedule.isEmpty()) {
-            UiMessageHandler.outputMessage(NO_TASK_SCHEDULED);
+            messageForUser = NO_TASK_SCHEDULED;
         } else {
-            UiMessageHandler.outputForGUI += PRESENT_SCHEDULE;
+            messageForUser = PRESENT_SCHEDULE;
             int i = 1;
             for (Task task : sortedRequiredSchedule) {
-                UiMessageHandler.outputForGUI += i++ + "." + task.toString() + "\n";
-            }
-            UiMessageHandler.outputMessage(TODAY_TASK);
-            int j = 1;
-            for (Task task : sortedRequiredSchedule) {
-                UiMessageHandler.outputForGUI += j++ + "." + task.toString() + "\n";
+                messageForUser += i++ + "." + task.toString() + "\n";
             }
         }
+        UiMessageHandler.outputMessage(messageForUser);
     }
 }

@@ -3,6 +3,7 @@ package chronologer.command;
 import chronologer.exception.ChronologerException;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
+import chronologer.ui.UiMessageHandler;
 
 public class WeekCommand extends Command {
     private int weekNumber;
@@ -13,7 +14,7 @@ public class WeekCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
-        tasks.updateWeek(weekNumber);
+        UiMessageHandler.outputMessage(tasks.updateWeek(weekNumber));
         tasks.updateGui(null);
     }
 }

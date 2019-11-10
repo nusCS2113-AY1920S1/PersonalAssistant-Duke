@@ -36,7 +36,6 @@ public class TodoWithinPeriodParser extends TodoParser {
         try {
             from = dateTimeFromUser.split("-", 2)[0].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
-            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
@@ -45,7 +44,6 @@ public class TodoWithinPeriodParser extends TodoParser {
             startDate = DateTimeExtractor.extractDateTime(from);
         } catch (DateTimeParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
         return startDate;
@@ -58,14 +56,12 @@ public class TodoWithinPeriodParser extends TodoParser {
             to = dateTimeFromUser.split("-", 2)[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
         LocalDateTime endDate;
         try {
             endDate = DateTimeExtractor.extractDateTime(to);
         } catch (DateTimeParseException e) {
-            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }

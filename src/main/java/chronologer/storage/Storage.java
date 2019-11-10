@@ -58,7 +58,6 @@ public class Storage {
             fileOutputStream.write(json.getBytes());
             fileOutputStream.close();
         } catch (IOException e) {
-            UiMessageHandler.outputForGUI = ChronologerException.unableToWriteFile();
             logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(ChronologerException.unableToWriteFile());
         }
@@ -87,11 +86,9 @@ public class Storage {
             bufferedReader.close();
             return taskList;
         } catch (FileNotFoundException e) {
-            UiMessageHandler.outputForGUI = ChronologerException.fileDoesNotExist();
             logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(ChronologerException.fileDoesNotExist());
         } catch (IOException e) {
-            UiMessageHandler.outputForGUI = ChronologerException.unableToReadFile();
             logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(ChronologerException.unableToReadFile());
         }

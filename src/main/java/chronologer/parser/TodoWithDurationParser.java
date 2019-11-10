@@ -33,7 +33,6 @@ public class TodoWithDurationParser extends TodoParser {
         try {
             duration = Integer.parseInt(substring.split("\\s+", 2)[0].trim());
         } catch (NumberFormatException e) {
-            UiMessageHandler.outputMessage(INVALID_DURATION);
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(INVALID_DURATION);
         }
