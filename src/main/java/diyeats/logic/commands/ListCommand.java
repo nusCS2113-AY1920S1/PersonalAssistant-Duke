@@ -16,7 +16,7 @@ import java.util.ArrayList;
 //@@author GaryStu
 /**
  * ListCommand is a public class that inherits from abstract class Command.
- * It displays all the meals in a relevant day in a list to the user
+ * It displays all the meal(s) in a relevant day in a list to the user
  */
 public class ListCommand extends Command {
     private String sortBy = "default";
@@ -29,7 +29,7 @@ public class ListCommand extends Command {
 
     /**
      * Constructor for ListCommand.
-     * @param date The date of the data to List
+     * @param date The date of the meal(s) to List
      */
     public ListCommand(LocalDate date) {
         if (date != null) {
@@ -49,8 +49,8 @@ public class ListCommand extends Command {
 
     /**
      * Constructor when ListCommand encounters error.
-     * @param flag the flag to activate isFail.
-     * @param messageStr the messageStr concerned.
+     * @param flag the flag to indicate whether the parser fails.
+     * @param messageStr the error message concerned.
      */
     public ListCommand(boolean flag, String messageStr) {
         this.isFail = flag;

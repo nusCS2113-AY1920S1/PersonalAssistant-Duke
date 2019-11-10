@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static diyeats.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
 
@@ -22,6 +24,7 @@ public class Ui {
     private static final String UI_PADDING = "     ";
     private static final String UI_BOUNDARY = "    ____________________________________________________________";
     public Scanner in = new Scanner(System.in);
+    private static Logger logger = Logger.getLogger(Ui.class.getName());
 
     public void showLine() {
         System.out.println(UI_BOUNDARY);
@@ -198,10 +201,18 @@ public class Ui {
         System.out.println(UI_PADDING + "Your account balance is: " + accountBalance + " SGD");
     }
 
+    /**
+     * displays the transactions on a certain date and the current account balance.
+     * @param transactions the transactions to be displayed.
+     * @param date the date transactions are to be displayed.
+     * @param wallet the wallet in which account balance is extracted.
+     */
     public void showTransactions(ArrayList<Transaction> transactions, LocalDate date, Wallet wallet) {
         if (transactions.isEmpty()) {
+            logger.log(Level.INFO, "There is no transaction on " + date + ".");
             System.out.println(UI_PADDING + "There is no transaction on " + date + ".");
         } else {
+            logger.log(Level.INFO, "There are transactions on " + date + ".");
             System.out.println(UI_PADDING + "These are the transactions on " + date + ":");
             for (int idx = 0; idx < transactions.size(); idx++) {
                 System.out.println(UI_PADDING + (idx + 1) + ". " + transactions.get(idx));
