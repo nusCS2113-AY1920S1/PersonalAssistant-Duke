@@ -51,7 +51,7 @@ public class DukeConstants {
     //SHOW
     public static final String SHOW_WORKLOAD_HEADER = "show/workload";
     public static final String SHOW_FILTER_HEADER ="show/filter";
-    public static final String HELP_HEADER = "help";
+    public static final String HELP_HEADER = "show/help";
     public static final String FIND_TIME_HEADER ="find/time";
     public static final String FIND_TIME_KEYWORD_HOUR = "hour";
     public static final String FIND_TIME_KEYWORD_HOURS = "hours";
