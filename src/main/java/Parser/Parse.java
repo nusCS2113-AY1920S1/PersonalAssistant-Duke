@@ -66,7 +66,7 @@ public abstract class Parse {
      * @return true if it matches the characteristics of a 24-hour time format
      */
     public boolean isValidTime(String input) {
-        String[] spiltInput = input.split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+        String[] spiltInput = input.split(DukeConstants.BLANK_SPACE);
         String time = spiltInput[spiltInput.length-1];
         if(time.length() != DukeConstants.LENGTH_OF_TIME_FORMAT) {
             return false;

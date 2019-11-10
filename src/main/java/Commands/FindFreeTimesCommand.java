@@ -7,7 +7,6 @@ import Tasks.Assignment;
 import Tasks.TaskList;
 import javafx.util.Pair;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.NavigableMap;
@@ -25,8 +24,13 @@ public class FindFreeTimesCommand extends Command {
     private static final String TWELVE_HOUR_TIME_AM_POST_FIX = "AM";
     private static final String TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR = "12";
     private static final String TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR = ":";
+    private static final String DISPLAY_KEYWORD_OPTION = "Option";
+    private static final String DISPLAY_KEYWORD_TO = " to ";
 
-    private final Integer options = 5;
+    private static final int SECOND_TO_MILLISECONDS = 1000;
+    private static final int MAX_SECOND = 60;
+
+    private static final Integer options = 5;
     private final Integer duration;
 
     private final ArrayList<Pair<Date, Date>> freeTimeData = new ArrayList<>();
@@ -53,8 +57,8 @@ public class FindFreeTimesCommand extends Command {
 
     /**
      * This method updates the dateTime to same date with time 2359 as upper Boundary.
-     * @param inDate The date given at 0000 hours
-     * @return The updated date
+     * @param inDate The dateTime given at 0000 hours
+     * @return The updated dateTime
      */
     private Date increaseTimeToTwoThreeFiveNine(Date inDate) {
         Calendar c = Calendar.getInstance();
@@ -66,8 +70,8 @@ public class FindFreeTimesCommand extends Command {
 
     /**
      * This method updates the dateTime to same date with time 0700 as lower Boundary.
-     * @param inDate The date given at 0000 hours
-     * @return The updated date
+     * @param inDate The dateTime given at 0000 hours
+     * @return The updated dateTime
      */
     private Date increaseTimeToZeroSevenZeroZero(Date inDate) {
         Calendar c = Calendar.getInstance();
@@ -76,6 +80,11 @@ public class FindFreeTimesCommand extends Command {
         return c.getTime();
     }
 
+    /**
+     * This method updates the dateTime increases it by 15 minutes.
+     * @param inDate The dateTime given
+     * @return The updated dateTime
+     */
     private Date increaseTimeByFifteenMinutes(Date inDate) {
         Calendar c = Calendar.getInstance();
         c.setTime(inDate);
@@ -91,7 +100,7 @@ public class FindFreeTimesCommand extends Command {
     private Date roundByHalfHourMark(Date date) {
         long minuteToIncrease = 0;
         long diff = date.getTime();
-        long diffMinutes = diff / (60 * 1000) % 60;
+        long diffMinutes = diff / (MAX_SECOND * SECOND_TO_MILLISECONDS) % HOUR_MARK;
         if (diffMinutes > HALF_HOUR_MARK) {
             minuteToIncrease = HOUR_MARK - diffMinutes;
         } else if (diffMinutes < HALF_HOUR_MARK && diffMinutes > 0) {
@@ -110,8 +119,8 @@ public class FindFreeTimesCommand extends Command {
         String left = lhs.getKey();
         String right = rhs.getKey();
 
-        String[] leftTimeSplit = left.split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
-        String[] rightTimeSplit = right.split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+        String[] leftTimeSplit = left.split(DukeConstants.BLANK_SPACE);
+        String[] rightTimeSplit = right.split(DukeConstants.BLANK_SPACE);
 
         if (leftTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)
                 && rightTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)) {
@@ -192,10 +201,9 @@ public class FindFreeTimesCommand extends Command {
             if (moduleValues.get(strDateDay) != null) {
                 ArrayList<Assignment> data = moduleValues.get(strDateDay);
                 for (Assignment task : data) {
-                    String startAndEnd = task.getTime();
-                    String[] spiltStartAndEnd = startAndEnd.split("to");
+                    String startTime = task.getStartTime();
                     Date startDateTime = DukeConstants.DEADLINE_DATE_FORMAT.parse(strDateDay
-                            + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + spiltStartAndEnd[0]);
+                            + DukeConstants.BLANK_SPACE + startTime);
                     Long inMillis = startDateTime.getTime();
                     extractedAssignmentsOnDate.add(new Pair<>(inMillis,task));
                 }
@@ -205,12 +213,12 @@ public class FindFreeTimesCommand extends Command {
 
 
         for (Pair<Long,Assignment> task : extractedAssignmentsOnDate) {
-            String startAndEnd = task.getValue().getTime();
-            String[] spiltStartAndEnd = startAndEnd.split("to");
+            String startTime = task.getValue().getStartTime();
+            String endTime = task.getValue().getEndTime();
             Date startDateTime = DukeConstants.DEADLINE_DATE_FORMAT.parse(strDateDay
-                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + spiltStartAndEnd[0]);
+                    + DukeConstants.BLANK_SPACE + startTime);
             Date endDateTime = DukeConstants.DEADLINE_DATE_FORMAT.parse(strDateDay
-                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + spiltStartAndEnd[1]);
+                    + DukeConstants.BLANK_SPACE + endTime);
 
             if (startDateTime.equals(refDate)) {
                 refDate = endDateTime;
@@ -242,12 +250,12 @@ public class FindFreeTimesCommand extends Command {
             if (date.after(refDate)) {
                 ArrayList<Assignment> data = moduleValues.get(strDate);
                 for (Assignment task : data) {
-                    String startAndEnd = task.getTime();
-                    String[] spiltStartAndEnd = startAndEnd.split("to");
+                    String startTime = task.getStartTime();
+                    String endTime = task.getEndTime();
                     Date startDateTime = DukeConstants.DEADLINE_DATE_FORMAT.parse(strDate
-                            + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + spiltStartAndEnd[0]);
+                            + DukeConstants.BLANK_SPACE + startTime);
                     if (startDateTime.after(refDate)) {
-                        timeArray.add(new Pair<>(spiltStartAndEnd[0].trim(), spiltStartAndEnd[1].trim()));
+                        timeArray.add(new Pair<>(startTime.trim(), endTime.trim()));
                     }
                 }
                 if (dataMap.containsKey(strDate)) {
@@ -302,14 +310,14 @@ public class FindFreeTimesCommand extends Command {
     private Integer addIfWithinTimeBoundary(ArrayList<Pair<String, String>> startAndEndTimes,
                                             Integer index, String date) throws ParseException {
         Date dateBoundary = DukeConstants.DEADLINE_DATE_FORMAT.parse(date
-                + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + TWELVE_HOUR_TIME_FORMAT_START_TIME);
+                + DukeConstants.BLANK_SPACE + TWELVE_HOUR_TIME_FORMAT_START_TIME);
         Date dateUpperBoundary = increaseTimeToTwoThreeFiveNine(dateBoundary);
         Date dateLowerBoundary = increaseTimeToZeroSevenZeroZero(dateBoundary);
 
         if (index < startAndEndTimes.size() - 1) {
-            String dateTime = date + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + startAndEndTimes.get(index).getValue();
+            String dateTime = date + DukeConstants.BLANK_SPACE + startAndEndTimes.get(index).getValue();
             String dateTimeNextEvent = date
-                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + startAndEndTimes.get(index + 1).getKey();
+                    + DukeConstants.BLANK_SPACE + startAndEndTimes.get(index + 1).getKey();
 
             Date dateTimeStart = DukeConstants.DEADLINE_DATE_FORMAT.parse(dateTime);
             if (dateTimeStart.equals(roundByHalfHourMark(dateTimeStart))) {
@@ -336,7 +344,7 @@ public class FindFreeTimesCommand extends Command {
                 }
             }
         } else if (index == (startAndEndTimes.size() - 1)) {
-            String dateTime = date + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + startAndEndTimes.get(index).getValue();
+            String dateTime = date + DukeConstants.BLANK_SPACE + startAndEndTimes.get(index).getValue();
             Date dateTimeStart = DukeConstants.DEADLINE_DATE_FORMAT.parse(dateTime);
 
             if (dateTimeStart.equals(roundByHalfHourMark(dateTimeStart))) {
@@ -358,7 +366,7 @@ public class FindFreeTimesCommand extends Command {
                 String nextKey = dataMap.higherKey(date);
                 if (nextKey == null) {
                     Date nextDay = DukeConstants.DEADLINE_DATE_FORMAT.parse(date
-                            + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + TWELVE_HOUR_TIME_FORMAT_START_TIME);
+                            + DukeConstants.BLANK_SPACE + TWELVE_HOUR_TIME_FORMAT_START_TIME);
                     nextDay = increaseDateTime(nextDay, HOURS_IN_A_DAY);
                     Date nextDayStartTime = increaseTimeToZeroSevenZeroZero(nextDay);//increaseDateTime(nextDay, 7);
                     Date nextDayEndTime = increaseDateTime(nextDayStartTime, duration);
@@ -366,7 +374,7 @@ public class FindFreeTimesCommand extends Command {
                 } else {
                     ArrayList<Pair<String, String>> nextDayStartAndEndTimes = dataMap.get(nextKey);
                     String nextDateTime = nextKey
-                            + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + nextDayStartAndEndTimes.get(0).getKey();
+                            + DukeConstants.BLANK_SPACE + nextDayStartAndEndTimes.get(0).getKey();
                     //Just need to check first item of next day start time
                     Date nextDateTimeStart = DukeConstants.DEADLINE_DATE_FORMAT.parse(nextDateTime);
                     dateLowerBoundary = increaseDateTime(dateLowerBoundary, HOURS_IN_A_DAY);
@@ -394,7 +402,7 @@ public class FindFreeTimesCommand extends Command {
         return false;
     }
 
-    /*
+    /**
      * This method generates free times required number of options is met.
      */
     private void generateFreeTime() throws ParseException {
@@ -407,7 +415,7 @@ public class FindFreeTimesCommand extends Command {
         if (size == 0) {
             Date currDate = new Date();
             String strCurrDateDay = DukeConstants.DAY_DATE_FORMAT.format(currDate)
-                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + TWELVE_HOUR_TIME_FORMAT_START_TIME;
+                    + DukeConstants.BLANK_SPACE + TWELVE_HOUR_TIME_FORMAT_START_TIME;
             currDate = DukeConstants.DEADLINE_DATE_FORMAT.parse(strCurrDateDay);
             currDate = increaseTimeToZeroSevenZeroZero(currDate);
             currDate = increaseDateTime(currDate, HOURS_IN_A_DAY);
@@ -434,7 +442,7 @@ public class FindFreeTimesCommand extends Command {
             Date tempStart = last.getKey();
             Date tempEnd = last.getValue();
             String currDate = DukeConstants.DAY_DATE_FORMAT.format(tempStart)
-                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + TWELVE_HOUR_TIME_FORMAT_START_TIME;
+                    + DukeConstants.BLANK_SPACE + TWELVE_HOUR_TIME_FORMAT_START_TIME;
             Date dateBoundary = DukeConstants.DEADLINE_DATE_FORMAT.parse(currDate);
             Date dateUpperBoundary = increaseTimeToTwoThreeFiveNine(dateBoundary);
             Date dateLowerBoundary = increaseTimeToZeroSevenZeroZero(dateBoundary);
@@ -479,22 +487,22 @@ public class FindFreeTimesCommand extends Command {
             String compiledFreeTimeToShow;
             String compiledFreeTimeCommand;
 
-            compiledFreeTimeToShow = DukeConstants.DEADLINE_DATE_FORMAT.format(freeTimeData.get(i).getKey())
-                    + " until " + DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(freeTimeData.get(i).getValue());
+            compiledFreeTimeToShow = DukeConstants.DAY_DATE_FORMAT.format(freeTimeData.get(i).getKey()) + "\n"
+                    + DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(freeTimeData.get(i).getKey())
+                    + DISPLAY_KEYWORD_TO + DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(freeTimeData.get(i).getValue());
 
             String dateTime = DukeConstants.TWENTYFOUR_HOUR_DATE_FORMAT.format(freeTimeData.get(i).getKey());
-            String[] spiltDateTime = dateTime.split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD, 3);
+            String[] spiltDateTime = dateTime.split(DukeConstants.BLANK_SPACE, 3);
             compiledFreeTimeCommand = DukeConstants.ADD_EVENT_HEADER
-                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + DukeConstants.STRING_SPACE_SPLIT_KEYWORD
+                    + DukeConstants.BLANK_SPACE + DukeConstants.BLANK_SPACE
                     + DukeConstants.EVENT_DATE_DESCRIPTION_SPLIT_KEYWORD
-                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + spiltDateTime[1]
-                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + DukeConstants.EVENT_DATE_SPLIT_KEYWORD
-                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD
-                    + spiltDateTime[2] + DukeConstants.STRING_SPACE_SPLIT_KEYWORD
-                    + DukeConstants.EVENT_TIME_SPLIT_KEYWORD + DukeConstants.STRING_SPACE_SPLIT_KEYWORD
+                    + DukeConstants.BLANK_SPACE + spiltDateTime[1]
+                    + DukeConstants.BLANK_SPACE + DukeConstants.EVENT_DATE_SPLIT_KEYWORD
+                    + DukeConstants.BLANK_SPACE
+                    + spiltDateTime[2] + DukeConstants.BLANK_SPACE
+                    + DukeConstants.EVENT_TIME_SPLIT_KEYWORD + DukeConstants.BLANK_SPACE
                     + DukeConstants.EVENT_TIME_INPUT_FORMAT.format(freeTimeData.get(i).getValue());
 
-            //TODO: Sorted output method 1 using Pair<Long, Pair<String, String> > complicated to trace (10 lines)
             Long startDateTimeInMilliSeconds = (freeTimeData.get(i).getKey()).getTime();
             Pair<String, String> compliedData = new Pair<>(compiledFreeTimeToShow, compiledFreeTimeCommand);
             sortCompiledFreeTimes.add(new Pair<>(startDateTimeInMilliSeconds,compliedData));
@@ -505,7 +513,7 @@ public class FindFreeTimesCommand extends Command {
         for (int i = 0; i < sortCompiledFreeTimes.size(); i++) {
             compiledFreeTimes.add(sortCompiledFreeTimes.get(i).getValue());
             int optionNo = i + 1;
-            message += ((optionNo) + ". " + sortCompiledFreeTimes.get(i).getValue().getKey()) + "\n";
+            message += (DISPLAY_KEYWORD_OPTION + DukeConstants.BLANK_SPACE + (optionNo) + ":\n" + sortCompiledFreeTimes.get(i).getValue().getKey()) + "\n\n";
         }
     }
 

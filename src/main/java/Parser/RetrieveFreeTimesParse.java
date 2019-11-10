@@ -34,7 +34,7 @@ public class RetrieveFreeTimesParse extends Parse {
         if (checkIsEmpty(retrievedFreeTimes)) {
             throw new DukeNoValidDataException(DukeConstants.INVALID_NO_FREE_TIME_FOUND);
         }
-        fullCommand = fullCommand.replaceFirst(DukeConstants.RETRIEVE_TIME_HEADER, "");
+        fullCommand = fullCommand.replaceFirst(DukeConstants.RETRIEVE_TIME_HEADER, DukeConstants.NO_FIELD);
         fullCommand = fullCommand.trim();
         if (fullCommand.isEmpty()) {
             throw new DukeInvalidFormatException(DukeConstants.INVALID_EMPTY_OPTION);
@@ -60,7 +60,7 @@ public class RetrieveFreeTimesParse extends Parse {
      * @return true if it is valid. Otherwise, false
      */
     public static boolean isValidOption(String input) {
-        input = input.replace(DukeConstants.RETRIEVE_TIME_HEADER, "");
+        input = input.replace(DukeConstants.RETRIEVE_TIME_HEADER, DukeConstants.NO_FIELD);
         input = input.trim();
         if (input.isEmpty()) {
             return false;
