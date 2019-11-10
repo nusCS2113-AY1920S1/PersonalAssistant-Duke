@@ -75,7 +75,7 @@ public class RetrievePreviousCommand extends Command {
         if (isNumber) {
             if (intFullCommand <= 0 ) {
                 isValid = false;
-                throw new DukeInvalidCommandException(DukeConstants.STR_RANGE_FOR_BETWEEN + size);
+                throw new DukeInvalidCommandException(DukeConstants.STR_RANGE_FOR_BETWEEN + size + " ,inclusive.");
             } else if (intFullCommand > size) {
                 isValid = false;
                 throw new DukeInvalidCommandException("There are only " + size + " of previous commands."
