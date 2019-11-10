@@ -1,10 +1,7 @@
 package cube.ui;
 
 import cube.exception.CubeException;
-import cube.logic.command.Command;
-import cube.logic.command.ConfigCommand;
-import cube.logic.command.ProfitCommand;
-import cube.logic.command.SoldCommand;
+import cube.logic.command.*;
 import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
 import cube.logic.parser.ParserUtil;
@@ -174,7 +171,8 @@ public class MainWindow extends UiManager<Stage> {
             // Updates GUI components
             listPanel.updateProductList(storageManager.getFoodList());
 
-            if (c instanceof SoldCommand) {
+            if (c instanceof SoldCommand || c instanceof AddCommand
+                    || c instanceof DeleteCommand) {
                 ProfitCommand.generateAnnualProfitRevenue(modelManager);
                 overviewDisplay.updateOverview(storageManager.getFoodList().size(),
                         ProfitStorage.getAnnualProfit(), ProfitStorage.getAnnualRevenue());
