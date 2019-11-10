@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import planner.credential.user.User;
-import planner.logic.exceptions.legacy.ModCcaScheduleException;
+import planner.logic.exceptions.legacy.ModScheduleException;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModNotFoundException;
-import planner.logic.exceptions.planner.ModClashesException;
+import planner.logic.exceptions.planner.ModSameModuleException;
 import planner.logic.modules.cca.Cca;
 import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 import planner.logic.modules.module.ModuleInfoDetailed;
@@ -33,8 +33,8 @@ public class SearchThenAddCommand extends ModuleCommand {
         switch (arg("toAdd")) {
             case ("cca"): {
                 Cca cca = new Cca(arg("name"), arg("begin"), arg("end"), arg("dayOfWeek"));
-                if (profile.getCcas().clashes(cca)) {
-                    throw new ModCcaScheduleException();
+                if (profile.getAllTasks().clashes(cca)) {
+                    throw new ModScheduleException("CCA");
                 }
                 profile.getCcas().add(cca);
                 plannerUi.addedMsg(cca);
@@ -48,15 +48,17 @@ public class SearchThenAddCommand extends ModuleCommand {
                 if (detailedMap.containsKey(upperModuleCode)) {
                     ModuleInfoDetailed mod = detailedMap.get(upperModuleCode);
                     ModuleTask temp;
+                    if (!profile.getModules().findExact(upperModuleCode).isEmpty()) {
+                        throw new ModSameModuleException();
+                    }
                     if (arg("begin") != null) {
                         temp = new ModuleTask(upperModuleCode, mod, arg("begin"), arg("end"),
                                 arg("dayOfWeek"));
                     } else {
                         temp = new ModuleTask(upperModuleCode, mod);
                     }
-                    HashSet<TaskWithMultipleWeeklyPeriod> checkSet = profile.getModules().getSetModuleTask();
-                    if (checkSet.contains(temp)) {
-                        throw new ModClashesException();
+                    if (profile.getAllTasks().clashes(temp)) {
+                        throw new ModScheduleException();
                     }
                     profile.getModules().add(temp);
                     plannerUi.addedMsg(temp);

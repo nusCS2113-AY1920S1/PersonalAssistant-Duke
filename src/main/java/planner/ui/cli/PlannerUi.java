@@ -43,8 +43,19 @@ public class PlannerUi {
         System.out.println(LINE);
     }
 
+    private void closeScanner() {
+        scan.close();
+    }
+
+    /**
+     * Read input.
+     * @return input if exists else null
+     */
     public String readInput() {
-        return scan.nextLine().strip();
+        if (scan.hasNextLine()) {
+            return scan.nextLine().strip();
+        }
+        return null;
     }
 
     public String readPassword() {
