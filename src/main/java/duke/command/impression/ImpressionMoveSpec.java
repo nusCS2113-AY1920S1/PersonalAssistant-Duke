@@ -35,11 +35,23 @@ public class ImpressionMoveSpec extends ObjSpec {
     @Override
     protected void execute(DukeCore core) throws DukeException {
         super.execute(core);
-        // TODO: query user for correct impression if no impression is given
         Impression impression = ImpressionUtils.getImpression(core);
         String targetImpressionName = cmd.getSwitchVal("impression");
         Patient patient = impression.getParent();
-        SearchResults results = patient.findImpressionsByName(targetImpressionName);
+        SearchResults results;
+        if (targetImpressionName == null) {
+            results = new SearchResults("Impressions of this Patient", patient.getImpressionList(),
+                    patient);
+        } else {
+            results = patient.findImpressionsByName(targetImpressionName);
+        }
+
+        List<DukeObject> resultList = results.getSearchList();
+        int currImpIdx = resultList.indexOf(impression);
+        if (currImpIdx != -1) { // remove this impression from the list if present
+            resultList.remove(currImpIdx);
+            results = new SearchResults(results.getName(), resultList, results.getParent());
+        }
         processResults(core, results);
     }
 
@@ -55,12 +67,7 @@ public class ImpressionMoveSpec extends ObjSpec {
             if (data == null) { // data could not be identified unambiguously
                 SearchResults results = ImpressionUtils.searchData(cmd.getArg(), cmd.getSwitchVal("evidence"),
                         cmd.getSwitchVal("treatment"), ImpressionUtils.getImpression(core));
-                List<DukeObject> resultList = results.getSearchList();
-                int currImpIdx = resultList.indexOf(currImpression);
-                if (currImpIdx != -1) { // remove this impression from the list if present
-                    resultList.remove(currImpIdx);
-                    results = new SearchResults(results.getName(), resultList, results.getParent());
-                }
+
                 if (results.getCount() == 0) {
                     throw new DukeException("No results found for '" + results.getName() + "'!");
                 } else if (results.getCount() == 1) {

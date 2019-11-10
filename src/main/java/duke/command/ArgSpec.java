@@ -41,7 +41,11 @@ public abstract class ArgSpec extends CommandSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-        assert (cmd != null);
+        assert (getCmd() != null);
+    }
+
+    protected ArgCommand getCmd() {
+        return cmd;
     }
 
     public ArgLevel getCmdArgLevel() {

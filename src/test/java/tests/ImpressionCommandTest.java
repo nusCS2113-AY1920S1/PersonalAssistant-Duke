@@ -4,12 +4,10 @@ import duke.command.ArgCommand;
 import duke.command.Command;
 import duke.command.ObjCommand;
 import duke.command.impression.ImpressionEditSpec;
-import duke.command.impression.ImpressionMoveSpec;
 import duke.command.impression.ImpressionNewSpec;
 import duke.command.impression.ImpressionPrimarySpec;
 import duke.data.Impression;
 import duke.data.Medicine;
-import duke.data.Observation;
 import duke.data.Patient;
 import duke.data.Result;
 import duke.exception.DukeException;
@@ -21,7 +19,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -161,36 +158,5 @@ public class ImpressionCommandTest extends CommandTest {
         assertTrue(newImpression.equals(impression));
     }
 
-    @Test
-    public void impressionMoveCommand_fullCommand_moveData() {
-        ObjCommand moveCmd = null;
-        Observation obsv = null;
-        Impression newImpression = null;
-        String[] switchNames = {"impression", "evidence"};
-        String[] switchVals = {"name2", "name"};
-
-        try {
-            moveCmd = new ObjCommand(ImpressionMoveSpec.getSpec(), null, switchNames, switchVals);
-            obsv = new Observation("name", impression, 0, "summary", true);
-            impression.addNewEvidence(obsv);
-            // add another observation to make identification ambiguous
-            impression.addNewEvidence(new Observation("name2", impression, 0,
-                    "summary", true));
-            newImpression = new Impression("name2", "description2", patient);
-            patient.addNewImpression(newImpression);
-        } catch (DukeException excp) {
-            fail("Exception thrown while setting up Command, Impression and Observation for move command test: "
-                    + excp.getMessage());
-        }
-
-        try {
-            moveCmd.execute(core, newImpression);
-            core.uiContext.open(impression);
-            moveCmd.execute(core, obsv);
-        } catch (DukeException excp) {
-            fail("Exception thrown while moving data: " + excp.getMessage());
-        }
-        assertNotNull(newImpression.getEvidence("name"));
-    }
 
 }
