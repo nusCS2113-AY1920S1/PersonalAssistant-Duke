@@ -182,7 +182,7 @@ public class HelpText {
                     + "\t\t  /\n"
                     + "\n"
                     + "\tEnsure your creation with a keyword: yes\n"
-                    + "\tExample: yes";
+                    + "\tExample: yes\n";
 
     private static final String TENTATIVE_EVENT_CONFIRM =
             "\t[ Confirming a Tentative Event base on a keyword: confirm ]\n"
@@ -199,7 +199,7 @@ public class HelpText {
                     + "\t\t- 1\n"
                     + "\n"
                     + "\tEnsure your confirmation with a keyword: yes\n"
-                    + "\tExample: yes";
+                    + "\tExample: yes\n";
 
     private static final String TASKS_EDIT =
             "\t[ Editing a task: edit ]\n"
@@ -240,14 +240,14 @@ public class HelpText {
                     + "\tShows the dates and current month in a calendar view.\n"
                     + "\tDates with tasks will be demarcated with a ' * '.\n"
                     + "\tCurrent date will be demarcated between ' | '.\n"
-                    + "\tFormat: calendar monthly view";
+                    + "\tFormat: calendar monthly view\n";
 
     private static final String CALENDAR_VIEW_ANNUAL =
             "\t[ View current year in a calendar view: calendar annual view ]\n"
                     + "\tShows the dates and months in a calendar view.\n"
                     + "\tDates with tasks will be demarcated with a ' * '.\n"
                     + "\tCurrent date will be demarcated between ' | '.\n"
-                    + "\tFormat: calendar annual view";
+                    + "\tFormat: calendar annual view\n";
 
     private static final String UNDONE =
             "\t[ Set a 'done' task as undone: undone ]\n"
@@ -261,7 +261,7 @@ public class HelpText {
     private static final String DONE_LIST =
             "\t[ See all the tasks that are marked as done: done list ]\n"
                     + "\tList out all the tasks that are done in a list\n"
-                    + "\tFormat: done list";
+                    + "\tFormat: done list\n";
 
     private static final String DO_AFTER_TASK =
             "\t[ Adding a do-after task: /after ]\n"
@@ -319,7 +319,7 @@ public class HelpText {
     private static final String UNDONE_LIST =
             "\t[ See all the tasks that are marked as undone: undone list ]\n"
                     + "\tList out all the tasks that are undone in a list\n"
-                    + "\tFormat: undone list";
+                    + "\tFormat: undone list\n";
 
     private static final String TAGGING =
             "\t[ Tagging tasks: #TAG_NAME ]\n"
@@ -459,7 +459,7 @@ public class HelpText {
             + "\n"
             + "How to get to places page: \n"
             + "\t- Type in the command \'places\' in the main menu page and press ENTER.\n"
-            + "\t- You can only go to the places page from the main menu.";
+            + "\t- You can only go to the places page from the main menu.\n";
 
     private static final String PLACES_ADD =
             "\t[ Adds and stores a new place and location. ]\n"
@@ -538,7 +538,7 @@ public class HelpText {
             "\t[ View goal and list of modules: view ]\n"
                     + "\tLists out your goal and the list of modules you have added.\n"
                     + "\n"
-                    + "\tFormat: view";
+                    + "\tFormat: view\n";
 
     private static final String NOTES_EDIT_GOAL =
             "\t[ Edit goal: edit /n ]\n"
@@ -583,11 +583,11 @@ public class HelpText {
                     + "\tExamples: \n"
                     + "\t\t- delete /n annoying module\n"
                     + "\t\t- delete /n cs1231\n"
-                    + "\t\t- delete /nSoftware Engineering & Object-Oriented Programming ";
+                    + "\t\t- delete /nSoftware Engineering & Object-Oriented Programming\n";
 
     private static final String HEADER_MODULE_PAGE = "********** Module page: module **********\n"
             + "\n"
-            + "Brings you to a module page, which contains the notes for that module, for the module you specify. "
+            + "Brings you to a module page, which contains the notes for that module, for the module you specify. \n"
             + "The notes for the module are grouped into 2 categories, namely assessments and miscellaneous.\n"
             + "\n"
             + "Format: module /n MODULE_NAME\n"
@@ -596,18 +596,18 @@ public class HelpText {
             + "\n"
             + "Constraints:\n"
             + "\t- You can only go to a module page from the note page.\n"
-            + "\t\t-- ie. You have to first go to your note page and then type in module /n MODULE_NAME "
-            + "in your note page to be able to go to a module page.\n"
+            + "\t\t-- ie. You have to first go to your note page and then type in module /n MODULE_NAME \n"
+            + "\t\t   in your note page to be able to go to a module page.\n"
             + "\n"
             + "Examples: \n"
             + "\t- module /n annoying module\n"
             + "\t- module /n cs1231\n"
-            + "\t- module /nSoftware Engineering & Object-Oriented Programming";
+            + "\t- module /nSoftware Engineering & Object-Oriented Programming\n";
 
     private static final String MODULE_VIEW =
             "\t[ View the module's notes: view ]\n"
                     + "\tShows you the notes you have for the module.\n"
-                    + "\tFormat: view";
+                    + "\tFormat: view\n";
 
     private static final String MODULE_EDIT_MODULE_NAME =
             "\t[ Edit the module's name: edit mod /n ]\n"
@@ -622,7 +622,7 @@ public class HelpText {
                     + "\tExamples: \n"
                     + "\t\t- edit mod /n A+ module\n"
                     + "\t\t- edit mod /n CS1231\n"
-                    + "\t\t- edit mod /nSoftware Engineering & Object-Oriented Programming";
+                    + "\t\t- edit mod /nSoftware Engineering & Object-Oriented Programming\n";
 
     private static final String MODULE_ADD_ASSMT =
             "\t[ Add an assessment: add assmt /n /a ]\n"
@@ -1071,13 +1071,13 @@ public class HelpText {
                     + "\t\t- delete\n"
                     + "\t\t- shift\n"
                     + "\n"
-                    + "\tFormat: undo";
+                    + "\tFormat: undo\n";
 
     //--------------------------------exiting the program----------------------------------
     public static final String BYE_PAGE = SEPARATOR_PAGE
             + "********** Exiting the program: bye **********\n"
                     + "Exits the program.\n"
-                    + "Format: bye"
+                    + "Format: bye\n"
                     + SEPARATOR_PAGE;
 
     //-----------------------------pages--------------------------------------
