@@ -982,6 +982,7 @@ image::DeleteCardExpenditure.png[Caption="Figure : "]
 
 ===== Adding monthly credit card bill to savings account `/add /cardbill`
 
+// tag::AddCreditCardBill_Command[]
 Charge your credit card monthly bill to your savings account! This will add a credit card bill expenditure and also
 deposit the monthly rebate to your savings account.
 
@@ -1008,9 +1009,11 @@ Rebates for the month will also be deposited back to `JunBank Savings Account`.
 
 .Successful adding of card bill after using `/add /cardbill`.
 image::AddCardBill.png[Caption="Figure : "]
+// end::AddCreditCardBill_Command[]
 
 ===== Deleting credit card bill from savings account `/delete /cardbill`
 
+// tag::DeleteCreditCardBill_Command[]
 Made a mistake in charging of credit card bill or decided to add more card transaction for an already paid month? You
 can delete your credit card bill, which will delete the bill expenditure and rebate deposit from your savings account!
 
@@ -1035,6 +1038,7 @@ expenditures from `10/2019` will be marked as unpaid from `POBB Tomorrow Card`.
 .Successful deletion of card bill after using `/delete /cardbill`.
 image::DeleteCardBill.png[Caption="Figure : "]
 
+// end::DeleteCreditCardBill_Command[]
 // tag::goals[]
 
 ==== Financial Goal Management

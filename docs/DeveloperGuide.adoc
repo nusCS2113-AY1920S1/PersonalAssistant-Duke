@@ -218,6 +218,7 @@ The `logic.command.bond` package consist of `Bond` classes with the following fe
 
 // end::bonds_class_diagram[]
 
+// tag::CardCommand_ClassDiagram[]
 .Card Command Class Diagram
 image::LogicCommandCardPackage.png[width="800"]
 
@@ -231,6 +232,7 @@ The `logic.command.card` package consist of `Card` classes with the following fe
 `Main` will call the specific `Card` command class that will construct the *required parameters* before calling the
 `Profile` class in `Model` to *execute*.
 
+// end::CardCommand_ClassDiagram[]
 // tag::goals_class[]
 .Goals Command Class Diagram
 image::LogicCommandGoalsPackage.png[width="800"]
@@ -486,6 +488,7 @@ high risk of logic and coding errors, leaving room for bugs to be exploited.
 // end::editing_bonds[]
 
 === Deleting Credit Card
+// tag::DeleteCreditCard_SequenceDiagram[]
 .Model Component Diagram
 image::DeleteCardCommand.png[width="970"]
 
@@ -515,9 +518,11 @@ When the user executes the `DeleteCardCommand`, the following steps are taken by
 . After passing the above checks, `cardListDeleteCard` will delete the card with the specified name from the Arraylist.
 . Once the card object has been deleted, the details of the deleted card object will be displayed to inform the user
 of the *successful* deletion of the card object.
+// end::DeleteCreditCard_SequenceDiagram[]
 
 
 === Listing Credit Cards
+// tag::ListCreditCard_SequenceDiagram[]
 .Model Component Diagram
 image::listCardCommand.png[width="970"]
 
@@ -542,6 +547,7 @@ When the user executes the `ListCardCommand`, the following steps are taken by t
 
 [start=4]
 . After passing the above checks, `cardListListCard` will display the details of each card within the Arraylist.
+// end::ListCreditCard_SequenceDiagram[]
 
 === Transferring Funds
 .Model Component Diagram
@@ -1423,7 +1429,7 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to charge expenditure to credit card.
-. System requests the expenditure information.
+. System requests for the credit card and expenditure information.
 . User enters the expenditure information.
 . System creates the credit card expenditure record.
 +
@@ -1447,7 +1453,7 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to edit credit card details.
-. System requests for new credit card details.
+. System requests for the credit card and new details.
 . User enters new credit card details.
 . System updates the credit card details.
 +
@@ -1995,7 +2001,7 @@ Use case ends.
 *Extensions*
 [none]
 * 3a. System detects invalid credit card being selected for deletion.
-** 3a1. System requests for the correct credit card to be deleted.
+** 3a1. System requests for the credit card to be deleted.
 ** 3a2. User re-enters the credit card to be deleted.
 ** Steps 3a1-3a2 are repeated until the credit card to be deleted is entered correctly.
 ** Use case resumes from step 4.
@@ -2015,7 +2021,7 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to edit credit card expenditure record.
-. System requests for the new expenditure details and the expenditure to be edited.
+. System requests for the credit card, expenditure to be edited, and new expenditure details.
 . User enters new expenditure details and the expenditure to be edited.
 . System updates the credit card expenditure record.
 +
@@ -2075,7 +2081,7 @@ Use case ends.
 
 . User chooses to add new credit card bill.
 . System requests details for payment of credit card bill.
-. User enters details for payment of credit card bill.
+. User enters credit card, savings account, and date for payment of credit card bill.
 . System adds new credit card bill expenditure record in savings account.
 +
 Use case ends.
@@ -2105,7 +2111,7 @@ Use case ends.
 
 . User chooses to delete credit card bill.
 . System requests details of credit card bill to be deleted.
-. User enters details of credit card bill to be deleted.
+. User enters credit card, savings account, and date of credit card bill to be deleted.
 . System deletes the specified credit card bill expenditure record from savings account.
 +
 Use case ends.
