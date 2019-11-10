@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+//@@author HashirZahir
 public class MealSuggestionTest {
     private MealList meals;
     private LocalDate suggestionDate;
