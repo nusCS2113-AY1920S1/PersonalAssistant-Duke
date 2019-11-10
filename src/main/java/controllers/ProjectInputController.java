@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
+
 import models.member.IMember;
 import models.member.Member;
 import models.member.NullMember;
@@ -115,6 +117,8 @@ public class ProjectInputController implements IController {
             responseToView = projectAddReminder(this.projectToManage,projectFullCommand);
         } else if (projectFullCommand.matches("view reminders"))  {
             responseToView = projectViewReminder(this.projectToManage);
+        }  else if (projectFullCommand.matches("view reminders category"))  {
+            responseToView = projectViewReminderCategory(this.projectToManage);
         } else if (projectFullCommand.matches("edit reminder.*")) {
             responseToView = projectEditReminder(this.projectToManage,projectFullCommand);
         } else if (projectFullCommand.matches("delete reminder.*")) {
@@ -564,7 +568,7 @@ public class ProjectInputController implements IController {
         return new String[] {"Bye. Hope to see you again soon!"};
     }
 
-
+    //@@Dkenobi
     /**
      * Add reminder to the default list.
      * @param projectToManage The project to manage.
@@ -606,6 +610,7 @@ public class ProjectInputController implements IController {
         } else {
             for (Reminder reminder: projectToManage.getReminderList()) {
                 allTaskDetailsForTable.add(index + ". " + reminder.getStatus() + " " + reminder.getReminderName());
+                allTaskDetailsForTable.add("   - Category: " + reminder.getCategory());
                 allTaskDetailsForTable.add("   - Remarks: " + reminder.getReminderRemarks());
                 allTaskDetailsForTable.add("   - " + dateTimeHelper.formatDateForDisplay(reminder.getReminderDate())
                         + dateTimeHelper.getDifferenceDays(reminder.getReminderDate()));
@@ -635,9 +640,10 @@ public class ProjectInputController implements IController {
             return new String[] {"No reminder index number found in the list! "
                     + "Please enter the correct reminder index number."};
         } else {
-            String removedReminder = projectToManage.getReminder(index).getReminderName();
+            Reminder removedReminder = projectToManage.getReminder(index);
             projectToManage.removeReminder(index);
-            return new String[] {removedReminder + " has been remove from the reminder list in the project."};
+            return new String[] {removedReminder.getReminderName()
+                + " has been remove from the reminder list in the project."};
         }
     }
 
@@ -672,7 +678,11 @@ public class ProjectInputController implements IController {
                 }
                 if (newReminderDetails.get(2) != null) {
                     projectToManage.getReminder(index)
-                            .setReminderDate(dateTimeHelper.formatDate(newReminderDetails.get(2)));
+                        .setReminderDate(dateTimeHelper.formatDate(newReminderDetails.get(2)));
+                }
+                if (!(newReminderDetails.get(3).equals("DEFAULT"))) {
+                    projectToManage.getReminder(index).setCategory(newReminderDetails.get(3));
+                    projectToManage.getReminder(index);
                 }
                 return new String[] {"Your reminder have been updated."};
             } catch (NumberFormatException | ParseException e) {
@@ -703,5 +713,27 @@ public class ProjectInputController implements IController {
             return new String[] {projectToManage.getReminder(index).getReminderName() + " have been marked "
                     + projectToManage.getReminder(index).getStatus()};
         }
+    }
+
+    /**
+     * The method view the reminder in categories.
+     * @param projectToManage The project specified by the user.
+     */
+    public String[] projectViewReminderCategory(Project projectToManage) {
+        ArrayList<ArrayList<String>> reminderCategory = new ArrayList<>();
+        HashMap<String, ArrayList<Reminder>> reminderCategoryList = projectToManage.getCategoryReminderList();
+        DateTimeHelper dateTimeHelper = new DateTimeHelper();
+        for (Map.Entry<String, ArrayList<Reminder>> list: reminderCategoryList.entrySet()) {
+            ArrayList<String> categoryOfReminder = new ArrayList<>();
+            categoryOfReminder.add(list.getKey());
+            for (Reminder reminder: list.getValue()) {
+                categoryOfReminder.add(reminder.getReminderName());
+                categoryOfReminder.add(" - Date: " + dateTimeHelper.formatDateForDisplay(reminder.getReminderDate())
+                        + dateTimeHelper.getDifferenceDays(reminder.getReminderDate()));
+            }
+            reminderCategory.add(categoryOfReminder);
+        }
+        return viewHelper.consolePrintMultipleTables(reminderCategory, DEFAULT_HORI_BORDER_LENGTH, 2,
+                "Reminders of " + projectToManage.getName() + ":");
     }
 }

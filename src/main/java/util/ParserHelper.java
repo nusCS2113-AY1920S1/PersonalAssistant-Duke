@@ -142,6 +142,7 @@ public class ParserHelper {
         String newReminderName = "--";
         String newReminderRemarks = "--";
         String newReminderDate = null;
+        String newReminderCategory = "DEFAULT";
         String [] newReminderDetails = input.split("-");
         ArrayList<String> newReminderInfoInput  =  new ArrayList<>(Arrays.asList(newReminderDetails));
         newReminderInfoInput.remove(0); // Remove the first empty string in newReminderInfoInput
@@ -156,6 +157,9 @@ public class ParserHelper {
             case 'd':
                 newReminderDate = s.substring(1).trim();
                 break;
+            case'l':
+                newReminderCategory = s.substring(1).trim();
+                break;
             default:
                 break;
             }
@@ -164,6 +168,7 @@ public class ParserHelper {
         newReminderInfo.add(newReminderName);
         newReminderInfo.add(newReminderRemarks);
         newReminderInfo.add(newReminderDate);
+        newReminderInfo.add(newReminderCategory);
         return newReminderInfo;
     }
 

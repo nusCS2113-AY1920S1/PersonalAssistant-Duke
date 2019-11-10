@@ -593,6 +593,7 @@ class ProjectInputControllerTest {
             "|Reminder of Infinity_Gauntlet:                                        |",
             "+----------------------------------------------------------------------+",
             "|1. [X] Make new suit for the team                                     |",
+            "|   - Category: DEFAULT                                                |",
             "|   - Remarks: may be try using pink                                   |",
             "|   - 10 Oct 2019"
                     + dateTimeHelper.getDifferenceDays(dateTimeHelper.formatDate("10/10/2019"))
@@ -648,7 +649,7 @@ class ProjectInputControllerTest {
         String[] invalidArray = projectInputController.projectEditReminder(project,simulatedUserInput);
         String [] expectedArray = {"No reminder index number found in the list! "
                 + "Please enter the correct reminder index number."};
-        assertEquals(expectedOutput,actualOutput);
+        assertArrayEquals(expectedArray,invalidArray);
     }
 
     @Test

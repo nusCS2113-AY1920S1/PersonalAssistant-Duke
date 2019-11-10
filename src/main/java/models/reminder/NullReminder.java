@@ -33,6 +33,13 @@ public class NullReminder implements IReminder {
     }
 
     @Override
+    public void setCategory(String category) {
+        /**
+         * Empty method
+         */
+    }
+
+    @Override
     public String getReminderName() {
         return null;
     }
@@ -54,6 +61,11 @@ public class NullReminder implements IReminder {
 
     @Override
     public String getStatus() {
+        return null;
+    }
+
+    @Override
+    public String getCategory() {
         return null;
     }
 }

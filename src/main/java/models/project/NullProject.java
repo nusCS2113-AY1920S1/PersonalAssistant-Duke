@@ -151,6 +151,11 @@ public class NullProject implements IProject {
     }
 
     @Override
+    public HashMap<String, ArrayList<Reminder>> getCategoryReminderList() {
+        return null;
+    }
+
+    @Override
     public ITask getTaskFromID(String taskID) {
         return null;
     }
@@ -182,14 +187,13 @@ public class NullProject implements IProject {
     @Override
     public void removeReminder(int index) {
         /*
-         * Empty method
+        Empty method
          */
     }
 
     @Override
     public int getReminderListSize() {
-        return 0;
+        return -1;
     }
-
 
 }
