@@ -771,6 +771,8 @@ for essential syntax unlike MarkDown.
 * Teachers who evaluate and act upon their students’ progress
 * Technical professionals who keep track of task deadlines
 * Project planners who plan out priority and assignment of roles
+* People who prefer Command Line Interfaces (CLI)
+* People who prefer desktop applications
 
 [appendix]
 == User Stories

@@ -1,4 +1,12 @@
 = ArchDuke - Dev Ops
 
 == 6.1 Build Automation
-We use Gradle for build automation. 
+We use Gradle for build automation. Refer to <<Gradle#, here>> for more information.
+
+== 6.2 Continuous Integration.
+We use Travis CI to perform continuous integration for ArchDuke.
+
+== 6.3 Documentation Previews
+
+== 6.4 Making a Release
+
