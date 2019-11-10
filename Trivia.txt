@@ -11,3 +11,8 @@ event sleep/at 2019-12-12 03:10:03-03:50:04
 
 deadline return book /by 2008-07-07 03:03:03
 todo study
+todo go to the park
+event meeting /at 2019-04-03 12:00:00-13:00:00
+todo running #fit
+deadline claim voucher #food /by 2019-04-03 13:00:00
+event basketball match #fit /at 2019-04-05 12:00:00-14:00:00
