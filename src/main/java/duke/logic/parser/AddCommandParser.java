@@ -70,7 +70,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * Function to split the string into the respective task type and description
      * @param s command string
      */
-    private void getTypeAndDescription(String s) {
+    private void getTypeAndDescription(String s) throws DukeException {
         String[] typeArray = s.split(" ", 2);
         this.taskType = typeArray[0];
         String[] descriptionArray = typeArray[1].split(" -", 2);

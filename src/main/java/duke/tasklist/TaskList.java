@@ -331,4 +331,8 @@ public class TaskList {
     public int getLongestFilter() {
         return longestFilter;
     }
+
+    public void replace(TaskList other) {
+        this.taskList = other.taskList;
+    }
 }
