@@ -427,6 +427,9 @@ public class Parser {
                 throw new RimsException("Please specify the quantity of this item to be loaned out.");
             }
             int qty = parseInt(input.substring(qtyIndex + 6, idIndex).trim());
+            if ( qty <= 0 ){
+                throw new RimsException("The quantity cannot be less or equals to 0.");
+            }
             int fromIndex = input.indexOf(" /from");
             if (fromIndex == -1) {
                 throw new RimsException("Please specify the date from which the item is to be reserved.");
