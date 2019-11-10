@@ -54,6 +54,8 @@ public class ImpressionMoveTest extends CommandTest {
         }
 
         try {
+            moveCmd.execute(core);
+            core.uiContext.open(impression);
             moveCmd.execute(core, newImpression);
             assertNotNull(newImpression.getEvidence("name"));
             core.uiContext.open(newImpression);
