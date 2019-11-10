@@ -2,6 +2,7 @@ package wallet.logic.parser;
 
 import wallet.exception.InsufficientParameters;
 import wallet.exception.WrongDateTimeFormat;
+import wallet.exception.WrongParameterFormat;
 import wallet.logic.LogicManager;
 import wallet.logic.command.AddCommand;
 import wallet.model.contact.Contact;
@@ -101,8 +102,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             arguments = arguments[1].split(" ", 2);
             cat = Category.getCategory(arguments[0].trim());
             if (cat == null) {
-                Ui.printError(MESSAGE_ERROR_INVALID_CATEGORY);
-                return null;
+                throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_CATEGORY);
             }
             if (isRecurring) {
                 arguments = arguments[1].split("/on");
@@ -110,8 +110,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 date = LocalDate.parse(arguments[0].trim(), formatter);
                 freq = RecurrenceRate.getRecurrence(arguments[1].trim());
                 if (freq == null) {
-                    Ui.printError(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
-                    return null;
+                    throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_CATEGORY);
                 }
             } else {
                 arguments = arguments[1].split("/on");
@@ -121,8 +120,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else {
             cat = Category.getCategory(arguments[1].trim());
             if (cat == null) {
-                Ui.printError(MESSAGE_ERROR_INVALID_CATEGORY);
-                return null;
+                throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_CATEGORY);
             }
             freq = RecurrenceRate.NO;
         }

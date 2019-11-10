@@ -220,13 +220,11 @@ public class EditCommandParser implements Parser<EditCommand> {
                     expense.setRecurring(false);
                     expense.setRecFrequency(rec);
                 } else {
-                    Ui.printError(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
-                    return null;
+                    throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
                 }
                 parameters = getRecurring[0].trim();
             } else {
-                Ui.printError(EditCommand.MESSAGE_ERROR_FORMAT);
-                return null;
+                throw new WrongParameterFormat(EditCommand.MESSAGE_ERROR_FORMAT);
             }
         }
         if (dateIndex != -1) {
@@ -237,8 +235,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 expense.setDate(date);
                 parameters = getDate[0].trim();
             } else {
-                Ui.printError(EditCommand.MESSAGE_ERROR_FORMAT);
-                return null;
+                throw new WrongParameterFormat(EditCommand.MESSAGE_ERROR_FORMAT);
             }
         }
         if (catIndex != -1) {
@@ -247,8 +244,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 expense.setCategory(Category.getCategory(getCategory[1].trim()));
                 parameters = getCategory[0].trim();
             } else {
-                Ui.printError(EditCommand.MESSAGE_ERROR_FORMAT);
-                return null;
+                throw new WrongParameterFormat(EditCommand.MESSAGE_ERROR_FORMAT);
             }
         }
         if (amtIndex != -1) {
@@ -257,8 +253,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 expense.setAmount(Double.parseDouble(getAmount[1].trim()));
                 parameters = getAmount[0].trim();
             } else {
-                Ui.printError(EditCommand.MESSAGE_ERROR_FORMAT);
-                return null;
+                throw new WrongParameterFormat(EditCommand.MESSAGE_ERROR_FORMAT);
             }
         }
         if (descIndex != -1) {

@@ -21,7 +21,7 @@ public class BudgetStorage extends Storage<Budget> {
         ArrayList<Budget> budgetList = new ArrayList<>();
 
         try {
-            RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_BUDGET, "r");
+            RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_BUDGET, "rws");
             String str;
             while (raf.getFilePointer() != raf.length()) {
                 str = raf.readLine();

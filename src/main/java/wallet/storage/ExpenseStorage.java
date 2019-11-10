@@ -25,7 +25,7 @@ public class ExpenseStorage extends Storage<Expense> {
         ArrayList<Expense> expenseList = new ArrayList<>();
 
         try {
-            RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_EXPENSE, "r");
+            RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_EXPENSE, "rws");
             String str;
             while (raf.getFilePointer() != raf.length()) {
                 str = raf.readLine();

@@ -29,7 +29,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_ID);
         }
 
-        return new DeleteCommand(arguments[0], id);
+        return new DeleteCommand(arguments[0].toLowerCase(), id);
     }
 
 }

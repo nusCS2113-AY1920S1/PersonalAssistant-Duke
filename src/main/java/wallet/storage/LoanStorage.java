@@ -30,7 +30,7 @@ public class LoanStorage extends Storage<Loan> {
         boolean isSettled;
 
         try {
-            RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_LOAN, "r");
+            RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_LOAN, "rws");
             String str;
             while (raf.getFilePointer() != raf.length()) {
                 str = raf.readLine();
