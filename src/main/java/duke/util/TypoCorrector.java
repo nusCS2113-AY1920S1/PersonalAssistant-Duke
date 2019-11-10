@@ -18,11 +18,12 @@ public class TypoCorrector {
     private static final double MAX_DISTANCE_DIFF_RATIO = 0.8;
 
     //Sets of "Dictionaries" for the command keyword, categorised by number of keywords contain in a supported commands.
-    private static final String[] SIMPLE_COMMANDS = {"bye", "duke", "help", "list patients", "list tasks",
-        "show patients", "show tasks", "show assigned tasks", "show help guide", "clear filter"};
+    private static final String[] SIMPLE_COMMANDS = {"bye", "help", "list patients", "list tasks",
+        "show patients", "show tasks", "show assigned tasks", "show help guide", "clear filter", "show upcoming tasks",
+        "show today", "show tomorrow", "piechart", "barchart"};
     private static final String[] OTHER_COMMANDS = {"update patient", "update task", "delete patient",
         "delete task", "delete assigned task", "add task", "add patient", "find patient", "find task",
-        "find assigned tasks", "assign deadline task", "assign period task", "filter"};
+        "find assigned tasks", "assign deadline task", "assign period task", "filter",};
 
     private boolean isCorrected = false;
     private String correctedCommand;
@@ -143,7 +144,7 @@ public class TypoCorrector {
      * @param targetText    the target text for the comparison
      * @return true if the can be considered similar else false
      */
-    public boolean isSimilar(String referenceText, String targetText) {
+    private boolean isSimilar(String referenceText, String targetText) {
         int threshold = (int) Math.round(MAX_DISTANCE_DIFF_RATIO * referenceText.length());
         LevenshteinDistance levenshteinDistance = new LevenshteinDistance(threshold);
         return levenshteinDistance.apply(referenceText, targetText) != -1;

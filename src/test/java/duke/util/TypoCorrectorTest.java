@@ -21,7 +21,6 @@ public class TypoCorrectorTest {
     private static final ArrayList<String[]> COMMANDS_TO_BE_CORRECTED = new ArrayList<String[]>(
         Arrays.asList(
             new String[]{"b y e", "bye"},
-            new String[]{"d uke ", "duke"},
             new String[]{"lsit patant", "list patients"},
             new String[]{"DEe lte Pti ents:#12", "delete patient:#12"},
             new String[]{"deleot tasksa :task description", "delete task:task description"},

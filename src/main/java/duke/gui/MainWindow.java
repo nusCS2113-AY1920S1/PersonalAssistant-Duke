@@ -10,6 +10,7 @@ import duke.models.assignedtasks.AssignedTask;
 import duke.models.assignedtasks.UpcomingTasks;
 import duke.models.patients.Patient;
 import duke.models.tasks.Task;
+import duke.util.TypoCorrector;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -50,6 +51,9 @@ import java.util.Map;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
+ *
+ * @author HUANGXUANKUN
+ * @version 1.4
  */
 public class MainWindow extends UiPart<Stage> {
     @FXML
@@ -206,6 +210,9 @@ public class MainWindow extends UiPart<Stage> {
     private Duke duke;
     private Stage primaryStage;
     private static final String FXML = "MainWindow.fxml";
+    private boolean isConfirming = false;
+    private String correctedCommand;
+    private String originalCommand;
 
     /**
      * Creates the Main Window.
@@ -232,7 +239,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Initialize GUI components.
+     * Initialize GUI components in the stage.
      */
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -249,6 +256,67 @@ public class MainWindow extends UiPart<Stage> {
     private void handleUserInput() {
         executeDukeWithInput(userInput.getText());
         userInput.clear();
+    }
+
+    /**
+     * Execute duke core with userInput command given
+     * and update dialog container and tables.
+     */
+    private void executeDukeWithInput(String inputCommand) {
+        String dukeResponses;
+        boolean isInsistOnInvalidCommand = false;
+        boolean isException = false;
+
+        // if confirmation of typo correction is required, check if input is Y/N.
+        if (isConfirming) {
+            if (inputCommand.equals("Y")) {
+                inputCommand = correctedCommand;
+            } else if (inputCommand.equals("N")) {
+                inputCommand = originalCommand;
+                isInsistOnInvalidCommand = true;
+            }
+            isConfirming = false;
+        }
+
+        if (!isInsistOnInvalidCommand) {
+            TypoCorrector typoCorrector = new TypoCorrector(inputCommand);
+            if (typoCorrector.isCommandCorrected()) {
+                isConfirming = true;
+                originalCommand = inputCommand;
+                correctedCommand = typoCorrector.getCorrectedCommand();
+                dukeResponses = "Ambiguous command! Do you mean:\n\n"
+                    + correctedCommand
+                    + "\n\n1. Enter 'Y' to proceed with recommended command\n\n"
+                    + "2. Enter 'N' to proceed with original command\n\n"
+                    + "3. Enter another command";
+                updateChatBox(inputCommand, dukeResponses, false);
+                return;
+            }
+        }
+
+        try {
+            dukeResponses = duke.run(inputCommand);
+            System.out.println("input: " + inputCommand);
+            System.out.println("duke: " + dukeResponses);
+            Command command = duke.getRunningCommand();
+            updateTableViews();
+            executeGuiInstructions(command);
+        } catch (DukeException de) {
+            dukeResponses = de.getMessage();
+            isException = true;
+        }
+        updateChatBox(inputCommand, dukeResponses, isException);
+    }
+
+    /**
+     * Update chatbox.
+     */
+    private void updateChatBox(String userDialog, String dukeDialog, boolean isException) {
+        dialogContainer.getChildren().addAll(
+            DialogBox.getUserDialog(userDialog, userImage),
+            DialogBox.getDukeDialog(dukeDialog, dukeImage, isException)
+        );
+        duke.clearDukeResponses();
     }
 
     /**
@@ -326,29 +394,6 @@ public class MainWindow extends UiPart<Stage> {
         } catch (Exception e) {
             throw new DukeException("Failed to update Upcoming Tasks tab.");
         }
-    }
-
-    /**
-     * Execute duke core with userInput command given
-     * and update dialog container and tables.
-     */
-    private void executeDukeWithInput(String inputCommand) {
-        String dukeResponses;
-        boolean isException = false;
-        try {
-            dukeResponses = duke.run(inputCommand);
-            Command command = duke.getRunningCommand();
-            updateTableViews();
-            executeGuiInstructions(command);
-        } catch (DukeException de) {
-            dukeResponses = de.getMessage();
-            isException = true;
-        }
-        dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(inputCommand, userImage),
-            DialogBox.getDukeDialog(dukeResponses, dukeImage, isException)
-        );
-        duke.clearDukeResponses();
     }
 
     /**
@@ -569,8 +614,6 @@ public class MainWindow extends UiPart<Stage> {
         assignedTaskTable.setItems(sortedAssignedTaskData);
     }
 
-    //@@author
-
     //@@author qjie7
 
     /**
@@ -579,7 +622,6 @@ public class MainWindow extends UiPart<Stage> {
     public void handleUndoButton() {
         executeDukeWithInput("undo");
     }
-
 
     /**
      * Event handler of PieChartPopUpButton.
@@ -835,8 +877,8 @@ public class MainWindow extends UiPart<Stage> {
 
     //@@author qjie7
     private void initializeAutoCompletion() {
-        String[] possibleWords = {"add task :", "add patient :", "assign period task :#", "assign deadline task :#",
-            "list patients", "list tasks", "delete patient :#", "delete task :#",
+        String[] possibleWords = {"Y", "N", "add task :", "add patient :", "assign period task :#",
+            "assign deadline task :#", "list patients", "list tasks", "delete patient :#", "delete task :#",
             "delete assigned task :#", "find patient :#", "find patient :", "find task :#",
             "find task :", "find assigned tasks :#", "find assigned task :", "update patient :#",
             "update task :#", "show upcoming tasks", "barchart", "help", "piechart", "bye", "undo",
