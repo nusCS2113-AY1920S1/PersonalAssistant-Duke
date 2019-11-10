@@ -2,30 +2,29 @@ package logic.parser.edit;
 
 import common.DukeException;
 import logic.command.Command;
+import logic.parser.NewParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EditCommandParser {
 
-    private static final Pattern BASIC_ADD_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    public static final String EDIT_USAGE = "Usage: edit [member] [name/bio/email/phone] [index] /to ... "
-                                            + "or: edit [task] [time/des] [index] /to ...";
+    public static final String EDIT_USAGE = "Usage: edit member {name/bio/email/phone} [MEMBER_NAME] /to [NEW_CONTENT]"
+                                            + "or: edit task {name/time/des} INDEX /to [NEW_CONTENT]";
     public static final String TASK = "task";
     public static final String MEMBER = "member";
 
     //@@author yuyanglin28
     /**
-     * parse delete command, divide to task or member
-     * @param partialCommand argument part of the command
-     * @return a delete command
-     * @throws DukeException exception
+     * parse edit command, pass to task or member
+     * @param partialCommand command after edit
+     * @return a edit command
+     * @throws DukeException throw exception when edit type is not correct.
      */
     public static Command parseEditCommand(String partialCommand) throws DukeException {
-        final Matcher matcher = BASIC_ADD_COMMAND_FORMAT.matcher(partialCommand.trim());
+        final Matcher matcher = NewParser.BASIC_COMMAND_FORMAT.matcher(partialCommand.trim());
         if (!matcher.matches()) {
-            throw new DukeException("Message is invalid" + "\n" + EDIT_USAGE + "\n");
+            throw new DukeException(EDIT_USAGE);
         }
 
         String editType = matcher.group("commandWord");

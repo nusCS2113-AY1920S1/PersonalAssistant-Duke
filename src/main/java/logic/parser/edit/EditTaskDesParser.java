@@ -11,10 +11,7 @@ import java.util.HashMap;
 
 public class EditTaskDesParser {
 
-    public static final String EDIT_USAGE = "Usage: edit [task] [time/des] [index] /to ...";
-    private static final String NAME_NO_EMPTY = "the name of task shouldn't be empty.";
-    private static final String CHANGE_NO_EMPTY = "put description after /to";
-    private static final String GET_INDEX_FAIL = "after edit type, put a valid index.";
+    private static final String CHANGE_NO_EMPTY = "Put description after /to";
 
     //@@author yuyanglin28
     /**

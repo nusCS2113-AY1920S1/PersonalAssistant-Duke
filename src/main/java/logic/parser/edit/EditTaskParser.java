@@ -2,17 +2,17 @@ package logic.parser.edit;
 
 import common.DukeException;
 import logic.command.Command;
+import logic.parser.NewParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EditTaskParser {
 
-    private static final Pattern BASIC_ADD_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    public static final String EDIT_USAGE = "Usage: edit [task] [time/des] [index] /to ...";
+    public static final String EDIT_USAGE = "Usage: edit task {name/time/des} INDEX /to [NEW_CONTENT]";
     public static final String TIME = "time";
     public static final String DES = "des";
+    public static final String INDEX_NO_EMPTY = "The index of task shouldn't be empty.";
 
 
     //@@author yuyanglin28
@@ -23,7 +23,7 @@ public class EditTaskParser {
      * @throws DukeException exception
      */
     public static Command parseEditTask(String partialCommand) throws DukeException {
-        final Matcher matcher = BASIC_ADD_COMMAND_FORMAT.matcher(partialCommand.trim());
+        final Matcher matcher = NewParser.BASIC_COMMAND_FORMAT.matcher(partialCommand.trim());
         if (!matcher.matches()) {
             throw new DukeException("Message is invalid" + "\n" + EDIT_USAGE + "\n");
         }
@@ -37,7 +37,7 @@ public class EditTaskParser {
         case TIME:
             return EditTaskDateTimeParser.parseEditTaskDateTime(arguments);
         case DES:
-            return EditTaskDescriptionParser.parseEditMemberDescription(arguments);
+            return EditTaskDesParser.parseEditTaskDes(arguments);
         default:
             throw new DukeException(EDIT_USAGE);
         }

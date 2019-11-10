@@ -9,19 +9,15 @@ import java.util.HashMap;
 
 public class EditMemberBioParser {
 
-
-    private static final String EDIT_USAGE = "Usage: edit [member] [bio/email/phone] [index] /to ...";
-    private static final String NAME_NO_EMPTY = "the name of member shouldn't be empty.";
-    private static final String CHANGE_NO_EMPTY = "put bio after /to";
-    private static final String GET_INDEX_FAIL = "after edit type, put a valid index.";
+    private static final String CHANGE_NO_EMPTY = "Put bio after /to";
 
 
     //@@author yuyanglin28
     /**
-     * parse delete command, divide to task or member
-     * @param partialCommand argument part of the command
-     * @return a delete command
-     * @throws DukeException exception
+     * parse edit member biography command
+     * @param partialCommand command after bio, contains memberName and change content
+     * @return edit member bio command
+     * @throws DukeException throw exception when member name is empty or change content is empty
      */
     public static Command parseEditMemberBio(String partialCommand) throws DukeException {
 
@@ -30,18 +26,13 @@ public class EditMemberBioParser {
         String changeContent = argumentMultimap.get("/to");
 
         if (name.length() == 0) {
-            throw new DukeException(NAME_NO_EMPTY + "\n" + EDIT_USAGE);
+            throw new DukeException(EditMemberParser.NAME_NO_EMPTY + "\n" + EditMemberParser.EDIT_USAGE);
         } else if (changeContent.length() == 0) {
-            throw new DukeException(CHANGE_NO_EMPTY + "\n" + EDIT_USAGE);
+            throw new DukeException(CHANGE_NO_EMPTY + "\n" + EditMemberParser.EDIT_USAGE);
         } else {
             name = name.trim();
-            try {
-                int indexInList = Integer.parseInt(name);
-                changeContent = changeContent.trim();
-                return new EditMemberBioCommand(indexInList, changeContent);
-            } catch (Exception e) {
-                throw new DukeException(GET_INDEX_FAIL + "\n" + EDIT_USAGE);
-            }
+            changeContent = changeContent.trim();
+                return new EditMemberBioCommand(name, changeContent);
         }
     }
 }
