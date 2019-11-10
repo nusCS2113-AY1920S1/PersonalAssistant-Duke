@@ -99,7 +99,29 @@ Format: `exam </m> <module code of examination> </at> <start_datetime - end_date
 Example:<br />
 `exam /m 2040c /by 28/10/2019 1000 - 28/10/2019 1200`
 
-### 3.1.8) Deleting a task: delete
+### 3.1.8) Adding an lecture: lecture
+Adds weekly recurring lecture tasks to the task manager list.<br />
+Lectures are a subclass of event.
+Format: lecture </m> <module code of examination> </at> <day_of_week start_time-end_time> </till> <end_date>
+- Day of week must be the full name of day (e.g. mondays)
+- A valid module code must be given in one word
+- Time must be in 24hours format (HHmm-HHmm)
+
+Example:<br />
+'lecture /m 2040c /at mondays 1200-1400 /till 01/01/2020'
+
+### 3.1.9) Adding a tutorial: tutorial
+Adds weekly recurring tutorial tasks to the task manager list.<br />
+Tutorial are a subclass of event
+Format: tutorial </m> <module code of examination> </at> <day_of_week start_time-end_time> </till> <end_date>
+- Day of week must be the full name of day (e.g. mondays)
+- A valid module code must be given in one word
+- Time must be in 24hours format (HHmm-HHmm)
+
+Example:<br />
+'tutorial /m 2040c /at tuesdays 0800-1000 /till 25/12/2020'
+
+### 3.1.10) Deleting a task: delete
 Deletes a task from the task manager list.<br />
 Format: `delete <list number where task is located>`<br />
 Deletes the task at the specified list no.
@@ -110,7 +132,6 @@ Deletes the task at the specified list no.
 Example:<br />
 `delete 2`<br />
 `Delete 3`
-
 
 ## 3.2 Postpone commands
 ### 3.2.1) Postpone a deadline task : `postpone`
