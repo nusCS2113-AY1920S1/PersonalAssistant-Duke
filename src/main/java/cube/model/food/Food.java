@@ -37,6 +37,10 @@ public class Food {
 	 */
 	public Food(String name) {
 		this.name = name;
+		this.type = "";
+		this.price = 0;
+		this.cost = 0;
+		this.stock = 0;
 		this.foodRevenue = 0;
 	}
 
@@ -180,7 +184,12 @@ public class Food {
 	@Override
 	public String toString() {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		String date = format.format(expiryDate);
+		String date = "Not Specified";
+
+		if (expiryDate != null) {
+			date = format.format(expiryDate);
+		}
+
 		return name + "\n  Type: " + type + "\n  Price: $" + price +
 				"\n  Stock: " + stock + "\n  Expiry Date: " + date;
 	}
