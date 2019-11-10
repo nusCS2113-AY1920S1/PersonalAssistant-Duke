@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import duke.exception.DukeException;
+import duke.extensions.PreloadTasks;
 import duke.task.Task;
 import duke.ui.Ui;
 
@@ -47,6 +48,14 @@ public class TaskList {
         }
     }
 
+    public void preLoadTasks() {
+        PreloadTasks p = new PreloadTasks();
+        try {
+            taskList = p.defaultTaskList();
+        } catch (DukeException e) {
+            System.out.println("Error creating preloaded tasks");
+        }
+    }
     /**
      * Constructor for duke.tasklist.TaskList
      * this is to initalise a duke.tasklist.TaskList with an ArrayList of Tasks which fulfil the filter predicate
@@ -79,6 +88,21 @@ public class TaskList {
             }
         }
         return temp;
+    }
+
+    public void clear(Optional<String> filter) {
+        if(filter.isPresent()) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task t = taskList.get(i);
+                if (t.getFilter().equals(filter)) {
+                    taskList.remove(i);
+                }
+            }
+        } else {
+            for (int i = 0; i<taskList.size(); i++) {
+                taskList.remove(i);
+            }
+        }
     }
 
     /**
