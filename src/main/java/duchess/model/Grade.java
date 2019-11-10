@@ -132,7 +132,7 @@ public class Grade {
      * Marks a grade as complete.
      * Sets the marks and maxMarks to complete the grade.
      *
-     * @param marks marks obtained
+     * @param marks    marks obtained
      * @param maxMarks maximum marks obtainable
      */
     public void markAsComplete(int marks, int maxMarks) {

@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import duchess.exceptions.DuchessException;
 import duchess.model.TimeFrame;
+import duchess.model.calendar.CalendarUtil;
 import duchess.parser.Util;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -81,5 +83,11 @@ public class Event extends Task {
     @JsonGetter("start")
     public String getStart() {
         return start.toString();
+    }
+
+    @Override
+    public boolean isCalendarEntry() {
+        LocalDate date = start.toLocalDate();
+        return CalendarUtil.processDate(date) == 1 || CalendarUtil.processDate(date) == 2;
     }
 }

@@ -3,6 +3,7 @@ package duchess.logic.commands;
 import duchess.exceptions.DuchessException;
 import duchess.model.Grade;
 import duchess.model.Module;
+import duchess.model.calendar.CalendarEntry;
 import duchess.model.calendar.CalendarManager;
 import duchess.model.task.Event;
 import duchess.storage.Storage;
@@ -10,6 +11,7 @@ import duchess.storage.Store;
 import duchess.ui.Ui;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -64,8 +66,12 @@ public class AddEventCommand extends Command {
             throw new DuchessException("Unable to add event - clash found.");
         }
         store.getTaskList().add(task);
+        if (task.isCalendarEntry()) {
+            List<CalendarEntry> ce = store.getDuchessCalendar();
+            CalendarManager.addEntry(ce, task, start.toLocalDate());
+            store.setDuchessCalendar(ce);
+        }
         ui.showTaskAdded(store.getTaskList(), task);
-        store.setDuchessCalendar(CalendarManager.addEntry(store.getDuchessCalendar(), task));
         storage.save(store);
     }
 }

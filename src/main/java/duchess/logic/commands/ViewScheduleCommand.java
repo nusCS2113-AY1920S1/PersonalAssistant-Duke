@@ -16,6 +16,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Command to display tasklist of certain timeframe in chronological order.
+ */
 public class ViewScheduleCommand extends Command {
     private String date;
     private String view;

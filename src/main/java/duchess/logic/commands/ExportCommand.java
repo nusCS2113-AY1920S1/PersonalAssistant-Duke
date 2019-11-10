@@ -2,8 +2,7 @@ package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
 import duchess.model.calendar.CalendarEntry;
-import duchess.model.calendar.CalendarManager;
-import duchess.model.task.Task;
+import duchess.model.calendar.CalendarUtil;
 import duchess.parser.Util;
 import duchess.storage.Storage;
 import duchess.storage.Store;
@@ -11,11 +10,12 @@ import duchess.ui.Ui;
 
 import java.io.PrintStream;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
+import java.util.stream.Collectors;
 
+/**
+ * Command to export calendar in either the week or day view.
+ */
 public class ExportCommand extends Command {
     private LocalDate start;
     private LocalDate end;
@@ -48,20 +48,14 @@ public class ExportCommand extends Command {
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         List<CalendarEntry> currCalendar = store.getDuchessCalendar();
-        String context = CalendarManager.getDateInformation(start);
+        String context = CalendarUtil.toString(start);
+        List<String> display;
         if (isWeek) {
-            file.println(ui.plainSeparator);
-            file.println(ui.processCentred(context, ui.horizontalLength));
-            file.println(ui.blockSeparator);
-            file.println(ui.calendarHeader);
-            file.println(ui.blockSeparator);
-            SortedMap<LocalTime, String[]> query = CalendarManager.flatCalendar(currCalendar, start, end);
-            for (Map.Entry<LocalTime, String[]> entry : query.entrySet()) {
-                String time = entry.getKey().toString().replaceAll(":", "");
-                String[] strArr = entry.getValue();
-                file.println(ui.processRow(time, strArr));
-                file.println(ui.blockSeparator);
-            }
+            List<CalendarEntry> query = currCalendar
+                    .stream()
+                    .filter(ce -> ce.getDate().compareTo(start) >= 0 && ce.getDate().compareTo(end) <= 0)
+                    .collect(Collectors.toList());
+            display = ui.stringCalendar(query, context);
         } else {
             CalendarEntry ce = currCalendar
                     .stream()
@@ -69,18 +63,12 @@ public class ExportCommand extends Command {
                     .findFirst()
                     .orElse(null);
             if (ce == null) {
-                throw new DuchessException("You have no existing calendar entry on " + start.toString());
+                throw new DuchessException("You have no events scheduled on " + start.toString());
             }
-            file.println(ui.plainShort);
-            file.println(ui.processCentred(context, ui.longLength));
-            file.println(ui.plainShort);
-            String dayOfWeek = ce.getDate().getDayOfWeek().toString();
-            file.println("|  TIME  " + ui.processCentred(dayOfWeek, ui.horizontalBlock));
-            file.println(ui.blockShort);
-            for (Task t : ce.getDateTasks()) {
-                file.println(ui.processRow(t));
-                file.println(ui.blockShort);
-            }
+            display = ui.stringCalendar(ce, context);
+        }
+        for (String s : display) {
+            file.println(s);
         }
         file.flush();
         file.close();

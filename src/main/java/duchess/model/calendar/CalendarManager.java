@@ -3,116 +3,65 @@ package duchess.model.calendar;
 import duchess.model.task.Task;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class CalendarManager extends RequestProxy {
-    private static final int numOfDays = 7;
+public class CalendarManager {
 
     /**
-     * Deletes a task from duchessCalendar in the store.
+     * Acts as a ArrayList.remove() method. Removes a calendar entry from the duchess calendar.
      *
-     * @return modified duchessCalendar
+     * @param ceList duchess calendar
+     * @param key    date of calendar entry
+     * @return edited duchess calendar
      */
-    public static List<CalendarEntry> deleteEntry(List<CalendarEntry> currCalendar, Task task) {
-        if (isModifiable(task)) {
-            LocalDate key = task.getTimeFrame().getStart().toLocalDate();
-            CalendarEntry toModify = currCalendar.stream()
-                    .filter(ce -> ce.getDate().equals(key))
-                    .findAny()
-                    .orElse(null);
-            assert (toModify != null);
-            List<Task> newList = toModify.getDateTasks();
-            newList.remove(task);
-            currCalendar.remove(toModify);
-            currCalendar.add(new CalendarEntry(key, newList));
-        }
-        return currCalendar;
+    private static List<CalendarEntry> removeEntryFromList(List<CalendarEntry> ceList, LocalDate key) {
+        return ceList.stream().filter(ce -> !ce.getDate().equals(key)).collect(Collectors.toList());
     }
 
     /**
-     * Deletes a task from duchessCalendar in the store.
+     * Deletes a task from the task list of a calendar entry stored in the calendar.
      *
-     * @return modified duchessCalendar
+     * @param currCalendar current duchess calendar
+     * @param task event
+     * @param key starting date of event
      */
-    public static List<CalendarEntry> addEntry(List<CalendarEntry> currCalendar, Task task) {
-        if (isModifiable(task)) {
-            LocalDate taskDate = task.getTimeFrame().getStart().toLocalDate();
-            Optional<CalendarEntry> oldEntry = currCalendar
-                    .stream()
-                    .filter(entry -> entry.isRequestedEntry(taskDate))
-                    .findFirst();
-            List<Task> newList;
-            if (oldEntry.isPresent()) {
-                newList = oldEntry.get().getDateTasks();
-                currCalendar.remove(oldEntry.get());
-            } else {
-                newList = new ArrayList<>();
-            }
-            newList.add(task);
-            currCalendar.add(new CalendarEntry(taskDate, newList));
-        }
-        return currCalendar;
+    public static void deleteEntry(List<CalendarEntry> currCalendar, Task task, LocalDate key) {
+        CalendarEntry toModify = currCalendar.stream()
+                .filter(ce -> ce.getDate().equals(key))
+                .findAny()
+                .orElse(null);
+        assert (toModify != null);
+        List<Task> newList = toModify.getDateTasks();
+        newList.remove(task);
+        currCalendar = removeEntryFromList(currCalendar, key);
+        currCalendar.add(new CalendarEntry(key, newList));
     }
 
     /**
-     * Returns an array of size seven (for the days in a week).
-     * Array contains strings of either null value or description
-     * of an event-type task.
+     * Adds a task to the task list of a calendar entry stored in the duchess calendar.
      *
-     * @param flatCalendar duchessCalendar
-     * @param time         key in treeMap storing flatCalendar
-     * @param str          description or null string
-     * @param i            the day of week being processed
-     * @return string array of size seven
+     * @param currCalendar current duchess calendar
+     * @param task event
+     * @param date starting date of event
      */
-    private static String[] processArr(SortedMap<LocalTime, String[]> flatCalendar,
-                                       LocalTime time,
-                                       String str,
-                                       int i) {
-        String[] strArr;
-        if (!flatCalendar.containsKey(time)) {
-            strArr = new String[numOfDays];
-        } else {
-            strArr = flatCalendar.get(time);
-        }
-        strArr[i] = str;
-        return strArr;
-    }
-
-    /**
-     * Flat-maps the duchessCalendar into a treeMap for easier
-     * printing of the calendar.
-     *
-     * @param currCalendar duchessCalendar
-     * @param start        start date of calendar view
-     * @param end          end date of calendar view
-     * @return treeMap of desired calendar view
-     */
-    public static SortedMap<LocalTime, String[]> flatCalendar(List<CalendarEntry> currCalendar,
-                                                              LocalDate start,
-                                                              LocalDate end) {
-        List<CalendarEntry> query = currCalendar
+    public static void addEntry(List<CalendarEntry> currCalendar, Task task, LocalDate date) {
+        Optional<CalendarEntry> oldEntry = currCalendar
                 .stream()
-                .filter(ce -> ce.getDate().compareTo(start) >= 0 && ce.getDate().compareTo(end) <= 0)
-                .collect(Collectors.toList());
-        SortedMap<LocalTime, String[]> flatCalendar = new TreeMap<>();
-        for (CalendarEntry ce : query) {
-            List<Task> taskList = ce.getDateTasks();
-            int index = ce.getDate().getDayOfWeek().getValue() - 1;
-            for (Task t : taskList) {
-                LocalTime time = t.getTimeFrame().getStart().toLocalTime();
-                String description = t.toString();
-                String[] updateArr = processArr(flatCalendar, time, description, index);
-                flatCalendar.put(time, updateArr);
-            }
+                .filter(entry -> entry.isRequestedEntry(date))
+                .findFirst();
+        List<Task> newList;
+        if (oldEntry.isPresent()) {
+            CalendarEntry ce = oldEntry.get();
+            newList = ce.getDateTasks();
+            currCalendar = removeEntryFromList(currCalendar, date);
+        } else {
+            newList = new ArrayList<>();
         }
-        return flatCalendar;
+        newList.add(task);
+        currCalendar.add(new CalendarEntry(date, newList));
     }
 }
 

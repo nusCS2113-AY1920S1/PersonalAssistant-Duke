@@ -13,7 +13,7 @@ import java.time.format.ResolverStyle;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AcademicYearTest implements ArgumentConverter {
+public class CalendarUtilTest implements ArgumentConverter {
 
     @Override
     public Object convert(Object source, ParameterContext context) throws ArgumentConversionException {
@@ -42,10 +42,9 @@ public class AcademicYearTest implements ArgumentConverter {
             "21/04/2020:AY2019/2020, Semester 2, Reading Week",
             "05/05/2020:AY2019/2020, Semester 2, Examinations",},
             delimiter = ':')
-    void academicContext_processedCorrectly(@ConvertWith(AcademicYearTest.class) LocalDate localDate,
-                                            String expected) {
-        AcademicYear ay = new AcademicYear();
-        String output = ay.toString(localDate);
+    void toString_validDateInput_givesCorrectContext(@ConvertWith(CalendarUtilTest.class) LocalDate localDate,
+                                                     String expected) {
+        String output = CalendarUtil.toString(localDate);
         assertEquals(output, expected);
     }
 }

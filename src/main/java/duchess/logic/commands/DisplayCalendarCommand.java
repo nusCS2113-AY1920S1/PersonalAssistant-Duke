@@ -2,17 +2,19 @@ package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
 import duchess.model.calendar.CalendarEntry;
-import duchess.model.calendar.CalendarManager;
+import duchess.model.calendar.CalendarUtil;
 import duchess.parser.Util;
 import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.SortedMap;
+import java.util.stream.Collectors;
 
+/**
+ * Command to display calendar in either the week or day view.
+ */
 public class DisplayCalendarCommand extends Command {
     private LocalDate start;
     private LocalDate end;
@@ -39,10 +41,13 @@ public class DisplayCalendarCommand extends Command {
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         List<CalendarEntry> currCalendar = store.getDuchessCalendar();
-        String context = CalendarManager.getDateInformation(start);
+        String context = CalendarUtil.toString(start);
         if (isWeek) {
-            SortedMap<LocalTime, String[]> flatCalendar = CalendarManager.flatCalendar(currCalendar, start, end);
-            ui.displayCalendar(flatCalendar, context);
+            List<CalendarEntry> query = currCalendar
+                    .stream()
+                    .filter(ce -> ce.getDate().compareTo(start) >= 0 && ce.getDate().compareTo(end) <= 0)
+                    .collect(Collectors.toList());
+            ui.displayCalendar(query, context);
         } else {
             CalendarEntry ce = currCalendar
                     .stream()

@@ -48,6 +48,11 @@ public class Deadline extends Task {
         );
     }
 
+    @Override
+    public boolean isCalendarEntry() {
+        return TimeFrame.ofInstantaneousTask(this.deadline).hasDuration();
+    }
+
     @JsonSetter("deadline")
     public void setDeadline(String deadline) {
         this.deadline = LocalDateTime.parse(deadline);

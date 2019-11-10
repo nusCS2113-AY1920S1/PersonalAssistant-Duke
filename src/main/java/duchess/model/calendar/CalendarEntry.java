@@ -13,7 +13,7 @@ import duchess.model.task.Task;
 import java.time.LocalDate;
 import java.util.List;
 
-public class CalendarEntry implements Comparable<CalendarEntry> {
+public class CalendarEntry {
 
     private LocalDate date;
     private List<Task> dateTasks;
@@ -26,15 +26,6 @@ public class CalendarEntry implements Comparable<CalendarEntry> {
 
     public boolean isRequestedEntry(LocalDate enquiry) {
         return this.date.equals(enquiry);
-    }
-
-    @Override
-    public int compareTo(CalendarEntry that) {
-        if (this.date.isBefore(that.date)) {
-            return 1;
-        } else {
-            return 0;
-        }
     }
 
     @JsonSetter("date")

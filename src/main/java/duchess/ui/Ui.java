@@ -6,11 +6,13 @@ import duchess.model.calendar.CalendarEntry;
 import duchess.model.task.Task;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class Ui {
@@ -18,21 +20,22 @@ public class Ui {
     /**
      * The following final strings are used to print out duchessCalendar.
      */
-    public final int horizontalLength = 161;
-    public final int horizontalBlock = 141; // 9 + 150
-    public final int longLength = 150;
+    private final int horizontalLength = 161;
+    private final int horizontalBlock = 141; // 9 + 150
+    private final int longLength = 150;
     private final int blockLength = 21;
+    private final int numOfDays = 7;
     private final String emptyBlock = "                     |";
-    public final String calendarHeader = "|  TIME  |         MON         |         TUE         |         WED         "
-            + "|         THUR        |         FRI         |         SAT         |         SUN         |";
-    public final String blockSeparator = "+--------+---------------------+---------------------+---------------------"
-            + "+---------------------+---------------------+---------------------+---------------------+";
-    public final String blockShort = "+--------+------------------------------------------------------"
-            + "+---------------------------------------------------------------------------------------+";
-    public final String plainSeparator = "+---------------------------------------------------------------------------"
+    private final String calendarHeader = "|  TIME  |         MON         |         TUE         |         WED         |"
+            + "         THUR        |         FRI         |         SAT         |         SUN         |";
+    private final String blockSeparator = "+--------+---------------------+---------------------+---------------------+"
+            + "---------------------+---------------------+---------------------+---------------------+";
+    private final String blockShort = "+--------+----------------------------------------------------------------------"
+            + "------------------------------------------------------------------------+";
+    private final String plainSeparator = "+---------------------------------------------------------------------------"
             + "---------------------------------------------------------------------------------------+";
-    public final String plainShort = "+----------------------------------------------------------------"
-            + "---------------------------------------------------------------------------------------+";
+    private final String plainShort = "+-------------------------------------------------------------------------------"
+            + "------------------------------------------------------------------------+";
 
     /**
      * Reference to Scanner.
@@ -225,9 +228,11 @@ public class Ui {
         } else if (str.length() > blockLength) {
             str = str.substring(0, blockLength - 3) + "...";
         } else {
-            while (str.length() <= blockLength) {
-                str += " ";
+            StringBuilder strBuilder = new StringBuilder(str);
+            while (strBuilder.length() <= blockLength) {
+                strBuilder.append(" ");
             }
+            str = strBuilder.toString();
         }
         return str + "|";
     }
@@ -238,7 +243,7 @@ public class Ui {
      * @param str string containing academic year + semester + week
      * @return string with academic context centered and padded with whitespace
      */
-    public String processCentred(String str, int length) {
+    private String processCentred(String str, int length) {
         int partition = (int) Math.floor((length - str.length()) / (double) 2);
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append(" ".repeat(Math.max(0, partition)));
@@ -254,7 +259,7 @@ public class Ui {
      * @param strArr array containing descriptions
      * @return joined string of descriptions or empty blocks
      */
-    public String processRow(String time, String[] strArr) {
+    private String processRow(String time, String[] strArr) {
         return "|  " + time + "  |"
                 + Arrays.stream(strArr)
                 .map(this::processDescription)
@@ -267,30 +272,80 @@ public class Ui {
      * @param t Task
      * @return joined string of time + description of event
      */
-    public String processRow(Task t) {
+    private String processRow(Task t) {
         String time = t.getTimeFrame().getStart().toLocalTime().toString().replaceAll(":", "");
         String description = processCentred(t.toString(), horizontalBlock);
         return "|  " + time + "  " + description;
     }
 
     /**
-     * Prints out weekly calendar displaying only event tasks.
+     * Returns an array of size seven (for the days in a week).
+     * Array contains strings of either null value or description
+     * of an event-type task.
      *
-     * @param flatCalendar flattened duchessCalendar
-     * @param context      academic year + semester + week
+     * @param flatCalendar duchessCalendar
+     * @param time         key in treeMap storing flatCalendar
+     * @param str          description or null string
+     * @param i            the day of week being processed
+     * @return string array of size seven
      */
-    public void displayCalendar(SortedMap<LocalTime, String[]> flatCalendar, String context) {
-        printIndented(plainSeparator);
-        printIndented(processCentred(context, horizontalLength));
-        printIndented(blockSeparator);
-        printIndented(calendarHeader);
-        printIndented(blockSeparator);
-        for (Map.Entry<LocalTime, String[]> entry : flatCalendar.entrySet()) {
+    private String[] processArr(SortedMap<LocalTime, String[]> flatCalendar,
+                                LocalTime time,
+                                String str,
+                                int i) {
+        String[] strArr;
+        if (!flatCalendar.containsKey(time)) {
+            strArr = new String[numOfDays];
+        } else {
+            strArr = flatCalendar.get(time);
+        }
+        strArr[i] = str;
+        return strArr;
+    }
+
+    /**
+     * Sorts the duchess calendar into a 2-D map of timings mapped to their event descriptions.
+     *
+     * @param query filtered duchess calendar
+     * @return sorted map of duchess calendar
+     */
+    private SortedMap<LocalTime, String[]> flattenCalendar(List<CalendarEntry> query) {
+        SortedMap<LocalTime, String[]> flatCalendar = new TreeMap<>();
+        for (CalendarEntry ce : query) {
+            List<Task> taskList = ce.getDateTasks();
+            int index = ce.getDate().getDayOfWeek().getValue() - 1;
+            for (Task t : taskList) {
+                LocalTime time = t.getTimeFrame().getStart().toLocalTime();
+                String description = t.toString();
+                String[] updateArr = processArr(flatCalendar, time, description, index);
+                flatCalendar.put(time, updateArr);
+            }
+        }
+        return flatCalendar;
+    }
+
+    /**
+     * Store the display calendar as strings in an array.
+     *
+     * @param ceList list of calendar entries
+     * @param context academic year information
+     * @return array list of the display calendar string by string
+     */
+    public List<String> stringCalendar(List<CalendarEntry> ceList, String context) {
+        List<String> display = new ArrayList<>();
+        display.add(plainSeparator);
+        display.add(processCentred(context, horizontalLength));
+        display.add(blockSeparator);
+        display.add(calendarHeader);
+        display.add(blockSeparator);
+        SortedMap<LocalTime, String[]> flattened = flattenCalendar(ceList);
+        for (Map.Entry<LocalTime, String[]> entry : flattened.entrySet()) {
             String time = entry.getKey().toString().replaceAll(":", "");
             String[] strArr = entry.getValue();
-            printIndented(processRow(time, strArr));
-            printIndented(blockSeparator);
+            display.add(processRow(time, strArr));
+            display.add(blockSeparator);
         }
+        return display;
     }
 
     /**
@@ -298,16 +353,44 @@ public class Ui {
      *
      * @param ce calendar entry
      */
-    public void displayCalendar(CalendarEntry ce, String context) {
-        printIndented(plainShort);
-        printIndented(processCentred(context, longLength));
-        printIndented(plainShort);
+    public List<String> stringCalendar(CalendarEntry ce, String context) {
+        List<String> display = new ArrayList<>();
+        display.add(plainShort);
+        display.add(processCentred(context, longLength));
+        display.add(blockShort);
         String dayOfWeek = ce.getDate().getDayOfWeek().toString();
-        printIndented("|  TIME  " + processCentred(dayOfWeek, horizontalBlock));
-        printIndented(blockShort);
+        display.add("|  TIME  " + processCentred(dayOfWeek, horizontalBlock));
+        display.add(blockShort);
         for (Task t : ce.getDateTasks()) {
-            printIndented(processRow(t));
-            printIndented(blockShort);
+            display.add(processRow(t));
+            display.add(blockShort);
+        }
+        return display;
+    }
+
+    /**
+     * Prints out the a week view of the calendar.
+     *
+     * @param ceList calendar
+     * @param context academic year information
+     */
+    public void displayCalendar(List<CalendarEntry> ceList, String context) {
+        List<String> display = stringCalendar(ceList, context);
+        for (String s : display) {
+            printIndented(s);
+        }
+    }
+
+    /**
+     * Prints out the a day view of the calendar.
+     *
+     * @param ce calendar entry
+     * @param context academic year information
+     */
+    public void displayCalendar(CalendarEntry ce, String context) {
+        List<String> display = stringCalendar(ce, context);
+        for (String s : display) {
+            printIndented(s);
         }
     }
 

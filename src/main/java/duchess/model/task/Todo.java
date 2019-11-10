@@ -18,6 +18,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public boolean isCalendarEntry() {
+        return TimeFrame.ofTimelessTask().hasDuration();
+    }
+
+    @Override
     public TimeFrame getTimeFrame() {
         return TimeFrame.ofTimelessTask();
     }

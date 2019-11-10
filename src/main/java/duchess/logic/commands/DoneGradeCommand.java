@@ -22,10 +22,10 @@ public class DoneGradeCommand extends Command {
     /**
      * Creates a command to mark given task as complete.
      *
-     * @param moduleCode the code of the module
-     * @param gradeNo the index of the grade in list of grades
+     * @param moduleCode    the code of the module
+     * @param gradeNo       the index of the grade in list of grades
      * @param marksObtained marks obtained
-     * @param maxMarks maximum marks obtainable
+     * @param maxMarks      maximum marks obtainable
      */
     public DoneGradeCommand(String moduleCode, int gradeNo, int marksObtained, int maxMarks) {
         this.gradeNo = gradeNo - 1;

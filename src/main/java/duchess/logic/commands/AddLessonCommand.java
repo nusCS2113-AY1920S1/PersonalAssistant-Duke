@@ -1,8 +1,11 @@
+//@@author muserr
+
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
-import duchess.model.calendar.AcademicYear;
+import duchess.model.calendar.CalendarEntry;
 import duchess.model.calendar.CalendarManager;
+import duchess.model.calendar.CalendarUtil;
 import duchess.model.task.Event;
 import duchess.storage.Storage;
 import duchess.storage.Store;
@@ -10,6 +13,7 @@ import duchess.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Adds recurring lessons.
@@ -23,6 +27,7 @@ public class AddLessonCommand extends Command {
     private LocalDateTime startCopy;
     private String moduleCode;
     private final int studyWeeks = 15;
+    private final int recessWeek = 7;
     private final String invalidStartDate
             = "Invalid start date, start date provided must be within a semester.";
     private final String invalidModuleCode
@@ -56,35 +61,20 @@ public class AddLessonCommand extends Command {
      */
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
-        AcademicYear academicYear = new AcademicYear();
-        assert (academicYear != null);
-
         if (store.findModuleByCode(moduleCode).isEmpty()) {
             throw new DuchessException(invalidModuleCode);
-        } else if (!academicYear.isAcademicSemester(this.startDate)) {
+        } else if (CalendarUtil.processDate(startDate) == -1) {
             throw new DuchessException(invalidStartDate);
         } else {
-            // Find out which Sem does date fall into first
-            boolean isWithinSemOne = academicYear.isFirstSemester(startDate);
-            boolean isWithinSemTwo = academicYear.isSecondSemester(startDate);
-
-            LocalDate compareDate;
-            assert (isWithinSemOne || isWithinSemTwo);
-            if (isWithinSemOne) {
-                compareDate = academicYear.getSemOneStart();
-            } else {
-                compareDate = academicYear.getSemTwoStart();
-            }
-
-            int currentWeek = academicYear.getWeekAsInt(compareDate, startDate);
+            int currentWeek = CalendarUtil.getWeekAsInt(startDate);
             int prevTaskListSize = store.getTaskList().size();
 
-            for (int i = currentWeek; i <= studyWeeks; i++) {
-                if (academicYear.isSemesterBreak(i) == false) {
+            for (int i = currentWeek; i < studyWeeks; i++) {
+                if (i != recessWeek) {
                     addLessons(store, storage);
-                    startCopy = startCopy.plusWeeks(1);
-                    endCopy = endCopy.plusWeeks(1);
                 }
+                startCopy = startCopy.plusWeeks(1);
+                endCopy = endCopy.plusWeeks(1);
             }
 
             int currTaskListSize = store.getTaskList().size();
@@ -110,7 +100,9 @@ public class AddLessonCommand extends Command {
 
         if (!store.isClashing(task)) {
             store.getTaskList().add(task);
-            store.setDuchessCalendar(CalendarManager.addEntry(store.getDuchessCalendar(), task));
+            List<CalendarEntry> ce = store.getDuchessCalendar();
+            CalendarManager.addEntry(ce, task, startCopy.toLocalDate());
+            store.setDuchessCalendar(ce);
             storage.save(store);
         }
     }

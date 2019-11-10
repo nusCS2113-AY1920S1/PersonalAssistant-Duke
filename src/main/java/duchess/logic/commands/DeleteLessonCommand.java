@@ -1,17 +1,22 @@
+//@@author muserr
+
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
+import duchess.model.calendar.CalendarEntry;
 import duchess.model.calendar.CalendarManager;
 import duchess.model.task.Task;
 import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * Deletes recurring lessons.
+ */
 public class DeleteLessonCommand extends Command {
     private String type;
     private String moduleCode;
@@ -33,6 +38,7 @@ public class DeleteLessonCommand extends Command {
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         boolean isDeleted = false;
         List<Integer> toDelete = new ArrayList<>();
+        List<CalendarEntry> update = store.getDuchessCalendar();
         Task task;
 
         for (int i = 0; i < store.getTaskList().size(); i++) {
@@ -43,7 +49,9 @@ public class DeleteLessonCommand extends Command {
                 toDelete.add(i);
                 isDeleted = true;
 
-                store.setDuchessCalendar(CalendarManager.deleteEntry(store.getDuchessCalendar(), task));
+                LocalDate date = task.getTimeFrame().getStart().toLocalDate();
+                CalendarManager.deleteEntry(update, task, date);
+                store.setDuchessCalendar(update);
                 i--;
             }
         }

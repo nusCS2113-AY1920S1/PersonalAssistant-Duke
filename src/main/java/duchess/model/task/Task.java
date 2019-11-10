@@ -88,6 +88,8 @@ public abstract class Task implements Comparable<Task> {
         return this.grade.orElse(null);
     }
 
+    public abstract boolean isCalendarEntry();
+
     public abstract TimeFrame getTimeFrame();
 
     public abstract void snooze() throws DuchessException;

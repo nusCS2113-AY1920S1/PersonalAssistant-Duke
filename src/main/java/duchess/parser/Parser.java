@@ -23,6 +23,10 @@ public class Parser {
     public static final String MODULE_KEYWORD = "module";
     public static final String LESSON_KEYWORD = "lesson";
     public static final String GRADE_KEYWORD = "grade";
+    public static final String DISPLAY_KEYWORD = "display";
+    public static final String EXPORT_KEYWORD = "export";
+    public static final String WEEK_KEYWORD = "week";
+    public static final String DAY_KEYWORD = "day";
     public static final String MARKS_KEYWORD = "marks";
 
     /**
@@ -37,6 +41,8 @@ public class Parser {
             "Usage: delete (task | module | grade /module <module_code>) /no <number>"
                     + "\n    Usage: delete (lesson) /type <lesson_type> /code <module_code>";
     public static final String CALENDAR_USAGE = "calendar (display | export) /date <date> /view (day | week)";
+    public static final String CALENDAR_DATE_USAGE = "Please input a date in the current formal academic year.";
+    public static final String CALENDAR_VIEW_USAGE = "Please input either the day or week view.";
     public static final String DONE_USAGE = "Usage: done (task | grade /module <module_code> "
             + "\n    /marks <marks>) /no <number>";
 

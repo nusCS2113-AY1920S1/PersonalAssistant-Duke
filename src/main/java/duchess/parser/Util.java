@@ -20,18 +20,19 @@ import java.util.TreeMap;
  * Collection of helpful functions to parse user input.
  */
 public class Util {
-    private static final String INVALID_FORMAT_MESSAGE = "Please enter dates in the format dd/mm/yyyy hhmm.";
-    private static final String INVALID_DATE_FORMAT_MESSAGE = "Please enter date in the format dd/mm/yyyy.";
+    private static final String INVALID_FORMAT_MESSAGE = "Please enter the date and time as such : dd/mm/yyyy hhmm.";
+    private static final String INVALID_DATE_FORMAT_MESSAGE = "Please enter the date as such : dd/mm/yyyy.";
+    private static final String INVALID_TIME_FORMAT_MESSAGE = "Please enter the time as such : hhmm";
     private static final DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")
                     .withResolverStyle(ResolverStyle.STRICT);
-    private static final String MON = "MON";
-    private static final String TUE = "TUE";
-    private static final String WED = "WED";
-    private static final String THUR = "THUR";
-    private static final String FRI = "FRI";
-    private static final String SAT = "SAT";
-    private static final String SUN = "SUN";
+    private static final String MONDAY = "MONDAY";
+    private static final String TUESDAY = "TUESDAY";
+    private static final String WEDNESDAY = "WEDNESDAY";
+    private static final String THURSDAY = "THURSDAY";
+    private static final String FRIDAY = "FRIDAY";
+    private static final String SATURDAY = "SATURDAY";
+    private static final String SUNDAY = "SUNDAY";
 
     private Util() {
         // Note that this class is not meant to be instantiated
@@ -46,8 +47,12 @@ public class Util {
      * @param time text to parse
      * @return the parsed local time
      */
-    private static LocalTime parseTime(String time) {
-        return LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm"));
+    private static LocalTime parseTime(String time) throws DuchessException {
+        try {
+            return LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new DuchessException(INVALID_TIME_FORMAT_MESSAGE);
+        }
     }
 
     /**
@@ -59,21 +64,22 @@ public class Util {
      */
     private static LocalDate processDayOfWeek(String day) throws DuchessException {
         String capitalDay = day.toUpperCase();
-        if (capitalDay.contains(MON)) {
+        switch (capitalDay) {
+        case MONDAY:
             return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-        } else if (capitalDay.contains(TUE)) {
+        case TUESDAY:
             return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
-        } else if (capitalDay.contains(WED)) {
+        case WEDNESDAY:
             return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
-        } else if (capitalDay.contains(THUR)) {
+        case THURSDAY:
             return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
-        } else if (capitalDay.contains(FRI)) {
+        case FRIDAY:
             return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
-        } else if (capitalDay.contains(SAT)) {
+        case SATURDAY:
             return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
-        } else if (capitalDay.contains(SUN)) {
+        case SUNDAY:
             return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
-        } else {
+        default:
             throw new DuchessException(INVALID_DATE_FORMAT_MESSAGE);
         }
     }
@@ -104,8 +110,12 @@ public class Util {
      */
     public static LocalDateTime parseDateTime(String dateTime) throws DuchessException {
         try {
-            return LocalDateTime.parse(dateTime, formatter);
-        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
+            String[] arr = dateTime.split(" ");
+            if (arr.length > 2) {
+                throw new DuchessException(INVALID_FORMAT_MESSAGE);
+            }
+            return LocalDateTime.of(parseDate(arr[0]), parseTime(arr[1]));
+        } catch (Exception e) {
             throw new DuchessException(INVALID_FORMAT_MESSAGE);
         }
     }
