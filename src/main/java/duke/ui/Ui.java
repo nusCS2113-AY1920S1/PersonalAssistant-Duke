@@ -56,15 +56,15 @@ public class Ui {
         out.println(LINE);
     }
 
+    //@@author gervaiseang
     /**
      * Show the help page.
      *
-     * @param items The task list that contains a list of tasks.
      * @return an event requesting to view the help page
      */
-    public static String helpRequest(TaskList items) {
-        String str = "     Here are the commands available in Duke Manager:";
-        return  str;
+    public static String showHelpGui() {
+        String str = "    Help window will pop up:\n    Shows all the commands available in Duke Manager";
+        return str;
     }
 
     /**

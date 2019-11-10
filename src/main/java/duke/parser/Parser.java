@@ -18,7 +18,7 @@ import duke.command.ShowNotesCommand;
 import duke.command.AddNotesCommand;
 import duke.command.DeleteNotesCommand;
 import duke.command.DuplicateFoundCommand;
-import duke.command.RemindCommand;
+import duke.command.HelpCommand;
 import duke.command.UpdateCommand;
 import duke.command.ViewBudgetCommand;
 import duke.command.ResetBudgetCommand;
@@ -638,11 +638,14 @@ public class Parser {
                             + "\n     budget <cmd> <amount> <desc(Optional)>"
                             + "\n     ,where cmd can be add/minus/view/reset. ");
                 }
-            }
+            } //@@author
         } else if (sentence.equals("backup")) {
             return new BackupCommand(); //@@author
         } else if (sentence.equals("bye") || sentence.equals("exit")) {
             return new ExitCommand();
+            //@@author gervaiseang
+        } else if (sentence.equals("help")) {
+            return new HelpCommand();
         } else {
             throw new DukeException(ErrorMessages.UNKNOWN_COMMAND.message);
         }
