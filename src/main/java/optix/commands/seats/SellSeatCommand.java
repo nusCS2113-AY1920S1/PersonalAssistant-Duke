@@ -61,7 +61,8 @@ public class SellSeatCommand extends Command {
                 storage.write(model.getShows());
             } else {
                 OPTIXLOGGER.log(Level.WARNING, "Show not found: " + showName);
-                message = new StringBuilder(MESSAGE_SHOW_NOT_FOUND);
+                ui.setMessage(MESSAGE_SHOW_NOT_FOUND);
+                return "";
             }
         } catch (OptixException e) {
             OPTIXLOGGER.log(Level.WARNING, "Error selling seat. Details:" + this.details);

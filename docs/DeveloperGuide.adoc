@@ -965,3 +965,64 @@ A feature that is declared as nice-to-have is viewed as a non- priority. The fea
 
 A feature that is declared as unlikely-to-have is viewed as the least priority. The features with this label are likely to be ignored and only be done should they be viewed as extensions that could add on to the functionality of the program.
 
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder.
+.. Double-click the jar file +
+   Expected: Shows the GUI with the display window on the left(empty) and Chat Box on the right.
+
+. Loading save data
+
+.. Add some shows using the following format `add SHOW_NAME|SEAT_BASEPRICE|SHOWDATE1|...`. Input bye or close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The display window on the left retained the shows added before shutting down the app.
+
+. Transferring save data
+
+.. Move your jar file into another empty folder.
+.. Create new folder and name it src. Double-click the folder.
+.. Create new folder and name it main. Double-click the folder.
+.. Create new folder and name it data. Copy the previous archive.txt and optix.txt files into this folder.
+.. Double-click the jar file. +
+   Expected: The display window on the left retained the shows added before it was transferred to the new directory.
+
+=== Selling a Seat
+
+. Date input is incorrect.
+
+.. Test case: `sell Lion King | 29/2/2021 | A1 A2` +
+   Expected: Display window does not change. Chat Box replies that it is an invalid date.
+
+. Selling a seat to a non-existent show.
+
+.. Test case: `sell Lion King | 11/10/2020 | A1 A2` +
+   Expected: Display window does not change. Chat Box replies that show cannot be found.
+
+[NOTE]
+The following test cases should have some shows added before attempting. +
+`add Lion King | 20 | 11/10/2020`
+
+.. Test case: Wrong show name. `sell Lion Kingg | 11/10/2020 | A1 A2` +
+   Expected: Display window does not change. Chat Box replies that the show cannot be found.
+
+. Selling a non-existent seat.
+
+.. Test case: All of the seats are non-existent. `sell Lion King | 11/10/2020 | A11 G1` +
+   Expected: Display window changes to the seat display for the user input show. Chat Box replies that the seat does not exist.
+
+.. Test case: Some of the seats can be purchased some are non-existent. `sell Lion King | 11/10/2020 | A1 F10 A11 G1`. +
+   Expected: Seats that are purchased successfully changed to red. Chat Box displays seat number that are successfully purchased and the price followed by informing users which seats are non-existent.
+
+_{ more test cases ... }_
+
+

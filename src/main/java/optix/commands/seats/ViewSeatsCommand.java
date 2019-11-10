@@ -58,7 +58,8 @@ public class ViewSeatsCommand extends Command {
                 message.append(model.viewSeats(showLocalDate));
             } else {
                 OPTIXLOGGER.log(Level.WARNING, "Show not found: " + showName);
-                message = new StringBuilder(String.format(MESSAGE_SHOW_NOT_FOUND, showName));
+                ui.setMessage(String.format(MESSAGE_SHOW_NOT_FOUND, showName));
+                return "";
             }
         } catch (OptixException e) {
             OPTIXLOGGER.log(Level.WARNING, "Error viewing seat. Details:" + this.details);

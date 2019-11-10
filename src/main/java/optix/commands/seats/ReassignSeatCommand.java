@@ -57,7 +57,9 @@ public class ReassignSeatCommand extends Command {
                 message.append(model.reassignSeat(showLocalDate, oldSeat, newSeat));
                 storage.write(model.getShows());
             } else { //no show on the showDate
-                message.append(MESSAGE_SHOW_NOT_FOUND);
+                OPTIXLOGGER.log(Level.WARNING, "Show not found: " + showName);
+                ui.setMessage(MESSAGE_SHOW_NOT_FOUND);
+                return "";
             }
         } catch (OptixException e) {
             OPTIXLOGGER.log(Level.WARNING, "Error reassigning seat. Details:" + this.details);
