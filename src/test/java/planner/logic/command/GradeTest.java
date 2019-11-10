@@ -115,6 +115,9 @@ public class GradeTest extends InputTest {
         assertEquals(escaped, removeUnicodeAndEscapeChars(expectedAddModule));
     }
 
+    /**
+     * Testing for invalid grade.
+     */
     @Test
     public void testIncorrectGradeInput() {
         final String moduleTest1 = "grade CS1010 Z\n" + "bye\n"; //This affects the user's list
@@ -150,6 +153,9 @@ public class GradeTest extends InputTest {
         assertEquals(escaped, removeUnicodeAndEscapeChars(expectedErrorModule));
     }
 
+    /**
+     * Testing for multiple grades inputted.
+     */
     @Test
     public void testMultipleGradeInput() {
         final String moduleTest1 = "grade CS1010 A\n";
