@@ -95,7 +95,7 @@ public class SearchProfile extends UserProfile {
     }
 
     public SearchProfile setGenreIdPreference(ArrayList<Integer> genreIdPreference) {
-        return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), genreIdPreference, this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), this.isMovie);
+        return new SearchProfile(this.getUserName(), this.getUserAge(), genreIdPreference, this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
     public SearchProfile setGenreIdRestriction(ArrayList<Integer> genreIdRestriction) {
