@@ -67,7 +67,7 @@ public class InputValidator {
      * @param valueInput the value to be validated.
      * @throws ProgramException if the value is not a positive integer with no leading zeroes.
      */
-    public static void validateNutritionalValue(String valueInput) throws ProgramException {
+    public static void validatePositiveInteger(String valueInput) throws ProgramException {
         if (!valueInput.matches(positiveIntegerValidator)) {
             logger.log(Level.WARNING, "the value is not positive whole number");
             throw new ProgramException("The value must be a positive integer with no leading zeroes");
