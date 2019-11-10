@@ -12,6 +12,8 @@ public interface IReminder {
 
     void setIsDone(Boolean isDone);
 
+    void setCategory(String category);
+
     String getReminderName();
 
     String getReminderRemarks();
@@ -21,4 +23,6 @@ public interface IReminder {
     Boolean getIsDone();
 
     String getStatus();
+
+    String getCategory();
 }

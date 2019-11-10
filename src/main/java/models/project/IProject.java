@@ -59,8 +59,6 @@ public interface IProject {
 
     HashMap<String, ArrayList<String>> getTasksAndAssignedMembers();
 
-    IMember getMemberFromID(String memberID);
-
     ITask getTaskFromID(String taskID);
 
     void addReminderToList(Reminder reminder);
@@ -74,5 +72,9 @@ public interface IProject {
     void removeReminder(int index);
 
     int getReminderListSize();
+
+    IMember getMemberFromID(String memberID);
+
+    HashMap<String,ArrayList<Reminder>> getCategoryReminderList();
 
 }

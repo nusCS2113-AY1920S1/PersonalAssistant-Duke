@@ -145,6 +145,7 @@ public class Project implements IProject {
         return this.taskList.editTask(taskIndexNumber, updatedTaskDetails);
     }
 
+    //@@author seanlimhx
     @Override
     public String[] editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements) {
         return this.taskList.editTaskRequirements(taskIndexNumber, updatedTaskRequirements);
@@ -325,4 +326,21 @@ public class Project implements IProject {
         return reminderList.getReminderList().size();
     }
 
+    @Override
+    public HashMap<String,ArrayList<Reminder>> getCategoryReminderList() {
+
+        HashMap<String,ArrayList<Reminder>> reminderCategoryList = new HashMap<>();
+        ArrayList<Reminder> remindersLists = reminderList.getReminderList();
+        for (Reminder reminder : remindersLists) {
+            if (!(reminderCategoryList.containsKey(reminder.getCategory()))) {
+                ArrayList<Reminder> reminderL = new ArrayList<>();
+                reminderL.add(reminder);
+                reminderCategoryList.put(reminder.getCategory(),reminderL);
+            } else {
+                reminderCategoryList.get(reminder.getCategory()).add(reminder);
+            }
+        }
+
+        return reminderCategoryList;
+    }
 }

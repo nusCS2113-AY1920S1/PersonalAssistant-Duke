@@ -25,10 +25,12 @@ public class ReminderTest {
     void testReminderDetails() {
         try {
             Date date = dateTimeHelper.formatDate("10/10/2019");
-            Reminder reminder = new Reminder("Fix Captain America's Shield paint job", "maybe try pink instead", date);
+            Reminder reminder = new Reminder("Fix Captain America's Shield paint job",
+                    "maybe try pink instead", date,"DEFAULT");
             assertEquals("Fix Captain America's Shield paint job",reminder.getReminderName());
             assertEquals("maybe try pink instead",reminder.getReminderRemarks());
             assertEquals(date,reminder.getReminderDate());
+            assertEquals("DEFAULT",reminder.getCategory());
         } catch (ParseException e) {
             System.out.println("Parsing error");
         }

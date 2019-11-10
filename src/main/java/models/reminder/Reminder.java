@@ -7,6 +7,7 @@ public class Reminder implements IReminder {
     private String reminderRemarks;
     private Date reminderDate;
     private Boolean isDone;
+    private String category;
 
     /**
      * Class representing a reminder in the project.
@@ -14,10 +15,11 @@ public class Reminder implements IReminder {
      * @param reminderRemarks Additional information about the reminder. [Optional]
      * @param reminderDate The date that the reminder is due. [Optional]
      */
-    public Reminder(String reminderName, String reminderRemarks, Date reminderDate) {
+    public Reminder(String reminderName, String reminderRemarks, Date reminderDate, String category) {
         this.reminderName = reminderName;
         this.reminderRemarks = reminderRemarks;
         this.reminderDate = reminderDate;
+        this.category = category;
         this.isDone = false;
     }
 
@@ -39,6 +41,11 @@ public class Reminder implements IReminder {
     @Override
     public void setIsDone(Boolean isDone) {
         this.isDone =  isDone;
+    }
+
+    @Override
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @Override
@@ -64,5 +71,10 @@ public class Reminder implements IReminder {
     @Override
     public String getStatus() {
         return (this.isDone ? "[/]" : "[X]");
+    }
+
+    @Override
+    public String getCategory() {
+        return this.category;
     }
 }
