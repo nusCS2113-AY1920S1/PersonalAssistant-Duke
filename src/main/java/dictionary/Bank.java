@@ -195,8 +195,7 @@ public class Bank {
     }
 
     /**Obtains the synonyms of the word
-     * @param searchWord
-     * @return ArrayList of synonyms
+     * @param searchWord consist of the main word we will be using
      * @throws NoSynonymFoundException
      */
     public ArrayList<String> getSynonymsOfWord(String searchWord) throws NoSynonymFoundException {

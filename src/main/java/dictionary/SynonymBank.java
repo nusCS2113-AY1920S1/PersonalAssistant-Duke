@@ -24,11 +24,11 @@ public class SynonymBank {
         for (String synonym : synonyms) {
             if (synonymBank.containsKey(synonym)) {
                 if (!isSameSet(wordDescription, synonym)) {
-                    Union(wordDescription, synonym);
+                    _Union(wordDescription, synonym);
                 }
             } else {
                 synonymBank.put(synonym, synonym);
-                Union(wordDescription, synonym);
+                _Union(wordDescription, synonym);
             }
         }
     }
@@ -84,11 +84,11 @@ public class SynonymBank {
             synonymBank.put(synonym, synonym);
         }
         if (!isSameSet(word, synonym)) {
-            Union(word, synonym);
+            _Union(word, synonym);
         }
     }
 
-    private void Union(String word, String synonym) {
+    private void _Union(String word, String synonym) {
         synonymBank.replace(findSet(synonym), synonymBank.get(findSet(word)));
     }
 
