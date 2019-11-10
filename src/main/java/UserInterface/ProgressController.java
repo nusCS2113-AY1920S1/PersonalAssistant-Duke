@@ -26,62 +26,71 @@ public class ProgressController extends HBox {
     private final HashMap<String, String> moduleCodeMap = new HashMap<>();
 
     /**
+     * This method adds the events/deadlines from the list into the map
+     * @param list The list containing either deadlines/events
+     * @param modCodeMap The map containing the module code
+     * @param moduleCodeStatusIconDescriptionArrList The list containing module code, status icon and the description
+     */
+    private ArrayList<Pair<String, Pair<String, String>>> addModuleCodeToArrList(HashMap<String, HashMap<String, ArrayList<Assignment>>> list,
+                                                                                 HashMap<String, String> modCodeMap,
+                                                                                 ArrayList<Pair<String, Pair<String, String>>> moduleCodeStatusIconDescriptionArrList) {
+        Assignment task;
+        for (String moduleCode : list.keySet()) {
+            modCodeMap.put(moduleCode, null);
+            for (String date : list.get(moduleCode).keySet()) {
+                for (int i = 0; i < list.get(moduleCode).get(date).size(); i++) {
+                    task = list.get(moduleCode).get(date).get(i);
+                    moduleCodeStatusIconDescriptionArrList.add(new Pair<>(moduleCode, new Pair<>(task.getStatusIcon(), task.getDescription())));
+                }
+            }
+        }
+        return moduleCodeStatusIconDescriptionArrList;
+    }
+
+    private ArrayList<Pair<String, Pair<String, String>>> addModFromDeadlineListIntoMap(String deadlineMC, Assignment deadlineTask,
+                                                                                        HashMap<String, HashMap<String, ArrayList<Assignment>>> list,
+                                                                                        ArrayList<Pair<String, Pair<String, String>>> moduleCodeStatusIconDescriptionArrList) {
+        for (String date : list.get(deadlineMC).keySet()) {
+            for (int i = 0; i < list.get(deadlineMC).get(date).size(); i++) {
+                deadlineTask = list.get(deadlineMC).get(date).get(i);
+                moduleCodeStatusIconDescriptionArrList.add(new Pair<>(deadlineMC, new Pair<>(deadlineTask.getStatusIcon(), deadlineTask.getDescription())));
+            }
+        }
+        return moduleCodeStatusIconDescriptionArrList;
+    }
+
+    public Assignment deadlineTask;
+    private ArrayList<Pair<String, Pair<String, String>>> arrList;
+    /**
      * This function gets the arraylist containing tasks in terms of Pair(module code (status icon, description)) and determine the modules taken by user.
      * @param eventsList the list containing the event tasks
      * @param deadlineList the list containing the deadline tasks
      * @return a pair containing the arraylist of tasks and hashmap of module code
      */
     public Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> getProgressIndicatorMap(HashMap<String, HashMap<String, ArrayList<Assignment>>> eventsList, HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineList) {
-        Assignment eventTask;
+
         if (eventsList.size() != 0) {
-            for (String moduleCode : eventsList.keySet()) {
-                moduleCodeMap.put(moduleCode, null);
-                for (String date : eventsList.get(moduleCode).keySet()) {
-                    for (int i = 0; i < eventsList.get(moduleCode).get(date).size(); i++) {
-                        eventTask = eventsList.get(moduleCode).get(date).get(i);
-                        moduleCodeStatusIconDescriptionArrList.add(new Pair(moduleCode, new Pair(eventTask.getStatusIcon(), eventTask.getDescription())));
-                    }
-                }
-            }
+            arrList = addModuleCodeToArrList(eventsList, moduleCodeMap, moduleCodeStatusIconDescriptionArrList);
         }
 
-        Assignment deadlineTask;
         String eventsMC;
         if (eventsList.size() == 0) {
-            for (String moduleCode : deadlineList.keySet()) {
-                moduleCodeMap.put(moduleCode, null);
-                for (String date : deadlineList.get(moduleCode).keySet()) {
-                    for (int i = 0; i < deadlineList.get(moduleCode).get(date).size(); i++) {
-                        deadlineTask = deadlineList.get(moduleCode).get(date).get(i);
-                        moduleCodeStatusIconDescriptionArrList.add(new Pair(moduleCode, new Pair(deadlineTask.getStatusIcon(), deadlineTask.getDescription())));
-                    }
-                }
-            }
+            arrList = addModuleCodeToArrList(deadlineList, moduleCodeMap, moduleCodeStatusIconDescriptionArrList);
         } else {
             for (int i = 0; i < moduleCodeStatusIconDescriptionArrList.size(); i++) { //checks if the module code of the events hashMap is found in the deadline hashMap
                 eventsMC = moduleCodeStatusIconDescriptionArrList.get(i).getKey();
                 for (String deadlineMC : deadlineList.keySet()) {
                     if (!eventsMC.equals(deadlineMC)) {
                         moduleCodeMap.put(deadlineMC, null);
-                        for (String date : deadlineList.get(deadlineMC).keySet()) {
-                            for (int j = 0; j < deadlineList.get(deadlineMC).get(date).size(); j++) {
-                                deadlineTask = deadlineList.get(deadlineMC).get(date).get(j);
-                                moduleCodeStatusIconDescriptionArrList.add(new Pair(deadlineMC, new Pair<>(deadlineTask.getStatusIcon(), deadlineTask.getDescription())));
-                            }
-                        }
+                        arrList = addModFromDeadlineListIntoMap(deadlineMC, deadlineTask, deadlineList, moduleCodeStatusIconDescriptionArrList);
                     } else if (eventsMC.equals(deadlineMC)) {
-                        for (String date : deadlineList.get(deadlineMC).keySet()) {
-                            for (int j = 0; j < deadlineList.get(deadlineMC).get(date).size(); j++) {
-                                deadlineTask = deadlineList.get(deadlineMC).get(date).get(j);
-                                moduleCodeStatusIconDescriptionArrList.add(new Pair(deadlineMC, new Pair<>(deadlineTask.getStatusIcon(), deadlineTask.getDescription())));
-                            }
-                        }
+                        arrList = addModFromDeadlineListIntoMap(deadlineMC, deadlineTask, deadlineList, moduleCodeStatusIconDescriptionArrList);
                     }
                 }
                 break;
             }
         }
-        return new Pair(moduleCodeMap, moduleCodeStatusIconDescriptionArrList);
+        return new Pair<>(moduleCodeMap, arrList);
     }
 
     /**
@@ -92,7 +101,7 @@ public class ProgressController extends HBox {
      */
     public void getData(String mc, int totalValue , int completedValue) {
         int undoneValue = totalValue - completedValue;
-        Double progressValue = (double) completedValue / totalValue;
+        double progressValue = (double) completedValue / totalValue;
         moduleCodeLabel.setText(mc);
         completedValueLabel.setText(String.valueOf(completedValue));
         overdueValueLabel.setText(String.valueOf(undoneValue));

@@ -4,6 +4,7 @@ import Commands.Command;
 import Commands.FindFreeTimesCommand;
 import Commons.UserInteraction;
 import DukeExceptions.DukeInvalidFormatException;
+import DukeExceptions.DukeNoValidDataException;
 import Parser.FindFreeTimesParse;
 import Parser.RetrieveFreeTimesParse;
 import StubClasses.StorageStub;
@@ -11,7 +12,6 @@ import Tasks.TaskList;
 import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -25,6 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * This class tests RetrieveFreeTimesParse.
  */
 public class RetrieveFreeTimesCommandTest {
+    private final String INVALID_NO_FREE_TIME_FOUND = "Please find free times by invoking the command shown below\n"
+            + "find/time 'x' hours, where 'x' is a digit between 1 - 16\n"
+            + "Followed by the command\n"
+            + "retrieve/time 'x', where 'x' is a digit between 1- 5";
 
     private static String userInputWithValidOption;
     private static Integer userInputSelectedOption;
@@ -45,14 +49,14 @@ public class RetrieveFreeTimesCommandTest {
 
     @Test
     public void retrieveFreeTimesCommandWithEmptyList() throws Exception {
-        String expected = ui.showSelectionOptionEmptyList();
+        String expected = INVALID_NO_FREE_TIME_FOUND;
         String actual = null;
         Command command = null;
         try {
             command = new RetrieveFreeTimesParse(userInputWithValidOption).parse();
             actual = command.execute(events, deadlines, ui, storageStub);
 
-        } catch (DukeInvalidFormatException e) {
+        } catch (DukeInvalidFormatException | DukeNoValidDataException e) {
             actual = e.getMessage();
         }
         assertEquals(expected, actual);
