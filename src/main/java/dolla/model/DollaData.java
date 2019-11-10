@@ -22,12 +22,12 @@ import static dolla.storage.StorageStringList.BILL;
 
 public class DollaData implements ModeStringList {
 
-    private String mode = MODE_DOLLA;
-    private EntryList entryList;
-    private DebtList debtList;
-    private LimitList limitList;
-    private ShortcutList shortcutList;
-    private BillList billList;
+    protected String mode = MODE_DOLLA;
+    protected EntryList entryList;
+    protected DebtList debtList;
+    protected LimitList limitList;
+    protected ShortcutList shortcutList;
+    protected BillList billList;
 
     private String prevMode;
     private int modifyIndex;

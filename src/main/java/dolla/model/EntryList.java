@@ -2,7 +2,6 @@ package dolla.model;
 
 import dolla.storage.StorageWrite;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -31,40 +30,12 @@ public class EntryList extends RecordList {
         StorageWrite.setEntries(get());
     }
 
-    /**
-     * Method to check if input entry already exists.
-     * @param dollaData The storage container for all the lists.
-     * @param inputRecord The entry being input by user.
-     * @param mode The mode the user is on (entry).
-     * @return index of the currently existing entry (is - 1 if not found)
-     */
-    @Override
-    public int findExistingRecordIndex(DollaData dollaData, Record inputRecord, String mode) {
-        Entry entry = (Entry) inputRecord;
-        int index = - 1;
-        EntryList entryList = (EntryList) dollaData.getRecordListObj(mode);
-        for (int i = 0; i < entryList.size(); i++) {
-            Entry currEntry = (Entry) (entryList.getFromList(i));
-            String currType = currEntry.type;
-            double currAmount = currEntry.amount;
-            String currDescription = currEntry.description;
-            LocalDate currDate = currEntry.date;
-            if (currType.equals(entry.type)
-                && currAmount == entry.amount
-                && currDescription.equals(entry.description)
-                && currDate.equals(entry.date)) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
-
     @Override
     public void addWithIndex(int modifyIndex, Record newRecord) {
         super.addWithIndex(modifyIndex, newRecord);
         StorageWrite.setEntries(get());
     }
+
 
     /*
     public double dateOverallExpense(LocalDate cmpDate) {

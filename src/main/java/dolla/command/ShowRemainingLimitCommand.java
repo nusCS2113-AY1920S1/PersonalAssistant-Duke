@@ -57,6 +57,7 @@ public class ShowRemainingLimitCommand extends Command implements ParserStringLi
             if (limits == 0) {
                 throw new DollaException(DollaException.noExistingLimit(limitType));
             } else {
+                assert (limits != 0);
                 processRemainingLimit();
             }
         } catch (DollaException e) {
