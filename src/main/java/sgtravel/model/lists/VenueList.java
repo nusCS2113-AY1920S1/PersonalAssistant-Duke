@@ -32,7 +32,7 @@ public class VenueList implements Iterable<Venue>, Listable<Venue> {
     /**
      * Alternative constructor given a list of events.
      *
-     * @param events The EventListt.
+     * @param events The EventList.
      */
     public VenueList(EventList events) {
         this();

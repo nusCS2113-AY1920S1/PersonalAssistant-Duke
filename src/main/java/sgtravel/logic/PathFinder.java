@@ -58,6 +58,12 @@ public class PathFinder {
         }
     }
 
+    /**
+     * Finds the train route.
+     * @param start The starting point.
+     * @param end The ending point.
+     * @return An array of Venues representing the route.
+     */
     private ArrayList<Venue> findTrainRoute(Venue start, Venue end) {
         this.found = false;
         TrainStation startTrainStation = ApiConstraintParser.getNearestTrainStation(start, this.map.getTrainMap());
@@ -109,10 +115,22 @@ public class PathFinder {
 
     }
 
+    /**
+     * Checks to see if 2 Venues are the same.
+     * @param start The first Venue.
+     * @param end The second Venue.
+     * @return True if the Venues are the same.
+     */
     private boolean isSameLocation(Venue start, Venue end) {
         return start.equals(end);
     }
 
+    /**
+     * Checks to see if 2 train station are on the same line.
+     * @param cur The current train station.
+     * @param endTrainStation The other train station.
+     * @return True if the 2 trains are on the same line.
+     */
     private boolean onSameLine(TrainStation cur, TrainStation endTrainStation) {
         for (String code : cur.getTrainCodes()) {
             for (String code2 : endTrainStation.getTrainCodes()) {
@@ -124,6 +142,12 @@ public class PathFinder {
         return false;
     }
 
+    /**
+     * Finds the bus route between 2 venues.
+     * @param start The starting point.
+     * @param end The ending point.
+     * @return An array of Venues representing the route.
+     */
     private ArrayList<Venue> findBusRoute(Venue start, Venue end) {
         this.found = false;
         BusStop startBusStop = ApiConstraintParser.getNearestBusStop(start, this.map.getBusStopMap());
@@ -165,38 +189,41 @@ public class PathFinder {
         }
     }
 
+    /**
+     * Performs depth first search.
+     * @param cur The starting node.
+     * @param endBusStop The goal node.
+     * @param depthLimit The depth limit.
+     */
     private void depthFirstSearch(BusStop cur, BusStop endBusStop, int depthLimit) {
-        if (depthLimit == 0 || this.visited.contains(cur)) {
+        if (depthLimit == 0 || visited.contains(cur)) {
             return;
         }
+        visited.add(cur);
 
-        this.visited.add(cur);
-
-        for (String bus : cur.getBuses()) { //loop through all bus in bus stop
+        for (String bus : cur.getBuses()) {
             Direction direction;
-            if (this.map.getBusMap().get(bus).getDirection(Direction.FORWARD).contains(cur.getBusCode())) {
+            if (map.getBusMap().get(bus).getDirection(Direction.FORWARD).contains(cur.getBusCode())) {
                 direction = Direction.FORWARD;
             } else {
                 direction = Direction.BACKWARD;
             }
 
-            for (String busCode : this.map.getBusMap().get(bus).getDirection(direction)) { // depth search the bus route
-
-                if (this.found) {
+            for (String busCode : map.getBusMap().get(bus).getDirection(direction)) {
+                if (found) {
                     break;
                 }
-
                 if (busCode.equals(cur.getBusCode())) {
                     continue;
                 }
 
                 path.put(busCode, cur.getBusCode());
-                if (haveSameBus(this.map.getBusStopMap().get(busCode), endBusStop)) {
+                if (haveSameBus(map.getBusStopMap().get(busCode), endBusStop)) {
                     path.put(endBusStop.getBusCode(), busCode);
-                    this.found = true;
+                    found = true;
                     return;
                 } else {
-                    depthFirstSearch(this.map.getBusStopMap().get(busCode), endBusStop, depthLimit - 1);
+                    depthFirstSearch(map.getBusStopMap().get(busCode), endBusStop, depthLimit - 1);
                 }
             }
         }
@@ -237,14 +264,14 @@ public class PathFinder {
      * @return result The ArrayList of Venues.
      * @throws QueryFailedException If a TrainStation cannot be queried.
      */
-    public static ArrayList<Venue> generateInbetweenNodes(Venue startVenue, Venue endVenue, Model model)
+    public static ArrayList<Venue> generateInBetweenNodes(Venue startVenue, Venue endVenue, Model model)
             throws QueryFailedException {
         ArrayList<Venue> result = new ArrayList<>();
 
         if (startVenue instanceof BusStop && endVenue instanceof BusStop) {
-            result = generateInbetweenBusRoutes(startVenue, endVenue, model);
+            result = generateInBetweenBusRoutes(startVenue, endVenue, model);
         } else if (startVenue instanceof TrainStation && endVenue instanceof TrainStation) {
-            result = generateInbetweenTrainRoutes((TrainStation) startVenue, (TrainStation) endVenue, model);
+            result = generateInBetweenTrainRoutes((TrainStation) startVenue, (TrainStation) endVenue, model);
         }
 
         return result;
@@ -258,7 +285,7 @@ public class PathFinder {
      * @param model The model object containing information about the user.
      * @return result The ArrayList of BusStops.
      */
-    private static ArrayList<Venue> generateInbetweenBusRoutes(Venue startVenue, Venue endVenue, Model model)
+    private static ArrayList<Venue> generateInBetweenBusRoutes(Venue startVenue, Venue endVenue, Model model)
             throws QueryFailedException {
         boolean isGenerated = false;
         ArrayList<Venue> result = new ArrayList<>();
@@ -270,7 +297,6 @@ public class PathFinder {
             if (!isGenerated) {
                 BusService bus = busMap.get(busNumber);
                 ArrayList<String> busCodes = bus.getDirection(Direction.FORWARD);
-
                 result =
                         searchForwardDirectionBus((BusStop) startVenue, (BusStop) endVenue, busNumber, busCodes, model);
                 if (result != null) {
@@ -283,7 +309,6 @@ public class PathFinder {
                         isGenerated = true;
                     }
                 }
-
             } else {
                 break;
             }
@@ -395,7 +420,7 @@ public class PathFinder {
      * @param model The model object containing information about the user.
      * @return result The ArrayList of TrainStations.
      */
-    private static ArrayList<Venue> generateInbetweenTrainRoutes(TrainStation startVenue, TrainStation endVenue,
+    private static ArrayList<Venue> generateInBetweenTrainRoutes(TrainStation startVenue, TrainStation endVenue,
                                                                  Model model) throws QueryFailedException {
         boolean isGenerated = false;
         ArrayList<Venue> result = new ArrayList<>();

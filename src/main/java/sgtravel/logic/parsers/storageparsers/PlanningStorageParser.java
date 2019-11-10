@@ -53,9 +53,9 @@ public class PlanningStorageParser {
     /**
      * Returns the new name of a recently added recommendation.
      * @param line The string containing the new name.
-     * @return result The new name of the recommendation.
+     * @return The new name of the recommendation.
      */
-    public static String getNewAddListName(String line) throws AddListFailException {
+    public static String getNewAddListName(String line) {
         String[] todoParts = line.split(" ");
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 1; i < todoParts.length; i++) {
@@ -74,12 +74,16 @@ public class PlanningStorageParser {
     /**
      * Converts the itinerary into a storage friendly string format.
      *
-     * @return itineraryString The itinerary object converted to a storage string
+     * @return The itinerary object converted to a storage string
      */
     public static String toItineraryStorageString(Itinerary value) {
         StringBuilder itineraryString = new StringBuilder();
-        itineraryString.append(value.getName()).append("\n").append(value.getStartDate().toString()).append("\n")
-                .append(value.getEndDate().toString()).append("\n");
+        itineraryString.append(value.getName());
+        itineraryString.append("\n");
+        itineraryString.append(value.getStartDate());
+        itineraryString.append("\n");
+        itineraryString.append(value.getEndDate());
+        itineraryString.append("\n");
         for (Agenda agenda : value.getList()) {
             itineraryString.append(agenda.toString());
         }

@@ -1,9 +1,10 @@
 package sgtravel.storage;
 
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.DuplicateRouteNodeException;
-import sgtravel.commons.exceptions.DuplicateTaskException;
+import sgtravel.commons.exceptions.DuplicateEventException;
 import sgtravel.commons.exceptions.FileLoadFailException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.ParseException;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -146,7 +148,7 @@ public class Storage {
             }
             s.close();
             this.events.setEvents(events);
-        } catch (FileNotFoundException | ParseException | DuplicateTaskException e) {
+        } catch (FileNotFoundException | ParseException | DuplicateEventException e) {
             throw new FileLoadFailException(EVENTS_FILE_PATH);
         }
     }
@@ -244,7 +246,7 @@ public class Storage {
     /**
      * Sets the itinerary hash-map in the Storage class.
      *
-     * @throws FileLoadFailException If the itneraries file cannot be loaded.
+     * @throws FileLoadFailException If the itineraries file cannot be loaded.
      */
     private void readItineraryTable() throws FileLoadFailException {
         try {
@@ -263,26 +265,30 @@ public class Storage {
      */
     static HashMap<String, Itinerary> makeItineraryTable(Scanner scanner) throws ParseException {
         HashMap<String, Itinerary> itineraryTable = new HashMap<>();
-        while (scanner.hasNextLine()) {
-            String name = scanner.nextLine();
-            LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());
-            LocalDateTime end = ParserTimeUtil.parseStringToDate(scanner.nextLine());
-            Itinerary itinerary = new Itinerary(start, end, name);
-            List<Agenda> agendaList = new ArrayList<>();
-            String fileLine = scanner.nextLine();
-            while (fileLine.split("\\|")[0].equals("Agenda ")) {
-                Agenda agenda = getAgenda(scanner, fileLine);
-                agendaList.add(agenda);
-                if (scanner.hasNextLine()) {
-                    fileLine = scanner.nextLine();
-                } else {
-                    break;
+        try {
+            while (scanner.hasNextLine()) {
+                String name = scanner.nextLine();
+                LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());
+                LocalDateTime end = ParserTimeUtil.parseStringToDate(scanner.nextLine());
+                Itinerary itinerary = new Itinerary(start, end, name);
+                List<Agenda> agendaList = new ArrayList<>();
+                String fileLine = scanner.nextLine();
+                while (fileLine.split("\\|")[0].equals("Agenda ")) {
+                    Agenda agenda = getAgenda(scanner, fileLine);
+                    agendaList.add(agenda);
+                    if (scanner.hasNextLine()) {
+                        fileLine = scanner.nextLine();
+                    } else {
+                        break;
+                    }
                 }
+                itinerary.setTasks(agendaList);
+                itineraryTable.put(itinerary.getName(), itinerary);
             }
-            itinerary.setTasks(agendaList);
-            itineraryTable.put(itinerary.getName(), itinerary);
+            scanner.close();
+        } catch (NoSuchElementException e) {
+            throw new ParseException(Messages.ERROR_DATA_CORRUPTED);
         }
-        scanner.close();
         return itineraryTable;
     }
 
@@ -294,14 +300,18 @@ public class Storage {
     private static Agenda getAgenda(Scanner scanner, String fileLine) throws ParseException {
         List<Venue> venueList = new ArrayList<>();
         List<Todo> todoList;
-        final int number2 = Integer.parseInt(fileLine.split("\\|")[1]);
         String newVenue = scanner.nextLine();
         while (newVenue.contains(" | ")) {
             venueList.add(PlanningStorageParser.getVenueFromStorage(newVenue));
             newVenue = scanner.nextLine();
         }
         todoList = PlanningStorageParser.getTodoListFromStorage(newVenue);
-        return new Agenda(todoList, venueList, number2);
+        try {
+            final int number2 = Integer.parseInt(fileLine.split("\\|")[1]);
+            return new Agenda(todoList, venueList, number2);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ParseException(Messages.ERROR_DATA_CORRUPTED);
+        }
     }
 
     /**
@@ -397,7 +407,7 @@ public class Storage {
     /**
      * Performs the writing of an itineraryTable or favoriteList to specified filepath.
      *
-     * @throws FileNotSavedException If the file cannot be saved.
+     * @throws IOException If the file cannot be saved.
      */
     private void saveEntireItineraryList(String file, HashMap<String, Itinerary> itineraryTable) throws IOException {
         FileWriter writer = new FileWriter(file, false);

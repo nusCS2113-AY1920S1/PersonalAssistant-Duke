@@ -11,7 +11,7 @@ public class Venue implements Serializable {
     private double longitude;
     private double distX;
     private double distY;
-    private static final int RADIUS_EARTH = 6371;
+    private static final int RADIUS_EARTH = 6371000;
 
     /**
      * Creates a Venue object.
@@ -65,7 +65,7 @@ public class Venue implements Serializable {
                 * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        return Math.abs(RADIUS_EARTH * c * 1000);
+        return Math.abs(RADIUS_EARTH * c);
     }
 
     /**

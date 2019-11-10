@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.AddListFailException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
@@ -36,7 +37,6 @@ public class AddSampleItineraryCommand extends Command {
         model.setRecentItinerary(null);
         model.save();
         String printString = itinerary.printItinerary();
-        return new CommandResultText("Successfully added the recommendation : " + "\n"
-                + printString);
+        return new CommandResultText(Messages.ADD_ITINERARY_SUCCESS + printString);
     }
 }

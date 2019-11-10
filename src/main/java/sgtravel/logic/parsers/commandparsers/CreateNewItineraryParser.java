@@ -44,11 +44,11 @@ public class CreateNewItineraryParser extends CommandParser {
     }
 
     /**
-     * This returns the list of agendas for a newly entered Itinerary.
-     * @param itineraryDetails is the details of the itinerary to make.
-     * @throws ParseException if the incorrect format is used in entering the itinerary.
+     * Returns the list of agendas for a newly entered Itinerary.
+     * @param itineraryDetails The details of the itinerary to make.
+     * @throws ParseException If the incorrect format is used in entering the itinerary.
      */
-    public List<Agenda> getAgendaList(String[] itineraryDetails) throws ParseException {
+    private List<Agenda> getAgendaList(String[] itineraryDetails) throws ParseException {
         try {
             List<Agenda> agendaList = new ArrayList<>();
             Set<Integer> numbers = new HashSet<>();
@@ -106,9 +106,9 @@ public class CreateNewItineraryParser extends CommandParser {
 
     /**
      * Takes the VenueMap, todoList as well as number and returns an Agenda.
-     * @param venueMap is the hash-map containing all the Venues for the day.
-     * @param todoList is the list of todo's for the day
-     * @param number is the day number
+     * @param venueMap The hash-map containing all the Venues for the day.
+     * @param todoList The list of todo's for the day.
+     * @param number The day number.
      */
     private Agenda getAgendaFromMap(HashMap<String, Venue> venueMap, List<Todo> todoList, int number) {
         List<Venue> venueList = new ArrayList<>();
@@ -120,9 +120,9 @@ public class CreateNewItineraryParser extends CommandParser {
 
     /**
      * Checks if any duplicate day numbers have been entered.
-     * @param numbers is the hash-map containing all the day numbers.
-     * @param number is the current number to check
-     * @throws RepeatedDayNumberException if a day number is repeated.
+     * @param numbers The hash-map containing all the day numbers.
+     * @param number The current number to check.
+     * @throws RepeatedDayNumberException If a day number is repeated.
      */
     private void checkForRepeatedDayNumber(Set<Integer> numbers, int number) throws RepeatedDayNumberException {
         if (numbers.contains(number)) {

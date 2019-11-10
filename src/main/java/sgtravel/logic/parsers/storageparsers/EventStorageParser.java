@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  */
 public class EventStorageParser {
     /**
-     * Parses a Event from String format back to Event.
+     * Parses an Event from String format back to Event.
      *
      * @param line The String description of an Event.
      * @return The corresponding Event object.

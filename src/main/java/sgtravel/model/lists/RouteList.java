@@ -114,8 +114,8 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      */
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof RouteList // instanceof handles nulls
+        return other == this
+                || (other instanceof RouteList
                 && list.equals(((RouteList) other).list));
     }
 

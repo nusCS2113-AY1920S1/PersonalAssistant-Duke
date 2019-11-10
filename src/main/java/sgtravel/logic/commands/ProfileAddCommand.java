@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
  * Sets up the profile.
  */
 public class ProfileAddCommand extends Command {
-
     private String name;
     private LocalDateTime birthday;
 
@@ -22,7 +21,6 @@ public class ProfileAddCommand extends Command {
      * @param birthday The birthday of the person.
      */
     public ProfileAddCommand(String name, LocalDateTime birthday) {
-
         this.name = name;
         this.birthday = birthday;
     }

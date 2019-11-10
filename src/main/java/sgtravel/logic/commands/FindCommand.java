@@ -1,6 +1,6 @@
 package sgtravel.logic.commands;
 
-import sgtravel.commons.exceptions.DuplicateTaskException;
+import sgtravel.commons.exceptions.DuplicateEventException;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Event;
 import sgtravel.model.Model;
@@ -27,7 +27,7 @@ public class FindCommand extends Command {
      * @param model The model object containing event list.
      */
     @Override
-    public CommandResultText execute(Model model) throws DuplicateTaskException {
+    public CommandResultText execute(Model model) throws DuplicateEventException {
         EventList events = model.getEvents();
         EventList result = find(events);
         return new CommandResultText(result);
@@ -38,9 +38,9 @@ public class FindCommand extends Command {
      *
      * @param events The EventList to be search from.
      * @return EventList containing the events.
-     * @throws DuplicateTaskException If there are duplicated events found.
+     * @throws DuplicateEventException If there are duplicated events found.
      */
-    private EventList find(EventList events) throws DuplicateTaskException {
+    private EventList find(EventList events) throws DuplicateEventException {
         EventList result = new EventList();
         for (Event event: events) {
             if (event.toString().contains(keyword)) {

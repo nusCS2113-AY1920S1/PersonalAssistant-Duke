@@ -1,6 +1,6 @@
 package sgtravel.model.lists;
 
-import sgtravel.commons.exceptions.DuplicateTaskException;
+import sgtravel.commons.exceptions.DuplicateEventException;
 import sgtravel.commons.exceptions.DukeException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.logic.parsers.ParserTimeUtil;
@@ -27,7 +27,7 @@ class EventListTest {
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
         Event event = new Event("Pulau Ubin", startDate, endDate);
         events.add(event);
-        assertThrows(DuplicateTaskException.class, () -> events.add(event));
+        assertThrows(DuplicateEventException.class, () -> events.add(event));
     }
 
     @Test
@@ -206,7 +206,7 @@ class EventListTest {
         EventList eventList = new EventList();
         eventList.setEvents(events);
         events.add(event2);
-        assertThrows(DuplicateTaskException.class, () -> eventList.setEvents(events));
+        assertThrows(DuplicateEventException.class, () -> eventList.setEvents(events));
     }
 
     @Test

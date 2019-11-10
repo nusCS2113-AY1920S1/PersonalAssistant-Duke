@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Model;
 import sgtravel.model.planning.Itinerary;
@@ -10,7 +11,6 @@ import java.util.HashMap;
  * Lists the stored itineraries names an serial number.
  */
 public class ListItineraryCommand extends Command {
-
     /**
      * Executes this command on the given task list and user interface.
      *
@@ -24,6 +24,6 @@ public class ListItineraryCommand extends Command {
         for (String name : itineraryHashMap.keySet()) {
             stringBuilder.append(i++).append(". ").append(name).append("\n");
         }
-        return new CommandResultText("Your Saved Itineraries are :" + "\n" + stringBuilder.toString());
+        return new CommandResultText(Messages.LIST_ITINERARY_SUCCESS + stringBuilder.toString());
     }
 }

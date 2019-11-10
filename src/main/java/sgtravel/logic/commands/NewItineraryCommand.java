@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.ApiException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.ItineraryIncorrectDaysException;
@@ -43,6 +44,6 @@ public class NewItineraryCommand extends Command {
         model.setNewItinerary(itinerary);
         logger.log(Level.FINE, "New itinerary is saved");
         model.save();
-        return new CommandResultText("New Itinerary Created with name: " + itinerary.getName());
+        return new CommandResultText(Messages.ITINERARY_SUCCESS + itinerary.getName());
     }
 }

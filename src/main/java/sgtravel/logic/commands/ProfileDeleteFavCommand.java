@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoSuchItineraryException;
 import sgtravel.logic.commands.results.CommandResultText;
@@ -9,7 +10,6 @@ import sgtravel.model.Model;
  * Deletes itinerary from favourite.
  */
 public class ProfileDeleteFavCommand extends Command {
-
     private final String name;
 
     /**
@@ -30,6 +30,6 @@ public class ProfileDeleteFavCommand extends Command {
     public CommandResultText execute(Model model) throws FileNotSavedException, NoSuchItineraryException {
         model.deleteFavourite(name);
         model.save();
-        return new CommandResultText("Successfully deleted this itinerary from favourite: " + "\n" + name);
+        return new CommandResultText(Messages.DELETE_FAVOURITE_SUCCESS + name);
     }
 }

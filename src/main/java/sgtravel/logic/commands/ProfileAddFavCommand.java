@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoSuchItineraryException;
 import sgtravel.logic.commands.results.CommandResultText;
@@ -28,11 +29,9 @@ public class ProfileAddFavCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws FileNotSavedException, NoSuchItineraryException {
-        // Add to the list of Itineraries
         Itinerary itinerary = model.getItinerary(name);
         model.addToFavourite(name, itinerary);
         model.save();
-        return new CommandResultText("Successfully added this itinerary to favourite: " + "\n" + name);
-
+        return new CommandResultText(Messages.ADD_FAVOURITE_SUCCESS + name);
     }
 }

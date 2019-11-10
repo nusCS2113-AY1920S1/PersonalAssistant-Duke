@@ -3,6 +3,7 @@ package sgtravel.logic.parsers;
 import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.ParseException;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -20,6 +21,7 @@ public class ParserUtil {
      * @return The field.
      */
     public static String getFieldInList(int index, int listSize, String userInput) throws ParseException {
+        logger.log(Level.FINE, "Getting field within list");
         try {
             String[] fields = userInput.split(" ", listSize);
             if (index >= 0 && index < listSize) {
@@ -28,7 +30,6 @@ public class ParserUtil {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
-
         throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
     }
 

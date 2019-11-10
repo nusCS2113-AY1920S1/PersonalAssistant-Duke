@@ -2,7 +2,7 @@ package sgtravel.storage;
 
 import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.DuplicateRouteNodeException;
-import sgtravel.commons.exceptions.DuplicateTaskException;
+import sgtravel.commons.exceptions.DuplicateEventException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.logic.parsers.storageparsers.EventStorageParser;
 import sgtravel.logic.parsers.storageparsers.TransportStorageParser;
@@ -86,7 +86,7 @@ public class SampleStorage {
             }
             s.close();
             this.events.setEvents(events);
-        } catch (ParseException | DuplicateTaskException e) {
+        } catch (ParseException | DuplicateEventException e) {
             logger.log(Level.INFO, "Sample data not found.");
         }
     }

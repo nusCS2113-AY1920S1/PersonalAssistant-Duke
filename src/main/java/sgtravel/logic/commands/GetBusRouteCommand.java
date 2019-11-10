@@ -34,10 +34,12 @@ public class GetBusRouteCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws NoSuchBusServiceException {
         try {
-            assert (this.bus.matches("-?\\d+(\\.\\d+)?"));
             HashMap<String, BusService> busMap = model.getMap().getBusMap();
             BusService bus = busMap.get(this.bus);
             String result = "";
+            if (bus == null) {
+                throw new NoSuchBusServiceException();
+            }
 
             HashMap<String, BusStop> allBus = model.getBusStops();
             for (String busCode : bus.getDirection(Direction.FORWARD)) {

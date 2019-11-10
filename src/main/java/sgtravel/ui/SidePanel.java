@@ -2,7 +2,6 @@ package sgtravel.ui;
 
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.logic.commands.results.PanelResult;
-import sgtravel.ui.map.PointCard;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -58,7 +57,7 @@ public class SidePanel extends UiPart<AnchorPane> {
      * @param result The PanelResult for the object.
      * @return The SidePanel created.
      */
-    public static AnchorPane getPanel(PanelResult result) {
+    protected static AnchorPane getPanel(PanelResult result) {
         return new SidePanel(result).getRoot();
     }
 
