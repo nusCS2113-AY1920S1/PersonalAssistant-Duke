@@ -48,14 +48,6 @@ public class TaskList {
         }
     }
 
-    public void preLoadTasks() {
-        PreloadTasks p = new PreloadTasks();
-        try {
-            taskList = p.defaultTaskList();
-        } catch (DukeException e) {
-            System.out.println("Error creating preloaded tasks");
-        }
-    }
     /**
      * Constructor for duke.tasklist.TaskList
      * this is to initalise a duke.tasklist.TaskList with an ArrayList of Tasks which fulfil the filter predicate
@@ -75,6 +67,15 @@ public class TaskList {
         }
     }
 
+    public void preLoadTasks() {
+        PreloadTasks p = new PreloadTasks();
+        try {
+            taskList = p.defaultTaskList();
+        } catch (DukeException e) {
+            System.out.println("Error creating preloaded tasks");
+        }
+    }
+
     public ArrayList<Task> getList() {
         return taskList;
     }
@@ -91,7 +92,7 @@ public class TaskList {
     }
 
     public void clear(Optional<String> filter) {
-        if(filter.isPresent()) {
+        if (filter.isPresent()) {
             for (int i = 0; i < taskList.size(); i++) {
                 Task t = taskList.get(i);
                 if (t.getFilter().equals(filter)) {
@@ -99,9 +100,7 @@ public class TaskList {
                 }
             }
         } else {
-            for (int i = 0; i<taskList.size(); i++) {
-                taskList.remove(i);
-            }
+            taskList = new ArrayList<>();
         }
     }
 
