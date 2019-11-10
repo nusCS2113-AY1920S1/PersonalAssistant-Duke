@@ -59,13 +59,13 @@ public class TaskLinkCommand extends Command {
     }
 
     private void addLinks(TaskList taskList, EmailList emailList, StringBuilder msg, ArrayList<String> linkedEmails) {
-        msg.append("Linked task " + (taskIndex+1));
+        msg.append("Linked task " + (taskIndex + 1));
         msg.append(" with email(s): ");
         Task task = taskList.get(taskIndex);
 
-        for (int i = emailIndexList.size()-1; i >= 0; i--) {
+        for (int i = emailIndexList.size() - 1; i >= 0; i--) {
             int index = emailIndexList.get(i);
-            msg.append((index+1) + " ");
+            msg.append((index + 1) + " ");
             Email email = emailList.get(index);
             if (linkedEmails.contains(email.getShaHash())) {
                 continue;
@@ -104,7 +104,7 @@ public class TaskLinkCommand extends Command {
             if (deleteIndex < linkedEmails.size() && deleteIndex >= 0) {
                 linkedEmails.remove(deleteIndex);
             } else {
-                msg.append("Link " + (deleteIndex+1) + " does not exist. ");
+                msg.append("Link " + (deleteIndex + 1) + " does not exist. ");
             }
         }
         msg.append("Valid links have been deleted. ");

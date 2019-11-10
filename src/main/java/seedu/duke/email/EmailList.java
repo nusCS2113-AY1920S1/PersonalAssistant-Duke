@@ -96,12 +96,12 @@ public class EmailList extends ArrayList<Email> {
     /**
      * Finds the email with the input SHA hash and converts into subject.
      *
-     * @param Sha the identifier to be converted
+     * @param sha the identifier to be converted
      * @return    Subject that corresponds to the SHA hash
      */
-    public String convertShaToSubject(String Sha) {
+    public String convertShaToSubject(String sha) {
         for (Email email : this) {
-            if (Sha.equals(email.getShaHash())) {
+            if (sha.equals(email.getShaHash())) {
                 return email.getSubject();
             }
         }
@@ -111,13 +111,13 @@ public class EmailList extends ArrayList<Email> {
     /**
      * Finds the email with the input SHA hash and converts into index.
      *
-     * @param Sha the identifier to be converted
+     * @param sha the identifier to be converted
      * @return    Index that corresponds to the SHA hash
      */
-    public int convertShaToIndex(String Sha) {
-        for (int i = 0 ; i < this.size(); i++) {
+    public int convertShaToIndex(String sha) {
+        for (int i = 0; i < this.size(); i++) {
             Email email = this.get(i);
-            if (Sha.equals(email.getShaHash())) {
+            if (sha.equals(email.getShaHash())) {
                 return i;
             }
         }
