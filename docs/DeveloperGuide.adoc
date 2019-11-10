@@ -321,6 +321,11 @@ The new constructor then replaces the current one in `inventoryList` using the `
 
 *Step 8.* These will be updated in the `UI` automatically as these objects are stored in `ObservableLists`.
 
+The following sequence diagram shows how the `shop buy` mechanism works in showing the correct UI to the user after a `shop buy` command is inputted.
+
+.Sequence Diagram for Shop Buy Mechanism
+image::shopBuySD.png[]
+
 ==== Design considerations
 
 * Alternative 1: Removing the ingredients from the shopping list after they are bought.
