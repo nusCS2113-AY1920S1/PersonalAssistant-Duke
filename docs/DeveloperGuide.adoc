@@ -363,29 +363,35 @@ Since `SortCommand` inherits the `ModuleCommand` class, it must override the `ex
 * The type of sorting the user specifies. e.g. for modules they can sort by code, grade, level and mcs; and for time they must specify a day of the week.
 ****
 
-The users may choose to sort all the below methods in the reverse order.
-There are three main methods that can be executed depending on the `TOSORT` and `TYPE` that the user inputs.
 
+The parameter `TYPE` can take three main forms according to the user input:
+****
+* `sort cca` Where the user receives a sorted list of their ccas in alphabetical order. +
+* `sort time DAY_OF_WEEK` Where the user receives a list of ccas and/or modules in a timely order for the day of week they choose. +
+* `sort module BY` Where the user receives a sorted list of their modules in the order they specifies. +
+****
+
+These `TYPE` parameters will be parsed by the `Parser` class and pass the corresponding argument of `toSort` into the `SortCommand` class. A switch case statement will handle the `toSort` argument, and choose to execute the corresponding sorting. 
+
+As stated above, there are three forms that can be executed depending upon the `TYPE` the user inputs.
 ****
 * Case 1: `sort cca` +
-If the argument read for `TOSORT` is “ccas”, the added ccas will be sorted in ascending order and printed to the users.
-
-* Case 2: `sort module code` +
-If the argument read for `TOSORT` is “module” and `TYPE` is “ code”, the added modules will be sorted in ascending order of their module codes and printed to the users.
-
-* Case 3: `sort module level` +
-If the argument read for `TOSORT` is “module” and `TYPE` is “level”, the added modules will be sorted in ascending order of their module levels (just the numerical part of the module code) and printed to the users.
-
-* Case 4: `sort module mc` +
-If the argument read for `TOSORT` is “module” and `TYPE` is “mc”, the added modules will be sorted in ascending order of their modular credits and printed to the users.
+If the argument read for `toSort` is “cca”, the cca list will be sorted in alphabetical order, and printed to the users. +
+* Case 2: `sort time DAY_OF_WEEK` +
+If the argument read for `toSort` is “time”, a new list of TaskWithMultipleWeeklyPeriod will be initialized, and all the ccas and modules that happens on the specified DAY_OF_WEEK will be added to the new list. This list is then sorted in ascending order of the starting time of the ccas/modules, and this list is printed to the users. +
+** Note it will only take into account modules that was initially given a time period of the week attached to its details. +
+* Case 3: `sort module BY` +
+If the argument read for `toSort` is “module”, another switch case statement will handle the `BY` argument, and choose to execute the corresponding sorting of the modules. The options for `BY` are `code`, `grade`, `level` and `mc`. +
 ****
+
+For all the above forms, the users may choose to enter an optional flag of `--r` to have all their modules/ccas sorted in the reverse order. This is done by the parser setting the argument as true (default is set as false). Then if the argument is true, the previously sorted list will be reversed then printed to the users. 
 
 Below is a Sequence Diagram showing how `SortCommand` works.
 SortCommand inherits the attributes and methods from the ModuleCommand, which is shown by the 1.1 arg arrow connecting SortCommand and ModuleCommand. The ModuleCommand calls itself as it uses its own attributes method as shown by 1.1.1 args. The SortCommand also calls certain methods of PlannerUi as shown by the arrows from 1.2 and 1.3 args. This is because the SortCommand uses the methods in PlannerUi such as the `sortMsg`, `showSorted` and `showSortedTimes`.
 
 As both the modules and ccas inherit from the class `TaskWithMultipleWeeklyPeriod`, when the users indicate they want to `sort time DAY_OF_WEEK`, the SortCommand calls the `happensOnThisDayOfWeek` method to check whether the module or cca in the list happens on the `DAY_OF_WEEK` specified by the user, then adds to a temporary list. The method `getTimePeriodOfTheDay` from `TaskWithMultipleWeeklyPeriod` is used to sort the modules and ccas in a timely order.
 
-image::SortCommandSequentialDiagram.png[width="600"]
+image::SortCommandSequentialDiagram.png[width="800"]
 
 === ShowCommand
 
