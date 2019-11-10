@@ -226,29 +226,60 @@ May require additional components other than JavaFx's built-in components.
 
 ==== Implementation
 
-This feature shows only products with a certain status, i.e. shows only products with an ARCHIVE status.
+BakingHome's products can have two status: `ACTIVE` or `ARCHIVE`. This feature allows user to view product
+with a given certain status, i.e. shows only products with an ARCHIVE status.
 
-The filter mechanism in product is facilitated by `FilteredList` which wraps a `ObservableList` and filters using the provided Predicate.
-A `FilteredList<Product>`  `filteredProducts` is stored in the `ModelManager`.
-In `BakingHome`, there is an
-`ObservableList<Product>` `products` which contains all products, regardless of the status. `filteredProducts`
+The filter mechanism in product is facilitated by
+`[FilteredList](https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html)`
+which wraps a ObservableList and
+filters using the provided Predicate.
+A `FilteredList<Product> filteredProducts` is stored in the `ModelManager`. In `BakingHome`, there is an
+`ObservableList<Product> products` which contains all products, regardless of the status. `filteredProducts`
 in the ModelManager is initialized with this ObservableList.
 
-Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible, the filter mechanism implements the following operation to support filtering:
-* `Model#updateFilteredProductList(Predicate<Product> predicate)` -- Sets the value of the property Predicate in the `filteredProducts`.
-The `ListProductCommand` will use this method to change the visibility of products with different status by passing in the corresponding predicate.
-The predicates declared statically in the `Model` interface, namely `PREDICATE_SHOW_ACTIVE_PRODUCTS`,
-* `PREDICATE_SHOW_ARCHIVE_PRODUCTS`, and `PREDICATE_SHOW_ALL_PRODUCT`.
+Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible,
+the filter mechanism implements the following operation to support filtering:
+
+* `Model#updateFilteredProductList(Predicate<Product> predicate)` -- Sets the value of the property
+Predicate in the `filteredProducts`.
+
+** Predicates are declared statically in the `Model` interface, namely
+`PREDICATE_SHOW_ACTIVE_PRODUCTS`, `PREDICATE_SHOW_ARCHIVE_PRODUCTS`, and `PREDICATE_SHOW_ALL_PRODUCT`.
+** The `ListProductCommand` will call this method to change the visibility of products with different status
+by passing in the corresponding predicate.
 
 An example usage scenario and how the filter mechanism behaves at each step is shown below.
-**Step1.** The user launched the application for the first time.
+**Step 1.** The user launched the application for the first time.
 UniqueProductList will be initialized with a list of default products in BakingHome.
 This list contains a few active products and a few archived products.
 
-**Step 2.** The user executes `product filter -scope archive` command to list all archived products.
+**Step 2.** The user inputs `product filter -scope archive` to list all archived products. `UI` pass the
+input to `Logic`. Logic then uses a few `Parser` class to extract layers of information out.
 
-The Sequence Diagram below shows how the components interact with each other for filter product feature.
+**Step 3.**  Logic passes the user input to `BakingHomeParser`. `BakingHomeParser` identifies that this is a `ProductCommand`
+through
+the word
+"product".
+It
+then calls
+`ProductCommandParses` to parse the remaining information, i.e. "filter -scope archive".
 
+**Step 4.** `ProductCommandParser` identifies that this is a `FilterProductCommand` through the word
+"filter". It then calls `FilterProductCommandParser` to parse the scope.
+
+**Step 5.** `FilterProductCommandParser` parse "-scope archive" and get the scope. It then returns a
+`FilterProductCommand` with the scope information.
+
+**Step 6.** `Logic` finally gets the `FilterProductCommand` and execute it. The execution firstly calls
+`Model#updateFilteredProductList(Predicate<Product> predicate)` to update the Predicate in
+`filteredProducts` in `Model`. This execution then returns a `CommandResult` to `UI`, containing the response
+to the user.
+
+**Step 7.** `UI` displays the response in `CommandResult`. In addition, `UI` is constantly listening for the
+change in `Model`. Therefore UI will change to display archived products after model updates `filteredProducts`.
+
+The Sequence Diagram below shows how the components interact with each other for the above mentioned
+scenario.
 .Sequence Diagram for Filter Product Mechanism
 image::FilterProductSD.png[]
 
@@ -640,18 +671,18 @@ The given index(indices) is(are) invalid.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
-
+[discrete]
 === Use case: Show a Product
 
-* **Precondition:** Bakery manager has at least 1 product in the product list
+* **Precondition:** User has at least 1 product in the product list.
 
 * **MSS**
 
-1. Manager can be viewing any pages.
-2. Manager enters a ShowProductCommand indicating the index of the product to be shown, e.g. product show 1.
-3. BHS parses the command.
-4. BHS displays the details of the product
+1. User can be viewing any pages.
+2. User enters a ShowProductCommand indicating the index of the product to be shown, e.g. `product show 1`.
+3. BakingHome parses the command.
+4. BakingHome executes the command.
+5. BakingHome displays the details of the product.
 * **Extensions**
 
 [none]
@@ -659,6 +690,8 @@ _{More to be added}_
 BHS detects a invalid command.
 ** 3a1. BHS shows an error message
 ** 3a2. Use case ends.
+
+_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
@@ -810,9 +843,10 @@ Error details shown in the pop-up bar.
 .. Test case: `product add -name Bread` +
    Expected: A new product named `Bread` is added.
 Ingredient cost and Retail price are both $0.0. Status is active.
-.. Test case: `product add -name Cheese cake -cost 3.0 -price 5.9` +
+.. Test case: `product add -name Cheese cake -ingt [Cream cheese, 3] [Sugar, 5] -cost 3.0 -price 5.9` +
    Expected: A new product named `Cheese cake` is added.
-Ingredient cost are $3 and Retail price is $5.9. Status is active.
+Ingredient cost are $3 and Retail price is $5.9. Status is active. Use `product show INDEX_OF_CHEESE_CAKE`
+to check the ingredients.
 
 === Searching a Product
 
@@ -821,12 +855,18 @@ Searching for products whose name contains the given keyword
    Expected: All products whose name include `cake` are listed.
 List will be empty if no products' names contain `cake`.
 
-== Filtering Products
+=== Filtering Products
 .. Test case: `product filter -scope archive` +
     Expected: All archive products are listed.
 List will be empty if no products have archive status.
 .. Test case: `product filter -scope all` +
     Expected: All products, regardless their status, are listed.
+.. Test case: `product filter -scope active` +
+    Expected: All active products are listed.
+
+=== Sorting Products
+.. Test case: `product sort -by cost -scope active -re` +
+    Expected: Active products are sorted by cost in descending order.
 
 === Editing data in BakingHome
 
