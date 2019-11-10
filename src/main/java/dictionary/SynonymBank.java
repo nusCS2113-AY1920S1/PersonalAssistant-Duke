@@ -24,16 +24,18 @@ public class SynonymBank {
         for (String synonym : synonyms) {
             if (synonymBank.containsKey(synonym)) {
                 if (!isSameSet(wordDescription, synonym)) {
-                    Union(wordDescription, synonym);
+                    union(wordDescription, synonym);
                 }
             } else {
                 synonymBank.put(synonym, synonym);
-                Union(wordDescription, synonym);
+                union(wordDescription, synonym);
             }
         }
     }
 
-    public int getSize() { return synonymBank.size(); }
+    public int getSize() {
+        return synonymBank.size();
+    }
 
     /**
      * Gets all sets of words that have the same meaning in the synonym bank.
@@ -45,7 +47,7 @@ public class SynonymBank {
         for (String word : synonymBank.keySet()) {
             String parent = findSet(word);
             if (!roots.contains(parent)) {
-                ArrayList<String>temp = getAllSynonymsOfWord(word);
+                ArrayList<String> temp = getAllSynonymsOfWord(word);
                 temp.add(word);
                 arrayList.add(temp);
                 roots.add(parent);
@@ -82,11 +84,11 @@ public class SynonymBank {
             synonymBank.put(synonym, synonym);
         }
         if (!isSameSet(word, synonym)) {
-            Union(word, synonym);
+            union(word, synonym);
         }
     }
 
-    private void Union(String word, String synonym) {
+    private void union(String word, String synonym) {
         synonymBank.replace(findSet(synonym), synonymBank.get(findSet(word)));
     }
 

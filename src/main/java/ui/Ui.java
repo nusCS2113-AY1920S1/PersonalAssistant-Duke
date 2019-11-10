@@ -211,15 +211,10 @@ public class Ui {
      */
     public String showReminderSetup(int state) {
         switch (state) {
-        case 1: //request for the list of words user wants to be reminded of
-            return "Please enter the list of words.\n" + "Enter an empty line to end input";
-        case 2:
-            return "Enter next word or an empty line to end input\n";
-        case 3: //request the reminder date and time from user
-            return "Please enter the date and time of the reminder in the format:"
-                    + "dd-MM-yyyy HHmm";
-        default:
-            return "Invalid state";
+            case 1 : return "Please enter the list of words.\n" + "Enter an empty line to end input";
+            case 2 : return "Enter next word or an empty line to end input\n";
+            case 3 : return "Please enter the date and time of the reminder in the format:" + "dd-MM-yyyy HHmm";
+            default: return "Invalid state";
         }
     }
 
@@ -296,10 +291,14 @@ public class Ui {
                     + "Format:\n"
                     + "Searching for words of a tag: search_tag t/TAG\n"
                     + "Searching for tags of a word: search_tag w/WORD";
+        } else if (instruction.equals("search_syn")) {
+            return "Search for synonyms of a word.\n"
+                    + "Format:\n"
+                    + "search_syn w/WORD\n";
         } else {
             return "Here are the commands for WordUp.\n"
                     + "add, delete, edit, exit, freq, help, history, list, list_tags"
-                    + " schedule, search, search_begin, search_tag, tag, addsyn, quiz\n"
+                    + " schedule, search, search_begin, search_syn, search_tag, tag, addsyn, quiz\n"
                     + "Enter \"help [command]\" for more details.";
         }
     }
