@@ -1,4 +1,5 @@
 //@@author JasonLeeWeiHern
+
 package contactCommandTest;
 
 import gazeeebo.commands.contact.ListContactCommand;

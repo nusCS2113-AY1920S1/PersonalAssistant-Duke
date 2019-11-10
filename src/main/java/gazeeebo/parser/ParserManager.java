@@ -31,16 +31,19 @@ public class ParserManager {
             return new SpecializationCommandParser();
         } else if (splitCommand[0].equals("tasks") || command.equals("5")) {
             return new TaskCommandParser();
-        } else if (splitCommand[0].equals("moduleplanner") || command.equals("8")) {
+        } else if (splitCommand[0].equals("moduleplanner")
+                || command.equals("8")) {
             return new StudyAssistCommandParser();
         } else if (splitCommand[0].equals("cap") || command.equals("6")) {
             String moduleCode = "";
             int moduleCredit = 0;
             String grade = "";
             return new CAPCommandParser(moduleCode, moduleCredit, grade);
-        } else if (splitCommand[0].equals("notes") || command.equals("9")) {
+        } else if (splitCommand[0].equals("notes")
+                || command.equals("9")) {
             return new GeneralNoteCommandParser();
-        } else if (command.equals("change password")) {
+        } else if (command.equals("change password")
+                || command.equals("10")) {
             new ChangePasswordCommandParser().execute(null, ui, null,
                     null, null, null);
             return null;
