@@ -62,24 +62,9 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
         }
     }
 
-
     @Override
     protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
-        DukeData editData = (DukeData) obj;
-        boolean isAppending = false;
-        if (cmd.isSwitchSet("append")) {
-            isAppending = true;
-        }
-
-        // TODO mention in documentation that -append will append to ALL fields
-        // TODO: check for illegal switches, remove checked switches from map
-
-        // process universal fields
-        String newName = cmd.getSwitchVal("name");
-        int newPriority = cmd.switchToInt("priority");
-        editData.edit(newName, newPriority, cmd.getSwitchVals(), isAppending);
-        core.writeJsonFile();
-        core.updateUi("Details of '" + editData + "' updated!");
+        ImpressionUtils.editData(core, cmd, (DukeData) obj);
     }
 
     private void editImpression(Impression impression, boolean isAppending) {
