@@ -3,6 +3,7 @@ package sgtravel.logic.commands;
 import sgtravel.ModelStub;
 import sgtravel.commons.exceptions.DukeException;
 import org.junit.jupiter.api.Test;
+import sgtravel.commons.exceptions.NoSuchBusServiceException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -52,14 +53,14 @@ class GetBusRouteCommandTest {
 
         //non-existant bus stop
         GetBusRouteCommand command2 = new GetBusRouteCommand("0");
-        assertEquals(expectedError, command2.execute(model).getMessage());
+        assertThrows(NoSuchBusServiceException.class, () -> command2.execute(model));
 
         //negative number bus stop
         GetBusRouteCommand command3 = new GetBusRouteCommand("-1");
-        assertEquals(expectedError, command3.execute(model).getMessage());
+        assertThrows(NoSuchBusServiceException.class, () -> command3.execute(model));
 
         GetBusRouteCommand command4 = new GetBusRouteCommand("-2");
-        assertEquals(expectedError, command4.execute(model).getMessage());
+        assertThrows(NoSuchBusServiceException.class, () -> command4.execute(model));
 
         //test for string
         GetBusRouteCommand command5 = new GetBusRouteCommand("test");
