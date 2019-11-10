@@ -25,20 +25,19 @@ public class CalculateCapCommand {
      */
     public double calculateCap(final Map<String,
             ArrayList<CapCommandParser>> caplist) {
-        double sumCapMCS = 0;
-        int sumMCS = 0;
+        double sumCapMcs = 0;
+        int sumMcs = 0;
         double scoreNotToCount = DONT_COUNT_SCORE;
         for (String key : caplist.keySet()) {
             for (int i = 0; i < caplist.get(key).size(); i++) {
-                double score = new ConvertGradeToScoreCommand().
-                        converter(caplist.get(key).get(i).grade);
+                double score = new ConvertGradeToScoreCommand().converter(caplist.get(key).get(i).grade);
                 if (score != scoreNotToCount) {
-                    sumCapMCS += caplist.get(key).get(i).moduleCredit * score;
-                    sumMCS += caplist.get(key).get(i).moduleCredit;
+                    sumCapMcs += caplist.get(key).get(i).moduleCredit * score;
+                    sumMcs += caplist.get(key).get(i).moduleCredit;
                 }
             }
         }
-        double cap = sumCapMCS / sumMCS;
+        double cap = sumCapMcs / sumMcs;
         return cap;
     }
 
@@ -52,23 +51,22 @@ public class CalculateCapCommand {
      */
     public double calculateCapPerSem(final Map<String,
             ArrayList<CapCommandParser>> caplist, final String semNumber) {
-        double sumCapMCS = 0;
-        int sumMCS = 0;
+        double sumCapMcs = 0;
+        int sumMcs = 0;
         for (String key : caplist.keySet()) {
             if (key.equals(semNumber)) {
                 for (int i = 0; i < caplist.get(key).size(); i++) {
                     double score =
-                            new ConvertGradeToScoreCommand().
-                                    converter(caplist.get(key).get(i).grade);
+                            new ConvertGradeToScoreCommand().converter(caplist.get(key).get(i).grade);
                     if (score != DONT_COUNT_SCORE) {
-                        sumCapMCS += caplist.get(key).get(i).moduleCredit
+                        sumCapMcs += caplist.get(key).get(i).moduleCredit
                                 * score;
-                        sumMCS += caplist.get(key).get(i).moduleCredit;
+                        sumMcs += caplist.get(key).get(i).moduleCredit;
                     }
                 }
             }
         }
-        double cap = sumCapMCS / sumMCS;
+        double cap = sumCapMcs / sumMcs;
         return cap;
     }
 }

@@ -40,7 +40,7 @@ public class ListCapCommand {
     public ListCapCommand(final Ui ui,
                           final Map<String,
                                   ArrayList<CapCommandParser>> caplist,
-                          final String lineBreak) throws IOException {
+                          final String lineBreak) {
         try {
             CalculateCapCommand calculatedCap = new CalculateCapCommand();
             String listWhat = "";
@@ -58,17 +58,21 @@ public class ListCapCommand {
                 default:
                     throw new ArrayIndexOutOfBoundsException();
             }
-            if ("all".equals(listWhat)) {
-                cap = calculatedCap.calculateCap(caplist);
-                listAll(caplist, lineBreak, cap);
-            } else if (Integer.parseInt(listWhat) <= UPPER_BOUNDARY
-                    && Integer.parseInt(listWhat) >= LOWER_BOUNDARY) {
-                cap = calculatedCap.calculateCapPerSem(caplist, listWhat);
-                listSem(caplist, lineBreak, cap, listWhat);
+            if (caplist.isEmpty()) {
+                System.out.print("No modules in this semester!\n");
             } else {
-                throw new ArrayIndexOutOfBoundsException();
+                if ("all".equals(listWhat)) {
+                    cap = calculatedCap.calculateCap(caplist);
+                    listAll(caplist, lineBreak, cap);
+                } else if (Integer.parseInt(listWhat) <= UPPER_BOUNDARY
+                        && Integer.parseInt(listWhat) >= LOWER_BOUNDARY) {
+                    cap = calculatedCap.calculateCapPerSem(caplist, listWhat);
+                    listSem(caplist, lineBreak, cap, listWhat);
+                } else {
+                    throw new ArrayIndexOutOfBoundsException();
+                }
             }
-        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException | IOException e) {
             System.out.print("Please Input in the correct format\n");
         }
     }
@@ -83,6 +87,7 @@ public class ListCapCommand {
      */
     private void listAll(final Map<String, ArrayList<CapCommandParser>> caplist,
                          final String lineBreak, final double cap) {
+
         System.out.print("Sem | Module code | MC | CAP\n" + lineBreak);
         for (String key : caplist.keySet()) {
             for (int i = 0; i < caplist.get(key).size(); i++) {
@@ -101,6 +106,7 @@ public class ListCapCommand {
         System.out.print("Total CAP: " + cap + "\n");
     }
 
+
     /**
      * This method list out the modules
      * and show the GPA of the a particular sem.
@@ -116,7 +122,6 @@ public class ListCapCommand {
                          final double cap, final String semNumber) {
         try {
             System.out.print("Sem | Module code | MC | CAP\n" + lineBreak);
-            boolean isEmpty = true;
             for (String key : caplist.keySet()) {
                 for (int i = 0; i < caplist.get(key).size(); i++) {
                     if (key.equals(semNumber)) {
@@ -127,18 +132,11 @@ public class ListCapCommand {
                         for (int j = 0; j < noBlankSpacing; j++) {
                             System.out.print(" ");
                         }
-                        System.out.print("| " + caplist.get(key).
-                                get(i).moduleCredit
+                        System.out.print("| " + caplist.get(key).get(i).moduleCredit
                                 + "  | " + caplist.get(key).get(i).grade
                                 + "\n" + lineBreak);
-                        isEmpty = false;
                     }
                 }
-            }
-            if (!isEmpty) {
-                System.out.print("Sem " + semNumber + " CAP: " + cap + "\n");
-            } else {
-                System.out.print("No modules in this semester!\n");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.print("Invalid semester number.\n");

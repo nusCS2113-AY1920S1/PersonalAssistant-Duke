@@ -84,5 +84,4 @@ public class GeneralNotePage {
         }
         System.out.println("Sorry there is no such module.");
     }
-
 }

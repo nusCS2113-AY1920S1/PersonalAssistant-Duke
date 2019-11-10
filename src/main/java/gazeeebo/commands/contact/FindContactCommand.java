@@ -1,4 +1,5 @@
 //@@author JasonLeeWeiHern
+
 package gazeeebo.commands.contact;
 
 import gazeeebo.UI.Ui;
@@ -39,8 +40,8 @@ public class FindContactCommand {
                 nameToFind = ui.fullCommand;
             } else if (ui.fullCommand.split(" ").length == 2) {
                 for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
-                    nameToFind = nameToFind.
-                            concat(ui.fullCommand.split(" ")[i] + " ");
+                    nameToFind = nameToFind
+                            .concat(ui.fullCommand.split(" ")[i] + " ");
                 }
                 nameToFind = nameToFind.trim();
             } else {
@@ -54,8 +55,7 @@ public class FindContactCommand {
                     for (int i = 0; i < l; i++) {
                         toPrint.append(" ");
                     }
-                    toPrint.append("| ").append(contactList.get(keys)).
-                            append("\n").append(LINEBREAK);
+                    toPrint.append("| ").append(contactList.get(keys)).append("\n").append(LINEBREAK);
                 }
             }
             if (!isExist) {
