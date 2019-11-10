@@ -1,5 +1,6 @@
 package chronologer.parser;
 
+import java.time.DayOfWeek;
 import java.util.HashMap;
 
 import chronologer.exception.ChronologerException;
@@ -14,7 +15,7 @@ import chronologer.ui.UiMessageHandler;
  * @version 1.0
  */
 public class LastDay {
-    private static HashMap<String, String> lastDates = new HashMap<String, String>();
+    private static HashMap<String, DayOfWeek> days = new HashMap<String, DayOfWeek>();
     private static MyLogger logger = new MyLogger("chronologer.parser.LastDay", "ParserErrors");
 
     public LastDay() {
@@ -28,17 +29,17 @@ public class LastDay {
      * @return date of the last day
      * @throws ChronologerException invalid day was given
      */
-    public static String getDate(String dayFromUser) throws ChronologerException {
-        lastDates.put("MON", "11/11/2019 ");
-        lastDates.put("TUE", "12/11/2019 ");
-        lastDates.put("WED", "13/11/2019 ");
-        lastDates.put("THU", "14/11/2019 ");
-        lastDates.put("FRI", "15/11/2019 ");
-        lastDates.put("SAT", "16/11/2019 ");
-        lastDates.put("SUN", "17/11/2019 ");
+    public static DayOfWeek getDay(String dayFromUser) throws ChronologerException {
+        days.put("MON", DayOfWeek.MONDAY);
+        days.put("TUE", DayOfWeek.TUESDAY);
+        days.put("WED", DayOfWeek.WEDNESDAY);
+        days.put("THU", DayOfWeek.THURSDAY);
+        days.put("FRI", DayOfWeek.FRIDAY);
+        days.put("SAT", DayOfWeek.SATURDAY);
+        days.put("SUN", DayOfWeek.SUNDAY);
 
         String formattedDay = formatDay(dayFromUser);
-        return lastDates.get(formattedDay);
+        return days.get(formattedDay);
     }
 
     private static String formatDay(String dayFromUser) throws ChronologerException {
