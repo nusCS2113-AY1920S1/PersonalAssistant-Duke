@@ -1,5 +1,9 @@
 package rims.core;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
@@ -56,7 +60,7 @@ public class Ui {
 
     /**
      * Obtains a new String input from the user.
-     *
+     * 
      * @return the new input typed by the user.
      */
     public String getInput() {
@@ -69,7 +73,7 @@ public class Ui {
     /**
      * Prints a question for the user, before obtaining a new String input in
      * response from the user.
-     *
+     * 
      * @return the new input typed by the user.
      */
     public String getInput(String question) {
@@ -82,7 +86,7 @@ public class Ui {
     /**
      * Obtains a new integer input from the user, without requiring conversion from
      * String to integer format.
-     *
+     * 
      * @return the new integer input typed by the user.
      */
     public int getIntegerInput() {
@@ -94,7 +98,7 @@ public class Ui {
     /**
      * Prints a question for the user, before obtaining a new integer input in
      * response from the user.
-     *
+     * 
      * @return the new integer input typed by the user.
      */
     public int getIntegerInput(String question) {
@@ -189,7 +193,7 @@ public class Ui {
      * Prints the RIMS logo, as part of the RIMS welcome message.
      */
     public void printLogo() {
-        String logo = "\n"
+        String logo = "\n" 
                 +
                 tab + "          _____                    _____"
                 + "                    _____                    _____          \n"
