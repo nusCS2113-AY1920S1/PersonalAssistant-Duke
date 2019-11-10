@@ -249,7 +249,7 @@ The naive editing mechanism is facilitated by the `QuickEditCommand` from the `L
 Given below is an example usage scenario and how the editing mechanism behaves at each step:
 
 . The user calls the edit command with its relevant parameters. +
-e.g. `e 1 Bukit Batok 12/02/29 14/02/29`
+e.g. `e 1 Bishan 12/02/29 14/02/29`
 
 . The `LogicManager` parses the user input using the `Parser`.
 . The `Parser` calls `QuickEditParser` and returns an `QuickEditCommand` Object.
