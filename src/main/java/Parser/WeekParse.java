@@ -7,13 +7,6 @@ import DukeExceptions.DukeInvalidFormatException;
 
 public class WeekParse extends Parse {
     private String fullCommand;
-    private static final String INVALID_EMPTY_WEEK = "Invalid Input.\n"
-            + "The week cannot be blank.\nPlease enter the command as follows.\n"
-            + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
-            + "'x' is either 'recess', 'reading', or 'exam'";
-    private static final String INVALID_WEEK = "Invalid Week. Please enter the command as follows. \n"
-            + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
-            + "'x' is either 'recess', 'reading', or 'exam'";
 
     public WeekParse(String fullCommand) {
         this.fullCommand = fullCommand;
@@ -27,9 +20,9 @@ public class WeekParse extends Parse {
         }
         fullCommand = fullCommand.replaceFirst(DukeConstants.SHOW_WEEK_HEADER, "");
         if (fullCommand.trim().isEmpty()) {
-            throw new DukeInvalidFormatException(INVALID_EMPTY_WEEK);
+            throw new DukeInvalidFormatException(DukeConstants.INVALID_EMPTY_WEEK);
         }
-        throw new DukeInvalidFormatException(INVALID_WEEK);
+        throw new DukeInvalidFormatException(DukeConstants.INVALID_WEEK);
     }
 
     /**
@@ -95,7 +88,7 @@ public class WeekParse extends Parse {
         if ((selectedWeek.toLowerCase().startsWith(DukeConstants.WEEK_FORMAT_KEYWORD_RECESS)
                 || selectedWeek.toLowerCase().startsWith(DukeConstants.WEEK_FORMAT_KEYWORD_READING)
                 || selectedWeek.toLowerCase().startsWith(DukeConstants.WEEK_FORMAT_KEYWORD_EXAM))
-                && selectedWeek.contains("Week")) {
+                && selectedWeek.contains(DukeConstants.WEEK_FORMAT_KEYWORD)) {
             selectedWeek = selectedWeek.replace(DukeConstants.WEEK_FORMAT_KEYWORD, "");
             selectedWeek = selectedWeek.trim();
             week = DukeConstants.SHOW_WEEK_HEADER
