@@ -58,7 +58,7 @@ public class EventParser extends DescriptionParser {
     LocalDateTime extractFromDate(String dateTimeFromUser) throws ChronologerException {
         try {
             String fromDateString = dateTimeFromUser.split("-", 2)[0].trim();
-            return DateTimeExtractor.extractDateTime(fromDateString, command);
+            return DateTimeExtractor.extractDateTime(fromDateString);
         } catch (DateTimeParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
@@ -76,7 +76,7 @@ public class EventParser extends DescriptionParser {
     LocalDateTime extractToDate(String dateTimeFromUser) throws ChronologerException {
         try {
             String toDateString = dateTimeFromUser.split("-", 2)[1].trim();
-            return DateTimeExtractor.extractDateTime(toDateString, command);
+            return DateTimeExtractor.extractDateTime(toDateString);
         } catch (DateTimeParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());

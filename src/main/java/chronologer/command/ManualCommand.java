@@ -35,7 +35,6 @@ public class ManualCommand extends Command {
             Desktop desktop = Desktop.getDesktop();
             desktop.browse(new URI(UG_URI));
         } catch (URISyntaxException | IOException e) {
-            UiMessageHandler.outputMessage(ChronologerException.websiteMissing());
             logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(ChronologerException.websiteMissing());
         }

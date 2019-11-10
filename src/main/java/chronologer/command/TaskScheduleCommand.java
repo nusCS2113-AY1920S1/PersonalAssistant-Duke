@@ -100,7 +100,7 @@ public class TaskScheduleCommand extends Command {
         }
 
         if (LocalDateTime.now().isAfter(deadlineDate)) {
-            UiMessageHandler.outputMessage(OVERDUE_DEADLINE);
+
             throw new ChronologerException(OVERDUE_DEADLINE);
         }
 
@@ -114,7 +114,6 @@ public class TaskScheduleCommand extends Command {
             return this.durationToSchedule;
         }
         if (indexOfTask < 0 || indexOfTask >= list.size()) {
-            UiMessageHandler.outputMessage(ChronologerException.invalidIndex());
             throw new ChronologerException(ChronologerException.invalidIndex());
         }
 
@@ -122,7 +121,6 @@ public class TaskScheduleCommand extends Command {
         try {
             todo = (Todo) list.get(indexOfTask);
         } catch (ClassCastException e) {
-            UiMessageHandler.outputMessage(NOT_TODO);
             logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(NOT_TODO);
         }
@@ -134,7 +132,6 @@ public class TaskScheduleCommand extends Command {
             return this.deadlineDate;
         }
         if (indexOfDeadline < 0 || indexOfDeadline >= list.size()) {
-            UiMessageHandler.outputMessage(ChronologerException.invalidIndex());
             throw new ChronologerException(ChronologerException.invalidIndex());
         }
 
@@ -142,7 +139,6 @@ public class TaskScheduleCommand extends Command {
         try {
             deadline = (Deadline) list.get(indexOfDeadline);
         } catch (ClassCastException e) {
-            UiMessageHandler.outputMessage(NOT_DEADLINE);
             logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(NOT_DEADLINE);
         }

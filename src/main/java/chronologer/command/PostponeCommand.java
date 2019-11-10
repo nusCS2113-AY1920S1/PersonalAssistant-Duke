@@ -91,7 +91,6 @@ public class PostponeCommand extends Command {
      */
     private void isIndexValid(TaskList tasks) throws ChronologerException {
         if (!isIndexValid(indexOfTask, tasks.getSize())) {
-            UiMessageHandler.outputMessage(ChronologerException.taskDoesNotExist());
             throw new ChronologerException(ChronologerException.taskDoesNotExist());
         }
     }
@@ -107,7 +106,6 @@ public class PostponeCommand extends Command {
 
         if (isDeadline(taskToBePostponed)) {
             if (isDeadlineClash(taskToBePostponed.getDescription(), startDate, tasks)) {
-                UiMessageHandler.outputMessage(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             } else {
                 return true;
@@ -126,7 +124,6 @@ public class PostponeCommand extends Command {
     private boolean isEventPostponeable(Task taskToBePostponed, TaskList tasks) throws ChronologerException {
         if (isEvent(taskToBePostponed)) {
             if (isEventClash(taskToBePostponed.getDescription(), startDate, toDate, tasks)) {
-                UiMessageHandler.outputMessage(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             } else {
                 return true;
@@ -209,7 +206,6 @@ public class PostponeCommand extends Command {
      */
     private void checkDeadlineDate(LocalDateTime newStartDate, LocalDateTime oldStartDate) throws ChronologerException {
         if (newStartDate.isBefore(oldStartDate)) {
-            UiMessageHandler.outputMessage(ChronologerException.postponeDateError());
             throw new ChronologerException(ChronologerException.postponeDateError());
         }
     }
@@ -226,12 +222,10 @@ public class PostponeCommand extends Command {
     private void checkEventTodoDate(LocalDateTime newStartDate, LocalDateTime oldStartDate, LocalDateTime
         newEndDate, LocalDateTime oldEndDate) throws ChronologerException {
         if (newStartDate.isBefore(oldStartDate) || newEndDate.isBefore(oldEndDate)) {
-            UiMessageHandler.outputMessage(ChronologerException.postponeDateError());
             throw new ChronologerException(ChronologerException.postponeDateError());
         }
 
         if (newEndDate.isBefore(newStartDate)) {
-            UiMessageHandler.outputMessage(ChronologerException.endDateError());
             throw new ChronologerException(ChronologerException.endDateError());
         }
 

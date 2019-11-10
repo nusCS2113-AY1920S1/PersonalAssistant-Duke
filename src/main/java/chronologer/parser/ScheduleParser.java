@@ -67,7 +67,7 @@ public class ScheduleParser extends IndexParser {
         String extractedDate = taskFeatures.split(Flag.BY.getFlag(), 2)[1].trim();
         LocalDateTime convertedDate;
         try {
-            convertedDate = DateTimeExtractor.extractDateTime(extractedDate, command);
+            convertedDate = DateTimeExtractor.extractDateTime(extractedDate);
         } catch (DateTimeParseException e) {
             UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);

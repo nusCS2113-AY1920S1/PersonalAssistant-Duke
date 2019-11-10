@@ -39,8 +39,8 @@ public class TodoTest {
         try {
             LocalDateTime from;
             LocalDateTime to;
-            from = DateTimeExtractor.extractDateTime("01/01/2019 0800", "todo");
-            to = DateTimeExtractor.extractDateTime("01/01/2019 2200", "todo");
+            from = DateTimeExtractor.extractDateTime("01/01/2019 0800");
+            to = DateTimeExtractor.extractDateTime("01/01/2019 2200");
             Todo newTodo = new Todo("testTodo", from, to);
             Assertions.assertEquals(newTodo.getStartDate(), from);
         } catch (DateTimeParseException e) {

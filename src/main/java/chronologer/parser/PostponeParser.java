@@ -75,8 +75,8 @@ public class PostponeParser extends IndexParser {
         String obtainStartDate = dateString.split("-", 2)[0].trim();
         String obtainEndDate = dateString.split("-", 2)[1].trim();
         try {
-            newFromDate = DateTimeExtractor.extractDateTime(obtainStartDate, command);
-            newToDate = DateTimeExtractor.extractDateTime(obtainEndDate, command);
+            newFromDate = DateTimeExtractor.extractDateTime(obtainStartDate);
+            newToDate = DateTimeExtractor.extractDateTime(obtainEndDate);
         } catch (DateTimeParseException e) {
             UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
@@ -92,7 +92,7 @@ public class PostponeParser extends IndexParser {
      */
     private void extractDeadlineDates(String dateString) throws ChronologerException {
         try {
-            newFromDate = DateTimeExtractor.extractDateTime(dateString, command);
+            newFromDate = DateTimeExtractor.extractDateTime(dateString);
         } catch (DateTimeParseException e) {
             UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);

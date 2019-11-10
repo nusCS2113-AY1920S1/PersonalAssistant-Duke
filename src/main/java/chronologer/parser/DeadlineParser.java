@@ -51,7 +51,7 @@ public class DeadlineParser extends DescriptionParser {
         LocalDateTime startDate;
         try {
             dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
-            startDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
+            startDate = DateTimeExtractor.extractDateTime(dateTimeFromUser);
         } catch (ArrayIndexOutOfBoundsException e) {
             UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);

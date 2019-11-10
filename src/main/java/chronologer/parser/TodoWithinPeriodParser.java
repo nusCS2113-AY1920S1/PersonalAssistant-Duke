@@ -42,7 +42,7 @@ public class TodoWithinPeriodParser extends TodoParser {
         }
         LocalDateTime startDate;
         try {
-            startDate = DateTimeExtractor.extractDateTime(from, command);
+            startDate = DateTimeExtractor.extractDateTime(from);
         } catch (DateTimeParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
@@ -63,7 +63,7 @@ public class TodoWithinPeriodParser extends TodoParser {
         }
         LocalDateTime endDate;
         try {
-            endDate = DateTimeExtractor.extractDateTime(to, command);
+            endDate = DateTimeExtractor.extractDateTime(to);
         } catch (DateTimeParseException e) {
             UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);

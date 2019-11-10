@@ -88,7 +88,6 @@ public class ExportCommand extends Command {
         if (isCalendarValid(calendar)) {
             CalendarOutput.outputCalendar(fileName.trim(), calendar);
         } else {
-            UiMessageHandler.outputMessage(ChronologerException.emptyCalendar());
             throw new ChronologerException(ChronologerException.emptyCalendar());
         }
     }
@@ -284,7 +283,6 @@ public class ExportCommand extends Command {
      */
     private void checkEmptyList(ArrayList<Task> taskList) throws ChronologerException {
         if (taskList.size() == 0) {
-            UiMessageHandler.outputMessage(ChronologerException.emptyExport());
             throw new ChronologerException(ChronologerException.emptyExport());
         }
     }

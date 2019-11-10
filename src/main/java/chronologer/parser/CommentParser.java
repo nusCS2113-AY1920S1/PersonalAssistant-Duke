@@ -30,7 +30,6 @@ public class CommentParser extends IndexParser {
             String[] commentCommandParts = taskFeatures.split("\\s+", 2);
             comment = commentCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
-            UiMessageHandler.outputMessage(ChronologerException.emptyComment());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyComment());
         }

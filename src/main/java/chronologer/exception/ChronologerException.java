@@ -51,7 +51,6 @@ public class ChronologerException extends Exception {
      * @return message to be displayed
      */
     public static String wrongDateOrTime() {
-        UiMessageHandler.printManual();
         return WRONG_FORMAT_MSG;
     }
 

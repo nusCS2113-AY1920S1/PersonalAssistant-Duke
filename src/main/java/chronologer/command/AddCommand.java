@@ -99,33 +99,28 @@ public class AddCommand extends Command {
         case "deadline":
             task = new Deadline(taskDescription, formattedStartDate);
             if (tasks.isClash(task)) {
-                UiMessageHandler.outputMessage(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             }
             break;
         case "event":
             task = new Event(taskDescription, formattedStartDate, formattedEndDate);
             if (tasks.isClash(task)) {
-                UiMessageHandler.outputMessage(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             }
             break;
         case "assignment":
             task = new Deadline(taskDescription, formattedStartDate, modCode);
             if (tasks.isClash(task)) {
-                UiMessageHandler.outputMessage(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             }
             break;
         case "exam":
             task = new Event(taskDescription, formattedStartDate, formattedEndDate, modCode);
             if (tasks.isClash(task)) {
-                UiMessageHandler.outputMessage(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             }
             break;
         default:
-            UiMessageHandler.outputMessage(ChronologerException.unknownUserCommand());
             throw new ChronologerException(ChronologerException.unknownUserCommand());
         }
 
