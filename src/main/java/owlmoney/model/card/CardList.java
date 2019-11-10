@@ -60,8 +60,10 @@ public class CardList {
         cardLists.add(newCard);
         ui.printMessage("Added a new card with the below details: ");
         printOneCard(ONE_INDEX, newCard, ISSINGLE, ui);
+        logger.info("Successfully added a new card into the list.");
         try {
             exportCardList();
+            logger.info("Successfully store a new card in storage.");
         } catch (IOException e) {
             ui.printError("Error trying to save your addition of cards to disk. Your data is"
                     + " at risk, but we will try again, feel free to continue using the program.");
@@ -90,8 +92,10 @@ public class CardList {
                 ui.printMessage("Card with the following details has been removed:");
                 printOneCard(ONE_INDEX, currentCard, ISSINGLE, ui);
                 isDeleted = true;
+                logger.info("Successfully deleted the card from the list.");
                 try {
                     exportCardList();
+                    logger.info("Successfully deleted the card from storage.");
                 } catch (IOException e) {
                     ui.printError("Error trying to save your deletion of cards to disk. "
                             + "Your data is at risk, but we will try again, "
@@ -236,8 +240,10 @@ public class CardList {
                 }
                 ui.printMessage("New details of the cards: ");
                 printOneCard(ONE_INDEX, cardLists.get(i), ISSINGLE, ui);
+                logger.info("Successfully edited the card in the list.");
                 try {
                     exportCardList();
+                    logger.info("Successfully edited the card in the storage.");
                 } catch (IOException e) {
                     ui.printError("Error trying to save your editions of cards to disk. "
                             + "Your data is at risk, but we will try again, "
@@ -266,6 +272,7 @@ public class CardList {
             printOneCard((i + ONE_INDEX), cardLists.get(i), ISMULTIPLE, ui);
         }
         ui.printDivider();
+        logger.info("Successfully list the card details.");
     }
 
     /**
@@ -287,9 +294,11 @@ public class CardList {
             String capitalCurrentCardName = currentCardName.toUpperCase();
             if (capitalCardName.equals(capitalCurrentCardName)) {
                 currentCard.addInExpenditure(expenditure, ui, type);
+                logger.info("Successfully added card expenditure to the list.");
                 try {
                     cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
                     cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                    logger.info("Successfully added card expenditure to the storage.");
                 } catch (IOException exceptionMessage) {
                     ui.printError("Error trying to save your card expenditure"
                             + " to disk. Your data is at risk, but we will try again, "
@@ -323,6 +332,7 @@ public class CardList {
             String capitalCurrentCardName = currentCardName.toUpperCase();
             if (capitalCardToList.equals(capitalCurrentCardName)) {
                 cardLists.get(i).listAllExpenditure(ui, displayNum);
+                logger.info("Listing card expenditure.");
                 return;
             }
         }
@@ -348,9 +358,11 @@ public class CardList {
             String capitalCurrentCardName = currentCardName.toUpperCase();
             if (capitalDeleteFromAccountCard.equals(capitalCurrentCardName)) {
                 currentCard.deleteExpenditure(transactionNumber, ui);
+                logger.info("Successfully deleted card expenditure from the list.");
                 try {
                     cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
                     cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                    logger.info("Successfully deleted card expenditure from the storage.");
                 } catch (IOException exceptionMessage) {
                     ui.printError("Error trying to save your card expenditure"
                             + " to disk. Your data is at risk, but we will try again, "
@@ -389,9 +401,11 @@ public class CardList {
             if (capitalEditFromCard.equals(capitalCurrentCardName)) {
                 cardLists.get(i).editExpenditureDetails(transactionNumber, description, amount, date,
                         category, ui);
+                logger.info("Successfully edited card expenditure in the list.");
                 try {
                     cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
                     cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                    logger.info("Successfully edited card expenditure in the storage.");
                 } catch (IOException exceptionMessage) {
                     ui.printError("Error trying to save your card expenditure"
                             + " to disk. Your data is at risk, but we will try again, "
@@ -460,6 +474,7 @@ public class CardList {
                 tempCardList.add(cardLists.get(i));
             }
         }
+        logger.info("Search for card completed");
         if (tempCardList.isEmpty()) {
             logger.warning("Card with the following keyword could not be found: " + cardName);
             throw new CardException("Card with the following keyword could not be found: " + cardName);
@@ -470,6 +485,7 @@ public class CardList {
             printOneCard((i + ONE_INDEX), tempCardList.get(i), ISMULTIPLE, ui);
         }
         ui.printDivider();
+        logger.info("Successfully found matching card.");
     }
 
     /**
@@ -492,6 +508,7 @@ public class CardList {
             String currentCardName = currentCard.getName();
             String capitalCurrentCardName = currentCardName.toUpperCase();
             if (capitalCardName.equals(capitalCurrentCardName)) {
+                logger.info("Found card to search for matching transaction.");
                 currentCard.findTransaction(fromDate, toDate, description, category, ui);
                 return;
             }
@@ -607,9 +624,11 @@ public class CardList {
             String capitalCurrentCardName = currentCardName.toUpperCase();
             if (capitalCardName.equals(capitalCurrentCardName)) {
                 currentCard.transferExpUnpaidToPaid(cardDate, type);
+                logger.info("Transferring expenditure from unpaid to paid for card.");
                 try {
                     cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
                     cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                    logger.info("Successfully store expenditure in unpaid and paid for card to storage.");
                 } catch (IOException exceptionMessage) {
                     logger.warning("Error trying to save your card expenditure"
                             + " to disk. Your data is at risk, but we will try again, "
@@ -639,9 +658,11 @@ public class CardList {
             String capitalCurrentCardName = currentCardName.toUpperCase();
             if (capitalCardName.equals(capitalCurrentCardName)) {
                 currentCard.transferExpPaidToUnpaid(cardDate, type);
+                logger.info("Transferring expenditure from paid to unpaid for card.");
                 try {
                     cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
                     cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                    logger.info("Successfully store expenditure in paid and unpaid for card to storage.");
                 } catch (IOException exceptionMessage) {
                     logger.warning("Error trying to save your card expenditure"
                             + " to disk. Your data is at risk, but we will try again, "

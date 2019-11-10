@@ -1,5 +1,7 @@
 package owlmoney.model.bank;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.nio.file.Files;
@@ -9,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
@@ -38,6 +41,7 @@ public class BankList {
     private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
     private static final String SAVING_TRANSACTION_LIST_FILE_NAME = "_saving_transactionList.csv";
     private static final String SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME = "_saving_recurring_transactionList.csv";
+    private static final Logger logger = getLogger(BankList.class);
 
 
     /**
@@ -991,9 +995,12 @@ public class BankList {
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalAccountName.equals(capitalCurrentBankName)) {
                 checkSufficientForTransfer(bankLists.get(i), amount);
+                logger.info("Successfully found bank type for transfer");
                 return currentBank.getType();
             }
         }
+        logger.warning("Unable to transfer fund as the sender bank account does not exist: "
+                + accountName);
         throw new BankException("Unable to transfer fund as the sender bank account does not exist: "
                 + accountName);
     }
@@ -1011,9 +1018,12 @@ public class BankList {
             String currentBankName = currentBank.getAccountName();
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalAccountName.equals(capitalCurrentBankName)) {
+                logger.info("Successfully found bank type for receive");
                 return bankLists.get(i).getType();
             }
         }
+        logger.warning("Unable to transfer fund as the receiving bank account does not exist: "
+                + accountName);
         throw new BankException("Unable to transfer fund as the receiving bank account does not exist: "
                 + accountName);
     }
@@ -1029,6 +1039,7 @@ public class BankList {
         if (bank.getCurrentAmount() >= amount) {
             return;
         }
+        logger.warning("Insufficient amount for transfer in this bank: " + bank.getAccountName());
         throw new BankException("Insufficient amount for transfer in this bank: " + bank.getAccountName());
     }
 
@@ -1051,10 +1062,13 @@ public class BankList {
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalInvestmentName.equals(capitalCurrentBankName)
                     && INVESTMENT.equals(currentBank.getType())) {
+                logger.info("Found Investment account to search for bonds");
                 currentBank.findBondInInvestment(bondName, ui);
                 return;
             }
         }
+        logger.warning("Investment account with the following name "
+                + "does not exist for search: " + investmentName);
         throw new BankException("Investment account with the following name "
                 + "does not exist for search: " + investmentName);
     }
@@ -1079,10 +1093,15 @@ public class BankList {
                 tempBankList.add(bankLists.get(i));
             }
         }
+        logger.info("Search for bank account completed");
         if (tempBankList.isEmpty() && SAVING.equals(type)) {
+            logger.warning("Savings account with the following keyword could not be found: "
+                    + accountName);
             throw new BankException(
             "Savings account with the following keyword could not be found: " + accountName);
         } else if (tempBankList.isEmpty() && INVESTMENT.equals(type)) {
+            logger.warning("Investment account with the following keyword could not be found: "
+                    + accountName);
             throw new BankException(
             "Investment account with the following keyword could not be found: " + accountName);
         }
@@ -1092,6 +1111,7 @@ public class BankList {
             printOneBank((i + ONE_INDEX), tempBankList.get(i), ISMULTIPLE, ui);
         }
         ui.printDivider();
+        logger.info("Successfully found matching bank account.");
     }
 
     /**
@@ -1114,10 +1134,12 @@ public class BankList {
             String currentBankName = currentBank.getAccountName();
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalBankName.equals(capitalCurrentBankName)) {
+                logger.info("Found bank account to search for transaction");
                 currentBank.findTransaction(fromDate, toDate, description, category, ui);
                 return;
             }
         }
+        logger.warning("Bank with the following name does not exist: " + bankName);
         throw new BankException("Bank with the following name does not exist: " + bankName);
     }
 
@@ -1139,10 +1161,12 @@ public class BankList {
             String capitalCurrentBankName = currentBankName.toUpperCase();
             String currentBankType = currentBank.getType();
             if (capitalBankName.equals(capitalCurrentBankName) && SAVING.equals(currentBankType)) {
+                logger.info("Found bank account to search for recurring expenditure");
                 currentBank.findRecurringExpenditure(description, category, ui);
                 return;
             }
         }
+        logger.warning("Savings account with the following name does not exist: " + bankName);
         throw new BankException("Savings account with the following name does not exist: " + bankName);
     }
 

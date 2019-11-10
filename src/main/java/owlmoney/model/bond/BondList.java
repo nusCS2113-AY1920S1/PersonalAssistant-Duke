@@ -1,7 +1,10 @@
 package owlmoney.model.bond;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import owlmoney.model.bond.exception.BondException;
 import owlmoney.ui.Ui;
@@ -16,6 +19,8 @@ public class BondList {
     private static final boolean ISSINGLE = false;
     private static final int ISZERO = 0;
     private static final int MAX_LIST_SIZE = 20;
+    private static final Logger logger = getLogger(BondList.class);
+
 
     /**
      * Creates an arrayList of bonds.
@@ -253,7 +258,10 @@ public class BondList {
                 tempBondList.add(currentBond);
             }
         }
+        logger.info("Search for bonds completed");
+
         if (tempBondList.isEmpty()) {
+            logger.warning("Bond with the following keyword could not be found: " + bondName);
             throw new BondException("Bond with the following keyword could not be found: " + bondName);
         }
         ui.printBondHeader();
@@ -261,6 +269,7 @@ public class BondList {
             printOneBond((i + ONE_INDEX), tempBondList.get(i), ISMULTIPLE, ui);
         }
         ui.printDivider();
+        logger.info("Successfully found matching bonds.");
     }
 
     /**

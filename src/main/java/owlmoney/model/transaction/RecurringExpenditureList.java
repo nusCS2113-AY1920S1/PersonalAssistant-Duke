@@ -1,7 +1,10 @@
 package owlmoney.model.transaction;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
@@ -20,6 +23,8 @@ public class RecurringExpenditureList {
     private static final String FINDDESCRIPTION = "description";
     private static final String FINDCATEGORY = "category";
     private static final int ONE_INDEX = 1;
+    private static final Logger logger = getLogger(RecurringExpenditureList.class);
+
 
 
     /**
@@ -194,6 +199,7 @@ public class RecurringExpenditureList {
      */
     public void findMatchingRecurringExpenditure(String description, String category, Ui ui) {
         if (isRecurringExpendituresEmpty()) {
+            logger.info("Recurring expenditure is empty.");
             ui.printMessage("Recurring expenditure is empty.");
             return;
         }
@@ -224,10 +230,13 @@ public class RecurringExpenditureList {
                 printCounter++;
             }
         }
+        logger.info("Search for recurring expenditure based on description completed");
         if (printCounter == ISZERO) {
+            logger.info("No matches for the description keyword: " + keyword);
             ui.printMessage("No matches for the description keyword: " + keyword);
         } else {
             ui.printDivider();
+            logger.info("Successfully found matching recurring expenditure based on description");
         }
     }
 
@@ -250,10 +259,13 @@ public class RecurringExpenditureList {
                 printCounter++;
             }
         }
+        logger.info("Search for recurring expenditure based on category completed");
         if (printCounter == ISZERO) {
+            logger.info("No matches for the category keyword: " + keyword);
             ui.printMessage("No matches for the category keyword: " + keyword);
         } else {
             ui.printDivider();
+            logger.info("Successfully found matching recurring expenditure based on category");
         }
     }
 

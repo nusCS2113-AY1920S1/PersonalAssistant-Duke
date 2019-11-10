@@ -72,6 +72,8 @@ public class Profile {
     private static final String BLANK = "";
     private static final int ARRAY_INDEX = 1;
     private static final String RECURRING = "recurring";
+    private static final String TRANSFERFUNDTO = "Fund Transfer to ";
+    private static final String TRANSFERFUNDFROM = "Fund Received from ";
     private static final Logger logger = getLogger(Profile.class);
 
 
@@ -686,12 +688,15 @@ public class Profile {
             Ui ui) throws BankException {
         String fromType = bankList.getTransferBankType(from, amount);
         String toType = bankList.getReceiveBankType(to);
-        String descriptionTo = "Fund Transfer to " + to;
+        String descriptionTo = TRANSFERFUNDTO + to;
         Transaction newExpenditure = new Expenditure(descriptionTo, amount, date, TRANSFERCATEGORY);
         bankList.bankListAddExpenditure(from, newExpenditure, ui, checkBankType(fromType));
-        String descriptionFrom = "Fund Received from " + from;
+        logger.info("Successfully added expenditure for the sender");
+        String descriptionFrom = TRANSFERFUNDFROM + from;
         Transaction newDeposit = new Deposit(descriptionFrom, amount, date, DEPOSITCATEGORY);
         bankList.bankListAddDeposit(to, newDeposit, ui, checkBankType(toType));
+        logger.info("Successfully added deposit for the receiver");
+        logger.info("Fund successfully transfered");
     }
 
     /**
