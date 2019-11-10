@@ -21,10 +21,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+//@@author AmirAzhar
 public class UnusedCreateAccountCommand extends Command {
     private String[] splitC;
 
-    //@@auhtor AmirAzhar
     /**
      * Create new Account for user.
      * format is create email password username usertype

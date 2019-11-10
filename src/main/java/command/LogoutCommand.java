@@ -11,10 +11,10 @@ import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
 
+//@@author AmirAzhar
 public class LogoutCommand extends Command {
     private String[] splitL;
 
-    //@@author AmirAzhar
 
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
