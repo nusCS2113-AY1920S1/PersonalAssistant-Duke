@@ -26,9 +26,11 @@ public class BudgetStorage extends Storage<Budget> {
             while (raf.getFilePointer() != raf.length()) {
                 str = raf.readLine();
                 String[] data = str.split(",");
-                if (!data[0].isEmpty() && !data[1].isEmpty() && !data[2].isEmpty()) {
+                if (!data[0].isEmpty() && !data[1].isEmpty() && !data[2].isEmpty()
+                        && !data[3].isEmpty() && !data[4].isEmpty()) {
                     Budget budget = new Budget(Double.parseDouble(data[0]),
-                            Integer.parseInt(data[1]), Integer.parseInt(data[2]));
+                            Integer.parseInt(data[1]), Integer.parseInt(data[2]),
+                            Boolean.parseBoolean(data[3]), Double.parseDouble(data[4]));
                     budgetList.add(budget);
                 }
             }

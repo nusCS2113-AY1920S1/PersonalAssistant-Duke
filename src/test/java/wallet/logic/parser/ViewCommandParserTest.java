@@ -19,7 +19,7 @@ public class ViewCommandParserTest {
      */
     @BeforeAll
     public static void setUp() {
-        testWallet.getBudgetList().addBudget(new Budget(100, 10, 2019));
+        testWallet.getBudgetList().addBudget(new Budget(100, 10, 2019, false, 0));
     }
 
     /**

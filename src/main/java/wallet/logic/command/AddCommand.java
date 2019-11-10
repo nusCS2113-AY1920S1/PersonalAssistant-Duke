@@ -7,6 +7,7 @@ import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.ui.Ui;
 
+import java.math.BigDecimal;
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 
@@ -24,7 +25,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS_ADD_CONTACT = "Got it. I've added this contact.";
     public static final String MESSAGE_SUCCESS_ADD_EXPENSE = "Got it. I've added this expense:";
     public static final String MESSAGE_SUCCESS_ADD_LOAN = "Got it. I've added this loan:";
-    public static final String MESSAGE_NEW_BUDGET = " is your new budget for ";
+    public static final String MESSAGE_NEW_REMAINING_BUDGET = " is your budget left for ";
     public static final String MESSAGE_EXCEED_BUDGET = "Your budget has exceeded!!";
     public static final String MESSAGE_REACH_BUDGET = "You have reached your budget!!";
 
@@ -72,14 +73,18 @@ public class AddCommand extends Command {
             LocalDate date = expense.getDate();
             for (Budget b : wallet.getBudgetList().getBudgetList()) {
                 if (b.getMonth() == date.getMonthValue() && b.getYear() == date.getYear()) {
-                    b.setAmount(b.getAmount() - expense.getAmount());
-                    wallet.getBudgetList().setModified(true);
-                    if (b.getAmount() < 0) {
+                    BigDecimal monthBudget = BigDecimal.valueOf(b.getAmount());
+                    BigDecimal expenseSum = BigDecimal.valueOf(wallet.getExpenseList()
+                            .getMonthExpenses(b.getMonth(), b.getYear()));
+                    double remainingBudget = monthBudget.subtract(expenseSum).doubleValue();
+                    remainingBudget += b.getAccountedExpenseAmount();
+                    b.setExpenseTakenIntoAccount(true);
+                    if (remainingBudget < 0) {
                         System.out.println(MESSAGE_EXCEED_BUDGET);
-                    } else if (b.getAmount() == 0) {
+                    } else if (remainingBudget == 0) {
                         System.out.println(MESSAGE_REACH_BUDGET);
                     }
-                    System.out.println("$" + b.getAmount() + MESSAGE_NEW_BUDGET
+                    System.out.println("$" + remainingBudget + MESSAGE_NEW_REMAINING_BUDGET
                             + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                 }
             }

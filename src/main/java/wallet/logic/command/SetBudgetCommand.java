@@ -8,6 +8,7 @@ import wallet.model.record.BudgetList;
 import wallet.model.record.Expense;
 import wallet.ui.Ui;
 
+import java.math.BigDecimal;
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -17,7 +18,7 @@ import java.util.Scanner;
  */
 public class SetBudgetCommand extends Command {
     public static final String COMMAND_WORD = "budget";
-    public static final String MESSAGE_SET_BUDGET = " dollars is the budget set for ";
+    public static final String MESSAGE_SET_BUDGET = " dollars is a new budget set for ";
     public static final String MESSAGE_NOTE = "Note that to update your budget, "
             + "simply set the budget for the same month and year again.";
     public static final String MESSAGE_USAGE = "Error in format for command."
@@ -128,8 +129,11 @@ public class SetBudgetCommand extends Command {
         String reply = scanner.nextLine().toLowerCase();
         while (!"yes".equals(reply) || !"no".equals(reply)) {
             if ("yes".equals(reply)) {
-                double remainingBudget = budget.getAmount()
-                        - wallet.getExpenseList().getMonthExpenses(budget.getMonth(), budget.getYear());
+                BigDecimal monthBudget = BigDecimal.valueOf(budget.getAmount());
+                BigDecimal expenseSum = BigDecimal.valueOf(wallet.getExpenseList()
+                        .getMonthExpenses(budget.getMonth(), budget.getYear()));
+                double remainingBudget = monthBudget.subtract(expenseSum).doubleValue();
+                budget.setAmount(remainingBudget);
                 if (remainingBudget < 0) {
                     System.out.println(AddCommand.MESSAGE_EXCEED_BUDGET);
                     System.out.println(MESSAGE_CURRENT_BUDGET
@@ -157,6 +161,9 @@ public class SetBudgetCommand extends Command {
                 }
                 break;
             } else if ("no".equals(reply)) {
+                BigDecimal expenseSum = BigDecimal.valueOf(wallet.getExpenseList()
+                        .getMonthExpenses(budget.getMonth(), budget.getYear()));
+                budget.setAccountedExpenseAmount(expenseSum.doubleValue());
                 System.out.println(MESSAGE_CURRENT_BUDGET
                         + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
                         + " " + budget.getYear() + " is " + "$" + budget.getAmount());

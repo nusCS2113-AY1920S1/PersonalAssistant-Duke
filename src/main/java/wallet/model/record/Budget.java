@@ -7,6 +7,8 @@ public class Budget {
     private double amount;
     private int month;
     private int year;
+    private boolean expenseTakenIntoAccount;
+    private double accountedExpenseAmount;
 
     /**
      * Constructs the Budget object.
@@ -14,10 +16,12 @@ public class Budget {
      * @param month month which budget is set to.
      * @param year year which budget is set to.
      */
-    public Budget(double amount, int month, int year) {
+    public Budget(double amount, int month, int year, boolean expenseTakenIntoAccount, double accountedExpenseAmount) {
         this.amount = amount;
         this.month = month;
         this.year = year;
+        this.expenseTakenIntoAccount = expenseTakenIntoAccount;
+        this.accountedExpenseAmount = accountedExpenseAmount;
     }
 
     /**
@@ -74,7 +78,42 @@ public class Budget {
         this.year = year;
     }
 
+    /**
+     * Gets the boolean value of whether the budget has taken existing expenses into account.
+     * @return boolean value of existing budget with existing expenses
+     */
+    public boolean getExpenseTakenIntoAccount() {
+        return expenseTakenIntoAccount;
+    }
+
+    /**
+     * Sets the boolean of the budget with exsiting expenses.
+     *
+     * @param expenseTakenIntoAccount The boolean value of budget with existing expenses accounted for.
+     */
+    public void setExpenseTakenIntoAccount(boolean expenseTakenIntoAccount) {
+        this.expenseTakenIntoAccount = expenseTakenIntoAccount;
+    }
+
+    /**
+     * Gets the amount of accounted expenses based on boolean value of Budget.
+     * @return accounted expenses amount to be added into existing budget
+     */
+    public double getAccountedExpenseAmount() {
+        return accountedExpenseAmount;
+    }
+
+    /**
+     * Sets the amount of accounted expenses.
+     *
+     * @param accountedExpenseAmount The accounted expenses amount to be added into existing budget
+     */
+    public void setAccountedExpenseAmount(double accountedExpenseAmount) {
+        this.accountedExpenseAmount = accountedExpenseAmount;
+    }
+
+
     public String writeToFile() {
-        return amount + "," + month + "," + year;
+        return amount + "," + month + "," + year + "," + expenseTakenIntoAccount + "," + accountedExpenseAmount;
     }
 }

@@ -22,7 +22,7 @@ public class SetBudgetParser implements Parser<SetBudgetCommand> {
         } else if (year <= 0) {
             throw  new WrongParameterFormat("I too wonder if zero or negative year exists...");
         }
-        Budget budget = new Budget(budgetAmount, month, year);
+        Budget budget = new Budget(budgetAmount, month, year, false, 0);
         return new SetBudgetCommand(budget);
     }
 }

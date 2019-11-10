@@ -90,7 +90,7 @@ public class GenerateCommand extends Command {
         wallet.getExpenseList().addExpense(expense10);
 
         //test data for budget
-        Budget budget1 = new Budget(1500.0, 10, 2019);
+        Budget budget1 = new Budget(1500.0, 10, 2019, true, 0);
 
         wallet.getBudgetList().addBudget(budget1);
 
