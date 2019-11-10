@@ -251,7 +251,7 @@ public class TaskList {
         return tasksWithoutDates;
     }
 
-    //@@author fauzt-reused
+    //@@author fauzt
     /**
      * Retrieves all Event tasks in the main task list in chronologically-ordered list.
      *
@@ -275,6 +275,7 @@ public class TaskList {
                 && task.endDate.isAfter(LocalDateTime.now());
     }
 
+    //@@author
     /**
      * Fetches all reminders for the current date. (Tasks within the next 3 days)
      *

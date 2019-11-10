@@ -1,16 +1,13 @@
 package chronologer.command;
 
-import chronologer.TaskScheduler;
 import chronologer.exception.ChronologerException;
 import chronologer.storage.Storage;
-import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.task.Deadline;
 import chronologer.task.Todo;
 import chronologer.ui.UiMessageHandler;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * Finds a free period of time within the user's schedule for a selected duration value.
