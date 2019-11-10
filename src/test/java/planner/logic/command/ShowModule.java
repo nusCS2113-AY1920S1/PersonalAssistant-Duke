@@ -1,3 +1,5 @@
+//@@author kyawtsan99
+
 package planner.logic.command;
 
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +20,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ShowCommandTest extends InputTest {
+public class ShowModule extends InputTest {
     private static Storage store;
     private static ModuleTasksList modTasks;
     private static Parser argparser;
@@ -51,21 +53,16 @@ public class ShowCommandTest extends InputTest {
         jsonWrapper.getModuleDetailedMap();
     }
 
-    @DisplayName("Show ShowCommand test")
+    @DisplayName("show module test")
     @Test
     public void testShow() {
-        final String test1 = "show module\n";
-        final String test2 = "show cca\n";
-        final String test3 = "show core\n";
-        final String test4 = "show ge\n";
-        final String test5 = "show ue\n";
+        final String test = "show module\n";
 
         final String bye = "bye";
-        provideInput(test1 + bye);
+        provideInput(test + bye);
         final String[] hold = {""};
         CliLauncher.main(hold);
-        //String expected = outContent.toString().replaceAll("\r", "");
-        String expected = "_______________________________\n"
+        String expectedShowModule = "_______________________________\n"
                 +
                 "Welcome to ModPlanner, your one stop solution to module planning!\n"
                 +
@@ -73,17 +70,19 @@ public class ShowCommandTest extends InputTest {
                 +
                 "_______________________________\n"
                 +
-                "_______________________________\n"
-                +
                 "All modules in the list!\n"
                 +
-                "1. [✓] CS1010 | ModuleCode:CS1010, MC:4.0, SU:true, grade:A "
+                "1. [✓] CS1010 | ModuleCode:CS1010, MC:4.0, SU:true, grade:A\n"
                 +
-                "_______________________________\n"
+                "2. [✗] GES1012 | ModuleCode:GES1012, MC:4.0, SU:true, grade:\n"
+                +
+                "3. [✗] LAJ1201 | ModuleCode:LAJ1201, MC:4.0, SU:true, grade:\n"
                 +
                 "_______________________________\n"
                 +
                 expectedBye;
+        String contentString = outContent.toString();
+        String expected = removeUnicodeAndEscapeChars(contentString);
         assertEquals(expected, expected);
     }
 }
