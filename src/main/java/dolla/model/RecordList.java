@@ -50,7 +50,7 @@ public class RecordList {
         list.remove(index);
     }
 
-    public void addWithIndex(int modifyIndex, Record newRecord) {
+    protected void addWithIndex(int modifyIndex, Record newRecord) {
         list.add(modifyIndex, newRecord);
     }
 
