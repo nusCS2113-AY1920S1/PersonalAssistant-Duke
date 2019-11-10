@@ -16,6 +16,9 @@ import java.util.regex.Pattern;
 
 import static duke.logic.message.ProductMessageUtils.MESSAGE_INVALID_INGREDIENT_FORMAT;
 
+/**
+ * A parser that parses the ingredient list provided by the user
+ */
 public class IngredientItemListParser {
     private static final Logger logger = LogsCenter.getLogger(ProductParserUtil.class);
 

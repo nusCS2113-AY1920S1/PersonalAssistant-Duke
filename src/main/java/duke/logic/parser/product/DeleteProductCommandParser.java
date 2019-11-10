@@ -9,6 +9,9 @@ import duke.logic.parser.exceptions.ParseException;
 
 import static duke.logic.message.ProductMessageUtils.MESSAGE_EMPTY_INDICES;
 
+/**
+ * A parser that parses {@code DeleteProductCommand}.
+ */
 public class DeleteProductCommandParser implements Parser<DeleteProductCommand> {
 
     @Override

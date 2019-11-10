@@ -7,8 +7,12 @@ import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 
+/**
+ * A command to filter products from Product List.
+ */
 public class FilterProductCommand extends ProductCommand {
 
+    /** The Scope of the products that needs to be shown. */
     public enum Scope {
         ALL,
         ACTIVE,
@@ -23,6 +27,10 @@ public class FilterProductCommand extends ProductCommand {
         CliSyntax.PREFIX_PRODUCT_SCOPE
     };
 
+    /**
+     * Constructs a FilterProductCommand with the given {@code Scope}
+     * @param scope scope of the products that needs to be shown
+     */
     public FilterProductCommand(Scope scope) {
         this.scope = scope;
     }

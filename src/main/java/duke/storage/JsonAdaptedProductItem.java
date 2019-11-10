@@ -6,6 +6,9 @@ import duke.model.commons.Item;
 import duke.model.commons.Quantity;
 import duke.model.product.Product;
 
+/**
+ * Jackson-friendly version of Product Item.
+ */
 public class JsonAdaptedProductItem {
     private final JsonAdaptedProduct product;
     private final double amount;

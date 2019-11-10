@@ -7,8 +7,10 @@ import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 
+/**
+ *
+ */
 public class SearchProductCommand extends ProductCommand {
-
 
     public static final String COMMAND_WORD = "search";
     private final String keyword;

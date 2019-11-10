@@ -6,6 +6,9 @@ import duke.model.commons.Item;
 import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
 
+/**
+ * Jackson-friendly version of Ingredient Item.
+ */
 public class JsonAdaptedIngredientItem {
     private final JsonAdaptedIngredient ingredient;
     private final double amount;

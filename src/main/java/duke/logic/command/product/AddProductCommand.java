@@ -14,6 +14,10 @@ import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
 
+
+/**
+ * A command to add an product to Product List in {@code Model}.
+ */
 public class AddProductCommand extends ProductCommand {
 
     public static final String COMMAND_WORD = "add";
@@ -30,6 +34,7 @@ public class AddProductCommand extends ProductCommand {
 
     /**
      * Constructs a AddProductCommand with the given ProductDescriptor.
+     * @param descriptor a {@code ProductDescriptor} containing information of the added product
      */
     public AddProductCommand(ProductDescriptor descriptor) throws ParseException {
         requireNonNull(descriptor);
@@ -65,6 +70,11 @@ public class AddProductCommand extends ProductCommand {
                 CommandResult.DisplayedPage.PRODUCT);
     }
 
+    /**
+     * Checks if two command are the same by checking the added product stored in the Command.
+     * @param other
+     * @return
+     */
     @Override
     public boolean equals(Object other) {
         return other == this

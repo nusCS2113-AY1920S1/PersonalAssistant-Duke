@@ -55,6 +55,9 @@ import javafx.collections.ObservableList;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+/**
+ * The main LogicManager of the app.
+ */
 public class LogicManager implements Logic {
     private final Model model;
     private final BakingHomeStorage storage;

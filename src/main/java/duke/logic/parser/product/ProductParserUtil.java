@@ -15,6 +15,9 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_STATUS;
 
+/**
+ * A utility class that creates a {@code ProductDescriptor} from a {@code ArgumentMultimap}.
+ */
 public class ProductParserUtil {
 
     private static final Logger logger = LogsCenter.getLogger(ProductParserUtil.class);

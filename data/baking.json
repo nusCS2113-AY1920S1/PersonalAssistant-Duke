@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 {
   "orders" : [ {
-    "id" : 1573352739973,
-    "creationDate" : "2019-11-10T02:25:39.974+0000",
+    "id" : 1572357772448,
+    "creationDate" : "2019-10-29T14:02:52.448+0000",
     "name" : "Arron",
     "contact" : "81029010",
     "remarks" : "For birthday party",
@@ -245,47 +244,6 @@
     } ]
   } ],
   "products" : [ {
-    "productName" : "Tart",
-    "ingredientItems" : [ {
-      "ingredient" : {
-        "name" : "Sugar",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 15.0
-    }, {
-      "ingredient" : {
-        "name" : "Egg",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 1.0
-    }, {
-      "ingredient" : {
-        "name" : "Sour cream",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 20.0
-    }, {
-      "ingredient" : {
-        "name" : "Plain flour",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 50.0
-    }, {
-      "ingredient" : {
-        "name" : "Butter",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 15.0
-    } ],
-    "ingredientCost" : 3.2,
-    "retailPrice" : 5.0,
-    "status" : "ACTIVE"
-  }, {
     "productName" : "Sangria cake",
     "ingredientItems" : [ {
       "ingredient" : {
@@ -332,74 +290,6 @@
     } ],
     "ingredientCost" : 25.0,
     "retailPrice" : 35.0,
-    "status" : "ARCHIVE"
-  }, {
-    "productName" : "Waffle",
-    "ingredientItems" : [ {
-      "ingredient" : {
-        "name" : "Skimmed milk",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 100.0
-    }, {
-      "ingredient" : {
-        "name" : "Egg",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 1.0
-    }, {
-      "ingredient" : {
-        "name" : "Flour",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 100.0
-    }, {
-      "ingredient" : {
-        "name" : "Butter",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 20.0
-    } ],
-    "ingredientCost" : 1.0,
-    "retailPrice" : 1.7,
-    "status" : "ACTIVE"
-  }, {
-    "productName" : "Scone",
-    "ingredientItems" : [ {
-      "ingredient" : {
-        "name" : "Sugar",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 20.0
-    }, {
-      "ingredient" : {
-        "name" : "Skimmed milk",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 25.0
-    }, {
-      "ingredient" : {
-        "name" : "Egg",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 1.0
-    }, {
-      "ingredient" : {
-        "name" : "Flour",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 100.0
-    } ],
-    "ingredientCost" : 3.0,
-    "retailPrice" : 4.5,
     "status" : "ACTIVE"
   }, {
     "productName" : "Cookie",
@@ -436,43 +326,113 @@
     "retailPrice" : 3.0,
     "status" : "ACTIVE"
   }, {
-    "productName" : "Cheese cake",
+    "productName" : "Tart",
     "ingredientItems" : [ {
       "ingredient" : {
         "name" : "Sugar",
         "unitPrice" : 0.0,
-        "remarks" : ""
+        "remarks" : "-"
       },
-      "amount" : 3.0
+      "amount" : 15.0
     }, {
       "ingredient" : {
-        "name" : "Butter milk",
+        "name" : "Egg",
         "unitPrice" : 0.0,
-        "remarks" : ""
+        "remarks" : "-"
       },
       "amount" : 1.0
     }, {
       "ingredient" : {
-        "name" : "Cream cheese",
+        "name" : "Sour cream",
         "unitPrice" : 0.0,
-        "remarks" : ""
+        "remarks" : "-"
       },
-      "amount" : 3.0
+      "amount" : 20.0
+    }, {
+      "ingredient" : {
+        "name" : "Plain flour",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 50.0
+    }, {
+      "ingredient" : {
+        "name" : "Butter",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 15.0
+    } ],
+    "ingredientCost" : 3.2,
+    "retailPrice" : 5.0,
+    "status" : "ACTIVE"
+  }, {
+    "productName" : "Scone",
+    "ingredientItems" : [ {
+      "ingredient" : {
+        "name" : "Sugar",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 20.0
+    }, {
+      "ingredient" : {
+        "name" : "Skimmed milk",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 25.0
+    }, {
+      "ingredient" : {
+        "name" : "Egg",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 1.0
+    }, {
+      "ingredient" : {
+        "name" : "Flour",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 100.0
     } ],
     "ingredientCost" : 3.0,
-    "retailPrice" : 5.9,
+    "retailPrice" : 4.5,
     "status" : "ACTIVE"
   }, {
-    "productName" : "Oooooooooooooooooooooooooooooooooooooo",
-    "ingredientItems" : [ ],
-    "ingredientCost" : 0.0,
-    "retailPrice" : 0.0,
-    "status" : "ACTIVE"
-  }, {
-    "productName" : "New york cheese cake in the cloud computing",
-    "ingredientItems" : [ ],
-    "ingredientCost" : 0.0,
-    "retailPrice" : 0.0,
+    "productName" : "Waffle",
+    "ingredientItems" : [ {
+      "ingredient" : {
+        "name" : "Skimmed milk",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 100.0
+    }, {
+      "ingredient" : {
+        "name" : "Egg",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 1.0
+    }, {
+      "ingredient" : {
+        "name" : "Flour",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 100.0
+    }, {
+      "ingredient" : {
+        "name" : "Butter",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 20.0
+    } ],
+    "ingredientCost" : 1.0,
+    "retailPrice" : 1.7,
     "status" : "ACTIVE"
   } ],
   "inventory" : [ {
@@ -531,13 +491,6 @@
       "remarks" : ""
     },
     "amount" : 50000.0
-  }, {
-    "ingredient" : {
-      "name" : "Iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
-      "unitPrice" : 0.0,
-      "remarks" : ""
-    },
-    "amount" : 0.0
   } ],
   "shoppingList" : [ {
     "ingredient" : {
@@ -553,48 +506,6 @@
       "remarks" : ""
     },
     "amount" : 10.0
-  }, {
-    "ingredient" : {
-      "name" : "Sour cream",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Plain flour",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Strawberry",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Butter",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Butter milk",
-      "unitPrice" : 0.0,
-      "remarks" : ""
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Cream cheese",
-      "unitPrice" : 0.0,
-      "remarks" : ""
-    },
-    "amount" : 0.0
   } ],
   "sales" : [ {
     "id" : 1573223337165,
@@ -619,5 +530,3 @@
     "userInputs" : [ "order add", " order add" ]
   } ]
 }
-=======
->>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
