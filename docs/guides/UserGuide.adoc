@@ -608,13 +608,14 @@ loaded into your local storage again even if you have deleted it before.
 ==== Clear email list: `clear`
 Format: `clear`
 
-This command deletes all emails in the list.
+This command deletes all emails in the list from local storage.
 
 [WARNING]
 Once executed, you will not be able to undo this command.
 
 [TIP]
-After clearing all the emails, you can enter `fetch` to retrieve latest emails from server.
+After clearing all the emails from local storage, you can enter `fetch` to retrieve latest 60 emails from
+server.
 
 ==== Sending email (coming in v2.0)
 
