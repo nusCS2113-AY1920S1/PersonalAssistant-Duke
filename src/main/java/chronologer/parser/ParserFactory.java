@@ -8,7 +8,6 @@ import chronologer.command.ManualCommand;
 import chronologer.command.RedoCommand;
 import chronologer.command.UndoCommand;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiMessageHandler;
 
 /**
  * The parser class is used to parse and make sense of the different queries the
@@ -22,7 +21,6 @@ import chronologer.ui.UiMessageHandler;
 public class ParserFactory {
     private static final boolean IGNORE = true;
     private static final boolean UNIGNORE = false;
-    private static final String WRONG_COMMAND = "Wrong Command";
 
     /**
      * Parses the user input of string type and returns the respective command type.
