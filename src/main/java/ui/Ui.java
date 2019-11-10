@@ -628,11 +628,16 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * Prints message to indicate completion of backup.
+     * @param projectsize Number of projects in record.
+     * @param backupfund Backup fund that was loaded from storage.
+     */
     public void printBackupComplete(int projectsize, Fund backupfund) {
         System.out.print(line);
         System.out.println("\t" + "Load Complete!");
-        System.out.println("\t" + "Replaced projects with " + projectsize + " new projects " +
-                            "from backup.");
+        System.out.println("\t" + "Replaced projects with " + projectsize + " new projects "
+                            + "from backup.");
         System.out.println("\t" + "Replaced history with history data from backup.");
         System.out.println("\t" + "Replaced fund with fund data from backup.");
         System.out.println("");

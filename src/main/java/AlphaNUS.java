@@ -1,5 +1,5 @@
 import command.Parser;
-import Storage.Storage;
+import storage.Storage;
 import common.AlphaNUSException;
 import common.TaskList;
 import project.Fund;

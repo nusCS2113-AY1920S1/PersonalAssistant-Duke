@@ -1,6 +1,6 @@
 package command;
 
-import Storage.Storage;
+import storage.Storage;
 import common.AlphaNUSException;
 import common.CommandFormat;
 import common.TaskList;
@@ -130,8 +130,8 @@ public class Process {
         } catch (NumberFormatException | AlphaNUSException e) {
             ui.exceptionMessage("\t" + "Amount of funds should be a number!");
         } catch (IndexOutOfBoundsException e) {
-            ui.exceptionMessage("\t" + "Incorrect input format\n" + "\t" +
-                    "Correct Format: " + commandformat.addProjectFormat());
+            ui.exceptionMessage("\t" + "Incorrect input format\n" + "\t"
+                    + "Correct Format: " + commandformat.addProjectFormat());
         }
     }
 
@@ -304,9 +304,11 @@ public class Process {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     :( OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     :( OOPS!!! Please input the correct command "
+                            + "format (refer to user guide)");
         } catch (NullPointerException e) {
-            ui.exceptionMessage("     :( OOPS!!! There is no project with that name yet, please add the project first!");
+            ui.exceptionMessage("     :( OOPS!!! There is no project with that name yet, "
+                            + "please add the project first!");
         } catch (NumberFormatException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The amount of fund must be" 
                 + "a positive number and must not be empty!");
@@ -358,7 +360,16 @@ public class Process {
         }
     }
 
-    public void backupProjects(Ui ui, Fund fund, Storage storage, ArrayList<String> commandlist) throws AlphaNUSException {
+    /**
+     * Processes the backup command to load sample data from storage for PE testing.
+     * @param ui Ui that interacts with the user.
+     * @param fund the total fund the that the organisation owns.
+     * @param storage Storage for managing data to be stored on local disk.
+     * @param commandlist History of commands.
+     * @throws AlphaNUSException for reading errors from json file
+     */
+    public void backupProjects(Ui ui, Fund fund, Storage storage, ArrayList<String> commandlist)
+                                throws AlphaNUSException {
         Fund backupfund = storage.readFromBackupFundFile();
         fund.loadFund(backupfund.getFund(), backupfund.getFundTaken(), backupfund.getFundRemaining());
         LinkedHashMap<String, Project> projectmap = storage.readFromBackupProjectsFile();
@@ -622,7 +633,7 @@ public class Process {
      * Processes the within command and adds a withinPeriodTask to the user's Tasklist.
      * @param input    Input from the user.
      * @param tasklist Tasklist of the user.
-     * @param ui       Ui that interacts with the user.
+     * @param ui Ui that interacts with the user.
      */
     public void within(String input, TaskList tasklist, Ui ui) {
         try {
@@ -793,6 +804,7 @@ public class Process {
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      * @throws AlphaNUSException for reading errors from json file
+     *
      */
     public void deletePayment(String input, Ui ui, Storage storage) throws AlphaNUSException {
         String payeename = new String();

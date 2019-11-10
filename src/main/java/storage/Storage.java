@@ -1,4 +1,4 @@
-package Storage;
+package storage;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,7 +23,7 @@ import java.util.Set;
 
 //@@author leowyh
 /**
- * Storage.Storage that saves and loads the tasklist of the user.
+ * Storage that saves and loads the tasklist of the user.
  */
 public class Storage {
     private static String basefilepath = System.getProperty("user.dir");

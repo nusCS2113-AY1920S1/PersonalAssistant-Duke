@@ -1,6 +1,6 @@
 package command;
 
-import Storage.Storage;
+import storage.Storage;
 import common.AlphaNUSException;
 import common.TaskList;
 import project.Fund;
@@ -26,7 +26,7 @@ public class Parser {
      * @param input Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
-     * @param storage Storage.Storage for the Tasklist.
+     * @param storage Storage for the Tasklist.
      * @param list CommandList.
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
@@ -84,7 +84,7 @@ public class Parser {
             } else if (instr.isDoAfter(input)) {
                 process.doAfter(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
-                //Storage.Storage.save(tasklist.returnArrayList());
+                //Storage.save(tasklist.returnArrayList());
             } else if (instr.isDeletePayment(input)) {
                 process.deletePayment(input, ui, storage);
                 process.commandHistory(input, ui, storage);

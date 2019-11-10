@@ -1,25 +1,21 @@
 package storagetest;
 
-import Storage.Storage;
-import common.AlphaNUSException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import project.Fund;
 import project.Project;
+import storage.Storage;
 
 import java.util.LinkedHashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 //@@author leowyh
 public class StorageTest {
 
     private Storage storage = new Storage();
-
-    @BeforeEach
-    void clearStorage() {
-
-    }
 
     @Test
     void alwaysTrue() {
@@ -40,7 +36,7 @@ public class StorageTest {
     }
 
     @Test
-    void test_WriteAndReadProjectsFile() {
+    void test_writeAndReadProjectsFile_sucess() {
         try {
             LinkedHashMap<String, Project> expectedprojectmap = new LinkedHashMap<>();
             expectedprojectmap.put("Arts Night", new Project("Arts Night"));
