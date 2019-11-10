@@ -24,15 +24,16 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
    <children>
-      <MenuBar layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="437.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="348.0" AnchorPane.topAnchor="0.0">
+      <MenuBar layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="403.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="379.0" AnchorPane.topAnchor="0.0">
         <menus>
             <Menu mnemonicParsing="false" text="Add New">
                <items>
                   <MenuItem fx:id="menuAdd" mnemonicParsing="false" onAction="#createAddWindow" text="New Task" />
                </items></Menu>
-          <Menu mnemonicParsing="false" text="Exit?">
+          <Menu mnemonicParsing="false" text="Exit">
             <items>
               <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitProgram" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#exitProgramWithoutSaving" text="Close without saving" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="View">
@@ -46,19 +47,14 @@
               <MenuItem fx:id="help" mnemonicParsing="false" onAction="#createHelpWindow" text="View Commands" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="About">
+              <items>
+                <MenuItem fx:id="menuCredits" mnemonicParsing="false" onAction="#createCreditsWindow" text="Credits" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
-      <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="364.0" AnchorPane.bottomAnchor="1.0" />
-      <Button fx:id="sendButton" layoutX="364.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font></Button>
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="27.0" prefHeight="570.0" prefWidth="342.0" vvalue="1.0" AnchorPane.leftAnchor="440.0">
-         <content>
-            <VBox fx:id="dialogContainer" prefHeight="566.0" prefWidth="330.0" />
-         </content>
-      </ScrollPane>
-      <SplitPane dividerPositions="0.64" orientation="VERTICAL" prefHeight="527.0" prefWidth="439.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="346.0" AnchorPane.topAnchor="28.0">
+      <SplitPane dividerPositions="0.64" orientation="VERTICAL" prefHeight="572.0" prefWidth="405.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="377.0" AnchorPane.topAnchor="28.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -75,9 +71,9 @@
                   </TabPane>
                   <ScrollPane prefHeight="340.0" prefWidth="438.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="339.0" prefWidth="437.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="339.0" prefWidth="370.0">
                            <children>
-                              <ListView fx:id="listT" maxWidth="1000.0" onMouseClicked="#onMouseClick_ListView" prefHeight="340.0" prefWidth="438.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <ListView fx:id="listT" maxWidth="1000.0" onMouseClicked="#onMouseClick_ListView" prefHeight="347.0" prefWidth="370.0" AnchorPane.bottomAnchor="-8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <contextMenu>
                                     <ContextMenu>
                                       <items>
@@ -92,9 +88,9 @@
                     </content>
                   </ScrollPane>
                </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="434.0">
                <children>
-                  <BorderPane prefHeight="186.0" prefWidth="438.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <BorderPane prefHeight="233.0" prefWidth="434.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <top>
                         <Label fx:id="labelSelectedTask" text="Selected Task:" BorderPane.alignment="CENTER" />
                      </top>
@@ -156,6 +152,29 @@
                      </center>
                   </BorderPane>
                </children></AnchorPane>
+        </items>
+      </SplitPane>
+      <SplitPane dividerPositions="0.9175438596491228" layoutX="405.0" layoutY="28.0" orientation="VERTICAL" prefHeight="572.0" prefWidth="377.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="369.0">
+               <children>
+                  <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="2.0" layoutY="-4.0" prefHeight="527.0" prefWidth="371.0" vvalue="1.0" AnchorPane.leftAnchor="2.0">
+                     <content>
+                        <VBox fx:id="dialogContainer" prefHeight="525.0" prefWidth="358.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="51.0" prefWidth="340.0">
+               <children>
+                  <Button fx:id="sendButton" layoutX="299.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="userInput" layoutY="14.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="299.0" AnchorPane.bottomAnchor="2.0" />
+               </children>
+            </AnchorPane>
         </items>
       </SplitPane>
    </children>
