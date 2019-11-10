@@ -34,7 +34,7 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
         try {
             InputValidator.validate(userInputStr);
             indexAndMealInfo = userInputStr.split(" ", 2);
-            InputValidator.validateIndex(indexAndMealInfo[0]);
+            InputValidator.validatePositiveInteger(indexAndMealInfo[0]);
             mealIndex = Integer.parseInt(indexAndMealInfo[0]);
             nutritionInfoMap = ArgumentSplitter.splitForwardSlashArguments(indexAndMealInfo[1]);
         } catch (ProgramException e) {
@@ -57,8 +57,8 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
                 try {
                     InputValidator.validateNutritionalValue(valueStr);
                 } catch (ProgramException e) {
-                    return new EditCommand(false, "Unable to parse tag " + detailsStr + " with value " +
-                            valueStr + " as an integer. Please enter values as integers larger than or equal to 0");
+                    return new EditCommand(false, "Unable to parse tag " + detailsStr + " with value "
+                            + valueStr + " as an integer. Please enter values as integers larger than or equal to 0");
                 }
             }
         }
