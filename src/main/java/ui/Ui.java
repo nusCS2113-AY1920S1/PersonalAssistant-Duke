@@ -32,6 +32,7 @@ public class Ui {
         this.in = new Scanner(System.in);
     }
 
+
     /**
      * Reads input from the user.
      * 
@@ -45,11 +46,12 @@ public class Ui {
      * Prints starting message for the AlphaNUS program.
      */
     public void startMessage() {
-        System.out.print(line);
-        System.out.println("\t" + "Hello! I'm AlphaNUS");
-        System.out.println("");
-        System.out.println("\t" + "Enter \"help\" to see things that I can do!");
-        System.out.print(line);
+        System.out.println("\t" + "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+        System.out.println("\t" + "$            Hello! I'm AlphaNUS             $");
+        System.out.println("\t" + "$                                            $");
+        System.out.println("\t" + "$ Enter \"help\" to see things that I can do!  $");
+        System.out.println("\t" + "$                                            $");
+        System.out.println("\t" + "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     }
 
     /**
@@ -77,7 +79,7 @@ public class Ui {
      * 
      * @param projectslist ArrayList containing all projects in record.
      */
-    public void printProjectsList(ArrayList<Project> projectslist) {
+    public void printProjectsList(ArrayList<Project> projectslist, String currentprojectname) {
         int index = 1;
         System.out.print(line);
         System.out.println("\t" + "Here is the list of projects:");
@@ -89,6 +91,12 @@ public class Ui {
             index++;
         }
         System.out.println("\t" + "There are " + projectslist.size() + " projects in the record.");
+        if (currentprojectname == null) {
+            System.out.println("\t" + "Please go to a project to manage its payments and payees.");
+            System.out.println("\t" + "Command Format: " + commandFormat.listProjectFormat());
+        } else {
+            System.out.println("\t" + "Current Project: " + currentprojectname);
+        }
         System.out.print(line);
     }
 
@@ -127,15 +135,15 @@ public class Ui {
     /**
      * Prints the number of projects in the projectmap and the current project
      * that is being worked on.
-     * @param currentprojectnamename Name of the current project.
+     * @param currentprojectname Name of the current project.
      * @param projectsize The current number of projects in the projectmap.
      */
-    public void printProjectStatus(String currentprojectnamename, int projectsize) {
+    public void printProjectStatus(String currentprojectname, int projectsize) {
         System.out.print(line);
-        if (currentprojectnamename == null) {
+        if (currentprojectname == null) {
             System.out.println("\t" + "There are no projects in the record.");
         } else {
-            System.out.println("\t" + "Current Project: " + currentprojectnamename);
+            System.out.println("\t" + "Current Project: " + currentprojectname);
             System.out.println("\t" + "There are " + projectsize + " projects in the record.");
         }
         System.out.print(line);
@@ -149,6 +157,7 @@ public class Ui {
     public void printGoToProject(String projectname) {
         System.out.print(line);
         System.out.println("\t" + "Going to Project: " + projectname);
+        System.out.println("\t" + "You can now manage payments and payees in " + projectname);
         System.out.print(line);
     }
 
@@ -442,7 +451,7 @@ public class Ui {
      * @param payee Payee containing identification information of Payee.
      * @param name  the name of Payee to make Payments to.
      */
-    public void printAddPayeeMessage(String name, Payee payee, int payeesize, String currentprojectnameName) {
+    public void printAddPayeeMessage(String name, Payee payee, int payeesize, String currentprojectname) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payee:");
     }
@@ -620,6 +629,24 @@ public class Ui {
     }
 
     /**
+     * Prints message to indicate completion of backup.
+     * @param projectsize Number of projects in record.
+     * @param backupfund Backup fund that was loaded from storage.
+     */
+    public void printBackupComplete(int projectsize, Fund backupfund) {
+        System.out.print(line);
+        System.out.println("\t" + "Load Complete!");
+        System.out.println("\t" + "Replaced projects with " + projectsize + " new projects "
+                            + "from backup.");
+        System.out.println("\t" + "Replaced history with history data from backup.");
+        System.out.println("\t" + "Replaced fund with fund data from backup.");
+        System.out.println("");
+        System.out.println("\t" + "Current fund data is as follows:");
+        System.out.print(backupfund.giveFund());
+        System.out.print(line);
+    }
+
+    /**
      * Prints out a help message with command formats.
      */
     public void printHelpMessage() {
@@ -627,6 +654,7 @@ public class Ui {
         System.out.println("\t*Help*");
         System.out.println("");
         System.out.println("Project:");
+        System.out.println("\tLoad Backup:         " + commandFormat.loadBackupFormat());
         System.out.println("\tAdd Project:         " + commandFormat.addProjectFormat());
         System.out.println("\tDelete Project:      " + commandFormat.deleteProjectFormat());
         System.out.println("\tList Projects:       " + commandFormat.listProjectFormat());
