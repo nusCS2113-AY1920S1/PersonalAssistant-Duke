@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Tests whether a {@code payment} is due in current month.
+ * Tests whether a {@code payment} is coming to due in current month.
  */
 public class PaymentInMonthPredicate implements Predicate<Payment> {
 
@@ -23,7 +23,8 @@ public class PaymentInMonthPredicate implements Predicate<Payment> {
 
         boolean isSameYear = (due.getYear() == now.getYear());
         boolean isSameMonth = due.getMonth().equals(now.getMonth());
+        boolean isOverdue = due.isBefore(now);
 
-        return (isSameYear && isSameMonth);
+        return (isSameYear && isSameMonth && !isOverdue);
     }
 }

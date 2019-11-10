@@ -1,3 +1,5 @@
+// Credit: Adopted from reference project addressbook-level3.
+
 package duke.commons;
 
 import java.io.IOException;
@@ -6,7 +8,6 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-// Adopted from reference project addressbook-level3
 /**
  * Writes and reads files.
  */

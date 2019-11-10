@@ -17,9 +17,15 @@ import java.util.function.Predicate;
 /**
  * API of the Logic component.
  */
-
 public interface Logic {
 
+    /**
+     * Executes the user input and returns the result.
+     *
+     * @param userInput The command as entered by the user.
+     * @return the result of the command execution.
+     * @throws DukeException If an error occurs during parsing or command execution.
+     */
     CommandResult execute(String userInput) throws DukeException;
 
     ObservableList<Expense> getExternalExpenseList();
@@ -42,10 +48,25 @@ public interface Logic {
 
     BigDecimal getBudgetTag(String category);
 
+    /**
+     * Returns an unmodifiable external list of PaymentList.
+     *
+     * @return The external list to be displayed.
+     */
     ObservableList<Payment> getUnmodifiableFilteredPaymentList();
 
+    /**
+     * Returns the sorting criteria used in PaymentList.
+     *
+     * @return The sorting criteria being used.
+     */
     ObjectProperty<PaymentList.SortingCriteria> getPaymentSortingCriteria();
 
+    /**
+     * Returns the predicate used in PaymentList.
+     *
+     * @return The predicate being used.
+     */
     ObjectProperty<Predicate> getPaymentPredicate();
 
     StringProperty getExpenseListTotalString();

@@ -17,11 +17,20 @@ import java.math.BigDecimal;
 import java.util.Map;
 import java.util.function.Predicate;
 
+/**
+ * The main LogicManager of the app.
+ */
 public class LogicManager implements Logic {
 
     private Model model;
     private Storage storage;
 
+    /**
+     * Constructs a {@code LogicManager} with model and storage.
+     *
+     * @param model model of Duke++.
+     * @param storage storage of Duke++.
+     */
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;

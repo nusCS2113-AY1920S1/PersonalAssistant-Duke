@@ -8,6 +8,7 @@ import duke.model.DukePP;
 import duke.model.Expense;
 import duke.model.ExpenseList;
 import duke.model.Model;
+import duke.model.payment.PaymentList;
 import duke.storage.IncomeListStorage;
 import duke.storage.ExpenseListStorage;
 import duke.storage.PlanAttributesStorage;
@@ -66,7 +67,7 @@ public class Main extends Application {
             loadListDemoData(storage);
         }
         if (storage.loadPaymentList().isEmpty()) {
-                logger.warning("PaymentList is not loaded");
+            logger.warning("PaymentList is not loaded");
         }
         if (storage.loadExpenseList() == null) {
             logger.warning("expenseList is not loaded");
@@ -156,6 +157,7 @@ public class Main extends Application {
             expenseList.add(builder.build());
             storage.saveExpenseList(expenseList);
 
+
             Map<String, String> planAttributes = storage.loadPlanAttributes();
             planAttributes.put("NUS_STUDENT", "TRUE");
             planAttributes.put("ONLINE_SHOPPING", "100");
@@ -165,6 +167,7 @@ public class Main extends Application {
             storage.savePlanAttributes(planAttributes);
 
 
+            PaymentList paymentList = new PaymentList();
 
         } catch (DukeException e) {
             e.printStackTrace();
