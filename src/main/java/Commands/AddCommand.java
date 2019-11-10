@@ -57,7 +57,7 @@ public class AddCommand extends Command {
                 out = ui.showAdd(this.task,size);
                 storage.updateEventList(events);
             } else {
-                out = "Sorry, you have conflicting events \n";
+                out = DukeConstants.CONFLICTING_EVENT;
                 for (int i = 0; i < eventConflict.size(); i++) {
                     out += (i + 1) + ". " + eventConflict.get(i) + "\n";
                 }
@@ -70,7 +70,7 @@ public class AddCommand extends Command {
                 out = ui.showAdd(this.task,size);
                 storage.updateDeadlineList(deadlines);
             } else {
-                out = "Sorry, you have conflicting deadlines \n";
+                out = DukeConstants.CONFLICTING_DEADLINE;
                 for (int i = 0; i < deadlineConflict.size();i++) {
                     out += (i + 1) + ". " + deadlineConflict.get(i) + "\n";
                 }
