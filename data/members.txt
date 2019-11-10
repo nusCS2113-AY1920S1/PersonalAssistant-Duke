@@ -10,5 +10,20 @@
     "name": "tester2",
     "taskList": [],
     "skillList": []
+  },
+  {
+    "name": "james",
+    "taskList": [],
+    "skillList": [
+      "coding"
+    ]
+  },
+  {
+    "name": "alan",
+    "taskList": [],
+    "skillList": [
+      "coding",
+      "talking"
+    ]
   }
 ]
