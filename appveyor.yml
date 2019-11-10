@@ -1,12 +1,11 @@
-language: java
-jdk:
-  - oraclejdk11
-before_install:
-  - chmod +x gradlew
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+# AppVeyor configuration file
+# Call on gradle to build and run tests
+build_script:
+  - gradlew.bat assemble checkstyleMain checkstyleTest
+
+test_script:
+  - gradlew.bat test
+
+environment:
+  JAVA_HOME: C:\Program Files\Java\jdk11  # Use 64-bit Java
+

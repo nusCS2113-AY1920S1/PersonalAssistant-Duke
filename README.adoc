@@ -1,3 +1,7 @@
+image:https://ci.appveyor.com/api/projects/status/agqgm1oree8iohvq?svg=true["Build Status", link=https://ci.appveyor.com/project/E0310898/main] image:https://travis-ci.org/AY1920S1-CS2113-T13-3/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2113-T13-3/main"] 
+image:https://img.shields.io/github/issues/network-tools/shconfparser.svg?maxAge=2592000["issues", link="https://github.com/AY1920S1-CS2113-T13-3/main/issues"]
+image:https://img.shields.io/badge/License-MIT-blue.svg["License", link="https://opensource.org/licenses/MIT"]
+
 image::docs/images/organization logo.png[width="600", align="center"]
 image::docs/images/Ui.png[width="600", align="center"]
 

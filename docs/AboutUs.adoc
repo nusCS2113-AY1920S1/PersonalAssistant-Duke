@@ -20,7 +20,7 @@ Role: Lecturer
 image::e0310898.png[width="150" , align="left"]
 {empty}[https://github.com/E0310898[github]] [<<Sai Ganesh Suresh#, portfolio>>]
 
-Role: Team Member +
+Role: Team Lead +
 Responsibilities:
 
 '''
@@ -29,7 +29,7 @@ Responsibilities:
 image::hanskw4267.png[width="150", align="left"]
 {empty}[https://github.com/hanskw4267[github]] [<<Hans Kurnia#, portfolio>>]
 
-Role: Team Member +
+Role: Developer +
 Responsibilities: 
 
 '''
@@ -38,7 +38,7 @@ Responsibilities:
 image::fauzt.png[width="150", align="left"]
 {empty}[https://github.com/fauzt[github]] [<<Fauzan#, portfolio>>]
 
-Role: Team Member +
+Role: Developer +
 Responsibilities: 
 
 '''
@@ -47,16 +47,16 @@ Responsibilities:
 image::assman.png[width="150", align="left"]
 {empty}[https://github.com/assman[github]] [<<Varun#, portfolio>>]
 
-Role: Team Member +
+Role: Developer +
 Responsibilities: 
 
 '''
 
 === Tan Yi Xiang
 image::tanyixiang.png[width="150", align="left"]
-{empty}[https://github.com/TanYiXiang[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/TanYiXiang[github]] [https://docs.google.com/document/d/1-Pt-Wx5YmU8kz0UeaD_YkYI5nViJc1H6DXWzQClTB-A/edit[portfolio]]
 
-Role: Team Member +
-Responsibilities: 
+Role: Developer +
+Responsibilities: Storage
 
 '''
