@@ -73,8 +73,8 @@ public class NotificationCommand extends Command {
                 + "     |     |         | " + alert + blankSpace + "|\n"
                 + "     (6___6)         | " + "Budget remaining : " + balance + blank2 + "|\n"
                 + "      `---`          .-------------------------------------------------." + reset;
-
         Ui.setOutput(cow);
+        Ui.showResponse();
     }
 }
 
