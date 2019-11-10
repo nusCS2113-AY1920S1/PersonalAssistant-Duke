@@ -3,6 +3,7 @@
  *
  * @author kuromono
  */
+
 package cube.storage.config;
 
 public class LogConfig {

@@ -1,9 +1,9 @@
 package cube.model.food;
 
-import cube.model.food.foolUtil.SortByExpiry;
-import cube.model.food.foolUtil.SortByName;
-import cube.model.food.foolUtil.SortByPrice;
-import cube.model.food.foolUtil.SortByStock;
+import cube.model.food.foodutil.SortByExpiry;
+import cube.model.food.foodutil.SortByName;
+import cube.model.food.foodutil.SortByPrice;
+import cube.model.food.foodutil.SortByStock;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +20,11 @@ public class FoodList {
 	public enum SortType {
 		EXPIRY, NAME, STOCK, PRICE;
 
+		/**
+		 * Checks whether the sort type is defined.
+		 * @param temp the input.
+		 * @return true if is defined, false otherwise.
+		 */
         public static boolean isDefined(String temp) {
             if (temp.equals("EXPIRY") || temp.equals("NAME")
 					|| temp.equals("STOCK") || temp.equals("PRICE")) {

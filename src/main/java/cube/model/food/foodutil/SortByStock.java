@@ -1,4 +1,4 @@
-package cube.model.food.foolUtil;
+package cube.model.food.foodutil;
 
 import cube.model.food.Food;
 

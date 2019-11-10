@@ -1,5 +1,5 @@
 /**
- * Handling of JSON File Read/Write operations in Cube
+ * Handling of JSON File Read/Write operations in Cube.
  *
  * @author kuromono
  */
@@ -37,7 +37,8 @@ public class StorageManager {
      * Constructor with multiple arguments.
      * Creates a new instance of all Storage Classes.
      */
-    public StorageManager(FoodStorage foodStorage, SaleStorage saleStorage, PromotionStorage promotionStorage, ConfigStorage configStorage) {
+    public StorageManager(FoodStorage foodStorage, SaleStorage saleStorage,
+                          PromotionStorage promotionStorage, ConfigStorage configStorage) {
         this.foodStorage = foodStorage;
         this.saleStorage = saleStorage;
         this.promotionStorage = promotionStorage;
@@ -114,8 +115,6 @@ public class StorageManager {
 
     /**
      * Sets the configuration storage containing user-defined configurations.
-     *
-     * @return ConfigStorage object containing the user-defined configurations.
      */
     @JsonIgnore
     public void setConfig(ConfigStorage configStorage) {

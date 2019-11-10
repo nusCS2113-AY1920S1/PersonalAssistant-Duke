@@ -58,7 +58,7 @@ public abstract class FileUtil {
     }
 
     /**
-     * Getter for FileFullPath
+     * Getter for FileFullPath.
      * @return full file path of the JSON file.
      */
     public String getFileFullPath() {

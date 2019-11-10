@@ -24,7 +24,7 @@ public class PromotionStorage {
      * Setter for PromotionList.
      * @param promotionList object containing promotions.
      */
-    public void storePromotionList (PromotionList promotionList) {
+    public void storePromotionList(PromotionList promotionList) {
         this.promotionList = promotionList;
     }
 }
