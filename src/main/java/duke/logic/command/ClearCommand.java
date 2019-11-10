@@ -10,16 +10,30 @@ import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
 /**
- * duke.logic.parser.command.DeleteCommand which executes the procedure for
- * deleting duke.task.Task objects from the duke.tasklist.TaskList
+ * duke.logic.parser.command.ClearCommand which executes the procedure for
+ * clearinngg duke.task.Task objects from the duke.tasklist.TaskList
  */
 public class ClearCommand extends Command {
     private Optional<String> filter;
 
+    /**
+     * Constructor for ClearCommand that takes in the filter to allow you to clear a specific filtered list
+     *
+     * @param filter Optional<String> of the filter to be passed in
+     */
     public ClearCommand(Optional<String> filter) {
         this.filter = filter;
     }
 
+    /**
+     * execute() that clears the task list specified
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws DukeException
+     * @throws IOException
+     * @throws IOException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException, IOException {
         if (filter.isPresent()) {
