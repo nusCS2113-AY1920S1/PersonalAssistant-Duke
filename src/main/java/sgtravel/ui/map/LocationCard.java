@@ -45,7 +45,7 @@ public class LocationCard extends UiPart<StackPane> {
      * @param id The id of the location.
      * @return The StackPane for the tooltip.
      */
-    public static StackPane getCard(Venue location, String id) {
+    protected static StackPane getCard(Venue location, String id) {
         return new LocationCard(location, id).getRoot();
     }
 

@@ -1,7 +1,6 @@
-package sgtravel.ui.map;
+package sgtravel.ui;
 
 import sgtravel.model.locations.Venue;
-import sgtravel.ui.UiPart;
 
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
@@ -11,7 +10,7 @@ import javafx.scene.shape.Circle;
 import javafx.fxml.FXML;
 
 /**
- * Represents a point on the map.
+ * Represents a point on the side map.
  */
 public class PointCard extends UiPart<StackPane> {
     private static final String FXML = "PointCard.fxml";
