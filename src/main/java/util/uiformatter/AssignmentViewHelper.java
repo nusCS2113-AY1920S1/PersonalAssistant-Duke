@@ -24,6 +24,7 @@ import util.log.ArchDukeLogger;
 public class AssignmentViewHelper {
     private static ViewHelper viewHelper = new ViewHelper();
     private ParserHelper parserHelper;
+
     /**
      * Class that assists with retrieving and formatting information about task assignments in a project.
      */
