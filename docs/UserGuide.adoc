@@ -34,7 +34,7 @@ Jump straight to <<Quick Start>> to get started!
 
 If you already have DEGREES.NUS, jump ahead to <<Features>>!
 
-A summary of all our commands is avaiable <<here>>!
+A summary of all our commands is available in <<Command Summary>>!
 
 <<<
 == Quick Start
