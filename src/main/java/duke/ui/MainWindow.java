@@ -87,7 +87,6 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
     private Tooltip toolTip = new Tooltip();
     private Reminders remind = new Reminders();
-    private Timer timer = new Timer();
 
     private int refreshType = Numbers.ZERO.value;
     private static final int TIMER_DELAY = 500;
@@ -130,6 +129,7 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    Timer timer = new Timer();
     TimerTask exitDuke = new TimerTask() {
         public void run() {
             System.exit(Numbers.ZERO.value);
@@ -576,7 +576,7 @@ public class MainWindow extends AnchorPane {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setAlwaysOnTop(true);
-            fxmlLoader.<HelpWindow>getController().setHelpWindow();
+            fxmlLoader.<HelpWindow>getController().setHelpWindow(duke, this);
             stage.show();
         } catch (IOException e) {
             logr.log(Level.SEVERE, "Unable to load help window", e);
