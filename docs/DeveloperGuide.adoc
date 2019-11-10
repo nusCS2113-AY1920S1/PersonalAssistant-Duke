@@ -108,6 +108,31 @@ The `Ui` component is responsible for: +
 
 === Logic component
 
+The *_Class Diagram_* illustrates the relationship between the individual components of the `Logic` component.
+
+The `Logic` component consists of the `command` subpackage alongside the `CommandParser` and `Reminder` classes.
+
+[[LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[LogicClassDiagram]
+
+The `command` subpackage consists of the following classes and subpackages.
+
+* `HelpCommand` class
+* `ByeCommand` class
+* `productivity` subpackage
+* `task` subpackage
+* `semester` subpackage
+* `organization` subpackage
+* `module` subpackage
+* `lesson` subpackage
+
+The `Logic` component is responsible for:
+
+* Executing user commands.
+* Listening for changes to `Model` data so that the `Logic` component can be updated as expected.
+* Displaying output to the user via the `Ui` component
+
 === Model component
 
 The `Model` component consists of the `task` and `university` packages and shows how they are associated with each other.
