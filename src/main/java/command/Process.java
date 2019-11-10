@@ -121,13 +121,14 @@ public class Process {
                     ui.printAddProject(newProject, projectsize);
                     BeforeAfterCommand.afterCommand(storage, projectManager);
                 } else {
-                    ui.exceptionMessage("\t" + "Not enough funds");
+                    ui.exceptionMessage("\t" + "Not enough funds!");
                 }
             }
         } catch (NumberFormatException | AlphaNUSException e) {
             ui.exceptionMessage("\t" + "Amount of funds should be a number!");
         } catch (IndexOutOfBoundsException e) {
-            ui.exceptionMessage(e.getMessage());
+            ui.exceptionMessage("\t" + "☹ OOPS!!! Wrong input format!"
+                    + "\n\tCorrect input format is: add project pr/PROJECT_NAME am/AMOUNT_OF_FUND");
         }
     }
 
@@ -136,33 +137,38 @@ public class Process {
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      */
-    public void deleteProject(String input, Ui ui, Storage storage, Fund fund) throws AlphaNUSException {
-        BeforeAfterCommand.beforedoCommand(storage, projectManager);
-        String[] split = input.split("pr/", 2);
-        split = cleanStrStr(split);
-        if (split.length != 2) {
-            System.out.println("\t" + "Incorrect input");
-            System.out.println("\t" + "Correct Format: " + commandformat.deleteProjectFormat());
-            return;
-        } //TODO refactor
+    public void deleteProject(String input, Ui ui, Storage storage, Fund fund) {
+        try {
+            BeforeAfterCommand.beforedoCommand(storage, projectManager);
+            String[] split = input.split("pr/", 2);
+            split = cleanStrStr(split);
+            if (split.length != 2) {
+                System.out.println("\t" + "Incorrect input");
+                System.out.println("\t" + "Correct Format: " + commandformat.deleteProjectFormat());
+                return;
+            } //TODO refactor
 
-        String projectname = split[1];
-        if (projectname.isEmpty()) {
-            System.out.println("\t" + "Project name cannot be empty!");
-            System.out.println("\t" + "Correct Format: " + commandformat.deleteProjectFormat());
-            return;
-        } //TODO refactor
+            String projectname = split[1];
+            if (projectname.isEmpty()) {
+                System.out.println("\t" + "Project name cannot be empty!");
+                System.out.println("\t" + "Correct Format: " + commandformat.deleteProjectFormat());
+                return;
+            } //TODO refactor
 
-        if (!projectManager.projectmap.containsKey(projectname)) {
-            System.out.println("\t" + "Project does not exist!");
-            return;
-        } //TODO refactor
-        double budget = projectManager.projectmap.get(projectname).budget;
-        fund.addFund(budget);
-        Project deletedProject = projectManager.deleteProject(projectname);
-        int projectsize = projectManager.projectmap.size();
-        ui.printDeleteProject(deletedProject, projectsize);
-        BeforeAfterCommand.afterCommand(storage, projectManager);
+            if (!projectManager.projectmap.containsKey(projectname)) {
+                System.out.println("\t" + "Project does not exist!");
+                return;
+            } //TODO refactor
+            double budget = projectManager.projectmap.get(projectname).budget;
+            fund.addFund(budget);
+            Project deletedProject = projectManager.deleteProject(projectname);
+            int projectsize = projectManager.projectmap.size();
+            ui.printDeleteProject(deletedProject, projectsize);
+            BeforeAfterCommand.afterCommand(storage, projectManager);
+        } catch (AlphaNUSException | ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("\t" + "☹ OOPS!!! Wrong input format!"
+                    + "\n\tCorrect input format is: delete project pr/PROJECT_NAME");
+        }
     }
 
     /**
@@ -184,36 +190,25 @@ public class Process {
             } //TODO refactor
 
             int projectindex = Integer.parseInt(split[1]) - 1;
-            /* 
-            if (projectindex.isEmpty()) {
-                System.out.println("\t" + "Project index cannot be empty!");
-                System.out.println("\t" + "Correct Format: goto project pr/PROJECT_NAME");
-                return;
-            } 
-            */
             if (projectManager.projectmap.isEmpty()) { //TODO refactor
                 ui.printNoProjectMessage();
                 return;
-            } //else if (!projectManager.projectmap.containsKey(projectname)) { //TODO refactor
-            //System.out.println("\t" + "Project does not exist!");
-            //return;
-            //} //TODO refactor
-
+            } //TODO refactor
             String currentprojectname = projectManager.gotoProject(projectindex);
             ui.printGoToProject(currentprojectname);
         } catch (NumberFormatException e) {
-            ui.exceptionMessage("\t" + "Please make sure that the index is an Integer\n" + "\t" 
-                + "Correct Format: " + commandformat.gotoProjectFormat());
+            ui.exceptionMessage("\t" + "Please make sure that the index is an Integer\n"
+                    + "\t" + "Correct Format: " + commandformat.gotoProjectFormat());
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("\t" + "No existing project with that index\n" + "\t" 
-                + "Correct Format: " + commandformat.gotoProjectFormat());
+            ui.exceptionMessage("\t" + "No existing project with that index\n"
+                    + "\t" + "Correct Format: " + commandformat.gotoProjectFormat());
         }
     }
 
+    //@@author lijiayu980606
     /**
      * Process the set fund command to set a fund to all projects.
      * Command format: set fund am/AMOUNT_OF_FUND.
-     *
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      * @param fund  the total fund the that the organisation owns
@@ -243,6 +238,7 @@ public class Process {
         }
     }
 
+    //@@author lijiayu980606
     /**
      * Process the add fund command to add fund value to all projects
      * Command format: add fund add/AMOUNT_OF_FUND.
@@ -273,6 +269,7 @@ public class Process {
         }
     }
 
+    //@@author lijiayu980606
     /**
      * Process the add fund command to add fund value to specific project.
      * Command Format: assign fund pr/PROJECT_NAME am/AMOUNT_OF_FUND.
@@ -309,10 +306,11 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! There is no project with that name yet, please add the project first!");
         } catch (NumberFormatException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The amount of fund must be" 
-                + "a positive number and mustser not be empty!");
+                + "a positive number and must not be empty!");
         }
     }
 
+    //@@author lijiayu980606
     /**
      * Show the current fund status.
      * @param input Input from the user.
@@ -320,11 +318,12 @@ public class Process {
      * @param fund  the total fund the that the organisation owns
      */
     public void showFund(String input, Ui ui, Fund fund) {
-        System.out.println(Ui.line);
+        System.out.print(Ui.line);
         System.out.print(fund.giveFund());
-        System.out.println(Ui.line);
+        System.out.print(Ui.line);
     }
 
+    //@@author lijiayu980606
     /**
      * Process the reset fund command to add fund value to all projects.
      * TODO future implementation: user need to key in password to enable this action.
@@ -356,84 +355,120 @@ public class Process {
         }
     }
 
+    //@@author lijiayu980606
+    /**
+     * Process the reduce budget command to reduce fund assigned to a specific project.
+     * Command Format: reduce budget pr/PROJECT_NAME am/AMOUNT_OF_FUND.
+     * @param input Input from the user.
+     * @param ui    Ui that interacts with the user.
+     * @param fund  the total fund the that the organisation owns
+     */
+    public void reduceBudget(String input, Ui ui, Fund fund) {
+        try {
+            String[] split = input.split("pr/| am/");
+            String projectname = split[1];
+            Double amount = Double.parseDouble(split[2]);
+            if (!projectManager.projectmap.containsKey(projectname)) {
+                System.out.println("\t" + "☹ OOPS!!! Project does not exist!");
+                return;
+            } else if (amount < 0 || amount > 500000) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000.  ");
+            } else {
+                double newbudget = projectManager.projectmap.get(projectname).budget - amount;
+                if (newbudget < projectManager.projectmap.get(projectname).spending) {
+                    ui.exceptionMessage("     ☹ OOPS!!! The remaining budget is not sufficient.  ");
+                    showBudget("show budget pr/" + projectname, ui);
+                    return;
+                }
+                projectManager.projectmap.get(projectname).budget = newbudget;
+                projectManager.projectmap.get(projectname).remaining -= amount;
+                fund.retrieveFund(amount);
+                ui.printReduceBudgetMessage(fund, amount, projectManager.projectmap.get(projectname), projectname);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch (NullPointerException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There is no project with that name yet, please add the project first!");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The amount of fund must be a positive number and must not be empty!");
+        }
+    }
 
     //===========================* Deadline *================================
 
     /**
-     * Processes the View Schedule command and outputs the schedule for the specific date entered in the input.
+     * Processes the add todo command.
+     * format: add todo d/DESCRIPTION.
      * @param input    Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui       Ui that interacts with the user.
      */
-    public void viewSchedule(String input, TaskList tasklist, Ui ui) {
+    public void addTodo(String input, TaskList tasklist, Ui ui) {
         try {
-            TaskList findlist = new TaskList();
-            String[] splitspace = input.split(" ", 3);
-            for (Task tasks : tasklist.returnArrayList()) {
-                if (tasks.giveTask().contains(splitspace[2])) {
-                    findlist.addTask(tasks);
-                }
-            }
-            ArrayList<String> time = new ArrayList<String>();
-            for (Task tasks : findlist.returnArrayList()) {
-                String[] splitcolon = tasks.giveTask().split(":");
-                String[] splitspaces = splitcolon[1].split(" ");
-                time.add(splitspaces[2]);
-            }
-            Collections.sort(time);
-            TaskList finalList = new TaskList();
-            for (int i = 0; i < time.size(); i = i + 1) {
-                for (Task tasks : findlist.returnArrayList()) {
-                    if (tasks.giveTask().contains(time.get(i))) {
-                        finalList.addTask(tasks);
-                    }
-                }
-            }
-            ui.printList(finalList, "View Schedule");
+            String[] split = input.split("d/");
+            String description = split[1];
+            Task todo = new Task(description);
+            tasklist.addTask(todo);
+            ui.printAddedMessage(todo,tasklist);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong input format. Correct format: add todo d/DESCRIPTION");
+        }
+    }
+
+    //@@author lijiayu980606
+    /**
+     * Processes the add deadline command.
+     * format: add deadline d/DESCRIPTION by/DATE.
+     * @param input    Input from the user.
+     * @param tasklist Tasklist of the user.
+     * @param ui       Ui that interacts with the user.
+     */
+    public void addDeadline(String input, TaskList tasklist, Ui ui) {
+        try {
+            String[] splitspace = input.split("d/|by/");
+            String taskDescription = splitspace[1];
+            String date = splitspace[2];
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            Date ddl = sdf.parse(date);
+            Deadline deadline = new Deadline(taskDescription, ddl);
+            tasklist.addTask(deadline);
+            ui.printAddedMessage(deadline, tasklist);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong input format. "
+                    + "Correct format: add deadline d/DESCRIPTION by/DATE");
+        } catch (ParseException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong date format. Correct format: dd-MM-yyyy");
         }
     }
 
     /**
      * Processes the done command and sets the task specified as done.
+     * format: done id/ID.
      * @param input    Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui       Ui that interacts with the user.
      */
     public void done(String input, TaskList tasklist, Ui ui) {
         try {
-            String[] arr = input.split(" ", 2);
+            String[] arr = input.split("id/", 2);
             int numdone = Integer.parseInt(arr[1]) - 1;
+            if (numdone > tasklist.size()) {
+                ui.exceptionMessage("     ☹ OOPS!!! Required task is not found.");
+                return;
+            }
             tasklist.get(numdone).setDone();
             ui.printDoneMessage(numdone, tasklist);
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to indicate as done.");
-        }
-    }
-
-    /**
-     * Processes the deadline command and adds a deadline to the user's Tasklist.
-     * @param input    Input from the user.
-     * @param tasklist Tasklist of the user.
-     * @param ui       Ui that interacts with the user.
-     */
-    public void deadline(String input, TaskList tasklist, Ui ui) {
-        try {
-            String[] splitspace = input.split("d/|by/");
-            String taskDescription = splitspace[1];
-            String date = splitspace[2];
-            Deadline deadline = new Deadline(taskDescription, date);
-            tasklist.addTask(deadline);
-            ui.printAddedMessage(deadline, tasklist);
-        } catch (ArrayIndexOutOfBoundsException | ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The description of a deadline cannot be empty.");
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong input format. Correct format: done id/ID");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The id must be a positive number and must not be empty!");
         }
     }
 
     /**
      * Processes the delete task command and removes task from tasklist.
+     * format: delete id/ID.
      * @param input    Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui       Ui that interacts with the user.
@@ -442,9 +477,97 @@ public class Process {
         try {
             String[] splitspace = input.split("id/", 2);
             int id = Integer.parseInt(splitspace[1]) - 1;
+            if (id >= tasklist.size()) {
+                ui.exceptionMessage("     ☹ OOPS!!! Required task is not found.");
+                return;
+            }
+            ui.printDeleteTaskMessage(id, tasklist);
             tasklist.deleteTask(id);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The id of a deadline cannot be empty.");
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong input format! Correct format: delete id/ID");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The id must be a positive number and must not be empty!");
+        }
+    }
+
+    /**
+     * Processes the delete task command and removes task from tasklist.
+     * format: find task key/KEY_WORD.
+     * @param input Input from the user.
+     * @param taskList Tasklist of the user.
+     * @param ui Ui that interacts with the user.
+     */
+    public void findTask(String input, TaskList taskList, Ui ui) {
+        try {
+            String[] split = input.split("key/", 2);
+            String keyword = split[1];
+            TaskList resultList = new TaskList();
+            int count = 0;
+            for (int i = 0; i < taskList.size(); i++) {
+                if (taskList.get(i).getDescription().contains(keyword)) {
+                    count++;
+                    resultList.addTask(taskList.get(i));
+                }
+            }
+            if (resultList.size() == 0) {
+                ui.exceptionMessage("     No matching tasks!");
+                return;
+            }
+            ui.printList(resultList,"find");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong input format! Correct format: find task key/KEY_WORD");
+        }
+    }
+
+    /**
+     * Processes the list tasks command.
+     * format: list tasks.
+     * @param input Input from the user.
+     * @param taskList Tasklist of the user.
+     * @param ui Ui that interacts with the user.
+     */
+    public void listTasks(String input, TaskList taskList, Ui ui) {
+        try {
+            if (taskList.size() == 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! The tasklist is empty for now.");
+                return;
+            }
+            ui.printList(taskList,"list");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong input format! Correct format: list tasks");
+        }
+    }
+
+    /**
+     * Processes the View Schedule command and outputs the schedule for the specific date entered in the input.
+     * format: view schedule d/DATE.
+     * @param input    Input from the user.
+     * @param tasklist Tasklist of the user.
+     * @param ui       Ui that interacts with the user.
+     */
+    public void viewSchedule(String input, TaskList tasklist, Ui ui) {
+        try {
+            TaskList findlist = new TaskList();
+            String[] split = input.split("d/", 2);
+            String datestring = split[1];
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = sdf.parse(datestring);
+            for (Task tasks : tasklist.returnArrayList()) {
+                System.out.println(sdf.format(date));
+                System.out.println(tasks.getDateStr());
+                if (sdf.format(date).equals(tasks.getDateStr())) {
+                    findlist.addTask(tasks);
+                }
+            }
+            if (findlist.size() == 0) {
+                ui.exceptionMessage("     No schedule on that day!");
+                return;
+            }
+            ui.printList(findlist, "View Schedule");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong command format. Correct format: view schedule d/DATE");
+        } catch (ParseException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong date format. Correct format: dd-MM-yyyy");
         }
     }
 
@@ -476,7 +599,7 @@ public class Process {
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The description of a DoAfter cannot be empty.");
         } catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
+            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong. ");
         }
     }
 
@@ -509,126 +632,113 @@ public class Process {
     }
 
 
+    //@@author lijiayu980606
     /**
      * Process the snooze command and automatically postpone the selected deadline task by 1 hour.
+     * format: snooze id/ID.
      * @param input    Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui       Ui that interacts with the user.
      */
     public void snooze(String input, TaskList tasklist, Ui ui) {
         try {
-            String[] arr = input.split(" ", 2);
-            int nsnooze = Integer.parseInt(arr[1]) - 1;
-            if (tasklist.get(nsnooze).getType().equals("D")) {
-                String taskTime = tasklist.get(nsnooze).getBy();
-                Date formattedtime = dataformat.parse(taskTime);
+            String[] arr = input.split("id/", 2);
+            int id = Integer.parseInt(arr[1]) - 1;
+            if (id >= tasklist.size()) {
+                ui.exceptionMessage("     ☹ OOPS!!! Required task is not found.");
+                return;
+            } else if (tasklist.get(id).getType().equals("D")) {
+                Date formattedtime = tasklist.get(id).getDate();
                 java.util.Calendar calendar = java.util.Calendar.getInstance();
                 calendar.setTime(formattedtime);
-                calendar.add(Calendar.HOUR_OF_DAY, 1);
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
                 Date newDate = calendar.getTime();
-                tasklist.get(nsnooze).setBy(tasklist.get(nsnooze).getIsInVoice());
-                ui.printSnoozeMessage(tasklist.get(nsnooze));
+                tasklist.get(id).setDate(newDate);
+                ui.printSnoozeMessage(tasklist.get(id));
             } else {
                 ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to snooze.");
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to snooze.");
-        } catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong input format. Correct format: snooze id/ID ");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The id and number of days to snooze must be "
+                    + "a positive integer and must not be empty!");
         }
     }
 
+    //@@author lijiayu980606
     /**
      * Process the postpone command and postpone the selected deadline task by required number of hours.
+     * format: postpone id/ID n/DAYS.
      * @param input    Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui       Ui that interacts with the user.
      */
     public void postpone(String input, TaskList tasklist, Ui ui) {
         try {
-            String[] splitspace = input.split(" ", 2);
-            String[] splittime = splitspace[1].split(" ", 2);
-            int npostpone = Integer.parseInt(splittime[0]) - 1;
-            int delaytime = Integer.parseInt(splittime[1]);
-            if (tasklist.get(npostpone).getType().equals("D")) {
-                String taskTime = tasklist.get(npostpone).getBy();
-                Date formattedtime = dataformat.parse(taskTime);
+            String[] split = input.split("id/| n/", 3);
+            int id = Integer.parseInt(split[1]) - 1;
+            int delaydays = Integer.parseInt(split[2]);
+            if (id >= tasklist.size()) {
+                ui.exceptionMessage("     ☹ OOPS!!! Required task is not found.");
+                return;
+            } else if (tasklist.get(id).getType().equals("D")) {
+                Date formattedtime = tasklist.get(id).getDate();
                 java.util.Calendar calendar = java.util.Calendar.getInstance();
                 calendar.setTime(formattedtime);
-                calendar.add(Calendar.HOUR_OF_DAY, delaytime);
+                calendar.add(Calendar.DAY_OF_MONTH, delaydays);
                 Date newDate = calendar.getTime();
-                tasklist.get(npostpone).setBy(tasklist.get(npostpone).getIsInVoice());
-                ui.printPostponeMessage(tasklist.get(npostpone));
+                tasklist.get(id).setDate(newDate);
+                ui.printPostponeMessage(tasklist.get(id));
             } else {
                 ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to postpone.");
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to postpone. "
-                    + "Format:'postpone <index> <no.of hours to postpone>'");
-        } catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong. "
-                    + "Format:'postpone <index> <no.of hours to postpone>");
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong input format. "
+                    + "Correct format:'postpone id/ID n/DAYS'");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The id and number of days to postpone must be "
+                    + "a positive integer and must not be empty!");
         }
     }
 
+
+    //@@author lijiayu980606
     /**
-     * process the invoice command, set invoice status as true, update invoice value and set the deadline.
-     * INPUT FORMAT: invoice id i/invoice_num
+     * Process the reschedule command and reschedule the selected deadline task.
+     * format: reschedule id/ID d/DATE.
      * @param input    Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui       Ui that interacts with the user.
      */
-    public void inVoice(String input, TaskList tasklist, Ui ui) {
-        try {
-            String[] splitspace = input.split(" ", 2);
-            String[] splitInvoice = splitspace[1].split(" i/");
-            int id = Integer.parseInt(splitInvoice[0]) - 1;
-            if (tasklist.get(id).getType().equals("D")) {
-                String invoice = splitInvoice[1];
-                tasklist.get(id).setInVoice(invoice);
-                ui.printAddInvoiceMessage(tasklist.get(id));
-            } else {
-                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline instead!");
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input a valid ID!");
-        } catch (NumberFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
-        }
-    }
-
-    /*
     public void reschedule(String input, TaskList tasklist, Ui ui) {
         try {
-            String[] splitspace = input.split(" ", 2);
-            String[] splittime = splitspace[1].split(" ", 2);
-            int nreschedule = Integer.parseInt(splittime[0]) - 1;
-            String delay = splittime[1];
-            if (tasklist.get(nreschedule).getType().equals("D")) {
-                Date formattedtime = dataformat.parse(delay);
-                String newschedule = dataformat.format(formattedtime);
-                tasklist.get(nreschedule).setBy(tasklist.get(nreschedule).getInVoice());
-                ui.printRescheduleMessage(tasklist.get(nreschedule));
-            } else if (tasklist.get(nreschedule).getType().equals("E")) {
-                Date formattedtime = dataformat.parse(delay);
-                String newschedule = dataformat.format(formattedtime);
-                tasklist.get(nreschedule).setAt(newschedule);
-                ui.printRescheduleMessage(tasklist.get(nreschedule));
+            String[] split = input.split("id/| d/", 3);
+            int id = Integer.parseInt(split[1]) - 1;
+            String delay = split[2];
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            if (id >= tasklist.size()) {
+                ui.exceptionMessage("     ☹ OOPS!!! Required task is not found.");
+                return;
+            } else if (tasklist.get(id).getType().equals("D")) {
+                Date formattedtime = sdf.parse(delay);
+                tasklist.get(id).setDate(formattedtime);
+                ui.printRescheduleMessage(tasklist.get(id));
             } else {
                 ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to reschedule.");
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to reschedule. "
-                    + "Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>'");
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong input format. "
+                    + "Correct format: reschedule id/ID d/DATE");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The id must be positive integer and must not be empty!");
         } catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong. "
-                    + "Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>");
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong date format. Correct format: dd-MM-yyyy");
         }
     }
-*/
 
 
     //===========================* Payments *================================
@@ -662,7 +772,6 @@ public class Process {
         }
     }
 
-
     /**
      * Processes the delete command. INPUT FORMAT: delete payment p/payee i/item
      * 
@@ -685,7 +794,8 @@ public class Process {
             ui.printDeletePaymentMessage(deleted, managermap.get(payeename).payments.size());
             BeforeAfterCommand.afterCommand(storage, projectManager);
         } catch (ArrayIndexOutOfBoundsException | AlphaNUSException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format\n"
+                + "     The correct input format is:[delete payment p/PAYEE i/ITEM]");
         } catch (IllegalArgumentException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Payment not found, check item field again!");
         } catch (NullPointerException e) {
@@ -795,7 +905,8 @@ public class Process {
             }
             projectManager.projectmap.get(currentprojectname).addBudget(totalspending);
         } catch (AlphaNUSException | ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format!"
+                    + "The correct format is [delete payee p/PAYEE_NAME]");
         } catch (IllegalArgumentException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
             Set<String> dict = storage.readFromDictFile();
@@ -920,11 +1031,13 @@ public class Process {
         }
     }
 
+    //@@author lijiayu980606
     /**
-     * Command format: total cost p/PAYEE_NAME.
-     * @param input input from the user
-     * @param ui TODO
-     * @param storage TODO
+     * Process total cost command and calculate the total cost of a payee.
+     * Command format: total cost p/PAYEE_NAME
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param storage storage of the programme.
      */
     public void totalCost(String input, Ui ui, Storage storage) {
         try {
@@ -933,8 +1046,8 @@ public class Process {
             HashMap<String, Payee> managermap = projectManager.getCurrentProjectManagerMap();
             String currentprojectname = projectManager.currentprojectname;
             double totalcost = 0;
-            // for(Payments p: managermap.get(payeeName)) {
-            //     totalcost += p.getCost();
+            // for (Payments p:PaymentManager.findPayee(payeeName, managermap)) {
+            //     totalcost += p.cost;
             // }
             ui.printTotalCostMessage(payeeName, totalcost, currentprojectname);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -942,6 +1055,7 @@ public class Process {
         }
     }
 
+    //@@author lijiayu980606
     /**
      * reminder of the payments based on the status and deadline.
      * @param ui Ui that interacts with the user.
@@ -967,19 +1081,56 @@ public class Process {
                 }
             }
         }
-        ArrayList<Payments> overdue = new ArrayList<>();
-        ArrayList<Payments> pending = new ArrayList<>();
-        Collections.sort(overdue);
-        Collections.sort(pending);
         Collections.sort(tobesorted);
         ui.printReminderMessage(tobesorted);
     }
 
     /**
-     * TODO.
+     * Processes the find command and outputs a list of payments from the payee name given.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     */
+    public void listAllPayments(String input, Ui ui) {
+        try {
+            if (input.contains("pr/")) {
+                String[] splitspace = input.split("payments ", 2);
+                String[] splitpayments = splitspace[1].split("pr/");
+                splitpayments = cleanStrStr(splitpayments);
+                projectManager.gotoProject(splitpayments[1]);
+            } else if (input.contains("p/")) {
+                String[] splitspace = input.split("payments ", 2);
+                String[] splitpayments = splitspace[1].split("p/");
+                splitpayments = cleanStrStr(splitpayments);
+                HashMap<String, Payee> managerMap = projectManager.getCurrentProjectManagerMap();
+                ui.printPaymentList(projectManager.currentprojectname, managerMap.get(splitpayments[1]).payments);
+                return;
+            }
+            HashMap<String, Payee> managerMap = projectManager.getCurrentProjectManagerMap();
+            ArrayList<ArrayList<Payments>> listOfPayments = PaymentManager.listOfPayments(managerMap);
+            if (listOfPayments.get(0).size() == 0 && listOfPayments.get(1).size() == 0
+                    && listOfPayments.get(2).size() == 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! There are no payments to list!");
+                return;
+            }
+            for (ArrayList<Payments> lists : listOfPayments) {
+                if (lists.size() == 0) {
+                    continue;
+                }
+                ui.printPaymentList(projectManager.currentprojectname, lists, lists.get(0).status);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format!"
+                    + "     The correct format is [list payments] or [list payments pr/PROJECT_NAME] "
+                    + "or [list payments p/PAYEE]");
+        }
+    }
+
+    //@@author lijiayu980606
+    /**
+     * Process show budget function and show the budget status for a chosen project.
      * Input Format: show budget pr/PROJECT_NAME
-     * @param input TODO
-     * @param ui TODO
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
      */
     public void showBudget(String input, Ui ui) {
         try {
@@ -1035,38 +1186,43 @@ public class Process {
      * @param storage Storage that stores the input commands entered by the user.
      */
     public void viewhistory(String input, Ui ui, Storage storage) throws ParseException, AlphaNUSException {
-        ArrayList<String> commandList = new ArrayList<String>();
-        String[] splitspace = input.split(" ", 3);
-        String[] splitslash = splitspace[2].split("/", 2);
-        String[] splitdates = splitslash[1].split(" ", 3);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        String date1 = splitdates[0];
-        Date dateFirst = sdf.parse(date1);
-        String date2 = splitdates[2];
-        Date dateSecond = sdf.parse(date2);
-        commandList = storage.readFromCommandsFile();
-        ArrayList<String> viewhistory = new ArrayList<String>();
-        for (int i = 0; i < commandList.size(); i = i + 1) {
-            String token = null;
-            String token1 = null;
-            String[] splitDateCommand = commandList.get(i).split("~", 2);
-            for (int j = 0; j < splitDateCommand.length; j = j + 1) {
-                token = splitDateCommand[j];
-            }
-            String[] splitDateTime = token.split(" ", 3);
-            for (int k = 0; k < splitDateTime.length; k = k + 1) {
-                if (k == 1) {
-                    token1 = splitDateTime[k];
+        try {
+            ArrayList<String> commandList = new ArrayList<String>();
+            String[] splitspace = input.split(" ", 3);
+            String[] splitslash = splitspace[2].split("/", 2);
+            String[] splitdates = splitslash[1].split(" ", 3);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String date1 = splitdates[0];
+            Date dateFirst = sdf.parse(date1);
+            String date2 = splitdates[2];
+            Date dateSecond = sdf.parse(date2);
+            commandList = storage.readFromCommandsFile();
+            ArrayList<String> viewhistory = new ArrayList<String>();
+            for (int i = 0; i < commandList.size(); i = i + 1) {
+                String token = null;
+                String token1 = null;
+                String[] splitDateCommand = commandList.get(i).split("~", 2);
+                for (int j = 0; j < splitDateCommand.length; j = j + 1) {
+                    token = splitDateCommand[j];
+                }
+                String[] splitDateTime = token.split(" ", 3);
+                for (int k = 0; k < splitDateTime.length; k = k + 1) {
+                    if (k == 1) {
+                        token1 = splitDateTime[k];
+                    }
+                }
+                Date dateCommand = sdf.parse(token1);
+                if ((dateCommand.compareTo(dateFirst)) >= 0) {
+                    if ((dateCommand.compareTo(dateSecond)) <= 0) {
+                        viewhistory.add(commandList.get(i));
+                    }
                 }
             }
-            Date dateCommand = sdf.parse(token1);
-            if ((dateCommand.compareTo(dateFirst)) >= 0) {
-                if ((dateCommand.compareTo(dateSecond)) <= 0) {
-                    viewhistory.add(commandList.get(i));
-                }
-            }
+            ui.printviewHistoryList(viewhistory, date1, date2);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("\t" + "☹ OOPS!!! Wrong input format!"
+                    + "\n\tCorrect input format is: view history h/DATE_1 to DATE_2");
         }
-        ui.printviewHistoryList(viewhistory, date1, date2);
     }
 
     /**

@@ -26,12 +26,32 @@ public class CommandFormat {
         return "add payment p/PAYEE i/ITEM c/COST v/INVOICE";
     }
 
+    public String deletePaymentFormat() {
+        return "delete payment p/PAYEE i/ITEM";
+    }
+
     public String editPaymentFormat() {
-        return "edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT";
+        return "edit p/PAYEE i/ITEM f/FIELD r/REPLACEMENT";
+    }
+
+    public String listPaymentFormat() {
+        return "list payments";
+    }
+
+    public String findPayeeFormat() {
+        return "find p/PAYEE";
+    }
+
+    public String getPayeeFormat() {
+        return "getpayee PAYEE";
     }
 
     public String deletePayeeFormat() {
         return "delete payee p/PAYEE";
+    }
+
+    public String totalCostFormat() {
+        return "total cost p/PAYEE_NAME";
     }
 
     public String setFundFormat() {
@@ -44,6 +64,10 @@ public class CommandFormat {
 
     public String assignFundFormat() {
         return "assign fund pr/PROJECT_NAME am/AMOUNT";
+    }
+
+    public String reducebudgetFormat() {
+        return "reduce budget pr/PROJECT_NAME am/AMOUNT";
     }
 
     public String resetFundFormat() {
@@ -60,6 +84,46 @@ public class CommandFormat {
 
     public String showBudgetFormat() {
         return "show budget pr/PROJECT_NAME";
+    }
+
+    public String addTodoFormat() {
+        return "add todo d/DESCRIPTION";
+    }
+
+    public String addDeadlineFormat() {
+        return "add deadline d/DESCRIPTION by/DATE.";
+    }
+
+    public String doneTaskFormat() {
+        return "done id/ID";
+    }
+
+    public String deleteTaskFormat() {
+        return "delete id/ID";
+    }
+
+    public String findTaskFormat() {
+        return "find task key/KEY_WORD";
+    }
+
+    public String listTasksFormat() {
+        return "list tasks";
+    }
+
+    public String viewScheduleFormat() {
+        return "view schedule d/DATE";
+    }
+
+    public String snoozeFormat() {
+        return "snooze id/ID";
+    }
+
+    public String postponeFormat() {
+        return "postpone id/ID n/DAYS";
+    }
+
+    public String rescheduleFormat() {
+        return "reschedule id/ID d/DATE";
     }
 
     public String historyFormat() {
