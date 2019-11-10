@@ -97,7 +97,6 @@ public class RetrievePreviousCommand extends Command {
 
     /**
      * This method checks if the input by the user is an integer.
-     * @return
      */
     public static boolean isValid() {
         return isValid;
