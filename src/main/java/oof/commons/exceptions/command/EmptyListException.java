@@ -1,6 +1,4 @@
-package oof.logic.command.organization.exceptions;
-
-import oof.commons.exceptions.command.CommandException;
+package oof.commons.exceptions.command;
 
 public class EmptyListException extends CommandException {
 

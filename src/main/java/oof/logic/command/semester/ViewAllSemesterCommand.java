@@ -3,7 +3,7 @@ package oof.logic.command.semester;
 import oof.logic.command.Command;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
-import oof.logic.command.organization.exceptions.EmptyListException;
+import oof.commons.exceptions.command.EmptyListException;
 import oof.model.university.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
