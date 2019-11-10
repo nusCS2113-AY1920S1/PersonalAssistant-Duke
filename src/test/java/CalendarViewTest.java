@@ -42,14 +42,14 @@ public class CalendarViewTest {
     public void MonthlyViewTest() {
         CalendarView calendarView = new CalendarView();
         ArrayList<Task> list = new ArrayList<>();
-        Deadline deadline = new Deadline("test","2019-10-12 12:12:12");
+        Deadline deadline = new Deadline("test","2019-11-12 12:12:12");
         list.add(deadline);
-        calendarView.monthlyView(list);
+        calendarView.monthlyView(list,11,2019, 10);
         assertEquals("          November 2019\r\n" +
                 "  S    M    Tu   W    Th   F    S\r\n" +
                 "                            1    2 \r\n" +
-                "   3    4    5   |6|   7    8    9 \r\n" +
-                "  10   11   12   13   14   15   16 \r\n" +
+                "   3    4    5    6    7    8    9 \r\n" +
+                " |10|  11  12*   13   14   15   16 \r\n" +
                 "  17   18   19   20   21   22   23 \r\n" +
                 "  24   25   26   27   28   29   30 \r\n", output.toString());
     }
@@ -59,7 +59,7 @@ public class CalendarViewTest {
         ArrayList<Task> list = new ArrayList<>();
         Deadline deadline = new Deadline("test","2019-10-12 12:12:12");
         list.add(deadline);
-        calendarView.annualView(list);
+        calendarView.annualView(list, 11, 2019,6);
         assertEquals("          January 2019\r\n" +
                 "  S    M    Tu   W    Th   F    S\r\n" +
                 "             1    2    3    4    5 \r\n" +

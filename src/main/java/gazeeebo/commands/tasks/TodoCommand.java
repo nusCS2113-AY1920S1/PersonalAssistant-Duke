@@ -1,12 +1,12 @@
 //@@author jessteoxizhi
-package gazeeebo.commands.tasks;
 
+package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.tasks.*;
+import gazeeebo.tasks.Todo;
 import gazeeebo.storage.Storage;
 import gazeeebo.exception.DukeException;
 
@@ -17,6 +17,7 @@ import java.util.Stack;
 
 public class TodoCommand extends Command {
     /**
+     * Adding a task of todo.
      *
      * @param list          List of all tasks
      * @param ui            the object that deals with
@@ -30,8 +31,11 @@ public class TodoCommand extends Command {
      * @throws ParseException Catch error if parsing of command fails
      * @throws IOException    Catch error if the read file fails
      */
+
     @Override
-    public void execute(ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException {
+    public void execute(ArrayList<Task> list, final Ui ui, final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         String description = "";
         try {
             if (ui.fullCommand.length() <= 4) {
@@ -53,7 +57,6 @@ public class TodoCommand extends Command {
         } catch (DukeException e) {
             System.out.println(e.getMessage());
             triviaManager.showPossibleInputs("todo");
-            //triviaManager.showAllMap();
         }
     }
     /**
