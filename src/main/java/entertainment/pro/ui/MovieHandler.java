@@ -122,7 +122,7 @@ public class MovieHandler extends Controller implements RequestListener {
             playlist, sortByAlphaOrder, sortByRating, sortByReleaseDate, searchEntryName, isMovie);
 
     /**
-     * Responsible for retrieving the Search Profile
+     * Responsible for retrieving the Search Profile.
      * @return Search Profile
      */
     public SearchProfile getSearchProfile() {
@@ -147,6 +147,7 @@ public class MovieHandler extends Controller implements RequestListener {
         logger.log(Level.INFO, PromptMessages.SETTING_LABELS_UI);
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
+        System.out.println("hehehehehahahahaha" + userProfile.getUserName());
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         playlists = userProfile.getPlaylistNames();
@@ -547,7 +548,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * @throws Exceptions when user enter an invalid command.
      */
     public void showMovie(int num) throws Exceptions {
-       try {
+        try {
            MovieInfoObject movie = mMovies.get(num - 1);
            moviePosterClicked(movie);
            System.out.println("this is it 4");

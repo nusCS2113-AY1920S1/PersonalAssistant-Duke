@@ -246,7 +246,7 @@ public class SetExceptions {
      *
      * @throws InvalidParameterException when id already belongs to restrictions
      */
-    public static void checkForSetPreference(int id, ArrayList<Integer> restrictions) throws IOException, InvalidParameterException {
+    private static void checkForSetPreference(int id, ArrayList<Integer> restrictions) throws IOException, InvalidParameterException {
         for (int log : restrictions) {
             if (id == log) {
                 throw new InvalidParameterException(PromptMessages.GENRE_IN_RESTRICTION_START + findGenreName(id)
@@ -261,7 +261,7 @@ public class SetExceptions {
      *
      * @throws InvalidParameterException when id already belongs to preferences
      */
-    public static void checkForSetRestriction(int id, ArrayList<Integer> preferences) throws InvalidParameterException, IOException {
+    private static void checkForSetRestriction(int id, ArrayList<Integer> preferences) throws InvalidParameterException, IOException {
         for (int log : preferences) {
             if (id == log) {
                 throw new InvalidParameterException(PromptMessages.GENRE_IN_PREFERENCE_START + findGenreName(id)
