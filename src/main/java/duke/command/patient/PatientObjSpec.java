@@ -20,7 +20,7 @@ public abstract class PatientObjSpec extends ObjSpec {
         Map<String, Boolean> conditions = new HashMap<>();
         conditions.put("impression", cmd.isSwitchSet("impression"));
         conditions.put("critical", cmd.isSwitchSet("critical"));
-        conditions.put("investigation", cmd.isSwitchSet("investigation"));
+        conditions.put("followup", cmd.isSwitchSet("follow"));
 
         String type = null;
         for (Map.Entry<String, Boolean> condition : conditions.entrySet()) {
@@ -34,8 +34,8 @@ public abstract class PatientObjSpec extends ObjSpec {
             }
         }
 
-        Patient patient = (Patient) core.uiContext.getObject();
-        DukeObject object = PatientUtils.findFromPatient(core, type, cmd.getArg());
+        Patient patient = PatientUtils.getPatient(core);
+        DukeObject object = PatientUtils.findFromPatient(patient, type, cmd.getArg());
         if (object == null) {
             SearchResults results = PatientUtils.searchFromPatient(patient, type, cmd.getArg());
             processResults(core, results);
