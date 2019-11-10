@@ -38,7 +38,7 @@ public class SnoozeCommand extends Command {
             anomaly.detect(userInput);
             int taskIndex = Integer.parseInt(userInput[1].split(" ")[0]) - 1;
             String[] splitInput = userInput[1].split(" ");
-            Hustler.list.snoozeTask(taskIndex, splitInput);
+            Hustler.list.snoozeTask(Hustler.list, taskIndex, splitInput);
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }
