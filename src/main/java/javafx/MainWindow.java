@@ -313,7 +313,8 @@ public class MainWindow extends AnchorPane {
         String countString;
         tabPane.getSelectionModel().select(tabDegrees);
 
-        String degreeName = this.degreeManager.findAnyDegree(temp.next());//this.degreeManager.findAnyDegree(temp.next());
+
+        String degreeName = this.degreeManager.findAnyDegree(temp.nextLine().strip());//this.degreeManager.findAnyDegree(temp.next());
 
         if(!degreeName.isBlank()) {
             this.dataDegrees.clear();
