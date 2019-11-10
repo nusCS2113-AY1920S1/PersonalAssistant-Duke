@@ -37,6 +37,13 @@ public class FoodListCard extends UiManager<HBox> {
     @FXML
     private Button sell;
 
+    /**
+     * Food list card.
+     * @param food the food to be displayed.
+     * @param displayedIndex its index.
+     * @param sellExecutor sell executor.
+     * @param editExecutor edit executor.
+     */
     public FoodListCard(Food food, int displayedIndex, SellExecutor sellExecutor, EditExecutor editExecutor) {
         super(FXML);
         this.food = food;

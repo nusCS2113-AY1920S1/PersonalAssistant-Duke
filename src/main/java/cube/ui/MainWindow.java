@@ -27,6 +27,9 @@ import javafx.stage.StageStyle;
 
 import java.util.logging.Logger;
 
+/**
+ * Main window.
+ */
 public class MainWindow extends UiManager<Stage> {
     public static final String FXML = "MainWindow.fxml";
 
@@ -67,21 +70,34 @@ public class MainWindow extends UiManager<Stage> {
     private ModelManager modelManager;
     private final Logger logger = LogUtil.getLogger(MainWindow.class);
 
-
-    public MainWindow(Stage primaryStage, StorageManager storageManager, FileUtilJson<StorageManager> storage) {
+    /**
+     * Main window.
+     * @param primaryStage primary stage.
+     * @param storageManager storage manager.
+     * @param storage storage.
+     */
+    public MainWindow(Stage primaryStage, StorageManager storageManager,
+                      FileUtilJson<StorageManager> storage) {
         super(FXML, primaryStage);
 
         this.primaryStage = primaryStage;
         this.storageManager = storageManager;
         this.storage = storage;
         this.configStorage = storageManager.getConfig();
-        this.modelManager = new ModelManager(storageManager.getFoodList(), storageManager.getSalesHistory(), storageManager.getPromotionList());
+        this.modelManager = new ModelManager(storageManager.getFoodList(),
+                storageManager.getSalesHistory(), storageManager.getPromotionList());
     }
 
+    /**
+     * Show the main window.
+     */
     public void show() {
         primaryStage.show();
     }
 
+    /**
+     * Initialize the components.
+     */
     public void initComponents() {
         logger.info("Initializing Cube GUI components.");
 
@@ -96,7 +112,8 @@ public class MainWindow extends UiManager<Stage> {
         resultDisplay.setResultText("Welcome to Cube!\nEnter 'help' to see the list of available commands.");
 
         ProfitCommand.generateAnnualProfitRevenue(modelManager);
-        overviewDisplay = new OverviewDisplay(storageManager.getFoodList().size(), ProfitStorage.getAnnualProfit(), ProfitStorage.getAnnualRevenue());
+        overviewDisplay = new OverviewDisplay(storageManager.getFoodList().size(),
+                ProfitStorage.getAnnualProfit(), ProfitStorage.getAnnualRevenue());
         overviewDisplayPlaceholder.getChildren().add(overviewDisplay.getRoot());
 
         listPanel = new ListPanel(storageManager.getFoodList(), this::executeSell, this::executeEdit);
@@ -107,8 +124,8 @@ public class MainWindow extends UiManager<Stage> {
     }
 
     private void initWindowSize() {
-        double windowHeight = configStorage.getUiConfig().getWindowHeight();
-        double windowWidth = configStorage.getUiConfig().getWindowWidth();
+        final double windowHeight = configStorage.getUiConfig().getWindowHeight();
+        final double windowWidth = configStorage.getUiConfig().getWindowWidth();
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double maxHeight = primaryScreenBounds.getHeight();
@@ -159,7 +176,8 @@ public class MainWindow extends UiManager<Stage> {
 
             if (c instanceof SoldCommand) {
                 ProfitCommand.generateAnnualProfitRevenue(modelManager);
-                overviewDisplay.updateOverview(storageManager.getFoodList().size(), ProfitStorage.getAnnualProfit(), ProfitStorage.getAnnualRevenue());
+                overviewDisplay.updateOverview(storageManager.getFoodList().size(),
+                        ProfitStorage.getAnnualProfit(), ProfitStorage.getAnnualRevenue());
             }
             if (c instanceof ConfigCommand) {
                 initWindowSize();
@@ -184,7 +202,9 @@ public class MainWindow extends UiManager<Stage> {
         Food food = storageManager.getFoodList().get(index - 1);
         String command = "update %1$s -t %2$s -p %3$s -s %4$s -e %5$s";
 
-        commandBox.setCommandText(String.format(command, food.getName(), food.getType(), food.getPrice(), food.getStock(), ParserUtil.parseDateToString(food.getExpiryDate())));
+        commandBox.setCommandText(String.format(command, food.getName(), food.getType(),
+                food.getPrice(), food.getStock(),
+                ParserUtil.parseDateToString(food.getExpiryDate())));
     }
 
     private void executeSell(int index) {

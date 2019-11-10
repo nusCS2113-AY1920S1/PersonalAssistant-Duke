@@ -10,6 +10,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
+/**
+ * List panel.
+ */
 public class ListPanel extends UiManager<ListView> {
     private static final String FXML = "ListPanel.fxml";
 
@@ -19,6 +22,12 @@ public class ListPanel extends UiManager<ListView> {
     @FXML
     private ListView<Food> productListView;
 
+    /**
+     * List panel.
+     * @param foodList the food list.
+     * @param sellExecutor sell executor.
+     * @param editExecutor edit executor.
+     */
     public ListPanel(FoodList foodList, SellExecutor sellExecutor, EditExecutor editExecutor) {
         super(FXML);
         ObservableList<Food> observableList = FXCollections.observableArrayList(foodList.getFoodList());
@@ -29,11 +38,18 @@ public class ListPanel extends UiManager<ListView> {
         this.editExecutor = editExecutor;
     }
 
+    /**
+     * Update food list.
+     * @param foodList the food list.
+     */
     public void updateProductList(FoodList foodList) {
         ObservableList<Food> observableList = FXCollections.observableArrayList(foodList.getFoodList());
         productListView.setItems(observableList);
     }
 
+    /**
+     * Class for list view cell.
+     */
     class ListViewCell extends ListCell<Food> {
         @Override
         protected void updateItem(Food food, boolean empty) {

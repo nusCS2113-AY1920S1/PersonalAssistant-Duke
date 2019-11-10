@@ -2,10 +2,10 @@ package cube.model.food;
 
 import java.util.Date;
 
-import cube.model.food.foolUtil.SortByExpiry;
-import cube.model.food.foolUtil.SortByName;
-import cube.model.food.foolUtil.SortByPrice;
-import cube.model.food.foolUtil.SortByStock;
+import cube.model.food.foodutil.SortByExpiry;
+import cube.model.food.foodutil.SortByName;
+import cube.model.food.foodutil.SortByPrice;
+import cube.model.food.foodutil.SortByStock;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

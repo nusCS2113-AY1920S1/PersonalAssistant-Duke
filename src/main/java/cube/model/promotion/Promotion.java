@@ -133,10 +133,10 @@ public class Promotion {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String start = format.format(startDate);
         String end = format.format(endDate);
-        return foodName + "\n  Discount: " + discount +
-                "\n  Promotional Price: $" + promotionalPrice +
-                "\n  Start Date: " + start +
-                "\n  End Date: " + end;
+        return foodName + "\n  Discount: " + discount
+                + "\n  Promotional Price: $" + promotionalPrice
+                + "\n  Start Date: " + start
+                + "\n  End Date: " + end;
     }
 
     /*@Override

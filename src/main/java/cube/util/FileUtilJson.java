@@ -1,5 +1,5 @@
 /**
- * Handling of JSON File Read/Write operations in Cube
+ * Handling of JSON File Read/Write operations in Cube.
  *
  * @author kuromono
  */
@@ -15,8 +15,8 @@ import cube.util.exception.UtilErrorMessage;
 import java.io.File;
 import java.io.IOException;
 
-public class FileUtilJson<Type> extends FileUtil {
-    private Type fileObject;
+public class FileUtilJson<T> extends FileUtil {
+    private T fileObject;
     private String fileFullPath;
     private File file;
     private ObjectMapper mapper;
@@ -26,7 +26,7 @@ public class FileUtilJson<Type> extends FileUtil {
      *
      * @param filePath the directory path where data will be stored.
      */
-    public FileUtilJson(String filePath, String fileName, Type fileObject) {
+    public FileUtilJson(String filePath, String fileName, T fileObject) {
         super(filePath, fileName);
         this.fileFullPath = filePath + File.separator + fileName;
         this.fileObject = fileObject;
@@ -40,7 +40,7 @@ public class FileUtilJson<Type> extends FileUtil {
      * @return De-serialized object read from the JSON file.
      * @throws CubeUtilException exception occurs in reading from data file.
      */
-    public Type load() throws CubeException {
+    public T load() throws CubeException {
         if (checkFileAvailable(true)) {
             System.out.println("Loading file from : " + fileFullPath);
 
@@ -60,7 +60,7 @@ public class FileUtilJson<Type> extends FileUtil {
      * @param fileObject Object to be saved into JSON.
      * @throws CubeException exception happens in writing to the data file.
      */
-    public void save(Type fileObject) throws CubeException {
+    public void save(T fileObject) throws CubeException {
         checkFileAvailable(true);
         try {
             mapper.writeValue(file, fileObject);

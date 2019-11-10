@@ -4,6 +4,7 @@
  *
  * @author kuromono
  */
+
 package cube.util;
 
 import cube.storage.config.LogConfig;
@@ -55,7 +56,7 @@ public class LogUtil {
     /**
      * Creates a Logger for the given class name.
      */
-    public static <Type> Logger getLogger(Class<Type> classType) {
+    public static <T> Logger getLogger(Class<T> classType) {
         if (classType == null) {
             return Logger.getLogger("");
         }
