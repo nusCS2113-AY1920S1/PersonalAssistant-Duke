@@ -42,11 +42,11 @@ public class ProjectRepository implements IRepository<Project> {
 
     /**
      * Method to retrieve a Project from ArrayList of Projects.
-     * @param projectNumber : Index of Project that user wishes to retrieve
+     * @param indexNumber : Index of Project that user wishes to retrieve
      * @return Returns the Project object desired by user
      */
-    public Project getItem(int projectNumber) {
-        return this.allProjects.get(projectNumber - 1);
+    public Project getItem(int indexNumber) {
+        return this.allProjects.get(indexNumber - 1);
     }
 
     /**
@@ -59,13 +59,13 @@ public class ProjectRepository implements IRepository<Project> {
 
     /**
      * Method for deletion of projects.
-     * @param projectNumber : Index of project that user wishes to delete
+     * @param indexNumber : Index of project that user wishes to delete
      * @return Returns a boolean that states whether the project is deleted successfully
      */
-    public boolean deleteItem(int projectNumber) {
+    public boolean deleteItem(int indexNumber) {
         try {
-            jsonConverter.deleteProject(allProjects.get(projectNumber - 1));
-            this.allProjects.remove(projectNumber - 1);
+            jsonConverter.deleteProject(allProjects.get(indexNumber - 1));
+            this.allProjects.remove(indexNumber - 1);
             return true;
         } catch (IndexOutOfBoundsException | DukeException err) {
             return false;

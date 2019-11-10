@@ -194,26 +194,33 @@ tasks and members are isolated into a single, focused class. It can help to fulf
 
 === 2.3. Repository layer
 
-// .Structure of the Model Component
-// image::ModelClassDiagram.png[]
+.Simplified Class Diagram of Repository Layer
+image::images/classDiagram/RepositoryLayerClassDiagram.png[]
 
-// *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/repositories/IRepository.java[`IRepository.java`]
 
-// The `Model`,
+*An implementation of IRepository: ProjectRepository* link:{repoURL}/src/main/java/repositories/ProjectRepository.java[`ProjectRepository.java`]
 
-// * stores a `UserPref` object that represents the user's preferences.
-// * stores the Address Book data.
-// * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-// * does not depend on any of the other three components.
+The `Repository` Layer is responsible for serving as a boundary between the `Storage` layer and the `Controller` layer.
+It uses the `IRepository` interface, making it easy should other developers choose to implement their own
+`Repository` layer.
 
-// [NOTE]
-// As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
-//  +
-// image:BetterModelClassDiagram.png[]
+The responsibilities of the `Repository` layer includes
+
+* Storing the data in-memory during programme runtime. It stores all `Project` objects created in an
+`ArrayList<Project>`.
+* Separation of concern between data and persistence. In a full-fledged application, the `Repository` layer will
+serve as a boundary between the database and the domain logic
+
+In our implementation of `ProjectRepository` that implements the `IRepository` interface, it
+
+* Calls `ProjectFactory` for creation of `Project` objects and stores it in an `ArrayList<>`
+* Exposes APIs to retrieve details of the stored `Project` objects for `Controller` to send back to `View` layer.
+* Exposes CRUD APIs for creation, deletion and getting a `Project` object from the stored `ArrayList<Project>`.
 
 === 2.4. Storage Layer
 
-.Class Diagram of Storage Layer
+.Simplified Class Diagram of Storage Layer
 image::images/classDiagram/StorageLayerClassDiagram.png[]
 
 *API* :
