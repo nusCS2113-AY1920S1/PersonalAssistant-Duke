@@ -15,6 +15,16 @@ public class WeekList {
     public WeekList() {
     }
 
+    /**
+     * This method constructs WeekList class.
+     * @param monList The list of events on monday
+     * @param tueList The list of events on tuesday
+     * @param wedList The list of events on wednesday
+     * @param thuList The list of events on thursday
+     * @param friList The list of events on friday
+     * @param satList The list of events on saturday
+     * @param sunList The list of events on sunday
+     */
     public WeekList(ObservableList<Text> monList, ObservableList<Text> tueList, ObservableList<Text> wedList,
                     ObservableList<Text> thuList, ObservableList<Text> friList, ObservableList<Text> satList,
                     ObservableList<Text> sunList) {

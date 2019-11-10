@@ -1,7 +1,5 @@
 package RetrieveFreeTimesTest;
 
-
-
 import Commands.Command;
 import DukeExceptions.DukeInvalidFormatException;
 import DukeExceptions.DukeNoValidDataException;
@@ -17,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * This class tests RetrieveFreeTimesParse.
  */
 public class RetrieveFreeTimesParseTest {
-    private final String invalidOption = "Invalid option. Please enter the command as follows. \n" +
+    private final String INVALID_OPTION = "Invalid option. Please enter the command as follows. \n" +
             "retrieve/time 'x', where 'x' is a digit between 1 - 5";
-    private final String invalidEmptyOption = "Invalid input.\n" +
+    private final String INVALID_EMPTY_OPTION = "Invalid input.\n" +
             "Option cannot be blank.\nPlease enter the command as follows.\n"
             + "retrieve/time 'x', where 'x' is a digit between 1 - 5";
 
@@ -47,7 +45,7 @@ public class RetrieveFreeTimesParseTest {
 
     @Test
     public void retrieveFreeTimesWithOptionZero() {
-        String expected = invalidOption;
+        String expected = INVALID_OPTION;
         String actual = null;
         Command command = null;
         try {
@@ -60,7 +58,7 @@ public class RetrieveFreeTimesParseTest {
 
     @Test
     public void retrieveFreeTimesWithOptionSix() {
-        String expected = invalidOption;
+        String expected = INVALID_OPTION;
         String actual = null;
         Command command = null;
         try {
@@ -73,7 +71,7 @@ public class RetrieveFreeTimesParseTest {
 
     @Test
     public void retrieveFreeTimesWithRandomStringOption() {
-        String expected = invalidOption;
+        String expected = INVALID_OPTION;
         String actual = null;
         Command command = null;
         try {
@@ -86,7 +84,7 @@ public class RetrieveFreeTimesParseTest {
 
     @Test
     public void retrieveFreeTimesWithOptionInDecimal() {
-        String expected = invalidOption;
+        String expected = INVALID_OPTION;
         String actual = null;
         Command command = null;
         try {
@@ -99,7 +97,7 @@ public class RetrieveFreeTimesParseTest {
 
     @Test
     public void retrieveFreeTimesWithoutOption() {
-        String expected = invalidEmptyOption;
+        String expected = INVALID_EMPTY_OPTION;
         String actual = null;
         Command command = null;
         try {

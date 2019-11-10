@@ -8,6 +8,7 @@ import DukeExceptions.DukeInvalidFormatException;
 import Parser.FindFreeTimesParse;
 import StubClasses.StorageStub;
 import Tasks.TaskList;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,14 +18,12 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-//@@author 0325961
 /**
  * This class tests ShowPreviousCommand.
  */
 public class ShowPreviousCommandTest {
     private static String userInputWithInvalidNumber;
     private static ArrayList<String> userInputList = new ArrayList<>();
-    private static ArrayList<String> finalUserInputList = new ArrayList<>();
 
     private static int sizeOfList;
     private TaskList events = new TaskList();
@@ -36,10 +35,10 @@ public class ShowPreviousCommandTest {
     @BeforeAll
     public static void setAllVariables() {
         userInputWithInvalidNumber = "show/previous 3";
-        String firstInput = "add/d CS2100 finish tutorial /by 12/10/2019 1300";
-        String secondInput = "add/d CS2100 assignment 2 /by 13/10/2019 1400";
-        userInputList.add(firstInput);
-        userInputList.add(secondInput);
+//        String firstInput = "add/d CS2100 finish tutorial /by 12/10/2019 1300";
+//        String secondInput = "add/d CS2100 assignment 2 /by 13/10/2019 1400";
+//        userInputList.add(firstInput);
+//        userInputList.add(secondInput);
     }
 
     @Before
@@ -59,7 +58,7 @@ public class ShowPreviousCommandTest {
     }
 
     @Test
-    public void showPreviousCommandTestWithInvalidNumber() {
+    public void showPreviousCommand_UserInputWithInvalidNumber_throwsDukeInvalidCommandexception() {
         String firstInput = "add/d CS2100 finish tutorial /by 12/10/2019 1300";
         String secondInput = "add/d CS2100 assignment 2 /by 13/10/2019 1400";
         String weekInput = "Week 6";

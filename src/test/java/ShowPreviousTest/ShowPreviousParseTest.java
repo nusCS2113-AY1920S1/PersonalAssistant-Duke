@@ -2,7 +2,6 @@ package ShowPreviousTest;
 
 import Commands.Command;
 import DukeExceptions.DukeInvalidFormatException;
-import Parser.FindFreeTimesParse;
 import Parser.ShowPreviousParse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 
-//@@author 0325961
 /**
  * This class tests ShowPreviousParse.
  */
@@ -38,7 +36,7 @@ public class ShowPreviousParseTest {
     }
 
     @Test
-    public void showPreviousParseWithInvalidCommandType() {
+    public void showPreviousParse_userInputWithInvalidCommandType_throwsDukeInvalidCommandException() {
         String expected = "Invalid Input. There is no such command type in previous input";
         String actual = "";
         Command command = null;
@@ -51,7 +49,7 @@ public class ShowPreviousParseTest {
     }
 
     @Test
-    public void showPreviousParseWithInvalidNumber() {
+    public void showPreviousParse_userInputWithInvalidNumber_throwsDukeInvalidCommandException() {
         String expected = "Invalid Input. Cannot enter negative number. Please enter a valid integer greater than 0";
         String actual = "";
         Command command = null;
@@ -64,7 +62,7 @@ public class ShowPreviousParseTest {
     }
 
     @Test
-    public void showPreviousParseWithValidNumberFormat() {
+    public void showPreviousParse_userInputWithValidNumber() {
         String expected = "No error";
         Command command = null;
         String actual = "";
@@ -77,7 +75,7 @@ public class ShowPreviousParseTest {
     }
 
     @Test
-    public void showPreviousParseWithValidCommandType() {
+    public void showPreviousParss_userInputWithValidCommandType() {
         String expected = "No error";
         Command command = null;
         String actual = "";
