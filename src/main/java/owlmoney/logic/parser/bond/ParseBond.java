@@ -1,5 +1,7 @@
 package owlmoney.logic.parser.bond;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,6 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseRawData;
@@ -33,6 +36,7 @@ public abstract class ParseBond {
         YEAR_PARAMETER, FROM_PARAMETER, NUM_PARAMETER
     };
     private static final List<String> BOND_KEYWORD_LISTS = Arrays.asList(BOND_KEYWORD);
+    static final Logger logger = getLogger(ParseBond.class);
 
     /**
      * Creates an instance of any ParseBond type object.
@@ -54,6 +58,7 @@ public abstract class ParseBond {
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {
         if (rawData.contains(parameter)) {
+            logger.warning(command + "/bond should not contain " + parameter);
             throw new ParserException(command + "/bond should not contain " + parameter);
         }
     }
@@ -66,6 +71,7 @@ public abstract class ParseBond {
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!BOND_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+            logger.warning("Incorrect parameter " + rawDateSplit[0]);
             throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
         }
     }
@@ -100,6 +106,8 @@ public abstract class ParseBond {
      */
     void checkAmount(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckMoney(valueString)) {
+            logger.warning("/amount can only be numbers with at most 9 digits, 2 decimal places"
+                    + " and a value of more than 0");
             throw new ParserException("/amount can only be numbers with at most 9 digits, 2 decimal places"
                     + " and a value of more than 0");
         }
@@ -113,6 +121,7 @@ public abstract class ParseBond {
      */
     void checkInterestRate(String rateString) throws ParserException {
         if (!RegexUtil.regexCheckInterestRate(rateString)) {
+            logger.warning("Interest rate should be a positive number less than 100%");
             throw new ParserException("Interest rate should be a positive number less than 100%");
         }
     }
@@ -126,6 +135,7 @@ public abstract class ParseBond {
      */
     void checkName(String key, String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
+            logger.warning(key + " can only be alphanumeric and at most 30 characters");
             throw new ParserException(key + " can only be alphanumeric and at most 30 characters");
         }
     }
@@ -145,15 +155,21 @@ public abstract class ParseBond {
             try {
                 date = temp.parse(dateString);
                 if (date.compareTo(new Date()) > 0) {
+                    logger.warning("/date cannot be after today");
                     throw new ParserException("/date cannot be after today");
                 }
                 return date;
             } catch (ParseException e) {
+                logger.warning("Incorrect date format."
+                        + " Date format is dd/mm/yyyy in year range of 1900-2099");
                 throw new ParserException("Incorrect date format."
                         + " Date format is dd/mm/yyyy in year range of 1900-2099");
             }
         }
-        throw new ParserException("Incorrect date format." + " Date format is dd/mm/yyyy in year range of 1900-2099");
+        logger.warning("Incorrect date format."
+                + " Date format is dd/mm/yyyy in year range of 1900-2099");
+        throw new ParserException("Incorrect date format."
+                + " Date format is dd/mm/yyyy in year range of 1900-2099");
     }
 
     /**
@@ -164,6 +180,7 @@ public abstract class ParseBond {
      */
     void checkYear(String yearString) throws ParserException {
         if (!RegexUtil.regexCheckBondYear(yearString)) {
+            logger.warning("Bond years must be between 1 and 10 years");
             throw new ParserException("Bond years must be between 1 and 10 years");
         }
     }
@@ -176,6 +193,7 @@ public abstract class ParseBond {
      */
     void checkInt(String variable, String valueString) throws ParserException {
         if (!RegexUtil.regexCheckListNumber(valueString)) {
+            logger.warning(variable + " can only be a positive number with at most 9 digits");
             throw new ParserException(variable + " can only be a positive number with at most 9 digits");
         }
     }

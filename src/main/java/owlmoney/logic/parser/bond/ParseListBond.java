@@ -46,7 +46,8 @@ public class ParseListBond extends ParseBond {
                 checkInt(NUM_PARAMETER, value);
             }
             if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
-                throw new ParserException(key + " cannot be empty when deleting a bond");
+                logger.warning(key + " cannot be empty when listing bonds");
+                throw new ParserException(key + " cannot be empty when listing bonds");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(FROM_PARAMETER, value);
             }
@@ -63,6 +64,7 @@ public class ParseListBond extends ParseBond {
         ListBondCommand newListBondCommand =
                 new ListBondCommand(bondParameters.get(FROM_PARAMETER), Integer.parseInt(bondParameters.get(
                         NUM_PARAMETER)));
+        logger.info("Successful creation of ListBondCommand object");
         return newListBondCommand;
     }
 }
