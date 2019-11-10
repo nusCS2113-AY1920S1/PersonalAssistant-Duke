@@ -40,6 +40,7 @@ public class FileUtilCSV<Type> extends FileUtil {
         this.file = new File(fileFullPath);
         this.mapper = new CsvMapper();
         this.mapper.setDateFormat(ParserUtil.getDateFormat());
+        this.mapper.setTimeZone(ParserUtil.getTimeZone());
     }
 
     /**

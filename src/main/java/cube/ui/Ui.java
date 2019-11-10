@@ -12,9 +12,8 @@ import cube.logic.command.util.CommandResult;
 import java.util.Scanner;
 
 /**
- * This class is used as an user interface. It supports
- * interactions with the users, including data and instructions
- * input and output.
+ * This class is used for the user interface. It supports the interactions with the users,
+ * including data and instructions input and output.
  */
 public class Ui {
     private Scanner in = new Scanner(System.in);
@@ -32,24 +31,29 @@ public class Ui {
      * Print the welcome screen of Cube.
      */
     public void showWelcome() {
-        String logo = " ________  ___  ___  ________  _______      \n" +
-            "|\\   ____\\|\\  \\|\\  \\|\\   __  \\|\\  ___ \\     \n" +
-            "\\ \\  \\___|\\ \\  \\\\\\  \\ \\  \\|\\ /\\ \\   __/|    \n" +
-            " \\ \\  \\    \\ \\  \\\\\\  \\ \\   __  \\ \\  \\_|/__  \n" +
-            "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\|\\  \\ \\  \\_|\\ \\ \n" +
-            "   \\ \\_______\\ \\_______\\ \\_______\\ \\_______\\\n" +
-            "    \\|_______|\\|_______|\\|_______|\\|_______|\n";
+        String logo = " ________  ___  ___  ________  _______      \n"
+                + "|\\   ____\\|\\  \\|\\  \\|\\   __  \\|\\  ___ \\     \n"
+                + "\\ \\  \\___|\\ \\  \\\\\\  \\ \\  \\|\\ /\\ \\   __/|    \n"
+                + " \\ \\  \\    \\ \\  \\\\\\  \\ \\   __  \\ \\  \\_|/__  \n"
+                + "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\|\\  \\ \\  \\_|\\ \\ \n"
+                + "   \\ \\_______\\ \\_______\\ \\_______\\ \\_______\\\n"
+                + "    \\|_______|\\|_______|\\|_______|\\|_______|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("What can I do for you?");
     }
 
     /**
-     * Prints a dotted line in anew line.
+     * Print a dotted line in a new line.
      */
     public void showLine() {
-        System.out.println("------------------------------------------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------------");
     }
 
+    /**
+     * Print an error message.
+     *
+     * @param e The error message.
+     */
     public void showError(String e) {
         System.out.println(e);
     }
@@ -57,14 +61,14 @@ public class Ui {
     /**
      * Print the error message of loading error.
      *
-     * @param path the filepath that the user intends to use to load.
+     * @param path The filepath that the user intends to use to load.
      */
     public void showLoadingError(String path) {
         showLine();
-            System.out.println(UtilErrorMessage.WRITE_ERROR + path);
+        System.out.println(UtilErrorMessage.WRITE_ERROR + path);
     }
 
-    // temporary use before GUI finish
+    // temporary usage only, before GUI finish
     public void showCommandResult(CommandResult result) {
         System.out.println(result.getFeedbackToUser());
     }

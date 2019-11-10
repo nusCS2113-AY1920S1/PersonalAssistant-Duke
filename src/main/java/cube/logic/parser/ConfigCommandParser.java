@@ -7,8 +7,17 @@ import cube.logic.parser.exception.ParserException;
 import cube.storage.config.LogConfig;
 import cube.storage.config.UiConfig;
 
+/**
+ * Parse config command.
+ */
 public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
 
+    /**
+     * Parse user config command.
+     * @param args user inputs.
+     * @return config command with relevant parameters.
+     * @throws ParserException when user input is illegal.
+     */
     public ConfigCommand parse(String[] args) throws ParserException {
         String[] params = new String[] {"-h", "-w", "-s", "-c", "-l"};
 
@@ -55,7 +64,8 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
                 double maxHeight = UiConfig.getMaxWindowHeight();
 
                 if (windowHeight < minHeight || windowHeight > maxHeight) {
-                    throw new ParserException(String.format(ParserErrorMessage.INVALID_PARAM_RANGE, "-h", minHeight, maxHeight));
+                    throw new ParserException(String.format(
+                            ParserErrorMessage.INVALID_PARAM_RANGE, "-h", minHeight, maxHeight));
                 }
 
                 uiConfig.setWindowHeight(windowHeight);
@@ -69,7 +79,8 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
                 double maxWidth = UiConfig.getMaxWindowWidth();
 
                 if (windowWidth < minWidth || windowWidth > maxWidth) {
-                    throw new ParserException(String.format(ParserErrorMessage.INVALID_PARAM_RANGE, "-w", minWidth, maxWidth));
+                    throw new ParserException(String.format(
+                            ParserErrorMessage.INVALID_PARAM_RANGE, "-w", minWidth, maxWidth));
                 }
 
                 uiConfig.setWindowWidth(windowWidth);
@@ -96,7 +107,7 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
                 if (!ParserUtil.hasField(args, maxFileCountIndex + 1)) {
                     throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
                 }
-                if (!ParserUtil.isValidNumber(args[maxFileCountIndex + 1])) {
+                if (!ParserUtil.isValidInteger(args[maxFileCountIndex + 1])) {
                     throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
                 }
                 logConfig.setMaxFileCount(Integer.parseInt(args[maxFileCountIndex + 1]));
@@ -105,7 +116,7 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
                 if (!ParserUtil.hasField(args, maxFileSizeIndex + 1)) {
                     throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
                 }
-                if (!ParserUtil.isValidNumber(args[maxFileSizeIndex + 1])) {
+                if (!ParserUtil.isValidInteger(args[maxFileSizeIndex + 1])) {
                     throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
                 }
                 logConfig.setMaxFileSizeMB(Integer.parseInt(args[maxFileSizeIndex + 1]));
@@ -119,7 +130,9 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
             return new ConfigCommand(configType, logConfig);
         case VIEW:
             return new ConfigCommand(configType);
+        default:
+            throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
         }
-        throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
+
     }
 }

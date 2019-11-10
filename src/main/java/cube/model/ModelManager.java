@@ -3,6 +3,7 @@
  *
  * @author tygq13
  */
+
 package cube.model;
 
 import cube.model.food.FoodList;
@@ -11,7 +12,7 @@ import cube.model.sale.SalesHistory;
 
 public class ModelManager {
 	private static FoodList foodList;
-	private SalesHistory salesHistory;
+	private static SalesHistory salesHistory;
 	private PromotionList promotionList;
 
 	/**
@@ -19,20 +20,20 @@ public class ModelManager {
 	 * Creates new instances of foodList, salesHistory and promotionList.
 	 */
 	public ModelManager() {
-		this.foodList = new FoodList();
-		this.salesHistory = new SalesHistory();
+		foodList = new FoodList();
+		salesHistory = new SalesHistory();
 		this.promotionList =  new PromotionList();
 	}
 
 	/**
-	 * Constructor with three arguments
+	 * Constructor with three arguments.
 	 * @param foodList The food list to be managed.
 	 * @param salesHistory The sales history to be managed.
 	 * @param promotionList The promotion list to be managed.
 	 */
 	public ModelManager(FoodList foodList, SalesHistory salesHistory, PromotionList promotionList) {
-		this.foodList = foodList;
-		this.salesHistory = salesHistory;
+		ModelManager.foodList = foodList;
+		ModelManager.salesHistory = salesHistory;
 		this.promotionList = promotionList;
 	}
 
@@ -56,7 +57,7 @@ public class ModelManager {
 	 * Gets the sales history.
 	 * @return The sales history.
 	 */
-	public SalesHistory getSalesHistory() {
+	public static SalesHistory getSalesHistory() {
 		return salesHistory;
 	}
 
@@ -64,5 +65,7 @@ public class ModelManager {
 	 * Gets the promotion list.
 	 * @return The promotion list.
 	 */
-	public PromotionList getPromotionList() { return promotionList; }
+	public PromotionList getPromotionList() {
+		return promotionList;
+	}
 }

@@ -1,8 +1,9 @@
 //@@author ZKathrynx
 /**
- * DeleteCommand.java
+ * DeleteCommand.java.
  * Support commands related to deletion.
  */
+
 package cube.logic.command;
 
 import cube.model.food.FoodList;
@@ -17,6 +18,7 @@ import cube.logic.command.util.CommandUtil;
  * This class supports commands related to delete.
  */
 public class DeleteCommand extends Command {
+
 	/**
 	 * Use enums to specify the states of the food to be deleted.
 	 */
@@ -95,13 +97,15 @@ public class DeleteCommand extends Command {
 				CommandUtil.requireValidType(list, deleteDescription);
 				int count = list.removeType(deleteDescription);
 				storage.storeFoodList(list);
-				return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, deleteDescription, count, list.size()));
+				return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE,
+						deleteDescription, count, list.size()));
 			case ALL:
 				count = list.size();
 				list.clear();
 				storage.storeFoodList(list);
 				return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, count));
+			default:
+				return null;
 		}
-		return null;
 	}
 }

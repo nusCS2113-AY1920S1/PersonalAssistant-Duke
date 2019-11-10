@@ -1,42 +1,39 @@
-//@@author LL-Pengfei
 /**
  * Cube.java
  * The driver file, which is the entry point for Command Line Interface.
  */
+
 package cube;
 
 import cube.model.food.FoodList;
 import cube.model.sale.SalesHistory;
 import cube.model.promotion.PromotionList;
 import cube.model.ModelManager;
+import cube.storage.StorageManager;
 import cube.ui.Ui;
 import cube.logic.parser.Parser;
 import cube.logic.command.Command;
 import cube.logic.command.util.CommandResult;
 import cube.util.FileUtilJson;
-import cube.storage.*;
 import cube.exception.CubeException;
 import cube.util.LogUtil;
 
 import java.util.logging.Logger;
 
 /**
- * Entry Point for Command Line Interface
+ * The Entry Point for the Command Line Interface.
  */
 public class Cube {
     private StorageManager storageManager;
     private ModelManager modelManager;
     private FileUtilJson<StorageManager> storage;
-    private FoodList foodList;
-    private SalesHistory salesHistory;
-    private PromotionList promotionList;
     private Ui ui;
     private final Logger logger = LogUtil.getLogger(Cube.class);
 
     /**
-     * Cube constructor with filePath.
+     * The Cube constructor with filePath.
      *
-     * @param filePath the file path where Cube data is stored.
+     * @param filePath The file path where the Cube data is stored.
      */
     public Cube(String filePath) {
         logger.info("=============================[ Initializing Cube ]===========================");
@@ -47,9 +44,9 @@ public class Cube {
         try {
             LogUtil.init(storageManager.getConfig().getLogConfig());
             storageManager = storage.load();
-            foodList = storageManager.getFoodList();
-            salesHistory = storageManager.getSalesHistory();
-            promotionList = storageManager.getPromotionList();
+            FoodList foodList = storageManager.getFoodList();
+            SalesHistory salesHistory = storageManager.getSalesHistory();
+            PromotionList promotionList = storageManager.getPromotionList();
             modelManager = new ModelManager(foodList, salesHistory, promotionList);
         } catch (CubeException e) {
             logger.warning(e.getMessage());
@@ -59,7 +56,7 @@ public class Cube {
     }
 
     /**
-     * Runs the Cube programme by receiving user commands and executing the commands.
+     * Run the Cube programme with received user commands and execute the commands.
      */
     public void run() {
         ui.showWelcome();
@@ -68,7 +65,6 @@ public class Cube {
             try {
                 String fullCommand = ui.readCommand();
                 logger.info("Command Entered : " + fullCommand);
-
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 isExit = c.isExit();
@@ -86,12 +82,12 @@ public class Cube {
     }
 
     /**
-     * Initializes new Cube user and runs the programme.
+     * Initialize new Cube user and run the programme.
      *
-     * @param args programme arguments.
+     * @param args The programme arguments.
      */
     public static void main(String[] args) {
-        //todo: allow user to specify data path
+        //future upgrade: allow user to specify data path
         new Cube("data").run();
     }
 }
