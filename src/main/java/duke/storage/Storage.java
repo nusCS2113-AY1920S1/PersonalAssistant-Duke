@@ -31,6 +31,7 @@ public abstract class Storage<T> {
      * @param fp used to specify the location of the file in the hard disc.
      */
     public Storage(String fp) {
+        assert fp!=null;
         filePath = fp;
         path = Paths.get(fp);
     }

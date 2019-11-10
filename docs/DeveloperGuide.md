@@ -99,7 +99,7 @@ The Application consist of 10 other components
   - `ingredientCommand`
 - `exception`: handle error messages
 - `dish`: contains the dishlist as well the the dish class 
-- `fridge`: contains 
+- ` Fridge` : contains 
 - `ingredient`: contains ingredient list 
 - `list`: a class which contains a generic list. this list is used by various other classes
 - `order`:  
@@ -300,6 +300,16 @@ API: `OrderStorage.java`
 
 API: `RecipeStorage.java` 
 
+##### 2.5.4 Printable
+
+API: `Printable.java` 
+
+It models an *Interface*, implemented by all the classes that have the feature to print their representation in a file. 
+
+Offers one abstract method `printInFile()` whose implementation should indicate the format of printing the representation of the specific object calling it. A UML Class Diagram is shown below.
+
+![Printable](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/PrintableUML.png)
+
 #### 2.6 GenericList
 
 API: `GenericList.java` 
@@ -493,7 +503,7 @@ AddDishCommand, AddIngredient, DeleteDishCommand, ListDishCommand, ResetDishComm
 #### 2.10 Order Component
 API: `Order.java`, `OrderList.java`
 
-The Order component contains 2 classes, Order Class and OrderList Class. The chef can add new orders and update his "todo list" today. When an order comes, the program calculates dishes amount for each type of dishes. It then access the recipebook which contains every dishes in the menu including the recipe (the amount of consisting ingredients) so as to get the total amount of the ingredients needed to finish this order. It checks with the storage of those ingredients in the fridge and returns the information that if ingredients are enough.
+The Order component contains 2 classes, Order Class and OrderList Class. The chef can add new orders and update his "todo list" today. When an order comes, the program calculates dishes amount for each type of dishes. It then access the recipebook which contains every dishes in the menu including the recipe (the amount of consisting ingredients) so as to get the total amount of the ingredients needed to finish this order. It checks with the storage of those ingredients in the `Fridge` and returns the information that if ingredients are enough.
 
 Besides, in current stage, we assume that the dishes in chef's todo list should be finished by the end of "today". At the beginning of every day, the todo list will be initialized. However, the order supports pre-order, allowing the order date is not today. That is, the initialization of chef's todo list might not be empty.
 
@@ -547,7 +557,7 @@ The Order Command classes inherits from the `Command` class. They overwrite the 
 #### 2.12 Fridge Component
 API: `Fridge.java` ,`Ingredient.java`
 
-The Fridge component allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. The ingredients are always kept sorted by their expiry date, with the most recently expiring coming first. Furthermore, it allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first.  
+The `Fridge` component allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. The ingredients are always kept sorted by their expiry date, with the most recently expiring coming first. Furthermore, it allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first.  
 
 ![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML1.png)
 
@@ -591,17 +601,20 @@ Below is a table with some of the methods provided by this class.
 
 API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.java`, `RemoveAllExpired.java`, `FindIngredientCommand.java`, `UseCommand.java`, `ChangeAmountCommand.java`, `ChangeNameCommand.java`
 
-The ingredientCommand classes inherits from the `Command` class. They overwrite the abstract method `execute` of the class `Command`. The ingredientCommand classes includes:
+The `ingredientCommand` classes all inherit from the `Command` class. They all have a specific implementation of the abstract method `execute` of the class `Command`. The `ingredientCommand` classes includes:
 
-- AddCommand: This command adds an entry of an ingredient to the IngredientsList. The IngredientsList can also be read from the file when initializing.
-- DeteleCommand: This command deletes an entry of an ingredient from the IngredientsList. 
-- FindToday: This command is used to look for expired ingredients on the date itself.
-- ListCommand: This command is used to show the chef's entire IngredientsList.
-- RemoveAllExpired: The command is used to remove all expired ingredients from the IngredientsList
-- FindIngredientCommand: This command is used to find all ingredients with the queried keyword entered by the chef.
-- UseCommand: This command is used to delete the specified amount off an ingredient when it is used. Otherwise, if there is not enough of the required amount entered by the chef, the program will prompt it to the chef.
+
+- **AddCommand** This command adds an `Ingredient` to the `Fridge`, passed as an argument when creating this command. The `IngredientsList` used by the `Fridge` can also be read from the file when initializing. When adding an ingredient, it is compared to all the existing ingredients in the `Fridge`, if there is an match, having the same name and expiry date, no new entry is created in the `IngredientList` of the `Fridge`, namely, only the amount of the already existing matching ingredient is augmented by the new amount to be added. Otherwise, a new ingredient entry is created in the `IngredientList`. 
+- **DeteleCommand**: This command deletes an ingredient from the `IngredientList` of the `Fridge`, indicated by it's index in the list, passed as a parameter when creating this command. 
+- **FindToday**: This command is used to look for expired ingredients on the date itself.
+- **ListCommand**: This command is used to show the chef's entire IngredientsList.
+- **RemoveAllExpired**: The command is used to remove all expired ingredients from the  `IngredientList` of the `Fridge`.
+- **FindIngredientCommand**: This command is used to find all ingredients with the queried keyword entered by the chef.
+- **UseCommand**: This command is executed to use and remove the specified amount of an ingredient stored in the  `IngredientList` of the `Fridge`, when the Chef wants to use it. An important *note* is that ingredients are used based on their expiry date, meaning the most recently expiring ingredients, matching the ingredient indicated by the chef, are used first. Otherwise, if there is not enough of the required non-expired amount of this ingredient needed by the chef, the program will prompt it to the chef. 
 - ChangeAmountCommand: This command is used to change the amount of an ingredient given the index number of the ingredient
 - ChangeNameCommand: This command is used to change the name of an ingredient given the index number of the ingredient
+
+
 
 ### 3. Implementation
 
@@ -787,14 +800,10 @@ Target user profile: Restaurant Chef
 ### Appendix D: Non Functional Requirement
 
 1. should work on any windows or Mac OS as long it has `java 11` or newer installed 
-2. The application needs to be secure. only specific users are able to access this application. for example, the restaurant manager as well as the chef
+2. The application needs to be secure. only specific users are able to access this application. for example, the restaurant manager as well as the chef, coming in version 2
 3. should be reliable in displaying accurate and correct data 
 4. should be easy to use for users with basic knowledge of command line interface
 5. should be able to handle large amounts of data without displaying any slowdown in application performance 
-
-### Appendix E: Glossary 
-
-1. 
 
 ### Appendix F: Instruction for Manual Testing 
 
@@ -828,15 +837,59 @@ in the main page, there are several actions for the user:
 
 #### E2. Adding an ingredient
 
-1. Adding an ingredient to the List
+1. Adding an ingredient to the Fridge
+
+   1. prerequisite: user must be in `b` option of the main menu. See all ingredients in the Fridge by using `show` 
+
+      Test case 1: `add chicken 2 12/2/2020`
+
+      Expected: search through the `Fridge`, if there is an already existing ingredient chicken with the same expiry date, 12/2/2020, update it's amount by adding 2 to it, otherwise,  adds an ingredient chicken, 2 expiring on 12th of February 2020 in the `Fridge`. Output message to user that the ingredient has been added
+
+      Test case 2: `add chicken 2 9/11/2019`
+
+      Expected: output a message asking the user for confirmation if he really wants to proceed with adding an expired ingredient
+
+      Test case 3: `add`
+
+      Expected: output a message to user that the description of add cannot be empty
+
+
 
 #### E3. Removing an ingredient
 
-1. Adding an ingredient to the List
+Removing an ingredient from the Fridge
+
+1. prerequisite: user must be in `b` option of the main menu. Show all ingredients using `show` , assuming the number of ingredients currently  in the Fridge is for eg. 5.
+
+   Test case 1: `remove 1` 
+
+   Expected: remove the first, most recently expiring ingredient from the Fridge, and output back the details of the removed ingredient
+
+   Test case 2: `remove 6`
+
+   Expected: no ingredient is removed, outputs to the user that the index is not valid 
+
+   Test case 3: `remove`
+
+   Expected:  no ingredient is removed, outputs to the user that he must specify an index
 
 #### E4. Using an ingredient
 
-1. Adding an ingredient to the List
+Using an ingredient from the Fridge
+
+1. prerequisite: user must be in `b` option of the main menu. See all ingredients in the Fridge by using `show` , assuming there is an amount of 3 of tomato in the `Fridge`
+
+   Test case 1: `use tomato 2 `
+
+   Expected: search through the `Fridge`, use and remove an amount of 2 of the tomato, by removing the most recently expiring tomato first
+
+   Test case 2: `use tomato 3`
+
+   Expected: outputs a message notifying the user that there is not a sufficient amount of tomato that is not expired
+
+   Test case 3: `use tomato`
+
+   Expected: output a message to user that he must specify an amount 
 
 #### E5. Listing all ingredient
 

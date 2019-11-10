@@ -35,7 +35,7 @@ public abstract class GenericList<T> {
      * Adds an entry to the {@link GenericList}.
      * @param entry {@link T} to be added to the list
      */
-    public void addEntry(T entry) {
+    public void addEntry(T entry) throws DukeException {
         genList.add(entry);
     }
 
@@ -97,7 +97,7 @@ public abstract class GenericList<T> {
      *
      * @return the entry from the generic list, that is still linked to the list, so it can be modified
      */
-    public T getEntry(T entry) {
+    public T getEntry(T entry) throws DukeException {
         for (T e : genList)
             if (e.equals(entry))
                 return e;

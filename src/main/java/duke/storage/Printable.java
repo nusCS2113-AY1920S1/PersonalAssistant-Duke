@@ -4,5 +4,5 @@ package duke.storage;
  * @author Sara Djambazovska
  */
 public interface Printable {
-    public abstract String printInFile();
+    abstract String printInFile();
 }

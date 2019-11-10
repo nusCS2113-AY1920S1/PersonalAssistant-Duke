@@ -2,6 +2,7 @@ package duke.command.ingredientCommand;
 
 import duke.command.Command;
 import duke.dish.DishList;
+import duke.exception.DukeException;
 import duke.fridge.Fridge;
 import duke.ingredient.Ingredient;
 import duke.order.OrderList;
@@ -31,7 +32,7 @@ public class FindToday extends Command {
     }
 
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) {
+    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         int i = 1;
         StringBuilder sb = new StringBuilder();
         for (Ingredient ingredient : fridge.getAllIngredients().getAllEntries()) {     //for every ingredient, scan through the ingredient list
