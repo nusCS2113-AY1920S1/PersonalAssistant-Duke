@@ -51,9 +51,14 @@ public class TaskList {
             String existingTaskDate = existingTask.getDateTime();
             String taskDescription = task.getDescription();
             String taskDate = task.getDateTime();
-            if (!(existingTaskDescription.equals(taskDescription) || existingTaskDate.equals(taskDate))) {
-                this.map.get(task.getModCode()).get(task.getDate()).add(task);
-                this.list.add(task);
+            if (existingTaskDescription.equals(taskDescription) && existingTaskDate.equals(taskDate)) {
+                if (task.getIsReminder() && !existingTask.getIsReminder()) {
+                    existingTask.setRemindTime(task.getRemindTime());
+                    existingTask.setReminder(true);
+                }
+                if (task.getStatus() && !existingTask.getStatus()) {
+                    existingTask.setDone(true);
+                }
                 return;
             }
         }
@@ -93,16 +98,6 @@ public class TaskList {
                 break;
             }
         }
-    }
-
-    //Do not use this: User will input the task in the CLI
-    public Assignment getTask(int index) {
-        return this.list.get(index);
-    }
-
-    //Do not use this: Use toString method in Task
-    public String taskToString(int index) {
-        return list.get(index).toString();
     }
 
     /**

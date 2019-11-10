@@ -10,10 +10,18 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
+/**
+ * Deals with pre-loading the jar file with tasks
+ */
 public class PreloadStorage extends Storage {
 
     private final Logger LOGGER = DukeLogger.getLogger(PreloadStorage.class);
 
+    /**
+     * Reads and populates the TaskList of events from preloadevent.txt
+     * @param list TaskList of events
+     * @throws DukeIOException when preloadevent.txt is not found
+     */
     @Override
     public void readEventList(TaskList list) throws DukeIOException {
         try {
@@ -30,6 +38,11 @@ public class PreloadStorage extends Storage {
         }
     }
 
+    /**
+     * Reads and populates the TaskList of deadlines from preloaddeadline.txt
+     * @param list TaskList of deadlines
+     * @throws DukeIOException when preloaddeadline.txt is not found
+     */
     @Override
     public void readDeadlineList(TaskList list) throws DukeIOException {
         try {
@@ -40,6 +53,9 @@ public class PreloadStorage extends Storage {
             while ((line = bufferedReader.readLine()) != null) {
                 list.addTask(super.stringToTask(line));
             }
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
         } catch (IOException e) {
             LOGGER.severe("There is no event.txt to read from.");
             throw new DukeIOException("There is no preloaddeadline.txt to read from. Please create one.");
