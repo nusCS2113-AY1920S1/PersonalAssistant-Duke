@@ -1,6 +1,6 @@
 package seedu.hustler.data;
 
-import seedu.hustler.schedule.Scheduler;
+import seedu.hustler.Hustler;
 import seedu.hustler.task.*;
 
 import java.io.*;
@@ -209,9 +209,9 @@ public class TaskStorage {
         }
 
         // saveAchievements inputs
-        String savedLine = 0 + "|" + Scheduler.getTimeSpent(inputList.get(0));
+        String savedLine = 0 + "|" + Hustler.scheduler.getTimeSpent(inputList.get(0));
         for (int i = 1; i < inputList.size(); i++) {
-            savedLine = savedLine + "\n" + i + "|" + Scheduler.getTimeSpent(inputList.get(i));
+            savedLine = savedLine + "\n" + i + "|" + Hustler.scheduler.getTimeSpent(inputList.get(i));
         }
         BufferedWriter writer = new BufferedWriter(
             new FileWriter(new File(saveAt))
@@ -234,7 +234,7 @@ public class TaskStorage {
                 String[] taskString = timeSpentSaved.nextLine().split("\\|");
                 int index = Integer.parseInt(taskString[0]);
                 int timeSpent = Integer.parseInt(taskString[1]);
-                Scheduler.add(list.get(index), timeSpent);
+                Hustler.scheduler.add(list.get(index), timeSpent);
             }
             timeSpentSaved.close();
         } catch (FileNotFoundException e) {

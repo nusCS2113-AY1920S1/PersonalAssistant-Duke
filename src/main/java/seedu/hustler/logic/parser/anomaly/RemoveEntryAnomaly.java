@@ -20,7 +20,7 @@ public class RemoveEntryAnomaly extends DetectAnomaly {
             }
             index = Integer.parseInt(userInput[1]);
             index--;
-            Scheduler.recommended.get(index);
+            Hustler.scheduler.recommended.get(index);
         } catch (NumberFormatException e) {
             throw new CommandLineException("Please issue an index after the command: /command <index>");
         } catch (IndexOutOfBoundsException e) {
