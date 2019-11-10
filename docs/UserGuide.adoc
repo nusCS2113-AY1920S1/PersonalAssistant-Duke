@@ -309,8 +309,8 @@ Format: `todo <DESCRIPTION> | todo <DESCRIPTION> /priority <LEVEL>`
 
 Examples: +
 
-* `todo Go on a Bizzare Adventure` +
-Creates a todo task with the description "Go on a Bizzare Adventure" with normal priority.
+* `todo View a perfect cherry blossom` +
+Creates a todo task with the description "View a perfect cherry blossom" with normal priority.
 * `todo Donate to the Hakurei Shrine /priority high` +
 Creates a todo task with the description "Donate to the Hakurei Shrine" with high priority.
 
