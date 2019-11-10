@@ -10,7 +10,6 @@ import static util.constant.ConstantHelper.VIEW_ASSIGNMENTS_INVALID_FLAG_MESSAGE
 import static util.constant.ConstantHelper.VIEW_ASSIGNMENTS_NO_MEMBERS_MESSAGE;
 import static util.constant.ConstantHelper.VIEW_ASSIGNMENTS_NO_TASKS_MESSAGE;
 
-import controllers.ProjectInputController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import models.member.IMember;
@@ -62,7 +61,7 @@ public class AssignmentViewHelper {
      * @param projectCommand The command by the user containing index numbers of the members to view.
      */
     private String[] viewMembersAssignments(Project projectToManage, String projectCommand) {
-        ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
+        ArchDukeLogger.logDebug(AssignmentViewHelper.class.getName(),
             "[projectViewMembersAssignments] User input: '" + projectCommand + "'");
         ArrayList<Integer> validMembers = parserHelper.parseMembersIndexes(projectCommand,
             projectToManage.getNumOfMembers());
@@ -119,7 +118,7 @@ public class AssignmentViewHelper {
      * @param projectCommand The user input.
      */
     private String[] viewTasksAssignments(Project projectToManage, String projectCommand) {
-        ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
+        ArchDukeLogger.logDebug(AssignmentViewHelper.class.getName(),
             "[projectViewTasksAssignments] User input: '" + projectCommand + "'");
         ArrayList<Integer> validTasks = parserHelper.parseTasksIndexes(projectCommand,
             projectToManage.getNumOfTasks());
