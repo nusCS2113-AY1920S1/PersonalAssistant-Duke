@@ -738,6 +738,9 @@ public class Command {
                         throw new UnsupportedOperationException();
                     }
                     String[] contactDetails = splitContact[1].split(",");
+                    if (contactDetails.length != 3) {
+                        throw new UnsupportedOperationException();
+                    }
                     Contact newContact = new Contact(contactDetails[0], contactDetails[1], contactDetails[2]);
                     events.getEvent(eventIndex).addContact(newContact);
                     ui.printContactAdded();
