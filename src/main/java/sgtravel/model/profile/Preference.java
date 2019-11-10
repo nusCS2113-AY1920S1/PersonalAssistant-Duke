@@ -4,6 +4,9 @@ import sgtravel.commons.exceptions.NoSuchCategoryException;
 
 import java.util.ArrayList;
 
+/**
+ * Contains information of user preferences.
+ */
 public class Preference {
     private Boolean sports;
     private Boolean entertainment;

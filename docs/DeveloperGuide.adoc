@@ -148,8 +148,8 @@ Given below is the diagram illustrating the workflow of the `Logic` component. T
 .Logic Activity diagram
 image::LogicActivityDiagram.png[width="500" align="left"]
 
-.CreateCommand Activity diagram
-image::CreateCommandActivityDiagram.png[width="500" align="left"]
+.Create Parser Activity diagram
+image::CreateParserActivityDiagram.png[width="500" align="left"]
 
 [[Design-Model]]
 === Model component
@@ -577,8 +577,106 @@ There are two main additions coming in v2.0 are :
 
 . Recommendations based on `hotel location`
 
-. `Edit` feature during and after itinerary creation. 
- 
+. `Edit` feature during and after itinerary creation.
+
+=== Profile feature
+
+==== Implementation
+SGTravel enables the user to create a personal profile and save basic information. The profile mechanism is facilitated by the `ProfileCard`. It stores information internally as `Preferences`, `Person` and `favourite` as depicted in the figure below.
+
+.ProfileCard Class Diagram
+image::ProfileCardClassDiagram.png[]
+
+[TIP]
+====
+Detailed information of itinerary could be found in Section 3.5 Itinerary
+====
+
+Profile mechanism implements the following feature:
+
+* `profile` - set the profile of the person
+* `profileSet` - set preference of the person
+* `profileShow` - shows the user the current profile
+* `addFav` - add favourite itinerary to favourite list
+* `deleteFav` - delete itinerary from favourite list
+* `showFav` - shows the details of favourite itinerary
+* `listFav` - list all the favourite itinerary.
+
+.Profile Sequence Diagram
+image::ProfileAddSequenceDiagram.png[]
+The figure above shows how `profile` mechanism works. Given below is an example usage scenario and how the `profile` mechanism behaves at each step:
+
+. User input command `profile` with relevant information. +
+E.g `profile James 01/01/1999`
+. `LogicManager` passes the input to `Parser`.
+. `Parser` constructs relevant parser, which is `ProfileParser` in this case.
+. `ProfileParser` to break down the input into `String` and `LocalDateTime`, which is the required parameter to construct `ProfileAddCommand`.
+. `ProfileAddCommand` is returned back to `LogicManager`.
+. `LogicManager` calls `execute()` function of `ProfileAddCommand`.
+. `ProfileAddCommand` calls `setPerson()` with the parsed input to set `Person` in `ProfileCard` to the name and birthday of user.
+. `ProfileAddCommand` calls save on `model` to save the `ProfileCard` with new information.
+
+[NOTE]
+====
+If user did not set profile, `ProfileCard` is initialise with name as “new user” and birthday set as the date SGTravel is first launch.
+====
+
+`profileSet` have similar mechanism as `profile`. Given below is an example usage scenario and how the `profileSet` mechanism behaves at each step:
+
+. User input command `profileSet` with relevant information. +
+E.g `profile sports true`
+. `LogicManager` passes the input to `Parser`.
+. `Parser` constructs relevant parser, which is `ProfileSetPreferenceParser` in this case.
+. `ProfileSetPreferenceParser` to break down the input into `String` and `Boolean`, which is the required parameter to construct `ProfileSetPreferenceCommand`.
+. `ProfileSetPreferenceCommand` is returned back to `LogicManager`.
+. `LogicManager` calls `execute()` function of ProfileSetPreferenceCommand.
+. `ProfileSetPreferenceCommand` calls `getProfileCard()` of `ModelManager` to get the `ProfileCard` and then calls `setPreference()` with the parsed input to set `preference` in `ProfileCard` to the category to the setting.
+. `ProfileSetPreferenceCommand` calls save on `ModelManager` to save the `ProfileCard` with new information.
+
+[TIP]
+====
+The only valid preference currently in V 1.4 are sports,lifestyle,arts and entertainment. Additional preferences could be added by just adding additional field in `preferences`.
+====
+
+.Profile Sequence Diagram
+image::addFavSequenceDiagram.png[]
+
+The figure above shows the mechanism of `addFav`. Given below is an example usage scenario and how the `addFav` mechanism behaves at each step:
+
+. User input command addFav with relevant information. +
+E.g `addFav SundayVacay`
+. `LogicManager` passes the input to `Parser`.
+. `Parser` constructs relevant parser, which is `ProfileAddFavParser` in this case.
+. `ProfileAddFavParser` to break down the input into `String`, which is the required parameter to construct `ProfileAddFavCommand`.
+. `ProfileAddFavCommand` is returned back to `LogicManager`
+. `LogicManager` calls `execute()` function of `ProfileAddFavCommand`.
+. `ProfileAddFavCommand` calls `getItinerary()` of `ModelManager` to get the Itinerary of given name and then calls `addToFavourite()` of `ModelManager`.
+. `ModelManger` will call `addToFavourite()` of `ProfileCard` to add the itinerary to `favourite` in `ProfileCard`.
+. `ProfileAddFavCommand` calls save on `ModelManager` to save the ProfileCard with new information.
+
+`deleteFav` have similar mechanism as `addFav`. Given below is an example usage scenario and how the `deleteFav` mechanism behaves at each step:
+
+. User input command deleteFav with relevant information. +
+E.g `deleteFav SundayVacay`
+. `LogicManager` passes the input to `Parser`.
+. `Parser` constructs relevant parser, which is `ProfileDeleteFavParser` in this case.
+. `ProfileDeleteFavParser` to break down the input into `String`, which is the required parameter to construct `ProfileDeleteFavCommand`.
+. `ProfileDeleteFavCommand` is returned back to `LogicManager`.
+. `LogicManager` calls `execute()` function of `ProfileDeleteFavCommand`.
+. `ProfileDeleteFavCommand` calls `deleteFavourite()` function of `ModelManager`.
+. `ModelManger` will call `deleteFavourite()` of `ProfileCard` to delete the `Itinerary` from `favourite` in `ProfileCard`.
+. `ProfileDeleteFavCommand` calls save on `ModelManager` to save the `ProfileCard` with new information.
+
+Other helper commands such as: `profileShow`, `listFav` and `showfav` have not been shown here as they are simple text displaying commands.
+
+==== Design Considerations
+===== **Aspect: How SGTravel Saves Favourite Itinerary**
+* **Alternative 1:** Create another `itinerary` list as a favourite list.
+** Pros: Easy to implement.
+** Cons: Easy to mix up `itinerary` list with `favourite` list.
+* **Alternative 2:** Create `itinerary` list in profile as favourite list.
+** Pros: Easier and more intuitive for user to view favourite list.
+** Cons: More difficult to implement as some classes can't be reused.
 
 === [Proposed] Data Encryption
 

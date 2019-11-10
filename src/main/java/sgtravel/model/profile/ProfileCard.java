@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Contains information of user.
+ * Contains detailed information of user.
  */
 public class ProfileCard {
     private Person person;
