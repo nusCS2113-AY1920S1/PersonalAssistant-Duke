@@ -2,19 +2,16 @@ package duke.command;
 
 import duke.storage.Storage;
 import duke.task.TaskList;
+import duke.ui.HelpWindow;
 import duke.ui.Ui;
 
 import java.io.IOException;
 
 //@@author gervaiseang
 /**
- * Displays full help instructions that list down all functions and commands available.
+ * Displays HelpWindow that shows all functions and commands available.
  */
 public class HelpCommand extends Command {
-    public static final String COMMAND_WORD = "help";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Showing all help instructions.\n"
-            + "Example: " + COMMAND_WORD;
 
     /**
      * Executes a command that adds the task into task list and outputs the result (GUI).
@@ -25,8 +22,7 @@ public class HelpCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        String str = Ui.helpRequest(items); //replace with events later on
-        return str;
+        return " ";
     }
 
     /**

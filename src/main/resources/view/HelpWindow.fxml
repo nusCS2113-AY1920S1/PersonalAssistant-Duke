@@ -10,13 +10,21 @@
 
 <!-- @@author gervaiseang-->
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.HelpWindow">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.HelpWindow">
     <children>
         <HBox layoutX="163.0" layoutY="64.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
                     <children>
-                        <Label alignment="TOP_LEFT" text="Get Help">
+                        <Label alignment="TOP_LEFT">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="50.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" text="Get help:">
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -29,7 +37,7 @@
                                 <Font size="16.0" />
                             </font>
                             <VBox.margin>
-                                <Insets bottom="50.0" />
+                                <Insets bottom="50.0" top="50.0" />
                             </VBox.margin>
                         </Label>
                         <Label alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" text="Example:">
@@ -37,7 +45,7 @@
                                 <Font size="16.0" />
                             </font>
                             <VBox.margin>
-                                <Insets bottom="20.0" top="20.0" />
+                                <Insets bottom="20.0" top="50.0" />
                             </VBox.margin>
                         </Label>
                     </children>
@@ -56,7 +64,15 @@
                             </VBox.margin>
                         </ComboBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="500.0" style="-fx-border-color: black;">
-                            <Label fx:id="getDescription" alignment="TOP_LEFT" layoutX="50.0" layoutY="80.0">
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                            <children>
+                                <Label fx:id="getDescription" alignment="TOP_LEFT" layoutX="50.0" layoutY="80.0" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="500.0" style="-fx-border-color: black;">
+                            <Label fx:id="getFormat" alignment="TOP_LEFT" layoutX="50.0" layoutY="80.0">
                                 <VBox.margin>
                                     <Insets bottom="10.0" />
                                 </VBox.margin>
