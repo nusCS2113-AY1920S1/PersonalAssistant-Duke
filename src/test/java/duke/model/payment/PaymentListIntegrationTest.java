@@ -1,18 +1,16 @@
 package duke.model.payment;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
 import duke.exception.DukeException;
 import duke.model.payment.Payment.Builder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PaymentListIntegrationTest {
 
@@ -151,7 +149,7 @@ public class PaymentListIntegrationTest {
         fillFullPayments();
         assertDoesNotThrow(() -> payments.setSortingCriteria(AMOUNT_SORTING_CRITERIA));
 
-        for (int index = 0; index < PAYMENTS_FULL_SIZE - 1; index ++) { // 0-based index
+        for (int index = 0; index < PAYMENTS_FULL_SIZE - 1; index++) { // 0-based index
             BigDecimal thisAmount = payments.asUnmodifiableFilteredList().get(index).getAmount();
             BigDecimal nextAmount = payments.asUnmodifiableFilteredList().get(index + 1).getAmount();
             assertTrue(thisAmount.compareTo(nextAmount) >= 0);
@@ -163,7 +161,7 @@ public class PaymentListIntegrationTest {
         fillFullPayments();
         assertDoesNotThrow(() -> payments.setSortingCriteria(PRIORITY_SORTING_CRITERIA));
 
-        for (int index = 0; index < PAYMENTS_FULL_SIZE - 1; index ++) { // 0-based
+        for (int index = 0; index < PAYMENTS_FULL_SIZE - 1; index++) { // 0-based
             int thisPriority = payments.asUnmodifiableFilteredList().get(index).getNumeratedPriority();
             int nextPriority = payments.asUnmodifiableFilteredList().get(index + 1).getNumeratedPriority();
             assertTrue(thisPriority >= nextPriority);

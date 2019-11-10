@@ -15,7 +15,7 @@ public class PlanQuestionBankTest {
     public void testPlanQuestionBank() {
         try {
             Map<String, String> knownAttributes = new HashMap<>();
-            PlanQuestionBank planQuestionBank = new PlanQuestionBank();
+            PlanQuestionBank planQuestionBank = PlanQuestionBank.getInstance();
 
             Assertions.assertFalse(planQuestionBank.getQuestions(knownAttributes).isEmpty());
             Queue<PlanQuestion> questionQueue = new LinkedList<>();
@@ -74,7 +74,7 @@ public class PlanQuestionBankTest {
     public void testNegative() {
         try {
             Map<String, String> knownAttributes = new HashMap<>();
-            PlanQuestionBank planQuestionBank = new PlanQuestionBank();
+            PlanQuestionBank planQuestionBank = PlanQuestionBank.getInstance();
             Assertions.assertThrows(DukeException.class, () -> {
                 planQuestionBank.makeRecommendation(knownAttributes);
             });

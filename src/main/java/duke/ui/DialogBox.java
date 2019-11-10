@@ -30,12 +30,15 @@ public class DialogBox extends UiPart<Region> {
         super(FXML_FILE_NAME, null);
         this.dialog = dialog;
         text.setText(dialog.text);
-        text.setBackground(new Background(new BackgroundFill(Color.LAVENDER, new CornerRadii(5), Insets.EMPTY)));
+        text.setBackground(new Background(new BackgroundFill(Color.rgb(233,170,27)
+                , new CornerRadii(5), Insets.EMPTY)));
         if (dialog.agent == PlanBot.Agent.USER) {
             textContainer.setAlignment(Pos.BOTTOM_RIGHT);
         } else {
             text.setAlignment(Pos.BOTTOM_LEFT);
-            text.setBackground(new Background(new BackgroundFill(Color.SANDYBROWN, new CornerRadii(5), Insets.EMPTY)));
+            text.setTextFill(Color.rgb(253,214,108));
+            text.setBackground(new Background(new BackgroundFill(Color.rgb(49,66,86)
+                    , new CornerRadii(5), Insets.EMPTY)));
         }
     }
 

@@ -1,5 +1,5 @@
 .list-cell{
-    -fx-background-color: 	LIGHTGRAY
+    -fx-background-color: WHITE
 
 ;
 
@@ -10,10 +10,12 @@
 }
 
 #paneTitle {
-    -fx-font-size: 32px;
+    -fx-font-size: 36px;
     -fx-font-weight: bold;
+    -fx-text-fill: GOLD;
+
 }
 
 #dialogListView {
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
 }

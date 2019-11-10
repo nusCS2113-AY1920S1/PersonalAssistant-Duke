@@ -14,7 +14,6 @@
     <top>
         <VBox alignment="CENTER">
             <Label fx:id="paneTitle" text="Plan"/>
-            <Label fx:id="otherPanes" text="Budget Expense Trend"/>
             <ListView prefWidth="1000" prefHeight="500" fx:id="dialogListView"/>
         </VBox>
     </top>
