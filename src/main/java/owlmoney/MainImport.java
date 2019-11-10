@@ -101,7 +101,7 @@ class MainImport {
             "dining",
             "true",
             "",
-            "2019-01"});
+            ""});
         exportArrayList.add(new String[]{
             "Chicken Rice",
             "4",
@@ -109,7 +109,7 @@ class MainImport {
             "dining",
             "true",
             "",
-            "2019-03"});
+            ""});
         exportArrayList.add(new String[]{
             "Ice Coffee",
             "7.5",
@@ -117,7 +117,7 @@ class MainImport {
             "dining",
             "true",
             "",
-            "2019-05"});
+            ""});
         exportArrayList.add(new String[]{
             "Uniqlo TShirt",
             "39.9",
@@ -125,7 +125,7 @@ class MainImport {
             "shopping",
             "true",
             "",
-            "2019-08"});
+            ""});
         exportArrayList.add(new String[]{
             "Anker Powerbank",
             "29.99",
@@ -133,7 +133,7 @@ class MainImport {
             "Miscellaneous",
             "true",
             "",
-            "2019-09"});
+            ""});
         exportArrayList.add(new String[]{
             "FREELANCE",
             "500",
@@ -141,7 +141,7 @@ class MainImport {
             "deposit",
             "false",
             "",
-            "2019-10"});
+            ""});
         exportArrayList.add(new String[]{
             "Pixel 4 XL",
             "1469.99",
@@ -149,7 +149,7 @@ class MainImport {
             "Miscellaneous",
             "true",
             "",
-            "2019-10"});
+            ""});
         exportArrayList.add(new String[]{
             "Ramen",
             "13.37",
@@ -157,7 +157,7 @@ class MainImport {
             "dining",
             "true",
             "",
-            "2019-10"});
+            ""});
         exportArrayList.add(new String[]{
             "Movie Joker",
             "13.5",
@@ -165,7 +165,7 @@ class MainImport {
             "Miscellaneous",
             "true",
             "",
-            "2019-11"});
+            ""});
         exportArrayList.add(new String[]{
             "Grab to NUS",
             "22",
@@ -173,7 +173,7 @@ class MainImport {
             "transport",
             "true",
             "",
-            "2019-11"});
+            ""});
         exportArrayList.add(new String[]{
             "Chicken Chop",
             "6.5",
@@ -181,7 +181,7 @@ class MainImport {
             "dining",
             "true",
             "",
-            "2019-11"});
+            ""});
         return exportArrayList;
     }
 
@@ -309,7 +309,7 @@ class MainImport {
             "bonds",
             "true",
             "",
-            "2019-02"});
+            ""});
         exportArrayList.add(new String[]{
             "February SSB",
             "1000",
@@ -317,7 +317,7 @@ class MainImport {
             "bonds",
             "true",
             "",
-            "2019-03"});
+            ""});
         exportArrayList.add(new String[]{
             "March SSB",
             "3000",
@@ -325,7 +325,7 @@ class MainImport {
             "bonds",
             "true",
             "",
-            "2019-04"});
+            ""});
         exportArrayList.add(new String[]{
             "April SSB",
             "1300",
@@ -333,7 +333,7 @@ class MainImport {
             "bonds",
             "true",
             "",
-            "2019-05"});
+            ""});
         exportArrayList.add(new String[]{
             "May SSB",
             "2100",
@@ -341,7 +341,7 @@ class MainImport {
             "bonds",
             "true",
             "",
-            "2019-06"});
+            ""});
         exportArrayList.add(new String[]{
             "June SSB",
             "2000",
@@ -349,7 +349,7 @@ class MainImport {
             "bonds",
             "true",
             "",
-            "2019-07"});
+            ""});
         exportArrayList.add(new String[]{
             "July SSB",
             "1500",
@@ -357,7 +357,7 @@ class MainImport {
             "bonds",
             "true",
             "",
-            "2019-08"});
+            ""});
         exportArrayList.add(new String[]{
             "August SSB",
             "1000",
@@ -365,7 +365,7 @@ class MainImport {
             "bonds",
             "true",
             "",
-            "2019-09"});
+            ""});
         exportArrayList.add(new String[]{
             "September SSB",
             "1000",
@@ -373,7 +373,7 @@ class MainImport {
             "bonds",
             "true",
             "",
-            "2019-10"});
+            ""});
         exportArrayList.add(new String[]{
             "October SSB",
             "1200",
@@ -381,7 +381,7 @@ class MainImport {
             "bonds",
             "true",
             "",
-            "2019-11"});
+            ""});
         exportArrayList.add(new String[]{
             "January SSB",
             "5.02",
@@ -389,7 +389,7 @@ class MainImport {
             "bonds",
             "false",
             "",
-            "2019-08"});
+            ""});
         exportArrayList.add(new String[]{
             "February SSB",
             "9.9",
@@ -397,7 +397,7 @@ class MainImport {
             "bonds",
             "false",
             "",
-            "2019-09"});
+            ""});
         exportArrayList.add(new String[]{
             "March SSB",
             "29.25",
@@ -405,7 +405,7 @@ class MainImport {
             "bonds",
             "false",
             "",
-            "2019-10"});
+            ""});
         exportArrayList.add(new String[]{
             "April SSB",
             "12.74",
@@ -413,7 +413,7 @@ class MainImport {
             "bonds",
             "false",
             "",
-            "2019-11"});
+            ""});
         return exportArrayList;
     }
 

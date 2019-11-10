@@ -1,7 +1,6 @@
 package owlmoney;
 
 import owlmoney.logic.command.Command;
-import owlmoney.logic.command.UpdateCommand;
 import owlmoney.logic.parser.ParseCommand;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;

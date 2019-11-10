@@ -1890,7 +1890,9 @@ saved automatically in the `data` directory.
 function optimally if malformed inputs are loaded in from corrupted save files.
 
 *Q*: How do I edit the data stored in the files of `data` directory? +
-*A*: The data of the files are clearly labelled with column names in the `.csv` files and you can easily make sense of
+*A*: We recommend you *NOT* to use *Microsoft Excel* to perform your edits because it modifies the formatting of the
+`.csv` file. Therefore, use alternative tools like *Notepad++* to perform your edits.
+The data in the files are clearly labelled with column names in the `.csv` files and you can easily make sense of
 it! As long as you follow the constraints set out for each `PARAMETER` as mentioned in all previous sections, you
 should be fine!
 
