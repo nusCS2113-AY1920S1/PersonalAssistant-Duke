@@ -1,7 +1,6 @@
 package entertainment.pro.ui;
 
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.*;
 import entertainment.pro.logic.cinemaRequesterAPI.CinemaRetrieveRequest;
 import entertainment.pro.logic.contexts.CommandContext;
@@ -12,6 +11,7 @@ import entertainment.pro.logic.movieRequesterAPI.RequestListener;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.model.*;
 import entertainment.pro.storage.user.Blacklist;
+import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.storage.utils.*;
 //import entertainment.pro.xtra.PastCommands;
 //import entertainment.pro.storage.utils.PastUserCommands;
@@ -26,9 +26,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;

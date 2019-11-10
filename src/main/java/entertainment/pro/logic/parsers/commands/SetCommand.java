@@ -6,7 +6,7 @@ import entertainment.pro.commons.exceptions.NoPermissionException;
 import entertainment.pro.commons.exceptions.logic.SetExceptions;
 import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.utils.EditProfileJson;
-import entertainment.pro.storage.utils.ProfileCommands;
+import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.storage.user.WatchlistHandler;
@@ -18,30 +18,30 @@ import java.io.IOException;
 
 public class SetCommand extends CommandSuper {
     public SetCommand(Controller uicontroller) {
-        super(COMMANDKEYS.set, CommandStructure.cmdStructure.get(COMMANDKEYS.set), uicontroller);
+        super(COMMANDKEYS.SET, CommandStructure.cmdStructure.get(COMMANDKEYS.SET), uicontroller);
     }
 
     @Override
     public void executeCommands() throws IOException {
         switch (this.getSubRootCommand()) {
-        case name:
+        case NAME:
             System.out.println("enter");
             executeSetName();
             break;
-        case age:
+        case AGE:
             executeSetAge();
             break;
-        case preference:
+        case PREFERENCE:
             executeSetPreference();
             break;
-        case watchlist:
+        case WATCHLIST:
             System.out.println("enter");
             executeTaskDone();
             break;
-        case restriction:
+        case RESTRICTION:
             executeSetRestriction();
             break;
-        case sort:
+        case SORT:
             executeSort();
             break;
         default:

@@ -7,6 +7,7 @@ import entertainment.pro.commons.exceptions.GenreDoesNotExistException;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.InvalidGenreNameEnteredException;
 import entertainment.pro.model.UserProfile;
+import entertainment.pro.storage.user.ProfileCommands;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -199,7 +200,7 @@ public class ProfileCommandsTest {
         sortOption.add("4");
         testFlagMap1.put("-s", sortOption);
         assertThrows(InvalidFormatCommandException.class, () -> {
-                profileCommands.addPreference(testFlagMap1, "-s");
+            profileCommands.addPreference(testFlagMap1, "-s");
         });
         testFlagMap1.get("-s").add("4");
         assertThrows(InvalidFormatCommandException.class, () -> {

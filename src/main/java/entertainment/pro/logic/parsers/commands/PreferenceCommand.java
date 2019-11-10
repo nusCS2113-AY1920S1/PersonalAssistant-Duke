@@ -1,13 +1,12 @@
 package entertainment.pro.logic.parsers.commands;
 
-import com.fasterxml.jackson.databind.cfg.MutableConfigOverride;
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.DuplicateGenreException;
 import entertainment.pro.commons.exceptions.GenreDoesNotExistException;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
+import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.commons.exceptions.InvalidGenreNameEnteredException;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
-import entertainment.pro.storage.utils.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;
@@ -25,7 +24,7 @@ import java.util.logging.Logger;
 
 /**
  * This class is called when user wants to edit preferences.
- * Input entered by the user starts with 'preference'
+ * Input entered by the user starts with 'preference'.
  */
 public class PreferenceCommand extends CommandSuper {
 
@@ -45,7 +44,7 @@ public class PreferenceCommand extends CommandSuper {
      * @param uiController Controller Class.
      */
     public PreferenceCommand(Controller uiController) {
-        super(COMMANDKEYS.preference, CommandStructure.cmdStructure.get(COMMANDKEYS.preference), uiController);
+        super(COMMANDKEYS.PREFERENCE, CommandStructure.cmdStructure.get(COMMANDKEYS.PREFERENCE), uiController);
     }
 
     /**
@@ -89,15 +88,15 @@ public class PreferenceCommand extends CommandSuper {
         }
         logger.log(Level.WARNING, PromptMessages.SUBROOT_PREFERENCE);
         switch (this.getSubRootCommand()) {
-            case add:
+            case ADD:
                 logger.log(Level.WARNING, PromptMessages.SUBROOT_PREFERENCE_ADD);
                 executeAddPreference(containsPossibleInputs, movieHandler);
                 break;
-            case remove:
+            case REMOVE:
                 logger.log(Level.WARNING, PromptMessages.SUBROOT_PREFERENCE_REMOVE);
                 executeRemovePreference(containsPossibleInputs, movieHandler);
                 break;
-            case clear:
+            case CLEAR:
                 logger.log(Level.WARNING, PromptMessages.SUBROOT_PREFERENCE_CLEAR);
                 executeClearPreference(containsPossibleInputs, movieHandler);
                 break;

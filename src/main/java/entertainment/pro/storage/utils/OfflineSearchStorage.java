@@ -1,6 +1,6 @@
 package entertainment.pro.storage.utils;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.ParseExceptionInExtraction;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;

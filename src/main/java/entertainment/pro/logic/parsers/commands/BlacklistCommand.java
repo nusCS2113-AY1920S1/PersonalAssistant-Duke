@@ -1,5 +1,5 @@
 package entertainment.pro.logic.parsers.commands;
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.commons.exceptions.DuplicateEntryException;
 import entertainment.pro.logic.contexts.SearchResultContext;
@@ -24,7 +24,7 @@ public class BlacklistCommand extends CommandSuper {
      * Constructor for each Command Super class.
      */
     public BlacklistCommand(Controller uicontroller) {
-        super(COMMANDKEYS.blacklist, CommandStructure.cmdStructure.get(COMMANDKEYS.blacklist), uicontroller);
+        super(COMMANDKEYS.BLACKLIST, CommandStructure.cmdStructure.get(COMMANDKEYS.BLACKLIST), uicontroller);
     }
 
 
@@ -34,10 +34,10 @@ public class BlacklistCommand extends CommandSuper {
     @Override
     public void executeCommands() throws IOException {
         switch (this.getSubRootCommand()) {
-        case add:
+        case ADD:
             addToBlackList();
             break;
-        case remove:
+        case REMOVE:
             String movie = getPayload();
             removeFromBlackList();
             Blacklist.saveBlackList();

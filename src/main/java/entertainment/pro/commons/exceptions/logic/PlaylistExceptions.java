@@ -1,6 +1,6 @@
 package entertainment.pro.commons.exceptions.logic;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.InvalidParameterException;
 import entertainment.pro.model.MovieInfoObject;
@@ -130,9 +130,11 @@ public class PlaylistExceptions {
      *
      * @throws InvalidFormatCommandException when payload is empty
      */
-    private static void checkPayload(String payload) throws InvalidFormatCommandException {
+    private static void checkPayload(String payload) throws InvalidFormatCommandException, InvalidParameterException {
         if (payload.isEmpty()) {
             throw new InvalidFormatCommandException(PromptMessages.PLAYLIST_PAYLOAD_EMPTY);
+        } else if (payload.charAt(0) == '-') {
+            throw new InvalidParameterException(PromptMessages.INVALID_PAYLOAD);
         }
     }
 

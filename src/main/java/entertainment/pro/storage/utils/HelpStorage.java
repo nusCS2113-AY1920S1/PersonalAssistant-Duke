@@ -1,9 +1,8 @@
 package entertainment.pro.storage.utils;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
-import javafx.fxml.LoadException;
 
 import java.io.*;
 import java.util.TreeMap;
@@ -28,7 +27,7 @@ public class HelpStorage {
         }
 
         try {
-            cmdHelp.put(COMMANDKEYS.me , getHelpInstructions(COMMANDKEYS.me.toString()));
+            cmdHelp.put(COMMANDKEYS.ME, getHelpInstructions(COMMANDKEYS.ME.toString()));
         } catch (IOException e) {
             logger.log(Level.SEVERE , PromptMessages.FILE_NOT_FOUND + e.toString());
         }

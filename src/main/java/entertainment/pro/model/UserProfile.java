@@ -1,6 +1,5 @@
 package entertainment.pro.model;
 
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 
 public class UserProfile {

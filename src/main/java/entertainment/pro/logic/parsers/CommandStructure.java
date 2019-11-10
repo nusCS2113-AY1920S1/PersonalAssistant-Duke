@@ -14,51 +14,51 @@ public class CommandStructure {
      *
      */
     public static TreeMap<COMMANDKEYS, COMMANDKEYS[]> cmdStructure = new TreeMap<COMMANDKEYS, COMMANDKEYS[]>() {{
-            put(COMMANDKEYS.search, new COMMANDKEYS[] {
-                COMMANDKEYS.movies, COMMANDKEYS.tvshows, COMMANDKEYS.cast, COMMANDKEYS.filters
+            put(COMMANDKEYS.SEARCH, new COMMANDKEYS[] {
+                COMMANDKEYS.MOVIES, COMMANDKEYS.TVSHOWS, COMMANDKEYS.CAST, COMMANDKEYS.FILTERS
             });
 
-            put(COMMANDKEYS.view, new COMMANDKEYS[] {
-                COMMANDKEYS.profile, COMMANDKEYS.filters, COMMANDKEYS.preferences, COMMANDKEYS.watchlist,
-                COMMANDKEYS.info, COMMANDKEYS.blacklist,
-                COMMANDKEYS.movies, COMMANDKEYS.tv, COMMANDKEYS.back, COMMANDKEYS.entry, COMMANDKEYS.recommendation
+            put(COMMANDKEYS.VIEW, new COMMANDKEYS[] {
+                COMMANDKEYS.PROFILE, COMMANDKEYS.FILTERS, COMMANDKEYS.PREFERENCE, COMMANDKEYS.WATCHLIST,
+                COMMANDKEYS.INFO, COMMANDKEYS.BLACKLIST,
+                COMMANDKEYS.MOVIES, COMMANDKEYS.TV, COMMANDKEYS.BACK, COMMANDKEYS.ENTRY, COMMANDKEYS.RECOMMENDATION
 
             });
 
-            put(COMMANDKEYS.blacklist, new COMMANDKEYS[] {
-                COMMANDKEYS.add, COMMANDKEYS.remove
+            put(COMMANDKEYS.BLACKLIST, new COMMANDKEYS[] {
+                COMMANDKEYS.ADD, COMMANDKEYS.REMOVE
             });
 
-            put(COMMANDKEYS.help , new COMMANDKEYS[]{
-                    COMMANDKEYS.search , COMMANDKEYS.view , COMMANDKEYS.help , COMMANDKEYS.more ,
-                    COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.me , COMMANDKEYS.blacklist,
-                    COMMANDKEYS.watchlist, COMMANDKEYS.get, COMMANDKEYS.preference, COMMANDKEYS.restriction,
-                    COMMANDKEYS.find , COMMANDKEYS.exit
+            put(COMMANDKEYS.HELP, new COMMANDKEYS[]{
+                    COMMANDKEYS.SEARCH, COMMANDKEYS.VIEW, COMMANDKEYS.HELP, COMMANDKEYS.MORE,
+                    COMMANDKEYS.SET,  COMMANDKEYS.PLAYLIST, COMMANDKEYS.ME, COMMANDKEYS.BLACKLIST,
+                    COMMANDKEYS.WATCHLIST, COMMANDKEYS.GET, COMMANDKEYS.PREFERENCE, COMMANDKEYS.RESTRICTION,
+                    COMMANDKEYS.FIND, COMMANDKEYS.EXIT
             });
 
-            put(COMMANDKEYS.yes, new COMMANDKEYS[] {
+            put(COMMANDKEYS.YES, new COMMANDKEYS[] {
                 //EMPTY
             });
 
-            put(COMMANDKEYS.exit, new COMMANDKEYS[] {
+            put(COMMANDKEYS.EXIT, new COMMANDKEYS[] {
                     //EMPTY
             });
 
-            put(COMMANDKEYS.set, new COMMANDKEYS[] {
-                COMMANDKEYS.name, COMMANDKEYS.age, COMMANDKEYS.preference, COMMANDKEYS.sort, COMMANDKEYS.restriction
+            put(COMMANDKEYS.SET, new COMMANDKEYS[] {
+                COMMANDKEYS.NAME, COMMANDKEYS.AGE, COMMANDKEYS.PREFERENCE, COMMANDKEYS.SORT, COMMANDKEYS.RESTRICTION
             });
 
-            put(COMMANDKEYS.preference, new COMMANDKEYS[] {
-                COMMANDKEYS.add, COMMANDKEYS.remove, COMMANDKEYS.clear
+            put(COMMANDKEYS.PREFERENCE, new COMMANDKEYS[] {
+                COMMANDKEYS.ADD, COMMANDKEYS.REMOVE, COMMANDKEYS.CLEAR
             });
 
-            put(COMMANDKEYS.playlist, new COMMANDKEYS[] {
-                COMMANDKEYS.create, COMMANDKEYS.delete, COMMANDKEYS.add, COMMANDKEYS.remove,
-                COMMANDKEYS.set, COMMANDKEYS.list, COMMANDKEYS.clear, COMMANDKEYS.back
+            put(COMMANDKEYS.PLAYLIST, new COMMANDKEYS[] {
+                COMMANDKEYS.CREATE, COMMANDKEYS.DELETE, COMMANDKEYS.ADD, COMMANDKEYS.REMOVE,
+                COMMANDKEYS.SET, COMMANDKEYS.LIST, COMMANDKEYS.CLEAR, COMMANDKEYS.BACK
             });
 
-            put(COMMANDKEYS.restriction, new COMMANDKEYS[] {
-                COMMANDKEYS.add, COMMANDKEYS.remove, COMMANDKEYS.clear
+            put(COMMANDKEYS.RESTRICTION, new COMMANDKEYS[] {
+                COMMANDKEYS.ADD, COMMANDKEYS.REMOVE, COMMANDKEYS.CLEAR
             });
 
             /*
@@ -67,11 +67,11 @@ public class CommandStructure {
             });
             */
 
-            put(COMMANDKEYS.watchlist, new COMMANDKEYS[] {
-                COMMANDKEYS.add,  COMMANDKEYS.set,  COMMANDKEYS.delete
+            put(COMMANDKEYS.WATCHLIST, new COMMANDKEYS[] {
+                COMMANDKEYS.ADD,  COMMANDKEYS.SET,  COMMANDKEYS.DELETE
             });
-            put(COMMANDKEYS.find, new COMMANDKEYS[] {
-                COMMANDKEYS.cinema
+            put(COMMANDKEYS.FIND, new COMMANDKEYS[] {
+                COMMANDKEYS.CINEMA
         });
     }};
 
@@ -87,17 +87,17 @@ public class CommandStructure {
 
 
     public static COMMANDKEYS[] AllRoots = new COMMANDKEYS[]{
-        COMMANDKEYS.search,
-        COMMANDKEYS.view,
-        COMMANDKEYS.help,
-        COMMANDKEYS.yes,
-        COMMANDKEYS.set,
-        COMMANDKEYS.playlist,
-        COMMANDKEYS.blacklist,
-        COMMANDKEYS.watchlist,
-//        COMMANDKEYS.get,
-        COMMANDKEYS.preference,
-        COMMANDKEYS.restriction,
-        COMMANDKEYS.find,
-        COMMANDKEYS.exit};
+        COMMANDKEYS.SEARCH,
+        COMMANDKEYS.VIEW,
+        COMMANDKEYS.HELP,
+        COMMANDKEYS.YES,
+        COMMANDKEYS.SET,
+        COMMANDKEYS.PLAYLIST,
+        COMMANDKEYS.BLACKLIST,
+        COMMANDKEYS.WATCHLIST,
+        COMMANDKEYS.PREFERENCE,
+        COMMANDKEYS.RESTRICTION,
+        COMMANDKEYS.FIND,
+        COMMANDKEYS.EXIT
+    };
 }

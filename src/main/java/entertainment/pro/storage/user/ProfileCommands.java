@@ -1,11 +1,11 @@
-package entertainment.pro.storage.utils;
+package entertainment.pro.storage.user;
 
 import entertainment.pro.commons.exceptions.DuplicateGenreException;
 import entertainment.pro.commons.exceptions.GenreDoesNotExistException;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.InvalidGenreNameEnteredException;
 import entertainment.pro.model.UserProfile;
-import entertainment.pro.ui.MovieHandler;
+import entertainment.pro.storage.utils.EditProfileJson;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

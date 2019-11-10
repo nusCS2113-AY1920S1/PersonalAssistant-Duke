@@ -1,4 +1,4 @@
-package entertainment.pro.commons;
+package entertainment.pro.commons.strings;
 
 /**
  * Contains and defines messages printed by the app.
@@ -176,6 +176,15 @@ public class PromptMessages {
     public static final String GENRE_DOES_NOT_EXIST_ERROR = "I'm sorry but the genre entered by you does not exists " +
             "under your preferences";
 
+    public static final String DID_YOU_MEAN = "Did you mean:";
+
+    public static final String LOGGER_UNKNOWN_COMMAND_TYPED = "Unknown command typed";
+
+    public static final String COMMAND_MISSING_ARGS = "Command is missing a few arguments";
+
+    public static final String UNABLE_TO_PROCESS = "Sorry we are unable to process your command. " +
+            "Please check help for more details!";
+
     // autocomplete related messages
     public static final String AUTOCOMPLETION_PROMPT = "Did you mean this?";
 
@@ -193,6 +202,11 @@ public class PromptMessages {
     public static final String BLACKLIST_REMOVE_SUCCUESS = "Successfully removed from  blacklist!";
     public static final String BLACKLIST_REMOVE_FAILURE = "Could not find item in your blacklist. Check Spelling?";
     public static final String DUPLICATE_BLACKLIST = "Blacklisted item already exists. Here is your blacklist\n";
+
+    public static final String EXECUTING_MISTYPED_COMMAND = "Executing mistyped command";
+
+
+
 
     // file related messages
     public static final String FILE_NOT_FOUND = "File not found!";
@@ -253,6 +267,8 @@ public class PromptMessages {
             "> is an invalid sort option. Please try again with 1 / 2 / 3";
     public static final String AGE_IS_NEGATIVE =
             "☹ I'm sorry, but age needs to be a positive integer. Please try again";
+    public static final String INVALID_PAYLOAD  =
+            "☹ I'm sorry, but payload can't start with '-'. Please try again";
 
     // cache related messages
     public static final String READING_CACHE_FILES = "Reading cache files";
@@ -264,5 +280,4 @@ public class PromptMessages {
     public static final String IO_EXCEPTION_CACHE_DATA = "IO Exception happened when reading data";
     public static final String CLASS_EXCEPTION_CACHE_DATA = "Class exception happened when reading data";
     public static final String WRITING_CACHE_DATA = "Reading cache data";
-
 }

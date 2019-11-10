@@ -1,6 +1,6 @@
 package entertainment.pro.logic.movieRequesterAPI;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.FailedAPIException;
 import entertainment.pro.commons.exceptions.EmptyResultExceptions;
@@ -13,7 +13,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import entertainment.pro.model.MovieInfoObject;
 
-import java.awt.print.PrinterAbortException;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,7 +22,6 @@ import java.io.UnsupportedEncodingException;
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
 import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;

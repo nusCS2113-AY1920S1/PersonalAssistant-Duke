@@ -19,16 +19,16 @@ public class CommandStacktest {
         try {
             CommandStack.pushCmd(new SearchCommand(null));
             assertEquals(1 , CommandStack.getSize());
-            assertEquals(COMMANDKEYS.search ,CommandStack.topCmd().getRoot());
+            assertEquals(COMMANDKEYS.SEARCH,CommandStack.topCmd().getRoot());
 
             CommandStack.pushCmd(new BlacklistCommand(null));
             assertEquals(2 , CommandStack.getSize());
-            assertEquals(COMMANDKEYS.blacklist ,CommandStack.topCmd().getRoot());
+            assertEquals(COMMANDKEYS.BLACKLIST,CommandStack.topCmd().getRoot());
 
 
             CommandStack.pushCmd(new WatchlistCommand(null));
             assertEquals(3 , CommandStack.getSize());
-            assertEquals(COMMANDKEYS.watchlist ,CommandStack.topCmd().getRoot());
+            assertEquals(COMMANDKEYS.WATCHLIST,CommandStack.topCmd().getRoot());
         }catch (IOException e){
 
         }catch (Exceptions e){

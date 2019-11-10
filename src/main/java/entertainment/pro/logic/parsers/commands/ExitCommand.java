@@ -1,13 +1,11 @@
 package entertainment.pro.logic.parsers.commands;
 
-import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.enums.COMMANDKEYS;
-import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
 import entertainment.pro.ui.Controller;
-
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +21,7 @@ public class ExitCommand extends CommandSuper {
      * @param uicontroller Controller class.
      */
     public ExitCommand(Controller uicontroller) {
-        super(COMMANDKEYS.exit, CommandStructure.cmdStructure.get(COMMANDKEYS.exit), uicontroller);
+        super(COMMANDKEYS.EXIT, CommandStructure.cmdStructure.get(COMMANDKEYS.EXIT), uicontroller);
     }
 
     /**

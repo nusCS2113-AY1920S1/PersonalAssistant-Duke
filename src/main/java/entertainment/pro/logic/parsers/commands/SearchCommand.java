@@ -1,17 +1,16 @@
 package entertainment.pro.logic.parsers.commands;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.*;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.model.SearchProfile;
-import entertainment.pro.storage.utils.ProfileCommands;
+import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
-import javax.print.DocFlavor;
 import java.util.*;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -48,7 +47,7 @@ public class SearchCommand extends CommandSuper {
      * @param uicontroller The UI controller.
      */
     public SearchCommand(Controller uicontroller) {
-        super(COMMANDKEYS.search, CommandStructure.cmdStructure.get(COMMANDKEYS.search), uicontroller);
+        super(COMMANDKEYS.SEARCH, CommandStructure.cmdStructure.get(COMMANDKEYS.SEARCH), uicontroller);
     }
 
     /**
@@ -69,13 +68,13 @@ public class SearchCommand extends CommandSuper {
         logger.log(Level.INFO, PromptMessages.RETRIEVING_SEARCH_PROFILE);
         getPreferences(movieHandler, searchProfile, payload, isMovie);
         switch (this.getSubRootCommand()) {
-            case movies:
+            case MOVIES:
                 isMovie = true;
                 logger.log(Level.INFO, PromptMessages.SEARCH_TYPE_IS_MOVIES);
                 searchProfile.setMovie(true);
                 executeMovieSearch(payload, movieHandler, searchProfile);
                 break;
-            case tvshows:
+            case TVSHOWS:
                 logger.log(Level.INFO, PromptMessages.SEARCH_TYPE_IS_TV);
                 executeTvSearch(payload, movieHandler, searchProfile);
                 break;
