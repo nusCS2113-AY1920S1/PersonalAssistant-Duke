@@ -192,10 +192,13 @@ to the potentially high number of arguments and operations that need to be done.
 Separate methods would be needed to handle assignments and unassignments, with one unifying method that combines and
 executes one or both based on the user input.
 
-Creating the `AssignmentController` class ensures a higher cohesion as all methods related to managing assignments between
-tasks and members are isolated into a single, focused class. It can help to fulfill the Separation of Concerns Principle.
+For these reasons, we decided to separate these methods into `AssignmentController` class. This allows for higher cohesion
+as all methods related to managing assignments between tasks and members are isolated into a single, focused class. It can help to fulfill the Separation of Concerns Principle.
 
 === 2.3. Repository layer
+
+The repository layer is responsible for the storage of information in ArchDuke. It consists of the `ProjectRepository` class, which
+keeps track of all the `Project` objects. Each `Project` contains the following components:
 
 .Simplified Class Diagram of Repository Layer
 image::images/classDiagram/RepositoryLayerClassDiagram.png[]
@@ -207,6 +210,7 @@ image::images/classDiagram/RepositoryLayerClassDiagram.png[]
 The `Repository` Layer is responsible for serving as a boundary between the `Storage` layer and the `Controller` layer.
 It uses the `IRepository` interface, making it easy should other developers choose to implement their own
 `Repository` layer.
+
 
 The responsibilities of the `Repository` layer includes
 
@@ -240,22 +244,21 @@ and back.
 the `Project`.
 
 === 2.5. Utility Classes
-//Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 Classes used by multiple components are in the 'util' package. Within this package are several subpackages that
-assist the functionality of ArchDuke. The following table shows a description of these classes.
+assist the functionality of ArchDuke. The following table shows a brief description of these classes.
 
 [width="100%",cols="22%,<50%",options="header",]
 |=======================================================================
 |Class | Functionality
 |ArchDukeLogger|
-|AssignmentViewHelper|
+|AssignmentViewHelper| Handles `view assignments` commands, retrieves and organises task assignment information to display to the user.
 |CommandHelper|
-|ConstantHelper|
+|ConstantHelper| Contains most of the constants used throughout ArchDuke.
 |DateTimeHelper|
 |MemberFactory|
 |JsonConverter|
-|ParserHelper|
+|ParserHelper| Contains methods used by other classes to parse the user input to retrieve the desired information.
 |ProjectFactory|
 |ReminderFactory|
 |SortHelper|
@@ -326,8 +329,7 @@ differences, listed below:
 
 ArchDuke allows users to manage each individual project in the `ProjectRepository`.
 
-image::images/sequenceDiagram/ManageProject_Sequence.png[]
-=== 3.2 CRUD functionality for Members
+===3.2 CRUD functionality for Members
 ==== Implementation
 
 CRUD Member functions are handled by Member, MemberList, MemberFactory, Project and ProjectInputController.
@@ -362,6 +364,7 @@ Step 5) `MemberFactory` will create the member based on the information provided
 subsequently be added into `memberList` which holds all the members in the current project. Upon doing successfully or
 unsuccessfully doing so, a String message will be returned.
 
+.Sequence diagram of `add member` command
 image::images/sequenceDiagram/CreateMember_Sequence.png[]
 
 === 3.3. CRUD functionality for Tasks
@@ -411,6 +414,7 @@ be added into `taskList` managed by the project and a successfully or unsuccessf
 
 The following sequence diagram show how `add task` operation works.
 
+.Sequence diagram of `add task` command
 image::images/sequenceDiagram/CreateTask_Sequence.png[]
 
 === 3.4. CRUD functionality for Reminder [Plan to do]
@@ -450,19 +454,20 @@ flags and return a `ArrayList<String>` with the relevant details for `ReminderFa
 Step 5) `ReminderFactory` will create the reminder based on the information given by the user. The created Reminder will subsequently
 be added into `ReminderList` managed by the project and a successfully or unsuccessfully a message in String[] will be returned.
 
+.Sequence diagram of `add reminder` command
 image::images/sequenceDiagram/CreateReminder_Sequence.png[]
 
-=== 3.5. CRUD functionality for Managing or Viewing Task Assignments
+=== 3.5. CRUD functionality for Assignments
 
 ==== Implementation
-
-CRUD Assignment functions are handled by `ProjectInputController`, `ParserHelper`, `AssignmentController`, `AssignmentViewHelper`
-and `Project`.
 
 ArchDuke allows users to track tasks and their assignments to members in a project.
 Assignments establish a relationship between a task and a member. When a member is assigned a task,
 they are expected to complete it, and will be given the stipulated credit when the task state is marked
 as `DONE`. The degree of each member's contributions are measured by task credit.
+
+CRUD Assignment functions are handled by `ProjectInputController`, `ParserHelper`, `AssignmentController`, `AssignmentViewHelper`
+and `Project`.
 
 Assignment functions implement the following commands:
 
@@ -481,8 +486,8 @@ Assignments are tracked in the `Project` class by mapping the task IDs to the me
 ** Key: String representing `memberID` of each member.
 ** Value: ArrayList<String> containing `taskID` of all the tasks assigned to that particular member.
 
-==== Making Assignments
-The following steps show how task assignments are made in ArchDuke.
+==== Making or Changing Assignments
+The following steps show how the `assign task` command is implemented in ArchDuke.
 
 Step 1) Assume Project has been created and the user is currently managing a specific project.
 
@@ -518,11 +523,11 @@ formatted with the help of `ViewHelper`, which organises the information into ea
 The following sequence diagram shows how the `assign task` command works.
 Certain objects, such as `Project` and `ViewHelper` are omitted for simplicity.
 
+.Sequence diagram of `assign task` command
 image::images/sequenceDiagram/AssignmentSequenceDiagram.png[]
 
-
 ==== Viewing Assignments
-The following steps show how task assignments can be viewed by the user in ArchDuke.
+The following steps show how `view assignments` is implemented in ArchDuke.
 
 Step 1) Assume Project has been created and the user is currently managing a specific project.
 
@@ -556,6 +561,7 @@ to `ProjectInputController`, and subsequently back to `CLIView` to be displayed 
 
 The following sequence diagram shows how the `view assignments` command works.
 
+.Sequence diagram of `view assignments` command
 image::images/sequenceDiagram/ViewAssignmentSequence.png[]
 
 ==== Design Considerations
@@ -597,10 +603,9 @@ Similar to Alternative 1, but instead of storing String IDs, the objects themsel
 *** 2) Task and Member objects to not need to be aware of each other in order to maintain the assignment.
 Assignments can be managed entirely by the project itself.
 ** Cons:
-*** 1) Complications associated with hashing non-primitive objects, and hashCode needs to be overwritten to
-ensure proper hashing.
-*** 2) Key or values could not be updated in the HashMap when task/member details changed. This resulted in
-inconsistent task and member information being stored in the 2 HashMaps, and outdated information being
+*** 1) Complications associated with hashing non-primitive objects.
+*** 2) Key or values cannot be updated consistently in the HashMap when task/member details are changed.
+This results in inconsistent task and member information being stored in the 2 HashMaps, and outdated information being
 retrieved when viewing assignments.
 
  * **Alternative 3:** Each `Task` maintains an ArrayList of assigned members, and each `Member` maintains an
@@ -608,8 +613,16 @@ ArrayList of assigned tasks.
  ** Pros:
  *** 1) More intuitive.
  ** Cons:
- *** 1) Cyclic dependencies will exist between Task and Member objects, making it difficult to edit and change task
-assignments. This also results in increased and unnecessary coupling.
+ *** 1) Increases coupling between `Member` and `Task` as each member has to keep a list of assigned tasks and vice versa.
+ *** 2) Cyclic dependencies will exist between `Task` and `Member` objects, making it difficult to edit and change task assignments.
+
+* ** Alternative 4:** Use an association class to record the assignment.
+ ** Pros:
+ *** 1) Reduces coupling between `Member` and `Task`.
+ ** Cons:
+ *** 1) Since the association class does not belong to `Member` or `Task` in particular, it might be more difficult to
+retrieve specific information about the assignments of a particular task/member.
+ *** 2) No additional information needs to be stored by the association class.
 
 
 // ===== Aspect: Data structure to support the undo/redo commands
@@ -704,8 +717,10 @@ The `log4j2.properties` file in the resource folder is used configure the follow
 
 * PatternLayout - The output format message displayed in the log file
 
+
 The following shows the class diagram of ArchDukeLogger
 
+.Class diagram of ArchDuke logger
 image::images/classDiagram/ArchDukeLogger_ClassDiagram.png[]
 
 [NOTE]
@@ -1029,18 +1044,20 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-[discrete]
-=== Use case: Generate report for a specific project (UC10)
+//[discrete]
+//=== Use case: Generate report for a specific project (UC10)
+//
+//*MSS*
+//
+//1.  User [underline]#selects a specific project to manage (UC03)#.
+//2.  User requests to generate a report of of the project and members' contributions.
+//3.  ArchDuke gathers information from tasks, and presents it in a report.
+//4.  ArchDuke saves a copy of the report in a readable format to the hard disk.
 
-*MSS*
-
-1.  User [underline]#selects a specific project to manage (UC03)#.
-2.  User requests to generate a report of of the project and members' contributions.
-3.  ArchDuke gathers information from tasks, and presents it in a report.
-4.  ArchDuke saves a copy of the report in a readable format to the hard disk.
+[appendix]
+== Instructions for Manual Testing
 
 
-// _{More to be added}_
 
 [appendix]
 == Non Functional Requirements

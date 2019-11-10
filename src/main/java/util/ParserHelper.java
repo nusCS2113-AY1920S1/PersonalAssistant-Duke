@@ -1,14 +1,19 @@
 package util;
 
-import models.project.Project;
-import models.task.Task;
-import util.validation.ValidityHelper;
+
+import static util.constant.ConstantHelper.ALL_MARKER;
+import static util.constant.ConstantHelper.ASSIGNEE_MARKER;
+import static util.constant.ConstantHelper.ASSIGNMENT_INDEX_NUMBER_MARKER;
+import static util.constant.ConstantHelper.BLANK;
+import static util.constant.ConstantHelper.UNASSIGNEE_MARKER;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-
-import static util.constant.ConstantHelper.*;
+import models.project.Project;
+import models.task.Task;
+import util.log.ArchDukeLogger;
+import util.validation.ValidityHelper;
 
 public class ParserHelper {
     private SortHelper sortHelper;
@@ -353,7 +358,7 @@ public class ParserHelper {
                 continue;
             }
             switch (part[0]) {
-            case INDEX_NUMBER_MARKER:
+            case ASSIGNMENT_INDEX_NUMBER_MARKER:
                 if (commandPart.length() >= 3) {
                     allTaskIndexes = commandPart.substring(2).trim();
                 }
@@ -372,12 +377,16 @@ public class ParserHelper {
             }
         }
 
+        /**
+         * The ArrayList assignmentParams contains 3 ArrayLists: containing valid index numbers of tasks,
+         * assignees and unassignees respectively.
+         */
         ArrayList<ArrayList<Integer>> assignmentParams = new ArrayList<>();
-        assignmentParams.add(parseTasksIndexes(allTaskIndexes, project.getNumOfTasks()));
-
+        ArrayList<Integer> taskIndexes = parseTasksIndexes(allTaskIndexes, project.getNumOfTasks());
         ArrayList<Integer> assignees = parseMembersIndexes(allAssigneeIndexes, project.getNumOfMembers());
         ArrayList<Integer> unassignees = parseMembersIndexes(allUnassigneeIndexes, project.getNumOfMembers());
         checkForSameMemberIndexes(assignees, unassignees, project);
+        assignmentParams.add(taskIndexes);
         assignmentParams.add(assignees);
         assignmentParams.add(unassignees);
 
@@ -411,6 +420,8 @@ public class ParserHelper {
                     errorMessages.add("Member with index " + index + " does not exist.");
                 }
             } catch (NumberFormatException e) {
+                ArchDukeLogger.logError(ParserHelper.class.getName(), "[parseMemberIndexes] "
+                    + "Invalid member index: " + index);
                 errorMessages.add("Could not recognise member " + index
                     + ", please ensure it is an integer.");
             }
@@ -445,6 +456,8 @@ public class ParserHelper {
                     errorMessages.add("Task with index " + index + " does not exist.");
                 }
             } catch (NumberFormatException e) {
+                ArchDukeLogger.logError(ParserHelper.class.getName(), "[parseTasksIndexes]"
+                    + "Invalid task number: " + index);
                 errorMessages.add("Could not recognise task " + index
                     + ", please ensure it is an integer.");
             }
@@ -458,12 +471,13 @@ public class ParserHelper {
         for (Integer index: assignees) {
             if (unassignees.contains(index)) {
                 repeated.add(index);
+                ArchDukeLogger.logError(ParserHelper.class.getName(), "[checkForSameMemberIndexes] "
+                    + " Same index in assign and unassign: " + index);
                 errorMessages.add("Cannot assign and unassign task to member " + index + " ("
                     + project.getMember(index).getName() + ") at the same time");
 
             }
         }
-
         for (Integer index: repeated) {
             assignees.remove(index);
             unassignees.remove(index);
