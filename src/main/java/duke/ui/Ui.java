@@ -392,13 +392,13 @@ public class Ui {
         String str = "     Here are the filtered tasks in your list:\n";
         int numFound = Numbers.ZERO.value;
         for (int i = Numbers.ZERO.value; i < items.size(); i++) {
-            if (taskType.equals("todo") && items.get(i) instanceof Todo) {
+            if (items.get(i) instanceof Todo && taskType.equals("todo")) {
                 str += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
-            } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
+            } else if (items.get(i) instanceof Deadline && taskType.equals("deadline")) {
                 str += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
-            } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
+            } else if (items.get(i) instanceof FixedDuration && taskType.equals("fixedduration")) {
                 str += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             }

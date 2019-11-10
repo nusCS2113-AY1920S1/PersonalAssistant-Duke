@@ -66,21 +66,6 @@ public class PriorityList {
     }
 
     /**
-     * Add multiple default priority associated with a task into the list when these tasks are generated.
-     *
-     * @param numOfTimes The number of times that one task is repeated.
-     * @return The updated Priority List.
-     */
-    public PriorityList addMultiDefaultPriority(int numOfTimes) {
-
-        for (int i = Numbers.ZERO.value; i < numOfTimes; i++) {
-            priorityList.add(defaultPriority);
-        }
-
-        return new PriorityList(priorityList);
-    }
-
-    /**
      * Remove a priority when the associated task is removed.
      *
      * @param index The index of the priority to be removed.
@@ -118,15 +103,6 @@ public class PriorityList {
      */
     public ArrayList<Integer> getList() {
         return this.priorityList;
-    }
-
-    /**
-     * Make the priority list empty.
-     *
-     * @return The empty priority list.
-     */
-    private PriorityList clearList() {
-        return new PriorityList(new ArrayList<Integer>());
     }
 
 

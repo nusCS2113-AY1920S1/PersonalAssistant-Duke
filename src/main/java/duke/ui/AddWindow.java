@@ -19,9 +19,7 @@ import javafx.stage.Stage;
  * Controller for AddWindow. Provides the layout for the other controls.
  */
 public class AddWindow extends AnchorPane {
-    private Duke duke;
-
-
+    
     private MainWindow mainWindow;
 
     @FXML
@@ -56,7 +54,6 @@ public class AddWindow extends AnchorPane {
      */
     @FXML
     public void setAddWindow(Duke d, MainWindow mainWindow) {
-        duke = d;
         this.mainWindow = mainWindow;
         cbType.getItems().addAll(
                 "Todo",

@@ -40,8 +40,8 @@ public class BudgetList {
      */
     public float floatConverter(String input) {
         try {
-            input = moneyFormat(Float.parseFloat(input));
-            return Float.parseFloat(input);
+            String output = moneyFormat(Float.parseFloat(input));
+            return Float.parseFloat(output);
         } catch (Exception e) {
             return Numbers.ZERO.value;
         }
