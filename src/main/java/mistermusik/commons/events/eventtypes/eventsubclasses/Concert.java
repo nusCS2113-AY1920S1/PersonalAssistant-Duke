@@ -2,6 +2,9 @@ package mistermusik.commons.events.eventtypes.eventsubclasses;
 
 import mistermusik.commons.events.eventtypes.Event;
 
+/**
+ * Class that represents a concert type event.
+ */
 public class Concert extends Event {
     private int cost;
 
@@ -22,7 +25,7 @@ public class Concert extends Event {
     }
 
     /**
-     * @return concert cost.
+     * Retrieves the concert cost.
      */
     public int getCost() {
         return this.cost;
@@ -34,8 +37,8 @@ public class Concert extends Event {
     @Override
     public String toStringForFile() {
         return getDoneSymbol() + getType() + "/" + getDescription() + "/" +
-                getStartDate().getUserInputDateString() + "/" + getEndDate().getUserInputDateString() + "/" +
-                this.cost;
+                getStartDate().getUserInputDateString() + "/" + getEndDate().getUserInputDateString() + "/"
+                + this.cost;
     }
 
     /**
@@ -43,8 +46,8 @@ public class Concert extends Event {
      */
     @Override
     public String toString() {
-        return "[" + getDoneSymbol() + "][" + getType() + "] " +
-                getDescription() + " START: " + startEventDate.getFormattedDateString() +
-                " END: " + endEventDate.getFormattedDateString() + " COST: " + this.cost;
+        return "[" + getDoneSymbol() + "][" + getType() + "] "
+                + getDescription() + " START: " + startEventDate.getFormattedDateString()
+                + " END: " + endEventDate.getFormattedDateString() + " COST: " + this.cost;
     }
 }

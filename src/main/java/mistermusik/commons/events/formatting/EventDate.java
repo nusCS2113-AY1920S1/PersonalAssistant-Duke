@@ -81,14 +81,14 @@ public class EventDate {
     }
 
     /**
-     * Gets the Event java Date object
+     * Gets the Event java Date object.
      */
     public Date getEventJavaDate() {
         return this.javaDate;
     }
 
     /**
-     * Compares this dateObj with another input dateObj
+     * Compares this dateObj with another input dateObj.
      * If this == other, return 0.
      * If this < other, return -1.
      * If this > other, return 1.

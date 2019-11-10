@@ -46,13 +46,13 @@ public class Storage {
         try {
             this.scanFile = new Scanner(file);
             System.out.println("Event list loaded!");
-        } catch (FileNotFoundException FNFe) {
+        } catch (FileNotFoundException e) {
 
             System.out.println("No mistermusik.Main file found!\nCreating new file...");
 
             try {
                 file.createNewFile();
-            } catch (IOException IOe) {
+            } catch (IOException exceptionInputOutput) {
                 System.out.println("Failed! Please re-download the jar file and try again.");
             }
 
@@ -89,7 +89,7 @@ public class Storage {
             FileWriter writer = new FileWriter(file);
             writer.write(toWriteToFile);
             writer.close();
-        } catch (IOException IOe) {
+        } catch (IOException exceptionInputOutput) {
             ui.printErrorWritingToFile();
         }
     }

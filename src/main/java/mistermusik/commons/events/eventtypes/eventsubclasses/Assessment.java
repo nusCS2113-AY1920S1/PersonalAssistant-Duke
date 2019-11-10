@@ -8,7 +8,8 @@ public abstract class Assessment extends Event {
      *
      * @param eventType type of event denoted by character
      */
-    public Assessment(String description, boolean isDone, String startDateAndTime, String endDateAndTime, char eventType) {
+    public Assessment(String description, boolean isDone, String startDateAndTime,
+                      String endDateAndTime, char eventType) {
         super(description, isDone, startDateAndTime, endDateAndTime, eventType);
     }
 

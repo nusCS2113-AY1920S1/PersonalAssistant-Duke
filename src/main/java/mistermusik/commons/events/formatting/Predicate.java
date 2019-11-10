@@ -44,15 +44,15 @@ public class Predicate<T> {
      */
     public Predicate(T ref, int comp) {
         switch (comp) {
-            case EQUAL:
-                this.compare_func = EQUAL;
-                break;
-            case GREATER_THAN:
-                this.compare_func = GREATER_THAN;
-                break;
-            case SMALLER_THAN:
-                this.compare_func = SMALLER_THAN;
-                break;
+        case EQUAL:
+            this.compare_func = EQUAL;
+            break;
+        case GREATER_THAN:
+            this.compare_func = GREATER_THAN;
+            break;
+        case SMALLER_THAN:
+            this.compare_func = SMALLER_THAN;
+            break;
         }
         this.reference = ref;
         if (this.reference instanceof EventDate) {
@@ -69,12 +69,12 @@ public class Predicate<T> {
         EventDate x = (EventDate) reference;
         EventDate y = (EventDate) input;
         switch (this.compare_func) {
-            case EQUAL:
-                return x.compare(y) == 0;
-            case GREATER_THAN:
-                return x.compare(y) == 1;
-            case SMALLER_THAN:
-                return x.compare(y) == -1;
+        case EQUAL:
+            return x.compare(y) == 0;
+        case GREATER_THAN:
+            return x.compare(y) == 1;
+        case SMALLER_THAN:
+            return x.compare(y) == -1;
         }
         return false;
     }
@@ -86,12 +86,12 @@ public class Predicate<T> {
         String x = (String) reference;
         String y = (String) input;
         switch (this.compare_func) {
-            case EQUAL:
-                return x.compareTo(y) == 0;
-            case GREATER_THAN:
-                return x.compareTo(y) > 0;
-            case SMALLER_THAN:
-                return x.compareTo(y) < 0;
+        case EQUAL:
+            return x.compareTo(y) == 0;
+        case GREATER_THAN:
+            return x.compareTo(y) > 0;
+        case SMALLER_THAN:
+            return x.compareTo(y) < 0;
         }
         return false;
     }
@@ -103,10 +103,10 @@ public class Predicate<T> {
      */
     public boolean check(T item) {
         switch (this.variable_type) {
-            case JAVA_DATE:
-                return compare_dates(item);
-            case STRING:
-                return compare_str(item);
+        case JAVA_DATE:
+            return compare_dates(item);
+        case STRING:
+            return compare_str(item);
         }
         return false;
     }
