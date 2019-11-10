@@ -453,8 +453,20 @@ public class Patient extends DukeObject {
         assert (impressionList.contains(impression)
                 && (impression.getEvidence(data.getName()) != null
                 || impression.getTreatment(data.getName()) != null));
-        if (data.getPriority() == DukeData.PRIORITY_CRITICAL) {
+        if (criticalList.contains(data)) {
+            if (data.getPriority() != DukeData.PRIORITY_CRITICAL) {
+                criticalList.remove(data);
+            }
+        } else if (data.getPriority() == DukeData.PRIORITY_CRITICAL) {
+            criticalList.add(data);
+        }
+    }
 
+    public void updateFollowUpList(Impression impression, Treatment treatment) {
+        assert (impressionList.contains(impression)
+                && impression.getTreatment(treatment.getName()) != null);
+        if (followUpList.contains(treatment)) {
+        } else {
         }
     }
 }
