@@ -16,8 +16,9 @@ import java.util.List;
 public class ResourceHelper {
     private static final String TEST_FILE_NAME = "test_template.txt";
 
-    //--------------Prepare test data--------------
-
+    /**
+     * Prepares test data.
+     */
     public static void prepareTestFile() {
         Path path = StorageHelper.prepareDataPath("test_template.txt");
         try {
@@ -75,7 +76,7 @@ public class ResourceHelper {
      *
      * @return a list of filenames
      * @author RoflcoptrException from https://stackoverflow.com/questions/5694385/getting-the-filenames-of
-     * -all-files-in-a-folder
+     *     -all-files-in-a-folder
      */
     private static List<String> getTestDataFilenames() {
         File folder = new File(Path.of(".", "data", "test_data").toString());
@@ -99,7 +100,10 @@ public class ResourceHelper {
         return filenames;
     }
 
-    //--------------apply test data--------------
+    /**
+     * Applies test data.
+     * @return true if apply test data successful
+     */
     public static boolean applyTestData() {
         try {
             prepareDirectories();

@@ -67,6 +67,11 @@ public class Task {
     protected Priority level;
 
     /**
+     * The time set to the task if applicable.
+     */
+    protected LocalDateTime time;
+
+    /**
      * Instantiation of a task with the name and the default false value if isDone attribute.
      *
      * @param name the name of the task
@@ -78,6 +83,7 @@ public class Task {
         this.tags = new ArrayList<>();
         this.linkedEmails = new ArrayList<>();
         this.level = null;
+        this.time = null;
     }
 
     /**
@@ -198,6 +204,14 @@ public class Task {
 
     public String getName() {
         return name;
+    }
+
+    public LocalDateTime getTime() {
+        return this.time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
     public void setName(String name) {

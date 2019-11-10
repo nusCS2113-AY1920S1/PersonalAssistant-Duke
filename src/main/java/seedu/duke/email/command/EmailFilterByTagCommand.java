@@ -7,16 +7,16 @@ import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
 
-public class EmailListTagCommand extends Command {
+public class EmailFilterByTagCommand extends Command {
     private ArrayList<String> tags;
 
-    public EmailListTagCommand(ArrayList<String> tags) {
+    public EmailFilterByTagCommand(ArrayList<String> tags) {
         this.tags = tags;
     }
 
     @Override
     public boolean execute(Model model) {
-        responseMsg = EmailTags.displayEmailTagList(tags);
+        responseMsg = EmailTags.filterByEmailTag(tags, model.getEmailList());
         UI.getInstance().showResponse(responseMsg);
         return true;
     }

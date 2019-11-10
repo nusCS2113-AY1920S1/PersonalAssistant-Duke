@@ -9,18 +9,15 @@ import java.util.ArrayList;
  * Deadline is a type of task with a date/time which is the deadline time.
  */
 public class Deadline extends Task {
-    private LocalDateTime time;
 
     /**
      * Instantiates the Deadline with the name and the time. Time must be in during the instantiation as it
      * cannot be changed later.
      *
      * @param name name of the Deadline
-     * @param time time of the Deadline
      */
-    public Deadline(String name, LocalDateTime time) {
+    public Deadline(String name) {
         super(name);
-        this.time = time;
         this.taskType = TaskType.DEADLINE;
     }
 
@@ -39,21 +36,13 @@ public class Deadline extends Task {
                     Priority priority, ArrayList<String> linkedEmails) {
         super(name);
         this.taskType = TaskType.DEADLINE;
-        this.time = time;
+        setTime(time);
         setDoAfterDescription(doAfter);
         setTags(tags);
         setPriorityLevelTo(priority);
         for (String email : linkedEmails) {
             addLinkedEmails(email);
         }
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
     }
 
     /**
@@ -101,6 +90,14 @@ public class Deadline extends Task {
             output += " -priority " + level.name();
         }
         return output;
+    }
+
+    public LocalDateTime getTime() {
+        return this.time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
     /**

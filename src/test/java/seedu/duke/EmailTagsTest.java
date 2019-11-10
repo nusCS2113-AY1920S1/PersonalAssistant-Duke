@@ -21,7 +21,7 @@ public class EmailTagsTest {
         // To get emailList from local storage
         EmailList emailList = EmailStorage.readEmailFromFile("emailTagsTestFile.txt");
         System.out.println(emailList.toString());
-        HashMap<String, EmailTags.SubTagMap> tagMap = EmailTags.updateEmailTagList(emailList);
+        HashMap<String, EmailTags.SubTagMap> tagMap = EmailTags.updateTagMap(emailList);
         System.out.println(tagMap);
         assertNotNull(tagMap);
         //assertTrue(tagMap.containsKey("SEP"));
@@ -64,7 +64,7 @@ public class EmailTagsTest {
         EmailList emailList = new EmailList();
         emailList.add(email);
 
-        HashMap<String, EmailTags.SubTagMap> tagMap = EmailTags.updateEmailTagList(emailList);
+        HashMap<String, EmailTags.SubTagMap> tagMap = EmailTags.updateTagMap(emailList);
 
         assertTrue(tagMap.containsKey("SEP"));
         assertTrue(tagMap.containsKey("Spam"));

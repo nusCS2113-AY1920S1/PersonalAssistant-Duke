@@ -19,11 +19,11 @@ import java.util.regex.Pattern;
  * A parser to process the content of emails to support automatic management of email.
  */
 public class EmailContentParseHelper {
-    private static int KEYWORD_SUBJECT_WEIGHTAGE = 5;
-    private static int KEYWORD_SENDER_WEIGHTAGE = 3;
-    private static int KEYWORD_BODY_WEIGHTAGE = 1;
+    private static int RELEVANCE_SUBJECT_WEIGHTAGE = 5;
+    private static int RELEVANCE_SENDER_WEIGHTAGE = 3;
+    private static int RELEVANCE_BODY_WEIGHTAGE = 1;
     private static int INFINITY = 0x3f3f3f;
-    private static int FUZZY_LIMIT = 3;
+    private static int FUZZY_LIMIT = 2;
 
     /**
      * Finds all keywords in email.
@@ -39,8 +39,8 @@ public class EmailContentParseHelper {
         for (KeywordPair keywordPair : keywordList) {
             int relevance = keywordInEmail(email, keywordPair);
             if (relevance > 0) {
-                UI.getInstance().showDebug(keywordPair.getKeyword() + ": " + keywordInEmail(email, keywordPair)
-                        + " => " + email.getSubject());
+                //UI.getInstance().showDebug(keywordPair.getKeyword() + ": " + keywordInEmail(email, keywordPair)
+                //        + " => " + email.getSubject());
                 email.addTag(keywordPair, relevance);
             }
         }
@@ -56,9 +56,9 @@ public class EmailContentParseHelper {
      */
     public static int keywordInEmail(Email email, KeywordPair keywordPair) {
         int totalScore = 0;
-        totalScore += keywordInSubject(email, keywordPair) * KEYWORD_SUBJECT_WEIGHTAGE;
-        totalScore += keywordInSender(email, keywordPair) * KEYWORD_SENDER_WEIGHTAGE;
-        totalScore += keywordInBody(email, keywordPair) * KEYWORD_BODY_WEIGHTAGE;
+        totalScore += keywordInSubject(email, keywordPair) * RELEVANCE_SUBJECT_WEIGHTAGE;
+        totalScore += keywordInSender(email, keywordPair) * RELEVANCE_SENDER_WEIGHTAGE;
+        totalScore += keywordInBody(email, keywordPair) * RELEVANCE_BODY_WEIGHTAGE;
         return totalScore;
     }
 
@@ -158,6 +158,58 @@ public class EmailContentParseHelper {
     }
 
     /**
+     * Searches a keyword in the different components of the email with some tolerance of inaccuracy.
+     *
+     * @param email the email where the keyword is searched
+     * @param target the target keyword to be searched
+     * @return a relevance score related to both occurrence and relevance
+     */
+    public static int fuzzySearchInEmail(Email email, String target) {
+        int totalRelevance = 0;
+        totalRelevance += fuzzySearchInSubject(email, target);
+        totalRelevance += fuzzySearchInSender(email, target);
+        totalRelevance += fuzzySearchInBody(email, target);
+        return totalRelevance;
+    }
+
+    private static int fuzzySearchInSubject(Email email, String target) {
+        return fuzzySearchInString(email.getSubject(), target);
+    }
+
+    private static int fuzzySearchInSender(Email email, String target) {
+        return fuzzySearchInString(email.getSenderString(), target);
+    }
+
+    private static int fuzzySearchInBody(Email email, String target) {
+        return fuzzySearchInString(email.getBody(), target);
+    }
+
+    /**
+     * Searches a keyword in input string with some tolerance of inaccuracy.
+     *
+     * @param input  input string where the keyword is searched
+     * @param target the target keyword to be searched
+     * @return a relevance score related to both occurrence and relevance
+     */
+    private static int fuzzySearchInString(String input, String target) {
+        int score = 0;
+        String[] inputWords = input.split("\\W");
+        String[] targetWords = target.split("\\W");
+        for (String inputWord : inputWords) {
+            for (String targetWord : targetWords) {
+                if (inputWord.length() == 0 || targetWord.length() == 0) {
+                    continue;
+                }
+                int distance = editDistance(inputWord, targetWord);
+                if (distance <= FUZZY_LIMIT) {
+                    score += FUZZY_LIMIT - distance + 1;
+                }
+            }
+        }
+        return score;
+    }
+
+    /**
      * Computes the edit distance between first and second, which is the number of steps required to transform
      * first to second if only addition, deletion, update of a single character is allowed for each step.
      *
@@ -195,32 +247,6 @@ public class EmailContentParseHelper {
             }
         }
         return dist[first.length()][second.length()];
-    }
-
-    /**
-     * Searches a keyword in input string with some tolerance of inaccuracy.
-     *
-     * @param input  input string where the keyword is searched
-     * @param target the target keyword to be searched
-     * @return a relevance score related to both occurrence and relevance
-     */
-    private static int fuzzySearchInString(String input, String target) {
-        int score = 0;
-        String[] inputWords = input.split("\\W");
-        String[] targetWords = target.split("\\W");
-        for (String inputWord : inputWords) {
-            for (String targetWord : targetWords) {
-                if (inputWord.length() == 0 || targetWord.length() == 0) {
-                    continue;
-                }
-                int distance = editDistance(inputWord, targetWord);
-                if (distance <= FUZZY_LIMIT) {
-                    score += FUZZY_LIMIT - distance + 1;
-                }
-            }
-        }
-        UI.getInstance().showError(score + " : " + input + " <> " + target);
-        return score;
     }
 
 }

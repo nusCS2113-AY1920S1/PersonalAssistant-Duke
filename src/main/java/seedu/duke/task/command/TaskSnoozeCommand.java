@@ -18,7 +18,6 @@ public class TaskSnoozeCommand extends Command {
     public TaskSnoozeCommand(int index, int duration) {
         this.index = index;
         this.duration = duration;
-
     }
 
     /**
