@@ -52,7 +52,7 @@ My role was to manage the overall project and manage the Git Repo. I also ensure
 *** Maintaining code quality with CheckStyle https://github.com/AY1920S1-CS2113T-W13-1/main/pull/208[#208]
 ** Tools:
 *** Installed Travis on Git Repo for Continuous Integration
-*** Implemented Logger in to Code
+*** Implemented Logger in to Code https://github.com/AY1920S1-CS2113T-W13-1/main/pull/275/[#275]
 
 == Contributions to Developer Guide
 

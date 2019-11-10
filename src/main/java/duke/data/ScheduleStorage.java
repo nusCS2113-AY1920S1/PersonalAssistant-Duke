@@ -59,6 +59,11 @@ public class ScheduleStorage implements IStorage {
         return jsonObject;
     }
 
+    /**
+     * Check if file exists only inside the jar file or outside the file.
+     *
+     * @return The loaded JSONObject from the saved file.
+     */
     public JSONObject validateFile() {
         JSONObject jsonObject = new JSONObject();
         File file = new File(path);
@@ -78,9 +83,11 @@ public class ScheduleStorage implements IStorage {
                 fileWriter.close();
             }
         } catch (FileNotFoundException e) {
-
+            System.err.println("No existing files found");
+            ApacheLogger.logMessage("ScheduleStorage", "No existing files found");
         } catch (ParseException | IOException e) {
-            e.printStackTrace();
+            System.err.println("Error parsing file");
+            ApacheLogger.logMessage("ScheduleStorage", "Error parsing file");
         }
         return jsonObject;
     }
