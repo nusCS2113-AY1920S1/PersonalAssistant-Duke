@@ -218,15 +218,24 @@ Examples:
 
 * You ate a hamburger today, but you are unsure of its nutritional value:
 ** `breakfast hamburger`
-* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt
-** `breakfast hamburger /calories 1000 /sodium 10`
++
+image::Breakfast_3.png[]
+* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt, with a cost of 7.50SGD
+** `breakfast hamburger /calories 1000 /sodium 10 /cost 7.50`
++
+image::Breakfast_1.png[]
+
 * You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt on 1st of January, 2019, but you are only adding the item today
-** `breakfast hamburger /calories 1000 /sodium 10 /date 1/1/2019`
+** `breakfast hamburger /cost 7.50 /calories 1000 /sodium 10 /date 1/1/2019`
++
+image::Breakfast_2.png[]
+
 
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
 * Dates should be entered in the following format: day/month/year.
+* Only meals recorded under default meals can be added without their nutritional values.
 ====
 
 ==== Adding a lunch item: `lunch`
@@ -241,15 +250,22 @@ Examples:
 
 * You ate a hamburger today, but you are unsure of its nutritional value:
 ** `lunch hamburger`
++
+image::Lunch_1.png[]
 * You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt
-** `lunch hamburger /calories 1000 /sodium 10`
+** `lunch hamburger /calories 1000 /sodium 10 /cost 7.50`
++
+image::Lunch_2.png[]
 * You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt on 1st of January, 2019, but you are only adding the item today
-** `lunch hamburger /calories 1000 /sodium 10 /date 1/1/2019`
+** `lunch hamburger /cost 7.50 /calories 1000 /sodium 10 /date 1/1/2019`
++
+image::Lunch_3.png[]
 
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
 * Dates should be entered in the following format: day/month/year.
+* Only meals recorded under default meals can be added without their nutritional values.
 ====
 
 
@@ -265,15 +281,22 @@ Examples:
 
 * You ate a hamburger today, but you are unsure of its nutritional value:
 ** `dinner hamburger`
++
+image::Dinner_1.png[]
 * You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt
-** `dinner hamburger /calories 1000 /sodium 10`
+** `dinner hamburger /calories 1000 /sodium 10 /cost 7.5`
++
+image::Dinner_2.png[]
 * You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt on 1st of January, 2019, but you are only adding the item today
 ** `dinner hamburger /calories 1000 /sodium 10 /date 1/1/2019`
++
+image::Dinner_3.png[]
 
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
 * Dates should be entered in the following format: day/month/year.
+* Only meals recorded under default meals can be added without their nutritional values.
 ====
 
 ==== Editing a meal: `edit`
