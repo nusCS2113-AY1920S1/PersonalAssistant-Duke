@@ -9,6 +9,7 @@ import duke.exception.DukeException;
 import duke.exception.DukeUtilException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PatientUtils {
 
@@ -32,7 +33,7 @@ public class PatientUtils {
      * Find a {@code DukeObject} with the supplied identifier. Only 1 of either name or displayed index should be used
      * to identify said DukeObject.
      *
-     * @param core    DukeCore object.
+     * @param patient The patient whose data we want to search.
      * @param type    Type of DukeObject.
      * @param nameOrIdx   Name of DukeObject or displayed index.
      * @return DukeObject object,
@@ -41,17 +42,31 @@ public class PatientUtils {
      *                       2. 2 identifiers are provided.
      *                       3. 1 unique identifier is provided but said DukeObject does not exist.
      */
-    public static DukeObject findFromPatient(DukeCore core, String type, String nameOrIdx)
+    public static DukeObject findFromPatient(Patient patient, String type, String nameOrIdx)
             throws DukeException {
-        int index = CommandUtils.idxFromString(nameOrIdx);
-        if (index != -1) {
+        int idx = CommandUtils.idxFromString(nameOrIdx);
+        if (idx != -1) {
             if (type == null) {
                 throw new DukeUtilException("I don't know which list you want me to get from!");
             }
             try {
-                return core.ui.getIndexedList(type).get(index);
+                List<? extends DukeObject> objList;
+                switch (type) {
+                case "critical":
+                    objList = patient.getCriticalList();
+                    break;
+                case "followup":
+                    objList = patient.getFollowUpList();
+                    break;
+                case "impression":
+                    objList = patient.getImpressionList();
+                    break;
+                default:
+                    throw new DukeException("'" + type + "' is not a valid type for searching from a patient!");
+                }
+                return objList.get(idx);
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("I don't have a " + type + " of that index!");
+                throw new DukeException("I don't have a " + type + " with that index!");
             }
         } else {
             return null;

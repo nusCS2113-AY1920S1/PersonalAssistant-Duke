@@ -138,4 +138,9 @@ public class Medicine extends Treatment {
                 || startDate.toLowerCase().contains(lowerSearchTerm)
                 || dose.toLowerCase().contains(lowerSearchTerm);
     }
+
+    @Override
+    public boolean isFollowUp() {
+        return true;
+    }
 }

@@ -3,9 +3,7 @@ package duke.ui.window;
 import com.jfoenix.controls.JFXListView;
 import duke.data.DukeData;
 import duke.data.DukeObject;
-import duke.data.Evidence;
 import duke.data.Impression;
-import duke.data.Investigation;
 import duke.data.Patient;
 import duke.data.Treatment;
 import duke.exception.DukeFatalException;
@@ -16,10 +14,10 @@ import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //@@author gowgos5
+
 /**
  * UI window for the Patient context.
  */
@@ -49,12 +47,9 @@ public class PatientContextWindow extends ContextWindow {
     @FXML
     private JFXListView<UiCard> criticalListPanel;
     @FXML
-    private JFXListView<TreatmentCard> investigationListPanel;
+    private JFXListView<TreatmentCard> followUpListPanel;
 
     private Patient patient;
-    private List<Impression> indexedImpressionList;
-    private List<DukeData> indexedCriticalList;
-    private List<Investigation> indexedInvestigationList;
 
     /**
      * Constructs the patient UI window.
@@ -67,9 +62,6 @@ public class PatientContextWindow extends ContextWindow {
         }
 
         this.patient = patient;
-        this.indexedImpressionList = new ArrayList<>();
-        this.indexedCriticalList = new ArrayList<>();
-        this.indexedInvestigationList = new ArrayList<>();
 
         updateUi();
     }
@@ -78,7 +70,7 @@ public class PatientContextWindow extends ContextWindow {
         fillPatientDetails();
         clearLists();
         fillLists();
-        indexUiLists();
+        indexLists();
     }
 
     /**
@@ -125,59 +117,13 @@ public class PatientContextWindow extends ContextWindow {
     private void clearLists() {
         impressionListPanel.getItems().clear();
         criticalListPanel.getItems().clear();
-        investigationListPanel.getItems().clear();
-        indexedImpressionList.clear();
-        indexedCriticalList.clear();
-        indexedInvestigationList.clear();
+        followUpListPanel.getItems().clear();
     }
 
     /**
      * Fills all UI lists in this window.
      */
-    private void fillLists() throws DukeFatalException {
-        for (Impression impression : patient.getImpressionList()) {
-            // Impression list
-            ImpressionCard impressionCard;
-            if (patient.getPrimaryDiagnosis() != null && impression.equals(patient.getPrimaryDiagnosis())) {
-                impressionCard = new ImpressionCard(impression, true);
-                impressionListPanel.getItems().add(0, impressionCard);
-                indexedImpressionList.add(0, impression);
-            } else {
-                impressionCard = new ImpressionCard(impression, false);
-                impressionListPanel.getItems().add(impressionCard);
-                indexedImpressionList.add(impression);
-            }
-
-            // Critical list
-            for (Treatment treatment : impression.getTreatments()) {
-                if (treatment.getPriority() == 1) {
-                    criticalListPanel.getItems().add(treatment.toCard());
-                    indexedCriticalList.add(treatment);
-                }
-            }
-
-            for (Evidence evidence : impression.getEvidences()) {
-                if (evidence.getPriority() == 1) {
-                    criticalListPanel.getItems().add(evidence.toCard());
-                    indexedCriticalList.add(evidence);
-                }
-            }
-
-            // Investigation list
-            for (Treatment treatment : impression.getTreatments()) {
-                if (treatment instanceof Investigation && treatment.getPriority() != 1) {
-                    // only display investigations not seen in the critical list
-                    investigationListPanel.getItems().add(treatment.toCard());
-                    indexedInvestigationList.add((Investigation) treatment);
-                }
-            }
-        }
-    }
-
-    /**
-     * Sets index for all {@link UiCard}s in the UI lists in this window.
-     */
-    private void indexUiLists() {
+    private void indexLists() {
         impressionListPanel.getItems().forEach(card -> {
             card.setIndex(impressionListPanel.getItems().indexOf(card) + 1);
         });
@@ -186,9 +132,31 @@ public class PatientContextWindow extends ContextWindow {
             card.setIndex(criticalListPanel.getItems().indexOf(card) + 1);
         });
 
-        investigationListPanel.getItems().forEach(card -> {
-            card.setIndex(investigationListPanel.getItems().indexOf(card) + 1);
+        followUpListPanel.getItems().forEach(card -> {
+            card.setIndex(followUpListPanel.getItems().indexOf(card) + 1);
         });
+    }
+
+    private void fillLists() throws DukeFatalException {
+        for (Impression impression : patient.getImpressionList()) {
+            // Impression list
+            ImpressionCard impressionCard;
+            if (patient.getPrimaryDiagnosis() != null && impression.equals(patient.getPrimaryDiagnosis())) {
+                impressionCard = new ImpressionCard(impression, true);
+                impressionListPanel.getItems().add(0, impressionCard);
+            } else {
+                impressionCard = new ImpressionCard(impression, false);
+                impressionListPanel.getItems().add(impressionCard);
+            }
+        }
+
+        for (DukeData criticalData : patient.getCriticalList()) {
+            criticalListPanel.getItems().add(criticalData.toCard());
+        }
+
+        for (Treatment followUps : patient.getFollowUpList()) {
+            followUpListPanel.getItems().add(followUps.toCard());
+        }
     }
 
     /**
@@ -203,14 +171,6 @@ public class PatientContextWindow extends ContextWindow {
      */
     @Override
     public List<DukeObject> getIndexedList(String type) {
-        if ("impression".equals(type)) {
-            return new ArrayList<>(indexedImpressionList);
-        } else if ("critical".equals(type)) {
-            return new ArrayList<>(indexedCriticalList);
-        } else if ("investigation".equals(type)) {
-            return new ArrayList<>(indexedInvestigationList);
-        } else {
-            return null;
-        }
+        return null;
     }
 }

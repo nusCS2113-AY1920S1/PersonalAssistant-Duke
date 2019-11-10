@@ -2,7 +2,6 @@ package duke.command.home;
 
 import duke.DukeCore;
 import duke.command.CommandUtils;
-import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.exception.DukeException;
 import duke.exception.DukeUtilException;
@@ -38,13 +37,13 @@ public class HomeUtils {
         int index = CommandUtils.idxFromString(nameOrIdx);
         if (index != -1) {
             // TODO: Law of demeter
-            List<DukeObject> patientList = core.ui.getIndexedList("patient");
+            List<Patient> patientList = core.patientData.getPatientList();
             int count = patientList.size();
             if (index >= count) {
                 throw new DukeException("I have only " + ((count == 1) ? ("1 patient") : (count + " patients")) + " in "
                         + "my list!");
             }
-            return (Patient) patientList.get(index);
+            return patientList.get(index);
         } else {
             return null;
         }

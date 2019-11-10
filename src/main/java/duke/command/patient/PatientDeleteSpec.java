@@ -21,7 +21,7 @@ public class PatientDeleteSpec extends PatientObjSpec {
         cmdArgLevel = ArgLevel.REQUIRED;
         initSwitches(
                 new Switch("critical", String.class, true, ArgLevel.NONE, "c"),
-                new Switch("investigation", String.class, true, ArgLevel.NONE, "in"),
+                new Switch("followup", String.class, true, ArgLevel.NONE, "f"),
                 new Switch("impression", String.class, true, ArgLevel.NONE, "im")
         );
     }

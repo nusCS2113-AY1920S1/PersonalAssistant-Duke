@@ -73,4 +73,9 @@ public class Investigation extends SummaryTreatment {
     public Context toContext() {
         return Context.INVESTIGATION;
     }
+
+    @Override
+    public boolean isFollowUp() {
+        return true;
+    }
 }

@@ -12,6 +12,7 @@ import java.util.List;
 public class Plan extends SummaryTreatment {
 
     private static final List<String> statusArr = Arrays.asList("Not done/ordered", "In progress", "Completed");
+    private static final int STATUSIDX_COMPLETE = 2;
 
     /**
      * Represents the Plan devised by the doctor to treat a symptom or impression of a patient.
@@ -52,5 +53,10 @@ public class Plan extends SummaryTreatment {
     @Override
     public Context toContext() {
         return Context.PLAN;
+    }
+
+    @Override
+    public boolean isFollowUp() {
+        return getStatusIdx() < STATUSIDX_COMPLETE;
     }
 }
