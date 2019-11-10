@@ -1,6 +1,7 @@
 package seedu.hustler.logic.parser.anomaly;
 
 import seedu.hustler.Hustler;
+import seedu.hustler.data.CommandLog;
 import seedu.hustler.logic.CommandLineException;
 
 /**
@@ -21,11 +22,13 @@ public class DoneAnomaly extends DetectAnomaly {
      */
     public void detect(String[] userInput) throws CommandLineException {
         if (userInput.length == 1 || userInput[1].isBlank()) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
         String[] parsedInput = userInput[1].split(" ");
         if (parsedInput.length > 1) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
@@ -36,15 +39,18 @@ public class DoneAnomaly extends DetectAnomaly {
         try {
             doneIndex = Integer.parseInt(parsedInput[0]);
         } catch (NumberFormatException e) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
         doneIndex--;
         if (doneIndex >= Hustler.list.size() || doneIndex < 0) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         if (Hustler.list.get(doneIndex).isCompleted()) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException(MESSAGE_TASK_COMPLETED);
         }
     }

@@ -80,8 +80,14 @@ public class CommandLog {
      * Redoes the previously undone commands.
      */
     public static void redo() {
-        MainWindow.offPrinting();
         if (redoLog.size() > 0) {
+            System.out.println("\t_____________________________________");
+            System.out.println("\tThese commands have been redone: ");
+            for (int i = 0; i < redoLog.size(); i++) {
+                System.out.println("\t" + redoLog.get(i));
+            }
+            System.out.println("\t_____________________________________");
+            MainWindow.offPrinting();
             for (int i = 0; i < redoLog.size(); i++) {
                 commandLog.add(redoLog.get(i));
             }
@@ -89,9 +95,15 @@ public class CommandLog {
             Hustler.reloadBackup();
             restoreData(0);
             MainWindow.onPrinting();
-            System.out.println("\tAll previously undone commands have been redone!");
         } else {
             System.out.println("\tRedo commands can only be used immediately after undo commands!");
         }
+    }
+
+    /**
+     * Removes the last logged command if it is invalid.
+     */
+    public static void removeLastCommand() {
+        commandLog.remove(commandLog.size() - 1);
     }
 }

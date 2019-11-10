@@ -60,5 +60,13 @@ public class TimerAnomaly extends DetectAnomaly {
                 throw new CommandLineException("Timer only accepts positive integers as arguments!");
             }
         }
+
+        //detects if the arguments cause overflow, i.e. minutes or seconds more than 60.
+        for (int i = 1; i < 3; i += 1) {
+            int timeparts = Integer.parseInt(timeParts[i]);
+            if (timeparts >= 60) {
+                throw new CommandLineException("Timer only accepts integers between 0 and 59 (inclusive) for the minutes and seconds!");
+            }
+        }
     }
 }

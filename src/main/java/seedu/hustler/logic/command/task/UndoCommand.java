@@ -45,9 +45,9 @@ public class UndoCommand extends Command {
         Ui ui = new Ui();
         MemoryManager memorymanager = new MemoryManager();
 
-        MainWindow.offPrinting();
         if (this.taskInfo.length == 1) {
             this.numberOfCommandsToUndo = 1;
+            MainWindow.offPrinting();
             memorymanager.reloadBackup(numberOfCommandsToUndo);
         } else {
             try {
@@ -57,7 +57,7 @@ public class UndoCommand extends Command {
                 ui.showMessage(e.getMessage());
                 return;
             }
-
+            MainWindow.offPrinting();
             memorymanager.reloadBackup(numberOfCommandsToUndo);
         }
     }

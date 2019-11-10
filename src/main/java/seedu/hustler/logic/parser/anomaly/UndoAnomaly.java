@@ -20,7 +20,7 @@ public class UndoAnomaly extends DetectAnomaly {
 	    //'undo 1 2 3' and 'undo 3 fried rice' are invalid inputs.
         if (parsedInput.length != 1) {
             throw new CommandLineException("Undo commands should follow this format: 'undo <integer>'!");
-	}
+        }
 
 	    //detects whether the argument is a non-integer. For example, 'undo
 	    //tacobell' is a invalid input.
@@ -28,6 +28,12 @@ public class UndoAnomaly extends DetectAnomaly {
             int numberOfCommandsToUndo = Integer.parseInt(parsedInput[0]);
         } catch (NumberFormatException e) {
             throw new CommandLineException("Undo commands should follow this format: 'undo <integer>'!");
+        }
+
+        //detects if the number of commands to undo is a positive integer. Throws exception otherwise.
+        int numberOfCommandsToUndo = Integer.parseInt(parsedInput[0]);
+        if (numberOfCommandsToUndo <= 0) {
+            throw new CommandLineException("The number of commands to undo should be a positive integer!");
         }
     }
 }
