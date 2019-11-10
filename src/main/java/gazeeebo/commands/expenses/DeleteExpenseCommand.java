@@ -76,8 +76,8 @@ public class DeleteExpenseCommand {
 
             } else if (ui.fullCommand.split(" ").length > 1) {
                 for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
-                    nameToDelete = nameToDelete.
-                            concat(ui.fullCommand.split(" ")[i] + " ");
+                    nameToDelete = nameToDelete
+                            .concat(ui.fullCommand.split(" ")[i] + " ");
                 }
                 nameToDelete = nameToDelete.trim();
                 boolean isInList = false;

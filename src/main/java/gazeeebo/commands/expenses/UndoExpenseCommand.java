@@ -2,8 +2,7 @@
 
 package gazeeebo.commands.expenses;
 
-import gazeeebo.storage.Storage;
-
+import gazeeebo.storage.ExpensePageStorage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class UndoExpenseCommand {
             Map<LocalDate, ArrayList<String>> expenses,
             final Stack<Map<LocalDate,
                     ArrayList<String>>> oldExpenses,
-            final Storage storage) throws IOException {
+            final ExpensePageStorage storage) throws IOException {
 
         if (!oldExpenses.empty()) {
             expenses = oldExpenses.peek();

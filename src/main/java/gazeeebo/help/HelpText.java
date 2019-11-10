@@ -16,9 +16,9 @@ public class HelpText {
 
     public static final String COMMAND_FORMAT =
             "# Command Format #\n"
-            + "Words in UPPER_CASE are the parameters to be supplied by the\n"
-            + "user e.g. in todo TASK_DESCRIPTION, TASK_DESCRIPTION is a\n"
-            + "parameter which can be used as todo eat.\n";
+                    + "Words in UPPER_CASE are the parameters to be supplied by the\n"
+                    + "user e.g. in todo TASK_DESCRIPTION, TASK_DESCRIPTION is a\n"
+                    + "parameter which can be used as todo eat.\n";
 
     public static final String COMMANDS_HEADER = "# Commands #";
 
@@ -36,54 +36,54 @@ public class HelpText {
 
     private static final String TODO =
             "\t[ Adding a todo: todo ]\n"
-            + "\tAdds a todo task to the task list.\n"
-            + "\tFormat: todo TASK_DESCRIPTION\n"
-            + "\n"
-            + "\tExamples:\n"
-            + "\t\t- todo eat\n"
-            + "\t\t- todo watch TV\n";
+                    + "\tAdds a todo task to the task list.\n"
+                    + "\tFormat: todo TASK_DESCRIPTION\n"
+                    + "\n"
+                    + "\tExamples:\n"
+                    + "\t\t- todo eat\n"
+                    + "\t\t- todo watch TV\n";
 
     private static final String DEADLINE =
             "\t[ Adding a deadline: deadline ]\n"
-            + "\tAdds a deadline task to the task list.\n"
-            + "\tFormat: deadline TASK_DESCRIPTION /by YYYY-MM-DD HH:MM:SS\n"
-            + "\n"
-            + "\tExamples:\n"
-            + "\t\t- deadline assignment /by 2019-12-04 12:07:08\n"
-            + "\t\t- deadline watch TV /by 1988-06-27 08:46:37\n";
+                    + "\tAdds a deadline task to the task list.\n"
+                    + "\tFormat: deadline TASK_DESCRIPTION /by YYYY-MM-DD HH:MM:SS\n"
+                    + "\n"
+                    + "\tExamples:\n"
+                    + "\t\t- deadline assignment /by 2019-12-04 12:07:08\n"
+                    + "\t\t- deadline watch TV /by 1988-06-27 08:46:37\n";
 
     private static final String EVENT =
             "\t[ Adding an event: event ]\n"
-            + "\tAdds an event task to the task list.\n"
-            + "\tFormat: event TASK_DESCRIPTION /at YYYY-MM-DD HH:MM:SS-HH:SS:MM\n"
-            + "\n"
-            + "\tExamples: \n"
-            + "\t\t- event party /at 2019-12-04 12:07:08-12:50:00\n"
-            + "\t\t- event project meeting /at 1988-06-27 08:46:37-09:50:10\n";
+                    + "\tAdds an event task to the task list.\n"
+                    + "\tFormat: event TASK_DESCRIPTION /at YYYY-MM-DD HH:MM:SS-HH:SS:MM\n"
+                    + "\n"
+                    + "\tExamples: \n"
+                    + "\t\t- event party /at 2019-12-04 12:07:08-12:50:00\n"
+                    + "\t\t- event project meeting /at 1988-06-27 08:46:37-09:50:10\n";
 
     private static final String LIST =
             "\t[ Listing out the task list: list ]\n"
-            + "\tList out all the tasks in the task list.\n"
-            + "\tFormat: list\n";
+                    + "\tList out all the tasks in the task list.\n"
+                    + "\tFormat: list\n";
 
     private static final String DELETE =
             "\t[ Delete task(s): delete ]\n"
-            + "\tDeletes n number of tasks at once from the list or delete all tasks at once.\n"
-            + "\tFormat: delete TASK_NUM1 and TASK_NUM2...OR delete all\n"
-            + "\n"
-            + "\tExamples:\n"
-            + "\t\t- delete 3 and 5\n"
-            + "\t\t- delete 6\n"
-            + "\t\t- delete all\n";
+                    + "\tDeletes n number of tasks at once from the list or delete all tasks at once.\n"
+                    + "\tFormat: delete TASK_NUM1 and TASK_NUM2...OR delete all\n"
+                    + "\n"
+                    + "\tExamples:\n"
+                    + "\t\t- delete 3 and 5\n"
+                    + "\t\t- delete 6\n"
+                    + "\t\t- delete all\n";
 
     private static final String DONE =
             "\t[ Set a task as done: done]\n"
-            + "\tMarks a task as done.\n"
-            + "\tFormat: done TASK_NUM\n"
-            + "\n"
-            + "\tExamples:\n"
-            + "\t\t- done 1\n"
-            + "\t\t- done 6\n";
+                    + "\tMarks a task as done.\n"
+                    + "\tFormat: done TASK_NUM\n"
+                    + "\n"
+                    + "\tExamples:\n"
+                    + "\t\t- done 1\n"
+                    + "\t\t- done 6\n";
 
     private static final String TASKS_FIND =
             "\t[ Find tasks based on a keyword: find ]\n"
@@ -902,9 +902,12 @@ public class HelpText {
             + "\n"
             + "\tAlternative format: delete\n"
             + "\n"
-            + "\tSteps for deleting an expense:\n"
+            + "\tSteps for deleting an expense via index:\n"
             + "\t\t1. Type the command delete and press ENTER.\n"
-            + "\t\t2. Type the index of the expense you want to delete and press ENTER.\n";
+            + "\t\t2. Type the index of the expense you want to delete and press ENTER.\n"
+            + "\n"
+            + "\tExample: \n"
+            + "\t\t- delete bread\n";
 
     private  static final String EXP_UNDO =
             "\t[ Undo previous expense command: undo ]\n"
@@ -1051,7 +1054,7 @@ public class HelpText {
                     + SEPARATOR_PAGE;
 
     //-----------------------------pages--------------------------------------
-    public static final String TASKS_PAGE =  SEPARATOR_PAGE
+    public static final String TASKS_PAGE = SEPARATOR_PAGE
             + HEADER_TASKS_PAGE + SEPARATOR_COMMAND
             + TODO + SEPARATOR_COMMAND
             + DEADLINE + SEPARATOR_COMMAND
@@ -1121,7 +1124,7 @@ public class HelpText {
             + CONTACT_ADD + SEPARATOR_COMMAND
             + CONTACT_FIND + SEPARATOR_COMMAND
             + CONTACT_LIST + SEPARATOR_COMMAND
-            + CONTACT_DELETE  + SEPARATOR_COMMAND
+            + CONTACT_DELETE + SEPARATOR_COMMAND
             + CONTACT_UNDO + SEPARATOR_PAGE;
 
     public static final String CAP_PAGE = SEPARATOR_PAGE
@@ -1132,7 +1135,7 @@ public class HelpText {
             + CAP_DELETE_MODULE + SEPARATOR_COMMAND
             + CAP_COMMANDS + SEPARATOR_PAGE;
 
-    public static final String EXPENSES_PAGE =  SEPARATOR_PAGE
+    public static final String EXPENSES_PAGE = SEPARATOR_PAGE
             + HEADER_EXPENSES_PAGE + SEPARATOR_COMMAND
             + EXP_LIST + SEPARATOR_COMMAND
             + EXP_FIND + SEPARATOR_COMMAND

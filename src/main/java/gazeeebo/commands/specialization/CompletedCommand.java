@@ -4,6 +4,7 @@ package gazeeebo.commands.specialization;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
+import gazeeebo.storage.CompletedElectivesStorage;
 import gazeeebo.storage.Storage;
 
 import java.io.IOException;
@@ -19,21 +20,17 @@ public class CompletedCommand {
      *
      * @param ui            the object that deals with
      *                      printing things to the user.
-     * @param storage       the object that deals with storing data,
-     *                      in this case storing data in the expenses map
      * @param specMap       the map that map list of respective specializations
      * @param completedEMap the map that maps the completed electives to
      *                      their respective specializations
-     * @throws DukeException throws a custom exception if
-     *                       module index does not exist
      * @throws IOException   catch any error if read file fails
      */
-    public CompletedCommand(final Ui ui,
-                            final Storage storage,
+    public CompletedCommand(final Ui ui, final Storage storage,
                             final Map<String, ArrayList<ModuleCategory>>
                                     specMap,
                             final Map<String, ArrayList<String>> completedEMap)
-            throws DukeException, IOException {
+            throws IOException {
+        CompletedElectivesStorage completedElectivesStorage = new CompletedElectivesStorage();
         final int commsAndNetworkingIndex = 1;
         final int embeddedComputingIndex = 2;
         final int intelligentSystemsIndex = 3;
@@ -41,8 +38,7 @@ public class CompletedCommand {
         final int largeScaleComputingIndex = 5;
         final int sysDesignIndex = 6;
         try {
-            ArrayList<String> completedElectiveList =
-                    new ArrayList();
+            ArrayList<String> completedElectiveList = new ArrayList();
             System.out.println("Which specialization number "
                     + "is your module under?");
             ArrayList<String> specList = new ArrayList<String>();
@@ -57,7 +53,6 @@ public class CompletedCommand {
             }
 
             ui.readCommand();
-            String input = ui.fullCommand;
             int specNumber = Integer.parseInt(ui.fullCommand);
             if (specNumber < 0 || specNumber == 0
                     || specNumber > specList.size()) {
@@ -109,7 +104,7 @@ public class CompletedCommand {
             String toStoreCN = "";
             String toStoreEC = "";
             String toStoreIS = "";
-            String toStoreIDM = "";
+            String toStoreID = "";
             String toStoreLS = "";
             String toStoreSC = "";
             for (String key : completedEMap.keySet()) {
@@ -173,9 +168,9 @@ public class CompletedCommand {
                 }
                 String allCompletedE = toStoreCN
                         + "\n" + toStoreEC + "\n"
-                        + toStoreIS + "\n" + toStoreIDM + "\n"
+                        + toStoreIS + "\n" + toStoreID + "\n"
                         + toStoreLS + "\n" + toStoreSC;
-                storage.writeToCompletedElectivesFile(allCompletedE);
+                completedElectivesStorage.writeToCompletedElectivesFile(allCompletedE);
             }
         } catch (NumberFormatException e) {
             System.out.println("Please only key in the index.");
