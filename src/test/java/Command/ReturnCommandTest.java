@@ -64,7 +64,7 @@ public class ReturnCommandTest {
             commandUnderTest.execute(ui, storage, listUnderTest);
         });
 
-        assertEquals("Reservation not found for given reservation id!", e.getMessage());
+        assertEquals("Reservation not found for given reservation ID!", e.getMessage());
         System.out.print("Test: Trying to return a non-existing reservation\nStatus: Passed\n");
     }
 
