@@ -552,7 +552,7 @@ The `parseOutput` method is then called to print the time slots with the relevan
 * Calling `printSuggestionDetails` method in `Ui` class if 4 consecutive `free` slots are present.
 
 [[TasksAffectingFree]]
-.Example of tasks on the input date for Free Command. 
+.Example of tasks on the input date and deadlines due for Free Command. 
 image::TasksAffectingFree.png[TasksAffectingFree]
 
 The following sequence diagram summarises what happens when a user executes a new command:
