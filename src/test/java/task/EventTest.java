@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class EventTest {
 
     private Event testEvent = new Event("Sleep /at 01-01-1970 2200");
-    private Event testEventOverload = new Event("0", "Sleep", "01-01-1970 2200");
+    private Event testEventOverload = new Event("T", "0", "Sleep", "01-01-1970 2200");
 
     EventTest() throws DukeException {
     }
