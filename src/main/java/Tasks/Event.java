@@ -1,5 +1,7 @@
 package Tasks;
 
+import Commons.DukeConstants;
+
 /**
  * Represents a task called event.
  */
@@ -25,12 +27,12 @@ public class Event extends Assignment {
 
     @Override
     public String getType() {
-        return "[E]";
+        return DukeConstants.EVENT_INDICATOR;
     }
 
     @Override
     public String toString() {
-        return super.getModCode() + " " + "[E]" + super.toString() + "(at: " + by + " time: " + start + " to: " + end + ")";
+        return super.getModCode() + " " + getType() + super.toString() + "(at: " + by + " time: " + start + " to: " + end + ")";
     }
 
     @Override
