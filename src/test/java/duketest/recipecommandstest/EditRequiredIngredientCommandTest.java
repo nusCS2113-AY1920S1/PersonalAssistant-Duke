@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import static duke.common.Messages.filePathRecipesTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author wjlingg
 public class EditRequiredIngredientCommandTest {
 
     private Ui ui;

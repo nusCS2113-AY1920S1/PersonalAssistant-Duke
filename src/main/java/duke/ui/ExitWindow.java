@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+//@@author wjlingg
+/**
+ * Controller for ExitWindow
+ */
 public class ExitWindow extends HBox {
 
     @FXML

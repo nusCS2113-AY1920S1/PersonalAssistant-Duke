@@ -14,6 +14,7 @@ import static duke.common.Messages.filePathRecipesTest;
 import static duke.common.RecipeMessages.MESSAGE_RECIPE_TO_BE_VIEWED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author wjlingg
 public class ViewRecipeCommandTest {
 
     private Ui ui;

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import static duke.common.Messages.filePathRecipesTest;
 
+//@@author wjlingg
 public class ViewRequiredIngredientCommandTest {
     private Ui ui;
     private MainWindow mainWindow;

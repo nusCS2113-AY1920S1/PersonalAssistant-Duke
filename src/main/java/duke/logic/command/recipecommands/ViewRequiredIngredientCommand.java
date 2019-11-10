@@ -14,6 +14,7 @@ import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
 import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
 import static duke.common.RecipeMessages.*;
 
+//@@author wjlingg
 /**
  * Handles the view required ingredient command.
  */

@@ -2,6 +2,7 @@ package duke.ui;
 
 import static duke.common.Messages.*;
 
+//@@author wjlingg
 public class Ui {
 
     private MainWindow mainWindow;
