@@ -47,6 +47,7 @@ import java.util.logging.Logger;
  */
 public class MainWindow extends BorderPane implements Initializable {
     private static final String NO_FIELD = "void";
+    private static final int TOTAL_NUM_OF_QUOTES = 68;
     @FXML
     private Text currentTime;
     @FXML
@@ -131,7 +132,7 @@ public class MainWindow extends BorderPane implements Initializable {
                 listOfQuotes.add(line);
             }
             Random random = new Random();
-            int result = random.nextInt(68);
+            int result = random.nextInt(TOTAL_NUM_OF_QUOTES);
             firstLine = listOfQuotes.get(result);
             AlertBox.display("Quote of the day", "Quote of the day !!", firstLine, Alert.AlertType.INFORMATION);
             bufferedReader.close();
@@ -217,14 +218,14 @@ public class MainWindow extends BorderPane implements Initializable {
 
             modCodeAndTask = assignment.getModCode() + "\n" + assignment.getDescription();
             dateTime = assignment.getDateTime();
-            if (status == true) {
+            if (status) {
                 overDays = "-";
                 continue;
             } else {
                 DateFormat timeFormat = new SimpleDateFormat("E dd/MM/yyyy HH:mm a");
                 Date taskDateTime = timeFormat.parse(dateTime);
                 overDays = String.valueOf(daysBetween(taskDateTime));
-                Integer daysToOrPast = Integer.parseInt(overDays);
+                int daysToOrPast = Integer.parseInt(overDays);
                 if (daysToOrPast <= 0) {
                     overDays = "-";
                 }
@@ -308,8 +309,8 @@ public class MainWindow extends BorderPane implements Initializable {
         if (!response.isEmpty() || response.equals(NO_FIELD)) {
             Text temp = new Text(response);
             temp.setWrappingWidth(dukeResponseColumn.getWidth() - 20);
-            Integer index = betterDukeResponse.size() + 1;
-            betterDukeResponse.add(new DukeResponseView(index.toString(), temp));
+            int index = betterDukeResponse.size() + 1;
+            betterDukeResponse.add(new DukeResponseView(Integer.toString(index), temp));
             setDukeResponse();
         }
 

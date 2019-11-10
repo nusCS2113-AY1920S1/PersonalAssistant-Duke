@@ -62,7 +62,16 @@ public class ShowPreviousParse extends Parse{
                     break;
                 }
             }
-            if (isValid == false) {
+            if (entireCommand.contains(".")) {
+                entireCommand = entireCommand.replace(".", "");
+                if (entireCommand.matches("[0-9]+")) {
+                    throw new DukeInvalidFormatException("Please enter an integer for x for the command show/previous <x>.");
+                }
+                else {
+                    throw new DukeInvalidFormatException("Invalid Input. There is no such command type in previous input");
+                }
+            }
+            else if (!isValid) {
                 throw new DukeInvalidFormatException("Invalid Input. There is no such command type in previous input");
             }
         } else if (number == 0) {
