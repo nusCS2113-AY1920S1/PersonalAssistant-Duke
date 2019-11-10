@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Date;
 
 //@@author
+
 /**
  * Allows for access to the list of events currently stored, and editing that list of events.
  * Does NOT contain any methods for reading/writing to savefile.
@@ -32,15 +33,8 @@ public class EventList {
     /**
      * compare_func codes
      */
-    static final int EQUAL = 0;
-    static final int GREATER_THAN = 1;
-    static final int SMALLER_THAN = 2;
-
-    /**
-     * Filter type codes
-     */
-    private static final int DATE = 0;
-    private static final int TYPE = 1;
+    private static final int GREATER_THAN = 1;
+    private static final int SMALLER_THAN = 2;
 
     /**
      * Class that handles all budgeting for concerts.
@@ -55,32 +49,36 @@ public class EventList {
     /**
      * Calendar class to get the current system date.
      */
-    Calendar currentDateCalendar = Calendar.getInstance();
+    private Calendar currentDateCalendar = Calendar.getInstance();
 
     /**
      * Date class to be used to compare event dates with current date.
      */
-    Date currentDate = currentDateCalendar.getTime();
+    private Date currentDate = currentDateCalendar.getTime();
 
     /**
      * Flag to check if there are unachieved goals for past events.
      */
     public boolean gotPastUnachieved = false;
 
+    /**
+     * Characters signifying event types.
+     */
+    private static final char TODO = 'T';
+    private static final char CONCERT = 'C';
+    private static final char LESSON = 'L';
+    private static final char PRACTICE = 'P';
+    private static final char EXAM = 'E';
+    private static final char RECITAL = 'R';
+
     //@author Ryan-Wong-Ren-Wei
+
     /**
      * Creates new Model_Class.EventList object.
      *
      * @param inputList list of strings containing all information extracted from save file
      */
     public EventList(ArrayList<String> inputList) {
-        //magic characters for type of event
-        final char TODO = 'T';
-        final char CONCERT = 'C';
-        final char LESSON = 'L';
-        final char PRACTICE = 'P';
-        final char EXAM = 'E';
-        final char RECITAL = 'R';
         eventArrayList = new ArrayList<>();
 
         for (String currLine : inputList) {
@@ -99,25 +97,25 @@ public class EventList {
                 String endDateAndTime = splitString[3];
 
                 switch (eventType) {
-                    case CONCERT:
-                        eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime,
-                                Integer.parseInt(splitString[4])));
-                        break;
-                    case LESSON:
-                        eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
-                        break;
+                case CONCERT:
+                    eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime,
+                            Integer.parseInt(splitString[4])));
+                    break;
+                case LESSON:
+                    eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
+                    break;
 
-                    case PRACTICE:
-                        eventArrayList.add(new Practice(description, isDone, startDateAndTime, endDateAndTime));
-                        break;
+                case PRACTICE:
+                    eventArrayList.add(new Practice(description, isDone, startDateAndTime, endDateAndTime));
+                    break;
 
-                    case EXAM:
-                        eventArrayList.add(new Exam(description, isDone, startDateAndTime, endDateAndTime));
-                        break;
+                case EXAM:
+                    eventArrayList.add(new Exam(description, isDone, startDateAndTime, endDateAndTime));
+                    break;
 
-                    case RECITAL:
-                        eventArrayList.add(new Recital(description, isDone, startDateAndTime, endDateAndTime));
-                        break;
+                case RECITAL:
+                    eventArrayList.add(new Recital(description, isDone, startDateAndTime, endDateAndTime));
+                    break;
                 }
             }
         }
@@ -127,6 +125,7 @@ public class EventList {
 
 
     //@@author
+
     /**
      * Edit an event's description, start time and end time in the list.
      *
@@ -166,6 +165,7 @@ public class EventList {
     }
 
     //@@author YuanJiayi
+
     /**
      * Adds recurring events to the list.
      *
@@ -207,6 +207,7 @@ public class EventList {
     }
 
     //@@author Ryan-Wong-Ren-Wei
+
     /**
      * Checks the list of events for any clashes with the newly added event. If
      * there is a clash, return a reference to the event, if not, return null.
@@ -258,6 +259,8 @@ public class EventList {
         }
     }
 
+    //@@author
+
     /**
      * sorts the list of events/tasks according to date, in increasing order.
      */
@@ -265,7 +268,6 @@ public class EventList {
         Collections.sort(eventArrayList);
     }
 
-    //@@author
     /**
      * Deletes a event from the list.
      *
@@ -330,8 +332,8 @@ public class EventList {
         int j;
         for (int i = 0; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
-            else if (!predicate1.check(eventArrayList.get(i).getStartDate()) 
-            		|| !predicate2.check(eventArrayList.get(i).getStartDate())) continue;
+            else if (!predicate1.check(eventArrayList.get(i).getStartDate())
+                    || !predicate2.check(eventArrayList.get(i).getStartDate())) continue;
             j = i + 1;
             filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
         }
@@ -356,6 +358,7 @@ public class EventList {
     }
 
     //@@author
+
     /**
      * Used to reinstate deleted event in case of failure to reschedule
      */
@@ -375,6 +378,7 @@ public class EventList {
     }
 
     //@@author yenpeichih
+
     /**
      * Compares the dates of each event with current date
      */

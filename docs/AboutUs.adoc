@@ -13,37 +13,47 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === Fei Dong
 image::dng132fei.png[width="150", align="left"]
 {empty}[https://github.com/Dng132FEI[github]]
+{empty}[https://github.com/Dng132FEI[portfolio]]
 
 Role: Developer
+Responsibilities: Implementation of Reminder, Documentation
 
 '''
 
 === Wong Ren-Wei, Ryan
 image::ryan-wong-ren-wei.png[width="150", align="left"]
 {empty}[https://github.com/Ryan-Wong-Ren-Wei[github]]
+{empty}[https://github.com/Ryan-Wong-Ren-Wei[portfolio]]
 
 Role: Developer
+Responsibilities: Implementation of Clash Handling, Architecture of MisterMusik, Documentation, Refactoring
 
 '''
 
 === Yen Pei Chih
 image::yenpeichih.png[width="150", align="left"]
 {empty}[https://github.com/yenpeichih[github]]
+{empty}[https://github.com/yenpeichih[portfolio]]
 
 Role: Developer
+Responsibilities: Releases Management, Implementation of Goal Management, Documentation
 
 '''
 
 === Yuan Jiayi
 image::yuanjiayi.png[width="150", align="left"]
 {empty}[https://github.com/YuanJiayi[github]]
+{empty}[https://github.com/YuanJiayi[portfolio]]
 
 Role: Developer
+Responsibilities: Implementation of Recurring Events, Issues Management, Documentation
 
 '''
 
 === Zhang Yihan
 image::zhangyihannus.png[width="150", align="left"]
 {empty}[https://github.com/ZhangYihanNus[github]]
+{empty}[https://github.com/ZhangYihanNus[portfolio]]
 
 Role: Developer
+Responsibilities: Implementation of Calendar, UI, Documentation

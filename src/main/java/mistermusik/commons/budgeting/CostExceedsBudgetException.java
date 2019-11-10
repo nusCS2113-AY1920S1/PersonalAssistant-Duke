@@ -18,14 +18,14 @@ public class CostExceedsBudgetException extends Exception {
     }
 
     /**
-     * @return corresponding Concert object.
+     * Returns corresponding concert object.
      */
     public Concert getConcert() {
         return concert;
     }
 
     /**
-     * @return current monthly budget
+     * Returns current monthly budget.
      */
     public int getBudget() {
         return budget;
