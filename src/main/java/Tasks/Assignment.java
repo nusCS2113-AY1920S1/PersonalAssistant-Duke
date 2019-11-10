@@ -89,7 +89,9 @@ public abstract class Assignment {
      * Convert reminder time to a string.
      */
     public String remindTimeToString() {
-        return DukeConstants.REMINDER_TIME_START_KEYWORD + remindTime + DukeConstants.REMINDER_TIME_END_KEYWORD + DukeConstants.BLANK_SPACE;
+        return DukeConstants.REMINDER_TIME_START_KEYWORD + remindTime
+                + DukeConstants.REMINDER_TIME_END_KEYWORD
+                + DukeConstants.BLANK_SPACE;
     }
 
     /**
@@ -97,14 +99,20 @@ public abstract class Assignment {
      * @return string of reminder task
      */
     public String toString() {
-        return FRONT_ICON_SEPARATOR + getStatusIcon() + BACK_ICON_SEPARATOR + getReminderStatus()  + remindTimeToString() + getDescription();
+        return FRONT_ICON_SEPARATOR + getStatusIcon()
+                + BACK_ICON_SEPARATOR + getReminderStatus()
+                + remindTimeToString() + getDescription();
     }
 
     /**
      * Display string of task.
      */
     public String displayString() {
-        return   getType()  + FRONT_ICON_SEPARATOR + getStatusIcon() + BACK_ICON_SEPARATOR + DukeConstants.BLANK_SPACE + getModCode()+ DukeConstants.BLANK_SPACE + getDescription() + DEADLINE_KEYWORD + getDateTime();
+        return   getType()  + FRONT_ICON_SEPARATOR
+                + getStatusIcon() + BACK_ICON_SEPARATOR
+                + DukeConstants.BLANK_SPACE + getModCode()
+                + DukeConstants.BLANK_SPACE + getDescription()
+                + DEADLINE_KEYWORD + getDateTime();
     }
 
     /**

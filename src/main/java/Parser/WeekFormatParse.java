@@ -12,7 +12,13 @@ public class WeekFormatParse {
     private static String[] dateOfTask;
     private static final Integer WEEK_ARRAY_LENGTH = 3;
 
-
+    /**
+     * This method process the input date and output into the relevant format.
+     * @param weekDate The date format or week format
+     * @param date The date given
+     * @return The output format in date
+     * @throws DukeInvalidDateTimeException The error where the date given is invalid
+     */
     public static String acadWeekToString(String weekDate, String date) throws DukeInvalidDateTimeException {
 
         if (weekDate.equalsIgnoreCase(DukeConstants.WEEK_FORMAT_KEYWORD_READING)
