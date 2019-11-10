@@ -1,5 +1,4 @@
 TODO Refactor Code ####false
-EVENT Demo/at today####false
 DEADLINE Submit PPP/by Monday####false
 TODO Have Mercy pls ####false
 TODO Give Chance pls ####false
