@@ -9,7 +9,9 @@ import ducats.components.SongList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class EditBarCommandTest {
     private static SongList dummySongList;
@@ -145,7 +147,7 @@ public class EditBarCommandTest {
     }
 
     @Test
-    public void isExit_normalInput_success(){
+    public void isExit_normalInput_success() {
         EditBarCommand editBarTest1 = new EditBarCommand("editbar bar:1 2_MC 2_MC");
         assertEquals(false, editBarTest1.isExit());
     }

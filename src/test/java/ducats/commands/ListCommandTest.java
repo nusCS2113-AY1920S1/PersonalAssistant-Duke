@@ -75,7 +75,7 @@ public class ListCommandTest {
     }
 
     @Test
-    public void isExit_normalInput_success(){
+    public void isExit_normalInput_success() {
         ListCommand listTest1 = new ListCommand();
         assertEquals(false, listTest1.isExit());
     }
