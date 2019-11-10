@@ -1,6 +1,6 @@
 package spinbox.containers.lists;
 
-import spinbox.storage.Storage;
+import spinbox.datapersistors.storage.Storage;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.DataReadWriteException;
@@ -48,7 +48,7 @@ public class FileList extends SpinBoxList<File> {
         for (File file: this.getList()) {
             dataToSave.add(file.storeString());
         }
-        localStorage.saveData(dataToSave);
+        localStorage.writeData(dataToSave);
     }
 
     @Override

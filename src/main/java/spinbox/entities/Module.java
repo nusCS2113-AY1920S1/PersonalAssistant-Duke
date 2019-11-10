@@ -7,7 +7,7 @@ import spinbox.exceptions.FileCreationException;
 import spinbox.containers.lists.FileList;
 import spinbox.containers.lists.GradeList;
 import spinbox.containers.lists.TaskList;
-import spinbox.storage.Storable;
+import spinbox.datapersistors.storage.Storable;
 
 public class Module implements Storable {
     private static final String STORE_DELIMITER = " | ";

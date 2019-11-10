@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import spinbox.containers.lists.TaskList;
 import spinbox.entities.items.tasks.Task;
 import spinbox.entities.items.tasks.Todo;
-import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.SpinBoxException;
 
 import java.util.ArrayList;

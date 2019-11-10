@@ -1,10 +1,10 @@
 package spinbox.containers;
 
-import spinbox.storage.Storage;
+import spinbox.datapersistors.storage.Storage;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.InvalidIndexException;
-import spinbox.storage.StorageContainer;
+import spinbox.datapersistors.storage.StorageContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +120,6 @@ public class Notepad implements StorageContainer {
      */
     @Override
     public void saveData() throws DataReadWriteException {
-        localStorage.saveData(notes);
+        localStorage.writeData(notes);
     }
 }

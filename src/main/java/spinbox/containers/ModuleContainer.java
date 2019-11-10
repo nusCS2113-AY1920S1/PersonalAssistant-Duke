@@ -1,11 +1,11 @@
 package spinbox.containers;
 
 import spinbox.entities.Module;
-import spinbox.storage.Storage;
+import spinbox.datapersistors.storage.Storage;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
-import spinbox.storage.StorageContainer;
+import spinbox.datapersistors.storage.StorageContainer;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class ModuleContainer implements StorageContainer {
         for (Map.Entry<String, Module> entry : modules.entrySet()) {
             dataToSave.add(entry.getValue().storeString());
         }
-        localStorage.saveData(dataToSave);
+        localStorage.writeData(dataToSave);
     }
 
     /**

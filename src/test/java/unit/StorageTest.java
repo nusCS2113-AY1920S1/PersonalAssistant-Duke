@@ -1,7 +1,7 @@
 package unit;
 
 import org.junit.jupiter.api.Test;
-import spinbox.storage.Storage;
+import spinbox.datapersistors.storage.Storage;
 import spinbox.exceptions.StorageException;
 
 import java.io.File;
@@ -25,7 +25,7 @@ public class StorageTest {
         testStrings.add("Houston pls");
 
         Storage test = new Storage("SpinBoxData/storageTest.txt");
-        test.saveData(testStrings);
+        test.writeData(testStrings);
         List<String> loadedStrings = test.loadData();
 
         for (int i = 0; i < loadedStrings.size(); i++) {

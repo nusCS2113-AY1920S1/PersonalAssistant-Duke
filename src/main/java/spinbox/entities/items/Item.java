@@ -1,7 +1,7 @@
 package spinbox.entities.items;
 
-import spinbox.exporter.Exportable;
-import spinbox.storage.Storable;
+import spinbox.datapersistors.exporter.Exportable;
+import spinbox.datapersistors.storage.Storable;
 
 public abstract class Item implements Exportable, Storable {
     private static final String STORE_DELIMITER = " | ";

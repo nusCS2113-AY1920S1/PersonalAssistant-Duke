@@ -1,7 +1,7 @@
 package spinbox.containers.lists;
 
 import spinbox.exceptions.InputException;
-import spinbox.storage.Storage;
+import spinbox.datapersistors.storage.Storage;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
@@ -50,7 +50,7 @@ public class GradeList extends SpinBoxList<GradedComponent> {
         for (GradedComponent gradedComponent: this.getList()) {
             dataToSave.add(gradedComponent.storeString());
         }
-        localStorage.saveData(dataToSave);
+        localStorage.writeData(dataToSave);
     }
 
     @Override

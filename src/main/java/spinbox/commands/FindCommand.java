@@ -4,16 +4,12 @@ import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
 import spinbox.entities.Module;
 import spinbox.exceptions.InputException;
-import spinbox.storage.Storage;
 import spinbox.containers.lists.TaskList;
-import spinbox.entities.items.tasks.Task;
 import spinbox.Ui;
 import spinbox.exceptions.SpinBoxException;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class FindCommand extends Command {
     private static final String UNKNOWN_ITEM_TYPE = "Sorry, unknown item type to add.";

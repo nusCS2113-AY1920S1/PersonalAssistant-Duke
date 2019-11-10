@@ -1,4 +1,4 @@
-package spinbox.storage;
+package spinbox.datapersistors.storage;
 
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;

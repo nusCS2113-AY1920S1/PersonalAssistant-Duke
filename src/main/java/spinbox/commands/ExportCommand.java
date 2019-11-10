@@ -5,13 +5,14 @@ import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
 import spinbox.containers.lists.GradeList;
 import spinbox.containers.lists.TaskList;
+import spinbox.datapersistors.exporter.ExportConverter;
 import spinbox.entities.Module;
 import spinbox.entities.items.tasks.Deadline;
 import spinbox.entities.items.tasks.Task;
 import spinbox.entities.items.tasks.TaskType;
 import spinbox.exceptions.InputException;
 import spinbox.exceptions.SpinBoxException;
-import spinbox.exporter.Exporter;
+import spinbox.datapersistors.exporter.Exporter;
 
 import java.util.ArrayDeque;
 import java.util.SortedSet;
@@ -58,6 +59,7 @@ public class ExportCommand extends Command {
             throw new InputException(NON_EXISTENT_MODULE);
         }
         Module module = moduleContainer.getModule(moduleCode);
+        List<String> exportList;
         Exporter exporter;
 
         switch (type) {
@@ -65,21 +67,24 @@ public class ExportCommand extends Command {
             exporter = new Exporter(EXPORT_LOCATION + moduleCode + FILENAME_MODIFIER_FILES,
                     FILE_HEADER + moduleCode);
             FileList fileList = module.getFiles();
-            exporter.writeData(fileList.getList());
+            exportList = ExportConverter.convertForExport(fileList.getList());
+            exporter.writeData(exportList);
             break;
 
         case "grades":
             exporter = new Exporter(EXPORT_LOCATION + moduleCode + FILENAME_MODIFIER_GRADES,
                     GRADED_COMPONENTS_HEADER + moduleCode);
             GradeList gradeList = module.getGrades();
-            exporter.writeData(gradeList.getList());
+            exportList = ExportConverter.convertForExport(gradeList.getList());
+            exporter.writeData(exportList);
             break;
 
         case "tasks":
             exporter = new Exporter(EXPORT_LOCATION + moduleCode + FILENAME_MODIFIER_TASKS,
                     TASKS_HEADER + moduleCode);
             TaskList taskList = module.getTasks();
-            exporter.writeData(taskList.getList());
+            exportList = ExportConverter.convertForExport(taskList.getList());
+            exporter.writeData(exportList);
             break;
 
         case "deadlines":
@@ -97,7 +102,8 @@ public class ExportCommand extends Command {
                     }
                 }
             }
-            exporter.writeData(new ArrayList<>(deadlinesList));
+            exportList = ExportConverter.convertForExport(new ArrayList<>(deadlinesList));
+            exporter.writeData(exportList);
             break;
 
         default:
