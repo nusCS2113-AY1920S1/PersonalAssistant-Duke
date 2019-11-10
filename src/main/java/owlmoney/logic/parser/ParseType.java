@@ -134,7 +134,7 @@ class ParseType extends Parser {
      * @param command The extracted first field from the initial user input that determines the command.
      * @throws ParserException if the user wants to delete his profile.
      */
-    private void isDeleteProfile(String command) throws ParserException {
+    private void checkDeleteProfile(String command) throws ParserException {
         if (DELETE_COMMAND.equals(command)) {
             logger.warning("Profile cannot be deleted");
             throw new ParserException("Profile cannot be deleted");
@@ -156,7 +156,7 @@ class ParseType extends Parser {
             parseEditProfile.checkParameter();
             return parseEditProfile.getCommand();
         } else if (DELETE_COMMAND.equals(command)) {
-            isDeleteProfile(command);
+            checkDeleteProfile(command);
         }
         logger.warning("You entered an invalid type for profile");
         throw new ParserException("You entered an invalid type for profile");

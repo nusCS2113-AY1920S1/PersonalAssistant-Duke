@@ -40,6 +40,7 @@ public class Saving extends Bank {
     private Storage storage;
     private static final String FILE_PATH = "data/";
     private static final String INCOME_CATEGORY = "Income";
+    private static final int OBJ_DOES_NOT_EXIST = -1;
     private static final Logger logger = getLogger(Saving.class);
 
     /**
@@ -477,10 +478,10 @@ public class Saving extends Bank {
     void exportBankRecurringTransactionList(String prependFileName) throws IOException {
         ArrayList<String[]> inputData = prepareExportRecurringTransactionList();
         try {
-            storage.writeFile(inputData, prependFileName + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
-            logger.warning("Successfully exported: "
+            storage.writeFile(inputData, prependFileName
+                    + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
+            logger.info("Successfully exported: "
                     + prependFileName + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
-
         } catch (IOException e) {
             logger.warning("Error exporting: " + prependFileName + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
             throw new IOException(e);
@@ -596,7 +597,8 @@ public class Saving extends Bank {
                 return i;
             }
         }
-        return -1;
+        logger.info("Card bill expenditure does not exist");
+        return OBJ_DOES_NOT_EXIST;
     }
 
     /**
@@ -621,7 +623,8 @@ public class Saving extends Bank {
                 return i;
             }
         }
-        return -1;
+        logger.info("Card bill rebate deposit does not exist");
+        return OBJ_DOES_NOT_EXIST;
     }
 
     /**
@@ -631,9 +634,10 @@ public class Saving extends Bank {
      * @param description The description keyword to match against.
      * @param category    The category keyword to match against.
      * @param ui          The object required for printing.
+     * @throws TransactionException If recurring expenditure list is empty.
      */
     @Override
-    public void findRecurringExpenditure(String description, String category, Ui ui) {
+    public void findRecurringExpenditure(String description, String category, Ui ui) throws TransactionException {
         recurringExpenditures.findMatchingRecurringExpenditure(description, category, ui);
         logger.info("Completed finding recurring expenditures");
     }

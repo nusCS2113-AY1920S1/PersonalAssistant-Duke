@@ -196,9 +196,9 @@ public class TransactionList {
             } else {
                 Transaction temp = transactionLists.get(index - ONE_INDEX);
                 transactionLists.remove(index - ONE_INDEX);
-                logger.info("Deleted expenditure");
                 ui.printMessage("Details of deleted Expenditure:");
                 printOneTransaction(ONE_INDEX, temp, ISSINGLE, ui);
+                logger.info("Deleted expenditure");
                 return temp.getAmount();
             }
         } else {
@@ -356,9 +356,9 @@ public class TransactionList {
     public double deleteDepositFromList(int index, Ui ui) {
         Transaction temp = transactionLists.get(index - ONE_INDEX);
         transactionLists.remove(index - ONE_INDEX);
-        logger.info("Deposit deleted");
         ui.printMessage("Details of deleted deposit:");
         printOneTransaction(ONE_INDEX, temp, ISSINGLE, ui);
+        logger.info("Deposit deleted");
         return temp.getAmount();
     }
 
@@ -495,7 +495,7 @@ public class TransactionList {
             String description, String category, Ui ui) throws TransactionException {
         if (expenditureListIsEmpty()) {
             logger.warning("Transaction list is empty");
-            throw new TransactionException("Transaction list is empty.");
+            throw new TransactionException("Transaction list is empty");
         }
         if (!(description == null || description.isBlank())) {
             findByDescription(description, ui);

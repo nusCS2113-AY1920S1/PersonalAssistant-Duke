@@ -205,12 +205,13 @@ public class RecurringExpenditureList {
      * @param description The description keyword to match against.
      * @param category    The category keyword to match against.
      * @param ui          The object required for printing.
+     * @throws TransactionException If recurring expenditure list is empty.
      */
-    public void findMatchingRecurringExpenditure(String description, String category, Ui ui) {
+    public void findMatchingRecurringExpenditure(String description, String category, Ui ui)
+            throws TransactionException {
         if (isRecurringExpendituresEmpty()) {
-            logger.info("Recurring expenditure is empty.");
-            ui.printMessage("Recurring expenditure is empty.");
-            return;
+            logger.info("Recurring expenditure list is empty");
+            throw new TransactionException("Recurring expenditure list is empty");
         }
         if (!(description == null || description.isBlank())) {
             findByDescription(description, ui);

@@ -780,9 +780,10 @@ public class Profile {
      * @param category    The category keyword to match against.
      * @param ui          The object required for printing.
      * @throws BankException If bank name specified does not exist.
+     * @throws TransactionException If recurring transaction list is empty
      */
     public void findRecurringExpenditure(String name, String description, String category,
-            String type, Ui ui) throws BankException {
+            String type, Ui ui) throws BankException, TransactionException {
         if (RECURRING.equals(type)) {
             bankList.bankListFindRecurringExpenditure(name, description, category, ui);
         }
@@ -1229,6 +1230,8 @@ public class Profile {
      */
     private void checkBillAmountNotZero(double amount, String card, YearMonth cardDate) throws CardException {
         if (amount == 0) {
+            logger.warning("You have no paid expenditures for " + card + " for the month of "
+                    + cardDate + "!");
             throw new CardException("You have no paid expenditures for " + card + " for the month of "
                     + cardDate + "!");
         }
@@ -1257,8 +1260,11 @@ public class Profile {
             cardList.transferExpUnpaidToPaid(card, cardDate, type);
             ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
                     + " have been successfully paid!");
+            logger.info("Credit Card bill for " + card + " for the month of " + cardDate
+                    + " have been successfully paid!");
         } catch (TransactionException error) {
             ui.printMessage(error.getMessage());
+            logger.warning("Paying of card bill failed! Your data may potentially be corrupted!");
             throw new CardException("Paying of card bill failed! Your data may potentially be corrupted!");
         }
     }
@@ -1285,6 +1291,8 @@ public class Profile {
         profileDeleteDeposit(depositNumber, bank, ui, true);
         cardList.transferExpPaidToUnpaid(card, cardDate, type);
         ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
+                + " have been successfully reverted!");
+        logger.info("Credit Card bill for " + card + " for the month of " + cardDate
                 + " have been successfully reverted!");
     }
 
@@ -1345,6 +1353,8 @@ public class Profile {
             isThrowException = true;
         }
         if (isThrowException) {
+            logger.warning("Card Bill expenditure and rebate deposit does not exist in savings"
+                + "transaction list");
             throw new CardException("Unable to delete credit card bill because " + accountType
                     + " does not exist in savings account anymore!\nEither the card bill was not paid "
                     + "with " + bankName + " or the bill was deleted due to too many transactions after it");

@@ -381,7 +381,7 @@ public abstract class Bank {
      * @throws BankException If used on investment account.
      */
     public void findRecurringExpenditure(String description, String category, Ui ui)
-            throws BankException {
+            throws BankException, TransactionException {
         logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }

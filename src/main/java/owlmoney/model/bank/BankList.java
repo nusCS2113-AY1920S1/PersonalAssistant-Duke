@@ -301,8 +301,8 @@ public class BankList {
                 return;
             }
         }
-        logger.warning("There are no bank with the name: " + bankName);
-        throw new BankException("There are no bank with the name: " + bankName);
+        logger.warning("There are no savings account with the name: " + bankName);
+        throw new BankException("There are no savings account with the name: " + bankName);
     }
 
     /**
@@ -1227,9 +1227,10 @@ public class BankList {
      * @param category    The category keyword to match against.
      * @param ui          The object required for printing.
      * @throws BankException If bank name specified does not exist.
+     * @throws TransactionException If recurring transaction list is empty.
      */
     public void bankListFindRecurringExpenditure(String bankName, String description, String category, Ui ui)
-            throws BankException {
+            throws BankException, TransactionException {
         String capitalBankName = bankName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
             Bank currentBank = bankLists.get(i);
