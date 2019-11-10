@@ -39,7 +39,6 @@ public class AddDefaultValueCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
-        ui.showLine();
         meals.addDefaultValues(this.meal);
         ui.showAddedItem(this.meal);
         try {
@@ -47,6 +46,5 @@ public class AddDefaultValueCommand extends Command {
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
-        ui.showLine();
     }
 }
