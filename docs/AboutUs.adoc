@@ -47,7 +47,7 @@ Responsibilities: Release management, project management, GUI, refactoring, feat
 '''
 
 === WEI FENG
-image::WEIFENG-NUSCEG.png[width="150", align="left"]
+image::weifeng-nusceg.png[width="150", align="left"]
 {empty}[https://github.com/WEIFENG-NUSCEG[github]] [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=WEIFENG-NUSCEG[portfolio]]
 
 Role: Developer +
