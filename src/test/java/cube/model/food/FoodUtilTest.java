@@ -1,14 +1,16 @@
 package cube.model.food;
 
-import cube.model.food.Food;
-import cube.model.food.FoodList;
 import java.util.Date;
+
+import cube.model.food.foolUtil.SortByExpiry;
+import cube.model.food.foolUtil.SortByName;
+import cube.model.food.foolUtil.SortByPrice;
+import cube.model.food.foolUtil.SortByStock;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static cube.testutil.Assert.assertThrowEquals;
 
 public class FoodUtilTest {
     private class FoodStub extends Food {
