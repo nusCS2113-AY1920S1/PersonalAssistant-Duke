@@ -544,7 +544,13 @@ public class Parser {
     protected Command ReturnParser(String input, String[] words) throws RimsException {
         if (words[1].equals("/id")) {
             int idIndex = input.indexOf(" /id") + 5;
-            int userId = parseInt(input.substring(idIndex).trim());
+
+            //@abhi attempted fix:
+            if (idIndex > input.length()){
+                throw new RimsException("Please specify your user ID");
+            }
+            
+            int userId = parseInt(input.substring(idIndex).trim()); 
             ReservationList userReservations = resources.getUserBookings(userId);
             if (userReservations.isEmpty()) {
                 throw new RimsException("User " + userId + " has not made any bookings yet!");
