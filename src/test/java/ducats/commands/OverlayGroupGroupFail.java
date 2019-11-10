@@ -18,6 +18,8 @@ import ducats.Ui;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import ducats.components.Song;
+import ducats.components.SongConverter; 
+
 
 public class OverlayGroupGroupFail {
 
@@ -31,6 +33,7 @@ public class OverlayGroupGroupFail {
         ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
         //ducats.Storage storage = new ducats.Storage(Paths.get("data", "songlist.txt"));
         SongList songs = new SongList();
+        SongConverter songconverter = new SongConverter();
         String testSong = "twinkle aminor 123 [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] [[UEs;UAs],[UE;UA],[UEs;"
                 + "UAs],[UE;UA],[UEs;UAs],[UE;UA],[UEs;UAs],[UE;UA]] [[MCs;UEs],"
                 + "[MC;UE],[MCs;UEs],[MC;UE],[MCs;UEs],[MC;UE],[MCs;UEs],[MC;UE]]"
@@ -46,7 +49,7 @@ public class OverlayGroupGroupFail {
                 + " [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] [[UEs],[UE],[UEs],[UE],[UEs],[UE],[UEs],[UE]]"
                 + " [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] ";
         try {
-            songs.add(storage.convertSongFromString(testSong));
+            songs.add(songconverter.convertSongFromString(testSong));
         } catch (Exception e) {
             System.out.println(testSong);
             songs = new SongList();

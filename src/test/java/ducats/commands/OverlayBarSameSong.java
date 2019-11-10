@@ -18,10 +18,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import ducats.components.Song;
 import ducats.commands.AddOverlayCommand;
+import ducats.components.SongConverter;
 
 public class OverlayBarSameSong {
     @Test
-
     //this test case tests when overlaying 1 bar onto another
 
     public void testGroupGroup() {
@@ -30,6 +30,7 @@ public class OverlayBarSameSong {
         String fileDelimiter = System.getProperty("file.separator");
         ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
         //ducats.Storage storage = new ducats.Storage(Paths.get("data", "songlist.txt"));
+        SongConverter songconverter = new SongConverter();
         SongList songs = new SongList();
         String testSong = "Twinkle aminor 120 [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] "
                 + "[[UBs],[UB],[UBs],[UB],[UBs],[UB],[UBs],[UB]] "
@@ -39,7 +40,7 @@ public class OverlayBarSameSong {
                 + "[[UFs],[UF],[UFs],[UF],[UFs],[UF],[UFs],[UF]] "
                 + "[[UGs],[UG],[UGs],[UG],[UGs],[UG],[UGs],[UG]] ";
         try {
-            songs.add(storage.convertSongFromString(testSong));
+            songs.add(songconverter.convertSongFromString(testSong));
         } catch (Exception e) {
             System.out.println(testSong);
             songs = new SongList();

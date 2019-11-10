@@ -17,6 +17,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import ducats.components.Song;
 import ducats.commands.AddOverlayCommand;
+import ducats.components.SongConverter;
 
 public class OverlayBarSameSongRepeat2 {
     @Test
@@ -28,6 +29,7 @@ public class OverlayBarSameSongRepeat2 {
         // ("/home/rishi/Desktop/cs2113t/team/main/data/todo_list" +".txt"));
         String fileDelimiter = System.getProperty("file.separator");
         ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
+        SongConverter songconverter = new SongConverter();
         //ducats.Storage storage = new ducats.Storage(Paths.get("data", "songlist.txt"));
         SongList songs = new SongList();
         String testSong = "Twinkle aminor 120 [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] "
@@ -38,7 +40,7 @@ public class OverlayBarSameSongRepeat2 {
                 + "[[UFs],[UF],[UFs],[UF],[UFs],[UF],[UFs],[UF]] "
                 + "[[UGs],[UG],[UGs],[UG],[UGs],[UG],[UGs],[UG]] ";
         try {
-            songs.add(storage.convertSongFromString(testSong));
+            songs.add(songconverter.convertSongFromString(testSong));
         } catch (Exception e) {
             System.out.println(testSong);
             songs = new SongList();

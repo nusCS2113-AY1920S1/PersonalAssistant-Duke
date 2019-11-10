@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import ducats.components.Song;
 import ducats.commands.OverlayBarSong;
+import ducats.components.SongConverter;
 
 public class OverlayBarSongRepeat {
     @Test
@@ -29,6 +30,7 @@ public class OverlayBarSongRepeat {
         ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
         //ducats.Storage storage = new ducats.Storage(Paths.get("data", "songlist.txt"));
         SongList songs = new SongList();
+        SongConverter songconverter = new SongConverter();
         String testSong = "Twinkle aminor 120 [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] "
                 + "[[UBs],[UB],[UBs],[UB],[UBs],[UB],[UBs],[UB]] "
                 + "[[UCs],[UC],[UCs],[UC],[UCs],[UC],[UCs],[UC]] "
@@ -44,8 +46,8 @@ public class OverlayBarSongRepeat {
                 + "[[UGs],[UG],[UGs],[UG],[UGs],[UG],[UGs],[UG]] "
                 + "[[UEs],[UE],[UEs],[UE],[UEs],[UE],[UEs],[UE]] ";
         try {
-            songs.add(storage.convertSongFromString(testSong));
-            songs.add(storage.convertSongFromString(testSong2));
+            songs.add(songconverter.convertSongFromString(testSong));
+            songs.add(songconverter.convertSongFromString(testSong2));
         } catch (Exception e) {
             System.out.println(testSong);
             songs = new SongList();
@@ -74,13 +76,14 @@ public class OverlayBarSongRepeat {
             //System.out.print("addsadsa");
             System.out.print(e);
         }
-        String expected = "{UPPER_B }{UPPER_B }{UPPER_B }{UPPER_B }|"
+        String expected =  "{UPPER_B }{UPPER_B }{UPPER_B }{UPPER_B }|"
                 + "{UPPER_C UPPER_A }{UPPER_C UPPER_A }{UPPER_C UPPER_A }{UPPER_C UPPER_A }|"
-                + "{UPPER_D }{UPPER_D }{UPPER_D }{UPPER_D }|"
-                + "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|"
-                + "{UPPER_F }{UPPER_F }{UPPER_F }{UPPER_F }|"
-                + "{UPPER_G }{UPPER_G }{UPPER_G }{UPPER_G }|"
-                + "{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|";
+                + "{UPPER_D UPPER_A }{UPPER_D UPPER_A }{UPPER_D UPPER_A }{UPPER_D UPPER_A }|"
+                + "{UPPER_A UPPER_A }{UPPER_A UPPER_A }{UPPER_A UPPER_A }{UPPER_A UPPER_A }|"
+                + "{UPPER_F UPPER_A }{UPPER_F UPPER_A }{UPPER_F UPPER_A }{UPPER_F UPPER_A }|"
+                + "{UPPER_G UPPER_A }{UPPER_G UPPER_A }{UPPER_G UPPER_A }{UPPER_G UPPER_A }|"
+                + "{UPPER_E UPPER_A }{UPPER_E UPPER_A }{UPPER_E UPPER_A }{UPPER_E UPPER_A }|";
+
         OverlayBarSong tester = new OverlayBarSong("overlay_bar_song Twinkle 1 Twinkle1 2 repeat");
         try {
             tester.execute(songs,ui,storage);
