@@ -17,7 +17,6 @@ public class Lunch extends Meal {
      */
     public Lunch(String description, LocalDate date, HashMap<String, String> details, String costStr) {
         super(description, date, details, costStr);
-        super.type = "L";
-        super.mealType = MealType.LUNCH;
+        this.setMealType(MealType.LUNCH);
     }
 }
