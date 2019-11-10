@@ -42,14 +42,8 @@ public class AddEntryCommand extends Command {
         EntryList entryList = (EntryList) dollaData.getRecordListObj(mode);
         Undo.addToStateList(mode,entryList.get());
         Redo.clearRedoState(mode);
-        int duplicateEntryIndex = entryList.findExistingRecordIndex(dollaData, newEntry, mode);
-        if (recordDoesNotExist(duplicateEntryIndex)) {
-            dollaData.addToRecordList(mode, newEntry);
-            Ui.echoAddRecord(newEntry);
-        } else {
-            Record existingEntry = entryList.getFromList(duplicateEntryIndex);
-            Ui.existingRecordPrinter(existingEntry, mode);
-        }
+        dollaData.addToRecordList(mode, newEntry);
+        Ui.echoAddRecord(newEntry);
     }
 
     @Override

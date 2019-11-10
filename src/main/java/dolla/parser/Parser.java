@@ -2,6 +2,7 @@ package dolla.parser;
 
 import dolla.ModeStringList;
 import dolla.Time;
+import dolla.model.Debt;
 import dolla.model.RecordList;
 import dolla.exception.DollaException;
 
@@ -284,8 +285,72 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return true;
     }
 
-    //@@author yetong1895
+    //@@author tatayu
+    /**
+     * Check if th remove command is valid in detb mode.
+     * @return true if the remove command is valid.
+     */
+    protected boolean verifyRemoveForDebtMode() {
+        if (inputArray.length != 2) {
+            RemoveUi.printInvalidRemoveFormatInDebtMode();
+            return false;
+        }
+        try {
+            if (Integer.parseInt(inputArray[1]) < 1) {
+                RemoveUi.printInvalidRemoveFormatInDebtMode();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            RemoveUi.printInvalidRemoveFormatInDebtMode();
+            return false;
+        }
+        return true;
+    }
 
+
+    //@@author tatayu
+    /**
+     * Check if the command is one word only.
+     * @return true if the command is more than one words.
+     */
+    protected boolean verifyRemoveLength() {
+        if (inputArray.length == 1) {
+            RemoveUi.printInvalidRemoveMessage();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //@@author tatayu
+    /**
+     * Check if the command to remove bill is valid.
+     * @return true if the remove bill command is valid.
+     */
+    protected boolean verifyRemoveBill(RecordList recordList) {
+        if (inputArray.length != 3) {
+            DebtUi.printRemoveBillFormatError();
+            return false;
+        }
+        if (inputArray[1].equals(BILL_COMMAND_BILL)) {
+            try {
+                if (Integer.parseInt(inputArray[2]) < 1
+                        || Integer.parseInt(inputArray[2]) > recordList.size()) {
+                    DebtUi.printRemoveBillFormatError();
+                    return false;
+                } else {
+                    return true;
+                }
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                DebtUi.printRemoveBillFormatError();
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    //@@author yetong1895
     /**
      * This method will check if t he user have entered a valid shorcut command.
      * @return true if the command is valid or false otherwise.
@@ -617,6 +682,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             if (verifyDebtSearchComponent(inputArray[1]) && inputArray[2] != null) {
                 return true;
             } else {
+                SearchUi.printInvalidDebtSearchComponent();
                 return false;
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -729,10 +795,16 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected Boolean verifyAddBillCommand(ArrayList<String> nameList) {
         try {
             if (verifyBillPeopleAndAmount()) {
-                amount = stringToDouble(inputArray[2]);
-                for (int i = 3; i < 3 + Integer.parseInt(inputArray[1]); i++) {
-                    String name = inputArray[i];
-                    nameList.add(name);
+                int numberOfNames = inputArray.length - 3;
+                if (numberOfNames > Integer.parseInt(inputArray[1])) {
+                    DebtUi.printInvalidNameNumberError(Integer.parseInt(inputArray[1]));
+                    return false;
+                } else {
+                    amount = stringToDouble(inputArray[2]);
+                    for (int i = 3; i < 3 + Integer.parseInt(inputArray[1]); i++) {
+                        String name = inputArray[i];
+                        nameList.add(name);
+                    }
                 }
             } else {
                 return false;

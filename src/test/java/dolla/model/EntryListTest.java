@@ -1,5 +1,8 @@
 package dolla.model;
 
+import dolla.Dolla;
+import dolla.ModeStringList;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,7 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 //@@author omupenguin
-public class EntryListTest {
+public class EntryListTest implements ModeStringList {
+
     private Entry createNewEntry1() {
         return new Entry("expense", 100, "Expense Description",
                 LocalDate.parse("2001-12-03"));
@@ -36,4 +40,5 @@ public class EntryListTest {
         newEntryList.removeFromList(1);
         assertEquals(1, newEntryList.size());
     }
+
 }

@@ -8,7 +8,6 @@ public class SearchUi extends Ui {
 
     /**
      * Print the result of searching by description.
-     *
      * @param mode          the mode
      * @param recordList       the log list
      * @param searchContent the search content
@@ -32,7 +31,6 @@ public class SearchUi extends Ui {
 
     /**
      * Print the result of searching by name.
-     *
      * @param mode          the mode
      * @param recordList       the log list
      * @param searchContent the search content
@@ -56,7 +54,6 @@ public class SearchUi extends Ui {
 
     /**
      * Print the result of searching by date.
-     *
      * @param mode          the mode
      * @param recordList       the record list
      * @param searchContent the search content

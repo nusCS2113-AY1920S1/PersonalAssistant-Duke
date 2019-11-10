@@ -1,11 +1,11 @@
 package dolla.command.view;
 
+import dolla.Time;
 import dolla.command.Command;
 import dolla.model.DollaData;
 import dolla.model.Record;
 import dolla.model.RecordList;
 import dolla.ui.ListUi;
-import dolla.ui.Ui;
 import dolla.ui.ViewUi;
 
 import java.time.LocalDate;
@@ -16,12 +16,12 @@ public class ViewCommand extends Command {
     protected String dateStr;
     protected static final String TODAY = "today";
     protected static final String EXPENSE = "expense";
+    private double sum = 0;
 
 
     @Override
     public void execute(DollaData dollaData) {
 
-        double sum = 0;
         RecordList entryList = dollaData.getRecordListObj(MODE_ENTRY);
         boolean hasRelevantEntries = false;
 
@@ -55,11 +55,13 @@ public class ViewCommand extends Command {
             ViewUi.printNoRelevantExpense(dateStr);
         }
 
+        System.out.println(sum);
+
     }
 
     @Override
     public String getCommandInfo() {
-        return null;
+        return Time.dateToString(cmpDate) + " " + dateStr;
     }
 
     private boolean isSameDate(LocalDate d1, LocalDate d2) {
@@ -73,6 +75,10 @@ public class ViewCommand extends Command {
             amount *= -1;
         }
         return amount;
+    }
+
+    public double getSum() {
+        return sum;
     }
 
 }
