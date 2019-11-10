@@ -113,7 +113,11 @@ class CommandHelperTest {
             "Exits current project to manage other projects.",
             "",
             " - bye",
-            "Exits program."};
+            "Saves your data and exits ArchDuke.",
+            "",
+            " - help",
+            "Provides a list of all the commands available."};
+
         assertArrayEquals(expectedOutput, simulatedOutput.toArray());
     }
 }

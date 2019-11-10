@@ -104,7 +104,10 @@ public class CommandHelper {
         helpList.add("Exits current project to manage other projects.");
         helpList.add("");
         helpList.add(" - bye");
-        helpList.add("Exits program.");
+        helpList.add("Saves your data and exits ArchDuke.");
+        helpList.add("");
+        helpList.add(" - help");
+        helpList.add("Provides a list of all the commands available.");
 
         return helpList;
     }
