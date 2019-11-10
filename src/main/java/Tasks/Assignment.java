@@ -14,7 +14,7 @@ public abstract class Assignment {
     private String modCode;
     private static final String FRONT_ICON_SEPARATOR = "[";
     private static final String BACK_ICON_SEPARATOR = "]";
-    private static final String DEADLINE_KEYWORD = " by ";
+    private static final String DEADLINE_KEYWORD = "by ";
 
     /**
      * Creates Task object.

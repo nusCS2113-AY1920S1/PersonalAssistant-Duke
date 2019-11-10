@@ -133,7 +133,7 @@ public class RemindCommandTest {
     @Test
     public void execute_setReminderWithInvalidTaskDescription_throwsDukeException() {
         Command command = new RemindCommand(taskWithInvalidDescription, oneMinAfterCurrentDate,true);
-        String expected = "Sorry, there are no such task description in your deadline table!";
+        String expected = "Sorry, the description of your task mismatches";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
