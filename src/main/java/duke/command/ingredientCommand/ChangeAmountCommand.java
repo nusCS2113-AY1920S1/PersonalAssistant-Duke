@@ -37,7 +37,7 @@ public class ChangeAmountCommand extends Command {
     @Override
     public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         if (index <= fridge.numberOfIngredients() && index > 0) {
-            fridge.getIngredient(index - 1).changeAmount(newAmount);
+            fridge.getIngredient(index - 1).setAmount(newAmount);
             ui.show("You've changed index number " + (index) + "'s amount to " + newAmount);
             fs.update();
             ui.showTask("\t " + index + "." + fridge.getIngredient(index - 1).toString());

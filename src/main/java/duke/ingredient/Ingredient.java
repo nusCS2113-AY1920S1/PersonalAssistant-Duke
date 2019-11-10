@@ -31,7 +31,7 @@ public class Ingredient implements Printable {
     {
         this.name = name;
         if (amount < 0)
-            throw new DukeException("The ingredient amount can not be negative, use a valid amount");
+            throw new DukeException("The ingredient amount cannot be negative, use a valid amount");
         this.amount = amount;
         this.expiryDate = expiryDate;
     }
@@ -39,13 +39,6 @@ public class Ingredient implements Printable {
     public Ingredient(String name, Integer amount, String expiryDate) throws DukeException {
         this(name, amount, Convert.stringToDate(expiryDate));
         dateAsString = expiryDate;
-    }
-
-    /**
-     * Returns the expiryDate attribute of the {@link Ingredient}.
-     */
-    public Date getDate() {
-        return expiryDate;
     }
 
     /**
@@ -87,7 +80,7 @@ public class Ingredient implements Printable {
      *
      * @param amount, the new amount we want to set to the {@link Ingredient}
      */
-    public void changeAmount(Integer amount) //to change amount, we need new amount
+    public void setAmount(Integer amount) //to change amount, we need new amount
     {
         this.amount = amount;
     }
