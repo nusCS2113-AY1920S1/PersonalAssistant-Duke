@@ -6,14 +6,14 @@ import logic.command.Command;
 import logic.command.HelpCommand;
 
 public class CheckCommandParser {
-    public static final String CHECK_USAGE = "'check' to check time crash.";
+    public static final String CHECK_USAGE = "Usage: check";
 
     //@@author yuyanglin28
     /**
-     * parse help command
+     * This method is to parse check command
      * @param argument should be nothing
-     * @return help command
-     * @throws DukeException exception
+     * @return check command
+     * @throws DukeException throw exception when command after check is not empty.
      */
     public static Command parseCheckCommand(String argument) throws DukeException {
         if (argument.equals("")) {

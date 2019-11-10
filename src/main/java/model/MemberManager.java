@@ -10,7 +10,8 @@ public class MemberManager {
     ArrayList<Member> memberList;
 
     /**
-     * add javadoc please
+     * instructor
+     * @param memberList member list
      */
     public MemberManager(ArrayList<Member> memberList) {
         if (memberList != null) {
@@ -122,13 +123,15 @@ public class MemberManager {
      * This is the reverse method of <code>addTask(Member[] members, Task[] toAdd)</code> method.
      *
      */
-    /*public void deleteTask(Member[] members, Task[] toDelete) {
+    public void deleteTask(Member[] members, Task[] toDelete) {
         for (int i = 0; i < members.length; i++) {
             for (int j = 0; j < toDelete.length; j++) {
-                members[i].deleteTask(toDelete[j]);
+                String taskName = toDelete[j].getName();
+                members[i].deleteTask(taskName);
             }
         }
-    }*/
+    }
+
     public ArrayList<Member> getMemberList() {
         return memberList;
     }
@@ -145,6 +148,10 @@ public class MemberManager {
             }
         }
         return false;
+    }
+
+    public ArrayList<String> getTaskListOfMember(int index) {
+        return getMemberById(index).getTaskList();
     }
 
     public ArrayList<String> getTaskListOfMember(String memberName) {
@@ -183,58 +190,44 @@ public class MemberManager {
         return getMemberById(index).getName();
     }
 
-    public String getMemberBio(int index) {
-        Member member = getMemberById(index);
+    public String getMemberBio(String name) {
+        Member member = getMemberByName(name);
         return member.getBiography();
     }
 
-    public void updateMemberBio(int index, String bio) {
-        Member member = getMemberById(index);
+    public void updateMemberBio(String name, String bio) {
+        Member member = getMemberByName(name);
         member.setBiography(bio);
     }
 
-    public String getMemberEmail(int index) {
-        Member member = getMemberById(index);
+    public String getMemberEmail(String name) {
+        Member member = getMemberByName(name);
         return member.getEmail();
     }
 
-    public void updateMemberEmail(int index, String email) throws DukeException {
-        Member member = getMemberById(index);
+    public void updateMemberEmail(String name, String email) throws DukeException {
+        Member member = getMemberByName(name);
         member.setEmail(email);
     }
 
-    public String getMemberPhone(int index) {
-        Member member = getMemberById(index);
+    public String getMemberPhone(String name) {
+        Member member = getMemberByName(name);
         return member.getPhone();
     }
 
-    public void updateMemberPhone(int index, String phone) {
-        Member member = getMemberById(index);
+    public void updateMemberPhone(String name, String phone) {
+        Member member = getMemberByName(name);
         member.setPhone(phone);
     }
 
-    static int countIntOccurrences(ArrayList<Integer> arr, int x) {
-        int res = 0;
-        for (int i = 0; i < arr.size(); i++) {
-            if (x == arr.get(i)) {
-                res++;
-            }
-        }
-        return res;
-    }
-
-    static int countDoubleOccurrences(ArrayList<Double> arr, double x) {
-        int res = 0;
-        for (int i = 0; i < arr.size(); i++) {
-            if (x == arr.get(i)) {
-                res++;
-            }
-        }
-        return res;
-    }
-
+    //@@author yuyanglin28
     /**
-     * javadoc
+     * This method is to sorted the member list according to the progress.
+     * The argument is an array list of progress,
+     * the index 0 progress is the progress of index 0 member in member list
+     *
+     * @param progress array list that sorted the progress data
+     * @return a sorted member list in string format (with name and progress), from high to low
      */
     public String membersInorderProgress(ArrayList<Double> progress) {
         String result = "";
@@ -269,17 +262,22 @@ public class MemberManager {
     }
 
 
+
+    //@@author yuyanglin28
     /**
-     * java doc
+     * This method is to sorted the member list according to the todo task num.
+     * The argument is an array list of todo task num,
+     * the index 0 todo task num is the todo task num of index 0 member in member list
+     *
+     * @param todoNum array list that sorted the todo task num
+     * @return a sorted member list in string format (with name and todo task num), from small to big
      */
     public String membersInorderTodoNum(ArrayList<Integer> todoNum) {
         String result = "";
         int size = todoNum.size();
-        System.out.println(size);
         ArrayList<Integer> todoNumCopy = (ArrayList<Integer>) todoNum.clone();
         for (int i = 0; i < size; i++) {
             int min = Integer.MAX_VALUE;
-            System.out.println(todoNum.size());
             for (int j = 0; j < todoNum.size(); j++) {
                 if (todoNum.get(j) < min) {
                     min = todoNum.get(j);
@@ -305,6 +303,44 @@ public class MemberManager {
 
         }
         return result;
+    }
+
+    //@@author yuyanglin28
+
+    /**
+     * This method is to get the occurrence of an integer in an array list
+     *
+     * @param arr integer array list
+     * @param x the integer to be checked
+     * @return the number of the occurrence
+     */
+    private int countIntOccurrences(ArrayList<Integer> arr, int x) {
+        int res = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            if (x == arr.get(i)) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    //@@author yuyanglin28
+
+    /**
+     * This method is to get the occurrence of a double in an array list
+     *
+     * @param arr double array list
+     * @param x the double to be checked
+     * @return the number of the occurrence
+     */
+    private int countDoubleOccurrences(ArrayList<Double> arr, double x) {
+        int res = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            if (x == arr.get(i)) {
+                res++;
+            }
+        }
+        return res;
     }
 
 }
