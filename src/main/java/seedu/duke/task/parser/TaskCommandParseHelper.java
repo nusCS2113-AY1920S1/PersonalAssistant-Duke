@@ -432,9 +432,15 @@ public class TaskCommandParseHelper {
             ArrayList<String> tags = extractTags(optionList);
             String priority = extractPriority(optionList);
             ArrayList<String> links = extractLinks(optionList);
+            String timeString = extractTime(optionList);
+            if (input.startsWith("todo") && (!"".equals(timeString))) {
+                return new InvalidCommand("Date Time not allowed in todo tasks");
+            }
             return constructAddCommandByType(input, doAfter, time, tags, priority, links);
         } catch (TaskParseException e) {
             return new InvalidCommand(e.getMessage());
+        } catch (CommandParseHelper.CommandParseException e) {
+            return null;
         }
     }
 
@@ -444,8 +450,7 @@ public class TaskCommandParseHelper {
      * @param optionList contains all options specified in input command
      * @return time in LocalDateTime format
      */
-    public static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) throws
-            TaskParseException {
+    public static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) {
         try {
             String timeString = extractTime(optionList);
             LocalDateTime dateTime = TaskParseNaturalDateHelper.getDate(timeString);
@@ -502,8 +507,8 @@ public class TaskCommandParseHelper {
             return new InvalidCommand("Please enter a name after \'deadline\'");
         }
         if (time == null) {
-            return new InvalidCommand("Please enter a time of correct format (dd/mm/yyyy HHMM) after "
-                    + "\'-time\'");
+            return new InvalidCommand("Please enter a time of correct format (dd/mm/yyyy HHMM) or "
+                    + "(day HHMM) after \'-time\'");
         }
         String name = deadlineMatcher.group("name");
         return new TaskAddCommand(Task.TaskType.DEADLINE, name, time, doAfter, tags, priority, links);
@@ -517,8 +522,8 @@ public class TaskCommandParseHelper {
             return new InvalidCommand("Please enter a name after \'event\'");
         }
         if (time == null) {
-            return new InvalidCommand("Please enter a time of correct format (dd/mm/yyyy HHMM) after "
-                    + "\'-time\'");
+            return new InvalidCommand("Please enter a time of correct format (dd/mm/yyyy HHMM) or (day "
+                    + "HHMM) after \'-time\'");
         }
         String name = eventMatcher.group("name");
         return new TaskAddCommand(Task.TaskType.EVENT, name, time, doAfter, tags, priority, links);
