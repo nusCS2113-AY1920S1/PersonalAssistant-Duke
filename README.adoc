@@ -1,6 +1,7 @@
 = OwlMoney
 
 image:https://travis-ci.org/AY1920S1-CS2113T-W17-3/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2113T-W17-3/main"]
+https://ci.appveyor.com/project/shamussy/main[image:https://img.shields.io/appveyor/ci/shamussy/main?label=build&logo=appveyor[AppVeyor CI Build Status]]
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/LICENSE[image:https://img.shields.io/badge/license-MIT-blue.svg?logo=github&logoColor=white[MIT License]]
 
 ifdef::env-github,env-browser[:relfileprefix: docs/]
