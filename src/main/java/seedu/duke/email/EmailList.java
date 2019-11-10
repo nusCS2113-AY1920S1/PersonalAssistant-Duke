@@ -6,9 +6,7 @@ import seedu.duke.email.entity.Email;
 import seedu.duke.email.parser.EmailContentParseHelper;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class EmailList extends ArrayList<Email> {
@@ -83,7 +81,7 @@ public class EmailList extends ArrayList<Email> {
 
 
     /**
-     * Delete email at the given index from eh email list.
+     * Delete email at the given index from the email list.
      *
      * @param index of email to be deleted
      * @return confirmation message to be displayed to user
@@ -93,6 +91,37 @@ public class EmailList extends ArrayList<Email> {
         this.remove(email);
         String responseMsg = constructDeleteMessage(email);
         return responseMsg;
+    }
+
+    /**
+     * Finds the email with the input SHA hash and converts into subject.
+     *
+     * @param sha the identifier to be converted
+     * @return    Subject that corresponds to the SHA hash
+     */
+    public String convertShaToSubject(String sha) {
+        for (Email email : this) {
+            if (sha.equals(email.getShaHash())) {
+                return email.getSubject();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds the email with the input SHA hash and converts into index.
+     *
+     * @param sha the identifier to be converted
+     * @return    Index that corresponds to the SHA hash
+     */
+    public int convertShaToIndex(String sha) {
+        for (int i = 0; i < this.size(); i++) {
+            Email email = this.get(i);
+            if (sha.equals(email.getShaHash())) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     private String constructDeleteMessage(Email email) {

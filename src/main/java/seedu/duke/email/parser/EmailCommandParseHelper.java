@@ -177,7 +177,7 @@ public class EmailCommandParseHelper {
 
     private static Command parseEmailAddKeywordCommand(ArrayList<Option> optionList,
                                                        String input) {
-        Pattern emailAddKeywordCommandPattern = Pattern.compile("^addKeyword\\s+(?<keyword>\\w+)\\s*$");
+        Pattern emailAddKeywordCommandPattern = Pattern.compile("^addKeyword\\s+(?<keyword>[\\w\\s]+)\\s*$");
         Matcher emailAddKeywordCommandMatcher = emailAddKeywordCommandPattern.matcher(input);
         if (!emailAddKeywordCommandMatcher.matches()) {
             return new InvalidCommand("Please enter a keyword after \'addKeyword\'");

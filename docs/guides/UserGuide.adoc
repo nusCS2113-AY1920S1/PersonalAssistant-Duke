@@ -375,13 +375,13 @@ Examples:
 `set 2 -priority med`
 
 [NOTE]
-The PRIORITY input is restricted to only *high*, *med* or *low* (case insensitive).
+The PRIORITY input is restricted to only *high*, *medium/med* or *low* (case insensitive).
 Any other PRIORITY inputted will be invalid.
 
 [WARNING]
 This command can override the priority set to a task by the command `update ITEM_NUMBER -priority PRIORITY`
-and vice versa.
-
+and vice versa. It also overrides the priority set to a task by the `todo`, `deadline` or `event` command,
+but not the other way round.
 
 ==== Snooze a task: `snooze`
 Format: `snooze ITEM_NUMBER [-by NO_OF_DAYS]`
@@ -395,8 +395,12 @@ Examples:
 `snooze 1 -by 4`
 
 [NOTE]
-If the NO_OF_DAYS is not input, the `snooze` command will automatically snooze the task by 3 days.
+If the NO_OF_DAYS is not input, the `snooze` command will automatically snooze the task by 3 days. +
 Only tasks of type `deadline` and `event` can be snoozed.
+
+[WARNING]
+Once a task is snoozed, there is no undo option. To modify the date and time of the task, use the `update`
+command.
 
 [[update]]
 ==== Update Tasks Commands: `update`
@@ -437,6 +441,24 @@ Examples:
 [NOTE]
 Any links created will only be visible from the task it is added to.
 Emails will not be able to show any links to tasks.
+
+==== Sort task list: `sort`
+Format: `sort SORT_TYPE`
+
+This command sorts the task list according to the SORT_TYPE.
+
+Examples:
+
+`sort priority`
+
+`sort status`
+
+[NOTE]
+Task list is sorted according to `time` by default. The list can be sorted by `priority`, `status` and
+`time`. +
+*Sorted by `priority`*: tasks with higher priority will be at the top of the task list. +
+*Sorted by `status`*: tasks that are not completed will be displayed at the top of the task list. +
+*Sorted by `time`*: deadline or events tasks with nearest date and time will be at the top of the task list.
 
 ==== Clear task list: `clear`
 Format: `clear`
