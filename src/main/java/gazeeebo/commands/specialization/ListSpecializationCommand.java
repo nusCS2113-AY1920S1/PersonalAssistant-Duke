@@ -1,3 +1,5 @@
+//@@author e0323290
+
 package gazeeebo.commands.specialization;
 
 import gazeeebo.UI.Ui;
@@ -8,36 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Calls out the list of specializations and technical electives.
+ */
 public class ListSpecializationCommand {
-    /**
-     * Index of Communication and Networking specialization.
-     */
-    static final int COMMS_NETWORKING_INDEX = 1;
-    /**
-     * Index of Embedded Computing specialization.
-     */
-    static final int EMBEDDED_COMPUTING_INDEX = 2;
-    /**
-     * Index of Intelligent Systems specialization.
-     */
-    static final int INTELLIGENT_SYSTEMS_INDEX = 3;
-    /**
-     * Index of Interactive Digital Media specialization.
-     */
-    static final int INTERACTIVE_DIGITAL_MEDIA_INDEX = 4;
-    /**
-     * Index of Large-Scale Computing specialization.
-     */
-    static final int LARGE_SCALE_COMPUTING_INDEX = 5;
-    /**
-     * Index of System-On-A-Chip Design specialization.
-     */
-    static final int SYS_DESIGN_INDEX = 6;
-    /**
-     * Number of MCs per technical elective.
-     */
-    static final int MC_OF_ELECTIVES = 4;
-
     /**
      * Allows the user to show list of technical electives completed
      * and number of MCs completed for each specialization.
@@ -63,6 +39,13 @@ public class ListSpecializationCommand {
                                      final Map<String, ArrayList<String>>
                                              completedEMap)
             throws DukeException, IOException {
+        final int commsAndNetworkingIndex = 1;
+        final int embeddedComputingIndex = 2;
+        final int intelligentSystemsIndex = 3;
+        final int interactiveDigitalMediaIndex = 4;
+        final int largeScaleComputingIndex = 5;
+        final int sysDesignIndex = 6;
+        final int modularCredits = 4;
         try {
             new ListOfSpecializationAndModules(specMap);
             ArrayList<String> specList = new ArrayList<String>();
@@ -91,9 +74,9 @@ public class ListSpecializationCommand {
                     + ".");
             System.out.println("\n");
 
-            if (specChosen == COMMS_NETWORKING_INDEX) {
+            if (specChosen == commsAndNetworkingIndex) {
                 System.out.println("Breadth:");
-                for (int i = 0; i < specMap.get("Communications &"
+                for (int i = 0; i < specMap.get("Communications & "
                         + "Networking").size(); i++) {
                     if (specMap.get("Communications &"
                             + " Networking").get(i).isBreadth) {
@@ -137,30 +120,30 @@ public class ListSpecializationCommand {
                 } else {
                     System.out.println(completedEMap.get(
                             specList.get(specChosen - 1)
-                    ).size() * MC_OF_ELECTIVES + "/20");
+                    ).size() * modularCredits + "/20");
                 }
-            } else if (specChosen == EMBEDDED_COMPUTING_INDEX) {
+            } else if (specChosen == embeddedComputingIndex) {
                 System.out.println("Breadth:");
                 for (int i = 0; i < specMap.get("Embedded"
-                        + "Computing").size(); i++) {
+                        + " Computing").size(); i++) {
                     if (specMap.get("Embedded"
-                            + "Computing").get(i).isBreadth) {
+                            + " Computing").get(i).isBreadth) {
                         System.out.println((i + 1)
                                 + ". "
                                 + specMap.get("Embedded"
-                                + "Computing").get(i).code);
+                                + " Computing").get(i).code);
                     }
                 }
 
                 System.out.println("Depth:");
                 for (int j = 0; j < specMap.get("Embedded"
-                        + "Computing").size(); j++) {
+                        + " Computing").size(); j++) {
                     if (specMap.get("Embedded"
-                            + "Computing").get(j).isDepth) {
+                            + " Computing").get(j).isDepth) {
                         System.out.println((j + 1)
                                 + ". "
                                 + specMap.get("Embedded"
-                                + "Computing").get(j).code);
+                                + " Computing").get(j).code);
                     }
                 }
 
@@ -185,28 +168,28 @@ public class ListSpecializationCommand {
                 } else {
                     System.out.println(completedEMap.get(
                             specList.get(specChosen - 1)
-                    ).size() * MC_OF_ELECTIVES + "/20");
+                    ).size() * modularCredits + "/20");
                 }
-            } else if (specChosen == INTELLIGENT_SYSTEMS_INDEX) {
+            } else if (specChosen == intelligentSystemsIndex) {
                 System.out.println("Breadth:");
                 for (int i = 0; i < specMap.get("Intelligent"
-                        + "Systems").size(); i++) {
+                        + " Systems").size(); i++) {
                     if (specMap.get("Intelligent"
-                            + "Systems").get(i).isBreadth) {
+                            + " Systems").get(i).isBreadth) {
                         System.out.println((i + 1) + ". "
                                 + specMap.get("Intelligent"
-                                + "Systems").get(i).code);
+                                + " Systems").get(i).code);
                     }
                 }
 
                 System.out.println("Depth:");
                 for (int j = 0; j < specMap.get("Intelligent"
-                        + "Systems").size(); j++) {
+                        + " Systems").size(); j++) {
                     if (specMap.get("Intelligent"
-                            + "Systems").get(j).isDepth) {
+                            + " Systems").get(j).isDepth) {
                         System.out.println((j + 1) + ". "
                                 + specMap.get("Intelligent"
-                                + "Systems").get(j).code);
+                                + " Systems").get(j).code);
                     }
                 }
 
@@ -231,28 +214,28 @@ public class ListSpecializationCommand {
                 } else {
                     System.out.println(completedEMap.get(
                             specList.get(specChosen - 1)
-                    ).size() * MC_OF_ELECTIVES + "/20");
+                    ).size() * modularCredits + "/20");
                 }
-            } else if (specChosen == INTERACTIVE_DIGITAL_MEDIA_INDEX) {
+            } else if (specChosen == interactiveDigitalMediaIndex) {
                 System.out.println("Breadth:");
                 for (int i = 0; i < specMap.get("Interactive"
-                        + "Digital Media").size(); i++) {
+                        + " Digital Media").size(); i++) {
                     if (specMap.get("Interactive"
-                            + "Digital Media").get(i).isBreadth) {
+                            + " Digital Media").get(i).isBreadth) {
                         System.out.println((i + 1) + ". "
                                 + specMap.get("Interactive"
-                                + "Digital Media").get(i).code);
+                                + " Digital Media").get(i).code);
                     }
                 }
 
                 System.out.println("Depth:");
                 for (int j = 0; j < specMap.get("Interactive"
-                        + "Digital Media").size(); j++) {
+                        + " Digital Media").size(); j++) {
                     if (specMap.get("Interactive"
-                            + "Digital Media").get(j).isDepth) {
+                            + " Digital Media").get(j).isDepth) {
                         System.out.println((j + 1) + ". "
                                 + specMap.get("Interactive"
-                                + "Digital Media").get(j).code);
+                                + " Digital Media").get(j).code);
                     }
                 }
 
@@ -277,28 +260,28 @@ public class ListSpecializationCommand {
                 } else {
                     System.out.println(completedEMap.get(
                             specList.get(specChosen - 1)
-                    ).size() * MC_OF_ELECTIVES + "/20");
+                    ).size() * modularCredits + "/20");
                 }
-            } else if (specChosen == LARGE_SCALE_COMPUTING_INDEX) {
+            } else if (specChosen == largeScaleComputingIndex) {
                 System.out.println("Breadth:");
                 for (int i = 0; i < specMap.get("Large-Scale"
-                        + "Computing").size(); i++) {
+                        + " Computing").size(); i++) {
                     if (specMap.get("Large-Scale"
-                            + "Computing").get(i).isBreadth) {
+                            + " Computing").get(i).isBreadth) {
                         System.out.println((i + 1) + ". "
                                 + specMap.get("Large-Scale"
-                                + "Computing").get(i).code);
+                                + " Computing").get(i).code);
                     }
                 }
 
                 System.out.println("Depth:");
                 for (int j = 0; j < specMap.get("Large-Scale"
-                        + "Computing").size(); j++) {
+                        + " Computing").size(); j++) {
                     if (specMap.get("Large-Scale"
-                            + "Computing").get(j).isDepth) {
+                            + " Computing").get(j).isDepth) {
                         System.out.println((j + 1) + ". "
                                 + specMap.get("Large-Scale"
-                                + "Computing").get(j).code);
+                                + " Computing").get(j).code);
                     }
                 }
 
@@ -323,28 +306,28 @@ public class ListSpecializationCommand {
                 } else {
                     System.out.println(completedEMap.get(
                             specList.get(specChosen - 1)
-                    ).size() * MC_OF_ELECTIVES + "/20");
+                    ).size() * modularCredits + "/20");
                 }
-            } else if (specChosen == SYS_DESIGN_INDEX) {
+            } else if (specChosen == sysDesignIndex) {
                 System.out.println("Breadth:");
                 for (int i = 0; i < specMap.get("System-On-A-Chip"
-                        + "Design").size(); i++) {
+                        + " Design").size(); i++) {
                     if (specMap.get("System-On-A-Chip"
-                            + "Design").get(i).isBreadth) {
+                            + " Design").get(i).isBreadth) {
                         System.out.println((i + 1) + ". "
                                 + specMap.get("System-On-A-Chip"
-                                + "Design").get(i).code);
+                                + " Design").get(i).code);
                     }
                 }
 
                 System.out.println("Depth:");
                 for (int j = 0; j < specMap.get("System-On-A-Chip"
-                        + "Design").size(); j++) {
+                        + " Design").size(); j++) {
                     if (specMap.get("System-On-A-Chip"
-                            + "Design").get(j).isDepth) {
+                            + " Design").get(j).isDepth) {
                         System.out.println((j + 1) + ". "
                                 + specMap.get("System-On-A-Chip"
-                                + "Design").get(j).code);
+                                + " Design").get(j).code);
                     }
                 }
 
@@ -369,7 +352,7 @@ public class ListSpecializationCommand {
                 } else {
                     System.out.println(completedEMap.get(
                             specList.get(specChosen - 1)
-                    ).size() * MC_OF_ELECTIVES + "/20");
+                    ).size() * modularCredits + "/20");
                 }
             }
             String toStoreCommsB = "";
@@ -388,9 +371,9 @@ public class ListSpecializationCommand {
             for (String key : specMap.keySet()) {
 
                 if (key.equals("Communications"
-                        + "& Networking")) {
+                        + " & Networking")) {
                     for (int i = 0; i < specMap.get("Communications"
-                            + "& Networking").size(); i++) {
+                            + " & Networking").size(); i++) {
                         if (specMap.get(key).get(i).isBreadth) {
                             toStoreCommsB = toStoreCommsB.concat("commsB|"
                                     + key + "|"
@@ -407,9 +390,9 @@ public class ListSpecializationCommand {
                         }
                     }
                 } else if (key.equals("Embedded"
-                        + "Computing")) {
+                        + " Computing")) {
                     for (int i = 0; i < specMap.get("Embedded"
-                            + "Computing").size(); i++) {
+                            + " Computing").size(); i++) {
                         if (specMap.get(key).get(i).isBreadth) {
                             toStoreEmbB = toStoreEmbB.concat("embB|" + key
                                     + "|" + specMap.get(key).get(i).code
@@ -428,7 +411,7 @@ public class ListSpecializationCommand {
 
                 } else if (key.equals("Intelligent Systems")) {
                     for (int i = 0; i < specMap.get("Intelligent"
-                            + "Systems").size(); i++) {
+                            + " Systems").size(); i++) {
                         if (specMap.get(key).get(i).isBreadth) {
                             toStoreIsB = toStoreIsB.concat("isB|" + key
                                     + "|" + specMap.get(key).get(i).code
@@ -447,7 +430,7 @@ public class ListSpecializationCommand {
 
                 } else if (key.equals("Interactive Digital Media")) {
                     for (int i = 0; i < specMap.get("Interactive"
-                            + "Digital Media").size(); i++) {
+                            + " Digital Media").size(); i++) {
                         if (specMap.get(key).get(i).isBreadth) {
                             toStoreIdmB = toStoreIdmB.concat("idmB|" + key
                                     + "|" + specMap.get(key).get(i).code
@@ -465,9 +448,9 @@ public class ListSpecializationCommand {
                     }
 
                 } else if (key.equals("Large-Scale"
-                        + "Computing")) {
+                        + " Computing")) {
                     for (int i = 0; i < specMap.get("Large-Scale"
-                            + "Computing").size(); i++) {
+                            + " Computing").size(); i++) {
                         if (specMap.get(key).get(i).isBreadth) {
                             toStorelsB = toStorelsB.concat("lsB|" + key
                                     + "|" + specMap.get(key).get(i).code
@@ -484,9 +467,9 @@ public class ListSpecializationCommand {
                         }
                     }
                 } else if (key.equals("System-On-A-Chip"
-                        + "Design")) {
+                        + " Design")) {
                     for (int i = 0; i < specMap.get("System-On-A-Chip"
-                            + "Design").size(); i++) {
+                            + " Design").size(); i++) {
                         if (specMap.get(key).get(i).isBreadth) {
                             toStoreSysChipB = toStoreSysChipB.concat("sysChipB|"
                                     + key + "|" + specMap.get(key).get(i).code
@@ -512,7 +495,7 @@ public class ListSpecializationCommand {
                     + toStoreIdmB + "\n" + toStoreIdmD + toStorelsB
                     + "\n" + toStorelsD + "\n" + toStoreSysChipB
                     + "\n" + toStoreSysChipD;
-            storage.specializationStorage(totalStoringOfSpec);
+            storage.writeToSpecializationFile(totalStoringOfSpec);
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }

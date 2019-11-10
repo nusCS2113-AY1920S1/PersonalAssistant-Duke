@@ -25,6 +25,7 @@ Executive Classroom (EC)|COM2 04-02
 IS Teaching Lab|I3 03-37 (I3-0337)
 IT Security & OS Lab|COM1 B1-13 (COM1-B113)
 LT15|AS6 Level 1
+LT19|COM2 level 1
 Logic and Microcomputer Lab(Hosted at Embedded Systems Teaching Lab 1)|COM1 01-14 (COM1-0114)
 Makers@SoC|COM1 02-02
 Media Studio|AS6 04-23

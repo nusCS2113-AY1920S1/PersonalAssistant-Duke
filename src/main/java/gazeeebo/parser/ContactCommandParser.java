@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package gazeeebo.parsers;
+package gazeeebo.parser;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -150,7 +150,9 @@ public class ContactCommandParser extends Command {
     }
 
     /**
-     * When isExit is true, it will stop the system.
+     * Exits program.
+     *
+     * @return true to exit
      */
     @Override
     public boolean isExit() {

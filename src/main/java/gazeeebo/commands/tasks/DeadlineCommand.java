@@ -1,3 +1,5 @@
+//@@author jessteoxizhi
+
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
@@ -36,9 +38,9 @@ public class DeadlineCommand extends Command {
      * @param ui            the object that deals with
      *                      printing things to the user
      * @param storage       The object that deals with storing data
-     * @param commandStack
-     * @param deletedTask
-     * @param triviaManager
+     * @param commandStack the stack of previous commands.
+     * @param deletedTask the list of deleted task.
+     * @param triviaManager the object for triviaManager
      * @throws DukeException  Throws custom exception when
      *                        format of deadline command is wrong
      * @throws ParseException Catch error if parsing of command fails

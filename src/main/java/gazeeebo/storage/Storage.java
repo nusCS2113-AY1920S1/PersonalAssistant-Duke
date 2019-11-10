@@ -10,7 +10,7 @@ import java.io.BufferedWriter;
 
 
 import gazeeebo.commands.specialization.ModuleCategory;
-import gazeeebo.parsers.CAPCommandParser;
+import gazeeebo.parser.CAPCommandParser;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.DoAfter;
 import gazeeebo.tasks.Event;
@@ -75,7 +75,13 @@ public class Storage {
             = "CompletedElectives.txt";
     private String relativePathPrerequisiteResource
             = "Prerequisite.txt";
+    //@@author jessteoxizhi
 
+    /**
+     * Check if there are save txt file in the directory, if there is not, create a new txt file and copy
+     * preloaded data into the new txt file
+     * @throws IOException exception when there is an error read the txt file
+     */
     public void startUp() throws IOException {
         ArrayList<String[]> resourcelist = new ArrayList<>();
         resourcelist.add(relativePath);
@@ -115,6 +121,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Save the task list to Save.txt
+     * @param fileContent concatenate the list into a single string.
+     * @throws IOException exception when there is an error writing to the file
+     */
     public void writeToSaveFile(final String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(relativePathResource);
         fileWriter.write(fileContent);
@@ -122,6 +133,11 @@ public class Storage {
         fileWriter.close();
     }
 
+    /**
+     * Read from Save.txt file
+     * @return ArrayList of Tasks
+     * @throws FileNotFoundException exception if the file path is invalid.
+     */
     public ArrayList<Task> readFromSaveFile() throws FileNotFoundException {
         ArrayList<Task> tList = new ArrayList<Task>();
         File f = new File(relativePathResource);
@@ -219,21 +235,26 @@ public class Storage {
         return tList;
     }
 
-    public void Storages_Expenses(String fileContent) throws IOException {
+    public void writeToExpensesFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(relativePathExpensesResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
 
-    public void storagesPlaces(String fileContent) throws IOException {
+    /**
+     * Write to Places.txt file
+     * @param fileContent Concatenate all the places into a single string
+     * @throws IOException exception when the file is unable to be written
+     */
+    public void writePlacesFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(relativePathPlacesResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
 
-    public HashMap<LocalDate, ArrayList<String>> Expenses() throws FileNotFoundException {
+    public HashMap<LocalDate, ArrayList<String>> readFromExpensesFile() throws FileNotFoundException {
         HashMap<LocalDate, ArrayList<String>> expenses = new HashMap<LocalDate, ArrayList<String>>();
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -258,19 +279,31 @@ public class Storage {
         return expenses;
     }
 
+    /**
+     * Read Places.txt file
+     * @return A HashMap of the places and their locations.
+     * @throws IOException exception when the file is unable to be read
+     */
     public HashMap<String, String> readPlaces() throws IOException {
-        HashMap<String, String> placesList = new HashMap<String, String>();
-
-
-        File f = new File(relativePathPlacesResource);
-        Scanner sc = new Scanner(f);
-        while (sc.hasNext()) {
-            String[] split = sc.nextLine().split("\\|");
-            placesList.put(split[0], split[1]);
-        }
-        return placesList;
+            HashMap<String, String> placesList = new HashMap<String, String>();
+            File f = new File(relativePathPlacesResource);
+            Scanner sc = new Scanner(f);
+            while (sc.hasNext()) {
+                try {
+                    String[] split = sc.nextLine().split("\\|");
+                    placesList.put(split[0], split[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Places.txt cannot be read, check format of Places.txt");
+                }
+            }
+            return placesList;
     }
 
+    /**
+     * This method read Trivia.txt, get users' past inputs from the file.
+     * @return hash-map of keywords and inputs
+     * @throws FileNotFoundException
+     */
     public Map<String, ArrayList<String>> Read_Trivia() throws FileNotFoundException {
         Map<String, ArrayList<String>> CommandMemory = new HashMap<>();
 
@@ -294,34 +327,41 @@ public class Storage {
         return CommandMemory;
     }
 
+    /**
+     * This method writes to Trivia.txt file, record down updates in record of user inputs.
+     * @param fileContent
+     * @throws IOException
+     */
     public void Storage_Trivia(String fileContent) throws IOException {
         File file = new File(relativePathTriviaResource);
         if (file.exists() && !file.canWrite()) {
             System.out.println("File exists and it is read only, making it writable");
             file.setWritable(true);
         }
-        FileWriter fileWriter = new FileWriter(relativePathTriviaResource);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        bufferedWriter.newLine();
-        bufferedWriter.write(fileContent);
-        bufferedWriter.flush();
-        bufferedWriter.close();
+        try {
+            FileWriter fileWriter = new FileWriter(relativePathTriviaResource, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.newLine();
+            bufferedWriter.write(fileContent);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
     }
 
-    public void specializationStorage(String fileContent) throws IOException {
+    public void writeToSpecializationFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(relativePathSpecializationResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
 
-    public HashMap<String, ArrayList<ModuleCategory>> Specialization() throws IOException {
+    public HashMap<String, ArrayList<ModuleCategory>> readFromSpecializationFile() throws IOException {
         HashMap<String, ArrayList<ModuleCategory>> specMap = new HashMap<>();
 
         File file = new File(relativePathSpecializationResource);
         Scanner sc = new Scanner(file);
-//        InputStream inputStream = Storage.class.getResourceAsStream(relativePathSpecialization);
-//        Scanner sc = new Scanner(inputStream);
         while (sc.hasNext()) {
             String[] split = sc.nextLine().split("\\|");
             ArrayList<ModuleCategory> moduleBD = new ArrayList<>();
@@ -333,19 +373,15 @@ public class Storage {
         return specMap;
     }
 
-    public void completedElectivesStorage(String fileContent) throws IOException {
+    public void writeToCompletedElectivesFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(relativePathCompletedElectivesResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
 
-    public HashMap<String, ArrayList<String>> completedElectives() throws IOException {
+    public HashMap<String, ArrayList<String>> readFromCompletedElectivesFile() throws IOException {
         HashMap<String, ArrayList<String>> completedEMap = new HashMap<>();
-//        InputStream inputStream = Storage.class.getResourceAsStream(relativePathCompletedElectives);
-//        Scanner sc = new Scanner(inputStream);
-
-//        if (new File(relativePathCompletedElectives).exists()) {
         File file = new File(relativePathCompletedElectivesResource);
         Scanner sc = new Scanner(file);
         while (sc.hasNext()) {
@@ -368,12 +404,13 @@ public class Storage {
         return completedEMap;
     }
 
+    /**
+     * This method reads from Study_Plan.txt, get users' current module plan
+     * @return double ArrayList storing the table.
+     * @throws IOException
+     */
     public ArrayList<ArrayList<String>> Read_StudyPlan() throws IOException {
         ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
-//        InputStream inputStream = Storage.class.getResourceAsStream(relativePath_StudyPlanner);
-//        Scanner sc = new Scanner(inputStream);
-        //  if (new File(relativePath_StudyPlanner).exists()) {
-
         File file = new File(relativePathStudyPlannerResource);
         Scanner sc = new Scanner(file);
         for (int i = 0; i < 8; i++) {
@@ -390,6 +427,11 @@ public class Storage {
         return studyplan;
     }
 
+    /**
+     * This method writes to Study_Plan.txt, updates changes in module plan.
+     * @param fileContent
+     * @throws IOException
+     */
     public void Storage_StudyPlan(String fileContent) throws IOException {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(relativePathStudyPlannerResource));
         fileWriter.write(fileContent);
@@ -397,11 +439,13 @@ public class Storage {
         fileWriter.close();
     }
 
+    /**
+     * This method reads from prerequisite txt file, gets information about courses' prerequisites.
+     * @return
+     * @throws IOException
+     */
     public HashMap<String, ArrayList<String>> readFromPrerequisiteFile() throws IOException {
         HashMap<String, ArrayList<String>> PrerequisiteList = new HashMap<String, ArrayList<String>>();
-
-//        InputStream inputStream = Storage.class.getResourceAsStream(relativePath_Prerequisite);
-//        Scanner sc = new Scanner(inputStream);
         File file = new File(relativePathPrerequisiteResource);
         Scanner sc = new Scanner(file);
         while (sc.hasNext()) {

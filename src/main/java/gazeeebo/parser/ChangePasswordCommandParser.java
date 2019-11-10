@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package gazeeebo.parsers;
+package gazeeebo.parser;
 
 import gazeeebo.commands.Command;
 import gazeeebo.storage.PasswordStorage;
@@ -63,11 +63,9 @@ public class ChangePasswordCommandParser extends Command {
     }
 
     /**
-     * Program does not exit and continues running
-     * since command "bye" is not called.
+     * Exits program.
      *
-     * @return false
-     * Exit the program if isExit is true.
+     * @return true to exit
      */
     @Override
     public boolean isExit() {

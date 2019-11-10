@@ -1,7 +1,8 @@
 //@@author JasonLeeWeiHern
+
 package gazeeebo.storage;
 
-import gazeeebo.parsers.CAPCommandParser;
+import gazeeebo.parser.CAPCommandParser;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,9 +12,12 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class CAPPageStorage {
-    /** CAP storage file name.*/
+    /**
+     * CAP storage file name.
+     */
     private String relativePathCAPResource
             = "CAP.txt";
+
     /**
      * Write to the CAP.txt file (save in the file).
      *
@@ -31,7 +35,7 @@ public class CAPPageStorage {
      * Read from the file CAP.txt and put the details into a HashMap.
      *
      * @return Returns the HashMap of contacts,
-     * key is the contact name and the value is the phone number
+     * key is the contact name and the value is the phone number.
      * @throws IOException catch the error if the read file fails.
      */
     public HashMap<String, ArrayList<CAPCommandParser>> readFromCAPFile()

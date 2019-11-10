@@ -1,6 +1,6 @@
 //@@author yueyuu
 
-package generalnotepagetest;
+package GeneralNotePageTest;
 
 import gazeeebo.exception.DukeException;
 import gazeeebo.notes.GeneralNotePage;

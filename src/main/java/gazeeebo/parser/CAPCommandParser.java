@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package gazeeebo.parsers;
+package gazeeebo.parser;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -155,7 +155,9 @@ public class CAPCommandParser extends Command {
     }
 
     /**
-     * Method determine if the system exit.
+     * Exits program.
+     *
+     * @return true to exit
      */
     @Override
     public boolean isExit() {

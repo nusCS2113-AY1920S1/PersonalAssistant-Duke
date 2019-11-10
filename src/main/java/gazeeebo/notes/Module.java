@@ -88,10 +88,10 @@ public class Module {
         try {
             percentage = Integer.parseInt(assmtDetails[1].trim());
             if (percentage < 0) {
-                throw new DukeException("Please input a positive number.");
+                throw new DukeException("Please input a positive number for the weightage.");
             }
         } catch (NumberFormatException n) {
-            throw new DukeException("Please input a number.");
+            throw new DukeException("Please input a number for the weightage.");
         }
         Assessment newAssessment = new Assessment(assmtDetails[0], percentage);
         assessments.add(newAssessment);

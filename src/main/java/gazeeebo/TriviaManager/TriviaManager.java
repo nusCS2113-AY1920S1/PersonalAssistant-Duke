@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 
 public class TriviaManager {
@@ -34,9 +35,14 @@ public class TriviaManager {
         return;
     }
 
-    public void showPossibleInputs(String key){
-        System.out.println("Could it be one of the below inputs?");
-        System.out.println(CommandMemory.get(key));
+    public void showPossibleInputs(String key) throws DukeException{
+        try {
+            if(CommandMemory.get(key) == null) throw new DukeException("Suggestions pool is empty = =");
+            System.out.println("Could it be one of the below inputs?");
+            System.out.println(CommandMemory.get(key));
+        }catch (DukeException e){
+            System.out.println(e.getMessage());
+        }
     }
     public void showAllMap(){
         CommandMemory.entrySet().forEach(entry->{

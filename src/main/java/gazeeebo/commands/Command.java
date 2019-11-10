@@ -16,7 +16,13 @@ import java.util.Stack;
  */
 public abstract class Command {
 
-    public abstract void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException;
+    public abstract void execute(ArrayList<Task> list,
+                                 Ui ui, Storage storage,
+                                 Stack<ArrayList<Task>> commandStack,
+                                 ArrayList<Task> deletedTask,
+                                 TriviaManager triviaManager)
+            throws DukeException, ParseException,
+            IOException, NullPointerException;
 
     public abstract boolean isExit();
 }

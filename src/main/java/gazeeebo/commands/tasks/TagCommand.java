@@ -1,3 +1,5 @@
+//@@author e0323290
+
 package gazeeebo.commands.tasks;
 
 
@@ -27,6 +29,8 @@ public class TagCommand extends Command {
      *                     printing things to the user.
      * @param storage      The object that deals with storing data.
      * @param commandStack
+     * @param deletedTask
+     * @param triviaManager
      * @throws DukeException  Throws custom exception when
      *                        format of tag command is wrong
      * @throws ParseException

@@ -15,14 +15,24 @@ public class deleteModuleCommand {
      * @param ui The object that deals with interaction with users and the system.
      * @throws IOException
      */
-    public void execute(StudyPlannerCommand StudyPlan, Storage storage, Ui ui) throws IOException {
+    public void execute(StudyPlannerCommand StudyPlan, Storage storage, Ui ui) throws IOException ,DukeException{
         try {
             if(ui.fullCommand.split(" ").length != 4) throw new DukeException("Please follow the correct input format~");
             String ModuleCode = ui.fullCommand.split(" ")[1];
             if(ModuleCode.isEmpty()) throw new DukeException("Module code could not be null");
-            if(StudyPlan.MCMap.get(ModuleCode)==null) throw new DukeException("We currently do not support this module.");
+            if(StudyPlan.MCMap.get(ModuleCode)==null) throw new DukeException("We currently do not have this module.");
             int Semester = Integer.parseInt(ui.fullCommand.split(" ")[3]) - 1;
             if(Semester >=8||Semester<0)throw new ArrayIndexOutOfBoundsException();
+            boolean flag = false;
+            int semester_number = -1;
+            for(int i=0;i<StudyPlan.StudyPlan.size()&& !flag;i++){
+                if(StudyPlan.StudyPlan.get(i).contains(ModuleCode)) {
+                    flag = true;
+                    semester_number = i;
+                }
+            }
+            if(!flag) throw new DukeException("This module is not inside the study plan");
+            if(semester_number != Semester) throw new DukeException("This module is not in Sem "+(Semester+1)+" but inside Sem "+(semester_number+1));
             StudyPlan.StudyPlan.get(Semester).remove(StudyPlan.StudyPlan.get(Semester).indexOf(ModuleCode));
             String toStore = "";
             for (int i = 0; i < StudyPlan.StudyPlan.size(); i++) {

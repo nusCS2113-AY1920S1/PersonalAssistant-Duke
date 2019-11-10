@@ -1,34 +1,14 @@
+//@@author e0323290
+
 package gazeeebo.commands.specialization;
 
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Pushes all specializations and technical electives to specMap.
+ */
 public class ListOfSpecializationAndModules {
-    /**
-     * Index of Communication and Networking specialization.
-     */
-    static final int COMMS_NETWORKING_INDEX = 1;
-    /**
-     * Index of Embedded Computing specialization.
-     */
-    static final int EMBEDDED_COMPUTING_INDEX = 2;
-    /**
-     * Index of Intelligent Systems specialization.
-     */
-    static final int INTELLIGENT_SYSTEMS_INDEX = 3;
-    /**
-     * Index of Interactive Digital Media specialization.
-     */
-    static final int INTERACTIVE_DIGITAL_MEDIA_INDEX = 4;
-    /**
-     * Index of Large-Scale Computing specialization.
-     */
-    static final int LARGE_SCALE_COMPUTING_INDEX = 5;
-    /**
-     * Index of System-On-A-Chip Design specialization.
-     */
-    static final int SYS_DESIGN_INDEX = 6;
-
     /**
      * Stores all the technical electives and specializations.
      * in this case storing data in the expenses map
@@ -37,8 +17,13 @@ public class ListOfSpecializationAndModules {
      *                respective specializations
      */
     public ListOfSpecializationAndModules(final Map<String,
-            ArrayList<ModuleCategory>>
-                                                  specMap) {
+            ArrayList<ModuleCategory>> specMap) {
+        final int commsAndNetworkingIndex = 1;
+        final int embeddedComputingIndex = 2;
+        final int intelligentSystemsIndex = 3;
+        final int interactiveDigitalMediaIndex = 4;
+        final int largeScaleComputingIndex = 5;
+        final int sysDesignIndex = 6;
         ArrayList<String> specList = new ArrayList<>();
         specList.add("Communications & Networking"); //index 0
         specList.add("Embedded Computing"); //index 1
@@ -160,7 +145,7 @@ public class ListOfSpecializationAndModules {
         commsAndNetworkingBD.add(cn8);
         commsAndNetworkingBD.add(cn9);
 
-        specMap.put(specList.get(COMMS_NETWORKING_INDEX - 1),
+        specMap.put(specList.get(commsAndNetworkingIndex - 1),
                 commsAndNetworkingBD);
 
         ModuleCategory emb1 = new ModuleCategory(cg3207);
@@ -204,7 +189,7 @@ public class ListOfSpecializationAndModules {
         embComputingBD.add(emb9);
         embComputingBD.add(emb10);
 
-        specMap.put(specList.get(EMBEDDED_COMPUTING_INDEX - 1), embComputingBD);
+        specMap.put(specList.get(embeddedComputingIndex - 1), embComputingBD);
 
         ModuleCategory is1 = new ModuleCategory(cs3243);
         is1.isBreadth = true;
@@ -255,7 +240,7 @@ public class ListOfSpecializationAndModules {
         intSystemsBD.add(is11);
         intSystemsBD.add(is12);
 
-        specMap.put(specList.get(INTELLIGENT_SYSTEMS_INDEX - 1), intSystemsBD);
+        specMap.put(specList.get(intelligentSystemsIndex - 1), intSystemsBD);
 
         ModuleCategory idm1 = new ModuleCategory(cs2108);
         idm1.isBreadth = true;
@@ -318,7 +303,7 @@ public class ListOfSpecializationAndModules {
         intDigMediaBD.add(idm14);
         intDigMediaBD.add(idm15);
 
-        specMap.put(specList.get(INTERACTIVE_DIGITAL_MEDIA_INDEX - 1),
+        specMap.put(specList.get(interactiveDigitalMediaIndex - 1),
                 intDigMediaBD);
 
         ModuleCategory ls1 = new ModuleCategory(cs2101);
@@ -374,7 +359,7 @@ public class ListOfSpecializationAndModules {
         largeScaleComputingBD.add(ls12);
         largeScaleComputingBD.add(ls13);
 
-        specMap.put(specList.get(LARGE_SCALE_COMPUTING_INDEX - 1),
+        specMap.put(specList.get(largeScaleComputingIndex - 1),
                 largeScaleComputingBD);
 
         ModuleCategory s1 = new ModuleCategory(cg3207);
@@ -418,7 +403,7 @@ public class ListOfSpecializationAndModules {
         sysDesignBD.add(s9);
         sysDesignBD.add(s10);
 
-        specMap.put(specList.get(SYS_DESIGN_INDEX - 1), sysDesignBD);
+        specMap.put(specList.get(sysDesignIndex - 1), sysDesignBD);
 
     }
 }
