@@ -26,7 +26,7 @@ public class AddCommandTest {
 
     /** 
      * Dependent on correct implementation of following class:
-     *	 ModelManager, StorageManager, FoodList, Food, CommandResult 
+     *	 ModelManager, StorageManager, FoodList, Food, CommandResult.
      * Storage not tested.
      */
     @Test
@@ -37,7 +37,8 @@ public class AddCommandTest {
     	AddCommand command = new AddCommand(food);
     	CommandResult result = command.execute(model, storage);
 
-    	CommandResult expectedResult = new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, food, model.getFoodList().size()), false, false);
+    	CommandResult expectedResult = new CommandResult(String.format(
+    			AddCommand.MESSAGE_SUCCESS, food, model.getFoodList().size()), false, false);
     	FoodList expectedList = new FoodList();
     	expectedList.add(food);
     	
@@ -47,7 +48,7 @@ public class AddCommandTest {
 
     /** 
      * Dependent on correct implementation of following class:
-     *	 ModelManager, StorageManager, FoodList, Food, CommandResult 
+     *	 ModelManager, StorageManager, FoodList, Food, CommandResult.
      */
     @Test
     public void execute_duplicatedFood_throws_NameExist() {
@@ -58,6 +59,9 @@ public class AddCommandTest {
     	list.add(food);
     	AddCommand command = new AddCommand(food);
 
-    	assertThrowEquals(CommandException.class, CommandErrorMessage.FOOD_ALREADY_EXISTS, () -> {command.execute(model, storage);});
+    	assertThrowEquals(CommandException.class,
+				CommandErrorMessage.FOOD_ALREADY_EXISTS, () -> {
+    		command.execute(model, storage);
+    	});
     }
 }

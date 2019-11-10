@@ -19,7 +19,8 @@ import static cube.testutil.Assert.assertThrowEquals;
 public class ListCommandTest {
     private class FoodListStub extends FoodList {
     }
-	private class ModelStub extends ModelManager{
+
+	private class ModelStub extends ModelManager {
         FoodListStub list = new FoodListStub();
         /*
         @Override
@@ -28,6 +29,7 @@ public class ListCommandTest {
         }
          */
 	}
+
     @Test
     public void construct_sortType_successful() {
         SortType type = SortType.EXPIRY;
@@ -47,8 +49,9 @@ public class ListCommandTest {
 
     	ListCommand command = new ListCommand();
     	CommandResult result = command.execute(model, new StorageManager());
-        
-    	CommandResult expectedResult = new CommandResult(String.format(ListCommand.MESSAGE_SUCCESS, list, ProfitStorage.getAnnualRevenue()), false, false);
+    	CommandResult expectedResult = new CommandResult(
+    	        String.format(ListCommand.MESSAGE_SUCCESS, list,
+                        ProfitStorage.getAnnualRevenue()), false, false);
     	assertEquals(result, expectedResult);
     }
 }

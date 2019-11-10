@@ -23,7 +23,7 @@ public class SoldCommandTest {
 	}
 
     @Test
-    public void obtainFoodSold_valid() throws CommandException{
+    public void obtainFoodSold_valid() throws CommandException {
         SoldCommand command = new SoldCommand("anyName", 0);
         FoodList list = new FoodList();
         Food food = new Food("anyName");
@@ -35,7 +35,10 @@ public class SoldCommandTest {
     @Test
     public void obtainFoodSold_throws_nameNotExist() {
         SoldCommand command = new SoldCommand("anyName", 0);
-        assertThrowEquals(CommandException.class, CommandErrorMessage.FOOD_NOT_EXISTS, () -> {command.obtainFoodSold(new FoodList());});
+        assertThrowEquals(CommandException.class,
+                CommandErrorMessage.FOOD_NOT_EXISTS, () -> {
+            command.obtainFoodSold(new FoodList());
+        });
     }
 
     /** 
@@ -45,8 +48,8 @@ public class SoldCommandTest {
      */
     @Test
     public void execute_correct_model_change() throws CommandException {
-    	ModelManager model = new ModelManager();
-    	StorageManager storage = new StorageManager();
+    	final ModelManager model = new ModelManager();
+    	final StorageManager storage = new StorageManager();
     	Food food = new Food("anyName");
         food.setStock(100);
         food.setPrice(100);
@@ -70,8 +73,8 @@ public class SoldCommandTest {
      */
     @Test
     public void execute_invalid_quantity() throws CommandException {
-        ModelManager model = new ModelManager();
-        StorageManager storage = new StorageManager();
+        final ModelManager model = new ModelManager();
+        final StorageManager storage = new StorageManager();
         Food food = new Food("anyName");
         food.setStock(100);
         food.setPrice(100);
@@ -80,8 +83,14 @@ public class SoldCommandTest {
         SoldCommand largeQuantityCommand = new SoldCommand("anyName", 500);
         SoldCommand negativeQuantityCommand = new SoldCommand("anyName", -1);
 
-        assertThrowEquals(CommandException.class, CommandErrorMessage.INVALID_QUANTITY_SOLD, () -> {largeQuantityCommand.execute(model, storage);});
-        assertThrowEquals(CommandException.class, CommandErrorMessage.INVALID_QUANTITY_SOLD, () -> {negativeQuantityCommand.execute(model, storage);});
+        assertThrowEquals(CommandException.class,
+                CommandErrorMessage.INVALID_QUANTITY_SOLD, () -> {
+            largeQuantityCommand.execute(model, storage);
+        });
+        assertThrowEquals(CommandException.class,
+                CommandErrorMessage.INVALID_QUANTITY_SOLD, () -> {
+            negativeQuantityCommand.execute(model, storage);
+        });
     }
 
     /** 
@@ -91,9 +100,9 @@ public class SoldCommandTest {
      */
     @Test
     public void execute_correct_sale_record() throws CommandException {
-        ModelManager model = new ModelManager();
-        StorageManager storage = new StorageManager();
-        Date time = new Date();
+        final ModelManager model = new ModelManager();
+        final StorageManager storage = new StorageManager();
+        final Date time = new Date();
         Food food = new Food("anyName");
         food.setStock(100);
         food.setPrice(100);
@@ -102,8 +111,10 @@ public class SoldCommandTest {
         SoldCommand command = new SoldCommand("anyName", 50, time);
         CommandResult result = command.execute(model, storage);
 
-        CommandResult expectedResult = new CommandResult(String.format(SoldCommand.MESSAGE_SUCCESS, 50, "anyName", 100*50d, 50*50d));
-        Sale expectedSale = new Sale("anyName", 50, 100*50, 50*50, time);
+        CommandResult expectedResult = new CommandResult(
+                String.format(SoldCommand.MESSAGE_SUCCESS, 50, "anyName", 100 * 50d, 50 * 50d));
+        Sale expectedSale = new Sale("anyName",
+                50, 100 * 50, 50 * 50, time);
         System.out.println(model.getSalesHistory().iterator().next());
         assertEquals(model.getSalesHistory().iterator().next(), expectedSale);
         assertEquals(result, expectedResult);
