@@ -45,15 +45,15 @@ public interface Model {
 
     TasksManager getTasksManager();
 
-    String getTasksByKeyword(String keyword) throws DukeException;
+    String getTasksByKeyword(String keyword);
 
     Task addTask(String name) throws DukeException;
 
     boolean hasTask(String name) throws DukeException;
 
-    String tasksAllInorderTime() throws DukeException;
+    String tasksAllInorderTime();
 
-    String tasksTodoInorderTime() throws DukeException;
+    String tasksTodoInorderTime();
 
     String tasksAllInorderPicNum();
 
@@ -78,11 +78,11 @@ public interface Model {
 
     void addMember(String name) throws DukeException;
 
-    String updateMemberBio(int index, String bio);
+    String updateMemberBio(String name, String bio);
 
-    String updateMemberEmail(int index, String email) throws DukeException;
+    String updateMemberEmail(String name, String email) throws DukeException;
 
-    String updateMemberPhone(int index, String phone);
+    String updateMemberPhone(String name, String phone);
 
     boolean hasMember(String name) throws DukeException;
 
@@ -109,13 +109,13 @@ public interface Model {
 
     void unlink(int tasksIndexes, String memberNames) throws DukeException;
 
-    String deleteTask(int index) throws DukeException;
+    String deleteTask(int index);
 
-    String deleteMember(int index) throws DukeException;
+    void deleteMember(String memberName);
 
-    String scheduleMemberAll(String memberName) throws DukeException;
+    String scheduleMemberAll(String memberName);
 
-    String scheduleMemberTodo(String memberName) throws DukeException;
+    String scheduleMemberTodo(String memberName);
 
     String check();
 }

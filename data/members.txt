@@ -2,7 +2,7 @@
   {
     "name": "tester1",
     "taskList": [
-      "todo1"
+      "job B"
     ],
     "skillList": []
   },

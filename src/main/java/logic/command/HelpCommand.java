@@ -25,7 +25,8 @@ public class HelpCommand extends Command {
                         + "9. show\n"
                         + "10. list\n"
                         + "11. schedule\n"
-                        + "12. bye\n";
+                        + "12. check\n"
+                        + "13. bye\n";
 
         return new CommandOutput(output);
     }

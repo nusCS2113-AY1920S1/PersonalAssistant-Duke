@@ -3,29 +3,28 @@ package logic.parser.delete;
 import logic.command.Command;
 import common.DukeException;
 import logic.command.delete.DeleteMemberCommand;
+import logic.parser.NewParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DeleteCommandParser {
 
-    private static final Pattern BASIC_ADD_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    public static final String DELETE_USAGE = "Usage: delete [task/member] [index/member name]";
-    public static final String TASK = "task";
-    public static final String MEMBER = "member";
+    private static final String DELETE_USAGE = "Usage: delete {task/member} {[index].../[MEMBER_NAME],...}";
+    private static final String TASK = "task";
+    private static final String MEMBER = "member";
 
     //@@author yuyanglin28
     /**
-     * parse delete command, divide to task or member
-     * @param partialCommand argument part of the command
+     * parse delete command, pass to task or member
+     * @param partialCommand command after delete
      * @return a delete command
-     * @throws DukeException exception
+     * @throws DukeException throw exception when delete type is not correct
      */
     public static Command parseDeleteCommand(String partialCommand) throws DukeException {
-        final Matcher matcher = BASIC_ADD_COMMAND_FORMAT.matcher(partialCommand.trim());
+        final Matcher matcher = NewParser.BASIC_COMMAND_FORMAT.matcher(partialCommand.trim());
         if (!matcher.matches()) {
-            throw new DukeException("Message is invalid");
+            throw new DukeException(DELETE_USAGE);
         }
 
         String deleteType = matcher.group("commandWord");
@@ -33,27 +32,11 @@ public class DeleteCommandParser {
 
         deleteType = deleteType.trim();
 
-        int[] indexes = null;
-
-        if (arguments != null) {
-            arguments = arguments.trim();
-            String[] indexesString = arguments.split("\\s+");
-            indexes = new int[indexesString.length];
-            for (int i = 0; i < indexes.length; i++) {
-                try {
-                    int index = Integer.parseInt(indexesString[i]);
-                    indexes[i] = index;
-                } catch (NumberFormatException e) {
-                    throw new DukeException("Wrong number format, please check.");
-                }
-            }
-        }
-
         switch (deleteType) {
         case TASK:
-            return DeleteTaskParser.parseDeleteTask(indexes);
+            return DeleteTaskParser.parseDeleteTask(arguments);
         case MEMBER:
-            return DeleteMemberParser.parseDeleteMember(indexes);
+            return DeleteMemberParser.parseDeleteMember(arguments);
         default:
             throw new DukeException(DELETE_USAGE);
         }

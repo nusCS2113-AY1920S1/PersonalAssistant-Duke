@@ -27,8 +27,10 @@ public class Task {
         this.skillReqList = new ArrayList<String>();
     }
 
+
     /**
-     * add javadoc please
+     * This method is to add an assigned member
+     * @param toAdd member name
      */
     public void addMember(String toAdd) {
         if (!memberList.contains(toAdd)) {
@@ -37,10 +39,11 @@ public class Task {
     }
 
     /**
-     * add javadoc please
+     * This method is to delete a member in member list of a task
+     *
+     * @param toDelete the name of the member to be deleted
      */
     public void deleteMember(String toDelete) {
-        System.out.println(memberList);
         memberList.remove(toDelete);
     }
 

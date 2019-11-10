@@ -7,13 +7,14 @@ import model.Model;
 
 public class FindCommandParser {
 
-    public static final String FIND_USAGE = "usage: find [keyword]";
+    public static final String FIND_USAGE = "Usage: find [KEYWORD]";
 
+    //@@author yuyanglin28
     /**
      * parse find command
-     * @param argument keyword
-     * @return findCommand
-     * @throws DukeException exception
+     * @param argument keyword to search for
+     * @return FindCommand
+     * @throws DukeException throw exception when keyword is empty
      */
     public static Command parseFindCommand(String argument) throws DukeException {
         if (argument.equals("")) {

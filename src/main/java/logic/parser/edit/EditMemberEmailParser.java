@@ -11,18 +11,15 @@ import java.util.HashMap;
 
 public class EditMemberEmailParser {
 
-    private static final String EDIT_USAGE = "Usage: edit [member] [bio/email/phone] [index] /to ...";
-    private static final String NAME_NO_EMPTY = "the name of member shouldn't be empty.";
-    private static final String CHANGE_NO_EMPTY = "put email after /to";
-    private static final String GET_INDEX_FAIL = "after edit type, put a valid index.";
+    private static final String CHANGE_NO_EMPTY = "Put email after /to";
 
 
     //@@author yuyanglin28
     /**
-     * parse delete command, divide to task or member
-     * @param partialCommand argument part of the command
-     * @return a delete command
-     * @throws DukeException exception
+     * parse edit member email command
+     * @param partialCommand command after email, contains memberName and change content
+     * @return edit member email command
+     * @throws DukeException throw exception when member name is empty or change content is empty
      */
     public static Command parseEditMemberEmail(String partialCommand) throws DukeException {
 
@@ -31,18 +28,13 @@ public class EditMemberEmailParser {
         String changeContent = argumentMultimap.get("/to");
 
         if (name.length() == 0) {
-            throw new DukeException(NAME_NO_EMPTY + "\n" + EDIT_USAGE);
+            throw new DukeException(EditMemberParser.NAME_NO_EMPTY + "\n" + EditMemberParser.EDIT_USAGE);
         } else if (changeContent.length() == 0) {
-            throw new DukeException(CHANGE_NO_EMPTY + "\n" + EDIT_USAGE);
+            throw new DukeException(CHANGE_NO_EMPTY + "\n" + EditMemberParser.EDIT_USAGE);
         } else {
             name = name.trim();
-            try {
-                int indexInList = Integer.parseInt(name);
-                changeContent = changeContent.trim();
-                return new EditMemberEmailCommand(indexInList, changeContent);
-            } catch (Exception e) {
-                throw new DukeException(GET_INDEX_FAIL + "\n" + EDIT_USAGE);
-            }
+            changeContent = changeContent.trim();
+            return new EditMemberEmailCommand(name, changeContent);
         }
     }
 }
