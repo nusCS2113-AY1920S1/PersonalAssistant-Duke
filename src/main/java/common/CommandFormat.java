@@ -26,7 +26,9 @@ public class CommandFormat {
         return "add payment p/PAYEE i/ITEM c/COST v/INVOICE";
     }
 
-    public String deletePaymentFormat() { return "delete payment p/PAYEE i/ITEM"; }
+    public String deletePaymentFormat() {
+        return "delete payment p/PAYEE i/ITEM";
+    }
 
     public String editPaymentFormat() {
         return "edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT";
@@ -36,7 +38,8 @@ public class CommandFormat {
         return "list payments";
     }
 
-    public String getPayeeFormat() { return "getpayee PAYEE"; }
+    public String getPayeeFormat() {
+        return "getpayee PAYEE"; }
 
     public String deletePayeeFormat() {
         return "delete payee p/PAYEE";

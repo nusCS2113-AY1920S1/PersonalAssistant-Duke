@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
  * Payments Class to record details of an item payment.
  */
 
-public class Payments implements Comparable<Payments>{
+public class Payments implements Comparable<Payments> {
     public String payee;
     public String item;
     public double cost;
@@ -37,40 +37,40 @@ public class Payments implements Comparable<Payments>{
 
 
     /**
-     * return the deadline of the payment
-     * @return The current status of the payment
+     * return the deadline of the payment.
+     * @return The current status of the payment.
      */
-    public Date getDeadline(){
+    public Date getDeadline() {
         return this.deadline;
     }
 
     /**
-     * return the cost of the payment
-     * @return The cost of the payment
+     * return the cost of the payment.
+     * @return The cost of the payment.
      */
-    public Double getCost(){
+    public Double getCost() {
         return this.cost;
     }
 
     /**
-     * return the cost of the payment
-     * @return The cost of the payment
+     * return the cost of the payment.
+     * @return The cost of the payment.
      */
     public String getItem(){
         return this.item;
     }
 
     /**
-     * return the status of the payment
-     * @return The current status of the payment
+     * return the status of the payment.
+     * @return The current status of the payment.
      */
     public Status getStatus(){
         return this.status;
     }
 
     /**
-     * return the project name that the payment belongs to
-     * @return The project that the payment belongs to
+     * return the project name that the payment belongs to.
+     * @return The project that the payment belongs to.
      */
     public String getProject(){
         return this.project;
@@ -91,7 +91,9 @@ public class Payments implements Comparable<Payments>{
         System.out.println("\t" + "Deadline: " + this.deadline);
         System.out.println("\t" + "Status: " + this.status);
     }
+
     @Override
+
     public int compareTo(Payments payments) {
         return getDeadline().compareTo(payments.getDeadline());
     }

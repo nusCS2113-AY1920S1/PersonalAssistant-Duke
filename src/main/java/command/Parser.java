@@ -84,9 +84,9 @@ public class Parser {
                 process.deletePayment(input, ui, storage);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
-           // } else if (instr.isFind(input)) {
-                // process.find(input, tasklist, ui);
-                //process.commandHistory(input, ui, storage);
+            } else if (instr.isFind(input)) {
+                //process.findTask(input, tasklist, ui);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isListPayments(input)) {
                 process.listAllPayments(input, ui);
                 process.commandHistory(input, ui, storage);
@@ -131,9 +131,9 @@ public class Parser {
             } else if (instr.istotalcost(input)) {
                 process.totalCost(input, ui, storage);
                 process.commandHistory(input, ui, storage);
-            } else if (instr.isInvoice(input)) {
-                process.inVoice(input, tasklist, ui);
-                process.commandHistory(input, ui, storage);
+//            } else if (instr.isInvoice(input)) {
+//                process.inVoice(input, tasklist, ui);
+//                process.commandHistory(input, ui, storage);
             } else if (instr.isHistory(input)) {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isSetFund(input)) {
@@ -160,7 +160,7 @@ public class Parser {
             } else if (instr.isHelp(input)) {
                 ui.printHelpMessage();
             } else if (instr.isReminder(input)) {
-                process.reminder( ui, storage);
+                process.reminder(ui, storage);
                 process.commandHistory(input, ui, storage);
             } else {
                 throw new AlphaNUSException("\t" + "OOPS!!! I'm sorry, but I don't know what that means :-(");

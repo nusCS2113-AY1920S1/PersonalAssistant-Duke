@@ -19,6 +19,7 @@ public class Project {
 
     /**
      * Instantiates Project object without a budget allocated.
+     * @param projectname the name of the project.
      */
     public Project(String projectname) {
         this.managermap = new HashMap<>();
@@ -30,7 +31,7 @@ public class Project {
 
     /**
      * Add the budget assigned to the project.
-     * @param amount a double value indicates the assigned amount of budget
+     * @param amount a double value indicates the assigned amount of budget.
      */
     public void addBudget(Double amount) {
         this.budget += amount;
@@ -39,7 +40,7 @@ public class Project {
 
     /**
      * Add the budget assigned to the project.
-     * @param amount a double value indicates the assigned amount of budget
+     * @param amount a double value indicates the assigned amount of budget.
      */
     public void retrieveBudget(Double amount) {
         this.remaining += amount;
@@ -47,8 +48,8 @@ public class Project {
     }
 
     /**
-     * This function deccribes how the program works when a payment is made to a project
-     * @param amount the amount of money for this payment
+     * This function deccribes how the program works when a payment is made to a project.
+     * @param amount the amount of money for this payment.
      */
     public void addPayment(Double amount) {
         this.spending += amount;
@@ -56,7 +57,7 @@ public class Project {
     }
 
     /**
-     * @return total budget assigned to the project
+     * @return total budget assigned to the project.
      */
     public double getBudget() {
         return this.budget;
@@ -87,6 +88,7 @@ public class Project {
 
     /**
      * Overload function to Instantiate Project object with budget allocated.
+     * @param projectname the name of the project.
      * @param budget Budget allocated to project.
      */
     public Project(String projectname, double budget) {

@@ -18,10 +18,9 @@ public class Deadline extends Task implements Serializable {
      * Creates a Deadline instance and initialises the required attributes.
      * @param description Description of the deadline.
      */
-    public Deadline(String description, String by) throws ParseException {
+    public Deadline(String description, Date by) throws ParseException {
         super(description);
-        this.by = by;
-        this.date = dataformat.parse(by);
+        this.date = by;
         this.type = "D";
     }
 

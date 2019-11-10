@@ -455,7 +455,8 @@ public class Ui {
      */
     public void printReduceBudgetMessage(Fund fund, Double amount, Project project, String projectname) {
         System.out.print(line);
-        System.out.println("\t" + "Got it. I've reduced " + amount + " dollars from the budget of the project " + projectname + ":");
+        System.out.println("\t" + "Got it. I've reduced " + amount + " dollars from the budget of the project "
+                + projectname + ":");
         System.out.println(project.giveProject());
         System.out.println("");
         System.out.println("\t" + "The new fund is as follow:");
@@ -504,12 +505,12 @@ public class Ui {
         System.out.println("Got it! I have redone the previous command.");
     }
 
-    public void printReminderMessage(ArrayList<Payments> paymentlist){
+    public void printReminderMessage(ArrayList<Payments> paymentlist) {
         System.out.print(line);
         System.out.print("\tYour reminder is as follow:\n");
-        for (int i = 0; i < paymentlist.size(); i++) {
+        for (int i = 0; i < paymentlist.size(); i++ ) {
             Payments p = paymentlist.get(i);
-            System.out.println("\t" + (i+1) + ":");
+            System.out.println("\t" + (i + 1) + ":");
             System.out.println("\t" + "Deadline: " + p.getDeadline());
             System.out.println("\t" + "Project: " + p.getProject());
             System.out.println("\t" + "Payee: " + p.payee);
