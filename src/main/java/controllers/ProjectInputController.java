@@ -185,9 +185,11 @@ public class ProjectInputController implements IController {
                 DEFAULT_HORI_BORDER_LENGTH);
     }
 
+    //@@author seanlimhx
     private String[] projectHelp() {
         return viewHelper.consolePrintTable(commandHelper.getCommandsForProject(), DEFAULT_HORI_BORDER_LENGTH);
     }
+    //@@author
 
     /**
      * Adds roles to Members in a Project.
@@ -442,6 +444,7 @@ public class ProjectInputController implements IController {
         return outputMessages.toArray(new String[0]);
     }
 
+    //@@author seanlimhx
     /**
      * Updates the task requirements of a given task in the project.
      * @param projectToManage The project specified by the user.
