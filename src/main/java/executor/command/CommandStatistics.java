@@ -37,7 +37,7 @@ public class CommandStatistics extends Command {
         }
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         try {
-            Double totalTag = storageManager.getReceiptsByTag(this.tag).getNettCashSpent();
+            Double totalTag = storageManager.getReceiptsByTag(this.tag).getTotalExpenses();
             Double totalSpent = storageManager.getWalletExpenses();
             outputStr.append(decimalFormat.format(((totalTag / totalSpent) * 100)))
                     .append("%")
@@ -56,7 +56,7 @@ public class CommandStatistics extends Command {
 
         try {
             outputStr.append("You spent a total of $")
-                    .append(decimalFormat.format(storageManager.getReceiptsByTag(this.tag).getNettCashSpent()))
+                    .append(decimalFormat.format(storageManager.getReceiptsByTag(this.tag).getTotalExpenses()))
                     .append(" ")
                     .append("on")
                     .append(" ")

@@ -43,7 +43,7 @@ public class CommandSub extends Command {
             return;
         }
         double result = entryOne - entryTwo;
-        this.infoCapsule.setCodeToast();
+        this.infoCapsule.setCodeCli();
         this.infoCapsule.setOutputStr(stringOne
                 + " - "
                 + stringTwo

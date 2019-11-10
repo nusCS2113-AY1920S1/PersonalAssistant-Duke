@@ -37,7 +37,7 @@ public class CommandPercent extends Command {
         }
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         try {
-            Double totalTag = storageManager.getReceiptsByTag(this.tag).getNettCashSpent();
+            Double totalTag = storageManager.getReceiptsByTag(this.tag).getTotalExpenses();
             Double totalSpent = storageManager.getWalletExpenses();
             outputStr.append(decimalFormat.format(((totalTag / totalSpent) * 100)))
                      .append("%")

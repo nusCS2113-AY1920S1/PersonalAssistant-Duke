@@ -45,7 +45,7 @@ public class CommandAdd extends Command {
             return;
         }
         double sum = entryOne + entryTwo;
-        this.infoCapsule.setCodeToast();
+        this.infoCapsule.setCodeCli();
         this.infoCapsule.setOutputStr(stringOne
                 + " + "
                 + stringTwo

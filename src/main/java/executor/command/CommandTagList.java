@@ -33,11 +33,12 @@ public class CommandTagList extends CommandList {
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         try {
             outputStr.append("You spent a total of $")
-                .append(decimalFormat.format(storageManager.getReceiptsByTag(this.tag).getNettCashSpent()))
+                .append(decimalFormat.format(storageManager.getReceiptsByTag(this.tag).getTotalExpenses()))
                 .append(" ")
                 .append("on")
                 .append(" ")
                 .append(this.tag)
+                .append("\n")
                 .append("\n")
                 .append(storageManager.getReceiptsByTag(this.tag).getPrintableReceipts())
                 .append("\n");
