@@ -44,7 +44,7 @@ public class EditProfileJson {
     /**
      * Responsible for loading UserProfile object from userProfile.json.
      */
-    public static UserProfile load() throws IOException {
+    public UserProfile load() throws IOException {
         InputStream inputStream = new FileInputStream("./userProfile.json");
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -56,13 +56,11 @@ public class EditProfileJson {
         bufferedReader.close();
         inputStreamReader.close();
         inputStream.close();
-        UserProfile userProfile = new UserProfile();
-        parse(userProfileString, userProfile);
-        return userProfile;
+        return parse(userProfileString);
     }
 
 
-    private static void parse(String userProfileString, UserProfile userProfile) {
+    private UserProfile parse(String userProfileString) {
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = new JSONObject();
         try {
@@ -91,15 +89,17 @@ public class EditProfileJson {
         final boolean highestRating = (boolean) jsonObject.get("sortByHighestRating");
         final boolean latestRelease = (boolean) jsonObject.get("sortByLatestRelease");
         final boolean alphabeticalOrder = (boolean) jsonObject.get("sortByAlphabetical");
-        userProfile.setUserName(name);
-        userProfile.setUserAge(age);
-        userProfile.setGenreIdPreference(genrePreference);
-        userProfile.setGenreIdRestriction(genreRestriction);
-        userProfile.setPlaylistNames(playlistNames);
-        userProfile.setAdult(adult);
-        userProfile.setSortByAlphabetical(alphabeticalOrder);
-        userProfile.setSortByHighestRating(highestRating);
-        userProfile.setSortByLatestRelease(latestRelease);
+        UserProfile userProfile = new UserProfile();
+        userProfile = userProfile.setUserName(name);
+        userProfile = userProfile.setUserAge(age);
+        userProfile = userProfile.setGenreIdPreference(genrePreference);
+        userProfile = userProfile.setGenreIdRestriction(genreRestriction);
+        userProfile = userProfile.setPlaylistNames(playlistNames);
+        userProfile = userProfile.setAdult(adult);
+        userProfile = userProfile.setSortByAlphabetical(alphabeticalOrder);
+        userProfile = userProfile.setSortByHighestRating(highestRating);
+        userProfile = userProfile.setSortByLatestRelease(latestRelease);
+        return userProfile;
     }
 
     /**

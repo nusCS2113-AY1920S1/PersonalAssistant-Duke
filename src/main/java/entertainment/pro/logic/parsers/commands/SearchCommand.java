@@ -1,7 +1,11 @@
 package entertainment.pro.logic.parsers.commands;
 
+import entertainment.pro.commons.exceptions.DuplicateGenreException;
+import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
+import entertainment.pro.commons.exceptions.InvalidGenreNameEnteredException;
+import entertainment.pro.commons.exceptions.InvalidParameterException;
 import entertainment.pro.commons.strings.PromptMessages;
-import entertainment.pro.commons.exceptions.*;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.user.ProfileCommands;
@@ -11,8 +15,10 @@ import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
-import java.util.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,10 +51,10 @@ public class SearchCommand extends CommandSuper {
     /**
      * Constructor for each Command Super class.
      *
-     * @param uicontroller The UI controller.
+     * @param uiController The UI controller.
      */
-    public SearchCommand(Controller uicontroller) {
-        super(COMMANDKEYS.SEARCH, CommandStructure.cmdStructure.get(COMMANDKEYS.SEARCH), uicontroller);
+    public SearchCommand(Controller uiController) {
+        super(COMMANDKEYS.SEARCH, CommandStructure.cmdStructure.get(COMMANDKEYS.SEARCH), uiController);
     }
 
     /**
@@ -64,12 +70,12 @@ public class SearchCommand extends CommandSuper {
         String payload = getPayload();
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         SearchProfile searchProfile = movieHandler.getSearchProfile();
-        searchProfile.iniitalizeBackSearchProfile(searchProfile);
-        getPreferences(movieHandler, searchProfile, payload, isMovie);
+        searchProfile = searchProfile.iniitalizeBackSearchProfile();
+        searchProfile = getPreferences(movieHandler, searchProfile, payload, isMovie);
         switch (this.getSubRootCommand()) {
         case MOVIES:
             isMovie = true;
-            searchProfile.setMovie(true);
+            searchProfile = searchProfile.setMovie(true);
             executeMovieSearch(payload, movieHandler, searchProfile);
             break;
         case TVSHOWS:
@@ -156,16 +162,15 @@ public class SearchCommand extends CommandSuper {
      * @param isMovie         whether the search request is movie or TV shows related.
      * @throws InvalidFormatCommandException when user input is invalid.
      */
-    private void getPreferences(MovieHandler movieHandler, SearchProfile searchProfile, String searchEntryName,
+    private SearchProfile getPreferences(MovieHandler movieHandler, SearchProfile searchProfile, String searchEntryName,
                                 boolean isMovie) throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
         if (!(getPayload().isEmpty() || getPayload().isBlank())) {
-            searchProfile.setName(getPayload());
+            searchProfile = searchProfile.setName(getPayload());
         }
         if (this.getFlagMap().containsKey(GET_PREF)) {
             this.getFlagMap().remove(GET_PREF);
             if (this.getFlagMap().isEmpty()) {
-                searchProfile.setFromUserPreference(searchProfile, searchEntryName, isMovie,
-                        movieHandler.getUserProfile());
+                searchProfile = searchProfile.setFromUserPreference(searchEntryName, isMovie, movieHandler.getUserProfile());
             } else {
                 movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_COMBI_OF_FLAGS);
                 throw new InvalidFormatCommandException();
@@ -173,7 +178,7 @@ public class SearchCommand extends CommandSuper {
         } else {
             if (this.getFlagMap().containsKey(GET_NEW_GENRE_PREF)) {
                 try {
-                    getGenresPrefForSearch(searchProfile);
+                    searchProfile = getGenresPrefForSearch(searchProfile);
                 } catch (DuplicateGenreException e) {
                     movieHandler.setGeneralFeedbackText(PromptMessages.REPETITVE_GENRE_NAME);
                     throw new DuplicateGenreException();
@@ -181,14 +186,14 @@ public class SearchCommand extends CommandSuper {
             }
             if (this.getFlagMap().containsKey(GET_NEW_GENRE_RESTRICT)) {
                 try {
-                    getGenresRestrictForSearch(searchProfile);
+                    searchProfile = getGenresRestrictForSearch(searchProfile);
                 } catch (DuplicateGenreException e) {
                     movieHandler.setGeneralFeedbackText(PromptMessages.REPETITVE_GENRE_NAME);
                     throw new DuplicateGenreException();
                 }
             }
             if (this.getFlagMap().containsKey(GET_NEW_ADULT_RATING)) {
-                searchProfile.setAdult(getAdultPrefForSearch());
+                searchProfile = (SearchProfile) searchProfile.setAdult(getAdultPrefForSearch());
             }
             if (this.getFlagMap().containsKey(GET_NEW_SORT)) {
                 ArrayList<String> getUserSortPref = getFlagMap().get(GET_NEW_SORT);
@@ -208,12 +213,13 @@ public class SearchCommand extends CommandSuper {
                 } catch (NumberFormatException e) {
                     throw new InvalidFormatCommandException();
                 }
-                searchProfile.setSortByAlphabetical(getAlphaSortForSearch(getUserSortPref.get(0)));
-                searchProfile.setSortByLatestRelease(getDatesSortForSearch(getUserSortPref.get(0)));
-                searchProfile.setSortByHighestRating(getRatingSortForSearch(getUserSortPref.get(0)));
+                searchProfile = (SearchProfile) searchProfile.setSortByAlphabetical(getAlphaSortForSearch(getUserSortPref.get(0)));
+                searchProfile = (SearchProfile) searchProfile.setSortByLatestRelease(getDatesSortForSearch(getUserSortPref.get(0)));
+                searchProfile = (SearchProfile) searchProfile.setSortByHighestRating(getRatingSortForSearch(getUserSortPref.get(0)));
             }
 
         }
+        return searchProfile;
     }
 
     /**
@@ -265,12 +271,13 @@ public class SearchCommand extends CommandSuper {
      *
      * @param searchProfile Object that contains all the preferences for the particular search request.
      */
-    private void getGenresPrefForSearch(SearchProfile searchProfile) throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
+    private SearchProfile getGenresPrefForSearch(SearchProfile searchProfile) throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
         ArrayList<String> getParams = getFlagMap().get(GET_NEW_GENRE_PREF);
         if (getParams.size() == 0) {
             ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
             throw new InvalidFormatCommandException();
         }
+        ArrayList<Integer> genrePreference = searchProfile.getGenreIdPreference();
         for (String log : getFlagMap().get(GET_NEW_GENRE_PREF)) {
             try {
                 if (log.isBlank() || log.isEmpty()) {
@@ -286,12 +293,12 @@ public class SearchCommand extends CommandSuper {
                     throw new DuplicateGenreException();
                 }
                 genreSet.add(genre);
-                searchProfile.getGenreIdPreference().add(genre);
+                genrePreference.add(genre);
             } catch (IOException e) {
                 ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_GENRE_NAME);
             }
         }
-
+        return (SearchProfile) searchProfile.setGenreIdPreference(genrePreference);
     }
 
     /**
@@ -300,12 +307,13 @@ public class SearchCommand extends CommandSuper {
      *
      * @param searchProfile Object that contains all the preferences for the particular search request.
      */
-    private void getGenresRestrictForSearch(SearchProfile searchProfile) throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
+    private SearchProfile getGenresRestrictForSearch(SearchProfile searchProfile) throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
         ArrayList<String> getParams = getFlagMap().get(GET_NEW_GENRE_PREF);
         if (getParams.size() == 0) {
             ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
             throw new InvalidFormatCommandException();
         }
+        ArrayList<Integer> genreRestriction = searchProfile.getGenreIdRestriction();
         for (String log : getFlagMap().get(GET_NEW_GENRE_RESTRICT)) {
             try {
                 if (log.isBlank() || log.isEmpty()) {
@@ -321,11 +329,12 @@ public class SearchCommand extends CommandSuper {
                     throw new DuplicateGenreException();
                 }
                 genreSet.add(genre);
-                searchProfile.getGenreIdRestriction().add(genre);
+                genreRestriction.add(genre);
             } catch (IOException e) {
                 ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_GENRE_NAME);
             }
         }
+        return (SearchProfile) searchProfile.setGenreIdRestriction(genreRestriction);
     }
 
     /**
