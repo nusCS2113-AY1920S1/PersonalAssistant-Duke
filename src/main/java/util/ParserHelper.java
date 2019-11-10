@@ -5,6 +5,8 @@ import static util.constant.ConstantHelper.ALL_MARKER;
 import static util.constant.ConstantHelper.ASSIGNEE_MARKER;
 import static util.constant.ConstantHelper.ASSIGNMENT_INDEX_NUMBER_MARKER;
 import static util.constant.ConstantHelper.BLANK;
+import static util.constant.ConstantHelper.MEMBER_FLAG_LENGTH;
+import static util.constant.ConstantHelper.TASK_FLAG_LENGTH;
 import static util.constant.ConstantHelper.UNASSIGNEE_MARKER;
 
 import java.util.ArrayList;
@@ -359,18 +361,18 @@ public class ParserHelper {
             }
             switch (part[0]) {
             case ASSIGNMENT_INDEX_NUMBER_MARKER:
-                if (commandPart.length() >= 3) {
-                    allTaskIndexes = commandPart.substring(2).trim();
+                if (commandPart.length() >= TASK_FLAG_LENGTH) {
+                    allTaskIndexes = commandPart.substring(TASK_FLAG_LENGTH - 1).trim();
                 }
                 break;
             case ASSIGNEE_MARKER:
-                if (commandPart.length() >= 4) {
-                    allAssigneeIndexes = commandPart.substring(3).trim();
+                if (commandPart.length() >= MEMBER_FLAG_LENGTH) {
+                    allAssigneeIndexes = commandPart.substring(MEMBER_FLAG_LENGTH - 1).trim();
                 }
                 break;
             case UNASSIGNEE_MARKER:
-                if (commandPart.length() >= 4) {
-                    allUnassigneeIndexes = commandPart.substring(3).trim();
+                if (commandPart.length() >= MEMBER_FLAG_LENGTH) {
+                    allUnassigneeIndexes = commandPart.substring(MEMBER_FLAG_LENGTH - 1).trim();
                 }
                 break;
             default:

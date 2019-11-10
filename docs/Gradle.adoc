@@ -1,0 +1,51 @@
+= Gradle
+
+== About
+Gradle is an open-source build automation tool that automates build-related tasks by running scripts.
+It is mainly used for the following tasks:
+
+* Running tests
+* Performing checks on code style
+* Managing dependencies on external libraries
+
+[NOTE]
+The Gradle configuration for ArchDuke is defined in _build script_ `build.gradle`.
+
+== Gradle commands
+
+Gradle commands are run on the command prompt window.
+Navigate to the project folder and enter the desired commands. The following are some examples of
+gradle commands:
+
+* Windows: gradlew [command1] [command2]
+* Mac/Linux: ./gradlew [command1] [command2]
+
+== Cleaning the project
+Cleaning deletes the files leftover from previous builds. This prevents existing builds from failing.
+
+Command: `clean` (eg. `./gradlew clean`)
+
+
+== Running the application
+Builds and runs the application.
+Command: `run` (eg. `./gradlew run`)
+
+== Running tests
+This command runs all the tests located in the test directory.
+Command: `test` (eg. `./gradlew test`)
+
+== Performing coding style checks
+* checkstyleMain
+Runs the code style check for the main code base
+
+* checkstyleTest
+Runs the code style check for the test code base
+
+[NOTE]
+The two tests are often run side by side (eg. `./gradlew checkstyleMain checkstyleTest`).
+Any code style violations found will be documented in HTML reports found in `build/reports/checkstyle`.
+
+[NOTE]
+Code style rules can be found in `config/checkstyle/checkstyle.xml`. These can be reconfigured to
+suit the purposes of the project.
+
