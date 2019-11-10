@@ -50,17 +50,19 @@ public class LogicManager implements Logic {
     public CommandResult execute(String userInput) throws DukeException {
         Command c;
         if (EditorManager.isActive()) {
-            logger.log(Level.INFO, "editing...");
+            logger.log(Level.INFO, "Editing...");
             c = EditorManager.edit(userInput);
         } else  {
             try {
                 c = Parser.parseComplexCommand(userInput);
                 conversationManager.clearContext();
+                logger.log(Level.INFO, "Executing command...");
             } catch (ChronologyAfterPresentException | ChronologyBeforePresentException
                     | ChronologyInconsistentException | ApiException e) {
                 throw e;
             } catch (ParseException e) {
                 c = getCommandFromConversationManager(userInput);
+                logger.log(Level.INFO, "Conversing...");
             }
         }
         return (CommandResult) c.execute(model);
