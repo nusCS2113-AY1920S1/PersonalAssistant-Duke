@@ -52,7 +52,7 @@ public class AddCommand extends Command {
             }
             int size = events.taskListSize() + 1;
 
-            if (eventConflict.size() == 0) {
+            if (eventConflict.isEmpty()) {
                 events.addTask(this.task);
                 out = ui.showAdd(this.task,size);
                 storage.updateEventList(events);
@@ -65,7 +65,7 @@ public class AddCommand extends Command {
         } else if (task.getType().equals("[D]")) {
             deadlineConflict = checkDeadlineConflict(deadlines, this.task);
             int size = deadlines.taskListSize() + 1;
-            if (deadlineConflict.size() == 0) {
+            if (deadlineConflict.isEmpty()) {
                 deadlines.addTask(this.task);
                 out = ui.showAdd(this.task,size);
                 storage.updateDeadlineList(deadlines);
@@ -78,6 +78,4 @@ public class AddCommand extends Command {
         }
         return out;
     }
-
-
 }

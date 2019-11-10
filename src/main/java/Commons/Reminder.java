@@ -85,8 +85,7 @@ public class Reminder {
         }
         img = new Image("/images/DaDuke.png");
         Date currentDate = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-        String reminderTime = dateFormat.format(date);
+        String reminderTime = DukeConstants.DEADLINE_DATE_FORMAT.format(date);
         long seconds = date.getTime() - currentDate.getTime();
         deadlines.setReminder(task, reminderTime, true);
         timer = new Timer();
@@ -115,9 +114,6 @@ public class Reminder {
                                 owner.close();
                             });
                     notificationBuilder.show();
-                    AlertBox.display("Reminder!!!", "",
-                            "Please be reminded you have this task: " + task.getDescription() + " For mod: " + task.getModCode() + " by: " + task.getDateTime(),
-                            Alert.AlertType.INFORMATION);
                     timer.cancel();
                     deadlines.setReminder(task, reminderTime, false);
                     remindMap.remove(date);

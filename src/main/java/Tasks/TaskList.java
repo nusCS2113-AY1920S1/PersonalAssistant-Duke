@@ -12,8 +12,6 @@ public class TaskList {
 
     private ArrayList<Assignment> list;
     private HashMap<String, HashMap<String, ArrayList<Assignment>>> map;
-    private ArrayList<String> deadlineArrList = new ArrayList<>();
-    private ArrayList<String> eventArrList = new ArrayList<>();
 
     /**
      * Creates a TaskList object.
@@ -22,14 +20,20 @@ public class TaskList {
         this.list = new ArrayList<>();
         this.map = new HashMap<>();
     }
+
+
     /**
-     * This method returns a new Arraylist of Assignments.
+     * Retrieves the list of deadlines/events.
+
      */
     public ArrayList<Assignment> getList() {
         return list;
     }
+
+
     /**
-     * This method returns a new HashMap of Assignments.
+     * Retrieved the map of deadlines/events.
+
      */
     public HashMap<String, HashMap<String, ArrayList<Assignment>>> getMap() {
         return this.map;
