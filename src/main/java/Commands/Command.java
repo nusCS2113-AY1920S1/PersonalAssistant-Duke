@@ -18,7 +18,8 @@ import java.util.Date;
  * carried out when an input is entered by the user.
  */
 public abstract class Command {
-    public abstract String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws Exception;
+    public abstract String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage)
+            throws Exception;
 
     /**
      * This method checks if task already exist.
@@ -26,7 +27,8 @@ public abstract class Command {
      * @param task task to be taken action
      * @throws DukeException on wrong input
      */
-    public void insideMapChecker(HashMap<String, HashMap<String, ArrayList<Assignment>>> map, Assignment task) throws DukeException {
+    public void insideMapChecker(HashMap<String, HashMap<String, ArrayList<Assignment>>> map, Assignment task)
+            throws DukeException {
         String modCode = task.getModCode();
         String dateOfTask = task.getDate();
         if (!map.containsKey(modCode)) {

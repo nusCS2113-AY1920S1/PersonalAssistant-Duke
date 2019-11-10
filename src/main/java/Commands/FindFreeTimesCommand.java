@@ -513,7 +513,9 @@ public class FindFreeTimesCommand extends Command {
         for (int i = 0; i < sortCompiledFreeTimes.size(); i++) {
             compiledFreeTimes.add(sortCompiledFreeTimes.get(i).getValue());
             int optionNo = i + 1;
-            message += (DISPLAY_KEYWORD_OPTION + DukeConstants.BLANK_SPACE + (optionNo) + ":\n" + sortCompiledFreeTimes.get(i).getValue().getKey()) + "\n\n";
+            message += (DISPLAY_KEYWORD_OPTION
+                    + DukeConstants.BLANK_SPACE + (optionNo) + ":\n"
+                    + sortCompiledFreeTimes.get(i).getValue().getKey()) + "\n\n";
         }
     }
 

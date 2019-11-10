@@ -34,6 +34,9 @@ public class WeekParseTest {
 
     private static String userInputWithoutWeek;
 
+    /**
+     * This method initializes the variables required.
+     */
     @BeforeAll
     public static void setAllVariables() {
         validUserInputWithDigitWeek = "show/week 5";

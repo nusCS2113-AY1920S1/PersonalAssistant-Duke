@@ -32,11 +32,17 @@ public class ShowPreviousCommandTest {
     private UserInteraction ui = new UserInteraction();
 
 
+    /**
+     * This method initializes the variable required.
+     */
     @BeforeAll
     public static void setAllVariables() {
         userInputWithInvalidNumber = "show/previous 3";
     }
 
+    /**
+     * This method initializes the variables required before a test.
+     */
     @Before
     public void setRetrievedFreeTimesList() {
         String actual = "No error";

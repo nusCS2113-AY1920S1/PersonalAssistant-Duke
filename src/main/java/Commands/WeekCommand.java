@@ -65,7 +65,8 @@ public class WeekCommand extends Command {
      * @param dates containing all the days and date
      * @return an ArrayList that contains the new days and dates that contain assignment for the new week
      */
-    private ArrayList<String> checkIfExist(HashMap<String, ArrayList<Assignment>> AssignmentList, ArrayList<String> dates) {
+    private ArrayList<String> checkIfExist(HashMap<String,
+            ArrayList<Assignment>> AssignmentList, ArrayList<String> dates) {
         ArrayList<String> newDates = new ArrayList<>();
         for (String date: dates) {
             if (AssignmentList.containsKey(date)) {

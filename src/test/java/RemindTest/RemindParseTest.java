@@ -26,6 +26,9 @@ public class RemindParseTest {
     private static SimpleDateFormat timeOutputFormat = new SimpleDateFormat("hh:mm a");
     private static SimpleDateFormat deadlineInputFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
+    /**
+     * This method initializes the variables required.
+     */
     @BeforeAll
     public static void setAllVariables() {
         Date nextDay = new Date(System.currentTimeMillis() + 86400000);
