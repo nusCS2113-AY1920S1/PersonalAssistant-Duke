@@ -49,7 +49,7 @@ public class UpdateActivityCommand extends Command {
                 ui.showSuccess("Activity Level", description);
 
                 try {
-                    storage.updateUser(user);
+                    storage.writeUser(user);
                 } catch (ProgramException e) {
                     ui.showMessage(e.getMessage());
                 }

@@ -43,7 +43,7 @@ public class AddDefaultValueCommand extends Command {
         meals.addDefaultValues(this.meal);
         ui.showAddedItem(this.meal);
         try {
-            storage.updateDefaults(meals);
+            storage.writeDefaults(meals);
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }

@@ -5,6 +5,8 @@ import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
 
+//@@author
+
 /**
  * ExitCommand is a public class that extends from the abstract class Command.
  */

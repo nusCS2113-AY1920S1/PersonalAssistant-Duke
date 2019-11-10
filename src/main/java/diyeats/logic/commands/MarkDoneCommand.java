@@ -76,8 +76,8 @@ public class MarkDoneCommand extends Command {
             } else if (wallet.addPaymentTransaction(payment)) {
                 Meal markedDoneMeal = meals.markDone(currentDate, index);
                 try {
-                    storage.updateFile(meals);
-                    storage.updateTransaction(wallet);
+                    storage.writeFile(meals);
+                    storage.writeTransaction(wallet);
                 } catch (ProgramException e) {
                     ui.showMessage(e.getMessage());
                 }

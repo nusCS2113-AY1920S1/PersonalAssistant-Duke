@@ -7,6 +7,8 @@ import diyeats.model.wallet.Payment;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+//@@author GaryStu
+
 /**
  * Parser class to handle addition of a payment transaction to the wallet.
  */

@@ -9,6 +9,8 @@ import diyeats.storage.Storage;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+//@@author
+
 /**
  * The FindCommand is a public class that extends from the abstract class Command.
  * It encapsulates the String to find in the current MealList

@@ -30,9 +30,6 @@ public class Goal {
     private int caloriesConsumed;
     private int activityLevelTarget;
 
-    public Goal() {
-    }
-
     public Goal(HashMap<String, String> argumentsMap) {
         startDate = LocalDate.parse(argumentsMap.get(START_DATE_ARG_STR), LOCAL_DATE_FORMATTER);
         endDate = LocalDate.parse(argumentsMap.get(END_DATE_ARG_STR), LOCAL_DATE_FORMATTER);
