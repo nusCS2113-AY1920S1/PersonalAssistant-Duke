@@ -5,6 +5,7 @@ import dictionary.TagBank;
 import dictionary.Word;
 import dictionary.WordBank;
 import dictionary.SynonymBank;
+import exception.NoWordFoundException;
 import exception.ReminderWrongDateFormatException;
 import exception.UnableToWriteFileException;
 import exception.WordAlreadyExistsException;
@@ -307,10 +308,18 @@ public class Storage {
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
+                short columnCount = row.getLastCellNum();
+                String word = cellIterator.next().getStringCellValue();
 
                 bank.addWord(new
-                        Word(cellIterator.next().getStringCellValue(), cellIterator.next().getStringCellValue())
+                        Word(word, cellIterator.next().getStringCellValue())
                 );
+                if ((int)columnCount > 2) {
+                    //System.out.println(columnCount);
+                    String example = cellIterator.next().getStringCellValue();
+                    bank.addExampleToWord(word, example);
+                }
+
             }
 
             Sheet tagBankSheet = workbook.getSheetAt(1);
@@ -347,6 +356,8 @@ public class Storage {
         } catch (WordAlreadyExistsException e) {
             System.out.println("Exists");
             e.showError();
+        } catch (NoWordFoundException e) {
+            e.showError();
         }
         return bank;
     }
@@ -380,8 +391,13 @@ public class Storage {
         cell.setCellValue("Meaning");
         cell.setCellStyle(headerCellStyle);
 
+        cell = headerRow.createCell(2);
+        cell.setCellValue("Example");
+        cell.setCellStyle(headerCellStyle);
+
         wordBankSheet.autoSizeColumn(0);
         wordBankSheet.autoSizeColumn(1);
+        wordBankSheet.autoSizeColumn(2);
 
         Sheet tagBankSheet = workbook.createSheet("TagBank");
         headerRow = tagBankSheet.createRow(0);
@@ -602,10 +618,19 @@ public class Storage {
                 }
 
                 cell.setCellValue(allWords[i - 1].getMeaning());
+
+                cell = row.getCell(2);
+                if (cell == null) {
+                    cell = row.createCell(2);
+                }
+
+                cell.setCellValue(allWords[i - 1].getExample());
+
             }
 
             sheet.autoSizeColumn(0);
             sheet.autoSizeColumn(1);
+            sheet.autoSizeColumn(2);
 
             fileOut = new FileOutputStream(EXCEL_PATH);
             workbook.write(fileOut);

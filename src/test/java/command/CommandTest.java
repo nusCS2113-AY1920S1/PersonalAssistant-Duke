@@ -2,8 +2,6 @@ package command;
 
 import dictionary.Bank;
 import dictionary.Word;
-import dictionary.WordBank;
-import dictionary.WordCount;
 import exception.WordAlreadyExistsException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -13,8 +11,6 @@ import storage.Storage;
 import ui.Ui;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -146,6 +142,7 @@ public class CommandTest {
         try {
             SearchCommand searchCommand = new SearchCommand("banana");
             String search = searchCommand.execute(ui, bank, storage);
+            System.out.println(search);
             Assertions.assertEquals(search, "Here is the meaning of banana: yellow fruit\n");
         } catch (Exception e) {
             fail("execute() in SearchCommand failed: " + e.getMessage());
