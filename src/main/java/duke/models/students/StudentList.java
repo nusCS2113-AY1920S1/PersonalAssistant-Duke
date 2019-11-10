@@ -1,6 +1,5 @@
 package duke.models.students;
 
-
 import java.util.ArrayList;
 
 /**
@@ -60,6 +59,10 @@ public class StudentList implements IStudentList {
         return studentList.get(index - 1).getName();
     }
 
+    public Student getStudent(int index) {
+        return studentList.get(index - 1);
+    }
+
     /**
      * Adding a new student and listing the total number of students.
      *
@@ -74,13 +77,12 @@ public class StudentList implements IStudentList {
     }
 
     /**
-     * To get the student index.
-     * @param i index of the student.
-     */
     @Override
     public final void getStudent(final int i) {
         System.out.println(studentList.get(i - 1).toString());
     }
+    */
+
 
     /**
      * Method to remove a particular student in a list.

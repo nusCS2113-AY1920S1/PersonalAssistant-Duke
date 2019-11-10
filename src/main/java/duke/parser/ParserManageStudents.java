@@ -31,6 +31,8 @@ public final class ParserManageStudents {
      */
     private StudentStorage save;
 
+    private boolean runManageStudent = true;
+
     /**
      * Constructor for Manage Students Parser.
      */
@@ -118,7 +120,6 @@ public final class ParserManageStudents {
                             + " details:\n");
                     students.getStudent(index);
                     break;
-
                 case back:
                     runManageStudent = false;
                     break;
@@ -153,6 +154,7 @@ public final class ParserManageStudents {
      */
     public void studentProgressParser() {
         boolean runProgress = true;
+
         while (runProgress) {
             new CliView().studentProgressHeading();
             String input = sc.nextLine();
@@ -163,10 +165,13 @@ public final class ParserManageStudents {
                 students.listAllStudents();
                 break;
             case "add":
+                students.getStudent(Integer.parseInt(word[1])).addStudentProgress("sd");
                 break;
             case "delete":
                 break;
             case "view":
+                System.out.println(
+                        students.getStudent(Integer.parseInt(word[1])).getStudentProgress());
                 break;
             case "back":
                 runProgress = false;

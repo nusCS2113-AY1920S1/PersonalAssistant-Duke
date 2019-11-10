@@ -72,7 +72,6 @@ public class CliView {
             + "2. Manage Students\n"
             + "3. Training Circuits\n"
             + "4. Exit");
-        printLine();
     }
 
     /**
@@ -128,6 +127,7 @@ public class CliView {
             + "5. View student details \n"
             + "6. Exit ");
         printLine();
+
     }
 
     /**
