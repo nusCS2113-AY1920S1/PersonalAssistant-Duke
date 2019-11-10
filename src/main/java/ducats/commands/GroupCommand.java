@@ -53,17 +53,21 @@ public class GroupCommand extends Command<SongList> {
             startNo = Integer.parseInt(sections[0]);
             endNo = Integer.parseInt(sections[1]);
             name = sections[2];
-
-            boolean nameAlreadyExists = groupNameExists(songList, name);
-            if (songList.getSize() > 0 && !nameAlreadyExists) {
-                Group group = createGroup(songList.getSongIndex(songList.getActiveIndex()), name, startNo, endNo);
-                songList.getSongIndex(songList.getActiveIndex()).getGroups().add(group);
-            } else {
-                throw new DucatsException(message, "group");
-            }
-            //code to add this group into the storage (verse list)
+            createGroup(songList, startNo, endNo, name);
             return ui.formatGroupBar(startNo, endNo, name);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new DucatsException(message, "group");
+        }
+    }
+
+    private void createGroup(SongList songList, int startNo, int endNo, String name) throws DucatsException {
+        boolean nameAlreadyExists = groupNameExists(songList, name);
+        if (songList.getSize() > 0 && !nameAlreadyExists) {
+            int activeSongIndex = songList.getActiveIndex();
+            Song song = songList.getSongIndex(activeSongIndex);
+            Group group = createGroup(song, name, startNo, endNo);
+            songList.getSongIndex(songList.getActiveIndex()).getGroups().add(group);
+        } else {
             throw new DucatsException(message, "group");
         }
     }
