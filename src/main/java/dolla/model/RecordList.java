@@ -10,7 +10,6 @@ public class RecordList {
 
     public RecordList(ArrayList<Record> importEntryList) {
         this.list = importEntryList;
-        //this.list = new ArrayList<Record>(); // TODO: UPDATE!
     }
 
     public ArrayList<Record> get() {

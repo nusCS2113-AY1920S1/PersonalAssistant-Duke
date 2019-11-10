@@ -12,109 +12,98 @@ public class LimitParserTest {
 
     @Test
     public void parseValidListInputTest() {
-        String inputLine = "limits";
-        String expected = "limit";
-        LimitParser limitParser = new LimitParser(inputLine);
-        Command command = limitParser.parseInput();
-        assertEquals(expected, command.getCommandInfo());
+        LimitParser limitParser;
+        Command command;
+
+        String inputLine1 = "limits";
+        String expected1 = "limit";
+        limitParser = new LimitParser(inputLine1);
+        command = limitParser.parseInput();
+        assertEquals(expected1, command.getCommandInfo());
+
+        String inputLine2 = "set budget 10 daily";
+        String expected2 = "budget 10.0 daily";
+        limitParser = new LimitParser(inputLine2);
+        command = limitParser.parseInput();
+        assertEquals(expected2, command.getCommandInfo());
+
+        String inputLine3 = "remove 1";
+        String expected3 = "limit";
+        limitParser = new LimitParser(inputLine3);
+        command = limitParser.parseInput();
+        assertEquals(expected3, command.getCommandInfo());
+
+        String inputLine4 = "remaining daily budget";
+        String expected4 = "daily budget";
+        limitParser = new LimitParser(inputLine4);
+        command = limitParser.parseInput();
+        assertEquals(expected4, command.getCommandInfo());
+
+        String inputLine5 = "remaining monthly budget";
+        String expected5 = "monthly budget";
+        limitParser = new LimitParser(inputLine5);
+        command = limitParser.parseInput();
+        assertEquals(expected5, command.getCommandInfo());
+
+        String inputLine6 = "remaining weekly saving";
+        String expected6 = "weekly saving";
+        limitParser = new LimitParser(inputLine6);
+        command = limitParser.parseInput();
+        assertEquals(expected6, command.getCommandInfo());
     }
 
     @Test
-    public void parseInvalidListInputTest() {
-        String inputLine = "limit";
+    public void parseInvalidInputTest() {
+        LimitParser limitParser;
+        Command command;
+
+        String inputLine1 = "limit";
+        limitParser = new LimitParser(inputLine1);
+        command = limitParser.parseInput();
+        assertEquals(expectedInvalidResult, command.getCommandInfo());
+
+        String inputLine2 = "set budget 5";
+        limitParser = new LimitParser(inputLine2);
+        command = limitParser.parseInput();
+        assertEquals(expectedInvalidResult, command.getCommandInfo());
+
+        String inputLine3 = "remove five";
+        limitParser = new LimitParser(inputLine3);
+        command = limitParser.parseInput();
+        assertEquals(expectedInvalidResult, command.getCommandInfo());
+
+        String inputLine4 = "remaining";
+        limitParser = new LimitParser(inputLine4);
+        command = limitParser.parseInput();
+        assertEquals(expectedInvalidResult, command.getCommandInfo());
+
+        String inputLine5 = "";
+        limitParser = new LimitParser(inputLine5);
+        command = limitParser.parseInput();
+        assertEquals(expectedInvalidResult, command.getCommandInfo());
+
+        String inputLine6 = "     set     ";
+        limitParser = new LimitParser(inputLine6);
+        command = limitParser.parseInput();
+        assertEquals(expectedInvalidResult, command.getCommandInfo());
+
+        String inputLine7 = "hello";
+        limitParser = new LimitParser(inputLine7);
+        command = limitParser.parseInput();
+        assertEquals(expectedInvalidResult, command.getCommandInfo());
+    }
+
+    @Test
+    public void parseInvalidSortTest1() {
+        String inputLine = "sort date";
         LimitParser limitParser = new LimitParser(inputLine);
         Command command = limitParser.parseInput();
         assertEquals(expectedInvalidResult, command.getCommandInfo());
     }
 
     @Test
-    public void parseValidSetFormatTest() {
-        String inputLine = "set budget 10 daily";
-        String expected = "budget 10.0 daily";
-        LimitParser limitParser = new LimitParser(inputLine);
-        Command command = limitParser.parseInput();
-        assertEquals(expected, command.getCommandInfo());
-    }
-
-    @Test
-    public void parseInvalidSetFormatTest() {
-        String inputLine = "set budget 5";
-        LimitParser limitParser = new LimitParser(inputLine);
-        Command command = limitParser.parseInput();
-        assertEquals(expectedInvalidResult, command.getCommandInfo());
-    }
-
-    @Test
-    public void parseValidRemoveTest() {
-        String inputLine = "remove 1";
-        String expected = "limit";
-        LimitParser limitParser = new LimitParser(inputLine);
-        Command command = limitParser.parseInput();
-        assertEquals(expected, command.getCommandInfo());
-    }
-
-    @Test
-    public void parseInvalidRemoveTest() {
-        String inputLine = "remove five";
-        LimitParser limitParser = new LimitParser(inputLine);
-        Command command = limitParser.parseInput();
-        assertEquals(expectedInvalidResult, command.getCommandInfo());
-    }
-
-    @Test
-    public void parseInvalidShowTest() {
-        String inputLine = "remaining";
-        LimitParser limitParser = new LimitParser(inputLine);
-        Command command = limitParser.parseInput();
-        assertEquals(expectedInvalidResult, command.getCommandInfo());
-    }
-
-    @Test
-    public void parseValidShowTest() {
-        String inputLine = "remaining daily budget";
-        String expected = "daily budget";
-        LimitParser limitParser = new LimitParser(inputLine);
-        Command command = limitParser.parseInput();
-        assertEquals(expected, command.getCommandInfo());
-    }
-
-    @Test
-    public void parseValidShowTest2() {
-        String inputLine = "remaining monthly budget";
-        String expected = "monthly budget";
-        LimitParser limitParser = new LimitParser(inputLine);
-        Command command = limitParser.parseInput();
-        assertEquals(expected, command.getCommandInfo());
-    }
-
-    @Test
-    public void parseValidShowTest3() {
-        String inputLine = "remaining weekly saving";
-        String expected = "weekly saving";
-        LimitParser limitParser = new LimitParser(inputLine);
-        Command command = limitParser.parseInput();
-        assertEquals(expected, command.getCommandInfo());
-    }
-
-    @Test
-    public void parseInvalidInputTest1() {
-        String inputLine = "";
-        LimitParser limitParser = new LimitParser(inputLine);
-        Command command = limitParser.parseInput();
-        assertEquals(expectedInvalidResult, command.getCommandInfo());
-    }
-
-    @Test
-    public void parseInvalidInputTest2() {
-        String inputLine = "     set     ";
-        LimitParser limitParser = new LimitParser(inputLine);
-        Command command = limitParser.parseInput();
-        assertEquals(expectedInvalidResult, command.getCommandInfo());
-    }
-
-    @Test
-    public void parseInvalidInputTest3() {
-        String inputLine = "hello";
+    public void parseInvalidSortTest2() {
+        String inputLine = "sort";
         LimitParser limitParser = new LimitParser(inputLine);
         Command command = limitParser.parseInput();
         assertEquals(expectedInvalidResult, command.getCommandInfo());

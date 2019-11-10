@@ -1,8 +1,5 @@
 package dolla.model;
 
-import dolla.model.Debt;
-import dolla.model.DebtList;
-import dolla.model.Record;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -38,6 +35,7 @@ public class DebtListTest {
         newRecordList.add(newDebt2());
         newRecordList.add(newDebt3());
         newRecordList.add(newDebt4());
+        assertEquals(4,newRecordList.size());
         return new DebtList(newRecordList);
     }
 

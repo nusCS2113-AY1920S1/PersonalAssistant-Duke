@@ -3,10 +3,11 @@ package dolla.storage;
 import dolla.model.Record;
 import dolla.ui.Ui;
 
-import java.io.File;
-
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
+//@@author yetong1895
 /**
  * duke.Storage handles the saving and loading of data from ./data/duke.txt,
  * as well as creating a new save file if it does not exist.
@@ -17,8 +18,8 @@ public class Storage implements StorageStringList {
     protected static ArrayList<Record> limits = new ArrayList<Record>();
     protected static ArrayList<Record> debts = new ArrayList<Record>();
     protected static ArrayList<Record> shortcuts = new ArrayList<Record>();
-    protected static ArrayList<Record> storage = new ArrayList<Record>();
     protected static ArrayList<Record> bills = new ArrayList<Record>();
+    protected static ArrayList<Record> storage = new ArrayList<Record>();
 
     protected static double stringToDouble(String str) {
         double newDouble = 0.0;
@@ -72,16 +73,15 @@ public class Storage implements StorageStringList {
     }
 
     /**
-     * Create save file called data in root folder.
+     * This method will clear the data in the save file.
      */
-    protected static  void createFolder() {
-        File f = new File(DATA);
-        if (!f.exists()) {
-            try {
-                f.mkdir();
-            } catch (SecurityException e) { //security exception?
-
-            }
+    public static void clearStorage() {
+        try {
+            FileWriter file = new FileWriter(PATH,false);
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

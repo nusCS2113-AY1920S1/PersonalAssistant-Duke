@@ -75,10 +75,12 @@ public interface ParserStringList {
     //Components used in Action
     String COMMAND_REDO = "redo";
     String COMMAND_UNDO = "undo";
-    String COMMAND_REPEAT = "repeat";
 
     //Commons
     String SPACE = " ";
     String COMMAND_BYE = "bye";
     String EMPTY_STR = "";
+    String INVALID_AMOUNT_EXCEPTION = "Invalid amount exception";
+    String INVALID_DATE_EXCEPTION = "Invalid date exception";
+
 }

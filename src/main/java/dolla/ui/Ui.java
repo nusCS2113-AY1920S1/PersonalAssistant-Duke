@@ -11,12 +11,10 @@ import static dolla.ModeStringList.MODE_SHORTCUT;
 public abstract class Ui {
 
     protected static final String MSG_MODIFY = "\tPlease use the format 'modify [LIST NUM]' if you wish to modify it.";
-
     private static final String EXISTING_RECORD_MSG = "\tOOPS! You already have the following ";
     private static final String INVALID_AMOUNT_MSG = "\tOOPS! The amount you have entered is invalid.";
-    private static final String VALID_AMOUNT_MSG = "\tPlease key in a non-zero positive "
-                                                    + "value that is less than 1,000,000.";
-
+    private static final String VALID_AMOUNT_MSG = "\tPlease key in a non-zero positive value with an appropriate "
+                                                  + "decimal point that is less than 1,000,000.";
     private static final String EXECUTE_SHORTCUT_MSG = "\tYou can execute 'shortcuts' to view your list of shortcuts!";
     private static final String INVALID_DATE_MSG = "\tPlease use the format 'DD/MM/YYYY'!";
     private static final String INVALID_NUMBER_MSG = " is not a number. Please use a number instead!";
@@ -93,7 +91,6 @@ public abstract class Ui {
                 + "  \n" + ANSI_RESET);
     }
 
-    // TODO: DELETE
     /**
      * This method prints the strings of text from 's' with the proper format. Each element
      * from 's' is a line of text to be printed.

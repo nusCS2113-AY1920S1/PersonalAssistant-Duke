@@ -12,10 +12,13 @@ import dolla.ui.ModifyUi;
 import dolla.ui.EntryUi;
 import dolla.ui.SortUi;
 import dolla.ui.RemoveUi;
+import dolla.ui.ShortcutUi;
+
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -46,6 +49,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected int modifyRecordNum;
 
     protected static int maxAmount = 1000000;
+    protected static int appropriateDecimalPlace = 2;
+
 
     protected static final String TYPE_OWE = "owe";
     protected static final String TYPE_BORROW = "borrow";
@@ -80,11 +85,16 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         } catch (ArrayIndexOutOfBoundsException e) {
             // TODO: Shouldn't happen anymore, need to test if this will happen still
             Ui.printMsg("Please add '/at <date>' after your task to specify the entry date.");
-            throw new Exception("missing date");
+            throw new DollaException(INVALID_DATE_EXCEPTION);
         } catch (DateTimeParseException e) {
             Ui.printDateFormatError();
-            throw new Exception("invalid date");
+            throw new DollaException(INVALID_DATE_EXCEPTION);
         }
+    }
+
+
+    private static Boolean amountIsInvalid(double amount) {
+        return (amount <= 0 || amount >= maxAmount || BigDecimal.valueOf(amount).scale() > appropriateDecimalPlace);
     }
 
     /**
@@ -103,12 +113,13 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         double newDouble;
         try {
             newDouble = Double.parseDouble(str);
-            if (newDouble <= 0 || newDouble >= maxAmount) {
+            boolean amountIsInvalid = amountIsInvalid(newDouble);
+            if (amountIsInvalid) {
                 throw new DollaException(DollaException.invalidAmount());
             }
         } catch (NumberFormatException e) {
             Ui.printInvalidNumberError(str);
-            throw new NumberFormatException("Invalid amount");
+            throw new NumberFormatException(INVALID_AMOUNT_EXCEPTION);
         }
         return newDouble;
     }
@@ -133,7 +144,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return s;
         } else {
             EntryUi.printInvalidEntryType();
-            throw new Exception("invalid type");
+            throw new DollaException(DollaException.invalidType());
         }
     }
 
@@ -228,11 +239,11 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     //@@author yetong1895
     /**
-     * This method will check if the input contain an type to sort.
-     * @return true is inputArray[1] contain something, false if inputArray[1] is invalid.
+     * This method will check if the input is a valid sort command.
+     * @return true if the command is a valid sort command or false otherwise.
      */
     protected boolean verifySort() {
-        if (inputArray.length < 2) {
+        if (inputArray.length != 2) {
             SortUi.printInvalidSort(mode);
             return false;
         } else {
@@ -256,8 +267,9 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                     SortUi.printInvalidSort(mode);
                     return false;
                 }
-            case MODE_LIMIT:
-                if (inputArray[1].equals(SORT_TYPE_DATE)) {
+            case MODE_SHORTCUT:
+                if (inputArray[1].equals(SORT_TYPE_AMOUNT)
+                        || inputArray[1].equals(SORT_TYPE_DESC)) {
                     return true;
                 } else {
                     SortUi.printInvalidSort(mode);
@@ -270,9 +282,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         }
     }
 
+    //@@author yetong1895
     /**
-     * The method will check if the user have entered a valid number to be removed.
-     * @return true if there is a valid number or false otherwise.
+     * The method will check if the user have entered a valid remove command.
+     * @return true if the command is valid or false otherwise.
      */
     protected boolean verifyRemove() {
         if (inputArray.length != 2) {
@@ -280,7 +293,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return false;
         }
         try {
-            Integer.parseInt(inputArray[1]);
+            if (Integer.parseInt(inputArray[1]) < 1) {
+                RemoveUi.printInvalidRemoveMessage();
+                return false;
+            }
         } catch (NumberFormatException e) {
             RemoveUi.printInvalidRemoveMessage();
             return false;
@@ -288,15 +304,24 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return true;
     }
 
+    //@@author yetong1895
+
+    /**
+     * This method will check if t he user have entered a valid shorcut command.
+     * @return true if the command is valid or false otherwise.
+     */
     protected boolean verifyShortcut() {
         if (inputArray.length != 2) {
-            //print error message;
+            ShortcutUi.printInvalidShortcutMessage();
             return false;
         }
         try {
-            Integer.parseInt(inputArray[1]);
+            if (Integer.parseInt(inputArray[1]) < 1) {
+                ShortcutUi.printInvalidShortcutMessage();
+                return false;
+            }
         } catch (NumberFormatException e) {
-            RemoveUi.printInvalidRemoveMessage();
+            ShortcutUi.printInvalidShortcutMessage();
             return false;
         }
         return true;
@@ -417,7 +442,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return s;
         } else {
             DebtUi.printInvalidDebtType();
-            throw new Exception("invalid type");
+            throw new DollaException(DollaException.invalidType());
         }
     }
 
@@ -543,12 +568,12 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return string containing the new description of the record to be modified.
      */
     private String parseDesc(int index) {
-        String tempStr = "";
+        String tempStr = EMPTY_STR;
         for (int i = index; i < inputArray.length; i += 1) {
             if (isComponent(inputArray[i])) {
                 break;
             }
-            tempStr = tempStr.concat(inputArray[i] + " ");
+            tempStr = tempStr.concat(inputArray[i] + SPACE);
         }
         tempStr = tempStr.substring(0, tempStr.length() - 1);
         return tempStr;

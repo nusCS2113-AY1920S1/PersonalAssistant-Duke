@@ -1,0 +1,4 @@
+E | 100.0 | Expense Description | 03/12/2011
+E | 100.0 | Expense Description | 03/12/2051
+E | 100.0 | Expense Description | 03/12/2021
+E | 100.0 | Expense Description | 03/12/2031
