@@ -29,7 +29,7 @@
             <children>
                 <TabPane fx:id="tabPane" prefHeight="720.0" prefWidth="650.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                        <Tab fx:id="tabDegreeChoices" text="Keywords">
+                        <Tab fx:id="tabKeywords" text="Keywords">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
@@ -50,7 +50,7 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                             </columnResizePolicy>
                                             <sortOrder>
-                                                <fx:reference source="keywordCol"/>
+                                                <fx:reference source="keywordCol" />
                                             </sortOrder>
                                         </TableView>
                                     </children>
@@ -302,7 +302,7 @@
                                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                          </columnResizePolicy>
                                           <sortOrder>
-                                              <fx:reference source="helpCommandCol"/>
+                                              <fx:reference source="helpCommandCol" />
                                           </sortOrder>
                                       </TableView>
                                    </children>

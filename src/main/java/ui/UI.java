@@ -122,7 +122,7 @@ public class UI {
                 + "Deadline tasks require deadlines in the following format: DD-MM-YYYY HHmm.\n"
                 + "Optional priorities can be set when adding tasks from: low, normal, high, very high.\n"
                 + "This is done by adding /priority <priority> behind the task.\n\n"
-                + "Format: deadline <Description> /by <DD-MM-YYYY HHmm>\n"
+                + "Format: deadline <Description> /by <DD-MM-YYYY HHmm> |\n"
                 + "deadline <Description> /by <DD-MM-YYYY HHmm> /priority <priority> \n"
                 + "Examples: deadline Sleep /by 01-01-1970 2359 | deadline Eat /by 01-02-2019 1500 /priority very high\n");
 
@@ -157,6 +157,12 @@ public class UI {
         //redo Command.
         helpMap.put("redo", "Redoes the most recent undone command.\n"
                 + "This only works for commands that modify tasks or choices.\n");
+
+        //keywords Command.
+        helpMap.put("keywords", "Displays the degrees and their accepted keywords and aliases.\n"
+                + "Will also switch to the \"Keywords\" tabs.\n"
+                + "These keywords and aliases are compatible with the \"add\", \"detail\" command.\n"
+                + "Only KEYWORDS are compatible with the \"compare\" command.\n");
     }
 
     /**
