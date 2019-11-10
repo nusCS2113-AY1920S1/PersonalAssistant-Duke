@@ -446,7 +446,7 @@ public class Storage {
                     }
 
                     if (in.contains("##")) {
-                        temp.put(intensity+planNum, list);
+                        temp.put(intensity + planNum, list);
                     }
                 }
                 fileInput.close();
