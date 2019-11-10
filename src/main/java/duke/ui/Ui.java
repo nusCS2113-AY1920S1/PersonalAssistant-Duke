@@ -56,6 +56,7 @@ public class Ui {
         out.println(LINE);
     }
 
+    //@@author gervaiseang
     /**
      * Show the help page.
      *
