@@ -35,8 +35,7 @@ public class RemoveUserCommand extends Command {
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
                         StorageManager allStorage)
             throws DukeException, IOException {
-        boolean isValid = UserList.checkExistence(userList, splitL[1]);
-        if (isValid) {
+        if (userList.checkExistence(splitL[1])) {
             if (splitL[1].equals(userList.getCurrentUser())) {
                 throw new DukeException("OOPS! You are currently logged in as " + userList.getCurrentUser() + "!");
             } else {
