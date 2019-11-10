@@ -133,37 +133,37 @@ public class ViewCommand extends Command {
         for (Expense expense : expenseList) {
             if (expense.getDate().getMonthValue() == month && expense.getDate().getYear() == year) {
                 switch (expense.getCategory()) {
-                    case FOOD:
-                        if (categoryMap.get(Category.FOOD) == null) {
-                            categoryMap.put(Category.FOOD, new ArrayList<Expense>());
-                        }
-                        categoryMap.get(Category.FOOD).add(expense);
-                        break;
-                    case BILLS:
-                        if (categoryMap.get(Category.BILLS) == null) {
-                            categoryMap.put(Category.BILLS, new ArrayList<Expense>());
-                        }
-                        categoryMap.get(Category.BILLS).add(expense);
-                        break;
-                    case TRANSPORT:
-                        if (categoryMap.get(Category.TRANSPORT) == null) {
-                            categoryMap.put(Category.TRANSPORT, new ArrayList<Expense>());
-                        }
-                        categoryMap.get(Category.TRANSPORT).add(expense);
-                        break;
-                    case SHOPPING:
-                        if (categoryMap.get(Category.SHOPPING) == null) {
-                            categoryMap.put(Category.SHOPPING, new ArrayList<Expense>());
-                        }
-                        categoryMap.get(Category.SHOPPING).add(expense);
-                        break;
-                    case OTHERS:
-                        if (categoryMap.get(Category.OTHERS) == null) {
-                            categoryMap.put(Category.OTHERS, new ArrayList<Expense>());
-                        }
-                        categoryMap.get(Category.OTHERS).add(expense);
-                        break;
-                    default:
+                case FOOD:
+                    if (categoryMap.get(Category.FOOD) == null) {
+                        categoryMap.put(Category.FOOD, new ArrayList<Expense>());
+                    }
+                    categoryMap.get(Category.FOOD).add(expense);
+                    break;
+                case BILLS:
+                    if (categoryMap.get(Category.BILLS) == null) {
+                        categoryMap.put(Category.BILLS, new ArrayList<Expense>());
+                    }
+                    categoryMap.get(Category.BILLS).add(expense);
+                    break;
+                case TRANSPORT:
+                    if (categoryMap.get(Category.TRANSPORT) == null) {
+                        categoryMap.put(Category.TRANSPORT, new ArrayList<Expense>());
+                    }
+                    categoryMap.get(Category.TRANSPORT).add(expense);
+                    break;
+                case SHOPPING:
+                    if (categoryMap.get(Category.SHOPPING) == null) {
+                        categoryMap.put(Category.SHOPPING, new ArrayList<Expense>());
+                    }
+                    categoryMap.get(Category.SHOPPING).add(expense);
+                    break;
+                case OTHERS:
+                    if (categoryMap.get(Category.OTHERS) == null) {
+                        categoryMap.put(Category.OTHERS, new ArrayList<Expense>());
+                    }
+                    categoryMap.get(Category.OTHERS).add(expense);
+                    break;
+                default:
                 }
             }
         }
