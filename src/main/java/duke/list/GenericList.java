@@ -35,7 +35,7 @@ public abstract class GenericList<T> {
      * Adds an entry to the {@link GenericList}.
      * @param entry {@link T} to be added to the list
      */
-    public void addEntry(T entry) throws DukeException {
+    public void addEntry(T entry) {
         genList.add(entry);
     }
 
@@ -81,7 +81,7 @@ public abstract class GenericList<T> {
      * @param entry the entry to be removed from the {@link GenericList}
      * @return true if removal was successful
      */
-    public boolean removeEntry(T entry) throws DukeException {
+    public boolean removeEntry(T entry) {
         return genList.remove(entry);
     }
     /**

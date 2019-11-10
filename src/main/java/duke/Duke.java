@@ -63,6 +63,7 @@ public class Duke {
      */
     public void run() {
         String fullCommand;
+        ui.chefDrawing();
         ui.showWelcome();
 
         if (fridge.hasExpiredIngredients()) {
@@ -79,14 +80,13 @@ public class Duke {
 
         while (!isExit) {
             try {
-                ui.chefDrawing();
                 ui.showOptions();
                 ui.showLine();
                 fullCommand = ui.readCommand();
                 ui.showLine();
                 switch (fullCommand) {
                     case "options": {
-                        ui.showOptions();
+                        ui.chefDrawing();
                         break;
                     }
                     case "q": {

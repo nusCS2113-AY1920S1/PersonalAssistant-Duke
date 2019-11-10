@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Sara Djambazovska
  */
 class FridgeTest {
-    Fridge fridge = new Fridge();
+    private Fridge fridge = new Fridge();
 
 
     @Test
@@ -40,14 +40,14 @@ class FridgeTest {
     }
 
     @Test
-    void hasEnough() throws DukeException {
+    void testHasEnough() throws DukeException {
         fridge = new Fridge();
         fridge.addIngredient(new Ingredient("Pepper", 2, "03/11/2020"));
         assertTrue(fridge.hasEnough(new Ingredient("Pepper", 1, "03/11/2020")));
     }
 
     @Test
-    void useIngredient() throws DukeException {
+    void testUseIngredient() throws DukeException {
         fridge = new Fridge();
         Ingredient pepper = new Ingredient("Pepper", 3, "03/11/2020");
         Ingredient onePepper = new Ingredient("Pepper", 1, "03/11/2020");
@@ -61,7 +61,7 @@ class FridgeTest {
     }
 
     @Test
-    void hasExpiredIngredients() throws DukeException {
+    void testHasExpiredIngredients() throws DukeException {
         fridge = new Fridge();
         Ingredient expiredBeef = new Ingredient("ExpiredBeef", 500, "03/11/2019");
         assertFalse(fridge.hasExpiredIngredients());
@@ -73,7 +73,7 @@ class FridgeTest {
 
 
     @Test
-    void removeExpiring() throws DukeException {
+    void testRemoveExpiring() throws DukeException {
         fridge = new Fridge();
         Ingredient almostExpiredBeef = new Ingredient("Beef", 500, "10/11/2020");
         assertTrue(fridge.isEmpty());
