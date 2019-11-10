@@ -29,7 +29,7 @@ public class ListUi extends Ui {
     public static void printEmptyListError(String mode) {
         System.out.println(line);
         System.out.println("\tI'm sorry, but there doesn't seem to be anything in "
-                + mode + " for me to through. ");
+                + mode + " for me to look through. ");
         System.out.println("\tTry adding a new " + mode + " and try again!");
         System.out.println(line);
     }
