@@ -7,12 +7,12 @@ image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/ui.png["UI", 5000, align=center]
 endif::[]
 
-MisterMusik is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer. +
-The program is designed to automate and streamline most of the process in scheduling and organisation of materials, allowing the students to focus more on the important aspects of their education.
-
+MisterMusik is a scheduler program created for serious music students pursuing a professional music career as a western
+classical music performer. The program is designed to automate and streamline most of the process in scheduling and
+organisation of materials, allowing the students to focus more on the important aspects of their education.
 
 == Site Map
 
@@ -23,7 +23,4 @@ The program is designed to automate and streamline most of the process in schedu
 
 == Acknowledgements
 
-* Libraries used: https://openjfx.io/[JavaFX]
-
-
-== Licence : link:LICENSE[MIT]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/junit-team/junit5[JUnit5]

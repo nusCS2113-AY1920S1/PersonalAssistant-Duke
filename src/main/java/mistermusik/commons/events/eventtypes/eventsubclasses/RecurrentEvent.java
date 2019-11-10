@@ -4,7 +4,7 @@ import mistermusik.commons.events.eventtypes.Event;
 
 public abstract class RecurrentEvent extends Event {
     /**
-     * Creates recurrent event with isDone boolean for reading from files
+     * Creates recurrent event with isDone boolean for reading from files.
      *
      * @param eventType type of event denoted by character
      */
@@ -13,7 +13,7 @@ public abstract class RecurrentEvent extends Event {
     }
 
     /**
-     * Creates recurrent event without isDone boolean for user input (assumes task entered is incomplete)
+     * Creates recurrent event without isDone boolean for user input (assumes task entered is incomplete).
      *
      * @param eventType type of event denoted by character
      */

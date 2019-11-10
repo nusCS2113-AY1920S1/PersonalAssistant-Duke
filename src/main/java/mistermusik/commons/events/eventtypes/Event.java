@@ -12,12 +12,12 @@ import java.util.ArrayList;
  */
 public abstract class Event implements Comparable<Event> {
     /**
-     * event description
+     * event description.
      */
     protected String description;
 
     /**
-     * state of event (only applicable to ToDo)
+     * state of event (only applicable to ToDo).
      */
     protected boolean isDone;
 
@@ -52,7 +52,7 @@ public abstract class Event implements Comparable<Event> {
     private Checklist checklist;
 
     /**
-     * Creates event with one date input (e.g todo)
+     * Creates event with one date input (e.g todo).
      *
      * @param description event description
      * @param isDone      boolean representing state of event completion
@@ -70,7 +70,7 @@ public abstract class Event implements Comparable<Event> {
     }
 
     /**
-     * Creates event with two date input
+     * Creates event with two date input.
      *
      * @param description      event description
      * @param isDone           boolean representing state of event completion
@@ -89,7 +89,7 @@ public abstract class Event implements Comparable<Event> {
     }
 
     /**
-     * Edit event with new description and two date input
+     * Edit event with new description and two date input.
      *
      * @param newDescription new event description
      */
@@ -146,6 +146,7 @@ public abstract class Event implements Comparable<Event> {
         this.isDone = true;
     }
 
+    //@@author YuanJiayi
     public void rescheduleStartDate(EventDate newStartDate) {
         this.startEventDate = newStartDate;
     }

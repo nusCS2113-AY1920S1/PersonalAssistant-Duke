@@ -1,4 +1,5 @@
 //@@author Ryan-Wong-Ren-Wei
+
 package mistermusik.commons.events.formatting;
 
 import java.text.DateFormat;

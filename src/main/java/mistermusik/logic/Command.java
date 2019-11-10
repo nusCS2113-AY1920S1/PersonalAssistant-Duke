@@ -1,24 +1,28 @@
 package mistermusik.logic;
 
 import mistermusik.commons.Contact;
-import mistermusik.commons.events.eventtypes.Event;
-import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Exam;
-import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Recital;
-import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
-import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Lesson;
-import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Practice;
-import mistermusik.commons.events.eventtypes.eventsubclasses.ToDo;
-import mistermusik.ui.CalendarView;
-import mistermusik.commons.events.formatting.DateStringValidator;
-import mistermusik.commons.events.formatting.EventDate;
-import mistermusik.storage.*;
+import mistermusik.commons.Goal;
 import mistermusik.commons.Instruments.InstrumentList;
 import mistermusik.commons.budgeting.CostExceedsBudgetException;
-import mistermusik.commons.Goal;
+import mistermusik.commons.events.eventtypes.Event;
+import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
+import mistermusik.commons.events.eventtypes.eventsubclasses.ToDo;
+import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Exam;
+import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Recital;
+import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Lesson;
+import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Practice;
+import mistermusik.commons.events.formatting.DateStringValidator;
+import mistermusik.commons.events.formatting.EventDate;
+import mistermusik.storage.Storage;
+import mistermusik.ui.CalendarView;
 import mistermusik.ui.UI;
 
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
 
 //@@author
 
@@ -73,103 +77,103 @@ public class Command {
     public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments, EventDate calendarStartDate, boolean allowCalendarFrequentPrint) {
         boolean changesMade = true;
         switch (command) {
-            case "help":
-                findHelp(ui);
-                break;
+        case "help":
+            findHelp(ui);
+            break;
 
-            case "list":
-                listEvents(events, ui);
-                changesMade = false;
-                break;
+        case "list":
+            listEvents(events, ui);
+            changesMade = false;
+            break;
 
-            case "reminder":
-                remindEvents(events, ui);
-                changesMade = false;
-                break;
+        case "reminder":
+            remindEvents(events, ui);
+            changesMade = false;
+            break;
 
-            case "done":
-                markEventAsDone(events, ui);
-                break;
+        case "done":
+            markEventAsDone(events, ui);
+            break;
 
-            case "delete":
-                deleteEvent(events, ui);
-                break;
+        case "delete":
+            deleteEvent(events, ui);
+            break;
 
-            case "find":
-                searchEvents(events, ui);
-                changesMade = false;
-                break;
+        case "find":
+            searchEvents(events, ui);
+            changesMade = false;
+            break;
 
-            case "todo":
-                addNewTodo(events, ui);
-                break;
+        case "todo":
+            addNewTodo(events, ui);
+            break;
 
-            case "lesson":
-                addNewEvent(events, ui, 'L');
-                break;
+        case "lesson":
+            addNewEvent(events, ui, 'L');
+            break;
 
-            case "concert":
-                addNewEvent(events, ui, 'C');
-                break;
+        case "concert":
+            addNewEvent(events, ui, 'C');
+            break;
 
-            case "practice":
-                addNewEvent(events, ui, 'P');
-                break;
+        case "practice":
+            addNewEvent(events, ui, 'P');
+            break;
 
-            case "exam":
-                addNewEvent(events, ui, 'E');
-                break;
+        case "exam":
+            addNewEvent(events, ui, 'E');
+            break;
 
-            case "recital":
-                addNewEvent(events, ui, 'R');
-                break;
+        case "recital":
+            addNewEvent(events, ui, 'R');
+            break;
 
-            case "view":
-                viewEvents(events, ui);
-                changesMade = false;
-                break;
+        case "view":
+            viewEvents(events, ui);
+            changesMade = false;
+            break;
 
-            case "check":
-                checkFreeDays(events, ui);
-                changesMade = false;
-                break;
+        case "check":
+            checkFreeDays(events, ui);
+            changesMade = false;
+            break;
 
-            case "reschedule":
-                rescheduleEvent(events, ui);
-                break;
+        case "reschedule":
+            rescheduleEvent(events, ui);
+            break;
 
-            case "edit":
-                editEvent(events, ui);
-                break;
+        case "edit":
+            editEvent(events, ui);
+            break;
 
-            case "calendar":
-                printCalendar(events, ui, calendarStartDate);
-                break;
+        case "calendar":
+            printCalendar(events, ui, calendarStartDate);
+            break;
 
-            case "budget":
-                showOrSetBudget(events, ui);
-                break;
+        case "budget":
+            showOrSetBudget(events, ui);
+            break;
 
-            case "goal":
-                manageGoals(events, ui);
-                break;
+        case "goal":
+            manageGoals(events, ui);
+            break;
 
-            case "contact":
-                manageContacts(events, ui);
-                break;
+        case "contact":
+            manageContacts(events, ui);
+            break;
 
-            case "checklist":
-                manageChecklist(events, ui);
-                break;
+        case "checklist":
+            manageChecklist(events, ui);
+            break;
 
-            case "instrument":
-                manageInstruments(instruments, ui);
-                break;
+        case "instrument":
+            manageInstruments(instruments, ui);
+            break;
 
-            default:
-                ui.printInvalidCommand();
-                changesMade = false;
-                break;
+        default:
+            ui.printInvalidCommand();
+            changesMade = false;
+            break;
         }
         if (changesMade) {
             events.sortList();
@@ -184,44 +188,49 @@ public class Command {
         }
     }
 
+    //@@author YuanJiayi
+
+    /**
+     * check help command for printing the correct commands
+     */
     private void findHelp(UI ui) {
         if (continuation.isEmpty()) {
             ui.printHelpList();
         } else {
             switch (continuation) {
-                case "calendar":
-                    ui.printCalendarHelp();
-                    break;
-                case "lesson":
-                case "practice":
-                case "concert":
-                case "exam":
-                case "recital":
-                case "todo":
-                case "delete":
-                case "event":
-                    ui.printEventHelp();
-                    break;
-                case "goal":
-                    ui.printGoalHelp();
-                    break;
-                case "contact":
-                    ui.printContactHelp();
-                    break;
-                case "checklist":
-                    ui.printChecklistHelp();
-                    break;
-                case "instruments":
-                    ui.printInstrumentsHelp();
-                    break;
-                case "reschedule":
-                case "edit":
-                case "done":
-                case "change":
-                    ui.printChangeHelp();
-                    break;
-                default:
-                    ui.printHelpList();
+            case "calendar":
+                ui.printCalendarHelp();
+                break;
+            case "lesson":
+            case "practice":
+            case "concert":
+            case "exam":
+            case "recital":
+            case "todo":
+            case "delete":
+            case "event":
+                ui.printEventHelp();
+                break;
+            case "goal":
+                ui.printGoalHelp();
+                break;
+            case "contact":
+                ui.printContactHelp();
+                break;
+            case "checklist":
+                ui.printChecklistHelp();
+                break;
+            case "instruments":
+                ui.printInstrumentsHelp();
+                break;
+            case "reschedule":
+            case "edit":
+            case "done":
+            case "change":
+                ui.printChangeHelp();
+                break;
+            default:
+                ui.printHelpList();
             }
         }
 
@@ -231,12 +240,13 @@ public class Command {
 
     /**
      * Add, view, edit or delete checklist items for an event.
+     *
      * @param events The event list
-     * @param ui UI
+     * @param ui     UI
      */
     private void manageChecklist(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.checklistCommandWrongFormat();
+            ui.printChecklistCommandInvalid();
         } else {
             try {
                 String[] splitChecklist = continuation.split("/");
@@ -249,29 +259,29 @@ public class Command {
                 if (checklistCommand.length == 3) {
                     int checklistIndex = Integer.parseInt(checklistCommand[2]);
                     switch (checklistCommand[0]) {
-                        case "delete":
-                            events.getEvent(eventIndex).deleteChecklist(checklistIndex - 1);
-                            ui.checklistDeleted(eventIndex);
-                            break;
+                    case "delete":
+                        events.getEvent(eventIndex).deleteChecklist(checklistIndex - 1);
+                        ui.checklistDeleted(eventIndex);
+                        break;
 
-                        case "edit":
-                            events.getEvent(eventIndex).editChecklist(checklistIndex - 1, splitChecklist[1]);
-                            ui.checklistEdited(splitChecklist[1], eventIndex);
-                            break;
+                    case "edit":
+                        events.getEvent(eventIndex).editChecklist(checklistIndex - 1, splitChecklist[1]);
+                        ui.checklistEdited(splitChecklist[1], eventIndex);
+                        break;
                     }
                 } else {
                     switch (checklistCommand[0]) {
-                        case "add":
-                            events.getEvent(eventIndex).addChecklist(splitChecklist[1]);
-                            System.out.println(splitChecklist[1] + "___" + eventIndex);
-                            ui.checklistAdded(splitChecklist[1], eventIndex);
-                            break;
+                    case "add":
+                        events.getEvent(eventIndex).addChecklist(splitChecklist[1]);
+                        System.out.println(splitChecklist[1] + "___" + eventIndex);
+                        ui.checklistAdded(splitChecklist[1], eventIndex);
+                        break;
 
-                        case "view":
-                            //print goals list
-                            ArrayList<String> thisChecklist = events.getEvent(eventIndex).getChecklist();
-                            ui.printEventChecklist(thisChecklist, eventIndex, events.getEvent(eventIndex));
-                            break;
+                    case "view":
+                        //print goals list
+                        ArrayList<String> thisChecklist = events.getEvent(eventIndex).getChecklist();
+                        ui.printEventChecklist(thisChecklist, eventIndex, events.getEvent(eventIndex));
+                        break;
                     }
                 }
             } catch (IndexOutOfBoundsException ne) {
@@ -304,7 +314,7 @@ public class Command {
         } else if (continuation.equals("off")) {
             System.out.println("Not allowing printing calendar after every command!");
         } else {
-            ui.calendarCommandWrongFormat();
+            ui.printInvalidCalendarCommand();
         }
 
 
@@ -327,18 +337,19 @@ public class Command {
     }
 
     //@@author Ryan-Wong-Ren-Wei
+
     /**
      * passes budget to UI for printing to output
      */
     private void showOrSetBudget(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.printBudgetCommandWrongFormat();
-        } else if (continuation.substring(0, 3).equals("set")) { //set new budget
+            ui.printBudgetCommandInvalid();
+        } else if (continuation.length() > 4 && continuation.substring(0, 3).equals("set")) { //set new budget
             try {
                 int newBudget = Integer.parseInt(continuation.substring(4));
                 events.getBudgeting().setBudget(newBudget);
                 UI.printBudgetSet(newBudget);
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
                 ui.printNotAnInteger();
             }
         } else { //show budget for given month
@@ -373,6 +384,7 @@ public class Command {
     }
 
     //@@author ZhangYihanNus
+
     /**
      * Finds the next 3 free days in the schedule and passes them to UI class to be printed.
      */
@@ -404,21 +416,27 @@ public class Command {
      * Searches list for events found in a singular date, passes to UI for printing.
      */
     private void viewEvents(EventList events, UI ui) {
+        boolean isEventsFound;
         if (continuation.isEmpty()) {
-            ui.viewCommandWrongFormat();
+            ui.printViewCommandInvalid();
         } else {
             String dateToView = continuation;
-            String foundEvent = "";
-            int viewIndex = 1;
+            ArrayList<String> eventsOnASpecificDate = new ArrayList<>();
             EventDate findDate = new EventDate(dateToView);
-            for (Event viewEvent : events.getEventArrayList()) {
+            for (int i = 0; i < events.getEventArrayList().size(); i += 1) {
+                Event viewEvent = events.getEvent(i);
+                String eventStringWithIndex = "";
                 if (viewEvent.toString().contains(findDate.getFormattedDateString())) {
-                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
+                    eventStringWithIndex += i + 1 + ". " + viewEvent.toString();
+                    eventsOnASpecificDate.add(eventStringWithIndex);
                 }
-                viewIndex++;
             }
-            boolean isEventsFound = !foundEvent.isEmpty();
-            ui.printFoundEvents(foundEvent, isEventsFound);
+            if (eventsOnASpecificDate.isEmpty()) {
+                isEventsFound = false;
+            } else {
+                isEventsFound = true;
+            }
+            ui.printEventsOnASpecificDate(eventsOnASpecificDate, isEventsFound);
         }
     }
 
@@ -444,12 +462,12 @@ public class Command {
                 } else { //recurring event
                     if (entryForEvent.getPeriod() > 0) {
                         events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
-                        ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
+                        ui.printRecurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
                         if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
                             ui.printEnteredEventOver();
                         }
                     } else {
-                        ui.periodNotPositive();
+                        throw new PeriodRangeException();
                     }
                 }
 
@@ -462,6 +480,8 @@ public class Command {
                 ui.printNewEntryFormatWrong();
             } catch (EndBeforeStartException e) { //start time is after end time
                 ui.printEventEndsBeforeStart();
+            } catch (PeriodRangeException e) {
+                ui.printPeriodNotPositive();
             }
         }
     }
@@ -475,31 +495,32 @@ public class Command {
     private Event newEvent(char eventType, EntryForEvent entryForEvent) {
         Event newEvent = null;
         switch (eventType) {
-            case 'L':
-                newEvent = new Lesson(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                        entryForEvent.getEndDate());
-                break;
-            case 'C':
-                newEvent = new Concert(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                        entryForEvent.getEndDate(), entryForEvent.getCost());
-                break;
-            case 'P':
-                newEvent = new Practice(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                        entryForEvent.getEndDate());
-                break;
-            case 'E':
-                newEvent = new Exam(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                        entryForEvent.getEndDate());
-                break;
-            case 'R':
-                newEvent = new Recital(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                        entryForEvent.getEndDate());
-                break;
+        case 'L':
+            newEvent = new Lesson(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                    entryForEvent.getEndDate());
+            break;
+        case 'C':
+            newEvent = new Concert(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                    entryForEvent.getEndDate(), entryForEvent.getCost());
+            break;
+        case 'P':
+            newEvent = new Practice(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                    entryForEvent.getEndDate());
+            break;
+        case 'E':
+            newEvent = new Exam(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                    entryForEvent.getEndDate());
+            break;
+        case 'R':
+            newEvent = new Recital(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                    entryForEvent.getEndDate());
+            break;
         }
         return newEvent;
     }
 
     //@@author
+
     /**
      * adds a new to-do to the list of events in EventList object.
      */
@@ -568,6 +589,10 @@ public class Command {
             String[] rescheduleDetail = continuation.split(" "); //split details by space (dd-MM-yyyy HHmm HHmm)
             int eventIndex = Integer.parseInt(rescheduleDetail[0]) - 1;
 
+            if (events.getEvent(eventIndex).getType() == 'T') { //reschedule does not work for Todo type
+                throw new UnsupportedOperationException();
+            }
+
             newEvent = events.getEvent(eventIndex); //event to be used as a replacement.
 
             copyOfStartDate = new EventDate(newEvent.getStartDate().getUserInputDateString());
@@ -581,14 +606,14 @@ public class Command {
             newEvent.rescheduleStartDate(newStartDate); //reschedule start date & time
             newEvent.rescheduleEndDate(newEndDate); //reschedule end date & time
 
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            ui.rescheduleFormatWrong();
+        } catch (NumberFormatException | IndexOutOfBoundsException | UnsupportedOperationException e) {
+            ui.printRescheduleInvalidCommand();
             return;
         }
 
         try {
             events.addEvent(newEvent);
-            ui.rescheduleEvent(newEvent);
+            ui.printEventRescheduled(newEvent);
         } catch (ClashException clashE) {
             ui.printScheduleClash(clashE.getClashEvent());
             newEvent.rescheduleStartDate(copyOfStartDate);
@@ -616,7 +641,7 @@ public class Command {
      */
     private void manageGoals(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.goalCommandWrongFormat();
+            ui.printGoalCommandInvalid();
             return;
         }
         try {
@@ -626,54 +651,57 @@ public class Command {
             if (goalCommand.length == 3) {
                 int goalIndex = Integer.parseInt(goalCommand[2]);
                 switch (goalCommand[0]) {
-                    case "delete":
-                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                            String deletedGoal = events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getGoal();
-                            events.getEvent(eventIndex).removeGoal(goalIndex - 1);
-                            ui.goalDeleted(deletedGoal);
-                        } else {
-                            ui.printNoSuchGoal();
-                        }
-                        break;
+                case "delete":
+                    if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                        String deletedGoal = events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getGoal();
+                        events.getEvent(eventIndex).removeGoal(goalIndex - 1);
+                        ui.printGoalDeleted(deletedGoal);
+                    } else {
+                        ui.printNoSuchGoal();
+                    }
+                    break;
 
-                    case "edit":
-                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                            Goal newGoal = new Goal(splitGoal[1]);
-                            events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
-                            ui.goalUpdated(events, eventIndex, goalIndex - 1);
-                        } else {
-                            ui.printNoSuchGoal();
-                        }
-                        break;
+                case "edit":
+                    if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                        Goal newGoal = new Goal(splitGoal[1]);
+                        events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
+                        ui.printGoalUpdated(events, eventIndex, goalIndex - 1);
+                    } else {
+                        ui.printNoSuchGoal();
+                    }
+                    break;
 
-                    case "achieved":
-                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                case "achieved":
+                    if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                        if(events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
+                            ui.printGoalAlreadyAchieved();
+                        } else {
                             events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
-                            ui.goalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
-                        } else {
-                            ui.printNoSuchGoal();
+                            ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
                         }
-                        break;
-
-                    default:
-                        ui.goalCommandWrongFormat();
-                        break;
+                    } else {
+                        ui.printNoSuchGoal();
+                    }
+                    break;
+                default:
+                    ui.printGoalCommandInvalid();
+                    break;
                 }
             } else {
                 switch (goalCommand[0]) {
-                    case "add":
-                        Goal newGoal = new Goal(splitGoal[1]);
-                        events.getEvent(eventIndex).addGoal(newGoal);
-                        ui.goalAdded(newGoal.getGoal());
-                        break;
+                case "add":
+                    Goal newGoal = new Goal(splitGoal[1]);
+                    events.getEvent(eventIndex).addGoal(newGoal);
+                    ui.printGoalAdded(newGoal.getGoal());
+                    break;
 
-                    case "view":
-                        ui.printEventGoals(events.getEvent(eventIndex));
-                        break;
+                case "view":
+                    ui.printEventGoals(events.getEvent(eventIndex));
+                    break;
 
-                    default:
-                        ui.goalCommandWrongFormat();
-                        break;
+                default:
+                    ui.printGoalCommandInvalid();
+                    break;
                 }
             }
         } catch (IndexOutOfBoundsException ne) {
@@ -692,59 +720,88 @@ public class Command {
      */
     private void manageContacts(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.contactCommandWrongFormat();
+            ui.printContactCommandInvalid();
             return;
         }
         try {
             String[] splitContact = continuation.split("/");
             String[] contactCommand = splitContact[0].split(" ");
+            if (!(contactCommand[0].equals("add") || contactCommand[0].equals("delete") ||
+                    contactCommand[0].equals("view") || contactCommand[0].equals("edit"))) {
+                throw new UnsupportedOperationException();
+            }
             int eventIndex = Integer.parseInt(contactCommand[1]) - 1;
             if (contactCommand.length == 2) {
                 switch (contactCommand[0]) {
-                    case "add":
-                        String[] contactDetails = splitContact[1].split(",");
-                        Contact newContact = new Contact(contactDetails[0], contactDetails[1], contactDetails[2]);
-                        events.getEvent(eventIndex).addContact(newContact);
-                        ui.contactAdded();
-                        break;
+                case "add":
+                    if (!continuation.contains("/")) {
+                        throw new UnsupportedOperationException();
+                    }
+                    String[] contactDetails = splitContact[1].split(",");
+                    if (contactDetails.length != 3) {
+                        throw new UnsupportedOperationException();
+                    }
+                    Contact newContact = new Contact(contactDetails[0], contactDetails[1], contactDetails[2]);
+                    events.getEvent(eventIndex).addContact(newContact);
+                    ui.printContactAdded();
+                    break;
 
-                    case "view":
-                        if (events.getEvent(eventIndex).getContactList().isEmpty()) {
-                            ui.noContactInEvent();
-                        } else {
-                            ui.printEventContacts(events.getEvent(eventIndex));
-                        }
-                        break;
+                case "view":
+                    if (events.getEvent(eventIndex).getContactList().isEmpty()) {
+                        ui.printNoContactInEvent();
+                    } else {
+                        ui.printEventContacts(events.getEvent(eventIndex));
+                    }
+                    break;
+                default:
+                    throw new UnsupportedOperationException();
                 }
             } else {
                 int contactIndex = Integer.parseInt(contactCommand[2]) - 1;
                 switch (contactCommand[0]) {
-                    case "delete":
+                case "delete":
+                    try {
                         events.getEvent(eventIndex).removeContact(contactIndex);
-                        ui.contactDeleted();
-                        break;
-                    case "edit":
-                        char editType = ' ';
-                        switch (contactCommand[3]) {
-                            case "name":
-                                editType = 'N';
-                                break;
-                            case "email":
-                                editType = 'E';
-                                break;
-                            case "phone":
-                                editType = 'P';
-                                break;
-                        }
+                        ui.printContactDeleted();
+                    } catch (IndexOutOfBoundsException e) {
+                        ui.printNoSuchContact();
+                    }
+                    break;
+                case "edit":
+                    if (!continuation.contains("/")) {
+                        throw new UnsupportedOperationException();
+                    }
+                    char editType;
+                    switch (contactCommand[3]) {
+                        case "name":
+                            editType = 'N';
+                            break;
+                        case "email":
+                            editType = 'E';
+                            break;
+                        case "phone":
+                            editType = 'P';
+                            break;
+                        default:
+                            throw new UnsupportedOperationException();
+                    }
+                    try {
                         events.getEvent(eventIndex).editContact(contactIndex, editType, splitContact[1]);
-                        ui.contactEdited(events.getEvent(eventIndex).getContactList().get(contactIndex));
-                        break;
+                        ui.printContactEdited(events.getEvent(eventIndex).getContactList().get(contactIndex));
+                    } catch (IndexOutOfBoundsException e) {
+                        ui.printNoSuchContact();
+                    }
+                    break;
+                default:
+                    throw new UnsupportedOperationException();
                 }
             }
         } catch (IndexOutOfBoundsException e) {
             ui.printNoSuchEvent();
         } catch (NumberFormatException en) {
             ui.printNotAnInteger();
+        } catch (UnsupportedOperationException e) {
+            ui.printContactCommandInvalid();
         }
     }
 
@@ -755,38 +812,38 @@ public class Command {
                 ui.printNoSuchEvent();
                 return;
             }
-            String splitInstrument[] = continuation.split("/");
-            String instrumentCommand[] = continuation.split(" ");
+            String[] splitInstrument = continuation.split("/");
+            String[] instrumentCommand = continuation.split(" ");
             int instrumentIndex;
             String instrumentIndexAndName;
             switch (instrumentCommand[0]) {
-                case "add":
-                    instrumentIndex = instruments.addInstrument(splitInstrument[1]);
-                    instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
-                    ui.instrumentAdded(instrumentIndexAndName);
-                    break;
-                case "service":
-                    instrumentIndex = Integer.parseInt(instrumentCommand[1]);
-                    EventDate inputDate = new EventDate(splitInstrument[2]);
-                    int serviceIndex = instruments.service(instrumentIndex, inputDate, splitInstrument[1]);
-                    instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
-                    String serviceIndexAndName = instruments.getIndexAndService(instrumentIndex, serviceIndex);
-                    ui.serviceAdded(serviceIndexAndName, instrumentIndexAndName);
-                    break;
-                case "view":
-                    switch (instrumentCommand[1]) {
-                        case "instruments":
-                            String listOfInstruments = instruments.getInstruments();
-                            ui.printInstruments(listOfInstruments);
-                            break;
-                        case "services":
-                            instrumentIndex = Integer.parseInt(instrumentCommand[2]);
-                            String listOfServices = instruments.getInstrumentServiceInfo(instrumentIndex);
-                            instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
-                            ui.printServices(listOfServices, instrumentIndexAndName);
-                            break;
-                    }
-                    break;
+            case "add":
+                instrumentIndex = instruments.addInstrument(splitInstrument[1]);
+                instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+                ui.instrumentAdded(instrumentIndexAndName);
+                break;
+            case "service":
+                instrumentIndex = Integer.parseInt(instrumentCommand[1]);
+                EventDate inputDate = new EventDate(splitInstrument[2]);
+                int serviceIndex = instruments.service(instrumentIndex, inputDate, splitInstrument[1]);
+                instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+                String serviceIndexAndName = instruments.getIndexAndService(instrumentIndex, serviceIndex);
+                ui.serviceAdded(serviceIndexAndName, instrumentIndexAndName);
+                break;
+            case "view":
+                switch (instrumentCommand[1]) {
+                    case "instruments":
+                        String listOfInstruments = instruments.getInstruments();
+                        ui.printInstruments(listOfInstruments);
+                        break;
+                    case "services":
+                        instrumentIndex = Integer.parseInt(instrumentCommand[2]);
+                        String listOfServices = instruments.getInstrumentServiceInfo(instrumentIndex);
+                        instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+                        ui.printServices(listOfServices, instrumentIndexAndName);
+                        break;
+                }
+                break;
             }
         } catch (IndexOutOfBoundsException e) {
             ui.printNoSuchEvent();
@@ -800,7 +857,7 @@ public class Command {
             ui.printReminderDays(events, 3);
             return;
         }
-        String instrumentCommand[] = continuation.split(" ");
+        String[] instrumentCommand = continuation.split(" ");
         if (instrumentCommand.length > 1) {
             ui.printInvalidCommand();
             return;
