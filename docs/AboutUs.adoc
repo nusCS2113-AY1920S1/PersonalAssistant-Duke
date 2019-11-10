@@ -21,7 +21,7 @@ Responsibilities: Developer Guide, Documentation, Architecture
 
 === Shaun
 image::shaun97.png[width="150", align="left"]
-{empty}[http://github.com/shaun97[github]] 
+{empty}[http://github.com/shaun97[github]]
 
 Role: Team Lead +
 Responsibilities:  Code Quality, User Guide, Unit Tests
@@ -30,7 +30,7 @@ Responsibilities:  Code Quality, User Guide, Unit Tests
 
 === Jun Liang
 image::nimiew.png[width="150", align="left"]
-{empty}[https://github.com/nimiew[github]] 
+{empty}[https://github.com/nimiew[github]] <<AY1920S1-CS2113-T16-2-AngJunLiangPPP#, Developer Guide>>
 
 Role: Developer +
 Responsibilities: Unit Tests, Logic, Github Expert
