@@ -31,22 +31,22 @@ public class ViewCommandTest {
     }
 
     @Test
-    public void execute_positiveOverall_positive() {
+    public void execute_positiveOverall_negative() {
         DollaData dollaData = new DollaDataEntryStub1();
         LocalDate inputDate = LocalDate.parse("1111-11-11");
         ViewDateCommand viewCommand = new ViewDateCommand(inputDate);
         viewCommand.execute(dollaData);
-        double expectedSum = 200 - 100;
+        double expectedSum = 100 - 200;
         assertEquals(expectedSum, viewCommand.getSum());
     }
 
     @Test
-    public void execute_positiveOverall_negative() {
+    public void execute_positiveOverall_positive() {
         DollaData dollaData = new DollaDataEntryStub2();
         LocalDate inputDate = LocalDate.parse("1111-11-11");
         ViewDateCommand viewCommand = new ViewDateCommand(inputDate);
         viewCommand.execute(dollaData);
-        double expectedSum = 100 - 200;
+        double expectedSum = 200 - 100;
         assertEquals(expectedSum, viewCommand.getSum());
     }
 
