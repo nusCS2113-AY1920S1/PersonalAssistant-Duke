@@ -66,7 +66,7 @@ public class AddRoomCommand extends Command {
         Room addroom = new Room(roomcode, dateStartTime, endTime);
         boolean clash = RoomList.checkRoom(roomList, roomcode, dateStartTime, endTime);
         if (clash) {
-            throw new DukeException(Constants.UNHAPPY
+            throw new DukeException(":-("
                     + " OOPS!!! This room is already added, please add another one.");
         }
         roomList.add(addroom);

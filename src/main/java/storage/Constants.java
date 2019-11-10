@@ -16,7 +16,7 @@ public class Constants {
     public static final String INVALIDDATETIME = "Please enter a valid date or time.";
     public static final String ADDROOMFORMAT = "Please enter the following to add a room:\n"
             + "addroom ROOMCODE /date DD/MM/YYYY HHMM /to HHMM.\n";
-    public static final String WRONGDATETIMEFORMAT = "Please enter correct date and start-time for the room.";
+    public static final String WRONGDATETIMEFORMAT = "Please enter valid date and start-time for the room.";
     public static final String NOSTARTENDTIME = "Please enter a start/end time for the room.";
     public static final String UNHAPPY = ":-(";
 }

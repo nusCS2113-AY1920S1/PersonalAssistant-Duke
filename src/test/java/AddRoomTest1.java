@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //@@author zkchang97
 public class AddRoomTest1 {
 
+    // Test for correct parameter values after instantiating a new Room
     @Test
     void addRoomTest() throws DukeException {
         String roomcode = "SR4";
