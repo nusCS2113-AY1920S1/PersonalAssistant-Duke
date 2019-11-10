@@ -95,7 +95,7 @@ public class PatientUtils {
             results.addAll(patient.findImpressionsByName(searchTerm));
         } else if ("critical".equals(type)) {
             results.addAll(patient.findCriticalsByName(searchTerm));
-        } else {
+        } else if ("followup".equals(type)) {
             results.addAll(patient.findFollowUpsByName(searchTerm));
         }
 
