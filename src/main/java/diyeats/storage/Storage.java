@@ -15,7 +15,7 @@ import java.util.ArrayList;
 //@@author Fractalisk
 
 /**
- * Storage is a public class, a storage class encapsulates the filePath to read from disk and write to disk.
+ * Storage is a public class that handles all file I/O during application runtime.
  */
 public class Storage {
     private Load loader;
@@ -23,7 +23,11 @@ public class Storage {
     private int stage = 0;
     private boolean isMealDone = false;
 
+    /**
+     * Constructor for Storage.
+     */
     public Storage() {
+        //sets gson to generate json with indentation, and use custom typeAdapter for Localdate
         Gson gson = new GsonBuilder().setPrettyPrinting()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 
@@ -32,7 +36,9 @@ public class Storage {
     }
 
     /**
-     * This is a function that will load all info required to initialize a MealList object.
+     * Load all info required to initialize a MealList object from input/output file.
+     * @param meals the MealList object ot be initialized
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
     public void loadMealInfo(MealList meals) throws ProgramException {
         switch (stage) {
@@ -56,7 +62,9 @@ public class Storage {
     }
 
     /**
-     * This is a function that will load user info from user.txt.
+     * Load user info from the input/output file.
+     * @return an instance of User
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
     public User loadUser() throws ProgramException {
         User user = loader.loadUser();
@@ -65,60 +73,92 @@ public class Storage {
     }
 
     /**
-     * This is a function that will load all the words to be autocorrected to.
+     * Load all the words to be autocorrected to from the input/output file.
+     * @param autocorrect autocorrect object to be loaded with correctable words
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
     public void loadWord(Autocorrect autocorrect) throws ProgramException {
         loader.loadAutoCorrect(autocorrect);
     }
 
+    /**
+     * Load relevant help file from input/output file.
+     * @param lines container used to store content from help file
+     * @param specifiedHelp type of help requested
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
+     */
     public void loadHelp(ArrayList<String> lines, String specifiedHelp) throws ProgramException {
         loader.loadHelp(lines, specifiedHelp);
     }
 
+    /**
+     * Load all transactions to wallet from input/output file.
+     * @param wallet container to store transactions
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
+     */
     public void loadTransactions(Wallet wallet) throws ProgramException {
         loader.loadTransactions(wallet);
     }
 
     /**
-     * This is a function that will update the input/output file from the current arraylist of meals.
-     * @param meals the structure that will store the tasks from the input file
+     * Write meal records to the input/output file.
+     * @param meals container storing meal records
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
-    //TODO: maybe we can put the errors in the ui file
-    public void updateFile(MealList meals) throws ProgramException {
+    public void writeFile(MealList meals) throws ProgramException {
         writer.writeFile(meals);
     }
 
-    public void updateExercises(MealList meals) throws ProgramException {
+    /**
+     * Write exercise records to the input/output file.
+     * @param meals container storing exercise records
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
+     */
+    public void writeExercises(MealList meals) throws ProgramException {
         writer.writeExercises(meals);
     }
 
     /**
-     * This is a function that will write data from a MealList object to the defaultitems save file.
+     * Write default meal values to the input/output file.
+     * @param meals container storing default meal values
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
-    public void updateDefaults(MealList meals) throws ProgramException {
+    public void writeDefaults(MealList meals) throws ProgramException {
         writer.writeDefaults(meals);
     }
 
     /**
-     * This is a function that will write data from a MealList object to the goals save file.
+     * Write goal to the input/output file.
+     * @param user container storing goal
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
-    public void updateGoal(User user) throws ProgramException {
+    public void writeGoal(User user) throws ProgramException {
         writer.writeGoal(user);
     }
 
     /**
-     * This is a function that will store the user information into a file.
-     * @param user the user class that contains all personal information to be stored.
+     * Write user information to input/output file.
+     * @param user container storing user information
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
-    public void updateUser(User user) throws ProgramException {
+    public void writeUser(User user) throws ProgramException {
         writer.writeUser(user);
     }
 
-    public void updateTransaction(Wallet wallet) throws ProgramException {
+    /**
+     * Write transactions to the input/output file.
+     * @param wallet container storing transactions
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
+     */
+    public void writeTransaction(Wallet wallet) throws ProgramException {
         writer.writeTransaction(wallet);
     }
 
-    public boolean getMealDone() {
+    /**
+     * Getter for isMealDone.
+     * @return true if meallist object is completely loaded, false otherwise
+     */
+    public boolean isMealDone() {
         return this.isMealDone;
     }
 }

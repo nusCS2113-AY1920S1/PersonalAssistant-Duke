@@ -7,14 +7,22 @@ import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
 
+//@@author Fractalisk
+
+/**
+ * AddExerciseCommand is a public class that inherits from abstract class Command.
+ * An AddExerciseCommand object encapsulates exerciseNameStr and exerciseValueInt, which is added to ExerciseList
+ * This class adds a suggestable exercise, not an exercise to a date.
+ */
 public class AddExerciseCommand extends Command {
 
     private String exerciseNameStr;
     private int exerciseValueInt;
 
     /**
-     * Constructor for AddExerciseCommand.
-     *
+     * Constructor for addExerciseCommand.
+     * @param exerciseNameStr name of the exercise to be added
+     * @param exerciseValueInt MET value of exercise to be added
      */
     public AddExerciseCommand(String exerciseNameStr, int exerciseValueInt) {
         this.exerciseNameStr = exerciseNameStr;
@@ -40,10 +48,10 @@ public class AddExerciseCommand extends Command {
         exerciseList.addStoredExercises(this.exerciseNameStr, this.exerciseValueInt);
         meals.setExerciseList(exerciseList);
         try {
-            storage.updateExercises(meals);
+            storage.writeExercises(meals);
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
-        ui.showMessage("The addexercise command is successful!");
+        ui.showMessage("The add exercise command is successful!");
     }
 }

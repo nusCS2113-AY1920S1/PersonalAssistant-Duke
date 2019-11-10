@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 //@@author
+
 /**
  * This is a class that will store user information to be used for processing.
  */

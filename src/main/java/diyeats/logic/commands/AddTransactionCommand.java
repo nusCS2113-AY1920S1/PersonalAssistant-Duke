@@ -46,7 +46,7 @@ public class AddTransactionCommand extends Command {
         ui.showLine();
         wallet.getTransactions().addTransaction(this.transaction);
         wallet.updateAccountBalance(this.transaction);
-        storage.updateTransaction(wallet);
+        storage.writeTransaction(wallet);
         ui.showTransactionAdded(this.transaction, wallet.getAccountBalance());
         ui.showLine();
     }

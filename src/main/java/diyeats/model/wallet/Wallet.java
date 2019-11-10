@@ -2,6 +2,8 @@ package diyeats.model.wallet;
 
 import java.math.BigDecimal;
 
+//@@author GaryStu
+
 public class Wallet {
     private TransactionList transactions = new TransactionList();
     private Account account = new Account();

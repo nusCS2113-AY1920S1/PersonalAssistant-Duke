@@ -39,9 +39,8 @@ public class Load {
     }
 
     /**
-     * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
-     * to be added in that MealList.
-     * @throws ProgramException if either the object is unable to open file or it is unable to read the file
+     * Loads all meal records from save file to MealList object.
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
     public void loadMealListData(MealList meals) throws ProgramException {
         String userMealFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_MEALS_FILE);
@@ -60,9 +59,8 @@ public class Load {
     }
 
     /**
-     * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
-     * to be added in that MealList.
-     * @throws ProgramException if either the object is unable to open file or it is unable to read the file
+     * Loads all default meal values from save file to MealList object.
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
      */
     public void loadDefaultMealData(MealList meals) throws ProgramException {
         String defaultMealFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE);
@@ -80,6 +78,10 @@ public class Load {
         }
     }
 
+    /**
+     * Loads all exercise records and exercise types from save file to MealList object.
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
+     */
     public void loadExercises(MealList meals) throws ProgramException {
         String exercisesFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_EXERCISES_FILE);
         Type exerciseListType = new TypeToken<ExerciseList>(){}.getType();
@@ -95,6 +97,10 @@ public class Load {
         }
     }
 
+    /**
+     * Loads all previously established goal from savefile to user.
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
+     */
     public void loadGoals(User user) throws ProgramException {
         String goalFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_GOAL_FILE);
         Type goalType = new TypeToken<Goal>(){}.getType();
@@ -110,7 +116,10 @@ public class Load {
         }
     }
 
-
+    /**
+     * Loads all transaction data from savefile to wallet.
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
+     */
     public void loadTransactions(Wallet wallet) throws ProgramException {
         String transactionsFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_TRANSACTION_FILE);
         Type walletType = new TypeToken<Wallet>(){}.getType();
@@ -126,6 +135,11 @@ public class Load {
         }
     }
 
+    /**
+     * Loads all user data from savefile and returns a instance of user.
+     * @return the user object generated from savefile
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
+     */
     public User loadUser() throws ProgramException {
         String userFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_FILE);
         User data;
@@ -144,6 +158,11 @@ public class Load {
         }
     }
 
+    /**
+     * Loads all autocorrectable words from file into autocorrect.
+     * @param autocorrect the autocorrect object to be updated with autocorrectable words
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
+     */
     public void loadAutoCorrect(Autocorrect autocorrect) throws ProgramException {
         try {
             String autocorrectFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_AUTOCORRECT_FILE);
@@ -157,6 +176,12 @@ public class Load {
         }
     }
 
+    /**
+     * Parses a help file into an arrayList of Strings.
+     * @param lines the arrayList container to store the contents of the help file
+     * @param specifiedHelp the type of help requested
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
+     */
     public void loadHelp(ArrayList<String> lines, String specifiedHelp) throws ProgramException {
         BufferedReader bufferedReader = LoadHelpUtil.load(specifiedHelp);
         try {
@@ -169,6 +194,10 @@ public class Load {
         }
     }
 
+    /**
+     * This method is used for JUnit testing.
+     * Sets all filepaths to test directory.
+     */
     public void test() {
         filePaths.setTestPathConfigMap();
     }

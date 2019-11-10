@@ -14,6 +14,8 @@ import diyeats.ui.Ui;
 
 import java.util.Scanner;
 
+//@@author
+
 /**
  * Main is a public class that contains the main function to drive the program.
  * It encapsulates a Storage object, a MealList object, and an Ui object.
@@ -38,7 +40,7 @@ public class Main {
         autocorrect = new Autocorrect();
         wallet = new Wallet();
         storage = new Storage();
-        while (!storage.getMealDone()) {
+        while (!storage.isMealDone()) {
             try {
                 storage.loadMealInfo(meals);
             } catch (ProgramException e) {
@@ -75,7 +77,7 @@ public class Main {
         }
         user = setup.getUser();
         try {
-            storage.updateUser(user);
+            storage.writeUser(user);
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }

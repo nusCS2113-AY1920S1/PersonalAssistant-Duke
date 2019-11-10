@@ -40,7 +40,7 @@ public class UpdateNameCommand extends Command {
         user.setName(description);
         ui.showSuccess("name", description);
         try {
-            storage.updateUser(user);
+            storage.writeUser(user);
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }

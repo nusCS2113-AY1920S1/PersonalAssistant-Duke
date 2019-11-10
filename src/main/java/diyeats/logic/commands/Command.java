@@ -30,7 +30,9 @@ public abstract class Command {
     /**
      * This class is an abstract class that will change according to the inheritor.
      * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
      * @throws ProgramException when there is an error
      */
     public abstract void execute(MealList meals, Storage storage, User user, Wallet wallet) throws ProgramException;

@@ -3,6 +3,8 @@ package diyeats.model.meal;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+//@@author
+
 /**
  * dinner is a public class that inherits from abstract class meal.
  */

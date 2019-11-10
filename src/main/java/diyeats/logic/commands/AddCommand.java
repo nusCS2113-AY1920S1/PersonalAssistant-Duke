@@ -9,6 +9,8 @@ import diyeats.storage.Storage;
 
 import java.util.ArrayList;
 
+//@@author
+
 /**
  * AddCommand is a public class that inherits from abstract class Command.
  * An AddCommand object encapsulates the current meal that is to be added.
@@ -43,7 +45,7 @@ public class AddCommand extends Command {
             meals.addMeals(this.meal);
             ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
             ui.showAdded(this.meal, mealData, user, this.meal.getDate());
-            storage.updateFile(meals);
+            storage.writeFile(meals);
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }

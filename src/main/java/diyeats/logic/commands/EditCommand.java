@@ -40,7 +40,7 @@ public class EditCommand extends Command {
             updatedMeal = meals.updateMeal(updatedMeal);
             LocalDate date = updatedMeal.getDate();
             ui.showUpdated(this.updatedMeal, meals.getMealsList(this.updatedMeal.getDate()), user, date);
-            storage.updateFile(meals);
+            storage.writeFile(meals);
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }

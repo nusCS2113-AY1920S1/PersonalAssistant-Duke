@@ -48,7 +48,7 @@ public class ClearCommand extends Command {
         }
         ui.showCleared(dateFormat.format(startDate), dateFormat.format(endDate));
         try {
-            storage.updateFile(meals);
+            storage.writeFile(meals);
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
