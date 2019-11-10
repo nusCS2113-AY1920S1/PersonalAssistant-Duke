@@ -11,6 +11,7 @@ import task.TaskList;
 import ui.UI;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,7 +31,7 @@ class SearchCommandTest {
     private PrintStream originalOut = System.out;
     private DegreeManager degreesManager = new DegreeManager();
 
-    SearchCommandTest() throws DukeException {
+    SearchCommandTest() throws DukeException, IOException {
     }
 
     @BeforeEach

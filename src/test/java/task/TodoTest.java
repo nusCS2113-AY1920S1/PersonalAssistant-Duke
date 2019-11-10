@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class TodoTest {
     private Todo testTodo = new Todo("Sleep");
-    private Todo testTodoOverload = new Todo("0", "Sleep");
+    private Todo testTodoOverload = new Todo("T","0", "Sleep");
 
     TodoTest() throws DukeException {
     }
