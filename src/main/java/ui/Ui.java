@@ -308,7 +308,7 @@ public class Ui {
         } else {
             return "Here are the commands for WordUp.\n"
                     + "add, delete, edit, exit, freq, help, history, list, list_tags"
-                    + " schedule, search, search_begin, search_syn, search_tag, tag, addsyn, quiz\n"
+                    + " schedule, search, search_begin, search_syn, search_tag, tag, addsyn, quiz, add_example\n"
                     + "Enter \"help [command]\" for more details.";
         }
     }
@@ -324,7 +324,7 @@ public class Ui {
         String s = ("What is the meaning of " + question + "?\n");
         int index = 1;
         for (int i = optionSequence; i < optionSequence + 4; i++) {
-            s += (index + "." + options[i % 4] + "  ");
+            s += (index + "." + options[i % 4] + " \n");
             index++;
         }
         s += "\n";
@@ -339,9 +339,9 @@ public class Ui {
      */
     public String quizResponse(Boolean isCorrect, String answer) {
         if (isCorrect) {
-            return ("Yes!! The correct answer is \"" + answer + "\".");
+            return ("Yes!! The correct answer is \"" + answer + "\".\n");
         } else {
-            return ("Sorry, The answer is \"" + answer + "\".");
+            return ("Sorry, The answer is \"" + answer + "\".\n");
         }
     }
 
@@ -353,20 +353,24 @@ public class Ui {
      * @return a string shown
      */
     public String quizIncorrect(Integer wrongQuiz, Integer countQuiz, ArrayList<String> quizArray) {
+        String correctAnswer = "";
+        for (int i = 0; i < quizArray.size(); i++) {
+            correctAnswer += "- " + quizArray.get(i) + "\n";
+        }
         if (wrongQuiz == 0) {
             return ("Congratulations! You got "
                     + (countQuiz - wrongQuiz)
                     + "/" + countQuiz
                     + " on this quiz!\n"
-                    + "type exit_quiz to exit.");
+                    + "type exit_quiz to exit.\n\n");
         } else {
             return ("You got " + (countQuiz - wrongQuiz)
                     + "/"
                     + countQuiz
                     + " on this quiz!\n"
                     + "These are the words you might want to review:\n"
-                    + quizArray
-                    + "\ntype exit_quiz to exit.");
+                    + correctAnswer
+                    + "\ntype exit_quiz to exit.\n\n");
         }
     }
 
