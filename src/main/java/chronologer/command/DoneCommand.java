@@ -11,7 +11,7 @@ import chronologer.ui.UiMessageHandler;
  * Marks a task as complete or done.
  *
  * @author Sai Ganesh Suresh
- * @version v1.3
+ * @version v1.4
  */
 public class DoneCommand extends Command {
     private int indexOfTask;
