@@ -140,11 +140,11 @@ public class Parser {
         try {
             int parsedInt = Integer.parseInt(input);
             if (parsedInt < 0) {
-                throw new RimsException("Please use a valid non-negative integer value!");
+                throw new RimsException("Please specify an integer value that is valid & non-negative!");
             }
             return parsedInt;
         } catch (NumberFormatException e) {
-            throw new RimsException("Please use a valid non-negative integer value!");
+            throw new RimsException("Please specify an integer value that is valid & non-negative!");
         }
     }
 
@@ -339,7 +339,7 @@ public class Parser {
             }
             int qty = parseInt(input.substring(qtyIndex + 6, idIndex).trim());
             if (qty == 0) {
-                throw new RimsException("Please use a valid integer value above zero!");
+                throw new RimsException("Please specify a valid integer value above zero!");
             }
             int byIndex = input.indexOf(" /by");
             if (byIndex == -1) {
@@ -419,7 +419,7 @@ public class Parser {
             }
             int qty = parseInt(input.substring(qtyIndex + 6, idIndex).trim());
             if ( qty <= 0 ){
-                throw new RimsException("Please use a valid integer value above zero!");
+                throw new RimsException("Please specify a valid integer value above zero!");
             }
             int fromIndex = input.indexOf(" /from");
             if (fromIndex == -1) {
