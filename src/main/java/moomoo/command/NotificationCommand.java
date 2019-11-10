@@ -14,6 +14,7 @@ public class NotificationCommand extends Command {
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_YELLOW = "\u001B[33m";
+    private String message = "";
 
     /**
      * Alerts user if user exceeded the budget.
@@ -74,7 +75,12 @@ public class NotificationCommand extends Command {
                 + "     (6___6)         | " + "Budget remaining : " + balance + blank2 + "|\n"
                 + "      `---`          .-------------------------------------------------." + reset;
         Ui.setOutput(cow);
-        Ui.showResponse();
+        message = cow;
+        //Ui.showResponse();
+    }
+
+    public String getMesage() {
+        return message;
     }
 }
 

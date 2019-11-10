@@ -78,6 +78,11 @@ public class MooMoo {
         String todaySchedule = calendar.showSchedule(date);
         Ui.setOutput(todaySchedule);
         Ui.showResponse();
+
+        String helpMessage = "Start managing your money! Or type <help> to get started.\n";
+        Ui.setOutput(helpMessage);
+        Ui.showResponse();
+
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -126,7 +131,7 @@ public class MooMoo {
      * Runs MooMoo.
      * @param args Argument values given when running the program
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         new MooMoo().run();
     }
 }

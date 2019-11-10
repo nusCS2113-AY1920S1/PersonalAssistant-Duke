@@ -42,6 +42,10 @@ public class Ui {
         output = myOutput;
     }
 
+    /**
+     * Gets output for testing purposes.
+     * @return testOutput
+     */
     public static String getTestOutput() {
         return testOutput;
     }
@@ -97,7 +101,7 @@ public class Ui {
      */
     public static String printException(MooMooException e) {
         if (!e.getMessage().isBlank()) {
-            output = ANSI_RED + e.getMessage() + ANSI_RESET;
+            output = ANSI_RED + e.getMessage() + ANSI_RESET + "\n";
         }
         return output;
     }
@@ -179,7 +183,7 @@ public class Ui {
         testOutput = box;
 
         box = box.concat(getCow());
-        setOutput(box);
+        setOutput(box + "\n");
     }
 
     /**
@@ -211,7 +215,7 @@ public class Ui {
         testOutput = list;
 
         list = list.concat(getCow());
-        setOutput(list);
+        setOutput(list + "\n");
     }
 
     /**
@@ -245,5 +249,9 @@ public class Ui {
                 + "            (__)\\       )\\/\\\n"
                 + "                ||----w |\n"
                 + "                ||     ||\n";
+    }
+
+    public static void setTestOutput(String output) {
+        testOutput = output;
     }
 }

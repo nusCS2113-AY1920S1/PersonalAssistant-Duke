@@ -6,6 +6,7 @@ import moomoo.feature.Budget;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
+import moomoo.feature.category.Expenditure;
 import moomoo.feature.storage.Storage;
 import moomoo.feature.Ui;
 import moomoo.feature.MainDisplay;
@@ -35,6 +36,20 @@ public class SortCategoryCommand extends Command {
         int rows = newMainDisplay.getMaxCatSize(categoryList);
         String output = newMainDisplay.newToPrint(0,0,rows,cols,categoryList,budget);
         Ui.printMainDisplay(output);
+        setTestOutput(categoryList);
+    }
+
+    /**
+     * Sets the test output for testing purposes, shows the expenditures in the first category.
+     * @param categoryList category list
+     */
+    private void setTestOutput(CategoryList categoryList) throws MooMooException {
+        Category category = categoryList.get(0);
+        String output = "";
+        for (Expenditure entry : category.getCategory()) {
+            output = output.concat(entry.toString() + "\n");
+        }
+        Ui.setTestOutput(output);
     }
 
     /**
