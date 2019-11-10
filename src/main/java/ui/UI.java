@@ -161,8 +161,8 @@ public class UI {
         //keywords Command.
         helpMap.put("keywords", "Displays the degrees and their accepted keywords and aliases.\n"
                 + "Will also switch to the \"Keywords\" tabs.\n"
-                + "These keywords and aliases are compatible with the \"add\", \"detail\" command.\n"
-                + "Only KEYWORDS are compatible with the \"compare\" command.\n");
+                + "These keywords and aliases are compatible with the \"add\", \"detail\" and \"compare\" command.\n"
+                + "Only KEYWORDS are compatible with the \"view_employment\" and \"cohort_size\" command.\n");
     }
 
     /**
