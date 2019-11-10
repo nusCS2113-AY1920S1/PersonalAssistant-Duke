@@ -1,5 +1,5 @@
 package inventory;
-
+import java.util.*;
 import java.util.ArrayList;
 
 import exception.DukeException;
@@ -16,14 +16,24 @@ public class Inventory extends ArrayList<Item> {
      */
     public Inventory(ArrayList<String> loader) { //loads previous inventory data stored in text file
         for (String line : loader) {
-            String[] splitStr = line.split(" \\| ", 2);
-            this.add(new Item(splitStr[Constants.ITEMNAME], Integer.parseInt(splitStr[Constants.ITEMQTY])));
+            String[] splitStr = line.split(" \\| ", 3);
+            //this.add(new Item(splitStr[Constants.ITEMNAME], Integer.parseInt(splitStr[Constants.ITEMQTY])));
+            this.add(new Item(splitStr[Constants.ITEMRMCODE], splitStr[Constants.ITEMNAME],
+                    Integer.parseInt(splitStr[Constants.ITEMQTY])));
         }
     }
 
     public Inventory() {
         super();
     }
+
+    /**
+     * To sort the whole inventory according to Roomcode
+     */
+/*
+        System.out.println("\nSorted by rollno");
+        for (int i=0; i<ar.size(); i++)
+            System.out.println(ar.get(i));*/
 
     /**
      * To check if an item already exists in the current inventory.

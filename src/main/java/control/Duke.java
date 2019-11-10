@@ -123,4 +123,8 @@ public class Duke {
     public static UserList getUserList() {
         return userList;
     }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
 }
