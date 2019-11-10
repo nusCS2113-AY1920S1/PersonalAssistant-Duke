@@ -9,24 +9,6 @@ features of the application BetterDuke.
 - Introduction
 - Quick Start
 - Features
-   - Adding task: add
-   - Delete task: delete
-   - Listing all tasks: list
-   - Search for specific taskings using keywords: find
-   - Set reminder for upcoming task: remind
-   - Labeling task: label
-   - Set reminder for Todo tasks which have to be done within a certain period: todo reminder
-   - Viewing help : help
-   - Input recurring activities
-   - Exiting the program : bye
-   - Saving the data
-   - Strike off tasks and track the progress of the week (Coming in v1.4)
-   - Mark task as important : markAs (Coming in v1.4)
-   - Track the task completion rate (Coming in v1.4)
-   - Customise light and dark theme: custom (Coming in v1.4)
-   - Save file encryption (Coming in v2.0)
-   - Sync timetable with nusmods (Coming in v2.0)
-   - Sync timetable with external calendars (e.g. Google calendar) (Coming in v2.0)
 - FAQ
 - Command Summary
 
@@ -34,16 +16,15 @@ features of the application BetterDuke.
 # 1. Introduction
     Betterduke is a desktop application for NUS students with poor time management. 
     Students, more often than not, are on their laptops, hence Betterduke
-    will provide a convenient platform for students to toggle between checking their timetables and
-    scheduling their tasks. More importantly, Betterduke is optimized for those who
+    will provide a convenient platform for students to toggle between checking their timetables and scheduling their tasks. More importantly, Betterduke is optimized for those who
     prefer to work with a Command Line Interface (CLI) while still having the benefits
     of a Graphical User Interface (GUI). If you can type fast, Betterduke can
-    schedule your tasks faster than traditional GUI apps. ​ Enjoy!
+    schedule your tasks faster than traditional GUI apps.  Enjoy!
 # 2. Quick Start
     Ensure you have Java ​ 11 ​or above installed in your Computer.
     Installation guide:
        1. Download the latest jar file here
-   ​[JAR](https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/jar-release/v1.3.1.jar)
+   [JAR](https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/jar-release/v1.3.1.jar)
    
        2. Copy the file to the folder you want to use as the home folder for your
           Address Book.
@@ -58,35 +39,45 @@ features of the application BetterDuke.
        
         6. E.g. typing "help"  and pressing **Submit** will open the help window.
         7. Some example commands you can try:
-            a.     Show workload     ​ : show workload for following week’s timetable
-            b.     Filter CS2113T     ​ : show tasks which contains keyword
-               “CS2113T”
+            a.     show/workload     ​ : show workload for following week’s timetable
+            b.     show/filter CS2113T     ​ : show tasks which contains keyword “CS2113T”
             c.     bye     ​: exits the app
         Refer to [Features](#Features)​ for details of each command.
 
 
 # 3. Features
-   ## Command Format
-    Words in ​UPPER_CASE​ are the parameters to be supplied by the user   
-    e.g. in ​add\d MODCODE, DESCRIPTION​ is a parameter which can be used as   
-    ​add\d CS2101 tutorial 6
+   ## Things to note
+* Dates entered must be within NUS academic calendar (12/08/2019 to 01/12/2019)
+*  Please note that any events or deadline added before or after this period will not be shown on the GUI.
+* /by is used for all commands related to deadline
+* /at is used for all commands related to event
+* Multiple dateline can be added at the same date and time
+* Multiple events cannot be added at the same date and time
+
     
-  ##  3.1. Adding task: ​ add
+  ##  3.1. Adding task:  add
     Adds a task to the list
-      - Allow users to add in events or deadline, specifying NUS module code,
-      task description, date and time
-      - Clash detection added in the add function would inform user about 
-      an event happening at the same time and same day preventing clashes in schedules
+      - Allow users to add in events or deadline, specifying NUS module code,task description, date and time
+      - Clash detection added in the add function would inform user about an event happening at the same time and same day preventing clashes in schedules
       - Module code checker to ensure Module code added is valid
    
-      Format    
-       -for event : ​add/e Mod_Code TASK_DESCRIPTION /at
+ ### Format    
+* for event : ​add/e Mod_Code TASK_DESCRIPTION /at
        DATE(DD/MM/YYYY or week x day) /from TIME /to TIME
-       -for deadline :​add/d Mod_Code TASK_DESCRIPTION /by
+* for deadline :​add/d Mod_Code TASK_DESCRIPTION /by
        DATE(DD/MM/YYYY or week x day) TIME
-           Example:    
-       add/e CS2101 assignment /at 12/08/2019 /from 1200 /to
-       1300
+         
+### Example:
+ #### STEPS
+1. User: input command :add/e CS2101 assignment /at 12/08/2019 /from 1200 /to 1300
+  <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD-INPUT.png">
+2. System: Shows progress indicator
+  <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD-PROGRESS.png">
+3. System: Shows response
+   _Task will be added._
+    <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD-RESPONSE.png">
+
+
 ##    3.2. Done task: done
       Complete a task from the list
       Format: 

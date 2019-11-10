@@ -84,8 +84,10 @@ public class RecurringCommandTest {
 
     @Test
     public void addRecurringTaskClashesWithExistedEventTest() {
-        Command command = new RecurringCommand(description, dateBeforeStartDateString, endDateString, startTimeString, endTimeString, false, true);
-        String expected = "Sorry, you have conflicting events \n" + "1. [[E]][✘]CS2101 tutorial by Mon 14/10/2019 10:00 AM to 12:00 PM\n";
+        Command command = new RecurringCommand(description, dateBeforeStartDateString, endDateString, startTimeString,
+                endTimeString, false, true);
+        String expected = "Sorry, you have conflicting events \n" + "1. [[E]][✘]CS2101 tutorial by "
+                + "Mon 14/10/2019 10:00 AM to 12:00 PM\n";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -97,7 +99,8 @@ public class RecurringCommandTest {
 
     @Test
     public void removeRecurringTaskWithInvalidModCodeTest() {
-        Command command = new RecurringCommand("CS2030 tutorial", startDateString, endDateString, startTimeString, endTimeString, false, false);
+        Command command = new RecurringCommand("CS2030 tutorial", startDateString, endDateString,
+                startTimeString, endTimeString, false, false);
         String expected = "Sorry, you have no such mod in the system";
         String actual = "";
         try {
@@ -110,7 +113,8 @@ public class RecurringCommandTest {
 
     @Test
     public void removeRecurringTaskWithInvalidDateTest() {
-        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString, startTimeString, endTimeString, false, false);
+        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString,
+                startTimeString, endTimeString, false, false);
         String expected = "Sorry, you have no such date of the mod in the system";
         String actual = "";
         try {
@@ -123,7 +127,8 @@ public class RecurringCommandTest {
 
     @Test
     public void removeRecurringTaskWithInvalidTimingTest() {
-        Command command = new RecurringCommand(description, startDateString, endDateString, endTimeString, startTimeString, false, false);
+        Command command = new RecurringCommand(description, startDateString, endDateString, endTimeString,
+                startTimeString, false, false);
         String expected = "Sorry, you have no timing of the task in the system";
         String actual = "";
         try {
@@ -136,22 +141,25 @@ public class RecurringCommandTest {
 
     @Test
     public void addWeeklyRecurringCommandValidFormat() {
-        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString, startTimeString, endTimeString, false, true);
-        String expected = "Weekly recurring task: " + description + " has been added between " + endDateString + " and " + dateAfterEndDateString + "\n";
+        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString,
+                startTimeString, endTimeString, false, true);
+        String expected = "Weekly recurring task: " + description + " has been added between " + endDateString
+                + " and " + dateAfterEndDateString + "\n";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
-
         assertEquals(expected, actual);
     }
 
     @Test
     public void removeWeeklyRecurringCommandValidFormat() {
-        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString, startTimeString, endTimeString, false, false);
-        String expected = "Weekly recurring task: " + description + " has been removed between " + endDateString + " and " + dateAfterEndDateString + "\n";
+        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString,
+                startTimeString, endTimeString, false, false);
+        String expected = "Weekly recurring task: " + description + " has been removed between " + endDateString
+                + " and " + dateAfterEndDateString + "\n";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -164,8 +172,10 @@ public class RecurringCommandTest {
 
     @Test
     public void addBiweeklyRecurringCommandValidFormat() {
-        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString, startTimeString, endTimeString, true, true);
-        String expected = "Biweekly recurring task: " + description + " has been added between " + endDateString + " and " + dateAfterEndDateString + "\n";
+        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString,
+                startTimeString, endTimeString, true, true);
+        String expected = "Biweekly recurring task: " + description + " has been added between " + endDateString
+                + " and " + dateAfterEndDateString + "\n";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -177,8 +187,10 @@ public class RecurringCommandTest {
 
     @Test
     public void removeBiweeklyRecurringCommandValidFormat() {
-        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString, startTimeString, endTimeString, true, false);
-        String expected = "Biweekly recurring task: " + description + " has been removed between " + endDateString + " and " + dateAfterEndDateString + "\n";
+        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString,
+                startTimeString, endTimeString, true, false);
+        String expected = "Biweekly recurring task: " + description + " has been removed between " + endDateString
+                + " and " + dateAfterEndDateString + "\n";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);

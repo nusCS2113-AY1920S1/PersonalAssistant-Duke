@@ -2236,3 +2236,15 @@ SEVERE: DukeExceptions.DukeInvalidFormatException: ☹ OOPS!!! The time of an ev
 Please enter the time in a 24-hour time format
 Nov 09, 2019 12:27:25 AM Commons.Duke run
 SEVERE: DukeExceptions.DukeException: Sorry, you have no timing of the task in the system
+Nov 09, 2019 12:16:26 PM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 09, 2019 12:16:26 PM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 09, 2019 12:16:26 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 09, 2019 12:16:26 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 09, 2019 12:16:26 PM Commands.RetrievePreviousCommand execute
+SEVERE: Unable to parse string to integer
+Nov 09, 2019 12:16:27 PM Parser.RecurParse parse
+SEVERE: Invalid recur format
