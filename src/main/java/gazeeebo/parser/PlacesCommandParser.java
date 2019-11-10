@@ -17,9 +17,11 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.TreeMap;
 import java.util.HashMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PlacesCommandParser extends Command {
+    private static final Logger LOGGER = Logger.getLogger(PlacesCommandParser.class.getName());
     private final static String PLACES_COMMANDS = "__________________________________________________________\n"
             + "1. Add location: add-room,location\n"
             + "2. Find a place in SOC: find-place\n"
@@ -104,6 +106,7 @@ public class PlacesCommandParser extends Command {
             }
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             System.out.println(INVALID_INPUT);
+            LOGGER.log(Level.SEVERE,"invalid input", e);
         }
     }
 

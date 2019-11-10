@@ -38,7 +38,7 @@ public class PlacesDeleteCommandTest {
         Map<String, String> places = new TreeMap<String, String>(map);
         places.put("LT19", "COM5");
         ui.fullCommand = "delete-LT19";
-        DeletePlacesCommand test = new DeletePlacesCommand(ui, storage, places);
+        DeletePlacesCommand test = new DeletePlacesCommand(ui, places);
         assertEquals("Successfully deleted: LT19\r\n", output.toString());
     }
 
@@ -48,7 +48,7 @@ public class PlacesDeleteCommandTest {
         Map<String, String> places = new TreeMap<String, String>(map);
         places.put("LT19", "COM5");
         ui.fullCommand = "delete-LT30";
-        DeletePlacesCommand test = new DeletePlacesCommand(ui, storage, places);
+        DeletePlacesCommand test = new DeletePlacesCommand(ui, places);
         assertEquals("LT30 is not found in the list.\r\n", output.toString());
     }
 
@@ -58,7 +58,7 @@ public class PlacesDeleteCommandTest {
         Map<String, String> places = new TreeMap<String, String>(map);
         places.put("LT19", "COM5");
         ui.fullCommand = "delete";
-        DeletePlacesCommand test = new DeletePlacesCommand(ui, storage, places);
-        assertEquals("Incorrect format: delete-place\r\n", output.toString());
+        DeletePlacesCommand test = new DeletePlacesCommand(ui, places);
+        assertEquals("null is not found in the list.\r\n", output.toString());
     }
 }

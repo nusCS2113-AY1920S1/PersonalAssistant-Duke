@@ -37,7 +37,7 @@ public class PlacesAddCommandTest {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         ui.fullCommand = "add-Test,COM3";
-        AddPlacesCommand test = new AddPlacesCommand(ui, storage, places);
+        AddPlacesCommand test = new AddPlacesCommand(ui, places);
         assertEquals("Successfully added :Test,COM3\r\n", output.toString());
     }
 
@@ -46,7 +46,7 @@ public class PlacesAddCommandTest {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         ui.fullCommand = "add-TestCOM3";
-        AddPlacesCommand test = new AddPlacesCommand(ui, storage, places);
+        AddPlacesCommand test = new AddPlacesCommand(ui, places);
         assertEquals("Please Input in the correct format\r\n", output.toString());
     }
 }

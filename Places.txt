@@ -26,6 +26,7 @@ IS Teaching Lab|I3 03-37 (I3-0337)
 IT Security & OS Lab|COM1 B1-13 (COM1-B113)
 LT15|AS6 Level 1
 LT19|COM2 level 1
+LT30|COM23
 Logic and Microcomputer Lab(Hosted at Embedded Systems Teaching Lab 1)|COM1 01-14 (COM1-0114)
 Makers@SoC|COM1 02-02
 Media Studio|AS6 04-23
@@ -73,3 +74,4 @@ Video Conference Room (VC)|COM1 02-13 (COM1-VCRM)
 Workstation Lab 1|I3 03-39 (I3-0339)
 Workstation Lab 2|I3 03-38 (I3-0338)
 Workstation Lab 3|I3 03-36 (I3-0336)
+asd|aad

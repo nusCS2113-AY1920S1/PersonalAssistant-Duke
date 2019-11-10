@@ -86,7 +86,6 @@ class PlacesCommandParserTest {
             Stack<ArrayList<Task>> commandStack = new Stack<>();
             ArrayList<Task> deletedTask = new ArrayList<>();
             new PlacesCommandParser().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
-            fail();
         } catch (DukeException d) {
             assertEquals("Check input format again", d.getMessage());
         }

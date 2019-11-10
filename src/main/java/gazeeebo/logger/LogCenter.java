@@ -13,7 +13,7 @@ public class LogCenter {
         logger.addHandler(ch);
 
         try {
-            FileHandler fh = new FileHandler("gazeeeboLogger.txt", true);
+            FileHandler fh = new FileHandler("gazeeeboLogger.log", true);
             fh.setFormatter(new SimpleFormatter());
             fh.setLevel(Level.WARNING);
             logger.addHandler(fh);
