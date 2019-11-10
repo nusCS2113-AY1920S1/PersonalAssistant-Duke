@@ -149,6 +149,14 @@ public class UI {
                 + "Format of date is DD-MM-YYYY. \n\n"
                 + "Format: schedule <DD-MM-YYYY>\n"
                 + "Examples: schedule 01-01-1970 | schedule 18-05-2019\n");
+
+        //undo Command.
+        helpMap.put("undo", "Undoes the most recent command.\n"
+                + "This only works for commands that modify tasks or choices.\n");
+
+        //redo Command.
+        helpMap.put("redo", "Redoes the most recent undone command.\n"
+                + "This only works for commands that modify tasks or choices.\n");
     }
 
     /**
