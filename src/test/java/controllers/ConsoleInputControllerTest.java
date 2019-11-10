@@ -156,7 +156,11 @@ public class ConsoleInputControllerTest {
             projectRepository.deleteItem(1);
         }
         projectRepository.addToRepo("create Avengers");
-        String[] expectedOutput = new String[] {"Index out of bounds! Please check project index!"};
+        String[] expectedOutput = new String[] {"Error occurred! There could be three possibilities:",
+            "You could have attempted to delete a Project after renaming it's JSON file",
+            "You could have entered a Project index is out of bounds.",
+            "You could have attempted to delete the default Project loaded immediately. "
+                + "Do not panic if this was you. The default Project is deleted correctly"};
         String[] actualOutput = consoleInputController.onCommandReceived("delete 2");
         assertArrayEquals(expectedOutput, actualOutput);
         String[] actualOutput2 = consoleInputController.onCommandReceived("delete 0");

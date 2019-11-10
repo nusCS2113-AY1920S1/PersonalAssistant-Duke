@@ -140,8 +140,8 @@ public class ConsoleInputController implements IController {
                     return new String[]{"Error occurred! There could be three possibilities:",
                                         "You could have attempted to delete a Project after renaming it's JSON file",
                                         "You could have entered a Project index is out of bounds.",
-                                        "You could have attempted to delete the default Project loaded immediately. " +
-                                        "Do not panic if this was you. The default Project is deleted correctly"};
+                                        "You could have attempted to delete the default Project loaded immediately. "
+                                        + "Do not panic if this was you. The default Project is deleted correctly"};
                 }
             } catch (NumberFormatException err) {
                 return new String[]
