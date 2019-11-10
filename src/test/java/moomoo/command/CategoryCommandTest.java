@@ -55,23 +55,33 @@ class CategoryCommandTest {
         CategoryList categoryList = new CategoryList();
         Storage storage = new CategoryStorage();
 
-        categoryList.add(new Category("food"));
-        categoryList.add(new Category("2271    CG"));
-        DeleteCategoryCommand command = new DeleteCategoryCommand("food");
+        Command command = new AddCategoryCommand("food");
+        command.execute(calendar, budget, categoryList, storage);
+        command = new AddCategoryCommand("new stuff");
+        command.execute(calendar, budget, categoryList, storage);
+        command = new AddCategoryCommand("games");
         command.execute(calendar, budget, categoryList, storage);
 
+        command = new DeleteCategoryCommand(2);
+        command.execute(calendar, budget, categoryList, storage);
+        assertEquals(" __________________________________________________\n"
+                + "/ Mooo.                                            \\\n"
+                + "\\ Re-MOOO-ved category named : games               /\n"
+                + " --------------------------------------------------\n", Ui.getTestOutput());
+
+        command = new DeleteCategoryCommand("food");
+        command.execute(calendar, budget, categoryList, storage);
         assertEquals(" __________________________________________________\n"
                 + "/ Mooo.                                            \\\n"
                 + "\\ Re-MOOO-ved category named : food                /\n"
                 + " --------------------------------------------------\n", Ui.getTestOutput());
 
 
-        command = new DeleteCategoryCommand("2271    CG");
+        command = new DeleteCategoryCommand("new stuff");
         command.execute(calendar, budget, categoryList, storage);
-
         assertEquals(" __________________________________________________\n"
                 + "/ Mooo.                                            \\\n"
-                + "\\ Re-MOOO-ved category named : 2271    CG          /\n"
+                + "\\ Re-MOOO-ved category named : new stuff           /\n"
                 + " --------------------------------------------------\n", Ui.getTestOutput());
     }
 
