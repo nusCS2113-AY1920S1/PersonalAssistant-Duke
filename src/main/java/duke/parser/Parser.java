@@ -266,11 +266,9 @@ public class Parser {
             }
             newOrder = new Order();
             orderedDishes = splitter[1].substring(3).split(", ");
-        } else if (splitter[1].startsWith("-d ") && splitter[1].length() > 20) {
-            String[] dateAndDish = splitter[1].substring(3).split(" -n ", 2);
-            if (dateAndDish[0].length() != 10) {
-                throw new DukeException("Must enter a valid order date: dd/mm/yyyy");
-            }
+        } else if (splitter[1].startsWith("-d ")&&splitter[1].length()>17) {
+            String[] dateAndDish = splitter[1].substring(3).split(" -n ",2);
+            if (dateAndDish[0].length()!=10) { throw new DukeException("Must enter a valid order date: dd/mm/yyyy"); }
             orderDate = Convert.stringToDate(dateAndDish[0]);
             newOrder = new Order();
             newOrder.setDate(orderDate);
