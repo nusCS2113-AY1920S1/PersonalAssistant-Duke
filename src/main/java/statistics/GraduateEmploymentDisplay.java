@@ -7,7 +7,8 @@ import javax.swing.*;
 
 public class GraduateEmploymentDisplay {
     private static ArrayList<MyClass> Stats = new ArrayList<>();
-    public static ArrayList<MyClass> getStats(){
+
+    public static ArrayList<MyClass> getStats() {
         return Stats;
     }
 
@@ -17,14 +18,11 @@ public class GraduateEmploymentDisplay {
                 System.out.println(Stats.get(i).getB() + " " + Stats.get(i).getC());
             }
         }
-        BarChart_AWT chart = new BarChart_AWT("Employment Statistics",
-                "Employment Percentage", input);
-        chart.pack();
-        RefineryUtilities.centerFrameOnScreen(chart);
-        chart.setVisible(true);
+        final BarChart_AWT demo = new BarChart_AWT("Basic Mean Salary and Employment rates", input);
+        demo.pack();
+        RefineryUtilities.centerFrameOnScreen(demo);
+        demo.setVisible(true);
 
     }
-    
-    }
-
+}
 

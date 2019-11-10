@@ -22,15 +22,15 @@ public class NUSEventList {
     private static final Map<String, Integer> degreeMap;
     static {
         Map<String, Integer> aMap = new HashMap<>();
-        aMap.put("Biomedical Engineering", 0);
-        aMap.put("Chemical Engineering", 1);
-        aMap.put("Civil Engineering", 2);
-        aMap.put("Computer Engineering", 3);
-        aMap.put("Electrical Engineering", 4);
-        aMap.put("Environmental Engineering", 5);
-        aMap.put("Industrial Systems Engineering", 6);
-        aMap.put("Mechanical Engineering", 7);
-        aMap.put("Materials Science Engineering", 8);
+        aMap.put("BME", 0);
+        aMap.put("CHE", 1);
+        aMap.put("CIV", 2);
+        aMap.put("CEG", 3);
+        aMap.put("EE", 4);
+        aMap.put("ENV", 5);
+        aMap.put("ISE", 6);
+        aMap.put("ME", 7);
+        aMap.put("MSE", 8);
         degreeMap = Collections.unmodifiableMap(aMap);
     }
 
@@ -38,15 +38,46 @@ public class NUSEventList {
     private static final Map<String, String> aliasMap;
     static {
         Map<String, String> aMap = new HashMap<>();
-        aMap.put("Biomedical Engineering", "BME");
-        aMap.put("Chemical Engineering", "CHE");
-        aMap.put("Civil Engineering", "CIV");
-        aMap.put("Computer Engineering", "CEG");
-        aMap.put("Electrical Engineering", "EE");
-        aMap.put("Environmental Engineering", "ENV");
-        aMap.put("Industrial Systems Engineering", "ISE");
-        aMap.put("Mechanical Engineering", "ME");
-        aMap.put("Materials Science Engineering", "MSE");
+
+        aMap.put("biomedical engineering", "BME");
+        aMap.put("biomed", "BME");
+        aMap.put("biomedical", "BME");
+        aMap.put("bio eng", "BME");
+        aMap.put("bm", "BME");
+        aMap.put("bme", "BME");
+
+        aMap.put("chemical engineering", "CHE");
+        aMap.put("chem eng", "CHE");
+        aMap.put("che", "CHE");
+
+        aMap.put("cive", "CIV");
+        aMap.put("civil engineering", "CIV");
+        aMap.put("civil e", "CIV");
+        aMap.put("civil", "CIV");
+        aMap.put("civ", "CIV");
+
+        aMap.put("computer engineering", "CEG");
+        aMap.put("ceg", "CEG");
+        aMap.put("come", "CEG");
+
+        aMap.put("electrical engineering", "EE");
+        aMap.put("ee", "EE");
+        aMap.put("elece", "EE");
+
+        aMap.put("environmental engineering", "ENV");
+        aMap.put("enve", "ENV");
+        aMap.put("env", "ENV");
+
+        aMap.put("industrial and systems engineering", "ISE");
+        aMap.put("ise", "ISE");
+        aMap.put("ie", "ISE");
+
+        aMap.put("mechanical engineering", "ME");
+        aMap.put("mecheng", "ME");
+        aMap.put("me", "ME");
+
+        aMap.put("materials science and engineering", "MSE");
+        aMap.put("mse", "MSE");
         aliasMap = Collections.unmodifiableMap(aMap);
     }
 
@@ -79,14 +110,16 @@ public class NUSEventList {
      * @throws DukeException
      */
     public void addDegreeTasks (String degreeName, TaskList userTasklist) throws DukeException {
-        int n = fullDegreeTasklist.get(degreeMap.get(degreeName)).size();
+        String abbreviatedDegreeName = aliasMap.get(degreeName.toLowerCase());
+        int degreeID = degreeMap.get(abbreviatedDegreeName);
+        int n = fullDegreeTasklist.get(degreeID).size();
         if (n < 1){
             throw new DukeException("There are no tasks related to " + degreeName);
         }
         for (int i = 0; i < n; i++) {
-            Task toAppend = fullDegreeTasklist.get(degreeMap.get(degreeName)).get(i);
+            Task toAppend = fullDegreeTasklist.get(degreeID).get(i);
             if (!isDuplicate(toAppend, userTasklist)){
-                toAppend.setNusDegreeName(aliasMap.get(degreeName));
+                toAppend.setNusDegreeName(abbreviatedDegreeName);
                 userTasklist.add(toAppend);
             }
 
@@ -104,7 +137,7 @@ public class NUSEventList {
     public void removeDegreeTasks(String index, DegreeList userDegreeList, TaskList userTaskList) throws DukeException{
         Integer request = Integer.parseInt(index) - 1;
         String removedDegreeFull =  userDegreeList.get(request);
-        String removedDegreeAlias = aliasMap.get(removedDegreeFull);
+        String removedDegreeAlias = aliasMap.get(removedDegreeFull.toLowerCase());
         for (int i = (userTaskList.size()-1); i >= 0; i--){
             if(userTaskList.get(i).getNusDegreeName() == null){
                 continue;

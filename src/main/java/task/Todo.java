@@ -43,6 +43,7 @@ public class Todo extends Task {
         super(description);
         this.isDone = (1 == Integer.parseInt(bool));
         this.userDefinedPriority = (priority);
+        this.setNusDegreeName();
     }
 
     /**

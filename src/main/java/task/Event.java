@@ -59,6 +59,7 @@ public class Event extends Task {
         this.readDate(dueDate);
         this.isDone = (1 == Integer.parseInt(bool));
         this.userDefinedPriority = (priority);
+        this.setNusDegreeName();
     }
 
     /**

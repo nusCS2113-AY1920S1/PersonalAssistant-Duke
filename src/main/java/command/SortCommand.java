@@ -28,18 +28,25 @@ public class SortCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager mydegrees) throws DukeException {
+        if (tasks.size() < 1){
+            throw new DukeException("There are no tasks to sort!\n");
+        }
+        else if (tasks.size() < 2){
+            throw new DukeException("There are not enough tasks to sort!\n");
+        }
         TaskList tasksBuffer;
 
         tasksBuffer = tasks.deepClone();
         memento = new Memento(tasksBuffer);
-        if (tasks.size() == 0) {
-            throw new DukeException("There is nothing to sort!");
-        }
         if (this.arguments.matches("by priority")){
             tasks.sortbyPriority();
         }
         else if (this.arguments.matches("by date")){
             tasks.sortbyDate();
+        }
+
+        else if (this.arguments.matches("by degree")){
+            tasks.sortbyDegree(lists);
         } else {
             throw new DukeException("That is not a valid way to sort your tasks!\n" +
                     "Try typing:\n" +
