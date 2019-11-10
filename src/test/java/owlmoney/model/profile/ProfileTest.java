@@ -193,14 +193,7 @@ class ProfileTest {
                 3);
 
         Date newDate = new Date();
-        String expectedOutput = "Item No.             Bond Name                      "
-                + "Amount          Rate       Date of Purchase     Number of Years " + NEWLINE
-                + "-----------------------------------------------------------------------------"
-                + "----------------------------------------------------------------" + NEWLINE
-                + "1                    TEST BOND 2                    $1000.00        "
-                + "1.80       03 January 2019      3          " + NEWLINE
-                + "-----------------------------------------------------------------------------"
-                + "----------------------------------------------------------------" + NEWLINE;
+
         try {
             newDate = temp.parse("10/2/2019");
         } catch (ParseException error) {
@@ -222,6 +215,14 @@ class ProfileTest {
         } catch (BondException | BankException error) {
             System.out.println("Expected no throw, but error thrown");
         }
+        String expectedOutput = "Item No.             Bond Name                      "
+                + "Amount          Rate       Date of Purchase     Number of Years " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
+                + "1                    TEST BOND 2                    $1000.00        "
+                + "1.80       03 January 2019      3          " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(expectedOutput,outContent.toString());
     }
 
