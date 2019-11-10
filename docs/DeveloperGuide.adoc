@@ -685,6 +685,9 @@ The command `gradlew runShadow` will build the project as a jar file, and then r
 Using the command `checkstyleMain` will check for style violations in the *main* source code.
 Using the command `checkstyleTest` will check for style violations in the *test* source code.
 
+NOTE: The checkstyle settings can be configured by editing the `config/checkstyle/checkstyle.xml`
+file.
+
 
 [appendix]
 == Product Scope
