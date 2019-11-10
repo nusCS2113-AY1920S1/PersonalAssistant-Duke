@@ -9,7 +9,8 @@ public interface IStudentList {
 
     ArrayList<Student> getStudentList();
 
-    void getStudent(int i);
+    Student getStudent(int i);
 
     int getStudentListSize();
+
 }

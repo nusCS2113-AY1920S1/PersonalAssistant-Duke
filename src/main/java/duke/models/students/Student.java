@@ -1,5 +1,7 @@
 package duke.models.students;
 
+import java.util.ArrayList;
+
 /**
  * Represents a student.
  */
@@ -15,10 +17,9 @@ public class Student implements IStudent {
      */
     private String age;
 
-    /**
-     * Represents the address of the student.
-     */
     private String address;
+
+    private ArrayList<String> progressList;
 
     /**
      * Constructor for the students.
@@ -33,6 +34,7 @@ public class Student implements IStudent {
         this.name = myName;
         this.age = myAge;
         this.address = myAddress;
+        this.progressList = new ArrayList<>();
     }
 
     /**
@@ -114,5 +116,26 @@ public class Student implements IStudent {
         return getName() + "," + getAge() + "," + getAddress();
     }
 
+    /**
+     * This method is to add student progress.
+     * @param string description of progress.
+     */
+    public void addStudentProgress(String string) {
+        progressList.add(string);
+    }
+
+    /**
+     * To return te student progress.
+     * @return student progress.
+     */
+    public String getStudentProgress() {
+        StringBuilder temp = new StringBuilder();
+        int i = 1;
+        for (String s : progressList) {
+            temp.append(i + ". " + s + "\n");
+            i++;
+        }
+        return temp.toString();
+    }
 
 }
