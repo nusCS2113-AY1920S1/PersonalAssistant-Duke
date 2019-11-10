@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
         if (ingredientIndex <= fridge.numberOfIngredients() && ingredientIndex > 0) {
             Ingredient removed = fridge.useIngredient(ingredientIndex - 1);
             fs.update(); // updating the fridge storage
-            ui.showRemovedIngredient(removed.toString(), fridge.numberOfIngredients());
+            ui.showRemovedIngredient(removed.toStringNoWarning(), fridge.numberOfIngredients());
         } else {
             String errorMessage = "Enter a valid ingredient index number after delete, between 1 and " + fridge.numberOfIngredients();
             throw new DukeException(errorMessage);

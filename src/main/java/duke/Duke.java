@@ -2,7 +2,7 @@ package duke;
 
 import duke.command.Command;
 import duke.command.ViewTodoListCommand;
-import duke.command.ingredientCommand.ExitCommand;
+import duke.command.ExitCommand;
 import duke.command.ingredientCommand.RemoveAllExpired;
 import duke.dish.DishList;
 import duke.exception.DukeException;
