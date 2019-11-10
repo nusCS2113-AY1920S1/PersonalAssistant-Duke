@@ -1,3 +1,6 @@
 0.0
-
-out $4.55/date 2019-10-10 
+-
+out $4.0 /date 2019-11-10 /tags food
+out $6.0 /date 2019-11-09 /tags others
+out $100.0 /date 2019-01-01 /tags check
+out $50.0 /date 2097-01-01 /tags future
