@@ -15,8 +15,9 @@ import java.util.logging.Logger;
 public class DoneCommand extends Command {
     private static final Logger logger = LogUtils.getLogger(DoneCommand.class);
     public static final String MESSAGE_USAGE = "done\n\t"
-        + "Format: done /id <num>\n\n\t"
+        + "Format: done /id <num> /status [Y|N]\n\n\t"
         + "Note: content in \"<>\": need to be fulfilled by the user\n\n"
+        + "Y is for marking a task as done, N for unmarking a task\n\n"
         + "This command will mark a task as done\n"
         + "Examples:\n\t"
         + "done /id 1 /status Y\n\t\t"
