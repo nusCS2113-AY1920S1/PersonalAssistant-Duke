@@ -235,8 +235,8 @@ public class QuizSession implements QuizManager {
      */
     private void checkAnswer(int index, String input) throws CakeException {
         if (!isNumeric(input)) {
-            String userWarning = "[!] Please input answers in the form of integer [!]\n";
-            JavaCake.logger.log(Level.WARNING, "User entered non-numeric input");
+            String userWarning = "[!] Please input answers in the form of a valid integer [!]\n";
+            JavaCake.logger.log(Level.WARNING, "User entered non-valid input");
             throw new CakeException(userWarning);
         }
         if (questionList.setAndCheckUserAnswer(index, input)) {

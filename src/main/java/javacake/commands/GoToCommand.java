@@ -27,10 +27,10 @@ public class GoToCommand extends Command {
 
         if (inputDivider.length == 1) { // no goto index
             throw new CakeException("Please specify the index you wish to go!");
-        } else {
-            gotoIndex = inputDivider[1];
         }
+        gotoIndex = inputDivider[1];
         if (gotoIndex.matches("\\d+")) { //check if input is numeric
+            checkOverflow(gotoIndex);
             indexQueue.add(gotoIndex);
         } else {
             processMultipleIndexes(gotoIndex);
@@ -42,8 +42,11 @@ public class GoToCommand extends Command {
      * Queues the index when multiple indexes are detected.
      * @param gotoIndex Index user wants to view.
      */
-    private void processMultipleIndexes(String gotoIndex) {
+    private void processMultipleIndexes(String gotoIndex) throws CakeException {
         String[] buffer = gotoIndex.split("\\.");
+        for (int i = 0; i < buffer.length; i++) {
+            checkOverflow(buffer[i]);
+        }
         indexQueue.addAll(Arrays.asList(buffer));
     }
 
@@ -139,6 +142,14 @@ public class GoToCommand extends Command {
                 break;
             }
             return response;
+        }
+    }
+
+    private void checkOverflow(String input) throws CakeException {
+        try {
+            Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new CakeException("Please input valid index!");
         }
     }
 }
