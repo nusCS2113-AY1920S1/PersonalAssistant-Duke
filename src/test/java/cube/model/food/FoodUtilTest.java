@@ -14,6 +14,7 @@ public class FoodUtilTest {
     private class FoodStub extends Food {
         String name;
         int stock;
+        double price;
         Date date;
 
         public FoodStub(){
@@ -24,6 +25,9 @@ public class FoodUtilTest {
         }
         public FoodStub(int stock) {
             this.stock = stock;
+        }
+        public FoodStub(double price) {
+            this.price = price;
         }
         public FoodStub(Date date) {
             this.date = date;
@@ -36,6 +40,10 @@ public class FoodUtilTest {
         @Override
         public int getStock() {
             return stock;
+        }
+        @Override
+        public double getPrice() {
+            return price;
         }
         @Override
         public Date getExpiryDate() {
@@ -62,6 +70,20 @@ public class FoodUtilTest {
         FoodStub f1 = new FoodStub(-1);
         FoodStub f2 = new FoodStub(1);
         SortByStock sort = new SortByStock();
+        int smaller = sort.compare(f1, f2);
+        int larger = sort.compare(f2, f1);
+        int equal = sort.compare(f1, f1);
+        assertEquals(smaller, -1);
+        assertEquals(larger, 1);
+        assertEquals(equal, 0);
+        assertFalse(sort.compare(f1, f2) == 0);
+    }
+
+    @Test
+    public void SortByPriceTest() {
+        FoodStub f1 = new FoodStub(-1d);
+        FoodStub f2 = new FoodStub(1d);
+        SortByPrice sort = new SortByPrice();
         int smaller = sort.compare(f1, f2);
         int larger = sort.compare(f2, f1);
         int equal = sort.compare(f1, f1);

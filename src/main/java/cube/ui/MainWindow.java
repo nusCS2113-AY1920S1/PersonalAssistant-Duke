@@ -4,10 +4,12 @@ import cube.exception.CubeException;
 import cube.logic.command.Command;
 import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
+import cube.logic.parser.ParserUtil;
 import cube.model.ModelManager;
 import cube.model.food.Food;
 import cube.storage.ConfigStorage;
 import cube.storage.StorageManager;
+import cube.storage.config.UiConfig;
 import cube.util.FileUtilJson;
 import cube.util.LogUtil;
 import javafx.fxml.FXML;
@@ -92,7 +94,7 @@ public class MainWindow extends UiManager<Stage> {
         overviewDisplay = new OverviewDisplay(storageManager.getFoodList().size(), Food.getRevenue(), Food.getRevenue());
         overviewDisplayPlaceholder.getChildren().add(overviewDisplay.getRoot());
 
-        listPanel = new ListPanel(storageManager.getFoodList(), this::executeEdit, this::executeDelete);
+        listPanel = new ListPanel(storageManager.getFoodList(), this::executeSell, this::executeEdit);
         listPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         statusBar = new StatusBar(storage.getFileFullPath());
@@ -104,11 +106,16 @@ public class MainWindow extends UiManager<Stage> {
         double windowWidth = configStorage.getUiConfig().getWindowWidth();
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double maxHeight = primaryScreenBounds.getHeight();
+        double maxWidth = primaryScreenBounds.getWidth();
 
-        if (windowHeight >= primaryStage.getMinHeight() && windowHeight <= primaryScreenBounds.getHeight()) {
+        UiConfig.setMaxWindowHeight(maxHeight);
+        UiConfig.setMaxWindowWidth(maxWidth);
+
+        if (windowHeight >= primaryStage.getMinHeight() && windowHeight <= maxHeight) {
             primaryStage.setHeight(windowHeight);
         }
-        if (windowWidth >= primaryStage.getMinWidth() && windowWidth <= primaryScreenBounds.getWidth()) {
+        if (windowWidth >= primaryStage.getMinWidth() && windowWidth <= maxWidth) {
             primaryStage.setWidth(windowWidth);
         }
     }
@@ -140,6 +147,7 @@ public class MainWindow extends UiManager<Stage> {
             logger.info("Command Entered : " + command);
             Command c = Parser.parse(command);
             CommandResult result = c.execute(modelManager, storageManager);
+
             resultDisplay.setResultText(result.getFeedbackToUser());
             // Updates GUI components
             listPanel.updateProductList(storageManager.getFoodList());
@@ -166,14 +174,16 @@ public class MainWindow extends UiManager<Stage> {
 
     private void executeEdit(int index) {
         Food food = storageManager.getFoodList().get(index - 1);
+        String command = "update %1$s -t %2$s -p %3$s -s %4$s -e %5$s";
 
-        String command = "edit -i %1$s -n %2$s -t %3$s -p %4$s -s %5$s -e %6$s";
-        commandBox.setCommandText(String.format(command, index, food.getName(), food.getType(), food.getPrice(), food.getStock(), food.getExpiryDate()));
+        commandBox.setCommandText(String.format(command, food.getName(), food.getType(), food.getPrice(), food.getStock(), ParserUtil.parseDateToString(food.getExpiryDate())));
     }
 
-    private void executeDelete(int index) {
-        String command = "delete -i %1$s";
-        commandBox.setCommandText(String.format(command, index));
+    private void executeSell(int index) {
+        Food food = storageManager.getFoodList().get(index - 1);
+
+        String command = "sold %1$s -q 1";
+        commandBox.setCommandText(String.format(command, food.getName()));
     }
 
     /**

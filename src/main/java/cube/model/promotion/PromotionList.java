@@ -1,3 +1,5 @@
+// @@author parvathi14
+
 package cube.model.promotion;
 
 import java.util.ArrayList;
@@ -58,6 +60,10 @@ public class PromotionList {
 
     public int size() {
         return promotionArrayList.size();
+    }
+
+    public void clear() {
+        promotionArrayList.clear();
     }
 
     @Override

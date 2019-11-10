@@ -1,9 +1,10 @@
+// @@author parvathi14
+
 package cube.logic.parser;
 
 import cube.logic.command.PromotionCommand;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
-import cube.model.food.Food;
 import cube.model.promotion.Promotion;
 
 import java.util.Date;
@@ -26,6 +27,7 @@ public class PromotionCommandParser implements ParserPrototype<PromotionCommand>
         }
 
         for (int i = 1; i < args.length; i++) {
+
             if(args[i].equals("-%")) {
                 discountIndex = i;
             }

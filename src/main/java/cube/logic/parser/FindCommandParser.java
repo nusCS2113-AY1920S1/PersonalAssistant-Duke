@@ -66,6 +66,6 @@ public class FindCommandParser implements ParserPrototype<FindCommand> {
                 }
                 return new FindCommand(type,"TYPE");
         }
-        return null;
+        throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
     }
 }

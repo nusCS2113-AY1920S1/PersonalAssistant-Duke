@@ -1,3 +1,9 @@
+/**
+ * The command adds a new promotion to the promotion list.
+ *
+ * @@author parvathi14
+ */
+
 package cube.logic.command;
 
 import cube.logic.command.exception.CommandException;
@@ -9,9 +15,6 @@ import cube.model.food.FoodList;
 import cube.model.promotion.Promotion;
 import cube.model.promotion.PromotionList;
 import cube.storage.StorageManager;
-
-import java.util.Calendar;
-import java.util.Date;
 
 public class PromotionCommand extends Command{
     private final Promotion newPromotion;
@@ -38,9 +41,10 @@ public class PromotionCommand extends Command{
         promotionFood = list.get(newPromotion.getName());
     }
 
-
     /**
      * Adds promotion to promotionList and store it if the promotion does not already exist, otherwise throws Command exception.
+     *
+     * @param model
      * @param storage The storage we have
      * @return Message feedback to user.
      * @throws CommandException
@@ -50,12 +54,15 @@ public class PromotionCommand extends Command{
         FoodList list = model.getFoodList();
         PromotionList promotionList = model.getPromotionList();
         obtainPromotionFood(list);
+        CommandUtil.requirePromotionNotExists(promotionList, newPromotion.getName());
+        CommandUtil.requireValidPromotionDates(newPromotion.getStartDate(), newPromotion.getEndDate());
         double tempPrice = promotionFood.getPrice();
         double newPrice;
         newPrice = (newPromotion.getDiscount()/100)*tempPrice;
         newPromotion.setPromotionalPrice(newPrice);
 
         promotionList.add(newPromotion);
+        //storage.storePromotionList(promotionList);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, newPromotion, promotionList.size()));
     }

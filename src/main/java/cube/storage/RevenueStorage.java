@@ -32,7 +32,7 @@ public class RevenueStorage {
      *
      * @param revenue The revenue variable, kept for convenient access to the total revenue.
      */
-    public void storeRevenue(double revenue) {
+    public void setRevenue(double revenue) {
         this.revenue = revenue;
     }
 }

@@ -7,12 +7,12 @@ import cube.logic.parser.exception.ParserException;
 public class BatchCommandParser implements ParserPrototype<BatchCommand> {
 
     public BatchCommand parse(String[] args) throws ParserException {
-        String[] params = new String[]{"-o","-i"};
+        String[] params = new String[] {"-o", "-i", "-e"};
 
-        if(ParserUtil.hasInvalidParameters(args,params)){
+        if (ParserUtil.hasInvalidParameters(args, params)) {
             throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
         }
-        if(ParserUtil.hasRepetitiveParameters(args)){
+        if (ParserUtil.hasRepetitiveParameters(args)) {
             throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
         }
         if (args.length < 3) {
@@ -21,10 +21,12 @@ public class BatchCommandParser implements ParserPrototype<BatchCommand> {
 
         switch (args[1]) {
         case "-o":
-            return new BatchCommand(args[2], "EXPORT");
+            return new BatchCommand(args[2], BatchCommand.OperationType.EXPORT);
         case "-i":
-            return new BatchCommand(args[2], "IMPORT");
+            return new BatchCommand(args[2], BatchCommand.OperationType.IMPORT);
+        case "-e":
+            return new BatchCommand(args[2], BatchCommand.OperationType.EMPTY);
         }
-        return null;
+        throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
     }
 }

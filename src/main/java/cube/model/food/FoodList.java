@@ -7,10 +7,10 @@ public class FoodList{
 	private ArrayList<Food> foodArrayList;
 
 	public enum SortType {
-		EXPIRY, NAME, STOCK;
+		EXPIRY, NAME, STOCK, PRICE;
 
         public static boolean IsDefined(String temp){
-            if(temp.equals("EXPIRY")||temp.equals("NAME")||temp.equals("STOCK")) {
+            if(temp.equals("EXPIRY")||temp.equals("NAME")||temp.equals("STOCK")||temp.equals("PRICE")) {
                 return true;
             }
             return false;
@@ -105,6 +105,8 @@ public class FoodList{
 				break;
 			case STOCK:
 				Collections.sort(foodArrayList, new SortByStock());
+			case PRICE:
+				Collections.sort(foodArrayList, new SortByPrice());
 		}
 	}
 

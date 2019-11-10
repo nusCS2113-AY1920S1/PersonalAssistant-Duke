@@ -8,8 +8,10 @@ package cube.model.food;
 import cube.model.ModelManager;
 import java.util.Date;
 
+/**
+ * This class models the food objects.
+ */
 public class Food {
-
 	protected String name;
 	protected String type;
 	protected double price;
@@ -19,8 +21,7 @@ public class Food {
 	protected double foodRevenue;
 
     /**
-     * The default constructor.
-     * Call the other constructor (overloading constructor) with (null) as argument.
+     * The default constructor. Call the other constructor (overloading) with (null) as argument.
      */
 	public Food() {
 	    this(null);
@@ -126,8 +127,9 @@ public class Food {
 	}
 
 	/**
+	 * Setter for the revenue of a food.
 	 *
-	 * @param revenue
+	 * @param revenue the new revenue to be set.
 	 */
 	public void setFoodRevenue(double revenue) {
 		this.foodRevenue = revenue;
@@ -144,29 +146,36 @@ public class Food {
 	}
 
 	/**
-	 * Gets the quantity of the product available in stock.
+	 * Getter for the quantity of the food available in stock.
 	 *
-	 * @return Quantity of product in stock.
+	 * @return The quantity of food in stock.
 	 */
-
 	public int getStock() {
 		return stock;
 	}
 
+	/**
+	 * Setter for the cost of the food.
+	 * @param cost The new cost of the food to be set.
+	 */
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
 
+	/**
+	 * Getter for the cost of the food.
+	 *
+	 * @return The cost of the food.
+	 */
 	public double getCost() {
 		return cost;
 	}
 
 	/**
-	 * Shows that product already exists in the inventory.
+	 * Check if the product already exists in the inventory.
 	 *
-	 * @return true
+	 * @return true if exists, false if otherwise.
 	 */
-
 	public boolean exists(String foodName) {
 		if (foodName == this.name) {
 			return true;
@@ -175,20 +184,18 @@ public class Food {
 	}
 
 	/**
-	 * Casts the food product to String type.
+	 * Cast the information related to the food to a String.
 	 *
-	 * @return the String printout of the food product.
+	 * @return the String containing the information associated with the food.
 	 */
 	@Override
 	public String toString() {
-		return name + "\n  Type: " + type +
-				"\n  Price: $" + price +
-				"\n  Stock: " + stock +
-				"\n  Expiry Date: " + expiryDate;
+		return name + "\n  Type: " + type + "\n  Price: $" + price +
+				"\n  Stock: " + stock + "\n  Expiry Date: " + expiryDate;
 	}
 
 	@Override
-	// for Junit test use
+	// for Junit test usage
 	public boolean equals(Object other) {
 		if (other == this) {
 			return true;
@@ -197,10 +204,7 @@ public class Food {
 			Food b = (Food) other;
 			return name.equals(b.name)
 					&& ((type == null && b.type == null) || (type != null && type.equals(b.type)))
-					&& price == b.price
-					&& cost == b.cost
-					&& stock == b.stock
-					&& expiryDate == b.expiryDate;
+					&& price == b.price && cost == b.cost && stock == b.stock && expiryDate == b.expiryDate;
 		} else {
 			return false;
 		}

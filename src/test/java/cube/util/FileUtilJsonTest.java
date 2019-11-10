@@ -1,72 +1,119 @@
+/**
+ * Testing for FileUtilJson utilities
+ *
+ * @author kuromono
+ */
+
 package cube.util;
 
 import cube.exception.CubeException;
-import cube.logic.parser.ParserUtil;
-import cube.model.food.Food;
+import cube.logic.parser.exception.ParserException;
 import cube.storage.StorageManager;
-import cube.model.food.FoodList;
+import cube.testutil.SampleUtil;
+import cube.testutil.StorageUtil;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FileUtilJsonTest {
 
-    private FileUtilJson<StorageManager> storage;
-    private StorageManager storageManager;
+    private static StorageManager storageManager;
+    private static String filePath;
+    private static String fileName;
+    private static FileUtilJson<StorageManager> storage;
 
-    public void init(String filePath, String fileName) throws CubeException {
+    /**
+     * Initializes variables used for the tests.
+     */
+    @BeforeAll
+    public static void initVariables() throws ParserException {
         storageManager = new StorageManager();
-        storage = new FileUtilJson(filePath, fileName, storageManager);
+        storageManager.storeFoodList(SampleUtil.generateSampleData(5));
+        filePath = "data";
+        fileName = "test_fileutil.json";
     }
 
     /**
-     * Creates a sample test JSON file to test Cube.
-     * @throws CubeException
+     * Resets FileUtilJson for every test run.
      */
-    public void createTestFile(int NUM_OF_PRODUCTS) throws CubeException {
-        FoodList foodList = storageManager.getFoodList();
-
-        for (int i = 0; i < NUM_OF_PRODUCTS; i += 1) {
-            int testFoodIdx = i + 1;
-            Food testFood = new Food("Food_" + testFoodIdx);
-            testFood.setType("food");
-            testFood.setPrice(testFoodIdx);
-            testFood.setCost(i);
-            testFood.setStock(5000);
-            testFood.setExpiryDate(ParserUtil.parseStringToDate("31/12/2020"));
-
-            foodList.add(testFood);
-        }
-
-        storageManager.storeFoodList(foodList);
-        storage.save(storageManager);
+    @BeforeEach
+    public void clearVariables() {
+        storage = new FileUtilJson<>(filePath, fileName, storageManager);
     }
 
-    public void testSaveTime() throws CubeException {
+    /**
+     * Deletes all the files used during this test.
+     */
+    @AfterAll
+    public static void deleteTestFiles() {
+        StorageUtil.deleteFile(fileName);
+    }
+
+    /**
+     * Test saving a JSON file.
+     */
+    @Test
+    @Order(1)
+    public void save_file() throws CubeException {
+        storage.save(storageManager);
+
+        assertTrue(StorageUtil.checkFileAvailable(fileName));
+    }
+
+    /**
+     * Test loading a JSON file.
+     */
+    @Test
+    @Order(2)
+    public void load_file() throws CubeException {
+        StorageManager resultStorageManager = storage.load();
+
+        assertTrue(StorageUtil.checkFileAvailable(fileName));
+        assertEquals(resultStorageManager.getFoodList().toString(), storageManager.getFoodList().toString());
+        assertEquals(resultStorageManager.getConfig().getUiConfig().toString(), storageManager.getConfig().getUiConfig().toString());
+        assertEquals(resultStorageManager.getConfig().getLogConfig().toString(), storageManager.getConfig().getLogConfig().toString());
+        assertEquals(resultStorageManager.getPromotionList().getPromotionList().toString(), storageManager.getPromotionList().getPromotionList().toString());
+        assertEquals(resultStorageManager.getRevenue(), storageManager.getRevenue());
+    }
+
+    /**
+     * Optional test : load/save performance by calculating elapsed time
+     */
+    @Test
+    @Order(3)
+    public void performance_test() throws CubeException {
+        storageManager.storeFoodList(SampleUtil.generateSampleData(5));
+        System.out.println(String.format("--- Testing performance for %1$s products ---", storageManager.getFoodList().size()));
+        testSaveTime();
+        testLoadTime();
+
+        storageManager.storeFoodList(SampleUtil.generateSampleData(50));
+        System.out.println(String.format("--- Testing performance for %1$s products ---", storageManager.getFoodList().size()));
+        testSaveTime();
+        testLoadTime();
+
+        storageManager.storeFoodList(SampleUtil.generateSampleData(500));
+        System.out.println(String.format("--- Testing performance for %1$s products ---", storageManager.getFoodList().size()));
+        testSaveTime();
+        testLoadTime();
+    }
+
+    private void testSaveTime() throws CubeException {
         long startTime = System.currentTimeMillis();
         storage.save(storageManager);
         long endTime = System.currentTimeMillis();
         System.out.println("Elapsed Save Time : " + (endTime - startTime) + " ms");
     }
 
-    public void testLoadTime() throws CubeException {
+    private void testLoadTime() throws CubeException {
         long startTime = System.currentTimeMillis();
         storageManager = storage.load();
         long endTime = System.currentTimeMillis();
         System.out.println("Elapsed Load Time : " + (endTime - startTime) + " ms");
-    }
-
-    @Test
-    public void generateSampleTestFile() throws CubeException {
-        init("data","cube.json");
-        createTestFile(50);
-    }
-
-    public void testFileUtilPerformance() throws CubeException {
-        for (int i = 5; i <= 50000; i *= 10) {
-            init("test",i + ".json");
-            testLoadTime();
-            testSaveTime();
-            System.out.println();
-        }
     }
 }

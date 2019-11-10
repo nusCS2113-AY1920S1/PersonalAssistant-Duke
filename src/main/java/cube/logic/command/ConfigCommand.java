@@ -4,8 +4,11 @@
  *
  * @author kuromono
  */
+
 package cube.logic.command;
 
+import cube.logic.command.exception.CommandErrorMessage;
+import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
 import cube.model.ModelManager;
 import cube.storage.ConfigStorage;
@@ -25,13 +28,14 @@ public class ConfigCommand extends Command {
     private UiConfig uiConfig;
     private LogConfig logConfig;
 
-    private final String MESSAGE_SUCCESS = "The %1$s settings has been configured successfully.\n"
+    public static final String MESSAGE_SUCCESS = "The %1$s settings has been configured successfully.\n"
         + "Settings will be applied when you restart the program.\n";
 
-    private String MESSAGE_VIEW = "All the saved configurations are as below:\n";
+    public static String MESSAGE_VIEW = "All the saved configurations are as below:\n";
 
     /**
      * Default Constructor for listing all configs.
+     *
      * @param configType Type of configuration.
      */
     public ConfigCommand(ConfigType configType) {
@@ -40,8 +44,9 @@ public class ConfigCommand extends Command {
 
     /**
      * Default Constructor for changing UI-related configurations.
+     *
      * @param configType Type of configuration to set.
-     * @param uiConfig UiConfig object containing configuration parameters to set.
+     * @param uiConfig   UiConfig object containing configuration parameters to set.
      */
     public ConfigCommand(ConfigType configType, UiConfig uiConfig) {
         this.configType = configType;
@@ -50,8 +55,9 @@ public class ConfigCommand extends Command {
 
     /**
      * Default Constructor for changing Logging-related configurations.
+     *
      * @param configType Type of configuration to set.
-     * @param logConfig LogConfig object containing configuration parameters to set.
+     * @param logConfig  LogConfig object containing configuration parameters to set.
      */
     public ConfigCommand(ConfigType configType, LogConfig logConfig) {
         this.configType = configType;
@@ -60,6 +66,7 @@ public class ConfigCommand extends Command {
 
     /**
      * Calls & updates the required functions for updating UiConfig values.
+     *
      * @param storage StorageManager object that contains the ConfigStorage object to be saved.
      */
     private void configureUiConfig(StorageManager storage) {
@@ -70,6 +77,7 @@ public class ConfigCommand extends Command {
 
     /**
      * Calls & updates the required functions for updating LogConfig values.
+     *
      * @param storage StorageManager object that contains the ConfigStorage object to be saved.
      */
     private void configureLogConfig(StorageManager storage) {
@@ -80,13 +88,14 @@ public class ConfigCommand extends Command {
 
     /**
      * Lists the configurations stored in various config classes.
+     *
      * @param storage StorageManager object that contains configuration values stored in ConfigStorage.
      */
     private void viewConfig(StorageManager storage) {
         ConfigStorage configStorage = storage.getConfig();
         uiConfig = configStorage.getUiConfig();
         logConfig = configStorage.getLogConfig();
-        MESSAGE_VIEW += "+ UI Configurations:\n";
+        MESSAGE_VIEW += "+ UI Configurations (Only works in GUI-mode):\n";
         MESSAGE_VIEW += uiConfig.toString();
         MESSAGE_VIEW += "\n+ Logging Configurations:\n";
         MESSAGE_VIEW += logConfig.toString();
@@ -96,19 +105,20 @@ public class ConfigCommand extends Command {
      * Constructs the command result output to be shown to the user.
      */
     @Override
-    public CommandResult execute(ModelManager model, StorageManager storage) {
+    public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
 
         switch (configType) {
-            case UI:
-                configureUiConfig(storage);
-                return new CommandResult(String.format(MESSAGE_SUCCESS, configType.toString()));
-            case LOG:
-                configureLogConfig(storage);
-                return new CommandResult(String.format(MESSAGE_SUCCESS, configType.toString()));
-            case VIEW:
-                viewConfig(storage);
-                return new CommandResult(MESSAGE_VIEW);
+        case UI:
+            configureUiConfig(storage);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, configType.toString()));
+        case LOG:
+            configureLogConfig(storage);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, configType.toString()));
+        case VIEW:
+            viewConfig(storage);
+            return new CommandResult(MESSAGE_VIEW);
+        default:
+            throw new CommandException(CommandErrorMessage.INVALID_COMMAND_FORMAT);
         }
-        return null;
     }
 }

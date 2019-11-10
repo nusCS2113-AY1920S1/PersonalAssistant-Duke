@@ -25,7 +25,7 @@ public class ListCommandParser implements ParserPrototype<ListCommand> {
 			throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
 		}
 
-		if (SortType.IsDefined(args[2])){
+		if (SortType.IsDefined(args[2].toUpperCase())){
 			return new ListCommand(SortType.valueOf(args[2].toUpperCase()));
 		} else {
 			throw new ParserException(ParserErrorMessage.INVALID_SORT_TYPE);
