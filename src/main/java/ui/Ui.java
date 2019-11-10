@@ -122,13 +122,16 @@ public class Ui {
      * @param deletedProject The project that was deleted.
      * @param projectsize    The current number of projects in the projectmap.
      */
-    public void printDeleteProject(Project deletedProject, int projectsize) {
+    public void printDeleteProject(Project deletedProject, int projectsize, Fund fund) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've deleted this project:");
         System.out.println("\t" + "Name: " + deletedProject.projectname);
         System.out.println("\t" + "Budget: " + deletedProject.budget);
         System.out.println("\t" + "Spending: " + deletedProject.spending);
         System.out.println("\t" + "There are " + projectsize + " projects in the record.");
+        System.out.println("");
+        System.out.println("\t" + "The updated fund is as follows:");
+        System.out.print(fund.giveFund());
         System.out.print(line);
     }
 
