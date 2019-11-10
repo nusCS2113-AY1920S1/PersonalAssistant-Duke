@@ -1,0 +1,135 @@
+= Ducats - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-F09-4/main
+
+By: `AY1920S1-CS2113T-F09-4` Since: `Aug 2019`
+
+== Introduction
+
+Ducats is a music composition tool geared towards music lovers with little knowledge in music theory who want an intuitive way to jot down their musical ideas. With convenience and speed in mind, Ducats is designed for quick and seamless musical composition and experimentation, with a clean and intuitive Command Line Interface. If you can type fast, Ducats can compose music faster than your traditional music composition apps. Look no further, give Ducats a go!
+
+== About this Document
+
+This user guide aims to guide the user in installing Ducats and provide information about the multitude of features of Ducats. To effectively understand the documentation and utilize Ducats, it is best if you are familiar with basic music theory. If you are unfamiliar, Section 5: Introduction to Basic Music Theory is a good start to your understanding.
+
+The table below explains the meaning behind the formatting used in this document:
+
+[cols=2*]
+|===
+| *Formatting*
+| *Meaning*
+
+| `command`
+| A gray highlight indicates that the word is a command to be entered by the user.
+
+| _preface_
+| A paragraph in italics indicates that the paragraph is a preface to the section below.
+|===
+
+== Quick Start
+
+_This section provides a quick guide on firing up Ducats. Follow the steps below to install and launch Ducats:_
+
+. Ensure that you have Java 11 or above installed in your computer. _(To download the latest version, please click link:https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[here].)_
+. Download the latest release of Ducats from the GitHub repository's link:https://github.com/AY1920S1-CS2113T-F09-4/main/releases[release page].
+. Copy the file to the folder you want to use as the home folder for your Ducats application.
+. Launch the Terminal program on your computer. For computers running on Windows, you can launch either Command Prompt or PowerShell.
+. Navigate to the home folder where you copied Ducats to.
+. Enter the command `java -jar Ducats-1.4.jar` and press the Enter key to execute it. Ducats will launch in a few seconds. You should see your Terminal window displaying a similar view to Figure 3.1 below.
+. Enter the `help` command and hit the Enter key to execute it. You should be able to see the help list of all the available commands.
+
+<insert updated running success image>
+Figure 3.1: Display of Ducats when first launched
+
+For the comprehensive list and details of all the commands, please refer to Section 4 Features.
+
+== Features
+
+_The following section details the features and the command line interface commands of Ducats used to execute those features._
+
+For each command, a format is specified for the user to key in. The following is a guide to the syntax used in expressing these formats:
+
+* Words n UPPER_CASE are parameters to be supplied by the user. For example, in the following command: `new s/SONG_NAME s/KEY s/TIME_SIGNATURE n/TEMPO`, SONG_NAME, KEY and TIME_SIGNATURE are parameters to be provided by the user.
+* The type of the parameters is indicated by a tag as follows:
+** `s/` - String (i.e. a word consisting of different characters)
+** `n/` - Number (Integer)
+* When representing Notes, the DURATION_PITCH format is observed:
+** The pitches available are: UC, UB, UA, UG, UF, UE, UD, MC, LB, LA, LG, LF, LE, LD, LC
+** The durations available are: 1, 2*, 2, 4*, 4, 8. _(Just as in sheet music, a single dot (*) lengthens the duration of a note by 50%. Modification with double dots coming in v2.0.)_
+** More information regarding pitches and durations is given in Section 5 Introduction to Basic Music Theory
+
+=== Viewing help: `help`
+
+=== Viewing your list of songs: `list`
+
+=== Creating your new song: `new`
+
+=== Deleting your existing song: `delete`
+
+=== Opening a song for editing: `open`
+
+=== Viewing Command Line representation of song: `view`
+
+=== Adding new bars to your song: `addbar`
+
+=== Deleting a bar in your song: `deletebar`
+
+=== Inserting a new bar between existing bars in your song: `insertbar`
+
+=== Editing a bar in your song: `editbar`
+
+=== Swapping two existing bars in your song: `swapbar`
+
+=== Grouping bars together: `group`
+
+=== Copying sections of music: `copy`
+
+=== Combining sections of music:
+
+==== Combining bar-bar: `overlay`
+
+==== Combining group-group: `overlay_group_group`
+
+==== Combining bar-group: `overlay_bar_group`
+
+==== Combining bars across songs: `overlay_bar_song`
+
+=== Viewing your list of groups in a song: `list_group`
+
+=== Displaying song in ASCII format: `ascii song`
+
+=== Undoing your previous action: `undo`
+
+=== Redoing your previous action: `redo`
+
+=== Starting a metronome: `metronome`
+
+=== Exiting Ducats: `bye`
+
+=== Saving the data
+
+=== Auto-suggesting commands
+
+=== Playing music: `play` [coming in v2.0]
+
+== Introduction to Basic Music Theory
+
+=== Musical components
+
+=== Attributes of a song
+
+== FAQ
+
+== Command Summary
