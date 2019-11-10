@@ -1,4 +1,3 @@
-
 package command;
 
 public class Instruction {
@@ -29,6 +28,10 @@ public class Instruction {
 
     public boolean isDeletePayment(String input) {
         return input.startsWith("delete payment");
+    }
+
+    public boolean isFind(String input) {
+        return input.startsWith("find");
     }
 
     public boolean isFindTask(String input) {
@@ -83,12 +86,12 @@ public class Instruction {
         return input.startsWith("list payments");
     }
 
-    public boolean isDeletePayee(String input) {
-        return input.startsWith("delete payee");
+    public boolean isListPayees(String input) {
+        return input.startsWith("list payees");
     }
 
-    public boolean isgetpayee(String input)  {
-        return input.startsWith("getpayee");
+    public boolean isDeletePayee(String input) {
+        return input.startsWith("delete payee");
     }
 
     public boolean istotalcost(String input)  {
@@ -123,16 +126,16 @@ public class Instruction {
         return input.startsWith("add fund");
     }
 
-    public boolean isAssignFund(String input) { 
-        return input.startsWith("assign fund"); 
+    public boolean isAssignFund(String input) {
+        return input.startsWith("assign fund");
     }
 
     public boolean isReduceBudget(String input) {
         return input.startsWith("reduce budget");
     }
 
-    public boolean isShowFund(String input) { 
-        return input.startsWith("show fund"); 
+    public boolean isShowFund(String input) {
+        return input.startsWith("show fund");
     }
 
     public boolean isResetFund(String input) {
@@ -143,12 +146,12 @@ public class Instruction {
         return input.startsWith("show budget");
     }
 
-    public boolean isViewhistory(String input) { 
-        return input.startsWith("view history"); 
+    public boolean isViewhistory(String input) {
+        return input.startsWith("view history");
     }
 
     public boolean isDeletehistory(String input) {
-        return input.startsWith("delete history"); 
+        return input.startsWith("delete history");
     }
 
     public boolean isUndo(String input) {
@@ -166,4 +169,5 @@ public class Instruction {
     public boolean isLoad(String input) {
         return input.equals("load");
     }
+
 }

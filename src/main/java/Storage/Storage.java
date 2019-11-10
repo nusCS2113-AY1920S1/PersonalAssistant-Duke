@@ -7,10 +7,19 @@ import common.AlphaNUSException;
 import project.Fund;
 import project.Project;
 
-import java.io.*;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.Set;
 
 //@@author leowyh
 /**
@@ -24,12 +33,41 @@ public class Storage {
     private static String undoListFilePath = basefilepath +  "/localdata/undo.json";
     private static String redoListFilePath = basefilepath +  "/localdata/redo.json";
     private static String currentprojectfilepath = basefilepath + "/localdata/CurrentProject.json";
+    private static String dictFilePath = "/localdata/dict.json";
     private static String backuphistoryfilepath = "Backuphistory.json";
     private static String backupfundfilepath = "BackupFund.json";
     private static String backupprojectsfilepath = "BackupProjects.json";
 
 
+
+
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    /**
+     * Writes current projectmap in ProjectManager to local storage.
+     * @param dict LinkedHashMap of projects.
+     * @throws AlphaNUSException If the file cannot be written to.
+     */
+    public void writeToDictFile(Set<String> dict) throws AlphaNUSException {
+        String toWriteStr = gson.toJson(dict);
+        try {
+            File file = new File(dictFilePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            for (String lineStr : toWriteStr.split("\n")) {
+                bufferedWriter.write(lineStr);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new AlphaNUSException("Unable to write to file: " + dictFilePath);
+        }
+    }
+
+
 
     /**
      * Writes current projectmap in ProjectManager to local storage.
@@ -154,6 +192,32 @@ public class Storage {
     }
 
     //@@author leowyh
+    /**
+     * Read HashMap of projects from local storage and returns it.
+     * @return HashMap of Project objects stored in local storage.
+     * @throws AlphaNUSException If the file cannot be read.
+     */
+    public Set<String> readFromDictFile() throws AlphaNUSException {
+        Type dictType = new TypeToken<Set<String>>(){}.getType();
+        Set<String> dict;
+        try {
+            File file = new File(dictFilePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            dict = gson.fromJson(bufferedReader, dictType);
+            bufferedReader.close();
+            if (dict == null) {
+                dict = new HashSet<>();
+            }
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return dict;
+    }
+
     /**
      * Read HashMap of projects from local storage and returns it.
      * @return HashMap of Project objects stored in local storage.

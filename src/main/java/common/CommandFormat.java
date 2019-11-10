@@ -35,11 +35,15 @@ public class CommandFormat {
     }
 
     public String editPaymentFormat() {
-        return "edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT";
+        return "edit p/PAYEE i/ITEM f/FIELD r/REPLACEMENT";
     }
 
     public String listPaymentFormat() {
         return "list payments";
+    }
+
+    public String findPayeeFormat() {
+        return "find p/PAYEE";
     }
 
     public String getPayeeFormat() {

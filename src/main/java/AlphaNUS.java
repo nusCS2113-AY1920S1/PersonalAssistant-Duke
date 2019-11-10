@@ -6,6 +6,7 @@ import project.Fund;
 import ui.Ui;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * <h1>AlphaNUS</h1>
@@ -21,6 +22,7 @@ public class AlphaNUS {
     private static Storage storage;
     private static ArrayList<String> commandList;
     private static Parser parser;
+    private static Set<String> dict;
 
     /**
      * Creates a AlphaNUS instance and initialises the required attributes.
@@ -32,7 +34,7 @@ public class AlphaNUS {
         fund = storage.readFromFundFile();
         commandList = storage.readFromCommandsFile();
         parser = new Parser();
-
+        dict = storage.readFromDictFile();
     }
 
     /**
@@ -46,7 +48,7 @@ public class AlphaNUS {
         while (!isExit) {
 
             String input = ui.readInput();
-            isExit = parser.parse(input, tasklist, ui, fund, storage, commandList);
+            isExit = parser.parse(input, tasklist, ui, fund, storage, commandList, dict);
         }
     }
 
