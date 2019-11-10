@@ -43,6 +43,8 @@ public class DukeConstants {
     public static final String RECUR_BIWEEKLY_KEYWORD = "/biweekly";
     public static final String RECUR_RMBIWEEKLY_KEYWORD = "/rmbiweekly";
     public static final String RECUR_RMWEEKLY_KEYWORD = "/rmweekly";
+    public static final String RECUR_EVENT_DATE_FORMAT_ERROR = " OOPS!!! The start date of the recurring event is after the end date of the recurring event.\n" +
+            "Please ensure the end date is after the start end.";
     public static final String RECUR_EVENT_FORMAT = "OOPS!!! Please enter recurring event as follows:\n" +
             "recur/(fill) modCode name_of_event /start dd/MM/yyyy to dd/MM/yyyy /from HHmm /to HHmm\n" +
             "Note: replace (fill) with either: weekly, biweekly, rmweekly, rmbiweekly\n" +
