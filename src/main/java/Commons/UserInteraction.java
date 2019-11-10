@@ -205,15 +205,13 @@ public class UserInteraction {
      * @throws ParseException on wrong date format
      */
     public String showWorkload(TreeMap<String, ArrayList<Assignment>> workloadMap, String workloadWeek) throws ParseException {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat dayFormatter = new SimpleDateFormat("E");
         String workloadSchedule = "Here is your recommended schedule for " + workloadWeek + ":\n";
         if (workloadMap.isEmpty()) {
-            return "You have no tasks scheduled for next week! \n";
+            return "You have no tasks scheduled for " + workloadWeek + "!\n";
         } else {
             for (Map.Entry<String, ArrayList<Assignment>> workload: workloadMap.entrySet()) {
-                Date tempDay = dateFormatter.parse(workload.getKey());
-                String day = dayFormatter.format(tempDay);
+                Date tempDay = DukeConstants.EVENT_DATE_INPUT_FORMAT.parse(workload.getKey());
+                String day = DukeConstants.DAY_FORMAT.format(tempDay);
                 workloadSchedule = workloadSchedule + day + ": \n";
                 for (Assignment task: workload.getValue()) {
                     workloadSchedule = workloadSchedule + task.getType() + " " + task.getModCode() + " "
