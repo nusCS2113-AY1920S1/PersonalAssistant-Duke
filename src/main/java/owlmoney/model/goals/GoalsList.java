@@ -439,7 +439,7 @@ public class GoalsList {
         } else {
             ui.printMessage("\nOVERDUE GOALS: ");
             for (int i = 0; i < goalList.size(); i++) {
-                if (goalList.get(i).convertDateToDays() == 0 && !goalList.get(i).getRawStatus()
+                if (goalList.get(i).convertDateToDays() <= 0 && !goalList.get(i).getRawStatus()
                         && goalList.get(i).getGoalsDateInDateFormat().before(new Date())) {
                     ui.printMessage("- " + goalList.get(i).getGoalsName()
                             + " to save $" + goalList.get(i).getRemainingAmount() + " is overdue!");

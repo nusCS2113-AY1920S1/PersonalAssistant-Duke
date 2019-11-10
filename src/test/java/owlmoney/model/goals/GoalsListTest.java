@@ -20,7 +20,7 @@ public class GoalsListTest {
 
     @Test
     void goalsListAddGoals_duplicateGoalsName_throwsException() {
-        GoalsList testList = new GoalsList(new Storage("data/"));
+        GoalsList testList = new GoalsList(storage);
         Ui testUi = new Ui();
         Goals newGoals = new Goals("TEST", 100, new Date("10/10/2020"));
         Goals newGoals2 = new Goals("TEST", 100, new Date("10/10/2020"));
@@ -35,7 +35,7 @@ public class GoalsListTest {
 
     @Test
     void goalListAddGoals_maxLimit_throwsError() {
-        GoalsList testList = new GoalsList(new Storage("data/"));
+        GoalsList testList = new GoalsList(storage);
         Ui testUi = new Ui();
 
         for (int i = 0; i < 21; i++) {
@@ -55,7 +55,7 @@ public class GoalsListTest {
 
     @Test
     void goalsListAddGoals_alrAchieved_throwsError() {
-        GoalsList testList = new GoalsList(new Storage("data/"));
+        GoalsList testList = new GoalsList(storage);
         Ui testUi = new Ui();
 
         Saving newSaving = new Saving("TEST SAVING", 1000, 100);
@@ -69,7 +69,7 @@ public class GoalsListTest {
 
     @Test
     void getGoalsListSize_zeroAndOneGoals_returnsZeroFirstThenOne() {
-        GoalsList testList = new GoalsList(new Storage("data/"));
+        GoalsList testList = new GoalsList(storage);
         Ui testUi = new Ui();
         assertEquals(0, testList.getGoalListSize());
         Goals newGoals = new Goals("test", 100, new Date("10/10/2020"));
@@ -84,7 +84,7 @@ public class GoalsListTest {
 
     @Test
     void goalsListDeleteGoals_zeroGoalsAccount_throwsException() {
-        GoalsList testList = new GoalsList(new Storage("data/"));
+        GoalsList testList = new GoalsList(storage);
         Ui testUi = new Ui();
         GoalsException thrown = assertThrows(GoalsException.class, () ->
                 testList.deleteFromGoalList("test", testUi),
@@ -94,7 +94,7 @@ public class GoalsListTest {
 
     @Test
     void goalsListDeleteGoals_goalsDoesNotExist_throwsException() {
-        GoalsList testList = new GoalsList(new Storage("data/"));
+        GoalsList testList = new GoalsList(storage);
         Ui testUi = new Ui();
         Goals newGoals = new Goals("test", 100, new Date("10/10/2020"));
 
@@ -114,7 +114,7 @@ public class GoalsListTest {
     void goalsListDeleteGoals_deleteOneGoal_success() throws GoalsException {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        GoalsList testList = new GoalsList(new Storage("data/"));
+        GoalsList testList = new GoalsList(storage);
         Ui testUi = new Ui();
         Goals newGoals = new Goals("test", 100, new Date("10/10/2020"));
 
@@ -144,7 +144,7 @@ public class GoalsListTest {
     void goalsListListGoal_goalListNotEmpty_listGoals() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        GoalsList testGoals = new GoalsList(new Storage("data/"));
+        GoalsList testGoals = new GoalsList(storage);
         Goals newGoals = new Goals("test", 100, new Date("10/10/2020"));
         Ui testUi = new Ui();
 
@@ -155,12 +155,12 @@ public class GoalsListTest {
         } catch (GoalsException err) {
             System.out.println("Expect success but error was thrown");
         }
-        String expectedOutput = "Item No.  To Accomplish          Amount to save       Saving Account                 "
-                + "Save another         To be achieved by    Goal Achieved        "
+        String expectedOutput = "Item No.  To Accomplish          Amount to save       Saving Account"
+                + "                 Save another         To be achieved by    Goal Achieved        "
                 + NEWLINE + "-----------------------------------------------------------------------------------"
                 + "---------------------------------------------------------"
-                + NEWLINE + "1         test                   $100.00              -NOT TIED-                     "
-                + "$100.00              10 October 2020      N                    "
+                + NEWLINE + "1         test                   $100.00              -NOT TIED- "
+                + "                    $100.00              10 October 2020      N                    "
                 + NEWLINE + "-----------------------------------------------------------------------------------"
                 + "---------------------------------------------------------" + NEWLINE;
         assertEquals(1,testGoals.getGoalListSize());
@@ -171,10 +171,9 @@ public class GoalsListTest {
     void goalsListListGoal_goalListEmpty_throwException() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        GoalsList testGoals = new GoalsList(new Storage("data/"));
+        GoalsList testGoals = new GoalsList(storage);
         Ui testUi = new Ui();
         testGoals.listGoals(testUi);
         assertEquals("OOPS!!! There are no goals set" + NEWLINE, outContent.toString());
     }
-
 }
