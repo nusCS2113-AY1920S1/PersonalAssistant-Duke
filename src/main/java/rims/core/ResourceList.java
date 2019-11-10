@@ -198,7 +198,7 @@ public class ResourceList {
                 return thisResource;
             }
         }
-        throw new RimsException("No such resource!");
+        throw new RimsException("This resource does not exist in your inventory!");
     }
 
     /**

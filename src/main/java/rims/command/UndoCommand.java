@@ -49,7 +49,7 @@ public class UndoCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws ParseException, IOException, RimsException {
         if (prevCommand == null) {
-            ui.formattedPrint("No command that has modified this inventory yet!");
+            ui.formattedPrint("No command has modified this inventory yet!");
             return;
         }
         storage.readResourceFile();

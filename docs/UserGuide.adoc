@@ -32,6 +32,7 @@ RIMS (Resource and Inventory Management System) is a *command-line* logistic man
 .  Double-click the file to start the app. The UI should appear in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the resources with their status (booked/reserved/available).
+
 .  Some example commands you can try:
 
 * *`list`* : lists all resources and their status (booked/reserved/available)
@@ -39,7 +40,6 @@ e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the re
 
 .  Refer to <<Features, Features>> for details of each command.
 
-[[Features]]
 == Features
 
 ====
