@@ -2,7 +2,6 @@ package seedu.duke.common.command;
 
 import javafx.util.Pair;
 import seedu.duke.common.model.Model;
-import seedu.duke.email.EmailTags;
 
 import java.util.ArrayList;
 
@@ -24,7 +23,7 @@ public abstract class Command {
      *
      * @return a flag whether the command is successfully executed.
      */
-    public abstract boolean execute(Model model) throws EmailTags.EmailTagParseException;
+    public abstract boolean execute(Model model);
 
     /**
      * This function turns off the UI output of the command.
