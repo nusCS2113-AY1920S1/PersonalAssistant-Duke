@@ -120,7 +120,7 @@ public class GoToCommand extends Command {
     private int returnsGoToIndex() {
         String firstIndexInQueue = indexQueue.poll();
         assert firstIndexInQueue != null;
-        return Integer.parseInt(firstIndexInQueue) -1;
+        return Integer.parseInt(firstIndexInQueue) - 1;
     }
 
     /**
@@ -194,7 +194,7 @@ public class GoToCommand extends Command {
         if (storageManager.profile.isCli) {
             return new QuizSession(qnType, qnDifficulty, true).execute(logic, ui, storageManager);
         } else {
-            return processGUI(logic, qnType, qnDifficulty);
+            return processGui(logic, qnType, qnDifficulty);
         }
     }
 
@@ -239,7 +239,7 @@ public class GoToCommand extends Command {
      * @return Response based on question type and difficulty.
      * @throws CakeException NullPointerException when content is not found.
      */
-    private String processGUI(Logic logic, QuestionType qnType, QuestionDifficulty qnDifficulty) throws CakeException {
+    private String processGui(Logic logic, QuestionType qnType, QuestionDifficulty qnDifficulty) throws CakeException {
         String response;
         logic.insertQueries();
         QuizSession.logic = logic;
@@ -255,14 +255,14 @@ public class GoToCommand extends Command {
      */
     private String assignsQnTypeResponse(QuestionType qnType) {
         switch (qnType) {
-            case BASIC:
-                return "!@#_QUIZ_1";
-            case OOP:
-                return "!@#_QUIZ_2";
-            case EXTENSIONS:
-                return "!@#_QUIZ_3";
-            default:
-                return "!@#_QUIZ_4";
+        case BASIC:
+            return "!@#_QUIZ_1";
+        case OOP:
+            return "!@#_QUIZ_2";
+        case EXTENSIONS:
+            return "!@#_QUIZ_3";
+        default:
+            return "!@#_QUIZ_4";
         }
     }
 
@@ -273,12 +273,12 @@ public class GoToCommand extends Command {
      */
     private String assignsQnDifficultyResponse(QuestionDifficulty qnDifficulty) {
         switch (qnDifficulty) {
-            case EASY:
-                return "EZ";
-            case MEDIUM:
-                return "MED";
-            default:
-                return "HARD";
+        case EASY:
+            return "EZ";
+        case MEDIUM:
+            return "MED";
+        default:
+            return "HARD";
         }
     }
 

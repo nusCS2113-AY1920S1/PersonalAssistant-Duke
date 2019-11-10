@@ -4,9 +4,11 @@ import javacake.JavaCake;
 import org.apache.commons.io.FileUtils;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -16,8 +18,8 @@ public class NoteIntegrationTest {
 
     private static JavaCake javaCake;
 
-    @BeforeAll
-    static void init() {
+    @BeforeEach
+    void init() {
         try {
             FileUtils.deleteDirectory(new File("testPath"));
         } catch (IOException e) {
@@ -29,8 +31,8 @@ public class NoteIntegrationTest {
     /**
      * Deletes test files.
      */
-    @AfterAll
-    static void delete() {
+    @AfterEach
+    void delete() {
         try {
             FileUtils.deleteDirectory(new File("testPath"));
         } catch (IOException e) {
@@ -105,6 +107,10 @@ public class NoteIntegrationTest {
         actualOutput = javaCake.getResponse("editnote viewnote createnote ");
         expectedOutput = "Pls enter a valid editnote command:"
                 + " 'editnote - [name of the file you wish you edit]'";
+        assertEquals(expectedOutput, actualOutput);
+
+        actualOutput = javaCake.getResponse("deletenote Notes");
+        expectedOutput = "File [Notes] has been deleted successfully!\n";
         assertEquals(expectedOutput, actualOutput);
 
     }
