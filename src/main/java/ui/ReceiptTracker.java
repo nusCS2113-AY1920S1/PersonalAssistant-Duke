@@ -109,6 +109,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public ReceiptTracker getReceiptsByTag(String tag) {
         ReceiptTracker taggedReceipts = new ReceiptTracker();
+        taggedReceipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.containsTag(tag)) {
                 taggedReceipts.addReceipt(receipt);
