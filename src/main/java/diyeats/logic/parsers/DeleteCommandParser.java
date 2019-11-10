@@ -20,7 +20,7 @@ public class DeleteCommandParser implements ParserInterface<DeleteCommand> {
         try {
             InputValidator.validate(userInputStr);
             String[] indexAndDate = ArgumentSplitter.splitArguments(userInputStr, "/date");
-            if (indexAndDate[1].equals("")) {
+            if (indexAndDate[1].isBlank()) {
                 return new DeleteCommand(indexAndDate[0]);
             } else {
                 return new DeleteCommand(indexAndDate[0], indexAndDate[1]);
