@@ -13,12 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * This class tests FindFreeTimesParse.
  */
 public class FindFreeTimesParseTest {
-    private final String INVALID_INPUT = "Invalid input. Please enter the command as follows. \n" +
-            "find/time 'x' hours , where 'x' is a digit between 1 - 16";
-    private final String INVALID_DURATION = "Invalid duration. Please enter the command as follows. \n" +
-            "find/time 'x' hours , where 'x' is a digit between 1 - 16";
-    private final String INVALID_EMPTY_DURATION = "Invalid input." +
-            "\nDuration cannot be blank.\nPlease enter the command as follows.\n"
+    private static final String INVALID_INPUT = "Invalid input. Please enter the command as follows. \n"
+            + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
+    private static final String INVALID_DURATION = "Invalid duration. Please enter the command as follows. \n"
+            + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
+    private static final String INVALID_EMPTY_DURATION = "Invalid input."
+            + "\nDuration cannot be blank.\nPlease enter the command as follows.\n"
             + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
 
     private static String validUserInputWithDuration;

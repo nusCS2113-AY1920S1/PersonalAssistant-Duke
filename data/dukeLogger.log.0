@@ -2318,3 +2318,91 @@ Nov 10, 2019 10:39:53 AM Commons.Duke run
 SEVERE: DukeExceptions.DukeInvalidCommandException: ☹Invalid input. Please type help to see all commands
 Nov 10, 2019 10:40:13 AM Commons.Duke run
 SEVERE: DukeExceptions.DukeInvalidDateTimeException: Sorry, you cannot set a time that has already passed!
+Nov 10, 2019 3:13:03 PM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 3:13:03 PM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 3:13:03 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 3:13:03 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 3:13:03 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 3:13:03 PM Commands.RetrievePreviousCommand execute
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 3:13:03 PM Parser.RecurParse parse
+SEVERE: Invalid recur format
+Nov 10, 2019 3:26:03 PM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 3:26:03 PM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 3:26:03 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 3:26:03 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 3:26:03 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 3:26:03 PM Commands.RetrievePreviousCommand execute
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 3:26:03 PM Parser.RecurParse parse
+SEVERE: Invalid recur format
+Nov 10, 2019 4:02:50 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidFormatException:  OOPS!!! Please enter filter command as follows
+show/filter keyword
+
+Nov 10, 2019 4:03:57 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidFormatException:  OOPS!!! Please enter filter command as follows
+show/filter keyword
+
+Nov 10, 2019 4:18:01 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidFormatException:  OOPS!!! Please enter filter command as follows
+show/filter keyword
+
+Nov 10, 2019 4:18:09 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidFormatException:  OOPS!!! Please enter filter command as follows
+show/filter keyword
+
+Nov 10, 2019 4:49:23 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: ☹Invalid input. Please type help to see all commands
+Nov 10, 2019 4:50:30 PM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 4:50:30 PM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 4:50:31 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 4:50:31 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 4:50:31 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 4:50:31 PM Commands.RetrievePreviousCommand execute
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 4:50:31 PM Parser.RecurParse parse
+SEVERE: Invalid recur format
+Nov 10, 2019 4:52:15 PM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 4:52:15 PM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 4:52:15 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 4:52:15 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 4:52:15 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 4:52:15 PM Commands.RetrievePreviousCommand execute
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 4:52:15 PM Parser.RecurParse parse
+SEVERE: Invalid recur format
+Nov 10, 2019 4:53:17 PM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 4:53:17 PM Parser.RemindParse parse
+SEVERE: Invalid remind format
+Nov 10, 2019 4:53:17 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 4:53:17 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 4:53:17 PM Parser.ShowPreviousParse parse
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 4:53:17 PM Commands.RetrievePreviousCommand execute
+SEVERE: Unable to parse string to integer
+Nov 10, 2019 4:53:17 PM Parser.RecurParse parse
+SEVERE: Invalid recur format

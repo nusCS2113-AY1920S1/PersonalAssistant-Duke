@@ -16,7 +16,6 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
 
-
 public class FindFreeTimesCommand extends Command {
     private static final int HALF_HOUR_MARK = 30;
     private static final int HOUR_MARK = 60;
@@ -505,11 +504,14 @@ public class FindFreeTimesCommand extends Command {
         message = new String();
         for (int i = 0; i < sortCompiledFreeTimes.size(); i++) {
             compiledFreeTimes.add(sortCompiledFreeTimes.get(i).getValue());
-            Integer optionNo = i + 1;
+            int optionNo = i + 1;
             message += ((optionNo) + ". " + sortCompiledFreeTimes.get(i).getValue().getKey()) + "\n";
         }
     }
 
+    /**
+     * This method gets the list of compiled free time requested by the user.
+     */
     public static ArrayList<Pair<String, String>> getCompiledFreeTimesList() {
         return compiledFreeTimes;
     }

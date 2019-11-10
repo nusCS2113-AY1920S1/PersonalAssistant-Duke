@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * This class tests RetrieveFreeTimesParse.
  */
 public class RetrieveFreeTimesCommandTest {
-    private final String INVALID_NO_FREE_TIME_FOUND = "Please find free times by invoking the command shown below\n"
+    private static final String INVALID_NO_FREE_TIME_FOUND = "Please find free times by invoking the command shown below\n"
             + "find/time 'x' hours, where 'x' is a digit between 1 - 16\n"
             + "Followed by the command\n"
             + "retrieve/time 'x', where 'x' is a digit between 1- 5";
@@ -83,7 +83,7 @@ public class RetrieveFreeTimesCommandTest {
         setRetrievedFreeTimesList();
 
         retrievedFreeTimesList = FindFreeTimesCommand.getCompiledFreeTimesList();
-        String expected = ui.showSelectionOption(userInputSelectedOption, retrievedFreeTimesList.get(userInputSelectedOption-1).getKey());
+        String expected = ui.showSelectionOption(userInputSelectedOption, retrievedFreeTimesList.get(userInputSelectedOption - 1).getKey());
         String actual = null;
         Command command = null;
         try {
@@ -99,7 +99,7 @@ public class RetrieveFreeTimesCommandTest {
     }
 
     @After
-    public void clearParameter(){
+    public void clearParameter() {
         retrievedFreeTimesList.clear();
     }
 }

@@ -92,6 +92,8 @@ public class DukeConstants {
             + "find/time 'x' hours, where 'x' is a digit between 1 - 16\n"
             + "Followed by the command\n"
             + "retrieve/time 'x', where 'x' is a digit between 1- 5";
+    public static final String STR_RANGE_FOR_BETWEEN = "Please enter a valid integer x between 0 and ";
+    public static final String STR_RANGE_FOR_LESS_THAN = "Please enter a valid number less than or equal to ";
 
     //FIND
     public static final String INVALID_INPUT = "Invalid input. Please enter the command as follows. \n"
@@ -135,6 +137,8 @@ public class DukeConstants {
     public static final String NO_MODULE_ERROR = "Sorry, you have no such mod entered in your deadline table!";
     public static final String NO_TIMING_ERROR ="Sorry, you have no such timing entered in your deadline table!";
     public static final String REMINDER_AFTER_TASK_ERROR ="Sorry, you cannot set a reminder after the date of the task.";
+    public static final String HAS_REMINDER_INDICATOR = "[HR]";
+    public static final String NO_REMINDER_INDICATOR ="[NR]";
 
 
     //MISC
@@ -146,8 +150,10 @@ public class DukeConstants {
     public static final String WEEK_FORMAT_KEYWORD_EXAM = "exam";
     public static final String WEEK_FORMAT_KEYWORD = "Week";
     public static final String BYE_HEADER ="bye";
-    public static final String HAS_RECURRING_MESSAGE = "[HR]";
-    public static final String NO_RECURRING_MESSAGE ="[NR]";
+    public static final String DATA_TIME_STRING_TERMINATOR = ")";
+    public static final String DONE_INDICATOR = "\u2713";
+    public static final String NOT_DONE_INDICATOR = "\u2718";
+
 
     //DATE
     public static final SimpleDateFormat EVENT_DATE_INPUT_FORMAT = new SimpleDateFormat("dd/MM/yyyy"); //format date for event
@@ -155,7 +161,7 @@ public class DukeConstants {
     public static final SimpleDateFormat DAY_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy");
     public static final SimpleDateFormat TWELVE_HOUR_TIME_FORMAT = new SimpleDateFormat("hh:mm a");
     public static final SimpleDateFormat DEADLINE_INPUT_FORMAT = new SimpleDateFormat("dd/MM/yyyy HHmm");
-    public static final SimpleDateFormat DEADLINE_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+    public static final SimpleDateFormat DEADLINE_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy HH:mm a");
     public static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("E");
     public static final SimpleDateFormat TWENTYFOUR_HOUR_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy HHmm");
     public static final int LENGTH_OF_TIME_FORMAT = 4;
@@ -165,4 +171,8 @@ public class DukeConstants {
     public static final String NO_PRELOAD_DEADLINE_TXT = "There is no preload deadline.txt to read from. Please create one.";
     public static final String NO_EVENT_TXT = "There is no event.txt file to read from. Please create one.";
     public static final String NO_DEADLINE_TXT = "There is no deadline.txt file to read from. Please create one.";
+    public static final String DEADLINE_INDICATOR = "[D]";
+    public static final String EVENT_INDICATOR = "[E]";
+    public static final String REMINDER_TIME_START_KEYWORD = "[<R";
+    public static final String REMINDER_TIME_END_KEYWORD = "/R>]";
 }
