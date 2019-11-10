@@ -97,14 +97,6 @@ public class DegreeManager {
         return "";
     }
 
-
-    /**
-     * Clears out the current degreeManager.
-     */
-    public void clear() {
-        degreeInfo.clear();
-    }
-
     /**
      * Returns the size of this degreeManager.
      *
@@ -144,6 +136,16 @@ public class DegreeManager {
             throw new DukeException("Unable to find matching degrees for: "+ errorList.toString());
         }
         degreeInfo.get(split[0]).compare(degreeInfo.get(split[1]));
+    }
+
+    /**
+     * Returns the map of keywords to aliases
+     *
+     * @return the map indicating the keyword and its aliases
+     */
+    public Map<String, List<String>> getKeywords()
+    {
+        return this.disjointSetFake;
     }
 
     /**

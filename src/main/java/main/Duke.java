@@ -66,7 +66,7 @@ public class Duke extends Application {
      * @param filePath The file path of the save file.
      */
     //Method to initialize all important classes and data on startup
-    public Duke(String filePath, String another_filePath) throws IOException {
+    public Duke(String filePath, String another_filePath) throws IOException, DukeException {
 
         ui = new UI(); //initialize ui class that handles input from user
         this.storage = new Storage(filePath, another_filePath);
@@ -99,9 +99,21 @@ public class Duke extends Application {
         } catch (DukeException e) {
             System.out.println(e.getLocalizedMessage());
         }
-        this.lists = new DegreeList();
-        DegreeListStorage.setDegreeList(lists);
-        DegreeListStorage.ReadFile(storage.fetchListOutput("savedegree"));
+        try {
+            this.lists = new DegreeList();
+            DegreeListStorage.setDegreeList(lists);
+            DegreeListStorage.ReadFile(storage.fetchListOutput("savedegree"));
+        } catch (DukeException e) {
+            this.lists = new DegreeList();
+            DegreeListStorage.setDegreeList(lists);
+            System.out.println("Issues trying to read savedegree.txt file. Creating new list of choices.");
+        }
+        try { //When initializing, do 1 save to save internal data into external save files
+            storage.store(myList);
+            storage.add_degrees(lists);
+        } catch (DukeException e) {
+            throw new DukeException("Save Error: " + e.getLocalizedMessage());
+        }
     }
 
 
@@ -215,7 +227,7 @@ public class Duke extends Application {
      *
      * @param args A duke program.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, DukeException {
 
         new Duke("save.txt", "savedegree.txt").run();
         System.exit(0);

@@ -1,5 +1,0 @@
-E | 0 | [BME] Open House for Prospective Students | 11-05-2020 1030 | Normal
-E | 0 | [BME] NUS-BME Open House | 18-05-2020 1330 | Normal
-E | 0 | [ME] Open House for Prospective Students | 11-05-2020 1030 | Normal
-E | 0 | [ME] NUS-ME Open House | 18-05-2020 1330 | Normal
-D | 0 | [ME] CS1010 Placement Examination Application | 26-06-2020 1700 | Normal
