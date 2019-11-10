@@ -66,13 +66,15 @@ public class PlaylistCommand extends CommandSuper {
     private void executeCreatePlaylist() throws IOException {
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         String createPlaylistName = this.getPayload();
-        UserProfile userProfile = new EditProfileJson().load();
+        EditProfileJson editProfileJson = new EditProfileJson();
+        UserProfile userProfile = editProfileJson.load();
         ProfileCommands profileCommands = new ProfileCommands(userProfile);
         try {
             PlaylistExceptions.checkCreateCommand(createPlaylistName, userProfile);
-            profileCommands.addPlaylist(createPlaylistName);
+            userProfile = profileCommands.addPlaylist(createPlaylistName);
             PlaylistCommands playlistCommands = new PlaylistCommands(createPlaylistName);
             playlistCommands.create();
+            editProfileJson.updateProfile(userProfile);
             movieHandler.setLabels();
             movieHandler.refresh();
         } catch (InvalidParameterException | InvalidFormatCommandException e) {
@@ -91,13 +93,15 @@ public class PlaylistCommand extends CommandSuper {
     private void executeDeletePlaylist() throws IOException {
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         String deletePlaylistName = this.getPayload();
-        UserProfile userProfile = new EditProfileJson().load();
+        EditProfileJson editProfileJson = new EditProfileJson();
+        UserProfile userProfile = editProfileJson.load();
         ProfileCommands profileCommands = new ProfileCommands(userProfile);
         try {
             PlaylistExceptions.checkDeleteCommand(deletePlaylistName, userProfile);
-            profileCommands.deletePlaylist(deletePlaylistName);
+            userProfile = profileCommands.deletePlaylist(deletePlaylistName);
             PlaylistCommands playlistCommands = new PlaylistCommands(deletePlaylistName);
             playlistCommands.delete();
+            editProfileJson.updateProfile(userProfile);
             movieHandler.setLabels();
             movieHandler.refresh();
         } catch (InvalidParameterException | InvalidFormatCommandException e) {

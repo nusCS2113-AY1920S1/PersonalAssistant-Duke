@@ -4,9 +4,10 @@ import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.DuplicateGenreException;
 import entertainment.pro.commons.exceptions.GenreDoesNotExistException;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
+import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.commons.exceptions.InvalidGenreNameEnteredException;
-import entertainment.pro.storage.utils.OfflineSearchStorage;
+import entertainment.pro.storage.utils.EditProfileJson;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;
@@ -122,11 +123,13 @@ public class PreferenceCommand extends CommandSuper {
     private void executeAddPreference(ArrayList<String> containsPossibleInputs, MovieHandler movieHandler)
             throws IOException {
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
+        EditProfileJson editProfileJson = new EditProfileJson();
+        UserProfile userProfile = editProfileJson.load();
         for (int i = 0; i < containsPossibleInputs.size(); i += 1) {
             if (getFlagMap().containsKey(containsPossibleInputs.get(i))) {
                 System.out.println("ye");
                 try {
-                    command.addPreference(this.getFlagMap(), containsPossibleInputs.get(i));
+                    userProfile = command.addPreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
                 } catch (InvalidFormatCommandException invalidFormatCommandException) {
                     logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
@@ -141,6 +144,8 @@ public class PreferenceCommand extends CommandSuper {
                 }
             }
         }
+        editProfileJson.updateProfile(userProfile);
+        movieHandler.setLabels();
     }
 
     /**
@@ -154,10 +159,12 @@ public class PreferenceCommand extends CommandSuper {
     private void executeRemovePreference(ArrayList<String> containsPossibleInputs, MovieHandler movieHandler)
             throws IOException {
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
+        EditProfileJson editProfileJson = new EditProfileJson();
+        UserProfile userProfile = editProfileJson.load();
         for (int i = 0; i < containsPossibleInputs.size(); i += 1) {
             if (getFlagMap().containsKey(containsPossibleInputs.get(i))) {
                 try {
-                    command.removePreference(this.getFlagMap(), containsPossibleInputs.get(i));
+                    userProfile = command.removePreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
                 } catch (InvalidFormatCommandException InvalidFormatCommandException) {
                     logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
@@ -172,6 +179,8 @@ public class PreferenceCommand extends CommandSuper {
                 }
             }
         }
+        editProfileJson.updateProfile(userProfile);
+        movieHandler.setLabels();
     }
 
     /**
@@ -185,10 +194,12 @@ public class PreferenceCommand extends CommandSuper {
     private void executeClearPreference(ArrayList<String> containsPossibleInputs,
                                         MovieHandler movieHandler) throws IOException {
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
+        EditProfileJson editProfileJson = new EditProfileJson();
+        UserProfile userProfile = editProfileJson.load();
         for (int i = 0; i < containsPossibleInputs.size(); i += 1) {
             if (getFlagMap().containsKey(containsPossibleInputs.get(i))) {
                 try {
-                    command.clearPreference(this.getFlagMap(), containsPossibleInputs.get(i));
+                    userProfile = command.clearPreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
                 } catch (InvalidFormatCommandException invalidFormatCommandException) {
                     logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
@@ -197,5 +208,7 @@ public class PreferenceCommand extends CommandSuper {
                 }
             }
         }
+        editProfileJson.updateProfile(userProfile);
+        movieHandler.setLabels();
     }
 }
