@@ -1,4 +1,4 @@
-package entertainment.pro.logic.movieRequesterAPI;
+package entertainment.pro.logic.movierequesterapi;
 
 import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
@@ -14,20 +14,20 @@ import java.util.logging.Logger;
 
 /**
  * Static utility class responsible for reading and returning the contents of the given URL as a string.
- *
  */
-public class URLRetriever {
+public class UrlRetriever {
     private static final String TO_SPECIFY_GET = "GET";
     private static final int SET_REQUEST_TIME = 20 * 1000;
     private static final int STATUS_OK = 200;
-    private static final Logger logger = Logger.getLogger(URLRetriever.class.getName());
+    private static final Logger logger = Logger.getLogger(UrlRetriever.class.getName());
 
     /**
      * Responsible for reading and returning the contents of the given URL as a string.
+     *
      * @param url The URL to read data from.
      * @return the contents of the URL as a string.
      */
-    public static String readURLAsString(URL url) throws Exceptions {
+    public static String readUrlAsString(URL url) throws Exceptions {
         try {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod(TO_SPECIFY_GET);
@@ -56,4 +56,5 @@ public class URLRetriever {
         }
     }
 }
+
 

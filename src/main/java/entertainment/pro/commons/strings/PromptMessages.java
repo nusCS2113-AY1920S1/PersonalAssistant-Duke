@@ -19,11 +19,16 @@ public class PromptMessages {
     public static final String GENRE_DOES_NOT_EXIST = "I'm sorry but the genre entered by you does not exists " +
             "under your preferences";
 
+    //ui related messages
+    public static final String SETTING_LABELS_UI = "Setting/editing labels in UI";
+
     // general search related messages
     public static final String STARTING_SEARCH_MESSAGE = "Starting search request...";
     public static final String RETRIEVING_SEARCH_PROFILE = "Retrieving seacrh profile set by user...";
-
-
+    public static final String REMOVE_BLACLISTED_ITEMS_FROM_SEARCH = "Removing blacklisted items from search results.";
+    public static final String DISPLAYING_MORE_INFO = "Displaying more info about a movie/TV";
+    public static final String UPDATING_SORT_IN_UI = "Updating sort options in the UI";
+    public static final String UNSUPPORTED_ENCODING_SEARCH = "Unsupported Encoding Exception detected";
 
     // search for movies related messages
     public static final String SEARCH_TYPE_IS_MOVIES = "Search type is movies...";

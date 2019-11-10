@@ -1,4 +1,4 @@
-package entertainment.pro.logic.movieRequesterAPI;
+package entertainment.pro.logic.movierequesterapi;
 
 import entertainment.pro.model.MovieInfoObject;
 

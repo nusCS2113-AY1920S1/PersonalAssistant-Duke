@@ -1,4 +1,4 @@
-package entertainment.pro.logic.movieRequesterAPI;
+package entertainment.pro.logic.movierequesterapi;
 
 /**
  * Interface for client classes to be updated about a data fetch by MovieInfoFetcher.
