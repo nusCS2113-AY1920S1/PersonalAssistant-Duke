@@ -1,9 +1,9 @@
 package duke.models;
 
+import duke.data.Storage;
 import duke.view.CliView;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.HashMap;
@@ -82,15 +82,6 @@ public class MyPlan {
     }
 
     /**
-     * A getter to retrieve the list of the plans present in the map.
-     *
-     * @return the list of present plans in the map
-     */
-    public ArrayList<String> getCont() {
-        return this.toc;
-    }
-
-    /**
      * Creates a key for the map for the corresponding intensity & plan number.
      *
      * @param intensity intensity level of current plan
@@ -114,7 +105,7 @@ public class MyPlan {
                 return extractInt(a) - extractInt(b);
             }
 
-            int extractInt(final String s) {
+            public int extractInt(final String s) {
                 String num = s.replaceAll("\\D", "");
                 return num.isEmpty() ? 0 : Integer.parseInt(num);
             }
@@ -128,13 +119,36 @@ public class MyPlan {
     public void showPlanList() {
         ArrayList<String> planList = keyList();
         int index = 1;
+        int option = 1;
         for (String s : planList) {
-            if (index == 1) {
-                System.out.println(s);
+            String[] num = s.split("(?<=\\D)(?=\\d)");
+            if (s.contains("high")) {
+                if (num[1].equals("1")) {
+                    index = 1;
+                    System.out.println("High intensity:");
+                    System.out.println(option + ". Plan " + index);
+                } else {
+                    System.out.println(option + ". Plan " + index);
+                }
+            } else if (s.contains("moderate")) {
+                if (num[1].equals("1")) {
+                    index = 1;
+                    System.out.println("Moderate intensity:");
+                    System.out.println(option + ". Plan " + index);
+                } else {
+                    System.out.println(option + ". Plan " + index);
+                }
             } else {
-                System.out.println("\n" + s);
+                if (num[1].equals("1")) {
+                    index = 1;
+                    System.out.println("Relaxed intensity:");
+                    System.out.println(option + ". Plan " + index);
+                } else {
+                    System.out.println(option + ". Plan " + index);
+                }
             }
             index++;
+            option++;
         }
     }
 
@@ -143,22 +157,6 @@ public class MyPlan {
      */
     private void clearPlan() {
         getList().clear();
-    }
-
-    /**
-     * Add an activity to a plan in the current list.
-     *
-     * @param newName name of new activity
-     * @param newSets number of sets for the new activity
-     * @param newReps number of reps for the new activity
-     * @return A string to inform user of result
-     */
-    public String addActivity(final String newName, final int newSets,
-                              final int newReps) {
-        MyTraining newActivity = new MyTraining(newName, newSets, newReps);
-        getList().add(newActivity);
-        MyTraining t = new MyTraining(newName, newSets, newReps);
-        return "You have added this activity, " + t.toString();
     }
 
     /**
@@ -272,28 +270,76 @@ public class MyPlan {
                 x++;
             }
             return message.toString();
+        } else {
+            return "List is empty";
         }
-        return "";
+    }
+
+    /**
+     * Edit a plan from the map.
+     */
+    public void editPlan() {
+        System.out.println(viewPlan());
+        while (true) {
+            cliView.showEditPlanPrompt1();
+            if (sc.hasNextLine()) {
+                String input = sc.nextLine();
+                if (input.equals("switch")) {
+                    cliView.printLine();
+                    cliView.showEditPlanPrompt2();
+                    cliView.printLine();
+                    String[] pos = sc.nextLine().split(" ");
+                    if (Integer.parseInt(pos[0])
+                            <= getList().size()
+                            && Integer.parseInt(pos[1])
+                            <= getList().size()) {
+                        cliView.printLine();
+                        switchPos(Integer.parseInt(pos[0]),
+                                Integer.parseInt(pos[1]));
+                        cliView.showPlanPrompt2();
+                        cliView.printLine();
+                    }
+                } else if (input.equals("add")) {
+                    cliView.showAddActivityPrompt();
+                    String[] details = sc.nextLine().split(" ");
+                    MyTraining a = new MyTraining(details[0],
+                            Integer.parseInt(details[1]),
+                            Integer.parseInt(details[2]));
+                    getList().add(a);
+                    int lastAdded = getList().size() - 1;
+                    cliView.printLine();
+                    cliView.showActivityAdded();
+                    System.out.println("     "
+                            + getList().get(lastAdded).toString());
+                    cliView.printLine();
+                } else if (input.equals("show")) {
+                    if (getList().isEmpty()) {
+                        cliView.showNoActivity();
+                    } else {
+                        cliView.printLine();
+                        cliView.showViewPlan(viewPlan());
+                        cliView.printLine();
+                    }
+                } else if (input.equals("finalize")) {
+                    cliView.printLine();
+                    cliView.showEditPlanSuccessful();
+                    System.out.println(viewPlan());
+                    cliView.printLine();
+                    break;
+                }
+            }
+        }
     }
 
     /**
      * load the plan of specified intensity and value into the list.
-     * @param intensity intensity of plan to be loaded
-     * @param planNum plan number
+     * @param key key for a plan in the map.
      */
-    public void loadPlanToList(final String intensity, final int planNum) {
+    public void loadPlanToList(final String key) {
         clearPlan();
-        if (!Intensity.contains(intensity)) {
-            cliView.showIntensityLevel();
-        } else {
-            String key = createKey(intensity, planNum);
-            if (map.containsKey(key)) {
-                for (MyTraining t : map.get(key)) {
-                    getList().add(t);
-                }
-                cliView.showPlanLoaded(planNum, intensity);
-            } else {
-                cliView.planNotFound();
+        if (map.containsKey(key)) {
+            for (MyTraining t : map.get(key)) {
+                getList().add(t);
             }
         }
     }
@@ -304,11 +350,13 @@ public class MyPlan {
      * @param newList   List to be saved to map
      * @param intensity intensity value associated with the plan
      * @param key       key associated with the plan
+     * @throws IOException IO
      */
     private void saveToMap(final ArrayList<MyTraining> newList,
-                           final String intensity, final String key) {
+                           final String intensity,
+                           final String key) throws IOException {
         if (key.equals("0")) {
-            int planNum = 0;
+            int planNum = 1;
             Set<String> keys = map.keySet();
             for (String k : keys) {
                 if (k.contains(intensity)) {
@@ -320,6 +368,7 @@ public class MyPlan {
         } else {
             map.put(key, newList);
         }
+        savePlansToFile();
     }
 
     /**
@@ -330,33 +379,53 @@ public class MyPlan {
     public void createPlan(final String intensity) {
         try {
             clearPlan();
+            boolean inCreation = true;
             if (Intensity.contains(intensity)) {
-                while (true) {
+                while (inCreation) {
                     if (sc.hasNextLine()) {
                         String input = sc.nextLine();
                         if (input.equals("finalize")) {
+                            cliView.printLine();
                             cliView.showPlanCreated();
-                            cliView.showSavePlanToMap();
-                            break;
+                            System.out.println(viewPlan());
+                            cliView.printLine();
+                            inCreation = false;
                         } else if (input.equals("show")) {
                             if (getList().isEmpty()) {
                                 cliView.showNoActivity();
                             } else {
+                                cliView.printLine();
                                 cliView.showViewPlan(viewPlan());
                                 cliView.showPlanPrompt1();
+                                cliView.printLine();
                             }
                         } else if (input.equals("switch")) {
-                            while (true) {
-                                if (getList().size() >= 2) {
-                                    cliView.showEditPlanPrompt();
+                            if (getList().size() >= 2) {
+                                try {
+                                    cliView.printLine();
+                                    cliView.showEditPlanPrompt2();
                                     cliView.showViewPlan(viewPlan());
+                                    cliView.printLine();
                                     String[] pos = sc.nextLine().split(" ");
-                                    switchPos(Integer.parseInt(pos[0]),
-                                            Integer.parseInt(pos[1]));
-                                } else {
-                                    cliView.showNotEnoughActivitiesForSwitch();
-                                    break;
+                                    if (Integer.parseInt(pos[0])
+                                            <= getList().size()
+                                            && Integer.parseInt(pos[1])
+                                            <= getList().size()) {
+                                        cliView.printLine();
+                                        switchPos(Integer.parseInt(pos[0]),
+                                                Integer.parseInt(pos[1]));
+                                        cliView.showPlanPrompt2();
+                                        cliView.printLine();
+                                    } else {
+                                        System.out.println("Input correct "
+                                                + "position numbers.");
+                                    }
+                                } catch (ArrayIndexOutOfBoundsException e) {
+                                    System.out.println("Please input "
+                                            + "the proper format.");
                                 }
+                            } else {
+                                cliView.showNotEnoughActivitiesForSwitch();
                             }
                         } else {
                             String[] details = input.split(" ");
@@ -365,10 +434,12 @@ public class MyPlan {
                                     Integer.parseInt(details[2]));
                             getList().add(a);
                             int lastAdded = getList().size() - 1;
+                            cliView.printLine();
                             cliView.showActivityAdded();
                             System.out.println("     "
                                     + getList().get(lastAdded).toString());
                             cliView.showPlanPrompt2();
+                            cliView.printLine();
                         }
                     }
                 }
@@ -376,27 +447,32 @@ public class MyPlan {
             } else {
                 cliView.showIntensityLevel();
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Incorrect Format");
+        } catch (ArrayIndexOutOfBoundsException | IOException e) {
+            System.out.println("Incorrect Format.");
         }
     }
 
     /**
      * Delete a plan from the map.
-     *
-     * @param intensity intensity of plan to be deleted
-     * @param planNum   plan number
+     * @param key key for the plan
      * @throws IOException IO
      */
-    public void deletePlan(final String intensity,
-                           final int planNum) throws IOException {
-        String key = createKey(intensity, planNum);
+    public void deletePlan(final String key) throws IOException {
         if (!map.containsKey(key)) {
             cliView.showIntensityAndNumber();
         } else {
             map.remove(key);
             cliView.showPlanRemoved();
         }
-        //new Storage(getFilePath()).savePlans(getMap());
+        savePlansToFile();
+    }
+
+    /**
+     * Save the map of plans into the text file.
+     * @throws IOException IO
+     */
+    public void savePlansToFile() throws IOException {
+        new Storage(
+                ".\\src\\main\\java\\duke\\data\\plan.txt").savePlans(map, toc);
     }
 }

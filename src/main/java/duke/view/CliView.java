@@ -154,14 +154,17 @@ public class CliView {
      */
     public void trainingProgramHeading() {
         System.out.flush();
+        printLine();
         System.out.println("TRAINING PROGRAM:\n"
             + "1. Plan list - View all the plans available "
-            + "(Not yet fully created.) (cmd: TBC)\n"
+            + " (Choose a plan from the list)\n"
             + "2. Create plan - Create a new plan of a "
             + "specified intensity level (Cmd: plan new [intensity level])\n"
             + "3. Edit plan - Edit a specified plan by adding new "
             + "activities or switching activity positions "
-            + "(Cmd: plan edit [intensity level] [plan number])");
+            + "(Choose a plan from the list)\n"
+            + "4. Delete plan(Choose a plan from the list)");
+        printLine();
     }
 
     /**
@@ -170,7 +173,6 @@ public class CliView {
     public void planListHeading() {
         System.out.flush();
         System.out.println("Choose a plan from the list below: ");
-        System.out.println("PLAN LIST:");
     }
 
     /**
@@ -178,7 +180,7 @@ public class CliView {
      */
     public void planNotFound() {
         System.out.flush();
-        System.out.println("Specified plan is not found.");
+        System.out.println("Plan is not found.");
     }
 
     /**
@@ -186,17 +188,10 @@ public class CliView {
      */
     public void createPlanHeading() {
         System.out.flush();
+        printLine();
         System.out.println("Input an intensity level for the new plan:\n"
             + "high, moderate, relaxed");
-    }
-
-    /**
-     * Prompt user to choose a plan to edit when option 3 is chosen.
-     */
-    public void editPlanHeading() {
-        System.out.flush();
-        System.out.println("Choose a plan from below to edit:\n"
-            + "TBC");
+        printLine();
     }
 
     /**
@@ -204,7 +199,7 @@ public class CliView {
      */
     public void showCorrectPlanHeading() {
         System.out.flush();
-        System.out.println("Choose only options 1, 2 and 3 for training plans");
+        System.out.println("Choose only options 1 to 5 for training plans");
     }
 
     /**
@@ -383,14 +378,10 @@ public class CliView {
     }
 
     /**
-     * Prints message when plan is successfully loaded.
-     *
-     * @param planNum   The plan number of the plan to be loaded.
-     * @param intensity The intensity of the plan to be loaded.
+     * Prints message when no plans are available.
      */
-    public void showPlanLoaded(final int planNum, final String intensity) {
-        System.out.println("Plan " + planNum + " of "
-            + intensity + " intensity " + " loaded.");
+    public void noPlanInMap() {
+        System.out.println("No plans available.");
     }
 
     /**
@@ -416,13 +407,6 @@ public class CliView {
     }
 
     /**
-     * Prints message when saving plan to map.
-     */
-    public void showSavePlanToMap() {
-        System.out.println("Saved to map.");
-    }
-
-    /**
      * Prints message if no activity has been added to show.
      */
     public void showNoActivity() {
@@ -435,9 +419,21 @@ public class CliView {
      * @param i The intensity of the plan to be created.
      */
     public void showPlanCreating(final String i) {
+        printLine();
         System.out.println("Creating plan of " + i + " intensity.\n"
             + "Please input activity in the format of "
             + "[activity(Eg: push-ups)] [number of sets] [number of reps].");
+        printLine();
+    }
+
+    /**
+     * Prints message to prompt user for activity format.
+     */
+    public void showAddActivityPrompt() {
+        printLine();
+        System.out.println("Please input activity in the format of "
+               + "[activity(Eg: push-ups)] [number of sets] [number of reps].");
+        printLine();
     }
 
     /**
@@ -468,14 +464,24 @@ public class CliView {
      * Prints message to prompt the user on what to do next.
      */
     public void showPlanPrompt2() {
-        System.out.println("Please input new activity,"
-            + "finalize the plan or look at current list.");
+        System.out.println("Input new activity, finalize "
+            + "the plan(finalize), look at the list(show)"
+            + ", or edit the positions(switch).");
+    }
+
+    /**
+     * Prints message to prompt user to edit plan.
+     */
+    public void showEditPlanPrompt1() {
+        System.out.println("Input new activity(add), look at the list(show)"
+                + ",edit activity positions(switch) or"
+                + " finalize the plan(finalize)");
     }
 
     /**
      * Prompt user to input position numbers for activities.
      */
-    public void showEditPlanPrompt() {
+    public void showEditPlanPrompt2() {
         System.out.println("Choose the activity and "
             + "the position to switch to.");
     }
@@ -489,6 +495,15 @@ public class CliView {
     public void showSuccessfulSwitch(final int a, final int b) {
         System.out.println("Successfully switched positions for activity "
             + a + " to position " + b);
+    }
+
+    /**
+     * Prints message when editing is finalized.
+     */
+    public void showEditPlanSuccessful() {
+        printLine();
+        System.out.println("Plan successfully changed.");
+        printLine();
     }
 
     /**

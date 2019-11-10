@@ -6,7 +6,6 @@ import duke.view.CliView;
 import java.io.IOException;
 import java.util.Scanner;
 import duke.data.Storage;
-import java.io.FileNotFoundException;
 
 public class ParserTrainingPlan implements IParser {
 
@@ -26,7 +25,7 @@ public class ParserTrainingPlan implements IParser {
 
     /**
      * Constructor for ParserTrainingPlan.
-     * @throws FileNotFoundException File does not exist
+     * @throws IOException IO
      */
     public ParserTrainingPlan() throws IOException {
         cliView = new CliView();
@@ -44,39 +43,102 @@ public class ParserTrainingPlan implements IParser {
         final int inView = 1;
         final int inCreate = 2;
         final int inEdit = 3;
-        final int back = 4;
+        final int inDelete = 4;
+        final int back = 5;
+        final int maxOptions = 5;
         boolean inPlan = true;
+        boolean inList;
         while (inPlan) {
             cliView.trainingProgramHeading();
             int index = Integer.parseInt(sc.nextLine());
-            switch (index) {
-            case inView:
-                cliView.planListHeading();
-                int choosePlan = Integer.parseInt(sc.nextLine());
-                if (choosePlan <= plan.keyList().size()) {
-                    String key = plan.keyList().get(choosePlan);
-                    String[] details = key.split("(?<=\\D)(?=\\d)");
+            if (index <= maxOptions && index > 0) {
+                switch (index) {
+                case inView:
+                    inList = true;
+                    while (inList) {
+                        if (plan.keyList().isEmpty()) {
+                            break;
+                        }
+                        cliView.printLine();
+                        cliView.planListHeading();
+                        plan.showPlanList();
+                        cliView.printLine();
 
-                    plan.loadPlanToList(details[0], Integer.parseInt(details[1]));
-                    System.out.println(plan.viewPlan());
-                } else {
-                    cliView.planNotFound();
+                        if (plan.keyList().size() != 0) {
+                            int choosePlan = Integer.parseInt(sc.nextLine());
+                            if (choosePlan <= plan.keyList().size()) {
+                                String key = plan.keyList().get(choosePlan - 1);
+                                plan.loadPlanToList(key);
+                                cliView.printLine();
+                                System.out.println(plan.viewPlan());
+                                cliView.printLine();
+                                inList = false;
+                            }
+                        } else {
+                            cliView.noPlanInMap();
+                            inList = false;
+                        }
+                    }
+                    break;
+                case inCreate:
+                    cliView.createPlanHeading();
+                    String i = sc.nextLine();
+                    cliView.showPlanCreating(i);
+                    plan.createPlan(i);
+                    break;
+                case inEdit:
+                    inList = true;
+                    while (inList) {
+                        cliView.printLine();
+                        cliView.planListHeading();
+                        plan.showPlanList();
+                        cliView.printLine();
+
+                        if (plan.keyList().size() != 0) {
+                            int choosePlan = Integer.parseInt(sc.nextLine());
+                            if (choosePlan <= plan.keyList().size()) {
+                                String key = plan.keyList().get(choosePlan - 1);
+                                plan.loadPlanToList(key);
+                                plan.editPlan();
+                                inList = false;
+                            }
+                        } else {
+                            cliView.noPlanInMap();
+                            inList = false;
+                        }
+                    }
+                    break;
+                case inDelete:
+                    inList = true;
+                    while (inList) {
+                        cliView.printLine();
+                        cliView.planListHeading();
+                        plan.showPlanList();
+                        cliView.printLine();
+
+                        if (plan.keyList().size() != 0) {
+                            int choosePlan = Integer.parseInt(sc.nextLine());
+                            if (choosePlan <= plan.keyList().size()) {
+                                String key = plan.keyList().get(choosePlan - 1);
+                                try {
+                                    plan.deletePlan(key);
+                                } catch (IOException e) {
+                                    System.out.println("Failed to delete plan");
+                                }
+                                inList = false;
+                            }
+                        } else {
+                            cliView.noPlanInMap();
+                            inList = false;
+                        }
+                    }
+                    break;
+                case back:
+                    inPlan = false;
+                    break;
+                default:
+                    cliView.showCorrectPlanHeading();
                 }
-                break;
-            case inCreate:
-                cliView.createPlanHeading();
-                String i = sc.nextLine();
-                cliView.showPlanCreating(i);
-                plan.createPlan(i);
-                break;
-            case inEdit:
-                System.out.println("To be created...");
-                break;
-            case back:
-                inPlan = false;
-                break;
-            default:
-                cliView.showCorrectPlanHeading();
             }
         }
     }
