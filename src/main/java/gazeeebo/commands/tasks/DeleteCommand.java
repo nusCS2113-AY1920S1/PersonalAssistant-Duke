@@ -20,6 +20,14 @@ import java.util.Stack;
  */
 public class DeleteCommand extends Command {
     /**
+     *  The string "delete" has 6 characters.
+     *  */
+    static final int DELETE_CHAR_COUNT = 6;
+    /**
+     * The string "delete " has 7 characters.
+     */
+    static final int DELETE_AND_SPACE_CHAR_COUNT = 7;
+    /**
      * The string "delete" has 6 characters.
      * Calls delete function to delete tasks from list.
      * Able to delete one or more tasks at time.
@@ -30,16 +38,10 @@ public class DeleteCommand extends Command {
      * @param commandStack keep stack of previous commands.
      * @param deletedTask  keep stack of deleted tasks.
      * @throws DukeException Throws custom exception when
-     *                       format of delete command is wrong
+     * format of delete command is wrong
      * @throws ParseException catch error if parse string to date fails.
      * @throws IOException catch the error if the read file fails.
      */
-
-    /* The string "delete" has 6 characters.*/
-    static final int DELETE_CHAR_COUNT = 6;
-    /* The string "delete " has 7 characters.*/
-    static final int DELETE_AND_SPACE_CHAR_COUNT = 7;
-
     @Override
     public void execute(final ArrayList<Task> list, final Ui ui,
                         final Storage storage,

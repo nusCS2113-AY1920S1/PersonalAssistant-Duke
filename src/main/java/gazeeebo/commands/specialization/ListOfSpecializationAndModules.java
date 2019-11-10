@@ -9,6 +9,13 @@ import java.util.Map;
  * Pushes all specializations and technical electives to specMap.
  */
 public class ListOfSpecializationAndModules {
+    private static final int COMMS_AND_NETWORKING_INDEX = 1;
+    private static final int EMBEDDED_COMPUTING_INDEX = 2;
+    private static final int INTELLIGENT_SYSTEMS_INDEX = 3;
+    private static final int INTERACTIVE_DIGITAL_MEDIA_INDEX = 4;
+    private static final int LARGE_SCALE_COMPUTING_INDEX = 5;
+    private static final int SYS_ON_A_CHIP_DESIGN_INDEX = 6;
+    private static final int MODULAR_CREDITS = 4;
     /**
      * Stores all the technical electives and specializations.
      * in this case storing data in the expenses map
@@ -18,12 +25,7 @@ public class ListOfSpecializationAndModules {
      */
     public ListOfSpecializationAndModules(final Map<String,
             ArrayList<ModuleCategory>> specMap) {
-        final int commsAndNetworkingIndex = 1;
-        final int embeddedComputingIndex = 2;
-        final int intelligentSystemsIndex = 3;
-        final int interactiveDigitalMediaIndex = 4;
-        final int largeScaleComputingIndex = 5;
-        final int sysDesignIndex = 6;
+
         ArrayList<String> specList = new ArrayList<>();
         specList.add("Communications & Networking"); //index 0
         specList.add("Embedded Computing"); //index 1
@@ -139,7 +141,7 @@ public class ListOfSpecializationAndModules {
         commsAndNetworkingBD.add(cn8);
         commsAndNetworkingBD.add(cn9);
 
-        specMap.put(specList.get(commsAndNetworkingIndex - 1),
+        specMap.put(specList.get(COMMS_AND_NETWORKING_INDEX - 1),
                 commsAndNetworkingBD);
 
         ModuleCategory emb1 = new ModuleCategory(cg3207);
@@ -184,7 +186,7 @@ public class ListOfSpecializationAndModules {
         embComputingBD.add(emb9);
         embComputingBD.add(emb10);
 
-        specMap.put(specList.get(embeddedComputingIndex - 1), embComputingBD);
+        specMap.put(specList.get(EMBEDDED_COMPUTING_INDEX - 1), embComputingBD);
 
         ModuleCategory is1 = new ModuleCategory(cs3243);
         is1.isBreadth = true;
@@ -236,7 +238,7 @@ public class ListOfSpecializationAndModules {
         intSystemsBD.add(is11);
         intSystemsBD.add(is12);
 
-        specMap.put(specList.get(intelligentSystemsIndex - 1), intSystemsBD);
+        specMap.put(specList.get(INTELLIGENT_SYSTEMS_INDEX - 1), intSystemsBD);
 
         ModuleCategory idm1 = new ModuleCategory(cs2108);
         idm1.isBreadth = true;
@@ -300,7 +302,7 @@ public class ListOfSpecializationAndModules {
         intDigMediaBD.add(idm14);
         intDigMediaBD.add(idm15);
 
-        specMap.put(specList.get(interactiveDigitalMediaIndex - 1),
+        specMap.put(specList.get(INTERACTIVE_DIGITAL_MEDIA_INDEX - 1),
                 intDigMediaBD);
 
         ModuleCategory ls1 = new ModuleCategory(cs2101);
@@ -357,7 +359,7 @@ public class ListOfSpecializationAndModules {
         largeScaleComputingBD.add(ls12);
         largeScaleComputingBD.add(ls13);
 
-        specMap.put(specList.get(largeScaleComputingIndex - 1),
+        specMap.put(specList.get(LARGE_SCALE_COMPUTING_INDEX - 1),
                 largeScaleComputingBD);
 
         ModuleCategory s1 = new ModuleCategory(cg3207);
@@ -402,7 +404,7 @@ public class ListOfSpecializationAndModules {
         sysDesignBD.add(s9);
         sysDesignBD.add(s10);
 
-        specMap.put(specList.get(sysDesignIndex - 1), sysDesignBD);
+        specMap.put(specList.get(SYS_ON_A_CHIP_DESIGN_INDEX - 1), sysDesignBD);
 
     }
 }
