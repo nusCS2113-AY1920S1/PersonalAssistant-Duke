@@ -16,8 +16,16 @@ public class ProjectRepository implements IRepository<Project> {
     private ProjectFactory projectFactory = new ProjectFactory();
     private JsonConverter jsonConverter = new JsonConverter();
 
+    /**
+     * Constructor of ProjectRepository.
+     * It first gets resources from packaged jar.
+     * Next, it loads any projects data in the current working directory.
+     * Lastly, it adds any resources found in packaged jar into the data found in current working directory.
+     */
     public ProjectRepository() {
-        allProjects = jsonConverter.loadAllProjectsData();
+        ArrayList<Project> projectsFromResource = jsonConverter.getResourcesInJar();
+        allProjects = jsonConverter.loadAllProjectsData(projectsFromResource);
+        allProjects.addAll(projectsFromResource); // TODO FIXED DUPLICATION
     }
 
     @Override
