@@ -34,6 +34,8 @@ Jump straight to <<Quick Start>> to get started!
 
 If you already have DEGREES.NUS, jump ahead to <<Features>>!
 
+A summary of all our commands is avaiable <<here>>!
+
 <<<
 == Quick Start
 === Prerequisites
@@ -158,7 +160,7 @@ Example: +
 * `compare ceg bme` +
 Compares between Computer Engineering and Biomedical Engineering.
 * `compare Industrial and Systems Engineering Environmental Engineering` +
-Compares between Industrial and Systems Engineering Environmental Engineering.
+Compares between Industrial and Systems Engineering and Environmental Engineering.
 * `compare` +
 Switches to the `[Degree Differences]` tab.
 
@@ -248,6 +250,7 @@ Deletes the 5th task in your task list.
 The help command accepts only `help sort`, not `help sort by`.
 
 You can sort the items in your task list according to some category. +
+This will switch to the `[Tasks]` tab. +
 
 
 Possible `<CATEGORIES>` are:
@@ -275,6 +278,7 @@ The task list will sort according to degree-specific tasks.
 === Marking a task as done: `done <ID>`
 
 You can mark a task with the specified ID as done to keep track of tasks that needs to be done. +
+This will switch to the `[Tasks]` tab. +
 Accepts only positive integers.
 
 Format: `redo` 
@@ -289,14 +293,15 @@ Marks the 3rd task as done.
 === Adding custom todo tasks: `todo <DESCRIPTION> {/priority <LEVEL>}`
 
 You can add your own custom todo tasks, with optional priority levels. +
-Todo tasks do not require deadlines.
+Todo tasks do not require deadlines. +
+This will switch to the `[Tasks]` tab. +
 
-There are 4 priority <LEVELS> and can be used for all custom tasks, including `event` and `deadline`: +
-
-* `Very High` +
-* `High` +
-* `Normal` +
-* `Low`
+[NOTE]
+There are 4 priority <LEVELS> that can be used for all custom tasks, including `event` and `deadline`: +
+-`Very High` +
+-`High` +
+-`Normal` +
+-`Low`
 
 
 
@@ -313,7 +318,8 @@ Creates a todo task with the description "Donate to the Hakurei Shrine" with hig
 
 You can add your own custom event tasks, with optional priority levels. +
 Event tasks require deadlines in the following format: `DD-MM-YYYY HHmm`. +
-The time format `HHmm` is in the 24-hour format.
+The time format `HHmm` is in the 24-hour format. +
+This will switch to the `[Tasks]` tab. +
 
 Format: `event <DESCRIPTION> /at <DEADLINE> | event <DESCRIPTION> /at <DEADLINE> /priority <LEVEL>` 
 
@@ -331,7 +337,8 @@ We refer to the task as `deadline task`, and we refer to the date and time of th
 
 You can add your own custom deadline tasks, with optional priority levels. +
 Deadline tasks require deadlines in the following format: `DD-MM-YYYY HHmm`. +
-The time format `HHmm` is in the 24-hour format.
+The time format `HHmm` is in the 24-hour format. +
+This will switch to the `[Tasks]` tab. +
 
 Format: `deadline <DESCRIPTION> /by <DEADLINE> | deadline <DESCRIPTION> /by <DEADLINE> /priority <LEVEL>` 
 
@@ -346,7 +353,8 @@ Creates a deadline task with the description "Bites the Dust" to be done by 10-1
 
 You can change the deadlines of deadline and event tasks. +
 Deadlines require the following format: `DD-MM-YYYY HHmm`. +
-The time format `HHmm` is in 24-hour format.
+The time format `HHmm` is in 24-hour format. =
+This will switch to the `[Tasks]` tab. +
 
 Format: `snooze <ID> /to <DEADLINE>` 
 
@@ -357,10 +365,11 @@ Changes the deadline of task 3 to 09-06-2016 at 1900.
 * `snooze 5 /to 01-01-1970 000` +
 Changes the deadline of task 5 to 01-01-1970 at 0000.
 
-=== Display the tasks of a given day: `schedule <DATE>`
+=== Display the tasks of a given day: `schedule <DATE>` 
 
 You can view the tasks happening on a given date. +
 Dates require the following format: `DD-MM-YYYY`. Time is not required. +
+This will switch to the `[Tasks]` tab. +
 
 Format: `schedule <DATE>` 
 
@@ -375,6 +384,7 @@ Displays all tasks happening on 18-05-2019.
 
 You can view tasks whose description has a partial match with your specified input. +
 This command is case-sensitive. +
+This will switch to the `[Tasks]` tab. +
 
 Format: `find <STRING>` 
 
@@ -416,6 +426,7 @@ Displays the past cohort sizes of the Mechanical Engineering course.
 === Display keywords and aliases that are compatible with <DEGREE>: `keywords`
 
 Displays all keywords and their aliases for each degree. +
+This will switch to the `[Keywords]` tab. +
 These keywords and aliases are compatible with usages of <DEGREE>. +
 However `view_employment` and `cohort_size` only uses keywords.
 
