@@ -4,7 +4,6 @@ import duchess.exceptions.DuchessException;
 import duchess.logic.commands.ByeCommand;
 import duchess.logic.commands.Command;
 import duchess.logic.commands.DisplayCommand;
-import duchess.logic.commands.DoneCommand;
 import duchess.logic.commands.FindCommand;
 import duchess.logic.commands.HistoryCommand;
 import duchess.logic.commands.RedoCommand;
@@ -16,6 +15,7 @@ import duchess.parser.Parser;
 import duchess.parser.Util;
 import duchess.parser.commands.CalendarCommandParser;
 import duchess.parser.commands.DeleteCommandParser;
+import duchess.parser.commands.DoneCommandParser;
 import duchess.parser.commands.LessonCommandParser;
 import duchess.parser.commands.ListCommandParser;
 import duchess.parser.states.add.AddState;
@@ -55,11 +55,7 @@ public class DefaultState extends ParserState {
         } else if ("delete".equals(keyword)) {
             return DeleteCommandParser.parse(parameters);
         } else if ("done".equals(keyword)) {
-            try {
-                return new DoneCommand(Integer.parseInt(arguments.get(0)) - 1);
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new DuchessException("Please supply a number. Eg: done 2");
-            }
+            return DoneCommandParser.parse(parameters);
         } else if ("reminder".equals(keyword)) {
             return new ReminderCommand();
         } else if ("snooze".equals(keyword)) {

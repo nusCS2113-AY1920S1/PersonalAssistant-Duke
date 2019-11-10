@@ -8,6 +8,9 @@ import duchess.ui.Ui;
 
 import java.util.Optional;
 
+/**
+ * Command to list grades for the given module.
+ */
 public class ListGradesCommand extends Command {
     private String moduleCode;
 

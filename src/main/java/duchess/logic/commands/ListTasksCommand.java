@@ -5,6 +5,9 @@ import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
+/**
+ * Command to list tasks in tasklist.
+ */
 public class ListTasksCommand extends Command {
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {

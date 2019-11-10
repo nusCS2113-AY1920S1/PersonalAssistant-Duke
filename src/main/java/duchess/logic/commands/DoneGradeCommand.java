@@ -10,15 +10,28 @@ import duchess.ui.Ui;
 import java.util.Optional;
 
 /**
- * Command to delete grade from given module.
+ * Command to mark Specified task as complete.
+ * Marks are given to be added to the grade.
  */
-public class DeleteGradeCommand extends Command {
-    private final String moduleCode;
-    private final int gradeNo;
+public class DoneGradeCommand extends Command {
+    private int marksObtained;
+    private int maxMarks;
+    private String moduleCode;
+    private int gradeNo;
 
-    public DeleteGradeCommand(String moduleCode, int gradeNo) {
+    /**
+     * Creates a command to mark given task as complete.
+     *
+     * @param moduleCode the code of the module
+     * @param gradeNo the index of the grade in list of grades
+     * @param marksObtained marks obtained
+     * @param maxMarks maximum marks obtainable
+     */
+    public DoneGradeCommand(String moduleCode, int gradeNo, int marksObtained, int maxMarks) {
         this.gradeNo = gradeNo - 1;
         this.moduleCode = moduleCode;
+        this.marksObtained = marksObtained;
+        this.maxMarks = maxMarks;
     }
 
     @Override
@@ -26,9 +39,10 @@ public class DeleteGradeCommand extends Command {
         try {
             Optional<Module> module = store.findModuleByCode(moduleCode);
             if (module.isPresent()) {
-                Grade toRemove = module.get().getGrades().get(gradeNo);
-                module.get().deleteGrade(gradeNo);
-                ui.showDeletedGrade(toRemove.getTask(), module.get());
+                Grade grade = module.get().getGrades().get(gradeNo);
+                grade.markAsComplete(marksObtained, maxMarks);
+                module.get().updateGrade(grade);
+                ui.showCompletedGrade(grade);
                 storage.save(store);
             } else {
                 throw new IllegalArgumentException();

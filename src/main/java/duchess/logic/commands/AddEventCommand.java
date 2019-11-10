@@ -12,6 +12,9 @@ import duchess.ui.Ui;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+/**
+ * Command to add a given event task to the tasklist.
+ */
 public class AddEventCommand extends Command {
     private String description;
     private LocalDateTime end;

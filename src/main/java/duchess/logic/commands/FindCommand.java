@@ -10,6 +10,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Command to search for given task.
+ */
 public class FindCommand extends Command {
     private List<String> words;
 

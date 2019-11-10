@@ -9,6 +9,9 @@ import duchess.ui.Ui;
 
 import java.util.Optional;
 
+/**
+ * Command to add a given grade to list of grades.
+ */
 public class AddGradeCommand extends Command {
     private String assessment;
     private int marks;

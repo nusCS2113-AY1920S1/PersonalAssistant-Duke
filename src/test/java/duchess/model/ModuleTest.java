@@ -14,7 +14,7 @@ public class ModuleTest {
 
     @Test
     public void constructor() {
-        assertEquals(module.toString(), "CS1231 Discrete Mathematics 0.0/0.0%");
+        assertEquals(module.toString(), "CS1231 Discrete Mathematics");
     }
 
     @Test

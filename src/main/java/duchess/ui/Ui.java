@@ -344,6 +344,16 @@ public class Ui {
     }
 
     /**
+     * Prints message for grade completion.
+     *
+     * @param grade Completed grade
+     */
+    public void showCompletedGrade(Grade grade) {
+        printIndented("Nice! I've marked this grade as complete:");
+        printIndented("  " + grade);
+    }
+
+    /**
      * Gets next line from user inputs.
      *
      * @return String containing user input
@@ -531,4 +541,5 @@ public class Ui {
     private void printHR() {
         printIndented("_______________________________________________________________");
     }
+
 }

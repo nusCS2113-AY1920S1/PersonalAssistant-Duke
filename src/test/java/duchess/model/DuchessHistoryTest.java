@@ -2,7 +2,7 @@ package duchess.model;
 
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.Command;
-import duchess.logic.commands.DoneCommand;
+import duchess.logic.commands.DoneTaskCommand;
 import duchess.logic.commands.HistoryCommand;
 import duchess.logic.commands.ListTasksCommand;
 import duchess.logic.commands.RedoCommand;
@@ -56,7 +56,7 @@ public class DuchessHistoryTest {
         DuchessHistory duchessHistory = new DuchessHistory();
 
         try {
-            final Command command1 = new DoneCommand(2);
+            final Command command1 = new DoneTaskCommand(2);
             final Command command2 = new HistoryCommand();
             final Command command3 = new ListTasksCommand();
             final Command command4 = new RedoCommand(new ArrayList<String>());

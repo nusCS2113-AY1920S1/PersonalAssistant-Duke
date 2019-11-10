@@ -7,8 +7,9 @@ import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
-import java.util.List;
-
+/**
+ * Command to remove given task from the tasklist.
+ */
 public class DeleteTaskCommand extends Command {
     private final int taskNo;
 
