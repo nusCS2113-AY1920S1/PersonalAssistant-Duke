@@ -7,7 +7,11 @@ import moomoo.feature.ScheduleList;
 import moomoo.feature.Ui;
 import moomoo.feature.category.Category;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
@@ -186,6 +190,10 @@ public class Storage {
         return false;
     }
 
+    /**
+     * Preload data by copying from resources directory in jar file.
+     * @throws MooMooException Thrown when file does not exist in jar file.
+     */
     public void preloadData() throws MooMooException {
         File myNewFile = new File("data");
         myNewFile.mkdir();
@@ -206,7 +214,8 @@ public class Storage {
 
                 int readBytes;
                 byte[] buffer = new byte[2048];
-                jarFileLocation = new File(MooMoo.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
+                jarFileLocation = new File(MooMoo.class.getProtectionDomain().getCodeSource()
+                        .getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
                 outputStream = new FileOutputStream(jarFileLocation + "/data/" + outputFile);
                 while ((readBytes = inStream.read(buffer)) > 0) {
                     outputStream.write(buffer, 0, readBytes);
@@ -214,7 +223,7 @@ public class Storage {
             }
             inStream.close();
             outputStream.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new MooMooException(e.getMessage());
         }
 
