@@ -2,6 +2,7 @@ package seedu.duke;
 
 import org.junit.jupiter.api.Test;
 import seedu.duke.common.model.Model;
+import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.KeywordPair;
 import seedu.duke.email.parser.EmailContentParseHelper;
 import seedu.duke.email.parser.EmailFormatParseHelper;
@@ -45,8 +46,14 @@ public class EmailContentParseHelperTest {
         EmailFormatParseHelper.Sender sender = new EmailFormatParseHelper.Sender("Akshay", null);
         Email email = new Email("CS2113", sender, null, body, null);
 
-        Model.getInstance().initModel();
-        //EmailContentParseHelper.initKeywordList();
+        EmailList emailList = new EmailList();
+        emailList.add(email);
+
+        Model model = Model.getInstance();
+        model.setIsUpdateGui(false);
+        model.setEmailList(emailList);
+        model.initModel();
+
         EmailContentParseHelper.allKeywordInEmail(email);
 
         ArrayList<Email.Tag> tags = email.getTags();
