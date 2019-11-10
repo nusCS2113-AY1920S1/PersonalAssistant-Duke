@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Arrays;
 import java.time.format.DateTimeParseException;
+
+import seedu.hustler.data.CommandLog;
 import seedu.hustler.task.TaskList;
 import seedu.hustler.logic.CommandLineException;
 import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
@@ -40,11 +42,13 @@ public class AddCommandAnomaly extends DetectAnomaly {
      */
     public void detect(String[] userInput) throws CommandLineException {
         if (userInput.length == 1 || userInput[1].isBlank()) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException(MESSAGE_EMPTY_TASK_DESCRIPTION);
         }
 
         String taskDescription = userInput[1].split("/by|/at")[0];
         if (taskDescription.isBlank()) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException(MESSAGE_EMPTY_TASK_DESCRIPTION);
         }
 
@@ -56,6 +60,7 @@ public class AddCommandAnomaly extends DetectAnomaly {
                 String difficulty = parsedInput.get(difficultyIndex);
                 String[] validDifficulty = {"H", "M", "L"};
                 if (!Arrays.asList(validDifficulty).contains(difficulty)) {
+                    CommandLog.removeLastCommand();
                     throw new CommandLineException(MESSAGE_INVALID_DIFFICULTY );
                 }
             }
@@ -67,6 +72,7 @@ public class AddCommandAnomaly extends DetectAnomaly {
 
             if (parsedInput.contains("/by") || parsedInput.contains("/at")) {
                 if (LocalDateTime.now().isAfter(getDateTime(TaskList.getTimeString(parsedInput)))) {
+                    CommandLog.removeLastCommand();
                     throw new CommandLineException(MESSAGE_PASSED_DATE_TIME);
                 }
                 if (parsedInput.contains("/every")) {
@@ -75,17 +81,22 @@ public class AddCommandAnomaly extends DetectAnomaly {
                     String unit = parsedInput.get(everyIndex + 2);
                     String[] validUnits = {"minutes", "hours", "days", "weeks", "months"};
                     if (!Arrays.asList(validUnits).contains(unit)) {
+                        CommandLog.removeLastCommand();
                         throw new CommandLineException(MESSAGE_INVALID_PERIOD);
                     }
                 }
             } else if (parsedInput.contains("/every")) {
+                CommandLog.removeLastCommand();
                 throw new CommandLineException("/every does not work on ToDo tasks.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException(MESSAGE_INVALID_COMMAND_FORMAT);
         } catch (DateTimeParseException e) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException(MESSAGE_INVALID_DATE_TIME);
         } catch (NumberFormatException e) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException("Please enter an integer after /every");
         }
     } 

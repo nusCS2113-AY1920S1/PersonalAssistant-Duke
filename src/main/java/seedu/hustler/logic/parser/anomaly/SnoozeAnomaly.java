@@ -1,6 +1,7 @@
 package seedu.hustler.logic.parser.anomaly;
 
 import seedu.hustler.Hustler;
+import seedu.hustler.data.CommandLog;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.task.ToDo;
@@ -36,11 +37,13 @@ public class SnoozeAnomaly extends DetectAnomaly {
     @Override
     public void detect(String[] userInput) throws CommandLineException {
         if (userInput.length == 1) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
         String[] parsedInput = userInput[1].split(" ");
         if (parsedInput.length != 3) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
@@ -48,6 +51,7 @@ public class SnoozeAnomaly extends DetectAnomaly {
         try {
             snoozeIndex = Integer.parseInt(parsedInput[0]);
         } catch (NumberFormatException e) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException(MESSAGE_INVALID_INTEGER);
         }
 
@@ -57,6 +61,7 @@ public class SnoozeAnomaly extends DetectAnomaly {
         }
 
         if (Hustler.list.get(snoozeIndex) instanceof ToDo) {
+            CommandLog.removeLastCommand();
             throw new CommandLineException((MESSAGE_INVALID_TASK_TYPE));
         }
 
@@ -66,9 +71,11 @@ public class SnoozeAnomaly extends DetectAnomaly {
             try {
                 LocalDateTime dateTime = getDateTime(dateTimeString);
                 if (LocalDateTime.now().isAfter(dateTime)) {
+                    CommandLog.removeLastCommand();
                     throw new CommandLineException(MESSAGE_PASSED_DATE_TIME);
                 }
             } catch (DateTimeParseException e) {
+                CommandLog.removeLastCommand();
                 throw new CommandLineException(MESSAGE_INVALID_DATE_TIME);
             }
         } else {
@@ -76,12 +83,14 @@ public class SnoozeAnomaly extends DetectAnomaly {
             try {
                 Integer.parseInt(parsedInput[1]);
             } catch (NumberFormatException e) {
+                CommandLog.removeLastCommand();
                 throw new CommandLineException(MESSAGE_INVALID_INTEGER);
             }
 
             String unit = parsedInput[2];
             String[] validUnits = {"minutes", "hours", "days", "weeks", "months"};
             if (!Arrays.asList(validUnits).contains(unit.toLowerCase())) {
+                CommandLog.removeLastCommand();
                 throw new CommandLineException(MESSAGE_INVALID_PERIOD);
             }
         }
