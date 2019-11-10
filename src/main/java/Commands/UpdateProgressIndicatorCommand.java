@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class UpdateProgressIndicatorCommand {
     TaskList eventList;
     TaskList deadlineList;
-    private static final String TICK_CROSS = "\u2713";
+    private static final String TICK_SYMBOL = "\u2713";
 
     /**
      * Creates UpdateProgressIndicator object.
@@ -63,7 +63,7 @@ public class UpdateProgressIndicatorCommand {
             for (Pair<String, Pair<String, String>> as : tasks) {
                 if (as.getKey().equals(module)) {
                     totalNumTasks += 1;
-                    if (as.getValue().getKey().equals(TICK_CROSS)) {
+                    if (as.getValue().getKey().equals(TICK_SYMBOL)) {
                         completedValue += 1;
                     }
                 }

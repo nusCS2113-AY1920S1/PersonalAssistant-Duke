@@ -92,6 +92,8 @@ public class DukeConstants {
             + "find/time 'x' hours, where 'x' is a digit between 1 - 16\n"
             + "Followed by the command\n"
             + "retrieve/time 'x', where 'x' is a digit between 1- 5";
+    public static final String STR_RANGE_FOR_BETWEEN = "Please enter a valid integer x between 0 and ";
+    public static final String STR_RANGE_FOR_LESS_THAN = "Please enter a valid number less than or equal to ";
 
     //FIND
     public static final String INVALID_INPUT = "Invalid input. Please enter the command as follows. \n"
