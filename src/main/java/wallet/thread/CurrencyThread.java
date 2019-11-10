@@ -33,7 +33,6 @@ public class CurrencyThread implements Runnable {
             if (c.getCountry().toLowerCase().equals(givenCountry)) {
                 updateExpenseAndLoans(wallet, c);
                 System.out.println(CurrencyCommand.MESSAGE_SUCCESSFUL_CONVERSION + givenCountry);
-                System.out.println(CurrencyCommand.MESSAGE_ADDING_CURRENCY);
                 isExit = true;
             }
         }

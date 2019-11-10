@@ -9,6 +9,7 @@ import wallet.model.record.ExpenseList;
 import wallet.model.record.Budget;
 import wallet.model.record.Loan;
 import wallet.model.record.Category;
+import wallet.ui.Ui;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class ExportCommandParser implements Parser<ExportCommand> {
 
-    public static final String MESSAGE_ERROR_WRONG_FORMAT = "Wrong Format for command input!";
+    public static final String MESSAGE_ERROR_WRONG_FORMAT = "Wrong export command syntax!";
     public static final String MESSAGE_ERROR_WRONG_YEARMONTH = "Wrong year and month input!";
     private double budgetLeft;
 
@@ -39,7 +40,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
             return new ExportCommand(data, arguments[0]);
         } else if ("expense".equals(arguments[0])) {
             if (arguments.length != 2) {
-                System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
+                Ui.printError(MESSAGE_ERROR_WRONG_FORMAT);
                 return null;
             }
             List<String[]> data = parseExpense(arguments[1]);
@@ -50,7 +51,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
             }
         }
 
-        System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
+        Ui.printError(MESSAGE_ERROR_WRONG_FORMAT);
         return null;
     }
 
@@ -97,12 +98,12 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                     }
                 }
             } else {
-                System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
+                Ui.printError(MESSAGE_ERROR_WRONG_FORMAT);
                 return null;
             }
 
         } catch (NumberFormatException | DateTimeException e) {
-            System.out.println(MESSAGE_ERROR_WRONG_YEARMONTH);
+            Ui.printError(MESSAGE_ERROR_WRONG_YEARMONTH);
             return null;
         }
 

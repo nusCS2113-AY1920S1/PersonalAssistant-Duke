@@ -10,6 +10,7 @@ import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.ui.Ui;
 
+import java.math.BigDecimal;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,8 +59,14 @@ public class ViewCommand extends Command {
                                     + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                             System.out.println("$" + b.getAmount());
 
-                            double remainingBudget = b.getAmount()
-                                    - wallet.getExpenseList().getMonthExpenses(b.getMonth(), b.getYear());
+                           // double remainingBudget = b.getAmount()
+                                   // - wallet.getExpenseList().getMonthExpenses(b.getMonth(), b.getYear());
+
+                            BigDecimal monthBudget = BigDecimal.valueOf(b.getAmount());
+                            BigDecimal expenseSum = BigDecimal.valueOf( wallet.getExpenseList()
+                                .getMonthExpenses(b.getMonth(), b.getYear()));
+                            double remainingBudget = monthBudget.subtract(expenseSum).doubleValue();
+
                             System.out.println(MESSAGE_REMAINING_BUDGET
                                     + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                             System.out.println("$" + remainingBudget);
@@ -108,7 +115,7 @@ public class ViewCommand extends Command {
             ui.drawPieChart(expenseList);
             return false;
         } else {
-            System.out.println(MESSAGE_USAGE);
+            Ui.printError(MESSAGE_USAGE);
         }
         return false;
     }

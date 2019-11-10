@@ -73,10 +73,10 @@ public class ListCommand extends Command {
                         System.out.println(MESSAGE_LIST_EXPENSES);
                         Ui.printExpenseTable(expenseList);
                     } else {
-                        System.out.println(MESSAGE_RECURRING_SORT);
+                        Ui.printError(MESSAGE_RECURRING_SORT);
                     }
                 } else {
-                    System.out.println(MESSAGE_USAGE);
+                    Ui.printError(MESSAGE_USAGE);
                 }
             }
         } else if (record.contains("all")) {
@@ -109,7 +109,7 @@ public class ListCommand extends Command {
                         System.out.println(MESSAGE_LIST_ALL_SORT);
                     }
                 } else {
-                    System.out.println(MESSAGE_USAGE);
+                    Ui.printError(MESSAGE_USAGE);
                 }
             }
         } else if (record.contains("contact")) {
@@ -121,7 +121,7 @@ public class ListCommand extends Command {
             } else {
                 String[] arguments = record.split(" ", 3);
                 if (arguments.length < 3) {
-                    System.out.println(MESSAGE_CONTACT_SORT);
+                    Ui.printError(MESSAGE_CONTACT_SORT);
                     return false;
                 }
                 if (arguments[1].equals("/sortby")) {
@@ -130,10 +130,10 @@ public class ListCommand extends Command {
                         System.out.println(MESSAGE_LIST_CONTACTS);
                         Ui.printContactTable(sortedContacts);
                     } else {
-                        System.out.println(MESSAGE_CONTACT_SORT);
+                        Ui.printError(MESSAGE_CONTACT_SORT);
                     }
                 } else {
-                    System.out.println(MESSAGE_USAGE);
+                    Ui.printError(MESSAGE_USAGE);
                 }
             }
 
@@ -157,10 +157,10 @@ public class ListCommand extends Command {
                         ArrayList<Loan> loanList = wallet.getLoanList().sortByBorrow();
                         Ui.printLoanTable(loanList);
                     } else {
-                        System.out.println(MESSAGE_LOANS_SORT);
+                        Ui.printError(MESSAGE_LOANS_SORT);
                     }
                 } else {
-                    System.out.println(MESSAGE_USAGE);
+                    Ui.printError(MESSAGE_USAGE);
                 }
             }
         } else if (record.contains("expense")) {
@@ -180,10 +180,10 @@ public class ListCommand extends Command {
                         System.out.println(MESSAGE_LIST_EXPENSES);
                         Ui.printExpenseTable(expenseList);
                     } else {
-                        System.out.println(MESSAGE_EXPENSE_SORT);
+                        Ui.printError(MESSAGE_EXPENSE_SORT);
                     }
                 } else {
-                    System.out.println(MESSAGE_USAGE);
+                    Ui.printError(MESSAGE_USAGE);
                 }
             }
         } else {
@@ -231,7 +231,7 @@ public class ListCommand extends Command {
                     }
                 }
             } else {
-                System.out.println(MESSAGE_USAGE);
+                Ui.printError(MESSAGE_USAGE);
             }
             //@@author
         }

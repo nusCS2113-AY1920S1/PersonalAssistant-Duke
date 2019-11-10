@@ -5,6 +5,7 @@ package wallet.logic.command;
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.WalletList;
+import wallet.ui.Ui;
 
 public class UndoCommand extends Command {
 
@@ -23,7 +24,7 @@ public class UndoCommand extends Command {
     public boolean execute(Wallet wallet) {
 
         if (walletList.getState() == 0) {
-            System.out.println(MESSAGE_ALREADY_INITIAL_STATE);
+            Ui.printError(MESSAGE_ALREADY_INITIAL_STATE);
             return false;
         }
 

@@ -3,6 +3,7 @@
 package wallet.logic.parser;
 
 import wallet.logic.command.ReminderCommand;
+import wallet.ui.Ui;
 
 /**
  * The RemindCommand class
@@ -16,7 +17,7 @@ public class ReminderCommandParser implements Parser<ReminderCommand> {
             return new ReminderCommand(input);
         }
 
-        System.out.println(ReminderCommand.MESSAGE_USAGE);
+        Ui.printError(ReminderCommand.MESSAGE_USAGE);
         return null;
     }
 }

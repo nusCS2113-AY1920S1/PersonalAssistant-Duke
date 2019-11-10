@@ -116,7 +116,7 @@ public class LogicManager {
                     commandHistory.add(fullCommand);
                 }
             } else {
-                System.out.println(MESSAGE_ERROR_COMMAND);
+                Ui.printError(MESSAGE_ERROR_COMMAND);
             }
         } catch (WrongDateTimeFormat | WrongParameterFormat | InsufficientParameters | ParseException err) {
             Ui.printError(err.toString());

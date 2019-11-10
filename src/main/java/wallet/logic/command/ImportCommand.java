@@ -7,9 +7,7 @@ import wallet.model.record.ExpenseList;
 import wallet.model.record.LoanList;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
-import wallet.model.record.Budget;
 
-import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -19,9 +17,8 @@ public class ImportCommand extends Command {
     private static final String MESSAGE_SUCCESS_ADD_CONTACT = "Got it. I've added this contact:";
     private static final String MESSAGE_SUCCESS_ADD_EXPENSE = "Got it. I've added this expense:";
     private static final String MESSAGE_SUCCESS_ADD_LOAN = "Got it. I've added this loan:";
-    private static final String MESSAGE_NEW_BUDGET = " is your new budget for ";
-    private static final String MESSAGE_EXCEED_BUDGET = "Your budget has exceeded!!";
-    private static final String MESSAGE_REACH_BUDGET = "You have reached your budget!!";
+    private static final String MESSAGE_IMPORT_PROGRESS = "Importing records...";
+    private static final String MESSAGE_IMPORT_FINISH = "Finish Import!";
     private LoanList loanList = null;
     private ExpenseList expenseList = null;
 
@@ -52,7 +49,7 @@ public class ImportCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
 
-        System.out.println("Importing records... \n");
+        System.out.println(MESSAGE_IMPORT_PROGRESS + "\n");
 
         if (loanList != null) {
 
@@ -85,19 +82,6 @@ public class ImportCommand extends Command {
             for (Expense expense : expenseData) {
                 wallet.getExpenseList().addExpense(expense);
                 LocalDate date = expense.getDate();
-                for (Budget b : wallet.getBudgetList().getBudgetList()) {
-                    if (b.getMonth() == date.getMonthValue() && b.getYear() == date.getYear()) {
-                        b.setAmount(b.getAmount() - expense.getAmount());
-                        wallet.getBudgetList().setModified(true);
-                        if (b.getAmount() < 0) {
-                            System.out.println(MESSAGE_EXCEED_BUDGET);
-                        } else if (b.getAmount() == 0) {
-                            System.out.println(MESSAGE_REACH_BUDGET);
-                        }
-                        System.out.println("$" + b.getAmount() + MESSAGE_NEW_BUDGET
-                                + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
-                    }
-                }
                 wallet.getRecordList().addRecord(expense);
                 wallet.getExpenseList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
@@ -106,7 +90,7 @@ public class ImportCommand extends Command {
             }
         }
 
-        System.out.println("Finish Import!");
+        System.out.println(MESSAGE_IMPORT_FINISH);
         return false;
     }
 }

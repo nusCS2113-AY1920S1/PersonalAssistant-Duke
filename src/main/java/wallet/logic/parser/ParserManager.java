@@ -28,7 +28,7 @@ import java.text.ParseException;
  */
 public class ParserManager {
 
-    private String parametersError = " command does not have parameters or have invalid parameters!";
+    private String parametersError = " command does not have parameters or have insufficient parameters!";
 
     /**
      * Parses the user input command and returns the corresponding Command object.
