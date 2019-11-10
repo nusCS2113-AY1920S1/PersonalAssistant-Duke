@@ -83,7 +83,7 @@ public class DeleteGoalCommand extends MoneyCommand {
             MoneyCommand list = new ListGoalsCommand();
             list.execute(account, ui, storage);
         } else {
-            throw new DukeException("U messed up at goals\n");
+            throw new DukeException("Last deleted entry is of invalid type!!\n");
         }
     }
 }

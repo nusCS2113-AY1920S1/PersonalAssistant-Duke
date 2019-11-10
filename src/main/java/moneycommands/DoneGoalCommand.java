@@ -91,7 +91,7 @@ public class DoneGoalCommand extends MoneyCommand {
                     + account.getExpListTotal().size()
                     + " expenses listed\n");
         } else {
-            throw new DukeException("Messed up (DoneGoal)");
+            throw new DukeException("Last deleted entry is of invalid type!!\n");
         }
     }
 }

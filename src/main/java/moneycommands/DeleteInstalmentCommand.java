@@ -80,7 +80,7 @@ public class DeleteInstalmentCommand extends MoneyCommand {
             ui.appendToOutput(account.getInstalments().get(serialNo - 1).toString() + "\n");
             ui.appendToOutput(" Now you have " + account.getInstalments().size() + " instalments listed\n");
         } else {
-            throw new DukeException("u messed up (INS)");
+            throw new DukeException("Last deleted entry is of invalid type!!\n");
         }
     }
 }

@@ -81,8 +81,10 @@ public class DeleteInstalmentTest {
             assertThat(e.getMessage(), is("The serial number of the Instalments is Out Of Bounds!"));
         }
 
-        Instalment instalment = new Instalment(5000, "car", "instalments", dateTestDate, 120, 3);
-        Instalment instalment1 = new Instalment(100000, "mortgage", "instalments", dateTestDate, 180, 4);
+        Instalment instalment = new Instalment(5000, "car", "instalments",
+                dateTestDate, 120, 3);
+        Instalment instalment1 = new Instalment(100000, "mortgage", "instalments",
+                dateTestDate, 180, 4);
         account.getInstalments().add(instalment);
         account.getInstalments().add(instalment1);
 
@@ -96,6 +98,28 @@ public class DeleteInstalmentTest {
             assertThat(e.getMessage(), is("The serial number of the Instalments is Out Of Bounds!"));
         }
 
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
+
+    @Test
+    void testUndoDeleteInstalment() throws DukeException, ParseException {
+        account.getInstalments().clear();
+        Instalment instalment = new Instalment(5000, "car", "instalments",
+                dateTestDate, 120, 3);
+        Instalment instalment1 = new Instalment(100000, "mortgage", "instalments",
+                dateTestDate, 180, 4);
+        account.getInstalments().add(instalment);
+        account.getInstalments().add(instalment1);
+
+        String deleteFirstInput = "delete instalment 2";
+        MoneyCommand deleteInstalmentCommand = new DeleteInstalmentCommand(deleteFirstInput);
+        deleteInstalmentCommand.execute(account, ui, moneyStorage);
+        ui.clearOutputString();
+        deleteInstalmentCommand.undo(account, ui, moneyStorage);
+        assertEquals(" Last command undone: \n" + instalment1.toString() + "\n Now you have "
+                + account.getInstalments().size() + " instalments listed\n", ui.getOutputString());
+        account.getInstalments().clear();
         MoneyCommand exitCommand =  new ExitMoneyCommand();
         exitCommand.execute(account, ui, moneyStorage);
     }
