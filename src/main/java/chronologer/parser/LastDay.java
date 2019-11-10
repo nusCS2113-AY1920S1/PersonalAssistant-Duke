@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import chronologer.exception.ChronologerException;
 import chronologer.exception.MyLogger;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 //@@author hanskw4267
 /**
@@ -47,7 +47,7 @@ public class LastDay {
             return formattedDay;
         } catch (IndexOutOfBoundsException e) {
             logger.writeLog(e.toString(), "chronologer.parser.LastDay", dayFromUser);
-            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }

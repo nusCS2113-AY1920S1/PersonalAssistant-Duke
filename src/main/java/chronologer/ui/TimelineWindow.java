@@ -89,7 +89,9 @@ class TimelineWindow extends UiComponent<Region> {
     private static final int SATURDAY = 1;
     private static final int SUNDAY = 0;
     private static final int CURRENT_WEEK_INDICATOR = -1;
-
+    private static final int AUGUST = 8;
+    private static final int FIRST = 1;
+    private static final int WEEK = 7;
     private LocalDate currentSundayDate;
 
 
@@ -165,8 +167,7 @@ class TimelineWindow extends UiComponent<Region> {
      */
     private void populateReminders() {
         ObservableList<String> reminderTasks;
-        LocalDateTime now = LocalDateTime.now();
-        reminderTasks = FXCollections.observableArrayList(tasks.fetchReminders(now));
+        reminderTasks = FXCollections.observableArrayList(tasks.fetchReminders());
         reminderTask.setItems(reminderTasks);
     }
 
@@ -198,14 +199,17 @@ class TimelineWindow extends UiComponent<Region> {
             while (change.next()) {
                 if (change.wasAdded()) {
                     populateEveryDay();
+                    populateReminders();
                     prioritizedTodayTasks();
                     tasksWithoutDates();
                 } else if (change.wasRemoved()) {
                     populateEveryDay();
+                    populateReminders();
                     prioritizedTodayTasks();
                     tasksWithoutDates();
                 } else if (change.wasReplaced()) {
                     populateEveryDay();
+                    populateReminders();
                     prioritizedTodayTasks();
                     tasksWithoutDates();
                 }
@@ -236,7 +240,7 @@ class TimelineWindow extends UiComponent<Region> {
     private void changeWeek(int chosenWeek) {
         final DayOfWeek Sunday = DayOfWeek.SUNDAY;
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        LocalDate firstDay = LocalDate.of(currentYear, 8, 1);
+        LocalDate firstDay = LocalDate.of(currentYear, AUGUST, FIRST);
         LocalDate firstMondayOfSemester = firstDay.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
         LocalDate firstSundayOfSemester = firstMondayOfSemester.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
         LocalDate requiredSundayDate;
@@ -244,7 +248,7 @@ class TimelineWindow extends UiComponent<Region> {
             requiredSundayDate = LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday));
             todayLabel.setVisible(true);
         } else {
-            requiredSundayDate = firstSundayOfSemester.plusDays(chosenWeek * 7);
+            requiredSundayDate = firstSundayOfSemester.plusDays(chosenWeek * WEEK);
             if (requiredSundayDate.isEqual(LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday)))) {
                 todayLabel.setVisible(true);
             } else {
@@ -323,12 +327,12 @@ class TimelineWindow extends UiComponent<Region> {
 
     private void setTasks(String day1, String day2, String day3, ListView<String> day1Task,
                           ListView<String> day2Task, ListView<String> day3Task) {
-        ObservableList<String> thursdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(day1));
-        day1Task.setItems(thursdayTasks);
-        ObservableList<String> fridayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(day2));
-        day2Task.setItems(fridayTasks);
-        ObservableList<String> saturdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(day3));
-        day3Task.setItems(saturdayTasks);
+        ObservableList<String> day1Tasks = FXCollections.observableArrayList(tasks.scheduleForDay(day1));
+        day1Task.setItems(day1Tasks);
+        ObservableList<String> day2Tasks = FXCollections.observableArrayList(tasks.scheduleForDay(day2));
+        day2Task.setItems(day2Tasks);
+        ObservableList<String> day3Tasks = FXCollections.observableArrayList(tasks.scheduleForDay(day3));
+        day3Task.setItems(day3Tasks);
     }
 
     private void listViewComponents(ListView<String> stringListView, String mode) {

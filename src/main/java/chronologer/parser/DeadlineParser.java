@@ -3,9 +3,8 @@ package chronologer.parser;
 import chronologer.command.AddCommand;
 import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -52,13 +51,13 @@ public class DeadlineParser extends DescriptionParser {
         LocalDateTime startDate;
         try {
             dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
-            startDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
+            startDate = DateTimeExtractor.extractDateTime(dateTimeFromUser);
         } catch (ArrayIndexOutOfBoundsException e) {
-            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         } catch (DateTimeParseException e) {
-            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }

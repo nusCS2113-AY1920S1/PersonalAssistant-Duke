@@ -3,7 +3,7 @@ package chronologer.command;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 import java.util.ArrayList;
 
@@ -33,20 +33,17 @@ public class ViewCommand extends Command {
     public void execute(TaskList tasks, Storage storage) {
         ArrayList<Task> sortedRequiredSchedule = tasks.schedule(dateToFind);
         if (sortedRequiredSchedule.isEmpty()) {
-            UiTemporary.printMessage(NO_TASK_SCHEDULED);
-            UiTemporary.printOutput(NO_TASK_SCHEDULED);
+            UiMessageHandler.outputMessage(NO_TASK_SCHEDULED);
         } else {
-            UiTemporary.printMessage(PRESENT_SCHEDULE);
+            UiMessageHandler.outputForGUI += PRESENT_SCHEDULE;
             int i = 1;
-            UiTemporary.printDash();
             for (Task task : sortedRequiredSchedule) {
-                UiTemporary.printMessage(i++ + "." + task.toString());
+                UiMessageHandler.outputForGUI += i++ + "." + task.toString() + "\n";
             }
-            UiTemporary.printOutput(TODAY_TASK);
-            Integer j = 1;
+            UiMessageHandler.outputMessage(TODAY_TASK);
+            int j = 1;
             for (Task task : sortedRequiredSchedule) {
-                UiTemporary.printMessage(i++ + "." + task.toString());
-                UiTemporary.userOutputForUI += j++ + "." + task.toString() + "\n";
+                UiMessageHandler.outputForGUI += j++ + "." + task.toString() + "\n";
             }
         }
     }

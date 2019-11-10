@@ -3,7 +3,7 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.EditCommand;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * Extract the components required for the edit command from the user input.
@@ -39,7 +39,7 @@ public class EditParser extends IndexParser {
         try {
             newDescription = editCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
-            UiTemporary.printOutput(ChronologerException.emptyUserDescription());
+            UiMessageHandler.outputMessage(ChronologerException.emptyUserDescription());
             logger.writeLog(EMPTY_DESCRIPTION, this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyUserDescription());
         }

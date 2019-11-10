@@ -3,7 +3,7 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
 import chronologer.exception.MyLogger;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * Ensures that all the classes of parser type have implementations of the
@@ -39,7 +39,7 @@ public abstract class Parser {
         try {
             taskFeatures = userInput.split("\\s+", 2)[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
-            UiTemporary.printOutput(ChronologerException.emptyUserDescription());
+            UiMessageHandler.outputMessage(ChronologerException.emptyUserDescription());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyUserDescription());
         }

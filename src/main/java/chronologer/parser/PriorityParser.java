@@ -3,7 +3,7 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.PriorityCommand;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * Extract the components required for the priority command from the user input.
@@ -38,7 +38,7 @@ public class PriorityParser extends IndexParser {
             String[] priorityCommandParts = taskFeatures.split("\\s+", 2);
             priorityString = priorityCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
-            UiTemporary.printOutput(ChronologerException.emptyPriorityLevel());
+            UiMessageHandler.outputMessage(ChronologerException.emptyPriorityLevel());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyPriorityLevel());
         }

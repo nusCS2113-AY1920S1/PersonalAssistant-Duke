@@ -3,7 +3,7 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.RemindCommand;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 /**
  * Extract the components required for the remind command from the user input.
@@ -39,7 +39,7 @@ public class RemindParser extends IndexParser {
         try {
             days = Integer.parseInt(daysString);
         } catch (NumberFormatException e) {
-            UiTemporary.printOutput(ChronologerException.unknownUserCommand());
+            UiMessageHandler.outputMessage(ChronologerException.unknownUserCommand());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.unknownUserCommand());
         }

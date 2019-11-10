@@ -3,7 +3,7 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.PostponeCommand;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -59,7 +59,7 @@ public class PostponeParser extends IndexParser {
         try {
             return postponeCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
-            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
@@ -75,10 +75,10 @@ public class PostponeParser extends IndexParser {
         String obtainStartDate = dateString.split("-", 2)[0].trim();
         String obtainEndDate = dateString.split("-", 2)[1].trim();
         try {
-            newFromDate = DateTimeExtractor.extractDateTime(obtainStartDate, command);
-            newToDate = DateTimeExtractor.extractDateTime(obtainEndDate, command);
+            newFromDate = DateTimeExtractor.extractDateTime(obtainStartDate);
+            newToDate = DateTimeExtractor.extractDateTime(obtainEndDate);
         } catch (DateTimeParseException e) {
-            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
@@ -92,9 +92,9 @@ public class PostponeParser extends IndexParser {
      */
     private void extractDeadlineDates(String dateString) throws ChronologerException {
         try {
-            newFromDate = DateTimeExtractor.extractDateTime(dateString, command);
+            newFromDate = DateTimeExtractor.extractDateTime(dateString);
         } catch (DateTimeParseException e) {
-            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
+            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }

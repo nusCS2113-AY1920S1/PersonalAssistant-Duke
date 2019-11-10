@@ -3,7 +3,6 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.ThemeCommand;
 import chronologer.exception.ChronologerException;
-import chronologer.ui.UiTemporary;
 
 public class ThemeParser extends DescriptionParser {
 

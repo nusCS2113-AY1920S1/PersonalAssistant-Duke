@@ -5,7 +5,7 @@ import chronologer.task.Event;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.task.Todo;
-import chronologer.ui.UiTemporary;
+import chronologer.ui.UiMessageHandler;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -53,7 +53,7 @@ public class TaskListAdapter implements JsonDeserializer<TaskList> {
             } else if (isTodo(type)) {
                 listOfTasks.add(new Gson().fromJson(object, Todo.class));
             } else {
-                UiTemporary.printOutput(JSON_ERROR);
+                UiMessageHandler.outputMessage(JSON_ERROR);
             }
         }
         taskList = new TaskList(listOfTasks);

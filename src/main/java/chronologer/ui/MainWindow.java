@@ -67,6 +67,10 @@ class MainWindow extends UiComponent<Stage> {
         baseStage.show();
     }
 
+    /**
+     * Prints the message.
+     */
     void print(String message) {
+        UiMessageHandler.outputMessage(message);
     }
 }
