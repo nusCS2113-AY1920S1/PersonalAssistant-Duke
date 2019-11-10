@@ -18,7 +18,7 @@ import org.apache.commons.io.FilenameUtils;
 
 public class NoteList {
 
-    public ArrayList<Note> al = new ArrayList<>();
+    private ArrayList<Note> al = new ArrayList<>();
 
     /**
      * Using Depth-First-Search to find all text files.
@@ -30,7 +30,7 @@ public class NoteList {
         try {
             Stream<Path> walk = Files.walk(Paths.get(Storage.returnNotesDefaultFilePath()));
             List<String> result = walk.filter(Files::isRegularFile)
-                    .map(x -> x.toString()).collect(Collectors.toList());
+                    .map(Path::toString).collect(Collectors.toList());
 
             for (String resultName : result) {
                 String processedName = processFileNames(resultName);

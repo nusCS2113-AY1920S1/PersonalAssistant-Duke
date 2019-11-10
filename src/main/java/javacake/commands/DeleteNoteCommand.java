@@ -14,10 +14,7 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
     private String fileName;
     private static String fullFilePath;
     private static String defaultFilePath;
-
-    private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
-        '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
-
+    private static final String BY_SPACES = "\\s+";
 
     /**
      * Constructor for DeleteNoteCommand.
@@ -30,7 +27,6 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
         type = CmdType.DELETE_NOTE;
         String nameOfFile = returnFileName(inputCommand);
         this.fileName = IFileUtilities.returnOriginalFileName(defaultFilePath, nameOfFile);
-        System.out.println("fileName is:" + fileName);
     }
 
     /**
@@ -39,8 +35,7 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
      * @return Name of file specified for deletion.
      */
     private String returnFileName(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] parametersInCommand = inputCommand.split(bySpaces);
+        String[] parametersInCommand = inputCommand.split(BY_SPACES);
         return parametersInCommand[1];
     }
 
@@ -69,21 +64,19 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
 
     /**
      * Method used for verification process.
-     * Checks for illegal characters and if file exists.
+     * Checks for special characters and if file exists.
      * Assigns inputFileName to fileName to prepare for deletion.
      * @param inputCommand Input command by user.
      * @throws CakeException If illegal character or invalid file name detected.
      */
     private void validateFileName(String inputCommand) throws CakeException {
-        String bySpaces = "\\s+";
-        String[] parameters = inputCommand.split(bySpaces);
-
+        String[] parameters = inputCommand.split(BY_SPACES);
         if (hasNoFileName(parameters)) {
             throw new CakeException("Please indicate the file name you wish to delete");
         } else if (hasMultipleParams(parameters)) {
             throw new CakeException("Please only enter one file name! E.g. deletenote [name of file]");
-        } else if (hasIllegalCharacters(parameters[1])) {
-            throw new CakeException("Invalid file name: Illegal character in file name detected!");
+        } else if (Command.containsIllegalCharacter(inputCommand)) {
+            throw new CakeException("Invalid file name: Special character in file name detected!");
         } else if (fileDoesNotExist(parameters[1])) {
             throw new CakeException("Invalid file name: No such file!");
         }
@@ -115,7 +108,6 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
      */
     private String processFilePath(String inputFileName) {
         String filePath = updateDefaultDirectoryPath();
-        System.out.println(filePath);
         defaultFilePath = filePath;
         fullFilePath = filePath + inputFileName + ".txt" + "/";
         return fullFilePath;
@@ -129,29 +121,6 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
         return Storage.returnNotesDefaultFilePath();
     }
 
-    /**
-     * Checks if the input file name contains any illegal characters.
-     * @param inputFileName Specified file name by user.
-     * @return True if file name contains illegal characters.
-     */
-    private static boolean hasIllegalCharacters(String inputFileName) {
-        for (char illegalChar : ILLEGAL_CHARACTERS) {
-            if (containsIllegal(inputFileName, illegalChar)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if file name contains illegal characters.
-     * @param inputFileName Name of input file.
-     * @param illegalChar Characters that are not allowed in file name.
-     * @return True if file name contains illegal character.
-     */
-    private static boolean containsIllegal(String inputFileName, char illegalChar) {
-        return inputFileName.indexOf(illegalChar) >= 0;
-    }
 
     /**
      * Checks if file exists in the note storage.

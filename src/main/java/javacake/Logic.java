@@ -27,6 +27,7 @@ public class Logic {
     private List<String> listOfFiles = new ArrayList<>();
     private static boolean isDirectory = true;
     private int numOfFiles = 0;
+    private static final String SLASHES = "/";
 
     /**
      * Private constructor to ensure exactly one logic object.
@@ -93,8 +94,7 @@ public class Logic {
      * @return String array after splitting the current file path by slashes.
      */
     private String[] splitFilePathIntoPartitions() {
-        String slash = "/";
-        return currentFilePath.split(slash);
+        return currentFilePath.split(SLASHES);
     }
 
     /**
@@ -164,7 +164,6 @@ public class Logic {
         }
     }
 
-
     /**
      * Processes Jar files.
      * @param src CodeSource in Jar file.
@@ -181,6 +180,12 @@ public class Logic {
         }
     }
 
+    /**
+     * Processes zip file and updates the list of files.
+     * @param zip Zip file.
+     * @param currFileSlashCounter current number of file flashes.
+     * @throws CakeException If zip does not exist.
+     */
     private void processZipFile(ZipInputStream zip, int currFileSlashCounter) throws CakeException {
         ZipEntry e;
         try {
@@ -202,7 +207,7 @@ public class Logic {
      */
     private void updateListOfFiles(String name, int currFileSlashCounter) {
         if (name.startsWith(currentFilePath)) {
-            String[] listingFiles = name.split("/");
+            String[] listingFiles = name.split(SLASHES);
             if (isChildDirectory(listingFiles, currFileSlashCounter)) {
                 String childFile;
                 childFile = nameOfChildFile(listingFiles, currFileSlashCounter);
@@ -298,7 +303,7 @@ public class Logic {
      * @param updatedPath particular path to be updated into currentFilePath.
      */
     public void updateFilePath(String updatedPath) {
-        currentFilePath += ("/" + updatedPath);
+        currentFilePath += (SLASHES + updatedPath);
     }
 
     /**
@@ -340,10 +345,10 @@ public class Logic {
      */
     public String gotoParentFilePath(String filePath) throws CakeException {
         try {
-            String[] filesCapture = filePath.split("/");
+            String[] filesCapture = filePath.split(SLASHES);
             StringBuilder reducedFilePath = new StringBuilder();
             for (int i = 0; i < filesCapture.length - 1; i++) {
-                reducedFilePath.append(filesCapture[i]).append("/");
+                reducedFilePath.append(filesCapture[i]).append(SLASHES);
             }
             String parentFilePath = reducedFilePath.toString();
             parentFilePath = parentFilePath.substring(0, parentFilePath.length() - 1);
@@ -394,12 +399,8 @@ public class Logic {
      * @return true if current directory contains directory.
      */
     public boolean containsDirectory() {
-        if (isDirectory) {
-            return true;
-        }
-        return false;
+        return isDirectory;
     }
-
 
     /**
      * Calls insertQueries method to instantiate new file paths.
