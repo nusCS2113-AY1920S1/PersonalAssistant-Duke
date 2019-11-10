@@ -15,8 +15,9 @@ import java.util.logging.Logger;
  */
 public class ListTransactionCommandParser implements ParserInterface<ListTransactionsCommand> {
     private static Logger logger = Logger.getLogger(ListTransactionCommandParser.class.getName());
+
     /**
-     * Parse userInput and return ListTransactionCommand
+     * Parse userInput and return ListTransactionCommand.
      * @param userInputStr String input by user.
      * @return <code>ListTransactionCommand</code>
      */
@@ -38,7 +39,7 @@ public class ListTransactionCommandParser implements ParserInterface<ListTransac
                 } catch (DateTimeParseException e) {
                     logger.log(Level.WARNING, "the date cannot be parsed");
                     return new ListTransactionsCommand(false, "Unable to parse \"" + dateArgStr
-                                                        + "\" as a date." );
+                                                        + "\" as a date.");
                 }
             }
         }

@@ -25,7 +25,7 @@ public class AddTransactionCommand extends Command {
     }
 
     /**
-     * Constructor for AddTransactionCommand f
+     * Constructor for AddTransactionCommand.
      * @param flag flag that indicates whether the parser fails.
      * @param messageStr the error message concerned.
      */

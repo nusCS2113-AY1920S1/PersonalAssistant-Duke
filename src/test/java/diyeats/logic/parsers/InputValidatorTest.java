@@ -23,6 +23,7 @@ public class InputValidatorTest {
     private final String numericInput = "1.23";
     private final String numericInput2 = "12345678";
     private final String negativeInput = "-1.23";
+    private final String fractionInput = "3.14";
     private final LocalDate localDateInput = LocalDate.of(5000, 12, 31);
 
     /**
@@ -100,6 +101,19 @@ public class InputValidatorTest {
         try {
             InputValidator.validateDate(localDateInput);
             fail("No future date exception is thrown.");
+        } catch (ProgramException e) {
+            assertTrue(true);
+        }
+    }
+
+    /**
+     * test whether the nutritional value is a whole number.:w
+     */
+    @Test
+    public void nutritionalValueInputTest() {
+        try {
+            InputValidator.validateNutritionalValue(fractionInput);
+            fail("No non-whole number exception is thrown");
         } catch (ProgramException e) {
             assertTrue(true);
         }
