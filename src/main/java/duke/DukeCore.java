@@ -88,9 +88,10 @@ public class DukeCore extends Application {
     }
 
     /**
-     * Update UI.
+     * Update UI to reflect current state of data.
      */
     public void updateUi(String message) throws DukeFatalException {
+        uiContext.getObject().update();
         ui.updateUi(message);
     }
 
