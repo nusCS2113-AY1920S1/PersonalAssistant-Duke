@@ -133,7 +133,6 @@ public class TypoCorrector {
     /**
      * Method indicating if a message can be considered similar, based on Levenshtein distance
      * calculation with an allowed variation of 70%.
-     * <p>
      * Max tolerated distance is derived from the current scenario's error message
      * The arbitrary MAX_DISTANCE_DIFF_RATIO (50%) means we consider 10% change to be acceptable
      *

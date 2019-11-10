@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class TypoCorrectorTest {
 
     //ArrayList of pairs <command, commandToBeCorrected>
-    private final static ArrayList<String[]> COMMANDS_TO_BE_CORRECTED = new ArrayList<String[]>(
+    private static final ArrayList<String[]> COMMANDS_TO_BE_CORRECTED = new ArrayList<String[]>(
         Arrays.asList(
             new String[]{"b y e", "bye"},
             new String[]{"d uke ", "duke"},
@@ -36,15 +36,15 @@ public class TypoCorrectorTest {
             new String[]{"u p da te pa i t en s :#12:Room:2A", "update patient:#12:Room:2A"}
         ));
 
-    private final static String[] NOT_CORRECTED_COMMANDS = {
+    private static final String[] NOT_CORRECTED_COMMANDS = {
         "", " ", "list patients", "an invalid command"
     };
 
     /**
-     *
+     * Test commands which should be corrected.
      */
     @Test
-    void CommandCorrectionTest() {
+    void commandCorrectionTest() {
         for (String[] testPair : COMMANDS_TO_BE_CORRECTED) {
             TypoCorrector typoCorrector = new TypoCorrector(testPair[0]);
             assertTrue(typoCorrector.isCommandCorrected(),
@@ -57,8 +57,13 @@ public class TypoCorrectorTest {
         }
     }
 
+
+    /**
+     * Test commands which should not be corrected.
+     * Use test cases which contain unrecognised or valid command.
+     */
     @Test
-    void UnCorrectedCommandTest() {
+    void unCorrectedCommandTest() {
         for (String command : NOT_CORRECTED_COMMANDS) {
             TypoCorrector typoCorrector = new TypoCorrector(command);
             assertFalse(typoCorrector.isCommandCorrected(),
