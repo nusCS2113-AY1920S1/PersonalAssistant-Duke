@@ -16,11 +16,11 @@ image::images/Ui.PNG[width="600" height="400"]
 endif::[]
 
 * The project aims to build a product named `SGTravel`, a Personal Assistant Travel Planning application for Singapore Tourists!
-* This app has route planning, profile page, edit location and recommended itineraries feature up and running in v1.4 (11/11/2019)
-* It is a Java application made in the AY19/20 Semester 1 iteration of the CS2113/T module. 
-* This project was originally expanded on the Duke Chatbot project. 
+* This app has route planning, profile page, edit location and recommended itineraries feature up and running.
+* The latest release, version 1.4 was completed on 11/11/2019
 * The project showcases what we have learnt from our OOP and Software Engineering module and was made in the AY19/20 Semester 1 iteration of CS2113/T
-* Project by - Daniel , Hong Chuan, Sukrut and Jefferson!
+* This project was originally expanded on the Duke Chatbot project. 
+* Project by - Daniel, Hong Chuan, Sukrut and Jefferson!
 
 
 == Site Map
