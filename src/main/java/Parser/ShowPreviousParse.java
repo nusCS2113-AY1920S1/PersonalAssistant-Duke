@@ -2,7 +2,6 @@ package Parser;
 
 import Commands.Command;
 import Commands.ShowPreviousCommand;
-import Commons.Duke;
 import Commons.DukeConstants;
 import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidFormatException;
