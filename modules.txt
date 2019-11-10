@@ -5,22 +5,45 @@ finals
 1
 need to release jar file this week
 cg2028
-4
+8
 project
-45
+10
 pair work
-29
+15
 cortex-m3 project
-68
+5
 final quiz
-47
+10
+presentation
+5
+group discussion
+7
+participation
 2
+attendance
+0
+20
 wear covered shoes for lab
-no webcasts for this lecture
+got webcasts for this lecture
+final quiz is closed book
+no cheatsheet allowed
+assembly language command format will be given
+exam venue: LT7
+got kahoot quiz during lecture
+lectures end in week 12
+lecture venue is cold
+got a lot of mosquitoes outside the lecture venue
+no final exam
+need to spend more time studying this mod
+tutor is Gu Jing
+need to chiong from arts to engine for tutorial
+lecturer going to change halfway
+webcasts for second half of mod is in multimedia on LUMINUS
+LT7 is at EA
+exam venue has nice big wide tables
+all open ended questions
+study more on pipelining
 CG1112
-0
-0
-add module /m ee2026
 0
 0
 ee2026
@@ -29,6 +52,6 @@ ee2026
 easy module
 0
 0
-CG2028
+cs1231
 0
 0
