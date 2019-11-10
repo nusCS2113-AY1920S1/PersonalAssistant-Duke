@@ -3,12 +3,12 @@
  *
  * @author tygq13
  */
+
 package cube.util.exception;
 
 import cube.exception.CubeException;
 
-public class CubeUtilException extends CubeException
-{
+public class CubeUtilException extends CubeException {
     /**
      * Constructor with one argument.
      * Constructs the exception with message.

@@ -1,4 +1,5 @@
 //@author tygq13
+
 package cube.storage;
 
 import cube.model.sale.SalesHistory;
@@ -7,7 +8,7 @@ public class SaleStorage {
     private SalesHistory salesHistory;
 
     /**
-     * Default constructor for SalesStorage
+     * Default constructor for SalesStorage.
      */
     public SaleStorage() {
         this.salesHistory = new SalesHistory();
