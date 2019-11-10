@@ -335,26 +335,32 @@ Aspect: Storing the Degree List
 === Module Feature
 ==== Implementation
 The module class stores default type of module information, represented by 2 Strings and an Integer. This module string should be of the accepted module code type (2-3 Letters followed by 4 digits and a suffix letter, or 2-3 letters followed by one digit and 3 'x's). The module class is extended to 2 other types, the Conjuntive module and NonDescriptive Module. Module and it's children are stored in the class ModuleList.
-Given below is an example scenario where module will be constructed.
-*Step 1*: The user launches the application, and duke initializes the list of degrees, the degrees contain ModuleList, which will contain Modules.
-*Step 2*: If a degree's csv file is parsed successfully, it will fetch the module data in the form of a string consisting of code and name, separated by a space, as well as an integer indicating the module credits allocated to that module. The check for valid module code will be done in the degree calling it.
-*Step 3*: The Module is created and can be used as part of a ModuleList.
 
-`Module#print(void)`: This function outputs the user friendly view for people to know which module is it. It fetches the module code and name, and adds them together with a space separating them, it then adds spaces until it is of the maximum allowable length - 4, the module's credits are then appended.
-The result is printed.
-The result is returned as a string.
+`Module#print(void)`: This function outputs the user friendly view for people to know which module is it. It fetches the module code and name, and adds them together with a space separating them, it then adds spaces until it is of the maximum allowable length - 4, the module's credits are then appended. The result is printed.
 
-`Module#getCode(void)`: This function returns the module's code as a string.
+`Module#getPrint(int setWidth)`: This function takes in an integer indicating the desired width of printing (in terms of characters). It outputs the Module Code and Name left aligned, and the Module MC right aligned. If the string is too long, it will be truncated and a "..." will indicate the truncation. A string is returned, according to the desired setWidth amount of characters.
 
-`Module#getName(void)`: This function returns the module's name.
+`Module#tabModuleCode(void)`: This function returns the Code for printing through the JavaFX interface. The subclasses of Module are expected to follow the same format, or override this function accordingly.
 
-`Module#getMc(void)`: This function returns an int, representing the module's credits.
+`Module#tabModuleName(void)`: This function returns the Name for printing through the JavaFX interface. The subclasses of Module are expected to follow the same format, or override this function accordingly.
 
-`Module#toString(void)`: This function returns a string, which is the result of getCode. The module's code is returned.
+`Module#toString(void)`: This function returns a string, the module's code is returned.
 
 `Module#equals(Object obj)`: This function returns an boolean, representing if the object compared to it is equivalent to it. It checks if the toString result of the module matches the other module.
 
 `Module#compareTo(Module other)`: This function returns an int, indicating whether the other module is greater lesser or equivalent to it. It compares  the results of the getCode function of both modules, ordering them in lexicographical order.
+
+Given below is an example scenario where module will be constructed.
+
+*Step 1*: The user launches the application, and duke initializes the list of degrees, the degrees contain ModuleList, which will contain Modules.
+
+*Step 2*: If a degree's csv file is parsed successfully, it will fetch the module data in the form of a string consisting of code and name, separated by a space, as well as an integer indicating the module credits allocated to that module. The check for valid module code will be done in the degree calling it.
+
+*Step 3*: The Module is created and can be used as part of a ModuleList.
+
+Furthermore, attached is an image depicted the hierachy between Module and its subclasses:
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/Module%20Hierachy.png[width="900", align = "left"]
 
 ==== Design Considerations
 How module is implemented:
@@ -376,19 +382,21 @@ How module is implemented:
 === Conjunctive Module Feature
 ==== Implementation
 The conjunctive module class is an extension of module. It stores modules which are co-listed as requirements, represented by a Map of Strings to Strings and an Integer. The Map will have the a Code as a key, with a name as its value. This module's strings should be of the accepted module code type (2-3 Letters followed by 4 digits and a suffix letter, or 2-3 letters followed by one digit and 3 'x's). Each module's code and name should be separated by an " OR ". It can be stored in the class ModuleList as an extension of Module.
+
 Given below is an example scenario where module will be constructed.
+
 *Step 1*: The user launches the application, and duke initializes the list of degrees, the degrees contain ModuleList, which will contain Modules.
+
 *Step 2*: If a degree's csv file is parsed successfully, it will fetch the module data in the form of a string consisting of multiple code and name, separated by a " OR ", as well as an integer indicating the module credits allocated to that module. The check for valid conjunctive module string will be done in the degree calling it.
+
 *Step 3*: The Module is created and can be used as part of a ModuleList.
 
-`Module#print(void)`: This function outputs the user friendly view for people to know which module is it. It fetches the module code and name, and adds them together with a space separating them. It does this for every module in the Map, and adds an " OR " between each module. It then adds spaces until it is of the maximum allowable length - 4, the module's credits are then appended.
-The result is printed.
-The result is returned as a string.
+`ConjunctiveModule#print(void)`: This function outputs the user friendly view for people to know which module is it. It fetches the module code and name, and adds them together with a space separating them. It does this for every module in the Map, and adds an " OR " between each module. It then adds spaces until it is of the maximum allowable length - 4, the module's credits are then appended. The result is printed. The result is returned as a string.
 
-`Module#getCode(void)`: This function iterates through every code in the Map and returns the codes separated by a "|".
+`ConjunctiveModule#getCode(void)`: This function iterates through every code in the Map and returns the codes separated by a "|".
 
 ==== Design Considerations
-Data structure used to hold modules:
+Data structure used to hold ConjunctiveModule:
 * Alternative 1 (Current Choice): Treemap data structure.
 ** Pros:
 *** Consistent and sorted iteration through codes and modules
@@ -414,12 +422,16 @@ Data structure used to hold modules:
 === NonDescriptive Module Feature
 ==== Implementation
 The non-descriptive module class is an extension of module. It stores modules which do not follow the standard format. They can be placeholders for modules which are not named or belong to a certain group. It can be stored in the class ModuleList as an extension of Module.
+
 Given below is an example scenario where module will be constructed.
+
 *Step 1*: The user launches the application, and duke initializes the list of degrees, the degrees contain ModuleList, which will contain Modules.
+
 *Step 2*: If a degree's csv file is parsed successfully, it will fetch the module data in the form of a string consisting of multiple code and name, separated by a " OR ", as well as an integer indicating the module credits allocated to that module. The check for valid module string will be done in the degree calling it. If determined it is not a valid module string it will be created as a NonDescriptive Module.
+
 *Step 3*: The Module is created and can be used as part of a ModuleList.
 
-`Module#toString(void)`: This function returns the module code and the credits allocated to it separated by a space.
+`NonDesciptiveModule#toString(void)`: This function returns the module code and the credits allocated to it separated by a space.
 
 ==== Design Considerations
 
@@ -439,11 +451,6 @@ How NonDescriptive is implemented:
 === ModuleList Feature
 ==== Implementation
 The module list stores modules. It also has helper functions to determine the difference between itself and another instance of the modulelist
-Given below is an example scenario where module will be constructed.
-*Step 1*: The user launches the application, and duke initializes the list of degrees, the degrees contain ModuleList, which will contain Modules.
-*Step 2*: If a degree's csv file is parsed successfully, it will fetch the module data.
-*Step 3*: The Module is created and can be used as part of a ModuleList.
-*Step 4*: The modules are placed in the appropriate ModuleList in the degree class
 
 `Module#add(Module wry)`: This function adds a module to the ModuleList class. It also adds the new module's credits to the current sum of module credits.
 
@@ -456,6 +463,16 @@ Given below is an example scenario where module will be constructed.
 `Module#getSum(void)`: This function returns the sum of the modules in ModuleList.
 
 `Module#updateSum(Integer mc)`: This function increments the current sum by the integer passed in.
+
+Given below is an example scenario where module will be constructed.
+
+*Step 1*: The user launches the application, and duke initializes the list of degrees, the degrees contain ModuleList, which will contain Modules.
+
+*Step 2*: If a degree's csv file is parsed successfully, it will fetch the module data.
+
+*Step 3*: The Module is created and can be used as part of a ModuleList.
+
+*Step 4*: The modules are placed in the appropriate ModuleList in the degree class
 
 ==== Design Considerations
 
@@ -478,9 +495,9 @@ Data Structures used for ModuleList:
 *** Set is not in order.
 
 === Degree Feature
-==== Implementation (Subjected to change later) 
+==== Implementation
 
-Degree are a class which contains ModuleList class and other auxiliary information related to the degree. When being constructed, it accepts a list of Strings and validates that it is a .csv file type with the correct number of columns. Additionally it implements the following operations:
+Degree is a class which contains ModuleList class and other auxiliary information related to the degree. When being constructed, it accepts a list of Strings and validates that it is a .csv file type with the correct number of columns. Additionally it implements the following operations:
 
 `Degree#addAlias(String input)`: This function takes in the parameter which is the alias the degree should be referred to, this input is stored into a List of Strings within Degree.
 
@@ -498,21 +515,21 @@ Degree are a class which contains ModuleList class and other auxiliary informati
 
 `Degree#validList(List<String> input)`: This function takes in a list of strings. First, the input is checked to make sure it is not null or empty, or only consists of one string. Then each string is then checked for the following criteria. Then the second string is checked to make sure it has 12 comma separated values.
 
-`Degree#print(void)`: This function prints the degree list. It first prints out the hardcoded information, then it prints out the list headers by printListHeader, then the related list with printList.
+`Degree#compare(Degree other)`: This function prints result of comparison with another degree. It will print out the Proper Names of each degree, followed by the list headers. For each list header, it will print similar degrees followed by different degrees.
 
-`Degree#printListHeader(String front, Integer sum)`: This function prints out the List header and the sum associated with it.
-
-`Degree#printList(ModuleList modList)`: This prints out the List of Modules in lexicographical order.
+`Degree#print(void)`: This function prints the degree list. It first prints out the hardcoded information, then it prints out the list headers followed by the lists.
 
 Given below is an example usage scenario and how the degree mechanism behaves at each step.
 
-*Step 1*: The user launches the application, and Duke will initialize an instance of Set of Strings of degrees and a Map of Strings to Degrees. Duke will call the `setDegrees` method, and it will fetch the data of list of degrees from listdegrees.csv in the data folder.
+*Step 1*: The user launches the application, and Duke will initalize the storage. Duke will then instantiate a new copy of DegreeManager, by handing it a copy of the Storage and its contents.
 
-*Step 2*: Duke will continue refer to this list of Degrees in order to determine where to get the degree information from. The csv file is expected to match the strings in the set.
+*Step 2*: DegreeManager will load the list of degrees it should initialize from storage. Then it will attempt to load the relevant save data from each file. If any Degree is unsucessful in loading, an empty instance of DegreeManager will be initialized instead.
 
 *Step 3*: The degrees are created using the data from the csv files. It will then be linked via its key (the name of the Degree) to the Degree.
 
 *Step 4*: If no errors occured, the map of degrees will be initialized, if not the maps and sets will be cleared and there will be a request to contact the System Adminstrator for assistance.
+
+*Step 5*: Duke will continue refer to Degrees stored in DegreeManager in order to determine where to get the degree information from.
 
 ==== Design Considerations
 
@@ -544,10 +561,54 @@ Data Structure to support degree's listing of modules:
 
 * Alternative 2: Primitive data containers used to contain modules, in addition to other auxiliary primitive data types.
 ** Pros:
-*** Less work needed to write methods as it uses a pre-existing data structure.
-*** Easier for newer developers to understand how the undo/redo function works.
+*** Easier for newer developers who are only aware of basic java primitive data containers.
 ** Cons:
-*** Have to do all the work of adding, removing and choosing commands within another class, and can result in messy implementations.
+*** Unable to support extra operations outside of the template functions given to data containers.
+*** Decreases cohesion of Degree class (Also doing the task of containing modules).
+
+=== DegreeManager Feature
+==== Implementation
+
+DegreeManager a class which contains the ModuleList class and Map of Strings to Degrees. When being constructed, it looks for a list of degrees in Storage class and then proceeds to attempt to load every degree.
+
+`Degree#print(String input)`: This functions takes in the input string and checks if it matches any alias of any degree. If a match was found, it will call that degree's print function in order to print the degree's details.
+
+`DegreeManager#isKey(String alias)`: This function takes in a string and verifies it against all aliases. It will return true for the first alias it matches to, false if there were no matches at all.
+
+`DegreeManager#findAnyKey(String degreeName)`: This function takes in a string and returns the valid degree key if any. An empty string is returned if a degree cannot be matched to the input. The key is used to access the correct Degree in the map of Strings to Degrees.
+
+`DegreeManager#twoKeyGenerator(String[] split)`: This function takes in an array of Strings. The array is then partitioned into two segments, each containing at least one String, white space is padded between each element. The corresponding partitions are run through a check for validity. If both partitions are successfully matched to a degree, degreeOneKey and degreeTwoKey (two String variables in DegreeManager) will hold the respective information collected. If both degree keys are unique, the result of the comparison between the two degrees will be printed.
+
+`DegreeManager#compare(String input)`: This function takes in an input string. The input string is then split into an Array of Strings (separated by whitespace). The resultant array is then passed to twoKeyGenerator. If two unique keys were generated and then stored in DegreeManager, DegreeManager will use degreeOneKey and degreeTwoKey in order to invoke a comparison of the first degree to the second. 
+
+Given below is the UML Diagram relating how DegreeManager is linked to the main() logic as well as how it utilizes Degree and Storage when being initialized
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/DegreeManagerInit.png[width="900", align = "left"]
+
+As detailed in the diagram above, when the main logic is initialized, an instance of Duke is created. Duke will subsequently create a Storage class. Duke will then create DegreeManager which will use Duke's instance of Storage. DegreeManager will fetch the information regarding the list of degrees from Storage. Subsequently, for each degree in the list, it will crete a Degree class to be stored within itself.
+
+==== Design Considerations
+
+How DegreeManager handles the checking of valid degree names:
+
+* Alternative 1 (Current Choice): Iteration through every possible alias and checking if it matches
+** Pros: 
+*** Trivial to implement
+*** It is readable.
+*** Suitable for small and fixed number of aliases such as the current version of this program.
+** Cons: 
+*** It is not the best or most efficient way.
+
+* Alternative 2: Creation of Disjoint Set to find aliases.
+** Pros: 
+*** Extremely efficient Data Structure, O(4) time in searching for an entry.
+*** Can be used to instantly determine if two keys belong to the same set as well.
+*** Becomes faster over time through usage of Path Compression techniques.
+** Cons: 
+*** Non-primitve storage container, requires self implementation which may be flawed.
+*** Complicated to use when handling non-integer members.
+*** Extra Containers and functions needed to support the Disjoint Set.
+
 
 == Testing
 
