@@ -3,16 +3,15 @@ package duke.ui.window;
 import duke.DukeCore;
 import duke.command.Executor;
 import duke.command.Parser;
-import duke.data.DukeObject;
+import duke.data.Impression;
 import duke.data.Investigation;
 import duke.data.Medicine;
 import duke.data.Observation;
+import duke.data.Patient;
 import duke.data.Plan;
 import duke.data.Result;
-import duke.data.storage.GsonStorage;
-import duke.data.Impression;
-import duke.data.Patient;
 import duke.data.SearchResults;
+import duke.data.storage.GsonStorage;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.ui.commons.UiElement;
@@ -22,13 +21,11 @@ import duke.ui.context.UiContext;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.List;
 
 //@@author gowgos5
 /**
@@ -209,16 +206,5 @@ public class MainWindow extends UiElement<Stage> {
             contextWindowHolder.getTabs().add(currentTab);
             contextWindowHolder.getSelectionModel().select(currentTab);
         });
-    }
-
-    /**
-     * Retrieves indexed list of DukeObjects.
-     * The returned list is dependent on the current {@code UiContext}.
-     *
-     * @param type DukeObject type.
-     * @return Indexed list of DukeObjects.
-     */
-    public List<DukeObject> getIndexedList(String type) {
-        return currentContextWindow.getIndexedList(type);
     }
 }

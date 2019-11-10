@@ -55,14 +55,6 @@ public class HomeContextWindow extends ContextWindow {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<DukeObject> getIndexedList(String type) {
-        return new ArrayList<>(indexedPatientList);
-    }
-
-    /**
      * Fills {@code indexedPatientList} and {@code patientListPanel}.
      */
     private void fillPatientList() throws DukeFatalException {
