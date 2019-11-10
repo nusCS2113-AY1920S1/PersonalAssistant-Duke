@@ -27,10 +27,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  */
 public class RetrieveFreeTimesParseTest {
     private static final String INVALID_OPTION = "Invalid option. Please enter the command as follows. \n"
-            + "retrieve/time 'x', where 'x' is a digit between 1 - 5";
+            + "retrieve/time <x>, where x is a digit between 1 - 5, inclusive";
     private static final String INVALID_EMPTY_OPTION = "Invalid input.\n"
             + "Option cannot be blank.\nPlease enter the command as follows.\n"
-            + "retrieve/time 'x', where 'x' is a digit between 1 - 5";
+            + "retrieve/time <x>, where x is a digit between 1 - 5, inclusive";
 
     private static String validUserInputWithOption;
 
@@ -41,8 +41,6 @@ public class RetrieveFreeTimesParseTest {
     private static String userInputWithOptionInDecimal;
 
     private static String userInputWithoutOption;
-
-    private static ArrayList<Pair<String, String>> retrievedFreeTimesList;
 
     private static TaskList events = new TaskList();
     private static TaskList deadlines = new TaskList();
