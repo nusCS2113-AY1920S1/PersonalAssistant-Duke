@@ -54,6 +54,25 @@ public class ConstantHelper {
 
     public static final String COMMAND_VIEW_ASSIGNMENTS = "view assignments ";
 
+    public static final String[] VIEW_ASSIGNMENTS_INSUFFICIENT_PARAMS_MESSAGE = new String[] {
+            "Please input the parameters to view assignments:",
+            "**\t-m for viewing by member, -t for viewing by task.",
+            "**\t\"all\" to view all assignments + or enter selected task/member index numbers.",
+            "You may refer to the user guide or enter \"help\" for the list of possible commands."
+    };
+
+    public static final String[] VIEW_ASSIGNMENTS_INVALID_FLAG_MESSAGE = new String[]
+        {"Could not understand your command! Please use:",
+         "**\t-m for viewing by member, -t for viewing by task.",};
+
+    public static final String[] VIEW_ASSIGNMENTS_NO_TASKS_MESSAGE = new String[]
+        {"No tasks in project yet.",
+         "Please add tasks and assign them to members before using this command!"};
+
+    public static final String[] VIEW_ASSIGNMENTS_NO_MEMBERS_MESSAGE = new String[]
+        {"No members in project yet.",
+         "Please add members and assign them tasks before using this command!"};
+
     public static final String COMMAND_VIEW_ASSIGNMENTS_MEMBER_FLAG = "-m";
 
     public static final String COMMAND_VIEW_ASSIGNMENTS_TASK_FLAG = "-t";

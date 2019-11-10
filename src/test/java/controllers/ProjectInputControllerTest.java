@@ -17,6 +17,8 @@ class ProjectInputControllerTest {
     private String simulatedUserInput;
     private String actualOutput;
     private String expectedOutput;
+    private String[] actualOutputArray;
+    private String[] expectedOutputArray;
     private Date dueDate;
 
     ProjectInputControllerTest() {
@@ -117,6 +119,7 @@ class ProjectInputControllerTest {
         assertEquals(expectedOutput, actualOutput);
     }
 
+    //@@author sinteary
     @Test
     void testProjectDeleteMember_valid() {
         Project project = new Project("Infinity_Gauntlet");
@@ -141,8 +144,9 @@ class ProjectInputControllerTest {
         assertEquals("Sean", project.getMember(1).getName());
     }
 
+
     @Test
-    void testProjectDeleteMember_invalid() {
+    void testProjectDeleteMember_invalidInputs_executionFail() {
         Project project = new Project("Infinity_Gauntlet");
         simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
@@ -155,6 +159,7 @@ class ProjectInputControllerTest {
         assertEquals("Could not recognise member abc, please ensure it is an integer.", output[0]);
         assertEquals("No valid member indexes. Cannot delete members.", output[1]);
     }
+    //@@author
 
     @Test
     void testProjectViewCredits() {
@@ -543,26 +548,15 @@ class ProjectInputControllerTest {
 
     //@@author sinteary
     @Test
-    void testProjectViewAssignments_invalidInputs_executionFail() {
+    void testProjectViewAssignments_emptyProject_executionSuccess() {
+        /**
+         * Refer to AssignmentViewHelperTest for other tests
+         */
         Project project = new Project("New project");
-        simulatedUserInput = "view assignments";
-        String[] output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        expectedOutput = "Please input the parameters to view assignments:";
-        actualOutput = output[0];
-        assertEquals(expectedOutput, actualOutput);
 
-        simulatedUserInput = "view assignments -";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        actualOutput = output[0];
-        assertEquals(expectedOutput, actualOutput);
-
-        simulatedUserInput = "view assignments atm";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("Please input the parameters to view assignments:",
-            output[0]);
         //no members
         simulatedUserInput = "view assignments -m all";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        actualOutputArray = projectInputController.projectViewAssignments(project, simulatedUserInput);
         assertEquals("No members in project yet.", output[0]);
         //no tasks
         simulatedUserInput = "view assignments -t all";
@@ -572,7 +566,7 @@ class ProjectInputControllerTest {
         output = projectInputController.projectViewAssignments(project, simulatedUserInput);
         assertEquals("Could not understand your command! Please use:", output[0]);
     }
-
+    //@@author
 
     @Test
     void assignRole_correctInputs() {

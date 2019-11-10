@@ -2,6 +2,8 @@ package helpertests;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static util.constant.ConstantHelper.VIEW_ASSIGNMENTS_INSUFFICIENT_PARAMS_MESSAGE;
+import static util.constant.ConstantHelper.VIEW_ASSIGNMENTS_INVALID_FLAG_MESSAGE;
 
 import java.util.ArrayList;
 import models.member.Member;
@@ -17,6 +19,8 @@ public class AssignmentViewHelperTest {
     private final Member member2;
     private final Member member3;
     private String simulatedUserInput;
+    private String[] expectedOutput;
+    private String[] actualOutput;
 
     /**
      * Test for AssignmentViewHelper. Initialise dummy project and members with assignments upon
@@ -39,7 +43,6 @@ public class AssignmentViewHelperTest {
         this.project.createAssignment(task, member2);
         this.project.createAssignment(task2, member2);
         this.project.createAssignment(task2, member3);
-
     }
 
     @Test
@@ -68,7 +71,6 @@ public class AssignmentViewHelperTest {
     @Test
     public void testViewAssignments_validMemberInput_executionSuccess() {
         simulatedUserInput = "view assignments -m all";
-        //ArrayList<Integer> validMembersIndexes = new ArrayList<>(Arrays.asList(1, 2, 3));
         AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
         String[] actualMemberOutput = assignmentViewHelper.viewAssignments(simulatedUserInput, project);
         String[] expectedMemberOutput = new String[] {
@@ -89,28 +91,10 @@ public class AssignmentViewHelperTest {
             "| +-------------------------------+                                    |",
             "+----------------------------------------------------------------------+"};
         assertArrayEquals(expectedMemberOutput, actualMemberOutput);
-        /*
-        ArrayList<String> memberOutput = AssignmentViewHelper.getMemberOutput(validMembersIndexes,
-            project);
-        assertEquals("Here are each member's tasks:", memberOutput.get(0));
-        assertEquals("Tasks assigned to Tom", memberOutput.get(1));
-        assertEquals("1. Documentation | Priority: 0 | Due: -- | Credit: 0 | State: OPEN",
-            memberOutput.get(2));
-        assertEquals("Tasks assigned to Dick", memberOutput.get(3));
-        assertEquals("1. Documentation | Priority: 0 | Due: -- | Credit: 0 | State: OPEN",
-            memberOutput.get(4));
-        assertEquals("2. JUnit tests | Priority: 0 | Due: -- | Credit: 0 | State: OPEN",
-            memberOutput.get(5));
-        assertEquals("Tasks assigned to Harry", memberOutput.get(6));
-        assertEquals("1. JUnit tests | Priority: 0 | Due: -- | Credit: 0 | State: OPEN",
-            memberOutput.get(7));
-         */
     }
-
 
     @Test
     public void testViewAssignments_validTaskInput_executionSuccess() {
-        //ArrayList<Integer> validTasksIndexes = new ArrayList<>(Arrays.asList(1, 2));
         simulatedUserInput = "view assignments -t all";
         AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
         String[] actualTaskOutput = assignmentViewHelper.viewAssignments(simulatedUserInput, project);
@@ -127,25 +111,24 @@ public class AssignmentViewHelperTest {
             "| +-------------------------------+ +-------------------------------+  |",
             "+----------------------------------------------------------------------+"};
         assertArrayEquals(expectedTaskOutput, actualTaskOutput);
-        /*
-        ArrayList<String> taskOutput = AssignmentViewHelper.getTaskOutput(validTasksIndexes,
-            project);
-        assertEquals("Here are the members assigned to each task:", taskOutput.get(0));
-        assertEquals("Documentation | Priority: 0 | Due: -- | Credit: 0 | State: OPEN", taskOutput.get(1));
-        assertEquals("Members assigned to task 1 (Documentation | Priority: 0 | Due: -- | Credit: 0 | State: OPEN)",
-            taskOutput.get(2));
-        assertEquals("1. Tom", taskOutput.get(3));
-        assertEquals("2. Dick", taskOutput.get(4));
-        assertEquals("JUnit tests | Priority: 0 | Due: -- | Credit: 0 | State: OPEN",
-            taskOutput.get(5));
-        assertEquals("Members assigned to task 2 (JUnit tests | Priority: 0 | Due: -- | Credit: 0 | State: OPEN)",
-            taskOutput.get(6));
-        assertEquals("1. Dick", taskOutput.get(7));
-        assertEquals("2. Harry", taskOutput.get(8));
-         */
     }
 
+    //@@author sinteary
+    @Test
+    public void testViewAssignments_invalidTaskInput_executionFailure() {
+        simulatedUserInput = "view assignments -m";
+        AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
+        actualOutput = assignmentViewHelper.viewAssignments(simulatedUserInput, project);
+        expectedOutput = VIEW_ASSIGNMENTS_INSUFFICIENT_PARAMS_MESSAGE;
+        assertArrayEquals(expectedOutput, actualOutput);
 
+        simulatedUserInput = "view assignments -a";
+        actualOutput = assignmentViewHelper.viewAssignments(simulatedUserInput, project);
+        expectedOutput = VIEW_ASSIGNMENTS_INVALID_FLAG_MESSAGE;
 
+        simulatedUserInput = "view assignments";
+        actualOutput = assignmentViewHelper.viewAssignments(simulatedUserInput, project);
+        expectedOutput = VIEW_ASSIGNMENTS_INSUFFICIENT_PARAMS_MESSAGE;
+    }
 
 }
