@@ -7,6 +7,7 @@ import javacake.quiz.QuestionDifficulty;
 import javacake.quiz.QuestionList;
 import javacake.quiz.QuestionType;
 import javacake.quiz.QuizSession;
+import javacake.ui.MainWindow;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,8 +15,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class QuizSessionTest {
@@ -64,7 +64,7 @@ public class QuizSessionTest {
      * This test checks if quiz session works for both illegal characters and
      * options that are not valid for the particular quiz.
      */
-    void invalidInput() throws CakeException {
+    void nonintInput() throws CakeException {
         for (int i = 1; i < topics.length; i++) {
             if (topics[i].contains("Test")) {
                 response = javacake.getResponse("goto " + i + ".1");
@@ -74,13 +74,26 @@ public class QuizSessionTest {
 
         QuizSession quizSession = new QuizSession(QuestionType.ALL, QuestionDifficulty.EASY, false);
         response = quizSession.getQuestion(0);
-        String[] illegal  = {"/", "?", "<", ":", ",",  "*", "|", "%d"};
+        String[] illegal = {"/", "?", "<", ":", ",", "*", "|", "%d"};
         String expectedError = "OOPS!!! I'm sorry, but I don't know what that means.";
         for (int j = 0; j < illegal.length; j++) {
             response = javacake.getResponse(illegal[j]);
             assertEquals(expectedError, response);
         }
 
+
+    }
+
+    @Test
+    void outOfBoundInput() throws CakeException {
+        for (int i = 1; i < topics.length; i++) {
+            if (topics[i].contains("Test")) {
+                response = javacake.getResponse("goto " + i + ".1");
+                break;
+            }
+        }
+        String expectedError = "OOPS!!! I'm sorry, but I don't know what that means.";
+        QuizSession quizSession = new QuizSession(QuestionType.ALL, QuestionDifficulty.EASY, false);
         for (int i = 0; i < QuizSession.MAX_QUESTIONS; i++) {
             response = quizSession.getQuestion(0);
             //for checking number of options//
@@ -114,26 +127,5 @@ public class QuizSessionTest {
         Set<Question> set = new HashSet<>(testQuesions.getQuestionList());
         assertEquals(set.size(), testQuesions.getQuestionList().size());
     }
-
-
-
-    //TODO add test for other commands not working when quiz session is active
-    /*@Test
-    void testOtherCommands() throws CakeException {
-        for (int i = 1; i < topics.length; i++) {
-            if (topics[i].contains("Test")) {
-                response = javacake.getResponse("goto " + i + ".1");
-                break;
-            }
-            //QuizSession quizSession = new QuizSession(QuestionType.ALL, QuestionDifficulty.EASY, false);
-            String[] commands = {"list", "back", "help", "score", "reset", "goto",
-                    "overview", "deadline", "editnote", "createnote", "listnote", "deletenote",
-                    "change", "reminder", "viewnote", "done", "delete", "snooze"};
-
-            for (int j = 0; j < commands.length; j++) {
-                response = javacake.getResponse(commands[j]);
-                if
-            }
-        }
-    }*/
 }
+

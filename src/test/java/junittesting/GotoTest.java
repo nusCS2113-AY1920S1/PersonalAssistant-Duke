@@ -1,8 +1,5 @@
 package junittesting;
 
-//negative value, char characters, overflow??
-
-
 import javacake.JavaCake;
 import javacake.exceptions.CakeException;
 import org.junit.jupiter.api.BeforeEach;
