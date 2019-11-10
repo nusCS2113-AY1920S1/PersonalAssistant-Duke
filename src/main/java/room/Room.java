@@ -1,5 +1,8 @@
 package room;
 
+import exception.DukeException;
+import storage.Constants;
+
 import java.time.Month;
 import java.time.ZoneId;
 import java.time.Instant;
@@ -7,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 public class Room {
@@ -22,13 +26,17 @@ public class Room {
      * @param dateTimeStart Available booking date and starting time of the room
      * @param dateTimeEnd Available booking date and ending time of the room
      */
-    public Room(String roomcode, String dateTimeStart, String dateTimeEnd) {
+    public Room(String roomcode, String dateTimeStart, String dateTimeEnd) throws DukeException {
         this.roomcode = roomcode;
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
-        this.dateTimeStart = LocalDateTime.parse(dateTimeStart, formatterStart);
-        this.date = this.dateTimeStart.toLocalDate();
-        this.timeEnd = LocalTime.parse(dateTimeEnd, formatterEnd);
+        try {
+            DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
+            this.dateTimeStart = LocalDateTime.parse(dateTimeStart, formatterStart);
+            this.date = this.dateTimeStart.toLocalDate();
+            this.timeEnd = LocalTime.parse(dateTimeEnd, formatterEnd);
+        } catch (DateTimeParseException e) {
+            throw new DukeException(Constants.INVALIDDATETIME);
+        }
     }
 
     /**
