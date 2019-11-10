@@ -174,9 +174,9 @@ Filters can be used with this command as well as shown.
     -CS2113 done 2
 
 Will mark the second task in the -CS2113 list as done.
-
 //end::shaun97[]
 
+//tag::ajl[]
 === Locating tasks by description: `find`
 
 Finds task whose description contain any of the given keywords. +
@@ -187,7 +187,7 @@ The task manager supports partial matching in the search operation. +
 
     find bo
 
-Will return tasks that have "bo" in the description.
+Will return tasks that have "bo" in their description.
 
 === Auto assign: `autoassign`
 You can auto assign tasks that have yet to have filters using certain heuristics.
@@ -195,6 +195,8 @@ This feature relies on filter name matching or having similar description words.
 For example, if `cs` filter has many tasks with description contatining "programming", auto assigning a task with "programming" in the description will suggest `cs` as a filter.
 
     autoassign 2
+
+//end::ajl[]
 
 //tag::shaun97[]
 === Editing a task : `edit`
@@ -364,6 +366,27 @@ Brain teaser bank is randomised, you might not get the same question the next br
 Exits the program. +
 
     bye
+
+//tag::qol[]
+=== Quality of life
+To make life easier - the program helps to deal with minor errors in commands as well as provide shortcuts. Specifically, there are 2 checks that the parser will do on the command keyword (the first keyword; not filter/parameter/modification).
+
+Firstly, it checks if the command keyword is off by exactly one character through substitution. If so, you are prompted for correction.
+
+    lisd
+    Did you mean list? (Y/N)
+
+Secondly, it checks if the command keyword is a shortform. If there is a proper command that begins with the keyword, you will be prompted for correction.
+
+    l
+    Did you mean list? (Y/N)
+
+Note that if more than one proper command that begins with the keyword, the priority is shown as such:
+
+    done > delete
+    event > edit
+
+//end::qol[]
 
 === Saving the data
 

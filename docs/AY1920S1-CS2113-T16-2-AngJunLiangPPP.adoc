@@ -37,7 +37,8 @@ Language Processing (cleaning text, tokenzing, vectorizing token counts) and Mat
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-_{TODO - convert UG to adoc for easy conversion to here}_
+include::UserGuide.adoc[tag=ajl]
+include::UserGuide.adoc[tag=qol]
 
 
 == Contributions to the Developer Guide

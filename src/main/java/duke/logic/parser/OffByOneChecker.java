@@ -15,8 +15,8 @@ public class OffByOneChecker {
      * @return keyword (may not be changed)
      */
     public static String offByOne(String keyword) {
-        ArrayList<String> commandList = new ArrayList<>(Arrays.asList("bye", "help", "list", "delete", "find",
-                "done", "edit", "task", "autoassign", "pomo", "clear", "undo", "event"));
+        ArrayList<String> commandList = new ArrayList<>(Arrays.asList("bye", "help", "list", "done", "find",
+                "delete", "event", "task", "autoassign", "pomo", "clear", "undo", "edit"));
         Scanner scanner = new Scanner(System.in);
         for (String command : commandList) {
             if (keyword.length() != command.length()) {
