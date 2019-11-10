@@ -1,3 +1,5 @@
+// Credit: Adopted from reference project addressbook-level3.
+
 package duke.commons;
 
 import java.io.IOException;
@@ -8,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-// Adopted from reference project addressbook-level3
 /**
  * Configures and manages loggers and handlers, including their logging level
  * Named {@link Logger}s can be obtained from this class<br>
@@ -24,20 +25,6 @@ public class LogsCenter {
     private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
     private static FileHandler fileHandler;
     private static ConsoleHandler consoleHandler;
-
-    /**
-     * Initializes with a custom log level (specified in the {@code config} object)
-     * Loggers obtained *AFTER* this initialization will have their logging level changed<br>
-     * Logging levels for existing loggers will only be updated if the logger with the same name
-     * is requested again from the LogsCenter.
-     */
-    /*
-    public static void init(Config config) {
-        currentLogLevel = config.getLogLevel();
-        logger.info("currentLogLevel: " + currentLogLevel);
-    }
-
-     */
 
     /**
      * Creates a logger with the given name.

@@ -25,7 +25,7 @@ import static java.util.Objects.requireNonNull;
  * where payments with higher amounts, priorities and closer due will be placed at prior.
  *
  * Time scope of payments can be altered such that it can choose to only shows payments
- * overdue, within a week, within a month or in all time.
+ * overdue, coming in current week, coming in current month or in all time.
  *
  * Payments can be searched by keyword. Those containing keyword in their
  * description, receiver, or tag will be found out.

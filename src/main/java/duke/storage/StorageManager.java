@@ -1,6 +1,5 @@
 package duke.storage;
 
-import duke.Main;
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import duke.model.Budget;
@@ -15,6 +14,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+/**
+ * Manages storage of Duke++ data in local storage.
+ */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
@@ -28,11 +30,14 @@ public class StorageManager implements Storage {
 
 
     /**
-     * Constructor for StorageManager.
+     * Constructs StorageManager with storage of each models.
      *
-     * @param expenseListStorage    storage for expense List
+     * @param expenseListStorage    storage for expenseList
      * @param planAttributesStorage storage for PlanAttributes from PlanBot
-     * @param budgetStorage         Storage for budget
+     * @param incomeListStorage     storage for IncomeList
+     * @param budgetStorage         storage for budget
+     * @param budgetViewStorage     storage for budgetView
+     * @param paymentListStorage    storage for paymentList
      */
     public StorageManager(ExpenseListStorage expenseListStorage,
                           PlanAttributesStorage planAttributesStorage,
@@ -79,6 +84,7 @@ public class StorageManager implements Storage {
         return incomeListStorage.loadIncomeList();
     }
 
+    @Override
     public Budget loadBudget() throws IOException, DukeException {
         return budgetStorage.loadBudget();
     }
@@ -98,7 +104,8 @@ public class StorageManager implements Storage {
         budgetViewStorage.saveBudgetView(budgetView);
     }
 
-    public Optional<PaymentList> loadPaymentList() throws DukeException {
+    @Override
+    public Optional<PaymentList> loadPaymentList() {
         logger.info("start loading paymentList");
         return paymentListStorage.readPaymentList();
     }

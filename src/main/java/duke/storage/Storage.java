@@ -37,9 +37,20 @@ public interface Storage {
 
     void saveBudgetView(BudgetView budgetView) throws DukeException;
 
+    /**
+     * Loads paymentList from storage.
+     *
+     * @return PaymentList as Optional.
+     * @throws DukeException If errors occur during loading process.
+     */
     Optional<PaymentList> loadPaymentList() throws DukeException;
 
+    /**
+     * Saves paymentList into storage.
+     *
+     * @param paymentList The paymentList to be saved in storage.
+     * @throws IOException If errors occur during saving process.
+     */
     void savePaymentList(PaymentList paymentList) throws IOException;
 
-    // todo: add other interface methods for other lists.
 }
