@@ -33,7 +33,7 @@ public class ReminderCommandParser implements ParserPrototype<ReminderCommand> {
             if (!ParserUtil.hasField(args,stockIndex+1)) {
                 throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
             }
-            if(!ParserUtil.isValidNumber(args[stockIndex + 1])){
+            if(!ParserUtil.isValidInteger(args[stockIndex + 1])){
                 throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
             }
             return new ReminderCommand(7, Integer.parseInt(args[stockIndex+1]));
@@ -41,7 +41,7 @@ public class ReminderCommandParser implements ParserPrototype<ReminderCommand> {
             if (!ParserUtil.hasField(args,daysToExpiryIndex+1)) {
                 throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
             }
-            if(!ParserUtil.isValidNumber(args[daysToExpiryIndex + 1])){
+            if(!ParserUtil.isValidInteger(args[daysToExpiryIndex + 1])){
                 throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
             }
             return new ReminderCommand(Integer.parseInt(args[daysToExpiryIndex+1]), 5);
@@ -49,10 +49,10 @@ public class ReminderCommandParser implements ParserPrototype<ReminderCommand> {
             return new ReminderCommand(7,5);
         }
 
-        if(!ParserUtil.isValidNumber(args[stockIndex + 1])){
+        if(!ParserUtil.isValidInteger(args[stockIndex + 1])){
             throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
         }
-        if(!ParserUtil.isValidNumber(args[daysToExpiryIndex + 1])){
+        if(!ParserUtil.isValidInteger(args[daysToExpiryIndex + 1])){
             throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
         }
         if (!ParserUtil.hasField(args,stockIndex+1)) {

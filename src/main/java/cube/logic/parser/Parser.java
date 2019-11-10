@@ -29,6 +29,8 @@ public class Parser {
 	 * sold -n foodName -q quantity
 	 * reminder -d daysToExpiry -s stock
 	 * promotion -n foodName -% discount -s startDate -e endDate
+	 * promotion -list
+	 * promotion -delete index
 	 * help
 	 * bye / exit / quit
 	 *
@@ -62,17 +64,10 @@ public class Parser {
 			case "help":
 				return new HelpCommand();
 			case "promotion":
-				if (inputs[1] == "-list") {
-					return new ListPromotionCommand();
-				} else if (inputs[1] == "-delete") {
-					return new DeletePromotionCommandParser().parse(inputs);
-				} else {
-					return new PromotionCommandParser().parse(inputs);
-				}
+				return new PromotionCommandParser().parse(inputs);
 			case "reminder":
 				return new ReminderCommandParser().parse(inputs);
 			case "revenue" :
-				//TODO: improve generate revenue
 				return new RevenueCommandParser().parse(inputs);
 			case "bye":
 			case "exit":

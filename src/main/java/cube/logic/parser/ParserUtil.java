@@ -156,6 +156,25 @@ public class ParserUtil {
 		}
 	}
 
+    /**
+     * Find the full name/type until next parameter/end of input.
+     * @param input tokens containing the full string to be found.
+     * @return true if the input has parameter that is not within possible parameter set.
+     *         false otherwise.
+     */
+    public static boolean isValidInteger (String input) {
+        int number;
+        try{
+            number = Integer.parseInt(input);
+            if (number<0||number>=10000){
+                return false;
+            }
+            return true;
+        }catch (Exception e) {
+            return false;
+        }
+    }
+
 	/**
 	 * Retrieve the DATE FORMAT that is used in Cube.
 	 * @return Date Formatter specified for Cube.
