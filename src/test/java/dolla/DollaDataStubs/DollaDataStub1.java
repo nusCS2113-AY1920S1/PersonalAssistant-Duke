@@ -43,6 +43,7 @@ public class DollaDataStub1 extends DollaData {
         ArrayList<Record> newRecordList = new ArrayList<Record>();
         newRecordList.add(createNewEntry1());
         newRecordList.add(createNewEntry2());
+        newRecordList.add(createNewEntry3());
         return newRecordList;
     }
 
