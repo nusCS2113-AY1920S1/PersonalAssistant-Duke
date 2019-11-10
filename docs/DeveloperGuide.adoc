@@ -2201,6 +2201,13 @@ Expected: Updated amount of the `savings` account being displayed after being ed
 .. Test case: `/delete /savings /name JunBank Savings Account` +
 Expected: Details of the deleted `savings` account being displayed after being deleted.
 
+[NOTE]
+====
+If you have previously changed the investment account name from `JunBank Savings Account` to `BunBank Savings Account`,
+you might want to change it back to `JunBank Savings Account` or you can choose to
+delete `BunBank Savings Account` directly.
+====
+
 === Adding an investment account
 
 . Adding a new `investment` account
@@ -2244,6 +2251,13 @@ Expected: Updated amount of the `investment` account being displayed after being
 
 .. Test case: `/delete /investment /name DBB Vickers Account` +
 Expected: Details of the deleted `investment` account being displayed after being deleted.
+
+[NOTE]
+====
+If you have previously changed the investment account name from `DBB Vickers Account` to `BBB Vickers Account`,
+you might want to change it back to `DBB Vickers Account` or you can choose to delete `BBB Vickers Account` directly.
+====
+
 
 === Adding an investment bond
 
