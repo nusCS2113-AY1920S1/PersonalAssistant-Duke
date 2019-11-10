@@ -89,7 +89,7 @@ public class PlanBot {
             dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
         }
         try {
-            questionQueue.addAll(planQuestionBank.getQuestions(planAttributes));
+            getNextQuestions();
         } catch (DukeException e) {
             dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
         }
@@ -130,17 +130,16 @@ public class PlanBot {
         } else {
             try {
                 PlanQuestion.Reply reply = currentQuestion.getReply(input, planAttributes);
-                questionQueue.clear();
-                questionQueue.addAll(planQuestionBank.getQuestions(planAttributes));
+                planAttributes = reply.getAttributes();
+                getNextQuestions();
                 logger.info("\n\n\nQueue size: " + questionQueue.size());
                 dialogObservableList.add(new PlanDialog(reply.getText(), Agent.BOT));
-                planAttributes = reply.getAttributes();
-                if (!questionQueue.isEmpty()) {
+                if (questionQueue.isEmpty()) {
+                    sendCompletedMessage();
+                } else {
                     currentQuestion = questionQueue.peek();
                     questionQueue.remove();
                     dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
-                } else {
-                    sendCompletedMessage();
                 }
             } catch (DukeException e) {
                 dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
@@ -155,7 +154,6 @@ public class PlanBot {
     public Map<String, String> getPlanAttributes() {
         return planAttributes;
     }
-
 
     /**
      * Puts the recommendation into the dialog list.
@@ -183,6 +181,11 @@ public class PlanBot {
             dialogList.add(new PlanDialog(e.getMessage(), Agent.BOT));
         }
 
+    }
+
+    private void getNextQuestions() throws DukeException {
+        questionQueue.clear();
+        questionQueue.addAll(planQuestionBank.getQuestions(planAttributes));
     }
 
 

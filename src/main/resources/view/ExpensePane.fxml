@@ -23,7 +23,6 @@
                     <Label fx:id="totalLabel"/>
                     <Label fx:id="sortLabel"/>
                     <Label fx:id="viewLabel"/>
-                    <Label fx:id="filterLabel"/>
                 </VBox>
                 <VBox>
                     <Pane fx:id="paneView" prefHeight="200"/>
