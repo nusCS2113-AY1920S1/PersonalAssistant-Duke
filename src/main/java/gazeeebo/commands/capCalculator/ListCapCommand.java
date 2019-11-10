@@ -1,8 +1,9 @@
 //@@author JasonLeeWeiHern
+
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
-import gazeeebo.parser.CAPCommandParser;
+import gazeeebo.parser.CapCommandParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Map;
  * List out the modules in the semester
  * or list out all modules and the CAP score will be shown.
  */
-public class ListCAPCommand {
+public class ListCapCommand {
     /**
      * For formatting the spacing between module name and vertical line.
      */
@@ -36,12 +37,12 @@ public class ListCAPCommand {
      * @param lineBreak print out a separator to separate each line in the list.
      * @throws IOException catch the error if the read file fails.
      */
-    public ListCAPCommand(final Ui ui,
+    public ListCapCommand(final Ui ui,
                           final Map<String,
-                                  ArrayList<CAPCommandParser>> caplist,
+                                  ArrayList<CapCommandParser>> caplist,
                           final String lineBreak) throws IOException {
         try {
-            CalculateCAPCommand calculatedCAP = new CalculateCAPCommand();
+            CalculateCapCommand calculatedCap = new CalculateCapCommand();
             String listWhat = "";
             double cap;
             switch (ui.fullCommand.split(" ").length) {
@@ -58,11 +59,11 @@ public class ListCAPCommand {
                     throw new ArrayIndexOutOfBoundsException();
             }
             if ("all".equals(listWhat)) {
-                cap = calculatedCAP.calculateCAP(caplist);
+                cap = calculatedCap.calculateCap(caplist);
                 listAll(caplist, lineBreak, cap);
             } else if (Integer.parseInt(listWhat) <= UPPER_BOUNDARY
                     && Integer.parseInt(listWhat) >= LOWER_BOUNDARY) {
-                cap = calculatedCAP.calculateCAPPerSem(caplist, listWhat);
+                cap = calculatedCap.calculateCapPerSem(caplist, listWhat);
                 listSem(caplist, lineBreak, cap, listWhat);
             } else {
                 throw new ArrayIndexOutOfBoundsException();
@@ -80,7 +81,7 @@ public class ListCAPCommand {
      * @param lineBreak print out a separator to separate each line in the list.
      * @param cap       CAP of the modules.
      */
-    private void listAll(final Map<String, ArrayList<CAPCommandParser>> caplist,
+    private void listAll(final Map<String, ArrayList<CapCommandParser>> caplist,
                          final String lineBreak, final double cap) {
         System.out.print("Sem | Module code | MC | CAP\n" + lineBreak);
         for (String key : caplist.keySet()) {
@@ -110,7 +111,7 @@ public class ListCAPCommand {
      * @param cap       CAP of the modules.
      * @param semNumber semester that user input
      */
-    private void listSem(final Map<String, ArrayList<CAPCommandParser>> caplist,
+    private void listSem(final Map<String, ArrayList<CapCommandParser>> caplist,
                          final String lineBreak,
                          final double cap, final String semNumber) {
         try {

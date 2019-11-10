@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class TodoCommand extends Command {
+
     /**
      * Adding a task of todo.
      *
@@ -61,6 +62,7 @@ public class TodoCommand extends Command {
             triviaManager.showPossibleInputs("todo");
         }
     }
+
     /**
      * Program does not exit and continues running
      * since command "bye" is not called.

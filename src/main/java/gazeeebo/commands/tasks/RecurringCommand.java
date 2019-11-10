@@ -1,4 +1,5 @@
 //@@author JasonLeeWeiHern
+
 package gazeeebo.commands.tasks;
 
 import gazeeebo.storage.Storage;
@@ -46,8 +47,8 @@ public class RecurringCommand {
                 LocalDate newDate =
                         LocalDate.parse(splitDate[0],
                                 DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                newDate = newDate.plusYears(0).
-                        plusMonths(0).plusDays(ADD_WEEKLY_DATE);
+                newDate = newDate.plusYears(0)
+                        .plusMonths(0).plusDays(ADD_WEEKLY_DATE);
                 String hourMinSec = splitDate[1];
                 String concTime = newDate + " " + hourMinSec;
                 getDescription = splitDescriptionandDate[0].split("\\|");
@@ -65,8 +66,8 @@ public class RecurringCommand {
                 LocalDate newDate
                         = LocalDate.parse(splitDate[0],
                         DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                newDate = newDate.plusYears(0).
-                        plusMonths(0).plusDays(ADD_WEEKLY_DATE);
+                newDate = newDate.plusYears(0)
+                        .plusMonths(0).plusDays(ADD_WEEKLY_DATE);
                 String hourMinSec = splitDate[1];
                 String concTime = newDate + " " + hourMinSec;
                 getDescription = splitDescriptionandDate[0].split("\\|");

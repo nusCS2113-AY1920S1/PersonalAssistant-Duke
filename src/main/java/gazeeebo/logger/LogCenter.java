@@ -1,3 +1,5 @@
+//@@author yueyuu
+
 package gazeeebo.logger;
 
 import java.io.IOException;
@@ -23,7 +25,7 @@ public class LogCenter {
         logger.addHandler(ch);
 
         try {
-            FileHandler fh = new FileHandler("gazeeeboLogger.log", true);
+            FileHandler fh = new FileHandler("GazeeeboLogger.log", true);
             fh.setFormatter(new SimpleFormatter());
             fh.setLevel(Level.WARNING);
             logger.addHandler(fh);

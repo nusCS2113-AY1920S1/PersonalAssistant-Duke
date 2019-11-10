@@ -4,7 +4,7 @@ package capCalculatorTest;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
-import gazeeebo.parser.CAPCommandParser;
+import gazeeebo.parser.CapCommandParser;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.AfterEach;
@@ -19,7 +19,7 @@ import java.io.PrintStream;
 import java.text.ParseException;
 import java.util.*;
 
-public class MainCAPCalculatorTest {
+public class MainCapCalculatorTest {
     private Ui ui = new Ui();
     private Storage storage = new Storage();
     private ArrayList<Task> list = new ArrayList<>();
@@ -46,7 +46,7 @@ public class MainCAPCalculatorTest {
         TriviaManager triviaManager = new TriviaManager(storage);
         String moduleCode = "", grade = "";
         int moduleCredit = 0;
-        CAPCommandParser test = new CAPCommandParser(moduleCode, moduleCredit, grade);
+        CapCommandParser test = new CapCommandParser(moduleCode, moduleCredit, grade);
         ByteArrayInputStream in = new ByteArrayInputStream("esc".getBytes());
         System.setIn(in);
         test.execute(list, ui, storage, commandStack, deletedTask, triviaManager);
@@ -84,7 +84,7 @@ public class MainCAPCalculatorTest {
         TriviaManager triviaManager = new TriviaManager(storage);
         String moduleCode = "", grade = "";
         int moduleCredit = 0;
-        CAPCommandParser test = new CAPCommandParser(moduleCode, moduleCredit, grade);
+        CapCommandParser test = new CapCommandParser(moduleCode, moduleCredit, grade);
         ByteArrayInputStream in = new ByteArrayInputStream("7".getBytes());
         System.setIn(in);
         test.execute(list, ui, storage, commandStack, deletedTask, triviaManager);

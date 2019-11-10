@@ -38,7 +38,7 @@ public class ParserManager {
             String moduleCode = "";
             int moduleCredit = 0;
             String grade = "";
-            return new CAPCommandParser(moduleCode, moduleCredit, grade);
+            return new CapCommandParser(moduleCode, moduleCredit, grade);
         } else if (splitCommand[0].equals("notes")
                 || command.equals("9")) {
             return new GeneralNoteCommandParser();

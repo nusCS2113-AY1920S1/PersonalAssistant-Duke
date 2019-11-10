@@ -28,9 +28,9 @@ public class EditCommand extends Command {
      *                     deals with printing things to the user.
      * @param storage      the object that
      *                     deals with storing data to the Save.txt file.
-     * @param commandStack
-     * @param deletedTask
-     * @throws IOException
+     * @param commandStack keep stack of previous commands.
+     * @param deletedTask  keep stack of deleted tasks.
+     * @throws IOException catch the error if the read file fails.
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
