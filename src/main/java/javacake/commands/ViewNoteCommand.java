@@ -13,6 +13,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
 
     private String fileName;
     private static String defaultFilePath = Storage.returnNotesDefaultFilePath();
+    private static final String BY_SPACES = "\\s+";
 
     /**
      * Constructor for ViewNoteCommand.
@@ -33,8 +34,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
      * @return Name of file specified for viewing.
      */
     private String returnFileName(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] parametersInCommand = inputCommand.split(bySpaces);
+        String[] parametersInCommand = inputCommand.split(BY_SPACES);
         return parametersInCommand[1];
     }
 
@@ -71,8 +71,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
      * @return True if file specified by user is empty.
      */
     private boolean fileIsEmpty(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] parametersInCommand = inputCommand.split(bySpaces);
+        String[] parametersInCommand = inputCommand.split(BY_SPACES);
         String fileName = parametersInCommand[1];
         String filePath = defaultFilePath + fileName + ".txt";
         File tempFile = new File(filePath);
@@ -85,8 +84,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
      * @return True if file does not exist.
      */
     private boolean fileDoesNotExist(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] parametersInCommand = inputCommand.split(bySpaces);
+        String[] parametersInCommand = inputCommand.split(BY_SPACES);
         String fileName = parametersInCommand[1];
         String filePath = defaultFilePath + fileName + ".txt";
         File tempFile = new File(filePath);
@@ -99,8 +97,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
      * @return True if user inputs multiple parameters.
      */
     private boolean containsMultipleParameters(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] parametersInCommand = inputCommand.split(bySpaces);
+        String[] parametersInCommand = inputCommand.split(BY_SPACES);
         return (parametersInCommand.length > 2);
     }
 
@@ -110,8 +107,7 @@ public class ViewNoteCommand extends Command implements IFileUtilities {
      * @return True if user does not input name of file to view.
      */
     private boolean doesNotContainFileName(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] parametersInCommand = inputCommand.split(bySpaces);
+        String[] parametersInCommand = inputCommand.split(BY_SPACES);
         return (parametersInCommand.length == 1);
     }
 

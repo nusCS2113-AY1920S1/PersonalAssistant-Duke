@@ -14,6 +14,7 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
     private String fileName;
     private static String fullFilePath;
     private static String defaultFilePath;
+    private static final String BY_SPACES = "\\s+";
 
     /**
      * Constructor for DeleteNoteCommand.
@@ -34,8 +35,7 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
      * @return Name of file specified for deletion.
      */
     private String returnFileName(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] parametersInCommand = inputCommand.split(bySpaces);
+        String[] parametersInCommand = inputCommand.split(BY_SPACES);
         return parametersInCommand[1];
     }
 
@@ -70,9 +70,7 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
      * @throws CakeException If illegal character or invalid file name detected.
      */
     private void validateFileName(String inputCommand) throws CakeException {
-        String bySpaces = "\\s+";
-        String[] parameters = inputCommand.split(bySpaces);
-
+        String[] parameters = inputCommand.split(BY_SPACES);
         if (hasNoFileName(parameters)) {
             throw new CakeException("Please indicate the file name you wish to delete");
         } else if (hasMultipleParams(parameters)) {
