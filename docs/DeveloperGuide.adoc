@@ -214,7 +214,7 @@ tasks and members are isolated into a single, focused class. It can help to fulf
 === 2.4. Storage Layer
 
 .Class Diagram of Storage Layer
-image::StorageClassDiagram.png[]
+image::images/classDiagram/StorageLayerClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/util/json/JsonConverter.java[`JsonConverter.java`]
@@ -225,6 +225,7 @@ and back.
 
 * It can save `Project` objects in JSON format and read it back.
 * It saves all JSON in the current working directory that ArchDuke is saved in
+** This can be changed by editing `userDirectory` component to the desired directory where saved data should be.
 * Each new `Project` object saved inside the `Repository` will be saved in a new JSON file, named after the name of
 the `Project`.
 
