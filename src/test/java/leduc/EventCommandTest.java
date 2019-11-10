@@ -360,6 +360,48 @@ public class EventCommandTest {
         } catch (DukeException e) {
             assertTrue(e instanceof RecurrenceDateException);
         }
+
+        EventCommand eventCommand41 = new EventCommand("event e3 /at 13/12/2002 22:22 - 14/12/2002 22:23 recu day -3");
+        try {
+            eventCommand41.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        EventCommand eventCommand42 = new EventCommand("event e3 /at 13/12/2002 22:22 - 21/12/2002 22:23 recu week -3");
+        try {
+            eventCommand42.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        EventCommand eventCommand43 = new EventCommand("event e3 /at 13/01/2002 22:22 - 21/02/2002 22:23 recu month -3");
+        try {
+            eventCommand43.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        EventCommand eventCommand44 = new EventCommand("event e3 /at 13/12/2002 22:22 - 14/12/2002 22:23 prio 6 recu day -3");
+        try {
+            eventCommand44.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        EventCommand eventCommand45 = new EventCommand("event e3 /at 13/12/2002 22:22 - 21/12/2002 22:23 prio 6 recu week -3");
+        try {
+            eventCommand45.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof NegativeNumberException);
+        }
+
+        EventCommand eventCommand46 = new EventCommand("event e3 /at 13/01/2002 22:22 - 21/02/2002 22:23 prio 6 recu month -3");
+        try {
+            eventCommand46.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof NegativeNumberException);
+        }
     }
 
     /**

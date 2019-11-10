@@ -389,6 +389,9 @@ public class UiEn extends Ui {
             System.out.println("\t RecurrenceException:\n\t\t ☹ OOPS!!! You are trying to make the event recurrent but there will be a conflict date if those events are created" +
                     "\n\t\t\t The event has not been created, please check the date");
         }
+        else if(e instanceof NegativeNumberException){
+            System.out.println("\t NegativeNumberException:\n\t\t ☹ OOPS!!! There can't be a negative number here.");
+        }
     }
 
     @Override
@@ -399,5 +402,23 @@ public class UiEn extends Ui {
     @Override
     public void showErrorLanguage() {
         System.out.println("The language that you have chosen is currently not available");
+    }
+
+    @Override
+    public void showErrorRecurrence(String typeOfDate) {
+        switch (typeOfDate){
+            case "day":
+                System.out.println("The maximal number of recurrence for day is 30" +
+                "\n\t\t\t The number of recurrence has been change to 30");
+                break;
+            case "week":
+                System.out.println("The maximal number of recurrence for week is 26" +
+                        "\n\t\t\t The number of recurrence has been change to 26");
+                break;
+            case "month":
+                System.out.println("The maximal number of recurrence for month is 12" +
+                        "\n\t\t\t The number of recurrence has been change to 12");
+                break;
+        }
     }
 }
