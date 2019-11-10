@@ -26,8 +26,8 @@ public class Grade {
      * @param isComplete true if the assessment is complete, false otherwise
      */
     @JsonCreator
-    public Grade(@JsonProperty("task") String assessment, @JsonProperty("marks") int marks,
-                 @JsonProperty("maxMarks") int maxMarks, @JsonProperty("weightage") int weightage,
+    public Grade(@JsonProperty("task") String assessment, @JsonProperty("marks") double marks,
+                 @JsonProperty("maxMarks") double maxMarks, @JsonProperty("weightage") double weightage,
                  @JsonProperty("isComplete") boolean isComplete) {
         this.assessment = assessment;
         this.marks = marks;
@@ -46,7 +46,7 @@ public class Grade {
      * @param assessment description of assessment
      * @param weightage weightage of assessment out of 100
      */
-    public Grade(String assessment, int weightage) {
+    public Grade(String assessment, double weightage) {
         this.assessment = assessment;
         this.weightage = weightage;
         this.isComplete = false;
@@ -60,7 +60,7 @@ public class Grade {
      * @param maxMarks maximum marks obtainable
      * @param weightage weightage of assessment out of 100
      */
-    public Grade(String assessment, int marks, int maxMarks, int weightage) {
+    public Grade(String assessment, double marks, double maxMarks, double weightage) {
         this(assessment, weightage);
         this.marks = marks;
         this.maxMarks = maxMarks;
@@ -84,7 +84,7 @@ public class Grade {
     }
 
     @JsonSetter
-    public void setMarks(int marks) {
+    public void setMarks(double marks) {
         this.marks = marks;
     }
 
@@ -94,7 +94,7 @@ public class Grade {
     }
 
     @JsonSetter
-    public void setMaxMarks(int maxMarks) {
+    public void setMaxMarks(double maxMarks) {
         this.maxMarks = maxMarks;
     }
 
@@ -104,7 +104,7 @@ public class Grade {
     }
 
     @JsonSetter
-    public void setWeightage(int weightage) {
+    public void setWeightage(double weightage) {
         this.weightage = weightage;
     }
 
@@ -135,7 +135,7 @@ public class Grade {
      * @param marks    marks obtained
      * @param maxMarks maximum marks obtainable
      */
-    public void markAsComplete(int marks, int maxMarks) {
+    public void markAsComplete(double marks, double maxMarks) {
         this.isComplete = true;
         this.marks = marks;
         this.maxMarks = maxMarks;
