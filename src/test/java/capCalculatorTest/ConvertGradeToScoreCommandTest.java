@@ -1,3 +1,4 @@
+//@@author JasonLeeWeiHern
 package capCalculatorTest;
 
 import gazeeebo.commands.capCalculator.ConvertGradeToScoreCommand;

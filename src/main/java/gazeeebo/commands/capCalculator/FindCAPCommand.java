@@ -1,3 +1,4 @@
+//@@author JasonLeeWeiHern
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
@@ -25,7 +26,8 @@ public class FindCAPCommand {
      * @param lineBreak print out a separator to separate each line in the list.
      */
     public FindCAPCommand(final Ui ui,
-                          final Map<String, ArrayList<CAPCommandParser>> caplist,
+                          final Map<String,
+                                  ArrayList<CAPCommandParser>> caplist,
                           final String lineBreak) {
         try {
             String findInput = "";

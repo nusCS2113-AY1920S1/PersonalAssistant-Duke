@@ -1,6 +1,7 @@
+
 package gazeeebo.commands.contact;
 
-import gazeeebo.storage.Storage;
+import gazeeebo.storage.ContactPageStorage;
 
 import java.io.IOException;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class UndoContactCommand {
     public static Map<String, String> undo(Map<String, String> contactList,
                                            final Stack<Map<String, String>>
                                                    oldcontacts,
-                                           final Storage storage)
+                                           final ContactPageStorage storage)
             throws IOException {
         if (!oldcontacts.empty()) {
             contactList = oldcontacts.peek();

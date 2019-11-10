@@ -1,3 +1,4 @@
+//@@author JasonLeeWeiHern
 
 package gazeeebo.commands.tasks;
 
@@ -20,28 +21,13 @@ import gazeeebo.tasks.DoAfter;
  */
 public class DoAfterCommand extends Command {
     /**
-<<<<<<< HEAD
      * @param list         task lists
      * @param ui           the object that deals with printing things to the user.
      * @param storage      the object that deals with storing data.
      * @param commandStack keep stack of previous commands.
-     * @throws ParseException catch error if parse string to date fails.
-     * @throws IOException catch error if read file fails.
+     * @throws ParseException       catch error if parse string to date fails.
+     * @throws IOException          catch error if read file fails.
      * @throws NullPointerException if tDate doesn't get updated.
-=======
-     * Creates a task to be done after the previous task
-     * and sets a reminder when the previous task is done.
-     *
-     * @param list         Task lists
-     * @param ui           The object that deals with
-     *                     printing things to the user.
-     * @param storage      The object that deals with storing data.
-     * @param commandStack
-     * @throws DukeException  Throws custom exception when
-     *                        format of do after command is wrong
-     * @throws ParseException
-     * @throws IOException
->>>>>>> 7b39e99af9747527697bf0b67af93c7dfcdfe446
      */
     @Override
     public void execute(final ArrayList<Task> list,
