@@ -36,6 +36,4 @@ public class AddProductCommandParserTest {
         assertParseFailure(parser, INVALID_NAME_EMPTY_USER_INPUT, expectedMessage);
         assertParseFailure(parser, INVALID_MISSING_NAME_PARAM_USER_INPUT, expectedMessage);
     }
-
-
 }

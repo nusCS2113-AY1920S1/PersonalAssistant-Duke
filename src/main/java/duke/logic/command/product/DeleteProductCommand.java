@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static duke.logic.message.ProductMessageUtils.MESSAGE_DELETE_SUCCESS;
+import static duke.logic.message.ProductMessageUtils.MESSAGE_INDEX_OUT_OF_BOUND;
 import static java.util.Objects.requireNonNull;
 
 public class DeleteProductCommand extends ProductCommand {
     public static final String COMMAND_WORD = "remove";
-    private static final String MESSAGE_DELETE_SUCCESS = "Product(s) removed.";
-    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
 
     public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
 
@@ -24,8 +24,7 @@ public class DeleteProductCommand extends ProductCommand {
 
     /** Creates a DeleteProductCommand.
      * @param indices of the products to delete
-     * */
-
+     */
     public DeleteProductCommand(Set<Index> indices) {
         requireNonNull(indices);
         this.indices = indices;
@@ -36,7 +35,7 @@ public class DeleteProductCommand extends ProductCommand {
         List<Product> toDelete = new ArrayList<>();
         for (Index index : indices) {
             if (index.getZeroBased() >= model.getFilteredProductList().size()) {
-                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
+                throw new CommandException(MESSAGE_INDEX_OUT_OF_BOUND);
             }
             toDelete.add(model.getFilteredProductList().get(index.getZeroBased()));
         }

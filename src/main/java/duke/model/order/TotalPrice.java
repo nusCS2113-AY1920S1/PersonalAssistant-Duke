@@ -11,7 +11,7 @@ import static duke.commons.util.AppUtil.checkArgument;
 public class TotalPrice {
     public static final double MAX = 500000.0;
     public static final String MESSAGE_CONSTRAINTS =
-        "Total price of an order should be less than " + MAX + ".";
+        "Total price of an order should be no more than " + MAX + ".";
     public final double value;
 
     /**

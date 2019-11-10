@@ -1,5 +1,7 @@
 package duke.commons.core.index;
 
+import java.util.Objects;
+
 /**
  * Represents a zero-based or one-based index. Adapted from AddressBook 4.
  *
@@ -46,9 +48,19 @@ public class Index {
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Index // instanceof handles nulls
-                && zeroBasedIndex == ((Index) other).zeroBasedIndex); // state check
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Index index = (Index) o;
+        return zeroBasedIndex == index.zeroBasedIndex;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(zeroBasedIndex);
     }
 }

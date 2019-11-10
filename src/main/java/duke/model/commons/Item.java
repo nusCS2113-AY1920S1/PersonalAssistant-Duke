@@ -25,6 +25,10 @@ public class Item<T> {
         return new Quantity(quantity);
     }
 
+    public void setQuantity(Double number) {
+        quantity.setNumber(number);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
