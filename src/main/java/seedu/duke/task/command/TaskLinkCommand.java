@@ -45,50 +45,60 @@ public class TaskLinkCommand extends Command {
             deleteLinks(msg, linkedEmails);
         }
 
-        if (emailIndexList.isEmpty()) {
-            if (linkedEmails.isEmpty()) {
-                msg.append("No linked emails currently.");
-            } else {
-                //TODO make function in EmailList to return Array List of email subjects (and maybe index)
-                //TODO create function to convert SHA to Subject
-                msg.append("Here are your linked emails:" + System.lineSeparator());
-                int i = 1;
-                for (String filename : linkedEmails) {
-                    String name = null;
-                    for (int j = 0; j < emailList.size(); j++) {
-                        if (filename.equals(emailList.get(j).getShaHash())) {
-                            name = emailList.get(j).getSubject();
-                            break;
-                        }
-                    }
-                    msg.append(i + ". " + name + System.lineSeparator());
-                    i++;
-                }
-            }
+        if (!emailIndexList.isEmpty()) {
+            addLinks(taskList, emailList, msg, linkedEmails);
+        }
+
+        listLinkedEmails(emailList, msg, linkedEmails);
+
+        if (!silent) {
             responseMsg = msg.toString();
             UI.getInstance().showResponse(msg.toString());
-            return true;
-        } else {
-            msg.append("Linked task ");
-            Task task = taskList.get(taskIndex);
-            msg.append(task.getName());
-            msg.append(" with email(s):" + System.lineSeparator());
-
-            for (int j = 0; j < emailIndexList.size(); j++) {
-                Email email = emailList.get(emailIndexList.get(j));
-                msg.append(email.getSubject() + System.lineSeparator());
-                if (task.getLinkedEmails().contains(email.getShaHash())) {
-                    continue;
-                }
-                task.addLinkedEmails(email.getShaHash());
-            }
-
-            if (!silent) {
-                responseMsg = msg.toString();
-                UI.getInstance().showResponse(msg.toString());
-            }
-            return true;
         }
+        return true;
+    }
+
+    private void addLinks(TaskList taskList, EmailList emailList, StringBuilder msg, ArrayList<String> linkedEmails) {
+        msg.append("Linked task " + (taskIndex+1));
+        msg.append(" with email(s): ");
+        Task task = taskList.get(taskIndex);
+
+        for (Integer index : emailIndexList) {
+            msg.append((index+1) + " ");
+            Email email = emailList.get(index);
+            if (linkedEmails.contains(email.getShaHash())) {
+                continue;
+            }
+            task.addLinkedEmails(email.getShaHash());
+        }
+        msg.append(System.lineSeparator());
+    }
+
+    private void listLinkedEmails(EmailList emailList, StringBuilder msg, ArrayList<String> linkedEmails) {
+        if (linkedEmails.isEmpty()) {
+            msg.append("No linked emails currently.");
+        } else {
+            //TODO make function in EmailList to return Array List of email subjects (and maybe index)
+            //TODO create function to convert SHA to Subject
+            msg.append("Here are your linked emails:" + System.lineSeparator());
+            int i = 1;
+            for (String filename : linkedEmails) {
+                String name = null;
+                for (int j = 0; j < emailList.size(); j++) {
+                    if (filename.equals(emailList.get(j).getShaHash())) {
+                        name = emailList.get(j).getSubject();
+                        break;
+                    }
+                }
+                msg.append(i + ". " + name + System.lineSeparator());
+                i++;
+            }
+
+        }
+        String[] parsedMsg = emailList.show(1);
+        UI.getInstance().setEmailContent(parsedMsg[1]);
+        UI.getInstance().updateHtml();
+        responseMsg = msg.toString();
     }
 
     private void deleteLinks(StringBuilder msg, ArrayList<String> linkedEmails) {
