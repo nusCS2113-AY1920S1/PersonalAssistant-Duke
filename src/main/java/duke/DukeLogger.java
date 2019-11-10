@@ -38,7 +38,7 @@ public class DukeLogger {
     }
 
     //@@author maxxyx96
-    //Solution adapted from https://www.programcreek.com/java-api-examples/?class=java.util.logging.Handler&method=close
+    //Reused from https://www.programcreek.com/java-api-examples/?class=java.util.logging.Handler&method=close with minor modifications
     /**
      * Closes all the handlers that are utilised for logging Duke.
      *
