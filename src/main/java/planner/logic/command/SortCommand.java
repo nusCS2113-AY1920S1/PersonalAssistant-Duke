@@ -63,12 +63,7 @@ public class SortCommand extends ModuleCommand {
                 List<TaskWithMultipleWeeklyPeriod> holdForTime = new ArrayList<>();
                 List<TaskWithMultipleWeeklyPeriod> holdForTimeReverse = new ArrayList<>();
                 DayOfWeek dayOfWeek = DayOfWeek.valueOf(arg("DayOfTheWeek").toUpperCase());
-                for (Cca t : profile.getCcas()) {
-                    if (t.happensOnThisDayOfWeek(dayOfWeek)) {
-                        holdForTime.add(t);
-                    }
-                }
-                for (ModuleTask t : profile.getModules()) {
+                for (TaskWithMultipleWeeklyPeriod t : profile.getAllTasks()) {
                     if (t.happensOnThisDayOfWeek(dayOfWeek)) {
                         holdForTime.add(t);
                     }

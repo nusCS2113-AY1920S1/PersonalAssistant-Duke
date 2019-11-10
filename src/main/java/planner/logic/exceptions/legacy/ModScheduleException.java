@@ -2,8 +2,15 @@ package planner.logic.exceptions.legacy;
 
 public class ModScheduleException extends ModException {
 
-    @Override
-    public String getMessage() {
-        return super.getMessage() + "This task clashes with existing tasks!";
+    public ModScheduleException(String type1, String type2) {
+        super(type1 + " clashes with existing " + type2 + "!");
+    }
+
+    public ModScheduleException(String type1) {
+        this(type1, "tasks");
+    }
+
+    public ModScheduleException() {
+        this("Module");
     }
 }

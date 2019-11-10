@@ -4,7 +4,7 @@ package planner.credential.user;
 
 import planner.logic.command.Arguments;
 import planner.logic.command.ClearCommand;
-import planner.logic.exceptions.planner.ModTamperedUserDataException;
+import planner.logic.exceptions.planner.ModTamperedDataException;
 import planner.logic.modules.TaskList;
 import planner.logic.modules.cca.Cca;
 import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
@@ -25,6 +25,7 @@ public class User {
     private static CredentialManager credentialManager = new CredentialManager();
     private static int LOGIN_LIMITS = 5;
     private static final String defaultPath = "data/userProfile.json";
+    private static String path = "data/userProfile.json";
 
     private User(int semester) {
         currentSemester = semester;
@@ -46,10 +47,18 @@ public class User {
         this.init(currentSemester);
     }
 
+    public static void setPath(String path) {
+        User.path = path;
+    }
+
+    public static void restoreDefaultPath() {
+        User.path = User.defaultPath;
+    }
+
     private static Profile readUserData() {
         try {
-            return User.storage.readGsonSecure(User.defaultPath, Profile.class);
-        } catch (ModTamperedUserDataException ex) {
+            return User.storage.readGsonSecure(User.path, Profile.class);
+        } catch (ModTamperedDataException ex) {
             System.out.println(ex.getMessage());
             return null;
         }
@@ -123,7 +132,7 @@ public class User {
     public void saveProfile() {
         Profile profile = new Profile();
         profile.put("profile", this);
-        User.storage.writeGsonSecure(profile, User.defaultPath);
+        User.storage.writeGsonSecure(profile, User.path);
     }
 
     public int getSemester() {
@@ -146,6 +155,14 @@ public class User {
         return this.getCcas(this.getSemester());
     }
 
+    public TaskList<TaskWithMultipleWeeklyPeriod> getAllTasks(int semester) {
+        return this.modulesAndCcas.get(semester).getAllTasks();
+    }
+
+    public TaskList<TaskWithMultipleWeeklyPeriod> getAllTasks() {
+        return this.getAllTasks(this.getSemester());
+    }
+
     /**
      * Set modules/ccas for a semester.
      * @param semester selected semester
@@ -157,7 +174,7 @@ public class User {
                 this.modulesAndCcas = new HashMap<>();
             }
             TaskLists taskLists = this.modulesAndCcas.get(semester);
-            for (Field field: taskLists.getClass().getFields()) {
+            for (Field field: taskLists.getClass().getDeclaredFields()) {
                 if (field.getClass().isAssignableFrom(tasks.getClass())) {
                     try {
                         field.set(taskLists, tasks);
@@ -223,7 +240,7 @@ public class User {
         return this.password;
     }
 
-    private boolean isValidPassword(String password) {
+    public boolean isValidPassword(String password) {
         return User.isValidPassword(password, this.password);
     }
 
@@ -261,7 +278,11 @@ public class User {
     public void clear() {
         this.setSemester(0);
         this.init();
-        this.password = null;
+        this.clearPassword();
         this.saveProfile();
+    }
+
+    public void clearPassword() {
+        this.password = null;
     }
 }
