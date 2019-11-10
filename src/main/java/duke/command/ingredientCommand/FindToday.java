@@ -14,18 +14,9 @@ import java.text.SimpleDateFormat;
 
 /**
  * Represents a specific {@link Command} used to list Expired Ingredients occurring in the {@link Ingredient}.
+ * Class FindToday is used to list all ingredients in the IngredientsList that are expired using 'listtoday'.
  * @@author x3chillax
- * Class FindToday is used to list all ingredients in the IngredientsList that are expired using 'listtoday'
  */
-/*
-public class FindToday extends Command<Ingredient> {
-    private Date today = new Date();
-    private String pattern = "dd/MM/yyyy";
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-    @Override
-    public boolean isExit() {
-        return false;
-  */
 public class FindToday extends Command {
 
     private SimpleDateFormat simpleDateFormat;
@@ -53,7 +44,5 @@ public class FindToday extends Command {
             System.out.println("\t Here are the expired ingredients for today");
             ui.showTask(sb.toString());
         }
-
     }
 }
-

@@ -142,7 +142,6 @@ public class Parser {
         }
     }
 
-
     /**
      * commands for Ingredient
      * add: adds an ingredient to the fridge, by adding more to an existing ingredient or creating a new one
@@ -206,6 +205,7 @@ public class Parser {
         }
     }
 
+    //@@author CEGLincoln
     /**
      * Checks the length of a String array is of size 2.
      *
@@ -217,6 +217,7 @@ public class Parser {
         }
     }
 
+    //@@author CEGLincoln
     /**
      * Split a string and check its length.
      */
@@ -226,6 +227,7 @@ public class Parser {
         return part;
     }
 
+    //@@author CEGLincoln
     /**
      * Converts a string into a number, and checks if it is out of bounds.
      *
@@ -246,6 +248,7 @@ public class Parser {
         return x;
     }
 
+    //@@author CEGLincoln
     public static int checkInt(String str) throws DukeException {
         final int MAX = Integer.MAX_VALUE;
         return parseInt(str, MAX);
