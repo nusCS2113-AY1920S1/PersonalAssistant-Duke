@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //@@author zkchang97
 public class AddRoomTest2 {
 
+    // Test for correct conversion of new Room object to String
     @Test
     void addRoomTest() throws DukeException {
         String room = "SR4";
