@@ -78,23 +78,6 @@ public class TaskList {
         }
     }
 
-    /**
-     * Remove a task from the arrayList.
-     */
-    public void removeTaskByIndex(int index) {
-        arrlist.remove(index);
-    }
-
-    //@@author jaedonkey
-    /**
-     * Clears the current id for future tasks to use (used in deletion of tasks).
-     *
-     * @param id task id
-     */
-    public void unsetId(int id) {
-        taskIdManager.clearId(id);
-        logger.info(id + " unset");
-    }
 
     public ArrayList<Task> returnTaskList() {
         return this.arrlist;

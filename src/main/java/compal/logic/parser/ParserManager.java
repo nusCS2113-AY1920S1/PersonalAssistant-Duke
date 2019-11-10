@@ -38,6 +38,7 @@ public class ParserManager {
      * @throws ParserException If command input is unknown or user input is empty.
      */
     public Command processCmd(String userInput) throws ParserException, ParseException {
+        userInput = userInput.stripLeading();
         String[] args = userInput.split(" ", 2);
         String commandWord = args[0];
         String restOfInput = "";
