@@ -11,7 +11,7 @@ public class DateValidatorTest {
     public void dateValidatorTestEvent() {
         String correctString1 = "14-12-2019 1500";
         String correctString2 = "12-05-4938 1800";
-        String correctString3 = "05-05-2000 0800";
+        String correctString3 = "5-5-2000 0800";
         String wrongString1 = "5-5-5-5-3513";
         String wrongString2 = "5-5-3 3301";
         String wrongString3 = "21-12-1900 6000 7000";

@@ -2,6 +2,9 @@ package mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclass
 
 import mistermusik.commons.events.eventtypes.eventsubclasses.Assessment;
 
+/**
+ * Exam type Event class.
+ */
 public class Exam extends Assessment {
     /**
      * Creates exam event with isDone boolean for reading from files.

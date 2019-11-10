@@ -32,7 +32,7 @@ public class CalendarView {
      * Find all the events in the coming 7 days.
      *
      * @param eventArrayList List of all events.
-     * @param startDay          The current day.
+     * @param startDay       The current day.
      */
     private void getEventsOfTheWeek(ArrayList<Event> eventArrayList, EventDate startDay) {
         EventDate yesterday = new EventDate(startDay.getEventJavaDate());
@@ -68,38 +68,38 @@ public class CalendarView {
      */
     private void setDaysAndDatesList(EventDate startDate) {
         String currDay = startDate.getEventJavaDate().toString().split(" ")[0];
-        String[] weekdays = new String[] {"    <Monday>    ", "   <Tuesday>    ", "   <Wednesday>  ",
+        String[] weekdays = new String[]{"    <Monday>    ", "   <Tuesday>    ", "   <Wednesday>  ",
                 "   <Thursday>   ", "    <Friday>    ", "   <Saturday>   ", "    <Sunday>    "};
 
         int startDay = 0;
         switch (currDay) {
-            case "Mon":
-                startDay = MONDAY;
-                break;
+        case "Mon":
+            startDay = MONDAY;
+            break;
 
-            case "Tue":
-                startDay = TUESDAY;
-                break;
+        case "Tue":
+            startDay = TUESDAY;
+            break;
 
-            case "Wed":
-                startDay = WEDNESDAY;
-                break;
+        case "Wed":
+            startDay = WEDNESDAY;
+            break;
 
-            case "Thu":
-                startDay = THURSDAY;
-                break;
+        case "Thu":
+            startDay = THURSDAY;
+            break;
 
-            case "Fri":
-                startDay = FRIDAY;
-                break;
+        case "Fri":
+            startDay = FRIDAY;
+            break;
 
-            case "Sat":
-                startDay = SATURDAY;
-                break;
+        case "Sat":
+            startDay = SATURDAY;
+            break;
 
-            case "Sun":
-                startDay = SUNDAY;
-                break;
+        case "Sun":
+            startDay = SUNDAY;
+            break;
         }
 
         for (int i = 0; i < 7; i++) {
