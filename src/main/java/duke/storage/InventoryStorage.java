@@ -56,24 +56,36 @@ public class InventoryStorage {
      * @return the list of inventory in inventory list
      */
     public HashMap<String, Ingredient> load() {
-
         if (Files.notExists(Paths.get(filePathInventory))) {
             try {
-                Files.createDirectory(Paths.get("data/"));
+                File file = new File(filePathInventory);
+                file.getParentFile().mkdir();
+                file.createNewFile();
             } catch (IOException e) {
                 System.out.println("Unknown IO error when creating 'data/' folder.");
             }
         }
+
+//        if (Files.notExists(Paths.get(filePathInventory))) {
+//            try {
+//                Files.createDirectory(Paths.get("data/"));
+//            } catch (IOException e) {
+//                System.out.println("Unknown IO error when creating 'data/' folder.");
+//            }
+//        }
         try {
             InputStream inputStream;
             if (filePathInventory.equals(filePathInventoryTest)) {
                 inputStream = getClass().getResourceAsStream("/data/inventoriesTest.txt");
             } else {
                 inputStream = getClass().getResourceAsStream("/data/inventories.txt");
-            }            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            }
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            FileReader fileReader = new FileReader(filePathInventory);
+            BufferedReader bufferedReader1 = new BufferedReader(fileReader);
             String content = "";
-            while ((content = bufferedReader.readLine()) != null) {
+            while ((content = bufferedReader.readLine()) != null || (content = bufferedReader1.readLine()) != null) {
                 String ingredientName, quantity, unit, additionalInfo, remaining, remaining2;
                 String[] split = content.split(",", 2);
                 if (split.length == 2) {
@@ -96,6 +108,7 @@ public class InventoryStorage {
             bufferedReader.close();
             inputStreamReader.close();
             inputStream.close();
+            fileReader.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePathInventory + "'");
         } catch (IOException ex) {

@@ -60,10 +60,18 @@ public class RecipeStorage {
 
         if (Files.notExists(Paths.get(filePathRecipes))) {
             try {
-                Files.createDirectory(Paths.get("data/"));
+                File file = new File(filePathRecipes);
+                file.getParentFile().mkdir();
+                file.createNewFile();
             } catch (IOException e) {
                 System.out.println("Unknown IO error when creating 'data/' folder.");
             }
+
+//            try {
+//                Files.createDirectory(Paths.get("data/"));
+//            } catch (IOException e) {
+//                System.out.println("Unknown IO error when creating 'data/' folder.");
+//            }
         }
         try {
             InputStream inputStream;
@@ -74,8 +82,10 @@ public class RecipeStorage {
             }
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            FileReader fileReader = new FileReader(filePathRecipes);
+            BufferedReader bufferedReader1 = new BufferedReader(fileReader);
             String content = "";
-            while ((content = bufferedReader.readLine()) != null) {
+            while ((content = bufferedReader.readLine()) != null || (content = bufferedReader1.readLine()) != null) {
                 // can use a splitMethod() here for tidyness?
                 String recipeTitle, prepTime, rating, prepSteps, requiredIngredients, feedback, remaining, remaining2, remaining3, remaining4;
                 String[] split = content.split("\\|", 2);
@@ -109,6 +119,7 @@ public class RecipeStorage {
             bufferedReader.close();
             inputStreamReader.close();
             inputStream.close();
+            fileReader.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePathRecipes + "'");
         } catch (IOException ex) {

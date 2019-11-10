@@ -1,0 +1,10 @@
+cake | Unknown preparation time | Unrated | No preparation steps provided yet. | sugar , 3.5 , G , No additional information. | No feedback yet.
+chicken rice | 10 | Good | wash with water                     /                     No preparation steps provided yet. | jasmine rice , 15.0 , KG , fried with garlic / brown rice , 1.0 , G , No additional information. / rice , 1.0 , KG , 50% brown rice / jas , 1.0 , G , No additional information. | the soya sauce was delicious
+duck rice | 10 | Unrated | No preparation steps provided yet. | jasmine rice , 10.0 , G , No additional information. / brown rice , 1.0 , G , No additional information. | No feedback yet.
+FFEefwFDwwdDEW | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
+rice | 10 | Unrated | No preparation steps provided yet. | brown rice , 1.0 , G , No additional information. | No feedback yet.
+sphagetti | 10 | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
+test | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
+test rice | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
+testcake | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
+testest | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.

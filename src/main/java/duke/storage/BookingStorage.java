@@ -54,7 +54,9 @@ public class BookingStorage {
 
         if (Files.notExists(Paths.get(filePath))) {
             try {
-                Files.createDirectory(Paths.get("data/"));
+                File file = new File(filePath);
+                file.getParentFile().mkdir();
+                file.createNewFile();
             } catch (IOException e) {
                 System.out.println("Unknown IO error when creating 'data/' folder.");
             }
@@ -65,10 +67,13 @@ public class BookingStorage {
                 inputStream = getClass().getResourceAsStream("/data/bookingsTest.txt");
             } else {
                 inputStream = getClass().getResourceAsStream("/data/bookings.txt");
-            }            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            }
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            FileReader fileReader = new FileReader(filePath);
+            BufferedReader bufferedReader1 = new BufferedReader(fileReader);
             String content = "";
-            while ((content = bufferedReader.readLine()) != null) {
+            while ((content = bufferedReader.readLine()) != null || (content = bufferedReader1.readLine()) != null) {
 
                 if(content.split("\\|",6)[0].trim().equals("booking")) {
 
@@ -84,6 +89,7 @@ public class BookingStorage {
             bufferedReader.close();
             inputStreamReader.close();
             inputStream.close();
+            fileReader.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePath + "'");
         } catch (IOException ex) {
