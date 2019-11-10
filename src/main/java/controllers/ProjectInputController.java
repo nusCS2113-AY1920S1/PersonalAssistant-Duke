@@ -51,7 +51,6 @@ public class ProjectInputController implements IController {
     private boolean isManagingAProject;
     private ViewHelper viewHelper;
     private CommandHelper commandHelper;
-    private JsonConverter jsonConverter = new JsonConverter();
     private Project projectToManage;
 
     /**
@@ -143,6 +142,8 @@ public class ProjectInputController implements IController {
             responseToView = projectSetReminderStatus(this.projectToManage,projectFullCommand);
         } else if (projectFullCommand.matches("view")) {
             responseToView = projectViewSelf(this.projectToManage);
+        } else if (projectFullCommand.matches("rename.*")) {
+            responseToView = projectRename(this.projectToManage, projectFullCommand);
         } else if (projectFullCommand.matches("agenda")) {
             responseToView = projectViewCalender(this.projectToManage);
         } else if (projectFullCommand.matches("help")) {
@@ -154,6 +155,24 @@ public class ProjectInputController implements IController {
         }
         projectRepository.saveToRepo(this.projectToManage);
         return responseToView;
+    }
+
+    private String[] projectRename(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectRename] User input: '"
+                + projectCommand + "'");
+        if (projectCommand.length() < 7) {
+            return new String[] {"Please enter the command correctly in the format rename PROJECT_NAME"};
+        }
+        String parsedName = projectCommand.substring(7);
+        if (("").equals(parsedName)) {
+            return new String[] {"Project Name cannot be empty!"};
+        }
+        boolean isProjectEdited = projectRepository.updateItem(projectToManage, parsedName);
+        if (isProjectEdited) {
+            return new String[] {"Project name has been updated to " + parsedName + "."};
+        } else {
+            return new String[] {"An error has occurred! Project JSON is not updated correctly!"};
+        }
     }
 
     private String[] projectViewCalender(Project projectToManage) {
@@ -178,12 +197,21 @@ public class ProjectInputController implements IController {
     public String[] projectRoleMembers(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectRoleMembers] User input: '"
                 + projectCommand + "'");
+        if (projectCommand.length() < 5) {
+            return new String[] {"Please follow the member index using the correct command format role INDEX -n "
+                                + "ROLE_NAME"};
+        }
         String parsedCommands = projectCommand.substring(5);
         String[] commandOptions = parsedCommands.split(" -n ");
         if (commandOptions.length != 2) {
-            return new String[] {"Wrong command format! Please enter role INDEX -n ROLE_NAME"};
+            return new String[] {"Missing argument! Please enter role INDEX -n ROLE_NAME"};
         }
-        int memberIndex = Integer.parseInt(commandOptions[0]);
+        int memberIndex;
+        try {
+            memberIndex = Integer.parseInt(commandOptions[0]);
+        } catch (NumberFormatException err) {
+            return new String[] {"Please enter an integer as member INDEX!"};
+        }
         IMember selectedMember = projectToManage.getMemberList().getMember(memberIndex);
         if (selectedMember.getClass() != NullMember.class) {
             selectedMember.setRole(commandOptions[1]);
