@@ -8,10 +8,11 @@ public class ListTasksPicNumCommand extends Command {
 
     private static final String SUCCESS_MESSAGE = "Here are all the tasks in order of num of PICs:";
 
+    //@@author yuyanglin28
     /**
-     * This method is to execute command: list tasks all picnum
-     * @param model model part
-     * @return CommandOutput, a string
+     * This method is to list all tasks in order of number of PICs (person in charge)
+     * @param model Model interface
+     * @return a sorted task list in order of number of PICs
      */
     @Override
     public CommandOutput execute(Model model) {

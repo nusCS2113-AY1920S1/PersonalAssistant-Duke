@@ -6,9 +6,8 @@ import model.Model;
 import common.DukeException;
 
 public class DeleteTaskCommand extends Command {
-    private static final String SUCCESS_MSSAGE = "you have removed a task: ";
-    private static final String INVALID_MSSAGE = " is an invalid task index";
-    private static final String FAIL_MESSAGE = "fail to delete task";
+    private static final String SUCCESS_MSSAGE = "You have removed a task: ";
+
     private int[] taskIndexInList;
     private String taskName;
 
@@ -16,25 +15,28 @@ public class DeleteTaskCommand extends Command {
         this.taskIndexInList = taskIndexInList;
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to delete tasks with task index in list
+     * @param model Model interface
+     * @return successful message or index doesn't in task list message
+     */
     @Override
-    public CommandOutput execute(Model model) throws DukeException {
+    public CommandOutput execute(Model model) {
         String output = "";
-        try {
-            for (int i = 0; i < taskIndexInList.length; i++) {
-                if (checkTaskIndex(taskIndexInList[i], model)) {
-                    taskName = model.deleteTask(taskIndexInList[i] - 1);
-                    model.save();
-                    output += SUCCESS_MSSAGE + taskName + "\n";
-                } else {
-                    output += taskIndexInList[i] + INVALID_MSSAGE + "\n";
-                }
-
+        for (int i = 0; i < taskIndexInList.length; i++) {
+            if (checkTaskIndex(taskIndexInList[i], model)) {
+                taskName = model.deleteTask(taskIndexInList[i] - 1);
+                model.save();
+                output += SUCCESS_MSSAGE + taskIndexInList[i] + ". " + taskName + "\n";
+            } else {
+                output += taskIndexInList[i] + Command.INDEX_NOT_IN_TASK_MESSAGE + "\n";
             }
-            return new CommandOutput(output);
 
-        } catch (Exception e) {
-            throw new DukeException(FAIL_MESSAGE);
         }
+        return new CommandOutput(output);
+
 
     }
 

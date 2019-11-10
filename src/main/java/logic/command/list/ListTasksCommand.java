@@ -15,6 +15,12 @@ public class  ListTasksCommand extends Command {
     private static final String SUCCESS_MESSAGE = "Here are all tasks in project manager:";
 
     //@@author yuyanglin28
+
+    /**
+     * This method is to list all tasks
+     * @param model Model interface
+     * @return task list, no special order
+     */
     @Override
     public CommandOutput execute(Model model) {
         Window.instance.showTaskView(true);

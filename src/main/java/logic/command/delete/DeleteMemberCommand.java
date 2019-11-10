@@ -8,35 +8,37 @@ import model.Model;
 import common.DukeException;
 
 public class DeleteMemberCommand extends Command {
-    public static final String FAIL_MESSAGE = "Fail to delete a member";
-    private static final String SUCCESS_MSSAGE = "you have removed a member: ";
-    private static final String INVALID_MSSAGE = " is an invalid index.";
-    private int[] memberIndexInList;
-    private String memberName;
 
-    public DeleteMemberCommand(int[] memberIndexInList) {
-        this.memberIndexInList = memberIndexInList;
+    private static final String SUCCESS_MSSAGE = "You have removed a member: ";
+
+    private String[] memberNames;
+
+    public DeleteMemberCommand(String[] memberNames) {
+        this.memberNames = memberNames;
     }
 
     //@@author yuyanglin28
+
+    /**
+     * This method is to delete the member with some member names
+     * @param model Model interface
+     * @return successful message or name doesn't in member list message
+     */
     @Override
-    public CommandOutput execute(Model model) throws DukeException {
+    public CommandOutput execute(Model model) {
         String output = "";
-        try {
-            for (int i = 0; i < memberIndexInList.length; i++) {
-                if (checkMemberIndex(memberIndexInList[i], model)) {
-                    memberName = model.deleteMember(memberIndexInList[i] - 1);
-                    model.save();
-                    output += SUCCESS_MSSAGE + memberName + "\n";
-                } else {
-                    output += memberIndexInList[i] + INVALID_MSSAGE + "\n";
-                }
 
+        for (int i = 0; i < memberNames.length; i++) {
+            if (checkMemberName(memberNames[i], model)) {
+                model.deleteMember(memberNames[i]);
+                model.save();
+                output += SUCCESS_MSSAGE + memberNames[i] + "\n";
+            } else {
+                output += memberNames[i] + Command.NAME_NOT_IN_MEMlIST_MESSAGE + "\n";
             }
-            return new CommandOutput(output);
 
-        } catch (Exception e) {
-            throw new DukeException(FAIL_MESSAGE);
         }
+        return new CommandOutput(output);
+
     }
 }

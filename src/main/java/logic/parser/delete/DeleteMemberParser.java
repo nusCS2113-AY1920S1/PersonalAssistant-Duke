@@ -6,22 +6,31 @@ import common.DukeException;
 
 public class DeleteMemberParser {
 
-
-    public static final String MEMBER_NO_NAME_MESSAGE = "Member name cannot be empty.";
+    private static final String EMPTY_NAME = "Member name cannot be empty. Please use comma to separate names.";
 
     //@@author yuyanglin28
 
     /**
      * parse delete member command, pass member name to command
      * @return delete member command
-     * @throws DukeException exception
+     * @throws DukeException throw exception when member name is empty
      */
-    public static Command parseDeleteMember(int[] indexes) throws DukeException {
+    public static Command parseDeleteMember(String arguments) throws DukeException {
 
-        if (indexes != null) {
-            return new DeleteMemberCommand(indexes);
+        String[] names = null;
+
+        if (arguments != null) {
+            arguments = arguments.trim();
+            names = arguments.split(",");
+            for (int i = 0; i < names.length; i++) {
+                names[i] = names[i].trim();
+            }
+        }
+
+        if (names != null) {
+            return new DeleteMemberCommand(names);
         } else {
-            throw new DukeException(MEMBER_NO_NAME_MESSAGE);
+            throw new DukeException(EMPTY_NAME);
         }
     }
 }
