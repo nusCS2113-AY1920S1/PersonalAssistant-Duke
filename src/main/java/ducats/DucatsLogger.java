@@ -19,7 +19,7 @@ public class DucatsLogger {
         LogManager.getLogManager().reset();
         FileHandler fileHandler;
         try {
-            fileHandler = new FileHandler("./logs/DucatsLogger.log");
+            fileHandler = new FileHandler("DucatsLogger.log");
             fileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(fileHandler);
             LOGGER.setLevel(Level.ALL);
