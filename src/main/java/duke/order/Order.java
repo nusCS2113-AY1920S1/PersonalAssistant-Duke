@@ -112,7 +112,7 @@ public class Order implements Printable {
      * @return a tick or a cross
      */
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+        return (isDone ? "✓" : "✗"); //return tick or X symbols
     }
 
     /**

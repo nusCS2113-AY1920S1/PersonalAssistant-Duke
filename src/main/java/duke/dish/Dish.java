@@ -5,14 +5,13 @@ import duke.ingredient.IngredientsList;
 import duke.storage.Printable;
 
 //@@author 9hafidz6
-
 public class Dish implements Printable {
 
     private String dishname;
     private IngredientsList ingredientsList;
 
     /**
-     * assigns dishname to name and ingredientList to il
+     * assigns dishname to name and ingredientList to il.
      * @param name name of the dish
      * @param il list of ingredient
      */
@@ -22,8 +21,8 @@ public class Dish implements Printable {
     }
 
     /**
-     * assigns dishname to name and instantiate ingredientList
-     * @param name
+     * assigns dishname to name and instantiate ingredientList.
+     * @param name name of the dish
      */
     public Dish(String name) {
         this.dishname = name;
@@ -39,7 +38,7 @@ public class Dish implements Printable {
     }
 
     /**
-     * get the name of the dish
+     * Get the name of the dish.
      * @return name of dish
      */
     public String getDishname() {
@@ -51,25 +50,50 @@ public class Dish implements Printable {
     }
 
     /**
-     * adding an ingredient to the ingredientList
-     * @param ingredients to be added to list of ingredients
+     * Adding an ingredient to the ingredientList. If there already exist the same ingredient, update the amount.
+     * If ingredient and amount is the same, then prints to user that it already exist in dish hence break.
+     * @param ingredients new ingredient
+     * @param amount new amount of ingredient
+     * @return boolean flag to indicate if ingredient exist in the dish
      */
-    public void addIngredients(Ingredient ingredients) {
-        ingredientsList.addEntry(ingredients);
+    public boolean addIngredients(Ingredient ingredients, int amount) {
+        boolean flag = true;
+        for(Ingredient i : ingredientsList.getAllEntries()) {
+            //if they have the same ingredient name and amount
+            if(i.getName().equals(ingredients.getName()) && i.getAmount() == amount) {
+                System.out.println("\t ingredient already exist in dish");
+                flag = false;
+                break;
+            }
+            if(i.getName().equals(ingredients.getName())) {
+                System.out.println("\t ingredient already exist in dish \n\t changed ingredient amount of: " + i.getName());
+                System.out.println("\t from: " + i.getAmount());
+                System.out.println("\t to: " + amount);
+                i.setAmount(amount);
+                flag = false;
+                break;
+            }
+        }
+        if(flag) {
+            ingredientsList.addEntry(ingredients);
+        }
+        return flag;
     }
 
+    //@@author CEGLincoln
     /**
-     * a loop to get all the ingredients in the list
+     * A loop to get all the ingredients in the list.
      * @return all ingredients associated to the dish in string format
      */
     public String toString() {
         String str = "Recipe for " + dishname;
         for (Ingredient i : ingredientsList.getAllEntries()) {
-            str += "\n" + i.getName() + ", " + i.getAmount();
+            str += "\n\t " + i.getName() + ", " + i.getAmount();
         }
         return str; //Multi-line depending on the size of ingredient list
     }
 
+    //@@author CEGLincoln
     @Override
     public String printInFile() {
         String str = dishname;

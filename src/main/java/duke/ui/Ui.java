@@ -17,7 +17,7 @@ public class Ui {
     private Scanner scanner;
     private static final String line = "_________________________________________________________________________________________";
 
-    private final boolean DRAW = false;
+    private final boolean DRAW = true;
 
     /**
      * The constructor method for Ui.
@@ -43,7 +43,7 @@ public class Ui {
     }
 
     public void chefDrawing() {
-        if(!DRAW) return;
+        if (!DRAW) return;
         System.out.println("                           (c)___c____(c)           ");
         System.out.println("                            \\ ........../          ");
         System.out.println("                             |.........|            ");
@@ -77,21 +77,49 @@ public class Ui {
         System.out.println("   ~           \\|/        !!        \\ !/  ~~~~~~~~~~~~~    ~~~  ");
         System.out.println("               ~~~        ~~         ~~           ~~              ");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   ");
+        System.out.println("\n");
     }
 
     public void dishDrawing() {
         if(!DRAW) return;
-        System.out.println("            (\\                                      ");
-        System.out.println("             \\ \\                                   ");
-        System.out.println("               \\/ ___,.-------..__                  ");
-        System.out.println("        //\\\\ _,-'\\\\               `'--._ //\\\\  ");
-        System.out.println("        \\\\ ;'      \\\\                   `: //    ");
-        System.out.println("         `(          \\\\                   )'       ");
-        System.out.println("           :.          \\\\,----,         ,;         ");
-        System.out.println("            `.`--.___   (    /  ___.--','            ");
-        System.out.println("              `.     ``-----'-''     ,'              ");
-        System.out.println("                 -.               ,-                 ");
-        System.out.println("                     `-._______.-                    ");
+//        System.out.println("            (\\                                      ");
+//        System.out.println("             \\ \\                                   ");
+//        System.out.println("               \\/ ___,.-------..__                  ");
+//        System.out.println("        //\\\\ _,-'\\\\               `'--._ //\\\\  ");
+//        System.out.println("        \\\\ ;'      \\\\                   `: //    ");
+//        System.out.println("         `(          \\\\                   )'       ");
+//        System.out.println("           :.          \\\\,----,         ,;         ");
+//        System.out.println("            `.`--.___   (    /  ___.--','            ");
+//        System.out.println("              `.     ``-----'-''     ,'              ");
+//        System.out.println("                 -.               ,-                 ");
+//        System.out.println("                     `-._______.-                    ");
+        System.out.println(" _______     ________    ______  _____  _______  ________  ______      ___      ___   ___  ____");
+        System.out.println("|_   __ \\   |_   __  | .' ___  ||_   _||_   __ \\|_   __  ||_   _ \\   .'   `.  .'   `.|_  ||_  _|  ");
+        System.out.println("  | |__) |    | |_ \\_|/ .'   \\_|  | |    | |__) | | |_ \\_|  | |_) | /  .-.  \\/  .-.  \\ | |_/ /    ");
+        System.out.println("  |  __ /     |  _| _ | |         | |    |  ___/  |  _| _   |  __'. | |   | || |   | | |  __'.");
+        System.out.println(" _| |  \\ \\_  _| |__/ |\\ `.___.'\\ _| |_  _| |_    _| |__/ | _| |__) |\\  `-'  /\\  `-'  /_| |  \\ \\_");
+        System.out.println("|____| |___||________| `.____ .'|_____||_____|  |________||_______/  `.___.'  `.___.'|____||____|");
+        System.out.println("\n");
+    }
+
+    public void orderDrawing() {
+        if(!DRAW) return;
+        System.out.println("    ___   _______     ______   ________  _______");
+        System.out.println("  .'   `.|_   __ \\   |_   _ `.|_   __  ||_   __ \\    ");
+        System.out.println(" /  .-.  \\ | |__) |    | | `. \\ | |_ \\_|  | |__) |   ");
+        System.out.println(" | |   | | |  __ /     | |  | | |  _| _   |  __ /    ");
+        System.out.println(" \\  `-'  /_| |  \\ \\_  _| |_.' /_| |__/ | _| |  \\ \\_");
+        System.out.println("  `.___.'|____| |___||______.'|________||____| |___|");
+        System.out.println("\n");
+    }
+
+    public void ingredientDrawing() {
+        System.out.println(" _____  ____  _____   ______  _______     ________  ______   _____  ________  ____  _____  _________  ");
+        System.out.println("|_   _||_   \\|_   _|.' ___  ||_   __ \\   |_   __  ||_   _ `.|_   _||_   __  ||_   \\|_   _||  _   _  | ");
+        System.out.println("  | |    |   \\ | | / .'   \\_|  | |__) |    | |_ \\_|  | | `. \\ | |    | |_ \\_|  |   \\ | |  |_/ | | \\_| ");
+        System.out.println("  | |    | |\\ \\| | | |   ____  |  __ /     |  _| _   | |  | | | |    |  _| _   | |\\ \\| |      | |");
+        System.out.println(" _| |_  _| |_\\   |_\\ `.___]  |_| |  \\ \\_  _| |__/ | _| |_.' /_| |_  _| |__/ | _| |_\\   |_    _| |_    ");
+        System.out.println("|_____||_____|\\____|`._____.'|____| |___||________||______.'|_____||________||_____|\\____|  |_____|");
         System.out.println("\n");
     }
 
@@ -139,6 +167,7 @@ public class Ui {
     }
 
     public void showIngredientTask() {
+        ingredientDrawing();
         showIngredientTemplate();
         System.out.println("\t type 'back' to go back to the main menu");
         System.out.println("\t type 'show' to see all ingredients currently in the fridge");
@@ -146,7 +175,8 @@ public class Ui {
         System.out.println("\t type 'template' to see the format of the commands");
     }
 
-    public void showIngredientTemplate(){
+    public void showIngredientTemplate() {
+
         System.out.println("\t Continue by adding, removing,using or finding an ingredient. \n\t");
         System.out.println("\t You can also edit the Name or Amount of an ingredient(using its index number). \n\t Template: ");
         showLine();
@@ -176,7 +206,12 @@ public class Ui {
         showLine();
     }
 
+    public void showExpiredIngredients(IngredientsList ingredientsList) {
+        System.out.println("\tExpired " + ingredientsList);
+    }
+
     public void showOrderTemplate() {
+        orderDrawing();
         showLine();
         System.out.println("\t Continue by adding, removing, altering, listing order and initializing order list. \n\t Command Template: ");
         showLine();
@@ -191,7 +226,11 @@ public class Ui {
         showLine();
     }
 
-
+    /**
+     * Shows all the {@link Ingredient}s currently in the fridge, listed by expiry date
+     *
+     * @param ingredientsList the {@link IngredientsList} whose ingredients are to be shown
+     */
     public void showIngredientsInFridge(IngredientsList ingredientsList) {
         if (ingredientsList.isEmpty())
             System.out.println("\t The fridge is empty, better go buy some ingredients! ");
@@ -269,11 +308,11 @@ public class Ui {
     public void showSize(int size) {
         System.out.print("\t Now you have " + size);
         if (size == 1) {
-            System.out.print(" task");
+            System.out.print(" ingredient");
         } else {
-            System.out.print(" tasks");
+            System.out.print(" ingredients");
         }
-        System.out.println(" in the list.");
+        System.out.println(" in the Fridge.");
     }
 
     /**
@@ -300,14 +339,13 @@ public class Ui {
     public void showAddCommand(String command, int size) {
         System.out.println("\t Got it. I've added this: ");
         System.out.println("\t " + command);
-        // showSize(size);
     }
 
     /**
      * Shows that a order has been added.
      *
      * @param description information of the order be added
-     * @param size  current size of the whole order list
+     * @param size        current size of the whole order list
      */
     public void showAddOrder(String description, int size) {
         System.out.println("\t Got it. New order added! ");
@@ -346,8 +384,12 @@ public class Ui {
         showLine();
     }
 
-    public void showAddedIngredient(String ingredient) {
-        System.out.println("\t you have added the following ingredient: ");
+    public void showDialogAddingExpired() {
+        System.out.println(" WARNING!!! Adding an expired ingredient in the fridge, do you want to proceed adding it? \n Type yes to confirm, typing anything else will result in not adding the ingredient");
+    }
+
+    public void showAddedIngredient(Ingredient ingredient) {
+        System.out.println("\t Got it. I've added " + ingredient.getName() + " to the fridge, you currently have:");
         System.out.println("\t " + ingredient);
     }
 
@@ -372,6 +414,7 @@ public class Ui {
     /**
      * WARNING: DO NOT USE THIS METHOD as it is not compatible with Mac comp.
      * Every time this method is executed, it clears the console screen.
+     *
      * @throws IOException
      * @throws InterruptedException
      */

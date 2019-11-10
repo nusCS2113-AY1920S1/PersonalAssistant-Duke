@@ -9,6 +9,7 @@ import duke.ingredient.IngredientsList;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 public class AddDishCommand extends Command {
@@ -22,22 +23,26 @@ public class AddDishCommand extends Command {
 
     //@@ Author 9hafidz6
     /**
-     * @param fridge
-     * @param dishList
-     * @param ol
-     * @param ui
-     * @param fs
-     * @param os
+     * adds a dish into the dishlist. if the dishlist is empty add immediately
+     * else check through the whole list to check for duplicate, if no duplicate add dish into list
+     * else do not add and notify user
+     * @param fridge ingredients found in fridge
+     * @param dishList list of dishes
+     * @param ol list of orders
+     * @param ui prints output for user
+     * @param fs storage for fridge
+     * @param os storage for order
+     * @param rs storage for recipe
      * @throws DukeException
      */
     @Override
-    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         boolean flag = true;
         try {
             if(dishList.size() == 0) { //if the list is empty, immediately add dish in it
                 dishList.addEntry(dish);
                 ui.showAddedDishes(dish.getDishname());
-                //storage.update();
+                rs.addInFile(dish.printInFile());
             }
             else {
                 for( int i = 0; i < dishList.size(); i++) { //check for duplicates in list
@@ -49,7 +54,7 @@ public class AddDishCommand extends Command {
                 if(flag) { //if there are no duplicates
                     dishList.addEntry(dish); // add dish into list found in dishes class
                     ui.showAddedDishes(dish.getDishname());
-                    //storage.update();
+                    rs.addInFile(dish.printInFile());
                 }
                 else { //if there are duplicates
                     System.out.println("\t dish already exist in list");
