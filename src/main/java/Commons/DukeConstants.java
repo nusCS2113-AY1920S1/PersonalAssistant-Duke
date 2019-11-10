@@ -1,5 +1,7 @@
 package Commons;
 
+import java.text.SimpleDateFormat;
+
 public class DukeConstants {
     //DEADLINE
     public static final String ADD_DEADLINE_HEADER = "add/d";
@@ -32,7 +34,7 @@ public class DukeConstants {
             "or (add/e or delete/e or done/e) modCode name_of_event /at week x day /from HHmm /to HHmm\n " +
             "For example: add/e CS1231 project meeting /at 1/1/2020 /from 1500 /to 1700";
 
-   //RECUR
+    //RECUR
     public static final String RECUR_WEEKLY_HEADER = "recur/weekly";
     public static final String RECUR_BIWEEKLY_HEADER = "recur/biweekly";
     public static final String REMOVE_RECUR_WEEKLY_HEADER ="recur/rmweekly";
@@ -79,11 +81,12 @@ public class DukeConstants {
             "remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time\n" +
             "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500";
 
-   //EXCEPTIONS
+    //EXCEPTIONS
     public static final String SAD_FACE = "\u2639";
     public static final String UNKNOWN_MEANING =" OOPS!!! I'm sorry, but I don't know what that means :-(";
     public static final String INVALID_MODCODE_ERROR =" OOPS!!! The ModCode is invalid";
     public static final String INVALID_INPUT_ERROR = "Invalid input. Please type help to see all commands";
+
     //MISC
     public static final String STRING_SPACE_SPLIT_KEYWORD = " ";
     public static final String EMPTY_ERROR = "";
@@ -94,7 +97,10 @@ public class DukeConstants {
     public static final String WEEK_FORMAT_KEYWORD = "Week";
     public static final String BYE_HEADER ="bye";
 
-
-
-
+    public static final SimpleDateFormat EVENT_DATE_INPUT_FORMAT = new SimpleDateFormat("dd/MM/yyyy"); //format date for event
+    public static final SimpleDateFormat EVENT_TIME_INPUT_FORMAT = new SimpleDateFormat("HHmm"); //format time for event
+    public static final SimpleDateFormat DAY_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy");
+    public static final SimpleDateFormat TWELVE_HOUR_TIME_FORMAT = new SimpleDateFormat("hh:mm a");
+    public static final SimpleDateFormat DEADLINE_INPUT_FORMAT = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    public static final SimpleDateFormat DEADLINE_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
 }
