@@ -185,6 +185,7 @@ Format: `help`
 A pop up window appears and gives information on what commands are available and its respective format.
 (The help page might be outdated, please use this guide instead.)
 
+[#changeMode]
 ==== Change Mode: `flip`
 Format: `flip`
 
@@ -207,7 +208,8 @@ The specified item will be shown in the colour specified in the command.
 === Task Mode
 
 [NOTE]
-To enter task commands, please ensure you are in task mode. If not, see Section 4.1.2 for change mode
+To enter task commands, please ensure you are in task mode. If not, see <<changeMode, Section 4.1.2>> for
+change mode
 command using `flip`.
 
 ==== Add Tasks Commands
@@ -251,7 +253,7 @@ Order of the modifiers do not matter.
 
 Examples:
 
-`deadline categorise -time`
+`deadline categorise -time 31/11/2019 2359`
 
 `deadline submission -time 31/10/2019 2359 -doafter coding -priority high -tag fun`
 
@@ -260,6 +262,10 @@ Examples:
 [TIP]
 Parameters other than item number can be entered in any order. +
 Natural date format can be used instead of ISO date format.
+
+[NOTE]
+Valid ISO date format is in the form of `dd/mm/yyyy hhMM`, input such as `dd/m/yyyy hhMM` for example
+`1/3/2019` is invalid.
 
 [NOTE]
 PRIORITY_LEVEL is restricted to *high*, *med*, *low*. Any other PRIORITY_LEVEL will be invalid.
@@ -416,7 +422,7 @@ If there are more than one `time`, `doafter` or `priority` parameters, only the 
 [WARNING]
 Any tags in the command will overwrite *all* current tags in the task
 
-==== Linking with emails: `link`
+==== Linking tasks to emails: `link`
 Format: `link ITEM_NUMBER [-email EMAIL_NUMBER]...`
 
 Notes which email is related to the task specified. If there is no email parameter,
@@ -449,7 +455,7 @@ by closing _Email Manager_ without using the `bye` command.
 === Email Mode
 
 [NOTE]
-To enter email commands, please ensure you are in email mode. If not, see Section 4.1.2 for change mode
+To enter email commands, please ensure you are in email mode. If not, see <<changeMode, Section 4.1.2>> for change mode
 command using `flip`.
 
 ==== Listing all emails: `list`
@@ -531,6 +537,11 @@ after adding the keyword if you have already opened an email.
 All emails will be parsed again upon the updates in keyword and expression, so the window might freeze for
 a while. Please wait patiently.
 
+==== Listing all keywords: `listKeyword`
+Format: `listKeyword`
+
+Gives a list of all keywords with the relevant expressions.
+
 ==== Delete keyword (coming in v1.4)
 
 ==== Tagging Email: `update`
@@ -544,6 +555,11 @@ Examples:
 
 `update 2 -tag Tutorial -tag Spam`
 
+==== Listing all tags: `listTag`
+Format: `listTag`
+
+Gives a list of all existing tags in the list of emails.
+
 ==== Filtering email: `list`
 Format: `list [-tag TAG1] [-tag TAG2]...`
 
@@ -555,11 +571,35 @@ Examples:
 
 `list -tag Spam`
 
-==== Sending Email (coming in v2.0)
+==== Deleting email: `delete`
+Format: `delete ITEM_NUMBER`
+
+Deletes the item specified.
+
+Examples:
+
+`delete 1`: deletes the first email
+
+[NOTE]
+If you enter `show ITEM_NUMBER`, then followed with `delete ITEM_NUMBER`, the content of email at
+`ITEM_NUMBER` will still remains displayed although the email has been deleted.
+
+==== Clear email list: `clear`
+Format: `clear`
+
+This command deletes all emails in the list.
+
+[WARNING]
+Once executed, you will not be able to undo this command.
+
+[TIP]
+After clearing all the emails, you can enter `fetch` to retrieve latest emails from server.
+
+==== Sending email (coming in v2.0)
 
 ==== Auto delete emails (coming in v2.0)
 
-==== Linking Tasks and Email (coming in v2.0)
+==== Linking emails to tasks (coming in v2.0)
 
 ==== Apply priority level (coming in v2.0)
 
