@@ -40,11 +40,28 @@ public class FoodTest extends Food {
         Food food2 = new Food(food2Name);
         int food1Revenue = 0;
         int food2Revenue = 0;
+        String food1Type = "";
+        String food2Type = "";
+        double food1Price = 0.0;
+        double food2Price = 0.0;
+        double food1Cost = 0.0;
+        double food2Cost = 0.0;
+        int food1Stock = 0;
+        int food2Stock = 0;
 
-        assertEquals(food1Name, food1.getName(), "Food 1 name wrong.");
-        assertEquals(food1Revenue, food1.getFoodRevenue(), "Food1 revenue not initialized properly.");
-        assertEquals(food2Name, food2.getName(), "Food 2 name wrong.");
-        assertEquals(food2Revenue, food2.getFoodRevenue(), "Food2 revenue not initialized properly.");
+        assertEquals(food1Name, food1.getName(), "Food 1 name is wrong.");
+        assertEquals(food1Revenue, food1.getFoodRevenue(), "Food1 revenue is not initialized properly.");
+        assertEquals(food1Type, food1.getType(), "Food1 Type is not initialized properly.");
+        assertEquals(food1Price, food1.getPrice(), "Food1 Price is not initialized properly.");
+        assertEquals(food1Cost, food1.getCost(), "Food1 Cost is not initialized properly.");
+        assertEquals(food1Stock, food1.getStock(), "Food1 Stock is not initialized properly.");
+
+        assertEquals(food2Name, food2.getName(), "Food 2 name is wrong.");
+        assertEquals(food2Revenue, food2.getFoodRevenue(), "Food2 revenue is not initialized properly.");
+        assertEquals(food2Type, food2.getType(), "Food2 Type is not initialized properly.");
+        assertEquals(food2Price, food2.getPrice(), "Food2 Price is not initialized properly.");
+        assertEquals(food2Cost, food2.getCost(), "Food2 Cost is not initialized properly.");
+        assertEquals(food2Stock, food2.getStock(), "Food2 Stock is not initialized properly.");
 
         //try some illegal inputs
         Food food3 = new Food(food1Name);
