@@ -24,16 +24,6 @@ public class UserInteraction {
         return byeMessage;
     }
 
-    /**
-     * Displays the list message when user inputs list.
-     */
-    public String showList(TaskList list) {
-        String listMessage = "Here are the tasks in your list:\n";
-        for (int i = 1; i <= list.taskListSize(); i++) {
-            listMessage = listMessage + i + "." + list.taskToString(i - 1) + "\n";
-        }
-        return listMessage;
-    }
 
     /**
      * Displays add task message when user wants to add a task.
@@ -123,23 +113,6 @@ public class UserInteraction {
      */
     public String getError(Exception e) {
         return e.getMessage() + "\n";
-    }
-
-    /**
-     * Displays the show reminder message when user enter a task with a period to do within.
-     * @param taskDescription The description of the task entered
-     * @param startDate The start date for task
-     * @param endDate The end date for task
-     * @param isValid determine if user's input date is entered correctly
-     * @return This returns the reminder message which contain the task description and the start and end date
-     */
-    public String showReminder(String taskDescription, String startDate, String endDate, boolean isValid) {
-        if (!isValid) {
-            return "Please enter another valid date in format of DD/MM/yyyy";
-        } else {
-            return "Reminder have been set for: " + taskDescription + "." + " Start Date: " + startDate
-                    + " End Date: " + endDate + "\n";
-        }
     }
 
     /**
