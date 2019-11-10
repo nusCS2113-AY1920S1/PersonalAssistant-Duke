@@ -56,7 +56,8 @@ public class ImpressionMoveTest extends CommandTest {
         try {
             moveCmd.execute(core, newImpression);
             assertNotNull(newImpression.getEvidence("name"));
-            switchVals[0] = "name"; // move back to original impression
+            core.uiContext.open(newImpression);
+            switchVals[0] = "name"; // set command to move data back to original impression
             moveCmd = new ObjCommand(ImpressionMoveSpec.getSpec(), null, switchNames, switchVals);
             moveCmd.execute(core); // unambiguous
             assertNotNull(impression.getEvidence("name"));
