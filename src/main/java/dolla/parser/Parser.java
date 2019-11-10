@@ -682,6 +682,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             if (verifyDebtSearchComponent(inputArray[1]) && inputArray[2] != null) {
                 return true;
             } else {
+                SearchUi.printInvalidDebtSearchComponent();
                 return false;
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
