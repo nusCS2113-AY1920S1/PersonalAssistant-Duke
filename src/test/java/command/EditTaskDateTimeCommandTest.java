@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EditTaskDateTimeCommandTest {
 
@@ -56,6 +57,7 @@ public class EditTaskDateTimeCommandTest {
         model.addTask("Create event poster");
         Command command = EditTaskDateTimeParser.parseEditTaskDateTime("1 /to 10/10/2020 1010");
         CommandOutput out = command.execute(model);
+        assertTrue(model.getTaskDateTimeByIdOnList(1).toString().equals("Sat Oct 10 10:10:00 SGT 2020"));
         //assertEquals("The deadline has been changed to: Sat Oct 10 10:10:00 SGT 2020", out.getOutputToUser());
     }
 
