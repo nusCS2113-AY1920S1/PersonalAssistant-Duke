@@ -134,7 +134,7 @@ public class ProjectInputController implements IController {
             responseToView = projectAddReminder(this.projectToManage,projectFullCommand);
         } else if (projectFullCommand.matches("view reminders"))  {
             responseToView = projectViewReminder(this.projectToManage);
-        }  else if (projectFullCommand.matches("view reminders category"))  {
+        }  else if (projectFullCommand.matches("view reminders by list"))  {
             responseToView = projectViewReminderCategory(this.projectToManage);
         } else if (projectFullCommand.matches("edit reminder.*")) {
             responseToView = projectEditReminder(this.projectToManage,projectFullCommand);
@@ -624,7 +624,8 @@ public class ProjectInputController implements IController {
             IReminder newReminder = reminderFactory.createReminder(projectCommand.substring(13));
             if (newReminder.getReminderName() != null) {
                 projectToManage.addReminderToList((Reminder) newReminder);
-                return new String[] {"Added new reminder to the Reminder List in the project."};
+                return new String[] {"Added new reminder '" + newReminder.getReminderName()
+                        + "' to the Reminder List in the project."};
             }
             return new String[] {"Failed to create new task. Please ensure all "
                     + "necessary parameters are given"};
@@ -688,7 +689,7 @@ public class ProjectInputController implements IController {
             Reminder removedReminder = projectToManage.getReminder(index);
             projectToManage.removeReminder(index);
             return new String[] {removedReminder.getReminderName()
-                + " has been remove from the reminder list in the project."};
+                + " has been removed from the reminder list in the project."};
         }
     }
 
