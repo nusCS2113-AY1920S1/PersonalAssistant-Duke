@@ -1,14 +1,19 @@
 package controllers;
 
-import repositories.ProjectRepository;
-import util.uiformatter.CommandHelper;
-import util.uiformatter.ViewHelper;
-import util.log.ArchDukeLogger;
+import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+import static util.constant.ConstantHelper.PROJECT_COMMAND_BYE;
+import static util.constant.ConstantHelper.PROJECT_COMMAND_CREATE;
+import static util.constant.ConstantHelper.PROJECT_COMMAND_DELETE;
+import static util.constant.ConstantHelper.PROJECT_COMMAND_HELP;
+import static util.constant.ConstantHelper.PROJECT_COMMAND_LIST;
+import static util.constant.ConstantHelper.PROJECT_COMMAND_MANAGE;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+import repositories.ProjectRepository;
+import util.log.ArchDukeLogger;
+import util.uiformatter.CommandHelper;
+import util.uiformatter.ViewHelper;
 
 public class ConsoleInputController implements IController {
 
@@ -46,17 +51,17 @@ public class ConsoleInputController implements IController {
             }
 
             switch (command) {
-            case "bye":
+            case PROJECT_COMMAND_BYE:
                 return end();
-            case "create":
+            case PROJECT_COMMAND_CREATE:
                 return commandCreate(input);
-            case "list":
+            case PROJECT_COMMAND_LIST:
                 return commandList();
-            case "manage":
+            case PROJECT_COMMAND_MANAGE:
                 return commandManage(inputReader);
-            case "delete":
+            case PROJECT_COMMAND_DELETE:
                 return commandDelete(inputReader);
-            case "help":
+            case PROJECT_COMMAND_HELP:
                 return commandHelp();
             default:
                 return new String[] {"Invalid inputs. Please refer to User Guide or type help!"};
@@ -81,6 +86,7 @@ public class ConsoleInputController implements IController {
         }
     }
 
+    //@@author
     /**
      * Method called when users wishes to view all Projects
      * that are currently created or stored.
@@ -136,7 +142,11 @@ public class ConsoleInputController implements IController {
                 if (isProjectDeleted) {
                     return new String[]{"Project " + projectIndex + " has been deleted"};
                 } else {
-                    return new String[]{"Index out of bounds! Please check project index!"};
+                    return new String[]{"Error occurred! There could be three possibilities:",
+                                        "You could have attempted to delete a Project after renaming it's JSON file",
+                                        "You could have entered a Project index is out of bounds.",
+                                        "You could have attempted to delete the default Project loaded immediately. "
+                                        + "Do not panic if this was you. The default Project is deleted correctly"};
                 }
             } catch (NumberFormatException err) {
                 return new String[]
