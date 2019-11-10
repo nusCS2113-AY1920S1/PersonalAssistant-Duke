@@ -57,7 +57,7 @@ Adds the specified module or CCA to the module list or CCA list respectively.
 
 ==== Searching and adding a module: `add module`
 
-Searchs for a module and adds it to the module list, if the module is present in the list of NUS modules. +
+Searches for a module and adds it to the module list, if the module is present in the list of NUS modules. +
 Format: `add module MOD_CODE`
 
 ****
@@ -67,7 +67,7 @@ Format: `add module MOD_CODE`
 
 ==== Searching and adding a module with time period of the week: `add module`
 
-Searchs for a module and adds it to the module list, if the module is present in the list of NUS modules. +
+Searches for a module and adds it to the module list, if the module is present in the list of NUS modules. +
 Format: `add module MOD_CODE --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
 
 ****
