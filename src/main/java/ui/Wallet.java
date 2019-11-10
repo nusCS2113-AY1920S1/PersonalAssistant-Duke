@@ -24,7 +24,7 @@ public class Wallet {
      */
     public Wallet(Double balance) {
         this.setBalance(balance);
-        this.setReceipts(new ReceiptTracker());
+        this.initializeReceiptTracker();
     }
 
     /**
@@ -32,8 +32,7 @@ public class Wallet {
      */
     public Wallet() {
         this.setBalance(0.00);
-        this.setReceipts(new ReceiptTracker());
-        this.getReceipts().initializeMainReceiptTracker();
+        this.initializeReceiptTracker();
     }
 
     /**
@@ -42,6 +41,15 @@ public class Wallet {
      */
     public void addReceipt(Receipt receipt) {
         this.receipts.addReceipt(receipt);
+        this.balance -= receipt.getCashSpent();
+    }
+
+    /**
+     * Intiailizes the ReceiptTracker.
+     */
+    void initializeReceiptTracker() {
+        this.setReceipts(new ReceiptTracker());
+        this.receipts.initializeMainReceiptTracker();
     }
 
     // -- Boolean Functions
@@ -68,7 +76,10 @@ public class Wallet {
      * @return Double value corresponding to balance property in Wallet Object
      */
     public Double getBalance() {
-        return balance;
+        if (this.balance < 0) {
+            return 0.0;
+        }
+        return this.balance;
     }
 
     /**
@@ -92,7 +103,7 @@ public class Wallet {
      * @return Double representing the total cash spent as recorded by the ReceiptTracker
      */
     public double getTotalExpenses() {
-        return this.receipts.getNettCashSpent();
+        return this.receipts.getTotalExpenses();
     }
 
     /**

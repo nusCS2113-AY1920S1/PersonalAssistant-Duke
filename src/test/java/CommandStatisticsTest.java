@@ -28,7 +28,7 @@ public class CommandStatisticsTest {
         String output = s1.getInfoCapsule().getOutputStr();
         assertEquals("50.00% of your wallet expenses is spent on transport\n"
                 + "You spent a total of $4.00 on transport\n\n"
-                + "1. [transport] $4.00 2019-02-01\n\n", output);
+                + "1. [Expenses, transport] $4.00 2019-02-01\n\n", output);
 
         CommandStatistics s2 = new CommandStatistics("stats");
         s2.execute(storageManager);

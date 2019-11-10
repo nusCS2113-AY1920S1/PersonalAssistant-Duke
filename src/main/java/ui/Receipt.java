@@ -19,7 +19,7 @@ public class Receipt {
     public Receipt(Double cashSpent, LocalDate date, ArrayList<String> tags) {
         this.setCashSpent(cashSpent);
         this.setDate(date);
-        this.setTags(tags);
+        this.initializeTags(tags);
     }
 
     /**
@@ -30,7 +30,7 @@ public class Receipt {
     public Receipt(Double cashSpent, LocalDate date) {
         this.setCashSpent(cashSpent);
         this.setDate(date);
-        this.setTags(new ArrayList<String>());
+        this.initializeTags(null);
     }
 
     /**
@@ -40,7 +40,24 @@ public class Receipt {
     public Receipt(Double cashSpent) {
         this.setCashSpent(cashSpent);
         this.setDate(null);
-        this.setTags(new ArrayList<String>());
+        this.initializeTags(null);
+    }
+
+    /**
+     * Initializes tags.
+     * @param inputTags ArrayList containing any strings passed in during construction.
+     */
+    private void initializeTags(ArrayList<String> inputTags) {
+        ArrayList<String> tags = new ArrayList<>();
+        if (this.getCashSpent() >= 0) {
+            tags.add("Expenses");
+        } else {
+            tags.add("Income");
+        }
+        if (inputTags != null) {
+            tags.addAll(inputTags);
+        }
+        this.tags = tags;
     }
 
     /**
