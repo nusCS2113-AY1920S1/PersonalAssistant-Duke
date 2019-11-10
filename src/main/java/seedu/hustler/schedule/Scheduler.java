@@ -43,9 +43,9 @@ public class Scheduler {
      *
      * @param task task to be added as entry
      */
-    public void add(Task task) throws CommandLineException {
+    public void add(Task task) {
         if (task.isCompleted()) {
-            throw new CommandLineException("Task already been completed.");
+            return;
         }
         schedule.add(new ScheduleEntry(task, 0));
     }
@@ -102,13 +102,9 @@ public class Scheduler {
      * the original TaskList.
      */
     public void update() {
-        try {
-            add(Hustler.list.getLastTask());
-        } catch(CommandLineException e){
-            ui.showMessage(e.getMessage());
-        }
+        add(Hustler.list.getLastTask());
     }
-    
+
     /**
      * Removes an entry based on the task supplied.
      *
@@ -118,7 +114,7 @@ public class Scheduler {
         schedule.removeIf(n -> (n.getTask() == task));
         recommended.removeIf(n -> (n.getTask() == task));
     }
-    
+
     /**
      * Returns the size of the current list of entries.
      *
@@ -127,7 +123,7 @@ public class Scheduler {
     public int size() {
         return schedule.size();
     }
-    
+
     /**
      * Displays the whole schedule which includes incomplete tasks,
      * and time spent on each of the tasks.
@@ -143,7 +139,7 @@ public class Scheduler {
         }
         ui.showMessage(output);
     }
-    
+
     /**
      * Returns the time spent on each task.
      *
@@ -166,11 +162,11 @@ public class Scheduler {
         recommender = new Recommender(schedule);
         recommended = recommender.recommend(seconds);
     }
-    
+
     public void displayRecommendedSchedule() {
         if (recommended.size() == 0) {
             ui.showMessage("There are no tasks to complete. "
-                + "Please add more tasks."); 
+                    + "Please add more tasks."); 
             return;
         }
 
@@ -181,11 +177,11 @@ public class Scheduler {
             long minutes = (recommended.get(i).getTimeAlloc() / 60) % 60;
             long seconds = recommended.get(i).getTimeAlloc() % 60;
             output += (i + 1) + ". " + recommended.get(i).getTask().toString() 
-                + " time alloted: " + hours + ":" + minutes + ":" + seconds + " " + recommended.get(i).getPriorityScore() + "\n\t";
+                + " time alloted: " + hours + ":" + minutes + ":" + seconds + "\n\t";
         }
         ui.showMessage(output);
     }
-    
+
     public void addToRecommended(Task task) throws CommandLineException {
         if (task.isCompleted()) {
             throw new CommandLineException("Task has already been completed");
