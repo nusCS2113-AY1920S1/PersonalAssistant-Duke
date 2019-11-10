@@ -6,26 +6,53 @@ import mistermusik.commons.Contact;
 import mistermusik.commons.Goal;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 /**
- * Model_Class.Event object inherits Model_Class.Task.
- * Is a type of task available for use.
+ * Parent class of all event types.
  */
 public abstract class Event implements Comparable<Event> {
-    private static Logger logger = Logger.getLogger("Event");
+    /**
+     * event description.
+     */
     protected String description;
-    protected boolean isDone;
-    public EventDate startEventDate;
-    public EventDate endEventDate;
-    private char eventType;
-    protected ArrayList<Goal> goalsList;
-    protected ArrayList<Contact> contactList;
 
+    /**
+     * state of event (only applicable to ToDo).
+     */
+    protected boolean isDone;
+
+    /**
+     * event start date object.
+     */
+    protected EventDate startEventDate;
+
+    /**
+     * event end date object.
+     */
+    protected EventDate endEventDate;
+
+    /**
+     * character signifying event type.
+     */
+    private char eventType;
+
+    /**
+     * list of goals.
+     */
+    private ArrayList<Goal> goalsList;
+
+    /**
+     * list of contacts.
+     */
+    private ArrayList<Contact> contactList;
+
+    /**
+     * list of items to complete before event.
+     */
     private Checklist checklist;
 
     /**
-     * Creates event with one date input (e.g todo)
+     * Creates event with one date input (e.g todo).
      *
      * @param description event description
      * @param isDone      boolean representing state of event completion
@@ -43,7 +70,7 @@ public abstract class Event implements Comparable<Event> {
     }
 
     /**
-     * Creates event with two date input
+     * Creates event with two date input.
      *
      * @param description      event description
      * @param isDone           boolean representing state of event completion
@@ -62,13 +89,12 @@ public abstract class Event implements Comparable<Event> {
     }
 
     /**
-     * Edit event with new description and two date input
+     * Edit event with new description and two date input.
      *
      * @param newDescription new event description
      */
     public void editEvent(String newDescription) {
         this.description = newDescription;
-//        logger.log(Level.INFO, "The description of the event is edited");
     }
 
     /**
@@ -118,35 +144,32 @@ public abstract class Event implements Comparable<Event> {
 
     public void markAsDone() {
         this.isDone = true;
-//        logger.log(Level.INFO, "The event is marked as done");
     }
 
-    public boolean getIsDone() {
-        return this.isDone;
-    }
-
+    //@@author YuanJiayi
     public void rescheduleStartDate(EventDate newStartDate) {
         this.startEventDate = newStartDate;
-//        logger.log(Level.INFO, "The startEventDate of the event is rescheduled");
     }
 
     public void rescheduleEndDate(EventDate newEndDate) {
         this.endEventDate = newEndDate;
-//        logger.log(Level.INFO, "The endEventDate of the event is rescheduled");
     }
 
+    //@@author yenpeichih
     public void addGoal(Goal goalInput) {
         goalsList.add(goalInput);
-//        logger.log(Level.INFO, "The new goal is added to the list");
     }
 
     public void removeGoal(int goalID) {
         goalsList.remove(goalID);
-//        logger.log(Level.INFO, "The goal is removed from the list");
     }
 
     public ArrayList<Goal> getGoalList() {
         return goalsList;
+    }
+
+    public Goal getGoalObject(int goalID) {
+        return goalsList.get(goalID);
     }
 
     public void editGoalList(Goal goalInput, int index) {
@@ -160,12 +183,10 @@ public abstract class Event implements Comparable<Event> {
     //@@author YuanJiayi
     public void addContact(Contact contactInput) {
         contactList.add(contactInput);
-//        logger.log(Level.INFO, "A new contact is added to the list");
     }
 
     public void removeContact(int contactIndex) {
         contactList.remove(contactIndex);
-//        logger.log(Level.INFO, "The contact is removed from the list");
     }
 
     public ArrayList<Contact> getContactList() {
@@ -175,11 +196,9 @@ public abstract class Event implements Comparable<Event> {
     public void editContact(int contactIndex, char editType, String newContact) {
         if (editType == 'N') {
             contactList.get(contactIndex).setName(newContact);
-        }
-        else if (editType == 'E') {
+        } else if (editType == 'E') {
             contactList.get(contactIndex).setEmail(newContact);
-        }
-        else if (editType == 'P') {
+        } else if (editType == 'P') {
             contactList.get(contactIndex).setPhoneNo(newContact);
         }
     }
@@ -187,7 +206,6 @@ public abstract class Event implements Comparable<Event> {
     //@@author ZhangYihanNus
     public void addChecklist(String newChecklist) {
         this.checklist.addItem(newChecklist);
-//        logger.log(Level.INFO, "The new checklist is added to the list");
     }
 
     public ArrayList<String> getChecklist() {
@@ -196,12 +214,10 @@ public abstract class Event implements Comparable<Event> {
 
     public void editChecklist(int checklistIndex, String newChecklist) {
         this.checklist.editItem(checklistIndex, newChecklist);
-//        logger.log(Level.INFO, "The checklist is edited");
     }
 
     public void deleteChecklist(int checklistIndex) {
         this.checklist.deleteItem(checklistIndex);
-//        logger.log(Level.INFO, "The checklist is removed form the list");
     }
 
     //@@author

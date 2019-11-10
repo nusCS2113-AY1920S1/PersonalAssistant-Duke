@@ -5,24 +5,22 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 /**
  * Model_Class.DateObj object stores the input date and time as a java object.
  */
 
 public class EventDate {
-    private static Logger logger = Logger.getLogger("EventDate");
 
-    protected String userInputDateString;
+    private String userInputDateString;
 
-    protected Date javaDate;
+    private Date javaDate;
 
-    protected String formattedDateString;
+    private String formattedDateString;
 
-    protected int STRING_TO_DATE = 1;
+    private static final int STRING_TO_DATE = 1;
 
-    protected int DATE_TO_STRING = 2;
+    private static final int DATE_TO_STRING = 2;
 
     /**
      * Creates a custom "date object" for string to date.
@@ -66,22 +64,12 @@ public class EventDate {
                     this.formattedDateString = userInputDateString;
                 }
             }
-//            logger.log(Level.INFO, "Format the eventDate from String type to Date type");
         } else if (identifier == DATE_TO_STRING) { //convert date object to input string format and store both.
             SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
             this.formattedDateString = formatter.format(javaDate);
             formatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
             this.userInputDateString = formatter.format(javaDate);
-//            logger.log(Level.INFO, "Format the eventDate from Date type to String type");
         }
-    }
-
-    /**
-     * Gets the current java Date object.
-     */
-    public Date getCurrentJavaDate() {
-        javaDate = new Date();
-        return javaDate;
     }
 
     public String getUserInputDateString() {
@@ -131,16 +119,16 @@ public class EventDate {
      * @param noOfDays numbers of days to add
      */
     public void addDaysAndSetMidnight(int noOfDays) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(this.javaDate);
+        Calendar dateToSet = Calendar.getInstance();
+        dateToSet.setTime(this.javaDate);
 
         //sets calender class date to midnight.
-        c.add(Calendar.DATE, noOfDays);
-        c.set(Calendar.HOUR_OF_DAY, 23);
-        c.set(Calendar.MINUTE, 59);
-        c.set(Calendar.SECOND, 59);
+        dateToSet.add(Calendar.DATE, noOfDays);
+        dateToSet.set(Calendar.HOUR_OF_DAY, 23);
+        dateToSet.set(Calendar.MINUTE, 59);
+        dateToSet.set(Calendar.SECOND, 59);
 
-        this.javaDate = c.getTime();
+        this.javaDate = dateToSet.getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         this.userInputDateString = formatter.format(javaDate);
         formatter = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
