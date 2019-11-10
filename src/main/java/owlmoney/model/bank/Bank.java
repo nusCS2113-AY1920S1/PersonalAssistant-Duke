@@ -1,5 +1,7 @@
 package owlmoney.model.bank;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -8,6 +10,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
@@ -25,6 +28,7 @@ public abstract class Bank {
     private String accountName;
     private double currentAmount;
     TransactionList transactions;
+    private static final Logger logger = getLogger(Bank.class);
     static final double MAX_AMOUNT = 999999999.99;
 
     /**
@@ -360,6 +364,7 @@ public abstract class Bank {
      * @throws BondException If no bonds could be found.
      */
     public void findBondInInvestment(String bondName, Ui ui) throws BankException, BondException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 
@@ -374,6 +379,7 @@ public abstract class Bank {
      */
     public void findRecurringExpenditure(String description, String category, Ui ui)
             throws BankException {
+        logger.warning("This account does not support this feature");
         throw new BankException("This account does not support this feature");
     }
 

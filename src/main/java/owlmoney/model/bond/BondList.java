@@ -262,13 +262,17 @@ public class BondList {
         String matchingWord = bondName.toUpperCase();
 
         for (int i = ISZERO; i < getSize(); i++) {
-            if (bondLists.get(i).getName().toUpperCase().contains(matchingWord)) {
-                tempBondList.add(bondLists.get(i));
+            Bond currentBond = bondLists.get(i);
+            String currentBondName = currentBond.getName();
+            String capitalcurrentBondName = currentBondName.toUpperCase();
+            if (capitalcurrentBondName.contains(matchingWord)) {
+                tempBondList.add(currentBond);
             }
         }
+        logger.info("Search for bonds completed");
+
         if (tempBondList.isEmpty()) {
-            logger.warning("Bond with the following keyword could not be found: "
-                    + bondName);
+            logger.warning("Bond with the following keyword could not be found: " + bondName);
             throw new BondException("Bond with the following keyword could not be found: " + bondName);
         }
         logger.info("Commence finding of bonds");
@@ -277,6 +281,7 @@ public class BondList {
             printOneBond((i + ONE_INDEX), tempBondList.get(i), ISMULTIPLE, ui);
         }
         ui.printDivider();
+        logger.info("Successfully found matching bonds.");
     }
 
     /**
