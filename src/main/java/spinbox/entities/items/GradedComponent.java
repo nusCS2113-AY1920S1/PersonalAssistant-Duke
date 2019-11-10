@@ -4,8 +4,15 @@ import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.InputException;
 
 import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GradedComponent extends Item {
+    private static final Logger LOGGER = Logger.getLogger(GradedComponent.class.getName());
+    private static final String LOG_CORRUPTED = "Corrupted graded component: ";
+    private static final String LOG_FROM_STORAGE = "GradedComponent recreated from storage: ";
+    private static final String LOG_TO_STORAGE = "GradedComponent sent to storage: ";
+    private static final String LOG_DIVISION_BY_ZERO = "Division by zero, user input: ";
     private static final String UNKNOWN_SCORE = "----";
     private static final String DIVIDE_BY_ZERO = "Maximum possible score should be non-zero";
     private static final String TWO_DP = "#.##";
@@ -27,9 +34,13 @@ public class GradedComponent extends Item {
      */
     public GradedComponent(String name, double weight) {
         super(name);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.entering(getClass().getName(), "Constructor");
         this.weight = weight;
         this.scoreKnown = false;
         this.weightedScore = 0.0;
+        LOGGER.exiting(getClass().getName(), "Constructor");
     }
 
     /**
@@ -64,6 +75,9 @@ public class GradedComponent extends Item {
      */
     @Override
     public String storeString() {
+        LOGGER.entering(getClass().getName(), "storeString");
+        LOGGER.fine(LOG_TO_STORAGE + this.toString());
+        LOGGER.exiting(getClass().getName(), "storeString");
         return super.storeString() + STORE_DELIMITER + (this.isScoreKnown() ? 1 : 0)
             + STORE_DELIMITER + Double.toString(this.weight) + STORE_DELIMITER + Double.toString(this.weightedScore);
     }
@@ -75,6 +89,7 @@ public class GradedComponent extends Item {
      */
     @Override
     public void fromStoredString(String fromStorage) throws CorruptedDataException {
+        LOGGER.entering(getClass().getName(), "fromStoredString");
         try {
             String[] components = fromStorage.split(DELIMITER_FILTER);
             this.updateDone(Integer.parseInt(components[0]) == 1);
@@ -82,9 +97,12 @@ public class GradedComponent extends Item {
             this.setScoreKnown(Integer.parseInt(components[2]) == 1);
             this.setWeight(Double.parseDouble(components[3]));
             this.setWeightedScore(Double.parseDouble(components[4]));
+            LOGGER.fine(LOG_FROM_STORAGE + this.toString());
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            LOGGER.severe(LOG_CORRUPTED + fromStorage);
             throw new CorruptedDataException();
         }
+        LOGGER.exiting(getClass().getName(), "Constructor");
     }
 
     /**
@@ -112,7 +130,9 @@ public class GradedComponent extends Item {
      * @throws InputException This is thrown when the maximum possible score entered for this graded component is zero.
      */
     public void updateWeightedScore(double yourScore, double maximumScore) throws InputException {
+        LOGGER.entering(getClass().getName(), "updateWeightedScore");
         if (this.checkDivideByZero(maximumScore)) {
+            LOGGER.warning(LOG_DIVISION_BY_ZERO + yourScore + "/" + maximumScore);
             throw new InputException(DIVIDE_BY_ZERO);
         } else {
             this.setComplete();
@@ -121,6 +141,7 @@ public class GradedComponent extends Item {
             assert this.isScoreKnown();
             assert this.getDone();
         }
+        LOGGER.exiting(getClass().getName(), "updateWeightedScore");
     }
 
     /**
@@ -129,10 +150,12 @@ public class GradedComponent extends Item {
      * @param weightedScore A double that reflects the percentage achieved by the user for that graded component.
      */
     public void updateWeightedScore(double weightedScore) {
+        LOGGER.entering(getClass().getName(), "updateWeightedScore");
         this.setComplete();
         this.setWeightedScore(weightedScore);
         assert this.isScoreKnown();
         assert this.getDone();
+        LOGGER.exiting(getClass().getName(), "updateWeightedScore");
     }
 
     /**

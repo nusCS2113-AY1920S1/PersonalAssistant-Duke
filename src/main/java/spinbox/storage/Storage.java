@@ -11,9 +11,19 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Storage {
     private java.io.File spinBoxFile;
+    private static final Logger LOGGER = Logger.getLogger(Storage.class.getName());
+    private static final String LOG_DIRECTORY_FILE_BOOLEAN = "Created:-> directory, file: ";
+    private static final String LOG_ERROR_IO_CREATION = "Error creating file/directory, storage error propagated "
+            + "upwards. Filepath: ";
+    private static final String LOG_ERROR_IO_READ_WRITE = "Error R/W file, storage error propagated "
+            + "upwards. Filepath: ";
+    private static final String LOG_READ = "Reading from : ";
+    private static final String LOG_WRITE = "Writing to : ";
 
     /**
      * This constructor takes in a path, creating the file and/or folder as needed.
@@ -21,15 +31,20 @@ public class Storage {
      * @throws FileCreationException An exception is thrown for file creation errors.
      */
     public Storage(String fileLocation) throws FileCreationException {
+        LOGGER.entering(getClass().getName(), "Constructor");
+        LOGGER.setLevel(Level.WARNING);
         try {
             spinBoxFile = new File(fileLocation);
-            spinBoxFile.getParentFile().mkdir();
-            spinBoxFile.createNewFile();
+            boolean directoryMade = spinBoxFile.getParentFile().mkdir();
+            boolean fileCreated = spinBoxFile.createNewFile();
+            LOGGER.info(LOG_DIRECTORY_FILE_BOOLEAN + directoryMade + " " + fileCreated + " " + fileLocation);
         } catch (IOException e) {
+            LOGGER.warning(LOG_ERROR_IO_CREATION + fileLocation);
             throw new FileCreationException(e.getMessage());
         }
         assert spinBoxFile.exists();
         assert spinBoxFile.isFile();
+        LOGGER.exiting(getClass().getName(), "Constructor");
     }
 
     /**
@@ -38,18 +53,22 @@ public class Storage {
      * @throws DataReadWriteException An exception is thrown for I/O errors.
      */
     public List<String> loadData() throws DataReadWriteException {
+        LOGGER.entering(getClass().getName(), "loadData");
         assert spinBoxFile.exists();
         ArrayList<String> lines = new ArrayList<>();
         try {
             String currentLine;
             BufferedReader inputStream = new BufferedReader(new FileReader(spinBoxFile));
             while ((currentLine = inputStream.readLine()) != null) {
+                LOGGER.fine(LOG_READ + spinBoxFile.getPath() + " : " + currentLine);
                 lines.add(currentLine);
             }
             inputStream.close();
         } catch (IOException e) {
+            LOGGER.warning(LOG_ERROR_IO_READ_WRITE + spinBoxFile.getPath());
             throw new DataReadWriteException();
         }
+        LOGGER.exiting(getClass().getName(), "loadData");
         return lines;
     }
 
@@ -59,16 +78,21 @@ public class Storage {
      * @throws DataReadWriteException An exception is thrown for I/O errors.
      */
     public void saveData(List<String> lines) throws DataReadWriteException {
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.entering(getClass().getName(), "saveData");
         assert spinBoxFile.exists();
         try {
             BufferedWriter outputStream = new BufferedWriter(new FileWriter(spinBoxFile));
             for (String line : lines) {
+                LOGGER.fine(LOG_WRITE + spinBoxFile.getPath() + " : " + line);
                 outputStream.write(line);
                 outputStream.newLine();
             }
             outputStream.close();
         } catch (IOException e) {
+            LOGGER.warning(LOG_ERROR_IO_READ_WRITE + spinBoxFile.getPath());
             throw new DataReadWriteException();
         }
+        LOGGER.exiting(getClass().getName(), "saveData");
     }
 }
