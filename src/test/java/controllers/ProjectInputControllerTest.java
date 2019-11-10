@@ -665,13 +665,13 @@ class ProjectInputControllerTest {
     }
 
     @Test
-    void testViewReminderCategory(){
+    void testViewReminderCategory() {
         Project project = new Project("Infinity_Gauntlet");
-        simulatedUserInput = "add reminder -n Do activate patch -r need " +
-                "to check internet connection -d 10/10/2000 -l System";
+        simulatedUserInput = "add reminder -n Do activate patch -r need "
+                + "to check internet connection -d 10/10/2000 -l System";
         projectInputController.projectAddReminder(project,simulatedUserInput);
-        simulatedUserInput = "add reminder -n Apply critical patch -r need to " +
-                "understand some stuff -d 10/10/2000 -l Software";
+        simulatedUserInput = "add reminder -n Apply critical patch -r need to "
+                + "understand some stuff -d 10/10/2000 -l Software";
         projectInputController.projectAddReminder(project,simulatedUserInput);
         simulatedUserInput = "add reminder -n Clean up system -r run diagnostic test first -d 10/10/2000 -l System";
         projectInputController.projectAddReminder(project,simulatedUserInput);
@@ -682,17 +682,17 @@ class ProjectInputControllerTest {
 
         String [] validArray = projectInputController.projectViewReminderCategory(project);
 
-        String [] expectedArray = {"+----------------------------------------------------------------------+" ,
-                "|Reminders of Infinity_Gauntlet:                                       |" ,
-                "+----------------------------------------------------------------------+" ,
-                "| +-------------------------------+ +-------------------------------+  |" ,
-                "| |1. SYSTEM                      | |2. SOFTWARE                    |  |" ,
-                "| +-------------------------------+ +-------------------------------+  |" ,
-                "| |1. Do activate patch           | |1. Apply critical patch        |  |" ,
-                "| |2. Clean up system             | |2. Install Antivirus           |  |" ,
-                "| |3. Swap out for more ram       | +-------------------------------+  |" ,
-                "| +-------------------------------+                                    |" ,
-                "+----------------------------------------------------------------------+"};
+        String [] expectedArray = {"+----------------------------------------------------------------------+",
+            "|Reminders of Infinity_Gauntlet:                                       |",
+            "+----------------------------------------------------------------------+",
+            "| +-------------------------------+ +-------------------------------+  |",
+            "| |1. SYSTEM                      | |2. SOFTWARE                    |  |",
+            "| +-------------------------------+ +-------------------------------+  |",
+            "| |1. Do activate patch           | |1. Apply critical patch        |  |",
+            "| |2. Clean up system             | |2. Install Antivirus           |  |",
+            "| |3. Swap out for more ram       | +-------------------------------+  |",
+            "| +-------------------------------+                                    |",
+            "+----------------------------------------------------------------------+"};
         assertArrayEquals(expectedArray,validArray);
     }
 }
