@@ -11,8 +11,6 @@ public class IngredientBuilder {
     private static final Double DEFAULT_PRICE = 0.00;
     private static final Double DEFAULT_QUANTITY = 0.0;
     private static final String DEFAULT_REMARKS = "";
-    public final String VALID_INGREDIENT_NAME_CREAM_CHEESE = "Cream cheese";
-    public final Double VALID_INGREDIENT_QUANTITY_NUMBER_CREAM_CHEESE = 3.0;
 
     private static Item<Ingredient> ingredientItem;
 
