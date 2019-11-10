@@ -33,7 +33,6 @@ public class DukeUi {
 
     /**
      * Increment the response to duke response collections for print out in GUI.
-     * Perform system.out.println for debugging in terminal.
      *
      * @param dukeResponse duke's response for user
      */
