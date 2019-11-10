@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import user.UserList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
- //@@Alex-Teo
+//@@author Alex-Teo
 public class AddBookingTest1 {
     @Test
     void testAddBooking() throws DukeException {

@@ -1,6 +1,6 @@
 package user;
 
-//@@ AmirAzhar
+//@@author AmirAzhar
 public class User {
     public String username;
 

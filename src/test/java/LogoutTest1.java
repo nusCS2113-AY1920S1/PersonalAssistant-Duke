@@ -3,9 +3,11 @@ import user.UserList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//@@ author AmirAzhar
+//LogoutTest1 is used to test if the variables currentUser and loginStatus are updated when logout is performed
 public class LogoutTest1 {
     @Test
-    void testLogout() {
+    void logoutTest1() {
         String username = "Johnny Lim";
         UserList newUserList = new UserList();
         newUserList.login(username);

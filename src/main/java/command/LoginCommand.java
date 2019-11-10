@@ -12,10 +12,10 @@ import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
 
+//@@author AmirAzhar
 public class LoginCommand extends Command {
     private String[] splitL;
 
-    //@@ AmirAzhar
 
     /**
      * User login.

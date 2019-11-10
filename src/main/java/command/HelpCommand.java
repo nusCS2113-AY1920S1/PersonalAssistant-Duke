@@ -11,6 +11,7 @@ import user.UserList;
 
 public class HelpCommand extends Command {
 
+    //@@author zkchang97
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,

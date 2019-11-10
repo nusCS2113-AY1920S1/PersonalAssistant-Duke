@@ -2,7 +2,7 @@ package user;
 
 import java.util.ArrayList;
 
-//@@ AmirAzhar
+//@@author AmirAzhar
 public class UserList extends ArrayList<User> {
     private boolean loginStatus = false;
     private String currentUser;

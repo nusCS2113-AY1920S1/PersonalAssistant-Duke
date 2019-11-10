@@ -6,9 +6,9 @@ import inventory.Inventory;
 
 import booking.BookingList;
 import exception.DukeException;
-import storage.Storage;
 import room.Room;
 import room.RoomList;
+import storage.Constants;
 import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
@@ -33,14 +33,13 @@ public class AddRoomCommand extends Command {
      */
     public AddRoomCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
-            throw new DukeException("Please enter the following to add a room:\n"
-                    + "addroom ROOMCODE /date DD/MM/YYYY HHMM /to HHMM.\n");
+            throw new DukeException(Constants.ADDROOMFORMAT);
         }
         if (!input.contains(" /date ")) {
-            throw new DukeException("Please enter correct date and start-time for the room.");
+            throw new DukeException(Constants.WRONGDATETIMEFORMAT);
         }
         if (!input.contains(" /to ")) {
-            throw new DukeException("Please enter an end-time for the room.");
+            throw new DukeException(Constants.NOSTARTENDTIME);
         }
         // addroom ROOMCODE /date DATE TIMESTART /to TIMEEND
         String tempAR = input.substring(8);
@@ -60,12 +59,16 @@ public class AddRoomCommand extends Command {
      * @throws IOException if input entry is incorrect
      */
     @Override
-
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
                         StorageManager allStorage)
-            throws IOException {
+            throws IOException, DukeException {
         Room addroom = new Room(roomcode, dateStartTime, endTime);
+        boolean clash = RoomList.checkRoom(roomList, roomcode, dateStartTime, endTime);
+        if (clash) {
+            throw new DukeException(":-("
+                    + " OOPS!!! This room is already added, please add another one.");
+        }
         roomList.add(addroom);
         allStorage.getRoomStorage().saveToFile(roomList);
         ui.addToOutput("Got it, I've added this room.\n"
