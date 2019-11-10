@@ -360,12 +360,12 @@ public class Impression extends DukeObject {
     public int getCriticalCount() {
         int count = 0;
         for (Treatment treatment : treatments) {
-            if (treatment.getPriority() == 1) {
+            if (treatment.getPriority() == DukeData.PRIORITY_CRITICAL) {
                 ++count;
             }
         }
         for (Evidence evidence : evidences) {
-            if (evidence.getPriority() == 1) {
+            if (evidence.getPriority() == DukeData.PRIORITY_CRITICAL) {
                 ++count;
             }
         }
@@ -382,8 +382,7 @@ public class Impression extends DukeObject {
     public String getFollowUpCountStr() {
         int count = 0;
         for (Treatment treatment : treatments) {
-            if ((treatment instanceof Investigation && treatment.getStatusIdx() <= 1)
-                    || (treatment instanceof Plan && treatment.getStatusIdx() < 1)) {
+            if (treatment.isFollowUp()) {
                 ++count;
             }
         }

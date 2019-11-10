@@ -164,18 +164,10 @@ public class Patient extends DukeObject {
     public SearchResults findCriticalsByName(String searchTerm) {
         ArrayList<DukeData> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Impression entry : impressionList) {
-            for (Evidence evidenceEntry : entry.getEvidences()) {
-                if (evidenceEntry.getName().toLowerCase().contains(lowerSearchTerm)
-                        && evidenceEntry.getPriority() == 1) {
-                    resultList.add(evidenceEntry);
-                }
-            }
-            for (Treatment treatmentEntry : entry.getTreatments()) {
-                if (treatmentEntry.getName().toLowerCase().contains(lowerSearchTerm)
-                        && treatmentEntry.getPriority() == 1) {
-                    resultList.add(treatmentEntry);
-                }
+
+        for (DukeData data : criticalList) {
+            if (data.getName().toLowerCase().contains(lowerSearchTerm)) {
+                resultList.add(data);
             }
         }
         return new SearchResults(searchTerm, resultList, this);
@@ -190,12 +182,9 @@ public class Patient extends DukeObject {
     public SearchResults findFollowUpsByName(String searchTerm) {
         ArrayList<DukeData> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Impression imp : impressionList) {
-            for (Treatment treatmentEntry : imp.getTreatments()) {
-                if (treatmentEntry.getName().toLowerCase().contains(lowerSearchTerm)
-                        && treatmentEntry.getClass() == Investigation.class) {
-                    resultList.add(treatmentEntry);
-                }
+        for (Treatment treatment : followUpList) {
+            if (treatment.getName().toLowerCase().contains(lowerSearchTerm)) {
+                resultList.add(treatment);
             }
         }
         return new SearchResults(searchTerm, resultList, this);
@@ -225,7 +214,7 @@ public class Patient extends DukeObject {
      * @param searchTerm String to be used to filter the DukeObj
      * @return the hashMap of DukeObjs
      */
-    public SearchResults searchAll(String searchTerm) throws DukeException {
+    public SearchResults searchAll(String searchTerm) {
         String lowerSearchTerm = searchTerm.toLowerCase();
         SearchResults results = findImpressions(lowerSearchTerm);
         for (Impression imp : impressionList) {
@@ -410,11 +399,7 @@ public class Patient extends DukeObject {
      * @return The number of critical DukeData items for this patient.
      */
     public String getCriticalCountStr() {
-        int count = 0;
-        for (Impression imp : impressionList) {
-            count += imp.getCriticalCount();
-        }
-
+        int count = criticalList.size();
         if (count == 0) {
             return "No critical issues";
         } else if (count == 1) {
