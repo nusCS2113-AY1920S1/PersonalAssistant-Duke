@@ -33,7 +33,9 @@ public class HomeOpenSpec extends HomeObjSpec {
                 core.uiContext.open(primaryDiagnosis);
                 core.ui.showMessage("Accessing primary diagnosis of " + patient.getName());
             } else {
-                throw new DukeException(patient.getName() + " has no primary diagnosis at the moment!");
+                core.uiContext.open(patient);
+                core.ui.showMessage(patient.getName() + " has no primary diagnosis at the moment, "
+                        + "showing patient's context instead.");
             }
         } else {
             core.uiContext.open(patient);

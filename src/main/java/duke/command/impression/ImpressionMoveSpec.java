@@ -13,6 +13,8 @@ import duke.data.SearchResults;
 import duke.data.Treatment;
 import duke.exception.DukeException;
 
+import java.util.List;
+
 public class ImpressionMoveSpec extends ObjSpec {
     private static final ImpressionMoveSpec spec = new ImpressionMoveSpec();
     private Impression newImpression = null;
@@ -53,6 +55,12 @@ public class ImpressionMoveSpec extends ObjSpec {
             if (moveData == null) {
                 SearchResults results = ImpressionUtils.searchData(cmd.getArg(), cmd.getSwitchVal("evidence"),
                         cmd.getSwitchVal("treatment"), ImpressionUtils.getImpression(core));
+                List<DukeObject> resultList = results.getSearchList();
+                int currImpIdx = resultList.indexOf(currImpression);
+                if (currImpIdx != -1) { // remove this impression from the list if present
+                    resultList.remove(currImpIdx);
+                    results = new SearchResults(results.getName(), resultList, results.getParent());
+                }
                 processResults(core, results);
             }
         } else {

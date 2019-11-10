@@ -27,6 +27,7 @@ public class PatientOpenSpec extends PatientObjSpec {
     protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeFatalException {
         Patient patient = (Patient) core.uiContext.getObject();
         core.uiContext.open(obj);
-        core.updateUi("Accessing " + obj.getClass().getSimpleName() + " of Bed " + patient.getBedNo());
+        core.updateUi("Accessing " + patient.getName() + "'s " + obj.getClass().getSimpleName() + " '"
+                + obj.getName() + "'");
     }
 }
