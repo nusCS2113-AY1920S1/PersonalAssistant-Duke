@@ -14,15 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  */
 public class FindFreeTimesParseTest {
     private static final String INVALID_INPUT = "Invalid input. Please enter the command as follows. \n"
-            + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
+            + "find/time <x> hours , where x is a digit between 1 - 16, inclusive";
     private static final String INVALID_DURATION = "Invalid duration. Please enter the command as follows. \n"
-            + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
+            + "find/time <x> hours , where x is a digit between 1 - 16, inclusive";
     private static final String INVALID_EMPTY_DURATION = "Invalid input."
             + "\nDuration cannot be blank.\nPlease enter the command as follows.\n"
-            + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
+            + "find/time <x> hours , where x is a digit between 1 - 16, inclusive";
 
     private static String validUserInputWithDuration;
-    //TODO: ask if should take 0 and 17 instead of negative
     private static String userInputWithZeroDuration;
     private static String userInputWithSeventeenDuration;
     private static String userInputWithInvalidDuration;
