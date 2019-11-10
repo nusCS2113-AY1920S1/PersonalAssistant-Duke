@@ -350,18 +350,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-== Documentation
-
-Refer to the guide <<Documentation#, here>>.
-
-== Testing
-
-Refer to the guide <<Testing#, here>>.
-
-== Dev Ops
-
-Refer to the guide <<DevOps#, here>>.
-
 [appendix]
 == Product Scope
 
@@ -377,7 +365,7 @@ Thus, it is hard for him to switch between different apps to manage his bakery b
 
 BakingHome is a one-stop desktop application that has all the important features for such a manager to eliminate the trouble of changing between different apps.
 
-*Value proposition*: All-in-one bakery management system for home bakeries.
+*Value proposition*: One-stop bakery management system for home bakeries.
 
 [appendix]
 == User Stories
@@ -452,7 +440,7 @@ _{More to be added}_
 (For all use cases below, the *System* is `BakingHome` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete an Order
+=== Use case 1: Deleting an Order
 
 *MSS*
 
@@ -480,7 +468,7 @@ The given index(indices) is(are) invalid.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Buying an ingredient in the shopping list
+=== Use case 2: Buying an ingredient in the shopping list
 
 *MSS*
 
@@ -507,7 +495,7 @@ The given index(indices) is(are) invalid.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Complete an Order
+=== Use case 3: Completing an Order
 
 *MSS*
 
@@ -536,7 +524,7 @@ The given index(indices) is(are) invalid.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Delete a Sale Entry
+=== Use case 4: Deleting a Sale Entry
 
 *MSS*
 
@@ -547,41 +535,26 @@ Use case resumes at step 2.
 +
 Use case ends.
 
-*Extensions*
-
-[none]
-* 2a.
-The list is empty.
-+
-Use case ends.
-
-* 3a.
-The given index(indices) is(are) invalid.
-+
-[none]
-** 3a1. BakingHome shows an error message.
-+
-Use case resumes at step 2.
-
-=== Use case: Show a Product
-
-*Precondition:* Bakery manager has at least 1 product in the product list.
+[discrete]
+=== Use case 5: Viewing Active Orders
 
 *MSS*
 
-1. Manager can be viewing any pages.
-2. Manager enters a ShowProductCommand indicating the index of the product to be shown, e.g. product show 1.
-3. BHS parses the command.
-4. BHS displays the details of the product
-
-*Extensions*
-
-[none]
-* 3a.
-BHS detects a invalid command.
+1. User requests to list all active orders.
+2. BakingHome shows a list of active orders.
 +
-[none]
-** 3a1. BHS shows an error message
+Use case ends.
+
+=== Use case 6: Viewing Product's ingredients
+
+*Precondition:* BakingHome has at least 1 product in the product list.
+
+*MSS*
+
+1. User request to list products
+2. BakingHome lists products
+3. User request to view a specific product's ingredients
+4. BakingHome shows the ingredients of that product
 +
 Use case ends.
 
@@ -589,13 +562,14 @@ Use case ends.
 == Non Functional Requirements
 
 . Should be an open-source project.
+. Should be portable (i.e. it does not require installation to run).
+. Should a single user application.
 . Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` installed.
-. Should be able to hold up to 80 orders without a noticeable sluggishness in performance for typical usage.
-. Should be able to hold up to 300 products without a noticeable sluggishness in performance for typical usage.
-. Should be able to hold up to 300 sales entries without a noticeable sluggishness in performance for typical usage.
+. Should be able to hold up to 150 entities without a noticeable sluggishness in performance for typical usage.
 . Should have a low response time of not more than 2 seconds.
+. Changes are saved automatically and no manual saving is needed.
 . A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-. A user would be able to execute every operation with typing only, and without the assist of a mouse.
+. A user would be able to execute every operation with typing only, and without the assist of a mouse
 
 [appendix]
 == Glossary
