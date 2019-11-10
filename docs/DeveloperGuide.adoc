@@ -586,11 +586,11 @@ image::ViewTracker.png[ViewTracker]
 image::DeleteTracker.png[DeleteTracker]
 
 * You may `tracker /delete` by `taskListIndex` with a specific command.
-+
+
 [[ListTracker]]
 .Output of Tracker List Command
 image::ListTracker.png[ListTracker]
-+
+
 * You may `tracker /list` with a specific command.
 
 Provided below is an example scenario of use and how `TrackerCommand` class behaves and interacts with other relevant classes.
