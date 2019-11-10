@@ -61,19 +61,20 @@ public class MainCAPCalculatorTest {
                         + "6. Help page: help\n"
                         + "7. Exit CAP page: esc\n"
                         + "__________________________________________________________\n"
-                        + "\nGoing back to Main Menu...\n" +
-                        "Content Page:\n" +
-                        "------------------ \n" +
-                        "1. help\n" +
-                        "2. contacts\n" +
-                        "3. expenses\n" +
-                        "4. places\n" +
-                        "5. tasks\n" +
-                        "6. cap\n" +
-                        "7. spec\n" +
-                        "8. moduleplanner\n" +
-                        "9. notes\n" +
-                        "To exit: bye\n"
+                        + "\nGoing back to Main Menu...\n"
+                        + "Content Page:\n"
+                        + "------------------ \n"
+                        + "1. help\n"
+                        + "2. contacts\n"
+                        + "3. expenses\n"
+                        + "4. places\n"
+                        + "5. tasks\n"
+                        + "6. cap\n"
+                        + "7. spec\n"
+                        + "8. moduleplanner\n"
+                        + "9. notes\n"
+                        + "10. change password\n"
+                        + "To exit: bye\n"
                 , output.toString()
         );
     }
@@ -98,18 +99,20 @@ public class MainCAPCalculatorTest {
                         + "6. Help page: help\n"
                         + "7. Exit CAP page: esc\n"
                         + "__________________________________________________________\n"
-                        + "\nGoing back to Main Menu...\n" +
-                        "Content Page:\n" +
-                        "------------------ \n" +
-                        "1. help\n" +
-                        "2. contacts\n" +
-                        "3. expenses\n" +
-                        "4. places\n" +
-                        "5. tasks\n" +
-                        "6. cap\n" +
-                        "7. spec\n" +
-                        "8. moduleplanner\n" +
-                        "9. notes\n" + "To exit: bye\n"
+                        + "\nGoing back to Main Menu...\n"
+                        + "Content Page:\n"
+                        + "------------------ \n"
+                        + "1. help\n"
+                        + "2. contacts\n"
+                        + "3. expenses\n"
+                        + "4. places\n"
+                        + "5. tasks\n"
+                        + "6. cap\n"
+                        + "7. spec\n"
+                        + "8. moduleplanner\n"
+                        + "9. notes\n"
+                        + "10. change password\n"
+                        + "To exit: bye\n"
                 , output.toString()
         );
     }

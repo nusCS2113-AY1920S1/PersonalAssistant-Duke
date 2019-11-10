@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 //@@author JasonLeeWeiHern
-package contactCommandTest;
-=======
 
-package ContactCommandTest;
->>>>>>> 2a77a2baae6a3ea30c480ece027daee9cdbb5d55
+package contactCommandTest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.contact.FindContactCommand;

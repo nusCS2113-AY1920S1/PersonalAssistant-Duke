@@ -39,7 +39,7 @@ public class PlacesListCommandTest {
         String linebreak = "------------------------------------------\n";
         places.put("LT50", "COM6");
         places.put("LT20", "COM7");
-        ListPlacesCommand test = new ListPlacesCommand(places, linebreak);
+        ListPlacesCommand test = new ListPlacesCommand(places);
         assertEquals("Room:                                             | Location:\n" +
                 "------------------------------------------\n" +
                 "LT20                                              | COM7\n" +
