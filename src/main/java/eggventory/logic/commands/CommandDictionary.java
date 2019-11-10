@@ -29,11 +29,10 @@ public class CommandDictionary {
         commandDict.add(new Pair<>("delete person", "<MatricNo>"));
         commandDict.add(new Pair<>("delete template", "<TemplateName>"));
 
-
         // Edit Commands
         commandDict.add(new Pair<>("edit stock", "<StockCode> <Property> <NewValue>"));
-        commandDict.add(new Pair<>("edit stocktype", "<StockType> <NewName>"));
-        commandDict.add(new Pair<>("edit person", "<Property> <NewValue>"));
+        commandDict.add(new Pair<>("edit stocktype", "<StockType> <NewStockType>"));
+        commandDict.add(new Pair<>("edit person", "<MatricNo> <Property> <NewValue>"));
 
         // List Commands
         commandDict.add(new Pair<>("list stock", null));
@@ -45,21 +44,27 @@ public class CommandDictionary {
         commandDict.add(new Pair<>("list lost", null));
         commandDict.add(new Pair<>("list person", null));
         commandDict.add(new Pair<>("list person", "<MatricNo>"));
+
+        // List Minimum Commands
         commandDict.add(new Pair<>("list minimum", null));
         commandDict.add(new Pair<>("list shopping", null));
+
+        // Loan Commands
+        commandDict.add(new Pair<>("add loan", "<MatricNo> <StockCode> <Quantity>"));
+        commandDict.add(new Pair<>("loan return", "<MatricNo> <StockCode> <Quantity>"));
+        commandDict.add(new Pair<>("loan returnall", "<MatricNo>"));
+
+        // Template Commands
+        commandDict.add(new Pair<>("add template", "<TemplateName> {<StockCode> <Quantity>}"));
+        commandDict.add(new Pair<>("delete template", "<TemplateName>"));
+        commandDict.add(new Pair<>("add loan", "<Template Name>"));
 
         // Find Commands
         commandDict.add(new Pair<>("find description", "<Query>"));
 
-        // Loan Commands
-        commandDict.add(new Pair<>("add loan", "<MatricNo> <StockCode> <Quantity>"));
-        commandDict.add(new Pair<>("add loan", "<Template Name>"));
-        commandDict.add(new Pair<>("delete loan", "<MatricNo> <StockCode>"));
-
-        // Lost Commands
-        commandDict.add(new Pair<>("lost", "<StockCode> <Quantity>"));
-
-        // Bye Commands
+        // Other Commands
+        commandDict.add(new Pair<>("undo", null));
+        commandDict.add(new Pair<>("redo", null));
         commandDict.add(new Pair<>("bye", null));
     }
 

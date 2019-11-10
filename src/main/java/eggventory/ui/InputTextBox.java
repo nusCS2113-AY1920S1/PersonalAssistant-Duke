@@ -97,7 +97,7 @@ public class InputTextBox {
     /**
      * Deletes character on right of caret when delete key is pressed.
      */
-    public void removeWordDelete() {
+    public void removeTextDelete() {
         String curLeftString = leftText.getText();
         String curRightString = rightText.getText();
 

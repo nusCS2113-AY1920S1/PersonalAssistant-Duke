@@ -76,7 +76,7 @@ public class Gui extends Ui  {
                         break;
 
                     case DELETE:
-                        inputField.removeWordDelete();
+                        inputField.removeTextDelete();
                         break;
 
                     case TAB:
