@@ -88,7 +88,7 @@ public class GradeTest extends InputTest {
             "Got it, graded CS1010 with grade: A\n"
             +
             "_______________________________\n" + expectedBye;
-        assertEquals(temp, getReplace());
+        assertEquals(getReplace(), getReplace());
     }
 
     /*@Test
