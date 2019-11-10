@@ -42,6 +42,7 @@ public class ListTransactionsCommand extends Command {
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) throws ProgramException {
         ui.showLine();
         ArrayList<Transaction> transactions = wallet.getTransactions().getTransactionList(currentDate);
-        ui.showTransactions(transactions, currentDate);
+        ui.showTransactions(transactions, currentDate, wallet);
+        ui.showLine();
     }
 }

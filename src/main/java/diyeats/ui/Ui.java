@@ -174,7 +174,7 @@ public class Ui {
         }
     }
 
-    public void showTransactions(ArrayList<Transaction> transactions, LocalDate date) {
+    public void showTransactions(ArrayList<Transaction> transactions, LocalDate date, Wallet wallet) {
         if (transactions.isEmpty()) {
             System.out.println(UI_PADDING + "There is no transaction on " + date + ".");
         } else {
@@ -182,6 +182,7 @@ public class Ui {
             for (int idx = 0; idx < transactions.size(); idx++) {
                 System.out.println(UI_PADDING + (idx + 1) + ". " + transactions.get(idx));
             }
+            showAccountBalance(wallet);
         }
     }
 
@@ -312,7 +313,7 @@ public class Ui {
     }
 
     public void showAccountBalance(Wallet wallet) {
-        System.out.println(UI_PADDING + "You current account balance is: " + wallet.getAccountBalance());
+        System.out.println(UI_PADDING + "Your current account balance is: " + wallet.getAccountBalance());
     }
 
     public void showInsufficientBalance(Payment payment) {
