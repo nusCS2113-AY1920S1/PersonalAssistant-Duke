@@ -8,6 +8,7 @@ import StubClasses.StorageStub;
 import Tasks.Assignment;
 import Tasks.Event;
 import Tasks.TaskList;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +27,7 @@ public class RecurringCommandTest {
     private UserInteraction ui = new UserInteraction();
     private StorageStub storageStub = new StorageStub();
     private static String description;
+    private static String testDescription;
     private static String startWeekDate;
     private static Date startDate;
     private static String startDateString;
@@ -45,6 +47,13 @@ public class RecurringCommandTest {
     private static String startTimeString;
     private static Date endTime;
     private static String endTimeString;
+    private static String testWeekDate;
+    private static Date testDate;
+    private static String testDateString;
+    private static Date testStartTime;
+    private static String testStartTimeString;
+    private static Date testEndTime;
+    private static String testEndTimeString;
     private static Assignment stubTask;
     private static SimpleDateFormat eventDateInputFormat = new SimpleDateFormat("dd/MM/yyyy");
     private static SimpleDateFormat eventTimeInputFormat = new SimpleDateFormat("HHmm");
@@ -55,6 +64,7 @@ public class RecurringCommandTest {
     @BeforeAll
     public static void setAllVariables() throws ParseException {
         description = "CS2101 tutorial";
+        testDescription = "CS2107 tutorial";
         startWeekDate = lookupTable.getValue("week 9 mon");
         startDate = eventDateInputFormat.parse(startWeekDate);
         startDateString = dateOutputFormat.format(startDate);
@@ -74,20 +84,31 @@ public class RecurringCommandTest {
         dateAfterEndWeekDate = lookupTable.getValue("week 13 mon");
         dateAfterEndDate = eventDateInputFormat.parse(dateAfterEndWeekDate);
         dateAfterEndDateString = dateOutputFormat.format(dateAfterEndDate);
+        testWeekDate = lookupTable.getValue("week 7 mon");
+        testDate = eventDateInputFormat.parse(testWeekDate);
+        testDateString = dateOutputFormat.format(testDate);
+        testStartTime = eventTimeInputFormat.parse("0900");
+        testStartTimeString = timeOutputFormat.format(testStartTime);
+        testEndTime = eventTimeInputFormat.parse("0930");
+        testEndTimeString = timeOutputFormat.format(testEndTime);
         stubTask = new Event(description, startDateString, startTimeString, endTimeString);
         events.addTask(stubTask);
         stubTask = new Event(description, followingDateString, startTimeString, endTimeString);
         events.addTask(stubTask);
-        stubTask = new Event(description, endDateString, startTimeString, endTimeString);
+        stubTask = new Event(description, dateBeforeStartDateString, startTimeString, endTimeString);
+        events.addTask(stubTask);
+        stubTask = new Event(description, testDateString, startTimeString, endTimeString);
+        events.addTask(stubTask);
+        stubTask = new Event(testDescription, dateAfterEndDateString, startTimeString, endTimeString);
         events.addTask(stubTask);
     }
 
     @Test
-    public void addRecurringTaskClashesWithExistedEventTest() {
-        Command command = new RecurringCommand(description, dateBeforeStartDateString, endDateString, startTimeString,
+    public void addRecurringTask_clashesWithExistedEvent() {
+        Command command = new RecurringCommand(testDescription, dateAfterEndDateString, endDateString, startTimeString,
                 endTimeString, false, true);
-        String expected = "Sorry, you have conflicting events \n" + "1. [[E]][✘]CS2101 tutorial by "
-                + "Mon 14/10/2019 10:00 AM to 12:00 PM\n";
+        String expected = "Sorry, you have conflicting events \n" + "1. [[E]][✘]CS2107 tutorial by "
+                + "Mon 11/11/2019 10:00 AM to 12:00 PM\n";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -98,7 +119,7 @@ public class RecurringCommandTest {
     }
 
     @Test
-    public void removeRecurringTaskWithInvalidModCodeTest() {
+    public void removeRecurringTask_withInvalidModCode_throwDukeException() {
         Command command = new RecurringCommand("CS2030 tutorial", startDateString, endDateString,
                 startTimeString, endTimeString, false, false);
         String expected = "Sorry, you have no such mod in the system";
@@ -112,7 +133,7 @@ public class RecurringCommandTest {
     }
 
     @Test
-    public void removeRecurringTaskWithInvalidDateTest() {
+    public void removeRecurringTask_withInvalidDate_throwDukeException() {
         Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString,
                 startTimeString, endTimeString, false, false);
         String expected = "Sorry, you have no such date of the mod in the system";
@@ -126,7 +147,7 @@ public class RecurringCommandTest {
     }
 
     @Test
-    public void removeRecurringTaskWithInvalidTimingTest() {
+    public void removeRecurringTask_withInvalidTiming_throwDukeException() {
         Command command = new RecurringCommand(description, startDateString, endDateString, endTimeString,
                 startTimeString, false, false);
         String expected = "Sorry, you have no timing of the task in the system";
@@ -140,11 +161,11 @@ public class RecurringCommandTest {
     }
 
     @Test
-    public void addWeeklyRecurringCommandValidFormat() {
-        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString,
-                startTimeString, endTimeString, false, true);
-        String expected = "Weekly recurring task: " + description + " has been added between " + endDateString
-                + " and " + dateAfterEndDateString + "\n";
+    public void addWeeklyRecurringCommand_withValidFormat() {
+        Command command = new RecurringCommand(testDescription, dateBeforeStartDateString, startDateString,
+                testStartTimeString, testEndTimeString, false, true);
+        String expected = "Weekly recurring task: " + testDescription + " has been added between " + dateBeforeStartDateString
+                + " and " + startDateString + "\n";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -155,11 +176,11 @@ public class RecurringCommandTest {
     }
 
     @Test
-    public void removeWeeklyRecurringCommandValidFormat() {
-        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString,
+    public void removeWeeklyRecurringCommand_withValidFormat() {
+        Command command = new RecurringCommand(description, startDateString, followingDateString,
                 startTimeString, endTimeString, false, false);
-        String expected = "Weekly recurring task: " + description + " has been removed between " + endDateString
-                + " and " + dateAfterEndDateString + "\n";
+        String expected = "Weekly recurring task: " + description + " has been removed between " + startDateString
+                + " and " + followingDateString + "\n";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -171,11 +192,11 @@ public class RecurringCommandTest {
     }
 
     @Test
-    public void addBiweeklyRecurringCommandValidFormat() {
-        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString,
-                startTimeString, endTimeString, true, true);
-        String expected = "Biweekly recurring task: " + description + " has been added between " + endDateString
-                + " and " + dateAfterEndDateString + "\n";
+    public void addBiweeklyRecurringCommand_withValidFormat() {
+        Command command = new RecurringCommand(testDescription, followingDateString, endDateString,
+                testStartTimeString, testEndTimeString, true, true);
+        String expected = "Biweekly recurring task: " + testDescription + " has been added between " + followingDateString
+                + " and " + endDateString + "\n";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -186,11 +207,11 @@ public class RecurringCommandTest {
     }
 
     @Test
-    public void removeBiweeklyRecurringCommandValidFormat() {
-        Command command = new RecurringCommand(description, endDateString, dateAfterEndDateString,
+    public void removeBiweeklyRecurringCommand_withValidFormat() {
+        Command command = new RecurringCommand(description, testDateString, dateBeforeStartDateString,
                 startTimeString, endTimeString, true, false);
-        String expected = "Biweekly recurring task: " + description + " has been removed between " + endDateString
-                + " and " + dateAfterEndDateString + "\n";
+        String expected = "Biweekly recurring task: " + description + " has been removed between " + testDateString
+                + " and " + dateBeforeStartDateString + "\n";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);

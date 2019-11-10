@@ -46,10 +46,6 @@ import java.util.logging.Logger;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends BorderPane implements Initializable {
-    private static final String NO_FIELD = "void";
-    private static final int TOTAL_NUM_OF_QUOTES = 68;
-    @FXML
-    private Text currentTime;
     @FXML
     private Label currentWeek;
     @FXML
@@ -89,6 +85,11 @@ public class MainWindow extends BorderPane implements Initializable {
     private ArrayList<Assignment> deadlines;
     private TaskList eventsList;
     private TaskList deadlinesList;
+    private static final int HOURS = 24;
+    private static final int MINUTES = 60;
+    private static final int SECONDS = 60;
+    private static final int MILLISECONDS = 1000;
+    private static final int TOTAL_NUM_OF_QUOTES = 68;
     public static ArrayList<String> outputList = new ArrayList<>();
     private static WeekList outputWeekList = new WeekList();
     private final Logger LOGGER = DukeLogger.getLogger(MainWindow.class);
@@ -103,7 +104,7 @@ public class MainWindow extends BorderPane implements Initializable {
         try {
             events = new ArrayList<>();
             deadlines = new ArrayList<>();
-            setWeek(true, NO_FIELD);
+            setWeek(true, DukeConstants.NO_FIELD);
             displayQuoteOfTheDay();
             retrieveList();
 
@@ -120,7 +121,6 @@ public class MainWindow extends BorderPane implements Initializable {
             InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/quotes.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            StringBuffer sb = new StringBuffer();
             String firstLine;
             String line;
             while ((line = bufferedReader.readLine()) != null) {
@@ -180,8 +180,6 @@ public class MainWindow extends BorderPane implements Initializable {
         storage = storageFromDuke;
     }
 
-    static ArrayList<String> filteredInput = new ArrayList<>();
-
     /**
      * Pulls the list from storage data and stores here.
      * @throws IOException On input error reading lines in the file
@@ -209,20 +207,19 @@ public class MainWindow extends BorderPane implements Initializable {
         String dateTime;
         String modCodeAndTask;
         String overDays;
-        boolean status;
+        boolean isDone;
 
         ObservableList<DeadlineView> deadlineViews = FXCollections.observableArrayList();
         for (Assignment assignment: deadlines) {
-            status = assignment.getStatus();
+            isDone = assignment.getStatus();
 
             modCodeAndTask = assignment.getModCode() + "\n" + assignment.getDescription();
             dateTime = assignment.getDateTime();
-            if (status) {
+            if (isDone) {
                 overDays = "-";
                 continue;
             } else {
-                DateFormat timeFormat = new SimpleDateFormat("E dd/MM/yyyy HH:mm a");
-                Date taskDateTime = timeFormat.parse(dateTime);
+                Date taskDateTime = DukeConstants.DEADLINE_DATE_FORMAT.parse(dateTime);
                 overDays = String.valueOf(daysBetween(taskDateTime));
                 int daysToOrPast = Integer.parseInt(overDays);
                 if (daysToOrPast <= 0) {
@@ -278,7 +275,7 @@ public class MainWindow extends BorderPane implements Initializable {
         overdueTable.setItems(setDeadlineTable());
 
         setProgressContainer();
-        if (!response.isEmpty() && !response.equals(NO_FIELD)) {
+        if (!response.isEmpty() && !response.equals(DukeConstants.NO_FIELD)) {
             Text temp = new Text(response);
             temp.setWrappingWidth(dukeResponseColumn.getWidth() - 20);
             int index = betterDukeResponse.size() + 1;
@@ -286,17 +283,17 @@ public class MainWindow extends BorderPane implements Initializable {
             setDukeResponse();
         }
 
-        if (userInput.getText().equals("bye")) {
+        if (userInput.getText().equals(DukeConstants.BYE_HEADER)) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished(event -> Platform.exit());
             delay.play();
         }
         userInput.clear();
 
-        if (!input.contains("show/previous") && input.contains("retrieve/previous") && RetrievePreviousCommand.isValid()) {
+        if (!input.contains(DukeConstants.SHOW_PREVIOUS_HEADER) && input.contains(DukeConstants.RETRIEVE_PREVIOUS_HEADER) && RetrievePreviousCommand.isValid()) {
             String previousInput = Duke.getPreviousInput();
             userInput.setText(previousInput);
-        } else if (input.startsWith("retrieve/time") && RetrieveFreeTimesParse.isValidOption(input)) {
+        } else if (input.startsWith(DukeConstants.RETRIEVE_TIME_HEADER) && RetrieveFreeTimesParse.isValidOption(input)) {
             String selectedOption = Duke.getSelectedOption();
             userInput.setText(selectedOption);
             userInput.positionCaret(DukeConstants.ADD_EVENT_HEADER.length() + DukeConstants.STRING_SPACE_SPLIT_KEYWORD.length());
@@ -305,10 +302,10 @@ public class MainWindow extends BorderPane implements Initializable {
 
     private long daysBetween(Date date) {
         Date currentDate = new Date();
-        return (currentDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
+        return (currentDate.getTime() - date.getTime()) / (MILLISECONDS * SECONDS * MINUTES * HOURS);
     }
 
-    private String week = NO_FIELD;
+    private String week = DukeConstants.NO_FIELD;
 
     /**
      * This method updates currentWeek Label.
@@ -318,8 +315,7 @@ public class MainWindow extends BorderPane implements Initializable {
     private void setWeek(Boolean onStart,String selectedWeek) {
         if (onStart) {
             Date dateTime = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            String date = dateFormat.format(dateTime);
+            String date = DukeConstants.EVENT_DATE_INPUT_FORMAT.format(dateTime);
             selectedWeek = lookupTable.getValue(date);
             currentWeek.setText(selectedWeek + " ( " + lookupTable.getValue(selectedWeek.toLowerCase()) + " )");
 

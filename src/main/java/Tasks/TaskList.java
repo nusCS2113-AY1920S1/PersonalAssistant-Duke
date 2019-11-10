@@ -10,7 +10,6 @@ import java.util.Set;
  * To keep track of the list of task input by user.
  */
 public class TaskList {
-    private static final String NO_FIELD = "void";
 
     private ArrayList<Assignment> list;
     private HashMap<String, HashMap<String, ArrayList<Assignment>>> map;
