@@ -1,3 +1,5 @@
+//@@author kyawtsan99
+
 package planner.logic.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -52,7 +54,7 @@ public class ShowCoreTest extends InputTest {
         jsonWrapper.getModuleDetailedMap();
     }
 
-    @DisplayName("show module test")
+    @DisplayName("show core test")
     @Test
     public void testShow() {
         final String test = "show core\n";
@@ -69,13 +71,15 @@ public class ShowCoreTest extends InputTest {
                 +
                 "_______________________________\n"
                 +
-                "_______________________________\n"
+                "Here is your list of core modules being added:\n"
                 +
-                "All modules in the list!\n"
+                "1. [✓] CS1010 | ModuleCode:CS1010, MC:4.0, SU:true, grade:A"
                 +
-                "1. [✓] CS1010 | ModuleCode:CS1010, MC:4.0, SU:true, grade:"
+                "\n"
                 +
-                "_______________________________\n"
+                "Number of core modules required to take for graduation:\n"
+                +
+                "21\n"
                 +
                 "_______________________________\n"
                 +

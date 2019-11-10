@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ShowModule extends InputTest {
+public class ShowUeTest extends InputTest {
     private static Storage store;
     private static ModuleTasksList modTasks;
     private static Parser argparser;
@@ -53,10 +53,10 @@ public class ShowModule extends InputTest {
         jsonWrapper.getModuleDetailedMap();
     }
 
-    @DisplayName("show module test")
+    @DisplayName("show ue test")
     @Test
     public void testShow() {
-        final String test = "show module\n";
+        final String test = "show ue\n";
 
         final String bye = "bye";
         provideInput(test + bye);
@@ -70,13 +70,15 @@ public class ShowModule extends InputTest {
                 +
                 "_______________________________\n"
                 +
-                "All modules in the list!\n"
+                "Here is your list of unrestricted elective modules being added:\n"
                 +
-                "1. [✓] CS1010 | ModuleCode:CS1010, MC:4.0, SU:true, grade:A\n"
+                "1. [✗] LAJ1201 | ModuleCode:LAJ1201, MC:4.0, SU:true, grade:"
                 +
-                "2. [✗] GES1012 | ModuleCode:GES1012, MC:4.0, SU:true, grade:\n"
+                "\n"
                 +
-                "3. [✗] LAJ1201 | ModuleCode:LAJ1201, MC:4.0, SU:true, grade:\n"
+                "Number of unrestricted elective modules required to take for graduation:\n"
+                +
+                "7\n"
                 +
                 "_______________________________\n"
                 +
