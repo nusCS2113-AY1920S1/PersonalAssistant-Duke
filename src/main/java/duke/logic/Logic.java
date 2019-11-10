@@ -77,4 +77,5 @@ public interface Logic {
 
     StringProperty getFilterCriteriaString();
 
+    StringProperty getIncomeListTotalString();
 }

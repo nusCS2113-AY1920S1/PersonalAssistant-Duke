@@ -130,4 +130,9 @@ public class LogicManager implements Logic {
         return model.getFilterCriteriaString();
     }
 
+    @Override
+    public StringProperty getIncomeListTotalString() {
+        return model.getIncomeListTotalString();
+    }
+
 }
