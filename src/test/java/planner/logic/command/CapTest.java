@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
@@ -166,5 +168,23 @@ public class CapTest extends InputTest {
         CapCommand cap = new CapCommand();
         assertTrue(cap.isComplete("done"));
         assertFalse(cap.isComplete("not == done"));
+        assertEquals(5.0, cap.letterGradeToCap("A+"));
+        assertEquals(5.0, cap.letterGradeToCap("A"));
+        assertEquals(4.5, cap.letterGradeToCap("A-"));
+        assertEquals(4.0, cap.letterGradeToCap("B+"));
+        assertEquals(3.5, cap.letterGradeToCap("B"));
+        assertEquals(3.0, cap.letterGradeToCap("B-"));
+        assertEquals(2.5, cap.letterGradeToCap("C+"));
+        assertEquals(2.0, cap.letterGradeToCap("C"));
+        assertEquals(1.5, cap.letterGradeToCap("D+"));
+        assertEquals(1.0, cap.letterGradeToCap("D"));
+        assertEquals(0.5, cap.letterGradeToCap("F"));
+        assertEquals(0.0, cap.letterGradeToCap("S"));
+        assertEquals(0.0, cap.letterGradeToCap("U"));
+        assertEquals(0.0, cap.letterGradeToCap("CS"));
+        assertEquals(0.0, cap.letterGradeToCap("CU"));
+        ArrayList<String> prerequisiteTest = new ArrayList<>();
+        prerequisiteTest.add("CS2040C");
+        assertEquals(cap.parsePrerequisiteTree("CS2040C"), prerequisiteTest);
     }
 }
