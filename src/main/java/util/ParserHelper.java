@@ -317,7 +317,7 @@ public class ParserHelper {
             case "-priority":
                 taskDetails = this.sortHelper.sortTaskPriority(taskList);
                 break;
-            case "-credit":
+            case "-credits":
                 taskDetails = this.sortHelper.sortTaskCredit(taskList);
                 break;
             case "-who":

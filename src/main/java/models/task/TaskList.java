@@ -51,7 +51,7 @@ public class TaskList {
     public ArrayList<String> getAllTaskDetails(
         HashMap<String, ArrayList<String>> tasksAndAssignedMembers, Project project) {
         // after implementing task index, change "/PRIORITY" to "/INDEX"
-        return this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,taskList,"/PRIORITY", project);
+        return this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,taskList,"-priority", project);
     }
 
     /**

@@ -1,12 +1,6 @@
 package modeltests.task;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import controllers.AssignmentController;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
 import models.member.Member;
 import models.project.Project;
 import models.task.Task;
@@ -14,6 +8,13 @@ import models.task.TaskList;
 import models.task.TaskState;
 import org.junit.jupiter.api.Test;
 import util.date.DateTimeHelper;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TaskListTest {
     private Project project;
@@ -115,7 +116,7 @@ class TaskListTest {
                     + "5. taskFive | Priority: 5 | Due: -- | Credit: 60 | State: OPEN"
                     + "]";
             assertEquals(testPriorityTaskListString,taskList.getAllSortedTaskDetails(
-                    project.getTasksAndAssignedMembers(),"/PRIORITY", project).toString());
+                    project.getTasksAndAssignedMembers(),"-priority", project).toString());
 
             String testNameTaskListString = "["
                     + "1. taskEight | Priority: 3 | Due: 21 Jan 2020" + dateTimeHelper.getDifferenceDays(dueDate3)
@@ -129,7 +130,7 @@ class TaskListTest {
                     + " | Credit: 90 | State: DONE"
                     + "]";
             assertEquals(testNameTaskListString,taskList.getAllSortedTaskDetails(
-                    project.getTasksAndAssignedMembers(),"/NAME", project).toString());
+                    project.getTasksAndAssignedMembers(),"-name", project).toString());
 
             String testDueDateTaskListString = "["
                     + "1. taskSix | Priority: 4 | Due: 21 Dec 1920" + dateTimeHelper.getDifferenceDays(dueDate4)
@@ -142,7 +143,7 @@ class TaskListTest {
                     + " | Credit: 80 | State: OPEN"
                     + "]";
             assertEquals(testDueDateTaskListString,taskList.getAllSortedTaskDetails(
-                    project.getTasksAndAssignedMembers(),"/DATE", project).toString());
+                    project.getTasksAndAssignedMembers(),"-date", project).toString());
 
             String testCreditTaskListString = "["
                     + "1. taskOne | Priority: 1 | Due: 31 Oct 2019" + dateTimeHelper.getDifferenceDays(dueDate1)
@@ -156,7 +157,7 @@ class TaskListTest {
                     + "5. taskFive | Priority: 5 | Due: -- | Credit: 60 | State: OPEN"
                     + "]";
             assertEquals(testCreditTaskListString,taskList.getAllSortedTaskDetails(
-                    project.getTasksAndAssignedMembers(),"/CREDIT", project).toString());
+                    project.getTasksAndAssignedMembers(),"-credits", project).toString());
 
             String testKanbanTaskListString = "["
                     + "2. taskTwo | Priority: 2 | Due: 21 Sep 2019" + dateTimeHelper.getDifferenceDays(dueDate2)
@@ -165,7 +166,7 @@ class TaskListTest {
                     + " | Credit: 70 | State: DONE"
                     + "]";
             assertEquals(testKanbanTaskListString,taskList.getAllSortedTaskDetails(
-                    project.getTasksAndAssignedMembers(),"/KANBAN-DONE", project).toString());
+                    project.getTasksAndAssignedMembers(),"-state done", project).toString());
 
             project.addTask(new Task("task2",5, null,10,
                     TaskState.TODO, taskRequirements));
@@ -181,14 +182,13 @@ class TaskListTest {
             String testMemberTaskListString2 = "[1. task1 | Priority: 10 | Due: -- | Credit: 10 | "
                     + "State: TODO, 2. task2 | Priority: 5 | Due: -- | Credit: 10 | State: TODO]";
 
-            /*
-            assertEquals(testMemberTaskListString,
-                    project.getTasks().getAllSortedTaskDetails(
-                            project.getTasksAndAssignedMembers(),"/WHO-Jerry").toString());
+            /*assertEquals(testMemberTaskListString,
+                    taskList.getAllSortedTaskDetails(
+                            project.getTasksAndAssignedMembers(),"-who Jerry", project).toString());
             assertEquals(testMemberTaskListString2,
-                    project.getTasks().getAllSortedTaskDetails(
-                            project.getTasksAndAssignedMembers(),"/WHO-Dillen").toString());
-             */
+                    taskList.getAllSortedTaskDetails(
+                            project.getTasksAndAssignedMembers(),"-who Dillen", project).toString());*/
+
 
         } catch (ParseException e) {
             e.printStackTrace();
