@@ -46,9 +46,12 @@ public class SpecializationCommandParser extends Command {
         HashMap<String, ArrayList<ModuleCategory>> smap
                 = storage.readFromSpecializationFile(); //Read the file
         Map<String, ArrayList<ModuleCategory>> specMap = new TreeMap<>(smap);
+
         HashMap<String, ArrayList<String>> emap
                 = storage.readFromCompletedElectivesFile(); //Read the file
+
         Map<String, ArrayList<String>> completedEMap = new TreeMap<>(emap);
+
         new ListOfSpecializationAndModules(specMap);
 
         System.out.println("Welcome to your specialization page!"
@@ -96,6 +99,7 @@ public class SpecializationCommandParser extends Command {
                 + "7. spec\n"
                 + "8. moduleplanner\n"
                 + "9. notes\n"
+                + "10. change password\n"
                 + "To exit: bye\n");
     }
 

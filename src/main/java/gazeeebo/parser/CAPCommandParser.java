@@ -41,6 +41,26 @@ public class CAPCommandParser extends Command {
      */
     public String grade;
 
+    /** Back to main menu message.*/
+    private static final String MAIN_MENU_PAGE = "Going back to Main Menu...\n"
+            + "Content Page:\n"
+            + "------------------ \n"
+            + "1. help\n"
+            + "2. contacts\n"
+            + "3. expenses\n"
+            + "4. places\n"
+            + "5. tasks\n"
+            + "6. cap\n"
+            + "7. spec\n"
+            + "8. moduleplanner\n"
+            + "9. notes\n"
+            + "10. change password\n"
+            + "To exit: bye\n";
+
+    /** Welcome message.*/
+    private static final String WELCOME = "Welcome to your CAP Calculator page! "
+            + "What would you like to do?\n\n";
+
     /**
      * Constructor for CAPCommandParser.
      *
@@ -90,8 +110,7 @@ public class CAPCommandParser extends Command {
                     = capPageStorage.readFromCAPFile(); //Read the file
             Map<String, ArrayList<CAPCommandParser>> caplist
                     = new TreeMap<>(map);
-            System.out.print("Welcome to your CAP Calculator page! "
-                    + "What would you like to do?\n\n");
+            System.out.print(WELCOME);
             showListOfCommands();
             String lineBreak = "------------------------------\n";
             ui.readCommand();
@@ -135,19 +154,7 @@ public class CAPCommandParser extends Command {
                     ui.readCommand();
                 }
             }
-            System.out.print("Going back to Main Menu...\n"
-                    + "Content Page:\n"
-                    + "------------------ \n"
-                    + "1. help\n"
-                    + "2. contacts\n"
-                    + "3. expenses\n"
-                    + "4. places\n"
-                    + "5. tasks\n"
-                    + "6. cap\n"
-                    + "7. spec\n"
-                    + "8. moduleplanner\n"
-                    + "9. notes\n"
-                    + "To exit: bye\n");
+            System.out.print(MAIN_MENU_PAGE);
         } catch (IOException | NumberFormatException
                 | ArrayIndexOutOfBoundsException e) {
             System.out.println("Error in CAP.txt");

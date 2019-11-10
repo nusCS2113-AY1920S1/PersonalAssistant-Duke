@@ -25,11 +25,11 @@ public class AddExpenseCommandTest {
     /**
      * Message shown when price format in adding expenses is wrong.
      */
-    private static final String PRICE_FORMAT_ERROR_MESSAGE = "4\r\nPlease key in the correct format for money: $__\r\n";
+    private static final String PRICE_FORMAT_ERROR_MESSAGE = "Please key in the correct format for money: $__\r\n";
     /**
      * Message shown when the date format in adding expenses is wrong.
      */
-    private static final String WRONG_DATE_FORMAT_ERROR_MESSAGE = "$\r\nWrong date format\r\n";
+    private static final String WRONG_DATE_FORMAT_ERROR_MESSAGE = "Wrong date format\r\n";
     /**
      * Message shown when general format in adding expenses is wrong.
      */
@@ -71,7 +71,7 @@ public class AddExpenseCommandTest {
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<>();
         ui.fullCommand = "add coffee, $4, 2019-09-09";
         new AddExpenseCommand(ui, expenses);
-        assertEquals("$\r\nSuccessfully added: \n" + "coffee, $4, bought on 2019-09-09\r\n", output.toString());
+        assertEquals("Successfully added: \n" + "coffee, $4, bought on 2019-09-09\r\n", output.toString());
     }
 
     /**

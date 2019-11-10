@@ -362,16 +362,11 @@ public class Storage {
             ArrayList<String> completedElectiveList = new ArrayList<>();
             String[] split = sc.nextLine().split("\\|");
             String checkKey = split[0];
-            boolean isEqual = false;
-            for (String key : completedEMap.keySet()) {
-                if (checkKey.equals(key)) { //if date equal
-                    completedEMap.get(key).add(split[1]);
-                    isEqual = true;
-                }
-                if (isEqual == false) {
-                    completedElectiveList.add(split[1]);
-                    completedEMap.put(checkKey, completedElectiveList);
-                }
+            if(completedEMap.containsKey(checkKey)) {
+                completedEMap.get(checkKey).add(split[1]);
+            } else {
+                completedElectiveList.add(split[1]);
+                completedEMap.put(checkKey,completedElectiveList);
             }
         }
         //}

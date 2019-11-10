@@ -117,10 +117,11 @@ public class ExpenseCommandParser extends Command {
                             + "7. spec\n"
                             + "8. moduleplanner\n"
                             + "9. notes\n"
+                            + "10. change password\n"
                             + "To exit: bye\n"
                     );
                 } else {
-                    System.out.println("Command not found, please re-enter!");
+                    ui.showDontKnowErrorMessage();
                 }
                 String toStore = "";
                 for (LocalDate key : expenses.keySet()) {
@@ -131,7 +132,6 @@ public class ExpenseCommandParser extends Command {
                                     + "\n");
                         }
                     } else if (expenses.get(key).size() == 1) {
-
                         toStore = toStore.concat(key + "|"
                                 + expenses.get(key).get(0)
                                 + "\n");
