@@ -3,7 +3,7 @@ package leduc.command;
 import leduc.Date;
 import leduc.exception.*;
 import leduc.storage.Storage;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.task.HomeworkTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
@@ -24,22 +24,24 @@ public class HomeworkCommand extends Command {
     private static String homeworkShortcut = "homework";
     /**
      * Constructor of HomeworkCommand.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public HomeworkCommand(String user){
-        super(user);
+    public HomeworkCommand(String userInput){
+        super(userInput);
     }
 
     /**
-     * Allow to add a homework task to the task list and to the data file.
+     * Allow to add a homework task to the task list and to the data file. The user can set a priority or a recurrence or both of them.
+     * Recurrence only add new homework with day/week/month interval.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws EmptyHomeworkDateException Exception caught when the date of the homework task is not given.
      * @throws EmptyHomeworkException Exception caught when the description of the homework task is not given.
      * @throws NonExistentDateException Exception caught when the date given does not exist.
      * @throws FileException Exception caught when the file can't be open or read or modify.
      * @throws PrioritizeLimitException Exception caught when the new priority is greater than 9 or less than 0.
+     * @throws RecurrenceException Exception caught when the user doesn't respect the recurrence format
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws EmptyHomeworkDateException, EmptyHomeworkException, NonExistentDateException,
@@ -47,29 +49,30 @@ public class HomeworkCommand extends Command {
         String userSubstring;
         int nbRecurrence = 0;
         String typeOfRecurrence = "";
-        if(callByShortcut){
-            userSubstring = user.substring(HomeworkCommand.homeworkShortcut.length());
+        if(isCalledByShortcut){
+            userSubstring = userInput.substring(HomeworkCommand.homeworkShortcut.length());
         }
         else {
-            userSubstring = user.substring(8);
+            userSubstring = userInput.substring(8);
         }
         if(userSubstring.isBlank()){
             throw new EmptyHomeworkException();
         }
-        String[] taskDescription = userSubstring.split("/by");
+        String[] taskDescription = userSubstring.split("/by",2);
         if (taskDescription[0].isBlank()) {
             throw new EmptyHomeworkException();
         } else if (taskDescription.length == 1) { // no /by in input
             throw new EmptyHomeworkDateException();
-        } else {
+        }
+        else {
             String homeworkString = "";
             String description = taskDescription[0].trim();
-            String[] prioritySplit = taskDescription[1].trim().split("prio");
+            String[] prioritySplit = taskDescription[1].trim().split("prio",2);
             if(prioritySplit.length == 1){
-                String[] recurrenceSplit = prioritySplit[0].trim().split(("recu"));
+                String[] recurrenceSplit = prioritySplit[0].trim().split("recu",2);
                 homeworkString = recurrenceSplit[0].trim();
-                if(!(recurrenceSplit.length==1)){
-                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
+                if(!(recurrenceSplit.length == 1)){
+                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ",2);
                     if(recurrenceSplit2.length == 1){
                         throw new RecurrenceException();
                     }
@@ -101,10 +104,10 @@ public class HomeworkCommand extends Command {
                 }
                 else {
                     int priority = -1 ;
-                    String[] recurrenceSplit = prioritySplit[1].trim().split(("recu"));
+                    String[] recurrenceSplit = prioritySplit[1].trim().split("recu",2);
                     String priorityString = recurrenceSplit[0].trim();
                     if(!(recurrenceSplit.length==1)){
-                        String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
+                        String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ",2);
                         if(recurrenceSplit2.length == 1){
                             throw new RecurrenceException();
                         }
@@ -126,7 +129,7 @@ public class HomeworkCommand extends Command {
                     catch(Exception e){
                         throw new PrioritizeLimitException();
                     }
-                    if (priority < 0 || priority > 9) {
+                    if (priority < 1 || priority > 9) {
                         throw new PrioritizeLimitException();
                     }
                     newTask = new HomeworkTask(description,d,priority);
@@ -143,8 +146,17 @@ public class HomeworkCommand extends Command {
             }
         }
     }
-
-    public void contructRecurrenceTask(HomeworkTask task, int nbRecurrence, String typeOfRecurrence, TaskList tasks, Storage storage, Ui ui) throws FileException {
+    /**
+     * Helper method to construct recurrence task
+     * @param task the task that will be repeated
+     * @param nbRecurrence the number of recurrence
+     * @param typeOfRecurrence type of recurrence, can be day, week or month
+     * @param tasks leduc.task.TaskList which is the list of task.
+     * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
+     * @throws FileException Exception caught when the file can't be open or read or modify
+     */
+    private void contructRecurrenceTask(HomeworkTask task, int nbRecurrence, String typeOfRecurrence, TaskList tasks, Storage storage, Ui ui) throws FileException {
         ArrayList<Task> newTaskList = new ArrayList<>();
         LocalDateTime initialDate = task.getDeadlines().getDate();
         String description = task.getTask();
@@ -170,7 +182,7 @@ public class HomeworkCommand extends Command {
                 break;
             case "month":
                 for(int i = 1; i<= nbRecurrence; i++){
-                    HomeworkTask recurrentHomeworkTask = new HomeworkTask(description, new Date(initialDate.plusMinutes(i)), priority);
+                    HomeworkTask recurrentHomeworkTask = new HomeworkTask(description, new Date(initialDate.plusMonths(i)), priority);
                     newTaskList.add(recurrentHomeworkTask);
                     tasks.add(recurrentHomeworkTask);
                 }

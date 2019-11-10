@@ -1,7 +1,7 @@
 package leduc.command;
 
 import leduc.Date;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.EventsTask;
@@ -22,16 +22,16 @@ public class EditCommand extends Command {
     private static String editShortcut = "edit";
     /**
      * Constructor of EditCommand.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public EditCommand(String user){
-        super(user);
+    public EditCommand(String userInput){
+        super(userInput);
     }
 
     /**
      * Allow to edit a task.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws NonExistentDateException Exception caught when the date given does not exist.
      * @throws FileException Exception caught when the file can't be open or read or modify.
@@ -46,16 +46,16 @@ public class EditCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws NonExistentDateException, FileException, NonExistentTaskException, EmptyEventDateException, ConflictDateException, DateComparisonEventException, EditFormatException, UserAnswerException, EmptyTodoException {
         String userSubstring;
-        if(callByShortcut){
-            userSubstring = user.trim().substring(EditCommand.editShortcut.length());
+        if(isCalledByShortcut){
+            userSubstring = userInput.trim().substring(EditCommand.editShortcut.length());
         }
         else {
-            userSubstring = user.trim().substring(4);
+            userSubstring = userInput.trim().substring(4);
         }
         Task t = null;
         if(userSubstring.isBlank()) { // Multi-steps command
             ui.showEditChooseTask();
-            ListCommand listCommand = new ListCommand(user);
+            ListCommand listCommand = new ListCommand(userInput);
             listCommand.execute(tasks, ui, storage);
             // The user choose the task
             String userEditTaskNumber = ui.readCommand();
@@ -97,9 +97,9 @@ public class EditCommand extends Command {
             }
         }
         else { // one shot command
-            String[] descriptionString = userSubstring.split("description");
-            String[] homeworkDateString = userSubstring.split("/by");
-            String[] eventPeriodString = userSubstring.split("/at");
+            String[] descriptionString = userSubstring.split("description",2);
+            String[] homeworkDateString = userSubstring.split("/by",2);
+            String[] eventPeriodString = userSubstring.split("/at",2);
             if (descriptionString.length == 2 ){
                 t = getEditTask(descriptionString[0].trim(),tasks,false);
                 t.setTask(descriptionString[1].trim());
@@ -139,15 +139,15 @@ public class EditCommand extends Command {
     private void editEventDate(Task t, TaskList tasks, String period) throws EmptyEventDateException,
             NonExistentDateException, ConflictDateException, DateComparisonEventException {
         EventsTask eventsTask = (EventsTask) t;
-        String[] dateString = period.split(" - ");
+        String[] dateString = period.split(" - ",2);
         if (dateString.length == 1) {
             throw new EmptyEventDateException();
         } else if (dateString[0].isBlank() || dateString[1].isBlank()) {
             throw new EmptyEventDateException();
         }
-        Date date1 = new Date(dateString[0]);
-        Date date2 = new Date(dateString[1]);
-        tasks.verifyConflictDate(date1, date2);
+        Date date1 = new Date(dateString[0].trim());
+        Date date2 = new Date(dateString[1].trim());
+        tasks.verifyConflictDateEdit(date1, date2,eventsTask);
         eventsTask.reschedule(date1, date2);
     }
 
@@ -158,7 +158,7 @@ public class EditCommand extends Command {
      * @throws NonExistentDateException  Exception caught when the date given does not exist.
      */
     private void editHomeworkDate(Task t, String dateString) throws NonExistentDateException {
-        Date date = new Date(dateString);
+        Date date = new Date(dateString.trim());
         HomeworkTask homeworkTask = (HomeworkTask) t;
         homeworkTask.setDeadlines(date);
     }

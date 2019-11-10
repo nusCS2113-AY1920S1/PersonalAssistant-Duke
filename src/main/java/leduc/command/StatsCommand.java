@@ -2,7 +2,7 @@
 package leduc.command;
 import leduc.exception.InvalidFlagException;
 import leduc.storage.Storage;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.task.TaskList;
 import leduc.task.Task;
 import java.util.Arrays;
@@ -54,8 +54,13 @@ public class StatsCommand extends Command {
      * static variable used for shortcut
      */
     private static String StatsShortcut = "stats";
-    public StatsCommand(String user){
-        super(user);
+
+    /**
+     * Contructor of StatsCommand
+     * @param userInput The user input
+     */
+    public StatsCommand(String userInput){
+        super(userInput);
     }
     /**
      * Analyze the tasklist and generate the "count" metrics
@@ -157,12 +162,12 @@ public class StatsCommand extends Command {
     /**
      * Allow to see statistics on their taskList
      * @param taskList leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
     public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidFlagException {
         //get user flag
-        String flag = String.join(" ", Arrays.copyOfRange(user.split(" "), 1, user.split( " ").length));
+        String flag = String.join(" ", Arrays.copyOfRange(userInput.split(" "), 1, userInput.split( " ").length));
         analyzeTaskList(taskList);
         createPercentageMetrics();
         //display metrics

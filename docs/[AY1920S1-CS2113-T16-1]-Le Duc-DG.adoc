@@ -320,7 +320,7 @@ image::SequenceDiagramEditOneShot.png[width="1000", align="left"]
 
 ==== *Prioritize a task*
 
-A task has initially a priority of 5. The priority of a task goes from 0 to 9.
+A task has initially a priority of 5. The priority of a task goes from 1 to 9.
 This command allows the user to change the priority of a task.
 
 The sequence diagram show the interactions between different classes when the user wants to change to priority of the first task to 2.

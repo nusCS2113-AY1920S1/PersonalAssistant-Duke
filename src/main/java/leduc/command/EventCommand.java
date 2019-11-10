@@ -3,7 +3,7 @@ package leduc.command;
 import leduc.Date;
 import leduc.exception.*;
 import leduc.storage.Storage;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.task.EventsTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
@@ -23,16 +23,17 @@ public class EventCommand extends Command {
     private static String eventShortcut = "event";
     /**
      * Constructor of EventCommand.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public  EventCommand(String user){
-        super(user);
+    public  EventCommand(String userInput){
+        super(userInput);
     }
 
     /**
-     * Allow to add a event task to the task list and to the data file.
+     * Allow to add a event task to the task list and to the data file. The user can set a priority or a recurrence or both of them.
+     * Recurrence only add new homework with day/week/month interval.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws EmptyEventDateException Exception caught when the period of the event task is not given by the user.
      * @throws EmptyEventException Exception caught when the description of the event task is not given by the user.
@@ -47,15 +48,15 @@ public class EventCommand extends Command {
         String userSubstring;
         int nbRecurrence = 0;
         String typeOfRecurrence = "";
-        if (callByShortcut) {
-            userSubstring = user.substring(EventCommand.eventShortcut.length());
+        if (isCalledByShortcut) {
+            userSubstring = userInput.substring(EventCommand.eventShortcut.length());
         } else {
-            userSubstring = user.substring(5);
+            userSubstring = userInput.substring(5);
         }
         if (userSubstring.isBlank()) {
             throw new EmptyEventException();
         }
-        String[] taskDescription = userSubstring.split("/at");
+        String[] taskDescription = userSubstring.split("/at",2);
         if (taskDescription[0].isBlank()) {
             throw new EmptyEventException();
         } else if (taskDescription.length == 1) { // no /at in input
@@ -64,13 +65,13 @@ public class EventCommand extends Command {
             String description = taskDescription[0].trim();
             String periodString = taskDescription[1].trim();
             //date format used: dd/MM/yyyy HH:mm - dd/MM/yyyy HH:mm
-            String[] prioritySplit = periodString.split("prio");
+            String[] prioritySplit = periodString.split("prio",2);
             String[] dateString = null;
             if(prioritySplit.length == 1){
-                String[] recurrenceSplit = prioritySplit[0].trim().split(("recu"));
-                dateString = recurrenceSplit[0].trim().split(" - ");
+                String[] recurrenceSplit = prioritySplit[0].trim().split("recu",2);
+                dateString = recurrenceSplit[0].trim().split(" - ",2);
                 if(!(recurrenceSplit.length==1)){
-                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
+                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ",2);
                     if(recurrenceSplit2.length == 1){
                         throw new RecurrenceException();
                     }
@@ -88,15 +89,15 @@ public class EventCommand extends Command {
                 }
             }
             else {
-                dateString = prioritySplit[0].split(" - ");
+                dateString = prioritySplit[0].split(" - ",2);
             }
             if (dateString.length == 1) {
                 throw new EmptyEventDateException();
             } else if (dateString[0].isBlank() || dateString[1].isBlank()) {
                 throw new EmptyEventDateException();
             }
-            Date date1 = new Date(dateString[0]);
-            Date date2 = new Date(dateString[1]);
+            Date date1 = new Date(dateString[0].trim());
+            Date date2 = new Date(dateString[1].trim());
             tasks.verifyConflictDate(date1, date2);
             if (date1.getDate().isAfter(date2.getDate())) {
                 throw new EventDateException();
@@ -106,10 +107,10 @@ public class EventCommand extends Command {
                 newTask = new EventsTask(description, date1, date2);
             } else {
                 int priority = -1;
-                String[] recurrenceSplit = prioritySplit[1].trim().split(("recu"));
+                String[] recurrenceSplit = prioritySplit[1].trim().split(("recu"),2);
                 String priorityString = recurrenceSplit[0].trim();
-                if(!(recurrenceSplit.length==1)){
-                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
+                if(!(recurrenceSplit.length == 1)){
+                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ",2);
                     if(recurrenceSplit2.length == 1){
                         throw new RecurrenceException();
                     }
@@ -130,7 +131,7 @@ public class EventCommand extends Command {
                 } catch (Exception e) {
                     throw new PrioritizeLimitException();
                 }
-                if (priority < 0 || priority > 9) {
+                if (priority < 1 || priority > 9) {
                     throw new PrioritizeLimitException();
                 }
                 newTask = new EventsTask(description, date1, date2, priority);
@@ -147,7 +148,18 @@ public class EventCommand extends Command {
         }
     }
 
-    public void contructRecurrenceTask(EventsTask task, int nbRecurrence, String typeOfRecurrence, TaskList tasks, Storage storage, Ui ui) throws FileException, RecurrenceDateException {
+    /**
+     * Helper method to construct recurrence task
+     * @param task the task that will be repeated
+     * @param nbRecurrence the number of recurrence
+     * @param typeOfRecurrence type of recurrence, can be day, week or month
+     * @param tasks leduc.task.TaskList which is the list of task.
+     * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
+     * @throws FileException Exception caught when the file can't be open or read or modify
+     * @throws RecurrenceDateException Exception caught when there is a conflict date between recurrence task
+     */
+    private void contructRecurrenceTask(EventsTask task, int nbRecurrence, String typeOfRecurrence, TaskList tasks, Storage storage, Ui ui) throws FileException, RecurrenceDateException {
         ArrayList<Task> newTaskList = new ArrayList<>();
         LocalDateTime initialDate1 = task.getDateFirst().getDate();
         LocalDateTime initialDate2 = task.getDateSecond().getDate();

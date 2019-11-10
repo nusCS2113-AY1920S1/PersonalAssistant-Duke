@@ -1,6 +1,6 @@
 /* @@author rshah918 */
 package leduc.command;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.storage.Storage;
 import leduc.task.Task;
 import leduc.task.TaskList;
@@ -16,15 +16,15 @@ public class UnfinishedCommand extends Command {
     /**
     /**
      * Constructor of UnfinishedCommand.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public UnfinishedCommand(String user){
-        super(user);
+    public UnfinishedCommand(String userInput){
+        super(userInput);
     }
     /**
      * Allows users to see all unfinished tasks.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage){

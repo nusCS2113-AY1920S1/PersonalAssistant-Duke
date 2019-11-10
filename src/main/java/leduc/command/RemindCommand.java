@@ -1,6 +1,6 @@
 package leduc.command;
 import leduc.storage.Storage;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.task.TaskList;
 import leduc.task.Task;
 import java.util.ArrayList;
@@ -15,10 +15,10 @@ public class RemindCommand extends Command {
     private static String remindShortcut = "remind";
     /**
      * Constructor of FindCommand.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public RemindCommand(String user){
-        super(user);
+    public RemindCommand(String userInput){
+        super(userInput);
     }
     /**
      * Returns a boolean false as it is a remind command.
@@ -30,7 +30,7 @@ public class RemindCommand extends Command {
     /**
      * Allow to remind user of upcoming tasks.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage){

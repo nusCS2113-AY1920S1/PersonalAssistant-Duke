@@ -132,7 +132,7 @@ Giving priority to task: `prioritize INDEX prio INDEX`
 
 The first INDEX is the task index
 
-The second INDEX is the priority (goes from 0 to 9)
+The second INDEX is the priority (goes from 1 to 9)
 
 Be careful:
 
@@ -197,7 +197,7 @@ The sequence diagram shows the interactions between different classes when the u
 
 ==== *Prioritize a task*
 
-A task has initially a priority of 5. The priority of a task goes from 0 to 9.
+A task has initially a priority of 5. The priority of a task goes from 1 to 9.
 This command allows the user to change the priority of a task.
 
 The sequence diagram show the interactions between different classes when the user wants to change to priority of the first task to 2.

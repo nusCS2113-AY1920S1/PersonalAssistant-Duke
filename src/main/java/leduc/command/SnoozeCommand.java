@@ -1,6 +1,6 @@
 package leduc.command;
 
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.HomeworkTask;
@@ -18,16 +18,16 @@ public class SnoozeCommand extends Command{
     private static String snoozeShortcut = "snooze";
     /**
      * Constructor of SnoozeCommand.
-     * @param user user String which represent the input string of the user.
+     * @param userInput user String which represent the input string of the user.
      */
-    public SnoozeCommand(String user){
-        super(user);
+    public SnoozeCommand(String userInput){
+        super(userInput);
     }
 
     /**
      * Allows to snooze the deadline of a homework task.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws NonExistentTaskException Exception caught when the task does not exist.
      * @throws HomeworkTypeException Exception caught when the task is not a homework task.
@@ -35,11 +35,11 @@ public class SnoozeCommand extends Command{
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NonExistentTaskException, HomeworkTypeException, FileException {
         String userSubstring;
-        if(callByShortcut){
-            userSubstring = user.substring(SnoozeCommand.snoozeShortcut.length() + 1);
+        if(isCalledByShortcut){
+            userSubstring = userInput.substring(SnoozeCommand.snoozeShortcut.length() + 1);
         }
         else {
-            userSubstring = user.substring(7);
+            userSubstring = userInput.substring(7);
         }
         int index = Integer.parseInt(userSubstring) - 1;
         if (index > tasks.size() - 1 || index < 0) {

@@ -1,8 +1,4 @@
 package leduc.exception;
-
-
-
-
 /**
  * Represent a exception when the task is not a homework task while it should be
  */

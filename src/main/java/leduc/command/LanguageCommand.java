@@ -1,32 +1,42 @@
 package leduc.command;
 
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.exception.DukeException;
 import leduc.exception.EmptyArgumentException;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
 
+/**
+ * Represent the language command.
+ * Allow to change the language of the software
+ */
 public class LanguageCommand extends Command {
 
     private static String languageShortcut = "language";
 
     /**
      * Constructor of Command.
-     *
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public LanguageCommand(String user) {
-        super(user);
+    public LanguageCommand(String userInput) {
+        super(userInput);
     }
 
+    /**
+     * Allow the user to change the language of the software
+     * @param tasks leduc.task.TaskList which is the list of task.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
+     * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @throws DukeException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String userSubstring;
-        if(callByShortcut){
-            userSubstring = user.substring(LanguageCommand.languageShortcut.length()).trim();
+        if(isCalledByShortcut){
+            userSubstring = userInput.substring(LanguageCommand.languageShortcut.length()).trim();
         }
         else {
-            userSubstring = user.substring(8).trim();
+            userSubstring = userInput.substring(8).trim();
         }
         if(userSubstring.isBlank()){
             throw new EmptyArgumentException();

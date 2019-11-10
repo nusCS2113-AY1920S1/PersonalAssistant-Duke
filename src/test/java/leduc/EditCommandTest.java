@@ -8,6 +8,8 @@ import leduc.task.EventsTask;
 import leduc.task.HomeworkTask;
 import leduc.task.TaskList;
 import leduc.task.TodoTask;
+import leduc.ui.Ui;
+import leduc.ui.UiEn;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

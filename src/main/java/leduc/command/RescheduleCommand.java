@@ -1,7 +1,7 @@
 package leduc.command;
 
 import leduc.Date;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.EventsTask;
@@ -19,19 +19,17 @@ public class RescheduleCommand extends Command {
     private static String rescheduleShortcut = "reschedule";
     /**
      * Constructor of RescheduleCommand.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      *
      */
-    public RescheduleCommand(String user){
-        super(user);
+    public RescheduleCommand(String userInput){
+        super(userInput);
     }
 
     /**
-     *
      * Allows to reschedule the period of a event task.
-     *
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws EmptyEventDateException Exception caught when the period of the event task is not given by the user.
      * @throws NonExistentTaskException Exception caught when the task does not exist.
@@ -45,16 +43,16 @@ public class RescheduleCommand extends Command {
             NonExistentTaskException, EventTypeException, NonExistentDateException,
             DateComparisonEventException, FileException, ConflictDateException, EmptyArgumentException {
         String userSubstring;
-        if(callByShortcut){
-            userSubstring = user.substring(RescheduleCommand.rescheduleShortcut.length());
+        if(isCalledByShortcut){
+            userSubstring = userInput.substring(RescheduleCommand.rescheduleShortcut.length());
         }
         else {
-            userSubstring = user.substring(10);
+            userSubstring = userInput.substring(10);
         }
         if(userSubstring.isBlank()){
             throw new EmptyArgumentException();
         }
-        String[] rescheduleString = userSubstring.split("/at");
+        String[] rescheduleString = userSubstring.split("/at",2);
         if (rescheduleString.length == 1) { // no /by in input
             throw new EmptyEventDateException();
         }
@@ -74,16 +72,16 @@ public class RescheduleCommand extends Command {
                 throw new EventTypeException();
             }
             EventsTask rescheduleEventTask = (EventsTask) rescheduleTask;
-            String[] dateString = rescheduleString[1].split(" - ");
+            String[] dateString = rescheduleString[1].split(" - ",2);
             if(dateString.length == 1){
                 throw new EmptyEventDateException();
             }
             else if(dateString[0].isBlank() || dateString[1].isBlank()){
                 throw new EmptyEventDateException();
             }
-            Date date1 = new Date(dateString[0]);
-            Date date2 = new Date(dateString[1]);
-            tasks.verifyConflictDate(date1, date2);
+            Date date1 = new Date(dateString[0].trim());
+            Date date2 = new Date(dateString[1].trim());
+            tasks.verifyConflictDateEdit(date1, date2,rescheduleEventTask);
             rescheduleEventTask.reschedule(date1,date2);
             storage.save(tasks.getList());
             ui.showReschedule(rescheduleEventTask);

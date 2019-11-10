@@ -1,6 +1,6 @@
 package leduc.command;
 
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.exception.DukeException;
 import leduc.exception.DuplicationShortcutException;
 import leduc.exception.MeaninglessException;
@@ -9,16 +9,42 @@ import leduc.task.TaskList;
 
 import java.util.HashSet;
 
+/**
+ * Represent the language command.
+ * Allow to set or change the shortcut
+ */
 public class ShortcutCommand extends Command {
 
-    public ShortcutCommand(String user){
-        super(user);
+    /**
+     * Constructor of ShortcutCommand
+     * @param userInput the user input
+     */
+    public ShortcutCommand(String userInput){
+        super(userInput);
     }
+
+    /**
+     * HashSet that will contains all the shortcut, use of hashset so there are no duplicate
+     */
     private static HashSet<String> setShortcut = new HashSet<>();
+    /**
+     * HashSet that will contains all the default command name to avoid conflict, use of hashset so there are no duplicate
+     */
     private static HashSet<String> setDefaultShortcut = new HashSet<>();
+
+    /**
+     * Allow to set or change the shortcut. Three cases :
+     * - one line command to change one shortcut command
+     * - multi line command to change one shortcut command
+     * - multi line command to change all the command
+     * @param tasks leduc.task.TaskList which is the list of task.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
+     * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @throws DukeException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        String[] userCommand = user.split(" ");
+        String[] userCommand = this.userInput.split(" ");
         String newShortcut="";
         if (userCommand.length >= 2){
             if(userCommand.length >= 3){
@@ -261,6 +287,12 @@ public class ShortcutCommand extends Command {
         storage.saveConfig();
     }
 
+    /**
+     * Helper method to set one command
+     * @param commandName the command which the shortcut will be change
+     * @param shortcutName the shortcut name
+     * @throws MeaninglessException thrown when the command name is unknown
+     */
     public static void setOneShortcut(String commandName, String shortcutName) throws MeaninglessException {
         switch (commandName){
             case "bye" :
@@ -373,9 +405,17 @@ public class ShortcutCommand extends Command {
         }
     }
 
+    /**
+     * getter to have the HashSet containing all the shortcut
+     * @return the hashset containing all the shortcut
+     */
     public static HashSet<String> getSetShortcut(){
         return setShortcut;
     }
+
+    /**
+     * initialized all the default command name when opening the software
+     */
     public static void initializedSetShortcut(){
         setDefaultShortcut.add("bye");
         setDefaultShortcut.add("list");

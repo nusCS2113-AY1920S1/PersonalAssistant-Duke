@@ -1,10 +1,11 @@
-package leduc;
+package leduc.ui;
 
 import leduc.exception.*;
 import leduc.task.EventsTask;
 import leduc.task.HomeworkTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
+import leduc.ui.Ui;
 
 import java.util.ArrayList;
 

@@ -2,6 +2,8 @@ package leduc;
 
 import leduc.exception.*;
 import leduc.task.*;
+import leduc.ui.Ui;
+import leduc.ui.UiEn;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -77,7 +79,7 @@ public class UiEnTest {
         assertTrue(outContent.toString().contains("This is the new task list order:"));
         ui.showGeneralStats(1,1,1,1,1,1,1);
         assertTrue(outContent.toString().contains("Here are some general statistics about your task list"));
-        ui.showPriorityStats(1,1,1,1,1,1,1,1,1,1);
+        ui.showPriorityStats(1,1,1,1,1,1,1,1,1,1,11.1,11.1,11.1,11.1,11.1,11.1,11.1,11.1);
         assertTrue(outContent.toString().contains("Here are some priority statistics about your task list"));
         ui.showCompletionStats(1,1,1,1,1,1);
         assertTrue(outContent.toString().contains("Here are some completion statistics about your task list"));

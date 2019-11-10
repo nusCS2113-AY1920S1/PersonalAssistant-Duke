@@ -5,6 +5,9 @@ import leduc.command.ShortcutCommand;
 import leduc.exception.DukeException;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
+import leduc.ui.Ui;
+import leduc.ui.UiEn;
+import leduc.ui.UiFr;
 
 //import java.net.URL;
 

@@ -2,6 +2,8 @@ package leduc;
 
 import leduc.exception.*;
 import leduc.task.*;
+import leduc.ui.Ui;
+import leduc.ui.UiFr;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -77,7 +79,7 @@ public class UiFrTest {
         assertTrue(outContent.toString().contains("Voici la nouvelle liste de tâche dans l'ordre:"));
         ui.showGeneralStats(1,1,1,1,1,1,1);
         assertTrue(outContent.toString().contains("Voici quelques statistiques à propos de votre liste de tâche"));
-        ui.showPriorityStats(1,1,1,1,1,1,1,1,1,1);
+        ui.showPriorityStats(1,1,1,1,1,1,1,1,1,1,11.1,11.1,11.1,11.1,11.1,11.1,11.1,11.1);
         assertTrue(outContent.toString().contains("Voici quelques statistiques prioritaires sur votre liste de tâches"));
         ui.showCompletionStats(1,1,1,1,1,1);
         assertTrue(outContent.toString().contains("Voici quelques statistiques d'achèvement de votre liste de tâches"));
