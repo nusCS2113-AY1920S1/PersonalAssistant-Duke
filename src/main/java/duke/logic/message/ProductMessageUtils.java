@@ -24,4 +24,9 @@ public class ProductMessageUtils {
     public static final String MESSAGE_NON_EMPTY_REVERSE_PARAMETER = "-re should not take any value";
     public static final String MESSAGE_INVALID_INGREDIENT_FORMAT = "Invalid input, please use "
         + "[INGREDIENT_NAME, PORTION_NUMBER] format";
+    public static final String MESSAGE_INDEX_OUT_OF_BOUND = "No product found at index [%d].";
+    public static final String MESSAGE_EMPTY_INDICES = "Indices cannot be empty.";
+    public static final String MESSAGE_DELETE_SUCCESS = "Product(s) removed.";
+
+
 }

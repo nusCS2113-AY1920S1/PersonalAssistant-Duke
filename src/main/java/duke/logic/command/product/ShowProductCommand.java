@@ -20,11 +20,6 @@ public class ShowProductCommand extends ProductCommand {
 
     public final Index index;
 
-    public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
-    public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
-        CliSyntax.PREFIX_PRODUCT_INDEX,
-    };
-
     public ShowProductCommand(Index index) {
         requireAllNonNull(index);
 
