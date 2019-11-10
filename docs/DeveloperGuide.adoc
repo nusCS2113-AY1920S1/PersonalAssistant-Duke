@@ -1499,7 +1499,7 @@ Expected: Similar to previous.
 Expected: Error displayed regarding an invalid argument.
 
 ==== Adding an `assignment` task
-. Prerequisites: Module has been selected using the `module /select command`.
+. Prerequisites: Module has been selected using the `module /select` command.
 
 . Test case: `assignment Lab /by 15-11-2019 23:59` +
 Expected: An acknowledgement message displayed regarding the successful addition of a `assignment` task for selected `module`.
@@ -1527,7 +1527,7 @@ Expected: Error displayed regarding starting date and time being after ending da
 Expected: Error displayed regarding an invalid argument.
 
 ==== Adding an `assessment` task
-. Prerequisites: Module has been selected using the `module /select command`.
+. Prerequisites: Module has been selected using the `module /select` command.
 
 . Test case: `assessment Finals /from 30-11-2019 10:00 /to 30-11-2019 12:00` +
 Expected: An acknowledgement message displayed regarding the successful addition of a `assessment` task for selected `module`.
