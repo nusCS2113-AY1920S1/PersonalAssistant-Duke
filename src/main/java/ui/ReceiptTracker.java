@@ -84,7 +84,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
         if (isRegisteredTag(tag)) {
             throw new DukeException("Category already exists!");
         }
-        ArrayList<Receipt> taggedReceipts = getReceiptsByTag(tag);
+        ArrayList<Receipt> taggedReceipts = getReceiptsByTags(tag);
         if (taggedReceipts.size() < this.size()) {
             this.getFolders().put(tag, new ReceiptTracker(taggedReceipts));
         }
@@ -107,13 +107,16 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * @param tag Specific String to be filtered with.
      * @return ArrayList containing all the Receipts with the specific tag
      */
-    public ReceiptTracker getReceiptsByTag(String tag)  {
+    public ReceiptTracker getReceiptsByTags(String tag) throws DukeException {
         ReceiptTracker taggedReceipts = new ReceiptTracker();
         taggedReceipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.containsTag(tag)) {
                 taggedReceipts.addReceipt(receipt);
             }
+        }
+        if (taggedReceipts.isEmpty()) {
+            throw new DukeException("No such tag found in the list");
         }
         return taggedReceipts;
     }
@@ -225,11 +228,11 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * @param tag String representing the tag to filter by
      * @return Double, the total amount spent on a given tag
      */
-    public double getCashSpentByTag(String tag) {
+    public double getCashSpentByTag(String tag) throws DukeException {
         if (isRegisteredTag(tag)) {
             return this.getFolders().get(tag).getNettCashSpent();
         } else {
-            ReceiptTracker temp = new ReceiptTracker(this.getReceiptsByTag(tag));
+            ReceiptTracker temp = new ReceiptTracker(this.getReceiptsByTags(tag));
             return temp.getNettCashSpent();
         }
     }

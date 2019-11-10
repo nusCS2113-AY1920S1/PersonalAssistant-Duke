@@ -39,8 +39,7 @@ public class CommandStatisticsTest {
         CommandStatistics s3 = new CommandStatistics("stats books");
         s3.execute(storageManager);
         String result2 = s3.getInfoCapsule().getOutputStr();
-        assertEquals("0.00% of your wallet expenses is spent on books\n"
-                + "You spent a total of $0.00 on books\n\n\n", result2);
+        assertEquals("No such tag found in the list", result2);
 
     }
 
