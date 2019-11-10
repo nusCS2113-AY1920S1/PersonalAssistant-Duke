@@ -1,15 +1,14 @@
 package controllers;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.text.ParseException;
+import java.util.Date;
 import models.project.Project;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
 import util.date.DateTimeHelper;
-
-import java.text.ParseException;
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProjectInputControllerTest {
     private ProjectRepository projectRepository;
@@ -47,8 +46,9 @@ class ProjectInputControllerTest {
         assertEquals(expectedOutput, actualOutput);
     }
 
+    //@@author sinteary
     @Test
-    void testProjectAddMember_duplicateMembers() {
+    void testProjectAddMember_duplicateMemberName_executionFail() {
         Project project = new Project("Infinity_Gauntlet");
         simulatedUserInput = "add member -n Cynthia";
         projectInputController.projectAddMember(project, simulatedUserInput);
@@ -61,7 +61,7 @@ class ProjectInputControllerTest {
     }
 
     @Test
-    void testProjectAddMember_noName() {
+    void testProjectAddMember_noName_executionFail() {
         Project project = new Project("Infinity_Gauntlet");
         simulatedUserInput = "add member";
         String[] projectOutput = projectInputController.projectAddMember(project, simulatedUserInput);
@@ -72,7 +72,7 @@ class ProjectInputControllerTest {
         assertEquals("Name cannot be empty! Please follow the add command format in user guide!"
             + " \"add member -n NAME\" is the minimum requirement for add member command", projectOutput[0]);
     }
-
+    //@@author
 
     @Test
     void testProjectEditMember_valid() {

@@ -1,0 +1,4 @@
+= ArchDuke - Dev Ops
+
+== 6.1 Build Automation
+We use Gradle for build automation. 

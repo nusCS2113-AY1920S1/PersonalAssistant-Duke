@@ -246,11 +246,12 @@ the `Project`.
 === 2.5. Utility Classes
 
 Classes used by multiple components are in the 'util' package. Within this package are several subpackages that
-assist the functionality of ArchDuke. The following table shows a brief description of these classes.
+assist the functionality of ArchDuke. The following table shows a brief description of these classes and a link
+to their API.
 
-[width="100%",cols="22%,<50%",options="header",]
+[width="100%",cols="22%,<50%,<28%",options="header",]
 |=======================================================================
-|Class | Functionality
+|Class | Functionality | API
 |ArchDukeLogger|
 |AssignmentViewHelper| Handles `view assignments` commands, retrieves and organises task assignment information to display to the user.
 |CommandHelper|
@@ -745,7 +746,7 @@ is the `logs` directory.
 
 == 4. Documentation
 
-// Refer to the guide <<Documentation#, here>>.
+//Refer to the guide <<Documentation#, here>>.
 We chose to use AsciiDoc to write the documentation. This is because Ascii syntax is consistent and there is a flexibility offered
 for essential syntax unlike MarkDown.
 
@@ -757,7 +758,7 @@ for essential syntax unlike MarkDown.
 
 == 6. Dev Ops
 
-// Refer to the guide <<DevOps#, here>>.
+//Refer to the guide <<DevOps#, here>>.
 
 [appendix]
 == Product Scope

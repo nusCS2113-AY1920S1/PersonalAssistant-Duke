@@ -38,6 +38,10 @@ public class ConstantHelper {
 
     public static final String UNASSIGNEE_MARKER = "rm";
 
+    public static final int MEMBER_FLAG_LENGTH = 4; //"-to " or "-rm "
+
+    public static final int TASK_FLAG_LENGTH = 3; //"-i "
+
     public static final String ALL_MARKER = "all";
 
     public static final String BLANK = "";

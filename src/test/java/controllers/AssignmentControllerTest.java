@@ -11,11 +11,15 @@ import models.task.Task;
 import models.task.TaskState;
 import org.junit.jupiter.api.Test;
 
+//@@author sinteary
 public class AssignmentControllerTest {
     private final Project project;
     private final Member member1;
     private final Member member2;
     private final Member member3;
+    private String simulatedUserInput;
+    private String actualOutput;
+    private String expectedOutput;
 
     AssignmentControllerTest() {
         this.project = new Project("Test Project");
@@ -31,11 +35,6 @@ public class AssignmentControllerTest {
     }
 
     @Test
-    void alwaysTrue() {
-        assertEquals(2, 2);
-    }
-
-    @Test
     void testSetupOfProjectAndMembers() {
         assertEquals("Test Project", project.getName());
         assertEquals("1. Tom (Phone: NIL | Email: NIL | Role: member)",
@@ -45,28 +44,61 @@ public class AssignmentControllerTest {
         assertEquals("3. Harry (Phone: NIL | Email: NIL | Role: member)",
             member3.getDetails());
         assertEquals(3, project.getNumOfMembers());
-        assertEquals("Tom", project.getMemberList().getMember(1).getName());
-        assertEquals("Dick", project.getMemberList().getMember(2).getName());
-        assertEquals("Harry", project.getMemberList().getMember(3).getName());
-        assertEquals(1, project.getTaskList().getSize());
-        assertEquals("Test task", project.getTask(1).getTaskName());
+        assertEquals("Tom", project.getMember(1).getName());
+        assertEquals("Dick", project.getMember(2).getName());
+        assertEquals("Harry", project.getMember(3).getName());
+        assertEquals(1, project.getNumOfTasks());
     }
 
     @Test
-    void testAssignAndUnassign() {
+    void testAssignAndUnassign_validInput_executionSuccess() {
         AssignmentController assignmentController = new AssignmentController(project);
-        String assignCommand = "assign task -i 1 -to 1 2 -rm 3 4";
-        assignmentController.assignAndUnassign(assignCommand);
+        simulatedUserInput = "assign task -i 1 -to 1 2";
+        assignmentController.assignAndUnassign(simulatedUserInput);
         assertTrue(project.containsAssignment(project.getTask(1), member1));
         assertTrue(project.containsAssignment(project.getTask(1), member2));
         assertFalse(project.containsAssignment(project.getTask(1), member3));
 
         assignmentController = new AssignmentController(project);
-        assignCommand = "assign task -i 1 -to 3 -rm 1 ";
-        assignmentController.assignAndUnassign(assignCommand);
+        simulatedUserInput = "assign task -i 1 -to 3 -rm 1 ";
+        assignmentController.assignAndUnassign(simulatedUserInput);
         assertFalse(project.containsAssignment(project.getTask(1), member1));
         assertTrue(project.containsAssignment(project.getTask(1), member2));
         assertTrue(project.containsAssignment(project.getTask(1), member3));
     }
+
+    @Test
+    void testAssignAndUnassign_insufficientInputs_executionFail() {
+        AssignmentController assignmentController = new AssignmentController(project);
+        simulatedUserInput = "assign task";
+        assignmentController.assignAndUnassign(simulatedUserInput);
+        ArrayList<String> errorMessages = assignmentController.getErrorMessages();
+        actualOutput = errorMessages.get(0);
+        expectedOutput = "Insufficient parameters! "
+            + "Indicate the tasks and members whom you wish to assign or remove!";
+        assertEquals(expectedOutput, actualOutput);
+
+        simulatedUserInput = "assign task -i";
+        assignmentController = new AssignmentController(project);
+        assignmentController.assignAndUnassign(simulatedUserInput);
+        errorMessages = assignmentController.getErrorMessages();
+        actualOutput = errorMessages.get(0);
+        expectedOutput = "No valid task numbers detected. Cannot assign/unassign any tasks.";
+        assertEquals(expectedOutput, actualOutput);
+
+        simulatedUserInput = "assign task -i 1 -to";
+        assignmentController = new AssignmentController(project);
+        assignmentController.assignAndUnassign(simulatedUserInput);
+        errorMessages = assignmentController.getErrorMessages();
+        actualOutput = errorMessages.get(0);
+        expectedOutput = "No valid member indexes detected. No tasks can be assigned/unassigned.";
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    void testAssignAndUnassign_invalidTaskIndex_executionFail() {
+
+    }
+
 
 }
