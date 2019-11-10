@@ -413,11 +413,25 @@ e.g. `routeNodeShow 1 1`
 . The `LogicManager` parses the user input using the `Parser`.
 . The `Parser` breakdowns the user input into and returns an `RouteNodeShowCommand` Object.
 . During the `execute()` method, the `Route` that the `RouteNode` that is being shown is obtained by calling the `getRoute()` method in the `Model`. By calling `getNode()` on the `Route`, the `RouteNode` being shown will be obtained.
-. The `generateRouteNodeShow()` method is called in the `ApiParser` class. This method constructs a `String` from the parameters of the `RouteNode` object, and obtains an `Image` object from the `getStaticMap` method in the `ApiParser`.
+. The `generateRouteNodeShow()` method is called in the `ApiParser` class. This method constructs a string from the parameters of the `RouteNode` object, and obtains an `Image` object from the `getStaticMap` method in the `ApiParser`.
 . A `StaticMapUrlRequest` object is created, which will send a request to the OneMap API. The API returns an `Image` object back to the `StaticMapUrlRequest`, which will return the object back to the `ApiParser`. This `Image` is returned back to the `RouteNodeShowCommand` object, which will then return a `ComandResultImage` object with the `Image` and the parameters of the `RouteNode`.
 
 .Activity diagram for the execute() method in RouteNodeShowCommand
 image::SGTravel_routeNodeShow_diagram.png[height="1150" width="850"]
+
+The user can also show the map of a `RouteNode` and nearby `BusStop` and `TrainStation` objects by using the `RouteNodeNearbyCommand`. Given below is an example usage scenario and how the `Model`, `RouteList`, `Route` and `RouteNode` object behave at each step:
+
+.  The user calls the `RouteNodeNearbyCommand` with its relevant parameters. +
+e.g. `routeNodeNearby 1 1`
+. The `LogicManager` parses the user input using the `Parser`.
+. The `Parser` breakdowns the user input into and returns an `RouteNodeShowCommand` Object.
+. During the `execute()` method, the `Route` that the `RouteNode` that is being shown is obtained by calling the `getRoute()` method in the `Model`. By calling `getNode()` on the `Route`, the `RouteNode` being shown will be obtained.
+. The list of nearby `RouteNode` (`BusStop` and `TrainStation`) are obtained by calling the `getNeighbour()` method in the `ApiParser` class.
+. The `generateStaticMapNeighbours()` method is called in the `ApiParser` class. This method constructs a string from the parameters of the `RouteNode` object and the list of nearby `RouteNodes`, and obtains an `Image` object from the `getStaticMap` method in the `ApiParser`.
+. A `StaticMapUrlRequest` object is created, which will send a request to the OneMap API. The API returns an `Image` object back to the `StaticMapUrlRequest`, which will return the object back to the `ApiParser`. This `Image` is returned back to the `RouteNodeNearbyCommand` object, which will then return a `ComandResultImage` object with the `Image` and list of nearby `RouteNodes`.
+
+.Activity diagram for the execute() method in RouteNodeShowCommand
+image::SGTravel_routeNodeNearby_diagram.png[height="1290" width="850"]
 
 The user can also automatically generate a new `Route` by using the `RouteGenerateCommand`. Given below is an exmample usage scenario and how the `Model`, `RouteList` and `PathFinder` object behave at each step.
 
@@ -432,6 +446,32 @@ e.g. `routeGenerate amk hub to nus by bus`
 
 .Activity diagram for the execute() method in RouteGenerateCommand
 image::SGTravel_routeGenerate_diagram.png[height="1150" width="1030"]
+
+==== Design Considerations
+
+===== **Aspect:  How RouteNodes are stored**
+
+* **Alternative 1:** `RouteNode` is stored as an object.
+** Pros: Easy to edit and interact with.
+** Cons: Requires making a `BusStop`, `TrainStation` and `CustomNode` object, as all 3 items have different properties.
+
+* **Alternative 2:** `RouteNode` would be stored as a String instead, and is broken up into its individual parts when manipulated.
+** Pros: Easy to implement.
+** Cons: Prone to errors in breaking up the String because of its contents, and hard to maintain.
+
+===== **Aspect:  How Routes are stored**
+
+* **Alternative 1:** A `RouteList` object holds several Routes in an ArrayList. 
+** Pros: Easy to interact with and modify a `Route`. Keeps the `Model` simple.
+** Cons: Will require more work to implement.
+
+* **Alternative 2:** `Routes` would be located in an ArrayList in the SGTravel’s model.
+** Pros: Quick and easy to implement.
+** Cons: Limited ability to manipulate a `Route`. Additional manipulation commands will bloat up the model.
+
+==== [Proposed] Route Manager
+
+The completed Route feature would include a `RouteManager` class in v2.0. The `RouteManager` will be similar to the `EditorManager` class, and will be activated by entering a specific command. With the `RouteManager` turned on, ther user interacts in multi-step commands instead. In order to simplify the user experience, the `Route` and `RouteNode` that the user wants to interact with, are stored in the `RouteManager`. Commands entered will directly affect the `Route` and `RouteNode` stored in the `RouteManager`, and the user can easily change the `Route` and `RouteNode` that are selected by commands too. A saving feature as seen in the `EditorManager` class will also be implemented, allowing the user to easily save or discard changes. 
 
 === Itinerary Feature
 
