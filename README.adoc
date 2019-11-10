@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/agqgm1oree8iohvq?svg=true)] (https://ci.appveyor.com/project/E0310898/main/branch/master)
+[https://ci.appveyor.com/api/projects/status/agqgm1oree8iohvq?svg=true](https://ci.appveyor.com/api/projects/status/agqgm1oree8iohvq?svg=true)
 
 image::docs/images/organization logo.png[width="600", align="center"]
 image::docs/images/Ui.png[width="600", align="center"]
