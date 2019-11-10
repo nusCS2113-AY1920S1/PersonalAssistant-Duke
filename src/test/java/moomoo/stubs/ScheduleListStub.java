@@ -1,6 +1,6 @@
 package moomoo.stubs;
 
-import moomoo.task.ScheduleList;
+import moomoo.feature.ScheduleList;
 
 public class ScheduleListStub extends ScheduleList {
 

@@ -31,11 +31,17 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "MooMooMoney"
-    archiveVersion = "v1.3"
+    archiveVersion = "Mid-v1.4"
     archiveClassifier = null
     archiveAppendix = null
 }
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+}
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked"
+    }
 }
