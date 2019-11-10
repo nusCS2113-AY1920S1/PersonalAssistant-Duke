@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import chronologer.exception.ChronologerException;
+import chronologer.exception.MyLogger;
+
 /**
  * This DateTimeExtractor class allows the identification of dates and is used
  * to print out dates and times.
@@ -24,11 +27,15 @@ public class DateTimeExtractor {
      *                         input.
      * @return String A string containing the end time of an event will also
      *         returned.
-     * @throws DateTimeParseException Throws this exception if the date or time
-     *                        format provided by the user is incorrect!
+     * @throws ChronologerException Throws this exception if the date or time format
+     *                              provided by the user is incorrect!
      */
-    public static LocalDateTime extractDateTime(String dateTimeFromUser) throws DateTimeParseException {
-        dateToReturn = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
+    public static LocalDateTime extractDateTime(String dateTimeFromUser) throws ChronologerException {
+        try {
+            dateToReturn = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new ChronologerException(ChronologerException.wrongDateOrTime());
+        }
         return dateToReturn;
     }
 }
