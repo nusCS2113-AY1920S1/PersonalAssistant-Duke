@@ -2,6 +2,9 @@ package UserInterface;
 
 import javafx.scene.text.Text;
 
+/**
+ * Class for deadline table to store and display.
+ */
 public class DeadlineView {
     private Text date;
     private Text task;

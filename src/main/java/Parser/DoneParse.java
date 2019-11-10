@@ -40,9 +40,9 @@ public class DoneParse extends Parse {
     public Command parse() throws DukeInvalidFormatException, DukeInvalidCommandException, DukeInvalidDateTimeException {
         if (fullCommand.trim().startsWith(DukeConstants.DONE_EVENT_HEADER)) {
             try {
-                String activity = fullCommand.trim().replaceFirst(DukeConstants.DONE_EVENT_HEADER, "");
+                String activity = fullCommand.trim().replaceFirst(DukeConstants.DONE_EVENT_HEADER, DukeConstants.NO_FIELD);
                 modCodeAndDescriptionAndDate = activity.split(DukeConstants.EVENT_DATE_DESCRIPTION_SPLIT_KEYWORD);
-                modCodeAndDescriptionSplit = modCodeAndDescriptionAndDate[0].trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+                modCodeAndDescriptionSplit = modCodeAndDescriptionAndDate[0].trim().split(DukeConstants.BLANK_SPACE);
                 String fullDescriptionAndModCode = modCodeAndDescriptionAndDate[0].trim();
                 if (!super.isValidModCodeAndDescription(fullDescriptionAndModCode)) {
                     throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_EMPTY_MODCODE_DESCRIPTION_ERROR);
@@ -70,9 +70,9 @@ public class DoneParse extends Parse {
             }
         } else if (fullCommand.trim().startsWith(DukeConstants.DONE_DEADLINE_HEADER)) {
             try {
-                String activity = fullCommand.trim().replaceFirst((DukeConstants.DONE_DEADLINE_HEADER), "");
+                String activity = fullCommand.trim().replaceFirst((DukeConstants.DONE_DEADLINE_HEADER), DukeConstants.NO_FIELD);
                 modCodeAndDescriptionAndDate = activity.split(DukeConstants.DEADLINE_DATE_DESCRIPTION_SPLIT_KEYWORD);
-                modCodeAndDescriptionSplit = modCodeAndDescriptionAndDate[0].trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+                modCodeAndDescriptionSplit = modCodeAndDescriptionAndDate[0].trim().split(DukeConstants.BLANK_SPACE);
                 String fullDescriptionAndModCode = modCodeAndDescriptionAndDate[0].trim();
                 if (!super.isValidModCodeAndDescription(fullDescriptionAndModCode)) {
                     throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.DEADLINE_EMPTY_MODCODE_DESCRIPTION_ERROR);

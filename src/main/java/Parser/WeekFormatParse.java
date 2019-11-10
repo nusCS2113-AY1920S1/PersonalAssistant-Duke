@@ -17,14 +17,14 @@ public class WeekFormatParse {
 
     public static String acadWeekToString (String weekDate, String date) throws DukeInvalidDateTimeException {
 
-        if (weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
-                || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")) {
+        if (weekDate.equalsIgnoreCase(DukeConstants.WEEK_FORMAT_KEYWORD_READING) || weekDate.equalsIgnoreCase(DukeConstants.WEEK_FORMAT_KEYWORD_EXAM)
+                || weekDate.equalsIgnoreCase(DukeConstants.WEEK_FORMAT_KEYWORD) || weekDate.equalsIgnoreCase(DukeConstants.WEEK_FORMAT_KEYWORD_RECESS)) {
 
-            dateOfTask = date.trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+            dateOfTask = date.trim().split(DukeConstants.BLANK_SPACE);
             if (dateOfTask.length == WEEK_ARRAY_LENGTH) {
-                weekDate = lookupTable.getValue(date) + " ";
+                weekDate = lookupTable.getValue(date) + DukeConstants.BLANK_SPACE;
             } else {
-                throw new DukeInvalidDateTimeException("Sorry, please enter the correct date format");
+                throw new DukeInvalidDateTimeException(DukeConstants.INVALID_DATE_ERROR);
             }
         } else {
             weekDate = date;

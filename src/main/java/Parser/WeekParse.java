@@ -18,7 +18,7 @@ public class WeekParse extends Parse {
             fullCommand = getWeek(fullCommand);
             return new WeekCommand(fullCommand);
         }
-        fullCommand = fullCommand.replaceFirst(DukeConstants.SHOW_WEEK_HEADER, "");
+        fullCommand = fullCommand.replaceFirst(DukeConstants.SHOW_WEEK_HEADER, DukeConstants.NO_FIELD);
         if (fullCommand.trim().isEmpty()) {
             throw new DukeInvalidFormatException(DukeConstants.INVALID_EMPTY_WEEK);
         }
@@ -31,7 +31,7 @@ public class WeekParse extends Parse {
      * @return true if the input is valid. Otherwise, false
      */
     public static boolean isValid(String fullCommand) {
-        String strWeek = fullCommand.replaceFirst(DukeConstants.SHOW_WEEK_HEADER, "");
+        String strWeek = fullCommand.replaceFirst(DukeConstants.SHOW_WEEK_HEADER, DukeConstants.NO_FIELD);
         if (!strWeek.isEmpty()) {
             char checkSpace = strWeek.charAt(0);
             if (checkSpace != ' ') {
@@ -65,15 +65,15 @@ public class WeekParse extends Parse {
      * @return The week in the lookup table format
      */
     public static String getWeek(String fullCommand) {
-        String week = fullCommand.replaceFirst(DukeConstants.SHOW_WEEK_HEADER, "");
+        String week = fullCommand.replaceFirst(DukeConstants.SHOW_WEEK_HEADER, DukeConstants.NO_FIELD);
         week = week.trim();
         if ((week.equals(DukeConstants.WEEK_FORMAT_KEYWORD_RECESS)
                 || week.equals(DukeConstants.WEEK_FORMAT_KEYWORD_READING)
                 || week.equals(DukeConstants.WEEK_FORMAT_KEYWORD_EXAM))) {
             week = capitalizeWord(week);
-            week = week + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + DukeConstants.WEEK_FORMAT_KEYWORD;
+            week = week + DukeConstants.BLANK_SPACE + DukeConstants.WEEK_FORMAT_KEYWORD;
         } else {
-            week = DukeConstants.WEEK_FORMAT_KEYWORD + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + week;
+            week = DukeConstants.WEEK_FORMAT_KEYWORD + DukeConstants.BLANK_SPACE + week;
         }
         return week;
     }
@@ -89,13 +89,13 @@ public class WeekParse extends Parse {
                 || selectedWeek.toLowerCase().startsWith(DukeConstants.WEEK_FORMAT_KEYWORD_READING)
                 || selectedWeek.toLowerCase().startsWith(DukeConstants.WEEK_FORMAT_KEYWORD_EXAM))
                 && selectedWeek.contains(DukeConstants.WEEK_FORMAT_KEYWORD)) {
-            selectedWeek = selectedWeek.replace(DukeConstants.WEEK_FORMAT_KEYWORD, "");
+            selectedWeek = selectedWeek.replace(DukeConstants.WEEK_FORMAT_KEYWORD, DukeConstants.NO_FIELD);
             selectedWeek = selectedWeek.trim();
             week = DukeConstants.SHOW_WEEK_HEADER
-                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD
+                    + DukeConstants.BLANK_SPACE
                     + selectedWeek.toLowerCase();
         } else {
-            week = DukeConstants.SHOW_WEEK_HEADER + selectedWeek.replaceFirst(DukeConstants.WEEK_FORMAT_KEYWORD, "");
+            week = DukeConstants.SHOW_WEEK_HEADER + selectedWeek.replaceFirst(DukeConstants.WEEK_FORMAT_KEYWORD, DukeConstants.NO_FIELD);
         }
         return week;
     }

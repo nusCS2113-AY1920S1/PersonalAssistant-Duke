@@ -122,7 +122,7 @@ public class ShowWorkloadCommand extends Command {
         for (Map.Entry<String, HashMap<String, ArrayList<Assignment>>> eventModule: eventMap.entrySet()) {
             HashMap<String, ArrayList<Assignment>> eventModuleValue = eventModule.getValue();
             for (Map.Entry<String, ArrayList<Assignment>> eventItem: eventModuleValue.entrySet()) {
-                String[] strDayDate = eventItem.getKey().trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+                String[] strDayDate = eventItem.getKey().trim().split(DukeConstants.BLANK_SPACE);
                 String strDate = strDayDate[1].trim();
                 String selectedWeek = lookupTable.getValue(strDate);
                 if (selectedWeek.equals(workloadWeek)) {
@@ -133,7 +133,7 @@ public class ShowWorkloadCommand extends Command {
         for (Map.Entry<String, HashMap<String, ArrayList<Assignment>>> deadlineModule: deadlineMap.entrySet()) {
             HashMap<String, ArrayList<Assignment>> deadlineModuleValue = deadlineModule.getValue();
             for (Map.Entry<String, ArrayList<Assignment>> deadlineItem: deadlineModuleValue.entrySet()) {
-                String[] strDayDate = deadlineItem.getKey().trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+                String[] strDayDate = deadlineItem.getKey().trim().split(DukeConstants.BLANK_SPACE);
                 String strDate = strDayDate[1].trim();
                 String selectedWeek = lookupTable.getValue(strDate);
                 if (isValid(workloadWeek, selectedWeek)) {

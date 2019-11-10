@@ -53,7 +53,7 @@ public class RemindParse extends Parse {
             String activity = fullCommand.trim().substring(LENGTH_OF_REMIND);
             dateDescriptionSplit = activity.trim().split(DukeConstants.DEADLINE_DATE_DESCRIPTION_SPLIT_KEYWORD);
             String modDescriptionCommand = dateDescriptionSplit[0];
-            modDescriptionCommandsplit = modDescriptionCommand.trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+            modDescriptionCommandsplit = modDescriptionCommand.trim().split(DukeConstants.BLANK_SPACE);
             if (modDescriptionCommand.contains(DukeConstants.REMIND_SET_KEYWORD)) {
                 description = modDescriptionCommand.substring(LENGTH_OF_SET).trim();
                 isRemind = true;

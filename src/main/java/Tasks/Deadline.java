@@ -26,7 +26,7 @@ public class Deadline extends Assignment {
      */
     @Override
     public String toString() {
-        return super.getModCode() + " " + getType() + super.toString() + DEADLINE_DATE_SEPARATOR  + getDateTime() + DEADLINE_STRING_CLOSER;
+        return super.getModCode() + DukeConstants.BLANK_SPACE + getType() + super.toString() + DEADLINE_DATE_SEPARATOR  + getDateTime() + DEADLINE_STRING_CLOSER;
     }
     /**
      * This method returns type of task.
@@ -40,7 +40,7 @@ public class Deadline extends Assignment {
      */
     @Override
     public String getDateTime() {
-        return by + " " + time;
+        return by + DukeConstants.BLANK_SPACE + time;
     }
     /**
      * This method returns date of task.

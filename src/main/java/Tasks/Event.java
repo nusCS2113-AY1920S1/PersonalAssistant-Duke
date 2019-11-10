@@ -10,6 +10,13 @@ public class Event extends Assignment {
     private final String by;
     private final String start;
     private final String end;
+    private static final String TIME_TO_TIME = " to ";
+    private static final String TIME_DELIMITER = " to: ";
+    private static final String START_OF_DATE_DELIMITER = "(at: ";
+    private static final String START_OF_TIME_DELIMITER = " time: ";
+    private static final String END_OF_DATE_TIME_DELIMITER = ")";
+    private static final String START_DELIMITER = "Start: ";
+    private static final String END_DELIMITER = "End: ";
 
     /**
      * Creates an Event object.
@@ -36,21 +43,21 @@ public class Event extends Assignment {
      */
     @Override
     public String toString() {
-        return super.getModCode() + " " + getType() + super.toString() + "(at: " + by + " time: " + start + " to: " + end + ")";
+        return super.getModCode() + DukeConstants.BLANK_SPACE + getType() + super.toString() + START_OF_DATE_DELIMITER + by + START_OF_TIME_DELIMITER + start + TIME_DELIMITER + end + END_OF_DATE_TIME_DELIMITER;
     }
     /**
      * This method returns date and time of task.
      */
     @Override
     public String getDateTime() {
-        return by + " " + start + " to " + end;
+        return by + DukeConstants.BLANK_SPACE + start + TIME_TO_TIME + end;
     }
     /**
      * This method returns start and end time for display.
      */
     @Override
     public String toShow() {
-        return "Start: " + start + "\nEnd: " + end + "\n";//
+        return START_DELIMITER + start + "\n" + END_DELIMITER + end + "\n";//
     }
     /**
      * This method returns date of task.
@@ -64,7 +71,7 @@ public class Event extends Assignment {
      */
     @Override
     public String getTime() {
-        return start + " to " + end;
+        return start + TIME_TO_TIME + end;
     }
     /**
      * This method returns start time of task.
