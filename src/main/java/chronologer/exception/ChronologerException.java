@@ -120,15 +120,6 @@ public class ChronologerException extends Exception {
     }
 
     /**
-     * Handles if class does not exists.
-     *
-     * @return message to be displayed
-     */
-    public static String classDoesNotExist() {
-        return NONEXISTING_CLASS_MSG;
-    }
-
-    /**
      * Handles if file does not exists.
      *
      * @return message to be displayed
@@ -223,11 +214,11 @@ public class ChronologerException extends Exception {
     }
 
     public static String redoLimitHit() {
-        return UNDO_LIMIT;
+        return REDO_LIMIT;
     }
 
     public static String undoLimitHit() {
-        return REDO_LIMIT;
+        return UNDO_LIMIT;
     }
 
     public ChronologerException(String message) {

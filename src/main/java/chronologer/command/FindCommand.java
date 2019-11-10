@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.task.Task;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
@@ -29,8 +30,9 @@ public class FindCommand extends Command {
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      */
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException {
         ArrayList<Task> holdFoundTasks = tasks.find(keyWord);
         if (holdFoundTasks.isEmpty()) {
             UiMessageHandler.outputMessage(EMPTY_LIST);

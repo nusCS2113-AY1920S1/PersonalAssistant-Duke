@@ -71,7 +71,7 @@ public class UiMessageHandler {
     /**
      * Prints the user manual.
      */
-    public static String printManual() {
+    public static String printHelp() {
         StringBuilder manualOutput = new StringBuilder();
 
         for (Manual manual : Manual.values()) {

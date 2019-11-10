@@ -7,9 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * Forms the base of each dialog box.
  */
 public class DialogBox extends UiComponent<Region> {
     private static final String FXML = "DialogBox.fxml";
@@ -19,8 +17,7 @@ public class DialogBox extends UiComponent<Region> {
     private ImageView displayPicture;
 
     /**
-     * The DialogBox essentially acts as the constructor for the dialog boxes which make up the chat bot section of
-     * the GUI.
+     * Constructs the dialog boxes which make up the chat bot section of the GUI.
      *
      * @param text the text portion of the label is passed in through this parameter.
      */

@@ -18,9 +18,16 @@ public class RestoreVersionCommand extends Command {
         this.versionNumber = versionNumberToStore;
     }
 
+    /**
+     * Allows the user to restore from pre-stored versions.
+     *
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
+     */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
-        tasks.updateListOfTasks(ChronologerStateList.restoreVersion(tasks.getTasks(), versionNumber));
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException {
+        tasks.updateListOfTasks(history.restoreVersion(tasks.getTasks(), versionNumber));
         tasks.updateGui(null);
         storage.saveFile(tasks.getTasks());
     }

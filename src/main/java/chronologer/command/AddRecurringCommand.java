@@ -41,7 +41,7 @@ public class AddRecurringCommand extends AddCommand {
     /**
      * Adds tasks till end of semester at specified timeslots.
      */
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException {
         Task task;
         LocalDateTime timeNow = LocalDateTime.now();
         while (this.formattedStartDate.isAfter(timeNow)) {
@@ -55,7 +55,7 @@ public class AddRecurringCommand extends AddCommand {
                 this.formattedStartDate = this.formattedStartDate.minusDays(1);
             }
         }
-        ChronologerStateList.addState(tasks.getTasks());
+        history.addState(tasks.getTasks());
         storage.saveFile(tasks.getTasks());
         UiMessageHandler.outputMessage(
                 "Got it! I've added this task" + "\nNow you have " + tasks.getSize() + " task(s) in the list.");

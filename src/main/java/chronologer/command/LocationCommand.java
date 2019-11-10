@@ -33,12 +33,13 @@ public class LocationCommand extends Command {
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException {
         if (isIndexValid(indexOfTask, tasks.getSize())) {
             Task taskWithLocation = tasks.addLocation(indexOfTask, locationOfTask);
-            ChronologerStateList.addState((tasks.getTasks()));
+            history.addState((tasks.getTasks()));
             storage.saveFile(tasks.getTasks());
             UiMessageHandler.outputMessage("Noted. Your task location has been added:" + "\n "
                 + taskWithLocation.toString());

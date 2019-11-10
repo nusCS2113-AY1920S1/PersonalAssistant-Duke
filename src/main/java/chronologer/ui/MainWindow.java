@@ -3,6 +3,7 @@ package chronologer.ui;
 import chronologer.ChronologerMain;
 import chronologer.command.Command;
 import chronologer.parser.Parser;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
 import javafx.fxml.FXML;
@@ -12,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.File;
 
 /**
- * Main UI window of the application. Acts as a container for child UI elements.
+ * Main UI window of the application. Acts as a container for the child UI elements.
  */
 class MainWindow extends UiComponent<Stage> {
     private static final String FXML = "MainWindow.fxml";
@@ -26,6 +27,7 @@ class MainWindow extends UiComponent<Stage> {
     private Parser parser;
     private TaskList tasks;
     private Command command;
+    private ChronologerStateList history;
     private Storage storage;
     private String filePath = System.getProperty("user.dir") + "/src/ChronologerDatabase/ArrayList";
     private File file = new File(filePath);
@@ -42,6 +44,7 @@ class MainWindow extends UiComponent<Stage> {
         this.baseStage = baseStage;
         this.tasks = main.tasks;
         this.storage = main.storage;
+        this.history = main.history;
         placeUiComponents();
     }
 
@@ -52,7 +55,7 @@ class MainWindow extends UiComponent<Stage> {
         TimelineWindow timelineWindow = new TimelineWindow(command, parser, tasks);
         timelineWindowHolder.getChildren().add(timelineWindow.getRoot());
 
-        ChatbotWindow chatbotWindow = new ChatbotWindow(command, parser, tasks, storage);
+        ChatbotWindow chatbotWindow = new ChatbotWindow(command, parser, tasks, storage, history);
         chatbotWindowHolder.getChildren().add(chatbotWindow.getRoot());
     }
 

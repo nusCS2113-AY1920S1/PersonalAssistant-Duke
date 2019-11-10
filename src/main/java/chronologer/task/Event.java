@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * type.
  *
  * @author Sai Ganesh Suresh
- * @version v2.0
+ * @version v1.4
  */
 public class Event extends Task implements Serializable, Comparable<Event> {
 

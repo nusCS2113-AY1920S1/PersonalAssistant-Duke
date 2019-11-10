@@ -10,27 +10,37 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Stack;
 
-@SuppressWarnings("unchecked")
 public class ChronologerStateList implements Serializable {
 
-
-    private static Stack<Object> chronologerUndoStack = new Stack<>();
-    private static Stack<Object> chronologerRedoStack = new Stack<>();
-    private static final String filePath1 = System.getProperty("user.dir") + "/src/ChronologerDatabase/Version1";
-    private static final String filePath2 = System.getProperty("user.dir") + "/src/ChronologerDatabase/Version2";
-    private static final String filePath3 = System.getProperty("user.dir") + "/src/ChronologerDatabase/Version3";
-    private static final File file1 = new File(filePath1);
-    private static final File file2 = new File(filePath2);
-    private static final File file3 = new File(filePath3);
-    private static Storage storage1 = new Storage(file1);
-    private static Storage storage2 = new Storage(file2);
-    private static Storage storage3 = new Storage(file3);
+    private Stack<Object> chronologerUndoStack = new Stack<>();
+    private Stack<Object> chronologerRedoStack = new Stack<>();
+    private Storage storage1;
+    private Storage storage2;
+    private Storage storage3;
+    private File version1;
+    private File version2;
+    private File version3;
 
     /**
-     * Function to store the current state.
+     * Constructs the ChronologerStateList by passing in the version files.
      *
+     * @param version1 Holds the file which will be utilised as the first state.
+     * @param version2 Holds the file which will be utilised as the second state.
+     * @param version3 Holds the file which will be utilised as the third state.
      */
-    public static void storeVersion(ArrayList<Task> listToStore, int version) throws ChronologerException {
+    public ChronologerStateList(File version1, File version2, File version3) {
+        this.storage1 = new Storage(version1);
+        this.storage2 = new Storage(version2);
+        this.storage3 = new Storage(version3);
+        this.version1 = version1;
+        this.version2 = version2;
+        this.version3 = version3;
+    }
+
+    /**
+     * Function to store the current state based on the user's choice.
+     */
+    public void storeVersion(ArrayList<Task> listToStore, int version) throws ChronologerException {
         switch (version) {
         case 1:
             storage1.saveFile(listToStore);
@@ -50,28 +60,27 @@ public class ChronologerStateList implements Serializable {
     }
 
     /**
-     * Function to restore from the given state.
-     *
+     * Function to restore from the given state based on the user;s choice.
      */
-    public static ArrayList<Task> restoreVersion(ArrayList<Task> currentVersion, int version)
+    public ArrayList<Task> restoreVersion(ArrayList<Task> currentVersion, int version)
         throws ChronologerException {
         switch (version) {
         case 1:
-            if (storage1.loadFile(file1).getTasks().size() != 0) {
+            if (storage1.loadFile(version1).getTasks().size() != 0) {
                 UiMessageHandler.outputMessage("Restored from state 1");
-                return storage1.loadFile(file1).getTasks();
+                return storage1.loadFile(version1).getTasks();
             }
             break;
         case 2:
-            if (storage2.loadFile(file2).getTasks().size() != 0) {
+            if (storage2.loadFile(version2).getTasks().size() != 0) {
                 UiMessageHandler.outputMessage("Restored from state 2");
-                return storage2.loadFile(file2).getTasks();
+                return storage2.loadFile(version2).getTasks();
             }
             break;
         case 3:
-            if (storage3.loadFile(file3).getTasks().size() != 0) {
+            if (storage3.loadFile(version3).getTasks().size() != 0) {
                 UiMessageHandler.outputMessage("Restored from state 3");
-                return storage3.loadFile(file3).getTasks();
+                return storage3.loadFile(version3).getTasks();
             }
             break;
         default:
@@ -83,14 +92,14 @@ public class ChronologerStateList implements Serializable {
     /**
      * Function to store the current state.
      */
-    public static void addState(ArrayList<Task> listToStore) {
+    public void addState(ArrayList<Task> listToStore) {
         chronologerUndoStack.push(SerializationUtils.clone(listToStore));
     }
 
     /**
      * Function to undo to previous state.
      */
-    public static ArrayList<Task> undo() throws ChronologerException {
+    public ArrayList<Task> undo() throws ChronologerException {
         ArrayList<Task> toReturn;
         if (chronologerUndoStack.size() <= 1) {
             throw new ChronologerException(ChronologerException.undoLimitHit());
@@ -104,7 +113,7 @@ public class ChronologerStateList implements Serializable {
     /**
      * Function to redo to a previous state that was undone.
      */
-    public static ArrayList<Task> redo() throws ChronologerException {
+    public ArrayList<Task> redo() throws ChronologerException {
         ArrayList<Task> toReturn;
         if (chronologerRedoStack.size() == 0) {
             throw new ChronologerException(ChronologerException.redoLimitHit());

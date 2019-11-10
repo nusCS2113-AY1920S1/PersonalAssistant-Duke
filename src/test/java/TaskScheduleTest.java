@@ -1,6 +1,7 @@
 import chronologer.command.Command;
 import chronologer.command.TaskScheduleCommand;
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Deadline;
 import chronologer.task.Task;
@@ -20,6 +21,7 @@ public class TaskScheduleTest {
     private static TaskList tasks;
     private static File file;
     private static Storage storage;
+    private static ChronologerStateList history;
 
     private Field[] getTaskScheduleCommandFields(Command command) throws NoSuchFieldException {
         Field[] commandFields = new Field[4];
@@ -56,7 +58,7 @@ public class TaskScheduleTest {
         Field[] commandFields;
 
         Command test = new TaskScheduleCommand(1, 0);
-        test.execute(tasks, storage);
+        test.execute(tasks, storage, history);
         commandFields = getTaskScheduleCommandFields(test);
 
         Long testDuration = (Long) commandFields[0].get(test);
@@ -81,7 +83,7 @@ public class TaskScheduleTest {
 
         LocalDateTime expectedDeadlineDate = LocalDateTime.now().plusDays(3);
         Command test = new TaskScheduleCommand(1, expectedDeadlineDate);
-        test.execute(tasks, storage);
+        test.execute(tasks, storage, history);
         commandFields = getTaskScheduleCommandFields(test);
 
         Long testDuration = (Long) commandFields[0].get(test);
@@ -102,19 +104,19 @@ public class TaskScheduleTest {
     public void testIndexOutOfBoundException() {
         Assertions.assertThrows(ChronologerException.class, () -> {
             Command test = new TaskScheduleCommand(-1, 0);
-            test.execute(tasks, storage);
+            test.execute(tasks, storage, history);
         });
         Assertions.assertThrows(ChronologerException.class, () -> {
             Command test = new TaskScheduleCommand(1, -1);
-            test.execute(tasks, storage);
+            test.execute(tasks, storage, history);
         });
         Assertions.assertThrows(ChronologerException.class, () -> {
             Command test = new TaskScheduleCommand(2, 0);
-            test.execute(tasks, storage);
+            test.execute(tasks, storage, history);
         });
         Assertions.assertThrows(ChronologerException.class, () -> {
             Command test = new TaskScheduleCommand(1, 2);
-            test.execute(tasks, storage);
+            test.execute(tasks, storage, history);
         });
     }
 
@@ -122,11 +124,11 @@ public class TaskScheduleTest {
     public void testIndexException() {
         Assertions.assertThrows(ChronologerException.class, () -> {
             Command test = new TaskScheduleCommand(1, 1);
-            test.execute(tasks, storage);
+            test.execute(tasks, storage, history);
         });
         Assertions.assertThrows(ChronologerException.class, () -> {
             Command test = new TaskScheduleCommand(0, 0);
-            test.execute(tasks, storage);
+            test.execute(tasks, storage, history);
         });
     }
 
@@ -135,7 +137,7 @@ public class TaskScheduleTest {
         Assertions.assertThrows(ChronologerException.class, () -> {
             LocalDateTime exceptionDate = LocalDateTime.now().minusMinutes(1);
             Command test = new TaskScheduleCommand(1, exceptionDate);
-            test.execute(tasks, storage);
+            test.execute(tasks, storage, history);
         });
     }
 }

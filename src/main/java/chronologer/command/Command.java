@@ -2,6 +2,7 @@ package chronologer.command;
 
 import chronologer.exception.ChronologerException;
 import chronologer.exception.MyLogger;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
@@ -53,8 +54,10 @@ public abstract class Command {
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      * @throws ChronologerException Throws the exception according to the
      *                              user-defined list: DukeException.
      */
-    public abstract void execute(TaskList tasks, Storage storage) throws ChronologerException;
+    public abstract void execute(TaskList tasks, Storage storage, ChronologerStateList history)
+        throws ChronologerException;
 }

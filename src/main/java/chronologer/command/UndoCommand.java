@@ -7,21 +7,23 @@ import chronologer.task.TaskList;
 import chronologer.ui.UiMessageHandler;
 
 /**
- * Allows the user to delete a particular task from their task list based on index.
+ * Allows the user to undo a change to the core tasklist.
  *
  * @author Sai Ganesh Suresh
- * @version v1.3
+ * @version v1.4
  */
 public class UndoCommand extends Command {
+
     /**
-     * Removes the task from the TaskList and saves the updated TaskList to persistent storage.
+     * Performs the undo for the user by updating the core tasklist.
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
-        tasks.updateListOfTasks(ChronologerStateList.undo());
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException {
+        tasks.updateListOfTasks(history.undo());
         tasks.updateGui(null);
         storage.saveFile(tasks.getTasks());
         UiMessageHandler.outputMessage("undo successful");
