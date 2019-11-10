@@ -192,9 +192,17 @@ Will return tasks that have "bo" in their description.
 === Auto assign: `autoassign`
 You can auto assign tasks that have yet to have filters using certain heuristics.
 This feature relies on filter name matching or having similar description words.
-For example, if `cs` filter has many tasks with description contatining "programming", auto assigning a task with "programming" in the description will suggest `cs` as a filter.
+For example, if `cs` filter has many tasks with description contatining "programming", auto assigning a task with "programming" in the description will suggest `cs` as a filter. Having `cs` in its description will suggest `cs` as a filter.
+
+It is possible that there can be more than one eligible filter to be recommended. For example, if a task has many similar words with tasks in `cooking` filter but has `cs` within its description, both `cs` and `cooking` are eligible. El Duque will first ask for all filter(s) that matched based on filter name. If user replies `N` for all of them, El Duque will then ask for all filter(s) that matched based on similar description words.
 
     autoassign 2
+    This task's description contains the filter "cs", would you like to assign to it? (Y/N)
+    N
+    Alright then.
+    The closest filter is "cooking" based on similar words.
+    Would you like to assign task "prepare food for mom" to filter "cooking"? (Y/N)
+    Y
 
 //end::ajl[]
 
