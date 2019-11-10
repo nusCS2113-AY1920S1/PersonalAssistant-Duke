@@ -456,11 +456,11 @@ public class RetrieveRequest implements InfoFetcher {
 
 
     /**
-     * api request to search movies to add to the watchlist
+     * api request to search movies to add to the watchlist.
      *
      * @param movieTitle movie name to be added to watchlist.
      * @return first movie title in the search result.
-     * @throws Exceptions: API request errors such as bad encoding or incorrect URL.
+     * @throws Exceptions API request errors such as bad encoding or incorrect URL.
      * @@author Hotspur1997.
      */
     public String beginAddRequest(String movieTitle) {
@@ -486,7 +486,6 @@ public class RetrieveRequest implements InfoFetcher {
      * @param adult parameter to determine if adult feature needs to be enabled.
      * @return Array_list of movies results based on the genre.
      * @throws Exceptions API request errors such as bad encoding or incorrect URL.
-     * @@author Hotspur1997
      */
     public ArrayList<MovieInfoObject> beginSearchGenre(String genre, boolean adult) throws Exceptions {
         try {
@@ -689,7 +688,7 @@ public class RetrieveRequest implements InfoFetcher {
             title = (String) data.get(TV_TITLE);
         }
         // Parse id
-        long iD = (long) data.get(DATA_ID);
+        long id = (long) data.get(DATA_ID);
         // Parse rating
         double rating = 0.0;
         try {
@@ -737,12 +736,12 @@ public class RetrieveRequest implements InfoFetcher {
             for (int i = 0; i < jsonArray.size(); i += 1) {
                 getCast.add((String) jsonArray.get(i));
             }
-            movieInfo = new MovieInfoObject(iD, title, isMovie, releaseDate, summary,
+            movieInfo = new MovieInfoObject(id, title, isMovie, releaseDate, summary,
                     posterPath, backdropPath, rating, genreID, searchProfile.isAdult(), cert, getCast);
         } else {
             posterPath = (String) data.get(POSTER_PATH);
             backdropPath = (String) data.get(BACKDROP_PATH);
-            movieInfo = new MovieInfoObject(iD, title, isMovie, releaseDate, summary,
+            movieInfo = new MovieInfoObject(id, title, isMovie, releaseDate, summary,
                     posterPath, backdropPath, rating, genreID, searchProfile.isAdult());
         }
         // If the base url was fetched and loaded, set the root path and poster size

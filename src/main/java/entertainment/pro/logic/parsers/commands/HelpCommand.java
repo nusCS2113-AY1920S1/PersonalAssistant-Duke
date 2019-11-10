@@ -1,7 +1,7 @@
 package entertainment.pro.logic.parsers.commands;
 
 
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 import entertainment.pro.storage.utils.HelpStorage;
@@ -13,7 +13,7 @@ import entertainment.pro.ui.MovieHandler;
  */
 public class HelpCommand extends CommandSuper {
     public HelpCommand(Controller uicontroller) {
-        super(COMMANDKEYS.HELP, CommandStructure.cmdStructure.get(COMMANDKEYS.HELP), uicontroller);
+        super(CommandKeys.HELP, CommandStructure.cmdStructure.get(CommandKeys.HELP), uicontroller);
     }
 
     /**
