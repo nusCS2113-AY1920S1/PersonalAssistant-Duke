@@ -73,7 +73,7 @@ public class Project {
     }
 
     /**
-     * get budget lrft of the project.
+     * get budget left in the project.
      * @return budget left.
      */
     public double getRemaining() {

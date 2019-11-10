@@ -7,6 +7,7 @@ import ui.Ui;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Parser that parses input from the user.
@@ -35,13 +36,13 @@ public class Parser {
      * @throws AlphaNUSException if input is not valid.
      */
     public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund,
-                                Storage storage, ArrayList<String> list) {
+                                Storage storage, ArrayList<String> list, Set<String> dict) {
         try {
             if (instr.isBye(input)) {
-                storage.writeToProjectsFile(process.projectmanager.projectmap);
+                storage.writeToProjectsFile(process.projectManager.projectmap);
                 storage.writeToFundFile(fund);
-                //storage.writeToTasklistFile(tasklist);
-                storage.writeTocurrentprojectnameFile(process.projectmanager.currentprojectname);
+                storage.writeToDictFile(dict);
+                storage.writeTocurrentprojectnameFile(process.projectManager.currentprojectname);
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
@@ -88,6 +89,8 @@ public class Parser {
                 process.deletePayment(input, ui, storage);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
+            } else if (instr.isFind(input)) {
+                process.findPayee(input, storage, ui);
             } else if (instr.isFindTask(input)) {
                 process.findTask(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
@@ -95,7 +98,10 @@ public class Parser {
                 process.listTasks(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isListPayments(input)) {
-                process.listAllPayments(input, ui);
+                process.listPayments(input, storage, ui);
+                process.commandHistory(input, ui, storage);
+            } else if (instr.isListPayees(input)) {
+                process.listPayees(input, storage, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isWithinPeriodTask(input)) {
                 process.within(input, tasklist, ui);
@@ -119,10 +125,7 @@ public class Parser {
                 process.edit(input,ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayment(input)) {
-                process.addPayment(input, ui, storage);
-                process.commandHistory(input, ui, storage);
-            } else if (instr.isgetpayee(input)) {
-                process.findPayee(input, ui);
+                process.addPayment(input, ui, storage, dict);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayee(input)) {
                 process.addPayee(input, ui, storage);
