@@ -7,6 +7,8 @@ package rims.exception;
  */
 public class RimsException extends Exception {
     protected String tab = "\t";
+    protected String line = "______________________________________________"
+            + "______________________________________________________________________________________________";
     protected String hash = "******************************************************"
             + "**************************************************************************************";
     protected String error;
@@ -27,6 +29,8 @@ public class RimsException extends Exception {
     public void displayError() {
         System.out.println(tab + hash);
         System.out.println(tab + "ERROR: " + error);
+        System.out.println(tab + line + "\n");
+        System.out.println(tab + "Please re-type the command with the necessary changes, or type in any other command.");
         System.out.println(tab + hash);
     }
 

@@ -52,10 +52,9 @@ public class Storage {
      *
      * <p>Data retrieval:
      * 1. Open the resource file
-     * 2. Loop through each single entry to fetch [ resource id ] [ type ] [ name
-     * ]
+     * 2. Loop through each single entry to fetch [ resource id ] [ type ] [ name ]
      * 3. For each entry, open reservation file and fetch any reservations under
-     * this resource_id
+     *    this resource_id
      * 4. Create a new resource object using the above data
      * 5. Add this object to ResourceList object
      *
@@ -91,7 +90,7 @@ public class Storage {
         ReservationList resourceReservations = new ReservationList();
         while (fileScanner.hasNextLine()) {
             String[] line = fileScanner.nextLine().split(",");
-            if (line[0].equals(resourceId)) {
+            if (line[1].equals(resourceId)) {
                 Reservation newReservation = new Reservation(Integer.parseInt(line[0]),
                     Integer.parseInt(line[1]), Integer.parseInt(line[2]), line[3], line[4]);
                 resourceReservations.add(newReservation);

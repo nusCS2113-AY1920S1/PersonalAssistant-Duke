@@ -62,12 +62,12 @@ public class ReservationList {
                 return thisReservation;
             }
         }
-        throw new RimsException("No such reservation ID!");
+        throw new RimsException("Reservation not found for given reservation ID!");
     }
 
     /**
      * Adds a new Reservation to the ReservationList.
-     * 
+     *
      * @param newReservation the newly created Reservation.
      */
     public void add(Reservation newReservation) {
@@ -110,7 +110,7 @@ public class ReservationList {
      */
     public void cancelReservationById(int reservationId) throws RimsException {
         boolean deleted = false;
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < reservations.size(); i++) {
             if (reservations.get(i).getReservationId() == reservationId) {
                 reservations.remove(i);
                 deleted = true;
@@ -118,7 +118,7 @@ public class ReservationList {
             }
         }
         if (!deleted) {
-            throw new RimsException("No such reservation ID!");
+            throw new RimsException("Reservation not found for given reservation ID!");
         }
     }
 
@@ -172,13 +172,15 @@ public class ReservationList {
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
             if ((checkedDate.after(thisReservation.getStartDate())
-                    && checkedDate.before(thisReservation.getEndDate()))) {
+                    && checkedDate.before(thisReservation.getEndDate()))
+                    || thisReservation.isOverdue()) {
                 return false;
             }
         }
         return true;
     }
 
+    //@@author rabhijit
     /**
      * Checks if this Resource is booked between two given dates, or currently
      * overdue from a previous Reservation.
@@ -196,7 +198,9 @@ public class ReservationList {
             Reservation thisReservation = getReservationByIndex(i);
             if (((startDate.after(thisReservation.getStartDate()) && startDate.before(thisReservation.getEndDate()))
                     || (endDate.after(thisReservation.getStartDate()) && endDate.before(thisReservation.getEndDate())))
-                    || thisReservation.isOverdue()) {
+                    || thisReservation.isOverdue()
+                    || startDate.equals(thisReservation.getStartDate())
+                    || endDate.equals(thisReservation.getEndDate())) {
                 return false;
             }
         }

@@ -35,10 +35,6 @@ public class Rims {
      */
     public Rims(String resourceFilePath, String reserveFilePath) throws ParseException, RimsException, IOException {
         ui = new Ui();
-        //ui.printArray(getLocalTextFiles());
-        //Need to check for proper resourceFile/reserveFile i.e. make sure cannot be any random .txt file
-        //resourceFilePath = getFilePath(ui, "resource");
-        //reserveFilePath = getFilePath(ui, "reservations");
         storage = new Storage(resourceFilePath, reserveFilePath);
         resources = new ResourceList(ui, storage.getResources());
         parser = new Parser(ui, resources);
@@ -65,6 +61,7 @@ public class Rims {
         }
     }
 
+    //@@author hin1
     public ArrayList<String> getLocalTextFiles() {
         String dir = System.getProperty("user.dir");
         File directoryToCheck = new File(dir);
@@ -92,6 +89,7 @@ public class Rims {
         }
     }
 
+    //@@author rabhijit
     /**
      * The main method that calls the RIMS constructor and sets the ball rolling.
      * @throws FileNotFoundException if file path does not exist
