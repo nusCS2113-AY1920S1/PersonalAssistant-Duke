@@ -77,6 +77,8 @@ public class DukeConstants {
     public static final String REMIND_SET_KEYWORD = "/set";
     public static final String REMIND_CHECK_KEYWORD = "/check";
     public static final String REMIND_DATE_DEADLINE_DATE_SPLIT_KEYWORD = " /on ";
+    public static final String REMIND_TIME_FORMAT_ERROR = " OOPS!!! The time of a reminder can only contain digits and the time has to be 4 digits.\n" +
+            "Please enter the time in a 24-hour time format";
     public static final String REMIND_FORMAT ="OOPS!!! Please enter remind as follows:\n" +
             "remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time\n" +
             "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500";
@@ -97,10 +99,14 @@ public class DukeConstants {
     public static final String WEEK_FORMAT_KEYWORD = "Week";
     public static final String BYE_HEADER ="bye";
 
+    //DATE
     public static final SimpleDateFormat EVENT_DATE_INPUT_FORMAT = new SimpleDateFormat("dd/MM/yyyy"); //format date for event
     public static final SimpleDateFormat EVENT_TIME_INPUT_FORMAT = new SimpleDateFormat("HHmm"); //format time for event
     public static final SimpleDateFormat DAY_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy");
     public static final SimpleDateFormat TWELVE_HOUR_TIME_FORMAT = new SimpleDateFormat("hh:mm a");
     public static final SimpleDateFormat DEADLINE_INPUT_FORMAT = new SimpleDateFormat("dd/MM/yyyy HHmm");
     public static final SimpleDateFormat DEADLINE_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+    public static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("E");
+    public static final SimpleDateFormat TWENTYFOUR_HOUR_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy HHmm");
+    public static final int LENGTH_OF_TIME_FORMAT = 4;
 }

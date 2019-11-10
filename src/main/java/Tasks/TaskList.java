@@ -1,7 +1,10 @@
 package Tasks;
 
+import Commons.DukeConstants;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * To keep track of the list of task input by user.
@@ -34,7 +37,6 @@ public class TaskList {
      * This method adds task into the arrayList list.
      */
     public void addTask(Assignment task) {
-        this.list.add(task);
         if (this.map.containsKey(task.getModCode())) {
             if (!this.map.get(task.getModCode()).containsKey(task.getDate())) {
                 map.get(task.getModCode()).put(task.getDate(), new ArrayList<>());
@@ -43,7 +45,20 @@ public class TaskList {
             this.map.put(task.getModCode(), new HashMap<>());
             this.map.get(task.getModCode()).put(task.getDate(), new ArrayList<>());
         }
+        ArrayList<Assignment> taskArrayList = this.map.get(task.getModCode()).get(task.getDate());
+        for (Assignment existingTask : taskArrayList) {
+            String existingTaskDescription = existingTask.getDescription();
+            String existingTaskDate = existingTask.getDateTime();
+            String taskDescription = task.getDescription();
+            String taskDate = task.getDateTime();
+            if (!(existingTaskDescription.equals(taskDescription) || existingTaskDate.equals(taskDate))) {
+                this.map.get(task.getModCode()).get(task.getDate()).add(task);
+                this.list.add(task);
+                return;
+            }
+        }
         this.map.get(task.getModCode()).get(task.getDate()).add(task);
+        this.list.add(task);
     }
 
     /**
@@ -116,7 +131,7 @@ public class TaskList {
                     taskInList.setReminder(true);
                     break;
                 } else {
-                    taskInList.setRemindTime("");
+                    taskInList.setRemindTime(DukeConstants.NO_FIELD);
                     taskInList.setReminder(false);
                     break;
                 }
