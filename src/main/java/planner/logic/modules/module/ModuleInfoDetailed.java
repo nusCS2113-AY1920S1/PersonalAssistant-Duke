@@ -70,10 +70,6 @@ public class ModuleInfoDetailed {
         return semester;
     }
 
-    public void setModuleCredit(String moduleCredit) {
-        this.moduleCredit = moduleCredit;
-    }
-
     //@@author e0313687
     public String getGrade() {
         return grade;
@@ -84,6 +80,10 @@ public class ModuleInfoDetailed {
     }
 
     //@@author andrewleow97
+    public void setModuleCredit(String moduleCredit) {
+        this.moduleCredit = moduleCredit;
+    }
+
     /**
      * Checks if module is S/U-able, and assigns grade based on String score.
      */

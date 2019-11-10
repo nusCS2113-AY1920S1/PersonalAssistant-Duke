@@ -21,10 +21,9 @@ import planner.logic.command.ModuleCommand;
 import planner.logic.command.ReminderCommand;
 import planner.logic.command.RemoveCommand;
 import planner.logic.command.SearchThenAddCommand;
-import planner.logic.command.SetPasswordCommand;
 import planner.logic.command.ShowCommand;
 import planner.logic.command.SortCommand;
-import planner.logic.command.UpdateModuleInfo;
+import planner.logic.command.UpdateModuleCommand;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.parser.action.Join;
 import planner.util.logger.PlannerLogger;
@@ -63,7 +62,7 @@ public class Parser {
         mapCommand("sort", SortCommand.class);
         mapCommand("cap", CapCommand.class);
         mapCommand("grade", GradeCommand.class);
-        mapCommand("update", UpdateModuleInfo.class);
+        mapCommand("update", UpdateModuleCommand.class);
         mapCommand("reminder", ReminderCommand.class);
         //mapCommand("passwd", SetPasswordCommand.class);
     }
@@ -204,9 +203,10 @@ public class Parser {
             .help("Grade you achieved for this module");
 
         getSubParser("update")
-                .help("Update modules database")
-                .addArgument("academicYear")
-                .help("Academic year of your choice, in format 2018-2019");
+                .help("Updates local module data file")
+                .addArgument("moduleDataUpdate")
+                .choices("module")
+                .help("\"module\" is the only valid keyword!");
 
         getSubParser("reminder")
                 .help("Setting reminders")

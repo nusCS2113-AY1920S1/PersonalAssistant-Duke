@@ -41,7 +41,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String completed = (done) ? "[✓] " : "[✗] "; // \u2713, \u2717
+        String completed = (done) ? "[taken] " : "[not taken] "; // \u2713, \u2717
         return completed + task;
     }
 
