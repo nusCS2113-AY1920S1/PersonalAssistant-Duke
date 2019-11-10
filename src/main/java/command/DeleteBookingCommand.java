@@ -7,6 +7,7 @@ import booking.Booking;
 import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
+import storage.BookingConstants;
 import storage.Storage;
 import storage.StorageManager;
 import ui.Ui;
@@ -28,13 +29,13 @@ public class DeleteBookingCommand extends Command {
      */
     public DeleteBookingCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
-            throw new DukeException("OOPS!!! Please add the index for the booking you want to delete.");
+            throw new DukeException(BookingConstants.INDEXERROR1);
         }
         input = input.substring(7);
         try {
             this.index = Integer.parseInt(input) - 1;
         } catch (Exception e) {
-            throw new DukeException("OOPS!!! Index should be an integer.");
+            throw new DukeException(BookingConstants.INDEXERROR2);
         }
     }
 
