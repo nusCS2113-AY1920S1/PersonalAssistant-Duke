@@ -1,20 +1,24 @@
 package rims.core;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import rims.core.Ui;
+
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
 import rims.resource.Item;
 import rims.resource.Room;
+
 import rims.exception.RimsException;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 
 //@@author rabhijit
 /**
