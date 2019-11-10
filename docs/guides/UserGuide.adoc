@@ -489,12 +489,30 @@ This feature searches for the target string across all emails including their su
 with some tolerance of difference. This tolerance is represented by the **edit distance** between two words.
 For more details about the **edit distance**, you can find more details
 https://en.wikipedia.org/wiki/Edit_distance[here]. The lower the **edit distance** is, the more similar are
-these two strings.
+these two strings. This helps you to search through the emails even if you made some typos or when you are
+not sure about some names.
 
-This fuzzy search functionality tolerates up to an **edit distance** of 2 and is insensitive to cases. It
-will list all the emails which contain the target string in their subject, sender or body. Emails are
-listed in descending order of a **relevance score**. The general idea is, the higher the score, the more
-relevant is the email. It is calculated in the following formula:
+This fuzzy search functionality tolerates up to an **edit distance** of 2 and is insensitive to cases. This
+means "CS2102" will match to "CS2100" and "S210" but not "CS2211".
+
+It will list all the emails which contain words that match the target string in their subject, sender or
+body. Emails are listed in descending order of a **relevance score**. The general idea is, the higher the
+score, the more relevant is the email. Lower **edit distance**, more occurrence, or occurrence in subject
+and sender will all
+contribute to a higher **relevance score**.
+
+[NOTE]
+For performance reasons, fuzzy search will only be done word by word. For example, if "project demo" is to
+be searched through a sentence "This is a project demo", both "project" and "demo" will be compared against
+"this", "is", "a", "project", "demo" and produce a relevance score.
+
+[NOTE]
+Using short target string like "is" is not recommended, since it can be matched to many other words like
+"a", "I", "am" etc, which appears in almost every email.
+
+Examples:
+
+`fuzzySearch project demo`
 
 ==== Auto parsing and tagging of emails
 This feature is automatically triggered by fetching emails from Outlook Server and adding new keyword. It
