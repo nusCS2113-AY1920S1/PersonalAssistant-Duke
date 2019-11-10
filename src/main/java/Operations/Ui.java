@@ -6,11 +6,11 @@ import Enums.TimeUnit;
 import java.io.IOException;
 
 /**
- * class to tell user about errors and completion of operations
+ * Class to tell user about errors and completion of operations.
  */
 public class Ui {
     /**
-     * Constructor for Ui class
+     * Constructor for Ui class.
      */
     public Ui() {
     }
@@ -146,8 +146,7 @@ public class Ui {
     public void showDeleted(int[] index) {
         if (index.length == 1) {
             System.out.println("Deleted task number " + (index[0] + 1) + "!");
-        }
-        else {
+        } else {
             System.out.println("Deleted task number " + (index[0] + 1) + " to " + (index[1] + 1) + " !");
         }
     }
@@ -184,7 +183,7 @@ public class Ui {
      * tells the user that RoomShare is listing the tasks.
      */
     void showList() {
-        System.out.println("Listing tasks in your task list...");
+        System.out.println("Listing tasks in the common task list...");
     }
 
     /**
@@ -204,14 +203,14 @@ public class Ui {
     }
 
     /**
-     * tells the user that the requested task has been snoozed
+     * tells the user that the requested task has been snoozed.
      */
     public void showSnoozeComplete(int index, int amount, TimeUnit unit) {
         System.out.println("Great I've snoozed task " + index + " by " + amount + " " + unit.name());
     }
 
     /**
-     * Provides user with instructions to prioritise task
+     * Provides user with instructions to prioritise task.
      */
     public void priorityInstruction() {
         System.out.println("Enter task index followed by priority (high, medium, low)");
@@ -219,14 +218,14 @@ public class Ui {
     }
 
     /**
-     * Notifies the user that their task's priority has been set
+     * Notifies the user that their task's priority has been set.
      */
     public void prioritySet() {
         System.out.println("Your task's priority has been set");
     }
 
     /**
-     * Prompt user to enter the second index
+     * Prompt user to enter the second index.
      */
     public void promptSecondIndex() {
         System.out.println("Please enter the index to swap to");
@@ -237,8 +236,8 @@ public class Ui {
     }
 
     void helpList() {
-        System.out.println("Here are a list of commands you can input: " +
-                "\n add " + "\n delete " + "\n list " + "\n done "
+        System.out.println("Here are a list of commands you can input: "
+                + "\n add " + "\n delete " + "\n list " + "\n done "
                 + "\n restore " + "\n find " + "\n priority "
                 + "\n snooze " + "\n reorder " + "\n subtask "
                 + "\n update " + "\n sort " + "\n bye "
