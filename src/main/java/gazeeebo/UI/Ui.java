@@ -21,12 +21,15 @@ public class Ui {
     public String fullCommand;
 
     public void readCommand() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader reader =
+                new BufferedReader(new InputStreamReader(System.in));
         fullCommand = reader.readLine().trim();
     }
 
     /**
-     * This method prompts the user to input the password to login into GAZEEEBO and print a logo and message to welcome the user when he successfully log in.
+     * This method prompts the user to input the password
+     * to login into GAZEEEBO and print a logo and message
+     * to welcome the user when he successfully log in.
      *
      * @return the logo
      * @throws IOException catch the error if the read file fails.
@@ -49,7 +52,9 @@ public class Ui {
             if (fullCommand.equals(passwordList.get(0).toString())) {
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
-                System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
+                System.out.println("Today is "
+                        + a.format(DateTimeFormatter.
+                        ofLocalizedDate(FormatStyle.FULL)));
                 break;
 
             } else {
@@ -73,6 +78,7 @@ public class Ui {
         majorCategories.add("spec");
         majorCategories.add("moduleplanner");
         majorCategories.add("notes");
+        majorCategories.add("change password");
 
         System.out.println("\nContent Page:");
         System.out.println("------------------ "
@@ -84,6 +90,11 @@ public class Ui {
         System.out.println("To exit: bye");
     }
 
+    /**
+     * Reminder for upcoming tasks.
+     * @param list Task list
+     * @throws ParseException
+     */
     public void upcomingTask(final ArrayList<Task> list) throws ParseException {
         ArrayList<Deadline> deadlineList = new ArrayList<Deadline>();
         ArrayList<Event> eventList = new ArrayList<Event>();
@@ -111,7 +122,7 @@ public class Ui {
         }
     }
 
-    public void showProgessiveBar(final ArrayList<Task> list) throws IOException {
+    public void showProgessiveBar(final ArrayList<Task> list) {
         int undoneNumber = 0;
         int doneNumber = 0;
 
@@ -143,9 +154,10 @@ public class Ui {
     public static void showDeadlineDateFormatError() {
         System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss format");
     }
-    /** */
+    /** Incorrect date input.*/
     public static void showEventDateFormatError() {
-        System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss-HH:mm:ss format");
+        System.out.println("Date Time has to be in "
+                + "YYYY-MM-DD HH:mm:ss-HH:mm:ss format");
     }
 
     public void showIOErrorMessage(final Exception e) {
@@ -157,7 +169,8 @@ public class Ui {
     }
 
     public void showDontKnowErrorMessage() {
-        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println("OOPS!!! I'm sorry, " +
+                "but I don't know what that means :-(");
     }
 
 }

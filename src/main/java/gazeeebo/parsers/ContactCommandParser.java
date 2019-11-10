@@ -1,9 +1,15 @@
+//@@author JasonLeeWeiHern
+
 package gazeeebo.parsers;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
-import gazeeebo.commands.contact.*;
+import gazeeebo.commands.contact.AddContactCommand;
+import gazeeebo.commands.contact.DeleteContactCommand;
+import gazeeebo.commands.contact.ListContactCommand;
+import gazeeebo.commands.contact.FindContactCommand;
+import gazeeebo.commands.contact.UndoContactCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.ContactPageStorage;
@@ -22,6 +28,9 @@ import java.util.TreeMap;
  */
 public class ContactCommandParser extends Command {
 
+    /**
+     * Shows list of commands in contact page.
+     */
     public static void showListOfCommands() {
         System.out.print("_________________________"
                 + "_________________________________\n"
@@ -83,8 +92,8 @@ public class ContactCommandParser extends Command {
                     new ListContactCommand(contactList);
                 } else if (ui.fullCommand.equals("undo")
                         || ui.fullCommand.equals("5")) {
-                    contactList = UndoContactCommand.
-                            undo(contactList, oldcontacts, contactPageStorage);
+                    contactList = UndoContactCommand
+                            .undo(contactList, oldcontacts, contactPageStorage);
                 } else if (ui.fullCommand.equals("commands")
                         || ui.fullCommand.equals("6")) {
                     showListOfCommands();
@@ -119,7 +128,8 @@ public class ContactCommandParser extends Command {
                     + "8. moduleplanner\n"
                     + "9. notes\n"
                     + "To exit: bye\n");
-        } catch (NumberFormatException | IOException | ArrayIndexOutOfBoundsException e) {
+        } catch (NumberFormatException | IOException
+                | ArrayIndexOutOfBoundsException e) {
             System.out.println("Error in Contact.txt");
         }
     }

@@ -1,5 +1,6 @@
 //@@author JasonLeeWeiHern
-package gazeeebo.commands.tasks;
+
+package gazeeebo.parsers;
 
 import gazeeebo.commands.Command;
 import gazeeebo.storage.PasswordStorage;
@@ -18,7 +19,7 @@ import java.util.Stack;
  * Allows user to change their current password
  * to a new password.
  */
-public class ChangePasswordCommand extends Command {
+public class ChangePasswordCommandParser extends Command {
     /**
      * This method will verify current password and
      * write the new password to the Password.txt file.
@@ -40,8 +41,8 @@ public class ChangePasswordCommand extends Command {
         ui.readCommand();
         PasswordStorage passwordStorage = new PasswordStorage();
         while (!ui.fullCommand.equals("esc")) {
-            if (ui.fullCommand.equals(passwordStorage.
-                    readFromPasswordFile().get(0).toString())) {
+            if (ui.fullCommand.equals(passwordStorage
+                    .readFromPasswordFile().get(0).toString())) {
                 System.out.println("Enter new password:");
                 ui.readCommand();
                 String realPassword = ui.fullCommand;

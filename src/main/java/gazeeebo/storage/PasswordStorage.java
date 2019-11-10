@@ -1,3 +1,4 @@
+//@@author JasonLeeWeiHern
 package gazeeebo.storage;
 
 import java.io.File;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PasswordStorage {
+    /** File for jar file.*/
     private String relativePathPasswordResource
             = "Password.txt";
 
@@ -17,7 +19,8 @@ public class PasswordStorage {
      * @param fileContent string to put into the txt file.
      * @throws IOException catch the error if the read file fails.
      */
-    public void writeToPasswordFile(final String fileContent) throws IOException {
+    public void writeToPasswordFile(
+            final String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(relativePathPasswordResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -25,7 +28,8 @@ public class PasswordStorage {
     }
 
     /**
-     * Read from the Password.txt file, decode the passwords and put it into an array.
+     * Read from the Password.txt file,
+     * decode the passwords and put it into an array.
      *
      * @return the arrays of password
      * @throws FileNotFoundException catch the error if the read file fails.

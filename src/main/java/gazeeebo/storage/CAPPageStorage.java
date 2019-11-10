@@ -1,3 +1,4 @@
+//@@author JasonLeeWeiHern
 package gazeeebo.storage;
 
 import gazeeebo.parsers.CAPCommandParser;
@@ -27,14 +28,16 @@ public class CAPPageStorage {
     }
 
     /**
-     * Read from the file CAP.txt and put the details into a HashMap
+     * Read from the file CAP.txt and put the details into a HashMap.
      *
-     * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number
+     * @return Returns the HashMap of contacts,
+     * key is the contact name and the value is the phone number
      * @throws IOException catch the error if the read file fails.
      */
     public HashMap<String, ArrayList<CAPCommandParser>> readFromCAPFile()
             throws IOException {
-        HashMap<String, ArrayList<CAPCommandParser>> caplist = new HashMap<String, ArrayList<CAPCommandParser>>();
+        HashMap<String, ArrayList<CAPCommandParser>>
+                caplist = new HashMap<>();
 
         File f = new File(relativePathCAPResource);
         Scanner sc = new Scanner(f);
@@ -45,7 +48,8 @@ public class CAPPageStorage {
             String moduleCode = splitStringTxtFile[1];
             int mc = Integer.parseInt(splitStringTxtFile[2]);
             String grade = splitStringTxtFile[3];
-            CAPCommandParser newCAP = new CAPCommandParser(moduleCode, mc, grade);
+            CAPCommandParser newCAP =
+                    new CAPCommandParser(moduleCode, mc, grade);
             boolean isEqual = false;
             for (String key : caplist.keySet()) {
                 if (semNumber.equals(key)) {

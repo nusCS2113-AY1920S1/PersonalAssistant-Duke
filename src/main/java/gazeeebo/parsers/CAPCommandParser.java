@@ -1,10 +1,15 @@
+//@@author JasonLeeWeiHern
 
 package gazeeebo.parsers;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
-import gazeeebo.commands.capCalculator.*;
+import gazeeebo.commands.capCalculator.CalculateCAPCommand;
+import gazeeebo.commands.capCalculator.AddCAPCommand;
+import gazeeebo.commands.capCalculator.DeleteCAPCommand;
+import gazeeebo.commands.capCalculator.ListCAPCommand;
+import gazeeebo.commands.capCalculator.FindCAPCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.CAPPageStorage;
@@ -50,6 +55,9 @@ public class CAPCommandParser extends Command {
         this.grade = grade;
     }
 
+    /**
+     * Shows the list of commands for CAP page.
+     */
     public static void showListOfCommands() {
         System.out.print("__________________"
                 + "________________________________________\n"
@@ -80,13 +88,15 @@ public class CAPCommandParser extends Command {
             CAPPageStorage capPageStorage = new CAPPageStorage();
             HashMap<String, ArrayList<CAPCommandParser>> map
                     = capPageStorage.readFromCAPFile(); //Read the file
-            Map<String, ArrayList<CAPCommandParser>> caplist = new TreeMap<>(map);
+            Map<String, ArrayList<CAPCommandParser>> caplist
+                    = new TreeMap<>(map);
             System.out.print("Welcome to your CAP Calculator page! "
                     + "What would you like to do?\n\n");
             showListOfCommands();
             String lineBreak = "------------------------------\n";
             ui.readCommand();
-            while (!(ui.fullCommand.equals("esc") || ui.fullCommand.equals("7"))) {
+            while (!(ui.fullCommand.equals("esc")
+                    || ui.fullCommand.equals("7"))) {
                 double cap = new CalculateCAPCommand().calculateCAP(caplist);
                 if (ui.fullCommand.split(" ")[0].equals("add")
                         || ui.fullCommand.equals("1")) {
@@ -138,7 +148,8 @@ public class CAPCommandParser extends Command {
                     + "8. moduleplanner\n"
                     + "9. notes\n"
                     + "To exit: bye\n");
-        } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
+        } catch (IOException | NumberFormatException
+                | ArrayIndexOutOfBoundsException e) {
             System.out.println("Error in CAP.txt");
         }
     }

@@ -1,3 +1,4 @@
+//@@author JasonLeeWeiHern
 package gazeeebo.storage;
 
 import java.io.File;
@@ -19,7 +20,8 @@ public class ContactPageStorage {
      * @param fileContent save the contact information into this file
      * @throws IOException catch the error if the read file fails.
      */
-    public void writeToContactFile(final String fileContent) throws IOException {
+    public void writeToContactFile(
+            final String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(relativePathContactResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -27,9 +29,11 @@ public class ContactPageStorage {
     }
 
     /**
-     * This method read from the file Contact.txt and put the details into a HashMap
+     * This method read from the file
+     * Contact.txt and put the details into a HashMap.
      *
-     * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number.
+     * @return Returns the HashMap of contacts, key
+     * is the contact name and the value is the phone number.
      * @throws FileNotFoundException catch the error if the read file fails.
      */
     public HashMap<String, String> readFromContactFile()

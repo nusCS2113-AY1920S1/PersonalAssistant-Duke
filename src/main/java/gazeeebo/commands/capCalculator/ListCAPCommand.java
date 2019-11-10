@@ -104,7 +104,6 @@ public class ListCAPCommand {
      * This method list out the modules
      * and show the GPA of the a particular sem.
      *
-     * @param ui        prints things to the user
      * @param caplist   deals stores
      *                  semNumber, moduleCode, moduleCredits and GPA score.
      * @param lineBreak print out a separator to separate each line in the list.

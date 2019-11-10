@@ -51,7 +51,8 @@ public class ListContactCommand {
      * @param contactList   Map each name to its phone number.
      * @param key       gets the key of the contact.
      */
-    private void forPrint(final Map<String, String> contactList, final String key) {
+    private void forPrint(final Map<String, String> contactList,
+                          final String key) {
         System.out.print(key);
         int l = SPACE_NUMBER - key.length();
         for (int i = 0; i < l; i++) {

@@ -1,3 +1,4 @@
+
 package gazeeebo.parsers;
 
 import gazeeebo.commands.Command;
@@ -8,11 +9,14 @@ import gazeeebo.commands.tasks.ByeCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.help.HelpCommand;
 
+import java.io.IOException;
+import java.text.ParseException;
+
 
 public class ParserManager {
     public static Command parse(final String command,
                                 final Ui ui)
-            throws DukeException {
+            throws DukeException, IOException, ParseException {
         String[] splitCommand = command.split(" ");
         if (splitCommand[0].equals("help") || command.equals("1")) {
             return new HelpCommand();
@@ -37,6 +41,10 @@ public class ParserManager {
             return new CAPCommandParser(moduleCode, moduleCredit, grade);
         } else if (splitCommand[0].equals("notes") || command.equals("9")) {
             return new GeneralNoteCommandParser();
+        } else if (command.equals("change password")) {
+            new ChangePasswordCommandParser().execute(null, ui, null,
+                    null, null, null);
+            return null;
         } else {
             ui.showDontKnowErrorMessage();
             return null;

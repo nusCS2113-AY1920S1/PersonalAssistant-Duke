@@ -2,7 +2,6 @@
 package gazeeebo.commands.contact;
 
 import gazeeebo.storage.ContactPageStorage;
-import gazeeebo.storage.Storage;
 
 import java.io.IOException;
 import java.util.Map;
