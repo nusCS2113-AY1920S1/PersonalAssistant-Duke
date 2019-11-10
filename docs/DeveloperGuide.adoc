@@ -1,4 +1,5 @@
 = MisterMusik - Developer Guide
+:icons: font
 :site-section: DevelopGuide
 :toc:
 :toc-title:
