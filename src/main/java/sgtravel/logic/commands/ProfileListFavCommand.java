@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.DukeException;
 import sgtravel.logic.commands.results.CommandResult;
 import sgtravel.logic.commands.results.CommandResultText;
@@ -27,6 +28,6 @@ public class ProfileListFavCommand extends Command {
         for (String name : favHashMap.keySet()) {
             stringBuilder.append(i++).append(". ").append(name).append("\n");
         }
-        return new CommandResultText("Here is a list of favourite itinerary: " + "\n" + stringBuilder.toString());
+        return new CommandResultText(Messages.LIST_FAVOURITE_SUCCESS + stringBuilder.toString());
     }
 }

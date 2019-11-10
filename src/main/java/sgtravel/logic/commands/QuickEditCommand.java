@@ -16,7 +16,6 @@ import sgtravel.model.lists.EventList;
  * Edits an event.
  */
 public class QuickEditCommand extends Command {
-    private static final String MESSAGE_EDIT_SUCCESS = "The following is successfully changed:\n";
     private static final int DESCRIPTION = 0;
     private static final int START_DATE = 1;
     private static final int END_DATE = 2;
@@ -53,7 +52,7 @@ public class QuickEditCommand extends Command {
             EventList events = model.getEvents();
             Event event = editEvent(events);
             model.save();
-            return new CommandResultText(MESSAGE_EDIT_SUCCESS + event);
+            return new CommandResultText(Messages.EDIT_SUCCESS + event);
         } catch (IndexOutOfBoundsException e) {
             throw new OutOfBoundsException();
         }

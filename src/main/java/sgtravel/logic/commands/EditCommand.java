@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Model;
@@ -13,7 +14,6 @@ import java.util.logging.Logger;
  */
 public class EditCommand extends Command {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private static final String MESSAGE_EDIT_FAILURE = "Changes are not/cannot be saved.\n";
     private boolean canSave;
     private EventList events;
 
@@ -41,6 +41,6 @@ public class EditCommand extends Command {
             logger.log(Level.FINE, "Event list is saved.");
             return new CommandResultText(model.getEvents());
         }
-        return new CommandResultText(MESSAGE_EDIT_FAILURE);
+        return new CommandResultText(Messages.EDIT_FAILURE);
     }
 }

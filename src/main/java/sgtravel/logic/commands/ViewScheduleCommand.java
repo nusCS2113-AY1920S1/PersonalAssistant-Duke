@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.logic.commands.results.CommandResultCalender;
 import sgtravel.model.Model;
 
@@ -7,8 +8,6 @@ import sgtravel.model.Model;
  * Command to allow users to view their calender.
  */
 public class ViewScheduleCommand extends Command {
-    private static final String MESSAGE_SHOW_CALENDAR = "Calendar is launching...";
-
     /**
      * Executes this command and returns a calendar result.
      *
@@ -16,7 +15,7 @@ public class ViewScheduleCommand extends Command {
      */
     @Override
     public CommandResultCalender execute(Model model) {
-        CommandResultCalender commandResult = new CommandResultCalender(MESSAGE_SHOW_CALENDAR);
+        CommandResultCalender commandResult = new CommandResultCalender(Messages.VIEW_SCHEDULE_SUCCESS);
         commandResult.setEvents(model.getEvents());
         return commandResult;
     }

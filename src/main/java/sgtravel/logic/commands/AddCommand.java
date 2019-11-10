@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.DuplicateEventException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.logic.commands.results.CommandResultText;
@@ -11,7 +12,6 @@ import sgtravel.model.Model;
  */
 public class AddCommand extends Command {
     private final Event event;
-    private static final String MESSAGE_ADDITION = "Got it. I've added this event:\n  ";
 
     /**
      * Creates a new AddCommand with the given event.
@@ -33,6 +33,6 @@ public class AddCommand extends Command {
     public CommandResultText execute(Model model) throws DuplicateEventException, FileNotSavedException {
         model.getEvents().add(event);
         model.save();
-        return new CommandResultText(MESSAGE_ADDITION + event);
+        return new CommandResultText(Messages.ADD_EVENT_SUCCESS + event);
     }
 }

@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.logic.commands.results.CommandResultText;
@@ -11,7 +12,6 @@ import sgtravel.model.Model;
  */
 public class MarkDoneCommand extends Command {
     private int index;
-    private static final String MESSAGE_MARK_DONE = "Nice! I've marked this task as done:\n  ";
 
     /**
      * Creates a new MarkDoneCommand with the given index.
@@ -35,7 +35,7 @@ public class MarkDoneCommand extends Command {
             Event event = model.getEvents().get(index);
             event.setDone(true);
             model.save();
-            return new CommandResultText(MESSAGE_MARK_DONE + event);
+            return new CommandResultText(Messages.MARK_DONE_SUCCESS + event);
         } catch (IndexOutOfBoundsException e) {
             throw new OutOfBoundsException();
         }

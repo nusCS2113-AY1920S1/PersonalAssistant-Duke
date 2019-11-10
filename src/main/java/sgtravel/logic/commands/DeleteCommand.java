@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.logic.commands.results.CommandResultText;
@@ -11,7 +12,6 @@ import sgtravel.model.Model;
  */
 public class DeleteCommand extends Command {
     private int index;
-    private static final String MESSAGE_DELETE = "Alright! I've removed this task:\n  ";
 
     /**
      * Creates a new DeleteCommand with the given index.
@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
         try {
             Event event = model.getEvents().remove(index);
             model.save();
-            return new CommandResultText(MESSAGE_DELETE + event);
+            return new CommandResultText(Messages.DELETE_EVENT_SUCCESS + event);
         } catch (IndexOutOfBoundsException e) {
             throw new OutOfBoundsException();
         }

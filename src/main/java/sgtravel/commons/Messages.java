@@ -9,6 +9,21 @@ public class Messages {
      * Include any specific error messages pertaining to the command.
      * Format is COMMAND_DESCRIPTION
      */
+    public static final String VIEW_SCHEDULE_SUCCESS = "Calendar is launching...";
+    public static final String EDIT_SUCCESS = "The following is successfully changed to:\n";
+    public static final String LIST_FAVOURITE_SUCCESS = "Here is a list of favourite itinerary: \n";
+    public static final String DELETE_FAVOURITE_SUCCESS = "Successfully deleted this itinerary from favourite: \n";
+    public static final String ADD_FAVOURITE_SUCCESS = "Successfully added this itinerary to favourite: " + "\n";
+    public static final String ITINERARY_SUCCESS = "New Itinerary Created with name: ";
+    public static final String MARK_DONE_SUCCESS = "Nice! I've marked this event as done:\n  ";
+    public static final String LIST_ITINERARY_SUCCESS = "Your Saved Itineraries are :" + "\n";
+    public static final String EXIT_SUCCESS = "Bye. Hope to see you again soon!\n";
+    public static final String EDITOR_SUCCESS = "Editor mode is turned on. Please press any key to begin. "
+            + "Enter new information to edit. Enter x to save changes and exit Editor mode.";
+    public static final String ADD_EVENT_SUCCESS = "Got it. I've added this event:\n  ";
+    public static final String ADD_ITINERARY_SUCCESS = "Successfully added the recommendation : \n";
+    public static final String DELETE_EVENT_SUCCESS = "Alright! I've removed this event:\n  ";
+    public static final String DELETE_ITINERARY_SUCCESS = "Successfully deleted your itinerary with name ";
     public static final String LOCATIONSEARCH_STARTER = "These are the coordinates of your search:\n";
     public static final String LOCATIONSEARCH_API_EXCEPTION
             = "Sorry, but the search has timed out due to connection issues.";
@@ -21,6 +36,22 @@ public class Messages {
     public static final String ROUTE_DELETE_SUCCESS = "Got it. I've deleted this Route:\n";
     public static final String STATIC_MAP_SUCCESS = "Showing map of : ";
     public static final String STATIC_MAP_FAILURE = "I'm sorry, but nothing was found...\n";
+    public static final String EDIT_FAILURE = "Changes are not/cannot be saved.\n";
+    public static final String HELP_SUCCESS = "Here is the list of commands:\n"
+            + "    Event: event <venue> between <time> and <time>\n"
+            + "    Event: delete <index> \n"
+            + "    Event: done <index> \n"
+            + "    List events: list\n"
+            + "    Showing a Profile: profileShow\n"
+            + "    Showing bus stop: busStop <bus stop code>\n"
+            + "    Showing a bus route: busRoute <bus number>\n"
+            + "    Search locations: search <venue>\n"
+            + "    Map of locations: map <venue>\n"
+            + "    Find event in events: find <keyword>\n"
+            + "    For more commands, please visit our Github website.\n"
+            + "\n"
+            ;
+
 
     /**
      * Error messages.
@@ -78,10 +109,8 @@ public class Messages {
      */
     public static final String PROMPT_ERROR = "Sorry, but something went wrong...";
     public static final String PROMPT_NOT_INT = "Please use a number!";
-    public static final String PROMPT_NOT_DOUBLE = "Please use a number!";
     public static final String PROMPT_NOT_DATE = "Please use a proper date!";
     public static final String PROMPT_NOT_ROUTE_FIELD = "Please choose either name or description!";
-    public static final String PROMPT_NOT_ROUTENODE_FIELD = "Please use a proper field!";
     public static final String PROMPT_SEARCH_STARTER = "Where would you like to find?";
     public static final String PROMPT_SEARCH_SUCCESS = "These are the coordinates of your search:";
     public static final String PROMPT_FIND_STARTER = "What task would you like to find?";
@@ -111,9 +140,6 @@ public class Messages {
     public static final String PROMPT_ROUTENODE_DELETE_STARTER = "Which route does the node belong to?";
     public static final String PROMPT_ROUTENODE_DELETE_NODEINDEX = "What is the index of the node?";
     public static final String PROMPT_ROUTENODE_DELETE_SUCCESS = "Route node deleted successfully!";
-    public static final String PROMPT_ROUTENODE_SHOW_STARTER = "Which route does the node belong to?";
-    public static final String PROMPT_ROUTENODE_SHOW_NODEINDEX = "What is the index of the node?";
-    public static final String PROMPT_ROUTENODE_SHOW_SUCCESS = "Here is the route node";
     public static final String PROMPT_ROUTE_LIST_STARTER = "Which route would you like to see?";
     public static final String PROMPT_ROUTE_SELECTOR_DISPLAY = "Showing node:\n";
     public static final String PROMPT_CANCEL = "Current conversation has ended.";
