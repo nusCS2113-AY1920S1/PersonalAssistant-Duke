@@ -9,8 +9,8 @@ import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.common.model.Model;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.command.EmailFetchCommand;
+import seedu.duke.email.command.EmailFilterByTagCommand;
 import seedu.duke.email.command.EmailListCommand;
-import seedu.duke.email.command.EmailListTagCommand;
 import seedu.duke.email.command.EmailShowCommand;
 import seedu.duke.email.command.EmailTagCommand;
 import seedu.duke.email.entity.Email;
@@ -46,7 +46,7 @@ public class CommandParserHelperTest {
                 "msg", "do after description"), new Command.Option("tag", "123")));
 
         try {
-            Class<?> parser = Class.forName("seedu.duke.CommandParseHelper");
+            Class<?> parser = Class.forName("seedu.duke.common.parser.CommandParseHelper");
             Method method = parser.getDeclaredMethod("parseEmailCommand", String.class, ArrayList.class);
             method.setAccessible(true);
             assertTrue(method.invoke(null, "email show 1", null) instanceof EmailShowCommand);
@@ -58,7 +58,7 @@ public class CommandParserHelperTest {
             assertTrue(method.invoke(null, "email help", null) instanceof HelpCommand);
             assertTrue(method.invoke(null, "email fetch", null) instanceof EmailFetchCommand);
 
-            assertTrue(method.invoke(null, "email list", optionListExtra) instanceof EmailListTagCommand);
+            assertTrue(method.invoke(null, "email list", optionListExtra) instanceof EmailFilterByTagCommand);
             assertTrue(method.invoke(null, "email list", optionListEmpty) instanceof EmailListCommand);
 
             assertTrue(method.invoke(null, "email update 1", optionListEmpty) instanceof InvalidCommand);

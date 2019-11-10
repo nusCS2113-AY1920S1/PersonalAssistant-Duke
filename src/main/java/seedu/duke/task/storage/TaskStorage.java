@@ -1,28 +1,24 @@
 package seedu.duke.task.storage;
 
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
-import seedu.duke.common.storage.Storage;
+import seedu.duke.common.storage.StorageHelper;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.entity.Task;
 import seedu.duke.ui.UI;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Interacts with the file storing the task information.
  */
-public class TaskStorage implements Storage {
+public class TaskStorage {
     /**
      * This function clears the content of the file and write all the information of the tasks in the task
      * list to that file. This file follows similar structure as the user input and can be used to
@@ -32,8 +28,8 @@ public class TaskStorage implements Storage {
      */
     public static void saveTasks(TaskList taskList) {
         try {
-            Path path = Storage.prepareDataPath("task.txt");
-            Storage.saveToFile(path, constructTaskListFileString(taskList));
+            Path path = StorageHelper.prepareDataPath("task.txt");
+            StorageHelper.saveToFile(path, constructTaskListFileString(taskList));
         } catch (IOException e) {
             UI.getInstance().showError("Write to output file IO exception!");
         }
@@ -56,10 +52,10 @@ public class TaskStorage implements Storage {
      */
     public static TaskList readTaskFromFile() {
         try {
-            Path taskPath = Storage.prepareDataPath("task.txt");
-            processTaskFile(Storage.readLinesFromFile(taskPath));
+            Path taskPath = StorageHelper.prepareDataPath("task.txt");
+            processTaskFile(StorageHelper.readLinesFromFile(taskPath));
             TaskList taskList = Model.getInstance().getTaskList();
-            UI.getInstance().showMessage("Saved task file successfully loaded... => " + taskList.size());
+            UI.getInstance().showMessage("Saved task file successfully loaded...");
             new TaskReminderCommand().execute(Model.getInstance());
             return taskList;
         } catch (FileNotFoundException e) {

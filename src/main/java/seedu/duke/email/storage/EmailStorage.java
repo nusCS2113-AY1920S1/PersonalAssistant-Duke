@@ -1,32 +1,25 @@
 package seedu.duke.email.storage;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import seedu.duke.common.model.Model;
 import seedu.duke.common.network.Http;
-import seedu.duke.common.storage.Storage;
-import seedu.duke.common.storage.TimestampHelper;
+import seedu.duke.common.storage.StorageHelper;
 import seedu.duke.email.parser.EmailFormatParseHelper;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.Email;
 import seedu.duke.ui.UI;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Scanner;
 
 import static seedu.duke.email.parser.EmailContentParseHelper.allKeywordInEmail;
 
 /**
  * Handles loading and saving of emails from local storage.
  */
-public class EmailStorage implements Storage, TimestampHelper {
+public class EmailStorage {
     private static String indexFilename = "email.txt";
     private static String userFilename = "user.txt";
 
@@ -92,14 +85,14 @@ public class EmailStorage implements Storage, TimestampHelper {
     }
 
     private static void saveEmailToFolder(Email email) throws IOException {
-        Path emailPath = Storage.prepareEmailPath(email.toFilename());
-        Storage.saveToFile(emailPath, email.getRawJson());
+        Path emailPath = StorageHelper.prepareEmailPath(email.toFilename());
+        StorageHelper.saveToFile(emailPath, email.getRawJson());
     }
 
     private static void saveEmailListToIndex(EmailList emailList) throws IOException, JSONException {
         String content = prepareEmailListIndexString(emailList);
-        Path indexPath = Storage.prepareDataPath(indexFilename);
-        Storage.saveToFile(indexPath, content);
+        Path indexPath = StorageHelper.prepareDataPath(indexFilename);
+        StorageHelper.saveToFile(indexPath, content);
     }
 
     private static String prepareEmailListIndexString(EmailList emailList) throws JSONException {
@@ -119,8 +112,8 @@ public class EmailStorage implements Storage, TimestampHelper {
     public static EmailList readEmailFromFile(String indexDir) {
         EmailList emailList = new EmailList();
         try {
-            Path indexPath = Storage.prepareDataPath(assignIndexDirIfNotExist(indexDir));
-            List<String> emailStringList = Storage.readLinesFromFile(indexPath);
+            Path indexPath = StorageHelper.prepareDataPath(assignIndexDirIfNotExist(indexDir));
+            List<String> emailStringList = StorageHelper.readLinesFromFile(indexPath);
             for (int i = 0; i < emailStringList.size(); i++) {
                 readAndAddEmailWithIndexString(emailList, emailStringList.get(i));
             }
@@ -154,8 +147,8 @@ public class EmailStorage implements Storage, TimestampHelper {
 
     private static Email readEmailFromFolder(Email indexEmail, String emailFilename)
             throws IOException, EmailFormatParseHelper.EmailParsingException {
-        Path emailPath = Storage.prepareEmailPath(emailFilename);
-        String emailContent = Storage.readFromFile(emailPath);
+        Path emailPath = StorageHelper.prepareEmailPath(emailFilename);
+        String emailContent = StorageHelper.readFromFile(emailPath);
         Email fileEmail = parseEmailFromFolder(indexEmail, emailContent);
         return fileEmail;
     }
@@ -177,8 +170,8 @@ public class EmailStorage implements Storage, TimestampHelper {
      */
     public static void saveRefreshToken(String token) {
         try {
-            Path userPath = Storage.prepareDataPath(userFilename);
-            Storage.saveToFile(userPath, token);
+            Path userPath = StorageHelper.prepareDataPath(userFilename);
+            StorageHelper.saveToFile(userPath, token);
         } catch (IOException e) {
             UI.getInstance().showError("Save refresh token failed");
         }
@@ -202,7 +195,7 @@ public class EmailStorage implements Storage, TimestampHelper {
     }
 
     private static String readRefreshTokenContent() throws IOException {
-        Path userPath = Storage.prepareDataPath(userFilename);
-        return Storage.readFromFile(userPath);
+        Path userPath = StorageHelper.prepareDataPath(userFilename);
+        return StorageHelper.readFromFile(userPath);
     }
 }

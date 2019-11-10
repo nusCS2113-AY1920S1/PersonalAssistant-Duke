@@ -2,14 +2,19 @@ package seedu.duke.ui;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.Duke;
+import seedu.duke.common.logger.LogsCenter;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
+
 
 public class UI {
+    private static Logger logger = LogsCenter.getLogger(UI.class);
+
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BLACK = "\u001B[30m";
     private static final String ANSI_RED = "\u001B[31m";
@@ -24,7 +29,6 @@ public class UI {
     // to output result to GUI
     private MainWindow mainWindow;
     private String input = "";
-    private String command = "";
     // variable returned to GUI
     private String emailContent = "";
     private String responseMsg = "";
@@ -71,9 +75,12 @@ public class UI {
         try {
             setInput(input);
             Command command = CommandParseHelper.parseCommand(input);
+            logger.info("[User Input] " + input);
+            logger.info("[Command] " + command.toString());
             command.execute(Model.getInstance());
-        } catch (Exception e) {
+        } catch (CommandParseHelper.CommandParseException e) {
             e.printStackTrace();
+            logger.severe("[CommandParserHelperError] " + e.toString());
         }
     }
 
@@ -87,8 +94,12 @@ public class UI {
      * @param msg the message that is to be shown
      */
     public void showMessage(String msg) {
-        System.out.println(msg);
+        if ("".equals(msg)) {
+            return;
+        }
+        System.out.println(ANSI_RESET + msg);
         showGui(msg);
+        logger.info("[Message] " + msg);
     }
 
     /**
@@ -97,11 +108,15 @@ public class UI {
      * @param msg the message that is to be shown
      */
     public void showResponse(String msg) {
+        if ("".equals(msg)) {
+            return;
+        }
         this.responseMsg = msg;
-        System.out.println("------------------------------");
+        System.out.println(ANSI_RESET + "------------------------------");
         System.out.println(msg);
         System.out.println("------------------------------" + System.lineSeparator());
         showGui(msg);
+        logger.info("[Response] " + msg);
     }
 
     /**
@@ -110,9 +125,13 @@ public class UI {
      * @param msg the error message that is to be shown
      */
     public void showError(String msg) {
+        if ("".equals(msg)) {
+            return;
+        }
         String errorMsg = ANSI_RED + msg + ANSI_RESET;
         System.out.println(errorMsg);
         showGui(msg);
+        logger.severe("[Error] " + errorMsg);
     }
 
     /**
@@ -125,6 +144,7 @@ public class UI {
         if (debug) {
             System.out.println(debugMsg);
         }
+        logger.fine("[Debug] " + msg);
         //showGui(debugMsg);
     }
 
@@ -182,6 +202,7 @@ public class UI {
         Model model = Model.getInstance();
         model.updateGuiTaskList();
         model.updateGuiEmailList();
+        model.updateEmailTagMap();
         model.updateEmailTagList();
     }
 
@@ -191,12 +212,11 @@ public class UI {
      * @param msg input
      */
     public void showGui(String msg) {
-        if (mainWindow == null) {
+        if (mainWindow == null || "".equals(msg)) {
             return;
         }
-        mainWindow.showGuiMessage(msg, input, command);
+        mainWindow.showGuiMessage(msg, input);
         input = "";
-        command = "";
     }
 
     /**
@@ -210,10 +230,6 @@ public class UI {
 
     public void setInput(String input) {
         this.input = input;
-    }
-
-    public void setCommand(String command) {
-        this.command = command;
     }
 
     public String getPrefix() {

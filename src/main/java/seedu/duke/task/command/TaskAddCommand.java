@@ -80,7 +80,7 @@ public class TaskAddCommand extends Command {
         Task task;
         switch (taskType) {
         case TODO:
-            task = new ToDo(name, doAfter, tags, priority, links);
+            task = new ToDo(name, null, doAfter, tags, priority, links);
             break;
         case DEADLINE:
             task = new Deadline(name, time, doAfter, tags, priority, links);

@@ -16,7 +16,7 @@ Interface (GUI) for students to use its functionalities by typing in commands.
 
 This is what our project looks like:
 
-image::../images/Screenshot (2).png[Duke Email Manager]
+image::../images/UI(2).png[Duke Email Manager]
 
 My role was to write codes to enhance the task manager in our project. These includes codes for more
 natural date format feature and priority feature. The following sections illustrate these

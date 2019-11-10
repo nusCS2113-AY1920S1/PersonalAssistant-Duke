@@ -1,6 +1,6 @@
 package seedu.duke.common.command;
 
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.common.model.Model;
 import seedu.duke.ui.UI;
 

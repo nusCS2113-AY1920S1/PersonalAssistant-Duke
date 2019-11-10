@@ -1,6 +1,6 @@
 package seedu.duke.task.command;
 
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
@@ -11,7 +11,6 @@ import seedu.duke.ui.UI;
  * Adds a priority level for a task.
  */
 public class TaskSetPriorityCommand extends Command {
-
     private int index;
     private Task.Priority priorityLevel;
 

@@ -1,6 +1,6 @@
 package seedu.duke.task.entity;
 
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +18,7 @@ public class Task {
      * The enumeration of priority level.
      */
     public enum Priority {
-        HIGH, MED, LOW
+        HIGH, MEDIUM, MED, LOW, NULL
     }
 
     /**
@@ -62,14 +62,14 @@ public class Task {
     protected ArrayList<String> linkedEmails;
 
     /**
-     * The priority assigned to the task.
-     */
-    protected String priority;
-
-    /**
      * The level of priority.
      */
     protected Priority level;
+
+    /**
+     * The time set to the task if applicable.
+     */
+    protected LocalDateTime time;
 
     /**
      * Instantiation of a task with the name and the default false value if isDone attribute.
@@ -81,9 +81,9 @@ public class Task {
         this.isDone = false;
         this.doAfterDescription = null;
         this.tags = new ArrayList<>();
-        this.priority = null;
         this.linkedEmails = new ArrayList<>();
         this.level = null;
+        this.time = null;
     }
 
     /**
@@ -169,13 +169,14 @@ public class Task {
     }
 
     /**
-     * The function checks whether this task, when converted to string, contains the keyword specified.
+     * The function checks whether this task, when converted to string, contains the keyword specified. Case
+     * ignored.
      *
      * @param keyword search target string
      * @return a flag whether the keyword is found in the task string
      */
     public boolean matchKeyword(String keyword) {
-        return this.toString().contains(keyword);
+        return this.toString().toUpperCase().contains(keyword.toUpperCase());
     }
 
     /**
@@ -205,6 +206,14 @@ public class Task {
         return name;
     }
 
+    public LocalDateTime getTime() {
+        return this.time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -213,19 +222,38 @@ public class Task {
         this.tags = tags;
     }
 
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
     public void setDoAfterDescription(String description) {
         this.doAfterDescription = description;
     }
 
-    public void setPriorityTo(Priority priority) {
-        if (priority == null) {
-            this.priority = "";
-        } else {
-            this.priority = priority.name();
-        }
-    }
-
     public void setPriorityLevelTo(Priority level) {
         this.level = level;
+    }
+
+    public Priority getPriority() {
+        return this.level;
+    }
+
+    /**
+     * Get the priority level of task by user input.
+     *
+     * @param input user input
+     * @return priority level of task.
+     */
+    public static Priority getPriorityLevel(String input) {
+        Priority level = null;
+        if (level.HIGH.name().equals(input)) {
+            return level.HIGH;
+        } else if (level.MEDIUM.name().equals(input) || level.MED.name().equals(input)) {
+            return level.MEDIUM;
+        } else if (level.LOW.name().equals(input)) {
+            return level.LOW;
+        } else {
+            return level.NULL;
+        }
     }
 }

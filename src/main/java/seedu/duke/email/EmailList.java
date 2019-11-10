@@ -1,10 +1,14 @@
 package seedu.duke.email;
 
-import seedu.duke.CommandParseHelper;
+import javafx.util.Pair;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.email.entity.Email;
+import seedu.duke.email.parser.EmailContentParseHelper;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class EmailList extends ArrayList<Email> {
@@ -13,6 +17,7 @@ public class EmailList extends ArrayList<Email> {
 
     public void setOrder(SortOrder order) {
         this.order = order;
+        sortByGivenOrder();
     }
 
     /**
@@ -35,6 +40,32 @@ public class EmailList extends ArrayList<Email> {
     }
 
     /**
+     * Convert email list to String when given an index list of emails.
+     *
+     * @param indexes a list of index if emails
+     * @return string of email List
+     */
+    public String toString(ArrayList<Integer> indexes) {
+        if (this.size() == 0) {
+            return "There is nothing in your email list.";
+        }
+        if (indexes.size() == 0) {
+            return "There is nothing to be shown.";
+        }
+        try {
+            String listOfEmails = "";
+            for (int i = 0; i < indexes.size(); i++) {
+                Integer index = indexes.get(i);
+                listOfEmails += index + 1 + ". ";
+                listOfEmails += this.get(index).toGuiString() + System.lineSeparator();
+            }
+            return listOfEmails;
+        } catch (IndexOutOfBoundsException e) {
+            return "Some index provided is out of bounds.";
+        }
+    }
+
+    /**
      * Show the email in browser.
      *
      * @param index of the email to be shown in the email list.
@@ -44,14 +75,53 @@ public class EmailList extends ArrayList<Email> {
      */
     public String[] show(int index) {
         Email email = this.get(index);
-        String emailContent = email.highlightBodyOnTag();
+        String emailContent = email.highlightOnTag();
         String responseMsg = "Showing email in browser: " + email.getSubject();
         String[] responseArray = {responseMsg, emailContent};
         return responseArray;
     }
 
+
     /**
-     * Adds tags to email specified in index.
+     * Delete email at the given index from eh email list.
+     *
+     * @param index of email to be deleted
+     * @return confirmation message to be displayed to user
+     */
+    public String delete(int index) {
+        Email email = this.get(index);
+        this.remove(email);
+        String responseMsg = constructDeleteMessage(email);
+        return responseMsg;
+    }
+
+    private String constructDeleteMessage(Email email) {
+        return "Deleted email: " + email.getSubject();
+    }
+
+    /**
+     * Clears the email list by deleting the email one by one.
+     *
+     * @return confirmation message to be displayed to user
+     */
+    public String clearList() {
+        if (this.size() == 0) {
+            return "The email list has already been cleared";
+        } else {
+            while (this.size() != 0) {
+                this.remove(0);
+            }
+        }
+        String responseMsg = constructClearListMessage();
+        return responseMsg;
+    }
+
+    private String constructClearListMessage() {
+        return "Email List has been cleared";
+    }
+
+    /**
+     * Tags email at the index with the tags input.
      *
      * @param index email to add tags to
      * @param tags  tags to be added to the email
@@ -59,12 +129,22 @@ public class EmailList extends ArrayList<Email> {
      */
     public String addTags(int index, ArrayList<String> tags) {
         Email email = this.get(index);
+        ArrayList<String> successTagList = new ArrayList<>();
         for (String tag : tags) {
-            email.addTag(tag);
+            boolean success = email.addTag(tag);
+            if (success) {
+                successTagList.add(tag);
+            }
         }
-        String responseMsg =
-                "Tags added: " + tags.toString() + System.lineSeparator() + "to email: " + email.getSubject();
+        String responseMsg = "";
+        if (successTagList.size() > 0) {
+            responseMsg = constructAddTagsMessage(successTagList, email);
+        }
         return responseMsg;
+    }
+
+    private String constructAddTagsMessage(ArrayList<String> successTagList, Email email) {
+        return "Tags added: " + successTagList.toString() + System.lineSeparator() + "to email: " + email.getSubject();
     }
 
     /**
@@ -78,6 +158,33 @@ public class EmailList extends ArrayList<Email> {
             emailStringList.add(email.toGuiString());
         }
         return emailStringList;
+    }
+
+    /**
+     * Searches for the target string with some degree of tolerance in difference.
+     *
+     * @param target the given target string
+     * @return the string to be displayed to the user containing all the search result
+     */
+    public String fuzzySearch(String target) {
+        ArrayList<Pair<Integer, Integer>> results = new ArrayList<>();
+        for (int i = 0; i < this.size(); i++) {
+            int score = EmailContentParseHelper.fuzzySearchInEmail(this.get(i), target);
+            if (score > 0) {
+                results.add(new Pair<>(i, score));
+            }
+        }
+        results.sort(Comparator.comparing(Pair::getValue));
+        ArrayList<Integer> indexes = extractIndexFromFuzzyResults(results);
+        return this.toString(indexes);
+    }
+
+    private static ArrayList<Integer> extractIndexFromFuzzyResults(ArrayList<Pair<Integer, Integer>> results) {
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for (Pair result : results) {
+            indexes.add((Integer) result.getKey());
+        }
+        return indexes;
     }
 
     /**

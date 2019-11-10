@@ -1,6 +1,6 @@
 package seedu.duke.task.command;
 
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
@@ -18,7 +18,6 @@ public class TaskSnoozeCommand extends Command {
     public TaskSnoozeCommand(int index, int duration) {
         this.index = index;
         this.duration = duration;
-
     }
 
     /**

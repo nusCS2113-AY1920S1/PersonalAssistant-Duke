@@ -9,18 +9,15 @@ import java.util.ArrayList;
  * Event class is a typ of task with a date/time when the event is going to happen.
  */
 public class Event extends Task {
-    private LocalDateTime time;
 
     /**
      * Instantiates the Event class with name and time. Time must be passed in during the instantiation as it
      * cannot be changed later.
      *
      * @param name name of the Event
-     * @param time time of the Event that is going to happen
      */
-    public Event(String name, LocalDateTime time) {
+    public Event(String name) {
         super(name);
-        this.time = time;
         this.taskType = TaskType.EVENT;
     }
 
@@ -38,23 +35,14 @@ public class Event extends Task {
     public Event(String name, LocalDateTime time, String doAfter, ArrayList<String> tags,
                  Priority priority, ArrayList<String> linkedEmails) {
         super(name);
-        this.time = time;
+        setTime(time);
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.EVENT;
         setTags(tags);
         setPriorityLevelTo(priority);
-        setPriorityTo(priority);
         for (String email : linkedEmails) {
             addLinkedEmails(email);
         }
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
     }
 
     /**
@@ -66,15 +54,15 @@ public class Event extends Task {
     @Override
     public String toString() {
         String output = "";
-        output = "[E]" + this.getStatus() + " (by: " + formatDate() + ")";
+        output = "[E]" + this.getStatus() + " (by: " + formatDate() + ")" + pastString();
         if (this.doAfterDescription != null && !this.doAfterDescription.equals("")) {
             output += System.lineSeparator() + "\tAfter which: " + doAfterDescription;
         }
         for (String tagName : tags) {
             output += " #" + tagName;
         }
-        if (this.priority != null && !this.priority.equals("")) {
-            output += " Priority: " + priority;
+        if (this.level != Priority.NULL) {
+            output += " Priority: " + level.name();
         }
         return output;
     }
@@ -98,8 +86,8 @@ public class Event extends Task {
         for (String email : linkedEmails) {
             output += " -link " + email;
         }
-        if (this.priority != null && !this.priority.equals("")) {
-            output += " -priority " + priority;
+        if (this.level != Priority.NULL) {
+            output += " -priority " + level.name();
         }
         return output;
     }
@@ -112,6 +100,17 @@ public class Event extends Task {
      */
     private String formatDate() {
         return format.format(this.time);
+    }
+
+    private String pastString() {
+        if (isPast()) {
+            return "(Past)";
+        }
+        return "";
+    }
+
+    private boolean isPast() {
+        return this.time.compareTo(LocalDateTime.now()) < 0;
     }
 
     /**
