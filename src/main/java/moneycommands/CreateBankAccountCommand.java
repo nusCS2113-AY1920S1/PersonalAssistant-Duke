@@ -45,7 +45,7 @@ public class CreateBankAccountCommand extends MoneyCommand {
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
         } catch (NumberFormatException e) {
-            throw new DukeException("The format for the numbers is wrong, please check and type in again.");
+            throw new DukeException("The format for the numbers is wrong, please check and type in again.\n");
         }
 
 
