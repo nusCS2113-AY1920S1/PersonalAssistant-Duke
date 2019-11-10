@@ -1,4 +1,5 @@
 = OwlMoney - Developer Guide
+= OwlMoney - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -331,8 +332,6 @@ Depending on the `type` of command the user enters, the specific parser class in
 
 The execution of commands will be elaborated in subsequent diagrams below.
 
-// tag::add_savings[]
-
 === Adding Savings
 .Sequence Diagram of Adding Savings
 image::AddSavingCommand.png[width="800"]
@@ -369,8 +368,6 @@ to an Arraylist containing all bank objects.
 bank objects.
 . Once the savings object has been added, the details of the new savings object will be displayed to inform the user
 of the *successful* addition of the savings object.
-
-// end::add_savings[]
 
 // tag::editing_bonds[]
 

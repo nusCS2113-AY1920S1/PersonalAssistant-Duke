@@ -19,7 +19,7 @@ degree in Information Security.
 I have collaborated with
 link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai],
 link:{repoURL}/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
-link:{repoURL}/blob/master/docs/team/terencetanwt.adoc[Tan Wee Theng, Terence]
+link:{repoURL}/blob/master/docs/team/terencetanwt.adoc[Tan Wee Theng Terence]
 and link:{repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
 to work on a project for the module CS2113T (Software Engineering & Object-Oriented Programming).
 
@@ -48,11 +48,10 @@ large number of users.
 * Highlights: The bank account also keeps track of the user's monthly income so that it can automatically be credited
 into the `Savings` account. This prevents errors such as forgetting to add a deposit for the monthly income.
 * Credits: A majority of this class inherits from the parent class `bank` which was collaborated by
-link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai],
-link:{repoURL}/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
-link:{repoURL}/blob/master/docs/team/terencetanwt.adoc[Tan Wee Theng, Terence]
-and link:{repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
-.
+link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus],
+link:{repoURL}/blob/master/docs/team/mong-nus.adoc[Zheng Wei],
+link:{repoURL}/blob/master/docs/team/terencetanwt.adoc[Terence]
+and link:{repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie].
 
 *Features implemented:* I have implemented the ability to `add`, `edit`, `delete` and `list` transactions, which consists of
 `expenditures`, `deposit`, and `recurbankexp`.
@@ -87,6 +86,8 @@ https://github.com/AY1920S1-CS2113T-W17-3/main/issues/26[#26],
 https://github.com/AY1920S1-CS2113T-W17-3/main/issues/27[#27])
 * Community:
 ** Reviewed the User Guide and Developer Guide of other groups.
+** Reported several bugs found in another team's project, MisterMusik.
+https://github.com/BrianTKM/ped/issues[MisterMusik issues]
 * Team Collaboration:
 ** Reported bugs on team member's code. (Issue
 https://github.com/AY1920S1-CS2113T-W17-3/main/issues/138[#138])
@@ -98,6 +99,21 @@ https://github.com/AY1920S1-CS2113T-W17-3/main/pull/67/files[#67])
 ** Some parts of my code were referenced by my group members.
 ** Resolved bugs in the program. (Pull Request
 https://github.com/AY1920S1-CS2113T-W17-3/main/pull/90/files[#90])
+** Designed and implemented the abstract class `bank`, `parser`, `command`, and `transaction` which serve as the code
+base of the project with everyone (
+link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus],
+link:{repoURL}/blob/master/docs/team/mong-nus.adoc[Zheng Wei],
+link:{repoURL}/blob/master/docs/team/terencetanwt.adoc[Terence]
+and link:{repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie]
+).
+
+** Implemented logging for *OwlMoney* while collaborating with everyone (
+link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus],
+link:{repoURL}/blob/master/docs/team/mong-nus.adoc[Zheng Wei],
+link:{repoURL}/blob/master/docs/team/terencetanwt.adoc[Terence]
+and link:{repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie]
+).
+
 
 === Contributions to the User Guide
 The User Guide had to be updated to reflect the instructions on how to use the morphed product, OwlMoney.
@@ -106,17 +122,5 @@ The following is a portion of the User Guide which shows the commands for managi
 
 ==== {nbsp}
 
-include::../UserGuide.adoc[tag=savingsSyntax]
-
-include::../UserGuide.adoc[tag=deleteSavings]
-
-include::../UserGuide.adoc[tag=deleteExpenditure]
-
-include::../UserGuide.adoc[tag=deleteDeposit]
-
-include::../UserGuide.adoc[tag=recurringExpenditureSyntax]
-
 === Contributions to the Developer Guide
 The following section shows my contribution to the Developer guide for the `Savings` feature.
-
-include::../DeveloperGuide.adoc[tag=add_savings]

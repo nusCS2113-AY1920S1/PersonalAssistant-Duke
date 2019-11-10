@@ -248,8 +248,6 @@ Take note that there is a maximum of *15* character limit.
 
 
 
-// tag::savingsSyntax[]
-
 ===== Adding savings bank account `/add /savings`
 Before you can add any *expenditures*, you will need to add a savings account first.
 It's easy to add a savings account! +
@@ -299,8 +297,6 @@ At least one of `/newname`, `/amount` or `/income` must be used.
 
 Edits `JunBank Savings Account` name to `JulyBank Savings Account`.
 
-// end::savingsSyntax[]
-
 * `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account /amount 2000.25`
 
 .Successful editing of savings account after using `/edit /savings`.
@@ -327,8 +323,6 @@ Edits `JunBank Savings Account` by setting the new amount in the account to $`20
 * `/edit /savings /name JunBank Savings Account /income 5000`
 
 Edits `JunBank Savings Account` by setting the income to $`5000`.
-
-// tag::deleteSavings[]
 
 ===== Deleting savings bank account `/delete /savings`
 Closed your savings bank account? You can reflect that on `OwlMoney` as well!
@@ -404,8 +398,6 @@ image::EditBankExpenditure1.png[Caption="Figure : "]
 
 Edits expenditure `2` that was charged to `JunBank Savings Account` to a new description of `Uniwlo Shirt`.
 
-// end::deleteSavings[]
-
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 4 /category miscellaneous`
 
 .Successful editing of bank expenditure after using `/edit /bankexpenditure`.
@@ -419,8 +411,6 @@ Edits expenditure `4` that was charged to `JunBank Savings Account` to a new cat
 image::EditBankExpenditure3.png[Caption="Figure : "]
 
 Edits expenditure `5` that was charged to `JunBank Savings Account` to an amount of $`3.50`.
-
-// tag::deleteExpenditure[]
 
 ===== Deleting expenditures for savings bank account `/delete /bankexpenditure`
 
@@ -489,16 +479,12 @@ Edits the `deposit` with transaction number `11` deposited to `JunBank Savings A
 .Successful editing of deposit after using `/edit /deposit`.
 image::EditDeposit1.png[Caption="Figure : "]
 
-// end::deleteExpenditure[]
-
 * `/edit /deposit /from JunBank Savings Account /transno 11 /amount 500`
 
 .Successful editing of deposit after using `/edit /deposit`.
 image::EditDeposit2.png[Caption="Figure : "]
 
 Edits the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new amount of $`500`.
-
-// tag::deleteDeposit[]
 
 ===== Deleting deposit for savings bank account `/delete /deposit`
 
@@ -521,8 +507,6 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 image::DeleteDeposit.png[Caption="Figure : "]
 
 Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
-
-// end::deleteDeposit[]
 
 // tag::investment_management[]
 
@@ -1859,8 +1843,6 @@ image::Transferfund2.png[Caption="Figure : "]
 Transfers $`250` from `DBB Vickers Account` (investment account) to `JunBank Savings Account` (savings account) on
 `1/1/2019`
 .
-
-// tag::recurringExpenditureSyntax[]
 
 ==== Recurring expenditures management
 
