@@ -6,8 +6,17 @@ import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 import cube.model.food.FoodList.SortType;
 
+/**
+ * Parse list command
+ */
 public class ListCommandParser implements ParserPrototype<ListCommand> {
 
+	/**
+	 * Parse user list command.
+	 * @param args user inputs.
+	 * @return list command with relative parameters.
+	 * @throws ParserException when user input is illegal.
+	 */
 	public ListCommand parse(String[] args) throws ParserException {
 		String[] params = new String[]{"-sort"};
 

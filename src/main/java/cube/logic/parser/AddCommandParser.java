@@ -11,6 +11,12 @@ import cube.model.food.Food;
  */
 public class AddCommandParser implements ParserPrototype<AddCommand> {
 
+	/**
+	 * Parse user add command.
+	 * @param args user inputs.
+	 * @return add command with the food to be added
+	 * @throws ParserException when user input is illegal.
+	 */
 	public AddCommand parse(String[] args) throws ParserException {
 		int foodNameIndex = 1;
 		int foodTypeIndex = -1;
@@ -40,6 +46,7 @@ public class AddCommandParser implements ParserPrototype<AddCommand> {
 				expiryDateIndex = i;
 			}
 		}
+
 		String foodName = ParserUtil.findFullString(args,foodNameIndex);
 		if (foodName.equals("")) {
 			throw new ParserException(ParserErrorMessage.INVALID_NAME);

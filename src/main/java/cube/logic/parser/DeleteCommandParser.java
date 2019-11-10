@@ -7,8 +7,17 @@ import cube.logic.parser.exception.ParserException;
 
 import java.util.Arrays;
 
+/**
+ * Parse delete command.
+ */
 public class DeleteCommandParser implements ParserPrototype<DeleteCommand> {
 
+	/**
+	 * Parse user delete command.
+	 * @param args user inputs.
+	 * @return delete command with relative parameters.
+	 * @throws ParserException when user input is illegal.
+	 */
 	public DeleteCommand parse(String[] args) throws ParserException {
 		String[] params = new String[]{"-i","-n","-t","-all"};
 

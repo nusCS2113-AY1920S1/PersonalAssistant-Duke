@@ -6,7 +6,17 @@ import cube.logic.parser.exception.ParserException;
 
 import java.util.Arrays;
 
+/**
+ * Parse delete promotion command.
+ */
 public class DeletePromotionCommandParser implements ParserPrototype<DeletePromotionCommand>{
+
+    /**
+     * Parse user delete promotion command.
+     * @param args user inputs.
+     * @return delete promotion command with relative parameters.
+     * @throws ParserException when user input is illegal.
+     */
     public DeletePromotionCommand parse(String[] args) throws ParserException {
         String[] params = new String[]{"-all","-delete"};
 

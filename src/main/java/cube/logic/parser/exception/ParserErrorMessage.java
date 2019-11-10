@@ -1,5 +1,8 @@
 package cube.logic.parser.exception;
 
+/**
+ * The collection of all error message used in Parser Exception.
+ */
 public class ParserErrorMessage {
     public static final String NOT_ENOUGH_PARAMETER
         = "OOPS!!! The parameter you input is not enough";

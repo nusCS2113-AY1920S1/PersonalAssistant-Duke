@@ -7,8 +7,17 @@ import cube.logic.parser.exception.ParserException;
 import cube.storage.config.LogConfig;
 import cube.storage.config.UiConfig;
 
+/**
+ * Parse config command.
+ */
 public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
 
+    /**
+     * Parse user config command.
+     * @param args user inputs.
+     * @return config command with relevant parameters.
+     * @throws ParserException when user input is illegal.
+     */
     public ConfigCommand parse(String[] args) throws ParserException {
         String[] params = new String[] {"-h", "-w", "-s", "-c", "-l"};
 

@@ -6,8 +6,17 @@ import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 import cube.model.food.FoodList;
 
+/**
+ * Parse find command
+ */
 public class FindCommandParser implements ParserPrototype<FindCommand> {
 
+    /**
+     * Parse user find command.
+     * @param args user inputs.
+     * @return find command with relative parameters.
+     * @throws ParserException when user input is illegal.
+     */
     public FindCommand parse(String[] args) throws ParserException {
         String[] params = new String[]{"-i","-n","-t","-sort"};
 

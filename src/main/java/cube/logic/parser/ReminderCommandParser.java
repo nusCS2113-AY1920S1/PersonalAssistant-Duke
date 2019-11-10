@@ -6,8 +6,17 @@ import cube.logic.command.ReminderCommand;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 
+/**
+ * Parse reminder command.
+ */
 public class ReminderCommandParser implements ParserPrototype<ReminderCommand> {
 
+    /**
+     * Parse user reminder command.
+     * @param args user inputs.
+     * @return reminder command with relative parameters.
+     * @throws ParserException when user input is illegal.
+     */
     public ReminderCommand parse(String[] args) throws ParserException {
         String[] params = new String[]{"-s","-d"};
 

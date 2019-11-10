@@ -6,8 +6,17 @@ import cube.logic.parser.exception.ParserException;
 
 import java.util.Date;
 
+/**
+ * Parse sold command.
+ */
 public class SoldCommandParser implements ParserPrototype<SoldCommand> {
 
+	/**
+	 * Parse user sold command.
+	 * @param args user inputs.
+	 * @return sold command with relative parameters.
+	 * @throws ParserException when user input is illegal.
+	 */
 	public SoldCommand parse(String[] args) throws ParserException {
 		int foodNameIndex = 1;
 		int quantityIndex = -1;

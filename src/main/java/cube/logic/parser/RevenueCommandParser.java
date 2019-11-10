@@ -7,7 +7,17 @@ import cube.logic.parser.exception.ParserException;
 
 import java.util.Arrays;
 
+/**
+ * Parse revenue command
+ */
 public class RevenueCommandParser implements ParserPrototype<RevenueCommand> {
+
+    /**
+     * Parse user revenue command.
+     * @param args user inputs.
+     * @return revenue command with relative parameters.
+     * @throws ParserException when user input is illegal.
+     */
     public RevenueCommand parse(String[] args) throws ParserException {
         String[] params = new String[]{"-i","-n","-t","-all"};
 

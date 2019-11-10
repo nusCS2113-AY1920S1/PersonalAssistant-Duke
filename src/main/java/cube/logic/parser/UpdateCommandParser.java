@@ -6,7 +6,17 @@ import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 import cube.model.food.Food;
 
+/**
+ * Parse update command.
+ */
 public class UpdateCommandParser implements ParserPrototype<UpdateCommand>{
+
+    /**
+     * Parse user update command.
+     * @param args user inputs.
+     * @return update command with relative parameters.
+     * @throws ParserException when user input is illegal.
+     */
     public UpdateCommand parse(String[] args) throws ParserException {
         int[] changeBit = new int[]{0,0,0,0};
         int foodNameIndex = 1;

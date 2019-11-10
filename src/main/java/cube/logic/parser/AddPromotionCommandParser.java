@@ -7,7 +7,17 @@ import cube.model.promotion.Promotion;
 
 import java.util.Date;
 
+/**
+ * Parse add promotion command.
+ */
 public class AddPromotionCommandParser implements ParserPrototype<AddPromotionCommand> {
+
+    /**
+     * Parse user inputs.
+     * @param args user inputs.
+     * @return add promotion command with promotion to be added.
+     * @throws ParserException when user input is illegal.
+     */
     public AddPromotionCommand parse(String[] args) throws ParserException {
         int foodNameIndex = 1;
         int discountIndex = -1;
@@ -46,15 +56,15 @@ public class AddPromotionCommandParser implements ParserPrototype<AddPromotionCo
         }
         Promotion tempPromotion = new Promotion(foodName);
 
-        if (discountIndex != -1) {
-            if (!ParserUtil.hasField(args,discountIndex+1)) {
-                throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
-            }
-            if(!ParserUtil.isValidNumber(args[discountIndex+1])){
-                throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
-            }
-            tempPromotion.setDiscount(Double.parseDouble(args[discountIndex+1]));
+
+        if (!ParserUtil.hasField(args,discountIndex+1)) {
+            throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
         }
+        if(!ParserUtil.isValidNumber(args[discountIndex+1])){
+            throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+        }
+        tempPromotion.setDiscount(Double.parseDouble(args[discountIndex+1]));
+
 
         if (startDateIndex != -1) {
             if (!ParserUtil.hasField(args,startDateIndex+1)) {
@@ -65,12 +75,12 @@ public class AddPromotionCommandParser implements ParserPrototype<AddPromotionCo
             tempPromotion.setStartDate(new Date());
         }
 
-        if (endDateIndex != -1) {
-            if (!ParserUtil.hasField(args,endDateIndex+1)) {
-                throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
-            }
-            tempPromotion.setEndDate(ParserUtil.parseStringToDate(args[endDateIndex+1]));
+
+        if (!ParserUtil.hasField(args,endDateIndex+1)) {
+            throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
         }
+        tempPromotion.setEndDate(ParserUtil.parseStringToDate(args[endDateIndex+1]));
+
 
         return new AddPromotionCommand(tempPromotion);
     }

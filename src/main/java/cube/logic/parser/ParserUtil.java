@@ -8,6 +8,9 @@ import java.text.ParseException;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
+/**
+ * The collection of all check methods used in parser.
+ */
 public class ParserUtil {
 
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
@@ -32,7 +35,7 @@ public class ParserUtil {
 	 *
 	 * @param dateString the String describing the date.
 	 * @return the date
-	 * @throws CubeException exception occurs when unable to parse.
+	 * @throws ParserException exception occurs when unable to parse.
 	 */
 	public static Date parseStringToDate(String dateString) throws ParserException {
 		if (dateString == null) {
@@ -75,8 +78,8 @@ public class ParserUtil {
 	}
 
 	/**
-	 * Find the full name/type until next parameter/end of input.
-	 * @param inputs tokens containing the full string to be found.
+	 * Checks that the inputs only contains given parameters.
+	 * @param inputs tokens containing the parameters to be checked.
 	 * @param params set of possible parameters.
 	 * @return true if the input has parameter that is not within possible parameter set.
 	 *         false otherwise.
@@ -101,7 +104,7 @@ public class ParserUtil {
 	}
 
 	/**
-	 * Find the full name/type until next parameter/end of input.
+	 * Checks whether the inputs have repetitive parameters.
 	 * @param inputs tokens containing the full string to be found.
 	 * @return true if the input has parameter that is not within possible parameter set.
 	 *         false otherwise.
@@ -135,9 +138,9 @@ public class ParserUtil {
 	}
 
 	/**
-	 * Find the full name/type until next parameter/end of input.
-	 * @param input tokens containing the full string to be found.
-	 * @return true if the input has parameter that is not within possible parameter set.
+	 * Checks whether the number is a valid numeric.
+	 * @param input the number to be checked.
+	 * @return true if the input is a valid number.
 	 *         false otherwise.
 	 */
 	public static boolean isValidNumber (String input) {
@@ -154,9 +157,9 @@ public class ParserUtil {
 	}
 
     /**
-     * Find the full name/type until next parameter/end of input.
-     * @param input tokens containing the full string to be found.
-     * @return true if the input has parameter that is not within possible parameter set.
+     * Checks whether the number is a valid integer.
+     * @param input the number to be checked.
+     * @return true if the input is a valid integer.
      *         false otherwise.
      */
     public static boolean isValidInteger (String input) {

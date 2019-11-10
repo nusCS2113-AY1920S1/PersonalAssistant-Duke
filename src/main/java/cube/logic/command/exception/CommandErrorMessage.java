@@ -1,5 +1,8 @@
 package cube.logic.command.exception;
 
+/**
+ * The collection of all error message used in Command Exception.
+ */
 public class CommandErrorMessage {
     public static final String FOOD_ALREADY_EXISTS
         = "OOPS!!! The food already exists";
