@@ -59,12 +59,16 @@ public class MainWindow extends AnchorPane {
     private TableView<SimiFX> simiView;
     @FXML
     private TableView<HelpFX> helpView;
+    @FXML
+    private TableView<HelpFX> keywordView;
 
     @FXML
     private TabPane tabPane;
     @FXML
     private GridPane gridPane;
 
+    @FXML
+    private Tab tabDegreeChoices;
     @FXML
     private Tab tabTask;
     @FXML
@@ -78,6 +82,8 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private TableColumn helpCommandCol;
+    @FXML
+    private TableColumn keywordCol;
 
     private Duke duke;
     private TaskList taskList;
@@ -97,6 +103,7 @@ public class MainWindow extends AnchorPane {
     private ObservableList<DiffFX> dataDiff2;
     private ObservableList<SimiFX> dataSimi;
     private ObservableList<HelpFX> dataHelp;
+    private ObservableList<HelpFX> dataKeywords;
 
 
     @FXML
@@ -152,6 +159,29 @@ public class MainWindow extends AnchorPane {
 
         //Initialize the help tab, this is only done once during start-up
         handleHelp();
+        handleKeywords();
+
+        this.diffView1.getVisibleLeafColumn(0).setReorderable(false);
+        this.diffView1.getVisibleLeafColumn(1).setReorderable(false);
+        this.diffView1.getVisibleLeafColumn(2).setReorderable(false);
+        this.diffView2.getVisibleLeafColumn(0).setReorderable(false);
+        this.diffView2.getVisibleLeafColumn(1).setReorderable(false);
+        this.diffView2.getVisibleLeafColumn(2).setReorderable(false);
+        this.simiView.getVisibleLeafColumn(0).setReorderable(false);
+        this.simiView.getVisibleLeafColumn(1).setReorderable(false);
+        this.simiView.getVisibleLeafColumn(2).setReorderable(false);
+        this.taskView.getVisibleLeafColumn(0).setReorderable(false);
+        this.taskView.getVisibleLeafColumn(1).setReorderable(false);
+        this.taskView.getVisibleLeafColumn(2).setReorderable(false);
+        this.taskView.getVisibleLeafColumn(3).setReorderable(false);
+        this.taskView.getVisibleLeafColumn(4).setReorderable(false);
+        this.taskView.getVisibleLeafColumn(5).setReorderable(false);
+        this.choicesView.getVisibleLeafColumn(0).setReorderable(false);
+        this.choicesView.getVisibleLeafColumn(1).setReorderable(false);
+        this.degreesView.getVisibleLeafColumn(0).setReorderable(false);
+        this.degreesView.getVisibleLeafColumn(1).setReorderable(false);
+        this.degreesView.getVisibleLeafColumn(2).setReorderable(false);
+        this.degreesView.getVisibleLeafColumn(3).setReorderable(false);
 
         for (int i = 0; i < this.taskList.size(); i++) {
             Task newTask = this.taskList.get(i);
@@ -308,18 +338,7 @@ public class MainWindow extends AnchorPane {
                     mcString = "0" + mcString;
                 }
 
-                //for standard modules
-                if (mod.getClass() == Module.class) {
-                    this.dataDegrees.add(new DegreesFX(countString, mod.getCode(), mod.getName(),
-                            mcString));
-                } else if (mod.getClass() == NonDescriptive.class) {
-                    //Non descriptive class has no module code, but the moduleCode property contains the name
-                    this.dataDegrees.add(new DegreesFX(countString, "-", mod.getCode(),
-                            mcString));
-                } else if (mod.getClass() == ConjunctiveModule.class) {
-                    this.dataDegrees.add(new DegreesFX(countString, mod.getCode(), mod.getFullModuleName(),
-                            mcString));
-                }
+                this.dataDegrees.add(new DegreesFX(countString, mod.tabModuleCode(), mod.tabModuleName(), mcString));
             }
         }
     }
@@ -361,19 +380,7 @@ public class MainWindow extends AnchorPane {
             if (mcString.length() == 1) {
                 mcString = "0" + mcString;
             }
-
-            //for standard modules
-            if (mod.getClass() == Module.class) {
-                this.dataSimi.add(new SimiFX(mod.getCode(), mod.getName(),
-                        mcString));
-            } else if (mod.getClass() == NonDescriptive.class) {
-                //Non descriptive class has no module code, but the moduleCode property contains the name
-                this.dataSimi.add(new SimiFX("-", mod.getCode(),
-                        mcString));
-            } else if (mod.getClass() == ConjunctiveModule.class) {
-                this.dataSimi.add(new SimiFX(mod.getCode(), mod.getFullModuleName(),
-                        mcString));
-            }
+            this.dataSimi.add(new SimiFX(mod.tabModuleCode(), mod.tabModuleName(), mcString));
         }
 
         //For first module differs
@@ -383,16 +390,8 @@ public class MainWindow extends AnchorPane {
             if (mcString.length() == 1) {
                 mcString = "0" + mcString;
             }
+            this.dataDiff1.add(new DiffFX(mod.tabModuleCode(), mod.tabModuleName(), mcString));
 
-            //for standard modules
-            if (mod.getClass() == Module.class) {
-                this.dataDiff1.add(new DiffFX(mod.getCode(), mod.getName(), mcString));
-            } else if (mod.getClass() == NonDescriptive.class) {
-                //Non descriptive class has no module code, but the moduleCode property contains the name
-                this.dataDiff1.add(new DiffFX("-", mod.getCode(), mcString));
-            } else if (mod.getClass() == ConjunctiveModule.class) {
-                this.dataDiff1.add(new DiffFX(mod.getCode(), mod.getFullModuleName(), mcString));
-            }
         }
 
         //For second module differs
@@ -402,22 +401,36 @@ public class MainWindow extends AnchorPane {
             if (mcString.length() == 1) {
                 mcString = "0" + mcString;
             }
+            this.dataDiff2.add(new DiffFX(mod.tabModuleCode(), mod.tabModuleName(), mcString));
 
-            //for standard modules
-            if (mod.getClass() == Module.class) {
-                this.dataDiff2.add(new DiffFX(mod.getCode(), mod.getName(), mcString));
-            } else if (mod.getClass() == NonDescriptive.class) {
-                //Non descriptive class has no module code, but the moduleCode property contains the name
-                this.dataDiff2.add(new DiffFX("-", mod.getCode(), mcString));
-            } else if (mod.getClass() == ConjunctiveModule.class) {
-                this.dataDiff2.add(new DiffFX(mod.getCode(), mod.getFullModuleName(), mcString));
-            }
         }
     }
 
+    private void handleKeywords() {
+        keywordCol.setStyle("-fx-alignment: CENTER-LEFT;");
+        this.dataKeywords = keywordView.getItems();
+        this.keywordView.getVisibleLeafColumn(0).setReorderable(false);
+        this.keywordView.getVisibleLeafColumn(1).setReorderable(false);
+        Map<String,List<String>> aliases = degreeManager.getKeywords();
+        for(Map.Entry<String, List<String>> entry: aliases.entrySet()) {
+            String key = entry.getKey();
+            List<String> commonAliases = entry.getValue();
+            StringBuilder myAliases = new StringBuilder();
+            for(String name: commonAliases) {
+                if(!name.equalsIgnoreCase(key))
+                    myAliases.append(name).append(", ");
+            }
+            myAliases.setLength(myAliases.length() - 2);
+            this.dataKeywords.add(new HelpFX(key, myAliases.toString()));
+        }
+        keywordView.sort();
+    }
+
+
     private void handleHelp() {
         helpCommandCol.setStyle("-fx-alignment: CENTER-LEFT;");
-
+        this.helpView.getVisibleLeafColumn(0).setReorderable(false);
+        this.helpView.getVisibleLeafColumn(1).setReorderable(false);
         this.dataHelp = helpView.getItems();
         String description;
 

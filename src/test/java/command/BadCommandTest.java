@@ -8,6 +8,8 @@ import task.TaskList;
 import ui.UI;
 import list.DegreeList;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BadCommandTest {
@@ -22,7 +24,7 @@ class BadCommandTest {
     private DegreeList testList = new DegreeList();
     private DegreeManager degreesManager = new DegreeManager();
 
-    BadCommandTest() throws DukeException {
+    BadCommandTest() throws DukeException, IOException {
     }
 
     @Test
