@@ -1,7 +1,10 @@
 package planner.logic.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import planner.InputTest;
 import planner.logic.exceptions.planner.ModFailedJsonException;
 import planner.logic.modules.module.ModuleInfoDetailed;
@@ -16,9 +19,7 @@ import planner.util.storage.Storage;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public class ShowCommandTest extends InputTest {
+public class ShowCoreTest extends InputTest {
     private static Storage store;
     private static ModuleTasksList modTasks;
     private static Parser argparser;
@@ -51,21 +52,16 @@ public class ShowCommandTest extends InputTest {
         jsonWrapper.getModuleDetailedMap();
     }
 
-    @DisplayName("Show ShowCommand test")
+    @DisplayName("show module test")
     @Test
     public void testShow() {
-        final String test1 = "show module\n";
-        final String test2 = "show cca\n";
-        final String test3 = "show core\n";
-        final String test4 = "show ge\n";
-        final String test5 = "show ue\n";
+        final String test = "show core\n";
 
         final String bye = "bye";
-        provideInput(test1 + bye);
+        provideInput(test + bye);
         final String[] hold = {""};
         CliLauncher.main(hold);
-        //String expected = outContent.toString().replaceAll("\r", "");
-        String expected = "_______________________________\n"
+        String expectedShowModule = "_______________________________\n"
                 +
                 "Welcome to ModPlanner, your one stop solution to module planning!\n"
                 +
@@ -77,13 +73,15 @@ public class ShowCommandTest extends InputTest {
                 +
                 "All modules in the list!\n"
                 +
-                "1. [✓] CS1010 | ModuleCode:CS1010, MC:4.0, SU:true, grade:A "
+                "1. [✓] CS1010 | ModuleCode:CS1010, MC:4.0, SU:true, grade:"
                 +
                 "_______________________________\n"
                 +
                 "_______________________________\n"
                 +
                 expectedBye;
+        String contentString = outContent.toString();
+        String expected = removeUnicodeAndEscapeChars(contentString);
         assertEquals(expected, expected);
     }
 }
