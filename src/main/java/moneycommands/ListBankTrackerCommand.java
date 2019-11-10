@@ -37,12 +37,13 @@ public class ListBankTrackerCommand extends MoneyCommand {
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) {
         ArrayList<BankTracker> accountList = account.getBankTrackerList();
-        ui.appendToOutput("Here are the bank accounts and their info:\n");
+        ui.appendToGraphContainer("Here are the bank accounts and their info:\n");
         for (int i = 0; i < accountList.size(); i++) {
-            ui.appendToOutput((i + 1) + ". ----------------------------------------\n");
-            ui.appendToOutput(accountList.get(i).getBankAccountInfo() + "\n");
-            ui.appendToOutput("-------------------------------------------\n");
+            ui.appendToGraphContainer((i + 1) + ". ----------------------------------------\n");
+            ui.appendToGraphContainer(accountList.get(i).getBankAccountInfo() + "\n");
+            ui.appendToGraphContainer("-------------------------------------------\n");
         }
+        ui.appendToOutput("Got it, list will be printed in the other pane!\n");
     }
 
     @Override
