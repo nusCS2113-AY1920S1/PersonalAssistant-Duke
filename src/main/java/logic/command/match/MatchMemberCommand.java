@@ -1,7 +1,6 @@
 package logic.command.match;
 
 import common.DukeException;
-import common.LoggerController;
 import logic.command.Command;
 import logic.command.CommandOutput;
 import model.Task;
@@ -61,8 +60,8 @@ public class MatchMemberCommand extends Command {
     }
 
     private void getTaskWithSkill(Task task, ArrayList<String> memberSkillList, HashMap<String, Integer> matchedTasks) {
-        for (int j = 0; j < memberSkillList.size(); j += 1) {
-            if (task.hasSkill(memberSkillList.get(j))) {
+        for (String memberSkill : memberSkillList) {
+            if (task.hasSkill(memberSkill)) {
                 if (matchedTasks.containsKey(task.getName())) {
                     int numOfMatched = matchedTasks.get(task.getName());
                     numOfMatched += 1;
@@ -70,8 +69,6 @@ public class MatchMemberCommand extends Command {
                 } else {
                     matchedTasks.put(task.getName(), 1);
                 }
-                LoggerController.logDebug(this.getClass(), "CHECK FOR NEW MATCH " +
-                        task.getName() + " " + matchedTasks.get(task.getName()));
             }
         }
     }
@@ -79,12 +76,11 @@ public class MatchMemberCommand extends Command {
     private ArrayList<String> sortMatchedTasks(HashMap<String, Integer> matchedTasks) {
         boolean swapped = true;
         ArrayList<String> sortedMatchedTasks = new ArrayList<>(matchedTasks.keySet());
-        while(swapped) {
+        while (swapped) {
             swapped = false;
-            for(int i=0; i < sortedMatchedTasks.size()-1; i+=1) {
-                if(matchedTasks.get(sortedMatchedTasks.get(i)) < matchedTasks.get(sortedMatchedTasks.get(i+1))){
-                    String temp = sortedMatchedTasks.get(i);
-                    Collections.swap(sortedMatchedTasks, i, i+1);
+            for (int i = 0; i < sortedMatchedTasks.size() - 1; i += 1) {
+                if (matchedTasks.get(sortedMatchedTasks.get(i)) < matchedTasks.get(sortedMatchedTasks.get(i + 1))) {
+                    Collections.swap(sortedMatchedTasks, i, i + 1);
                     swapped = true;
                 }
             }

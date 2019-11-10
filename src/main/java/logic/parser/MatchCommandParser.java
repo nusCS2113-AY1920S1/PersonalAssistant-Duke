@@ -50,8 +50,14 @@ public class MatchCommandParser {
      * Does some input validation before instantiating new command
      */
     private static Command parseMatchTaskCommand(String taskName) throws DukeException {
+        int taskID;
         if (taskName.length() != 0) {
-            return new MatchTaskCommand(taskName);
+            try {
+                taskID = Integer.parseInt(taskName);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Integer ID should be provided for task matching");
+            }
+            return new MatchTaskCommand(taskID);
         } else {
             throw new DukeException("Task name not included");
         }
