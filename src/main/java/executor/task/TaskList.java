@@ -4,7 +4,6 @@ import duke.exception.DukeException;
 import interpreter.Parser;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TaskList extends ArrayList<Task> {
     /**
@@ -96,6 +95,9 @@ public class TaskList extends ArrayList<Task> {
                 newTask = null;
                 break;
             }
+        }
+        catch (DukeException f) {
+            throw f;
         } catch (Exception e) {
             throw new DukeException("Unable to create task.\n");
         }

@@ -1,5 +1,7 @@
 package executor.task;
 
+import duke.exception.DukeException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -9,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 class Deadline extends Task {
 
     // Initialization
-    Deadline(String name) {
+    Deadline(String name) throws DukeException {
         super(name);
         this.taskType = TaskType.DEADLINE;
         this.recordTaskDetails(name);
@@ -17,7 +19,7 @@ class Deadline extends Task {
 
     }
 
-    private void parseDateTime() {
+    private void parseDateTime() throws DukeException {
 
         if (this.detailDesc == null) {
             return;
@@ -32,15 +34,15 @@ class Deadline extends Task {
                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
                 this.setDate(localDate);
                 this.setTime(localTime);
-                System.out.println("Date Interpreted: "
-                        + getDate().format(dateFormatter)
-                        + " "
-                        + getTime().format(timeFormatter));
+//                System.out.println("Date Interpreted: "
+//                        + getDate().format(dateFormatter)
+//                        + " "
+//                        + getTime().format(timeFormatter));
             } catch (Exception e) {
                 this.setDate(LocalDate.now());
                 this.setTime(LocalTime.now());
-                System.out.println("Invalid Input. Unable to interpret Datetime (use: dd/MM/yy HHmm) \n"
-                        + "So we have assigned this task to be deadline of today \n");
+                throw new DukeException("Invalid Input. Unable to interpret Datetime (use: dd/MM/yy HHmm) \n"
+                        + "So we made the deadline for the task TODAY! I guess you are rushing !");
             }
         }
     }

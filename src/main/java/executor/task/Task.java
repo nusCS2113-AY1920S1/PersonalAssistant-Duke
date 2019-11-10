@@ -3,9 +3,7 @@ package executor.task;
 import interpreter.Parser;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 
 public abstract class Task {
     protected String taskName;
@@ -25,7 +23,7 @@ public abstract class Task {
     public Task(String name) {
         this.taskType = TaskType.BLANK;
         this.taskName = name.replace(this.taskType.name(), "").trim();
-        this.date = null;
+        this.date = LocalDate.now();
         this.time = null;
         this.isDone = false;
     }

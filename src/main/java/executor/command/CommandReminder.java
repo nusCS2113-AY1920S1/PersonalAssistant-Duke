@@ -24,9 +24,9 @@ public class CommandReminder extends Command {
 
     @Override
     public void execute(StorageManager storageManager) {
-        String outputStr;
+        String outputStr = "Here are the tasks for today\n";
         try {
-            outputStr = storageManager.getTasksByDate(LocalDate.now()).getPrintableTasks();
+            outputStr += storageManager.getTasksByDate(this.currentDate).getPrintableTasks();
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());
