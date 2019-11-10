@@ -137,7 +137,11 @@ public class ConsoleInputController implements IController {
                 if (isProjectDeleted) {
                     return new String[]{"Project " + projectIndex + " has been deleted"};
                 } else {
-                    return new String[]{"Index out of bounds! Please check project index!"};
+                    return new String[]{"Error occurred! There could be three possibilities:",
+                                        "You could have attempted to delete a Project after renaming it's JSON file",
+                                        "You could have entered a Project index is out of bounds.",
+                                        "You could have attempted to delete the default Project loaded immediately. " +
+                                        "Do not panic if this was you. The default Project is deleted correctly"};
                 }
             } catch (NumberFormatException err) {
                 return new String[]

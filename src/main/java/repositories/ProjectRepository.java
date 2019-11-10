@@ -25,7 +25,7 @@ public class ProjectRepository implements IRepository<Project> {
     public ProjectRepository() {
         ArrayList<Project> projectsFromResource = jsonConverter.getResourcesInJar();
         allProjects = jsonConverter.loadAllProjectsData();
-        allProjects.addAll(projectsFromResource); // TODO FIXED DUPLICATION
+        allProjects.addAll(projectsFromResource);
     }
 
     @Override
