@@ -37,6 +37,7 @@ public class ParseAddCardBill extends ParseCardBill {
             String key = cardBillIterator.next();
             String value = cardBillParameters.get(key);
             if (value == null || value.isBlank()) {
+                logger.warning(key + " cannot be empty when adding making a card bill payment!");
                 throw new ParserException(key + " cannot be empty when adding making a card bill payment!");
             }
             if (CARD_PARAMETER.equals(key)) {
@@ -58,8 +59,10 @@ public class ParseAddCardBill extends ParseCardBill {
      */
     @Override
     public Command getCommand() {
-        AddCardBillCommand newAddCardBillCommand = new AddCardBillCommand(cardBillParameters.get(CARD_PARAMETER),
+        AddCardBillCommand newAddCardBillCommand =
+                new AddCardBillCommand(cardBillParameters.get(CARD_PARAMETER),
                 yearMonth, cardBillParameters.get(BANK_PARAMETER));
+        logger.info("Successful creation of AddCardBillCommand object");
         return newAddCardBillCommand;
     }
 }

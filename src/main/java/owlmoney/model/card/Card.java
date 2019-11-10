@@ -152,6 +152,8 @@ public class Card {
         double monthAmountSpent = unpaid.getMonthAmountSpent(date.getMonthValue(), date.getYear());
         double remainingMonthAmount = limit - monthAmountSpent;
         if (expenditure.getAmount() > remainingMonthAmount) {
+            logger.warning("Expenditure to be added cannot exceed remaining limit of $"
+                    + remainingMonthAmount);
             throw new CardException("Expenditure to be added cannot exceed remaining limit of $"
                     + remainingMonthAmount);
         }
@@ -171,7 +173,7 @@ public class Card {
     }
 
     /**
-     * Adds expenditure to the credit card paid transaction list.
+     * Adds expenditure to the credit card paid transaction list. Used in JUnit.
      *
      * @param expenditure  Expenditure to be added.
      * @param ui   Ui of OwlMoney.
@@ -249,6 +251,7 @@ public class Card {
         double limitLeftExcludeExistingExp = remainingLimit + existingExpAmount;
         if (!(amount == null || amount.isBlank())
                 && limitLeftExcludeExistingExp < Double.parseDouble(amount)) {
+            logger.warning("Edited expenditure cannot exceed $" + limitLeftExcludeExistingExp);
             throw new CardException("Edited expenditure cannot exceed $" + limitLeftExcludeExistingExp);
         }
         unpaid.editExpenditure(expNum, desc, amount, date, category, ui);
@@ -331,6 +334,7 @@ public class Card {
                 i -= ONE_ARRAY_INDEX;
             }
         }
+        logger.info("Transfer unpaid to paid function completed");
     }
 
     /**
@@ -350,44 +354,7 @@ public class Card {
                 i -= ONE_ARRAY_INDEX;
             }
         }
-    }
-
-    /**
-     * Gets the transaction object from the unpaid transactionList by specifying the transaction index.
-     *
-     * @param index The index of the object in the transactionList.
-     * @return The transaction object from the unpaid transactionList.
-     */
-    Transaction getUnpaid(int index) {
-        return unpaid.get(index);
-    }
-
-    /**
-     * Gets the transaction object from the paid transactionList by specifying the transaction index.
-     *
-     * @param index The index of the object in the transactionList.
-     * @return The transaction object from the paid transactionList.
-     */
-    Transaction getPaid(int index) {
-        return paid.get(index);
-    }
-
-    /**
-     * Gets the size of the unpaid transactionList.
-     *
-     * @return The size of the unpaid transactionList.
-     */
-    int getUnpaidSize() {
-        return unpaid.getSize();
-    }
-
-    /**
-     * Gets the size of the paid transactionList.
-     *
-     * @return The size of the paid transactionList.
-     */
-    int getPaidSize() {
-        return paid.getSize();
+        logger.info("Transfer paid to unpaid function completed");
     }
 
     /**
