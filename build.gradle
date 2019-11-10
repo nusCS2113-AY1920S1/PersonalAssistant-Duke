@@ -13,8 +13,8 @@ dependencies {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveVersion = "1.3.5"
+    archiveBaseName = "DEGREES.NUS"
+    archiveVersion = "1.4"
     archiveClassifier = null
     archiveAppendix = null
 }
