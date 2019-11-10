@@ -160,7 +160,7 @@ public class ReserveCommand extends Command {
             ui.printLine();
             ui.print("Done! I've booked these resources:");
             for (int i = 0; i < bookedResources.size(); i++) {
-                ui.print("\t" + bookedResources.get(i).toString() + " (ID: " + bookedResources.get(i).getResourceId()
+                ui.print("\t" + bookedResources.get(i).toString() + " (resource ID: " + bookedResources.get(i).getResourceId()
                         + ")");
             }
             ui.print("\n\t" + "from " + resources.getDateToPrint(dateFrom) + " till "

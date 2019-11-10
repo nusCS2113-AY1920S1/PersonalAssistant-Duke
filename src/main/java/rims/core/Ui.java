@@ -41,6 +41,7 @@ public class Ui {
         "\t" + "list /item - see all loans and future reservations of a particular item",
         "\t" + "list /room - see all loans and future reservations of a particular room",
         "deadlines - view all currently active loans and reservations",
+        "stats - view loan and reservation statistics",
         "undo - undo the last command that modified inventory data"));
 
     public Ui() {

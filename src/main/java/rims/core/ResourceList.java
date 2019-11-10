@@ -70,7 +70,7 @@ public class ResourceList {
             ui.printEmptyLine();
             for (int i = 0; i < allDueReservations.size(); i++) {
                 ui.print(getResourceById(allDueReservations.getReservationByIndex(i).getResourceId()).toString());
-                ui.print("\t" + allDueReservations.getReservationByIndex(i));
+                ui.print("\t" + allDueReservations.getReservationByIndex(i).toString());
             }
         }
         ui.printLine();
@@ -133,7 +133,7 @@ public class ResourceList {
     // @@author rabhijit
     /**
      * Returns the ResourceList itself.
-     * 
+     *
      * @return the array of Resources.
      */
     public ArrayList<Resource> getResources() {
@@ -142,7 +142,7 @@ public class ResourceList {
 
     /**
      * Assigns a new ArrayList of Resources within ResourceList.
-     * 
+     *
      * @param resources Takes in the resource list
      */
     public void setResources(ArrayList<Resource> resources) {
@@ -151,7 +151,7 @@ public class ResourceList {
 
     /**
      * Returns the number of items in the ResourceList.
-     * 
+     *
      * @return the number of items in the ResourceList.
      */
     public int size() {
@@ -160,7 +160,7 @@ public class ResourceList {
 
     /**
      * Generates a resource ID for a newly created Resource.
-     * 
+     *
      * @return a new resource ID.
      */
     public int generateResourceId() {
@@ -176,7 +176,7 @@ public class ResourceList {
 
     /**
      * Returns a Resource in the Resource array by its index number in the array.
-     * 
+     *
      * @param indexNo the index number of the desired Resource.
      * @return the Resource itself.
      */
@@ -186,7 +186,7 @@ public class ResourceList {
 
     /**
      * Returns the first Resource in the Resource array that matches a certain name.
-     * 
+     *
      * @param resourceName the name of the desired Resource.
      * @return the Resource itself.
      * @throws RimsException if no such resource has that name.
@@ -198,12 +198,12 @@ public class ResourceList {
                 return thisResource;
             }
         }
-        throw new RimsException("No such resource!");
+        throw new RimsException("This resource does not exist in your inventory!");
     }
 
     /**
      * Returns a Resource in the Resource array by its ID number.
-     * 
+     *
      * @param resourceId the resource ID of the desired Resource.
      * @return the Resource itself.
      * @throws RimsException if no such resource has that ID.
@@ -220,7 +220,7 @@ public class ResourceList {
 
     /**
      * Checks if a Resource is an Item.
-     * 
+     *
      * @param resourceName the name of the Resource to be checked.
      * @return a boolean: true if it is an item, false if it is a room.
      * @throws RimsException if no such resource has that name.
@@ -232,7 +232,7 @@ public class ResourceList {
 
     /**
      * Checks if a Resource is an Room.
-     * 
+     *
      * @param resourceName the name of the Resource to be checked.
      * @return a boolean: true if it is a room, false if it is an item.
      * @throws RimsException if no such resource has that name.
@@ -244,7 +244,7 @@ public class ResourceList {
 
     /**
      * Returns an array of all the resources of a certain name.
-     * 
+     *
      * @param resourceName the name of the Resources to be obtained.
      * @return an array of all the Resources with that name.
      */
@@ -375,7 +375,7 @@ public class ResourceList {
     }
 
     /**
-     * 
+     *
      * @param date
      * @return
      * @throws ParseException
@@ -390,6 +390,7 @@ public class ResourceList {
         return number;
     }
 
+    //@@author rabhijit
     /**
      * Returns the list of reservations made by a user, given the user's ID.
      * 
@@ -465,9 +466,21 @@ public class ResourceList {
      */
     public String getDateToPrint(Date date) {
         DateFormat dayFormat = new SimpleDateFormat("d");
-        int day = Integer.parseInt(dayFormat.format(date)) % 10;
-        String suffix = day == 1 ? "st" : (day == 2 ? "nd" : (day == 3 ? "rd" : "th"));
-        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + (dayFormat.format(date)) + suffix + " of "
+        int actualDay = Integer.parseInt(dayFormat.format(date));
+        int roundedDay = actualDay % 10;
+        String suffix;
+        if (actualDay < 20 && actualDay > 9) {
+            suffix = "th";
+        } else if (roundedDay == 1) {
+            suffix = "st";
+        } else if (roundedDay == 2) {
+            suffix = "nd";
+        } else if (roundedDay == 3) {
+            suffix = "rd";
+        } else {
+            suffix = "th";
+        }
+        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + actualDay + suffix + " "
                 + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
         return stringDate;
     }
