@@ -28,7 +28,7 @@ public class DeleteGoalCommand extends MoneyCommand {
     public DeleteGoalCommand(String cmd) throws DukeException {
         inputString = cmd;
         try {
-            String temp = inputString.replaceAll("[^-?0-9]", "");
+            String temp = inputString.replaceAll("delete goal ", "");
             serialNo = Integer.parseInt(temp);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter in the format: "
