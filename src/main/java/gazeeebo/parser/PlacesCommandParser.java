@@ -42,6 +42,7 @@ public class PlacesCommandParser extends Command {
             + "7. spec\n"
             + "8. moduleplanner\n"
             + "9. notes\n"
+            + "10. change password\n"
             + "To exit: bye\n";
     private final static String INVALID_COMMAND = "There is no such command in Places.\nWhat do you want to do next ?";
     private final static String WELCOME_MESSAGE = "Welcome to your places in SOC! What would you like to do?";

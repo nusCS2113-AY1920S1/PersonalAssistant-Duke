@@ -28,10 +28,28 @@ import java.util.TreeMap;
  */
 public class ContactCommandParser extends Command {
 
+    /** Welcome message.*/
+    private static final String WELCOME = "Welcome to your contacts page! "
+            + "What would you like to do?\n\n";
+    /** Back to main menu message.*/
+    private static final String MAIN_MENU_PAGE = "Going back to Main Menu...\n"
+            + "Content Page:\n"
+            + "------------------ \n"
+            + "1. help\n"
+            + "2. contacts\n"
+            + "3. expenses\n"
+            + "4. places\n"
+            + "5. tasks\n"
+            + "6. cap\n"
+            + "7. spec\n"
+            + "8. moduleplanner\n"
+            + "9. notes\n"
+            + "10. change password\n"
+            + "To exit: bye\n";
     /**
      * Shows list of commands in contact page.
      */
-    public static void showListOfCommands() {
+    private static void showListOfCommands() {
         System.out.print("_________________________"
                 + "_________________________________\n"
                 + "1. Add contacts: add name,number\n"
@@ -70,12 +88,10 @@ public class ContactCommandParser extends Command {
                     = contactPageStorage.readFromContactFile(); //Read the file
             Map<String, String> contactList = new TreeMap<String, String>(map);
             Stack<Map<String, String>> oldcontacts = new Stack<>();
-            System.out.print("Welcome to your contacts page! "
-                    + "What would you like to do?\n\n");
+            System.out.print(WELCOME);
             showListOfCommands();
             ui.readCommand();
             while (!ui.fullCommand.equals("esc")) {
-
                 if (ui.fullCommand.split(" ")[0].equals("add")
                         || ui.fullCommand.equals("1")) {
                     copyMap(contactList, oldcontacts);
@@ -115,19 +131,7 @@ public class ContactCommandParser extends Command {
                 System.out.println("What do you want to do next ?");
                 ui.readCommand();
             }
-            System.out.print("Going back to Main Menu...\n"
-                    + "Content Page:\n"
-                    + "------------------ \n"
-                    + "1. help\n"
-                    + "2. contacts\n"
-                    + "3. expenses\n"
-                    + "4. places\n"
-                    + "5. tasks\n"
-                    + "6. cap\n"
-                    + "7. spec\n"
-                    + "8. moduleplanner\n"
-                    + "9. notes\n"
-                    + "To exit: bye\n");
+            System.out.print(MAIN_MENU_PAGE);
         } catch (NumberFormatException | IOException
                 | ArrayIndexOutOfBoundsException e) {
             System.out.println("Error in Contact.txt");

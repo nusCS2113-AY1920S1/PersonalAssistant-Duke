@@ -1,9 +1,10 @@
 //@@author JasonLeeWeiHern
+
 package contactCommandTest;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.parsers.ContactCommandParser;
+import gazeeebo.parser.ContactCommandParser;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
@@ -60,18 +61,20 @@ public class MainContactsCommandTest {
                         + "7. Help page: help\n"
                         + "8. Exit contact page: esc\n"
                         + "__________________________________________________________\n\n"
-                        + "Go back to Main Menu...\n" +
-                        "Content Page:\n" +
-                        "------------------ \n" +
-                        "1. help\n" +
-                        "2. contacts\n" +
-                        "3. expenses\n" +
-                        "4. places\n" +
-                        "5. tasks\n" +
-                        "6. cap\n" +
-                        "7. spec\n" +
-                        "8. moduleplanner\n" +
-                        "9. notes\n"
+                        + "Going back to Main Menu...\n"
+                        + "Content Page:\n"
+                        + "------------------ \n"
+                        + "1. help\n"
+                        + "2. contacts\n"
+                        + "3. expenses\n"
+                        + "4. places\n"
+                        + "5. tasks\n"
+                        + "6. cap\n"
+                        + "7. spec\n"
+                        + "8. moduleplanner\n"
+                        + "9. notes\n"
+                        + "10. change password\n"
+                        + "To exit: bye\n"
                 , output.toString()
         );
     }
