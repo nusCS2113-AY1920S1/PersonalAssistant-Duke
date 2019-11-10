@@ -7,20 +7,20 @@ public class TimeClashException extends Exception {
     private String message;
 
     /**
-     * TimeClashException constructor
+     * TimeClashException constructor.
      * Adds the appropriate index to the time clash message
      * @param index index of task with the clash
      */
     public TimeClashException(int index) {
-        message = TIME_CLASH_TEXT + "Task: " + (index+1) + "\n";
+        message = TIME_CLASH_TEXT + "Task: " + (index + 1) + "\n";
     }
 
     /**
-     * toString() method returning the message of the Exception
+     * toString() method returning the message of the Exception.
      * @return the message of the Exception
      */
     @Override
-    public String toString(){
+    public String toString() {
         return LINE + message + LINE;
     }
 }

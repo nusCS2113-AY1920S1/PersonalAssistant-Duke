@@ -14,41 +14,47 @@ import java.util.Date;
  * Stores the description and when the task should be done by.
  */
 public class Assignment extends Task {
+
     private ArrayList<String> subTasks = new ArrayList<String>();
+
     /**
      * Constructor for the Assignment object.
      * Takes in inputs for description and date/time the tasks should be done by.
      * @param description Description of the task
      * @param by The time the tasks should be done by.
      */
-    public Assignment (String description, Date by) {
+    public Assignment(String description, Date by) {
         super(description, by);
     }
 
     /**
-     * Takes in arraylist of subtasks and sets it as this assignment's subtasks
+     * Takes in arraylist of subtasks and sets it as this assignment's subtasks.
      * @param addList array list containing subtasks
      */
     public void addSubTasks(ArrayList<String> addList) {
-        for(String output : addList) {
+        for (String output : addList) {
             subTasks.add(output);
         }
     }
 
     /**
-     * Takes in a String, splits it by "," and sets each new String as a subtask of current Task
+     * Takes in a String, splits it by "," and sets each new String as a subtask of current Task.
      * @param subTasks string containing subtasks
      */
-    public void addSubTasks(String subTasks) { this.subTasks = new ArrayList<>(Arrays.asList(subTasks.trim().split(","))); }
+    public void addSubTasks(String subTasks) {
+        this.subTasks = new ArrayList<>(Arrays.asList(subTasks.trim().split(",")));
+    }
 
     /**
-     * Returns the ArrayList containing the Assignment's subtasks
-     * @return ArrayList<String> subtasks.
+     * Returns the ArrayList containing the Assignment's subtasks.
+     * @return ArrayList of subtasks as Strings
      */
-    public ArrayList<String> getSubTasks() { return subTasks; }
+    public ArrayList<String> getSubTasks() {
+        return subTasks;
+    }
 
     /**
-     * Removes completed Subtask
+     * Removes completed Subtask.
      * @param index index of completed subtask
      * @throws RoomShareException when there is no subtask at that index
      */
