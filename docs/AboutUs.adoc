@@ -14,8 +14,9 @@ image::lucria.png[width="150", align="left"]
 {empty}[https://github.com/Lucria[github]] [https://github.com/Lucria[portfolio]]
 
 Role: Team Lead +
-Responsibilities: Documentation, Implementation of Data Models, Unit Tests
-Features Implemented: CRUD projects, Special features of members (roles), Agenda, Persistent data saving,
+Responsibilities: Documentation, Implementation of Data Models, Unit Tests +
+Features Implemented: CRUD projects, Special features of members (roles) and of tasks (agenda), Persistent data saving
+
 '''
 
 === Kee Hui (Dillen)
@@ -25,6 +26,7 @@ image::dkenobi.png[width="150", align="left"]
 Role: Architecture Lead +
 Responsibilities: Architecture of ArchDuke, Documentation, Implementation of Data models
 Features Implemented: CRUD reminders, Data Logging, Handling date objects
+
 '''
 
 === Abhishek
@@ -32,8 +34,9 @@ image::iamabhishek98.png[width="150", align="left"]
 {empty}[https://github.com/iamabhishek98[github]] [https://github.com/iamabhishek98[portfolio]]
 
 Role: Release and Tags Manager +
-Responsibilities: Documentation, Releases, Implementation of Domain Logic
+Responsibilities: Documentation, Releases, Implementation of Domain Logic +
 Features Implemented: CRUD members, CRUD tasks
+
 '''
 
 === Sean
@@ -41,8 +44,9 @@ image::seanlimhx.png[width="150", align="left"]
 {empty}[https://github.com/seanlimhx[github]] [https://github.com/seanlimhx[portfolio]]
 
 Role: UI Lead +
-Responsibilities: UI Design, Implementation of UI models, Documentation
+Responsibilities: UI Design, Implementation of UI models, Documentation +
 Features Implemented: Help command, UI printing and formatting, Special features of tasks (CRUD task requirements)
+
 '''
 
 === Cynthia
@@ -50,6 +54,7 @@ image::sinteary.png[width="150", align="left"]
 {empty}[https://github.com/sinteary[github]] [https://github.com/sinteary[portfolio]]
 
 Role: Tests Lead +
-Responsibilities: Unit Tests, Implementation of Domain Logic, Documentation
+Responsibilities: Unit Tests, Implementation of Domain Logic, Documentation +
 Features Implemented: Assignment logic of tasks to members
+
 '''
