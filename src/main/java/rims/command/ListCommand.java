@@ -114,7 +114,6 @@ public class ListCommand extends Command {
             ui.printLine();
 
         }
-        // @@author aarushisingh1
         else if (listType.equals("item")) {
             if (!resources.isItem(resourceDetail)) {
                 throw new RimsException("There is no such item!");
@@ -156,7 +155,9 @@ public class ListCommand extends Command {
             }
             ui.printLine();
 
+        // @@author aarushisingh1
         } else if (listType.equals("date")) {
+            ui.printLine();
             ArrayList<String> coveredResources = new ArrayList<String>();
             ui.print("CURRENTLY AVAILABLE ON THIS DATE:");
             ui.printEmptyLine();
