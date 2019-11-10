@@ -94,6 +94,7 @@ _Adds a task to the list_
 3.System: Shows response
 _Task will be marked done._
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/DONE/DONE-RESPONSE.png">
+
 ## 3.3. Delete task: ​ delete
 _Delete a task from the list_
 ### Format:    
@@ -243,7 +244,7 @@ _Shows list of commands and correct format_
 <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/HELP/HELP_OUTPUT.PNG">
 
    ## 3.12. Show recommended workload 
-_ This will show a recommended workload schedule for the immediate coming week to the user._
+_This will show a recommended workload schedule for the immediate coming week to the user._
 
 ### Format:
 - show/workload 
@@ -341,37 +342,43 @@ _Tags Task with a label so all related tasks can be categorised
 1.  Add:
 - for event : add/e Mod_Code TASK_DESCRIPTION /at DATE(xx/xx/xxxx or week x day) /from TIME /to TIME
 - for deadline :add/d Mod_Code TASK_DESCRIPTION /by DATE(xx/xx/xxxx or week x day) TIME
-**e.g** 
+
+  **e.g** 
 - add/e CS2101 assignment /at 12/08/2019 /from 1200 /to 1300
 - add/d CS2101 assignment /by week 1 mon 1200
 
 2. Done:
  -  event : done/e Mod_Code TASK_DESCRIPTION /at DATE  (xx/xx/xxxx or week x day) /from TIME to TIME
 - for deadline :done/d Mod_Code TASK_DESCRIPTION /by DATE(xx/xx/xxxx or week x day) TIME
-**e.g**
+
+  **e.g**
 - done/e CS2101 assignment /at 12/08/2019 /from 1200 /to 1300
 - done/d CS2101 assignment /by week 1 mon 1200
 
 3. Delete:
  - for event : delete/e Mod_Code TASK_DESCRIPTION /at DATE  (xx/xx/xxxx or week x day) /from TIME to TIME
 - for deadline : delete/d Mod_Code TASK_DESCRIPTION /by DATE(xx/xx/xxxx or week x day) TIME
-**e.g.**
+
+  **e.g.**
 - delete/e CS2101 assignment /at 12/08/2019 /from 1200 /to 1300
 - delete/d CS2101 assignment /by week 1 mon 1200
 
 4. Filter: 
 - show/filter KEYWORD
-**e.g.** 
+
+  **e.g.** 
 - show/filter book
 5. Remind: 
 - Set Reminder: remind/set Mod_Code TASK_DESCRIPTION /by DATE(xx/xx/xxxx or week x day) TIME /on DATE(xx/xx/xxxx or week x day) TIME
 - Remove Reminder : remind/rm Mod_Code TASK_DESCRIPTION /by DATE(xx/xx/xxxx or week x day) TIME /on DATE(xx/xx/xxxx or week x day) TIME
 - Remind check : remind/check
-**e.g.** 
+
+  **e.g.** 
 - remind/set CS2100 project /by 1/11/2019 1200 /on week 11 fri 0800
 - remind/rm CS2100 project /by 1/11/2019 1200 /on week 11 fri 0800
 
 6. Show recommended workload: 
+  **e.g.** 
 - /show workload
 
 7. Recur:  
@@ -379,7 +386,8 @@ _Tags Task with a label so all related tasks can be categorised
 - Remove a weekly recurring task that was set: recur/rmweekly Mod_Code TASK_DESCRIPTION /start Start_Date(xx/xx/xxxx or week x day) /to End_Date(xx/xx/xxxx or week x day) /from TIME /to TIME
 - Add recurring bi-weekly task: recur/biweekly Mod_Code TASK_DESCRIPTION /start Start_Date(xx/xx/xxxx or week x day) /to End_Date(xx/xx/xxxx or week x day) /from TIME /to TIME
 - Remove a bi-weekly recurring task that was set: recur/rmbiweekly Mod_Code TASK_DESCRIPTION /start Start_Date(xx/xx/xxxx or week x day) /to End_Date(xx/xx/xxxx or week x day) /from TIME /to TIME 
-**e.g.**  
+
+  **e.g.**  
 - recur/weekly CS2101 assignment /start 10/10/2019 /to 31/11/2019 /from 1200 /to 1400
 - recur/rmweekly CS2101 assignment /start 10/10/2019 /to 31/11/2019 /from 1200 /to 1400
 - recur/biweekly CS2101 assignment /start 10/10/2019 /to 31/11/2019 /from 1200 /to 1400
@@ -387,28 +395,33 @@ _Tags Task with a label so all related tasks can be categorised
 
 8. Show previous:
 - show/previous x , where ‘x’ is an integer OR show/previous <command type> 
-**e.g**.
+
+  **e.g**.
 - show/previous 3 
 - show/previous add/d
 
 9. Retrieve previous:
 - retrieve/previous x , where ‘x’ is an integer
-**e.g.** 
+
+  **e.g.** 
 - retrieve/previous 2
 
 10. Find earliest free time:
 - find ‘x’ hours , where ‘x’ is an integer between 1 to 16 
-**e.g.** 
+
+  **e.g.** 
 - find 5 hours
 
 11. Retrieve earliest free time:
 - retrieve/time ‘x’ , where ‘x’ is an integer between 1 to 5 
-**e.g.** 
+
+  **e.g.** 
 - retrieve/time 5  
 
 12. Select the Week:
 - show/week ‘x’,where ‘x’ is an integer between 1 to 13
-**e.g.** 
+
+  **e.g.** 
 - show/week 5
 
 13. Help:
