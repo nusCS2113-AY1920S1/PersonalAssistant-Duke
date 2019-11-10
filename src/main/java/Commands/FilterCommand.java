@@ -36,7 +36,8 @@ public class FilterCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display list message
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidFormatException {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage)
+            throws DukeInvalidFormatException {
         if (keyword.trim().equals(DukeConstants.NO_FIELD)) {
             throw new DukeInvalidFormatException(DukeConstants.SHOW_FILTER_FORMAT);
         }
@@ -50,7 +51,9 @@ public class FilterCommand extends Command {
                 for (Assignment task : temp) {
                     String lowerCaseTask = task.toString().toLowerCase();
                     if (lowerCaseTask.toLowerCase().contains(keyword)) {
-                        out.add(task.getType() + task.getModCode() + DukeConstants.BLANK_SPACE + task.getDescription() + EVENT_KEYWORD + task.getDateTime());
+                        out.add(task.getType() + task.getModCode()
+                                + DukeConstants.BLANK_SPACE + task.getDescription()
+                                + EVENT_KEYWORD + task.getDateTime());
                     }
                 }
             }
@@ -64,7 +67,9 @@ public class FilterCommand extends Command {
                 for (Assignment task : temp) {
                     String lowerCaseTask = task.toString().toLowerCase();
                     if (lowerCaseTask.contains(keyword)) {
-                        out.add(task.getType() + task.getModCode() + DukeConstants.BLANK_SPACE + task.getDescription() + DEADLINE_KEYWORD + task.getDateTime());
+                        out.add(task.getType() + task.getModCode()
+                                + DukeConstants.BLANK_SPACE + task.getDescription()
+                                + DEADLINE_KEYWORD + task.getDateTime());
                     }
                 }
             }

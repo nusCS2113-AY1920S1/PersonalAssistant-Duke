@@ -24,6 +24,9 @@ public class ShowPreviousParseTest {
     private static String secondInput;
     private static ArrayList<String> userInputList = new ArrayList<>();
 
+    /**
+     * This method initializes the variables required.
+     */
     @BeforeAll
     public static void setAllVariables() {
         userInputWithInvalidCommandType = "show/previous remove/all";

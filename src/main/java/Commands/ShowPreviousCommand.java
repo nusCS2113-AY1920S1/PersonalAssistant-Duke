@@ -30,7 +30,8 @@ public class ShowPreviousCommand extends Command {
      * @param string The user's keyword for adding into outputList
      * @return outputList which contains the inputs requested by user
      */
-    public ArrayList<String> previousCommandsHandler(ArrayList<String> userInputList, ArrayList<String> outputList, String string) {
+    public ArrayList<String> previousCommandsHandler(ArrayList<String> userInputList,
+                                                     ArrayList<String> outputList, String string) {
         int size = userInputList.size() - 1;
         String userInput;
         for (int j = 0; j < size; j++) {
@@ -56,7 +57,8 @@ public class ShowPreviousCommand extends Command {
      * @throws DukeInvalidCommandException when user request to show more
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidCommandException {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage)
+            throws DukeInvalidCommandException {
         boolean isNumber = true;
         int number = 0;
         try {
@@ -104,9 +106,11 @@ public class ShowPreviousCommand extends Command {
         } else if (fullCommand.equals(DukeConstants.RECUR_BIWEEKLY_HEADER)) {
             result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.RECUR_BIWEEKLY_HEADER);
         } else if (fullCommand.equals(DukeConstants.REMOVE_RECUR_WEEKLY_HEADER)) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.REMOVE_RECUR_WEEKLY_HEADER);
+            result = previousCommandsHandler(updatedUserInputList,
+                    outputList, DukeConstants.REMOVE_RECUR_WEEKLY_HEADER);
         } else if (fullCommand.equals(DukeConstants.REMOVE_RECUR_BIWEEKLY_HEADER)) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.REMOVE_RECUR_BIWEEKLY_HEADER);
+            result = previousCommandsHandler(updatedUserInputList,
+                    outputList, DukeConstants.REMOVE_RECUR_BIWEEKLY_HEADER);
         } else if (fullCommand.equals(DukeConstants.REMIND_SET_HEADER)) {
             result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.REMIND_SET_HEADER);
         } else if (fullCommand.equals(DukeConstants.REMOVE_REMIND_HEADER)) {

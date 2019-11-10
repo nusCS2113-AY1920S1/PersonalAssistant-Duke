@@ -40,7 +40,9 @@ public class RecurringCommand extends Command {
      * @param isBiweekly whether the task is biweekly
      * @param isRecur whether the task needs to be added
      */
-    public RecurringCommand(String description, String startDateString, String endDateString, String startTimeString, String endTimeString, boolean isBiweekly, boolean isRecur) {
+    public RecurringCommand(String description, String startDateString,
+                            String endDateString, String startTimeString,
+                            String endTimeString, boolean isBiweekly, boolean isRecur) {
         this.description = description;
         this.startDateString = startDateString;
         this.endDateString = endDateString;
@@ -61,7 +63,7 @@ public class RecurringCommand extends Command {
     }
 
     /**
-     * This method gets the date of 14 days later
+     * This method gets the date of 14 days later.
      * @param inDate date
      * @return date of 14 days later
      */
@@ -124,20 +126,20 @@ public class RecurringCommand extends Command {
             } while (startOfNextWeek.before(endDate) || startOfNextWeek.equals(endDate));
         }
 
-       if (isRecur) {
-           if (eventConflict.isEmpty()) {
-               for (Assignment taskInList : temp) {
-                   events.addTask(taskInList);
-               }
-           } else {
-               return ui.showConflictRecurring(eventConflict);
-           }
-       } else {
-           for (Assignment taskInList : temp) {
-               events.removeTask(taskInList);
-           }
-       }
-       storage.updateEventList(events);
-       return ui.showRecurring(description, oldStartDateString, endDateString, isBiweekly, isRecur);
+        if (isRecur) {
+            if (eventConflict.isEmpty()) {
+                for (Assignment taskInList : temp) {
+                    events.addTask(taskInList);
+                }
+            } else {
+                return ui.showConflictRecurring(eventConflict);
+            }
+        } else {
+            for (Assignment taskInList : temp) {
+                events.removeTask(taskInList);
+            }
+        }
+        storage.updateEventList(events);
+        return ui.showRecurring(description, oldStartDateString, endDateString, isBiweekly, isRecur);
     }
 }

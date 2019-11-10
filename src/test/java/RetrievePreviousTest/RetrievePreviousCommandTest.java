@@ -39,6 +39,9 @@ public class RetrievePreviousCommandTest {
     private StorageStub storageStub = new StorageStub();
     private UserInteraction ui = new UserInteraction();
 
+    /**
+     * This method initializes the variables required.
+     */
     @BeforeAll
     public static void setAllVariables() {
         userInputWithInvalidNumberGreaterThanSize = "retrieve/previous 3";
@@ -51,6 +54,9 @@ public class RetrievePreviousCommandTest {
         userInputWithNegativeNumber = "retrieve/previous -10";
     }
 
+    /**
+     * This method initializes the variables required before a test.
+     */
     @Before
     public void runWeekCommand() {
         String actual = "No error";
@@ -67,6 +73,9 @@ public class RetrievePreviousCommandTest {
         assertNotNull(command, actual);
     }
 
+    /**
+     * This method initializes the variables required before a test.
+     */
     @Before
     public void setRetrievedFreeTimesList() {
         String actual = "No error";
@@ -83,6 +92,9 @@ public class RetrievePreviousCommandTest {
         assertNotNull(command, actual);
     }
 
+    /**
+     * This method initializes the variables required before a test.
+     */
     @Before
     public void showPreviousCommandList() {
         setRetrievedFreeTimesList();
