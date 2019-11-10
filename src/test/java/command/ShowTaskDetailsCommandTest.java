@@ -66,7 +66,7 @@ public class ShowTaskDetailsCommandTest {
         model.getTaskList().get(0).markAsDone();    //set done
         model.getTasksManager().updateTaskDes(0,"Complete swim meet poster");   //set description
         Date deadline = new SimpleDateFormat("dd/MM/yyyy HHmm").parse("10/10/2020 1015");
-        //model.getTaskList().get(0).setTime(deadline);   //set deadline
+        model.getTaskList().get(0).setTime(deadline);   //set deadline
         model.link(0,"John");   //set members assigned
         model.getTasksManager().addReqSkill("Complete event poster", "Java");   //add skills
         Date reminder = new SimpleDateFormat("dd/MM/yyyy HHmm").parse("10/10/2020 1010");
@@ -78,7 +78,7 @@ public class ShowTaskDetailsCommandTest {
                 + "Task Name: Complete event poster ["
                 + model.getTaskIsDoneByIdOnList(1) + "]\n"
                 + "Description: Complete swim meet poster\n"
-                + "Deadline: (No deadline assigned!)\n"
+                + "Deadline: Sat Oct 10 10:15:00 SGT 2020\n"
                 + "Member(s) assigned: [John]\n" + "Skill(s) required: [Java]\n"
                 + "Reminder: Sat Oct 10 10:10:00 SGT 2020\n", out.getOutputToUser());
     }   //model.getTaskIsDoneByIdOnList(1) is used to get symbol

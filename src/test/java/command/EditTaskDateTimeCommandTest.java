@@ -59,6 +59,7 @@ public class EditTaskDateTimeCommandTest {
         model.addTask("Create event poster");
         Command command = EditTaskDateTimeParser.parseEditTaskDateTime("1 /to 10/10/2020 1010");
         CommandOutput out = command.execute(model);
+        String expected = "The deadline has been changed to: Sat Oct 10 10:10:00 SGT 2020";
         String actual = out.getOutputToUser();
         //CommandOutput expected = new CommandOutput(
         //        "The deadline has been changed to: Sat Oct 10 10:10:00 SGT 2020", false);
@@ -69,7 +70,7 @@ public class EditTaskDateTimeCommandTest {
         //System.out.println(out.getOutputToUser());
         //System.out.println(expected.getOutputToUser());
         //assertEquals(expected, out);
-        assertEquals("The deadline has been changed to: Sat Oct 10 10:10:00 SGT 2020", actual);
+        assertEquals(expected, actual);
     }
 
 }
