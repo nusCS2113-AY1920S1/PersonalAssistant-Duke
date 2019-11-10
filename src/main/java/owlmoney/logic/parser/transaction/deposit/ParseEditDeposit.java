@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.EditDepositCommand;
 import owlmoney.logic.parser.exception.ParserException;
-import owlmoney.logic.parser.transaction.expenditure.ParseEditExpenditure;
 
 /**
  * Represents the parsing of inputs for editing a deposit.
