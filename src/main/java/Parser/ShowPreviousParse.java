@@ -42,14 +42,14 @@ public class ShowPreviousParse extends Parse {
         }
 
         String[] listOfAllCommands = { DukeConstants.ADD_DEADLINE_HEADER, DukeConstants.ADD_EVENT_HEADER,
-                DukeConstants.DELETE_DEADLINE_HEADER, DukeConstants.DELETE_EVENT_HEADER,
-                DukeConstants.RECUR_WEEKLY_HEADER, DukeConstants.RECUR_BIWEEKLY_HEADER,
-                DukeConstants.REMOVE_RECUR_WEEKLY_HEADER, DukeConstants.REMOVE_RECUR_BIWEEKLY_HEADER,
-                DukeConstants.REMIND_SET_HEADER, DukeConstants.REMIND_CHECK_HEADER, DukeConstants.REMOVE_REMIND_HEADER,
-                DukeConstants.SHOW_WEEK_HEADER, DukeConstants.SHOW_FILTER_HEADER, DukeConstants.HELP_HEADER,
-                DukeConstants.DONE_EVENT_HEADER, DukeConstants.DONE_DEADLINE_HEADER, DukeConstants.FIND_TIME_HEADER,
-                DukeConstants.SHOW_PREVIOUS_HEADER, DukeConstants.RETRIEVE_PREVIOUS_HEADER,
-                DukeConstants.RETRIEVE_TIME_HEADER, DukeConstants.SHOW_WORKLOAD_HEADER, DukeConstants.BYE_HEADER
+            DukeConstants.DELETE_DEADLINE_HEADER, DukeConstants.DELETE_EVENT_HEADER,
+            DukeConstants.RECUR_WEEKLY_HEADER, DukeConstants.RECUR_BIWEEKLY_HEADER,
+            DukeConstants.REMOVE_RECUR_WEEKLY_HEADER, DukeConstants.REMOVE_RECUR_BIWEEKLY_HEADER,
+            DukeConstants.REMIND_SET_HEADER, DukeConstants.REMIND_CHECK_HEADER, DukeConstants.REMOVE_REMIND_HEADER,
+            DukeConstants.SHOW_WEEK_HEADER, DukeConstants.SHOW_FILTER_HEADER, DukeConstants.HELP_HEADER,
+            DukeConstants.DONE_EVENT_HEADER, DukeConstants.DONE_DEADLINE_HEADER, DukeConstants.FIND_TIME_HEADER,
+            DukeConstants.SHOW_PREVIOUS_HEADER, DukeConstants.RETRIEVE_PREVIOUS_HEADER,
+            DukeConstants.RETRIEVE_TIME_HEADER, DukeConstants.SHOW_WORKLOAD_HEADER, DukeConstants.BYE_HEADER
         };
 
         boolean isValid = false;
