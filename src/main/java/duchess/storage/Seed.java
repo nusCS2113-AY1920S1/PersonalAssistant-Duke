@@ -1,9 +1,14 @@
 package duchess.storage;
 
+import duchess.exceptions.DuchessException;
 import duchess.model.Module;
+import duchess.model.task.Deadline;
 import duchess.model.task.Task;
 import duchess.model.task.Todo;
+import duchess.parser.Parser;
+import duchess.parser.Util;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -35,5 +40,17 @@ public class Seed {
         Task k = new Todo("Consult prof on concept");
         k.setModule(e);
         List.of(g, h, i, j, k).forEach(x -> store.getTaskList().add(x));
+
+        // Deadlines
+        LocalDateTime time1 = LocalDateTime.of(2019, 12, 23, 8, 00);
+        LocalDateTime time2 = LocalDateTime.of(2019, 12, 2, 14, 00);
+        LocalDateTime time3 = LocalDateTime.of(2019, 12, 24, 23, 59);
+        LocalDateTime time4 = LocalDateTime.of(2019, 12, 13, 23, 59);
+        Task l = new Deadline("PPP submission", time1);
+        Task m = new Deadline("Term Paper submission", time2);
+        Task n = new Deadline("Buy Christmas gifts", time3);
+        Task o = new Deadline("Send email to friends.", time4);
+
+        List.of(l, m, n, o).forEach(x -> store.getTaskList().add(x));
     }
 }
