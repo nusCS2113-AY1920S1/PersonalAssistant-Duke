@@ -110,7 +110,7 @@ public class Storage {
      * Stack structure used because the first words to be extracted are the last ones added to stack.
      * @return a stack containing all input words ordered by SEQUENCE OF ENTRY
      */
-    public Stack<Word> loadHistoryFromFile() {
+    public Stack<Word> loadHistoryFile() {
         File file = new File(DATA_FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
@@ -148,7 +148,7 @@ public class Storage {
     /**
      * Checks the reminders.txt file and creates reminders from the data stored.
      */
-    public void loadRemindersFromFile() {
+    public void loadRemindersFile() {
         File file = new File(REMINDER_FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
