@@ -26,12 +26,12 @@ public class User {
     private static int LOGIN_LIMITS = 5;
     private static final String defaultPath = "data/userProfile.json";
 
-    private User(int semester) {
+    public User(int semester) {
         currentSemester = semester;
         this.init();
     }
 
-    private User() {
+    public User() {
         this(0);
     }
 

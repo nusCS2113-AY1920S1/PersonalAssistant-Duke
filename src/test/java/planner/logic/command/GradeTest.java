@@ -10,7 +10,10 @@ import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 import planner.InputTest;
+import planner.credential.user.User;
+import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModFailedJsonException;
+import planner.logic.modules.module.ModuleTask;
 import planner.logic.parser.Parser;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTasksList;
@@ -29,6 +32,7 @@ public class GradeTest extends InputTest {
     private static PlannerUi modUi;
     private static HashMap<String, ModuleInfoDetailed> modDetailedMap;
     private transient ByteArrayOutputStream output;
+    private static User user;
     private String expectedBye = "_______________________________\n"
         +
         "Thanks for using ModPlanner!\n"
@@ -49,6 +53,7 @@ public class GradeTest extends InputTest {
         argparser = new Parser();
         jsonWrapper = new JsonWrapper();
         jsonWrapper.getModuleDetailedMap(true, store);
+        user = new User();
     }
 
     @Test
@@ -216,18 +221,19 @@ public class GradeTest extends InputTest {
     public void gradeTestDummyClass() throws ModException {
         ModuleInfoDetailed mod1 = modDetailedMap.get("CS1010");
         ModuleTask add1 = new ModuleTask("CS1010", mod1);
-        modTasks.getTasks().add(add1);
+        user.getModules().add(add1);
         assertEquals(add1.getModuleCode(), "CS1010");
         assertEquals(add1.getModuleCredit(), "4");
         assertEquals(add1.getModuleInfoDetailed().getAttributes().isSu(), true);
         GradeCommand test = new GradeCommand("CS1010", "A");
         try {
-            test.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
+            test.execute(modDetailedMap, modUi, store, jsonWrapper, user);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        //assertEquals(modTasks.getTasks().get(0).toString(), "[✓] CS1010 |
-        ModuleCode:CS1010, MC:4.0, SU:true, grade:A");
+        assertEquals(user.getModules().get(0).toString(), "[✓] CS1010 |"
+            +
+        "ModuleCode:CS1010, MC:4.0, SU:true, grade:A");
         provideInput("bye");
         CliLauncher.main(hold);
     }*/
