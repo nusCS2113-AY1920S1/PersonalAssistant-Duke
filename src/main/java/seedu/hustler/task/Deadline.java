@@ -78,4 +78,11 @@ public class Deadline extends Task {
     public void setDateTime(LocalDateTime localDateTime) {
         this.by = localDateTime;
     }
+
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Deadline
+                && description.equals(((Deadline) other).description) // check various attributes
+                && getDateTime().equals(((Deadline) other).getDateTime()));
+    }
 }

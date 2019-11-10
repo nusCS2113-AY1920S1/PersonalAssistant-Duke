@@ -1,8 +1,6 @@
 package seedu.hustler.task;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 import seedu.hustler.Hustler;
 import seedu.hustler.task.variables.Difficulty;
 import seedu.hustler.task.variables.Tag;
