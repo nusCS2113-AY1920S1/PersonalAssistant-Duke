@@ -268,16 +268,20 @@ public class CalendarCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException, ParseException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
         ui.formattedPrint("ITEMS LOANED OR RESERVED FOR THIS MONTH:");
-        if (operator == null) {
-            printCal();
-        }
-        else if (operator.equals("+")) {
-            increaseSize();
-        }
-        else if (operator.equals("-")) {
-            decreaseSize();
+        try {
+            if (operator == null) {
+                printCal();
+            }
+            else if (operator.equals("+")) {
+                increaseSize();
+            }
+            else if (operator.equals("-")) {
+                decreaseSize();
+            }
+        } catch (ParseException e) {
+            throw new RimsException("Invalid calendar size!");
         }
     }
 
