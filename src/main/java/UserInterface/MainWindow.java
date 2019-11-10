@@ -4,9 +4,13 @@ import Commands.RetrievePreviousCommand;
 import Commands.ShowPreviousCommand;
 import Commands.WeekCommand;
 import Commands.UpdateProgressIndicatorCommand;
-import Commons.*;
+import Commons.DukeConstants;
+import Commons.LookupTable;
+import Commons.Duke;
+import Commons.DukeLogger;
+import Commons.Storage;
+import Commons.WeekList;
 import DukeExceptions.DukeIOException;
-import DukeExceptions.DukeInvalidFormatException;
 import Parser.RetrieveFreeTimesParse;
 import Parser.WeekParse;
 import Tasks.Assignment;
@@ -19,7 +23,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -36,11 +45,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.ResourceBundle;
 import java.util.logging.Logger;
+import java.util.Date;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -148,11 +159,14 @@ public class MainWindow extends BorderPane implements Initializable {
     private void setProgressContainer() throws IOException {
         progressContainer.getChildren().clear();
 
-        UpdateProgressIndicatorCommand updateProgressIndicatorCommand = new UpdateProgressIndicatorCommand(eventsList, deadlinesList);
-        Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> wholeData = updateProgressIndicatorCommand.getWholeDate(eventsList, deadlinesList);
+        UpdateProgressIndicatorCommand updateProgressIndicatorCommand = new UpdateProgressIndicatorCommand(eventsList,
+                deadlinesList);
+        Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> wholeData =
+                updateProgressIndicatorCommand.getWholeDate(eventsList, deadlinesList);
         HashMap<String, String> moduleMap = updateProgressIndicatorCommand.getModuleMap(wholeData);
 
-        HashMap<String, Pair<Integer, Integer>> progressIndicatorValues = updateProgressIndicatorCommand.getValues(moduleMap, wholeData);
+        HashMap<String, Pair<Integer, Integer>> progressIndicatorValues = updateProgressIndicatorCommand.getValues(
+                moduleMap, wholeData);
         for (String module : progressIndicatorValues.keySet()) {
             FXMLLoader fxmlLoad = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
             Parent loads = null;
@@ -284,10 +298,12 @@ public class MainWindow extends BorderPane implements Initializable {
         }
         userInput.clear();
 
-        if (!input.contains(DukeConstants.SHOW_PREVIOUS_HEADER) && input.contains(DukeConstants.RETRIEVE_PREVIOUS_HEADER) && RetrievePreviousCommand.isValid()) {
+        if (!input.contains(DukeConstants.SHOW_PREVIOUS_HEADER)
+                && input.contains(DukeConstants.RETRIEVE_PREVIOUS_HEADER) && RetrievePreviousCommand.isValid()) {
             String previousInput = Duke.getPreviousInput();
             userInput.setText(previousInput);
-        } else if (input.startsWith(DukeConstants.RETRIEVE_TIME_HEADER) && RetrieveFreeTimesParse.isValidOption(input)) {
+        } else if (input.startsWith(DukeConstants.RETRIEVE_TIME_HEADER)
+                && RetrieveFreeTimesParse.isValidOption(input)) {
             String selectedOption = Duke.getSelectedOption();
             userInput.setText(selectedOption);
             userInput.positionCaret(DukeConstants.ADD_EVENT_HEADER.length() + DukeConstants.BLANK_SPACE.length());
@@ -311,13 +327,15 @@ public class MainWindow extends BorderPane implements Initializable {
             Date dateTime = new Date();
             String date = DukeConstants.EVENT_DATE_INPUT_FORMAT.format(dateTime);
             selectedWeek = lookupTable.getValue(date);
-            weekLabel.setText(selectedWeek + START_WEEK_DELIMITER + lookupTable.getValue(selectedWeek.toLowerCase()) + END_WEEK_DELIMITER);
+            weekLabel.setText(selectedWeek + START_WEEK_DELIMITER + lookupTable.getValue(selectedWeek.toLowerCase())
+                    + END_WEEK_DELIMITER);
 
             week = WeekParse.getWeekCommandFormat(selectedWeek);
             weekLabel.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,30));
             weekLabel.setTextFill(Color.GOLDENROD);
         } else {
-            weekLabel.setText(selectedWeek + START_WEEK_DELIMITER + lookupTable.getValue(selectedWeek.toLowerCase()) + END_WEEK_DELIMITER);
+            weekLabel.setText(selectedWeek + START_WEEK_DELIMITER + lookupTable.getValue(selectedWeek.toLowerCase())
+                    + END_WEEK_DELIMITER);
         }
     }
 
