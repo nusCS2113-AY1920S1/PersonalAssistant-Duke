@@ -11,7 +11,7 @@ public class HelpText {
 
     private static final String SEPARATOR_PAGE = System.lineSeparator()
             + "_____________________________________________________________________________________________"
-            + "______________________________________________________\n"
+            + "____________________________________________________\n"
             + System.lineSeparator();
 
     public static final String COMMAND_FORMAT =
@@ -21,6 +21,33 @@ public class HelpText {
                     + "parameter which can be used as todo eat.\n";
 
     public static final String COMMANDS_HEADER = "# Commands #";
+
+    //---------------------help--------------------
+    private static final  String HEADER_HELP_PAGE = "********** Help page: help **********\n";
+
+    private static final String HELP_FULL =
+            "\t[ Viewing the full help page: help ]\n"
+                    + "\tCalls out the full help page.\n"
+                    + "\tFormat: help\n";
+
+    private static final String HELP_INDIV =
+            "\t[ Viewing help for a specific page: help ]\n"
+                    + "\tCalls out help for a specific page in the application.\n"
+                    + "\tFormat: help PAGE_NAME\n"
+                    + "\n"
+                    + "\tList of possible commands: \n"
+                    + "\t\t- help tasks\n"
+                    + "\t\t- help places\n"
+                    + "\t\t- help notes\n"
+                    + "\t\t- help module\n"
+                    + "\t\t- help contacts\n"
+                    + "\t\t- help cap\n"
+                    + "\t\t- help expenses\n"
+                    + "\t\t- help spec\n"
+                    + "\t\t- help password - Provides help on how to login and the default password.\n"
+                    + "\t\t- help change password \n"
+                    + "\t\t- help moduleplanner\n"
+                    + "\t\t- help bye\n";
 
     //------------------------------TASKS-------------------------------------------
     private static final String HEADER_TASKS_PAGE = "********** Tasks page: tasks **********\n"
@@ -77,7 +104,7 @@ public class HelpText {
                     + "\t\t- delete all\n";
 
     private static final String DONE =
-            "\t[ Set a task as done: done]\n"
+            "\t[ Set a task as done: done ]\n"
                     + "\tMarks a task as done.\n"
                     + "\tFormat: done TASK_NUM\n"
                     + "\n"
@@ -1054,6 +1081,11 @@ public class HelpText {
                     + SEPARATOR_PAGE;
 
     //-----------------------------pages--------------------------------------
+    public static final String HELP_PAGE = SEPARATOR_PAGE
+            + HEADER_HELP_PAGE + SEPARATOR_COMMAND
+            + HELP_FULL + SEPARATOR_COMMAND
+            + HELP_INDIV + SEPARATOR_PAGE;
+
     public static final String TASKS_PAGE = SEPARATOR_PAGE
             + HEADER_TASKS_PAGE + SEPARATOR_COMMAND
             + TODO + SEPARATOR_COMMAND
