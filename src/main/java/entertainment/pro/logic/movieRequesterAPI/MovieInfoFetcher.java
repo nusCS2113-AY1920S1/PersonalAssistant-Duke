@@ -1,4 +1,4 @@
-package entertainment.pro.logic.movieRequesterAPI;
+package entertainment.pro.logic.movierequesterapi;
 
 import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
@@ -38,7 +38,7 @@ public class MovieInfoFetcher implements Runnable {
     public void run() {
         String json = "";
         try {
-            json = URLRetriever.readURLAsString(movieRequestUrl);
+            json = UrlRetriever.readUrlAsString(movieRequestUrl);
             movieRequestListener.fetchedJSON(json);
             logger.log(Level.INFO, PromptMessages.DATA_EXTRACT_FROM_API_SUCCESS);
         } catch (NullPointerException | Exceptions e) {
