@@ -9,8 +9,17 @@ import duke.exception.DukeException;
 import duke.task.Event;
 import duke.task.Task;
 
+/**
+ * Class that preloads 20 default tasks, runs when json file not detected
+ */
 public class PreloadTasks {
 
+    /**
+     * Method to generate 20 tasks.
+     *
+     * @return t arraylist of 20 tasks
+     * @throws DukeException
+     */
     public ArrayList<Task> defaultTaskList() throws DukeException {
         ArrayList<Task> t = new ArrayList<>();
 

@@ -30,6 +30,9 @@ public class AbnormalityChecker {
         Task task;
         for (int i = 0; i < taskList.size(); i++) {
             task = taskList.get(i);
+            if (task == event) {
+                continue;
+            }
             if (task instanceof Event) {
                 if (task.getDateTime().equals(event.getDateTime())) {
                     return true;

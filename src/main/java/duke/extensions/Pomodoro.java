@@ -10,7 +10,7 @@ import duke.task.Task;
  * Class that holds the instance of a pomodoro and manages the pomodoro timer task
  */
 public class Pomodoro {
-    private static final int ONE_MINUTE = 1000; // multiply by 60
+    private static final int ONE_MINUTE = 1000 * 60;
     private static final int START_LONGBREAK_MINUTES = 15;
     private static final int START_SHORTBREAK_MINUTES = 5;
     private static final int START_WORK_MINUTES = 25;
@@ -22,10 +22,11 @@ public class Pomodoro {
     private PomodoroTimerTask pomodoroTimerTask;
     private Brainteasers brainTeasers = new Brainteasers();
     private String question = "none";
+
     /**
      * Constructor method that creates a pomodoro that begins with a work cycle
      */
-    private Pomodoro() {
+    Pomodoro() {
         currCycle = 0;
         currState = State.WORK;
     }

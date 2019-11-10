@@ -22,6 +22,11 @@ class DoneCommandTest {
     private static final Ui ui = new Ui();
     private static final Storage storage = new Storage(FILE_PATH);
 
+    /**
+     * Helper method to create a sample task lists for the commands to work on
+     * @return TaskList
+     * @throws DukeException
+     */
     private TaskList createTaskList() throws DukeException {
         TaskList t = new TaskList();
 

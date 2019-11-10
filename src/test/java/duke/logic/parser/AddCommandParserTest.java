@@ -19,6 +19,9 @@ import duke.tasklist.TaskList;
 import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Class to test for correct parameters parsed in to add command
+ */
 class AddCommandParserTest {
     private static final String FILE_PATH = "data/editCommandTest.json";
 
@@ -101,7 +104,7 @@ class AddCommandParserTest {
     }
 
     @Test
-    public void parse_testWrongPriorityonNumerical_failure() throws DukeException, IOException {
+    public void parse_testWrongPriorityNonNumerical_failure() throws DukeException, IOException {
         TaskList l = new TaskList();
         AddCommandParser a = new AddCommandParser();
         Optional<String> noFilter = Optional.empty();

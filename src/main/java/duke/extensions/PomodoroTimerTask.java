@@ -39,13 +39,11 @@ public class PomodoroTimerTask extends TimerTask {
         minutesRemaining -= 1;
 
         if (minutesRemaining % 5 == 0) {
-            System.out.println("% " + minutesRemaining + " minutes left. Timer has "
-                    + "currently been shortened for testing purposes");
+            System.out.println("% " + minutesRemaining + " minutes left.");
         }
         if (minutesRemaining == 0) {
             System.out.println("Pomodoro completed");
             t.cancel();
         }
-
     }
 }
