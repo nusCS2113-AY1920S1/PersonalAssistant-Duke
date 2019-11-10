@@ -20,6 +20,9 @@ public class InternalTransferTest {
     private static String SAMPLE_CREATE_TRACKER1 = "bank-account OCBC /amt 30 /at 27/7/2017 /rate 0";
     private static String SAMPLE_DEPOSIT1 = "deposit 200 OCBC /at 3/3/2018";
     private static String SAMPLE_WITHDRAW1 = "withdraw 200 OCBC /at 3/3/2019";
+    private static String INVALID_INPUT1 = "deposit -200 OCBC /at 3/3/2018";
+    private static String INVALID_INPUT2 = "deposit %%200 OCBC /at 3/3/2018";
+    private static String INVALID_INPUT3 = "deposit 200 OCBC /at i wanna sleep";
 
     //@@author cctt1014
     InternalTransferTest() throws IOException {
@@ -30,7 +33,14 @@ public class InternalTransferTest {
         account = new Account(moneyStorage.load());
     }
 
-    private void createNewTrackerWithSample1() throws ParseException, DukeException {
+    @Test
+    void constructor_invalidInputFormat_exceptionThrown() {
+        Assertions.assertThrows(DukeException.class, () -> new InternalTransferCommand(INVALID_INPUT1));
+        Assertions.assertThrows(DukeException.class, () -> new InternalTransferCommand(INVALID_INPUT2));
+        Assertions.assertThrows(DukeException.class, () -> new InternalTransferCommand(INVALID_INPUT3));
+    }
+
+    private void createNewTrackerWithSample1() throws DukeException {
         account.getBankTrackerList().clear();
         CreateBankAccountCommand cmd = new CreateBankAccountCommand(SAMPLE_CREATE_TRACKER1);
         cmd.execute(account, ui, moneyStorage);

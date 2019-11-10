@@ -11,6 +11,7 @@ import money.Income;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 
 public class InternalTransferCommand extends MoneyCommand {
@@ -21,26 +22,35 @@ public class InternalTransferCommand extends MoneyCommand {
     private LocalDate date;
 
     //@@author cctt1014
-
     /**
      * The constructor for this class.
      * @param inputString The input command
      * @throws ParseException The parse exception
      */
-    public InternalTransferCommand(String inputString) throws ParseException {
-        String status = inputString.split(" ")[0];
-        if (status.equals("deposit")) {
-            add = true;
-            inputString = inputString.replaceFirst("deposit ", "");
-        } else if (status.equals("withdraw")) {
-            add = false;
-            inputString = inputString.replaceFirst("withdraw ", "");
+    public InternalTransferCommand(String inputString) throws ParseException, DukeException {
+        try {
+            String status = inputString.split(" ")[0];
+            if (status.equals("deposit")) {
+                add = true;
+                inputString = inputString.replaceFirst("deposit ", "");
+            } else if (status.equals("withdraw")) {
+                add = false;
+                inputString = inputString.replaceFirst("withdraw ", "");
+            }
+
+            amt = Float.parseFloat(inputString.split(" ")[0]);
+            if (amt < 0) {
+                throw new DukeException("The format for the numbers is wrong, please check and type in again.\n");
+            }
+            date = Parser.shortcutTime(inputString.split(" /at ")[1]);
+            String temp = inputString.split(" /at ")[0];
+            description = temp.split(" ", 2)[1];
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
+        } catch (NumberFormatException e) {
+            throw new DukeException("The format for the numbers is wrong, please check and type in again.\n");
         }
 
-        amt = Float.parseFloat(inputString.split(" ")[0]);
-        date = Parser.shortcutTime(inputString.split(" /at ")[1]);
-        String temp = inputString.split(" /at ")[0];
-        description = temp.split(" ", 2)[1];
     }
 
     /**
