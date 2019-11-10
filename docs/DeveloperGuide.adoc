@@ -894,7 +894,7 @@ Product List.
 |`order add -item Fish, 1`
 |A error message pops up.
 
-.5+|`sale`
+.7+|`sale`
 2+|Adding an empty sale
 
 |`sale add`
@@ -907,6 +907,7 @@ Product List.
 |A error message pops up. The error message is "Remarks should be no more than 50 characters"
 
 2+|Adding a sale with date
+
 
 |`sale add -at 31/12/2019 23:00`
 |A new sale with date Tue, Dec 31, 2019 23:00 is added
