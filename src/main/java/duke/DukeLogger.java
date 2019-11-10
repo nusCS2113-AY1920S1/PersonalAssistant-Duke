@@ -9,6 +9,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
 
 //@@author talesrune-reused
+//Reused from https://github.com/simply-coded/java-tutorials/blob/master/code/tutorial_48.java with minor modifications
 /**
  * A logger which helps to log warning and severe errors.
  */

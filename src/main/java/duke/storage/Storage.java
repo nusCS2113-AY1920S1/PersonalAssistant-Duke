@@ -27,6 +27,7 @@ import java.util.logging.Logger;
  */
 public class Storage {
     protected static String filePath = System.getProperty("user.dir") + "/";   //27-28, 40-47
+    private static final String CREDITS_PATH = "credits/credits.txt";
     private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
@@ -44,6 +45,7 @@ public class Storage {
      * @return ArrayList to update the task list.
      * @throws IOException  If there is an error reading the text file.
      */
+    //Solution below adapted from http://www.javased.com/index.php?source_dir=AndroidCommon/src/com/asksven/android/common/kernelutils/Wakelocks.java
     public ArrayList<Task> read() throws IOException {
 
         ArrayList<Task> items = new ArrayList<>();
@@ -135,6 +137,7 @@ public class Storage {
      * @param items The task list that contains a list of tasks.
      * @throws IOException  If there is an error writing the text file.
      */
+    //Solution below adapted from https://stackoverflow.com/questions/1377279/find-a-line-in-a-file-and-remove-it/1377322#1377322
     public void write(TaskList items) throws IOException {
         String fileContent = "";
         for (int i = Numbers.ZERO.value; i < items.size(); i++) {
@@ -169,5 +172,28 @@ public class Storage {
         writer.close();
         bufferedReader.close();
         in.close();
+    } //@@author
+
+    //@@author talesrune
+    /**
+     * Extracts the credits data from jar file.
+     *
+     * @return String of credits.
+     * @throws IOException When there is an error writing to the text file.
+     */
+    public String readCredits() throws IOException {
+        String creditsDesc = "";
+        InputStream in = Storage.class.getResourceAsStream(CREDITS_PATH);
+        if (in == null) {
+            in = Storage.class.getClassLoader().getResourceAsStream(CREDITS_PATH);
+        }
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+        String input;
+        while ((input = bufferedReader.readLine()) != null) {
+            creditsDesc += input + "\n";
+        }
+        bufferedReader.close();
+        in.close();
+        return creditsDesc;
     } //@@author
 }

@@ -1,6 +1,7 @@
 package duke.dukeexception;
 
 //@@author talesrune-reused
+//Reused from https://github.com/Jefferson111/main/blob/master/src/main/java/duke/commons/DukeException.java
 /**
  * Represents an error occurred when duke is performing an action.
  */

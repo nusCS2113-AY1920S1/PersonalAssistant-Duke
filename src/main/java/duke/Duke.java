@@ -59,6 +59,7 @@ public class Duke {
     private boolean samplePriorityFileUsed = false;
     private boolean sampleContactsFileUsed = false;
     private boolean sampleBudgetFileUsed = false;
+    private String creditsDesc;
 
     /**
      * Creates a duke to initialize storage, task list, and ui.
@@ -108,8 +109,14 @@ public class Duke {
             sampleBudgetFileUsed = true;
             readBudgetStorage();
         }
+        try {
+            readCredits();
+        } catch (IOException e) {
+            logger.log(Level.SEVERE,"Credits text file is not found");
+        }
     }
 
+    //@@author talesrune
     private void initialize() {
         checkStorageExist();
         dukeLogger = new DukeLogger();
@@ -120,6 +127,7 @@ public class Duke {
         contactStorage = new ContactStorage(contactsFilePath);
         budgetStorage = new BudgetStorage(budgetFilePath);
     }
+
 
     private void readStorage() throws IOException {
         items = new TaskList(storage.read());
@@ -135,6 +143,10 @@ public class Duke {
 
     private void readBudgetStorage() throws IOException {
         budgetList = new BudgetList(budgetStorage.read());
+    }
+
+    private void readCredits() throws IOException {
+        creditsDesc = storage.readCredits();
     }
 
     private void createEmptyTaskList() {
@@ -174,6 +186,7 @@ public class Duke {
         }
         return str;
     }
+    //@@author
 
     /**
      * Echoes the user input back the the user.
@@ -220,6 +233,18 @@ public class Duke {
     //@@author
 
     /**
+     * Executes a command to overwrite existing storage with the current updated lists(GUI).
+     *
+     * @param cmd Command to be executed.
+     * @throws IOException  If there is an error writing the text file.
+     */
+    public void saveState(Command cmd) throws IOException {
+        cmd.executeStorage(items, ui, storage, budgetStorage, budgetList,
+                contactStorage, contactList, priorityStorage, priorityList);
+    }
+
+    //@@author talesrune
+    /**
      * Retrieves a command from interpreting the user input (GUI).
      *
      * @param sentence The user input.
@@ -229,17 +254,6 @@ public class Duke {
     public Command getCommand(String sentence) throws Exception {
         Command cmd = Parser.parse(sentence, items, budgetList, contactList);
         return cmd;
-    }
-
-    /**
-     * Executes a command to overwrite existing storage with the current updated lists(GUI).
-     *
-     * @param cmd Command to be executed.
-     * @throws IOException  If there is an error writing the text file.
-     */
-    public void saveState(Command cmd) throws IOException {
-        cmd.executeStorage(items, ui, storage, budgetStorage, budgetList,
-                contactStorage, contactList, priorityStorage, priorityList);
     }
 
     /**
@@ -265,7 +279,6 @@ public class Duke {
         return str;
     }
 
-    //@@author talesrune
     /**
      * Retrieves the current task list (GUI).
      *
@@ -282,6 +295,15 @@ public class Duke {
      */
     public FilterList getFilterList() {
         return filterList;
+    }
+
+    /**
+     * Retrieves credits list (GUI).
+     *
+     * @return A list of credits.
+     */
+    public String getCreditsList() {
+        return creditsDesc;
     }
     //@@author
 
