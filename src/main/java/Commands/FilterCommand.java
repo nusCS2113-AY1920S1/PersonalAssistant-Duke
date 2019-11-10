@@ -16,6 +16,8 @@ import java.util.Set;
  */
 public class FilterCommand extends Command {
     private String keyword;
+    private static final String EVENT_KEYWORD = "at ";
+    private static final String DEADLINE_KEYWORD = "by ";
 
     /**
      * Creates FilterCommand object.
@@ -48,7 +50,7 @@ public class FilterCommand extends Command {
                 for (Assignment task : temp) {
                     String lowerCaseTask = task.toString().toLowerCase();
                     if (lowerCaseTask.toLowerCase().contains(keyword)) {
-                        out.add(task.getType() + task.getDescription() + task.getModCode() + DukeConstants.BLANK_SPACE + task.getDateTime());
+                        out.add(task.getType() + task.getModCode() + DukeConstants.BLANK_SPACE + task.getDescription() + EVENT_KEYWORD + task.getDateTime());
                     }
                 }
             }
@@ -62,7 +64,7 @@ public class FilterCommand extends Command {
                 for (Assignment task : temp) {
                     String lowerCaseTask = task.toString().toLowerCase();
                     if (lowerCaseTask.contains(keyword)) {
-                        out.add(task.getType() + task.getDescription() + task.getModCode() + DukeConstants.BLANK_SPACE + task.getDateTime());
+                        out.add(task.getType() + task.getModCode() + DukeConstants.BLANK_SPACE + task.getDescription() + DEADLINE_KEYWORD + task.getDateTime());
                     }
                 }
             }

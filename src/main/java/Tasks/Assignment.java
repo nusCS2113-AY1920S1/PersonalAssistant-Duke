@@ -104,7 +104,7 @@ public abstract class Assignment {
      * Display string of task.
      */
     public String displayString() {
-        return   getType()  + FRONT_ICON_SEPARATOR + getStatusIcon() + BACK_ICON_SEPARATOR + getModCode()+ DukeConstants.BLANK_SPACE+ getDescription()  + DEADLINE_KEYWORD + getDateTime();
+        return   getType()  + FRONT_ICON_SEPARATOR + getStatusIcon() + BACK_ICON_SEPARATOR + DukeConstants.BLANK_SPACE + getModCode()+ DukeConstants.BLANK_SPACE + getDescription() + DEADLINE_KEYWORD + getDateTime();
     }
 
     /**
