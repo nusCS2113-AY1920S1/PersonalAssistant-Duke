@@ -21,7 +21,7 @@ public class CommandEdit extends Command {
     private Double oldValue = 0.0;
     private Double changeValue = 0.0;
     private Double roundedChangeValue = 0.0;
-    private ArrayList<String> oldTag ;
+    private ArrayList<String> oldTag;
     private LocalDate oldDate;
     private  LocalDate changeDate;
     private boolean moreThanTwoDP = false;
@@ -70,7 +70,7 @@ public class CommandEdit extends Command {
         } else if (newDate != null) {
             updateDate(storageManager);
         } else {
-            throw new DukeException ("Flag invalid. Valid input : tag/value/date");
+            throw new DukeException("Flag invalid. Valid input : tag/value/date");
         }
     }
 
@@ -81,13 +81,13 @@ public class CommandEdit extends Command {
      */
     private void indexChecker(StorageManager storageManager) throws DukeException {
         if (storageManager.getWallet().getReceipts().size() == 0) {
-            throw new DukeException ("No receipts to edit");
+            throw new DukeException("No receipts to edit");
         }
         if (indexEmpty(userInput)) {
-            throw new DukeException ("No Index input detected");
+            throw new DukeException("No Index input detected");
         }
         if (index < 0 || index >= storageManager.getWallet().getReceipts().size()) {
-            throw new DukeException ("Index out of bounds.");
+            throw new DukeException("Index out of bounds.");
         }
     }
 
@@ -231,7 +231,7 @@ public class CommandEdit extends Command {
             checkIfDateIsInFuture();
             oldDate = storageManager.getWallet().getReceipts().get(index).getDate();
             storageManager.getWallet().getReceipts().get(index).setDate(changeDate);
-            if(isFutureDate) {
+            if (isFutureDate) {
                 outputMessageOnGui(messageForDateChange() + noteFutureYear());
             } else {
                 outputMessageOnGui(messageForDateChange());
@@ -245,7 +245,7 @@ public class CommandEdit extends Command {
      * Function to set boolean to true if the date input by user is in the future.
      */
     private void checkIfDateIsInFuture() {
-        if(changeDate.isAfter(LocalDate.now())){
+        if (changeDate.isAfter(LocalDate.now())) {
             isFutureDate = true;
         }
     }

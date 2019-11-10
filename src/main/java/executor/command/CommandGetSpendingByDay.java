@@ -3,15 +3,14 @@ package executor.command;
 import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
-import ui.UiCode;
 
 import java.time.LocalDate;
 
 public class CommandGetSpendingByDay extends Command {
     protected String userInput;
-    protected Double totalMoney = 0.0;
-    protected String userDateInput = null;
-    public boolean isFutureDate = false;
+    private Double totalMoney = 0.0;
+    private String userDateInput = null;
+    private LocalDate dateInLocal;
 
     /**
      * Constructor to show what the class is able to do.
@@ -27,39 +26,9 @@ public class CommandGetSpendingByDay extends Command {
 
     @Override
     public void execute(StorageManager storageManager) {
-        if (storageManager.getWallet().getReceipts().size() == 0) {
-            outputError("No receipts found in storage");
-            return;
-        }
         try {
-            userDateInput = Parser.parseForPrimaryInput(CommandType.EXPENDEDDAY, userInput);
-
-            checkIfDateIsInFuture(userDateInput);
-            if (isFutureDate) {
-                totalMoney = storageManager.getReceiptsByDate(userDateInput).getNettCashSpent();
-                outputMessageOnGui("The total amount of money spent on "
-                        + userDateInput + " is $" + totalMoney
-                        + "\nNOTE : The date input is in the future");
-//                outputError("Date input is in the future");
-                return;
-            }
-            if (userDateInput.equals("today")) {
-                String dateToday = LocalDate.now().toString();
-                totalMoney = storageManager.getReceiptsByDate(dateToday).getNettCashSpent();
-                outputMessageOnGui("The total amount of money spent today "
-                        + "(" + dateToday + ") " + "is $" + totalMoney);
-                return;
-            } else if (userDateInput.equals("yesterday")) {
-                String dateYesterday = LocalDate.now().minusDays(1).toString();
-                totalMoney = storageManager.getReceiptsByDate(dateYesterday).getNettCashSpent();
-                outputMessageOnGui("The total amount of money spent yesterday "
-                        + "(" + dateYesterday + ") " + "is $" + totalMoney);
-                return;
-            } else {
-                totalMoney = storageManager.getReceiptsByDate(userDateInput).getNettCashSpent();
-                outputMessageOnGui("The total amount of money spent on "
-                        + userDateInput + " is $" + totalMoney);
-            }
+            checkUserInput(storageManager);
+            outputExpenditureForInput(storageManager);
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());
@@ -80,15 +49,110 @@ public class CommandGetSpendingByDay extends Command {
      * Function to output a String message on the GUI when an error is encountered.
      * @param errorMessage is the output message
      */
-    public void outputMessageOnGui(String errorMessage) {
+    private void outputMessageOnGui(String errorMessage) {
         this.infoCapsule.setCodeCli();
         this.infoCapsule.setOutputStr(errorMessage);
     }
 
-    public void checkIfDateIsInFuture(String userDateInput) {
-        LocalDate tempDate = LocalDate.parse(userDateInput);
-        if(tempDate.isAfter(LocalDate.now())){
-            isFutureDate = true;
+    /**
+     * Function to check the user input.
+     * @param storageManager is the class that contains all the getter functions for the wallet
+     * @throws DukeException is the error message
+     */
+    private void checkUserInput(StorageManager storageManager) throws DukeException {
+        userDateInput = Parser.parseForPrimaryInput(CommandType.EXPENDEDDAY, userInput);
+        if (storageManager.getWallet().getReceipts().size() == 0) {
+            outputError("No receipts found in storage");
+            return;
         }
+        if (!userDateInput.equals("today") && (!userDateInput.equals("yesterday"))) {
+            try {
+                if (userDateInput.isEmpty()) {
+                    throw new DukeException("No user input detected."
+                            + format());
+                }
+                dateInLocal = LocalDate.parse(userDateInput);
+            } catch (Exception e) {
+                throw new DukeException("Input is invalid."
+                        + format());
+            }
+        }
+    }
+
+    /**
+     * Function to output String to display the correct format for expendedday command.
+     * @return is the output String
+     */
+    private String format() {
+        return " FORMAT : expendedday "
+                + "\ntoday or"
+                + "\nyesterday or"
+                + "\nYYYY-MM-DD";
+    }
+
+    /**
+     * Function to output the correct expenditure according to the user input.
+     * @param storageManager is the class that contains all the getter functions for the wallet
+     * @throws DukeException is the error message
+     */
+    private void outputExpenditureForInput(StorageManager storageManager) throws DukeException {
+        if (userDateInput.equals("today")) {
+            expenditureForToday(storageManager);
+        } else if (userDateInput.equals("yesterday")) {
+            expenditureForYesterday(storageManager);
+        } else if (dateInLocal.isAfter(LocalDate.now())) {
+            expenditureForDateInFuture(storageManager);
+        } else {
+            expenditureForDate(storageManager);
+        }
+    }
+
+    /**
+     * Function that outputs the expenditure if the input date is in the future.
+     * @param storageManager is the class that contains all the getter functions for the wallet
+     * @throws DukeException is the error message
+     */
+    private void expenditureForDateInFuture(StorageManager storageManager) throws DukeException {
+        String tempDate = dateInLocal.toString();
+        totalMoney = storageManager.getReceiptsByDate(tempDate).getNettCashSpent();
+        outputMessageOnGui("The total amount of money spent on "
+                + dateInLocal + " is $" + totalMoney
+                + "\nNOTE : The date input is in the future");
+    }
+
+    /**
+     * Function that outputs the expenditure for yesterday.
+     * @param storageManager is the class that contains all the getter functions for the wallet
+     * @throws DukeException is the error message
+     */
+    private void expenditureForYesterday(StorageManager storageManager) throws DukeException {
+        String dateYesterday = LocalDate.now().minusDays(1).toString();
+        totalMoney = storageManager.getReceiptsByDate(dateYesterday).getNettCashSpent();
+        outputMessageOnGui("The total amount of money spent yesterday "
+                + "(" + dateYesterday + ") " + "is $" + totalMoney);
+    }
+
+    /**
+     * Function that outputs the expenditure for today.
+     * @param storageManager is the class that contains all the getter functions for the wallet
+     * @throws DukeException is the error message
+     */
+    private void expenditureForToday(StorageManager storageManager) throws DukeException {
+
+        String dateToday = LocalDate.now().toString();
+        totalMoney = storageManager.getReceiptsByDate(dateToday).getNettCashSpent();
+        outputMessageOnGui("The total amount of money spent today "
+                + "(" + dateToday + ") " + "is $" + totalMoney);
+    }
+
+    /**
+     * Function that outputs the expenditure for the date given by user.
+     * @param storageManager is the class that contains all the getter functions for the wallet
+     * @throws DukeException is the error message
+     */
+    private void expenditureForDate(StorageManager storageManager) throws DukeException {
+        totalMoney = storageManager.getReceiptsByDate(userDateInput).getNettCashSpent();
+        outputMessageOnGui("The total amount of money spent on "
+                + userDateInput + " is $" + totalMoney);
     }
 }
