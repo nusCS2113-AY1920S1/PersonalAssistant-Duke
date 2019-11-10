@@ -368,7 +368,7 @@ Delete the 1st meal on 10/10/2019
 Format: `done INDEX [/date] <DATE>`
 
 Finished eating your meal? Use `done` command to marked it as done! You can see the updated remaining calories that you can
-eat for the rest of the day! You can also see the updated account balance after you paid the food you have eaten!
+eat for the rest of the day! Furthermore, you can see the updated account balance after you paid the food you have eaten!
 
 [NOTE]
 ====
@@ -504,14 +504,20 @@ Examples:
 
 * You deposit 100SGD today
 ** `deposit 100`
++
+image::Deposit_1.png[]
 * You deposited 300SGD on 1st January, 2019, but you are only adding the transaction now
 ** `deposit 300 /date 1/1/2019`
++
+image::Deposit_2.png[]
 
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
 * Dates should be entered in the following format: day/month/year.
+* Adding deposit in the future does not work.
 * The `AMOUNT` is expressed in Singapore Dollar (SGD)
+* The `AMOUNT` can only go up to two decimal points (e.g. 2.50, 150.75)
 ====
 
 ==== Pay money from your account: `pay`
@@ -526,15 +532,63 @@ Examples:
 
 * You pay 100SGD today
 ** `pay 100`
++
+image::Pay_1.png[]
 * You paid 300SGD on 1st January, 2019, but you are only adding the transaction now
 ** `pay 300 /date 1/1/2019`
++
+image::Pay_2.png[]
 
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
 * Dates should be entered in the following format: day/month/year.
+* Adding payment in the future does not work.
 * The `AMOUNT` is expressed in Singapore Dollar (SGD)
+* The `AMOUNT` can only go up to two decimal points (e.g. 2.50, 150.75)
 * If `AMOUNT` exceeds the current account balance. It is possible for the account balance to become negative.
+====
+
+==== Listing the transaction at a certain date: `listtransaction`
+
+Format: `listtransaction [/date]<DATE>`
+
+Want to see what transactions occur during the day? Simply use listtransaction to conveniently display them!
+
+Examples:
+
+* You want to list the transaction for today
+** `listtransaction`
+
+* You want to list the transactions on 1/1/2019
+** `listtransaction /date 1/1/2019`
+
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: dd/mm/yyyy and must be a valid date.
+====
+
+
+==== Deleting transaction at a certain date: `deletetransaction`
+
+Format: `deletetransaction INDEX [/date]<Date>`
+
+Want to delete a transaction and get refunded by the amount of the transaction? Simply use deletetransaction to delete transaction!
+
+Examples:
+
+* You want to delete transaction indexed 2 for today
+** `deletetransaction 2`
+
+* You want to delete transaction indexed 3 on 1/1/2019
+** `deletetransaction 3 /date 1/1/2019`
+
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: dd/mm/yyyy and must be a valid date.
+* The index must be a positive integer 1, 2, 3 ... (and must not exceed the bound of the list)
 ====
 
 === Data analysis commands
