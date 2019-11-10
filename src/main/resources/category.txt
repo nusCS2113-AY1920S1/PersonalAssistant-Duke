@@ -1,0 +1,9 @@
+food
+logistics
+shopping
+netflix
+internet
+water
+phone
+stationary
+electricity
