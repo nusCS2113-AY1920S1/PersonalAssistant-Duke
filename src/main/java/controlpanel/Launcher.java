@@ -1,3 +1,5 @@
+package controlpanel;
+
 import javafx.application.Application;
 
 /**

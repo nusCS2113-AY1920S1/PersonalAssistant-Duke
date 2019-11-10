@@ -19,7 +19,7 @@ REM no error here, errorlevel == 0
 
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Duke < input.txt > ACTUAL.txt
+java -classpath ..\bin controlpanel.Duke < input.txt > ACTUAL.txt
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT

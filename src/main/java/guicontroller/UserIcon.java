@@ -1,4 +1,4 @@
-package guicommand;
+package guicontroller;
 
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;

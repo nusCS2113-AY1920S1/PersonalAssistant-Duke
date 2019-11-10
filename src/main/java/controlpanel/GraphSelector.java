@@ -1,3 +1,5 @@
+package controlpanel;
+
 import controlpanel.Parser;
 import javafx.scene.layout.HBox;
 import money.Account;
@@ -22,22 +24,22 @@ public class GraphSelector implements DataTransfer {
     public HBox getTheGraph(String input, Account account) throws IOException, ParseException {
         if (input.startsWith("graph monthly report")) {
             if (input.equals("graph monthly report")) {
-                return DataTransfer.getMonthlyData(account, Type.HISTOGRAM);
+                return DataTransfer.getMonthlyData(account, DataTransfer.Type.HISTOGRAM);
             }
             input = input.replaceFirst("graph monthly report ", "");
-            return DataTransfer.getMonthlyData(account, Type.valueOf(input.toUpperCase()));
+            return DataTransfer.getMonthlyData(account, DataTransfer.Type.valueOf(input.toUpperCase()));
         } else if (input.startsWith("graph expenditure trend")) {
             if (input.equals("graph expenditure trend")) {
-                return DataTransfer.getExpenditureTrend(account, Type.LINE_GRAPH);
+                return DataTransfer.getExpenditureTrend(account, DataTransfer.Type.LINE_GRAPH);
             }
             input = input.replaceFirst("graph expenditure trend ", "");
-            return DataTransfer.getExpenditureTrend(account, Type.valueOf(input.toUpperCase()));
+            return DataTransfer.getExpenditureTrend(account, DataTransfer.Type.valueOf(input.toUpperCase()));
         } else if (input.startsWith("graph income trend")) {
             if (input.equals("graph income trend")) {
-                return DataTransfer.getIncomeTrend(account, Type.LINE_GRAPH);
+                return DataTransfer.getIncomeTrend(account, DataTransfer.Type.LINE_GRAPH);
             }
             input = input.replaceFirst("graph income trend ", "");
-            return DataTransfer.getIncomeTrend(account, Type.valueOf(input.toUpperCase()));
+            return DataTransfer.getIncomeTrend(account, DataTransfer.Type.valueOf(input.toUpperCase()));
         } else if (input.startsWith("graph finance status /until")) {
             String dateString = input.split(" /until ")[1];
             return  DataTransfer.getCurrFinance(account, Parser.shortcutTime(dateString));

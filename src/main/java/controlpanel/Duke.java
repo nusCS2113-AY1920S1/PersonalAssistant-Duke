@@ -1,8 +1,4 @@
-import controlpanel.MoneyStorage;
-import controlpanel.Parser;
-import controlpanel.Ui;
-import controlpanel.DukeException;
-import controlpanel.UndoCommandHandler;
+package controlpanel;
 
 import money.Account;
 import moneycommands.AutoUpdateInstalmentCommand;
@@ -24,7 +20,7 @@ public class Duke {
     private UndoCommandHandler undoCommandHandler;
 
     /**
-     * Duke class acts as a constructor to initialize and setup
+     * controlpanel.Duke class acts as a constructor to initialize and setup
      * //@param filePath the path of the moneyAccount.txt which contains the finance of the users
      */
     public Duke() {
@@ -42,7 +38,7 @@ public class Duke {
     }
 
     /**
-     * This method prints a line that Duke will print out in the program.
+     * This method prints a line that controlpanel.Duke will print out in the program.
      * @return a line that the program will print out in response to a user's commands
      */
     public String[] getResponse(String input) {
