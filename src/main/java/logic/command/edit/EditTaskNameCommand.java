@@ -9,16 +9,16 @@ import model.Task;
 
 //@@author JasonChanWQ
 
-public class EditTaskDescriptionCommand extends Command {
+public class EditTaskNameCommand extends Command {
 
     private static final String SUCCESS_MESSAGE = " has been renamed to: ";
     public static final String INPUT_INDEX_NOT_WITHIN_TASK_lIST_MESSAGE = " is not within the task list!";
     public static final String INPUT_NAME_ALREADY_IN_TASK_lIST_MESSAGE = " already exists within the task list!";
-    public int indexOfTask;
+    public int taskIndex;
     public String newName;
 
-    public EditTaskDescriptionCommand(int indexOfTask, String newName) {
-        this.indexOfTask = indexOfTask;
+    public EditTaskNameCommand(int taskIndex, String newName) {
+        this.taskIndex = taskIndex;
         this.newName = newName;
     }
 
@@ -28,15 +28,14 @@ public class EditTaskDescriptionCommand extends Command {
 
 
 
-        if (indexOfTask < 1 || indexOfTask > model.getTaskListSize()) {
-            return new CommandOutput("Index: " + indexOfTask + INPUT_INDEX_NOT_WITHIN_TASK_lIST_MESSAGE);
-        } else if (model.getTaskList().contains(newTask)) {
-            String oldName = model.getTaskList().get(indexOfTask - 1).getName();
-            return new CommandOutput("Task: " + oldName + INPUT_NAME_ALREADY_IN_TASK_lIST_MESSAGE);
+        if (!model.isInTaskList(taskIndex)) {
+            throw new DukeException("Index: " + taskIndex + INPUT_INDEX_NOT_WITHIN_TASK_lIST_MESSAGE);
+        } else if (model.hasTask(newName)) {
+            throw new DukeException("Task: " + newName + INPUT_NAME_ALREADY_IN_TASK_lIST_MESSAGE);
         } else {
-            String oldName = model.getTaskList().get(indexOfTask - 1).getName();
+            String oldName = model.getTaskList().get(taskIndex - 1).getName();
 
-            model.getTaskList().get(indexOfTask - 1).setName(newName);
+            model.getTaskList().get(taskIndex - 1).setName(newName);
 
             for (Member member : model.getMemberList()) {
                 if (member.hasTask(oldName)) {

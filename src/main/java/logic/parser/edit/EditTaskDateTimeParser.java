@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class EditTaskDateTimeParser {
 
-    public static final String EDIT_DATETIME_USAGE = "usage: edit time [Index of task] /to [New DateTime]";
+    public static final String EDIT_DATETIME_USAGE = "usage: edit task time [Index of task] /to [New DateTime]";
     public static final String INVALID_INDEX_MESSAGE = "Not a valid task index!";
     public static final String EMPTY_INDEX_MESSAGE = "task index cannot be empty!";
     public static final String INVALID_DATETIME_MESSAGE = "Not a valid date time! Date time should be dd/MM/yyyy HHmm";
@@ -31,7 +31,7 @@ public class EditTaskDateTimeParser {
             throw new DukeException(EDIT_DATETIME_USAGE);
         } else {
             String keyword = argument.trim();
-            boolean isFound = keyword.indexOf(" /to ") != -1 ? true : false;
+            boolean isFound = keyword.indexOf("/to") != -1 ? true : false;
 
             if (isFound == true) {
                 String[]arrOfStr = keyword.split(" /to ",2);

@@ -151,6 +151,10 @@ public class MemberManager {
         return getMemberByName(memberName).getTaskList();
     }
 
+    public ArrayList<String> getSkillListOfMember(String memberName) {
+        return getMemberByName(memberName).getSkillList();
+    }
+
     /**
      * adds Skill to member
      * @param memberName desired member to add skill too
