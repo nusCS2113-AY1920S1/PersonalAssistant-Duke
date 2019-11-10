@@ -1,8 +1,10 @@
 package duke.data;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import duke.models.ToDo;
+import duke.util.ApacheLogger;
 import duke.util.DateHandler;
 import org.apache.logging.log4j.core.appender.mom.JmsAppender;
 import org.json.simple.JSONArray;
@@ -57,6 +59,32 @@ public class ScheduleStorage implements IStorage {
         return jsonObject;
     }
 
+    public JSONObject validateFile() {
+        JSONObject jsonObject = new JSONObject();
+        File file = new File(path);
+        try {
+            if (file.exists()) {
+                ApacheLogger.logMessage("ScheduleStorage", "Load from file outside resources");
+                JSONParser parser = new JSONParser();
+                Object obj = parser.parse(new FileReader(path));
+                jsonObject = (JSONObject) obj;
+            } else {
+                ApacheLogger.logMessage("ScheduleStorage", "Load from file inside resources");
+                jsonObject = initialize();
+                ObjectMapper mapper = new ObjectMapper();
+                FileWriter fileWriter = new FileWriter(path);
+                fileWriter.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject));
+                fileWriter.flush();
+                fileWriter.close();
+            }
+        } catch (FileNotFoundException e) {
+
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
     /**
      * Method will load saved files that exist inside jar.
      *
@@ -66,22 +94,7 @@ public class ScheduleStorage implements IStorage {
     public ArrayList<ToDo> load(String date) {
         ArrayList<ToDo> list = new ArrayList<>();
         try {
-            File file = new File(path);
-            JSONObject jsonObject;
-            if (file.exists()) {
-                System.out.println("Loading from new file");
-                JSONParser parser = new JSONParser();
-                Object obj = parser.parse(new FileReader(path));
-                jsonObject = (JSONObject) obj;
-            } else {
-                System.out.println("Loading from old file");
-                jsonObject = initialize();
-                ObjectMapper mapper = new ObjectMapper();
-                FileWriter fileWriter = new FileWriter(path);
-                fileWriter.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject));
-                fileWriter.flush();
-                fileWriter.close();
-            }
+            JSONObject jsonObject = validateFile();
             //get the array with the listed date
             JSONArray todoList = (JSONArray) jsonObject.get(date);
 
@@ -98,13 +111,10 @@ public class ScheduleStorage implements IStorage {
                 }
             }
 
-        } catch (NullPointerException | FileNotFoundException e) {
+        } catch (NullPointerException e) {
             e.getLocalizedMessage();
-        } catch (ParseException | IOException e) {
-            e.printStackTrace();
         }
         return list;
-
     }
 
     /**
@@ -158,9 +168,6 @@ public class ScheduleStorage implements IStorage {
         } catch (IOException e) {
             System.err.println("file not found");
         }
-//        } catch (URISyntaxException e) {
-//            e.getMessage();
-//        }
     }
 
 
@@ -187,7 +194,7 @@ public class ScheduleStorage implements IStorage {
     public ArrayList<String> loadOverview() {
         ArrayList<String> list = new ArrayList<>();
 
-        JSONObject jsonObject = initialize();
+        JSONObject jsonObject = validateFile();
         Set keySet = jsonObject.keySet();
         Iterator keySetIt = keySet.iterator();
         int index = 1;
@@ -200,7 +207,6 @@ public class ScheduleStorage implements IStorage {
                 );
             String item = index++ + ". " + date;
             list.add(item);
-
         }
 
         return list;

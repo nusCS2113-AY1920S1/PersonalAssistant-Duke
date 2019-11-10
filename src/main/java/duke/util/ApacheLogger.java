@@ -20,6 +20,5 @@ public class ApacheLogger {
     public static void logMessage(final String modelName, final String msg) {
         logger = LogManager.getLogger(modelName);
         logger.debug(msg);
-//        logger.info(msg);
     }
 }

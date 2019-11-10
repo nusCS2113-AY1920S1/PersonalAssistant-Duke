@@ -139,6 +139,7 @@ public class ParserSchedule {
     public void selectMonth(int month) {
         if (month > 13 || month < 1) {
             cliViewSchedule.message("Invalid month");
+            ApacheLogger.logMessage("ParserSchedule", "Invalid month");
         } else if (month < 13) {
             cliViewSchedule.bufferLine();
             schedule.getMonth(month);
@@ -146,6 +147,7 @@ public class ParserSchedule {
             cliViewSchedule.message("Enter the date of the day you want to plan!");
             int day = sc.nextInt();
             while (!DateHandler.dateCheck(day, month)) {
+                ApacheLogger.logMessage("ParserSchedule", "Invalid date");
                 cliViewSchedule.message("Enter a valid date!");
                 day = sc.nextInt();
             }
