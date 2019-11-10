@@ -4,6 +4,7 @@ plugins {
     id 'checkstyle' //for documentation
     id 'com.github.johnrengelman.shadow' version '5.1.0' //shadowJar for pack up an executable file
     //id 'org.openjfx.javafxplugin' version '0.0.7' //javaFx for rendering
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 dependencies {
@@ -26,10 +27,18 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
     compile group: 'org.controlsfx', name: 'controlsfx', version: '11.0.0'
 
+    testCompile "org.testfx:testfx-core:4.0.16-alpha"
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.1'
+    testCompile "org.testfx:testfx-junit5:4.0.16-alpha"
 }
 
 test {
     useJUnitPlatform()
+}
+
+javafx {
+    version = '12'
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 checkstyle {
