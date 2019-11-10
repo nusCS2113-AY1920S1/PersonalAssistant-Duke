@@ -360,7 +360,7 @@ Given below is an example scenario where module will be constructed.
 
 Furthermore, attached is an image depicted the hierachy between Module and its subclasses:
 
-iamge::Module Hierachy.png
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/Module%20Hierachy.png[width="900", align = "left"]
 
 ==== Design Considerations
 How module is implemented:
@@ -583,7 +583,7 @@ DegreeManager a class which contains the ModuleList class and Map of Strings to 
 
 Given below is the UML Diagram relating how DegreeManager is linked to the main() logic as well as how it utilizes Degree and Storage when being initialized
 
-image::DegreeManagerInit.png
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/DegreeManagerInit.png[width="900", align = "left"]
 
 As detailed in the diagram above, when the main logic is initialized, an instance of Duke is created. Duke will subsequently create a Storage class. Duke will then create DegreeManager which will use Duke's instance of Storage. DegreeManager will fetch the information regarding the list of degrees from Storage. Subsequently, for each degree in the list, it will crete a Degree class to be stored within itself.
 
