@@ -634,9 +634,13 @@ public class Command {
                 switch (goalCommand[0]) {
                     case "delete":
                         if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                            String deletedGoal = events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getGoal();
-                            events.getEvent(eventIndex).removeGoal(goalIndex - 1);
-                            ui.printGoalDeleted(deletedGoal);
+                            try {
+                                String deletedGoal = events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getGoal();
+                                events.getEvent(eventIndex).removeGoal(goalIndex - 1);
+                                ui.printGoalDeleted(deletedGoal);
+                            } catch (IndexOutOfBoundsException iE) {
+                                ui.printNoSuchGoal();
+                            }
                         } else {
                             ui.printNoSuchGoal();
                         }
@@ -644,9 +648,13 @@ public class Command {
 
                     case "edit":
                         if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                            Goal newGoal = new Goal(splitGoal[1]);
-                            events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
-                            ui.printGoalUpdated(events, eventIndex, goalIndex - 1);
+                            try {
+                                Goal newGoal = new Goal(splitGoal[1]);
+                                events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
+                                ui.printGoalUpdated(events, eventIndex, goalIndex - 1);
+                            } catch (IndexOutOfBoundsException iE) {
+                                ui.printNoSuchGoal();
+                            }
                         } else {
                             ui.printNoSuchGoal();
                         }
@@ -654,11 +662,15 @@ public class Command {
 
                     case "achieved":
                         if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                            if (events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
-                                ui.printGoalAlreadyAchieved();
-                            } else {
-                                events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
-                                ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                            try {
+                                if (events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
+                                    ui.printGoalAlreadyAchieved();
+                                } else {
+                                    events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
+                                    ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                                }
+                            } catch (IndexOutOfBoundsException iE) {
+                                ui.printNoSuchGoal();
                             }
                         } else {
                             ui.printNoSuchGoal();

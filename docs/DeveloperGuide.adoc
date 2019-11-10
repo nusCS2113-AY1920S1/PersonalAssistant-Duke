@@ -309,7 +309,7 @@ printFoundEvents() method will catch the exception before printing out a string 
 taking place on that specific date.
 
 ==== Activity Diagram
-image::DGViewEventsDiagram.png[]
+image::DGViewEventsDiagram.png[width = 100%]
 
 ==== Why is it implemented this way
 The matching events are being stored individually into a separate temporary list before being printed out. This is to allow
@@ -320,6 +320,9 @@ temporary list.
 Storing all the matching events as a single string, passing the string into the printFoundEvents() method to print out. This
 implementation is undesirable as it will be difficult to access individual matching events in the case the user wishes to edit
 them as mentioned above.
+
+==== Sequence Diagram
+image::ViewScheduleSeqDiagram.png[]
 
 === Goals List
 ==== How is it implemented
@@ -412,6 +415,10 @@ An alternate method considered was to implement the goals list as a separate cla
 will then be mapped to their corresponding events. This implementation method would cause difficulties on the users' part
 in identifying the ID of a particular goal and would generally makes the goal list less organised.
 
+==== Sequence Diagram
+Below is a sequence diagram for the "goal delete" operation.
+image:DeleteGoalSeq.png[]
+
 === Past event management
 This functionality basically tracks which tasks in the list have already passed, and subsequently only displays future
 tasks when the user uses the "list" command to view the list. This function is linked with the goals management function
@@ -468,6 +475,9 @@ true, gotPastUnachieved will be assigned as true and the method will break out o
 Step 4: After the event list has been printed out, the method getPastEventsWithUnachievedGoals() is called. This method utilises two
 nested for loops to identify the unachieved goals among all the past events and passes both the past events along with all their
 unachieved goals to the UI class to be printed out below the event list.
+
+==== Sequence Diagram
+image::PastEventAndGoalsListManagementSeq.png[]
 
 === Reminders
 
