@@ -543,7 +543,7 @@ public class Parser {
     protected Command ReturnParser(String input, String[] words) throws RimsException {
         if (words[1].equals("/id")) {
             int idIndex = input.indexOf(" /id") + 5;
-            if (idIndex > input.length()){
+            if (idIndex > input.length()) {
                 throw new RimsException("Please specify the borrower's user ID.");
             }
             int userId = parseInt(input.substring(idIndex).trim());
