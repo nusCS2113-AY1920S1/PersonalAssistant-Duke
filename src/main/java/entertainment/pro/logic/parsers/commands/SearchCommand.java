@@ -162,8 +162,8 @@ public class SearchCommand extends CommandSuper {
      * @param isMovie         whether the search request is movie or TV shows related.
      * @throws InvalidFormatCommandException when user input is invalid.
      */
-    private SearchProfile getPreferences(MovieHandler movieHandler, String searchEntryName,
-                                boolean isMovie) throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
+    private SearchProfile getPreferences(MovieHandler movieHandler, String searchEntryName, boolean isMovie)
+            throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
         SearchProfile searchProfile = movieHandler.getSearchProfile();
         searchProfile = searchProfile.iniitalizeBackSearchProfile();
         if (!(getPayload().isEmpty() || getPayload().isBlank())) {
@@ -172,7 +172,8 @@ public class SearchCommand extends CommandSuper {
         if (this.getFlagMap().containsKey(GET_PREF)) {
             this.getFlagMap().remove(GET_PREF);
             if (this.getFlagMap().isEmpty()) {
-                searchProfile = searchProfile.setFromUserPreference(searchEntryName, isMovie, movieHandler.getUserProfile());
+                searchProfile = searchProfile.setFromUserPreference(searchEntryName,
+                        isMovie, movieHandler.getUserProfile());
             } else {
                 movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_COMBI_OF_FLAGS);
                 logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
@@ -320,7 +321,8 @@ public class SearchCommand extends CommandSuper {
      *
      * @param searchProfile Object that contains all the preferences for the particular search request.
      */
-    private SearchProfile getGenresRestrictForSearch(SearchProfile searchProfile) throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
+    private SearchProfile getGenresRestrictForSearch(SearchProfile searchProfile)
+            throws InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
         ArrayList<String> getParams = getFlagMap().get(GET_NEW_GENRE_RESTRICT);
         if (getParams.size() == 0) {
             logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
