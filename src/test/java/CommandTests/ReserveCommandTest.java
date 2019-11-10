@@ -1,3 +1,5 @@
+package CommandTests;
+
 import rims.core.ResourceList;
 import rims.core.Ui;
 import rims.core.Storage;
@@ -19,7 +21,6 @@ public class ReserveCommandTest {
     private static Storage storage;
     private static ResourceList listUnderTest;
     private static Resource ResourceUnderTest;
-    private static ReservationList ReservationListUnderTest;
 
     @BeforeAll
     private static void init() throws RimsException {

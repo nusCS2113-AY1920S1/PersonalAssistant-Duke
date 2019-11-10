@@ -1,25 +1,19 @@
+package CoreTests;
+
 import rims.core.Parser;
 import rims.core.ResourceList;
 import rims.core.Ui;
-import rims.core.Storage;
-import rims.command.ReturnCommand;
 import rims.exception.*;
 import rims.resource.*;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.*;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserReturnTest {
     private static Ui ui;
-    private static Storage storage;
     private static ResourceList listUnderTest;
     private static Parser parserUnderTest;
 

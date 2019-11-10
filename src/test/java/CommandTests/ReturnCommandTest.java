@@ -1,3 +1,5 @@
+package CommandTests;
+
 import rims.core.ResourceList;
 import rims.core.Ui;
 import rims.core.Storage;
@@ -11,7 +13,6 @@ import java.text.ParseException;
 import java.util.*;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +23,6 @@ public class ReturnCommandTest {
     private static Storage storage;
     private static ResourceList listUnderTest;
     private static Resource ResourceUnderTest;
-    private static ReservationList ReservationListUnderTest;
     private static Reservation ReservationUnderTest;
 
     /**
