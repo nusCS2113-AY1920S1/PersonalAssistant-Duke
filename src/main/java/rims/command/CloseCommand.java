@@ -17,7 +17,7 @@ public class CloseCommand extends Command {
     /**
      * Saves all existing Resources and Reservations to disk in a text format, sends
      * a farewell message, and sets the exit code to true to halt the RIMS program.
-     * 
+     *
      * @param ui        An instance of the user interface.
      * @param storage   An instance of the Storage class.
      * @param resources The ResourceList, containing all the created Resources thus

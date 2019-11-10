@@ -20,13 +20,12 @@ import java.text.ParseException;
  * Add, Delete, Loan, Reserve, Return
  */
 public class UndoCommand extends Command {
-
     protected Command prevCommand;
 
     /**
      * Constructor of an UndoCommand, which takes in the parameter of a Command
      * object, for the Ui to notify the user about the command that was undone.
-     * 
+     *
      * @param previousCommand Command inputted by the user that last changed
      *                        ResourceList.
      */

@@ -1,16 +1,13 @@
 package rims.resource;
 
-
-//@@author rabhijit
-
 import rims.exception.RimsException;
 
+//@@author rabhijit
 /**
  * This class represents an instance of an Item. Contains the name of the Item, its resource ID, type,
  * and a list of Reservation objects representing the reservations made for the Item.
  */
 public class Item extends Resource {
-
     /**
      * Constructor for a newly created Item, with no Reservations made yet.
      * @param resourceId the resourceId generated for the new Item.

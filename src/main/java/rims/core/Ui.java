@@ -44,6 +44,8 @@ public class Ui {
         "deadlines - view all currently active loans and reservations",
         "stats - view loan and reservation statistics",
         "calendar - view a monthly calendar showing all booked resources",
+        "\t" + "calendar+ - enlarge the cell size of the calendar",
+        "\t" + "calendar- - reduce the cell size of the calendar",
         "undo - undo the last command that modified inventory data"));
 
     public Ui() {
@@ -53,7 +55,7 @@ public class Ui {
 
     /**
      * Obtains a new String input from the user.
-     * 
+     *
      * @return the new input typed by the user.
      */
     public String getInput() {
@@ -186,7 +188,7 @@ public class Ui {
      * Prints the RIMS logo, as part of the RIMS welcome message.
      */
     public void printLogo() {
-        String logo = "\n" 
+        String logo = "\n"
                 +
                 tab + "          _____                    _____"
                 + "                    _____                    _____          \n"

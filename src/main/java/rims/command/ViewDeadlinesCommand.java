@@ -10,14 +10,14 @@ import rims.core.Ui;
 import rims.resource.Resource;
 import rims.exception.RimsException;
 
+// @@author aarushisingh1
 /**
  * Shows a sorted list of all the upcoming/overdue deadlines.
  */
-// @@author aarushisingh1
 public class ViewDeadlinesCommand extends Command {
     /**
      * Prints out a sorted list of all the upcoming/overdue deadlines.
-     * 
+     *
      * @param ui        An instance of the user interface.
      * @param storage   An instance of the Storage class.
      * @param resources The ResourceList, containing all the created Resources thus

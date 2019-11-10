@@ -165,7 +165,6 @@ public class Parser {
             c = new CloseCommand();
         } else if (input.equals("list") && words.length == 1) {
             c = new ListCommand();
-        // fix for date
         } else if (words[0].equals("list") && words.length > 1) {
             c = ListParser(input, words);
         //@@author aarushisingh1

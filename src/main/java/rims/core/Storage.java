@@ -123,7 +123,7 @@ public class Storage {
             }
             if (line[1].equals(resourceId)) {
                 Reservation newReservation = new Reservation(Integer.parseInt(line[0]),
-                    Integer.parseInt(line[0]), Integer.parseInt(line[2]), line[3], line[4]);
+                    Integer.parseInt(line[1]), Integer.parseInt(line[2]), line[3], line[4]);
                 resourceReservations.add(newReservation);
             }
         }
