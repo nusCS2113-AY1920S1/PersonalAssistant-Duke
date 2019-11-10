@@ -1,15 +1,14 @@
 package controllers;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.text.ParseException;
+import java.util.Date;
 import models.project.Project;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
 import util.date.DateTimeHelper;
-
-import java.text.ParseException;
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProjectInputControllerTest {
     private ProjectRepository projectRepository;
@@ -18,6 +17,8 @@ class ProjectInputControllerTest {
     private String simulatedUserInput;
     private String actualOutput;
     private String expectedOutput;
+    private String[] actualOutputArray;
+    private String[] expectedOutputArray;
     private Date dueDate;
 
     ProjectInputControllerTest() {
@@ -47,8 +48,9 @@ class ProjectInputControllerTest {
         assertEquals(expectedOutput, actualOutput);
     }
 
+    //@@author sinteary
     @Test
-    void testProjectAddMember_duplicateMembers() {
+    void testProjectAddMember_duplicateMemberName_executionFail() {
         Project project = new Project("Infinity_Gauntlet");
         simulatedUserInput = "add member -n Cynthia";
         projectInputController.projectAddMember(project, simulatedUserInput);
@@ -61,7 +63,7 @@ class ProjectInputControllerTest {
     }
 
     @Test
-    void testProjectAddMember_noName() {
+    void testProjectAddMember_noName_executionFail() {
         Project project = new Project("Infinity_Gauntlet");
         simulatedUserInput = "add member";
         String[] projectOutput = projectInputController.projectAddMember(project, simulatedUserInput);
@@ -72,7 +74,7 @@ class ProjectInputControllerTest {
         assertEquals("Name cannot be empty! Please follow the add command format in user guide!"
             + " \"add member -n NAME\" is the minimum requirement for add member command", projectOutput[0]);
     }
-
+    //@@author
 
     @Test
     void testProjectEditMember_valid() {
@@ -117,6 +119,7 @@ class ProjectInputControllerTest {
         assertEquals(expectedOutput, actualOutput);
     }
 
+    //@@author sinteary
     @Test
     void testProjectDeleteMember_valid() {
         Project project = new Project("Infinity_Gauntlet");
@@ -141,8 +144,9 @@ class ProjectInputControllerTest {
         assertEquals("Sean", project.getMember(1).getName());
     }
 
+
     @Test
-    void testProjectDeleteMember_invalid() {
+    void testProjectDeleteMember_invalidInputs_executionFail() {
         Project project = new Project("Infinity_Gauntlet");
         simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
@@ -155,6 +159,7 @@ class ProjectInputControllerTest {
         assertEquals("Could not recognise member abc, please ensure it is an integer.", output[0]);
         assertEquals("No valid member indexes. Cannot delete members.", output[1]);
     }
+    //@@author
 
     @Test
     void testProjectViewCredits() {
@@ -539,33 +544,6 @@ class ProjectInputControllerTest {
             "| +------------------------------------------------------------------+ |",
             "+----------------------------------------------------------------------+"};
         assertArrayEquals(expectedOutput, actualOutput);
-    }
-
-    //@@author sinteary
-    @Test
-    void testProjectViewAssignments_invalidInputs() {
-        Project project = new Project("New project");
-        simulatedUserInput = "view assignments";
-        String[] output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("Please input the parameters to view assignments:", output[0]);
-        simulatedUserInput = "view assignments -";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("Please input the parameters to view assignments:", output[0]);
-        simulatedUserInput = "view assignments atm";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("Please input the parameters to view assignments:",
-            output[0]);
-        //no members
-        simulatedUserInput = "view assignments -m all";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("No members in project yet.", output[0]);
-        //no tasks
-        simulatedUserInput = "view assignments -t all";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("No tasks in project yet.", output[0]);
-        simulatedUserInput = "view assignments -a 1";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("Could not understand your command! Please use:", output[0]);
     }
 
 
