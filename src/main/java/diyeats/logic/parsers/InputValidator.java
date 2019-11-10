@@ -16,7 +16,6 @@ public class InputValidator {
     private static final String positiveValidator = "^[1-9]\\d*(\\.\\d+)?$";
     private static final String wholeNumberValidator = "^\\d+$";
     private static final String positiveIntegerValidator = "^[1-9]\\d*$";
-    private static final String leadingZeroValidator = "^0+";
     private static Logger logger = Logger.getLogger(InputValidator.class.getName());
 
     /**
@@ -71,6 +70,18 @@ public class InputValidator {
         if (!valueInput.matches(positiveIntegerValidator)) {
             logger.log(Level.WARNING, "the value is not positive whole number");
             throw new ProgramException("The value must be a positive integer with no leading zeroes");
+        }
+    }
+
+    /**
+     * validate the nutritional value .
+     * @param valueInput the nutritional value.
+     * @throws ProgramException if the value is not a whole number.
+     */
+    public static void validateNutritionalValue(String valueInput) throws ProgramException {
+        if (!valueInput.matches(wholeNumberValidator)) {
+            logger.log(Level.WARNING, "the value is not a whole number");
+            throw new ProgramException("The value must be a whole number");
         }
     }
 
