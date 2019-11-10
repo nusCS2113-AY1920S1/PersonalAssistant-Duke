@@ -28,8 +28,8 @@ public abstract class PatientObjSpec extends ObjSpec {
                 if (type == null) {
                     type = condition.getKey();
                 } else {
-                    throw new DukeException("Please provide at most 1 unique type (IMPRESSION, CRITICAL or "
-                            + "INVESTIGATION) for the command!");
+                    throw new DukeException("Please provide at most 1 unique type (impression, critical, or "
+                            + "followup) for the command!");
                 }
             }
         }
