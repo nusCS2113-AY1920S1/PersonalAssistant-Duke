@@ -45,9 +45,9 @@ class ExportTest {
     static void setup() {
         list = new ArrayList<>();
         tasks = new TaskList(list);
+        file = new File(System.getProperty("user.dir") + "/src/test/Test");
 
-        file = new File(System.getProperty("user.dir") + "/src/test/ExportTest");
-        placeholder = new File(System.getProperty("user.dir") + "/src/test/v1");
+        placeholder = new File(System.getProperty("user.dir") + "/src/test/States");
         storage = new Storage(file);
         history = new ChronologerStateList(placeholder, placeholder, placeholder);
         LocalDateTime startDate = LocalDateTime.now().plusDays(3);
@@ -91,8 +91,8 @@ class ExportTest {
         Assertions.assertEquals(deadlineConverted, testDeadlineDate);
 
         inputStream.close();
-        calendarFile.delete();
-        file.delete();
+        assert calendarFile.delete();
+        //assert file.delete();
     }
 
 }
