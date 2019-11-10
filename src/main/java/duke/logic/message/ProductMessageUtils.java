@@ -6,14 +6,16 @@ public class ProductMessageUtils {
     public static final String MESSAGE_ADD_PRODUCT_SUCCESS = "New product: %s added";
     public static final String MESSAGE_INVALID_STATUS_VALUE = "-status can only take active/archive";
     public static final String MESSAGE_INVALID_NUMBER_FORMAT = "Invalid number format";
-    public static final String MESSAGE_MISSING_PRODUCT_NAME = "Product name can take any values, and should not be blank";
+    public static final String MESSAGE_MISSING_PRODUCT_NAME = "use -name to specify a product name";
+    public static final String MESSAGE_CONSTRAIN_NAME = "Product's name cannot be blank and must be "
+        + "50 characters or less";
     public static final String MESSAGE_LIST_SCOPE = "%s products shown";
     public static final String MESSAGE_INVALID_SCOPE_VALUE = "-scope can only take active/archive/all";
     public static final String MESSAGE_COMMIT_ADD_PRODUCT = "Add product";
     public static final String MESSAGE_COMMIT_DELETE_PRODUCT = "Delete product(s)";
     public static final String MESSAGE_COMMIT_EDIT_PRODUCT = "Edit product";
     public static final String MESSAGE_MISSING_KEYWORD = "A keyword must be specified";
-    public static final String MESSAGE_MISSING_SEARCH_PREFIX = "You can use -include prefix to specify a "
+    public static final String MESSAGE_MISSING_SEARCH_PREFIX = "Use -include prefix to specify a "
             + "keyword";
     public static final String MESSAGE_SEARCH_PRODUCT_SHOWN = "Products containing keyword \" %s \" shown";
     public static final String MESSAGE_INVALID_CATEGORY = "-by must be present and can only take "
