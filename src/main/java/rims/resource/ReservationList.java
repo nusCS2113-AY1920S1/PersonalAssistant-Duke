@@ -67,7 +67,7 @@ public class ReservationList {
 
     /**
      * Adds a new Reservation to the ReservationList.
-     * 
+     *
      * @param newReservation the newly created Reservation.
      */
     public void add(Reservation newReservation) {
@@ -172,13 +172,15 @@ public class ReservationList {
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
             if ((checkedDate.after(thisReservation.getStartDate())
-                    && checkedDate.before(thisReservation.getEndDate()))) {
+                    && checkedDate.before(thisReservation.getEndDate()))
+                    || thisReservation.isOverdue()) {
                 return false;
             }
         }
         return true;
     }
 
+    //@@author rabhijit
     /**
      * Checks if this Resource is booked between two given dates, or currently
      * overdue from a previous Reservation.
@@ -196,7 +198,9 @@ public class ReservationList {
             Reservation thisReservation = getReservationByIndex(i);
             if (((startDate.after(thisReservation.getStartDate()) && startDate.before(thisReservation.getEndDate()))
                     || (endDate.after(thisReservation.getStartDate()) && endDate.before(thisReservation.getEndDate())))
-                    || thisReservation.isOverdue()) {
+                    || thisReservation.isOverdue()
+                    || startDate.equals(thisReservation.getStartDate())
+                    || endDate.equals(thisReservation.getEndDate())) {
                 return false;
             }
         }
