@@ -15,10 +15,10 @@ import user.UserList;
 
 import java.io.IOException;
 
+//@@author AmirAzhar
 public class UnusedLogoutCommand extends Command {
     private String[] splitL;
 
-    //@@ AmirAzhar
     /**
      * User logout.
      * @param input    from user

@@ -2,12 +2,10 @@ package command;
 
 import booking.ApprovedList;
 import booking.BookingList;
-import control.Duke;
 import exception.DukeException;
 import inventory.Inventory;
 import room.RoomList;
 import storage.Constants;
-import storage.Storage;
 import storage.StorageManager;
 import ui.Ui;
 import user.User;
@@ -15,10 +13,9 @@ import user.UserList;
 
 import java.io.IOException;
 
+//@@author AmirAzhar
 public class AddUserCommand extends Command {
     private String[] splitL;
-
-    //@@ AmirAzhar
     /**
      * User login.
      * @param input from user
@@ -27,7 +24,7 @@ public class AddUserCommand extends Command {
      */
     public AddUserCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
-            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please enter a username u would like to register!");
+            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please enter a username you would like to register!");
         }
         this.splitL = input.split("adduser ");
     }
@@ -37,13 +34,11 @@ public class AddUserCommand extends Command {
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
                         StorageManager allStorage)
             throws DukeException, IOException {
-        if (UserList.checkExistence(userList, splitL[1])) {
-            throw new DukeException("Sorry, that user already exists!");
-        } else {
-            User user = new User(splitL[1]);
-            userList.add(user);
+        if (userList.addUser(splitL[1])) {
             allStorage.getUserStorage().saveToFile(userList);
-            ui.addToOutput("You have successfully created an account: " + user.getUsername());
+            ui.addToOutput("You have successfully created an account: " + splitL[1]);
+        } else {
+            throw new DukeException("Sorry, that user already exists!");
         }
     }
 }

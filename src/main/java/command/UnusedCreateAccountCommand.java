@@ -21,10 +21,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class CreateAccountCommand extends Command {
+//@@author AmirAzhar
+public class UnusedCreateAccountCommand extends Command {
     private String[] splitC;
 
-    //@@ AmirAzhar
     /**
      * Create new Account for user.
      * format is create email password username usertype
@@ -33,7 +33,7 @@ public class CreateAccountCommand extends Command {
      * @throws DukeException if format not followed
      */
 
-    public CreateAccountCommand(String input, String[] splitStr) throws DukeException, IOException {
+    public UnusedCreateAccountCommand(String input, String[] splitStr) throws DukeException, IOException {
         File membersFile = new File("data\\members.txt");
         membersFile.createNewFile(); //if file already exists, won't create
         if (splitStr.length == 1) {
