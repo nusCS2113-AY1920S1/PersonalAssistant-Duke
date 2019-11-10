@@ -1,13 +1,18 @@
 package cube.logic.parser;
 
-import cube.exception.CubeException;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 
 import java.text.ParseException;
-import java.util.*;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.TimeZone;
 
+/**
+ * The collection of all check methods used in parser.
+ */
 public class ParserUtil {
 
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
@@ -32,7 +37,7 @@ public class ParserUtil {
 	 *
 	 * @param dateString the String describing the date.
 	 * @return the date
-	 * @throws CubeException exception occurs when unable to parse.
+	 * @throws ParserException exception occurs when unable to parse.
 	 */
 	public static Date parseStringToDate(String dateString) throws ParserException {
 		if (dateString == null) {
@@ -57,15 +62,15 @@ public class ParserUtil {
 	 * @param index starting index.
 	 * @return the full name/type until next parameter/end of input.
 	 */
-	public static String findFullString (String[] inputs, int index) {
+	public static String findFullString(String[] inputs, int index) {
 		String fullString = "";
 
-		for (int i = index; i < inputs.length; i ++) {
-			if(inputs[i].matches("-(.*)")) {
+		for (int i = index; i < inputs.length; i++) {
+			if (inputs[i].matches("-(.*)")) {
 				break;
 			}
 
-			if(i != index) {
+			if (i != index) {
 				fullString += " ";
 			}
 			fullString += inputs[i];
@@ -75,24 +80,24 @@ public class ParserUtil {
 	}
 
 	/**
-	 * Find the full name/type until next parameter/end of input.
-	 * @param inputs tokens containing the full string to be found.
+	 * Checks that the inputs only contains given parameters.
+	 * @param inputs tokens containing the parameters to be checked.
 	 * @param params set of possible parameters.
 	 * @return true if the input has parameter that is not within possible parameter set.
 	 *         false otherwise.
 	 */
-	public static boolean hasInvalidParameters (String[] inputs, String[] params) {
+	public static boolean hasInvalidParameters(String[] inputs, String[] params) {
 		boolean flag;
-		for (int i = 0; i < inputs.length; i ++) {
-			if(inputs[i].matches("-(.*)")) {
+		for (int i = 0; i < inputs.length; i++) {
+			if (inputs[i].matches("-(.*)")) {
 				flag = false;
-				for(int j = 0; j < params.length; j ++){
-					if(inputs[i].equals(params[j])){
+				for (int j = 0; j < params.length; j++) {
+					if (inputs[i].equals(params[j])) {
 						flag = true;
 						break;
 					}
 				}
-				if(!flag){
+				if (!flag) {
 					return true;
 				}
 			}
@@ -101,18 +106,18 @@ public class ParserUtil {
 	}
 
 	/**
-	 * Find the full name/type until next parameter/end of input.
+	 * Checks whether the inputs have repetitive parameters.
 	 * @param inputs tokens containing the full string to be found.
 	 * @return true if the input has parameter that is not within possible parameter set.
 	 *         false otherwise.
 	 */
-	public static boolean hasRepetitiveParameters (String[] inputs) {
+	public static boolean hasRepetitiveParameters(String[] inputs) {
 		HashSet<String> table = new HashSet<String>();
-		for (int i = 0; i < inputs.length; i ++) {
-			if(inputs[i].matches("-(.*)")) {
-				if(table.contains(inputs[i])){
+		for (int i = 0; i < inputs.length; i++) {
+			if (inputs[i].matches("-(.*)")) {
+				if (table.contains(inputs[i])) {
 					return true;
-				}else{
+				} else {
 					table.add(inputs[i]);
 				}
 			}
@@ -124,10 +129,10 @@ public class ParserUtil {
 	 * Find out whether the field value is empty.
 	 * @param inputs tokens containing the full string to be found.
 	 * @param index the index after which there should be a field value.
-	 * @return true if the field value after index is not empty
+	 * @return true if the field value after index is not empty,
 	 *         false otherwise.
 	 */
-	public static boolean hasField (String[] inputs, int index) {
+	public static boolean hasField(String[] inputs, int index) {
 		if (index >= inputs.length || inputs[index].matches("-(.*)")) {
 			return false;
 		}
@@ -135,39 +140,39 @@ public class ParserUtil {
 	}
 
 	/**
-	 * Find the full name/type until next parameter/end of input.
-	 * @param input tokens containing the full string to be found.
-	 * @return true if the input has parameter that is not within possible parameter set.
+	 * Checks whether the number is a valid numeric.
+	 * @param input the number to be checked.
+	 * @return true if the input is a valid number.
 	 *         false otherwise.
 	 */
-	public static boolean isValidNumber (String input) {
+	public static boolean isValidNumber(String input) {
 		double number;
-		try{
+		try {
 			number = Double.parseDouble(input);
-			if (number<0||number>=10000){
+			if (number < 0 || number >= 10000) {
 				return false;
 			}
 			return true;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
 
     /**
-     * Find the full name/type until next parameter/end of input.
-     * @param input tokens containing the full string to be found.
-     * @return true if the input has parameter that is not within possible parameter set.
+     * Checks whether the number is a valid integer.
+     * @param input the number to be checked.
+     * @return true if the input is a valid integer.
      *         false otherwise.
      */
-    public static boolean isValidInteger (String input) {
+    public static boolean isValidInteger(String input) {
         int number;
-        try{
+        try {
             number = Integer.parseInt(input);
-            if (number<0||number>=10000){
+            if (number < 0 || number >= 10000) {
                 return false;
             }
             return true;
-        }catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }

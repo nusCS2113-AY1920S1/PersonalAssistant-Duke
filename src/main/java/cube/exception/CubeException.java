@@ -3,16 +3,16 @@
  *
  * @author tygq13
  */
+
 package cube.exception;
 
-public class CubeException extends Exception
-{
+public class CubeException extends Exception {
     /**
      * Default constructor.
      */
-	public CubeException() {
-		super();
-	}
+    public CubeException() {
+        super();
+    }
 
     /**
      * Constructor with one argument.

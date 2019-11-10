@@ -4,8 +4,17 @@ import cube.logic.command.BatchCommand;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 
+/**
+ * Parse batch command.
+ */
 public class BatchCommandParser implements ParserPrototype<BatchCommand> {
 
+    /**
+     * Parse user batch command.
+     * @param args user inputs.
+     * @return batch command with the corresponding operation type.
+     * @throws ParserException when user input is illegal.
+     */
     public BatchCommand parse(String[] args) throws ParserException {
         String[] params = new String[] {"-o", "-i", "-e"};
 
@@ -26,7 +35,8 @@ public class BatchCommandParser implements ParserPrototype<BatchCommand> {
             return new BatchCommand(args[2], BatchCommand.OperationType.IMPORT);
         case "-e":
             return new BatchCommand(args[2], BatchCommand.OperationType.EMPTY);
+        default:
+            throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
         }
-        throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
     }
 }

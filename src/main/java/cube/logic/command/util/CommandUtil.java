@@ -3,6 +3,7 @@
  *
  * @author tygq13
  */
+
 package cube.logic.command.util;
 
 import cube.model.food.Food;
@@ -104,19 +105,23 @@ public class CommandUtil {
      * @param index The promotion index to check.
      * @throws CommandException If the given index is invalid.
      */
-    public static void requireValidIndexPromotion(PromotionList list, int index) throws CommandException {
+    public static void requireValidIndexPromotion(PromotionList list, int index)
+            throws CommandException {
         if (index < 0 || index >= list.size()) {
             throw new CommandException(CommandErrorMessage.INVALID_INDEX);
         }
     }
 
     /**
-     * Checks that the promotion period is valid i.e. the dates are not before the current date and the end date is not before the start date.
+     * Checks that the promotion period is valid
+     * i.e. the dates are not before the current date
+     * and the end date is not before the start date.
      * @param startDate The start date of the promotion period.
      * @param endDate The end date of the promotion period.
      * @throws CommandException if promotion period is invalid.
      */
-    public static void requireValidPromotionDates(Date startDate, Date endDate) throws CommandException {
+    public static void requireValidPromotionDates(Date startDate, Date endDate)
+            throws CommandException {
         if (startDate == null || endDate == null) {
             return;
         }
@@ -143,14 +148,16 @@ public class CommandUtil {
      * @param newPromotion the new promotion to be added.
      * @throws CommandException if the same food has two different promotions at the same time.
      */
-    public static void requireNotOverlappingTime (PromotionList promotionList, Promotion newPromotion) throws CommandException {
+    public static void requireNotOverlappingTime(PromotionList promotionList, Promotion newPromotion)
+            throws CommandException {
         String foodName = newPromotion.getName();
         Date start = newPromotion.getStartDate();
         Date end = newPromotion.getEndDate();
         if (!promotionList.existsName(foodName)) {
             return;
         }
-        if (end.before(promotionList.get(foodName).getStartDate()) || start.after(promotionList.get(foodName).getEndDate())) {
+        if (end.before(promotionList.get(foodName).getStartDate())
+                || start.after(promotionList.get(foodName).getEndDate())) {
             return;
         }
         throw new CommandException(CommandErrorMessage.PROMOTION_ALREADY_EXISTS);
@@ -162,8 +169,8 @@ public class CommandUtil {
      * @param foodName the food item to promote.
      * @throws CommandException when the food item that is going to promote is already free.
      */
-    public static void requireNotFreeItem (FoodList foodList, String foodName) throws CommandException {
-        if(foodList.get(foodName).getPrice()==0) {
+    public static void requireNotFreeItem(FoodList foodList, String foodName) throws CommandException {
+        if (foodList.get(foodName).getPrice() == 0) {
             throw new CommandException(CommandErrorMessage.FREE_ITEM);
         }
     }

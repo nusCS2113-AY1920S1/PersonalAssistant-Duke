@@ -1,8 +1,8 @@
 /**
  * The command adds a new reminder to the reminder list.
- *
  * @@author parvathi14
  */
+
 package cube.logic.command;
 
 import cube.logic.command.exception.CommandException;
@@ -16,7 +16,7 @@ import cube.logic.command.util.CommandResult;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ReminderCommand extends Command{
+public class ReminderCommand extends Command {
     int daysToExpiry;
     int stockIndex;
 
@@ -40,9 +40,10 @@ public class ReminderCommand extends Command{
 
     private void buildExpiryReminder(FoodList list) {
         MESSAGE_SUCCESS += "Here are the upcoming expiry dates:\n";
-        for(int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             Food food = list.get(i);
-            MESSAGE_SUCCESS += String.format("%1$s due in %2$s\n", food.getName(), ParserUtil.parseDateToString(food.getExpiryDate()));
+            MESSAGE_SUCCESS += String.format("%1$s due in %2$s\n",
+                    food.getName(), ParserUtil.parseDateToString(food.getExpiryDate()));
         }
         MESSAGE_SUCCESS += "\n";
     }
@@ -54,7 +55,7 @@ public class ReminderCommand extends Command{
 
     private void buildStockReminder(FoodList list) {
         MESSAGE_SUCCESS += "Here are the food products that are low in stock:\n";
-        for(int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             Food food = list.get(i);
             MESSAGE_SUCCESS += String.format("%1$s : %2$s left\n", food.getName(), food.getStock());
         }
@@ -64,10 +65,10 @@ public class ReminderCommand extends Command{
      * Shows the list of food products that are low on stock (Default: less than quantity of 5)
      * or approaching/nearing its expiry date (Default: by a week or lesser).
      *
-     * @param model
-     * @param storage storage of Cube
-     * @return Message feedback to user
-     * @throws CommandException
+     * @param model storage model.
+     * @param storage storage of Cube.
+     * @return Message feedback to user.
+     * @throws CommandException when the command requirements are not met.
      */
 
     @Override
@@ -87,7 +88,7 @@ public class ReminderCommand extends Command{
                 expiryReminder.add(food);
             }
 
-            if (stock != 0 && stock < stockIndex ) {
+            if (stock != 0 && stock < stockIndex) {
                 stockReminder.add(food);
             }
         }

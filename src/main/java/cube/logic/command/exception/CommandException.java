@@ -2,8 +2,10 @@ package cube.logic.command.exception;
 
 import cube.exception.CubeException;
 
-public class CommandException extends CubeException
-{
+/**
+ * Handles exception specific to command.
+ */
+public class CommandException extends CubeException {
     /**
      * Default constructor.
      */

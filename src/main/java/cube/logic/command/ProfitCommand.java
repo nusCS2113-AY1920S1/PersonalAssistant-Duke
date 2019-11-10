@@ -3,6 +3,7 @@
  * ProfitCommand.java
  * Support commands related to generating profits and revenue.
  */
+
 package cube.logic.command;
 
 import cube.logic.command.exception.CommandException;
@@ -35,18 +36,22 @@ public class ProfitCommand extends Command {
 
     private int profitIndex;
     private String profitDescription;
-    private Date date_i; //start date (initial)
-    private Date date_f; //end date (final)
+    private Date dateI; //start date (initial)
+    private Date dateF; //end date (final)
     private ProfitCommand.ProfitBy param;
-    public static final String MESSAGE_SUCCESS_ALL = "Nice! I've generated the profits and revenue for all the stocks:\n"
+
+    public static final String MESSAGE_SUCCESS_ALL
+            = "Nice! I've generated the profits and revenue for all the stocks:\n"
             + "profit:  $ %1$s\n"
             + "revenue: $ %2$s\n"
             + "In total, you have %3$s food in the list.\n";
-    public static final String MESSAGE_SUCCESS_SINGLE = "Nice! I've generated the profits and revenue for this food:\n"
+    public static final String MESSAGE_SUCCESS_SINGLE
+            = "Nice! I've generated the profits and revenue for this food:\n"
             + "profit:  $ %1$s\n"
             + "revenue: $ %2$s\n"
             + "In total, you have %3$s food in the list.\n";
-    public static final String MESSAGE_SUCCESS_MULTIPLE = "Nice! I've generated the profits and revenue for this type:\n"
+    public static final String MESSAGE_SUCCESS_MULTIPLE
+            = "Nice! I've generated the profits and revenue for this type:\n"
             + "profit:  $ %1$s\n"
             + "revenue: $ %2$s\n"
             + "This type contains "
@@ -62,27 +67,27 @@ public class ProfitCommand extends Command {
     /**
      * The constructor for generating the total profits and revenue.
      *
-     * @param date_i The start date of the period where generating profits and revenue is concerned.
-     * @param date_f The end date of the period where generating profits and revenue is concerned.
+     * @param dateI The start date of the period where generating profits and revenue is concerned.
+     * @param dateF The end date of the period where generating profits and revenue is concerned.
      * @param param The parameter is used to specify the type of generating profits and revenue.
      */
-    public ProfitCommand(Date date_i, Date date_f, String param) {
-        this.date_i = date_i;
-        this.date_f = date_f;
+    public ProfitCommand(Date dateI, Date dateF, String param) {
+        this.dateI = dateI;
+        this.dateF = dateF;
         this.param = ProfitCommand.ProfitBy.valueOf(param);
     }
 
     /**
      * The constructor for generating the total profits and revenue using index.
      *
-     * @param date_i The start date of the period where generating profits and revenue is concerned.
-     * @param date_f The end date of the period where generating profits and revenue is concerned.
+     * @param dateI The start date of the period where generating profits and revenue is concerned.
+     * @param dateF The end date of the period where generating profits and revenue is concerned.
      * @param index The index of the food whose profits and revenue are to be generated.
      * @param param The parameter is used to specify the type of generating profits and revenue.
      */
-    public ProfitCommand(Date date_i, Date date_f, int index, String param) {
-        this.date_i = date_i;
-        this.date_f = date_f;
+    public ProfitCommand(Date dateI, Date dateF, int index, String param) {
+        this.dateI = dateI;
+        this.dateF = dateF;
         this.profitIndex = index - 1;
         this.param = ProfitCommand.ProfitBy.valueOf(param);
     }
@@ -90,15 +95,15 @@ public class ProfitCommand extends Command {
     /**
      * The constructor for generating the total profits and revenue using food name or food type.
      *
-     * @param date_i The start date of the period where generating profits and revenue is concerned.
-     * @param date_f The end date of the period where generating profits and revenue is concerned.
-     * @param ProfitDescription The food name or food type whose profits and revenue are to be generated.
+     * @param dateI The start date of the period where generating profits and revenue is concerned.
+     * @param dateF The end date of the period where generating profits and revenue is concerned.
+     * @param profitDescription The food name or food type whose profits and revenue are to be generated.
      * @param param The parameter is used to specify the type of generating profits and revenue.
      */
-    public ProfitCommand(Date date_i, Date date_f, String ProfitDescription, String param) {
-        this.date_i = date_i;
-        this.date_f = date_f;
-        this.profitDescription = ProfitDescription;
+    public ProfitCommand(Date dateI, Date dateF, String profitDescription, String param) {
+        this.dateI = dateI;
+        this.dateF = dateF;
+        this.profitDescription = profitDescription;
         this.param = ProfitCommand.ProfitBy.valueOf(param);
     }
 
@@ -156,7 +161,7 @@ public class ProfitCommand extends Command {
                 while (it.hasNext()) {
                     Sale tempSale = it.next();
                     Date tempDate = tempSale.getDate();
-                    if (tempDate.compareTo(date_i) >= 0 && tempDate.compareTo(date_f) <= 0) {
+                    if (tempDate.compareTo(dateI) >= 0 && tempDate.compareTo(dateF) <= 0) {
                         double tempRevenue = tempSale.getRevenue();
                         double tempProfit = tempSale.getProfit();
                         toGenerateRevenue += tempRevenue;
@@ -179,7 +184,7 @@ public class ProfitCommand extends Command {
                     Sale tempSale = it.next();
                     Date tempDate = tempSale.getDate();
                     String tempName = tempSale.getName();
-                    if (tempDate.compareTo(date_i) >= 0 && tempDate.compareTo(date_f) <= 0
+                    if (tempDate.compareTo(dateI) >= 0 && tempDate.compareTo(dateF) <= 0
                             && tempFoodName.equals(tempName)) {
                         double tempRevenue = tempSale.getRevenue();
                         double tempProfit = tempSale.getProfit();
@@ -201,7 +206,7 @@ public class ProfitCommand extends Command {
                     Sale tempSale = it.next();
                     Date tempDate = tempSale.getDate();
                     String tempName = tempSale.getName();
-                    if (tempDate.compareTo(date_i) >= 0 && tempDate.compareTo(date_f) <= 0
+                    if (tempDate.compareTo(dateI) >= 0 && tempDate.compareTo(dateF) <= 0
                             && tempFoodName.equals(tempName)) {
                         double tempRevenue = tempSale.getRevenue();
                         double tempProfit = tempSale.getProfit();
@@ -221,7 +226,8 @@ public class ProfitCommand extends Command {
                 //store all the food names of the food with the food type the user is looking for into an arraylist.
                 CommandUtil.requireValidType(list, profitDescription);
                 ArrayList<String> tempFoodNames = new ArrayList<String>();
-                int count = 0, listSize = list.size();
+                int count = 0;
+                int listSize = list.size();
                 for (int i = 0; i < listSize; ++i) {
                     if ((list.get(i).getType() != null) && (list.get(i).getType().equals(profitDescription))) {
                         tempFoodNames.add(list.get(i).getName());
@@ -235,7 +241,7 @@ public class ProfitCommand extends Command {
                     Sale tempSale = it.next();
                     Date tempDate = tempSale.getDate();
                     String tempName = tempSale.getName();
-                    if (tempDate.compareTo(date_i) >= 0 && tempDate.compareTo(date_f) <= 0) {
+                    if (tempDate.compareTo(dateI) >= 0 && tempDate.compareTo(dateF) <= 0) {
                         for (int i = 0; i < count; ++i) {
                             if (tempName.equals(tempFoodNames.get(i))) {
                                 double tempRevenue = tempSale.getRevenue();
@@ -249,7 +255,8 @@ public class ProfitCommand extends Command {
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, toGenerateProfit,
                         toGenerateRevenue, count, listSize));
+            default:
+                return null;
         }
-        return null;
     }
 }

@@ -7,32 +7,42 @@ import cube.model.promotion.Promotion;
 
 import java.util.Date;
 
+/**
+ * Parse add promotion command.
+ */
 public class AddPromotionCommandParser implements ParserPrototype<AddPromotionCommand> {
+
+    /**
+     * Parse user inputs.
+     * @param args user inputs.
+     * @return add promotion command with promotion to be added.
+     * @throws ParserException when user input is illegal.
+     */
     public AddPromotionCommand parse(String[] args) throws ParserException {
-        int foodNameIndex = 1;
+        final int foodNameIndex = 1;
         int discountIndex = -1;
         int startDateIndex = -1;
         int endDateIndex = -1;
         String[] params = new String[]{"-s","-e","-%"};
 
-        if(ParserUtil.hasInvalidParameters(args,params)){
+        if (ParserUtil.hasInvalidParameters(args,params)) {
             throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
         }
-        if(ParserUtil.hasRepetitiveParameters(args)){
+        if (ParserUtil.hasRepetitiveParameters(args)) {
             throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
         }
 
         for (int i = 1; i < args.length; i++) {
 
-            if(args[i].equals("-%")) {
+            if (args[i].equals("-%")) {
                 discountIndex = i;
             }
 
-            if(args[i].equals("-s")) {
+            if (args[i].equals("-s")) {
                 startDateIndex = i;
             }
 
-            if(args[i].equals("-e")) {
+            if (args[i].equals("-e")) {
                 endDateIndex = i;
             }
         }
@@ -46,31 +56,31 @@ public class AddPromotionCommandParser implements ParserPrototype<AddPromotionCo
         }
         Promotion tempPromotion = new Promotion(foodName);
 
-        if (discountIndex != -1) {
-            if (!ParserUtil.hasField(args,discountIndex+1)) {
-                throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
-            }
-            if(!ParserUtil.isValidNumber(args[discountIndex+1])){
-                throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
-            }
-            tempPromotion.setDiscount(Double.parseDouble(args[discountIndex+1]));
+
+        if (!ParserUtil.hasField(args,discountIndex + 1)) {
+            throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
         }
+        if (!ParserUtil.isValidNumber(args[discountIndex + 1])) {
+            throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+        }
+        tempPromotion.setDiscount(Double.parseDouble(args[discountIndex + 1]));
+
 
         if (startDateIndex != -1) {
-            if (!ParserUtil.hasField(args,startDateIndex+1)) {
+            if (!ParserUtil.hasField(args,startDateIndex + 1)) {
                 throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
             }
-            tempPromotion.setStartDate(ParserUtil.parseStringToDate(args[startDateIndex+1]));
+            tempPromotion.setStartDate(ParserUtil.parseStringToDate(args[startDateIndex + 1]));
         } else {
             tempPromotion.setStartDate(new Date());
         }
 
-        if (endDateIndex != -1) {
-            if (!ParserUtil.hasField(args,endDateIndex+1)) {
-                throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
-            }
-            tempPromotion.setEndDate(ParserUtil.parseStringToDate(args[endDateIndex+1]));
+
+        if (!ParserUtil.hasField(args,endDateIndex + 1)) {
+            throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
         }
+        tempPromotion.setEndDate(ParserUtil.parseStringToDate(args[endDateIndex + 1]));
+
 
         return new AddPromotionCommand(tempPromotion);
     }

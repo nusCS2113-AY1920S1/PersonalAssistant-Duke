@@ -4,6 +4,7 @@
  *
  * @author tygq13
  */
+
 package cube.logic.command;
 
 import cube.model.food.FoodList;
@@ -21,7 +22,7 @@ import cube.logic.command.util.CommandUtil;
 import java.util.Calendar;
 import java.util.Date;
 
-public class SoldCommand extends Command{
+public class SoldCommand extends Command {
 	String foodName;
 	int quantity;
 	Date soldDate;
@@ -56,7 +57,7 @@ public class SoldCommand extends Command{
 	/**
 	 * Acquires the food to sold for this command.
 	 * @param list The food list.
-	 * @throws CommandException
+	 * @throws CommandException when the command requirements are not met.
 	 */
 	public void obtainFoodSold(FoodList list) throws CommandException {
 		CommandUtil.requireValidName(list, foodName);
@@ -74,8 +75,8 @@ public class SoldCommand extends Command{
 	@Override
 	public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
 		FoodList list = ModelManager.getFoodList();
-		PromotionList promotionList = model.getPromotionList();
-		SalesHistory salesHistory = model.getSalesHistory();
+		final PromotionList promotionList = model.getPromotionList();
+		final SalesHistory salesHistory = model.getSalesHistory();
 		obtainFoodSold(list);
 		CommandUtil.requireValidQuantity(toSold, quantity);
 
@@ -90,7 +91,8 @@ public class SoldCommand extends Command{
 			Date modifiedDate = cal.getTime();
 			//cal.add(Calendar.DATE, -1);
 
-			if (currentDate.before(promotion.getEndDate()) && modifiedDate.after(promotion.getStartDate())) {
+			if (currentDate.before(promotion.getEndDate())
+					&& modifiedDate.after(promotion.getStartDate())) {
 				price = promotion.getPromotionalPrice();
 			} else {
 				price = toSold.getPrice();

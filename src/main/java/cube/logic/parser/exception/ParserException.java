@@ -2,6 +2,9 @@ package cube.logic.parser.exception;
 
 import cube.exception.CubeException;
 
+/**
+ * Handles exception specific to parser.
+ */
 public class ParserException extends CubeException {
     /**
      * Default constructor.
