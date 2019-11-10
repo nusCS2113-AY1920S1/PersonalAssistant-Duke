@@ -15,7 +15,7 @@ import chronologer.ui.UiTemporary;
  * @author Hans kurnia
  * @version 1.0
  */
-public class RecurringEventParser extends EventParser{
+public class RecurringEventParser extends EventParser {
 
     /**
      * Creates a new parser to handle recurring events.

@@ -26,7 +26,7 @@ public class LastDay {
      * 
      * @param dayFromUser day of the week
      * @return date of the last day
-     * @throws ChronologerException
+     * @throws ChronologerException invalid day was given
      */
     public static String getDate(String dayFromUser) throws ChronologerException {
         lastDates.put("MON", "11/11/2019 ");
