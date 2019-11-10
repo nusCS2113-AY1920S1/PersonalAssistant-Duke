@@ -40,7 +40,6 @@ public class MedicineContextWindow extends DukeDataContextWindow {
     @Override
     public void updateUi() {
         super.updateUi();
-
         statusLabel.setText(medicine.getStatusStr());
         doseLabel.setText(medicine.getDose());
         startDateLabel.setText(medicine.getStartDate());

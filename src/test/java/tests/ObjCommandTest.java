@@ -39,6 +39,9 @@ public class ObjCommandTest extends CommandTest {
     private Result result;
     private ObjCommand openCmd;
 
+    /**
+     * This sets up complex data for the patient before the tests are run.
+     */
     @BeforeEach
     public void setupData() {
         try {
@@ -65,6 +68,9 @@ public class ObjCommandTest extends CommandTest {
         }
     }
 
+    /**
+     * Cleans up once tests are complete by removing patients.
+     */
     @AfterEach
     public void cleanupData() {
         try {

@@ -17,6 +17,10 @@ public class UiContextTest {
     private Patient patient;
     private Impression impression;
 
+    /**
+     * Sets up Patient and Impression so context can be navigated into.
+     * @throws DukeException if the impression cannot be added to the patient
+     */
     @BeforeEach
     public void setupComprehensivePatient_validDetails() throws DukeException {
         patient = new Patient("John Doe", "A105", "Cinnarizine", 170, 50,

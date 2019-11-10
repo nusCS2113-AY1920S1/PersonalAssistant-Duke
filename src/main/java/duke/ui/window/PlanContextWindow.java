@@ -13,6 +13,8 @@ public class PlanContextWindow extends DukeDataContextWindow {
 
     @FXML
     private Label statusLabel;
+    @FXML
+    private Label summaryLabel;
 
     private Plan plan;
 
@@ -35,5 +37,6 @@ public class PlanContextWindow extends DukeDataContextWindow {
     public void updateUi() {
         super.updateUi();
         statusLabel.setText(plan.getStatusStr());
+        summaryLabel.setText(plan.getSummary());
     }
 }
