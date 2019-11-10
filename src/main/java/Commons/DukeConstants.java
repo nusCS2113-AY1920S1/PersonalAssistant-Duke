@@ -43,6 +43,8 @@ public class DukeConstants {
     public static final String RECUR_BIWEEKLY_KEYWORD = "/biweekly";
     public static final String RECUR_RMBIWEEKLY_KEYWORD = "/rmbiweekly";
     public static final String RECUR_RMWEEKLY_KEYWORD = "/rmweekly";
+    public static final String RECUR_EVENT_DATE_FORMAT_ERROR = " OOPS!!! The start date of the recurring event is after the end date of the recurring event.\n" +
+            "Please ensure the end date is after the start end.";
     public static final String RECUR_EVENT_FORMAT = "OOPS!!! Please enter recurring event as follows:\n" +
             "recur/(fill) modCode name_of_event /start dd/MM/yyyy to dd/MM/yyyy /from HHmm /to HHmm\n" +
             "Note: replace (fill) with either: weekly, biweekly, rmweekly, rmbiweekly\n" +
@@ -141,7 +143,7 @@ public class DukeConstants {
     public static final String NO_TIMING_ERROR ="Sorry, you have no such timing entered in your deadline table!";
     public static final String REMINDER_AFTER_TASK_ERROR ="Sorry, you cannot set a reminder after the date of the task.";
     public static final String INVALID_DATE_ERROR = "Sorry, please enter the correct date format";
-    public static final String INVALID_ACADEMIC_YEAR_DATE = "Sorry, please enter a valid date within academic year.";
+    public static final String INVALID_ACADEMIC_YEAR_DATE = "Sorry, please check if date entered exists or its in the academic year, or its in the format of DD/MM/YYYY";
     public static final String HAS_REMINDER_INDICATOR = "[HR]";
     public static final String NO_REMINDER_INDICATOR ="[NR]";
 

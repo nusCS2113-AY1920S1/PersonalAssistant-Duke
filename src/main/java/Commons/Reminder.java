@@ -59,14 +59,23 @@ public class Reminder {
         remindMap.remove(date);
     }
 
+    /**
+     * Set the TaskList object of deadlines from Duke and RemindCommand.
+     */
     public void setDeadlines(TaskList deadlines) {
         this.deadlines = deadlines;
     }
 
+    /**
+     * This method retrieves the remindMap.
+     */
     public HashMap<Date, Assignment> getRemindMap() {
         return this.remindMap;
     }
 
+    /**
+     * Displays on application launch if reminders were set before application was closed previously.
+     */
     public void reminderOnStartAlert() {
         AlertBox.display("Reminder!!!", "",
                 "Your previous reminders have been automatically set. To see more, please type remind/check",
@@ -109,7 +118,7 @@ public class Reminder {
                             .text(task.getModCode() + " " + task.getDescription() + "\n" + task.getDateTime())
                             .darkStyle()
                             .position(Pos.BOTTOM_RIGHT)
-                            .hideAfter(Duration.seconds(20))
+                            .hideAfter(Duration.INDEFINITE)
                             .onAction(event -> {
                                 owner.close();
                             });

@@ -19,7 +19,7 @@ remind/set modCode Description /by (date) HHmm /on (date) HHmm
 remind/rm modCode Description /by (date) HHmm /on (date) HHmm
 10) To check your list of reminders, enter command in the format below
 remind/check
-11) To show next's week workload, enter command in the format below
+11) To show next's week recommended workload, enter command in the format below
 show/workload
 12) To add or remove a recurring event, enter command in the format below
 recur/(fill) modCode Description /start (date) /to (date) /from HHmm /to HHmm

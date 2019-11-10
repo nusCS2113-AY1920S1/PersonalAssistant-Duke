@@ -1,6 +1,7 @@
 package Commands;
 
 import Commons.DukeConstants;
+import Commons.Reminder;
 import DukeExceptions.DukeException;
 import Commons.Storage;
 import Commons.UserInteraction;
@@ -8,7 +9,9 @@ import Tasks.Assignment;
 import Tasks.TaskList;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Represents the command to delete a Task object from a TaskList object.
@@ -51,6 +54,20 @@ public class DeleteCommand extends Command {
             deadlines.removeTask(task);
             storage.updateDeadlineList(deadlines);
             listToChange = deadlines;
+            Reminder reminder = storage.getReminderObject();
+            HashMap<Date, Assignment> remindMap = reminder.getRemindMap();
+            reminder.setDeadlines(deadlines);
+            Set<Date> dateKeySet = remindMap.keySet();
+            for (Date date : dateKeySet) {
+                Assignment remindTask = remindMap.get(date);
+                String remindTaskDescription = remindTask.getDescription();
+                String taskDescription = task.getDescription();
+                String remindTaskDate = remindTask.getDateTime();
+                String taskDate = task.getDateTime();
+                if (remindTaskDescription.equals(taskDescription) && remindTaskDate.equals(taskDate)) {
+                    reminder.removeTimerTask(task, date, DukeConstants.NO_FIELD);
+                }
+            }
         }
         return ui.showDelete(task, listToChange.taskListSize());
     }

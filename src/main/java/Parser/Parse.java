@@ -3,6 +3,9 @@ package Parser;
 import Commands.Command;
 import Commons.DukeConstants;
 
+import java.text.ParseException;
+import java.util.Date;
+
 /**
  * Abstract class Parse with methods representing all the Command subclasses to be
  * carried out when an input is entered by the user.
@@ -105,5 +108,13 @@ public abstract class Parse {
         } else {
             return true;
         }
+    }
+
+
+    public boolean isValidDateRecurring(String start, String end) throws ParseException {
+        Date startDate = DukeConstants.DAY_DATE_FORMAT.parse(start);
+        Date endDate = DukeConstants.DAY_DATE_FORMAT.parse(end);
+        if (startDate.getTime() > endDate.getTime()) return false;
+        return true;
     }
 }

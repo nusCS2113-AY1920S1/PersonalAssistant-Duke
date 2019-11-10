@@ -106,7 +106,7 @@ public class RecurringCommandTest {
     public void addRecurringTask_clashesWithExistedEvent() {
         Command command = new RecurringCommand(testDescription, dateAfterEndDateString, endDateString, startTimeString,
                 endTimeString, false, true);
-        String expected = "Sorry, you have conflicting events \n" + "1. [[E]][✘]CS2107 tutorial by "
+        String expected = "Sorry, you have conflicting events \n" + "1. [E][✘] CS2107 tutorial by "
                 + "Mon 11/11/2019 10:00 AM to 12:00 PM\n";
         String actual = "";
         try {
