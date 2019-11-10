@@ -337,6 +337,73 @@ Step 5. The user now inputs: `09/11/20`. The `EditorManager` will now call `Edit
 ** Pros: Requires much more data structures, where SOLID principles can be demonstrated
 ** Cons: Changes need to be made to entire architecture
 
+=== Route Feature
+
+==== Implementation
+
+SGTravel allows users to plan and customize routes to assist in travelling around. Multiple transportation options are covered, allowing for flexibility in planning. The `Route` planning mechanism is facilitated by the `RouteList`. This section will document the implementation of the `Route` feature and its various components. Included below is the class diagram for `RouteList`:
+
+.RouteList class diagram
+image::SGTravel_RouteList_class_diagram.png[height="400" width="700"]
+
+`Route` objects are stored in the `RouteList`. Each `Route` object itself represents a list of `RouteNode` objects that correspond to physical locations in an area. Below is the class diagram of a `Route` object:
+
+.Route class diagram
+image::SGTravel_Route_class_diagram.png[height="250" width="400"]
+
+`RouteNode` is an abstract class extending the Venue class. `RouteNode` itself is extended by the `BusStop`, `TrainStation` and `CustomNode` objects. Below is the class diagram of these classes:
+
+.RouteNode class diagram
+image::SGTravel_RouteNode_class_diagram.png[height="560" width="930"]
+
+Given below is an example usage scenario and how the `Model`,`RouteList` and `Route` behaves at each step when trying to add a new `Route` to SGTravel:
+
+.  The user calls the `RouteAddCommand` with its relevant parameters. +
+e.g. `routeAdd Go to Sentosa`
+. The `LogicManager` parses the user input using the `Parser`.
+. The `Parser` breakdowns the user input into and returns an `RouteAddCommand` Object.
+. The `LogicManager` will call `execute()` on the `RouteAddCommand` object which return a `CommandResultText` Object containing a message.
+. During the `execute()` method, the `RouteList` is obtained by calling the `getRoutes()` method in the `Model`.
+. A new `Route` is created with the relevant parameters and is added to the `RouteList` via the `add()` method in the `RouteList`.
+. The method `save()` is invoked in the `Model`, and a `CommandResultText` object is created with an appropriate message to show that the command has been executed properly.
+
+Given below is the sequence diagram of how the various components work in the `execute()` method of the `RouteNodeAdd` command:
+
+.Sequence diagram for the execute() method in RouteAddCommand
+image::SGTravel_routeAdd_diagram.png[height="640" width="1400"]
+
+Should the user want to edit a Route, the `RouteEditCommand` can be used. Given below is an example usage scenario and how the `Model`, `RouteList` and `Route` objects behave at each step:
+
+.  The user calls the `RouteEditCommand` with its relevant parameters. +
+e.g. `routeEdit 1 name Go to MBS`
+. The `LogicManager` parses the user input using the `Parser`.
+. The `Parser` breakdowns the user input into and returns an `RouteEditCommand` Object.
+. The `LogicManager` will call `execute()` on the `RouteEditCommand` object which return a `CommandResultText` Object containing a message.
+. During the `execute()` method, the `RouteList` is obtained by calling the `getRoutes()` method in the `Model`.
+. The `Route` that is going to be edited is obtained through calling the `get()` method in the `RouteList` with the given index parameter.
+. The `editField()` method of the `RouteEditCommand` is invoked, which will call either `setName()` or `setDescription()` in the `Route` object, with the appropriate parameter. If an invalid field is given, an `UnknownFieldException` is thrown, which will be caught by the `MainWindow` object later on.
+. The method `save()` is invoked in the `Model`, and a `CommandResultText` object is created with an appropriate message to show that the command has been executed properly.
+
+Given below is the sequence diagram of how the various components work in the `execute()` method of the `RouteEditCommand` command:
+
+.Sequence diagram for the execute() method in RouteEditCommand
+image::SGTravel_routeEdit_diagram.png[height="950" width="1380"]
+
+The user can also add different `RouteNode` objects to a `Route`. This can be done with the `RouteNodeAddCommand`. Given below is an example usage scenario and how the `Model`, `RouteList`, `Route` and `RouteNode` object behave at each step:
+
+.  The user calls the `RouteNodeAddCommand` with its relevant parameters. +
+e.g. `routeNodeAdd 1 1 at 17009 by bus`
+. The `LogicManager` parses the user input using the `Parser`.
+. The `Parser` breakdowns the user input into and returns an `RouteNodeAddCommand` Object.
+. The `RouteNodeAddCommand` object will contain a new `RouteNode` object which is created from the `createRouteNode()` method in the `RouteNodeAddParser` object. The `createRouteNode()` method will parse through the given user input, and call the `getRouteNode()` method if the input is in the correct format.
+. Depending on the user input, a `BusStop`, `TrainStation` or `CustomNode` object will be created, and the `RouteNodeAddCommand` will contain this new object.
+. The `LogicManager` will call `execute()` on the `RouteNodeAddCommand` object which return a `CommandResultImage` Object containing a message and an image of the map at that location.
+. During the `execute()` method, the `fetchNodeData()` method is invoked to try to get the full information about the new `RouteNode` object. If this fails, a `CommandResultImage` object with the appropriate error message will be returned.
+. The `addToRoute()` method of the `RouteNodeAddCommand` is invoked. The `Route` that the new `RouteNode` is being add to, is obtained through calling the `getRoute()` method in the `Model` with the given index parameter. The `RouteNode` is added to the `Route` by invoking the `addNode()` method in the `Route` with the given index parameter for the `RouteNode`.
+. The method `save()` is invoked in the `Model`, and a `RouteNodeShowCommand` is created with the index parameters of this `RouteNode`. The `execute()` method of this `RouteNodeShowCommand` is invoked, to create a new `CommandResultImage` object, which contains a message showing that the `RouteNode` has been added. This `CommandResultImage` also contains the image of the map of the `RouteNode`. The `RouteNodeShowCommand` will be explained later on.
+
+.Activity diagram for the execute() method in RouteNodeAddCommand
+image::SGTravel_routeNodeAdd_diagram.png[height="1150" width="850"]
 
 === [Proposed] Data Encryption
 
