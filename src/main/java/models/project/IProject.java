@@ -14,6 +14,8 @@ import java.util.HashMap;
 public interface IProject {
     String getName();
 
+    void setName(String input);
+
     IMemberList getMemberList();
 
     TaskList getTaskList();
