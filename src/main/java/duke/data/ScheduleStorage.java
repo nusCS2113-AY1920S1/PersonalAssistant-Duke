@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import duke.models.ToDo;
 import duke.util.ApacheLogger;
 import duke.util.DateHandler;
+import duke.view.CliViewSchedule;
 import org.apache.logging.log4j.core.appender.mom.JmsAppender;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -37,6 +38,7 @@ public class ScheduleStorage implements IStorage {
     /**
      * Location of the saved file that schedule will be using.
      */
+    private CliViewSchedule cliViewSchedule = new CliViewSchedule();
 
     /**
      * Method will load the .json file as a jsonObject for use.
@@ -54,7 +56,7 @@ public class ScheduleStorage implements IStorage {
             obj = parser.parse(data);
             jsonObject = (JSONObject) obj;
         } catch (ParseException e) {
-            System.err.println("Cannot load file");
+            cliViewSchedule.message("Cannot load file");
         }
         return jsonObject;
     }
@@ -83,10 +85,10 @@ public class ScheduleStorage implements IStorage {
                 fileWriter.close();
             }
         } catch (FileNotFoundException e) {
-            System.err.println("No existing files found");
+            cliViewSchedule.message("No existing files found");
             ApacheLogger.logMessage("ScheduleStorage", "No existing files found");
         } catch (ParseException | IOException e) {
-            System.err.println("Error parsing file");
+            cliViewSchedule.message("Error parsing file");
             ApacheLogger.logMessage("ScheduleStorage", "Error parsing file");
         }
         return jsonObject;
@@ -128,7 +130,7 @@ public class ScheduleStorage implements IStorage {
      * Method will create one JSon object save file to location.
      */
     @SuppressWarnings("unchecked")
-    public JSONObject createJSonObject(ToDo todo) throws IOException {
+    public JSONObject createJSonObject(ToDo todo) {
         JSONObject saveObj = new JSONObject();
         //Define all details of one task in a day
         saveObj.put("Name", todo.getClassName());
@@ -144,13 +146,13 @@ public class ScheduleStorage implements IStorage {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public void save(ToDo toDo, String date) throws IOException {
-        JSONObject dateFile = initialize();
+    public void save(ToDo toDo, String date) {
+        JSONObject dateFile = validateFile();
         JSONArray dayTasks = new JSONArray();
 
         //get previous JSON object for day
         if (dateFile.get(date) == null) {
-            System.err.println("Create new saved date");
+            cliViewSchedule.message("Save schedule to new date");
         } else {
             dayTasks = (JSONArray) dateFile.get(date);
         }
@@ -173,7 +175,44 @@ public class ScheduleStorage implements IStorage {
             fileWriter.close();
 
         } catch (IOException e) {
-            System.err.println("file not found");
+            cliViewSchedule.message("file not found");
+        }
+    }
+
+    /**
+     * Method will save delete a class from date.
+     */
+    @SuppressWarnings("unchecked")
+    public void del(ToDo toDo, String date) {
+        JSONObject dateFile = initialize();
+        JSONArray dayTasks = new JSONArray();
+
+        //get previous JSON object for day
+        if (dateFile.get(date) == null) {
+            cliViewSchedule.message("Save schedule to new date");
+        } else {
+            dayTasks = (JSONArray) dateFile.get(date);
+        }
+
+        //add new object to the array
+        JSONObject newTask = createJSonObject(toDo);
+        dayTasks.add(newTask);
+        // clear old array from save file
+        dateFile.remove(date);
+
+        //update file with new JSON array
+        dateFile.put(date, dayTasks);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+            Object json = mapper.readValue(dateFile.toJSONString(), Object.class);
+            mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+            fileWriter.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json));
+            fileWriter.flush();
+            fileWriter.close();
+
+        } catch (IOException e) {
+            cliViewSchedule.message("file not found");
         }
     }
 

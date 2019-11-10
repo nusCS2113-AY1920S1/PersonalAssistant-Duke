@@ -2,6 +2,7 @@ package duke.models;
 
 import duke.data.ScheduleStorage;
 import duke.data.Storage;
+import duke.util.ApacheLogger;
 import duke.util.DateHandler;
 import duke.view.CliViewSchedule;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Scanner;
 
 //@@author Sfloydzy
 
@@ -51,7 +53,6 @@ public class Schedule {
         //display the month selected
         cliViewSchedule.printMonthHeader(date, year);
         cliViewSchedule.printMonth(daysInMonth, dayOfWeek);
-
     }
 
     /**
@@ -71,17 +72,60 @@ public class Schedule {
     }
 
     /**
-     * Method will get a table for the schedule.
+     * Method will change decide what to do with the commands in the table.
      *
      * @param day   the day of that is being viewed
      * @param month the month that is being viewed
      */
     public void getTable(int day, int month) {
+        boolean runTable = true;
+        String date = DateHandler.stringDate("yyyy-MM-dd", day, month, 2019);
+        String input;
+
+        while (runTable) {
+            tableUI(day, month);
+            input = new Scanner(System.in).nextLine();
+            if (input.equals("back")) {
+                runTable = false;
+            } else if (input.startsWith("add")) {
+                try {
+                    int indexName = input.indexOf("n/");
+                    int indexStart = input.indexOf("s/");
+                    int indexEnd = input.indexOf("d/");
+                    int indexLocation = input.indexOf("loc/");
+                    String name = input.substring(indexName + 2, indexStart);
+                    String start = input.substring(indexStart + 2, indexEnd);
+                    String end = input.substring(indexEnd + 2, indexLocation);
+                    String loc = input.substring(indexLocation + 4);
+                    ToDo toDo = new ToDo(start, end, loc, name, date);
+                    new ScheduleStorage().save(toDo, date);
+                } catch (StringIndexOutOfBoundsException e) {
+                    cliViewSchedule.showDontKnow();
+                    ApacheLogger.logMessage("Schedule",
+                        "Wrong input format for adding to table");
+                }
+            } else {
+                cliViewSchedule.showDontKnow();
+                ApacheLogger.logMessage("Schedule",
+                    "Wrong input format for adding to table");
+            }
+        }
+    }
+
+    /**
+     * Method will get a table for the schedule.
+     *
+     * @param day   the day of that is being viewed
+     * @param month the month that is being viewed
+     */
+    public void tableUI(int day, int month) {
+
         cliViewSchedule.tableDate(day, month);
         cliViewSchedule.tableHeader();
         cliViewSchedule.tableContents(getCells(day, month));
-    }
+        cliViewSchedule.tableMenu();
 
+    }
 
     /**
      * Method will show the current days in the present week.
@@ -271,5 +315,7 @@ public class Schedule {
         }
 
     }
+
+
 
 }
