@@ -21,7 +21,7 @@ import java.text.ParseException;
 public class UnusedLoginCommand extends Command {
     private String[] splitL;
 
-    //@@ AmirAzhar
+    //@@author AmirAzhar
     /**
      * User login.
      * @param input from user

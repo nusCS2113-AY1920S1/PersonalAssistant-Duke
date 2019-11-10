@@ -14,7 +14,7 @@ import user.UserList;
 public class LogoutCommand extends Command {
     private String[] splitL;
 
-    //@@ AmirAzhar
+    //@@author AmirAzhar
 
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,

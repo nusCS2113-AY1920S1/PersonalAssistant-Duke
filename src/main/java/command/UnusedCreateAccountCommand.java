@@ -24,7 +24,7 @@ import java.io.IOException;
 public class UnusedCreateAccountCommand extends Command {
     private String[] splitC;
 
-    //@@ AmirAzhar
+    //@@auhtor AmirAzhar
     /**
      * Create new Account for user.
      * format is create email password username usertype
