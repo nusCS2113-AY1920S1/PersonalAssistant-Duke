@@ -126,7 +126,7 @@ public class Note implements Serializable {
      *
      * @return an integer representing how many times of an 1/8 note the duration is
      */
-    public int getRelativeUnitDuration() {
+    public int getRelativeUnitDuration() throws DucatsException {
         switch (this.duration) {
         case "1": return 8;
         case "2*": return 6;
@@ -134,7 +134,7 @@ public class Note implements Serializable {
         case "4*": return 3;
         case "4": return 2;
         case "8": return 1;
-        default: return -1;
+        default: throw new DucatsException("","unexpected");
         }
     }
 
@@ -145,7 +145,7 @@ public class Note implements Serializable {
      */
     public String toString() {
         String pitchString = pitch.name();
-        String result = pitchString.substring(0,1);
+        String result = pitchString.substring(0, 1);
         //System.out.print(pitchString.length());
         result += pitchString.substring(pitchString.length() - 1);
         if (isStart()) {
