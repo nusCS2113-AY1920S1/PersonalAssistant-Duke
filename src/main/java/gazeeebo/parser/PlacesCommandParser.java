@@ -3,8 +3,13 @@
 package gazeeebo.parser;
 
 import gazeeebo.commands.help.HelpCommand;
-import gazeeebo.commands.places.*;
+import gazeeebo.commands.places.UndoPlacesCommand;
+import gazeeebo.commands.places.AddPlacesCommand;
+import gazeeebo.commands.places.DeletePlacesCommand;
+import gazeeebo.commands.places.ListPlacesCommand;
+import gazeeebo.commands.places.FindPlacesCommand;
 import gazeeebo.exception.DukeException;
+import gazeeebo.storage.PlacesPageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -17,10 +22,12 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.TreeMap;
 import java.util.HashMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PlacesCommandParser extends Command {
-    private final static String PLACES_COMMANDS = "__________________________________________________________\n"
+    private static final Logger LOGGER = Logger.getLogger(PlacesCommandParser.class.getName());
+    private static final String PLACES_COMMANDS = "__________________________________________________________\n"
             + "1. Add location: add-room,location\n"
             + "2. Find a place in SOC: find-place\n"
             + "3. Delete a place: delete-place\n"
@@ -30,7 +37,7 @@ public class PlacesCommandParser extends Command {
             + "7. Help command: help\n"
             + "8. Exit places: esc\n"
             + "__________________________________________________________\n\n";
-    private final static String MAIN_MENU_PAGE = "Going back to Main Menu...\n"
+    private static final String MAIN_MENU_PAGE = "Going back to Main Menu...\n"
             + "Content Page:\n"
             + "------------------ \n"
             + "1. help\n"
@@ -44,9 +51,9 @@ public class PlacesCommandParser extends Command {
             + "9. notes\n"
             + "10. change password\n"
             + "To exit: bye\n";
-    private final static String INVALID_COMMAND = "There is no such command in Places.\nWhat do you want to do next ?";
-    private final static String WELCOME_MESSAGE = "Welcome to your places in SOC! What would you like to do?";
-    private final static String INVALID_INPUT = "Check input format again";
+    private static final String INVALID_COMMAND = "There is no such command in Places.\nWhat do you want to do next ?";
+    private static final String WELCOME_MESSAGE = "Welcome to your places in SOC! What would you like to do?";
+    private static final String INVALID_INPUT = "Check input format again";
 
 
     /**
@@ -69,7 +76,8 @@ public class PlacesCommandParser extends Command {
         System.out.println(WELCOME_MESSAGE);
         System.out.println(PLACES_COMMANDS);
         try {
-            HashMap<String, String> map = storage.readPlaces();
+            PlacesPageStorage placesPageStorage = new PlacesPageStorage();
+            HashMap<String, String> map = placesPageStorage.readPlaces();
             Map<String, String> places = new TreeMap<String, String>(map);
             Stack<Map<String, String>> oldplaces = new Stack<>();
             boolean isExitFromPlaces = false;
@@ -102,10 +110,11 @@ public class PlacesCommandParser extends Command {
                 for (String key : places.keySet()) {
                     toStore = toStore.concat(key + "|" + places.get(key) + "\n");
                 }
-                storage.writePlacesFile(toStore);
+                placesPageStorage.writePlacesFile(toStore);
             }
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             System.out.println(INVALID_INPUT);
+            LOGGER.log(Level.SEVERE,"invalid input", e);
         }
     }
 

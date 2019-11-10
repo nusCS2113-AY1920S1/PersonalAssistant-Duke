@@ -1,4 +1,6 @@
+import gazeeebo.logger.LogCenter;
 import gazeeebo.storage.NotePageStorage;
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -13,25 +15,30 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Gazeeebo {
+    private static final Logger LOGGER = Logger.getLogger(Gazeeebo.class.getName());
     /**
      * Returns main function for duke.
      *
      * @param args a String array that takes in input from the command line
      */
     public static void main(String[] args) throws IOException {
+        LogCenter.setUpLogger(LOGGER);
         ArrayList<Task> list;
         Stack<ArrayList<Task>> CommandStack = new Stack<ArrayList<Task>>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage store = new Storage();
         store.startUp();
+        TasksPageStorage tasksPageStorage = new TasksPageStorage();
         TriviaManager triviaManager = new TriviaManager(store);
         boolean isExit = false;
         Ui ui = new Ui();
         try {
             ui.showWelcome();
-            list = store.readFromSaveFile();
+            list = tasksPageStorage.readFromSaveFile();
             NoteStorage.readFromFile("NoteDaily.txt", NoteList.daily);
             NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
             NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);
@@ -48,13 +55,19 @@ public class Gazeeebo {
                     isExit = c.isExit();
                 }
             }
-        } catch (DukeException | ParseException | IOException e) {
+        } catch (DukeException | ParseException | IOException | NullPointerException e) {
             if (e instanceof ParseException) {
                 ui.showDateFormatError();
+                LOGGER.log(Level.SEVERE,"Date time format error.", e);
             } else if (e instanceof IOException) {
                 ui.showIOErrorMessage(e);
+                LOGGER.log(Level.SEVERE,"Unable to read file", e);
+            } else if (e instanceof NullPointerException) {
+                ui.showSystemTerminateMessage();
+                LOGGER.log(Level.INFO,"System terminating without an input", e);
             } else {
                 ui.showErrorMessage(e);
+                LOGGER.log(Level.SEVERE,"Other errors", e);
             }
         } finally {
             System.out.println("System exiting");

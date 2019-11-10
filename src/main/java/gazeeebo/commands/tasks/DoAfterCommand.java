@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
 import gazeeebo.tasks.DoAfter;
 
@@ -54,7 +55,8 @@ public class DoAfterCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.writeToSaveFile(sb.toString());
+        TasksPageStorage tasksPageStorage = new TasksPageStorage();
+        tasksPageStorage.writeToSaveFile(sb.toString());
     }
 
     /**

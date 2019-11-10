@@ -1,3 +1,5 @@
+//@@author jessteoxizhi
+
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.places.DeletePlacesCommand;
 import gazeeebo.storage.Storage;
@@ -59,6 +61,6 @@ public class PlacesDeleteCommandTest {
         places.put("LT19", "COM5");
         ui.fullCommand = "delete";
         DeletePlacesCommand test = new DeletePlacesCommand(ui, places);
-        assertEquals("Incorrect format: delete-place\r\n", output.toString());
+        assertEquals("null is not found in the list.\r\n", output.toString());
     }
 }

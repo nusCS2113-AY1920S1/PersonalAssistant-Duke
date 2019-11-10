@@ -1,7 +1,29 @@
 package gazeeebo.parser;
 
 import gazeeebo.commands.Command;
-import gazeeebo.commands.tasks.*;
+import gazeeebo.commands.tasks.CalendarView;
+import gazeeebo.commands.tasks.TodoCommand;
+import gazeeebo.commands.tasks.UndoTaskCommand;
+import gazeeebo.commands.tasks.CategoryListCommand;
+import gazeeebo.commands.tasks.ChangePriority;
+import gazeeebo.commands.tasks.DeadlineCommand;
+import gazeeebo.commands.tasks.ConfirmTentativeCommand;
+import gazeeebo.commands.tasks.DeleteCommand;
+import gazeeebo.commands.tasks.DoneCommand;
+import gazeeebo.commands.tasks.DoAfterCommand;
+import gazeeebo.commands.tasks.DoneListCommand;
+import gazeeebo.commands.tasks.EventCommand;
+import gazeeebo.commands.tasks.FindCommand;
+import gazeeebo.commands.tasks.FixDurationCommand;
+import gazeeebo.commands.tasks.RescheduleCommand;
+import gazeeebo.commands.tasks.ListCommand;
+import gazeeebo.commands.tasks.UndoneListCommand;
+import gazeeebo.commands.tasks.UndoneCommand;
+import gazeeebo.commands.tasks.TimeboundCommand;
+import gazeeebo.commands.tasks.TentativeEventCommand;
+import gazeeebo.commands.tasks.SnoozeCommand;
+import gazeeebo.commands.tasks.SortCommand;
+import gazeeebo.commands.tasks.TagCommand;
 import gazeeebo.commands.tasks.edit.EditCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.note.AddNoteCommand;
@@ -25,10 +47,12 @@ import gazeeebo.tasks.Timebound;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Stack;
 
 public class TaskCommandParser extends Command {
-    private static final String COMMAND_LIST = "___________________________________________________________________________________\n"
+    private static final String COMMAND_LIST = "_______________________________________________________________"
+            + "____________________\n"
             + "Adding a todo: todo task_description\n"
             + "Adding a deadline: deadline task_description /by YYYY-MM-DD HH:MM:SS\n"
             + "Adding an event: event task_description /at YYYY-MM-DD HH:MM:SS-HH:SS:MM\n"
@@ -80,16 +104,17 @@ public class TaskCommandParser extends Command {
     /**
      * Parses the user input and return a command object.
      *
-     * @param list list of tasks
-     * @param ui
-     * @param storage
-     * @param commandStack
-     * @param deletedTask
-     * @param triviaManager
-     * @throws IOException
-     * @throws DukeException
-     * @throws ParseException
+     * @param list the list of all tasks.
+     * @param ui the object that deals with printing things to the user.
+     * @param storage the object that deals with storing data.
+     * @param commandStack the stack of previous commands.
+     * @param deletedTask the list of deleted task.
+     * @param triviaManager the object for triviaManager
+     * @throws DukeException exception thrown when there is an input error.
+     * @throws ParseException parse exception from help command
+     * @throws IOException input or output error when interacting with user.
      */
+
     @Override
     public void execute(ArrayList<Task> list,
                         final Ui ui, final Storage storage,
@@ -99,9 +124,12 @@ public class TaskCommandParser extends Command {
             throws IOException, DukeException, ParseException {
         System.out.println("Welcome to your Tasks page!"
                 + "What would you like to do?\n");
-
+        Calendar now = Calendar.getInstance();
+        int month = (now.get(Calendar.MONTH) + 1);
+        int year = now.get(Calendar.YEAR);
+        int date = now.get(Calendar.DATE);
         CalendarView calendarView = new CalendarView();
-        calendarView.monthlyView(list);
+        calendarView.monthlyView(list,month,year,date);
 
         System.out.println(COMMAND_LIST);
         ArrayList<Task> oldList;
@@ -257,9 +285,9 @@ public class TaskCommandParser extends Command {
                 new TagCommand().execute(list, ui, storage,
                         commandStack, deletedTask, triviaManager);
             } else if (command.equals("calendar monthly view")) {
-                new CalendarView().monthlyView(list);
+                new CalendarView().monthlyView(list, month, year, date);
             } else if (command.equals("calendar annual view")) {
-                new CalendarView().annualView(list);
+                new CalendarView().annualView(list, month, year, date);
             } else if (command.equals("esc")) {
                 System.out.println(MAIN_MENU_PAGE);
             } else {
@@ -284,8 +312,8 @@ public class TaskCommandParser extends Command {
     /**
      * Copy an Arraylist of task.
      *
-     * @param oldList
-     * @param list
+     * @param oldList previous list of task before new command executed
+     * @param list current list of tasks
      */
     public static void copyOldList(final ArrayList<Task> oldList,
                                    ArrayList<Task> list) {

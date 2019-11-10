@@ -2,8 +2,8 @@
 
 package gazeeebo.commands.tasks;
 
-
 import gazeeebo.commands.Command;
+import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class TodoCommand extends Command {
+
     /**
-     * Todo tasks.
+     * Adding a task of todo.
+     *
      * @param list          List of all tasks
      * @param ui            the object that deals with
      *                      printing things to the user
@@ -31,12 +33,11 @@ public class TodoCommand extends Command {
      * @throws ParseException Catch error if parsing of command fails
      * @throws IOException    Catch error if the read file fails
      */
+
     @Override
-    public void execute(ArrayList<Task> list, final Ui ui,
-                        final Storage storage,
-                        final Stack<ArrayList<Task>> commandStack,
-                        final ArrayList<Task> deletedTask, final TriviaManager triviaManager)
-            throws DukeException, ParseException, IOException {
+    public void execute(ArrayList<Task> list, final Ui ui, final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         String description = "";
         try {
             if (ui.fullCommand.length() <= 4) {
@@ -54,11 +55,11 @@ public class TodoCommand extends Command {
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i).toString() + "\n");
             }
-            storage.writeToSaveFile(sb.toString());
+            TasksPageStorage tasksPageStorage = new TasksPageStorage();
+            tasksPageStorage.writeToSaveFile(sb.toString());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
             triviaManager.showPossibleInputs("todo");
-            //triviaManager.showAllMap();
         }
     }
 
@@ -68,6 +69,7 @@ public class TodoCommand extends Command {
      *
      * @return false
      */
+
     @Override
     public boolean isExit() {
         return false;
