@@ -139,12 +139,13 @@ class CategoryCommandTest {
     void testSortCommand() throws MooMooException {
 
         Category category = new Category("food");
-        category.add(new Expenditure("grape", 62, LocalDate.now(), "food"));
-        category.add(new Expenditure("banana", 40, LocalDate.now(), "food"));
-        category.add(new Expenditure("fig", 45, LocalDate.now(), "food"));
-        category.add(new Expenditure("durian", 20, LocalDate.now(), "food"));
-        category.add(new Expenditure("clementine", 80, LocalDate.now(), "food"));
-        category.add(new Expenditure("apple", 50, LocalDate.now(), "food"));
+        LocalDate date = LocalDate.parse("2019-11-10");
+        category.add(new Expenditure("grape", 62, date, "food"));
+        category.add(new Expenditure("banana", 40, date, "food"));
+        category.add(new Expenditure("fig", 45, date, "food"));
+        category.add(new Expenditure("durian", 20, date, "food"));
+        category.add(new Expenditure("clementine", 80, date, "food"));
+        category.add(new Expenditure("apple", 50, date, "food"));
 
         CategoryList categoryList = new CategoryList();
         categoryList.add(category);

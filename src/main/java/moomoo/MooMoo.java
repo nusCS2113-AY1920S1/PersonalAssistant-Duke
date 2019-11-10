@@ -87,8 +87,14 @@ public class MooMoo {
         while (!isExit) {
             try {
                 String fullCommand = Ui.readCommand();
+
                 Ui.clearScreen(shouldClearScreen);
+                if (shouldClearScreen) {
+                    Ui.setOutput(fullCommand + "\n");
+                }
+                Ui.showResponse();
                 this.shouldClearScreen = true;
+
                 Command c = Parser.parse(fullCommand);
                 c.execute(calendar, budget, categoryList, storage);
 
@@ -100,7 +106,7 @@ public class MooMoo {
             } catch (MooMooException e) {
                 Ui.printException(e);
                 Ui.showResponse();
-                this.shouldClearScreen = false;
+                //this.shouldClearScreen = false;
             }
         }
     }
