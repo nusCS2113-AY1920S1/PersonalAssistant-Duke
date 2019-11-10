@@ -16,7 +16,7 @@ import java.io.IOException;
 public class AddUserCommand extends Command {
     private String[] splitL;
 
-    //@@ AmirAzhar
+    //@@ author AmirAzhar
     /**
      * User login.
      * @param input from user
@@ -25,7 +25,7 @@ public class AddUserCommand extends Command {
      */
     public AddUserCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
-            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please enter a username u would like to register!");
+            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please enter a username you would like to register!");
         }
         this.splitL = input.split("adduser ");
     }
