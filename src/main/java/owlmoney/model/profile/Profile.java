@@ -72,6 +72,8 @@ public class Profile {
     private static final String BLANK = "";
     private static final int ARRAY_INDEX = 1;
     private static final String RECURRING = "recurring";
+    private static final String TRANSFERFUNDTO = "Fund Transfer to ";
+    private static final String TRANSFERFUNDFROM = "Fund Received from ";
     private static final Logger logger = getLogger(Profile.class);
     private static final String IS_MATURE = "true";
 
@@ -186,6 +188,7 @@ public class Profile {
      */
     public void profileAddNewBank(Bank newBank, Ui ui) throws BankException {
         bankList.bankListAddBank(newBank, ui);
+        logger.info("Successfully added new bank");
     }
 
     /**
@@ -200,6 +203,7 @@ public class Profile {
         if (bankType.equals(SAVING)) {
             goalsList.changeTiedAccountsToNull(bankName);
         }
+        logger.info("Successfully deleted bank");
     }
 
     /**
@@ -210,6 +214,7 @@ public class Profile {
      */
     public void profileListBanks(String bankType, Ui ui) throws BankException {
         bankList.bankListListBankAccount(bankType, ui);
+        logger.info("Successfully listed banks");
     }
 
     /**
@@ -226,6 +231,8 @@ public class Profile {
             throws BankException, CardException {
         if (CARD.equals(type)) {
             if (getCardPaidBillAmount(accountName, expenditure.getYearMonthDate()) != 0) {
+                logger.warning("You cannot add an expenditure with month that the card bill "
+                        + "has already been paid for!");
                 throw new CardException("You cannot add an expenditure with month that the card bill "
                 + "has already been paid for!");
             }
@@ -327,6 +334,7 @@ public class Profile {
     public void profileEditSavingsAccount(String name, String newName, String amount, String income, Ui ui)
             throws BankException {
         bankList.bankListEditSavings(name, newName, amount, income, ui);
+        logger.info("Successful editing of savings account");
     }
 
     /**
@@ -341,6 +349,8 @@ public class Profile {
     public void profileEditInvestmentAccount(String name, String newName, String amount, Ui ui)
             throws BankException {
         bankList.bankListEditInvestment(name, newName, amount, ui);
+        logger.info("Successful editing of investment account");
+
     }
 
     /**
@@ -397,6 +407,7 @@ public class Profile {
      */
     public void profileAddNewCard(Card newCard, Ui ui) throws CardException {
         cardList.cardListAddCard(newCard, ui);
+        logger.info("Successful adding of card");
     }
 
     /**
@@ -412,6 +423,7 @@ public class Profile {
     public void profileEditCardDetails(String name, String newName, String limit, String rebate, Ui ui)
             throws CardException {
         cardList.cardListEditCard(name, newName, limit, rebate, ui);
+        logger.info("Successful editing of card");
     }
 
     /**
@@ -423,6 +435,7 @@ public class Profile {
      */
     public void profileDeleteCard(String name, Ui ui) throws CardException {
         cardList.cardListDeleteCard(name, ui);
+        logger.info("Successful deleting of card");
     }
 
     /**
@@ -433,6 +446,7 @@ public class Profile {
      */
     public void profileListCards(Ui ui) throws CardException {
         cardList.cardListListCards(ui);
+        logger.info("Successful listing of card");
     }
 
     /**
@@ -483,6 +497,7 @@ public class Profile {
      */
     public void profileIsBondUnique(String bankName, Bond bond) throws BankException, BondException {
         bankList.bankListIsBondExist(bankName, bond);
+        logger.info("Bond is unique");
     }
 
     /**
@@ -533,6 +548,7 @@ public class Profile {
      */
     public void profileAddGoals(Goals goals, Ui ui) throws GoalsException {
         goalsList.addToGoals(goals, ui);
+        logger.info("Successful adding of goal");
     }
 
     /**
@@ -544,6 +560,7 @@ public class Profile {
      */
     public void profileDeleteGoals(String name, Ui ui) throws GoalsException {
         goalsList.deleteFromGoalList(name, ui);
+        logger.info("Successful deleting of goal");
     }
 
     /**
@@ -561,6 +578,7 @@ public class Profile {
                                  boolean markDone, Ui ui)
             throws GoalsException {
         goalsList.editGoals(goalName, amount, date, newName, savingName, markDone, ui);
+        logger.info("Successful editing of goal");
     }
 
     /**
@@ -652,13 +670,12 @@ public class Profile {
      * @param ui Used for printing.
      * @throws BankException If cannot add income.
      */
-    public void profileUpdate(Ui ui, boolean manualCall) throws BankException {
+    public void profileUpdate(Ui ui) throws BankException {
         bankList.bankListUpdateRecurringTransactions(ui);
         goalsList.updateGoals();
         profileAddAchievement();
-        if (manualCall) {
-            ui.printMessage("Profile has been updated");
-        }
+        logger.info("Profile updated");
+        ui.printMessage("Profile has been updated");
     }
 
     /**
@@ -674,14 +691,17 @@ public class Profile {
     public void transferFund(String from, String to, double amount, Date date,
             Ui ui) throws BankException {
         String fromType = bankList.getTransferBankType(from, amount);
-        String toType = bankList.getReceiveBankType(to);
-        String descriptionTo = "Fund Transfer to " + to;
+        String descriptionTo = TRANSFERFUNDTO + to;
         bankList.bankListCheckTransferExceed(to, amount);
+        String toType = bankList.getReceiveBankType(to);
         Transaction newExpenditure = new Expenditure(descriptionTo, amount, date, TRANSFERCATEGORY);
         bankList.bankListAddExpenditure(from, newExpenditure, ui, checkBankType(fromType));
-        String descriptionFrom = "Fund Received from " + from;
+        logger.info("Successfully added expenditure for the sender");
+        String descriptionFrom = TRANSFERFUNDFROM + from;
         Transaction newDeposit = new Deposit(descriptionFrom, amount, date, DEPOSITCATEGORY);
         bankList.bankListAddDeposit(to, newDeposit, ui, checkBankType(toType));
+        logger.info("Successfully added deposit for the receiver");
+        logger.info("Fund successfully transfered");
     }
 
     /**
@@ -760,9 +780,10 @@ public class Profile {
      * @param category    The category keyword to match against.
      * @param ui          The object required for printing.
      * @throws BankException If bank name specified does not exist.
+     * @throws TransactionException If recurring transaction list is empty
      */
     public void findRecurringExpenditure(String name, String description, String category,
-            String type, Ui ui) throws BankException {
+            String type, Ui ui) throws BankException, TransactionException {
         if (RECURRING.equals(type)) {
             bankList.bankListFindRecurringExpenditure(name, description, category, ui);
         }
@@ -1209,6 +1230,8 @@ public class Profile {
      */
     private void checkBillAmountNotZero(double amount, String card, YearMonth cardDate) throws CardException {
         if (amount == 0) {
+            logger.warning("You have no paid expenditures for " + card + " for the month of "
+                    + cardDate + "!");
             throw new CardException("You have no paid expenditures for " + card + " for the month of "
                     + cardDate + "!");
         }
@@ -1237,8 +1260,11 @@ public class Profile {
             cardList.transferExpUnpaidToPaid(card, cardDate, type);
             ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
                     + " have been successfully paid!");
+            logger.info("Credit Card bill for " + card + " for the month of " + cardDate
+                    + " have been successfully paid!");
         } catch (TransactionException error) {
             ui.printMessage(error.getMessage());
+            logger.warning("Paying of card bill failed! Your data may potentially be corrupted!");
             throw new CardException("Paying of card bill failed! Your data may potentially be corrupted!");
         }
     }
@@ -1265,6 +1291,8 @@ public class Profile {
         profileDeleteDeposit(depositNumber, bank, ui, true);
         cardList.transferExpPaidToUnpaid(card, cardDate, type);
         ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
+                + " have been successfully reverted!");
+        logger.info("Credit Card bill for " + card + " for the month of " + cardDate
                 + " have been successfully reverted!");
     }
 
@@ -1325,6 +1353,8 @@ public class Profile {
             isThrowException = true;
         }
         if (isThrowException) {
+            logger.warning("Card Bill expenditure and rebate deposit does not exist in savings"
+                + "transaction list");
             throw new CardException("Unable to delete credit card bill because " + accountType
                     + " does not exist in savings account anymore!\nEither the card bill was not paid "
                     + "with " + bankName + " or the bill was deleted due to too many transactions after it");

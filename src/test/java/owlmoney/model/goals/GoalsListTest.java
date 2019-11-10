@@ -144,7 +144,9 @@ public class GoalsListTest {
     void goalsListListGoal_goalListNotEmpty_listGoals() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        GoalsList testGoals = new GoalsList(storage);
+        Storage testStorage = new Storage("data/");
+        testStorage.createDirectoryIfNotExist("data/");
+        GoalsList testGoals = new GoalsList(testStorage);
         Goals newGoals = new Goals("test", 100, new Date("10/10/2020"));
         Ui testUi = new Ui();
 
@@ -380,21 +382,21 @@ public class GoalsListTest {
 
         String expectedOutput = "Achievement unlocked! Details: " + NEWLINE
                 + "Item No.  Achievement Name       Amount saved         Date set to achieve  "
-                + NEWLINE + "---------------------------------------------------------------------------"
-                + "------------------------------------------------------"
+                + NEWLINE + "-------------------------------------------------------------------------"
+                + "--------------------------------------------------------------------"
                 + NEWLINE + "1         test1                  $100.00              10 October 2020      "
-                + NEWLINE + "---------------------------------------------------------------------------"
-                + "------------------------------------------------------" + NEWLINE;
+                + NEWLINE + "-------------------------------------------------------------------------"
+                + "--------------------------------------------------------------------" + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());
 
         outContent.reset();
         testAchievement.listAchievements(testUi);
         expectedOutput = "Item No.  Achievement Name       Amount saved         Date set to achieve  " + NEWLINE
-                + "---------------------------------------------------------------------------------------------"
-                + "------------------------------------" + NEWLINE
+                + "-------------------------------------------------------------------------"
+                + "--------------------------------------------------------------------" + NEWLINE
                 + "1         test1                  $100.00              10 October 2020      " + NEWLINE
-                + "---------------------------------------------------------------------------------------------"
-                + "------------------------------------" + NEWLINE;
+                + "-------------------------------------------------------------------------"
+                + "--------------------------------------------------------------------" + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());
     }
 

@@ -1,5 +1,7 @@
 package owlmoney.model.bank;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.nio.file.Files;
@@ -9,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
@@ -38,6 +41,7 @@ public class BankList {
     private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
     private static final String SAVING_TRANSACTION_LIST_FILE_NAME = "_saving_transactionList.csv";
     private static final String SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME = "_saving_recurring_transactionList.csv";
+    private static final Logger logger = getLogger(BankList.class);
 
 
     /**
@@ -63,9 +67,11 @@ public class BankList {
             String capitalCurrentBankName = currentBankName.toUpperCase();
             String currentBankType = currentBank.getType();
             if (capitalBankName.equals(capitalCurrentBankName) && currentBankType.equals(SAVING)) {
+                logger.info("Obtained savings account of name: " + currentBank.getAccountName());
                 return currentBank;
             }
         }
+        logger.warning("Cannot find savings account with the name: " + bankName);
         throw new BankException("Cannot find savings account with the name: " + bankName);
     }
 
@@ -78,20 +84,26 @@ public class BankList {
      */
     public void bankListAddBank(Bank newBank, Ui ui) throws BankException {
         if (bankAccountExists(newBank.getAccountName())) {
+            logger.warning("There is already a bank account with the name " + newBank.getAccountName());
             throw new BankException("There is already a bank account with the name " + newBank.getAccountName());
         }
         String accountType = newBank.getType();
         if (accountType.equals(SAVING) && getNumberOfAccountType(accountType) >= MAX_SAVINGS_LIMIT) {
+            logger.warning("The maximum limit of 7 savings account has been reached");
             throw new BankException("The maximum limit of 7 savings account has been reached");
         } else if (accountType.equals(INVESTMENT) && getNumberOfAccountType(accountType) >= MAX_INVESTMENT_LIMIT) {
+            logger.warning("The maximum limit of 3 investment account has been reached");
             throw new BankException("The maximum limit of 3 investment account has been reached");
         }
         bankLists.add(newBank);
+        logger.info("Added bank account");
         ui.printMessage("Added new bank with following details: ");
         printOneBank(ONE_INDEX, newBank, ISSINGLE, ui);
         try {
             exportBankList();
         } catch (IOException e) {
+            logger.warning("Error trying to save your additions of banks to disk. Your data is"
+                    + " at risk, but we will try again, feel free to continue using the program.");
             ui.printError("Error trying to save your additions of banks to disk. Your data is"
                     + " at risk, but we will try again, feel free to continue using the program.");
         }
@@ -146,6 +158,7 @@ public class BankList {
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalBankName.equals(capitalCurrentBankName)
                     && (bankType.equals(currentBank.getType()))) {
+                logger.info("Bank account has correct name and type");
                 return true;
             }
         }
@@ -165,6 +178,7 @@ public class BankList {
             String currentBankName = currentBank.getAccountName();
             String capitalNameInList = currentBankName.toUpperCase();
             if (capitalName.equals(capitalNameInList)) {
+                logger.info("Bank account exists");
                 return true;
             }
         }
@@ -181,17 +195,22 @@ public class BankList {
      */
     private boolean canPassDeleteBankRequirements(String bankName, String bankType) throws BankException {
         if (isEmpty()) {
+            logger.warning("There are 0 bank accounts in your profile");
             throw new BankException("There are 0 bank accounts in your profile");
         }
         if (bankType.equals(SAVING) && getNumberOfAccountType(SAVING) == 1) {
+            logger.warning("There must be at least 1 savings account");
             throw new BankException("There must be at least 1 savings account");
         }
         if (!bankAccountExists(bankName)) {
+            logger.warning("There are no bank accounts with name " + bankName);
             throw new BankException("There are no bank accounts with name " + bankName);
         }
         if (hasCorrectBankNameAndType(bankName, bankType)) {
+            logger.info("Bank passed all checks");
             return true;
         } else {
+            logger.warning(bankName + " is not of type: " + bankType);
             throw new BankException(bankName + " is not of type: " + bankType);
         }
     }
@@ -213,6 +232,7 @@ public class BankList {
                 String capitalCurrentBankName = currentBankName.toUpperCase();
                 if (capitalBankName.equals(capitalCurrentBankName)) {
                     bankLists.remove(i);
+                    logger.info("Successfully deleted bank");
                     ui.printMessage("Removed bank with the following details: ");
                     printOneBank(ONE_INDEX, currentBank, ISSINGLE, ui);
                     try {
@@ -225,6 +245,7 @@ public class BankList {
                                 + SAVING_TRANSACTION_LIST_FILE_NAME));
                         Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i)
                                 + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME));
+                        logger.info("Successfully saved all bank list");
                     } catch (IOException e) {
                         ui.printError("Error trying to save your deletions to disk."
                                 + " Your data is at risk, but we will try again,"
@@ -265,18 +286,23 @@ public class BankList {
                 if (!(income == null || income.isBlank())) {
                     currentBank.setIncome(Double.parseDouble(income));
                 }
+                logger.info("Edited bank details");
                 ui.printMessage("New details of the account:");
                 printOneBank(ONE_INDEX, currentBank, ISSINGLE, ui);
                 try {
                     exportBankList();
+                    logger.info("Successfully exported bankList");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your edits to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
-        throw new BankException("There are no bank with the name: " + bankName);
+        logger.warning("There are no savings account with the name: " + bankName);
+        throw new BankException("There are no savings account with the name: " + bankName);
     }
 
     /**
@@ -293,6 +319,7 @@ public class BankList {
             String checkBankName = checkBank.getAccountName();
             String capitalCheckBankName = checkBankName.toUpperCase();
             if (capitalCheckBankName.equals(capitalNewBankName) && !checkBank.equals(currentBank)) {
+                logger.warning("There is already a bank account with the name " + newBankName);
                 throw new BankException("There is already a bank account with the name " + newBankName);
             }
         }
@@ -323,17 +350,22 @@ public class BankList {
                 if (!(amount == null || amount.isBlank())) {
                     currentBank.setCurrentAmount(Double.parseDouble(amount));
                 }
+                logger.info("Edited investment details");
                 ui.printMessage("New details of the account:");
                 printOneBank(ONE_INDEX, currentBank, ISSINGLE, ui);
                 try {
                     exportBankList();
+                    logger.info("Successfully exported bankList");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your edits to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("There are no bank with the name: " + bankName);
         throw new BankException("There are no bank with the name: " + bankName);
     }
 
@@ -345,6 +377,7 @@ public class BankList {
      */
     public void bankListListBankAccount(String bankType, Ui ui) throws BankException {
         if (getBankListSize() <= ISZERO) {
+            logger.warning("There are 0 bank accounts");
             throw new BankException("There are 0 bank accounts");
         }
         int numberOfBanks = ISZERO;
@@ -356,6 +389,7 @@ public class BankList {
             }
         }
         if (numberOfBanks == ISZERO) {
+            logger.warning("There are 0 " + bankType + " accounts");
             throw new BankException("There are 0 " + bankType + " accounts");
         } else {
             ui.printDivider();
@@ -382,7 +416,9 @@ public class BankList {
                 currentBank.listAllExpenditure(ui, expenditureToDisplay);
                 return;
             }
+            logger.info("Successfully listed bank expenditures");
         }
+        logger.warning("Cannot find bank with name: " + bankToList);
         throw new BankException("Cannot find bank with name: " + bankToList);
     }
 
@@ -406,7 +442,9 @@ public class BankList {
                 currentBank.listAllDeposit(ui, depositsToDisplay);
                 return;
             }
+            logger.info("Successfully listed deposits");
         }
+        logger.warning("Cannot find bank with name: " + bankToList);
         throw new BankException("Cannot find bank with name: " + bankToList);
     }
 
@@ -432,13 +470,17 @@ public class BankList {
                 try {
                     exportBankList();
                     currentBank.exportBankTransactionList(Integer.toString(i));
+                    logger.info("Successfully exported " + currentBankName + " details");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your additions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("There is no account with the name: " + accountName);
         throw new BankException("There is no account with the name: " + accountName);
     }
 
@@ -467,13 +509,17 @@ public class BankList {
                 try {
                     exportBankList();
                     currentBank.exportBankTransactionList(Integer.toString(i));
+                    logger.info("Successfully exported " + currentBankName + " details");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your edits to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + editFromBank);
         throw new BankException("Cannot find bank with name: " + editFromBank);
     }
 
@@ -500,13 +546,17 @@ public class BankList {
                 try {
                     exportBankList();
                     currentBank.exportBankTransactionList(Integer.toString(i));
+                    logger.info("Successfully exported " + currentBankName + " details");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your deletes to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + deleteFromBank);
         throw new BankException("Cannot find bank with name: " + deleteFromBank);
     }
 
@@ -532,13 +582,17 @@ public class BankList {
                 try {
                     exportBankList();
                     currentBank.exportBankTransactionList(Integer.toString(i));
+                    logger.info("Successfully exported " + currentBankName + " details");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your additions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + accountName);
         throw new BankException("Cannot find bank with name: " + accountName);
 
     }
@@ -567,13 +621,17 @@ public class BankList {
                 try {
                     exportBankList();
                     currentBank.exportBankTransactionList(Integer.toString(i));
+                    logger.info("Successfully exported " + currentBankName + " details");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your edits to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + editFromBank);
         throw new BankException("Cannot find bank with name: " + editFromBank);
     }
 
@@ -599,13 +657,17 @@ public class BankList {
                 try {
                     exportBankList();
                     currentBank.exportBankTransactionList(Integer.toString(i));
+                    logger.info("Successfully exported " + currentBankName + " details");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your deletions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + accountName);
         throw new BankException("Cannot find bank with name: " + accountName);
     }
 
@@ -625,9 +687,11 @@ public class BankList {
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalAccountName.equals(capitalCurrentBankName)) {
                 currentBank.investmentCheckBondExist(bond);
+                logger.info(bond.getName() + " exists");
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + accountName);
         throw new BankException("Cannot find bank with name: " + accountName);
     }
 
@@ -651,13 +715,17 @@ public class BankList {
                     exportBankList();
                     currentBank.exportInvestmentBondList(Integer.toString(i));
                     currentBank.exportBankTransactionList(Integer.toString(i));
+                    logger.info("Successfully exported " + currentBankName + " details");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your additions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + accountName);
         throw new BankException("Cannot find bank with name: " + accountName);
     }
 
@@ -684,13 +752,17 @@ public class BankList {
                     exportBankList();
                     currentBank.exportInvestmentBondList(Integer.toString(i));
                     currentBank.exportBankTransactionList(Integer.toString(i));
+                    logger.info("Successfully exported " + currentBankName + " details");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your edits to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + bankName);
         throw new BankException("Cannot find bank with name: " + bankName);
     }
 
@@ -714,13 +786,17 @@ public class BankList {
                     exportBankList();
                     currentBank.exportInvestmentBondList(Integer.toString(i));
                     currentBank.exportBankTransactionList(Integer.toString(i));
+                    logger.info("Successfully exported " + currentBankName + " details");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your deletions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + bankName);
         throw new BankException("Cannot find bank with name: " + bankName);
     }
 
@@ -743,6 +819,7 @@ public class BankList {
                 return currentBank.investmentGetBond(bondName);
             }
         }
+        logger.warning("Cannot find bank with name: " + bankName);
         throw new BankException("Cannot find bank with name: " + bankName);
     }
 
@@ -766,6 +843,7 @@ public class BankList {
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + bankName);
         throw new BankException("Cannot find bank with name: " + bankName);
     }
 
@@ -809,22 +887,6 @@ public class BankList {
     }
 
     /**
-     * Retrieves the total amount in Bank Saving.
-     *
-     * @param savingName Represents the account name of Saving.
-     * @return The total amount in Saving account.
-     * @throws BankException If no bank of such name is found.
-     */
-    public double getSavingAmount(String savingName) throws BankException {
-        for (int i = 0; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(savingName)) {
-                return bankLists.get(i).getCurrentAmount();
-            }
-        }
-        throw new BankException("Cannot find bank with name: " + savingName);
-    }
-
-    /**
      * Adds a new recurring expenditure to the specified bank account.
      *
      * @param bankName                Name of bank account.
@@ -849,13 +911,17 @@ public class BankList {
                     }
                     currentBank.exportBankTransactionList(Integer.toString(i));
                     currentBank.exportBankRecurringTransactionList(Integer.toString(i));
+                    logger.info("Successfully exported " + currentBankName + " details");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your additions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + bankName);
         throw new BankException("Cannot find bank with name: " + bankName);
     }
 
@@ -884,13 +950,17 @@ public class BankList {
                     }
                     currentBank.exportBankTransactionList(Integer.toString(i));
                     currentBank.exportBankRecurringTransactionList(Integer.toString(i));
+                    logger.info("Successfully exported " + currentBankName + " details");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your deletions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + bankName);
         throw new BankException("Cannot find bank with name: " + bankName);
     }
 
@@ -914,6 +984,7 @@ public class BankList {
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + bankName);
         throw new BankException("Cannot find bank with name: " + bankName);
     }
 
@@ -944,13 +1015,17 @@ public class BankList {
                     }
                     currentBank.exportBankTransactionList(Integer.toString(i));
                     currentBank.exportBankRecurringTransactionList(Integer.toString(i));
+                    logger.info("Successfully exported " + currentBankName + " details");
                 } catch (IOException e) {
+                    logger.warning("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                     ui.printError("Error trying to save your edits to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Cannot find bank with name: " + bankName);
         throw new BankException("Cannot find bank with name: " + bankName);
     }
 
@@ -973,6 +1048,8 @@ public class BankList {
                 }
                 bankLists.get(i).exportBankTransactionList(Integer.toString(i));
             } catch (IOException | BankException e) {
+                logger.warning("Error trying to save your additions to disk. Your data is"
+                        + " at risk, but we will try again, feel free to continue using the program.");
                 ui.printError("Error trying to save your updates to disk. Your data is"
                         + " at risk, but we will try again, feel free to continue using the program.");
             }
@@ -994,9 +1071,12 @@ public class BankList {
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalAccountName.equals(capitalCurrentBankName)) {
                 checkSufficientForTransfer(bankLists.get(i), amount);
+                logger.info("Successfully found bank type for transfer");
                 return currentBank.getType();
             }
         }
+        logger.warning("Unable to transfer fund as the sender bank account does not exist: "
+                + accountName);
         throw new BankException("Unable to transfer fund as the sender bank account does not exist: "
                 + accountName);
     }
@@ -1014,9 +1094,12 @@ public class BankList {
             String currentBankName = currentBank.getAccountName();
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalAccountName.equals(capitalCurrentBankName)) {
+                logger.info("Successfully found bank type for receive");
                 return bankLists.get(i).getType();
             }
         }
+        logger.warning("Unable to transfer fund as the receiving bank account does not exist: "
+                + accountName);
         throw new BankException("Unable to transfer fund as the receiving bank account does not exist: "
                 + accountName);
     }
@@ -1032,6 +1115,7 @@ public class BankList {
         if (bank.getCurrentAmount() >= amount) {
             return;
         }
+        logger.warning("Insufficient amount for transfer in this bank: " + bank.getAccountName());
         throw new BankException("Insufficient amount for transfer in this bank: " + bank.getAccountName());
     }
 
@@ -1054,10 +1138,13 @@ public class BankList {
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalInvestmentName.equals(capitalCurrentBankName)
                     && INVESTMENT.equals(currentBank.getType())) {
+                logger.info("Found Investment account to search for bonds");
                 currentBank.findBondInInvestment(bondName, ui);
                 return;
             }
         }
+        logger.warning("Investment account with the following name "
+                + "does not exist for search: " + investmentName);
         throw new BankException("Investment account with the following name "
                 + "does not exist for search: " + investmentName);
     }
@@ -1074,15 +1161,23 @@ public class BankList {
         String matchingWord = accountName.toUpperCase();
 
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().toUpperCase().contains(matchingWord)
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalCurrentBankName.contains(matchingWord)
                     && type.equals(bankLists.get(i).getType())) {
                 tempBankList.add(bankLists.get(i));
             }
         }
+        logger.info("Search for bank account completed");
         if (tempBankList.isEmpty() && SAVING.equals(type)) {
+            logger.warning("Savings account with the following keyword could not be found: "
+                    + accountName);
             throw new BankException(
             "Savings account with the following keyword could not be found: " + accountName);
         } else if (tempBankList.isEmpty() && INVESTMENT.equals(type)) {
+            logger.warning("Investment account with the following keyword could not be found: "
+                    + accountName);
             throw new BankException(
             "Investment account with the following keyword could not be found: " + accountName);
         }
@@ -1092,6 +1187,7 @@ public class BankList {
             printOneBank((i + ONE_INDEX), tempBankList.get(i), ISMULTIPLE, ui);
         }
         ui.printDivider();
+        logger.info("Successfully found matching bank account.");
     }
 
     /**
@@ -1114,10 +1210,12 @@ public class BankList {
             String currentBankName = currentBank.getAccountName();
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalBankName.equals(capitalCurrentBankName)) {
+                logger.info("Found bank account to search for transaction");
                 currentBank.findTransaction(fromDate, toDate, description, category, ui);
                 return;
             }
         }
+        logger.warning("Bank with the following name does not exist: " + bankName);
         throw new BankException("Bank with the following name does not exist: " + bankName);
     }
 
@@ -1129,9 +1227,10 @@ public class BankList {
      * @param category    The category keyword to match against.
      * @param ui          The object required for printing.
      * @throws BankException If bank name specified does not exist.
+     * @throws TransactionException If recurring transaction list is empty.
      */
     public void bankListFindRecurringExpenditure(String bankName, String description, String category, Ui ui)
-            throws BankException {
+            throws BankException, TransactionException {
         String capitalBankName = bankName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
             Bank currentBank = bankLists.get(i);
@@ -1139,10 +1238,12 @@ public class BankList {
             String capitalCurrentBankName = currentBankName.toUpperCase();
             String currentBankType = currentBank.getType();
             if (capitalBankName.equals(capitalCurrentBankName) && SAVING.equals(currentBankType)) {
+                logger.info("Found bank account to search for recurring expenditure");
                 currentBank.findRecurringExpenditure(description, category, ui);
                 return;
             }
         }
+        logger.warning("Savings account with the following name does not exist: " + bankName);
         throw new BankException("Savings account with the following name does not exist: " + bankName);
     }
 
@@ -1238,6 +1339,7 @@ public class BankList {
                 return;
             }
         }
+        logger.warning("There is no account with the name: " + bankName);
         throw new BankException("There is no account with the name: " + bankName);
     }
 
@@ -1279,6 +1381,7 @@ public class BankList {
                 return bankLists.get(i).investmentIsBondListFull();
             }
         }
+        logger.warning("Cannot find bank with name: " + bankName);
         throw new BankException("Cannot find bank with name: " + bankName);
     }
 

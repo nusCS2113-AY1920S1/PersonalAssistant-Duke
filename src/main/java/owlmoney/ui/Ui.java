@@ -55,21 +55,21 @@ public class Ui {
      */
     public void printTransactionHeader(String type) {
         if (ITEM_TYPE.equals(type)) {
-            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", ITEMNO, DESCRIPTION,
+            System.out.printf("%-20s %-55s %-20s %-20s %-20s %n", ITEMNO, DESCRIPTION,
                     AMOUNT, DATE, CATEGORY);
         } else if (TRANSACTION_TYPE.equals(type)) {
-            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", TRANSACTION_NUMBER,
+            System.out.printf("%-20s %-55s %-20s %-20s %-20s %n", TRANSACTION_NUMBER,
                     DESCRIPTION, AMOUNT, DATE, CATEGORY);
         } else if (RECURRING_ITEM_TYPE.equals(type)) {
-            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", ITEMNO, DESCRIPTION,
+            System.out.printf("%-20s %-55s %-20s %-20s %-20s %n", ITEMNO, DESCRIPTION,
                     AMOUNT, NEXT_EXPENSE_DATE, CATEGORY);
         } else if (RECURRING_TRANSACTION_TYPE.equals(type)) {
             System.out.printf(
-                    "%-20s %-55s %-15s %-20s %-20s %n", TRANSACTION_NUMBER, DESCRIPTION,
+                    "%-20s %-55s %-20s %-20s %-20s %n", TRANSACTION_NUMBER, DESCRIPTION,
                     AMOUNT, NEXT_EXPENSE_DATE, CATEGORY);
         }
         System.out.println("-----------------------------------------------------------------------------"
-                + "----------------------------------------------------");
+                + "----------------------------------------------------------------");
     }
 
     /**
@@ -83,18 +83,18 @@ public class Ui {
      */
     public void printTransaction(int num, String description, String amount, String date,
             String category) {
-        System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", num, description, amount, date, category);
+        System.out.printf("%-20s %-55s %-20s %-20s %-20s %n", num, description, amount, date, category);
     }
 
     /**
      * Prints the card header.
      */
     public void printCardHeader() {
-        System.out.printf("%-20s %-30s %-15s %-20s %-15s %n", ITEMNO, CARD_NAME, MONTHLY_LIMIT,
+        System.out.printf("%-20s %-35s %-15s %-20s %-15s %n", ITEMNO, CARD_NAME, MONTHLY_LIMIT,
                 REMAINING_LIMIT, REBATE_RATE);
 
         System.out.println("-----------------------------------------------------------------------------"
-                + "----------------------------------------------------");
+                + "----------------------------------------------------------------");
     }
 
     /**
@@ -107,7 +107,7 @@ public class Ui {
      * @param rebate   Represents the card rebate in percentage.
      */
     public void printCard(int num, String name, String monLimit, String remLimit, String rebate) {
-        System.out.printf("%-20s %-30s %-15s %-20s %-15s %n", num, name, monLimit, remLimit, rebate);
+        System.out.printf("%-20s %-35s %-15s %-20s %-15s %n", num, name, monLimit, remLimit, rebate);
     }
 
     /**
@@ -118,7 +118,7 @@ public class Ui {
                 CURRENT_AMOUNT, INCOME);
 
         System.out.println("-----------------------------------------------------------------------------"
-                + "----------------------------------------------------");
+                + "----------------------------------------------------------------");
     }
 
     /**
@@ -179,7 +179,7 @@ public class Ui {
                 ACHIEVEMENT_AMOUNT, ACHIEVEMENT_DATE);
 
         System.out.println("-----------------------------------------------------------------------------"
-                + "----------------------------------------------------");
+                + "----------------------------------------------------------------");
     }
 
     /**
@@ -203,7 +203,7 @@ public class Ui {
                 BOND_YEAR);
 
         System.out.println("-----------------------------------------------------------------------------"
-                + "----------------------------------------------------");
+                + "----------------------------------------------------------------");
     }
 
     /**
@@ -225,7 +225,7 @@ public class Ui {
      */
     public void printDivider() {
         System.out.println("-----------------------------------------------------------------------------"
-                + "----------------------------------------------------");
+                + "----------------------------------------------------------------");
     }
 
     /**

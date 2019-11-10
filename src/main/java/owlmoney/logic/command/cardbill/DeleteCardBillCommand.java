@@ -1,6 +1,9 @@
 package owlmoney.logic.command.cardbill;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.time.YearMonth;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
@@ -18,6 +21,7 @@ public class DeleteCardBillCommand extends Command {
     private final String bank;
     private final String type;
     private static final String BANK_TYPE = "bank";
+    private static final Logger logger = getLogger(DeleteCardBillCommand.class);
 
 
     /**
@@ -47,6 +51,7 @@ public class DeleteCardBillCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws CardException, BankException, TransactionException {
         profile.deleteCardBill(card, cardDate, bank, ui, type);
+        logger.info("Successful execution of deleting of card bill");
         return this.isExit;
     }
 }

@@ -1,5 +1,7 @@
 package owlmoney.model.transaction;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -8,6 +10,7 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
@@ -29,6 +32,7 @@ public class TransactionList {
     private static final String FINDCATEGORY = "category";
     private static final String FINDDATE = "date range";
     private static final int OBJ_DOES_NOT_EXIST = -1;
+    private static final Logger logger = getLogger(TransactionList.class);
     private static final String CREDIT_CARD_BILL = "Credit Card";
 
     /**
@@ -66,8 +70,10 @@ public class TransactionList {
                 }
             }
             if (!expenditureExist) {
+                logger.warning("No expenditures found");
                 throw new TransactionException("No expenditures found");
             }
+            logger.info("Completed listing of expenditures");
         }
     }
 
@@ -99,8 +105,10 @@ public class TransactionList {
                 }
             }
             if (!depositExist) {
+                logger.warning("No deposits found");
                 throw new TransactionException("No deposits found");
             }
+            logger.info("Completed listing of expenditures");
         }
     }
 
@@ -113,12 +121,14 @@ public class TransactionList {
     public void addExpenditureToList(Transaction newExpenditure, Ui ui, String type) {
         if (transactionLists.size() >= MAX_LIST_SIZE) {
             transactionLists.remove(0);
+            logger.info("Max limit of 2000 transactions hit. Deleted earliest transaction");
         }
         transactionLists.add(newExpenditure);
         if (!"bonds".equals(type)) {
             ui.printMessage("Added expenditure with the following details:");
             printOneTransaction(ONE_INDEX, newExpenditure, ISSINGLE, ui);
         }
+        logger.info("Expenditure added");
     }
 
     /**
@@ -130,8 +140,10 @@ public class TransactionList {
     public void addExpenditureToList(Transaction expenditure, String type) {
         if (transactionLists.size() >= MAX_LIST_SIZE) {
             transactionLists.remove(0);
+            logger.info("Max limit of 2000 transactions hit. Deleted earliest transaction");
         }
         transactionLists.add(expenditure);
+        logger.info("Expenditure added");
     }
 
     /**
@@ -143,6 +155,7 @@ public class TransactionList {
     public void addDepositToList(Transaction newDeposit, Ui ui, String bankType) {
         if (transactionLists.size() >= MAX_LIST_SIZE) {
             transactionLists.remove(0);
+            logger.info("Max limit of 2000 transactions hit. Deleted earliest transaction");
         }
         transactionLists.add(newDeposit);
         if ("bank".equals(bankType) || "savings transfer".equals(bankType)
@@ -150,6 +163,7 @@ public class TransactionList {
             ui.printMessage("Added deposit with the following details:");
             printOneTransaction(ONE_INDEX, newDeposit, ISSINGLE, ui);
         }
+        logger.info("Deposit added");
     }
 
     /**
@@ -162,15 +176,21 @@ public class TransactionList {
      */
     public double deleteExpenditureFromList(int index, Ui ui, boolean isCardBill) throws TransactionException {
         if (transactionLists.size() <= ISZERO) {
+            logger.warning("There are no transactions in this bank account");
             throw new TransactionException("There are no transactions in this bank account");
         }
         if ((index - ONE_INDEX) >= ISZERO && (index - ONE_INDEX) < transactionLists.size()) {
             if (!transactionLists.get(index - 1).getSpent()) {
+                logger.warning("The transaction is a deposit");
                 throw new TransactionException("The transaction is a deposit");
             } else if (isCardBill && !CREDIT_CARD_BILL.equals(transactionLists.get(index - 1).getCategory())) {
+                logger.warning("The transaction is not a credit card bill expenditure. Please use"
+                        + " the /delete /bankexpenditure function");
                 throw new TransactionException("The transaction is not a credit card bill expenditure. Please use"
                         + "the /delete /bankexpenditure function");
             } else if (!isCardBill && CREDIT_CARD_BILL.equals(transactionLists.get(index - 1).getCategory())) {
+                logger.warning("The transaction is a credit card bill. Please use the "
+                        + "/delete /cardbill function to revert credit card payment");
                 throw new TransactionException("The transaction is a credit card bill. Please use the "
                         + "/delete /cardbill function to revert credit card payment");
             } else {
@@ -178,9 +198,11 @@ public class TransactionList {
                 transactionLists.remove(index - ONE_INDEX);
                 ui.printMessage("Details of deleted Expenditure:");
                 printOneTransaction(ONE_INDEX, temp, ISSINGLE, ui);
+                logger.info("Deleted expenditure");
                 return temp.getAmount();
             }
         } else {
+            logger.warning("Index is out of transaction list range");
             throw new TransactionException("Index is out of transaction list range");
         }
     }
@@ -194,17 +216,21 @@ public class TransactionList {
      */
     public double deleteExpenditureFromList(int index) throws TransactionException {
         if (transactionLists.size() <= ISZERO) {
+            logger.warning("There are no transactions in this bank account");
             throw new TransactionException("There are no transactions in this bank account");
         }
         if ((index - ONE_INDEX) >= ISZERO && (index - ONE_INDEX) < transactionLists.size()) {
             if (!transactionLists.get(index - 1).getSpent()) {
+                logger.warning("The transaction is a deposit");
                 throw new TransactionException("The transaction is a deposit");
             } else {
                 Transaction temp = transactionLists.get(index - ONE_INDEX);
                 transactionLists.remove(index - ONE_INDEX);
+                logger.info("Expenditure deleted");
                 return temp.getAmount();
             }
         } else {
+            logger.warning("Index is out of transaction list range");
             throw new TransactionException("Index is out of transaction list range");
         }
     }
@@ -236,12 +262,14 @@ public class TransactionList {
                 transactionLists.get(expenditureIndex - ONE_INDEX).setDate(temp.parse(date));
             } catch (ParseException e) {
                 //check handled in ParseEditExpenditure
+                logger.warning("Error converting date");
                 throw new TransactionException(e.toString());
             }
         }
         if (!(category == null || category.isBlank())) {
             transactionLists.get(expenditureIndex - ONE_INDEX).setCategory(category);
         }
+        logger.info("Expenditure edited");
         ui.printMessage("Edited details of the specified expenditure:");
         printOneTransaction(ONE_INDEX, transactionLists.get(expenditureIndex - ONE_INDEX), ISSINGLE, ui);
         return transactionLists.get(expenditureIndex - ONE_INDEX).getAmount();
@@ -260,7 +288,6 @@ public class TransactionList {
      */
     public double editDeposit(int depositIndex, String description, String amount, String date, Ui ui)
             throws TransactionException {
-        ui.printMessage("Editing transaction...\n");
         if (!(description == null || description.isBlank())) {
             transactionLists.get(depositIndex - ONE_INDEX).setDescription(description);
         }
@@ -273,9 +300,11 @@ public class TransactionList {
                 transactionLists.get(depositIndex - ONE_INDEX).setDate(temp.parse(date));
             } catch (ParseException e) {
                 //check handled in ParseEditExpenditure
+                logger.warning("Error converting date");
                 throw new TransactionException(e.toString());
             }
         }
+        logger.info("Deposit edited");
         ui.printMessage("Edited details of the specified deposits:");
         printOneTransaction(ONE_INDEX, transactionLists.get(depositIndex - ONE_INDEX), ISSINGLE, ui);
         return transactionLists.get(depositIndex - ONE_INDEX).getAmount();
@@ -290,22 +319,29 @@ public class TransactionList {
      */
     public double getExpenditureAmount(int index, boolean isCardBill) throws TransactionException {
         if (transactionLists.size() <= ISZERO) {
+            logger.warning("There are no transactions in this bank account");
             throw new TransactionException("There are no transactions in this bank account");
         }
         if ((index - ONE_INDEX) >= ISZERO && (index - ONE_INDEX) < transactionLists.size()) {
             if (!transactionLists.get(index - ONE_INDEX).getSpent()) {
+                logger.warning("The transaction is a deposit");
                 throw new TransactionException("The transaction is a deposit");
             } else if (CREDIT_CARD_BILL.equals(transactionLists.get(index - ONE_INDEX).getCategory())
                     && !isCardBill) {
+                logger.warning("The transaction is a credit card bill. Please use the "
+                        + "/delete /cardbill function to revert credit card payment");
                 throw new TransactionException("The transaction is a credit card bill. Please use the "
                         + "/delete /cardbill function to revert credit card payment");
             } else if (!CREDIT_CARD_BILL.equals(transactionLists.get(index - ONE_INDEX).getCategory())
                     && isCardBill) {
+                logger.warning("The transaction is not a credit card bill");
                 throw new TransactionException("The transaction is not a credit card bill");
             } else {
+                logger.info("Obtained expenditure amount");
                 return transactionLists.get(index - ONE_INDEX).getAmount();
             }
         } else {
+            logger.info("Index is out of transaction list range");
             throw new TransactionException("Index is out of transaction list range");
         }
     }
@@ -322,6 +358,7 @@ public class TransactionList {
         transactionLists.remove(index - ONE_INDEX);
         ui.printMessage("Details of deleted deposit:");
         printOneTransaction(ONE_INDEX, temp, ISSINGLE, ui);
+        logger.info("Deposit deleted");
         return temp.getAmount();
     }
 
@@ -335,20 +372,27 @@ public class TransactionList {
      */
     public double getDepositValue(int index, boolean isCardBill) throws TransactionException {
         if (transactionLists.size() <= ISZERO) {
+            logger.warning("There are n transactions in this bank account");
             throw new TransactionException("There are no transactions in this bank account");
         }
         if ((index - ONE_INDEX) >= ISZERO && (index - ONE_INDEX) < transactionLists.size()) {
             if (transactionLists.get(index - ONE_INDEX).getSpent()) {
+                logger.warning("The transaction is not a deposit");
                 throw new TransactionException("The transaction is not a deposit");
             } else if (isCardBill && !CREDIT_CARD_BILL.equals(transactionLists.get(index - ONE_INDEX).getCategory())) {
+                logger.warning("The transaction is not a credit card bill expenditure.");
                 throw new TransactionException("The transaction is not a credit card bill expenditure.");
             } else if (!isCardBill && CREDIT_CARD_BILL.equals(transactionLists.get(index - ONE_INDEX).getCategory())) {
+                logger.warning("The transaction is a credit card bill. Please use the "
+                        + "/delete /cardbill function to revert credit card payment");
                 throw new TransactionException("The transaction is a credit card bill. Please use the "
                         + "/delete /cardbill function to revert credit card payment");
             } else {
+                logger.info("Obtained deposit value");
                 return transactionLists.get(index - ONE_INDEX).getAmount();
             }
         } else {
+            logger.warning("Index is out of transaction list range");
             throw new TransactionException("Index is out of transaction list range");
         }
     }
@@ -404,6 +448,7 @@ public class TransactionList {
                 totalAmount += transactionLists.get(i).getAmount();
             }
         }
+        logger.info("Obtained month amount spent");
         return totalAmount;
     }
 
@@ -449,8 +494,8 @@ public class TransactionList {
     public void findMatchingTransaction(String fromDate, String toDate,
             String description, String category, Ui ui) throws TransactionException {
         if (expenditureListIsEmpty()) {
-            ui.printMessage("Transaction list is empty.");
-            return;
+            logger.warning("Transaction list is empty");
+            throw new TransactionException("Transaction list is empty");
         }
         if (!(description == null || description.isBlank())) {
             findByDescription(description, ui);
@@ -473,16 +518,22 @@ public class TransactionList {
         String matchingKeyword = keyword.toUpperCase();
         int printCounter = 0;
         for (int i = ISZERO; i < transactionLists.size(); i++) {
-            if (transactionLists.get(i).getDescription().toUpperCase().contains(matchingKeyword)) {
+            Transaction currentExpenditure = transactionLists.get(i);
+            String currentExpenditureDescription = currentExpenditure.getDescription();
+            String capitalcurrentDescription = currentExpenditureDescription.toUpperCase();
+            if (capitalcurrentDescription.contains(matchingKeyword)) {
                 printOneHeaderForFind(printCounter, FINDDESCRIPTION, ui);
                 printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
                 printCounter++;
             }
         }
+        logger.info("Search for transaction based on description completed");
         if (printCounter == 0) {
+            logger.info("No matches for the description keyword: " + keyword);
             ui.printMessage("No matches for the description keyword: " + keyword);
         } else {
             ui.printDivider();
+            logger.info("Successfully found matching transaction based on description");
         }
     }
 
@@ -496,16 +547,23 @@ public class TransactionList {
         String matchingKeyword = keyword.toUpperCase();
         int printCounter = 0;
         for (int i = ISZERO; i < transactionLists.size(); i++) {
-            if (transactionLists.get(i).getCategory().toUpperCase().contains(matchingKeyword)) {
+            Transaction currentExpenditure = transactionLists.get(i);
+            String currentExpenditureCategory = currentExpenditure.getCategory();
+            String capitalcurrentCategory = currentExpenditureCategory.toUpperCase();
+            if (capitalcurrentCategory.contains(matchingKeyword)) {
                 printOneHeaderForFind(printCounter, FINDCATEGORY, ui);
                 printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
                 printCounter++;
             }
         }
+        logger.info("Search for transaction based on category completed");
         if (printCounter == 0) {
+            logger.info("No matches for the category keyword: " + keyword);
             ui.printMessage("No matches for the category keyword: " + keyword);
         } else {
             ui.printDivider();
+            logger.info("Successfully found matching transaction based on category");
+
         }
     }
 
@@ -526,21 +584,27 @@ public class TransactionList {
             from = temp.parse(fromDate);
             to = temp.parse(toDate);
         } catch (ParseException error) {
+            logger.warning(error.toString());
             throw new TransactionException(error.toString());
         }
         for (int i = ISZERO; i < transactionLists.size(); i++) {
-            boolean isBeforeFromDate = transactionLists.get(i).getDateInDateFormat().before(from);
-            boolean isAfterToDate = transactionLists.get(i).getDateInDateFormat().after(to);
+            Date beforeFromDate = transactionLists.get(i).getDateInDateFormat();
+            boolean isBeforeFromDate = beforeFromDate.before(from);
+            Date afterToDate = transactionLists.get(i).getDateInDateFormat();
+            boolean isAfterToDate = afterToDate.after(to);
             if (!isBeforeFromDate && !isAfterToDate) {
                 printOneHeaderForFind(printCounter, FINDDATE, ui);
                 printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
                 printCounter++;
             }
         }
+        logger.info("Search for transaction based on date range completed");
         if (printCounter == 0) {
+            logger.info("No matches for the date range specified: " + fromDate + " to " + toDate);
             ui.printMessage("No matches for the date range specified: " + fromDate + " to " + toDate);
         } else {
             ui.printDivider();
+            logger.info("Successfully found matching transaction based on date range");
         }
     }
 

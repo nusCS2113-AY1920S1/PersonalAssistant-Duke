@@ -34,13 +34,14 @@ class RecurringExpenditureListTest {
         }
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         String printedMessage = "Added expenditure with the following details:" + NEWLINE + "Item No.        "
-                + "     Description                                             Amount          Next Expense "
-                + "Date    Category             " + NEWLINE + "----------------------------------------------"
-                + "-----------------------------------------------------------------------------------"
+                + "     Description                                             Amount               Next Expense "
+                + "Date    Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------"
                 + NEWLINE + "1                    test                                                    [-]"
-                + " $1.00       " + temp.format(newDate) + "      test                 " + NEWLINE + "-------"
-                + "------------------------------------------------------------------------------------------"
-                + "--------------------------------" + NEWLINE;
+                + " $1.00            " + temp.format(newDate) + "      test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(printedMessage, outContent.toString());
     }
 
@@ -110,13 +111,14 @@ class RecurringExpenditureListTest {
         }
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         String deletedMessage = "Deleted expenditure with the following details:" + NEWLINE + "Item No.      "
-                + "       Description                                             Amount          Next "
-                + "Expense Date    Category             " + NEWLINE + "--------------------------------------"
-                + "------------------------------------------------------------------------------------------"
-                + "-" + NEWLINE + "1                    test                                                 "
-                + "   [-] $1.00       " + temp.format(newDate) + "      test                 " + NEWLINE
-                + "------------------------------------------------------------------------------------------"
-                + "---------------------------------------" + NEWLINE;
+                + "       Description                                             Amount               Next "
+                + "Expense Date    Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
+                + "1                    test                                                 "
+                + "   [-] $1.00            " + temp.format(newDate) + "      test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(deletedMessage, outContent.toString());
         assertEquals(0, testList.getListSize());
     }
@@ -152,12 +154,15 @@ class RecurringExpenditureListTest {
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
 
         String outputMessage = "Transaction No.      Description                                             "
-                + "Amount          Next Expense Date    Category             " + NEWLINE + "-----------------"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------" + NEWLINE + "1                    test                            "
-                + "                        [-] $1.00       " + temp.format(newDate) + "      test            "
-                + "     " + NEWLINE + "----------------------------------------------------------------------"
-                + "-----------------------------------------------------------" + NEWLINE;
+                + "Amount               Next Expense Date    Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------"
+                + NEWLINE + "1                    test                            "
+                + "                        [-] $1.00            " + temp.format(newDate)
+                + "      test            "
+                + "     " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
     }
 
@@ -252,17 +257,21 @@ class RecurringExpenditureListTest {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
-        testList.findMatchingRecurringExpenditure("", "s", uiTest);
+        try {
+            testList.findMatchingRecurringExpenditure("", "s", uiTest);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error thrown");
+        }
 
         String expectedOutput = "Find by: category" + NEWLINE
-                + "Transaction No.      Description                                             Amount"
+                + "Transaction No.      Description                                             Amount     "
                 + "          Next Expense Date    Category             " + NEWLINE
-                + "--------------------------------------------------------------------------------------"
-                + "-------------------------------------------" + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
                 + "1                    Test 1                                                  "
-                + "[-] $1.00       04 November 2019     test                 " + NEWLINE
-                + "-------------------------------------------------------------------------------------"
-                + "--------------------------------------------" + NEWLINE;
+                + "[-] $1.00            04 November 2019     test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());
     }
 
@@ -281,8 +290,11 @@ class RecurringExpenditureListTest {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
-        testList.findMatchingRecurringExpenditure("", "Not exist", uiTest);
-
+        try {
+            testList.findMatchingRecurringExpenditure("", "Not exist", uiTest);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error thrown");
+        }
         String expectedOutput = "No matches for the category keyword: Not exist" + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());
     }
@@ -303,17 +315,20 @@ class RecurringExpenditureListTest {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
-        testList.findMatchingRecurringExpenditure("1", "", uiTest);
-
+        try {
+            testList.findMatchingRecurringExpenditure("test", "", uiTest);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error thrown");
+        }
         String expectedOutput = "Find by: description" + NEWLINE
-                + "Transaction No.      Description                                             Amount"
+                + "Transaction No.      Description                                             Amount     "
                 + "          Next Expense Date    Category             " + NEWLINE
-                + "--------------------------------------------------------------------------------------"
-                + "-------------------------------------------" + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
                 + "1                    Test 1                                                  "
-                + "[-] $1.00       04 November 2019     test                 " + NEWLINE
-                + "-------------------------------------------------------------------------------------"
-                + "--------------------------------------------" + NEWLINE;
+                + "[-] $1.00            04 November 2019     test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());
     }
 
@@ -332,24 +347,27 @@ class RecurringExpenditureListTest {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
-        testList.findMatchingRecurringExpenditure("Not exist", "", uiTest);
-
+        try {
+            testList.findMatchingRecurringExpenditure("Not exist", "", uiTest);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error thrown");
+        }
         String expectedOutput = "No matches for the description keyword: Not exist" + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());
     }
 
     //Tests function for find feature.
     @Test
-    void findMatchingRecurringExpenditure_emptyRecurringList_printErrorMessage() {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
+    void findMatchingRecurringExpenditure_emptyRecurringList_throwsexception() {
         Ui uiTest = new Ui();
         RecurringExpenditureList testList = new RecurringExpenditureList();
 
-        testList.findMatchingRecurringExpenditure("Not exist", "", uiTest);
+        TransactionException thrown = assertThrows(TransactionException.class, () ->
+                testList.findMatchingRecurringExpenditure("", "s", uiTest),
+                "Expected deleteExpenditureFromList to throw, but it didn't");
 
-        String expectedOutput = "Recurring expenditure is empty." + NEWLINE;
-        assertEquals(expectedOutput, outContent.toString());
+        String expectedOutput = "Recurring expenditure list is empty";
+        assertEquals(expectedOutput, thrown.toString());
     }
 
     //Tests function for find feature.
@@ -367,26 +385,30 @@ class RecurringExpenditureListTest {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
-        testList.findMatchingRecurringExpenditure("1", "s", uiTest);
+        try {
+            testList.findMatchingRecurringExpenditure("test", "test", uiTest);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error thrown");
+        }
 
         String expectedOutput = "Find by: description" + NEWLINE
-                + "Transaction No.      Description                                             Amount"
+                + "Transaction No.      Description                                             Amount     "
                 + "          Next Expense Date    Category             " + NEWLINE
-                + "--------------------------------------------------------------------------------------"
-                + "-------------------------------------------" + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
                 + "1                    Test 1                                                  "
-                + "[-] $1.00       04 November 2019     test                 " + NEWLINE
-                + "-------------------------------------------------------------------------------------"
-                + "--------------------------------------------" + NEWLINE
+                + "[-] $1.00            04 November 2019     test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
                 + "Find by: category" + NEWLINE
-                + "Transaction No.      Description                                             Amount"
+                + "Transaction No.      Description                                             Amount     "
                 + "          Next Expense Date    Category             " + NEWLINE
-                + "--------------------------------------------------------------------------------------"
-                + "-------------------------------------------" + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
                 + "1                    Test 1                                                  "
-                + "[-] $1.00       04 November 2019     test                 " + NEWLINE
-                + "-------------------------------------------------------------------------------------"
-                + "--------------------------------------------" + NEWLINE;
+                + "[-] $1.00            04 November 2019     test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());
     }
 
@@ -405,7 +427,11 @@ class RecurringExpenditureListTest {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
-        testList.findMatchingRecurringExpenditure("Not exist", "Not exist", uiTest);
+        try {
+            testList.findMatchingRecurringExpenditure("Not exist", "Not exist", uiTest);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error thrown");
+        }
 
         String expectedOutput = "No matches for the description keyword: Not exist" + NEWLINE
                 + "No matches for the category keyword: Not exist" + NEWLINE;

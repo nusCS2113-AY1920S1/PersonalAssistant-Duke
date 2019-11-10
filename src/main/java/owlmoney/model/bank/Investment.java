@@ -1,5 +1,7 @@
 package owlmoney.model.bank;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -7,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
@@ -30,6 +33,7 @@ public class Investment extends Bank {
     private static final String INVESTMENT = "investment";
     private static final String INVESTMENT_BOND_LIST_FILE_NAME = "_investment_bondList.csv";
     private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
+    private static final Logger logger = getLogger(Investment.class);
 
     /**
      * Creates an instance of an investment account.
@@ -56,13 +60,16 @@ public class Investment extends Bank {
     @Override
     public void addInExpenditure(Transaction expenditure, Ui ui, String bankType) throws BankException {
         if (!"bonds".equals(bankType) && !"investment transfer".equals(bankType)) {
+            logger.warning("This account does not support savings expenditures");
             throw new BankException("This account does not support savings expenditures");
         }
         if (expenditure.getAmount() > this.getCurrentAmount()) {
+            logger.warning("Bank account cannot have a negative amount");
             throw new BankException("Bank account cannot have a negative amount");
         } else {
             transactions.addExpenditureToList(expenditure, ui, bankType);
             deductFromAmount(expenditure.getAmount());
+            logger.info("Expenditure added to bank account successfully");
         }
     }
 
@@ -77,10 +84,12 @@ public class Investment extends Bank {
     @Override
     public void addDepositTransaction(Transaction deposit, Ui ui, String bankType) throws BankException {
         if (!"bonds".equals(bankType) && !"investment transfer".equals(bankType)) {
+            logger.warning("This account does not support this feature");
             throw new BankException("This account does not support this feature");
         }
         transactions.addDepositToList(deposit, ui, bankType);
         addToAmount(deposit.getAmount());
+        logger.info("Deposit added to bank account successfully");
     }
 
     /**
@@ -117,12 +126,14 @@ public class Investment extends Bank {
         Bond targetBond = bonds.getBond(bondName);
         Calendar calendar = Calendar.getInstance();
         if (this.getCurrentAmount() + targetBond.getAmount() > MAX_AMOUNT) {
+            logger.warning("The amount in the bank cannot exceed 9 digits");
             throw new BondException("The amount in the bank cannot exceed 9 digits");
         }
         Transaction newDeposit = createNewDeposit(bondName,targetBond.getAmount(),calendar.getTime());
         transactions.addDepositToList(newDeposit, ui, "bonds");
         addToAmount(targetBond.getAmount());
         bonds.removeBondFromList(bondName, ui);
+        logger.info(bondName + " deleted from investment account successfully");
     }
 
     /**
@@ -187,11 +198,14 @@ public class Investment extends Bank {
     private void addBondInterestDeposit(Bond bond, Ui ui) throws BankException {
         double interestAmount = bond.getAmount() * bond.getHalfYearlyCouponRate() / 100;
         if (this.getCurrentAmount() + interestAmount > MAX_AMOUNT) {
+            logger.warning("The amount in the bank cannot exceed 9 digits");
             throw new BankException("The amount in the bank cannot exceed 9 digits");
         }
-        Transaction newDeposit = createNewDeposit(bond.getName(), interestAmount, bond.getNextDateToCreditInterest());
+        Transaction newDeposit = createNewDeposit(bond.getName(), interestAmount,
+            bond.getNextDateToCreditInterest());
         transactions.addDepositToList(newDeposit, ui, "bonds");
         addToAmount(interestAmount);
+        logger.info("Interest added to investment account successfully");
     }
 
     /**
@@ -221,6 +235,7 @@ public class Investment extends Bank {
                 investmentDeleteBond(targetBond.getName(), ui);
                 return true;
             } catch (BondException e) {
+                logger.warning("Unable to delete bond after crediting interest");
                 ui.printError("Unable to delete bond after crediting interest.");
             }
         }
@@ -247,10 +262,12 @@ public class Investment extends Bank {
                     targetBond.setNextDateToCreditInterest(nextDateToCreditInterest);
                     if (nextDateToCreditInterest.compareTo(endDate) > 0) {
                         targetBond.setMature();
+                        logger.info("Bond has matured, setting flag to true");
                     }
                 } catch (BankException errorMessage) {
                     ui.printError(errorMessage.toString());
                     ui.printMessage("Unable to add the interest for: " + targetBond.getName());
+                    logger.warning("Unable to add the interest for: " + targetBond.getName());
                     break;
                 }
             }
@@ -323,6 +340,7 @@ public class Investment extends Bank {
             exportArrayList.add(new String[]
                 {bondName, stringAmount, stringRate, boughtDate, stringYear, nextDateToCreditInterest, stringMature});
         }
+        logger.info("Successfully prepared bondList for exporting");
         return exportArrayList;
     }
 
@@ -337,7 +355,9 @@ public class Investment extends Bank {
         ArrayList<String[]> inputData = prepareExportBondList();
         try {
             storage.writeFile(inputData,prependFileName + INVESTMENT_BOND_LIST_FILE_NAME);
+            logger.info("Successfully exported: " + prependFileName + INVESTMENT_BOND_LIST_FILE_NAME);
         } catch (IOException exceptionMessage) {
+            logger.warning("Error exporting: " + prependFileName + INVESTMENT_BOND_LIST_FILE_NAME);
             throw new IOException(exceptionMessage);
         }
     }
@@ -353,8 +373,10 @@ public class Investment extends Bank {
         ArrayList<String[]> inputData = prepareExportTransactionList();
         try {
             storage.writeFile(inputData,prependFileName + INVESTMENT_TRANSACTION_LIST_FILE_NAME);
-        } catch (IOException e) {
-            throw new IOException(e);
+            logger.info("Successfully exported: " + prependFileName + INVESTMENT_TRANSACTION_LIST_FILE_NAME);
+        } catch (IOException exceptionMessage) {
+            logger.warning("Error exporting: " + prependFileName + INVESTMENT_TRANSACTION_LIST_FILE_NAME);
+            throw new IOException(exceptionMessage);
         }
     }
 
@@ -378,9 +400,11 @@ public class Investment extends Bank {
     @Override
     public void importNewDeposit(Transaction deposit, String bankType) throws BankException {
         if (!"bonds".equals(bankType) && !"investment transfer".equals(bankType)) {
+            logger.warning("This account does not support this feature");
             throw new BankException("This account does not support this feature");
         }
         transactions.importDepositToList(deposit);
+        logger.info("Successfully imported deposit");
     }
 
     /**
@@ -393,12 +417,15 @@ public class Investment extends Bank {
     @Override
     public void importNewExpenditure(Transaction expenditure, String bankType) throws BankException {
         if (!"bonds".equals(bankType) && !"investment transfer".equals(bankType)) {
+            logger.warning("This account does not support savings expenditures");
             throw new BankException("This account does not support savings expenditures");
         }
         if (expenditure.getAmount() > this.getCurrentAmount()) {
+            logger.warning("Bank account cannot have a negative amount");
             throw new BankException("Bank account cannot have a negative amount");
         } else {
             transactions.importExpenditureToList(expenditure);
+            logger.info("Successfully imported expenditure");
         }
     }
 

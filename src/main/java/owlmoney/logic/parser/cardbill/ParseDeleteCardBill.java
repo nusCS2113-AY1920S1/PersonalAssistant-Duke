@@ -37,6 +37,7 @@ public class ParseDeleteCardBill extends ParseCardBill {
             String key = cardBillIterator.next();
             String value = cardBillParameters.get(key);
             if (value == null || value.isBlank()) {
+                logger.warning(key + " cannot be empty when deleting a card bill payment!");
                 throw new ParserException(key + " cannot be empty when deleting a card bill payment!");
             }
             if (CARD_PARAMETER.equals(key)) {
@@ -61,6 +62,7 @@ public class ParseDeleteCardBill extends ParseCardBill {
         DeleteCardBillCommand newDeleteCardBillCommand =
                 new DeleteCardBillCommand(cardBillParameters.get(CARD_PARAMETER), yearMonth,
                         cardBillParameters.get(BANK_PARAMETER));
+        logger.info("Successful creation of DeleteCardBillCommand object");
         return newDeleteCardBillCommand;
     }
 }

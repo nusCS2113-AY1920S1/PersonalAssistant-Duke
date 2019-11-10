@@ -1,5 +1,9 @@
 package owlmoney.logic.command.transaction;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
@@ -15,6 +19,7 @@ public class EditDepositCommand extends Command {
     private final String date;
     private final String description;
     private final int index;
+    private static final Logger logger = getLogger(EditDepositCommand.class);
 
     /**
      * Creates an instance of EditDepositCommand.
@@ -44,6 +49,7 @@ public class EditDepositCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
         profile.profileEditDeposit(index, accountName, description, amount, date, ui);
+        logger.info("Successful execution of EditDepositCommand");
         return this.isExit;
     }
 }

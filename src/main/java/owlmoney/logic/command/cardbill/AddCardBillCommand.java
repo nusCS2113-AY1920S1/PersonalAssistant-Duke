@@ -1,11 +1,14 @@
 package owlmoney.logic.command.cardbill;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
@@ -28,6 +31,7 @@ public class AddCardBillCommand extends Command {
     private final String expenditureDescription;
     private static final int PERCENTAGE_TO_DECIMAL = 100;
     private static final String BANK_TYPE = "bank";
+    private static final Logger logger = getLogger(AddCardBillCommand.class);
 
     /**
      * Creates an instance of AddExpenditureCommand.
@@ -57,7 +61,7 @@ public class AddCardBillCommand extends Command {
         try {
             currentDate = dateFormat.parse(dateString);
         } catch (ParseException exceptionMessage) {
-            // Error will never happen as there is no user input
+            logger.warning("Error in auto parsing of date");
         }
         return currentDate;
     }
@@ -72,6 +76,8 @@ public class AddCardBillCommand extends Command {
      */
     private void checkBillAmountZero(double amount, String card, YearMonth cardDate) throws CardException {
         if (amount == 0) {
+            logger.warning("You have no expenditures for " + card + " for the month of "
+                    + cardDate + "!");
             throw new CardException("You have no expenditures for " + card + " for the month of "
                     + cardDate + "!");
         }
@@ -88,6 +94,8 @@ public class AddCardBillCommand extends Command {
     private void checkIfBillPaidBefore(Profile profile, String card, YearMonth cardDate)
             throws CardException {
         if (profile.getCardPaidBillAmount(card, cardDate) != 0) {
+            logger.warning("You cannot add a card bill for " + cardDate
+                    + " because you have already done so!");
             throw new CardException("You cannot add a card bill for " + cardDate
             + " because you have already done so!");
         }
@@ -119,6 +127,7 @@ public class AddCardBillCommand extends Command {
         Deposit newDeposit = new Deposit(depDescription, rebateAmount, this.expenditureDate, cardId,
                 this.cardDate);
         profile.addCardBill(card, bank, newExpenditure, newDeposit, cardDate, ui, type);
+        logger.info("Successful execution of adding of card bill");
         return this.isExit;
     }
 }
