@@ -23,7 +23,7 @@ public class EmailContentParseHelper {
     private static int RELEVANCE_SENDER_WEIGHTAGE = 3;
     private static int RELEVANCE_BODY_WEIGHTAGE = 1;
     private static int INFINITY = 0x3f3f3f;
-    private static int FUZZY_LIMIT = 3;
+    private static int FUZZY_LIMIT = 2;
 
     /**
      * Finds all keywords in email.
@@ -39,8 +39,8 @@ public class EmailContentParseHelper {
         for (KeywordPair keywordPair : keywordList) {
             int relevance = keywordInEmail(email, keywordPair);
             if (relevance > 0) {
-                UI.getInstance().showDebug(keywordPair.getKeyword() + ": " + keywordInEmail(email, keywordPair)
-                        + " => " + email.getSubject());
+                //UI.getInstance().showDebug(keywordPair.getKeyword() + ": " + keywordInEmail(email, keywordPair)
+                //        + " => " + email.getSubject());
                 email.addTag(keywordPair, relevance);
             }
         }
@@ -206,7 +206,6 @@ public class EmailContentParseHelper {
                 }
             }
         }
-        UI.getInstance().showError(score + " : " + input + " <> " + target);
         return score;
     }
 

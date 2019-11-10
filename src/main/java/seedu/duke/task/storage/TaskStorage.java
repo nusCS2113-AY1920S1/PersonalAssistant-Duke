@@ -55,7 +55,7 @@ public class TaskStorage {
             Path taskPath = StorageHelper.prepareDataPath("task.txt");
             processTaskFile(StorageHelper.readLinesFromFile(taskPath));
             TaskList taskList = Model.getInstance().getTaskList();
-            UI.getInstance().showMessage("Saved task file successfully loaded... => " + taskList.size());
+            UI.getInstance().showMessage("Saved task file successfully loaded...");
             new TaskReminderCommand().execute(Model.getInstance());
             return taskList;
         } catch (FileNotFoundException e) {
