@@ -391,7 +391,7 @@ Example:
 
 * `assignment Lab /by 23-11-2019 23:59`
 
-[[AssignmentAdd]] +
+[[AssignmentAdd]]
 .Adding an `assignment` task
 image::AssignmentAdd.png[AssignmentAdd]
 
@@ -405,7 +405,7 @@ Format: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
 [NOTE]
 `DESCRIPTION` has a character limit of 20 characters.
 
-* `DESCRIPTION` of the task to be done can have multiple words, not just limited to single-word descriptions.
+* `DESCRIPTION` of the `deadline` can have multiple words, not just limited to single-word descriptions.
 * Date and time of the `deadline` have to *strictly* be in the format as stated above.
 
 Example:
@@ -419,14 +419,14 @@ image::Deadline.png[Deadline]
 Adds a `deadline` task with description and deadline as `homework` and `20-11-2019 13:00` respectively.
 
 ==== Adding an event: `event`
-You can add an `event` task with a scheduled starting and ending time. +
+You can add an `event` with a scheduled starting and ending time. +
 
 Format: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
 [NOTE]
 `DESCRIPTION` has a character limit of 20 characters.
 
-* `DESCRIPTION` of the `event` to be done can have multiple words, not just limited to single-word descriptions.
+* `DESCRIPTION` of the `event` can have multiple words, not just limited to single-word descriptions.
 * Date and time of the `event` have to *strictly* be in the format as stated above.
 
 Example:
