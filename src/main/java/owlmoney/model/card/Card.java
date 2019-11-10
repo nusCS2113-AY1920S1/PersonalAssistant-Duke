@@ -152,6 +152,8 @@ public class Card {
         double monthAmountSpent = unpaid.getMonthAmountSpent(date.getMonthValue(), date.getYear());
         double remainingMonthAmount = limit - monthAmountSpent;
         if (expenditure.getAmount() > remainingMonthAmount) {
+            logger.warning("Expenditure to be added cannot exceed remaining limit of $"
+                    + remainingMonthAmount);
             throw new CardException("Expenditure to be added cannot exceed remaining limit of $"
                     + remainingMonthAmount);
         }
@@ -168,10 +170,11 @@ public class Card {
     void addInExpenditure(Transaction expenditure, Ui ui, String type) throws CardException {
         this.checkExpExceedRemainingLimit(expenditure);
         unpaid.addExpenditureToList(expenditure, ui, type);
+        logger.info("Successfully added expenditure in unpaid list in " + getName());
     }
 
     /**
-     * Adds expenditure to the credit card paid transaction list.
+     * Adds expenditure to the credit card paid transaction list. Used in JUnit only.
      *
      * @param expenditure  Expenditure to be added.
      * @param ui   Ui of OwlMoney.
@@ -188,9 +191,8 @@ public class Card {
      *
      * @param ui         Ui of OwlMoney.
      * @param displayNum Number of expenditure to list.
-     * @throws TransactionException If no expenditure is found or no expenditure is in the list.
      */
-    void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
+    void listAllExpenditure(Ui ui, int displayNum) {
         int displayNumHalf = displayNum / DIVIDE_BY_2;
         try {
             ui.printMessage("Paid Expenditures:");
@@ -205,6 +207,7 @@ public class Card {
         } catch (TransactionException e) {
             ui.printMessage("There are no unpaid expenditures in this card.");
         }
+        logger.info("Successfully listed paid and unpaid expenditure list in " + getName());
     }
 
     /**
@@ -216,6 +219,7 @@ public class Card {
      */
     void deleteExpenditure(int exId, Ui ui) throws TransactionException {
         unpaid.deleteExpenditureFromList(exId, ui, false);
+        logger.info("Successfully deleted expenditure in " + getName());
     }
 
     /**
@@ -249,9 +253,11 @@ public class Card {
         double limitLeftExcludeExistingExp = remainingLimit + existingExpAmount;
         if (!(amount == null || amount.isBlank())
                 && limitLeftExcludeExistingExp < Double.parseDouble(amount)) {
+            logger.warning("Edited expenditure cannot exceed $" + limitLeftExcludeExistingExp);
             throw new CardException("Edited expenditure cannot exceed $" + limitLeftExcludeExistingExp);
         }
         unpaid.editExpenditure(expNum, desc, amount, date, category, ui);
+        logger.info("Successfully edited expenditure in " + getName());
     }
 
     /** Returns remaining limit of this current month.
@@ -331,6 +337,7 @@ public class Card {
                 i -= ONE_ARRAY_INDEX;
             }
         }
+        logger.info("Transfer unpaid to paid function completed");
     }
 
     /**
@@ -350,44 +357,7 @@ public class Card {
                 i -= ONE_ARRAY_INDEX;
             }
         }
-    }
-
-    /**
-     * Gets the transaction object from the unpaid transactionList by specifying the transaction index.
-     *
-     * @param index The index of the object in the transactionList.
-     * @return The transaction object from the unpaid transactionList.
-     */
-    Transaction getUnpaid(int index) {
-        return unpaid.get(index);
-    }
-
-    /**
-     * Gets the transaction object from the paid transactionList by specifying the transaction index.
-     *
-     * @param index The index of the object in the transactionList.
-     * @return The transaction object from the paid transactionList.
-     */
-    Transaction getPaid(int index) {
-        return paid.get(index);
-    }
-
-    /**
-     * Gets the size of the unpaid transactionList.
-     *
-     * @return The size of the unpaid transactionList.
-     */
-    int getUnpaidSize() {
-        return unpaid.getSize();
-    }
-
-    /**
-     * Gets the size of the paid transactionList.
-     *
-     * @return The size of the paid transactionList.
-     */
-    int getPaidSize() {
-        return paid.getSize();
+        logger.info("Transfer paid to unpaid function completed");
     }
 
     /**
@@ -421,6 +391,8 @@ public class Card {
             exportArrayList.add(new String[]
                 {description, stringAmount, stringDate, category, stringUuid, stringBillDate});
         }
+        logger.info("Successfully prepared " + getName()
+                + " credit card paid transaction list for exporting");
         return exportArrayList;
     }
 
@@ -434,7 +406,10 @@ public class Card {
         ArrayList<String[]> inputData = prepareExportPaidTransactionList();
         try {
             storage.writeFile(inputData,prependFileName + CARD_PAID_TRANSACTION_LIST_FILE_NAME);
+            logger.info("Successfully exported " + getName() + " credit card paid list to "
+                    + CARD_UNPAID_TRANSACTION_LIST_FILE_NAME);
         } catch (IOException exceptionMessage) {
+            logger.warning(exceptionMessage.toString());
             throw new IOException(exceptionMessage);
         }
     }
@@ -470,6 +445,8 @@ public class Card {
             exportArrayList.add(new String[]
                 {description, stringAmount, stringDate, category, stringUuid, stringBillDate});
         }
+        logger.info("Successfully prepared " + getName()
+                + " credit card unpaid transaction list for exporting");
         return exportArrayList;
     }
 
@@ -483,7 +460,10 @@ public class Card {
         ArrayList<String[]> inputData = prepareExportUnpaidTransactionList();
         try {
             storage.writeFile(inputData,prependFileName + CARD_UNPAID_TRANSACTION_LIST_FILE_NAME);
+            logger.info("Successfully exported " + getName() + " credit card unpaid list to "
+                + CARD_UNPAID_TRANSACTION_LIST_FILE_NAME);
         } catch (IOException exceptionMessage) {
+            logger.warning(exceptionMessage.toString());
             throw new IOException(exceptionMessage);
         }
     }

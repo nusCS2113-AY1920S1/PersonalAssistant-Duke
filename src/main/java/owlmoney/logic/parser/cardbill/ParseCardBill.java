@@ -1,5 +1,7 @@
 package owlmoney.logic.parser.cardbill;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -7,6 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseRawData;
@@ -28,6 +31,7 @@ public abstract class ParseCardBill {
         CARD_PARAMETER, BANK_PARAMETER, DATE_PARAMETER
     };
     private static final List<String> CARD_BILL_KEYWORD_LISTS = Arrays.asList(CARD_BILL_KEYWORD);
+    static final Logger logger = getLogger(ParseCardBill.class);
 
     /**
      * Creates an instance of CardBill object.
@@ -60,6 +64,7 @@ public abstract class ParseCardBill {
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!CARD_BILL_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+            logger.warning("Incorrect parameter " + rawDateSplit[0]);
             throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
         }
     }
@@ -72,6 +77,7 @@ public abstract class ParseCardBill {
      */
     void checkName(String nameString, String type) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
+            logger.warning(type + " name can only contain letters and at most 30 characters");
             throw new ParserException(type + " name can only contain letters and at most 30 characters");
         }
     }
@@ -90,44 +96,21 @@ public abstract class ParseCardBill {
                 DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 LocalDate localDate = LocalDate.parse(dateString, dateFormat);
                 if (localDate.compareTo(LocalDate.now()) > 0) {
+                    logger.warning("/date cannot be after this month");
                     throw new ParserException("/date cannot be after this month");
                 }
                 YearMonth yearMonthDate = YearMonth.from(localDate);
                 return yearMonthDate;
 
             } catch (DateTimeParseException e) {
+                logger.warning("Parser Error: Incorrect date format");
                 throw new ParserException("Parser Error: Incorrect date format. "
                         + "Date format is mm/yyyy in year range of 1900-2099");
             }
-
         }
-        throw new ParserException("Incorrect date format." + " Date format is mm/yyyy in year range of 1900-2099");
-    }
-
-    /**
-     * Checks the user input for any redundant parameters.
-     *
-     * @param parameter Redundant parameter to check for,
-     * @param command   Command the user performed.
-     * @throws ParserException If a redundant parameter is detected.
-     */
-    void checkRedundantParameter(String parameter, String command) throws ParserException {
-        if (rawData.contains(parameter)) {
-            throw new ParserException(command + " /cardbill should not contain " + parameter);
-        }
-    }
-
-    /**
-     * Checks if the transaction number entered by the user is an integer.
-     *
-     * @param variable User command keyword (e.g. /expno).
-     * @param valueString String to be converted to integer.
-     * @throws ParserException If the string is not an integer.
-     */
-    void checkInt(String variable, String valueString) throws ParserException {
-        if (!RegexUtil.regexCheckListNumber(valueString)) {
-            throw new ParserException(variable + " can only be a positive integer with at most 9 digits");
-        }
+        logger.warning("Parser Error: Incorrect date format");
+        throw new ParserException("Incorrect date format."
+                + " Date format is mm/yyyy in year range of 1900-2099");
     }
 
     /**
