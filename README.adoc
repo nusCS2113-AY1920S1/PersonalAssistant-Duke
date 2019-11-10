@@ -2,7 +2,7 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2113T-W13-2/main[image:https://travis-ci.org/AY1920S1-CS2113T-W13-2/main.svg?branch=master[Build Status]]
-https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
+https://www.codacy.com/manual/RusdiHaizim/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2113T-W13-2/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/71a284a5867d4ca3a5f3048bb279affa[Codacy Badge]]
 
 == Introduction
 
