@@ -2,14 +2,14 @@ import executor.command.CommandGetSpendingByMonth;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
 import ui.Receipt;
-import ui.Wallet;
+
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CommandGetSpendingByMonthTest {
-     @Test
+class CommandGetSpendingByMonthTest {
+    @Test
    void execute() {
         StorageManager storageManager = new StorageManager();
 

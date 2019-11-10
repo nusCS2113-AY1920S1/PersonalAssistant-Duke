@@ -45,15 +45,13 @@ public class CommandEdit extends Command {
             index = Integer.parseInt(Parser.parseForPrimaryInput(CommandType.EDIT, userInput)) - 1;
             receiptNumber = index + 1;
             indexChecker(storageManager);
-            newTag = Parser.parseForFlag("tag", this.userInput);
-            newValue = Parser.parseForFlag("value", this.userInput);
-            newDate = Parser.parseForFlag("date", this.userInput);
             checkAndUpdateFlag(storageManager);
-        } catch (NumberFormatException e) {
-            outputError("Index has be an INTEGER");
         } catch (DukeException f) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(f.getMessage());
+        } catch (NumberFormatException e) {
+            outputError("Index has to be an INTEGER"
+                    + "\nFORMAT : edit <index> /<part to be edited> <new-input>");
         }
     }
 
@@ -63,6 +61,9 @@ public class CommandEdit extends Command {
      * @throws DukeException is the error message
      */
     private void checkAndUpdateFlag(StorageManager storageManager) throws DukeException {
+        newTag = Parser.parseForFlag("tag", this.userInput);
+        newValue = Parser.parseForFlag("value", this.userInput);
+        newDate = Parser.parseForFlag("date", this.userInput);
         if (newTag != null) {
             updateTag(storageManager);
         } else if (newValue != null) {
@@ -103,15 +104,11 @@ public class CommandEdit extends Command {
     /**
      * Function to round up a Double from more than 2 DP to 2 DP.
      * @param value is the String value given by user
-     * @param places is the number of decimal places to which the user input is rounded up to
      * @return is the rounded up value of the user input
      */
-    private static double round(double value, int places) {
-        if (places < 0) {
-            throw new IllegalArgumentException();
-        }
+    private static double round(double value) {
         BigDecimal bd = BigDecimal.valueOf(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
 
@@ -121,7 +118,7 @@ public class CommandEdit extends Command {
      */
     private void checkAndChangeToTwoDP() {
         if (BigDecimal.valueOf(changeValue).scale() > 2) {
-            roundedChangeValue = round(changeValue, 2);
+            roundedChangeValue = round(changeValue);
             moreThanTwoDP = true;
         }
     }

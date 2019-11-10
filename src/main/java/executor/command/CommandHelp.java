@@ -4,9 +4,10 @@ import executor.Executor;
 import interpreter.Parser;
 import storage.StorageManager;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class CommandHelp extends Command {
+    private ArrayList<String> listToStoreAllCommands = new ArrayList<>();
+    private StringBuilder outputStr = new StringBuilder();
 
     /**
      * Constructor to provide the user with the details about the commands available.
@@ -21,9 +22,7 @@ public class CommandHelp extends Command {
 
     @Override
     public void execute(StorageManager storageManager) {
-        StringBuilder outputStr = new StringBuilder();
         String specificCommand = Parser.parseForPrimaryInput(CommandType.HELP, userInput).toUpperCase();
-
         /* Helps to check if the extra input for a specific command is correct and if that input
            exists in the list of available commands.*/
         if (!specificCommand.isEmpty()) {
@@ -39,22 +38,9 @@ public class CommandHelp extends Command {
             this.infoCapsule.setOutputStr("Command invalid. Enter 'help' to see all the available commands.\n");
             return;
         }
-
-        ArrayList<String> listToStoreAllCommands = new ArrayList<String>();
-        for (String s : CommandType.getNames()) {
-            if (!s.equals("ERROR") && !s.equals("TASK") && !s.equals("BLANK")) {
-                getDescriptionOfAllCommands(s, listToStoreAllCommands);
-                Collections.sort(listToStoreAllCommands, String.CASE_INSENSITIVE_ORDER);
-            }
-        }
-        for (String a : listToStoreAllCommands) {
-            outputStr.append(a).append("\n");
-        }
+        getAndSortAllDescriptions();
         this.infoCapsule.setCodeCli();
         this.infoCapsule.setOutputStr(outputStr.toString());
-        for (String b : listToStoreAllCommands) {
-            System.out.println(b);
-        }
     }
 
     /**
@@ -83,6 +69,20 @@ public class CommandHelp extends Command {
         String commandDesc = c.getDescription();
         String temp = s.toUpperCase() + " - " + commandDesc + "\n";
         newOut.add(temp);
-        return;
+    }
+
+    /**
+     * Function to get and sort all the descriptions.
+     */
+    private void getAndSortAllDescriptions() {
+        for (String s : CommandType.getNames()) {
+            if (!s.equals("ERROR") && !s.equals("TASK") && !s.equals("BLANK")) {
+                getDescriptionOfAllCommands(s, listToStoreAllCommands);
+                listToStoreAllCommands.sort(String.CASE_INSENSITIVE_ORDER);
+            }
+        }
+        for (String a : listToStoreAllCommands) {
+            outputStr.append(a).append("\n");
+        }
     }
 }

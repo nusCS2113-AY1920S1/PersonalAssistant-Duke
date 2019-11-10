@@ -2,17 +2,19 @@ package executor.command;
 
 import interpreter.Parser;
 import storage.StorageManager;
-import ui.ReceiptTracker;
 import ui.UiCode;
-import ui.Wallet;
 
-import java.time.DayOfWeek;
+
+
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 
 public class CommandGetSpendingByWeek extends Command {
     protected  String userInput;
+    private int dayInt;
+    private Double total;
+    private ArrayList<String> dateList = new ArrayList<>();
+
 
     /**
      * Constructor to explain about the command.
@@ -28,23 +30,8 @@ public class CommandGetSpendingByWeek extends Command {
 
     @Override
     public void execute(StorageManager storageManager) {
-
-        String checker = Parser.parseForPrimaryInput(CommandType.HELP, userInput);
-        if (!checker.isEmpty()) {
-            this.infoCapsule.setCodeToast();
-            this.infoCapsule.setOutputStr("Extra variables added. FORMAT : expendedweek");
-        }
-        String day = LocalDate.now().getDayOfWeek().toString().toLowerCase();
-        String dayDate = LocalDate.now().toString();
-        ArrayList<String> dateList = new ArrayList<String>();
-        Double total = 0.0;
-        int dayInt = dayStrToInt(day);
-        if (dayInt > 0 && dayInt < 8) {
-            LocalDate dateTracker = LocalDate.parse(dayDate);
-            for (int i = 0; i < dayInt; i++) {
-                dateList.add(dateTracker.minusDays(i).toString());
-            }
-        }
+        checkIfInputIsEmpty();
+        getListOfAllDaysBeforeTodayInWeek();
         for (String a : dateList) {
             try {
                 total += storageManager.getReceiptsByDate(a).getTotalExpenses();
@@ -53,14 +40,7 @@ public class CommandGetSpendingByWeek extends Command {
                 this.infoCapsule.setOutputStr(e.getMessage());
             }
         }
-        int remainingDaysOfWeek = 7 - dayInt;
-        String out = total.toString();
-        this.infoCapsule.setUiCode(UiCode.CLI);
-        this.infoCapsule.setOutputStr("The total amount spent this week is $"
-                + out
-                + " and there is/are "
-                + remainingDaysOfWeek
-                + "day(s) to end of week");
+        outputOfExpenditure();
     }
 
     /**
@@ -87,5 +67,46 @@ public class CommandGetSpendingByWeek extends Command {
         default:
             return 0;
         }
+    }
+
+    /**
+     * Function to check if the input by user is empty.
+     */
+    private void checkIfInputIsEmpty() {
+        String checker = Parser.parseForPrimaryInput(CommandType.HELP, userInput);
+        if (!checker.isEmpty()) {
+            this.infoCapsule.setCodeToast();
+            this.infoCapsule.setOutputStr("Extra variables added. FORMAT : expendedweek");
+        }
+    }
+
+    /**
+     * Function to get all the days before today in the week.
+     */
+    private void getListOfAllDaysBeforeTodayInWeek() {
+        String day = LocalDate.now().getDayOfWeek().toString().toLowerCase();
+        String dayDate = LocalDate.now().toString();
+        total = 0.0;
+        dayInt = dayStrToInt(day);
+        if (dayInt > 0 && dayInt < 8) {
+            LocalDate dateTracker = LocalDate.parse(dayDate);
+            for (int i = 0; i < dayInt; i++) {
+                dateList.add(dateTracker.minusDays(i).toString());
+            }
+        }
+    }
+
+    /**
+     * Function to output the expenditure.
+     */
+    private void outputOfExpenditure() {
+        int remainingDaysOfWeek = 7 - dayInt;
+        String out = total.toString();
+        this.infoCapsule.setUiCode(UiCode.CLI);
+        this.infoCapsule.setOutputStr("The total amount spent this week is $"
+                + out
+                + " and there is/are "
+                + remainingDaysOfWeek
+                + "day(s) to end of week");
     }
 }

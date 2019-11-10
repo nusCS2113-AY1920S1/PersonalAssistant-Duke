@@ -32,26 +32,7 @@ public class CommandGetSpendingByDay extends Command {
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());
-            return;
         }
-    }
-
-    /**
-     * Function to output a String message as a pop-up below GUI when an error is encountered.
-     * @param data is the output message
-     */
-    public void outputError(String data) {
-        this.infoCapsule.setCodeError();
-        this.infoCapsule.setOutputStr(data);
-    }
-
-    /**
-     * Function to output a String message on the GUI when an error is encountered.
-     * @param errorMessage is the output message
-     */
-    private void outputMessageOnGui(String errorMessage) {
-        this.infoCapsule.setCodeCli();
-        this.infoCapsule.setOutputStr(errorMessage);
     }
 
     /**
@@ -62,7 +43,8 @@ public class CommandGetSpendingByDay extends Command {
     private void checkUserInput(StorageManager storageManager) throws DukeException {
         userDateInput = Parser.parseForPrimaryInput(CommandType.EXPENDEDDAY, userInput);
         if (storageManager.getWallet().getReceipts().size() == 0) {
-            outputError("No receipts found in storage");
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("No receipts found in storage");
             return;
         }
         if (!userDateInput.equals("today") && (!userDateInput.equals("yesterday"))) {
@@ -115,7 +97,8 @@ public class CommandGetSpendingByDay extends Command {
     private void expenditureForDateInFuture(StorageManager storageManager) throws DukeException {
         String tempDate = dateInLocal.toString();
         totalMoney = storageManager.getReceiptsByDate(tempDate).getNettCashSpent();
-        outputMessageOnGui("The total amount of money spent on "
+        this.infoCapsule.setCodeCli();
+        this.infoCapsule.setOutputStr("The total amount of money spent on "
                 + dateInLocal + " is $" + totalMoney
                 + "\nNOTE : The date input is in the future");
     }
@@ -128,7 +111,8 @@ public class CommandGetSpendingByDay extends Command {
     private void expenditureForYesterday(StorageManager storageManager) throws DukeException {
         String dateYesterday = LocalDate.now().minusDays(1).toString();
         totalMoney = storageManager.getReceiptsByDate(dateYesterday).getNettCashSpent();
-        outputMessageOnGui("The total amount of money spent yesterday "
+        this.infoCapsule.setCodeCli();
+        this.infoCapsule.setOutputStr("The total amount of money spent yesterday "
                 + "(" + dateYesterday + ") " + "is $" + totalMoney);
     }
 
@@ -141,7 +125,8 @@ public class CommandGetSpendingByDay extends Command {
 
         String dateToday = LocalDate.now().toString();
         totalMoney = storageManager.getReceiptsByDate(dateToday).getNettCashSpent();
-        outputMessageOnGui("The total amount of money spent today "
+        this.infoCapsule.setCodeCli();
+        this.infoCapsule.setOutputStr("The total amount of money spent today "
                 + "(" + dateToday + ") " + "is $" + totalMoney);
     }
 
@@ -152,7 +137,8 @@ public class CommandGetSpendingByDay extends Command {
      */
     private void expenditureForDate(StorageManager storageManager) throws DukeException {
         totalMoney = storageManager.getReceiptsByDate(userDateInput).getNettCashSpent();
-        outputMessageOnGui("The total amount of money spent on "
+        this.infoCapsule.setCodeCli();
+        this.infoCapsule.setOutputStr("The total amount of money spent on "
                 + userDateInput + " is $" + totalMoney);
     }
 }

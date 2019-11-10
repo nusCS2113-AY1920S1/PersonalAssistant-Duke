@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CommandGetSpendingByDayTest {
+class CommandGetSpendingByDayTest {
     @Test
     void execute() {
         StorageManager storageManager = new StorageManager();
@@ -91,7 +91,7 @@ public class CommandGetSpendingByDayTest {
         c6.execute(storageManager);
         String ans6 = c6.getInfoCapsule().getOutputStr();
         assertEquals("Input is invalid."
-                +" FORMAT : expendedday "
+                + " FORMAT : expendedday "
                 + "\ntoday or"
                 + "\nyesterday or"
                 + "\nYYYY-MM-DD",
@@ -101,7 +101,7 @@ public class CommandGetSpendingByDayTest {
         c7.execute(storageManager);
         String ans7 = c7.getInfoCapsule().getOutputStr();
         assertEquals("Input is invalid."
-                +" FORMAT : expendedday "
+                + " FORMAT : expendedday "
                 + "\ntoday or"
                 + "\nyesterday or"
                 + "\nYYYY-MM-DD",

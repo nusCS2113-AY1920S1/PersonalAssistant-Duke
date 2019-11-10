@@ -1,4 +1,3 @@
-import executor.command.CommandGetSpendingByMonth;
 import executor.command.CommandGetSpendingByYear;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
@@ -8,7 +7,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CommandGetSpendingByYearTest {
+class CommandGetSpendingByYearTest {
 
     @Test
     void execute() {

@@ -1,13 +1,23 @@
 package executor.command;
 
+import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
 import ui.UiCode;
 
+import java.time.LocalDate;
 import java.time.Year;
+import java.time.YearMonth;
 
 public class CommandGetSpendingByMonth extends Command {
     protected String userInput;
+    private String monthStr;
+    private int month;
+    private int year;
+    private int daysRemaining;
+    private Double totalMoney;
+    private String yearStr;
+    private boolean isThisMonth = false;
 
     /**
      * Constructor to explain about the command.
@@ -24,67 +34,15 @@ public class CommandGetSpendingByMonth extends Command {
     @Override
     public void execute(StorageManager storageManager) {
         try {
-            String monthStr = (Parser.parseForPrimaryInput(CommandType.EXPENDEDMONTH, userInput)).toLowerCase();
-            if (monthStr.isEmpty()) {
-                this.infoCapsule.setCodeError();
-                this.infoCapsule.setOutputStr("No month input detected. FORMAT : expendedmonth <month> /year <year>");
-                return;
-            }
-
-            int month = monthStrToInt(monthStr);
-            if (month == 0) {
-                this.infoCapsule.setCodeError();
-                this.infoCapsule.setOutputStr("Wrong month input. Check Spelling");
-                return;
-            }
-
-            String yearStr = Parser.parseForFlag("year", userInput);
-            if (yearStr.isEmpty()) {
-                this.infoCapsule.setCodeError();
-                this.infoCapsule.setOutputStr("No year input detected. FORMAT : expendedmonth <month> /year <year>");
-                return;
-            }
-
-            if (yearStr.length() != 4) {
-                this.infoCapsule.setCodeError();
-                this.infoCapsule.setOutputStr("Year input contains lesser/extra number of variables. "
-                        + "\nFORMAT : expendedmonth <month> /year <year>");
-                return;
-            }
-
-            try {
-                int year = Integer.parseInt(yearStr);
-                if (year > Year.now().getValue()) {
-                    this.infoCapsule.setCodeError();
-                    this.infoCapsule.setOutputStr("Future year entered is invalid!");
-                    return;
-                }
-
-                if (year < 1800) {
-                    this.infoCapsule.setCodeError();
-                    this.infoCapsule.setOutputStr("Year is too far back into the past");
-                    return;
-                }
-                Double totalMoney = storageManager.getReceiptsByMonthDate(month, year).getTotalExpenses();
-                this.infoCapsule.setUiCode(UiCode.CLI);
-                this.infoCapsule.setOutputStr("The total amount of money spent in "
-                        + monthStr
-                        + " "
-                        + year
-                        + " : $"
-                        + totalMoney
-                        + "\n");
-
-            } catch (Exception e) {
-                this.infoCapsule.setCodeError();
-                this.infoCapsule.setOutputStr("Year input is either a double or contains String values.\n "
-                        + "FORMAT : expendedmonth <month> /year <year>\n");
-                return;
-            }
+            checkMonthInput();
+            checkIfYearIsCorrect();
+            outputOfExpenditure(storageManager);
+        } catch (DukeException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr(e.getMessage());
         } catch (Exception e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr("Wrong format! FORMAT : expendedmonth <month> /year <year>");
-            return;
         }
     }
 
@@ -93,7 +51,7 @@ public class CommandGetSpendingByMonth extends Command {
      * @param month is the name of month from the userInput
      * @return the value of month, eg: march --> 3.
      */
-    public int monthStrToInt(String month) {
+    private int monthStrToInt(String month) {
         switch (month) {
         case "january":
             return 1;
@@ -121,6 +79,96 @@ public class CommandGetSpendingByMonth extends Command {
             return 12;
         default:
             return 0;
+        }
+    }
+
+    /**
+     * Function to output the expenditure.
+     * @param storageManager is the class that contains all the getter functions for the wallet
+     * @throws DukeException is the error message
+     */
+    private void outputOfExpenditure(StorageManager storageManager) throws DukeException {
+        try {
+            year = Integer.parseInt(yearStr);
+            checkCredibilityOfYear();
+            totalMoney = storageManager.getReceiptsByMonthDate(month, year).getTotalExpenses();
+            if (isThisMonth) {
+                this.infoCapsule.setUiCode(UiCode.CLI);
+                this.infoCapsule.setOutputStr(outputMessage() + "Number of day(s) left in this month is/are "
+                        + daysRemaining);
+            } else {
+                this.infoCapsule.setUiCode(UiCode.CLI);
+                this.infoCapsule.setOutputStr(outputMessage());
+            }
+        } catch (Exception e) {
+            throw new DukeException("Year input is either a double or contains String values.\n "
+                    + "FORMAT : expendedmonth <month> /year <year>\n");
+        }
+    }
+
+    private String outputMessage() {
+        return "The total amount of money spent in "
+                + monthStr
+                + " "
+                + year
+                + " : $"
+                + totalMoney
+                + "."
+                + "\n";
+    }
+
+    /**
+     * Function to check if the month input is correct.
+     * @throws DukeException is the error message
+     */
+    private void checkMonthInput() throws DukeException {
+        monthStr = (Parser.parseForPrimaryInput(CommandType.EXPENDEDMONTH, userInput)).toLowerCase();
+        if (monthStr.isEmpty()) {
+            throw new DukeException("No month input detected. FORMAT : expendedmonth <month> /year <year>");
+        }
+
+        if (monthStr.equals(LocalDate.now().getMonth().toString().toLowerCase())) {
+            isThisMonth = true;
+            YearMonth yearMonthObject = YearMonth.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue());
+            int daysInMonth = yearMonthObject.lengthOfMonth();
+            int currday = LocalDate.now().getDayOfMonth();
+            daysRemaining = daysInMonth - currday;
+        }
+
+        month = monthStrToInt(monthStr);
+        if (month == 0) {
+            throw new DukeException("Wrong month input. Check Spelling");
+        }
+    }
+
+    /**
+     * Function to check if the year input is correct.
+     * @throws DukeException is the error message
+     */
+    private void checkIfYearIsCorrect() throws DukeException {
+        yearStr = Parser.parseForFlag("year", userInput);
+        assert yearStr != null;
+        if (yearStr.isEmpty()) {
+            throw new DukeException("No year input detected. FORMAT : expendedmonth <month> /year <year>");
+        }
+
+        if (yearStr.length() != 4) {
+            throw new DukeException("Year input contains lesser/extra number of variables. "
+                    + "\nFORMAT : expendedmonth <month> /year <year>");
+        }
+    }
+
+    /**
+     * Function to check if the year input taken in is credible.
+     * @throws DukeException is the error message
+     */
+    private void checkCredibilityOfYear() throws DukeException {
+        if (year > Year.now().getValue()) {
+            throw new DukeException("Future year entered is invalid!");
+        }
+
+        if (year < 1800) {
+            throw new DukeException("Year is too far back into the past");
         }
     }
 }
