@@ -197,6 +197,31 @@ class ProjectInputControllerTest {
                 + "2. Jerry: 0 credits   Progress: .................... (0%)"
                 + "3. Sean: 3 credits   Progress: #################### (100%)";
         assertEquals(expectedOutput, actualOutput);
+
+        simulatedUserInput = "edit task 1 -c 45";
+        projectInputController.projectEditTask(project, simulatedUserInput);
+
+        actualOutput = "";
+        for (String message : project.getCredits().toArray(new String[0])) {
+            actualOutput += message;
+        }
+        expectedOutput = "1. Dillen: 3 credits   Progress: ###................. (15%)"
+                + "2. Jerry: 0 credits   Progress: .................... (0%)"
+                + "3. Sean: 3 credits   Progress: #################### (100%)";
+        assertEquals(expectedOutput, actualOutput);
+
+        simulatedUserInput = "edit task 1 -s done";
+        projectInputController.projectEditTask(project, simulatedUserInput);
+
+        actualOutput = "";
+        for (String message : project.getCredits().toArray(new String[0])) {
+            actualOutput += message;
+        }
+        expectedOutput = "1. Dillen: 18 credits   Progress: #################### (100%)"
+                + "2. Jerry: 15 credits   Progress: #################### (100%)"
+                + "3. Sean: 3 credits   Progress: #################### (100%)";
+        assertEquals(expectedOutput, actualOutput);
+
     }
 
     @Test
