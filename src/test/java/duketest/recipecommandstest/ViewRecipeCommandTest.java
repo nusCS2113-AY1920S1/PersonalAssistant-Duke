@@ -36,7 +36,7 @@ public class ViewRecipeCommandTest {
                 "    Rating: Good\n" +
                 "\n" +
                 "    Preparation Steps: \n" +
-                "No preparation steps provided yet.\n" +
+                "    No preparation steps provided yet.\n" +
                 "\n" +
                 "    Required Ingredients: \n" +
                 "    1.  rice [1.0 | G | 50% brown rice] \n" +

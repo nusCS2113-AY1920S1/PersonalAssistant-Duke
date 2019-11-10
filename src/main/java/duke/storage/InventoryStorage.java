@@ -66,13 +66,6 @@ public class InventoryStorage {
             }
         }
 
-//        if (Files.notExists(Paths.get(filePathInventory))) {
-//            try {
-//                Files.createDirectory(Paths.get("data/"));
-//            } catch (IOException e) {
-//                System.out.println("Unknown IO error when creating 'data/' folder.");
-//            }
-//        }
         try {
             InputStream inputStream;
             if (filePathInventory.equals(filePathInventoryTest)) {

@@ -71,7 +71,6 @@ public class RecipeStorage {
             if (filePathRecipes.equals(filePathRecipeTest)) {
                 inputStream = getClass().getResourceAsStream("/datatest/recipesTest.txt");
             } else {
-                System.out.println("is here gg.com...");
                 inputStream = getClass().getResourceAsStream("/data/recipes.txt");
             }
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);

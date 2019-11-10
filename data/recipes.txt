@@ -4,13 +4,15 @@ duck rice | 10 | Unrated | No preparation steps provided yet. | jasmine rice , 1
 FFEefwFDwwdDEW | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 garlic prawn | Unknown preparation time | Good | No preparation steps provided yet. | garlic , 1.0 , G , No additional information. | No feedback yet.
 rice | 10 | Unrated | No preparation steps provided yet. | brown rice , 1.0 , G , No additional information. | No feedback yet.
+rrrr | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 sphagetti | 10 | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
-test | Unknown preparation time | Unrated | No preparation steps provided yet.          /        rinse first       /       rinse second | No required ingredient. | No feedback yet.
+test | Unknown preparation time | Unrated | No preparation steps provided yet.            /          rinse first         /         rinse second | No required ingredient. | No feedback yet.
 test rice | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 testcake | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 testest | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 testtest | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 tr | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
+trtr | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 tt | Unknown preparation time | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 ttt | Unknown preparation time | Unrated | rinse first | No required ingredient. | No feedback yet.
 tttt | Unknown preparation time | Unrated | rinse first | No required ingredient. | No feedback yet.
