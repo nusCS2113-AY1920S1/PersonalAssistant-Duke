@@ -70,7 +70,8 @@ public class SearchCommand extends Command {
                                         + dateList.get(i - 1).toString() + " and " + dateList.get(i).toString());
                     } else {
                         UiMessageHandler
-                                .outputMessage("You can schedule something from now till " + dateList.get(i).toString());
+                                .outputMessage("You can schedule something from now till "
+                                    + dateList.get(i).toString());
                     }
                     found = true;
                     break;
@@ -79,7 +80,7 @@ public class SearchCommand extends Command {
 
             if (!found) {
                 UiMessageHandler.outputMessage(
-                        "You can schedule something after the " + dateList.get(dateList.size() - 1).toString());
+                    "You can schedule something after the " + dateList.get(dateList.size() - 1).toString());
             }
         }
 

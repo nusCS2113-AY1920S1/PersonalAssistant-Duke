@@ -14,6 +14,6 @@ public class WeekCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         tasks.updateWeek(weekNumber);
-        tasks.updateGUI(null);
+        tasks.updateGui(null);
     }
 }

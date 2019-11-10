@@ -177,7 +177,7 @@ public class PostponeCommand extends Command {
         taskToBePostponed.setStartDate(startDate);
         taskToBePostponed.setEndDate(toDate);
         ChronologerStateList.addState((tasks.getTasks()));
-        tasks.updateGUI(null);
+        tasks.updateGui(null);
         storage.saveFile(tasks.getTasks());
     }
 
@@ -196,7 +196,7 @@ public class PostponeCommand extends Command {
         checkDeadlineDate(startDate, taskToBePostponed.getStartDate());
         taskToBePostponed.setStartDate(startDate);
         ChronologerStateList.addState((tasks.getTasks()));
-        tasks.updateGUI(null);
+        tasks.updateGui(null);
         storage.saveFile(tasks.getTasks());
     }
 

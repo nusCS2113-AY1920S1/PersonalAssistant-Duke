@@ -22,7 +22,7 @@ public class RedoCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         tasks.updateListOfTasks(ChronologerStateList.redo());
-        tasks.updateGUI(null);
+        tasks.updateGui(null);
         storage.saveFile(tasks.getTasks());
         UiMessageHandler.outputMessage("Redo successful!");
     }

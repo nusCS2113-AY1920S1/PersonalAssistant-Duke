@@ -39,11 +39,11 @@ public abstract class Command {
      *
      * @param tasks Holds the list that need to be formatted for UI.
      */
-    void outputRequiredList(ArrayList<Task> tasks , String title) {
+    void outputRequiredList(ArrayList<Task> tasks, String title) {
         int i = 1;
         String requiredList = "";
         for (Task task : tasks) {
-         requiredList += i++ + "." + task.toString() + "\n";
+            requiredList += i++ + "." + task.toString() + "\n";
         }
         UiMessageHandler.outputMessage(title + "\n" + requiredList);
     }

@@ -46,7 +46,7 @@ public class PriorityCommand extends Command {
         Task task = tasks.getTasks().get(indexOfTask);
         task.setPriority(newPriority);
         ChronologerStateList.addState((tasks.getTasks()));
-        tasks.updateGUI(null);
+        tasks.updateGui(null);
         storage.saveFile(tasks.getTasks());
         UiMessageHandler.outputMessage("Got it! " + task.getDescription() + " priority level is now " + priorityString);
     }

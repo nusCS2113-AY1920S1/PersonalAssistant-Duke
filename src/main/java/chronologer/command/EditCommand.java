@@ -35,7 +35,8 @@ public class EditCommand extends Command {
             Task taskToEdit = tasks.editTaskDescription(indexOfTask, newDescription);
             ChronologerStateList.addState((tasks.getTasks()));
             storage.saveFile(tasks.getTasks());
-            UiMessageHandler.outputMessage("Noted. Your new task description is:" + "\n " + taskToEdit.getDescription());
+            UiMessageHandler.outputMessage("Noted. Your new task description is:" + "\n "
+                + taskToEdit.getDescription());
         }
     }
 }

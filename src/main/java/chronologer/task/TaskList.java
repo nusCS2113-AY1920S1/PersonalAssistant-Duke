@@ -385,7 +385,7 @@ public class TaskList {
         return taskToBeEdited;
     }
 
-    public void updateGUI(Task task) {
+    public void updateGui(Task task) {
         observableListOfTasks.add(task);
         observableListOfTasks.remove(task);
     }

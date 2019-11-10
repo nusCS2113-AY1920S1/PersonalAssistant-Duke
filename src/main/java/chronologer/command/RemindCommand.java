@@ -40,7 +40,7 @@ public class RemindCommand extends Command {
         ChronologerStateList.addState((tasks.getTasks()));
         storage.saveFile(tasks.getTasks());
 
-        UiMessageHandler.outputMessage(String.format("Okay! You'll get a reminder for this task %d days beforehand:", days)
-            + "  " + task.toString());
+        UiMessageHandler.outputMessage(String.format("Okay! You'll get a reminder for this task %d "
+            + "days beforehand:", days) + "  " + task.toString());
     }
 }

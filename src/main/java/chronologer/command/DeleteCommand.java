@@ -33,8 +33,8 @@ public class DeleteCommand extends Command {
             Task task = tasks.delete(indexOfTask);
             ChronologerStateList.addState(tasks.getTasks());
             storage.saveFile(tasks.getTasks());
-            UiMessageHandler.outputMessage("Noted. I've removed this task:" + "\n " + task.toString() + "\nNow you have "
-                + tasks.getSize() + " task(s) in the list.");
+            UiMessageHandler.outputMessage("Noted. I've removed this task:" + "\n " + task.toString()
+                + "\nNow you have " + tasks.getSize() + " task(s) in the list.");
         }
     }
 }

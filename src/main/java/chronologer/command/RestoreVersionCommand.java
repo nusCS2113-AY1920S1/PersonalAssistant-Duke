@@ -21,7 +21,7 @@ public class RestoreVersionCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         tasks.updateListOfTasks(ChronologerStateList.restoreVersion(tasks.getTasks(), versionNumber));
-        tasks.updateGUI(null);
+        tasks.updateGui(null);
         storage.saveFile(tasks.getTasks());
     }
 }

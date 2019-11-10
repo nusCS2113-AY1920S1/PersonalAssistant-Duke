@@ -85,8 +85,7 @@ public class ScheduleParser extends IndexParser {
         if (stringToCheck.isEmpty()) {
             UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
-        }
-        else if (stringToCheck.contains("/")) {
+        } else if (stringToCheck.contains("/")) {
             return DATE_INPUT;
         }
         return INDEX_INPUT;

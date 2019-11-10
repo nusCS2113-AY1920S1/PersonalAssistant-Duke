@@ -9,6 +9,7 @@ package chronologer.ui;
 public class UiMessageHandler {
     private static final String CHRONOLOGER_WELCOME_MESSAGE = "Hello! I'm Chronologer, your task manager!";
     private static final String CHRONOLOGER_GOODBYE_MESSAGE = "Goodbye! Have a pleasant day!";
+
     enum Manual {
         GREETING("Hi, this is the Chronologer manual!\n"),
         DATE_FORMAT("For all commands with date-time, the format is - dd/MM/yyyy HHmm\n\n"),

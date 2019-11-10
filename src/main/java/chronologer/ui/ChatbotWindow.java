@@ -154,7 +154,7 @@ class ChatbotWindow extends UiComponent<Region> {
     }
 
     /**
-     * Stores the history of the user's input to allow the scrolling through of the inputs!
+     * Stores the history of the user's input to allow the scrolling through of the inputs.
      */
     private void storeUserInputHistory(String input) {
         if (userInputHistoryPointer != userInputHistory.size() - 1
