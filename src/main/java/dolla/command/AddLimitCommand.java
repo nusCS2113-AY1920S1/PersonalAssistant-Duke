@@ -18,6 +18,7 @@ public class AddLimitCommand extends Command {
     private double amount;
     private String duration;
     private static final String mode = MODE_LIMIT;
+    private int nonExistingIndex = - 1;
 
     /**
      * Instantiates a new AddLimitCommand.
@@ -40,6 +41,7 @@ public class AddLimitCommand extends Command {
 
         int duplicateLimitIndex = limitList.findExistingRecordIndex(dollaData, newLimit, mode);
         if (recordDoesNotExist(duplicateLimitIndex)) {
+            assert (duplicateLimitIndex == nonExistingIndex);
             dollaData.addToRecordList(mode, newLimit);
             LimitUi.echoAddRecord(newLimit);
         } else {
