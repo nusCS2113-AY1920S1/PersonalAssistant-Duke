@@ -4,6 +4,7 @@ import Commands.Command;
 import Commands.RecurringCommand;
 import Commons.DukeConstants;
 import Commons.DukeLogger;
+import Commons.ModCodeChecker;
 import DukeExceptions.DukeInvalidCommandException;
 import DukeExceptions.DukeInvalidDateTimeException;
 import DukeExceptions.DukeInvalidFormatException;
@@ -23,6 +24,7 @@ public class RecurParse extends Parse {
     private static String fullCommand;
     private static String[] modCodeAndDescriptionSplit;
     private final Logger LOGGER = DukeLogger.getLogger(RecurParse.class);
+    private ModCodeChecker modCodeChecker = ModCodeChecker.getInstance();
 
     public RecurParse(String fullCommand) {
         this.fullCommand = fullCommand;
@@ -54,10 +56,11 @@ public class RecurParse extends Parse {
             }
 
             if (!super.isValidModCodeAndDescription(modCodeAndDescription)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_EMPTY_MODCODE_DESCRIPTION_ERROR);
-            if (!super.isModCode(modCodeAndDescription)) {
+            String[] checkSplit = modCodeAndDescription.trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+            String modCode = checkSplit[0];
+            if (!modCodeChecker.isModCode(modCode)) {
                 throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.INVALID_MODCODE_ERROR);
             }
-            String[] checkSplit = modCodeAndDescription.trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
             if (!super.isValidDescription(checkSplit)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_EMPTY_DESCRIPTION_ERROR);
             if(!super.isValidTimePeriod(dateAndTime)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_TIME_FORMAT_ERROR);
             String[] in = DateTimeParser.recurringEventParse(dateAndTime);
