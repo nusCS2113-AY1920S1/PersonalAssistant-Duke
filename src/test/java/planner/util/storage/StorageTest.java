@@ -1,6 +1,6 @@
 //@@author namiwa
 
-package planner.util.Storage;
+package planner.util.storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import planner.util.storage.Storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
