@@ -209,7 +209,7 @@ Given below is an example usage scenario of how user input is handled:
 
 ==== Implementation
 
-.Sequence diagram of how user input is parsed into a command
+.Activity diagram of how user input is parsed into a command
 image::SGTravel_parseUserInput_diagram.png[width="1050" align="left"]
 
 Given below is an example usage scenario of how user input is handled:
@@ -220,7 +220,7 @@ Given below is an example usage scenario of how user input is handled:
 .  By checking if the `Conversation` in `ConversationManager` has ended, `parseComplexCommand(userInput)` will be called to try to parse the entire user input into a `Command`. Whereas if the `Conversation` has not ended, a `PromptCommand` is created by the `ConversationManager` using the `Conversation` and shown to the user.
 .  The `LogicManager` will then execute the `Command` and return a `CommandResult` to the `Ui`.
 
-.Sequence diagram of how Command is created by ConversationManager
+.Activity diagram of how Command is created by ConversationManager
 image::SGTravel_commandCreation.png[width="960" align="left"]
 
 ==== Design Considerations
