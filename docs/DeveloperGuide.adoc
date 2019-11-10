@@ -481,7 +481,7 @@ Given below is the sequence diagram of how the various components work in the `e
 
 .Sequence diagram for the execute() method in RecommendationsCommand
 
-image::SGTravel_recommend_command_diagram.png[height="550" width="980"]
+image::SGTravel_recommend_command_diagram.png[height="750" width="980"]
 
 Given below is an example usage scenario and how the `AddList` mechanism behaves and interacts in the `Model` after a `Recommendation` has been added :
 
@@ -499,7 +499,7 @@ Given below is the sequence diagram of how the various components work in the `e
 
 .Sequence diagram for the execute() method in RecommendationsCommand
 
-image::SGTravel_addList_command_diagram.png[height="550" width="980"]
+image::SGTravel_addList_command_diagram.png[height="750" width="980"]
 
 
 Other helper commands such as list,show and doneItineraries have not been shown but are an important interface to the user.
@@ -520,7 +520,7 @@ Other helper commands such as list,show and doneItineraries have not been shown 
 The completed itinerary feature would allow the user to create an itinerary like a conversation. This process would also allow the user to edit the itinerary before confirming and storing it. The app would use an algorithm to find the nearest attractions to the user's hotel stay (currently not implemented). It also recommend the most popular attractions based on the user's length of stay. The activity diagram for this feature is given below:
 
 .Activity diagram for the Itinerary Builder command 
-image::SGTravel_v.20_newItinerary_builder_diagram.png[height="950" width="1380"]
+image::SGTravel_v.20_newItinerary_builder_diagram.png[height="750" width="1080"]
 
 There are two main additions coming in v2.0 which are :
 
