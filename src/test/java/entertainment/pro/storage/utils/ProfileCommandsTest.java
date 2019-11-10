@@ -22,7 +22,7 @@ public class ProfileCommandsTest {
     static UserProfile userProfile;
     {
         try {
-            userProfile = EditProfileJson.load();
+            userProfile = new EditProfileJson().load();
         } catch (IOException e) {
             e.printStackTrace();
         }
