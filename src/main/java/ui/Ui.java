@@ -298,7 +298,7 @@ public class Ui {
                     + "Searching for tags of a word: search_tag w/WORD";
         } else {
             return "Here are the commands for WordUp.\n"
-                    + "add, delete, edit, exit, freq, help, history, list, list_tag"
+                    + "add, delete, edit, exit, freq, help, history, list, list_tags"
                     + " schedule, search, search_begin, search_tag, tag, addsyn, quiz\n"
                     + "Enter \"help [command]\" for more details.";
         }
