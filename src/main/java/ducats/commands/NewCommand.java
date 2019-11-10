@@ -5,6 +5,7 @@ import ducats.Storage;
 import ducats.Ui;
 import ducats.components.Song;
 import ducats.components.SongList;
+import ducats.Parser;
 
 //@@author jwyf
 /**
@@ -43,8 +44,16 @@ public class NewCommand extends Command<SongList> {
         Song song;
         try {
             String[] sections = message.substring(4).split(" ");
+            Parser parse =  new Parser();
 
             songName = sections[0];
+
+            if (songName.replaceAll("\\s+","").equals("")) {
+                throw new DucatsException(message,"whitespace_name");
+            }
+            if (parse.checkForSpecialCharacter(songName)) {
+                throw new DucatsException(message,"special_characters");
+            }
             if (songList.songExist(songName)) {
                 throw new DucatsException(message, "song name");
             }
@@ -59,6 +68,10 @@ public class NewCommand extends Command<SongList> {
         } catch (Exception e) {
             if (e instanceof DucatsException && ((DucatsException) e).getType().equals("song name")) {
                 throw new DucatsException(message, "song name");
+            }  else if (e instanceof DucatsException && ((DucatsException) e).getType().equals("special_characters")) {
+                throw new DucatsException(message, "special_characters");
+            } else if (e instanceof DucatsException && ((DucatsException) e).getType().equals("whitespace_name")) {
+                throw new DucatsException(message, "whitespace_name");
             } else {
                 throw new DucatsException(message, "new");
             }

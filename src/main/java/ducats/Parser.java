@@ -26,13 +26,28 @@ import ducats.commands.ByeCommand;
 import ducats.commands.MetronomeCommand;
 import ducats.components.Jaccard;
 import ducats.components.WordGetter;
-
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 
 /**
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
  */
 public class Parser {
+    /**
+     * This function checks if there is a special character in the given string.
+     * @param message - Refers to the string that needs to be checked
+     * @return true or false depending on if there is a special character
+     */
+    public boolean checkForSpecialCharacter(String message) {
+        Pattern letter = Pattern.compile("[a-zA-z]");
+        Pattern digit = Pattern.compile("[0-9]");
+        Pattern special = Pattern.compile("[!@#$%&*()+=|<>?{}\\[\\]~-]");
+        //Pattern eight = Pattern.compile (".{8}");
+
+        Matcher hasSpecial = special.matcher(message);
+        return hasSpecial.find();
+    }
 
     /**
      * Returns the duke.Commands.duke.Commands.Command object interpreted from the input message,
@@ -42,6 +57,7 @@ public class Parser {
      * @return the duke.Commands.duke.Commands.Command object interpreted from the input message
      * @throws DucatsException in the case of parsing errors
      */
+
     public static Command parse(Ui ui,String message) throws DucatsException {
         String [] commandList = {"bye", "list", "delete", "deletebar","editbar",
                                     "find","done", "new","help","view","addbar",
