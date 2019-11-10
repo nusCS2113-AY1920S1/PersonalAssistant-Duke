@@ -112,7 +112,7 @@ public class Module {
         String[] details = assmtDetails.split(" /a", 2);
         try {
             if (details[1].trim().isEmpty()) {
-                throw new DukeException(EMPTY_DESCRIPTION);
+                throw new DukeException("Please input a new assessment name.");
             }
         } catch (IndexOutOfBoundsException i) {
             throw new DukeException("Please input the command in the format \'edit assmt /n INDEX /a NEW_NAME\'.");
@@ -184,7 +184,7 @@ public class Module {
             throw new DukeException("Please input a number for the weightage.");
         }
         System.out.println("Okay we have successfully changed the weightage to:");
-        System.out.println(details[1].trim());
+        System.out.println(details[1].trim() + "%");
     }
 
     /**

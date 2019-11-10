@@ -4,7 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 //@@author yueyuu
+
+/**
+ * An event object.
+ */
 public class Event extends Task {
     public LocalDate date;
     public LocalTime start;
@@ -13,7 +18,15 @@ public class Event extends Task {
     private static DateTimeFormatter fmtED = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //formatter for date
     private static DateTimeFormatter fmtET = DateTimeFormatter.ofPattern("HH:mm:ss"); //formatter for time
 
-    public Event(String description, String at) throws DateTimeParseException, ArrayIndexOutOfBoundsException{
+    /**
+     * Creates an event object given a description, date and time.
+     *
+     * @param description the description of the event
+     * @param at contains the date and time of the event
+     * @throws DateTimeParseException if the date and time is in the wrong format
+     * @throws ArrayIndexOutOfBoundsException if the date and/or time is not provided
+     */
+    public Event(String description, String at) throws DateTimeParseException, ArrayIndexOutOfBoundsException {
         super(description);
         String[] dateTime = at.split(" ");
         String[] time = dateTime[1].split("-");
@@ -25,12 +38,17 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "E"+ "|" + super.getStatusIcon() + "|" + super.description + "|" + "at: " + fmtED.format(date)
+        return "E" + "|" + super.getStatusIcon() + "|" + super.description + "|" + "at: " + fmtED.format(date)
                 + " " + this.start.format(fmtET) + "-" + this.end.format(fmtET);
     }
 
-    public String listFormat(){
-        String dateString = date.format(DateTimeFormatter.ofPattern("dd LLL yyyy"));// You can change to this format
+    /**
+     * Formats the event's description, date and time into the correct format to be printed.
+     *
+     * @return the event as a formatted string
+     */
+    public String listFormat() {
+        String dateString = date.format(DateTimeFormatter.ofPattern("dd LLL yyyy"));
 
         return "[E]" + "[" + super.getStatusIcon() + "]" + super.description + "(at:" + dateString + " "
                 + this.start.format(fmtET) + "-" + this.end.format(fmtET) + ")";

@@ -1,6 +1,6 @@
 //@@author yueyuu
 
-package GeneralNotePageTest;
+package generalnotepagetest;
 
 import gazeeebo.exception.DukeException;
 import gazeeebo.notes.GeneralNotePage;
@@ -40,15 +40,6 @@ class GeneralNotePageTest extends GeneralNotePage {
 
 
     @Test
-    void viewGeneralNotePageTest() {
-        viewGeneralNotePage();
-        assertEquals("Goal: i want to be a rock star\r\n"
-                + "\r\n"
-                + "Modules:\r\n"
-                + "1. cs2101\r\n", output.toString());
-    }
-
-    @Test
     void editGoal_userInputsAGoal_success() throws DukeException {
         editGoal("hello");
         assertEquals("Okay we have successfully updated your goal to:\r\n" + "hello\r\n", output.toString());
@@ -58,6 +49,16 @@ class GeneralNotePageTest extends GeneralNotePage {
     void editGoal_userDoesNotInputGoal_exceptionThrown() {
         try {
             editGoal("");
+            fail();
+        } catch (DukeException d) {
+            assertEquals(EMPTY_DESCRIPTION, d.getMessage());
+        }
+    }
+
+    @Test
+    void addModule_noModuleProvided_exceptionThrown() {
+        try {
+            addModule("");
             fail();
         } catch (DukeException d) {
             assertEquals(EMPTY_DESCRIPTION, d.getMessage());
@@ -78,6 +79,16 @@ class GeneralNotePageTest extends GeneralNotePage {
                 + "cs2113t\r\n", output.toString());
     }
 
+
+    @Test
+    void deleteModule_moduleNotProvided_exceptionThrown() {
+        try {
+            deleteModule("");
+            fail();
+        } catch (DukeException d) {
+            assertEquals(EMPTY_DESCRIPTION, d.getMessage());
+        }
+    }
 
     @Test
     void deleteModule_moduleNonExistent_errorMessageShown() throws DukeException {

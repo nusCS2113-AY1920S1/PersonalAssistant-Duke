@@ -1,3 +1,5 @@
+//@@author yueyuu
+
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.tasks.EventCommand;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class EventCommandTest {
     //creating a stream to hold the output
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -31,7 +34,7 @@ class EventCommandTest {
     }
 
     @AfterEach
-    void restoreStream(){
+    void restoreStream() {
         System.out.flush();
         System.setOut(original);
     }
@@ -55,11 +58,11 @@ class EventCommandTest {
         } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
         }
-        assertEquals("The following event(s) clash with your current event:\r\n" +
-                "1.[E][ND]eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
-                "Got it. I've added this task:\r\n" +
-                "[E][ND]sleep(at:12 Dec 2019 03:03:03-04:04:04)\r\n" +
-                "Now you have 2 tasks in the list.\r\n", output.toString());
+        assertEquals("The following event(s) clash with your current event:\r\n"
+                + "1.[E][ND]eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n"
+                + "Got it. I've added this task:\r\n"
+                + "[E][ND]sleep(at:12 Dec 2019 03:03:03-04:04:04)\r\n"
+                + "Now you have 2 tasks in the list.\r\n", output.toString());
     }
 
     @Test
@@ -80,11 +83,11 @@ class EventCommandTest {
         } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
         }
-        assertEquals("The following event(s) clash with your current event:\r\n" +
-                "1.[E][ND]eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
-                "Got it. I've added this task:\r\n" +
-                "[E][ND]sleep(at:12 Dec 2019 02:03:03-03:10:04)\r\n" +
-                "Now you have 2 tasks in the list.\r\n", output.toString());
+        assertEquals("The following event(s) clash with your current event:\r\n"
+                + "1.[E][ND]eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n"
+                + "Got it. I've added this task:\r\n"
+                + "[E][ND]sleep(at:12 Dec 2019 02:03:03-03:10:04)\r\n"
+                + "Now you have 2 tasks in the list.\r\n", output.toString());
     }
 
     @Test
@@ -105,11 +108,11 @@ class EventCommandTest {
         } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
         }
-        assertEquals("The following event(s) clash with your current event:\r\n" +
-                "1.[E][ND]eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
-                "Got it. I've added this task:\r\n" +
-                "[E][ND]sleep(at:12 Dec 2019 03:10:03-03:50:04)\r\n" +
-                "Now you have 2 tasks in the list.\r\n", output.toString());
+        assertEquals("The following event(s) clash with your current event:\r\n"
+                + "1.[E][ND]eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n"
+                + "Got it. I've added this task:\r\n"
+                + "[E][ND]sleep(at:12 Dec 2019 03:10:03-03:50:04)\r\n"
+                + "Now you have 2 tasks in the list.\r\n", output.toString());
     }
 
     @Test
@@ -129,9 +132,9 @@ class EventCommandTest {
         } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
         }
-        assertEquals("Got it. I've added this task:\r\n" +
-                "[E][ND]sleep(at:12 Dec 2019 12:03:03-14:10:04)\r\n" +
-                "Now you have 2 tasks in the list.\r\n", output.toString());
+        assertEquals("Got it. I've added this task:\r\n"
+                + "[E][ND]sleep(at:12 Dec 2019 12:03:03-14:10:04)\r\n"
+                + "Now you have 2 tasks in the list.\r\n", output.toString());
     }
 
 }
