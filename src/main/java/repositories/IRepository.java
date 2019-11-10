@@ -11,4 +11,6 @@ public interface IRepository<T> {
     boolean deleteItem(int projectNumber);
 
     T getItem(int projectNumber);
+
+    void saveToRepo(T object);
 }

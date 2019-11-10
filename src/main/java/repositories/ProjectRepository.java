@@ -50,6 +50,14 @@ public class ProjectRepository implements IRepository<Project> {
     }
 
     /**
+     * Method to force save an Object to the Data layer
+     * @param object : Object to be saved.
+     */
+    public void saveToRepo(Project object) {
+        jsonConverter.saveProject(object);
+    }
+
+    /**
      * Method for deletion of projects.
      * @param projectNumber : Index of project that user wishes to delete
      * @return Returns a boolean that states whether the project is deleted successfully

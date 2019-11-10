@@ -1,7 +1,6 @@
 # Configuration Files in saves
 /src/main/saves/
 ./*.json
-*.json
 
 # Logs file to ingore
 /logs/*

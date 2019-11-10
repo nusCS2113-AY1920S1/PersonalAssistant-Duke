@@ -1,0 +1,178 @@
+{
+  "name": "avengers",
+  "memberList": {
+    "memberList": [
+      {
+        "name": "Tester1",
+        "phone": "--",
+        "email": "--",
+        "indexNumber": 1,
+        "role": "member",
+        "memberID": "72933735-c30f-48ef-bd08-bf33e1e3c765"
+      },
+      {
+        "name": "Tester2",
+        "phone": "91234567",
+        "email": "--",
+        "indexNumber": 2,
+        "role": "member",
+        "memberID": "0ca98521-7f2e-48b5-804a-9beb2545fdd2"
+      },
+      {
+        "name": "Tester3",
+        "phone": "--",
+        "email": "asdf@gmail.com",
+        "indexNumber": 3,
+        "role": "member",
+        "memberID": "8386b26e-d2d8-431c-8d03-fe6c95bb8a86"
+      },
+      {
+        "name": "Tester4",
+        "phone": "--",
+        "email": "--",
+        "indexNumber": 4,
+        "role": "Leader",
+        "memberID": "48d7e5bb-a090-4575-b332-7df3d7309b94"
+      },
+      {
+        "name": "Tester5",
+        "phone": "12341234",
+        "email": "hihi@zoho.com",
+        "indexNumber": 5,
+        "role": "member",
+        "memberID": "41642169-600a-4dab-8e76-ed6f39f285f7"
+      }
+    ],
+    "parserHelper": {
+      "sortHelper": {},
+      "errorMessages": []
+    },
+    "validityHelper": {}
+  },
+  "taskList": {
+    "taskList": [
+      {
+        "taskName": "TestCase1",
+        "taskPriority": 1,
+        "taskCredit": 1,
+        "taskState": "OPEN",
+        "taskRequirements": [],
+        "dateTimeHelper": {
+          "calender": {
+            "year": 2019,
+            "month": 10,
+            "dayOfMonth": 10,
+            "hourOfDay": 3,
+            "minute": 28,
+            "second": 33
+          }
+        },
+        "taskID": "18b3863e-750e-4043-ac1a-508df92b76bd"
+      },
+      {
+        "taskName": "TestCase2",
+        "taskPriority": 2,
+        "taskCredit": 2,
+        "taskState": "OPEN",
+        "taskRequirements": [],
+        "dateTimeHelper": {
+          "calender": {
+            "year": 2019,
+            "month": 10,
+            "dayOfMonth": 10,
+            "hourOfDay": 3,
+            "minute": 28,
+            "second": 40
+          }
+        },
+        "taskID": "c15ab778-7157-4a46-bc12-ff8181bf41dd"
+      },
+      {
+        "taskName": "TestCase3",
+        "taskPriority": 4,
+        "taskCredit": 4,
+        "taskState": "OPEN",
+        "taskRequirements": [],
+        "dateTimeHelper": {
+          "calender": {
+            "year": 2019,
+            "month": 10,
+            "dayOfMonth": 10,
+            "hourOfDay": 3,
+            "minute": 28,
+            "second": 47
+          }
+        },
+        "taskID": "ebbb76fb-e42d-49b3-a9dd-e8e3700e3af5"
+      },
+      {
+        "taskName": "TestCase4",
+        "taskPriority": 5,
+        "taskCredit": 5,
+        "taskState": "OPEN",
+        "taskRequirements": [
+          "TestCase1 TestCase2 TestCase3"
+        ],
+        "dateTimeHelper": {
+          "calender": {
+            "year": 2019,
+            "month": 10,
+            "dayOfMonth": 10,
+            "hourOfDay": 3,
+            "minute": 29,
+            "second": 4
+          }
+        },
+        "taskID": "b0d2bc31-1c33-41fa-8213-8fd9a8ba0e75"
+      }
+    ],
+    "parserHelper": {
+      "sortHelper": {},
+      "errorMessages": []
+    },
+    "sortHelper": {},
+    "dateTimeHelper": {
+      "calender": {
+        "year": 2019,
+        "month": 10,
+        "dayOfMonth": 10,
+        "hourOfDay": 3,
+        "minute": 26,
+        "second": 29
+      }
+    }
+  },
+  "reminderList": {
+    "reminderList": []
+  },
+  "taskAndListOfMembersAssigned": {
+    "18b3863e-750e-4043-ac1a-508df92b76bd": [
+      "72933735-c30f-48ef-bd08-bf33e1e3c765"
+    ],
+    "b0d2bc31-1c33-41fa-8213-8fd9a8ba0e75": [],
+    "c15ab778-7157-4a46-bc12-ff8181bf41dd": [
+      "0ca98521-7f2e-48b5-804a-9beb2545fdd2",
+      "8386b26e-d2d8-431c-8d03-fe6c95bb8a86"
+    ],
+    "ebbb76fb-e42d-49b3-a9dd-e8e3700e3af5": [
+      "8386b26e-d2d8-431c-8d03-fe6c95bb8a86",
+      "48d7e5bb-a090-4575-b332-7df3d7309b94"
+    ]
+  },
+  "memberAndIndividualListOfTasks": {
+    "0ca98521-7f2e-48b5-804a-9beb2545fdd2": [
+      "c15ab778-7157-4a46-bc12-ff8181bf41dd"
+    ],
+    "72933735-c30f-48ef-bd08-bf33e1e3c765": [
+      "18b3863e-750e-4043-ac1a-508df92b76bd"
+    ],
+    "8386b26e-d2d8-431c-8d03-fe6c95bb8a86": [
+      "c15ab778-7157-4a46-bc12-ff8181bf41dd",
+      "ebbb76fb-e42d-49b3-a9dd-e8e3700e3af5"
+    ],
+    "48d7e5bb-a090-4575-b332-7df3d7309b94": [
+      "ebbb76fb-e42d-49b3-a9dd-e8e3700e3af5"
+    ],
+    "41642169-600a-4dab-8e76-ed6f39f285f7": []
+  }
+}

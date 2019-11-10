@@ -140,25 +140,6 @@ cleaning, or object creation.
 * `Data` layer: Responsible for saving and loading persistent data from hard disk.
 
 Each layer will be discussed in detail below.
-// Each of the four components
-
-// * Defines its _API_ in an `interface` with the same name as the Component.
-// * Exposes its functionality using a `{Component Name}Manager` class.
-
-// For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-// .Class Diagram of the Logic Component
-// // image::LogicClassDiagram.png[]
-
-// [discrete]
-// ==== How the architecture components interact with each other
-
-// The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-// .Component interactions for `delete 1` command
-// // image::ArchitectureSequenceDiagram.png[]
-
-// The sections below give more details of each component.
 
 === 2.1. View Layer
 Our main UI Component is a class called CLIView. It is mainly responsible for reading the user input and displaying
@@ -168,6 +149,7 @@ When ArchDuke is running, CLIView repeatedly reads the user input line by line, 
 (Controllers) to make sense of the input. Eventually, the controllers will retrieve the relevant messages and
 information for CLIView to display.
 
+// TODO Viewlayer Class Diagram
 // .Structure of the UI Component
 // image::UiClassDiagram.png[]
 
@@ -187,7 +169,7 @@ We realized that the commands related to managing a project are extremely comple
 to managing a single project from the `ConsoleInputController` and this resulted in the creation of the `ProjectInputController`.
 
 When the project is being managed, all the commands input by the user are directly handled by the `ProjectInputController`.
-Hence, `ProjectInputController` acts like a parser for commands dealing with the CRUD functionalities for Members, Tasks,
+Hence, `ProjectInputController` acts like a parser for commands dealing with the CRUD functionality for Members, Tasks,
 Task Assignments and Reminders. Control is handed back to the `ConsoleInputController` after exiting from managing a project.
 
 ==== 2.2.3 AssignmentController

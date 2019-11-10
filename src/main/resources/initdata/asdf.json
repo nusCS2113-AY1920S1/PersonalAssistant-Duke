@@ -1,0 +1,34 @@
+{
+  "name": "asdf",
+  "memberList": {
+    "memberList": [],
+    "parserHelper": {
+      "sortHelper": {},
+      "errorMessages": []
+    },
+    "validityHelper": {}
+  },
+  "taskList": {
+    "taskList": [],
+    "parserHelper": {
+      "sortHelper": {},
+      "errorMessages": []
+    },
+    "sortHelper": {},
+    "dateTimeHelper": {
+      "calender": {
+        "year": 2019,
+        "month": 10,
+        "dayOfMonth": 10,
+        "hourOfDay": 3,
+        "minute": 26,
+        "second": 40
+      }
+    }
+  },
+  "reminderList": {
+    "reminderList": []
+  },
+  "taskAndListOfMembersAssigned": {},
+  "memberAndIndividualListOfTasks": {}
+}
