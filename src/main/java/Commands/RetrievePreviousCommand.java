@@ -80,7 +80,7 @@ public class RetrievePreviousCommand extends Command {
             } else if (intFullCommand > size) {
                 isValid = false;
                 throw new DukeInvalidCommandException("There are only " + size + " of previous commands."
-                        + DukeConstants.STR_RANGE_FOR_LESS_THAN + size + " .");
+                        + DukeConstants.STR_RANGE_FOR_LESS_THAN + size + " but greater than 0.");
             }
             int index = intFullCommand - 1;
             retrievedOutput = retrievedList.get(index);
