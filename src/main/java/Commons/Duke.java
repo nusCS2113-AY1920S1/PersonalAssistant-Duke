@@ -6,6 +6,8 @@ import Commands.RetrievePreviousCommand;
 import DukeExceptions.*;
 import Tasks.TaskList;
 import Parser.MainParser;
+import UserInterface.MainWindow;
+
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -34,6 +36,7 @@ public class Duke  {
         deadlines = new TaskList();
         reminder = new Reminder();
         storage.setReminderObject(reminder);
+        MainWindow.setStorage(storage);
         try {
             storage.readDeadlineList(deadlines);
             storage.readEventList(events);

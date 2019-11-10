@@ -47,6 +47,7 @@ import java.util.logging.Logger;
  */
 public class MainWindow extends BorderPane implements Initializable {
     private static final String NO_FIELD = "void";
+    private static final int TOTAL_NUM_OF_QUOTES = 68;
     @FXML
     private Text currentTime;
     @FXML
@@ -83,7 +84,7 @@ public class MainWindow extends BorderPane implements Initializable {
     private TableColumn<DukeResponseView, String> dukeResponseColumn;
 
     private Duke duke;
-    private Storage storage;
+    private static Storage storage;
     private ArrayList<Assignment> events;
     private ArrayList<Assignment> deadlines;
     private ArrayList<Assignment> todos;
@@ -107,7 +108,11 @@ public class MainWindow extends BorderPane implements Initializable {
             deadlines = new ArrayList<>();
             setWeek(true, NO_FIELD);
             displayQuoteOfTheDay();
-
+            eventsList = new TaskList();
+            deadlinesList = new TaskList();
+            PreloadStorage preloadStorage = new PreloadStorage();
+            preloadStorage.readEventList(eventsList);
+            preloadStorage.readDeadlineList(deadlinesList);
             retrieveList();
             openReminderBox();
 
@@ -131,7 +136,7 @@ public class MainWindow extends BorderPane implements Initializable {
                 listOfQuotes.add(line);
             }
             Random random = new Random();
-            int result = random.nextInt(68);
+            int result = random.nextInt(TOTAL_NUM_OF_QUOTES);
             firstLine = listOfQuotes.get(result);
             AlertBox.display("Quote of the day", "Quote of the day !!", firstLine, Alert.AlertType.INFORMATION);
             bufferedReader.close();
@@ -178,6 +183,10 @@ public class MainWindow extends BorderPane implements Initializable {
         duke = d;
     }
 
+    public static void setStorage(Storage storageFromDuke) {
+        storage = storageFromDuke;
+    }
+
     static ArrayList<String> filteredInput = new ArrayList<>();
 
     /**
@@ -186,9 +195,6 @@ public class MainWindow extends BorderPane implements Initializable {
      * @throws ParseException On conversion error from string to Task object
      */
     private void retrieveList() throws DukeIOException {
-        storage = new Storage();
-        eventsList = new TaskList();
-        deadlinesList = new TaskList();
         overdue = new ArrayList<>();
         storage.readEventList(eventsList);
         storage.readDeadlineList(deadlinesList);
@@ -217,14 +223,14 @@ public class MainWindow extends BorderPane implements Initializable {
 
             modCodeAndTask = assignment.getModCode() + "\n" + assignment.getDescription();
             dateTime = assignment.getDateTime();
-            if (status == true) {
+            if (status) {
                 overDays = "-";
                 continue;
             } else {
                 DateFormat timeFormat = new SimpleDateFormat("E dd/MM/yyyy HH:mm a");
                 Date taskDateTime = timeFormat.parse(dateTime);
                 overDays = String.valueOf(daysBetween(taskDateTime));
-                Integer daysToOrPast = Integer.parseInt(overDays);
+                int daysToOrPast = Integer.parseInt(overDays);
                 if (daysToOrPast <= 0) {
                     overDays = "-";
                 }
@@ -305,11 +311,11 @@ public class MainWindow extends BorderPane implements Initializable {
         overdueTable.setItems(setDeadlineTable());
 
         setProgressContainer();
-        if (!response.isEmpty() || response.equals(NO_FIELD)) {
+        if (!response.isEmpty() && !response.equals(NO_FIELD)) {
             Text temp = new Text(response);
             temp.setWrappingWidth(dukeResponseColumn.getWidth() - 20);
-            Integer index = betterDukeResponse.size() + 1;
-            betterDukeResponse.add(new DukeResponseView(index.toString(), temp));
+            int index = betterDukeResponse.size() + 1;
+            betterDukeResponse.add(new DukeResponseView(Integer.toString(index), temp));
             setDukeResponse();
         }
 

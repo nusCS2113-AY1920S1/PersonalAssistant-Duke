@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class ShowPreviousParseTest {
 
     private static String userInputWithInvalidCommandType;
+    private static String userInputWithInvalidString;
     private static String userInputWithInvalidNumber;
     private static String validUserInputWithNumber;
     private static String validUserInputWithCommandType;
@@ -26,6 +27,7 @@ public class ShowPreviousParseTest {
     @BeforeAll
     public static void setAllVariables() {
         userInputWithInvalidCommandType = "show/previous remove/all";
+        userInputWithInvalidString = "show/previous abc.def";
         userInputWithInvalidNumber = "show/previous -100";
         validUserInputWithNumber = "show/previous 1";
         validUserInputWithCommandType = "show/previous add/d";
@@ -42,6 +44,19 @@ public class ShowPreviousParseTest {
         Command command = null;
         try {
             command = new ShowPreviousParse(userInputWithInvalidCommandType).parse();
+        } catch (DukeInvalidFormatException e) {
+            actual = e.getMessage();
+        }
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void showPreviousParse_userInputWithInvalidString_throwsDukeInvalidCommandException() {
+        String expected = "Invalid Input. There is no such command type in previous input";
+        String actual = "";
+        Command command = null;
+        try {
+            command = new ShowPreviousParse(userInputWithInvalidString).parse();
         } catch (DukeInvalidFormatException e) {
             actual = e.getMessage();
         }

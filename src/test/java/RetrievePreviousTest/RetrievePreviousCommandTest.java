@@ -101,12 +101,6 @@ public class RetrievePreviousCommandTest {
             e.printStackTrace();
         }
         assertNotNull(command, actual);
-        clearUserInputList();
-    }
-
-    @After
-    public void clearUserInputList() {
-        Duke.getUserInputs().clear();
     }
 
     @Test
@@ -126,22 +120,6 @@ public class RetrievePreviousCommandTest {
             actual = e.getMessage();
         }
         assertEquals(expected, actual);
-        clearUserInputList();
-    }
-
-    @Test
-    public void retrievePreviousCommand_EmptyPreviousInputList_throwsDukeNoValidDateException() {
-        Command command = new RetrievePreviousCommand(userInputToGetFromEmptyPreviousInputList);
-        String expected = "You did not enter Show Previous Command yet. \n"
-                + "Format: show previous <num> or show previous <type> <num>";
-        String actual = "";
-        try {
-            actual = command.execute(events, deadlines, ui, storageStub);
-        } catch (Exception e) {
-            actual = e.getMessage();
-        }
-        assertEquals(expected, actual);
-        clearUserInputList();
     }
 
     @Test
@@ -156,7 +134,6 @@ public class RetrievePreviousCommandTest {
             actual = e.getMessage();
         }
         assertEquals(expected, actual);
-        clearUserInputList();
     }
 
     @Test
@@ -173,7 +150,6 @@ public class RetrievePreviousCommandTest {
             actual = e.getMessage();
         }
         assertEquals(expected, actual);
-        clearUserInputList();
     }
 
     @Test
@@ -192,7 +168,6 @@ public class RetrievePreviousCommandTest {
             actual = e.getMessage();
         }
         assertEquals(expected, actual);
-        clearUserInputList();
     }
 
     @Test
@@ -211,7 +186,6 @@ public class RetrievePreviousCommandTest {
             actual = e.getMessage();
         }
         assertEquals(expected, actual);
-        clearUserInputList();
     }
 
     @Test
@@ -231,7 +205,6 @@ public class RetrievePreviousCommandTest {
             actual = e.getMessage();
         }
         assertEquals(expected, actual);
-        clearUserInputList();
     }
 
     @Test
@@ -251,7 +224,6 @@ public class RetrievePreviousCommandTest {
             actual = e.getMessage();
         }
         assertEquals(expected, actual);
-        clearUserInputList();
     }
 }
 
