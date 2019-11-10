@@ -54,7 +54,7 @@ public class NewCommand extends Command<SongList> {
             if (parse.checkForSpecialCharacter(songName)) {
                 throw new DucatsException(message,"special_characters");
             }
-            if (songList.songExist(songName)) {
+            if (!songList.findSong(songName).isEmpty()) {
                 throw new DucatsException(message, "song name");
             }
             key = sections[1];
