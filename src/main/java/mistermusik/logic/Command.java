@@ -534,7 +534,7 @@ public class Command {
     //@@author
 
     /**
-     * adds a new to-do to the list of events in EventList object.
+     * Adds a new to-do to the list of events in EventList object.
      */
     private void addNewTodo(EventList events, UI ui) {
         if (continuation.isEmpty()) {
