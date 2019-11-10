@@ -306,7 +306,7 @@ public class MainWindow extends BorderPane implements Initializable {
         overdueTable.setItems(setDeadlineTable());
 
         setProgressContainer();
-        if (!response.isEmpty() || response.equals(NO_FIELD)) {
+        if (!response.isEmpty() && !response.equals(NO_FIELD)) {
             Text temp = new Text(response);
             temp.setWrappingWidth(dukeResponseColumn.getWidth() - 20);
             int index = betterDukeResponse.size() + 1;
