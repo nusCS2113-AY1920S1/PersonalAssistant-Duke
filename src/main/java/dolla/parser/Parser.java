@@ -16,6 +16,7 @@ import dolla.ui.RemoveUi;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -47,6 +48,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     protected int modifyRecordNum;
     protected static int maxAmount = 1000000;
+    protected static int appropriateDecimalPlace = 2;
+
 
     protected static final String TYPE_OWE = "owe";
     protected static final String TYPE_BORROW = "borrow";
@@ -80,8 +83,13 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             date = Time.readDate(dateString.trim());
         } catch (DateTimeParseException e) {
             Ui.printDateFormatError();
-            throw new Exception("invalid date");
+            throw new DollaException(INVALID_DATE_EXCEPTION);
         }
+    }
+
+
+    private static Boolean amountIsInvalid(double amount) {
+        return (amount <= 0 || amount >= maxAmount || BigDecimal.valueOf(amount).scale() > appropriateDecimalPlace);
     }
 
     /**
@@ -100,12 +108,13 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         double newDouble;
         try {
             newDouble = Double.parseDouble(str);
-            if (newDouble <= 0 || newDouble >= maxAmount) {
+            boolean amountIsInvalid = amountIsInvalid(newDouble);
+            if (amountIsInvalid) {
                 throw new DollaException(DollaException.invalidAmount());
             }
         } catch (NumberFormatException e) {
             Ui.printInvalidNumberError(str);
-            throw new NumberFormatException("Invalid amount");
+            throw new NumberFormatException(INVALID_AMOUNT_EXCEPTION);
         }
         return newDouble;
     }
@@ -130,7 +139,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return s;
         } else {
             EntryUi.printInvalidEntryType();
-            throw new Exception("invalid type");
+            throw new DollaException(DollaException.invalidType());
         }
     }
 
@@ -444,7 +453,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return s;
         } else {
             DebtUi.printInvalidDebtType();
-            throw new Exception("invalid type");
+            throw new DollaException(DollaException.invalidType());
         }
     }
 
@@ -526,12 +535,12 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return string containing the new description of the record to be modified.
      */
     private String parseDesc(int index) {
-        String tempStr = "";
+        String tempStr = EMPTY_STR;
         for (int i = index; i < inputArray.length; i += 1) {
             if (isComponent(inputArray[i])) {
                 break;
             }
-            tempStr = tempStr.concat(inputArray[i] + " ");
+            tempStr = tempStr.concat(inputArray[i] + SPACE);
         }
         tempStr = tempStr.substring(0, tempStr.length() - 1);
         return tempStr;
