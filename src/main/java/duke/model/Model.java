@@ -132,4 +132,5 @@ public interface Model {
 
     public IncomeList getIncomeList();
 
+    public StringProperty getIncomeListTotalString();
 }

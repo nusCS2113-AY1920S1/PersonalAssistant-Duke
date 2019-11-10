@@ -1,0 +1,10 @@
+#paneTitle {
+    -fx-font-size: 32px;
+    -fx-text-fill: GOLD;
+}
+
+#totalIncomeLabel{
+    -fx-font-size: 16px;
+    -fx-text-fill: GREENYELLOW;
+
+}

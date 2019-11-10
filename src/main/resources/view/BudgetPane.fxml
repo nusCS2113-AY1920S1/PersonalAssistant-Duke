@@ -9,14 +9,22 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640" prefWidth="1000" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<?import java.net.URL?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640"
+            prefWidth="1000" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane fx:id="paneView" layoutX="90.0" layoutY="23.0" prefHeight="120.0" prefWidth="828.0" />
-      <Label fx:id="incomeLabel" layoutX="104.0" layoutY="150.0" />
-      <VBox layoutX="4" layoutY="180" spacing="40">
-         <ListView fx:id="incomeListView" layoutX="4.0" layoutY="100.0" prefHeight="175.0" prefWidth="250.0"/>
+      <Label fx:id="paneTitle" text="Budget" layoutX="450.0" />
+      <Pane fx:id="paneView" layoutX="90.0" layoutY="50.0" prefHeight="120.0" prefWidth="828.0"/>
+      <Label fx:id="incomeLabel" layoutX="100.0" layoutY="340.0"/>
+      <Label fx:id="totalIncomeLabel" layoutX="8.0" layoutY="550.0"/>
+      <VBox layoutX="4" layoutY="130" spacing="40">
          <ListView fx:id="budgetListView" prefHeight="200"/>
+         <ListView fx:id="incomeListView" prefHeight="175.0" prefWidth="250.0"/>
       </VBox>
-      <Pane fx:id="paneBudgetView" layoutX="391.0" layoutY="192.0" prefHeight="504.0" prefWidth="720.0" />
+      <Pane fx:id="paneBudgetView" layoutX="391.0" layoutY="192.0" prefHeight="504.0" prefWidth="720.0"/>
    </children>
+   <stylesheets>
+      <URL value="@/layout/BudgetPane.css"/>
+   </stylesheets>
 </AnchorPane>

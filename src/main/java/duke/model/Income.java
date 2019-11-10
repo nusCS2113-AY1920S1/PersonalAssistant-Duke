@@ -18,10 +18,6 @@ public class Income extends DukeItem {
      * The description of the income.
      */
     private final String description;
-    /**
-     * The time of the expense.
-     */
-    private final LocalDateTime time;
 
     /**
      * {@inheritDoc}
@@ -29,10 +25,8 @@ public class Income extends DukeItem {
     public static class Builder extends DukeItem.Builder<Builder> {
         private BigDecimal amount = BigDecimal.ZERO;
         private String description = "";
-        private LocalDateTime time = LocalDateTime.now();
 
         public Builder() {
-
         }
 
         /**
@@ -44,7 +38,6 @@ public class Income extends DukeItem {
             super(income);
             amount = income.amount;
             description = income.description;
-            time = income.time;
         }
 
         /**
@@ -64,9 +57,6 @@ public class Income extends DukeItem {
             }
             if (mappedStorageString.containsKey("description")) {
                 setDescription(mappedStorageString.get("description"));
-            }
-            if (mappedStorageString.containsKey("time")) {
-                setTime(Parser.parseTime(mappedStorageString.get("time")));
             }
         }
 
@@ -115,33 +105,6 @@ public class Income extends DukeItem {
         }
 
         /**
-         * Sets the time of the income using a string.
-         *
-         * @param time the time of the income as a string.
-         * @return this builder.
-         * @throws DukeException if the time string cannot be parsed into a {@code LocalDateTime} object.
-         * @see #setTime(LocalDateTime)
-         */
-        public Builder setTime(String time) throws DukeException {
-            try {
-                return setTime(Parser.parseTime(time));
-            } catch (DukeException e) {
-                throw new DukeException(String.format(DukeException.MESSAGE_INCOME_TIME_INVALID, time));
-            }
-        }
-
-        /**
-         * Sets the time of the income.
-         *
-         * @param time the time of the income.
-         * @return this builder.
-         */
-        public Builder setTime(LocalDateTime time) {
-            this.time = time;
-            return this;
-        }
-
-        /**
          * Builds the income.
          *
          * @return the income.
@@ -160,7 +123,6 @@ public class Income extends DukeItem {
         super(builder);
         amount = builder.amount;
         description = builder.description;
-        time = builder.time;
     }
 
     /**
@@ -182,40 +144,6 @@ public class Income extends DukeItem {
     }
 
     /**
-     * Returns the date of the expense.
-     *
-     * @return {@link #time}.
-     */
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    /**
-     * Return the formatted time.
-     *
-     * @return String of time that is formatted
-     */
-    public String getTimeString() {
-        return Parser.formatTime(time);
-    }
-
-
-    /**
-     * Converts the income into a string.
-     *
-     * @return the income as a string.
-     */
-    @Override
-    public String toString() {
-        StringJoiner stringJoiner = new StringJoiner(" ");
-        stringJoiner.add((amount.compareTo(BigDecimal.valueOf(0)) < 0 ? "-$" + amount.abs() : "$" + amount));
-        stringJoiner.add(description);
-        stringJoiner.add(Parser.formatTime(time));
-
-        return stringJoiner.toString();
-    }
-
-    /**
      * Converts the income into a storage string.
      *
      * @return the income as a storage string.
@@ -223,11 +151,8 @@ public class Income extends DukeItem {
     @Override
     public String toStorageString() {
         StringJoiner stringJoiner = new StringJoiner(STORAGE_FIELD_DELIMITER);
-        stringJoiner.add(super.toStorageString());
         stringJoiner.add("amount" + STORAGE_NAME_SEPARATOR + amount);
         stringJoiner.add("description" + STORAGE_NAME_SEPARATOR + description);
-        stringJoiner.add("time" + STORAGE_NAME_SEPARATOR + Parser.formatTime(time));
-
 
         return stringJoiner.toString();
     }

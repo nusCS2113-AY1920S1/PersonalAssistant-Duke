@@ -1,18 +1,8 @@
 package duke.model;
 
-import duke.commons.LogsCenter;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.math.BigDecimal;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class BudgetView {
-
-
-    private static final Logger logger = LogsCenter.getLogger(BudgetView.class);
-
 
     /**
      * Maps the category set for the view
