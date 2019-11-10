@@ -144,7 +144,9 @@ public class GoalsListTest {
     void goalsListListGoal_goalListNotEmpty_listGoals() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        GoalsList testGoals = new GoalsList(new Storage("data/"));
+        Storage testStorage = new Storage("data/");
+        testStorage.createDirectoryIfNotExist("data/");
+        GoalsList testGoals = new GoalsList(testStorage);
         Goals newGoals = new Goals("test", 100, new Date("10/10/2020"));
         Ui testUi = new Ui();
 

@@ -49,7 +49,8 @@ include::../UserGuide.adoc[tag=user_guide_common_logo]
 === Summary of Contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
-*Enhancement added:* I added the ability to add `investment` accounts and `bonds`.
+*Enhancement added:* I added the ability to add `investment` accounts and `bonds`. Other notable features I was in
+charge of implementing for the entire project was `logging` and `storage`.
 
 * *What it does:* The `investment` account allows the user to create an account specially dedicated for `investment`
 purposes.

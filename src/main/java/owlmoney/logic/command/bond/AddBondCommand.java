@@ -1,6 +1,9 @@
 package owlmoney.logic.command.bond;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Date;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
@@ -24,6 +27,7 @@ public class AddBondCommand extends Command {
     private final int year;
     private final String type;
     private static final String BONDS_TYPE = "bonds";
+    private static final Logger logger = getLogger(AddBondCommand.class);
 
     /**
      * Creates an instance of AddBondCommand.
@@ -62,12 +66,15 @@ public class AddBondCommand extends Command {
         Bond newBond = new Bond(this.bondName, this.amount, this.rate, this.date, this.year);
         Expenditure newExpenditure = new Expenditure(this.bondName, this.amount, this.date, BONDS_TYPE);
         if (profile.profileIsBondListFull(this.bankAccountName)) {
+            logger.warning("The maximum limit of 20 bonds has been reach for the bank account named: "
+                    + this.bankAccountName);
             throw new BondException("The maximum limit of 20 bonds has been reach for the bank account named: "
                     + this.bankAccountName);
         }
         profile.profileIsBondUnique(this.bankAccountName, newBond);
         profile.profileAddNewExpenditure(this.bankAccountName, newExpenditure, ui, this.type);
         profile.profileAddNewBond(this.bankAccountName, newBond, ui);
+        logger.info("Successful execution of AddBondCommand");
         return this.isExit;
     }
 }
