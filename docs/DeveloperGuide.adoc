@@ -562,7 +562,7 @@ Other helper commands such as:
 
 ===== **Aspect:  How SGTravel Recommends a List**
 
-* **Alternative 1:** Currently, the `recommend`command offers only a fixed recommendation.
+* **Alternative 1:** Currently, the `recommend` command offers only a fixed recommendation.
 ** Pros: Easy to implement and good for first time visitors.
 ** Cons: Restrictive on the user as they cannot edit the recommendation.
 * **Alternative 2:** Option to update list before saving
@@ -574,7 +574,7 @@ Other helper commands such as:
 The completed itinerary feature would allow the user to create an itinerary as if they were engaging in a conversation with SGTravel. This process would also allow the user to edit the itinerary before confirming and storing it. The app would use an algorithm to find the nearest attractions to the user's hotel stay. The activity diagram for this feature is given below:
 
 .Activity diagram for the Itinerary Builder command 
-image::SGTravel_v.20_newItinerary_builder_diagram.png[height="550" width="880"]
+image::SGTravel_v.20_newItinerary_builder_diagram.png[height="550" width="680"]
 
 There are two main additions coming in v2.0 are :
 
