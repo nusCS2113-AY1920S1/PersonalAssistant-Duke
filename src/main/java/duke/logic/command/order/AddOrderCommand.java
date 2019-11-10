@@ -23,6 +23,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import static duke.logic.command.order.OrderCommandUtil.deductInventory;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -92,6 +93,11 @@ public class AddOrderCommand extends OrderCommand {
             model.getFilteredInventoryList());
 
         model.addOrder(toAdd);
+
+        //Deduct inventory if order is set to complete.
+        if (toAdd.getStatus() == Order.Status.COMPLETED) {
+            deductInventory(toAdd, model);
+        }
 
         model.commit(MESSAGE_COMMIT);
 
