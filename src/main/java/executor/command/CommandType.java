@@ -18,7 +18,6 @@ public enum CommandType {
     PERCENT(CommandPercent.class),
     IN(CommandAddIncomeReceipt.class),
     OUT(CommandAddSpendingReceipt.class),
-    SETBALANCE(CommandUpdateBalance.class),
     BUDGET(CommandBudget.class),
     EXPORT(CommandExport.class),
     EXPENSES(CommandDisplayExpenditure.class),
