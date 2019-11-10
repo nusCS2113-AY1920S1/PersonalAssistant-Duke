@@ -510,7 +510,7 @@ public class HelpText {
             + "In your notes page, you can specify your goal and also record information about your modules. "
             + "\n"
             + "How to go to your notes page: \n"
-            + "\t- Type in the command \'notes\' in the main menu page and press ENTER.\n"
+            + "\t- Type in the command \'notes\' or \'9\' in the main menu page and press ENTER.\n"
             + "\t- You can only go to the notes page from the main menu.\n";
 
     private static final String NOTES_VIEW =
