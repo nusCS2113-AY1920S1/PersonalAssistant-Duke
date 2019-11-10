@@ -163,8 +163,6 @@ public class Ui extends AnchorPane {
             userLevel = stats.getUserLevel();
             maxuserExp = 8 << (userLevel - 1);
             userExp = stats.getUserExp();
-            System.out.println(userLevel);
-            System.out.println(maxuserExp);
             updateLevelProgress(0);
             playerName.setText("Username : " + stats.getUsername());
             printToGui(input, response, userImage, senpaiImage);

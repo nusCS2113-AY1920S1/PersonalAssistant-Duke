@@ -1,4 +1,4 @@
-package com.algosenpai.app;
+package com.algosenpai.app.commands.parser;
 
 import com.algosenpai.app.logic.parser.Parser;
 import org.junit.jupiter.api.Assertions;
