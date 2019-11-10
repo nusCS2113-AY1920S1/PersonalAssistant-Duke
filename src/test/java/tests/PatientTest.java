@@ -77,11 +77,11 @@ public class PatientTest {
 
     @Test
     public void addThreeImpressions_patientWithZeroImpressions_patientHasThreeImpressions() throws DukeException {
+        assertEquals(0, validPatient.getImpressionList().size());
+
         Impression impressionOne = new Impression("Impression 1", "Description 1", validPatient);
         Impression impressionTwo = new Impression("Impression 2", "Description 2", validPatient);
         Impression impressionThree = new Impression("Impression 3", "Description 3", validPatient);
-
-        assertEquals(0, validPatient.getImpressionList().size());
 
         validPatient.addNewImpression(impressionTwo);
         validPatient.addNewImpression(impressionOne);

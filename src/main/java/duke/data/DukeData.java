@@ -9,6 +9,8 @@ public abstract class DukeData extends DukeObject {
     // TODO change priority to primitive int
 
     public static final int PRIORITY_MAX = 4;
+    public static final int PRIORITY_CRITICAL = 1;
+    public static final int PRIORITY_NONE = 0;
     private Integer priority;
     private transient Impression parent;
 

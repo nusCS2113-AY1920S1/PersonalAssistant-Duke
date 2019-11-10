@@ -42,8 +42,12 @@ public class UiContext {
      * @param obj     DukeObject whose context we wish to view.
      */
     public void open(DukeObject obj) {
-        Context context = (obj == null) ? Context.HOME : obj.toContext();
+        Context context = Context.HOME;
         contexts.push(new Pair<>(this.context, this.object));
+        if (obj != null) {
+            obj.update();
+            context = obj.toContext();
+        }
         updateContext(context, obj);
     }
 
@@ -52,7 +56,7 @@ public class UiContext {
      */
     public String moveUpOneContext() throws DukeException {
         if (context == Context.HOME) {
-            throw new DukeException("You are already in the Home context.");
+            throw new DukeException("You are already in the HOME context!");
         } else {
             DukeObject parent = object.getParent();
             open(parent);
@@ -94,7 +98,7 @@ public class UiContext {
         if (obj != null) {
             return "You are now viewing '" + obj.getName() + "' in the " + context.toString() + " context";
         } else {
-            return "You are now in the home context!";
+            return "You are now in the HOME context!";
         }
     }
 }

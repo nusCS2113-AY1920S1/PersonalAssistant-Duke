@@ -5,6 +5,8 @@ import duke.command.ObjCommand;
 import duke.command.ObjSpec;
 import duke.command.SearchSpec;
 import duke.command.home.HomeOpenSpec;
+import duke.command.impression.ImpressionOpenSpec;
+import duke.command.patient.PatientOpenSpec;
 import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Investigation;
@@ -20,6 +22,7 @@ import templates.CommandTest;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -48,13 +51,13 @@ public class ObjCommandTest extends CommandTest {
             core.patientData.addPatient(patient1);
             core.patientData.addPatient(patient2);
             core.patientData.addPatient(patient3);
-            impression1 = new Impression("Idiopathic arthritis", "Patient's joints hurt", patient1);
-            impression2 = new Impression("Plantar fascitis", "", patient1);
+            impression1 = new Impression("Idiopathic arthritis", "No identifiable cause for joint pain", patient1);
+            impression2 = new Impression("Plantar fascitis", "Sudden onset heel muscle tightness", patient1);
             patient1.addNewImpression(impression1);
             patient1.addNewImpression(impression2);
             invx = new Investigation("Load bearing x-ray", impression1, 0, "0",
                     "X-ray to examine the extent of damage to patient's joints");
-            result = new Result("CT scan", impression1, 0, "");
+            result = new Result("CT scan", impression1, 0, "X-ray wasn't enough");
             impression1.addNewTreatment(invx);
             impression1.addNewEvidence(result);
         } catch (DukeException excp) {
@@ -73,14 +76,15 @@ public class ObjCommandTest extends CommandTest {
     }
 
     /**
-     * Tests the simple case of multiple valid inputs.
+     * Tests basic search by name functionality, ensuring it ignores a patient whose description matches the search,
+     * and child objects whose names match the search.
      */
     @Test
     public void homeOpenCommand_irrelevantMatches_matchesIgnored() {
         setupCommand(HomeOpenSpec.getSpec());
         try {
             openCmd.execute(core); // opens search results
-            correctPatientSearchResults(getSearchResultList());
+            assertTrue(correctPatientSearchResults(getSearchResultList()));
             openCmd.execute(core, patient1);
             assertEquals(core.uiContext.getObject(), patient1);
         } catch (DukeException excp) {
@@ -97,7 +101,7 @@ public class ObjCommandTest extends CommandTest {
         try {
             openCmd.execute(core); // opens search results
             List<DukeObject> resultList = getSearchResultList();
-            correctPatientSearchResults(resultList);
+            assertTrue(correctPatientSearchResults(resultList));
             // construct a search command corresponding to the index of patient 1
             String idxStr = Integer.toString(resultList.indexOf(patient1) + 1);
             Command searchCmd = new Command(SearchSpec.getSpec(idxStr));
@@ -107,6 +111,34 @@ public class ObjCommandTest extends CommandTest {
             fail("Exception thrown while executing home open command: " + excp.getMessage());
         }
     }
+
+    @Test
+    public void patientOpenCommand_irrelevantMatches_matchesIgnored() {
+        setupCommand(PatientOpenSpec.getSpec());
+        try {
+            openCmd.execute(core); // opens search results
+            assertTrue(correctPatientSearchResults(getSearchResultList()));
+            openCmd.execute(core, patient1);
+            assertEquals(core.uiContext.getObject(), patient1);
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing home open command: " + excp.getMessage());
+        }
+    }
+
+    @Test
+    public void impressionOpenCommand_irrelevantMatches_matchesIgnored() {
+        setupCommand(ImpressionOpenSpec.getSpec());
+        try {
+            openCmd.execute(core); // opens search results
+            assertTrue(correctPatientSearchResults(getSearchResultList()));
+            openCmd.execute(core, patient1);
+            assertEquals(core.uiContext.getObject(), patient1);
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing home open command: " + excp.getMessage());
+        }
+    }
+
+
 
     private void setupCommand(ObjSpec spec) {
         String[] switchNames = {};

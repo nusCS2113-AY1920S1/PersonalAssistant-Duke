@@ -62,4 +62,8 @@ public abstract class DukeObject {
     public boolean contains(String searchTerm) {
         return name.toLowerCase().contains(searchTerm.toLowerCase());
     }
+
+    public void update() {
+        // for subclasses that need to reload themselves when being opened
+    }
 }

@@ -123,4 +123,6 @@ public abstract class Treatment extends DukeData {
 
     @Override
     public abstract TreatmentCard toCard() throws DukeFatalException;
+
+    public abstract boolean isFollowUp();
 }

@@ -18,7 +18,7 @@ public class PatientOpenSpec extends PatientObjSpec {
         initSwitches(
                 new Switch("impression", String.class, true, ArgLevel.NONE, "im"),
                 new Switch("critical", String.class, true, ArgLevel.NONE, "c"),
-                new Switch("investigation", String.class, true, ArgLevel.NONE, "inv")
+                new Switch("followup", String.class, true, ArgLevel.NONE, "f")
         );
     }
 

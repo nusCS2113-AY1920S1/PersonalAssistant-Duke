@@ -12,6 +12,8 @@ public class Patient extends DukeObject {
     private String allergies;
     private Impression primaryDiagnosis;
     private ArrayList<Impression> impressionList;
+    private transient ArrayList<Treatment> followUpList;
+    private transient ArrayList<DukeData> criticalList;
     private Integer height;
     private Integer weight;
     private Integer age;
@@ -68,8 +70,8 @@ public class Patient extends DukeObject {
         if (impressionList.size() == 0) {
             primaryDiagnosis = newImpression;
         }
-
         impressionList.add(newImpression);
+
         return newImpression;
     }
 
@@ -92,6 +94,18 @@ public class Patient extends DukeObject {
 
             if (impressionList.size() == 1) {
                 primaryDiagnosis = impressionList.get(0);
+            }
+
+            // this is very slow but we have no choice
+            for (DukeData data : criticalList) {
+                if (data.getParent() == deletedImpression) {
+                    criticalList.remove(data);
+                }
+            }
+            for (Treatment treatment : followUpList) {
+                if (treatment.getParent() == deletedImpression) {
+                    followUpList.remove(treatment);
+                }
             }
 
             return deletedImpression;
@@ -143,18 +157,10 @@ public class Patient extends DukeObject {
     public SearchResults findCriticalsByName(String searchTerm) {
         ArrayList<DukeData> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Impression entry : impressionList) {
-            for (Evidence evidenceEntry : entry.getEvidences()) {
-                if (evidenceEntry.getName().toLowerCase().contains(lowerSearchTerm)
-                        && evidenceEntry.getPriority() == 1) {
-                    resultList.add(evidenceEntry);
-                }
-            }
-            for (Treatment treatmentEntry : entry.getTreatments()) {
-                if (treatmentEntry.getName().toLowerCase().contains(lowerSearchTerm)
-                        && treatmentEntry.getPriority() == 1) {
-                    resultList.add(treatmentEntry);
-                }
+
+        for (DukeData data : criticalList) {
+            if (data.getName().toLowerCase().contains(lowerSearchTerm)) {
+                resultList.add(data);
             }
         }
         return new SearchResults(searchTerm, resultList, this);
@@ -169,17 +175,13 @@ public class Patient extends DukeObject {
     public SearchResults findFollowUpsByName(String searchTerm) {
         ArrayList<DukeData> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Impression imp : impressionList) {
-            for (Treatment treatmentEntry : imp.getTreatments()) {
-                if (treatmentEntry.getName().toLowerCase().contains(lowerSearchTerm)
-                        && treatmentEntry.getClass() == Investigation.class) {
-                    resultList.add(treatmentEntry);
-                }
+        for (Treatment treatment : followUpList) {
+            if (treatment.getName().toLowerCase().contains(lowerSearchTerm)) {
+                resultList.add(treatment);
             }
         }
         return new SearchResults(searchTerm, resultList, this);
     }
-
 
     /**
      * This function finds Impressions relevant to the searchTerm.
@@ -198,7 +200,6 @@ public class Patient extends DukeObject {
         return new SearchResults(searchTerm, resultList, this);
     }
 
-
     /**
      * This function find returns a list of all DukeObjects.
      * with names related to the patient containing the search term.
@@ -206,7 +207,7 @@ public class Patient extends DukeObject {
      * @param searchTerm String to be used to filter the DukeObj
      * @return the hashMap of DukeObjs
      */
-    public SearchResults searchAll(String searchTerm) throws DukeException {
+    public SearchResults searchAll(String searchTerm) {
         String lowerSearchTerm = searchTerm.toLowerCase();
         SearchResults results = findImpressions(lowerSearchTerm);
         for (Impression imp : impressionList) {
@@ -386,34 +387,12 @@ public class Patient extends DukeObject {
     }
 
     /**
-     * Delete primary diagnosis of patient. If there exists only 1 impression for the patient, that impression
-     * shall become the primary diagnosis of the patient.
-     *
-     * @throws DukeException If the impressio
-     */
-    public void deletePriDiagnose() throws DukeException {
-        if (this.impressionList.remove(primaryDiagnosis)) {
-            throw new DukeException("Patient has no primary diagnosis at the moment.");
-        }
-
-        this.primaryDiagnosis = null;
-
-        if (impressionList.size() == 1) {
-            this.primaryDiagnosis = impressionList.get(0);
-        }
-    }
-
-    /**
      * Computes the number of critical items for this patient: DukeData objects with priority 1, across all impressions.
      *
      * @return The number of critical DukeData items for this patient.
      */
     public String getCriticalCountStr() {
-        int count = 0;
-        for (Impression imp : impressionList) {
-            count += imp.getCriticalCount();
-        }
-
+        int count = criticalList.size();
         if (count == 0) {
             return "No critical issues";
         } else if (count == 1) {
@@ -446,6 +425,14 @@ public class Patient extends DukeObject {
         return impressionList;
     }
 
+    public ArrayList<DukeData> getCriticalList() {
+        return criticalList;
+    }
+
+    public ArrayList<Treatment> getFollowUpList() {
+        return followUpList;
+    }
+
     @Override
     public PatientCard toCard() throws DukeFatalException {
         return new PatientCard(this);
@@ -465,5 +452,29 @@ public class Patient extends DukeObject {
             }
         }
         return false;
+    }
+
+    @Override
+    public void update() {
+        criticalList = new ArrayList<DukeData>();
+        followUpList = new ArrayList<Treatment>();
+
+        for (Impression imp : impressionList) {
+            for (Evidence evidence : imp.getEvidences()) {
+                if (evidence.getPriority() == DukeData.PRIORITY_CRITICAL) {
+                    criticalList.add(evidence);
+                }
+            }
+
+            for (Treatment treatment : imp.getTreatments()) {
+                if (treatment.getPriority() == DukeData.PRIORITY_CRITICAL) {
+                    criticalList.add(treatment);
+                }
+
+                if (treatment.isFollowUp()) {
+                    followUpList.add(treatment);
+                }
+            }
+        }
     }
 }
