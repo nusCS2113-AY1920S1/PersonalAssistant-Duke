@@ -3,7 +3,7 @@ package entertainment.pro.logic.parsers.commands;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 import entertainment.pro.model.Deadline;
@@ -14,7 +14,7 @@ import entertainment.pro.storage.user.WatchlistHandler;
 public class AddCommand extends CommandSuper {
 
     public AddCommand(Controller uicontroller) {
-        super(COMMANDKEYS.ADD, CommandStructure.cmdStructure.get(COMMANDKEYS.ADD), uicontroller);
+        super(CommandKeys.ADD, CommandStructure.cmdStructure.get(CommandKeys.ADD), uicontroller);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class AddCommand extends CommandSuper {
             }
             break;
         case BLACKLIST:
-//                addToBlackList();
+            //addToBlackList();
             break;
         default:
             break;
@@ -60,8 +60,8 @@ public class AddCommand extends CommandSuper {
             }
             WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            ((MovieHandler) (this.getUiController())).setGeneralFeedbackText("Please enter a valid command in the form of: \n"
-                    + "add watchlist <name of movie> -d <type of duke.task> -s"
+            ((MovieHandler) (this.getUiController())).setGeneralFeedbackText("Please enter a valid command in the "
+                    + "form of: \nadd watchlist <name of movie> -d <type of duke.task> -s"
                     + " <start date only for duke.task> -e <end date for duke.task>");
         }
     }

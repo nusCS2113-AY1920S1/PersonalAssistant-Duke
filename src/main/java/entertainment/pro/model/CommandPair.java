@@ -1,30 +1,30 @@
 package entertainment.pro.model;
 
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 
 /**
  * Template command pair class containing the root command and subroot command.
  */
 public class CommandPair {
-    private COMMANDKEYS RootCommand;
-    private COMMANDKEYS SubRootCommand;
+    private CommandKeys rootCommand;
+    private CommandKeys subRootCommand;
     private boolean validCommand;
 
     /**
      * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
      */
-    public CommandPair(COMMANDKEYS rootCommand, COMMANDKEYS subRootCommand) {
-        RootCommand = rootCommand;
-        SubRootCommand = subRootCommand;
+    public CommandPair(CommandKeys rootCommand, CommandKeys subRootCommand) {
+        this.rootCommand = rootCommand;
+        this.subRootCommand = subRootCommand;
         validCommand = true;
     }
 
     /**
      * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
      */
-    public CommandPair(COMMANDKEYS rootCommand, COMMANDKEYS subRootCommand, boolean isValid) {
-        RootCommand = rootCommand;
-        SubRootCommand = subRootCommand;
+    public CommandPair(CommandKeys rootCommand, CommandKeys subRootCommand, boolean isValid) {
+        this.rootCommand = rootCommand;
+        this.subRootCommand = subRootCommand;
         validCommand = isValid;
     }
 
@@ -32,8 +32,8 @@ public class CommandPair {
      * getter for the root command.
      * @return Rootcommand
      */
-    public COMMANDKEYS getRootCommand() {
-        return RootCommand;
+    public CommandKeys getRootCommand() {
+        return rootCommand;
     }
 
     /**
@@ -41,7 +41,7 @@ public class CommandPair {
      * @return Rootcommand
      */
     public String getRootCommandStr() {
-        return RootCommand.toString().toLowerCase();
+        return rootCommand.toString().toLowerCase();
     }
 
     /**
@@ -49,15 +49,15 @@ public class CommandPair {
      * @return subRootcommand
      */
     public String getSubRootCommandStr() {
-        return SubRootCommand.toString().toLowerCase();
+        return subRootCommand.toString().toLowerCase();
     }
 
     /**
      * Getter for subroot command.
      * @return Subroot command
      **/
-    public COMMANDKEYS getSubRootCommand() {
-        return SubRootCommand;
+    public CommandKeys getSubRootCommand() {
+        return subRootCommand;
     }
 
     /**

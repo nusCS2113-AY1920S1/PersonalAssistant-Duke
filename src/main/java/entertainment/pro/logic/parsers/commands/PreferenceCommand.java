@@ -10,11 +10,10 @@ import entertainment.pro.commons.exceptions.InvalidGenreNameEnteredException;
 import entertainment.pro.storage.utils.EditProfileJson;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
-import javax.sound.sampled.LineEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,7 +44,7 @@ public class PreferenceCommand extends CommandSuper {
      * @param uiController Controller Class.
      */
     public PreferenceCommand(Controller uiController) {
-        super(COMMANDKEYS.PREFERENCE, CommandStructure.cmdStructure.get(COMMANDKEYS.PREFERENCE), uiController);
+        super(CommandKeys.PREFERENCE, CommandStructure.cmdStructure.get(CommandKeys.PREFERENCE), uiController);
     }
 
     /**
@@ -89,22 +88,22 @@ public class PreferenceCommand extends CommandSuper {
         }
         logger.log(Level.WARNING, PromptMessages.SUBROOT_PREFERENCE);
         switch (this.getSubRootCommand()) {
-            case ADD:
-                logger.log(Level.WARNING, PromptMessages.SUBROOT_PREFERENCE_ADD);
-                executeAddPreference(containsPossibleInputs, movieHandler);
-                break;
-            case REMOVE:
-                logger.log(Level.WARNING, PromptMessages.SUBROOT_PREFERENCE_REMOVE);
-                executeRemovePreference(containsPossibleInputs, movieHandler);
-                break;
-            case CLEAR:
-                logger.log(Level.WARNING, PromptMessages.SUBROOT_PREFERENCE_CLEAR);
-                executeClearPreference(containsPossibleInputs, movieHandler);
-                break;
-            default:
-                logger.log(Level.WARNING, PromptMessages.NO_SUBROOT_PREFERENCE);
-                ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
-                throw new InvalidFormatCommandException();
+        case ADD:
+            logger.log(Level.WARNING, PromptMessages.SUBROOT_PREFERENCE_ADD);
+            executeAddPreference(containsPossibleInputs, movieHandler);
+            break;
+        case REMOVE:
+            logger.log(Level.WARNING, PromptMessages.SUBROOT_PREFERENCE_REMOVE);
+            executeRemovePreference(containsPossibleInputs, movieHandler);
+            break;
+        case CLEAR:
+            logger.log(Level.WARNING, PromptMessages.SUBROOT_PREFERENCE_CLEAR);
+            executeClearPreference(containsPossibleInputs, movieHandler);
+            break;
+        default:
+            logger.log(Level.WARNING, PromptMessages.NO_SUBROOT_PREFERENCE);
+            ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+            throw new InvalidFormatCommandException();
         }
         logger.log(Level.WARNING, PromptMessages.UPDATING_INTEREFACE);
         movieHandler.setLabels();
@@ -117,7 +116,7 @@ public class PreferenceCommand extends CommandSuper {
      *
      * @param containsPossibleInputs ArrayList containing the possible categories, user want to add elements.
      * @param movieHandler           MovieHandler class
-     * @throws IOException
+     * @throws IOException           Input Output exception thrown if file has error
      * @throws InvalidFormatCommandException when the input entered by the user is invalid.
      */
     private void executeAddPreference(ArrayList<String> containsPossibleInputs, MovieHandler movieHandler)
@@ -131,7 +130,7 @@ public class PreferenceCommand extends CommandSuper {
                 try {
                     userProfile = command.addPreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
-                } catch (InvalidFormatCommandException InvalidFormatCommandException) {
+                } catch (InvalidFormatCommandException invalidFormatCommandException) {
                     logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
                     ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                     movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
@@ -153,7 +152,7 @@ public class PreferenceCommand extends CommandSuper {
      *
      * @param containsPossibleInputs ArrayList containing the possible categories, user want to remove elements.
      * @param movieHandler           MovieHandler class
-     * @throws IOException
+     * @throws IOException           Input Output exception thrown if file has error
      * @throws InvalidFormatCommandException when the input entered by the user is invalid.
      */
     private void executeRemovePreference(ArrayList<String> containsPossibleInputs, MovieHandler movieHandler)
@@ -201,7 +200,7 @@ public class PreferenceCommand extends CommandSuper {
                 try {
                     userProfile = command.clearPreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
-                } catch (InvalidFormatCommandException InvalidFormatCommandException) {
+                } catch (InvalidFormatCommandException invalidFormatCommandException) {
                     logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
                     ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                     movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);

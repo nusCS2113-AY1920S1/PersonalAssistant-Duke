@@ -1,6 +1,6 @@
 package entertainment.pro.logic.parsers.commands;
 
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 import entertainment.pro.ui.Controller;
@@ -11,7 +11,7 @@ import entertainment.pro.ui.Controller;
  */
 public class YesCommand extends CommandSuper {
     public YesCommand(Controller uicontroller) {
-        super(COMMANDKEYS.YES, CommandStructure.cmdStructure.get(COMMANDKEYS.YES), uicontroller);
+        super(CommandKeys.YES, CommandStructure.cmdStructure.get(CommandKeys.YES), uicontroller);
     }
 
     @Override

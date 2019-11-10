@@ -5,7 +5,8 @@ import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.movierequesterapi.RequestListener;
 import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
-import entertainment.pro.logic.movieRequesterAPI.RetrieveRequestTest;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequestTest;
 import entertainment.pro.logic.parsers.CommandParser;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.SearchProfile;
@@ -19,8 +20,6 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static entertainment.pro.ui.MovieHandler.mMovieRequest;
-import static entertainment.pro.ui.MovieHandler.mMovies;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ViewCommandTest extends MovieHandler{

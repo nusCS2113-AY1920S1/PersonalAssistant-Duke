@@ -182,13 +182,13 @@ public class ProfileCommandsTest {
         sortOption.add("1");
         flagMap.put("-s", sortOption);
         try {
-            profileCommands.addPreference(flagMap, "-s");
+            UserProfile newUserProfile = profileCommands.addPreference(flagMap, "-s");
+            assertTrue(newUserProfile.isSortByAlphabetical(), "Test failed");
+            assertFalse(newUserProfile.isSortByHighestRating(), "Test failed");
+            assertFalse(newUserProfile.isSortByLatestRelease(), "Test failed");
         } catch (IOException | InvalidFormatCommandException | InvalidGenreNameEnteredException | DuplicateGenreException e) {
             e.printStackTrace();
         }
-        assertTrue(userProfile.isSortByAlphabetical(), "Test failed");
-        assertFalse(userProfile.isSortByHighestRating(), "Test failed");
-        assertFalse(userProfile.isSortByLatestRelease(), "Test failed");
         profileCommands.clearSortPreference();
     }
 
@@ -221,12 +221,12 @@ public class ProfileCommandsTest {
         adultOption.add("true");
         flagMap.put("-a", adultOption);
         try {
-            profileCommands.addPreference(flagMap, "-a");
+            UserProfile newUserProfile = profileCommands.addPreference(flagMap, "-a");
+            assertTrue(newUserProfile.isAdult(), "Test has failed");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertTrue(userProfile.isAdult(), "Test has failed");
-        profileCommands.clearSortPreference();
+        profileCommands.clearAdultPreference();
     }
 
     @Test
@@ -261,9 +261,10 @@ public class ProfileCommandsTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertFalse(userProfile.isSortByAlphabetical(), "Test failed");
-        assertFalse(userProfile.isSortByHighestRating(), "Test failed");
-        assertFalse(userProfile.isSortByLatestRelease(), "Test failed");
+        UserProfile newUserProfile = new EditProfileJson().load();
+        assertFalse(newUserProfile.isSortByAlphabetical(), "Test failed");
+        assertFalse(newUserProfile.isSortByHighestRating(), "Test failed");
+        assertFalse(newUserProfile.isSortByLatestRelease(), "Test failed");
         profileCommands.clearSortPreference();
     }
 
@@ -273,11 +274,11 @@ public class ProfileCommandsTest {
         ArrayList<String> adultOption = new ArrayList<>();
         flagMap.put("-a", adultOption);
         try {
-            profileCommands.clearPreference(flagMap, "-a");
+            UserProfile newUserProfile = profileCommands.clearPreference(flagMap, "-a");
+            assertFalse(newUserProfile.isAdult(), "Test failed");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertTrue(userProfile.isAdult(), "Test failed");
     }
 
     @Test

@@ -1,4 +1,4 @@
-package entertainment.pro.logic.cinemaRequesterAPI;
+package entertainment.pro.logic.cinemarequesterapi;
 
 /**
  * Interface for client classes to be notified about a fetch request by CinemaInfo objects.

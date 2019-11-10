@@ -1,7 +1,7 @@
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.strings.PromptMessages;
-import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.enums.CommandKeys;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.storage.user.Blacklist;
@@ -25,29 +25,30 @@ import java.util.ArrayList;
      * @param uicontroller Ui controller class.
      */
     public ViewCommand(Controller uicontroller) {
-        super(COMMANDKEYS.VIEW, CommandStructure.cmdStructure.get(COMMANDKEYS.VIEW), uicontroller);
+        super(CommandKeys.VIEW, CommandStructure.cmdStructure.get(CommandKeys.VIEW), uicontroller);
     }
 
     @Override
     public void executeCommands() throws Exceptions {
         switch (this.getSubRootCommand()) {
-            case WATCHLIST:
-                WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
-                break;
-            case BLACKLIST:
-                ((MovieHandler) this.getUiController()).setGeneralFeedbackText(Blacklist.printList());
-                break;
-            case ENTRY:
-                int num = Integer.parseInt(getPayload());
-                executeEntryCommands(num);
-                break;
-            case RECOMMENDATION:
-                executeRecommendationCommand();
-                break;
-                case BACK:
-                    executeBackCommands();
-            default:
-                break;
+        case WATCHLIST:
+            WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
+            break;
+        case BLACKLIST:
+            ((MovieHandler) this.getUiController()).setGeneralFeedbackText(Blacklist.printList());
+            break;
+        case ENTRY:
+            int num = Integer.parseInt(getPayload());
+            executeEntryCommands(num);
+            break;
+        case RECOMMENDATION:
+            executeRecommendationCommand();
+            break;
+        case BACK:
+            executeBackCommands();
+            break;
+        default:
+            break;
         }
     }
 

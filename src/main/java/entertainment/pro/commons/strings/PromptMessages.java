@@ -125,14 +125,18 @@ public class PromptMessages {
     // data parsing and filtering related messages
     public static final String NO_GENRES_PREF_SET = "No genre preference was set by user for this search request";
     public static final String NO_GENRES_RESTRICT_SET = "No genre preference was set by user for this search request";
-    public static final String FAILED_ADULT_REQUIREMENT = "This movie/TV show will not be added to the search "
-            + "results because " + "it failed adult requirement";
+    public static final String FAILED_ADULT_REQUIREMENT = "This movie/TV show will not be added to "
+            + "the search results because "
+            + "it failed adult requirement";
     public static final String FAILED_NAME_REQUIREMENT = "This movie/TV show will not be added to the search "
-            + "results because " + "it failed to match the name entered by user";
+            + "results because "
+            + "it failed to match the name entered by user";
     public static final String FAILED_GENRE_PREF_REQUIREMENT = "This movie/TV show will not be added to the "
-            + "search results because " + "it does not contains the genre wanted by user";
-    public static final String FAILED_GENRE_RESTRICT_REQUIREMENT = "This movie/TV show will not be added to the search results because " +
-            "it contains the genre restricted by user";
+            + "search results because "
+            + "it does not contains the genre wanted by user";
+    public static final String FAILED_GENRE_RESTRICT_REQUIREMENT = "This movie/TV show will not be added "
+            + "to the search results because it contains the genre restricted by user";
+
     public static final String PASSED_REQUIREMENT = "This movie/TV show will be added to the search results because "
             + "it passed the requirements";
     public static final String RATINGS_FOUND_AS_LONG = "Ratings for a movie/TV show was found to be in long";
@@ -143,8 +147,9 @@ public class PromptMessages {
     public static final String SORT_ALPHA_ORDER = "Succssfully sorted results in alphabetical order";
     public static final String SORT_BY_RATINGS = "Succssfully sorted results by ratings";
     public static final String SORT_BY_RELEASE_DATE = "Succssfully sorted results by release dates";
-    public static final String DATA_PROCESSING_IS_COMPLETE = "Data processing is complete. Sending data to "
-            + "MovieHandler class.";
+    public static final String DATA_PROCESSING_IS_COMPLETE = "Data processing is complete. "
+            + "Sending data to MovieHandler class.";
+
 
 
     // retrieve data from local files message
@@ -153,7 +158,8 @@ public class PromptMessages {
                     + "Please take note that posters for search results are unavailable for offline search requests]";
     public static final String IO_EXCEPTION_IN_OFFLINE = "IO Exception when extracting data from offline";
     public static final String DATA_EXTRACT_FROM_OFFLINE_NEEDED = "Data needs to be extracted from offline files";
-    public static final String DATA_EXTRACT_FROM_OFFLINE_SUCCESS = "Data has been extracted from offline files successfully";
+    public static final String DATA_EXTRACT_FROM_OFFLINE_SUCCESS = "Data has been extracted from "
+            + "offline files successfully";
     public static final String START_OFFLINE_DATA_EXTRACTION = "Extraction of offline data begins";
     public static final String OFFLINE_DATA_EXTRACTION_FAILED = "Unable to extract data from offline files";
     public static final String OFFLINE_DATA_EXTRACTION_SUCCESS = "Extraction of offline data is successful";
