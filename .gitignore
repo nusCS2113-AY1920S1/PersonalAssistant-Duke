@@ -15,3 +15,7 @@ bin/
 
 # Data directory
 /data
+
+# Logs
+*.log
+*.lck

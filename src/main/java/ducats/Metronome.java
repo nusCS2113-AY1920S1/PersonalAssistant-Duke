@@ -1,7 +1,9 @@
 package ducats;
 
+import java.util.Dictionary;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
 //@@author rohan-av
 /**
@@ -12,6 +14,7 @@ import java.util.TimerTask;
 public class Metronome {
 
     private static final String TIMER_COMPLETE = "Done!\n\n";
+    //private static final DucatsLogger LOGGER = new DucatsLogger();
 
     private int duration;
     private int tempo;
@@ -83,11 +86,13 @@ public class Metronome {
                 public void run() {
                     String output = generateOutput();
                     if (output.equals(TIMER_COMPLETE)) {
+                        DucatsLogger.info("Metronome completed");
                         cancel();
                     }
                     System.out.print("\b\b" + output);
                 }
             };
+            DucatsLogger.finer("Metronome initialized and ready to start");
             timer.scheduleAtFixedRate(repeatedTask, 1000, 60000 / tempo);
         }
     }

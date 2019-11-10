@@ -1,6 +1,7 @@
 package ducats.commands;
 
 import ducats.DucatsException;
+import ducats.DucatsLogger;
 import ducats.Storage;
 import ducats.Ui;
 import ducats.components.SongList;
@@ -29,11 +30,18 @@ public class OpenCommand extends Command<SongList> {
             int songIndex = songList.findSongIndex(songName);
             if (songIndex != -1) {
                 songList.setActiveIndex(songList.findSongIndex(songName));
+                DucatsLogger.fine("The active index of the songList has been set to "
+                        + songIndex
+                        + " ("
+                        + songName
+                        + ")");
             } else {
+                DucatsLogger.severe("Unable to set active index of songList to" + songIndex);
                 throw new DucatsException("");
             }
             return Ui.formatOpen(songList, songIndex);
         } catch (Exception e) {
+            DucatsLogger.severe("A song with the name " + message.substring(5) + "is not found");
             throw new DucatsException("","index");
         }
     }
@@ -49,7 +57,6 @@ public class OpenCommand extends Command<SongList> {
         return false;
     }
 
-    //@@author rohan-av
     /**
      * Returns an integer corresponding to the duration, tempo and time signature if the command starts a metronome.
      * Else, returns an array containing -1.

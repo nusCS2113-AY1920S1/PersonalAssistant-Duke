@@ -26,6 +26,8 @@ import ducats.commands.ByeCommand;
 import ducats.commands.MetronomeCommand;
 import ducats.components.Jaccard;
 import ducats.components.WordGetter;
+
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -34,6 +36,7 @@ import java.util.regex.Matcher;
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
  */
 public class Parser {
+
     /**
      * This function checks if there is a special character in the given string.
      * @param message - Refers to the string that needs to be checked
@@ -191,7 +194,8 @@ public class Parser {
             }
             break;
         default:
-            return new AddBarCommand(message);
+            DucatsLogger.warning("Command not found; HelpCommand created");
+            return new HelpCommand(message);
         }
         throw new DucatsException(message);
     }

@@ -66,6 +66,11 @@ public class GroupCommand extends Command<SongList> {
                 throw new DucatsException(message, "group");
             }
             //code to add this group into the storage (verse list)
+            try {
+                storage.updateFile(songList);
+            } catch (Exception e) {
+                //do nothing
+            }
             return ui.formatGroupBar(startNo, endNo, name);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DucatsException(message, "group");
