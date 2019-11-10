@@ -103,7 +103,7 @@ public class FirstLoginTest {
         }
 
         /**
-         * Achievement information.
+         * Information on how to unlock achievement.
          * @return achievement information.
          */
         @Override
