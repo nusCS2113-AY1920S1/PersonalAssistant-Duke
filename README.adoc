@@ -9,13 +9,15 @@ ifndef::env-github[]
 image::images/Ui.png[width="600" height="400"]
 endif::[]
 
-* This is a desktop application for managing maker spaces. It has a GUI but most of the user interactions happen through a CLI (Command Line Interface).
-* It is a Java application intended for displaying movies and TV shows related stuff such as reviews and ratings for movies.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code that is based on https://github.com/se-edu/addressbook-level4[Address Book (level 4)].
+* This is a desktop application primarily to search for movies and TV shows. It has a GUI but most of the user interactions happen through a CLI (Command Line Interface).
+* It is a Java application intended for doing movies and TV shows related functionalities such as creating playlist.
+* It is *written in OOP fashion*. It provides a *reasonably well-written* code.
+
 * *Features*:
-** A GUI for displaying all available movies and TV shows.
-** Comes with a favourites' list that can store updates about movies and TV shows. 
-** Users can also set their own preferences.
+** A GUI for displaying all available movies and TV shows
+** Comes with a watchlist where users can add movies/TV shows that they want to watch
+** Comes with the ability to create playlists and add movies/TV shows to those playlist
+** Auto-completion and spell checker functionality 
 
 * *Target user profile*:
 ** This desktop application is intended for users who
@@ -35,13 +37,15 @@ endif::[]
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
+* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 
 == Acknowledgements
 
 * Most parts of this sample application came from https://github.com/j-lum/duke[duke.Duke].
+* Data for movies and TV shows displayed in this app was extracted from https://www.themoviedb.org/documentation/api[MovieDB API].
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://github.com/TestFX/TestFX[TestFX],
+* Libraries used: https://github.com/TestFX/TestFX[TestFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 
