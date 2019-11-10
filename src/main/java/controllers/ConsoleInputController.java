@@ -183,14 +183,6 @@ public class ConsoleInputController implements IController {
         return new String[] { "Bye. Hope to see you again soon!" };
     }
 
-    public String getManagingProjectIndex() {
-        return managingProjectIndex;
-    }
-
-    public String[] toProjectInputController(String projectNumber) {
-        return this.projectInputController.onCommandReceived(projectNumber);
-    }
-
     public boolean getIsManagingAProject() {
         return this.projectInputController.getIsManagingAProject();
     }
