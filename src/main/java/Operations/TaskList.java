@@ -56,8 +56,7 @@ public class TaskList {
             }
             deletedList.add(tasks.get(idx[0]));
             tasks.remove(idx[0]);
-        }
-        else {
+        } else {
             if (idx[0] < 0 || idx[0] >= tasks.size() || idx[1] < 0 || idx[1] >= tasks.size()) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
@@ -131,7 +130,7 @@ public class TaskList {
     public void showCompleted() throws RoomShareException {
         sortTasks();
         System.out.println(COMPLETED_TASKS);
-        if (tasks.size() != 0){
+        if (tasks.size() != 0) {
             int listCount = 1;
             for (Task output : tasks) {
                 if (output.getDone()) {
@@ -166,14 +165,14 @@ public class TaskList {
             if (index[0] < 0 || index[0] >= tasks.size() || index[1] < 0 || index[1] >= tasks.size()) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
-            for (int i = index[0]; i <= index[1]; i++){
+            for (int i = index[0]; i <= index[1]; i++) {
                 tasks.get(i).setDone(true);
             }
         }
     }
 
     /**
-     * Set a subtask from an assignment as done
+     * Set a subtask from an assignment as done.
      * @param input the String containing the index of the Assignment and subtask
      * @throws RoomShareException if there are formatting error or the task entered is not an Assignment
      */
@@ -389,7 +388,7 @@ public class TaskList {
      * @param timeUnit unit for snooze time: month, day, hour, minute
      * @throws IndexOutOfBoundsException when the specified index is not within the task list indices
      */
-    public void snooze (int index, int amount, TimeUnit timeUnit) throws RoomShareException {
+    public void snooze(int index, int amount, TimeUnit timeUnit) throws RoomShareException {
         try {
             switch (timeUnit) {
             case month:
@@ -419,7 +418,7 @@ public class TaskList {
      */
     int getSize() {
         int count = 0;
-        for(Task t : tasks) {
+        for (Task t : tasks) {
             if (!t.getOverdue() && !(t instanceof Leave)) {
                 count += 1;
             }
