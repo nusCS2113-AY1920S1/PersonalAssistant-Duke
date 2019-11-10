@@ -6,6 +6,9 @@
 package cube.model.food;
 
 import cube.model.ModelManager;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -190,8 +193,10 @@ public class Food {
 	 */
 	@Override
 	public String toString() {
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		String date = format.format(expiryDate);
 		return name + "\n  Type: " + type + "\n  Price: $" + price +
-				"\n  Stock: " + stock + "\n  Expiry Date: " + expiryDate;
+				"\n  Stock: " + stock + "\n  Expiry Date: " + date;
 	}
 
 	@Override

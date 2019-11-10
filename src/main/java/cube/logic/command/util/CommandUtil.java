@@ -9,6 +9,7 @@ import cube.model.food.Food;
 import cube.model.food.FoodList;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.exception.CommandErrorMessage;
+import cube.model.promotion.Promotion;
 import cube.model.promotion.PromotionList;
 
 import java.util.Date;
@@ -134,18 +135,37 @@ public class CommandUtil {
         }
     }
 
+    //@@author ZKathrynx
+
     /**
-     * Checks that a given food promotion is not in the promotion list.
-     *
-     * @param promotionList The promotion list.
-     * @param foodName The food name to check.
-     * @throws CommandException If the given food promotion is inside the promotion list.
+     * Checks that the same food does not have two different promotions at the same time.
+     * @param promotionList the list of existing promotions.
+     * @param newPromotion the new promotion to be added.
+     * @throws CommandException if the same food has two different promotions at the same time.
      */
-    public static void requirePromotionNotExists(PromotionList promotionList, String foodName) throws CommandException {
-        if (promotionList.existsName(foodName)) {
-            throw new CommandException(CommandErrorMessage.PROMOTION_ALREADY_EXISTS);
+    public static void requireNotOverlappingTime (PromotionList promotionList, Promotion newPromotion) throws CommandException {
+        String foodName = newPromotion.getName();
+        Date start = newPromotion.getStartDate();
+        Date end = newPromotion.getEndDate();
+        if (!promotionList.existsName(foodName)) {
+            return;
         }
+        if (end.before(promotionList.get(foodName).getStartDate()) || start.after(promotionList.get(foodName).getEndDate())) {
+            return;
+        }
+        throw new CommandException(CommandErrorMessage.PROMOTION_ALREADY_EXISTS);
     }
 
+    /**
+     * Checks whether the food item that is going to promote is already free.
+     * @param foodList the list of food.
+     * @param foodName the food item to promote.
+     * @throws CommandException when the food item that is going to promote is already free.
+     */
+    public static void requireNotFreeItem (FoodList foodList, String foodName) throws CommandException {
+        if(foodList.get(foodName).getPrice()==0) {
+            throw new CommandException(CommandErrorMessage.FREE_ITEM);
+        }
+    }
 
 }
