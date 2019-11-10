@@ -405,6 +405,7 @@ public class MainWindow extends GridPane {
     }
 
     private void handleGuiQuiz() throws CakeException {
+        JavaCake.logger.log(Level.INFO,"Answering question " + index + "\nUser input: \"" + input + "\"");
         quizSession.parseInput(index, input);
         index++;
         if (index < MAX_QUESTIONS) {
@@ -591,7 +592,7 @@ public class MainWindow extends GridPane {
 
     private boolean isFirstQuiz() throws CakeException {
         if (response.contains("!@#_QUIZ")) {
-            //checks for first execution of quizCommand
+            //checks for first execution of quizSession
             isQuiz = true;
             JavaCake.logger.log(Level.INFO, "isFirstQuiz(): " + response);
             response = initQuizSession(response);
