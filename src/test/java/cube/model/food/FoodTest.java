@@ -3,6 +3,8 @@
  * FoodTest.java
  * Test whether the Food Class is functioning as expected.
  */
+package cube.model.food;
+
 import cube.exception.CubeException;
 import cube.logic.parser.ParserUtil;
 import cube.model.food.Food;
@@ -12,8 +14,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
-
-package cube.model.food;
 
 /**
  * This class tests whether the Food Class is functioning as expected.
@@ -187,7 +187,7 @@ public class FoodTest extends Food {
 
 
         //testing setters and getters for Stock of the Food.
-        int food12Stock 50; //high
+        int food12Stock = 50; //high
         int food34Stock = 5; //low
         food1.setStock(food12Stock);
         food2.setStock(food12Stock);
