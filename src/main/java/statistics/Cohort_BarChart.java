@@ -54,17 +54,18 @@ public class Cohort_BarChart extends JFrame {
                 Total.add(cohortStats.get(i).getD());
             }
         }
-        dataset.addValue(Male.get(0), male, year_2018);
+        dataset.addValue(Male.get(0), male, year_2016);
         dataset.addValue(Male.get(1), male, year_2017);
-        dataset.addValue(Male.get(2), male, year_2016);
+        dataset.addValue(Male.get(2), male, year_2018);
 
-        dataset.addValue(Female.get(0), female, year_2018);
+        dataset.addValue(Female.get(0), female, year_2016);
         dataset.addValue(Female.get(1), female, year_2017);
-        dataset.addValue(Female.get(2), female, year_2016);
+        dataset.addValue(Female.get(2), female, year_2018);
 
-        dataset.addValue(Total.get(0), total, year_2018);
+        dataset.addValue(Total.get(0), total, year_2016);
         dataset.addValue(Total.get(1), total, year_2017);
-        dataset.addValue(Total.get(2), total, year_2016);
+        dataset.addValue(Total.get(2), total, year_2018);
+
         return dataset;
     }
 }
