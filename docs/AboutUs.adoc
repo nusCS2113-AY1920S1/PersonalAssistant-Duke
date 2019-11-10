@@ -14,10 +14,10 @@ image::lucria.png[width="150", align="left"]
 {empty}[https://github.com/Lucria[github]] [https://github.com/Lucria[portfolio]]
 
 Role: Team Lead +
-Responsibilities: +
-- Documentation +
-- Implementation of Data Models +
-- Unit Tests +
+Responsibilities: 
+* Documentation
+* Implementation of Data Models
+* Unit Tests
 Features Implemented: +
 - Creation/Viewing/Updation/Deletion of projects +
 - Member Features (roles) +
