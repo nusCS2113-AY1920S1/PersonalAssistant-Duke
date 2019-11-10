@@ -19,7 +19,6 @@ import java.util.HashMap;
  * Represents the command to show the week selected by the user.
  */
 public class WeekCommand extends Command {
-    private static final String NO_FIELD = "void";
     private static final String TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR = ":";
     private static final String TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR = "12";
     private static final String TWELVE_HOUR_TIME_AM_POST_FIX = "AM";
@@ -235,6 +234,6 @@ public class WeekCommand extends Command {
         setListView(lookupTable, events);
         sortList();
         weekList = new WeekList(monList, tueList, wedList, thuList, friList, satList, sunList);
-        return NO_FIELD;
+        return DukeConstants.NO_FIELD;
     }
 }
