@@ -102,7 +102,7 @@ public class ImpressionUtils {
     }
 
     /**
-     *
+     * Edits the data of a specified {@code DukeData} object, using the parameters supplied in an {@code ArgCommand}.
      */
     public static void editData(DukeCore core, ArgCommand cmd, DukeData data) throws DukeException {
         boolean isAppending = false;
