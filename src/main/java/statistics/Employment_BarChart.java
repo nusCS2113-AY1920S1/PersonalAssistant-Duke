@@ -16,8 +16,6 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 import javax.swing.*;
 
@@ -28,8 +26,8 @@ import javax.swing.*;
  * to each dataset, and the getLegendItems() method in the plot is overridden.
  *
  */
-public class BarChart_AWT extends JFrame {
-    ArrayList<MyClass> cohortStats = GraduateEmploymentDisplay.getStats();
+public class Employment_BarChart extends JFrame {
+    ArrayList<GraduateStats> cohortStats = GraduateEmployment.getStats();
     ArrayList<Double> percentage = new ArrayList<>();
     ArrayList<Integer> salary = new ArrayList<>();
     private String degree;
@@ -39,7 +37,7 @@ public class BarChart_AWT extends JFrame {
      *
      * @param title  the frame title.
      */
-    public BarChart_AWT(final String title, String input_degree) {
+    public Employment_BarChart(final String title, String input_degree) {
         super(title);
         degree = input_degree;
         final CategoryDataset dataset1 = createDataset1();
