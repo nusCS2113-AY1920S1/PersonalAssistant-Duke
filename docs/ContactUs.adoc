@@ -1,0 +1,4 @@
+# Contact Us
+
+- Bug reports, Suggestions : Please post any issues that you encounter in our issue tracker. We welcome suggestions as well.
+- Contributing : We welcome pull requests. Follow the process described https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow[here]

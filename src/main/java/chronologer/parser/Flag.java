@@ -7,7 +7,9 @@ public enum Flag {
     IN("/in"),
     DEADLINE("-d"),
     EVENT("-e"),
-    TODO("-t");
+    TODO("-t"),
+    RAW("-r"),
+    MOD("/m");
 
     private String flag;
 

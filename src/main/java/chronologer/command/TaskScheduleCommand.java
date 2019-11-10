@@ -1,17 +1,14 @@
 package chronologer.command;
 
-import chronologer.TaskScheduler;
 import chronologer.exception.ChronologerException;
 import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
-import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.task.Deadline;
 import chronologer.task.Todo;
 import chronologer.ui.UiMessageHandler;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * Finds a free period of time within the user's schedule for a selected duration value.
@@ -91,9 +88,8 @@ public class TaskScheduleCommand extends Command {
         LocalDateTime deadlineDate;
         String result;
 
-        ArrayList<Task> list = tasks.getTasks();
-        duration = retrieveDuration(list);
-        deadlineDate = retrieveDeadlineDate(list);
+        duration = retrieveDuration(tasks);
+        deadlineDate = retrieveDeadlineDate(tasks);
 
         if (deadlineDate == null) {
             result = TaskScheduler.scheduleTask(tasks, duration);
@@ -102,7 +98,6 @@ public class TaskScheduleCommand extends Command {
         }
 
         if (LocalDateTime.now().isAfter(deadlineDate)) {
-
             throw new ChronologerException(OVERDUE_DEADLINE);
         }
 
@@ -110,18 +105,18 @@ public class TaskScheduleCommand extends Command {
         UiMessageHandler.outputMessage(result);
     }
 
-    private long retrieveDuration(ArrayList<Task> list) throws ChronologerException {
+    private long retrieveDuration(TaskList tasks) throws ChronologerException {
         if (this.indexOfTask == null) {
             assert this.durationToSchedule != null;
             return this.durationToSchedule;
         }
-        if (indexOfTask < 0 || indexOfTask >= list.size()) {
+        if (indexOfTask < 0 || indexOfTask >= tasks.getTasks().size()) {
             throw new ChronologerException(ChronologerException.invalidIndex());
         }
 
         Todo todo;
         try {
-            todo = (Todo) list.get(indexOfTask);
+            todo = (Todo) tasks.getTasks().get(indexOfTask);
         } catch (ClassCastException e) {
             logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(NOT_TODO);
@@ -129,17 +124,17 @@ public class TaskScheduleCommand extends Command {
         return todo.duration;
     }
 
-    private LocalDateTime retrieveDeadlineDate(ArrayList<Task> list) throws ChronologerException {
+    private LocalDateTime retrieveDeadlineDate(TaskList tasks) throws ChronologerException {
         if (this.indexOfDeadline == null) {
             return this.deadlineDate;
         }
-        if (indexOfDeadline < 0 || indexOfDeadline >= list.size()) {
+        if (indexOfDeadline < 0 || indexOfDeadline >= tasks.getTasks().size()) {
             throw new ChronologerException(ChronologerException.invalidIndex());
         }
 
         Deadline deadline;
         try {
-            deadline = (Deadline) list.get(indexOfDeadline);
+            deadline = (Deadline) tasks.getTasks().get(indexOfDeadline);
         } catch (ClassCastException e) {
             logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(NOT_DEADLINE);

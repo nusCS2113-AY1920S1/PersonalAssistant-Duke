@@ -11,6 +11,8 @@ import javafx.scene.layout.Region;
  */
 public class DialogBox extends UiComponent<Region> {
     private static final String FXML = "DialogBox.fxml";
+    private static final String USER_ICON_PATH = "/images/UserIcon.png";
+    private static final String CHAT_ICON_PATH = "/images/ChatIcon.png";
     @FXML
     private Label dialog;
     @FXML
@@ -23,8 +25,8 @@ public class DialogBox extends UiComponent<Region> {
      */
     private DialogBox(String text, boolean isDuke) {
         super(FXML, null);
-        Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserIcon.png"));
-        Image chronologerImage = new Image(this.getClass().getResourceAsStream("/images/ChatIcon.png"));
+        Image userImage = new Image(this.getClass().getResourceAsStream(USER_ICON_PATH));
+        Image chronologerImage = new Image(this.getClass().getResourceAsStream(CHAT_ICON_PATH));
         dialog.setText(text);
         if (isDuke) {
             displayPicture.setImage(chronologerImage);

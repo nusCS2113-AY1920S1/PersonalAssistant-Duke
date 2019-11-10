@@ -27,9 +27,12 @@ public class UiMessageHandler {
         FIND("10. Find - find<space>any word in the task\n"),
         DELETE("11. Delete - delete<space> index of task as listed\n"),
         SEARCH("12. Search - search<space>duration of task in hours\n"),
-        SCHEDULE("13. Schedule - schedule<space>index of task to be scheduled<space>/by<space>"
-                + "index of event to be done by OR a raw date-time input\n"
-                + "eg. schedule 5 /by 4 OR schedule 5 /by 05/01/2015 0900\n"),
+        SCHEDULE("13. Schedule - schedule<space>index of todo to be scheduled<space>"
+                + "/by<space>index of deadline to be done by OR a raw date-time input\n"
+                + "\teg. schedule 5 /by 4 OR schedule 5 /by 05/01/2015 0900\n"),
+        SCHEDULE_RAW("13a. Schedule with raw duration - schedule<space>duration value<space>-r<space>"
+                + "/by<space>index of deadline OR raw date-time\n"
+                + "\teg. schedule 2 -r /by 4 OR schedule 2 -r /by 05/01/2015 0900\n"),
         COMMENT("14. Comment - comment<space>index of task as listed<space>your comment\n"),
         LOCATION("15. Location - location<space>index of task as listed<space>your location\n"),
         UNDO_REDO("16. Undo/Redo - undo or redo changes to your tasks\n"),

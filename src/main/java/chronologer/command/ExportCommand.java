@@ -37,6 +37,7 @@ public class ExportCommand extends Command {
     private static final String DEADLINE = "DEADLINE";
     private static final String EVENT = "EVENT";
     private static final String TODO_PERIOD = "TODO PERIOD";
+    private static final String PROD_ID = "-//Chronologer//iCal4j 1.1//EN";
 
     private String fileName;
     private boolean hasDeadlineFlag;
@@ -102,7 +103,7 @@ public class ExportCommand extends Command {
      */
     private Calendar initializeCalendar() {
         Calendar calendar = new Calendar();
-        calendar.getProperties().add(new ProdId("-//Chronologer//iCal4j 1.1//EN"));
+        calendar.getProperties().add(new ProdId(PROD_ID));
         calendar.getProperties().add(Version.VERSION_2_0);
         calendar.getProperties().add(CalScale.GREGORIAN);
         return calendar;

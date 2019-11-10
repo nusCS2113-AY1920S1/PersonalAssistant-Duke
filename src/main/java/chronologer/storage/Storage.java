@@ -28,7 +28,8 @@ public class Storage {
     private File file;
     private FileOutputStream fileOutputStream;
     private BufferedReader bufferedReader;
-    private MyLogger logger = new MyLogger(this.getClass().getName(), "StorageErrors");
+    private static final String LOG_NAME = "StorageErrors";
+    private MyLogger logger = new MyLogger(this.getClass().getName(), LOG_NAME);
 
     /**
      * This Storage constructor is used to function is used to assign the different

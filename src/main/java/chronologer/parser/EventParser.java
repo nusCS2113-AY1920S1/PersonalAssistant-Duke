@@ -25,7 +25,7 @@ public class EventParser extends DescriptionParser {
     EventParser(String userInput, String command) {
         super(userInput, command);
         this.checkType = Flag.AT.getFlag();
-        this.hasModCode = userInput.contains("/m");
+        this.hasModCode = userInput.contains(Flag.MOD.getFlag());
     }
 
     @Override

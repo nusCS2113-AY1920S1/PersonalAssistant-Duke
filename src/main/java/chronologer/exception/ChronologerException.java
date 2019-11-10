@@ -11,13 +11,13 @@ import chronologer.ui.UiMessageHandler;
  * @version v1.0
  */
 public class ChronologerException extends Exception {
-    private static final String WRONG_FORMAT_MSG = "OOPS!!! The date or time of this add type command is not of the "
+    private static final String WRONG_FORMAT_MSG = "OOPS!!! The date or time of this command is not of the "
         + "correct format.";
     private static final String TASK_CLASH_MSG = "OOPS!!! There is already a task scheduled at the same time, use view "
         + "command to check your schedule for the day";
     private static final String MISSING_DESCRIPTION_MSG = "OOPS!!! The description of the command is missing.";
     private static final String UNKNOWN_COMMAND_MSG = "OOPS!!! The command you have entered is not of a valid type.";
-    private static final String MISSING_DATETIME_MSG = "OOPS!!! The date or time of this add type command is missing.";
+    private static final String MISSING_DATETIME_MSG = "OOPS!!! The date or time of this command is missing.";
     private static final String NONEXISTING_TASK_MSG = "OOPS!!! The task you searched for does not exist.";
     private static final String WRITE_ERROR_MSG = "OOPS!!! Unable to write file.";
     private static final String READ_ERROR_MSG = "OOPS!!! Unable to read from file.";
@@ -42,6 +42,7 @@ public class ChronologerException extends Exception {
     private static final String INVALID_WEEK = "OOPS!! Your week is invalid!";
     private static final String INVALID_VERSION = "OOPS!! Your version is invalid!";
     private static final String INVALID_DURATION = "OOPS!! The duration given is invalid!";
+    private static final String INVALID_INPUT = "OOPS!! The input given is not valid.";
     private static final String WEBSITE_BROKEN = "OOPS!! We are unable to launch our online guide!";
     private static final String UNDO_LIMIT = "OOPS!! Sorry unable to undo further";
     private static final String REDO_LIMIT = "OOPS!! Sorry unable to redo further";
@@ -219,6 +220,10 @@ public class ChronologerException extends Exception {
 
     public static String undoLimitHit() {
         return UNDO_LIMIT;
+    }
+
+    public static String invalidInput() {
+        return INVALID_INPUT;
     }
 
     public ChronologerException(String message) {
