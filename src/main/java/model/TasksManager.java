@@ -14,7 +14,8 @@ public class TasksManager implements Serializable {
     private ArrayList<Task> taskList;
 
     /**
-     * add javadoc please
+     * instructor
+     * @param taskList completed task list
      */
     public TasksManager(ArrayList<Task> taskList) {
         if (taskList != null) {
@@ -107,6 +108,12 @@ public class TasksManager implements Serializable {
         return "[" + getTaskById(index).getStatusIcon() + "]";
     }
 
+    //@@author yuyanglin28
+    /**
+     * This method is to get the time string in a special format
+     * @param index the task index (from 0)
+     * @return time string
+     */
     public String getTaskTimeString(int index) {
         Date time = getTaskDateTimeById(index);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE dd-MM-yyyy HH:mm'H'");
@@ -131,6 +138,12 @@ public class TasksManager implements Serializable {
         return showTasks(taskList);
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to get the list string of todo tasks
+     * @return a list of todo tasks, with no certain order
+     */
     public String getTodoTasks() {
         ArrayList<Task> todoTasks = pickTodo(taskList);
         return showTasks(todoTasks);
@@ -138,11 +151,11 @@ public class TasksManager implements Serializable {
 
     //@@author yuyanglin28
     /**
-     *
-     * @param tasksName
-     * @return
+     * This method is to get the number of todo tasks, with a string array of task name
+     * @param tasksName a string array that stored task name
+     * @return number of todo tasks
      */
-    public int getTodoTasks(ArrayList<String> tasksName) {
+    public int getTodoTasksNum(ArrayList<String> tasksName) {
         int todoNum = 0;
         for (int i = 0; i < tasksName.size(); i++) {
             Task task = getTaskByName(tasksName.get(i));
@@ -155,13 +168,16 @@ public class TasksManager implements Serializable {
 
     //@@author yuyanglin28
     /**
+     * This method is to get the progress with a string array of task name.
+     * Progress = finished task number / all task number
+     * If no task, the progress is 1.0.
      *
-     * @param tasksName
-     * @return
+     * @param tasksName a string array that stored task name
+     * @return a double data which represents the progress
      */
     public double getProgress(ArrayList<String> tasksName) {
         double total = tasksName.size();
-        int todoNum = getTodoTasks(tasksName);
+        int todoNum = getTodoTasksNum(tasksName);
         double doneNum = total - todoNum;
         double progress;
         if (total == 0) {
@@ -229,6 +245,14 @@ public class TasksManager implements Serializable {
         }
     }
 
+
+    //@@author yuyanglin28
+
+    /**
+     * This method is to update teh task description
+     * @param index index of the task (from 0)
+     * @param des new description
+     */
     public void updateTaskDes(int index, String des) {
         Task task = getTaskById(index);
         task.setDescription(des);
@@ -252,6 +276,7 @@ public class TasksManager implements Serializable {
     //@@author yuaynglin28
     /**
      * This method is to transfer array list tasks to string
+     *
      * @param tasks array list of tasks
      * @return string to represent tasks, contains index in list, status, name, and time (if has)
      */
@@ -304,6 +329,16 @@ public class TasksManager implements Serializable {
         return result;
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to put '*' around the key word in task name.
+     *
+     * @param i the index of the task that contains the keyword (from 0)
+     * @param keyword key word
+     * @return a string that represents the task (excluding description)
+     * with key word addressed name
+     */
     private String getByKeyWordInName(int i, String keyword) {
         String name = getNameById(i);
         int index = name.indexOf(keyword);
@@ -318,6 +353,16 @@ public class TasksManager implements Serializable {
 
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to put '*' around the key word in task description.
+     *
+     * @param i the index of the task that contains the keyword (from 0)
+     * @param keyword key word
+     * @return a string that represents the task (including description)
+     * with key word addressed description
+     */
     private String getByKeyWordInDes(int i, String keyword) {
         String des = getTaskDes(i);
         int index = des.indexOf(keyword);
@@ -387,6 +432,14 @@ public class TasksManager implements Serializable {
     }
 
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to sorted the tasks in order of time
+     *
+     * @param toSort an array list of tasks that need to be sorted
+     * @return a sorted array list
+     */
     private ArrayList<Task> sortByTime(ArrayList<Task> toSort) {
         ArrayList<Task> sorted = new ArrayList<>();
         ArrayList<Task> hasTime = new ArrayList<>();
@@ -415,6 +468,13 @@ public class TasksManager implements Serializable {
         return sorted;
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to get all todo tasks
+     * @param toFilter original/total task list
+     * @return todo tasks array list
+     */
     private ArrayList<Task> pickTodo(ArrayList<Task> toFilter) {
         ArrayList<Task> filtered = new ArrayList<>();
         for (int i = 0; i < toFilter.size(); i++) {
@@ -428,19 +488,36 @@ public class TasksManager implements Serializable {
     //===================== task in order of pic num ================
 
     //@@author yuyanglin28
+
     /**
+     * This method is to get all tasks in order of number of PIC
      *
-     * @return
+     * @return a sorted list in string format
      */
     public String tasksAllInorderPicNum() {
         return tasksInorderPicNum(taskList);
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to get todo tasks in order of number of PIC
+     * @return a sorted list in string format
+     */
     public String tasksTodoInorderPicNum() {
         ArrayList<Task> todoTasks = pickTodo(taskList);
         return tasksInorderPicNum(todoTasks);
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * This method is to get sorted tasks list in order of number of PICs
+     * with a task array list.
+     *
+     * @param tasks a task array list to be sorted
+     * @return a sorted list in string format
+     */
     public String tasksInorderPicNum(ArrayList<Task> tasks) {
         ArrayList<Task> toSort = (ArrayList<Task>) tasks.clone();
         String result = "";
@@ -467,6 +544,7 @@ public class TasksManager implements Serializable {
     //@@author yuyanglin28
     /**
      * This method is to check time crash for just one member
+     *
      * @param tasksName tasksName list stored in one member
      * @return if there is time crash, return time and tasks name, if no, empty string
      */

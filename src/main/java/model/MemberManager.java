@@ -10,7 +10,8 @@ public class MemberManager {
     ArrayList<Member> memberList;
 
     /**
-     * add javadoc please
+     * instructor
+     * @param memberList member list
      */
     public MemberManager(ArrayList<Member> memberList) {
         if (memberList != null) {
@@ -89,6 +90,45 @@ public class MemberManager {
         for (int i = 0; i < memberList.size(); i++) {
             Member toCheck = memberList.get(i);
             toCheck.deleteTask(taskName);
+        }
+    }
+
+    /**
+     * Delete an array of Member objects from the member list.
+     *
+     * @param toDelete The Member objects array to be deleted.
+     */
+    public void deleteMembers(Member[] toDelete) {
+        for (int i = 0; i < toDelete.length; i++) {
+            memberList.remove(toDelete[i]);
+        }
+    }
+
+    /**
+     * Add link(s) from member(s) to task(s). Duplicated link will be cancelled.
+     *
+     * @param members Array of Member objects to link.
+     * @param toAdd   Array of Task objects to link.
+     */
+    public void addTask(Member[] members, Task[] toAdd) {
+        for (int i = 0; i < members.length; i++) {
+            for (int j = 0; j < toAdd.length; j++) {
+                members[i].addTask(toAdd[j].getName());
+            }
+        }
+    }
+
+    /**
+     * Delete link(s) from member(s) to task(s). Non-existing link won't be deleted.
+     * This is the reverse method of <code>addTask(Member[] members, Task[] toAdd)</code> method.
+     *
+     */
+    public void deleteTask(Member[] members, Task[] toDelete) {
+        for (int i = 0; i < members.length; i++) {
+            for (int j = 0; j < toDelete.length; j++) {
+                String taskName = toDelete[j].getName();
+                members[i].deleteTask(taskName);
+            }
         }
     }
 
@@ -180,28 +220,14 @@ public class MemberManager {
         member.setPhone(phone);
     }
 
-    static int countIntOccurrences(ArrayList<Integer> arr, int x) {
-        int res = 0;
-        for (int i = 0; i < arr.size(); i++) {
-            if (x == arr.get(i)) {
-                res++;
-            }
-        }
-        return res;
-    }
-
-    static int countDoubleOccurrences(ArrayList<Double> arr, double x) {
-        int res = 0;
-        for (int i = 0; i < arr.size(); i++) {
-            if (x == arr.get(i)) {
-                res++;
-            }
-        }
-        return res;
-    }
-
+    //@@author yuyanglin28
     /**
-     * javadoc
+     * This method is to sorted the member list according to the progress.
+     * The argument is an array list of progress,
+     * the index 0 progress is the progress of index 0 member in member list
+     *
+     * @param progress array list that sorted the progress data
+     * @return a sorted member list in string format (with name and progress), from high to low
      */
     public String membersInorderProgress(ArrayList<Double> progress) {
         String result = "";
@@ -236,8 +262,15 @@ public class MemberManager {
     }
 
 
+
+    //@@author yuyanglin28
     /**
-     * java doc
+     * This method is to sorted the member list according to the todo task num.
+     * The argument is an array list of todo task num,
+     * the index 0 todo task num is the todo task num of index 0 member in member list
+     *
+     * @param todoNum array list that sorted the todo task num
+     * @return a sorted member list in string format (with name and todo task num), from small to big
      */
     public String membersInorderTodoNum(ArrayList<Integer> todoNum) {
         String result = "";
@@ -270,6 +303,44 @@ public class MemberManager {
 
         }
         return result;
+    }
+
+    //@@author yuyanglin28
+
+    /**
+     * This method is to get the occurrence of an integer in an array list
+     *
+     * @param arr integer array list
+     * @param x the integer to be checked
+     * @return the number of the occurrence
+     */
+    private int countIntOccurrences(ArrayList<Integer> arr, int x) {
+        int res = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            if (x == arr.get(i)) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    //@@author yuyanglin28
+
+    /**
+     * This method is to get the occurrence of a double in an array list
+     * 
+     * @param arr double array list
+     * @param x the double to be checked
+     * @return the number of the occurrence
+     */
+    private int countDoubleOccurrences(ArrayList<Double> arr, double x) {
+        int res = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            if (x == arr.get(i)) {
+                res++;
+            }
+        }
+        return res;
     }
 
 }

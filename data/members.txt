@@ -1,7 +1,9 @@
 [
   {
     "name": "tester1",
-    "taskList": [],
+    "taskList": [
+      "job B"
+    ],
     "skillList": []
   },
   {

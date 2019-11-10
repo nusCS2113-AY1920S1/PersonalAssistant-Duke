@@ -472,7 +472,7 @@ public class ModelController implements Model {
         ArrayList<Integer> todoNum = new ArrayList<>();
         for (int i = 0; i < memberManager.getMemberListSize(); i++) {
             ArrayList<String> tasksName = memberManager.getTaskListOfMember(i);
-            todoNum.add(tasksManager.getTodoTasks(tasksName));
+            todoNum.add(tasksManager.getTodoTasksNum(tasksName));
         }
         return memberManager.membersInorderTodoNum(todoNum);
     }

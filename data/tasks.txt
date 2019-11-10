@@ -10,7 +10,9 @@
   {
     "name": "job B",
     "isDone": false,
-    "memberList": [],
+    "memberList": [
+      "tester1"
+    ],
     "skillReqList": []
   },
   {
@@ -22,7 +24,9 @@
   {
     "name": "job B",
     "isDone": false,
-    "memberList": [],
+    "memberList": [
+      "tester1"
+    ],
     "skillReqList": []
   },
   {

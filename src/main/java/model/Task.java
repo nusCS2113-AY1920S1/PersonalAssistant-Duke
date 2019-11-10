@@ -28,6 +28,10 @@ public class Task {
     }
 
 
+    /**
+     * This method is to add an assigned member
+     * @param toAdd member name
+     */
     public void addMember(String toAdd) {
         if (!memberList.contains(toAdd)) {
             memberList.add(toAdd);
