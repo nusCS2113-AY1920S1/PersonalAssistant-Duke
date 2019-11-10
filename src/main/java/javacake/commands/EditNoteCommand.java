@@ -22,6 +22,7 @@ public class EditNoteCommand extends Command implements IFileUtilities {
 
     private static String nameOfEditFile;
     private static String currentFilePath;
+    private static final String GUI_CODEWORD_FOR_EDIT_NOTE = "!@#_EDIT_NOTE";
 
     private static String headingMessage = "Write your notes below!\n"
             + "To save edited content, type '/save' and enter!\n";
@@ -42,6 +43,38 @@ public class EditNoteCommand extends Command implements IFileUtilities {
         type = CmdType.EDIT_NOTE;
         updateDefaultDirectoryPath();
         verifyCommand(inputCommand);
+    }
+
+    /**
+     * Executes the EditNoteCommand accordingly depends on CLI or GUI.
+     * If CLI, use ui and readAndSaveNewContent method to generate message for user.
+     * If GUI, return !@#_EDIT_NOTE to notify MainWindow class to call GUI methods.
+     * @param logic tracks current location in program
+     * @param ui the Ui responsible for outputting messages
+     * @param storageManager storage container
+     * @return endingMessage if CLI is used, else return !@#_EDIT_NOTE to request MainWindow class to handle.
+     * @throws CakeException File does not exist.
+     */
+    @Override
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
+
+        if (storageManager.profile.isCli) {
+            if (checkFileIsEmpty(currentFilePath)) {
+                ui.showMessage("Write your notes below!\n");
+                ui.showMessage("To save edited content, type '/save' and enter!\n");
+                readAndSaveNewContent();
+                return endingMessage;
+            } else {
+                ui.showMessage("Below is your previous saved content! "
+                        + "Copy your previous content and edit accordingly\n");
+                ui.showMessage("To save edited content, type '/save' and enter!\n");
+                ui.showMessage(displayContentInFile());
+                readAndSaveNewContent();
+                return endingMessage;
+            }
+        } else {
+            return GUI_CODEWORD_FOR_EDIT_NOTE; // used for GUI
+        }
     }
 
     /**
@@ -164,37 +197,7 @@ public class EditNoteCommand extends Command implements IFileUtilities {
         }
     }
 
-    /**
-     * Executes the EditNoteCommand accordingly depends on CLI or GUI.
-     * If CLI, use ui and readAndSaveNewContent method to generate message for user.
-     * If GUI, return !@#_EDIT_NOTE to notify MainWindow class to call GUI methods.
-     * @param logic tracks current location in program
-     * @param ui the Ui responsible for outputting messages
-     * @param storageManager storage container
-     * @return endingMessage if CLI is used, else return !@#_EDIT_NOTE to request MainWindow class to handle.
-     * @throws CakeException File does not exist.
-     */
-    @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
 
-        if (storageManager.profile.isCli) {
-            if (checkFileIsEmpty(currentFilePath)) {
-                ui.showMessage("Write your notes below!\n");
-                ui.showMessage("To save edited content, type '/save' and enter!\n");
-                readAndSaveNewContent();
-                return endingMessage;
-            } else {
-                ui.showMessage("Below is your previous saved content! "
-                        + "Copy your previous content and edit accordingly\n");
-                ui.showMessage("To save edited content, type '/save' and enter!\n");
-                ui.showMessage(displayContentInFile());
-                readAndSaveNewContent();
-                return endingMessage;
-            }
-        } else {
-            return "!@#_EDIT_NOTE"; // used for GUI
-        }
-    }
 
     /**
      * Informs user if the file to be edited is empty.
@@ -255,7 +258,6 @@ public class EditNoteCommand extends Command implements IFileUtilities {
         } catch (IOException e) {
             throw new CakeException(e.getMessage());
         }
-
         return headingMessage + readTextFileContent();
     }
 

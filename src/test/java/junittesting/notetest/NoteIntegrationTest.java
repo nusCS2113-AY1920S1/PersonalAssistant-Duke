@@ -107,17 +107,5 @@ public class NoteIntegrationTest {
                 + " 'editnote - [name of the file you wish you edit]'";
         assertEquals(expectedOutput, actualOutput);
 
-        actualOutput = javaCake.getResponse("editnote NoTeS");
-        expectedOutput = "Write your notes below!\n"
-                + "To save edited content, type '/save' and enter!\n";
-        assertEquals(expectedOutput, actualOutput);
-
-        javaCake.getResponse("dummy text");
-
-        actualOutput = javaCake.getResponse("/save");
-        expectedOutput = "File: [Notes] " + "has been saved!\n";
-        assertEquals(expectedOutput, actualOutput);
-
-
     }
 }
