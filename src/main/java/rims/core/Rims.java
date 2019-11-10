@@ -34,7 +34,8 @@ public class Rims {
      *                         is stored.
      * @throws ParseException if data is stored in an invalid format and is thus
      *                        unable to be parsed
-     * @throws IOException
+     * @throws IOException  if there is an error related to user input or printing
+     *                      output.
      */
     public Rims(String resourceFilePath, String reserveFilePath) throws ParseException, RimsException, IOException {
         ui = new Ui();

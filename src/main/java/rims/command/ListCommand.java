@@ -76,7 +76,8 @@ public class ListCommand extends Command {
             Resource thisResource = resources.getResourceByIndex(i);
             int bookedNumberOfResource = resources.getBookedNumberOfResourceForDate(thisResource.getName(), strDate);
 
-            if(!coveredResources.contains(bookedNumberOfResource + "x " + thisResource.getName()) && bookedNumberOfResource > 0) {
+            if (!coveredResources.contains(bookedNumberOfResource + "x " + thisResource.getName())
+                    && bookedNumberOfResource > 0) {
                 coveredResources.add(bookedNumberOfResource + "x " + thisResource.getName());
             }
         }
@@ -110,8 +111,7 @@ public class ListCommand extends Command {
                     coveredResources.add(thisResource.getName());
                     if (thisResource.getType().equals("I")) {
                         ui.print(thisResource.toString() + " (qty: " + availableNumberOfResource + ")");
-                    }
-                    else if (thisResource.getType().equals("R")) {
+                    } else if (thisResource.getType().equals("R")) {
                         ui.print(thisResource.toString());
                     }
                 }
@@ -127,8 +127,7 @@ public class ListCommand extends Command {
                     coveredResources.add(thisResource.getName());
                     if (thisResource.getType().equals("I")) {
                         ui.print(thisResource.toString() + " (qty: " + bookedNumberOfResource + ")");
-                    }
-                    else if (thisResource.getType().equals("R")) {
+                    } else if (thisResource.getType().equals("R")) {
                         ui.print(thisResource.toString());
                     }
                     ArrayList<Resource> allOfResource = resources.getAllOfResource(thisResource.getName());
@@ -141,8 +140,7 @@ public class ListCommand extends Command {
             }
             ui.printLine();
 
-        }
-        else if (listType.equals("item")) {
+        } else if (listType.equals("item")) {
             if (!resources.isItem(resourceDetail)) {
                 throw new RimsException("There is no such item!");
             }
@@ -164,9 +162,7 @@ public class ListCommand extends Command {
             ui.printDash();
             ui.printLine();
 
-        }
-
-        else if (listType.equals("room")) {
+        } else if (listType.equals("room")) {
             if (!resources.isRoom(resourceDetail)) {
                 throw new RimsException("There is no such room!");
             }

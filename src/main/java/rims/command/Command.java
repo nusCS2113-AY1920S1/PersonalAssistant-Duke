@@ -71,7 +71,7 @@ public abstract class Command {
      * @param storage An instance of the Storage class.
      * @param resources The ResourceList, containing all the created Resources thus far.
      * @throws RimsException if any date is un-parsable, if there is an error in saving Resources to disk or
-     * if there is a non-formatting-related issue in the input
+     *                       if there is a non-formatting-related issue in the input
      */
     public abstract void execute(Ui ui, Storage storage, ResourceList resources)
         throws RimsException;
