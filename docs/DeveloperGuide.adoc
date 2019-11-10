@@ -847,17 +847,14 @@ You can check the ingredient using command `product show 1`.
 
 BakingHome provides basic Add, Edit, Delete operations for all entity. The tables belows provides a few
 commands for you to try out.
-[cols="1,1,2", options="header"]
-[width="100%",cols="10%,45%,45%",options="header",]
+
+[cols="1,1,1", options="header"]
 .Add Operation
 |===
 |Entity
 |Test Case
 |Expected Output
 
-|
-|
-|
 
 .3+|`Product`
 |`product add -name Bread`
@@ -963,7 +960,6 @@ Prerequisites: At least 2 orders in Order List
 
 
 [cols="1,1,1", options="header"]
-[width="100%",cols="10%,45%,45%",options="header",]
 .Edit Operation
 |===
 |Section
