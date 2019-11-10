@@ -22,12 +22,21 @@ public class AddExerciseCommandParser implements ParserInterface<AddExerciseComm
         String exerciseNameStr = exerciseNameAndValue[0];
         String exerciseValueStr = exerciseNameAndValue[1];
 
+        if (exerciseNameStr.trim().length() == 0) {
+            return new AddExerciseCommand(false, "No description of "
+                    + "the exercise has been provided.");
+        }
+
         int exerciseValueInt;
         try {
             exerciseValueInt = Integer.parseInt(exerciseValueStr);
         } catch (Exception e) {
             return new AddExerciseCommand(false, "Unable to parse " + exerciseValueStr + " as a number. "
                     + "Please enter a valid integer.");
+        }
+
+        if (exerciseValueInt <= 0) {
+            return new AddExerciseCommand(false, "Please enter a valid integer greater than 0.");
         }
 
         return new AddExerciseCommand(exerciseNameStr, exerciseValueInt);

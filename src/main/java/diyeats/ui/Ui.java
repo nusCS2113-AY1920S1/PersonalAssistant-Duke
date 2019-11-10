@@ -299,6 +299,7 @@ public class Ui {
     }
 
     public void showDeleteCandidateKeys(ArrayList<String> deleteCandidateKeys) {
+        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "Here are the items associated with the keyword provided:");
         int counter = 1;
         for (String itr : deleteCandidateKeys) {
