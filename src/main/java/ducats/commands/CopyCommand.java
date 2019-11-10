@@ -87,15 +87,13 @@ public class CopyCommand extends Command<SongList> {
                     insertVerse(verseName, startNum);
                     return ui.formatCopy(verseName, null, null, startNum, 2);
                 }
-            } else if (sections.length == 3) {
+            } else{
                 //copy the bars between the a range into a new range
                 int copyStartNum = Integer.parseInt(sections[0]);
                 int copyEndNum = Integer.parseInt(sections[1]);
                 int pasteStartNum = Integer.parseInt(sections[2]);
                 insertCopiedBars(copyStartNum, copyEndNum, pasteStartNum);
                 return ui.formatCopy(null, copyStartNum, copyEndNum, pasteStartNum, 3);
-            } else {
-                throw new DucatsException(message, "copy");
             }
         } catch (Exception e) {
             throw new DucatsException(message, "copy");
