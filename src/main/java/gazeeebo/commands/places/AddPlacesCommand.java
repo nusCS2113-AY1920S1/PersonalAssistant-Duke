@@ -20,8 +20,8 @@ public class AddPlacesCommand {
         try {
             String room;
             String location;
-            if(ui.fullCommand.equals("1")) {
-                System.out.println("Input in this format: Room,Location");
+            if(ui.fullCommand.equals("1") || ui.fullCommand.trim().equals("add") || ui.fullCommand.trim().equals("add-")) {
+                System.out.println("Input the place you want to add in this format: Room,Location");
                 ui.readCommand();
                 String[] splitInfo = ui.fullCommand.split(",");
                 room = splitInfo[0];
@@ -35,7 +35,7 @@ public class AddPlacesCommand {
             places.put(room, location);
             System.out.println("Successfully added :" + room + "," + location);
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please Input in the correct format");
+            System.out.println("Please input add command in the correct format");
         }
     }
 }

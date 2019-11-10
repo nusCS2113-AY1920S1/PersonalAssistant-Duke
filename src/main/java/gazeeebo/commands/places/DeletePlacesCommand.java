@@ -2,6 +2,7 @@
 
 package gazeeebo.commands.places;
 
+import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.UI.Ui;
 
@@ -20,23 +21,24 @@ public class DeletePlacesCommand {
     public DeletePlacesCommand(Ui ui, Map<String, String> places) {
         try {
             String placeToDelete = null;
-            if (ui.fullCommand.equals("3")) {
+            if (ui.fullCommand.equals("3") || ui.fullCommand.trim().equals("delete") || ui.fullCommand.trim().equals("delete-")) {
                 System.out.println("Input place to delete");
                 ui.readCommand();
                 placeToDelete = ui.fullCommand;
+            } else if (ui.fullCommand.split("-")[1] != null) {
+                placeToDelete = ui.fullCommand.split("-")[1];
             } else {
-                if (!ui.fullCommand.equals("delete") && ui.fullCommand.contains("-")) {
-                    placeToDelete = ui.fullCommand.split("-")[1];
-                }
+                throw new DukeException("Check find command input format again");
             }
+
             if (placeToDelete != null && places.containsKey(placeToDelete)) {
                 places.remove(placeToDelete);
                 System.out.println("Successfully deleted: " + placeToDelete);
             } else {
                 System.out.println(placeToDelete + " is not found in the list.");
             }
-        } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please Input in the correct format");
+        } catch (IOException | ArrayIndexOutOfBoundsException | DukeException e) {
+            System.out.println("Please input delete command in the correct format");
         }
     }
 }
