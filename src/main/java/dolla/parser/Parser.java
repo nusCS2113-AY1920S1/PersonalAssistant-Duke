@@ -2,6 +2,7 @@ package dolla.parser;
 
 import dolla.ModeStringList;
 import dolla.Time;
+import dolla.model.Debt;
 import dolla.model.RecordList;
 import dolla.exception.DollaException;
 
@@ -289,7 +290,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     protected boolean verifyRemove() {
         if (inputArray.length != 2) {
-            RemoveUi.printInvalidRemoveMessage();
+            RemoveUi.printInvalidRemoveFormat();
             return false;
         }
         try {
@@ -304,8 +305,34 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return true;
     }
 
-    //@@author yetong1895
+    //@@author tatayu
+    /**
+     * Check if the command to remove bill is valid
+     * @return true if the remove bill command is valid
+     */
+    protected boolean verifyRemoveBill(RecordList recordList) {
+        if (inputArray.length != 3) {
+            return false;
+        }
+        if (inputArray[1].equals(BILL_COMMAND_BILL)) {
+            try {
+                if (Integer.parseInt(inputArray[2]) < 1
+                        || Integer.parseInt(inputArray[2]) > recordList.size()) {
+                    RemoveUi.printInvalidRemoveMessage();
+                    return false;
+                } else {
+                    return true;
+                }
+            } catch (NumberFormatException e) {
+                DebtUi.printRemoveBillFormatError();
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
+    //@@author yetong1895
     /**
      * This method will check if t he user have entered a valid shorcut command.
      * @return true if the command is valid or false otherwise.

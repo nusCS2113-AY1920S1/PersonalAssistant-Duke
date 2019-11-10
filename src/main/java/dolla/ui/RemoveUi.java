@@ -22,4 +22,13 @@ public class RemoveUi extends Ui {
         System.out.println("\tPlease enter a valid number to be removed.");
         System.out.println(line);
     }
+
+    /**
+     *
+     */
+    public static void printInvalidRemoveFormat() {
+        System.out.println(line);
+        System.out.println("\tPlease follow the format: remove [LIST NUM]");
+        System.out.println(line);
+    }
 }

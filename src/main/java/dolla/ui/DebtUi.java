@@ -140,6 +140,24 @@ public class DebtUi extends Ui {
         System.out.println(line);
     }
 
+    /**
+     * Print remove bill message.
+     */
+    public static void printRemoveBillMessage() {
+        System.out.println(line);
+        System.out.println("\tGot it! This bill is removed.");
+        System.out.println(line);
+    }
+
+    /**
+     * Print remove bill format error.
+     */
+    public static void printRemoveBillFormatError() {
+        System.out.println(line);
+        System.out.println("\tPlease follow the format: remove bill [BILL NUMBER]");
+        System.out.println(line);
+    }
+
     //@@ author: omupenguin
     /**
      * Prints an error message informing the user that the type of debt entered is invalid.
