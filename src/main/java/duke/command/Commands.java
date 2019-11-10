@@ -4,7 +4,6 @@ package duke.command;
 
 import duke.command.home.HomeDischargeSpec;
 import duke.command.home.HomeFindSpec;
-import duke.command.home.HomeHistorySpec;
 import duke.command.home.HomeNewSpec;
 import duke.command.home.HomeOpenSpec;
 import duke.command.home.HomeReportSpec;
@@ -69,8 +68,6 @@ public class Commands {
                 return new ObjCommand(HomeReportSpec.getSpec());
             case "discharge":
                 return new ObjCommand(HomeDischargeSpec.getSpec());
-            case "history":
-                return new ObjCommand(HomeHistorySpec.getSpec());
             default:
                 return null;
             }
