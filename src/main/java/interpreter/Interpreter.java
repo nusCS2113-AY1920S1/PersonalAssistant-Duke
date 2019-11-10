@@ -26,6 +26,10 @@ public class Interpreter {
         return this.executorLayer.saveAllData();
     }
 
+    public InfoCapsule requestTesterData() {
+        return this.executorLayer.loadTestData();
+    }
+
     public InfoCapsule request(AccessType accessType, String argsStr) {
         return this.executorLayer.access(accessType, argsStr);
     }

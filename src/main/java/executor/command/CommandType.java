@@ -45,7 +45,8 @@ public enum CommandType {
     MUL(CommandMul.class),
     TRACK(CommandTrackTag.class),
     UNTRACK(CommandUntrackTag.class),
-    CLEAR(CommandClearCli.class);
+    CLEAR(CommandClearCli.class),
+    ENABLETEST(CommandEnableTesting.class);
 
     private final Class commandClass;
 

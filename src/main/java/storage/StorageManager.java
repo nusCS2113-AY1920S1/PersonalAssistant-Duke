@@ -5,7 +5,6 @@ import executor.command.CommandType;
 import executor.task.Task;
 import executor.task.TaskList;
 import executor.task.TaskType;
-import main.Duke;
 import ui.Receipt;
 import ui.ReceiptTracker;
 import ui.Wallet;
@@ -43,6 +42,15 @@ public class StorageManager {
     public void saveAllData() throws DukeException {
         this.taskStore.saveData(this.taskList);
         this.walletStore.saveData(this.wallet);
+    }
+
+    /**
+     * Loads both TaskList and Wallet Test Data for Testers.
+     * @throws DukeException Cannot find either Wallet or Test Data
+     */
+    public void loadTestData() throws DukeException {
+        this.taskStore.loadTestData(this.taskList);
+        this.walletStore.loadTestData(this.wallet);
     }
 
     /**
