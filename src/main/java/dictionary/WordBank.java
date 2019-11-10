@@ -163,44 +163,6 @@ public class WordBank {
     }
 
     /**
-     * Adds a tag to a specific word in word bank.
-     * @param wordToAddSynonym word that the tag is set for
-     * @param synonyms new tags input by user
-     * @return tags lists of that word
-     * @throws NoWordFoundException if the word doesn't exist in the word bank
-     */
-    public HashSet<String> addSynonym(String wordToAddSynonym, ArrayList<String> synonyms) throws NoWordFoundException {
-        if (!wordBank.containsKey(wordToAddSynonym)) {
-            throw new NoWordFoundException(wordToAddSynonym);
-        }
-        Word word = wordBank.get(wordToAddSynonym);
-        for (String synonym : synonyms) {
-            word.addSynonym(synonym);
-        }
-        return word.getSynonyms();
-    }
-
-    /**
-     * Deletes tags from a word.
-     * @param word string representing the main word
-     * @param synonymList list of synonyms to be deleted
-     * @param deletedSynonyms list of synonyms we have deleted
-     * @param nonExistSynonyms synonyms that doesn't exist in the word
-     */
-    public void deleteSynonyms(String word, ArrayList<String> synonymList,
-                               ArrayList<String> deletedSynonyms, ArrayList<String> nonExistSynonyms) {
-        HashSet<String> synonyms = wordBank.get(word).getSynonyms();
-        for (String synonym : synonymList) {
-            if (synonyms.contains(synonym)) {
-                synonyms.remove(synonym); //remove from HashSet
-                deletedSynonyms.add(synonym);//keep track of what we have deleted
-            } else {
-                nonExistSynonyms.add(synonym); //if does not exist in HashSet, we keep track of synonyms not deletable
-            }
-        }
-    }
-
-    /**
      * Checks spelling when user input a non-existing word.
      * A word is considered to be close will must differs in less than its length
      * compared to the searched word.
@@ -238,5 +200,9 @@ public class WordBank {
 
     public Word[] getAllWordsAsList() {
         return wordBank.values().toArray(new Word[wordBank.size()]);
+    }
+
+    public boolean contains(String wordDescription) {
+        return wordBank.containsKey(wordDescription);
     }
 }

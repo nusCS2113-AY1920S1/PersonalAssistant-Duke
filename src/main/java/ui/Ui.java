@@ -77,7 +77,7 @@ public class Ui {
      * @param synonymHashSet hash set represents existed tags of the word
      * @return a string shown when command is completed
      */
-    public String showAddSynonym(String word, ArrayList<String> synonyms, HashSet<String> synonymHashSet) {
+    public String showAddSynonym(String word, ArrayList<String> synonyms, ArrayList<String> synonymHashSet) {
         String returnedString = "I have added "
                 + (synonyms.size() == 1 ? "this synonym \""
                 + synonyms.get(0) + "\"" : "these synonyms")
@@ -298,7 +298,7 @@ public class Ui {
                     + "Searching for tags of a word: search_tag w/WORD";
         } else {
             return "Here are the commands for WordUp.\n"
-                    + "add, delete, edit, exit, freq, help, history, list, list_tag"
+                    + "add, delete, edit, exit, freq, help, history, list, list_tags"
                     + " schedule, search, search_begin, search_tag, tag, addsyn, quiz\n"
                     + "Enter \"help [command]\" for more details.";
         }
@@ -370,7 +370,7 @@ public class Ui {
     public String showSearchBegin(String begin, ArrayList<String> wordWithBegins) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append((wordWithBegins.size() == 1) ? "This is a word that has " : "These are words that have ");
-        stringBuilder.append("the same meaning as " + begin + "\n");
+        stringBuilder.append("the beginning " + begin + "\n");
         for (String s : wordWithBegins) {
             stringBuilder.append(s + "\n");
         }
@@ -388,6 +388,21 @@ public class Ui {
                 + (words.length == 1 ? " word:\n" : " words:\n"));
         for (int i = 0; i < words.length; i++) {
             stringBuilder.append(words[i] + "\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Shows to user all synonyms of a given word.
+     * @param searchWord tag to be searched
+     * @param words array of words belong to the tag
+     * @return string shown to user
+     */
+    public String showSearchSynonym(String searchWord, ArrayList<String> words) {
+        StringBuilder stringBuilder = new StringBuilder("Your word \"" + searchWord + "\" has " + words.size()
+                + (words.size() == 1 ? " synonym:\n" : " synonyms:\n"));
+        for (int i = 0; i < words.size(); i++) {
+            stringBuilder.append(words.get(i) + "\n");
         }
         return stringBuilder.toString();
     }
