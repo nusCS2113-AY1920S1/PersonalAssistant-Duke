@@ -36,9 +36,6 @@ public class ExpensePane extends UiPart<AnchorPane> {
     Label sortLabel;
 
     @FXML
-    Label filterLabel;
-
-    @FXML
     Label viewLabel;
 
     @FXML
@@ -65,7 +62,6 @@ public class ExpensePane extends UiPart<AnchorPane> {
         logger.info("cell factory is set.");
 
         sortLabel.textProperty().bindBidirectional(sortCriteria);
-        filterLabel.textProperty().bindBidirectional(filterCriteria);
         viewLabel.textProperty().bindBidirectional(viewCriteria);
         totalLabel.textProperty().bindBidirectional(totalExpense);
 

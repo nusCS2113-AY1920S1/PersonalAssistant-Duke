@@ -9,6 +9,9 @@ import duke.storage.Storage;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Switches panes in the main window.
+ */
 public class GoToCommand extends Command {
 
     private static final String name = "goto";
@@ -17,18 +20,31 @@ public class GoToCommand extends Command {
 
     private static final String COMPLETE_MESSAGE = "";
 
+    /**
+     * Contains all secondary parameters used by {@code GoToCommand}.
+     * Here the {@code GoToCommand} does not demand secondary parameters.
+     */
     private enum SecondaryParam {
         ;
 
         private String name;
         private String description;
 
+        /**
+         * Constructs a {@code SecondaryParam} with its name and usage.
+         *
+         * @param name        The name of the secondary parameter.
+         * @param description The usage of this parameter.
+         */
         SecondaryParam(String name, String description) {
             this.name = name;
             this.description = description;
         }
     }
 
+    /**
+     * Creates a GoToCommand, with its name, description, usage and secondary parameters.
+     */
     public GoToCommand() {
         super(name,
                 description,
@@ -40,13 +56,14 @@ public class GoToCommand extends Command {
 
     @Override
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
-        String desiredPage = commandParams.getMainParam();
+        String desiredPane = commandParams.getMainParam();
         CommandResult.DisplayedPane displayedPane;
         try {
-            displayedPane = CommandResult.DisplayedPane.valueOf(desiredPage.toUpperCase());
+            displayedPane = CommandResult.DisplayedPane.valueOf(desiredPane.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_PANE_NAME_INVALID, desiredPage));
+            throw new DukeException(String.format(DukeException.MESSAGE_PANE_NAME_INVALID, desiredPane));
         }
+
         return new CommandResult(COMPLETE_MESSAGE, displayedPane);
     }
 }

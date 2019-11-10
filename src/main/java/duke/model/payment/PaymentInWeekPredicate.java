@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Tests whether a {@code payment} is due in current week.
+ * Tests whether a {@code payment} is coming to due in current week.
  */
 public class PaymentInWeekPredicate implements Predicate<Payment> {
 
@@ -30,8 +30,11 @@ public class PaymentInWeekPredicate implements Predicate<Payment> {
         // Sunday of current week
         LocalDate thisSunday = now.plusDays(7 - dayOfWeek);
 
-        return (due.equals(thisSunday)
-                || due.equals(thisMonday)
-                || (due.isAfter(thisMonday) && due.isBefore(thisSunday)));
+        boolean isInCurrentWeek = due.equals(thisSunday) || due.equals(thisMonday)
+                || (due.isAfter(thisMonday) && due.isBefore(thisSunday));
+
+        boolean isOverdue = due.isBefore(now);
+
+        return (!isOverdue && isInCurrentWeek);
     }
 }

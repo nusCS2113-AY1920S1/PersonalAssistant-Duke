@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * A PaymentList that is serializable to JSON format.
  */
@@ -30,15 +32,17 @@ public class JsonSerializablePaymentList {
     /**
      * Converts a given {@code PaymentList} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializablePaymentList}.
      */
     public JsonSerializablePaymentList(PaymentList source) {
+        requireNonNull(source);
+
         payments.addAll(source.getInternalList().stream()
                 .map(JsonAdaptedPayment::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this {@code payments} into the model's {@code PaymentList} object.
      *
      * @throws DukeException if there were any data constraints violated.
      */
