@@ -56,7 +56,7 @@ public class Payments implements Comparable<Payments> {
      * return the cost of the payment.
      * @return The cost of the payment.
      */
-    public String getItem(){
+    public String getItem() {
         return this.item;
     }
 
@@ -64,7 +64,7 @@ public class Payments implements Comparable<Payments> {
      * return the status of the payment.
      * @return The current status of the payment.
      */
-    public Status getStatus(){
+    public Status getStatus() {
         return this.status;
     }
 
@@ -72,7 +72,7 @@ public class Payments implements Comparable<Payments> {
      * return the project name that the payment belongs to.
      * @return The project that the payment belongs to.
      */
-    public String getProject(){
+    public String getProject() {
         return this.project;
     }
 
@@ -93,7 +93,7 @@ public class Payments implements Comparable<Payments> {
     }
 
     @Override
-    
+
     public int compareTo(Payments payments) {
         return getDeadline().compareTo(payments.getDeadline());
     }
