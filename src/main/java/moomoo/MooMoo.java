@@ -19,17 +19,18 @@ import java.util.HashMap;
  * Runs MooMoo.
  */
 public class MooMoo {
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_PURPLE = "\u001B[35m";
+
     private Storage storage;
     private CategoryList categoryList;
     private Budget budget;
     public ScheduleList calendar;
-    private boolean shouldClearScreen;
 
     /**
      * Initializes different Category, Expenditures, Budget, Storage and Ui.
      */
     private MooMoo() {
-        shouldClearScreen = true;
 
         storage = new Storage("data/budget.txt","data/schedule.txt");
 
@@ -88,12 +89,9 @@ public class MooMoo {
             try {
                 String fullCommand = Ui.readCommand();
 
-                Ui.clearScreen(shouldClearScreen);
-                if (shouldClearScreen) {
-                    Ui.setOutput(fullCommand + "\n");
-                }
+                Ui.clearScreen();
+                Ui.setOutput(ANSI_PURPLE + fullCommand + ANSI_RESET + "\n");
                 Ui.showResponse();
-                this.shouldClearScreen = true;
 
                 Command c = Parser.parse(fullCommand);
                 c.execute(calendar, budget, categoryList, storage);
@@ -106,7 +104,6 @@ public class MooMoo {
             } catch (MooMooException e) {
                 Ui.printException(e);
                 Ui.showResponse();
-                //this.shouldClearScreen = false;
             }
         }
     }

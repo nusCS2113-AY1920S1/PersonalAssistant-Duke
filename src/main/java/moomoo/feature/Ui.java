@@ -42,6 +42,11 @@ public class Ui {
         output = myOutput;
     }
 
+
+    public static void setTestOutput(String output) {
+        testOutput = output;
+    }
+
     /**
      * Gets output for testing purposes.
      * @return testOutput
@@ -52,13 +57,10 @@ public class Ui {
 
     /**
      * Clears the screen.
-     * @param shouldClearScreen if true, clear the screen, else don't.
      */
-    public static void clearScreen(boolean shouldClearScreen) {
-        if (shouldClearScreen) {
-            System.out.print("\u001b[2J");
-            System.out.flush();
-        }
+    public static void clearScreen() {
+        System.out.print("\u001b[2J");
+        System.out.flush();
     }
 
     /**
@@ -209,13 +211,49 @@ public class Ui {
             list = list.concat("|\n");
         }
 
-        list = list.concat(".");
-        list = addChars(boxLength, list, "-");
-        list = list.concat(".\n");
-        testOutput = list;
+        setStraightBoxBottom(boxLength, list);
+    }
 
-        list = list.concat(getCow());
-        setOutput(list + "\n");
+    /**
+     * Sets output to a test box with the input text inside and a cow underneath it.
+     * @param input text to put in the box
+     */
+    public static String showInCowBox(ArrayList<String> input) {
+        int longestString = getLongestStringLength(input);
+        int boxLength = Math.max(45, longestString);
+        boxLength += 5;
+        String cow = ".";
+        cow = addChars(boxLength, cow, "_");
+        cow = cow.concat(".\n");
+
+        for (String line : input) {
+            int lineLength = line.length();
+            if (line.contains("\u001B")) {
+                lineLength -= 9;
+            }
+            cow = cow.concat("|" + line);
+            cow = addChars(boxLength - lineLength, cow, " ");
+            cow = cow.concat("|\n");
+        }
+
+        return setStraightBoxBottom(boxLength, cow);
+    }
+
+    /**
+     * Sets the bottom of the text box and cow underneath it.
+     * @param boxLength width of the box
+     * @param box straight text box without the bottom line
+     * @return
+     */
+    private static String setStraightBoxBottom(int boxLength, String box) {
+        box = box.concat(".");
+        box = addChars(boxLength, box, "-");
+        box = box.concat(".\n");
+        testOutput = box;
+
+        box = box.concat(getCow());
+        setOutput(box + "\n");
+        return box + "\n";
     }
 
     /**
@@ -230,6 +268,21 @@ public class Ui {
             output = output.concat(regex);
         }
         return output;
+    }
+
+    /**
+     * Gets the length of the longest string in an array of strings.
+     * @param input string array
+     * @return length of the longest string
+     */
+    private static int getLongestStringLength(ArrayList<String> input) {
+        int max = 0;
+        for (String line : input) {
+            if (line.length() > max) {
+                max = line.length();
+            }
+        }
+        return max;
     }
 
     /**
@@ -249,9 +302,5 @@ public class Ui {
                 + "            (__)\\       )\\/\\\n"
                 + "                ||----w |\n"
                 + "                ||     ||\n";
-    }
-
-    public static void setTestOutput(String output) {
-        testOutput = output;
     }
 }

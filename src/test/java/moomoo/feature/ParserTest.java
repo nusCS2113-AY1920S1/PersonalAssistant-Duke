@@ -148,9 +148,10 @@ class ParserTest {
 
         c = newParser.parse("budget edit c/food c/laptop b/100 c/places to go b/150");
         c.execute(newCalendar, newBudget, newCatList, newStorage);
-        assertEquals("The budget for food is the same.\n"
-            + "You have changed the budget for laptop from $125.00 to $100.00\n"
-            + "You have changed the budget for places to go from $123.00 to $150.00\n", Ui.getOutput());
+        assertEquals("._________________________________________________________________________.\n"
+                + "|You have changed the budget for laptop from $125.00 to $100.00           |\n"
+                + "|You have changed the budget for places to go from $123.00 to $150.00     |\n"
+                + ".-------------------------------------------------------------------------.\n", Ui.getTestOutput());
 
         try {
             c = newParser.parse("budget edit b/100 c/places to go b/150");
