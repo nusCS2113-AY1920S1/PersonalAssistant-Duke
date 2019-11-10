@@ -32,7 +32,7 @@ public class StatsCommand extends Command {
      * 
      * @throws ParseException catches parse exception when handling dates.
      */
-    public StatsCommand(String dateFrom, String dateTill) throws ParseException {
+    public StatsCommand(String dateFrom, String dateTill) throws RimsException {
         this.dateFromString = dateFrom;
         this.dateTillString = dateTill;
         this.dateFrom = stringToDate(dateFrom);
@@ -52,9 +52,9 @@ public class StatsCommand extends Command {
      */
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources)
-            throws ParseException, IOException, RimsException {
-        long interval = TimeUnit.DAYS.convert((dateTill.getTime() - dateFrom.getTime()), TimeUnit.MILLISECONDS) + 1;
+            throws RimsException {
 
+        long interval = TimeUnit.DAYS.convert((dateTill.getTime() - dateFrom.getTime()), TimeUnit.MILLISECONDS) + 1;
         if (interval >= 15 ){
             throw new RimsException("The date interval is too large (more than 14 days)");
         }
@@ -92,10 +92,16 @@ public class StatsCommand extends Command {
      * 
      * @param stringDate the date and time inputted by the user in String format.
      * @return a Date object representing the date and time inputted by the user.
+     * @throws RimsException stringDate cannot be formatted.
      */
-    private Date stringToDate(String stringDate) throws ParseException {
+    private Date stringToDate(String stringDate) throws RimsException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        Date dateValue = formatter.parse(stringDate);
+        Date dateValue;
+        try {
+            dateValue = formatter.parse(stringDate);
+        } catch (ParseException e) {
+            throw new RimsException("Invalid format of date " + stringDate + "!");
+        }
         return dateValue;
     }
 
@@ -113,7 +119,7 @@ public class StatsCommand extends Command {
 
     /**
      * Converts a Date object to a compact String without time field.
-     * 
+     *
      * @param thisDate the Date object to be converted into a String.
      * @return a String representing the Date object.
      */
@@ -129,13 +135,17 @@ public class StatsCommand extends Command {
      * 
      * @param thisDate
      * @return
-     * @throws ParseException
+     * @throws RimsException if newDate cannot be formatted into a Date from a String.
      */
-    private Date incrementDay(Date thisDate) throws ParseException {
+    private Date incrementDay(Date thisDate) throws RimsException {
         String newDate = dateToString(thisDate);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         Calendar c = Calendar.getInstance();
-        c.setTime(sdf.parse(newDate));
+        try {
+            c.setTime(sdf.parse(newDate));
+        } catch (ParseException e) {
+            throw new RimsException("Invalid format of date " + newDate + "!");
+        }
         c.add(Calendar.DATE, 1); // number of days to add
         newDate = sdf.format(c.getTime()); // dt is now the new date
         return stringToDate(newDate);

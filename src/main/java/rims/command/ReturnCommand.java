@@ -41,7 +41,7 @@ public class ReturnCommand extends Command {
      * @throws RimsException if either the resource ID or reservation ID specified is invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException, IOException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
         storage.saveToFile(resources.getResources());
         ArrayList<Reservation> cancelledReservations = new ArrayList<Reservation>();
         for (int i = 0; i < resourceIds.size(); i++) {

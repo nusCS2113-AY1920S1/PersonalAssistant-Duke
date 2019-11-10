@@ -146,9 +146,9 @@ public class ReserveCommand extends Command {
      */
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources)
-            throws RimsException, ParseException, IOException {
+            throws RimsException {
 
-        //storage.saveToFile(resources.getResources());
+        storage.saveToFile(resources.getResources());
 
         if (!(stringDateFrom == null)) {
             dateFrom = resources.stringToDate(stringDateFrom);

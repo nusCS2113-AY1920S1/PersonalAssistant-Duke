@@ -5,6 +5,7 @@ import java.io.IOException;
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
+import rims.exception.RimsException;
 
 //@@author rabhijit
 /**
@@ -24,7 +25,7 @@ public class CloseCommand extends Command {
      * @throws IOException if there is an error in saving Resources or Reservations
      *                     to disk
      */
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws IOException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
         storage.saveToFile(resources.getResources());
         ui.farewell();
         setExitCode();
