@@ -17,6 +17,7 @@ class ToDoTest {
         "NUS",
         "Swimming",
         "May 10, 2019");
+
     @Test
     void alwaysTrue() {
         assertEquals(2, 2);
@@ -43,7 +44,7 @@ class ToDoTest {
     }
 
     @Test
-    void testEnd () {
+    void testEnd() {
         assertEquals(end, toDo.getEndTime());
     }
 

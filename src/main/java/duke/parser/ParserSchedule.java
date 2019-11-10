@@ -2,6 +2,7 @@ package duke.parser;
 
 import duke.data.ScheduleStorage;
 import duke.exceptions.DukeException;
+import duke.util.DateHandler;
 import duke.view.CliView;
 import duke.data.Storage;
 import duke.models.Schedule;
@@ -70,9 +71,6 @@ public class ParserSchedule {
         cliViewSchedule.showSchedulePromptDate();
         sc.nextLine();
         String scheduleDate = sc.nextLine();
-        // String day = schedule.getDay(scheduleDate);
-        // schedule of timeslot.txt cannot be loaded
-        // todo must fix the storage loading capabilities
         String day = "empty";
         if (day.equals("empty")) {
             isRunning = false;
@@ -147,14 +145,18 @@ public class ParserSchedule {
      * @param month the selected month
      */
     public void selectMonth(int month) {
-        if (month > 12 || month < 0) {
+        if (month > 13 || month < 1) {
             cliViewSchedule.message("Invalid month");
-        } else if (month < 12) {
+        } else if (month < 13) {
             cliViewSchedule.bufferLine();
-            schedule.getMonth(month - 1);
+            schedule.getMonth(month);
             cliViewSchedule.bufferLine();
             cliViewSchedule.message("Enter the date of the day you want to plan!");
             int day = sc.nextInt();
+            while (!DateHandler.dateCheck(day, month)) {
+                cliViewSchedule.message("Enter a valid date!");
+                day = sc.nextInt();
+            }
             schedule.getTable(day, month);
         }
     }
@@ -171,10 +173,12 @@ public class ParserSchedule {
                 runMonth = false;
             } else if (input.equals("help")) {
                 cliViewSchedule.printMonthMenu();
+            } else if (input.equals("list")) {
+                schedule.listAll();
             } else {
                 try {
                     int month = Integer.parseInt(input);
-                    selectMonth(month - 1);
+                    selectMonth(month);
                 } catch (NumberFormatException e) {
                     cliViewSchedule.showDontKnow();
                 }

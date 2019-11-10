@@ -3,15 +3,19 @@ package duke.data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import duke.models.ToDo;
+import duke.util.DateHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import java.util.Iterator;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Class controls all the loading of data for the Schedule class.
@@ -27,6 +31,22 @@ public class ScheduleStorage implements IStorage {
     private String filePath = userDir;
 
     /**
+     * Method will load the .json file as a jsonObject for use.
+     *
+     * @return json object of the loaded file
+     * @throws ParseException error that occurs in the event file cannot be parsed
+     */
+    public JSONObject initialize() throws ParseException {
+        Object obj;
+        JSONParser parser = new JSONParser();
+        InputStream inputStream = getClass().getResourceAsStream("/savedData.json");
+        String data = scanInputStream(inputStream);
+        obj = parser.parse(data);
+        JSONObject jsonObject = (JSONObject) obj;
+        return jsonObject;
+    }
+
+    /**
      * Method will load saved files.
      *
      * @return
@@ -34,16 +54,11 @@ public class ScheduleStorage implements IStorage {
     @Override
     public ArrayList<ToDo> load(String date) {
         ArrayList<ToDo> list = new ArrayList<>();
-        JSONParser parser = new JSONParser();
-        Object obj;
         try {
-            InputStream inputStream = getClass().getResourceAsStream("/savedData.json");
-            String data = scanInputStream(inputStream);
-            obj = parser.parse(data);
-            JSONObject jsonObject = (JSONObject) obj;
+            JSONObject jsonObject = initialize();
 
             //get the array with the listed date
-            JSONArray todoList = (JSONArray) jsonObject.get("20191110");
+            JSONArray todoList = (JSONArray) jsonObject.get(date);
 
             //create an object to be added to the list array
             for (Object o : todoList) {
@@ -120,5 +135,34 @@ public class ScheduleStorage implements IStorage {
             sb.append(sc.nextLine());
         }
         return sb.toString();
+    }
+
+    /**
+     * Method will give an overview of all listed items.
+     *
+     * @return String array with all items
+     */
+    public ArrayList<String> loadOverview() {
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            JSONObject jsonObject = initialize();
+            Set keySet = jsonObject.keySet();
+            Iterator keySetIt = keySet.iterator();
+            int index = 1;
+            while (keySetIt.hasNext()) {
+                String date = DateHandler
+                    .dateFormatter(
+                        "yyyy-MM-dd",
+                        "dd MMM yyyy",
+                        keySetIt.next().toString()
+                    );
+                String item = index++ + ". " + date;
+                list.add(item);
+
+            }
+        } catch (ParseException e) {
+            e.getMessage();
+        }
+        return list;
     }
 }

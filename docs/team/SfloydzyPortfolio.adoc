@@ -24,6 +24,10 @@ My role was to manage the overall project and manage the Git Repo. I also ensure
 * *Feature*: Supplied code source of the project
 ** Provided the code outline for the OOP interaction between classes
 
+* *Feature*: Navigation
+** What it does: Created menu to get between different features
+** Highlights: The menu allows for multiple commands from the same feature to be executed without exiting the feature.
+
 * *Feature*: Schedule Manager
 *** What it does: Manages all the schedule classes and represents them in a daily/weekly/monthly view that is easy to see
 
@@ -31,6 +35,7 @@ My role was to manage the overall project and manage the Git Repo. I also ensure
 *** What it does: Provides a graphic user interface that is easy to see and navigate.
 *** Justification: Clearly represents the system for the user. Navigation and accessibility of functions are graphically represented. No mistakes from the user side will be made when keying in commands.
 *** Highlights: This feature works to be implemented in the future v2.0 update.
+
 
 * *Code contributed*:
 ** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/parser/ParserSchedule.java[ParserSchedule]] [https://www.youtube.com/watch?v=dQw4w9WgXcQ[Test Code]]

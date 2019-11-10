@@ -2,6 +2,7 @@ package duke.models;
 
 import duke.data.ScheduleStorage;
 import duke.data.Storage;
+import duke.util.DateHandler;
 import duke.view.CliViewSchedule;
 
 
@@ -34,19 +35,22 @@ public class Schedule {
      */
     public void getMonth(final int selectMonth) {
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.MONTH, selectMonth);
+        cal.set(Calendar.MONTH, selectMonth - 1);
 
         // Set the calendar to monday of the current week
         cal.set(Calendar.DAY_OF_MONTH, 1);
         // Print dates of the current week starting on Monday
-        int numDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         DateFormat df = new SimpleDateFormat("MMM");
-        String date = df.format(cal.getTime());
         int year = cal.get(Calendar.YEAR);
+
+        //format the calender class item
+        String date = df.format(cal.getTime());
 
         //display the month selected
         cliViewSchedule.printMonthHeader(date, year);
-        cliViewSchedule.printMonth(numDays, cal.get(Calendar.DAY_OF_MONTH));
+        cliViewSchedule.printMonth(daysInMonth, dayOfWeek);
 
     }
 
@@ -60,7 +64,8 @@ public class Schedule {
     public ArrayList<ToDo> getCells(int day, int month) {
         ArrayList<ToDo> toDoArrayList = new ArrayList<>();
         ScheduleStorage scheduleStorage = new ScheduleStorage();
-        String date = "2019" + month + day;
+        //format the date
+        String date = DateHandler.stringDate("yyyy-MM-dd", day, month, 2019);
         toDoArrayList.addAll(Objects.requireNonNull(scheduleStorage.load(date)));
         return toDoArrayList;
     }
@@ -248,6 +253,19 @@ public class Schedule {
         }
         scheduleStorage.updateSchedule(this.list);
         return "All classes on " + date + " are cleared";
+    }
+
+    /**
+     * Method will give all the scheduled dates.
+     *
+     */
+    public void listAll() {
+        ArrayList<String> scheduleList = new ArrayList<>();
+        scheduleList.addAll(new ScheduleStorage().loadOverview());
+        for (String i: scheduleList) {
+            cliViewSchedule.message(i);
+        }
+
     }
 
 }
