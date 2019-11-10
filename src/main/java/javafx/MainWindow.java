@@ -512,7 +512,7 @@ public class MainWindow extends AnchorPane {
         description = "Compares 2 degrees together and displays the differences in modules and their credits.\n"
                 + "Will also switch to the \"Degree Differences\" tab.\n"
                 + "Can be used on its own to simply switch tabs.\n\n"
-                + "Examples: compare bme come | compare ise ee";
+                + "Examples: compare Biomedical Engineering Computer Engineering | compare ise ee";
         this.dataHelp.add(new HelpFX("compare\n\ncompare <Degree> <Degree>", description));
 
         //Todoo Command.
