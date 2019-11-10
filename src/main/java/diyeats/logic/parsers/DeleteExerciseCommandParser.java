@@ -3,6 +3,11 @@ package diyeats.logic.parsers;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.DeleteExerciseCommand;
 
+//@@author Fractalisk
+
+/**
+ * Parser class to handle deletion of a exercise from exerciseList.
+ */
 public class DeleteExerciseCommandParser implements ParserInterface<DeleteExerciseCommand> {
     /**
      * Parses user input and returns an AddCommand encapsulating a breakfast object.

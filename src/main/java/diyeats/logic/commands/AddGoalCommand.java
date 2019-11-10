@@ -6,7 +6,6 @@ import diyeats.model.user.Goal;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
-import diyeats.ui.InputHandler;
 
 import java.util.HashMap;
 
@@ -14,7 +13,7 @@ import java.util.HashMap;
 
 /**
  * AddGoalCommand is a public class that inherits from abstract class Command.
- * An AddGoalCommand object encapsulates the goal object that is to be added.
+ * An AddGoalCommand object encapsulates the goal object that is to be added to user.
  * average kg loss per day should NOT be more than 0.13607787283kg (>0.3 pounds)
  * average calorie loss per day should NOT exceed 40% base calorie intake,
  * balanced at around 20% (1kg = 7700cal = 7.7kcal)
@@ -23,17 +22,14 @@ public class AddGoalCommand extends Command {
     private Goal goal;
 
     /**
-     * Constructor for AddGoalCommand.
+     * Constructor for addGoalCommand.
+     * @param argumentsMap argumentsMap for instantiating a goal object
      */
-    public AddGoalCommand() {
-        goal = new Goal();
-        isDone = false;
-    }
-
     public AddGoalCommand(HashMap<String, String> argumentsMap) {
         goal = new Goal(argumentsMap);
     }
 
+    // This constructor is called if there are issues parsing user input.
     public AddGoalCommand(boolean isFail, String messageStr) {
         this.isFail = true;
         this.errorStr = messageStr;
@@ -51,8 +47,8 @@ public class AddGoalCommand extends Command {
         ui.showLine();
         try {
             user.setGoal(goal);
-            ui.showMessage("The setGoal Command is successful!");
-            storage.updateGoal(user);
+            ui.showMessage("The set goal Command is successful!");
+            storage.writeGoal(user);
             stage++;
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());

@@ -47,7 +47,7 @@ public class UpdateAgeCommand extends Command {
                 user.setAge(ageInt);
                 ui.showSuccess("age", description);
                 try {
-                    storage.updateUser(user);
+                    storage.writeUser(user);
                 } catch (ProgramException e) {
                     ui.showMessage(e.getMessage());
                 }

@@ -3,6 +3,8 @@ package diyeats.model.meal;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+//@@author Fractalisk
+
 /**
  * Task is a public class that represents the tasks in DIYeats.
  * A task object encapsulates the description of the task, the type of task it is, and whether
@@ -21,27 +23,31 @@ public class Meal {
      * This is the constructor of Meal object.
      * @param description the description of the meal
      * @param date the date the meal is associated with
-     * @param details the nutritional data associated with the meal
+     * @param nutritionValue the nutritional data associated with the meal
      */
-    public Meal(String description, LocalDate date, HashMap<String, String> details, String costStr) {
+    public Meal(String description, LocalDate date, HashMap<String, String> nutritionValue, String costStr) {
         this.description = description.trim();
         this.costStr = costStr.trim();
-        //todo: date input can only be accepted at the back of the statement
         if (date != null) {
             this.date = date;
         } else {
             this.date = LocalDate.now();
         }
-        if (details.size() != 0) {
-            for (String nutrient : details.keySet()) {
+        if (nutritionValue.size() != 0) {
+            for (String nutrient : nutritionValue.keySet()) {
                 if (!nutrient.equals("date") && !nutrient.equals("cost")) {
-                    int value = Integer.parseInt(details.get(nutrient));
-                    nutritionValue.put(nutrient, value);
+                    int value = Integer.parseInt(nutritionValue.get(nutrient));
+                    this.nutritionValue.put(nutrient, value);
                 }
             }
         }
     }
 
+    /**
+     * This is a constructor of Meal object used with suggestMeal.
+     * @param description the description of the meal
+     * @param nutritionValue the nutritional data associated with the meal
+     */
     public Meal(String description, HashMap<String, Integer> nutritionValue) {
         this.date = LocalDate.now();
         this.description = description.trim();
@@ -51,18 +57,18 @@ public class Meal {
 
     /**
      * This is the no argument constructor for meal object.
-     * used to satisfy requirement for default constructor, not used otherwise
+     * used to satisfy requirement for default constructor
      */
     public Meal() {
     }
 
     /**
      * This function checks whether the particular meal object is done and return the string accordingly.
-     * @return <code>[\u2713]</code> if the meal is done
-     *          <code>[\u2718]</code> if the meal is not done
+     * @return <code>[YES]</code> if the meal is done
+     *          <code>[NO]</code> if the meal is not done
      */
     public String getStatusIcon() {
-        return (isDone ? "[YES]" : "[NO]"); //return tick or X symbols
+        return (isDone ? "[YES]" : "[NO]");
     }
 
     /**
@@ -104,22 +110,43 @@ public class Meal {
         return this.date;
     }
 
+    /**
+     * This is a getter for the cost of the meal.
+     * @return cost of the meal
+     */
     public String getCostStr() {
         return this.costStr;
     }
 
+    /**
+     * This is a getter for the nutritional value of a meal.
+     * @return A HashMap encapsulating the nutritional value of the meal
+     */
     public HashMap<String, Integer> getNutritionalValue() {
         return this.nutritionValue;
     }
 
+    /**
+     * Adds nutritional info to a meal.
+     * @param keyStr name of nutrient
+     * @param value amount of nutrient
+     */
     public void addNutritionalValue(String keyStr, int value) {
         this.nutritionValue.put(keyStr, value);
     }
 
+    /**
+     * This is a getter for the value associated with "calorie".
+     * @return nutrtional value of "calorie"
+     */
     public int getCalorieValue() {
         return this.nutritionValue.get("calorie");
     }
 
+    /**
+     * This is a getter for the meal type.
+     * @return the meal type
+     */
     public MealType getMealType() {
         return this.mealType;
     }
@@ -137,6 +164,4 @@ public class Meal {
         temp += "cost: " + costStr;
         return "[" + this.type + "]" + this.getStatusIcon() + " " + this.description + " | " + temp;
     }
-
-
 }

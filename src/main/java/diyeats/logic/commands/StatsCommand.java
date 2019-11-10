@@ -7,13 +7,20 @@ import diyeats.storage.Storage;
 
 //@@author Fractalisk
 
+/**
+ * StatsCommand is a public class that inherits from abstract class Command.
+ * Displays the user's dietary statistics, provided goal exists.
+ */
 public class StatsCommand extends Command {
 
+    /**
+     * Constructor for StatsCommand.
+     */
     public StatsCommand() {
     }
 
     /**
-     * Constructor for StatsCommand.
+     * Executes StatsCommand.
      * @param meals the MealList object in which the meals are supposed to be added
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data

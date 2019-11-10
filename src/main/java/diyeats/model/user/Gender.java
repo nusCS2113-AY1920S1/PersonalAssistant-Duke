@@ -1,6 +1,7 @@
 package diyeats.model.user;
 
-//@@author
+//@@author koushireo
+
 public enum Gender {
     MALE,
     FEMALE;

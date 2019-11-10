@@ -83,7 +83,7 @@ public class UpdateWeightCommand extends Command {
                 }
             }
             try {
-                storage.updateUser(user);
+                storage.writeUser(user);
             } catch (ProgramException e) {
                 ui.showMessage(e.getMessage());
             }
@@ -115,7 +115,7 @@ public class UpdateWeightCommand extends Command {
             stage -= 1;
         }
         try {
-            storage.updateUser(user);
+            storage.writeUser(user);
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }

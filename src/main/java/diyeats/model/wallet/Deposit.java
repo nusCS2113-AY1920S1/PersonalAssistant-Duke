@@ -16,13 +16,4 @@ public class Deposit extends Transaction {
         super(amountString, date);
         super.type = "DEP";
     }
-
-    /**
-     * This function overrides the toString() function in the object class.
-     * @return the string that represents a deposit.
-     */
-    @Override
-    public String toString() {
-        return "[DEP]" + super.toString();
-    }
 }

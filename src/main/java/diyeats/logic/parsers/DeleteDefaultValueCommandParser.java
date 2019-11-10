@@ -3,6 +3,11 @@ package diyeats.logic.parsers;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.DeleteDefaultValueCommand;
 
+//@@author Fractalisk
+
+/**
+ * Parser class to handle deletion of a default value from mealList.
+ */
 public class DeleteDefaultValueCommandParser implements ParserInterface<DeleteDefaultValueCommand> {
     /**
      * Parses user input and returns an AddCommand encapsulating a breakfast object.

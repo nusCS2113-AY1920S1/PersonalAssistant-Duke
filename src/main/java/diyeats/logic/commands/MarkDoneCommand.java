@@ -86,8 +86,8 @@ public class MarkDoneCommand extends Command {
                 logger.log(Level.FINE, "Adding payment transaction");
                 Meal markedDoneMeal = meals.markDone(currentDate, index);
                 try {
-                    storage.updateFile(meals);
-                    storage.updateTransaction(wallet);
+                    storage.writeFile(meals);
+                    storage.writeTransaction(wallet);
                 } catch (ProgramException e) {
                     logger.log(Level.WARNING, "error in storing transactions");
                     ui.showMessage(e.getMessage());

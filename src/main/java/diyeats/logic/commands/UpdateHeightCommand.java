@@ -46,7 +46,7 @@ public class UpdateHeightCommand extends Command {
                 user.setHeight(heightInt);
                 ui.showSuccess("height", description);
                 try {
-                    storage.updateUser(user);
+                    storage.writeUser(user);
                 } catch (ProgramException e) {
                     ui.showMessage(e.getMessage());
                 }

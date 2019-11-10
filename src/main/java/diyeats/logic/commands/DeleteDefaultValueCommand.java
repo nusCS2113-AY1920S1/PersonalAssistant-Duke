@@ -9,8 +9,17 @@ import diyeats.storage.Storage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//@@author Fractalisk
+
+/**
+ * DeleteDefaultValueCommand is a public class that inherits from abstract class Command.
+ * An DeleteDefaultValueCommand object encapsulates the keyword to be deleted, as well as a list of items with similar
+ * name to the provided keyword.
+ */
 public class DeleteDefaultValueCommand extends Command {
     private String keywordStr;
+    /* Marker for instant delete without proceeding to second stage.
+       Occurs when exact match exists. Or there is only 1 similar entry*/
     private boolean isInstantDelete = false;
     private ArrayList<String> deleteCandidateKeys = new ArrayList<>();
 
@@ -22,40 +31,55 @@ public class DeleteDefaultValueCommand extends Command {
         this.keywordStr = keywordStr;
     }
 
+    // This constructor is called if there are issues parsing user input.
     public DeleteDefaultValueCommand(boolean isFail, String messageStr) {
         this.isFail = true;
         this.errorStr = messageStr;
     }
 
+    /**
+     * Executes the DeleteDefaultValueCommand. Has 2 stages.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         isDone = false;
 
         switch (stage) {
             case 0:
+                //Checks for exact matches and deletes. Otherwise shows a list of similar items.
                 execute_stage_0(meals, storage);
                 stage++;
                 break;
             case 1:
+                //Checks user input for index. Deletes item indicated by index on previously shown list.
                 execute_stage_1(meals, storage);
                 break;
             default:
+                //Exits execute loop if command enters invalid state
                 isDone = true;
         }
     }
 
+    /**
+     * First stage of execute.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     */
     private void execute_stage_0(MealList meals, Storage storage) {
         HashMap<String, HashMap<String, Integer>> defaultValues = meals.getDefaultValues();
 
-        for (String itr : defaultValues.keySet()) {
-            if (keywordStr.equals(itr)) {
-                isInstantDelete = true;
-                deleteCandidateKeys.add(itr);
-                break;
-            }
-
-            if (itr.toLowerCase().contains(keywordStr.toLowerCase())) {
-                deleteCandidateKeys.add(itr);
+        if (defaultValues.get(keywordStr) != null) {
+            isInstantDelete = true;
+            deleteCandidateKeys.add(keywordStr);
+        } else {
+            for (String itr : defaultValues.keySet()) {
+                if (itr.toLowerCase().contains(keywordStr.toLowerCase())) {
+                    deleteCandidateKeys.add(itr);
+                }
             }
         }
 
@@ -66,7 +90,7 @@ public class DeleteDefaultValueCommand extends Command {
             meals.getDefaultValues().remove(deleteCandidateKeys.get(lastIdx));
 
             try {
-                storage.updateFile(meals);
+                storage.writeFile(meals);
             } catch (ProgramException e) {
                 ui.showMessage(e.getMessage());
             }
@@ -80,6 +104,11 @@ public class DeleteDefaultValueCommand extends Command {
         }
     }
 
+    /**
+     * Second stage of execute.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     */
     private void execute_stage_1(MealList meals, Storage storage) {
         int deleteIdx;
 
@@ -106,7 +135,7 @@ public class DeleteDefaultValueCommand extends Command {
         meals.getDefaultValues().remove(deleteCandidateKeys.get(deleteIdx - 1));
 
         try {
-            storage.updateFile(meals);
+            storage.writeFile(meals);
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }

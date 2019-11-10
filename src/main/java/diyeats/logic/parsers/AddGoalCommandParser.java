@@ -14,6 +14,7 @@ import static diyeats.commons.constants.GoalCommandSyntax.START_DATE_ARG_STR;
 import static diyeats.commons.constants.GoalCommandSyntax.WEIGHT_ARG_STR;
 
 //@@author Fractalisk
+
 /**
  * Parser class to handle setting of goals.
  */

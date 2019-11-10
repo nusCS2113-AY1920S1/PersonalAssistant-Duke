@@ -69,11 +69,10 @@ public class DeleteCommand extends Command {
             Meal currentMeal = meals.delete(parsedDate, index);
             ui.showDeleted(currentMeal, meals.getMealsList(parsedDate));
             try {
-                storage.updateFile(meals);
+                storage.writeFile(meals);
             } catch (ProgramException e) {
                 ui.showMessage(e.getMessage());
             }
-
         }
         ui.showLine();
     }

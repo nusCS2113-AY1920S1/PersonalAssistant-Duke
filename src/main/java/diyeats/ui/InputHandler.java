@@ -12,18 +12,6 @@ import java.util.Scanner;
 public class InputHandler {
     private Scanner in;
 
-    public InputHandler(InputStream inputStream) {
-        this.in = new Scanner(inputStream);
-    }
-
-    public InputHandler(String inputStream) {
-        if (inputStream != null) {
-            this.in = new Scanner(inputStream);
-        } else {
-            this.in = new Scanner("");
-        }
-    }
-
     public String getString() throws ProgramException {
         try {
             String string = in.nextLine();
@@ -42,15 +30,6 @@ public class InputHandler {
         }
     }
 
-    public double getDouble() throws ProgramException {
-        try {
-            double value = Double.parseDouble(in.nextLine());
-            return value;
-        } catch (NumberFormatException e) {
-            throw new ProgramException(e.getMessage());
-        }
-    }
-
     public String getDate() throws ProgramException {
         SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy");
         String date;
@@ -63,17 +42,4 @@ public class InputHandler {
             throw new ProgramException(e.getMessage());
         }
     }
-
-    public boolean getApproval() throws ProgramException {
-        String userInput = getString();
-        if (userInput.equalsIgnoreCase("y") || userInput.equalsIgnoreCase("yes")) {
-            return true;
-        } else if (userInput.equalsIgnoreCase("n") || userInput.equalsIgnoreCase("no")) {
-            return false;
-        } else {
-            throw new ProgramException("Sorry, but DIYeats was unable to understand your command");
-        }
-    }
-
-
 }

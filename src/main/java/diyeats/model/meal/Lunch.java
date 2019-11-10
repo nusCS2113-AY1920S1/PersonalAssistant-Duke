@@ -4,6 +4,8 @@ package diyeats.model.meal;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+//@@author
+
 /**
  * lunch is a public class that inherits form abstract class meal.
  */

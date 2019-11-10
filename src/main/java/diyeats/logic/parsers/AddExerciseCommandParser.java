@@ -2,6 +2,8 @@ package diyeats.logic.parsers;
 
 import diyeats.logic.commands.AddExerciseCommand;
 
+//@@author Fractalisk
+
 public class AddExerciseCommandParser implements ParserInterface<AddExerciseCommand> {
 
     /**

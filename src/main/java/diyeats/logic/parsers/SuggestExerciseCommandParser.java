@@ -8,6 +8,9 @@ import java.util.HashMap;
 
 //@@author Fractalisk
 
+/**
+ * Parser class to handle suggestion of exercise.
+ */
 public class SuggestExerciseCommandParser implements ParserInterface {
     private static final String DATE_ARG_STR = "date";
     private static final String FIND_ARG_STR = "find";

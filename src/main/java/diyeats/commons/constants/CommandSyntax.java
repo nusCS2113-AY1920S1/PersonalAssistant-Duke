@@ -3,7 +3,7 @@ package diyeats.commons.constants;
 /**
  * This class defines all the command keywords that will be used in the program.
  */
-public final class CommandDefinitions {
+public final class CommandSyntax {
     public static final String PARSER_BREAKFAST_COMMAND = "breakfast";
     public static final String PARSER_LUNCH_COMMAND = "lunch";
     public static final String PARSER_DINNER_COMMAND = "dinner";
@@ -28,4 +28,5 @@ public final class CommandDefinitions {
     public static final String PARSER_SUGGEST_EXERCISE_COMMAND = "suggestexercise";
     public static final String PARSER_ADD_EXERCISE_COMMAND = "addexercise";
     public static final String PARSER_DELETE_EXERCISE_COMMAND = "delexercise";
+    public static final String PARSER_LIST_TRANSACTION_COMMAND = "listtransaction";
 }
