@@ -283,18 +283,18 @@ public class TaskList {
         ArrayList<String> reminders = new ArrayList<>();
         for (Task task : listOfTasks) {
             if (task.isReminderTrigger()) {
-                    if (task.getModCode().equals("")) {
-                        reminders.add(task.getDescription().trim() + "\n"
-                            + getStartTime(task)
-                            + getEndTime(task));
-                    } else {
-                        reminders.add(task.getModCode().trim() + " "
-                            + task.getDescription().trim() + "\n"
-                            + getStartTime(task)
-                            + getEndTime(task));
-                    }
+                if (task.getModCode().equals("")) {
+                    reminders.add(task.getDescription().trim() + "\n"
+                        + getStartTime(task)
+                        + getEndTime(task));
+                } else {
+                    reminders.add(task.getModCode().trim() + " "
+                        + task.getDescription().trim() + "\n"
+                        + getStartTime(task)
+                        + getEndTime(task));
                 }
             }
+        }
         return reminders;
     }
 
