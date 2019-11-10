@@ -34,6 +34,8 @@ checkstyle {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
     compile group: 'com.massisframework', name: 'j-text-utils', version: '0.3.4'
+    implementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
 }
 
 test {

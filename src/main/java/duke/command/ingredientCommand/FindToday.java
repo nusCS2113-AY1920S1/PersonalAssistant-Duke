@@ -13,15 +13,20 @@ import duke.ui.Ui;
 import java.text.SimpleDateFormat;
 
 /**
- * Represents a specific {@link Command} used to list Expired Ingredients occurring in the {@link Ingredient}.
- * Class FindToday is used to list all ingredients in the IngredientsList that are expired using 'listtoday'.
+ * Represents a specific {@link Command} used to list Ingredients that have expired today
+ * in the {@link Fridge}.
+ *
  * @@author x3chillax
  */
 public class FindToday extends Command {
 
     private SimpleDateFormat simpleDateFormat;
 
-    public FindToday(){
+    /**
+     * Constructor of the class {@link FindToday}
+     * Creates a new {@link FindToday} to format the dates
+     */
+    public FindToday() {
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
     }
 
@@ -29,12 +34,10 @@ public class FindToday extends Command {
     public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) {
         int i = 1;
         StringBuilder sb = new StringBuilder();
-        for (Ingredient ingredient : fridge.getAllIngredients().getAllEntries())
-        {     //for every ingredient, scan through the ingredient list
+        for (Ingredient ingredient : fridge.getAllIngredients().getAllEntries()) {     //for every ingredient, scan through the ingredient list
             i += 1;
-            if (ingredient.isExpiredToday(simpleDateFormat.format(ingredient.getExpiryDate())))
-            {
-                sb.append("\t ").append(i-1).append(". ").append(fridge.getIngredient(ingredient).toStringNoWarning()).append(".");
+            if (ingredient.isExpiredToday(simpleDateFormat.format(ingredient.getExpiryDate()))) {
+                sb.append("\t ").append(i - 1).append(". ").append(fridge.getIngredient(ingredient).toStringNoWarning()).append(".");
                 sb.append(System.lineSeparator());
             }
         }
