@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class HomeCommandTest extends CommandTest {
+
     /**
      * Tests HomeNewCommand with all switches present.
      */

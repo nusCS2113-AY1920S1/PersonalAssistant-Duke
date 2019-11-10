@@ -68,8 +68,4 @@ public abstract class DukeDataSpec extends ArgSpec {
             }
         }
     }
-
-    protected Class getDataClass(String type) {
-        return typeMap.get(type);
-    }
 }
