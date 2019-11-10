@@ -2,12 +2,9 @@ package entertainment.pro.logic.movierequesterapi;
 
 import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.commons.exceptions.FailedAPIException;
 import entertainment.pro.commons.exceptions.EmptyResultExceptions;
-import entertainment.pro.commons.exceptions.ParseExceptionInExtraction;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
-import org.apache.commons.logging.Log;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -464,7 +461,7 @@ public class RetrieveRequest implements InfoFetcher {
      * @param movieTitle movie name to be added to watchlist.
      * @return first movie title in the search result.
      * @throws Exceptions: API request errors such as bad encoding or incorrect URL.
-     * @@author Hotspur1997
+     * @@author Hotspur1997.
      */
     public String beginAddRequest(String movieTitle) {
         try {
@@ -472,7 +469,7 @@ public class RetrieveRequest implements InfoFetcher {
             String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
             UrlRetriever retrieve = new UrlRetriever();
             String json = retrieve.readUrlAsString(new URL(url));
-            fetchedJSON(json);
+            fetchedJson(json);
         } catch (UnsupportedEncodingException | MalformedURLException | Exceptions ex) {
             ex.printStackTrace();
         }
@@ -494,11 +491,11 @@ public class RetrieveRequest implements InfoFetcher {
     public ArrayList<MovieInfoObject> beginSearchGenre(String genre, boolean adult) throws Exceptions {
         try {
             String url = MAIN_URL + "discover/movie?with_genres=" + URLEncoder.encode(genre, "UTF-8") + "&api_key="
-                    + API_KEY + "&language=en-US&page=1" + "&include_adult=";
+                + API_KEY + "&language=en-US&page=1" + "&include_adult=";
             url += adult;
             UrlRetriever retrieve = new UrlRetriever();
             String json = retrieve.readUrlAsString(new URL(url));
-            fetchedJSON(json);
+            fetchedJson(json);
             //fetchJSONData(url);
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
@@ -536,7 +533,7 @@ public class RetrieveRequest implements InfoFetcher {
      * @param json String that contains all the data extracted by fetcher.
      */
     @Override
-    public void fetchedJSON(String json) {
+    public void fetchedJson(String json) {
         isOffline = false;
         JSONObject data = new JSONObject();
         JSONParser parser = new JSONParser();
@@ -569,7 +566,7 @@ public class RetrieveRequest implements InfoFetcher {
             // add results that meet user stated preferences
             logger.log(Level.INFO, PromptMessages.CHECK_CONDITION);
             if (checkCondition((JSONObject) searchResults.get(i))) {
-                parsedMovies.add(parseMovieJSON((JSONObject) searchResults.get(i)));
+                parsedMovies.add(parseMovieJson((JSONObject) searchResults.get(i)));
                 size += 1;
             }
         }
@@ -653,18 +650,18 @@ public class RetrieveRequest implements InfoFetcher {
     /**
      * Called to fetch data from API for search requests.
      *
-     * @param UrlString The URL pertaining to the type of search request to be carried off.
+     * @param urlString The URL pertaining to the type of search request to be carried off.
      */
-    private void fetchJsonData(String UrlString) {
+    private void fetchJsonData(String urlString) {
         Thread fetchThread = null;
-        if (UrlString.isEmpty() || UrlString.isBlank()) {
+        if (urlString.isEmpty() || urlString.isBlank()) {
             logger.log(Level.SEVERE, PromptMessages.NULL_URL);
             messageToBePrinted = PromptMessages.API_INVALID_REQUEST;
             requestListener.requestTimedOut(messageToBePrinted);
         }
         try {
             logger.log(Level.INFO, PromptMessages.STARTING_DATA_FETCH_FROM_API);
-            fetchThread = new Thread(new MovieInfoFetcher(new URL(UrlString), this));
+            fetchThread = new Thread(new MovieInfoFetcher(new URL(urlString), this));
             fetchThread.start();
             //System.out.println("bef MovieInfoFetcher");
         } catch (MalformedURLException | Exceptions ex) {
@@ -680,10 +677,10 @@ public class RetrieveRequest implements InfoFetcher {
      * @param data JSONObject containing the information about a movie/TV show.
      * @return MovieInfo object containing information about a movie/TV show.
      */
-    public static MovieInfoObject parseMovieJSON(JSONObject data) {
+    public static MovieInfoObject parseMovieJson(JSONObject data) {
         String title = UNAVAILABLE_INFO;
         boolean isMovie = false;
-        // Parse title
+        // parse title
         //if the search request was for movies
         if (searchProfile.isMovie()) {
             title = (String) data.get(MOVIE_TITLE);
@@ -692,7 +689,7 @@ public class RetrieveRequest implements InfoFetcher {
             title = (String) data.get(TV_TITLE);
         }
         // Parse id
-        long ID = (long) data.get(DATA_ID);
+        long iD = (long) data.get(DATA_ID);
         // Parse rating
         double rating = 0.0;
         try {
@@ -740,12 +737,12 @@ public class RetrieveRequest implements InfoFetcher {
             for (int i = 0; i < jsonArray.size(); i += 1) {
                 getCast.add((String) jsonArray.get(i));
             }
-            movieInfo = new MovieInfoObject(ID, title, isMovie, releaseDate, summary,
+            movieInfo = new MovieInfoObject(iD, title, isMovie, releaseDate, summary,
                     posterPath, backdropPath, rating, genreID, searchProfile.isAdult(), cert, getCast);
         } else {
             posterPath = (String) data.get(POSTER_PATH);
             backdropPath = (String) data.get(BACKDROP_PATH);
-            movieInfo = new MovieInfoObject(ID, title, isMovie, releaseDate, summary,
+            movieInfo = new MovieInfoObject(iD, title, isMovie, releaseDate, summary,
                     posterPath, backdropPath, rating, genreID, searchProfile.isAdult());
         }
         // If the base url was fetched and loaded, set the root path and poster size
@@ -760,9 +757,9 @@ public class RetrieveRequest implements InfoFetcher {
     }
 
     /**
-     * Responsible for checking if API config data needs to be recached
+     * Responsible for checking if API config data needs to be recached.
      *
-     * @throws Exceptions
+     * @throws Exceptions when file is not found or there is IO Exception.
      */
     private void checkIfConfigNeeded() throws Exceptions {
         boolean configNeeded = true;
@@ -852,12 +849,12 @@ public class RetrieveRequest implements InfoFetcher {
         try {
             // Download the config data and parse
             logger.log(Level.INFO, PromptMessages.RECONFIG_CACHE_FILES);
-            String configJSON = UrlRetriever.readUrlAsString(new URL(CONFIG_URL));
+            String configJson = UrlRetriever.readUrlAsString(new URL(CONFIG_URL));
             JSONObject configRootData = null;
-            if (configJSON != null) {
+            if (configJson != null) {
                 JSONParser parser = new JSONParser();
                 try {
-                    configRootData = (JSONObject) parser.parse(configJSON);
+                    configRootData = (JSONObject) parser.parse(configJson);
                     JSONObject imageConfigData = (JSONObject) configRootData.get("images");
 
                     // Get the base url data

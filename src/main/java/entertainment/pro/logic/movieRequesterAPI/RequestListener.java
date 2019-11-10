@@ -17,7 +17,8 @@ public interface RequestListener {
     void requestCompleted(String message);
 
     /**
-     * Called to print message that data was not extracted from the MovieDB API due to bad/no internet connection in the UI.
+     * Called to print message that data was not extracted from the MovieDB API
+     * due to bad/no internet connection in the UI.
      * Also, called whenit is unable tp recache data.
      *
      * @param message String to be printed.

@@ -184,7 +184,7 @@ public class ContextHelper {
      * @param incompleteCmd incomplete command
      * @return possible hints based on incomplete Command.
      */
-    private static ArrayList<String> filterHints(ArrayList<String> hints , String incompleteCmd) {
+    private static ArrayList<String> filterHints(ArrayList<String> hints, String incompleteCmd) {
         assert (CommandAssertions.assertIsLowerString(incompleteCmd));
         ArrayList<String> filteredHints =  new ArrayList<>();
 
@@ -210,28 +210,28 @@ public class ContextHelper {
         assert (CommandAssertions.assertIsLowerString(subRoot));
         assert (CommandAssertions.assertIsLowerString(incompleteCommand));
         switch (root) {
-            case ("blacklist"):
-                ArrayList<String> hints = Blacklist.getBlackListHints(incompleteCommand);
-                if (!subRoot.equals("remove")) {
-                    hints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
-                }
-                return hints;
-            case ("watchlist"):
-                ArrayList<String> watchlisthints = WatchlistHandler.getWatchListHints(incompleteCommand);
-                if (!subRoot.equals("remove")) {
-                    watchlisthints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
-                }
-                return watchlisthints;
+        case ("blacklist"):
+            ArrayList<String> hints = Blacklist.getBlackListHints(incompleteCommand);
+            if (!subRoot.equals("remove")) {
+                hints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
+            }
+            return hints;
+        case ("watchlist"):
+            ArrayList<String> watchlisthints = WatchlistHandler.getWatchListHints(incompleteCommand);
+            if (!subRoot.equals("remove")) {
+                watchlisthints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
+            }
+            return watchlisthints;
 
-            case ("playlist"):
-                try {
-                    ArrayList<String> playlistNames = new EditProfileJson().load().getPlaylistNames();
-                    return filterHints(playlistNames, incompleteCommand);
-                } catch (IOException e) {
-                    return new ArrayList<String>();
-                }
-            default:
-                return SearchResultContext.getPossibilities(incompleteCommand);
+        case ("playlist"):
+            try {
+                ArrayList<String> playlistNames = new EditProfileJson().load().getPlaylistNames();
+                return filterHints(playlistNames, incompleteCommand);
+            } catch (IOException e) {
+                return new ArrayList<String>();
+            }
+        default:
+            return SearchResultContext.getPossibilities(incompleteCommand);
         }
     }
 
@@ -243,9 +243,9 @@ public class ContextHelper {
      * @param allPossibilities
      * @param incompleteCommand
      */
-    private static void updateCommandInputFieldWithHints(Controller controller
-            , ArrayList<String> allPossibilities
-            , String incompleteCommand) {
+    private static void updateCommandInputFieldWithHints(Controller controller,
+                                                         ArrayList<String> allPossibilities,
+                                                         String incompleteCommand) {
 
         String update = completeCommand(allPossibilities, incompleteCommand);
         ((MovieHandler) controller).updateTextField(update);
