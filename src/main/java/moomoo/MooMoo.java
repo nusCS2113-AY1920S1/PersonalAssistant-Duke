@@ -10,7 +10,7 @@ import moomoo.feature.parser.Parser;
 import moomoo.feature.storage.CategoryStorage;
 import moomoo.feature.storage.ExpenditureStorage;
 import moomoo.feature.storage.Storage;
-import moomoo.task.Cow;
+import moomoo.feature.Cow;
 
 import java.util.ArrayList;
 import java.util.HashMap;
