@@ -61,7 +61,13 @@ public class ImpressionMoveSpec extends ObjSpec {
                     resultList.remove(currImpIdx);
                     results = new SearchResults(results.getName(), resultList, results.getParent());
                 }
-                processResults(core, results);
+                if (results.getCount() == 0) {
+                    throw new DukeException("No results found for '" + results.getName() + "'!");
+                } else if (results.getCount() == 1) {
+                    executeWithObj(core, results.getResult(0));
+                } else {
+                    core.search(results, cmd);
+                }
                 return;
             }
         } else {

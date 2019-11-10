@@ -9,6 +9,7 @@ import duke.exception.DukeException;
 public class ObjCommand extends ArgCommand {
 
     private final ObjSpec spec;
+    private boolean isComplete = true;
 
     /**
      * Creates a new command that takes arguments, with switches and functionality specified in the supplied ArgSpec
@@ -43,5 +44,20 @@ public class ObjCommand extends ArgCommand {
      */
     public void execute(DukeCore core, DukeObject obj) throws DukeException {
         spec.execute(core, this, obj);
+    }
+
+    /**
+     * Returns the completion status of the command, which is used to determine whether or not to reset the core's
+     * stored queuedCmd. Defaults to true; must be set to false for multi-part commands.
+     */
+    public boolean isComplete() {
+        return isComplete;
+    }
+
+    /**
+     * Setter for {@code isComplete}.
+     */
+    public void setComplete(boolean isComplete) {
+        this.isComplete = isComplete;
     }
 }

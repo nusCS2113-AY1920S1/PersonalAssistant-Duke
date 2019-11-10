@@ -62,11 +62,23 @@ public class DukeCore extends Application {
     }
 
     /**
-     * Executes the queued ObjCommand with the object found from search.
+     * Executes the queued ObjCommand with the object found from search, and sets {@code queuedCmd} to null to indicate
+     * completion of queued command.
      *
-     * @throws DukeFatalException If the file writer cannot be setup.
+     * @throws DukeException If an error occurs during command execution.
      */
     public void executeQueuedCmd(DukeObject obj) throws DukeException {
+        executeQueuedCmdPart(obj);
+        queuedCmd = null;
+    }
+
+    /**
+     * Executes the queued ObjCommand with the object found from search without setting {@code queuedCmd} to null,
+     * useful when the command has multiple parts.
+     *
+     * @throws DukeException If an error occurs during command execution.
+     */
+    public void executeQueuedCmdPart(DukeObject obj) throws DukeException {
         uiContext.moveBackOneContext();
         try {
             queuedCmd.execute(this, obj);
@@ -75,7 +87,6 @@ public class DukeCore extends Application {
                     + System.lineSeparator() + excp.getMessage());
             ui.showMessage(queuedCmd.getClass().getSimpleName() + " failed! See log for details.");
         }
-        queuedCmd = null;
     }
 
     /**
