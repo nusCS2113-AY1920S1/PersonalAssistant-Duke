@@ -3,9 +3,7 @@ import duke.order.Order;
 import duke.list.TodayTodoList;
 
 import org.junit.jupiter.api.Test;
-
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -63,5 +61,5 @@ public class TodayTodoListTest {
                 "\n\t 1. laksa (amount: 1) \n" +
                 "\t 2. dumplings (amount: 1) ", todoList.toString());
     }
-    
+
 }

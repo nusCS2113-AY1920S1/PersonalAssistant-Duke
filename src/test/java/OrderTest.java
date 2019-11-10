@@ -3,7 +3,6 @@ import duke.order.Order;
 import duke.parser.Convert;
 
 import org.junit.jupiter.api.Test;
-
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -76,6 +75,6 @@ public class OrderTest {
         assertEquals(1, order.getDishesAmount("cake"));
         assertEquals(3, order.getDishesAmount("laksa"));
     }
-    
+
 
 }
