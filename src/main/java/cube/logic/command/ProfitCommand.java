@@ -114,7 +114,6 @@ public class ProfitCommand extends Command {
      */
     public static void generateAnnualProfitRevenue(ModelManager model) {
         SalesHistory saleSet = ModelManager.getSalesHistory();
-        Iterator<Sale> it = saleSet.iterator();
         double toGenerateProfit = 0;
         double toGenerateRevenue = 0;
 
@@ -129,6 +128,7 @@ public class ProfitCommand extends Command {
         cal.set(Calendar.DAY_OF_MONTH, 31); // Day 31
         Date endDate = cal.getTime();
 
+        Iterator<Sale> it = saleSet.iterator();
         while (it.hasNext()) {
             Sale tempSale = it.next();
             Date tempDate = tempSale.getDate();

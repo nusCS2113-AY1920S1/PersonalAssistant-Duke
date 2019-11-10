@@ -1,11 +1,8 @@
-//@@author LL-Pengfei
 /**
- * Food.java
  * Model the food object.
  */
-package cube.model.food;
 
-import cube.model.ModelManager;
+package cube.model.food;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -77,7 +74,7 @@ public class Food {
 	 *
 	 * @param price The price of the food to be set.
 	 */
-	public void setPrice (double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -96,7 +93,7 @@ public class Food {
 	 *
 	 * @param expiryDate The expiry date of the food to be set.
 	 */
-	public void setExpiryDate (Date expiryDate) {
+	public void setExpiryDate(Date expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 
@@ -190,8 +187,8 @@ public class Food {
 			date = format.format(expiryDate);
 		}
 
-		return name + "\n  Type: " + type + "\n  Price: $" + price +
-				"\n  Stock: " + stock + "\n  Expiry Date: " + date;
+		return name + "\n  Type: " + type + "\n  Price: $" + price
+                + "\n  Stock: " + stock + "\n  Expiry Date: " + date;
 	}
 
 	@Override
@@ -203,8 +200,10 @@ public class Food {
 		if (other instanceof Food) {
 			Food b = (Food) other;
 			return name.equals(b.name)
-					&& ((type == null && b.type == null) || (type != null && type.equals(b.type)))
-					&& price == b.price && cost == b.cost && stock == b.stock && expiryDate == b.expiryDate;
+					&& ((type == null && b.type == null)
+                    || (type != null && type.equals(b.type)))
+					&& price == b.price && cost == b.cost
+                    && stock == b.stock && expiryDate == b.expiryDate;
 		} else {
 			return false;
 		}
