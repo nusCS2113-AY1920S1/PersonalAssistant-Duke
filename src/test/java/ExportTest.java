@@ -33,9 +33,7 @@ class ExportTest {
     private static ArrayList<Task> list;
     private static TaskList tasks;
     private static File file;
-    private static File v1;
-    private static File v2;
-    private static File v3;
+    private static File placeholder;
     private static File calendarFile;
     private static Storage storage;
     private static ChronologerStateList history;
@@ -47,12 +45,11 @@ class ExportTest {
     static void setup() {
         list = new ArrayList<>();
         tasks = new TaskList(list);
-        file = new File(System.getProperty("user.dir") + "/src/test/Test");
-        v1 = new File(System.getProperty("user.dir") + "/src/test/v1");
-        v2 = new File(System.getProperty("user.dir") + "/src/test/v2");
-        v3 = new File(System.getProperty("user.dir") + "/src/test/v3");
+
+        file = new File(System.getProperty("user.dir") + "/src/test/ExportTest");
+        placeholder = new File(System.getProperty("user.dir") + "/src/test/v1");
         storage = new Storage(file);
-        history = new ChronologerStateList(v1, v2, v3);
+        history = new ChronologerStateList(placeholder, placeholder, placeholder);
         LocalDateTime startDate = LocalDateTime.now().plusDays(3);
         Deadline deadline = new Deadline("Test", startDate);
         deadline.setComment("Testing description");
