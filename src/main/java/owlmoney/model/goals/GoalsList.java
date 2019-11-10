@@ -11,6 +11,9 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
+
+import static owlmoney.commons.log.LogsCenter.getLogger;
 
 /**
  * Contains the list of goals in the profile.
@@ -24,6 +27,7 @@ public class GoalsList {
     private Storage storage;
     private static final String PROFILE_GOAL_LIST_FILE_NAME = "profile_goallist.csv";
     private static final String UNTIEDBANK = "-NOT TIED-";
+    private static final Logger logger = getLogger(GoalsList.class);
 
     /**
      * Creates a instance of GoalsList that contains an arrayList of Goals.
@@ -42,6 +46,7 @@ public class GoalsList {
      */
     private void checkNumGoals() throws GoalsException {
         if (goalList.size() >= 20) {
+            logger.warning("Exceeded limit of having 20 goals");
             throw new GoalsException("You've reached the limit of 20 goals!");
         }
     }
@@ -54,17 +59,20 @@ public class GoalsList {
     public void listGoals(Ui ui) {
         if (goalList.size() <= ISZERO) {
             ui.printError("There are no goals set");
+            logger.warning("Trying to list empty goals");
         } else {
             ui.printGoalHeader();
             for (int i = ISZERO; i < goalList.size(); i++) {
                 printOneGoal((i + ONE_INDEX), goalList.get(i), ISMULTIPLE, ui);
             }
             ui.printGoalDivider();
+            logger.info("Succeed in listing all goals in list");
             try {
                 exportGoalList();
             } catch (IOException e) {
                 ui.printError("Error trying to save your goals to disk. Your data is"
                         + " at risk, but we will try again, feel free to continue using the program.");
+                logger.warning("Failed to save data during /list /goals");
             }
         }
     }
@@ -78,9 +86,11 @@ public class GoalsList {
      */
     public void addToGoals(Goals goals, Ui ui) throws GoalsException {
         if (goalExists(goals.getGoalsName())) {
+            logger.warning("New name already exists in list");
             throw new GoalsException("There is already a goal with the same name " + goals.getGoalsName());
         }
         if (goals.getRawStatus()) {
+            logger.warning("Attempted to add a goal with lesser amount then balance of saving account");
             throw new GoalsException("You cannot add a goal that is already achieved!");
         }
         checkNumGoals();
@@ -90,9 +100,11 @@ public class GoalsList {
         } catch (IOException e) {
             ui.printError("Error trying to save your goals to disk. Your data is"
                     + " at risk, but we will try again, feel free to continue using the program.");
+            logger.warning("Failed to save data during /add /goals");
         }
         ui.printMessage("Added a new goal with the below details: ");
         printOneGoal(ONE_INDEX, goals, ISSINGLE, ui);
+        logger.info("Successfully added a new goal");
     }
 
     /**
@@ -104,7 +116,8 @@ public class GoalsList {
      */
     public void deleteFromGoalList(String goalName, Ui ui) throws GoalsException {
         if (goalList.size() <= ISZERO) {
-            throw new GoalsException("There are no goals set!");
+            logger.warning("Goal list is empty");
+            throw new GoalsException("There are no goals with the name: " + goalName);
         } else {
             String capitalGoalName = goalName.toUpperCase();
             for (int i = ISZERO; i < goalList.size(); i++) {
@@ -116,15 +129,18 @@ public class GoalsList {
                     goalList.remove(i);
                     ui.printMessage("Details of the goal being removed:");
                     printOneGoal(ONE_INDEX, temp, ISSINGLE, ui);
+                    logger.info("Successfully deleted goal : " + goalName);
                     try {
                         exportGoalList();
                     } catch (IOException e) {
                         ui.printError("Error trying to save your goals to disk. Your data is"
                                 + " at risk, but we will try again, feel free to continue using the program.");
+                        logger.warning("Failed to save data during /delete /goals");
                     }
                     return;
                 }
             }
+            logger.warning("Name don't exist when trying to delete a goal");
             throw new GoalsException("There are no goals with the name: " + goalName);
         }
     }
@@ -148,11 +164,20 @@ public class GoalsList {
             String capitalCheckGoalName = checkGoalName.toUpperCase();
             if (capitalCheckGoalName.equals(capitalNewGoalName) && checkGoalName.equals(newGoalName)
                     && !currentGoalName.equals(newGoalName) && !capitalCurrentGoalName.equals(capitalNewGoalName)) {
+                logger.warning("Name you've chosen is already in the goals list");
                 throw new GoalsException("There is already a goal with the same name: " + newGoalName);
             }
         }
     }
 
+    /**
+     * Add savings account to un-tracked goals if true. If false, remove savings account from tracked goals.
+     *
+     * @param currentGoal Goal object to get savings account detail.
+     * @param savingAcc Name of savings account to link / unlinked from goals.
+     *
+     * @return true /false if to add / remove savings account from un-tracked or tracked goals.
+     */
     private boolean compareGoalSavingAcc(Goals currentGoal, Bank savingAcc) {
         if (!currentGoal.getSavingAccount().equals("-NOT TIED-")
                 && currentGoal.getSavingAccount().equals(savingAcc.getAccountName())) {
@@ -201,6 +226,7 @@ public class GoalsList {
             String capitalCurrentGoalName = currentGoalName.toUpperCase();
             if (capitalGoalName.equals(capitalCurrentGoalName)) {
                 if (currentGoal.getRawStatus()) {
+                    logger.warning("Tried to edit an already achieved goal.");
                     throw new GoalsException("Sorry, you cannot edit a goal that's already achieved! "
                             + "Try creating a new goal instead!");
                 }
@@ -220,6 +246,8 @@ public class GoalsList {
                     } else if (savingAcc.getCurrentAmount() < currentGoal.getGoalsAmount()) {
                         currentGoal.setSavingAccount(savingAcc);
                     } else {
+                        logger.warning("Attempted to add a goal with lesser amount " +
+                                "then balance of saving account");
                         throw new GoalsException("You cannot add a goal that is already achieved!");
                     }
                 }
@@ -227,6 +255,7 @@ public class GoalsList {
                     if (currentGoal.savingAccNotTied()) {
                         currentGoal.markDone();
                     } else {
+                        logger.warning("Tried to mark done a tracked goal");
                         throw new GoalsException("You cannot mark a goal that is linked to a saving account!");
                     }
                 }
@@ -235,12 +264,15 @@ public class GoalsList {
                 } catch (IOException e) {
                     ui.printError("Error trying to save your goals to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
+                    logger.warning("Failed to save data during /edit /goals");
                 }
                 ui.printMessage("New details of goals changed: ");
                 printOneGoal(ONE_INDEX, goalList.get(i), ISSINGLE, ui);
+                logger.info("Successfully changed details of goals");
                 return;
             }
         }
+        logger.warning("Name don't exist when trying to delete a goal");
         throw new GoalsException("There are no goals with the name: " + goalName);
     }
 
@@ -334,6 +366,7 @@ public class GoalsList {
             exportArrayList.add(new String[]{
                 goalName, stringAmount, date, savingsAccountName, stringDoneStatus, achievementStatusString});
         }
+        logger.info("Successfully added all goals into the arraylist");
         return exportArrayList;
     }
 
@@ -345,6 +378,7 @@ public class GoalsList {
     private void exportGoalList() throws IOException {
         ArrayList<String[]> inputData = prepareExportGoalList();
         storage.writeFile(inputData, PROFILE_GOAL_LIST_FILE_NAME);
+        logger.info("Successfully exported goals");
     }
 
     /**
@@ -354,6 +388,7 @@ public class GoalsList {
      */
     public void goalListImportNewGoal(Goals newGoal) {
         goalList.add(newGoal);
+        logger.info("Successfully imported goals");
     }
 
     /**
@@ -375,6 +410,7 @@ public class GoalsList {
             } catch (IOException e) {
                 ui.printError("Error trying to save your goals to disk. Your data is"
                         + " at risk, but we will try again, feel free to continue using the program.");
+                logger.warning("Error exporting achievement status");
             }
             return unlocked;
         }
@@ -383,6 +419,7 @@ public class GoalsList {
         } catch (IOException e) {
             ui.printError("Error trying to save your goals to disk. Your data is"
                     + " at risk, but we will try again, feel free to continue using the program.");
+            logger.warning("Error exporting achievement status");
         }
         return null;
     }
@@ -398,7 +435,8 @@ public class GoalsList {
             ui.printMessage("\nREMINDER FOR GOALS: ");
             for (int i = 0; i < goalList.size(); i++) {
                 if (goalList.get(i).convertDateToDays() == 0
-                        && !goalList.get(i).getGoalsDateInDateFormat().before(new Date())) {
+                        && !goalList.get(i).getGoalsDateInDateFormat().before(new Date())
+                        && !goalList.get(i).getRawStatus()) {
                     ui.printMessage("- " + goalList.get(i).getGoalsName() + " is due in 1 day"
                             + "\n(You still have a remaining of $" + goalList.get(i).getRemainingAmount()
                             + " to reach your goal!)");
@@ -424,7 +462,7 @@ public class GoalsList {
     public void overdueGoals(Ui ui) {
         int count = 0;
         if (goalList.size() <= ISZERO) {
-            ui.printMessage("NO OVERDUE / REMINDER FOR GOALS");
+            ui.printMessage("");
         } else {
             ui.printMessage("\nOVERDUE GOALS: ");
             for (int i = 0; i < goalList.size(); i++) {
