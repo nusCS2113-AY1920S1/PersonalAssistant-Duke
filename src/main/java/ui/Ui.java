@@ -82,15 +82,15 @@ public class Ui {
                 + (synonyms.size() == 1 ? "this synonym \""
                 + synonyms.get(0) + "\"" : "these synonyms")
                 + " to word \"" + word + "\"" + "\n";
+        /*
         returnedString += "Here " + (synonymHashSet.size() == 1 ? "is the synonym " : "are the synonyms ")
                 + "of word \"" + word + "\"" + "\n";
         StringBuilder stringBuilder = new StringBuilder();
         for (String synonym : synonymHashSet) {
             stringBuilder.append(synonym + "\n");
-        }
-        return returnedString + stringBuilder.toString();
+        }*/
+        return returnedString;
     }
-
     /**
      * Shows the list of all words in the word bank.
      * @param wordBank to store all words
@@ -296,10 +296,14 @@ public class Ui {
                     + "Format:\n"
                     + "Searching for words of a tag: search_tag t/TAG\n"
                     + "Searching for tags of a word: search_tag w/WORD";
+        } else if (instruction.equals("search_syn")) {
+            return "Search for all synonyms associated with a word.\n"
+                    + "Format:\n"
+                    + "search_syn w/WORD\n";
         } else {
             return "Here are the commands for WordUp.\n"
                     + "add, delete, edit, exit, freq, help, history, list, list_tag"
-                    + " schedule, search, search_begin, search_tag, tag, addsyn, quiz\n"
+                    + " schedule, search, search_begin, search_syn, search_tag, tag, addsyn, quiz\n"
                     + "Enter \"help [command]\" for more details.";
         }
     }
@@ -399,8 +403,8 @@ public class Ui {
      * @return string shown to user
      */
     public String showSearchSynonym(String searchWord, String[] words) {
-        StringBuilder stringBuilder = new StringBuilder("Your synonym \"" + searchWord + "\" has " + words.length
-                + (words.length == 1 ? " word:\n" : " words:\n"));
+        StringBuilder stringBuilder = new StringBuilder("Your word \"" + searchWord + "\" has " + words.length
+                + (words.length == 1 ? " synonym:\n" : " synonyms:\n"));
         for (int i = 0; i < words.length; i++) {
             stringBuilder.append(words[i] + "\n");
         }

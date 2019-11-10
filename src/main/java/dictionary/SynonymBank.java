@@ -16,9 +16,9 @@ public class SynonymBank {
      * Adds a word to all synonyms present in the list.
      * @param wordDescription word that need to be added
      * @param synonyms list that will add the word
-     * @author Ng Jian Wei
      */
     public void addWordToSomeSynonyms(String wordDescription, ArrayList<String> synonyms) {
+        synonymBank.put(wordDescription,wordDescription);
         for (String synonym : synonyms) {
             if (synonymBank.containsKey(synonym)) {
                 if (!isSameSet(wordDescription, synonym)) {

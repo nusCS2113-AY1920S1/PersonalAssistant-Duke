@@ -88,7 +88,7 @@ public class Bank {
     public void addWordToBank(Word word) throws WordAlreadyExistsException {
         wordBank.addWord(word);
         tagBank.addWordToAllTags(word);
-        synonymBank.addWordAllSynonyms(word);
+        //synonymBank.add(word);
         wordCount.addWord(word);
     }
 
