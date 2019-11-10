@@ -214,44 +214,42 @@ Example: +
 `grade CS1010 A-` +
 `grade CS1231 S`
 
-=== Sorting and printing the modules or ccas : `sort`
+=== Sorting and printing the modules and/or ccas : `sort`
 
-Sorts out modules and/or ccas accordingly.
+Sorts out modules and/or ccas accordingly. For all the sorting methods listed below, enter the optional flag `--r` to sort in the reverse order.
+Example: +
+`sort cca --r` +
+`sort module code --r`
 
-==== Sorting and printing the CCAs : `sort ccas f`
+==== Sorting and printing the CCAs : `sort cca`
 
 Sorts the cca list according to alphabetical order and prints the cca list. + 
-Format: `sort ccas f` 
+Format: `sort cca f` 
 
-==== Sorting and printing the CCAs : `sort ccas r`
-
-Sorts the cca list according to the reverse alphabetical order and prints the cca list. + 
-Format: `sort ccas r` 
-
-==== Sorting and printing the CCAs and modules of a certain day of the week : `sort times`
+==== Sorting and printing the CCAs and modules of a certain day of the week : `sort time`
 
 Sorts the cca and modules together  list according to alphabetical order and prints the cca list. + 
-Format: `sort times DAYOFWEEK` , replace DAYOFWEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
+Format: `sort time DAYOFWEEK` , replace DAYOFWEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
 
-==== Sorting and printing the modules : `sort modules code`
+==== Sorting and printing the modules : `sort module code`
 
 Sorts the module list according to alphabetical order and prints the module list. + 
-Format: `sort modules code`
+Format: `sort module code`
 
-==== Sorting and printing the modules : `sort modules grade`
+==== Sorting and printing the modules : `sort module grade`
 
 Sorts the module by the grade entered and prints the module list. + 
-Format: `sort modules grade`
+Format: `sort module grade`
 
-==== Sorting and printing the modules : `sort modules level`
+==== Sorting and printing the modules : `sort module level`
 
 Sorts the module list by the numerical order and prints the module list. + 
-Format: `sort modules level`
+Format: `sort module level`
 
-==== Sorting and printing the modules : `sort modules mc`
+==== Sorting and printing the module : `sort modules mc`
 
 Sorts the module list according to the number of mcs and prints the module list. + 
-Format: `sort modules mc`
+Format: `sort module mc`
 
 === Clearing the data : `clear`
 
@@ -491,13 +489,14 @@ eg. `cap module` +
 e.g `grade CS101 A-` +
 `grade CS1231 S`
 * *Sort* : 
-** `sort ccas`
-** `sort times`, `DAYOFWEEK` +
-eg. `sort times monday` +
-** `sort modules code`
-** `sort modules grade`
-** `sort modules level`
-** `sort modules mc`
+** `sort cca`
+** `sort cca --r`
+** `sort time`, `DAYOFWEEK` +
+eg. `sort time monday` +
+** `sort module code`
+** `sort module grade`
+** `sort module level`
+** `sort module mc`
 * *Clear* :
 ** `clear modules`
 ** `clear ccas`
