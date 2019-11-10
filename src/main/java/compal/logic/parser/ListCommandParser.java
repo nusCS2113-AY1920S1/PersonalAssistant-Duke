@@ -26,15 +26,27 @@ public class ListCommandParser implements CommandParser {
             return new ListCommand("");
         } else {
             if (restOfInput.contains(TOKEN_TYPE) && restOfInput.contains(TOKEN_STATUS)) {
+                String[] args = restOfInput.split(" ");
+                if (args.length > 4) {
+                    throw new ParserException(MESSAGE_INVALID_PARAM);
+                }
                 String type = getType(restOfInput);
                 String status = getTokenStatus(restOfInput);
                 logger.info("Successfully parse list command");
                 return new ListCommand(type, status);
             } else if (restOfInput.contains(TOKEN_STATUS) && !restOfInput.contains(TOKEN_TYPE)) {
+                String[] args = restOfInput.split(" ");
+                if (args.length > 2) {
+                    throw new ParserException(MESSAGE_INVALID_PARAM);
+                }
                 String status = getTokenStatus(restOfInput);
                 logger.info("Successfully parse list command");
                 return new ListCommand("", status);
             } else if (!restOfInput.contains(TOKEN_STATUS) && restOfInput.contains(TOKEN_TYPE)) {
+                String[] args = restOfInput.split(" ");
+                if (args.length > 2) {
+                    throw new ParserException(MESSAGE_INVALID_PARAM);
+                }
                 String type = getType(restOfInput);
                 logger.info("Successfully parse list command");
                 return new ListCommand(type);
