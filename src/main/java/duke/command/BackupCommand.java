@@ -23,6 +23,7 @@ public class BackupCommand extends Command {
 
     protected static File filePath = new File("./data");
 
+    // Solution adapted from https://stackoverflow.com/questions/7357969/how-to-use-java-code-to-open-windows-file-explorer-and-highlight-the-specified-f/39445156
     /**
      * Opens the stored data file in the user's computer.
      *

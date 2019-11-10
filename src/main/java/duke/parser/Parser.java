@@ -230,9 +230,13 @@ public class Parser {
                     if (typeOfNotes == Numbers.THREE.value) {
                         return new ShowNotesCommand(tasknum);
                     } else if (typeOfNotes == Numbers.TWO.value) {
+                        if (items.get(tasknum).getNotes().equals("empty")) {
+                            throw new DukeException("     (>_<) OOPS!!! The notes description of "
+                                    + items.get(tasknum).toString() + " is already empty!");
+                        }
                         return new DeleteNotesCommand(tasknum);
                     } else if (typeOfNotes == Numbers.ONE.value && notesDesc.isEmpty()) {
-                        throw new DukeException("     (>_<) OOPS!!! The notes description of a "
+                        throw new DukeException("     (>_<) OOPS!!! The notes description of "
                                 + arr[Numbers.ZERO.value] + " cannot be empty.");
                     } else if (typeOfNotes != Numbers.MINUS_ONE.value) {
                         return new AddNotesCommand(notesDesc,tasknum);
@@ -299,6 +303,8 @@ public class Parser {
                 }
                 return new AddCommand(taskObj);
             }
+
+            //@@author Dou-Maokang
         } else if (!emptyString
                 && (arr[Numbers.ZERO.value].equals("fixedduration") || arr[Numbers.ZERO.value].equals("fd"))) {
             String description = "";
@@ -340,11 +346,17 @@ public class Parser {
                     throw new DukeException("     (>_<) OOPS!!! The unit of a "
                             + arr[Numbers.ZERO.value] + " cannot be empty.");
                 }
+
                 unit = durDesc.split(" ")[Numbers.ONE.value].trim();
                 if (unit.isEmpty() || (!unit.toLowerCase().contains("min") && !unit.toLowerCase().contains("h"))) {
                     throw new DukeException(ErrorMessages.FIXEDDURATION_FORMAT.message);
+                } else if ((!unit.toLowerCase().equals("minute"))
+                        && (!unit.toLowerCase().equals("minutes"))
+                        && (!unit.toLowerCase().equals("hour"))
+                        && (!unit.toLowerCase().equals("hours"))) {
+                    throw new DukeException("     (>_<) OOPS!!! <unit> can only be minute(s) or hour(s)!");
                 } else {
-                    if (unit.contains("min")) {
+                    if (unit.equals("min") || unit.equals("minutes")) {
                         unit = (duration > Numbers.ONE.value) ? "minutes" : "minute";
                     } else if (unit.contains("h")) {
                         unit = (duration > Numbers.ONE.value) ? "hours" : "hour";
@@ -422,6 +434,10 @@ public class Parser {
             for (int i = Numbers.ONE.value; i < arr.length; i++) {
                 description += arr[i] + " ";
             }
+
+            if (!description.contains("/on")) {
+                throw new DukeException("     (>_<) OOPS!!! The format for finddate is 'finddate /on <dd/mm/yyyy>'");
+            }
             String[] holder =  description.split("/on");
             if (holder.length == 1) {
                 throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
@@ -460,6 +476,8 @@ public class Parser {
             displayDT = suffixStr + " of " + displayDT;
 
             return new FindTasksByDateCommand(displayDT);
+
+            //@@author
 
             //@@author talesrune
         } else if (!emptyString && (arr[Numbers.ZERO.value].equals("update"))) {

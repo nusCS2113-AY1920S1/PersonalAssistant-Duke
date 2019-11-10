@@ -9,14 +9,16 @@ import duke.task.ContactList;
 import duke.task.PriorityList;
 import duke.task.TaskList;
 import duke.ui.Ui;
+import duke.DukeLogger;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  * Represents a command that overwrites the storage with the updated task list before program exits.
  */
 public class ExitCommand extends Command {
-
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Executes a command using task list and outputs the result (GUI).
@@ -44,7 +46,8 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Executes a command that overwrites existing storage with the all task list.
+     * Executes a command that overwrites existing storage with the all task list
+     * and closes logging handlers.
      *
      * @param items Task list that contains a list of tasks.
      * @param ui To tell user that it is executed successfully.
@@ -66,5 +69,6 @@ public class ExitCommand extends Command {
         contactStorage.write(contactList);
         storage.write(items);
         ui.showBye();
+        new DukeLogger().stopLogger(logger);
     }
 }

@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //@@author talesrune-reused
+//Reused from https://github.com/nusCS2113-AY1920S1/duke/blob/master/tutorials/javaFxTutorialPart4.md with minor modifications
 /**
  * A GUI for Duke using FXML.
  */
@@ -40,6 +41,7 @@ public class Main extends Application {
     }
 
     //@@author maxxyx96
+    //Solution adapted from https://github.com/nusCS2113-AY1920S1/addressbook-level3/blob/master/src/main/java/seedu/address/MainApp.java
     @Override
     public void stop() {
         logger.info("ALERT: Duke is shutting down! Stopping duke... ");
