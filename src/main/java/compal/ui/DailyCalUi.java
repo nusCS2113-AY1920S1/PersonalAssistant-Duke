@@ -48,6 +48,7 @@ class DailyCalUi {
     private ArrayList<Task> tempOriginalList;
     private ArrayList<Task> dailyCalArrayList = new ArrayList<>();
     private ArrayList<Task> deadlineArrayList = new ArrayList<>();
+    private String type = "";
 
 
     DailyCalUi() {
@@ -68,12 +69,14 @@ class DailyCalUi {
      *
      * @return scrollPane final object state
      */
-    ScrollPane init(String givenDate) {
+    ScrollPane init(String givenDate, String type) {
+        this.type = type;
         tempOriginalList = taskStorageManager.loadData();
         setTrue(canStore);
         dateToDisplay = givenDate;
         createDailyArrayList();
         sp = buildTimeTable();
+
         return sp;
     }
 
@@ -102,8 +105,17 @@ class DailyCalUi {
                 }
             }
         }
-        dailyCalArrayList.sort(compareByStartTime);
-        deadlineArrayList.sort(compareByStartTime);
+        if ("E".equals(type)) {
+            dailyCalArrayList.sort(compareByStartTime);
+            deadlineArrayList.clear();
+        } else if ("D".equals(type)) {
+            deadlineArrayList.sort(compareByStartTime);
+            dailyCalArrayList.clear();
+        } else {
+            dailyCalArrayList.sort(compareByStartTime);
+            deadlineArrayList.sort(compareByStartTime);
+        }
+
     }
 
     private void buildDeadline() {
@@ -321,7 +333,6 @@ class DailyCalUi {
                 double heightY = 1.7;
                 double heightYMin = heightY * totalMin;
                 double heightYHour = pixelBlock * totalHour;
-                System.out.println(heightYHour + heightYMin);
                 double combineY = heightYHour + heightYMin;
                 if (combineY < 50) {
                     combineY = 50;
