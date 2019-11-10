@@ -4,7 +4,7 @@ package planner.logic.command;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import planner.logic.exceptions.planner.ModFailedJsonException;
+import planner.logic.exceptions.legacy.ModException;
 import planner.logic.modules.TaskList;
 import planner.logic.modules.cca.Cca;
 import planner.logic.modules.module.ModuleTask;
@@ -33,7 +33,7 @@ public class ClearCommandTest extends CommandTestFramework {
                             + "scheduleCca 1";
     private String inputModule = inputCca;
 
-    ClearCommandTest() throws ModFailedJsonException {
+    ClearCommandTest() throws ModException {
         super();
     }
 
