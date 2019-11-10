@@ -55,6 +55,6 @@ public abstract class UiCard extends AnchorPane {
      * @param index New index.
      */
     public void setIndex(int index) {
-        indexLabel.setText(cardType + " " + index);
+        indexLabel.setText("[" + index + "] " + cardType);
     }
 }
