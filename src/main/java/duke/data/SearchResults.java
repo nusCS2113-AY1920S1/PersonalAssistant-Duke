@@ -7,10 +7,9 @@ import duke.ui.context.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO parametrise types
-
 public class SearchResults extends DukeObject {
 
+    // TODO: separate into different lists, order will always be: Patient -> Impression -> Evidence -> Treatment
     private List<DukeObject> searchList;
 
     /**
@@ -68,13 +67,13 @@ public class SearchResults extends DukeObject {
         int treatCount = 0;
 
         for (DukeObject obj : searchList) {
-            if (obj.getClass() == Patient.class) {
+            if (obj instanceof Patient) {
                 ++patCount;
-            } else if (obj.getClass() == Impression.class) {
+            } else if (obj instanceof Impression) {
                 ++impCount;
-            } else if (obj.getClass() == Evidence.class) {
+            } else if (obj instanceof Evidence) {
                 ++evCount;
-            } else if (obj.getClass() == Treatment.class) {
+            } else if (obj instanceof Treatment) {
                 ++treatCount;
             }
         }
