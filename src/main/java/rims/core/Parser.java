@@ -347,23 +347,6 @@ public class Parser {
             }
             int userId = parseInt(input.substring(idIndex + 5, byIndex).trim());
             String dateTill = parseDate(input.substring(byIndex + 5).trim());
-            ui.printLine();
-            ArrayList<Resource> allOfItem = resources.getAllOfResource(itemName);
-            for (int i = 0; i < allOfItem.size(); i++) {
-                Resource thisResource = allOfItem.get(i);
-                ReservationList thisResourceReservations = thisResource.getReservations();
-                ui.printDash();
-                ui.print(thisResource.toString() + " (resource ID: " + thisResource.getResourceId() + ")");
-                if (!thisResourceReservations.isEmpty()) {
-                    for (int j = 0; j < thisResourceReservations.size(); j++) {
-                        ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
-                    }
-                } else {
-                    ui.print("No bookings for this resource yet!");
-                }
-            }
-            ui.printDash();
-            ui.printLine();
             return new ReserveCommand(itemName, qty, dateTill, userId);
         }
         else if (words[1].equals("/room")) {
@@ -394,19 +377,6 @@ public class Parser {
                 throw new RimsException("Please specify the date by which the room is to be returned.");
             }
             String dateTill = parseDate(input.substring(byIndex + 5).trim());
-            // get list of rooms
-            ui.printLine();
-            Resource thisResource = resources.getResourceByName(roomName);
-            ReservationList thisResourceReservations = thisResource.getReservations();
-            ui.print(thisResource.toString() + " (resource ID: " + thisResource.getResourceId() + ")");
-            if (!thisResourceReservations.isEmpty()) {
-                for (int j = 0; j < thisResourceReservations.size(); j++) {
-                    ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
-                }
-            } else {
-                ui.print("No bookings for this resource yet!");
-            }
-            ui.printLine();
             return new ReserveCommand(roomName, dateTill, userId);
         } else {
             throw new RimsException("Please choose an item or room to loan out.");
@@ -465,24 +435,6 @@ public class Parser {
             }
             String dateFrom = parseDate(input.substring(fromIndex + 7, byIndex).trim());
             String dateTill = parseDate(input.substring(byIndex + 5).trim());
-            // get list of items - move to fn?
-            ui.printLine();
-            ArrayList<Resource> allOfItem = resources.getAllOfResource(itemName);
-            for (int i = 0; i < allOfItem.size(); i++) {
-                Resource thisResource = allOfItem.get(i);
-                ReservationList thisResourceReservations = thisResource.getReservations();
-                ui.printDash();
-                ui.print(thisResource.toString() + " (resource ID: " + thisResource.getResourceId() + ")");
-                if (!thisResourceReservations.isEmpty()) {
-                    for (int j = 0; j < thisResourceReservations.size(); j++) {
-                        ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
-                    }
-                } else {
-                    ui.print("No bookings for this resource yet!");
-                }
-            }
-            ui.printDash();
-            ui.printLine();
             return new ReserveCommand(itemName, qty, dateFrom, dateTill, userId);
         } else if (words[1].equals("/room")) {
             int roomIndex = input.indexOf("/room") + 6;
@@ -514,19 +466,6 @@ public class Parser {
             }
             String dateFrom = parseDate(input.substring(fromIndex + 7, byIndex).trim());
             String dateTill = parseDate(input.substring(byIndex + 5).trim());
-            // get list of rooms
-            ui.printLine();
-            Resource thisResource = resources.getResourceByName(roomName);
-            ReservationList thisResourceReservations = thisResource.getReservations();
-            ui.print(thisResource.toString() + " (resource ID: " + thisResource.getResourceId() + ")");
-            if (!thisResourceReservations.isEmpty()) {
-                for (int j = 0; j < thisResourceReservations.size(); j++) {
-                    ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
-                }
-            } else {
-                ui.print("No bookings for this resource yet!");
-            }
-            ui.printLine();
             return new ReserveCommand(roomName, dateFrom, dateTill, userId);
         } else {
             throw new RimsException("Please choose an item or room to reserve.");
