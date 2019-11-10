@@ -323,7 +323,7 @@ Format: `recommend itinerary between START_DATE and END_DATE`
 
 [WARNING]
 ====
-This command still works if u enter 23/04/20 and 31/04/20 (invalid date). This is just the
+This command still works if you enter 23/04/20 and 31/04/20 (invalid date). This is just the
  Java Library automatically changing 31/04/20 to 01/05/20. 
 Hence, do not enter invalid dates (This is not a bug, the smart feature is enabled by default).
 ====
@@ -341,7 +341,7 @@ Format: `addThisList NEW_ITINERARY_NAME`
 
 [NOTE]
 ====
-* You must rename your list before you add it to your storage.
+* You must rename your list before you add it to storage.
 ====
 
 [WARNING]
@@ -364,7 +364,7 @@ Examples:
 
 === Create new Itinerary: `newItinerary`
 
-Creates a new itinerary from scratch and stores it +
+Creates a new itinerary from scratch and stores it. +
 Format: `newItinerary START_DATE END_DATE ITINERARY_NAME DAY_NUMBER /venue VENUE_NAME /do TODO1 /and TODO2 /venue VENUE_NAME /do TODO1 /and TODO2 …. DAY_NUMBER ….`
 
 [NOTE]
@@ -372,7 +372,7 @@ Format: `newItinerary START_DATE END_DATE ITINERARY_NAME DAY_NUMBER /venue VENUE
 * Each itinerary day can have any number of venues and todos.  
 * Every venue must come with at least 2 todos.
 * Dates must be valid with respect to each other and be in the future. 
-* If you enter dates with ex. 5 days in between them. A list containing the acitivities for 5 days must be specified.  
+* If you enter dates with 5 days in between them. A list containing the acitivities for 5 days must be specified.  
 ====
 
 [WARNING]
@@ -416,7 +416,7 @@ Use this command in order to refer to itinerary names before using the showItine
 === Show a saved Itinerary: `showItinerary`
 
 Displays a specific saved Itinerary +
-Format: `showItinerary ITIERARY_NAME`
+Format: `showItinerary ITINERARY_NAME`
 
 [WARNING]
 ====
@@ -434,7 +434,7 @@ Will print the `SundayVacay` Itinerary.
 === Delete an Itinerary: `doneItinerary`
 
 Removes a specified Itinerary from storage +
-Format: `doneItinerary ITIERARY_NAME`
+Format: `doneItinerary ITINERARY_NAME`
 
 [NOTE]
 ====
@@ -994,9 +994,9 @@ e.g. `addThisList MyBestVacation`
 e.g. `newItinerary 23/04/20 23/04/20 SundayVacay 1 /venue Bedok /do swimming /and jumping /and swinging /venue Simei /do jogging /and running`
 * *List Saved Itineraries* : `listItinerary` +
 e.g. `listItinerary`
-* *Show a saved Itinerary* : `showItinerary ITIERARY_NAME` +
+* *Show a saved Itinerary* : `showItinerary ITINERARY_NAME` +
 e.g. `showItinerary SundayVacay`
-* *Delete an Itinerary* : `doneItinerary ITIERARY_NAME` +
+* *Delete an Itinerary* : `doneItinerary ITINERARY_NAME` +
 e.g. `doneItinerary SundayVacay`
 * *Add favourite itinerary* : `addToFav ITIERARY_NAME` +
 e.g. `addToFav SundayVacay`
