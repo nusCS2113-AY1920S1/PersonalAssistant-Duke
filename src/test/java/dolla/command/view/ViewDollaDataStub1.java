@@ -36,6 +36,9 @@ public class ViewDollaDataStub1 extends DollaData {
                 LocalDate.parse("1000-01-01"));
     }
 
+    /**
+     * Creates an instance of DollaData to store and manipulate data.
+     */
     private ArrayList<Record> createNewEntryArrayList() {
         ArrayList<Record> newRecordList = new ArrayList<Record>();
         newRecordList.add(createNewEntry1());

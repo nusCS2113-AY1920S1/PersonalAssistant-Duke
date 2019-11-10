@@ -37,6 +37,9 @@ public class ViewDollaDataStub2 extends DollaData {
         return newRecordList;
     }
 
+    /**
+     * Creates an instance of DollaData to store and manipulate data.
+     */
     public ViewDollaDataStub2() {
         this.entryList = new EntryList(createNewEntryArrayList());
         this.limitList = new LimitList(new ArrayList<Record>());

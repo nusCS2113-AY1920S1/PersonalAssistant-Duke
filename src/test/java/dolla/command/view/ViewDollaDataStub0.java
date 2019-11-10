@@ -21,6 +21,9 @@ public class ViewDollaDataStub0 extends DollaData {
     private ShortcutList shortcutList;
     private BillList billList;
 
+    /**
+     * Creates an empty instance of DollaData to store and manipulate data.
+     */
     public ViewDollaDataStub0() {
         this.entryList = new EntryList(new ArrayList<Record>());
         this.limitList = new LimitList(new ArrayList<Record>());
