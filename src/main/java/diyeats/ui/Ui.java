@@ -174,6 +174,17 @@ public class Ui {
         }
     }
 
+    public void showTransactions(ArrayList<Transaction> transactions, LocalDate date) {
+        if (transactions.isEmpty()) {
+            System.out.println(UI_PADDING + "There is no transaction on " + date + ".");
+        } else {
+            System.out.println(UI_PADDING + "These are the transactions on " + date + ":");
+            for (int idx = 0; idx < transactions.size(); idx++) {
+                System.out.println(UI_PADDING + (idx + 1) + ". " + transactions.get(idx));
+            }
+        }
+    }
+
     public void showWeightUpdate(User user, int weight, LocalDate date) {
         System.out.println(UI_PADDING + user.getName() + ", your weight has been updated on "
                 + date.format(LOCAL_DATE_FORMATTER) + " to " + weight + "kg.");

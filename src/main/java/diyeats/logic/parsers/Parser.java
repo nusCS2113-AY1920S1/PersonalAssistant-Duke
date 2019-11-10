@@ -6,30 +6,7 @@ import diyeats.logic.commands.Command;
 import diyeats.logic.commands.ExitCommand;
 import diyeats.logic.commands.StatsCommand;
 
-import static diyeats.commons.constants.CommandDefinitions.PARSER_ADD_DEFAULT_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_ADD_EXERCISE_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_ADD_GOAL_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_BREAKFAST_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_CGRAPH_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_CLEAR_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_DELETE_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_DELETE_DEFAULT_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_DELETE_EXERCISE_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_DEPOSIT_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_DINNER_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_DONE_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_EDIT_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_EXIT_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_FIND_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_HELP_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_HISTORY_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_LIST_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_LUNCH_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_PAYMENT_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_STATS_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_SUGGEST_EXERCISE_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_SUGGEST_MEAL_COMMAND;
-import static diyeats.commons.constants.CommandDefinitions.PARSER_UPDATE_COMMAND;
+import static diyeats.commons.constants.CommandDefinitions.*;
 import static diyeats.commons.exceptions.ExceptionMessages.UNKNOWN_COMMAND;
 
 /**
@@ -119,6 +96,8 @@ public class Parser {
                 return new AddExerciseCommandParser().parse(argumentStr);
             case PARSER_DELETE_EXERCISE_COMMAND:
                 return new DeleteExerciseCommandParser().parse(argumentStr);
+            case PARSER_LIST_TRANSACTION_COMMAND:
+                return new ListTransactionCommandParser().parse(argumentStr);
             default:
                 throw new ProgramException(UNKNOWN_COMMAND);
         }

@@ -28,4 +28,5 @@ public final class CommandDefinitions {
     public static final String PARSER_SUGGEST_EXERCISE_COMMAND = "suggestexercise";
     public static final String PARSER_ADD_EXERCISE_COMMAND = "addexercise";
     public static final String PARSER_DELETE_EXERCISE_COMMAND = "delexercise";
+    public static final String PARSER_LIST_TRANSACTION_COMMAND = "listtransaction";
 }

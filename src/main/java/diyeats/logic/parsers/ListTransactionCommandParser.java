@@ -14,6 +14,7 @@ public class ListTransactionCommandParser implements ParserInterface<ListTransac
         HashMap<String, String> argumentInfoMap;
         LocalDate localDate = LocalDate.now();
         String sortArgStr = "";
+        int numberofEntry = 10;
         if (userInputStr.isBlank()) {
             return new ListTransactionsCommand();
         }
@@ -25,13 +26,20 @@ public class ListTransactionCommandParser implements ParserInterface<ListTransac
                     dateArgStr = argumentInfoMap.get(details);
                     localDate = LocalDate.parse(dateArgStr, dateFormat);
                 } catch (DateTimeParseException e) {
-                    return new ListTransactionsCommand(false, "Unable to parse \"" + userInputStr
+                    return new ListTransactionsCommand(false, "Unable to parse \"" + dateArgStr
                                                         + "\" as a date." );
                 }
             }
             if (details.equals("sort")) {
                 sortArgStr = argumentInfoMap.get(details).trim();
                 //TODO: add sorting
+            }
+            if (details.equals("entry")) {
+                try {
+                    numberofEntry = Integer.parseInt(argumentInfoMap.get(details));
+                } catch (NumberFormatException e) {
+                    return new ListTransactionsCommand(false, "Unable to parse number of entry as int");
+                }
             }
         }
         return new ListTransactionsCommand(localDate, sortArgStr);

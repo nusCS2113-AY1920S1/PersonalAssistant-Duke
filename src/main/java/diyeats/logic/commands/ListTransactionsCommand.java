@@ -3,11 +3,14 @@ package diyeats.logic.commands;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
+import diyeats.model.wallet.Transaction;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
+//@@author GaryStu
 public class ListTransactionsCommand extends Command {
     private String sortBy = "default";
 
@@ -37,6 +40,8 @@ public class ListTransactionsCommand extends Command {
 
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) throws ProgramException {
-
+        ui.showLine();
+        ArrayList<Transaction> transactions = wallet.getTransactions().getTransactionList(currentDate);
+        ui.showTransactions(transactions, currentDate);
     }
 }
