@@ -1,5 +1,9 @@
 package owlmoney.logic.command.find;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.exception.BondException;
@@ -12,6 +16,8 @@ import owlmoney.ui.Ui;
 public class FindBondCommand extends Command {
     private final String name;
     private final String from;
+    private static final Logger logger = getLogger(FindBondCommand.class);
+
 
     /**
      * Creates an instance of FindBondCommand.
@@ -35,6 +41,7 @@ public class FindBondCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, BondException {
         profile.findBond(this.name, this.from, ui);
+        logger.info("Successful execution of finding bonds");
         return this.isExit;
     }
 }

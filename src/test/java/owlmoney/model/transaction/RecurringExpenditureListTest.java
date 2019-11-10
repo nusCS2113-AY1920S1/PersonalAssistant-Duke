@@ -34,13 +34,14 @@ class RecurringExpenditureListTest {
         }
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         String printedMessage = "Added expenditure with the following details:" + NEWLINE + "Item No.        "
-                + "     Description                                             Amount          Next Expense "
-                + "Date    Category             " + NEWLINE + "----------------------------------------------"
-                + "-----------------------------------------------------------------------------------"
+                + "     Description                                             Amount               Next Expense "
+                + "Date    Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------"
                 + NEWLINE + "1                    test                                                    [-]"
-                + " $1.00       " + temp.format(newDate) + "      test                 " + NEWLINE + "-------"
-                + "------------------------------------------------------------------------------------------"
-                + "--------------------------------" + NEWLINE;
+                + " $1.00            " + temp.format(newDate) + "      test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(printedMessage, outContent.toString());
     }
 
@@ -110,13 +111,14 @@ class RecurringExpenditureListTest {
         }
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         String deletedMessage = "Deleted expenditure with the following details:" + NEWLINE + "Item No.      "
-                + "       Description                                             Amount          Next "
-                + "Expense Date    Category             " + NEWLINE + "--------------------------------------"
-                + "------------------------------------------------------------------------------------------"
-                + "-" + NEWLINE + "1                    test                                                 "
-                + "   [-] $1.00       " + temp.format(newDate) + "      test                 " + NEWLINE
-                + "------------------------------------------------------------------------------------------"
-                + "---------------------------------------" + NEWLINE;
+                + "       Description                                             Amount               Next "
+                + "Expense Date    Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
+                + "1                    test                                                 "
+                + "   [-] $1.00            " + temp.format(newDate) + "      test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(deletedMessage, outContent.toString());
         assertEquals(0, testList.getListSize());
     }
@@ -152,12 +154,15 @@ class RecurringExpenditureListTest {
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
 
         String outputMessage = "Transaction No.      Description                                             "
-                + "Amount          Next Expense Date    Category             " + NEWLINE + "-----------------"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------" + NEWLINE + "1                    test                            "
-                + "                        [-] $1.00       " + temp.format(newDate) + "      test            "
-                + "     " + NEWLINE + "----------------------------------------------------------------------"
-                + "-----------------------------------------------------------" + NEWLINE;
+                + "Amount               Next Expense Date    Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------"
+                + NEWLINE + "1                    test                            "
+                + "                        [-] $1.00            " + temp.format(newDate)
+                + "      test            "
+                + "     " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
     }
 
@@ -255,14 +260,14 @@ class RecurringExpenditureListTest {
         testList.findMatchingRecurringExpenditure("", "s", uiTest);
 
         String expectedOutput = "Find by: category" + NEWLINE
-                + "Transaction No.      Description                                             Amount"
+                + "Transaction No.      Description                                             Amount     "
                 + "          Next Expense Date    Category             " + NEWLINE
-                + "--------------------------------------------------------------------------------------"
-                + "-------------------------------------------" + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
                 + "1                    Test 1                                                  "
-                + "[-] $1.00       04 November 2019     test                 " + NEWLINE
-                + "-------------------------------------------------------------------------------------"
-                + "--------------------------------------------" + NEWLINE;
+                + "[-] $1.00            04 November 2019     test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());
     }
 
@@ -306,14 +311,14 @@ class RecurringExpenditureListTest {
         testList.findMatchingRecurringExpenditure("1", "", uiTest);
 
         String expectedOutput = "Find by: description" + NEWLINE
-                + "Transaction No.      Description                                             Amount"
+                + "Transaction No.      Description                                             Amount     "
                 + "          Next Expense Date    Category             " + NEWLINE
-                + "--------------------------------------------------------------------------------------"
-                + "-------------------------------------------" + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
                 + "1                    Test 1                                                  "
-                + "[-] $1.00       04 November 2019     test                 " + NEWLINE
-                + "-------------------------------------------------------------------------------------"
-                + "--------------------------------------------" + NEWLINE;
+                + "[-] $1.00            04 November 2019     test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());
     }
 
@@ -370,23 +375,23 @@ class RecurringExpenditureListTest {
         testList.findMatchingRecurringExpenditure("1", "s", uiTest);
 
         String expectedOutput = "Find by: description" + NEWLINE
-                + "Transaction No.      Description                                             Amount"
+                + "Transaction No.      Description                                             Amount     "
                 + "          Next Expense Date    Category             " + NEWLINE
-                + "--------------------------------------------------------------------------------------"
-                + "-------------------------------------------" + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
                 + "1                    Test 1                                                  "
-                + "[-] $1.00       04 November 2019     test                 " + NEWLINE
-                + "-------------------------------------------------------------------------------------"
-                + "--------------------------------------------" + NEWLINE
+                + "[-] $1.00            04 November 2019     test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
                 + "Find by: category" + NEWLINE
-                + "Transaction No.      Description                                             Amount"
+                + "Transaction No.      Description                                             Amount     "
                 + "          Next Expense Date    Category             " + NEWLINE
-                + "--------------------------------------------------------------------------------------"
-                + "-------------------------------------------" + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
                 + "1                    Test 1                                                  "
-                + "[-] $1.00       04 November 2019     test                 " + NEWLINE
-                + "-------------------------------------------------------------------------------------"
-                + "--------------------------------------------" + NEWLINE;
+                + "[-] $1.00            04 November 2019     test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(expectedOutput, outContent.toString());
     }
 
