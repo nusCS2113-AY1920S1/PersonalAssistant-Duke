@@ -213,6 +213,9 @@ public class UserInteraction {
         }
     }
 
+    /**
+     * Display the chosen previous input requested by the user.
+     */
     public String showChosenPreviousChoice(String chosenInput) {
         String message = "Your chosen previous input is: \n" + chosenInput;
         return message;

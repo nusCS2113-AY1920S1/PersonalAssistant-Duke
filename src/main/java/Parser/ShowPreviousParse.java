@@ -26,7 +26,7 @@ public class ShowPreviousParse extends Parse{
      */
     @Override
     public Command parse() throws DukeInvalidFormatException {
-        String entireCommand = fullCommand.replaceFirst("show/previous", "");
+        String entireCommand = fullCommand.replaceFirst(DukeConstants.SHOW_PREVIOUS_HEADER, "");
         entireCommand = entireCommand.trim();
 
         if (entireCommand.isEmpty()) {
