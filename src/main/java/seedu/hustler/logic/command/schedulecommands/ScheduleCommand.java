@@ -3,44 +3,42 @@ package seedu.hustler.logic.command.schedulecommands;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.AddEntryAnomaly;
+import seedu.hustler.logic.parser.anomaly.ScheduleAnomaly;
 import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.Hustler;
 
 /**
- * Adds an entry to recommended schedule.
+ * Displays the recommended schedule.
  */
-public class AddEntry extends Command {
+public class ScheduleCommand extends Command {
 
     /**
-     * User input to parse.
+     * User input.
      */
     private String[] userInput;
 
     /**
      * Detects anomalies for input.
      */
-    private AddEntryAnomaly anomaly = new AddEntryAnomaly();
+    private ScheduleAnomaly anomaly = new ScheduleAnomaly();
     
     /**
      * Initializes user input with supplied input.
      *
      * @param userInput initialization of the userInput
      */
-    public AddEntry(String[] userInput) {
+    public ScheduleCommand(String[] userInput) {
         this.userInput = userInput;
     }
 
     /**
-     * Adds an entry to the recommended schedule.
+     * Displays the recommended schedule.
      */
     public void execute() {
         Ui ui = new Ui();
         try {
             anomaly.detect(userInput);
-            int index = Integer.parseInt(this.userInput[1]);
-            index--;
-            Scheduler.addToRecommended(Hustler.list.get(index));
             Scheduler.displayRecommendedSchedule();
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());

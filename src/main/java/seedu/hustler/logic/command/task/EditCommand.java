@@ -39,7 +39,12 @@ public class EditCommand extends Command {
      */
     public void execute() {
         Ui ui = new Ui();
-        Edit edit = parser.parse(userInput[1]);
-        edit.execute(); 
+
+        try {
+            Edit edit = parser.parse(userInput[1]);
+            edit.execute(); 
+        } catch (CommandLineException e) {
+            ui.showMessage(e.getMessage());
+        }
     }
 }

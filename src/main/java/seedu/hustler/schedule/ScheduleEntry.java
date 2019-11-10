@@ -28,7 +28,7 @@ public class ScheduleEntry {
     /**
      * Priority of the task.
      */
-    private double priorityScore;
+    private Priority priority = new Priority();
     
     /**
      * Initializes the task and seconds spent on it.
@@ -48,7 +48,6 @@ public class ScheduleEntry {
      */
     public void updateTimeSpent(long seconds) {
         this.secondsSpent += seconds;
-        this.priorityUpdate();
     }
     
     /**
@@ -68,21 +67,12 @@ public class ScheduleEntry {
     }
     
     /**
-     * Updates the priority of the task based on time spent, time
-     * available and difficulty of the task.
-     */
-    public void priorityUpdate() {
-        this.priorityScore = Priority.getPriorityScore(this);
-    }
-
-    /**
      * Returns the priority score of the task at the moment.
      *
      * @return priority of the task for comparison sake
      */
     public double getPriorityScore() {
-        this.priorityUpdate();
-        return this.priorityScore;
+        return priority.getPriorityScore(task, secondsSpent);
     }
     
     /**

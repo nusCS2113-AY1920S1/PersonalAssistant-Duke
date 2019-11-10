@@ -8,6 +8,7 @@ import seedu.hustler.logic.command.avatar.EquipCommand;
 import seedu.hustler.logic.command.avatar.SetNameCommand;
 import seedu.hustler.logic.command.schedulecommands.AddEntry;
 import seedu.hustler.logic.command.schedulecommands.RemoveEntry;
+import seedu.hustler.logic.command.schedulecommands.ScheduleCommand;
 import seedu.hustler.logic.command.schedulecommands.UpdateEntry;
 import seedu.hustler.logic.command.shop.InventoryCommand;
 import seedu.hustler.logic.command.shop.ShopListCommand;
@@ -85,6 +86,8 @@ public class CommandParser extends Parser {
             return new UpdateEntry(userInput);
         } else if (command.equals("/addfromlist")) {
             return new AddEntry(userInput);
+        } else if (command.equals("/schedule")) {
+            return new ScheduleCommand(userInput); 
         } else if (command.equals("/sort")) {
             return new SortCommand(userInput);
         } else if (command.equals("/edit")) {
