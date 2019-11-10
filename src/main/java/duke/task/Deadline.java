@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //@@author talesrune
+//Solution below adapted from https://github.com/nus-cs2103-AY1920S1/duke/pull/186/commits/4e4fd3d9fe914c5c4fa659a827fd2b310d7250c7
 /**
  * Represents a deadline that stores description and date/time.
  */

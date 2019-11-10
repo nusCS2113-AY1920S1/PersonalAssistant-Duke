@@ -230,9 +230,13 @@ public class Parser {
                     if (typeOfNotes == Numbers.THREE.value) {
                         return new ShowNotesCommand(tasknum);
                     } else if (typeOfNotes == Numbers.TWO.value) {
+                        if (items.get(tasknum).getNotes().equals("empty")) {
+                            throw new DukeException("     (>_<) OOPS!!! The notes description of "
+                                    + items.get(tasknum).toString() + " is already empty!");
+                        }
                         return new DeleteNotesCommand(tasknum);
                     } else if (typeOfNotes == Numbers.ONE.value && notesDesc.isEmpty()) {
-                        throw new DukeException("     (>_<) OOPS!!! The notes description of a "
+                        throw new DukeException("     (>_<) OOPS!!! The notes description of "
                                 + arr[Numbers.ZERO.value] + " cannot be empty.");
                     } else if (typeOfNotes != Numbers.MINUS_ONE.value) {
                         return new AddNotesCommand(notesDesc,tasknum);
@@ -474,41 +478,6 @@ public class Parser {
             return new FindTasksByDateCommand(displayDT);
 
             //@@author
-
-
-            //@@author gervaiseang
-        } else if (!emptyString && arr[Numbers.ZERO.value].equals("remind")) {
-            //remind <taskNumber> /in <howManyDays>
-            String afterTaskDesc = "";
-            boolean detectBackSlash = false;
-            int duration;
-            for (int i = Numbers.ONE.value; i < arr.length; i++) {
-                if ((arr[i].trim().isEmpty()
-                        || !arr[i].substring(Numbers.ZERO.value, Numbers.ONE.value).equals("/")) && !detectBackSlash) {
-                    taskDesc += arr[i] + " ";
-                } else {
-                    if (!detectBackSlash) {
-                        detectBackSlash = true;
-                    } else {
-                        afterTaskDesc += arr[i] + " ";
-                    }
-                }
-            }
-            taskDesc = taskDesc.trim();
-            afterTaskDesc = afterTaskDesc.trim();
-            if (taskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a "
-                        + arr[Numbers.ZERO.value] + " cannot be empty.");
-            } else if (afterTaskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description for "
-                        + arr[Numbers.ZERO.value] + " cannot be empty.");
-            } else {
-                duration = Integer.parseInt(taskDesc.split("/in",
-                        Numbers.TWO.value)[Numbers.ZERO.value].trim()) - Numbers.ONE.value;
-                int howManyDays = Integer.parseInt(afterTaskDesc);
-                return new RemindCommand(duration, howManyDays);
-            }  //@@author talesrune
-
 
             //@@author talesrune
         } else if (!emptyString && (arr[Numbers.ZERO.value].equals("update"))) {

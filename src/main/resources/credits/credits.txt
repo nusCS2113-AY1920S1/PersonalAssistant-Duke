@@ -1,0 +1,6 @@
+Damith and Jeffry - https://github.com/nusCS2113-AY1920S1/duke/blob/master/tutorials/javaFxTutorialPart4.md
+Jeremy - https://github.com/simply-coded/java-tutorials/blob/master/code/tutorial_48.java
+Olivia - https://github.com/nus-cs2103-AY1920S1/duke/pull/186/commits/4e4fd3d9fe914c5c4fa659a827fd2b310d7250c7
+sven - http://www.javased.com/index.php?source_dir=AndroidCommon/src/com/asksven/android/common/kernelutils/Wakelocks.java
+SingleShot - https://stackoverflow.com/questions/1377279/find-a-line-in-a-file-and-remove-it/1377322#1377322
+Jefferson - https://github.com/Jefferson111/main/blob/master/src/main/java/duke/commons/DukeException.java

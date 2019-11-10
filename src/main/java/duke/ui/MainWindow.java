@@ -103,6 +103,7 @@ public class MainWindow extends AnchorPane {
     }
 
     //@@author talesrune-reused
+    //Reused from https://github.com/nusCS2113-AY1920S1/duke/blob/master/tutorials/javaFxTutorialPart4.md with minor modifications
     /**
      * Setting up Duke GUI.
      * @param d The object of Duke.
@@ -437,6 +438,14 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    @FXML
+    private void exitProgramWithoutSaving() {
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(Ui.showByeGui(), dukeImage)
+        );
+        timer.schedule(exitDuke, createTimerDelay());
+    }
+
     /**
      * Creates a new window to allow the user to add a new task via user friendly interface.
      */
@@ -500,6 +509,27 @@ public class MainWindow extends AnchorPane {
             stage.show();
         } catch (IOException e) {
             logr.log(Level.SEVERE, "Unable to load budget window", e);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates a credits window to allow the user to view credits list via user friendly interface.
+     */
+    @FXML
+    public void createCreditsWindow() {
+        String creditsDesc = duke.getCreditsList();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/CreditsWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            fxmlLoader.<CreditsWindow>getController().setCreditsWindow(creditsDesc);
+            stage.show();
+        } catch (IOException e) {
+            logr.log(Level.SEVERE, "Unable to load Credits window", e);
             e.printStackTrace();
         }
     }
