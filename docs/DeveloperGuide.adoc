@@ -15,10 +15,6 @@ endif::[]
 
 By: `Team T12-3`      Since: `Oct 2019`      Licence: `MIT`
 
-== Setting up
-
-Refer to the guide <<SettingUp#, here>>.
-
 == Design
 
 [[Design-Architecture]]
@@ -370,7 +366,9 @@ Thus, it is hard for him to switch between different apps to manage his bakery b
 
 BakingHome is a one-stop desktop application that has all the important features for such a manager to eliminate the trouble of changing between different apps.
 
-*Value proposition*: One-stop bakery management system for home bakeries.
+*Value proposition*: 
+
+A one-stop bakery management system for home bakeries.
 
 [appendix]
 == User Stories
@@ -436,8 +434,6 @@ something to refer to when deciding the retail price
 
 |`* *` |user |Calculate revenue, cost and hence profit instantly |Check the bakery's finances with a quick glance
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -550,6 +546,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 === Use case 6: Viewing Product's ingredients
 
 *Precondition:* BakingHome has at least 1 product in the product list.
