@@ -29,7 +29,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws DukeException throws an exception of wrong format entered
      */
     private void getKeywordAndFields(String rawParameters) throws DukeException {
-        String[] splitParameters = rawParameters.split(" -");
+        String[] splitParameters = rawParameters.split("-");
 
         for (int i = 1; i < splitParameters.length; i++) {
             String[] s = splitParameters[i].split(" ", 2);
@@ -70,10 +70,13 @@ public class AddCommandParser implements Parser<AddCommand> {
      * Function to split the string into the respective task type and description
      * @param s command string
      */
-    private void getTypeAndDescription(String s) {
+    private void getTypeAndDescription(String s) throws DukeException {
         String[] typeArray = s.split(" ", 2);
+        if (typeArray[1].charAt(0) == '-') {
+            throw new DukeException("Please type something for the description!");
+        }
         this.taskType = typeArray[0];
-        String[] descriptionArray = typeArray[1].split(" -", 2);
+        String[] descriptionArray = typeArray[1].split("-", 2);
         this.description = descriptionArray[0];
     }
 

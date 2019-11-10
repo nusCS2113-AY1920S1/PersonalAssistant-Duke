@@ -128,7 +128,8 @@ El Duque also supports keywords `today`,  `tomorrow` and `today/tomorrow HHmm` a
     -t tomorrow 1200
 
 [TIP]
-If a non
+If a valid but non-existent date is passed in, El Duque will correct it to the closest existent date. +
+e.g `-t 310219` will be corrected to 28-02-19.
 
 //tag::shaun97[]
 === Listing all tasks : `list`
