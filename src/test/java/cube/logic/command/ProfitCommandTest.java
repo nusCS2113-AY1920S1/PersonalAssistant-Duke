@@ -1,11 +1,9 @@
 import cube.logic.command.ProfitCommand;
 import cube.logic.parser.ParserUtil;
 import cube.logic.parser.exception.ParserException;
-import junit.framework.*;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.AssertEquals.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
