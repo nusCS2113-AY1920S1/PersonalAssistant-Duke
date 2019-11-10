@@ -95,7 +95,7 @@ public class TemplateList {
 
         names = getNamesSorted();
 
-        sb.append("Here are the names of all the templates you have");
+        sb.append("Here are the names of all the templates you have\n");
 
         for (String name: names) {
             sb.append(name);
@@ -114,7 +114,7 @@ public class TemplateList {
      */
     public static String printTemplateLoans(String name) {
         if (!templateExists(name)) {
-            return "The template does not exist!";
+            return "The template does not exist!\n";
         }
         Loan[] loans = templates.get(name);
         StringBuilder sb = new StringBuilder();

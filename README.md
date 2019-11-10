@@ -27,11 +27,6 @@ There are two reasons:
 <p align="center"> <img src="./docs/images/Ui.png" alt="UI" width=65% height=65%> </p>
 
 **Say goodbye to piles of paper records.** Eggventory allows you to quickly and conveniently view all your stock and loan records. With the colour-based status indicator, **hours spent slicing through inventory data can be cut down into seconds.** As students *we care* - you won't have to stay back after 5pm to account for our lab logistics anymore!
-
-### Seamless switching between CLI and GUI
-<p align = "center"> <img src="./docs/assets/switching_icon.png" alt="CLI/GUI Switching" height=20% width=20%> </p>
-
-Whether you're someone who wants more power at their fingertips, or someone just looking for an intuitive and minimalist interface for their inventory management, Eggventory has the tools for you. Choose between the Augmented CLI or the GUI, and switch seamlessly between them as and when you see fit.
  
 ### Inventory exporting to CSV
 <p align = "center"> <img src="./docs/assets/csv_icon.png" alt="CSV Exporting" height=20% width=20%> </p>
