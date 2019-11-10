@@ -84,6 +84,10 @@ public class Storage {
         excelFile = new File(EXCEL_PATH);
     }
 
+    /**
+     * Makes a text file with the specified name.
+     * @param testFileName the name of the text file
+     */
     public Storage(String testFileName) {
         File currentDir = new File(System.getProperty("user.dir"));
         File filePath = new File(currentDir.toString() + "\\data");

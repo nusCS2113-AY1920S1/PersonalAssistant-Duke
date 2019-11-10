@@ -1,7 +1,6 @@
 package command;
 
 import dictionary.Bank;
-import exception.ReminderSetupException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,8 @@ import ui.Ui;
 import java.io.File;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class SetReminderCommandTest {
 
@@ -27,14 +27,6 @@ class SetReminderCommandTest {
         bank = new Bank();
         storage = new Storage("setReminderCommandTest.txt");
     }
-
-//    @Test
-//    void executeNegativeTest() {
-//        Command testSetReminderObject = new SetReminderCommand(5);
-//        Throwable exception = assertThrows(ReminderSetupException.class,
-//                () -> testSetReminderObject.execute(ui, bank, storage));
-//        assertEquals("OOPS: Something went wrong setting up the reminder!", exception.getMessage());
-//    }
 
     @Test
     void executeCaseOneTest() {
