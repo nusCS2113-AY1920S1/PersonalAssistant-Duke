@@ -13,6 +13,7 @@ public class NotificationCommand extends Command {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
 
     /**
      * Alerts user if user exceeded the budget.
@@ -56,6 +57,8 @@ public class NotificationCommand extends Command {
         if (!osName.contains("win")) {
             if (alert.length() < 1) {
                 colour = ANSI_GREEN;
+            } else if (alert.contains("reaching")) {
+                colour = ANSI_YELLOW;
             } else {
                 colour = ANSI_RED;
             }
@@ -70,8 +73,8 @@ public class NotificationCommand extends Command {
                 + "     |     |         | " + alert + blankSpace + "|\n"
                 + "     (6___6)         | " + "Budget remaining : " + balance + blank2 + "|\n"
                 + "      `---`          .-------------------------------------------------." + reset;
-
         Ui.setOutput(cow);
+        Ui.showResponse();
     }
 }
 
