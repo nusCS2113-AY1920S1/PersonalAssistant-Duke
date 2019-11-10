@@ -490,7 +490,7 @@ API: `Fridge.java` ,`Ingredient.java`
 
 The `Fridge` component allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. The ingredients are always kept sorted by their expiry date, with the most recently expiring coming first. Furthermore, it allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first.  
 
-![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML1.png)
+![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML.png)
 
 **<u>Ingredient Class</u>**
 
@@ -546,6 +546,21 @@ The `ingredientCommand` classes all inherit from the `Command` class. They all h
 ### 4. Documentation
 
 ### 5. Testing
+
+There are two ways to run tests.
+
+**Method 1: Using IntelliJ JUnit test runner**
+
+- To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+- To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'test'`
+
+**Method 2: Using Gradle**
+
+- Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
+
+We provide `JUnit` tests to test individual methods in the `Dish` and `Fridge` component, provided in the `DishTest.java` and `FridgeTest.java`
+
+
 
 ### 6. Dev Ops 
 
