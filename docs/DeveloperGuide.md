@@ -818,7 +818,31 @@ Using an ingredient from the Fridge
 
 Removing an ingredient from the Fridge
 
+
+#### E8. Finding an ingredient
+
+1. Find an ingredient in the list using a keyword
+
+   1.1. Prerequisite: user must be in `ingredient` template.
+
+   1.2. List all ingredients by typing `show`
+
+   1.3. Test case 1: `find beef` 
+
+   ​		Expected: Find and list all ingredients that have the keyword `beef` to the user
+
+   ​		Test case 2: `find cockroach`
+
+   ​		Expected: Ingredient is not found and program outputs `No such ingredient found!`
+
+   ​		Test case 3: `find be ef`
+
+   ​		Expected: Program outputs to user the proper syntax to use the command.
+
+2. 
+
 1. prerequisite: user must be in `b` option of the main menu. Show all ingredients using `show` , assuming the number of ingredients currently  in the Fridge is for eg. 5.
+
 
    Test case 1: `remove 1` 
 
@@ -832,15 +856,15 @@ Removing an ingredient from the Fridge
 
    Expected:  no ingredient is removed, outputs to the user that he must specify an index of the ingredient to be removed!
 
-#### E6. Adding an order
+#### E11. Adding an order
 
-#### E7. Marking order as done
+#### E12. Marking order as done
 
-#### E8. Altering order
+#### E13. Altering order
 
-#### E9. Removing order
+#### E14. Removing order
 
-#### E10. Adding a dish
+#### E15. Adding a dish
 
 1. adding a dish to the dishList
 
@@ -858,7 +882,7 @@ Removing an ingredient from the Fridge
 
       Expected: output message to user that the description cannot be empty
 
-#### E11. Removing a dish
+#### E16. Removing a dish
 
 1. removing a dish from the dishList
 
@@ -880,7 +904,7 @@ Removing an ingredient from the Fridge
 
          Expected: no dish is deleted. outputs to the user that the dish does not exist 
 
-#### E12. Adding an ingredient to a dish
+#### E17. Adding an ingredient to a dish
 
 1. associating an ingredient to a dish in the dishList	
 
@@ -898,7 +922,7 @@ Removing an ingredient from the Fridge
 
       Expected: no ingredient is added to a dish. outputs message to user that index/amount needs to be valid
 
-#### E13. Finding a dish
+#### E18. Finding a dish
 
 1. finding a dish in list given a keyword
 
@@ -917,7 +941,7 @@ Removing an ingredient from the Fridge
    
    Expected: deletes the first dish in the list, 
 
-#### E12. Changing name of a dish
+#### E19. Changing name of a dish
 
 1. changing the name of a dish in list
 
