@@ -30,6 +30,7 @@ public class Storage {
     private String filePathEvent;
     private String filePathDeadline;
     private Reminder reminder;
+    private LookupTable lookupTable = LookupTable.getInstance();
     private final Logger LOGGER = DukeLogger.getLogger(Storage.class);
     private HashMap<String, HashMap<String, ArrayList<Assignment>>> map;
     private HashMap<Date, Assignment> reminderMap;
@@ -128,6 +129,9 @@ public class Storage {
             }
             if (isValid) {
                 Assignment task = stringToTask(string);
+                if (task == null) {
+                    break;
+                }
                 list.addTask(task);
             }
         }
@@ -183,6 +187,9 @@ public class Storage {
             }
             if(isValid) {
                 Assignment task = stringToTask(string);
+                if (task == null) {
+                    break;
+                }
                 list.addTask(task);
                 if (task.getIsReminder()) {
                     Date date = null;
@@ -236,6 +243,14 @@ public class Storage {
             }
             if (string.contains(DukeConstants.HAS_REMINDER_INDICATOR)) {
                 line.setReminder(true);
+            }
+            String taskDateString = line.getDate();
+            Date taskDate = DukeConstants.DAY_DATE_FORMAT.parse(taskDateString);
+            taskDateString = DukeConstants.EVENT_DATE_INPUT_FORMAT.format(taskDate);
+            String nullChecker = lookupTable.getValue(taskDateString);
+            if (nullChecker == null) {
+                LOGGER.severe("Date does not exist in LookupTable. Check date again");
+                return null;
             }
         } catch (ParseException | StringIndexOutOfBoundsException | NullPointerException e) {
             LOGGER.severe("Unable to parse data from event.txt or deadline.txt");
