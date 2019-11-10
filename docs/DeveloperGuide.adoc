@@ -275,8 +275,12 @@ then calls
 `filteredProducts` in `Model`. This execution then returns a `CommandResult` to `UI`, containing the response
 to the user.
 
-**Step 7.** `UI` displays the response in `CommandResult`. In addition, `UI` is constantly listening for the
-change in `Model`. Therefore UI will change to display archived products after model updates `filteredProducts`.
+**Step 7.** `UI` displays the response in the `CommandResult`. In addition, UI will change to display
+archived products after model updates `filteredProducts`, since `UI` is constantly
+listening
+for
+the
+change in `Model`.
 
 The Sequence Diagram below shows how the components interact with each other for the above mentioned
 scenario.
@@ -889,4 +893,53 @@ You can check the ingredient using command `product show 1`.
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
+BakingHome provides basic Add, Edit, Delete operations for all entity. The tables belows provides a few
+commands for you to try out.
+[cols="1,1,2", options="header"]
+[width="100%",cols="10%,40%,40%",options="header",]
+.Add Operation
+|===
+|Entity
+|Test Case
+|Expected Output
+
+|
+|
+|
+
+.3+|`Product`
+|`product add -name Bread`
+|A new product named Bread is added.
+Ingredient cost and Retail price are both $0.0.
+Status is active.
+
+|`product add -name Cheese cake -cost 3.0 -price 5.9`
+|A new product named Cheese cake is added. Ingredient cost are $3 and Retail price is $5.9. Status is active
+
+
+|`product add -name Cheese cake -ingt [Cream cheese, 3] [Sugar, 5] -cost 3.0 -price 5.9`
+to check the ingredients
+|A new product named `Cheese cake` is added.
+Ingredient cost are $3 and Retail price is $5.9. Status is active. Use `product show INDEX_OF_CHEESE_CAKE`
+to check ingredients
+
+.6+|`Order`
+|`order add -name Jiajun`
+|A new order with no item is added. The order’s customer name field is Jiajun
+
+|`order add -name abcdabcdabcdabcdabcdabcd`
+| A error message pops up. The error message is "Name should be no more than 20 characters"
+
+|`order add -rmk`
+|A error message pops up. The error message is "Remarks should be no more than 50 characters"
+
+2+| Pre-requisite for below `Order`: Cake product should be in Product List; Fish product should not be in
+Product List.
+
+|`order add -item Cake, 1`
+|A new order with one item Cake is added.
+
+|`order add -item Fish, 1`
+|A error message pops up.
+|===
 _{ more test cases ... }_
