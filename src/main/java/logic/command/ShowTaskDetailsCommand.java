@@ -25,7 +25,7 @@ public class ShowTaskDetailsCommand extends Command {
 
 
         if (!model.isInTaskList(taskIndex)) {
-            return new CommandOutput("Task: " + taskIndex + INPUT_INDEX_NOT_WITHIN_TASK_lIST_MESSAGE);
+            throw  new DukeException("Task: " + taskIndex + INPUT_INDEX_NOT_WITHIN_TASK_lIST_MESSAGE);
         } else {
             String output =  "Task Name: " + model.getTaskNameByIdOnList(taskIndex);
             output +=  " [" + model.getTaskIsDoneByIdOnList(taskIndex) + "]\n";

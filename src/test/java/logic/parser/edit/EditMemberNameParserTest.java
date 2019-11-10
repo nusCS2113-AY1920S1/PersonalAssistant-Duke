@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+//@@author JasonChanWQ
+
 public class EditMemberNameParserTest {
 
     @Test

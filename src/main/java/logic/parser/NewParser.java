@@ -55,7 +55,7 @@ public class NewParser {
 
         String[] dict = {
             "ADD", "LIST", "DONE", "UNDONE", "DELETE", "HELP", "FIND", "BYE", "REMINDER",
-            "SHOW", "SCHEDULE", "CHECK", "LINK", "UNLINK", "RENAME", "EDIT",
+            "SHOW", "SCHEDULE", "CHECK", "LINK", "UNLINK", "EDIT",
             "MATCH", "CHECK"
         };
 
@@ -70,8 +70,6 @@ public class NewParser {
             return DoneCommandParser.parseDoneCommand(arguments);
         case UNDONE_COMMAND_WORD:
             return DoneCommandParser.parseUndoneCommand(arguments);
-        case RENAME_COMMAND_WORD:
-            return RenameCommandParser.parseRenameCommand(arguments);
         case LINK_COMMAND_WORD:
             return LinkCommandParser.parseLinkCommand(arguments);
         case UNLINK_COMMAND_WORD:

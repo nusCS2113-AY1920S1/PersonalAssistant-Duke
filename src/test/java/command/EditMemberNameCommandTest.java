@@ -46,7 +46,6 @@ public class EditMemberNameCommandTest {
         model.addMember("Jack");
         Command command = EditMemberNameParser.parseEditMemberName("Jack /to Jason");
         CommandOutput out = command.execute(model);
-        assertThrows(DukeException.class, () -> command.execute(model));
         assertEquals("Jack has been renamed to: Jason", out.getOutputToUser());
     }
 }
