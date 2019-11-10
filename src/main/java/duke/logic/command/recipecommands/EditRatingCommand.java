@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 
+/**
+ * Handles the edit rating command.
+ */
 public class EditRatingCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
     /**
@@ -22,6 +25,14 @@ public class EditRatingCommand extends Command<RecipeList, Ui, RecipeStorage> {
         this.userInput = userInput;
     }
 
+    /**
+     * Processes the edit rating command to edit the rating for a specific recipe.
+     *
+     * @param recipeList    contains the recipe list
+     * @param ui             deals with interactions with the user
+     * @param recipeStorage deals with loading tasks from the file and saving recipes in the file
+     * @return an array list consist of the results or prompts to be displayed to user
+     */
     @Override
     public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
@@ -76,5 +87,4 @@ public class EditRatingCommand extends Command<RecipeList, Ui, RecipeStorage> {
     public boolean isExit() {
         return false;
     }
-
 }

@@ -66,6 +66,7 @@ public class RequiredIngredients {
         requiredIngredientList.clear();
     }
 
+    //@@author wjlingg
     public void removeIngredient(int index) {
         requiredIngredientList.remove(index);
     }
@@ -74,6 +75,7 @@ public class RequiredIngredients {
         return requiredIngredientList.size();
     }
 
+    //@@author wjlingg
     public HashMap<String, Double> getAllIngredient() {
         HashMap<String, Double> arrayMap = new HashMap<>();
         for (Ingredient ingredient : requiredIngredientList) {
@@ -100,6 +102,7 @@ public class RequiredIngredients {
         return this.requiredIngredientList;
     }
 
+    //@@author wjlingg
     public ArrayList<String> getRequiredIngredientList () {
         ArrayList<String> arrayList = new ArrayList<>();
         for (Ingredient ingredient : requiredIngredientList) {

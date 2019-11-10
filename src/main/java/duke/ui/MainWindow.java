@@ -17,10 +17,12 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import static duke.common.InventoryMessages.COMMAND_LIST_INVENTORY;
 import static duke.common.Messages.*;
 import static duke.common.BookingMessages.*;
 import static duke.common.RecipeMessages.COMMAND_LIST_RECIPE_INGREDIENT;
 
+//@@author wjlingg
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -33,7 +35,7 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
-    private ScrollPane scrollPane;
+    private ScrollPane scrollPane, scrollPane2, scrollPane3;
     @FXML
     private VBox dialogContainer;
     @FXML
@@ -107,17 +109,6 @@ public class MainWindow extends AnchorPane {
 
     public void handleLoadingError() {
         resultDisplay.setText(ERROR_MESSAGE_LOADING);
-    }
-
-    @FXML
-    private void handleAddRecipe(String input) {
-        RecipeWindow recipeWindow = new RecipeWindow();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(recipeWindow));
-        stage.setTitle(input);
-        stage.setWidth(600);
-        stage.setHeight(400);
-        stage.show();
     }
 
     @FXML

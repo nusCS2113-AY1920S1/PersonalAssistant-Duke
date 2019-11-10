@@ -1,3 +1,5 @@
+package duketest.recipecommandstest;
+
 import duke.logic.command.recipecommands.ViewRequiredIngredientCommand;
 import duke.model.list.recipelist.RecipeList;
 import duke.storage.RecipeStorage;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 
 import static duke.common.Messages.filePathRecipesTest;
 
+//@@author wjlingg
 public class ViewRequiredIngredientCommandTest {
     private Ui ui;
     private MainWindow mainWindow;
@@ -24,7 +27,6 @@ public class ViewRequiredIngredientCommandTest {
         ui = new Ui(mainWindow);
         recipeStorage = new RecipeStorage(filePathRecipesTest);
         recipeList = new RecipeList(recipeStorage.load());
-
 
         ArrayList<String> arrayListExpectedOutput = new ArrayList<>();
         String expected1 = "Recipe Title: chicken rice\n" +

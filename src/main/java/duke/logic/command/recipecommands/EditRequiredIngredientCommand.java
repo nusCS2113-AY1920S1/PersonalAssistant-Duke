@@ -5,14 +5,38 @@ import duke.model.list.recipelist.RecipeList;
 import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
-import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 import static duke.common.InventoryMessages.*;
 
+/**
+ * Handles the edit required ingredient command.
+ */
 public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, RecipeStorage> {
+
+    private static final Logger logger = Logger.getLogger(EditRequiredIngredientCommand.class.getName());
+
+    /**
+     * Set up a logger to log important information.
+     */
+    private static void setupLogger() {
+        LogManager.getLogManager().reset();
+        logger.setLevel(Level.INFO);
+
+        try {
+            FileHandler fh = new FileHandler("logFile.log",true);
+            fh.setLevel(Level.INFO);
+            logger.addHandler(fh);
+        } catch (java.io.IOException e){
+            logger.log(Level.SEVERE, "File logger is not working.", e);
+        }
+    }
 
     /**
      * Constructor for class EditRequiredIngredientCommand.
@@ -23,8 +47,17 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         this.userInput = userInput;
     }
 
+    /**
+     * Processes the edit required ingredient command to edit the content of the ingredients of a specific recipe.
+     *
+     * @param recipeList    contains the recipe list
+     * @param ui             deals with interactions with the user
+     * @param recipeStorage deals with loading tasks from the file and saving recipes in the file
+     * @return an array list consist of the results or prompts to be displayed to user
+     */
     @Override
-    public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws ParseException {
+    public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) {
+        EditRequiredIngredientCommand.setupLogger();
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_EDIT_REQ_INGREDIENT)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
@@ -34,7 +67,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
              if (hasOneCommand(description)) {
                  String command = whichCommand(description);
 
-                 if (isIns(command) && hasAllIngredientFields(description)) {
+                 if (isIns(command) && hasAllIngredientFields(description) && hasCorrectOrder(description)) {
                      String[] split = description.split(command, 2);
                      recipeTitle = split[0].trim();
                      remaining = split[1].trim();
@@ -56,30 +89,29 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                          additionalInfo = NO_ADDITIONAL_INFO;
                      }
                      if (recipeTitle.isEmpty() || position.isEmpty() || ingredientName.isEmpty()) {
-                         arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCOMPLETE);
+                         arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCOMPLETE + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                      } else if (!recipeList.containsRecipe(recipeTitle)) {
                          arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                      } else {
                          if (recipeList.containsRecipeIngredient(recipeTitle, ingredientName).equals("null")) {
                              if ((isParsable(quantity) || isParsableDbl(quantity)) && isKnownUnit(unit) && isParsable(position) && isValidPosition(recipeTitle, position, recipeList)) {
-                                 // what if they anyhow input position?
                                  recipeList.insertReqIngredient(recipeTitle, position, ingredientName, quantity, unit, additionalInfo);
                                  recipeStorage.saveFile(recipeList);
                                  arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
                              } else {
                                  if (!isParsable(quantity) || !isParsableDbl(quantity)) {
-                                     arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY + "\n");
+                                     arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                                  }
                                  if (!isKnownUnit(unit)) {
-                                     arrayList.add(ERROR_MESSAGE_INVALID_UNIT + "\n");
+                                     arrayList.add(ERROR_MESSAGE_INVALID_UNIT + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                                  }
                                  if (!isParsable(position)) {
-                                     arrayList.add(ERROR_MESSAGE_INVALID_INDEX + "\n");
+                                     arrayList.add(ERROR_MESSAGE_INVALID_INDEX + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                                  }
                                  if (!isValidPosition(recipeTitle, position, recipeList)) {
-                                     arrayList.add(ERROR_MESSAGE_REQ_INGREDIENT_INVALID_POSITION);
+                                     arrayList.add(ERROR_MESSAGE_REQ_INGREDIENT_INVALID_POSITION + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                                  } else {
-                                     arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT + "\n");
+                                     arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                                  }
                              }
                          } else {
@@ -124,7 +156,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                  }
 
 
-                 else if (isApp(command) && hasAllIngredientFields(description)) {
+                 else if (isApp(command) && hasAllIngredientFields(description) && hasCorrectOrder(description)) {
                      String[] split = description.split(command, 2);
                      recipeTitle = split[0].trim();
                      remaining = split[1].trim();
@@ -159,11 +191,11 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                                  recipeStorage.saveFile(recipeList);
                                  arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
                              } else if ((!isParsable(quantity) || !isParsableDbl(quantity)) && isKnownUnit(unit)){
-                                 arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY);
+                                 arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                              } else  if (!isKnownUnit(unit) && (isParsable(quantity) || isParsableDbl(quantity))) {
-                                 arrayList.add(ERROR_MESSAGE_INVALID_UNIT);
+                                 arrayList.add(ERROR_MESSAGE_INVALID_UNIT + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                              } else {
-                                 arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY_OR_UNIT);
+                                 arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY_OR_UNIT + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                              }
                          } else {
                              String prevIngredient = recipeList.containsRecipeIngredient(recipeTitle, ingredientName);
@@ -215,21 +247,27 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
      * Validates that the input contains all of the ingredient's name, quantity, unit, and additional information.
      *
      * @param description the input information from user
-     * @return true if all of the ingredient's name, quantity, unit, and additional information are provided
+     * @return true if all of the ingredient's name, quantity, unit, and additional information are provided and false otherwise
      */
     private boolean hasAllIngredientFields(String description) {
-        if (description.contains("n/") && description.contains("q/") && description.contains("u/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return description.contains("n/") && description.contains("q/") && description.contains("u/");
+    }
+
+    /**
+     * Validates that the input is written in the order of ingredient's name, quantity, unit, and additional information.
+     *
+     * @param description the input information from user
+     * @return true if the order is correct and false otherwise
+     */
+    private boolean hasCorrectOrder(String description) {
+        return (description.indexOf("n/") - description.indexOf("q/") < 0) && (description.indexOf("q/") < description.indexOf("u/"));
     }
 
     /**
      * Validates that the input contains only one command.
      *
      * @param description the input information from user
-     * @return true if the input contains only one command
+     * @return true if the input contains only one command and false otherwise
      */
     private static boolean hasOneCommand(String description) {
         int i = 0;
@@ -242,12 +280,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         } else if (description.contains("clr/")) {
             ++i;
         }
-
-        if (i == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return i == 1;
     }
 
     /**
@@ -272,72 +305,70 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
      * Checks if the command type is insert.
      *
      * @param command the input information by user
-     * @return true if the command type is insert
+     * @return true if the command type is insert and false otherwise
      */
     private boolean isIns(String command) {
-        if (command.equals("ins/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return command.equals("ins/");
     }
 
     /**
      * Checks if the command type is delete.
      *
      * @param command the input information from user
-     * @return true if the command type is delete
+     * @return true if the command type is delete and false otherwise
      */
     private boolean isDel(String command) {
-        if (command.equals("del/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return command.equals("del/");
     }
 
     /**
      * Checks if the command type is append.
      *
      * @param command the input information from user
-     * @return true if the command type is append
+     * @return true if the command type is append and false otherwise
      */
     private boolean isApp(String command) {
-        if (command.equals("app/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return command.equals("app/");
     }
 
     /**
      * Checks if the command type is clear.
      *
      * @param command the input information from user
-     * @return true if the command type is clear
+     * @return true if the command type is clear and false otherwise
      */
     private boolean isClr(String command) {
-        if (command.equals("clr/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return command.equals("clr/");
     }
 
+    /**
+     * Validates the quantity is an integer.
+     *
+     * @param quantity String input from user
+     * @return true if the user inputs an integer and false otherwise
+     */
     private static boolean isParsable(String quantity) {
         try {
             Integer.parseInt(quantity);
             return true;
         } catch (NumberFormatException e) {
+            logger.warning("Index input is not an integer.");
             return false;
         }
     }
 
+    /**
+     * Validates the quantity is a floating point integer.
+     *
+     * @param quantity String input from user
+     * @return true if the user inputs a floating point integer and false otherwise
+     */
     private static boolean isParsableDbl(String quantity) {
         try {
             Double.parseDouble(quantity);
             return true;
         } catch (NumberFormatException e) {
+            logger.warning("Index input is not an integer.");
             return false;
         }
     }
@@ -348,7 +379,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
      * @param recipeTitle name of the recipe
      * @param  position index of the preparation step
      * @param recipeList list of all recipes
-     * @return true if the position is valid
+     * @return true if the position is valid and false otherwise
      */
     private boolean isValidPosition(String recipeTitle, String position, RecipeList recipeList) {
         return Integer.parseInt(position) <= (recipeList.getRecipeList().get(recipeTitle).getRequiredIngredients().getSize() + 1);
@@ -358,14 +389,10 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
      * Validates the input unit.
      *
      * @param unit the input unit from user
-     * @return true if the unit is known
+     * @return true if the unit is known and false otherwise
      */
     private static boolean isKnownUnit(String unit) { // edit this part.
-        if (unit.equals("g") || unit.equals("kg") || unit.equals("l") || unit.equals("ml") || unit.equals("cup") || unit.equals("teaspoon") || unit.equals("tablespoon")) {
-            return true;
-        } else {
-            return false;
-        }
+        return unit.equals("g") || unit.equals("kg") || unit.equals("l") || unit.equals("ml") || unit.equals("cup") || unit.equals("teaspoon") || unit.equals("tablespoon");
     }
 
     @Override

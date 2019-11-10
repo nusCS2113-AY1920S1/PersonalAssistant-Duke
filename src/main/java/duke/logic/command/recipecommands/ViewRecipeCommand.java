@@ -2,8 +2,6 @@ package duke.logic.command.recipecommands;
 
 import duke.logic.command.Command;
 import duke.model.list.recipelist.RecipeList;
-import duke.model.task.recipetasks.Recipe;
-import duke.model.task.recipetasks.RecipeTitle;
 import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
@@ -13,6 +11,9 @@ import java.util.*;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 
+/**
+ * Handles the view recipe command.
+ */
 public class ViewRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
     /**
@@ -24,6 +25,14 @@ public class ViewRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> {
         this.userInput = userInput;
     }
 
+    /**
+     * Processes the view recipe command to view the content of a specific recipe.
+     *
+     * @param recipeList    contains the recipe list
+     * @param ui             deals with interactions with the user
+     * @param recipeStorage deals with loading tasks from the file and saving recipes in the file
+     * @return an array list consist of the results or prompts to be displayed to user
+     */
     @Override
     public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();

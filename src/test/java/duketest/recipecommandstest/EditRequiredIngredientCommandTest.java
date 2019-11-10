@@ -1,3 +1,5 @@
+package duketest.recipecommandstest;
+
 import duke.logic.command.recipecommands.AddRecipeCommand;
 import duke.logic.command.recipecommands.EditRequiredIngredientCommand;
 import duke.logic.command.recipecommands.DeleteRecipeCommand;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import static duke.common.Messages.filePathRecipesTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author wjlingg
 public class EditRequiredIngredientCommandTest {
 
     private Ui ui;

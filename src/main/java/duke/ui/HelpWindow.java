@@ -12,6 +12,10 @@ import javafx.stage.Window;
 
 import java.io.IOException;
 
+//@@author wjlingg
+/**
+ * Controller for HelpWindow.
+ */
 public class HelpWindow extends HBox {
     private static final String USERGUIDE_URL = "https://github.com/AY1920S1-CS2113T-T12-4/main/blob/master/docs/README.adoc";
     private static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;

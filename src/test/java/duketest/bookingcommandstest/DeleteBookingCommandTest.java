@@ -1,3 +1,5 @@
+package duketest.bookingcommandstest;
+
 import duke.logic.command.bookingcommands.AddBookingCommand;
 import duke.logic.command.bookingcommands.DeleteBookingCommand;
 import duke.model.list.bookinglist.BookingList;

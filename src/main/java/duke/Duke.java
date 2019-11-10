@@ -10,7 +10,6 @@ import duke.storage.InventoryStorage;
 import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.*;
@@ -52,6 +51,13 @@ public class Duke {
 
     public Duke(Ui ui) {
         this.ui = ui;
+        String currentDir = System.getProperty("user.dir");
+        String filePathInventory = currentDir + "\\data\\inventories.txt";
+        String filePathBookings = currentDir + "\\data\\bookings.txt";
+        String filePathRecipes = currentDir + "\\data\\recipes.txt";
+//        String filePathInventoryTest = currentDir + "\\data\\inventoriesTest.txt";
+//        String filePathBookingTest = currentDir + "\\data\\bookingsTest.txt";
+//        String filePathRecipesTest = currentDir + "\\data\\recipesTest.txt";
         inventoryStorage = new InventoryStorage(filePathInventory);
         bookingStorage = new BookingStorage(filePathBookings);
         recipeStorage = new RecipeStorage(filePathRecipes);

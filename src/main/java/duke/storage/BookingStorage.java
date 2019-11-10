@@ -1,15 +1,16 @@
 package duke.storage;
+
 import duke.model.task.bookingtasks.Booking;
 import duke.model.list.bookinglist.BookingList;
 
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
+
+import static duke.common.Messages.filePathBookingTest;
 
 /**
  * Handles the ability to read and write to the booking storage location.
@@ -51,23 +52,58 @@ public class BookingStorage {
      * @return the list of bookings in booking list
      */
     public ArrayList<Booking> load() {
+
+        if (Files.notExists(Paths.get(filePath))) {
+            try {
+                File file = new File(filePath);
+                file.getParentFile().mkdir();
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Unknown IO error when creating 'data/' folder.");
+            }
+        }
         try {
+            InputStream inputStream;
+            if (filePath.equals(filePathBookingTest)) {
+                inputStream = getClass().getResourceAsStream("/data/bookingsTest.txt");
+            } else {
+                inputStream = getClass().getResourceAsStream("/data/bookings.txt");
+            }
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             FileReader fileReader = new FileReader(filePath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            BufferedReader bufferedReader1 = new BufferedReader(fileReader);
             String content = "";
-            while ((content = bufferedReader.readLine()) != null) {
+            ArrayList<String> arrayList1 = new ArrayList<>();
+            ArrayList<String> arrayList2 = new ArrayList<>();
 
-                if(content.split("\\|",6)[0].trim().equals("booking")) {
+            while ((content = bufferedReader.readLine()) != null){
+                arrayList1.add(content);
+            }
 
-                    String customerName = content.split("\\|",6)[1].trim();
-                    String customerContact = content.split("\\|",6)[2].trim();
-                    String numberOfPax = content.split("\\|",6)[3].trim();
-                    String bookingDate = content.split("\\|",6)[4].trim();
-                    String orderName = content.split("\\|",6)[5].trim();
+            while ((content = bufferedReader1.readLine()) != null){
+                arrayList2.add(content);
+            }
+            List<String> listTwoCopy = new ArrayList<>(arrayList2);
+            listTwoCopy.removeAll(arrayList1);
+            arrayList1.addAll(listTwoCopy);
+
+            for (String item : arrayList1){
+
+                if(item.split("\\|",6)[0].trim().equals("booking")) {
+
+                    String customerName = item.split("\\|",6)[1].trim();
+                    String customerContact = item.split("\\|",6)[2].trim();
+                    String numberOfPax = item.split("\\|",6)[3].trim();
+                    String bookingDate = item.split("\\|",6)[4].trim();
+                    String orderName = item.split("\\|",6)[5].trim();
                     Booking booking = new Booking(customerName, customerContact, numberOfPax, bookingDate, orderName);
                     arrBookingList.add(booking);
                 }
             }
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
             fileReader.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePath + "'");

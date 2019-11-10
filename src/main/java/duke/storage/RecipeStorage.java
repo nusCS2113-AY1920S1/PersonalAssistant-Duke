@@ -4,14 +4,18 @@ import duke.model.list.recipelist.RecipeList;
 import duke.model.task.recipetasks.Recipe;
 
 import java.io.*;
-import java.util.LinkedHashMap;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.TreeMap;
+
+import static duke.common.Messages.filePathRecipesTest;
 
 /**
  * Handles the ability to read and write to the recipe storage location.
  */
 public class RecipeStorage {
 
-    private final LinkedHashMap<String, Recipe> LHMRecipeList = new LinkedHashMap<>();
+    private final TreeMap<String, Recipe> LHMRecipeList = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final String filePathRecipes;
 
     /**
@@ -51,12 +55,36 @@ public class RecipeStorage {
      *
      * @return the list of recipes in recipe list
      */
-    public LinkedHashMap<String, Recipe> load() {
+    public TreeMap<String, Recipe> load() {
+
+        if (Files.notExists(Paths.get(filePathRecipes))) {
+            try {
+                File file = new File(filePathRecipes);
+                file.getParentFile().mkdir();
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Unknown IO error when creating 'data/' folder.");
+            }
+
+//            try {
+//                Files.createDirectory(Paths.get("data/"));
+//            } catch (IOException e) {
+//                System.out.println("Unknown IO error when creating 'data/' folder.");
+//            }
+        }
         try {
+            InputStream inputStream;
+            if (filePathRecipes.equals(filePathRecipesTest)) {
+                inputStream = getClass().getResourceAsStream("/data/recipesTest.txt");
+            } else {
+                inputStream = getClass().getResourceAsStream("/data/recipes.txt");
+            }
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             FileReader fileReader = new FileReader(filePathRecipes);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            BufferedReader bufferedReader1 = new BufferedReader(fileReader);
             String content = "";
-            while ((content = bufferedReader.readLine()) != null) {
+            while ((content = bufferedReader.readLine()) != null || (content = bufferedReader1.readLine()) != null) {
                 // can use a splitMethod() here for tidyness?
                 String recipeTitle, prepTime, rating, prepSteps, requiredIngredients, feedback, remaining, remaining2, remaining3, remaining4;
                 String[] split = content.split("\\|", 2);
@@ -67,7 +95,7 @@ public class RecipeStorage {
                     if (split2.length == 2) {
                         prepTime = split2[0].trim();
                         remaining2 = split2[1].trim();
-                        String[] split3 = remaining2.split( "\\|", 2);
+                        String[] split3 = remaining2.split("\\|", 2);
                         if (split3.length == 2) {
                             rating = split3[0].trim();
                             remaining3 = split3[1].trim();
@@ -87,6 +115,9 @@ public class RecipeStorage {
                     }
                 }
             }
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
             fileReader.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePathRecipes + "'");

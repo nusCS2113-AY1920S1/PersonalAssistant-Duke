@@ -98,6 +98,6 @@ public class InventoryList {
     }
 
     public HashMap<String, Ingredient> getInventoryList() {
-        return inventoryHM;
+        return this.inventoryHM;
     }
 }
