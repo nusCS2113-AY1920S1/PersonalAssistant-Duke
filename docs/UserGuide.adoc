@@ -16,7 +16,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-W13-4/main
 
-By: `Team 13-4`      Since: `Sept 2019`      Licence: `MIT`
+By: `Team W13-4`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -24,11 +24,9 @@ By: `Team 13-4`      Since: `Sept 2019`      Licence: `MIT`
 which can often times be a challenging endeavour amidst the intense academic rigour associated with university life.
 
 *DIYeats* utilizes a command line interface, and is compatible with most modern OSes
-(Windows, Macintosh, Linux, Ubuntu). Commands are designed to be simple and intuitive, such that even users who are
+(Windows, Macintosh, Ubuntu). Commands are designed to be simple and intuitive, such that even users who are
 unfamiliar with the command line interface can use it with ease.
 
-*DIYeats* also comes with a Graphical User Interface. Which will allow even users who are not familiar with the command
-interface to use our application.
 
 == How to use this user guide
 
@@ -62,20 +60,20 @@ This symbol denotes some information or caveats that you will need to take note 
 Now that you have familiarized yourself with the style used in this guide, lets move on to how to setup *DIYeats*!
 
 == Quick Start
-
 .  Ensure you have Java `11` or above installed in your Computer.
 ..  Open up your the command line interface (CLI) of your OS
-    (command prompt for Windows, Terminal for Macintosh)
+    (command prompt for Windows, Terminal for Macintosh and Ubuntu)
 ..  Type `java -version` and press kbd:[Enter]
 ..  You should see something similar to the image below
 +
 image::javademo.png[width=""]
 +
-..  If your indicated version of java is an older version than 11.0.0,
+..  If your indicated version of java is an older version than 11.0.0 (i.e. 10.X.X and below),
 please download and install the newest version of java available
 on their website
-.  Using CLI, navigate to the root directory of *DIYeats*
-.  Type `gradlew -run` and press kbd:[Enter]
+.  Download our latest v1.4 jar from the releases tab of *DIYeats* link:https://github.com/AY1920S1-CS2113T-W13-4/main/releases[here]
+. Create a new empty folder and copy the jar file to that folder
+.  Type `java -jar DIYeats-1.4.jar` and press kbd:[Enter]
 .  *DIYeats* should start running on your computer. You can now
 enter commands in the CLI and press kbd:[Enter] to execute them
 ====
@@ -165,7 +163,7 @@ Simply enter the `clear` command followed by a start date and the end date, and 
 
 [NOTE]
 ====
-The dates entered which are marked for deletion are *inclusive*. E.g `clear` `today` `tomorrow` will delete all data inclusive of today and tomorrow.
+The dates entered which are marked for deletion are *inclusive*. E.g `clear 1/1/2019 3/1/2019` will delete all meals inclusive of 1/1/2019 and 3/1/2019.
 ====
 
 ==== Exiting the application: `exit`
@@ -194,7 +192,7 @@ Examples:
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
-* Dates should be entered in the following format: day/month/year and must be valid date.
+* Dates should be entered in the following format: dd/mm/yyyy and must be valid date.
 * There are three sorting criteria, `costAscending`, `costDescending`, `calorieAscending`, and `calorieDescending`:
 ** `costAscending` will sort the list based on their costs in ascending order.
 ** `costDescending` will sort the list based on their costs in descending order.
@@ -223,7 +221,7 @@ Examples:
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
-* Dates should be entered in the following format: day/month/year.
+* Dates should be entered in the following format: ddd/mm/yyyy.
 ====
 
 ==== Adding a lunch item: `lunch`
@@ -246,7 +244,7 @@ Examples:
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
-* Dates should be entered in the following format: day/month/year.
+* Dates should be entered in the following format: dd/mm/yyy.
 ====
 
 
@@ -270,33 +268,33 @@ Examples:
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
-* Dates should be entered in the following format: day/month/year.
+* Dates should be entered in the following format: dd/mm/yyyy.
 ====
 
 ==== Editing a meal: `edit`
 
-Format: `edit DESCRIPTION [/TAG]<QUANTITY>... [/date]<DATE>`
+Format: `edit INDEX [/date]<DATE> [/TAG]<QUANTITY>... `
 
-Accidentally entered the wrong details for a  meal item? Use the `edit` command! Simply enter the description of the meal that you wish to edit
+Accidentally entered the wrong details for a  meal item? Use the `edit` command! Simply enter the index of the meal that you wish to edit
 after the edit command, along with the tagged values that you wish to edit.
 
-The command also supports the editing of data in other dates: simply specify the date after adding a /date flag at the end of the statement
+The command also supports the editing of data in other dates: simply specify the date after adding a /date flag.
 
 Examples:
 
 * You have a breakfast item in the database today called burger, with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
 ** You want to change the value of fats to 50g:
-*** `edit hamburger /fats 50`
+*** `edit 1 /fats 50`
 ** You want to change the value of fats and calcium to 50g
-*** `edit hamburger /fats 50 /calcium 50`
+*** `edit 1 /fats 50 /calcium 50`
 * You have a breakfast item in the database on 1st of January 2019 called burger, with 100 kilocalories, 100g calcium and 100g fats for its nutritional value
 ** You want to change the value of fats to 50g:
-*** `edit hamburger /fats 50 /date 1/1/2019`
+*** `edit 2 /fats 50 /date 1/1/2019`
 
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
-* Dates should be entered in the following format: day/month/year.
+* Dates should be entered in the following format: dd/mm/yyyy.
 ====
 ==== Locating a meal by keyword: `find`
 Perhaps you want to refer to the nutritional value of a meal you have had in the past, but cant seem to recall the date?
@@ -427,7 +425,7 @@ by the end of the month? Use the `setgoal` command!
 
 [NOTE]
 ====
-* Dates should be entered in the following format: day/month/year.
+* Dates should be entered in the following format: dd/mm/yyyy.
 * Activity level is a range between 1 to 5 inclusive, from 1 being sedentary to 5 being very active.
 * The command will only accept activity levels that are higher or equal to the activity level indicated during user setup.
 ====
@@ -484,7 +482,7 @@ Examples:
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
-* Dates should be entered in the following format: day/month/year.
+* Dates should be entered in the following format: dd/mm/yyyy.
 * The `AMOUNT` is expressed in Singapore Dollar (SGD)
 ====
 
@@ -506,7 +504,7 @@ Examples:
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
-* Dates should be entered in the following format: day/month/year.
+* Dates should be entered in the following format: dd/mm/yyyy.
 * The `AMOUNT` is expressed in Singapore Dollar (SGD)
 * If `AMOUNT` exceeds the current account balance. It is possible for the account balance to become negative.
 ====
@@ -537,34 +535,34 @@ intake across a time period charted as a graph.
 
 image::cgraph.PNG[width=""]
 
-==== Suggest potential food items: `suggest`
+==== Suggest potential food items: `suggestmeal`
 
-Format: `suggest [/date] <DATE> [/type] <MealType> [/display] <Integer>`
+Format: `suggestmeal [/date] <DATE> [/type] <MealType> [/display] <Integer>`
 
-Not sure what food items to add to tomorrow's meal schedule? Simply use the `suggest` command, which will automatically suggest a meal that will conform to your set nutritional goals based on the default meals available. The command allows you to also set for which meal the suggestion should be for as well as the maximum number of meal suggestions you want to see.
+Not sure what food items to add to tomorrow's meal schedule? Simply use the `suggestmeal` command, which will automatically suggest a meal that will conform to your set nutritional goals based on the default meals available. The command allows you to also set for which meal the suggestion should be for as well as the maximum number of meal suggestions you want to see.
 
 Examples:
 
 1. You want a dinner meal suggestion for 29/10/2019 with up to maximum 5 meals to be suggested.
 
-    `suggest /date 29/10/2019 /type d /display 3`
+    `suggestmeal /date 29/10/2019 /type d /display 3`
 
 +
-image::Suggest_Command_1.png[width=""]
+image::Suggest_Meal_1.png[width=""]
 +
 
 2. You want a breakfast suggestion for today.
 
-    `suggest /type b`
+    `suggestmeal /type b`
 
 +
-image::Suggest_Command_2.png[width=""]
+image::Suggest_Meal_2.png[width=""]
 +
 
 You can opt to type 0 to reject all the suggestions, but if you did choose a suggestion, the command will add it to your list and will also show you the potential amount of calories your current plan has given that you ate everything (not only the ones marked as done).
 
 +
-image::Suggest_Command_3.png[width=""]
+image::Suggest_Meal_3.png[width=""]
 +
 
 [NOTE]
@@ -572,6 +570,7 @@ image::Suggest_Command_3.png[width=""]
 * The default meal type (if not specified) is lunch.
 * The default date (if not specified) is the current date on the user's computer.
 * The default display size (if not specified) is 5.
+* No suggestions may be displayed by *DIYeats* if your remaining calories for the day are low or no `default` meals exist in *DIYeats*
 ====
 
 ==== Formulate exercise plan: `suggestexercise`
@@ -695,4 +694,3 @@ A: Whenever you run any commands that makes changes to the data stored in the ap
 *Q: How do I migrate my data in between computers?*
 
 A: If you wish to migrate your data to another computer, simply copy and paste the entire directory of the application over to the new computer.
-

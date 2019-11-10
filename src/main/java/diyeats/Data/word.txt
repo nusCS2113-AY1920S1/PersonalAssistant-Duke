@@ -5,6 +5,7 @@ end
 lunch
 dinner
 edit
+clear
 exit
 update
 date
