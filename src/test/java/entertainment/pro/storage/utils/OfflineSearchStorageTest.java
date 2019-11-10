@@ -1,7 +1,7 @@
 package entertainment.pro.storage.utils;
 
 import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

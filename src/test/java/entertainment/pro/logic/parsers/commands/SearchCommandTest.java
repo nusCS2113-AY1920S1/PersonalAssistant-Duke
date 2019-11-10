@@ -1,7 +1,7 @@
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.exceptions.*;
-import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import entertainment.pro.logic.parsers.CommandParser;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.ui.Controller;

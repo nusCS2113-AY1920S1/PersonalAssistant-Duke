@@ -277,7 +277,7 @@ public class ProfileCommandsTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertFalse(userProfile.isAdult(), "Test failed");
+        assertTrue(userProfile.isAdult(), "Test failed");
     }
 
     @Test
