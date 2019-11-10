@@ -18,9 +18,7 @@ public class ShowMemberDetailsCommandTest {
     @Test
     public void showMemberDetailsCommand_inputMemberNotWithinMemberList_throwsException() throws DukeException {
         Model model = new ModelController();
-        for (int i = model.getMemberListSize() - 1; i >= 0; i--)  {
-            model.deleteMember(i);
-        }
+        model.getMemberList().clear();
         model.addMember("John");
         Command command = ShowCommandParser.parseShowCommand("member Jimmy");
         assertThrows(DukeException.class, () -> command.execute(model));
@@ -29,9 +27,7 @@ public class ShowMemberDetailsCommandTest {
     @Test
     public void showMemberDetailsCommandSuccess_checkUneditedMember() throws DukeException {
         Model model = new ModelController();
-        for (int i = model.getMemberListSize() - 1; i >= 0; i--)  {
-            model.deleteMember(i);
-        }
+        model.getMemberList().clear();
         model.addMember("John");
         Command command = ShowCommandParser.parseShowCommand("member John");
         CommandOutput out = command.execute(model);
@@ -47,12 +43,8 @@ public class ShowMemberDetailsCommandTest {
     @Test
     public void showMemberDetailsCommandSuccess_checkEditedMember() throws DukeException {
         Model model = new ModelController();
-        for (int i = model.getMemberListSize() - 1; i >= 0; i--)  {
-            model.deleteMember(i);
-        }
-        for (int i = model.getTaskListSize() - 1; i >= 0; i--)  {
-            model.deleteTask(i);
-        }
+        model.getMemberList().clear();
+        model.getTaskList().clear();
 
         model.addMember("John");
         model.addTask("Complete event poster");

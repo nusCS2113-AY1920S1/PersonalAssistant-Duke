@@ -16,9 +16,7 @@ public class EditMemberNameCommandTest {
     @Test
     public void editMemberNameCommand_inputNameNotInMemberList_throwsException() throws DukeException {
         Model model = new ModelController();
-        for (int i = model.getMemberListSize() - 1; i >= 0; i--)  {
-            model.deleteMember(i);
-        }
+        model.getMemberList().clear();
         model.addMember("John");
         Command command = EditMemberNameParser.parseEditMemberName("Jack /to Jacky");
         assertThrows(DukeException.class, () -> command.execute(model));
@@ -27,9 +25,7 @@ public class EditMemberNameCommandTest {
     @Test
     public void editMemberNameCommand_inputNameAlreadyInMemberList_throwsException() throws DukeException {
         Model model = new ModelController();
-        for (int i = model.getMemberListSize() - 1; i >= 0; i--)  {
-            model.deleteMember(i);
-        }
+        model.getMemberList().clear();
         model.addMember("John");
         model.addMember("Jack");
         Command command = EditMemberNameParser.parseEditMemberName("Jack /to John");
@@ -39,9 +35,7 @@ public class EditMemberNameCommandTest {
     @Test
     public void editMemberNameCommandSuccess() throws DukeException {
         Model model = new ModelController();
-        for (int i = model.getMemberListSize() - 1; i >= 0; i--)  {
-            model.deleteMember(i);
-        }
+        model.getMemberList().clear();
         model.addMember("John");
         model.addMember("Jack");
         Command command = EditMemberNameParser.parseEditMemberName("Jack /to Jason");

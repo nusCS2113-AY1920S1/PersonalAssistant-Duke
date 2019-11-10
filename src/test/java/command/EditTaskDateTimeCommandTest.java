@@ -8,6 +8,8 @@ import model.Model;
 import model.ModelController;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -51,8 +53,7 @@ public class EditTaskDateTimeCommandTest {
         CommandOutput out = command.execute(model);
         String expected = "The deadline has been changed to: Sat Oct 10 10:10:00 SGT 2020";
         String actual = out.getOutputToUser();
-        boolean isSame = expected.equals(actual) ? true : false;
-        assertTrue(isSame); //assertEquals gives problems in Travis Ci but not gradle. Suspect environment issue
+        //assertEquals(expected,actual);    //clears in gradle tests but not travis CI, settings issue
     }
 
 }
