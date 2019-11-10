@@ -102,6 +102,11 @@ public class ProfitCommand extends Command {
         this.param = ProfitCommand.ProfitBy.valueOf(param);
     }
 
+    /**
+     * A separate method to generate the annual profit revenue (for convenience).
+     *
+     * @param model The facade of the model list.
+     */
     public static void generateAnnualProfitRevenue(ModelManager model) {
         SalesHistory saleSet = ModelManager.getSalesHistory();
         Iterator<Sale> it = saleSet.iterator();
