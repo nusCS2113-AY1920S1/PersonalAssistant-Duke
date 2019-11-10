@@ -257,6 +257,7 @@ e.g. `e 1 Bukit Batok 12/02/29 14/02/29`
 . The `CommandResult` Object will then be given back to the `Ui` component which displays the success message.
 
 Alternatively, the editing mechanism can be facilitated by the `EditorManager` and `Selectors` in the `Logic` Component. +
+Below, is a diagram describing the work flow of the editing mechanism.
 
 .Activity diagram for how Editing Mechanism works
 image::EditActivityDiagram.png[width="600" align="left"]
@@ -1084,24 +1085,24 @@ We also recommend testers to have a stable internet connection throughout the te
 
 .. Removing all `.txt` files in the same directory +
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: All sample data should be displayed in the application on start up.
+   Expected: All sample data should be in the application on start up.
 
 .. Removing or corrupting only the `profile.txt` files in the same directory +
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: Sample profile and itinerary data should be loaded and the other contents still remain intact.
+   Expected: Sample profile, favourite and itinerary data should be loaded and the other contents still remain intact.
 
 .. Removing or corrupting only the `events.txt` files in the same directory +
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: All sample data should be displayed in the application on start up.
+   Expected: All sample data should be in the application on start up.
 
 .. Removing or corrupting only the `routes.txt` files in the same directory +
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: Sample itinerary data should be displayed in the application on start up.
+   Expected: Sample route, profile, favourite and itinerary should be loaded and the other contents still remain intact.
 
 .. Removing or corrupting only the `favourite.txt` files in the same directory +
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: Sample itinerary data should be displayed in the application on start up.
+   Expected: Sample favourite data should be loaded and the other contents still remain intact.
 
 .. Removing or corrupting only the `itineraries.txt` files in the same directory +
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: Sample itinerary data should be displayed in the application on start up.
+   Expected: Sample itinerary data should be loaded and the other contents still remain intact.
