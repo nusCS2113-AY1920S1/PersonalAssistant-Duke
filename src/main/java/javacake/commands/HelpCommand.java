@@ -46,6 +46,7 @@ public class HelpCommand extends Command {
         case "help createnote": return createNoteHelp();
         case "help editnote": return editNoteHelp();
         case "help listnote": return listNoteHelp();
+        case "help viewnote": return viewNoteHelp();
         default: throw new CakeException("No such command found. Try again.");
         }
     }
@@ -101,8 +102,10 @@ public class HelpCommand extends Command {
      * @return String of instructions to guide user on back command.
      */
     private String deadlineHelp() {
-        stringBuilder.append("- ").append("deadline TASK_NAME /by TASK_DATE").append("\n");
+        stringBuilder.append("- ").append("deadline").append("\n");
         stringBuilder.append("Command to add a deadline task").append("\n");
+        stringBuilder.append("Simply type in 'deadline [task] /by [desired date]'!").append("\n");
+        stringBuilder.append("And please keep your task length to less than 40 characters!").append("\n");
         return stringBuilder.toString();
     }
 
@@ -111,8 +114,9 @@ public class HelpCommand extends Command {
      * @return String of instructions to guide user on back command.
      */
     private String deleteHelp() {
-        stringBuilder.append("- ").append("delete TASK_NUM").append("\n");
+        stringBuilder.append("- ").append("delete ").append("\n");
         stringBuilder.append("Command to delete a deadline task").append("\n");
+        stringBuilder.append("Simply type in 'delete [task_num]'!").append("\n");
         return stringBuilder.toString();
     }
 
@@ -121,8 +125,9 @@ public class HelpCommand extends Command {
      * @return String of instructions to guide user on back command.
      */
     private String doneHelp() {
-        stringBuilder.append("- ").append("done TASK_NUM").append("\n");
+        stringBuilder.append("- ").append("done").append("\n");
         stringBuilder.append("Command to set a deadline task as done").append("\n");
+        stringBuilder.append("Simply type in 'done [task_num]'!").append("\n");
         return stringBuilder.toString();
     }
 
@@ -197,8 +202,9 @@ public class HelpCommand extends Command {
      * @return String of instructions to guide user on back command.
      */
     private String snoozeHelp() {
-        stringBuilder.append("- ").append("snooze TASK_NUM /by TASK_DATE").append("\n");
+        stringBuilder.append("- ").append("snooze").append("\n");
         stringBuilder.append("Command to reschedule a deadline task").append("\n");
+        stringBuilder.append("Simply type in 'snooze [task_num] /by [new date]'!").append("\n");
         return stringBuilder.toString();
     }
 
@@ -246,6 +252,17 @@ public class HelpCommand extends Command {
         stringBuilder.append("- ").append("listnote").append("\n");
         stringBuilder.append("Command to list all the pre-existing note created by you!").append("\n");
         stringBuilder.append("Simply type in 'listnote' to refresh the list of notes!").append("\n");
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Provides a brief explanation on how viewnote command work.
+     * @return String of instructions to guide user on viewnote command.
+     */
+    private String viewNoteHelp() {
+        stringBuilder.append("- ").append("viewnote").append("\n");
+        stringBuilder.append("Command to view a pre-existing note created by you!").append("\n");
+        stringBuilder.append("Simply type in 'viewnote [name of note]' to show the note!").append("\n");
         return stringBuilder.toString();
     }
 

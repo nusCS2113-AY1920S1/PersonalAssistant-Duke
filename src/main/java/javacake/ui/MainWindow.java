@@ -92,7 +92,6 @@ public class MainWindow extends GridPane {
         noteScreen.vvalueProperty().bind(noteContainer.heightProperty());
         avatarScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
 
-
     }
 
     /**
@@ -152,10 +151,12 @@ public class MainWindow extends GridPane {
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
                 String[] inputDivider = input.split("\\s+");
                 if ("exit".equals(input)) {
+                    //must be "exit" exactly, else wont exe
                     handleExit();
                 } else if (isQuiz) {
                     handleOtherProcesses();
                 } else if ("listnote".equals(input)) {
+                    //must be "listnote" exactly, else wont exe
                     handleListNote();
                 } else if ("deletenote".equals(inputDivider[0])) {
                     handleDeleteNote();
@@ -226,6 +227,7 @@ public class MainWindow extends GridPane {
             //handles "deadline" and "reminder"
             JavaCake.logger.log(Level.INFO, "deadline setting");
         } else if (isColorRelated()) {
+            //must be "change" exactly, else wont exe
             System.out.println("COLOR MODE");
             JavaCake.logger.log(Level.INFO, "colormode setting");
         } else if (isFirstQuiz()) {
@@ -240,23 +242,11 @@ public class MainWindow extends GridPane {
             if (response.contains("!@#_EDIT_NOTE")) {
                 handleEditNote();
             } else {
+                System.out.println("Trash Cmd");
                 handleNormalCommand();
             }
         }
     }
-
-    /*static void setExitToTrue() {
-        isExit = true;
-    }
-
-    static void setResponse(String userResponse) {
-        response = userResponse;
-    }
-
-    static String getInput() {
-        return input;
-    }*/
-
 
     private void handleIsResult() throws CakeException {
         response = quizSession.parseInput(0, input);
@@ -574,6 +564,7 @@ public class MainWindow extends GridPane {
             }
             return true;
         } else if ("reminder".equals(input)) {
+            //must be "reminder" exactly, else wont exe
             showRemindersBox();
             JavaCake.logger.log(Level.INFO, "Reminder setting");
             return true;
