@@ -121,12 +121,12 @@ public abstract class Storage<T> {
     /**
      * Used to add an entry by writing to {@link File}.
      *
-     * @param task entry to be written
+     * @param data entry to be written
      * @throws IOException
      */
-    public void addInFile(String task) throws IOException {
+    public void addInFile(String data) throws IOException {
         contentSoFar = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
-        contentSoFar.add(task);
+        contentSoFar.add(data);
         Files.write(path, contentSoFar, StandardCharsets.UTF_8);
     }
 

@@ -1,4 +1,4 @@
-package duke.command.ingredientCommand;
+package duke.command;
 
 import duke.command.Command;
 import duke.dish.DishList;
