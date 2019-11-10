@@ -781,7 +781,7 @@ Examples:
 SGTravel shows the information of a bus stop. +
 Format: `busStop BUSCODE`
 
-image::busStop1.PNG[width="400" height="500"]
+image::busStop1.png[width="400" height="500"]
 
 Examples:
 
@@ -798,7 +798,7 @@ Entering `busStop` will initiate the multi-step version of this command
 SGTravel finds the bus route of a given bus service given the bus service number. +
 Format: `busroute BUS_NUMBER`
 
-image::busRoute1.PNG[width="400" height="330"]
+image::busRoute1.png[width="400" height="330"]
 
 Examples:
 
