@@ -224,72 +224,64 @@ May require additional components other than JavaFx's built-in components.
 
 ==== Implementation
 
-<<<<<<< HEAD
-BakingHome's products can have two status: `ACTIVE` or `ARCHIVE`. This feature allows user to view product
-with a given certain status, i.e. shows only products with an ARCHIVE status.
+<<<<<<< HEAD BakingHome's products can have two status: `ACTIVE` or `ARCHIVE`.
+This feature allows user to view product with a given certain status, i.e. shows only products with an ARCHIVE status.
 
 The filter mechanism in product is facilitated by
 `[FilteredList](https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html)`
 which wraps a ObservableList and
 filters using the provided Predicate.
-A `FilteredList<Product> filteredProducts` is stored in the `ModelManager`. In `BakingHome`, there is an
+A `FilteredList<Product> filteredProducts` is stored in the `ModelManager`.
+In `BakingHome`, there is an
 `ObservableList<Product> products` which contains all products, regardless of the status. `filteredProducts`
 in the ModelManager is initialized with this ObservableList.
 
-Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible,
-the filter mechanism implements the following operation to support filtering:
+Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible, the filter mechanism implements the following operation to support filtering:
 
-* `Model#updateFilteredProductList(Predicate<Product> predicate)` -- Sets the value of the property
-Predicate in the `filteredProducts`.
+* `Model#updateFilteredProductList(Predicate<Product> predicate)` -- Sets the value of the property Predicate in the `filteredProducts`.
 
 ** Predicates are declared statically in the `Model` interface, namely
-`PREDICATE_SHOW_ACTIVE_PRODUCTS`, `PREDICATE_SHOW_ARCHIVE_PRODUCTS`, and `PREDICATE_SHOW_ALL_PRODUCT`. In
-particular `PREDICATE_SHOW_ARCHIVE_PRODUCTS` is as follow
+`PREDICATE_SHOW_ACTIVE_PRODUCTS`, `PREDICATE_SHOW_ARCHIVE_PRODUCTS`, and `PREDICATE_SHOW_ALL_PRODUCT`.
+In particular `PREDICATE_SHOW_ARCHIVE_PRODUCTS` is as follow
+
 ```java
     Predicate<Product> PREDICATE_SHOW_ARCHIVE_PRODUCTS = product -> {
         return product.getStatus() == Product.Status.ARCHIVE;
     };
 ```
 
-** The `ListProductCommand` will call this method to change the visibility of products with different status
-by passing in the corresponding predicate.
+** The `ListProductCommand` will call this method to change the visibility of products with different status by passing in the corresponding predicate.
 
 An example usage scenario and how the filter mechanism behaves at each step is shown below.
 **Step 1.** The user launched the application for the first time.
 UniqueProductList will be initialized with a list of default products in BakingHome.
 This list contains a few active products and a few archived products.
 
-**Step 2.** The user inputs `product filter -scope archive` to list all archived products. `UI` pass the
-input to `Logic`. Logic then uses a few `Parser` class to extract layers of information out.
+**Step 2.** The user inputs `product filter -scope archive` to list all archived products. `UI` pass the input to `Logic`.
+Logic then uses a few `Parser` class to extract layers of information out.
 
-**Step 3.**  Logic passes the user input to `BakingHomeParser`. `BakingHomeParser` identifies that this is a `ProductCommand`
-through
-the word
-"product".
-It
-then creates a
+**Step 3.** Logic passes the user input to `BakingHomeParser`. `BakingHomeParser` identifies that this is a `ProductCommand`
+through the word "product".
+It then creates a
 `ProductCommandParser` to parse the remaining information, i.e. "filter -scope archive".
 
-**Step 4.** `ProductCommandParser` identifies that this is a `FilterProductCommand` through the word
-"filter". It then creates a `FilterProductCommandParser` to parse the scope.
+**Step 4.** `ProductCommandParser` identifies that this is a `FilterProductCommand` through the word "filter".
+It then creates a `FilterProductCommandParser` to parse the scope.
 
-**Step 5.** `FilterProductCommandParser` parse "-scope archive" and get the scope. It then returns a
+**Step 5.** `FilterProductCommandParser` parse "-scope archive" and get the scope.
+It then returns a
 `FilterProductCommand` with the scope information.
 
-**Step 6.** `Logic` finally gets the `FilterProductCommand` and execute it. The execution firstly calls
+**Step 6.** `Logic` finally gets the `FilterProductCommand` and execute it.
+The execution firstly calls
 `Model#updateFilteredProductList(Predicate<Product> predicate)` to update the Predicate in
-`filteredProducts` in `Model`. This execution then returns a `CommandResult` to `UI`, containing the response
-to the user.
+`filteredProducts` in `Model`.
+This execution then returns a `CommandResult` to `UI`, containing the response to the user.
 
-**Step 7.** `UI` displays the response in the `CommandResult`. In addition, UI will change to display
-archived products after model updates `filteredProducts`, since `UI` is constantly
-listening
-for
-the
-change in `Model`.
+**Step 7.** `UI` displays the response in the `CommandResult`.
+In addition, UI will change to display archived products after model updates `filteredProducts`, since `UI` is constantly listening for the change in `Model`.
 
-The Sequence Diagram below shows how the components interact with each other for the above mentioned
-scenario.
+The Sequence Diagram below shows how the components interact with each other for the above mentioned scenario.
 .Sequence Diagram for Filter Product Mechanism
 
 image::FilterProductSD.png[]
@@ -411,7 +403,7 @@ Thus, it is hard for him to switch between different apps to manage his bakery b
 
 BakingHome is a one-stop desktop application that has all the important features for such a manager to eliminate the trouble of changing between different apps.
 
-*Value proposition*: 
+*Value proposition*:
 
 A one-stop bakery management system for home bakeries.
 
@@ -654,7 +646,8 @@ _{More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
+[[mainstream-os]]
+Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [appendix]
@@ -771,11 +764,11 @@ Expected: Similar to previous
 .. Test case: `sale filter -from 01/01/2019 06:00 -to 10/01/2019 06:00` +
    Expected: Sale entries starting from 02/01/2019 00:00 to 09/01/2019 23:59 are shown.
 .. Test case: `sale -from 01/01/2019 15:00 -to 32/01/2019 15:00` +
-   Expected: Error is shown. Nothing changes to sale.
+   Expected: Error is shown.Nothing changes to sale.
 Error details shown in the pop-up bar.
 .. Other incorrect delete commands to try: `sale filter -from 02/01/2019 00:00`, `sale filter -to 02/01/2019 00:00` Expected: Similar to previous.
 
-=== Buying ingredients 
+=== Buying ingredients
 
 . Buying a single ingredient
 .. Prerequisites: At least 1 ingredient in Shopping List
@@ -804,9 +797,9 @@ Ingredient cost and Retail price are both $0.0. Status is active.
 =======
 . Adding a product with cost and price
 .. Test case: `product add -name Cheese cake -cost 3.0 -price 5.9` +
->>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
-   Expected: A new product named `Cheese cake` is added.
-Ingredient cost are $3 and Retail price is $5.9. Status is active. Use `product show INDEX_OF_CHEESE_CAKE`
+>>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52 Expected: A new product named `Cheese cake` is added.
+Ingredient cost are $3 and Retail price is $5.9. Status is active.
+Use `product show INDEX_OF_CHEESE_CAKE`
 to check the ingredients.
 
 === Searching a Product
@@ -816,26 +809,25 @@ to check the ingredients.
    Expected: All products whose name include `cake` are listed.
 List will be empty if no products' names contain `cake`.
 
-=== Filtering Products
-<<<<<<< HEAD
+=== Filtering Products <<<<<<< HEAD
 =======
 
-. Filters to show only archived products
->>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
+. Filters to show only archived products >>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
 .. Test case: `product filter -scope archive` +
    Expected: All archive products are listed.
 List will be empty if no products have archive status.
 
 . No filter
 .. Test case: `product filter -scope all` +
-<<<<<<< HEAD
-    Expected: All products, regardless their status, are listed.
+<<<<<<< HEAD Expected: All products, regardless their status, are listed.
 .. Test case: `product filter -scope active` +
     Expected: All active products are listed.
 
 === Sorting Products
+
 .. Test case: `product sort -by cost -scope active -re` +
     Expected: Active products are sorted by cost in descending order.
+
 =======
    Expected: All products, regardless their status, are listed.
 >>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
@@ -862,9 +854,10 @@ You can check the ingredient using command `product show 1`.
 <<<<<<< HEAD
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-BakingHome provides basic Add, Edit, Delete operations for all entity. The tables belows provides a few
-commands for you to try out.
-[cols="1,1,2", options="header"]
+BakingHome provides basic Add, Edit, Delete operations for all entity.
+The tables belows provides a few commands for you to try out.
+
+[cols="1,1,2",options="header"]
 [width="100%",cols="10%,45%,45%",options="header",]
 .Add Operation
 |===
@@ -932,11 +925,11 @@ Product List.
 |An error message pops up
 |===
 
-
-=== Delete operation
-Delete operation is have the same syntax for all entity. The table below use order as an example. `order`
+=== Delete operation Delete operation is have the same syntax for all entity.
+The table below use order as an example. `order`
 can be replaced with `inv`, `shop`, `product` and `sale`
-[cols="1,1,2", options="header"]
+
+[cols="1,1,2",options="header"]
 [width="100%",cols="10%,45%,45%",options="header",]
 .Delete Operation
 |===
@@ -977,8 +970,7 @@ Prerequisites: At least 2 orders in Order List
 |Error details shown in the pop-up bar.
 |===
 
-
-[cols="1,1,2", options="header"]
+[cols="1,1,2",options="header"]
 [width="100%",cols="10%,45%,45%",options="header",]
 .Edit Operation
 |===
@@ -1004,11 +996,9 @@ This is provided the order status is not completed. If the order status is compl
 
 |===
 
-
 _{ more test cases ... }_
 =======
 .. Test case (missing data file): Delete the folder `data` in BakingHome's directory and restart BakingHome +
    Expected: BakingHome loads demo data
 .. Test case (corrupted data file): Change the content of data file at `data/baking.json` to "This file is damaged" and restart BakingHome. +
-   Expected: BakingHome loads demo data
->>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
+   Expected: BakingHome loads demo data >>>>>>> dc1d96d0fa2b4b5280e1aad866e691c2c53c6d52
