@@ -12,6 +12,7 @@ public class InputValidator {
 
     private static final String numericValidator = "-?\\d+(\\.\\d+)?";
     private static final String positiveValidator = "^[0-9]\\d*(\\.\\d+)?$";
+    private static final String wholeNumberValidator = "^\\d+$";
 
     /**
      * validate the user input to check whether it's empty.
@@ -34,7 +35,7 @@ public class InputValidator {
             throw new ProgramException("The food cost must be specified and must be numeric.");
         }
         if (!amountInput.matches(positiveValidator)) {
-            throw new ProgramException("Only positive value is accepted.");
+            throw new ProgramException("Only positive values are accepted.");
         }
     }
 
@@ -46,6 +47,17 @@ public class InputValidator {
     public static void validateDate(LocalDate localDate) throws ProgramException {
         if (localDate.isAfter(LocalDate.now())) {
             throw new ProgramException("Cannot add transaction that happens in the future.");
+        }
+    }
+
+    /**
+     * validate the nutritional value .
+     * @param valueInput the nutritional value.
+     * @throws ProgramException if the value is not a whole number.
+     */
+    public static void validateNutritionalValue(String valueInput) throws ProgramException {
+        if (!valueInput.matches(wholeNumberValidator)) {
+            throw new ProgramException("The value must be a whole number");
         }
     }
 
