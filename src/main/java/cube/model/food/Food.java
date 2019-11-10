@@ -37,6 +37,10 @@ public class Food {
 	 */
 	public Food(String name) {
 		this.name = name;
+		this.type = "";
+		this.price = 0;
+		this.cost = 0;
+		this.stock = 0;
 		this.foodRevenue = 0;
 	}
 
@@ -105,20 +109,6 @@ public class Food {
 		return expiryDate;
 	}
 
-	/**
-	 * Getter for the total revenue earned from selling the food.
-	 *
-	 * @return the total revenue earned from selling the food.
-	 */
-	public static double getRevenue() {
-		FoodList list = ModelManager.getFoodList();
-		int size = list.size();
-		double revenue = 0;
-		for (int i = 0; i < size; ++i) {
-			revenue += list.get(i).foodRevenue;
-		}
-		return revenue;
-	}
 
 	/**
 	 * Getter for the revenue of a food.
@@ -194,7 +184,12 @@ public class Food {
 	@Override
 	public String toString() {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		String date = format.format(expiryDate);
+		String date = "Not Specified";
+
+		if (expiryDate != null) {
+			date = format.format(expiryDate);
+		}
+
 		return name + "\n  Type: " + type + "\n  Price: $" + price +
 				"\n  Stock: " + stock + "\n  Expiry Date: " + date;
 	}
