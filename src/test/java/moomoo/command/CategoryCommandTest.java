@@ -110,16 +110,19 @@ class CategoryCommandTest {
         CategoryList categoryList = new CategoryList();
         Storage storage = new ExpenditureStorage();
 
-        categoryList.add(new Category("2271    CG"));
-        categoryList.get("2271    CG").add(new Expenditure("module", 99.9, LocalDate.now(),
-                "2271    CG"));
-        DeleteExpenditureCommand command = new DeleteExpenditureCommand(0, "2271    CG");
+        Command command;
+        command = new AddCategoryCommand("new stuff");
+        command.execute(calendar, budget, categoryList, storage);
+        command = new AddExpenditureCommand("bike", 99.9, LocalDate.now(),
+                "new stuff");
+        command.execute(calendar, budget, categoryList, storage);
+        command = new DeleteExpenditureCommand(0, "new stuff");
         command.execute(calendar, budget, categoryList, storage);
 
         assertEquals("  __________________________________________________\n"
                 + " / Mooo.                                            \\\n"
-                + "|  Expenditure named : module                        |\n"
-                + " \\ Deleted from category : 2271    CG               /\n"
+                + "|  Expenditure named : bike                          |\n"
+                + " \\ Deleted from category : new stuff                /\n"
                 + "  --------------------------------------------------\n", Ui.getTestOutput());
     }
 
