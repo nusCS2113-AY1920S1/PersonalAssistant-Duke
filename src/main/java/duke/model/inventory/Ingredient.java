@@ -9,13 +9,12 @@ import static duke.commons.util.CollectionUtil.requireAllNonNull;
 public class Ingredient {
     private static DecimalFormat df2 = new DecimalFormat("#.##");
 
-    private static final String MESSAGE_CONSTRAINTS_NAME = "Ingredient's name cannot be blank and must be "
-            + "20 characters or less";
     public static final String MESSAGE_CONSTRAINTS_REMARKS = "Remarks should be no more than 50 characters";
+    private static final String MESSAGE_CONSTRAINTS_NAME = "Ingredient's name cannot be blank and must be "
+        + "20 characters or less";
 
     private static final Double DEFAULT_PRICE = 0.00;
     private static final String DEFAULT_REMARKS = "";
-
     public String name;
     public Double unitPrice;
     public String remarks;

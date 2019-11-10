@@ -18,6 +18,20 @@ public class IngredientBuilder {
         ingredientItem = new Item<>(new Ingredient(name), Quantity.getDefaultQuantity());
     }
 
+    public static Item<Ingredient> buildIngredientItem(String name) {
+        ingredientItem = new Item<>(
+                new Ingredient(name),
+                Quantity.getDefaultQuantity());
+        return ingredientItem;
+    }
+
+    public static Item<Ingredient> buildIngredientItemWithQuantity(String name, Double quantity) {
+        ingredientItem = new Item<>(
+                new Ingredient(name),
+                new Quantity(quantity));
+        return ingredientItem;
+    }
+
     public IngredientBuilder withCost(Double cost) {
         ingredientItem.getItem().setUnitPrice(cost);
         return this;
@@ -31,20 +45,6 @@ public class IngredientBuilder {
     public IngredientBuilder withRemarks(String remarks) {
         ingredientItem.getItem().setRemarks(remarks);
         return this;
-    }
-
-    public static Item<Ingredient> buildIngredientItem(String name) {
-        ingredientItem = new Item<>(
-                new Ingredient(name),
-                Quantity.getDefaultQuantity());
-        return ingredientItem;
-    }
-
-    public static Item<Ingredient> buildIngredientItemWithQuantity(String name, Double quantity) {
-        ingredientItem = new Item<>(
-                new Ingredient(name),
-                new Quantity(quantity));
-        return ingredientItem;
     }
 
     public Item<Ingredient> build() {
