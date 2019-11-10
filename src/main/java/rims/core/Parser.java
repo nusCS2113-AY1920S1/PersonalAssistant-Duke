@@ -82,7 +82,6 @@ public class Parser {
                 stringDate += time;
                 break;
             } else {
-                System.out.println("BF");
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(todayDate);
                 cal.add(Calendar.DATE, 1);

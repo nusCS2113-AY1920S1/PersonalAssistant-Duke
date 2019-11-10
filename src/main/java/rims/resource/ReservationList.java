@@ -62,7 +62,7 @@ public class ReservationList {
                 return thisReservation;
             }
         }
-        throw new RimsException("Reservation not found for given reservation id!");
+        throw new RimsException("Reservation not found for given reservation ID!");
     }
 
     /**
@@ -118,7 +118,7 @@ public class ReservationList {
             }
         }
         if (!deleted) {
-            throw new RimsException("Reservation not found for given reservation id!");
+            throw new RimsException("Reservation not found for given reservation ID!");
         }
     }
 
