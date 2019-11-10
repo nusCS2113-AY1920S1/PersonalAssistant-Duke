@@ -298,7 +298,6 @@ public class MainWindow extends AnchorPane {
         } else { //Now for commands with multiple inputs, to swap tabs when the user has modified something in that tab
             Scanner temp = new Scanner(input);
             String command = temp.next();
-
             if (command.matches("done|event|todo") && (!typoFlag)) {
                 tabPane.getSelectionModel().select(tabTask);
             } else if (command.matches("swap|remove|add") && (!typoFlag)) {
@@ -358,10 +357,11 @@ public class MainWindow extends AnchorPane {
         dataDiff1.clear();
         dataDiff2.clear();
         dataSimi.clear();
-
-        String[] split = temp.nextLine().split("\\s+");
-        String degreeName1 = split[1];
-        String degreeName2 = split[2];
+        String input = temp.nextLine().strip();
+        String[] split = input.split("\\s+");
+        this.degreeManager.twoKeyGenerator(split);
+        String degreeName1 = this.degreeManager.getDegreeOneKey();
+        String degreeName2 = this.degreeManager.getDegreeTwoKey();
 
         ModuleList ModuleList1 = this.degreeManager.getModuleList(degreeName1);
         ModuleList ModuleList2 = this.degreeManager.getModuleList(degreeName2);

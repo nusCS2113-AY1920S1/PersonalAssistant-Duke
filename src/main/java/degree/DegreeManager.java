@@ -2,6 +2,7 @@ package degree;
 
 import exception.DukeException;
 import list.DegreeList;
+import main.Duke;
 import module.ModuleList;
 import storage.Storage;
 
@@ -16,6 +17,8 @@ public class DegreeManager {
     private Map<String, Degree> degreeInfo = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private Map<String, List<String>> disjointSetFake = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private ModuleList masterList = new ModuleList();
+    private String degreeOneKey = "";
+    private String degreeTwoKey = "";
     private boolean foundFlag = true;
 
     /**
@@ -82,6 +85,20 @@ public class DegreeManager {
         throw new DukeException(item + " was not found in our records!");
     }
 
+    public boolean isKey(String alias)
+    {
+        for(Map.Entry<String, List<String>> aliases: disjointSetFake.entrySet())
+        {
+            List<String> commonNames = aliases.getValue();
+            for(String x : commonNames){
+                if(x.equalsIgnoreCase(alias)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public String findAnyDegree(String degreeName)
     {
         for(Map.Entry<String, List<String>> aliases: disjointSetFake.entrySet())
@@ -109,7 +126,7 @@ public class DegreeManager {
     public void compare(String input) throws DukeException {
         foundFlag = true;
         String[] split = input.split("\\s+");
-        if(split.length > 2) {
+        if(split.length > 7) {
             foundFlag = false;
             throw new DukeException("Too many arguments!");
         }
@@ -117,25 +134,47 @@ public class DegreeManager {
             foundFlag = false;
             throw new DukeException("Too few arguments!");
         }
-        assert(split.length == 2);
-        if(split[0].equalsIgnoreCase(split[1])) {
-            foundFlag = false;
-            throw new DukeException("Invalid Comparison (to Self)");
+        twoKeyGenerator(split);
+        if(degreeOneKey.isBlank() || degreeTwoKey.isBlank())
+            throw new DukeException("Unable to find any matching degrees for: " + input);
+        if(degreeOneKey.equalsIgnoreCase(degreeTwoKey))
+            throw new DukeException("Invalid Comparison to Self.");
+
+        degreeInfo.get(degreeOneKey).compare(degreeInfo.get(degreeTwoKey));
+    }
+
+    public void twoKeyGenerator(String[] split)
+    {
+
+        for(int i = 1; i < split.length; i++) {
+            StringBuilder degreeOne = new StringBuilder();
+            StringBuilder degreeTwo = new StringBuilder();
+            for (int j = 0; j < i; j++) {
+                degreeOne.append(split[j]).append(" ");
+            }
+            degreeOne.setLength(degreeOne.length() - 1);
+            for (int j = i; j < split.length; j++) {
+                degreeTwo.append(split[j]).append(" ");
+            }
+            degreeTwo.setLength(degreeTwo.length() - 1);
+            if (isKey(degreeOne.toString()) && isKey(degreeTwo.toString())) {
+                this.degreeOneKey = findAnyDegree(degreeOne.toString());
+                this.degreeTwoKey = findAnyDegree(degreeTwo.toString());
+                return;
+            }
         }
-        StringBuilder errorList = new StringBuilder();
-        if(!degreeInfo.containsKey(split[0])) {
-            errorList.append(split[0]);
-            errorList.append(" ");
-        }
-        if(!degreeInfo.containsKey(split[1])) {
-            errorList.append(split[1]);
-        }
-        if(errorList.length() > 0)
-        {
-            foundFlag = false;
-            throw new DukeException("Unable to find matching degrees for: "+ errorList.toString());
-        }
-        degreeInfo.get(split[0]).compare(degreeInfo.get(split[1]));
+        this.degreeOneKey = "";
+        this.degreeTwoKey = "";
+    }
+
+    public String getDegreeOneKey()
+    {
+        return this.degreeOneKey;
+    }
+
+    public String getDegreeTwoKey()
+    {
+        return this.degreeTwoKey;
     }
 
     /**
