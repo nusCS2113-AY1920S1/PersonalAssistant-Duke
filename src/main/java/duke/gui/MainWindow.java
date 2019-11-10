@@ -1,6 +1,9 @@
 package duke.gui;
 
 import duke.Duke;
+import duke.commands.Command;
+import duke.commands.assignedtask.AssignPeriodTaskCommand;
+import duke.commands.gui.FilterCommand;
 import duke.commands.task.UpcomingTasksCommand;
 import duke.exceptions.DukeException;
 import duke.models.assignedtasks.AssignedTask;
@@ -8,6 +11,7 @@ import duke.models.assignedtasks.UpcomingTasks;
 import duke.models.patients.Patient;
 import duke.models.tasks.Task;
 import javafx.beans.binding.Bindings;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -20,8 +24,10 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -52,6 +58,12 @@ public class MainWindow extends UiPart<Stage> {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
+    @FXML
+    private TabPane centerTabPane;
+    @FXML
+    private TabPane leftTabPane;
+    @FXML
+    private Accordion upComingTasksAccordion;
     @FXML
     private TableView<Patient> patientTable;
     @FXML
@@ -248,6 +260,7 @@ public class MainWindow extends UiPart<Stage> {
         taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
         patientData = FXCollections
             .observableArrayList(duke.getPatientManager().getPatientList());
+
         patientIdCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("id"));
         patientNameCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("name"));
         patientNricCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("nric"));
@@ -256,7 +269,6 @@ public class MainWindow extends UiPart<Stage> {
 
         taskIdCol.setCellValueFactory(new PropertyValueFactory<Task, Integer>("id"));
         taskDescriptionCol.setCellValueFactory(new PropertyValueFactory<Task, String>("description"));
-
 
         assignedUuidCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, Integer>("uuid"));
         assignedTypeCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, String>("type"));
@@ -325,7 +337,9 @@ public class MainWindow extends UiPart<Stage> {
         boolean isException = false;
         try {
             dukeResponses = duke.run(inputCommand);
+            Command command = duke.getRunningCommand();
             updateTableViews();
+            executeGuiInstructions(command);
         } catch (DukeException de) {
             dukeResponses = de.getMessage();
             isException = true;
@@ -338,6 +352,106 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Manipulate relevant GUI component after a command is successfully executed.
+     * For example, after a patient is being added, it will display the patient table at the center tab pane.
+     *
+     * @param command Running DukeCommand
+     */
+    private void executeGuiInstructions(Command command) {
+        System.out.println(command.getClass().getSimpleName());
+        String commandName = command.getClass().getSimpleName();
+        switch (commandName) {
+        case "AssignDeadlineTaskCommand":
+        case "AssignPeriodTaskCommand":
+        case "DeleteAssignedTaskCommand":
+        case "FindAssignedTaskCommand":
+            centerTabPane.getSelectionModel().select(2);
+            clearFilter();
+            break;
+        case "ShowAssignedTasksCommand":
+            centerTabPane.getSelectionModel().select(2);
+            break;
+        case "AddPatientCommand":
+        case "DeletePatientCommand":
+        case "ListPatientsCommand":
+        case "UpdatePatientCommand":
+        case "FindPatientCommand":
+            centerTabPane.getSelectionModel().select(0);
+            clearFilter();
+            break;
+        case "ShowPatientsCommand":
+            centerTabPane.getSelectionModel().select(0);
+            break;
+        case "AddTaskCommand":
+        case "DeleteTaskCommand":
+        case "ListTasksCommand":
+        case "FindTaskCommand":
+            clearFilter();
+            centerTabPane.getSelectionModel().select(1);
+            break;
+        case "ShowTasksCommand":
+            centerTabPane.getSelectionModel().select(1);
+            break;
+        case "ShowHelpGuideCommand":
+            leftTabPane.getSelectionModel().select(5);
+            break;
+        case "ShowTodayCommand":
+            leftTabPane.getSelectionModel().select(4);
+            upComingTasksAccordion.setExpandedPane(firstTitledPane);
+            break;
+        case "ShowTomorrowCommand":
+            leftTabPane.getSelectionModel().select(4);
+            upComingTasksAccordion.setExpandedPane(secondTitledPane);
+            break;
+        case "FilterCommand":
+            FilterCommand filterCommand = (FilterCommand) command;
+            String filterContent = filterCommand.getFilterInfo();
+            filter(filterContent);
+            break;
+        case "ClearFilterCommand":
+            clearFilter();
+            break;
+        default:
+            break;
+        }
+    }
+
+    /**
+     * It will clear the text in the search bar such that rows in tables are not being filtered.
+     */
+    private void clearFilter() {
+        patientSearchTextField.clear();
+        taskSearchTextField.clear();
+        assignedTaskSearchTextField.clear();
+    }
+
+    /**
+     * It will filter the rows in current tables(patient/task/assigned task) with given input.
+     */
+    private void filter(String input) {
+        int currentTableIndex = getSelectedTableIndex();
+        if (currentTableIndex == 0) {
+            patientSearchTextField.setText(input);
+        } else if (currentTableIndex == 1) {
+            taskSearchTextField.setText(input);
+        } else {
+            assignedTaskSearchTextField.setText(input);
+        }
+    }
+
+    /**
+     * Find the index of table being displayed currently at the center of the GUI.
+     * Index 0 refers to patient table.
+     * Index 1 refers to tasks table.
+     * Index 2 refers to assigned tasks table.
+     *
+     * @return index of current selected table.
+     */
+    private int getSelectedTableIndex() {
+        return centerTabPane.getSelectionModel().getSelectedIndex();
+    }
+
+    /**
      * Listen to search bar input for filtering rows in patient table.
      */
     private void patientSearchBarListener() {
@@ -345,7 +459,8 @@ public class MainWindow extends UiPart<Stage> {
         FilteredList<Patient> filteredPatients = new FilteredList<>(patientData, b -> true);
 
         // Capture Patient's search bar text field
-        patientSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+        patientSearchTextField.textProperty().addListener((ObservableValue<? extends String> observable,
+                                                           String oldValue, String newValue) -> {
             filteredPatients.setPredicate(patient -> {
                 // If filter text is empty, display all patients
                 if (newValue == null || newValue.isEmpty()) {
@@ -368,6 +483,7 @@ public class MainWindow extends UiPart<Stage> {
                 }
             });
         });
+
         // 3. Wrap the FilteredList in a SortedList.
         SortedList<Patient> sortedPatientData = new SortedList<>(filteredPatients);
         // 4. Bind the SortedList comparator to the TableView comparator.
@@ -433,8 +549,6 @@ public class MainWindow extends UiPart<Stage> {
                     } else if (String.valueOf(assignedTask.getTid()).contains(lowerCaseFilter)) {
                         return true;
                     } else if (String.valueOf(assignedTask.getPid()).contains(lowerCaseFilter)) {
-                        return true;
-                    } else if (String.valueOf(assignedTask.getIsDone()).contains(lowerCaseFilter)) {
                         return true;
                     } else if (assignedTask.getStartDateRaw().toLowerCase().contains(lowerCaseFilter)) {
                         return true;

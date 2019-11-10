@@ -7,15 +7,14 @@ import duke.models.patients.Patient;
 import duke.models.tasks.Task;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 //@@author HUANGXUANKUN
+
 /**
  * Represents the necessary dukeUi elements for user interaction.
  */
 public class DukeUi {
     private static DukeUi dukeUi;
-    private Scanner scanner;
     private String dukeResponses = "";
     private String userInput;
 
@@ -57,6 +56,11 @@ public class DukeUi {
         this.dukeResponses = "";
     }
 
+    /**
+     * Get user full command from GUI.
+     *
+     * @param userInput User input
+     */
     public void readUserInputFromGui(String userInput) {
         this.userInput = userInput;
     }
@@ -203,95 +207,6 @@ public class DukeUi {
             + taskName);
     }
 
-    /**
-     * It asks user to choose a patient to be deleted from a list of patients.
-     *
-     * @param numberOfPatients the number of patients contain in the list
-     * @return the number being choosen by user. If return -1, it means user canceled the deletion
-     */
-    public int choosePatientToDelete(int numberOfPatients) {
-        int chosenNumber = -1;
-        while (true) {
-            printDukeResponse("Enter the index number of the patient to delete, or enter number 0 to cancel: ");
-            String command = readUserInput();
-            try {
-                chosenNumber = Integer.parseInt(command);
-            } catch (Exception e) {
-                printDukeResponse("Please enter a valid number!");
-                continue;
-            }
-            if (chosenNumber >= 0 && chosenNumber <= numberOfPatients) {
-                if (chosenNumber == 0) {
-                    printDukeResponse("Delete command is canceled.");
-                }
-                return chosenNumber;
-            } else {
-                printDukeResponse("The patient #"
-                    + chosenNumber
-                    + " does not exist. Please enter a valid index number!");
-            }
-        }
-    }
-
-    //@@author kkeejjuunn
-
-    /**
-     * It asks user to choose a task to be deleted from a list of tasks.
-     *
-     * @param numberOfTasks the number of task contain in the list
-     * @return the index being chosen by user. If return -1, it means user canceled the deletion
-     */
-    public int chooseTaskToDelete(int numberOfTasks) {
-        int chosenNumber = -1;
-        while (true) {
-            printDukeResponse("Enter the index of task to delete, or enter number 0 to cancel: ");
-            String command = readUserInput();
-            try {
-                chosenNumber = Integer.parseInt(command);
-            } catch (Exception e) {
-                printDukeResponse("Please enter a valid number!");
-                continue;
-            }
-            if (chosenNumber >= 0 && chosenNumber <= numberOfTasks) {
-                if (chosenNumber == 0) {
-                    printDukeResponse("Delete command is canceled");
-                }
-                return chosenNumber;
-            } else {
-                printDukeResponse("The task #" + chosenNumber + " does not exist. Please enter a valid number!");
-            }
-        }
-    }
-
-
-    /**
-     * It confirms with user on the deletion of a patient.
-     * It reminds user that the tasks assigned to this user will be delete
-     * If user confirms, key in 'Y'. Otherwise key in 'N'.
-     *
-     * @param patient           it contains patient's info
-     * @param withTasksAssigned it indicates whether the patient is assigned to any tasks
-     * @return true if user confirmed the deletion. False otherwise.
-     */
-    public boolean confirmPatientToBeDeleted(Patient patient, boolean withTasksAssigned) {
-        while (true) {
-            if (withTasksAssigned) {
-                printDukeResponse("The patient with above tasks assigned is to be deleted. Are you sure (Y/N)?");
-            } else {
-                printDukeResponse("The patient is to be deleted. Are you sure (Y/N)? ");
-            }
-            String command = readUserInput();
-            if (command.toLowerCase().equals("y")) {
-                return true;
-            } else if (command.toLowerCase().equals("n")) {
-                printDukeResponse("Delete command is canceled");
-                return false;
-            } else {
-                printDukeResponse("Please enter only Y/N to confirm/cancel deletion!");
-            }
-        }
-    }
-
     //@@author kkeejjuunn
 
     /**
@@ -363,62 +278,6 @@ public class DukeUi {
         }
     }
 
-    //@@author kkeejjuunn
-
-    /**
-     * It confirms with user on the deletion of a task.
-     * It alerts user that the deletion will cause the current patient who assigned
-     * to this task will no longer assigned to this task.
-     * If user confirms, key in 'Y'. Otherwise key in 'N'.
-     *
-     * @param task                 contains task's info
-     * @param assignedToAnyPatient indicates whether the task is assigned to any patient
-     * @return true if user confirmed the deletion. False otherwise.
-     */
-    public boolean confirmTaskToBeDeleted(Task task, boolean assignedToAnyPatient) {
-        while (true) {
-            if (assignedToAnyPatient) {
-                printDukeResponse("The task is to be deleted. These patients will no "
-                    + "longer assigned to this task. Are you sure (Y/N)?");
-            } else {
-                printDukeResponse("The task is to be deleted. Are you sure (Y/N)? ");
-            }
-            String command = readUserInput();
-            if (command.toLowerCase().equals("y")) {
-                return true;
-            } else if (command.toLowerCase().equals("n")) {
-                printDukeResponse("Delete command is canceled");
-                return false;
-            } else {
-                printDukeResponse("Please enter only Y/N to confirm/cancel deletion!");
-            }
-        }
-    }
-
-
-    /**
-     * It confirms with user on the deletion of a task.
-     * If user confirms, key in 'Y'. Otherwise key in 'N'.
-     *
-     * @param correctedCommand the correctedCommand
-     * @return true if user confirmed the deletion. False otherwise.
-     */
-    public boolean confirmTypoCorrection(String correctedCommand, String userInput) {
-        printDukeResponse("Ambiguous format! Did you mean(Y/N): \n" + correctedCommand);
-        while (true) {
-            String command = readUserInput();
-            if (command.toLowerCase().equals("y")) {
-                return true;
-            } else if (command.toLowerCase().equals("n")) {
-                printDukeResponse("Proceed with original command: " + userInput);
-                return false;
-            } else {
-                printDukeResponse("Please enter only Y/N to proceed with recommended command: " + correctedCommand);
-            }
-        }
-    }
-
-
     /**
      * Shows a divider line.
      */
@@ -434,30 +293,6 @@ public class DukeUi {
         printDukeResponse("Bye. Hope to see you again soon!");
     }
 
-    /**
-     * Shows Duke logo and welcome message, and user input instructions.
-     */
-    public void showWelcome() {
-        String logo = " _____        _              _ _        _ \n"
-            +
-            "|  __ \\      | |            (_) |      | |\n"
-            +
-            "| |  | |_   _| | _____ _ __  _| |_ __ _| |\n"
-            +
-            "| |  | | | | | |/ / _ \\ '_ \\| | __/ _` | |\n"
-            +
-            "| |__| | |_| |   <  __/ |_) | | || (_| | |\n"
-            +
-            "|_____/ \\__,_|_|\\_\\___| .__/|_|\\__\\__,_|_|\n"
-            +
-            "                      | |                 \n"
-            +
-            "                      |_|                 \n";
-
-        printDukeResponse(logo);
-        printDukeResponse("Hello! I'm Duke\nWhat can I do for you?\n\n");
-        printDukeResponse("Enter 'help' to show a list of commands ");
-    }
 
     /**
      * Show information is being updated successfully.
@@ -632,7 +467,7 @@ public class DukeUi {
         ArrayList<String> patientNames = upcomingTasks.getPatientNames();
         for (int i = 0; i < upcomingTasks.getUpcomingTasks().size(); i++) {
             output += "Unique ID: " + upcomingTasks.getUpcomingTasks().get(i).getUuid() + ".\nDescription: "
-                    + taskDescriptions.get(i) + "\nFor patient: " + patientNames.get(i) + "\n\n";
+                + taskDescriptions.get(i) + "\nFor patient: " + patientNames.get(i) + "\n\n";
         }
         printDukeResponse(output);
 

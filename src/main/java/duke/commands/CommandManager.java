@@ -12,6 +12,14 @@ import duke.commands.functional.ExitCommand;
 import duke.commands.functional.HelpCommand;
 import duke.commands.functional.PieChartCommand;
 import duke.commands.functional.UndoCommand;
+import duke.commands.gui.ClearFilterCommand;
+import duke.commands.gui.FilterCommand;
+import duke.commands.gui.ShowAssignedTasksCommand;
+import duke.commands.gui.ShowHelpGuideCommand;
+import duke.commands.gui.ShowPatientsCommand;
+import duke.commands.gui.ShowTasksCommand;
+import duke.commands.gui.ShowTodayCommand;
+import duke.commands.gui.ShowTomorrowCommand;
 import duke.commands.patient.AddPatientCommand;
 import duke.commands.patient.DeletePatientCommand;
 import duke.commands.patient.FindPatientCommand;
@@ -24,10 +32,7 @@ import duke.commands.task.ListTasksCommand;
 import duke.commands.task.UpcomingTasksCommand;
 import duke.commands.task.UpdateTaskCommand;
 import duke.exceptions.DukeException;
-import duke.util.DukeUi;
 import duke.util.Parser;
-import duke.util.TypoCorrector;
-
 import java.time.LocalDateTime;
 
 /**
@@ -141,6 +146,22 @@ public class CommandManager {
             }
         case "show upcoming tasks":
             return new UpcomingTasksCommand(LocalDateTime.now(), true);
+        case "show patients":
+            return new ShowPatientsCommand();
+        case "show tasks":
+            return new ShowTasksCommand();
+        case "show assigned tasks":
+            return new ShowAssignedTasksCommand();
+        case "show help guide":
+            return new ShowHelpGuideCommand();
+        case "show today":
+            return new ShowTodayCommand();
+        case "show tomorrow":
+            return new ShowTomorrowCommand();
+        case "filter":
+            return new FilterCommand(parser.parseUserInput()[0]);
+        case "clear filter":
+            return new ClearFilterCommand();
         case "duke":
             return new DukeCommand();
         case "bye":

@@ -22,13 +22,14 @@
 <?import javafx.stage.Stage?>
 
 <!-- @@author HUANGXUANKUN -->
-<fx:root title="Dukepital" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root resizable="false" title="Dukepital" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <scene>
       <Scene>
          <root>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1300.0">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="1290.0">
                 <children>
-                    <TextField fx:id="userInput" layoutX="1050.0" layoutY="653.0" onAction="#handleUserInput" prefHeight="32.0" prefWidth="187.0" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="63.0" />
+                    <TextField fx:id="userInput" layoutX="1050.0" layoutY="653.0" onAction="#handleUserInput" prefHeight="32.0" prefWidth="176.0" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="63.0" />
                     <Button fx:id="sendButton" layoutX="1237.0" layoutY="653.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="32.0" prefWidth="63.0" text="Send" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="0.0" />
                     <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="1050.0" prefHeight="673.0" prefWidth="249.0" vvalue="1.0" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="1050.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
                         <content>
@@ -37,7 +38,7 @@
                     </ScrollPane>
                     <AnchorPane layoutX="331.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="714.0" prefWidth="719.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="331.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="10.0">
                         <children>
-                            <TabPane prefHeight="714.0" prefWidth="719.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <TabPane fx:id="centerTabPane" prefHeight="714.0" prefWidth="719.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <tabs>
                                     <Tab text="Patients">
                                         <content>
@@ -125,22 +126,22 @@
                     </AnchorPane>
                     <AnchorPane layoutX="3.0" prefHeight="714.0" prefWidth="321.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                         <children>
-                            <TabPane prefHeight="714.0" prefWidth="334.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+                            <TabPane fx:id="leftTabPane" prefHeight="714.0" prefWidth="334.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
                                 <tabs>
                                     <Tab text="Patient Commands">
                                         <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="714.0" prefWidth="279.0">
                                                 <children>
-                                                    <Button fx:id="addPatientButton" layoutX="11.0" layoutY="208.0" mnemonicParsing="false" onAction="#handleAddPatientButton" prefHeight="27.0" prefWidth="257.0" text="Add Patient" AnchorPane.bottomAnchor="469.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="208.0" />
+                                                    <Button fx:id="addPatientButton" layoutX="10.0" layoutY="201.0" mnemonicParsing="false" onAction="#handleAddPatientButton" prefHeight="35.0" prefWidth="261.0" text="Add Patient" AnchorPane.bottomAnchor="450.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="201.0" />
                                                     <Text fontSmoothingType="LCD" layoutX="13.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Command Shortcuts" wrappingWidth="262.0" AnchorPane.leftAnchor="13.0" AnchorPane.topAnchor="14.41796875">
                                                         <font>
                                                             <Font size="20.0" />
                                                         </font>
                                                     </Text>
-                                                    <TextField fx:id="addPatientNameField" alignment="CENTER" layoutX="75.0" layoutY="62.0" prefHeight="27.0" prefWidth="187.0" promptText="Enter Name Here" AnchorPane.leftAnchor="77.0" />
-                                                    <TextField fx:id="addPatientNricField" alignment="CENTER" layoutX="75.0" layoutY="93.0" prefHeight="27.0" prefWidth="187.0" promptText="Enter NRIC Here" AnchorPane.bottomAnchor="584.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="93.0" />
-                                                    <TextField fx:id="addPatientRoomField" alignment="CENTER" layoutX="76.0" layoutY="125.0" promptText="Enter Room No. Here" AnchorPane.bottomAnchor="551.0" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="125.0" />
-                                                    <TextField fx:id="addPatientRemarkField" alignment="CENTER" layoutX="77.0" layoutY="159.0" promptText="Any Remark?" AnchorPane.bottomAnchor="515.0" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="159.0" />
+                                                    <TextField fx:id="addPatientNameField" alignment="CENTER" layoutX="75.0" layoutY="62.0" prefHeight="27.0" prefWidth="191.0" promptText="Enter Name Here" AnchorPane.leftAnchor="77.0" />
+                                                    <TextField fx:id="addPatientNricField" alignment="CENTER" layoutX="75.0" layoutY="93.0" prefHeight="24.0" prefWidth="192.0" promptText="Enter NRIC Here" AnchorPane.bottomAnchor="569.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="93.0" />
+                                                    <TextField fx:id="addPatientRoomField" alignment="CENTER" layoutX="76.0" layoutY="125.0" prefHeight="24.0" prefWidth="191.0" promptText="Enter Room No. Here" AnchorPane.bottomAnchor="537.0" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="125.0" />
+                                                    <TextField fx:id="addPatientRemarkField" alignment="CENTER" layoutX="77.0" layoutY="159.0" prefHeight="25.0" prefWidth="191.0" promptText="Any Remark?" AnchorPane.bottomAnchor="502.0" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="159.0" />
                                                     <Text layoutX="13.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="CENTER" wrappingWidth="54.13671875" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="205.86328125">
                                                         <font>
                                                             <Font size="18.0" />
@@ -161,9 +162,9 @@
                                                             <Font size="18.0" />
                                                         </font>
                                                     </Text>
-                                                    <Button fx:id="updatePatientButton" layoutX="9.0" layoutY="392.0" mnemonicParsing="false" onAction="#handleUpdatePatientButton" prefHeight="27.0" prefWidth="255.0" text="Update Patient" AnchorPane.bottomAnchor="285.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="392.0" />
-                                                    <TextField fx:id="updatePatientIdField" layoutX="139.0" layoutY="269.0" prefHeight="27.0" prefWidth="129.0" promptText="Enter Patient ID Here" AnchorPane.bottomAnchor="408.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="269.0" />
-                                                    <TextField fx:id="updatePatientColumnField" layoutX="139.0" layoutY="304.0" prefHeight="25.0" prefWidth="129.0" promptText="e.g. name, NRIC etc" AnchorPane.bottomAnchor="373.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="304.0" />
+                                                    <Button fx:id="updatePatientButton" layoutX="9.0" layoutY="392.0" mnemonicParsing="false" onAction="#handleUpdatePatientButton" prefHeight="28.0" prefWidth="259.0" text="Update Patient" AnchorPane.bottomAnchor="266.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="392.0" />
+                                                    <TextField fx:id="updatePatientIdField" layoutX="139.0" layoutY="269.0" prefHeight="24.0" prefWidth="133.0" promptText="Enter Patient ID Here" AnchorPane.bottomAnchor="393.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="269.0" />
+                                                    <TextField fx:id="updatePatientColumnField" layoutX="139.0" layoutY="304.0" prefHeight="32.0" prefWidth="133.0" promptText="e.g. name, NRIC etc" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="304.0" />
                                                     <TextField fx:id="updatePatientContentField" layoutX="140.0" layoutY="347.0" prefHeight="28.0" prefWidth="128.0" promptText="Update to ?" AnchorPane.leftAnchor="140.0" />
                                                     <Text layoutX="14.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID:" textAlignment="CENTER" wrappingWidth="105.13671875" AnchorPane.bottomAnchor="412.625" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="153.86328125" AnchorPane.topAnchor="272.375">
                                                         <font>
@@ -180,8 +181,8 @@
                                                             <Font size="16.0" />
                                                         </font>
                                                     </Text>
-                                                    <Button fx:id="deletePatientButton" layoutX="8.0" layoutY="498.0" mnemonicParsing="false" onAction="#handleDeletePatientButton" prefHeight="27.0" prefWidth="258.0" text="Delete Patient" AnchorPane.bottomAnchor="179.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="498.0" />
-                                                    <TextField fx:id="deletePatientIdField" layoutX="122.0" layoutY="443.0" prefHeight="25.0" prefWidth="129.0" promptText="Enter Patient ID Here" AnchorPane.bottomAnchor="234.0" AnchorPane.leftAnchor="122.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="443.0" />
+                                                    <Button fx:id="deletePatientButton" layoutX="8.0" layoutY="498.0" mnemonicParsing="false" onAction="#handleDeletePatientButton" prefHeight="34.0" prefWidth="262.0" text="Delete Patient" AnchorPane.bottomAnchor="154.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="498.0" />
+                                                    <TextField fx:id="deletePatientIdField" layoutX="122.0" layoutY="443.0" prefHeight="37.0" prefWidth="133.0" promptText="Enter Patient ID Here" AnchorPane.bottomAnchor="206.0" AnchorPane.leftAnchor="122.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="443.0" />
                                                     <Text layoutX="14.0" layoutY="462.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID:" textAlignment="CENTER" wrappingWidth="81.13671875" AnchorPane.bottomAnchor="239.046875" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="177.86328125" AnchorPane.topAnchor="448.453125">
                                                         <font>
                                                             <Font size="14.0" />
@@ -189,7 +190,7 @@
                                                     </Text>
                                                     <Button fx:id="listPatientsButton" layoutX="90.0" layoutY="573.0" mnemonicParsing="false" onAction="#handleListPatientsButton" prefHeight="59.0" prefWidth="98.0" text="List Patients" AnchorPane.topAnchor="573.0" />
                                                     <Separator layoutX="6.0" layoutY="248.0" prefHeight="5.0" prefWidth="262.0" />
-                                                    <Separator layoutX="7.0" layoutY="419.0" prefHeight="27.0" prefWidth="267.0" />
+                                                    <Separator layoutX="11.0" layoutY="420.0" prefHeight="27.0" prefWidth="267.0" />
                                                     <Separator layoutX="7.0" layoutY="541.0" prefHeight="3.0" prefWidth="260.0" />
                                                 </children>
                                             </AnchorPane>
@@ -205,11 +206,11 @@
                                                         </font>
                                                     </Text>
                                                     <Text layoutX="14.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task Name:" AnchorPane.bottomAnchor="596.2578125" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="193.87939453125" AnchorPane.topAnchor="92.431640625" />
-                                                    <TextField fx:id="addTaskNameField" layoutX="88.0" layoutY="87.0" promptText="Enter Task Name Here" AnchorPane.bottomAnchor="590.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="24.5" AnchorPane.topAnchor="87.0" />
-                                                    <Button layoutX="18.0" layoutY="129.0" mnemonicParsing="false" onAction="#handleAddTaskButton" prefHeight="27.0" prefWidth="227.0" text="Add Task" AnchorPane.bottomAnchor="548.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="129.0" />
+                                                    <TextField fx:id="addTaskNameField" layoutX="88.0" layoutY="87.0" prefHeight="31.0" prefWidth="165.0" promptText="Enter Task Name Here" AnchorPane.bottomAnchor="568.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="87.0" />
+                                                    <Button layoutX="18.0" layoutY="129.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAddTaskButton" prefHeight="31.0" prefWidth="231.0" text="Add Task" AnchorPane.bottomAnchor="526.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="129.0" />
                                                     <Text layoutX="14.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task ID :" AnchorPane.bottomAnchor="499.2578125" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="212.18603515625" AnchorPane.topAnchor="189.431640625" />
-                                                    <TextField fx:id="deleteTaskIdField" layoutX="88.0" layoutY="184.0" promptText="Enter Task ID Here" AnchorPane.bottomAnchor="493.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="24.5" AnchorPane.topAnchor="184.0" />
-                                                    <Button layoutX="18.0" layoutY="223.0" mnemonicParsing="false" onAction="#handleDeleteTaskButton" prefHeight="27.0" prefWidth="227.0" text="Delete Task" AnchorPane.bottomAnchor="454.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="223.0" />
+                                                    <TextField fx:id="deleteTaskIdField" layoutX="88.0" layoutY="184.0" prefHeight="29.0" prefWidth="165.0" promptText="Enter Task ID Here" AnchorPane.bottomAnchor="473.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="184.0" />
+                                                    <Button layoutX="18.0" layoutY="223.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleDeleteTaskButton" prefHeight="32.0" prefWidth="231.0" text="Delete Task" AnchorPane.bottomAnchor="431.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="223.0" />
                                                     <Button layoutX="65.0" layoutY="299.0" mnemonicParsing="false" onAction="#handleListTasksButton" prefHeight="68.0" prefWidth="134.0" text="List Tasks" AnchorPane.leftAnchor="65.0" />
                                                     <Separator layoutX="32.0" layoutY="279.0" prefWidth="217.0" />
                                                     <Separator layoutX="32.0" layoutY="178.0" prefWidth="200.0" />
@@ -267,7 +268,7 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Accordion maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0">
+                                          <Accordion fx:id="upComingTasksAccordion" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0">
                                             <panes>
                                               <TitledPane fx:id="firstTitledPane" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
                                                 <content>
@@ -397,7 +398,7 @@
                             </TabPane>
                         </children>
                     </AnchorPane>
-                    <Button layoutX="1050.0" layoutY="690.0" mnemonicParsing="false" onAction="#handleUndoButton" prefHeight="32.0" prefWidth="249.0" text="Undo" AnchorPane.bottomAnchor="0.0" />
+                    <Button layoutX="1050.0" layoutY="690.0" mnemonicParsing="false" onAction="#handleUndoButton" prefHeight="32.0" prefWidth="240.0" text="Undo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1050.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="684.0" />
                 </children>
             </AnchorPane>
          </root>

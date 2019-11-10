@@ -1,3 +1,5 @@
+//@@author HUANGXUANKUN
+
 package duke;
 
 import duke.gui.Ui;
@@ -7,7 +9,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-//@@author HUANGXUANKUN
 /**
  * Launcher class for the app.
  */
