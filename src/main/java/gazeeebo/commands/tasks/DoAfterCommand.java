@@ -22,14 +22,19 @@ import gazeeebo.tasks.DoAfter;
  */
 public class DoAfterCommand extends Command {
     /**
-     * Shows what tasks to do after wehn another task is completed.
-     * @param list         task lists
-     * @param ui           the object that deals with printing things to the user.
-     * @param storage      the object that deals with storing data.
-     * @param commandStack keep stack of previous commands.
-     * @throws ParseException       catch error if parse string to date fails.
-     * @throws IOException          catch error if read file fails.
-     * @throws NullPointerException if tDate doesn't get updated.
+     * Creates a task to be done after the previous task
+     * and sets a reminder when the previous task is done.
+     *
+     * @param list         Task lists
+     * @param ui           The object that deals with
+     *                     printing things to the user.
+     * @param storage      The object that deals with storing data.
+     * @param commandStack Keep stack of previous commands.
+     * @throws DukeException  Throws custom exception when
+     *                        format of do after command is wrong
+     * @throws ParseException catch error if parse string to date fails.
+     * @throws IOException    catch error if read file fails.
+
      */
     @Override
     public void execute(final ArrayList<Task> list,
@@ -37,7 +42,7 @@ public class DoAfterCommand extends Command {
                         final Stack<ArrayList<Task>> commandStack,
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
-            throws DukeException, ParseException, IOException {
+            throws ParseException, IOException {
 
         String before = "";
         String after = "";

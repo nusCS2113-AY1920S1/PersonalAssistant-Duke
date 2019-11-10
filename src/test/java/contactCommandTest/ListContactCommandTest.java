@@ -3,6 +3,7 @@
 package contactCommandTest;
 
 
+
 import gazeeebo.commands.contact.ListContactCommand;
 
 import org.junit.jupiter.api.AfterEach;

@@ -984,43 +984,43 @@ public class HelpText {
     //--------------------------------------password-----------------------------
     public static final String PASSWORD_PLANNER_PAGE = SEPARATOR_PAGE
             + "********** Password to enter the planner **********\n"
-            + "The password is a security measure to prevent other users from accessing the user's \n"
-            + "Gazeeebo without his permission. Default password is jjjry.\n"
-            + "Enter the correct password set\n"
-            + "Format: Password_text\n"
-            + "\n"
-            + "Example:\n"
-            + "\t- jjjry\n"
-            + SEPARATOR_PAGE;
+                    + "The password is a security measure to prevent other users from accessing the user's \n"
+                    + "Gazeeebo without his permission. Default password is jjjry.\n"
+                    + "Enter the correct password set\n"
+                    + "Format: Password_text\n"
+                    + "\n"
+                    + "Example:\n"
+                    + "\t- jjjry\n"
+                    + SEPARATOR_PAGE;
 
     public static final String PASSWORD_CHANGE_PAGE = SEPARATOR_PAGE
             + "********** Change Password based on keyword: change password ********** \n"
-            + "Change Password. Feature can be called in the main page.\n"
-            + "\n"
-            + "Step 1: Input change password\n"
-            + "Step 2: Input old password.\n"
-            + "Step 2: Input new password.\n"
-            + "\n"
-            + SEPARATOR_PAGE;
+                    + "Change Password. Feature can be called in the main page.\n"
+                    + "\n"
+                    + "Step 1: Input change password\n"
+                    + "Step 2: Input old password.\n"
+                    + "Step 2: Input new password.\n"
+                    + "\n"
+                    + SEPARATOR_PAGE;
 
     //----------------------------module planner-----------------------------------
     private static final String HEADER_MODULE_PLANNER_PAGE = "********** Module Planner Page **********\n"
             + "The Module Planner block mainly helps users to create and manage a 4-year module "
-            + "plan for studying life in NUS\n"
-            + "\n"
-            + "How to get to the Module Planner page:\n"
-            + "\t- From main page, type in command 'moduleplanner', And then system will drops "
-            + "into Module Planner session\n"
-            + "\t- You could only enter the module planner page from the main page\n";
+                + "plan for studying life in NUS\n"
+                + "\n"
+                + "How to get to the Module Planner page:\n"
+                + "\t- From main page, type in command 'moduleplanner', And then system will drops "
+                + "into Module Planner session\n"
+                + "\t- You could only enter the module planner page from the main page\n";
 
     private static final String MODULE_PLANNER_PLAN =
             "\t[ Display the module plan table and showcase suggestions: plan ]\n"
-                    + "\tDescription: showcase the module plan table\n"
-                    + "\n"
-                    + "\tFormat: plan\n"
-                    + "\n"
-                    + "\tIf it is the first time user is using this feature, the system showcase default module plan \n"
-                    + "\ttable which is the CEG recommended module plan for AY18/19 intake.\n";
+            + "\tDescription: showcase the module plan table\n"
+            + "\n"
+            + "\tFormat: plan\n"
+            + "\n"
+            + "\tIf it is the first time user is using this feature, the system showcase default module plan \n"
+            + "\ttable which is the CEG recommended module plan for AY18/19 intake.\n";
 
     private static final String MODULE_PLANNER_ADD =
             "\t[ Add module to specific semester column: add ]\n"
@@ -1083,9 +1083,9 @@ public class HelpText {
     //--------------------------------exiting the program----------------------------------
     public static final String BYE_PAGE = SEPARATOR_PAGE
             + "********** Exiting the program: bye **********\n"
-            + "Exits the program.\n"
-            + "Format: bye\n"
-            + SEPARATOR_PAGE;
+                    + "Exits the program.\n"
+                    + "Format: bye\n"
+                    + SEPARATOR_PAGE;
 
     //-----------------------------pages--------------------------------------
     public static final String HELP_PAGE = SEPARATOR_PAGE
@@ -1196,6 +1196,4 @@ public class HelpText {
             + MODULE_PLANNER_SHIFT + SEPARATOR_COMMAND
             + MODULE_PLANNER_PREREQ + SEPARATOR_COMMAND
             + MODULE_PLANNER_UNDO + SEPARATOR_PAGE;
-
-
 }
