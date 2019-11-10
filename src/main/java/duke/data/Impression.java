@@ -283,7 +283,7 @@ public class Impression extends DukeObject {
      * @param keyIdentifier index of the treatment
      * @return the treatment specified by the index
      */
-    public Treatment getTreatment(String keyIdentifier) throws DukeException {
+    public Treatment getTreatment(String keyIdentifier) {
         String lowerKey = keyIdentifier.toLowerCase();
         for (Treatment treatment : treatments) {
             String dataName = treatment.getName().toLowerCase();

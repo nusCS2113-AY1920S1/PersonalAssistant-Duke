@@ -182,7 +182,6 @@ public class Patient extends DukeObject {
         return new SearchResults(searchTerm, resultList, this);
     }
 
-
     /**
      * This function finds Impressions relevant to the searchTerm.
      *
@@ -448,5 +447,14 @@ public class Patient extends DukeObject {
             }
         }
         return false;
+    }
+
+    public void updatePriorityList(Impression impression, DukeData data) {
+        assert (impressionList.contains(impression)
+                && (impression.getEvidence(data.getName()) != null
+                || impression.getTreatment(data.getName()) != null));
+        if (data.getPriority() == DukeData.PRIORITY_CRITICAL) {
+
+        }
     }
 }
