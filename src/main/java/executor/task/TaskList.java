@@ -95,8 +95,7 @@ public class TaskList extends ArrayList<Task> {
                 newTask = null;
                 break;
             }
-        }
-        catch (DukeException f) {
+        } catch (DukeException f) {
             throw f;
         } catch (Exception e) {
             throw new DukeException("Unable to create task.\n");

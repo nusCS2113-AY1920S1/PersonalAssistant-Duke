@@ -34,15 +34,11 @@ class Deadline extends Task {
                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
                 this.setDate(localDate);
                 this.setTime(localTime);
-//                System.out.println("Date Interpreted: "
-//                        + getDate().format(dateFormatter)
-//                        + " "
-//                        + getTime().format(timeFormatter));
             } catch (Exception e) {
                 this.setDate(LocalDate.now());
                 this.setTime(LocalTime.now());
                 throw new DukeException("Invalid Input. Unable to interpret Datetime (use: dd/MM/yy HHmm) \n"
-                        + "So we made the deadline for the task TODAY! I guess you are rushing !");
+                        + "So we made the deadline for the task TODAY! I guess you are rushing \n!");
             }
         }
     }
