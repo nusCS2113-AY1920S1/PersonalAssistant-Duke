@@ -75,6 +75,7 @@ public class TaskCommandParser extends Command {
             + "7. spec\n"
             + "8. moduleplanner\n"
             + "9. notes\n"
+            + "10. change password"
             + "To exit: bye\n";
     /**
      * Parses the user input and return a command object.
