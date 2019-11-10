@@ -97,6 +97,7 @@ public class DukeConstants {
     public static final String WEEK_FORMAT_KEYWORD = "Week";
     public static final String BYE_HEADER ="bye";
 
+    //DATE
     public static final SimpleDateFormat EVENT_DATE_INPUT_FORMAT = new SimpleDateFormat("dd/MM/yyyy"); //format date for event
     public static final SimpleDateFormat EVENT_TIME_INPUT_FORMAT = new SimpleDateFormat("HHmm"); //format time for event
     public static final SimpleDateFormat DAY_DATE_FORMAT = new SimpleDateFormat("E dd/MM/yyyy");
