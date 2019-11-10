@@ -1,4 +1,5 @@
 package Commons;
+
 import DukeExceptions.DukeIOException;
 import DukeExceptions.DukeInvalidDateTimeException;
 import Tasks.Assignment;
@@ -6,20 +7,16 @@ import Tasks.TaskList;
 import Tasks.Event;
 import Tasks.Deadline;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -42,7 +39,7 @@ public class Storage {
     private static final int LENGTH_TO_END_DESCRIPTION = 2;
     private static final int START_OF_DATA_STRING = 0;
     private static final String DEADLINE_DATA_DATE_START_KEYWORD = "by:";
-    private static final String EVENT_DATA_DATE_START_KEYWORD ="at:";
+    private static final String EVENT_DATA_DATE_START_KEYWORD = "at:";
     private static final String EVENT_DATA_TIME_START_KEYWORD = "time:";
     private static final String EVENT_DATA_TIME_END_KEYWORD = "to:";
 
@@ -52,7 +49,7 @@ public class Storage {
     /**
      * Creates Storage object.
      */
-    public Storage(){
+    public Storage() {
         filePath = new File(System.getProperty("user.dir") + File.separator + "data");
         filePath.mkdir();
         filePathEvent = System.getProperty("user.dir") + File.separator + "data" + File.separator + "event.txt";
@@ -77,7 +74,7 @@ public class Storage {
     }
 
     /**
-     * Saves the TaskList of events into event.txt
+     * Saves the TaskList of events into event.txt.
      * @param list TaskList of events
      */
     public void updateEventList(TaskList list) {
@@ -93,7 +90,7 @@ public class Storage {
             Set<String> allDates = map.get(mod).keySet();
             for (String date : allDates) {
                 ArrayList<Assignment> temp = map.get(mod).get(date);
-                for(Assignment task : temp) {
+                for (Assignment task : temp) {
                     outputStream.println(task.toString());
                 }
             }
@@ -102,7 +99,7 @@ public class Storage {
     }
 
     /**
-     * Reads and populates the TaskList of events from event.txt
+     * Reads and populates the TaskList of events from event.txt.
      * @param list TaskList of events
      * @throws DukeIOException when event.txt is not found
      */
@@ -138,7 +135,7 @@ public class Storage {
     }
 
     /**
-     * Saves the TaskList of deadlines into deadline.txt
+     * Saves the TaskList of deadlines into deadline.txt.
      * @param list TaskList of deadlines
      */
     public void updateDeadlineList(TaskList list) {
@@ -154,7 +151,7 @@ public class Storage {
             Set<String> allDates = map.get(mod).keySet();
             for (String date : allDates) {
                 ArrayList<Assignment> temp = map.get(mod).get(date);
-                for(Assignment task : temp) {
+                for (Assignment task : temp) {
                     outputStream.println(task.toString());
                 }
             }
@@ -163,7 +160,7 @@ public class Storage {
     }
 
     /**
-     * Reads and populates the TaskList of deadlines from deadline.txt
+     * Reads and populates the TaskList of deadlines from deadline.txt.
      * @param list TaskList of deadlines
      * @throws DukeIOException when deadline.txt is not found
      */
@@ -179,13 +176,13 @@ public class Storage {
         }
         for (String string : temp) {
             boolean isValid = true;
-            for(int i = 0; i < deadlineDelimiter.length; i++) {
+            for (int i = 0; i < deadlineDelimiter.length; i++) {
                 if (!string.contains(deadlineDelimiter[i])) {
                     isValid = false;
                     break;
                 }
             }
-            if(isValid) {
+            if (isValid) {
                 Assignment task = stringToTask(string);
                 if (task == null) {
                     break;
@@ -205,7 +202,7 @@ public class Storage {
     }
 
     /**
-     * Retrieves reminderMap
+     * Retrieves reminderMap.
      */
     public HashMap<Date, Assignment> getReminderMap() {
         return this.reminderMap;
@@ -215,28 +212,40 @@ public class Storage {
         Assignment line = null;
         try {
             if (string.contains(DukeConstants.DEADLINE_INDICATOR)) {
-                String dateFromData = string.substring(string.indexOf(DEADLINE_DATA_DATE_START_KEYWORD) + LENGTH_TO_DATE, string.indexOf(DukeConstants.DATA_TIME_STRING_TERMINATOR)).trim();
-                String remindTime = string.substring(string.indexOf(DukeConstants.REMINDER_TIME_START_KEYWORD) + LENGTH_TO_REMINDER_DATE, string.indexOf(DukeConstants.REMINDER_TIME_END_KEYWORD));
+                String dateFromData = string.substring(string.indexOf(DEADLINE_DATA_DATE_START_KEYWORD)
+                        + LENGTH_TO_DATE, string.indexOf(DukeConstants.DATA_TIME_STRING_TERMINATOR)).trim();
+                String remindTime = string.substring(string.indexOf(DukeConstants.REMINDER_TIME_START_KEYWORD)
+                        + LENGTH_TO_REMINDER_DATE, string.indexOf(DukeConstants.REMINDER_TIME_END_KEYWORD));
                 Date date = DukeConstants.DEADLINE_DATE_FORMAT.parse(dateFromData);
                 String dateString = DukeConstants.DAY_DATE_FORMAT.format(date);
                 String timeString = DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(date);
-                String modCode = string.substring(START_OF_DATA_STRING, string.indexOf(DukeConstants.DEADLINE_INDICATOR) - LENGTH_TO_END_MODCODE);
-                String description = string.substring(string.indexOf(DukeConstants.REMINDER_TIME_END_KEYWORD) + LENGTH_TO_DESCRIPTION, string.indexOf(DEADLINE_DATA_DATE_START_KEYWORD) - LENGTH_TO_END_DESCRIPTION);
+                String modCode = string.substring(START_OF_DATA_STRING, string.indexOf(DukeConstants.DEADLINE_INDICATOR)
+                        - LENGTH_TO_END_MODCODE);
+                String description = string.substring(string.indexOf(DukeConstants.REMINDER_TIME_END_KEYWORD)
+                        + LENGTH_TO_DESCRIPTION, string.indexOf(DEADLINE_DATA_DATE_START_KEYWORD)
+                        - LENGTH_TO_END_DESCRIPTION);
                 line = new Deadline(modCode + DukeConstants.BLANK_SPACE + description, dateString, timeString);
                 line.setRemindTime(remindTime);
             } else {
-                String dateFromData = string.substring(string.indexOf(EVENT_DATA_DATE_START_KEYWORD) + LENGTH_TO_DATE, string.indexOf(EVENT_DATA_TIME_START_KEYWORD)).trim();
-                String startTimeFromData = string.substring(string.indexOf(EVENT_DATA_TIME_START_KEYWORD) + LENGTH_TO_START_TIME, string.indexOf(EVENT_DATA_TIME_END_KEYWORD));
-                String endTimeFromData = string.substring(string.indexOf(EVENT_DATA_TIME_END_KEYWORD) + LENGTH_TO_REMINDER_DATE, string.indexOf(DukeConstants.DATA_TIME_STRING_TERMINATOR)).trim();
+                String dateFromData = string.substring(string.indexOf(EVENT_DATA_DATE_START_KEYWORD) + LENGTH_TO_DATE,
+                        string.indexOf(EVENT_DATA_TIME_START_KEYWORD)).trim();
+                String startTimeFromData = string.substring(string.indexOf(EVENT_DATA_TIME_START_KEYWORD)
+                        + LENGTH_TO_START_TIME, string.indexOf(EVENT_DATA_TIME_END_KEYWORD));
+                String endTimeFromData = string.substring(string.indexOf(EVENT_DATA_TIME_END_KEYWORD)
+                        + LENGTH_TO_REMINDER_DATE, string.indexOf(DukeConstants.DATA_TIME_STRING_TERMINATOR)).trim();
                 Date startTime = DukeConstants.TWELVE_HOUR_TIME_FORMAT.parse(startTimeFromData);
                 Date endTime = DukeConstants.TWELVE_HOUR_TIME_FORMAT.parse(endTimeFromData);
                 Date date = DukeConstants.DAY_DATE_FORMAT.parse(dateFromData);
                 String dateString = DukeConstants.DAY_DATE_FORMAT.format(date);
                 String startTimeString = DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(startTime);
                 String endTimeString = DukeConstants.TWELVE_HOUR_TIME_FORMAT.format(endTime);
-                String modCode = string.substring(START_OF_DATA_STRING, string.indexOf(DukeConstants.EVENT_INDICATOR) - LENGTH_TO_END_MODCODE);
-                String description = string.substring(string.indexOf(DukeConstants.REMINDER_TIME_END_KEYWORD) + LENGTH_TO_DESCRIPTION, string.indexOf(EVENT_DATA_DATE_START_KEYWORD) - LENGTH_TO_END_DESCRIPTION);
-                line = new Event( modCode + DukeConstants.BLANK_SPACE + description, dateString, startTimeString, endTimeString);
+                String modCode = string.substring(START_OF_DATA_STRING, string.indexOf(DukeConstants.EVENT_INDICATOR)
+                        - LENGTH_TO_END_MODCODE);
+                String description = string.substring(string.indexOf(DukeConstants.REMINDER_TIME_END_KEYWORD)
+                        + LENGTH_TO_DESCRIPTION, string.indexOf(EVENT_DATA_DATE_START_KEYWORD)
+                        - LENGTH_TO_END_DESCRIPTION);
+                line = new Event(modCode + DukeConstants.BLANK_SPACE + description, dateString,
+                        startTimeString, endTimeString);
             }
             if (string.contains(DukeConstants.DONE_INDICATOR)) {
                 line.setDone(true);
@@ -259,12 +268,12 @@ public class Storage {
     }
 
     /**
-     * Starts the thread on existing reminders set from deadline.txt
+     * Starts the thread on existing reminders set from deadline.txt.
      * @throws DukeInvalidDateTimeException On setReminderThread invalid date parameter
      */
     public void setReminderOnStart() throws DukeInvalidDateTimeException {
         Set<Date> dateKey = reminderMap.keySet();
-        for(Date date : dateKey) {
+        for (Date date : dateKey) {
             Date remindDate = new Date();
             Date currentDate = new Date();
             Assignment task = reminderMap.get(date);
@@ -274,7 +283,7 @@ public class Storage {
             } catch (ParseException e) {
                 LOGGER.severe("Reminder date is wrong in deadline.txt. Unable to parse");
             }
-            if(remindDate.after(currentDate)) {
+            if (remindDate.after(currentDate)) {
                 reminder.setReminderThread(remindDate, task);
             }
         }

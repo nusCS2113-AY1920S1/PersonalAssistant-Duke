@@ -1,4 +1,5 @@
 package Parser;
+
 import Commands.ByeCommand;
 import Commands.Command;
 import Commands.HelpCommand;
@@ -11,11 +12,11 @@ import DukeExceptions.DukeInvalidCommandException;
  */
 public class MainParser {
 
-
     public static Command parse(String fullCommand) throws Exception {
         fullCommand = fullCommand.trim().replaceAll(" +", " ");
-        if(fullCommand.isEmpty()) {
-            throw new DukeInvalidCommandException("Invalid input the command cannot be blank. Please type help to see all commands");
+        if (fullCommand.isEmpty()) {
+            throw new DukeInvalidCommandException("Invalid input the command cannot be blank. "
+                    + "Please type help to see all commands");
         }
         String [] stringSplit = fullCommand.split(DukeConstants.BLANK_SPACE);
         String command = stringSplit[0];
@@ -69,7 +70,7 @@ public class MainParser {
                 return new ByeCommand();
 
             default:
-                throw new DukeInvalidCommandException(DukeConstants.SAD_FACE+DukeConstants.INVALID_INPUT_ERROR);
+                throw new DukeInvalidCommandException(DukeConstants.SAD_FACE + DukeConstants.INVALID_INPUT_ERROR);
         }
     }
 }
