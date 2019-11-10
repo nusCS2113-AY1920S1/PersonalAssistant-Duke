@@ -160,6 +160,12 @@ public class EmailList extends ArrayList<Email> {
         return emailStringList;
     }
 
+    /**
+     * Searches for the target string with some degree of tolerance in difference.
+     *
+     * @param target the given target string
+     * @return the string to be displayed to the user containing all the search result
+     */
     public String fuzzySearch(String target) {
         ArrayList<Pair<Integer, Integer>> results = new ArrayList<>();
         for (int i = 0; i < this.size(); i++) {
@@ -173,7 +179,7 @@ public class EmailList extends ArrayList<Email> {
         return this.toString(indexes);
     }
 
-    private static ArrayList<Integer> extractIndexFromFuzzyResults (ArrayList<Pair<Integer, Integer>> results) {
+    private static ArrayList<Integer> extractIndexFromFuzzyResults(ArrayList<Pair<Integer, Integer>> results) {
         ArrayList<Integer> indexes = new ArrayList<>();
         for (Pair result : results) {
             indexes.add((Integer) result.getKey());
