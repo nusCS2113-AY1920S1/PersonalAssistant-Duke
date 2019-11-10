@@ -8,12 +8,12 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 # Installation
 
-1. Download the JAR file [here]()
-1. Run it. Easy as that.
+1. Download the JAR file under releases.
+2. Run it . Easy as that. For more detailed instructions, refer to our documentation below!
 
 # Documentation
 
-* User guide is in /docs
+* <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
 
 # Credits
