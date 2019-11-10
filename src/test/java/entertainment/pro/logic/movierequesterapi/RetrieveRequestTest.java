@@ -2,6 +2,7 @@ package entertainment.pro.logic.movierequesterapi;
 
 import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
@@ -255,14 +256,14 @@ public class RetrieveRequestTest {
                 int genreNo = Math.toIntExact(num);
                 genreRestrict.add(genreNo);
             }
-            searchProfile.setGenreIdPreference(genrePref);
-            searchProfile.setGenreIdRestriction(genreRestrict);
-            searchProfile.setAdult((Boolean) jsonObject.get("adult"));
-            searchProfile.setSortByAlphabetical((Boolean) jsonObject.get("sortByAlphabetical"));
-            searchProfile.setSortByHighestRating((Boolean) jsonObject.get("sortByHighestRating"));
-            searchProfile.setSortByHighestRating((Boolean) jsonObject.get("sortByLatestRelease"));
-            searchProfile.setMovie((Boolean) jsonObject.get("isMovie"));
-            searchProfile.setName((String) jsonObject.get("name"));
+            searchProfile = searchProfile.setGenreIdPreference(genrePref);
+            searchProfile = searchProfile.setGenreIdRestriction(genreRestrict);
+            searchProfile = searchProfile.setAdult((Boolean) jsonObject.get("adult"));
+            searchProfile = searchProfile.setSortByAlphabetical((Boolean) jsonObject.get("sortByAlphabetical"));
+            searchProfile = searchProfile.setSortByHighestRating((Boolean) jsonObject.get("sortByHighestRating"));
+            searchProfile = searchProfile.setSortByHighestRating((Boolean) jsonObject.get("sortByLatestRelease"));
+            searchProfile = searchProfile.setMovie((Boolean) jsonObject.get("isMovie"));
+            searchProfile = searchProfile.setName((String) jsonObject.get("name"));
             RetrieveRequest.searchProfile = searchProfile;
             JSONArray jsonArray3 = getOffline();
             ArrayList<String> getResults = getResultsData();
@@ -271,7 +272,7 @@ public class RetrieveRequestTest {
                 if (RetrieveRequest.checkCondition(jsonObject1)) {
                     //    System.out.println("true");
                     //} else {
-                    //  System.out.println("false");
+                     // System.out.println("false");
                     //}
                     assertEquals("true", getResults.get(d));
                     d += 1;

@@ -3,6 +3,8 @@ package entertainment.pro.logic.parsers.commands;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.MissingInfoException;
+import entertainment.pro.logic.movierequesterapi.RequestListener;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import entertainment.pro.logic.movierequesterapi.RetrieveRequestTest;
 import entertainment.pro.logic.parsers.CommandParser;
