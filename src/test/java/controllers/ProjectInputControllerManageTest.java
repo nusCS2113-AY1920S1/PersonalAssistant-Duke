@@ -153,7 +153,7 @@ class ProjectInputControllerManageTest {
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         simulatedUserInput = "add task -t BTest -c 100 -p 1";
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
-        simulatedUserInput = "view tasks /NAME";
+        simulatedUserInput = "view tasks -name";
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         expectedOutput = new String[] {
             "+----------------------------------------------------------------------+",

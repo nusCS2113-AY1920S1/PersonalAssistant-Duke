@@ -36,6 +36,14 @@ import util.uiformatter.AssignmentViewHelper;
 import util.uiformatter.CommandHelper;
 import util.uiformatter.ViewHelper;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+
 public class ProjectInputController implements IController {
     private ProjectRepository projectRepository;
     private MemberFactory memberFactory;
@@ -483,7 +491,7 @@ public class ProjectInputController implements IController {
                     = projectToManage.getTasksAndAssignedMembers();
                 ArrayList<ArrayList<String>> allTaskDetailsForTable
                     = projectToManage.getTaskList().getAllTaskDetailsForTable(tasksAndAssignedMembers,
-                    "/PRIORITY", projectToManage);
+                    "-priority", projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 if (allTaskDetailsForTable.size() == 1 && allTaskDetailsForTable.get(0).size() == 1) {
                     ArrayList<String> taskTable = new ArrayList<>();
