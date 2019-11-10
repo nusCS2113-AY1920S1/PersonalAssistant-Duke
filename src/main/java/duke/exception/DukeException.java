@@ -23,9 +23,11 @@ public class DukeException extends Exception {
     public static final String MESSAGE_SORT_CRITERIA_INVALID = "%s is not a valid sort criteria!";
     public static final String MESSAGE_EXPENSE_VIEW_NAME_INVALID = "%s is not a valid view scope name!";
     public static final String MESSAGE_EXPENSE_VIEW_NUMBER_INVALID = "%s is not a valid view scope number!";
-    public static final String MESSAGE_PANE_NAME_INVALID = "%s is not an available pane! Choose between \"expense, payment, budget and plan\"!";
+    public static final String MESSAGE_PANE_NAME_INVALID = "%s is not an available pane! "
+            + "Choose between \"expense, payment, budget and plan\"!";
     public static final String MESSAGE_INCOME_AMOUNT_INVALID = "%s is not a valid amount!";
-    public static final String MESSAGE_DELETE_FORMAT_INVALID = "%s is not a valid format! First index has to be smaller than the second index!";
+    public static final String MESSAGE_DELETE_FORMAT_INVALID = "%s is not a valid format! "
+            + "First index has to be smaller than the second index!";
     public static final String MESSAGE_PRIORITY_NAME_INVALID = "%s is not a priority name.";
     public static final String MESSAGE_PAYMENT_STORAGE_MISSING_FIELD = "Payment's %s field is missing!";
     public static final String MESSAGE_PAYMENT_AMOUNT_INVALID = "%s is not a valid amount!";

@@ -37,7 +37,7 @@ public class BudgetViewStorage {
      *
      * @throws DukeException if unable to save the file successfully
      */
-    public void saveBudgetView (BudgetView budgetView) throws DukeException {
+    public void saveBudgetView(BudgetView budgetView) throws DukeException {
         try {
             Map<Integer, String> budgetViewCategory = budgetView.getBudgetViewCategory();
             BUDGETVIEW_FILE.createNewFile();

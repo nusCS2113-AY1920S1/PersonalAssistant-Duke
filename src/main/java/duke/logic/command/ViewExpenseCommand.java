@@ -61,8 +61,8 @@ public class ViewExpenseCommand extends Command {
     @Override
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
         if (!commandParams.containsMainParam()) {
-            throw new DukeException(String.format
-                    (DukeException.MESSAGE_COMMAND_PARAM_MISSING, EXCEPTION_WORD_TIME_SCOPE));
+            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING,
+                    EXCEPTION_WORD_TIME_SCOPE));
         }
 
         String mainParam = commandParams.getMainParam();
@@ -74,8 +74,8 @@ public class ViewExpenseCommand extends Command {
         }
 
         if (commandParams.getMainParam().toLowerCase().equals(PARAM_PREVIOUS_ALL)) {
-            throw new DukeException(String.format
-                    (DukeException.MESSAGE_COMMAND_PARAM_REDUNDANT, PARAM_PREVIOUS_REDUNDANT));
+            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_REDUNDANT,
+                    PARAM_PREVIOUS_REDUNDANT));
         }
 
         int previous;

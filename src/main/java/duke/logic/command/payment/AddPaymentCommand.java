@@ -64,24 +64,24 @@ public class AddPaymentCommand extends Command {
 
         // Amount is a compulsory field and also the main param.
         if (!commandParams.containsMainParam()) {
-            throw new DukeException(String.format
-                    (DukeException.MESSAGE_COMMAND_PARAM_MISSING, PARAM_AMOUNT_NAME));
+            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING,
+                    PARAM_AMOUNT_NAME));
         }
 
         paymentBuilder.setAmount(commandParams.getMainParam());
 
         // Description is a compulsory field.
         if (!commandParams.containsParams(SecondaryParam.DESCRIPTION.name)) {
-            throw new DukeException(String.format
-                    (DukeException.MESSAGE_COMMAND_PARAM_MISSING, SecondaryParam.DESCRIPTION.name));
+            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING,
+                    SecondaryParam.DESCRIPTION.name));
         }
 
         paymentBuilder.setDescription(commandParams.getParam(SecondaryParam.DESCRIPTION.name));
 
         // Due is a compulsory field.
         if (!commandParams.containsParams(SecondaryParam.DUE.name)) {
-            throw new DukeException(String.format
-                    (DukeException.MESSAGE_COMMAND_PARAM_MISSING, SecondaryParam.DUE.name));
+            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING,
+                    SecondaryParam.DUE.name));
         }
 
         paymentBuilder.setDue(commandParams.getParam(SecondaryParam.DUE.name));

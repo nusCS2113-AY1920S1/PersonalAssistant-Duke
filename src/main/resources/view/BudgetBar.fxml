@@ -19,11 +19,11 @@
         <RowConstraints percentHeight="33.33"/>
     </rowConstraints>
     <children>
-      <VBox fx:id="vBox1" GridPane.rowIndex="0" GridPane.columnIndex="0" alignment="CENTER"/>
-      <VBox fx:id="vBox2" GridPane.rowIndex="0" GridPane.columnIndex="1" alignment="CENTER"/>
-      <VBox fx:id="vBox3" GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="CENTER"/>
-      <VBox fx:id="vBox4" GridPane.rowIndex="1" GridPane.columnIndex="1" alignment="CENTER"/>
-      <VBox fx:id="vBox5" GridPane.rowIndex="2" GridPane.columnIndex="0" alignment="CENTER"/>
-      <VBox fx:id="vBox6" GridPane.rowIndex="2" GridPane.columnIndex="1" alignment="CENTER"/>
+      <VBox fx:id="vbox1" GridPane.rowIndex="0" GridPane.columnIndex="0" alignment="CENTER"/>
+      <VBox fx:id="vbox2" GridPane.rowIndex="0" GridPane.columnIndex="1" alignment="CENTER"/>
+      <VBox fx:id="vbox3" GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="CENTER"/>
+      <VBox fx:id="vbox4" GridPane.rowIndex="1" GridPane.columnIndex="1" alignment="CENTER"/>
+      <VBox fx:id="vbox5" GridPane.rowIndex="2" GridPane.columnIndex="0" alignment="CENTER"/>
+      <VBox fx:id="vbox6" GridPane.rowIndex="2" GridPane.columnIndex="1" alignment="CENTER"/>
   </children>
 </GridPane>

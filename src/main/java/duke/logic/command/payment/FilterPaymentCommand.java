@@ -62,8 +62,8 @@ public class FilterPaymentCommand extends Command {
     @Override
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
         if (!commandParams.containsMainParam()) {
-            throw new DukeException(String.format
-                    (DukeException.MESSAGE_COMMAND_PARAM_MISSING, EXCEPTION_WORD_TIME_SCOPE));
+            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING,
+                    EXCEPTION_WORD_TIME_SCOPE));
         }
 
         String timeScope = commandParams.getMainParam().toLowerCase(); // case insensitive

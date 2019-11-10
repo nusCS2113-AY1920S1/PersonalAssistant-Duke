@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 
-public class IncomeCard extends UiPart<Region>{
+public class IncomeCard extends UiPart<Region> {
     private static final String FXML_FILE_NAME = "IncomeCard.fxml";
     public final Income income;
 
@@ -18,7 +18,12 @@ public class IncomeCard extends UiPart<Region>{
     @FXML
     private VBox incomeContainer;
 
-
+    /**
+     * Constructor for incomeCard.
+     *
+     * @param income income from incomeList
+     * @param index the specific number of income in the list
+     */
     public IncomeCard(Income income, int index) {
         super(FXML_FILE_NAME, null);
         this.income = income;

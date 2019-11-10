@@ -28,7 +28,7 @@ public class IncomeList extends DukeList<Income> {
     private StringProperty totalString;
 
     /**
-     * Constructor for IncomeList
+     * Constructor for IncomeList.
      *
      * @param internalList loaded income list from storage
      */
@@ -42,7 +42,7 @@ public class IncomeList extends DukeList<Income> {
     }
 
     /**
-     * Method to update the list upon any changes to income list
+     * Method to update the list upon any changes to income list.
      */
     private void updateExternalList() {
         internalIncomeList = internalList;
@@ -51,9 +51,9 @@ public class IncomeList extends DukeList<Income> {
     }
 
     /**
-     * Adds an income to incomeList
+     * Adds an income to incomeList.
      *
-     * @param income
+     * @param income income to be added
      */
     @Override
     public void add(Income income) {
@@ -63,7 +63,7 @@ public class IncomeList extends DukeList<Income> {
     }
 
     /**
-     * Deletes an income from the incomeList according to its index
+     * Deletes an income from the incomeList according to its index.
      *
      * @param index the index of the item to in {@code externalList}.
      * @throws DukeException if index is not valid
@@ -75,7 +75,7 @@ public class IncomeList extends DukeList<Income> {
     }
 
     /**
-     * Clears the entire incomeList
+     * Clears the entire incomeList.
      */
     @Override
     public void clear() {
@@ -84,9 +84,9 @@ public class IncomeList extends DukeList<Income> {
     }
 
     /**
-     * Returns list as reflected in BudgetPane
+     * Returns list as reflected in BudgetPane.
      *
-     * @return externalIncomeList incomeList in the form of ObservableList<Income>
+     * @return externalIncomeList incomeList in the form of ObservableList
      */
     @Override
     public ObservableList<Income> getExternalList() {
@@ -94,9 +94,9 @@ public class IncomeList extends DukeList<Income> {
     }
 
     /**
-     * Returns internal income list
+     * Returns internal income list.
      *
-     * @return internalIncomeList incomeList as a List<Income>
+     * @return internalIncomeList incomeList as a List
      */
     @Override
     public List<Income> getInternalList() {
@@ -127,7 +127,7 @@ public class IncomeList extends DukeList<Income> {
     }
 
     /**
-     * Returns the total income as a StringProperty
+     * Returns the total income as a StringProperty.
      *
      * @return totalString
      */

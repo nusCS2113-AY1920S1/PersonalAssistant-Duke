@@ -61,8 +61,8 @@ public class ExpensePane extends UiPart<AnchorPane> {
         logger.info("expenseList has length " + expenseList.size());
         logger.info("expenseList has length " + expenseList.size());
         Label emptyExpenseListPlaceholder = new Label();
-        emptyExpenseListPlaceholder.setText("No Expenses yet. " +
-                "Type \"addExpense #amount\" to add one!");
+        emptyExpenseListPlaceholder.setText("No Expenses yet. "
+                + "Type \"addExpense #amount\" to add one!");
         expenseListView.setPlaceholder(emptyExpenseListPlaceholder);
         expenseListView.setItems(expenseList);
         logger.info("Items are set.");

@@ -50,7 +50,8 @@ public class DukePP implements Model {
      */
     // todo: pass more arguments to constructor as more data are implemented.
 
-    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, IncomeList incomeList, Budget budget, BudgetView budgetView, Optional<PaymentList> optionalPayments) throws DukeException {
+    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, IncomeList incomeList,
+                  Budget budget, BudgetView budgetView, Optional<PaymentList> optionalPayments) throws DukeException {
 
         this.expenseList = expenseList;
         this.planBot =  PlanBot.getInstance(planAttributes);
@@ -58,7 +59,7 @@ public class DukePP implements Model {
         this.budget = budget;
         this.budgetView = budgetView;
 
-        if(!optionalPayments.isPresent()) {
+        if (!optionalPayments.isPresent()) {
             logger.warning("PaymentList is not loaded. It will be starting with a empty PaymentList");
             this.payments = new PaymentList(new ArrayList<Payment>());
         } else {
@@ -92,6 +93,11 @@ public class DukePP implements Model {
         expenseList.setViewScope(viewScope, previous);
     }
 
+    /**
+     * Returns external expense list
+     *
+     * @return externalExpenseList the expense list to be reflected in ExpensePane
+     */
     public ObservableList<Expense> getExpenseExternalList() {
         logger.info("Model sends external expense list length "
                 + expenseList.getExternalList().size());
@@ -183,12 +189,12 @@ public class DukePP implements Model {
     }
 
     @Override
-    public void setBudgetView (Integer view, String category) {
+    public void setBudgetView(Integer view, String category) {
         budgetView.setBudgetView(view,category);
     }
 
     @Override
-    public Map<Integer , String> getBudgetViewCategory() {
+    public Map<Integer,String> getBudgetViewCategory() {
         return budgetView.getBudgetViewCategory();
     }
 

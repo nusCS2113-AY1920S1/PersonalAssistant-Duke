@@ -77,10 +77,12 @@ public interface Model {
 
     //PlanBot
     public ObservableList<PlanBot.PlanDialog> getDialogObservableList();
-    public void processPlanInput(String input) throws DukeException;
-    public Map<String, String> getKnownPlanAttributes();
-    public PlanQuestionBank.PlanRecommendation getRecommendedBudgetPlan();
 
+    public void processPlanInput(String input) throws DukeException;
+
+    public Map<String, String> getKnownPlanAttributes();
+
+    public PlanQuestionBank.PlanRecommendation getRecommendedBudgetPlan();
 
     //************************************************************
     // Pending Payments operations
@@ -112,7 +114,6 @@ public interface Model {
     public ObjectProperty<PaymentList.SortingCriteria> getPaymentSortingCriteria();
 
     public ObjectProperty<Predicate> getPaymentPredicate();
-
 
     //******************************** IncomeList operations
 

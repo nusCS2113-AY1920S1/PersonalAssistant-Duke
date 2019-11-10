@@ -25,32 +25,27 @@ public class BudgetPane extends UiPart<AnchorPane>  {
     private static final String FXML_FILE_NAME = "BudgetPane.fxml";
 
     @FXML
-    private
-    ListView<Income> incomeListView;
+    private ListView<Income> incomeListView;
 
     @FXML
-    private
-    Label incomeLabel;
+    private Label incomeLabel;
 
     @FXML
     Label totalIncomeLabel;
 
     @FXML
-    private
-    Pane paneView;
+    private Pane paneView;
 
     @FXML
-    private
-    Pane paneBudgetView;
+    private Pane paneBudgetView;
 
     @FXML
-    private
-    ListView<String> budgetListView;
+    private ListView<String> budgetListView;
 
     public Logic logic;
 
     /**
-     * Constructor for BudgetPane
+     * Constructor for BudgetPane.
      *
      * @param incomeList the list of income from storage
      * @param logic logic
@@ -60,8 +55,8 @@ public class BudgetPane extends UiPart<AnchorPane>  {
         super(FXML_FILE_NAME, null);
         logger.info("incomeList has length " + incomeList.size());
         Label emptyIncomeListPlaceholder = new Label();
-        emptyIncomeListPlaceholder.setText("No income entered yet! " +
-                "Type \"addIncome #amount /d #source\" to add.");
+        emptyIncomeListPlaceholder.setText("No income entered yet! "
+                + "Type \"addIncome #amount /d #source\" to add.");
         emptyIncomeListPlaceholder.setWrapText(true);
         emptyIncomeListPlaceholder.setTextAlignment(TextAlignment.CENTER);
         incomeListView.setPlaceholder(emptyIncomeListPlaceholder);
@@ -76,7 +71,7 @@ public class BudgetPane extends UiPart<AnchorPane>  {
 
         Text text = new Text();
         ProgressBar overallBudget = new ProgressBar();
-        double percent = logic.getTotalAmount().doubleValue()/logic.getMonthlyBudget().doubleValue();
+        double percent = logic.getTotalAmount().doubleValue() / logic.getMonthlyBudget().doubleValue();
         overallBudget.setProgress(percent);
         BigDecimal remaining = logic.getRemaining(logic.getTotalAmount());
         if ((remaining.compareTo(BigDecimal.ZERO) < 0)) {
@@ -85,7 +80,7 @@ public class BudgetPane extends UiPart<AnchorPane>  {
             text.setText("Remaining: $" + remaining);
         }
         text.setStyle("-fx-font-size: 20px;");
-        if(percent > 0.9) {
+        if (percent > 0.9) {
             overallBudget.setStyle("-fx-accent: red;");
         } else if (percent > 0.65) {
             overallBudget.setStyle("-fx-accent: orange;");
