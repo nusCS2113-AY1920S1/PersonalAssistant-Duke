@@ -6,6 +6,8 @@ import diyeats.model.wallet.Deposit;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //@@author GaryStu
 /**
@@ -13,6 +15,7 @@ import java.time.format.DateTimeParseException;
  */
 public class DepositCommandParser implements ParserInterface<AddTransactionCommand> {
     LocalDate localDate = LocalDate.now();
+    private static Logger logger = Logger.getLogger(DepositCommandParser.class.getName());
 
     /**
      * Parse user input and return AddTransactionCommand.
@@ -29,6 +32,7 @@ public class DepositCommandParser implements ParserInterface<AddTransactionComma
                 try {
                     localDate = LocalDate.parse(amountAndDate[1], dateFormat);
                 } catch (DateTimeParseException e) {
+                    logger.log(Level.WARNING, "date cannot be parsed");
                     return new AddTransactionCommand(true, "Unable to parse " + amountAndDate[1] + " as a date. "
                             + "Please follow DD/MM/YYYY format.");
                 }

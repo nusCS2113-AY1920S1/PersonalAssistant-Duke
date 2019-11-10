@@ -7,6 +7,8 @@ import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //@@author GaryStu
 /**
@@ -15,18 +17,12 @@ import java.util.ArrayList;
  */
 public class HelpCommand extends Command {
     private String specifiedHelp = "";
-
-    /**
-     * Constructor for HelpCommand.
-     */
-    public HelpCommand() {
-    }
+    private static Logger logger = Logger.getLogger(HelpCommand.class.getName());
 
     /**
      * Constructor for HelpCommand.
      * @param specifiedHelp The type of help specified by the user
      */
-
     public HelpCommand(String specifiedHelp) {
         this.specifiedHelp = specifiedHelp;
     }
@@ -50,8 +46,10 @@ public class HelpCommand extends Command {
         try {
             storage.loadHelp(helpLines, specifiedHelp);
         } catch (ProgramException e) {
+            logger.log(Level.WARNING, "there is a problem loading the help file");
             ui.showMessage(e.getMessage());
         }
+        logger.log(Level.FINE, "help is loaded successfully");
         ui.showHelp(helpLines);
         ui.showLine();
     }
