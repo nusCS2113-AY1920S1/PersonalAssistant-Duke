@@ -6,6 +6,13 @@
     "End Time" : "1000 ",
     "Location" : "NUS"
   } ],
+  "2019-01-15" : [ {
+    "Status" : "Upcoming",
+    "Start Time" : "0900 ",
+    "Name" : "Jumping ",
+    "End Time" : "1000 ",
+    "Location" : "NUS"
+  } ],
   "2019-11-10" : [ {
     "Status" : "Upcoming",
     "Start Time" : "0800",
