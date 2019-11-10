@@ -1,4 +1,5 @@
 package entertainment.pro.logic.parsers.commands;
+
 import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.commons.exceptions.DuplicateEntryException;
@@ -106,7 +107,7 @@ public class BlacklistCommand extends CommandSuper {
                     .setGeneralFeedbackText(PromptMessages.DUPLICATE_BLACKLIST + Blacklist.printList());
         }
 
-        logger.log(Level.INFO , PromptMessages.BLACKLIST_ADD_SUCCUESS);
+        logger.log(Level.INFO, PromptMessages.BLACKLIST_ADD_SUCCUESS);
     }
 
     /**
@@ -133,7 +134,7 @@ public class BlacklistCommand extends CommandSuper {
 
         }
 
-        logger.log(Level.INFO , PromptMessages.BLACKLIST_REMOVE_SUCCUESS);
+        logger.log(Level.INFO, PromptMessages.BLACKLIST_REMOVE_SUCCUESS);
 
         if (stat) {
             ((MovieHandler) getUiController()).setGeneralFeedbackText(PromptMessages.BLACKLIST_REMOVE_SUCCUESS);

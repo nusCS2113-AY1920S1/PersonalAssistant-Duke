@@ -69,8 +69,8 @@ public class CommandDebugger {
 
         if (root != COMMANDKEYS.NONE && CommandStructure.hasSubRoot(root) && undefinedCommandArr.length > 1) {
             for (COMMANDKEYS s : CommandStructure.cmdStructure.get(root)) {
-                double temp = calculateJaccardSimilarity(s.toString().toLowerCase()
-                        , undefinedCommandArr[1]);
+                double temp = calculateJaccardSimilarity(s.toString().toLowerCase(),
+                        undefinedCommandArr[1]);
                 if (temp > score) {
                     mostSimilarSub = s;
                     score = temp;

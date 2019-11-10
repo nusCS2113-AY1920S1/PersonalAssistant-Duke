@@ -12,8 +12,11 @@ import com.google.gson.reflect.TypeToken;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import entertainment.pro.model.MovieModel;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.io.IOException;
+import java.io.FileInputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Map;
@@ -28,8 +31,7 @@ public class BlacklistStorage {
     private ObjectMapper mapper = new ObjectMapper();
     private File file;
     private InputStream inputStream;
-    private TypeReference<UserProfile> typeReference = new TypeReference<UserProfile>() {
-    };
+    private TypeReference<UserProfile> typeReference = new TypeReference<UserProfile>() { };
 
     private enum BlacklistKeys { KEYS, MOVIES, ID };
 

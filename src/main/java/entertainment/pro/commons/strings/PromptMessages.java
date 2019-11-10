@@ -14,10 +14,10 @@ public class PromptMessages {
 
     //genre related messages
     public static final String INVALID_GENRE_NAME = "I'm sorry but you have entered a invalid genre...";
-    public static final String REPETITVE_GENRE_NAME = "I'm sorry but the genre entered by you already exists " +
-            "or you are entering the same genre more than a time...";
-    public static final String GENRE_DOES_NOT_EXIST = "I'm sorry but the genre entered by you does not exists " +
-            "under your preferences";
+    public static final String REPETITVE_GENRE_NAME = "I'm sorry but the genre entered by you already exists "
+            + "or you are entering the same genre more than a time...";
+    public static final String GENRE_DOES_NOT_EXIST = "I'm sorry but the genre entered by you does not exists "
+            + "under your preferences";
 
     //ui related messages
     public static final String SETTING_LABELS_UI = "Setting/editing labels in UI";
@@ -101,7 +101,8 @@ public class PromptMessages {
     public static final String DATA_OBTAINED_FROM_API =
             "[Data displayed here was obtained from an external source]";
     public static final String RECACHING_DATA_API_ERROR = "Sorry, but something went wrong when recaching data";
-    public static final String API_FAIL_GENERAL = "I'sorry, but something went wrong when fetching data. Please specify your search request clearly...";
+    public static final String API_FAIL_GENERAL = "I'sorry, but something went wrong when fetching data. "
+            + "Please specify your search request clearly...";
     public static final String API_NULL_DATA = "Null data in API";
     public static final String API_TIME_OUT = "☹ I'sorry, but your request took so long";
     public static final String API_MALFORMED_URL = "Malformed URL in fetching data";
@@ -111,8 +112,8 @@ public class PromptMessages {
     public static final String NULL_URL = "Null URL detected.";
     public static final String DATA_EXTRACT_FROM_API_SUCCESS = "Data has been extracted from API successfully";
     public static final String EXTRACT_MORE_INFO_START = "Extracting more information about a particular movie/TV show";
-    public static final String EXTRACT_MORE_INFO_COMPLETE = "Extraction of more information about a particular " +
-            "movie/TV show complete";
+    public static final String EXTRACT_MORE_INFO_COMPLETE = "Extraction of more information about a particular "
+            + "movie/TV show complete";
     public static final String EXTRACT_CAST_SUCCESS = "Extraction of cast details is a success";
     public static final String EXTRACT_CERT_SUCCESS = "Extraction of cert details is a success";
     public static final String UNABLE_TO_EXTRACT_CAST = "Unable to extract cast details from API";
@@ -124,25 +125,31 @@ public class PromptMessages {
     // data parsing and filtering related messages
     public static final String NO_GENRES_PREF_SET = "No genre preference was set by user for this search request";
     public static final String NO_GENRES_RESTRICT_SET = "No genre preference was set by user for this search request";
-    public static final String FAILED_ADULT_REQUIREMENT = "This movie/TV show will not be added to the search results because " +
-            "it failed adult requirement";
-    public static final String FAILED_NAME_REQUIREMENT = "This movie/TV show will not be added to the search results because " +
-            "it failed to match the name entered by user";
-    public static final String FAILED_GENRE_PREF_REQUIREMENT = "This movie/TV show will not be added to the search results because " +
-            "it does not contains the genre wanted by user";
-    public static final String FAILED_GENRE_RESTRICT_REQUIREMENT = "This movie/TV show will not be added to the search results because " +
-            "it contains the genre restricted by user";
-    public static final String PASSED_REQUIREMENT = "This movie/TV show will be added to the search results because " +
-            "it passed the requirements";
+    public static final String FAILED_ADULT_REQUIREMENT = "This movie/TV show will not be added to "
+            + "the search results because "
+            + "it failed adult requirement";
+    public static final String FAILED_NAME_REQUIREMENT = "This movie/TV show will not be added to the search "
+            + "results because "
+            + "it failed to match the name entered by user";
+    public static final String FAILED_GENRE_PREF_REQUIREMENT = "This movie/TV show will not be added to the "
+            + "search results because "
+            + "it does not contains the genre wanted by user";
+    public static final String FAILED_GENRE_RESTRICT_REQUIREMENT = "This movie/TV show will not be added "
+            + "to the search results because it contains the genre restricted by user";
+
+    public static final String PASSED_REQUIREMENT = "This movie/TV show will be added to the search results because "
+            + "it passed the requirements";
     public static final String RATINGS_FOUND_AS_LONG = "Ratings for a movie/TV show was found to be in long";
     public static final String DATA_PARSING_BEGINS = "Beginning data parsing";
     public static final String CHECK_CONDITION = "Checking whether the search results meet user' wants if any";
-    public static final String CHECK_SORT_CONDITION = "Checking whether the search results need to be sorted " +
-            "according to users' needs";
+    public static final String CHECK_SORT_CONDITION = "Checking whether the search results need to be sorted "
+            + "according to users' needs";
     public static final String SORT_ALPHA_ORDER = "Succssfully sorted results in alphabetical order";
     public static final String SORT_BY_RATINGS = "Succssfully sorted results by ratings";
     public static final String SORT_BY_RELEASE_DATE = "Succssfully sorted results by release dates";
-    public static final String DATA_PROCESSING_IS_COMPLETE = "Data processing is complete. Sending data to MovieHandler class.";
+    public static final String DATA_PROCESSING_IS_COMPLETE = "Data processing is complete. "
+            + "Sending data to MovieHandler class.";
+
 
 
     // retrieve data from local files message
@@ -151,7 +158,8 @@ public class PromptMessages {
                     + "Please take note that posters for search results are unavailable for offline search requests]";
     public static final String IO_EXCEPTION_IN_OFFLINE = "IO Exception when extracting data from offline";
     public static final String DATA_EXTRACT_FROM_OFFLINE_NEEDED = "Data needs to be extracted from offline files";
-    public static final String DATA_EXTRACT_FROM_OFFLINE_SUCCESS = "Data has been extracted from offline files successfully";
+    public static final String DATA_EXTRACT_FROM_OFFLINE_SUCCESS = "Data has been extracted from "
+            + "offline files successfully";
     public static final String START_OFFLINE_DATA_EXTRACTION = "Extraction of offline data begins";
     public static final String OFFLINE_DATA_EXTRACTION_FAILED = "Unable to extract data from offline files";
     public static final String OFFLINE_DATA_EXTRACTION_SUCCESS = "Extraction of offline data is successful";
@@ -176,10 +184,10 @@ public class PromptMessages {
     public static final String NO_SUBROOT_PREFERENCE = "No subroot command detected";
     public static final String UPDATING_INTEREFACE = "Editing preferences done. Now, updating interface..";
     public static final String INVALID_GENRE_NAME_ERROR = "I'm sorry but you have entered a invalid genre...";
-    public static final String REPETITVE_GENRE_NAME_ERROR = "I'm sorry but the genre entered by you already exists " +
-            "or you are entering the same genre more than a time...";
-    public static final String GENRE_DOES_NOT_EXIST_ERROR = "I'm sorry but the genre entered by you does not exists " +
-            "under your preferences";
+    public static final String REPETITVE_GENRE_NAME_ERROR = "I'm sorry but the genre entered by you already exists "
+            + "or you are entering the same genre more than a time...";
+    public static final String GENRE_DOES_NOT_EXIST_ERROR = "I'm sorry but the genre entered by you does not exists "
+            + "under your preferences";
 
     public static final String DID_YOU_MEAN = "Did you mean:";
 
@@ -187,8 +195,8 @@ public class PromptMessages {
 
     public static final String COMMAND_MISSING_ARGS = "Command is missing a few arguments";
 
-    public static final String UNABLE_TO_PROCESS = "Sorry we are unable to process your command. " +
-            "Please check help for more details!";
+    public static final String UNABLE_TO_PROCESS = "Sorry we are unable to process your command. "
+            + "Please check help for more details!";
 
     // autocomplete related messages
     public static final String AUTOCOMPLETION_PROMPT = "Did you mean this?";

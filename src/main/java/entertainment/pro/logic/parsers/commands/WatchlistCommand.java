@@ -48,9 +48,10 @@ public class WatchlistCommand  extends CommandSuper {
      */
     private void addToWatchList() throws Exception {
         try {
-            String movie = ((MovieHandler)this.getUiController()).getAPIRequester().beginAddRequest(getPayload());
+            String movie = ((MovieHandler) this.getUiController()).getAPIRequester().beginAddRequest(getPayload());
             if (movie.equals("")) {
-                ((MovieHandler)(this.getUiController())).setGeneralFeedbackText("Movie not found.\nPlease check your spelling");
+                ((MovieHandler) (this.getUiController())).setGeneralFeedbackText("Movie not found.\n"
+                        + "Please check your spelling");
                 return;
             }
             movie = movie.toLowerCase();
@@ -123,7 +124,7 @@ public class WatchlistCommand  extends CommandSuper {
     }
 
     /**
-     * removes a movie of a certain name from the watchlist
+     * removes a movie of a certain name from the watchlist.
      */
     private void executeNameTaskDone() {
         String movie = getPayload();
@@ -139,7 +140,8 @@ public class WatchlistCommand  extends CommandSuper {
         String mov = getPayload();
         System.out.println(mov);
         if (WatchlistHandler.removeFromWatchlist(mov, (MovieHandler)(this.getUiController()))) {
-            ((MovieHandler) getUiController()).setGeneralFeedbackText("Successfully removed the movie from WatchList: " + mov);
+            ((MovieHandler) getUiController()).setGeneralFeedbackText("Successfully removed the movie from WatchList: "
+                    + mov);
         } else {
             ((MovieHandler) getUiController())
                     .setGeneralFeedbackText("Such a movie does not exist in your WatchList. Check your spelling?");
