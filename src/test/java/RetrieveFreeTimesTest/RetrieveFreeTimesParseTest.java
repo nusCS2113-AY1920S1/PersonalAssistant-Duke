@@ -47,6 +47,9 @@ public class RetrieveFreeTimesParseTest {
     private static StorageStub storageStub = new StorageStub();
     private static UserInteraction ui = new UserInteraction();
 
+    /**
+     * This method initializes the variables required.
+     */
     @BeforeAll
     public static void setAllVariables() {
         validUserInputWithOption = "retrieve/time 5";
@@ -59,6 +62,9 @@ public class RetrieveFreeTimesParseTest {
         userInputWithoutOption = "retrieve/time ";
     }
 
+    /**
+     * This method initializes the variables required before a test.
+     */
     @Before
     public static void setRetrievedFreeTimesList() {
         String actual = "No error";

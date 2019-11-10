@@ -41,6 +41,9 @@ public class RetrieveFreeTimesCommandTest {
     private StorageStub storageStub = new StorageStub();
     private UserInteraction ui = new UserInteraction();
 
+    /**
+     * This method initializes the variables required.
+     */
     @BeforeAll
     public static void setAllVariables() {
         userInputWithValidOption = "retrieve/time 3";
@@ -63,6 +66,9 @@ public class RetrieveFreeTimesCommandTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * This method initializes the variables required before a test.
+     */
     @Before
     public void setRetrievedFreeTimesList() {
         String actual = "No error";
