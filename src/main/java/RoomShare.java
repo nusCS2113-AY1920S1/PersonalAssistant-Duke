@@ -22,7 +22,6 @@ public class RoomShare {
     private TaskList taskList;
     private OverdueList overdueList;
     private Parser parser;
-    private RecurHandler recurHandler;
     private TempDeleteList tempDeleteList;
     private TaskCreator taskCreator;
     private Help help;
@@ -32,7 +31,7 @@ public class RoomShare {
      * Constructor of a RoomShare class. Creates all necessary objects and collections for RoomShare to run
      * Also loads the ArrayList of tasks from the data.txt file
      */
-    public RoomShare() throws RoomShareException {
+    private RoomShare() throws RoomShareException {
         ui = new Ui();
         help = new Help();
         ui.startUp();
@@ -57,7 +56,7 @@ public class RoomShare {
             overdueList = new OverdueList(emptyList);
         }
         listRoutine = new ListRoutine(taskList, overdueList);
-        recurHandler = new RecurHandler(taskList);
+        RecurHandler recurHandler = new RecurHandler(taskList);
         if (recurHandler.checkRecurrence()) {
             ui.showChangeInTaskList();
             taskList.list(overdueList);
@@ -68,7 +67,7 @@ public class RoomShare {
     /**
      * Deals with the operation flow of RoomShare.
      */
-    public void run() throws RoomShareException, IOException, InterruptedException {
+    private void run() throws RoomShareException, IOException, InterruptedException {
         boolean isExit = false;
         while (!isExit) {
             TaskType type;
@@ -351,6 +350,7 @@ public class RoomShare {
             case overdue:
                 Ui.clearScreen();
                 ui.startUp();
+                listRoutine.list();
                 ui.showOverdueList();
                 try {
                     overdueList.list();
@@ -362,8 +362,6 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
-
-                listRoutine.list();
                 break;
 
             case reschedule:
@@ -371,12 +369,23 @@ public class RoomShare {
                 ui.startUp();
                 try {
                     overdueList.list();
-                    String input = parser.getCommandLine().trim();
-                    int index = parser.getIndex(input);
-                    Task oldTask = overdueList.get(index);
-                    taskCreator.rescheduleTask(input,oldTask);
-                    overdueList.reschedule(index, taskList);
-                    ui.showUpdated(index+1);
+                    String input = parser.getCommandLine();
+                    String[] range = input.split(" ");
+                   int[] indexes = parser.getIndexRange(range[0]);
+                      if (indexes.length != 1) {
+                          for (int i = indexes[0]; i <= indexes[1]; i++) {
+                              Task oldTask = overdueList.get(i);
+                              taskCreator.rescheduleTask(input, oldTask);
+                              ui.showUpdated(i + 1);
+                          }
+                    } else {
+                          Task oldTask = overdueList.get(indexes[0]);
+                          taskCreator.rescheduleTask(input, oldTask);
+                          ui.showUpdated(indexes[0] + 1);
+                      }
+                    overdueList.reschedule(indexes, taskList);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
+                    storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 } finally {
@@ -389,40 +398,37 @@ public class RoomShare {
             case show:
                 Ui.clearScreen();
                 ui.startUp();
-                String input = parser.getCommandLine().trim();
-                if (input.equals("deleted")) {
-                    ui.showDeletedList();
-                    try {
-                        tempDeleteList.list();
-                    } catch (RoomShareException e) {
-                        ui.showError(e);
-                    }
-                    storage.writeFile(TaskList.currentList(), "data.txt");
-                    storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
-                    listRoutine.list();
-                } else {
-                    ui.showTagged(input);
-                    try {
+                try {
+                    String input = parser.getCommandLine().trim();
+                    if (input.equals("deleted")) {
+                        ui.showDeletedList();
+                        try {
+                            tempDeleteList.list();
+                        } catch (RoomShareException e) {
+                            ui.showError(e);
+                        }
+                    } else {
+                        ui.showTagged(input);
                         int[] doneArray = taskList.listTagged(input);
                         ui.showTaggedPercentage(input);
                         ProgressBar progressBar = new ProgressBar(doneArray[0], doneArray[1]);
                         ui.showBar(progressBar.showBar());
-                        storage.writeFile(TaskList.currentList(), "data.txt");
-                        storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
-                    } catch (RoomShareException e) {
-                        ui.showError(e);
                     }
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                } finally {
+                    storage.writeFile(TaskList.currentList(), "data.txt");
+                    storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
                 }
                 break;
 
             case reopen:
                 Ui.clearScreen();
-                String userInput = parser.getCommandLine();
-                ui.showDoneList();
-                taskList.showCompleted();
+                ui.startUp();
                 try {
-                    int index = parser.getIndex(userInput);
-                    ArrayList<Date> date = taskCreator.extractDate(userInput);
+                    String input = parser.getCommandLine();
+                    int index = parser.getIndex(input);
+                    ArrayList<Date> date = taskCreator.extractDate(input);
                     taskList.reopen(index,date.get(0));
                 } catch (RoomShareException e) {
                     ui.showError(e);
@@ -430,6 +436,8 @@ public class RoomShare {
                 storage.writeFile(TaskList.currentList(), "data.txt");
                 storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
                 listRoutine.list();
+                ui.showDoneList();
+                taskList.showCompleted();
                 break;
 
             default:
