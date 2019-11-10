@@ -167,12 +167,12 @@ public class Project implements IProject {
         HashMap<String, ArrayList<String>> memberIDAndTaskIDs = this.getMembersIndividualTaskList(); //memberID_taskIDs
         int count = 1;
         for (Member member : allMembers) {
-            int totalCredits = 0;
-            int doneCredits = 0;
+            float totalCredits = 0;
+            float doneCredits = 0;
             for (String taskID : memberIDAndTaskIDs.get(member.getMemberID())) {
                 // credits are split equally between members
                 ITask assignedTask = getTaskFromID(taskID);
-                int taskCredit = (assignedTask.getTaskCredit()) / (memberIDAndTaskIDs.size());
+                float taskCredit = (assignedTask.getTaskCredit()) / (float)(memberIDAndTaskIDs.size());
                 totalCredits += taskCredit;
                 // members only get credits if the task is "DONE"
                 if (assignedTask.getTaskState() == TaskState.DONE) {
@@ -180,7 +180,7 @@ public class Project implements IProject {
                 }
             }
             int scale = 20;
-            int percentDone = (int) ((doneCredits / (float) totalCredits) * scale);
+            int percentDone = (int)((doneCredits / totalCredits) * scale);
             String progress = "";
             for (int i = 0; i < percentDone; i++) {
                 progress += "#";
@@ -188,7 +188,7 @@ public class Project implements IProject {
             for (int i = percentDone; i < scale; i++) {
                 progress += ".";
             }
-            allMemberCredits.add(count + ". " + member.getName() + ": " + doneCredits + " credits");
+            allMemberCredits.add(count + ". " + member.getName() + ": " + String.format("%.1f", doneCredits) + " credits");
             allMemberCredits.add("   Progress: " + progress + " (" + percentDone * (100 / scale) + "%)");
             count++;
         }
