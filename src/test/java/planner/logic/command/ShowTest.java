@@ -19,7 +19,7 @@ public class ShowTest extends InputTest {
     public void testShow() {
         final String test = "show module\n";
         final String bye = "bye";
-        provideInput( test + bye);
+        provideInput(test + bye);
         final String[] hold = {"a"};
         CliLauncher.main(hold);
         String actual = outContent.toString().replaceAll("\r", "");
