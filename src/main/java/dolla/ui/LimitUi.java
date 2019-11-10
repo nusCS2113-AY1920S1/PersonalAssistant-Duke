@@ -17,8 +17,8 @@ public class LimitUi extends Ui {
     private static final String DUPLICATE_LIMITS_MSG = "\tOOPS! There can only be one budget/saving for each duration.";
     private static final String EXISTING_LIMIT_MSG = "\tOOPS! You already have a ";
 
-    private static final String NO_BUDGET_MSG = "\tOOPS! There is no budget set for the duration you specified";
-    private static final String NO_SAVING_MSG = "\tOOPS! There is no saving set for the duration you specified";
+    private static final String NO_BUDGET_MSG = "\tOOPS! There is no budget set for the duration you specified.";
+    private static final String NO_SAVING_MSG = "\tOOPS! There is no saving set for the duration you specified.";
 
     private static final String REACHED_DS_MSG = "\tCongratulations! You have reached your daily saving goal!";
     private static final String REACHED_WS_MSG = "\tCongratulations! You have reached your weekly saving goal!";
