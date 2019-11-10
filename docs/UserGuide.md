@@ -6,11 +6,11 @@ features of the application BetterDuke._
 
 ## Table of Contents
 
-- Introduction
-- Quick Start
-- Features
-- FAQ
-- Command Summary
+- [Introduction](#Introduction)
+- [Quick Start](#QuickStart)
+- [Features](#Features)
+- [FAQ](#FAQ)
+- [Command Summary](#Command)
 
 
 # 1. Introduction
@@ -21,7 +21,8 @@ features of the application BetterDuke._
     prefer to work with a Command Line Interface (CLI) while still having the benefits
     of a Graphical User Interface (GUI). If you can type fast, Betterduke can
     schedule your tasks faster than traditional GUI apps.  Enjoy!
-# 2. Quick Start
+
+# 2. QuickStart
 Ensure you have Java ​ 11 ​or above installed in your Computer.
 Installation guide:
 1. Download the latest jar file here
@@ -42,11 +43,11 @@ Installation guide:
   <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/Example%20UI2.png" width = 800 length = 450>
        
 6. E.g. typing "show/help"  and pressing **Submit** will open the help window.
-7. Some example commands you can try:
-            a.     show/workload: show workload for following week’s timetable
-            b.     show/filter CS2113T: show tasks which contains keyword “CS2113T”
-            c.     bye: exits the app
-        Refer to Features for details of each command.
+7. Some example commands you can try:  
+a.     show/workload: show workload for following week’s timetable  
+b.     show/filter CS2113T: show tasks which contains keyword “CS2113T”  
+c.     bye: exits the app
+        Refer to [Features](#Features) for details of each command.
 
 
 # 3. Features
