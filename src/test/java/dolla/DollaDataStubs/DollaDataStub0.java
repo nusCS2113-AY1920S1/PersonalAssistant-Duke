@@ -1,4 +1,4 @@
-package dolla.command.view;
+package dolla.DollaDataStubs;
 
 import dolla.model.BillList;
 import dolla.model.DebtList;
@@ -12,7 +12,7 @@ import dolla.model.ShortcutList;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ViewDollaDataStub0 extends DollaData {
+public class DollaDataStub0 extends DollaData {
 
     private String mode = MODE_DOLLA;
     private EntryList entryList;
@@ -24,7 +24,7 @@ public class ViewDollaDataStub0 extends DollaData {
     /**
      * Creates an empty instance of DollaData to store and manipulate data.
      */
-    public ViewDollaDataStub0() {
+    public DollaDataStub0() {
         this.entryList = new EntryList(new ArrayList<Record>());
         this.limitList = new LimitList(new ArrayList<Record>());
         this.debtList = new DebtList(new ArrayList<Record>());
