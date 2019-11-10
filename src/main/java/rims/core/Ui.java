@@ -40,8 +40,10 @@ public class Ui {
         "list - see all resources and current reservations",
         "\t" + "list /item - see all loans and future reservations of a particular item",
         "\t" + "list /room - see all loans and future reservations of a particular room",
+        "\t" + "list /date - see all resources available on a particular date",
         "deadlines - view all currently active loans and reservations",
         "stats - view loan and reservation statistics",
+        "calendar - view a monthly calendar showing all booked resources",
         "undo - undo the last command that modified inventory data"));
 
     public Ui() {
