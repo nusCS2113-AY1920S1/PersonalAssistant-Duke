@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CommandGetSpendingByMonthTest {
-    @Test
+     @Test
    void execute() {
         StorageManager storageManager = new StorageManager();
 

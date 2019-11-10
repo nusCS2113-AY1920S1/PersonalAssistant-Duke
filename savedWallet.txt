@@ -1,6 +1,4 @@
 0.0
 -
-out $4.0 /date 2019-11-10 /tags dates
-out $3.0 /date 2019-11-11 /tags other
-out $5.0/date 2019-01-01 
-out $50.0/date 2097-01-01 
+in $4.0 /date 2019-11-10 /tags dates
+
