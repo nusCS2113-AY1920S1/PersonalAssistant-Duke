@@ -86,8 +86,9 @@ public class Ui {
         showCaloriesLeft(meals, user, dateStr);
     }
 
-    public void showUpdated(Meal newMeal, ArrayList<Meal> meals, User user, LocalDate dateStr) {
-        System.out.println(UI_PADDING + "Got it. I've updated this old meal with this: " + newMeal);
+    public void showUpdated(Meal oldMeal, Meal newMeal, ArrayList<Meal> meals, User user, LocalDate dateStr) {
+        System.out.println(UI_PADDING + "Got it. I've updated this old meal: " + oldMeal);
+        System.out.println(UI_PADDING + "With this: " + newMeal);
         showCaloriesLeft(meals, user, dateStr);
     }
 

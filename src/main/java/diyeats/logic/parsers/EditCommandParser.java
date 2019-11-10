@@ -4,6 +4,7 @@ import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.EditCommand;
 import diyeats.model.meal.Meal;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -24,42 +25,47 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
      */
     @Override
     public EditCommand parse(String userInputStr) {
-        String[] mealNameAndInfo;
-        String foodCostStr = "0";
+        String[] indexAndMealInfo;
+        int mealIndex;
         HashMap<String, String> nutritionInfoMap;
         DateTimeFormatter dateFormat = LOCAL_DATE_FORMATTER;
         LocalDate localDate = LocalDate.now();
 
         try {
             InputValidator.validate(userInputStr);
-            mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInputStr);
-            nutritionInfoMap = ArgumentSplitter.splitForwardSlashArguments(mealNameAndInfo[1]);
+            indexAndMealInfo = userInputStr.split(" ", 2);
+            if (indexAndMealInfo.length < 2) {
+                return new EditCommand(true, "No tags specified to update or edit. Nothing updated");
+            }
+            InputValidator.validatePositiveInteger(indexAndMealInfo[0]);
+            mealIndex = Integer.parseInt(indexAndMealInfo[0]);
+            nutritionInfoMap = ArgumentSplitter.splitForwardSlashArguments(indexAndMealInfo[1]);
         } catch (ProgramException e) {
             return new EditCommand(true, e.getMessage());
         }
 
-        for (String details : nutritionInfoMap.keySet()) {
-            if (details.equals("date")) {
-                String dateArgStr = "";
-                try {
-                    dateArgStr = nutritionInfoMap.get(details);
-                    localDate = LocalDate.parse(dateArgStr, dateFormat);
-                } catch (DateTimeParseException e) {
-                    return new EditCommand(true, "Unable to parse" + dateArgStr + " as a date. "
-                            + "Please follow DD/MM/YYYY format.");
-                }
-            } else if (details.equals("cost")) {
-                foodCostStr = nutritionInfoMap.get(details);
-            } else {
-                String intArgStr = nutritionInfoMap.get(details);
-                try {
-                    int value = Integer.parseInt(intArgStr);
-                } catch (NumberFormatException e) {
-                    return new EditCommand(true, "Unable to parse" + intArgStr
-                            + " as an integer. ");
-                }
+        if (nutritionInfoMap.containsKey("date")) {
+            String dateArgStr = "";
+            try {
+                dateArgStr = nutritionInfoMap.get("date");
+                localDate = LocalDate.parse(dateArgStr, dateFormat);
+            } catch (DateTimeParseException e) {
+                return new EditCommand(true, "Unable to parse" + dateArgStr + " as a date. "
+                        + "Please follow DD/MM/YYYY format.");
+            }
+            nutritionInfoMap.remove("date");
+        }
+
+        for (String detailsStr : nutritionInfoMap.keySet()) {
+            String valueStr = nutritionInfoMap.get(detailsStr);
+            try {
+                InputValidator.validateNutritionalValue(valueStr);
+            } catch (ProgramException e) {
+                return new EditCommand(false, "Unable to parse tag " + detailsStr + " with value "
+                        + valueStr + " as an integer. Please enter values as integers larger than or equal to 0");
             }
         }
-        return new EditCommand(new Meal(mealNameAndInfo[0], localDate, nutritionInfoMap, foodCostStr));
+
+        return new EditCommand(mealIndex - 1, localDate, nutritionInfoMap);
     }
 }

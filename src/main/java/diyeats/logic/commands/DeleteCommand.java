@@ -17,35 +17,24 @@ import java.time.format.DateTimeParseException;
  */
 public class DeleteCommand extends Command {
     private int index;
-    private final String helpText = "Please follow: delete <index> /date <date> or "
-            + "delete <index> to delete for current day.";
-    private LocalDate parsedDate;
+    private LocalDate deleteDate;
 
     /**
      * Constructor for DeleteCommand.
-     * @param indexStr the index of meal on the date to be deleted.
-     * @param dateStrArg Date of meal to be deleted.
+     * @param index the index of meal on the date to be deleted.
+     * @param deleteDate Date of meal to be deleted.
      */
-    public DeleteCommand(String indexStr, String dateStrArg) {
-        this(indexStr);
-        try {
-            parsedDate = LocalDate.parse(dateStrArg, dateFormat);
-        } catch (DateTimeParseException e) {
-            ui.showMessage("Unable to parse input " + dateStrArg + " as a date. " + helpText);
-        }
+    public DeleteCommand(int index, LocalDate deleteDate) {
+        this.index = index;
+        this.deleteDate = deleteDate;
     }
 
     /**
      * Constructor for DeleteCommand.
-     * @param indexStr the index of meal to be deleted.
+     * @param index the index of meal to be deleted.
      */
-    public DeleteCommand(String indexStr) {
-        try {
-            this.index = Integer.parseInt(indexStr.trim());
-            parsedDate = currentDate;
-        } catch (NumberFormatException nfe) {
-            ui.showMessage("Unable to parse input " + indexStr + " as integer index. " + helpText);
-        }
+    public DeleteCommand(int index) {
+        this.index = index;
     }
 
     public DeleteCommand(boolean flag, String messageStr) {
@@ -63,11 +52,17 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
-        if (index <= 0 || index > meals.getMealsList(parsedDate).size()) {
-            ui.showMessage("Index provided out of bounds for list of meals on the indicated date");
+        if (index < 0 || index >= meals.getMealsList(deleteDate).size()) {
+            String errorMsg = "Index provided out of bounds for list of meals on the indicated date. ";
+            if (meals.getMealsList(deleteDate).size() == 0) {
+                errorMsg += "No meals on " + deleteDate + " to delete";
+            } else {
+                errorMsg += "Valid index is from 1 to " + meals.getMealsList(deleteDate).size();
+            }
+            ui.showMessage(errorMsg);
         } else {
-            Meal currentMeal = meals.delete(parsedDate, index);
-            ui.showDeleted(currentMeal, meals.getMealsList(parsedDate));
+            Meal currentMeal = meals.delete(deleteDate, index);
+            ui.showDeleted(currentMeal, meals.getMealsList(deleteDate));
             try {
                 storage.writeFile(meals);
             } catch (ProgramException e) {

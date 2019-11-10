@@ -24,7 +24,6 @@ public class AddDefaultValueCommandParser implements ParserInterface<AddDefaultV
         String[] mealNameAndInfo;
         String foodCostStr = "0";
         HashMap<String, String> nutritionInfoMap;
-        LocalDate dateArgStr = null;
 
         try {
             InputValidator.validate(userInputStr);
@@ -34,19 +33,19 @@ public class AddDefaultValueCommandParser implements ParserInterface<AddDefaultV
             return new AddDefaultValueCommand(true, e.getMessage());
         }
 
+        if (nutritionInfoMap.containsKey("cost")) {
+            foodCostStr = nutritionInfoMap.get("cost");
+        }
+
         for (String details : nutritionInfoMap.keySet()) {
-            if (details.equals("cost")) {
-                foodCostStr = nutritionInfoMap.get(details);
-            } else {
-                String intArgStr = nutritionInfoMap.get(details);
-                try {
-                    int value = Integer.parseInt(intArgStr);
-                } catch (NumberFormatException e) {
-                    return new AddDefaultValueCommand(true, "Unable to parse " + intArgStr
-                            + " as an integer. ");
-                }
+            String intArgStr = nutritionInfoMap.get(details);
+            try {
+                Integer.parseInt(intArgStr);
+            } catch (NumberFormatException e) {
+                return new AddDefaultValueCommand(true, "Unable to parse " + intArgStr
+                        + " as an integer. ");
             }
         }
-        return new AddDefaultValueCommand(new Meal(mealNameAndInfo[0], dateArgStr, nutritionInfoMap, foodCostStr));
+        return new AddDefaultValueCommand(new Meal(mealNameAndInfo[0], null, nutritionInfoMap, foodCostStr));
     }
 }

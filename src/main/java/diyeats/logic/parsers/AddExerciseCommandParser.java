@@ -14,7 +14,7 @@ public class AddExerciseCommandParser implements ParserInterface<AddExerciseComm
     @Override
     public AddExerciseCommand parse(String userInputStr) {
         if (!userInputStr.contains("/value")) {
-            return new AddExerciseCommand(false, "Theres no /value tag provided. "
+            return new AddExerciseCommand(true, "Theres no /value tag provided. "
                     + "Please include the /value tag");
         }
 
@@ -23,7 +23,7 @@ public class AddExerciseCommandParser implements ParserInterface<AddExerciseComm
         String exerciseValueStr = exerciseNameAndValue[1];
 
         if (exerciseNameStr.trim().length() == 0) {
-            return new AddExerciseCommand(false, "No description of "
+            return new AddExerciseCommand(true, "No description of "
                     + "the exercise has been provided.");
         }
 
@@ -31,12 +31,12 @@ public class AddExerciseCommandParser implements ParserInterface<AddExerciseComm
         try {
             exerciseValueInt = Integer.parseInt(exerciseValueStr);
         } catch (Exception e) {
-            return new AddExerciseCommand(false, "Unable to parse " + exerciseValueStr + " as a number. "
+            return new AddExerciseCommand(true, "Unable to parse " + exerciseValueStr + " as a number. "
                     + "Please enter a valid integer.");
         }
 
         if (exerciseValueInt <= 0) {
-            return new AddExerciseCommand(false, "Please enter a valid integer greater than 0.");
+            return new AddExerciseCommand(true, "Please enter a valid integer greater than 0.");
         }
 
         return new AddExerciseCommand(exerciseNameStr, exerciseValueInt);
