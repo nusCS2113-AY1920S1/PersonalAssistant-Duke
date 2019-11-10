@@ -221,7 +221,7 @@ public class Blacklist {
     private static boolean removeMovieObj(String movie)  {
 
         for (MovieModel mo : blackListMovies) {
-            if (mo.getTitle().toLowerCase() == movie.toLowerCase()) {
+            if (mo.getTitle().toLowerCase().equals(movie.toLowerCase())) {
                 blackListMovies.remove(mo);
                 return true;
             }

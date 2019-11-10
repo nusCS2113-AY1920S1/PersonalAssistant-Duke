@@ -182,6 +182,9 @@ public class BlacklistTest {
         Blacklist.addToBlacklistMoviesID(new MovieInfoObject(1234 , "movie 1" , true));
         Blacklist.addToBlacklistMoviesID(new MovieInfoObject(2345 , "movie 2" , true));
 
+
+        System.out.println(Blacklist.printList());
+
         Blacklist.removeFromBlacklistMovieTitle("movie 1");
         Blacklist.removeFromBlacklistMovieTitle("joker");
         Blacklist.removeFromBlacklistMovieTitle("washington dc");
@@ -190,6 +193,9 @@ public class BlacklistTest {
         assertEquals(false , Blacklist.getBlackListMoviesTitle().contains("washington dc"));
         assertEquals(false , BlackListMoviesContains("movie 1"));
         assertEquals(false , BlackListMoviesContains("movie 2"));
+
+
+        System.out.println(Blacklist.printList());
 
 
     }
