@@ -110,7 +110,6 @@ public class ParserFactory {
             return new RecurringEventParser(userInput, command).parse();
         default:
             // Empty string or unknown command.
-            UiMessageHandler.outputForGUI = WRONG_COMMAND;
             throw new ChronologerException(ChronologerException.unknownUserCommand());
         }
     }

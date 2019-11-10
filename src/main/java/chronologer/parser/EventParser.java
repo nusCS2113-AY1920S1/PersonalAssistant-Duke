@@ -79,7 +79,6 @@ public class EventParser extends DescriptionParser {
             return DateTimeExtractor.extractDateTime(toDateString);
         } catch (DateTimeParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }
@@ -96,7 +95,6 @@ public class EventParser extends DescriptionParser {
             return taskFeatures.split(checkType, 2)[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
     }

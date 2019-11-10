@@ -39,7 +39,6 @@ public abstract class Parser {
         try {
             taskFeatures = userInput.split("\\s+", 2)[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
-            UiMessageHandler.outputMessage(ChronologerException.emptyUserDescription());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyUserDescription());
         }

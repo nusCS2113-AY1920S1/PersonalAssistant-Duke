@@ -38,7 +38,6 @@ public class PriorityParser extends IndexParser {
             String[] priorityCommandParts = taskFeatures.split("\\s+", 2);
             priorityString = priorityCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
-            UiMessageHandler.outputMessage(ChronologerException.emptyPriorityLevel());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyPriorityLevel());
         }

@@ -3,6 +3,7 @@ package chronologer.command;
 import chronologer.exception.ChronologerException;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
+import chronologer.ui.UiMessageHandler;
 
 public class ThemeCommand extends Command  {
     int choiceOfTheme;
@@ -20,7 +21,7 @@ public class ThemeCommand extends Command  {
     
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
-        tasks.updateTheme(choiceOfTheme);
+        UiMessageHandler.outputMessage(tasks.updateTheme(choiceOfTheme));
     }
 
 }

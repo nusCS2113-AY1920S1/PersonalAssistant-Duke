@@ -53,11 +53,9 @@ public class DeadlineParser extends DescriptionParser {
             dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
             startDate = DateTimeExtractor.extractDateTime(dateTimeFromUser);
         } catch (ArrayIndexOutOfBoundsException e) {
-            UiMessageHandler.outputMessage(ChronologerException.emptyDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         } catch (DateTimeParseException e) {
-            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }

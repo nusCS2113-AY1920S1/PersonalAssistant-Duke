@@ -52,7 +52,13 @@ public class UiMessageHandler {
         }
     }
 
-    public static String outputForGUI = null;
+
+
+    private static String outputForGUI = null;
+
+    static String getOutputForGui() {
+        return outputForGUI;
+    }
 
     static String printGreeting() {
         return CHRONOLOGER_WELCOME_MESSAGE;

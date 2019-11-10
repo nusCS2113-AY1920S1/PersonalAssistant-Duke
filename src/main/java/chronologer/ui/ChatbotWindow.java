@@ -76,10 +76,10 @@ class ChatbotWindow extends UiComponent<Region> {
             Command command = ParserFactory.parse(input);
             command.execute(tasks, storage);
         } catch (ChronologerException e) {
-            printChronologerMessage(e.getMessage());
+            e.printStackTrace();
         }
         printUserMessage(" " + input);
-        printChronologerMessage(UiMessageHandler.outputForGUI);
+        printChronologerMessage(UiMessageHandler.getOutputForGui());
         inputTextField.clear();
     }
 

@@ -94,7 +94,6 @@ public class PostponeParser extends IndexParser {
         try {
             newFromDate = DateTimeExtractor.extractDateTime(dateString);
         } catch (DateTimeParseException e) {
-            UiMessageHandler.outputMessage(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }

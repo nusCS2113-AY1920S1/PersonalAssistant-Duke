@@ -35,7 +35,6 @@ public abstract class IndexParser extends Parser {
             throw new ChronologerException(ChronologerException.invalidInput());
         }
         if (index < 0) {
-            UiMessageHandler.outputMessage(NEGATIVE_NUM_DETECTED);
             throw new ChronologerException(NEGATIVE_NUM_DETECTED);
         }
         return index;
