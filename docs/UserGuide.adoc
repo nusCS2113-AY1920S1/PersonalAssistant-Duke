@@ -205,6 +205,7 @@ Example:
 .Deleting a `semester`.
 image::SemesterDelete.png[SemesterDelete]
 
+Deletes the 2nd `semester` in the list of semesters.
 
 ==== Selecting a semester: `semester /select`
 You can select a `semester` in order to add modules to under that `semester`.
@@ -369,7 +370,7 @@ Example:
 Adds an `assessment` for selected `module` (`CS2106` in the example above) with name, start and end time as `Finals`, `31-10-2019 13:00`, `31-10-2019 15:00` respectively.
 
 [[AssessmentAdd]]
-.Adding an `assessment`
+.Adding an `assessment` task
 image::AssessmentAdd.png[AssessmentAdd]
 
 ==== Adding assignment data: `assignment`
@@ -391,7 +392,7 @@ Example:
 * `assignment Lab /by 23-11-2019 23:59`
 
 [[AssignmentAdd]] +
-.Adding an `assignment`
+.Adding an `assignment` task
 image::AssignmentAdd.png[AssignmentAdd]
 
 Adds an `assignment` for selected `module` (`CS2106` in the example above) with name and due date as `Lab` and `23-11-2019 23:59` respectively.
@@ -412,7 +413,7 @@ Example:
 * `deadline homework /by 20-11-2019 13:00` +
 
 [[Deadline]]
-.Example usage of `deadline` feature
+.Adding a `deadline` task
 image::Deadline.png[Deadline]
 
 Adds a `deadline` task with description and deadline as `homework` and `20-11-2019 13:00` respectively.
@@ -433,7 +434,7 @@ Example:
 * `event project meeting /from 20-11-2019 13:00 /to 20-11-2019 17:00` +
 
 [[Event]]
-.Example usage of `event` feature
+.Adding an `event` task
 image::Event.png[Event]
 
 Adds an `event` task with description, start and end time as `project meeting`, `20-11-2019 13:00` and `20-11-2019 17:00` respectively.
@@ -454,7 +455,7 @@ Example:
 * `todo withdraw money /on 19-11-2019` +
 
 [[Todo]]
-.Example usage of `todo` feature
+.Adding a `todo` task
 image::Todo.png[Todo]
 
 Adds a `todo` task called `withdraw money` on `19-11-2019`.
@@ -852,7 +853,57 @@ View the list of features and their usages.
 You can view the usage of a specific command by typing `help COMMAND`, where `COMMAND` is the name of the feature.
 e.g. `help calendar`
 
-Add a task with a deadline.
+Managing Semesters.
+
+* Adding a *Semester*: `semester /add YEAR /name SEMESTER /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM` +
+e.g. `semester /add 19/20 /name Semester 2 /from 05-01-2020 /to 05-05-2020`
+
+* Deleting a *Semester*: `semester /delete INDEX` +
+e.g. `semester /delete 1`
+
+* Selecting a *Semester*: `semester /select INDEX` +
+e.g. `semester /select 1`
+
+* Viewing selected *Semester*: `semester`
+
+* Viewing list of *Semester*: `semester /view`
+
+Managing Modules.
+
+* Adding a *Module*: `module /add MODULE_CODE /name MODULE_NAME` +
+e.g. `module /add CS1010 /name Programming Methodology`
+
+* Deleting a *Module*: `module /delete INDEX` +
+e.g. `module /delete 1`
+
+* Selecting a *Module*: `module /select INDEX` +
+e.g. `module /select 1`
+
+* Viewing selected *Module*: `module`
+
+* Viewing list of *Module*: `module /view`
+
+Managing Lessons.
+
+* Adding a *Lesson*: `lesson /add NAME /day DAY /from HH:MM /to HH:MM` +
+e.g. `lesson /add Lecture /name TUESDAY /from 08:00 /to 10:00`
+
+* Deleting a *Lesson*: `lesson /delete INDEX` +
+e.g. `lesson /delete 1`
+
+* Viewing list of *Lesson*: `lesson`
+
+Add an assignment task.
+
+* *Assignment*: `assignment DESCRIPTION /by DD-MM-YYYY HH:MM` +
+e.g. `assignment Assignment 1 /by 31-10-2019 23:59`
+
+Add an assessment task.
+
+* *Assessment*: `assessment DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM` +
+e.g. `assessment Finals /from 01-12-2019 10:00 /to 01-12-2019 12:00`
+
+Add a deadline task.
 
 * *Deadline*: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM` +
 e.g. `deadline homework /by 20-09-2019 13:00`
@@ -864,7 +915,7 @@ Add an event with start and end time.
 e.g. `event project meeting /from 20-09-2019 13:00 /to 20-09-2019 17:00`
 
 
-Add a todo with a specific date.
+Add a todo on a specific date.
 
 * *Todo*: `todo DESCRIPTION /on DD-MM-YYYY` +
 e.g. `todo withdraw money /on 19-09-2019`
@@ -926,14 +977,14 @@ View tasks for any particular month in calendar format.
 e.g. `calendar 10 2019`
 
 [NOTE]
-Note that the parameters `DD MM YYYY` are optional and the command will automatically show tasks for the current month if these parameters are not shown. The tasks in each day is chronologically sorted.
+Note that the parameters `MM YYYY` are optional and the command will automatically show tasks for the current month if these parameters are not shown. The tasks in each day is chronologically sorted.
 
 View reminder based on the threshold set.
 
 * *Reminder*: `NIL`
 
 [NOTE]
-This feature runs in the background thus no input is needed from you.
+This feature runs on startup thus no input is needed from you.
 
 Starts Task tracker.
 
