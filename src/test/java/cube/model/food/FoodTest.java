@@ -8,6 +8,7 @@ import cube.logic.parser.ParserUtil;
 import cube.model.food.Food;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
