@@ -13,7 +13,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class Cohort_BarChart extends JFrame {
-    ArrayList<CohortStats> cohortStats = CohortSizeDisplay.getCohortStats();
+    ArrayList<CohortStats> cohortStats = CohortSize.getCohortStats();
     ArrayList<Integer> Male = new ArrayList<>();
     ArrayList<Integer> Female = new ArrayList<>();
     ArrayList<Integer> Total = new ArrayList<>();

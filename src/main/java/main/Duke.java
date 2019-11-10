@@ -90,12 +90,12 @@ public class Duke extends Application {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            graduateEmployment.loadDegreeEmploymentStats(storage.fetchListOutput("stats_employer"));
+            graduateEmployment.loadStatistics(storage.fetchListOutput("stats_employer"));
         } catch (DukeException e) {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            cohortSize.loadCohortStats(storage.fetchListOutput("cohort"));
+            cohortSize.loadStatistics(storage.fetchListOutput("cohort"));
         } catch (DukeException e) {
             System.out.println(e.getLocalizedMessage());
         }

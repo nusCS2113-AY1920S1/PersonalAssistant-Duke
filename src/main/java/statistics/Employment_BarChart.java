@@ -16,8 +16,6 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 import javax.swing.*;
 
@@ -29,7 +27,7 @@ import javax.swing.*;
  *
  */
 public class Employment_BarChart extends JFrame {
-    ArrayList<MyClass> cohortStats = GraduateEmploymentDisplay.getStats();
+    ArrayList<GraduateStats> cohortStats = GraduateEmployment.getStats();
     ArrayList<Double> percentage = new ArrayList<>();
     ArrayList<Integer> salary = new ArrayList<>();
     private String degree;
