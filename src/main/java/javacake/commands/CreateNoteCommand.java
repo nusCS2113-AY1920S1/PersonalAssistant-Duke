@@ -11,13 +11,12 @@ import java.io.IOException;
 
 public class CreateNoteCommand extends Command {
 
-    private String defaultFileName = "Notes";
     private static String userGivenFileName = "Notes";
     private static int defaultFileNameCounter = 1;
     private static String defaultDirectoryPath = "data/notes/";
-
-    private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
-        '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
+    private static final int MAXIMUM_PARAMETER = 2;
+    private static final int MAX_FILENAME_LENGTH = 20;
+    private static final String BY_SPACES = "\\s+";
 
     /**
      * Constructor for CreateNoteCommand.
@@ -35,6 +34,7 @@ public class CreateNoteCommand extends Command {
      */
     private void updateDefaultDirectoryPath() {
         defaultDirectoryPath = Storage.returnNotesDefaultFilePath();
+
     }
 
     /**
@@ -47,18 +47,56 @@ public class CreateNoteCommand extends Command {
      * @throws CakeException If the input command is invalid.
      */
     private void checksValidityOfCommand(String inputCommand) throws CakeException {
-        String bySpaces = "\\s+";
-        String[] wordsInInputCommand = inputCommand.split(bySpaces);
+        String[] wordsInInputCommand = inputCommand.split(BY_SPACES);
 
-        if (createNoteCommandHasSpecifiedFileName(inputCommand)) {
-            String userSpecifiedFileName = wordsInInputCommand[1];
-            checksForIllegalCharacters(userSpecifiedFileName);
+        if (commandHasMultipleParameters(wordsInInputCommand)) {
+            throw new CakeException("Additional Parameters in command detected!\n"
+                    + "Please type 'createnote [desired file name]'\n"
+                    + "Or simply 'createnote' for JavaCake for generate yummy file name for you!");
+        } else if (createNoteCommandHasSpecifiedFileName(inputCommand)) {
+            validateFileName(inputCommand);
+            userGivenFileName = wordsInInputCommand[1];
         } else if (validCommandWithNoSpecifiedFileName(inputCommand)) {
             generateFileName();
         } else {
             throw new CakeException("Invalid command: To write notes, "
                     + "type 'createnote' followed by desired (optional) filename.");
         }
+    }
+
+    /**
+     * Checks if create command contains additional parameters appended to command.
+     * @param parameters Parameters within the createnote command.
+     * @return True if there are multiple parameters.
+     */
+    private boolean commandHasMultipleParameters(String[] parameters) {
+        return (parameters.length > MAXIMUM_PARAMETER);
+    }
+
+    /**
+     * Checks the validity of file name.
+     * Checks for illegal characters.
+     * Checks for length of file name.
+     * @param inputCommand CreateNoteCommand by user.
+     * @throws CakeException If user fails the checks listed above.
+     */
+    private void validateFileName(String inputCommand) throws CakeException {
+        String[] parameters = inputCommand.split(BY_SPACES);
+        String fileName = parameters[1];
+        if (Command.containsIllegalCharacter(inputCommand)) {
+            throw new CakeException("Special Character(s) detected! Please use another file name!");
+        } else if (fileNameExceedsWordLimit(fileName)) {
+            throw new CakeException("File name exceeds word limit! Maximum length for file name is 20");
+        }
+    }
+
+    /**
+     * Checks if file name has length more than 20.
+     * @param fileName Name of file from the user.
+     * @return True if file name exceeds word limit of 20.
+     */
+    private boolean fileNameExceedsWordLimit(String fileName) {
+        return (fileName.length() > MAX_FILENAME_LENGTH);
     }
 
     /**
@@ -71,30 +109,13 @@ public class CreateNoteCommand extends Command {
     }
 
     /**
-     * Checks if file name contains illegal characters.
-     * @param fileName Name of the file.
-     * @throws CakeException If file name contains illegal characters.
-     */
-    private void checksForIllegalCharacters(String fileName) throws CakeException {
-        if (noIllegalCharacters(fileName)) {
-            userGivenFileName = fileName;
-        } else {
-            throw new CakeException("Invalid file name: Illegal character in file name detected!");
-        }
-    }
-
-    /**
      * Checks if CreateNoteCommand has a specified file name.
      * @param inputCommand Input Command from the user to create note.
      * @return True if CreateNoteCommand has a specified file name.
      */
     private boolean createNoteCommandHasSpecifiedFileName(String inputCommand) {
-        String bySpaces = "\\s+";
-        String[] wordsInInputCommand = inputCommand.split(bySpaces);
-        if (wordsInInputCommand.length == 2) {
-            return true;
-        }
-        return false;
+        String[] wordsInInputCommand = inputCommand.split(BY_SPACES);
+        return (wordsInInputCommand.length == 2);
     }
 
     /**
@@ -103,36 +124,8 @@ public class CreateNoteCommand extends Command {
      * @return True if CreateNoteCommand with no parameter is valid.
      */
     private boolean validCommandWithNoSpecifiedFileName(String inputCommand) {
-        String[] wordsInInputCommand = inputCommand.split("\\s+");
-
-        if (wordsInInputCommand.length == 1) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Checks if the input file name contains any illegal characters.
-     * @param inputFileName Specified file name by user.
-     * @return True if file name does not contains illegal characters.
-     */
-    private static boolean noIllegalCharacters(String inputFileName) {
-        for (char illegalChar : ILLEGAL_CHARACTERS) {
-            if (containsIllegal(inputFileName, illegalChar)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Checks if file name contains illegal characters.
-     * @param inputFileName Name of input file.
-     * @param illegalChar Characters that are not allowed in file name.
-     * @return True if file name contains illegal character.
-     */
-    private static boolean containsIllegal(String inputFileName, char illegalChar) {
-        return inputFileName.indexOf(illegalChar) >= 0;
+        String[] wordsInInputCommand = inputCommand.split(BY_SPACES);
+        return (wordsInInputCommand.length == 1);
     }
 
     /**
@@ -140,6 +133,7 @@ public class CreateNoteCommand extends Command {
      * Generated by concatenating number to defaultFileName.
      */
     private void generateNewDefaultFileName() {
+        String defaultFileName = "Notes";
         userGivenFileName = defaultFileName + defaultFileNameCounter;
         defaultFileNameCounter++;
     }
@@ -157,7 +151,6 @@ public class CreateNoteCommand extends Command {
     public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         StringBuilder sb = new StringBuilder();
         sb.append(userGivenFileName).append(".txt");
-        //String formattedFileName = sb.toString();
         sb.insert(0, defaultDirectoryPath);
         String newFilePath = sb.toString();
 
