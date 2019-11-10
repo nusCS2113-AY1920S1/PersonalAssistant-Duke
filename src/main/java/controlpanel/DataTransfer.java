@@ -1,3 +1,7 @@
+package controlpanel;
+
+import guicontroller.CircleChart;
+import guicontroller.Histogram;
 import javafx.scene.layout.HBox;
 import money.Account;
 import money.Expenditure;
@@ -37,7 +41,7 @@ public interface DataTransfer {
         if (type.equals(Type.PIE_CHART)) {
             return CircleChart.getCircleChart("Monthly Data", dataX, dataY);
         } else if (type.equals(Type.LINE_GRAPH)) {
-            return LineGraph.getLineGraph("Monthly Data", dataX, dataY);
+            return guicontroller.LineGraph.getLineGraph("Monthly Data", dataX, dataY);
         } else {
             return Histogram.getHistogram("Monthly Data", dataX, dataY);
         }
@@ -71,7 +75,7 @@ public interface DataTransfer {
         } else if (type.equals(Type.HISTOGRAM)) {
             return Histogram.getHistogram("Overall Expenditure Trend", dataX, dataY);
         } else {
-            return LineGraph.getLineGraph("Overall Expenditure Trend", dataX, dataY);
+            return guicontroller.LineGraph.getLineGraph("Overall Expenditure Trend", dataX, dataY);
         }
     }
 
@@ -102,7 +106,7 @@ public interface DataTransfer {
         } else if (type.equals(Type.HISTOGRAM)) {
             return Histogram.getHistogram("Overall Income Trend", dataX, dataY);
         } else {
-            return LineGraph.getLineGraph("Overall Income Trend", dataX, dataY);
+            return guicontroller.LineGraph.getLineGraph("Overall Income Trend", dataX, dataY);
         }
     }
 

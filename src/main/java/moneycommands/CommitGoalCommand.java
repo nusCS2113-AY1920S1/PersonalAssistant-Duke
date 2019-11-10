@@ -91,7 +91,7 @@ public class CommitGoalCommand extends MoneyCommand {
             ArrayList<Integer> indexOfCommittedGoals = new ArrayList<>();
             try {
                 for (String i: indivArgs) {
-                    int index = Integer.parseInt(i.replaceAll("[^-?0-9]+", ""));
+                    int index = Integer.parseInt(i);
                     indexOfCommittedGoals.add(index);
                 }
             } catch (NumberFormatException e) {

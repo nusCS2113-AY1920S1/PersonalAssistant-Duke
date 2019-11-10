@@ -1,9 +1,11 @@
 package money;
 
 import controlpanel.MoneyStorage;
+import controlpanel.Parser;
 import moneycommands.*;
 import controlpanel.DukeException;
 import controlpanel.Ui;
+import org.assertj.core.internal.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.nio.file.Path;
@@ -26,7 +28,7 @@ class LoansTest {
     private LocalDate testDate = LocalDate.parse("9/10/1997", dateTimeFormatter);
 
 
-    LoansTest() {
+    LoansTest() throws ParseException {
         Path currentDir = Paths.get("data/account-test.txt");
         String filePath = currentDir.toAbsolutePath().toString();
         storage = new MoneyStorage(filePath);
@@ -368,9 +370,12 @@ class LoansTest {
         settleEntireLoanCommand.execute(account, ui, storage);
         ui.clearOutputString();
         settleEntireLoanCommand.undo(account, ui, storage);
+        LocalDate currDate = LocalDate.now();
+        String passDate = currDate.format(dateTimeFormatter);
         assertEquals(" Last command undone: \n" + "[Settled] [O] my friends(loan: $500.00) "
-                + "(Lent On: 9/10/1997) (Paid Back On: 10/11/2019)"
-                + " reverted back to previous state.\n", ui.getOutputString());
+                + "(Lent On: 9/10/1997) (Paid Back On: " + passDate + ") reverted back to previous state.\n",
+                ui.getOutputString());
+        account.getLoans().clear();
         MoneyCommand exitCommand = new ExitMoneyCommand();
         exitCommand.execute(account, ui, storage);
     }
@@ -381,15 +386,25 @@ class LoansTest {
         Loan settleLoan = new Loan(1000, "my daddy", testDate, Loan.Type.INCOMING);
         account.getLoans().add(settleLoan);
         String settleInput = "paid 400 /to my daddy";
-        MoneyCommand settleOutgoingLoanCommand = new SettleLoanCommand(settleInput);
+        MoneyCommand settleIncomingLoanCommand = new SettleLoanCommand(settleInput);
+        settleIncomingLoanCommand.execute(account, ui, storage);
         ui.clearOutputString();
-        settleOutgoingLoanCommand.execute(account, ui, storage);
-        assertEquals(" Got it. An amount of $400.00 has been paid to my daddy for the"
-                + " following loan: \n" + "     [Outstanding] [I] my daddy(loan: $1000.00) "
-                + "(Lent On: 9/10/1997) Outstanding Amount: $600.00\n", ui.getOutputString());
+        settleIncomingLoanCommand.undo(account, ui, storage);
+        assertEquals(" Last command undone: \n" + "[Outstanding] [I] my daddy(loan: $1000.00) "
+                + "(Lent On: 9/10/1997) Outstanding Amount: $600.00"
+                + " reverted back to previous state.\n", ui.getOutputString());
         String settleAllInput = "paid all /to my daddy";
         MoneyCommand settleEntireLoanCommand = new SettleLoanCommand(settleAllInput);
-        ui.clearOutputString();
         settleEntireLoanCommand.execute(account, ui, storage);
+        LocalDate currDate = LocalDate.now();
+        String passDate = dateTimeFormatter.format(currDate);
+        ui.clearOutputString();
+        settleEntireLoanCommand.undo(account, ui, storage);
+        assertEquals(" Last command undone: \n" + "[Settled] [I] my daddy(loan: $1000.00) "
+                        + "(Lent On: 9/10/1997) (Paid Back On: " + passDate + ") reverted back to previous state.\n",
+                ui.getOutputString());
+        account.getLoans().clear();
+        MoneyCommand exitCommand = new ExitMoneyCommand();
+        exitCommand.execute(account, ui, storage);
     }
 }

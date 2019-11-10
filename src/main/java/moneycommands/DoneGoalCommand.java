@@ -39,7 +39,7 @@ public class DoneGoalCommand extends MoneyCommand {
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
 
         try {
-            String temp = inputString.replaceAll("[^-?0-9]", "");
+            String temp = inputString.replaceAll("done goal ", "");
             indexNo = Integer.parseInt(temp);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter in the format: "
