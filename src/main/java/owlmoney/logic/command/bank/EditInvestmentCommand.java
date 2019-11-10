@@ -42,7 +42,7 @@ public class EditInvestmentCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
         profile.profileEditInvestmentAccount(name, newName, amount, ui);
-        logger.info("Executed EditInvestmentCommand Successfully");
+        logger.info("Successful execution of EditInvestmentCommand");
         return this.isExit;
     }
 }

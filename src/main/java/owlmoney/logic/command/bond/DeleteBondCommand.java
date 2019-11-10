@@ -41,7 +41,7 @@ public class DeleteBondCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws BondException, BankException {
         profile.profileDeleteBond(this.bankName, this.bondName, ui);
-        logger.info("Executed DeleteBondCommand successfully");
+        logger.info("Successful execution of DeleteBondCommand");
         return this.isExit;
     }
 }

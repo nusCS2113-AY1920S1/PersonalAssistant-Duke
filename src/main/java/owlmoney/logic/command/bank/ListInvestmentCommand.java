@@ -27,7 +27,7 @@ public class ListInvestmentCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
         profile.profileListBanks(INVESTMENT_BANK_TYPE, ui);
-        logger.info("Executed ListInvestmentCommand Successfully");
+        logger.info("Successful execution of ListInvestmentCommand");
         return this.isExit;
     }
 }

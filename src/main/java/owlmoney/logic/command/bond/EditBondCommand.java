@@ -47,7 +47,7 @@ public class EditBondCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws BondException, BankException {
         profile.profileEditBond(this.bankName, this.bondName, this.year, this.rate, ui);
-        logger.info("Executed EditBondCommand successfully");
+        logger.info("Successful execution of EditBondCommand");
         return this.isExit;
     }
 }

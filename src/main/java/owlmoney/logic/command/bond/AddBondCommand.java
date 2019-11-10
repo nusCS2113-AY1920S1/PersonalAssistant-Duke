@@ -74,7 +74,7 @@ public class AddBondCommand extends Command {
         profile.profileIsBondUnique(this.bankAccountName, newBond);
         profile.profileAddNewExpenditure(this.bankAccountName, newExpenditure, ui, this.type);
         profile.profileAddNewBond(this.bankAccountName, newBond, ui);
-        logger.info("Executed AddBondCommand successfully");
+        logger.info("Successful execution of AddBondCommand");
         return this.isExit;
     }
 }

@@ -42,7 +42,7 @@ public class AddInvestmentCommand extends Command {
     public boolean execute(Profile profile, Ui ui) throws BankException {
         Bank newInvestment = new Investment(this.name, this.amount);
         profile.profileAddNewBank(newInvestment, ui);
-        logger.info("Executed AddInvestmentCommand successfully");
+        logger.info("Successful execution of AddInvestmentCommand");
         return this.isExit;
     }
 }

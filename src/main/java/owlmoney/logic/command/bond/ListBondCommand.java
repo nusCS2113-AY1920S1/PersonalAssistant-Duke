@@ -40,7 +40,7 @@ public class ListBondCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, BondException {
         profile.profileListBonds(bankName, ui, displayNum);
-        logger.info("Executed ListBondCommand successfully");
+        logger.info("Successful execution of ListBondCommand");
         return this.isExit;
     }
 }

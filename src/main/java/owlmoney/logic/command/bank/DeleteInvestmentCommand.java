@@ -37,7 +37,7 @@ public class DeleteInvestmentCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
         profile.profileDeleteBank(this.bankName, INVESTMENT_BANK_TYPE, ui);
-        logger.info("Executed DeleteInvestmentCommand Successfully");
+        logger.info("Successful execution of DeleteInvestmentCommand");
         return this.isExit;
     }
 }
