@@ -22,13 +22,9 @@ import static org.junit.jupiter.api.Assertions.fail;
  * Positive tests on general functions.
  */
 public class CommandTest {
-    public String filename;
-    public String excelFileName;
-    public Storage storage;
-    public Bank bank;
-    public Ui ui;
-    public WordBank wordBank;
-    public WordCount wordCount;
+    private Storage storage;
+    private Bank bank;
+    private Ui ui;
     /**
      * Create wordup test file.
      * @throws WordAlreadyExistsException
