@@ -64,40 +64,6 @@ public class Rims {
         }
     }
 
-    //@@author hin1
-    /**
-     *
-     */
-    public ArrayList<String> getLocalTextFiles() {
-        String dir = System.getProperty("user.dir");
-        File directoryToCheck = new File(dir);
-        File[] textFiles = directoryToCheck.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".txt");
-            }
-        });
-        ArrayList<String> textFileStrings = new ArrayList<String>();
-        for (File f : textFiles) {
-            textFileStrings.add(f.toString());
-        }
-        return textFileStrings;
-    }
-
-    /**
-     *
-     */
-    public String getFilePath(Ui ui, String file) {
-        String path = ui.getInput("Type the file path of the text file that stores the " + file + ": ");
-        File f = new File(path);
-        if (f.exists()) {
-            return path;
-        } else {
-            ui.formattedPrint("File does not exist! Try again!");
-            return getFilePath(ui, file);
-        }
-    }
-
     //@@author rabhijit
     /**
      * The main method that calls the RIMS constructor and sets the ball rolling.
