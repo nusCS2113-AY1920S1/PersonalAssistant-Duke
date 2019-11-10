@@ -58,7 +58,7 @@ public class UiEn extends Ui {
     }
     @Override
     public void showNoTask() {
-        super.display("\t There is any task yet ");
+        super.display("\t There aren't any tasks!! ");
     }
 
     @Override

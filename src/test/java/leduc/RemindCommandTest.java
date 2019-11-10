@@ -59,7 +59,7 @@ class RemindCommandTest {
         RemindCommand remind = new RemindCommand("");
         tasks = new TaskList(new ArrayList<>());
         remind.execute(tasks, ui,storage);
-        assertTrue(outContent.toString().contains("There is any task"));
+        assertTrue(outContent.toString().contains("There aren't any tasks!!"));
     }
 
 }
