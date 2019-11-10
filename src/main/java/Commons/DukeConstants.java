@@ -95,6 +95,7 @@ public class DukeConstants {
     public static final String STR_RANGE_FOR_BETWEEN = "Please enter a valid integer x between 0 and ";
     public static final String STR_RANGE_FOR_LESS_THAN = "Please enter a valid number less than or equal to ";
 
+
     //FIND
     public static final String INVALID_INPUT = "Invalid input. Please enter the command as follows. \n"
             + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
@@ -103,6 +104,7 @@ public class DukeConstants {
     public static final String INVALID_EMPTY_DURATION = "Invalid input."
             + "\nDuration cannot be blank.\nPlease enter the command as follows.\n"
             + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
+
 
     //REMIND
     public static final String REMIND_CHECK_HEADER = "remind/check";
@@ -118,6 +120,7 @@ public class DukeConstants {
             "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500";
     public static final String REPEATED_REMINDER = "You already have a reminder set at that time. Please remove reminder and set again";
 
+    
     //EXCEPTIONS
     public static final String SAD_FACE = "\u2639";
     public static final String UNKNOWN_MEANING =" OOPS!!! I'm sorry, but I don't know what that means :-(";
@@ -137,8 +140,10 @@ public class DukeConstants {
     public static final String NO_MODULE_ERROR = "Sorry, you have no such mod entered in your deadline table!";
     public static final String NO_TIMING_ERROR ="Sorry, you have no such timing entered in your deadline table!";
     public static final String REMINDER_AFTER_TASK_ERROR ="Sorry, you cannot set a reminder after the date of the task.";
+    public static final String INVALID_DATE_ERROR = "Sorry, please enter the correct date format";
     public static final String HAS_REMINDER_INDICATOR = "[HR]";
     public static final String NO_REMINDER_INDICATOR ="[NR]";
+
 
     //WEEK
     public static final String INVALID_EMPTY_WEEK = "Invalid Input.\n"
@@ -151,9 +156,8 @@ public class DukeConstants {
 
 
     //MISC
-    public static final String STRING_SPACE_SPLIT_KEYWORD = " ";
-    public static final String EMPTY_ERROR = "";
-    public static final String NO_FIELD = "void";
+    public static final String BLANK_SPACE = " ";
+    public static final String NO_FIELD = "";
     public static final String WEEK_FORMAT_KEYWORD_RECESS = "recess";
     public static final String WEEK_FORMAT_KEYWORD_READING = "reading";
     public static final String WEEK_FORMAT_KEYWORD_EXAM = "exam";

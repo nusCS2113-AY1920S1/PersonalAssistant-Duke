@@ -26,16 +26,16 @@ public class FilterParse extends Parse{
      */
     @Override
     public Command parse() throws DukeInvalidFormatException, DukeInvalidCommandException {
-        if(fullCommand.trim().startsWith(DukeConstants.SHOW_FILTER_HEADER)){
+        if (fullCommand.trim().startsWith(DukeConstants.SHOW_FILTER_HEADER)) {
            try {
-               String keyword = fullCommand.trim().replaceFirst(DukeConstants.SHOW_FILTER_HEADER, "");
-               if(keyword.trim().equals(DukeConstants.EMPTY_ERROR)){
+               String keyword = fullCommand.trim().replaceFirst(DukeConstants.SHOW_FILTER_HEADER, DukeConstants.NO_FIELD);
+               if(keyword.trim().equals(DukeConstants.NO_FIELD)){
                    throw new DukeInvalidFormatException(DukeConstants.SHOW_FILTER_FORMAT );
                }
                else {
                    return new FilterCommand(keyword);
                }
-           }catch (ArrayIndexOutOfBoundsException e){
+           } catch (ArrayIndexOutOfBoundsException e){
                LOGGER.severe("Invalid format for filter" + e.getMessage());
                throw new DukeInvalidFormatException(DukeConstants.SHOW_FILTER_FORMAT);
            }

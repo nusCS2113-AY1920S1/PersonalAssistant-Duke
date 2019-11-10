@@ -94,6 +94,8 @@ public class MainWindow extends BorderPane implements Initializable {
     private static WeekList outputWeekList = new WeekList();
     private final Logger LOGGER = DukeLogger.getLogger(MainWindow.class);
     private static LookupTable lookupTable = LookupTable.getInstance();
+    private static final String START_WEEK_DELIMITER = " ( ";
+    private static final String END_WEEK_DELIMITER = " )";
 
 
     /**
@@ -296,7 +298,7 @@ public class MainWindow extends BorderPane implements Initializable {
         } else if (input.startsWith(DukeConstants.RETRIEVE_TIME_HEADER) && RetrieveFreeTimesParse.isValidOption(input)) {
             String selectedOption = Duke.getSelectedOption();
             userInput.setText(selectedOption);
-            userInput.positionCaret(DukeConstants.ADD_EVENT_HEADER.length() + DukeConstants.STRING_SPACE_SPLIT_KEYWORD.length());
+            userInput.positionCaret(DukeConstants.ADD_EVENT_HEADER.length() + DukeConstants.BLANK_SPACE.length());
         }
     }
 
@@ -317,13 +319,13 @@ public class MainWindow extends BorderPane implements Initializable {
             Date dateTime = new Date();
             String date = DukeConstants.EVENT_DATE_INPUT_FORMAT.format(dateTime);
             selectedWeek = lookupTable.getValue(date);
-            currentWeek.setText(selectedWeek + " ( " + lookupTable.getValue(selectedWeek.toLowerCase()) + " )");
+            currentWeek.setText(selectedWeek + START_WEEK_DELIMITER + lookupTable.getValue(selectedWeek.toLowerCase()) + END_WEEK_DELIMITER);
 
             week = WeekParse.getWeekCommandFormat(selectedWeek);
             currentWeek.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,30));
             currentWeek.setTextFill(Color.GOLDENROD);
         } else {
-            currentWeek.setText(selectedWeek + " ( " + lookupTable.getValue(selectedWeek.toLowerCase()) + " )");
+            currentWeek.setText(selectedWeek + START_WEEK_DELIMITER + lookupTable.getValue(selectedWeek.toLowerCase()) + END_WEEK_DELIMITER);
         }
     }
 

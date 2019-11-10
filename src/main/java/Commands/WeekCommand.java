@@ -53,8 +53,8 @@ public class WeekCommand extends Command {
         String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
         ArrayList<String> temp = new ArrayList<>();
         for (String day : days) {
-            String dateOut = day + DukeConstants.STRING_SPACE_SPLIT_KEYWORD
-                    + lookupTable.getValue(date + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + day);
+            String dateOut = day + DukeConstants.BLANK_SPACE
+                    + lookupTable.getValue(date + DukeConstants.BLANK_SPACE + day);
             temp.add(dateOut);
         }
         return temp;
@@ -156,7 +156,7 @@ public class WeekCommand extends Command {
             HashMap<String, ArrayList<Assignment>> moduleValue = eventsList.getMap().get(module);
             ArrayList<String> dates = checkIfExist(moduleValue, weekDates);
             for (String strDate : dates) {
-                String[] spilt = strDate.split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD, 2);
+                String[] spilt = strDate.split(DukeConstants.BLANK_SPACE, 2);
                 ArrayList<Assignment> data = moduleValue.get(strDate);
                 for (Assignment task: data) {
                     Text toShow = generateToShow(task);
@@ -176,10 +176,10 @@ public class WeekCommand extends Command {
     private static int compareByTime(Text lhs, Text rhs) {
         String left = lhs.getText().replaceFirst(textStart, "");
         String[] leftSplit = left.split(newLine,2);
-        String[] leftTimeSplit = leftSplit[0].split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+        String[] leftTimeSplit = leftSplit[0].split(DukeConstants.BLANK_SPACE);
         String right = rhs.getText().replaceFirst(textStart, "");
         String[] rightSplit = right.split(newLine,2);
-        String[] rightTimeSplit = rightSplit[0].split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+        String[] rightTimeSplit = rightSplit[0].split(DukeConstants.BLANK_SPACE);
 
         if (leftTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)
                 && rightTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)) {

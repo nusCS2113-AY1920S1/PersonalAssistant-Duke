@@ -12,6 +12,7 @@ public class LookupTable {
     private static Map<String, String> map = new HashMap<>();
     private final Logger LOGGER = DukeLogger.getLogger(LookupTable.class);
     private static LookupTable lookupTable;
+    private static final int LENGTH_OF_LINE= 2;
 
     /**
      * Creates a lookup table object and read from Lookup.txt file.
@@ -25,7 +26,7 @@ public class LookupTable {
             BufferedReader reader = new BufferedReader(isr);
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":", 2);
-                if (parts.length >= 2) {
+                if (parts.length >= LENGTH_OF_LINE) {
                     String key = parts[0].trim();
                     String value = parts[1].trim();
                     this.map.put(key.trim().toLowerCase(), value);

@@ -38,7 +38,7 @@ public class RetrievePreviousCommand extends Command {
      */
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidCommandException, DukeNoValidDataException {
-        fullCommand = fullCommand.replace(DukeConstants.RETRIEVE_PREVIOUS_HEADER, "");
+        fullCommand = fullCommand.replace(DukeConstants.RETRIEVE_PREVIOUS_HEADER, DukeConstants.NO_FIELD);
 
         if (!fullCommand.isEmpty()) {
             char checkSpace = fullCommand.charAt(0);
