@@ -7,6 +7,7 @@ import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
+import gazeeebo.logger.LogCenter;
 import gazeeebo.notes.GeneralNotePage;
 import gazeeebo.notes.Module;
 import gazeeebo.storage.NotePageStorage;
@@ -17,11 +18,15 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Deals with the commands input on the module page.
  */
 public class ModuleCommandParser extends Command {
+
+    private static final Logger logger = Logger.getLogger(ModuleCommandParser.class.getName());
 
     private static final String VIEW = "view";
     private static final String D_EDIT_MODULE = "edit mod /n NEW_NAME";
@@ -86,12 +91,15 @@ public class ModuleCommandParser extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack,
                         ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException,
             ParseException, IOException, NullPointerException {
+        LogCenter.setUpLogger(logger);
         if (ui.fullCommand.isEmpty()) {
+            logger.log(Level.INFO, "module name not specified by user");
             throw new DukeException("Please input a module name.");
         }
         Module module = findModule(ui.fullCommand);
         System.out.println("Welcome to your module page! What would you like to do?\n");
         showListOfCommands();
+        logger.log(Level.INFO, "entering module page");
         ui.readCommand();
         while (!ui.fullCommand.equals(ESC)) {
             String[] commands = ui.fullCommand.split(" /n", 2);
@@ -129,7 +137,7 @@ public class ModuleCommandParser extends Command {
                 } else {
                     ui.showDontKnowErrorMessage();
                 }
-            } catch (IndexOutOfBoundsException i) {
+            } catch (IndexOutOfBoundsException e) {
                 switch (commands[0]) {
                 case EDIT_MODULE:
                     System.out.println("Please input the command "
@@ -163,8 +171,7 @@ public class ModuleCommandParser extends Command {
                     System.out.println("Please input the command "
                             + "in the format \'delete msc /n INDEX\'.");
                     break;
-                default:
-                    ui.showDontKnowErrorMessage();
+                default: logger.log(Level.WARNING, "bug in try catch", e);
                     break;
                 }
             } catch (DukeException d) {
@@ -172,8 +179,10 @@ public class ModuleCommandParser extends Command {
             }
             ui.readCommand();
         }
+        logger.log(Level.INFO, "user typed esc");
         System.out.println("Going back to note page...\n");
         GeneralNoteCommandParser.showListOfCommands();
+        logger.log(Level.INFO, "leaving module page");
     }
 
     @Override

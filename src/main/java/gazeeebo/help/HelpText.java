@@ -319,7 +319,7 @@ public class HelpText {
                     + "\tUndo previous tasks commands\n"
                     + "\tFormat: undo\n"
                     + "\n"
-                    + "\tPrevious commands that you can undo:\n"
+                    + "\tPrevious task commands that you can undo:\n"
                     + "\t\t- EventCommand\n"
                     + "\t\t- TodoCommand\n"
                     + "\t\t- DeadlineCommand\n"
@@ -330,16 +330,7 @@ public class HelpText {
                     + "\t\t- TimeBoundCommand\n"
                     + "\t\t- FixDurationCommand\n"
                     + "\t\t- ConfirmTentativeCommand\n"
-                    + "\t\t- UndoneCommand\n"
-                    + "\t\t- AddPlacesCommand\n"
-                    + "\t\t- DeletePlacesCommand\n"
-                    + "\t\t- AddContactCommand\n"
-                    + "\t\t- DeleteContactCommand\n"
-                    + "\t\t- AddExpensesCommand\n"
-                    + "\t\t- DeleteExpensesCommand\n"
-                    + "\t\t- addModuleCommand\n"
-                    + "\t\t- deleteModuleCommand\n"
-                    + "\t\t- shiftModuleCommand\n";
+                    + "\t\t- UndoneCommand\n";
 
     private static final String PERIOD_NOTE_ADD =
             "\t[ Adding a note to a particular day/week/month: addNote ]\n"
@@ -471,13 +462,18 @@ public class HelpText {
                     + "\n"
                     + "\tSteps for finding a place:\n"
                     + "\t\t1. Type in the command in the format specified above. Eg. find-LT19\n"
+                    + "\t\t2. Press ENTER.\n"
+                    + "\t\t3. Alternatively, type in the index for find command, 2 and press ENTER.\n"
                     + "\t\t2. Press ENTER.\n";
 
     private static final String PLACES_LIST =
             "\t[ Listing all places in NUS School of Computing (SOC): list ]\n"
                     + "\tLists out all places in SOC.\n"
                     + "\n"
-                    + "\tFormat :  list";
+                    + "\tFormat :  list"
+                    + "\tSteps for list command:\n"
+                    + "\t\t1. Type in list and press ENTER.\n"
+                    + "\t\t2. Alternatively, type the index of list command, 4 and press ENTER.\n";
 
     private static final String PLACES_DELETE =
             "\t[ Deleting a place in the list: delete-place ]\n"
@@ -501,7 +497,10 @@ public class HelpText {
                     + "\t\t- add\n"
                     + "\t\t- delete\n"
                     + "\n"
-                    + "\tFormat :  undo";
+                    + "\tFormat :  undo"
+                    + "\tSteps for undo command:\n"
+                    + "\t\t1. Type in undo and press ENTER.\n"
+                    + "\t\t2. Alternatively, type the index of undo command, 5 and press ENTER.\n";
 
     //------------------------------------------------------notes----------------------------------
     private static final String HEADER_NOTES_PAGE = "********** Notes page: notes **********\n"

@@ -29,7 +29,7 @@ public class DeletePlacesCommand {
                     placeToDelete = ui.fullCommand.split("-")[1];
                 }
             }
-            if (places.containsKey(placeToDelete)) {
+            if (placeToDelete != null && places.containsKey(placeToDelete)) {
                 places.remove(placeToDelete);
                 System.out.println("Successfully deleted: " + placeToDelete);
             } else {
