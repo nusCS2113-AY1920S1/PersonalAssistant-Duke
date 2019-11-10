@@ -1,8 +1,80 @@
 # Chef Duke - Developer Guide
 
-[TOC]
+Setting Up
 
+Design 
 
+- Architecture
+- UI
+- Command Component
+- Parser Component
+- Storage Component
+- Exception Component
+- Dish Component
+- DishesCommand Component
+- Order Component
+- OrderCommand Component
+- Fridge Component
+- GenericList Component
+- Ingredient Component
+- ingredientCommand Component
+- Statistics
+
+Implementation
+
+Documentation
+
+Testing
+
+Dev Ops
+
+Appendix A: Product Scope
+
+Appendix B: User Stories
+
+Appendix C: Use Cases
+
+Appendix D: Non Functional Requirements 
+
+Appendix E: Instructions for Manual
+
+​	E1. Launch and Shutdown
+
+​	E2. Adding an ingredient
+
+​	E3. Removing an ingredient
+
+​	E4. Using an ingredient
+
+​	E5. Listing all ingredient
+
+​	E6. Removing all expired ingredient
+
+​	E7. Finding an ingredient
+
+​	E8. Listing ingredients that expired today
+
+​	E9. Changing ingredient name
+
+​	E10. Changing ingredient amount
+
+​	E11. Adding an order
+
+​	E12. Marking order as done
+
+​	E13. Altering order
+
+​    E14. Removing order
+
+​    E15. Adding a dish
+
+​    E16. Removing a dish
+
+​    E17. Adding an ingredient to a dish
+
+​    E18. Finding a dish
+
+​    E19. Changing name of a dish
 
 ### 1. Setting Up
 
@@ -262,9 +334,6 @@ Below is a table of the methods implemented in this class.
 
 | Methods                                                      | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| changeIngredientsDate(int, Date): void                       | Changes the date of the Ingredient using an Index number     |
-| changeName(int, String): void                                | Changes the name of the ingredient using an Index number     |
-| changeAmount(int, String): void                              | Changes the amount of the ingredient using an index number   |
 | addEntry(Ingredient Object): void                            | Adds a new Ingredient of Ingredients attributes into the Ingredient List |
 | hasEnough(Ingredient Object): Boolean                        | Returns true or false when comparing 2 Objects.<br />True: We have enough of the required Ingredient<br />False: Otherwise |
 | getEntry(Ingredient Object): Ingredient Object               | Looks for the queried ingredient and returns it              |
@@ -513,25 +582,27 @@ Below is a table with some of the methods provided by this class.
 
 
 
-| Methods                             | Description                                                  |
-| ----------------------------------- | ------------------------------------------------------------ |
-| Ingredient(String, Integer, String) | Converts the Date into String                                |
-| getAmount(): int                    | Returns amount of ingredient                                 |
-| getName(): String                   | Returns name of the Ingredient                               |
-| changeDate(Date): void              | Changes the expiry date of the ingredient                    |
-| setName(String): void               | Sets the name of the ingredient                              |
-| changeAmount(Integer): void         | Changes the amount of the ingredient                         |
-| getExpiryDate(): Date               | Returns the expiry date of the ingredient                    |
-| equals(Object): Boolean             | Returns true or false when comparing 2 objects<br />True: Object names are identical<br />False: Otherwise |
-| isExpired(): Date                   | Returns the expiry date                                      |
-| equalsCompletely(Object): Boolean   | Returns true or false when comparing 2 objects<br />True: Objects have same name and expiry date<br />False: Otherwise |
+| Methods                               | Description                                                  |
+| ------------------------------------- | ------------------------------------------------------------ |
+| Ingredient(String, Integer, String)   | Converts the `Date` into `String`                            |
+| getExpiryDate(): Date                 | Returns the expiry date of the ingredient                    |
+| setDate(Date): void                   | Setting the expiry date of the ingredient                    |
+| getAmount(): int                      | Returns the amount of the ingredient                         |
+| setAmount(Integer): void              | Setting the amount of an ingredient                          |
+| getName(): String                     | Returns the name of the ingredient                           |
+| setName(String): void                 | Setting the name of the ingredient                           |
+| equals(Ingredients): Boolean          | Returns a `boolean` when comparing 2 Ingredients<br />*True*: Ingredient names are identical<br />*False*: Otherwise |
+| isExpired(): Boolean                  | Returns a `boolean` depending on the expiry date<br />*True*: Ingredient's date is before or equal to today's date<br />*False*: Otherwise |
+| isExpiredToday(String): Boolean       | Returns a `boolean` depending on the expiry date<br />*True*: `Date` of string is is equal to today's date<br />*False*: Otherwise |
+| equalsCompletely(Ingredient): Boolean | Returns a `boolean` when comparing 2 Ingredients<br />*True*: Ingredients have same name and expiry date<br />*False*: Otherwise |
 
 
 #### 2.13 ingredientCommand Component
 
-API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.java`, `RemoveAllExpired.java,FindIngredientCommand.java, UseCommand.java,`
+API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.java`, `RemoveAllExpired.java`, `FindIngredientCommand.java`, `UseCommand.java`, `ChangeAmountCommand.java`, `ChangeNameCommand.java`
 
 The `ingredientCommand` classes all inherit from the `Command` class. They all have a specific implementation of the abstract method `execute` of the class `Command`. The `ingredientCommand` classes includes:
+
 
 - **AddCommand** This command adds an `Ingredient` to the `Fridge`, passed as an argument when creating this command. The `IngredientsList` used by the `Fridge` can also be read from the file when initializing. When adding an ingredient, it is compared to all the existing ingredients in the `Fridge`, if there is an match, having the same name and expiry date, no new entry is created in the `IngredientList` of the `Fridge`, namely, only the amount of the already existing matching ingredient is augmented by the new amount to be added. Otherwise, a new ingredient entry is created in the `IngredientList`. 
 - **DeteleCommand**: This command deletes an ingredient from the `IngredientList` of the `Fridge`, indicated by it's index in the list, passed as a parameter when creating this command. 
@@ -540,6 +611,10 @@ The `ingredientCommand` classes all inherit from the `Command` class. They all h
 - **RemoveAllExpired**: The command is used to remove all expired ingredients from the  `IngredientList` of the `Fridge`.
 - **FindIngredientCommand**: This command is used to find all ingredients with the queried keyword entered by the chef.
 - **UseCommand**: This command is executed to use and remove the specified amount of an ingredient stored in the  `IngredientList` of the `Fridge`, when the Chef wants to use it. An important *note* is that ingredients are used based on their expiry date, meaning the most recently expiring ingredients, matching the ingredient indicated by the chef, are used first. Otherwise, if there is not enough of the required non-expired amount of this ingredient needed by the chef, the program will prompt it to the chef. 
+- ChangeAmountCommand: This command is used to change the amount of an ingredient given the index number of the ingredient
+- ChangeNameCommand: This command is used to change the name of an ingredient given the index number of the ingredient
+
+
 
 ### 3. Implementation
 
@@ -579,7 +654,6 @@ Target user profile: Restaurant Chef
 | high     | restaurant Chef    | keep track of all the ingredients in the kitchen             | there are ample supply and no expired ingredient     |
 | high     | restaurant Chef    | I want to create a recipe book                               | I know which ingredient is needed for that dish      |
 | high     | restaurant Chef    | I want to keep track of the orders                           | I know which to complete first                       |
-| high     | restaurant Chef    | I want to                                                    |                                                      |
 
 ### Appendix C: Use Case
 
@@ -753,7 +827,7 @@ in the main page, there are several actions for the user:
 | 6     | c       | c       | go into order template      |
 | 7     | d       | d       | go into dish template       |
 
-#### E2. Launch and shutdown
+#### E1. Launch and shutdown
 
 1. Initial Launch
    1. Download Jar file and copy into empty folder
@@ -761,7 +835,7 @@ in the main page, there are several actions for the user:
    3. resize window if size is not optimum
    4. enter `q` to close the program or close the window
 
-#### E1. Adding an ingredient
+#### E2. Adding an ingredient
 
 1. Adding an ingredient to the Fridge
 
@@ -779,25 +853,9 @@ in the main page, there are several actions for the user:
 
       Expected: output a message to user that the description of add cannot be empty
 
-#### E2. Using an ingredient
 
-Using an ingredient from the Fridge
 
-1. prerequisite: user must be in `b` option of the main menu. See all ingredients in the Fridge by using `show` , assuming there is an amount of 3 of tomato in the `Fridge`
-
-   Test case 1: `use tomato 2 `
-
-   Expected: search through the `Fridge`, use and remove an amount of 2 of the tomato, by removing the most recently expiring tomato first
-
-   Test case 2: `use tomato 3`
-
-   Expected: outputs a message notifying the user that there is not a sufficient amount of tomato that is not expired
-
-   Test case 3: `use tomato`
-
-   Expected: output a message to user that he must specify an amount 
-
-#### E5. Remove an ingredient
+#### E3. Removing an ingredient
 
 Removing an ingredient from the Fridge
 
@@ -815,15 +873,55 @@ Removing an ingredient from the Fridge
 
    Expected:  no ingredient is removed, outputs to the user that he must specify an index
 
-#### E6. Adding an order
+#### E4. Using an ingredient
 
-#### E7. Marking order as done
+Using an ingredient from the Fridge
 
-#### E8. Altering order
+1. prerequisite: user must be in `b` option of the main menu. See all ingredients in the Fridge by using `show` , assuming there is an amount of 3 of tomato in the `Fridge`
 
-#### E9. Removing order
+   Test case 1: `use tomato 2 `
 
-#### E10. Adding a dish
+   Expected: search through the `Fridge`, use and remove an amount of 2 of the tomato, by removing the most recently expiring tomato first
+
+   Test case 2: `use tomato 3`
+
+   Expected: outputs a message notifying the user that there is not a sufficient amount of tomato that is not expired
+
+   Test case 3: `use tomato`
+
+   Expected: output a message to user that he must specify an amount 
+
+#### E5. Listing all ingredient
+
+1. Adding an ingredient to the List
+
+#### E6. Removing all expired ingredient
+
+1. Adding an ingredient to the List
+
+#### E7. Finding an ingredient
+
+#### E8. Listing ingredients that expired today
+
+1. Adding an ingredient to the List
+
+#### E9. Changing ingredient name
+
+1. Adding an ingredient to the List
+
+#### E10. Changing ingredient amount
+
+1. Adding an ingredient to the List
+
+#### E11. Adding an order
+
+#### E12. Marking order as done
+
+#### E13. Altering order
+
+#### E14. Removing order
+
+#### E15. Adding a dish
 
 1. adding a dish to the dishList
 
@@ -841,7 +939,7 @@ Removing an ingredient from the Fridge
 
       Expected: output message to user that the description cannot be empty
 
-#### E11. Removing a dish
+#### E16. Removing a dish
 
 1. removing a dish from the dishList
 
@@ -863,7 +961,7 @@ Removing an ingredient from the Fridge
 
          Expected: no dish is deleted. outputs to the user that the dish does not exist 
 
-#### E12. Adding an ingredient to a dish
+#### E17. Adding an ingredient to a dish
 
 1. associating an ingredient to a dish in the dishList	
 
@@ -881,7 +979,7 @@ Removing an ingredient from the Fridge
 
       Expected: no ingredient is added to a dish. outputs message to user that index/amount needs to be valid
 
-#### E13. Finding a dish
+#### E18. Finding a dish
 
 1. finding a dish in list given a keyword
 
@@ -900,7 +998,7 @@ Removing an ingredient from the Fridge
    
    Expected: deletes the first dish in the list, 
 
-#### E12. Changing name of a dish
+#### E19. Changing name of a dish
 
 1. changing the name of a dish in list
 

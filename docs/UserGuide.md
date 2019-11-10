@@ -1,6 +1,68 @@
 # Chef Duke - User Guide
 
-[TOC]
+1. Introduction
+
+2. Quick Start
+
+3. Features
+
+   3.1 Main Menu
+
+   3.2 Dish
+
+   ​	3.2.1 Adding Dish
+
+   ​	3.2.2 Adding Ingredient to Dish
+
+   ​	3.2.3 List all Dishes
+
+   ​	3.2.4 Initializing the Dish
+
+   ​	3.2.5 Removing a Dish
+
+   3.3 Ingredient
+
+   ​	3.3.1 Adding Ingredient
+
+   ​	3.3.2 Removing Ingredient
+
+   ​	3.3.3 Finding Ingredients
+
+   ​	3.3.4 Listing all Expired Ingredient on Date itself
+
+   ​	3.3.5 Removing all Expired Ingredient 
+
+   ​	3.3.6 Using an Ingredient
+
+   3.4 Fridge
+
+   ​	3.4.1 Add an Ingredient to Fridge
+
+   ​	3.4.2 Removing an Ingredient from Fridge
+
+   ​	3.4.3 Use Ingredient from Fridge 
+
+   ​	3.4.4 Remove all Expired Ingredient from Fridge
+
+   3.5 Order
+
+   ​	3.5.1 Adding Order Today or Pre-Order
+
+   ​	3.5.2 Altering Order Serving Date
+
+   ​	3.5.3 Cancelling Order
+
+   ​	3.5.4 Marking Order as Done
+
+   ​	3.5.5 Initializing Order List
+
+   ​	3.5.6 Listing Order by Different Filtering Keywords
+
+   3.6 Todo List Today
+
+4. Command Summary
+
+5. FAQ
 
 
 ## 1. Introduction

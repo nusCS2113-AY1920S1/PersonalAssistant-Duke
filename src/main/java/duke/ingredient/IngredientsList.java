@@ -152,7 +152,7 @@ public class IngredientsList extends GenericList<Ingredient> {
             }
             int amountLeft = toUse.getAmount() - neededAmount;
             if (neededAmount < toUse.getAmount()) {
-                toUse.changeAmount(amountLeft);
+                toUse.setAmount(amountLeft);
                 return true;
             }
             neededAmount -= toUse.getAmount();
