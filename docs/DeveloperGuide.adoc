@@ -127,6 +127,42 @@ The `command` subpackage consists of the following classes and subpackages.
 * `module` subpackage
 * `lesson` subpackage
 
+[[LogicProductivityClassDiagram]]
+.Structure of the productivity subpackage in the Logic Component
+image::LogicProductivityClassDiagram.png[LogicProductivityClassDiagram]
+
+The *_Class Diagram_* above illustrates the relationship between the individual components of the `productivity` subpackage in the `Logic` component.
+
+[[LogicTaskClassDiagram]]
+.Structure of the task subpackage in the Logic Component
+image::LogicTaskClassDiagram.png[LogicTaskClassDiagram]
+
+The *_Class Diagram_* above illustrates the relationship between the individual components of the `task` subpackage in the `Logic` component.
+
+[[LogicSemesterClassDiagram]]
+.Structure of the semester subpackage in the Logic Component
+image::LogicSemesterClassDiagram.png[LogicSemesterClassDiagram]
+
+The *_Class Diagram_* above illustrates the relationship between the individual components of the `semester` subpackage in the `Logic` component.
+
+[[LogicOrganizationClassDiagram]]
+.Structure of the organization subpackage in the Logic Component
+image::LogicOrganizationClassDiagram.png[LogicOrganizationClassDiagram]
+
+The *_Class Diagram_* above illustrates the relationship between the individual components of the `organization` subpackage in the `Logic` component.
+
+[[LogicModuleClassDiagram]]
+.Structure of the module subpackage in the Logic Component
+image::LogicModuleClassDiagram.png[LogicModuleClassDiagram]
+
+The *_Class Diagram_* above illustrates the relationship between the individual components of the `module` subpackage in the `Logic` component.
+
+[[LogicLessonClassDiagram]]
+.Structure of the lesson subpackage in the Logic Component
+image::LogicLessonClassDiagram.png[LogicLessonClassDiagram]
+
+The *_Class Diagram_* above illustrates the relationship between the individual components of the `lesson ` subpackage in the `Logic` component.
+
 The `Logic` component is responsible for:
 
 * Executing user commands.
