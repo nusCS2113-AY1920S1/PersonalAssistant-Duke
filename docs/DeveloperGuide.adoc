@@ -549,43 +549,48 @@ Thus, showing suggestions in the current implementation gives the user the freed
 
 === Task Tracker feature
 
-[[ViewTracker]]
-.Output of Tracker View Command
-image::ViewTracker.png[ViewTracker]
-
-[[ListTracker]]
-.Output of Tracker List Command
-image::ListTracker.png[ListTracker]
-
-[[DeleteTracker]]
-.Output of Tracker Delete Command
-image::DeleteTracker.png[DeleteTracker]
-
-[[StartTracker]]
-.Output of Tracker Start Command
-image::StartTracker.png[StartTracker]
-
-[[StopTracker]]
-.Output of Tracker Stop Command
-image::StopTracker.png[StopTracker]
-
-[[PauseTracker]]
-.Output of Tracker Pause Command
-image::PauseTracker.png[PauseTracker]
-
 ==== Implementation
 The `TrackerCommand` class extends the `Command` class by providing functions to start, stop and pause trackers as well as display a histogram
 visualising the amount of time spent on each `Module`. `TrackerCommand` class also provides functions for viewing and deleting tracker entries.
 
 Also, it contains the following features:
 
+[[StartTracker]]
+.Output of Tracker Start Command
+image::StartTracker.png[StartTracker]
+
 * You may `tracker /start` by  `taskListIndex` with a specific command.
+
+[[StopTracker]]
+.Output of Tracker Stop Command
+image::StopTracker.png[StopTracker]
+
 * You may `tracker /stop` by  `taskListIndex` with a specific command.
+
+[[PauseTracker]]
+.Output of Tracker Pause Command
+image::PauseTracker.png[PauseTracker]
+
 * You may `tracker /pause` by  `taskListIndex` with a specific command.
+
+[[ViewTracker]]
+.Output of Tracker View Command
+image::ViewTracker.png[ViewTracker]
+
 * You may `tracker /view` by `day` with a specific command.
 * You may `tracker /view` by `week` with a specific command.
 * You may `tracker /view` by `all` with a specific command.
+
+[[DeleteTracker]]
+.Output of Tracker Delete Command
+image::DeleteTracker.png[DeleteTracker]
+
 * You may `tracker /delete` by `taskListIndex` with a specific command.
++
+[[ListTracker]]
+.Output of Tracker List Command
+image::ListTracker.png[ListTracker]
++
 * You may `tracker /list` with a specific command.
 
 Provided below is an example scenario of use and how `TrackerCommand` class behaves and interacts with other relevant classes.
