@@ -41,9 +41,9 @@ public class deleteModuleCommand {
             }
             storage.Storage_StudyPlan(toStore);
             System.out.println("This module " + ModuleCode + " has been successfully deleted from Sem" + (Semester + 1) + ".");
-        }catch (DukeException e){
+        } catch (DukeException e){
             System.out.println(e.getMessage());
-        }catch (IOException | ArrayIndexOutOfBoundsException e) {
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Please input correct Semester number");
         }
     }
