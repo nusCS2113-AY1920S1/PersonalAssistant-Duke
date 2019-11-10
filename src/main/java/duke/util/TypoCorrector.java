@@ -2,6 +2,7 @@ package duke.util;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
 
+//@@author HUANGXUANKUN
 /**
  * This is a command typo corrector for Duke user command.
  * It provides a method TypoCorrector.CommandCorrection which takes in an invalid input command

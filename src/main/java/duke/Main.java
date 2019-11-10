@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
+//@@author HUANGXUANKUN
 /**
  * Launcher class for the app.
  */
@@ -35,6 +36,11 @@ public class Main extends Application {
         ui = new UiManager(duke);
     }
 
+    /**
+     * It initialize the UI manager to initialize GUI components for stages and load data from local hard disk.
+     *
+     * @param primaryStage The main stage MainWindow, which is used to contain all GUI components
+     */
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//@@author HUANGXUANKUN
 /**
  * Junit test for TypoCorrector class.
  *

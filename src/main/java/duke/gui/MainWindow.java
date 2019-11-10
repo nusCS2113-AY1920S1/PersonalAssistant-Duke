@@ -40,12 +40,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+//@@author HUANGXUANKUN
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends UiPart<Stage> {
-
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -170,7 +170,6 @@ public class MainWindow extends UiPart<Stage> {
     private TitledPane sixthTitledPane;
     @FXML
     private TitledPane seventhTitledPane;
-
     @FXML
     private ScrollPane firstScroll;
     @FXML
@@ -186,14 +185,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private ScrollPane seventhScroll;
 
-
+    //@@author HUANGXUANKUN
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
-
     private ObservableList<AssignedTask> assignedTaskData;
     private ObservableList<Task> taskData;
     private ObservableList<Patient> patientData;
-
     private Duke duke;
     private Stage primaryStage;
     private static final String FXML = "MainWindow.fxml";
@@ -228,20 +225,9 @@ public class MainWindow extends UiPart<Stage> {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         initializeTableViews();
-
-        //@@author qjie7
-        String[] possibleWords = {"add task :", "add patient :", "assign period task :#","assign deadline task :#",
-                                  "list patients", "list tasks","delete patient :#", "delete task :#",
-                                  "delete assigned task :#", "find patient :#","find patient :", "find task :#",
-                                  "find task :", "find assigned tasks :#","find assigned task :","update patient :#",
-                                  "update task :#","show upcoming tasks","barchart", "help", "piechart","bye", "undo",
-                                  "help"};
-        TextFields.bindAutoCompletion(userInput, possibleWords);
-        //@@lmtaek
         showHelpGuide();
-        // @@author
+        initializeAutoCompletion();
     }
-
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -252,6 +238,224 @@ public class MainWindow extends UiPart<Stage> {
         executeDukeWithInput(userInput.getText());
         userInput.clear();
     }
+
+    /**
+     * Initialize GUI tables.
+     */
+    public void initializeTableViews() {
+        assignedTaskData = FXCollections
+            .observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
+        taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
+        patientData = FXCollections
+            .observableArrayList(duke.getPatientManager().getPatientList());
+        patientIdCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("id"));
+        patientNameCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("name"));
+        patientNricCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("nric"));
+        patientRoomCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("room"));
+        patientRemarkCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("remark"));
+
+        taskIdCol.setCellValueFactory(new PropertyValueFactory<Task, Integer>("id"));
+        taskDescriptionCol.setCellValueFactory(new PropertyValueFactory<Task, String>("description"));
+
+
+        assignedUuidCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, Integer>("uuid"));
+        assignedTypeCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, String>("type"));
+        assignedTidCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, Integer>("tid"));
+        assignedPidCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, Integer>("pid"));
+        assignedIsDoneCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, Boolean>("IsDone"));
+        assignedTodoDateCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, String>("todoDateRaw"));
+        assignedStartDateCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, String>("startDateRaw"));
+        assignedEndDateCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, String>("endDateRaw"));
+        assignedDescriptionCol.setCellValueFactory(cellData -> {
+            AssignedTask currentAssignedTask = cellData.getValue();
+            return Bindings.createStringBinding(
+                () -> {
+                    int tid = currentAssignedTask.getTid();
+                    return duke.getTaskManager().getTask(tid).getDescription();
+                }
+            );
+        });
+        assignedPnameCol.setCellValueFactory(cellData -> {
+            AssignedTask currentAssignedTask = cellData.getValue();
+            return Bindings.createStringBinding(
+                () -> {
+                    int pid = currentAssignedTask.getPid();
+                    return duke.getPatientManager().getPatient(pid).getName();
+                }
+            );
+        });
+
+        assignedTaskTable.setItems(assignedTaskData);
+        taskTable.setItems(taskData);
+        patientTable.setItems(patientData);
+        patientSearchBarListener();
+        assignedTaskSearchBarListener();
+        taskSearchBarListener();
+    }
+
+    /**
+     * Update tables. To be called after each command execution
+     */
+    public void updateTableViews() throws DukeException {
+        assignedTaskData.clear();
+        taskData.clear();
+        patientData.clear();
+        assignedTaskData = FXCollections.observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
+        taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
+        patientData = FXCollections.observableArrayList(duke.getPatientManager().getPatientList());
+        assignedTaskTable.setItems(assignedTaskData);
+        taskTable.setItems(taskData);
+        patientTable.setItems(patientData);
+        patientSearchBarListener();
+        assignedTaskSearchBarListener();
+        taskSearchBarListener();
+        try {
+            showUpcomingTasks();
+        } catch (Exception e) {
+            throw new DukeException("Failed to update Upcoming Tasks tab.");
+        }
+    }
+
+    /**
+     * Execute duke core with userInput command given
+     * and update dialog container and tables.
+     */
+    private void executeDukeWithInput(String inputCommand) {
+        String dukeResponses;
+        boolean isException = false;
+        try {
+            dukeResponses = duke.run(inputCommand);
+            updateTableViews();
+        } catch (DukeException de) {
+            dukeResponses = de.getMessage();
+            isException = true;
+        }
+        dialogContainer.getChildren().addAll(
+            DialogBox.getUserDialog(inputCommand, userImage),
+            DialogBox.getDukeDialog(dukeResponses, dukeImage, isException)
+        );
+        duke.clearDukeResponses();
+    }
+
+    /**
+     * Listen to search bar input for filtering rows in patient table.
+     */
+    private void patientSearchBarListener() {
+        // Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<Patient> filteredPatients = new FilteredList<>(patientData, b -> true);
+
+        // Capture Patient's search bar text field
+        patientSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredPatients.setPredicate(patient -> {
+                // If filter text is empty, display all patients
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (patient.getName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(patient.getId()).contains(lowerCaseFilter)) {
+                    return true;
+                } else if (patient.getRoom().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (patient.getNric().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (patient.getRemark().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else {
+                    return false; // No match
+                }
+            });
+        });
+        // 3. Wrap the FilteredList in a SortedList.
+        SortedList<Patient> sortedPatientData = new SortedList<>(filteredPatients);
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        sortedPatientData.comparatorProperty().bind(patientTable.comparatorProperty());
+        // 5. Add sorted (and filtered) data to the table.
+        patientTable.setItems(sortedPatientData);
+    }
+
+    /**
+     * Listen to search bar input for filtering rows in task table.
+     */
+    private void taskSearchBarListener() {
+        // Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<Task> filteredPatients = new FilteredList<>(taskData, b -> true);
+
+        // Capture Patient's search bar text field
+        taskSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredPatients.setPredicate(task -> {
+                // If filter text is empty, display all patients
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (task.getDescription().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(task.getId()).contains(lowerCaseFilter)) {
+                    return true;
+                } else {
+                    return false; // No match
+                }
+            });
+        });
+        SortedList<Task> sortedTaskData = new SortedList<>(filteredPatients);
+        sortedTaskData.comparatorProperty().bind(taskTable.comparatorProperty());
+        taskTable.setItems(sortedTaskData);
+    }
+
+    /**
+     * Listen to search bar input for filtering rows in assign task table.
+     */
+    private void assignedTaskSearchBarListener() {
+        // Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<AssignedTask> filteredAssignedTasks = new FilteredList<>(assignedTaskData, b -> true);
+        assignedTaskSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredAssignedTasks.setPredicate(assignedTask -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                try {
+                    if (assignedTask.getType().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (duke.getTaskManager().getTask((assignedTask.getTid()))
+                        .getDescription().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (duke.getPatientManager().getPatient((assignedTask.getPid()))
+                        .getName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (String.valueOf(assignedTask.getUuid()).contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (String.valueOf(assignedTask.getTid()).contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (String.valueOf(assignedTask.getPid()).contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (String.valueOf(assignedTask.getIsDone()).contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (assignedTask.getStartDateRaw().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (assignedTask.getEndDateRaw().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (assignedTask.getTodoDateRaw().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else {
+                        return false; // Does not match.
+                    }
+                } catch (DukeException e) {
+                    return false;
+                }
+            });
+        });
+        SortedList<AssignedTask> sortedAssignedTaskData = new SortedList<>(filteredAssignedTasks);
+        sortedAssignedTaskData.comparatorProperty().bind(assignedTaskTable.comparatorProperty());
+        assignedTaskTable.setItems(sortedAssignedTaskData);
+    }
+
+    //@@author
 
     //@@author qjie7
 
@@ -466,224 +670,7 @@ public class MainWindow extends UiPart<Stage> {
         assignTaskUuidField.clear();
 
     }
-
-
     //@@author
-
-
-    /**
-     * execute duke core with userInput command given,
-     * and update dialog container and tables.
-     */
-    private void executeDukeWithInput(String inputCommand) {
-        String dukeResponses;
-        boolean isException = false;
-        try {
-            dukeResponses = duke.run(inputCommand);
-            updateTableViews();
-        } catch (DukeException de) {
-            dukeResponses = de.getMessage();
-            isException = true;
-        }
-        dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(inputCommand, userImage),
-            DialogBox.getDukeDialog(dukeResponses, dukeImage, isException)
-        );
-        duke.clearDukeResponses();
-    }
-
-    /**
-     * .
-     */
-    public void initializeTableViews() {
-        assignedTaskData = FXCollections
-            .observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
-        taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
-        patientData = FXCollections
-            .observableArrayList(duke.getPatientManager().getPatientList());
-        patientIdCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("id"));
-        patientNameCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("name"));
-        patientNricCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("nric"));
-        patientRoomCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("room"));
-        patientRemarkCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("remark"));
-
-        taskIdCol.setCellValueFactory(new PropertyValueFactory<Task, Integer>("id"));
-        taskDescriptionCol.setCellValueFactory(new PropertyValueFactory<Task, String>("description"));
-
-
-        assignedUuidCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, Integer>("uuid"));
-        assignedTypeCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, String>("type"));
-        assignedTidCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, Integer>("tid"));
-        assignedPidCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, Integer>("pid"));
-        assignedIsDoneCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, Boolean>("IsDone"));
-        assignedTodoDateCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, String>("todoDateRaw"));
-        assignedStartDateCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, String>("startDateRaw"));
-        assignedEndDateCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, String>("endDateRaw"));
-        assignedDescriptionCol.setCellValueFactory(cellData -> {
-            AssignedTask currentAssignedTask = cellData.getValue();
-            return Bindings.createStringBinding(
-                () -> {
-                    int tid = currentAssignedTask.getTid();
-                    return duke.getTaskManager().getTask(tid).getDescription();
-                }
-            );
-        });
-        assignedPnameCol.setCellValueFactory(cellData -> {
-            AssignedTask currentAssignedTask = cellData.getValue();
-            return Bindings.createStringBinding(
-                () -> {
-                    int pid = currentAssignedTask.getPid();
-                    return duke.getPatientManager().getPatient(pid).getName();
-                }
-            );
-        });
-
-        assignedTaskTable.setItems(assignedTaskData);
-        taskTable.setItems(taskData);
-        patientTable.setItems(patientData);
-        patientSearchBarListener();
-        assignedTaskSearchBarListener();
-        taskSearchBarListener();
-    }
-
-    /**
-     * .
-     */
-    public void updateTableViews() throws DukeException {
-        assignedTaskData.clear();
-        taskData.clear();
-        patientData.clear();
-        assignedTaskData = FXCollections.observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
-        taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
-        patientData = FXCollections.observableArrayList(duke.getPatientManager().getPatientList());
-        assignedTaskTable.setItems(assignedTaskData);
-        taskTable.setItems(taskData);
-        patientTable.setItems(patientData);
-        patientSearchBarListener();
-        assignedTaskSearchBarListener();
-        taskSearchBarListener();
-
-        //@@author lmtaek
-        try {
-            showUpcomingTasks();
-        } catch (Exception e) {
-            throw new DukeException("Failed to update Upcoming Tasks tab.");
-        }
-        
-        //@@author
-    }
-
-    private void patientSearchBarListener() {
-        // Wrap the ObservableList in a FilteredList (initially display all data).
-        FilteredList<Patient> filteredPatients = new FilteredList<>(patientData, b -> true);
-
-        // Capture Patient's search bar text field
-        patientSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredPatients.setPredicate(patient -> {
-                // If filter text is empty, display all patients
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (patient.getName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (String.valueOf(patient.getId()).contains(lowerCaseFilter)) {
-                    return true;
-                } else if (patient.getRoom().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (patient.getNric().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (patient.getRemark().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else {
-                    return false; // No match
-                }
-            });
-        });
-        // 3. Wrap the FilteredList in a SortedList.
-        SortedList<Patient> sortedPatientData = new SortedList<>(filteredPatients);
-        // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedPatientData.comparatorProperty().bind(patientTable.comparatorProperty());
-        // 5. Add sorted (and filtered) data to the table.
-        patientTable.setItems(sortedPatientData);
-    }
-
-    /**
-     * .
-     */
-    private void taskSearchBarListener() {
-        // Wrap the ObservableList in a FilteredList (initially display all data).
-        FilteredList<Task> filteredPatients = new FilteredList<>(taskData, b -> true);
-
-        // Capture Patient's search bar text field
-        taskSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredPatients.setPredicate(task -> {
-                // If filter text is empty, display all patients
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (task.getDescription().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (String.valueOf(task.getId()).contains(lowerCaseFilter)) {
-                    return true;
-                } else {
-                    return false; // No match
-                }
-            });
-        });
-        SortedList<Task> sortedTaskData = new SortedList<>(filteredPatients);
-        sortedTaskData.comparatorProperty().bind(taskTable.comparatorProperty());
-        taskTable.setItems(sortedTaskData);
-    }
-
-    private void assignedTaskSearchBarListener() {
-        // Wrap the ObservableList in a FilteredList (initially display all data).
-        FilteredList<AssignedTask> filteredAssignedTasks = new FilteredList<>(assignedTaskData, b -> true);
-        assignedTaskSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredAssignedTasks.setPredicate(assignedTask -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                try {
-                    if (assignedTask.getType().toLowerCase().contains(lowerCaseFilter)) {
-                        return true;
-                    } else if (duke.getTaskManager().getTask((assignedTask.getTid()))
-                        .getDescription().toLowerCase().contains(lowerCaseFilter)) {
-                        return true;
-                    } else if (duke.getPatientManager().getPatient((assignedTask.getPid()))
-                        .getName().toLowerCase().contains(lowerCaseFilter)) {
-                        return true;
-                    } else if (String.valueOf(assignedTask.getUuid()).contains(lowerCaseFilter)) {
-                        return true;
-                    } else if (String.valueOf(assignedTask.getTid()).contains(lowerCaseFilter)) {
-                        return true;
-                    } else if (String.valueOf(assignedTask.getPid()).contains(lowerCaseFilter)) {
-                        return true;
-                    } else if (String.valueOf(assignedTask.getIsDone()).contains(lowerCaseFilter)) {
-                        return true;
-                    } else if (assignedTask.getStartDateRaw().toLowerCase().contains(lowerCaseFilter)) {
-                        return true;
-                    } else if (assignedTask.getEndDateRaw().toLowerCase().contains(lowerCaseFilter)) {
-                        return true;
-                    } else if (assignedTask.getTodoDateRaw().toLowerCase().contains(lowerCaseFilter)) {
-                        return true;
-                    } else {
-                        return false; // Does not match.
-                    }
-                } catch (DukeException e) {
-                    return false;
-                }
-            });
-        });
-        SortedList<AssignedTask> sortedAssignedTaskData = new SortedList<>(filteredAssignedTasks);
-        sortedAssignedTaskData.comparatorProperty().bind(assignedTaskTable.comparatorProperty());
-        assignedTaskTable.setItems(sortedAssignedTaskData);
-    }
 
     //@@author lmtaek
 
@@ -699,38 +686,48 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Handler for Upcoming Tasks tab. Dynamically updates to display tasks assigned for day within upcoming week.
+     *
      * @throws DukeException When Upcoming Tasks tab is unable to locate Upcoming Tasks to fill out respective fields.
      */
     public void showUpcomingTasks() throws DukeException {
         VBox[] upcomingTaskContainers = {firstDayBox, secondDayBox, thirdDayBox, fourthDayBox,
-                                            fifthDayBox, sixthDayBox, seventhDayBox};
+            fifthDayBox, sixthDayBox, seventhDayBox};
         TitledPane[] titledPanes = {firstTitledPane, secondTitledPane, thirdTitledPane, fourthTitledPane,
-                                    fifthTitledPane, sixthTitledPane, seventhTitledPane};
+            fifthTitledPane, sixthTitledPane, seventhTitledPane};
         ScrollPane[] scrollPanes = {firstScroll, secondScroll, thirdScroll, fourthScroll,
-                                    fifthScroll, sixthScroll, seventhScroll};
+            fifthScroll, sixthScroll, seventhScroll};
         ArrayList<UpcomingTasks> upcomingTasks =
-                new UpcomingTasksCommand(LocalDateTime.now(), false).getUpcomingTaskLists();
+            new UpcomingTasksCommand(LocalDateTime.now(), false).getUpcomingTaskLists();
 
         for (int i = 0; i < 7; i++) {
             upcomingTasks.add(new UpcomingTasks(LocalDateTime.now().plusDays(i),
-                    duke.getAssignedTaskManager(), duke.getTaskManager(),
-                    duke.getPatientManager()));
+                duke.getAssignedTaskManager(), duke.getTaskManager(),
+                duke.getPatientManager()));
         }
 
         for (int i = 0; i < upcomingTaskContainers.length; i++) {
             upcomingTaskContainers[i].getChildren().clear();
             titledPanes[i].setText(upcomingTasks.get(i).getFormattedDate());
             ArrayList<UpcomingTasksBox> taskBoxesForDate
-                    = UpcomingTasksBox.createUpcomingTasksBoxesForDate(upcomingTasks.get(i).getTaskAndInfo());
+                = UpcomingTasksBox.createUpcomingTasksBoxesForDate(upcomingTasks.get(i).getTaskAndInfo());
 
             for (UpcomingTasksBox taskInfoForDate : taskBoxesForDate) {
                 upcomingTaskContainers[i].getChildren().addAll(taskInfoForDate);
             }
-
             scrollPanes[i].setContent(upcomingTaskContainers[i]);
             titledPanes[i].setContent(scrollPanes[i]);
-
         }
+    }
+
+    //@@author qjie7
+    private void initializeAutoCompletion() {
+        String[] possibleWords = {"add task :", "add patient :", "assign period task :#", "assign deadline task :#",
+            "list patients", "list tasks", "delete patient :#", "delete task :#",
+            "delete assigned task :#", "find patient :#", "find patient :", "find task :#",
+            "find task :", "find assigned tasks :#", "find assigned task :", "update patient :#",
+            "update task :#", "show upcoming tasks", "barchart", "help", "piechart", "bye", "undo",
+            "help"};
+        TextFields.bindAutoCompletion(userInput, possibleWords);
     }
 
 }

@@ -9,6 +9,7 @@ import duke.models.tasks.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//@@author HUANGXUANKUN
 /**
  * Represents the necessary dukeUi elements for user interaction.
  */
@@ -32,7 +33,6 @@ public class DukeUi {
 
     /**
      * Increment the response to duke response collections for print out in GUI.
-     * Perform system.out.println for debugging in terminal.
      *
      * @param dukeResponse duke's response for user
      */
@@ -68,15 +68,6 @@ public class DukeUi {
      */
     public String readUserInput() {
         return this.userInput;
-    }
-
-    /**
-     * Display the error message start with an emoji.
-     *
-     * @param errorMessage the message of error/exception
-     */
-    public void showError(String errorMessage) {
-        printDukeResponse("\u2639" + errorMessage); // Emoji of sad face
     }
 
     /**
@@ -157,6 +148,7 @@ public class DukeUi {
             printDukeResponse("No task was found with description: " + description);
         }
     }
+    //@@author
 
     //@@author kkeejjuunn
 
@@ -426,15 +418,6 @@ public class DukeUi {
         }
     }
 
-    /**
-     * .
-     *
-     * @param correctedCommand the correctedCommand
-     * @return
-     */
-    public void typoCorrection(String correctedCommand) {
-        printDukeResponse("Ambiguous command keywords!\nProceed with command: " + correctedCommand);
-    }
 
     /**
      * Shows a divider line.

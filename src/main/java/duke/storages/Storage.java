@@ -5,10 +5,11 @@ import duke.exceptions.DukeException;
 import java.util.ArrayList;
 import java.util.Map;
 
+//@@author HUANGXUANKUN
 public abstract class Storage {
 
     /**
-     * Write info to local csv files.
+     * Write info to local files.
      *
      * @param infoList A list of records to be to be written in rows to csv file
      * @throws DukeException throw exception with error message when i/o fails

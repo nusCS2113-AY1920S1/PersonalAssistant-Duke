@@ -4,7 +4,7 @@ import duke.Duke;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-
+//@@author HUANGXUANKUN
 /**
  * The manager of the UI component.
  */
@@ -32,10 +32,10 @@ public class UiManager implements Ui {
 
 
     /**
-     * Shows an error alert dialog with {@code title} and error message, {@code e},
-     * and exits the application after the user has closed the alert dialog.
+     * Exits the application after fatal error.
      */
     private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
+        // Raise an error alert here with title.
         Platform.exit();
         System.exit(1);
     }

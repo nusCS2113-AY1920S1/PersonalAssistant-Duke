@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+//@@author HUANGXUANKUN
 /**
  * It is a centralized class to manage all the storages related to data w/r.
  * It provides API for saving during command execution.

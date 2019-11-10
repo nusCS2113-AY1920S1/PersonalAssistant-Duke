@@ -5,6 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
+<!-- @@author HUANGXUANKUN -->
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="240.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <ImageView fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">

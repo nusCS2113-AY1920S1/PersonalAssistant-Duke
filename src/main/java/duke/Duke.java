@@ -13,6 +13,8 @@ import duke.models.assignedtasks.AssignedTaskManager;
 import duke.models.counter.Counter;
 import duke.storages.StorageManager;
 
+//@@author HUANGXUANKUN
+
 /**
  * Represents Duke, a Personal Assistant to help
  * users tracking their progress.
@@ -54,6 +56,10 @@ public class Duke {
     /**
      * Runs the Duke program.
      * Reads user input until a "bye" message is received.
+     *
+     * @param userInput Full command entered by user
+     * @return Duke's reply to the user entered command
+     * @throws DukeException throw when execution of the command fails
      */
     public String run(String userInput) throws DukeException {
         try {
@@ -62,9 +68,9 @@ public class Duke {
             Command c = CommandManager.manageCommand(userInput);
             if (MementoParser.getSaveFlag(c).equals("save")) {
                 Memento newMem = mementoManager.saveDukeStateToMemento(taskManager, assignedTaskManager,
-                        patientManager);
+                    patientManager);
                 c.execute(assignedTaskManager, taskManager, patientManager,
-                        dukeUi, storageManager);
+                    dukeUi, storageManager);
                 mementoManager.add(newMem);
             } else if (MementoParser.getSaveFlag(c).equals("pop")) {
                 Memento newMem = mementoManager.pop();
@@ -72,10 +78,10 @@ public class Duke {
                 this.taskManager = newMem.getTaskState();
                 this.patientManager = newMem.getPatientState();
                 c.execute(assignedTaskManager, taskManager, patientManager,
-                        dukeUi, storageManager);
+                    dukeUi, storageManager);
             } else {
                 c.execute(assignedTaskManager, taskManager, patientManager,
-                        dukeUi, storageManager);
+                    dukeUi, storageManager);
             }
             counter.runCommandCounter(c, storageManager, counter);
             return dukeUi.getDukeResponses();
@@ -87,45 +93,45 @@ public class Duke {
 
 
     /**
-     * .
+     * It clears all duke's dialog.
      */
     public void clearDukeResponses() {
         dukeUi.clearResponses();
     }
 
     /**
-     * .
+     * It returns manager of all patient models.
      *
-     * @return .
+     * @return An manager which manipulates all patient models.
      */
     public PatientManager getPatientManager() {
         return patientManager;
     }
 
     /**
-     * .
+     * It returns manager of all task models.
      *
-     * @return .
+     * @return An manager which manipulates all task models.
      */
     public TaskManager getTaskManager() {
         return taskManager;
     }
 
     /**
-     * .
+     * It returns manager of all storage.
      *
-     * @return .
+     * @return An manager which manipulates all storage.
      */
     public StorageManager getStorageManager() {
         return storageManager;
     }
 
     /**
-     * .
+     * It returns manager of all assignedTask models.
      *
-     * @return .
+     * @return An manager which manipulates all assignedTask models.
      */
-    public  AssignedTaskManager getAssignedTaskManager() {
+    public AssignedTaskManager getAssignedTaskManager() {
         return assignedTaskManager;
     }
 
