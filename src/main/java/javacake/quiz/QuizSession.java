@@ -46,6 +46,7 @@ public class QuizSession implements QuizManager {
             runGui();
         }
         isQuizComplete = false;
+        JavaCake.logger.log(Level.INFO, "initialize quiz session: " + qnType + ", " + qnDifficulty);
     }
 
     /**
@@ -55,6 +56,7 @@ public class QuizSession implements QuizManager {
      */
     @Override
     public String getQuestion(int index) {
+        JavaCake.logger.log(Level.INFO,"Question " + index + ":\n" + questionList.getQuestion(index));
         return questionList.getQuestion(index);
     }
 
@@ -70,11 +72,13 @@ public class QuizSession implements QuizManager {
         if (isQuizComplete) {
             switch (input) {
             case ("review"):
+                JavaCake.logger.log(Level.INFO, "User chose to REVIEW");
                 return "!@#_REVIEW";
             case ("back"):
-                // TODO tie BackCommand identifier to MainWindow
+                JavaCake.logger.log(Level.INFO, "User chose to go BACK");
                 return "!@#_BACK";
             default:
+                JavaCake.logger.log(Level.WARNING, "User entered invalid command: " + input);
                 throw new CakeException("[!] Invalid command at this point in the program [!]\n"
                         + "    Try \"review\" or \"back\"."
                         + "\n\n" + getQuizResult());
@@ -203,7 +207,6 @@ public class QuizSession implements QuizManager {
             if (!profile.isCli) {
                 switch (overallTopicIdx) {
                 case 0:
-                    JavaCake.logger.log(Level.INFO, totalScore + " YEET");
                     TopBar.progValueA = (double) totalScore / TotalMaxQuestions;
                     break;
                 case 1:
@@ -215,10 +218,11 @@ public class QuizSession implements QuizManager {
                 case 3:
                     TopBar.progValueD = (double) totalScore / TotalMaxQuestions;
                     break;
-
                 default:
                 }
                 TopBar.progValueT = (double) profile.getTotalProgress() / (TotalMaxQuestions * 4);
+
+                JavaCake.logger.log(Level.INFO, "user score updated in profile");
             }
         }
     }
@@ -232,6 +236,7 @@ public class QuizSession implements QuizManager {
     private void checkAnswer(int index, String input) throws CakeException {
         if (!isNumeric(input)) {
             String userWarning = "[!] Please input answers in the form of a valid integer [!]\n";
+            JavaCake.logger.log(Level.WARNING, "User entered non-valid input");
             throw new CakeException(userWarning);
         }
         if (questionList.setAndCheckUserAnswer(index, input)) {
@@ -241,7 +246,7 @@ public class QuizSession implements QuizManager {
 
     private static boolean isNumeric(String input) {
         try {
-            Integer.parseInt(input);
+            Integer.parseInt(input.trim());
         } catch (NumberFormatException | NullPointerException e) {
             return false;
         }
@@ -271,6 +276,8 @@ public class QuizSession implements QuizManager {
 
         stringBuilder.append("\nType \"review\" to review your answers.");
         stringBuilder.append("\nType \"back\" to go back to the table of contents.");
+
+        JavaCake.logger.log(Level.INFO, "Quiz result\nScore: " + currScore + "ScoreGrade: " + scoreGrade);
 
         overwriteOldScore(currScore, profile);
         isQuizComplete = true;
