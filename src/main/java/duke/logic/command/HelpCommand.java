@@ -1,8 +1,5 @@
 package duke.logic.command;
 
-import java.io.IOException;
-import java.text.ParseException;
-
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.storage.UndoStack;
@@ -14,77 +11,69 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ParseException, DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         System.out.println("Here is a summary of what you can do in El Duque. For a more detailed explanation, please" +
                 " read the User Guide\n");
 
-        System.out.println("help | Shows a summary of commands that are available and how they can be used\n");
+        System.out.println("El Duque commands follow a general format: \n");
+        System.out.println("[-FILTER] COMMAND [-MODIFICATIONS] \n");
 
-        System.out.println("task | Creates a task");
-        System.out.println("e.g. task finish spanish tutorial -t 031120\n");
+        System.out.println("Commands Available:");
 
-        System.out.println("event | Creates an event");
-        System.out.println("e.g. event spanish lesson -t 031119\n");
+        System.out.println("   help        | Shows a summary of commands that are available and how they can be used");
+        System.out.println("   task        | Creates a task");
+        System.out.println("                 e.g. task finish spanish tutorial -t 031120");
+        System.out.println("   event       | Creates an event");
+        System.out.println("                 e.g. event spanish lesson -t 031119");
+        System.out.println("   list        | Lists existing tasks and events");
+        System.out.println("                 e.g. list day");
+        System.out.println("                 e.g. list week");
+        System.out.println("   edit        | Edits an existing task or event");
+        System.out.println("                 e.g. edit 3 -description bring ahma for checkup");
+        System.out.println("   delete      | Delete an existing task or event");
+        System.out.println("                 e.g. delete 3");
+        System.out.println("   find        | Finds existing task(s) and event(s) that contain the query");
+        System.out.println("                 e.g. find homework");
+        System.out.println("   undo        | undos undoable commands, task, event, done, delete, edit");
+        System.out.println("                 e.g. undo");
+        System.out.println("   autoassign  | Suggest filters to assign a task/event");
+        System.out.println("                 e.g. autoassign 3");
+        System.out.println("   pomo        | pomodoro timer feature");
+        System.out.println("                 e.g. pomo start");
+        System.out.println("   bye         | Exits the program\n");
 
-        System.out.println("list | Lists existing tasks and events");
-        System.out.println("e.g. list");
-        System.out.println("e.g. list day");
-        System.out.println("e.g. list week\n");
+        System.out.println("Filter");
+        System.out.println("They are similar to sublist, they work with all the commands that references a certain tasks and" +
+                " the index indicated is \nrespective to the filtered list.");
+        System.out.println("e.g. -cs2113 list\n");
 
-        System.out.println("edit | Edits an existing task or event");
-        System.out.println("e.g. edit 3 -description bring ahma for checkup\n");
+        System.out.println("Modifications Available:");
+        System.out.println("task, event and edit");
+        System.out.println("   -r       | reccurence, indicates the period for recurrence either daily or weekly");
+        System.out.println("   -d       | duration in hours assigned to a task");
+        System.out.println("   -p       | priority tag, l, m or h");
+        System.out.println("   -t       | date and time, follows ddMMyy, ddMMyy HHmm, today/tomorrow, today/tomorrow " +
+                "HHmm\n");
+        System.out.println("edit ");
+        System.out.println("   -desc    | edits the description");
+        System.out.println("   -f       | edits the filter\n");
 
-        System.out.println("delete | Delete an existing task or event");
-        System.out.println("e.g. delete 3\n");
+        System.out.println("list");
+        System.out.println("   day      | list task within today");
+        System.out.println("   week     | list task within this week");
+        System.out.println("   priority | list tasks based on priority");
+        System.out.println("   undone   | list undone tasks\n");
 
-        System.out.println("find | Finds existing task(s) and event(s) that contain the query");
-        System.out.println("e.g. find homework\n");
-
-        System.out.println("autoassign | Suggest filters to assign a task/event");
-        System.out.println("e.g. autoassign 3");
-
-        System.out.println("bye | Exits the program\n");
-
-        System.out.println("POMODORO");
-        System.out.println("El Duque supports a pomodoro timer workflow option. If you use this method in your usual " +
-                "workflow, you can use this to complement your work. You can use it purely as a timer or add tasks[co" +
-                "ming in v1.4] to a particular pomodoro that you are completing. Pomorodo commands begin with a pomo." +
-                " Pomodoro has 3 states, a work timer, short break timer and a long break timer with 25, 5 and 15 min" +
-                "utes periods respectively. The first instance of the timer start will be the work cycle and it will " +
-                "automatically update to the short break once the timer has ended. Pomodoro timing reminders are prin" +
-                "ted out every 5 minutes.");
-        System.out.println("Format: pomo start");
-        System.out.println("Other commands for the pomodoro are:");
-        System.out.println("Status - This status command prints out time remaining and current state");
-        System.out.println("Reset - Resets the current state to the previous state");
-        System.out.println("Restart - Restarts the pomodoro back to first work cycle\n");
-
-        System.out.println("Understanding how filters work:");
-        System.out.println("A filter is like a sublist. Most command can begin with a filter. E.g. -cs2113 .....");
-        System.out.println("When you use a filter, the index in the command is RELATIVE to the filtered list!");
-        System.out.println("-cs2113 delete 1    CAN BE EQUAL TO    delete 3\n");
-
-        System.out.println("Advanced Modifications:");
-
-        System.out.println("PRIORITY: There are 3 values: 1, 2, 3. Priority tags are added at the end of the " +
-                "command with a -p prefix followed by priority level");
-        System.out.println("Format: -[FILTER] task tutorial -p [PRIORITY LEVEL]\n");
-
-        System.out.println("RECURRING TASKS: modification is denoted by -r followed by the recurrence period either " +
-                "'daily' or 'weekly'");
-        System.out.println("Format: -[FILTER] task tutorial -r [PERIOD]\n");
-
-        System.out.println("DURATION: modification is denoted by -d followed by the duration in hours");
-        System.out.println("Format: -[FILTER] task tutorial -d [HOURS]\n");
-
-        System.out.println("TIME: modification is denoted by -t followed by the date. Dates can be input in the " +
-                "following ways: ddMMyy or ddMMyy HHmm or today or tomorrow");
-        System.out.println("Format: -[FILTER] task tutorial -t [DATETIME]\n");
-
-        System.out.println("Description: you should only use this modifier with edit command.");
-        System.out.println("Format: -[FILTER] edit 1 -description [DESCRIPTION]\n");
-
-
+        System.out.println("pomo");
+        System.out.println("   start    | starts the timer");
+        System.out.println("   stop     | stops the timer");
+        System.out.println("   reset    | resets to the previous cycle");
+        System.out.println("   restart  | restarts the entire pomodoro");
+        System.out.println("   status   | prints the status");
+        System.out.println("   add      | adds tasks to the pomodoro");
+        System.out.println("   list     | lists the tasks added");
+        System.out.println("   done     | marks the task as done");
+        System.out.println("   answer   | answer to the brain teaser");
     }
 
     /**
