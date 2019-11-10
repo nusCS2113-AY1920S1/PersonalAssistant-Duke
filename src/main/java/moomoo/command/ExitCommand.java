@@ -25,12 +25,15 @@ public class ExitCommand extends Command {
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Storage storage)
             throws MooMooException {
-        try {
-            ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c",
-                    "chcp", "437", ">", "nul", "2>&1").inheritIO();
-            pb.start();
-        } catch (IOException e) {
-            throw new MooMooException("An error has occurred. Please close the terminal.");
+
+        if (DetectOsCommand.osName.contains("win")) {
+            try {
+                ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c",
+                        "chcp", "437", ">", "nul", "2>&1").inheritIO();
+                pb.start();
+            } catch (IOException e) {
+                throw new MooMooException("An error has occurred. Please close the terminal.");
+            }
         }
         Ui.showGoodbye();
     }

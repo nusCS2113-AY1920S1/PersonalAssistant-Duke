@@ -1,5 +1,6 @@
 package moomoo.feature.storage;
 
+import moomoo.MooMoo;
 import moomoo.feature.Budget;
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
@@ -7,7 +8,10 @@ import moomoo.feature.Ui;
 import moomoo.feature.category.Category;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
@@ -184,5 +188,44 @@ public class Storage {
             }
         }
         return false;
+    }
+
+    /**
+     * Preload data by copying from resources directory in jar file.
+     * @throws MooMooException Thrown when file does not exist in jar file.
+     */
+    public void preloadData() throws MooMooException {
+        File myNewFile = new File("data");
+        myNewFile.mkdir();
+
+        InputStream inStream = null;
+        OutputStream outputStream = null;
+        String jarFileLocation;
+
+        String[] outputFiles = {"budget.txt", "category.txt", "expenditure.txt", "schedule.txt"};
+
+        try {
+            for (int i = 0; i < 4; ++i) {
+                String outputFile = outputFiles[i];
+                inStream = MooMoo.class.getResourceAsStream("/" + outputFile);
+                if (inStream == null) {
+                    throw new MooMooException("Stream is empty");
+                }
+
+                int readBytes;
+                byte[] buffer = new byte[2048];
+                jarFileLocation = new File(MooMoo.class.getProtectionDomain().getCodeSource()
+                        .getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
+                outputStream = new FileOutputStream(jarFileLocation + "/data/" + outputFile);
+                while ((readBytes = inStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, readBytes);
+                }
+            }
+            inStream.close();
+            outputStream.close();
+        } catch (Exception e) {
+            throw new MooMooException(e.getMessage());
+        }
+
     }
 }

@@ -32,6 +32,13 @@ public class MooMoo {
         shouldClearScreen = true;
 
         storage = new Storage("data/budget.txt","data/schedule.txt");
+
+        try {
+            storage.preloadData();
+        } catch (MooMooException e) {
+            Ui.printException(e);
+            Ui.showResponse();
+        }
         try {
             categoryList = CategoryStorage.loadFromFile();
             ExpenditureStorage.loadFromFile(categoryList);
@@ -119,7 +126,7 @@ public class MooMoo {
      * Runs MooMoo.
      * @param args Argument values given when running the program
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         new MooMoo().run();
     }
 }
