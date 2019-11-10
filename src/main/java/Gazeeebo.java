@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 
 public class Gazeeebo {
     private static final Logger LOGGER = Logger.getLogger(Gazeeebo.class.getName());
+
     /**
      * Returns main function for duke.
      *
