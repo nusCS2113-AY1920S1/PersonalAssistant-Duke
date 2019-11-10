@@ -4,6 +4,7 @@ import Commands.Command;
 import Commands.DoneCommand;
 import Commons.DukeConstants;
 import Commons.DukeLogger;
+import Commons.ModCodeChecker;
 import DukeExceptions.DukeInvalidCommandException;
 import DukeExceptions.DukeInvalidDateTimeException;
 import DukeExceptions.DukeInvalidFormatException;
@@ -21,6 +22,7 @@ public class DoneParse extends Parse {
     private static String[] modCodeAndDescriptionSplit;
     private static String fullCommand;
     private final Logger LOGGER = DukeLogger.getLogger(DoneParse.class);
+    private ModCodeChecker modCodeChecker = ModCodeChecker.getInstance();
 
     /**
      * Creates DoneParse object.
@@ -46,8 +48,8 @@ public class DoneParse extends Parse {
                     throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_EMPTY_MODCODE_DESCRIPTION_ERROR);
                 }
                 String modCode = modCodeAndDescriptionSplit[0];
-                if (!super.isModCode(modCode)) {
-                    throw new DukeInvalidFormatException(DukeConstants.SAD_FACE +  DukeConstants.INVALID_MODCODE_ERROR);
+                if (!modCodeChecker.isModCode(modCode)) {
+                    throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.INVALID_MODCODE_ERROR);
                 }
                 if(!super.isValidDescription(modCodeAndDescriptionSplit)) {
                     throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_EMPTY_DESCRIPTION_ERROR);
@@ -76,7 +78,7 @@ public class DoneParse extends Parse {
                     throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.DEADLINE_EMPTY_MODCODE_DESCRIPTION_ERROR);
                 }
                 String modCode = modCodeAndDescriptionSplit[0];
-                if (!super.isModCode(modCode)) {
+                if (!modCodeChecker.isModCode(modCode)) {
                     throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.INVALID_MODCODE_ERROR);
                 }
                 if(!super.isValidDescription(modCodeAndDescriptionSplit)) {

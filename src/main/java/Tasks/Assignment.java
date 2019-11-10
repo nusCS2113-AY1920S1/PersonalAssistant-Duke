@@ -1,5 +1,7 @@
 package Tasks;
 
+import Commons.DukeConstants;
+
 /**
  * Abstract class Assignment with methods representing all the Command subclasses to be
  * carried out when an input is entered by the user.
@@ -48,7 +50,7 @@ public abstract class Assignment {
     }
 
     private String getReminderStatus() {
-        return (isReminder ? "[HR]" : "[NR]");
+        return (isReminder ? DukeConstants.HAS_RECURRING_MESSAGE : DukeConstants.NO_RECURRING_MESSAGE);
     }
 
     public void setDone(boolean done) {

@@ -102,7 +102,7 @@ public class Storage {
             temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathEvent)));
         } catch (IOException e) {
             LOGGER.severe("There is no event.txt to read from");
-            throw new DukeIOException("There is no event.txt file to read from. Please create one.");
+            throw new DukeIOException(DukeConstants.NO_EVENT_TXT);
         }
         for (String string : temp) {
             if (string.isEmpty()) {
@@ -160,7 +160,7 @@ public class Storage {
             temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathDeadline)));
         } catch (IOException e) {
             LOGGER.severe("There is no deadline.txt to read from");
-            throw new DukeIOException("There is no deadline.txt file to read from. Please create one.");
+            throw new DukeIOException(DukeConstants.NO_DEADLINE_TXT);
         }
         for (String string : temp) {
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
