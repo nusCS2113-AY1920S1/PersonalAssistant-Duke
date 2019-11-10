@@ -68,7 +68,7 @@ public class ViewCommandParser implements CommandParser {
                 } else if (restOfInput.contains("/date")) {
                     return new ViewCommand(viewType, finalDate);
                 } else {
-                   throw new ParserException(MESSAGE_INVALID_PARAM);
+                    throw new ParserException(MESSAGE_INVALID_PARAM);
                 }
             } else if (viewArgs.length == 5) {
                 String type = getType(restOfInput);
