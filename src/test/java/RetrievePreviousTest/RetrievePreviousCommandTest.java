@@ -112,7 +112,7 @@ public class RetrievePreviousCommandTest {
         int sizeOfList = previousInputList.size();
         Command command = new RetrievePreviousCommand(userInputWithInvalidNumberGreaterThanSize);
         String expected = "There are only " + sizeOfList + " of previous commands."
-                + "Please enter a valid number less than or equal to " + sizeOfList + " .";
+                + "Please enter a valid number less than or equal to " + sizeOfList + " but greater than 0.";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
