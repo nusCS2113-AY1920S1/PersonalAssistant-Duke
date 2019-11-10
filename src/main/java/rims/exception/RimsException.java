@@ -30,7 +30,8 @@ public class RimsException extends Exception {
         System.out.println(tab + hash);
         System.out.println(tab + "ERROR: " + error);
         System.out.println(tab + line + "\n");
-        System.out.println(tab + "Please re-type the command with the necessary changes, or type in any other command.");
+        System.out.println(tab + "Please re-type the command with the necessary changes, "
+                + "or type in any other command.");
         System.out.println(tab + hash);
     }
 

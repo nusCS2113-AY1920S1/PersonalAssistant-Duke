@@ -83,7 +83,7 @@ public class CalendarCommand extends Command {
         printCellRow(cellRow, daysInMonth);
     }
 
-    private void printMidCells(int CellRow) {
+    private void printMidCells(int cellRow) {
         for (int i = 0; i <= (cellLength * calWidth); i++) {
             if (i == 0) {
                 System.out.print(midLeft);
@@ -96,11 +96,11 @@ public class CalendarCommand extends Command {
             }
         }
         System.out.print("\n");
-        printCellRow(CellRow, daysInMonth);
+        printCellRow(cellRow, daysInMonth);
     }
 
     private void printBotCells() {
-        int CellRow = calHeight;
+        int cellRow = calHeight;
         for (int i = 0; i <= (cellLength * calWidth); i++) {
             if (i == 0) {
                 System.out.print(midLeft);
@@ -114,7 +114,7 @@ public class CalendarCommand extends Command {
         }
         System.out.print("\n");
 
-        printCellRow(CellRow, daysInMonth);
+        printCellRow(cellRow, daysInMonth);
 
         for (int i = 0; i <= (cellLength * calWidth); i++) {
             if (i == 0) {
@@ -155,24 +155,17 @@ public class CalendarCommand extends Command {
                     System.out.print(phraseToPrint);
                     System.out.print(vert);
                     i += cellLength;
-                }
-
-                else if ((day - 1 >= data.length) || (row - 3 > data[day - 1].length - 1)) {
+                } else if ((day - 1 >= data.length) || (row - 3 > data[day - 1].length - 1)) {
                     phraseToPrint = shortenPhrase("");
                     System.out.print(phraseToPrint);
                     System.out.print(vert);
                     i += cellLength;
-                }
-
-
-                else if ((row == cellHeight-1) && (data[day-1].length > cellHeight-3)) {
+                } else if ((row == cellHeight - 1) && (data[day - 1].length > cellHeight - 3)) {
                     phraseToPrint = shortenPhrase("more...");
                     System.out.print(phraseToPrint);
                     System.out.print(vert);
                     i += cellLength;
-                }
-
-                else {
+                } else {
                     String phrase = data[day - 1][row - 3];
                     phraseToPrint = shortenPhrase(phrase);
                     System.out.print(phraseToPrint);
@@ -184,18 +177,18 @@ public class CalendarCommand extends Command {
         }
     }
 
-    private String shortenPhrase(String Phrase) {
+    private String shortenPhrase(String phrase) {
         String result = " ";
         String padding = "";
-        int length = getLength(Phrase);
+        int length = getLength(phrase);
         if (length <= cellLength - 2) {
-            result += Phrase;
+            result += phrase;
             for (int i = 0; i < cellLength - length - 3; i++) {
                 padding += " ";
             }
             result += padding;
         } else { // assert need to truncate phrase
-            result += Phrase.substring(0, (cellLength - 6));
+            result += phrase.substring(0, (cellLength - 6));
             result += "...";
         }
         result += " ";
@@ -278,11 +271,9 @@ public class CalendarCommand extends Command {
         try {
             if (operator == null) {
                 printCal();
-            }
-            else if (operator.equals("+")) {
+            } else if (operator.equals("+")) {
                 increaseSize();
-            }
-            else if (operator.equals("-")) {
+            } else if (operator.equals("-")) {
                 decreaseSize();
             }
         } catch (ParseException e) {

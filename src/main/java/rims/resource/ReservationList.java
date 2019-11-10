@@ -85,7 +85,7 @@ public class ReservationList {
      *                      being created.
      * @param userId        the ID of the user creating this Reservation.
      * @param startDate     the date from which this Reservation takes effect.
-     * @param endDate       the date till which this Reservation will be in effect.if the dates given are in an invalid format.
+     * @param endDate       the date till which this Reservation will be in effect.
      * @throws RimsException  if date is invalid, or if the date of return is before the date of borrowing.
      */
     public void createReservation(int reservationId, int resourceId, int userId, Date startDate, Date endDate)
@@ -199,8 +199,10 @@ public class ReservationList {
         }
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
-            boolean startDateIsBetween = (startDate.after(thisReservation.getStartDate()) && startDate.before(thisReservation.getEndDate()));
-            boolean endDateIsBetween = (endDate.after(thisReservation.getStartDate()) && endDate.before(thisReservation.getEndDate()));
+            boolean startDateIsBetween = (startDate.after(thisReservation.getStartDate())
+                    && startDate.before(thisReservation.getEndDate()));
+            boolean endDateIsBetween = (endDate.after(thisReservation.getStartDate())
+                    && endDate.before(thisReservation.getEndDate()));
             boolean isBetweenDates = (startDateIsBetween || endDateIsBetween);
             boolean isOverdue = thisReservation.isOverdue();
             boolean startDatesAlign = startDate.equals(thisReservation.getStartDate());
@@ -223,7 +225,8 @@ public class ReservationList {
         Date currentDate = new Date(System.currentTimeMillis());
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
-            boolean isCurrentlyBooked = (currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate()));
+            boolean isCurrentlyBooked = (currentDate.after(thisReservation.getStartDate())
+                    && currentDate.before(thisReservation.getEndDate()));
             boolean isOverdue = thisReservation.isOverdue();
             if (isCurrentlyBooked || isOverdue) {
                 return thisReservation;
