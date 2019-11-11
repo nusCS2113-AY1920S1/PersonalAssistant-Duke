@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  */
 public class RetrievePreviousCommandTest {
     private static ArrayList<String> previousInputList;
-    private static String userInputWithInvalidNumberGreaterThanSize;
     private static String userInputWithValidNumber;
     private static String userInputToGetFromNonEmptyPreviousInputList;
     private static String userInputWithoutInteger;
@@ -42,7 +41,6 @@ public class RetrievePreviousCommandTest {
     @BeforeAll
     public static void setAllVariables() {
         previousInputList = new ArrayList<>();
-        userInputWithInvalidNumberGreaterThanSize = "retrieve/previous 3";
         userInputWithValidNumber = "retrieve/previous 2";
         userInputToGetFromNonEmptyPreviousInputList = "retrieve/previous 1";
         userInputWithoutInteger = "retrieve/previous";
