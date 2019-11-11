@@ -1,6 +1,4 @@
-package common;
-
-import task.Task;
+package task;
 
 import java.util.ArrayList;
 

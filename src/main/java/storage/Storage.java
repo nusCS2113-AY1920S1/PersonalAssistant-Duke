@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import common.AlphaNUSException;
-import common.TaskList;
+import task.TaskList;
 import project.Fund;
 import project.Project;
 

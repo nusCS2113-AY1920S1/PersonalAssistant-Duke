@@ -2,9 +2,9 @@ package command;
 
 import common.AlphaNUSException;
 import common.CommandFormat;
-import common.TaskList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import task.TaskList;
 import org.junit.jupiter.api.Test;
 import project.Fund;
 import project.Project;
@@ -26,16 +26,16 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProcessTest {
-    Fund fund;
-    TaskList tasklist;
-    Ui ui;
-    Storage storage;
-    ArrayList<String> list;
-    String input;
-    Set<String> dict;
+    private Fund fund;
+    private TaskList tasklist;
+    private Ui ui;
+    private Storage storage;
+    private ArrayList<String> list;
+    private String input;
+    private Set<String> dict;
     public Process process;
-    CommandFormat commandFormat = new CommandFormat();
-    static final String line = "    ____________________________________________________________\n";
+    private CommandFormat commandFormat = new CommandFormat();
+    private static final String line = "    ____________________________________________________________\n";
 
     //@@author leowyh
     @BeforeEach
