@@ -287,7 +287,7 @@ Example: +
 
 === Sorting and printing the modules and/or ccas : `sort`
 
-Sorts out modules and/or ccas accordingly. For all the sorting methods listed below, enter the optional flag `--r` to sort in the reverse order.
+Sorts out modules and/or ccas accordingly. For all the sorting methods listed below, enter the optional flag `--r` to sort in the reverse order. +
 Example: +
 `sort cca --r` +
 `sort module code --r`
@@ -302,7 +302,7 @@ image::SortCcaSample.png[width="450"]
 ==== Sorting and printing the CCAs and modules of a certain day of the week : `sort time`
 
 Sorts the cca and modules together  list according to alphabetical order and prints the cca list. + 
-Format: `sort time DAY_OF_WEEK`, replace DAY_OF_WEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
+Format: `sort time DAY_OF_WEEK`, replace DAY_OF_WEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday`. + 
 Example: +
 `sort time tuesday`
 
