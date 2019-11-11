@@ -515,8 +515,10 @@ The `update` feature is operated by the `UpdateModuleInfo` class, which is calle
 Since `UpdateModuleInfo` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `update` command. +
 
 Below is a Sequence Diagram showing how `UpdateModuleInfo` works. +
+UpdateModuleCommand inherits the attributes and methods from the ModuleCommand, which is shown by the 1.1 arg arrow connecting the UpdateModuleCommand and ModuleCommand. The ModuleCommand calls itself as it uses its own attributes method as shown by 1.1.1 arg.
+It then uses an object in NattyWrapper class, which is removed from the memory, as shown by the 1.3.1 arrow. The UpdateModuleCommand also calls the dateToLocalDateTime method from the NattyWrapper as shown by the 1.3 and 1.4 arrows. The UpdateModuleCommand fetches the updated module information from the RequestData , Storage and PlannerLogger, as shown by the 1.5 arrows. To end off, the UpdateModuleCommand calls the showUpdateMsg method from the PlannerUi to print the updated message.
 
-image::UpdateModuleInfoSequenceDiagram.png[width="800"]
+image::UpdateModuleCommandSequenceDiagram.png[width="800"]
 
 === JsonWrapper
 
