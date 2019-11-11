@@ -22,17 +22,19 @@ import ducats.components.SongConverter;
 
 
 public class OverlayBarSongTest {
-    @Test
 
-    //this test case tests when overlaying 1 bar onto another
-
-    public void testGroupGroup() {
-
+    /**
+     * A function that creates a predefined song so that it is easier to test the commands.
+     * type-specific error messages.
+     *
+     * @param ui - Ui class that is being printed to.
+     * @param storage - Storage class as the group function needs it.
+     * @param songs - Songlist for the list of songs needed for a command
+     *
+     */
+    public void createSong(Ui ui, ducats.Storage storage, SongList songs) {
         // ("/home/rishi/Desktop/cs2113t/team/main/data/todo_list" +".txt"));
         String fileDelimiter = System.getProperty("file.separator");
-        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
-        //ducats.Storage storage = new ducats.Storage(Paths.get("data", "songlist.txt"));
-        SongList songs = new SongList();
         SongConverter songconverter = new SongConverter();
         String testSong = "Twinkle aminor 120 [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] "
                 + "[[UBs],[UB],[UBs],[UB],[UBs],[UB],[UBs],[UB]] "
@@ -63,7 +65,6 @@ public class OverlayBarSongTest {
                 + "{UPPER_F }{UPPER_F }{UPPER_F }{UPPER_F }|{UPPER_G }{UPPER_G }{UPPER_G }{UPPER_G }|";
 
 
-        Ui ui = new Ui();
         ducats.commands.OpenCommand open = new ducats.commands.OpenCommand("open Twinkle");
         try {
             open.execute(songs,ui,storage);
@@ -79,6 +80,18 @@ public class OverlayBarSongTest {
             //System.out.print("addsadsa");
             System.out.print(e);
         }
+
+
+    }
+
+    @Test
+    //this test case tests when overlaying 1 bar onto another
+    public void testOverlayBarSong() {
+        String fileDelimiter = System.getProperty("file.separator");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "data");
+        Ui ui = new Ui();
+        SongList songs = new SongList();
+        createSong(ui, storage, songs);
         OverlayBarSong tester = new OverlayBarSong("overlay_bar_song Twinkle 1 Twinkle1 2");
         String expected = "{UPPER_B }{UPPER_B }{UPPER_B }{UPPER_B }|"
                 + "{UPPER_C UPPER_A }{UPPER_C UPPER_A }{UPPER_C UPPER_A }{UPPER_C UPPER_A }|"
@@ -96,5 +109,109 @@ public class OverlayBarSongTest {
         //ducats.components.SongList songList = new SongList();
         ArrayList<ducats.components.Song> findList = songs.findSong("Twinkle1");
         assertEquals(expected,findList.get(0).showSongChart());
+    }
+
+    @Test
+    //this test case tests when overlaying bar being overlayed doesnt exist
+    public void testOverlayBarSongFail1() {
+        String fileDelimiter = System.getProperty("file.separator");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "data");
+        Ui ui = new Ui();
+        SongList songs = new SongList();
+        createSong(ui, storage, songs);
+
+        OverlayBarSong tester = new OverlayBarSong("overlay_bar_song Twinkle 10210 Twinkle1 2");
+        try {
+            tester.execute(songs,ui,storage);
+        } catch (ducats.DucatsException e) {
+            assertEquals("no_index",e.getType());
+            //System.out.println(e);
+            return;
+        }
+        assert false;
+        //ducats.components.SongList songList = new SongList();
+    }
+
+    @Test
+    //this test case tests when not enough parameters are sent
+    public void testOverlayBarSongFail2() {
+        String fileDelimiter = System.getProperty("file.separator");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "data");
+        Ui ui = new Ui();
+        SongList songs = new SongList();
+        createSong(ui, storage, songs);
+
+        OverlayBarSong tester = new OverlayBarSong("overlay_bar_song ");
+
+        try {
+            tester.execute(songs,ui,storage);
+        } catch (ducats.DucatsException e) {
+            assertEquals("overlay_bar_song_format",e.getType());
+            return;
+        }
+        assert false;
+    }
+
+    @Test
+    //this test case tests when overlaying bar index is a string
+    public void testOverlayBarSongFail3() {
+        String fileDelimiter = System.getProperty("file.separator");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "data");
+        Ui ui = new Ui();
+        SongList songs = new SongList();
+        createSong(ui, storage, songs);
+
+        OverlayBarSong tester = new OverlayBarSong("overlay_bar_song Twinkle hello Twinkle1 2");
+        try {
+            tester.execute(songs,ui,storage);
+        } catch (ducats.DucatsException e) {
+            assertEquals("number_index",e.getType());
+            //System.out.println(e);
+            return;
+        }
+        assert false;
+        //ducats.components.SongList songList = new SongList();
+    }
+
+    @Test
+    //this test case tests when overlaying song does not exist
+    public void testOverlayBarSongFail4() {
+        String fileDelimiter = System.getProperty("file.separator");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "data");
+        Ui ui = new Ui();
+        SongList songs = new SongList();
+        createSong(ui, storage, songs);
+
+        OverlayBarSong tester = new OverlayBarSong("overlay_bar_song Twinkle123 1 Twinkle1 2");
+        try {
+            tester.execute(songs,ui,storage);
+        } catch (ducats.DucatsException e) {
+            assertEquals("no_song",e.getType());
+            //System.out.println(e);
+            return;
+        }
+        assert false;
+        //ducats.components.SongList songList = new SongList();
+    }
+
+    @Test
+    //this test case tests when overlayed song does not exist
+    public void testOverlayBarSongFail5() {
+        String fileDelimiter = System.getProperty("file.separator");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "data");
+        Ui ui = new Ui();
+        SongList songs = new SongList();
+        createSong(ui, storage, songs);
+
+        OverlayBarSong tester = new OverlayBarSong("overlay_bar_song Twinkle 1 Twinkle123 2");
+        try {
+            tester.execute(songs,ui,storage);
+        } catch (ducats.DucatsException e) {
+            assertEquals("no_song",e.getType());
+            //System.out.println(e);
+            return;
+        }
+        assert false;
+        //ducats.components.SongList songList = new SongList();
     }
 }  

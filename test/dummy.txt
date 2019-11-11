@@ -1,0 +1,3 @@
+dummy aminor 120 
+[[UAs],[UA],[UA],[UA],[UA],[UA],[UA],[UA]]
+[[UBs],[UB],[UB],[UB],[UB],[UB],[UB],[UB]]

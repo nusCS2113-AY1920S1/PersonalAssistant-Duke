@@ -6,15 +6,17 @@ import ducats.components.Bar;
 import ducats.components.Group;
 import ducats.components.Song;
 import ducats.components.Chord;
+import ducats.DucatsLogger;
 
 /**
  * A class that splits an object to the bars and then returns an arraylist of the bars to the function.
  */
 public class Splitter  {
     public String message;
+
     /**
-     * Constructor for the command to add a new bar to the current song.
-     * @param message the input message that resulted in the creation of the duke.Commands.Command
+     * Constructor for the command to split a song into its bars.
+     * @param message the input message that resulted in the creation of the duke.Commands.Command.
      */
 
     public Splitter(String message) {
@@ -45,6 +47,7 @@ public class Splitter  {
     public ArrayList<Bar> splitObject(Song object) {
         return object.getBars();
     }
+
     /**
      * Splits a Group object into an array list of bars.
      *
@@ -53,6 +56,7 @@ public class Splitter  {
      */
 
     public ArrayList<Bar> splitObject(Group object) {
+        DucatsLogger.fine("Group object was split into bars - splitter");
         return object.getBars();
     }
 
