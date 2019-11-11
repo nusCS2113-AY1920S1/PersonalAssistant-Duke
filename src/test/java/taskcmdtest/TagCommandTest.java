@@ -1,4 +1,7 @@
-package TaskCommandTest;
+//@@author e0323290
+
+package taskcmdtest;
+
 
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.triviaManager.TriviaManager;
@@ -28,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * and when a nonexistent tag is called.
  */
 public class TagCommandTest {
+
     /**
      * Output stream in which data is written into a byte array.
      */
@@ -40,7 +44,6 @@ public class TagCommandTest {
      * Print representation of original data values.
      */
     private PrintStream original = System.out;
-
 
     @BeforeEach
     void setupStream() {

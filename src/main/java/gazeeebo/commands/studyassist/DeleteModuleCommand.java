@@ -2,7 +2,6 @@ package gazeeebo.commands.studyassist;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
-import gazeeebo.storage.Storage;
 import gazeeebo.storage.StudyAssistPageStorage;
 
 import java.io.IOException;
@@ -48,7 +47,7 @@ public class DeleteModuleCommand {
             }
             if (semesterNumber != semester) {
                 throw new DukeException("This module is not in Sem "
-                    + (semester + 1) + " but inside Sem " + (semesterNumber + 1));
+                        + (semester + 1) + " but inside Sem " + (semesterNumber + 1));
             }
             studyPlan.StudyPlan
                     .get(semester)

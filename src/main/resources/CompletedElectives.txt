@@ -1,0 +1,2 @@
+Communications & Networking|CS2107 Introduction to Information System
+Embedded Computing|CS3211 Parallel and Concurrent Programming

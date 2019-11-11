@@ -1,6 +1,6 @@
 //@@author jessteoxizhi
 
-package TaskCommandTest;
+package taskcmdtest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.tasks.DeleteCommand;

@@ -1,5 +1,7 @@
 //@@author e0323290
 
+package expensetest;
+
 import gazeeebo.parser.ExpenseCommandParser;
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.triviaManager.TriviaManager;

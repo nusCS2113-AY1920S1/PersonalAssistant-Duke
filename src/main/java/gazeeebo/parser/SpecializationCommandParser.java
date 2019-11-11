@@ -27,7 +27,7 @@ public class SpecializationCommandParser extends Command {
      */
     private static void showWelcomeMessage() {
         System.out.println("Welcome to your specialization page!"
-                + "What would you like to do?\n\n");
+                + "What would you like to do?");
     }
 
     /**
