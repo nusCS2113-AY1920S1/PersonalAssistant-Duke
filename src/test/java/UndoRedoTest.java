@@ -1,10 +1,17 @@
+import chronologer.command.Command;
+import chronologer.command.RedoCommand;
+import chronologer.command.ThemeCommand;
+import chronologer.command.UndoCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
 import chronologer.task.Todo;
+import chronologer.ui.UiMessageHandler;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import chronologer.task.Task;
@@ -48,6 +55,7 @@ class UndoRedoTest {
     }
 
     @Test
+    @Order(1)
     public void testRedo() throws ChronologerException {
         testCore.add(testUndoableTask);
         history.addState(testCore.getTasks());
@@ -60,10 +68,33 @@ class UndoRedoTest {
     }
 
     @Test
+    @Order(2)
     public void testUndo() throws ChronologerException {
         testCore.add(testUndoableTask);
         history.addState(testCore.getTasks());
         testCore.updateListOfTasks(history.undo());
         Assertions.assertEquals(0, testCore.getTasks().size());
     }
+
+    @Test
+    @Order(3)
+    public void testRedoCommand() throws ChronologerException {
+        Command redo = new RedoCommand();
+        redo.execute(testCore, storage, history);
+        Assertions.assertEquals("Redo successful!", UiMessageHandler.getOutputForGui());
+    }
+
+    @Test
+    @Order(4)
+    public void testUndoCommand() throws ChronologerException {
+        Command undo = new UndoCommand();
+        undo.execute(testCore, storage, history);
+        Assertions.assertEquals("Undo successful!", UiMessageHandler.getOutputForGui());
+    }
+
+    @AfterAll
+    static void teardownSetup() {
+        assert file.delete();
+    }
+
 }

@@ -250,6 +250,7 @@ public class TimelineWindow extends UiComponent<Region> {
             todayLabel.setVisible(true);
         } else {
             requiredSundayDate = firstSundayOfSemester.plusDays(chosenWeek * WEEK);
+
             // Only displays the today highlight label if you are in the current week.
             if (requiredSundayDate.isEqual(LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday)))) {
                 todayLabel.setVisible(true);

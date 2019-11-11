@@ -23,12 +23,12 @@ public class DialogBox extends UiComponent<Region> {
      *
      * @param text the text portion of the label is passed in through this parameter.
      */
-    private DialogBox(String text, boolean isDuke) {
+    private DialogBox(String text, boolean isChronologer) {
         super(FXML, null);
         Image userImage = new Image(this.getClass().getResourceAsStream(USER_ICON_PATH));
         Image chronologerImage = new Image(this.getClass().getResourceAsStream(CHAT_ICON_PATH));
         dialog.setText(text);
-        if (isDuke) {
+        if (isChronologer) {
             displayPicture.setImage(chronologerImage);
         } else {
             displayPicture.setImage(userImage);
@@ -38,7 +38,7 @@ public class DialogBox extends UiComponent<Region> {
     /**
      * Renders the appropriate type of dialog box with the correct image.
      *
-     * @param text the text portion of the label designated for the user is passed in through this parameter.
+     * @param text Holds the desired text to be displayed as a single String.
      *
      */
     public static DialogBox getUserDialog(String text) {

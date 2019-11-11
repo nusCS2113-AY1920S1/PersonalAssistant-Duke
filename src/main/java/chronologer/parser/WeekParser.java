@@ -4,6 +4,8 @@ import chronologer.command.Command;
 import chronologer.command.WeekCommand;
 import chronologer.exception.ChronologerException;
 
+import java.text.ParseException;
+
 /**
  * Extracts the week the user wants.
  *
@@ -25,14 +27,18 @@ public class WeekParser extends DescriptionParser {
      * @param taskFeatures contains the integer the user provides.
      */
     private int extractWeek(String taskFeatures) throws ChronologerException {
-        if (taskFeatures.contains("current")) {
-            return CURRENT_WEEK_INDICATOR;
-        }
-        int desiredWeek = Integer.parseInt(taskFeatures);
-        if (desiredWeek >= FIRST_WEEK && desiredWeek <= FINAL_WEEK) {
-            return desiredWeek;
-        } else {
-            throw new ChronologerException(ChronologerException.invalidWeek());
+        try{
+            if (taskFeatures.contains("current")) {
+                return CURRENT_WEEK_INDICATOR;
+            }
+            int desiredWeek = Integer.parseInt(taskFeatures);
+            if (desiredWeek >= FIRST_WEEK && desiredWeek <= FINAL_WEEK) {
+                return desiredWeek;
+            }  else {
+                throw new ChronologerException(ChronologerException.invalidWeek());
+            }
+        } catch (NumberFormatException e) {
+            throw new ChronologerException(ChronologerException.invalidInput());
         }
     }
 

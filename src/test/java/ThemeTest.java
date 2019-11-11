@@ -1,3 +1,8 @@
+import chronologer.command.Command;
+import chronologer.command.ListCommand;
+import chronologer.command.ThemeCommand;
+import chronologer.exception.ChronologerException;
+import chronologer.ui.UiMessageHandler;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,5 +51,13 @@ class ThemeTest {
     public void testThemeRepeat() {
         String messageToUser = testThemeChange.updateTheme(1);
         Assertions.assertEquals("Theme cannot be changed!", messageToUser);
+    }
+
+    @Test
+    @Order(4)
+    public void testThemeCommand() throws ChronologerException {
+        Command theme = new ThemeCommand(0);
+        theme.execute(testThemeChange, null, null);
+        Assertions.assertEquals(UiMessageHandler.getOutputForGui(), "Theme changed!");
     }
 }

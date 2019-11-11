@@ -92,7 +92,7 @@ class ChatbotWindow extends UiComponent<Region> {
      * @param message holds the message to be printed to the user.
      */
     private void printUserMessage(String message) {
-        dialogBoxContainer.getChildren().add(DialogBox.getChronologerDialog(message).getRoot());
+        dialogBoxContainer.getChildren().add(DialogBox.getUserDialog(message).getRoot());
     }
 
     /**
