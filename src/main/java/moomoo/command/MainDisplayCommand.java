@@ -8,6 +8,8 @@ import moomoo.feature.storage.Storage;
 import moomoo.feature.Ui;
 import moomoo.feature.MainDisplay;
 
+import java.io.IOException;
+
 public class MainDisplayCommand extends Command {
     private int month;
     private int year;
@@ -42,7 +44,24 @@ public class MainDisplayCommand extends Command {
             cols = newMainDisplay.getCatListSize(categoryList);
             rows = newMainDisplay.getMaxCatSize(categoryList);
         }
-        String output = newMainDisplay.newToPrint(month,year,rows,cols,categoryList,budget);
+
+        DetectOsCommand getOS = new DetectOsCommand();
+        String output = "";
+        if (getOS.osName.contains("mac")) {
+            try {
+                output = newMainDisplay.newToPrint(month, year, rows, cols, categoryList, budget, 0);
+                System.out.println("MainDisplay on Linux -> Color available");
+            } catch (Exception e) {
+                throw new MooMooException("An error has occurred. Please close the terminal.");
+            }
+        } else if (getOS.osName.contains("win")) {
+            try {
+                output = newMainDisplay.newToPrint(month, year, rows, cols, categoryList, budget, 1);
+                System.out.println("MainDisplay on Windows -> Color currently unavailable");
+            } catch (Exception e) {
+                throw new MooMooException("An error has occurred. Please close the terminal.");
+            }
+        }
         Ui.printMainDisplay(output);
     }
 }
