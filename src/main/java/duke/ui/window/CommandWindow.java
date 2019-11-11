@@ -16,8 +16,6 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
-import javax.swing.event.ChangeListener;
-
 //@@author gowgos5
 /**
  * UI element designed for the user to interact with the application.

@@ -226,7 +226,7 @@ public class ObjCommandTest extends CommandTest {
         try {
             cmd = new ObjCommand(spec, "jo", switchNames, switchVals);
         } catch (DukeException excp) {
-            fail("Exception thrown while trying to create open command: " + excp.getMessage());
+            fail("Exception thrown while trying to create command: " + excp.getMessage());
         }
     }
 

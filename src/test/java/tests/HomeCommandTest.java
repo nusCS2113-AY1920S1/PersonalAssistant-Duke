@@ -9,10 +9,9 @@ import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -57,12 +56,32 @@ public class HomeCommandTest extends CommandTest {
                     + "the report command from the home context\n\nPatient Data;\n\tName of patient: "
                     + "testCPatient\n\tBed Number: testC1\n\tHeight: 123\n\tWeight: 456\n\tAllergies: test "
                     + "allergies\n\tAge: 100\n\tNumber: 6582447\n\tAddress: test address\n\tHistory: "
-                    + "test history\n\n\n";
-            String actual = Files.readString(Paths.get("data/Reports/testCPatient-testC1.txt"),
-                    StandardCharsets.US_ASCII);
+                    + "test history\n\n";
+            /*String actual = Files.readString(Paths.get("data/Reports/testCPatient-testC1.txt"),
+                    StandardCharsets.US_ASCII);*/
+            String actual = new Scanner(new File("data" + File.separator + "Reports"
+                    + File.separator + "testCPatient-testC1.txt"))
+                    .useDelimiter("\\Z").next().replaceAll(System.lineSeparator(), "\n");
+            printDifferences(expected, actual);
             assertEquals(expected, actual);
         } catch (DukeException | IOException excp) {
             fail("Exception thrown when validly creating report from command in home context: " + excp.getMessage());
+        }
+    }
+
+    /**
+     * Function to print out the characters that differ between two strings that should be identical.
+     */
+    private void printDifferences(String str1, String str2) {
+        for (int i = 0; i < str1.length() && i < str2.length(); i++) {
+            if (str1.charAt(i) != str2.charAt(i)) {
+                System.out.println("index " + i);
+                System.out.println(str1.charAt(i) + "  " + str2.charAt(i));
+            }
+        }
+        if (str1.length() != str2.length()) {
+            System.out.println("str1 " + str1.length() + " str2 " + str2.length());
+            System.out.println(str1);
         }
     }
 }

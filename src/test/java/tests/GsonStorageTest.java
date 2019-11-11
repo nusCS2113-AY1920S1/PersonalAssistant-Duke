@@ -64,7 +64,7 @@ public class GsonStorageTest extends CommandTest {
     public static void loadExpected() {
         try {
             expected = new Scanner(new File("data" + File.separator + "expected.json"))
-                    .useDelimiter("\\Z").next();
+                    .useDelimiter("\\Z").next().replaceAll(System.lineSeparator(), "\n");
         } catch (IOException excp) {
             fail("Could not load expected values for test!");
         }

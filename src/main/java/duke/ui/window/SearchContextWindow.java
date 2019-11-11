@@ -5,14 +5,12 @@ import duke.DukeCore;
 import duke.data.DukeObject;
 import duke.data.SearchResults;
 import duke.exception.DukeFatalException;
-import duke.ui.commons.UiStrings;
 import duke.ui.card.UiCard;
+import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.util.List;
 
 /**
  * UI window for the Patient context.

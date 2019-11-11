@@ -4,8 +4,6 @@ import duke.DukeCore;
 import duke.data.DukeObject;
 import duke.exception.DukeException;
 
-// TODO update JavaDocs
-
 public class ObjCommand extends ArgCommand {
 
     private final ObjSpec spec;

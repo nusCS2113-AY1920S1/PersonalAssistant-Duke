@@ -6,7 +6,6 @@ import duke.command.Switch;
 import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
-import duke.exception.DukeException;
 
 public class HomeOpenSpec extends HomeObjSpec {
     private static final HomeOpenSpec spec = new HomeOpenSpec();
@@ -24,7 +23,7 @@ public class HomeOpenSpec extends HomeObjSpec {
     }
 
     @Override
-    protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
+    protected void executeWithObj(DukeCore core, DukeObject obj) {
         Patient patient = (Patient) obj;
         if (cmd.isSwitchSet("impression")) {
             Impression primaryDiagnosis = patient.getPrimaryDiagnosis();
