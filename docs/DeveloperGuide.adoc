@@ -153,9 +153,9 @@ link:{repoURL}/src/main/java/Command.java[`Command.java`]
 link:{repoURL}/src/main/java/Parser.java[`Parser.java`]
 
 .Structure of the Command Class
-image::CommandClassDiagram.png[]
+image::CommandClassDiagram.png[align='center']
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `kParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -320,6 +320,8 @@ Step 3: On each reminder date, there will be a notification showing the word and
 
 === Word Synonyms feature
 ==== Adding Synonym
+image::AddSynonym.png[align='center']
+
 The synonym feature allows words or phrases that means exactly or nearly the same as the current word to be added and referenced.
 When searched for, all the synonyms belonging to the searched word will be reflected and user is free to replace the searched word with any of the synonyms for personal use.
 The synonym function implements the following operations:
@@ -328,13 +330,16 @@ The synonym function implements the following operations:
 * execute(Ui, WordBank, Storage, WordCount) - Overwrites the storage file and WordBank while the program is running to append synonyms into their respective data structure.
 
 The synonyms are structured using a Union Find algorithm to group the words together. When word A and word B are synonyms to each other, adding a word C to synonym of word B will automatically classify all three words together as synonyms. They are stored in the same cell within the Excel File under the StorageBank Sheet. You may view the excel file to see storage structure of the words.
-
+image::Synonymexample.png[align='center']
 The following is a sample usage case:
+
 Step 1: Assume that the word “drink” and its meaning has already been saved into the word bank by the functions supported above.
-Step 2: User learnt a new word “beverage” that has the same meaning as “drink”. User adds “beverage” as a synonym to the main word “drink”
+[]
+Step 2: User learnt a new word “beverage” that has the same meaning as “drink”. User adds “beverage” as a synonym to the main word “drink”.
+[]
 Step 3: In doing so, the union find algorithm will group the words together and store them within the same cell. Note that beverage itself does not need to be saved into the dictionary before adding as a synonym to a main word. However the main word “drink” must be added to the dictionary before the usage of this feature.
 
-[INSERT DIAGRAM]
+
 
 ==== Searching of synonyms
 Since the synonyms are chained together using a Union Find algorithm, words are inherently grouped together. When we look for synonyms of a word, the tree structure essentially returns every node that is reachable from our main word node. This allow us to lookup synonyms in a quick manner.

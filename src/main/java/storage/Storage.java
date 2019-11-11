@@ -354,7 +354,6 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (WordAlreadyExistsException e) {
-            System.out.println("Exists");
             e.showError();
         } catch (NoWordFoundException e) {
             e.showError();
