@@ -1,7 +1,7 @@
 package duke.logic.command;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -9,21 +9,24 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Test;
+
 import duke.exception.DukeException;
 import duke.extensions.Recurrence;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
-import org.junit.jupiter.api.Test;
 
 class ClearCommandTest {
     private static final String FILE_PATH = "data/clearCommandTest.json";
 
     private static final Ui ui = new Ui();
     private static final Storage storage = new Storage(FILE_PATH);
+
     /**
      * Helper method to create a sample task lists for the commands to work on
+     *
      * @return TaskList
      * @throws DukeException
      */

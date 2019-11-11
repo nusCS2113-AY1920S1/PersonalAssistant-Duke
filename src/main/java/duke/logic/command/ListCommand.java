@@ -12,7 +12,8 @@ import duke.ui.TaskListPrinter;
 import duke.ui.Ui;
 
 /**
- * duke.logic.parser.command.ListCommand class which executes the command of displaying the duke.tasklist.TaskList to the user
+ * duke.logic.parser.command.ListCommand class which executes the command of displaying the
+ * duke.tasklist.TaskList to the user
  */
 public class ListCommand extends Command {
     private String mode;
@@ -36,7 +37,7 @@ public class ListCommand extends Command {
      * If there is a filter present, only tasks fulfilling the filter predicate will be printed
      *
      * @param modeInformation information of the sorted order
-     * @param filter filter for each task
+     * @param filter          filter for each task
      */
     public ListCommand(String modeInformation, Optional<String> filter) {
         mode = modeInformation;
@@ -47,11 +48,11 @@ public class ListCommand extends Command {
      * Executes the printing of the TaskList based on the user specifications
      * If there is a specified sort order of printing, the sequence will be printed in the specified order
      *
-     * @param list TaskList containing all of user's tasks
-     * @param ui Ui handling user interactions
+     * @param list    TaskList containing all of user's tasks
+     * @param ui      Ui handling user interactions
      * @param storage Storage handling saving and loading of TaskList
-     * @throws DukeException if specified sort order given is invalid
-     * @throws IOException NA
+     * @throws DukeException  if specified sort order given is invalid
+     * @throws IOException    NA
      * @throws ParseException NA
      */
     @Override
@@ -110,7 +111,8 @@ public class ListCommand extends Command {
 
     /**
      * Not applicable for this Command.
-     * @param tasks NA
+     *
+     * @param tasks     NA
      * @param undoStack NA
      * @throws DukeException NA
      */

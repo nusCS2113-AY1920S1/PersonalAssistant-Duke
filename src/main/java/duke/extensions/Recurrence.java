@@ -15,6 +15,7 @@ public class Recurrence {
 
     /**
      * Constructor of the Recurrence class
+     *
      * @param recurrencePeriod an optional string of the recurrence period to set
      * @throws DukeException if invalid recurrence period inputted
      */
@@ -43,6 +44,7 @@ public class Recurrence {
 
     /**
      * Method that checks whether it's time to reset the task to undone based on recurrence period
+     *
      * @return true if it is time to reset, false if it is not
      */
     public boolean isTimeToReset() {

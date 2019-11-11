@@ -1,24 +1,24 @@
+package duke.logic.command;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
-import duke.logic.command.AddCommand;
-import duke.logic.command.Command;
-import duke.logic.command.DeleteCommand;
-import duke.logic.command.UndoCommand;
-import duke.exception.DukeException;
-import duke.extensions.Recurrence;
-import duke.storage.Storage;
-import duke.storage.UndoStack;
-import duke.task.Task;
-import duke.tasklist.TaskList;
-import duke.ui.Ui;
-import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+
+import duke.exception.DukeException;
+import duke.extensions.Recurrence;
+import duke.logic.parser.EditCommandParser;
+import duke.storage.Storage;
+import duke.storage.UndoStack;
+import duke.task.Task;
+import duke.tasklist.TaskList;
+import duke.ui.Ui;
 
 class UndoCommandTest {
     private static final String FILE_PATH = "data/duke-test.json";
@@ -49,12 +49,12 @@ class UndoCommandTest {
         String description2 = "description2";
 
         //Create different Tasks to use as template for testing
-        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 1,"l")); // base
-        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 2,"l")); // diff duration
-        list.add(new Task(noFilter, dateTime1, haveRecurrence, description1, 1,"l")); // diff filter
-        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description2, 1,"l")); // diff description
-        list.add(new Task(haveFilter, dateTime2, haveRecurrence, description1, 1,"l")); // diff datetime
-        list.add(new Task(haveFilter, dateTime1, noRecurrence, description1, 1,"l")); // diff recurrence
+        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 1, "l")); // base
+        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 2, "l")); // diff duration
+        list.add(new Task(noFilter, dateTime1, haveRecurrence, description1, 1, "l")); // diff filter
+        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description2, 1, "l")); // diff description
+        list.add(new Task(haveFilter, dateTime2, haveRecurrence, description1, 1, "l")); // diff datetime
+        list.add(new Task(haveFilter, dateTime1, noRecurrence, description1, 1, "l")); // diff recurrence
 
         return list;
     }
@@ -72,7 +72,7 @@ class UndoCommandTest {
 
         // undo AddCommand
         testCommand = new AddCommand(noFilter, Optional.empty(), Optional.empty(), "undo this",
-        "task", 0, "l");
+                "task", 0, "l");
         expectedTask = list.get(noFilter, 6);
         testCommand.savePrevState(list, undoStack);
         testCommand.execute(list, ui, storage);
@@ -93,30 +93,28 @@ class UndoCommandTest {
         assertEquals(expectedTask, actualTask);
         assertNotEquals(prevTask, actualTask);
 
-		/*
-		// undo EditCommand
-		testCommand = new EditCommandParser().parse(noFilter, "4 -priority 2");
-		expectedTask = list.get(noFilter, 4);
-		testCommand.savePrevState(list, undoStack);
-		testCommand.execute(list, ui, storage);
-		prevTask = list.get(noFilter, 4);
-		undoCommand.execute(list, ui, storage);
-		actualTask = list.get(noFilter, 4);
-		assertEquals(expectedTask, actualTask);
-		assertNotEquals(prevTask, actualTask);
 
+        // undo EditCommand
+        testCommand = new EditCommandParser().parse(noFilter, "4 -priority 2");
+        expectedTask = list.get(noFilter, 4);
+        testCommand.savePrevState(list, undoStack);
+        testCommand.execute(list, ui, storage);
+        prevTask = list.get(noFilter, 4);
+        undoCommand.execute(list, ui, storage);
+        actualTask = list.get(noFilter, 4);
+        assertEquals(expectedTask, actualTask);
+        assertNotEquals(prevTask, actualTask);
 
+        // undo DoneCommand
+        testCommand = new DoneCommand(noFilter, "4");
+        expectedTask = list.get(noFilter, 4);
+        testCommand.savePrevState(list, undoStack);
+        testCommand.execute(list, ui, storage);
+        prevTask = list.get(noFilter, 4);
+        undoCommand.execute(list, ui, storage);
+        actualTask = list.get(noFilter, 4);
+        assertEquals(expectedTask, actualTask);
+        assertNotEquals(prevTask, actualTask);
 
-		// undo DoneCommand
-		testCommand = new DoneCommand(noFilter, "4");
-		expectedTask = list.get(noFilter, 4);
-		testCommand.savePrevState(list, undoStack);
-		testCommand.execute(list, ui, storage);
-		prevTask = list.get(noFilter, 4);
-		undoCommand.execute(list, ui, storage);
-		actualTask = list.get(noFilter, 4);
-		assertEquals(expectedTask, actualTask);
-		assertNotEquals(prevTask, actualTask);
-		 */
     }
 }

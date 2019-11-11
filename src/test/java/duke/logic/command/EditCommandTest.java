@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Test;
+
 import duke.exception.DukeException;
 import duke.extensions.Recurrence;
 import duke.logic.parser.EditCommandParser;
@@ -17,7 +19,6 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
-import org.junit.jupiter.api.Test;
 
 public class EditCommandTest {
     private static final String FILE_PATH = "data/editCommandTest.json";
@@ -28,6 +29,7 @@ public class EditCommandTest {
 
     /**
      * Helper method to create a sample task lists for the commands to work on
+     *
      * @return TaskList
      * @throws DukeException
      */
@@ -94,7 +96,7 @@ public class EditCommandTest {
         EditCommand editCommand;
         editCommand = new EditCommandParser().parse(Optional.of("cs"), "2 -description hello world");
         editCommand.execute(tasks, ui, storage);
-        String expectedTaskDescription = "hello world 29/10/2017 00:00";
+        String expectedTaskDescription = "hello world";
         String actualTaskDescription = tasks.get(3).getDescription();
         assertEquals(expectedTaskDescription, actualTaskDescription);
     }
@@ -195,7 +197,7 @@ public class EditCommandTest {
         EditCommand editCommand;
         editCommand = new EditCommandParser().parse(Optional.empty(), "1 -description hello world");
         editCommand.execute(tasks, ui, storage);
-        String expectedTaskDescription = "hello world 29/10/2017 00:00";
+        String expectedTaskDescription = "hello world";
         String actualTaskDescription = tasks.get(0).getDescription();
         assertEquals(expectedTaskDescription, actualTaskDescription);
     }

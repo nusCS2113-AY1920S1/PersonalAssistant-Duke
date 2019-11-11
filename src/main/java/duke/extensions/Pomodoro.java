@@ -48,8 +48,8 @@ public class Pomodoro {
      */
     public void startTimer() throws DukeException {
         if (pomodoroTimerTask != null && pomodoroTimerTask.getMinutesRemaining() > 0) {
-            throw new DukeException("A timer has already started, please end that one first before starting a " +
-                    "new timer!");
+            throw new DukeException("A timer has already started, please end that one first before starting a "
+                    + "new timer!");
         }
         timer = new Timer();
         switch (currState) {
@@ -99,11 +99,11 @@ public class Pomodoro {
     }
 
     public void listTask() {
-        System.out.println("-------------- You have the following tasks to complete this pomodoro ----" +
-                "----------");
+        System.out.println("-------------- You have the following tasks to complete this pomodoro ----"
+                + "----------");
         if (pomodoroTaskList.size() == 0) {
-            System.out.println("Guess you are a free man, or would you like to assign some tasks to your" +
-                    " pomodoro? \ntype 'pomo assign INDEX'");
+            System.out.println("Guess you are a free man, or would you like to assign some tasks to your"
+                    + " pomodoro? \ntype 'pomo assign INDEX'");
         } else {
             for (int i = 0; i < pomodoroTaskList.size(); i++) {
                 Task temp = pomodoroTaskList.get(i);
@@ -111,8 +111,8 @@ public class Pomodoro {
                 System.out.println(temp.getDescription());
             }
         }
-        System.out.println("--------------------------------  Stay focused fam  ----------------------" +
-                "----------");
+        System.out.println("--------------------------------  Stay focused fam  ----------------------"
+                + "----------");
     }
 
     /**

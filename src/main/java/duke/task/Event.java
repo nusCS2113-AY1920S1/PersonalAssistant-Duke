@@ -24,11 +24,12 @@ public class Event extends Task {
     /**
      * Constructor for duke.task.Event
      * Takes in an optional string, datetime, recurrence, description and duration
-     * @param filter of the task
-     * @param dateTime date time of the task
-     * @param recurrence recurrence period
+     *
+     * @param filter      of the task
+     * @param dateTime    date time of the task
+     * @param recurrence  recurrence period
      * @param description description of the task
-     * @param duration fixed duration of the task
+     * @param duration    fixed duration of the task
      */
     public Event(Optional<String> filter, Optional<LocalDateTime> dateTime, Recurrence recurrence, String description,
                  int duration, String priority) throws DukeException {

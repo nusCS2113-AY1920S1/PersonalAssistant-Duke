@@ -7,16 +7,18 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Test;
+
 import duke.exception.DukeException;
 import duke.extensions.Recurrence;
 import duke.task.Task;
-import org.junit.jupiter.api.Test;
 
 class TaskListTest {
 
     /**
-     * Helper method to generate a sample task list
-     * @return
+     * Helper function to generate a a sample task list
+     *
+     * @return TaskList t
      * @throws DukeException
      */
     private TaskList createTaskList() throws DukeException {
@@ -43,10 +45,10 @@ class TaskListTest {
         String description1 = "cs2113 is the best :')";
         String description2 = "cg2271 is the best :')";
         String description3 = "st2334 is the best :')";
-        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4,"l"));
-        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4,"l"));
-        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5,"l"));
-        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4,"l"));
+        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4, "l"));
+        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4, "l"));
+        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5, "l"));
+        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4, "l"));
 
         return t;
     }
@@ -72,15 +74,16 @@ class TaskListTest {
         TaskList t = createTaskList();
         Optional<String> cs = Optional.of("cs");
         Exception exception = assertThrows(DukeException.class, () ->
-                t.get(cs,-1));
+                t.get(cs, -1));
         assertEquals("Please enter a positive index!", exception.getMessage());
     }
+
     @Test
     public void filteredGet_indexOutOfBoundsTooHigh_failure() throws DukeException {
         TaskList t = createTaskList();
         Optional<String> cs = Optional.of("cs");
         Exception exception = assertThrows(DukeException.class, () ->
-                t.get(cs,3));
+                t.get(cs, 3));
         assertEquals("Please enter a valid task index!", exception.getMessage());
     }
 }

@@ -19,7 +19,7 @@ import duke.ui.Ui;
  * matching duke.task.Task objects were found
  */
 public class FindCommand extends Command {
-    Optional<String> filter;
+    private Optional<String> filter;
     private String keyword;
     private Command listCommand;
 

@@ -17,8 +17,8 @@ public class ExitCommand extends Command {
     /**
      * Saves TaskList of user tasks to the JSON data file
      *
-     * @param tasks TaskList of all of user's tasks
-     * @param ui Ui handling user interaction
+     * @param tasks   TaskList of all of user's tasks
+     * @param ui      Ui handling user interaction
      * @param storage Storage handling saving and loading of TaskList
      * @throws IOException NA
      */
@@ -29,7 +29,8 @@ public class ExitCommand extends Command {
 
     /**
      * Not applicable for this Command.
-     * @param tasks NA
+     *
+     * @param tasks     NA
      * @param undoStack NA
      * @throws DukeException NA
      */

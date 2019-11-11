@@ -1,7 +1,8 @@
 package duke.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -10,6 +11,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Test;
+
 import duke.exception.DukeException;
 import duke.logic.command.AddCommand;
 import duke.storage.Storage;
@@ -17,7 +20,6 @@ import duke.storage.UndoStack;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
-import org.junit.jupiter.api.Test;
 
 /**
  * Class to test for correct parameters parsed in to add command
@@ -74,7 +76,8 @@ class AddCommandParserTest {
         String command = "task why am i doing this??? -t today 1000";
         AddCommand aCom = a.parse(noFilter, command);
         aCom.execute(l, ui, storage);
-        LocalDateTime expectedDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.parse("1000", DateTimeFormatter.ofPattern("HHmm")));
+        LocalDateTime expectedDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.parse("1000",
+                DateTimeFormatter.ofPattern("HHmm")));
         Task actualTask = l.get(0);
         assertEquals(actualTask.getDateTime(), expectedDateTime);
     }
