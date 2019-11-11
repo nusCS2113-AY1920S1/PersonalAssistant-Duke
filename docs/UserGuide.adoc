@@ -191,8 +191,6 @@ Removes the 2nd module in the module list.
 Removes a CCA which is added. +
 Format: `remove cca INDEX`
 
-image::RemoveCcaSample.png[width="450"]
-
 ****
 * Removes the CCA at the specified `INDEX`.
 * The index refers to the index number shown in the displayed CCA list.
@@ -205,12 +203,12 @@ Examples:
 `remove cca 2` +
 Removes the 2nd CCA in the CCA list.
 
+image::RemoveCcaSample.png[width="450"]
+
 === Grading your modules: `grade`
 
 Allows you to input your letter grade received for the modules you have taken. +
 Format: `grade MOD_CODE LETTER_GRADE`
-
-image::GradeSample.png[width="450"]
 
 ****
 * Type `grade MOD_CODE LETTER_GRADE` into the command line, replacing `MOD_CODE` with an actual module code, and `LETTER_GRADE` with the grade you received for that module.
@@ -222,6 +220,9 @@ image::GradeSample.png[width="450"]
 Example: +
 `grade CS1010 A-` +
 `grade CS1231 S`
+
+image::GradeSample.png[width="450"]
+
 
 === Calculating the CAP : `cap`
 
