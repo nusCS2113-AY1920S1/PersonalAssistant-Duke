@@ -3,32 +3,36 @@ package cube.logic.parser;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 import cube.model.food.Food;
+import cube.model.promotion.Promotion;
 import org.junit.jupiter.api.Test;
+
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class AddCommandParserTest {
+class AddPromotionCommandParserTest {
 
     @Test
     public void execute_parse_correctly() throws ParserException {
-        String[] inputs = {"add","test","-t","test","-p","1.1",
-                "-s","100"};
-        Food expected = new Food("test");
-        expected.setType("test");
-        expected.setPrice(1.1);
-        expected.setStock(100);
+        String[] inputs = {"promotion","test","-%","20", "-s", "01/12/2019",
+                "-e","02/12/2019"};
+        Promotion expected = new Promotion("test");
+        expected.setDiscount(20);
+        expected.setStartDate(new Date(2019-1900,12-01,01));
+        expected.setEndDate(new Date(2019-1900,12-01,02));
 
-        AddCommandParser test = new AddCommandParser();
+        AddPromotionCommandParser test = new AddPromotionCommandParser();
         test.parse(inputs);
-        assertEquals(test.getTempFood(), expected);
+        expected = test.getTempPromotion();
+        assertEquals(test.getTempPromotion(), expected);
     }
 
     @Test
     public void execute_not_enough_parameter() {
-        String[] inputs = {"add"};
+        String[] inputs = {"promotion"};
         try {
-            new AddCommandParser().parse(inputs);
+            new AddPromotionCommandParser().parse(inputs);
             fail("Fail to detect not enough parameter");
         } catch (ParserException e) {
             assertEquals(ParserErrorMessage.NOT_ENOUGH_PARAMETER, e.getMessage());
@@ -37,9 +41,9 @@ class AddCommandParserTest {
 
     @Test
     public void execute_invalid_parameter() {
-        String[] inputs = {"add", "test", "-x", "field"};
+        String[] inputs = {"promotion", "test", "-x", "field"};
         try {
-            new AddCommandParser().parse(inputs);
+            new AddPromotionCommandParser().parse(inputs);
             fail("Fail to detect invalid parameter");
         } catch (ParserException e) {
             assertEquals(ParserErrorMessage.INVALID_PARAMETER, e.getMessage());
@@ -49,9 +53,9 @@ class AddCommandParserTest {
 
     @Test
     public void execute_invalid_name() {
-        String[] inputs = {"add", " ", "-t", "field"};
+        String[] inputs = {"promotion", " ", "-%", "field", "-e", "field"};
         try {
-            new AddCommandParser().parse(inputs);
+            new AddPromotionCommandParser().parse(inputs);
             fail("Fail to detect empty name");
         } catch (ParserException e) {
             assertEquals(ParserErrorMessage.INVALID_NAME, e.getMessage());
@@ -60,9 +64,9 @@ class AddCommandParserTest {
 
     @Test
     public void execute_empty_field() {
-        String[] inputs = {"add", "test", "-p"};
+        String[] inputs = {"promotion", "test", "-%", "-e"};
         try {
-            new AddCommandParser().parse(inputs);
+            new AddPromotionCommandParser().parse(inputs);
             fail("Fail to detect empty field");
         } catch (ParserException e) {
             assertEquals(ParserErrorMessage.EMPTY_FIELD, e.getMessage());
@@ -71,9 +75,9 @@ class AddCommandParserTest {
 
     @Test
     public void execute_repetitive_parameter() {
-        String[] inputs = {"add", "test", "-t", "A", "-t", "B"};
+        String[] inputs = {"promotion", "test", "-%", "50", "-%", "20"};
         try {
-            new AddCommandParser().parse(inputs);
+            new AddPromotionCommandParser().parse(inputs);
             fail("Fail to detect repetitive parameter");
         } catch (ParserException e) {
             assertEquals(ParserErrorMessage.REPETITIVE_PARAMETER, e.getMessage());
