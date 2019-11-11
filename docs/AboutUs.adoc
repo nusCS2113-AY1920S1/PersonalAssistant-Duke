@@ -38,7 +38,7 @@ Responsibilities: UI, feature implementations, data management, documentation
 '''
 
 === HUANG XUANKUN
-image::HUANGXUANKUN.png[width="150", align="left"]
+image::huangxuankun.png[width="150", align="left"]
 {empty}[https://github.com/HUANGXUANKUN[github]] [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=HUANGXUANKUN[portfolio]]
 
 Role: Developer +
