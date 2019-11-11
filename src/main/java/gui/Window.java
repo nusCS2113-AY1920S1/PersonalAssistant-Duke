@@ -87,7 +87,7 @@ public class Window {
 
         JTextArea outputArea = new JTextArea();
         scrollPane.setViewportView(outputArea);
-        outputArea.setText("Welcome to Team Manager!");
+        outputArea.setText("Welcome to Team Manager!\n\nFor a list of commands, type \"help\"");
         outputArea.setEditable(false);
         outputArea.setFont(new Font("Sans Serif", Font.PLAIN, 15));
         outputArea.setWrapStyleWord(true);
