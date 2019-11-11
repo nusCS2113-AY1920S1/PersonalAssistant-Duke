@@ -16,8 +16,8 @@ import static compal.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 
 //@@author SholihinK
-class DoneParserTest {
-    private DoneParser parser = new DoneParser();
+class DoneCommandParserTest {
+    private DoneCommandParser parser = new DoneCommandParser();
 
     private ArrayList<Task> taskArrListMain = new ArrayList<>();
     private ArrayList<Task> taskArrListDup = new ArrayList<>();

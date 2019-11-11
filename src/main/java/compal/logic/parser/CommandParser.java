@@ -212,6 +212,9 @@ public interface CommandParser {
             } else {
                 throw new ParserException("Invalid " + token.substring(1) + " input!");
             }
+            if (scanner.hasNext() && (scanner.next().charAt(0) != TOKEN_SLASH_CHAR)) {
+                throw new ParserException(MESSAGE_INVALID_PARAM);
+            }
             return intInput;
         } else {
             throw new ParserException("ArgumentError: Missing " + token);
@@ -289,7 +292,6 @@ public interface CommandParser {
 
 
     //@@author yueyeah
-
     /**
      * Parses user input for optional interval token, and returns the interval specified.
      *
