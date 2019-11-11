@@ -177,6 +177,12 @@ public final class RegexUtil {
         return input.matches(dateRegex);
     }
 
+    /**
+     * Checks if user input from /mark is 1.
+     *
+     * @param input The user input that is subject to Regex checking.
+     * @return the result of the check on whether it fulfills the criteria.
+     */
     public static boolean regexCheckExactNumFormat(String input) {
         String intRegex = "1";
         return input.matches(intRegex);

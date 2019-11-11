@@ -245,10 +245,7 @@ Take note that there is a maximum of *15* character limit.
 
 |======
 
-
-
-
-// tag::savingsSyntax[]
+// tag::AddSavings[]
 
 ===== Adding savings bank account `/add /savings`
 Before you can add any *expenditures*, you will need to add a savings account first.
@@ -279,6 +276,7 @@ Adds a savings account named `JunBank Savings Account` which has an initial amou
 of $`218.90` inside with a monthly income of `2000` automatically credited into the account
 every start of the month.
 
+// end::AddSavings[]
 
 ===== Editing savings bank account `/edit /savings`
 
@@ -298,8 +296,6 @@ At least one of `/newname`, `/amount` or `/income` must be used.
 * `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account`
 
 Edits `JunBank Savings Account` name to `JulyBank Savings Account`.
-
-// end::savingsSyntax[]
 
 * `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account /amount 2000.25`
 
@@ -328,8 +324,6 @@ Edits `JunBank Savings Account` by setting the new amount in the account to $`20
 
 Edits `JunBank Savings Account` by setting the income to $`5000`.
 
-// tag::deleteSavings[]
-
 ===== Deleting savings bank account `/delete /savings`
 Closed your savings bank account? You can reflect that on `OwlMoney` as well!
 
@@ -350,6 +344,8 @@ All transactions (e.g. expenditures and deposits) related to the savings account
 image::DeleteSavings.png[Caption="Figure : "]
 
 Deletes a savings account named `JunBank Savings Account`.
+
+// tag::AddBankExpenditure[]
 
 ===== Adding expenditures for savings bank account `/add /bankexpenditure`
 
@@ -375,6 +371,8 @@ image::AddBankExpenditure.png[Caption="Figure : "]
 
 Adds an expenditure that deducts from `JunBank Savings Account` dated on `28/09/2019` that costs $`1.20` with
 the description of `bubble tea` and category of `Dining`.
+
+// end::AddBankExpenditure[]
 
 ===== Editing expenditures for savings bank account `/edit /bankexpenditure`
 
@@ -404,8 +402,6 @@ image::EditBankExpenditure1.png[Caption="Figure : "]
 
 Edits expenditure `2` that was charged to `JunBank Savings Account` to a new description of `Uniwlo Shirt`.
 
-// end::deleteSavings[]
-
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 4 /category miscellaneous`
 
 .Successful editing of bank expenditure after using `/edit /bankexpenditure`.
@@ -419,8 +415,6 @@ Edits expenditure `4` that was charged to `JunBank Savings Account` to a new cat
 image::EditBankExpenditure3.png[Caption="Figure : "]
 
 Edits expenditure `5` that was charged to `JunBank Savings Account` to an amount of $`3.50`.
-
-// tag::deleteExpenditure[]
 
 ===== Deleting expenditures for savings bank account `/delete /bankexpenditure`
 
@@ -444,6 +438,8 @@ image::DeleteBankExpenditure.png[Caption="Figure : "]
 
 Deletes an expenditure from `JunBank Savings Account with transaction number` `1`.
 
+// tag::AddDeposit[]
+
 ===== Adding deposit to savings bank account `/add /deposit`
 
 Saved up some spare cash to deposit into your bank account? Record them here!
@@ -460,6 +456,8 @@ Saved up some spare cash to deposit into your bank account? Record them here!
 image::AddDeposit.png[Caption="Figure : "]
 
 Deposits $`300` earned from `FREELANCE WORK` work into `JunBank Savings Account`.
+
+// end::AddDeposit[]
 
 ===== Editing deposit details for savings bank account `/edit /deposit`
 
@@ -489,16 +487,12 @@ Edits the `deposit` with transaction number `11` deposited to `JunBank Savings A
 .Successful editing of deposit after using `/edit /deposit`.
 image::EditDeposit1.png[Caption="Figure : "]
 
-// end::deleteExpenditure[]
-
 * `/edit /deposit /from JunBank Savings Account /transno 11 /amount 500`
 
 .Successful editing of deposit after using `/edit /deposit`.
 image::EditDeposit2.png[Caption="Figure : "]
 
 Edits the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new amount of $`500`.
-
-// tag::deleteDeposit[]
 
 ===== Deleting deposit for savings bank account `/delete /deposit`
 
@@ -521,8 +515,6 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 image::DeleteDeposit.png[Caption="Figure : "]
 
 Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
-
-// end::deleteDeposit[]
 
 // tag::investment_management[]
 
@@ -1159,7 +1151,7 @@ Regardless whether it's a short-term goal [.small]_like saving for a holiday_ or
 
 `TARGET_AMOUNT` is based on the total amount of money you aim to have in your savings bank account.
 
-YOU CAN ONLY ADD UP TO *20* GOALS
+YOU CAN ONLY ADD UP TO *20* GOALS.
 ====
 
 *Example*
@@ -1215,13 +1207,13 @@ Made changes to one of your goals? Amend it easily with our `edit` feature!
 ====
 At least one of `/newname`, `/amount`, `/in`, `/by`, `/from`, `/mark` must be used.
 
-`/in` and `/by` cannot be used together at the same time
+`/in` and `/by` cannot be used together at the same time.
 
 `ACCOUNT_NAME` can only be names of existing savings bank accounts and not investment accounts or credit cards.
 
 `/mark` is used to manually mark *un-tracked* goals status and cannot contain trailing arguments!
 
-Untie your currently linked goals with the same ACCOUNT_NAME `/from ACCOUNT_NAME`
+Untie your currently linked goals with the *same ACCOUNT_NAME* that you link to using `/from ACCOUNT_NAME`.
 ====
 
 *Example*
@@ -1239,6 +1231,7 @@ ifndef::env-github[]
 image::GoalsEditName.png[width="970"]
 endif::[]
 
+
 * `/edit /goals /name BTO for Tampines HDB */amount* 27500`
 
 Edits the goal of `BTO for Tampines HDB` to a new date of `11/11/2021` and amount to `$27500`.
@@ -1252,6 +1245,11 @@ ifndef::env-github[]
 image::GoalsEditDate.png[width="970"]
 endif::[]
 
+[TIP]
+====
+You can also add a savings account using the edit feature if your existing goal has no account linked to it.
+====
+
 * `/edit /goals /name BTO for Tampines HDB /from JunBank Savings Account`
 
 Edits the savings account tied to `BTO for Tampines HDB` to `JunBank Savings Account`.
@@ -1263,8 +1261,7 @@ Change your current goal to an un-tracked goals.
 * `/edit /goals /name BTO for Tampines HDB /mark 1`
 Marks un-tracked goals as done.
 
-.Successful edition of goal to link to savings account, untie from savings account and marking an
-un-tracked goal as achieved.
+.Successful use of edit feature to link / unlink goals to / from savings account and mark done an un-tracked goals.
 ifdef::env-github[]
 image::GoalsEditMultiple.png[width="800"]
 endif::[]
@@ -1272,12 +1269,6 @@ endif::[]
 ifndef::env-github[]
 image::GoalsEditMultiple.png[width="970"]
 endif::[]
-
-[TIP]
-====
-You can also add a savings account if your existing goal has no account linked to it.
-
-====
 
 ===== Deleting financial goals `/delete /goals`
 
@@ -1866,8 +1857,6 @@ Transfers $`250` from `DBB Vickers Account` (investment account) to `JunBank Sav
 `1/1/2019`
 .
 
-// tag::recurringExpenditureSyntax[]
-
 ==== Recurring expenditures management
 
 In this section, you'll be introduced to commands and parameters that help you to manage
@@ -1912,6 +1901,8 @@ Take note that there is a maximum of *15* character limit.
 
 |======
 
+// tag::AddRecurringExpenditure[]
+
 ===== Adding recurring expenditures `/add /recurbankexp`
 
 Postpaid mobile plan bills that are consistent monthly? We can save you the hassle from adding them every month!
@@ -1928,8 +1919,9 @@ Postpaid mobile plan bills that are consistent monthly? We can save you the hass
 image::AddRecurringExpenditure.png[Caption="Figure : "]
 
 Adds a recurring expenditure that deducts $`72.90` every *1st* of the month to pay `Telco Bills` charged to `JunBank
-Savings
-Account` categorised under the `Bills` category.
+Savings Account` categorised under the `Bills` category.
+
+// end::AddRecurringExpenditure[]
 
 ===== Editing recurring expenditure `/edit /recurbankexp`
 
@@ -1973,8 +1965,6 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 * `/delete /recurbankexp /from JunBank Savings Account /transno 1`
 
 Deletes a recurring expenditure from `JunBank Savings Account` with transaction number `1`.
-
-// end::recurringExpenditureSyntax[]
 
 ==== Updating profile
 
@@ -2324,7 +2314,8 @@ user*
 
 `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 to 7/1/2019 /category food`
 
-| *Finding recurring expenditure records within a specified savings account that match with the keyword
+=======
+| *Finding recurring expenditure records within a specified savings account that matches with the keyword
 specified by the user*
 | List the recurring expenditure records within a specified savings account that match with the keyword specified.
 | `/find /recurbankexp /name ACCOUNT_NAME [/desc DESCRIPTION] [/category CATEGORY]`

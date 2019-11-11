@@ -36,7 +36,7 @@ public abstract class ParseDeposit {
         DESCRIPTION_PARAMETER, TO_PARAMETER,
         TRANSACTION_NUMBER_PARAMETER, FROM_PARAMETER, NUM_PARAMETER};
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(EXPENDITURE_KEYWORD);
-    private static final Logger logger = getLogger(ParseDeposit.class);
+    static final Logger logger = getLogger(ParseDeposit.class);
 
     /**
      * Creates an instance of any ParseSaving type object.
