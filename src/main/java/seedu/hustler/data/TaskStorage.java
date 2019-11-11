@@ -276,6 +276,10 @@ public class TaskStorage {
         writer.close();
     }
 
+    /**
+     * Creates a test task list for users to experiment.
+     * @return The new test task with 20 preloaded tasks.
+     */
     private ArrayList<Task> getTestList() {
         LocalDateTime now = LocalDateTime.now();
         ArrayList<Task> taskList = new ArrayList<>();
