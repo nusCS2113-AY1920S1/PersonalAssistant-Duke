@@ -552,7 +552,8 @@ store your data of your previous localdata folder.
 * *Total cost:*          `total cost p/PAYEE_NAME`
 * *Edit Payment/Payee:*  `edit p/PAYEE i/ITEM f/FIELD r/REPLACEMENT`
 * *Reminder:*            `reminder`
-* *Tasks:*
+
+=== Tasks:
 * *Add Todo:*            `add todo d/DESCRIPTION`
 * *Add Deadline:*        `add deadline d/DESCRIPTION by/DATE.`
 * *Done Task:*           `done id/ID`
