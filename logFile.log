@@ -1636,3 +1636,75 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 </log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-11-11T11:49:24.157413300Z</date>
+  <millis>1573472964157</millis>
+  <nanos>413300</nanos>
+  <sequence>0</sequence>
+  <logger>duke.Duke</logger>
+  <level>WARNING</level>
+  <class>duke.Duke</class>
+  <method>runProgram</method>
+  <thread>17</thread>
+  <message>Wrong command entered!</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-11-11T11:50:36.174704100Z</date>
+  <millis>1573473036174</millis>
+  <nanos>704100</nanos>
+  <sequence>1</sequence>
+  <logger>duke.Duke</logger>
+  <level>WARNING</level>
+  <class>duke.Duke</class>
+  <method>runProgram</method>
+  <thread>17</thread>
+  <message>Wrong command entered!</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-11-11T11:50:48.660789400Z</date>
+  <millis>1573473048660</millis>
+  <nanos>789400</nanos>
+  <sequence>2</sequence>
+  <logger>duke.Duke</logger>
+  <level>WARNING</level>
+  <class>duke.Duke</class>
+  <method>runProgram</method>
+  <thread>17</thread>
+  <message>Wrong command entered!</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>

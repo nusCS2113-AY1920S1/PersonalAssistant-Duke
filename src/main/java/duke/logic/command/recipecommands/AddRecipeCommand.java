@@ -74,9 +74,4 @@ public class AddRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> {
         }
         return arrayList;
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

@@ -184,9 +184,4 @@ public class ViewBookingScheduleCommand extends Command<BookingList, Ui, Booking
             return false;
         }
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

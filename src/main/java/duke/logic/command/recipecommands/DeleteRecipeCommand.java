@@ -67,9 +67,4 @@ public class DeleteRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> 
         }
         return arrayList;
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

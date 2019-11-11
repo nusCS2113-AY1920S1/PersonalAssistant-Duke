@@ -89,9 +89,4 @@ public class EditRatingCommand extends Command<RecipeList, Ui, RecipeStorage> {
                                   || rating.equals("Average") || rating.equals("Good") || rating.equals("Delicious")
                                   || rating.equals("AVERAGE") || rating.equals("GOOD") || rating.equals("DELICIOUS"));
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

@@ -109,9 +109,4 @@ public class AddToInventoryCommand extends Command<InventoryList, Ui, InventoryS
             return false;
         }
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    };
 }

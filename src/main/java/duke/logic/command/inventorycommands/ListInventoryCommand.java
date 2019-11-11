@@ -51,11 +51,6 @@ public class ListInventoryCommand extends Command<InventoryList, Ui, InventorySt
         return arrayList;
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
     private ArrayList<String> listOfInventories(HashMap<String, Ingredient> map) {
         Set entries = map.entrySet();
         Iterator entryIter = entries.iterator();

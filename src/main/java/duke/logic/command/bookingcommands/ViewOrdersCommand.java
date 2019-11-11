@@ -68,10 +68,4 @@ public class ViewOrdersCommand extends Command<BookingList, Ui, BookingStorage> 
         }
         return true;
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

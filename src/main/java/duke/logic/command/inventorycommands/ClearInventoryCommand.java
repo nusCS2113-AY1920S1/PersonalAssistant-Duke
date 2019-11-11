@@ -33,9 +33,4 @@ public class ClearInventoryCommand extends Command<InventoryList, Ui, InventoryS
         }
         return arrayList;
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

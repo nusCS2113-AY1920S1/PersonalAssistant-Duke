@@ -12,10 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
 import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
-
-import static duke.common.RecipeMessages.COMMAND_VIEW_REQ_INGREDIENT;
-import static duke.common.RecipeMessages.MESSAGE_RECIPE_TO_BE_VIEWED;
-import static duke.common.RecipeMessages.ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST;
+import static duke.common.RecipeMessages.*;
 
 //@@author wjlingg
 /**
@@ -33,6 +30,21 @@ public class ViewRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
     }
 
     /**
+     * Validates the input to be alphabets.
+     *
+     * @param input String input from user
+     * @return true if the string consist only alphabets and false otherwise
+     */
+    private static boolean isValidRecipeTitle(String input) {
+        for (char c : input.toCharArray()) {
+            if (!Character.isLetter(c) && !(c == ' ')) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Processes the view required ingredient command to view the required ingredients for a range of recipes.
      *
      * @param recipeList    contains the recipe list
@@ -46,49 +58,59 @@ public class ViewRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         ArrayList<String> temp = new ArrayList<>();
         HashMap<String, Double> tempMap = new HashMap<>();
         HashMap<String, Double> mergeMap = new HashMap<>();
+        boolean isValid = true;
         if (userInput.trim().equals(COMMAND_VIEW_REQ_INGREDIENT)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
         } else if (userInput.trim().charAt(17) == ' ') {
             String description = userInput.split("\\s", 2)[1].trim();
             if (description.trim().contains(",")) {
                 String[] split = description.split(",");
-                for (int i = 0; i < split.length; i++) {
-                    if (!recipeList.containsRecipe(split[i].trim())) {
-                        arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST + ": " + split[i].trim());
-                    } else {
-                        if (i == 0) {
-                            arrayList.add(MESSAGE_RECIPE_TO_BE_VIEWED);
-                            mergeMap.putAll(recipeList.getRecipeList().get(split[i].trim()).getRequiredIngredients().getAllIngredient());
-                        } else {
-                            tempMap.putAll(recipeList.getRecipeList().get(split[i].trim()).getRequiredIngredients().getAllIngredient());
-                            tempMap.forEach(
-                                (key, value) -> mergeMap.merge( key, value, (v1, v2) -> v1 += v2)
-                            );
-                        }
-                        String ingredient =  recipeList.viewReqIngredient(split[i].trim());
-                        arrayList.add("    " + "Recipe Title: " + split[i].trim() + "\n" + ingredient);
+                for (String test : split) {
+                    if (!isValidRecipeTitle(test)) {
+                        isValid = false;
+                        break;
                     }
                 }
-                AtomicInteger i = new AtomicInteger();
-                mergeMap.forEach(
-                    (key, value) -> temp.add("    " + i.incrementAndGet() + ". " + key + " | " + value)
-                );
-                arrayList.add("\n" + "    " + "Combined list of ingredient with the respective amount: ");
-                arrayList.addAll(temp);
-            } else {
-                if (!recipeList.containsRecipe(description)) {
-                    arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
+                if (isValid) {
+                    for (int i = 0; i < split.length; i++) {
+                        if (!recipeList.containsRecipe(split[i].trim())) {
+                            arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST + ": " + split[i].trim());
+                        } else {
+                            if (i == 0) {
+                                arrayList.add(MESSAGE_RECIPE_TO_BE_VIEWED);
+                                mergeMap.putAll(recipeList.getRecipeList().get(split[i].trim()).getRequiredIngredients().getAllIngredient());
+                            } else {
+                                tempMap.putAll(recipeList.getRecipeList().get(split[i].trim()).getRequiredIngredients().getAllIngredient());
+                                tempMap.forEach(
+                                        (key, value) -> mergeMap.merge(key, value, (v1, v2) -> v1 += v2)
+                                );
+                            }
+                            String ingredient = recipeList.viewReqIngredient(split[i].trim());
+                            arrayList.add("    " + "Recipe Title: " + split[i].trim() + "\n" + ingredient);
+                        }
+                    }
+                    AtomicInteger i = new AtomicInteger();
+                    mergeMap.forEach(
+                            (key, value) -> temp.add("    " + i.incrementAndGet() + ". " + key + " | " + value)
+                    );
+                    arrayList.add("\n" + "    " + "Combined list of ingredient with the respective amount: ");
+                    arrayList.addAll(temp);
                 } else {
-                    arrayList.add(MESSAGE_RECIPE_TO_BE_VIEWED);
-                    arrayList.add(recipeList.viewReqIngredient(description));
+                    arrayList.add(ERROR_MESSAGE_INVALID_RECIPE_TITLE);
+                }
+            } else {
+                if (isValidRecipeTitle(description)) {
+                    if (!recipeList.containsRecipe(description)) {
+                        arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
+                    } else {
+                        arrayList.add(MESSAGE_RECIPE_TO_BE_VIEWED);
+                        arrayList.add(recipeList.viewReqIngredient(description));
+                    }
+                } else {
+                    arrayList.add(ERROR_MESSAGE_INVALID_RECIPE_TITLE);
                 }
             }
         }
         return arrayList;
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

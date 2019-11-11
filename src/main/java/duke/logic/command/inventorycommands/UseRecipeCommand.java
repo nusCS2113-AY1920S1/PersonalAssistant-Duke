@@ -62,9 +62,4 @@ public class UseRecipeCommand extends Command<InventoryList, RecipeList, Invento
         }
         return arrayList;
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

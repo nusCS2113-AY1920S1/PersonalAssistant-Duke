@@ -27,8 +27,7 @@ public class InventoryMessages {
             + "There is nothing to be cleared.";
     public static final String ERROR_MESSAGE_INVENTORY_IS_EMPTY = "Your inventory is empty.\n" +
             "Are you sure this recipe has been used?";
-    public static final String ERROR_MESSAGE_HAS_RECIPE_BEEN_USED = "The amount of ingredients in the inventory is less than the amount required by this recipe.\n"
-            + "Are you sure this recipe has been used?";
+    public static final String ERROR_MESSAGE_HAS_RECIPE_BEEN_USED = "Insufficient amount: The amount of ingredients in the inventory is less than the amount required by this recipe.\n";
 
     public static final String NO_ADDITIONAL_INFO = "No additional information.";
 }

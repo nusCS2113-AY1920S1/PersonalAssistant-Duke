@@ -58,11 +58,6 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
         return arrayList;
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
     /**
      * Processes the list command to display all recipes in recipe list in the order that they are entered.
      *

@@ -287,9 +287,4 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
     private static boolean isKnownUnit(String unit) { // edit this part.
         return unit.equals("g") || unit.equals("kg") || unit.equals("l") || unit.equals("ml") || unit.equals("cup") || unit.equals("teaspoon") || unit.equals("tablespoon");
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

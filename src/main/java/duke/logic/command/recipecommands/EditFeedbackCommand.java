@@ -71,9 +71,4 @@ public class EditFeedbackCommand extends Command<RecipeList, Ui, RecipeStorage> 
         }
         return arrayList;
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

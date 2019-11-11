@@ -113,9 +113,4 @@ public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorag
             return false;
         }
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

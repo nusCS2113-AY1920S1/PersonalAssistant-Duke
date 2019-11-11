@@ -103,9 +103,4 @@ public class DeleteFromInventoryCommand extends Command<InventoryList, Ui, Inven
             return false;
         }
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

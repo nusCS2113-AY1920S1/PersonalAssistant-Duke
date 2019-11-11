@@ -68,9 +68,4 @@ public class FindBookingCommand extends Command<BookingList, Ui, BookingStorage>
         }
         return true;
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

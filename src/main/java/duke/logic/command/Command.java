@@ -14,6 +14,4 @@ public abstract class Command<T, S, U> {
     protected String userInput;
 
     public abstract ArrayList<String> execute(T t, S s, U u) throws ParseException;
-
-    public abstract boolean isExit();
 }
