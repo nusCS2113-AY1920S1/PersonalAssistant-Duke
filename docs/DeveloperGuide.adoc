@@ -53,7 +53,6 @@ image::SoftwareArchitecture.png[]
 6. The `Storage` component utilises gson to parse the data into a json format, which is easy to edit and maintain
 7. The Json data files are persistent and open for user editing.
 
-=== UI component
 === Logic component
 image::LogicDiagram.png[]
 
