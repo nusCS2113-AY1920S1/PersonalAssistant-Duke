@@ -235,7 +235,15 @@ public class GoalsList {
                     currentGoal.setGoalsName(newName);
                 }
                 if (!(amount == null || amount.isBlank())) {
-                    currentGoal.setGoalsAmount(Double.parseDouble(amount));
+                    if (!currentGoal.getSavingAccount().equals("-NOT TIED-")
+                            && currentGoal.getSavingAmount() <= currentGoal.getGoalsAmount()) {
+                        logger.warning("Attempted to edit a goal with lesser / same amount "
+                                + "then balance of saving account");
+                        throw new GoalsException("You cannot edit a goal with equal / less amount as "
+                                + "savings account balance!");
+                    } else {
+                        currentGoal.setGoalsAmount(Double.parseDouble(amount));
+                    }
                 }
                 if (date != null) {
                     currentGoal.setGoalsDate(date);
@@ -434,16 +442,14 @@ public class GoalsList {
         } else {
             ui.printMessage("\nREMINDER FOR GOALS: ");
             for (int i = 0; i < goalList.size(); i++) {
-                if (goalList.get(i).convertDateToDays() == 0
-                        && !goalList.get(i).getGoalsDateInDateFormat().before(new Date())
-                        && !goalList.get(i).getRawStatus()) {
+                if (goalList.get(i).convertDateToDays() == 0 && !goalList.get(i).getRawStatus()
+                        && goalList.get(i).getGoalsDateInDateFormat().after(new Date())) {
                     ui.printMessage("- " + goalList.get(i).getGoalsName() + " is due in 1 day"
                             + "\n(You still have a remaining of $" + goalList.get(i).getRemainingAmount()
                             + " to reach your goal!)");
                     count++;
-                }
-                if (goalList.get(i).convertDateToDays() != 0 && goalList.get(i).convertDateToDays() <= 10
-                        && !goalList.get(i).getRawStatus()) {
+                } else if (goalList.get(i).getGoalsDateInDateFormat().after(new Date())
+                        && goalList.get(i).convertDateToDays() <= 10 && !goalList.get(i).getRawStatus()) {
                     ui.printMessage("- " + goalList.get(i).getGoalsName() + " is due in "
                             + goalList.get(i).convertDateToDays() + " days. " + "\n(You still have a remaining of $"
                             + goalList.get(i).getRemainingAmount() + " to reach your goal!)");
@@ -466,8 +472,7 @@ public class GoalsList {
         } else {
             ui.printMessage("\nOVERDUE GOALS: ");
             for (int i = 0; i < goalList.size(); i++) {
-                if (goalList.get(i).convertDateToDays() <= 0 && !goalList.get(i).getRawStatus()
-                        && goalList.get(i).getGoalsDateInDateFormat().before(new Date())) {
+                if (!goalList.get(i).getRawStatus() && goalList.get(i).getGoalsDateInDateFormat().before(new Date())) {
                     ui.printMessage("- " + goalList.get(i).getGoalsName()
                             + " to save $" + goalList.get(i).getRemainingAmount() + " is overdue!");
                     count++;
