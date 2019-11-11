@@ -2,6 +2,7 @@ package seedu.hustler.game.avatar;
 
 /**
  * Class representing the level of the avatar. Also contains the current xp.
+ * @see Level for the documentation on the functions.
  */
 public class AvatarLevel implements Level {
 
@@ -33,42 +34,27 @@ public class AvatarLevel implements Level {
         this.xp = xp;
     }
 
-    /**
-     * Gets the current level of the avatar.
-     * @return the current level of the avatar.
-     */
+    @Override
     public int getLevel() {
         return this.level;
     }
 
-    /**
-     * Gets the current xp of the avatar
-     * @return the current level of the avatar.
-     */
+    @Override
     public int getXp() {
         return this.xp;
     }
 
-    /**
-     * Increment xp by 1.
-     * @return the current Level.
-     */
+    @Override
     public AvatarLevel increaseXp() {
         return new AvatarLevel(this.level, this.xp + 1);
     }
 
-    /**
-     * Levels up by 1.
-     * @return the current level.
-     */
+    @Override
     public AvatarLevel upLevel() {
         return new AvatarLevel(this.level + 1, this.xp);
     }
 
-    /**
-     * Checks if avatar can reach the next level.
-     * @return true if avatar can gain a level; false if otherwise.
-     */
+    @Override
     public boolean canLevel() {
         if (this.xp >= xpNeeded(this.level)) {
             return true;
@@ -77,12 +63,7 @@ public class AvatarLevel implements Level {
         }
     }
 
-    /**
-     * The simple algorithm to calculate the xp needed for the
-     * next level.
-     * @param level the level of the avatar.
-     * @return the xp needed to hit the next level.
-     */
+    @Override
     public int xpNeeded(int level) {
         if (level <= 3) {
             return 5 * level;
@@ -104,7 +85,8 @@ public class AvatarLevel implements Level {
     @Override
     public boolean equals(Object obj) {
         return obj == this || (obj instanceof AvatarLevel
-                && this.toString().equals(obj.toString()));
+                && this.getLevel() == (((AvatarLevel)obj).getLevel())
+                && this.getXp() == (((AvatarLevel)obj).getXp()));
     }
 
 }

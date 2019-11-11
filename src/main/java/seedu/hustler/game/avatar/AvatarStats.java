@@ -1,11 +1,11 @@
 package seedu.hustler.game.avatar;
 
-import seedu.hustler.game.shop.items.armors.Armor;
-import seedu.hustler.game.shop.items.weapons.Weapon;
+import seedu.hustler.game.shop.items.ShopItem;
 import java.util.Optional;
 
 /**
  * The stats component which determine the strength of the avatar.
+ * @see Stats for documentation on the functions.
  */
 public class AvatarStats implements Stats {
 
@@ -40,6 +40,17 @@ public class AvatarStats implements Stats {
     }
 
     /**
+     * Constructs a new stats with the same values as another stat.
+     * @param other the other stat.
+     */
+    public AvatarStats(AvatarStats other) {
+        this.damage = other.damage;
+        this.defence = other.defence;
+        this.stamina = other.stamina;
+        this.speed = other.speed;
+    }
+
+    /**
      * Construct Stats with the given damage, defence, stamina
      * and speed.
      * @param damage the damage of the avatar.
@@ -54,11 +65,7 @@ public class AvatarStats implements Stats {
         this.speed = speed;
     }
 
-    /**
-     * Increases the stats based on the current level.
-     * @param level the current level of the avatar.
-     * @return the updated stats after increment.
-     */
+    @Override
     public AvatarStats upStats(int level) {
         int newDamage = this.damage + (level % 2 == 0 ? 2 : 1);
         int newDefence = this.defence + (level % 3 == 0 ? 2 : 1);
@@ -67,45 +74,28 @@ public class AvatarStats implements Stats {
         return new AvatarStats(newDamage, newDefence, newStamina, newSpeed);
     }
 
-    /**
-     * Gets the damage.
-     * @return the damage stat value.
-     */
+    @Override
     public int getDamage() {
         return this.damage;
     }
 
-    /**
-     * Gets the defence.
-     * @reutrn the defence stat value.
-     */
+    @Override
     public int getDefence() {
         return this.defence;
     }
 
-    /**
-     * Gets the speed.
-     * @return the speed stat value.
-     */
+    @Override
     public int getSpeed() {
         return this.speed;
     }
 
-    /**
-     * Gets the stamina.
-     * @return the stamina stat value.
-     */
+    @Override
     public int getStamina() {
         return this.stamina;
     }
 
-    /**
-     * Obtain the stats to print out.
-     * @param weapon the weapon equipped, if any.
-     * @param armor the armor equipped, if any.
-     * @return the String consisting of the stats.
-     */
-    public String getStats(Optional<Weapon> weapon, Optional<Armor> armor) {
+    @Override
+    public String getStats(Optional<ShopItem> weapon, Optional<ShopItem> armor) {
         return "Damage: "  + (this.damage + (weapon.map(value -> + value.getDamageIncr()).orElse(0))) + "\n"
             + "Defence: " + (this.defence + (armor.map(value -> + value.getDefenceIncr()).orElse(0))) + "\n"
             + "Stamina: " + (this.stamina + (armor.map(value -> + value.getStaminaIncr()).orElse(0))) + "\n"

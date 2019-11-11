@@ -2,7 +2,6 @@ package seedu.hustler.game.avatar;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.game.shop.items.ShopItem;
-
 import java.util.ArrayList;
 
 /**
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 public class Inventory {
 
     /**
-     * The arraylist of the items that the user has purchased.
+     * The Array list of the items that the user has purchased.
      */
     private ArrayList<ShopItem> items;
 
@@ -27,15 +26,18 @@ public class Inventory {
      * Gets the size of the items.
      * @return the size of the array list in the inventory.
      */
-    public int getSize() { return items.size(); }
-
+    public int getSize() {
+        return items.size();
+    }
 
     /**
      * Gets the shop item with the given index.
      * @param index the index of the item in the array list.
      * @return the shop item with the given index.
      */
-    public ShopItem get(int index) { return items.get(index); }
+    public ShopItem get(int index) {
+        return items.get(index);
+    }
 
     /**
      * Gets the array list of the shop item in the inventory.
@@ -45,6 +47,11 @@ public class Inventory {
         return this.items;
     }
 
+    /**
+     * Updates the inventory by checking current purchased items in the
+     * shop list.
+     * @return the updated inventory.
+     */
     public Inventory updateInventory() {
         this.items = Hustler.shopList.getPurchasedItems();
         return this;

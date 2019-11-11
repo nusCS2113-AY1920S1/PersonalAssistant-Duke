@@ -1,11 +1,14 @@
 package seedu.hustler.game.shop.items.weapons;
 
-import seedu.hustler.game.shop.items.ShopItem;
-
 /**
- * The second tier weapon.
+ * The second tiered weapon in the shop.
  */
 public class Mace extends Weapon {
+
+    /**
+     * The name of the weapon.
+     */
+    private static final String NAME = "Mace";
 
     /**
      * The damage increment of the Mace.
@@ -18,10 +21,15 @@ public class Mace extends Weapon {
     private static final int COST = 7;
 
     /**
-     * Constructs a mace with its default variables.
+     * Constructs a Mace with it's default variables.
      */
-    public Mace() {
-        super(COST, false, DMG_INCR);
+    public Mace(boolean isPurchased) {
+        super(COST, isPurchased, DMG_INCR, NAME);
+    }
+
+    @Override
+    public Mace setIsPurchased(boolean isPurchased) {
+        return new Mace(isPurchased);
     }
 
     @Override

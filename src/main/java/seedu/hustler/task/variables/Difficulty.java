@@ -10,9 +10,18 @@ public class Difficulty {
      * Enumerator that separates the level of the difficulty.
      */
     enum Level {
-        L,
-        M,
-        H
+        L ("LOW"),
+        M ("MEDIUM"),
+        H ("HIGH");
+
+        private String levelStr;
+
+        Level(String str) {
+            this.levelStr = str;
+        }
+        public String getLevel() {
+            return this.levelStr;
+        }
     }
 
     /**
@@ -29,20 +38,23 @@ public class Difficulty {
     public Difficulty(String difficulty) {
         switch (difficulty.toLowerCase()) {
         case "l":
+        case "low":
             this.level = Level.L;
             break;
         case "m":
+        case "medium":
         default:
             this.level = Level.M;
             break;
         case "h":
+        case "high":
             this.level = Level.H;
         }
     }
 
     @Override
     public String toString() {
-        return "[" + this.level.toString() + "]";
+        return "[" + this.level.getLevel() + "]";
     }
 
     /**
