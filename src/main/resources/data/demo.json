@@ -508,6 +508,13 @@
       "ingredientCost": 4.0,
       "retailPrice": 3.0,
       "status": "ACTIVE"
+    },
+    {
+      "productName": "Milo",
+      "ingredientItems": [],
+      "ingredientCost": 0.2,
+      "retailPrice": 1.0,
+      "status": "ARCHIVE"
     }
   ],
   "inventory": [
