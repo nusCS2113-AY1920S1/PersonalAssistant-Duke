@@ -15,7 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProcessTest {
     Fund fund = new Fund();
@@ -238,7 +240,6 @@ class ProcessTest {
         input = "reduce budget pr/test am/300";
         process.reduceBudget(input, ui, fund);
         assertEquals((projectManager.projectmap.get("test").spending), 500);
-       // assertEquals((projectManager.projectmap.get("test").budget), 700);
         assertEquals(projectManager.projectmap.get("test").getBudget(),
                 (projectManager.projectmap.get("test").getSpending()
                         + projectManager.projectmap.get("test").getRemaining()));
@@ -254,9 +255,6 @@ class ProcessTest {
         process.reduceBudget(input, ui, fund);
         assertEquals((projectManager.projectmap.get("rag").spending), 1000);
         assertEquals((projectManager.projectmap.get("rag").budget), 1500);
-        //assertTrue(projectManager.projectmap.get("rag").getBudget() ==
-         //       projectManager.projectmap.get("rag").getSpending()
-          //              + projectManager.projectmap.get("rag").getRemaining());
     }
 
 
