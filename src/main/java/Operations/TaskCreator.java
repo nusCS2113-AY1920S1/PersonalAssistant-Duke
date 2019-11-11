@@ -16,12 +16,10 @@ import java.util.Date;
 public class TaskCreator {
     private static final String UPDATED_DESCRIPTION_ERROR = "There is a formatting error in your updated description";
     private static final String DURATION_FORMAT_ERROR = "There's a problem with the duration you've specified, default to no duration";
-    private static final String RECURRENCE_FORMAT_ERROR = "There seems to some mistake in your recurrence entry, "
-            +"will be setting recurrence as none";
+    private static final String RECURRENCE_FORMAT_ERROR = "There seems to some mistake in your recurrence entry, will be setting recurrence as none";
     private static final String STARTING_DATE_FORMAT_ERROR = "Wrong date format, starting date is set default to current date";
     private static final String ENDING_DATE_FORMAT_ERROR = "Wrong date format, ending date is set default to current date";
-    public static final String PRIORITY_WILL_BE_SET_AS_LOW = "There seems to some mistake in your priority entry,"
-            + " will be setting priority as low";
+    public static final String PRIORITY_WILL_BE_SET_AS_LOW = "There seems to some mistake in your priority entry, will be setting priority as low";
     private Parser parser;
 
     /**

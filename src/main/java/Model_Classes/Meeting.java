@@ -12,7 +12,7 @@ public class Meeting extends Task {
     private TimeUnit timeUnit;
     /**
      * Constructor for Meeting object.
-     * Takes in inputs for description of the meeting and the time the meeting occurs
+     * Takes in inputs for description of the meeting and the time the meeting occurs.
      * @param description Description of the meeting
      * @param at Time the meeting happens
      */
@@ -24,13 +24,13 @@ public class Meeting extends Task {
 
     /**
      * overload constructor for meeting class.
-     * duration is specified in this constructor
+     * duration is specified in this constructor.
      * @param description description of the meeting
      * @param date date and time the meeting starts
      * @param duration duration of the meeting in numbers
      * @param unit unit of time the meeting is in (hours, minutes etc)
      */
-    public Meeting (String description, Date date, int duration, TimeUnit unit) {
+    public Meeting(String description, Date date, int duration, TimeUnit unit) {
         super(description, date);
         this.duration = duration;
         this.timeUnit = unit;

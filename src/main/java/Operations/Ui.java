@@ -37,28 +37,32 @@ public class Ui {
         System.out.println("Enter 'help' if you require assistance");
     }
 
+    /**
+     * Shows the list of help commands.
+     */
     public void helpList() {
-        System.out.println("Here are a list of commands you can input: " +
-                "\n add " +
-                "\n list " +
-                "\n update " +
-                "\n done " +
-                "\n delete " +
-                "\n find " +
-                "\n snooze " +
-                "\n sort " +
-                "\n subtask " +
-                "\n restore " +
-                "\n priority " +
-                "\n reorder " +
-                "\n completed " +
-                "\n overdue " +
-                "\n reschedule " +
-                "\n show " +
-                "\n removeoverdue " +
-                "\n log " +
-                "\n bye \n" +
-                "For more information about a specific command you can \nEnter help followed by a command, eg. help add\n");
+        System.out.println("Here are a list of commands you can input: "
+                + "\n add "
+                + "\n list "
+                + "\n update "
+                + "\n done "
+                + "\n delete "
+                + "\n find "
+                + "\n snooze "
+                + "\n sort "
+                + "\n subtask "
+                + "\n restore "
+                + "\n priority "
+                + "\n reorder "
+                + "\n completed "
+                + "\n overdue "
+                + "\n reschedule "
+                + "\n show "
+                + "\n removeoverdue "
+                + "\n log "
+                + "\n bye \n"
+                + "For more information about a specific command you can \n"
+                + "Enter help followed by a command, eg. help add\n");
     }
 
     void helpAdd() {
@@ -74,7 +78,8 @@ public class Ui {
         System.out.println("Time must be specified, wrapped in '&'\n"
                 + "\te.g &22/12/2019 18:00&  &this friday 13:00&  &next monday 14:00&  &tmr 16:00&\n");
         System.out.println("If time isn't specified, then the duration of the task must at least be specified\n");
-        System.out.println("Duration can be specified by wrapping in '^', in terms of number of hours or number of minutes");
+        System.out.println("Duration can be specified by wrapping in '^', "
+                + "in terms of number of hours or number of minutes");
         System.out.println("\te.g ^2 hours^ ^1 minutes^\n");
         System.out.println("Recurrence of the task can be specified by wrapping either days, weeks or months"
                 + "\nin '%'\n\te.g %day% %week% %month%\n");
@@ -191,12 +196,17 @@ public class Ui {
         System.out.println("\te.g show deleted");
     }
 
+    public void helpReopen() {
+        System.out.println("Re-opens a completed task from the completed task list");
+        System.out.println("\teg. reopen 6 &tmr 18:00&");
+        System.out.println("This will re-open the task at index 6 and with the specified date");
+    }
+
     /**
      * Prints a message telling the user that the task at the index has been deleted.
      *
      * @param index Index of task to be deleted.
      */
-
     public void showDeleted(int[] index) {
         if (index.length == 1) {
             System.out.println("Deleted task number " + (index[0] + 1) + "!");

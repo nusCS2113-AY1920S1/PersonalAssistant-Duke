@@ -86,7 +86,7 @@ public class RecurHandler {
             Calendar calendar = Calendar.getInstance();
             String date = new Storage().convertForStorage(check);
             date = date.substring(0, 15);
-            Date storedDate = parser.formatDateDDMMYY(date);
+            Date storedDate = parser.formatDateDDmmYY(date);
             calendar.setTime(storedDate);
             if (check.getRecurrenceSchedule().equals(RecurrenceScheduleType.day)) {
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -114,7 +114,7 @@ public class RecurHandler {
     private boolean dateHasPassedOthers(String currentTime, Task check, boolean isEdited) throws RoomShareException {
         boolean isPassed = false;
         try {
-            Date current = parser.formatDateDDMMYY(currentTime);
+            Date current = parser.formatDateDDmmYY(currentTime);
             Date newDate = getNewDate(check);
             if (newDate.compareTo(current) < 0) {
                 // date has passed

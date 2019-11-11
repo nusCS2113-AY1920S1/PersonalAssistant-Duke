@@ -137,7 +137,7 @@ public class Parser {
         } else if (this.formatDateByDay(by) != null) {
             date = this.formatDateByDay(by);
         } else {
-            date = this.formatDateDDMMYY(by);
+            date = this.formatDateDDmmYY(by);
         }
         return date;
     }
@@ -150,7 +150,7 @@ public class Parser {
      * @return A Date object containing the appropriately formatted date.
      * @throws RoomShareException If by is not in dd/MM/yyyy HH:mm format
      */
-    public Date formatDateDDMMYY(String by) throws RoomShareException {
+    public Date formatDateDDmmYY(String by) throws RoomShareException {
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             format.setLenient(false);
@@ -197,7 +197,8 @@ public class Parser {
     }
 
     /**
-     * Returns a Date object from a raw date that is stored as a String with special key words like "next monday, this fri".
+     * Returns a Date object from a raw date that is stored as a String with special key words like
+     * "next monday, this fri".
      * @param by Input String containing the date information.
      * @return A Date object containing the appropriately formatted date.
      */

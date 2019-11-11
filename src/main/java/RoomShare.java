@@ -7,7 +7,17 @@ import Enums.TaskType;
 import Enums.TimeUnit;
 import Model_Classes.ProgressBar;
 import Model_Classes.Task;
-import Operations.*;
+import Operations.Help;
+import Operations.ListRoutine;
+import Operations.OverdueList;
+import Operations.Parser;
+import Operations.RecurHandler;
+import Operations.Storage;
+import Operations.TaskCreator;
+import Operations.TaskList;
+import Operations.TempDeleteList;
+import Operations.Ui;
+import Operations.subTaskCreator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -112,7 +122,7 @@ public class RoomShare {
                 ui.startUp();
                 try {
                     String input = parser.getCommandLine().trim();
-                    if(input.split(" ")[0].equals("subtask")) {
+                    if (input.split(" ")[0].equals("subtask")) {
                         taskList.doneSubTask(input);
                     } else {
                         int[] index = parser.getIndexRange(input);
@@ -289,7 +299,7 @@ public class RoomShare {
                     int index = parser.getIndex(input);
                     Task oldTask = TaskList.get(index);
                     taskCreator.updateTask(input,oldTask);
-                    ui.showUpdated(index+1);
+                    ui.showUpdated(index + 1);
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 } finally {
@@ -371,18 +381,18 @@ public class RoomShare {
                     overdueList.list();
                     String input = parser.getCommandLine();
                     String[] range = input.split(" ");
-                   int[] indexes = parser.getIndexRange(range[0]);
-                      if (indexes.length != 1) {
-                          for (int i = indexes[0]; i <= indexes[1]; i++) {
-                              Task oldTask = overdueList.get(i);
-                              taskCreator.rescheduleTask(input, oldTask);
-                              ui.showUpdated(i + 1);
-                          }
+                    int[] indexes = parser.getIndexRange(range[0]);
+                    if (indexes.length != 1) {
+                        for (int i = indexes[0]; i <= indexes[1]; i++) {
+                            Task oldTask = overdueList.get(i);
+                            taskCreator.rescheduleTask(input, oldTask);
+                            ui.showUpdated(i + 1);
+                        }
                     } else {
-                          Task oldTask = overdueList.get(indexes[0]);
-                          taskCreator.rescheduleTask(input, oldTask);
-                          ui.showUpdated(indexes[0] + 1);
-                      }
+                        Task oldTask = overdueList.get(indexes[0]);
+                        taskCreator.rescheduleTask(input, oldTask);
+                        ui.showUpdated(indexes[0] + 1);
+                    }
                     overdueList.reschedule(indexes, taskList);
                     storage.writeFile(TaskList.getCurrentList(), "data.txt");
                     storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
