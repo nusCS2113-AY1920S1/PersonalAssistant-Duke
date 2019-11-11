@@ -83,7 +83,7 @@ public class ReceiptTrackerTest {
     }
 
     @Test
-    void findReceiptsByTagTest() throws DukeException {
+    void findReceiptsByTagTest() {
         ReceiptTracker tracker = initializeTracker();
         assertEquals(1.00, tracker.getNettCashSpent());
         assertEquals(5.00, tracker.getReceiptsByTags("loans").get(0).getCashSpent());
@@ -138,7 +138,7 @@ public class ReceiptTrackerTest {
     }
 
     @Test
-    void getCashSpentByTagTest() throws DukeException {
+    void getCashSpentByTagTest() {
         ReceiptTracker tracker = initializeTracker();
         assertTrue(tracker.getFolders().isEmpty());
         assertEquals(9.00, tracker.getCashSpentByTag("loans"));
