@@ -550,6 +550,7 @@ You can view the time slots you are available on a specific day so that you can 
 Format: `free DD-MM-YYYY`
 
 * `DATE` has to *strictly* be in the format `DD-MM-YYYY`.
+* `DATE` has to be either the current date or a date in the future. 
 
 Example:
 
@@ -568,7 +569,7 @@ image::Reminder.png[Reminder]
 
 [NOTE]
 This command functions in the background so *OOF* automatically reminds you of the expiring tasks when you start our program. +
-You can set the `threshold` for *OOF* to remind you to complete your tasks. +
+You can set the `threshold` for *OOF* to remind you to complete your tasks. (The default threshold is 24 hours) +
 View the detailed description on the usage of `threshold` below.
 
 ==== Choosing a threshold for tasks: `threshold`
