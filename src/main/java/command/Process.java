@@ -3,7 +3,7 @@ package command;
 import storage.Storage;
 import common.AlphaNUSException;
 import common.CommandFormat;
-import common.TaskList;
+import task.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
 import payment.Payments;
@@ -17,7 +17,6 @@ import task.Task;
 import task.WithinPeriodTask;
 import ui.Ui;
 
-import javax.swing.undo.UndoableEdit;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -593,7 +592,7 @@ public class Process {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             Date date = sdf.parse(datestring);
             for (Task tasks : tasklist.returnArrayList()) {
-                if(tasks.getType().equals("T")){
+                if (tasks.getType().equals("T")) {
                     continue;
                 }
                 if (sdf.format(date).equals(tasks.getDateStr())) {

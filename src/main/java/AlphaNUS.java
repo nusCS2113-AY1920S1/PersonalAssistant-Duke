@@ -1,7 +1,7 @@
 import command.Parser;
 import storage.Storage;
 import common.AlphaNUSException;
-import common.TaskList;
+import task.TaskList;
 import project.Fund;
 import ui.Ui;
 
