@@ -63,13 +63,11 @@ public class StudyAssistCommandParser extends Command {
                 studyPlan.showPlan();
             } else if (splitCommand[0].equals("add")) {
                 copyStudyPlan(oldStudyPlan,studyPlan.StudyPlan);
-                new AddModuleCommand().execute(studyPlan,studyStorage,ui);
-            }
-//            else if (splitCommand[0].equals("delete")) {
-//                copyStudyPlan(oldStudyPlan,studyPlan.StudyPlan);
-//                new DeleteModuleCommand().execute(studyPlan,studyStorage,ui);
-//            }
-            else if (splitCommand[0].equals("shift")) {
+                new AddModuleCommand().execute(studyPlan,studyStorage,ui,oldStudyPlan);
+            } else if (splitCommand[0].equals("delete")) {
+                copyStudyPlan(oldStudyPlan,studyPlan.StudyPlan);
+                new DeleteModuleCommand().execute(studyPlan,studyStorage,ui,oldStudyPlan);
+            } else if (splitCommand[0].equals("shift")) {
                 copyStudyPlan(oldStudyPlan,studyPlan.StudyPlan);
                 new ShiftModuleCommand().execute(studyPlan,studyStorage,ui);
             } else if (splitCommand[0].equals("prerequisite")) {

@@ -113,12 +113,12 @@ public class ExpenseCommandParser extends Command {
                 ui.readCommand();
                 if (ui.fullCommand.split(" ")[0].equals("add")) {
                     copyMap(expenses, oldExpenses);
-                    new AddExpenseCommand(ui, expenses);
+                    new AddExpenseCommand(ui, expenses, oldExpenses);
                 } else if (ui.fullCommand.split(" ")[0].equals("find")) {
                     new FindExpenseCommand(ui, expenses);
                 } else if (ui.fullCommand.split(" ")[0].equals("delete")) {
                     copyMap(expenses, oldExpenses);
-                    new DeleteExpenseCommand(ui, expenses);
+                    new DeleteExpenseCommand(ui, expenses, oldExpenses);
                 } else if (ui.fullCommand.equals("list")) {
                     new ExpenseListCommand(expenses);
                 } else if (ui.fullCommand.equals("undo")) {
