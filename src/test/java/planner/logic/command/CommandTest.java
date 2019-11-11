@@ -14,7 +14,7 @@ import planner.util.storage.Storage;
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
 
-public class CommandTestFramework extends InputTest {
+public class CommandTest extends InputTest {
 
     User user;
     HashMap<String, ModuleInfoDetailed> modDetail;
@@ -24,7 +24,7 @@ public class CommandTestFramework extends InputTest {
     ModuleCommand command;
     Parser parser;
 
-    public CommandTestFramework() throws ModException {
+    public CommandTest() throws ModException {
         init();
     }
 

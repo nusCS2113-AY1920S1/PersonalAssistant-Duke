@@ -26,7 +26,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class SortCcaTest extends CommandTestFramework {
+public class SortCcaTest extends CommandTest {
     private static Storage store;
     private static ModuleTasksList modTasks;
     private static Parser argparser;
