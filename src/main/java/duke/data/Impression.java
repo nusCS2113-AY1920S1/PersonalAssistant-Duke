@@ -52,87 +52,6 @@ public class Impression extends DukeObject {
     }
 
     /**
-     * This functions search for treatment relevant to the searchTerm.
-     *
-     * @param searchTerm the term to be searched for
-     * @return ArrayList of the Treatments
-     */
-    public SearchResults findTreatments(String searchTerm) {
-        ArrayList<Treatment> treatmentList = new ArrayList<>();
-        String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Treatment treatment : treatments) {
-            if (treatment.contains(lowerSearchTerm)) {
-                treatmentList.add(treatment);
-            }
-        }
-        return new SearchResults(searchTerm, treatmentList, this);
-    }
-
-    /**
-     * This functions search for Evidence relevant to the searchTerm.
-     *
-     * @param searchTerm the term to be searched for
-     * @return ArrayList of the Evidence
-     */
-    public SearchResults findEvidences(String searchTerm) {
-        ArrayList<Evidence> evidenceList = new ArrayList<>();
-        String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Evidence evidence : evidences) {
-            if (evidence.contains(lowerSearchTerm)) {
-                evidenceList.add(evidence);
-            }
-        }
-        return new SearchResults(searchTerm, evidenceList, this);
-    }
-
-    /**
-     * Searches through all DukeData associated with this impression containing the search term.
-     *
-     * @param searchTerm String to be used to filter the DukeData
-     * @return the list of DukeData
-     */
-    public SearchResults searchAll(String searchTerm) {
-        SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), this);
-        results.addAll(findEvidences(searchTerm));
-        results.addAll(findTreatments(searchTerm));
-        return results;
-    }
-
-    /**
-     * This function searches for treatments whose names contain the searchTerm.
-     *
-     * @param searchTerm the term to be searched for
-     * @return ArrayList of the Treatments
-     */
-    public SearchResults findTreatmentsByName(String searchTerm) {
-        ArrayList<Treatment> treatmentList = new ArrayList<>();
-        String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Treatment entry : treatments) {
-            if (entry.getName().toLowerCase().contains(lowerSearchTerm)) {
-                treatmentList.add(entry);
-            }
-        }
-        return new SearchResults(searchTerm, treatmentList, this);
-    }
-
-    /**
-     * This function searches for evidences whose names contain the searchTerm.
-     *
-     * @param searchTerm the term to be searched for
-     * @return ArrayList of the Evidences
-     */
-    public SearchResults findEvidencesByName(String searchTerm) {
-        ArrayList<Evidence> evidenceList = new ArrayList<>();
-        String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Evidence entry : evidences) {
-            if (entry.getName().toLowerCase().contains(lowerSearchTerm)) {
-                evidenceList.add(entry);
-            }
-        }
-        return new SearchResults(searchTerm, evidenceList, this);
-    }
-
-    /**
      * This function searches for DukeData whose names contain the searchTerm.
      *
      * @param searchTerm String to be used to filter the DukeData
@@ -373,6 +292,8 @@ public class Impression extends DukeObject {
         }
     }
 
+    /* @@author aquohn */
+
     /**
      * Calls getCriticalCount() to compute the number of critical itmes (items with priority 1) and returns a string
      * indicating this value.
@@ -444,5 +365,86 @@ public class Impression extends DukeObject {
         } else {
             throw new DukeException("I don't have an treatment at that index!");
         }
+    }
+
+    /**
+     * This functions search for treatment relevant to the searchTerm.
+     *
+     * @param searchTerm the term to be searched for
+     * @return ArrayList of the Treatments
+     */
+    public SearchResults findTreatments(String searchTerm) {
+        ArrayList<Treatment> treatmentList = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Treatment treatment : treatments) {
+            if (treatment.contains(lowerSearchTerm)) {
+                treatmentList.add(treatment);
+            }
+        }
+        return new SearchResults(searchTerm, treatmentList, this);
+    }
+
+    /**
+     * This functions search for Evidence relevant to the searchTerm.
+     *
+     * @param searchTerm the term to be searched for
+     * @return ArrayList of the Evidence
+     */
+    public SearchResults findEvidences(String searchTerm) {
+        ArrayList<Evidence> evidenceList = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Evidence evidence : evidences) {
+            if (evidence.contains(lowerSearchTerm)) {
+                evidenceList.add(evidence);
+            }
+        }
+        return new SearchResults(searchTerm, evidenceList, this);
+    }
+
+    /**
+     * Searches through all DukeData associated with this impression containing the search term.
+     *
+     * @param searchTerm String to be used to filter the DukeData
+     * @return the list of DukeData
+     */
+    public SearchResults searchAll(String searchTerm) {
+        SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), this);
+        results.addAll(findEvidences(searchTerm));
+        results.addAll(findTreatments(searchTerm));
+        return results;
+    }
+
+    /**
+     * This function searches for treatments whose names contain the searchTerm.
+     *
+     * @param searchTerm the term to be searched for
+     * @return ArrayList of the Treatments
+     */
+    public SearchResults findTreatmentsByName(String searchTerm) {
+        ArrayList<Treatment> treatmentList = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Treatment entry : treatments) {
+            if (entry.getName().toLowerCase().contains(lowerSearchTerm)) {
+                treatmentList.add(entry);
+            }
+        }
+        return new SearchResults(searchTerm, treatmentList, this);
+    }
+
+    /**
+     * This function searches for evidences whose names contain the searchTerm.
+     *
+     * @param searchTerm the term to be searched for
+     * @return ArrayList of the Evidences
+     */
+    public SearchResults findEvidencesByName(String searchTerm) {
+        ArrayList<Evidence> evidenceList = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Evidence entry : evidences) {
+            if (entry.getName().toLowerCase().contains(lowerSearchTerm)) {
+                evidenceList.add(entry);
+            }
+        }
+        return new SearchResults(searchTerm, evidenceList, this);
     }
 }

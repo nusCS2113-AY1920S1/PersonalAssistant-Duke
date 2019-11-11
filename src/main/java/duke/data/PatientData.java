@@ -90,6 +90,9 @@ public class PatientData {
         return null;
     }
 
+
+    /* @@author aquohn */
+
     /**
      * PatientData of all patients whose names contain the searchTerm.
      *

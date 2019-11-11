@@ -102,6 +102,8 @@ public class Patient extends DukeObject {
         throw new DukeException("I don't have an Impression called that!");
     }
 
+    /* @@author aquohn */
+
     /**
      * This getImpression function returns the impression from the impressions list at the specified index.
      *
@@ -203,6 +205,8 @@ public class Patient extends DukeObject {
         }
         return results;
     }
+
+    /* @@author JeremyKwok */
 
     /**
      * This function appends an addition to the history of a Patient.
@@ -377,6 +381,8 @@ public class Patient extends DukeObject {
     public void setHistory(String history) {
         this.history = history;
     }
+
+    /* @@author aquohn */
 
     /**
      * Computes the number of critical items for this patient: DukeData objects with priority 1, across all impressions.

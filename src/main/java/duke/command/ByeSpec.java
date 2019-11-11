@@ -3,6 +3,7 @@ package duke.command;
 import duke.DukeCore;
 import duke.exception.DukeFatalException;
 
+/* @@author gowgos5 */
 public class ByeSpec extends CommandSpec {
     private static final ByeSpec spec = new ByeSpec();
 

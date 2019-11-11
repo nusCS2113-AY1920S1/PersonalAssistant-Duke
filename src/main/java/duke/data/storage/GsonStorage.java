@@ -1,3 +1,5 @@
+/* @@author JacobToresson */
+
 package duke.data.storage;
 
 import com.google.gson.Gson;
@@ -23,18 +25,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-/*
+/**
  * Handles storage of patients.
  */
-
 public class GsonStorage {
 
-    /*
+    /**
      * the file that the patients will be stored in.
      */
     private final File jsonFile;
 
-    /*
+    /**
      * the filepath to the file that the patients will be stored in.
      */
     private final String filePath;
@@ -128,7 +129,6 @@ public class GsonStorage {
             throw new DukeFatalException("Unable to write data! Some data may have been lost.");
         }
     }
-
 
     /**
      * Returns the filepath to the json file containing the Json representation of all the patients.
