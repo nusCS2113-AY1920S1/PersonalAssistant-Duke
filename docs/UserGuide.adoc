@@ -69,7 +69,7 @@ is operational.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `add module MOD_CODE`, `MOD_CODE` is a parameter which can be used as `add module CG1112` or `add module GES1012`.
 * Arguments for time `--begin` and `--end` are supposed to be given in 24 hour format. Due to the use of `Natty` library for relative date parsing, other formats would work but may result in
- anomalous behavior. The list of known expected behavior can be found <<Expected anomalous behavior>>
+ anomalous behavior. The list of known expected behavior can be found in <<Expected Anomalous Behavior>>
 
 ====
 
@@ -497,8 +497,15 @@ image::ModBadSuException.png[width="450"]
 > * Only modules with the "SU: true" indicates that the module is S/U'able and an S or U grade can be input.
 > ****
 
+
+
 == Expected Anomalous Behavior
 
+
+=== Inputs to CCA Timings
+
+As `Natty` was used to parse relative dates, in the event the user inputs values which are not in the 24 Hour Format, it may still work but would
+produce unexpected behavior. An example of this would be to input timing values like `27:00`, where `Natty` would interpret that value as `00:00`.
 
 
 
