@@ -38,7 +38,6 @@ class SetReminderCommandTest {
             String uiResponse = "Please enter the list of words.\n" + "Enter an empty line to end input";
             Command testSetReminderObject = new SetReminderCommand(1);
             assertEquals(uiResponse, testSetReminderObject.execute(ui, bank, storage));
-            System.out.println("SetReminderCommandTest: executeCaseOneTest() passed.");
         } catch (Exception e) {
             fail("executeCaseOneTest() in SetReminderCommandTest failed: " + e.getMessage());
         }
@@ -88,10 +87,8 @@ class SetReminderCommandTest {
         File dataFile = new File(Storage.DATA_FILE_PATH);
         File reminderFile = new File(Storage.REMINDER_FILE_PATH);
         File excelFile = new File(Storage.EXCEL_PATH);
-        if ((dataFile.delete()) && (reminderFile.delete()) && (excelFile.delete())) {
-            System.out.println("SetReminderCommandTest: File deleted successfully");
-        } else {
-            System.out.println("SetReminderCommandTest: Failed to delete the file");
-        }
+        dataFile.delete();
+        reminderFile.delete();
+        excelFile.delete();
     }
 }
