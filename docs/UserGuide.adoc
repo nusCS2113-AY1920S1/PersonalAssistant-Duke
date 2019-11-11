@@ -36,8 +36,11 @@ The table below explains the meaning behind the formatting used in this document
 
 | _preface_
 | A paragraph in italics indicates that the paragraph is a preface to the section below.
-|===
 
+a| image::info.png[50,50]
+| A section with the tooltip at the side indicates that the additional information provided in the section is important.
+
+|===
 == Quick Start
 
 _This section provides a quick guide on firing up Ducats. Follow the steps below to install and launch Ducats:_
