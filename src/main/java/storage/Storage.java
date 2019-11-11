@@ -1,4 +1,4 @@
-package command;
+package storage;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -7,7 +7,8 @@ import common.AlphaNUSException;
 import project.Fund;
 import project.Project;
 
-
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.File;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -16,12 +17,16 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.Set;
 
+//@@author leowyh
 /**
- * command.Storage that saves and loads the tasklist of the user.
+ * Storage that saves and loads the tasklist of the user.
  */
 public class Storage {
+<<<<<<< HEAD:src/main/java/command/Storage.java
     private static String projectsfilepath = "localdata/Projects.json";
     private static String CommandListFilePath = "localdata/history.json";
     private static String fundfilepath = "localdata/Fund.json";
@@ -30,8 +35,49 @@ public class Storage {
     private static String undofundfilepath = "localdata/undoFund.json";
     private static String redofundfilepath = "localdata/redoFund.json";
     private static String currentprojectfilepath = "localdata/CurrentProject.json";
+=======
+    private static String basefilepath = System.getProperty("user.dir");
+    private static String projectsfilepath = basefilepath + "/localdata/Projects.json";
+    private static String commandlistfilepath = basefilepath +  "/localdata/history.json";
+    private static String fundfilepath =  basefilepath + "/localdata/Fund.json";
+    private static String undoListFilePath = basefilepath +  "/localdata/undo.json";
+    private static String redoListFilePath = basefilepath +  "/localdata/redo.json";
+    private static String currentprojectfilepath = basefilepath + "/localdata/CurrentProject.json";
+    private static String dictFilePath = "/localdata/dict.json";
+    private static String backuphistoryfilepath = "Backuphistory.json";
+    private static String backupfundfilepath = "BackupFund.json";
+    private static String backupprojectsfilepath = "BackupProjects.json";
+
+
+>>>>>>> d1d0b99d8623edd1458795e54e81c5d99257cc46:src/main/java/storage/Storage.java
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    /**
+     * Writes current projectmap in ProjectManager to local storage.
+     * @param dict LinkedHashMap of projects.
+     * @throws AlphaNUSException If the file cannot be written to.
+     */
+    public void writeToDictFile(Set<String> dict) throws AlphaNUSException {
+        String toWriteStr = gson.toJson(dict);
+        try {
+            File file = new File(dictFilePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            for (String lineStr : toWriteStr.split("\n")) {
+                bufferedWriter.write(lineStr);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new AlphaNUSException("Unable to write to file: " + dictFilePath);
+        }
+    }
+
+
 
     /**
      * Writes current projectmap in ProjectManager to local storage.
@@ -105,6 +151,7 @@ public class Storage {
         }
     }
 
+    //@@author E0373902
     /**
      * writes the fund present, before the current command was executed, to local storage.
      * @param fund
@@ -177,6 +224,7 @@ public class Storage {
         }
     }
 
+    //@@author E0373902
     /**
      * Writes the projectmap, after current command is executed, to local storage.
      * @param projectmap LinkedHashMap of projects.
@@ -199,6 +247,33 @@ public class Storage {
         } catch (IOException e) {
             throw new AlphaNUSException("Unable to write to file: " + redoListFilePath);
         }
+    }
+
+    //@@author leowyh
+    /**
+     * Read HashMap of projects from local storage and returns it.
+     * @return HashMap of Project objects stored in local storage.
+     * @throws AlphaNUSException If the file cannot be read.
+     */
+    public Set<String> readFromDictFile() throws AlphaNUSException {
+        Type dictType = new TypeToken<Set<String>>(){}.getType();
+        Set<String> dict;
+        try {
+            File file = new File(dictFilePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            dict = gson.fromJson(bufferedReader, dictType);
+            bufferedReader.close();
+            if (dict == null) {
+                dict = new HashSet<>();
+            }
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return dict;
     }
 
     /**
@@ -276,6 +351,7 @@ public class Storage {
         return fund;
     }
 
+    //@@author E0373902
     /**
      * Reads fund from undo file for fund from local storage and returns it.
      * @return
@@ -352,6 +428,7 @@ public class Storage {
         return projectmap;
     }
 
+    //@@author E0373902
     /**
      * Read HashMap of projects in the redo file from local storage and returns it.
      * @return HashMap of Project objects stored in the redo file in local storage.
@@ -392,7 +469,7 @@ public class Storage {
     public void writeToCommandsFile(String command) throws AlphaNUSException {
         String toWriteStr = gson.toJson(command);
         try {
-            File file = new File(CommandListFilePath);
+            File file = new File(commandlistfilepath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
@@ -402,7 +479,7 @@ public class Storage {
             bufferedWriter.newLine();
             bufferedWriter.close();
         } catch (IOException e) {
-            throw new AlphaNUSException("Unable to write to file: " + CommandListFilePath);
+            throw new AlphaNUSException("Unable to write to file: " + commandlistfilepath);
         }
     }
 
@@ -416,7 +493,7 @@ public class Storage {
         String line = null;
         ArrayList<String> list = new ArrayList<String>();
         try {
-            File file = new File(CommandListFilePath);
+            File file = new File(commandlistfilepath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
@@ -430,5 +507,71 @@ public class Storage {
             throw new AlphaNUSException("Unable to read file");
         }
         return list;
+    }
+
+    //@@author leowyh
+    /**
+     * Reads array list of input commands from local storage and returns it.
+     * @return ArrayList of input commands stored in local storage.
+     * @throws AlphaNUSException If the file cannot be read.
+     */
+    public ArrayList<String> readFromBackupCommandsFile() throws AlphaNUSException {
+        String line = null;
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            InputStream in = getClass().getResourceAsStream(backuphistoryfilepath);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+            while ((line = bufferedReader.readLine()) != null) {
+                list.add(line);
+            }
+            bufferedReader.close();
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return list;
+    }
+
+    /**
+     * Reads array list of input commands from local storage and returns it.
+     * @return ArrayList of input commands stored in local storage.
+     * @throws AlphaNUSException If the file cannot be read.
+     */
+    public Fund readFromBackupFundFile() throws AlphaNUSException {
+        Type fundtype = new TypeToken<Fund>(){}.getType();
+        Fund fund;
+        try {
+            InputStream in = getClass().getResourceAsStream(backupfundfilepath);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+            fund = gson.fromJson(bufferedReader, fundtype);
+            bufferedReader.close();
+            if (fund == null) {
+                fund = new Fund();
+            }
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return fund;
+    }
+
+    /**
+     * Read HashMap of projects from local storage and returns it.
+     * @return HashMap of Project objects stored in local storage.
+     * @throws AlphaNUSException If the file cannot be read.
+     */
+    public LinkedHashMap<String, Project> readFromBackupProjectsFile() throws AlphaNUSException {
+        Type projectmaptype = new TypeToken<LinkedHashMap<String, Project>>(){}.getType();
+        LinkedHashMap<String, Project> projectmap;
+        try {
+            InputStream in = getClass().getResourceAsStream(backupprojectsfilepath);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+            projectmap = gson.fromJson(bufferedReader, projectmaptype);
+            bufferedReader.close();
+            if (projectmap == null) {
+                projectmap = new LinkedHashMap<>();
+            }
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return projectmap;
     }
 }

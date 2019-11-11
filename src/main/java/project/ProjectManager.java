@@ -1,6 +1,6 @@
 package project;
 
-import command.Storage;
+import storage.Storage;
 import common.AlphaNUSException;
 import payment.Payee;
 
@@ -66,7 +66,7 @@ public class ProjectManager {
 
     /**
      * Method to go to the project in the projectmap.
-     * @param projectindex Name of project to go to.
+     * @param projectindex Index of project to go to.
      * @return Returns the project object of the project to go to.
      */
     public String gotoProject(int projectindex) {
@@ -89,23 +89,17 @@ public class ProjectManager {
      * Lists all projects in the projectmap.
      * @return Returns an ArrayList of projects.
      */
-    public ArrayList<Project> listProjects() throws AlphaNUSException {
+    public ArrayList<Project> listProjects() {
         ArrayList<Project> projectslist = new ArrayList<>();
         projectslist.addAll(projectmap.values());
         return projectslist;
     }
 
-    //TODO --> adds spending for project when adding payments
-    public void addSpending() {
-
-    }
-
-    //TODO --> subtracts spending for project when adding payments
-    public static void subtractSpending() {
-
-    }
-
-    //TODO --> assign budget
+    /**
+     * Assigns a budget to the project.
+     * @param projectname Name of the project.
+     * @param amount Amo
+     */
     public void assignBudget(String projectname, Double amount) {
         projectmap.get(projectname).addBudget(amount);
     }
@@ -122,15 +116,17 @@ public class ProjectManager {
         return projectallocated; //TODO --> allocates budget to a project
     }
 
-    /**
-     * Returns the current project being edited.
-     * @return Returns current project.
-     */
-    public String getcurrentprojectname() {
-        return currentprojectname;
-    }
-
     public HashMap<String, Payee> getCurrentProjectManagerMap() {
         return projectmap.get(currentprojectname).managermap;
+    }
+
+    /**
+     * Load backup projects and removes previously added projects.
+     * Also sets currentproject to null.
+     * @param projectmap HashMap of projects from backup.
+     */
+    public void loadBackup(LinkedHashMap<String, Project> projectmap) {
+        this.projectmap = projectmap;
+        this.currentprojectname = null;
     }
 }
