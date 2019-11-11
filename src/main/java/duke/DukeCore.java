@@ -93,6 +93,7 @@ public class DukeCore extends Application {
         if (uiContext.getObject() != null) {
             uiContext.getObject().update();
         }
+
         ui.updateUi(message);
     }
 

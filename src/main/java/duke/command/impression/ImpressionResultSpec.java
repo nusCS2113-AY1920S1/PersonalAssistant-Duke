@@ -56,6 +56,6 @@ public class ImpressionResultSpec extends ObjSpec {
         impression.addNewEvidence(invx.toResult(cmd.getSwitchVal("summary")));
         impression.deleteTreatment(obj.getName());
         core.writeJsonFile();
-        core.ui.updateUi("Converted the '" + obj.getName() + "' investigation to a report!");
+        core.updateUi("Converted the '" + obj.getName() + "' investigation to a report!");
     }
 }

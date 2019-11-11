@@ -30,7 +30,7 @@ public class PatientDischargeSpec extends ArgSpec {
         Patient patient = (Patient) core.uiContext.getObject();
         HomeReportSpec.createReport(patient, header, explanation, arg);
         core.patientData.deletePatient(patient.getBedNo());
-        core.uiContext.open(null);
+        core.uiContext.moveBackOneContext();
         core.writeJsonFile();
         core.updateUi(result);
     }
