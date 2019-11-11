@@ -16,7 +16,7 @@ import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PlacesAddCommandTest {
+class PlacesAddCommandTest {
     private Ui ui = new Ui();
     private Storage storage = new Storage();
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -44,11 +44,11 @@ public class PlacesAddCommandTest {
     }
 
     @Test
-    void testAddWrongPlacesCommand() throws IOException {
+    void testAddWrongPlacesCommand() {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         ui.fullCommand = "add-TestCOM3";
         AddPlacesCommand test = new AddPlacesCommand(ui, places);
-        assertEquals("Please Input in the correct format\r\n", output.toString());
+        assertEquals("Please input add command in the correct format\r\n", output.toString());
     }
 }

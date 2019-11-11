@@ -1,5 +1,9 @@
 import gazeeebo.logger.LogCenter;
-import gazeeebo.storage.*;
+import gazeeebo.storage.Storage;
+import gazeeebo.storage.TasksPageStorage;
+import gazeeebo.storage.TriviaStorage;
+import gazeeebo.storage.NotePageStorage;
+import gazeeebo.storage.NoteStorage;
 import gazeeebo.tasks.Task;
 import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;

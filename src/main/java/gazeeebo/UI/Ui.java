@@ -21,9 +21,10 @@ public class Ui {
     public String fullCommand;
 
     /**
-     * This method reads in user input line by line.
+     * Reads the user's input into the command line.
      * @throws IOException if input is wrong.
      */
+
     public void readCommand() throws IOException {
         BufferedReader reader =
                 new BufferedReader(new InputStreamReader(System.in));
@@ -38,6 +39,7 @@ public class Ui {
      * @return the logo
      * @throws IOException catch the error if the read file fails.
      */
+
     public String showWelcome() throws IOException {
         System.out.println("Input password to enter Gazeeebo:");
         String logo = " ___   ___  ___  ___  ___  ___  ___   ___ \n"
@@ -72,6 +74,7 @@ public class Ui {
     /**
      * List of major features.
      */
+
     public void majorCategories() {
         ArrayList<String> majorCategories = new ArrayList<>();
         majorCategories.add("help");
@@ -91,15 +94,15 @@ public class Ui {
         for (int i = 0; i < majorCategories.size(); i++) {
             System.out.println(i + 1 + ". " + majorCategories.get(i));
         }
-
         System.out.println("To exit: bye");
     }
 
     /**
      * Reminder for upcoming tasks.
      * @param list Task list
-     * @throws ParseException if input cannot be correctly parsed.
+     * @throws ParseException exception when there is an error parsing the date of the task
      */
+
     public void upcomingTask(final ArrayList<Task> list) throws ParseException {
         ArrayList<Deadline> deadlineList = new ArrayList<Deadline>();
         ArrayList<Event> eventList = new ArrayList<Event>();
@@ -127,6 +130,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows the progress of the tasks done.
+     * @param list Array list of tasks
+     */
+
     public void showProgessiveBar(final ArrayList<Task> list) {
         int undoneNumber = 0;
         int doneNumber = 0;
@@ -140,7 +148,6 @@ public class Ui {
         }
         double progressPercentageTemp = (doneNumber * 1.00 / (doneNumber + undoneNumber) * 1.00) * 100.000;
         int progressPercentage = (int) progressPercentageTemp;
-
         StringBuilder progressivebar = new StringBuilder();
         for (int i = 0; i < progressPercentage / 2; i++) {
             progressivebar.append("/");
@@ -160,6 +167,7 @@ public class Ui {
     }
 
     /** Incorrect date input.*/
+
     public static void showEventDateFormatError() {
         System.out.println("Date Time has to be in "
                 + "YYYY-MM-DD HH:mm:ss-HH:mm:ss format");

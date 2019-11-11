@@ -9,13 +9,16 @@ import java.io.IOException;
 import java.util.Map;
 
 public class FindPlacesCommand {
+
     private static final String LINE_BREAK = "------------------------------------------\n";
+
     /**
      * Search for a place prints places that you searched for.
      *
      * @param ui the object that deals with printing things to the user.
      * @param places Map each place to a location
-\     */
+     */
+
     public FindPlacesCommand(Ui ui, Map<String,String> places) throws IOException {
         try {
             String placeSearchingFor;

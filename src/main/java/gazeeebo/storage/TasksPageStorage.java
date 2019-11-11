@@ -2,8 +2,14 @@
 
 package gazeeebo.storage;
 
-import gazeeebo.tasks.*;
-
+import gazeeebo.tasks.Task;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.DoAfter;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.TentativeEvent;
+import gazeeebo.tasks.FixedDuration;
+import gazeeebo.tasks.Todo;
+import gazeeebo.tasks.Timebound;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -36,7 +42,7 @@ public class TasksPageStorage {
      * @throws FileNotFoundException exception if the file path is invalid.
      */
     public ArrayList<Task> readFromSaveFile() throws FileNotFoundException {
-        ArrayList<Task> tList = new ArrayList<Task>();
+        ArrayList<Task> tlist = new ArrayList<Task>();
         File f = new File(relativePathResource);
         Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
@@ -48,7 +54,7 @@ public class TasksPageStorage {
                 } else {
                     t.isDone = false;
                 }
-                tList.add(t);
+                tlist.add(t);
             } else if (details[0].equals("D")) {
                 Deadline d = new Deadline(details[2].trim(), details[3].substring(3).trim());
                 if (details[1].equals("D")) {
@@ -56,7 +62,7 @@ public class TasksPageStorage {
                 } else {
                     d.isDone = false;
                 }
-                tList.add(d);
+                tlist.add(d);
             } else if (details[0].equals("E)")) {
                 Event e = new Event(details[2].trim(), details[3].substring(3).trim());
                 if (details[1].equals("D")) {
@@ -64,7 +70,7 @@ public class TasksPageStorage {
                 } else {
                     e.isDone = false;
                 }
-                tList.add(e);
+                tlist.add(e);
             } else if (details[0].equals("P")) {
                 Timebound tb = new Timebound(details[2].trim(), details[3].trim());
                 if (details[1].equals("D")) {
@@ -72,7 +78,7 @@ public class TasksPageStorage {
                 } else {
                     tb.isDone = false;
                 }
-                tList.add(tb);
+                tlist.add(tb);
             } else if (details[0].equals("FD")) {
                 FixedDuration fd = new FixedDuration(details[2].trim(), details[3].trim());
                 if (details[1].equals("D")) {
@@ -80,7 +86,7 @@ public class TasksPageStorage {
                 } else {
                     fd.isDone = false;
                 }
-                tList.add(fd);
+                tlist.add(fd);
             } else if (details[0].equals("DA")) {
                 DoAfter da = new DoAfter(details[3].trim(), details[3].trim(), details[2].trim());
                 if (details[1].equals("D")) {
@@ -88,7 +94,7 @@ public class TasksPageStorage {
                 } else {
                     da.isDone = false;
                 }
-                tList.add(da);
+                tlist.add(da);
             } else if (details[0].equals("TE")) {
                 ArrayList<String> timeslots = new ArrayList<String>();
                 for (int i = 3; i < details.length; i++) {
@@ -100,7 +106,7 @@ public class TasksPageStorage {
                 } else {
                     te.isDone = false;
                 }
-                tList.add(te);
+                tlist.add(te);
             } else {
                 if (details[3].contains("at:") || details[3].contains("by:")) {
                     Event e = new Event(details[2].trim(), details[3].substring(3).trim());
@@ -109,7 +115,7 @@ public class TasksPageStorage {
                     } else {
                         e.isDone = false;
                     }
-                    tList.add(e);
+                    tlist.add(e);
                 } else if (details[0].contains("P")) {
                     Timebound tb = new Timebound(details[2].trim(), details[3].trim());
                     if (details[1].equals("D")) {
@@ -117,7 +123,7 @@ public class TasksPageStorage {
                     } else {
                         tb.isDone = false;
                     }
-                    tList.add(tb);
+                    tlist.add(tb);
                 } else {
                     FixedDuration fd = new FixedDuration(details[2].trim(), details[3].trim());
                     if (details[1].equals("D")) {
@@ -125,10 +131,10 @@ public class TasksPageStorage {
                     } else {
                         fd.isDone = false;
                     }
-                    tList.add(fd);
+                    tlist.add(fd);
                 }
             }
         }
-        return tList;
+        return tlist;
     }
 }

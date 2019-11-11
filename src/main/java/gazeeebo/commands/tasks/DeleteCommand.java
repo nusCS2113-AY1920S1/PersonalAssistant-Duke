@@ -38,11 +38,11 @@ public class DeleteCommand extends Command {
      * @param storage      deals with storing data.
      * @param commandStack keep stack of previous commands.
      * @param deletedTask  keep stack of deleted tasks.
-     * @throws DukeException Throws custom exception when
-     * format of delete command is wrong
+     * @throws DukeException Throws custom exception when format of delete command is wrong
      * @throws ParseException catch error if parse string to date fails.
      * @throws IOException catch the error if the read file fails.
      */
+
     @Override
     public void execute(final ArrayList<Task> list, final Ui ui,
                         final Storage storage,
