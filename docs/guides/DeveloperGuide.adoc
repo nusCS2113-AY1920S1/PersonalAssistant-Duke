@@ -105,7 +105,21 @@ image::ModelComponent.png[Model Component, 600]
 The `Model` contains a `TaskList`, a `EmailList` and a `EmailKeywordPairList`. They store `Task`, `Email`
 and `KeywordPair` respectively. The three lists all inherit from `ArrayList`.
 
-==== Common classes
+=== Overall Activity Flow
+
+[#activity-dagram]
+.Activity Diagram
+image::OverallActivityDiagram.png[Overall Activity Flow, 400]
+
+When the program first start, it initializes the model. It then loads the local data files and fetch emails
+from the Outlook Server at the same time. Once these two activities are finished, it starts to wait for
+user input.
+
+If the input is received, it is parsed to command. Command will be executed depending on its type. If it is
+an exit command, however, it will shutdown the program gracefully. Otherwise it updates model, which in
+turn updates UI and local storage, after which the program will continue to wait for user input.
+
+This process continues until an exit command is received. 
 
 == Implementation
 
