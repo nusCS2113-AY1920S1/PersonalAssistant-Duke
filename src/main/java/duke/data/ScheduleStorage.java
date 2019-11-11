@@ -179,42 +179,6 @@ public class ScheduleStorage implements IStorage {
         }
     }
 
-    /**
-     * Method will save delete a class from date.
-     */
-    @SuppressWarnings("unchecked")
-    public void del(ToDo toDo, String date) {
-        JSONObject dateFile = initialize();
-        JSONArray dayTasks = new JSONArray();
-
-        //get previous JSON object for day
-        if (dateFile.get(date) == null) {
-            cliViewSchedule.message("Save schedule to new date");
-        } else {
-            dayTasks = (JSONArray) dateFile.get(date);
-        }
-
-        //add new object to the array
-        JSONObject newTask = createJSonObject(toDo);
-        dayTasks.add(newTask);
-        // clear old array from save file
-        dateFile.remove(date);
-
-        //update file with new JSON array
-        dateFile.put(date, dayTasks);
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            FileWriter fileWriter = new FileWriter(path);
-            Object json = mapper.readValue(dateFile.toJSONString(), Object.class);
-            mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-            fileWriter.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json));
-            fileWriter.flush();
-            fileWriter.close();
-
-        } catch (IOException e) {
-            cliViewSchedule.message("file not found");
-        }
-    }
 
 
     /**
