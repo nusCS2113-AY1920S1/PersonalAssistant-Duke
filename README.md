@@ -1,6 +1,6 @@
 # Ducats - A Music creation app for Amateur musicians! 
 
-![](docs/images/Ui.png)
+![](docs/images/CLI_UI.png)
 
 # Introduction
 
