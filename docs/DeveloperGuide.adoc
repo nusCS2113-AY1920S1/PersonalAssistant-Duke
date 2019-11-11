@@ -355,14 +355,8 @@ Step 1: The user enters search w/happy to check the meaning of the word ‘happy
 
 Step 2: After a few searches of different words, which is carried out following the process described in Step 1, the user enters the command freq o/desc. SearchFrequencyCommand then tells Ui the displayOrder to display the word and their word counts in.
 
-The following sequence shows how the Search Frequency feature works:
-
-[INSERT SEQUENCE DIAGRAM]
-
-=== Schedule Reminders feature
+== Schedule Reminders feature
 The schedule reminders feature allows the user to schedule words for revision notifications at the date and time set. It is facilitated by `SetReminderCommand` and classes in the `reminders` package.
-
-[INSERT OBJECT DIAGRAMS]
 
 The following is a sample usage case:
 
