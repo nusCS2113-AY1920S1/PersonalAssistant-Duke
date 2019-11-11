@@ -121,11 +121,21 @@ public final class ParserManageStudents {
                 System.out.print("Who do you want to add progress for?\n");
                 students.listAllStudents();
                 String input = sc.nextLine();
-                String[] word = input.split("-");
-                students.getStudent(Integer.parseInt(word[0])).addStudentProgress(word[1]);
-                System.out.println("Progress have been added.");
-                break;
-            case "delete":
+                try {
+                    String[] word = input.split("-");
+                    int index = Integer.parseInt(word[0]);
+                    if (index > students.getStudentListSize()) {
+                        System.out.println("Oops! You only have " + students.getStudentListSize() + " in the list.");
+                    } else if (word.length > 1) {
+                        String progressDescription = word[1];
+                        students.getStudent(index).addStudentProgress(progressDescription);
+                        System.out.println("Progress have been added.");
+                    } else {
+                        System.out.println("Please insert progress description.");
+                    }
+                } catch (InputMismatchException e) {
+                    new CliView().showCorrectCommand();
+                }
                 break;
             case "view":
                 System.out.print("Whose progress do you want to see?\n");
