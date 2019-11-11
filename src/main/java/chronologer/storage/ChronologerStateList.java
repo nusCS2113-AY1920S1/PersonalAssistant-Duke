@@ -127,14 +127,14 @@ public class ChronologerStateList implements Serializable {
     /**
      * Function to determine if a redo can be performed.
      */
-    private boolean checkRedoSizeInvalid () {
+    private boolean checkRedoSizeInvalid() {
         return chronologerRedoStack.size() == 0;
     }
 
     /**
      * Function to determine if a undo can be performed.
      */
-    private boolean checkUndoSizeInvalid () {
+    private boolean checkUndoSizeInvalid() {
         return chronologerUndoStack.size() <= 1;
     }
 }
