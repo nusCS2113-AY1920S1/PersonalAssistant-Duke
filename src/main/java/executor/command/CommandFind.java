@@ -15,7 +15,7 @@ public class CommandFind extends Command {
         super();
         this.userInput = userInput;
         this.description = "Parses input and loops through list of entries and checks if input matches any of them \n"
-                + "FORMAT :  ";
+                + "FORMAT: Find <taskName>";
         this.commandType = CommandType.FIND;
     }
 

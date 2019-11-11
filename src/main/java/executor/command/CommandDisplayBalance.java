@@ -14,7 +14,7 @@ public class CommandDisplayBalance extends Command {
         super();
         this.userInput = userInput;
         this.description = "Shows the current balance available in the wallet \n"
-                + "FORMAT :  ";
+                + "FORMAT: Balance";
         this.commandType = CommandType.BALANCE;
     }
 

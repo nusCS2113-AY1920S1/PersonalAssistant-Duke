@@ -15,7 +15,7 @@ public class CommandMarkDone extends Command {
         super();
         this.userInput = userInput;
         this.description = "Marks a certain task as done \n"
-                + "FORMAT :  ";
+                + "FORMAT: Done";
         this.commandType = CommandType.DONE;
     }
 
