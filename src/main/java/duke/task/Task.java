@@ -3,8 +3,6 @@ package duke.task;
 import duke.dukeexception.DukeException;
 import duke.enums.Numbers;
 
-import java.time.LocalDateTime;
-
 //@@author talesrune
 /**
  * Represents a task that stores description and boolean that indicates the task as completed.
@@ -15,11 +13,7 @@ public class Task {
     protected String notesDesc = "empty";
     protected boolean isDone;
     public int numberOfDays = Numbers.ZERO.value;
-    public LocalDateTime currentDate;
-    public LocalDateTime dueDate;
-
     public int priority;
-    protected Reminders reminders;
 
     /**
      * Creates a task with the specified description.
@@ -90,7 +84,7 @@ public class Task {
      * @return String of the status icon.
      */
     public String getStatusIcon() {
-        return (isDone ? "[/]" : "[X]"); //return [✓] : [✗] symbols; [/][X] for jar
+        return (isDone ? "[/]" : "[X]");
     }
 
     /**
@@ -108,7 +102,7 @@ public class Task {
      * @return String of the status icon.
      */
     public String getStatusIconGui() {
-        return (isDone ? "[\u2713]" : "[\u2718]"); //return [✓]" : "[✗] symbols
+        return (isDone ? "[\u2713]" : "[\u2718]"); //To pass checkstyle
     }
 
     /**
@@ -117,32 +111,10 @@ public class Task {
      * @return String of the status icon.
      */
     public String getTasks() {
-        return (isDone ? "[\u2713]" : "[\u2718]"); //return [✓]" : "[✗] symbols
-    }
-
-    //@@author gervaiseang
-    /**
-     * Returns the reminder of one task.
-     *
-     * @return integer of the number of days to set the reminded task.
-     */
-
-    public int getReminder() {
-        return this.numberOfDays;
-    }
-
-    /**
-     * Set the remaining days of reminder.
-     *
-     * @param remainingDays The number of days left of the reminded task.
-     */
-
-    public void setReminder(int remainingDays) {
-        this.numberOfDays = remainingDays;
+        return (isDone ? "[\u2713]" : "[\u2718]"); //To pass checkstyle
     }
 
     //@@author
-
     /**
      * Set the priority of one task.
      *

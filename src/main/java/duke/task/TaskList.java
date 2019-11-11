@@ -100,20 +100,6 @@ public class TaskList {
         return index;
     }
 
-    //@@author
-    /**
-     * Retrieves all tasks from the task list.
-     *
-     * @return String that contains the whole list of tasks.
-     */
-    public String getList() {
-        String listStr = "";
-        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
-            listStr += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toString() + "\n";
-        }
-        return listStr;
-    }
-
     /**
      * Retrieves all tasks from the task list (GUI).
      *

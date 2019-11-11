@@ -156,7 +156,7 @@ public class Parser {
                             throw new DukeException("     (>_<) OOPS!! This task has been marked as done!");
                         }
                         return new DoneCommand(tasknum);
-                    } else { //delete
+                    } else {
                         return new DeleteCommand(tasknum);
                     }
                 }
@@ -271,7 +271,7 @@ public class Parser {
                         || !arr[i].equals("/by")) && !getDate) {
                     taskDesc += arr[i] + " ";
                 } else {
-                    if (!getDate) { //detect "/"
+                    if (!getDate) {
                         getDate = true;
                     } else {
                         dateDesc += arr[i] + " ";
@@ -477,9 +477,6 @@ public class Parser {
             displayDT = suffixStr + " of " + displayDT;
 
             return new FindTasksByDateCommand(displayDT);
-
-            //@@author
-
             //@@author talesrune
         } else if (!emptyString && (arr[Numbers.ZERO.value].equals("update"))) {
             if (arr.length == Numbers.ONE.value) {
@@ -507,7 +504,7 @@ public class Parser {
                                     typeOfUpdate = Numbers.ONE.value;
                                 } else if (arr[i].equals("/date")) {
                                     typeOfUpdate = Numbers.TWO.value;
-                                } else { //equals /type
+                                } else {
                                     typeOfUpdate = Numbers.THREE.value;
                                 }
                             }
@@ -516,7 +513,7 @@ public class Parser {
                                 taskDesc += arr[i] + " ";
                             } else if (typeOfUpdate == Numbers.TWO.value) {
                                 dateDesc += arr[i] + " ";
-                            } else { //type of update is number 3
+                            } else {
                                 typeDesc += arr[i] + " ";
                             }
                         }

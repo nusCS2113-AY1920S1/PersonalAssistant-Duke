@@ -17,7 +17,7 @@ public class Reminders implements Serializable {
      * @return TaskList.
      */
     public TaskList getReminders(int remindDaysFrom, TaskList items) {
-        LocalDateTime currentDateTime = LocalDateTime.now(); // gets the current date and time
+        LocalDateTime currentDateTime = LocalDateTime.now();
         LocalDateTime remindByDateTime = currentDateTime.plusDays(remindDaysFrom);
         TaskList myTaskList = new TaskList();
         items.getTasks().forEach(task -> {

@@ -25,18 +25,6 @@ public class SetPriorityCommand extends Command {
         this.priority = priority;
     }
 
-    //    /**
-    //     * Executes a command that adds the priority into priority list and outputs the result.
-    //     *
-    //     * @param items The task list that contains a list of tasks.
-    //     * @param priorityList List of priorities.
-    //     * @param ui To tell the user that it is executed successfully.
-    //     */
-    //    public void execute(TaskList items, PriorityList priorityList, Ui ui) {
-    //        priorityList.setPriority(taskNum, priority);
-    //        ui.showSetPriority(items, taskNum, priority);
-    //    }
-
     /**
      * Executes a command that adds the priority into priority list and outputs the result. (GUI).
      *

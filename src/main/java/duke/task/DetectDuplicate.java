@@ -27,7 +27,6 @@ public class DetectDuplicate {
     public boolean isDuplicate(String description) {
         for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             if (items.get(i).isContain(description)) {
-                //contains, is implemented in Task.java
                 return true;
             }
         }

@@ -16,16 +16,7 @@ public class FilterList {
      * Creates an empty task list using an array list.
      */
     public FilterList() {
-        filterList = new ArrayList<Task>();
-    }
-
-    /**
-     * Creates an updated task list with the specified array list.
-     *
-     * @param filterList The updated array list.
-     */
-    public FilterList(ArrayList<Task> filterList) {
-        this.filterList = filterList;
+        filterList = new ArrayList<>();
     }
 
     /**
@@ -78,7 +69,6 @@ public class FilterList {
      *
      * @return int that represents the task list size.
      */
-
     public int size() {
         return filterList.size();
     }

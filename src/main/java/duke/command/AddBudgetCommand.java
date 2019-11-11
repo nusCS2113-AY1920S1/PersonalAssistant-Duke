@@ -5,8 +5,6 @@ import duke.task.BudgetList;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-import java.io.IOException;
-
 //@@author maxxyx96
 public class AddBudgetCommand extends Command {
     protected BudgetList budgetList;
@@ -68,10 +66,9 @@ public class AddBudgetCommand extends Command {
      * @param items   The task list that contains a list of tasks.
      * @param ui      To tell the user that it is executed successfully.
      * @param storage The storage to be overwritten.
-     * @throws IOException If there is an error reading the file.
      */
     @Override
-    public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
+    public void executeStorage(TaskList items, Ui ui, Storage storage) {
 
     }
 }
