@@ -18,9 +18,18 @@ public class UserSetup {
     private UserUi ui = new UserUi();
     private boolean isDone = false;
 
+    /**
+     * This is a public constructor for userSetup.
+     * @param user the object that handles all user data
+     */
+
     public UserSetup(User user) {
         this.user = user;
     }
+
+    /**
+     * Help check if user object is setup.
+     */
 
     public void start() {
         if (user.getIsSetup()) {
@@ -86,9 +95,19 @@ public class UserSetup {
         }
     }
 
+    /**
+     * This is a getter method.
+     * @return user object that encapsulates all of the user data
+     */
     public User getUser() {
         return this.user;
     }
+
+    /**
+     * Help check if user has input enough data to properly create.
+     * an user object
+     * @return boolean flag to check
+     */
 
     public boolean getIsDone() {
         return isDone;

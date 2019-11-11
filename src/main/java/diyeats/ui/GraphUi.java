@@ -13,6 +13,12 @@ public class GraphUi {
                                "July", "August", "September",
                                "October", "November", "December"};
 
+    /**
+     * Output the entirety of a 2d array to command line interface.
+     * @param graph contents of the graph in a 2d array
+     * @param month month of the data collected
+     * @param type type of the data collected
+     */
     public void show(String[][] graph, int month, String type) {
         System.out.println(this.month[month - 1] + " " + type);
         for (int i = 0; i < graph.length; i += 1) {

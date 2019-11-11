@@ -5,6 +5,7 @@ import diyeats.logic.commands.ClearCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 
 //@@author HashirZahir
 /**
@@ -20,28 +21,39 @@ public class ClearCommandParser implements ParserInterface<ClearCommand> {
 
     @Override
     public ClearCommand parse(String userInputStr) {
-        String[] startAndEndDates;
+        HashMap<String, String> startAndEndDates;
         LocalDate startDate;
         LocalDate endDate;
 
         try {
             InputValidator.validate(userInputStr);
-            startAndEndDates = ArgumentSplitter.splitArguments(userInputStr, " ");
+            startAndEndDates = ArgumentSplitter.splitForwardSlashArguments(userInputStr);
         } catch (ProgramException e) {
             return new ClearCommand(false, "Please enter 2 dates; "
                     + "Start and End dates to clear meals from.");
         }
 
-        try {
-            startDate = LocalDate.parse(startAndEndDates[0], dateFormat);
-        } catch (DateTimeParseException e) {
-            return new ClearCommand(false, "Unable to parse input " + startAndEndDates[0] + " as a date");
+        System.out.println(startAndEndDates.keySet());
+        if (!startAndEndDates.containsKey("startdate")) {
+            return new ClearCommand(false, "Please include a startdate"
+                    + " using /startdate.");
         }
 
         try {
-            endDate = LocalDate.parse(startAndEndDates[1], dateFormat);
+            startDate = LocalDate.parse(startAndEndDates.get("startdate"), dateFormat);
         } catch (DateTimeParseException e) {
-            return new ClearCommand(false, "Unable to parse input " + startAndEndDates[1] + " as a date");
+            return new ClearCommand(false, "Unable to parse input " + startAndEndDates.get("startdate") + " as a date");
+        }
+
+        if (!startAndEndDates.containsKey("enddate")) {
+            return new ClearCommand(false, "Please include an enddate"
+                    + " using /enddate.");
+        }
+
+        try {
+            endDate = LocalDate.parse(startAndEndDates.get("enddate"), dateFormat);
+        } catch (DateTimeParseException e) {
+            return new ClearCommand(false, "Unable to parse input " + startAndEndDates.get("enddate") + " as a date");
         }
 
         if (startDate.isAfter(endDate)) {

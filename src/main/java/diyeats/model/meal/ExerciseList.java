@@ -50,6 +50,11 @@ public class ExerciseList {
         }
     }
 
+    public void removeStoredExercises(String description) {
+        System.out.println(description);
+        storedExercises.remove(description);
+    }
+
     /**
      * Getter for an exercise on a date.
      * @param date date exercise was scheduled for
@@ -66,6 +71,15 @@ public class ExerciseList {
      */
     public void addExerciseAtDate(LocalDate date, Pair selectedExercise) {
         exercisePlan.put(date, selectedExercise);
+    }
+
+    public void revertExerciseAtDate(LocalDate date, Pair selectedExercise) {
+        exercisePlan.remove(date);
+        exercisePlan.put(date, selectedExercise);
+    }
+
+    public void revertExerciseAtDate(LocalDate date) {
+        exercisePlan.remove(date);
     }
 
 }

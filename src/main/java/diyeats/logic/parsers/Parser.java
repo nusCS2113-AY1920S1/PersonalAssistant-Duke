@@ -6,6 +6,7 @@ import diyeats.logic.commands.Command;
 import diyeats.logic.commands.DeleteTransactionCommand;
 import diyeats.logic.commands.ExitCommand;
 import diyeats.logic.commands.StatsCommand;
+import diyeats.logic.commands.UndoCommand;
 
 import static diyeats.commons.constants.CommandSyntax.PARSER_ADD_DEFAULT_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_ADD_EXERCISE_COMMAND;
@@ -32,6 +33,7 @@ import static diyeats.commons.constants.CommandSyntax.PARSER_PAYMENT_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_STATS_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_SUGGEST_EXERCISE_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_SUGGEST_MEAL_COMMAND;
+import static diyeats.commons.constants.CommandSyntax.PARSER_UNDO_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_UPDATE_COMMAND;
 
 //@@author
@@ -72,7 +74,6 @@ public class Parser {
         this.parserUtil.parse(fullCommandStr.trim());
         String commandStr = this.parserUtil.getCommand();
         String argumentStr = this.parserUtil.getArgument();
-
         switch (commandStr) {
             case PARSER_EXIT_COMMAND:
                 return new ExitCommand();
@@ -124,6 +125,8 @@ public class Parser {
                 return new DeleteExerciseCommandParser().parse(argumentStr);
             case PARSER_LIST_TRANSACTION_COMMAND:
                 return new ListTransactionCommandParser().parse(argumentStr);
+            case PARSER_UNDO_COMMAND:
+                return new UndoCommand();
             case PARSER_DELETE_TRANSACTION_COMMAND:
                 return new DeleteTransactionCommandParser().parse(argumentStr);
             default:

@@ -35,11 +35,22 @@ public class Autocorrect {
         words.add(word);
     }
 
+    /**
+     * This function runs on the command input by user.
+     * @param command user input command
+     * @return the corrected command
+     */
     public String runOnCommand(String command) {
         setWord(command);
         execute();
         return getWord();
     }
+
+    /**
+     * This function runs on all of the words in the parameter specified by user.
+     * @param userInput parameters specified by user
+     * @return corrected parameters
+     */
 
     public String runOnArgument(String userInput) {
         if (userInput.trim().length() != 0) {

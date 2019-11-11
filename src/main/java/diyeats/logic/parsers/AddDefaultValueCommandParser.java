@@ -4,7 +4,6 @@ import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.AddDefaultValueCommand;
 import diyeats.model.meal.Meal;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 
 //@@author Fractalisk

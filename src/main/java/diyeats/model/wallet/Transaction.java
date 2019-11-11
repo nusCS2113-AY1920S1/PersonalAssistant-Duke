@@ -47,10 +47,15 @@ public class Transaction {
         return this.transactionAmount;
     }
 
-    /**
-     * Overrides toString() function in the object class.
-     * @return the summary of the transaction.
-     */
+    //to facilitate undo
+    public void changeType() {
+        if (this.type.equals("PAY")) {
+            this.type = "DEP";
+        } else {
+            this.type = "PAY";
+        }
+    }
+
     @Override
     public String toString() {
         return "[" + getType() + "]" + " SGD" + this.transactionAmount + " | " + getDate().format(LOCAL_DATE_FORMATTER);

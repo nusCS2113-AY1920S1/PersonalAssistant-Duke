@@ -1,11 +1,11 @@
 {
   "burger": {
-    "calorie": 1000
+    "calorie": 600
   },
   "Fish burger": {
     "calorie": 400
   },
-  "Chicken Burger": {
+  "Fish burger": {
     "calorie": 400
   },
   "Turkey Bacon Burger": {

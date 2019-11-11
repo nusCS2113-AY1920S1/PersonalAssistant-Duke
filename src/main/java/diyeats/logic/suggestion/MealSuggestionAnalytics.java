@@ -2,6 +2,7 @@ package diyeats.logic.suggestion;
 
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
+import diyeats.model.meal.MealType;
 import diyeats.model.meal.SuggestMeal;
 
 import java.time.LocalDate;
@@ -24,9 +25,9 @@ public class MealSuggestionAnalytics {
 
     // get meal suggestion given the calorie limit and the max number of meals to suggest.
     public ArrayList<Meal> getMealSuggestions(MealList meals, LocalDate suggestionDate, int calorieLimit,
-                                              int maxMealsToSuggest, String mealSuggestionTypeStr) {
+                                              int maxMealsToSuggest, MealType mealType) {
 
-        setDefaultSuggestionMealList(meals.getDefaultValues(), suggestionDate, mealSuggestionTypeStr);
+        setDefaultSuggestionMealList(meals.getDefaultValues(), suggestionDate, mealType);
 
         ArrayList<SuggestMeal> suggestionMealList = getMealListWithinCalories(calorieLimit);
         suggestionMealList = getFilteredDisplayList(suggestionMealList, maxMealsToSuggest);
@@ -35,11 +36,11 @@ public class MealSuggestionAnalytics {
 
     // set the default meal list from which meals are suggested.
     private void setDefaultSuggestionMealList(HashMap<String, HashMap<String, Integer>> defaultMealSuggestionList,
-                                              LocalDate suggestionDate, String mealTypeStr) {
+                                              LocalDate suggestionDate, MealType mealType) {
         defaultSuggestionMealList.clear();
         for (String mealNameStr : defaultMealSuggestionList.keySet()) {
             HashMap<String, Integer> mealNutrients  = defaultMealSuggestionList.get(mealNameStr);
-            defaultSuggestionMealList.add(new SuggestMeal(mealNameStr, mealNutrients, suggestionDate, mealTypeStr));
+            defaultSuggestionMealList.add(new SuggestMeal(mealNameStr, mealNutrients, suggestionDate, mealType));
         }
     }
 

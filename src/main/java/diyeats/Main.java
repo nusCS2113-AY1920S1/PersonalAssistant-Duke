@@ -6,6 +6,7 @@ import diyeats.logic.commands.Command;
 import diyeats.logic.commands.UserSetup;
 import diyeats.logic.parsers.Parser;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.TransactionList;
 import diyeats.model.wallet.Wallet;
@@ -30,16 +31,19 @@ public class Main {
     private TransactionList transactions = new TransactionList();
     private UserSetup setup;
     private Wallet wallet;
+    private Undo undo;
 
     /**
      * This is a constructor of DIYeats to start the program.
      */
+
     public Main() {
         ui = new Ui();
         user = new User();
         autocorrect = new Autocorrect();
         wallet = new Wallet();
         storage = new Storage();
+        undo = new Undo();
         while (!storage.isMealDone()) {
             try {
                 storage.loadMealInfo(meals);
@@ -90,11 +94,11 @@ public class Main {
                 if (c.isFail()) {
                     c.failure();
                 } else {
-                    c.execute(meals, storage, user, wallet);
+                    c.execute(meals, storage, user, wallet, undo);
                     while (!c.isDone()) {
                         String word = in.nextLine();
                         c.setResponseStr(word);
-                        c.execute(meals, storage, user, wallet);
+                        c.execute(meals, storage, user, wallet, undo);
                     }
                 }
                 isExit = c.isExit();

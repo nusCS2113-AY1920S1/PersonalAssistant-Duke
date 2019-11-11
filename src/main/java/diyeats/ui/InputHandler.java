@@ -2,7 +2,6 @@ package diyeats.ui;
 
 import diyeats.commons.exceptions.ProgramException;
 
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;

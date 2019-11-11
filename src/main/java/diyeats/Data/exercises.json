@@ -3,15 +3,25 @@
     "Running, 8 mph (7.5 min/mile)": 8,
     "Cycling, 12 - 14mph (moderate effort)": 8,
     "Tennis, casual, general": 7,
+    "Rock climbing": 10,
+    "Cycling, 14 - 16mph (heavy effort)": 10,
+    "running": 30,
     "sprinting": 23,
+    "swimming": 500,
     "Soccer, casual, general": 7,
     "Martial arts, different types, moderate pace (taichi, taekwondo, etc)": 10,
-    "Rock climbing": 10,
     "Cycling, 10 - 12mph (light effort)": 7,
-    "Cycling, 14 - 16mph (heavy effort)": 10,
     "Running, 10 mph (6 min/mile)": 10
   },
   "exercisePlan": {
+    "2019-11-12": {
+      "key": "Martial arts, different types, moderate pace (taichi, taekwondo, etc)",
+      "value": 50
+    },
+    "2019-11-11": {
+      "key": "Tennis, casual, general",
+      "value": 71
+    },
     "2019-11-10": {
       "key": "Cycling, 10 - 12mph (light effort)",
       "value": 71

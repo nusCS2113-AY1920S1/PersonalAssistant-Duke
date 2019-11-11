@@ -2,6 +2,7 @@ package diyeats.logic.commands;
 
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
@@ -45,18 +46,18 @@ public class DeleteDefaultValueCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         isDone = false;
 
         switch (stage) {
             case 0:
                 //Checks for exact matches and deletes. Otherwise shows a list of similar items.
-                execute_stage_0(meals, storage);
+                execute_stage_0(meals, storage, undo);
                 stage++;
                 break;
             case 1:
                 //Checks user input for index. Deletes item indicated by index on previously shown list.
-                execute_stage_1(meals, storage);
+                execute_stage_1(meals, storage, undo);
                 break;
             default:
                 //Exits execute loop if command enters invalid state
@@ -69,7 +70,7 @@ public class DeleteDefaultValueCommand extends Command {
      * @param meals the MealList object in which the meals are supposed to be added
      * @param storage the storage object that handles all reading and writing to files
      */
-    private void execute_stage_0(MealList meals, Storage storage) {
+    private void execute_stage_0(MealList meals, Storage storage, Undo undo) {
         HashMap<String, HashMap<String, Integer>> defaultValues = meals.getDefaultValues();
 
         if (defaultValues.get(keywordStr) != null) {
@@ -87,6 +88,7 @@ public class DeleteDefaultValueCommand extends Command {
             int lastIdx = deleteCandidateKeys.size() - 1;
             ui.showMessage("Success! " + deleteCandidateKeys.get(lastIdx)
                     + " has been deleted from the list of default values.");
+            undo.undoDelDefault(defaultValues.get(deleteCandidateKeys.get(lastIdx)), deleteCandidateKeys.get(lastIdx));
             meals.getDefaultValues().remove(deleteCandidateKeys.get(lastIdx));
 
             try {
@@ -109,7 +111,7 @@ public class DeleteDefaultValueCommand extends Command {
      * @param meals the MealList object in which the meals are supposed to be added
      * @param storage the storage object that handles all reading and writing to files
      */
-    private void execute_stage_1(MealList meals, Storage storage) {
+    private void execute_stage_1(MealList meals, Storage storage, Undo undo) {
         int deleteIdx;
 
         try {
@@ -132,6 +134,8 @@ public class DeleteDefaultValueCommand extends Command {
 
         ui.showMessage("Success! " + deleteCandidateKeys.get(deleteIdx - 1)
                 + " has been deleted from the list of default values.");
+        undo.undoDelDefault(meals.getDefaultValues().get(deleteCandidateKeys.get(deleteIdx - 1)),
+                deleteCandidateKeys.get(deleteIdx - 1));
         meals.getDefaultValues().remove(deleteCandidateKeys.get(deleteIdx - 1));
 
         try {
@@ -141,5 +145,22 @@ public class DeleteDefaultValueCommand extends Command {
         }
 
         isDone = true;
+    }
+
+    /**
+     * This function facilitates the undo of an AddDefaultValueCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     */
+
+    public void undo(MealList meals, Storage storage, User user, Wallet wallet) {
+        meals.removeDefaultValues(keywordStr);
+        try {
+            storage.writeDefaults(meals);
+        } catch (ProgramException e) {
+            ui.showMessage(e.getMessage());
+        }
     }
 }

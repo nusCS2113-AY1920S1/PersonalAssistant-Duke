@@ -26,11 +26,19 @@ public class TransactionList {
         transactionTracker.get(date).add(transaction);
     }
 
+    //To facilitate undo
+    public Transaction deleteTransaction(LocalDate date) {
+        Transaction deletedTransaction = this.transactionTracker
+                .get(date).get(this.transactionTracker.get(date).size() - 1);
+        this.transactionTracker.get(date).remove(this.transactionTracker.get(date).size() - 1);
+        return deletedTransaction;
+    }
     /**
      * gets a list of transactions based on a date.
      * @param date the date in which the list of transactions is to be taken from.
      * @return the transaction list that has been taken.
      */
+
     public ArrayList<Transaction> getTransactionList(LocalDate date) {
         if (transactionTracker.containsKey(date)) {
             return transactionTracker.get(date);
@@ -59,7 +67,4 @@ public class TransactionList {
         this.transactionTracker.get(date).remove(index - 1);
         return deletedTransaction;
     }
-
-
-
 }
