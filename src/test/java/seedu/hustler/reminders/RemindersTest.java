@@ -23,8 +23,8 @@ public class RemindersTest {
      */
     public void checkOverDue() {
         ArrayList<Task> temp = new ArrayList<>();
-        LocalDateTime localDateTime = LocalDateTime.of(2019,8,1,1,1,1);
-        temp.add(new Deadline("assignemntsss",localDateTime));
+        LocalDateTime localDateTime = LocalDateTime.of(2019,1,1,1,1,1);
+        temp.add(new Deadline("assignments",localDateTime));
         TaskList list = new TaskList(temp);
         Reminders.overdue(list);
 
