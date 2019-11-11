@@ -81,9 +81,10 @@ Adds a new resource to the user's inventory, which is available for loan/reserva
 .*Format*:
 * `add /item ITEM_NAME /qty QUANTITY`
 * `add /room ROOM_NAME`
-... Quantity specified must be a positive integer.
+... `QUANTITY` specified must be a positive integer.
 ... If an item to be added already exists in RIMS, then its quantity will be incremented by the specified quantity.
 ... If a room to be added already exists in RIMS, the program will send an error message to the UI for the user's reading.
+... For storage maintenance purposes, resources to be added should *not* have a comma character `,` in its name.
 
 .*Examples*:
 * `add /item book /qty 5`
@@ -96,6 +97,7 @@ Deletes a resource from the user's inventory in RIMS.
 * `delete /item ITEM_NAME`
 * `delete /room ROOM_NAME`
 ====
+.For item deletion:
 * RIMS will display a list of all instances of the requested resource, and prompt the user to input the IDs of the resources to be deleted:
 +
 image:delete.png[]
@@ -105,8 +107,6 @@ image:delete.png[]
 * If the ID(s) inputted by the user are invalid, the program will send an error message to the UI.
 ====
 ... If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
-... Quantity must be a positive integer.
-... Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
 
 .*Examples*:
 * `delete /item book` -> `6 7 8`
@@ -121,8 +121,8 @@ Registers a resource as having been loaned out, from the current date until a us
 * `loan /item ITEM_NAME /qty QUANTITY /id USER_ID /by DEADLINE`
 * `loan /room ROOM_NAME /id USER_ID /by DEADLINE`
 ... If the item or room does not exist in the RIMS inventory, the program will send an error message to the UI.
-... Quantity specified must be a positive integer above 0.
-... User ID must be a non-negative integer, with a value of 0 and above.
+... `QUANTITY` specified must be a positive integer above 0.
+... `USER_ID` must be a non-negative integer, with a value of 0 and above.
 ... If either of these values specified are invalid, the program will send an error message to the UI.
 ... If the user requests a quantity that is greater than the existing amount of that item in the inventory, the UI will send an error message to the user.
 ... Rooms are unique and thus do not require quantities.
@@ -143,12 +143,12 @@ While loans take effect from the current date to a specified deadline, reservati
 * `reserve /room ROOM /id USER_ID /from BORROW_DATE /by DEADLINE`
 ... For logistical purposes, only a resource that is currently in the user's inventory (i.e. is not currently out on loan) can be reserved.
 ... If the item or room does not exist in the RIMS inventory, the program will send an error message to the UI.
-... Quantity must be a positive integer above 0.
-... User ID must be a non-negative integer, with a value of 0 and above.
+... `QUANTITY` must be a positive integer above 0.
+... `USER_ID` must be a non-negative integer, with a value of 0 and above.
 ... If either of these values specified are invalid, the program will send an error message to the UI.
 ... If the user requests a quantity that is greater than the existing amount of that item in the inventory, the UI will send an error message to the user.
 ... Rooms are unique and thus do not require quantities.
-... The date of borrowing, and the deadline date must be valid date, either in the format `DD/MM/YYYY HHmm`, or in the example format `Tuesday HHmm`, where `Tuesday` can be replaced by any day of the user's choice and will obtain the next available instance of that day and time.
+... The date of borrowing, `BORROW_DATE`, and the deadline date, `DEADLINE`, must be a valid date, either in the format `DD/MM/YYYY HHmm`, or in the example format `Tuesday HHmm`, where `Tuesday` can be replaced by any day of the user's choice and will obtain the next available instance of that day and time.
 ... If the deadline specified is in an invalid format, the program will send an error message.
 
 .*Examples*:
@@ -172,36 +172,76 @@ image:return.png[]
 * If the ID(s) inputted by the user are invalid or are not amongst the reservation IDs displayed, the program will send an error message to the UI.
 ====
 ... The `return` command takes the resource borrower's individual ID as an argument.
-... The user ID must be a non-negative integer.
-... If the user attempts to return a quantity of resources that have not been borrowed, the UI will send an error message to the user. // change
+... The user ID `USER_ID` must be a non-negative integer.
+... If the user whose ID was inputted has not made any reservations or loans, the program will print an error message to the UI.
 
 
 .*Examples*:
-* `return /item frisbee /qty 3`
+* `return /item frisbee`
 * `return /room seminar room 1`
 
-==== View deadline of item/room: `due`
-View which items/rooms are due on a certain date using this command.
+
+==== View upcoming deadlines of items/rooms on loan: `deadlines`
+View a sorted list of upcoming deadlines for active loans.
 
 .*Format*:
-. `due DATE`
-* If the date is left blank then the UI will send a message to inform the user.
-* Date must be in DD/MM/YYYY format
+. `deadlines`
+* If the command entered is incorrect, the UI will prompt the user to type in the correct command.
 
 .*Examples*:
-* `due 07/10/2019`
+* `deadlines`
 
-==== List items/rooms and their status: `list`
-View all items and rooms recorded and whether they are available or not.
+
+=======
+=== Retrieving resource information
+
+==== List resources and their statuses: `list`
+View all resources in the user's inventory, with a brief summary of currently available and booked resources. There is also an option to view a more detailed list of individual items and rooms, and to view the list of items available on a certain date.
 
 .*Format*:
-. `list`
+* `list`
+... Generates a list of all resources, divided by resources which are currently available and resources which are currently booked.
+* `list /item ITEM_NAME`
+... Generates a list detailing the reservation status (booked or available) and the current reservations of all instances of the requested resource.
+... If the item does not exist in the RIMS inventory, the program will send an error message to the UI.
+* `list /room ROOM_NAME`
+... Prints out the reservation status (booked or available) of the requested room, and if booked, prints out the details of the room's current reservation.
+... If the item does not exist in the RIMS inventory, the program will send an error message to the UI.
+* `list /date DATE`
+... Generates a list of all available and booked resources on any specified date and time.
+... The requested date `DATE` must be a valid date, either in the format `DD/MM/YYYY HHmm`, or in the example format `Tuesday HHmm`, where `Tuesday` refers to the next instance of Tuesday from the current date.
+* `list /tag TAG`
+... Generates a list of resources by tag name.
+... The requested tag `TAG` must be valid.
+
+==== View deadline of item/room: `deadlines`
+Generates a list of all active loans and reservations, along with their deadlines, for the user's reading.
+
+.*Format*:
+* `deadlines`
+
+==== Tag: `tag`
+Tag the various resources in the inventory based on their function.
+
+.*Format*:
+
+. `tag /item ITEM /tag TAG`
+. `tag /room ROOM /tag TAG`
+
+.*Examples*:
+* `tag /item pen /tag study`
 
 ==== View calendar: `calendar`
-View a table-format calendar which shows when items/rooms are in use.
+Generates a variable-size calendar which shows a monthly view of all the loaned and reserved resources in the current month.
 
 .*Format*:
-. `calendar`
+* `calendar`
+... Generates a calendar, with a view of all the loaned and reserved resources in the current month.
+* `calendar+`
+... Increases the cell size of the calendar, allowing it to display more information.
+* `calendar-`
+... Decreases the cell size of the calendar, decreasing its overall size for more concise reading.
+... The calendar has a minimum cell size, beyond which it cannot be decreased.
 
 === Others
 
@@ -209,19 +249,26 @@ View a table-format calendar which shows when items/rooms are in use.
 Undoes the last command that made changes to RIMS.
 
 .*Format*:
-. `undo`
+* `undo`
 
-==== Exiting the program: `bye`
-Terminates RIMS.
+==== View resource statistics: 'stats'
+View statistics on the loan and reservation frequencies of resources between a user-specified time period.
+
+The command generates a bar graph of resource reservations and loans per day, for the specified time period.
 
 .*Format*:
-. `bye`
+* `stats /from FROM_DATE /till TILL_DATE`
+... The parameters `FROM_DATE` and `TILL_DATE` must both be valid dates, specified either in the format `DD/MM/YYYY HHmm`, or in the example format `Tuesday HHmm`, where `Tuesday` can be replaced by any day of the user's choice and will obtain the next available instance of that day and time.
+... If the dates specified are in an invalid format, the program will send an error message.
+
+==== Exiting the program: `bye`
+Terminates RIMS, saving all changes to the RIMS inventory (adding and deleting of resources, creation and deletion of loans and reservations) to the data files in the proces..
+
+.*Format*:
+* `bye`
 
 ==== Reminders
 Reminds user about items or rooms due within a specific period of time, upon starting up RIMS.
-
-==== Saving data
-With the execution of any command, any changes in data on items, rooms and their statuses will be updated on external text files (`.txt`) within the hard drive, to ensure data persistence and retention even after termination of RIMS. Saving manually is not required.
 
 == FAQ
 
@@ -229,19 +276,50 @@ With the execution of any command, any changes in data on items, rooms and their
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous RIMS folder.
 
 == Command Summary
+=======
+** `add /room ROOM` +
+e.g. `add /room seminar room 1`
+* *Delete resource*:
+** `delete /item ITEM` -> enter resource IDs +
+e.g. `delete /item book` -> `6 8`
+** `delete /room ROOM` +
+e.g. `delete /room auditorium`
+* *Loan out a resource*: 
+** `loan /item ITEM_NAME /qty QUANTITY /id USER_ID /by DEADLINE` +
+e.g. `loan /item frisbee /qty 3 /id 1 /by 23/11/2019 1400`
+** `loan /room ROOM_NAME /id USER_ID /by DEADLINE` +
+e.g. `loan /room seminar room 2 /id 2 /by 23/11/2019 1400`
+* *Reserve resource*: 
+** `reserve /item ITEM /qty QUANTITY /id USER_ID /from BORROW_DATE /by DEADLINE` +
+e.g. `reserve /item frisbee /qty 3 /id 1 /from 23/11/2019 1300 /by 23/11/2019 1400`
+** `reserve /room ROOM /id USER_ID /from BORROW_DATE /by DEADLINE` +
+e.g. `reserve /room mpsh /id 2 /from 16/11/2019 1400 /by 17/11/2019 1300`
+* *Return resource*: 
+** `return /id USER_ID` -> enter reservation IDs +
+e.g. `return /id 1` -> `1`
+* *View a list of resources*:
+** `list`
+** `list /item ITEM` +
+e.g. `list /item basketball`
+** `list /room ROOM` +
+e.g. `list /room canteen`
+** `list /date DATE` +
+e.g. `list /date 17/11/2019 1500`
+* *View all reservations and their deadlines*:
+** `deadlines`
+* *Undo most recent command*
+** `undo`
+* *Generate calendar view of reservations*:
+** `calendar`
+** `calendar+` +
+To increase calendar cell size.
+** `calendar-` +
+To decrease calendar cell size.
+* *View reservation statistics*:
+** `stats /from FROM_DATE /till TILL_DATE` +
+e.g. `stats /from 11/11/2019 1111 /till Wednesday 1300`
+* *Tag resources*: `tag /item ITEM /tag TAG` +
+e.g. `tag /item pen /tag study`
+* *Exiting the program*:
+** `bye`
 
-* *Add resource*: `resource add /item ITEM /qty QUANTITY` +
-e.g. `add /item book /qty 5`
-* *Delete resource*: `delete /item ITEM /qty QUANTITY` +
-e.g. `delete /item book /qty 5`
-* *Loan out resource*: `lend /item ITEM /qty QUANTITY /by DEADLINE` +
-e.g. `lend /item frisbee /qty 5 /by 01/10/2019 2300`
-* *Return resource*: `return /item ITEM /qty QUANTITY` +
-e.g. `return /item frisbee /qty 3`
-* *Reserve resource*: `reserve /item ITEM /qty QUANTITY /from DATE /to DEADLINE` +
-e.g. `reserve /item basketball /qty 1 /from 01/10/2019 2300 /to 03/10/2019 2300`
-* *View deadline of resource*: `due DATE` +
-	e.g. `due 04/05/2019`
-* *List resources and their status*: `list`
-* *View calendar*: `calendar`
-* *Exiting the program*: `bye`

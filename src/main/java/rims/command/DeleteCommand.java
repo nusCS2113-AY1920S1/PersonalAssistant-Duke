@@ -89,14 +89,18 @@ public class DeleteCommand extends Command {
             String[] splitIdInput = idInput.split(" ");
             ArrayList<Integer> intIdInput = new ArrayList<Integer>();
             for (int i = 0; i < splitIdInput.length; i++) {
-                intIdInput.add(Integer.parseInt(splitIdInput[i]));
+                try {
+                    intIdInput.add(Integer.parseInt(splitIdInput[i]));
+                } catch (NumberFormatException e) {
+                    throw new RimsException("Please enter valid integer IDs to delete resources!");
+                }
             }
             ArrayList<Resource> deletedResources = new ArrayList<Resource>();
             for (int j = 0; j < intIdInput.size(); j++) {
                 Resource thisResource = resources.getResourceById(intIdInput.get(j));
                 if (!thisResource.getName().equals(resourceName)) {
-                    throw new RimsException("Please specify an ID that belongs to the " +
-                            "requested resource!");
+                    throw new RimsException("Please specify an ID that belongs to the "
+                            + "requested resource!");
                 }
             }
             for (int k = 0; k < intIdInput.size(); k++) {
