@@ -105,7 +105,9 @@ When the user inputs a command, the command will be parsed through by the parser
 
 . If valid, the command will be split by the spaces in between them and stored into an arraylist. (e.g. `select 3` will be split into {select, 3})
     - The logic class will then call for the first string in the arraylist, in which it will be used to determine which command to call for next.
-. If invalid, the InvalidCommand class will be called for, whereby the user will be notified to input a valid command: `error please input a valid command`.
+. If invalid, the InvalidCommand class will be called for. In the InvalidCommand class, the invalid command entered by the user will be compared to the enum of commands,
+thus returning the closest possible command, if any, to whatever was entered by the user. `OOPS!!! Error occurred. Please input a valid command. Did you mean... <command>`
+Else, the user will be notified to input a valid command: `OOPS!!! Error occurred. Please input a valid command. Enter 'menu' to view our list of commands and 'menu <command>' to find out how to use them!`.
 
 image::ParserandCommandClassDiagram.png[]
 
@@ -355,9 +357,9 @@ Cons: Un-scalable, and is a bad design practice to return the subclass in the su
 // end::print[]
 
 // tag::improvisedparser[]
-=== [Proposed] Improvising on current parser
+=== Improvising on current parser
 
-==== Proposed Implementation
+==== Implementation
 
 The parser plays an important role in our application as it bridges the user's input to our program. This is why our parser
 has to be robust to account for the different input styles that different users use.
@@ -374,7 +376,7 @@ the user, which makes it significantly harder for new users to use our applicati
 * ** Alternative :** It will be implemented under the invalid command, where the input string will be compared with our existing commands,
 and the string with the highest similarity will be returned.
 For example, unnecessary spaces in `me n u` or an accidental typo such as `seect` will be taken into consideration
-and the strings `Did you mean.. menu?` and `Did you mean.. select?` would be returned.
+and the strings `Did you mean.. menu?` and `Did you mean.. select?` would be returned respectively.
 ** Pros: The application will be more robust against input errors by the user throughout the application and will be
 more user friendly since useful tips can be provided to them. Generally saves time and allows user to have a better
 overall experience.
@@ -389,9 +391,9 @@ and a function to pick out the command that is most similar to the command enter
 
 
 // tag::reset[]
-=== [Proposed] Reset Command
+=== Reset Command
 
-==== Proposed Implementation
+==== Implementation
 
 The reset command is to be implemented to remove all the existing data the system has about the user.
 That means that the storage is cleared, and there will be no history on the past quizzes attempted and the scores.
@@ -401,8 +403,11 @@ That means that the storage is cleared, and there will be no history on the past
 ===== Aspect: How reset command works
 
 - User just has to enter `reset`
-- System will then notify the user that such an action cannot be undone and will seek the user's confirmation
+- If the data has not been reset, the system will then notify the user that such an action cannot be undone and will seek the user's confirmation
 `Are you sure you want to reset? Data removed will not be retrievable. Y/N`
+If the user enters `Y`, the data will be cleared and the user will be notified that `Your program has been reset`.
+If the user enters `N` or any other random string, the system will inform the user that the `Reset operation failed!`.
+
 
 ===== Aspect: Data structure to support the reset command
 
