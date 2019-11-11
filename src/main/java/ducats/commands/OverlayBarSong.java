@@ -23,8 +23,11 @@ import ducats.DucatsLogger;
  * A class that overlays a bar from one song to another.
  */
 public class OverlayBarSong  extends Command<SongList>  {
+
     public String message;
     private int songIndex;
+
+
 
 
     /**
@@ -35,6 +38,18 @@ public class OverlayBarSong  extends Command<SongList>  {
         this.message = message;
     }
 
+
+    private void repeatLoop(ArrayList<Bar> barListAddTo, int barIndexToAddTo, Bar overlayingBar, Combiner combine) {
+        Iterator<Bar> iterator1 = barListAddTo.iterator();
+        int i = 0;
+        while (iterator1.hasNext()) {
+            Bar temp = iterator1.next();
+            if (i >= barIndexToAddTo) {
+                combine.combineBar(overlayingBar, temp);
+            }
+            i += 1;
+        }
+    }
 
     /**
      * Overlays a bar from one song to another song.
@@ -99,15 +114,7 @@ public class OverlayBarSong  extends Command<SongList>  {
             Bar overlayingBar = overlayingBarToBeCopied.copy(overlayingBarToBeCopied);
 
             if (sections.length > 4 && sections[4].equals("repeat")) {
-                Iterator<Bar> iterator1 = barListAddTo.iterator();
-                int i = 0;
-                while (iterator1.hasNext()) {
-                    Bar temp = iterator1.next();
-                    if (i >= barIndexToAddTo) {
-                        combine.combineBar(overlayingBar, temp);
-                    }
-                    i += 1;
-                }
+                repeatLoop(barListAddTo, barIndexToAddTo, overlayingBar, combine);
             } else {
 
                 Bar barToBeCopiedTo = barListAddTo.get(barIndexToAddTo);
@@ -134,6 +141,7 @@ public class OverlayBarSong  extends Command<SongList>  {
             throw new DucatsException(message,"no_index");
         }
     }
+
     /**
      * Returns a boolean value representing whether the program will terminate or not, used in
      * ducats.Duke to reassign a boolean variable checked at each iteration of a while loop.
