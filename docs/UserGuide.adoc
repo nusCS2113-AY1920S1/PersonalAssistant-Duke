@@ -263,6 +263,8 @@ The user is able to set the budget for concerts of each month by using the `budg
 Format: `budget set <new budget>` +
 FOR example, `budget set 87` will set the budget for every month to $87.
 
+NOTE: Storing the user-defined budget to a txt file upon shutdown will be added in [v2.0]
+
 === Instruments handling : `instruments`
 This function allows the user to store maintenance information about the instruments that the user possesses.
 
