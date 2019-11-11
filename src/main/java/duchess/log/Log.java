@@ -15,7 +15,7 @@ public class Log {
 
     /**
      * Returns the logger to use, creating one if necessary.
-     * @return
+     * @return the logger
      */
     public static Logger getLogger() {
         if (logger != null) {
