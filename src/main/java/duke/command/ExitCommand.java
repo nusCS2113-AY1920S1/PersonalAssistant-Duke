@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.dish.DishList;
+import duke.list.DishList;
 import duke.fridge.Fridge;
 import duke.list.OrderList;
 import duke.storage.FridgeStorage;
