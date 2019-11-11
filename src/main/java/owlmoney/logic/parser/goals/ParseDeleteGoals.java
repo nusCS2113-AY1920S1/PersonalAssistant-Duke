@@ -5,9 +5,6 @@ import owlmoney.logic.command.goals.DeleteGoalsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 import java.util.Iterator;
-import java.util.logging.Logger;
-
-import static owlmoney.commons.log.LogsCenter.getLogger;
 
 /**
  * Represents the parsing of inputs for deleting a goal.
@@ -15,7 +12,6 @@ import static owlmoney.commons.log.LogsCenter.getLogger;
 public class ParseDeleteGoals extends ParseGoals {
 
     private static final String DELETE = "/delete";
-    private static final Logger logger = getLogger(ParseDeleteGoals.class);
 
     /**
      * Creates an instance of ParseDeleteGoals Class.

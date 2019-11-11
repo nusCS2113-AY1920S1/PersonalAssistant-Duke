@@ -37,7 +37,7 @@ public abstract class ParseGoals {
     private static final String[] GOALS_KEYWORD = new String[]{NAME_PARAMETER, AMOUNT_PARAMETER, BY_PARAMETER,
         NEW_NAME_PARAMETER, FROM_PARAMETER, IN_PARAMETER, MARK_DONE_PARAMETER};
     private static final List<String> GOALS_KEYWORD_LISTS = Arrays.asList(GOALS_KEYWORD);
-    private static final Logger logger = getLogger(ParseGoals.class);
+    static final Logger logger = getLogger(ParseGoals.class);
 
     /**
      * Creates an instance of any ParseGoals type object.

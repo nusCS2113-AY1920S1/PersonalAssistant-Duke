@@ -6,9 +6,6 @@ import owlmoney.logic.parser.exception.ParserException;
 
 import java.util.Date;
 import java.util.Iterator;
-import java.util.logging.Logger;
-
-import static owlmoney.commons.log.LogsCenter.getLogger;
 
 /**
  * Represents the parsing of inputs for editing a goal.
@@ -17,7 +14,6 @@ public class ParseEditGoals extends ParseGoals {
 
     private Date by;
     private boolean markDone;
-    private static final Logger logger = getLogger(ParseEditGoals.class);
 
     /**
      * Creates an instance of ParseEditGoals class.
