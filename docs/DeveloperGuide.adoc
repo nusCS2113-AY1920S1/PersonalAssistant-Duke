@@ -231,7 +231,7 @@ The use case for the `history` command is given below to show how each component
 
 1. The user executes the `history` command in the CLI. The input is passed from `Ui` to `command` to determine the command to execute.
 
-2. The `Command` component will process the `history` command and load the txt file consisting the input commands from the `Storage` class into an arraylist.
+2. The `Command` component will process the `history` command and load the json file consisting the input commands from the `Storage` class into an arraylist.
 
 3. This arraylist is passed to `Ui` for printing the list of input commands, along with the date and time it was entered, to the user.
 
@@ -241,7 +241,7 @@ image::sequenceDiagramforHistory.PNG[]
 
 ==== Design Considerations
 ===== Aspect: How `view history h/DATE to DATE` is implemented
-* Alternative 1: The application loops through the arraylist of all the input commands loaded from the txt file in storage. In the for loop, it is checked if the date beside the command is within the date range provided in the input. If yes, then it is added to a new arraylist, which is printed once the application has gone through the for loop.
+* Alternative 1: The application loops through the arraylist of all the input commands loaded from the json file in storage. In the for loop, it is checked if the date beside the command is within the date range provided in the input. If yes, then it is added to a new arraylist, which is printed once the application has gone through the for loop.
 
 === Fund and Budget feature
 

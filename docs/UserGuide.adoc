@@ -596,7 +596,7 @@ image::view_history2.png[]
 
 image::view_history.png[]
 
-===Undo: undo
+=== Undo: undo
 
 undoes the command entered previously +
 Format: `undo`
@@ -610,7 +610,7 @@ image::undo.png[]
 
 image::undoerror.png[]
 
-===Redo: redo
+=== Redo: redo
 
 redoes a previously undone command +
 Format: `redo`
