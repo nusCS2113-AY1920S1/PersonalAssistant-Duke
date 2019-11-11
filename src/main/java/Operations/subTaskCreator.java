@@ -41,7 +41,7 @@ public class subTaskCreator {
                     subtasks.add(temp.get(i));
                 }
             }
-            ((Assignment) TaskList.currentList().get(index)).addSubTasks(subtasks);
+            ((Assignment) TaskList.getCurrentList().get(index)).addSubTasks(subtasks);
             if (error) {
                 throw new RoomShareException(ExceptionType.duplicateSubtask);
             }

@@ -24,6 +24,7 @@ public class TaskReminder {
      */
     public void start() {
         timer.schedule(new TimerTask() {
+
             public void run() {
                 playSound();
                 timer.cancel();
