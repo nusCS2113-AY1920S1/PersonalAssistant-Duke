@@ -9,7 +9,8 @@ import seedu.hustler.logic.CommandLineException;
  */
 public class DeleteAnomaly extends DetectAnomaly {
 
-    private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Delete format should be: \"/delete <integer>\", \"/delete all\" or \"/delete done\"";
+    private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Delete format should be: \"/delete <integer>\","
+        + " \"/delete all\" or \"/delete done\"";
     private static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid!";
 
     /**

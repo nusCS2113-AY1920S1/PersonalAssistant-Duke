@@ -7,7 +7,13 @@ import seedu.hustler.logic.parser.DateTimeParser;
 import seedu.hustler.ui.Ui;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.TreeMap;
+import java.util.Collections;
+import java.util.Map;
+
 
 import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
 
@@ -303,10 +309,10 @@ public class TaskList {
             Collections.sort(list, (t1, t2) -> {
                 if (t1.getDifficulty().toString().equals(t2.getDifficulty().toString())) {
                     return 0;
-                } else if (t1.getDifficulty().toString().equals("[H]")) {
+                } else if (t1.getDifficulty().toString().equals("[HIGH]")) {
                     return -1;
-                } else if (t1.getDifficulty().toString().equals("[M]")
-                        && t2.getDifficulty().toString().equals("[L]")) {
+                } else if (t1.getDifficulty().toString().equals("[MED]")
+                        && t2.getDifficulty().toString().equals("[LOW]")) {
                     return -1;
                 } else {
                     return 1;

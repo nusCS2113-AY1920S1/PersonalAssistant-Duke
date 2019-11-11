@@ -26,7 +26,7 @@ public class RedoCommand extends Command {
             redoAnomaly.detect(userInput);
             MemoryManager memorymanager = new MemoryManager();
             memorymanager.redo();
-        } catch(CommandLineException e) {
+        } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }
 

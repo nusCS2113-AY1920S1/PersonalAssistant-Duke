@@ -26,7 +26,7 @@ public class RecurringEventTest {
 
     @Test
     public void test_toString_conversion() {
-        assertEquals("[E][-][M][#food] family dinner (at: 20th of November 2019, 6:00PM) (Repeats every 1 weeks)",
+        assertEquals("[E][-][MED][#food] family dinner (at: 20th of November 2019, 6:00PM) (Repeats every 1 weeks)",
                 sampleTask1.toString());
     }
 
