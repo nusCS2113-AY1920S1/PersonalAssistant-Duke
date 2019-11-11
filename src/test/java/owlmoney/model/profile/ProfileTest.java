@@ -7,7 +7,6 @@ import owlmoney.model.bank.Saving;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
 import owlmoney.model.bond.exception.BondException;
-import owlmoney.model.profile.exception.ProfileException;
 import owlmoney.ui.Ui;
 
 import java.io.ByteArrayOutputStream;
@@ -23,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ProfileTest {
     private static final String NEWLINE = System.lineSeparator();
     private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
-    private static final String PROFILE_FILE_NAME = "profile.csv";
 
     //Tests function for transfer feature.
     @Test
@@ -263,16 +261,5 @@ class ProfileTest {
                 "Expected findBond to throw error, but it didn't");
         assertEquals("Bond with the following keyword could not be found: No Such Bond",
                 thrown.getMessage());
-    }
-
-    @Test
-    void editProfile_providedWrongName_throwsErrorMessage() {
-        Ui uiTest = new Ui();
-        Profile profileTest = new Profile("john", uiTest);
-        ProfileException thrown = assertThrows(ProfileException.class, () ->
-                        profileTest.profileSetUsername("jon", "User", uiTest),
-                "Expected to throw error, but it didn't");
-        String expectedOutput = "No profile name with jon found!" + NEWLINE + "Try this instead: john";
-        assertEquals(expectedOutput, thrown.toString());
     }
 }
