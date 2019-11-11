@@ -56,7 +56,9 @@ public class Cipher {
             BadPaddingException,
             IllegalBlockSizeException,
             InvalidKeyException {
-        this.encode(state, layers.get(0), withHash);
+        if (layers.size() > 0) {
+            this.encode(state, layers.get(0), withHash);
+        }
         for (int i = 1; i < layers.size(); ++i) {
             this.encode(state, layers.get(i),false);
         }

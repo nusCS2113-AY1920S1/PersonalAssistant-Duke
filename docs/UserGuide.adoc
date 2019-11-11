@@ -99,6 +99,39 @@ Format: `add cca CCA_NAME --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_W
 * Example: `add cca SOCCER --begin 16:00 --end 18:00 --dayOfWeek Monday`
 ****
 
+=== Listing modules or cca : `show`
+
+Shows a list of specificed modules or ccas added in the module or cca list respectively.
+
+==== Listing all modules : `show module`
+
+Shows a list of all modules added in the module list. +
+Format: `show module`
+
+****
+* Shows the module code, the number of MCs of the module and if the module can be S/U'ed. 
+****
+
+==== Giving a report on core modules: `show core`
+
+Prints out a report on all the core modules taken in the semester, together with the number of core modules left to take for graduation . +
+Format: `show core`
+
+==== Giving a report on General Education modules: `show ge`
+
+Prints out a report on all the General Education(GE) modules taken in the semester, together with the number of GE modules left to take for graduation. +
+Format: `show ge`
+
+==== Giving a report on Unrestricted Electives modules: `show ue`
+
+Prints out a report on all the Unrestricted Electives(UE) modules taken in the semester, together with the number of UE modules left to take for graduation. +
+Format: `show ue`
+
+==== Listing all CCAs: `show cca`
+
+Shows a list of all CCAs added in the CCA list. + 
+Format: `show cca`
+
 === Removing a module or CCA : `remove`
 
 Removes the specified module or CCA.
@@ -137,38 +170,21 @@ Examples:
 `remove cca 2` +
 Removes the 2nd CCA in the CCA list.
 
-=== Listing modules or cca : `show`
+=== Grading your modules: `grade`
 
-Shows a list of specificed modules or ccas added in the module or cca list respectively.
-
-==== Listing all modules : `show module`
-
-Shows a list of all modules added in the module list. +
-Format: `show module`
+Allows you to input your letter grade received for the modules you have taken. +
+Format: `grade MOD_CODE LETTER_GRADE`
 
 ****
-* Shows the module code, the number of MCs of the module and if the module can be S/U'ed. 
+* Type `grade MOD_CODE LETTER_GRADE` into the command line, replacing `MOD_CODE` with an actual module code, and `LETTER_GRADE` with the grade you received for that module.
+* ModPlan will either update the grade of the module if it is in your list, or add the module with the letter grade included if it is not in your list.
+* ModPlan will also check if the module is S/U-able, and will allow the user to input S and U grades accordingly.
+** If the module is not S/U-able, ModPlan will inform the user if they try to input a S or U grade.
 ****
 
-==== Giving a report on core modules: `show core`
-
-Prints out a report on all the core modules taken in the semester, together with the number of core modules left to take for graduation . +
-Format: `show core`
-
-==== Giving a report on General Education modules: `show ge`
-
-Prints out a report on all the General Education(GE) modules taken in the semester, together with the number of GE modules left to take for graduation. +
-Format: `show ge`
-
-==== Giving a report on Unrestricted Electives modules: `show ue`
-
-Prints out a report on all the Unrestricted Electives(UE) modules taken in the semester, together with the number of UE modules left to take for graduation. +
-Format: `show ue`
-
-==== Listing all CCAs: `show cca`
-
-Shows a list of all CCAs added in the CCA list. + 
-Format: `show cca`
+Example: +
+`grade CS1010 A-` +
+`grade CS1231 S`
 
 === Calculating the CAP : `cap`
 
@@ -189,7 +205,7 @@ Keep typing all the module names in the module list and their respective grades 
 Example: +
 `cap overall` + 
 `CG2028 A` +
-`CS2027 B-` + 
+`CG2027 B-` + 
 `done`
 
 ==== Calculating CAP from the module list. +
@@ -220,22 +236,6 @@ Format: `cap module`
 Example: +
 `cap module` +
 `CS2040C`
-
-=== Grading your modules: `grade`
-
-Allows you to input your letter grade received for the modules you have taken. +
-Format: `grade MOD_CODE LETTER_GRADE`
-
-****
-* Type `grade MOD_CODE LETTER_GRADE` into the command line, replacing `MOD_CODE` with an actual module code, and `LETTER_GRADE` with the grade you received for that module.
-* ModPlan will either update the grade of the module if it is in your list, or add the module with the letter grade included if it is not in your list.
-* ModPlan will also check if the module is S/U-able, and will allow the user to input S and U grades accordingly.
-** If the module is not S/U-able, ModPlan will inform the user if they try to input a S or U grade.
-****
-
-Example: +
-`grade CS1010 A-` +
-`grade CS1231 S`
 
 === Sorting and printing the modules and/or ccas : `sort`
 
@@ -279,9 +279,9 @@ Format: `sort module mc`
 
 === Clearing the data : `clear`
 
-Clears the specified data. After inputting the parameter that you want to clear, ModPlan will prompt you again to reconfirm that you want to clear your data. +
+Clears the specified data. After inputting the parameter that you want to clear, ModPlan will prompt you again to *reconfirm* that you want to clear your data. +
 [TIP]
-You should type either `y` or `n` to confirm or deny ModPlan's request to clear your data.
+You should type either `y` or `n` to confirm or deny ModPlan's request to clear your data. ModPlan also allows other common forms of `yes` and `no`.
 
 ==== Clearing the modules data : `clear module`
 
@@ -297,7 +297,7 @@ Format: `clear cca`
 
 Remove the current password. +
 ModPlan will ask for your current password if you have previously setup one. If the current password cannot be provided, clearing password will fail. +
-_Note that the password protection feature is currently disabled to facilitate feature testing and you will only be reactivated in ModPlan 2.0_ +
+_Note that the password protection feature is currently disabled to facilitate feature testing and will only be reactivated in ModPlan 2.0_ +
 Format: `clear password`
 
 ==== Clearing all the data : `clear data`
@@ -308,12 +308,12 @@ Format: `clear data`
 === Adding another schedule to a CCA : `scheduleCca`
 
 Adds another schedule to a CCA which is already added, as the CCA may have multiple slots. +
-Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
+Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
 
 ****
 * The `BEGIN_TIME` and `END_TIME` must be in the format of HH:mm.
 * The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc. 
-* Example: `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
+* Example: `scheduleCca 1 --begin 13:00 --end 15:00 --dayOfWeek Tuesday`
 ****
 
 === Updating module data : `update`
@@ -539,7 +539,7 @@ eg. `cap module` +
 `CS2040C`
 * *Grade* :
 ** `grade MOD_CODE LETTER_GRADE` +
-e.g `grade CS101 A-` +
+e.g `grade CS1010 A-` +
 `grade CS1231 S`
 * *Sort* : 
 ** `sort cca`
@@ -554,8 +554,8 @@ eg. `sort time monday` +
 ** `clear modules`
 ** `clear ccas`
 * *Schedule CCA* :
-** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK` +
-e.g `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
+** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK` +
+e.g `scheduleCca 1 --begin 13:00 --end 15:00 --dayOfWeek Tuesday`
 * *Update* :
 ** `update module`
 * *Reminder* :
