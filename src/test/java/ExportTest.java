@@ -28,34 +28,38 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+/**
+ * Test class for export command.
+ *
+ * @author Tan Yi Xiang
+ * @version 1.3
+ */
 class ExportTest {
 
-    private static ArrayList<Task> list;
     private static TaskList tasks;
     private static File file;
-    private static File placeholder;
-    private static File calendarFile;
     private static Storage storage;
-    private static ChronologerStateList history;
 
     /**
      * Setups the necessary base to carry out the test operations.
      */
     @BeforeAll
     static void setup() {
-        list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
         tasks = new TaskList(list);
         file = new File(System.getProperty("user.dir") + "/src/test/Test");
-        placeholder = new File(System.getProperty("user.dir") + "/src/test/States");
         storage = new Storage(file);
-        history = new ChronologerStateList(placeholder, placeholder, placeholder);
-
         LocalDateTime startDate = LocalDateTime.now().plusDays(3);
         Deadline deadline = new Deadline("Test", startDate);
         deadline.setComment("Testing description");
         tasks.add(deadline);
     }
 
+    /**
+     * Convert local date time to calendar format.
+     * @param startDate The date to be converted
+     * @return The calendar with the converted date.
+     */
     private java.util.Calendar convertToCalendar(LocalDateTime startDate) {
         java.util.Calendar utilCalendar = new GregorianCalendar();
         utilCalendar.set(java.util.Calendar.YEAR, startDate.getYear());
@@ -67,12 +71,17 @@ class ExportTest {
         return utilCalendar;
     }
 
+
     @Test
     void testExport() throws ChronologerException, IOException, ParserException, ParseException {
+        File placeHolder = new File(System.getProperty("user.dir") + "/src/test/States");
+        ChronologerStateList history = new ChronologerStateList(placeHolder, placeHolder, placeHolder);
+
         Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
         export.execute(tasks, storage, history);
+
         System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
-        calendarFile = new File(System.getProperty("user.dir") + "/src/ChronologerDatabase/ExportTest.ics");
+        File calendarFile = new File(System.getProperty("user.dir") + "/src/ChronologerDatabase/ExportTest.ics");
         FileInputStream inputStream = new FileInputStream(calendarFile);
         CalendarBuilder builder = new CalendarBuilder();
         Calendar calendar = builder.build(inputStream);
