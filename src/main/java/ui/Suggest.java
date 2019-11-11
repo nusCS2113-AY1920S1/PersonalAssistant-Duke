@@ -1,8 +1,8 @@
 package ui;
 
 import java.util.Set;
-import common.AlphaNUSException;
 
+//@@author karansarat
 public class Suggest {
     /**
      * Takes a list of known words and another word and tries to return the closest match.

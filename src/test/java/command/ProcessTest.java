@@ -24,6 +24,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -443,7 +444,18 @@ class ProcessTest {
 
     //@@karansarat
     @Test
-    void edit() {
+    void edit() throws AlphaNUSException {
+        addPayee();
+        ProjectManager projectManager = new ProjectManager();
+        input = "edit p/test f/PAYEE r/CHANGED";
+        process.edit(input, ui);
+        assertTrue(projectManager.projectmap.get("rag").managermap.containsKey("CHANGED"));
+        input = "edit p/CHANGED f/PAYEE r/test";
+        process.edit(input, ui);
+        addPayment();
+        input = "edit p/test i/CS2113T f/COST r/23.59";
+        process.edit(input, ui);
+        assertTrue(projectManager.projectmap.get("rag").managermap.get("test").payments.get(0).cost == 22.22);
     }
 
     @Test
@@ -476,18 +488,21 @@ class ProcessTest {
         projectManager.addProject("rag", 1500);
         input = "add payee p/   test e/  email@address.com    m/A100000A ph/838484904";
         process.addPayee(input, ui, storage);
-        assertTrue(projectManager.projectmap.get("rag").managermap.containsKey("test"));
-        assertTrue(projectManager.projectmap.get("rag").managermap.get("test").email.equals("email@address.com"));
-        assertTrue(projectManager.projectmap.get("rag").managermap.get("test").matricNum.equals("A100000A"));
-        assertTrue(projectManager.projectmap.get("rag").managermap.get("test").phoneNum.equals("838484904"));
+        assertEquals(projectManager.projectmap.get("rag").managermap, "test");
+        assertEquals(projectManager.projectmap.get("rag").managermap.get("test").email, "email@address.com");
+        assertEquals(projectManager.projectmap.get("rag").managermap.get("test").matricNum, "A100000A");
+        assertEquals(projectManager.projectmap.get("rag").managermap.get("test").phoneNum, "838484904");
     }
 
     @Test
-    void deletePayee() {
-    }
-
-    @Test
-    void findPayee() {
+    void deletePayee() throws AlphaNUSException {
+        addPayee();
+        ProjectManager projectManager = new ProjectManager();
+        assertEquals(projectManager.projectmap.get("rag").managermap.size(), 1);
+        input = "delete payee p/test";
+        process.deletePayee(input, ui, storage);
+        assertEquals(projectManager.projectmap.get("rag").managermap.size(), 0);
+        assertFalse(projectManager.projectmap.get("rag").managermap.containsKey("test"));
     }
 
     //@@author lijiayu980606
