@@ -17,11 +17,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+import ducats.DucatsLogger;
 
 public class SongConverter {
 
 
-    // twinkle [[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA]]
     /**
      * A function that converts a string into a Song object.
      *

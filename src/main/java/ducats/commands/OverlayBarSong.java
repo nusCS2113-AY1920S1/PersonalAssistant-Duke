@@ -17,9 +17,10 @@ import ducats.commands.Command;
 import java.util.Arrays;
 import java.util.Iterator;
 import ducats.components.Combiner;
+import ducats.DucatsLogger;
 
 /**
- * A class that splits an object to the bars and then returns an arraylist of the bars to the function.
+ * A class that overlays a bar from one song to another.
  */
 public class OverlayBarSong  extends Command<SongList>  {
     public String message;
@@ -27,7 +28,7 @@ public class OverlayBarSong  extends Command<SongList>  {
 
 
     /**
-     * Constructor for the command to add a new bar to the current song.
+     * Constructor for the command to overlay a bar from one song to another.
      * @param message the input message that resulted in the creation of the ducats.Commands.Command
      */
     public OverlayBarSong(String message) {
@@ -36,7 +37,7 @@ public class OverlayBarSong  extends Command<SongList>  {
 
 
     /**
-     * Modifies the song in the song list and returns the messages intended to be displayed.
+     * Overlays a bar from one song to another song.
      *
      * @param songList the ducats.components.SongList object that contains the song list
      * @param ui the Ui object responsible for the reading of user input and the display of
@@ -55,24 +56,23 @@ public class OverlayBarSong  extends Command<SongList>  {
 
         if (message.length() < 17 || !message.substring(0, 16).equals("overlay_bar_song")) {
             //exception if not fully spelt
+            DucatsLogger.severe("the parser wrongly identified " + message + " as overlay_bar_song");
             throw new DucatsException(message,"overlay_bar_song_format");
         }
 
         try {
 
-            //the command consists of overlay_bar_song Twinkle_1 2 Twinkle_2 1 refers to overlay song 1 bar 2 onto
-            // song 1 bar 1
-            //the command consists of overlay_bar_song 1 2 1 1 refers to overlay song 1 bar 2 onto song 1 bar 1
-            //System.out.print(message.length());
+            //the command consists of overlay_bar_song Twinkle_1 2 Twinkle_2 1 refers
+            // to overlay song Twinkle_1 bar 2 onto song Twinkle_2 bar 1
             String[] sections = message.substring(17).split(" ");
-            //System.out.print(Arrays.toString(sections));
+
             if (sections.length < 4) {
+                DucatsLogger.severe("overlay_bar_song command was called without sufficient number of arguments");
                 throw new DucatsException(message,"overlay_bar_song_format");
             }
-            //int songIndexToAddFrom = Integer.parseInt(sections[0]) - 1;
+
             int barIndexToAddFrom = Integer.parseInt(sections[1]) - 1;
             Combiner combine = new Combiner();
-            //int songIndexToAddTo = Integer.parseInt(sections[2]) - 1;
             Song songAddFrom;
             Song songAddTo;
             ArrayList<Song> songs = songList.findSong(sections[0]);
@@ -80,6 +80,7 @@ public class OverlayBarSong  extends Command<SongList>  {
                 songAddFrom = songs.get(0);
             } else {
                 //song does not exist or query returned more than 1 result
+                DucatsLogger.severe("overlay_bar_song command was called when the song did not exist");
                 throw new DucatsException(message, "no_song");
             }
             ArrayList<Song> songs1 = songList.findSong(sections[2]);
@@ -87,10 +88,10 @@ public class OverlayBarSong  extends Command<SongList>  {
                 songAddTo = songs1.get(0);
             } else {
                 //song does not exist or query returned more than 1 result
+                DucatsLogger.severe("overlay_bar_song command was called when the song did not exist");
                 throw new DucatsException(message, "no_song");
             }
             int barIndexToAddTo = Integer.parseInt(sections[3]) - 1;
-            //System.out.println(barIndexToAdd);
 
             ArrayList<Bar> barListAddFrom = songAddFrom.getBars();
             ArrayList<Bar> barListAddTo = songAddTo.getBars();
@@ -108,19 +109,20 @@ public class OverlayBarSong  extends Command<SongList>  {
                     i += 1;
                 }
             } else {
-                //System.out.println("no repeat found");
+
                 Bar barToBeCopiedTo = barListAddTo.get(barIndexToAddTo);
                 combine.combineBar(overlayingBar, barToBeCopiedTo);
-                //System.out.println("bar temp gotten");
+
             }
             //add the bar to the song in the songlist
             storage.updateFile(songList);
+            DucatsLogger.fine("overlay_bar_song command sucessfully overlayed a bar from one song to another");
             Command ascii = new AsciiCommand("ascii song " + sections[2]);
             return ascii.execute(songList,ui,storage);
-            //return ui.formatAddOverlay(songList.getSongList(), barIndexToAddFrom,songAddTo);
 
         } catch (DucatsException e) {
-            //System.out.println(e.getType());
+            DucatsLogger.severe("there was an DucatsException of " + e.getType()
+                    + "when the user typed " + message);
             throw new DucatsException(message, e.getType());
         } catch (java.io.IOException e) {
             throw new DucatsException(message,"IO");
