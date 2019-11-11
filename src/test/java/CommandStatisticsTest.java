@@ -39,8 +39,7 @@ public class CommandStatisticsTest {
         CommandStatistics s3 = new CommandStatistics("stats books");
         s3.execute(storageManager);
         String result2 = s3.getInfoCapsule().getOutputStr();
-        assertEquals("0.00% of your wallet expenses is spent on books\n"
-                + "You spent a total of $0.00 on books\n\n\n", result2);
+        assertEquals("No such tag found in the list", result2);
 
     }
 
@@ -64,12 +63,18 @@ public class CommandStatisticsTest {
         assertEquals("100.00% of your wallet expenses is spent on transport\n"
                 + "You spent a total of $4.00 on transport\n\n"
                 + "1. [Expenses, transport] $4.00 2019-02-01\n\n", output);
+
         CommandStatistics s2 = new CommandStatistics("stats food");
         s2.execute(storageManager);
         String output2 = s2.getInfoCapsule().getOutputStr();
         assertEquals("0.00% of your wallet expenses is spent on food\n"
                 + "You spent a total of $0.00 on food\n\n"
                 + "1. [Income, food] $4.00 2019-02-02\n\n", output2);
+
+        CommandStatistics s3 = new CommandStatistics("stats school");
+        s3.execute(storageManager);
+        String output3 = s3.getInfoCapsule().getOutputStr();
+        assertEquals("No such tag found in the list", output3);
     }
 
     @Test
@@ -81,5 +86,8 @@ public class CommandStatisticsTest {
         String output = s1.getInfoCapsule().getOutputStr();
         assertEquals("No receipts found in the list", output);
     }
+
+    //add test for only income receipts
+    //add test for receipts of same tag for income and expense
 
 }

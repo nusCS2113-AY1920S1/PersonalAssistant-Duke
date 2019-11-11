@@ -86,10 +86,10 @@ public class ReceiptTrackerTest {
     void findReceiptsByTagTest() {
         ReceiptTracker tracker = initializeTracker();
         assertEquals(1.00, tracker.getNettCashSpent());
-        assertEquals(5.00, tracker.getReceiptsByTag("loans").get(0).getCashSpent());
-        assertEquals(4.00, tracker.getReceiptsByTag("loans").get(1).getCashSpent());
-        assertEquals(4.00, tracker.getReceiptsByTag("ice").get(0).getCashSpent());
-        assertEquals(-9.00, tracker.getReceiptsByTag("ice").get(1).getCashSpent());
+        assertEquals(5.00, tracker.getReceiptsByTags("loans").get(0).getCashSpent());
+        assertEquals(4.00, tracker.getReceiptsByTags("loans").get(1).getCashSpent());
+        assertEquals(4.00, tracker.getReceiptsByTags("ice").get(0).getCashSpent());
+        assertEquals(-9.00, tracker.getReceiptsByTags("ice").get(1).getCashSpent());
     }
 
     @Test

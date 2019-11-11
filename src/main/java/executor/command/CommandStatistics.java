@@ -3,6 +3,7 @@ package executor.command;
 import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
+import ui.ReceiptTracker;
 
 import java.text.DecimalFormat;
 
@@ -37,7 +38,7 @@ public class CommandStatistics extends Command {
         }
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         try {
-            Double totalTag = storageManager.getReceiptsByTag(this.tag).getTotalExpenses();
+            Double totalTag = getReceipt(this.tag, storageManager).getTotalExpenses();
             Double totalSpent = storageManager.getWalletExpenses();
             outputStr.append(decimalFormat.format(((totalTag / totalSpent) * 100)))
                     .append("%")
@@ -56,14 +57,14 @@ public class CommandStatistics extends Command {
 
         try {
             outputStr.append("You spent a total of $")
-                    .append(decimalFormat.format(storageManager.getReceiptsByTag(this.tag).getTotalExpenses()))
+                    .append(decimalFormat.format(getReceipt(this.tag, storageManager).getTotalExpenses()))
                     .append(" ")
                     .append("on")
                     .append(" ")
                     .append(this.tag)
                     .append("\n")
                     .append("\n")
-                    .append(storageManager.getReceiptsByTag(this.tag).getPrintableReceipts())
+                    .append(getReceipt(this.tag, storageManager).getPrintableReceipts())
                     .append("\n");
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
@@ -73,4 +74,21 @@ public class CommandStatistics extends Command {
         this.infoCapsule.setCodeCli();
         this.infoCapsule.setOutputStr(outputStr.toString());
     }
+
+    /**
+     * Returns receipts containing user input date.
+     * @param tag String is date input from the user
+     * @param storageManager Storagemanager the storage layer that holds the user data
+     * @return ReceiptTracker that contains all the receipts
+     * @throws DukeException no receipts containing input tag exist
+     */
+    private ReceiptTracker getReceipt(String tag, StorageManager storageManager) throws DukeException {
+        ReceiptTracker tagList = storageManager.getReceiptsByTag(tag);
+        if (tagList.isEmpty()) {
+            throw new DukeException("No such tag found in the list");
+        }
+        return tagList;
+    }
 }
+
+
