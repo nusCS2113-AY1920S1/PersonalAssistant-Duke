@@ -1053,7 +1053,7 @@ with existing tag
 tag #notice remains on the list | Normal use case with multiple tags including existing and new tags
 | `email` | `update 1 -tag 123` | The 1st email will have #tag on the list| Normal use case with numbers in tag
 
-| `email` | `update -tag 123` | Invalid command reported asking for an index after `update`| Invalid input
+| `email` | `update` | Invalid command reported asking for an index after `update`| Invalid input
 without index specified
 | `email` | `update -tag 123` | Invalid command reported asking for an index after `update`| Invalid input
 with tag but without index specified
