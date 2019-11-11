@@ -53,7 +53,8 @@ _This section provides a quick guide on firing up Ducats. Follow the steps below
 . Enter the command `java -jar Ducats-1.4.jar` and press the Enter key to execute it. Ducats will launch in a few seconds. You should see your Terminal window displaying a similar view to Figure 3.1 below.
 . Enter the `help` command and hit the Enter key to execute it. You should be able to see the help list of all the available commands.
 
-<insert updated running success image>
+image::images/figure3.1_display_of_ducats_when_launched[]
+
 Figure 3.1: Display of Ducats when first launched
 
 For the comprehensive list and details of all the commands, please refer to Section 4 Features.
@@ -99,63 +100,123 @@ _Format_: `list`
 
 === Creating your new song: `new`
 
-Creates a new song of the specified key, time signature and tempo provided by the user. [Creation of songs in different keys, time signatures and tempo coming in v2.0]
+Creates a new song of the C major key, 4/4 time signature and tempo as specified by the user. [Support of songs in different keys, time signatures and tempo coming in v2.0]
 
 _Format_:
 `new s/SONG_NAME s/KEY s/TIME_SIGNATURE n/TEMPO`
 
 _Examples_:
 
-* `new Twinkle_Twinkle C 4/4 120`
-creates a song titled “Twinkle Twinkle”, in the default key of C Major, with time signature of 4 4 and tempo of 120bpm (beats per minute).
+* `new Twinkle_Twinkle c 4/4 120`
+creates a song titled “Twinkle_Twinkle”, in the default key of C Major, with time signature of 4/4 and tempo of 120 beats per minute (bpm).
 
-* `new Vicarious F 5/4 116`
-creates a song titled “Vicarious”, in the key of F Major, with time signature of 5 4 and a tempo of 116 beats per minute (BPM).
-
-* `new Hello,_Waltz Am 3/4 120`
-creates a song with the title “Hello,_Waltz”, in the key of A Minor, with time signature of 3 4 and a tempo of 120bpm.
-
+* `new Vicarious c 4/4 80`
+creates a song titled “Vicarious”, in the key of C Major, with time signature of 4/4 and a tempo of 80 bpm.
 
 === Deleting your existing song: `delete`
 
 Feeling like you are going nowhere with a certain composition? This command is used to delete a song from your Ducat’s song list. You can delete the song by specifying either its number or name.
 
-_Format_: `delete song:n/SONG_NUM` OR `delete song:s/SONG_NAME`
+_Format_: `delete n/SONG_NUM` OR `delete s/SONG_NAME`
+
+_Examples_:
+
+* `delete Vicarious`
+deletes the existing song titled “Vicarious”.
+
+* `delete 1`
+deletes the existing song at the first position of the song list.
+
 
 === Opening a song for editing: `open`
 
-This command is used to navigate to the song you intend to edit and ensure that that is the song to be edited. When the specific song is opened, the other songs cannot be edited, ensuring that the composition data present is protected and isolated from whatever modifications you make to the opened song.
+This command is for you to navigate to and select the song you intend to edit. When the specified song is opened, your other songs cannot be edited. This ensures that your existing music composition data is protected and isolated from the modifications you make to the song that is opened.
 
 _Format_: `open s/SONG_NAME`
 
+_Example_:
+
+* `open Twinkle_Twinkle`
+opens and selects the existing song titled “Twinkle_Twinkle”. It is now ready for your editing.
+
+
 === Viewing Command Line representation of song: `view`
 
-For a quick display of the song that is easily readable regardless of musical background, the `view` command will display all the bars in the songs with “|” separating the bars.
+For a quick view that is easily readable regardless of musical background, the `view` command displays the last bar of the song you specified.
 
 _Format_: `view s/SONG_NAME`
 
+_Example_:
+
+* `view Twinkle_Twinkle`
+displays the visual representation of the last bar of the existing song titled “Twinkle_Twinkle”.
+
+
 === Adding new bars to your song: `addbar`
 
-The addition of notes into your song is done with the `addbar` command. This command adds a new whole bar to end of your song. The new bar consists of notes as specified by you and its total duration adds up to one beat (i.e. four quarter notes, or two quarter notes and 4 eighth notes etc.).
+The addition of notes into your song is done with the `addbar` command. This command adds a new whole bar to end of your opened song. This new bar consists of notes as specified by you. The total duration of your desired notes must adds up to one beat. (E.g. 1 whole note, 2 half notes or 4 quarter notes etc.)
 
-_Format_: addbar s/NOTES
+_Format_: `addbar s/NOTES`
 
-_Example_:
-`addbar 4_UA 8_UC 8_UD 4_LB 4_UD`
+_Examples_:
 
-The above command adds a bar consisting of a quarter note of pitch Upper A, two eighth notes of pitches Upper C and Upper D respectively, one quarter note of pitch Lower B and one quarter note of pitch Upper D.
+* `addbar 1_UA`
+adds a bar consisting of 1 whole note of pitch UPPER_A to the end of your opened song.
+
+* `addbar 2_MC 2_LC`
+adds a bar consisting of 2 half notes of pitch MIDDLE_C and LOWER_C to the end of your opened song.
+
+* `addbar 4_UA 8_UC 8_UD 4_LB 4_UD`
+adds a bar consisting of 1 quarter note of pitch UPPER_A, 2 eighth notes of pitches UPPER_C and UPPER_D, 1 quarter note of pitch LOWER_B and 1 quarter note of pitch UPPER_D.
+
 
 === Deleting a bar in your song: `deletebar`
 
-This command is used to delete a bar from your song. The bar of the number specified by you will be deleted from the current song that is open.
+Want to erase your mistakes when composing? The `delete` command is used to delete a bar from your song. The bar of the number specified will be deleted from the current song that is open.
 
-_Format_: `deletebar bar:n/BAR_NUM`
+_Format_: `deletebar n/BAR_NUM`
+
+_Example_:
+
+* `deletebar 1`
+deletes the first bar of your opened song.
+
 
 === Inserting a new bar between existing bars in your song: `insertbar`
 
+This command is for you to create and insert a new whole bar between existing bars in your opened song. The position where the new bar will be inserted is specified by you. The total duration of your desired notes in your new bar must adds up to one beat.
+
+_Format_: `insertbar n/BAR_NUM s/NOTES`
+
+_Example_:
+
+* `insertbar 2 1_UA`
+creates and inserts your new bar consisting of a whole note of pitch UPPER_A between the existing first bar and second bar of the song.
+
+
 === Editing a bar in your song: `editbar`
 
+The editing of an existing bar in your song is done with the `editbar` command. The bar to be edited is specified by you through its bar number. The new bar consists of notes specified by you and its total duration adds up to one beat.
+
+_Format_: `editbar n/BAR_NUM s/NOTES`
+
+_Example_:
+
+* `editbar 1 2_UB 2_UB`
+edits the first bar of your opened song into a new bar consisting of 2 half notes, both of pitch UPPER_B.
+
+
 === Swapping two existing bars in your song: `swapbar`
+
+Want an easy way to swap two existing bars in your song? The `swapbar` command does that for you. The bars to be swapped is specified by you through its bar number.
+
+_Format_: `swapbar n/BAR_NUM n/BAR_NUM`
+
+_Example_:
+
+* `swapbar 1 3`
+swaps the existing first and third bar of your opened song.
+
 
 === Grouping bars together: `group`
 
