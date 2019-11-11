@@ -95,6 +95,7 @@ public class ConfigCommand extends Command {
         ConfigStorage configStorage = storage.getConfig();
         uiConfig = configStorage.getUiConfig();
         logConfig = configStorage.getLogConfig();
+        MESSAGE_VIEW = "All the saved configurations are as below:\n";
         MESSAGE_VIEW += "+ UI Configurations (Only works in GUI-mode):\n";
         MESSAGE_VIEW += uiConfig.toString();
         MESSAGE_VIEW += "\n+ Logging Configurations:\n";
