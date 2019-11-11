@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Test class for deadline.
+ * Test class for reminders.
  */
 
 public class RemindersTest {
