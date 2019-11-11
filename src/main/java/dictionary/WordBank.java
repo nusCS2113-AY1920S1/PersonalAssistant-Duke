@@ -87,6 +87,24 @@ public class WordBank {
     }
 
     /**
+     * Search example of a word.
+     *
+     * @param word the word description
+     * @return example of a word
+     * @throws WordBankEmptyException if word bank is empty
+     * @throws NoWordFoundException if the word has already exists in the WordBank
+     */
+    public String searchWordExample(String word) throws WordBankEmptyException, NoWordFoundException {
+        word = word.toLowerCase();
+        if (wordBank.isEmpty()) {
+            throw new WordBankEmptyException();
+        } else if (!(wordBank.containsKey(word))) {
+            throw new NoWordFoundException(word);
+        }
+        return wordBank.get(word).getExample();
+    }
+
+    /**
      * Searches for all words with a few beginning characters.
      *
      * @param word a string represents the beginning substring
@@ -204,6 +222,21 @@ public class WordBank {
 
     public void addTagToWord(String word, String tag) {
         wordBank.get(word).addTag(tag);
+    }
+
+    /**
+     * Add example sentence to word.
+     *
+     * @param word word description
+     * @param example example sentence
+     * @throws NoWordFoundException if the word has already exists in the WordBank
+     */
+    public void addExampleToWord(String word, String example) throws NoWordFoundException {
+        if (!wordBank.containsKey(word)) {
+            throw new NoWordFoundException(word);
+        } else {
+            wordBank.get(word).addExample(example);
+        }
     }
 
     public Word[] getAllWordsAsList() {

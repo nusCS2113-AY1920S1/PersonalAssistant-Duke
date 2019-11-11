@@ -151,8 +151,27 @@ Returns `drink, dog, do, etc`
 === Generating quizzes: `quiz`
 
 Generate quizzes from the wordBank to test the user's understanding. +
-Format: `quiz`
 
+Format: Type `quiz` to enter quiz mode. +
+In quiz mode, type `start` to start the quiz. +
+Type `exit_quiz` to exit the quiz. +
+When answering the MCQs, type the index `1`, `2`, `3`, `4` to select the correct option. +
+
+In a single question WordUp will display a word, and user shall choose the corresponding meaning. +
+A quiz includes 4 multiple choice questions. +
+At the end of a quiz, it will show user the score of the quiz and remind user the meaning of words that are wrongly answered. +
+
+Example: 
+
+....
+What is the meaning of WordUp?
+1. ...
+2. a fantastic personal digital booklet
+3. ...
+4. ...
+....
+
+The correct answer is 2. Type `2` and WordUp will respond the correctness.
 
 // tag::delete[]
 === Deleting a word object : `delete`
@@ -218,19 +237,27 @@ Examples:
 Shows the list of the last 5 words added, with the latest entry first.
 // end::history[]
 
-// tag::synonyms[]
+// tag::addsynonyms[]
 === Adding synonyms of a word : `addsyn`
-*Caution*: The synonyms are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all synonyms will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
 
 Adds one or many synonyms to an existing word in the database. +
 Format: `addsyn w/WORD_TO_BE_TAGGED s/SYNONYM1 SYNONYM2` +
 
 If there are more than one synonym to be added, please separate them by spaces.
 
-//end::synonyms[]
+//end::addsynonyms[]
+
+// tag::search_synonyms[]
+=== Searching synonyms of a word : `search_syn`
+
+Search for al the synonyms to an existing word in the database. +
+Format: `search_syn w/WORD` +
+
+Synonyms are chained together, so even new words will be recognize.
+
+//end::search_synonyms[]
 
 === Adding tags to a word : `tag`
-*Caution*: The tags are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all tags will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
 
 Assigns a tag to an existing word in the database. +
 Format: `tag w/WORD_TO_BE_TAGGED t/NEW_TAG`
@@ -242,6 +269,14 @@ Examples:
 * `tag w/banana t/fruit` +
 Assigns the word banana with tag fruit.
 
+=== Adding tags to a word : `search_tag`
+
+Search for a word using t/TAG or w/WORD in the database. +
+Format: `search_tag w/WORD` or `search_tag t/TAG` +
+
+`search_tag w/WORD` will output all the tags associated with the WORD
+`search_tag t/TAG` will output all words associated with the TAG
+
 === Viewing history : `history`
 
 Shows adding history. +
@@ -252,7 +287,11 @@ Format: `history INTEGER`
 Shows search frequency of each word in specified order. +
 Format: `freq o/ORDER`
 
-=======
+=== Adding example sentence : `add_example`
+
+Add example sentence for a word.
+Format: `add_example w/ORDER e/EXAMPLE`
+
 
 === Exiting the program : `exit`
 

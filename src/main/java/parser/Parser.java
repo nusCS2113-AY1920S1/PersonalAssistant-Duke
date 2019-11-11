@@ -1,6 +1,7 @@
 package parser;
 
 import command.AddCommand;
+import command.AddExampleCommand;
 import command.AddSynonymCommand;
 import command.AddTagCommand;
 import command.BadCommand;
@@ -16,11 +17,10 @@ import command.QuizCommand;
 import command.SearchBeginCommand;
 import command.SearchCommand;
 import command.SearchFrequencyCommand;
-import command.SearchTagCommand;
 import command.SearchSynonymCommand;
+import command.SearchTagCommand;
 import command.SetReminderCommand;
 import dictionary.Word;
-
 import exception.CommandInvalidException;
 import exception.EmptyTagException;
 import exception.EmptyWordException;
@@ -28,6 +28,7 @@ import exception.InvalidCharacterException;
 import exception.InvalidHistoryIndexException;
 import exception.ReminderWrongDateFormatException;
 import exception.WordUpException;
+import exception.WrongAddExampleFormatException;
 import exception.WrongAddFormatException;
 import exception.WrongAddSynonymFormatException;
 import exception.WrongAddTagFormatException;
@@ -41,8 +42,8 @@ import exception.WrongReminderFormatException;
 import exception.WrongSearchBeginFormatException;
 import exception.WrongSearchFormatException;
 import exception.WrongSearchFrequencyFormatException;
-import exception.WrongSearchTagFormatException;
 import exception.WrongSearchSynonymFormatException;
+import exception.WrongSearchTagFormatException;
 import exception.ZeroHistoryRequestException;
 
 import java.text.SimpleDateFormat;
@@ -58,7 +59,7 @@ public class Parser {
     /**
      * Valid string for input word, which contains a-z, A-Z.
      */
-    private static final String VALID_REGEX = "^[a-zA-Z ]*$";
+    private static final String VALID_REGEX = "^[a-zA-Z,. ]*$";
 
     /**
      * Extracts the command specified in the user input and creates the respective command objects.
@@ -109,6 +110,8 @@ public class Parser {
                 command = parseSearchTag(taskInfo);
             } else if (userCommand.equals("search_syn")) {
                 command = parseSearchSynonym(taskInfo);
+            } else if (userCommand.equals("add_example")) {
+                command = parseAddExample(taskInfo);
             } else {
                 try {
                     throw new CommandInvalidException(input);
@@ -503,6 +506,33 @@ public class Parser {
             throw new WrongQuizFormatException();
         }
         return new QuizCommand();
+    }
+
+    protected static Command parseAddExample(String[] taskInfo) throws WrongAddExampleFormatException,
+            EmptyWordException, InvalidCharacterException {
+        if (taskInfo.length == 1) {
+            throw new WrongAddExampleFormatException();
+        }
+        String[] wordDetail = taskInfo[1].split("w/");
+        if (wordDetail.length != 2) {
+            throw new WrongAddExampleFormatException();
+        }
+        wordDetail = wordDetail[1].split("e/");
+        if (wordDetail.length != 2) {
+            throw new WrongAddExampleFormatException();
+        }
+        String wordDescription = wordDetail[0].trim();
+        if (wordDescription.length() == 0) {
+            throw new EmptyWordException();
+        }
+        if (!isValidInputWord(wordDescription)) {
+            throw new InvalidCharacterException();
+        }
+        String meaning = wordDetail[1].trim();
+        //Word word;
+        //word = new Word(wordDescription, meaning);
+
+        return new AddExampleCommand(wordDescription, meaning);
     }
 
     /**

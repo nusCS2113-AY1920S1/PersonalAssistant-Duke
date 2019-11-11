@@ -1,9 +1,7 @@
 package command;
 
 import dictionary.Bank;
-import dictionary.Word;
 import exception.NoWordFoundException;
-import exception.WordAlreadyExistsException;
 import exception.WordBankEmptyException;
 import exception.WordCountEmptyException;
 import storage.Storage;
@@ -26,9 +24,10 @@ public class SearchCommand extends Command {
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
+            String example = bank.searchWordBankForExample(this.searchTerm);
             String meaning = bank.searchWordBankForMeaning(this.searchTerm);
             bank.increaseSearchCount(searchTerm);
-            return ui.showSearch(this.searchTerm, meaning);
+            return ui.showSearch(this.searchTerm, meaning, example);
         } catch (NoWordFoundException e) {
             StringBuilder stringBuilder = new StringBuilder();
             //Look up Oxford dictionary.
@@ -36,7 +35,7 @@ public class SearchCommand extends Command {
                     + "\" in local dictionary.\nLooking up Oxford dictionary.\n\n");
             try {
                 String result = OxfordCall.onlineSearch(searchTerm);
-                stringBuilder.append(ui.showSearch(this.searchTerm, result));
+                stringBuilder.append(ui.showSearch(this.searchTerm, result, null));
             } catch (NoWordFoundException e1) {
                 stringBuilder.append("Failed to find the word from Oxford dictionary.\n");
             }
