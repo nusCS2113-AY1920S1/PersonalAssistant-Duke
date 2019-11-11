@@ -35,3 +35,4 @@ A reminder to trigger forgetful users' memory about upcoming tasks so that they 
 This project was made possible with these libraries:
 * [JavaFx](https://openjfx.io/)
 * [JUnit](https://junit.org/junit5/)
+* [ControlsFX](http://fxexperience.com/controlsfx/features/)
