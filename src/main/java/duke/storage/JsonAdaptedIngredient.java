@@ -17,9 +17,9 @@ public class JsonAdaptedIngredient {
      */
     @JsonCreator
     public JsonAdaptedIngredient(
-            @JsonProperty("name") String name,
-            @JsonProperty("unitPrice") Double unitPrice,
-            @JsonProperty("remarks") String remarks) {
+        @JsonProperty("name") String name,
+        @JsonProperty("unitPrice") Double unitPrice,
+        @JsonProperty("remarks") String remarks) {
         this.name = name;
         this.unitPrice = unitPrice;
         this.remarks = remarks;

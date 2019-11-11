@@ -23,6 +23,7 @@ public class ShowProductCommand extends ProductCommand {
 
     /**
      * Construct a ShowProductCommand with the index of the {@code Product} to be shown.
+     *
      * @param index the index of the product in the currently showing product list
      */
     public ShowProductCommand(Index index) {
@@ -42,6 +43,6 @@ public class ShowProductCommand extends ProductCommand {
 
         Product toShow = lastShownList.get(index.getZeroBased());
         return new ShowProductCommandResult(String.format(MESSAGE_SHOW_PRODUCT_SUCCESS, toShow.getProductName()),
-                CommandResult.DisplayedPage.PRODUCT, index);
+            CommandResult.DisplayedPage.PRODUCT, index);
     }
 }

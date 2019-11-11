@@ -1,6 +1,7 @@
 package duke.commons.util;
 
 import duke.logic.parser.exceptions.ParseException;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;

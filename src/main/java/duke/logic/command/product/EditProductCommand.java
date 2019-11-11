@@ -73,6 +73,6 @@ public class EditProductCommand extends ProductCommand {
         }
         model.commit(ProductMessageUtils.MESSAGE_COMMIT_EDIT_PRODUCT);
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct.getProductName()),
-                CommandResult.DisplayedPage.PRODUCT);
+            CommandResult.DisplayedPage.PRODUCT);
     }
 }

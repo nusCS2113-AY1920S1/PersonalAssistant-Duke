@@ -25,7 +25,7 @@ public class IngredientItemListParser {
     private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((\\s*\\[\\s*)(?<name>[\\w ]+)"
         + "([,"
         + "]?)"
-            + "(?<quantity>[0-9. ]*)(?:\\]\\s*))+");
+        + "(?<quantity>[0-9. ]*)(?:\\]\\s*))+");
     private static final Double DEFAULT_PORTION = 0.0;
 
     private static Map<String, String> getIngredientPortionMap(String input) {
@@ -56,7 +56,7 @@ public class IngredientItemListParser {
                 }
             }
             replacement = replacement.replaceAll("(\\s*\\[\\s*)(?<name>[\\w ]+)([,]?)"
-                    + "(?<quantity>[0-9. ]*)(?:\\]\\s*)$", "");
+                + "(?<quantity>[0-9. ]*)(?:\\]\\s*)$", "");
             matcher = FORMAT_INGREDIENT_INPUT.matcher(replacement);
         }
         return params;

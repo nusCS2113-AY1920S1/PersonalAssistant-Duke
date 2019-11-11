@@ -1,6 +1,5 @@
 package duke.logic.parser.order;
 
-import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.order.EditOrderCommand;
 import duke.logic.parser.commons.ArgumentMultimap;
@@ -39,7 +38,7 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
         try {
             index = ParserUtil.parseIndex(map.getPreamble());
         } catch (ParseException e) {
-            throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(e.getMessage());
         }
 
         return new EditOrderCommand(index, createDescriptor(map));

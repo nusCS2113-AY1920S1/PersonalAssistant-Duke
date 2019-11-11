@@ -25,11 +25,11 @@ public class JsonAdaptedProduct {
      */
     @JsonCreator
     public JsonAdaptedProduct(
-            @JsonProperty("productName") String productName,
-            @JsonProperty("ingredientItems") List<JsonAdaptedIngredientItem> ingredientItems,
-            @JsonProperty("ingredientCost") Double ingredientCost,
-            @JsonProperty("retailPrice") Double retailPrice,
-            @JsonProperty("status") Product.Status status) {
+        @JsonProperty("productName") String productName,
+        @JsonProperty("ingredientItems") List<JsonAdaptedIngredientItem> ingredientItems,
+        @JsonProperty("ingredientCost") Double ingredientCost,
+        @JsonProperty("retailPrice") Double retailPrice,
+        @JsonProperty("status") Product.Status status) {
         this.productName = productName;
         this.ingredientItems = ingredientItems;
         this.ingredientCost = ingredientCost;
@@ -47,10 +47,10 @@ public class JsonAdaptedProduct {
         this.status = source.getStatus();
         for (Item<Ingredient> ingredientItem : source.getIngredients()) {
             this.ingredientItems.add(
-                    new JsonAdaptedIngredientItem(
-                            new JsonAdaptedIngredient(ingredientItem.getItem()),
-                            ingredientItem.getQuantity().getNumber()
-                    )
+                new JsonAdaptedIngredientItem(
+                    new JsonAdaptedIngredient(ingredientItem.getItem()),
+                    ingredientItem.getQuantity().getNumber()
+                )
             );
         }
     }

@@ -12,12 +12,18 @@ public class Message {
     public static final String MESSAGE_INVALID_NUMBER_FORMAT = "Please enter a valid number";
     public static final String MESSAGE_INVALID_QUANTITY = "Please enter a valid quantity";
     public static final String MESSAGE_INVALID_INDEX = "Index is invalid.";
+    public static final String MESSAGE_INVALID_INDEX_MULTIPLE =
+        "Multiple indices should be selected using format \"A,B,C\"";
+    public static final String MESSAGE_INVALID_INDEX_INTERVAL =
+        "Interval indices should be selected using format \"A~b\" (A<=B)";
+
     public static final String MESSAGE_INVALID_RANGE = "Range is invalid.";
     public static final String MESSAGE_INVALID_STATUS = "Status is invalid.";
     public static final String MESSAGE_INVALID_CRITERIA = "This is not a valid sorting criteria.";
     public static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index does not exist.";
     public static final String MESSAGE_ORDER_ALREADY_COMPLETED = "Order at index [%d] has already been completed.";
     public static final String MESSAGE_INVALID_PREFIX_VALUE = "[%s] is an invalid parameter value.";
+
 
     private Message() {
 

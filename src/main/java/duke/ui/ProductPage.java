@@ -72,6 +72,7 @@ public class ProductPage extends UiPart<AnchorPane> {
         AnchorPane.setRightAnchor(node, 0.0);
         AnchorPane.setLeftAnchor(node, 0.0);
     }
+
     private TableView setUpListTable() {
         TableView<Product> productListTable = new TableView<>();
         config(productListTable);
@@ -105,7 +106,7 @@ public class ProductPage extends UiPart<AnchorPane> {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         table.getColumns().addAll(nameColumn, priceColumn,
-                costColumn, statusColumn);
+            costColumn, statusColumn);
         logger.fine("Product Table set up");
     }
 }

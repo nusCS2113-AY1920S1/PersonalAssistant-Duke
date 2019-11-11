@@ -15,7 +15,7 @@ public class SetShortcutParserTest {
         //Single command
         Assertions.assertAll(() -> parser.parse("[name] [order add]"));
 
-        //Multiple command
+        //Multiple commands
         Assertions.assertAll(() -> parser.parse("[name] [order add; order remove]"));
     }
 
