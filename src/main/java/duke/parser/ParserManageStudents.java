@@ -139,8 +139,8 @@ public final class ParserManageStudents {
                 System.out.print("Whose progress do you want to see?\n");
                 students.listAllStudents();
                 //int index = sc.nextInt();
-                System.out.println("Progress report:\n" +
-                        students.getStudent(sc.nextInt()).getStudentProgress());
+                System.out.println("Progress report:\n"
+                        + students.getStudent(sc.nextInt()).getStudentProgress());
                 break;
             case "back":
                 runProgress = false;
