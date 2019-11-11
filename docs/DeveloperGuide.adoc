@@ -655,6 +655,7 @@ Different ways were considered to display the employment statistics:
 ** Cons: 
 *** Too simplistic of a display
 *** Doesn’t help users to visually compare the employment rates and mean salary for the past 3 years
+*** Need to hardcode the table out
 
 * Alternative 3: Display two separate graphs for two separate commands
 ** Pros: 
@@ -663,6 +664,58 @@ Different ways were considered to display the employment statistics:
 ** Cons: 
 *** Troublesome for the user
 *** Side-by-side analysis will not be available to have a better idea
+
+=== Cohort Size Statistics Feature
+==== Implementation
+
+A class CohortSize is used in order to display the cohort sizes for each degree in the form of a bar chart. This class is an implementation of the Statistics interface.
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UMLInheritance1.png[width="300", align = "center"]
+
+The Statistics interface comprises of two methods that are overridden in the CohortSize class. These two methods are:
+
+`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type CohortStats (Fig xyz) and stored.
+
+`Statistics#print(String input)`: This method takes in the parameter of a string which is the degree inputted by the user. The end result is the display of a bar chart on a separate window, visually depicting the statistics. In this case, an instance of the class Cohort_BarChart is created and a bar chart is displayed with information of the number of male, female and total students in the years 2016-2018 for the degree requested. 
+
+The CohortSize class also has the following function:
+
+CohortSize#getStats(): This method returns an ArrayList of type CohortStats, namely cohortStats, when called and is used to store the information needed. 
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/CohortStats.png[width="300", align = "center"]
+
+The CohortStats class as mentioned above allows to store the a string pertaining to the degree and three integer values - the number of male students, the number of female students and the total number of students. An array list of type CohortStats is hence created to store all the necessary information. This is similar to how the data is loaded and stored in the case of the Graduate Employment statistics
+
+Following is a sequence diagram to depict the process of a bar chart being displayed to the user for a particular (excluding the loading of the statistics): 
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/sqdcsd.png[width="500", align = "left"]
+
+==== Design Considerations
+
+Different ways were considered to display the employment statistics:
+
+* Alternative 1 (Current Choice): Display through a colourful bar chart
+** Pros: 
+*** Concise and clear display of data
+*** Visually pleasing
+*** Easy for the user to understand the data
+** Cons: 
+*** Integration of a third party library and hence, the need to request for permission
+
+* Alternative 2: Display in the form of a table
+** Pros: 
+*** Easy implementation only requiring to manually draw a table
+*** Data read is directly displayed on the CLI
+** Cons: 
+*** Too simplistic of a display
+*** Doesn’t help users to visually compare the cohort sizes for the past 3 years
+
+* Alternative 3: Display using a bar graph with asterix
+** Pros: 
+*** Doesn't require the hassle of a third-party library integration
+** Cons: 
+*** Troublesome for the user
+*** May be confusing for the user
 
 == Testing
 
