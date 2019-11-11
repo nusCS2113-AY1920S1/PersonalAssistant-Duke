@@ -16,6 +16,24 @@ public class LoanTest {
     private ArrayList<String> data;
 
     @BeforeEach
+    void resetPersonList() throws BadInputException {
+        if (PersonList.getSize() == 0) {
+            return;
+        }
+
+        ArrayList<Person> persons = PersonList.getPersonList();
+        ArrayList<String> matrics = new ArrayList<>();
+
+        for (Person person : persons) {
+            matrics.add(person.getMatricNo());
+        }
+
+        for (String matric : matrics) {
+            PersonList.delete(matric);
+        }
+    }
+
+    @BeforeEach
     void resetLoanObject() {
         loan = new Loan("A1", "R5", 10);
     }

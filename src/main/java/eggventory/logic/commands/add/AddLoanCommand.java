@@ -40,7 +40,6 @@ public class AddLoanCommand extends Command {
         if (list.findStock(stockCode) == null) {
             return false;
         }
-
         return true;
     }
 

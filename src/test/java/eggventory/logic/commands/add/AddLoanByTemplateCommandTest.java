@@ -2,7 +2,6 @@ package eggventory.logic.commands.add;
 
 import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;
-import eggventory.model.LoanList;
 import eggventory.model.PersonList;
 import eggventory.model.StockList;
 import eggventory.model.TemplateList;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author Deculsion
 class AddLoanByTemplateCommandTest {
 
     private ArrayList<Pair<String,String>> loanPairs = new ArrayList<>();

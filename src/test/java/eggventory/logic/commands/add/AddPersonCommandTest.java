@@ -2,43 +2,59 @@ package eggventory.logic.commands.add;
 
 import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;
-import eggventory.logic.commands.add.AddPersonCommand;
 import eggventory.model.PersonList;
 import eggventory.model.StockList;
+import eggventory.model.loans.Person;
 import eggventory.storage.Storage;
 import eggventory.stubs.StorageStub;
 import eggventory.stubs.UiStub;
-import eggventory.ui.Cli;
 import eggventory.ui.Ui;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+//@@author cyanoei
 
 class AddPersonCommandTest {
 
     private StockList testStockList = new StockList();
     private Ui testCli = new UiStub();
     private Storage testStorage = new StorageStub();
-    private PersonList personList = new PersonList();
+
+    @BeforeEach
+    void resetPersonList() throws BadInputException {
+        if (PersonList.getSize() == 0) {
+            return;
+        }
+
+        ArrayList<Person> persons = PersonList.getPersonList();
+        ArrayList<String> matrics = new ArrayList<>();
+
+        for (Person person : persons) {
+            matrics.add(person.getMatricNo());
+        }
+
+        for (String matric : matrics) {
+            PersonList.delete(matric);
+        }
+    }
 
     @Test
-    void testExecuteAddPerson_ValidPerson_Succeeds() throws BadInputException {
+    void testExecuteAddPerson_ValidPerson_Succeeds() {
         AddPersonCommand cmd =  new AddPersonCommand(CommandType.ADD, "A12343A", "Akshay "
                 + "Narayan");
         assertDoesNotThrow(() -> cmd.execute(testStockList, testCli, testStorage));
     }
 
-    //    @Test
-    //    void testExecuteAddPerson_RepeatedPerson_ThrowsBadInputException() throws BadInputException {
-    //        // Adding of A12345A again not needed as PersonList is static.
-    //        Exception exception = Assertions.assertThrows(BadInputException.class, () ->
-    //                new AddPersonCommand(CommandType.ADD, "A12345A", "Not Akshay Narayan")
-    //                        .execute(testStockList,testCli,testStorage)
-    //        );
-    //
-    //        assertEquals("The Person with the specified matriculation number already exists!\n Did you"
-    //                + " mean to edit this Person's details instead?", exception.getMessage());
-    //    }
+    @Test
+    void testExecuteAddPerson_RepeatedPerson_ThrowsBadInputException() {
+        AddPersonCommand cmd =  new AddPersonCommand(CommandType.ADD, "A1", "John Doe");
+        assertDoesNotThrow(() -> cmd.execute(testStockList, testCli, testStorage));
+        assertThrows(BadInputException.class, () -> cmd.execute(testStockList, testCli, testStorage));
+    }
+
 }
