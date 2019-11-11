@@ -1,13 +1,9 @@
 package degree;
 
 import exception.DukeException;
-import list.DegreeList;
-import main.Duke;
 import module.ModuleList;
 import storage.Storage;
 
-import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -70,19 +66,15 @@ public class DegreeManager {
 
     public void print(String item) throws DukeException {
         foundFlag = true;
-        for(Map.Entry<String, List<String>> aliases: disjointSetFake.entrySet())
+        if(!isKey(item))
         {
-            String degree = aliases.getKey();
-            List<String> commonNames = aliases.getValue();
-            for(String x : commonNames){
-                if(x.equalsIgnoreCase(item)){
-                    degreeInfo.get(degree).print();
-                    return;
-                }
-            }
+            foundFlag = false;
+            throw new DukeException(item + " was not found in our records!");
         }
-        foundFlag = false;
-        throw new DukeException(item + " was not found in our records!");
+        else {
+            System.out.println(findAnyDegree(item));
+            degreeInfo.get(findAnyDegree(item)).print();
+        }
     }
 
     public boolean isKey(String alias)
@@ -211,7 +203,7 @@ public class DegreeManager {
      *
      * @return boolean check for existence of a degree.
      */
-    public boolean getFoundFlag() {
+        public boolean getFoundFlag() {
         return this.foundFlag;
     }
 }
