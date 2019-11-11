@@ -24,7 +24,8 @@ public class RemoveUserCommand extends Command {
      */
     public RemoveUserCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
-            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please enter a username you would like to remove!");
+            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please enter a username you would like to remove!\n"
+                    + "rmuser <username>");
         }
         this.splitL = input.split("rmuser ");
     }

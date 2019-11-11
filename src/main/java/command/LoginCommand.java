@@ -25,7 +25,8 @@ public class LoginCommand extends Command {
      */
     public LoginCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
-            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please login with your username!");
+            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please login with your username!\n"
+                    + "login <username>");
         }
         this.splitL = input.split("login ");
     }

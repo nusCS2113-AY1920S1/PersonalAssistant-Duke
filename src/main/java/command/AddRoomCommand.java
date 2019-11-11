@@ -24,7 +24,7 @@ public class AddRoomCommand extends Command {
     //@@author zkchang97
     /**
      * Creates a new room entry in the list of rooms.
-     * Format is addroom ROOMCODE /date DD/MM/YYYY HHMM /to HHMM
+     * Format is addroom ROOMCODE CAPACITY
      * @param input from user
      * @param splitStr tokenized input
      * @throws DukeException when format is incorrect

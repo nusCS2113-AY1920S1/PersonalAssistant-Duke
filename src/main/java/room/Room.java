@@ -30,7 +30,7 @@ public class Room {
      * @return returns the statement and symbols as shown in room list
      */
     public String toString() {
-        return (this.roomcode + " capacity: " + capacity);
+        return (this.roomcode + " Capacity: " + capacity);
     }
 
     /**
