@@ -105,7 +105,7 @@ saving account to investment account to invest.
  as it  requires an in-depth analysis and understanding of other features.
 
 == Code Contributions
-The lines of codes (LOC) contributed by me for *OwlMoney*: [link:++https://nuscs2113-ay1920s1.github
+* Lines of codes (LOC) contributed by me for *OwlMoney*: [link:++https://nuscs2113-ay1920s1.github
 .io/dashboard/#search=mong&sort=groupTitle&sortWithin=title&since=2019-09-21
 &timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false++[RepoSense]][link:++https
 ://github.com/AY1920S1-CS2113T-W17-3/main/commits?author=mong-nus++[Commits]][link:++https://github
