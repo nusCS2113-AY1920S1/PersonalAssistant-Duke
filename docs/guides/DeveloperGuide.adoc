@@ -448,7 +448,7 @@ Aspect: Handling updating of tags
 
 ===== Current Implementation
 
-* Format: `list [-tag TAG1] [-tag TAG2]…`
+* Format: `list [-tag TAG1] [-tag TAG2]…`
 
 * Note: Gives a list of emails with the tags.
 Minimum number of tags is 1, and the maximum is 2.
@@ -459,7 +459,7 @@ Following is the activity diagram when the command is executed:
 .Activity diagram for email filtering by tags
 image::emailFilterActivityDiagram.jpg[Email Filtering Activity Diagram, 800]
 
-The following sequence diagram below will explain how the `email update` command works in detail:
+The following sequence diagram below will explain how the `email update` command works in detail:
 
 .Sequence diagram for email filtering by tags
 image::emailFilterSequenceDiagram.jpg[Email Filter Sequence Diagram, 800]
@@ -507,36 +507,39 @@ to `EmailFilterByTagCommand` and to the `UI`.
 ===== Design Considerations
 
 * Alternative 1 (current choice): +
-The tags associated with emails is stored in `TagMap`:
+The tags associated with emails is stored in `TagMap`. `TagMap` is updated upon every user input which will
+invokes the `EmailTags#updateTagMap`.
 
 ** TagMap is a `HashMap<String, SubTagMap>`:
 *** Each `key` in the HashMap is a tag name (we call it `root tag name` here) that exists in the email list.
 *** The `value` associated with each `key` is a `SubTagMap`.
 
-** `SubTagMap` is a `HashMap<String, EmailList>`:
+** `SubTagMap` is a `HashMap<String, IndexList>`:
 *** Each `key` in the HashMap is a tag name (we call it `sub tag name` here) that co-exists with the `root tag
 name` from the `TagMap`.
 We say that both tags co-exist if there is email tagged with both tags.
-*** The `value` associated with each `key` is an `EmailList`, which is the list of emails tagged with both
-`root tag name` and `sub tag name`.
+*** The `value` associated with each `key` is an `IndexList`, which is an ArrayList<Integer> that stores the
+index of emails tagged with both `root tag name` and `sub tag name`.
 
 ** For example, let `emailOne` be an email tagged with `Tutorial` and `CS2113T`, `emailTwo` be an email tagged with `Tutorial` and `CG2271`.
-*** After calling `EmailTags#updateEmailTagList`, the TagMap has the following structure: +
+*** `emailOne` has index 1 nad `emailTwo` has index 2 in the email list.
+*** After calling `EmailTags#updateTagMap`, the TagMap has the following structure: +
 { +
-    Tutorial={Tutorial=emailOne emailTwo, CS2113T=emailOne, CG2271=emailTwo}, +
-    CS2113T={CS2113T=emailOne, Tutorial=emailOne}, +
-    CG2271={CG2271=emailTwo, Tutorial= emailTwo} +
+    Tutorial={Tutorial=[1, 2], CS2113T=[1], CG2271=[2]}, +
+    CS2113T={CS2113T=[1], Tutorial=[1]}, +
+    CG2271={CG2271=[2], Tutorial= [2]} +
 }
 
-** Pros: Faster search when user invokes `EmailTagListCommand`, since `EmailTags#displayEmailTagList` is navigating in the HashMap.
-** Cons: Current implementation invokes the `EmailTags#updateEmailTagList` on every user input to keep the tagMap and email list view in GUI updated, which increases the computational load.
+** Pros: Faster search when user invokes `EmailFilterByTagCommand`, since `EmailTags#filterByEmailTag` is navigating in the HashMap.
+** Cons: Current implementation invokes the `EmailTags#updateTagMap` on every user input to keep the tagMap and email list view in GUI updated, which increases the computational load.
 
 * Alternative 2: +
 Loop through each tag of each email in the list of emails, and check if the each tag equals to the tag requested by the user, if yes, add the email to the list, if no, continue with the loop.
 After finishing the loop, output the email(s) in the list.
 
-** Pros: This implementation does not have to maintain a TagMap structure to keep track of the emails with the tags, therefore does not requires update of the TagMap, this saves the space and computational load of the program.
-** Cons: Slower search when user invokes `EmailTagListCommand`, since it has to loop through each tag of each email in the list of emails.
+** Pros: This implementation does not have to maintain a `TagMap` structure to keep track of the emails
+with the tags, therefore does not requires update of the `TagMap`, this saves the space and computational load of the program.
+** Cons: Slower search when user invokes `EmailFilterByTagCommand`, since it has to loop through each tag of each email in the list of emails.
 
 === Logging
 
