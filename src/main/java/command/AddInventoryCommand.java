@@ -38,7 +38,7 @@ public class AddInventoryCommand extends Command {
      */
     public AddInventoryCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (splitStr.length <= 5) { //length of splitStr array
-            throw new DukeException("OOPS!!! Please create your inventory with the following format: name, quantity, room");
+            throw new DukeException("OOPS!!! Please create your inventory with the following format: addinventory <item> /qty <number> /in <room code>");
         }
         if (!input.contains(" /qty ")) {
             throw new DukeException("Please add the quantity of your item after /qty");
