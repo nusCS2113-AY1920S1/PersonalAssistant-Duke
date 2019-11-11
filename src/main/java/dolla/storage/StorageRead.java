@@ -1,6 +1,6 @@
 package dolla.storage;
 
-import dolla.LogsCentre;
+import dolla.LogsCentreUtil;
 import dolla.Time;
 import dolla.parser.MainParser;
 import dolla.model.Debt;
@@ -96,13 +96,13 @@ public class StorageRead extends Storage {
                 addToList(type, newRecord);
             }
             StorageWrite.save();
-            LogsCentre.setLogger.log(Level.INFO,"Save file successfully loaded.");
+            LogsCentreUtil.setLogger.log(Level.INFO,"Save file successfully loaded.");
         } catch (FileNotFoundException e) {
             StorageUi.printCreateFolderMessage();
-            LogsCentre.setLogger.log(Level.SEVERE, "Create a new save file.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Create a new save file.", e);
         } catch (IOException e) {
             StorageUi.printErrorReadingSaveMessage();
-            LogsCentre.setLogger.log(Level.SEVERE, "Error reading dolla.txt.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Error reading dolla.txt.", e);
             MainParser.exit(); // TODO: Find out what is supposed to happen here
         }
     }

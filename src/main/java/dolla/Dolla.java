@@ -28,8 +28,8 @@ public class Dolla  implements ModeStringList, ParserStringList  {
     }
 
     private void run() throws DollaException {
-        LogsCentre.logSetter();
-        LogsCentre.setLogger.info("***********************DOLLA RUNNING***********************");
+        LogsCentreUtil.logSetter();
+        LogsCentreUtil.setLogger.info("***********************DOLLA RUNNING***********************");
         Reminder reminder = new Reminder(MODE_DEBT);
         reminder.showReminder(dollaData);
         Scanner input = new Scanner(System.in); // TODO: Add to Ui or MainParser instead?
@@ -40,7 +40,7 @@ public class Dolla  implements ModeStringList, ParserStringList  {
             Command c = MainParser.handleInput(mode, inputLine);
             c.execute(dollaData);
         }
-        LogsCentre.setLogger.info("************************DOLLA TERMINATED************************");
+        LogsCentreUtil.setLogger.info("************************DOLLA TERMINATED************************");
     }
 
 

@@ -1,6 +1,6 @@
 package dolla.parser;
 
-import dolla.LogsCentre;
+import dolla.LogsCentreUtil;
 import dolla.ModeStringList;
 import dolla.Time;
 import dolla.model.RecordList;
@@ -87,7 +87,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             date = Time.readDate(dateString.trim());
         } catch (DateTimeParseException e) {
             Ui.printDateFormatError();
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid date.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid date.", e);
             throw new DollaException(INVALID_DATE_EXCEPTION);
         }
     }
@@ -119,7 +119,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
         } catch (NumberFormatException e) {
             Ui.printInvalidNumberError(str);
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid amount", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid amount", e);
             throw new NumberFormatException(INVALID_AMOUNT_EXCEPTION);
         }
         return newDouble;
@@ -145,7 +145,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return s;
         } else {
             EntryUi.printInvalidEntryType();
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid entry type.");
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid entry type.");
             throw new DollaException(DollaException.invalidType());
         }
     }
@@ -162,10 +162,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             extractDescTime();
         } catch (IndexOutOfBoundsException e) {
             EntryUi.printInvalidEntryFormatError();
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid entry format.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid entry format.", e);
             return false;
         } catch (Exception e) {
-            LogsCentre.setLogger.log(Level.SEVERE, "Error occurs.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Error occurs.", e);
             return false; // If error occurs, stop the method!
         }
         return true;
@@ -184,7 +184,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 DebtUi.printInvalidNameMessage();
                 return false;
             } catch (Exception ignored) {
-                LogsCentre.setLogger.log(Level.SEVERE, "Error occurs");
+                LogsCentreUtil.setLogger.log(Level.SEVERE, "Error occurs");
                 //do nothing
             }
             amount = stringToDouble(inputArray[2]);
@@ -194,7 +194,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return checkDate(dateString[1]);
         } catch (Exception e) {
             DebtUi.printInvalidDebtFormatError();
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid debt format", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid debt format", e);
             return false;
         }
     }
@@ -210,7 +210,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             date = Time.readDate(dateString);
         } catch (DateTimeParseException e) {
             Ui.printDateFormatError();
-            LogsCentre.setLogger.log(Level.SEVERE, "Date format error", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Date format error", e);
             return false;
         }
         return true;
@@ -284,7 +284,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 return false;
             }
         } catch (NumberFormatException e) {
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid remove message.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid remove message.", e);
             RemoveUi.printInvalidRemoveMessage();
             return false;
         }
@@ -303,7 +303,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 return false;
             }
         } catch (NumberFormatException e) {
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid number.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid number.", e);
             return false;
         }
         return true;
@@ -347,7 +347,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                         return true;
                     }
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                    LogsCentre.setLogger.log(Level.SEVERE, "Invalid number.", e);
+                    LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid number.", e);
                     return false;
                 }
             } else {
@@ -373,7 +373,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
         } catch (NumberFormatException e) {
             ShortcutUi.printInvalidShortcutMessage();
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid shortcut", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid shortcut", e);
             return false;
         }
         return true;
@@ -392,7 +392,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             Integer.parseInt(inputArray[1]);
         } catch (Exception e) {
             ModifyUi.printInvalidFullModifyFormatError();
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid full modify format.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid full modify format.", e);
             return false;
         }
         return true;
@@ -417,7 +417,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             modifyRecordNum = Integer.parseInt(inputArray[1]);
         } catch (Exception e) {
             ModifyUi.printInvalidPartialModifyFormatError();
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid partial modify format", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid partial modify format", e);
             return false;
         }
 
@@ -464,14 +464,14 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ModifyUi.printMissingComponentInfoError(currStr);
-                    LogsCentre.setLogger.log(Level.SEVERE, "Missing component information error", e);
+                    LogsCentreUtil.setLogger.log(Level.SEVERE, "Missing component information error", e);
                     return false;
                 } catch (DateTimeParseException e) {
-                    LogsCentre.setLogger.log(Level.SEVERE, "Date format error", e);
+                    LogsCentreUtil.setLogger.log(Level.SEVERE, "Date format error", e);
                     Ui.printDateFormatError();
                     return false;
                 } catch (Exception e) {
-                    LogsCentre.setLogger.log(Level.SEVERE, "Error occurs", e);
+                    LogsCentreUtil.setLogger.log(Level.SEVERE, "Error occurs", e);
                     return false;
                 }
 
@@ -663,7 +663,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 return true;
             }
         } catch (Exception e) {
-            LogsCentre.setLogger.log(Level.SEVERE, "Error occurs.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Error occurs.", e);
             return false;
         }
     }
@@ -701,7 +701,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             SearchUi.printInvalidSearchFormat();
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid search format.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid search format.", e);
             return false;
         }
     }
@@ -719,7 +719,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 return false;
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid search format.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid search format.", e);
             SearchUi.printInvalidSearchFormat();
             return false;
         }
@@ -739,7 +739,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             SearchUi.printInvalidSearchFormat();
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid search format.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid search format.", e);
             return false;
         }
     }
@@ -758,7 +758,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             SearchUi.printInvalidSearchFormat();
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid search format.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid search format.", e);
             return false;
         }
     }
@@ -800,7 +800,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             stringToDouble(inputArray[2]);
         } catch (Exception e) {
             DebtUi.printInvalidBillFormatError();
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid bill format.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid bill format.", e);
             return false;
         }
         return true;
@@ -830,10 +830,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
         } catch (IndexOutOfBoundsException e) {
             DebtUi.printWrongPeopleNumberMessage(Integer.parseInt(inputArray[1]));
-            LogsCentre.setLogger.log(Level.SEVERE, "Wrong people number.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Wrong people number.", e);
             return false;
         } catch (Exception e) {
-            LogsCentre.setLogger.log(Level.SEVERE, "Error occurs.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Error occurs.", e);
             return false;
         }
         return true;
@@ -846,7 +846,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             amount = stringToDouble(inputArray[2]);
             duration = verifyLimitDuration(inputArray[3]);
         } catch (Exception e) {
-            LogsCentre.setLogger.log(Level.SEVERE, "Error occurs", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Error occurs", e);
             return false;
         }
         return true;

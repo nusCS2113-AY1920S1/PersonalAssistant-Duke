@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 
-public class LogsCentre {
+public class LogsCentreUtil {
 
     public static final Logger setLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -19,13 +19,9 @@ public class LogsCentre {
     public static void logSetter() {
         LogManager.getLogManager().reset();
         setLogger.setLevel(Level.ALL);
-        //        ConsoleHandler ch = new ConsoleHandler();
-        //        ch.setLevel(Level.FINEST);
-        //        setLogger.addHandler(ch);
-
         try {
             FileHandler fh = new FileHandler("./data/dollaLogger.log",true);
-            fh.setLevel(Level.FINE);
+            fh.setLevel(Level.INFO);
             fh.setFormatter(new SimpleFormatter());
             setLogger.addHandler(fh);
         } catch (IOException e) {

@@ -1,12 +1,11 @@
 package dolla.storage;
 
-import dolla.LogsCentre;
+import dolla.LogsCentreUtil;
 import dolla.model.Record;
 import dolla.ui.Ui;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -30,7 +29,7 @@ public class Storage implements StorageStringList {
             newDouble = Double.parseDouble(str);
         } catch (NumberFormatException e) {
             Ui.printInvalidNumberError(str);
-            LogsCentre.setLogger.log(Level.SEVERE, "Invalid number.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Invalid number.", e);
         }
         return newDouble;
     }
@@ -86,7 +85,7 @@ public class Storage implements StorageStringList {
             file.close();
         } catch (IOException e) {
             e.printStackTrace();
-            LogsCentre.setLogger.log(Level.SEVERE, "Clear storage fail.", e);
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Clear storage fail.", e);
         }
     }
 }
