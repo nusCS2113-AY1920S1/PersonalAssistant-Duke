@@ -17,30 +17,30 @@ import java.util.HashMap;
 //@@author koushireo
 
 /**
- * CGraphCommand is a public class that inherits from abstract class Command.
+ * GraphCommand is a public class that inherits from abstract class Command.
  * It calculates the data desired by user and visualised it on Command Line.
  */
 
-public class CGraphCommand extends Command {
+public class GraphCommand extends Command {
     private int month;
     private int year;
     private String type;
     private GraphUi graphUi = new GraphUi();
 
     /**
-     * Constructor for CGraphCommand.
+     * Constructor for GraphCommand.
      * @param month month of the graph desired
      * @param year year of the graph desired
      * @param type type of the data to be graphed
      */
 
-    public CGraphCommand(int month, int year, String type) {
+    public GraphCommand(int month, int year, String type) {
         this.month = month;
         this.year = year;
         this.type = type;
     }
 
-    public CGraphCommand(boolean flag, String message) {
+    public GraphCommand(boolean flag, String message) {
         this.isFail = true;
         this.errorStr = message;
     }
@@ -120,13 +120,21 @@ public class CGraphCommand extends Command {
         int pos;
         for (int i = 0; i < intHolder.size(); i += 1) {
             pos = (int)(((float)intHolder.get(i) / (float)highest) * 20);
-            graph[20 - pos][i * 2] = "*";
+            if (pos != 0) {
+                graph[20 - pos][i * 2] = "*";
+            } else {
+                graph[20 - pos][i * 2] = " ";
+            }
         }
 
         for (int i = 0; i < intHolder.size() - 1; i += 1) {
             pos = (int)(((float)((intHolder.get(i)
                     + intHolder.get(i + 1)) / 2) / (float)highest) * 20);
-            graph[20 - pos][i * 2 + 1] = "*";
+            if (pos != 0) {
+                graph[20 - pos][i * 2 + 1] = "*";
+            } else {
+                graph[20 - pos][i * 2 + 1] = " ";
+            }
         }
 
         graphUi.show(graph, month, type);
