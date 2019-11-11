@@ -95,11 +95,13 @@ public class ConsoleInputController implements IController {
      */
     private String[] commandCreate(String input) {
         ArchDukeLogger.logDebug(ConsoleInputController.class.getName(), "[commandCreate] User input: '" + input + "'");
+        int initialSize = projectRepository.getAll().size();
         boolean isProjectCreated = projectRepository.addToRepo(input);
         if (!isProjectCreated) {
             return new String[] {"Creation of Project failed. Please ensure that Project name doesn't have any "
                     + "special character or isn't empty."};
         } else {
+            assert(projectRepository.getAll().size() - initialSize == 1);
             return new String[] {"Project created!"};
         }
     }

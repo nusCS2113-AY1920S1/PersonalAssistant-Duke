@@ -854,7 +854,7 @@ e.g. `java.helpertests.AssignmentViewHelperTest`
 Gradle is an open-source build automation tool that automates build-related tasks by running scripts.
 It is mainly used for the following tasks:
 
-* Running tests
+* Automating tests
 * Performing checks on code style
 * Managing dependencies on external libraries
 
@@ -901,11 +901,26 @@ suit the purposes of the project.
 
 
 === 6.2 Continuous Integration.
-We use Travis CI to perform continuous integration for ArchDuke.
+We use Travis CI to perform Continuous Integration (CI) for ArchDuke. Other CI tools can be used so long
+as an appriopriate `.yml` file is provided and the relevant toolchain is set up properly. Some examples are
 
-=== 6.3 Documentation Previews
+* GitLab CI
+* AppVeyor
+* Github Actions
 
-=== 6.4 Making a Release
+Travis CI can be configured to run JUnit tests automatically with the help of Gradle. This ensures
+that existing features and functionality are working as intended and are not broken by new code.
+
+For ArchDuke, TravisCI is configured to run the following things every time code is pushed or a pull request is submitted:
+
+* Runs `./gradlew clean checkstyleMain checkstyleTest test` command
+** This is to run all unit and code style tests and ensures all tests passes.
+* Upon success, it will run `./gradlew jacocoTestReport coveralls`
+** This utilizes JaCoCo to generate test coverage and send it to Coveralls
+
+Further customization   can be done by referring to Travis documentation online.
+
+=== 6.3 Making a Release
 Here are the steps to create a new release.
 
 1. Update the archiveVersion number in `build.gradle` shadowJar section.
