@@ -27,8 +27,10 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+//@@author AmosChan97
 public class ParserTest {
     private String input;
     private Command testCommand;
@@ -264,5 +266,18 @@ public class ParserTest {
             fail("Exception should not be thrown");
         }
         assertEquals(testCommand.getClass(), RemoveUserCommand.class);
+    }
+
+    @Test
+    void testNoCommand() {
+        input = "blah";
+        Exception exception = null;
+        try {
+            testCommand = Parser.parse(input);
+        } catch (IOException | DukeException e) {
+            exception = e;
+        }
+        assertTrue(exception instanceof DukeException);
+        assertEquals(":-( OOPS!!! I'm sorry, but I don't know what that means :-(", exception.getMessage());
     }
 }
