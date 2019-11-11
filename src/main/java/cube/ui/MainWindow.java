@@ -203,10 +203,10 @@ public class MainWindow extends UiManager<Stage> {
 
     private void executeEdit(int index) {
         Food food = storageManager.getFoodList().get(index - 1);
-        String command = "update %1$s -t %2$s -p %3$s -s %4$s -e %5$s";
+        String command = "update %1$s -t %2$s -p %3$s -c %4$s -s %5$s -e %6$s";
 
         commandBox.setCommandText(String.format(command, food.getName(), food.getType(),
-                food.getPrice(), food.getStock(),
+                food.getPrice(), food.getCost(), food.getStock(),
                 ParserUtil.parseDateToString(food.getExpiryDate())));
     }
 
