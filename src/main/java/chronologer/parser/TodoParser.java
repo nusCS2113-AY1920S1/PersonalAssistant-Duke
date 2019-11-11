@@ -4,10 +4,11 @@ import chronologer.command.AddCommand;
 import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
 
+//@@author fauzt
 /**
  * Extract the components required to add a todo task.
  *
- * @author Fauzan
+ * @author Fauzan Adipratama
  * @version v1.0
  */
 public class TodoParser extends DescriptionParser {

@@ -7,7 +7,7 @@ import chronologer.ui.UiMessageHandler;
 /**
  * Backbone of all parsers that process input based on list index.
  *
- * @author Fauzan
+ * @author Fauzan Adipratama
  * @version v1.0
  */
 public abstract class IndexParser extends Parser {
