@@ -31,7 +31,7 @@ public class ReminderCommand extends Command {
         this.stockIndex = stockIndex;
     }
 
-    public static String MESSAGE_SUCCESS = "";
+    public String messageSuccess = "";
 
     /**
      * Creates the list of reminders based on items nearing its expiry date.
@@ -39,13 +39,13 @@ public class ReminderCommand extends Command {
      */
 
     private void buildExpiryReminder(FoodList list) {
-        MESSAGE_SUCCESS += "Here are the upcoming expiry dates:\n";
+        messageSuccess += "Here are the upcoming expiry dates:\n";
         for (int i = 0; i < list.size(); i++) {
             Food food = list.get(i);
-            MESSAGE_SUCCESS += String.format("%1$s due in %2$s\n",
+            messageSuccess += String.format("%1$s due in %2$s\n",
                     food.getName(), ParserUtil.parseDateToString(food.getExpiryDate()));
         }
-        MESSAGE_SUCCESS += "\n";
+        messageSuccess += "\n";
     }
 
     /**
@@ -54,10 +54,10 @@ public class ReminderCommand extends Command {
      */
 
     private void buildStockReminder(FoodList list) {
-        MESSAGE_SUCCESS += "Here are the food products that are low in stock:\n";
+        messageSuccess += "Here are the food products that are low in stock:\n";
         for (int i = 0; i < list.size(); i++) {
             Food food = list.get(i);
-            MESSAGE_SUCCESS += String.format("%1$s : %2$s left\n", food.getName(), food.getStock());
+            messageSuccess += String.format("%1$s : %2$s left\n", food.getName(), food.getStock());
         }
     }
 
@@ -96,6 +96,6 @@ public class ReminderCommand extends Command {
         buildExpiryReminder(expiryReminder);
         buildStockReminder(stockReminder);
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(messageSuccess);
     }
 }
