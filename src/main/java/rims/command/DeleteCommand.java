@@ -81,7 +81,7 @@ public class DeleteCommand extends Command {
             //@@author rabhijit
             ui.printDash();
             String idInput = ui.getInput(
-                    "Type in the resource ID(s) (separated by a space for multiple IDs)"
+                    "Type in the resource ID(s) (separated by a space for multiple IDs) "
                     + "that you wish to delete:").trim();
             if (idInput.isEmpty()) {
                 throw new RimsException("Please specify the ID(s) of the resources you wish to delete!");
