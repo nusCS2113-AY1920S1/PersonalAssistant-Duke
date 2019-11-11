@@ -19,7 +19,7 @@ public class LegacyExceptionTest {
     private ModEmptyListException modEmptyListException = new ModEmptyListException();
     private ModInvalidIndexException modInvalidIndexException = new ModInvalidIndexException();
     private ModInvalidTimeException modInvalidTimeException = new ModInvalidTimeException();
-    private ModInvalidTimePeriodException modInvalidTimePeriodException = new ModInvalidTimePeriodException(test);
+    private ModInvalidTimePeriodException modInvalidTimePeriodException = new ModInvalidTimePeriodException();
     private ModMissingArgumentException modMissingArgumentException = new ModMissingArgumentException(test);
     private ModNoTimeException modNoTimeException = new ModNoTimeException();
     private ModOutOfBoundException modOutOfBoundException = new ModOutOfBoundException();
