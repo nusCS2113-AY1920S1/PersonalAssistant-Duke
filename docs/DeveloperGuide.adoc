@@ -274,7 +274,7 @@ would need to return a new object containing the relevant data.|
 ==== Activity diagram
 The following is the activity diagram for adding recurring events.
 
-image::recurringEventActivityDiagram.png[with="800"]
+image::recurringEventActivityDiagram.png[with="800", align = center]
 
 ==== How it is implemented
 The program is able to detect recurring events and their periods when creating new events.
@@ -316,7 +316,7 @@ happens.
 ==== Sequence diagram
 The following sequence diagram shows how the adding recurring event operation works.
 
-image::recurringEventSequenceDiagram.png[width="800"]
+image::recurringEventSequenceDiagram.png[width="800", align = center]
 
 ==== Design considerations
 Aspect: How to avoid adding infinite events +
