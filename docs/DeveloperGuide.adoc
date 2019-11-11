@@ -730,7 +730,7 @@ Different ways were considered to display the employment statistics:
 == Testing
 
 
-=== *Notes for testing* +
+=== Notes for testing +
 
 * If you receive the jar file in the format [CS2113T-F10-2][DEGREES.NUS].jar and the jar is unable to run, remove the square brackets.
 * This jar release will automatically populate with save data if the "data" folder is missing. It comes with a few degrees and tasks already loaded into its internal saves. It will generate external save files on its own as long as you follow these instructions for installing carefully:
