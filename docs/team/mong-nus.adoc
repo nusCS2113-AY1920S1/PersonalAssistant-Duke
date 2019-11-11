@@ -152,7 +152,8 @@ link:++https://github.com/AY1920S1-CS2113T-W17-3/main/issues/100++[#100]
 * Contributed and wrote the initial set up for
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#user-stories++[User Stories]
 and
-link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#use-cases++[Use Cases].
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#use-cases++[Use Cases] in
+Developer Guide (DG).
 
 * Contributed and wrote the sections for all part of
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#design++[Design],
@@ -164,7 +165,7 @@ link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/Developer
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#use-cases++[Use Cases], and
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#instructions-
 for-manual-testing++[Instructions for
-Manual Testing] in Developer Guide (DG) while collaborating with everyone (
+Manual Testing] in Developer Guide while collaborating with everyone (
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/terencetanwt.adoc[Tan Wee Theng Terence],
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai], and
