@@ -1,0 +1,25 @@
+
+
+Nov 11, 2019 9:22:05 PM dolla.Dolla main
+INFO: Running dolla..........
+Nov 11, 2019 9:22:05 PM dolla.storage.StorageRead load
+INFO: Save file successfully loaded
+Nov 11, 2019 9:22:23 PM dolla.parser.Parser verifyAddCommand
+SEVERE: Invalid entry format.
+java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+	at dolla.parser.Parser.verifyAddCommand(Parser.java:160)
+	at dolla.parser.EntryParser.parseInput(EntryParser.java:30)
+	at dolla.parser.MainParser.handleInput(MainParser.java:50)
+	at dolla.Dolla.run(Dolla.java:45)
+	at dolla.Dolla.main(Dolla.java:54)
+
+Nov 11, 2019 9:24:14 PM dolla.Dolla main
+INFO: ***********************DOLLA RUNNING***********************
+Nov 11, 2019 9:24:14 PM dolla.storage.StorageRead load
+INFO: Save file successfully loaded.
+Nov 11, 2019 9:24:22 PM dolla.Dolla run
+INFO: ***********************DOLLA TERMINATED***********************
+Nov 11, 2019 9:29:05 PM dolla.Dolla main
+INFO: ***********************DOLLA RUNNING***********************
+Nov 11, 2019 9:29:05 PM dolla.storage.StorageRead load
+INFO: Save file successfully loaded.

@@ -1,11 +1,13 @@
 package dolla.storage;
 
+import dolla.LogsCentreUtil;
 import dolla.model.Record;
 import dolla.ui.StorageUi;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 //@@author yetong1895
 public class StorageWrite extends Storage {
@@ -75,6 +77,7 @@ public class StorageWrite extends Storage {
 
         } catch (IOException e) {
             StorageUi.printErrorWritingSaveMessage();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Error writing to Dolla.", e);
         }
     }
 }

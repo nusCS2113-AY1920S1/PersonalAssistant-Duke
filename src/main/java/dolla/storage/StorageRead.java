@@ -1,5 +1,6 @@
 package dolla.storage;
 
+import dolla.LogsCentreUtil;
 import dolla.Time;
 import dolla.parser.MainParser;
 import dolla.model.Debt;
@@ -20,6 +21,7 @@ import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 //@@author yetong1895
 public class StorageRead extends Storage {
@@ -94,11 +96,13 @@ public class StorageRead extends Storage {
                 addToList(type, newRecord);
             }
             StorageWrite.save();
-
+            LogsCentreUtil.setLogger.log(Level.INFO,"Save file successfully loaded.");
         } catch (FileNotFoundException e) {
             StorageUi.printCreateFolderMessage();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Create a new save file.", e);
         } catch (IOException e) {
             StorageUi.printErrorReadingSaveMessage();
+            LogsCentreUtil.setLogger.log(Level.SEVERE, "Error reading dolla.txt.", e);
             MainParser.exit(); // TODO: Find out what is supposed to happen here
         }
     }
