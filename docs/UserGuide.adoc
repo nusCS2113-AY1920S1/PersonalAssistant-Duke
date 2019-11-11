@@ -484,25 +484,29 @@ A: The application must be installed in the other computer by downloading the sa
 **** Example: `delete task 3`
 ... View tasks: `view tasks MODIFIER`
 **** Example: `view tasks -state done`
-**** Example: `view task -name`
-**** Example: `view task -priority`
-**** Example: `view task -credit`
-**** Example: `view task -date`
-**** Example: `view task -who EXISTING_MEMBER_NAME`
+**** Example: `view tasks -name`
+**** Example: `view tasks -priority`
+**** Example: `view tasks -credits`
+**** Example: `view tasks -date`
+**** Example: `view tasks -who EXISTING_MEMBER_NAME`
 ... View task requirements: `view task requirements TASK_INDEX`
-**** Example: `view task requirements 2`
+**** Example: `view task requirements 1`
 ... Edit task requirements: `edit task requirements TASK_INDEX [-r TASK_REQUIREMENT_TO_ADD] [-rm TASK_REQUIREMENT_INDEX_TO_REMOVE]`
-**** Example: `edit task requirements 2 -r do something -r do another thing`
-**** Example: `edit task requirements 2 -rm 1 2 4 -r do something`
+**** Example: `edit task requirements 1 -r Testing -r Documentation`
+**** Example: `edit task requirements 1 -rm 1 2 3 -r Submit`
 ... Agenda of Tasks: `agenda`
 
 . *Assignment Commands*
 ... Assign/Unassign members to tasks: `assign task -i TASK_INDEX1 [TASK_INDEX2] [-to MEMBER1_INDEX [MEMBER2_INDEX]] [-rm MEMBER3_INDEX [MEMBER4_INDEX]]`
-**** Example: `assign task -i 1 -to 2 5 `
-**** Example: `assign task -i 1 2 -to 5 -rm 1`
+**** Example: `assign task -i 1 2 -to 1 2`
+**** Example: `assign task -i 2 4 -to 3 4 5`
+**** Example: `assign task -i 1 -to 5 -rm 2`
+**** Example: `assign task -i 3 -to all`
 ... View assignments: `view assignments MODIFIER`
-**** Example: `view assignments -m all` (show all members tasks)
-**** Example: `view assignments -t 3 4 5` (show members assigned to tasks 3, 4, 5)
+**** Example: `view assignments -m all` (show all members' tasks)
+**** Example: `view assignments -m 1 2` (show tasks of member 1 and 2)
+**** Example: `view assignments -t all` (show all the members assigned to a task)
+**** Example: `view assignments -t 3 4` (show members assigned to tasks 3, 4, 5)
 ... View total credits completed by each member: `view credits`
 
 . *Requirement Commands*
