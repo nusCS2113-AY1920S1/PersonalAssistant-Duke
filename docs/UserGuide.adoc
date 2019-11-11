@@ -155,7 +155,7 @@ Deletes the specified task from the schedule list. +
 Edits the details of the tasks. +
 `edit task {name/time/des} TASK_INDEX /to [change content]` +
 e.g `edit task des 1 /to This is a very tough task` +
-e.g `edit task tim 1 /to 11/11/2019 1111`
+e.g `edit task time 1 /to 11/11/2019 1111`
 e.g `edit task name 1 /to Create swim meet poster` +
 e.g `edit task time 1 /to 12/12/2019 1010`
 
