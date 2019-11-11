@@ -10,6 +10,7 @@ import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.List;
@@ -22,22 +23,18 @@ import java.util.logging.Logger;
 public class ExportCommand extends Command {
     private LocalDate start;
     private LocalDate end;
-    private PrintStream file;
-    private String filepath;
     private boolean isWeek;
+    private static String FILE = "duchess.txt";
+    private static String ERROR = "Unable to export out calendar.";
     private final Logger logger = Log.getLogger();
 
     /**
      * Initialises start and end dates, file and filepath of export.
      *
-     * @param input    date
-     * @param file     file to save the text file in
-     * @param filepath filepath name
-     * @param isWeek   true for week, false for day
+     * @param input  date
+     * @param isWeek true for week, false for day
      */
-    public ExportCommand(LocalDate input, PrintStream file, String filepath, boolean isWeek) {
-        this.file = file;
-        this.filepath = filepath;
+    public ExportCommand(LocalDate input, boolean isWeek) {
         this.isWeek = isWeek;
         if (isWeek) {
             List<LocalDate> dateRange = Util.parseToWeekDates(input);
@@ -63,11 +60,16 @@ public class ExportCommand extends Command {
             display = ui.stringCalendar(ce, context);
             logger.log(Level.INFO, "Export day in calendar on " + start.toString());
         }
-        for (String s : display) {
-            file.println(s);
+        try {
+            PrintStream file = new PrintStream(FILE);
+            for (String s : display) {
+                file.println(s);
+            }
+            file.flush();
+            file.close();
+        } catch (FileNotFoundException e) {
+            throw new DuchessException(ERROR);
         }
-        file.flush();
-        file.close();
-        ui.showFinishedExport(filepath);
+        ui.showFinishedExport();
     }
 }

@@ -219,10 +219,9 @@ public class Ui {
     /**
      * Inform user calendar has been saved as test file.
      *
-     * @param filePath filePath
      */
-    public void showFinishedExport(String filePath) {
-        printIndented("Your calendar has finished exporting to " + filePath);
+    public void showFinishedExport() {
+        printIndented("Your calendar has finished exporting as duchess.txt");
     }
 
     /**
@@ -516,19 +515,19 @@ public class Ui {
     }
 
     /**
-     * Shows no deadlines present.
+     * Shows no reminders to user.
      */
-    public void showNoDeadlines() {
-        printIndented("You have no pending deadlines.");
+    public void showNoReminders() {
+        printIndented("There's nothing to remind you of.");
     }
 
     /**
-     * Displays the list of deadlines present in user list.
+     * Displays reminders to user.
      *
      * @param tasks List of all tasks
      */
-    public void showDeadlines(List<Task> tasks) {
-        printIndented("You currently have these deadlines:");
+    public void showReminders(List<Task> tasks) {
+        printIndented("Some things to remind you of:");
         showTasks(tasks);
     }
 

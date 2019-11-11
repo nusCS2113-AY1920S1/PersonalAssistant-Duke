@@ -3,6 +3,7 @@ package duchess.parser.commands;
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.Command;
 import duchess.logic.commands.DisplayCalendarCommand;
+import duchess.logic.commands.ExportCommand;
 import duchess.model.calendar.CalendarUtil;
 import duchess.parser.Parser;
 import duchess.parser.Util;
@@ -43,7 +44,7 @@ public class CalendarCommandParser {
             if (type.equals(Parser.DISPLAY_KEYWORD)) {
                 return new DisplayCalendarCommand(input, isWeek);
             } else {
-                return ExportCommandParser.parse(input, isWeek);
+                return new ExportCommand(input, isWeek);
             }
         } catch (IndexOutOfBoundsException | IllegalArgumentException | NullPointerException e) {
             throw new DuchessException(Parser.CALENDAR_USAGE);

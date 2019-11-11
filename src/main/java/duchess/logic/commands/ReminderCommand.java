@@ -49,9 +49,9 @@ public class ReminderCommand extends Command {
      */
     private void display(List<Task> reminderList, Ui ui) {
         if (reminderList.size() == 0) {
-            ui.showNoDeadlines();
+            ui.showNoReminders();
         } else {
-            ui.showDeadlines(reminderList);
+            ui.showReminders(reminderList);
         }
     }
 }
