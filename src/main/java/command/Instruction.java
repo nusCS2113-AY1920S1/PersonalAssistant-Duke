@@ -31,7 +31,7 @@ public class Instruction {
     }
 
     public boolean isFind(String input) {
-        return input.startsWith("find");
+        return input.startsWith("find payee");
     }
 
     public boolean isFindTask(String input) {
@@ -139,7 +139,7 @@ public class Instruction {
     }
 
     public boolean isResetFund(String input) {
-        return input.startsWith("reset fund");
+        return input.startsWith("change fund");
     }
 
     public boolean isShowBudget(String input) {
@@ -148,10 +148,6 @@ public class Instruction {
 
     public boolean isViewhistory(String input) {
         return input.startsWith("view history");
-    }
-
-    public boolean isDeletehistory(String input) {
-        return input.startsWith("delete history");
     }
 
     public boolean isUndo(String input) {

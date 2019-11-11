@@ -243,6 +243,9 @@ public class Ui {
      * @param paymentList paymentList of the payee.
      */
     public void printPaymentList(String name, ArrayList<Payments> paymentList) {
+        if (paymentList.isEmpty()) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
         System.out.print(line);
         System.out.println("Here are your payments in" + name + ":");
         int i = 0;
@@ -474,11 +477,13 @@ public class Ui {
      * Prints message to indicate a Payment being added to a certain Payee.
      * 
      * @param payee Payee containing identification information of Payee.
-     * @param name  the name of Payee to make Payments to.
+     * @param payeesize the number of payees in project
      */
-    public void printAddPayeeMessage(String name, Payee payee, int payeesize, String currentprojectname) {
+    public void printAddPayeeMessage(Payee payee, int payeesize) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payee:");
+        payee.printPayee();
+        System.out.println("\tProject " + payee.project + " now has " + payeesize + " payee(s).");
     }
 
     /**
@@ -531,7 +536,7 @@ public class Ui {
         Suggest suggest = new Suggest();
         String suggestion = suggest.guess(dict, word);
         String replacement = input.replaceFirst(word, suggestion);
-        exceptionMessage("Maybe you meant: " + replacement);
+        exceptionMessage("\tMaybe you meant: " + replacement);
     }
 
 
@@ -600,7 +605,7 @@ public class Ui {
      */
     public void printResetFundMessage(Fund fund, double amount) {
         System.out.print(line);
-        System.out.println("\t" + "Got it. I've reset the new fund as " + amount
+        System.out.println("\t" + "Got it. I've changed the new fund as " + amount
                 + " dollars. The new fund is as follow:");
         System.out.print(fund.giveFund());
         System.out.print(line);
@@ -690,7 +695,7 @@ public class Ui {
         System.out.println("\tSet Fund:            " + commandFormat.setFundFormat());
         System.out.println("\tAdd Fund:            " + commandFormat.addFundFormat());
         System.out.println("\tAssign Fund:         " + commandFormat.assignFundFormat());
-        System.out.println("\tReset Fund:          " + commandFormat.resetFundFormat());
+        System.out.println("\tChange Fund:         " + commandFormat.resetFundFormat());
         System.out.println("\tShow Fund:           " + commandFormat.showFundFormat());
         System.out.println("Payment and Payee:");
         System.out.println("\tAdd Payee:           " + commandFormat.addPayeeFormat());
@@ -716,8 +721,9 @@ public class Ui {
         System.out.println("\tView Schedule:       " + commandFormat.viewScheduleFormat());
         System.out.println("History:");
         System.out.println("\tHistory of Commands: " + commandFormat.historyFormat());
-        System.out.println("\tView History within a certain period:         " + commandFormat.viewhistoryFormat());
+        System.out.println("\tView History within a certain period: " + commandFormat.viewhistoryFormat());
         System.out.println("\tExit:                " + commandFormat.exitFormat());
+
         System.out.print(line);
     }
 

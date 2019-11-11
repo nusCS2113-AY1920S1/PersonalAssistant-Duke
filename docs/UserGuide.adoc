@@ -23,6 +23,7 @@ keep track of their statuses. Having to manage and allocate club funds to multip
 may find it a chore to keep up to date with their finances.
 
 *AlphaNUS* is a financial management assistant for treasurers to keep track of payment forms made by payees as well as manage the club's funds for projects.
+Apart from these features, AlphaNUS also act as a personal assistant to help the treasurers to manage their personal tasks.
 
 == Quick Start
 .  Ensure you have Java `11` or above installed in your Computer.
