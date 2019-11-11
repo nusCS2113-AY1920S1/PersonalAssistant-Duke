@@ -79,7 +79,7 @@ public class ListTest {
     }
 
     @Test
-    public void testListMonthError() throws DukeException {
+    public void TestListMonthError () throws DukeException {
         String user = "Bob";
         String room = "room4";
         String description = "study";
@@ -94,12 +94,12 @@ public class ListTest {
         Booking newBooking1 = new Booking(user1, room1, description1, dateTimeStart1, timeEnd1);
         String input = "listmonth #";
         String[] splitStr = input.split(" ");
-        assertThrows(NumberFormatException.class, () -> {
+        assertThrows(DukeException.class, () -> {
             new ListBookingMonthCommand(input, splitStr);
         });
-        assertEquals(":-( OOPS!!! Please create your booking with the "
-                        + "following format: month value",
-                BookingConstants.MONTHERROR);
+        assertEquals( ":-( OOPS!!! Please create your booking with the "
+                        + "following format: month value"
+                , BookingConstants.MONTHERROR);
     }
 
     @Test
