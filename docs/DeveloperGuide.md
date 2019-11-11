@@ -126,40 +126,41 @@ The `Ui` class consists of methods that outputs messages to the user as a respon
 
 #### 2.3 Command Component
 
-API: `Command*.java`
+![Command]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/Command.png )
 
-In the project, it has three types of commands: Ingredient Command, Dishes Command, Order Command. The three types of commands are packaged separately.
+Figure. Structure of the Command Component
 
-The Command class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method. that is used by the following classes 
+API: `Command.java`
 
-- DishCommand
+`Duke` uses the `Parser` class to parse the user input and retrieves the useful information contained in the user input, and call a specific `Command` to be executed. The command execution may affect the content of `OrderList`, `Fridge`, `DishList` or `TodayTodoList`,  and their correspinding storages. The command execution may also show the user the respond to the query, or exit the program.
+
+In `Command` Component, there are three types of commands: `Ingredient Command`, `Dishes Command`, `Order Command`, which are packaged separately, as commands in the same package may share same list of things and storage. The three packages and the classes in them are listed as below:
+
+- dishesCommand
   - AddDishCommand
   - DeleteDishCommand
   - ListDishCommand
-  - FindDishCommand
-  - ChangeDishCommand
-  - ResetCommand
+  - InitCommand
   - AddIngredient
-- OrderCommand
+- orderCommand
   - AddOrderCommand
-  - AlterOrderCommand
-  - DeleteOrderCommand
+  - AlterDateCommand
+  - CancelOrderCommand
   - DoneOrderCommand
-  - ListOrderCommand
   - InitOrderListCommand
-- IngredientCommand
+  - ListOrderCommand
+- ingredientCommand
   - AddCommand
   - DeleteCommand
+  - ExitCommand
   - FindIngredientCommand
   - FindToday
   - ListCommand
   - RemoveAllExpired
   - UseCommand
   - ViewCommand
-- ViewTodoListCommand
-- ExitCommand
 
-each of the above class has its own implementation of the `execute` method
+The `Command` class is used as an abstract class for other command classes, its method `execute` is also declared as an abstract method, as shown in the figure above. Any other command classes all inherit from `Command` class and override the implementation of the `execute` method. 
 
 #### 2.4 Parser Component
 
