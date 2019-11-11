@@ -591,6 +591,19 @@ image::ModBadSuException.png[width="450"]
 > * Only modules with the "SU: true" indicates that the module is S/U'able and an S or U grade can be input.
 > ****
 
+== Coming in ModPlan v2.0
+
+=== Password management
+
+==== Add or update an existing password: `passwd`
+Add or update an existing password. +
+If a password has been previously set (updating password mode), a prompt will show up asking for old password before a new one can setup. In that case, kindly enter your current password as prompted to setup a new one. +
+Format: +
+`passwd myPassword`
+
+=== GUI
+ModPlan v2.0 will support GUI (Graphical User Interface). We have not decided whether the CLI (Command Line Interface) will be fully replaced by GUI or will be an additional feature. However, the new GUI will hopefully improve ModPlan's user-friendliness and user's productivity.
+
 == Expected Anomalous Behavior
 
 ****
