@@ -1,6 +1,5 @@
-# Table of Contents
+# BakingHome - User Guide
 
-- [Table of Contents](#table-of-contents)
 - [BakingHome - User Guide](#bakinghome---user-guide)
   - [1. Introduction](#1-introduction)
   - [2. Using the Guide](#2-using-the-guide)
