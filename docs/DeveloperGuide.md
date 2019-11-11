@@ -212,7 +212,7 @@ The program can `load` or `generate` an entry from the storage, and offers the m
 
 The interactions between the `GenericList` and the `Storage` and their subtypes is shown in the figure below.
 
-<img src=" https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/StorageUML.png" style="zoom:50%" />
+<img src="https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/StorageUML.png" style="zoom:50%" />
 
 ##### 2.5.2 FridgeStorage
 
