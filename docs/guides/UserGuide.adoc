@@ -578,7 +578,7 @@ Examples:
 `list -tag Spam`: If `Spam` does not exist, an error will be returned. If `Spam` exists, for *each* tag
 co-existing with `Spam`, a list of emails tagged with the `co-existing tag` and `Spam` will be listed out.
 
-`list -tag CS2113T -tag Tutorial`: If `CS2113T` and `Tutorial` do not co-exist, emails tagged with both
+`list -tag CS2113T -tag Tutorial`: If `CS2113T` and `Tutorial` co-exist, emails tagged with both
 `CS2113T` and `Tutorial` will be listed out. If no email is tagged with both tags (`CS2113T` and `Tutorial`
 do not co-exist), emails tagged with each of the tags will be listed out respectively.
 
