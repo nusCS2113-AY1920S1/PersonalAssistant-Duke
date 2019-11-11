@@ -61,7 +61,7 @@ Examples:
 * `help` shows all available commands. +
 * `help delete` shows the description and usage of delete command.
 
-image:help.png[]
+image:help.PNG[]
 
 === Adding a word: `add`
 
@@ -74,7 +74,7 @@ Examples:
 * `add w/life m/the existence of an individual human being or animal t/meaningoflife t/livingit` +
 * `add w/happy m/a state of joy t/emotion`
 
-image:add.png[]
+image:add.PNG[]
 
 === Listing all words inside dictionary : `list`
 
@@ -88,7 +88,7 @@ List of possible o/ORDER values: +
  `asc` - displayOrder the list in ascending alphabetical displayOrder +
  `desc` - displayOrder the list in descending alphabetical displayOrder
 
-image:list.png[]
+image:list.PNG[]
 
 === Editing the meaning of a word : `edit`
 
@@ -105,7 +105,7 @@ Examples:
 Edits the word 'drink' and updates the meaning to "liquid for consumption".
 
 
-image:edit.png[]
+image:edit.PNG[]
 
 === Searching for the meaning of words: `search`
 
@@ -127,7 +127,7 @@ Returns `a liquid for consumption`
 Returns suggestion of `potato`
 
 
-image:search.png[]
+image:search.PNG[]
 
 === Checking search frequency: `freq`
 
@@ -144,7 +144,7 @@ List of possible o/ORDER values: +
  `desc` - displayOrder the list in descending alphabetical displayOrder
 
 
-image:freq.png[]
+image:freq.PNG[]
 
 === Searching for words with their begin: `search_begin`
 
@@ -162,7 +162,7 @@ Examples:
 * `search_begin  w/d` +
 Returns `drink, dog, do, etc`
 
-image:search_begin.png[]
+image:search_begin.PNG[]
 
 
 === Generating quizzes: `quiz`
@@ -190,7 +190,7 @@ What is the meaning of WordUp?
 
 The correct answer is 2. Type `2` and WordUp will respond the correctness.
 
-image:quiz.png[]
+image:quiz.PNG[]
 
 // tag::delete[]
 === Deleting a word object : `delete`
@@ -214,7 +214,7 @@ Deletes the tag action from word drink.
 // end::delete[]
 
 
-image:delete.png[]
+image:delete.PNG[]
 
 === [Not supported] Clearing all entries : `clear`
 
@@ -222,7 +222,7 @@ Clears all entries from the dictionary. +
 Format: `clear`
 
 
-image:clear.png[]
+image:clear.PNG[]
 
 // tag::schedule[]
 === Scheduling words to study : `schedule`
@@ -247,7 +247,7 @@ Enter a date and time for the reminder: `12-02-2020 1400` +
 Reminder is then set. Summary of reminder details is shown. Reminder pop up will be shown on 12 Feb 2020 2pm.
 // end::schedule[]
 
-image:schedule.png[]
+image:schedule.PNG[]
 
 
 // tag::history[]
@@ -267,7 +267,7 @@ Examples:
 Shows the list of the last 5 words added, with the latest entry first.
 // end::history[]
 
-image:history.png[]
+image:history.PNG[]
 
 // tag::addsynonyms[]
 === Adding synonyms of a word : `addsyn`
@@ -299,7 +299,7 @@ Examples:
 * `tag w/banana t/fruit` +
 Assigns the word banana with tag fruit.
 
-image:tag.png[]
+image:tag.PNG[]
 
 === Adding tags to a word : `search_tag`
 
@@ -309,7 +309,7 @@ Format: `search_tag w/WORD` or `search_tag t/TAG` +
 `search_tag w/WORD` will output all the tags associated with the WORD
 `search_tag t/TAG` will output all words associated with the TAG
 
-image:search_tag.png[]
+image:search_tag.PNG[]
 
 === Adding example sentence : `add_example`
 
@@ -346,23 +346,34 @@ _{}_
 e.g. `add w/life m/the existence of an individual human being or animal.`
 * *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
 e.g. `addsyn w/water s/liquid beverage drink`
+* *Add Example* : `add_example w/WORD e/EXAMPLE` 
 * *Delete* : `delete w/word` +
 e.g. `delete w/life`
 * *Edit* : `edit w/WORD m/NEW_MEANGING` +
 e.g. `edit w/life m/the existence of a living thing.`
+* *Exit* : `exit`
+* *Frequency* : `freq [o/ORDER]` +
+e.g. `freq o/asc`
 * *Help* : `help [COMMAND]`
 e.g. `help add`
-* *List* : `list`
-* *Quiz* : `quiz` -> `start`
-* *Search* : `search w/WORD` +
-e.g. `search w/life`
-* *Tag* : `tag w/WORD t/TAG1 t/TAG2 t/TAG3` +
-e.g. `tag w/happy t/emotion t/delight`
 * *History* : `history INTEGER` +
 e.g. `history 5`
+* *List* : `list`
+* *List Tags* : `list_tags`
 * *Schedule* : `schedule` -> `WORD ... [Enter blank line]` -> `DATE TIME` +
 e.g. `schedule` -> `happy[Enter] unhappy[Enter] bipolar[Enter][Enter]` -> `29-10-2019 2359`
-* *Search Frequency* : `freq o/ORDER` +
-e.g. `freq o/asc`
-* *Exit* : `exit`
+* *Search* : `search w/WORD` +
+e.g. `search w/life`
+* *Search Prefix* : `search_begin w/WORD` +
+e.g. `search_begin w/d`
+* *Search Synonym* : `search_syn w/WORD` +
+e.g. `search_syn w/life`
+* *Search Tag* : `search_tag [w/WORD]/[t/TAG]` +
+e.g. `search_tag w/life`
+* *Tag* : `tag w/WORD t/TAG1 t/TAG2 t/TAG3` +
+e.g. `tag w/happy t/emotion t/delight`
+* *Quiz* : `quiz` -> `start`
+
+
+
 
