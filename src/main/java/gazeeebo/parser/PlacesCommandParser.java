@@ -13,7 +13,7 @@ import gazeeebo.logger.LogCenter;
 import gazeeebo.storage.PlacesPageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 import java.io.IOException;

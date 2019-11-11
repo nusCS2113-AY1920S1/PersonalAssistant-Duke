@@ -2,14 +2,14 @@
 
 package gazeeebo.parser;
 
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
-import gazeeebo.commands.capCalculator.CalculateCapCommand;
-import gazeeebo.commands.capCalculator.AddCapCommand;
-import gazeeebo.commands.capCalculator.DeleteCapCommand;
-import gazeeebo.commands.capCalculator.ListCapCommand;
-import gazeeebo.commands.capCalculator.FindCapCommand;
+import gazeeebo.commands.capcalculator.CalculateCapCommand;
+import gazeeebo.commands.capcalculator.AddCapCommand;
+import gazeeebo.commands.capcalculator.DeleteCapCommand;
+import gazeeebo.commands.capcalculator.ListCapCommand;
+import gazeeebo.commands.capcalculator.FindCapCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.CapPageStorage;
@@ -161,7 +161,7 @@ public class CapCommandParser extends Command {
         } catch (IOException | NumberFormatException
                 | ArrayIndexOutOfBoundsException e) {
             System.out.println("Error in CAP.txt");
-            LOGGER.log(Level.SEVERE, "Error in CAP.txt");
+            LOGGER.log(Level.WARNING, "Error in CAP.txt", e);
         }
     }
 

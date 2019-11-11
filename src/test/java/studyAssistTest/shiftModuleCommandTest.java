@@ -1,11 +1,12 @@
-//@@ author mononokehime14
+//@@author mononokehime14
 package studyAssistTest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.studyassist.StudyPlannerCommand;
-import gazeeebo.commands.studyassist.shiftModuleCommand;
+import gazeeebo.commands.studyassist.ShiftModuleCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
+import gazeeebo.storage.StudyAssistPageStorage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,10 +34,11 @@ public class shiftModuleCommandTest {
     void shiftModule_emptyException() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
+        StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
+        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         ui.fullCommand = "shift";
         try {
-            new shiftModuleCommand().execute(StudyPlan,storage,ui);
+            new ShiftModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
 //            fail();
         } catch (DukeException e){
             assertEquals("Please follow the correct input format~",e.getMessage());
@@ -47,10 +49,11 @@ public class shiftModuleCommandTest {
     void shiftModule_wrongModuleException() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
+        StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
+        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         ui.fullCommand = "shift CD1234 to 5";
         try {
-            new shiftModuleCommand().execute(StudyPlan,storage,ui);
+            new ShiftModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
 //            fail();
         } catch (DukeException e){
             assertEquals("We currently do not support this module.",e.getMessage());
@@ -60,10 +63,11 @@ public class shiftModuleCommandTest {
     void shiftModule_wrongSemesterException() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
+        StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
+        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         ui.fullCommand = "shift CS2040C to 9";
         try {
-            new shiftModuleCommand().execute(StudyPlan,storage,ui);
+            new ShiftModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("Please input correct Semester number.",e.getMessage());
@@ -73,10 +77,11 @@ public class shiftModuleCommandTest {
     void shiftModule_wrongFormatException() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
+        StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
+        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         ui.fullCommand = "shift CS2040C to";
         try {
-            new shiftModuleCommand().execute(StudyPlan,storage,ui);
+            new ShiftModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("Please follow the correct input format~",e.getMessage());
@@ -86,10 +91,11 @@ public class shiftModuleCommandTest {
     void shiftModule_existedModuleException() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
+        StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
+        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         ui.fullCommand = "shift CS2040C to 2";
         try {
-            new shiftModuleCommand().execute(StudyPlan,storage,ui);
+            new ShiftModuleCommand().execute(StudyPlan,studyAssistPageStorage,ui);
 //            fail();
         } catch (DukeException | IOException e){
             assertEquals("This module is already inside Sem "+(Integer.parseInt(ui.fullCommand.split(" ")[3]))+".",e.getMessage());
@@ -99,7 +105,8 @@ public class shiftModuleCommandTest {
     void shiftModuleTest() throws IOException {
         Storage storage = new Storage();
         Ui ui = new Ui();
-        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(storage);
+        StudyAssistPageStorage studyAssistPageStorage = new StudyAssistPageStorage();
+        StudyPlannerCommand StudyPlan = new StudyPlannerCommand(studyAssistPageStorage);
         ui.fullCommand = "shift CS2040C sem 2";
         String ModuleCode = "CS2040C";
         int Semester = Integer.parseInt(ui.fullCommand.split(" ")[3]) - 1;
@@ -113,21 +120,21 @@ public class shiftModuleCommandTest {
         }
         if(!flag){
             try {
-                new shiftModuleCommand().execute(StudyPlan, storage, ui);
+                new ShiftModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module is not inside the study plan", e.getMessage());
             }
         }else if(Semester==semester_number) {
             try {
-                new shiftModuleCommand().execute(StudyPlan, storage, ui);
+                new ShiftModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module is already inside Sem "+(Semester+1)+".", e.getMessage());
             }
         }else {
             try {
-                new shiftModuleCommand().execute(StudyPlan, storage, ui);
+                new ShiftModuleCommand().execute(StudyPlan, studyAssistPageStorage, ui);
 //            fail();
             } catch (DukeException | IOException e) {
                 assertEquals("This module " + ModuleCode + " has been successfully shifted to Sem" + (Semester + 1) + ".", e.getMessage());

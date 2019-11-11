@@ -1,6 +1,6 @@
 package gazeeebo.parser;
 
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 import gazeeebo.commands.help.HelpCommand;
@@ -77,7 +77,7 @@ public class SpecializationCommandParser extends Command {
      * @param storage       the object that deals with storing data
      * @param commandStack  Stores the stack of previous commands
      * @param deletedTask   Stores the list of deleted tasks
-     * @param triviaManager The object for TriviaManager
+     * @param triviaManager The object for triviaManager
      * @throws IOException   Catch error if the read file fails
      * @throws DukeException throws a custom exception if
      *                       module index does not exist.

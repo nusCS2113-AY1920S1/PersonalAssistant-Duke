@@ -1,6 +1,7 @@
 //@@author jessteoxizhi
 
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.storage.TriviaStorage;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.parser.PlacesCommandParser;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
@@ -46,7 +47,8 @@ class PlacesCommandParserTest {
         ArrayList<Task> deletedTask = new ArrayList<>();
         Stack<ArrayList<Task>> CommandStack = new Stack<>();
         Storage storage = new Storage();
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         ByteArrayInputStream in = new ByteArrayInputStream("esc".getBytes());
         System.setIn(in);
         placesCommandParser.execute(list,ui,storage,CommandStack,deletedTask,triviaManager);

@@ -1,7 +1,8 @@
 //@@author e0323290
 
 import gazeeebo.parser.ExpenseCommandParser;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.storage.TriviaStorage;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
@@ -75,7 +76,8 @@ public class ExpenseCommandParserTest {
         ArrayList<Task> deletedTask = new ArrayList<>();
         Stack<ArrayList<Task>> commandStack = new Stack<>();
         Storage storage = new Storage();
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         ByteArrayInputStream in = new ByteArrayInputStream("esc".getBytes());
         System.setIn(in);
         expenseCommandParser.execute(list, ui, storage, commandStack, deletedTask, triviaManager);

@@ -2,7 +2,7 @@
 
 package gazeeebo.parser;
 
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 import gazeeebo.commands.contact.AddContactCommand;
@@ -22,12 +22,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Deals with the user input in the contacts page.
  */
 public class ContactCommandParser extends Command {
-
+    private static final Logger LOGGER = Logger.getLogger(ContactCommandParser.class.getName());
     /** Welcome message.*/
     private static final String WELCOME = "Welcome to your contacts page! "
             + "What would you like to do?\n\n";
@@ -136,6 +138,7 @@ public class ContactCommandParser extends Command {
         } catch (NumberFormatException | IOException
                 | ArrayIndexOutOfBoundsException e) {
             System.out.println("Error in Contact.txt");
+            LOGGER.log(Level.WARNING, "Error in CAP.txt", e);
         }
     }
 

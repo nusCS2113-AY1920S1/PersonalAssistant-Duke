@@ -3,6 +3,7 @@
 package gazeeebo.commands.studyassist;
 
 import gazeeebo.storage.Storage;
+import gazeeebo.storage.StudyAssistPageStorage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class UndoStudyPlannerCommand {
      */
     public ArrayList<ArrayList<String>> undoStudyPlanner(Stack<ArrayList<ArrayList<String>>> oldStudyPlan,
                                                          ArrayList<ArrayList<String>> currentPlan,
-                                                         Storage storage) throws IOException {
+                                                         StudyAssistPageStorage storage) throws IOException {
         if (!oldStudyPlan.empty()) {
             currentPlan = oldStudyPlan.peek();
             String toStore = "";
@@ -29,7 +30,7 @@ public class UndoStudyPlannerCommand {
                 toStore += currentPlan.get(i).stream().map(Object::toString).collect(Collectors.joining(" "));
                 toStore += "\n";
             }
-            storage.Storage_StudyPlan(toStore);
+            storage.writeToStudyPlanFile(toStore);
             System.out.println("You have undo the previous command.");
         } else {
             System.out.println("The previous command cannot be undo.");

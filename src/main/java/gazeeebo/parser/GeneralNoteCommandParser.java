@@ -2,7 +2,7 @@
 
 package gazeeebo.parser;
 
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 import gazeeebo.commands.help.HelpCommand;

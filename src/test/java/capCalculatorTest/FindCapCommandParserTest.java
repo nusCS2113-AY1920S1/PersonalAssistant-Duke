@@ -4,7 +4,7 @@ package capCalculatorTest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.parser.CapCommandParser;
-import gazeeebo.commands.capCalculator.FindCapCommand;
+import gazeeebo.commands.capcalculator.FindCapCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
