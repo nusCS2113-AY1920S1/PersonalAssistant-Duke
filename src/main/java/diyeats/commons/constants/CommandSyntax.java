@@ -30,4 +30,5 @@ public final class CommandSyntax {
     public static final String PARSER_DELETE_EXERCISE_COMMAND = "delexercise";
     public static final String PARSER_LIST_TRANSACTION_COMMAND = "listtransaction";
     public static final String PARSER_UNDO_COMMAND = "undo";
+    public static final String PARSER_DELETE_TRANSACTION_COMMAND = "deletetransaction";
 }

@@ -3,7 +3,11 @@ package diyeats.logic.commands;
 import diyeats.logic.suggestion.MealSuggestionAnalytics;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
+<<<<<<< HEAD
 import diyeats.model.undo.Undo;
+=======
+import diyeats.model.meal.MealType;
+>>>>>>> 88810189485a36bd5623b18dc14c4d7f703961e5
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
@@ -18,8 +22,7 @@ import java.util.ArrayList;
 public class SuggestMealCommand extends Command {
 
     private int maxMealsToSuggest;
-    private String mealSuggestionTypeStr;
-    private MealSuggestionAnalytics mealSuggestionAnalytics;
+    private MealType mealType;
     private AddCommand addCommand;
     private ArrayList<Meal> suggestedMealList;
     private LocalDate suggestionDate;
@@ -29,10 +32,10 @@ public class SuggestMealCommand extends Command {
      * @param suggestionDate Date on which meal suggestion is required.
      * @param maxMealsToSuggest Maximum number of suggested meals to be shown to the user.
      */
-    public SuggestMealCommand(LocalDate suggestionDate, int maxMealsToSuggest, String mealTypeStr) {
+    public SuggestMealCommand(LocalDate suggestionDate, int maxMealsToSuggest, MealType mealType) {
         this.suggestionDate = suggestionDate;
         this.maxMealsToSuggest = maxMealsToSuggest;
-        this.mealSuggestionTypeStr = mealTypeStr;
+        this.mealType = mealType;
     }
 
     // Constructor called when parser fails to parse arguments
@@ -43,9 +46,9 @@ public class SuggestMealCommand extends Command {
 
     private int getCalorieLimit(User user, ArrayList<Meal> meals) {
         int totalConsume = 0;
-        for (int i = 0; i < meals.size(); i += 1) {
+        for (Meal meal : meals) {
             // add all meals regardless whether it is done or not.
-            totalConsume += meals.get(i).getNutritionalValue().get("calorie");
+            totalConsume += meal.getNutritionalValue().get("calorie");
         }
 
         return user.getDailyCalorie() - totalConsume;
@@ -67,10 +70,10 @@ public class SuggestMealCommand extends Command {
     }
 
     public void execute_stage_0(MealList meals, Storage storage, User user, Wallet wallet) {
-        mealSuggestionAnalytics = new MealSuggestionAnalytics();
+        MealSuggestionAnalytics mealSuggestionAnalytics = new MealSuggestionAnalytics();
         int calorieLimit = getCalorieLimit(user, meals.getMealsList(currentDate));
         suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals, suggestionDate, calorieLimit,
-                                                                        maxMealsToSuggest, mealSuggestionTypeStr);
+                                                                        maxMealsToSuggest, mealType);
 
         if (suggestedMealList.size() > 0) {
             ui.showSuggestedMealList(suggestedMealList, currentDate);
@@ -99,7 +102,7 @@ public class SuggestMealCommand extends Command {
             ui.showLine();
             isDone = true;
             return;
-        } else if (1 > mealSelectedIndex || mealSelectedIndex > suggestedMealList.size()) {
+        } else if (mealSelectedIndex < 1 || mealSelectedIndex > suggestedMealList.size()) {
             ui.showMessage("Index out of bounds. Please try again and enter index (inclusive)"
                     + " between 1 and " + suggestedMealList.size());
             return;

@@ -19,7 +19,6 @@ public class DoneCommandParser implements ParserInterface<MarkDoneCommand> {
      * @return <code>MarkDoneCommand</code> Command object encapsulating the index of the entry to be marked done
      */
     @Override
-
     public MarkDoneCommand parse(String userInputStr) {
         try {
             InputValidator.validate(userInputStr);

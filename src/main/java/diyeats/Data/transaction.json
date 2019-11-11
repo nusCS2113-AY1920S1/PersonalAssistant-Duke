@@ -9,6 +9,7 @@
         }
       ],
       "2019-11-11": [
+<<<<<<< HEAD
         {
           "transactionAmount": 0,
           "type": "PAY",
@@ -21,19 +22,38 @@
         }
       ],
       "2019-11-10": [
+=======
+>>>>>>> 88810189485a36bd5623b18dc14c4d7f703961e5
         {
           "transactionAmount": 200,
+          "type": "DEP",
+          "date": "2019-11-11"
+        },
+        {
+          "transactionAmount": 700,
           "type": "PAY",
-          "date": "2019-11-10"
+          "date": "2019-11-11"
         },
         {
           "transactionAmount": 200,
           "type": "DEP",
-          "date": "2019-11-10"
+          "date": "2019-11-11"
         },
         {
-          "transactionAmount": 125,
-          "type": "PAY",
+          "transactionAmount": 200,
+          "type": "DEP",
+          "date": "2019-11-11"
+        },
+        {
+          "transactionAmount": 100,
+          "type": "DEP",
+          "date": "2019-11-11"
+        }
+      ],
+      "2019-11-10": [
+        {
+          "transactionAmount": 200,
+          "type": "DEP",
           "date": "2019-11-10"
         },
         {
@@ -47,7 +67,11 @@
           "date": "2019-11-10"
         },
         {
+<<<<<<< HEAD
           "transactionAmount": 20,
+=======
+          "transactionAmount": 100,
+>>>>>>> 88810189485a36bd5623b18dc14c4d7f703961e5
           "type": "PAY",
           "date": "2019-11-10"
         }
@@ -206,6 +230,10 @@
     }
   },
   "account": {
+<<<<<<< HEAD
     "amount": 450.50
+=======
+    "amount": 495.50
+>>>>>>> 88810189485a36bd5623b18dc14c4d7f703961e5
   }
 }

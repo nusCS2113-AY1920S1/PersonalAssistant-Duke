@@ -3,6 +3,7 @@ package diyeats.logic.parsers;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.autocorrect.Autocorrect;
 import diyeats.logic.commands.Command;
+import diyeats.logic.commands.DeleteTransactionCommand;
 import diyeats.logic.commands.ExitCommand;
 import diyeats.logic.commands.StatsCommand;
 import diyeats.logic.commands.UndoCommand;
@@ -16,6 +17,7 @@ import static diyeats.commons.constants.CommandSyntax.PARSER_CLEAR_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_DELETE_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_DELETE_DEFAULT_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_DELETE_EXERCISE_COMMAND;
+import static diyeats.commons.constants.CommandSyntax.PARSER_DELETE_TRANSACTION_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_DEPOSIT_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_DINNER_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_DONE_COMMAND;
@@ -125,6 +127,8 @@ public class Parser {
                 return new ListTransactionCommandParser().parse(argumentStr);
             case PARSER_UNDO_COMMAND:
                 return new UndoCommand();
+            case PARSER_DELETE_TRANSACTION_COMMAND:
+                return new DeleteTransactionCommandParser().parse(argumentStr);
             default:
                 throw new ProgramException("I'm sorry, but I don't know what the command "
                         + "you have just entered means");
