@@ -51,6 +51,10 @@ public class Ui {
         return "Got it. I've edited this word:\n" + w.toString();
     }
 
+    public String showAddExample(String word, String example) {
+        return "Got it. I've added the example to " + word + ":\n" + example;
+    }
+
     /**
      * Shows the tags to be added.
      * @param word word to add tag
@@ -147,8 +151,20 @@ public class Ui {
         return stringBuilder.toString();
     }
 
-    public String showSearch(String description, String meaning) {
-        return ("Here is the meaning of " + description + ": " + meaning + "\n");
+    /**
+     * Shows non-existing tags of the words that are searched.
+     * @param description a string represents a word to be searched
+     * @param meaning meaning of a word description
+     * @param example example sentence of a word
+     * @return a string to show search result
+     */
+    public String showSearch(String description, String meaning, String example) {
+        if (example == null || example.isEmpty()) {
+            return ("Here is the meaning of " + description + ": " + meaning + "\n");
+        } else {
+            return ("Here is the meaning of " + description + ": " + meaning + "\n"
+                    + "and here is the example: " + example);
+        }
     }
 
     /**
@@ -211,10 +227,14 @@ public class Ui {
      */
     public String showReminderSetup(int state) {
         switch (state) {
-            case 1 : return "Please enter the list of words.\n" + "Enter an empty line to end input";
-            case 2 : return "Enter next word or an empty line to end input\n";
-            case 3 : return "Please enter the date and time of the reminder in the format:" + "dd-MM-yyyy HHmm";
-            default: return "Invalid state";
+          case 1 :
+            return "Please enter the list of words.\n" + "Enter an empty line to end input";
+          case 2 :
+            return "Enter next word or an empty line to end input\n";
+          case 3 :
+            return "Please enter the date and time of the reminder in the format:" + "dd-MM-yyyy HHmm";
+          default:
+            return "Invalid state";
         }
     }
 
@@ -298,7 +318,7 @@ public class Ui {
         } else {
             return "Here are the commands for WordUp.\n"
                     + "add, delete, edit, exit, freq, help, history, list, list_tags"
-                    + " schedule, search, search_begin, search_syn, search_tag, tag, addsyn, quiz\n"
+                    + " schedule, search, search_begin, search_syn, search_tag, tag, addsyn, quiz, add_example\n"
                     + "Enter \"help [command]\" for more details.";
         }
     }
@@ -314,7 +334,7 @@ public class Ui {
         String s = ("What is the meaning of " + question + "?\n");
         int index = 1;
         for (int i = optionSequence; i < optionSequence + 4; i++) {
-            s += (index + "." + options[i % 4] + "  ");
+            s += (index + "." + options[i % 4] + " \n");
             index++;
         }
         s += "\n";
@@ -329,9 +349,9 @@ public class Ui {
      */
     public String quizResponse(Boolean isCorrect, String answer) {
         if (isCorrect) {
-            return ("Yes!! The correct answer is \"" + answer + "\".");
+            return ("Yes!! The correct answer is \"" + answer + "\".\n");
         } else {
-            return ("Sorry, The answer is \"" + answer + "\".");
+            return ("Sorry, The answer is \"" + answer + "\".\n");
         }
     }
 
@@ -343,20 +363,24 @@ public class Ui {
      * @return a string shown
      */
     public String quizIncorrect(Integer wrongQuiz, Integer countQuiz, ArrayList<String> quizArray) {
+        String correctAnswer = "";
+        for (int i = 0; i < quizArray.size(); i++) {
+            correctAnswer += "- " + quizArray.get(i) + "\n";
+        }
         if (wrongQuiz == 0) {
             return ("Congratulations! You got "
                     + (countQuiz - wrongQuiz)
                     + "/" + countQuiz
                     + " on this quiz!\n"
-                    + "type exit_quiz to exit.");
+                    + "type exit_quiz to exit.\n\n");
         } else {
             return ("You got " + (countQuiz - wrongQuiz)
                     + "/"
                     + countQuiz
                     + " on this quiz!\n"
                     + "These are the words you might want to review:\n"
-                    + quizArray
-                    + "\ntype exit_quiz to exit.");
+                    + correctAnswer
+                    + "\ntype exit_quiz to exit.\n\n");
         }
     }
 

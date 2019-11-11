@@ -340,15 +340,25 @@ Step 3: In doing so, the union find algorithm will group the words together and 
 Since the synonyms are chained together using a Union Find algorithm, words are inherently grouped together. When we look for synonyms of a word, the tree structure essentially returns every node that is reachable from our main word node. This allow us to lookup synonyms in a quick manner.
 
 === Quiz feature
-Generate quizzes to test the user’s understanding of a word, with a score at the end of the quiz. Statistic will be saved for the user to view his/her progress.
+* Generate quizzes to test the user’s understanding of a word, with a score at the end of the quiz. Wrongly answered words will be shown at the end of a quiz. 
 See QuizScene.java and QuizCommand.java for details.
-The quizzes are in the form of 4-option MCQs,4 in a row. The generateQuiz() function generates a quiz if there is at least 4 word object saved into the word bank. It selects 1 word object and retrieve the vocabulary and meaning for the expected answer. It then randomly select 3 other word objects and retrieve their meanings for options of the MCQ.
-The quiz will output a word, and the 4 choices of meanings. Prompting the user to enter between “1 to 4” similar to MCQ picking before informing the user if they have gotten the quiz question correct. For example:
+* The quizzes are in the form of 4-option MCQs,4 in a row. The generateQuiz() function generates a quiz if there is at least 4 word object saved into the word bank. It selects 1 word object and retrieve the vocabulary and meaning for the expected answer. It then randomly select 3 other word objects and retrieve their meanings for options of the MCQ. 
+* The quiz will output a word, and the 4 choices of meanings. Prompting the user to enter between “1 to 4” similar to MCQ picking before informing the user if they have gotten the quiz question correct. 
 
-Usage case:
+In the following example (Figure 11), if the user inputs “1”, WordUp will response the correctness (Figure 12), and at the end of the quiz it will show wrongly answered words so the user can review the words (Figure 13). 
 
-If the correct answer “1” is input into the program
 
+.4-option MCQ
+image::DGquiz4.5-1.JPG[align='center'] 
+
+.Answering response
+image::DGquiz4.5-2.JPG[align='center'] 
+
+.Review words
+image::DGquiz4.5-3.JPG[align='center'] 
+
+.Sequence Diagram of a quiz
+image::4.5-4QuizSequenceDiagram.png[align='center'] 
 
 // end::implementation[]
 

@@ -29,12 +29,6 @@ class SetReminderCommandTest {
     }
 
     @Test
-    void setReminderOneLineCommandTest() {
-        //test case 1
-
-    }
-
-    @Test
     void setReminderCaseOneTest() {
         try {
             String uiResponse = "Please enter the list of words.\n" + "Enter an empty line to end input";
