@@ -25,6 +25,9 @@ public class ListInstalmentTest {
     private String testDate = "9/10/1997";
     private LocalDate dateTestDate = LocalDate.parse(testDate, dateTimeFormatter);
 
+    /**
+     * method to initialise the data path for the test code to populate.
+     */
     public ListInstalmentTest() {
         Path currentDir = Paths.get("data/account-test.txt");
         String filePath = currentDir.toAbsolutePath().toString();

@@ -2,7 +2,12 @@ package money;
 
 import controlpanel.MoneyStorage;
 import controlpanel.Parser;
-import moneycommands.*;
+import moneycommands.AddLoanCommand;
+import moneycommands.DeleteLoanCommand;
+import moneycommands.ListLoansCommand;
+import moneycommands.SettleLoanCommand;
+import moneycommands.MoneyCommand;
+import moneycommands.ExitMoneyCommand;
 import controlpanel.DukeException;
 import controlpanel.Ui;
 import org.junit.jupiter.api.Test;
@@ -305,20 +310,20 @@ class LoansTest {
     void testUndoAddLoans() throws ParseException, DukeException {
         account.getLoans().clear();
         String addInputOut = "lent my friends /amt 500 /on 9/10/1997";
-        Loan l = new Loan(500, "my friends", testDate, Loan.Type.OUTGOING);
         MoneyCommand addOutgoingLoanCommand = new AddLoanCommand(addInputOut);
         addOutgoingLoanCommand.execute(account, ui, storage);
         ui.clearOutputString();
+        Loan l = new Loan(500, "my friends", testDate, Loan.Type.OUTGOING);
         addOutgoingLoanCommand.undo(account, ui, storage);
         assertEquals(" Last command undone: \n" + l.toString() + "\n Now you have "
                 + account.getLoans().size() + " loans listed\n", ui.getOutputString());
 
         String addInputIn = "borrowed my daddy /amt 1000 /on 9/10/1997";
         MoneyCommand addIncomingLoanCommand = new AddLoanCommand(addInputIn);
-        Loan l1 = new Loan(1000, "my daddy", testDate, Loan.Type.INCOMING);
         addIncomingLoanCommand.execute(account, ui, storage);
         ui.clearOutputString();
         addIncomingLoanCommand.undo(account, ui, storage);
+        Loan l1 = new Loan(1000, "my daddy", testDate, Loan.Type.INCOMING);
         assertEquals(" Last command undone: \n" + l1.toString() + "\n Now you have "
                 + account.getLoans().size() + " loans listed\n", ui.getOutputString());
         account.getLoans().clear();
@@ -400,7 +405,8 @@ class LoansTest {
         ui.clearOutputString();
         settleEntireLoanCommand.undo(account, ui, storage);
         assertEquals(" Last command undone: \n" + "[Settled] [I] my daddy(loan: $1000.00) "
-                        + "(Borrowed On: 9/10/1997) (Paid Back On: " + passDate + ") reverted back to previous state.\n",
+                        + "(Borrowed On: 9/10/1997) (Paid Back On: " + passDate
+                        + ") reverted back to previous state.\n",
                 ui.getOutputString());
         account.getLoans().clear();
         MoneyCommand exitCommand = new ExitMoneyCommand();
