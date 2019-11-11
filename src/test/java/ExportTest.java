@@ -53,7 +53,7 @@ class ExportTest {
         LocalDateTime startDate = LocalDateTime.now().plusDays(3);
         Deadline deadline = new Deadline("Test", startDate);
         deadline.setComment("Testing description");
-        tasks.add(deadline);
+        tasks.getTasks().add(deadline);
 
         Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
         export.execute(tasks, storage, history);

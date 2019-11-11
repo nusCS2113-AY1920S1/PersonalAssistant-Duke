@@ -91,8 +91,7 @@ public class ExportCommand extends Command {
         if (isCalendarValid(calendar)) {
             CalendarOutput.outputCalendar(fileName.trim(), calendar);
         } else {
-           // System.out.println("HANDLE THIS");
-           // throw new ChronologerException(ChronologerException.emptyCalendar());
+            throw new ChronologerException(ChronologerException.emptyCalendar());
         }
     }
 
