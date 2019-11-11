@@ -1,0 +1,12 @@
+Intensity: high
+Plan: 1
+b | 10 | 10
+##
+Plan: 2
+a | 10 | 10
+##
+Intensity: moderate
+Plan: 1
+c | 10 | 10
+##
+Intensity: relaxed

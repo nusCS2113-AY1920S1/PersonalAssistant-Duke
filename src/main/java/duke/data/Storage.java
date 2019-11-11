@@ -399,22 +399,21 @@ public class Storage {
     /**
      * Load plans from the text file to a map.
      * @return map of plans
-     * @throws FileNotFoundException File not found
      */
-    public Map<String, ArrayList<MyTraining>> loadPlans()
-            throws FileNotFoundException {
+    public Map<String, ArrayList<MyTraining>> loadPlans() {
         try {
-            ArrayList<MyTraining> list = new ArrayList<>();
             Map<String, ArrayList<MyTraining>> temp = new HashMap<>();
 
             File f = new File(".\\src\\main\\java\\duke\\data\\plan.txt");
-            String intensity = "";
-            int planNum = 0;
 
             if (f.length() == 0) {
                 System.out.println("Plan file is empty. Loading failed.");
                 return temp;
             } else {
+                String intensity = "";
+                int planNum = 1;
+                ArrayList<MyTraining> list = new ArrayList<>();
+
                 while (fileInput.hasNextLine()) {
                     String in = fileInput.nextLine();
 
@@ -433,21 +432,21 @@ public class Storage {
                     }
 
                     if (in.contains("Plan")) {
+                        list.clear();
                         String[] line = in.split(": ");
                         planNum = Integer.parseInt(line[1]);
                     }
 
                     if (in.contains(" | ")) {
-                        String[] line = in.split(" \\| ");
+                        String[] line = in.split("\\s*\\|\\s*");
                         MyTraining ac = new MyTraining(line[0],
-                            Integer.parseInt(line[1]),
-                            Integer.parseInt(line[2]));
+                                Integer.parseInt(line[1]),
+                                Integer.parseInt(line[2]));
                         list.add(ac);
                     }
 
-                    if (in.equals("\n")) {
-                        String key = intensity + planNum;
-                        temp.put(key, list);
+                    if (in.contains("##")) {
+                        temp.put(intensity + planNum, list);
                     }
                 }
                 fileInput.close();
@@ -482,11 +481,14 @@ public class Storage {
             for (String s : keys) {
                 if (s.contains(x.toString())) {
                     ArrayList<MyTraining> p = map.get(s);
-                    buffer.write("Plan: " + s.substring(s.length()));
+                    buffer.write("Plan: " + s.substring(s.length() - 1));
+                    buffer.write("\r\n");
                     for (MyTraining y : p) {
                         buffer.write(y.toFile());
                         buffer.write("\r\n");
                     }
+                    buffer.write("##");
+                    buffer.write("\r\n");
                 }
             }
         }
