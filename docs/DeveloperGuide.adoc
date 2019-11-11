@@ -192,7 +192,7 @@ Problem 1: *How to store weight data to be displayed over time*
 .User Initialisation sequence diagram
 image::usersequencediagram.png[width="800"]
 
-=== Add Default command: `default`
+=== Add Default value command
 
 The `default` command gives the user the ability to assign default nutritional values associated with certain meal names.
 
