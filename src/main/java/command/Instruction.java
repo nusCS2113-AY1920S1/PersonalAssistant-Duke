@@ -30,8 +30,12 @@ public class Instruction {
         return input.startsWith("delete payment");
     }
 
-    public boolean isFind(String input) {
+    public boolean isFindPayee(String input) {
         return input.startsWith("find payee");
+    }
+
+    public boolean isFindPayment(String input) {
+        return input.startsWith("find payment");
     }
 
     public boolean isFindTask(String input) {

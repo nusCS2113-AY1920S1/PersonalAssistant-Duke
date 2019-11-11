@@ -237,6 +237,15 @@ public class Ui {
     }
 
     /**
+     * Prints a message with the details of a payment that the user requested for.
+     * @param payment the payment object the user queried for.
+     */
+    public void printFoundMessage(Payments payment) {
+        System.out.println("\tHere are the details you requested!");
+        payment.printPayment();
+    }
+
+    /**
      * Prints the list of payments of a payee.
      * @param name Name of project
      * @param paymentList paymentList of the payee.
@@ -338,7 +347,7 @@ public class Ui {
      */
     public void printTaskList(TaskList tasklist) {
         System.out.print(line);
-        System.out.println("\tYour result is as follow:");
+        System.out.println("\tYour result is as follows:");
         for (int i  = 0; i < tasklist.size(); i++) {
             System.out.println("\t" + (i + 1) + ". " + tasklist.get(i).giveTask());
         }
@@ -536,7 +545,7 @@ public class Ui {
      */
     public void printAddFundMessage(Fund fund, double amount) {
         System.out.print(line);
-        System.out.println("\t" + "Got it. I've added " + amount + " dollars to the fund. The new fund is as follow:");
+        System.out.println("\t" + "Got it. I've added " + amount + " dollars to the fund. The new fund is as follows:");
         System.out.print(fund.giveFund());
         System.out.print(line);
     }
@@ -571,7 +580,7 @@ public class Ui {
                 + projectname + ":");
         System.out.println(project.giveProject());
         System.out.println("");
-        System.out.println("\t" + "The new fund is as follow:");
+        System.out.println("\t" + "The new fund is as follows:");
         System.out.print(fund.giveFund());
         System.out.print(line);
     }
@@ -623,7 +632,7 @@ public class Ui {
      */
     public void printReminderMessage(ArrayList<Payments> paymentlist) {
         System.out.print(line);
-        System.out.print("\tYour reminder is as follow:\n");
+        System.out.print("\tYour reminder is as follows:\n");
         for (int i = 0; i < paymentlist.size(); i++) {
             Payments p = paymentlist.get(i);
             System.out.println("\t" + (i + 1) + ":");

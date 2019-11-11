@@ -150,7 +150,8 @@ The `Payee` Class object holds all information regarding the identity of the pay
 When a new `Payee` object is created, it is stored in the respective HashMap `managerMap` for the specific project the payee is being paid for. +
 The following are the class members storing the payee's identity information.
 
-** Name : `name`
+** Project Name : `project`
+** Payee Name : `name`
 ** Email Address : `email`
 ** Matriculation Number : `matricNum`
 ** Phone Number : `phoneNum`
@@ -159,6 +160,8 @@ The following are the class members storing the payee's identity information.
 The `Payments` Class object stores the details of the payment being made. A `Payments` object once constructed will be added to the ArrayList `payments` member of the specified payee the payment is being made to.
 The following are the class members storing the payment's details.
 
+** Project : `project`
+** Payee Name : `name`
 ** Description of Payment : `item`
 ** Amount being paid : `cost`
 ** Invoice Number : `inv`
@@ -192,8 +195,12 @@ The payee feature supports the following commands:
 * `add payment p/name i/item c/cost v/inv` -- Adds a new payee to the record.
 * `delete payee p/name` -- Deletes a payee from the record.
 * `delete payment p/name v/inv` -- Deletes a payment from the record.
-* `edit p/name v/inv f/field r/replacement` -- Edits data for an existing payee in the record.
-* `find p/name` -- Lists all payments for specified payee in the record.
+* `edit p/name f/field r/replacement` -- Edits data for an existing payee in the record.
+* `find payee p/name` -- Finds details of a specified payee in the record, across all projects.
+* `find payment p/name i/item` -- Finds details of a specified payment in the record, across all projects.
+* `list payments` -- Lists all payments for the current project in the record.
+* `list payments pr/name` -- Lists all payments for specified project in the record.
+* `list payments p/name` -- Lists all payments for specified payee in the record.
 
 ==== PaymentManager
 The `PaymentManager` is an abstract class that is subclassed in the payments package, which contains the `Payee` and `Payments` classes. It serves to process the input from the `Command` package and implement the payee feature commands (Section 4.2.4). The `PaymentManager` class implements the following methods:
@@ -204,6 +211,7 @@ The `PaymentManager` is an abstract class that is subclassed in the payments pac
 * PaymentManager#deletePayments
 * PaymentManager#editPayee
 * PaymentManager#findPayee
+* PaymentManafer#checkStatus
 
 A detailed explanation of the use case for the add payee command is given below to demonstrate how each component interacts with each other. +
 1. User executes the command `add payee p/name e/email m/matricNum ph/phoneNum` in the CLI. This input is passed from the Ui to Command where the input will be parsed to determine the command to execute. +
