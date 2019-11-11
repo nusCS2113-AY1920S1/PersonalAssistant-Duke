@@ -42,7 +42,7 @@ public class TaskListsTest {
         ccas = new TaskList<>();
         ccas.add(new Cca("test", "3", "5", "monday"));
         taskLists.setCcas(ccas);
-        assertSame(ccas, taskLists.getModules());
+        assertSame(ccas, taskLists.getCcas());
     }
 
     @DisplayName("TaskLists getAllTasks Test")

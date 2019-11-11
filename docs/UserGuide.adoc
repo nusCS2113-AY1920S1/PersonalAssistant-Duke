@@ -60,7 +60,7 @@ Developed and maintained by the `AY1920S1-CS2113T-F10-1` link:{repoURL}//tree/ma
 
 * Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `add module MOD_CODE`, `MOD_CODE` is a parameter which can be used as `add module CG1112` or `add module GES1012`.
 * Arguments for time `--begin` and `--end` are supposed to be given in 24 hour format. Due to the use of `Natty` library for relative date parsing, other formats would work but may result in
- anomalous behavior. The list of known expected behavior can be found <<Expected anomalous behavior>>
+ anomalous behavior. The list of known expected behavior can be found under <<Expected Anomalous Behavior>>.
 
 ====
 
@@ -104,6 +104,7 @@ image::AddCcaSample.png[width="450"]
 
 ****
 * The `BEGIN_TIME` and `END_TIME` must be in the format of HHmm.
+* The `END_TIME` can exceed the limit of the current day, and will spill over into the next day.
 * The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc. 
 * Example: `add cca SOCCER --begin 16:00 --end 18:00 --dayOfWeek Monday`
 ****
@@ -265,6 +266,7 @@ image::CapModuleSample.png[width="450"]
 * ModPlan will automatically sort the prerequisites of that module and check for your grades in them.
 ** Note that these prerequisites have to be added and graded in your module list.
 ** If any prerequisites are not completed, ModPlan will print a list of the prerequisites you have yet to complete/give a grade for.
+** If you encounter any issues with this command, please refer to <<Expected Anomalous Behavior>>.
 ****
 
 Example: +
@@ -576,6 +578,13 @@ image::ModBadSuException.png[width="450"]
 
 == Expected Anomalous Behavior
 
+****
+* Writing shortform commands for some of the commands may work, due to the program identifying the shortform as a unique input for the command.
+** Example `sh module` will return the same output as `show module` as `sh module` is unique enough for the program to identify its intended command.
+* Inputting an invalid time beyond `00:00` such as `25:00` will cause the time to automatically be set to `00:00`
+* Some of the prerequisites/preclusions in NUSMODS may not be updated for the `cap module`, or is not checked against each other in the prerequisite tree.
+**If you have completed all the necessary prerequisites but it is still showing you have not completed some of them, please add those modules into your list with the same grade you obtained as its preclusion and try the command again. 
+****
 
 == FAQ
 
