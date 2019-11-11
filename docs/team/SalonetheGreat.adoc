@@ -1,0 +1,123 @@
+= Sha Long - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Ducats
+
+== Overview
+
+Ducats is a music composition tool geared towards music lovers with little knowledge in music theory who want an intuitive way to jot down their musical ideas. With convenience and speed in mind, Ducats is designed for quick and seamless musical composition and experimentation, with a clean and intuitive Command Line Interface. If you can type fast, Ducats can compose music faster than your traditional music composition apps.
+
+
+== Summary of Contributions
+
+My contribution to our Ducats can be mainly divided into 3 parts – code contributed, features implemented, and other contributions.
+
+* Code contributed
+
+The code contribution can be found via the following link:
+
+https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=salonethegreat
+
+* Features implemented
+
+There are a lot of features that I have implemented to this project, such as HelpCommand, UndoCommand, and RedoCommand, among which the architecture of UndoRedoStack, which is the base of UndoCommand and RedoCommand, is the biggest feature that I have implemented.
+
+* Other contributions
+
+I have made the GUI (Graphical User Interface) for future implementation, and some videos which is the template for our future GUI implementation.
+
+== Relevant descriptions
+
+The formatting of the symbols used in our User Guide (UG), and Developer Guide (DG) is given below.
+
+image::SalonetheGreat_description.png[]
+
+== Contributions to the User Guide
+
+My contribution to User Guide can be mainly divided into 2 parts, which are the features of HelpCommand and UndoCommand/RedoCommand.
+
+* HelpCommand
+
+The HelpCommand lists all the information and format of input of each command in a list, which makes it easy for users, especially beginner for our Ducats to get to the input formats of various commands.
+
+Format: help
+
+* UndoCommand
+
+UndoCommand can redo the most recent commands that changes the data of the song list until reaching the very first command since starting. Currently UndoCommand only works for adding songs and deleting songs, which are new and delete.
+
+The next version of undo will be released in v2.0, when the undo can be applied for all the commands except for commands that do not change the song list.
+
+Format: undo
+
+* RedoCommand
+
+RedoCommand can redo the most recent commands that have been undone until there is no more commands that can be redone. Currently RedoCommand only works for adding songs and deleting songs, which are new and delete.
+
+The next version of redo will be released in v2.0, when the redo can be applied for all the commands except for commands that do not change the song list.
+
+Format: redo
+
+Here is an example about UndoCommand and RedoCommand.
+
+_Example_:
+
+*1.* Type ‘list’ to see the initial list of songs
+
+image::UndoRedo_1.png[]
+
+*2.* Type ‘delete 1’ into the command line, and press ‘Enter’ to execute it.
+*3.* Type ‘list’ to see the song list, now the first song has been deleted.
+
+image::UndoRedo_2.png[]
+
+*4.* Type ‘undo’ to undo the delete command.
+*5.* Type ‘list’ to see the song list, now the deleted song has been restored.
+
+image::UndoRedo_3.png[]
+
+*6.* Type ‘redo’ to re-delete song 1.
+*7.* Type ‘list’ to see the song list, now song 1 is deleted again.
+
+image::UndoRedo_4.png[]
+
+== Contributions to the Developer Guide
+
+The following parts shows my contribution to the Developer Guide for the UndoCommand and RedoCommand.
+
+* Architecture
+
+UndoCommand and RedoCommand is implemented using a typical undo-redo stack, which is also an important component called UndoRedoStack, which records all the versions of the SongList object that the user is currently using. The implementation of UndoRedoStack is similar to git history tree. Each node on the UndoRedoStack is a version of the SongList. Once the user enters a command that is either new or delete, the UndoRedoStack will make one step forward, which is similar to 'git commit'.
+
+* Design Considerations - structure
+** Save copies
+*** Pros: Easy to implement
+*** Cons: Heavy burden for memory usage, especially when there are a lot
+of operations
+** Each command has an undo/redo method
+*** Pros: Will use less memory
+*** Cons: Need to ensure that implementation is correct
+
+The reason why we choose the first design consideration is that there are some command that is hard to implement undo/redo method such as delete. It is impossible to restore a deleted song unless you keep a copy of it. That’s why we choose the first song.
+
+* Feasibility
+
+Before each undo or redo, UndoRedoStack will check the undoability/redoability of the UndoRedoStack.
+
+** undo - canUndo():
+*** If the tree is at the very first version, then cannot undo anymore.
+*** Else, the UndoRedoStack can be undone.
+** redo - canRedo():
+*** If the tree is at the very last version, then cannot redo anymore.
+*** Else, the UndoRedoStack can be redone.
+
+* Impact of UndoCommand/RedoCommand:
+** undo - moves the UndoRedoStack to its previous version.
+** redo - moves the UndoRedoStack to its next version.
+
+Note that after user enters a command, if the current version of SongList is not the latest version, which means the UndoRedoStack is not at its latest node, all the nodes after current node will be dropped, and the new version of the UndoRedoStack will be treated as the current and the latest node, and you cannot visit the previous branch of nodes anymore.
+
+Currently UndoRedoStack only works for commands that add or delete songs in a SongList, which are new and delete. In v2.0, UndoRedoStack will work for all commands that could modify the SongList.
+
