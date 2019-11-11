@@ -100,7 +100,9 @@ public class Ducats {
                     DucatsLogger.info(c.getClass().getName() + " has finished execution");
                     if (!(c instanceof HelpCommand
                         || c instanceof ViewCommand
-                        || c instanceof ListCommand)) {
+                        || c instanceof ListCommand
+                        || c instanceof AsciiCommand
+                        || c instanceof ListGroupCommand)) {
                         undoRedoStack.add(songs);
                     }
                 } else if (c instanceof UndoCommand || c instanceof RedoCommand) {
