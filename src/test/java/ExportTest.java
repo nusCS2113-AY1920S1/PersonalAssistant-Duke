@@ -42,23 +42,21 @@ class ExportTest {
      * Setups the necessary base to carry out the test operations.
      */
     @BeforeAll
-    public static void setup() throws ChronologerException {
+    public static void setup() {
         list = new ArrayList<>();
         tasks = new TaskList(list);
         file = new File(System.getProperty("user.dir") + "/src/test/Test");
         placeholder = new File(System.getProperty("user.dir") + "/src/test/States");
-        storage = new Storage(file);
+        //storage = new Storage(file);
         history = new ChronologerStateList(placeholder, placeholder, placeholder);
 
         LocalDateTime startDate = LocalDateTime.now().plusDays(3);
         Deadline deadline = new Deadline("Test", startDate);
         deadline.setComment("Testing description");
-        tasks.getTasks().add(deadline);
-
-        Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
-        export.execute(tasks, storage, history);
+        tasks.add(deadline);
     }
 
+    @Test
     private java.util.Calendar convertToCalendar(LocalDateTime startDate) {
         java.util.Calendar utilCalendar = new GregorianCalendar();
         utilCalendar.set(java.util.Calendar.YEAR, startDate.getYear());
@@ -67,11 +65,16 @@ class ExportTest {
         utilCalendar.set(java.util.Calendar.HOUR_OF_DAY, startDate.getHour());
         utilCalendar.set(java.util.Calendar.MINUTE, startDate.getMinute());
         utilCalendar.set(java.util.Calendar.SECOND, 0);
+
         return utilCalendar;
     }
 
     @Test
-    void testExport() throws IOException, ParserException, ParseException {
+    public void testExport() throws ChronologerException, IOException, ParserException, ParseException {
+
+        Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
+        export.execute(tasks, storage, history);
+
         System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
         calendarFile = new File(System.getProperty("user.dir") + "/src/ChronologerDatabase/ExportTest.ics");
         FileInputStream inputStream = new FileInputStream(calendarFile);
@@ -92,8 +95,8 @@ class ExportTest {
         Assertions.assertEquals(deadlineConverted, testDeadlineDate);
 
         inputStream.close();
-        calendarFile.delete();
-        file.delete();
+        assert calendarFile.delete();
+        //assert file.delete();
     }
 
 }
