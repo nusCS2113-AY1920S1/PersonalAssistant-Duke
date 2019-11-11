@@ -49,7 +49,7 @@ e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the ro
 e.g. the word `*return*` in `*return* /id 1`.
 * Words in `UPPER_CASE` are the *arguments* to be supplied by the user.
 +
-e.g. in `add /room *ROOM_NAME*`, `*ROOM_NAME*` is a parameter which can be used as `add /room *seminar room 1*`.
+e.g. in `add /room *ROOM_NAME*`, `*ROOM_NAME*` is a parameter which can be used, as in `add /room *seminar room 1*`.
 * Arguments always follow a *parameter*, which is denoted by a phrase starting with a forward slash `/`.
 +
 e.g. in `delete */item* _ITEM_NAME_`, `*/item*` denotes that `_ITEM_NAME_` is a parameter denoting the item to be deleted, as in `delete */item* shuttlecock`.
@@ -57,26 +57,40 @@ e.g. in `delete */item* _ITEM_NAME_`, `*/item*` denotes that `_ITEM_NAME_` is a 
 * Parameters must be in the order specified.
 +
 e.g. if the command specifies `add */item ITEM* _/qty QUANTITY_`, `add _/qty QUANTITY_ */item ITEM*` is not acceptable.
+* Parameters and arguments in the input string must be separated from each other by only a single whitespace character.
++
+i.e. tabs and non-spacebar whitespace are not allowed in the input string.
+
+====
+====
+*Glossary*
+
+* Item: an object in the user’s inventory. There can be multiple copies of an item in a user’s inventory (e.g. 5 pens)
+* Room: a facility in the user’s inventory, of which there can only be one (e.g. seminar room 1)
+* Resource: any item or room in the user’s inventory.
+* User: the logistics administrator who is running the RIMS program.
+* Requester: the person requesting to borrow a resource from the user’s inventory.
 
 ====
 
-=== Adding or Removing Resources
+=== Adding and Removing Resources
 
 ==== Add resource: `add`
-Add new item(s)/room available for loan/booking in RIMS.
+Adds a new resource (item or room) to the user's inventory, which is available for loan/reservation in RIMS.
 
 .*Format*:
-. `add /item ITEM_NAME /qty QUANTITY`
-. `add /room ROOM_NAME`
-* If the resource already exists in RIMS, then its quantity will be updated accordingly.
-* Quantity must be a positive integer.
+* `add /item ITEM_NAME /qty QUANTITY`
+* `add /room ROOM_NAME`
+. Quantity specified must be a positive integer.
+. If an item to be added already exists in RIMS, then its quantity will be incremented by the specified quantity.
+. If a room to be added already exists in RIMS, the program will send an error to the UI for the user's reading. 
 
 .*Examples*:
 * `add /item book /qty 5`
-* `add /room multi purpose sports hall`
+* `add /room seminar room 1`
 
 ==== Delete resources: `delete`
-Delete item(s)/room available for loan/booking in RIMS.
+Deletes a resource from the user's inventory in RIMS.
 
 .*Format*:
 . `delete /item ITEM_NAME /qty QUANTITY`
