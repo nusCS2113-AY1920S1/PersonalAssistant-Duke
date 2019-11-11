@@ -130,7 +130,7 @@ The above diagram shows the various Command classes in ModPlan, as well as their
 
 === CCA
 
-CCA is implemented as `Cca` class which is the backbone for representing and managing user-defined CCAs. Typically, CCAs are loaded and stored in an `List`-like structure implemented in `CcaList` class which inherits from the builtin `ArrayList`.
+CCA is implemented as `Cca` class which inherits from the legacy `TaskWithMultipleWeeklyPeriod`. It is the backbone for representing and managing user-defined CCAs. Typically, CCAs are loaded and stored in an `List`-like structure implemented in `TaskList<Cca>` class which inherits from `ArrayList<TaskWithMultipleWeeklyPeriod>`.
 
 image::CCA.png[]
 
