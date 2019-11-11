@@ -15,7 +15,6 @@ public class UiController {
     private LogicController logicController;
     private boolean exit;
     //TODO TEMP array list of tasks, should change to a model object
-    private ArrayList<Task> tasks;
     protected Storage storage;
 
     public UiController(LogicController logicController, Storage storage) {
