@@ -52,7 +52,6 @@ public class GraphCategoryCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage)
             throws MooMooException {
-        DetectOsCommand getOS = new DetectOsCommand();
         
         Category cat;
         try {
@@ -75,6 +74,8 @@ public class GraphCategoryCommand extends Command {
             horizontalAxisTop += topBorder;
             horizontalAxisBottom += bottomBorder;
         }
+    
+        DetectOsCommand getOS = new DetectOsCommand();
         
         if (!getOS.osName.contains("win")) {
             horizontalAxisTop = ANSI_YELLOW + horizontalAxisTop + ANSI_RESET;

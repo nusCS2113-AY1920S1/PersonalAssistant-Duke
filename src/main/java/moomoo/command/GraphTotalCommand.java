@@ -41,7 +41,6 @@ public class GraphTotalCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage)
             throws MooMooException {
-        DetectOsCommand getOS = new DetectOsCommand();
         
         if (categoryList.size() == 0) {
             throw new MooMooException("OOPS!!! MooMoo cannot find any category data :(");
@@ -57,7 +56,8 @@ public class GraphTotalCommand extends Command {
             horizontalAxisTop += topBorder;
             horizontalAxisBottom += bottomBorder;
         }
-        
+    
+        DetectOsCommand getOS = new DetectOsCommand();
         
         if (!getOS.osName.contains("win")) {
             horizontalAxisTop = ANSI_YELLOW + horizontalAxisTop + ANSI_RESET;
