@@ -102,5 +102,34 @@ public class TaskListTest {
         assertThrows(CommandParseHelper.CommandParseException.class, () -> taskList.delete(-1));
     }
 
-    
+    @Test
+    public void snoozedTest() {
+        TaskList taskList = createTaskList();
+
+        // positive cases
+        String testResult1 = "This task cannot be snoozed";
+        String testResult2 = "Noted. I've snoozed task 3 by 3 days";
+        String testResult3 = "Noted. I've snoozed task 6 by 0 days";
+        try {
+            assertEquals(testResult1, taskList.snoozed(0, 3));
+            assertEquals(testResult2, taskList.snoozed(2, 3));
+            assertEquals(testResult3, taskList.snoozed(5, 0));
+        } catch (CommandParseHelper.CommandParseException e) {
+            fail("Unable to parse input");
+        }
+
+        // negative cases
+        // invalid index
+        assertThrows(CommandParseHelper.CommandParseException.class, () -> taskList.snoozed(-1, 0));
+        assertThrows(CommandParseHelper.CommandParseException.class, () -> taskList.snoozed(6, 3));
+        // invalid duration
+        String failedResult1 = "Number of days snoozed not specified. Default is used. Noted. I've snoozed task 3 by 3 days";
+        String failedResult2 = "Number of days snoozed should be integer of range 1 ~ 99999.";
+        try {
+            assertEquals(failedResult1, taskList.snoozed(2, -1));
+            assertEquals(failedResult2, taskList.snoozed(3, 100000));
+        } catch (CommandParseHelper.CommandParseException e) {
+            fail();
+        }
+    }
 }
