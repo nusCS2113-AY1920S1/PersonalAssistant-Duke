@@ -2,11 +2,8 @@
 
 package expensetest;
 
-<<<<<<< HEAD
-import gazeeebo.UI.Ui;
-=======
+
 import gazeeebo.ui.Ui;
->>>>>>> 71056c071ad3642f49ddb4af5c29b09b20be25ad
 import gazeeebo.commands.expenses.DeleteExpenseCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,14 +14,11 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-=======
 import java.util.*;
->>>>>>> 71056c071ad3642f49ddb4af5c29b09b20be25ad
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -73,11 +67,8 @@ public class DeleteExpenseCommandTest {
     void testDeleteExpenseCommand() throws IOException {
         HashMap<LocalDate, ArrayList<String>> map = new HashMap<>();
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<>();
-<<<<<<< HEAD
-=======
         Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
         oldExpenses.push(expenses);
->>>>>>> 71056c071ad3642f49ddb4af5c29b09b20be25ad
         ArrayList<String> itemAndPriceList1 = new ArrayList<>();
         itemAndPriceList1.add("book, $3");
         String bookDate = "2019-09-09";
@@ -85,11 +76,7 @@ public class DeleteExpenseCommandTest {
         LocalDate bookDateOfPurchase = LocalDate.parse(bookDate, fmt);
         expenses.put(bookDateOfPurchase, itemAndPriceList1);
         ui.fullCommand = "delete book";
-<<<<<<< HEAD
-        new DeleteExpenseCommand(ui, expenses);
-=======
         new DeleteExpenseCommand(ui, expenses, oldExpenses);
->>>>>>> 71056c071ad3642f49ddb4af5c29b09b20be25ad
         assertEquals("Successfully deleted: book, $3"
                 + " | bought on 2019-09-09\r\n", output.toString());
     }
@@ -102,11 +89,9 @@ public class DeleteExpenseCommandTest {
     void testDeleteNotInExpenseCommand() throws IOException {
         HashMap<LocalDate, ArrayList<String>> map = new HashMap<>();
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<>();
-<<<<<<< HEAD
-=======
+
         Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
         oldExpenses.push(expenses);
->>>>>>> 71056c071ad3642f49ddb4af5c29b09b20be25ad
         ArrayList<String> itemAndPriceList1 = new ArrayList<>();
         itemAndPriceList1.add("book, $3");
         String bookDate = "2019-09-09";
@@ -114,11 +99,7 @@ public class DeleteExpenseCommandTest {
         LocalDate bookDateOfPurchase = LocalDate.parse(bookDate, fmt);
         expenses.put(bookDateOfPurchase, itemAndPriceList1);
         ui.fullCommand = "delete bread";
-<<<<<<< HEAD
-        new DeleteExpenseCommand(ui, expenses);
-=======
         new DeleteExpenseCommand(ui, expenses, oldExpenses);
->>>>>>> 71056c071ad3642f49ddb4af5c29b09b20be25ad
         assertItemNotFoundErrorMessageDisplayed();
     }
 

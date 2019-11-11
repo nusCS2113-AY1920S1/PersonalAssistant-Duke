@@ -2,15 +2,10 @@
 
 package taskcmdtest;
 
-<<<<<<< HEAD
-import gazeeebo.UI.Ui;
-import gazeeebo.commands.tasks.DeadlineCommand;
-import gazeeebo.triviaManager.TriviaManager;
-=======
+
 import gazeeebo.ui.Ui;
 import gazeeebo.commands.tasks.DeadlineCommand;
 import gazeeebo.triviamanager.TriviaManager;
->>>>>>> 71056c071ad3642f49ddb4af5c29b09b20be25ad
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.storage.TriviaStorage;

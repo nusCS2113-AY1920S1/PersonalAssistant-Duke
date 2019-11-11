@@ -3,13 +3,8 @@
 package taskcmdtest;
 
 import gazeeebo.storage.TriviaStorage;
-<<<<<<< HEAD
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
-=======
 import gazeeebo.triviamanager.TriviaManager;
 import gazeeebo.ui.Ui;
->>>>>>> 71056c071ad3642f49ddb4af5c29b09b20be25ad
 import gazeeebo.commands.tasks.TagCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
