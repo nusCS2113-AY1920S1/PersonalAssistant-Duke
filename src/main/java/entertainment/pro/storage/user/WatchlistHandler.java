@@ -147,8 +147,7 @@ public class WatchlistHandler {
     /**
      * return a list of possible hints from watchlist for autocomplete.
      * @param keyword incomplete command of the user
-     * @return ArrayList list of movie titles currently in the watchlist that could potentially be
-     * what the user is trying to type.
+     * @return ArrayList list of movie titles currently in the watchlist that could potentially be user's intent
      *
      */
     public static ArrayList<String> getWatchListHints(String keyword) {

@@ -265,6 +265,7 @@ public abstract class CommandSuper {
         }
 
     }
+
     /**
      * Find payload of the user Command based on the interpretation by Command Parser.
      *

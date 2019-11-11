@@ -732,7 +732,7 @@ public class MovieHandler extends Controller implements RequestListener {
             moviesFlowPane.prefWrapLengthProperty().bind(moviesScrollPane.widthProperty());
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("MoreInfo.fxml"));
-//            AnchorPane posterView = loader.load();
+            //AnchorPane posterView = loader.load();
             InfoController controller = loader.getController();
             controller.getMovieTitleLabel().setText(movie.getTitle());
             controller.getMovieRatingLabel().setText(String.format("%.2f", movie.getRatingInfo()));
