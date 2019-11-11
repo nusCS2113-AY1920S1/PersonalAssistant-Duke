@@ -2544,8 +2544,14 @@ displayed after being edited.
 
 .. Test case:
 `/edit /bankexpenditure /from JunBank Savings Account /transno 4 /desc Top Up EZLink Card /category Transport` +
-Expected: Updated the description and category of the `expenditure` in index 1 of the `transaction list` in JunBank
+Expected: Updated the description and category of the `expenditure` in index  of the `transaction list` in JunBank
 Savings Account being displayed after being edited.
+
+[NOTE]
+====
+If you have do not have at least 4 transactions in `JunBank Savings Account`, you might want to add more expenditures
+before proceeding.
+====
 
 === Deleting a bank expenditure transaction
 . Delete an existing bank `expenditure` in a `savings` account.
@@ -2577,6 +2583,12 @@ There is enough money in the bank account to change the amount.
 `/edit /deposit /from JunBank Savings Account /transno 5 /amount 200 /date 30/10/2019` +
 Expected: Updated amount and date of the `deposit` in index 5 of the `transaction list`  in JunBank Savings Account
 being displayed after being edited.
+
+[NOTE]
+====
+If you have do not have at least 5 transactions in `JunBank Savings Account`, you might want to add more deposits before
+proceeding.
+====
 
 === Deleting a deposit transaction
 . Delete an existing bank `deposit` in a `savings` account.
@@ -2613,8 +2625,14 @@ expenditures in JunBank Savings Account being displayed after being edited.
 
 .. Test case:
 `/edit /recurbankexp /from JunBank Savings Account /transno 4 /desc Phone bill /category Bills` +
-Expected: Updated the description and category of the `recurring expenditure` in index 1 of the `transaction list` of
+Expected: Updated the description and category of the `recurring expenditure` in index 4 of the `transaction list` of
 recurring expenditures in JunBank Savings Account being displayed after being edited.
+
+[NOTE]
+====
+If you have do not have at least 4 recurring expenditures in `JunBank Savings Account`, you might want to add more
+recurring expenditures before proceeding.
+====
 
 === Deleting a recurring bank expenditure transaction
 . Delete an existing bank recurring `expenditure` in a `savings` account.
