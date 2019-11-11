@@ -8,7 +8,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 //@@author cyanoei
-
 /**
  * The LoanList class stores:
  * 1) A list of Loan objects containing individual Loan details, and

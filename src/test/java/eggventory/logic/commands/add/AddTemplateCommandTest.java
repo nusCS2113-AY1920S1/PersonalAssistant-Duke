@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author Deculsion
 class AddTemplateCommandTest {
     private ArrayList<Pair<String,String>> loanPairs = new ArrayList<>();
     private String testTemplateName;
@@ -57,7 +58,6 @@ class AddTemplateCommandTest {
         AddTemplateCommand testCommand = new AddTemplateCommand(CommandType.ADD, testTemplateName, loanPairs);
         assertEquals("OOPS! A template with that name already exists!",
                 testCommand.execute(testStockList, testCli, testStorage));
-
-
     }
+    //@@author
 }

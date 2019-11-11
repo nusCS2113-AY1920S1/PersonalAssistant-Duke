@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 //@@author cyanoei
-
 class AddPersonCommandTest {
 
     private StockList testStockList = new StockList();
@@ -56,5 +55,5 @@ class AddPersonCommandTest {
         assertDoesNotThrow(() -> cmd.execute(testStockList, testCli, testStorage));
         assertThrows(BadInputException.class, () -> cmd.execute(testStockList, testCli, testStorage));
     }
-
+    //@@author
 }

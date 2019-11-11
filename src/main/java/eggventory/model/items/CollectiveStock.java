@@ -1,7 +1,6 @@
 package eggventory.model.items;
 
 //@@author cyanoei
-
 import eggventory.commons.exceptions.BadInputException;
 
 /**

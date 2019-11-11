@@ -95,4 +95,5 @@ class AddLoanByTemplateCommandTest {
 
         assertEquals(expectedOutput, commandUnderTest.execute(testStockList, testCli, testStorage));
     }
+    //@@author
 }

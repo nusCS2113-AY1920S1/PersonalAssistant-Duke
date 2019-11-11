@@ -7,6 +7,18 @@ import eggventory.model.TemplateList;
 
 import java.util.Stack;
 
+//@@author patwaririshab
+
+/**
+ * The statelist class stores 4 stacks each storing states of the following data in string form.
+ * The statelist is used in the StateInterface class for maintaining a futurelist and historylist
+ * object used to maintain states to enable the undo and redo command.
+ * 1) Stock
+ * 2) StockType
+ * 3) Loans
+ * 4) Templates
+ * 5) Persons
+ */
 public class StateList {
     public Stack<String> stockStates;
     private Stack<String> stockTypeStates;

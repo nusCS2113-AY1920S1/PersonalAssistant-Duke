@@ -39,7 +39,7 @@ public class DeleteLoanCommand extends Command {
 
         } else {
             output = (String.format("Nice, I have deleted this loan for you: \n"
-                    + "Person: %s | Stock: %s | Quantity: %d", matricNo, stockCode, quantity));
+                    + "MatricNo: %s | Stock: %s | Quantity: %d", matricNo, stockCode, quantity));
         }
 
         ui.drawTable(LoanList.getAllLoansStruct());

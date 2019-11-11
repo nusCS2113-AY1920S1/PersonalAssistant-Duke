@@ -70,4 +70,3 @@ public class State {
         templateList.getTemplates().clear();
     }
 }
-//@@author

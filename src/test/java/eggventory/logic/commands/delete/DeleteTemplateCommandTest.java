@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author Deculsion
 class DeleteTemplateCommandTest {
 
     private Loan[] loans = new Loan[1];

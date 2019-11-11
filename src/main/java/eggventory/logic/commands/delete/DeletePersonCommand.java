@@ -35,4 +35,3 @@ public class DeletePersonCommand extends Command {
         return output;
     }
 }
-//@@author

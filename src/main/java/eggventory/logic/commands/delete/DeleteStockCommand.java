@@ -9,7 +9,6 @@ import eggventory.commons.enums.CommandType;
 import eggventory.model.items.Stock;
 
 //@@author cyanoei
-
 /**
  * Command objects for deleting stocks.
  * Requires the StockCode of the Stock.

@@ -91,9 +91,4 @@ class StockTest {
     void saveDetailsString() {
         assertEquals("TestType,#T,500,Test,0", testStock.saveDetailsString());
     }
-
-    @Test
-    void getDataAsArray() {
-    }
-    //@@author
 }

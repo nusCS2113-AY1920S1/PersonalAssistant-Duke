@@ -79,19 +79,18 @@ class EditStockCommandTest {
     }
 
     @Test
-    void testExecuteEditStockMinimum_Success(){
-
+    void testExecuteEditStockMinimum_Success() throws BadInputException {
+        testStockList.addStockType("TestType");
+        testStockList.addStock("TestType", "#T", 100, "Test");
+        String expected = "Awesome! I have successfully updated the following stock:\n"
+                + "stocktype: TestType\n"
+                + "stockcode: #T\n"
+                + "quantity: 100\n"
+                + "description: Test NEW\n"
+                + "minimum: 0";
+        String output = new EditStockCommand(CommandType.EDIT, "#T", StockProperty.DESCRIPTION,
+                "Test NEW").execute(testStockList,testCli,testStorage);
+        assertEquals(expected,output);
     }
-
-    @Test
-    void testExecuteEditStockLoaned_Success(){
-
-    }
-
-    @Test
-    void testExecuteEditStockLost_Success(){
-
-    }
-
-
+    //@@author
 }

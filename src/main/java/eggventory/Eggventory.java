@@ -58,7 +58,6 @@ public class Eggventory {
         try {
 
             String userInput = ui.read();
-            //TODO: Check whether SLAP is violated
             Command command = parser.parse(userInput);
             if (command.getType().equals(CommandType.BYE)) {
                 ((ByeCommand) command).executeSaveMoreLists(stateInterface.getStockList(), ui, storage,
