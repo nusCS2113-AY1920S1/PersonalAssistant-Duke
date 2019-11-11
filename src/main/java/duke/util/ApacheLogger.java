@@ -17,7 +17,7 @@ public class ApacheLogger {
      * @param modelName The class that caused the error
      * @param msg       The message of the error
      */
-    public static void logError(final String modelName, final String msg) {
+    public static void logMessage(final String modelName, final String msg) {
         logger = LogManager.getLogger(modelName);
         logger.debug(msg);
     }

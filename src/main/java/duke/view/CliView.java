@@ -72,7 +72,6 @@ public class CliView {
             + "2. Manage Students\n"
             + "3. Training Circuits\n"
             + "4. Exit");
-        printLine();
     }
 
     /**
@@ -97,9 +96,8 @@ public class CliView {
         System.out.flush();
         System.out.println("TRAINING SCHEDULE:\n"
             + "1. Daily Schedule\n"
-            + "2. Weekly Schedule\n"
-            + "3. Monthly Schedule\n"
-            + "4. Back");
+            + "2. Monthly Schedule\n"
+            + "3. Back");
     }
 
     /**
@@ -122,15 +120,14 @@ public class CliView {
         System.out.flush();
         printLine();
         System.out.println("MANAGE STUDENTS:\n"
-            + "1. Student List - (Cmd: list)\n"
-            + "2. Add student - (Cmd: add) \n"
-            + "3. Delete Student - "
-            + "(Cmd: delete [student index])\n"
-            + "4. Find Student - "
-            + "(Cmd: find [name])\n"
-            + "5. View student details - (Cmd: view [student index])\n"
-            + "6. Student progress - (Cmd: progress)");
+            + "1. Student List \n"
+            + "2. Add student \n"
+            + "3. Delete Student \n"
+            + "4. Find Student \n"
+            + "5. View student details \n"
+            + "6. Exit ");
         printLine();
+
     }
 
     /**
