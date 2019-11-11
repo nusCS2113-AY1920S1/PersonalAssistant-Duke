@@ -14,8 +14,9 @@ public class LimitUi extends Ui {
     private static final String INVALID_LIMIT_TYPE_MSG = "\tOOPS! Please specify the limit type: budget/saving.";
     private static final String INVALID_LIMIT_DURATION_MSG = "\tOOPS! Please specify the limit duration: "
                                                            + "daily/weekly/monthly.";
-    private static final String DUPLICATE_LIMITS_MSG = "\tOOPS! There can only be one budget/saving for each duration.";
+
     private static final String EXISTING_LIMIT_MSG = "\tOOPS! You already have a ";
+    private static final String DUPLICATE_LIMITS_MSG = "\tThere can only be one budget/saving for each duration.";
 
     private static final String NO_BUDGET_MSG = "\tOOPS! There is no budget set for the duration you specified.";
     private static final String NO_SAVING_MSG = "\tOOPS! There is no saving set for the duration you specified.";
@@ -53,6 +54,7 @@ public class LimitUi extends Ui {
     private static final String X = "x";
     private static final String LEFT_BRACKET = "[";
     private static final String RIGHT_BRACKET = "]";
+    private static final String COLON = ":";
 
     /**
      * Invalid limitType Printer.
@@ -100,7 +102,7 @@ public class LimitUi extends Ui {
         String limitType = existingLimit.getType();
         String limitDuration = existingLimit.getDuration();
         System.out.println(line);
-        System.out.println(EXISTING_LIMIT_MSG + limitDuration + SPACE + limitType);
+        System.out.println(EXISTING_LIMIT_MSG + limitDuration + SPACE + limitType + COLON);
         System.out.println("\t" + existingLimit.getRecordDetail());
         System.out.println(DUPLICATE_LIMITS_MSG);
         System.out.println(MSG_MODIFY);

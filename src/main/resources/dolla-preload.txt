@@ -12,3 +12,7 @@ BI | 3 | 60.0 | 20.0 | aa, bb, cc
 BI | 4 | 30.0 | 7.5 | ap, kx, xx, yt
 BI | 2 | 15.0 | 7.5 | tata, lili
 BI | 3 | 10.5 | 3.5 | xx, yy, zz
+BU | 10.0 | daily
+S | 100.0 | weekly
+BU | 1000.0 | monthly
+BU | 100.0 | weekly

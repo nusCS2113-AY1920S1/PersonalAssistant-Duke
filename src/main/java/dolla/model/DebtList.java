@@ -38,4 +38,21 @@ public class DebtList extends RecordList {
         super.addWithIndex(modifyIndex, newRecord);
         StorageWrite.setDebts(get());
     }
+
+    /**
+     * Method checks to see if the specified debt already exists.
+     * @param inputRecord The record to be compared against.
+     * @return index of the currently existing record (is - 1 if not found)
+     */
+    public int findExistingDebtIndex(Record inputRecord) {
+        for (int i = 0; i < recordArrayList.size(); i += 1) {
+            Record cmpRecord = recordArrayList.get(i);
+            //System.out.println(inputRecord.getRecordDetail());
+            //System.out.println(cmpRecord.getRecordDetail());
+            if (inputRecord.getRecordDetail().equals(cmpRecord.getRecordDetail())) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

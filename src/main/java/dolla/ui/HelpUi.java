@@ -6,6 +6,7 @@ public class HelpUi extends Ui {
     private static final String HEADER =
           "\t~~~~~~~~~~~~~~~~~~~~~~~~~Help Manual~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"
         + "\tThese commands are defined internally. Some commands are mode specific.\n"
+        + "\t[NOTE: These commands are case sensitive].\n"
         + "\tPlease refer to Dolla UG for a more comprehensive explanation of the commands.\n\n"
         + "\tdescription                             command\n"
         + "\t-----------                             --------";
