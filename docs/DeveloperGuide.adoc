@@ -350,7 +350,7 @@ image::CapCommandSequenceDiagram.png[]
 As seen `CapCommand` uses three different CAP calculation methods contained within itself to generate the CAP reports, in addition to all the sub-methods such as `letterGradeToCap` and `parsePrerequisiteTree`, and then pushes the information to `PlannerUi` for printing. 
 It also instantiates different `Exception` classes to feedback to the user if anything is wrong.
 
-=== SortCommand
+=== Sorting
 
 ==== Current implementation
 
