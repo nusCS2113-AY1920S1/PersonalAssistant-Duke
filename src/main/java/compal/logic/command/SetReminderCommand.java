@@ -13,11 +13,11 @@ public class SetReminderCommand extends Command {
     private static final Logger logger = LogUtils.getLogger(SetReminderCommand.class);
 
     public static final String MESSAGE_USAGE = "set-reminder\n\t"
-            + "Format: set-reminder /id <num> /status <Y|N>\n\n\t"
+            + "Format: set-reminder /id TASK_ID /status Y|N\n\n\t"
             + "You can switch the order of any two blocks (a block starts with \"/\" and ends by the next block)\n\t"
-            + "Note: content in \"<>\": need to be fulfilled by the user\n\t"
+            + "Note: content in CAP: need to be fulfilled by the user\n\t"
             + "content separated by \"|\": must choose exactly one from them\n\n"
-            + "This command will set the reminder of the task with id <num> to yes|no\n"
+            + "This command will set the reminder of the task with id TASK_ID to yes|no\n"
             + "Examples:\n\t"
             + "set-reminder /id 0 /status Y\n\t\t"
             + "set the reminder of task with id 0 to true\n\t"

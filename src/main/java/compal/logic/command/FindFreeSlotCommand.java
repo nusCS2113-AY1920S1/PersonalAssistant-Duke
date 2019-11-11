@@ -17,11 +17,11 @@ public class FindFreeSlotCommand extends Command {
     private static final Logger logger = LogUtils.getLogger(FindFreeSlotCommand.class);
 
     public static final String MESSAGE_USAGE = "findfreeslot\n\t"
-            + "Format: findfreeslot /date <dd/mm/yyyy> /hour <num> /min <num>\n\n\t"
-            + "Note: content in \"<>\": need to be fulfilled by the user\n\t"
+            + "Format: findfreeslot /date DATE /hour HOUR /min MINUTE\n\n\t"
+            + "Note: content in CAP: need to be fulfilled by the user\n\t"
             + "You can switch the order of any two blocks (a block starts with \"/\" and ends by the next block)\n\t"
-            + "dd/mm/yyyy is the date format. e.g. 01/01/2000\n\n"
-            + "This command will show all free time slots on that day with <num> hours <num> minutes\n"
+            + "For DATE: dd/mm/yyyy is the date format. e.g. 01/01/2000\n\n"
+            + "This command will show all free time slots on that day with HOUR hours MINUTE minutes\n"
             + "Examples:\n\t"
             + "findfreeslot /date 01/01/2019 /hour 1 /min 10\n\t\t"
             + "find all free time slots which is longer than 1h10min on 01/01/2019";

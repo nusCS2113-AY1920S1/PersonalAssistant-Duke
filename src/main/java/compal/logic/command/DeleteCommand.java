@@ -14,9 +14,9 @@ public class DeleteCommand extends Command {
      * CONSTANTS.
      */
     public static final String MESSAGE_USAGE = "delete\n\t"
-            + "Format: delete /id <num>\n\n\t"
-            + "Note: content in \"<>\": need to be fulfilled by the user\n\n"
-            + "This command will delete a task with id <num>\n"
+            + "Format: delete /id TASK_ID\n\n\t"
+            + "Note: content in CAP: need to be fulfilled by the user\n\n"
+            + "This command will delete a task with id TASK_ID\n"
             + "Examples:\n\t"
             + "delete /id 1\n\t\t"
             + "delete task with id 1";
