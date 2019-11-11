@@ -874,7 +874,7 @@ Expected: output a message to user that he must specify an amount
 
 #### E5. Listing all ingredient
 
-Using an ingredient from the Fridge
+Showing all ingredients in the Fridge
 
 *prerequisite:* user must be in `b` option of the main menu. See all ingredients in the Fridge by using `show` , assuming the list is not empty,
 
