@@ -146,6 +146,21 @@ data to manipulate. Filtering is done in the `MatchMemberCommand`, whereby we us
 to store both tasks that require John's skill and the number of occurrences. This HashMap is then used to sort an arrayList
 before being manipulated in the commandoutput for the user
 
+=== Typo Corrector Feature
+The Team Manager has a typo corrector feature, which can correct typos in command with limited
+error.
+
+The implementation is:
+
+1. The parser give a word need to be auto-corrected as well as a dictionary which contains the possible correct words.
+2. The SpellingErrorCorrector compute the similarity between input word and each word in the given dictionary, and records all these similarity.
+3. The similarity is computed by a dynamic programming algorithm, missing characters and mismatch of characters both cause a decrease of similarity. Two equal word have the similarity 100%.
+4. The auto-corrector pick the maximum similarity and its corresponding word, if the similarity is higher than a certain word, return this word; else, return the original word, which means no valid correct word was found.
+
+image::Spelling Error Corrector Sequence Diagram.png[]
+
+An example sequence diagram, show the sequence to parse a command with typos: "addd tassk new task"
+
 [appendix]
 
 == User Stories
