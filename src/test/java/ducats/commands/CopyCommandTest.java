@@ -10,14 +10,17 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 
 public class CopyCommandTest {
 
     //@@author Samuel787
 
     /**
-     * Test for copy [start_index] [end_index]
+     * Test for copy [start_index] [end_index].
      */
     @Test
     public void testCopyCommmand_twoIndicesInput_success() {
@@ -27,8 +30,11 @@ public class CopyCommandTest {
 
         SongList songs = new SongList();
         String testSong =
-                "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] " + "[[UFs],[UF],[UEs]," + "[UE]," +
-                        "[UDs],[UD],[LGs],[LG]] " + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
+                "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] "
+                        + "[[UFs],[UF],[UEs],"
+                        + "[UE],"
+                        + "[UDs],[UD],[LGs],[LG]] "
+                        + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
         try {
             songs.add(songconverter.convertSongFromString(testSong));
         } catch (Exception e) {
@@ -44,8 +50,9 @@ public class CopyCommandTest {
             System.out.println(e.getMessage());
         }
 
-        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E " +
-                "}|{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F " + "}{UPPER_F }{UPPER_E }{UPPER_E }|";
+        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E "
+                + "}|{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F "
+                + "}{UPPER_F }{UPPER_E }{UPPER_E }|";
 
         CopyCommand copyCommand = new CopyCommand("copy 1 2");
         try {
@@ -60,18 +67,21 @@ public class CopyCommandTest {
 
 
     /**
-     * Test for copy [start_index] [end_index] [paste_index]
+     * Test for copy [start_index] [end_index] [paste_index].
      */
     @Test
     public void testCopyCommmand_ThreeIndicesInput_success() {
         String fileDelimiter = System.getProperty("file.separator");
         SongConverter songconverter = new SongConverter();
-        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir")
+                + fileDelimiter + "songlist.txt");
 
         SongList songs = new SongList();
-        String testSong =
-                "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] " + "[[UFs],[UF],[UEs]," + "[UE]," +
-                        "[UDs],[UD],[LGs],[LG]] " + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
+        String testSong = "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] "
+                + "[[UFs],[UF],[UEs],"
+                + "[UE],"
+                + "[UDs],[UD],[LGs],[LG]] "
+                + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
         try {
             songs.add(songconverter.convertSongFromString(testSong));
         } catch (Exception e) {
@@ -87,9 +97,11 @@ public class CopyCommandTest {
             System.out.println(e.getMessage());
         }
 
-        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E " +
-                "}|{UPPER_A" + " }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E }|{MIDDLE_C " +
-                "}{MIDDLE_C " + "}{MIDDLE_C }{MIDDLE_C }|";
+        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E "
+                + "}|{UPPER_A"
+                + " }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E }|{MIDDLE_C "
+                + "}{MIDDLE_C "
+                + "}{MIDDLE_C }{MIDDLE_C }|";
 
         CopyCommand copyCommand = new CopyCommand("copy 1 2 3");
         try {
@@ -103,7 +115,7 @@ public class CopyCommandTest {
     }
 
     /**
-     * Test for copy [group_name]
+     * Test for copy [group_name].
      */
     @Test
     public void testCopyCommmand_CopyGroupName_success() {
@@ -112,9 +124,11 @@ public class CopyCommandTest {
         ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
 
         SongList songs = new SongList();
-        String testSong =
-                "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] " + "[[UFs],[UF],[UEs]," + "[UE]," +
-                        "[UDs],[UD],[LGs],[LG]] " + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
+        String testSong = "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] "
+                + "[[UFs],[UF],[UEs],"
+                + "[UE],"
+                + "[UDs],[UD],[LGs],[LG]] "
+                + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
         try {
             songs.add(songconverter.convertSongFromString(testSong));
         } catch (Exception e) {
@@ -137,9 +151,9 @@ public class CopyCommandTest {
             System.out.println(e);
         }
 
-        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E " +
-                "}|{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F " +
-                "}{UPPER_F }{UPPER_E }{UPPER_E }|";
+        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E "
+                + "}|{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F "
+                + "}{UPPER_F }{UPPER_E }{UPPER_E }|";
 
         CopyCommand copyCommand = new CopyCommand("copy test");
         try {
@@ -154,7 +168,7 @@ public class CopyCommandTest {
 
 
     /**
-     * Test for copy [group_name] [paste_index]
+     * Test for copy [group_name] [paste_index].
      */
     @Test
     public void testCopyCommmand_CopyGroupToIndex_success() {
@@ -163,9 +177,10 @@ public class CopyCommandTest {
         ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
 
         SongList songs = new SongList();
-        String testSong =
-                "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] " + "[[UFs],[UF],[UEs]," + "[UE]," +
-                        "[UDs],[UD],[LGs],[LG]] " + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
+        String testSong = "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] "
+                + "[[UFs],[UF],[UEs]," + "[UE],"
+                + "[UDs],[UD],[LGs],[LG]] "
+                + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
         try {
             songs.add(songconverter.convertSongFromString(testSong));
         } catch (Exception e) {
@@ -188,7 +203,9 @@ public class CopyCommandTest {
             System.out.println(e);
         }
 
-        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E }|{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|";
+        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F"
+                + " }{UPPER_F }{UPPER_E }{UPPER_E }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E }|{MIDDLE_C }{MIDDLE_C "
+                + "}{MIDDLE_C }{MIDDLE_C }|";
 
         CopyCommand copyCommand = new CopyCommand("copy test 2");
         try {
@@ -203,7 +220,7 @@ public class CopyCommandTest {
 
 
     /**
-     * Test for invalid copy [group_name]
+     * Test for invalid copy [group_name].
      */
     @Test
     public void testCopyCommmand_invalidGroupName_failure() {
@@ -212,9 +229,10 @@ public class CopyCommandTest {
         ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
 
         SongList songs = new SongList();
-        String testSong =
-                "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] " + "[[UFs],[UF],[UEs]," + "[UE]," +
-                        "[UDs],[UD],[LGs],[LG]] " + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
+        String testSong = "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] "
+                + "[[UFs],[UF],[UEs],"
+                + "[UE]," + "[UDs],[UD],[LGs],[LG]] "
+                + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
         try {
             songs.add(songconverter.convertSongFromString(testSong));
         } catch (Exception e) {
@@ -237,9 +255,9 @@ public class CopyCommandTest {
             System.out.println(e);
         }
 
-        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E " +
-                "}|{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F " +
-                "}{UPPER_F }{UPPER_E }{UPPER_E }|";
+        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E "
+                + "}|{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F "
+                + "}{UPPER_F }{UPPER_E }{UPPER_E }|";
 
         CopyCommand copyCommand = new CopyCommand("copy meow");
         try {
@@ -255,7 +273,7 @@ public class CopyCommandTest {
     }
 
     /**
-     * Test for invalid copy [group_name] [paste_index]
+     * Test for invalid copy [group_name] [paste_index].
      */
     @Test
     public void testCopyCommmand_invalidPasteIndex_failure() {
@@ -264,9 +282,10 @@ public class CopyCommandTest {
         ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
 
         SongList songs = new SongList();
-        String testSong =
-                "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] " + "[[UFs],[UF],[UEs]," + "[UE]," +
-                        "[UDs],[UD],[LGs],[LG]] " + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
+        String testSong = "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] "
+                + "[[UFs],[UF],[UEs],"
+                + "[UE]," + "[UDs],[UD],[LGs],[LG]] "
+                + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
         try {
             songs.add(songconverter.convertSongFromString(testSong));
         } catch (Exception e) {
@@ -289,9 +308,9 @@ public class CopyCommandTest {
             System.out.println(e);
         }
 
-        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E " +
-                "}|{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F " +
-                "}{UPPER_F }{UPPER_E }{UPPER_E }|";
+        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E "
+                + "}|{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F "
+                + "}{UPPER_F }{UPPER_E }{UPPER_E }|";
 
         CopyCommand copyCommand = new CopyCommand("copy meow 2000");
         try {
@@ -308,18 +327,19 @@ public class CopyCommandTest {
 
 
     /**
-     * Test for invalid copy [start_index] [end_index]
+     * Test for invalid copy [start_index] [end_index].
      */
     @Test
     public void testCopyCommmand_invalidIndex_failure() {
         String fileDelimiter = System.getProperty("file.separator");
         SongConverter songconverter = new SongConverter();
-        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir")
+                + fileDelimiter + "songlist.txt");
 
         SongList songs = new SongList();
-        String testSong =
-                "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] " + "[[UFs],[UF],[UEs]," + "[UE]," +
-                        "[UDs],[UD],[LGs],[LG]] " + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
+        String testSong = "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] "
+                + "[[UFs],[UF],[UEs]," + "[UE]," + "[UDs],[UD],[LGs],[LG]] "
+                + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
         try {
             songs.add(songconverter.convertSongFromString(testSong));
         } catch (Exception e) {
@@ -335,9 +355,9 @@ public class CopyCommandTest {
             System.out.println(e.getMessage());
         }
 
-        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E " +
-                "}|{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F " +
-                "}{UPPER_F }{UPPER_E }{UPPER_E }|";
+        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E "
+                + "}|{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F "
+                + "}{UPPER_F }{UPPER_E }{UPPER_E }|";
 
         CopyCommand copyCommand = new CopyCommand("copy -1 1");
         try {
@@ -353,18 +373,19 @@ public class CopyCommandTest {
     }
 
     /**
-     * Test for invalid copy [start_index] [end_index] [paste_index]
+     * Test for invalid copy [start_index] [end_index] [paste_index].
      */
     @Test
     public void testCopyCommmand_invalidCopyPasteIndex_failure() {
         String fileDelimiter = System.getProperty("file.separator");
         SongConverter songconverter = new SongConverter();
-        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir")
+                + fileDelimiter + "songlist.txt");
 
         SongList songs = new SongList();
-        String testSong =
-                "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] " + "[[UFs],[UF],[UEs]," + "[UE]," +
-                        "[UDs],[UD],[LGs],[LG]] " + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
+        String testSong = "Jingle aminor 120 [[UAs],[UA],[UCs],[UC],[LBs],[LB],[LAs],[LA]] "
+                        + "[[UFs],[UF],[UEs]," + "[UE]," + "[UDs],[UD],[LGs],[LG]] "
+                        + "[[MCs],[MC],[MC],[MC],[LCs],[LC],[LC],[LC]]";
         try {
             songs.add(songconverter.convertSongFromString(testSong));
         } catch (Exception e) {
@@ -380,9 +401,9 @@ public class CopyCommandTest {
             System.out.println(e.getMessage());
         }
 
-        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E " +
-                "}|{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F " +
-                "}{UPPER_F }{UPPER_E }{UPPER_E }|";
+        String expected = "{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F }{UPPER_F }{UPPER_E }{UPPER_E "
+                + "}|{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }{MIDDLE_C }|{UPPER_A }{UPPER_A }{UPPER_C }{UPPER_C }|{UPPER_F "
+                + "}{UPPER_F }{UPPER_E }{UPPER_E }|";
 
         CopyCommand copyCommand = new CopyCommand("copy 1 2 -3");
         try {

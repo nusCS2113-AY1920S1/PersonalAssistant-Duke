@@ -59,42 +59,42 @@ public class CopyCommand extends Command<SongList> {
         int activeSong = songList.getActiveIndex();
         song = songList.getSongIndex(activeSong);
 
-            message = message.substring(5).trim();
-            String[] sections = message.split(" ");
-            if (sections.length < 1 || sections.length > 3) {
-                throw new DucatsException(message, "copy");
+        message = message.substring(5).trim();
+        String[] sections = message.split(" ");
+        if (sections.length < 1 || sections.length > 3) {
+            throw new DucatsException(message, "copy");
+        }
+        //trimmer
+        for (int i = 0; i < sections.length; i++) {
+            sections[i] = sections[i].trim();
+        }
+        if (sections.length == 1) {
+            //copy the verse to the end of the song list
+            String verseName = sections[0];
+            copyVerseToEnd(verseName);
+            return ui.formatCopy(verseName, null, null, null, 0);
+        } else if (sections.length == 2) {
+            try {
+                //copy the bars between the starting num and ending num to the end of the song
+                int startNum = Integer.parseInt(sections[0]);
+                int endNum = Integer.parseInt(sections[1]);
+                copyBarsToEnd(startNum, endNum);
+                return ui.formatCopy(null, startNum, endNum, null, 1);
+            } catch (NumberFormatException e) {
+                //copy the verse and insert it between the numbers stated
+                String verseName = sections[0].trim();
+                int startNum = Integer.parseInt(sections[1]);
+                insertVerse(verseName, startNum);
+                return ui.formatCopy(verseName, null, null, startNum, 2);
             }
-            //trimmer
-            for (int i = 0; i < sections.length; i++) {
-                sections[i] = sections[i].trim();
-            }
-            if (sections.length == 1) {
-                //copy the verse to the end of the song list
-                String verseName = sections[0];
-                copyVerseToEnd(verseName);
-                return ui.formatCopy(verseName, null, null, null, 0);
-            } else if (sections.length == 2) {
-                try {
-                    //copy the bars between the starting num and ending num to the end of the song
-                    int startNum = Integer.parseInt(sections[0]);
-                    int endNum = Integer.parseInt(sections[1]);
-                    copyBarsToEnd(startNum, endNum);
-                    return ui.formatCopy(null, startNum, endNum, null, 1);
-                } catch (NumberFormatException e) {
-                    //copy the verse and insert it between the numbers stated
-                    String verseName = sections[0].trim();
-                    int startNum = Integer.parseInt(sections[1]);
-                    insertVerse(verseName, startNum);
-                    return ui.formatCopy(verseName, null, null, startNum, 2);
-                }
-            } else{
-                //copy the bars between the a range into a new range
-                int copyStartNum = Integer.parseInt(sections[0]);
-                int copyEndNum = Integer.parseInt(sections[1]);
-                int pasteStartNum = Integer.parseInt(sections[2]);
-                insertCopiedBars(copyStartNum, copyEndNum, pasteStartNum);
-                return ui.formatCopy(null, copyStartNum, copyEndNum, pasteStartNum, 3);
-            }
+        } else {
+            //copy the bars between the a range into a new range
+            int copyStartNum = Integer.parseInt(sections[0]);
+            int copyEndNum = Integer.parseInt(sections[1]);
+            int pasteStartNum = Integer.parseInt(sections[2]);
+            insertCopiedBars(copyStartNum, copyEndNum, pasteStartNum);
+            return ui.formatCopy(null, copyStartNum, copyEndNum, pasteStartNum, 3);
+        }
 
     }
 

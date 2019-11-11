@@ -63,24 +63,19 @@ public class GroupCommand extends Command<SongList> {
 
     private void createGroup(SongList songList, int startNo, int endNo, String name) throws DucatsException {
         boolean nameAlreadyExists = groupNameExists(songList, name);
-        if(songList.getSize() < 1){
+        if (songList.getSize() < 1) {
             throw new DucatsException(message, "no_song_in_songlist");
-        } else if (nameAlreadyExists){
+        } else if (nameAlreadyExists) {
             throw new DucatsException(message, "name_exists");
         } else {
             int activeSongIndex = songList.getActiveIndex();
             Song song = songList.getSongIndex(activeSongIndex);
-            Group group = createGroup(song, name, startNo, endNo);
+            Group group = verifyAndCreateGroup(song, name, startNo, endNo);
             songList.getSongIndex(songList.getActiveIndex()).getGroups().add(group);
         }
-//        if (songList.getSize() > 0 && !nameAlreadyExists) {
-//
-//        } else {
-//            throw new DucatsException(message, "name_exists");
-//        }
     }
 
-    private void updateSong(Storage storage, SongList songList) throws DucatsException{
+    private void updateSong(Storage storage, SongList songList) throws DucatsException {
         try {
             storage.updateFile(songList);
         } catch (Exception e) {
@@ -109,7 +104,7 @@ public class GroupCommand extends Command<SongList> {
         return false;
     }
 
-    private Group createGroup(Song song, String name, int start, int end) throws DucatsException {
+    private Group verifyAndCreateGroup(Song song, String name, int start, int end) throws DucatsException {
         //maybe can begin off by seeing if the said group already exists
 
         //check that the bounds are valid

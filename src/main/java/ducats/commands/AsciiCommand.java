@@ -18,7 +18,6 @@ import java.util.HashMap;
 /**
  * This class displays songs in a musical song sheet format for visual representation
  * of the song being created.
- *
  */
 public class AsciiCommand extends Command<SongList> {
 
@@ -57,17 +56,17 @@ public class AsciiCommand extends Command<SongList> {
     private String message;
 
 
-
     //ArrayList containing rows that are lines on a musical songsheet. Row starts from 0
     private static final ArrayList<Integer> linedRows = new ArrayList<>(Arrays.asList(3, 5, 7, 9, 11));
     //ArrayList containing rows that are non-lines on a musical songsheet.
-    private static final ArrayList<Integer> nonLinedRows = new ArrayList<>(Arrays.asList(0,1,2,4,6,8,10,12,13,14));
+    private static final ArrayList<Integer> nonLinedRows = new ArrayList<>(Arrays.asList(0, 1, 2, 4, 6, 8, 10, 12, 13,
+            14));
     //HashMap that stores the row of corresponding pitch. Key will be pitch and value will be row
     private static final HashMap<Pitch, Integer> pitchRows = new HashMap<>();
     //dotted durations in music theory have relative durations of 3 and 6 units
-    private static final ArrayList<Integer> dottedDurations = new ArrayList<>(Arrays.asList(3,6));
+    private static final ArrayList<Integer> dottedDurations = new ArrayList<>(Arrays.asList(3, 6));
 
-    static{
+    static {
         pitchRows.put(Pitch.UPPER_C, 0);
         pitchRows.put(Pitch.UPPER_B, 1);
         pitchRows.put(Pitch.UPPER_A, 2);
@@ -88,6 +87,7 @@ public class AsciiCommand extends Command<SongList> {
 
     /**
      * Constructor for the command to print out a bar, group or song in ASCII.
+     *
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      */
     public AsciiCommand(String message) {
@@ -96,10 +96,11 @@ public class AsciiCommand extends Command<SongList> {
 
     /**
      * Prints out a bar, group or song in ASCII to represent the song sheet for that component.
+     *
      * @param songList the duke.TaskList or duke.components.SongList object that contains the task list in use
-     * @param ui the Ui object responsible for the reading of user input and the display of
-     *           the responses
-     * @param storage the Storage object used to read and manipulate the .txt file
+     * @param ui       the Ui object responsible for the reading of user input and the display of
+     *                 the responses
+     * @param storage  the Storage object used to read and manipulate the .txt file
      * @return the string corresponding to the ASCII song sheet as requested by user
      * @throws DucatsException if an exception occurs in the parsing of the message or in IO
      */
@@ -136,7 +137,7 @@ public class AsciiCommand extends Command<SongList> {
 
     }
 
-    private Song getBarAsSong(SongList songList, int barNum, String message) throws DucatsException{
+    private Song getBarAsSong(SongList songList, int barNum, String message) throws DucatsException {
         //bar index for user is assumed to start from 1
         if (barNum > songList.getSongIndex(songList.getActiveIndex()).getNumBars() || barNum < 1) {
             throw new DucatsException(message, "AsciiCommand");
@@ -147,12 +148,13 @@ public class AsciiCommand extends Command<SongList> {
         return tempSong;
     }
 
-    private Song getGroupAsSong(SongList songList, String groupName, String message) throws DucatsException{
+    private Song getGroupAsSong(SongList songList, String groupName, String message) throws DucatsException {
         int activeSongIndex = songList.getActiveIndex();
         Song activeSong = songList.getSongIndex(activeSongIndex);
         Group group = activeSong.findGroup(groupName);
-        Song groupAsSong = new Song("temp", "aminor", 120);;
-        if(group == null){
+        Song groupAsSong = new Song("temp", "aminor", 120);
+        ;
+        if (group == null) {
             throw new DucatsException(message, "AsciiCommand");
         } else {
             //wrap the group as a song
@@ -164,7 +166,7 @@ public class AsciiCommand extends Command<SongList> {
         return groupAsSong;
     }
 
-    private Song findSong(SongList songList, String songName) throws DucatsException{
+    private Song findSong(SongList songList, String songName) throws DucatsException {
         ArrayList<Song> songs = songList.findSong(songName);
         Song song;
         if (songs.size() == 1) {
@@ -189,6 +191,7 @@ public class AsciiCommand extends Command<SongList> {
 
     /**
      * Prints out the selected bar in ASCII format to represnt the song sheet.
+     *
      * @param bar the bar that user wants to print in ASCII
      */
     public static String printBarAscii(Bar bar) {
@@ -199,6 +202,7 @@ public class AsciiCommand extends Command<SongList> {
 
     /**
      * Prints out the selected verse in ASCII format to represent the song sheet.
+     *
      * @param group the verse that user wants to print in ASCII
      */
     public static String printGroupAscii(Group group) {
@@ -293,6 +297,7 @@ public class AsciiCommand extends Command<SongList> {
 
     /**
      * Prints out the selected song in ASCII format to represent the song sheet.
+     *
      * @param song the song that user wants to print in ASCII
      */
     public static String printSongAscii(Song song) {
@@ -343,7 +348,8 @@ public class AsciiCommand extends Command<SongList> {
         return songAscii;
     }
 
-    private static void generateBarAscii(ArrayList<ArrayList<String>> songAscii, ArrayList<ArrayList<String>> barAscii){
+    private static void generateBarAscii(ArrayList<ArrayList<String>> songAscii,
+                                         ArrayList<ArrayList<String>> barAscii) {
         for (int row = 0; row < MAX_ROWS; row++) {
             for (int col = 0; col < barAscii.get(col).size(); col++) {
                 songAscii.get(row).add(barAscii.get(row).get(col));
@@ -353,14 +359,14 @@ public class AsciiCommand extends Command<SongList> {
 
     private static ArrayList<ArrayList<String>> parseSongAscii(ArrayList<ArrayList<String>> rawSongAscii) {
         ArrayList<ArrayList<String>> resultAscii = new ArrayList<>();
-        for (ArrayList<String> arr: rawSongAscii) {
+        for (ArrayList<String> arr : rawSongAscii) {
             resultAscii.add(new ArrayList<>(arr));
         }
         for (int i = 0; i < MAX_ROWS; i++) {
             if (i == pitchRows.get(Pitch.UPPER_C) || i == pitchRows.get(Pitch.LOWER_E)) {
                 setRowsUpperCUpperE(resultAscii, rawSongAscii, i);
             } else if (i == pitchRows.get(Pitch.UPPER_B) || i == pitchRows.get(Pitch.LOWER_D)) {
-               setRowsUpperBLowerD(resultAscii, rawSongAscii, i);
+                setRowsUpperBLowerD(resultAscii, rawSongAscii, i);
             } else if (i == pitchRows.get(Pitch.MIDDLE_C)) {
                 setRowsMiddleC(resultAscii, rawSongAscii, i);
             } else if (linedRows.contains(i)) {
@@ -373,12 +379,9 @@ public class AsciiCommand extends Command<SongList> {
     }
 
 
-    private static void setDottedNotes(int duration,
-                                         ArrayList<ArrayList<String>> resultAscii,
-                                         int row,
-                                         int startPos,
-                                         String symbol){
-        if(dottedDurations.contains(duration)){
+    private static void setDottedNotes(int duration, ArrayList<ArrayList<String>> resultAscii, int row, int startPos,
+                                       String symbol) {
+        if (dottedDurations.contains(duration)) {
             String part1 = Character.toString(symbol.charAt(0));
             String part2 = Character.toString(symbol.charAt(1));
             resultAscii.get(row).set(startPos, part1);
@@ -389,9 +392,9 @@ public class AsciiCommand extends Command<SongList> {
     }
 
     private static void setRowsUpperCUpperE(ArrayList<ArrayList<String>> resultAscii,
-                                            ArrayList<ArrayList<String>> rawSongAscii, int row){
+                                            ArrayList<ArrayList<String>> rawSongAscii, int row) {
         int length = rawSongAscii.get(row).size();
-        for(int col = 1; col < length; col++){
+        for (int col = 1; col < length; col++) {
             if (rawSongAscii.get(row).get(col).equals(START_MUSICAL_NOTE_SONGSHEET)) {
                 int startPos = col;
                 int counter = 1;
@@ -416,7 +419,7 @@ public class AsciiCommand extends Command<SongList> {
     }
 
     private static void setRowsUpperBLowerD(ArrayList<ArrayList<String>> resultAscii,
-                                            ArrayList<ArrayList<String>> rawSongAscii, int row){
+                                            ArrayList<ArrayList<String>> rawSongAscii, int row) {
         int length = rawSongAscii.get(row).size();
         for (int j = 1; j < length; j++) {
             if (rawSongAscii.get(row).get(j).equals(START_MUSICAL_NOTE_SONGSHEET)) {
@@ -444,7 +447,7 @@ public class AsciiCommand extends Command<SongList> {
     }
 
     private static void setRowsMiddleC(ArrayList<ArrayList<String>> resultAscii,
-                                       ArrayList<ArrayList<String>> rawSongAscii, int i){
+                                       ArrayList<ArrayList<String>> rawSongAscii, int i) {
         int length = rawSongAscii.get(i).size();
         for (int j = 1; j < length; j++) {
             if (rawSongAscii.get(i).get(j).equals(START_MUSICAL_NOTE_SONGSHEET)) {
@@ -476,7 +479,7 @@ public class AsciiCommand extends Command<SongList> {
     }
 
     private static void setLinedRows(ArrayList<ArrayList<String>> resultAscii,
-                                     ArrayList<ArrayList<String>> rawSongAscii, int i){
+                                     ArrayList<ArrayList<String>> rawSongAscii, int i) {
         int length = rawSongAscii.get(i).size();
         for (int j = 1; j < length; j++) {
             if (rawSongAscii.get(i).get(j).equals(START_MUSICAL_NOTE_SONGSHEET)) {
@@ -496,7 +499,7 @@ public class AsciiCommand extends Command<SongList> {
     }
 
     private static void setNonLinedRows(ArrayList<ArrayList<String>> resultAscii,
-                                     ArrayList<ArrayList<String>> rawSongAscii, int i){
+                                        ArrayList<ArrayList<String>> rawSongAscii, int i) {
         int length = rawSongAscii.get(i).size();
         for (int j = 1; j < length; j++) {
             if (rawSongAscii.get(i).get(j).equals(START_MUSICAL_NOTE_SONGSHEET)) {
@@ -523,6 +526,7 @@ public class AsciiCommand extends Command<SongList> {
      * the duration of each notes can be retrieved.
      * Hence, general symbols are used to map out the start notes and continuation notes for Musical notes and
      * Rest.
+     *
      * @param bar the bar to be parsed
      * @return a 2D ArrayList containing the layout of all the notes and rest
      */
@@ -540,7 +544,7 @@ public class AsciiCommand extends Command<SongList> {
     }
 
     //used by getBarAscii
-    private static void generateBareSheetRow(int rowNum, ArrayList<ArrayList<String>> barAscii){
+    private static void generateBareSheetRow(int rowNum, ArrayList<ArrayList<String>> barAscii) {
         barAscii.add(new ArrayList<>());
         if (linedRows.contains(rowNum)) {
             for (int j = 0; j < NUM_CHORDS_IN_BAR; j++) {
@@ -554,13 +558,13 @@ public class AsciiCommand extends Command<SongList> {
     }
 
     //used by getBarAscii
-    private static void generateChordSheet(ArrayList<Note> notes, ArrayList<ArrayList<String>> barAscii, int chordNum){
+    private static void generateChordSheet(ArrayList<Note> notes, ArrayList<ArrayList<String>> barAscii, int chordNum) {
         for (Note note : notes) {
             if (note.isStart() && note.getPitch() != Pitch.REST) {
                 setStartNonRestNotes(note, chordNum, barAscii);
-            } else if(note.isStart() && note.getPitch() == Pitch.REST){
+            } else if (note.isStart() && note.getPitch() == Pitch.REST) {
                 setStartRestNotes(chordNum, barAscii);
-            } else if(!note.isStart() && note.getPitch() != Pitch.REST){
+            } else if (!note.isStart() && note.getPitch() != Pitch.REST) {
                 setNonStartNonRestNotes(note, chordNum, barAscii);
             } else {
                 setNonStartRestNotes(chordNum, barAscii);
@@ -569,13 +573,13 @@ public class AsciiCommand extends Command<SongList> {
     }
 
     //used by generateChordSheet
-    private static void setStartNonRestNotes(Note note, int chordNum, ArrayList<ArrayList<String>> barAscii){
+    private static void setStartNonRestNotes(Note note, int chordNum, ArrayList<ArrayList<String>> barAscii) {
         int rowOfPitch = pitchRows.get(note.getPitch());
         barAscii.get(rowOfPitch).set(chordNum, START_MUSICAL_NOTE_SONGSHEET);
     }
 
     //used by generateChordSheet
-    private static void setStartRestNotes(int chordNum, ArrayList<ArrayList<String>> barAscii){
+    private static void setStartRestNotes(int chordNum, ArrayList<ArrayList<String>> barAscii) {
         int rowOfRest = pitchRows.get(Pitch.REST);
         for (int k = 0; k < MAX_ROWS; k++) {
             if (k == rowOfRest) {
@@ -587,13 +591,15 @@ public class AsciiCommand extends Command<SongList> {
             }
         }
     }
+
     //used by generateChordSheet
-    private static void setNonStartNonRestNotes(Note note, int chordNum, ArrayList<ArrayList<String>> barAscii){
+    private static void setNonStartNonRestNotes(Note note, int chordNum, ArrayList<ArrayList<String>> barAscii) {
         int rowOfPitch = pitchRows.get(note.getPitch());
         barAscii.get(rowOfPitch).set(chordNum, CONTINUE_MUSICAL_NOTE_SONGSHEET);
     }
+
     //used by generateChordSheet
-    private static void setNonStartRestNotes(int chordNum, ArrayList<ArrayList<String>> barAscii){
+    private static void setNonStartRestNotes(int chordNum, ArrayList<ArrayList<String>> barAscii) {
         int rowOfRest = pitchRows.get(Pitch.REST);
         for (int k = 0; k < MAX_ROWS; k++) {
             if (k == rowOfRest) {
@@ -645,6 +651,7 @@ public class AsciiCommand extends Command<SongList> {
     }
 
     //@@author rohan-av
+
     /**
      * Returns an integer corresponding to the duration, tempo and time signature if the command starts a metronome.
      * Else, returns an array containing -1.
