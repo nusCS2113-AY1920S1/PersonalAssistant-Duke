@@ -10,7 +10,6 @@ import duke.data.Patient;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.exception.DukeException;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
@@ -23,15 +22,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class PatientCommandTest extends CommandTest {
 
     private Patient patient;
-    String[] impSwitchNames = {"impression"};
-    String[] followSwitchNames = {"followup"};
-    String[] critSwitchNames = {"critical"};
-    String[] switchVals = {null};
+    private Impression imp;
 
-    Impression imp;
-    ObjCommand impCmd = null;
-    ObjCommand followCmd = null;
-    ObjCommand critCmd = null;
     /**
      * Sets up the core of this object to have a patient and impression, opens the impression, and stores those
      * references for comparison.
@@ -47,13 +39,6 @@ public class PatientCommandTest extends CommandTest {
             fail("Exception thrown while setting up patient! " + excp.getMessage());
         }
         core.uiContext.open(patient);
-    }
-
-    @AfterEach
-    public void cleanup() {
-        impCmd = null;
-        followCmd = null;
-        critCmd = null;
     }
 
     @Test
@@ -72,19 +57,49 @@ public class PatientCommandTest extends CommandTest {
 
     @Test
     public void patientEditCommand_allSwitches_correctEditsMade() {
-        String[] switchNames = {"name", "description"};
-        String[] switchVals = {"test", "test description"};
+        Patient newPatient = null;
+        Patient newPatientPlus = null;
+        ArgCommand editCmd = null;
+        ArgCommand editCmdPlus = null;
+        String[] switchNames = {"name", "bed", "allergies", "height", "weight", "age", "number",
+                "address", "history"};
+        String[] switchVals = {"new name", "new bed", "new allergies", "180", "100", "40", "95992020",
+                "new address", "new history"};
+        String[] switchNamesPlus = {"name", "bed", "allergies", "height", "weight", "age", "number",
+                "address", "history", "append"};
+        String[] switchValsPlus = {"plus", "plus", "plus", "177", "70", "20", "99111720", "plus", "plus", null};
+
         try {
-            ArgCommand newImpCmd = new ArgCommand(PatientEditSpec.getSpec(), null, switchNames, switchVals);
-            newImpCmd.execute(core);
-            assertTrue(imp.equals(patient.getImpression("test")));
+            newPatient = new Patient("new name", "new bed", "new allergies", 180, 100,
+                    40, 95992020, "new address", "new history");
+            newPatientPlus = new Patient("new name plus", "new bed plus", "new allergies plus",
+                    177, 70, 20, 99111720, "new address plus", "new history plus");
+            editCmd = new ArgCommand(PatientEditSpec.getSpec(), null, switchNames, switchVals);
+            editCmdPlus = new ArgCommand(PatientEditSpec.getSpec(), null, switchNamesPlus, switchValsPlus);
         } catch (DukeException excp) {
-            fail("Exception thrown when validly creating patient from command!");
+            fail("Exception thrown when setting up for editing: " + excp.getMessage());
+        }
+
+        try {
+            editCmd.execute(core);
+            assertTrue(newPatient.equals(patient));
+            editCmdPlus.execute(core);
+            assertTrue(newPatientPlus.equals(patient));
+        } catch (DukeException excp) {
+            fail("Exception thrown when editing: " + excp.getMessage());
         }
     }
 
     @Test
     public void patientDeleteCommand_validTarget_correctObjectsDeleted() {
+        String[] impSwitchNames = {"impression"};
+        String[] followSwitchNames = {"followup"};
+        String[] critSwitchNames = {"critical"};
+        String[] switchVals = {null};
+
+        ObjCommand impCmd = null;
+        ObjCommand followCmd = null;
+        ObjCommand critCmd = null;
         try {
             Result testResult = new Result("test", imp, 1, "test result");
             Plan testPlan = new Plan("test", imp, 0, "0", "test plan");

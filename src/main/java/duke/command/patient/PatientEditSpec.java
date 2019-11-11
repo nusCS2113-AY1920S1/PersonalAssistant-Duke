@@ -18,7 +18,7 @@ public class PatientEditSpec extends ArgSpec {
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
                 new Switch("name", String.class, true, ArgLevel.REQUIRED, "n"),
-                new Switch("bed", String.class, true, ArgLevel.OPTIONAL, "b"),
+                new Switch("bed", String.class, true, ArgLevel.REQUIRED, "b"),
                 new Switch("allergies", String.class, true, ArgLevel.REQUIRED, "a",
                         "allergy"),
                 new Switch("height", Integer.class, true, ArgLevel.REQUIRED, "h"),
@@ -42,7 +42,7 @@ public class PatientEditSpec extends ArgSpec {
             patient.setName(append ? (patient.getName() + " " + name) : name);
         }
 
-        String bedNo = cmd.getSwitchVal("bedNo");
+        String bedNo = cmd.getSwitchVal("bed");
         if (bedNo != null) {
             String newBed = (append) ? (patient.getBedNo() + " " + bedNo) : bedNo;
             if (core.patientData.getPatientByBed(newBed) != null) {
