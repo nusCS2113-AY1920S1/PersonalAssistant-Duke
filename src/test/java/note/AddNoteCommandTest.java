@@ -3,7 +3,7 @@
 package note;
 
 import gazeeebo.exception.DukeException;
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.note.AddNoteCommand;
 import gazeeebo.notes.Note;
 import gazeeebo.notes.NoteList;

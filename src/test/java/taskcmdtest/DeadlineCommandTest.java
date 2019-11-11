@@ -2,9 +2,9 @@
 
 package taskcmdtest;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.tasks.DeadlineCommand;
-import gazeeebo.triviaManager.TriviaManager;
+import gazeeebo.triviamanager.TriviaManager;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.storage.TriviaStorage;

@@ -3,7 +3,7 @@ package gazeeebo.parser;
 
 import gazeeebo.commands.Command;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.tasks.ByeCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.help.HelpCommand;

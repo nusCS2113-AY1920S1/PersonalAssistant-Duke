@@ -5,8 +5,8 @@ import gazeeebo.storage.TriviaStorage;
 import gazeeebo.storage.NotePageStorage;
 import gazeeebo.storage.NoteStorage;
 import gazeeebo.tasks.Task;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.Command;
 import gazeeebo.notes.NoteList;
 import gazeeebo.parser.ParserManager;
@@ -63,7 +63,7 @@ public class Gazeeebo {
                 ui.showDateFormatError();
                 LOGGER.log(Level.SEVERE,"Date time format error.", e);
             } else if (e instanceof IOException) {
-                ui.showIOErrorMessage(e);
+                ui.showIoErrorMessage(e);
                 LOGGER.log(Level.SEVERE,"Unable to read file", e);
             } else if (e instanceof NullPointerException) {
                 ui.showSystemTerminateMessage();

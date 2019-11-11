@@ -2,10 +2,8 @@
 
 package gazeeebo.commands.specialization;
 
-import gazeeebo.UI.Ui;
-import gazeeebo.exception.DukeException;
+import gazeeebo.ui.Ui;
 import gazeeebo.storage.SpecializationPageStorage;
-import gazeeebo.storage.Storage;
 
 import java.io.IOException;
 import java.util.ArrayList;

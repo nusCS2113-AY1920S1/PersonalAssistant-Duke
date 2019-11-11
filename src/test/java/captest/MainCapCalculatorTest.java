@@ -3,8 +3,8 @@
 package captest;
 
 import gazeeebo.storage.TriviaStorage;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.exception.DukeException;
 import gazeeebo.parser.CapCommandParser;
 import gazeeebo.storage.Storage;

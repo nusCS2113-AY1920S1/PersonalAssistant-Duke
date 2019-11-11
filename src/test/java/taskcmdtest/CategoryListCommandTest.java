@@ -3,14 +3,14 @@
 package taskcmdtest;
 
 import gazeeebo.storage.TriviaStorage;
-import gazeeebo.triviaManager.TriviaManager;
+import gazeeebo.triviamanager.TriviaManager;
 import gazeeebo.commands.tasks.CategoryListCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.tasks.Todo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

@@ -3,11 +3,10 @@
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
-import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.tasks.Task;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.tasks.Todo;
 import gazeeebo.storage.Storage;
 import gazeeebo.exception.DukeException;
@@ -44,7 +43,7 @@ public class TodoCommand extends Command {
             TriviaStorage triviaStorage = new TriviaStorage();
             if (ui.fullCommand.length() <= 4) {
                 throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
-            } else if (ui.fullCommand.split(" ")[0].equals("todo")){
+            } else if (ui.fullCommand.split(" ")[0].equals("todo")) {
                 description = ui.fullCommand.substring(5);
                 triviaManager.learnInput(ui.fullCommand, triviaStorage);
             } else {

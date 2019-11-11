@@ -4,8 +4,8 @@ package gazeeebo.commands.help;
 
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.Command;
 import gazeeebo.help.HelpText;
