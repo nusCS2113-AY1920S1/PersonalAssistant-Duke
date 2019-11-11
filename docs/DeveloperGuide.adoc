@@ -101,7 +101,7 @@ E.g `​DeleteTaskCommand` ​user input: ​delete task 1 +
 The following sequence diagram shows how DeleteTaskCommand works in Logic, Model and Storage. +
 We focus on the behavior inside Model.
 
-image::Model_delete.png[width="939", align="left"]
+image::Model_delete.png[width="600", align="left"]
 
 ==== Design Analysis
 When a user delete a task, the tasklist of a member (the task name that the member is in charge of) should also be updated, if necessary. +
