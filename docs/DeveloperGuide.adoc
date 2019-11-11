@@ -125,7 +125,7 @@ image::DGCalendarTableExample.png[width = "600"]
 Step 4. The program now have all the information of these 7 days and is then able to print the calendar table.
 
 . It initiates an empty string to store all info of the calendar and for later printing.
-. It puts the header of he table into the string.
+. It puts the header of the table into the string.
 . It puts the days of week and dates info into the string.
 . To add in events, each event takes 3 rows (time info, description, and dashes) to print. For each 3 rows,
 there can be at most 7 events. The events are added per 3 rows. For each 3 rows, the program creates an array of 3 * 7
@@ -595,8 +595,8 @@ of days is 3 by default.
 After the user enters 'reminder', the Command.execute method calls Command.remindEvents, which in turn calls the
 Ui.printReminders function. The Ui.printReminders function calls the EventList.getReminder method, which uses the
 EventList.filteredList method to filter out a list of events that are due or are happening before 2359 the input number 
-of days after the current date. The EventList.filteredList method filters out events from the stored list of events
-according to a certain input predicate.
+of days after the current date. The EventList.filteredListTwoPredicates method filters out events from the stored list of 
+events according to two input predicates.
 
 The constructor of the Predicate class takes in two arguments: the reference and the comparator. The reference is the
 item that is used for the comparison reference (comp) input, and the comparator is the operator that is used for the
@@ -604,15 +604,16 @@ comparison. The comparator should be either one of the three global integer vari
 The Predicate.check method takes in an input and checks if reference (comp) input is true by calling the appropriate method
 in the Predicate class depending on the type of the reference and input.
 
-In the EventList.getReminder method, the reference of the input Predicate object is set to an eventDate object set to
-2359 the input number of days after the current date, and the comparator is GREATER_THAN. After that, the EventList.getReminder 
-method calls the EventList.filteredList method. In the EventList.filteredList method, the system iterates through the list of 
-Events in `eventArrayList`.The EventDate object stored in the Event object is passed into the Predicate.check method. If the
-EventDate object stored in the Event object is a date before the reference date, the Predicate.check method returns true
-and the Event object is added to the output. After all the elements in EventList.filteredList are parsed and the
-EventList.filteredList method terminates, EventList.getReminder method returns a string containing the current date and time,
-the date and time at 2359 the input number of days after the current date, and the filtered list of events. This string is 
-printed to stdout in the Ui.printReminders function.
+In the EventList.getReminder method, the reference of the one of the two input Predicate objects is an eventDate object set to
+2359 the input number of days after the current date, and the comparator is GREATER_THAN. The reference of the other
+input Predicate object is an eventDate object set to the current time. After that, the EventList.getReminder 
+method calls the EventList.filteredListTwoPredicates method. In the EventList.filteredListTwoPredicates method, the system 
+iterates through the list of Events in `eventArrayList`.The EventDate object stored in the Event object is passed into the
+Predicate.check method. If the EventDate object stored in the Event object is a date before the reference date, the Predicate.check
+method returns true and the Event object is added to the output. After all the elements in EventList.filteredListTwoPredicates are
+parsed and the EventList.filteredListTwoPredicates method terminates, EventList.getReminder method returns a string containing the
+current date and time, the date and time at 2359 the input number of days after the current date, and the filtered list of events. 
+This string is printed to stdout in the Ui.printReminders function.
 
 ==== Sequence diagram
 The following sequence diagram shows how the reminder functionality works.
