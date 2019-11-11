@@ -186,8 +186,8 @@ Examples: +
 
 * `add bme` +
 Adds Biomedical Engineering to your degree list and faculty events to your task list.
-* `add Materials Science and Engineering` +
-Adds Materials Science and Engineering to your degree list and faculty events to your task list.
+* `add Material Science Engineering` +
+Adds Material Science Engineering to your degree list and faculty events to your task list.
 * `add CivE` +
 Adds Civil Engineering to your degree list and faculty events to your task list.
 
