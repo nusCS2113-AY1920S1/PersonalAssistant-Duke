@@ -21,7 +21,7 @@ Chef Duke is targeted towards restaurant chefs who wants to be able to consolida
 
 5. run the command `java -jar v1.3` , application will then be executed 
 
-   ![](C:\Users\s1014\Desktop\local_clone\docs\images\Ui.png)
+   ![](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/Ui.png)
 
 6. Type some commands and press ENTER to execute
 
@@ -56,8 +56,6 @@ The user is greeted depending on the time of day, `good morning` , `good evening
 ### 3.2 Recipe Book Management
 
 the user needs to enter command `d` from the Main menu to enter the Dish template. this template allows the user to modify the recipe book.
-
-add ui here
 
 #### 3.2.1 Adding Dish
 
