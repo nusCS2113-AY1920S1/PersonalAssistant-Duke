@@ -1,5 +1,6 @@
 package payment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -47,7 +48,8 @@ public class Payments implements Comparable<Payments> {
         System.out.println("\t" + "Item: " + this.item);
         System.out.println("\t" + "Cost: " + this.cost);
         System.out.println("\t" + "Invoice: " + this.inv);
-        System.out.println("\t" + "Deadline: " + this.deadline);
+        SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy");
+        System.out.println("\t" + "Deadline: " + ft.format(this.deadline));
         System.out.println("\t" + "Status: " + this.status);
     }
 

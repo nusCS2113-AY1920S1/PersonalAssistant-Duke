@@ -247,12 +247,23 @@ You may not add a new `PAYEE` if a payee named `PAYEE` already exists.
 Examples:
 
 * GOOD: `add payee p/John Doe e/johndoe@u.nus.edu m/A0112301A ph/999`
-* BAD: `add payee pR/John Doe e/johndoe@u.nus.edu m/A0112301A ph/999`
+* BAD: `add payee e/johndoe@u.nus.edu p/John Doe m/A0112301A ph/999`
+
+=== Delete a payee: `delete payee`
+
+Delete a payee and their details +
+Format: `delete payee p/payee`
+
+Examples:
+
+* `delete payee p/John Doe`
 
 ==== Adding a new payment: `add payment`
 
 Adds a new payment under a specified `PAYEE` with payment name `ITEM` that incurs cost `COST` and have an invoice number `INVOICE`. +
 Format: `add payment p/PAYEE i/ITEM c/COST v/INVOICE`
+
+For any payment to a specified payee, the same ITEM description may not be used more than once.
 
 [TIP]
 You may use more than one word for all fields except `COST`.
@@ -264,29 +275,77 @@ Examples:
 * GOOD: `add payment p/John Doe i/Welcome Tea c/12.00 v/INV-001`
 * BAD: `add payment p/John Doe i/Welcome Tea c/*$*12.00 v/INV-001`
 
-==== Delete an existing payee: `delete payee`
-==== Delete an existing payment: `delete payment`
-==== List Payments: ` `
-==== Find an existing payee with all his/her payments: `find payee`
-
-==== Edit the payment details: `edit`
+=== Edit the payment details: `edit`
 
 Edits any field `FIELD` of payee named `PAYEE`, replacing the existing data in that field with `REPLACEMENT`+
-If only the payee fields are being modified, `INVOICE` should be blank. +
 The following payee fields are acceptable: `PAYEE`, `EMAIL`, `MATRIC`, `PHONE` +
 The following payment fields are acceptable: `ITEM`, `COST`, `INVOICE`, `DEADLINE`, `STATUS` +
 
-Format: `edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT`
+When editing Payee details; +
+Format: `edit p/PAYEE f/FIELD r/REPLACEMENT`
+
+When editing Payment details; +
+Format: `edit p/PAYEE i/ITEM f/FIELD r/REPLACEMENT`
 
 [TIP]
 Ensure `FIELD` supplied matches one of the acceptable fields above!
 [TIP]
-`DEADLINE` should be specified in `dd/mm/yyyy` format
+`DEADLINE` should be specified in `dd-mm-yyyy` format
 
 Examples:
 
-* `edit p/John Doe v/ f/EMAIL r/johnyy@u.nus.edu`
-* `edit p/John Doe v/INV-001 f/COST r/10.00`
+* `edit p/John Doe f/EMAIL r/johnyy@u.nus.edu`
+* `edit p/John Doe i/Voucher f/COST r/10.00`
+
+=== Find a payee based on its description: `find payee`
+
+Find a payment or deadline based on its description +
+Format: `find payee p/PAYEE`
+
+[TIP]
+the description may contain spaces
+
+Examples:
+
+* `find payee p/John Doe`
+
+=== Find a payment based on its description: `find payment`
+
+This function can find payments across projects, user does not have to switch projects
+and use `find payment` on each project till they are successful. +
+Format: `find payment p/PAYEE i/ITEM`
+
+[TIP]
+If you forgot the `ITEM` description, you can use `list payments` (Section 3.16) instead!
+
+* `find payment p/John Doe i/Venue Booking`
+
+
+=== List all payments in payee or project: `list payments`
+
+This command can take 3 ways of input to give different outputs. +
+
+In order to list payments in current project; +
+Format: `list payments`
+
+In order to list payments in a specific project; +
+Format: `list payments pr/PROJECT`
+
+In order to list payments to a specific payee; +
+Format: `list payments p/PAYEE`
+
+=== List all payees in project: `list payees`
+
+This command can take 2 ways of input to give different outputs. +
+
+In order to list all payees in current project; +
+Format: `list payments`
+
+In order to list all payees in a specific project; +
+Format: `list payments pr/PROJECT`
+
+[TIP] 
+If you wish to list the payee details of a specific payee, use `find payee` (Section 3.14) instead!
 
 //Jiayu
 ==== Get total cost of a payee in current project: `total cost`
@@ -301,10 +360,41 @@ UI:
 
 image::totalCost.png[]
 
-//Jiayu
-==== Sort deadlines af all existing unapproved payments: `reminder`
-This command sort payments from all payments that are not approved yet according to its deadline, and
-print out a list of such payments. The earlier payments are printed first. +
+//=== List out all current submission deadlines: `list`
+//
+//List out all payments, sorted into overdue, pending and approved statuses, in order of ascending deadlines+
+//Format: `list`
+
+//=== Adding a deadline: `deadline`
+//
+//Adds a new deadline with description +
+//Format: `deadline d/DESCRIPTION by/TIME`
+//
+//[TIP]
+//there can have spaces in the deadline description +
+//[TIP]
+//format of date should be "dd/MM/yyyy HHmm" +
+//
+//Examples:
+//
+//* `deadline d/submit venue payment by/31/10/2019 2100`
+
+//=== Delete a task: `delete task id/ID`
+//
+//Delete a task from the task list +
+//Format: `delete task id/ID`
+//
+//[TIP]
+//the index of the task should not be out of range
+//
+//Examples:
+//
+//* `delete task id/3`
+//
+
+=== (Proposed)See the nearest deadline: `reminder`
+
+Show the deadline task with the nearest deadline. +
 Format: `reminder`
 
 Example:

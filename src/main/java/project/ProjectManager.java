@@ -37,6 +37,7 @@ public class ProjectManager {
         }
         return newProject;
     }
+    
     /**
      * Adds a new project with budget amount to the project map.
      * @param projectname Name of the project to add.

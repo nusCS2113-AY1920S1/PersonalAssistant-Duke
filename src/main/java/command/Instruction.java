@@ -34,6 +34,10 @@ public class Instruction {
         return input.startsWith("find payee");
     }
 
+    public boolean isFindPayment(String input) {
+        return input.startsWith("find payment");
+    }
+
     public boolean isFindTask(String input) {
         return input.startsWith("find task");
     }

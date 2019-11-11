@@ -93,8 +93,12 @@ public class Parser {
                 process.deletePayment(input, ui, storage, dict);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
+            } else if (instr.isFindPayment(input)) {
+                process.findPayment(input, storage, ui);
+                process.commandHistory(input, ui, storage); 
             } else if (instr.isFindPayee(input)) {
                 process.findPayee(input, storage, ui);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isFindTask(input)) {
                 process.findTask(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
