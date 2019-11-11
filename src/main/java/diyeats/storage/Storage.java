@@ -69,8 +69,16 @@ public class Storage {
      */
     public User loadUser() throws ProgramException {
         User user = loader.loadUser();
-        loader.loadGoals(user);
         return user;
+    }
+
+    /**
+     * Load goal info from the input/output file.
+     * @param user an instance of user to add a goal to
+     * @throws ProgramException if FileUtil is unable to open file or it is unable to read the file
+     */
+    public void loadGoal(User user) throws ProgramException {
+        loader.loadGoals(user);
     }
 
     /**
