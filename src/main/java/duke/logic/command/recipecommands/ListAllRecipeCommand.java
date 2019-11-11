@@ -70,7 +70,7 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
         while (entryIter.hasNext()) {
             Map.Entry entry = (Map.Entry) entryIter.next();
             Recipe value = (Recipe) entry.getValue();  // Get the value.
-            arrayList.add((i + DISPLAYED_INDEX_OFFSET) + ". " + value.getRecipeTitle().getTitle());
+            arrayList.add("    " + (i + DISPLAYED_INDEX_OFFSET) + ". " + value.getRecipeTitle().getTitle());
             i++;
         }
         return arrayList;

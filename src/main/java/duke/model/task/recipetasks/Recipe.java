@@ -89,21 +89,21 @@ public class Recipe {
     }
 
     public String getViewString() {
-        return LABEL_TITLE + this.recipeTitle.toString() + "\n"
+        return "    " + LABEL_TITLE + this.recipeTitle.toString() + "\n"
                 + "\n"
-                + LABEL_PREPTIME + this.prepTime.toString() + "\n"
+                + "    " +  LABEL_PREPTIME + this.prepTime.toString() + "\n"
                 + "\n"
-                + LABEL_RATING + this.checkRating() + "\n"
+                + "    " + LABEL_RATING + this.checkRating() + "\n"
                 + "\n"
-                + LABEL_PREPSTEPS + this.prepSteps.toViewString()
+                + "    " + LABEL_PREPSTEPS + this.prepSteps.toViewString()
                 + "\n"
-                + LABEL_REQ_INGREDIENTS + this.requiredIngredients.toViewString()
+                + "    " + LABEL_REQ_INGREDIENTS + this.requiredIngredients.toViewString()
                 + "\n"
-                + LABEL_FEEDBACK + this.feedback.toString();
+                + "    " + LABEL_FEEDBACK + this.feedback.toString();
     }
 
     public String getViewReqString() {
-        return LABEL_REQ_INGREDIENTS + this.requiredIngredients.toViewString();
+        return "    " + LABEL_REQ_INGREDIENTS + this.requiredIngredients.toViewString();
     }
 
     private Rating assignRating(String rating) { // can try switch statements too.

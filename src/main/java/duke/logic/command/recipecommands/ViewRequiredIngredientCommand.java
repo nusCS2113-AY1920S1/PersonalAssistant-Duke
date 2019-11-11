@@ -63,14 +63,14 @@ public class ViewRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                             );
                         }
                         String ingredient =  recipeList.viewReqIngredient(split[i].trim());
-                        arrayList.add("Recipe Title: " + split[i].trim() + "\n" + ingredient);
+                        arrayList.add("    " + "Recipe Title: " + split[i].trim() + "\n" + ingredient);
                     }
                 }
                 AtomicInteger i = new AtomicInteger();
                 mergeMap.forEach(
-                    (key, value) -> temp.add(i.incrementAndGet() + ". " + key + " | " + value)
+                    (key, value) -> temp.add("    " + i.incrementAndGet() + ". " + key + " | " + value)
                 );
-                arrayList.add("\n" + "Combined list of ingredient with the respective amount: ");
+                arrayList.add("\n" + "    " + "Combined list of ingredient with the respective amount: ");
                 arrayList.addAll(temp);
             } else {
                 if (!recipeList.containsRecipe(description)) {

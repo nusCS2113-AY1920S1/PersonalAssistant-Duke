@@ -232,7 +232,11 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                     }
                 }
                 else {
-                    arrayList.add(ERROR_MESSAGE_EDIT_REQ_INGREDIENT_INCORRECT_FORMAT);
+                    if (!hasCorrectOrder(description)) {
+                        arrayList.add(ERROR_MESSAGE_REQ_INGREDIENT_INVALID_ORDER + ERROR_MESSAGE_EDIT_REQ_INGREDIENT_INCORRECT_FORMAT);
+                    } else {
+                        arrayList.add(ERROR_MESSAGE_EDIT_REQ_INGREDIENT_INCORRECT_FORMAT);
+                    }
                 }
             } else {
                 arrayList.add(ERROR_MESSAGE_REQ_INGREDIENT_NO_EDIT_COMMAND);

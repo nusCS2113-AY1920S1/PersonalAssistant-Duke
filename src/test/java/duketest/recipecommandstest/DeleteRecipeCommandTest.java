@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import static duke.common.Messages.filePathRecipesTest;
+import static duke.common.Messages.filePathRecipeTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@author wjlingg
@@ -25,7 +25,7 @@ public class DeleteRecipeCommandTest {
     @Test
     public void testDeleteRecipeCommand() throws ParseException {
         ui = new Ui(mainWindow);
-        recipeStorage = new RecipeStorage(filePathRecipesTest);
+        recipeStorage = new RecipeStorage(filePathRecipeTest);
         recipeList = new RecipeList(recipeStorage.load());
 
         ArrayList<String> arrayListExpectedOutput = new ArrayList<>();

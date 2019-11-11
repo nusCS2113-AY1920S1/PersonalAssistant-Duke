@@ -65,7 +65,7 @@ public class BookingStorage {
         try {
             InputStream inputStream;
             if (filePath.equals(filePathBookingTest)) {
-                inputStream = getClass().getResourceAsStream("/data/bookingsTest.txt");
+                inputStream = getClass().getResourceAsStream("/datatest/bookingsTest.txt");
             } else {
                 inputStream = getClass().getResourceAsStream("/data/bookings.txt");
             }
