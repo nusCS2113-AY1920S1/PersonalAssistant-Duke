@@ -8,6 +8,9 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_QUANTITY;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_REMARKS;
 
+/**
+ * A Utility class for the Inventory list parser
+ */
 public class InventoryParserUtil {
 
     private static final String MESSAGE_VALID_QUANTITY = "Please enter a valid quantity, must only contain numbers";
@@ -35,6 +38,9 @@ public class InventoryParserUtil {
         return inventoryDescriptor;
     }
 
+    /**
+     * Checks if the quantity inputted by the user is a valid double.
+     */
     public static void checkValidQuantity(String quantityInput) throws ParseException {
         try {
             Double.parseDouble(quantityInput);

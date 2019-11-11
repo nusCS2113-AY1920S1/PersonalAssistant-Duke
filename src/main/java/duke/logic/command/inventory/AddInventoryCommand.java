@@ -11,6 +11,9 @@ import duke.model.inventory.Ingredient;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * A command to add an ingredient to the inventory List in Model.
+ */
 public class AddInventoryCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "add";
@@ -24,11 +27,22 @@ public class AddInventoryCommand extends InventoryCommand {
 
     private final Item<Ingredient> toAdd;
 
+    /**
+     * Constructor of AddInventoryCommand
+     * @param toAdd the ingredient to add
+     */
     public AddInventoryCommand(Item<Ingredient> toAdd) {
         requireNonNull(toAdd);
         this.toAdd = toAdd;
     }
 
+    /**
+     * Executes the add inventory command and returns the result message.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
+     */
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 

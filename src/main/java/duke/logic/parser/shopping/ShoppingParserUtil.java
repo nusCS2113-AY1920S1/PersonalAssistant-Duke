@@ -9,6 +9,9 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_QUANTITY;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_REMARKS;
 
+/**
+ * A Utility class for the Shopping list parser
+ */
 public class ShoppingParserUtil {
 
     private static final String MESSAGE_VALID_QUANTITY = "Please enter a valid quantity, must only contain numbers";
@@ -41,6 +44,9 @@ public class ShoppingParserUtil {
         return shoppingDescriptor;
     }
 
+    /**
+     * Checks if the quantity inputted by the user is a valid double.
+     */
     public static void checkValidQuantity(String quantityInput) throws ParseException {
         try {
             Double.parseDouble(quantityInput);
@@ -49,6 +55,9 @@ public class ShoppingParserUtil {
         }
     }
 
+    /**
+     * Checks if the cost inputted by the user is a valid double.
+     */
     public static void checkValidCost(String costInput) throws ParseException {
         try {
             Double.parseDouble(costInput);

@@ -15,6 +15,9 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_QUANTITY;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_REMARKS;
 
+/**
+ * A parser that parses {@code AddShoppingCommand}.
+ */
 public class AddShoppingCommandParser implements Parser<AddShoppingCommand> {
 
     private static final String DEFAULT_COST = "0.00";

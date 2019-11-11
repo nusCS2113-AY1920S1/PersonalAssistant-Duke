@@ -4,6 +4,9 @@ import duke.logic.parser.exceptions.ParseException;
 
 import java.text.DecimalFormat;
 
+/**
+ * A class for quantity
+ */
 public class Quantity {
     private static DecimalFormat df1 = new DecimalFormat("#.#");
     private static final Double DEFAULT_NUMBER = 0.0;
@@ -37,6 +40,9 @@ public class Quantity {
         return new Quantity(DEFAULT_NUMBER);
     }
 
+    /**
+     * Check if the quantity inputted by the user matches
+     */
     private void checkUpperLimit(double number, String messageLimitQuantity) {
         if (number > 50000) {
             throw new ParseException(messageLimitQuantity);
