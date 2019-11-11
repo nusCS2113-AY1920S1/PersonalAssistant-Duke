@@ -10,7 +10,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static util.constant.ConstantHelper.*;
+import static util.constant.ConstantHelper.BLANK;
+import static util.constant.ConstantHelper.ASSIGNEE_MARKER;
+import static util.constant.ConstantHelper.ASSIGNMENT_INDEX_NUMBER_MARKER;
+import static util.constant.ConstantHelper.ALL_MARKER;
+import static util.constant.ConstantHelper.TASK_FLAG_LENGTH;
+import static util.constant.ConstantHelper.MEMBER_FLAG_LENGTH;
+import static util.constant.ConstantHelper.UNASSIGNEE_MARKER;
 
 public class ParserHelper {
     private SortHelper sortHelper;
