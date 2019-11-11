@@ -258,7 +258,7 @@ Pros: Much more flexible, and even more scalable than the current implementation
 to do anything regarding changes to the list, and then later check for clashes.
 
 Cons: Much more room for error, since clashes are allowed to exist within the list normally, and are not
-automatically detected. This could lead to major bugs related to events that overlap eac other.
+automatically detected. This could lead to major bugs related to events that overlap each other.
 
 |How relevant information is passed up the chain|
 Simply returning the relevant event that caused the clash as a part of the method call. +
