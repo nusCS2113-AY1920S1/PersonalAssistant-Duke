@@ -18,6 +18,7 @@ public class MealList {
      * This is the constructor of MealList object if there is no argument.
      * The MealList object will initialise a new empty arraylist of meals.
      */
+
     public MealList() {
     }
 
