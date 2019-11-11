@@ -464,8 +464,14 @@ Format: `bye`
 
 === Saving the data
 
-Task data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Task and degree choice data are saved in the hard disk automatically after any command that changes the data. +
+This includes undo and redo commands. +
+There is no need to save manually. +
+
+The save data is located in the `data` folder one level above the jar file. +
+`save.txt` is for task data, `savedegree.txt` is for degree choice data. +
+
+If there is no `data` folder detected (i.e. after a fresh download), the jar file will generate a fresh one with empty save files. +
 
 === Auto suggests commands based on frequency
 
