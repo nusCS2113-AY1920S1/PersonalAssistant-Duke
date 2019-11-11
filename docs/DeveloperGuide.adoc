@@ -614,7 +614,19 @@ How DegreeManager handles the checking of valid degree names:
 
 A class GraduateEmployment is used in order to display employment percentage rates and basic mean salary of recent graduates in the form of a dual axis bar chart. This class is an implementation of the Statistics interface. 
 
-image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/umlinheritance.png[width="300", align = "left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/umlinheritance.png[width="300", align = "center"]
+
+The Statistics interface comprises of two methods that are overridden in the GraduateEmployment class. These two methods are:
+
+`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type GraduateStats (Fig xyz) and stored.
+
+`Statistics#print(String input)`: This method takes in the parameter of a string which is the degree inputted by the user. The end result is the display of a bar chart on a separate window, visually depicting the statistics. In the case of GraduateEmployment, an instance of the class Employment_BarChart is created and a dual axis bar chart is displayed with information for the employment percentage rates and basic mean salary. 
+
+
+The GraduateEmployment class also has the following function:
+
+`GraduateEmployment#getStats()`: This method returns an ArrayList of type Graduate Stats, namely Stats, when called and is used to store the information needed. 
+
 
 == Testing
 
