@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.TreeMap;
 
-import static duke.common.Messages.filePathRecipeTest;
+import static duke.common.Messages.*;
 
 /**
  * Handles the ability to read and write to the recipe storage location.
@@ -70,6 +70,8 @@ public class RecipeStorage {
             InputStream inputStream;
             if (filePathRecipes.equals(filePathRecipeTest)) {
                 inputStream = getClass().getResourceAsStream("/datatest/recipesTest.txt");
+            } else if (filePathRecipes.equals(filePathTempTest)) {
+                inputStream = getClass().getResourceAsStream("/datatest/tempTest.txt");
             } else {
                 inputStream = getClass().getResourceAsStream("/data/recipes.txt");
             }

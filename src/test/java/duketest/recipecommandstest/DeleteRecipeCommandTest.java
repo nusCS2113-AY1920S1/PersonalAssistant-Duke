@@ -35,7 +35,7 @@ public class DeleteRecipeCommandTest {
         arrayListExpectedOutput.add(expected);
 
         AddRecipeCommand addRecipeCommand = new AddRecipeCommand("addrecipe testrecipe");
-        ArrayList<String> arrayListDummy = new ArrayList<>(addRecipeCommand.execute(recipeList, ui, recipeStorage));
+        addRecipeCommand.execute(recipeList, ui, recipeStorage);
 
         DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand("deleterecipe testrecipe");
         ArrayList<String> arrayListActualOutput = new ArrayList<>(deleteRecipeCommand.execute(recipeList, ui, recipeStorage));

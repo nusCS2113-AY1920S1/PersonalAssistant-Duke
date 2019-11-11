@@ -60,7 +60,7 @@ public class ListInventoryCommand extends Command<InventoryList, Ui, InventorySt
             Map.Entry entry = (Map.Entry) entryIter.next();
             Object key = entry.getKey();  // Get the key from the entry.
             Ingredient value = (Ingredient) entry.getValue();  // Get the value.
-            arrayList.add(Integer.toString(i + DISPLAYED_INDEX_OFFSET) + ". " + value.toString());
+            arrayList.add("     " + (i + DISPLAYED_INDEX_OFFSET) + ". " + value.toString());
             i++;
         }
         return arrayList;
