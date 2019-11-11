@@ -1003,12 +1003,12 @@ D2 returns the user’s degree list with CEG and EE having switched indexes
 <<<
 == Appendix C: Non-Functional Requirements
 
-. D2 is a fast application.
-. D2 can be used on any platform (any PC), and is hence light-weight.
+. DEGREES.NUS is a fast application.
+. DEGREES.NUS can be used on any platform (any PC), and is hence light-weight.
 . The information provided is accurate as of the latest semester.
-. The application has simple functions, with more options provided for advanced users.
+. The application has simple functions
 . The application is fairly easy and understandable to navigate through.
-. Multi-step commands are available for beginners, as compared to one step for advanced users.
-. The application provided tabular formatting of information for better analysis.
 . It is inviting to the eye with a well-designed graphical user interface. 
+. The response to any use action should be visible to the user within 5 seconds
+. The product is offered for free
 
