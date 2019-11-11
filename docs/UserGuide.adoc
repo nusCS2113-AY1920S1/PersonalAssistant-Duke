@@ -331,7 +331,7 @@ A: Copy and replace the /data folder to the other Team Manager
 * Listing for reminders: `list reminders`
 * View Schedule: `schedule tasks {all/todo}`
 * View Schedule for a member: `schedule member {all/todo} [MEMBER_NAME]`
-* Find Task by Name: `find [KEYWORD]`
+* Find Task by Keyword: `find [KEYWORD]`
 * Mark Task as Complete: `done [INDEX] ...`
 * Mark Task as Incomplete: `undone [INDEX] ...`
 * Linking task to a member: `link [INDEX] ... /to [MEMBER_NAME] ...`
