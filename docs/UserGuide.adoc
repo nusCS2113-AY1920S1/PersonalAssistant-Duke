@@ -116,6 +116,10 @@ Displays information for the `tasks` command.
 * `help` +
 Displays information for ALL possible commands and switches to the `[Help]` tab.
 
+How it will be displayed with just `help`: +
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UIhelp.jpg[width="600"]
+
 === Display keywords and aliases that are compatible with <DEGREE>: `keywords`
 
 Displays all keywords and their aliases for each degree. +
@@ -124,6 +128,10 @@ These keywords and aliases are compatible with usages of <DEGREE>. +
 However `view_employment` and `cohort_size` only uses keywords.
 
 Format: `keywords` 
+
+How it will be displayed: +
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UIkeywords.jpg[width="600"]
 
 <<<
 === Viewing detailed information about a degree: `detail | detail <DEGREE>`
@@ -200,12 +208,27 @@ Adds Materials Science and Engineering to your degree list and faculty events to
 * `add CivE` +
 Adds Civil Engineering to your degree list and faculty events to your task list.
 
-=== Listing all degrees in your degree list: `choices` [[choices]]
+=== Listing all tasks in your task list: `tasks`
+
+Displays a list of all upcoming tasks you have. +
+Will switch to the `[Tasks]` tab.
+
+Format: `tasks`
+
+How it will be displayed: +
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UItasks.jpg[width="600"]
+
+=== Listing all degrees in your degree list: `choices`
 
 Displays a list of all the degrees you are interested in currently. +
 Will switch to the `[Degree Choices]` tab.
 
 Format: `choices`
+
+How it will be displayed: +
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UIchoices.jpg[width="600"]
 
 === Swapping degrees in your degree list: `swap <ID> <ID>`
 
@@ -522,8 +545,9 @@ e.g. `help add`, `help todo`
 e.g. `detail ME`, `detail CivE`
 * *Add Degree* : `add <DEGREE>` +
 e.g. `add me`, `add Industrial and Systems Engineering`
+* *Display tasks* : `tasks` +
 * *List Degrees* : `choices` +
-* *Add Degree* : `swap <ID> <ID>` +
+* *Swap Degrees* : `swap <ID> <ID>` +
 e.g. `swap 4 1`
 * *Remove Degree* : `remove <ID>` +
 e.g. `remove 3`
