@@ -150,6 +150,13 @@ public class LockerList {
         lockerList.remove(lockerToDelete);
     }
 
+    /**
+     * Empties the locker list. Used for deleting all the lockers from SpongeBob.
+     */
+    public void removeAllLockers() {
+        lockerList.clear();
+    }
+
     public Locker getLocker(int index) {
         return lockerList.get(index);
     }

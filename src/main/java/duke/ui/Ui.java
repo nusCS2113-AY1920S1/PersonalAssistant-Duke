@@ -178,6 +178,14 @@ public class Ui {
     }
 
     /**
+     * Notifies the user that SpongeBob has deleted all the lockers from the list.
+     */
+    public void showAllLockersRemoved() {
+        printSpaces(" Noted. I have removed all the lockers from the list.");
+        printDash();
+    }
+
+    /**
      * Notifies the user that SpongeBob has edited the locker from the list.
      * @param lockerA stores the locker that is edited
      */
