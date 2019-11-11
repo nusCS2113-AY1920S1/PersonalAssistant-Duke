@@ -44,24 +44,24 @@ public class MainDisplayCommand extends Command {
         }
 
         DetectOsCommand getOS = new DetectOsCommand();
-        String output = "";
-        int t = 0;
+        //String output = "";
+        int t = 0; // Default Value 0 for mac
+
         if (getOS.osName.contains("mac")) {
             try {
-                t = 0;
                 //System.out.println("MainDisplay on Linux -> Color available");
             } catch (Exception e) {
-                throw new MooMooException("An error has occurred. Please close the terminal.");
+                //throw new MooMooException("An error has occurred. Please close the terminal.");
             }
         } else if (getOS.osName.contains("win")) {
             try {
                 t = 1;
                 //System.out.println("MainDisplay on Windows -> Color currently unavailable");
             } catch (Exception e) {
-                throw new MooMooException("An error has occurred. Please close the terminal.");
+                //throw new MooMooException("An error has occurred. Please close the terminal.");
             }
         }
-        output = newMainDisplay.newToPrint(month, year, rows, cols, categoryList, budget, t);
+        String output = newMainDisplay.newToPrint(month, year, rows, cols, categoryList, budget, t);
         Ui.printMainDisplay(output);
     }
 }

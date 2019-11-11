@@ -194,7 +194,7 @@ public class MainDisplay {
                             + "<" + "Categories" + ">" + blankSpaceCat + "|\n" + YEAR_LEFT
                             + "All" + blankSpaceYr + MISC_TITLESWIN;
                 }
-            } else {                                //  Case 2: View Specific Month -> Default Misc
+            } else {          //  Case 2: View Specific Month -> Default Misc
                 for (int i = 0; i <= 11 - monthsInYear[month - 1].length(); i++) {
                     blankSpaceMth += " ";
                 }
