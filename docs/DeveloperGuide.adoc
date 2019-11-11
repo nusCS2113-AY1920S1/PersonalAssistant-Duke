@@ -508,7 +508,7 @@ Since `UpdateModuleInfo` inherits the `ModuleCommand` class, it must override th
 
 Below is a Sequence Diagram showing how `UpdateModuleInfo` works. +
 
-image::UpdateModuleInfoSequenceDiagram.png[width="800"]
+image::UpdateModuleCommandSequenceDiagram.png[width="800"]
 
 === JsonWrapper
 
