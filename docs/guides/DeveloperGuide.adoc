@@ -753,9 +753,6 @@ For example, Gradle can download the dependencies automatically, which is better
 . Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
-== Suggested Programming Tasks to Get Started
-
-[appendix]
 == Product Scope
 
 *Target user profile*:
