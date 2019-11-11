@@ -735,10 +735,10 @@ to check ingredients
 |A new order with no item is added. The order’s customer name field is Jiajun
 
 |`order add -name abcdabcdabcdabcdabcdabcd`
-| A error message pops up. The error message is "Name should be no more than 20 characters"
+| An error message pops up. The error message is "Name should be no more than 20 characters"
 
 |`order add -rmk abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd`
-|A error message pops up. The error message is "Remarks should be no more than 50 characters"
+|An error message pops up. The error message is "Remarks should be no more than 50 characters"
 
 2+| Pre-requisite for below `Order`: Cake product should be in Product List; Fish product should not be in
 Product List.
@@ -756,10 +756,10 @@ Product List.
 |A new sale with default value 0.0 is added. The sale’s description and remarks are "N/A" and date is set to current date and time.
 
 |`sale add -desc Refund abcdeabcdeabcdeabcdeabcdeabcdeabcde has been completed`
-|A error message pops up. The error message is "Description should be no more than 50 characters"
+|An error message pops up. The error message is "Description should be no more than 50 characters"
 
 |`sale add -rmk Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas`
-|A error message pops up. The error message is "Remarks should be no more than 50 characters"
+|An error message pops up. The error message is "Remarks should be no more than 50 characters"
 
 2+|Adding a sale with date
 
@@ -791,8 +791,8 @@ All other data that is not inputted as parameters will be unchanged.
 
 |Orders
 |`order edit 1 -name Eugene -rmk Birthday`
-|In orders, the first order’s customer name is changed to Eugene, and the remarks is changed to Birthday`
-All other data that is not inputted as parameters will be unchanged.
+|In orders, the first order’s customer name is changed to Eugene, and the remarks is changed to Birthday
+All other data that is not inputted as parameters will not be changed.
 This is provided the order status is not completed. If the order status is completed, you cannot edit the order.
 |===
 
