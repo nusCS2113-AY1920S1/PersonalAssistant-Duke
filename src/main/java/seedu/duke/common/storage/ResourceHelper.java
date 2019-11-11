@@ -23,6 +23,7 @@ public class ResourceHelper {
         Path path = StorageHelper.prepareDataPath(TEST_FILE_NAME);
         try {
             StorageHelper.saveToFile(path, prepareTestJsonObject().toString());
+            UI.getInstance().showError("Test template file successfully generated.");
         } catch (IOException | JSONException e) {
             UI.getInstance().showError("Prepare test template file failed with exception...");
         }
