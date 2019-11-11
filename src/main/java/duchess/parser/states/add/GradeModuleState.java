@@ -1,11 +1,9 @@
 package duchess.parser.states.add;
 
-import duchess.exceptions.DuchessException;
 import duchess.logic.commands.AddGradeCommand;
 import duchess.logic.commands.Command;
 import duchess.logic.commands.DisplayCommand;
 import duchess.parser.Parser;
-import duchess.parser.Util;
 import duchess.parser.states.DefaultState;
 import duchess.parser.states.ParserState;
 
@@ -17,9 +15,9 @@ import java.util.Map;
 public class GradeModuleState extends ParserState {
     private final Parser parser;
     private final String description;
-    private final int marks;
-    private final int maxMarks;
-    private final int weightage;
+    private final double marks;
+    private final double maxMarks;
+    private final double weightage;
 
     /**
      * Initializes a state to parse module associated with a grade.
@@ -30,7 +28,7 @@ public class GradeModuleState extends ParserState {
      * @param maxMarks the maximum marks obtainable
      * @param weightage the weightage of the grade
      */
-    public GradeModuleState(Parser parser, String description, int marks, int maxMarks, int weightage) {
+    public GradeModuleState(Parser parser, String description, double marks, double maxMarks, double weightage) {
         super("module");
         this.parser = parser;
         this.description = description;

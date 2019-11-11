@@ -37,12 +37,12 @@ public class GradeMarksState extends ParserState {
                 .map(marks -> {
                     try {
                         List<String> marksList = Arrays.asList(marks.split("/"));
-                        int marksObtained = Integer.parseInt(marksList.get(0));
-                        int maxMarks = Integer.parseInt(marksList.get(1));
+                        double marksObtained = Double.parseDouble(marksList.get(0));
+                        double maxMarks = Double.parseDouble(marksList.get(1));
                         if (marksObtained < 0 || maxMarks < 1 || marksObtained > maxMarks) {
                             throw new IllegalArgumentException();
                         }
-                        return new int[]{marksObtained, maxMarks};
+                        return new double[]{marksObtained, maxMarks};
                     } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
                         return null;
                     }

@@ -46,9 +46,9 @@ public class EventWeightageState extends ParserState {
             return new AddEventCommand(description, end, start, moduleCode);
         }
 
-        int weightage;
+        double weightage;
         try {
-            weightage = Integer.parseInt(value);
+            weightage = Double.parseDouble(value);
             if (weightage > 100 || weightage < 0) {
                 throw new IllegalArgumentException();
             }

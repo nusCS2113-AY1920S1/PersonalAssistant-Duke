@@ -17,7 +17,7 @@ public class FindCommand extends Command {
     private List<String> words;
 
     /**
-     * Returns the length of the longest common subsequence of 2 Strings.
+     * Returns the length of the longest common subsequence (lcs) of 2 Strings.
      *
      * @param a the first String
      * @param b the second String
@@ -43,14 +43,13 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
-        if (words.size() == 0) {
+        if (words.isEmpty()) {
             throw new DuchessException("Please enter at least a keyword to search.");
         } else {
             String searchTerm = String.join(" ", words.subList(0, words.size())).toLowerCase();
             List<Task> filteredTasks;
             /*
-            If search term is enclosed by double quotation marks,
-            search for exact matches.
+            If search term is enclosed by "", search for exact matches.
              */
             if (!"\"".equals(searchTerm) && searchTerm.charAt(0) == '"'
                     && searchTerm.charAt(searchTerm.length() - 1) == '"') {
@@ -61,8 +60,7 @@ public class FindCommand extends Command {
                                 .equals(searchTerm.substring(1, searchTerm.length() - 1)))
                         .collect(Collectors.toList());
             /*
-            Search for task descriptions with longest common subsequence of length
-            equal to at least 2 less than the length of the search term.
+            Search for task descriptions with lcs of length equal to at least 2 less than the length of the search term.
              */
             } else {
                 String trimmedSearchTerm = searchTerm.replaceAll(" ", "");
@@ -74,7 +72,7 @@ public class FindCommand extends Command {
                         .collect(Collectors.toList());
 
                 /*
-                Checks if the task description contains the exact search term,
+                Checks if the task description contains the exact search term
                 if the search term is too short (less than 3 chars).
                  */
                 if (trimmedSearchTerm.length() <= 2) {
@@ -89,7 +87,7 @@ public class FindCommand extends Command {
                                 .replaceAll(" ", ""), trimmedSearchTerm)));
             }
 
-            if (filteredTasks.size() == 0) {
+            if (filteredTasks.isEmpty()) {
                 throw new DuchessException("There are no matching tasks.");
             } else {
                 ui.showSearchResult(filteredTasks);

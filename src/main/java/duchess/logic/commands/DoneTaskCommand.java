@@ -18,7 +18,7 @@ public class DoneTaskCommand extends Command {
     private int taskNo;
 
     public DoneTaskCommand(int taskNo) {
-        this.taskNo = taskNo;
+        this.taskNo = taskNo - 1;
     }
 
     @Override

@@ -14,9 +14,9 @@ import java.util.Optional;
  */
 public class AddGradeCommand extends Command {
     private String assessment;
-    private int marks;
-    private int maxMarks;
-    private int weightage;
+    private double marks;
+    private double maxMarks;
+    private double weightage;
     private String moduleCode;
     private static final String TOTAL_WEIGHTAGE_ERROR = "Total weightage of grades cannot exceed 100.";
 
@@ -29,7 +29,7 @@ public class AddGradeCommand extends Command {
      * @param assessment description of assessment
      * @param moduleCode the code of the module
      */
-    public AddGradeCommand(int marks, int maxMarks, int weightage, String assessment, String moduleCode) {
+    public AddGradeCommand(double marks, double maxMarks, double weightage, String assessment, String moduleCode) {
         this.assessment = assessment;
         this.marks = marks;
         this.maxMarks = maxMarks;

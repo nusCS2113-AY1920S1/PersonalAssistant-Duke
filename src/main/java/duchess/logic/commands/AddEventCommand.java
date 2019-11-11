@@ -22,7 +22,7 @@ public class AddEventCommand extends Command {
     private LocalDateTime end;
     private LocalDateTime start;
     private String moduleCode;
-    private int weightage;
+    private double weightage;
 
     /**
      * Creates a command to add an event.
@@ -44,7 +44,7 @@ public class AddEventCommand extends Command {
     }
 
     public AddEventCommand(
-            String description, LocalDateTime end, LocalDateTime start, String moduleCode, int weightage) {
+            String description, LocalDateTime end, LocalDateTime start, String moduleCode, double weightage) {
         this(description, end, start, moduleCode);
         this.weightage = weightage;
     }

@@ -15,8 +15,8 @@ import java.util.Optional;
 public class GradeWeightageState extends ParserState {
     private final Parser parser;
     private final String description;
-    private final int marks;
-    private final int maxMarks;
+    private final double marks;
+    private final double maxMarks;
 
     /**
      * Initializes a state to parse the weightage of the grade.
@@ -26,7 +26,7 @@ public class GradeWeightageState extends ParserState {
      * @param marks the marks obtained
      * @param maxMarks the maximum marks obtainable
      */
-    public GradeWeightageState(Parser parser, String description, int marks, int maxMarks) {
+    public GradeWeightageState(Parser parser, String description, double marks, double maxMarks) {
         super("weightage");
         this.parser = parser;
         this.description = description;
@@ -39,7 +39,7 @@ public class GradeWeightageState extends ParserState {
         Optional<ParserState> nextState = Optional.ofNullable(weightage)
                 .map(weight -> {
                     try {
-                        int w = Integer.parseInt(weight);
+                        double w = Double.parseDouble(weight);
                         if (w > 100 || w < 0) {
                             throw new IllegalArgumentException();
                         }

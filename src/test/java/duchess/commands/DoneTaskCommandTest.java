@@ -37,7 +37,7 @@ public class DoneTaskCommandTest {
 
     @Test
     public void execute_taskIsCalendarEntry_modifiesDuchessCalendar() throws DuchessException {
-        DoneTaskCommand dc = new DoneTaskCommand(0);
+        DoneTaskCommand dc = new DoneTaskCommand(1);
         dc.execute(store, ui, storage);
         CalendarEntry ce = store.getDuchessCalendar().get(0);
         Task task = ce.getDateTasks().get(0);
