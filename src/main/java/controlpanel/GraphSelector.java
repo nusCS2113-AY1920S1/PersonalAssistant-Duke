@@ -25,22 +25,22 @@ public class GraphSelector implements DataTransfer {
     public HBox getTheGraph(String input, Account account) throws IOException, ParseException, DukeException {
         if (input.startsWith("graph monthly report")) {
             if (input.equals("graph monthly report")) {
-                return DataTransfer.getMonthlyData(account, DataTransfer.Type.HISTOGRAM);
+                return DataTransfer.getMonthlyData(account, "HISTOGRAM");
             }
             input = input.replaceFirst("graph monthly report ", "");
-            return DataTransfer.getMonthlyData(account, DataTransfer.Type.valueOf(input.toUpperCase()));
+            return DataTransfer.getMonthlyData(account, input.toUpperCase());
         } else if (input.startsWith("graph expenditure trend")) {
             if (input.equals("graph expenditure trend")) {
-                return DataTransfer.getExpenditureTrend(account, DataTransfer.Type.LINE_GRAPH);
+                return DataTransfer.getExpenditureTrend(account, "LINE_GRAPH");
             }
             input = input.replaceFirst("graph expenditure trend ", "");
-            return DataTransfer.getExpenditureTrend(account, DataTransfer.Type.valueOf(input.toUpperCase()));
+            return DataTransfer.getExpenditureTrend(account, input.toUpperCase());
         } else if (input.startsWith("graph income trend")) {
             if (input.equals("graph income trend")) {
-                return DataTransfer.getIncomeTrend(account, DataTransfer.Type.LINE_GRAPH);
+                return DataTransfer.getIncomeTrend(account, "LINE_GRAPH");
             }
             input = input.replaceFirst("graph income trend ", "");
-            return DataTransfer.getIncomeTrend(account, DataTransfer.Type.valueOf(input.toUpperCase()));
+            return DataTransfer.getIncomeTrend(account, input.toUpperCase());
         } else if (input.startsWith("graph finance status /until")) {
             try {
                 String dateString = input.split(" /until ")[1];

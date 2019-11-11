@@ -30,7 +30,7 @@ public interface DataTransfer {
      * @return The graph chosen by the user for the monthly report
      * @throws IOException The IOE exception
      */
-    static HBox getMonthlyData(Account account, Type type) throws IOException {
+    static HBox getMonthlyData(Account account, String type) throws IOException {
         ArrayList<String> dataX = new ArrayList<>();
         dataX.add("Income");
         dataX.add("Expenditure");
@@ -38,9 +38,9 @@ public interface DataTransfer {
         dataY.add(account.getTotalIncome());
         dataY.add(account.getTotalExp());
 
-        if (type.equals(Type.PIE_CHART)) {
+        if (type.equals("PIE_CHART")) {
             return CircleChart.getCircleChart("Monthly Data", dataX, dataY);
-        } else if (type.equals(Type.LINE_GRAPH)) {
+        } else if (type.equals("LINE_GRAPH")) {
             return guicontroller.LineGraph.getLineGraph("Monthly Data", dataX, dataY);
         } else {
             return Histogram.getHistogram("Monthly Data", dataX, dataY);
@@ -56,7 +56,7 @@ public interface DataTransfer {
      * @return The chosen graph with the expenditure category trend information
      * @throws IOException The IOE exception
      */
-    static HBox getExpenditureTrend(Account account, Type type) throws IOException {
+    static HBox getExpenditureTrend(Account account, String type) throws IOException {
         ArrayList<Expenditure> expList = account.getExpListTotal();
         ArrayList<String> dataX = new ArrayList<>();
         ArrayList<Float> dataY = new ArrayList<>();
@@ -70,9 +70,9 @@ public interface DataTransfer {
             }
         }
 
-        if (type.equals(Type.PIE_CHART)) {
+        if (type.equals("PIE_CHART")) {
             return CircleChart.getCircleChart("Overall Expenditure Trend", dataX, dataY);
-        } else if (type.equals(Type.HISTOGRAM)) {
+        } else if (type.equals("HISTOGRAM")) {
             return Histogram.getHistogram("Overall Expenditure Trend", dataX, dataY);
         } else {
             return guicontroller.LineGraph.getLineGraph("Overall Expenditure Trend", dataX, dataY);
@@ -88,7 +88,7 @@ public interface DataTransfer {
      * @return The chosen graph with the income category trend information
      * @throws IOException The IOE exception
      */
-    static HBox getIncomeTrend(Account account, Type type) throws IOException {
+    static HBox getIncomeTrend(Account account, String type) throws IOException {
         ArrayList<Income> incomeList = account.getIncomeListTotal();
         ArrayList<String> dataX = new ArrayList<>();
         ArrayList<Float> dataY = new ArrayList<>();
@@ -101,9 +101,9 @@ public interface DataTransfer {
                 dataY.add(e.getPrice());
             }
         }
-        if (type.equals(Type.PIE_CHART)) {
+        if (type.equals("PIE_CHART")) {
             return CircleChart.getCircleChart("Overall Income Trend", dataX, dataY);
-        } else if (type.equals(Type.HISTOGRAM)) {
+        } else if (type.equals("HISTOGRAM")) {
             return Histogram.getHistogram("Overall Income Trend", dataX, dataY);
         } else {
             return guicontroller.LineGraph.getLineGraph("Overall Income Trend", dataX, dataY);
