@@ -8,7 +8,6 @@ import javacake.ui.Ui;
 
 public class ViewScheduleCommand extends Command {
     public ViewScheduleCommand(String str) {
-        type = CmdType.VIEWSCH;
         input = str;
     }
 

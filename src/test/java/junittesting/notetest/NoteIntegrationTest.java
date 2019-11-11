@@ -77,7 +77,7 @@ public class NoteIntegrationTest {
         expectedOutput = "Invalid file name: No such file!";
         assertEquals(expectedOutput, actualOutput);
 
-        actualOutput = javaCake.getResponse("deletenote NoTeS1");
+        actualOutput = javaCake.getResponse("deletenote Notes1");
         expectedOutput = "File [Notes1] has been deleted successfully!\n";
         assertEquals(expectedOutput, actualOutput);
 

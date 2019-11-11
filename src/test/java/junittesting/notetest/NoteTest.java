@@ -71,14 +71,6 @@ public class NoteTest {
         String actualOutput;
         String expectedOutput;
 
-        /*actualOutput = javaCake.getResponse("createnote");
-        expectedOutput = "File [Notes] has been created successfully!\n";
-        assertEquals(expectedOutput, actualOutput);
-
-        actualOutput = javaCake.getResponse("createnote ");
-        expectedOutput = "File [Notes1] has been created successfully!\n";
-        assertEquals(expectedOutput, actualOutput);*/
-
         actualOutput = javaCake.getResponse("createnote @notes");
         expectedOutput = "File [@notes] has been created successfully!\n";
         assertEquals(expectedOutput, actualOutput);

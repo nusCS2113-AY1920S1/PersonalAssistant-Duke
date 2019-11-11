@@ -1,6 +1,5 @@
 package javacake.quiz;
 
-import javacake.JavaCake;
 import javacake.Logic;
 import javacake.Parser;
 import javacake.commands.Command;
@@ -11,8 +10,10 @@ import javacake.ui.TopBar;
 import javacake.ui.Ui;
 
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class QuizSession implements QuizManager {
+    private static final Logger LOGGER = Logger.getLogger(QuizSession.class.getPackageName());
     private QuestionList questionList;
     public String filePath;
     private QuestionType qnType;
@@ -39,6 +40,9 @@ public class QuizSession implements QuizManager {
      */
     public QuizSession(QuestionType questionType, QuestionDifficulty questionDifficulty, boolean isCli)
             throws CakeException {
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.entering(getClass().getName(), "QuizSession");
         questionList = new QuestionList(questionType);
         qnType = questionType;
         qnDifficulty = questionDifficulty;
@@ -46,7 +50,9 @@ public class QuizSession implements QuizManager {
             runGui();
         }
         isQuizComplete = false;
-        JavaCake.logger.log(Level.INFO, "initialize quiz session: " + qnType + ", " + qnDifficulty);
+        LOGGER.info("initialized quiz session: " + qnType + ", " + qnDifficulty);
+
+        LOGGER.exiting(getClass().getName(), "QuizSession");
     }
 
     /**
@@ -56,7 +62,7 @@ public class QuizSession implements QuizManager {
      */
     @Override
     public String getQuestion(int index) {
-        JavaCake.logger.log(Level.INFO,"Question " + index + ":\n" + questionList.getQuestion(index));
+        LOGGER.info("Question " + index + ":\n" + questionList.getQuestion(index));
         return questionList.getQuestion(index);
     }
 
@@ -72,13 +78,13 @@ public class QuizSession implements QuizManager {
         if (isQuizComplete) {
             switch (input) {
             case ("review"):
-                JavaCake.logger.log(Level.INFO, "User chose to REVIEW");
+                LOGGER.info("User chose to REVIEW");
                 return "!@#_REVIEW";
             case ("back"):
-                JavaCake.logger.log(Level.INFO, "User chose to go BACK");
+                LOGGER.info("User chose to go BACK");
                 return "!@#_BACK";
             default:
-                JavaCake.logger.log(Level.WARNING, "User entered invalid command: " + input);
+                LOGGER.warning("User entered invalid command: " + input);
                 throw new CakeException("[!] Invalid command at this point in the program [!]\n"
                         + "    Try \"review\" or \"back\"."
                         + "\n\n" + getQuizResult());
@@ -222,7 +228,7 @@ public class QuizSession implements QuizManager {
                 }
                 TopBar.progValueT = (double) profile.getTotalProgress() / (TotalMaxQuestions * 4);
 
-                JavaCake.logger.log(Level.INFO, "user score updated in profile");
+                LOGGER.info("user score updated in profile");
             }
         }
     }
@@ -236,7 +242,7 @@ public class QuizSession implements QuizManager {
     private void checkAnswer(int index, String input) throws CakeException {
         if (!isNumeric(input)) {
             String userWarning = "[!] Please input answers in the form of a valid integer [!]\n";
-            JavaCake.logger.log(Level.WARNING, "User entered non-valid input");
+            LOGGER.warning("User entered non-valid input");
             throw new CakeException(userWarning);
         }
         if (questionList.setAndCheckUserAnswer(index, input)) {
@@ -277,7 +283,7 @@ public class QuizSession implements QuizManager {
         stringBuilder.append("\nType \"review\" to review your answers.");
         stringBuilder.append("\nType \"back\" to go back to the table of contents.");
 
-        JavaCake.logger.log(Level.INFO, "Quiz result\nScore: " + currScore + "ScoreGrade: " + scoreGrade);
+        LOGGER.info("Quiz result\nScore: " + currScore + "ScoreGrade: " + scoreGrade);
 
         overwriteOldScore(currScore, profile);
         isQuizComplete = true;

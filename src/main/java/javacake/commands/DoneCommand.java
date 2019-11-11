@@ -31,21 +31,6 @@ public class DoneCommand extends Command {
             --num;
             System.out.println(num);
             boolean isInsideData = false;
-            /*for (int i = 0; i < progressStack.size(); ++i) {
-                if (i == num) {
-                    if (progressStack.get(i).isDone()) {
-                        ui.showMessage(progressStack.get(i).toString().substring(3) + " is already done!");
-                        isInsideData = true;
-                        continue;
-                    }
-                    progressStack.get(i).markAsDone();
-                    storage.write(progressStack.getData());
-                    ui.showMessage("Nice! I've marked this task as done: ");
-                    ui.showMessage("    [✗] " + progressStack.get(i).toString().substring(3));
-                    isInsideData = true;
-                    break;
-                }
-            }*/
             for (int i = 0; i < storageManager.storage.getData().size(); ++i) {
                 if (i == num) {
                     storageManager.storage.getData().get(i).markAsDone();
