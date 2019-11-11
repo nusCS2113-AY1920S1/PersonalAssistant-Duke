@@ -462,6 +462,9 @@ be added into `ReminderList` managed by the project and a successfully or unsucc
 .Sequence diagram of `add reminder` command
 image::images/sequenceDiagram/CreateReminder_Sequence.png[]
 
+.Sequence diagram of `view reminders by list` command
+image::images/sequenceDiagram/ViewReminders_Sequence.png[]
+
 === 3.5. CRUD functionality for Assignments
 
 ==== Implementation
