@@ -99,9 +99,21 @@ public class UpdateCommand extends Command {
         }
     }
 
+    /**
+     * Setter method to obtain user's response.
+     * @param response user's response
+     */
     public void setResponseStr(String response) {
         this.responseStr = response;
     }
+
+    /**
+     * This function facilitates undo for UpdateCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     */
 
     public void undo(MealList meals,  Storage storage, User user, Wallet wallet) {
         UpdateAgeCommand c1 = new UpdateAgeCommand(age);

@@ -38,6 +38,7 @@ public class TransactionList {
      * @param date the date in which the list of transactions is to be taken from.
      * @return the transaction list that has been taken.
      */
+
     public ArrayList<Transaction> getTransactionList(LocalDate date) {
         if (transactionTracker.containsKey(date)) {
             return transactionTracker.get(date);

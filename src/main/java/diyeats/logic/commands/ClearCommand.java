@@ -4,7 +4,6 @@ import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
 import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
-import diyeats.model.undo.Undo;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
 

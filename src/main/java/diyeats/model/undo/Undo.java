@@ -2,8 +2,21 @@ package diyeats.model.undo;
 
 import diyeats.commons.datatypes.Pair;
 import diyeats.commons.exceptions.ProgramException;
-import diyeats.logic.commands.*;
-import diyeats.logic.parsers.*;
+import diyeats.logic.commands.AddCommand;
+import diyeats.logic.commands.AddDefaultValueCommand;
+import diyeats.logic.commands.AddExerciseCommand;
+import diyeats.logic.commands.AddGoalCommand;
+import diyeats.logic.commands.AddTransactionCommand;
+import diyeats.logic.commands.DeleteDefaultValueCommand;
+import diyeats.logic.commands.MarkDoneCommand;
+import diyeats.logic.commands.SuggestExerciseCommand;
+import diyeats.logic.commands.UpdateCommand;
+import diyeats.logic.parsers.AddBreakfastCommandParser;
+import diyeats.logic.parsers.AddDefaultValueCommandParser;
+import diyeats.logic.parsers.AddDinnerCommandParser;
+import diyeats.logic.parsers.AddExerciseCommandParser;
+import diyeats.logic.parsers.AddLunchCommandParser;
+import diyeats.logic.parsers.UpdateCommandParser;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
@@ -17,6 +30,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
+//@@author koushireo
+
+/**
+ * Undo is a class that helps the user undo previous commands.
+ */
+
 public class Undo {
     private Stack<String> history = new Stack();
     private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -27,6 +46,17 @@ public class Undo {
     public int getSize() {
         return history.size();
     }
+
+    /**
+     * Execute is a function that pops the latest instruction from history and execute it,
+     * inverse to the previous command input.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @return String to be confirmed as the appropriate command has been inversed
+     * @throws ProgramException Throws an exception if it occurs to UndoCommand to be output
+     */
 
     public String execute(MealList meals, Storage storage, User user, Wallet wallet) throws ProgramException {
         if (history.size() == 0) {
@@ -40,16 +70,16 @@ public class Undo {
         switch (type) {
             case "delete":
                 deleteFood(meals, storage, user, wallet, info);
-                break;
+                return "add";
             case "breakfast":
                 addBreakfast(meals, storage, user, wallet, info);
-                break;
+                return "delete";
             case "lunch":
                 addLunch(meals, storage, user, wallet, info);
-                break;
+                return "delete";
             case "dinner":
                 addDinner(meals, storage, user, wallet, info);
-                break;
+                return "delete";
             case "edit":
                 try {
                     edit(meals, storage, user, wallet, info);
@@ -97,12 +127,23 @@ public class Undo {
         return type;
     }
 
+    /**
+     * Generates the inverse instruction of an Add command.
+     * @param meal The meal object to be added that encapsulates the information
+     * @param meals The ArrayList of meals to be pushed to mealListHistory
+     */
+
     public void undoAdd(Meal meal, ArrayList<Meal> meals) {
         String temp = "delete ";
         temp += meal.getDate().format(dateFormat);
         this.history.push(temp);
         this.mealListHistory.push(meals);
     }
+
+    /**
+     * Generates the inverse of a Delete Command.
+     * @param meal The meal object to be removed that encapsulates the information
+     */
 
     public void undoDelete(Meal meal) {
         String temp = "";
@@ -125,6 +166,12 @@ public class Undo {
         history.push(temp);
     }
 
+    /**
+     * Generates the inverse of an Edit Command.
+     * @param mealIndex index of the meal that was edited
+     * @param meal The meal object to be edited that encapsulates the information
+     */
+
     public void undoEdit(int mealIndex, Meal meal) {
         String temp = "edit " + mealIndex + " ";
         if (meal.getType().equals("B")) {
@@ -146,6 +193,12 @@ public class Undo {
         history.push(temp);
     }
 
+    /**
+     * Generates the inverse of an Update Command.
+     * @param date date of the weight edited
+     * @param user The user object to be edited that encapsulates the information
+     */
+
     public void undoUpdate(String date, User user) {
         String temp = "update ";
         temp += "/name " + user.getName() + " ";
@@ -156,6 +209,11 @@ public class Undo {
         temp += "/date " + date + " ";
         history.push(temp);
     }
+
+    /**
+     * Generates the inverse of a Transaction Command.
+     * @param transaction The transaction object that encapsulates the information
+     */
 
     public void undoTransaction(Transaction transaction) {
         String temp = "transaction ";
@@ -168,13 +226,28 @@ public class Undo {
         history.push(temp);
     }
 
+    /**
+     * Generates the inverse of a clear command.
+     * Stage 1 creates a new empty ArrayList
+     */
+
     public void undoClearStage1() {
         clearHolder = new ArrayList();
     }
 
+    /**Generates the inverse of a clear command.
+     * Stage 2 adds all of the cleared ArrayList of Meal into its ArrayList
+     * @param temp ArrayList of the meals of a cleared date
+     */
+
     public void undoClearStage2(ArrayList<Meal> temp) {
         clearHolder.add(temp);
     }
+
+    /**Generates the inverse of a clear command.
+     * Compile the cleared information together and create a string
+     * to be pushed to history
+     */
 
     public void undoClearStage3() {
         String temp = "clear ";
@@ -199,13 +272,18 @@ public class Undo {
                 if (!meal.getCostStr().equals("0")) {
                     mealInfo += "/cost " + meal.getCostStr();
                 }
-                temp += mealInfo;
+                temp += mealInfo + "|";
             }
-            temp += "|";
         }
         System.out.println(temp);
         history.push(temp);
     }
+
+    /**
+     * Generates the inverse of a MarkDone Command.
+     * @param date date of the meal that was marked done
+     * @param index index of the meal that was marked done on that date
+     */
 
     public void undoMarkDone(LocalDate date, int index) {
         String temp = "markDone ";
@@ -214,10 +292,21 @@ public class Undo {
         history.push(temp);
     }
 
+    /**
+     * Generates the inverse of a DefaultValues Command.
+     * @param name name of the default value item to be added
+     */
+
     public void undoDefaultValues(String name) {
         String temp = "defaultValues " + name;
         history.push(temp);
     }
+
+    /**
+     * Generates the inverse of a delDefaultValues command.
+     * @param nutritionList nutritionList of the item to be removed
+     * @param name name of the item to be removed
+     */
 
     public void undoDelDefault(HashMap<String, Integer> nutritionList, String name) {
         String temp = "delDefault " + name;
@@ -227,10 +316,20 @@ public class Undo {
         history.push(temp);
     }
 
+    /**
+     * Generates the inverse of a setGoal command.
+     */
+
     public void undoSetGoal() {
         history.push("setGoal ");
     }
 
+    /**
+     * Generates the inverse of a suggestexercise command.
+     * @param date date of the exercise appended
+     * @param selectedExercise the exercise that was replaced or
+     *                         null(meaning there was no exercise initially)
+     */
     public void undoSuggestExercise(LocalDate date, Pair selectedExercise) {
         String temp = "suggestExercise ";
         temp += date.format(dateFormat);
@@ -242,17 +341,38 @@ public class Undo {
         history.push(temp);
     }
 
-    public void undoAddExercise(String name, int MET) {
+    /**
+     * Generates the inverse of an AddExercise Command.
+     * @param name Name of the exercise regime added
+     * @param met Value of the MET of the exercise regime added
+     */
+
+    public void undoAddExercise(String name, int met) {
         String temp = "addExercise ";
-        temp += name + "|" + MET;
+        temp += name + "|" + met;
         history.push(temp);
     }
 
-    public void undoDeleteExercise(String name, int MET) {
+    /**
+     * Generates the inverse of a DeleteExercise command.
+     * @param name Name of the exercise regime to be removed
+     * @param met Value of the MET of the exercise regime to be removed
+     */
+
+    public void undoDeleteExercise(String name, int met) {
         String temp = "deleteExercise ";
-        temp += name + " /value " + MET;
+        temp += name + " /value " + met;
         history.push(temp);
     }
+
+    /**
+     * Executes the inverse of an AddCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     */
 
     public void deleteFood(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         LocalDate date = LocalDate.parse(toBeParsed, dateFormat);
@@ -260,20 +380,56 @@ public class Undo {
         meals.setMealsList(date, temp);
     }
 
+    /**
+     * Executes the inverse of a DeleteCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     */
+
     public void addBreakfast(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         AddCommand c = new AddBreakfastCommandParser().parse(toBeParsed);
         c.undo(meals, storage, user, wallet);
     }
+
+    /**
+     * Executes the inverse of a DeleteCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     */
 
     public void addLunch(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         AddCommand c = new AddLunchCommandParser().parse(toBeParsed);
         c.undo(meals, storage, user, wallet);
     }
 
+    /**
+     * Executes the inverse of a DeleteCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     */
+
     public void addDinner(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         AddCommand c = new AddDinnerCommandParser().parse(toBeParsed);
         c.undo(meals, storage, user, wallet);
     }
+
+    /**
+     * Executes the inverse of an EditCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     */
 
     public void edit(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed)
             throws ProgramException {
@@ -298,10 +454,28 @@ public class Undo {
         meals.updateMeal(index, meal);
     }
 
+    /**
+     * Executes the inverse of an UpdateCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     */
+
     public void update(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         UpdateCommand c = new UpdateCommandParser().parse(toBeParsed);
         c.undo(meals, storage, user, wallet);
     }
+
+    /**
+     * Executes the inverse of a TransactionCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     */
 
     public void transaction(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed)
             throws ProgramException {
@@ -313,6 +487,15 @@ public class Undo {
         AddTransactionCommand c = new AddTransactionCommand(temp);
         c.undo(meals, storage, user, wallet);
     }
+
+    /**
+     * Executes the inverse of a ClearCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     */
 
     public void clear(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         String[] lineSplit = toBeParsed.split("\\|");
@@ -330,6 +513,15 @@ public class Undo {
         }
     }
 
+    /**
+     * Executes the inverse of a MarkDoneCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     */
+
     public void markDone(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         String[] lineSplit = toBeParsed.split(" ");
         String date = lineSplit[0];
@@ -338,22 +530,60 @@ public class Undo {
         c.undo(meals, storage, user, wallet);
     }
 
+    /**
+     * Executes the inverse of a defaultValuesCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     */
+
     public void defaultValues(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         DeleteDefaultValueCommand c = new DeleteDefaultValueCommand(toBeParsed);
         c.undo(meals, storage, user, wallet);
     }
+
+    /**
+     * Executes the inverse of a delDefaultCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     */
 
     public void delDefault(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         AddDefaultValueCommand c = new AddDefaultValueCommandParser().parse(toBeParsed);
         c.undo(meals, storage, user, wallet);
     }
 
+    /**
+     * Executes the inverse of a SetGoalCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     */
+
     public void setGoal(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         AddGoalCommand c = new AddGoalCommand();
         c.undo(meals, storage, user, wallet);
     }
 
-    public void suggestExercise(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) throws ProgramException{
+    /**
+     * Executes the inverse of a suggestExerciseCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     * @throws ProgramException throws exception when the information cannot be parsed into Int
+     */
+
+    public void suggestExercise(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed)
+            throws ProgramException {
         SuggestExerciseCommand c;
         String[] lineSplit = toBeParsed.split("\\|");
         LocalDate date = LocalDate.parse(lineSplit[0], dateFormat);
@@ -372,18 +602,38 @@ public class Undo {
         c.undo(meals, storage, user, wallet);
     }
 
-    public void addExercise(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) throws ProgramException{
+    /**
+     * Executes the inverse of an AddExerciseCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     * @throws ProgramException throws exception when the information cannot be parsed into Int
+     */
+
+    public void addExercise(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed)
+            throws ProgramException {
         String[] lineSplit = toBeParsed.split("\\|");
         String name = lineSplit[0];
-        int MET = -1;
+        int met = -1;
         try {
-            MET = Integer.parseInt(lineSplit[1]);
+            met = Integer.parseInt(lineSplit[1]);
         } catch (NumberFormatException e) {
             throw new ProgramException(e.getMessage());
         }
-        AddExerciseCommand c = new AddExerciseCommand(name, MET);
+        AddExerciseCommand c = new AddExerciseCommand(name, met);
         c.undo(meals, storage, user, wallet);
     }
+
+    /**
+     * Executes the inverse of a deleteExerciseCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     * @param toBeParsed information that is to be parsed
+     */
 
     public void deleteExercise(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
         AddExerciseCommand c = new AddExerciseCommandParser().parse(toBeParsed);

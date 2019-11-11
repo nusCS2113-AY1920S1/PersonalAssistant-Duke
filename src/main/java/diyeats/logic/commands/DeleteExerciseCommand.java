@@ -88,7 +88,8 @@ public class DeleteExerciseCommand extends Command {
             int lastIdx = deleteCandidateKeys.size() - 1;
             ui.showMessage("Success! " + deleteCandidateKeys.get(lastIdx)
                     + " has been deleted from the list of exercises.");
-            undo.undoDeleteExercise(deleteCandidateKeys.get(lastIdx), meals.getExerciseList().getStoredExercises().get(deleteCandidateKeys.get(lastIdx)));
+            undo.undoDeleteExercise(deleteCandidateKeys.get(lastIdx),
+                    meals.getExerciseList().getStoredExercises().get(deleteCandidateKeys.get(lastIdx)));
             meals.getExerciseList().getStoredExercises().remove(deleteCandidateKeys.get(lastIdx));
             try {
                 storage.writeFile(meals);
@@ -133,7 +134,8 @@ public class DeleteExerciseCommand extends Command {
 
         ui.showMessage("Success! " + deleteCandidateKeys.get(deleteIdx - 1)
                 + " has been deleted from the list of exercises.");
-        undo.undoDeleteExercise(deleteCandidateKeys.get(deleteIdx - 1), meals.getExerciseList().getStoredExercises().get(deleteCandidateKeys.get(deleteIdx - 1)));
+        undo.undoDeleteExercise(deleteCandidateKeys.get(deleteIdx - 1),
+                meals.getExerciseList().getStoredExercises().get(deleteCandidateKeys.get(deleteIdx - 1)));
         meals.getExerciseList().getStoredExercises().remove(deleteCandidateKeys.get(deleteIdx - 1));
         try {
             storage.writeFile(meals);

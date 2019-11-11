@@ -25,14 +25,14 @@ import static diyeats.commons.constants.CommandSyntax.PARSER_FIND_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_HELP_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_HISTORY_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_LIST_COMMAND;
+import static diyeats.commons.constants.CommandSyntax.PARSER_LIST_TRANSACTION_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_LUNCH_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_PAYMENT_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_STATS_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_SUGGEST_EXERCISE_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_SUGGEST_MEAL_COMMAND;
-import static diyeats.commons.constants.CommandSyntax.PARSER_UPDATE_COMMAND;
-import static diyeats.commons.constants.CommandSyntax.PARSER_LIST_TRANSACTION_COMMAND;
 import static diyeats.commons.constants.CommandSyntax.PARSER_UNDO_COMMAND;
+import static diyeats.commons.constants.CommandSyntax.PARSER_UPDATE_COMMAND;
 
 //@@author
 /**
@@ -72,7 +72,6 @@ public class Parser {
         this.parserUtil.parse(fullCommandStr.trim());
         String commandStr = this.parserUtil.getCommand();
         String argumentStr = this.parserUtil.getArgument();
-
         switch (commandStr) {
             case PARSER_EXIT_COMMAND:
                 return new ExitCommand();

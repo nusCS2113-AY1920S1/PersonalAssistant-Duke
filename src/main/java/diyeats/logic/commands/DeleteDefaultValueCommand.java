@@ -134,7 +134,8 @@ public class DeleteDefaultValueCommand extends Command {
 
         ui.showMessage("Success! " + deleteCandidateKeys.get(deleteIdx - 1)
                 + " has been deleted from the list of default values.");
-        undo.undoDelDefault(meals.getDefaultValues().get(deleteCandidateKeys.get(deleteIdx - 1)), deleteCandidateKeys.get(deleteIdx - 1));
+        undo.undoDelDefault(meals.getDefaultValues().get(deleteCandidateKeys.get(deleteIdx - 1)),
+                deleteCandidateKeys.get(deleteIdx - 1));
         meals.getDefaultValues().remove(deleteCandidateKeys.get(deleteIdx - 1));
 
         try {
@@ -145,6 +146,14 @@ public class DeleteDefaultValueCommand extends Command {
 
         isDone = true;
     }
+
+    /**
+     * This function facilitates the undo of an AddDefaultValueCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     */
 
     public void undo(MealList meals, Storage storage, User user, Wallet wallet) {
         meals.removeDefaultValues(keywordStr);

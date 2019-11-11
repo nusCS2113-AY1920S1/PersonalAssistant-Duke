@@ -2,7 +2,6 @@ package diyeats.logic.command;
 
 import diyeats.logic.commands.EditCommand;
 import diyeats.model.meal.Meal;
-
 import diyeats.model.meal.MealType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

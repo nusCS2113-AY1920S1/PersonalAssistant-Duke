@@ -65,7 +65,7 @@ public class MealList {
     }
 
     /**
-     * This function is to facilitate undo for adding default meal
+     * This function is to facilitate undo for adding default meal.
      * @param keyword Name of the default meal to be removed
      */
     public void removeDefaultValues(String keyword) {
@@ -111,11 +111,13 @@ public class MealList {
         this.mealTracker.get(date).get(index - 1).markAsUnDone();
         return markedDoneMeal;
     }
+
     /**
      * This function is used to check if a entry with the corresponding date is stored.
      * @param date the date to be checked
      * @return boolean
      */
+
     public boolean checkDate(LocalDate date) {
         return mealTracker.containsKey(date);
     }
@@ -180,7 +182,7 @@ public class MealList {
         return this.exerciseList;
     }
 
-    /**This function facilitates undo to undo edited meal
+    /**This function facilitates undo to undo edited meal.
      * @param mealIndex index of the meal to be undone
      * @param newMeal previous Meal object that was edited.
      */

@@ -34,3 +34,6 @@ pay
 deposit
 bye
 type
+start
+end
+stats

@@ -38,8 +38,7 @@ public class SuggestExerciseCommand extends Command {
     public SuggestExerciseCommand() {
     }
 
-    /**This constructor is to construct SuggestExerciseCommand to
-     * facilitate undo
+    /**This constructor is to construct SuggestExerciseCommand to facilitate undo.
      * @param date the date of the exercise to be removed
      */
 
@@ -47,8 +46,7 @@ public class SuggestExerciseCommand extends Command {
         this.date = date;
     }
 
-    /**This constructor is to construct SuggestExerciseCommand to
-     * facilitate undo
+    /**This constructor is to construct SuggestExerciseCommand to facilitate undo.
      * @param date the date of the exercise to be reverted
      * @param revertExercise the reverted exercise
      */

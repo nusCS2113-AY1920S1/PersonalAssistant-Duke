@@ -193,7 +193,8 @@ public class Meal implements Cloneable {
         return "[" + this.type + "]" + this.getStatusIcon() + " " + this.description + " | " + temp;
     }
 
-    protected Object clone() throws CloneNotSupportedException {
+    @Override
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 }

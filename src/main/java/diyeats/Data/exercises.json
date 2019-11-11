@@ -3,7 +3,6 @@
     "Running, 8 mph (7.5 min/mile)": 8,
     "Cycling, 12 - 14mph (moderate effort)": 8,
     "Tennis, casual, general": 7,
-    "having sex": 5000,
     "Rock climbing": 10,
     "Cycling, 14 - 16mph (heavy effort)": 10,
     "running": 30,
@@ -20,8 +19,8 @@
       "value": 50
     },
     "2019-11-11": {
-      "key": "having sex",
-      "value": 0
+      "key": "Tennis, casual, general",
+      "value": 71
     },
     "2019-11-10": {
       "key": "Cycling, 10 - 12mph (light effort)",

@@ -1,14 +1,11 @@
 package diyeats.logic.commands;
 
 import diyeats.commons.exceptions.ProgramException;
-import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
 import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
-
-import java.util.ArrayList;
 
 /**
  * AddCommand is a public class that inherits from abstract class Command.

@@ -15,7 +15,7 @@ public class CGraphCommandParser implements ParserInterface<CGraphCommand> {
     /**
      * Parses user input and returns an AddCommand encapsulating a Lunch object.
      * @param userInputStr String input by user.
-     * @return <code>AddCommand</code> Command object encapsulating a breakfast object
+     * @return <code>CGraphCommand</code> Command object encapsulating the graph information to be executed
      * @throws ProgramException when the user input cannot be parsed
      */
     @Override

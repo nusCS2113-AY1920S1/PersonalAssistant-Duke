@@ -2,7 +2,6 @@ package diyeats.model.user;
 
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
-import diyeats.model.wallet.Account;
 
 import java.time.LocalDate;
 import java.util.HashMap;

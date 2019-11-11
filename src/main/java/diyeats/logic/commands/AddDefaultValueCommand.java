@@ -21,10 +21,12 @@ public class AddDefaultValueCommand extends Command {
     public AddDefaultValueCommand(String name) {
         toBeUndone = name;
     }
+
     /**
      * Constructor for AddDefaultValueCommand.
      * @param meal The meal to be added.
      */
+
     public AddDefaultValueCommand(Meal meal) {
         this.meal = meal;
     }
@@ -54,6 +56,13 @@ public class AddDefaultValueCommand extends Command {
         }
     }
 
+    /**
+     * This function facilitates the undo of an DeleteDefaultValueCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     */
     public void undo(MealList meals, Storage storage, User user, Wallet wallet) {
         meals.addDefaultValues(this.meal);
         try {
