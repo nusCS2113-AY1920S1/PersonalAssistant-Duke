@@ -15,9 +15,9 @@ public class EditTaskDesParser {
 
     //@@author yuyanglin28
     /**
-     * parse edit task description command
-     * @param partialCommand command after des, [index] /to [new des]
-     * @return edit task des command
+     * parse edit task description logic.command
+     * @param partialCommand logic.command after des, [index] /to [new des]
+     * @return edit task des logic.command
      * @throws DukeException throw exception when task index is empty or change content is empty
      */
     public static Command parseEditTaskDes(String partialCommand) throws DukeException {

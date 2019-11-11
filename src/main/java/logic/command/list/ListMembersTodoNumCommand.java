@@ -1,6 +1,7 @@
 package logic.command.list;
 
 import common.DukeException;
+import gui.Window;
 import logic.command.Command;
 import logic.command.CommandOutput;
 import model.Model;
@@ -18,6 +19,7 @@ public class ListMembersTodoNumCommand extends Command {
      */
     @Override
     public CommandOutput execute(Model model) throws DukeException {
+        Window.instance.showTaskView(false);
         String members = model.membersInorderTodoNum();
         if (members.equals("")) {
             return new CommandOutput(ListMembersCommand.EMPTY_MEMBERS_LIST);

@@ -1,5 +1,6 @@
 package logic.command.list;
 
+import gui.Window;
 import logic.command.Command;
 import logic.command.CommandOutput;
 import model.Model;
@@ -17,6 +18,7 @@ public class ListMembersProgressCommand extends Command {
      */
     @Override
     public CommandOutput execute(Model model) {
+        Window.instance.showTaskView(false);
         String members = model.membersInorderProgress();
         if (members.equals("")) {
             return new CommandOutput(ListMembersCommand.EMPTY_MEMBERS_LIST);

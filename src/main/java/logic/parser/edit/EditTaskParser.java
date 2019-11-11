@@ -20,9 +20,9 @@ public class EditTaskParser {
 
     //@@author yuyanglin28
     /**
-     * parse edit task command, pass to time, name or description
-     * @param partialCommand command after task
-     * @return edit task command
+     * parse edit task logic.command, pass to time, name or description
+     * @param partialCommand logic.command after task
+     * @return edit task logic.command
      * @throws DukeException throw exception when edit type is not correct
      */
     public static Command parseEditTask(String partialCommand) throws DukeException {

@@ -1,8 +1,6 @@
-package command;
+package logic.command;
 
 import common.DukeException;
-import logic.command.Command;
-import logic.command.CommandOutput;
 import logic.parser.edit.EditMemberNameParser;
 import model.Model;
 import model.ModelController;

@@ -215,7 +215,7 @@ public class MemberManager {
         return member.getPhone();
     }
 
-    public void updateMemberPhone(String name, String phone) {
+    public void updateMemberPhone(String name, String phone) throws DukeException {
         Member member = getMemberByName(name);
         member.setPhone(phone);
     }
