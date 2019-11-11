@@ -129,7 +129,7 @@ public abstract class PaymentManager {
                         payment.status = Status.OVERDUE;
                     }
                 } else if (field == Field.DEADLINE) {
-                    SimpleDateFormat ft = new SimpleDateFormat ("dd-MM-yyyy");
+                    SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy");
                     Date newDeadline = new Date();
                     try {
                         newDeadline = ft.parse(replace);

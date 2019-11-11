@@ -122,8 +122,7 @@ public class Process {
                 double projectamount = Double.parseDouble(inputamount);
                 if (projectamount < MIN_FUND) {
                     ui.exceptionMessage("     :( OOPS!!! Please enter a positive value. ");
-                }
-             else if (projectamount > MAX_FUND) {
+                } else if (projectamount > MAX_FUND) {
                     ui.exceptionMessage("     :( OOPS!!! Please enter a positive value of no more than 500,000. ");
                     return;
                 }
@@ -786,7 +785,7 @@ public class Process {
     //===========================* Payments *================================
     //@@karansarat
     /**
-     * Splits the user input according to regex to get the information needed
+     * Splits the user input according to regex to get the information needed.
      * 
      * @param input    raw user input
      * @param cmd      the command the user invoked
@@ -1028,10 +1027,9 @@ public class Process {
         }
     }
 
-     /**
+    /**
      * Processes the find command and outputs a list of payments from the payee name
      * given.
-     * 
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      * @throws AlphaNUSException for reading errors from json file
@@ -1336,16 +1334,15 @@ public class Process {
         String command = commandList.get(commandList.size() - 1);
         //projectManager.projectmap = UndoRedoStack.undo();
         int count = 0;
-        for(int i = 0; i < canUndoRedo.size(); i = i + 1){
-            if(command.contains(canUndoRedo.get(i))){
+        for (int i = 0; i < canUndoRedo.size(); i = i + 1) {
+            if (command.contains(canUndoRedo.get(i))) {
                 projectManager.projectmap = storage.readFromUndoFile();
                 ui.undoMessage();
-            }
-            else{
+            } else {
                 count = count + 1;
             }
         }
-        if(count == canUndoRedo.size()){
+        if (count == canUndoRedo.size()) {
             ui.cantUndomessage();
         }
     }
@@ -1361,11 +1358,10 @@ public class Process {
         ArrayList<String> commandList = new ArrayList<>();
         commandList = storage.readFromCommandsFile();
         String command1 = commandList.get(commandList.size() - 1);
-        if(command1.equals("undo")) {
+        if (command1.equals("undo")) {
             projectManager.projectmap = storage.readFromRedoFile();
             ui.redoMessage();
-        }
-        else{
+        } else {
             ui.cantRedomessage();
         }
     }

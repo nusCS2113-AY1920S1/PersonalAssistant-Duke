@@ -719,13 +719,15 @@ public class Ui {
         System.out.print(line);
     }
 
-    public void cantUndomessage(){
-        System.out.println("This command can't be undone. Only add payment, delete payment, add payee and delete payee can be undone.");
+    public void cantUndomessage() {
+        System.out.println("This command can't be undone. Only add payment, " 
+            + "delete payment, add payee and delete payee can be undone.");
     }
 
-    public void cantRedomessage(){
+    public void cantRedomessage() {
         System.out.println("A command can only be redone if the previous command is undo.");
     }
+
     /**
      * Returns the scanned input.
      * @return Scanned input.
