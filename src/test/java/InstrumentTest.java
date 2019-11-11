@@ -1,5 +1,5 @@
 //@@author Dng132FEI
-import mistermusik.commons.Instruments.InstrumentList;
+import mistermusik.commons.instruments.InstrumentList;
 import mistermusik.commons.events.eventtypes.Event;
 import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.logic.EventList;
@@ -62,7 +62,7 @@ public class InstrumentTest {
         int serviceIndexTwo = instrumentListTest.service(instrumentIndex, inputDate, "rehaired bow");
         String serviceIndexAndNameTwo = instrumentListTest.getIndexAndService(instrumentIndex, serviceIndex);
         String viewServiceResult = instrumentListTest.getInstrumentServiceInfo(instrumentIndex);
-        assertEquals("1. varnished body  on Sun, 26 Nov 2017, 10:32\n2. rehaired bow  on " +
-                "Mon, 26 Nov 2017, 10:32\n", viewServiceResult);
+        assertEquals("1. varnished body  on Sun, 26 Nov 2017, 10:32\n2. rehaired bow  on "
+                + "Mon, 26 Nov 2017, 10:32\n", viewServiceResult);
     }
 }

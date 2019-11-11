@@ -1,20 +1,34 @@
 //@@author ZhangYihanNus
+
 package mistermusik.ui;
 
 import mistermusik.commons.events.eventtypes.Event;
 import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.logic.EventList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class CalendarView {
     private List<Queue<Event>> eventsOfTheWeek = new ArrayList<>(7);
-
     private ArrayList<String> daysToDisplay = new ArrayList<>();
     public ArrayList<String> datesToDisplay = new ArrayList<>();
     private String stringForOutput;
-    static final int MONDAY = 0, TUESDAY = 1, WEDNESDAY = 2, THURSDAY = 3, FRIDAY = 4, SATURDAY = 6, SUNDAY = 7;
+    static final int MONDAY = 0;
+    static final int TUESDAY = 1;
+    static final int WEDNESDAY = 2;
+    static final int THURSDAY = 3;
+    static final int FRIDAY = 4;
+    static final int SATURDAY = 6;
+    static final int SUNDAY = 7;
 
+    /**
+     * Initiating of CalendarView.
+     * @param eventList The event list.
+     * @param startDate The start date of calendar.
+     */
     public CalendarView(EventList eventList, EventDate startDate) {
         ArrayList<Event> eventArrayList = eventList.getEventArrayList();
         for (int i = 0; i < 7; i++) {
@@ -45,7 +59,8 @@ public class CalendarView {
         int currentlyChecking = 0;
         for (Event thisEvent : eventArrayList) {
             //if this event is within the next 6 days
-            if ((thisEvent.getStartDate().compare(endOfWeek) <= 0) && (thisEvent.getStartDate().compare(yesterday) > 0)) {
+            if ((thisEvent.getStartDate().compare(endOfWeek) <= 0)
+                    && (thisEvent.getStartDate().compare(yesterday) > 0)) {
                 while ((thisEvent.getStartDate().compare(thisDay) > 0) && (currentlyChecking < 7)) {
                     currentlyChecking++;
                     thisDay.addDaysAndSetMidnight(1);
@@ -69,7 +84,7 @@ public class CalendarView {
     private void setDaysAndDatesList(EventDate startDate) {
         String currDay = startDate.getEventJavaDate().toString().split(" ")[0];
         String[] weekdays = new String[]{"    <Monday>    ", "   <Tuesday>    ", "   <Wednesday>  ",
-                "   <Thursday>   ", "    <Friday>    ", "   <Saturday>   ", "    <Sunday>    "};
+            "   <Thursday>   ", "    <Friday>    ", "   <Saturday>   ", "    <Sunday>    "};
 
         int startDay = 0;
         switch (currDay) {
@@ -100,6 +115,8 @@ public class CalendarView {
         case "Sun":
             startDay = SUNDAY;
             break;
+        default:
+            break;
         }
 
         for (int i = 0; i < 7; i++) {
@@ -114,6 +131,9 @@ public class CalendarView {
         }
     }
 
+    /**
+     * Put all information of a calendar table into the string "stringForOutput" to prepare for printing.
+     */
     public void setCalendarInfo() {
         String calendarInfo = "";
         int maxNumOfEvent = 0;
@@ -124,9 +144,12 @@ public class CalendarView {
         }
 
         // head of table
-        calendarInfo += "________________________________________________________________________________________________________________________\n" +
-                "|                                                  Events of the week                                                  |\n" +
-                "________________________________________________________________________________________________________________________\n";
+        calendarInfo += "__________________________________________________________"
+                + "______________________________________________________________\n"
+                + "|                                                  Events of the"
+                + " week                                                  |\n"
+                + "__________________________________________________________________"
+                + "______________________________________________________\n";
 
         // row of days
         for (int i = 0; i < 7; i++) {
@@ -138,8 +161,9 @@ public class CalendarView {
         for (int i = 0; i < 7; i++) {
             calendarInfo += "|" + this.datesToDisplay.get(i);
         }
-        calendarInfo += "|\n" +
-                "________________________________________________________________________________________________________________________\n";
+        calendarInfo += "|\n"
+                + "_________________________________________________________________"
+                + "_______________________________________________________\n";
 
         // rows of events
         for (int idxOfEventRow = 0; idxOfEventRow < maxNumOfEvent; idxOfEventRow++) {
@@ -154,8 +178,10 @@ public class CalendarView {
             }
         }
 
-        calendarInfo += "|                |                |                |                |                |                |                |\n" +
-                "________________________________________________________________________________________________________________________";
+        calendarInfo += "|                |                |                |       "
+                + "         |                |                |                |\n"
+                + "__________________________________________________________________"
+                + "______________________________________________________";
         this.stringForOutput = calendarInfo;
     }
 
@@ -177,14 +203,15 @@ public class CalendarView {
                 Event tempEvent = eventsOfTheWeek.get(day).poll();
 
                 //time
-                String thisStartTime, thisEndTime;
+                String thisStartTime;
+                String thisEndTime;
                 assert tempEvent != null;
-                if (!(tempEvent.getStartDate() == null) &&
-                        (tempEvent.getStartDate().getFormattedDateString().split(", ").length > 2)) {
+                if (!(tempEvent.getStartDate() == null)
+                        && (tempEvent.getStartDate().getFormattedDateString().split(", ").length > 2)) {
                     thisStartTime = tempEvent.getStartDate().getFormattedDateString().split(", ")[2];
                     thisTime = "* " + thisStartTime;
-                    if (!(tempEvent.getEndDate() == null) &&
-                            (tempEvent.getEndDate().getFormattedDateString().split(", ").length > 2)) {
+                    if (!(tempEvent.getEndDate() == null)
+                            && (tempEvent.getEndDate().getFormattedDateString().split(", ").length > 2)) {
                         thisEndTime = tempEvent.getEndDate().getFormattedDateString().split(", ")[2];
                         thisTime += " ~ " + thisEndTime + " ";
                     }
