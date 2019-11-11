@@ -26,8 +26,8 @@ public class RecurringDeadlineTest {
 
     @Test
     public void test_toString_conversion() {
-        assertEquals("[D][-][MED][#geog] homework (by: 20th of November 2019, 11:59PM)"+
-                " (Repeats every 1 weeks)", sampleTask1.toString());
+        assertEquals("[D][-][MED][#geog] homework (by: 20th of November 2019, 11:59PM)"
+                + " (Repeats every 1 weeks)", sampleTask1.toString());
     }
 
     @Test
