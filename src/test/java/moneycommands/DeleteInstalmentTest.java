@@ -26,6 +26,9 @@ public class DeleteInstalmentTest {
     private String testDate = "9/10/1997";
     private LocalDate dateTestDate = LocalDate.parse(testDate, dateTimeFormatter);
 
+    /**
+     * method to initialise the data path for the tests to populate.
+     */
     public DeleteInstalmentTest() {
         Path currentDir = Paths.get("data/account-test.txt");
         String filePath = currentDir.toAbsolutePath().toString();

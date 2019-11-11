@@ -18,6 +18,8 @@ public class CheckFutureBalanceTest {
     private Account account;
     private MoneyStorage moneyStorage;
     private static String SAMPLE_CREATE_TRACKER1 = "bank-account OCBC /amt 30 /at 27/7/2017 /rate 0.005";
+    private static String WRONG_CHECK_DATE = "check-balance OCBC /at /2/2020";
+
 
     CheckFutureBalanceTest() throws IOException {
         ui = new Ui();
@@ -43,6 +45,16 @@ public class CheckFutureBalanceTest {
         ui.clearOutputString();
         CheckFutureBalanceCommand cmd = new CheckFutureBalanceCommand(anyInputString);
         cmd.undo(account, ui, moneyStorage);
+    }
+
+    @Test
+    void isExit_success() throws DukeException {
+        Assertions.assertFalse(new CheckFutureBalanceCommand("check-balance OCBC /at 8/2/2016").isExit());
+    }
+
+    @Test
+    void constructor_invalidDateFormat_exceptionThrown() {
+        Assertions.assertThrows(DukeException.class, () -> new CheckFutureBalanceCommand(WRONG_CHECK_DATE));
     }
 
     @Test

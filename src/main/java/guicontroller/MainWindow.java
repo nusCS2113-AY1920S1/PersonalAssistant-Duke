@@ -1,6 +1,6 @@
 package guicontroller;
 
-import controlpanel.Duke;
+import controlpanel.FG;
 import controlpanel.DukeException;
 import controlpanel.GraphSelector;
 import help.AutoComplete;
@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Controller for guicontroller.MainWindow. Provides the layout for the other controls.
@@ -41,7 +40,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField searchBar;
 
-    private Duke duke;
+    private FG financialGhost;
     private UserIcon userIcon;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
@@ -74,10 +73,10 @@ public class MainWindow extends AnchorPane {
      * This connects the respective containers with CLI duke.
      * @param d the CLI duke
      */
-    public void setDuke(Duke d) {
-        duke = d;
-        String logo = duke.getUi().getLogo();
-        boolean isNewUser = duke.getAccount().isToInitialize();
+    public void setFG(FG d) {
+        financialGhost = d;
+        String logo = financialGhost.getUi().getLogo();
+        boolean isNewUser = financialGhost.getAccount().isToInitialize();
         if (isNewUser) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getDukeDialog("enter start to begin", dukeImage));
@@ -102,7 +101,7 @@ public class MainWindow extends AnchorPane {
             userImage = userIcon.getIcon();
         }
 
-        String[] response = duke.getResponse(input);
+        String[] response = financialGhost.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response[0], dukeImage)
@@ -111,7 +110,7 @@ public class MainWindow extends AnchorPane {
         if (input.startsWith("graph")) {
             GraphSelector graphSelector = new GraphSelector();
             graphContainer.getChildren().addAll(
-                    graphSelector.getTheGraph(input, duke.getAccount())
+                    graphSelector.getTheGraph(input, financialGhost.getAccount())
             );
             userInput.clear();
         }
@@ -133,7 +132,7 @@ public class MainWindow extends AnchorPane {
         if (input.equals("")) {
             graphContainer.getChildren().clear();
         } else {
-            String[] response = duke.getResponse("find# " + input);
+            String[] response = financialGhost.getResponse("find# " + input);
             graphContainer.getChildren().clear();
             if (!response[1].equals("")) {
                 graphContainer.getChildren().clear();

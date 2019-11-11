@@ -2,10 +2,13 @@ package moneycommands;
 
 import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
+import controlpanel.Parser;
 import controlpanel.Ui;
 import money.Account;
 
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class GraphCommand extends MoneyCommand {
 
@@ -27,7 +30,16 @@ public class GraphCommand extends MoneyCommand {
             ui.appendToOutput("Done.\n");
         } else if (cmd.startsWith("graph monthly report") || cmd.startsWith("graph income trend")
                 || cmd.startsWith("graph expenditure trend") || cmd.startsWith("graph finance status /until ")) {
-            ui.appendToOutput("Got it, graph will be printed in the other pane!\n");
+            try {
+                if (cmd.startsWith("graph finance status /until ")) {
+                    String dateString = cmd.split(" /until ")[1];
+                    LocalDate date = Parser.shortcutTime(dateString);
+                }
+            } catch (DateTimeParseException e) {
+                throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
+            } finally {
+                ui.appendToOutput("Got it, graph will be printed in the other pane!\n");
+            }
         } else {
             throw new DukeException("Check your command. This input graph command is invalid.");
         }

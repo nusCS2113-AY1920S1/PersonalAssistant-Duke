@@ -1,7 +1,11 @@
 package money;
 
 import controlpanel.MoneyStorage;
-import moneycommands.*;
+import moneycommands.ExitMoneyCommand;
+import moneycommands.ListTotalExpenditureCommand;
+import moneycommands.MoneyCommand;
+import moneycommands.DeleteExpenditureCommand;
+import moneycommands.AddExpenditureCommand;
 import controlpanel.DukeException;
 import controlpanel.Ui;
 import org.junit.jupiter.api.Test;
@@ -117,10 +121,11 @@ public class ExpenditureTest {
     @Test
     void testUndoAddExpenditure() throws ParseException, DukeException {
         String testAdd = "spent Flowers for the lady /amt 70 /cat present /on 9/10/1997";
-        Expenditure exp = new Expenditure(70, "Flowers for the lady ", "present", testDate);
+
         AddExpenditureCommand testcmd = new AddExpenditureCommand(testAdd);
         testcmd.execute(account, ui, storage);
         ui.clearOutputString();
+        Expenditure exp = new Expenditure(70, "Flowers for the lady ", "present", testDate);
         testcmd.undo(account, ui, storage);
         assertEquals(" Last command undone: \n" + exp.toString() + "\n Now you have "
                 + account.getExpListTotal().size() + " expenses listed\n", ui.getOutputString());
