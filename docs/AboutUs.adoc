@@ -10,7 +10,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Mohammad Yousuf
-image::images/yzia2000.png[width="150", align="left"]
+image::yzia2000.png[width="150", align="left"]
 {empty}[http://github.com/yzia2000[github]] [<<yzia2000#, portfolio>>]
 
 Role: Team Lead +
@@ -19,7 +19,7 @@ Responsibilities: Data + Merging
 '''
 
 === Nathan Yeo
-image::images/nystera.png[width="150", align="left"]
+image::nystera.png[width="150", align="left"]
 {empty}[http://github.com/nystera[github]] [<<nystera#, portfolio>>]
 
 Role: Project Advisor +
@@ -28,7 +28,7 @@ Responsibilities: Dev Ops
 '''
 
 === Nigel Tan
-image::images/enriquekhai.png[width="150", align="left"]
+image::enriquekhai.png[width="150", align="left"]
 {empty}[[homepage]] [https://github.com/enriquekhai[github]] [<<enriquekhai#, portfolio>>]
 
 Role: Developer (Productivity) +
@@ -37,7 +37,7 @@ Responsibilities: Model
 '''
 
 === Ng Jie Wu
-image::images/ngjiewu.png[width="150", align="left"]
+image::ngjiewu.png[width="150", align="left"]
 {empty}[http://github.com/ngjiewu[github]] [<<ngjiewu#, portfolio>>]
 
 Role: Developer (Productivity) +
@@ -46,7 +46,7 @@ Responsibilities: Threading
 '''
 
 === Ng Jing Kang
-image::images/jingkang97.png[width="150", align="left"]
+image::jingkang97.png[width="150", align="left"]
 {empty}[http://github.com/jingkang97[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer (Game) +
