@@ -7,6 +7,7 @@ import seedu.duke.email.parser.EmailContentParseHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class EmailList extends ArrayList<Email> {
@@ -203,7 +204,7 @@ public class EmailList extends ArrayList<Email> {
                 results.add(new Pair<>(i, score));
             }
         }
-        results.sort(Comparator.comparing(Pair::getValue));
+        Collections.sort(results, (r1, r2) -> r2.getValue().compareTo(r1.getValue()));
         ArrayList<Integer> indexes = extractIndexFromFuzzyResults(results);
         return this.toString(indexes);
     }

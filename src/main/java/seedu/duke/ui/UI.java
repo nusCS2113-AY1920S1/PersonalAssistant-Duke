@@ -2,6 +2,7 @@ package seedu.duke.ui;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import seedu.duke.common.network.Http;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.Duke;
 import seedu.duke.common.logger.LogsCenter;
@@ -193,6 +194,14 @@ public class UI {
         if (mainWindow != null) {
             mainWindow.updateEmailsList(emailStringList);
         }
+    }
+
+    /**
+     * Leads to github user guide
+     */
+    public void loadHelpPage() {
+        Http.openBrowser("https://github.com/AY1920S1-CS2113T-F11-3/main/blob/master/docs/guides/UserGuide"
+                + ".adoc");
     }
 
     /**

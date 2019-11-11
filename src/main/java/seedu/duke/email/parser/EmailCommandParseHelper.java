@@ -182,7 +182,10 @@ public class EmailCommandParseHelper {
         if (!emailAddKeywordCommandMatcher.matches()) {
             return new InvalidCommand("Please enter a keyword after \'addKeyword\'");
         }
-        String keyword = emailAddKeywordCommandMatcher.group("keyword");
+        String keyword = emailAddKeywordCommandMatcher.group("keyword").strip();
+        if (keyword.length() < 1) {
+            return new InvalidCommand("Please enter a keyword after \'addKeyword\'");
+        }
         ArrayList<String> expressionList = extractExpressions(optionList);
         if (expressionList.size() < 1) {
             return new InvalidCommand("Please enter at least one expression option with \'-exp "
@@ -196,12 +199,15 @@ public class EmailCommandParseHelper {
 
     private static Command parseEmailFuzzySearchCommand(ArrayList<Option> optionList,
                                                                         String input) {
-        Pattern emailFuzzySearchCommandPattern = Pattern.compile("^fuzzySearch\\s+(?<target>\\w+)\\s*$");
+        Pattern emailFuzzySearchCommandPattern = Pattern.compile("^fuzzySearch\\s+(?<target>[\\w\\s]+)\\s*$");
         Matcher emailFuzzySearchCommandMatcher = emailFuzzySearchCommandPattern.matcher(input);
         if (!emailFuzzySearchCommandMatcher.matches()) {
             return new InvalidCommand("Please enter a search target string after \'fuzzySearch\'");
         }
-        String target = emailFuzzySearchCommandMatcher.group("target");
+        String target = emailFuzzySearchCommandMatcher.group("target").strip();
+        if (target.length() < 1) {
+            return new InvalidCommand("Please enter a search target string after \'fuzzySearch\'");
+        }
         return new EmailFuzzySearchCommand(target);
     }
 

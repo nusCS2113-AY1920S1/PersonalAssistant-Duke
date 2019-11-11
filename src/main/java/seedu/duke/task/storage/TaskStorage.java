@@ -82,6 +82,9 @@ public class TaskStorage {
         }
         boolean done = line.split(" ", 2)[0].equals("1");
         String commandString = line.split(" ", 2)[1];
+        if (!CommandParseHelper.isCommandFormat("task " + commandString)) {
+            throw new CommandParseHelper.CommandParseException("Invalid task command from save file.");
+        }
         Command addCommand = CommandParseHelper.parseCommand("task " + commandString,
                 CommandParseHelper.InputType.TASK);
         ((TaskAddCommand) addCommand).setDone(done);
