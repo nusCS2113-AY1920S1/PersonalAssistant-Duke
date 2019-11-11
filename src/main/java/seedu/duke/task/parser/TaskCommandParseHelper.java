@@ -437,7 +437,7 @@ public class TaskCommandParseHelper {
             String priority = extractPriority(optionList);
             ArrayList<String> links = extractLinks(optionList);
             String timeString = extractTime(optionList);
-            if (input.startsWith("todo") && !"".equals(timeString)) {
+            if (input.startsWith("todo") && (!"".equals(timeString))) {
                 return new InvalidCommand("Date Time not allowed in todo tasks");
             }
             return constructAddCommandByType(input, doAfter, time, tags, priority, links);

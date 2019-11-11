@@ -372,13 +372,13 @@ Examples:
 `set 2 -priority med`
 
 [NOTE]
-The PRIORITY input is restricted to only *high*, *med* or *low* (case insensitive).
+The PRIORITY input is restricted to only *high*, *medium/med* or *low* (case insensitive).
 Any other PRIORITY inputted will be invalid.
 
 [WARNING]
 This command can override the priority set to a task by the command `update ITEM_NUMBER -priority PRIORITY`
-and vice versa.
-
+and vice versa. It also overrides the priority set to a task by the `todo`, `deadline` or `event` command,
+but not the other way round.
 
 ==== Snooze a task: `snooze`
 Format: `snooze ITEM_NUMBER [-by NO_OF_DAYS]`
@@ -392,8 +392,12 @@ Examples:
 `snooze 1 -by 4`
 
 [NOTE]
-If the NO_OF_DAYS is not input, the `snooze` command will automatically snooze the task by 3 days.
+If the NO_OF_DAYS is not input, the `snooze` command will automatically snooze the task by 3 days. +
 Only tasks of type `deadline` and `event` can be snoozed.
+
+[WARNING]
+Once a task is snoozed, there is no undo option. To modify the date and time of the task, use the `update`
+command.
 
 [[update]]
 ==== Update Tasks Commands: `update`
@@ -434,6 +438,28 @@ Examples:
 [NOTE]
 Any links created will only be visible from the task it is added to.
 Emails will not be able to show any links to tasks.
+
+==== Sort task list: `sort`
+Format: `sort SORT_TYPE`
+
+This command sorts the task list according to the SORT_TYPE.
+
+Examples:
+
+`sort priority`
+
+`sort status`
+
+[NOTE]
+Task list is sorted according to `time` by default. The list can be sorted by `priority`, `status` and
+`time`.
+
+|===
+|Sorted by|How the task list is displayed
+|*`priority`*|tasks with higher priority will be at the top of the task list.
+|*`status`*|tasks that are not completed will be displayed at the top of the task list. +
+|*`time`*|deadline or events tasks with nearest date and time will be at the top of the task list.
+|===
 
 ==== Clear task list: `clear`
 Format: `clear`
@@ -480,6 +506,38 @@ Fetches email from Outlook.com.
 [WARNING]
 The window might freeze for a while as it is fetching and parsing emails. Please wait patiently.
 
+==== Fuzzy search on emails
+Format: `fuzzySearch TARGET`
+
+This feature searches for the target string across all emails including their subject, sender and body,
+with some tolerance of difference. This tolerance is represented by the **edit distance** between two words.
+For more details about the **edit distance**, you can find more details
+https://en.wikipedia.org/wiki/Edit_distance[here]. The lower the **edit distance** is, the more similar are
+these two strings. This helps you to search through the emails even if you made some typos or when you are
+not sure about some names.
+
+This fuzzy search functionality tolerates up to an **edit distance** of 2 and is insensitive to cases. This
+means "CS2102" will match to "CS2100" and "S210" but not "CS2211".
+
+It will list all the emails which contain words that match the target string in their subject, sender or
+body. Emails are listed in descending order of a **relevance score**. The general idea is, the higher the
+score, the more relevant is the email. Lower **edit distance**, more occurrence, or occurrence in subject
+and sender will all
+contribute to a higher **relevance score**.
+
+[NOTE]
+For performance reasons, fuzzy search will only be done word by word. For example, if "project demo" is to
+be searched through a sentence "This is a project demo", both "project" and "demo" will be compared against
+"this", "is", "a", "project", "demo" and produce a relevance score.
+
+[NOTE]
+Using short target string like "is" is not recommended, since it can be matched to many other words like
+"a", "I", "am" etc, which appears in almost every email.
+
+Examples:
+
+`fuzzySearch project demo`
+
 ==== Auto parsing and tagging of emails
 This feature is automatically triggered by fetching emails from Outlook Server and adding new keyword. It
 will automatically parse "keywords" that might be  shown in your emails in different forms/expressions.
@@ -521,9 +579,9 @@ expression.
 
 Examples:
 
-`addKeyword School -exp luminus -exp op`
+`addKeyword Project -exp project -exp demo`
 
-`addKeyword ICM -exp ICM Career`
+`addKeyword Notice -exp announcement`
 
 [TIP]
 The easiest way to verify whether this command is working properly is to check whether the email
@@ -573,12 +631,29 @@ Gives a list of emails with the tags given. Minimum number of tags is 1, and the
 Both `TAG1` and `TAG2` *exist but not co-exist* means that there is at least one email with `TAG1` and
 another email with `TAG2`, but no email is tagged with both `TAG1` and `TAG2`.
 
+Explanation:
+
+* User input: `list [-tag TAG1]`
+** Case 1: `TAG1` exists, for each tag *co-existing* with `TAG1`, the program shows a list of emails
+tagged with both `TAG1` and the `co-existing tag`.
+** Case 2: `TAG1` does not exit, the program returns an error message.
+
+* User input: `list [-tag TAG1] [-tag TAG2]`
+** Case 1: Both `TAG1` and `TAG2` do not exist, the program returns an error message.
+** Case 2: Either `TAG1` or `TAG2` exists, the program shows a list of emails with either `TAG1` or
+`TAG2`.
+** Case 3: `TAG1` and `TAG2` exist but do not co-exist, the program shows two separate list of emails with
+`TAG1` and
+`TAG2` respectively.
+** Case 4: `TAG1` and `TAG2` co-exist, the program shows a list of emails with both `TAG1` and `TAG2`.
+
+
 Examples:
 
 `list -tag Spam`: If `Spam` does not exist, an error will be returned. If `Spam` exists, for *each* tag
 co-existing with `Spam`, a list of emails tagged with the `co-existing tag` and `Spam` will be listed out.
 
-`list -tag CS2113T -tag Tutorial`: If `CS2113T` and `Tutorial` do not co-exist, emails tagged with both
+`list -tag CS2113T -tag Tutorial`: If `CS2113T` and `Tutorial` co-exist, emails tagged with both
 `CS2113T` and `Tutorial` will be listed out. If no email is tagged with both tags (`CS2113T` and `Tutorial`
 do not co-exist), emails tagged with each of the tags will be listed out respectively.
 
@@ -587,35 +662,40 @@ After obtaining the list of emails with the tags, you can enter `show ITEM_NUMBE
 of email, `ITEM_NUMBER` of an email is the index number of the email in the list.
 
 
-==== Deleting an email: `delete`
+==== Deleting a local email: `delete`
 Format: `delete ITEM_NUMBER`
 
-Deletes the email specified.
+Deletes the email specified from local storage.
 
 Examples:
 
-`delete 1`: deletes the first email in the email list.
+`delete 1`: deletes the first email in the email list from local storage.
 
 [NOTE]
 If you enter `show ITEM_NUMBER`, then followed with `delete ITEM_NUMBER`, the content of email at
 `ITEM_NUMBER` will still remains displayed although the email has been deleted.
 
 [NOTE]
-This command will only delete email from local storage. If you enter `delete 1`, after that enter `fetch`
-command, provided that the deleted email is present in your remote server, that particular email will be
-loaded into your local storage again even if you have deleted it before.
+This command will only delete email from local storage. If you enter `delete 1`, after that you enter `fetch`
+command or relaunch the program, provided that the deleted email is present in your remote server, that
+particular email will be loaded into your local storage again even if you have deleted it before.
 
-==== Clear email list: `clear`
+==== Clear local email list: `clear`
 Format: `clear`
 
 This command deletes all emails in the list from local storage.
+
+When you have accumulate too many emails in the email list, auto-parsing function will take
+longer time to complete, if you do not need the older emails in your list, this function can `clear` your
+email list.
 
 [WARNING]
 Once executed, you will not be able to undo this command.
 
 [TIP]
 After clearing all the emails from local storage, you can enter `fetch` to retrieve latest 60 emails from
-server.
+server. Those cleared email will be loaded into your local storage again provided that it is present in your
+remote server.
 
 ==== Sending email (coming in v2.0)
 
