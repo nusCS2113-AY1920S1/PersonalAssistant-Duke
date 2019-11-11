@@ -513,19 +513,19 @@ A: The application must be installed in the other computer by downloading the sa
 ... Create reminder: `add reminder -n reminder_NAME [-d TASK_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
 **** Example: `add reminder -n Fix important bug -d 21/09/2019 -l Software Reminder List`
 ... View reminders: `view reminder [by list]`
-**** Example: `view reminder`
-**** Example: `view reminder by list`
-... Delete reminder: `delete reminder INDEX_NUMBER`
-**** Example: `delete reminder 1`
+**** Example: `view reminders`
+**** Example: `view reminders by list`
 ... Edit reminder: `edit reminder INDEX_NUMBER -n REMINDER_NAME [-d REMINDER_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
-**** Example: `edit reminder 1 -n Fix important bug -d 21/09/2019`
+**** Example: `edit reminder 1 -n Fix error -d 21/09/2019`
 ... Mark reminder: `mark reminder INDEX_NUMBER`
 **** Example: `mark reminder 1`
+... Delete reminder: `delete reminder INDEX_NUMBER`
+**** Example: `delete reminder 1`
 
 . *Miscellaneous*
 ... View current details of project: `view`
 ... Edit the name of the current project : `rename PROJECT_NAME`
-**** Example: rename Avengers
+**** Example: rename AvengersAssemble
 ... Report progress : `report` [coming in v2.0]
 ... Exit managing a project: `exit`
 ... Exiting the program from anywhere: `bye`

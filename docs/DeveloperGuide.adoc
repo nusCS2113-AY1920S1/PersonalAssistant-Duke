@@ -1301,9 +1301,9 @@ You may first view all the tasks existing in the project by using `view tasks`
 . *Requirement Commands*
 ... Create reminder: `add reminder -n reminder_NAME [-d TASK_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
 **** Example: `add reminder -n Fix important bug -d 21/09/2019 -l Software Reminder List`
-... View reminders: `view reminder [by list]`
-**** Example: `view reminder`
-**** Example: `view reminder by list`
+... View reminders: `view reminders [by list]`
+**** Example: `view reminders`
+**** Example: `view reminders by list`
 ... Delete reminder: `delete reminder INDEX_NUMBER`
 **** Example: `delete reminder 1`
 ... Edit reminder: `edit reminder INDEX_NUMBER -n REMINDER_NAME [-d REMINDER_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
