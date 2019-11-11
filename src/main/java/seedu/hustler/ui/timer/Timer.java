@@ -7,7 +7,7 @@ import seedu.hustler.schedule.RecommendedSchedule;
 /**
  * The timer device operated by timerManager.
  */
-public class Timer implements Runnable {
+public class Timer implements Runnable, TimerInterface {
     /**
      * The current status of the timer, an attribute that is
      * affected by the types of commands used by the user.
