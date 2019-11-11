@@ -3,7 +3,6 @@ package eggventory.model.loans;
 import eggventory.model.PersonList;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 //@@author cyanoei
 public class Loan {
@@ -11,8 +10,6 @@ public class Loan {
     private String stockCode;
     private String matricNo;
     private int quantity;
-    private Calendar loanDate;
-    private Calendar returnDate;
 
     /**
      * Temporary shorter constructor used to test the non-date attributes.
@@ -26,24 +23,6 @@ public class Loan {
         this.matricNo = matricNo;
         this.stockCode = stockCode;
         this.quantity = quantity;
-    }
-
-    /**
-     * Constructor for Loan class.
-     * @param stockCode the stockCode of the stock being loaned.
-     * @param matricNo the matric number of the person making the loan.
-     * @param quantity the quantity being loaned out.
-     * @param loanDate the date the loan was processed.
-     * @param returnDate the date the loans have to be returned by.
-     */
-    public Loan(String matricNo, String stockCode, int quantity, Calendar loanDate, Calendar returnDate) {
-        //AddLoanCommand should have determined beforehand that the Person and Stock being referred to
-        //are existing entries.
-        this.matricNo = matricNo;
-        this.stockCode = stockCode;
-        this.quantity = quantity;
-        this.loanDate = loanDate;
-        this.returnDate = returnDate;
     }
 
     /**
@@ -78,22 +57,6 @@ public class Loan {
      */
     public int getQuantity() {
         return quantity;
-    }
-
-    /**
-     * Gets the date that this Loan was made.
-     * @return the loan date.
-     */
-    public Calendar getLoanDate() {
-        return loanDate;
-    }
-
-    /**
-     * Gets the date that this loan should be returned by.
-     * @return the return date.
-     */
-    public Calendar getReturnDate() {
-        return returnDate;
     }
 
     /**
@@ -151,7 +114,7 @@ public class Loan {
     }
 
     public String savedLoanString() {
-        return String.format("%s,%s,%s,%s,%s",matricNo, stockCode,quantity,loanDate, returnDate);
+        return String.format("%s,%s,%s",matricNo, stockCode,quantity);
     }
     //@@author
 
