@@ -191,7 +191,7 @@ public class Employment_BarChart extends JFrame {
              title = "Industrial Systems Engineering";
         if(degree.equals("ME"))
              title = "Mechanical Engineering";
-        if(degree.equals("EE"))
+        if(degree.equals("ElecE"))
              title = "Electrical Engineering";
 
         final JFreeChart chart = new JFreeChart(title, plot);
