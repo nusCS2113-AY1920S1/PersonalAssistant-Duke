@@ -467,7 +467,7 @@ A: The application must be installed in the other computer by downloading the sa
 . *Member Commands*
 ... Add members: `add member -n NAME [-i PHONE_NUMBER] [-e EMAIL] [-r ROLE]`
 **** Example: `add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com -r Lead`
-... View members: `view member`
+... View members: `view members`
 ... Edit members: `edit member INDEX [-n NAME] [-i PHONE_NUMBER] [-e EMAIL]`
 **** Example: `edit member 2 -n Jerry Zhang -e zhangjerry@u.nus.edu`
 ... Delete members: `delete member INDEX1 [INDEX2]`
@@ -483,7 +483,12 @@ A: The application must be installed in the other computer by downloading the sa
 ... Delete tasks: `delete task INDEX`
 **** Example: `delete task 3`
 ... View tasks: `view tasks MODIFIER`
-**** Example: `view tasks -state or view task -name`
+**** Example: `view tasks -state done`
+**** Example: `view task -name`
+**** Example: `view task -priority`
+**** Example: `view task -credit`
+**** Example: `view task -date`
+**** Example: `view task -who EXISTING_MEMBER_NAME`
 ... View task requirements: `view task requirements TASK_INDEX`
 **** Example: `view task requirements 2`
 ... Edit task requirements: `edit task requirements TASK_INDEX [-r TASK_REQUIREMENT_TO_ADD] [-rm TASK_REQUIREMENT_INDEX_TO_REMOVE]`
