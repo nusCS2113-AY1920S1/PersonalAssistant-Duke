@@ -2,6 +2,7 @@ package duke.models;
 
 import duke.data.ScheduleStorage;
 import duke.data.Storage;
+import duke.parser.ParseScheduleTable;
 import duke.util.ApacheLogger;
 import duke.util.DateHandler;
 import duke.view.CliViewSchedule;
@@ -36,6 +37,7 @@ public class Schedule {
      * @param selectMonth The month you want to view
      */
     public void getMonth(final int selectMonth) {
+        ApacheLogger.logMessage("Schedule", "Getting selected month");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MONTH, selectMonth - 1);
 
@@ -63,6 +65,7 @@ public class Schedule {
      * @return
      */
     public ArrayList<ToDo> getCells(int day, int month) {
+        ApacheLogger.logMessage("Schedule", "Populating cells");
         ArrayList<ToDo> toDoArrayList = new ArrayList<>();
         ScheduleStorage scheduleStorage = new ScheduleStorage();
         //format the date
@@ -78,6 +81,7 @@ public class Schedule {
      * @param month the month that is being viewed
      */
     public void getTable(int day, int month) {
+        ApacheLogger.logMessage("Schedule", "Getting table schedule of selected day and month");
         boolean runTable = true;
         String date = DateHandler.stringDate("yyyy-MM-dd", day, month, 2019);
         String input;
@@ -88,21 +92,13 @@ public class Schedule {
             if (input.equals("back")) {
                 runTable = false;
             } else if (input.startsWith("add")) {
-                try {
-                    int indexName = input.indexOf("n/");
-                    int indexStart = input.indexOf("s/");
-                    int indexEnd = input.indexOf("d/");
-                    int indexLocation = input.indexOf("loc/");
-                    String name = input.substring(indexName + 2, indexStart);
-                    String start = input.substring(indexStart + 2, indexEnd);
-                    String end = input.substring(indexEnd + 2, indexLocation);
-                    String loc = input.substring(indexLocation + 4);
-                    ToDo toDo = new ToDo(start, end, loc, name, date);
+                ParseScheduleTable parseScheduleTable = new ParseScheduleTable();
+                ToDo toDo = parseScheduleTable.createToDo(input, date);
+                if (toDo == null) {
+                    ApacheLogger.logMessage("Schedule", "Cannot save file");
+                    cliViewSchedule.errMessage("Input was in wrong format");
+                } else {
                     new ScheduleStorage().save(toDo, date);
-                } catch (StringIndexOutOfBoundsException e) {
-                    cliViewSchedule.showDontKnow();
-                    ApacheLogger.logMessage("Schedule",
-                        "Wrong input format for adding to table");
                 }
             } else {
                 cliViewSchedule.showDontKnow();
@@ -119,7 +115,7 @@ public class Schedule {
      * @param month the month that is being viewed
      */
     public void tableUI(int day, int month) {
-
+        ApacheLogger.logMessage("Schedule", "Begin printing table schedule for the selected day and month");
         cliViewSchedule.tableDate(day, month);
         cliViewSchedule.tableHeader();
         cliViewSchedule.tableContents(getCells(day, month));
@@ -127,28 +123,6 @@ public class Schedule {
 
     }
 
-    /**
-     * Method will show the current days in the present week.
-     *
-     * @return List of all days in the week in the format [index] DAY DATE MONTH
-     */
-    public String getWeek() {
-        StringBuilder week = new StringBuilder();
-        Calendar cal = Calendar.getInstance();
-        int numDays = cal.getActualMaximum(Calendar.DAY_OF_WEEK);
-
-        // Set the calendar to monday of the current week
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-
-        // Print dates of the current week starting on Monday
-        DateFormat df = new SimpleDateFormat("EEE dd MMM");
-        for (int i = 0; i < numDays; i++) {
-            week.append("[").append(i + 1).append("]. ")
-                .append(df.format(cal.getTime())).append("\n");
-            cal.add(Calendar.DATE, 1);
-        }
-        return week.toString();
-    }
 
     /**
      * Function gets all the hours in the selected day.
@@ -304,6 +278,7 @@ public class Schedule {
      *
      */
     public void listAll() {
+        ApacheLogger.logMessage("Schedule", "Get list of all scheduled dates");
         ArrayList<String> scheduleList = new ArrayList<>();
         scheduleList.addAll(new ScheduleStorage().loadOverview());
         if (scheduleList.isEmpty()) {

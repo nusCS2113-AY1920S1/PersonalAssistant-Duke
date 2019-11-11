@@ -1,159 +1,90 @@
-2019-11-11 10:12:23.333 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:16:15.476 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:17:54.264 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:18:58.450 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:19:57.778 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:21:11.811 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:21:58.832 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:23:53.732 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:26:43.756 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:27:53.825 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:30:06.808 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:32:13.490 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:34:48.543 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:39:02.356 DEBUG [Main] - Start Coach Manager
-2019-11-11 10:46:16.890 DEBUG [Main] - Start Coach Manager
-2019-11-11 11:18:51.369 DEBUG [Main] - Start Coach Manager
-2019-11-11 11:20:17.403 DEBUG [Main] - Start Coach Manager
-2019-11-11 11:21:32.034 DEBUG [Main] - Start Coach Manager
-2019-11-11 11:23:01.256 DEBUG [Main] - Start Coach Manager
-2019-11-11 11:26:59.298 DEBUG [Main] - Start Coach Manager
-2019-11-11 11:29:06.486 DEBUG [Main] - Start Coach Manager
-2019-11-11 11:40:08.865 DEBUG [Main] - Start Coach Manager
-2019-11-11 15:34:05.672 DEBUG [Main] - Start Coach Manager
-2019-11-11 15:35:38.222 DEBUG [Main] - Start Coach Manager
-2019-11-11 15:36:48.939 DEBUG [Main] - Start Coach Manager
-2019-11-11 15:37:47.948 DEBUG [Main] - Start Coach Manager
-2019-11-11 15:39:51.748 DEBUG [Main] - Start Coach Manager
-2019-11-11 15:40:27.480 DEBUG [Main] - Start Coach Manager
-2019-11-11 15:40:59.185 DEBUG [Main] - Start Coach Manager
-2019-11-11 15:46:33.802 DEBUG [Main] - Start Coach Manager
-2019-11-11 15:47:58.318 DEBUG [Main] - Start Coach Manager
-2019-11-11 15:52:00.452 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:00:12.361 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:00:32.616 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:02:16.368 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:04:51.368 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:16:26.798 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:17:24.218 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:19:02.874 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:20:31.750 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:22:48.284 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:24:40.581 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:25:41.349 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:26:36.329 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:26:59.301 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:27:33.660 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:28:07.002 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:28:45.819 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:30:22.477 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:31:18.490 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:32:53.160 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:33:36.254 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:34:36.410 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:37:13.051 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:40:58.459 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:41:33.991 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:42:06.954 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:53:41.219 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:54:45.704 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:55:31.376 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:55:59.924 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:56:51.698 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:57:36.874 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:59:13.672 DEBUG [Main] - Start Coach Manager
-2019-11-11 16:59:55.548 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:01:19.440 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:02:33.426 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:03:33.713 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:06:50.040 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:07:40.019 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:10:15.817 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:12:43.993 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:13:32.699 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:15:12.548 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:17:28.472 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:25:27.679 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:25:52.928 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:27:21.628 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:28:37.769 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:30:25.172 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:33:22.510 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:34:22.275 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:39:15.796 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:39:42.672 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:40:19.227 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:41:12.968 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:41:58.164 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:43:23.175 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:44:13.505 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:44:46.492 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:45:30.122 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:46:36.350 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:51:37.954 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:52:13.246 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:53:19.464 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:56:05.028 DEBUG [Main] - Start Coach Manager
-2019-11-11 17:58:25.922 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:00:29.320 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:03:32.054 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:04:11.032 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:05:35.180 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:06:32.991 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:07:43.513 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:08:18.559 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:10:33.879 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:12:00.675 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:12:26.691 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:13:26.995 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:13:45.997 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:15:04.863 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:17:19.137 DEBUG [Main] - Start Coach Manager
-2019-11-11 18:57:14.231 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:18:39.365 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:19:22.169 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:21:45.877 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:22:33.209 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:25:29.322 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:26:15.086 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:26:52.831 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:28:36.710 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:29:53.582 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:31:20.461 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:32:36.613 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:33:44.466 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:34:17.410 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:35:31.333 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:35:37.649 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:36:23.593 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:41:56.270 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:42:40.454 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:44:08.319 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:44:37.331 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:46:23.236 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:47:08.694 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:48:30.387 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:52:34.205 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:55:32.105 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:56:21.527 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:56:37.376 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:56:53.633 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:57:28.802 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:58:00.081 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:58:52.330 DEBUG [Main] - Start Coach Manager
-2019-11-11 22:59:51.975 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:06:04.768 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:06:44.859 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:06:58.406 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:07:42.209 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:08:04.741 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:08:52.514 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:10:03.710 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:10:44.458 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:11:51.874 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:22:08.747 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:22:53.272 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:23:16.290 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:25:38.924 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:26:58.218 DEBUG [Main] - Start Coach Manager
-2019-11-11 23:33:12.780 DEBUG [Main] - Start Coach Manager
+2019-11-11 15:15:07.984 DEBUG [Main] - Start Coach Manager
+2019-11-11 15:15:19.915 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 15:22:26.119 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 15:22:26.699 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 15:31:43.508 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 15:37:12.185 DEBUG [Main] - Start Coach Manager
+2019-11-11 15:37:19.597 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 15:37:24.615 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 18:40:44.268 DEBUG [Main] - Start Coach Manager
+2019-11-11 18:40:48.653 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 18:40:53.776 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 18:41:12.687 DEBUG [Main] - Start Coach Manager
+2019-11-11 18:41:19.913 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 18:41:25.017 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 18:43:00.182 DEBUG [Main] - Start Coach Manager
+2019-11-11 18:43:14.777 DEBUG [Main] - Start Coach Manager
+2019-11-11 18:43:26.323 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 18:43:30.378 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 18:44:10.832 DEBUG [Main] - Start Coach Manager
+2019-11-11 18:44:17.222 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 18:44:22.277 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 18:44:47.042 DEBUG [Main] - Start Coach Manager
+2019-11-11 18:45:00.553 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 18:45:05.607 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 18:47:12.077 DEBUG [Main] - Start Coach Manager
+2019-11-11 18:47:24.042 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 18:47:28.089 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 18:48:28.212 DEBUG [Main] - Start Coach Manager
+2019-11-11 18:48:32.732 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 18:48:36.776 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 18:49:02.856 DEBUG [Main] - Start Coach Manager
+2019-11-11 18:49:08.212 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 18:49:13.277 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 18:49:22.812 DEBUG [Main] - Start Coach Manager
+2019-11-11 18:50:52.124 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 18:50:55.135 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 19:18:25.961 DEBUG [Main] - Start Coach Manager
+2019-11-11 19:18:31.196 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 19:18:35.199 DEBUG [ParserSchedule] - Select month
+2019-11-11 19:18:37.207 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 19:19:49.232 DEBUG [Schedule] - Wrong input format for adding to table
+2019-11-11 19:19:49.233 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 19:19:49.541 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 19:25:01.807 DEBUG [Main] - Start Coach Manager
+2019-11-11 19:25:07.345 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 19:25:11.347 DEBUG [ParserSchedule] - Select month
+2019-11-11 19:25:12.352 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 19:25:36.359 DEBUG [Schedule] - Wrong input format for adding to table
+2019-11-11 19:25:36.359 DEBUG [Schedule] - Cannot save file
+2019-11-11 19:25:36.360 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 19:26:18.580 DEBUG [Main] - Start Coach Manager
+2019-11-11 19:26:23.096 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 19:26:25.097 DEBUG [ParserSchedule] - Select month
+2019-11-11 19:26:28.105 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 19:26:35.103 DEBUG [Schedule] - Wrong input format for adding to table
+2019-11-11 19:26:35.104 DEBUG [Schedule] - Cannot save file
+2019-11-11 19:26:35.105 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 19:27:36.133 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 19:27:36.134 DEBUG [DateHandler] - Invalid time or format in convertTime
+2019-11-11 19:28:10.171 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 19:28:10.172 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 19:28:10.382 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 19:29:22.045 DEBUG [Main] - Start Coach Manager
+2019-11-11 19:29:26.539 DEBUG [ParserSchedule] - Get the monthly schedule
+2019-11-11 19:29:28.540 DEBUG [ParserSchedule] - Select month
+2019-11-11 19:29:29.547 DEBUG [ScheduleStorage] - Load from file outside resources
+2019-11-11 20:14:58.793 DEBUG [Schedule] - Wrong input format for adding to table
+2019-11-11 20:14:58.811 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 20:14:58.811 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 20:14:58.813 DEBUG [ParseScheduleTable] - Correct Time
+2019-11-11 20:15:20.957 DEBUG [Schedule] - Wrong input format for adding to table
+2019-11-11 20:15:20.973 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 20:15:20.973 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 20:15:20.974 DEBUG [ParseScheduleTable] - Correct Time
+2019-11-11 20:15:27.561 DEBUG [Schedule] - Wrong input format for adding to table
+2019-11-11 20:15:27.577 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 20:15:27.577 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 20:15:27.578 DEBUG [ParseScheduleTable] - Correct Time
+2019-11-11 20:24:25.457 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 20:24:25.466 DEBUG [DateHandler] - Invalid time or format in convertTime
+2019-11-11 20:25:13.735 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 20:25:13.739 DEBUG [DateHandler] - Invalid time or format in convertTime
+2019-11-11 20:25:58.232 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 20:25:58.235 DEBUG [DateHandler] - Invalid time or format in convertTime
+2019-11-11 20:46:26.502 DEBUG [Schedule] - Wrong input format for adding to table
+2019-11-11 20:46:26.510 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 20:46:26.510 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 20:46:26.510 DEBUG [ParseScheduleTable] - Correct Time
+2019-11-11 20:46:26.519 DEBUG [DateHandler] - Valid time and format in convertTime
+2019-11-11 20:46:26.519 DEBUG [DateHandler] - Invalid time or format in convertTime

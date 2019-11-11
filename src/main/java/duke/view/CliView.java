@@ -3,6 +3,7 @@ package duke.view;
 import duke.command.ExitCommand;
 import duke.exceptions.DukeException;
 import duke.parser.ParserCommand;
+import duke.util.ApacheLogger;
 
 import java.util.Scanner;
 
@@ -35,6 +36,7 @@ public class CliView {
                 String input = scan.nextLine();
                 if (input.equals(String.valueOf(goodBye))) {
                     showGoodBye();
+                    ApacheLogger.logMessage("CliView", "Exit Coach Manager");
                     exitCommand.exitProgram();
                 } else if (input.equals("home")) {
                     showMainMenu();
@@ -123,10 +125,9 @@ public class CliView {
             + "1. Student List \n"
             + "2. Add student \n"
             + "3. Delete Student \n"
-            + "4. Find Student \n"
+            + "4. Student Progress \n"
             + "5. View student details \n"
             + "6. Exit ");
-        printLine();
 
     }
 
@@ -136,14 +137,11 @@ public class CliView {
     public void studentProgressHeading() {
         printLine();
         System.out.println("STUDENT PROGRESS:\n"
-            + "1. Student List - (Cmd: list)\n"
-            + "2. Add progress - (Cmd: add [student index]) \n"
+            + "1. Add progress - (Cmd: add) \n"
             + "3. Delete progress - "
             + "(Cmd: delete [student index] [progress index])\n"
-            + "4. View Student Progress - (Cmd: View [student index])\n"
+            + "4. View Student Progress - (Cmd: View)\n"
             + "5. Exit Page - (Cmd - back)");
-        printLine();
-
     }
 
     /**
@@ -200,16 +198,6 @@ public class CliView {
         System.out.println("Choose only options 1 to 5 for training plans");
     }
 
-    /**
-     * Displays student from student list that is matching to search.
-     *
-     * @param foundStudent Name of student that has been found.
-     * @return Student that has been found
-     */
-
-    public String printFoundStudent(final String foundStudent) {
-        return "Here are the matching names in your list: " + foundStudent;
-    }
 
     /**
      * Prints message when asking for date for goal.
