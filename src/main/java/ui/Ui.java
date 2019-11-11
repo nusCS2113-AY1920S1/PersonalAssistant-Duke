@@ -279,8 +279,10 @@ public class Ui extends AnchorPane {
     public void showHelp() {
         setOutput("Here are the available commands:\n"
                 + "--------------\n"
-                + "Account\n"
+                + "General\n"
+                + "Help: help\n"
                 + "Add user: adduser <username>\n"
+                + "Exit HallBooker: bye\n"
                 + "Remove user: rmuser <username>\n"
                 + "Login: login <username>\n"
                 + "Logout: logout\n"
@@ -288,15 +290,23 @@ public class Ui extends AnchorPane {
                 + "Booking\n"
                 + "Add booking: add <name> <description> /at <room code> /from <DD/MM/YYYY> <HHMM> /to <HHMM>\n"
                 + "List booking: list\n"
+                + "List day: listday <date>\n"
+                + "List month: listmonth <month>\n"
+                + "List year: listyear <year>\n"
                 + "Edit booking: edit <index> <description>\n"
                 + "Delete booking: delete <index>\n"
                 + "Approve booking: approve <index>\n"
                 + "Reject booking: reject <index>\n"
-                + "List day: listday\n"
-                + "Find booking: find <keyword>\n"
+                + "Find booking by keyword: find <keyword>\n"
+                + "Find booking by index: findindex <index>\n"
                 + "--------------\n"
+                + "Rooms\n"
                 + "Add room: addroom <room code> /date <DD/MM/YYYY> <HHMM> /to <HHMM>\n"
                 + "List room: listroom\n"
-                + "Delete room: deleteroom <index>\n");
+                + "Delete room: deleteroom <index>\n"
+                + "--------------\n"
+                + "Inventory\n"
+                + "Add to inventory: addinventory <item> /qty <number> /in <room code>\n"
+                + "List inventory: listinventory\n");
     }
 }

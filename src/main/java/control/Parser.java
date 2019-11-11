@@ -1,27 +1,6 @@
 package control;
 
-import command.AddBookingCommand;
-import command.AddInventoryCommand;
-import command.AddRoomCommand;
-import command.AddUserCommand;
-import command.ApproveCommand;
-import command.ByeCommand;
-import command.Command;
-import command.DeleteBookingCommand;
-import command.DeleteRoomCommand;
-import command.EditBookingCommand;
-import command.FindBookingCommand;
-import command.FindBookingIndexCommand;
-import command.HelpCommand;
-import command.ListBookingDailyCommand;
-import command.ListBookingMonthCommand;
-import command.ListBookingYearCommand;
-import command.ListCommand;
-import command.ListRoomCommand;
-import command.LoginCommand;
-import command.LogoutCommand;
-import command.RejectCommand;
-import command.RemoveUserCommand;
+import command.*;
 import exception.DukeException;
 import storage.Constants;
 import java.io.IOException;
@@ -76,6 +55,8 @@ public class Parser {
             return new DeleteRoomCommand(input, splitStr);
         case "addinventory":
             return new AddInventoryCommand(input, splitStr);
+        case "listinventory":
+            return new ListInventoryCommand();
         case "adduser":
             return new AddUserCommand(input, splitStr);
         case "rmuser":
