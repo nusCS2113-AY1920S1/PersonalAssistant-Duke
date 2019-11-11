@@ -32,7 +32,7 @@ public class CalendarView {
      * Find all the events in the coming 7 days.
      *
      * @param eventArrayList List of all events.
-     * @param startDay          The current day.
+     * @param startDay       The current day.
      */
     private void getEventsOfTheWeek(ArrayList<Event> eventArrayList, EventDate startDay) {
         EventDate yesterday = new EventDate(startDay.getEventJavaDate());
@@ -68,7 +68,7 @@ public class CalendarView {
      */
     private void setDaysAndDatesList(EventDate startDate) {
         String currDay = startDate.getEventJavaDate().toString().split(" ")[0];
-        String[] weekdays = new String[] {"    <Monday>    ", "   <Tuesday>    ", "   <Wednesday>  ",
+        String[] weekdays = new String[]{"    <Monday>    ", "   <Tuesday>    ", "   <Wednesday>  ",
                 "   <Thursday>   ", "    <Friday>    ", "   <Saturday>   ", "    <Sunday>    "};
 
         int startDay = 0;
@@ -114,6 +114,9 @@ public class CalendarView {
         }
     }
 
+    /**
+     * Put all information of a calendar table into the string "stringForOutput" to prepare for printing.
+     */
     public void setCalendarInfo() {
         String calendarInfo = "";
         int maxNumOfEvent = 0;
