@@ -257,8 +257,7 @@ public class Parser {
             if (taskDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of a "
                         + arr[Numbers.ZERO.value] +  " cannot be empty.");
-            } else if (detectDuplicate.isDuplicate(getDescription[Numbers.ZERO.value],
-                    getDescription[Numbers.ONE.value])) {
+            } else if (detectDuplicate.isDuplicate(getDescription[Numbers.ONE.value])) {
                 return new DuplicateFoundCommand();
             } else {
                 Task taskObj = new Todo(taskDesc);
@@ -289,7 +288,7 @@ public class Parser {
                 throw new DukeException("     (>_<) OOPS!!! Ensure that you have /by before writing date/time."
                         + " The description of date/time for "
                         + arr[Numbers.ZERO.value] + " cannot be empty.");
-            } else if (detectDuplicate.isDuplicate(arr[Numbers.ZERO.value], taskDesc)) {
+            } else if (detectDuplicate.isDuplicate(taskDesc)) {
                 return new DuplicateFoundCommand();
             } else {
                 dateParser.isValidDateTime(dateDesc);
@@ -334,7 +333,7 @@ public class Parser {
             } else if (durDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of duration for "
                         + arr[Numbers.ZERO.value] + " cannot be empty.");
-            } else if (detectDuplicate.isDuplicate(arr[Numbers.ZERO.value], taskDesc)) {
+            } else if (detectDuplicate.isDuplicate(taskDesc)) {
                 return new DuplicateFoundCommand();
             } else {
                 try {
@@ -535,7 +534,7 @@ public class Parser {
                     } else if (typeOfUpdate == Numbers.THREE.value && typeDesc.isEmpty()) {
                         throw new DukeException("     (>_<) OOPS!!! The description of type for "
                                 + arr[Numbers.ZERO.value] + " cannot be empty.");
-                    } else if (detectDuplicate.isDuplicate(arr[Numbers.ZERO.value], taskDesc)) {
+                    } else if (detectDuplicate.isDuplicate(taskDesc)) {
                         return new DuplicateFoundCommand();
                     } else if (typeOfUpdate != Numbers.MINUS_ONE.value) {
 
