@@ -2,7 +2,7 @@
 
 package capCalculatorTest;
 
-import gazeeebo.commands.capCalculator.ConvertGradeToScoreCommand;
+import gazeeebo.commands.capcalculator.ConvertGradeToScoreCommand;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
