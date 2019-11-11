@@ -39,25 +39,25 @@ public class Ui {
 
     public void helpList() {
         System.out.println("Here are a list of commands you can input: " +
-                "\n bye " +
+                "\n add " +
                 "\n list " +
+                "\n update " +
                 "\n done " +
                 "\n delete " +
-                "\n removeoverdue " +
-                "\n restore " +
                 "\n find " +
-                "\n priority " +
-                "\n add " +
                 "\n snooze " +
-                "\n reorder " +
-                "\n subtask " +
-                "\n update " +
                 "\n sort " +
-                "\n log " +
+                "\n subtask " +
+                "\n restore " +
+                "\n priority " +
+                "\n reorder " +
                 "\n completed " +
                 "\n overdue " +
                 "\n reschedule " +
-                "\n show \n" +
+                "\n show " +
+                "\n removeoverdue " +
+                "\n log " +
+                "\n bye \n" +
                 "For more information about a specific command you can \nEnter help followed by a command, eg. help add\n");
     }
 
@@ -128,7 +128,7 @@ public class Ui {
 
     void helpReorder() {
         System.out.println("Reorder 2 different tasks in the task list");
-        System.out.println("\teg. reorder 1 - 3");
+        System.out.println("\teg. reorder 1 3");
         System.out.println("\tThis will swap the order task 1 and task 3");
     }
 
@@ -163,7 +163,6 @@ public class Ui {
     public void helpRemoveoverdue() {
         System.out.println("Remove tasks from the overdue list if you do not want to reschedule it");
         System.out.println("\teg. removeoverdue 2");
-        System.out.println("\teg. removeoverdue 1-3");
     }
 
     public void helpBye() {
@@ -181,7 +180,6 @@ public class Ui {
     public void helpReschedule() {
         System.out.println("Reschedules an overdued task by index to a later date by inputting a new date");
         System.out.println("\teg. reschedule 1 &20/11/2019 10:00&");
-        System.out.println("\teg. reschedule 3-4 &tmr 10:00&");
         System.out.println("This will reschedule the tasks specified by their index to the new date");
     }
 
@@ -189,6 +187,8 @@ public class Ui {
         System.out.println("Shows you the task tagged to each user in the task list");
         System.out.println("\teg. show kelly");
         System.out.println("This will list all the tasks assigned to kelly and everyone");
+        System.out.println("To show deleted tasks, you can type in 'show deleted'");
+        System.out.println("\te.g show deleted");
     }
 
     /**

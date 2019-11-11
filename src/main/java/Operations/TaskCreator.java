@@ -373,7 +373,7 @@ public class TaskCreator {
                 TaskReminder taskReminder = new TaskReminder(description, duration);
                 taskReminder.start();
             }
-            duplicateCheck = CheckAnomaly.checkDuplicate(assignment);
+            duplicateCheck = CheckAnomaly.isDuplicate(assignment);
             if (duplicateCheck == -1) {
                 return assignment;
             } else {
@@ -390,7 +390,7 @@ public class TaskCreator {
             Leave leave = new Leave(description, user, from, to);
             leave.setPriority(priority);
             leave.setRecurrenceSchedule(recurrence);
-            duplicateCheck = CheckAnomaly.checkDuplicate(leave);
+            duplicateCheck = CheckAnomaly.isDuplicate(leave);
             if (duplicateCheck == -1) {
                 return leave;
             } else {
@@ -406,9 +406,9 @@ public class TaskCreator {
                     meeting.setRecurrenceSchedule(recurrence);
                     TaskReminder taskReminder = new TaskReminder(description, duration);
                     taskReminder.start();
-                    duplicateCheck = CheckAnomaly.checkDuplicate(meeting);
+                    duplicateCheck = CheckAnomaly.isDuplicate(meeting);
                     if (duplicateCheck == -1) {
-                        timeClashCheck = CheckAnomaly.checkTimeClash(meeting);
+                        timeClashCheck = CheckAnomaly.isTimeClash(meeting);
                         if (timeClashCheck == -1) {
                             return meeting;
                         } else {
@@ -425,9 +425,9 @@ public class TaskCreator {
                     meeting.setRecurrenceSchedule(recurrence);
                     TaskReminder taskReminder = new TaskReminder(description, duration);
                     taskReminder.start();
-                    duplicateCheck = CheckAnomaly.checkDuplicate(meeting);
+                    duplicateCheck = CheckAnomaly.isDuplicate(meeting);
                     if (duplicateCheck == -1) {
-                        timeClashCheck = CheckAnomaly.checkTimeClash(meeting);
+                        timeClashCheck = CheckAnomaly.isTimeClash(meeting);
                         if (timeClashCheck == -1) {
                             return meeting;
                         } else {
@@ -444,9 +444,9 @@ public class TaskCreator {
                     meeting.setPriority(priority);
                     meeting.setAssignee(assignee);
                     meeting.setRecurrenceSchedule(recurrence);
-                    duplicateCheck = CheckAnomaly.checkDuplicate(meeting);
+                    duplicateCheck = CheckAnomaly.isDuplicate(meeting);
                     if (duplicateCheck == -1) {
-                        timeClashCheck = CheckAnomaly.checkTimeClash(meeting);
+                        timeClashCheck = CheckAnomaly.isTimeClash(meeting);
                         if (timeClashCheck == -1) {
                             return meeting;
                         } else {
@@ -460,9 +460,9 @@ public class TaskCreator {
                     meeting.setPriority(priority);
                     meeting.setAssignee(assignee);
                     meeting.setRecurrenceSchedule(recurrence);
-                    duplicateCheck = CheckAnomaly.checkDuplicate(meeting);
+                    duplicateCheck = CheckAnomaly.isDuplicate(meeting);
                     if (duplicateCheck == -1) {
-                        timeClashCheck = CheckAnomaly.checkTimeClash(meeting);
+                        timeClashCheck = CheckAnomaly.isTimeClash(meeting);
                         if (timeClashCheck == -1) {
                             return meeting;
                         } else {

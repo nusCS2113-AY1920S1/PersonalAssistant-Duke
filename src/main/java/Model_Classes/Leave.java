@@ -83,4 +83,5 @@ public class Leave extends Task {
     public void setUser(String user) {
         this.user = user;
     }
+
 }

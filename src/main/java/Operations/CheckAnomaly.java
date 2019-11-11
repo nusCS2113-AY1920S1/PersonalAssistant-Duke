@@ -17,15 +17,17 @@ public class CheckAnomaly {
      * @param task task we are checking
      * @return current index if duplicate detected and -1 if no duplicate detected
      */
-    public static int checkDuplicate(Task task) {
+    public static int isDuplicate(Task task) {
         String name = task.getDescription();
         String assignee = task.getAssignee();
         String date = task.getDate().toString();
-        for (int i = 0; i < TaskList.currentList().size(); i++) {
-            if (TaskList.currentList().get(i).getDescription().equals(name)
-                    && TaskList.currentList().get(i).getAssignee().equals(assignee)
-                    && TaskList.currentList().get(i).getDate().toString().equals(date)
-                    && TaskList.currentList().get(i).getClass().equals(task.getClass())) {
+        for (int i = 0; i < TaskList.getCurrentList().size(); i++) {
+            boolean isSameDescription = TaskList.getCurrentList().get(i).getDescription().equals(name);
+            boolean isSameAssignee = TaskList.getCurrentList().get(i).getAssignee().equals(assignee);
+            boolean isSameDate = TaskList.getCurrentList().get(i).getDate().toString().equals(date);
+            boolean isSameClass = TaskList.getCurrentList().get(i).getClass().equals(task.getClass());
+            if (isSameDescription && isSameAssignee
+                    && isSameClass && isSameDate) {
                 return i;
             }
         }
@@ -37,16 +39,18 @@ public class CheckAnomaly {
      * @param task task to be checked
      * @return true if duplicate found in overdue list
      */
-    public static Boolean checkDuplicateOverdue(Task task) {
+    static Boolean isDuplicateOverdue(Task task) {
         String name = task.getDescription();
         String assignee = task.getAssignee();
         String date = task.getDate().toString();
         ArrayList<Task> temp = OverdueList.getOverdueList();
         for (Task value : temp) {
-            if (value.getDescription().equals(name)
-                    && value.getAssignee().equals(assignee)
-                    && value.getDate().toString().equals(date)
-                    && value.getClass().equals(task.getClass())) {
+            boolean isSameDescription = value.getDescription().equals(name);
+            boolean isSameAssignee = value.getAssignee().equals(assignee);
+            boolean isSameDate = value.getDate().toString().equals(assignee);
+            boolean isSameClass = value.getClass().equals(task.getClass());
+            if (isSameDescription && isSameAssignee
+                    && isSameDate && isSameClass) {
                 return true;
             }
         }
@@ -60,12 +64,12 @@ public class CheckAnomaly {
      * @param task task we are checking
      * @return current index if there is a time clash, -1 if there is no clash.
      */
-    public static int checkTimeClash(Task task) {
+    public static int isTimeClash(Task task) {
         if (task instanceof Meeting) {
             if (((Meeting) task).isFixedDuration()) {
-                return checkTimeDuration(task);
+                return isTimeDuration(task);
             } else {
-                return checkTime(task);
+                return isTime(task);
             }
         }
         return -1;
@@ -76,14 +80,14 @@ public class CheckAnomaly {
      * @param task task we are checking
      * @return current index if there are time clashes, -1 if there are no time clashes.
      */
-    private static int checkTimeDuration(Task task) {
-        ArrayList<Task> curr = TaskList.currentList();
-        for (int i = 0; i < TaskList.currentList().size(); i++) {
+    private static int isTimeDuration(Task task) {
+        ArrayList<Task> curr = TaskList.getCurrentList();
+        for (int i = 0; i < TaskList.getCurrentList().size(); i++) {
             if (curr.get(i) instanceof Meeting) {
-                if (((Meeting) curr.get(i)).isFixedDuration() && checkOverlap(curr.get(i), task)) {
+                if (((Meeting) curr.get(i)).isFixedDuration() && isOverlap(curr.get(i), task)) {
                     return i;
                 } else if (!(((Meeting) curr.get(i)).isFixedDuration())
-                        && checkIntersect(curr.get(i).getDate(), task)) {
+                        && isIntersect(curr.get(i).getDate(), task)) {
                     return i;
                 }
             }
@@ -96,17 +100,17 @@ public class CheckAnomaly {
      * @param task task we are checking for time clashes
      * @return current index if there are time clashes, -1 if there are no time clashes.
      */
-    private static int checkTime(Task task){
+    private static int isTime(Task task){
         Date at = task.getDate();
-        ArrayList<Task> curr = TaskList.currentList();
+        ArrayList<Task> curr = TaskList.getCurrentList();
         // Goes down list of Tasks
-        for (int i = 0; i < TaskList.currentList().size(); i++) {
+        for (int i = 0; i < TaskList.getCurrentList().size(); i++) {
             // If task is a meeting, checks if it has a fixed duration
             if (curr.get(i) instanceof Meeting) {
                 long check1 = curr.get(i).getDate().getTime() / 10000 * 10000;
                 long check2 = at.getTime() / 10000 * 10000;
                 if (((Meeting) curr.get(i)).isFixedDuration()) {
-                    if (checkIntersect(at, curr.get(i))) {
+                    if (isIntersect(at, curr.get(i))) {
                         return i;
                     }
                 } else if (check1 == check2) {
@@ -123,7 +127,7 @@ public class CheckAnomaly {
      * @param task task we are checking.
      * @return True if the two timings clash and False if there is no clash.
      */
-    private static Boolean checkIntersect(Date time, Task task) {
+    private static Boolean isIntersect(Date time, Task task) {
         Date rangeTime = task.getDate();
         if (rangeTime.getYear() == time.getYear()
                 && rangeTime.getMonth() == time.getMonth()
@@ -132,12 +136,13 @@ public class CheckAnomaly {
             long currTime = time.getTime();
             long duration;
             if (task instanceof Meeting) {
-                duration = timeToMilSeconds(Long.parseLong(((Meeting) task).getDuration()),
-                        ((Meeting) task).getTimeUnit());
+                String durationAsString = ((Meeting) task).getDuration();
+                long taskDuration = Long.parseLong(durationAsString);
+                TimeUnit timeUnit = ((Meeting) task).getTimeUnit();
+                duration = timeToMilSeconds(taskDuration, timeUnit);
             } else {
                 // task is a Leave
-                duration = timeToMilSeconds(Long.parseLong(((Meeting) task).getDuration()),
-                        ((Meeting) task).getTimeUnit());
+                return false;
             }
             return currTime < meetingTime + duration && currTime >= meetingTime;
         }
@@ -150,33 +155,39 @@ public class CheckAnomaly {
      * @param second Second task input.
      * @return True if there is an overlap and false if there is no overlap.
      */
-    private static Boolean checkOverlap(Task first, Task second) {
+    private static Boolean isOverlap(Task first, Task second) {
         Date date1 = first.getDate();
         Date date2 = second.getDate();
-        if (date1.getYear() == date2.getYear()
-                && date1.getMonth() == date2.getMonth()
-                && date1.getDay() == date2.getDay()) {
+        boolean isSameYear = date1.getYear() == date2.getYear();
+        boolean isSameMonth = date1.getMonth() == date2.getMonth();
+        boolean isSameDay = date1.getDay() == date2.getDay();
+        if (isSameYear && isSameMonth && isSameDay) {
             long duration1;
             long duration2;
             if (first instanceof Meeting) {
-                duration1 = timeToMilSeconds(Integer.parseInt(((Meeting) first).getDuration()),
-                        ((Meeting) first).getTimeUnit());
+                String durationFirstString = ((Meeting) first).getDuration();
+                int durationFirst = Integer.parseInt(durationFirstString);
+                TimeUnit timeUnitFirst = ((Meeting) first).getTimeUnit();
+                duration1 = timeToMilSeconds(durationFirst, timeUnitFirst);
             } else {
-                // task is a leave
-                duration1 = timeToMilSeconds(Integer.parseInt(((Meeting) first).getDuration()),
-                        ((Meeting) first).getTimeUnit());
+                // task is a leave, no need to check leave
+                return false;
             }
             if (second instanceof Meeting) {
-                duration2 = timeToMilSeconds(Integer.parseInt(((Meeting) first).getDuration()),
-                        ((Meeting) first).getTimeUnit());
+                String durationSecondString = ((Meeting) second).getDuration();
+                int durationSecond = Integer.parseInt(durationSecondString);
+                TimeUnit timeUnitSecond = ((Meeting) second).getTimeUnit();
+                duration2 = timeToMilSeconds(durationSecond, timeUnitSecond);
             } else {
-                // task is a leave
-                duration2 = timeToMilSeconds(Integer.parseInt(((Meeting) first).getDuration()),
-                        ((Meeting) first).getTimeUnit());
+                // task is a leave, no need to check leave
+                return false;
             }
             long time1 = date1.getTime();
             long time2 = date2.getTime();
-            return (time1 < time2 + duration2 && time1 >= time2) || (time2 < time1 + duration1 && time2 >= time1);
+            boolean isOverlapTime1 = (time1 < time2 + duration2 && time1 >= time2);
+            boolean isOverlapTime2 = (time2 < time1 + duration1 && time2 >= time1);
+
+            return isOverlapTime1 || isOverlapTime2;
         }
         return false;
     }

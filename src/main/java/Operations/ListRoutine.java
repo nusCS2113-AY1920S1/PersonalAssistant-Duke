@@ -29,7 +29,9 @@ public class ListRoutine {
         } catch (RoomShareException e) {
             ui.showError(e);
         }
-        ProgressBar progressBar = new ProgressBar(taskList.getSize(), taskList.getDoneSize());
+        int taskListSize = taskList.getSize();
+        int taskListDoneSize = taskList.getDoneSize();
+        ProgressBar progressBar = new ProgressBar(taskListSize, taskListDoneSize);
         ui.showBar(progressBar.showBar());
     }
 }
