@@ -5,13 +5,13 @@ package seedu.hustler.ui.timer;
  * needed by the program to signal specific types of
  * error, specific thread statuses, etc.
  */
-public class statusTypes {
+public class StatusTypes {
 
     /**
      * Types of erros that can occur. To be used so that the appropriate error
      * messages for different situations can be printed.
      */
-    public enum threadError {
+    public enum ThreadError {
         RESUMEERROR,
         PAUSEERROR,
         STOPERROR
@@ -20,10 +20,10 @@ public class statusTypes {
     /**
      * Types of statuses the timer can have.
      */
-    public enum threadStatus {
+    public enum ThreadStatus {
         DEFAULT,
-	RUNNING,
-	PAUSED,
+        RUNNING,
+        PAUSED,
         RESUMED,
         RESET,
         STOPPED,

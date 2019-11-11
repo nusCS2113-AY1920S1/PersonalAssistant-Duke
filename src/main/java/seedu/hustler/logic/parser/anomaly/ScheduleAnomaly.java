@@ -2,7 +2,7 @@ package seedu.hustler.logic.parser.anomaly;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
-import seedu.hustler.ui.timer.statusTypes.threadStatus;
+import seedu.hustler.ui.timer.StatusTypes.ThreadStatus;
 
 public class ScheduleAnomaly extends DetectAnomaly {
 

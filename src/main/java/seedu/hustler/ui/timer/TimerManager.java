@@ -1,7 +1,7 @@
 package seedu.hustler.ui.timer;
 
-import seedu.hustler.ui.timer.statusTypes.threadStatus;
-import seedu.hustler.ui.timer.statusTypes.threadError;
+import seedu.hustler.ui.timer.StatusTypes.ThreadStatus;
+import seedu.hustler.ui.timer.StatusTypes.ThreadError;
 
 
 /**
@@ -43,7 +43,7 @@ public class TimerManager implements TimerManagerInterface {
      */
     public static void resetTimer() {
         countdownTimer = new Timer();
-        Timer.threadstatus = threadStatus.RESET;
+        Timer.threadstatus = ThreadStatus.RESET;
     }
 
     /**
@@ -52,7 +52,7 @@ public class TimerManager implements TimerManagerInterface {
      */
     @Override
     public void startTimer() {
-        Timer.threadstatus = threadStatus.RUNNING;
+        Timer.threadstatus = ThreadStatus.RUNNING;
         countdownThread = new Thread(countdownTimer);
         countdownThread.start();
     }
@@ -72,11 +72,11 @@ public class TimerManager implements TimerManagerInterface {
      * user so desires.
      */
     public static void pauseTimer() {
-        if (Timer.threadstatus == threadStatus.RUNNING || Timer.threadstatus == threadStatus.RESUMED) {
-            Timer.threadstatus = threadStatus.PAUSED;
+        if (Timer.threadstatus == ThreadStatus.RUNNING || Timer.threadstatus == ThreadStatus.RESUMED) {
+            Timer.threadstatus = ThreadStatus.PAUSED;
             countdownThread.interrupt();
         } else {
-            TimerUI.printThreadError(threadError.PAUSEERROR);
+            TimerUI.printThreadError(ThreadError.PAUSEERROR);
         }
     }
 
@@ -86,12 +86,12 @@ public class TimerManager implements TimerManagerInterface {
      * paused cannot be resumed.
      */
     public static void resumeTimer() {
-        if (Timer.threadstatus == threadStatus.PAUSED) {
-            Timer.threadstatus = threadStatus.RESUMED;
+        if (Timer.threadstatus == ThreadStatus.PAUSED) {
+            Timer.threadstatus = ThreadStatus.RESUMED;
             countdownThread = new Thread(countdownTimer);
             countdownThread.start();
         } else {
-            TimerUI.printThreadError(threadError.RESUMEERROR);
+            TimerUI.printThreadError(ThreadError.RESUMEERROR);
         }
     }
 
@@ -100,13 +100,13 @@ public class TimerManager implements TimerManagerInterface {
      * prematurely.
      */
     public static void stopTimer() {
-        if (Timer.threadstatus == threadStatus.RUNNING || Timer.threadstatus == threadStatus.RESUMED 
-                || Timer.threadstatus == threadStatus.PAUSED) {
-            Timer.threadstatus = threadStatus.STOPPED;
+        if (Timer.threadstatus == ThreadStatus.RUNNING || Timer.threadstatus == ThreadStatus.RESUMED 
+                || Timer.threadstatus == ThreadStatus.PAUSED) {
+            Timer.threadstatus = ThreadStatus.STOPPED;
             countdownThread.interrupt();
             resetTimer();
         } else {
-            TimerUI.printThreadError(threadError.STOPERROR);
+            TimerUI.printThreadError(ThreadError.STOPERROR);
         }
     }
 
@@ -115,7 +115,7 @@ public class TimerManager implements TimerManagerInterface {
      * stopped or finished.
      */
     public static boolean isRunning() {
-        return (Timer.threadstatus == threadStatus.RUNNING || Timer.threadstatus == threadStatus.RESUMED 
-            || Timer.threadstatus == threadStatus.PAUSED);
+        return (Timer.threadstatus == ThreadStatus.RUNNING || Timer.threadstatus == ThreadStatus.RESUMED 
+            || Timer.threadstatus == ThreadStatus.PAUSED);
     }
 }
