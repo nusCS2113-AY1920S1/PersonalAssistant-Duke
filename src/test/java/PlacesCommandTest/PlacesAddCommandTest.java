@@ -1,7 +1,9 @@
 //@@author jessteoxizhi
 
+package PlacesCommandTest;
+
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.places.ListPlacesCommand;
+import gazeeebo.commands.places.AddPlacesCommand;
 import gazeeebo.storage.Storage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +18,7 @@ import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PlacesListCommandTest {
+class PlacesAddCommandTest {
     private Ui ui = new Ui();
     private Storage storage = new Storage();
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -35,18 +37,20 @@ class PlacesListCommandTest {
     }
 
     @Test
-    void testListContactsCommand() throws IOException {
+    void testAddPlacesCommand() throws IOException {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
-        String linebreak = "------------------------------------------\n";
-        places.put("LT50", "COM6");
-        places.put("LT20", "COM7");
-        ListPlacesCommand test = new ListPlacesCommand(places);
-        assertEquals("Room:                                             | Location:\n"
-                + "------------------------------------------\n"
-                + "LT20                                              | COM7\n"
-                + "------------------------------------------\n"
-                + "LT50                                              | COM6\n"
-                + "------------------------------------------\n", output.toString());
+        ui.fullCommand = "add-Test,COM3";
+        AddPlacesCommand test = new AddPlacesCommand(ui, places);
+        assertEquals("Successfully added :Test,COM3\r\n", output.toString());
+    }
+
+    @Test
+    void testAddWrongPlacesCommand() {
+        HashMap<String, String> map = new HashMap<>(); //Read the file
+        Map<String, String> places = new TreeMap<String, String>(map);
+        ui.fullCommand = "add-TestCOM3";
+        AddPlacesCommand test = new AddPlacesCommand(ui, places);
+        assertEquals("Please input add command in the correct format\r\n", output.toString());
     }
 }

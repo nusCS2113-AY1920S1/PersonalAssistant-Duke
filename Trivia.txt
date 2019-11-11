@@ -18,3 +18,10 @@ deadline asd/san 2019-12-12 12:12:12
 
 deadline sadasdas/by 2019-12-12 12:12:12
 
+
+deadline sleep/by 2019-12-12 12:03:03
+deadline sleep/sdc 2019-12-12 12:03:03
+deadline sleep/by 2019-12-2 12:03:03
+todo chemistry homework
+todoa chemistry homework
+todo asdasd
