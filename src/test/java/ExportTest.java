@@ -42,7 +42,7 @@ class ExportTest {
      * Setups the necessary base to carry out the test operations.
      */
     @BeforeAll
-    public static void setup() {
+    public static void setup() throws ChronologerException {
         list = new ArrayList<>();
         tasks = new TaskList(list);
         file = new File(System.getProperty("user.dir") + "/src/test/Test");
@@ -54,6 +54,9 @@ class ExportTest {
         Deadline deadline = new Deadline("Test", startDate);
         deadline.setComment("Testing description");
         tasks.add(deadline);
+
+        Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
+        export.execute(tasks, storage, history);
     }
 
     private java.util.Calendar convertToCalendar(LocalDateTime startDate) {
@@ -68,9 +71,7 @@ class ExportTest {
     }
 
     @Test
-    void testExport() throws ChronologerException, IOException, ParserException, ParseException {
-        Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
-        export.execute(tasks, storage, history);
+    void testExport() throws IOException, ParserException, ParseException {
         System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
         calendarFile = new File(System.getProperty("user.dir") + "/src/ChronologerDatabase/ExportTest.ics");
         FileInputStream inputStream = new FileInputStream(calendarFile);
