@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package editcommandtest;
+package editcmdtest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.tasks.edit.EditDescriptionCommand;

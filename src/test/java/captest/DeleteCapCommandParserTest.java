@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package capcalculatortest;
+package captest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.parser.CapCommandParser;

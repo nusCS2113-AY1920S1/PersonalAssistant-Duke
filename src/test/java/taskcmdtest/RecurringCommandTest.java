@@ -1,4 +1,4 @@
-package taskcommandtest;//@@author JasonLeeWeiHern
+package taskcmdtest;//@@author JasonLeeWeiHern
 
 import gazeeebo.commands.tasks.RecurringCommand;
 import gazeeebo.storage.Storage;

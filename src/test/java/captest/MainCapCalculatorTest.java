@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package capcalculatortest;
+package captest;
 
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.triviaManager.TriviaManager;

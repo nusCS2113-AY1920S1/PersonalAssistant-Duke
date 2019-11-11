@@ -1,29 +1,31 @@
 //@@author JasonLeeWeiHern
 
-package contactcommandtest;
+package captest;
 
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.contact.AddContactCommand;
+import gazeeebo.commands.capcalculator.AddCapCommand;
+import gazeeebo.parser.CapCommandParser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class AddContactCommandTest {
+public class AddCapCommandParserTest {
     private Ui ui = new Ui();
+    private HashMap<String, ArrayList<CapCommandParser>> map = new HashMap<>();
+    private Map<String, ArrayList<CapCommandParser>> caplist = new TreeMap<>(map);
 
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
     private PrintStream original = System.out;
-
 
     @BeforeEach
     void setupStream() {
@@ -37,20 +39,16 @@ class AddContactCommandTest {
     }
 
     @Test
-    void testAddContactsCommand() throws IOException {
-        HashMap<String, String> map = new HashMap<>();
-        Map<String, String> contact = new TreeMap<>(map);
-        ui.fullCommand = "add Test,96251822";
-        AddContactCommand test = new AddContactCommand(ui, contact);
-        assertEquals("Successfully added: Test,96251822\n", output.toString());
+    void testAddCapCommand() {
+        ui.fullCommand = "add 1,CS1231,4,A";
+        AddCapCommand test = new AddCapCommand(ui, caplist);
+        assertEquals("Successfully added: CS1231\n", output.toString());
     }
 
     @Test
-    void testIncorrectFormatAddContactsCommand() throws IOException {
-        HashMap<String, String> map = new HashMap<>();
-        Map<String, String> contact = new TreeMap<>(map);
-        ui.fullCommand = "add Test,96251822 and Jason,123412";
-        AddContactCommand test = new AddContactCommand(ui, contact);
+    void testIncorrectFormatAddCapCommand() {
+        ui.fullCommand = "add 1,CS1231,4,A and 2,EE2026,4,B";
+        AddCapCommand test = new AddCapCommand(ui, caplist);
         assertEquals("Please Input in the correct format\n", output.toString());
     }
 }

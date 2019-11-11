@@ -1,4 +1,4 @@
-package taskcommandtest;//@@author e0323290
+package taskcmdtest;//@@author e0323290
 
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.triviaManager.TriviaManager;

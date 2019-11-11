@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package contactcommandtest;
+package contacttest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.contact.DeleteContactCommand;

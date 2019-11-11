@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package capcalculatortest;
+package captest;
 
 import gazeeebo.commands.capcalculator.ConvertGradeToScoreCommand;
 

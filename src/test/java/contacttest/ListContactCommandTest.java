@@ -1,6 +1,6 @@
 //@@author JasonLeeWeiHern
 
-package contactcommandtest;
+package contacttest;
 
 
 
