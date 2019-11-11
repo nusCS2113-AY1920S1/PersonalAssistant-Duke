@@ -14,7 +14,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-F10-3/main
 
-By: `Team F10-3`      Since: `Aug 2019`
+By: `Team F10-3`      Since: `Aug 2019` +
+Team members: http://github.com/leowyh[Leow Yong Heng] |
+http://github.com/lijiayu980606[Li Jiayu] |
+http://github.com/E0373902[Shriya Saxena]
+| http://github.com/karansarat[Karan Sarat]
 
 == Introduction
 
