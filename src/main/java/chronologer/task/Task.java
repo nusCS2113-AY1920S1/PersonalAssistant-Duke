@@ -29,6 +29,7 @@ public abstract class Task implements Serializable {
     private static final String PRIORITY_LOW = "[\u2605]";// Low priority symbol
     private static final String PRIORITY_MED = "[\u2605\u2605]";// Med priority symbol
     private static final String PRIORITY_HIGH = "[\u2605\u2605\u2605]"; // High priority symbol
+    static final int DEFAULT_REMINDER_VALUE = 1;
 
     /**
      * Constructor for task.
@@ -51,7 +52,7 @@ public abstract class Task implements Serializable {
      * @return if triggered
      */
     public boolean isReminderTrigger() {
-        if (isIgnored) {
+        if (isIgnored || isDone) {
             return false;
         }
         if (reminder != null) {
