@@ -73,40 +73,42 @@ The Ui will be used to reply to the User with the following messages:
 ```
 the `Ui` also consist of templates for the different sections of the program, such as a template for dish, orders and ingredient
 
-<u>ingredient</u> 
+<u>Ingredient</u> 
 
 ```
          _________________________________________________________________________________________
-         Continue by adding, removing or using an ingredient
+         Continue by adding, removing or using an ingredient(using its index number).
          Template:
          _________________________________________________________________________________________
          add <Ingredient name> <amount> <expiry date: DD/MM/YYYY>
          remove <ingredient number>
          use <ingredient name> <amount> *always use most recently expiring ingredients 			 first, to prevent food waste!*
+         To change amount, changeamount <Ingredient's Index> <New amount>
+	 	 To change name, changename <Ingredient's Index> <New name>
+	 	 To find an ingredient, find <Ingredient name>
 ```
 
-<u>order</u>
+<u>Order</u>
 
 ```
-         _________________________________________________________________________________________
-         Continue by adding, removing, altering, listing order and initializing order 			 list.
-         Command Template:
-         _________________________________________________________________________________________
-         init
-         add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], 						 	 DISH2_NAME[*DISH_AMOUNT]
-         alter ORDER_INDEX ORDER_DATE-(dd/mm/yyyy)
-         remove ORDER_INDEX
-         done ORDER_INDEX
-         list [-l LIST_TYPE-(option: all (default) | undone | today | undoneToday)]
-         list -n DISH_NAME    *** Find the dishes in today's undone orders ***
-         list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) | undone)]
-         _________________________________________________________________________________________
+       _______________________________________________________________________________
+    	     ___   _______     ______   ________  _______
+    	   .'   `.|_   __ \   |_   _ `.|_   __  ||_   __ \    
+    	  /  .-.  \ | |__) |    | | `. \ | |_ \_|  | |__) |   
+    	  | |   | | |  __ /     | |  | | |  _| _   |  __ /    
+    	  \  `-'  /_| |  \ \_  _| |_.' /_| |__/ | _| |  \ \_
+    	   `.___.'|____| |___||______.'|________||____| |___|
+    
+    
+    	 Managing order now
+    	 Type 'template' to retrieve command format
+    	 _______________________________________________________________________________
 ```
 
 <u>Dish</u>
 
 ```
-         _________________________________________________________________________________________
+_________________________________________________________________________________________
          Continue by adding, removing, listing, adding ingredient and initializing
          Template:       _________________________________________________________________________________________
          add <dish name>
@@ -127,28 +129,30 @@ The `Ui` class consists of methods that outputs messages to the user as a respon
 
 #### 2.3 Command Component
 
-API: `Command*.java`
+![Command]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/Command.png )
 
-In the project, it has three types of commands: Ingredient Command, Dishes Command, Order Command. The three types of commands are packaged separately.
+Figure. Structure of the Command Component
 
-The Command class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method. that is used by the following classes 
+API: `Command.java`
 
-- DishCommand
+`Duke` uses the `Parser` class to parse the user input and retrieves the useful information contained in the user input, and call a specific `Command` to be executed. The command execution may affect the content of `OrderList`, `Fridge`, `DishList` or `TodayTodoList`,  and their correspinding storages. The command execution may also show the user the respond to the query, or exit the program.
+
+In `Command` Component, there are three types of commands: `Ingredient Command`, `Dishes Command`, `Order Command`, which are packaged separately, as commands in the same package may share same list of things and storage. The three packages and the classes in them are listed as below:
+
+- dishesCommand
   - AddDishCommand
   - DeleteDishCommand
   - ListDishCommand
-  - FindDishCommand
-  - ChangeDishCommand
-  - ResetCommand
+  - InitCommand
   - AddIngredient
-- OrderCommand
+- orderCommand
   - AddOrderCommand
-  - AlterOrderCommand
-  - DeleteOrderCommand
+  - AlterDateCommand
+  - CancelOrderCommand
   - DoneOrderCommand
-  - ListOrderCommand
   - InitOrderListCommand
-- IngredientCommand
+  - ListOrderCommand
+- ingredientCommand
   - AddCommand
   - DeleteCommand
   - FindIngredientCommand
@@ -156,11 +160,10 @@ The Command class is used as an abstract class for other classes, its method `ex
   - ListCommand
   - RemoveAllExpired
   - UseCommand
-  - ViewCommand
-- ViewTodoListCommand
-- ExitCommand
+  - ChangeAmountCommand
+  - ChangeNameCommand
 
-each of the above class has its own implementation of the `execute` method
+The `Command` class is used as an abstract class for other command classes, its method `execute` is also declared as an abstract method, as shown in the figure above. Any other command classes all inherit from `Command` class and override the implementation of the `execute` method. 
 
 #### 2.4 Parser Component
 
@@ -197,19 +200,41 @@ Figure. Structure of the Storage Component
 
 API: `Storage.java` 
 
-The `Storage` component, consists of `Storage.java`, `RecipeStorage.java`, `OrderStorage.java` and `FridgeStorage.java`. `Storage` is modelled as an abstract class,  with `RecipeStorage`, `OrderStorage` and `FridgeStorage` inheriting from it, as shown in the figure above. 
+This component handles storing data and reading it from text files on the hard disc. Upon creation, instances of its subtypes get linked to a *.txt* file passed as an argument in the constructor (by specifying its file path). Subsequently, this specific text file is used for loading and storing data.
 
-The `Storage` component, 
+ `Storage.java`  is modelled as a *generic, abstract* component, used as a base for the `FridgeStorage.java` , `OrderStorage.java` and `RecipeStorage.java`, each one having their own implementation of the *abstract* method `generate()`, that creates and returns a `GenericList` from the entries stored in the .txt file liked to them. 
 
-- can store `ingredient` in the fridge (API: `FridgeStorage.java`) with a certain format, by storing it into and reading it back from the `fridge.txt` file stored on the hard disc. The `IngredientList` as a `GenericList` of ingredients also changes dynamically with the program execution. The format print in file follows `ingredient_name|ingredient_amount|ingredient_expiry date` . See below example:
+This component  allows for storing entries in a certain format, by using the `printInFile()` methods of  these `Printable` entries. Some examples of the data to be stored, are dishes in the dish list, ingredients that are already in the fridge, recipes in the Recipe book and anything else that needs to be saved on the hard disk and available again upon rebooting the program.
 
-- ```
-  milk|3|09/09/2019
-  cheese|4|12/12/2019
-  rice|50|12/12/2019
-  ```
+The dynamic change in the text file contents during execution, is handled primarily by the `update()` method. Calling this method results in updating the content in the linked text file accordingly to the entries in the `GenericList` contained in, and used by that component.
 
-- can store `orders` in the order list (API: `OrderStorage.java`) in a certain format, by storing it into and reading it back from the `order.txt` file stored on the hard disc. The `OrderList` as a `GenericList` of orders also changes dynamically with the program execution.The format print in file follows  `order_status|serving_date|D|dish_name|dish_amount|D|dish_name|dish_amount|...` , where status refers to `done(1)`/`undone(0)`, and `D` seperates each ordered dishes with its amount. See below example:
+The program can `load` or `generate` an entry from the storage, and offers the methods to `changeContent(int index)`,  `addInFile(String data)` and `removeFromFile(int index)`.
+
+The interactions between the `GenericList` and the `Storage` and their subtypes is shown in the figure below.
+
+<img src="https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/StorageUML.png" style="zoom:50%" />
+
+##### 2.5.2 FridgeStorage
+
+API: `FridgeStorage.java` 
+
+A subclass of  `Storage.java`, used for storing and loading `Ingredient`s from the `Fridge`. It contains an `IngredientList` , as a `GenericList` of  `Ingredient`s, to keep track of the entries/ingredients being stored, loaded, and  dynamically changed during the program execution. The Ingredients are saved by using the format specified by their `printInFile()` method. The text file linked to this component is *"fridge.txt"*.
+
+The format print in file follows is  `ingredient_name|ingredient_amount|ingredient_expiry date` . See the example below:
+
+```
+milk|3|09/09/2019
+cheese|4|12/12/2019
+rice|50|12/12/2019
+```
+
+Calling the `load()` method on the text file above, would result in an `IngredientList` containing the four ingredients with their respective amounts and expiry dates.
+
+##### 2.5.3 OrderStorage
+
+API: `OrderStorage.java`
+
+A subclass of  `Storage.java`, that can store `orders` in the order list in a certain format, by storing it into and reading it back from the `order.txt` file stored on the hard disc. The `OrderList` as a `GenericList` of orders also changes dynamically with the program execution.The format print in file follows  `order_status|serving_date|D|dish_name|dish_amount|D|dish_name|dish_amount|...` , where status refers to `done(1)`/`undone(0)`, and `D` seperates each ordered dishes with its amount. See example below:
 
 - ```
   1|02/11/2019|D|fish|1|D|chili crab|1|D|rice|2
@@ -217,27 +242,33 @@ The `Storage` component,
   0|11/11/2019|D|cereal shrimp|1|D|soup|4
   ```
 
-- can store `dishes` in the recipebook (API: `RecipeStorage.java`) in a certain format, by storing it into and reading it back from the `recipebook.txt` file stored on the hard disc. The `DishList` as a `GenericList` of dishes also changes dynamically with the program execution. The format print in file follows:
+##### 2.5.4 DishStorage
+
+API: `RecipeStorage.java`
+
+A subclass of  `Storage.java`, that can store `dishes` in the recipebook in a certain format, by storing it into and reading it back from the `recipebook.txt` file stored on the hard disc. The `DishList` as a `GenericList` of dishes also changes dynamically with the program execution. The format print in file follows:
 
   ```
   ???? I don't know the output
   ```
-  
-##### 2.5.2 Printable
 
-![Printable](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/PrintableUML.png)
+##### 2.5.5 Printable
+
+
+<img src="https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/Printable.png" style="zoom:25%" />
 
 Figure. Structure of Printable
 
 API: `Printable.java` 
 
-It models an *Interface*, implemented by all the classes that have the feature to print their representation in a file. 
+It models a *public* *Interface*, implemented by all the classes that have the feature to print their representation in a file. 
 
-Offers one abstract method `printInFile()` whose implementation should indicate the format of printing the representation of the specific object calling it. A UML Class Diagram is shown below.
+Offers one abstract method `printInFile()` whose implementation should indicate the format of printing the representation of the specific object calling it. A UML Class Diagram is shown above.
 
 #### 2.6 List Component
 
-![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/ListComponent.png)
+
+<img src="https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png" style="zoom:25%" />
 
 Figure. Structure of the List Component
 
@@ -405,7 +436,7 @@ AddDishCommand, AddIngredient, DeleteDishCommand, ListDishCommand, ResetDishComm
   
 - **<u>AddIngredient</u>**
 
-  user intends to add an ingredient to a certain dish in dishList. this command takes in a description which is the ingredient name, amount and index. thus user enters `ingredient rice 100 1` which denotes adding an ingredient called rice with a amount of 100g to the index of the dish. in this case the index is 1. this command will then call the method`addIngredient` from the Dish class. in this method, it will iterate through the ingredient list to check for duplicates. if there are duplicates, same name and same amount, notify the user that the ingredient already exist. if the name of the ingredient is the same but amount is different, it only change the amount to the new amount. 
+  user intends to add an ingredient to a certain dish in dishList. this command takes in a description which is the ingredient name, amount and index. thus user enters `ingredient rice 100 1` which denotes adding an ingredient called rice with a amount of 100g to the index of the dish. in this case the index is 1. this command will then call the method`addIngredient` from the Dish class. in this method, it will iterate through the ingredient list to check for duplicates. if there are duplicates, same name and same amount, notify the user that the ingredient already exist. if the name of the ingredient is the same but amount is different, it only change the amount to the new amount. 
 
   if any of the description is empty, an exception will be thrown to inform the user. 
 
@@ -425,15 +456,13 @@ AddDishCommand, AddIngredient, DeleteDishCommand, ListDishCommand, ResetDishComm
   
 - **<u>FindDishCommand</u>**
 
-  user intends to find a dish in the dishList by keyword. user enters `find rice`, which denotes to list all the dishes which has the string rice in the name. this command takes in a String keyword and it will iterate through the dishList to find all the dishes that contain the keyword given by user. 
+  user intends to find a dish in the dishList by keyword. user enters `find rice`, which denotes to list all the dishes which has the string rice in the name. this command takes in a String keyword and it will iterate through the dishList to find all the dishes that contain the keyword given by user. 
 
   it will then print out the dish as well as the ingredient list of the dish to the user.
 
 - **<u>ChangeDishCommand</u>**
 
-  user intends to change the name of the dish. user needs to enter `change 1 chicken noodle` which denotes changing name if dish at index 1 to chicken noodle. this command takes in an integer index and string which is the new dish name. it will then change the name of the dish in dishList by the index to the new name.
-
-![dishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishesCommand.PNG)
+  user intends to change the name of the dish. user needs to enter `change 1 chicken noodle` which denotes changing name if dish at index 1 to chicken noodle. this command takes in an integer index and string which is the new dish name. it will then change the name of the dish in dishList by the index to the new name.
 
 **<u>future additions</u>**
 
@@ -496,9 +525,11 @@ The Order Command classes inherits from the `Command` class. They overwrite the 
 #### 2.12 Fridge Component
 API: `Fridge.java` ,`Ingredient.java`
 
-The `Fridge` component allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. The ingredients are always kept sorted by their expiry date, with the most recently expiring coming first. Furthermore, it allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first.  
+The `Fridge` component allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. The ingredients are always kept sorted by their expiry date, with the most recently expiring  ingredients coming first. Hence, this allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first.  
 
-![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML1.png)
+Upon (re)booting the program, the `Fridge` gets initialized with the current `IngredientList` (the attribute `entries`) stored in the `FridgeStorage`, passed as a parameter to it's main constructor. In all subsequent Ingredient manipulations, these two components are accessing/modifying the same `IngredientList`, meaning modifications made in the `Fridge`, are immediately seen in the `entries` attribute (an inherited `GenericList`) of the `FridgeStorage` , therefore, consistency among these classes is guaranteed. 
+
+![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridge.png)
 
 **<u>Ingredient Class</u>**
 
@@ -542,28 +573,31 @@ API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.jav
 
 The `ingredientCommand` classes all inherit from the `Command` class. They all have a specific implementation of the abstract method `execute` of the class `Command`. The `ingredientCommand` classes includes:
 
-
-- **AddCommand** This command adds an `Ingredient` to the `Fridge`, passed as an argument when creating this command. The `IngredientsList` used by the `Fridge` can also be read from the file when initializing. When adding an ingredient, it is compared to all the existing ingredients in the `Fridge`, if there is an match, having the same name and expiry date, no new entry is created in the `IngredientList` of the `Fridge`, namely, only the amount of the already existing matching ingredient is augmented by the new amount to be added. Otherwise, a new ingredient entry is created in the `IngredientList`. 
-- **DeteleCommand**: This command deletes an ingredient from the `IngredientList` of the `Fridge`, indicated by it's index in the list, passed as a parameter when creating this command. 
-- **FindToday**: This command is used to look for expired ingredients on the date itself.
-- **ListCommand**: This command is used to show the chef's entire IngredientsList.
+- **AddCommand** This command adds an `Ingredient` to the `Fridge` passed as an argument upon creating this command.  When adding an `Ingredient`, it is compared to all the existing ingredients in the `Fridge`, if there is an match, having the same name and expiry date, no new entry is created in the `IngredientList` of the `Fridge`, namely, only the amount of the already existing matching ingredient is augmented by the amount of the `Ingredient` to be added. Otherwise, a new `Ingredient` entry is created in the `IngredientList`. 
+- **DeteleCommand**: This command deletes an `Ingredient` from the `IngredientList` of the `Fridge`. The `Ingredient` to be removed is indicated by it's index in the `IngredientList`, passed as a parameter when creating this command. 
+- **FindToday**: This command is used to look for expired ingredients from the `IngredientsList` of the `Fridge`, on the date itself.
+- **ListCommand**: This command is used to show the chef's entire `IngredientsList`.
 - **RemoveAllExpired**: The command is used to remove all expired ingredients from the  `IngredientList` of the `Fridge`.
-- **FindIngredientCommand**: This command is used to find all ingredients with the queried keyword entered by the chef.
-- **UseCommand**: This command is executed to use and remove the specified amount of an ingredient stored in the  `IngredientList` of the `Fridge`, when the Chef wants to use it. An important *note* is that ingredients are used based on their expiry date, meaning the most recently expiring ingredients, matching the ingredient indicated by the chef, are used first. Otherwise, if there is not enough of the required non-expired amount of this ingredient needed by the chef, the program will prompt it to the chef. 
-- ChangeAmountCommand: This command is used to change the amount of an ingredient given the index number of the ingredient
-- ChangeNameCommand: This command is used to change the name of an ingredient given the index number of the ingredient
+- **FindIngredientCommand**: This command is used to find all the `Ingredient`, with the queried keyword entered by the chef, in the `Fridge`.
+- **UseCommand**: This command is executed to use and remove the specified amount of a **non-expired** `Ingredient` stored in the  `IngredientList` of the `Fridge`, when the Chef wants to use it. An important *note* is that ingredients are used based on their expiry date, meaning the **most recently expiring ingredients**, matching the ingredient name indicated by the chef, **are used first**. Otherwise, if there is not enough of the required non-expired amount of this ingredient needed by the chef, the program will output a message notifying the Chef. 
+- **ChangeAmountCommand**: This command is used to change the amount of an `Ingredient` given the index number of the `Ingredient`.
+- **ChangeNameCommand**: This command is used to change the name of an `Ingredient` given the index number of the `Ingredient`.
+
+### 3. Testing
 
 
+- There are two ways to run our tests.
 
-### 3. Implementation
+  **Method 1: Using IntelliJ JUnit test runner**
 
-### 4. Documentation
+  - To run all tests, right-click on the `src/test/java` folder and choose `Run 'Tests in 'duke.test'`
+  - To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'test...'`
 
-### 5. Testing
+**Method 2: Using Gradle**
 
-### 6. Dev Ops 
+- Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
 
-
+We provide `JUnit` tests to test individual methods in the `Dish` and `Fridge` component, provided in the `DishTest.java` and `FridgeTest.java`
 
 ### Appendix A: Product Scope
 
@@ -716,11 +750,11 @@ Target user profile: Restaurant Chef
 
 
 
-**Use case: Find a ingredient by searching for keyword**
+**Use case: Find an ingredient by searching for keyword**
 
-1. User requests to find tasks with the given keyword
+1. User requests to find an ingredient with the given keyword
 
-2. Program loads up and shows ingredient with the given keyword
+2. Program loads up and shows a lists of ingredients(that fits the keyword), with their attributes
 
 **Extensions**
 
@@ -744,7 +778,7 @@ Target user profile: Restaurant Chef
 4. should be easy to use for users with basic knowledge of command line interface
 5. should be able to handle large amounts of data without displaying any slowdown in application performance 
 
-### Appendix F: Instruction for Manual Testing 
+### Appendix E: Instruction for Manual Testing 
 
 1. Ensure you have Java `11` or above installed in your Computer.
 2. Download the latest Duke.jar [here](https://github.com/AY1920S1-CS2113-T14-2/main/releases).
@@ -792,8 +826,6 @@ in the main page, there are several actions for the user:
 
       Expected: output a message to user that the description of add cannot be empty
 
-
-
 #### E3. Removing an ingredient
 
 Removing an ingredient from the Fridge
@@ -840,27 +872,73 @@ Using an ingredient from the Fridge
 
 #### E7. Finding an ingredient
 
+Finding an ingredient in the Fridge
+
+1. Prerequisite: user must be in `b` option of the main menu. List all ingredients in the `Fridge` by typing `show`. Assuming there is only **beef** and **chicken** in the `Fridge`.
+
+   Test case 1: `find beef` 
+
+   Expected: Find and list all ingredients that have the keyword `beef` to the user, regardless of their amount or expiry date
+
+​	   Test case 2: `find cockroach`
+
+​	   Expected: Ingredient is not found and program outputs `No such ingredient found!`
+
+​	   Test case 3: `find be ef`
+
+​	   Expected: Program outputs to user the proper syntax to use the command.
+
 #### E8. Listing ingredients that expired today
 
-1. Adding an ingredient to the List
+Listing all ingredients in the `Fridge` that expires today
+
+1. Prerequisite: user must be in `b` option of the main menu. Assuming there is only **beef** and **chicken** in the `Fridge`. However, only the **chicken** expires today.
+
+   Test case 1: `listtoday` 
+
+   Expected: Find and list all ingredients in the `Fridge` that expires today, which is the **chicken**.
+
+   Test case 2: `list today`
+
+   Expected: Program outputs to user the proper syntax to use the command
 
 #### E9. Changing ingredient name
 
-1. Adding an ingredient to the List
+Changing the name of an ingredient in the `Fridge`
+
+1. Prerequisite: user must be in `b` option of the main menu. List all ingredients in the `Fridge` by typing `show`. Assuming there is only **beef** and **chicken** in the `Fridge`, with index of 1 and 2 respectively.
+
+   Test case 1: `changename 1 pork` 
+
+   Expected: Changes the **beef** to **pork** and output its new name, amount and expiry date to the user.
+
+​	   Test case 2: `changename 3 pork`
+
+​	   Expected: User is prompted by the program to enter a valid range of ingredient index number,                                                                                        	   depending on the `IngredienstLists` size.
+
+​	   Test case 3: `changename chicken pork`
+
+​	   Expected: Program outputs to user the proper syntax to use the command.
 
 #### E10. Changing ingredient amount
 
-1. Adding an ingredient to the List
+Changing the amount of an ingredient in the `Fridge`
 
-#### E11. Adding an order
+1. Prerequisite: user must be in `b` option of the main menu. List all ingredients in the `Fridge` by typing `show`. Assuming there is only **30 beef** and **20 chicken** in the `Fridge`, with index of 1 and 2 respectively.
 
-#### E12. Marking order as done
+   Test case 1: `changeamount 1 20` 
 
-#### E13. Altering order
+   Expected: Changes the amount of **beef** from 30 to 20 and output its name, new amount and expiry date to the user.
 
-#### E14. Removing order
+​	   Test case 2: `changeamount 3 20`
 
-#### E15. Adding a dish
+​	   Expected: User is prompted by the program to enter a valid range of ingredient index number,                                                                                        	   depending on the `IngredienstLists` size.
+
+​	   Test case 3: `changeamount chicken 7`
+
+​	   Expected: Program outputs to user the proper syntax to use the command.
+
+#### E11. Adding a dish
 
 1. adding a dish to the dishList
 
@@ -878,7 +956,7 @@ Using an ingredient from the Fridge
 
       Expected: output message to user that the description cannot be empty
 
-#### E16. Removing a dish
+#### E12. Removing a dish
 
 1. removing a dish from the dishList
 
@@ -900,7 +978,7 @@ Using an ingredient from the Fridge
 
          Expected: no dish is deleted. outputs to the user that the dish does not exist 
 
-#### E17. Adding an ingredient to a dish
+#### E13. Adding an ingredient to a dish
 
 1. associating an ingredient to a dish in the dishList	
 
@@ -918,7 +996,7 @@ Using an ingredient from the Fridge
 
       Expected: no ingredient is added to a dish. outputs message to user that index/amount needs to be valid
 
-#### E18. Finding a dish
+#### E14. Finding a dish
 
 1. finding a dish in list given a keyword
 
@@ -937,7 +1015,7 @@ Using an ingredient from the Fridge
    
    Expected: deletes the first dish in the list, 
 
-#### E19. Changing name of a dish
+#### E15. Changing name of a dish
 
 1. changing the name of a dish in list
 

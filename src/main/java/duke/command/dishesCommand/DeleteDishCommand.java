@@ -19,7 +19,7 @@ public class DeleteDishCommand extends Command {
         this.index = dishNb;
     }
 
-    //@@ Author Hafidz
+    //@@ Author 9hafidz6
     /**
      * @param fridge ingredients found in fridge
      * @param dishList list of dishes

@@ -1,5 +1,9 @@
 # Chef Duke - User Guide
 
+By: `Team CS213-T14-2`       Since: `Oct 2019`
+
+
+
 [TOC]
 
 ## 1. Introduction
@@ -17,7 +21,7 @@ Chef Duke is targeted towards restaurant chefs who wants to be able to consolida
 
 5. run the command `java -jar v1.3` , application will then be executed 
 
-   ![UI]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/Ui.png )
+   ![](C:\Users\s1014\Desktop\local_clone\docs\images\Ui.png)
 
 6. Type some commands and press ENTER to execute
 
@@ -277,6 +281,8 @@ To add an ingredient to the `Fridge`, the user needs to execute the command belo
 
 Format: `add `  `INGREDIENT_NAME` `INGREDIENT_AMOUNT` `INGREDIENT_EXPIRY_DATE-(dd/mm/yyyy)`
 
+*Note:*  `INGREDIENT_NAME` must not contain spaces, use underscores or Camel case, eg. blueCheese or blue_cheese
+
 If the ingredient already exist in the `IngredientList` of the `Fridge`, but **does not have the same expiry date as the ingredient to be added**, another entry of the ingredient will be created in the ingredient list, differing from the existing one by the expiry date. **However**, if the ingredient to be added also **has the same expiry date as an existing ingredient in the ingredient list with the same name**, the amount of the ingredient to be added will be added onto the amount of the existing ingredient and no new entry will be created in the `IngredientList` of the `Fridge`.
 
 Examples: 
@@ -287,15 +293,16 @@ Examples:
 ```
          _________________________________________________________________________________________
 add chicken 3 1/2/2020
+         _________________________________________________________________________________________
      Got it. I've added chicken to the fridge, you currently have:
-	 chicken, amount is: 3 expiring on 1st of February 2020
-	 
-add chicken 2 1/2/2020
+	 chicken, amount is: 3 expiring on 1st of February 2020          _________________________________________________________________________________________
+
+add chicken 2 1/2/2020        ______________________________________________________________________________________
 
 	Got it. I've added chicken to the fridge, you currently have:
-	chicken, amount is: 5 expiring on 1st of February 2020
+	chicken, amount is: 5 expiring on 1st of February 2020        _________________________________________________________________________________________
 	
-add chicken 4 2/3/2020
+add chicken 4 2/3/2020         _________________________________________________________________________________________
 
 	Got it. I've added chicken to the fridge, you currently have:
 	chicken, amount is: 4 expiring on 2nd of March 2020
@@ -306,12 +313,14 @@ Furthermore, if the user adds an expired ingredient, he gets a `WARNING!!! Addin
 
 ```
          _________________________________________________________________________________________
-add milk 250 9/11/2019
+add milk 250 9/11/2019       _________________________________________________________________________________________
 
  	WARNING!!! Adding an expired ingredient in the fridge, do you want to proceed adding     it? 
     Type yes to confirm, typing anything else will result in not adding the ingredient
-    
-yes
+           _________________________________________________________________________________________
+  
+yes        _________________________________________________________________________________________
+
 		Got it. I've added milk to the fridge, you currently have:
 		WARNING! expired ingredient: milk, amount is: 250 expired on 9th of November 2019
 	 _________________________________________________________________________________________
@@ -379,6 +388,8 @@ These are the ingredients you searched for!
 To use an ingredient from the `Fridge`, the user needs to execute the command below:
 
 Format: `use`  `INGREDIENT_NAME` `INGREDIENT_AMOUNT` 
+
+*Note:*  `INGREDIENT_NAME` must not contain spaces, use underscores or Camel case, eg. blueCheese or blue_cheese
 
 A warning:  `*always use most recently expiring ingredients first, to prevent food waste!*` is printed when showing the example use of this command. This notifies the chef that he should be using the ingredients with the most recent expiry date first. This command will look through all the ingredients matching the ingredient name, sorted by ascending expiry date, and continue removing them (considering the amount of the ingredient they contain ) until the total  `INGREDIENT_AMOUNT` is used/reached. Furthermore, if the `Fridge` contains expired ingredients matching the  `INGREDIENT_NAME`, they are not taken into consideration, since the Chef should not be able to use an expired ingredient in his dishes!
 
@@ -885,22 +896,15 @@ ______________________________________________________________________
 4. delete undone dishes from the ToDo list when an order of today is cancelled.
 5. add undone dishes when a pre-order alters its date to become today's undone order.
 
-### 3.6 Fridge commands
-
-#### 3.6.1 Add an ingredient to the Fridge
-#### 3.6.2 Remove an ingredient from the fridge
-#### 3.6.3 Use an ingredient from the fridge
-#### 3.6.4 Remove all expired ingredients from the fridge
-
-### 3.7 Statistics of Most Popular Dishes `[Coming in v2.0]`
+### 3.6 Statistics of Most Popular Dishes `[Coming in v2.0]`
 
 Order component in the program tracks all the records of done orders. By sorting the ordered number of each dishes, the chef can get the statistics of most popular dishes, in a week, or a month, or a season. The statistics lead to the food reference of the majority of the customers. If the chef wants to explore a new dishes, the common characters of those top popular dishes may be a good reference.
 
-### 3.8 Checking Ingredients with Orders `[Coming in v2.0]`
+### 3.7 Checking Ingredients with Orders `[Coming in v2.0]`
 
 When a new order of today comes, the todo list will update. In the meantime, the progarm will automatically check if the fridge has enough ingredient for that order. If not, the program will remind you to buy ingredients. Also, at the moment the restaurant opens, the program will check if there is enough ingredient for today's orders (which were pre-orders yesterday). If not, the program will also remind you to buy ingredients. 
 
-### 3.9 Draft Recipe `[Coming in v2.0]`
+### 3.8 Draft Recipe `[Coming in v2.0]`
 
 The recipebook of a restaurant is not fixed. The chef may need to explore new recipe and dishes. For instance, the chef want to explore a dish, we call it as dishA for simplicity. The program can track all historical trials of this dishA. Normally a dish cannot be created overnight or within one or two trials. The chef intends to use different ingredients and different proportions to make better taste than the taset in previous trials. 
 
@@ -924,17 +928,17 @@ Index | Keyword  | Usage | Description
 
 <u>Ingredient Template</u>
 
-| Index | Keyword      | Usage                             | Description                                          |
-| ----- | ------------ | --------------------------------- | ---------------------------------------------------- |
-| 1     | add          | add <desc> <amount> <Date>        | add an Ingredient to the fridge                      |
-| 2     | remove       | remove <index>                    | remove an ingredient from fridge                     |
-| 3     | find         | find <desc>                       | find an ingredient in the fridge                     |
-| 4     | listtoday    | listtoday                         | list all expired ingredient                          |
-| 5     | a            | a                                 | removes all expired ingredient                       |
-| 6     | use          | use <desc> <amount>               | use an ingredient from the fridge                    |
-| 7     | changeamount | changeamount <index> <new amount> | changes the amount of the ingredient using its index |
-| 8     | changename   | changename <index> <new name>     | changes the name of the ingredient using its index   |
-| 9     | show         | show                              | lists all the ingredients in the fridge              |
+| Index | Keyword      | Usage                         | Description                                          |
+| ----- | ------------ | ----------------------------- | ---------------------------------------------------- |
+| 1     | add          | add DESC AMOUNT DATE          | add an Ingredient to the fridge                      |
+| 2     | remove       | remove INDEX                  | remove an ingredient from fridge                     |
+| 3     | find         | find DESC                     | find an ingredient in the fridge                     |
+| 4     | listtoday    | listtoday                     | list all expired ingredient                          |
+| 5     | a            | a                             | removes all expired ingredient                       |
+| 6     | use          | use DESC AMOUNT               | use an ingredient from the fridge                    |
+| 7     | changeamount | changeamount INDEX NEW_AMOUNT | changes the amount of the ingredient using its index |
+| 8     | changename   | changename INDEX NEW_NAME     | changes the name of the ingredient using its index   |
+| 9     | show         | show                          | lists all the ingredients in the fridge              |
 
 <u>Order Template</u>
 
@@ -953,15 +957,15 @@ Index | Keyword  | Usage | Description
 
 <u>Dish Template</u>
 
-| Index | Keyword    | Usage                              | Description               |
-| ----- | ---------- | ---------------------------------- | ------------------------- |
-| 1     | add        | add <desc>                         | adds a dish to the list   |
-| 2     | find       | find <desc>                        | find dish by keyword      |
-| 3     | change     | change <index> <desc>              | change name of dish       |
-| 4     | remove     | remove <index>                     | removes a dish from list  |
-| 5     | list       | list                               | list all dishes           |
-| 6     | initialize | initialize                         | clears the dish list      |
-| 7     | ingredient | ingredient <desc> <amount> <index> | add an ingredient to dish |
+| Index | Keyword    | Usage                        | Description               |
+| ----- | ---------- | ---------------------------- | ------------------------- |
+| 1     | add        | add DESC                     | adds a dish to the list   |
+| 2     | find       | find DESC                    | find dish by keyword      |
+| 3     | change     | change INDEX DESC            | change name of dish       |
+| 4     | remove     | remove INDEX                 | removes a dish from list  |
+| 5     | list       | list                         | list all dishes           |
+| 6     | initialize | initialize                   | clears the dish list      |
+| 7     | ingredient | ingredient DESC AMOUNT INDEX | add an ingredient to dish |
 
 <u>Common commands in template</u>
 
@@ -973,7 +977,7 @@ Index | Keyword  | Usage | Description
 
 
 
-# 5. FAQ
+## 5. FAQ
 
 **Q: how do I transfer data to another computer?** 
 
