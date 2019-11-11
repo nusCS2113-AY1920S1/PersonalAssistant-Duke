@@ -38,7 +38,7 @@ Responsibilities: Deliverables and deadlines + UI
 
 === Mohamed Riyas
 image::Riyas97.png[width="150", align="left"]
-{empty}[http://github.com/Riyas97[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Riyas97[github]] [<<Riyas97PPP#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data + UI
