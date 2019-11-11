@@ -79,7 +79,6 @@ class ExportTest {
         }
 
         System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
-        calendarFile = new File(System.getProperty("user.dir") + "/src/ChronologerDatabase/ExportTest.ics");
         FileInputStream inputStream = new FileInputStream(calendarFile);
         CalendarBuilder builder = new CalendarBuilder();
         Calendar calendar = builder.build(inputStream);

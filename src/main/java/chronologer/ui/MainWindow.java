@@ -29,8 +29,6 @@ class MainWindow extends UiComponent<Stage> {
     private Command command;
     private ChronologerStateList history;
     private Storage storage;
-    private String filePath = System.getProperty("user.dir") + "/src/ChronologerDatabase/ArrayList";
-    private File file = new File(filePath);
 
     /**
      * Constructs the main UI window to house all the different child UI elements.

@@ -26,7 +26,7 @@ import javafx.util.Callback;
 /**
  * Holds the timeline elements, handles the processing of obtaining and updating the elements of the timeline.
  */
-class TimelineWindow extends UiComponent<Region> {
+public class TimelineWindow extends UiComponent<Region> {
     @FXML
     private AnchorPane backgroundOfTimeline;
     @FXML
