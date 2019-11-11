@@ -1,5 +1,7 @@
 package moomoo.feature;
 
+import moomoo.command.DetectOsCommand;
+
 public class Cow {
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_WHITE = "\u001B[37m";
@@ -19,9 +21,35 @@ public class Cow {
     private String blackCow = "";
     
     String generateHappyCow() {
+        String model = "";
+        DetectOsCommand getOS = new DetectOsCommand();
+        if (getOS.osName.contains("win")) {
+            model =
+                    "             /( ,,,,, )\\\n"
+                            + "            _\\,;;;;;;;,/_\n"
+                            + "         .-\"; ;;;;;;;;; ;\"-.\n"
+                            + "         '.__/`_ / \\ _`\\__.'\n"
+                            + "            | ($)| |($) |\n"
+                            + "            | .--' '--. |\n"
+                            + "            |/ o     o \\|\n"
+                            + "            |           |\n"
+                            + "           / \\ _..=.._ / \\\n"
+                            + "          /:. '._____.'   \\\n"
+                            + "         ;::'    / \\      .;\n"
+                            + "         |     _|_ _|_   ::|\n"
+                            + "       .-|     '==o=='    '|-.\n"
+                            + "      /  |  . /       \\    |  \\\n"
+                            + "      |  | ::|         |   | .|\n"
+                            + "      |  (  ')         (.  )::|\n"
+                            + "      |: |   |; U U U ;|:: | `|\n"
+                            + "      |' |   | \\ U U / |'  |  |\n"
+                            + "      ##V|   |_/`\"\"\"`\\_|   |V##\n"
+                            + "         ##V##         ##V##\n";
+            return model;
+        }
         
         
-        String model = lineOne + ANSI_BLUE; //line 1
+        model = lineOne + ANSI_BLUE; //line 1
         for (int i = 0; i < 27; i += 1) {
             model += fullBlock;
         }
@@ -126,7 +154,7 @@ public class Cow {
             model += fullBlock;
         }
         
-    
+        
         model += "\n"; //line 7
         for (int i = 0; i < 7; i += 1) {
             model += fullBlock;
@@ -173,7 +201,7 @@ public class Cow {
         for (int i = 0; i < 8; i += 1) {
             model += fullBlock;
         }
-    
+        
         model += "\n"; //line 9
         for (int i = 0; i < 6; i += 1) {
             model += fullBlock;
@@ -204,8 +232,8 @@ public class Cow {
         for (int i = 0; i < 8; i += 1) {
             model += fullBlock;
         }
-    
-    
+        
+        
         model += "\n"; //line 10
         for (int i = 0; i < 6; i += 1) {
             model += fullBlock;
@@ -233,8 +261,8 @@ public class Cow {
         for (int i = 0; i < 7; i += 1) {
             model += fullBlock;
         }
-    
-    
+        
+        
         model += "\n"; //line 11
         for (int i = 0; i < 5; i += 1) {
             model += fullBlock;
@@ -261,8 +289,8 @@ public class Cow {
         for (int i = 0; i < 7; i += 1) {
             model += fullBlock;
         }
-    
-    
+        
+        
         model += "\n"; //line 12
         for (int i = 0; i < 5; i += 1) {
             model += fullBlock;
@@ -306,8 +334,8 @@ public class Cow {
         for (int i = 0; i < 9; i += 1) {
             model += fullBlock;
         }
-    
-    
+        
+        
         model += "\n"; //line 14
         for (int i = 0; i < 8; i += 1) {
             model += fullBlock;
@@ -331,7 +359,7 @@ public class Cow {
             model += fullBlock;
         }
         
-    
+        
         model += "\n"; //line 15
         for (int i = 0; i < 2; i += 1) {
             model += fullBlock;
@@ -385,8 +413,8 @@ public class Cow {
         for (int i = 0; i < 11; i += 1) {
             model += fullBlock;
         }
-    
-    
+        
+        
         model += "\n" + lineThree; //line 17
         model += ANSI_GREEN;
         for (int i = 0; i < 6; i += 1) {
@@ -408,8 +436,8 @@ public class Cow {
         for (int i = 0; i < 4; i += 1) {
             model += fullBlock;
         }
-    
-    
+        
+        
         model += "\n" + lineTwo; //line 18
         model += ANSI_GREEN + fullBlock;
         model += ANSI_RED + fullBlock;
