@@ -21,12 +21,6 @@ public class DeleteCommandParser implements ParserInterface<DeleteCommand> {
     public DeleteCommand parse(String userInputStr)  {
         try {
             InputValidator.validate(userInputStr);
-            String[] indexAndDate = ArgumentSplitter.splitArguments(userInputStr, "/date");
-            if (indexAndDate[1].isBlank()) {
-                return new DeleteCommand(indexAndDate[0]);
-            } else {
-                return new DeleteCommand(indexAndDate[0], indexAndDate[1]);
-            }
         } catch (ProgramException e) {
             return new DeleteCommand(false,"Please enter index of meal to delete on today's list or "
                     + "date and index of meal to delete. Type 'help delete' for more information.");
