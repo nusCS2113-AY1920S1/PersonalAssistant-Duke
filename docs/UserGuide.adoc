@@ -34,6 +34,8 @@ Jump straight to <<Quick Start>> to get started!
 
 If you already have DEGREES.NUS, jump ahead to <<Features>>!
 
+A summary of all our commands is available in <<Command Summary>>!
+
 <<<
 == Quick Start
 === Prerequisites
@@ -46,7 +48,7 @@ In order to run DEGREES.NUS, you should have Java `11` or above installed in you
 === Getting DEGREES.NUS
 Now that you've installed Java `11` on your computer, you can go ahead with getting DEGREES.NUS on your computer.
 
-.  Download the latest `duke2.jar` link:{repoURL}/releases[here].
+.  Download the latest `DEGREES.NUS.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for 'DEGREES.NUS'.
 .  Double-click the file to launch the application. DEGREES.NUS will appear in a few seconds
 
@@ -70,12 +72,13 @@ If it does, you have successfully run DEGREES.NUS on your machine!
 === Getting Used to DEGREES.NUS
 Here are some other examples of commands you can try to get used to DEGREES.NUS:
 
-* **`tasks`** : displays all deadlines and events in the current tasklist (will be empty initially)
-* **`event`**`University Talk /at 25-09-2019 2359` : adds an event named `University Talk` to the task list.
-* **`delete`**`3` : deletes the 3rd item shown in the current list
-* *`bye`* : exits the app
+* **`tasks`** : displays all deadlines and events in the current tasklist (will be empty initially).
+* **`event`**`University Talk /at 25-09-2019 2359` : adds an event named `University Talk` to the task list with "Normal" priority.
+* **`delete`**`3` : deletes the 3rd item shown in the current list.
+* **`detail`**`bme` : displays module information for Biomedical Engineering.
+* *`bye`* : exits the app after a short delay.
 
-.  Fore more detailed instructions and a full list of commands, refer to <<Features>>.
+.  For more detailed instructions and a full list of commands, refer to <<Features>>.
 
 <<<
 [[Features]]
@@ -84,192 +87,376 @@ Here are some other examples of commands you can try to get used to DEGREES.NUS:
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `delete INDEX`, `INDEX is a parameter which can be used as `delete 4`.
-* Items in square brackets are optional e.g `EVENT /at dd-MM-yyyy HHmm [to/dd-MM-yyyy HHmm]` can be used as `Mista /at 04-04-2004 0444` or as `MISTA /at 04-04-2004 0444 to/04-04-2004 0445`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[/at dd-MM-yyyy HHmm]...` can be used as `{nbsp}` (i.e. 0 times), `/at 04-04-2004 0444`, `/at 04-04-2004 0444 /at 08-08-2008 0808` etc.
-* Items with `|` in between them indicate the user can choose to use either type of parameter e.g. `DEGREE|MODULE` will accept `CEG` or `CS1010`. 
+* Words enclosed in `<>` are the parameters to be supplied by the user e.g. in `delete <ID>`, `<ID>` is a parameter which can be used as `delete 4`.
+* Items in square brackets represent tabs e.g `[Help]` signifies the help tab. As a rule, any changes to any of the tabs should automatically open that tab.
+* Items separated by `|` can be used either way. e.g `detail <DEGREE> | detail` can be used as `detail ceg` or as simply `detail`.
+* Items in curly brackets are optional e.g `event MISTA /at dd-MM-yyyy HHmm {/priority High}` can be used as `event MISTA /at 04-04-2004 0444` or as `event MISTA /at 04-04-2004 0444 /priority High`.
 ====
 
-=== Viewing Helpful Commands : `help`
-To view a full list of possible commands that DEGREES.NUS understands, you can call the help command.
+=== Viewing Helpful Commands : `help | help <COMMAND>`
+To view a full list of possible commands that DEGREES.NUS understands, you can call the help command. +
+It will also switch to the `[Help]` tab if you prefer to view the commands in tabular format.
 
-Format: `help`
+
+
+The displayed commands can be entered after help in the format `help <command>` to find more details on the usage if the given command. 
+
+
+[NOTE]
+`help <command>` will not switch tabs, as we feel its overkill to display help for all commands when all you need is one.
+
+Format: `help | help <command>`
+
+Examples: +
+
+* `help add` +
+Displays information for the `add` command.
+* `help tasks` +
+Displays information for the `tasks` command.
+* `help` +
+Displays information for ALL possible commands and switches to the `[Help]` tab.
 
 <<<
-=== Viewing detailed information about a degree: `detail`
+=== Viewing detailed information about a degree: `detail | detail <DEGREE>`
 
-Lists all the information associated with a degree or module. +
-Format: `detail DEGREE|MODULE`
+Lists all the module information associated with a degree. +
+It will also switch to the `[Degree Information]` tab. 
+
+`<DEGREE>` accepts keywords and aliases.
+
 
 [TIP]
-The search is case insensitive. e.g `ceg` will match `CEG`
+All <DEGREE> usages are case insensitive. e.g `ceg` will match `CEG`. This applies to `compare` and `add` as well.
 
-Example:
 
-`detail CEG`
+If you wish to simply switch tabs, `detail` can be used on its own. +
 
-Returns: 
-----
-Overview:
-...
-Modules:
-...
-Links
-...
-----
+Format: `detail | detail <DEGREE>` +
 
-Example:
+Examples: +
 
-`detail CS1010`
+* `detail bme` +
+Displays module information for Biomedical Engineering.
+* `detail Computer Engineering` +
+Displays module information for Computer Engineering.
+* `detail` +
+Switches to the `[Degree Information]` tab.
 
-Returns: 
-----
-Overview:
-...
-Resources:
-...
-----
+How it will be displayed: +
+
+images::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/detailExample.png
 
 <<<
-=== Comparing two degrees: `compare`
+=== Comparing two degrees: `compare | compare <DEGREE> <DEGREE>`
 
 Lists the module similarities and differences between two degree programs given their keywords. +
-Format: `compare DEGREE DEGREE`
+Will also switch tabs to the `[Degree Differences]` tab. 
+
+`<DEGREE>` accepts keywords and aliases and is case insensitive. 
 
 
-****
-* The search is case insensitive. e.g `ceg` will match `CEG`
-* If a degree is compared to itself, an invalid comparison message will be displayed e.g. `diff CEG CEG` will give the message `Invalid Comparison`
-* There will be a list of similar modules displayed.
-* This is followed by a list of modules which are different, shown in split view.
-****
+`compare` can also be used on its own to simply switch tabs. +
 
-Example:
+Format: `compare | compare <DEGREE> <DEGREE>`
 
-`compare CEG EE`
+Example: +
 
-Returns:
-----
-Similarities:
-EE2026
-MA1511
-...
+* `compare ceg bme` +
+Compares between Computer Engineering and Biomedical Engineering.
+* `compare Industrial and Systems Engineering Environmental Engineering` +
+Compares between Industrial and Systems Engineering and Environmental Engineering.
+* `compare` +
+Switches to the `[Degree Differences]` tab.
 
-Differences:
-CS1010 
-EE2027
-...
-----
+How it will be displayed: +
 
+images::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/compareExample.png
 
 <<<
-=== Adding a degree into your degree list: `add`
-To add a degree programme you are interested in into your personalised degree list, use the command add. +
-Format: `add DEGREE`
+=== Adding a degree into your degree list: `add <DEGREE>`
+Adds a degree programme you are interested in into your personalised degree list. +
+This will also add tasks related to your degree to your task list. +
+Will switch to the `[Degree Choices]` tab. +
 
+`<DEGREE>` accepts keywords and aliases and is case insensitive. 
 
-****
-* The search is case sensitive, e.g Computer engineering will throw an error. Ensure it is in the format as show in the examples.
-****
+Format: `add <DEGREE>` +
 
+Examples: +
 
-Examples:
-
-* `add Computer Engineering`
-* `add Materials Science and Engineering`
+* `add bme` +
+Adds Biomedical Engineering to your degree list and faculty events to your task list.
+* `add Materials Science and Engineering` +
+Adds Materials Science and Engineering to your degree list and faculty events to your task list.
+* `add CivE` +
+Adds Civil Engineering to your degree list and faculty events to your task list.
 
 === Listing all degrees in your degree list : `choices`
 
-Shows a list of all the degrees you are interested in currently. +
+Displays a list of all the degrees you are interested in currently. +
+Will switch to the `[Degree Choices]` tab.
+
 Format: `choices`
 
-=== Swapping degree in your degree list: `swap`
+=== Swapping degrees in your degree list: `swap <ID> <ID>`
 
-Swaps the position of two degrees in the list  so that your degrees reflect the order in which you are interested in the degrees. +
-Format `swap INDEX1 INDEX2`
-
+Swaps the position of two degrees in the list with the given IDs so that you can customize the order in which your degrees appear in. +
+Will switch to the `[Degree Choices]` tab.
 ****
-* The indices must be positive integers
-* The degree at INDEX1 will be replaced by the degree at INDEX2 and vice-versa
-* The order of indicies doesn't matter i.e. `swap 1 5` will have the same functionality as `swap 5 1`
+* The indices must be positive integers. This applies to all usages of <ID>.
+* The degree at first <ID> will be replaced by the degree at the second <ID> and vice-versa.
+* The order of indices doesn't matter i.e. `swap 1 5` will have the same functionality as `swap 5 1`.
 ****
+Format: `swap <ID> <ID>` +
 
-Examples:
+Examples: +
 
-* `swap 1 2` +
-Replaces the degree at index 1 with the degree that is already existing in index 2 and the degree at index 2 is now the degree at index 1
+* `swap 01 02` +
+Swaps degrees with ID 1 and 2.
+* `swap 1 3` +
+Swaps degrees with ID 1 and 3.
 
 <<<
-=== Removing a degree in your degree list : `remove`
+=== Removing a degree in your degree list : `remove <ID>`
 
-Removes a degree you are not interested in anymore from your degree list. +
-Format: `remove INDEX`
+Removes the degree with the specified ID from your degree list. +
+Will switch to the `[Degree Choices]` tab.
 
-****
-* Removes the degree at the specified `INDEX`.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Format: `remove <ID>` +
 
-Examples:
+Examples: +
 
 * `remove 1` +
-Removes whatever degree is in index 1 of the list and adjusts the other degrees accordingly.
+Removes the 1st degree in your degree list.
+* `remove 03` +
+Removes the 3rd degree in your degree list.
+
 
 
 // tag::delete[]
-=== Deleting an item in the current list : `delete`
+=== Deleting a task in your task list : `delete <ID>`
 
-Deletes the specified item from the list. +
-Format: `delete INDEX`
+Deletes the task with the specified ID from your task list. +
+Will switch to the `[Tasks]` tab.
 
-****
-* Deletes the item at the specified `INDEX`.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Format: `delete <ID>`
 
 Examples:
 
 * `delete 2` +
-Deletes the 2nd item in the list.
+Deletes the 2nd task in your task list.
+* `delete 05` +
+Deletes the 5th task in your task list.
 
 // end::delete[]
-=== Clearing all entries in the current list: `clear`
-
-Clears all degrees from the list. +
-Format: `clear`
 
 <<<
-=== Sorting items in tasklist: `sort`
+=== Sorting items in tasklist: `sort by <CATEGORY>`
 
-You can sort the items in the tasklist according to some parameters +
-Format: `sort PARAMETER`
+[NOTE]
+The help command accepts only `help sort`, not `help sort by`.
 
-Possible `PARAMETERS` are:
+You can sort the items in your task list according to some category. +
+This will switch to the `[Tasks]` tab. +
+
+
+Possible `<CATEGORIES>` are:
 
 . priority
 
-. date `in v2.0`
+. date 
+
+. degrees
+
+Format: `sort <CATEGORY>`
 
 Examples:
 
-* `sort priority` +
-The tasklist will sort according the priority that considers how far away the item is from the current date, as well as the rankings of your chosen degrees.
+* `sort by priority` +
+The task list will sort according the tasks priority levels. The priority of a task is specified by you, and tasks added via the addition of degrees defaults to normal.
+* `sort by date` +
+The task list will sort according to the deadlines of the tasks.
+* `sort by degrees` +
+The task list will sort according to degree-specific tasks.
 
+
+
+
+=== Marking a task as done: `done <ID>`
+
+You can mark a task with the specified ID as done to keep track of tasks that needs to be done. +
+This will switch to the `[Tasks]` tab. +
+Accepts only positive integers.
+
+Format: `redo` 
+
+Examples: +
+
+* `done 01` +
+Marks the 1st task as done.
+* `done 3` +
+Marks the 3rd task as done.
+
+=== Adding custom todo tasks: `todo <DESCRIPTION> {/priority <LEVEL>}`
+
+You can add your own custom todo tasks, with optional priority levels. +
+Todo tasks do not require deadlines. +
+This will switch to the `[Tasks]` tab. +
+
+[NOTE]
+There are 4 priority <LEVELS> that can be used for all custom tasks, including `event` and `deadline`: +
+-`Very High` +
+-`High` +
+-`Normal` +
+-`Low`
+
+
+
+Format: `todo <DESCRIPTION> | todo <DESCRIPTION> /priority <LEVEL>` 
+
+Examples: +
+
+* `todo View a perfect cherry blossom` +
+Creates a todo task with the description "View a perfect cherry blossom" with normal priority.
+* `todo Donate to the Hakurei Shrine /priority high` +
+Creates a todo task with the description "Donate to the Hakurei Shrine" with high priority.
+
+=== Adding custom event tasks: `event <DESCRIPTION> /at <DEADLINE> {/priority <LEVEL>}`
+
+You can add your own custom event tasks, with optional priority levels. +
+Event tasks require deadlines in the following format: `DD-MM-YYYY HHmm`. +
+The time format `HHmm` is in the 24-hour format. +
+This will switch to the `[Tasks]` tab. +
+
+Format: `event <DESCRIPTION> /at <DEADLINE> | event <DESCRIPTION> /at <DEADLINE> /priority <LEVEL>` 
+
+Examples: +
+
+* `event Look both sides of the road /at 15-08-2011 1500` +
+Creates an event task with the description "Look both sides of the road" on 15-08-2011 at 1500 and with normal priority.
+* `event NGNL Season 2 release /at 12-12-2119 1500 /priority Very High` +
+Creates an event task with the description "NGNL Season 2 release" on 12-12-2119 at 2359 and with very high priority.
+
+=== Adding custom deadline tasks: `deadline <DESCRIPTION> /by <DEADLINE> {/priority <LEVEL>}`
+
+[NOTE]
+We refer to the task as `deadline task`, and we refer to the date and time of the task to be done by as `deadline`.
+
+You can add your own custom deadline tasks, with optional priority levels. +
+Deadline tasks require deadlines in the following format: `DD-MM-YYYY HHmm`. +
+The time format `HHmm` is in the 24-hour format. +
+This will switch to the `[Tasks]` tab. +
+
+Format: `deadline <DESCRIPTION> /by <DEADLINE> | deadline <DESCRIPTION> /by <DEADLINE> /priority <LEVEL>` 
+
+Examples: +
+
+* `deadline Return to Zero /by 09-06-2016 1900` +
+Creates a deadline task with the description "Return to Zero" to be done by 09-06-2016 at 1900 and with normal priority.
+* `deadline Bites the Dust /by 10-10-2017 2000 /priority Low` +
+Creates a deadline task with the description "Bites the Dust" to be done by 10-10-2017 at 2000 and with low priority.
+
+=== Snoozing deadline and event tasks: `snooze <ID> /to <DEADLINE>`
+
+You can change the deadlines of deadline and event tasks. +
+Deadlines require the following format: `DD-MM-YYYY HHmm`. +
+The time format `HHmm` is in 24-hour format. =
+This will switch to the `[Tasks]` tab. +
+
+Format: `snooze <ID> /to <DEADLINE>` 
+
+Examples: +
+
+* `snooze 3 /to 09-06-2016 1900` +
+Changes the deadline of task 3 to 09-06-2016 at 1900.
+* `snooze 5 /to 01-01-1970 000` +
+Changes the deadline of task 5 to 01-01-1970 at 0000.
+
+=== Display the tasks of a given day: `schedule <DATE>` 
+
+You can view the tasks happening on a given date. +
+Dates require the following format: `DD-MM-YYYY`. Time is not required. +
+This will switch to the `[Tasks]` tab. +
+
+Format: `schedule <DATE>` 
+
+Examples: +
+
+* `schedule 01-01-1970` +
+Displays all tasks happening on 01-01-1970.
+* `schedule 18-05-2019` +
+Displays all tasks happening on 18-05-2019.
+
+=== Find tasks in your task list: `find <STRING>`
+
+You can view tasks whose description has a partial match with your specified input. +
+This command is case-sensitive. +
+This will switch to the `[Tasks]` tab. +
+
+Format: `find <STRING>` 
+
+Examples: +
+
+* `find r` +
+Displays all tasks whose description contains the letter "r".
+* `find Sleep` +
+Displays all tasks whose description contains the word "Sleep".
+
+=== Find employment rate of a given degree: `view_employment <DEGREE>`
+
+You can view statistics, in this the employment rate, of your specified degree. +
+This will produce a bar graph in another window. +
+
+Format: `view_employment <DEGREE>` 
+
+Examples: +
+
+* `view_employment bme` +
+Displays the employment rate of graduates of the Biomedical Engineering course.
+* `view_employment ise` +
+Displays the employment rate of graduates of the Industrial and Systems Engineering course.
+
+=== Find cohort size of a given degree: `cohort_size <DEGREE>`
+
+You can view past cohort sizes of your specified degree. +
+This will produce a bar graph in another window. +
+
+Format: `cohort_size <DEGREE>` 
+
+Examples: +
+
+* `cohort_size ee` +
+Displays the past cohort sizes of the Electrical Engineering course.
+* `cohort_size me` +
+Displays the past cohort sizes of the Mechanical Engineering course.
+
+=== Display keywords and aliases that are compatible with <DEGREE>: `keywords`
+
+Displays all keywords and their aliases for each degree. +
+This will switch to the `[Keywords]` tab. +
+These keywords and aliases are compatible with usages of <DEGREE>. +
+However `view_employment` and `cohort_size` only uses keywords.
+
+Format: `keywords` 
 
 
 === Undoing a command: `undo`
 
 You can undo previous commands if you are not happy with the changes. +
+This only works for commands that modifies your task or degree lists. +
+
 Format: `undo`
 
-=== Undoing a command: `redo`
+=== Redoing a command: `redo`
 
 You can also redo previous undone commands if you wish to revert back the undo. Redo will reset when a new command is entered. +
+
 Format: `redo`
 
 === Exiting the program : `bye`
 
-Exits the program. +
+Exits the program after a short delay. +
+
 Format: `bye`
 
 === Saving the data
@@ -279,7 +466,8 @@ There is no need to save manually.
 
 === Auto suggests commands based on frequency
 
-DEGREES.NUS will suggest commands based on the frequency you have used certain commands. Pressing kbd:[&#8594;] will fill the rest of the displayed command.
+DEGREES.NUS will suggest commands based on the frequency you have used certain commands. Pressing kbd:[&#8594;] will fill the rest of the displayed command. +
+If you wish to exit the current auto suggestion box, press kbd:[Esc].
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -290,22 +478,68 @@ _{explain how the user can enable/disable data encryption}_
 <<<
 == FAQ
 
+*Q*: Where are my save files located? +
+*A*: The `data` folder containing your save data is located one level above the jar file. They are called `save.txt` and `savedegree.txt`. We do not recommend modifying these files unless you know what you are doing.
+
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Place the jar in another computer. Running it for the first time will create a `data` folder containing 2 empty save files. Overwrite these save files with the save files from your previous DEGREES.NUS `data` folder. +
+
+*Q*: Why can't I find information regarding this degree? +
+*A*: If your course is not offered by the Faculty of Engineering, chances are our program does not support it. We do intend to expand our app to eventually include all courses in NUS, but for now only 9 Engineering degrees are supported.
+
+*Q*: Why can't I resize the cli? +
+*A*: This is deliberate as resizing the cli will break the formatting of the text displayed in the cli, particularly for commands `detail` and `command`. Resizing the window will only resize the tables.
+
+*Q*: Is this compatible with mac os? +
+*A*: Yes. Installation instructions are the same for both Windows and Mac.
+
+*Q*: Is this compatible with linux? +
+*A*: No. We are prioritising expanding our app to support other degrees, so linux support will not come so soon.
+
+*Q*: Is there an ios or android version? +
+*A*: No. Similar to the linux question, we are prioritising expanding our app to support other degrees, so this app will not be available on other platforms for some time.
+
+*Q*: Is this program free? +
+*A*: Yes. We intend to keep this app free and open-source, as we feel this tool should be available to all students and prospective students.
 
 <<<
 == Command Summary
 
-* *Help* : `help`
-* *Information* : `detail DEGREE|MODULE` +
-e.g. `detail ME`
-* *Comparison* : `compare DEGREE DEGREE` +
-e.g. `compare ME CEG`
-* *Add* : `add DEGREE` +
-e.g. `add MSE`
-* *Degree List* : `choices`
-* *Swap* : `swap INDEX INDEX` +
-e.g. `swap 5 7`
-* *Delete* : `delete INDEX` +
+* *Help* :  `help | help <COMMAND>` +
+e.g. `help add`, `help todo`
+* *Degree Information* : `detail | detail <DEGREE>` +
+e.g. `detail ME`, `detail CivE`
+* *Add Degree* : `add <DEGREE>` +
+e.g. `add me`, `add Industrial and Systems Engineering`
+* *List Degrees* : `choices` +
+* *Add Degree* : `swap <ID> <ID>` +
+e.g. `swap 4 1`
+* *Remove Degree* : `remove <ID>` +
+e.g. `remove 3`
+* *Delete Task* : `delete <ID>` +
 e.g. `delete 3`
-* *Exit* : `bye`
+* *Sort by Category* : `sort by <CATEGORY>` +
+e.g. `sort by date`, `sort by priority`, `sort by degree`
+* *Mark Task as done* : `done <ID>` +
+e.g. `done 3`
+* *Add todo task* : `todo <DESCRIPTION> {/priority <LEVEL>}` +
+e.g. `todo Stop time for 9 seconds`, `todo Reach the Third Magic /priority high`
+* *Add event task* : `event <DESCRIPTION> /at <DEADLINE> {/priority <LEVEL>}` +
+e.g. `event Explosion practice /at 05-06-2019 2000`, `event Holy Grail War /at 17-04-2004 1530 /priority high`
+* *Add deadline task* : `deadline <DESCRIPTION> /by <DEADLINE> {/priority <LEVEL>}` +
+e.g. `deadline Find a road roller /by 05-05-2000 0640`, `deadline Find a stone mask /by 09-07-1997 0755 /priority normal`
+* *Change task deadline* : `snooze <ID> /to <DEADLINE>` +
+e.g. `snooze 5 /to 01-01-1970`
+* *Display schedule of a date* : `schedule <DATE>` +
+e.g. `schedule 01-01-1970`
+* *Find tasks* : `find <STRING>` +
+e.g. `find r`, `find Work`
+* *Find employment rate* : `view_employment <DEGREE>` +
+e.g. `view_employment bme`
+* *Find past cohort sizes* : `cohort_size <DEGREE>` +
+e.g. `cohort_size ise`
+* *Display keywords and aliases* : `keywords` +
+* *Undo command* : `undo` +
+* *Redo command* : `redo` +
+* *Exit program* : `bye` +
+
