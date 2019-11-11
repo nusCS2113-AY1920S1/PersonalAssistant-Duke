@@ -1,6 +1,9 @@
 = Team Manager
+ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-image::docs/images/Ui.png[width="984", align="left"]
+ifndef::env-github[]
+image::docs/images/Ui.png[width="600"]
+endif::[]
 
 * This is a desktop Team Managing application. It has a gui but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java simple application intended for Team Leaders to use during projects to track and manage tasks across the entire team
