@@ -1,6 +1,5 @@
 package javacake.ui;
 
-import javacake.JavaCake;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,6 +13,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class CrashScreen extends GridPane {
@@ -22,6 +22,7 @@ public class CrashScreen extends GridPane {
     @FXML
     private ImageView crashFace;
 
+    private static final Logger LOGGER = Logger.getLogger(CrashScreen.class.getPackageName());
     private Image avatarPout1 = new Image(this.getClass().getResourceAsStream(
             "/images/avatar/h_poutopen.png"));
     private Image avatarPout2 = new Image(this.getClass().getResourceAsStream(
@@ -34,11 +35,16 @@ public class CrashScreen extends GridPane {
      */
     @FXML
     public void initialize() {
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.entering(getClass().getName(), "initialize");
+
         crashText.setText("Your waifu is disappointed with you for cheating on her!\n"
                 + "Please delete your 'data' directory to not upset her again...");
         images.add(avatarPout1);
         images.add(avatarPout2);
         funWithWaifu();
+        LOGGER.exiting(getClass().getName(), "initialize");
     }
 
     private void funWithWaifu() {
@@ -56,7 +62,7 @@ public class CrashScreen extends GridPane {
         crashFace.setOnMouseClicked(event -> {
             if (event.getClickCount() >= 1) {
                 timeFrame = 15;
-                JavaCake.logger.log(Level.INFO, "Touched waifu");
+                LOGGER.info("Touched waifu");
             }
         });
     }

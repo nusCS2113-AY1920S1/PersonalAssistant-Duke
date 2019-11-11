@@ -29,6 +29,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static javacake.quiz.QuestionList.MAX_QUESTIONS;
 
@@ -58,6 +59,9 @@ public class MainWindow extends GridPane {
     private ScrollPane noteScreen;
     @FXML
     private VBox noteContainer;
+
+    private static final Logger LOGGER = Logger.getLogger(MainWindow.class.getPackageName());
+
     public static boolean isLightMode = true;
     public static boolean isChanged = false;
     public static boolean doneDialog = false;
@@ -87,11 +91,15 @@ public class MainWindow extends GridPane {
      */
     @FXML
     public void initialize() {
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.entering(getClass().getName(), "initialize");
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         taskScreen.vvalueProperty().bind(taskContainer.heightProperty());
         noteScreen.vvalueProperty().bind(noteContainer.heightProperty());
         avatarScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
-
+        LOGGER.exiting(getClass().getName(), "initialize");
     }
 
     /**
@@ -126,6 +134,7 @@ public class MainWindow extends GridPane {
             playResizeLoop();
         } catch (NullPointerException | CakeException e) {
             System.out.println(e.getMessage());
+            LOGGER.warning(e.getMessage());
         }
 
     }
@@ -141,20 +150,36 @@ public class MainWindow extends GridPane {
      */
     @FXML
     private void handleUserInput() {
+        LOGGER.entering(getClass().getName(), "handleUserInput");
         if (!isExit) {
             try {
                 input = userInput.getText();
                 // get input first, don't get response first...
                 userInput.clear();
-                JavaCake.logger.log(Level.INFO, "INPUT: " + input);
+                LOGGER.info("userInput: " + input);
                 DialogBox.isScrollingText = true;
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
                 String[] inputDivider = input.split("\\s+");
+                if (inputDivider.length == 0) {
+                    throw new CakeException("OOPS!!! I'm sorry, but I don't know what that means.");
+                }
                 if ("exit".equals(input)) {
                     //must be "exit" exactly, else wont exe
                     handleExit();
                 } else if (isQuiz) {
                     handleOtherProcesses();
+                } else if (isReview) {
+                    LOGGER.info("Review Quiz Settings");
+                    handleIsReview();
+                } else if (isResult) { // On results screen
+                    LOGGER.info("Display Results Settings");
+                    handleIsResult();
+                } else if (isTryingReset) { //confirmation of reset
+                    LOGGER.info("Confirm Reset Settings");
+                    handleResetConfirmation();
+                } else if (isWritingNote) {
+                    LOGGER.info("Writing Note Settings");
+                    handleWriteNote();
                 } else if ("listnote".equals(input)) {
                     //must be "listnote" exactly, else wont exe
                     handleListNote();
@@ -163,28 +188,24 @@ public class MainWindow extends GridPane {
                 } else if ("createnote".equals(inputDivider[0])) {
                     handleCreateNote();
                 } else if (isStarting && javaCake.isFirstTimeUser) { //set up new username
+                    LOGGER.info("NEW USER Settings");
                     handleStartAndFirstTime();
-                } else if (isTryingReset) { //confirmation of reset
-                    handleResetConfirmation();
-                } else if (isWritingNote) {
-                    handleWriteNote();
-                } else if (isResult) { // On results screen
-                    handleIsResult();
-                } else if (isReview) {
-                    handleIsReview();
                 } else {
+                    LOGGER.info("handleOtherProcesses { normal mode }");
                     handleOtherProcesses();
                 }
             } catch (CakeException e) {
                 response = e.getMessage();
                 showContentContainer();
-                JavaCake.logger.log(Level.WARNING, e.getMessage());
+                LOGGER.warning(e.getMessage());
             }
         }
+        LOGGER.exiting(getClass().getName(), "handleUserInput");
     }
 
     @FXML
     private void handleGuiMode() {
+        LOGGER.entering(getClass().getName(), "handleGuiMode");
         if (isLightMode) { //switches to Dark theme
             isLightMode = false;
             mainGrid.setStyle("-fx-background-color: grey;");
@@ -213,42 +234,46 @@ public class MainWindow extends GridPane {
             taskScreen.setStyle("-fx-background: pink;");
             noteScreen.setStyle("-fx-background: pink;");
         }
+        LOGGER.exiting(getClass().getName(), "handleGuiMode");
     }
 
     private void handleOtherProcesses() throws CakeException {
-        JavaCake.logger.log(Level.INFO, "executing normal(else) mode!");
+        LOGGER.entering(getClass().getName(), "handleOtherProcesses");
+
         response = javaCake.getResponse(input);
         if (isFirstQuiz()) {
-            JavaCake.logger.log(Level.INFO, "First Quiz Incoming!");
+            //do first quiz
+            LOGGER.info("O1: isFirstQuiz");
         } else if (isQuiz) {
-            System.out.println("QUIZ MODE");
             handleQuiz();
+            LOGGER.info("O2: handleQuiz");
         } else if (isDeadlineRelated()) {
-            //handles "deadline" and "reminder"
-            JavaCake.logger.log(Level.INFO, "deadline setting");
+            //handles "deadline" and "reminder" and other related
+            LOGGER.info("O3: Deadline Settings");
         } else if (isColorRelated()) {
             //must be "change" exactly, else wont exe
-            System.out.println("COLOR MODE");
-            JavaCake.logger.log(Level.INFO, "colormode setting");
-        } else if (isFirstQuiz()) {
-            JavaCake.logger.log(Level.INFO, "First Quiz Incoming!");
+            LOGGER.info("O4: Color Settings");
         } else if (isFirstResetRequest()) {
-            JavaCake.logger.log(Level.INFO, "Reset command executed!");
+            //check if need to reset
+            LOGGER.info("O5: isFirstResetRequest");
         } else if (!isQuiz || isStarting) {
             //default start: finding of response
             isStarting = false;
-            JavaCake.logger.log(Level.INFO, "Response: " + response);
+            LOGGER.info("O6: normal getResponse: " + response);
             //response = JavaCake.getResponse(input);
             if (response.contains("!@#_EDIT_NOTE")) {
+                LOGGER.info("O6a: handleEditNote");
                 handleEditNote();
             } else {
-                System.out.println("Trash Cmd");
+                LOGGER.info("O6b: handleNormalCommand");
                 handleNormalCommand();
             }
         }
+        LOGGER.exiting(getClass().getName(), "handleOtherProcesses");
     }
 
     private void handleIsResult() throws CakeException {
+        LOGGER.info("handleIsResult");
         response = quizSession.parseInput(0, input);
         if ("!@#_REVIEW".equals(response)) {
             handleResultsScreenInput();
@@ -258,6 +283,7 @@ public class MainWindow extends GridPane {
     }
 
     private void handleIsReview() throws CakeException {
+        LOGGER.info("handleIsReview");
         response = reviewSession.parseInput(0, input);
         if (isNumeric(response)) {
             handleGetReviewQuestion();
@@ -293,19 +319,20 @@ public class MainWindow extends GridPane {
     }
 
     private void handleDeleteNote() throws CakeException {
+        LOGGER.info("handleDeleteNote");
         response = javaCake.getResponse(input);
         showContentContainer();
         showListNotesBox();
     }
 
     private void handleNormalCommand() {
-        JavaCake.logger.log(Level.INFO, "Normal commands mode!");
+        LOGGER.info("NormalCommand Settings");
         System.out.println("starting BUT not firsttime");
         showContentContainer();
     }
 
     private void handleEditNote() throws CakeException {
-        JavaCake.logger.log(Level.INFO, "Editing note initialised!");
+        LOGGER.info("EditNote Settings");
         isWritingNote = true;
         response = EditNoteCommand.getHeadingMessage();
         //response.setEditable(false);
@@ -316,7 +343,7 @@ public class MainWindow extends GridPane {
 
     private void handleQuiz() throws CakeException {
         //Must be quizCommand: checking of answers
-        JavaCake.logger.log(Level.INFO, "Quiz Mode!");
+        LOGGER.info("Quiz Mode Settings");
         System.out.println("quiz answer checking");
         DialogBox.isScrollingText = false;
         handleGuiQuiz();
@@ -324,7 +351,7 @@ public class MainWindow extends GridPane {
     }
 
     private void handleWriteNote() throws CakeException {
-        JavaCake.logger.log(Level.INFO, "isWritingNote...");
+        LOGGER.info("isWritingNote...");
         DialogBox.isScrollingText = false;
         if ("/save".equals(input)) {
             isWritingNote = false;
@@ -336,20 +363,20 @@ public class MainWindow extends GridPane {
     }
 
     private void handleListNote() throws CakeException {
-        JavaCake.logger.log(Level.INFO, "`listnote` command");
+        LOGGER.info("`listnote` command");
         showListNotesBox();
     }
 
     private void handleCreateNote() throws CakeException {
-        JavaCake.logger.log(Level.INFO, "`createnote` command");
+        LOGGER.info("`createnote` command");
         response = javaCake.getResponse(input);
         showContentContainer();
         showListNotesBox();
     }
 
     private void handleExit() {
-        System.out.println("EXIT");
-        JavaCake.logger.log(Level.INFO, "EXITING PROGRAM!");
+        //System.out.println("EXIT");
+        LOGGER.info("JavaCake has finished execution!");
         // find out if exit condition
         AvatarScreen.avatarMode = AvatarScreen.AvatarMode.SAD;
         isExit = true;
@@ -362,7 +389,7 @@ public class MainWindow extends GridPane {
 
     private void handleStartAndFirstTime() throws CakeException {
         System.out.println("start and first");
-        JavaCake.logger.log(Level.INFO, "New user initialising...");
+        LOGGER.info("New user initialising...");
         javaCake.userName = input;
         javaCake.storageManager.profile.overwriteName(javaCake.userName);
         response = Ui.showWelcomeMsgPhaseB(javaCake.isFirstTimeUser, javaCake.userName, javaCake.storageManager);
@@ -371,7 +398,7 @@ public class MainWindow extends GridPane {
     }
 
     private void handleResetConfirmation() throws CakeException {
-        JavaCake.logger.log(Level.INFO, "isTryingReset...");
+        LOGGER.info("isTryingReset...");
         System.out.println("resetting time");
         if ("yes".equals(input)) {
             //resets
@@ -387,17 +414,17 @@ public class MainWindow extends GridPane {
             response = "Reset confirmed!\nPlease type in new username:\n";
             TopBar.resetProgress();
             isStarting = true;
-            JavaCake.logger.log(Level.INFO, "Reset Confirmed!");
+            LOGGER.info("Reset Confirmed!");
         } else {
             response = "Reset cancelled.\nType 'list' to get list of available commands.";
-            JavaCake.logger.log(Level.INFO, "Reset Rejected!");
+            LOGGER.info("Reset Rejected!");
         }
         showContentContainer();
         isTryingReset = false;
     }
 
     private void handleGuiQuiz() throws CakeException {
-        JavaCake.logger.log(Level.INFO,"Answering question " + index + "\nUser input: \"" + input + "\"");
+        LOGGER.info("Answering question " + index + "\nUser input: \"" + input + "\"");
         quizSession.parseInput(index, input);
         index++;
         if (index < MAX_QUESTIONS) {
@@ -433,7 +460,7 @@ public class MainWindow extends GridPane {
         isReview = true;
         reviewSession = new ReviewSession(tempQuestionList);
         response = reviewSession.getQuestion(0);
-        JavaCake.logger.log(Level.INFO, "Response: review session initialized");
+        LOGGER.info("Response: review session initialized");
         DialogBox.isScrollingText = false;
         showContentContainer();
     }
@@ -515,8 +542,9 @@ public class MainWindow extends GridPane {
 
     private boolean isColorRelated() throws CakeException {
         if ("change".equals(input)) {
+            LOGGER.info("ColorMode Settings");
             isChanged = true;
-            JavaCake.logger.log(Level.INFO, "is changing color!");
+            LOGGER.info("is changing color!");
             javaCake.storageManager.profile.writeColorConfig(!isLightMode);
             return true;
         }
@@ -527,47 +555,47 @@ public class MainWindow extends GridPane {
         if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
             if (!response.contains("[!]")) {
                 deadlineExtracted();
-                JavaCake.logger.log(Level.INFO, "Adding deadlines setting");
+                LOGGER.info("Adding deadlines setting");
             } else {
                 response += "\nType 'reminder' to view deadlines";
                 showTaskContainer();
-                JavaCake.logger.log(Level.WARNING, "Deadline is not properly parsed!");
+                LOGGER.warning("Deadline is not properly parsed!");
             }
             return true;
         } else if (input.length() >= 4 && input.substring(0, 4).equals("done")) {
             if (!response.contains("[!]")) {
                 deadlineExtracted();
-                JavaCake.logger.log(Level.INFO, "Done deadlines setting");
+                LOGGER.info("Done deadlines setting");
             } else {
                 response += "\nType 'reminder' to view deadlines";
                 showTaskContainer();
-                JavaCake.logger.log(Level.WARNING, "Deadline is not properly parsed!");
+                LOGGER.warning("Deadline is not properly parsed!");
             }
             return true;
         } else if (input.length() >= 6 && input.substring(0, 6).equals("delete")) {
             if (!response.contains("[!]")) {
                 deadlineExtracted();
-                JavaCake.logger.log(Level.INFO, "Removing deadlines setting");
+                LOGGER.info("Removing deadlines setting");
             } else {
                 response += "\nType 'reminder' to view deadlines";
                 showTaskContainer();
-                JavaCake.logger.log(Level.WARNING, "Deadline is not properly parsed!");
+                LOGGER.warning("Deadline is not properly parsed!");
             }
             return true;
         } else if (input.length() >= 6 && input.substring(0, 6).equals("snooze")) {
             if (!response.contains("[!]")) {
                 deadlineExtracted();
-                JavaCake.logger.log(Level.INFO, "Changing deadlines setting");
+                LOGGER.info("Changing deadlines setting");
             } else {
                 response += "\nType 'reminder' to view deadlines";
                 showTaskContainer();
-                JavaCake.logger.log(Level.WARNING, "Deadline is not properly parsed!");
+                LOGGER.warning("Deadline is not properly parsed!");
             }
             return true;
         } else if ("reminder".equals(input)) {
             //must be "reminder" exactly, else wont exe
             showRemindersBox();
-            JavaCake.logger.log(Level.INFO, "Reminder setting");
+            LOGGER.info("Reminder setting");
             return true;
         }
         return false;
@@ -585,9 +613,10 @@ public class MainWindow extends GridPane {
 
     private boolean isFirstQuiz() throws CakeException {
         if (response.contains("!@#_QUIZ")) {
+            LOGGER.info("First Quiz Settings");
             //checks for first execution of quizSession
             isQuiz = true;
-            JavaCake.logger.log(Level.INFO, "isFirstQuiz(): " + response);
+            LOGGER.info("isFirstQuiz(): " + response);
             response = initQuizSession(response);
             DialogBox.isScrollingText = false;
             showContentContainer();
@@ -599,7 +628,7 @@ public class MainWindow extends GridPane {
     private boolean isFirstResetRequest() {
         if (response.contains("Confirm reset")) {
             //checks if resetCommand was executed
-            JavaCake.logger.log(Level.INFO, "isFirstResetRequest(): Awaiting confirmation of reset");
+            LOGGER.info("Reset Settings Waiting");
             isTryingReset = true;
             showContentContainer();
             return true;
@@ -637,19 +666,19 @@ public class MainWindow extends GridPane {
             if (isStupidUser) {
                 avatarDialog.getChildren().clear();
                 if (bullyCount.get() == 0) {
-                    JavaCake.logger.log(Level.INFO, "Cake is mad!");
+                    LOGGER.info("Cake is mad!");
                     avatarDialog.getChildren().add(
                             DialogBox.getTaskDialog("WHY ARE YOU TRYING TO CRASH MEE?!?!\n"
                                     + "baaAAKAAAAAAAAA"));
                     AvatarScreen.avatarMode = AvatarScreen.AvatarMode.POUT;
                 } else if (bullyCount.get() == 1) {
-                    JavaCake.logger.log(Level.INFO, "Cake is sad!");
+                    LOGGER.info("Cake is sad!");
                     avatarDialog.getChildren().add(
                             DialogBox.getTaskDialog("FBI-kun!!!!\n"
                                     + "HAaAaaaalPP mmeeeeeeee"));
                     AvatarScreen.avatarMode = AvatarScreen.AvatarMode.SAD;
                 } else if (bullyCount.get() == 2) {
-                    JavaCake.logger.log(Level.INFO, "Cake is gaogao!");
+                    LOGGER.info("Cake is gaogao!");
                     avatarDialog.getChildren().add(
                             DialogBox.getTaskDialog("{JavaCake has been officially\n"
                                     + "                         "

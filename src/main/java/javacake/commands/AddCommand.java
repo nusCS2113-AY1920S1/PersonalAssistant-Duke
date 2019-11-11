@@ -4,6 +4,7 @@ import javacake.exceptions.CakeException;
 import javacake.Logic;
 import javacake.storage.StorageManager;
 import javacake.storage.TaskList;
+import javacake.storage.TaskState;
 import javacake.ui.Ui;
 import javacake.storage.Storage;
 
@@ -30,7 +31,7 @@ public class AddCommand extends Command {
     @Override
     public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         String output = TaskList.runDeadline(storageManager.storage.getData(),
-                input, TaskList.TaskState.NOT_DONE);
+                input, TaskState.NOT_DONE);
         Storage.generateFolder(new File("data/tasks/"));
         storageManager.storage.write(storageManager.storage.getData());
         return output;

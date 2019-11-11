@@ -28,8 +28,8 @@ endif::[]
 
 == Site Map
 
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
+* https://docs.google.com/document/d/1d3DjnNXfN4VEOuYAOKus7Pr4GDzpLRI2oMUGOsH5pfE/edit?usp=sharing[User Guide]
+* https://docs.google.com/document/d/139pbcwMxzCet7jHuV6-FC0zt3xCKlfPrKC9SMHz_Kes/edit?usp=sharing[Developer Guide]
 * <<AboutUs#, About Us>>
 
 == Acknowledgements

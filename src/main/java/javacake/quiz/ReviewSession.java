@@ -1,6 +1,5 @@
 package javacake.quiz;
 
-import javacake.JavaCake;
 import javacake.commands.BackCommand;
 import javacake.exceptions.CakeException;
 import javacake.Logic;
@@ -8,11 +7,12 @@ import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static javacake.quiz.QuestionList.MAX_QUESTIONS;
 
 public class ReviewSession implements QuizManager {
-
+    private static final Logger LOGGER = Logger.getLogger(ReviewSession.class.getPackageName());
     private QuestionList answeredQuestions;
     private boolean isExitReview = false;
 
@@ -22,7 +22,11 @@ public class ReviewSession implements QuizManager {
      * @param questionList list of questions from a quiz session. userAnswer in all questions must not be null.
      */
     public ReviewSession(QuestionList questionList) {
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.entering(getClass().getName(), "ReviewSession");
         answeredQuestions = questionList;
+        LOGGER.exiting(getClass().getName(), "ReviewSession");
     }
 
     /**
@@ -33,7 +37,7 @@ public class ReviewSession implements QuizManager {
      */
     @Override
     public String getQuestion(int index) {
-        JavaCake.logger.log(Level.INFO, "Reviewing question" + index);
+        LOGGER.info("Reviewing question" + index);
         String message = "Type the question number to navigate to that question.\n"
                 + "Type \"back\" to return to table of contents.\n";
         return message + answeredQuestions.getQuestion(index) + "\n\n" + answeredQuestions.getAnswers(index);
@@ -49,13 +53,13 @@ public class ReviewSession implements QuizManager {
     @Override
     public String parseInput(int index, String input) throws CakeException {
         if (input.equals("back")) {
-            JavaCake.logger.log(Level.INFO, "User chose to go BACK");
+            LOGGER.info("User chose to go BACK");
             return "!@#_BACK";
         } else if (isValidInput(input)) {
             int tmp = Integer.parseInt(input) - 1;
             return String.valueOf(tmp); // echo back input with proper indexing for the next getQuestion
         } else {
-            JavaCake.logger.log(Level.WARNING, "user question index out of range: " + input);
+            LOGGER.warning("user question index out of range: " + input);
             throw new CakeException("That question number is out of range! Try again.\n\n"
                     + getQuestion(index));
         }
@@ -103,7 +107,8 @@ public class ReviewSession implements QuizManager {
                 return false;
             }
         } catch (NumberFormatException | NullPointerException e) {
-            throw new CakeException("You can't use that command here! Type a valid question number or \"back\".");
+            throw new CakeException("You can't use that command here or number is out of range! "
+                    + "Type a valid question number or \"back\".");
         }
         return true;
     }

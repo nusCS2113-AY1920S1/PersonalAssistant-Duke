@@ -1,6 +1,5 @@
 package javacake.commands;
 
-import javacake.JavaCake;
 import javacake.Logic;
 import javacake.exceptions.CakeException;
 import javacake.storage.Storage;
@@ -15,9 +14,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EditNoteCommand extends Command implements IFileUtilities {
-
+    private static final Logger LOGGER = Logger.getLogger(EditNoteCommand.class.getPackageName());
     private static String defaultDirectoryPath = "data/notes/";
 
     private static String nameOfEditFile;
@@ -40,10 +40,14 @@ public class EditNoteCommand extends Command implements IFileUtilities {
      * @throws CakeException if invalid command or invalid file name.
      */
     public EditNoteCommand(String inputCommand) throws CakeException {
-        JavaCake.logger.log(Level.INFO, "Processing EditNoteCommand: " + inputCommand);
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.entering(getClass().getName(), "EditNoteCommand");
+        LOGGER.info("Processing EditNoteCommand: " + inputCommand);
         type = CmdType.EDIT_NOTE;
         updateDefaultDirectoryPath();
         verifyCommand(inputCommand);
+        LOGGER.exiting(getClass().getName(), "EditNoteCommand");
     }
 
     /**
@@ -99,7 +103,7 @@ public class EditNoteCommand extends Command implements IFileUtilities {
             String fileName = wordsInInputCommand[1];
             checkIfFileExist(fileName);
         } else {
-            JavaCake.logger.log(Level.INFO, inputCommand + " invalid EditNoteCommand.");
+            LOGGER.warning(inputCommand + " invalid EditNoteCommand.");
             throw new CakeException("Pls enter a valid editnote command:"
                     + " 'editnote - [name of the file you wish you edit]'");
         }
@@ -116,7 +120,7 @@ public class EditNoteCommand extends Command implements IFileUtilities {
             nameOfEditFile = IFileUtilities.returnOriginalFileName(defaultDirectoryPath, fileName);
             createCurrentFilePath();
         } else {
-            JavaCake.logger.log(Level.INFO, fileName + " contains illegal file name.");
+            LOGGER.warning(fileName + " contains illegal file name.");
             throw new CakeException("Pls enter a valid file name! Type 'listnote' to view available notes!");
         }
     }
@@ -128,12 +132,12 @@ public class EditNoteCommand extends Command implements IFileUtilities {
      */
     private boolean fileExist(String fileName) {
         File file = new File(defaultDirectoryPath + fileName + ".txt");
-        JavaCake.logger.log(Level.INFO, "Checking if file: " + fileName + " exist.");
+        LOGGER.info("Checking if file: " + fileName + " exist.");
         if (file.exists()) {
-            JavaCake.logger.log(Level.INFO, fileName + " exist.");
+            LOGGER.info(fileName + " exist.");
             return true;
         }
-        JavaCake.logger.log(Level.INFO, fileName + " does not exist.");
+        LOGGER.info(fileName + " does not exist.");
         return false;
     }
 
