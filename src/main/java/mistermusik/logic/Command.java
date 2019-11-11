@@ -337,8 +337,7 @@ public class Command {
                 String newDescription = splitInfo[1];
                 events.editEvent(eventIndex, newDescription);
                 ui.printEditedEvent(eventIndex + 1, events.getEvent(eventIndex));
-            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException
-                    | NumberFormatException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 ui.printInvalidCommand();
             }
         }
