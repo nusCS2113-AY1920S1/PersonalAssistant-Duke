@@ -129,7 +129,7 @@ Type the command in the command box and press Enter to execute it. +
 All commands have a prefix, indicating whether the command belongs to the `Email` Mode or the `Task`
 Mode. The default prefix is `Email` and you can always enter a `flip` command to toggle between `Email`
 and `Task`. +
-e.g. typing help and pressing Enter opens the help window. +
+e.g. typing help and pressing Enter opens the help page in the browser. +
 Some example commands you can try in task mode:
 
 * `list`: lists all tasks
@@ -178,8 +178,7 @@ General commands will work in either mode.
 ==== Viewing help: `help`
 Format: `help`
 
-A pop up window appears and gives information on what commands are available and its respective format.
-(The help page might be outdated, please use this guide instead.)
+The program opens the browser that leads to our latest user guide for your reference.
 
 [#changeMode]
 ==== Change Mode: `flip`

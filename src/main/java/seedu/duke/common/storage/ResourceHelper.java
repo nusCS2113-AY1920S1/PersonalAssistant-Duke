@@ -20,7 +20,7 @@ public class ResourceHelper {
      * Prepares test data.
      */
     public static void prepareTestFile() {
-        Path path = StorageHelper.prepareDataPath("test_template.txt");
+        Path path = StorageHelper.prepareDataPath(TEST_FILE_NAME);
         try {
             StorageHelper.saveToFile(path, prepareTestJsonObject().toString());
         } catch (IOException | JSONException e) {
@@ -141,6 +141,11 @@ public class ResourceHelper {
 
     private static String readTestContent() {
         InputStream in = ResourceHelper.class.getResourceAsStream("/" + TEST_FILE_NAME);
+        return StorageHelper.readFromInputStream(in);
+    }
+
+    public static String readWelcomePageContent() {
+        InputStream in = ResourceHelper.class.getResourceAsStream("/html/defaultWebView.html");
         return StorageHelper.readFromInputStream(in);
     }
 

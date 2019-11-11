@@ -306,7 +306,7 @@ public class Http {
      */
     //This function is adapted from https://stackoverflow
     // .com/questions/10967451/open-a-link-in-browser-with-java-button
-    private static boolean openBrowser(String link) {
+    public static boolean openBrowser(String link) {
         try {
             URI url = new URI(link);
             Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
