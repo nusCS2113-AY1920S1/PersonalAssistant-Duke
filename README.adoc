@@ -1,5 +1,4 @@
 = SGTravel 
-image::docs/images/sader_thonk.png
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2113T-W13-3/main[image:https://travis-ci.org/AY1920S1-CS2113T-W13-3/main.svg?branch=master[Build Status]]
@@ -9,11 +8,12 @@ https://www.codacy.com/manual/Jefferson111/main?utm_source=github.com&amp;utm_me
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600" height="400"]
+[.center]
+image:docs/images/sader_thonk.png[width="64" height="64" align="center"]
 endif::[]
 
-ifndef::env-github[]
-image::images/Ui.PNG[width="600" height="400"]
+ifdef::env-github[]
+image::docs/images/Ui.png[width="600" height="400"]
 endif::[]
 
 * The project aims to build a product named `SGTravel`, a Personal Assistant Travel Planning application for Singapore Tourists!
@@ -22,7 +22,6 @@ endif::[]
 * The project showcases what we have learnt from our OOP and Software Engineering module and was made in the AY19/20 Semester 1 iteration of CS2113/T
 * This project was originally expanded on the Duke Chatbot project. 
 * Project by - Daniel, Hong Chuan, Sukrut and Jefferson!
-
 
 == Site Map
 
