@@ -151,8 +151,27 @@ Returns `drink, dog, do, etc`
 === Generating quizzes: `quiz`
 
 Generate quizzes from the wordBank to test the user's understanding. +
-Format: `quiz`
 
+Format: Type `quiz` to enter quiz mode. +
+In quiz mode, type `start` to start the quiz. +
+Type `exit_quiz` to exit the quiz. +
+When answering the MCQs, type the index `1`, `2`, `3`, `4` to select the correct option. +
+
+In a single question WordUp will display a word, and user shall choose the corresponding meaning. +
+A quiz includes 4 multiple choice questions. +
+At the end of a quiz, it will show user the score of the quiz and remind user the meaning of words that are wrongly answered. +
+
+Example: 
+
+....
+What is the meaning of WordUp?
+1. ...
+2. a fantastic personal digital booklet
+3. ...
+4. ...
+....
+
+The correct answer is 2. Type `2` and WordUp will respond the correctness.
 
 // tag::delete[]
 === Deleting a word object : `delete`
@@ -252,7 +271,11 @@ Format: `history INTEGER`
 Shows search frequency of each word in specified order. +
 Format: `freq o/ORDER`
 
-=======
+=== Adding example sentence : `add_example`
+
+Add example sentence for a word.
+Format: `add_example w/ORDER e/EXAMPLE`
+
 
 === Exiting the program : `exit`
 

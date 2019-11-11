@@ -11,6 +11,7 @@ public class Word {
     private String word;
     private String meaning;
     private HashSet<String> tags;
+    private String example;
 
     /**
      * Number of times that a word is searched.
@@ -25,6 +26,7 @@ public class Word {
     public Word(String word, String meaning) {
         this.word = word;
         this.meaning = meaning;
+        this.example = null;
         this.tags = new HashSet<>();
         this.numberOfSearches = 0;
     }
@@ -38,6 +40,7 @@ public class Word {
     public Word(String word, String meaning, HashSet<String> tags) {
         this.word = word;
         this.meaning = meaning;
+        this.example = null;
         this.tags = tags;
         this.numberOfSearches = 0;
     }
@@ -54,12 +57,20 @@ public class Word {
         return meaning;
     }
 
+    public String getExample() {
+        return example;
+    }
+
     public HashSet<String> getTags() {
         return tags;
     }
 
     public void addTag(String tag) {
         this.tags.add(tag);
+    }
+
+    public void addExample(String example) {
+        this.example = example;
     }
 
     public void incrementNumberOfSearches() {

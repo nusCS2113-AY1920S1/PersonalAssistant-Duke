@@ -152,6 +152,10 @@ public class Bank {
         return wordBank.searchWordMeaning(searchTerm);
     }
 
+    public String searchWordBankForExample(String searchTerm) throws WordBankEmptyException, NoWordFoundException {
+        return wordBank.searchWordExample(searchTerm);
+    }
+
     public void increaseSearchCount(String searchTerm) throws WordCountEmptyException, NoWordFoundException {
         wordCount.increaseSearchCount(searchTerm, wordBank);
     }
@@ -163,6 +167,10 @@ public class Bank {
     public void addTagToWord(String word, String tag) {
         wordBank.addTagToWord(word, tag);
         tagBank.addWordToOneTag(word, tag);
+    }
+
+    public void addExampleToWord(String word, String example) throws NoWordFoundException {
+        wordBank.addExampleToWord(word, example);
     }
 
     public boolean tagBankEmpty() {
