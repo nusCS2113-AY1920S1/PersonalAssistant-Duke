@@ -5,7 +5,9 @@ import seedu.duke.common.command.Command;
 import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.common.model.Model;
 import seedu.duke.common.parser.CommandParseHelper;
+import seedu.duke.email.EmailKeywordPairList;
 import seedu.duke.email.EmailList;
+import seedu.duke.email.command.EmailAddKeywordCommand;
 import seedu.duke.email.command.EmailDeleteCommand;
 import seedu.duke.email.command.EmailFilterByTagCommand;
 import seedu.duke.email.command.EmailFuzzySearchCommand;
@@ -13,15 +15,13 @@ import seedu.duke.email.command.EmailListCommand;
 import seedu.duke.email.command.EmailShowCommand;
 import seedu.duke.email.command.EmailTagCommand;
 import seedu.duke.email.entity.Email;
-import seedu.duke.task.command.TaskSetPriorityCommand;
+import seedu.duke.email.entity.KeywordPair;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -36,14 +36,14 @@ public class EmailCommandParseHelperTest {
             ArrayList<Command.Option> optionList = new ArrayList<>();
 
             //positive cases
-            assertTrue(method.invoke(null,optionList, "fuzzySearch CS2113T") instanceof EmailFuzzySearchCommand);
-            assertTrue(method.invoke(null,optionList, "fuzzySearch   CS21") instanceof EmailFuzzySearchCommand);
-            assertTrue(method.invoke(null,optionList, "fuzzySearch CS   ") instanceof EmailFuzzySearchCommand);
+            assertTrue(method.invoke(null, optionList, "fuzzySearch CS2113T") instanceof EmailFuzzySearchCommand);
+            assertTrue(method.invoke(null, optionList, "fuzzySearch   CS21") instanceof EmailFuzzySearchCommand);
+            assertTrue(method.invoke(null, optionList, "fuzzySearch CS   ") instanceof EmailFuzzySearchCommand);
 
             //negative cases
-            assertTrue(method.invoke(null,optionList, "fuzzySearch") instanceof InvalidCommand);
-            assertTrue(method.invoke(null,optionList, "fuzzysearch CS2113") instanceof InvalidCommand);
-            assertTrue(method.invoke(null,optionList, "   fuzzySearch cs21") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, optionList, "fuzzySearch") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, optionList, "fuzzysearch CS2113") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, optionList, "   fuzzySearch cs21") instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -82,13 +82,13 @@ public class EmailCommandParseHelperTest {
 
             //negative cases
             //no index
-            assertTrue(method.invoke(null,"delete") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "delete") instanceof InvalidCommand);
             //space before command
-            assertTrue(method.invoke(null," delete 2") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, " delete 2") instanceof InvalidCommand);
             //non-integer index
-            assertTrue(method.invoke(null,"delete a") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "delete a") instanceof InvalidCommand);
             //random character after index
-            assertTrue(method.invoke(null,"delete 2 a") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "delete 2 a") instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -114,7 +114,6 @@ public class EmailCommandParseHelperTest {
 
             ArrayList<Command.Option> optionListCorrect = new ArrayList<>(Arrays.asList(new Command.Option(
                     "tag", "SEP")));
-            ArrayList<String> tagsList = CommandParseHelper.extractTags(optionListCorrect);
             //positive cases
             assertTrue(method.invoke(null, optionListCorrect, "list") instanceof EmailFilterByTagCommand);
             assertTrue(method.invoke(null, optionListCorrect, "list ") instanceof EmailFilterByTagCommand);
@@ -124,7 +123,6 @@ public class EmailCommandParseHelperTest {
             ArrayList<Command.Option> optionListCorrect1 = new ArrayList<>(Arrays.asList(new Command.Option(
                     "tag", "workshop"), new Command.Option("tag", "")));
             //positive cases
-            ArrayList<String> tagsListCorrect = CommandParseHelper.extractTags(optionListCorrect1);
             assertTrue(method.invoke(null, optionListCorrect1, "list") instanceof EmailFilterByTagCommand);
 
 
@@ -178,13 +176,13 @@ public class EmailCommandParseHelperTest {
 
             //negative cases
             //no index
-            assertTrue(method.invoke(null,"show") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "show") instanceof InvalidCommand);
             //space before command
-            assertTrue(method.invoke(null," show 2") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, " show 2") instanceof InvalidCommand);
             //non-integer index
-            assertTrue(method.invoke(null,"show a") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "show a") instanceof InvalidCommand);
             //random character after index
-            assertTrue(method.invoke(null,"show 2 a") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "show 2 a") instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -225,18 +223,75 @@ public class EmailCommandParseHelperTest {
 
             //negative cases
             //no index
-            assertTrue(method.invoke(null,optionListCorrect, "update") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, optionListCorrect, "update") instanceof InvalidCommand);
             //space before command
-            assertTrue(method.invoke(null,optionListCorrect, " update 2") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, optionListCorrect, " update 2") instanceof InvalidCommand);
             //non-integer index
-            assertTrue(method.invoke(null,optionListCorrect, "update a") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, optionListCorrect, "update a") instanceof InvalidCommand);
             //random character after index
-            assertTrue(method.invoke(null,optionListCorrect, "update 2 a") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, optionListCorrect, "update 2 a") instanceof InvalidCommand);
 
             ArrayList<Command.Option> emptyOptionList = new ArrayList<>();
             //negative case
             //optionList is empty
-            assertTrue(method.invoke(null,emptyOptionList, "update 2") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, emptyOptionList, "update 2") instanceof InvalidCommand);
+        } catch (ClassNotFoundException e) {
+            fail("No such class");
+        } catch (NoSuchMethodException e) {
+            fail("No such method");
+        } catch (InvocationTargetException e) {
+            fail(e.getMessage());
+        } catch (IllegalAccessException e) {
+            fail("No Access");
+        }
+    }
+
+    @Test
+    public void parseEmailAddKeywordCommandTest() {
+        ArrayList<String> expressions = new ArrayList<>(Arrays.asList("announcement", "SEP"));
+        KeywordPair keywordPair = new KeywordPair("notice", expressions);
+        ArrayList<String> expressions1 = new ArrayList<>(Arrays.asList("program", "demo"));
+        KeywordPair keywordPair1 = new KeywordPair("notice", expressions1);
+
+        EmailKeywordPairList emailKeywordPairList = new EmailKeywordPairList();
+        emailKeywordPairList.add(keywordPair);
+        emailKeywordPairList.add(keywordPair1);
+
+        Model model = Model.getInstance();
+        model.setIsUpdateGui(false);
+        model.setKeywordPairList(emailKeywordPairList);
+
+        try {
+            Class<?> parser = Class.forName("seedu.duke.email.parser.EmailCommandParseHelper");
+            Method method = parser.getDeclaredMethod("parseEmailAddKeywordCommand", ArrayList.class,
+                    String.class);
+            method.setAccessible(true);
+
+            ArrayList<Command.Option> optionListCorrect = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "exp", "announcement")));
+            //positive cases
+            assertTrue(method.invoke(null, optionListCorrect, "addKeyword Notice")
+                    instanceof EmailAddKeywordCommand);
+            assertTrue(method.invoke(null, optionListCorrect, "addKeyword    opportunities")
+                    instanceof EmailAddKeywordCommand);
+            assertTrue(method.invoke(null, optionListCorrect, "addKeyword opportunities   ")
+                    instanceof EmailAddKeywordCommand);
+            assertTrue(method.invoke(null, optionListCorrect, "addKeyword notice a b")
+                    instanceof EmailAddKeywordCommand);
+
+            //negative cases
+            //no index
+            assertTrue(method.invoke(null, optionListCorrect, "addKeyword")
+                    instanceof InvalidCommand);
+            //space before command
+            assertTrue(method.invoke(null, optionListCorrect, " addKeyword Notice")
+                    instanceof InvalidCommand);
+
+            ArrayList<Command.Option> emptyOptionList = new ArrayList<>();
+            //negative case
+            //optionList is empty
+            assertTrue(method.invoke(null, emptyOptionList, "addKeyword Notice")
+                    instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
