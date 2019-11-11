@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>duke.ui.window</OriginalElement>
+  <nodes>
+    <node x="2208.5574675324674" y="369.0">duke.ui.window.HomeContextWindow</node>
+    <node x="3202.5574675324674" y="999.5">duke.ui.window.ResultContextWindow</node>
+    <node x="0.0" y="864.0">duke.ui.window.HelpWindow</node>
+    <node x="717.5574675324674" y="342.0">duke.ui.window.CommandWindow.MessageBox</node>
+    <node x="1048.5574675324674" y="247.5">duke.ui.window.ImpressionContextWindow</node>
+    <node x="3174.9647727272722" y="395.5">duke.ui.window.DukeDataContextWindow</node>
+    <node x="510.0" y="891.0">duke.ui.window.CommandWindow</node>
+    <node x="2574.5574675324674" y="958.5">duke.ui.window.InvestigationContextWindow</node>
+    <node x="2021.2147727272722" y="0.0">duke.ui.window.ContextWindow</node>
+    <node x="1873.5574675324674" y="274.5">duke.ui.window.SearchContextWindow</node>
+    <node x="1460.5574675324674" y="180.0">duke.ui.window.PatientContextWindow</node>
+    <node x="3844.5574675324674" y="931.5">duke.ui.window.MedicineContextWindow</node>
+    <node x="3483.5574675324674" y="958.5">duke.ui.window.ObservationContextWindow</node>
+    <node x="236.5574675324674" y="261.0">duke.ui.window.InputHistoryWindow</node>
+    <node x="2945.5574675324674" y="958.5">duke.ui.window.PlanContextWindow</node>
+    <node x="2028.75" y="1352.0">duke.ui.window.MainWindow</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="duke.ui.window.MainWindow" target="duke.ui.window.HomeContextWindow">
+      <point x="11.53571428571422" y="-342.5" />
+      <point x="2201.785714285714" y="1272.0" />
+      <point x="2381.0574675324674" y="1272.0" />
+      <point x="0.0" y="113.0" />
+    </edge>
+    <edge source="duke.ui.window.PatientContextWindow" target="duke.ui.window.ContextWindow">
+      <point x="-98.25" y="-302.0" />
+      <point x="1558.8074675324674" y="130.0" />
+      <point x="2071.2147727272722" y="130.0" />
+      <point x="-60.0" y="45.0" />
+    </edge>
+    <edge source="duke.ui.window.DukeDataContextWindow" target="duke.ui.window.ContextWindow">
+      <point x="89.75" y="-86.5" />
+      <point x="3444.2147727272722" y="120.0" />
+      <point x="2231.2147727272722" y="120.0" />
+      <point x="99.99999999999989" y="45.0" />
+    </edge>
+    <edge source="duke.ui.window.MainWindow" target="duke.ui.window.ImpressionContextWindow">
+      <point x="-57.67857142857156" y="-342.5" />
+      <point x="2132.5714285714284" y="1292.0" />
+      <point x="1244.5574675324674" y="1292.0" />
+      <point x="0.0" y="234.5" />
+    </edge>
+    <edge source="duke.ui.window.ResultContextWindow" target="duke.ui.window.DukeDataContextWindow">
+      <point x="-65.25" y="-58.5" />
+      <point x="3267.8074675324674" y="844.0" />
+      <point x="3336.5147727272724" y="844.0" />
+      <point x="-17.949999999999818" y="86.5" />
+    </edge>
+    <edge source="duke.ui.window.CommandWindow" target="duke.ui.window.InputHistoryWindow">
+      <point x="-122.25" y="-167.0" />
+      <point x="550.75" y="844.0" />
+      <point x="351.8074675324674" y="844.0" />
+      <point x="-115.25" y="221.0" />
+    </edge>
+    <edge source="duke.ui.window.HomeContextWindow" target="duke.ui.window.ContextWindow">
+      <point x="-86.25" y="-113.0" />
+      <point x="2294.8074675324674" y="160.0" />
+      <point x="2151.2147727272722" y="160.0" />
+      <point x="20.0" y="45.0" />
+    </edge>
+    <edge source="duke.ui.window.ObservationContextWindow" target="duke.ui.window.DukeDataContextWindow">
+      <point x="-85.25" y="-99.5" />
+      <point x="3568.8074675324674" y="844.0" />
+      <point x="3408.314772727272" y="844.0" />
+      <point x="53.84999999999991" y="86.5" />
+    </edge>
+    <edge source="duke.ui.window.MainWindow" target="duke.ui.window.PlanContextWindow">
+      <point x="80.75" y="-342.5" />
+      <point x="2271.0" y="1302.0" />
+      <point x="3064.0574675324674" y="1302.0" />
+      <point x="0.0" y="99.5" />
+    </edge>
+    <edge source="duke.ui.window.CommandWindow.MessageBox" target="duke.ui.window.CommandWindow">
+      <point x="77.75" y="140.0" />
+      <point x="950.8074675324674" y="844.0" />
+      <point x="795.25" y="844.0" />
+      <point x="122.25" y="-167.0" />
+    </edge>
+    <edge source="duke.ui.window.SearchContextWindow" target="duke.ui.window.ContextWindow">
+      <point x="-78.75" y="-207.5" />
+      <point x="1952.3074675324674" y="150.0" />
+      <point x="2111.2147727272722" y="150.0" />
+      <point x="-20.0" y="45.0" />
+    </edge>
+    <edge source="duke.ui.window.PlanContextWindow" target="duke.ui.window.DukeDataContextWindow">
+      <point x="-59.25" y="-99.5" />
+      <point x="3004.8074675324674" y="824.0" />
+      <point x="3264.7147727272722" y="824.0" />
+      <point x="-89.75" y="86.5" />
+    </edge>
+    <edge source="duke.ui.window.MainWindow" target="duke.ui.window.CommandWindow">
+      <point x="-103.82142857142867" y="-342.5" />
+      <point x="2086.4285714285716" y="1312.0" />
+      <point x="591.5" y="1312.0" />
+      <point x="-81.5" y="167.0" />
+    </edge>
+    <edge source="duke.ui.window.MainWindow" target="duke.ui.window.ObservationContextWindow">
+      <point x="126.89285714285734" y="-342.5" />
+      <point x="2317.1428571428573" y="1322.0" />
+      <point x="3654.0574675324674" y="1322.0" />
+      <point x="0.0" y="99.5" />
+    </edge>
+    <edge source="duke.ui.window.MainWindow" target="duke.ui.window.ContextWindow">
+      <point x="34.60714285714266" y="-342.5" />
+      <point x="2224.8571428571427" y="1282.0" />
+      <point x="2564.0574675324674" y="1282.0" />
+      <point x="2564.0574675324674" y="140.0" />
+      <point x="2191.2147727272722" y="140.0" />
+      <point x="59.999999999999886" y="45.0" />
+    </edge>
+    <edge source="duke.ui.window.MedicineContextWindow" target="duke.ui.window.DukeDataContextWindow">
+      <point x="-75.75" y="-126.5" />
+      <point x="3920.3074675324674" y="824.0" />
+      <point x="3480.1147727272723" y="824.0" />
+      <point x="125.65000000000009" y="86.5" />
+    </edge>
+    <edge source="duke.ui.window.MainWindow" target="duke.ui.window.MedicineContextWindow">
+      <point x="149.96428571428578" y="-342.5" />
+      <point x="2340.214285714286" y="1332.0" />
+      <point x="3996.0574675324674" y="1332.0" />
+      <point x="0.0" y="126.5" />
+    </edge>
+    <edge source="duke.ui.window.ImpressionContextWindow" target="duke.ui.window.ContextWindow">
+      <point x="98.0" y="-234.5" />
+      <point x="1342.5574675324674" y="120.0" />
+      <point x="2051.2147727272722" y="120.0" />
+      <point x="-80.0" y="45.0" />
+    </edge>
+    <edge source="duke.ui.window.CommandWindow" target="duke.ui.window.CommandWindow.MessageBox">
+      <point x="40.75" y="-167.0" />
+      <point x="713.75" y="834.0" />
+      <point x="795.3074675324674" y="834.0" />
+      <point x="-77.75" y="140.0" />
+    </edge>
+    <edge source="duke.ui.window.MainWindow" target="duke.ui.window.ResultContextWindow">
+      <point x="103.82142857142844" y="-342.5" />
+      <point x="2294.0714285714284" y="1312.0" />
+      <point x="3333.0574675324674" y="1312.0" />
+      <point x="0.0" y="58.5" />
+    </edge>
+    <edge source="duke.ui.window.MainWindow" target="duke.ui.window.SearchContextWindow">
+      <point x="-11.53571428571422" y="-342.5" />
+      <point x="2178.714285714286" y="1272.0" />
+      <point x="2031.0574675324674" y="1272.0" />
+      <point x="0.0" y="207.5" />
+    </edge>
+    <edge source="duke.ui.window.MainWindow" target="duke.ui.window.HelpWindow">
+      <point x="-126.89285714285711" y="-342.5" />
+      <point x="2063.357142857143" y="1322.0" />
+      <point x="367.5" y="1322.0" />
+      <point x="122.5" y="194.0" />
+    </edge>
+    <edge source="duke.ui.window.MainWindow" target="duke.ui.window.PatientContextWindow">
+      <point x="-34.60714285714266" y="-342.5" />
+      <point x="2155.6428571428573" y="1282.0" />
+      <point x="1657.0574675324674" y="1282.0" />
+      <point x="0.0" y="302.0" />
+    </edge>
+    <edge source="duke.ui.window.InvestigationContextWindow" target="duke.ui.window.DukeDataContextWindow">
+      <point x="87.75" y="-99.5" />
+      <point x="2837.8074675324674" y="814.0" />
+      <point x="3228.814772727272" y="814.0" />
+      <point x="-125.65000000000009" y="86.5" />
+    </edge>
+    <edge source="duke.ui.window.MainWindow" target="duke.ui.window.InvestigationContextWindow">
+      <point x="57.67857142857156" y="-342.5" />
+      <point x="2247.9285714285716" y="1292.0" />
+      <point x="2750.0574675324674" y="1292.0" />
+      <point x="0.0" y="99.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.35076775431861806" x="2074.0" y="1018.5" />
+  <SelectedNodes>
+    <node>duke.ui.window.PlanContextWindow</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
