@@ -1,6 +1,8 @@
 package eggventory.model.items;
 
-//@@author cyanoei
+//@@author cyanoei-unused
+
+//Unused because UniqueStock has been pushed back to v2.0.
 
 /**
  * An item of unique stock. Has its own index (unique among items of that stock), loan and lost status.

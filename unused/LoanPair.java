@@ -1,6 +1,9 @@
 package eggventory.model.loans;
 
-//@@author cyanoei
+//@@author cyanoei-unused
+
+//Unused because Loan Pairs are now stored differently within the LoanList.
+
 /**
  * Data structure to store the pairs of Person and Stock, used as the key for accessing the relevant Loan.
  * For ease of implementation, LoanPairs' two attributes should never be modified.

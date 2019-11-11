@@ -5,7 +5,9 @@ import eggventory.commons.exceptions.BadInputException;
 import java.util.ArrayList;
 
 
-//@@author cyanoei
+//@@author cyanoei-unused
+
+//Unused because implementation of UniqueStock has been pushed back to v2.0.
 
 //Since 5 Nov the quantity-related features have been broken by the sanity check for negatives.
 /**
