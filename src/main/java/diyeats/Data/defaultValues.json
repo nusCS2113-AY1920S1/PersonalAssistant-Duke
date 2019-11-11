@@ -1,4 +1,7 @@
 {
+  "burger": {
+    "calorie": 1000
+  },
   "Fish burger": {
     "calorie": 400
   },

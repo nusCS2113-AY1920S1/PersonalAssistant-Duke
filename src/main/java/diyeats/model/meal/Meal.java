@@ -137,7 +137,7 @@ public class Meal {
 
     /**
      * This is a getter for the value associated with "calorie".
-     * @return nutrtional value of "calorie"
+     * @return nutritional value of "calorie"
      */
     public int getCalorieValue() {
         return this.nutritionValue.get("calorie");

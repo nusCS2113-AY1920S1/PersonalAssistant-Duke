@@ -1,4 +1,39 @@
 {
+  "2019-11-11": [
+    {
+      "description": "prata",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 100
+      },
+      "costStr": "2.5"
+    },
+    {
+      "description": "prata",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 100
+      },
+      "costStr": "2.5"
+    },
+    {
+      "description": "burger",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 1000
+      },
+      "costStr": "0"
+    }
+  ],
   "2019-11-10": [
     {
       "description": "Turkey Bacon Burger",
