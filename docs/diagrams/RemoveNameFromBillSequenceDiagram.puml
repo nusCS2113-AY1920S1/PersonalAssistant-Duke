@@ -19,7 +19,7 @@ deactivate logic LOGIC_COLOR_T1
 logic -> logic : RemoveNameCommand()
 activate logic LOGIC_COLOR_T1
 
-logic -> model : addWithIndex(index, newDebt)
+logic -> model : addWithIndex(index, newBill)
 activate model MODEL_COLOR_T2
 deactivate logic
 

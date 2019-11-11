@@ -34,7 +34,7 @@ deactivate storage
 model --> logic
 deactivate model
 
-logic -> ui : echoAddDebt(newDebt)
+logic -> ui : printAverageAmount()
 activate ui UI_COLOR
 
 ui--> logic

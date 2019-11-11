@@ -69,7 +69,8 @@ public class HelpUi extends Ui {
         + "\tborrow                                  borrow [FRIEND] [AMOUNT] [DESCRIPTION] /due [DATE]\n"
         + "\tadd new bill                            bill [NUM OF PEOPLE] [TOTAL AMOUNT] [NAME1] [NAME2]...\n"
         + "\tremove name from a bill                 paid [BILL NUM] [NAME]\n"
-        + "\tshow bill list                          bills";
+        + "\tshow bill list                          bills"
+        + "\tremove bill from list                   remove bill [BILL NUM]";
 
     private static final String HELP_CMD =
           "\tviewing help                            help";
