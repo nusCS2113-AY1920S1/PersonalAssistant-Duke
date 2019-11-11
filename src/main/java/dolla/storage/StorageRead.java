@@ -96,7 +96,6 @@ public class StorageRead extends Storage {
                 addToList(type, newRecord);
             }
             StorageWrite.save();
-            LogsCentreUtil.setLogger.log(Level.INFO,"Save file successfully loaded.");
         } catch (FileNotFoundException e) {
             StorageUi.printCreateFolderMessage();
             LogsCentreUtil.setLogger.log(Level.SEVERE, "Create a new save file.", e);

@@ -1,0 +1,45 @@
+@startuml
+
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":Logic" as logic LOGIC_COLOR_T2
+Participant ":Model" as model MODEL_COLOR_T2
+Participant ":Storage" as storage STORAGE_COLOR_T3
+Participant ":UI" as ui UI_COLOR_T2
+
+user -> logic : "bill 2 30 tata yuyu"
+activate logic LOGIC_COLOR_T2
+logic -> logic : verifyAddBillCommand()
+activate logic LOGIC_COLOR_T1
+deactivate logic
+
+logic -> logic : AddBillCommand()
+activate logic LOGIC_COLOR_T1
+
+logic -> model : addBillToRecordList()
+activate model MODEL_COLOR_T2
+deactivate logic
+
+model -> storage : setBills(get())
+activate storage STORAGE_COLOR
+
+storage -> storage : save()
+activate storage STORAGE_COLOR_T1
+deactivate storage
+
+storage --> model
+deactivate storage
+
+model --> logic
+deactivate model
+
+logic -> ui : echoAddDebt(newDebt)
+activate ui UI_COLOR
+
+ui--> logic
+deactivate ui
+
+logic --> user
+deactivate logic
+@enduml

@@ -536,10 +536,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     /**
-     *      * Checks if the first word after 'add' is either 'income' or 'expense'.
-     *      * @param s String to be analysed.
-     *      * @return Either 'expense' or 'income' if either are passed in.
-     *      * @throws Exception ???
+     * Checks if the first word is "owe" or "borrow".
+     * @param s String to be analysed.
+     * @return Either 'expense' or 'income' if either are passed in.
+     * @throws Exception ???
      */
     private static String verifyDebtType(String s) throws Exception {
         if (s.equals(TYPE_OWE) || s.equals(TYPE_BORROW)) {

@@ -18,7 +18,7 @@ public class LogsCentreUtil {
      */
     public static void logSetter() {
         LogManager.getLogManager().reset();
-        setLogger.setLevel(Level.ALL);
+        setLogger.setLevel(Level.INFO);
         try {
             FileHandler fh = new FileHandler("./data/dollaLogger.log",true);
             fh.setLevel(Level.INFO);

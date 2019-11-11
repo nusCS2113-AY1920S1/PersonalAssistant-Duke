@@ -1,0 +1,47 @@
+@startuml
+
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":Logic" as logic LOGIC_COLOR_T2
+Participant ":Model" as model MODEL_COLOR_T2
+Participant ":Storage" as storage STORAGE_COLOR_T3
+Participant ":UI" as ui UI_COLOR_T2
+
+user -[USER_COLOR]> logic : "paid 1 tata"
+activate logic LOGIC_COLOR_T2
+logic -> logic : isPaidCmd()
+activate logic LOGIC_COLOR_T1
+deactivate logic
+logic -> logic : verifyPaidCommand
+activate logic LOGIC_COLOR_T1
+deactivate logic LOGIC_COLOR_T1
+logic -> logic : RemoveNameCommand()
+activate logic LOGIC_COLOR_T1
+
+logic -> model : addWithIndex(index, newDebt)
+activate model MODEL_COLOR_T2
+deactivate logic
+
+model -> storage : setBill(get())
+activate storage STORAGE_COLOR
+
+storage -> storage : save()
+activate storage STORAGE_COLOR_T1
+deactivate storage
+
+storage --> model
+deactivate storage
+
+model --> logic
+deactivate model
+
+logic -> ui : printRemoveNameMessage()
+activate ui UI_COLOR
+
+ui--> logic
+deactivate ui
+
+logic --> user
+deactivate logic
+@enduml
