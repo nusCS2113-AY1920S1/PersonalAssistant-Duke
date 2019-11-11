@@ -525,7 +525,7 @@ The `Fridge` component allows access and modification of the `Ingredient`s used 
 
 Upon (re)booting the program, the `Fridge` gets initialized with the current `IngredientList` (the attribute `entries`) stored in the `FridgeStorage`, passed as a parameter to it's main constructor. In all subsequent Ingredient manipulations, these two components are accessing/modifying the same `IngredientList`, meaning modifications made in the `Fridge`, are immediately seen in the `entries` attribute (an inherited `GenericList`) of the `FridgeStorage` , therefore, consistency among these classes is guaranteed. 
 
-![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML1.png)
+![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridge.png)
 
 **<u>Ingredient Class</u>**
 
