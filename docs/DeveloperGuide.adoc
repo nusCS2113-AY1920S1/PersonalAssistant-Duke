@@ -86,15 +86,11 @@ The Architecture Diagram given above explains the high-level design of the App. 
 * Model
 * Storage
 
-Each of the four components, UI, Logic, Model and Storage: +
-
-* Exposes its functionality using a `Manager` class.
-* Otherwise it is managed with a `List` class
-
 === Components
 ==== Main
 
-Main has only one class called Duke. It is responsible for: +
+
+Main has only one class called link:{repoURL}/src/main/java/main/Duke.java[`Duke`]. It is responsible for: +
 
 * At app launch: Initialising the components in the correct sequence, and connects them up with each other.
 * On user input: Managing parser and executing commands.
@@ -105,6 +101,8 @@ The UI component is the User Interface of the App.
 
 image::UiClassDiagram.png[width="800"]
 _Figure 3.2.1 : Structure of the UI Component_
+
+*API* : link:{repoURL}/src/main/java/javafx/MainWindow.java[`MainWindow.java`]
  
 The UI consists of a MainWindow that is made up of parts e.g. tableView, tabPane etc. All these, including the MainWindow, inherit from the abstract UiPart class. +
 
@@ -114,8 +112,8 @@ The layout of these UI parts are defined in matching .fxml files that are in the
 
 The UI component: +
 
-•	Executes user commands using the Logic component.
-•	Binds itself to some data in the Model so that the UI can auto-update when data in the Model change.
+•	Displays results from user inputs in a tabular format.
+•	Reads some data in the Model so that the UI can update when a user inputs a command.
 •	Responds to events raised from various parts of the App and updates the UI accordingly.
 
 ==== Logic component
@@ -127,13 +125,60 @@ _Figure 3.3.1 : Structure of the Logic Component_
 image::LogicCommandClassDiagram.png[width="800"]
 _Figure 3.3.2 : Structure of Commands in the Logic Component. This diagram shows finer details concerning `XYZCommand` and `Command` in Figure 2.3.1_
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  `Logic` uses the `Parser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `Command` classes.
+.  The command execution can affect the `Model` (e.g. adding a degree) and/or add events.
+.  Commands save a state of a `TaskList` and `DegreeList` withing themselves in a `memento` object before executing changes to them. This is to be used in the `undo` and `redo` command.
+
+==== Model component
+The `Model` component holds the data of the App in-memory. The following diagram illustrates the structure of Model component.
+
+image::ModelComponentClassDiagram.PNG[width="800"]
+_Figure 3.4.1 : Structure of the Model Component_
+
+*API* : link:{repoURL}/src/main/java/task/TaskList.java[`TaskList.java`],  link:{repoURL}/src/main/java/list/DegreeList.java[`DegreeList.java`], link:{repoURL}/src/main/java/degree/DegreeManager.java[`DegreeManager.java`]
+link:{repoURL}/src/main/java/statistics/Statistics.java[`Statistics.java`]
+
+The `Model`,
+
+* stores `TaskList` and `DegreeList` objects that represents the user's preferences.
+* stores the Degree data in `Degree Manager`.
+* stores the Statistics data for degrees in `Statistics`.
+* does not depend on any of the other three components.
+
+==== Storage component
+The `Storage` component reads data from, and writes data to, the hard disk. The following diagram illustrates the structure of Storage component.
+
+image::StorageClassDiagram.png[width="800"]
+_Figure 3.5.1 : Structure of the Storage Component_
+
+*API* : link:{repoURL}/src/main/java/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `save` and `savedegree` objects in txt format and read it back.
+* can read the degree data in csv format.
+* can read the degree events and statistics data in txt format.
+
+=== Events-Driven nature of the design
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+
+image::SDforDeletePerson.png[width="800"]
+_Figure 3.1.3a : Component interactions for `delete 1` command (part 1)_
+
+[NOTE]
+Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+
+The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+
+image::SDforDeletePersonEventHandling.png[width="800"]
+_Figure 3.1.3b : Component interactions for `delete 1` command (part 2)_
+
+[NOTE]
+Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+
 
 
 
