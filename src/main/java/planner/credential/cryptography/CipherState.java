@@ -58,9 +58,21 @@ public class CipherState {
      * @return HashMap-like String representation of CipherState
      */
     public String toString() {
+        String messageRepresentation;
+        String keyRepresentation;
+        if (this.message == null) {
+            messageRepresentation = "";
+        } else {
+            messageRepresentation = new String(this.message, StandardCharsets.UTF_8);
+        }
+        if (this.key == null) {
+            keyRepresentation = "";
+        } else {
+            keyRepresentation = new String(this.key, StandardCharsets.UTF_8);
+        }
         HashMap<String, String> state = new HashMap<>();
-        state.put("message", new String(this.message, StandardCharsets.UTF_8));
-        state.put("privateKey", new String(this.key, StandardCharsets.UTF_8));
+        state.put("message", messageRepresentation);
+        state.put("privateKey", keyRepresentation);
         return state.toString();
     }
 }

@@ -4,8 +4,6 @@ package planner.credential.cryptography;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import planner.logic.command.CommandTestFramework;
-import planner.logic.exceptions.legacy.ModException;
 import planner.util.cryptography.CryptographyUtils;
 
 import javax.crypto.BadPaddingException;
@@ -21,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class CipherTest extends CommandTestFramework {
+public class CipherTest {
 
     private ArrayList<EncryptionLayer> encryptionLayersWithHash;
     private ArrayList<EncryptionLayer> encryptionLayersWithoutHash;
@@ -31,9 +29,8 @@ public class CipherTest extends CommandTestFramework {
 
     /**
      * CipherTest constructor.
-     * @throws ModException when initialization of CommandTestFramework throws an exception
      */
-    public CipherTest() throws ModException {
+    public CipherTest() {
         encryptionLayersWithHash = new ArrayList<>();
         encryptionLayersWithoutHash = new ArrayList<>();
         try {
@@ -146,7 +143,6 @@ public class CipherTest extends CommandTestFramework {
             BadPaddingException,
             NoSuchAlgorithmException,
             NoSuchPaddingException {
-        resetAll();
         String message = "test";
         cipherState = new CipherState(message.getBytes());
         encrypt(cipherState, encryptionLayersWithHash);
@@ -162,7 +158,6 @@ public class CipherTest extends CommandTestFramework {
             BadPaddingException,
             NoSuchAlgorithmException,
             NoSuchPaddingException {
-        resetAll();
         String message = "test";
         cipherState = new CipherState(message.getBytes());
         encrypt(cipherState, encryptionLayersWithoutHash);
@@ -178,7 +173,6 @@ public class CipherTest extends CommandTestFramework {
             BadPaddingException,
             NoSuchAlgorithmException,
             NoSuchPaddingException {
-        resetAll();
         String message = "test";
         cipherState = new CipherState(message.getBytes());
         encrypt(cipherState, emptyLayerList, false);
@@ -194,7 +188,6 @@ public class CipherTest extends CommandTestFramework {
             BadPaddingException,
             NoSuchAlgorithmException,
             NoSuchPaddingException {
-        resetAll();
         String originalMessage = "test";
         encryptThenDecrypt(originalMessage, encryptionLayersWithHash);
         byte[] decryptedMessage = cipherState.getMessage();
@@ -210,7 +203,6 @@ public class CipherTest extends CommandTestFramework {
             BadPaddingException,
             NoSuchAlgorithmException,
             NoSuchPaddingException {
-        resetAll();
         String originalMessage = "test";
         encryptThenDecrypt(originalMessage, encryptionLayersWithoutHash);
         byte[] decryptedMessage = cipherState.getMessage();
@@ -226,7 +218,6 @@ public class CipherTest extends CommandTestFramework {
             BadPaddingException,
             NoSuchAlgorithmException,
             NoSuchPaddingException {
-        resetAll();
         String message = "test";
         cipherState = new CipherState(message.getBytes());
         encryptThenDecrypt(message, emptyLayerList, false);
