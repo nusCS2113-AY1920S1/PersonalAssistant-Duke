@@ -232,7 +232,7 @@ lists all the members in order of progress from high to low in the CLI output an
 lists all the members in order of todo task num from low to high in the CLI output and switches to members view +
 `list members todonum`
 
-lists all reminders
+lists all reminders +
 `list reminders`
 
 ****
