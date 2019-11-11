@@ -10,22 +10,25 @@ import java.util.HashMap;
 
 public class AddTaskParser {
 
-    public static final String FORMAT_WRONG_MESSAGE = "Cannot resolve the model type. "
-            + "\nUsage: add [task/member] [details]";
-    public static final String TASK_NO_EMPTY_MESSAGE = "The name of task cannot be empty.";
     public static final String TIME_PATTERN = "dd/MM/yyyy hhmm";
+    public static final String FORMAT_WRONG_MESSAGE = "Usage: add task [task name] \n"
+            + "(optional) /at " + TIME_PATTERN + "\n"
+            + "(optional) /to [member(s) name(s)]\n"
+            + "eg: add task exam /at 23/11/2019 1300 /to Alice";
 
     //@@author chenyuheng
-
     /**
-     * parses arguments of addtask into a multimap
+     * Parse an add Task command.
+     * @param userInput Partial parsed add task command. (Command without "add task")
+     * @return A parsed AddTaskCommand
+     * @throws DukeException If command format is invalid.
      */
     public static AddTaskCommand parseAddTask(String userInput) throws DukeException {
         HashMap<String, String> argumentMultimap = ArgumentTokenizer.tokenize(userInput);
         String name = argumentMultimap.get("");
         AddTaskCommand command;
         if (name.length() == 0) {
-            throw new DukeException(TASK_NO_EMPTY_MESSAGE);
+            throw new DukeException(FORMAT_WRONG_MESSAGE);
         } else {
             command = new AddTaskCommand(name);
         }
