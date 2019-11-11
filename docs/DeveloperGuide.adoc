@@ -22,7 +22,7 @@ Amateur musicians find it difficult to start with music theory as they are unabl
 practical method and quit. Our application allows amateur musicians to learn music theory and apply their learning by
 creating songs.
 
-This application allows you to learn what you have learnt through:
+This application allows you to apply what you have learnt through:
 
 * Ease of adding, deleting components to the songs
 
@@ -35,9 +35,9 @@ the  basics of creating a song.
 print it in command line.
 
 This document describes the coding style and the architecture of the Ducats project built by Team CS2113T F09-4.
-This document is intended for our major release v1.3.
+This document is intended for our major release v1.4.
 
-The documentation will allow any developer to start to work on the project by first learning about the system
+The documentat will allow any developer to start to work on the project by first learning about the system
 architecture, then the implementation and lastly on how to document the code that is written.
 
 
@@ -162,7 +162,7 @@ findSongIndex(songName) conducts a linear search on the SongList to return the i
 
     songList.setActiveIndex(songList.findSongIndex(songName));
 
-For future CRUD commands, the specific SongList method invoked by the `execute()` method takes in the activeIndex as a parameter and proceeds to perform the necessary operations on the SongList, as shown below.
+For future CRUD commands, the specific SongList method invoked by the `execute()` method takes in the activeIndex as a parameter and proceeds to perform the necessary operations on the SongList, as shown below. This means that you can utilize the SongList API function `setActiveIndex()` in other created components to achieve the same functionality.
 
 image::songlist_activeIndex3.png[]
 
