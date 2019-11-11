@@ -14,7 +14,7 @@ Project Team
 
 <img src="images/jaedonkey.png" alt="drawing" width="150"/>
 
-\[[github](http://github.com/jaedonkey)\] \[[portfolio](#jaedonkey#)\]
+\[[github](http://github.com/jaedonkey)\] \[[portfolio](teams/Jaedonkey.pdf)\]
 
 Role: Developer  
 Responsibilities: Edit & Find Command,Storage Component
