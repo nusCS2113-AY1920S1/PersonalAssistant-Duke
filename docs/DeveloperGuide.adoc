@@ -71,17 +71,31 @@ Ducats, the main class, is responsible for the initialization of the different c
 
 DucatsLogger is a common class used by many of the components in order to log information, warnings and errors in a `.log` file.
 
-Other than the two components mentioned above, the rest of the components are linked in a way reminiscent of an n-tier architectural style, with the higher-level components depending on the resources provided by the lower-level components.
+Other than the two components mentioned above, the rest of the components are linked in a way reminiscent of an n-tier architectural style, with the higher-level components depending on the resources provided by the lower-level components. The remaining seven components are as follows:
+
+* `UI`: interacts with the console (reading and writing)
+* `Parser`: parses the input command and creates of the appropriate Command object
+* `Command`: executed to modify the UI, SongList and Storage
+* `SongList`: contains the list of Song objects
+* `Metronome`: displays a visual metronome on screen when initialized through a `MetronomeCommand`
+* `StorageParser`: parses data in persistent storage and converts song data to a form friendly to be stored in persistent storage
+* `Storage`: Reads data from and writes data to persistent storage in the hard disk
 
 === UI
 
-This layer consists of the `UI` Class which is in charge of printing the output to the command line in a specific format. This was chosen instead of printing the output from every individual class as we opted to do abstraction to make it simpler when adding new features. This class also receives messages from users and pass it to parser layer, which decides which class to be called.
+*API*: link:https://github.com/AY1920S1-CS2113T-F09-4/main/blob/master/src/main/java/ducats/Ui.java[`Ui.java`]
+
+This layer consists of the `UI` Class which is in charge of printing the output to the command line in a specific format. This was chosen instead of printing the output from every individual class as we opted to do abstraction to make it simpler when adding new features. This class also receives messages from users and passes them to the parser layer, which decides which class to be called.
 
 === Parser and Commands
 
 === SongList
 
 === Storage and StorageParser
+
+*Storage API*: link:https://github.com/AY1920S1-CS2113T-F09-4/main/blob/master/src/main/java/ducats/Storage.java[`Storage.java`]
+
+*StorageParser API*: link:https://github.com/AY1920S1-CS2113T-F09-4/main/blob/master/src/main/java/ducats/StorageParser.java[`StorageParser.java`]
 
 The Storage layer, implemented by the `Storage` class, is responsible for Ducats' interaction with persistent storage of the SongList, which is in the form of a directory called *data* containing `.txt` files that each contain the full data for one Song.
 
@@ -100,7 +114,7 @@ image::Command_Sequence_Diagram.png[]
 
 In the above diagram, 'XYZ' is used to represent a general command or function. There are several different types of possible commands that can be created after parsing, and hence the object is labelled "XYZCommand". Similarly, to format the output string, there are multiple method within the UI class of doing so, hence being represented here by "XYZFormat()".
 
-It can be seen that, for all commands, the `Parser` class is used to determine what type of command the user intends for the program to execute. In accordance with this, a new `Command` object is created and then the `execute()` method of the Command is called, modifying the `SongList` and `Storage`, and returning a String to be displayed on the console through the `UI` class.
+It can be seen that, for all commands, the `Parser` class is used to determine what type of command the user intends for the program to execute, and then creates the appropriate command with the full message text as a parameter. Then, the `execute()` method of the Command is called, modifying the `SongList` and `Storage`, and returning a String to be displayed on the console through the `UI` class.
 
 A slightly different schedule is used for the Metronome functionality, which will be discussed in further detail in Section 4.5.
 
@@ -122,9 +136,38 @@ The created Song object will then be inserted into the SongList object, which co
 
 In order to enable the modification of certain songs when there are multiple songs without the forced provision of additional parameters by the user, a system of navigation has been implemented, where a song can be "opened" in order for it to be edited, with the first song in the SongList being "opened" by default. "Opening" a song is carried out by the execution of the `OpenCommand`, which changes a variable in the `SongList` object known as the `activeIndex`.
 
-`activeIndex` corresponds to the index of the song that can be edited by the other CRUD functions, and only by modifying this attribute to the appropriate value can songs other than the first one be editable. The overall sequence for the parsing and execution of `OpenCommand` is shown below in Figure X.
+`activeIndex` corresponds to the index of the song that can be edited by the other CRUD functions, and only by modifying this attribute to the appropriate value can songs other than the first one be editable. For example, consider the situation where the SongList contains two songs titled "twinkle" and "dreams".
 
-<insert sequence diagram specific to OpenCommand>
+image::songlist_activeIndex1.png[]
+
+In this case, as the default `activeIndex` is set to `0`, the user can enter `open dreams` in the CLI to make sure he is editing the song titled "dreams".
+
+image::songlist_activeIndex2.png[]
+
+When the main class executes the command, the command will first try to find the index of the provided song in the song list.
+
+    String songName = message.substring(5);
+    int songIndex = songList.findSongIndex(songName);
+
+findSongIndex(songName) conducts a linear search on the SongList to return the index of the song that has the given name, and returns -1 is the song is not found. By querying the return value, Ducats either sets the activeIndex of the SongList or throws and then handles a DucatsException. The former is carried out with the `setActiveIndex()` method of the SongList class.
+
+    songList.setActiveIndex(songList.findSongIndex(songName));
+
+For future CRUD commands, the specific SongList method invocated by the `execute()` method takes in the activeIndex as a parameter and proceeds to perform the necessary operations on the SongList, as shown below.
+
+image::songlist_activeIndex3.png[]
+
+_Design Considerations_:
+
+* Use binary search instead of linear search for `findSongIndex()`
+** _Pros_: Higher efficiency in navigation
+** _Cons_: the `list` in the SongList needs to be sorted, and insertion in a sorted manner, along with the implementation of binary search, for minimal gains in efficiency, seems to violate KISS
+
+* Let the user input the index of the song rather than the name
+** _Pros_: Faster input of command for the user, no need for `findSongIndex()`
+** _Cons_: User needs to look at the full list first, so overall, time is not saved. For the user, querying a name is more natural than an index.
+
+Hence, we have decided to go for a linear search for `findSongIndex()`, and let the user input the song name to open the song instead of the index.
 
 ==== Modifying a Song
 
@@ -155,6 +198,23 @@ Following this, the `TimerTask` of generating the appropriate output to the cons
 === Autosuggest
 
 === Storage
+
+In order to ensure that the songs the user has created, deleted or modified can be retrieved even after exiting Ducats, a form of persistent storage is needed. This is implemented as a folder containing `.txt` files, and a `Storage` class that will interact with the said folder to read and modify its contents. Since the `Storage` class can create and modify files, it is important to understand the exact procedures executed within the class. This is shown below in Figure X.
+
+<insert activity diagram of Storage>
+
+// todo: elaboration
+
+_Design Considerations_:
+
+* Using a single .txt file to store all the data
+** _Pros_: easier implementation of `Storage`
+** _Cons_: harder for the user to import and export files without corrupting the data, complicated parsing in `StorageParser` required to get the full data
+* Using .csv files instead of .txt files to store the data
+** _Pros_: arguably a more organized method of data management
+** _Cons_: difficult to store song data of varying lengths in a meaningful way that would make a `.csv` file more ideal than a `.txt` file
+
+We have decided to use a storage directory that contains `.txt` files, each containing a single song's data. With this implementation, it is easy for the user to export and import songs by just copying out or inserting .txt files of the same format respectively. Additionally, having a folder instead of a single file is neater for the user's file management, hence enhancing the user experience.
 
 === Logging
 
