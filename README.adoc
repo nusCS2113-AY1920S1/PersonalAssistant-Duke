@@ -1,6 +1,8 @@
 = DUKE Manager
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
+image:https://api.codacy.com/project/badge/Grade/7e7d451093cc4dbc9cc8d99b8228bc61[link="https://www.codacy.com/manual/DukeManager/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2113-T13-4/main&amp;utm_campaign=Badge_Grade"]
+
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
