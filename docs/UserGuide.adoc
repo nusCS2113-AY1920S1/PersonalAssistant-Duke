@@ -28,6 +28,8 @@ ModPlan also helps NUS Computer Engineering students to customise the modules th
 
 As such, NUS Computer Engineering students can graduate in time with the planning provided by the ModPlan!
 
+Developed and maintained by the `AY1920S1-CS2113T-F10-1` link:{repoURL}//tree/master/docs/AboutUs.adoc[team].
+
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -71,15 +73,20 @@ Adds the specified module or CCA to the module list or CCA list respectively.
 Searches for a module and adds it to the module list, if the module is present in the list of NUS modules. +
 Format: `add module MOD_CODE`
 
+image::AddModuleSample.png[width="450"] 
+
 ****
 * The `MOD_CODE` must be in the format of the NUS module code name.
 * Example: `add module CG2028`
+
 ****
 
 ==== Searching and adding a module with time period of the week: `add module`
 
 Searches for a module and adds it to the module list, if the module is present in the list of NUS modules. +
 Format: `add module MOD_CODE --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
+
+image::AddModuleScheduleSample.png[width="450"] 
 
 ****
 * The `MOD_CODE` must be in the format of the NUS module code name.
@@ -92,6 +99,8 @@ Format: `add module MOD_CODE --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_O
 
 Adds a CCA task into the CCA list. +
 Format: `add cca CCA_NAME --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
+
+image::AddCcaSample.png[width="450"] 
 
 ****
 * The `BEGIN_TIME` and `END_TIME` must be in the format of HHmm.
@@ -108,6 +117,8 @@ Shows a list of specificed modules or ccas added in the module or cca list respe
 Shows a list of all modules added in the module list. +
 Format: `show module`
 
+image::ShowModuleSample.png[width="450"] 
+
 ****
 * Shows the module code, the number of MCs of the module and if the module can be S/U'ed. 
 ****
@@ -117,20 +128,28 @@ Format: `show module`
 Prints out a report on all the core modules taken in the semester, together with the number of core modules left to take for graduation . +
 Format: `show core`
 
+image::ShowCoreSample.png[width="450"] 
+
 ==== Giving a report on General Education modules: `show ge`
 
 Prints out a report on all the General Education(GE) modules taken in the semester, together with the number of GE modules left to take for graduation. +
 Format: `show ge`
+
+image::ShowGeSample.png[width="450"] 
 
 ==== Giving a report on Unrestricted Electives modules: `show ue`
 
 Prints out a report on all the Unrestricted Electives(UE) modules taken in the semester, together with the number of UE modules left to take for graduation. +
 Format: `show ue`
 
+image::ShowUeSample.png[width="450"] 
+
 ==== Listing all CCAs: `show cca`
 
 Shows a list of all CCAs added in the CCA list. + 
 Format: `show cca`
+
+image::ShowCcaSample.png[width="450"] 
 
 === Removing a module or CCA : `remove`
 
@@ -140,6 +159,8 @@ Removes the specified module or CCA.
 
 Removes the specified module from the module list. +
 Format: `remove module INDEX`
+
+image::RemoveModuleSample.png[width="450"] 
 
 ****
 * Removes the module at the specified `INDEX`.
@@ -158,6 +179,8 @@ Removes the 2nd module in the module list.
 Removes a CCA which is added. +
 Format: `remove cca INDEX`
 
+image::RemoveCcaSample.png[width="450"] 
+
 ****
 * Removes the CCA at the specified `INDEX`.
 * The index refers to the index number shown in the displayed CCA list.
@@ -175,6 +198,8 @@ Removes the 2nd CCA in the CCA list.
 Allows you to input your letter grade received for the modules you have taken. +
 Format: `grade MOD_CODE LETTER_GRADE`
 
+image::GradeSample.png[width="450"] 
+
 ****
 * Type `grade MOD_CODE LETTER_GRADE` into the command line, replacing `MOD_CODE` with an actual module code, and `LETTER_GRADE` with the grade you received for that module.
 * ModPlan will either update the grade of the module if it is in your list, or add the module with the letter grade included if it is not in your list.
@@ -191,7 +216,10 @@ Example: +
 Calculates your overall CAP or predicted CAP in different ways.
 
 ==== Calculating CAP from user input. +
+Calculates your CAP according to your custom input of modules and grades. +
 Format: `cap overall`
+
+image::CapOverallSample.png[width="450"] 
 
 ****
 * Typing `cap overall` into the command line shows a CAP calculation message.
@@ -209,7 +237,10 @@ Example: +
 `done`
 
 ==== Calculating CAP from the module list. +
+Calculates your CAP from the `taken` modules in your list.
 Format: `cap list`
+
+image::CapListSample.png[width="450"] 
 
 ****
 * Type `cap list` into the command line.
@@ -221,7 +252,8 @@ Format: `cap list`
 Example: +
 `cap list`
 
-==== Calculating predicted CAP of a module from it's prerequesites. +
+==== Calculating predicted CAP of a module from it's prerequisites. +
+Calculates the predicted CAP of a module based on the prerequisites 
 Format: `cap module`
 
 ****
