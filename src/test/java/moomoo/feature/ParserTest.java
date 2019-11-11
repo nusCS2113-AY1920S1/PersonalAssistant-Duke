@@ -148,18 +148,32 @@ class ParserTest {
 
         c = newParser.parse("budget list");
         c.execute(newCalendar, newBudget, newCatList, newStorage);
-        assertEquals("Budget for shoes has not been set\n"
-                + "Budget for food is $100.00\n"
-                + "Budget for window has not been set\n"
-                + "Budget for places to go is $123.00\n"
-                + "Budget for sweets has not been set\n"
-                + "Budget for laptop is $125.00\n", Ui.getOutput());
+        assertEquals(".__________________________________________________.\n"
+                + "|Budget for shoes has not been set                 |\n"
+                + "|Budget for food is $100.00                        |\n"
+                + "|Budget for window has not been set                |\n"
+                + "|Budget for places to go is $123.00                |\n"
+                + "|Budget for sweets has not been set                |\n"
+                + "|Budget for laptop is $125.00                      |\n"
+                + ".--------------------------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n\n", Ui.getOutput());
 
         c = newParser.parse("budget list c/food c/hello c/shoes");
         c.execute(newCalendar, newBudget, newCatList, newStorage);
-        assertEquals("Budget for food is $100.00\n"
-                + "hello category does not exist. Please add it first.\n"
-                + "Budget for shoes has not been set.\n", Ui.getOutput());
+        assertEquals(".__________________________________________________.\n"
+                + "|Budget for food is $100.00                        |\n"
+                + "|Budget for shoes has not been set.                |\n"
+                + ".--------------------------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n"
+                + "\n", Ui.getOutput());
 
         c = newParser.parse("budget list c/food s/food");
         c.execute(newCalendar, newBudget, newCatList, newStorage);
@@ -182,9 +196,16 @@ class ParserTest {
 
         c = newParser.parse("budget edit c/food c/laptop b/100 c/places to go b/150");
         c.execute(newCalendar, newBudget, newCatList, newStorage);
-        assertEquals("The budget for food is the same.\n"
-                + "You have changed the budget for laptop from $125.00 to $100.00\n"
-                + "You have changed the budget for places to go from $123.00 to $150.00\n", Ui.getOutput());
+        assertEquals("._________________________________________________________________________.\n"
+                + "|You have changed the budget for laptop from $125.00 to $100.00           |\n"
+                + "|You have changed the budget for places to go from $123.00 to $150.00     |\n"
+                + ".-------------------------------------------------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n"
+                + "\n", Ui.getOutput());
 
         Throwable thrown = assertThrows(MooMooException.class, () -> {
             Command thrownC = newParser.parse("budget edit b/100 c/places to go b/150");

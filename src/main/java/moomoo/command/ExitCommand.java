@@ -1,13 +1,12 @@
 package moomoo.command;
 
+import moomoo.feature.Budget;
+import moomoo.feature.Cow;
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
-import moomoo.feature.Budget;
 import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.storage.Storage;
-import moomoo.command.DetectOsCommand;
-import moomoo.feature.Cow;
 
 import java.io.IOException;
 
@@ -27,7 +26,7 @@ public class ExitCommand extends Command {
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Storage storage)
             throws MooMooException {
-        DetectOSCommand getOS = new DetectOSCommand();
+        DetectOsCommand getOS = new DetectOsCommand();
         if (getOS.osName.contains("win")) {
             try {
                 ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c",
