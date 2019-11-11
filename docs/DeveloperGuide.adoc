@@ -185,7 +185,11 @@ Data Structure to support undo/redo:
 
 The actions involving the NUS EventList are performed mostly using the `NUSEventList` class.
 
-image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/eventlist.PNG[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/DegreeTaskuml.png[width="900", align="left"]
+
+
+This was done in preparation for some proposed additional changes to this feature that will be discussed later in the document.
+
 
 
 
@@ -577,18 +581,18 @@ image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs
 
 The Statistics interface comprises of two methods that are overridden in the GraduateEmployment class. These two methods are:
 
-`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type GraduateStats (Fig xyz) and stored.
+`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type GraduateStats and stored.
 
 `Statistics#print(String input)`: This method takes in the parameter of a string which is the degree inputted by the user. The end result is the display of a bar chart on a separate window, visually depicting the statistics. In the case of GraduateEmployment, an instance of the class Employment_BarChart is created and a dual axis bar chart is displayed with information for the employment percentage rates and basic mean salary. 
 
 
 The GraduateEmployment class also has the following function:
 
-`GraduateEmployment#getStats()`: This method returns an ArrayList of type Graduate Stats, namely Stats, when called and is used to store the information needed. 
+`GraduateEmployment#getStats()`: This method returns an ArrayList of type GraduateStats, named Stats, when called and is used to store the information needed. 
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/gradstats.png[width="300", align = "center"]
 
-The Graduate Stats class as mentioned above allows to store the a string pertaining to the degree, a double value which is the employment percentage rate and an integer which corresponds to the basic mean salary. An array list of type GraduateStats is hence created to store all the necessary information.
+The GraduateStats class as mentioned above allows to store a string pertaining to the degree, a double value which is the employment percentage rate and an integer which corresponds to the basic mean salary. An array list of type GraduateStats is hence created to store all the necessary information.
 
 Following is a sequence diagram to depict the process of the statistics being loaded and stored in the ArrayList:
 
@@ -605,7 +609,7 @@ Different ways were considered to display the employment statistics:
 *** Easy for the user to understand the data
 ** Cons: 
 *** Needs two datasets to be rendered and then added to a single chart panel
-*** Complicated implementation as a work-around needs to be used and a series of null values need to be added to prevent overlap the axes 
+*** Complicated implementation as a work-around needs to be used and a series of null values had to be added to prevent overlap the axes 
 
 * Alternative 2: Display in the form of a table
 ** Pros: 
@@ -633,17 +637,17 @@ image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs
 
 The Statistics interface comprises of two methods that are overridden in the CohortSize class. These two methods are:
 
-`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type CohortStats (Fig xyz) and stored.
+`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type CohortStats and stored.
 
 `Statistics#print(String input)`: This method takes in the parameter of a string which is the degree inputted by the user. The end result is the display of a bar chart on a separate window, visually depicting the statistics. In this case, an instance of the class Cohort_BarChart is created and a bar chart is displayed with information of the number of male, female and total students in the years 2016-2018 for the degree requested. 
 
 The CohortSize class also has the following function:
 
-`CohortSize#getStats()`: This method returns an ArrayList of type CohortStats, namely cohortStats, when called and is used to store the information needed. 
+`CohortSize#getStats()`: This method returns an ArrayList of type CohortStats, named cohortStats, when called and is used to store the information needed. 
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/CohortStats.png[width="300", align = "center"]
 
-The CohortStats class as mentioned above allows to store the a string pertaining to the degree and three integer values - the number of male students, the number of female students and the total number of students. An array list of type CohortStats is hence created to store all the necessary information. This is similar to how the data is loaded and stored in the case of the Graduate Employment statistics
+The CohortStats class as mentioned above allows to store a string pertaining to the degree and three integer values - the number of male students, the number of female students and the total number of students. An array list of type CohortStats is hence created to store all the necessary information. This is similar to how the data is loaded and stored in the case of the Graduate Employment statistics
 
 Following is a sequence diagram to depict the process of a bar chart being displayed to the user for a particular (excluding the loading of the statistics): 
 
