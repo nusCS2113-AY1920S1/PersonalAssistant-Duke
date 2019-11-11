@@ -5,6 +5,7 @@ import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+//@@author JeremyKwok
 /**
  * A UI card that displays the basic information of a {@code Treatment}.
  */

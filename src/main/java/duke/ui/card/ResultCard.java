@@ -4,6 +4,7 @@ import duke.data.Evidence;
 import duke.data.Result;
 import duke.exception.DukeFatalException;
 
+//@@author JeremyKwok
 /**
  * A UI card that displays the basic information of a {@code Result}.
  */

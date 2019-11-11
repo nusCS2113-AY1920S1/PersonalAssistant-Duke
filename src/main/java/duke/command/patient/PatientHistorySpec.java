@@ -6,6 +6,7 @@ import duke.command.ArgSpec;
 import duke.data.Patient;
 import duke.exception.DukeException;
 
+//@@author JeremyKwok
 public class PatientHistorySpec extends ArgSpec {
 
     private static final PatientHistorySpec spec = new PatientHistorySpec();
