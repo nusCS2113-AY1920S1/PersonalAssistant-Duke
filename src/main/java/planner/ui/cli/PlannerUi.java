@@ -176,7 +176,7 @@ public class PlannerUi {
             for (char c = (char) stream.read();
                  c != '\n' && c != '\uFFFF';
                  c = (char) stream.read()) {
-                input.append(c);
+                if (c != '\r') input.append(c);
             }
             if (input.length() == 0) {
                 return null;
