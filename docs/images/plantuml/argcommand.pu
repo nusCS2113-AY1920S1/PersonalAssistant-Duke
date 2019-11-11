@@ -5,10 +5,9 @@ participant ":ArgSpec"
 
 activate "Parser Logic"
 activate ":ArgSpec"
-"Parser Logic" -> ":ArgCommand" : Construct
+"Parser Logic" -> ":ArgCommand" : Construct and Request Specification
 activate ":ArgCommand"
 
-"Parser Logic" -> ":ArgCommand" : Request Specification
 ":ArgCommand" -> ":ArgSpec" : Get Specification
 ":ArgCommand" <-- ":ArgSpec" : Return Specification
 "Parser Logic" <-- ":ArgCommand" : Return Specification
@@ -16,6 +15,7 @@ activate ":ArgCommand"
 activate "Parser Logic"
 "Parser Logic" -> "Parser Logic" : Parse
 "Parser Logic" -> ":ArgCommand" : Load Parameters
+"Parser Logic" <-- ":ArgCommand"
 "Parser Logic" -> ":ArgCommand" : execute()
 deactivate "Parser Logic"
 

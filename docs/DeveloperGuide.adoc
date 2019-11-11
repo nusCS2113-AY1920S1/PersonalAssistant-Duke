@@ -54,18 +54,6 @@ image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* shown above explains the high-level design of *Dr. Duke*.
 
-[[Design-UI]]
-=== UI [PANG JIA JUN VERNON]
-image::plantuml/ui.png[]
-
-This class diagram aptly describes the relationships between the various core classes in the UI component.
-
-The `UI` component uses the JavaFX UI framework. The layout of these UI elements are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/duke/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
-
-The UI component is exposed to external modules/components via the `Ui` interface. The `UiManager` implements this interface and acts as the manager of the UI component. Hence, `UiManager` holds a reference to the `MainWindow` (the primary UI window that houses the other UI elements that the application will use).
-
-As mentioned, the UI is made up of a `MainWindow` that houses various UI elements such as `CommandWindow`, `HomeWindow`, `PatientWindow`, etc. These UI elements, including `MainWindow` extends from the abstract class `UiElement`. This abstract class serves as the parent class for all of the UI elements used in the application, and allows for their easy creation. In addtion, the `MainWindow` holds a reference of the `UiContext` that exposes the current `Context` of the application. This is required as the `Context` of the application determines what UI window is shown, i.e. `HomeWindow` for Home context, `PatientWindow` for Patient context.
-
 [[Design-Logic]]
 === Parser Logic [JOHN CUTHBERT KHOO TENG FONG]
 image::john1.png[]
@@ -138,6 +126,9 @@ If this command requires arguments, in addition to doing the above for a subclas
 .. Construct the switches for the command and supply them as arguments to `switchInit()`
 ... If there are no switches, call `switchInit()` with no arguments
 
+=======
+Switch values are accessed from the `ArgCommand` with the `getSwitchVal()` method, which takes the name of a switch, as a String, as an argument, and returns the String representing the argument supplied for the switch.
+
 NOTE: If there is no argument given for a switch, `getSwitchVal(<switch name>)` returns `null`. However, if a switch is not given, `getSwitchVal(<switch name>)` also returns `null`. The former case can be distinguished by the fact that `switchVals` will contain `<switch name>` as a key.
 
 ==== Parsing
@@ -168,6 +159,23 @@ The state transitions are as follows:
 ** `STRING` -> `STRING` (add char to elementBuilder) : <any other character>
 * `ARG` 
 ** `ARG` -> `EMPTY`: <Space> or <Newline>
+=======
+* `EMPTY`
+** `EMPTY` -> `EMPTY`: <Newline> or <Space>
+** `EMPTY` -> `SWITCH`: `-`
+** `EMPTY` -> `STRING`: `"`
+** `EMPTY` -> `ARG`: <any other character>
+* `SWITCH`
+** `SWITCH` -> `EMPTY`: <Newline> or <Space>
+** `SWITCH` -> `SWITCH` (add current switch and begin processing a new switch): `-`
+** `SWITCH` -> `STRING` (add current switch and begin parsing a string as an argument): `"`
+** `SWITCH` -> `SWITCH`: <any other character>
+* `STRING`
+** `STRING` -> `EMPTY`: `"`
+** `STRING` -> `STRING`: <any other character>
+* `ARG`
+** `ARG` -> `EMPTY`: <Newline> or <Space>
+>>>>>>> 0804eb317cf9bb3ad8f92a8095bcc4052546b121
 ** `ARG` -> `DukeException`: Unescaped `"` or `-`
 ** `ARG` -> `ARG` (add char to elementBuilder): <any other character>
 
@@ -215,7 +223,7 @@ The `Patient` object should provide the following functionality:
 * Input validation to ensure it stores valid input
 * Sorting of Impressions
 ** Currently, Primary Impressions are also stored at the head of the `impressions` list. If a future metric for assessing
- importance of impressions are suggested by users, it can be added here as well.
+importance of impressions are suggested by users, it can be added here as well.
 * Filtered list of important critical `DukeData`
 * Filtered list of uncompleted `Treatments` which require follow ups
 * Quick notes on the Patient
@@ -253,107 +261,105 @@ attributes that may be null, consider returning an empty object instead. E.g. fo
 === Storage System [JACOB TORESSON]
 image::ClassDiagramData.png[]
 
-This class diagram describes the relationship between the Storage class, `GsonStorage`, the patient class, `Patient`, and the other classes used to describe and handle patient data. 
- 
-The storage/load mechanism is facilitated by `GsonStorage`. `GsonStorage` uses the Google-developed Java Library `Gson 2.8.6`. `Gson` is a library that can be used to convert Java Objects into their `JSON` representation. It can also be used to convert `JSON` representations back to the equivalent Java` Object. For more information about `Gson` refer to the `Gson` User Guide at https://github.com/google/gson/blob/master/UserGuide.md. 
- 
-The `JSON` representations of the patients are stored in a `JSON` file called `patients.json`. 
- 
-`GsonStorage` implements the following operations: 
+This class diagram describes the relationship between the Storage class, `GsonStorage`, the patient class, `Patient`, and the other classes used to describe and handle patient data.
+
+The storage/load mechanism is facilitated by `GsonStorage`. `GsonStorage` uses the Google-developed Java Library `Gson 2.8.6`. `Gson` is a library that can be used to convert Java Objects into their `JSON` representation. It can also be used to convert `JSON` representations back to the equivalent Java` Object. For more information about `Gson` refer to the `Gson` User Guide at https://github.com/google/gson/blob/master/UserGuide.md.
+
+The `JSON` representations of the patients are stored in a `JSON` file called `patients.json`.
+
+`GsonStorage` implements the following operations:
 
 * `HashMap<String, Patient> loadPatientHashMap()`- Loads all the patients in `patients.json` to the hashmap `patientObservableMap`
 * `void writeJsonFile(HashMap<String, Patient> patientMap)`- Creates an array containing the patients in `patientObservableMap` and writes the arrays `JSON` representation to `patients.json`
 * `String getFilePath()`- returns the filepath to `patients.json`
 * `PatientMap resetAllData()`- Clears `patients.json` and returns an empty hash map
- 
-When the user boots `Dr.Duke` a `GsonStorage` and a `PatientMap` object is created. The method `loadPatientHashmap` in `GsonStorage` is then executed which extracts all the `JSON` representations of the patients in `patients.json` as a string. The `GSON` method `fromJson()` is then executed on the `JSON` representation of the patients which creates the equivalent java array contaning `Patient` objects. The array is iterated through and every patient is loaded into the `patientObservableMap` attribute of the `PatientMap` object. 
- 
-During runtime, every new patient that is created is stored in the `patientObservableMap`. 
- 
-When the user shuts down `Dr.Duke` the `patientObservableMap` is sent back to the `GsonStorage` object by calling the `writeJsonFile` method on the `GsonSotrage` object. The `writeJsonFile` method iterates through the `patientObservableMap` and places every `Patient` object in a java array. When all the patients are in the array the arrays `JSON` representation is created using the `Gson` method `toJson()`. The context of the `patient.son` file is then cleared and the new `JSON` representation of the array containing all the patients is written to the `patient.json` file which concludes the storage circle. 
- 
-As can be seen in the class diagram, every individual's patient's data in nested from the `Patient` object representing that patient. The diagram also displays that there are no circle references. For these two reasons, using `Gson` to store all the data about the different patients is very convenient and effective as everything can be stored by simply creating the `JSON` representations of each `Patient` object and the rest of the nesting will be parsed automatically by the `Gson` source code. 
- 
+
+When the user boots `Dr.Duke` a `GsonStorage` and a `PatientMap` object is created. The method `loadPatientHashmap` in `GsonStorage` is then executed which extracts all the `JSON` representations of the patients in `patients.json` as a string. The `GSON` method `fromJson()` is then executed on the `JSON` representation of the patients which creates the equivalent java array contaning `Patient` objects. The array is iterated through and every patient is loaded into the `patientObservableMap` attribute of the `PatientMap` object.
+
+During runtime, every new patient that is created is stored in the `patientObservableMap`.
+
+When the user shuts down `Dr.Duke` the `patientObservableMap` is sent back to the `GsonStorage` object by calling the `writeJsonFile` method on the `GsonSotrage` object. The `writeJsonFile` method iterates through the `patientObservableMap` and places every `Patient` object in a java array. When all the patients are in the array the arrays `JSON` representation is created using the `Gson` method `toJson()`. The context of the `patient.son` file is then cleared and the new `JSON` representation of the array containing all the patients is written to the `patient.json` file which concludes the storage circle.
+
+As can be seen in the class diagram, every individual's patient's data in nested from the `Patient` object representing that patient. The diagram also displays that there are no circle references. For these two reasons, using `Gson` to store all the data about the different patients is very convenient and effective as everything can be stored by simply creating the `JSON` representations of each `Patient` object and the rest of the nesting will be parsed automatically by the `Gson` source code.
+
 If further development of `Dr.Duke` requires the storage of other objects that are nested from the patient objects that will be done automatically by the existing storage mechanism as long as there are no circle references. If further development requires storage of objects that are not nested from patient objects the storage mechanism needs to be updated to include two or more arrays instead of one; one containing the `JSON` representations of the `Patient` objects and the other/s containing the `JSON` representation of the other object/s.
+
+[[Design-UI]]
+=== UI [PANG JIA JUN VERNON]
+The UI for Dr. Duke acts as an abstract layer that exists independently and interacts with the other modules/components of the application via a simple interface. It is designed to be easily expandable with its use of abstract classes that can easily be inherited for the purpose of future development of the application (e.g. addition of contexts / data). The overall UI class diagram is a good place to understand how the UI component is constructed.
+
+.Overall UI class diagram
+image::ui_overall.png[]
+
+This overall class diagram aptly describes the relationships between the various core classes/packages in the UI component.
+
+The UI component can be categorised into 3 main parts.
+
+*   `UiManager`
+*   Windows
+*   Cards
+
+The UI component is exposed to external modules/components via the `Ui` interface. The `UiManager` implements this interface and acts as the manager of the UI component. Hence, `UiManager` holds a reference to the `MainWindow` (the primary UI window that houses the other UI elements that the application will use).
+
+.UI Windows class diagram
+image::ui_windows.png[]
+As mentioned, the UI is made up of a `MainWindow` that houses various UI elements such as `CommandWindow`, `HomeWindow`, `PatientWindow`, etc. These UI elements, including `MainWindow` extends from the abstract class `UiElement`. This abstract class serves as the parent class for all of the UI elements used in the application, and allows for their easy creation. In addtion, the `MainWindow` holds a reference of the `UiContext` that exposes the current `Context` of the application. This is required as the `Context` of the application determines what UI window is shown, i.e. `HomeWindow` for Home context, `PatientWindow` for Patient context. As Dr. Duke works with a huge number of contexts, the various context windows extend from `ContextWindow`. This greatly enables for the use of polymorphism when dealing with the context windows. Therefore, when dealing with a new context, you, as the developer, should always inherit from `ContextWindow` to display the context in GUI form.
+
+.UI Cards class diagram
+image::ui_cards.png[]
+The various windows mentioned previously hold the corresponding cards as shown in the diagram above. These cards show an excerpt of the details of the respecitve `DukeObjects`. All cards extend from `UiCard`. What has been mentioned for `ContextWindow` applies to `UiCard` as well.
+
+The UI component executes user commands using the Parser component and listens for changes to Model data so that the UI can be updated with the newly modified data.
+
+The `UI` component uses the JavaFX UI framework. The layout of these UI elements are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/duke/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
 == Feature Implementation
 
 This section describes some noteworthy details on how certain features in Dr. Duke are implemented.
 
 [[Feature-Switch-Autocomplete]]
-=== Autocomplete [PANG JIA JUN VERNON]
-image:crop_ss.png[]
-
+=== Contexts [PANG JIA JUN VERNON]
 ==== Rationale
 
-Dr. Duke aims to assist House Officers in quick, accurate, and efficient recording and retrieval of patient data required
-to provide efficient care. Therefore, one of its main goals is to speed up the process at which users enter their intended
-commands so users can get more things done faster. There are several benefits in implementing the autocomplete feature.
-
-* Reduce the time taken for the user to enter a complete and valid command.
-* Reduce the frequency at which the user refers to the User Guide or help section to view the syntax of a particular command.
+Dr. Duke aims to assist House Officers in quick, accurate, and efficient recording and retrieval of patient data required to provide efficient care. On a day-to-day basis, house officers deal with a lot of information, ranging from the biometrics details of a patient to the investigation results from a blood test. To make things worse, a house officer also typically has to manage many patients. Therefore, with this information overload, it would be really helpful if the house officer is able to view each piece of information in a very focused setting. This has inspired us to come up with the idea of `Contexts`. In Dr. Duke, there are currently 4 main contexts. They are the `HOME`, `PATIENT`, `IMPRESSION`, and `TREATMENT AND EVIDENCE` contexts (listed in hierarchical order). The different contexts allow the house officer to focus on a particular patient or a particular impression of a patient without being overloaded by other irrelevant information.
 
 ==== Implementation
-The autocomplete mechanism is facilitated by two main classes, namely `AutoCompleteTextField` and `AutoCompleteModel`.
+The `Context` mechanism is mainly facilitated by the `UiContext` class. It implements the following operations:
 
-`AutoCompleteTextField` is an element of the UI component. It extends from JavaFX `TextField`, and it displays a contextual
-menu whenever the user enters a key character/word in the text field. In our case, a key character/word is defined as such:
-a command keyword or switch ("-"). It implements the following operations.
+* `UiContext#open()` - Opens and displays a context.
+* `UiContext#moveBackOneContext()` - Moves back one context.
+* `UiContext#moveUpOneContext()` - Moves up one in the hierarchy of contexts.
 
-* `AutoCompleteTextField#updateMenu()` - Populates/updates the contextual menu.
-* `AutoCompleteTextField#displayMenu()` - Shows the contextual menu.
-* `AutoCompleteTextField#hideMenu()` - Hides the contextual menu.
+Given below is an example usage scenario and how the context mechanism behaves accordingly.
 
-`AutoCompleteModel` is an element of the Model component. It updates the content of the contextual menu as the user
-types in the `AutoCompleteTextField`. The content of the contextual menu is also determined by the current context of the application.
- +
- +
+Step 1: The user launches the application. The application starts out in the `HOME` context. The user currently manages 3 patients.
 
-Given below is an example usage scenario and how the autocomplete mechanism behaves at each step.
+Step 2: The user keys in "open 1" in the text field and presses the Enter key. At this point, the parser parses the input and executes the open command. This command invokes the context mechanism.
 
-Step 1: The user launches the application. The `AutoCompleteTextField` in the `CommandWindow` is blank, and the context is `Home`.
-The user wishes to add a patient (a sample valid command syntax is `new -name "John Doe" -bed 01 -allergies "paracetamol"`).
+Step 3: The context mechanism first stores the current context (and the associated `DukeObject`) in a stack (so it can still be accessed later when the user wishes to execute the back command). Then, the context mechanism updates the context to the `PATIENT` context and retrieves the corresponding `Patient` object as selected by the user.
 
-Step 2: The user keys in "n" in the text field. At this point, the contextual menu appears and shows the user a list of
-available commands in the `Home` context that matches with "n", i.e. `new`.
+Step 4: The UI component of Dr. Duke listens to changes in the context of the application via an attached `PropertyChangeListener` and updates the current context window from `HomeContextWindow` to the `PatientContextWindow`.
 
-Step 3: The user then use the arrow keys (up and down) to navigate through the contextual menu and the enter key to
-select the appropriate item presented in the menu. The text field is then updated accordingly, and the contextual menu is subsequently hidden.
-
-Step 4: The user proceeds to key in the switches for the `new` command. As the user keys in "-", the contextual menu appears once again
-to show the user a list of switches associated with the `new` command, i.e. "-name", "-bed", "-allergies", etc.
-
-Step 5: The user will repeat Steps 3 and 4 until a valid command syntax has been fully entered. The user will then press
-the enter key to execute said command.
-
-The following activity diagram summarizes what happens when a user types in the `AutoCompleteTextField`.
-
-image::AutoCompleteActivityDiagram.png[]
-
-==== Comparison with Alternatives
-
-Typeahead had been considered as an alternative means to achieve these results, as it would be more intuitive to the end-users. However, it would be significantly more complex to implement.
+Step 5: The transition to the `PATIENT` context is fully completed.
 
 [[Feature-Object-Disambiguation]]
 === Object Disambiguation [JOHN CUTHBERT KHOO TENG FONG] 
 
 ==== Rationale
 
-In order to provide the smoothest experience and least delay to our users, we would want to allow them to identify the targets of operations such as reading, updating and deleting with minimal effort. Given a clear, unambiguous identifier like an index in a list, this is straightforward, but if the user wishes to access something by part of its name, and there are multiple objects matching his criterion, he needs some way to disambiguate between them. Having such a disambiguation system in place instead of rejecting ambiguous input (e.g. anything other than an exact name) or preventing it (e.g. access by index only) would improve the user's experience and input speed by allowing more free-form input, without needing to worry so much if the input is of the correct form. Our users are also likely to think primarily in terms of names, so being able to access objects by part of a name instead of scrolling through a (potentially large) collection of objects to find an index or tring to remember an exact name would increase the speed at which they navigate through the app and provide input to it.
+In order to provide the smoothest experience and least delay to our users, we would want to allow them to identify the targets of operations such as reading, updating and deleting with minimal effort. Given a clear, unambiguous identifier like an index in a list, this is straightforward, but if the user wishes to access something by part of its name, and there are multiple objects matching his criterion, he needs some way to disambiguate between them. Having such a disambiguation system in place instead of rejecting ambiguous input (e.g. anything other than an exact name) or preventing it (e.g. access by index only) would improve the user's experience and input speed by allowing more free-form input, without needing to worry so much if the input is of the correct form. Our users are also likely to think primarily in terms of names, so being able to access objects by part of a name instead of scrolling through a (potentially large) collection of objects to find an index or trying to remember an exact name would increase the speed at which they navigate through the app and provide input to it.
 
 ==== Implementation
 
-This system extends and generalises the <<Feature-Search, search feature>>: instead of only being able to open objects from the search context, we are able to perform any other command on objects identified from a search. This is done by storing the original command before opening the search context, and executing the command again, with the identified object supplied to it, after exiting the search context. Commands that are capable of such operation are `ObjCommand` s, and their behaviour is controlled by `ObjSpec` s.
+This system extends and generalises the <<Feature-Search, search feature>>: instead of only being able to open objects from the search context, we are able to perform any other command on objects identified from a search. This is done by storing the original command before opening the search context, and executing the command again, with the identified object supplied to it, after exiting the search context. Commands that are capable of such operation are `ObjCommand` s, and their behaviour is controlled by `ObjSpec` s. Although the discussion of the rationale focused on `ObjCommand` s that search by name, this system facilitates searching for objects by any measure, and allowing the user to access the results of that search.
+
+When an `ObjCommand` is executed, it first attempts to see if the object can be disambiguated without requesting for explicit intervention by the user. Although there are no constraints on how this is done, the typical `ObjCommand` allows user input in either index or string form. If the user did not input an index, the `ObjCommand` will typically search through the namespace of the _parent_ through its search methods. 
 
 `Command` s are context-sensitive - each `Command` is executed not just within a specific type of context, but with reference to a specific object. The input `open arthritis`, entered while viewing a specific `Patient`, indicates that the user wishes to open an `Impression`, or some data associated with an `Impression` with `arthritis` in its name that belongs to this `Patient`. The `Patient` in this example takes the role of the _parent_ of the search: essentially, the search takes place in the "namespace" of the parent. The mapping from context type to parent type is:
 
 * Home context -> `PatientData` (represented as `null`)
 * Patient context -> `Patient` 
 * Impression context -> `Impression`
-
-When a `SearchResult` object is constructed 
-
-When an `ObjCommand` is executed, it first attempts to see if the object can be disambiguated without requesting for explicit intervention by the user. Although there are no constraints on how this is done, the typical `ObjCommand` allows user input in either index or string form. If the user did not input an index, the `ObjCommand` will typically search through the namespace of the parent through the `findByName()` methods in the different This is done by searching through the context and the objects in it.
 
 [[Feature-Switch-Autocorrect]]
 === Switch Autocorrect [JOHN CUTHBERT KHOO TENG FONG] [v2.0]
@@ -380,15 +386,20 @@ This function is called by the parser finite state machine whenever a complete s
 
 [[Feature-Search]]
 === Search all records [KWOK KUIN EK JEREMY]
+image::SearchDiagram.png[]
+
+The above diagram shows the information a search result will store and the SearchContext its displayed in.
+
 image::SearchExample.PNG[]
 
 ==== Rationale
 
 Dr. Duke aims to assist House Officers in quick, accurate recording and retrieval of patient data required to provide
-efficient care. When more patients are added to the system or the user want to directly access a nested data we need a
-method to directly assess the data. Therefore, it makes sense to be able to search through the entire system or a subset
-of the system. Hence, a find feature is essential for users to quickly locate data or for disambiguation using existing
-data in the system when it is unclear what the user wants.
+efficient care. When more patients are added to the system and the system grows in size or the user want to directly
+access a piece of nested data we need a method to directly assess the data. Therefore, it makes sense to have a search
+function to search through the entire system or a subset of the system. Hence, a find feature is essential for users to
+quickly locate data or for disambiguation when it is unclear what the user wants to narrow down the possible options
+based on existing data in the system.
 
 * Reduce the time taken for the user to enter details of the Patient and navigate in the system.
 * Search a subset of the system or only for data of a certain type.
@@ -413,7 +424,7 @@ Step 1: The user launches the application and navigates to a particular patient 
 e.g. Fever (a sample valid command syntax is `find Fever`).
 
 Step 2: The find method will be called and all data related to the Patient will be searched for `Fever`, It will display the results in a new
-Context containing all impressions where `John` had `Fever` in a seperate window
+Context containing all impressions where `John` had `Fever` in a separate window
 
 Step 3: The user can then select a particular impression and review the information or change the information if desired.
 
@@ -425,26 +436,26 @@ Step 3: The user can then select a particular impression and review the informat
 If any String is very long, it may have overflow.
 
 === Discharge patients and create discharge reports [JACOB TORESSON]
- 
+
 ==== Rationale
- 
-The discharge feature deletes a patient from `Dr.Duke` and creates a `.txt` report file where all data about the patient at the point of discharge is stored. These report files can be used to manually recreate a patient if a doctor wants to add a discharged patient back to `Dr.Duke`. This feature also prevents `Dr.Duke` from getting full as new patients come and go from the hospital using the same bed numbers. To be able to discharge a patient that is no longer at the hospital also enables quicker lookup of the patients that are at the hospital. 
- 
+
+The discharge feature deletes a patient from `Dr.Duke` and creates a `.txt` report file where all data about the patient at the point of discharge is stored. These report files can be used to manually recreate a patient if a doctor wants to add a discharged patient back to `Dr.Duke`. This feature also prevents `Dr.Duke` from getting full as new patients come and go from the hospital using the same bed numbers. To be able to discharge a patient that is no longer at the hospital also enables quicker lookup of the patients that are at the hospital.
+
 ==== Implementation
- 
-The discharge mechanism is facilitated by the `ReportCommand` and `ReportSpec` classes. `ReportCommand` extends the `Command` class and `ReportSpec` extends the `ArgSpec` class. Like every command, `ReportCommand` has an `execute` method. The `execute` method is called upon when the user enters a “discharge” command followed by a valid bed number. The “discharge” command has the optional switch `-sum` that enables the user to input a short discharge summary, for example, the reason why the patient is discharged and the date and time of the discharge. As the reports are stored in a text format the user can also add additional text to the report after the report has been created by simply writing new text to the report file with a text editor. The syntax of the “discharge” command is implemented in `ReportSpec` using the `Switch` class.  
- 
+
+The discharge mechanism is facilitated by the `ReportCommand` and `ReportSpec` classes. `ReportCommand` extends the `Command` class and `ReportSpec` extends the `ArgSpec` class. Like every command, `ReportCommand` has an `execute` method. The `execute` method is called upon when the user enters a “discharge” command followed by a valid bed number. The “discharge” command has the optional switch `-sum` that enables the user to input a short discharge summary, for example, the reason why the patient is discharged and the date and time of the discharge. As the reports are stored in a text format the user can also add additional text to the report after the report has been created by simply writing new text to the report file with a text editor. The syntax of the “discharge” command is implemented in `ReportSpec` using the `Switch` class.
+
 Given below is an example of what a discharge command with a discharge summary that follows the syntax could look like
 
 * `discharge A12 -sum Patient left the hospital, 2019-03-03 08:00`
- 
-The `execute` method in `ReportCommand` creates one report file for each discharged patient and places it in the “report” folder within the “data” folder. Every discharged patient file is named with the patient's name and bed number separated by a `-`. For example, if a patient named “Alexander Smith” with the bed number "A300" was discharged the file name would be `AlexanderSmith-A300`. 
- 
-The `execute` method uses the `FileWriter` class to write the report to the report file utilizing `toReportString` which is a method that every `DukeObject` implements. The `toReportString` returns a string representation of every attribute that is not a null value and some other strings that make the report more reader-friendly. 
- 
-==== Alternatives considerations 
- 
-A future consideration is to store the reports in PDF files instead of text files. This would be beneficial as it would decrease the risk of the user to accidentally change the reports while reading it. Using PDFs could also make the reports more reader-friendly for the user. A drawback of using PDFs is that it makes it harder for the user to add text to the reports after they have been created. Another future consideration is to automatically include the date and time of when each discharge in the reports. 
+
+The `execute` method in `ReportCommand` creates one report file for each discharged patient and places it in the “report” folder within the “data” folder. Every discharged patient file is named with the patient's name and bed number separated by a `-`. For example, if a patient named “Alexander Smith” with the bed number "A300" was discharged the file name would be `AlexanderSmith-A300`.
+
+The `execute` method uses the `FileWriter` class to write the report to the report file utilizing `toReportString` which is a method that every `DukeObject` implements. The `toReportString` returns a string representation of every attribute that is not a null value and some other strings that make the report more reader-friendly.
+
+==== Alternatives considerations
+
+A future consideration is to store the reports in PDF files instead of text files. This would be beneficial as it would decrease the risk of the user to accidentally change the reports while reading it. Using PDFs could also make the reports more reader-friendly for the user. A drawback of using PDFs is that it makes it harder for the user to add text to the reports after they have been created. Another future consideration is to automatically include the date and time of when each discharge in the reports.
 
 [appendix]
 == Product Scope
@@ -643,14 +654,14 @@ Use case ends.
 == Non Functional Requirements
 
 . The software should be portable, i.e. work on any <<mainstream-os,mainstream OS>> as long as the OS has Java `11` or
-  above installed.
+above installed.
 . The software should be able to hold up to 500 patients without a noticeable reduction in performance for
-  typical usage.
+typical usage.
 . The software should work without internet access.
 . The software should have good user documentation, which details all aspects of the software to assist new
-  users on how to use this software.
+users on how to use this software.
 . The software should have good developer documentation to allow developers to understand the design of the
-  software easily so that they can further develop and enhance the software.
+software easily so that they can further develop and enhance the software.
 . The software should be easily testable.
 . A user with an above average typing speed for regular English text should be able to accomplish most of his/her
   intended tasks faster using commands than using the mouse.
@@ -662,3 +673,31 @@ Use case ends.
 * Windows
 * macOS
 * Linux
+
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Navigating between contexts
+
+.  Navigate to `PATIENT` context
+
+.. Prerequisites: Currently at `HOME` context, no previous contexts, and managing at least 1         patient.
+.. Test case: `open 1` +
+   Expected: Navigate successfully to the `PATIENT` context. The GUI display updates from the `HomeContextWindow` to the `PatientContextWindow`. `CommandWindow` prompts a message to notify the user that he/she has sucessfully navigated to the `PATIENT` context.
+.. Test case: `up` +
+   Expected: Remains at `HOME` context. The GUI display remains at `HomeContextWindow`. `CommandWindow` prompts a message to notify the user that no context transitions has taken place.
+.. Test case: `back` +
+   Expected: Remains at `HOME` context. The GUI display remains at `HomeContextWindow`. `CommandWindow` prompts a message to notify the user that no context transitions has taken place.
+
+=== Searching Dr. Duke
+
+.. Prerequisites: Currently at `HOME`, `PATIENT` or `IMPRESSION` context, and managing at least 1 patient.
+.. Test case: `find a` +
+    Expected: Navigate successfully to the `SEARCH` context, have results which contain the substring 'a'. Note that you
+    will remain in the current context if no `DukeObjects` which contain the data exist. `CommandWindow` will feedback
+    if the search is successful or not.

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>duke.ui.card</OriginalElement>
+  <nodes>
+    <node x="686.0" y="387.5">duke.ui.card.TreatmentCard</node>
+    <node x="492.0" y="822.5">duke.ui.card.PlanCard</node>
+    <node x="994.0" y="306.5">duke.ui.card.ImpressionCard</node>
+    <node x="988.0" y="809.0">duke.ui.card.MedicineCard</node>
+    <node x="692.0" y="822.5">duke.ui.card.InvestigationCard</node>
+    <node x="1326.0" y="374.0">duke.ui.card.PatientCard</node>
+    <node x="403.7318181818181" y="280.0">duke.ui.card.HelpCard</node>
+    <node x="714.5" y="0.0">duke.ui.card.UiCard</node>
+    <node x="0.0" y="836.5">duke.ui.card.ResultCard</node>
+    <node x="206.0" y="809.0">duke.ui.card.ObservationCard</node>
+    <node x="71.0" y="401.0">duke.ui.card.EvidenceCard</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="duke.ui.card.EvidenceCard" target="duke.ui.card.UiCard">
+      <point x="67.5" y="-113.5" />
+      <point x="273.5" y="230.0" />
+      <point x="749.1500000000001" y="230.0" />
+      <point x="-80.84999999999991" y="100.0" />
+    </edge>
+    <edge source="duke.ui.card.MedicineCard" target="duke.ui.card.TreatmentCard">
+      <point x="57.0" y="-86.5" />
+      <point x="1159.0" y="769.0" />
+      <point x="950.0" y="769.0" />
+      <point x="120.0" y="127.0" />
+    </edge>
+    <edge source="duke.ui.card.ImpressionCard" target="duke.ui.card.UiCard">
+      <point x="78.0" y="-208.0" />
+      <point x="1228.0" y="240.0" />
+      <point x="887.75" y="240.0" />
+      <point x="57.75" y="100.0" />
+    </edge>
+    <edge source="duke.ui.card.ObservationCard" target="duke.ui.card.EvidenceCard">
+      <point x="66.5" y="-86.5" />
+      <point x="405.5" y="789.0" />
+      <point x="307.25" y="789.0" />
+      <point x="101.25" y="113.5" />
+    </edge>
+    <edge source="duke.ui.card.InvestigationCard" target="duke.ui.card.TreatmentCard">
+      <point x="69.0" y="-73.0" />
+      <point x="899.0" y="789.0" />
+      <point x="854.0" y="789.0" />
+      <point x="24.0" y="127.0" />
+    </edge>
+    <edge source="duke.ui.card.ResultCard" target="duke.ui.card.EvidenceCard">
+      <point x="46.5" y="-59.0" />
+      <point x="139.5" y="789.0" />
+      <point x="172.25" y="789.0" />
+      <point x="-33.75" y="113.5" />
+    </edge>
+    <edge source="duke.ui.card.PlanCard" target="duke.ui.card.TreatmentCard">
+      <point x="-45.0" y="-73.0" />
+      <point x="537.0" y="769.0" />
+      <point x="710.0" y="769.0" />
+      <point x="-120.0" y="127.0" />
+    </edge>
+    <edge source="duke.ui.card.TreatmentCard" target="duke.ui.card.UiCard">
+      <point x="72.0" y="-127.0" />
+      <point x="902.0" y="260.0" />
+      <point x="841.55" y="260.0" />
+      <point x="11.549999999999955" y="100.0" />
+    </edge>
+    <edge source="duke.ui.card.PatientCard" target="duke.ui.card.UiCard">
+      <point x="54.25" y="-140.5" />
+      <point x="1488.75" y="220.0" />
+      <point x="933.95" y="220.0" />
+      <point x="103.95000000000005" y="100.0" />
+    </edge>
+    <edge source="duke.ui.card.HelpCard" target="duke.ui.card.UiCard">
+      <point x="-64.5" y="-234.5" />
+      <point x="468.2318181818181" y="240.0" />
+      <point x="772.25" y="240.0" />
+      <point x="-57.75" y="100.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8087318087318087" x="733.5" y="534.0" />
+  <SelectedNodes>
+    <node>duke.ui.card.EvidenceCard</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+    <Category>Constructors</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

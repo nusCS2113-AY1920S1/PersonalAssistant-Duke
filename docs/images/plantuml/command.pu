@@ -1,29 +1,37 @@
 @startuml
 actor User
 
-activate ":CommandSpec"
 activate ":CommandWindow"
-activate ":Parser"
 activate ":Executor"
+activate ":Parser"
+participant ":Command"
 activate ":CommandSpec"
 
-User -> ":CommandWindow" : Provide input
+User -> ":CommandWindow" : Provide Input
 ":CommandWindow" -> ":Parser" : parse()
 activate ":Parser"
 ":Parser" -> ":Command" : Commands.getCommand(input, Context)
 activate ":Command"
-deactivate ":Parser"
-":Parser" <-- ":Command" : Provide parameters (if ArgCommand)
-note right : Only if this is an ArgCommand
-activate ":Parser"
-":Parser" -> ":Parser" : ArgParser.parseArgument(ArgCommand, input)
-":Parser" -> ":Command" : Parse ArgCommand
-":CommandWindow" <-- ":Command" : Complete parsing
+":Parser" <-- ":Command" : Return Command
+group if ArgCommand
+  ":Parser" -> ":Command" : Request Specification
+  ":Command" -> ":CommandSpec" : Get Specification
+  ":Command" <-- ":CommandSpec" : Return Specification
+  ":Parser" <-- ":Command" : Provide Specification 
+  activate ":Parser"
+  ":Parser" -> ":Parser" : ArgParser.parseArgument(ArgCommand, input)
+  ":Parser" -> ":Command" : Load ArgCommand Parameters
+  ":Parser" <-- ":Command" : Return Loaded Command
+  deactivate ":Parser"
+end
+":CommandWindow" <-- ":Parser" : Return Command
 deactivate ":Parser"
 
 ":CommandWindow" -> ":Executor" : execute()
 ":Executor" -> ":Command" : execute()
 ":Command" -> ":CommandSpec" : execute()
-User <-- ":CommandSpec" : Provide feedback
+activate ":CommandSpec"
+User <-- ":CommandSpec" : Provide Feedback
+deactivate ":CommandSpec"
 destroy ":Command"
 @enduml
