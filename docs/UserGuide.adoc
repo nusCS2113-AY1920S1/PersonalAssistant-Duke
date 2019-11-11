@@ -1,4 +1,4 @@
-= ModPlan v1.3 - User Guide
+= ModPlan v1.4 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -253,8 +253,10 @@ Example: +
 `cap list`
 
 ==== Calculating predicted CAP of a module from it's prerequisites. +
-Calculates the predicted CAP of a module based on the prerequisites 
+Calculates the predicted CAP of a module based on the prerequisites of the inputted module.
 Format: `cap module`
+
+image::CapModuleSample.png[width="450"] 
 
 ****
 * Type `cap module` into the command line.
@@ -281,10 +283,14 @@ Example: +
 Sorts the cca list according to alphabetical order and prints the cca list. + 
 Format: `sort cca` 
 
+image::SortCcaSample.png[width="450"] 
+
 ==== Sorting and printing the CCAs and modules of a certain day of the week : `sort time`
 
 Sorts the cca and modules together  list according to alphabetical order and prints the cca list. + 
 Format: `sort time DAY_OF_WEEK`, replace DAY_OF_WEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
+
+image::SortTimeSample.png[width="450"] 
 
 Example: +
 `sort time monday`
@@ -294,20 +300,28 @@ Example: +
 Sorts the module list according to alphabetical order and prints the module list. + 
 Format: `sort module code`
 
+image::SortModuleCodeSample.png[width="450"] 
+
 ==== Sorting and printing the modules : `sort module grade`
 
 Sorts the module by the grade entered and prints the module list. + 
 Format: `sort module grade`
+
+image::SortModuleGradeSample.png[width="450"] 
 
 ==== Sorting and printing the modules : `sort module level`
 
 Sorts the module list by the numerical order and prints the module list. + 
 Format: `sort module level`
 
+image::SortModuleLevel.png[width="450"] 
+
 ==== Sorting and printing the modules : `sort module mc`
 
 Sorts the module list according to the number of mcs and prints the module list. + 
 Format: `sort module mc`
+
+image::SortModuleMCSample.png[width="450"] 
 
 === Clearing the data : `clear`
 
@@ -320,10 +334,14 @@ You should type either `y` or `n` to confirm or deny ModPlan's request to clear 
 Clears and empties the list of modules being added. +
 Format: `clear module`
 
+image::ClearModuleSample.png[width="450"] 
+
 ==== Clearing the CCA data : `clear cca`
 
 Clears and empties the list of CCAs being added. +
 Format: `clear cca`
+
+image::ClearCcaSample.png[width="450"] 
 
 ==== Clearing the password : `clear password`
 
@@ -332,15 +350,21 @@ ModPlan will ask for your current password if you have previously setup one. If 
 _Note that the password protection feature is currently disabled to facilitate feature testing and will only be reactivated in ModPlan 2.0_ +
 Format: `clear password`
 
+image::ClearPasswordSample.png[width="450"] 
+
 ==== Clearing all the data : `clear data`
 
 Remove all current user data. +
 Format: `clear data`
 
+image::ClearDataSample.png[width="450"] 
+
 === Adding another schedule to a CCA : `scheduleCca`
 
 Adds another schedule to a CCA which is already added, as the CCA may have multiple slots. +
 Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
+
+image::ScheduleCcaSample.png[width="450"] 
 
 ****
 * The `BEGIN_TIME` and `END_TIME` must be in the format of HH:mm.
@@ -352,6 +376,8 @@ Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_
 
 Allows the user to directly update the module data. +
 Format: `update module`
+
+image::UpdateModuleSample.png[width="450"] 
 
 ****
 * This command requires internet connection to download data from NUSMOD API.
@@ -367,19 +393,34 @@ Format: `reminder`
 ==== Shows the list of the different specified time interval of reminder: `reminder list`
 
 Gives four options to determine how often you want to set the reminder. 
+Format: `reminder list`
+
+image::ReminderListSample.png[width="450"] 
 
 ==== Choosing the desired time interval of reminder: `reminder NUMBER`
 
 Allows you to choose the desired period of time for the reminder to appear, which ranges from 10 seconds to 2 minutes.
+Format: `reminder NUMBER`
+
+image::ReminderNumberSample.png[width="450"] 
+
+****
+* There are currently four supported time intervals for the reminder.
+* Example: `reminder one`
+****
 
 ==== Stopping the reminder: `reminder stop`
 
-Allows you to stop the reminder and the reminder message will disappear.
+Allows you to stop the reminder and the reminder message will stop appearing according to the selected time interval.
+
+image::ReminderStopSample.png[width="450"] 
 
 === Exiting the program : `bye`
 
 Exits the program. +
 Format: `bye`
+
+image::ByeSample.png[width="450"] 
 
 ****
 * Typing `bye` into the command line shows a goodbye message, saves the module list, and closes the program.
