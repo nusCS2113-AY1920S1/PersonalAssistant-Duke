@@ -36,16 +36,6 @@ public abstract class Evidence extends DukeData {
     }
 
     @Override
-    public Integer setPriority(Integer priorityVal) throws DukeException {
-        if (priorityVal >= 0 && priorityVal < 5) {
-            super.setPriority(priorityVal);
-            return super.getPriority();
-        } else {
-            throw new DukeException("The priority must be within 0 to 4!");
-        }
-    }
-
-    @Override
     public abstract EvidenceCard toCard() throws DukeFatalException;
 
     @Override

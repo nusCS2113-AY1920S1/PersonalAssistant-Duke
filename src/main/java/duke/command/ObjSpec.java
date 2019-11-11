@@ -18,11 +18,12 @@ public abstract class ObjSpec extends ArgSpec {
     }
 
     /**
-     * todo write documention.
-     * @param core program core to execute command
-     * @param cmd the command used to execute with object
-     * @param obj the DukeObject context the command is executed within.
-     * @throws DukeException if the command cannot be executed
+     * Stores the command with the relevant switches and executes the required behaviour on the specified DukeObject.
+     *
+     * @param core Program core to execute command.
+     * @param cmd The command holding the argument and switch values for the execution.
+     * @param obj The DukeObject context the command is acting on.
+     * @throws DukeException If the command cannot be executed,
      */
     public void execute(DukeCore core, ObjCommand cmd, DukeObject obj) throws DukeException {
         this.cmd = cmd;
@@ -30,6 +31,11 @@ public abstract class ObjSpec extends ArgSpec {
         this.cmd = null;
     }
 
+    /**
+     * Throws an exception if the search failed to return any results, executes the command if the search returned only
+     * one object (and hence is unambiguous), or opens a search context to allow the user to select the object
+     * otherwise.
+     */
     protected void processResults(DukeCore core, SearchResults results) throws DukeException {
         if (results.getCount() == 0) {
             throw new DukeException("No results found for '" + results.getName() + "'!");

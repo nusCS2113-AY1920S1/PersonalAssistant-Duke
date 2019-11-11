@@ -34,11 +34,10 @@ public class MedicineCard extends TreatmentCard {
         nameLabel.setText(medicine.getName() + " - " + medicine.getDose());
 
         String statusText = String.valueOf(medicine.getStatusIdx());
-        if (medicine.getStatusIdx() >= 0
-                && medicine.getStatusIdx() < medicine.getStatusArr().size()) {
-            statusText += " - " + medicine.getStatusStr();
-        } else if (medicine.getStatusIdx() >= 0 && medicine.getStatusIdx() < statuses.size()) {
+        if (medicine.getStatusIdx() == Treatment.STATUSIDX_DEFAULT) {
             statusText += " - Default " + statuses.get(medicine.getStatusIdx());
+        } else {
+            statusText += " - " + medicine.getStatusStr();
         }
         statusLabel.setText(statusText);
     }

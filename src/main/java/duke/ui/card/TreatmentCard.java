@@ -1,5 +1,6 @@
 package duke.ui.card;
 
+import duke.data.DukeData;
 import duke.data.Treatment;
 import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
@@ -38,7 +39,7 @@ public abstract class TreatmentCard extends UiCard {
      */
     private void fillTreatmentCard() {
         String priorityText = String.valueOf(treatment.getPriority());
-        if (treatment.getPriority() >= 0 && treatment.getPriority() < priorities.length) {
+        if (treatment.getPriority() >= DukeData.PRIORITY_NONE && treatment.getPriority() < priorities.length) {
             priorityText += " - " + priorities[treatment.getPriority()];
         }
         criticalLabel.setText(priorityText);
