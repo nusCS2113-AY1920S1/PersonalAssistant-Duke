@@ -527,6 +527,7 @@ public class MainWindow extends AnchorPane {
         //event Command.
         description = "Adds an event task to your list of tasks.\n"
                 + "Event tasks require deadlines in the following format: DD-MM-YYYY HHmm.\n"
+                + "You cannot input start and end times. Only events from adding degrees will have it. \n"
                 + "Optional priorities can be set when adding tasks from: low, normal, high, very high.\n"
                 + "This is done by adding /priority <priority> behind the task.\n\n"
                 + "Examples: event Sleep /at 01-01-1970 2359 | event Eat /at 01-02-2019 1500 /priority very high";
