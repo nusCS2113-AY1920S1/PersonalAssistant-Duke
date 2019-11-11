@@ -271,8 +271,8 @@ public class Ui extends AnchorPane {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        return "Hello! I'm Duke\n"
-                + "What can I do for you?";
+        return "Welcome to HallBooker!\n"
+                + "Type \"help\" to see the commands available.";
     }
 
     public void showLine() {
