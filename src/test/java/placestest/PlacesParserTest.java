@@ -1,6 +1,6 @@
 //@@author jessteoxizhi
 
-package PlacesCommandTest;
+package placestest;
 
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.triviamanager.TriviaManager;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PlacesCommandParserTest {
+class PlacesParserTest {
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
     private PrintStream original = System.out;
@@ -80,3 +80,4 @@ class PlacesCommandParserTest {
                 + "\r\n",output.toString());
     }
 }
+
