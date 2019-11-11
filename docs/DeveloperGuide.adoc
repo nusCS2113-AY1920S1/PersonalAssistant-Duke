@@ -109,13 +109,13 @@ The Model component of the code is in charge of tracking and managing all of the
 * Being capable of operating independently of all the other code components.
 
 .Model Diagram: Cost Management
-image::transactionmodel.png[width="800"]
+image::TransactionDiagram.png[width="800"]
 
 The Model component of the code is in charge of managing the transaction data involved during the application's runtime. It accomplishes this by:
 
-* Initializing a TransactionList object, which stores
-** All of the transactions information (e.g. transaction amount, dates of transaction).
-* Being capable of operating independently of all the other code components.
+* Initializing a Wallet object which stores:
+** A TransactionList which stores transactions (payment and deposit) and their attributes (e.g. transaction amount, dates of transaction).
+** An Account object that stores the account balance as Amount.
 
 === Storage
 .Storage Diagram
