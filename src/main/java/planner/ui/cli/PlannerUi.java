@@ -585,7 +585,7 @@ public class PlannerUi {
                             +
                             "To do so, you can input the update command in the following format:\n"
                             +
-                            "update YEAR_SEM_1-YEAR_SEM_2 ");
+                            "update module");
     }
 
     /**

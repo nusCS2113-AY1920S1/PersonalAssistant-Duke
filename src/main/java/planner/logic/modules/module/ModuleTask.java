@@ -10,7 +10,6 @@ import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 import planner.util.datetime.NattyWrapper;
 import planner.util.legacy.periods.TimePeriodWeekly;
 
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
