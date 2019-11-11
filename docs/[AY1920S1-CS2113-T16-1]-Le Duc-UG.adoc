@@ -243,7 +243,7 @@ Example:
 
 === Reminder for upcoming tasks : `remind`
 
-Reminds the user of the 3 most upcoming tasks : `remind`
+Reminds the user of the 3 most early, unfinished tasks : `remind`
 
 Example:
 
