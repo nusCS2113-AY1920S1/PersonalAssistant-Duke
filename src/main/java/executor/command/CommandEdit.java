@@ -11,12 +11,12 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class CommandEdit extends Command {
-    protected String userInput;
     protected int index = 0;
     private int receiptNumber = 0;
     private String newTag = null;
     private String newValue = null;
     private String newDate = null;
+    private String typeOfReceipt;
     private ArrayList<String> changeTag = new ArrayList<>();
     private Double oldValue = 0.0;
     private Double changeValue = 0.0;
@@ -26,6 +26,8 @@ public class CommandEdit extends Command {
     private  LocalDate changeDate;
     private boolean moreThanTwoDP = false;
     private boolean isFutureDate = false;
+    boolean isIncomeReceipt = false;
+    boolean isExpensesReceipt = false;
 
     /**
      * Constructor explaining about the command.
@@ -42,15 +44,18 @@ public class CommandEdit extends Command {
     @Override
     public void execute(StorageManager storageManager) {
         try {
+            this.infoCapsule.setOutputStr("");
             index = Integer.parseInt(Parser.parseForPrimaryInput(CommandType.EDIT, userInput)) - 1;
             receiptNumber = index + 1;
             indexChecker(storageManager);
             checkAndUpdateFlag(storageManager);
         } catch (DukeException f) {
-            this.infoCapsule.setCodeError();
+//            this.infoCapsule.setCodeError();
+            this.infoCapsule.setCodeCli();
             this.infoCapsule.setOutputStr(f.getMessage());
         } catch (NumberFormatException e) {
-            outputError("Index has to be an INTEGER"
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Index has to be an INTEGER"
                     + "\nFORMAT : edit <index> /<part to be edited> <new-input>");
         }
     }
@@ -64,15 +69,27 @@ public class CommandEdit extends Command {
         newTag = Parser.parseForFlag("tag", this.userInput);
         newValue = Parser.parseForFlag("value", this.userInput);
         newDate = Parser.parseForFlag("date", this.userInput);
+
+        if (newTag != null && newValue != null || newTag != null && newDate != null
+                || newValue != null && newDate != null) {
+            throw new DukeException("More than 1 flag detected. \nOnly key in one flag: /tag or /value or /date");
+        }
         if (newTag != null) {
             updateTag(storageManager);
-        } else if (newValue != null) {
-            updateCashValue(storageManager);
-        } else if (newDate != null) {
-            updateDate(storageManager);
-        } else {
-            throw new DukeException("Flag invalid. Valid input : tag/value/date");
+            return;
         }
+        if (newValue != null) {
+            updateCashValue(storageManager);
+            return;
+        }
+        if (newDate != null) {
+            updateDate(storageManager);
+            return;
+        }
+        throw new DukeException("Flag invalid. Valid input : "
+                + "/tag"
+                + "/value"
+                + "/date");
     }
 
     /**
@@ -124,24 +141,6 @@ public class CommandEdit extends Command {
     }
 
     /**
-     * Function to output a String message as a pop-up below GUI when an error is encountered.
-     * @param data is the output message
-     */
-    private void outputError(String data) {
-        this.infoCapsule.setCodeError();
-        this.infoCapsule.setOutputStr(data);
-    }
-
-    /**
-     * Function to output a String message on the GUI when an error is encountered.
-     * @param errorMessage is the output message
-     */
-    private void outputMessageOnGui(String errorMessage) {
-        this.infoCapsule.setCodeCli();
-        this.infoCapsule.setOutputStr(errorMessage);
-    }
-
-    /**
      * Function to output a String message if the cash value input by user contains more than 2 decimal places.
      * @return is the output message
      */
@@ -154,45 +153,40 @@ public class CommandEdit extends Command {
     }
 
     /**
-     * Function to return a output string if the user input date is in the future.
-     * @return is the output string
-     */
-    private String noteFutureYear() {
-        return "\nNOTE : The year input is in the future";
-    }
-
-    /**
-     * Function to output a String message if the tag input by user contains characters apart from alphabets.
-     * @return is the output message
-     */
-    private String noteHasNonAlphabets() {
-        return "\nNOTE : Tag contains other characters apart from alphabets";
-    }
-
-    /**
-     * Function to output a String message if the tag input by user is empty.
-     * @return is the output message
-     */
-    private String noteTagEmpty() {
-        return "\nNOTE : Tag is empty";
-    }
-
-    /**
      * Function to update the tag with the new input by the user.
      * @param storageManager is the class to access the getter functions for wallet
      */
     private void updateTag(StorageManager storageManager) {
-        changeTag.add(newTag);
         oldTag = storageManager.getWallet().getReceipts().get(index).getTags();
+        checkForIncomeReceipt(storageManager);
+        changeTag.add(typeOfReceipt);
+        changeTag.add(newTag);
         storageManager.getWallet().getReceipts().get(index).setTags(changeTag);
         if (newTag.isEmpty()) {
-            outputMessageOnGui(messageForTagChange() + noteTagEmpty());
+            String noteTagEmpty = "\nNOTE : Tag is empty";
+            this.infoCapsule.setCodeCli();
+            this.infoCapsule.setOutputStr(messageForTagChange() + noteTagEmpty);
         } else if (isAlpha(newTag)) {
-            outputMessageOnGui(messageForTagChange());
+            this.infoCapsule.setCodeCli();
+            this.infoCapsule.setOutputStr(messageForTagChange());
         } else {
-            outputMessageOnGui(messageForTagChange() + noteHasNonAlphabets());
+            String noteHasNonAlphabets = "\nNOTE : Tag contains other characters apart from alphabets";
+            this.infoCapsule.setCodeCli();
+            this.infoCapsule.setOutputStr(messageForTagChange() + noteHasNonAlphabets);
         }
     }
+
+
+    /**
+     * Function to check is it is an income receipt.
+     * @param storageManager is the class to access the getter functions for wallet
+     */
+    private void checkForIncomeReceipt(StorageManager storageManager) {
+        typeOfReceipt = storageManager.getWallet().getReceipts().get(index).getTags().get(0);
+        if (typeOfReceipt.equals("Income")) {
+            isIncomeReceipt = true;
+        }
+          }
 
     /**
      * Function to update the cash value with the new input by the user.
@@ -201,20 +195,49 @@ public class CommandEdit extends Command {
     private void updateCashValue(StorageManager storageManager) {
         try {
             if (cashValueEmpty(userInput)) {
-                outputError("Cash value is empty. Please key in an INTEGER/DOUBLE value");
-                return;
+                throw new DukeException("Cash value is empty. Please key in an INTEGER/DOUBLE value");
             }
             changeValue = Double.parseDouble(newValue);
-            checkAndChangeToTwoDP();
+            checkForIncomeReceipt(storageManager);
+            if (isIncomeReceipt) {
+                changeValue = (-changeValue);
+            }
+            if (BigDecimal.valueOf(changeValue).scale() > 2) {
+                checkAndChangeToTwoDP();
+            } else {
+                roundedChangeValue = changeValue;
+            }
             oldValue = storageManager.getWallet().getReceipts().get(index).getCashSpent();
             storageManager.getWallet().getReceipts().get(index).setCashSpent(roundedChangeValue);
-            if (moreThanTwoDP) {
-                outputMessageOnGui(messageForValueChange() + noteMoreThanTwoDP());
+            outputForCashValueChange();
+        } catch (NumberFormatException | DukeException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Cash value has be an INTEGER/DOUBLE");
+        }
+    }
+
+    /**
+     * Function to output the change in cash value.
+     */
+    private void outputForCashValueChange() {
+        if (moreThanTwoDP) {
+            if (isIncomeReceipt) {
+                this.infoCapsule.setCodeCli();
+                this.infoCapsule.setOutputStr(this.infoCapsule.getOutputStr() + "\n\n" + messageForIncomeChange()
+                        + noteMoreThanTwoDP());
             } else {
-                outputMessageOnGui(messageForValueChange());
+                this.infoCapsule.setCodeCli();
+                this.infoCapsule.setOutputStr(this.infoCapsule.getOutputStr() + "\n\n" + messageForExpenseChange()
+                        + noteMoreThanTwoDP());
             }
-        } catch (NumberFormatException e) {
-            outputError("Cash value has be an INTEGER/DOUBLE");
+        } else {
+            if (isIncomeReceipt) {
+                this.infoCapsule.setCodeCli();
+                this.infoCapsule.setOutputStr(this.infoCapsule.getOutputStr() + "\n\n" + messageForIncomeChange());
+            } else {
+                this.infoCapsule.setCodeCli();
+                this.infoCapsule.setOutputStr(this.infoCapsule.getOutputStr() + "\n\n" + messageForExpenseChange());
+            }
         }
     }
 
@@ -229,12 +252,17 @@ public class CommandEdit extends Command {
             oldDate = storageManager.getWallet().getReceipts().get(index).getDate();
             storageManager.getWallet().getReceipts().get(index).setDate(changeDate);
             if (isFutureDate) {
-                outputMessageOnGui(messageForDateChange() + noteFutureYear());
+                String noteFutureYear = "\nNOTE : The year input is in the future";
+                this.infoCapsule.setCodeCli();
+                this.infoCapsule.setOutputStr(this.infoCapsule.getOutputStr() + "\n\n" + messageForDateChange()
+                        + noteFutureYear);
             } else {
-                outputMessageOnGui(messageForDateChange());
+                this.infoCapsule.setCodeCli();
+                this.infoCapsule.setOutputStr(this.infoCapsule.getOutputStr() + "\n\n" + messageForDateChange());
             }
         } catch (DateTimeParseException e) {
-            outputError("Invalid date input. FORMAT : YYYY-MM-DD");
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Invalid date input. FORMAT : YYYY-MM-DD");
         }
     }
 
@@ -265,8 +293,22 @@ public class CommandEdit extends Command {
      * Function to output a String message if the cash value is successfully changed.
      * @return is the output message
      */
-    private String messageForValueChange() {
+    private String messageForExpenseChange() {
         return "The cashspent for receipt "
+                + receiptNumber
+                + " was changed from "
+                + oldValue
+                + " to "
+                + roundedChangeValue
+                + ".";
+    }
+
+    /**
+     * Function to output a String message if the cash value is successfully changed.
+     * @return is the output message
+     */
+    private String messageForIncomeChange() {
+        return "The income for receipt "
                 + receiptNumber
                 + " was changed from "
                 + oldValue
@@ -285,7 +327,7 @@ public class CommandEdit extends Command {
                 + " was changed from "
                 + oldTag
                 + " to "
-                + newTag
+                + changeTag
                 + ".";
     }
 
