@@ -1,20 +1,21 @@
 package controllers;
 
+import repositories.ProjectRepository;
+import util.log.ArchDukeLogger;
+import util.uiformatter.CommandHelper;
+import util.uiformatter.ViewHelper;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_LIST;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_BYE;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_CREATE;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_DELETE;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_HELP;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_LIST;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_MANAGE;
-import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_LIST;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-import repositories.ProjectRepository;
-import util.log.ArchDukeLogger;
-import util.uiformatter.CommandHelper;
-import util.uiformatter.ViewHelper;
 
 public class ConsoleInputController implements IController {
 
@@ -22,10 +23,13 @@ public class ConsoleInputController implements IController {
     private String managingProjectIndex;
     private ViewHelper viewHelper;
     private CommandHelper commandHelper;
+    private ProjectInputController projectInputController;
 
     //@@author Lucria
     /**
-     * Constructor.
+     * Constructor mainly used for testing.
+     * ConsoleInputController is responsible for understanding inputs from View layer and calling relevant classes
+     * based on the inputs.
      * @param projectRepository : takes in a projectRepository.
      */
     public ConsoleInputController(ProjectRepository projectRepository) {
@@ -33,6 +37,18 @@ public class ConsoleInputController implements IController {
         this.managingProjectIndex = "";
         this.viewHelper = new ViewHelper();
         this.commandHelper = new CommandHelper();
+        this.projectInputController = new ProjectInputController(projectRepository);
+    }
+
+    /**
+     * Constructor called by View layer due to no knowledge of ProjectRepository.
+     */
+    public ConsoleInputController() {
+        this.projectRepository = new ProjectRepository();
+        this.managingProjectIndex = "";
+        this.viewHelper = new ViewHelper();
+        this.commandHelper = new CommandHelper();
+        this.projectInputController = new ProjectInputController(projectRepository);
     }
 
     /**
@@ -81,7 +97,8 @@ public class ConsoleInputController implements IController {
         ArchDukeLogger.logDebug(ConsoleInputController.class.getName(), "[commandCreate] User input: '" + input + "'");
         boolean isProjectCreated = projectRepository.addToRepo(input);
         if (!isProjectCreated) {
-            return new String[] {"Creation of Project failed. Please check parameters given!"};
+            return new String[] {"Creation of Project failed. Please ensure that Project name doesn't have any "
+                    + "special characters"};
         } else {
             return new String[] {"Project created!"};
         }
@@ -114,6 +131,7 @@ public class ConsoleInputController implements IController {
             try {
                 ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "Managing project: "
                         + projectRepository.getItem(Integer.parseInt(managingProjectIndex)).getName());
+                this.projectInputController.onCommandReceived(this.managingProjectIndex);
                 return new String[] {"Now managing "
                         + projectRepository.getItem(Integer.parseInt(managingProjectIndex)).getName()};
             } catch (IndexOutOfBoundsException err) {
@@ -139,16 +157,7 @@ public class ConsoleInputController implements IController {
             String projectInput = inputReader.next();
             try {
                 int projectIndex = Integer.parseInt(projectInput);
-                boolean isProjectDeleted = this.projectRepository.deleteItem(projectIndex);
-                if (isProjectDeleted) {
-                    return new String[]{"Project " + projectIndex + " has been deleted"};
-                } else {
-                    return new String[]{"Error occurred! There could be three possibilities:",
-                                        "You could have attempted to delete a Project after renaming it's JSON file",
-                                        "You could have entered a Project index is out of bounds.",
-                                        "You could have attempted to delete the default Project loaded immediately. "
-                                        + "Do not panic if this was you. The default Project is deleted correctly"};
-                }
+                return this.projectRepository.deleteItem(projectIndex);
             } catch (NumberFormatException err) {
                 return new String[]
                 {"Invalid project index: " + projectInput,
@@ -176,8 +185,22 @@ public class ConsoleInputController implements IController {
         return new String[] { "Bye. Hope to see you again soon!" };
     }
 
-    public String getManagingProjectIndex() {
-        return managingProjectIndex;
+    /**
+     * Method used to call on projectInputController.
+     * This method is used to get the current status whether ArchDuke is still managing a project
+     * @return
+     */
+    public boolean getIsManagingAProject() {
+        return this.projectInputController.getIsManagingAProject();
     }
 
+    /**
+     * Method used to call on projectInputController.
+     * This method is used to pass user inputs from view to projectInputController.
+     * @param input : User inputs from the Viwe layer.
+     * @return : Returns a String[] for View to output to user.
+     */
+    public String[] manageProject(String input) {
+        return this.projectInputController.manageProject(input);
+    }
 }

@@ -8,7 +8,7 @@ public interface IRepository<T> {
 
     boolean addToRepo(String input);
 
-    boolean deleteItem(int indexNumber);
+    String[] deleteItem(int indexNumber);
 
     T getItem(int indexNumber);
 
