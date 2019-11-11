@@ -347,19 +347,31 @@ Step 5: The transition to the `PATIENT` context is fully completed.
 
 ==== Rationale
 
-In order to provide the smoothest experience and least delay to our users, we would want to allow them to identify the targets of operations such as reading, updating and deleting with minimal effort. Given a clear, unambiguous identifier like an index in a list, this is straightforward, but if the user wishes to access something by part of its name, and there are multiple objects matching his criterion, he needs some way to disambiguate between them. Having such a disambiguation system in place instead of rejecting ambiguous input (e.g. anything other than an exact name) or preventing it (e.g. access by index only) would improve the user's experience and input speed by allowing more free-form input, without needing to worry so much if the input is of the correct form. Our users are also likely to think primarily in terms of names, so being able to access objects by part of a name instead of scrolling through a (potentially large) collection of objects to find an index or trying to remember an exact name would increase the speed at which they navigate through the app and provide input to it.
+In order to provide the smoothest experience and least delay to our users, we would want to allow them to identify the targets of operations such as reading, updating and deleting with minimal effort. Given a clear, unambiguous identifier like an index in a list, this is straightforward, but if the user wishes to access something by part of its name, and there are multiple objects matching his criterion, he needs some way to disambiguate between them. Having such a disambiguation system in place instead of rejecting ambiguous input (e.g. anything other than an exact name) or preventing it (e.g. access by index only) would improve the user's experience and input speed by allowing more free-form input, without needing to worry so much if the input is of the correct form. 
 
 ==== Implementation
 
 This system extends and generalises the <<Feature-Search, search feature>>: instead of only being able to open objects from the search context, we are able to perform any other command on objects identified from a search. This is done by storing the original command before opening the search context, and executing the command again, with the identified object supplied to it, after exiting the search context. Commands that are capable of such operation are `ObjCommand` s, and their behaviour is controlled by `ObjSpec` s. Although the discussion of the rationale focused on `ObjCommand` s that search by name, this system facilitates searching for objects by any measure, and allowing the user to access the results of that search.
 
-When an `ObjCommand` is executed, it first attempts to see if the object can be disambiguated without requesting for explicit intervention by the user. Although there are no constraints on how this is done, the typical `ObjCommand` allows user input in either index or string form. If the user did not input an index, the `ObjCommand` will typically search through the namespace of the _parent_ through its search methods. 
+A brief recap of *Dr. Duke's* other systems is necessary here. All of *Dr. Duke's* components can be accessed from the `DukeCore` object. The `DukeCore` object is supplied to a command whenever it is executed, as commands may require all these systems to function. In the `DukeCore`, the `PatientMap` holds all patients being managed. `Patient` s, their `Impression` s, and the `Treatment` s and `Evidence` s of the `Impression` s are all `DukeObject` s. Each `DukeObject` can be viewed, and has an associated context which displays its information. "Viewing" `null` would open the Home context, and would display all `Patient` s in the `PatientMap`. Searching in *Dr. Duke* is done by constructing a `SearchResults` object, using a search method of the current `DukeObject` being viewed. This will only find matching results that are the children of the `DukeObject`, and that `DukeObject` will be the the parent of the `SearchResults` returned. These search methods populate the `SearchResults` object through various strategies, such as matching all immediate children whose names contain the search term, matching all immediate children whose fields contain the search term, and matching any children whose fields contain the search term. We refer to these generically as `findByName()`, `find()`, and `searchAll()`, even though the actual implementations in the classes may have different names.
 
-`Command` s are context-sensitive - each `Command` is executed not just within a specific type of context, but with reference to a specific object. The input `open arthritis`, entered while viewing a specific `Patient`, indicates that the user wishes to open an `Impression`, or some data associated with an `Impression` with `arthritis` in its name that belongs to this `Patient`. The `Patient` in this example takes the role of the _parent_ of the search: essentially, the search takes place in the "namespace" of the parent. The mapping from context type to parent type is:
+`ObjSpec` extends `ArgSpec` to provide the method `execute(DukeCore core, ObjCommand cmd, DukeObject obj)`, while `ObjCommand` extends `ArgCommand` to provide the method `execute(DukeCore core, DukeObject obj)`, which calls the `ObjSpec` `execute` method, with itself as the `cmd` parameter. Finally, `ObjSpec` has an abstract `executeWithObj(DukeCore core, DukeObject obj)` method, which specifies the operation of the command once the object in question has been found.
 
-* Home context -> `PatientData` (represented as `null`)
-* Patient context -> `Patient` 
-* Impression context -> `Impression`
+When an `ObjCommand` is executed via the regular `execute(DukeCore core)` method, it first attempts to see if the object can be disambiguated without requesting for explicit intervention by the user, via the `execute(DukeCore core)` method inherited by `ObjSpec`. Although there are no constraints on how this is to be done, the typical `ObjCommand` allows user input in either index or string form. If the user did not input an index, the `ObjCommand` will typically perform a `findByName()` search, which, as discussed in the Rationale section, is likely the intention of the user. It is also presumable that the user intends to select an object based on what is visible to him.
+
+If there is only one result in the returned `SearchResults` object (or if a valid index was supplied), then the command can be performed on that object without ambiguity, with a direct call wot `executeWithObj`. If none are found, the command fails with an exception. However, if more than one result is found, then disambiguation is required. The `ObjCommand` then calls `core.search(SearchResults results, ObjCommand objCmd)`, which opens the `SearchResults` in a search context, and stores the `ObjCommand`, with its `ObjSpec` and the switches in the `ObjSpec` set, as `queuedCmd`.
+
+When viewing a `SearchResults` object, the user can only issue one command, by selecting the index of the item he wishes to execute. This command, specified by `SearchSpec`, calls `core.executeQueuedCmd(DukeObject obj)` on the object identified. This method would then call the `execute(DukeCore core, DukeObject obj)` of the stored `queuedCmd`, providing the identified `DukeObject` as an argument. The `ObjCommand` thus gains access to the object selected by the user, clearing up the ambiguity and allowing the user's desired operation to be executed.
+
+This entire sequence of operations is summarised in this diagram (note that the UI has been abstracted into the `DukeCore` object):
+
+image::plantuml/objcommand.svg[]
+
+==== Comparison with Alternatives
+
+Possible alternatives to this system would be the strict use of indices or the requirement for full names to be provided, as discussed above. However, in addition to failing to provide the flexibility discussed above, this solution does not work as well because our users are likely to think primarily in terms of names when dealing with their data. Being able to access objects by part of a name instead of scrolling through a (potentially large) collection of objects to find an index or trying to remember an exact name would increase the speed at which they navigate through the app and provide input to it.
+
+Another suggestion proposed was the use of switches to differentiate between the use of an index or a name. This was also rejected as differentiating the two is simple enough to do without needing switches to identify the type of input. It is also less natural: when the user wishes to view the details of a patient, for example, `open Bob` is closer to a natural-language expression for this than `open -n Bob`. Commands that are closer to natural language would allow the user to more quickly and efficiently translate his intentions into input, thereby enabling him to more quickly and fluidly input data.
 
 [[Feature-Switch-Autocorrect]]
 === Switch Autocorrect [JOHN CUTHBERT KHOO TENG FONG] [v2.0]
@@ -403,7 +415,6 @@ based on existing data in the system.
 
 * Reduce the time taken for the user to enter details of the Patient and navigate in the system.
 * Search a subset of the system or only for data of a certain type.
-
 
 ==== Proposed Implementation
 The search mechanism is facilitated by two main functions, namely `contains` and `find`.
@@ -682,11 +693,33 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
+=== Quick Start
+
+Dr. Duke manages patients, who have impressions (diagnoses), each of which have various data types (treatments and evidence) associated with them. Each type of object is associated with a different context (screen) when viewed, and each context has different commands. The following commands will construct a basic setup for testing Dr. Duke's capabilities.
+
+. Start in the `HOME` context.
+. `new -n Hello -a World -b A123`: create a new patient
+. `new -name Goodbye -allergies World -bed A321`: create another new patient, using different forms of the switches
+. `discharge Goodbye`: delete the patient, creating a report in `data/reports`
+. `open Hello`: go to a more detailed view of the remaining patient, the `PATIENT` context - the allergy "World" should be visible
+. `new -n "Test impression" -desc "Testing is fun"`: create a new impression
+. `new -name "Testing sucks" -description "I hate testing"`: create another new impression, using different forms of the switches
+. `delete Test`: attempt to delete an impression, will open disambiguation screen
+. `1`: deletes the impression that was indexed first
+. `edit -age 22`: edits the age of the patient, as shown in the top left
+. `open 1`: ambiguous, error message printed and nothing done
+. `open -im 1`: opens remaining impression in the `IMPRESSION` context
+. `new -obs -n "Test observation" -summary "Just gotta keep testing" -sub -pri 1`: create new observation, which is a type of evidence. Observation card should indicate that it is subjective and critical.
+. `new -plan -n "Test plan" -summary "The tests do not end" -status "1"`: create new observation, which is a type of evidence. Plan card should indicate that it is in progress.
+.. Commands to edit data, move it, change its priority/status etc. are available in this context
+. `open plan`: opens the "Test plan" plan to provide a more detailed view in the `PLAN` context
+.. Use `up` or `back` to exit from this level, and continue testing
+
 === Navigating between contexts
 
 .  Navigate to `PATIENT` context
 
-.. Prerequisites: Currently at `HOME` context, no previous contexts, and managing at least 1         patient.
+.. Prerequisites: Currently at `HOME` context, no previous contexts, and managing at least 1 patient.
 .. Test case: `open 1` +
    Expected: Navigate successfully to the `PATIENT` context. The GUI display updates from the `HomeContextWindow` to the `PatientContextWindow`. `CommandWindow` prompts a message to notify the user that he/she has sucessfully navigated to the `PATIENT` context.
 .. Test case: `up` +
@@ -696,8 +729,22 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Searching Dr. Duke
 
+. Open search results
+
 .. Prerequisites: Currently at `HOME`, `PATIENT` or `IMPRESSION` context, and managing at least 1 patient.
 .. Test case: `find a` +
     Expected: Navigate successfully to the `SEARCH` context, have results which contain the substring 'a'. Note that you
     will remain in the current context if no `DukeObjects` which contain the data exist. `CommandWindow` will feedback
     if the search is successful or not.
+
+=== Disambiguating Objects
+
+. Discharge ambiguous patients
+
+.. Prerequisites: Currently at `HOME` context, with two patients with similar names e.g. "John" and "Joe" in testing data.
+.. Test case: `discharge jo`
+    Expected: Navigate successfully to the `SEARCH` context, have the two similar patients there.
+.. Test case: `1`
+    Expected: Patient labelled `[1]` will be selected and discharged. User will be returned to `HOME` context after successful discharge.
+
+This functionality works for any command that takes _string_or_idx_ as an input (see User Guide). Refer to Quick Start section to see how to construct other test cases.

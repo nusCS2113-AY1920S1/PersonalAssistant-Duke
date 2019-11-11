@@ -27,7 +27,8 @@ note right
   and argument values
 end note
 activate ":ArgSpec"
-":ArgSpec" ->] : execute()
+":ArgSpec" -> ":ArgSpec" : execute()
+":ArgSpec" ->] : Update system via DukeCore
 deactivate ":ArgSpec"
 destroy ":ArgCommand"
 @enduml
