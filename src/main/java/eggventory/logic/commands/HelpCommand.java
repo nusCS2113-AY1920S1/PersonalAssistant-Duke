@@ -90,6 +90,20 @@ public class HelpCommand extends Command {
                     output = "Error in reading HelpFind.txt";
                 }
                 break;
+            case "undo":
+                try {
+                    output = getStringFromFile("/help/HelpUndo.txt");
+                } catch (IOException e) {
+                    output = "Error in reading HelpUndo.txt";
+                }
+                break;
+            case "redo":
+                try {
+                    output = getStringFromFile("/help/HelpRedo.txt");
+                } catch (IOException e) {
+                    output = "Error in reading HelpRedo.txt";
+                }
+                break;
             case "bye":
                 try {
                     output = getStringFromFile("/help/HelpBye.txt");

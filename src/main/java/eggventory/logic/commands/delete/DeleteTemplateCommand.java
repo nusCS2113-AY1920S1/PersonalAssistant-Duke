@@ -24,6 +24,7 @@ public class DeleteTemplateCommand extends Command {
         output = (String.format("Nice, I have deleted this template for you: %s", templateName));
 
         ui.print(output);
+        ui.drawTable(TemplateList.getAllTemplateLoanStruct());
         return output;
     }
 }

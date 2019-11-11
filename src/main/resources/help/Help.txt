@@ -23,9 +23,14 @@ list
     list stocktype all
     list stocktype <Stock Type>
     list person
-    *list loan
-    *list template
+    list loan
+    list template
     *list lost
+
+undo
+    undo
+redo
+    redo
 
 *find
     find stock <Query>
@@ -41,9 +46,6 @@ list
 
 *lost
     lost <Stock Code> <Quantity>
-*undo
-    undo
-*redo
-    redo
+
 bye
     bye

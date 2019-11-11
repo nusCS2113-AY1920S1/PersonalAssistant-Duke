@@ -14,6 +14,7 @@ public class UndoCommand extends Command {
 
     @Override
     public String execute(StockList list, Ui ui, Storage storage) throws BadInputException {
+        ui.clearTable();
         return null;
     }
 }

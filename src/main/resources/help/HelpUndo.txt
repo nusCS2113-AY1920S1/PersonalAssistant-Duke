@@ -1,1 +1,15 @@
+Undo your last data altering command.
+
+undo:       undo
+
+Undo works with the following previous commands:
+add
+delete
+loan
+edit
+
+E.g.
+add person E123 ExamplePerson
 undo
+//You will no longer see E123 when you do list person
+

@@ -31,6 +31,7 @@ public class DeletePersonCommand extends Command {
         }
 
         ui.print(output);
+        ui.drawTable(PersonList.getAllPersonStruct());
         return output;
     }
 }

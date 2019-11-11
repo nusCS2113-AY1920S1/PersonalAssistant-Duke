@@ -47,7 +47,7 @@ public class AddTemplateCommand extends Command {
         }
       
         ui.print(output);
-
+        ui.drawTable(TemplateList.getAllTemplateLoanStruct());
         return output;
     }
 

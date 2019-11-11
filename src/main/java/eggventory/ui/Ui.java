@@ -72,6 +72,12 @@ public abstract class Ui {
         return "____________________________________________________________";
     }
 
+
+
+    public void clearTable() {
+
+    }
+
     public void drawTable(TableStruct tableStruct) {
     }
 }

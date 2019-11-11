@@ -35,6 +35,8 @@ public class Gui extends Ui  {
 
     private InputTextBox inputField;
 
+    private TableStruct myTableStruct;
+
     /**
      * Starts the REPL loop and creates the JavaFX window along with other JavaFX controls
      * and event handlers.
@@ -147,6 +149,15 @@ public class Gui extends Ui  {
     }
 
     /**
+     * Clears the GUI table output.
+     */
+    public void clearTable() {
+        outputTable.getColumns().clear();
+        outputTable.getItems().clear();
+        outputTable.refresh();
+    }
+
+    /**
      * Can be called to redraw the table output as and when needed. Takes in a StockList object
      * that it uses to redraw the entire table.
      * @param tableStruct Structure that holds all data to be displayed.
@@ -156,14 +167,15 @@ public class Gui extends Ui  {
         outputTable.getItems().clear();
         outputTable.refresh();
 
-        TableColumn mainColumn = new TableColumn(tableStruct.getTableName());
+        this.myTableStruct = tableStruct;
+        TableColumn mainColumn = new TableColumn(myTableStruct.getTableName());
         mainColumn.setReorderable(false);
         outputTable.getColumns().add(mainColumn);
 
         // Iterating through columns to setup all columns.
         for (int i = 0; i < tableStruct.getTableColumnSize(); i++) {
             // Creating column with header
-            TableColumn<ArrayList<String>, String> column = new TableColumn<>(tableStruct.getColumnName(i));
+            TableColumn<ArrayList<String>, String> column = new TableColumn<>(myTableStruct.getColumnName(i));
             // Assigning column to take row values from data stores in tableFormat ArrayList.
             int finalI = i;
             if (finalI == 0) {

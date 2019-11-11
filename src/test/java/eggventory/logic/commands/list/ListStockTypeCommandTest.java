@@ -1,6 +1,5 @@
 package eggventory.logic.commands.list;
 
-import eggventory.logic.commands.list.ListStockTypeCommand;
 import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;
 import eggventory.stubs.StorageStub;
