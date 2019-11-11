@@ -451,7 +451,7 @@ public class Parser {
                 throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
                         + arr[Numbers.ZERO.value] + " cannot be empty.");
             }
-            dateParser.isValidDateTime(dateDesc);
+            dateParser.isValidDate(dateDesc);
             Date date;
             try {
                 date = datetimeFormat.parse(dateDesc);
