@@ -117,6 +117,6 @@ public class ImpressionUtils {
         int newPriority = cmd.switchToInt("priority");
         data.edit(newName, newPriority, cmd.getSwitchVals(), isAppending);
         core.writeJsonFile();
-        core.updateUi("Details of '" + data + "' updated!");
+        core.updateUi("Details of '" + data.getName() + "' updated!");
     }
 }
