@@ -899,9 +899,14 @@ Extensions 5.1: User inputs an invalid rating.
 
 === Launch and Shutdown
 . Initial Launch
-.. Open Duke.java in src.
-.. Run the file +
-   Expected: The Welcome Message is printed in stdout and the system requests for an input.
+.. Double click the jar executable
+.. Expected: The Welcome Message is printed in stdout and the system requests for an input.
+
+NOTE: If you are unable to run the jar file by double clicking it, you will need to navigate to
+the folder that you downloaded it to using the command prompt and type the command `java -jar
+<filename>` +
+Please also ensure that your jar file is stored in an empty directory or it may cause conflicts
+with the storing of information to a txt file.
 
 . Shutdown
 .. Key in `bye` as input. +
@@ -928,47 +933,47 @@ Expected: The list of command formats of changing event's information including 
 
 === Add an Event
 . Add Todo +
-   Key in `todo tdtask /01-01-2011` +
+   Key in `todo tdtask /15-11-2019` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [x][T] tdtask  BY: Sat, 01 Jan 2011 +
+   [x][T] tdtask  BY: Fri, 15 Nov 2019 +
    Now you have <previous number of items + 1> items in the list.
 
 . Add Exam +
-   Key in `exam Music Rudiments /08-08-2018 0800 0900` +
+   Key in `exam Music Rudiments /19-11-2019 0800 0900` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [x][E] Music Rudiments  START: Wed, 08 Aug 2018, 08:00 END: Wed, 08 Aug 2018, 09:00 +
+   [x][E] Music Rudiments  START: Tue, 19 Nov 2019, 08:00 END: Tue, 19 Nov 2019, 09:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 . Add Practice session +
-   Key in `practice morningprac /07-08-2018 0800 0900` +
+   Key in `practice morningprac /19-11-2019 0700 0800` +
    Expected: Output should be +
    Got it. I've added this event: +
-   [x][P] morningprac  START: Tue, 07 Aug 2018, 08:00 END: Tue, 07 Aug 2018, 09:00 +
+   [x][P] morningprac  START: Tue, 19 Nov 2019, 07:00 END: Tue, 19 Nov 2019, 08:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 . Add Concert +
-   Key in `concert Noon Concert /06-06-2016 1200 1400/15` +
+   Key in `concert Noon Concert /1-1-2020 1200 1400/15` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [x][C] Noon Concert  START: Mon, 06 Jun 2016, 12:00 END: Mon, 06 Jun 2016, 14:00 +
-   Now you have <number of tasks> tasks in the list. +
+   [x][C] Noon Concert  START: Wed, 01 Jan 2020, 12:00 END: Mon, 01 Jan 2020, 14:00 +
+   Now you have <previous number of items + 1> tasks in the list. +
    Note: The final value (in this case 15) represents the cost of the concert in dollars.
    The significance of this is explained under section E.13 budgeting.
 
 . Add Recital +
-   Key in `recital Evening Recital /07-07-2017 1900 2100` +
+   Key in `recital Evening Recital /10-12-2019 1900 2100` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [x][R] Evening Recital  START: Fri, 07 Jul 2017, 19:00 END: Fri, 07 Jul 2017, 21:00 +
+   [x][R] Evening Recital  START: Tue, 10 Dec 2019, 19:00 END: Tue, 10 Dec 2019, 21:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 . Add Lesson +
-   Key in `lesson Class /09-09-2019 0900 0100` +
+   Key in `lesson Class /2-1-2020 0900 1000` +
    Expected: Output should be +
    Got it. I’ve added this task: +
-   [x][L] Class  START: Mon, 09 Sep 2019, 09:00 END: Mon, 09 Sep 2019, 01:00 +
+   [x][L] Class  START: Thu, 02 Jan 2020, 09:00 END: Thu, 02 Jan 2020, 10:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 === Add recurring events
@@ -992,37 +997,42 @@ Expected: A message inform users to ensure the period number is positive integer
 Expected: A message inform users to ensure the period number is positive integer is printed.
 
 === Set a Task as done
-Key in `done 1` +
+Key in `done 3` +
 Expected: Prints a message that the first task on the list has been marked as done.
 Note: Only works for To-Dos.
 
 === Find tasks that contains a certain keyword or key phrase
-Key in `find <key>`, where `<key>` is the keyword or key phrase +
+Key in `find MU2113T` to search for all events that contain the keyphrase "MU2113T" +
 Expected: Prints a list of tasks that contains the `<key>`.
 
 === Get reminder
 Key in `reminder` +
-Expected: Prints a list of tasks to be completed in the next three days.
+Expected: Prints a list of tasks to be completed in the next few days. Without any
+second argument, 3 days is the default. See below for getting reminder for a specific
+number of days.
 
 Key in `reminder 2` +
 Expected: Prints a list of tasks to be completed in the next two days.
 
 === View all tasks in a certain day
-Key in view `<date>`, where `<date>` has the format dd-MM-yyyy. +
-Expected: Prints a list of tasks that occurs on the given `<date>`.
+Key in `view 19-11-2019`, note that the date is in the format dd-MM-yyyy. +
+Expected: Prints a list of tasks that occurs on the given date.
 
 === Edit description of an event
-Key in `<edit> <event index>/<new description>`.+
-Expected: Prints the success of editing event of index `<event index>`.
+Key in `edit 2/Promenade`. +
+"2" is the index of the event we want to edit, and "Promenade" is the
+new description we wish to change the event to having. +
+Expected: Prints success message and edits event of index `<event index>` to new description.
 
 === Reschedule an event
 . Prerequisites: Event list is not empty, and at least has one type of event.
 
 . Reschedule an event in the list
 .. Test case: `reschedule 1 01-01-2020 0000 0100` +
-Expected: If clash with other event in the list, the details of clash will be printed. If the No.1 in the list is a
-Todo, the message of rescheduling only works on events will be printed. If no clash and not Todo, the No.1 event will
-be rescheduled to 01-01-2020 0000 0100, and the successfully rescheduled message will be printed.
+Expected: If clash with other event in the list, the details of clash will be printed. Otherwise,
+a success message will be printed and the event will be rescheduled.
+
+NOTE: This does not work on to-do type events.
 
 . Reschedule an event which is not in the list
 .. Test case: `reschedule 0 01-09-2019 1300 1400` +
@@ -1090,15 +1100,15 @@ Expected: Prints the success of editing the contact, and the contact details.
 For example, the user input command `concert MyConcert/2-12-2019 1500 1600/30` will
 have a cost of $30.
 
+.. Notice earlier that the concert entry events have an extra field at the end. This denotes
+the cost of the concert to be added.
 .. Attempting to add two concerts to the same month that exceeds the stipulated budget
 (set at $50) will result in a message telling the user so, and that the operation has been
-cancelled.
-.. Entering the command `concert MyConcert/2-12-2019 1500 1600/30` followed by the command
-`concert MyConcert/27-12-2019 1200 1400/21` will result in the system cancelling the second
-operation due to exceeding of budget for the month of december 2019.
+cancelled. Try `concert NewConcert/1-11-2019 1400 1600/60` for example.
 
 . The user command `budget MM-yyyy` will result in the program displaying the costs
-of all concerts in the month denoted by MM-yyyy.
+of all concerts in the month denoted by MM-yyyy. +
+e.g `budget 11-2019` will display the costs for the month of November 2019.
 
 . The user command `budget set 35` will change the stipulated budget to the value stated ($35).
 Similarly, `budget set 70` will set the budget to a value of $70.
