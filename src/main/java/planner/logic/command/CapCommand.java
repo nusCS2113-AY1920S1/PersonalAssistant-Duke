@@ -205,6 +205,11 @@ public class CapCommand extends ModuleCommand {
             throw new ModEmptyListException();
         }
         ArrayList<String> prunedModules = parsePrerequisiteTree(detailedMap.get(moduleCode).getPrerequisites());
+        for (String x : prunedModules) {
+            if (!detailedMap.containsKey(x)) {
+                prunedModules.remove(x);
+            }
+        }
         for (ModuleTask x : profile.getModules()) {
             if (prunedModules.contains(x.getModuleCode())) {
                 if (letterGradeToCap(x.getGrade()) != 0.00) {
