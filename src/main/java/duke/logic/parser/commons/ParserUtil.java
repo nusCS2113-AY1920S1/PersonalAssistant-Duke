@@ -27,6 +27,7 @@ public class ParserUtil {
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
+
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
@@ -69,17 +70,18 @@ public class ParserUtil {
 
     private static Set<Index> getIndicesInInterval(String interval) throws ParseException {
         String[] startAndEndIndices = interval.split(SEPARATOR_INDEX_INTERVAL, -1);
-        int start;
-        int end;
-        try {
-            start = Integer.parseInt(startAndEndIndices[0].strip());
-            end = Integer.parseInt(startAndEndIndices[1].strip());
-        } catch (NumberFormatException e) {
-            throw new ParseException(Message.MESSAGE_INVALID_INDEX);
+
+        if (startAndEndIndices[0].strip().isBlank() || startAndEndIndices[1].strip().isBlank()) {
+            throw new ParseException(Message.MESSAGE_INVALID_INDEX_INTERVAL);
         }
+
+        int start = parseIndex(startAndEndIndices[0].strip()).getOneBased();
+        int end = parseIndex(startAndEndIndices[1].strip()).getOneBased();
+
         if (start > end) {
             throw new ParseException(Message.MESSAGE_INVALID_RANGE);
         }
+
         Set<Index> result = new HashSet<>();
         for (int i = start; i <= end; i++) {
             if (i <= 0) {
@@ -94,13 +96,11 @@ public class ParserUtil {
         String[] indexStrings = string.split(SEPARATOR_INDEX_MULTIPLE, -1);
         Set<Index> result = new HashSet<>();
         for (String indexString : indexStrings) {
-            try {
-                result.add(Index.fromOneBased(Integer.parseInt(indexString.strip())));
-            } catch (NumberFormatException e) {
-                throw new ParseException(Message.MESSAGE_INVALID_INDEX);
-            } catch (IndexOutOfBoundsException i) {
-                throw new ParseException(MESSAGE_INVALID_INDEX);
+            if (indexString.isBlank()) {
+                throw new ParseException(Message.MESSAGE_INVALID_INDEX_MULTIPLE);
             }
+
+            result.add(parseIndex(indexString.strip()));
         }
         return result;
     }
