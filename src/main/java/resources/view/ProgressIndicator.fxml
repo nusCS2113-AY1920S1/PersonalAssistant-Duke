@@ -4,7 +4,7 @@
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="98.0" prefWidth="237.0" style="-fx-background-color: FF9999; -fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.ProgressController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="98.0" prefWidth="237.0" style="-fx-background-color: FF9999; -fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userinterface.ProgressController">
    <children>
       <ProgressIndicator fx:id="progressIndicator" layoutX="149.0" layoutY="6.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="90.0" prefWidth="80.0" progress="0.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutY="26.0" prefHeight="30.0" prefWidth="80.0" text="Completed" />
