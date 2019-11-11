@@ -44,14 +44,14 @@ This section shows the summary of my contributions to the project which include 
 
 *Features implemented:* I have implemented the ability to `add`, `edit`, `delete` and `list` `Savings` account
 
-* What it does: The `add`, `edit`, `delete` and `list` commands on a `savings` account allows the user to manage all
+* *What it does*: The `add`, `edit`, `delete` and `list` commands on a `savings` account allows the user to manage all
 savings accounts in the profile.
-* Justification: The savings account is a common account that many users own. Additionally, many transactions are
+* *Justification*: The savings account is a common account that many users own. Additionally, many transactions are
 performed in this account. Because of these reasons, the implementation of the `Savings` account will cater to a
 large number of users.
-* Highlights: The bank account also keeps track of the user's monthly income so that it can automatically be credited
+* *Highlights*: The bank account also keeps track of the user's monthly income so that it can automatically be credited
 into the `Savings` account. This prevents errors such as forgetting to add a deposit for the monthly income.
-* Credits: A majority of this class inherits from the parent class `bank` which was collaborated by
+* *Credits*: A majority of this class inherits from the parent class `bank` which was collaborated by
 <<shamussy#,Shamus>>,
 <<mong-nus#,Zheng Wei>>,
 <<terencetanwt#,Terence>> and
@@ -60,23 +60,23 @@ into the `Savings` account. This prevents errors such as forgetting to add a dep
 *Features implemented:* I have implemented the ability to `add`, `edit`, `delete` and `list` transactions, which consists of
 `expenditures`, `deposit`, and `recurbankexp`.
 
-* What it does: The `add`, `edit`, `delete` and `list` commands on transaction objects allows the user to manage all
+* *What it does*: The `add`, `edit`, `delete` and `list` commands on transaction objects allows the user to manage all
 transactions within the bank or card accounts.
-* Justification: Transactions which are performed on a bank account will affect the amount of money in it. By
+* *Justification*: Transactions which are performed on a bank account will affect the amount of money in it. By
 implementing the transactions features, the user will be able to add any transactions which has been performed to the
 specified bank account. This enables the ability to track the user's finances.
-* Highlights: This enhancement automatically adjusts the current amount in the bank automatically when a transaction
+* *Highlights*: This enhancement automatically adjusts the current amount in the bank automatically when a transaction
 is added, modified or deleted. This allows effective tracking of the user's finances in the account without the need
 to manually edit the bank amount.
 
 *Features implemented:* I have assisted <<shamussy#,Shamus>> to implement the investment account.
 
-* What it does: The investment account allows *OwlMoney* to be able to track investments and bonds that the user has.
-* Justification: Investments are common sources of income for many users, including our target users of fresh and
+* *What it does*: The investment account allows *OwlMoney* to be able to track investments and bonds that the user has.
+* *Justification*: Investments are common sources of income for many users, including our target users of fresh and
 undergraduates. By allowing them to track their investments, users are able to track more than just their savings
-* Highlights: This enhancement automatically credits the 6 month interest into the bank account. This allows
+* *Highlights*: This enhancement automatically credits the 6 month interest into the bank account. This allows
 effective tracking of the user's investments while reducing errors from user input.
-* Credits: A majority of these features was done by <<shamussy#,Shamus>>. I assisted him when he had difficulties in
+* *Credits*: A majority of these features was done by <<shamussy#,Shamus>>. I assisted him when he had difficulties in
 implementing certain features.
 
 *Code contributed:*
@@ -86,11 +86,11 @@ implementing certain features.
 
 *Other contributions:*
 
-* Project Management:
+* *Project Management*:
 ** Managed Issue tracker.
-* Enhancement made to existing features:
+* *Enhancement made to existing features*:
 ** Fixed error in the Ui of the program. (Pull Request #152)
-* Documentation:
+* *Documentation*:
 ** Corrected mistakes in the Developer Guide. (Pull Request
 https://github.com/AY1920S1-CS2113T-W17-3/main/pull/163[#163])
 ** Planned the initial user stories and use cases of the project. (<<shamussy#,Shamus>>,
@@ -99,10 +99,10 @@ https://github.com/AY1920S1-CS2113T-W17-3/main/pull/163[#163])
 <<valerietyj#,Valerie>>) (Issue https://github.com/AY1920S1-CS2113T-W17-3/main/issues/24[#24],
 https://github.com/AY1920S1-CS2113T-W17-3/main/issues/26[#26],
 https://github.com/AY1920S1-CS2113T-W17-3/main/issues/27[#27])
-* Community:
+* *Community*:
 ** Reviewed the User Guide and Developer Guide of other groups.
 ** Reported several bugs found in another team's project, https://github.com/BrianTKM/ped/issues[MisterMusik].
-* Team Collaboration:
+* *Team Collaboration*:
 ** Reported bugs on team member's code. (Issue
 https://github.com/AY1920S1-CS2113T-W17-3/main/issues/138[#138])
 ** Collaborated with team members on other features. (Pull Request

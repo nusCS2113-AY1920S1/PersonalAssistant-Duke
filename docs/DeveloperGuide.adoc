@@ -419,7 +419,7 @@ a| * Confusing when there are multiple banks with similar names,
 
 |======
 
-After weighing the pros and cons, approach 1 was taken.
+After weighing the pros and cons, *approach 1* was taken.
 
 By designing the name to be case-insensitive, it increases the user-friendliness of *OwlMoney* since bank names are
 commonly remembered without the exact capitalisation of letters. Also, in the event the user keys in a
