@@ -108,7 +108,7 @@ the `Ui` also consist of templates for the different sections of the program, su
 <u>Dish</u>
 
 ```
-         _________________________________________________________________________________________
+_________________________________________________________________________________________
          Continue by adding, removing, listing, adding ingredient and initializing
          Template:       _________________________________________________________________________________________
          add <dish name>
@@ -436,7 +436,7 @@ AddDishCommand, AddIngredient, DeleteDishCommand, ListDishCommand, ResetDishComm
   
 - **<u>AddIngredient</u>**
 
-  user intends to add an ingredient to a certain dish in dishList. this command takes in a description which is the ingredient name, amount and index. thus user enters `ingredient rice 100 1` which denotes adding an ingredient called rice with a amount of 100g to the index of the dish. in this case the index is 1. this command will then call the method`addIngredient` from the Dish class. in this method, it will iterate through the ingredient list to check for duplicates. if there are duplicates, same name and same amount, notify the user that the ingredient already exist. if the name of the ingredient is the same but amount is different, it only change the amount to the new amount. 
+  user intends to add an ingredient to a certain dish in dishList. this command takes in a description which is the ingredient name, amount and index. thus user enters `ingredient rice 100 1` which denotes adding an ingredient called rice with a amount of 100g to the index of the dish. in this case the index is 1. this command will then call the method`addIngredient` from the Dish class. in this method, it will iterate through the ingredient list to check for duplicates. if there are duplicates, same name and same amount, notify the user that the ingredient already exist. if the name of the ingredient is the same but amount is different, it only change the amount to the new amount. 
 
   if any of the description is empty, an exception will be thrown to inform the user. 
 
@@ -456,15 +456,13 @@ AddDishCommand, AddIngredient, DeleteDishCommand, ListDishCommand, ResetDishComm
   
 - **<u>FindDishCommand</u>**
 
-  user intends to find a dish in the dishList by keyword. user enters `find rice`, which denotes to list all the dishes which has the string rice in the name. this command takes in a String keyword and it will iterate through the dishList to find all the dishes that contain the keyword given by user. 
+  user intends to find a dish in the dishList by keyword. user enters `find rice`, which denotes to list all the dishes which has the string rice in the name. this command takes in a String keyword and it will iterate through the dishList to find all the dishes that contain the keyword given by user. 
 
   it will then print out the dish as well as the ingredient list of the dish to the user.
 
 - **<u>ChangeDishCommand</u>**
 
-  user intends to change the name of the dish. user needs to enter `change 1 chicken noodle` which denotes changing name if dish at index 1 to chicken noodle. this command takes in an integer index and string which is the new dish name. it will then change the name of the dish in dishList by the index to the new name.
-
-![dishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishesCommand.PNG)
+  user intends to change the name of the dish. user needs to enter `change 1 chicken noodle` which denotes changing name if dish at index 1 to chicken noodle. this command takes in an integer index and string which is the new dish name. it will then change the name of the dish in dishList by the index to the new name.
 
 **<u>future additions</u>**
 
@@ -585,12 +583,7 @@ The `ingredientCommand` classes all inherit from the `Command` class. They all h
 - **ChangeAmountCommand**: This command is used to change the amount of an `Ingredient` given the index number of the `Ingredient`.
 - **ChangeNameCommand**: This command is used to change the name of an `Ingredient` given the index number of the `Ingredient`.
 
-
-### 3. Implementation
-
-### 4. Documentation
-
-### 5. Testing
+### 3. Testing
 
 
 - There are two ways to run our tests.
@@ -605,11 +598,6 @@ The `ingredientCommand` classes all inherit from the `Command` class. They all h
 - Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
 
 We provide `JUnit` tests to test individual methods in the `Dish` and `Fridge` component, provided in the `DishTest.java` and `FridgeTest.java`
-
-
-### 6. Dev Ops 
-
-
 
 ### Appendix A: Product Scope
 
@@ -790,7 +778,7 @@ Target user profile: Restaurant Chef
 4. should be easy to use for users with basic knowledge of command line interface
 5. should be able to handle large amounts of data without displaying any slowdown in application performance 
 
-### Appendix F: Instruction for Manual Testing 
+### Appendix E: Instruction for Manual Testing 
 
 1. Ensure you have Java `11` or above installed in your Computer.
 2. Download the latest Duke.jar [here](https://github.com/AY1920S1-CS2113-T14-2/main/releases).
@@ -950,15 +938,7 @@ Changing the amount of an ingredient in the `Fridge`
 
 ​	   Expected: Program outputs to user the proper syntax to use the command.
 
-#### E11. Adding an order
-
-#### E12. Marking order as done
-
-#### E13. Altering order
-
-#### E14. Removing order
-
-#### E15. Adding a dish
+#### E11. Adding a dish
 
 1. adding a dish to the dishList
 
@@ -976,7 +956,7 @@ Changing the amount of an ingredient in the `Fridge`
 
       Expected: output message to user that the description cannot be empty
 
-#### E16. Removing a dish
+#### E12. Removing a dish
 
 1. removing a dish from the dishList
 
@@ -998,7 +978,7 @@ Changing the amount of an ingredient in the `Fridge`
 
          Expected: no dish is deleted. outputs to the user that the dish does not exist 
 
-#### E17. Adding an ingredient to a dish
+#### E13. Adding an ingredient to a dish
 
 1. associating an ingredient to a dish in the dishList	
 
@@ -1016,7 +996,7 @@ Changing the amount of an ingredient in the `Fridge`
 
       Expected: no ingredient is added to a dish. outputs message to user that index/amount needs to be valid
 
-#### E18. Finding a dish
+#### E14. Finding a dish
 
 1. finding a dish in list given a keyword
 
@@ -1035,7 +1015,7 @@ Changing the amount of an ingredient in the `Fridge`
    
    Expected: deletes the first dish in the list, 
 
-#### E19. Changing name of a dish
+#### E15. Changing name of a dish
 
 1. changing the name of a dish in list
 

@@ -82,17 +82,6 @@ public class Ui {
 
     public void dishDrawing() {
         if(!DRAW) return;
-//        System.out.println("            (\\                                      ");
-//        System.out.println("             \\ \\                                   ");
-//        System.out.println("               \\/ ___,.-------..__                  ");
-//        System.out.println("        //\\\\ _,-'\\\\               `'--._ //\\\\  ");
-//        System.out.println("        \\\\ ;'      \\\\                   `: //    ");
-//        System.out.println("         `(          \\\\                   )'       ");
-//        System.out.println("           :.          \\\\,----,         ,;         ");
-//        System.out.println("            `.`--.___   (    /  ___.--','            ");
-//        System.out.println("              `.     ``-----'-''     ,'              ");
-//        System.out.println("                 -.               ,-                 ");
-//        System.out.println("                     `-._______.-                    ");
         System.out.println("\t  _______     ________    ______  _____  _______  ________  ______      ___      ___   ___  ____");
         System.out.println("\t |_   __ \\   |_   __  | .' ___  ||_   _||_   __ \\|_   __  ||_   _ \\   .'   `.  .'   `.|_  ||_  _|  ");
         System.out.println("\t   | |__) |    | |_ \\_|/ .'   \\_|  | |    | |__) | | |_ \\_|  | |_) | /  .-.  \\/  .-.  \\ | |_/ /    ");
