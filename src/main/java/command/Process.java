@@ -90,7 +90,7 @@ public class Process {
             //input validity check
             if (splitamount.length != 2) {
                 ui.exceptionMessage("\t" + "Incorrect input" + "\n"
-                        + "\t" + "Correct Format: " + commandformat.addProjectFormat() );
+                        + "\t" + "Correct Format: " + commandformat.addProjectFormat());
                 return;
             }
 
