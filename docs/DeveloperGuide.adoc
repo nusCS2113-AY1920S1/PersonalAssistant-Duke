@@ -251,7 +251,7 @@ Step 3: From that word, continuously look for its successor to find the word tha
 The usage statistics feature includes a collection of commands that can allow the user to obtain information regarding his usage habits of WordUp that can help the user use the word bank more efficiently.
 
 ==== Recently Added
-The Recently Added feature allows the user to quickly check back on the words he had recently added to the application. It is facilitated by the RecentlyAddedCommand, which extends the Command class.
+The Recently Added feature allows the user to quickly check back on the words he had recently added to the application. It is facilitated by the `RecentlyAddedCommand`, which extends the `Command` class.
 
 It contains the following attributes:
 
@@ -327,7 +327,7 @@ The following sequence shows how the Search Frequency feature works:
 
 [INSERT SEQUENCE DIAGRAM]
 
-==== Schedule Reminders feature
+=== Schedule Reminders feature
 The schedule reminders feature allows the user to schedule words for revision notifications at the date and time set. It is facilitated by `SetReminderCommand` and classes in the `reminders` package.
 
 [INSERT OBJECT DIAGRAMS]

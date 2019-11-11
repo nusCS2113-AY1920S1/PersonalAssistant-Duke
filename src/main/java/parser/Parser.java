@@ -10,7 +10,7 @@ import command.DeleteCommand;
 import command.EditCommand;
 import command.ExitCommand;
 import command.HelpCommand;
-import command.HistoryCommand;
+import command.RecentlyAddedCommand;
 import command.ListCommand;
 import command.ListTagCommand;
 import command.QuizCommand;
@@ -93,7 +93,7 @@ public class Parser {
             } else if (userCommand.equals("list_tags")) {
                 command = parseListTags(taskInfo);
             } else if (userCommand.equals("history")) {
-                command = parseHistory(taskInfo);
+                command = parseRecentlyAdded(taskInfo);
             } else if (userCommand.equals("freq")) {
                 command = parseSearchFrequency(taskInfo);
             } else if (userCommand.equals("schedule")) {
@@ -367,7 +367,7 @@ public class Parser {
      * @throws WrongHistoryFormatException when the format of the history command does not match required format
      * @throws ZeroHistoryRequestException when the requested number of entries to be shown is zero
      */
-    protected static Command parseHistory(String[] taskInfo)
+    protected static Command parseRecentlyAdded(String[] taskInfo)
             throws WrongHistoryFormatException, ZeroHistoryRequestException, InvalidHistoryIndexException {
         int numberOfWordsToDisplay;
         if (taskInfo.length == 1) {
@@ -384,7 +384,7 @@ public class Parser {
         if (numberOfWordsToDisplay == 0) {
             throw new ZeroHistoryRequestException();
         }
-        return new HistoryCommand(numberOfWordsToDisplay);
+        return new RecentlyAddedCommand(numberOfWordsToDisplay);
     }
 
     /**

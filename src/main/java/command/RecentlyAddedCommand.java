@@ -11,12 +11,12 @@ import java.util.Stack;
  * Represents a command from user to see recently added words.
  * Inherits from Command class.
  */
-public class HistoryCommand extends Command {
+public class RecentlyAddedCommand extends Command {
 
     protected int numberOfWordsToDisplay;
     protected Stack<Word> wordHistory;
 
-    public HistoryCommand(int numberOfWordsToDisplay) {
+    public RecentlyAddedCommand(int numberOfWordsToDisplay) {
         this.numberOfWordsToDisplay = numberOfWordsToDisplay;
     }
 

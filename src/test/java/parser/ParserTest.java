@@ -7,14 +7,13 @@ import command.ExitCommand;
 import command.HelpCommand;
 import command.SearchBeginCommand;
 import command.SearchFrequencyCommand;
-import command.HistoryCommand;
+import command.RecentlyAddedCommand;
 import command.SearchCommand;
 import command.DeleteCommand;
 import command.AddCommand;
 import command.ListCommand;
 import command.QuizCommand;
 import command.SetReminderCommand;
-import exception.WrongAddFormatException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -30,7 +29,7 @@ import static parser.Parser.parseTag;
 import static parser.Parser.parseSearch;
 import static parser.Parser.parseQuiz;
 import static parser.Parser.parseSearchFrequency;
-import static parser.Parser.parseHistory;
+import static parser.Parser.parseRecentlyAdded;
 import static parser.Parser.parseEdit;
 
 class ParserTest {
@@ -75,7 +74,7 @@ class ParserTest {
         input = historyInput;
         returnedObject = Parser.parse(input);
         assertNotNull(returnedObject);
-        assertTrue(returnedObject instanceof HistoryCommand);
+        assertTrue(returnedObject instanceof RecentlyAddedCommand);
 
         input = freqInput;
         returnedObject = Parser.parse(input);
@@ -170,9 +169,9 @@ class ParserTest {
     void parseHistoryTest() {
         try {
             String[] taskInfo = {"history", "5"};
-            Command returnedObject = parseHistory(taskInfo);
+            Command returnedObject = parseRecentlyAdded(taskInfo);
             assertNotNull(returnedObject);
-            assertTrue(returnedObject instanceof HistoryCommand);
+            assertTrue(returnedObject instanceof RecentlyAddedCommand);
         } catch (Exception e) {
             fail("parseHistory method failed with the error message: " + e.getMessage());
         }

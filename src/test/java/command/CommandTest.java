@@ -96,8 +96,8 @@ public class CommandTest {
     @Test
     public void historyCommandTest() {
         try {
-            HistoryCommand historyCommand = new HistoryCommand(2);
-            String history = historyCommand.execute(ui, bank, storage);
+            RecentlyAddedCommand recentlyAddedCommand = new RecentlyAddedCommand(2);
+            String history = recentlyAddedCommand.execute(ui, bank, storage);
             System.out.println(history);
             assertEquals(history,
                     "Here are the last 2 words you have added:\nkiwi: green fruit\nbanana: yellow fruit\n");
