@@ -24,9 +24,11 @@ public class ViewCommand extends Command {
     private static final String LOG_NON_EXISTENT_PAGE = "Page does not exist.";
     private static final String LOG_NON_EXISTENT_MODULE = "Module does not exist.";
     private static final String LOG_NON_EXISTENT_TAB = "Tab does not exist.";
+    private static final String LOG_INVALID_MONTH = "Month format is invalid.";
     private static final String LOG_ADDED_PAGE = "Added page to page trace.";
-    private static final String LOG_ADDED_MODULE_CODE = "Added module cod to page trace.";
+    private static final String LOG_ADDED_MODULE_CODE = "Added module code to page trace.";
     private static final String LOG_ADDED_TAB = "Added tab to page trace.";
+    private static final String LOG_ADDED_MONTH = "Added month tab to page trace.";
 
     private static final String MISSING_PAGE_INPUT = "Please input the page you want to change to.";
     private static final String SPECIFY_PAGE = "Please specify module before tab.\n"
@@ -212,8 +214,8 @@ public class ViewCommand extends Command {
                 LOGGER.severe(LOG_NON_EXISTENT_TAB);
                 throw new InputException(NON_EXISTENT_TAB);
             }
+            LOGGER.fine(LOG_ADDED_TAB);
         }
-        LOGGER.fine(LOG_ADDED_TAB);
 
         if (page.equals("calendar") && tab != null) {
             newPageTrace.addFirst(tab);
@@ -224,8 +226,10 @@ public class ViewCommand extends Command {
                 String[] monthYear = tab.split("/");
                 new DateTime(monthYear[0] + "/01/" + monthYear[1] + " 00:00");
             } catch (DateFormatException e) {
+                LOGGER.severe(LOG_INVALID_MONTH);
                 throw new InputException(INVALID_MONTH_YEAR);
             }
+            LOGGER.fine(LOG_ADDED_MONTH);
         }
 
         pageTrace.clear();
