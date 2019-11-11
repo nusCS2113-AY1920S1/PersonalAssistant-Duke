@@ -119,7 +119,7 @@ If the input is received, it is parsed to command. Command will be executed depe
 an exit command, however, it will shutdown the program gracefully. Otherwise it updates model, which in
 turn updates UI and local storage, after which the program will continue to wait for user input.
 
-This process continues until an exit command is received. 
+This process continues until an exit command is received.
 
 == Implementation
 
