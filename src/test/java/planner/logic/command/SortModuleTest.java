@@ -68,13 +68,13 @@ public class SortModuleTest extends CommandTestFramework {
         resetAll();
         execute(inputTasks);
         expectedOutput = "Got it, added the follow module!\n"
-                +"[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
-                +"| 03:00 - 05:00 on WEDNESDAY\n"
-                +"Got it, added the follow module!\n"
-                +"[not taken] CS2101 | ModuleCode:CS2101, MC:4.0, SU: can S/U, grade: "
-                +"| 12:00 - 14:00 on MONDAY\n"
-                +"Got it, added the follow module!\n"
-                +"[not taken] CG2027 | ModuleCode:CG2027, MC:2.0, SU: cannot S/U, grade: \n";
+                + "[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
+                + "| 03:00 - 05:00 on WEDNESDAY\n"
+                + "Got it, added the follow module!\n"
+                + "[not taken] CS2101 | ModuleCode:CS2101, MC:4.0, SU: can S/U, grade: "
+                + "| 12:00 - 14:00 on MONDAY\n"
+                + "Got it, added the follow module!\n"
+                + "[not taken] CG2027 | ModuleCode:CG2027, MC:2.0, SU: cannot S/U, grade: \n";
         assertEquals(expectedOutput, getOut());
 
         execute("sort module code\n");

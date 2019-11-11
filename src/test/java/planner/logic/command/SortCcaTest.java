@@ -70,14 +70,14 @@ public class SortCcaTest extends CommandTestFramework {
         resetAll();
         execute(inputTasks);
         expectedOutput = "Got it, added the follow cca!\n"
-                +"[C] soccer | 03:00 - 05:00 on MONDAY\n"
-                +"Got it, added the follow cca!\n"
-                +"[C] dance | 07:00 - 09:00 on MONDAY\n"
-                +"Got it, added the follow module!\n"
-                +"[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
-                +"| 03:00 - 05:00 on WEDNESDAY\n"
-                +"Got it, added the follow cca!\n"
-                +"[C] soccer | 03:00 - 05:00 on MONDAY, 03:00 - 05:00 on THURSDAY\n";
+                + "[C] soccer | 03:00 - 05:00 on MONDAY\n"
+                + "Got it, added the follow cca!\n"
+                + "[C] dance | 07:00 - 09:00 on MONDAY\n"
+                + "Got it, added the follow module!\n"
+                + "[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
+                + "| 03:00 - 05:00 on WEDNESDAY\n"
+                + "Got it, added the follow cca!\n"
+                + "[C] soccer | 03:00 - 05:00 on MONDAY, 03:00 - 05:00 on THURSDAY\n";
         assertEquals(expectedOutput, getOut());
 
         execute("sort cca\n");
