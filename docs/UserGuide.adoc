@@ -75,6 +75,17 @@ For each command, a format is specified for the user to key in. The following is
 
 === Viewing help: `help`
 
+HelpCommand can list either all the commands and their formats in a list, or a certain command and its format.
+This command is to remind users of the input format of a certain command, or to show users all the commands.
+
+* _Format_: `help`
+** List all commands and their respective formats in a list.
+
+* _Format_: `help s/COMMAND_NAME`
+** List the format for a certain command.
+** _Example_: `help list`
+*** List format of input for `list` command.
+
 === Viewing your list of songs: `list`
 
 In the case of there being multiple songs, the list command ensures that navigation is not hampered by displaying the full list of songs you have created in the past. This data is stored in a specific data file outside the application. This file can also be directly edited to change the data to be loaded into Ducats, making exporting and importing data a breeze.
@@ -170,7 +181,19 @@ The above command groups the bars from index 2 to index 4 (inclusive) and gives 
 
 === Undoing your previous action: `undo`
 
+Undo Command can redo the most recent commands that changes the data of the song list until reaching the very first command since starting.
+For `help`, `view`, `list`, `list_group`, and `ascii`, UndoCommand will not undo it since they didn't change the song list.
+Note that although `open` does not change the song list, since it opens a song to edit, `undo` still works on it.
+
+_Format_:
+`undo`
+
 === Redoing your previous action: `redo`
+
+Redo Command can redo the most recent commands that have been undone until there is no more commands that can be redone.
+
+_Format_:
+`redo`
 
 === Starting a metronome: `metronome`
 
