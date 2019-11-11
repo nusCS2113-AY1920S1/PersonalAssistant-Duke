@@ -26,7 +26,7 @@ features of the application BetterDuke._
 Ensure you have Java ​ 11 ​or above installed in your Computer.
 Installation guide:
 1. Download the latest jar file here
-   [JAR](https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/jar-release/v1.3.1.jar)
+   [JAR](https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/jar-release/v1.4.jar)
    
 2. Copy the file to the folder you want to use as the home folder for your BetterDuke.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.  
