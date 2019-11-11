@@ -52,13 +52,13 @@ class EventCommandTest {
         ui.fullCommand = "event sleep/at 2019-12-12 03:03:03-04:04:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
-        Stack<ArrayList<Task>> CommandStack = new Stack<>();
+        Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
 
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
         try {
-            ec.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
+            ec.execute(tasks, ui, storage, commandStack, deletedTask,triviaManager);
         } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
         }
@@ -79,12 +79,12 @@ class EventCommandTest {
         ui.fullCommand = "event sleep/at 2019-12-12 02:03:03-03:10:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
-        Stack<ArrayList<Task>> CommandStack = new Stack<>();
+        Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
         try {
-            ec.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
+            ec.execute(tasks, ui, storage, commandStack, deletedTask,triviaManager);
         } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
         }
@@ -105,12 +105,12 @@ class EventCommandTest {
         ui.fullCommand = "event sleep/at 2019-12-12 03:10:03-03:50:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
-        Stack<ArrayList<Task>> CommandStack = new Stack<>();
+        Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
         try {
-            ec.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
+            ec.execute(tasks, ui, storage, commandStack, deletedTask,triviaManager);
         } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
         }
@@ -130,12 +130,12 @@ class EventCommandTest {
         ui.fullCommand = "event sleep/at 2019-12-12 12:03:03-14:10:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
-        Stack<ArrayList<Task>> CommandStack = new Stack<>();
+        Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
         try {
-            ec.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
+            ec.execute(tasks, ui, storage, commandStack, deletedTask,triviaManager);
         } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
         }

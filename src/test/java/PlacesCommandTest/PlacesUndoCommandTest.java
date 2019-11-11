@@ -3,7 +3,8 @@
 package PlacesCommandTest;
 
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.places.AddPlacesCommand;
+import gazeeebo.commands.places.UndoPlacesCommand;
+import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,13 +13,12 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.text.ParseException;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PlacesAddCommandTest {
+public class PlacesUndoCommandTest {
     private Ui ui = new Ui();
     private Storage storage = new Storage();
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -37,20 +37,14 @@ class PlacesAddCommandTest {
     }
 
     @Test
-    void testAddPlacesCommand() throws IOException {
-        HashMap<String, String> map = new HashMap<>(); //Read the file
+    void testUndoPlacesCommand() throws IOException, ParseException, DukeException {
+        HashMap<String, String> map = new HashMap<>();
         Map<String, String> places = new TreeMap<String, String>(map);
-        ui.fullCommand = "add-Test,COM3";
-        AddPlacesCommand test = new AddPlacesCommand(ui, places);
-        assertEquals("Successfully added :Test,COM3\r\n", output.toString());
-    }
-
-    @Test
-    void testAddWrongPlacesCommand() {
-        HashMap<String, String> map = new HashMap<>(); //Read the file
-        Map<String, String> places = new TreeMap<String, String>(map);
-        ui.fullCommand = "add-TestCOM3";
-        AddPlacesCommand test = new AddPlacesCommand(ui, places);
-        assertEquals("Please input add command in the correct format\r\n", output.toString());
+        Stack<Map<String, String>> oldplaces = new Stack<>();
+        oldplaces.push(places);
+        places.put("LT50", "COM6");
+        UndoPlacesCommand undoTest = new UndoPlacesCommand();
+        undoTest.undoPlaces(places,oldplaces);
+        assertEquals("You have undo the previous command.\r\n", output.toString());
     }
 }

@@ -35,7 +35,7 @@ class CalendarViewTest {
     }
 
     @Test
-    void LeapYearTest() {
+    void leapYearTest() {
         CalendarView calendarView = new CalendarView();
         assertTrue(calendarView.isLeapYear(2020));
         assertFalse(calendarView.isLeapYear(2019));

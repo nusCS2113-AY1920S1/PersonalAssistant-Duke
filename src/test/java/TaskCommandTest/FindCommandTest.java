@@ -55,12 +55,12 @@ class FindCommandTest {
         TriviaStorage triviaStorage = new TriviaStorage();
         TriviaManager triviaManager = new TriviaManager(triviaStorage);
         ArrayList<Task> tasks = new ArrayList<Task>();
-        Stack<ArrayList<Task>> CommandStack = new Stack<>();
+        Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Todo todo = new Todo("chemistry homework");
         tasks.add(todo);
         try {
-            findCommand.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
+            findCommand.execute(tasks, ui, storage, commandStack, deletedTask,triviaManager);
         } catch (ParseException | IOException | DukeException e1) {
             e1.printStackTrace();
         }
@@ -82,12 +82,12 @@ class FindCommandTest {
         TriviaStorage triviaStorage = new TriviaStorage();
         TriviaManager triviaManager = new TriviaManager(triviaStorage);
         ArrayList<Task> tasks = new ArrayList<Task>();
-        Stack<ArrayList<Task>> CommandStack = new Stack<>();
+        Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Todo todo = new Todo("chemistry homework");
         tasks.add(todo);
         try {
-            findCommand.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
+            findCommand.execute(tasks, ui, storage, commandStack, deletedTask,triviaManager);
         } catch (ParseException | IOException | DukeException e1) {
             e1.printStackTrace();
         }

@@ -55,10 +55,10 @@ class DeadlineCommandTest {
         TriviaStorage triviaStorage = new TriviaStorage();
         TriviaManager triviaManager = new TriviaManager(triviaStorage);
         ArrayList<Task> tasks = new ArrayList<Task>();
-        Stack<ArrayList<Task>> CommandStack = new Stack<>();
+        Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         try {
-            deadlineCommand.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
+            deadlineCommand.execute(tasks, ui, storage, commandStack, deletedTask,triviaManager);
         } catch (ParseException | DukeException | IOException e1) {
             e1.printStackTrace();
         }
@@ -81,10 +81,10 @@ class DeadlineCommandTest {
         TriviaStorage triviaStorage = new TriviaStorage();
         TriviaManager triviaManager = new TriviaManager(triviaStorage);
         ArrayList<Task> tasks = new ArrayList<Task>();
-        Stack<ArrayList<Task>> CommandStack = new Stack<>();
+        Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         try {
-            deadlineCommand.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
+            deadlineCommand.execute(tasks, ui, storage, commandStack, deletedTask,triviaManager);
         } catch (ParseException | DukeException | IOException e1) {
             e1.printStackTrace();
         }

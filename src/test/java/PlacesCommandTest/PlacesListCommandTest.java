@@ -1,4 +1,6 @@
-package PlacesCommandTest;//@@author jessteoxizhi
+//@@author jessteoxizhi
+
+package PlacesCommandTest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.places.ListPlacesCommand;
@@ -34,8 +36,13 @@ class PlacesListCommandTest {
         System.setOut(original);
     }
 
+    /**
+     * test list command.
+     * @throws IOException
+     */
+
     @Test
-    void testListContactsCommand() throws IOException {
+    void testListPlacesCommand() throws IOException {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         String linebreak = "------------------------------------------\n";

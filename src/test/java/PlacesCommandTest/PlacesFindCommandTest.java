@@ -3,7 +3,7 @@
 package PlacesCommandTest;
 
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.places.AddPlacesCommand;
+import gazeeebo.commands.places.FindPlacesCommand;
 import gazeeebo.storage.Storage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +18,7 @@ import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PlacesAddCommandTest {
+class PlacesFindCommandTest {
     private Ui ui = new Ui();
     private Storage storage = new Storage();
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -36,21 +36,20 @@ class PlacesAddCommandTest {
         System.setOut(original);
     }
 
-    @Test
-    void testAddPlacesCommand() throws IOException {
-        HashMap<String, String> map = new HashMap<>(); //Read the file
-        Map<String, String> places = new TreeMap<String, String>(map);
-        ui.fullCommand = "add-Test,COM3";
-        AddPlacesCommand test = new AddPlacesCommand(ui, places);
-        assertEquals("Successfully added :Test,COM3\r\n", output.toString());
-    }
+    /**
+     * test find places command
+     * @throws IOException exception when there is an error reading the command
+     */
 
     @Test
-    void testAddWrongPlacesCommand() {
-        HashMap<String, String> map = new HashMap<>(); //Read the file
+    void testFindPlacesCommand() throws IOException {
+        HashMap<String, String> map = new HashMap<>();
         Map<String, String> places = new TreeMap<String, String>(map);
-        ui.fullCommand = "add-TestCOM3";
-        AddPlacesCommand test = new AddPlacesCommand(ui, places);
-        assertEquals("Please input add command in the correct format\r\n", output.toString());
+        places.put("LT50", "COM6");
+        places.put("LT20", "COM7");
+        ui.fullCommand = "find-LT20";
+        FindPlacesCommand test = new FindPlacesCommand(ui,places);
+        assertEquals("LT20                                              | COM7\n"
+                + "------------------------------------------\n", output.toString());
     }
 }
