@@ -36,10 +36,10 @@ public class Ui {
      */
     public void welcomeMsg() {
         String logo = " __     __     ______     __         __         ______     ______  \n"
-                    + "/\\ \\  _ \\ \\   /\\  __ \\   /\\ \\       /\\ \\       /\\  ___\\   /\\__  _\\\n"
-                    + "\\ \\ \\/ \".\\ \\  \\ \\  __ \\  \\ \\ \\____  \\ \\ \\____  \\ \\  __\\   \\/_/\\ \\/\n"
-                    + " \\ \\__/\".~\\_\\  \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_____\\  \\ \\_____\\    \\ \\_\\\n"
-                    + "  \\/_/   \\/_/   \\/_/\\/_/   \\/_____/   \\/_____/   \\/_____/     \\/_/";
+                + "/\\ \\  _ \\ \\   /\\  __ \\   /\\ \\       /\\ \\       /\\  ___\\   /\\__  _\\\n"
+                + "\\ \\ \\/ \".\\ \\  \\ \\  __ \\  \\ \\ \\____  \\ \\ \\____  \\ \\  __\\   \\/_/\\ \\/\n"
+                + " \\ \\__/\".~\\_\\  \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_____\\  \\ \\_____\\    \\ \\_\\\n"
+                + "  \\/_/   \\/_/   \\/_/\\/_/   \\/_____/   \\/_____/   \\/_____/     \\/_/";
         System.out.println(logo);
 
         printLine();
@@ -249,7 +249,7 @@ public class Ui {
      * @param loan The Loan object.
      */
     public static void printLoanRow(Loan loan) {
-        if(loan.getPerson().getPhoneNum() != null) {
+        if (loan.getPerson().getPhoneNum() != null) {
             if (!loan.getIsLend() && !loan.getIsSettled()) {
                 System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
                         loan.getId(), "No", loan.getDescription(), loan.getAmount(), loan.getDate(), "Borrow from",
@@ -307,6 +307,7 @@ public class Ui {
     }
 
     //@@author Xdecosee
+
     /**
      * Show User a list of available help sections.
      *
