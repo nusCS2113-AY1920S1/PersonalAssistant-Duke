@@ -64,8 +64,8 @@ public class DukeUi {
      */
     public void readUserInputFromGui(String userInput) throws DukeException {
         if (userInput.length() > maxInputSize) {
-            throw new DukeException("Your input size is too large! Please limit your input " +
-                    "to 140 characters.");
+            throw new DukeException("Your input size is too large! Please limit your input " 
+                                    + "to 140 characters.");
         }
         this.userInput = userInput;
     }
