@@ -236,7 +236,7 @@ Example: +
 ==== Sorting and printing the CCAs : `sort cca`
 
 Sorts the cca list according to alphabetical order and prints the cca list. + 
-Format: `sort cca f` 
+Format: `sort cca` 
 
 ==== Sorting and printing the CCAs and modules of a certain day of the week : `sort time`
 
