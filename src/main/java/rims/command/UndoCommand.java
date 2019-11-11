@@ -44,8 +44,6 @@ public class UndoCommand extends Command {
      * @param storage   An instance of the Storage class.
      * @param resources The ResourceList, containing all the created Resources thus
      *                  far.
-     * @throws ParseException
-     * @throws IOException
      * @throws RimsException
      */
     @Override

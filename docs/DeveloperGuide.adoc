@@ -187,9 +187,6 @@ They are mainly handled by sending a message to the user to notify them on the p
 
 === Add/Delete
 
-Implemented by: Sean +
-Written by: Sean
-
 ==== Implementation
 .Sequence Diagram for Add
 [caption="Figure 2.1.1: "]
@@ -231,9 +228,6 @@ _Aspect 2: How Resource objects are deleted_
 ** Cons: Cannot pinpoint a unique Resource object to delete
 
 === Reserve/Loan
-
-Implemented by: Bobby/Abhijit +
-Written by: Bobby/Sean
 
 ==== Implementation
 .Sequence Diagram for Reserve
@@ -295,9 +289,6 @@ More user friendly if users wish to make different reservations for a resource.
 
 === Return
 
-Implemented by: Bobby/Abhijit +
-Written by: Bobby/Sean
-
 ==== Implementation
 
 Returning a resource utilizes the following classes: the Parser and UI class will gather inputs from users. Then, these inputs will be used to retrieve and delete the relevant reservation for the resource the user is returning.
@@ -325,9 +316,6 @@ _Aspect: How return is executed_
 ** Disadvantages: Returning Resources will take a longer period to search all Reservations, and the user has less flexibility in returning Resources.
 
 === List
-
-Implemented by: Aarushi +
-Written by: Aarushi
 
 Listing resources using RIMS is facilitated by the ListCommand, after receiving input from the user in the Ui and being passed through Parser. There are three different ways resources can be listed: all items listed, by room, or by item.
 
@@ -358,9 +346,6 @@ For listing resources by item/room(as shown in Figure 2.4.2), consider the case 
 6.	Lastly, the Ui object prints a list of all the dates that resource is booked on in the ReservationList line by line within the loop.
 
 === Calendar
-
-Implemented by: Daniel +
-Written by: Daniel
 
 ==== Implementation
 .Sequence Diagram for Calendar

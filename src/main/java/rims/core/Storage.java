@@ -41,13 +41,18 @@ public class Storage {
     public Storage(String resourceFile, String reserveFile) throws RimsException {
         this.resourceFile = new File(resourceFile);
         this.reservationFile = new File(reserveFile);
-        try {
-            this.resourceFile.getParentFile().mkdir();
-            this.resourceFile.createNewFile();
-            this.reservationFile.getParentFile().mkdir();
-            this.reservationFile.createNewFile();
-        } catch (IOException e){
-            throw new RimsException("Cannot create a new file!");
+        if ((!this.resourceFile.exists()) && (!this.reservationFile.exists())) {
+            try {
+                //this.resourceFile.getParentFile().mkdir();
+                this.resourceFile.createNewFile();
+                //this.reservationFile.getParentFile().mkdir();
+                this.reservationFile.createNewFile();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                throw new RimsException("Cannot create a new file!");
+            } catch (NullPointerException e2) {
+                throw new RimsException("Cannot create data directory!");
+            }
         }
         readResourceFile();
     }
