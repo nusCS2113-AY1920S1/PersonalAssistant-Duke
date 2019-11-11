@@ -1,7 +1,6 @@
 /**
  * Handles and configures loggers and handlers.
  * Default logger is configured to 1 log file, 10MB in size, Level.INFO.
- *
  * Design has been referenced from Address Book (Level 3).
  * https://github.com/se-edu/addressbook-level3
  */

@@ -115,7 +115,7 @@ public class BatchCommand extends Command {
                 throw new CommandException(CommandErrorMessage.INVALID_COMMAND_FORMAT);
             }
         } catch (CubeException e) {
-            throw new CommandException(CommandErrorMessage.INVALID_COMMAND_FORMAT);
+            throw new CommandException(e.getMessage());
         }
     }
 }

@@ -9,6 +9,7 @@ package cube.util;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectReader;
+import com.fasterxml.jackson.databind.RuntimeJsonMappingException;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
@@ -21,12 +22,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Logger;
 
 public class FileUtilCSV<T> extends FileUtil {
     private T fileObject;
     private String fileFullPath;
     private File file;
     private CsvMapper mapper;
+    private final Logger logger = LogUtil.getLogger(FileUtilCSV.class);
 
     /**
      * Constructor with two argument.
@@ -51,7 +54,7 @@ public class FileUtilCSV<T> extends FileUtil {
     public ArrayList<T> load() throws CubeException {
         ArrayList<T> collectionToLoad = new ArrayList<>();
 
-        System.out.println("Loading file from : " + fileFullPath);
+        logger.info("Loading file from : " + fileFullPath);
         try {
             CsvSchema schema = CsvSchema.emptySchema().withHeader();
             JavaType type = mapper.getTypeFactory().constructType(fileObject.getClass());
@@ -65,7 +68,11 @@ public class FileUtilCSV<T> extends FileUtil {
             }
 
         } catch (IOException e) {
+            logger.warning(UtilErrorMessage.READ_ERROR + fileFullPath);
             throw new CubeUtilException(UtilErrorMessage.READ_ERROR + fileFullPath);
+        } catch (RuntimeJsonMappingException e) {
+            logger.warning(UtilErrorMessage.CSV_MAPPER_ERROR);
+            throw new CubeUtilException(UtilErrorMessage.CSV_MAPPER_ERROR);
         }
 
         return collectionToLoad;
