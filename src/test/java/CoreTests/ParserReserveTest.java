@@ -3,13 +3,10 @@ package CoreTests;
 import rims.core.Parser;
 import rims.core.ResourceList;
 import rims.core.Ui;
-import rims.core.Storage;
-import rims.command.ReturnCommand;
 import rims.exception.*;
 import rims.resource.Item;
 import rims.resource.Resource;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
@@ -24,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ParserReserveTest {
     private static Parser parserUnderTest;
     private static Ui ui;
-    private static Storage storage;
     private static ResourceList listUnderTest;
     private static Resource resourceUnderTest;
 
@@ -91,6 +87,20 @@ public class ParserReserveTest {
         
         assertEquals("Please enter a valid day / time.", e.getMessage());
         ui.formattedPrint("Test: Invalid date format in input\n\tStatus: Passed");
+    }
 
+    /**
+     * User tries to reserve a non-existing item
+     */
+    @Test
+    public void itemDoesNotExistTest() throws RimsException, IOException, ParseException {
+        String input = "reserve /item what /qty 1 /id 1 /from 15/11/2020 /by 15/11/2020 1200";
+    
+        Exception e = assertThrows(RimsException.class, () -> {
+            parserUnderTest.parseInput(input);
+        });
+        
+        assertEquals("This resource does not exist in your inventory!", e.getMessage());
+        ui.formattedPrint("Test: Invalid date format in input\n\tStatus: Passed");
     }
 }

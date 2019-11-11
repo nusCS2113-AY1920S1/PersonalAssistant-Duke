@@ -3,13 +3,9 @@ package CoreTests;
 import rims.core.Parser;
 import rims.core.ResourceList;
 import rims.core.Ui;
-import rims.core.Storage;
-import rims.command.ReturnCommand;
 import rims.exception.*;
-import rims.resource.Item;
 import rims.resource.Resource;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ParserReturnTest {
     private static Parser parserUnderTest;
     private static Ui ui;
-    private static Storage storage;
     private static ResourceList listUnderTest;
 
     @BeforeAll
