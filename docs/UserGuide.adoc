@@ -248,11 +248,10 @@ If there are more than one synonym to be added, please separate them by spaces.
 
 //end::synonyms[]
 
+// tag::tag[]
 === Adding tags to a word : `tag`
-*Caution*: The tags are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all tags will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
-
 Assigns a tag to an existing word in the database. +
-Format: `tag w/WORD_TO_BE_TAGGED t/NEW_TAG`
+Format: `tag w/WORD_TO_BE_TAGGED [t/NEW_TAG]`
 
 If there are more than one tag to be added, please use `t/` for each tag
 
@@ -260,6 +259,36 @@ Examples:
 
 * `tag w/banana t/fruit` +
 Assigns the word banana with tag fruit.
+//end::tag[]
+
+// tag::search_tag[]
+=== Searching for tags of a word or words of a tag: `search_tag`
+There are 2 ways of using it, one is to search for all tags of a specific word, one is to search for add words tagged by a tag.
+If users want to search for tags of a word: +
+Format: `search_tag w/WORD`
+
+Examples:
+
+* `search_tag w/banana` +
+Output: fruit, yellow color, etc. +
+This command lists out all tags of word `banana`. +
+
+If users want to search for all words of a tag: +
+Format: `search_tag t/TAG`
+
+Examples:
+
+* `search_tag t/numbers` +
+Output: one, two, three, etc. +
+This command lists out all words that are tagged by tag `numbers`
+//end::search_tag[]
+
+// tag::list_tags[]
+=== Listing all tags inside dictionary : `list_tags`
+ 
+Shows a list of all tags that users have input +
+Format: `list_tags`
+//end::list_tags[]
 
 === Viewing history : `history`
 
@@ -304,7 +333,9 @@ _{}_
 e.g. `add w/life m/the existence of an individual human being or animal.`
 * *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
 e.g. `addsyn w/water s/liquid beverage drink`
-* *Delete* : `delete w/word` +
+* *Delete* : `delete w/WORD` +
+* *Delete tag* : `delete w/WORD t/TAG`
+e.g. `delete w/one t/number`
 e.g. `delete w/life`
 * *Edit* : `edit w/WORD m/NEW_MEANGING` +
 e.g. `edit w/life m/the existence of a living thing.`
@@ -314,8 +345,16 @@ e.g. `help add`
 * *Quiz* : `quiz` -> `start`
 * *Search* : `search w/WORD` +
 e.g. `search w/life`
+* *Search begin* : `search_begin w/WORD` +
+e.g. `search_begin w/a` 
 * *Tag* : `tag w/WORD t/TAG1 t/TAG2 t/TAG3` +
 e.g. `tag w/happy t/emotion t/delight`
+* *Search tag* : +
+`search_tag w/WORD` +
+e.g. `search_tag w/one` +
+`search_tag t/TAG` +
+e.g search_tag t/number` +
+* *List tags* : `list_tags` +
 * *History* : `history INTEGER` +
 e.g. `history 5`
 * *Schedule* : `schedule` -> `WORD ... [Enter blank line]` -> `DATE TIME` +
@@ -323,4 +362,3 @@ e.g. `schedule` -> `happy[Enter] unhappy[Enter] bipolar[Enter][Enter]` -> `29-10
 * *Search Frequency* : `freq o/ORDER` +
 e.g. `freq o/asc`
 * *Exit* : `exit`
-
