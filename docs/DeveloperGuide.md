@@ -191,7 +191,7 @@ firstly the full command read from the user will go through parse method. depend
 
 ##### 2.5.1 Storage
 
-![Storage]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/Storage.png )
+![Storage]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/storage.png )
 
 Figure. Structure of the Storage Component
 
