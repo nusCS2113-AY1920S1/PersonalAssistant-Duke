@@ -1,6 +1,5 @@
 package CoreTests;
 
-import rims.core.Parser;
 import rims.core.ResourceList;
 import rims.core.Ui;
 import rims.exception.*;
@@ -8,8 +7,6 @@ import rims.resource.Item;
 import rims.resource.Resource;
 import rims.resource.Room;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.*;
 
 import org.junit.jupiter.api.Test;
@@ -19,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//@@author isbobby
 /**
  * Test class covers the following methods: getResourceById getResourceByName
  * stringToDate dateToString
