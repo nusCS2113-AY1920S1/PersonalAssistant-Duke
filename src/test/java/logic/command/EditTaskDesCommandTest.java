@@ -19,6 +19,8 @@ public class EditTaskDesCommandTest {
         model.getTaskList().clear();
         model.addTask("test1");
         Command command = EditTaskDesParser.parseEditTaskDes("2 /to test des");
+        model.getTaskList().clear();
+        model.save();
         assertThrows(DukeException.class, () -> command.execute(model));
     }
 
@@ -30,6 +32,8 @@ public class EditTaskDesCommandTest {
         Command command = EditTaskDesParser.parseEditTaskDes("1 /to test des");
         CommandOutput out = command.execute(model);
         assertEquals("You have set the description of task: [test] to [[test des]]", out.getOutputToUser());
+        model.getTaskList().clear();
+        model.save();
     }
 
     @Test
@@ -42,6 +46,8 @@ public class EditTaskDesCommandTest {
         Command command2 = EditTaskDesParser.parseEditTaskDes("1 /to test des");
         CommandOutput out = command2.execute(model);
         assertEquals("No update, they are the same.", out.getOutputToUser());
+        model.getTaskList().clear();
+        model.save();
     }
 
     @Test
@@ -55,5 +61,7 @@ public class EditTaskDesCommandTest {
         CommandOutput out = command2.execute(model);
         assertEquals("You have update the description of task: "
                 + "[test] from [[test des1]] to [[test des2]]", out.getOutputToUser());
+        model.getTaskList().clear();
+        model.save();
     }
 }

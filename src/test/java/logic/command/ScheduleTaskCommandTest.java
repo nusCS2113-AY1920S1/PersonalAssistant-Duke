@@ -61,6 +61,9 @@ public class ScheduleTaskCommandTest {
         Command command = ScheduleTeamParser.parseScheduleTeam("todo");
         CommandOutput out = command.execute(model);
         assertEquals("No todo task for the whole team.", out.getOutputToUser());
+        model.getMemberList().clear();
+        model.getTaskList().clear();
+        model.save();
     }
 
     @Test
@@ -78,6 +81,9 @@ public class ScheduleTaskCommandTest {
                 + "6. [\u2715] task6 (due: Wed 04-12-2019 13:11H)\n"
                 + "8. [\u2713] task8 (due: Thu 05-12-2019 09:11H)",
                 out.getOutputToUser());
+        model.getMemberList().clear();
+        model.getTaskList().clear();
+        model.save();
     }
 
     @Test
@@ -93,5 +99,8 @@ public class ScheduleTaskCommandTest {
                 + "2. [\u2715] task2 (due: Wed 04-12-2019 11:12H)\n"
                 + "6. [\u2715] task6 (due: Wed 04-12-2019 13:11H)",
                 out.getOutputToUser());
+        model.getMemberList().clear();
+        model.getTaskList().clear();
+        model.save();
     }
 }

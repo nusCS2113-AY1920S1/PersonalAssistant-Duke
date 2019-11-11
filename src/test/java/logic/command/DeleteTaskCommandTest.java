@@ -20,6 +20,8 @@ public class DeleteTaskCommandTest {
         Command command = DeleteTaskParser.parseDeleteTask("2");
         CommandOutput out = command.execute(model);
         assertEquals("2 index is not within the task list.\n", out.getOutputToUser());
+        model.getTaskList().clear();
+        model.save();
     }
 
     @Test
