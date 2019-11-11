@@ -6,6 +6,7 @@
 
 package cube.logic.parser;
 
+import cube.exception.CubeException;
 import cube.logic.command.ProfitCommand;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
@@ -37,14 +38,14 @@ public class ProfitCommandParser implements ParserPrototype<ProfitCommand> {
             //of food, then it requires at least 7 arguments in total.
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
         }
-        if (ParserUtil.hasInvalidParameters(args,params)) {
-            throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
-        }
-        if (ParserUtil.hasRepetitiveParameters(args)) {
-            throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
-        }
+
+        assert args[1].equals("-t1") : "The second parameter is not '-t1'.";
+        assert args[3].equals("-t2") : "The fourth parameter is not '-t2'.";
+
         Date dateI = ParserUtil.parseStringToDate(args[2]); //the start date of the period (initial)
         Date dateF = ParserUtil.parseStringToDate(args[4]); //the end date of the period (final)
+        assert dateI.compareTo(dateF) <= 0 : "The entered start date is after the entered end date.";
+
         switch (args[5]) {
             case "-all":
                 return new ProfitCommand(dateI, dateF, "ALL");
@@ -59,6 +60,5 @@ public class ProfitCommandParser implements ParserPrototype<ProfitCommand> {
             default:
                 throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
         }
-
     }
 }

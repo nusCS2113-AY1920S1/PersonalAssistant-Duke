@@ -18,7 +18,7 @@ public class ListCommand extends Command {
 
 	public static final String MESSAGE_SUCCESS = "Here are the food in your list: \n"
 		+ "%1$s\n"
-		+ "The total revenue so far is $ %2$f\n";
+		+ "The total revenue this year is $ %2$.2f\n";
 
 	/**
 	 * Default constructor of ListCommand.

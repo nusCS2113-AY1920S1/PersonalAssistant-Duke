@@ -14,6 +14,7 @@ import cube.model.promotion.PromotionList;
 import cube.model.sale.Sale;
 import cube.model.sale.SalesHistory;
 import cube.model.ModelManager;
+import cube.storage.ProfitStorage;
 import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
@@ -29,8 +30,8 @@ public class SoldCommand extends Command {
 	Food toSold;
 	Promotion promotion;
 
-	public static final String MESSAGE_SUCCESS = "%1$d of %2$s have been sold with $%3$f\n"
-		+ "you have earn $%4$f";
+	public static final String MESSAGE_SUCCESS = "%1$d of %2$s have been sold with $%3$.2f\n"
+		+ "you have earn profit $%4$.2f";
 
 	/**
 	 * Constructor with two arguments.
@@ -104,13 +105,17 @@ public class SoldCommand extends Command {
 		int originalQty = toSold.getStock();
 		double revenue = quantity * price;
 		toSold.setStock(originalQty - quantity);
-		// old function Food.updateRevenue(Food.getRevenue() + revenue);
-		// new function
-		double tempRevenue = toSold.getFoodRevenue();
-		tempRevenue += revenue;
-		toSold.setFoodRevenue(tempRevenue);
-
 		double profit = revenue - quantity * toSold.getCost();
+
+		//profit and revenue in sales record update
+		double tempRevenue = ProfitStorage.getAnnualRevenue();
+		tempRevenue += revenue;
+		ProfitStorage.setAnnualRevenue(tempRevenue);
+
+		double tempProfit = ProfitStorage.getAnnualProfit();
+		tempProfit += profit;
+		ProfitStorage.setAnnualProfit(tempProfit);
+
 		Sale saleRecord = new Sale(foodName, quantity, revenue, profit, soldDate);
 		salesHistory.add(saleRecord);
 		storage.storeSalesHistory(salesHistory);
