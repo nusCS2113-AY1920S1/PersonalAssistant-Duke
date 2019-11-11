@@ -1,15 +1,15 @@
 Suggest meals from default items list of DIYeats.
 Various optional parameters exist to customize the suggestions.
 
-    suggest [/date] <DATE> [/type] <MealType> [/display] <Integer>
+    suggestmeal [/date] <DATE> [/type] <MealType> [/display] <Integer>
 
 For example:
 
 1. You want a dinner meal suggestion for 29/10/2019 with up to maximum 5 meals to be suggested.
 
-    suggest /date 29/10/2019 /type d /display 5
+    suggestmeal /date 29/10/2019 /type d /display 5
 
 2. You want a breakfast suggestion for today.
 
-    suggest /type b
+    suggestmeal /type b
 
