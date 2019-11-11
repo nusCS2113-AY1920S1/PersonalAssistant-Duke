@@ -106,6 +106,7 @@ public class Launcher extends Application {
             .getResource("data/demo.json"))
             .toURI();
 
+        //@@author liujiajun-reused
         /*
          * The following is a workaround for the error
          * "java.nio.file.FileSystemNotFoundException" when trying to access files in jar.
@@ -113,6 +114,7 @@ public class Launcher extends Application {
          * stackoverflow.com/questions/22605666/
          * java-access-files-in-jar-causes-java-nio-file-filesystemnotfoundexception.
          */
+
         if ("jar".equals(demoUri.getScheme())) {
             for (FileSystemProvider provider : FileSystemProvider.installedProviders()) {
                 if (provider.getScheme().equalsIgnoreCase("jar")) {
@@ -125,7 +127,8 @@ public class Launcher extends Application {
                 }
             }
         }
-        //--- End of the adapted part ----
+
+        //@@author
 
         return Paths.get(demoUri);
     }

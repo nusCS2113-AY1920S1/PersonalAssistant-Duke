@@ -1,4 +1,4 @@
-= BakingHome - Developer Guide
+= Table of Contents
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,8 +12,6 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-
-By: `Team T12-3`      Since: `Oct 2019`      Licence: `MIT`
 
 <<<
 

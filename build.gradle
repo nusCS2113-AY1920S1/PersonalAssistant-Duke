@@ -23,7 +23,7 @@ application {
 
 shadowJar {
     archiveBaseName = "BakingHome"
-    archiveVersion = "v-demo"
+    archiveVersion = "v1.4"
     archiveClassifier = null
     archiveAppendix = null
 }

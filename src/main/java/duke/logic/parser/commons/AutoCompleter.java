@@ -18,6 +18,13 @@ import static java.util.Objects.requireNonNull;
  * A logic component that auto-completes user inputs.
  * It is able to complete two types of entities: a) command words, such as "order" and "add";
  * b) prefixes, such as "-by" and "-item".
+ *
+ * <p>To add AutoCompleter support for your command, first, add you command class to AutoCompleter using
+ * {@link #addCommandClass(Class)}.
+ * Then, check if the {@link Input} is auto-completable by calling {@link #isAutoCompletable(Input)} ()}.
+ * Finally, if the input is completable, get completion result by calling {@link #complete()}. If there are multiple
+ * results available, the subsequent invocation of {@link #complete()} will return the next possible result.
+ * If all results have been returned, invocation of {@link #complete()} will go cyclic to return the first result.
  */
 public class AutoCompleter {
     private List<Class<? extends Command>> commandClasses;
@@ -74,11 +81,12 @@ public class AutoCompleter {
     }
 
     /**
-     * Returns a {@code Input} object representing an auto-complete suggestion.
+     * Returns a {@code Input} object representing an auto-complete result.
      *
-     * <p>If there is only one available suggestion, returns that suggestion.
-     * If there are multiple suggestions available,
-     * returns the next one and goes cyclic to the first one if there are no more new suggestions.
+     * <p>If there is only one available completion result, returns that result.
+     * If there are multiple results available, first invocation  of this method returns the
+     * first result. The subsequent invocation will return the next one.
+     * If all results have been returned, invocation of this method will go cyclic to return the first result.
      *
      * <p>For example, if the current input has two suggestions "add" and "all" (caret positions omitted),
      * first call to the method returns the "add" input and second call returns "all" input.
