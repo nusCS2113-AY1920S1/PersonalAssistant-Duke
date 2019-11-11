@@ -12,7 +12,7 @@ import java.text.ParseException;
 /**
  * The main class which controls the overall flow, run the program.
  */
-public class Duke {
+public class FG {
 
     private Ui ui;
     private MoneyStorage moneyStorage;
@@ -23,7 +23,7 @@ public class Duke {
      * controlpanel.Duke class acts as a constructor to initialize and setup
      * //@param filePath the path of the moneyAccount.txt which contains the finance of the users
      */
-    public Duke() {
+    public FG() {
         Path moneyDir = Paths.get("dataFG/moneyAccount.txt");
         String moneyFilePath = moneyDir.toAbsolutePath().toString();
         ui = new Ui();

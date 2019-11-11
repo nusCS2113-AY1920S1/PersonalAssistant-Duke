@@ -1,6 +1,6 @@
 list
 todo some stuff
-deadline controlpanel.Duke Documentation /by 17/09/2019 2359
+deadline controlpanel.FG Documentation /by 17/09/2019 2359
 event code jam /at 6/6/2011 1100 to 7/7/2011 1400
 period IPPT /from  18/09/2019 1400 /to 19/09/2019 1800
 find keyword

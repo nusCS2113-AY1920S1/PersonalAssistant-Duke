@@ -29,7 +29,7 @@ FXML is a XML-based language that allows us to define our user interface. Proper
 
 The FXML snippet define a TextField similar to the one that we programmatically defined previous in Tutorial 2. Notice how concise FXML is compared to the plain Java version.
 
-Let's return to controlpanel.Duke and convert it to use FXML instead.
+Let's return to controlpanel.FG and convert it to use FXML instead.
 
 # Rebuilding the Scene using FXML
 
@@ -101,7 +101,7 @@ We will get to that later.
 
 ## Using Controllers
 
-As part of the effort to separate the code handling controlpanel.Duke's logic and UI, let's _refactor_ the UI-related code to its own class.
+As part of the effort to separate the code handling controlpanel.FG's logic and UI, let's _refactor_ the UI-related code to its own class.
 We call these UI classes _controllers_. 
 
 Let's implement the `guicontroller.MainWindow` controller class that we specified in `guicontroller.MainWindow.fxml`.
@@ -128,7 +128,7 @@ public class guicontroller.MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private controlpanel.Duke duke;
+    private controlpanel.FG duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -138,12 +138,12 @@ public class guicontroller.MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(controlpanel.Duke d) {
+    public void setDuke(controlpanel.FG d) {
         duke = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing controlpanel.Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing controlpanel.FG's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -168,7 +168,7 @@ Similarly, methods like private methods like `handleUserInput` can be used in FX
 
 ## Using FXML in our application
 
-Let's create a new `controlpanel.Main` class as the bridge between the existing logic in `controlpanel.Duke` and the UI in `guicontroller.MainWindow`.
+Let's create a new `controlpanel.Main` class as the bridge between the existing logic in `controlpanel.FG` and the UI in `guicontroller.MainWindow`.
 
 **controlpanel.Main.java**
 ```java
@@ -182,11 +182,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for controlpanel.Duke using FXML.
+ * A GUI for controlpanel.FG using FXML.
  */
 public class controlpanel.Main extends Application {
 
-    private controlpanel.Duke duke = new controlpanel.Duke();
+    private controlpanel.FG duke = new controlpanel.FG();
 
     @Override
     public void start(Stage stage) {
