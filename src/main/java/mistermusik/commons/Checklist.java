@@ -1,4 +1,5 @@
 //@@author ZhangYihanNus
+
 package mistermusik.commons;
 
 import java.util.ArrayList;

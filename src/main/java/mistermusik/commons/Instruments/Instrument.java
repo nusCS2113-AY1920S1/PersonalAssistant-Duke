@@ -1,4 +1,4 @@
-package mistermusik.commons.Instruments;
+package mistermusik.commons.instruments;
 
 import mistermusik.commons.events.formatting.EventDate;
 
@@ -23,12 +23,19 @@ public class Instrument {
         return instrumentName;
     }
 
+    /**
+     * Adds service information.
+     */
     public int addService(EventDate date, String description) {
         ServiceInfo newServiceInfo = new ServiceInfo(date, description);
         serviceInfoList.add(newServiceInfo);
         return serviceInfoList.size();
     }
 
+    /**
+     * Gets service information.
+     * @return
+     */
     public String getServiceInfos() {
         String res = "";
         int j;
