@@ -21,7 +21,7 @@ Since: Oct 2019
 
 [#gui]
 [caption="Figure 1: GUI interface of Email Manager"]
-image::MainWindow.png[Gui, 400]
+image::MainWindow.png[Gui, 450]
 
 After being constantly spammed by the school emails and missing all kinds of important emails, our group
 decided to develop this email manager to better organize our mailbox as a NUS Computing student.
@@ -45,29 +45,29 @@ format. If you can type fast, Email Manager can get your emails and tasks organi
 . Cross-platform and project structure of release
 
 == Contributions to User Guide
-
+I wrote for the quick start guide in the user guide, as well as the introduction to some of the features I
+implemented.
 
 === Quick Start
 
 This section serves as a tutorial for a new user to Email Manager.
 
 [#installation]
-==== Installation
+=== Installation
 
 . Ensure you have Java version 11 or later installed in your computer.
-. Download the latest email_manager.zip https://github.com/AY1920S1-CS2113T-F11-3/main/releases[here] and
-extract it to a folder.
-. If the download is too slow, please download it from https://drive.google.com[google drive].
+. Download the latest Jar file https://github.com/AY1920S1-CS2113T-F11-3/main/releases[here] and copy it to
+a new folder.
 
 [#run-email-manager]
-==== Run Email Manager
+=== Run Email Manager
 
 [WARNING]
 The program might freeze for a while when fetching and parsing the email. Please wait patiently.
 
-===== Windows User
+==== Windows User
 
-. Double click the jar file in the extracted folder.
+. Double click the jar file.
 . If any error occurs, try to follow the mac/linux user instructions to run the program from command line.
 
 ==== Mac/Linux User
@@ -75,24 +75,22 @@ The program might freeze for a while when fetching and parsing the email. Please
 . Open the command prompt.
 . Change the working directory of the command prompt to the extracted program folder using `cd` command.
 . Check java version using `java -version` command. It should be java 11.
-. Run `java -jar email_manager-1.3.jar` and you are good to go.
-
-[WARNING]
-Make sure that your command prompt is at the directory of the folder extracted, otherwise the data
-structure might not be recognised. Creating data file structure coming in v1.4
+. Run `java -jar [CS2113T-F11-3][Email_Manager].jar` and you are good to go.
 
 [TIP]
 Please send an email to jokeryan1997@gmail.com if you cannot successfully run the program.
 
-===== Use and Test with/without Internet
+==== Use and Test with/without Internet
 
 Our product can automatically parse and manage the emails in your mailbox. It is best to be used and tested
 with Internet connection. If you do not have Internet connection, we have also prepared some data for you to
 test offline.
 
 * If you have Internet connection:
-. You will be directed to a web page to authorize our access to your mailbox. Please login to the *dummy
-email* we provided to you.
+. You will be directed to a web page to authorize our access to your mailbox. The program is set to
+login to the *dummy email* address automatically, but if for some reason it does not work, please login
+to the *dummy email* we provided to you. (Dummy email account: cs2113t@outlook.com, Password: nusf11-3)
+
 
 . Close the browser and return back to the Email Manager. Wait for a while for the email to be fetched
 and parsed.
@@ -103,29 +101,50 @@ testing may lead to redundant saving and loading with the current version. More 
 in v2.0
 
 * If you do not have Internet connection:
-. Paste everything under `test_data` file in the program folder, to the `data` folder. Replace all the files
-in the `data` folder.
+. Start the program once first to generate the file structure.
+. Paste everything under `/data/test_data` file in the program folder, to the `/data` folder. Replace all the
+files in the `/data` folder.
 . Close the Email Manager and Start it again.
 . Wait for a while for all the emails to be parsed.
 
-==== Introducing the Interface
-
-.Main Window
-[#main-window]
-[caption="Figure 2: Main window of Email Manager"]
-image::MainWindow.png[Main Window, 800]
-
-As shown in Figure 2, the main window of Email Manager has three sections.
-
-* On the left, it is the command interface, where you should be entering your command and get response from
-the Email Manager.
-* In the middle, it is the task list, which displays all tasks information.
-* On the right, it is the email list and content display. You can press `Esc` key on your keyboard any time
-to switch display between the list and content view of emails.
+[WARNING]
+Any hanging or "not responding" when first launch the app is normal, please wait for the app to get ready.
 
 === Email Features
 
 The command listed here can only be used under email mode/prefix. Use `flip` command to toggle the mode.
+
+==== Fuzzy search on emails
+Format: `fuzzySearch TARGET`
+
+This feature searches for the target string across all emails including their subject, sender and body,
+with some tolerance of difference. This tolerance is represented by the **edit distance** between two words.
+For more details about the **edit distance**, you can find more details
+https://en.wikipedia.org/wiki/Edit_distance[here]. The lower the **edit distance** is, the more similar are
+these two strings. This helps you to search through the emails even if you made some typos or when you are
+not sure about some names.
+
+This fuzzy search functionality tolerates up to an **edit distance** of 2 and is insensitive to cases. This
+means "CS2102" will match to "CS2100" and "S210" but not "CS2211".
+
+It will list all the emails which contain words that match the target string in their subject, sender or
+body. Emails are listed in descending order of a **relevance score**. The general idea is, the higher the
+score, the more relevant is the email. Lower **edit distance**, more occurrence, or occurrence in subject
+and sender will all
+contribute to a higher **relevance score**.
+
+[NOTE]
+For performance reasons, fuzzy search will only be done word by word. For example, if "project demo" is to
+be searched through a sentence "This is a project demo", both "project" and "demo" will be compared against
+"this", "is", "a", "project", "demo" and produce a relevance score.
+
+[NOTE]
+Using short target string like "is" is not recommended, since it can be matched to many other words like
+"a", "I", "am" etc, which appears in almost every email.
+
+Examples:
+
+`fuzzySearch project demo`
 
 ==== Auto parsing and tagging of emails
 This feature is automatically triggered by fetching emails from Outlook Server and adding new kayword. It
@@ -141,7 +160,7 @@ For easier usage and testing, we have prepared a few default keyword + expressio
 
 [#default-keywords]
 [caption="Figure 3: Default keywords of email auto-parsing"]
-image::defaultKeywords.png[Default Keywords, 400]
+image::defaultKeywords.png[Default Keywords, 200]
 
 If the email contains some expressions, the respective keyword will be used to tag that email. It can be
 seen from the `#` sign on the email list. When showing the email using `show` command, the parsed
@@ -177,6 +196,41 @@ a while. Please wait patiently.
 
 == Contribution to Developer Guide
 
+I wrote designs of our programs and the sequence diagram of the features I implemented in our developer
+guide.
+
+=== Design
+
+==== Overall Architecture
+
+[#overall-architecture]
+.Overall Architecture
+image::OverallArchitecture.png[Overall Architecture, 300]
+
+The overall architecture design is as shown in Figure 1. Upon the start of the program, `Storage` loads local
+files
+to update `Model`.
+
+The user interact with the `UI`, which passes on the user input to `Logic` for parsing. Parsed command will be
+executed to modify `Model`. Once `Model` is modified, it updates the `UI` display and calls the `Storage` to
+update the local files.
+
+=== Overall Activity Flow
+
+[#activity-dagram]
+.Activity Diagram
+image::OverallActivityDiagram.png[Overall Activity Flow, 300]
+
+When the program first start, it initializes the model. It then loads the local data files and fetch emails
+from the Outlook Server at the same time. Once these two activities are finished, it starts to wait for
+user input.
+
+If the input is received, it is parsed to command. Command will be executed depending on its type. If it is
+an exit command, however, it will shutdown the program gracefully. Otherwise it updates model, which in
+turn updates UI and local storage, after which the program will continue to wait for user input.
+
+This process continues until an exit command is received.
+
 === Email Management
 
 ==== Email Auto Parsing
@@ -190,8 +244,7 @@ included all components of email.
 ===== Email Format Parsing
 .Email Format Parsing
 [#img-email-format-parsing]
-[caption="Figure N: "]
-image::EmailFormatParseHelper.png[Format Parsing, 800]
+image::EmailFormatParseHelper.png[Format Parsing, 600]
 The email format parsing starts at the call of `ParseFetchResponse(response)`. The variable `response` here
 is a string of the http response from the Outlook server to the fetch API call.
 
@@ -207,9 +260,3 @@ With this `emailJson`, `parseComponentsToEmail(emailJson)` is called to extract 
 json and instantiate an `Email` object to be added to the `emailList` created earlier.
 
 This process repeats until all the email information in the response is processed.
-
-===== Email Content Parsing
-.Email Content Parsing
-[#img-email-content-parsing]
-[caption="Figure N+1: "]
-image::EmailContentParseHelper.png[Content Parsing, 800]
