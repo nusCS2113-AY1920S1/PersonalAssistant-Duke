@@ -5,7 +5,6 @@ package wallet.logic.parser;
 import org.junit.jupiter.api.Test;
 import wallet.logic.command.SetBudgetCommand;
 import wallet.model.Wallet;
-import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;

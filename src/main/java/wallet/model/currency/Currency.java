@@ -28,30 +28,12 @@ public class Currency {
     }
 
     /**
-     * Sets the country of currency.
-     *
-     * @param country The country the currency belongs to.
-     */
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    /**
      * Returns the conversion value of the currency based on SGD.
      *
      * @return The conversion value of the currency
      */
     public double getValue() {
         return value;
-    }
-
-    /**
-     * Sets the value of the currency.
-     *
-     * @param value The value of the currency.
-     */
-    public void setValue(double value) {
-        this.value = value;
     }
 
     /**
@@ -72,8 +54,4 @@ public class Currency {
         this.currentCurrency = currentCurrency;
     }
 
-
-    public String writeToFile() {
-        return country + ", " + value + ", " + currentCurrency;
-    }
 }

@@ -34,7 +34,7 @@ public class SetBudgetCommand extends Command {
     public static final String MESSAGE_CURRENT_BUDGET = "Your budget set for ";
     public static final String MESSAGE_REMAINING_BUDGET = "Your remaining budget for ";
 
-    private Budget budget = null;
+    private Budget budget;
 
     public SetBudgetCommand(Budget budget) {
         this.budget = budget;
