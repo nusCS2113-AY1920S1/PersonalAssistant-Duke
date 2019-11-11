@@ -12,11 +12,5 @@ public class NonExistentTaskException extends DukeException {
         super();
     }
 
-    /**
-     * Tell the user that the tasks given does not exist.
-     * @return the error message
-     */
-    public String print(){
-        return "\t NonExistentTaskException:\n\t\t ☹ OOPS!!! The task doesn't exist";
-    }
+
 }

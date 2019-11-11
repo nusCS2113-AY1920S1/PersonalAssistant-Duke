@@ -13,12 +13,4 @@ public class EventTypeException extends DukeException{
         super();
     }
 
-    /**
-     * Tell the user that the task chosen is not a event task while it should be.
-     * @return the error message
-     */
-    public String print(){
-        return "\t EventTypeException:\n\t\t ☹ OOPS!!! The task should be a event task";
-    }
-
 }

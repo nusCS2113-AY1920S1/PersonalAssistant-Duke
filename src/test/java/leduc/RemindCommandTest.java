@@ -4,8 +4,12 @@ import leduc.command.RemindCommand;
 import leduc.exception.DukeException;
 import leduc.exception.FileException;
 import leduc.exception.MeaninglessException;
+import leduc.exception.NonExistentDateException;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
+import leduc.task.HomeworkTask;
+import leduc.Date;
+import leduc.task.TodoTask;
 import leduc.ui.Ui;
 import leduc.ui.UiEn;
 import leduc.task.Task;
@@ -49,10 +53,22 @@ class RemindCommandTest {
     @Test
     public void RemindCommandTest() {
         RemindCommand remind = new RemindCommand("");
+        tasks.add(new TodoTask("math assignment"));
+        tasks.add(new TodoTask("Prepare Interview"));
+        tasks.add(new TodoTask("Sports"));
+        try {
+            Date d = new Date("11/03/2010 01:01");
+            tasks.add(new HomeworkTask("science homework", d));
+        }
+        catch (NonExistentDateException e){
+            e.printStackTrace();
+        }
+
+
         remind.execute(tasks, ui,storage);
-        assertTrue(outContent.toString().contains("1. [H][X] math assignment 1 by: 07/11/2019 23:59 [Priority: 5]\n" +
-                "\t 4. [H][X] Prepare interview  by: 09/11/2019 10:30 [Priority: 4]\n" +
-                "\t 5. [E][X] Sport  at: 10/11/2019 11:00 - 10/11/2019 17:00 [Priority: 5]"));
+        assertTrue(outContent.toString().contains("1. [H][X] science homework by: 11/03/2010 01:01 [Priority: 5]\n" +
+                "\t 2. [T][X] math assignment [Priority: 5]\n" +
+                "\t 3. [T][X] Prepare Interview [Priority: 5]"));
     }
     @Test
     public void RemindCommandTest2(){
