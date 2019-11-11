@@ -4,12 +4,12 @@ package planner.main;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import planner.logic.command.CommandTestFramework;
+import planner.logic.command.CommandTest;
 import planner.logic.exceptions.legacy.ModException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PlannerTest extends CommandTestFramework {
+public class PlannerTest extends CommandTest {
 
     private static final String LINE = "_______________________________";
 

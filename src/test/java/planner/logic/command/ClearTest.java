@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class ClearCommandTest extends CommandTestFramework {
+public class ClearTest extends CommandTest {
 
     private static final TaskList<Cca> emptyCcaList = new TaskList<>();
     private static final TaskList<ModuleTask> emptyModuleList = new TaskList<>();
@@ -34,7 +34,7 @@ public class ClearCommandTest extends CommandTestFramework {
                             + "scheduleCca 1";
     private String inputModule = inputCca;
 
-    ClearCommandTest() throws ModException {
+    ClearTest() throws ModException {
         super();
     }
 
