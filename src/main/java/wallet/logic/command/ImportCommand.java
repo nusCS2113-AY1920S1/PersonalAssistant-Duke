@@ -71,7 +71,6 @@ public class ImportCommand extends Command {
                 System.out.println(loan.getPerson().toString());
 
                 wallet.getLoanList().addLoan(loan);
-                wallet.getRecordList().addRecord(loan);
                 wallet.getLoanList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_ADD_LOAN);
                 System.out.println(loan.toString());
@@ -107,7 +106,6 @@ public class ImportCommand extends Command {
                     }
                 }
 
-                wallet.getRecordList().addRecord(expense);
                 wallet.getExpenseList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
                 System.out.println(expense.toString());
