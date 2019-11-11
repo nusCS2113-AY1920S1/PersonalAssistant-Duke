@@ -73,9 +73,9 @@ public class ReminderTest extends CommandTest {
         }
     }
 
-    @DisplayName("Reminder Message Output Test")
+    @DisplayName("Reminder List Test")
     @Test
-    public void reminderMessageOutputShouldMatchExpectedOutput() {
+    public void reminderListShouldMatchExpectedOutput() {
         resetAll();
 
         execute("reminder list");
@@ -95,8 +95,12 @@ public class ReminderTest extends CommandTest {
                 +
                 "\n";
         assertEquals(expectedOutput, getOut());
+    }
 
-        /*execute("reminder one");
+    @DisplayName("Reminder Message One Test")
+    @Test
+    public void reminderMessageOneShouldMatchExpectedOutput() {
+        execute("reminder one");
         expectedOutput = "_______________________________\n"
                 +
                 "Please remember to update your module information!\n"
@@ -109,7 +113,11 @@ public class ReminderTest extends CommandTest {
         assertEquals(expectedOutput, getOut());
         killAllTimers();
         resetAll();
+    }
 
+    @DisplayName("Reminder Message Two Test")
+    @Test
+    public void reminderMessageTwoShouldMatchExpectedOutput() {
         execute("reminder two");
         expectedOutput = "_______________________________\n"
                 +
@@ -123,7 +131,11 @@ public class ReminderTest extends CommandTest {
         assertEquals(expectedOutput, getOut());
         killAllTimers();
         resetAll();
+    }
 
+    @DisplayName("Reminder Message Three Test")
+    @Test
+    public void reminderMessageThreeShouldMatchExpectedOutput() {
         execute("reminder three");
         expectedOutput = "_______________________________\n"
                 +
@@ -137,7 +149,11 @@ public class ReminderTest extends CommandTest {
         assertEquals(expectedOutput, getOut());
         killAllTimers();
         resetAll();
+    }
 
+    @DisplayName("Reminder Message Four Test")
+    @Test
+    public void reminderMessageFourShouldMatchExpectedOutput() {
         execute("reminder four");
         expectedOutput = "_______________________________\n"
                 +
@@ -150,8 +166,13 @@ public class ReminderTest extends CommandTest {
                 "\n";
         assertEquals(expectedOutput, getOut());
         killAllTimers();
-        resetAll();*/
+        resetAll();
 
+    }
+
+    @DisplayName("Reminder Stop Test")
+    @Test
+    public void reminderStopShouldMatchExpectedOutput() {
         execute("reminder stop");
         expectedOutput = "_______________________________\n"
                 +
