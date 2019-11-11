@@ -223,7 +223,7 @@ This problem is divded into 4 subproblems, each of which are handled seperately.
 * After filtering by TaskList.filterTasks(), the filtered TaskList will be equal to the original TaskList, as there are no Todo objects to filter out in this particular case.
 * The filtered TaskList will then be sorted by TaskList.sort().
 * The sort() method will call each tasks task.getDate() method in preparation for sorting. For "Event" tasks, the first timestamp will be used for the purposes of sorting.
-* After performing insertion sort, the array of Todo's will be appended to the end of the sortedlist. In this case, there are no
+* After performing insertion sort, the array of Todo's will be appended to the end of the sorted list. In this case, there are no
 "todo" tasks, so nothing will be appended.
 * The first 3 most upcoming tasks will be displayed to the user.
 * *Output:*
@@ -451,3 +451,213 @@ but that would limit its potential utility
 == Appendix F: Product Survey
 
 == Appendix G: Instructions for Manual Testing
+=== G.1. Launch and Shutdown:
+* Download the Jar file and copy it into an empty folder
+* Run the Jar file from the command line, with command "[CS2113-T16-1][Le Duc].jar"
+
+=== G.2. View all Commands:
+* *View all the commands the user can make*
+*  Command: `help`
+. Test Case: `help`
+
+.. Expected:
+```
+help
+---------------------------------------------------------------------------------
+All command will be display as :
+commandName [PARAMETERS] : description of the command
+All parameters will be written in UPPER_CASE
+Parameters are :
+DESCRIPTION : the description of a task
+SORTTYPE : date, description, priority, type or done
+DATE : the date of a task
+INDEX : the index of the task (goes from 1 to ...)
+KEYWORD : the keyword to find a task
+WELCOME: the welcome message
+DATEOPTION
+Date format is DD/MM/YYYY HH:mm except for show
+All blank space should be respected
+Here are the list of all command:
+todo DESCRIPTION prio INDEX: create a todo task ( prio index is optional) with priority index
+homework DESCRIPTION /by DATE prio INDEX recu DATEOPTION INDEX: create a homework task ( prio index is optional) with priority index (recu is optional) with a recurrence of DATEOPTION(day, week, month) and the number of recurrence of INDEX
+event DESCRIPTION /at DATE - DATE prio INDEX  recu DATEOPTION INDEX: create an event task ( prio index is optional) with priority index (recu is optional) with a recurrence of DATEOPTION(day, week, month) and the number of recurrence of INDEX
+list : show all the tasks
+bye : exit the application
+done INDEX : mark as done the task of index INDEX
+delete INDEX : delete the task of index INDEX
+find KEYWORD : find the task with a keyword
+snooze INDEX : snooze a task of index INDEX
+postpone INDEX /by DATE : postpone a deadline task
+sort SORTTYPE : Sort all task by date/description/priority/type/done or not
+reschedule INDEX /at DATE - DATE : reschedule an event task
+remind : remind the first three task
+setwelcome WELCOME : customize the welcome message
+edit :
+For multi-step command : 'edit' and then follow the instructions
+For one shot command:
+edit the description: 'edit INDEX description DESCRIPTION'
+edit the date of an homework task: 'edit INDEX /by DATE'
+edit the period of an event task: 'edit INDEX /at DATE - DATE'
+show DATEOPTION DATE: show task by day/dayofweek/month/year ( day format is DD/MM/YYYY; dayofweek format is monday,tuesday...; month format is MM/YYYY; year format is YYYY)
+prioritize INDEX prio INDEX : give priority to task
+unfinished: Find and display all unfinished tasks
+language LANG: change the language of the program at the next execution. LANG is equal to en or fr
+help : show the list of all command
+---------------------------------------------------------------------------------
+```
+=== G.3. Adding a Todo Task:
+* *Add a task of type Todo*
+* Command `todo DESCRIPTION` or `todo DESCRIPTION prio INDEX` or
+. Test Case `todo read book`
+
+.. Expected:
+... The task will be given a default priority of 5 (Priorities range from 1-9)
+```
+---------------------------------------------------------------------------------
+Got it. I've added this task:
+           [T][X] read book [Priority: 5]
+Now you have 14 tasks in the list.
+---------------------------------------------------------------------------------
+```
+
+. Test Case `todo sell book prio 3`
+
+.. Expected:
+```
+ ---------------------------------------------------------------------------------
+         Got it. I've added this task:
+           [T][X]  sell book  [Priority: 3]
+         Now you have 15 tasks in the list.
+        ---------------------------------------------------------------------------------
+
+```
+
+=== G.4. Adding a Homework Task:
+
+* *Add a task of type Homework*
+
+* Command `homework DESCRIPTION /by DATE` or `homework DESCRIPTION /by DATE prio INDEX` or `homework DESCRIPTION /by DATE recu DATETYPE NBRECU`
+• The second INDEX can’t be less than 1 or greater than 9.
+• 1 is the less urgent, 9 is the most urgent
+• DATETYPE can be day, week, month
+• NBRECU indicate the number of recurrence +1 you want
+• If you want to add recurrence and priority, prio should be before recu
+• The NBRECU can’t be negative
+• Depending on the DATETYPE, the NBRECU have a maximum threshold: for day, NBRECU can’t exceed 30, for week NBRECU can’t exceed 26, for month NBRECU can’t exceed 12. Every time it exceeds, it will be brought back to the threshold
+
+---
+
+. Test Case `homework CS4239: lab3 /by 21/09/2019 23:59`
+
+.. Expected:
+
+... Homework is given a default priority of 5
+```
+---------------------------------------------------------------------------------
+         Got it. I've added this task:
+           [H][X] CS4239: lab3 by: 21/09/2019 23:59 [Priority: 5]
+         Now you have 16 tasks in the list.
+        ---------------------------------------------------------------------------------
+
+```
+
+. Test Case `homework CS4239: lab4 /by 25/09/2019 23:59 prio 7`
+.. Expected:
+... The task is given a priority of 7
+```
+ ---------------------------------------------------------------------------------
+         Got it. I've added this task:
+           [H][X] CS4239: lab4 by: 25/09/2019 23:59 [Priority: 7]
+         Now you have 17 tasks in the list.
+        ---------------------------------------------------------------------------------
+```
+. Test Case `homework test code /by 25/09/2019 23:59 recu day 3`
+.. Expected:
+... Three recurrent tasks are also created, one for each of the next 3 days
+```
+---------------------------------------------------------------------------------
+         Here are the tasks in your list:
+         18. [H][X] test code by: 25/09/2019 23:59 [Priority: 5]
+         19. [H][X] test code by: 26/09/2019 23:59 [Priority: 5]
+         20. [H][X] test code by: 27/09/2019 23:59 [Priority: 5]
+         21. [H][X] test code by: 28/09/2019 23:59 [Priority: 5]
+        ---------------------------------------------------------------------------------
+
+```
+
+=== G.5. Adding an Event task:
+
+* *Creates a task of type Event*
+
+* Command: `event DESCRIPTION /at DATE - DATE` or `event DESCRIPTION /at DATE - DATE prio INDEX` or `vent DESCRIPTION /at DATE - DATE recu DATETYPE NBRECU`
+•
+• When creating an event, two dates can’t clash
+• The second INDEX can’t be less than 1 or greater than 9.
+• 1 is the less urgent, 9 is the most urgent
+• DATETYPE can be day, week, month
+• NBRECU indicate the number of recurrence +1 you want
+• If you want to add recurrence and priority, prio should be before recu
+• If, by creating a recurrence, the date of the next occurence of the event is in conflict with the
+4
+previous one, it will
+• You can’t create a recurrence of an event when the second date minus first date > DATETYPE: For example 07/12/2019 09:00 - 08/12/2019 11:00 have second date minus first date superior as the day DATETYPE
+• The NBRECU can’t be negative
+• Depending on the DATETYPE, the NBRECU have a maximum threshold: for day, NBRECU can’t exceed 30, for week NBRECU can’t exceed 26, for month NBRECU can’t exceed 12. Every time it exceeds, it will be brought back to the threshold
+• If you want to add a priority and a recurrency, make sure the priority flag is entered before the recurrency flag.
+
+---
+
+. Test Case `event CS4211: mid-term /at 07/10/2000 09:00 - 07/10/2000 11:00`
+
+.. Expected:
+
+... Event is created with default priority of 5
+
+```
+ ---------------------------------------------------------------------------------
+         Got it. I've added this task:
+           [E][X] CS4211: mid-term at: 07/10/2000 09:00 - 07/10/2000 11:00 [Priority: 5]
+         Now you have 22 tasks in the list.
+        ---------------------------------------------------------------------------------
+
+```
+. Test Case `event CS4211: final exam /at 07/12/2019 09:00 - 07/12/2019 11:00 prio 8`
+.. Expected:
+
+... Event is created with priority 8
+
+```
+ ---------------------------------------------------------------------------------
+         Got it. I've added this task:
+           [E][X] CS4211: final exam at: 07/12/2019 09:00 - 07/12/2019 11:00 [Priority: 8]
+         Now you have 23 tasks in the list.
+        ---------------------------------------------------------------------------------
+
+```
+
+. Test Case `event CS4211: sport /at 07/10/2001 09:00 - 07/10/2001 11:00 recu day 3`
+.. Expected:
+
+... 3 recurrent tasks are created, each one day apart
+
+```
+ ---------------------------------------------------------------------------------
+         Here are the tasks in your list:
+         24. [E][X] CS4211: sport at: 07/10/2001 09:00 - 07/10/2001 11:00 [Priority: 5]
+         25. [E][X] CS4211: sport at: 08/10/2001 09:00 - 08/10/2001 11:00 [Priority: 5]
+         26. [E][X] CS4211: sport at: 09/10/2001 09:00 - 09/10/2001 11:00 [Priority: 5]
+         27. [E][X] CS4211: sport at: 10/10/2001 09:00 - 10/10/2001 11:00 [Priority: 5]
+        ---------------------------------------------------------------------------------
+```
+
+. Test Case `event CS4211: cooking session /at 17/12/2019 09:00 - 17/12/2019 11:00 prio 8 recu week 2`
+.. Expected:
+... Will create 3 events, each one being 1 week apart
+```
+---------------------------------------------------------------------------------
+         Here are the tasks in your list:
+         28. [E][X] CS4211: cooking session at: 17/12/2019 09:00 - 17/12/2019 11:00 [Priority: 8]
+         29. [E][X] CS4211: cooking session at: 24/12/2019 09:00 - 24/12/2019 11:00 [Priority: 8]
+         30. [E][X] CS4211: cooking session at: 31/12/2019 09:00 - 31/12/2019 11:00 [Priority: 8]
+        ---------------------------------------------------------------------------------
+```
