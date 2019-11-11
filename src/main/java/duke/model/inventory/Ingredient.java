@@ -12,6 +12,7 @@ public class Ingredient {
     public static final String MESSAGE_CONSTRAINTS_REMARKS = "Remarks should be no more than 50 characters";
     private static final String MESSAGE_CONSTRAINTS_NAME = "Ingredient's name cannot be blank and must be "
         + "20 characters or less";
+    public static final String MESSAGE_CONSTRAINTS_COST = "Upper limit of unit cost is 10000";
 
     private static final Double DEFAULT_PRICE = 0.00;
     private static final String DEFAULT_REMARKS = "";
@@ -30,6 +31,7 @@ public class Ingredient {
         requireAllNonNull(name, unitPrice, remarks);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS_NAME);
         checkArgument(isValidRemark(remarks), MESSAGE_CONSTRAINTS_REMARKS);
+        checkArgument(isValidCost(unitPrice), MESSAGE_CONSTRAINTS_COST);
 
         this.name = name;
         this.unitPrice = Double.parseDouble(df2.format(unitPrice));
@@ -54,6 +56,10 @@ public class Ingredient {
 
     public static boolean isValidName(String name) {
         return !name.isBlank() && name.length() <= 20;
+    }
+
+    public static boolean isValidCost(Double cost) {
+        return cost <= 10000;
     }
 
     @Override
