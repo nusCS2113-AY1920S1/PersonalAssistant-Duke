@@ -6,7 +6,6 @@ import eggventory.commons.exceptions.BadInputException;
 import eggventory.logic.QuantityManager;
 import eggventory.logic.commands.Command;
 import eggventory.model.StockList;
-import eggventory.model.items.DateTime;
 import eggventory.storage.Storage;
 import eggventory.ui.Ui;
 
@@ -22,7 +21,6 @@ public class AddStockCommand extends Command {
     private String description;
     private int minimumQuantity;
     private String details;
-    private DateTime[] dateTimes = new DateTime[2];
 
     /**
      * Initialises all the attributes of the details of the stock to be added.
