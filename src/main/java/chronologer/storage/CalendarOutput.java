@@ -33,8 +33,11 @@ public class CalendarOutput {
      */
     public static void outputCalendar(String fileName, Calendar calendar) throws ChronologerException {
         File icsFile = new File(filePath.concat(fileName).concat(".ics"));
+        icsFile.getParentFile().mkdirs();
+
+        FileOutputStream fileOutputStream;
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(icsFile);
+            fileOutputStream = new FileOutputStream(icsFile);
             CalendarOutputter calendarOutputter = new CalendarOutputter();
             calendarOutputter.output(calendar, fileOutputStream);
             UiMessageHandler.outputMessage("Success,ics file written at src/ChronologerDatabase/" + fileName);
