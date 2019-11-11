@@ -60,6 +60,25 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * This function is to recreate a meal object for undo and check if the meal is done.
+     * @param flag the flag that indicates if meal is done
+     */
+
+    public void setIsDone(String flag) {
+        if (flag.equals("1")) {
+            this.meal.markAsDone();
+        }
+    }
+
+    /**
+     * This function is to facilitate undo for delete command.
+     * A meal object will be initialised and inserted into the list
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     */
     public void undo(MealList meals, Storage storage, User user, Wallet wallet) {
         try {
             meals.addMeals(this.meal);

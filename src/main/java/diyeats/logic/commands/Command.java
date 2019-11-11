@@ -39,7 +39,7 @@ public abstract class Command {
     public abstract void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo)
             throws ProgramException;
 
-    public void setResponseStr(String responseStr) {
+    public void setResponseStr(String responseStr) throws ProgramException {
         this.responseStr = responseStr;
     }
 
