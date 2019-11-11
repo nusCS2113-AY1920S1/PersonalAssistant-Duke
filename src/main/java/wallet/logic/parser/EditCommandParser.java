@@ -89,27 +89,24 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public Contact parseContact(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
         //@@author Xdecosee
-        String[] arguments = input.split(" ", 2);
-        if (arguments.length == 2) {
-            String[] parameters = arguments[1].split(" ");
-            try {
-                int id = Integer.parseInt(arguments[0].trim());
-                ContactParserHelper contactHelper = new ContactParserHelper();
-                Contact contact = contactHelper.updateInput(parameters);
-                if (contact == null) {
-                    Ui.printError(MESSAGE_ERROR_EDIT_CONTACT);
-                    return null;
-                }
-                contact.setId(id);
-                return contact;
-            } catch (NumberFormatException e) {
+
+        String[] parameters = input.split(" ");
+
+        try {
+
+            ContactParserHelper contactHelper = new ContactParserHelper();
+            Contact contact = contactHelper.updateInput(parameters);
+            if (contact == null) {
                 Ui.printError(MESSAGE_ERROR_EDIT_CONTACT);
                 return null;
             }
 
+            return contact;
+        } catch (NumberFormatException e) {
+            Ui.printError(MESSAGE_ERROR_EDIT_CONTACT);
+            return null;
         }
-        Ui.printError(MESSAGE_ERROR_EDIT_CONTACT);
-        return null;
+
         //@@author
 
     }
