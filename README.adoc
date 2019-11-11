@@ -10,9 +10,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop application for managing theatre bookings and finances. A GUI is made but the main user input is done using the Command Line Interface (CLI).
-* The GUI shown is still in the early phases and is currently being modified for better quality.
-* This application is made to simulate bookings of theatres and its seats done by theatre managers and is not for actual use.
+* This is a desktop application made for users who want to manage the seating of a theatre or other venues while keeping track of the finances earned. A GUI is made but the main user input is done using the Command Line Interface (CLI).
 
 == Site Map
 
@@ -20,4 +18,3 @@ endif::[]
 * <<DeveloperGuide#, Developer Guide>>
 * <<AboutUs#, About Us>>
 
-== Acknowledgements
