@@ -9,6 +9,10 @@ before_install:
 
 install: gradle wrapper --gradle-version 5.2
 
+before_script:
+  - "Xvfb :99 &"
+  - "export DISPLAY=:99"
+
 script:
   - "./gradlew build"
 
