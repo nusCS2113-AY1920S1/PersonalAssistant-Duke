@@ -7,6 +7,8 @@ import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
 
+//@@author koushireo
+
 /**
  * AddCommand is a public class that inherits from abstract class Command.
  * An AddCommand object encapsulates the current meal that is to be added.

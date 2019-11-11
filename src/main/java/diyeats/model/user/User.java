@@ -55,6 +55,10 @@ public class User {
         this.lastDate = lastDate;
     }
 
+    /**
+     * Checks whether user is completely setup.
+     * @return true if user is completely setup, false otherwise
+     */
     public boolean isValid() {
         if (name != null && age != -1 && getAllWeight().size() != 0
                 && height != -1 && gender != null && activityLevel != 5) {
@@ -90,6 +94,11 @@ public class User {
         }
     }
 
+    /**
+     * Setter for a goal object inside user.
+     * @param goal the goal object to be added
+     * @throws ProgramException if the goal to be added is not valid
+     */
     public void setGoal(Goal goal) throws ProgramException {
         if (goal.getActivityLevelTarget() < activityLevel && activityLevel != 5) {
             throw new ProgramException("Set goal failed, cannot set target activity level to\n"
@@ -106,6 +115,9 @@ public class User {
         }
     }
 
+    /**
+     * Sets goal as null.
+     */
     public void clearGoal() {
         this.goal = null;
     }
@@ -150,10 +162,18 @@ public class User {
         return this.originalWeight;
     }
 
+    /**
+     * getter for weight target in goal.
+     * @return the target weight
+     */
     public double getWeightTarget() {
         return goal.getWeightTarget();
     }
 
+    /**
+     * Getter for days left to enddate of goal.
+     * @return number of days left to goal
+     */
     public int getDaysLeftToGoal() {
         return goal.daysLeftToGoal();
     }
@@ -173,6 +193,10 @@ public class User {
         return this.activityLevel;
     }
 
+    /**
+     * Calculates the static calorie expenditure of user per day.
+     * @return The number of calories required per day
+     */
     public int getDailyCalorie() {
         double calorie;
         if (this.gender == Gender.MALE) {
@@ -187,10 +211,18 @@ public class User {
         }
     }
 
+    /**
+     * Calories required per day accounting for diet plan.
+     * @return the amount of calories user must take in per day to reach diet goal
+     */
     public int getCalorieBalance() {
         return getDailyCalorie() + getAvgCalorieChangeToReachTarget();
     }
 
+    /**
+     * Factor difference in energy expenditure between current and target activity level.
+     * @return a double value corresponding to factor difference in energy expenditure
+     */
     public double getActivityLevelDifference() {
         return this.factor[goal.getActivityLevelTarget()] - this.factor[this.activityLevel];
     }
@@ -210,16 +242,29 @@ public class User {
         return this.isSetup;
     }
 
+    /**
+     * Check whether goal to be set is feasible.
+     * @param goal the goal to be checked against current user data
+     * @return true if goal is feasible, false otherwise
+     */
     private boolean checkGoalFeasibility(Goal goal) {
         double calorieLossPerDayToReachWeight = 7700 * (getWeight() - goal.getWeightTarget()) / goal.durationOfGoal();
         double maximumCalorieLossPerDay = 0.4 * getDailyCalorie();
         return calorieLossPerDayToReachWeight < maximumCalorieLossPerDay;
     }
 
+    /**
+     * Calculate total calorie loss to achieve target weight.
+     * @return value of total calories that must be lost
+     */
     private int getCalorieChangeToReachTarget() {
         return (int) (7700 * (getWeight() - getWeightTarget()));
     }
 
+    /**
+     * Calculate total calorie loss to achieve target weight per day.
+     * @return value of calories that must be lost per day
+     */
     private int getAvgCalorieChangeToReachTarget() {
         if (getDaysLeftToGoal() == 0) {
             return 0;
@@ -228,12 +273,19 @@ public class User {
         }
     }
 
+    /**
+     * Calculate total calorie intake to reach target. Set value in goal.
+     */
     private void calculateTargetCalories() {
         int target = getDailyCalorie() * this.goal.durationOfGoal()
                 - getCalorieChangeToReachTarget();
         this.goal.setCalorieTarget(target);
     }
 
+    /**
+     * getter for last date weight was updated.
+     * @return the last date
+     */
     private LocalDate getLastDate() {
         if (this.lastDate == null) {
             lastDate = LocalDate.now();
@@ -243,6 +295,10 @@ public class User {
         }
     }
 
+    /**
+     * Getter for target activity level.
+     * @return target activity level
+     */
     public int getTargetActivityLevel() {
         if (goal != null) {
             return goal.getActivityLevelTarget();

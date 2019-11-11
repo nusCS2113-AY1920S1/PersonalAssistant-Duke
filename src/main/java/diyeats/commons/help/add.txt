@@ -1,11 +1,13 @@
-Create or modify a fixed food item.
+Create or modify a default values for a food item.
 You can set default nutritional values for food items that have the same description.
 
-add DESCRIPTION [/TAG] <QUANTITY>
+Format: `default DESCRIPTION [/TAG]<QUANTITY>...`
 
-For example:
+Tired of entering the same nutritional values for a recurring dish repeatedly? By using the `default` command, you can set default
+nutritional values for food items that have the same description.
 
-add     Hamburger /fats 50 /calorie 500
+Examples:
 
-will add an food item "Hamburger" that has a nutritional value of 50 units of fats and 500 units of calorie.
-The next time Hamburger is called, there is no need to input the nutritional values as it is already recorded.
+`default Mega Zinger burger /calories 1100`
+This will assign the default values of 1100 calories to food items that have the name "Mega Zinger burger"
+Next time when you enter a meal item, say `lunch Mega Zinger burger`, it will already have the 1100 calories associated with it
