@@ -24,7 +24,8 @@ public class CategoryStub extends Category {
         this.category = new ArrayList<>();
         this.name = name;
     }
-
+    
+    
     @Override
     public String name() {
         return this.name;
@@ -60,4 +61,5 @@ public class CategoryStub extends Category {
         this.category.add(new ExpenditureStub("Value 7", 65, LocalDate.of(2019, Month.NOVEMBER,
                 21), name));
     }
+    
 }
