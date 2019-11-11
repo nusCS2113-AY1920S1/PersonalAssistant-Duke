@@ -4,7 +4,7 @@ import exception.DukeException;
 import parser.Parser;
 
 import java.util.Arrays;
-
+import java.util.Date;
 public class Event extends Task {
     private String type = "E";
 
@@ -100,5 +100,11 @@ public class Event extends Task {
     @Override
     public String getType() {
         return "E";
+    }
+
+
+    @Override
+    public String getDueDate() {
+        return (super.getDueDate() + this.getEndDate());
     }
 }
