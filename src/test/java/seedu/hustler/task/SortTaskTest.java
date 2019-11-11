@@ -15,6 +15,9 @@ public class SortTaskTest {
     private static Task task2; // [E][-][LOW][#food] family dinner (by: 21rd of December 2019, 11:59PM)
     private static Task task3; // [D][-][MED][#geog] homework (by: 22rd of December 2019, 11:59PM)
 
+    /**
+     * Populate the sampleTaskList with tasks so that we can sort the tasks later.
+     */
     @BeforeAll
     public static void initialize() {
         sampleTaskList = new TaskList(new ArrayList<>());
