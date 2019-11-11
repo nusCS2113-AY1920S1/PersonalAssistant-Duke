@@ -4,7 +4,7 @@ plugins {
     id 'checkstyle' //for documentation
     id 'com.github.johnrengelman.shadow' version '5.1.0' //shadowJar for pack up an executable file
     //id 'org.openjfx.javafxplugin' version '0.0.7' //javaFx for rendering
-//    id 'org.openjfx.javafxplugin' version '0.0.8'
+    //id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 dependencies {

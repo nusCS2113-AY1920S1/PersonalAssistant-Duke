@@ -22,7 +22,7 @@ public class CreateBankAccountTest {
     private static String INVALID_INPUT1 = "bank-account OCBC /amt -100 /at 27/7/2017 /rate 0.005";
     private static String INVALID_INPUT2 = "bank-account OCBC /amt 100 /at haha /rate 0.005";
     private static String INVALID_INPUT3 = "bank-account OCBC /amt 100 /at 27/7/2017 /rate 0.005%%";
-    private static String INVALID_INPUT4 = "bank-account OCBC /amt %^haha i m tired 100 /at 27/7/2017 /rate 0.005%%";
+    private static String INVALID_INPUT4 = "bank-account OCBC /amt %^haha i m tired100 /at 27/7/2017 /rate 0.005%%";
 
     CreateBankAccountTest() throws IOException {
         ui = new Ui();
