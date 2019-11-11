@@ -16,9 +16,10 @@ import java.lang.Math;
 import ducats.commands.AsciiCommand;
 import ducats.commands.Command;
 import ducats.components.Combiner;
+import ducats.DucatsLogger;
 
 /**
- * A class that splits an object to the bars and then returns an arraylist of the bars to the function.
+ * A class that overlays  groups from 2 different songs.
  */
 public class OverlayGroupGroup  extends Command<SongList>  {
     public String message;
@@ -38,8 +39,10 @@ public class OverlayGroupGroup  extends Command<SongList>  {
 
 
     /**
-     * Modifies the song in the song list and returns the messages intended to be displayed.
-     *
+     * Overlays 2 groups together and when the groups are of unequal length, when a
+     * smaller group is overlayed onto a bigger one then it is repeated through out
+     * and if a bigger group is overlayed on a smaller one then only the length till
+     * the smaller one is overlayed.
      * @param songList the duke.components.SongList object that contains the song list
      * @param ui the Ui object responsible for the reading of user input and the display of
      *           the responses
@@ -49,24 +52,22 @@ public class OverlayGroupGroup  extends Command<SongList>  {
      */
     //@@author rishi12438
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
-        Note note1;
-        Note note2;
-        Note note3;
-        Note note4;
-        int barNo;
+
 
         if (message.length() < 20 || !message.substring(0, 19).equals("overlay_group_group")) {
             //exception if not fully spelt
+            DucatsLogger.severe("the parser wrongly identified " + message + " as overlay_group_group");
             throw new DucatsException(message,"overlay_group_group_format");
         }
 
         try {
-            //the command consists of overlay 10 repeat
+
             //the command consists of overlay_group_group twinkle 2 twinkle1 1 refers to overlay twinkle  group 2 onto
             // twinke1  group 1
             Combiner combine = new Combiner();
             String[] sections = message.substring(20).split(" ");
             if (sections.length < 4) {
+                DucatsLogger.severe("overlay_group_group command was called without sufficient number of arguments");
                 throw new DucatsException(message,"overlay_group_group_format");
             }
             ArrayList<Song> songs = songList.findSong(sections[0]);
@@ -75,6 +76,7 @@ public class OverlayGroupGroup  extends Command<SongList>  {
             if (songs.size() == 1) {
                 songAddFrom = songs.get(0);
             } else {
+                DucatsLogger.severe("overlay_group_group command when no such song name existed");
                 //song does not exist or query returned more than 1 result
                 throw new DucatsException(message, "no_song");
             }
@@ -83,21 +85,19 @@ public class OverlayGroupGroup  extends Command<SongList>  {
                 songAddTo = songs1.get(0);
             } else {
                 //song does not exist or query returned more than 1 result
+                DucatsLogger.severe("overlay_group_group command when no such to be copied song name existed");
                 throw new DucatsException(message, "no_song");
             }
-            //int songIndexToAddFrom = Integer.parseInt(sections[0]) - 1;
+
             int groupIndexToAddFrom = Integer.parseInt(sections[1]) - 1;
-            //int songIndexToAddTo = Integer.parseInt(sections[2]) - 1;
+
             int groupIndexToAddTo = Integer.parseInt(sections[3]) - 1;
-
-
 
             ArrayList<Group> groupListAddFrom = songAddFrom.getGroups();
             ArrayList<Group> groupListAddTo = songAddTo.getGroups();
             Group overlayingGroupToBeCopied = groupListAddFrom.get(groupIndexToAddFrom);
             Group overlayingGroup = overlayingGroupToBeCopied.copy(overlayingGroupToBeCopied);
-            //Bar overlayingBar = barList.get(barIndexToAdd);
-            //System.out.println("adjjdsa");
+
             if (sections.length > 4 && sections[4].equals("repeat")) {
                 Iterator<Group> iterator1 = groupListAddTo.iterator();
                 int i = 0;
@@ -117,6 +117,7 @@ public class OverlayGroupGroup  extends Command<SongList>  {
 
             //add the bar to the song in the songlist
             storage.updateFile(songList);
+            DucatsLogger.fine("overlay_group_group sucessfully updated the song " + songAddTo.getName());
             Command ascii = new AsciiCommand("ascii song " + songAddTo.getName());
             return ascii.execute(songList,ui,storage);
             //return ui.formatAddOverlay(songList.getSongList(), groupIndexToAddTo,songAddTo);
@@ -126,13 +127,16 @@ public class OverlayGroupGroup  extends Command<SongList>  {
             //System.out.println(e.getType());
             throw new DucatsException(message, e.getType());
         } catch (java.io.IOException e) {
+            DucatsLogger.severe("there was an error in serializing the components - overlay_group_group ");
             throw new DucatsException(message,"IO");
         } catch (java.lang.ClassNotFoundException e) {
+            DucatsLogger.severe("there was an error in serializing the components - overlay_group_group ");
             throw new DucatsException(message,"IO");
         } catch (java.lang.NumberFormatException e) {
             throw new DucatsException(message,"number_index");
         }
     }
+
     /**
      * Returns a boolean value representing whether the program will terminate or not, used in
      * duke.Duke to reassign a boolean variable checked at each iteration of a while loop.

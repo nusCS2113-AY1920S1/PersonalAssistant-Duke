@@ -1,0 +1,107 @@
+= Rohan Arya Varma - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Ducats
+'''
+== About the Project
+
+As part of the module CS2113T Software Engineering and Object-Oriented Programming, my team and I were assigned the task of improving upon a command line interface to-do list application known as Duke. To better reflect our interests and abilities, we chose to morph the existing project into a music composition app called Ducats geared towards amateurs but usable by anyone who is interested in music. The app includes sophisticated functionality in the creation and editing of music, as well as the capability to store multiple songs.
+
+As the team lead, my primary responsibilities were to keep track of overall team progress, delegate tasks, and design the overall software architecture. Functionally, my role was to implement persistent storage, the open feature, and the metronome feature. The following sections will provide elaboration on these contributions, with excerpts from the user and developer guides added when appropriate.
+
+== Summary of Contributions
+
+Over the past few weeks, there have been several contributions made by me to the team project, and this section serves as a summary for these contributions.
+
+Enhancements added:
+
+* Persistent Storage
+
+_What it does_: Persistent storage stores all the data in the form of a folder containing .txt files such that Ducats will keep the data upon its closure
+
+_Justification_: There are two major benefits to persistent storage:
+
+1.	Ducats is able to retain all the data upon its closure, ensuring that the user does not experience data loss.
+2. Since the data is stored in a .txt file, it is easy to import or export the data, enabling the user to back up or share his/her compositions with ease.
+
+_Highlights_: As an essential part of Ducats, Storage had to be implemented with the consideration of a huge amount of features, as well as the extremely intricate data present in the form of musical compositions. A human-readable and compact form of data storage had to be designed, and considering the number of classes involved, the parsing and string conversion was complicated to implement.
+
+* Open functionality
+
+_What it does_: The open command (`OpenCommand`) opens one song for editing.
+
+_Justification_: This is important as it ensures that only one song is being manipulated at one time, resulting in the data of the rest of the songs being protected, and the focus of the user being made clear.
+
+_Highlights_: The original SongList object had to be refactored in order to implement `OpenCommand`
+
+* Metronome functionality
+
+_What it does_: The metronome command calls upon the metronome class to display an on-screen metronome.
+
+_Justification_: An in-built metronome helps significantly with the testing of rhythm and meter, especially for amateurs who are unsure of the musicality or mood of a specific rhythm or tempo.
+
+Code contributed: The following links contain samples of my code for the above mentioned features:
+
+* Functional Code
+* Test Code
+
+Other contributions:
+
+*	Project Management:
+**	All the releases on GitHub were managed by me, and I played a major role in the scheduling of features to be implemented and bugs to be fixed for each release.
+*	Base Code and Library Integration:
+**	The base code used for the project was written by me and included fundamental OOP practices as well as thorough and detailed JavaDocs.
+**	Important library integrations such as ShadowJAR and Checkstyle were integrated early on with Gradle. Jacoco was integrated by me later on to determine test coverage, and I also integrated Codecov with Travis-CI.
+** Logging was also setup in Ducats by me.
+*	Team Leadership and Knowledge Transfer:
+**	As the team leader, I made sure issues were closed on time and pull requests went through appropriate vetting before being merged. I also helped to ensure adherence to proper software engineering practices.
+**	With more than half of the team lacking appropriate knowledge in music theory, I engaged in detailed discussions in breaking down the fundamentals, and in the process, designed the overall architecture of the project.
+
+== Contributions to the User Guide
+
+// todo
+
+== Contributions to the Developer Guide
+
+The following sections shows my additions to Ducats' Developer Guide, namely the section explaining the overall architecture, the section explaining the parsing and execution of commands, the section explaining the metronome, and the section explaining the storage.
+
+(Excerpt from Ducats Developer Guide starts here)
+
+=== Overall Architecture
+
+Ducats consists of multiple components implemented as objects that work together to fulfill the program's objectives. Figure 1 below showcases the high-level architecture of Ducats:
+
+.Architecture Diagram
+image::Architecture_Diagram.png[]
+
+
+Ducats, the main class, is responsible for the initialization of the different components, as well as the highest level of logic.
+
+DucatsLogger is a common class used by many of the components in order to log information, warnings and errors in a `.log` file.
+
+Other than the two components mentioned above, the rest of the components are linked in a way reminiscent of an n-tier architectural style, with the higher-level components depending on the resources provided by the lower-level components.
+
+=== Command Parsing and Execution
+
+Since Ducats is a CLI app, it works by reading user input and carrying out the command the user wants it to execute. In line with this objective, the different components of Ducats have been designed to interact in the sequence as depicted by Figure X.
+
+.Command Parsing and Execution Sequence Diagram
+image::Command_Sequence_Diagram.png[]
+
+In the above diagram, 'XYZ' is used to represent a general command or function. There are several different types of possible commands that can be created after parsing, and hence the object is labelled "XYZCommand". Similarly, to format the output string, there are multiple method within the UI class of doing so, hence being represented here by "XYZFormat()".
+
+It can be seen that, for all commands, the `Parser` class is used to determine what type of command the user intends for the program to execute. In accordance with this, a new `Command` object is created and then the `execute()` method of the Command is called, modifying the `SongList` and `Storage`, and returning a String to be displayed on the console through the `UI` class.
+
+A slightly different schedule is used for the Metronome functionality, which will be discussed in further detail in Section 4.5.
+
+=== Metronome
+
+//todo
+
+=== Storage
+
+//todo
+
+

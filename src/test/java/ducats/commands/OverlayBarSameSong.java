@@ -1,4 +1,4 @@
-package ducats.components;
+package ducats.commands;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,17 +21,20 @@ import ducats.commands.AddOverlayCommand;
 import ducats.components.SongConverter;
 
 public class OverlayBarSameSong {
-    @Test
-    //this test case tests when overlaying 1 bar onto another
 
-    public void testGroupGroup() {
+    /**
+     * A function that creates a predefined song so that it is easier to test the commands.
+     * type-specific error messages.
+     *
+     * @param ui - Ui class that is being printed to.
+     * @param storage - Storage class as the group function needs it.
+     * @param songs - Songlist for the list of songs needed for a command
+     *
+     */
+    public void createSong(Ui ui, ducats.Storage storage, SongList songs) {
 
-        // ("/home/rishi/Desktop/cs2113t/team/main/data/todo_list" +".txt"));
         String fileDelimiter = System.getProperty("file.separator");
-        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
-        //ducats.Storage storage = new ducats.Storage(Paths.get("data", "songlist.txt"));
         SongConverter songconverter = new SongConverter();
-        SongList songs = new SongList();
         String testSong = "Twinkle aminor 120 [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] "
                 + "[[UBs],[UB],[UBs],[UB],[UBs],[UB],[UBs],[UB]] "
                 + "[[UCs],[UC],[UCs],[UC],[UCs],[UC],[UCs],[UC]] "
@@ -52,7 +55,6 @@ public class OverlayBarSameSong {
                 + "{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|"
                 + "{UPPER_F }{UPPER_F }{UPPER_F }{UPPER_F }|{UPPER_G }{UPPER_G }{UPPER_G }{UPPER_G }|";
 
-        Ui ui = new Ui();
         ducats.commands.OpenCommand open = new ducats.commands.OpenCommand("open Twinkle");
         try {
             open.execute(songs,ui,storage);
@@ -60,6 +62,17 @@ public class OverlayBarSameSong {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    @Test
+    //this test case tests when overlaying 1 bar onto another
+    public void testBarSameSong() {
+
+        String fileDelimiter = System.getProperty("file.separator");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "data");
+        Ui ui = new Ui();
+        SongList songs = new SongList();
+        createSong(ui, storage, songs);
         AddOverlayCommand tester = new AddOverlayCommand("overlay 1 2");
 
 
@@ -79,4 +92,83 @@ public class OverlayBarSameSong {
         ArrayList<ducats.components.Song> findList = songs.findSong("Twinkle");
         assertEquals(expected,findList.get(0).showSongChart());
     }
+
+    @Test
+    public void testBarSameSongEmpty() {
+
+        String fileDelimiter = System.getProperty("file.separator");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "data");
+        Ui ui = new Ui();
+        SongList songs = new SongList();
+        createSong(ui, storage, songs);
+        AddOverlayCommand tester = new AddOverlayCommand("overlay ");
+        try {
+            tester.execute(songs,ui,storage);
+        } catch (ducats.DucatsException e) {
+
+            assertEquals("overlay_format",e.getType());
+            return;
+        }
+        assert false;
+    }
+
+    @Test
+    public void testBarSameSongFail1() {
+
+        String fileDelimiter = System.getProperty("file.separator");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "data");
+        Ui ui = new Ui();
+        SongList songs = new SongList();
+        createSong(ui, storage, songs);
+
+
+        String expected = "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|"
+                + "{UPPER_B UPPER_A }{UPPER_B UPPER_A }{UPPER_B UPPER_A }{UPPER_B UPPER_A }|"
+                + "{UPPER_C }{UPPER_C }{UPPER_C }{UPPER_C }|"
+                + "{UPPER_D }{UPPER_D }{UPPER_D }{UPPER_D }|"
+                + "{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|"
+                + "{UPPER_F }{UPPER_F }{UPPER_F }{UPPER_F }|"
+                + "{UPPER_G }{UPPER_G }{UPPER_G }{UPPER_G }|";
+        AddOverlayCommand tester = new AddOverlayCommand("overlay 112121 2");
+        try {
+            tester.execute(songs,ui,storage);
+        } catch (ducats.DucatsException e) {
+
+            assertEquals("no_index",e.getType());
+            //assert true;
+            //System.out.println(e.getMessage());
+            return;
+        }
+        assert false;
+    }
+
+    @Test
+    public void testBarSameSongFail2() {
+
+        String fileDelimiter = System.getProperty("file.separator");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "data");
+        Ui ui = new Ui();
+        SongList songs = new SongList();
+        createSong(ui, storage, songs);
+
+
+        String expected = "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|"
+                + "{UPPER_B UPPER_A }{UPPER_B UPPER_A }{UPPER_B UPPER_A }{UPPER_B UPPER_A }|"
+                + "{UPPER_C }{UPPER_C }{UPPER_C }{UPPER_C }|"
+                + "{UPPER_D }{UPPER_D }{UPPER_D }{UPPER_D }|"
+                + "{UPPER_E }{UPPER_E }{UPPER_E }{UPPER_E }|"
+                + "{UPPER_F }{UPPER_F }{UPPER_F }{UPPER_F }|"
+                + "{UPPER_G }{UPPER_G }{UPPER_G }{UPPER_G }|";
+        AddOverlayCommand tester = new AddOverlayCommand("overlay helleo 2");
+        try {
+            tester.execute(songs,ui,storage);
+        } catch (ducats.DucatsException e) {
+
+            assertEquals("number_index",e.getType());
+            return;
+        }
+        assert false;
+    }
+
+
 }  

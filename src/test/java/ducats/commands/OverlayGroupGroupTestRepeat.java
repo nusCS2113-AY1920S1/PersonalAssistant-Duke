@@ -1,4 +1,4 @@
-package ducats.components;
+package ducats.commands;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +25,7 @@ public class OverlayGroupGroupTestRepeat {
         //ducats.Storage storage = new ducats.Storage(Paths.get
         // ("/home/rishi/Desktop/cs2113t/team/main/data/todo_list" +".txt"));
         String fileDelimiter = System.getProperty("file.separator");
-        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
+        ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "data");
         //ducats.Storage storage = new ducats.Storage(Paths.get("data", "songlist.txt"));
         SongList songs = new SongList();
         SongConverter songconverter = new SongConverter();

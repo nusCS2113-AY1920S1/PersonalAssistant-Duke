@@ -24,12 +24,13 @@ public class Group implements Serializable {
         this.name = name;
         this.bars = bars;
     }
+
     /**
      * the method that allows this item to be copied.
      *
      * @param object the object to be copied, which in this case is group.
      */
-
+    //@@author rishi12438
     public Group copy(Group object) throws DucatsException, IOException,ClassNotFoundException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(bos);

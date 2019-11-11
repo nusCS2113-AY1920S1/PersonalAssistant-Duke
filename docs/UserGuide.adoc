@@ -1,0 +1,275 @@
+= Ducats - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-F09-4/main
+
+By: `AY1920S1-CS2113T-F09-4` Since: `Aug 2019`
+
+== Introduction
+
+Ducats is a music composition tool geared towards music lovers with little knowledge in music theory who want an intuitive way to jot down their musical ideas. With convenience and speed in mind, Ducats is designed for quick and seamless musical composition and experimentation, with a clean and intuitive Command Line Interface. If you can type fast, Ducats can compose music faster than your traditional music composition apps. Look no further, give Ducats a go!
+
+== About this Document
+
+This user guide aims to guide the user in installing Ducats and provide information about the multitude of features of Ducats. To effectively understand the documentation and utilize Ducats, it is best if you are familiar with basic music theory. If you are unfamiliar, Section 5: Introduction to Basic Music Theory is a good start to your understanding.
+
+The table below explains the meaning behind the formatting used in this document:
+
+[cols=2*]
+|===
+| *Formatting*
+| *Meaning*
+
+| `command`
+| A gray highlight indicates that the word is a command to be entered by the user.
+
+| _preface_
+| A paragraph in italics indicates that the paragraph is a preface to the section below.
+|===
+
+== Quick Start
+
+_This section provides a quick guide on firing up Ducats. Follow the steps below to install and launch Ducats:_
+
+. Ensure that you have Java 11 or above installed in your computer. _(To download the latest version, please click link:https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[here].)_
+. Download the latest release of Ducats from the GitHub repository's link:https://github.com/AY1920S1-CS2113T-F09-4/main/releases[release page].
+. Copy the file to the folder you want to use as the home folder for your Ducats application.
+. Launch the Terminal program on your computer. For computers running on Windows, you can launch either Command Prompt or PowerShell.
+. Navigate to the home folder where you copied Ducats to.
+. Enter the command `java -jar Ducats-1.4.jar` and press the Enter key to execute it. Ducats will launch in a few seconds. You should see your Terminal window displaying a similar view to Figure 3.1 below.
+. Enter the `help` command and hit the Enter key to execute it. You should be able to see the help list of all the available commands.
+
+<insert updated running success image>
+Figure 3.1: Display of Ducats when first launched
+
+For the comprehensive list and details of all the commands, please refer to Section 4 Features.
+
+== Features
+
+_The following section details the features and the command line interface commands of Ducats used to execute those features._
+
+For each command, a format is specified for the user to key in. The following is a guide to the syntax used in expressing these formats:
+
+* Words n UPPER_CASE are parameters to be supplied by the user. For example, in the following command: `new s/SONG_NAME s/KEY s/TIME_SIGNATURE n/TEMPO`, SONG_NAME, KEY and TIME_SIGNATURE are parameters to be provided by the user.
+* The type of the parameters is indicated by a tag as follows:
+** `s/` - String (i.e. a word consisting of different characters)
+** `n/` - Number (Integer)
+* When representing Notes, the DURATION_PITCH format is observed:
+** The pitches available are: UC, UB, UA, UG, UF, UE, UD, MC, LB, LA, LG, LF, LE, LD, LC
+** The durations available are: 1, 2*, 2, 4*, 4, 8. _(Just as in sheet music, a single dot (*) lengthens the duration of a note by 50%. Modification with double dots coming in v2.0.)_
+** More information regarding pitches and durations is given in Section 5 Introduction to Basic Music Theory
+
+=== Viewing help: `help`
+
+=== Viewing your list of songs: `list`
+
+In the case of there being multiple songs, the list command ensures that navigation is not hampered by displaying the full list of songs you have created in the past. This data is stored in a specific data file outside the application. This file can also be directly edited to change the data to be loaded into Ducats, making exporting and importing data a breeze.
+
+_Format_: `list`
+
+=== Creating your new song: `new`
+
+Creates a new song of the specified key, time signature and tempo provided by the user. [Creation of songs in different keys, time signatures and tempo coming in v2.0]
+
+_Format_:
+`new s/SONG_NAME s/KEY s/TIME_SIGNATURE n/TEMPO`
+
+_Examples_:
+
+* `new Twinkle_Twinkle C 4/4 120`
+creates a song titled “Twinkle Twinkle”, in the default key of C Major, with time signature of 4 4 and tempo of 120bpm (beats per minute).
+
+* `new Vicarious F 5/4 116`
+creates a song titled “Vicarious”, in the key of F Major, with time signature of 5 4 and a tempo of 116bpm.
+
+* `new Hello,_Waltz Am 3/4 120`
+creates a song with the title “Hello,_Waltz”, in the key of A Minor, with time signature of 3 4 and a tempo of 120bpm.
+
+
+=== Deleting your existing song: `delete`
+
+Feeling like you are going nowhere with a certain composition? This command is used to delete a song from your Ducat’s song list. You can delete the song by specifying either its number or name.
+
+_Format_: `delete song:n/SONG_NUM` OR `delete song:s/SONG_NAME`
+
+=== Opening a song for editing: `open`
+
+This command is used to navigate to the song you intend to edit and ensure that that is the song to be edited. When the specific song is opened, the other songs cannot be edited, ensuring that the composition data present is protected and isolated from whatever modifications you make to the opened song.
+
+_Format_: `open s/SONG_NAME`
+
+=== Viewing Command Line representation of song: `view`
+
+For a quick display of the song that is easily readable regardless of musical background, the `view` command will display all the bars in the songs with “|” separating the bars.
+
+_Format_: `view s/SONG_NAME`
+
+=== Adding new bars to your song: `addbar`
+
+The addition of notes into your song is done with the `addbar` command. This command adds a new whole bar to end of your song. The new bar consists of notes as specified by you and its total duration adds up to one beat (i.e. four quarter notes, or two quarter notes and 4 eighth notes etc.).
+
+_Format_: addbar s/NOTES
+
+_Example_:
+`addbar 4_UA 8_UC 8_UD 4_LB 4_UD`
+
+The above command adds a bar consisting of a quarter note of pitch Upper A, two eighth notes of pitches Upper C and Upper D respectively, one quarter note of pitch Lower B and one quarter note of pitch Upper D.
+
+=== Deleting a bar in your song: `deletebar`
+
+This command is used to delete a bar from your song. The bar of the number specified by you will be deleted from the current song that is open.
+
+_Format_: `deletebar bar:n/BAR_NUM`
+
+=== Inserting a new bar between existing bars in your song: `insertbar`
+
+=== Editing a bar in your song: `editbar`
+
+=== Swapping two existing bars in your song: `swapbar`
+
+=== Grouping bars together: `group`
+
+In music, repetition of tunes and rhythms are very common. The group command allows users to efficiently save tunes and rhythms for each of their songs. The user can group a continuous range of bars between two indices (inclusive) in the song track and give a name to this group. However, this group will be saved only under that song and will not be accessible from other songs. Grouping is very useful as this allows the user to easily insert groups into their song tracks instead of manually adding the same bars again.
+
+_Format_:
+`group START_NUM END_NUM GROUP_NAME`
+
+_Example_: `group 2 4 sunlight`
+
+The above command groups the bars from index 2 to index 4 (inclusive) and gives it the name “sunlight”.
+
+=== Copying sections of music: `copy`
+
+=== Combining sections of music:
+
+==== Combining bar-bar: `overlay`
+
+==== Combining group-group: `overlay_group_group`
+
+==== Combining bar-group: `overlay_bar_group`
+
+==== Combining bars across songs: `overlay_bar_song`
+
+=== Viewing your list of groups in a song: `list_group`
+
+=== Displaying song in ASCII format: `ascii song`
+
+=== Undoing your previous action: `undo`
+
+=== Redoing your previous action: `redo`
+
+=== Starting a metronome: `metronome`
+
+Rhythm is an essential part of musical composition, and it is useful to have a visual or aural cue regarding the different types of rhythm possible, especially for amateurs. To facilitate this, a metronome feature is included, where the user can cause a metronome to appear on the screen on the screen for a specific number of bars.
+
+_Format_:
+`metronome n/DURATION_IN_BARS n/TEMPO s/TIME_SIGNATURE`
+
+_Example_:
+`metronome 10 120 4/4` will start a metronome for 10 bars, each consisting of four notes, with a tempo of 120 beats per minute. In the UI, the numbers 1 through 4 will appear in sequence for 10 times, with each change in number happening every half-second.
+
+=== Exiting Ducats: `bye`
+
+Want to take a break or finish composing for the day? This command exits and closes Ducats. The closing message will be displayed and then Ducats will be closed. After this, you will be returned to your original Terminal command line.
+
+_Format_: `bye`
+
+=== Saving the data
+
+All of the song data is saved to the hard disk automatically after any modifications have been made through a command. There is no need to save manually. To access the data in order to export or import songs, simply access the `data` folder in the directory that contains the program file. By putting in `.txt` files of a similar data format, the data will be imported seamlessly the next time you start up Ducats.
+
+=== Auto-suggesting commands
+
+=== Playing music: `play` [coming in v2.0]
+
+Plays the music specified, or the whole song if not specified. When a song is not opened, will play the song specified.
+
+_Format_:
+`play n/STARTING_BAR_NO n/ENDING_BAR_NO` OR
+`play s/SONG_NAME`  (when no song has been opened)
+
+== Introduction to Basic Music Theory
+
+Since Ducats is aimed towards music amateurs who may not know much about music theory or composition, the app is designed with simplicity and ease of understanding in mind. However, a very basic understanding of music theory is needed to effectively use the app.
+
+=== Musical components
+
+*NOTE, PITCH AND DURATION*
+
+Fundamentally, the most basic unit of music is a note, which consists of both a pitch as well as a duration. In Ducats, a note can have 15 distinct pitches spanning across two octaves:
+
+LOWER_C, LOWER_D, LOWER_E, LOWER_F, LOWER_G, LOWER_A, LOWER_B, MIDDLE_C, UPPER_D, UPPER_E, UPPER_F, UPPER_G, UPPER_A, UPPER_B, UPPER_C
+
+The pitches in the upper octave have twice the frequency of the corresponding pitches in the lower octave. For example, a note with pitch of UPPER_F has twice the frequency of a note with pitch of LOWER_F. Other than the aforementioned pitches, in order to facilitate breaks and pauses, there is also the option for a REST, which is a special type of note which signifies silence. In Ducats command syntax, the pitch is represented by the last two letters of the note. For example, 1_MC represents a note of pitch MIDDLE_C with a relative duration of 1
+
+In music, duration is referred to in relative terms. Each note has a duration that is relative to that of a “whole” note, which corresponds to a fixed duration of time. Generally, the durations are in powers of half, with the exception of dotted notes, which lengthen the duration of an undotted note by half. The available durations of notes in Ducats are shown as follows:
+
+[cols=3*]
+|===
+| *Name*
+| *Relative Duration*
+| *Example Syntax in Ducats*
+
+| Whole Note
+| 1
+| `1_MC`
+
+| Dotted Half Note
+| 3/4
+| `2*_MC`
+
+| Half Note
+| 1/2
+| `2_MC`
+
+| Dotted Quarter Note
+| 3/8
+| `4*_MC`
+
+| Quarter Note
+| 1/4
+| `4_MC`
+
+| Eighth Note
+| 1/8
+| `8_MC`
+|===
+
+For purposes of simplicity, the documentation refers to the durations by the American convention, as compared to the less intuitive British convention, where notes have special names, such as crochet, quaver, semibreve and so on.
+
+*CHORDS AND BARS*
+
+When multiple notes are being played together, then a chord is formed. An example would be when a pianist presses multiple keys on the keyboard at once, or a guitarist strums the guitar while fingering different sections of the strings.
+
+A Bar is the collection of multiple chords. In Ducats, the duration of a bar is standardized on each song based on the time signature provided at the time of creation (to be explained in 5.2). Since the rhythm of the song does not follow normal interpretations of time, the number of the bar in the song serves as an easy method of navigating to specific points in the song.
+
+=== Attributes of a song
+
+Music can be thought of as the accumulation of different patterns of rhythm and pitch. Formally, each song has three main attributes, which are implemented in Ducats, namely key, tempo and time signature. The latter two are to do with the rhythm of the song, while the key relates to the pitch of the song.
+
+*KEY*
+
+A key consists of a group of pitches that sounds pleasant and consistent when put together. There are minor and major keys, with major keys usually sounding happier and minor keys sounding sadder.
+
+*TEMPO*
+
+In most basic terms, tempo refers to the speed at which the song progresses. In the case of Ducats, tempo is measured in beats per minute, where one beat consists of one rhythmic unit of time as specified in the time signature.
+
+*TIME SIGNATURE*
+
+The time signature of a song consists of two numbers that signify how many how many beats are in a bar and what note duration does each beat correspond to respectively. For example, a song with a time signature of 4 4 has 4 beats in each bar, with each beat corresponding to the duration of a quarter note. Hence, a bar in a 4 4 song can have any combination of notes whose duration is equivalent to 1 whole note, such as four quarter notes, eight eighth notes, or a dotted half note and a quarter note. 4 4 is the most common time signature for modern popular music. With that in consideration, the default time signature for songs composed in Ducats is 4 4, with the functionality to support other time signatures coming in v2.0.
+
+== FAQ
+
+== Command Summary

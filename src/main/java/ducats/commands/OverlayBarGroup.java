@@ -17,18 +17,18 @@ import java.util.Arrays;
 import java.util.Iterator;
 import ducats.commands.AsciiCommand;
 import ducats.commands.Command;
-
 import ducats.components.Combiner;
+import ducats.DucatsLogger;
 
 /**
- * A class that splits an object to the bars and then returns an arraylist of the bars to the function.
+ * A class that overlays a bar onto a group.
  */
 public class OverlayBarGroup  extends Command<SongList>  {
     public String message;
     private int songIndex;
 
     /**
-     * Constructor for the command to add a new bar to the current song.
+     * Constructor for the command overlay a bar onto a group.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      */
     public OverlayBarGroup(String message) {
@@ -37,7 +37,7 @@ public class OverlayBarGroup  extends Command<SongList>  {
 
 
     /**
-     * Modifies the song in the song list and returns the messages intended to be displayed.
+     * Overlays a bar onto a group from the same song.
      *
      * @param songList the duke.components.SongList object that contains the song list
      * @param ui the Ui object responsible for the reading of user input and the display of
@@ -56,18 +56,20 @@ public class OverlayBarGroup  extends Command<SongList>  {
 
         if (message.length() < 18 || !message.substring(0, 17).equals("overlay_bar_group")) {
             //exception if not fully spelt
+            DucatsLogger.severe("the parser wrongly identified " + message + " as overlay_bar_group");
             throw new DucatsException(message,"overlay_bar_group_format");
         }
 
         try {
-            //the command consists of overlay 10 repeat
-            //overlay_bar_group 1 2 will coppy the bar 1 into group 2
+            //overlay_bar_group 1 2 will overlay  bar 1 into group 2
             if (message.equals("overlay_bar_group")) {
+                DucatsLogger.severe("insufficient amount of parameters given - overlay_bar_group");
                 throw new DucatsException(message,"overlay_bar_group_format");
             }
             String[] sections1 = message.split("overlay_bar_group ");
 
             if (sections1.length < 2) {
+                DucatsLogger.severe("insufficient amount of parameters given - overlay_bar_group");
                 throw new DucatsException(message,"overlay_bar_group_format");
             }
 
@@ -75,21 +77,20 @@ public class OverlayBarGroup  extends Command<SongList>  {
             String[] sections = message.split(" ");
 
             if (sections.length < 2) {
+                DucatsLogger.severe("insufficient amount of parameters given - overlay_bar_group");
                 throw new DucatsException(message,"overlay_bar_group_format");
             }
+
             int barIndexToAdd = Integer.parseInt(sections[0]) - 1;
             Combiner combine = new Combiner();
             songIndex = songList.getActiveIndex();
-            //System.out.println(barIndexToAdd);
+
             if (songList.getSize() > songIndex) {
                 Song song = songList.getSongIndex(songIndex);
-                //System.out.println("adjjdsa1213");
                 ArrayList<Bar> barList = song.getBars();
                 ArrayList<Group> groupList = song.getGroups();
 
                 int groupIndexToBeCopiedTo = Integer.parseInt(sections[1]) - 1;
-                ///System.out.print("hellqellwe");
-                //System.out.println(barIndexToBeCopiedTo);
                 Bar overlayingBarToBeCopied;
                 try {
                     overlayingBarToBeCopied = barList.get(barIndexToAdd);
@@ -97,15 +98,14 @@ public class OverlayBarGroup  extends Command<SongList>  {
                     throw new DucatsException(message,"no_index");
                 }
                 Bar overlayingBar = overlayingBarToBeCopied.copy(overlayingBarToBeCopied);
-                //Bar overlayingBar = barList.get(barIndexToAdd);
-                //System.out.println("adjjdsa");
                 if (sections.length > 2 && sections[2].equals("repeat")) {
-                    //System.out.println("repeat bar");
                     Iterator<Group> iterator1 = groupList.iterator();
                     int i = 0;
                     while (iterator1.hasNext()) {
                         Group temp = iterator1.next();
+
                         if (i >= groupIndexToBeCopiedTo) {
+
                             Splitter splitItem = new Splitter("group split");
                             ArrayList<Bar> barListCopiedTo = splitItem.splitObject(temp);
                             Iterator<Bar> iteratorGroup = barListCopiedTo.iterator();
@@ -117,10 +117,8 @@ public class OverlayBarGroup  extends Command<SongList>  {
                         i += 1;
                     }
                 } else {
-                    //System.out.println("no repeat found");
+
                     Group groupToBeCopied = groupList.get(groupIndexToBeCopiedTo);
-
-
                     Splitter splitItem = new Splitter("group split");
                     ArrayList<Bar> barListCopiedTo = splitItem.splitObject(groupToBeCopied);
                     Iterator<Bar> iteratorGroup = barListCopiedTo.iterator();
@@ -128,20 +126,20 @@ public class OverlayBarGroup  extends Command<SongList>  {
                         Bar temp = iteratorGroup.next();
                         combine.combineBar(overlayingBar, temp);
                     }
-                    //System.out.println("bar temp gotten");
-                }
-                //add the bar to the song in the songlist
-                storage.updateFile(songList);
 
+                }
+                storage.updateFile(songList);
+                DucatsLogger.fine("overlay_bar_group sucessfully overlayed a bar onto a group");
                 Command ascii = new AsciiCommand("ascii song " + song.getName());
                 return ascii.execute(songList,ui,storage);
-                //return ui.formatAddOverlay(songList.getSongList(), barIndexToAdd,song);
             } else {
 
                 throw new DucatsException(message, "no_index");
             }
 
         } catch (DucatsException e) {
+            DucatsLogger.severe("there was an DucatsException of " + e.getType()
+                    + "when the user typed " + message);
             throw new DucatsException(message, e.getType());
         } catch (java.io.IOException e) {
             throw new DucatsException(message,"IO");

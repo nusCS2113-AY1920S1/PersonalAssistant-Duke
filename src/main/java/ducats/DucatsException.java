@@ -8,7 +8,7 @@ public class DucatsException extends Exception {
     private String input;
     private String type = "other";
     private static final String[] COMMAND_STRINGS =
-        {"todo","deadline", "event", "doafter", "new", "view", "addbar", "copy", "group", "overlay"};
+        {"todo","deadline", "event", "doafter", "new", "view", "addbar", "copy", "group", "overlay", "delete"};
 
     //@@author rohan-av
     /**
@@ -47,7 +47,7 @@ public class DucatsException extends Exception {
     public String getMessage() {
 
         String message = "An unknown exception has occurred.";
-        String word = input.trim().equals("event")
+        String word = input.trim().equals("delete")
                 || input.trim().equals("overlay")
                 || input.trim().equals("addbar")
                 || input.trim().equals("insertbar")

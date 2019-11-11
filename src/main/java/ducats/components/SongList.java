@@ -122,19 +122,4 @@ public class SongList {
     public void removeAll(ArrayList<Song> removeList) {
         list.removeAll(removeList);
     }
-
-    /**
-     * Returns a boolean value representing whether the song name already exists in the song list or not.
-     *
-     * @return a boolean value that represents whether the song name already exist; returns true if
-     *         song name already exist and in use, returns false if song name is not in use
-     */
-    public boolean songExist(String songName) {
-        for (Song song: list) {
-            if (songName.equals(song.getName())) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

@@ -9,6 +9,7 @@ import ducats.components.Song;
 import ducats.components.Chord;
 import ducats.components.SongList;
 import java.util.Iterator;
+import ducats.DucatsLogger;
 
 /*
  *This function combines 2 components of songs such as group-group, chord-chord,bar-bar
@@ -23,9 +24,6 @@ public class Combiner implements Serializable {
      */
 
     public void combineChord(Chord chordBeCopiedFrom, Chord chordCopiedTo) {
-        //ArrayList<Note>noteArrayCopyFrom  = chordBeCopiedFrom.getNotes();
-        //Iterator<Note> iterator1 = noteArrayCopyFrom.iterator();
-        //while()
         chordCopiedTo.getNotes().addAll(chordBeCopiedFrom.getNotes());
     }
 
@@ -48,9 +46,12 @@ public class Combiner implements Serializable {
             combineChord(chordAdd,chordCopiedTo.get(i));
             i += 1;
         }
+        DucatsLogger.fine("combiner combined 2 bars together");
     }
     /**
-     * Combines two Groups.
+     * Combines two Groups. When they are of unequal length the smaller one repeats
+     * over the larger one or the larger one overlay n number of bars where n
+     * is the size of the smaller group.
      *
      * @param groupToBeCopied the group that is being copied from
      * @param groupToCopyTo the group that is being copied to
@@ -62,8 +63,7 @@ public class Combiner implements Serializable {
 
         int k = 0;
         int numberOfTimes = (int) Math.ceil(barCopiedTo.size() / (barBeCopiedFrom.size() * 1.0));
-        //System.out.print("hello");
-        //System.out.print(number_of_times);
+
         int i = 0;
         while (k < numberOfTimes) {
             Iterator<Bar> iterator1 = barBeCopiedFrom.iterator();
@@ -74,5 +74,6 @@ public class Combiner implements Serializable {
             }
             k += 1;
         }
+        DucatsLogger.fine("combiner combined 2 groups together");
     }
 }
