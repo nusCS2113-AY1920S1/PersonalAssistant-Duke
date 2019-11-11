@@ -66,7 +66,7 @@ public class ProfileCommands {
         int sortOption = 0;
         ArrayList<String> listForFlag = flagMap.get(getInput);
         if (listForFlag.size() == 0) {
-                throw new InvalidFormatCommandException();
+            throw new InvalidFormatCommandException();
         }
 
         for (String log : flagMap.get(getInput)) {
@@ -434,7 +434,7 @@ public class ProfileCommands {
         inputStream.close();
         int genreId = Integer.parseInt(parseToId(genreListString, genreName.trim()));
         return genreId;
-        }
+    }
 
 
     /**
