@@ -1,0 +1,31 @@
+@startuml
+!include style.puml
+
+Package " "<<Rectangle>> {
+    Class Storage STORAGE_COLOR
+    Class Parser LOGIC_COLOR
+    Class JsonWrapper MODEL_COLOR
+    Class PlannerUi UI_COLOR
+    Class ModDetailedMap #111
+    Class "Profile" as User #777
+    Class Logs UI_COLOR_T2
+}
+
+Class Person #444
+Class File UI_COLOR_T1
+
+Person <--> PlannerUi
+
+PlannerUi <--> Parser
+ModDetailedMap --> Parser
+JsonWrapper --> Parser
+
+Parser --> Logs
+Parser --> User
+User <--> Storage
+
+Logs --> File
+Storage <--> File
+Storage -> ModDetailedMap
+
+@enduml
