@@ -125,8 +125,8 @@ Registers an item / room as having been returned, and is thus available to be lo
 Registers an item/room as having been reserved (loaned in advance) from a future date to another future date.
 
 .*Format*:
-. `reserve /item ITEM /qty QUANTITY /from DATE /to DEADLINE`
-. `reserve /room ROOM /from DATE /to DEADLINE`
+. `reserve /item ITEM /qty QUANTITY /from DATE /to DATE`
+. `reserve /room ROOM /from DATE /to DATE`
 * While loans take effect from the current date to a specified deadline, reservations specify a future time-frame for an item to be loaned out.
 * Quantity must be a positive integer.
 * If the user requests a quantity that is greater than the existing amount of that item in the inventory, the UI will send an error message to the user.

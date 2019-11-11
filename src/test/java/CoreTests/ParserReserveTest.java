@@ -62,16 +62,12 @@ public class ParserReserveTest {
      */
     @Test
     public void invalidIntegerInputTest() throws RimsException, IOException, ParseException {
-        String input = "reserve /item testobject /qty a /id a /from 15/11/2020 1000 /by 15/11/2020 1200";
-    
+        String input = "reserve /item testobject /qty a /id a /from 15/11/2020 1000 /by 15/11/2020 1200";    
         Exception e = assertThrows(RimsException.class, () -> {
             parserUnderTest.parseInput(input);
         });
-        
-
         assertEquals("Please specify an integer value that is valid & non-negative!", e.getMessage());
         ui.formattedPrint("Test: Invalid type in input\n\tStatus: Passed");
-
     }
 
     /**
