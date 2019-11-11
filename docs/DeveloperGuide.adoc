@@ -188,6 +188,19 @@ UndoCommand and RedoCommand is implemented using a typical undo-redo stack, whic
 The implementation of UndoRedoStack is similar to git history tree.
 Each node on the UndoRedoStack is a version of the SongList.
 
+Design Considerations
+
+* Save copies
+** Pros: Easy to implement
+** Cons: Heavy burden for memory usage, especially when there are a lot of operations.
+
+* Each command has a undo/redo method
+** Pros: Will use less memory
+** Cons: Need to ensure that implementation is correct
+
+The reason why we choose the first design consideration is that there are some command that is hard to implement undo/redo method
+such as delete. It is impossible to restore a deleted song unless you keep a copy of it. That's why we choose the first song.
+
 Once the user enters a command that is either `new` or `delete`, the UndoRedoStack will make one step forward, which is similar to 'git commit'.
 
 Before each `undo` or `redo`, UndoRedoStack will check the undoability/redoability of the UndoRedoStack.
@@ -205,7 +218,7 @@ Impact of UndoCommand/RedoCommand:
 * `undo` - moves the UndoRedoStack to its previous version.
 * `redo` - moves the UndoRedoStack to its next version.
 
-Note that after user enters a command, if the current version of SongList is not the latest version, which means the the UndoRedoStack is not at its latest node,
+Note that after user enters a command, if the current version of SongList is not the latest version, which means the UndoRedoStack is not at its latest node,
 all the nodes after current node will be dropped, and the new version of the UndoRedoStack will be treated as the current and the latest node,
 and you cannot visit the previous branch of nodes anymore.
 
