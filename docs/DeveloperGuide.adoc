@@ -60,7 +60,8 @@ functions
 . *JDK `11`* or above is required
 . *IntelliJ* IDE is recommended
 
-[NOTE] IntelliJ by default has Gradle plugin installed. Do not disable them.
+[NOTE]
+IntelliJ by default has Gradle plugin installed. Do not disable them.
 If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 === 1.2. Setting up the project environment on your local machine.
@@ -75,14 +76,17 @@ If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable th
 . Click `Import Project`
 .  Locate the `build.gradle` file and select it. Click `Open`.
 . Open the IntelliJ console/terminal and run the gradle command `gradlew processResource` on *Windows* or 
-`./gradlew processResource` on *Mac/Linux*  (If you are encountered a permission error: `./gradlew: Permission denied` add the executable permission to the 
+`./gradlew processResource` on *Mac/Linux*
+
+[NOTE]
+(If you are encountered a permission error: `./gradlew: Permission denied` add the executable permission to the
 the shell script by running `chmod 744 gradlew` in your terminal)
 It should finish with the `BUILD SUCCESSFUL` message. This will generate the resources required by the application and tests.
 
 === 1.3. Verifying the setup
 
-. Run ArchDuke to verify and try a few commands. (Refer here {insert link to the command page} the commands)
-. Run the JUNIT Test/gradlew test command to ensure that all the test case passes.
+. Run ArchDuke to verify and try a few commands. Do refer to the user guide for a list of commands to try out.
+. Run the JUnit Tests/gradlew test command to ensure that all the test case passes.
 
 === 1.4. Configurations to do before writing code
 
@@ -98,7 +102,13 @@ You may refer to ArchDuke's `build.gradlew` file as a reference on how to set up
 ArchDuke utilizes Travis to perform Continuous Integration (CI). Other CI tools available are AppVeyor, GitLab CI or
 Github Actions. ArchDuke has decided on using Travis CI due to its ease of configurations.
 
-After setting up Travis, you can set up coverage reporting for your team fork.
+In order to set up Travis CI, a `.travis.yml` needs to be added in the root directory of your working directory.
+For more details on how to configure your `.yml` file, do refer to Travis documentation online, or ArchDuke's
+`.travis.yml` file located
+link:{repoURL}/.travis.yml[`here`]
+
+After setting up Travis, you can set up coverage reporting for your team fork. ArchDuke utilizes JaCoCo as test coverage
+tool and Coveralls as a web service to track our code coverage over time.
 
 ==== Getting started with coding
 
@@ -121,18 +131,23 @@ image::images/ArchDuke_Architecture.png[]
 Below is a quick overview of each component based on our Architecture.
 
 Not included in the diagram is the `Main` program in the folder *_launcher_*. The Main program is responsible for
-initializing the `View` layer.
+initializing the `View` layer and its subsequent dependencies.
 
 * In our case, as ArchDuke is a command line program, `Main` will initialize `CLIView`.
 
-`Utility` represents a collection of classes used by multiple other components and can be accessed by all layers.
+`Utility` layer represents a collection of classes used by multiple other components and can be accessed by all layers.
 
 * `Factory` classes : Used mainly by `Repositories` and `Controllers` to create objects based on user input.
-* `Logger` classes: Used by all classes to write log messages to ArchDuke's log file.
+** Examples of `Factory` classes used in ArchDuke are `MemberFactory`, `ProjectFactory` and `TaskFactory`.
+** These factory classes are grouped under the package `util.factories`.
+* `Logger` class: Used by all classes to write log messages to ArchDuke's log file.
 * `ParserHelper` class: Used by all classes for user input parsing.
 * `SortHelper` class: Used primarily by `Repositories` and `Controllers` for sorting objects based on description
 before a Response model is generated for the `View` layer.
 * `DateTimeHelper` class: Used for handling anything that is related to Date objects or parsing inputs for Date objects
+* `ConstantHelper` class: Stores all magic numbers and strings for better code readability
+* `ValidityHelper` class: Responsible for data validation before object creation
+* `UIFormatter` classes: Responsible for formatting data into String arrays for the `View` layer
 
 The rest of the App consists of four main layers.
 
@@ -141,7 +156,7 @@ from the user.
 * `Controller` layer: Responsible for handling user inputs and sending them to the respective classes for parsing,
 cleaning, or object creation.
 * `Repository` layer: Responsible for holding data in-memory during program runtime
-* `Storage` layer: Responsible for saving and loading persistent data from hard disk.
+* `Storage` layer: Responsible for serializing and serializing persistent JSON data files from hard disk.
 
 Each layer will be discussed in detail below.
 
@@ -401,8 +416,8 @@ functions with regards to a `Task` object.
 
 Step 1) Assuming Project have been created and the user is currently managing a specific project.
 
-Step 2) The user execute the command `add task -n kill thanos! -p 100 -c 100` to create a new task with the task
-name “kill thanos!”, priority value “100” and a credit of “100”. These input will be consumed by `ProjectInputController.manageProject()`
+Step 2) The user execute the command `add task -n kill Thanos! -p 100 -c 100` to create a new task with the task
+name “kill Thanos!”, priority value “100” and a credit of “100”. These input will be consumed by `ProjectInputController.manageProject()`
 
 Step 3) The `ProjectInputController.manageProject()` will trigger the `TaskFactory` which will do a  validation to ensure the
 required input are given.
