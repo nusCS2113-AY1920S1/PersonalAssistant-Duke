@@ -284,6 +284,8 @@ image::Search_Movies_7.png[width="800" align="left"]
 Format: `search tvshows [/LIST_TYPE] -p` +
 Examples: `search tvshows /rated -p`
 
+image::Search_Movies_10.png[width="800" align="left"]
+
 * *Searching within standard lists _using new unsaved set of filter flags_* +
 Format: `search tvshows [/LIST_TYPE] [-g PREFERENCE_GENRE_NAME ...] [-r RESTRICT_GENRE_NAME ...] [-a ADULT_FILER]` +
 Examples: +
@@ -293,6 +295,9 @@ Examples: +
 ** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
 ** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
 
+image::Search_Movies_11.png[width="800" align="left"]
+
+
 * *Searching using _keywords_* +
 Search for TV shows using keywords and returns shows with titles that contains the keywords. +
 Format: `search tvshows KEYWORDS` +
@@ -300,11 +305,11 @@ Examples: +
 `search tvshows simpsons` +
 `search tvshows greys anatomy`
 
-image::Search_Movies_8.png[width="800" align="left"]
-
 * *Searching using keywords _with no preferences_* +
 Format: `search tvshows KEYWORDS` +
 Examples: `search tvshows greys anatomy`
+
+image::Search_Movies_8.png[width="800" align="left"]
 
 * *Searching using keywords _using pre-set user profile_* +
 Format: `search tvshows KEYWORDS -p` +
@@ -326,8 +331,24 @@ View more information about a movie or TV show from the resulting list.
 Format: `view entry NUM` +
 Examples: `view entry 3` +
 
-* `NUM` must be a positive integer < 20.
+image::View_More_Info.png[width="500" align="left"]
+
+image::View_More_Info_2.png[width="500" align="left"]
+
+* `NUM` must be a positive integer.
 * `NUM` corresponds to the unique integer attached to the movie or TV (below its poster and title).
+
+=== View Back: `view back`
+
+==== *View back to search results*
+View back search results after viewing more information about a movie/TV show as stated in the above section.
+Format: `view back` +
+Examples: `view back` +
+
+image::View_Back.png[width="800" align="left"]
+
+image::View_Back_2.png[width="800" align="left"]
+
 
 === Nearby Cinemas and theatres
 Displays the list of cinemas and theatres nearby the location specified. +
