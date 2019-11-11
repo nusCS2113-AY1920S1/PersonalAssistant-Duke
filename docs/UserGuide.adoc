@@ -106,10 +106,10 @@ Finds tasks whose names or description contain any of the given keywords. +
 e.g `find defence`
 
 ****
-* The search is case sensitive. e.g banner will not match Banner
-* If multiple words in [KEYWORD], the length of the space matters. e.g read    book will not match read book
-* Only the Task name is searched
-* Tasks matching at least one keyword will be returned (i.e. OR search). e.g. Banner will return Complete Banner, Brainstorm Banner
+* The search is case sensitive. e.g `banner` will not match `Banner`
+* If multiple words in [KEYWORD], the length of the space matters. e.g `read    book` will not match `read book`
+* Search for both name and description
+* Tasks matching at least one keyword will be returned (i.e. OR search). e.g. `Banner` will return `Complete Banner`, `Brainstorm Banner`
 ****
 
 
