@@ -2,7 +2,6 @@ package duke.ui.window;
 
 import com.jfoenix.controls.JFXListView;
 import duke.data.DukeData;
-import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.Treatment;
@@ -13,10 +12,6 @@ import duke.ui.card.UiCard;
 import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-
-import java.util.List;
-
-//@@author gowgos5
 
 /**
  * UI window for the Patient context.
@@ -112,7 +107,7 @@ public class PatientContextWindow extends ContextWindow {
 
 
     /**
-     * Clears all card and UI lists.
+     * Clears all UI lists in this window.
      */
     private void clearLists() {
         impressionListPanel.getItems().clear();
@@ -123,20 +118,6 @@ public class PatientContextWindow extends ContextWindow {
     /**
      * Fills all UI lists in this window.
      */
-    private void indexLists() {
-        impressionListPanel.getItems().forEach(card -> {
-            card.setIndex(impressionListPanel.getItems().indexOf(card) + 1);
-        });
-
-        criticalListPanel.getItems().forEach(card -> {
-            card.setIndex(criticalListPanel.getItems().indexOf(card) + 1);
-        });
-
-        followUpListPanel.getItems().forEach(card -> {
-            card.setIndex(followUpListPanel.getItems().indexOf(card) + 1);
-        });
-    }
-
     private void fillLists() throws DukeFatalException {
         for (Impression impression : patient.getImpressionList()) {
             // Impression list
@@ -157,6 +138,23 @@ public class PatientContextWindow extends ContextWindow {
         for (Treatment followUps : patient.getFollowUpList()) {
             followUpListPanel.getItems().add(followUps.toCard());
         }
+    }
+
+    /**
+     * Indexes all UI lists in this window.
+     */
+    private void indexLists() {
+        impressionListPanel.getItems().forEach(card -> {
+            card.setIndex(impressionListPanel.getItems().indexOf(card) + 1);
+        });
+
+        criticalListPanel.getItems().forEach(card -> {
+            card.setIndex(criticalListPanel.getItems().indexOf(card) + 1);
+        });
+
+        followUpListPanel.getItems().forEach(card -> {
+            card.setIndex(followUpListPanel.getItems().indexOf(card) + 1);
+        });
     }
 
     /**

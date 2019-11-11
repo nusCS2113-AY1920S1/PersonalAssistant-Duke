@@ -2,7 +2,6 @@ package duke.ui.window;
 
 import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXScrollPane;
-import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.exception.DukeFatalException;
 import duke.ui.card.PatientCard;
@@ -11,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 
 import java.util.ArrayList;
-import java.util.List;
 
 //@@author gowgos5
 /**
@@ -26,7 +24,6 @@ public class HomeContextWindow extends ContextWindow {
     private ScrollPane scrollPane;
 
     private ArrayList<Patient> patientList;
-    private List<Patient> indexedPatientList;
 
     /**
      * Constructs the Home UI window.
@@ -55,15 +52,14 @@ public class HomeContextWindow extends ContextWindow {
     }
 
     /**
-     * Fills {@code indexedPatientList} and {@code patientListPanel}.
+     * Fills {@code patientListPanel}.
      */
     private void fillPatientList() throws DukeFatalException {
-        indexedPatientList = new ArrayList<>(patientList);
-
         patientListPanel.getChildren().clear();
-        for (Patient patient : indexedPatientList) {
+
+        for (Patient patient : patientList) {
             PatientCard patientCard = patient.toCard();
-            patientCard.setIndex(indexedPatientList.indexOf(patient) + 1);
+            patientCard.setIndex(patientList.indexOf(patient) + 1);
             patientListPanel.getChildren().add(patientCard);
         }
     }

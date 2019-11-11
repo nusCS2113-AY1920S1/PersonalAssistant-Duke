@@ -17,6 +17,13 @@ public class UiStrings {
     public static String MESSAGE_ERROR_UNINITIALISED_IMPRESSION = "Impression has not been initialised.";
     public static String MESSAGE_ERROR_UNINITIALISED_DUKEDATA = "Data has not been initialised.";
 
+    public static String LOG_INFO_LAUNCH_UI = "Starting UI...";
+    public static String LOG_ERROR_LAUNCH_UI = "Fatal error encountered on application launch.";
+    public static String LOG_INFO_LAUNCH_HELP = "Initialising Help window.";
+    public static String LOG_INFO_LAUNCH_HOME = "Initialising Home window.";
+    public static String LOG_INFO_LAUNCH_COMMAND = "Initialising Command window.";
+    public static String LOG_INFO_SWITCH_CONTEXT = "Switching UI context...";
+
     public static String DISPLAY_ALLERGIES_NONE = "No allergies";
     public static String DISPLAY_HISTORY_NOT_SET = "No medical history";
     public static String DISPLAY_AGE_NOT_SET = "No age set";

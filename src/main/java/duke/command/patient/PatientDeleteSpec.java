@@ -31,7 +31,7 @@ public class PatientDeleteSpec extends PatientObjSpec {
         if (obj instanceof Impression) {
             Patient patient = (Patient) obj.getParent();
             patient.deleteImpression(obj.getName());
-            core.ui.updateUi("Deleted the '" + obj.getName() + "' impression from " + patient.getName() + "!");
+            core.updateUi("Deleted the '" + obj.getName() + "' impression from " + patient.getName() + "!");
         } else {
             Impression impression = (Impression) obj.getParent();
             if (obj instanceof Evidence) {

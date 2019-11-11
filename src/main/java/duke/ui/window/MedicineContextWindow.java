@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 /**
- * UI window for the Investigation context.
+ * UI window for the Medicine context.
  */
 public class MedicineContextWindow extends DukeDataContextWindow {
     private static final String FXML = "MedicineContextWindow.fxml";
@@ -23,7 +23,7 @@ public class MedicineContextWindow extends DukeDataContextWindow {
     private Medicine medicine;
 
     /**
-     * Constructs a UI context window for a Plan object.
+     * Constructs a UI context window for a Medicine object.
      *
      * @param medicine Medicine object.
      */

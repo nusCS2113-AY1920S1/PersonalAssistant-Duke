@@ -32,7 +32,6 @@ public abstract class UiCard extends AnchorPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
             throw new DukeFatalException("FXML files missing, please save your patient data and reinstall the program");
         }
 

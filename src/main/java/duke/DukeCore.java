@@ -10,6 +10,7 @@ import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.ui.Ui;
 import duke.ui.UiManager;
+import duke.ui.commons.UiStrings;
 import duke.ui.context.UiContext;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -45,7 +46,7 @@ public class DukeCore extends Application {
             patientData = new PatientData(storage);
             setupLoggers();
         } catch (DukeFatalException e) {
-            ui.showErrorDialogAndShutdown("Error encountered!", e);
+            ui.showErrorDialogAndShutdown(UiStrings.MESSAGE_ERROR_LAUNCH, e);
         }
     }
 

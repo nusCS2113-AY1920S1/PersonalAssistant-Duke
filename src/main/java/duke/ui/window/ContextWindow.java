@@ -24,6 +24,8 @@ public abstract class ContextWindow extends UiElement<Region> {
 
     /**
      * Updates all UI elements in the context window.
+     *
+     * @throws DukeFatalException If the {@link ContextWindow} to be updated cannot be loaded / initialised.
      */
     public abstract void updateUi() throws DukeFatalException;
 }

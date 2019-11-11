@@ -1,14 +1,10 @@
 package duke.ui;
 
 import duke.DukeCore;
-import duke.data.DukeObject;
 import duke.exception.DukeFatalException;
-import duke.ui.context.UiContext;
 import duke.ui.window.CommandWindow;
 import duke.ui.window.ContextWindow;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 //@@author gowgos5
 /**
@@ -41,6 +37,7 @@ public interface Ui {
      * Updates {@link ContextWindow} and shows message on the {@link CommandWindow}.
      *
      * @param message Output message.
+     * @throws DukeFatalException If the {@link ContextWindow} to be updated cannot be initialised / loaded.
      */
     void updateUi(String message) throws DukeFatalException;
 

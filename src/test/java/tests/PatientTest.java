@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+//@@author gowgos5
 public class PatientTest {
     private static final String validBasicPatientStringRepresentation = "Name: John Doe\n"
             + "Personal details\n"
@@ -35,12 +36,19 @@ public class PatientTest {
 
     private Patient validPatient;
 
+    /**
+     * Sets up a basic Patient object with valid details.
+     * This method is called before each JUnit tests in this class.
+     */
     @BeforeEach
     public void setupBasicPatient_validDetails() {
         validPatient = new Patient("John Doe", "A105", "Cinnarizine", 170, 50,
                 30, 98765432, "NUS", "Heart attack 5 years ago");
     }
 
+    /**
+     * Tests getters of a basic Patient object.
+     */
     @Test
     public void testEquals_basicPatient_success() {
         assertEquals("John Doe", validPatient.getName());
@@ -54,18 +62,28 @@ public class PatientTest {
         assertTrue(validPatient.equals(validPatient));
     }
 
+    /**
+     * Tests toString method of a basic Patient object.
+     */
     @Test
-    public void testStringRepresentation_basicPatient_success() {
+    public void testStringRepresentation_basicPatient_matches() {
         assertEquals(validBasicPatientStringRepresentation, validPatient.toString());
     }
 
+    /**
+     * Tests toString method of a Patient object with a primary diagnosis.
+     */
     @Test
-    public void testStringRepresentation_patientWithPrimaryDiagnosis_success() throws DukeException {
+    public void testStringRepresentation_patientWithPrimaryDiagnosis_matches() throws DukeException {
         Impression impression = new Impression("Hip Fracture", "Patient in pain", validPatient);
         validPatient.addNewImpression(impression);
         assertEquals(validBasicPatientWithPrimaryDiagnosisStringRepresentation, validPatient.toString());
     }
 
+    /**
+     * Tests add new impression for a Patient object with no impression. The impression should become the primary
+     * impression (diagnosis) of the Patient object.
+     */
     @Test
     public void addNewImpression_patientWithZeroImpressions_impressionBecomesPrimaryDiagnosis() throws DukeException {
         assertEquals(0, validPatient.getImpressionList().size());
@@ -75,6 +93,10 @@ public class PatientTest {
         assertEquals(impression, validPatient.getPrimaryDiagnosis());
     }
 
+    /**
+     * Tests add three new impression for a Patient object with no impression. The patient should have three impressions
+     * tagged to it, with the first impression added being the primary diagnosis.
+     */
     @Test
     public void addThreeImpressions_patientWithZeroImpressions_patientHasThreeImpressions() throws DukeException {
         assertEquals(0, validPatient.getImpressionList().size());
@@ -91,6 +113,10 @@ public class PatientTest {
         assertEquals(3, validPatient.getImpressionList().size());
     }
 
+    /**
+     * Tests add duplicate impression to a Patient with the exact same impression. The test should fail with an
+     * exception thrown since there should not be duplicate impressions for any given Patient object.
+     */
     @Test
     public void addDuplicateImpression_patientHasThatImpression_exceptionThrown() throws DukeException {
         Impression impressionOne = new Impression("Impression 1", "Description 1", validPatient);
@@ -103,6 +129,10 @@ public class PatientTest {
         });
     }
 
+    /**
+     * Tests delete an impression for a Patient object with two impressions. The Patient object should have one
+     * impression remaining, and that impression will be the primary diagnosis of the Patient object.
+     */
     @Test
     public void deleteOneImpressions_patientWithTwoImpressions_patientHasOneImpressionThatIsPrimaryDiagnosis()
             throws DukeException {
@@ -121,6 +151,10 @@ public class PatientTest {
         assertEquals(1, validPatient.getImpressionList().size());
     }
 
+    /**
+     * Tests delete an impression for a Patient object with zero impressions. The test should fail with an exception
+     * thrown as there are no impressions to be deleted for the Patient object.
+     */
     @Test
     public void deleteOneImpressions_patientWithZeroImpressions_exceptionThrown() throws DukeException {
         Impression impressionOne = new Impression("Impression 1", "Description 1", validPatient);
@@ -133,6 +167,9 @@ public class PatientTest {
         });
     }
 
+    /**
+     * Tests get impressions for a Patient object.
+     */
     @Test
     public void getImpressions_patientWithTwoImpressions_impressionsMatch() throws DukeException {
         Impression impressionOne = new Impression("Impression 1", "Description 1", validPatient);
@@ -145,6 +182,10 @@ public class PatientTest {
         assertEquals(impressionTwo, validPatient.getImpression(impressionTwo.getName()));
     }
 
+    /**
+     * Tests append history for a Patient object. The history of the Patient object should be successfully appended
+     * with the newly added notes..
+     */
     @Test
     public void appendHistory_basicPatient_historySuccessfullyAppended() {
         assertEquals("Heart attack 5 years ago", validPatient.getHistory());

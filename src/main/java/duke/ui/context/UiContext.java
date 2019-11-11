@@ -10,7 +10,7 @@ import java.util.Stack;
 
 //@@author gowgos5
 /**
- * UI context of the application.
+ * UI context of Dr. Duke.
  */
 public class UiContext {
     private DukeObject object;
@@ -38,9 +38,9 @@ public class UiContext {
     }
 
     /**
-     * Displays the context associated with a DukeObject.
+     * Access the context associated with a DukeObject.
      *
-     * @param obj     DukeObject whose context we wish to view.
+     * @param obj DukeObject whose context we wish to access.
      */
     public void open(DukeObject obj) {
         Context context = Context.HOME;
@@ -54,6 +54,9 @@ public class UiContext {
 
     /**
      * Moves up one in the hierarchy of contexts.
+     *
+     * @return Printable message that states the current {@code context} Dr. Duke is in.
+     * @throws DukeException If Dr. Duke is currently in the HOME context.
      */
     public String moveUpOneContext() throws DukeException {
         if (context == Context.HOME) {
@@ -67,6 +70,9 @@ public class UiContext {
 
     /**
      * Moves back one context.
+     *
+     * @return Printable message that states the current {@code context} Dr. Duke is in.
+     * @throws DukeException If there is no previous context stored in Dr. Duke.
      */
     public String moveBackOneContext() throws DukeException {
         if (contexts.empty()) {
@@ -80,11 +86,32 @@ public class UiContext {
         return getViewingStr(newContext, newObj);
     }
 
+    /**
+     * Updates current {@code context} of Dr. Duke with {@code newContext}.
+     *
+     * @param newContext New {@link Context}.
+     * @param object     New {@link DukeObject}.
+     */
     private void updateContext(Context newContext, DukeObject object) {
         Context oldContext = this.context;
         this.context = newContext;
         this.object = object;
         pcs.firePropertyChange("context", oldContext, this.context);
+    }
+
+    /**
+     * Gets the printable message that states the current context Dr. Duke is currently in.
+     *
+     * @param context {@link Context} object.
+     * @param obj     Associated {@link DukeObject}.
+     * @return Printable message that states the current context Dr. Duke is in.
+     */
+    private String getViewingStr(Context context, DukeObject obj) {
+        if (obj != null) {
+            return "You are now viewing '" + obj.getName() + "' in the " + context.toString() + " context";
+        } else {
+            return "You are now in the HOME context!";
+        }
     }
 
     public Context getContext() {
@@ -93,13 +120,5 @@ public class UiContext {
 
     public DukeObject getObject() {
         return object;
-    }
-
-    private String getViewingStr(Context context, DukeObject obj) {
-        if (obj != null) {
-            return "You are now viewing '" + obj.getName() + "' in the " + context.toString() + " context";
-        } else {
-            return "You are now in the HOME context!";
-        }
     }
 }

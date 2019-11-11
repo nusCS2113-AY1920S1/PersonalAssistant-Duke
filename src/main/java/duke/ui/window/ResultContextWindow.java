@@ -14,6 +14,11 @@ public class ResultContextWindow extends DukeDataContextWindow {
     @FXML
     private Label summaryLabel;
 
+    /**
+     * Constructs a UI context window for a Result object.
+     *
+     * @param result Result object.
+     */
     public ResultContextWindow(Result result) throws DukeFatalException {
         super(FXML, result);
         super.updateUi();
