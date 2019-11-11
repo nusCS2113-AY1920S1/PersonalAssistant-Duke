@@ -315,7 +315,7 @@ image::images/screenshots/viewtasks_priority.png[]
 ** `view tasks -credits` : shows all the tasks sorted by credits
 
 image::images/screenshots/viewtasks_credits.png[]
-** `view tasks -who Dillen` : shows all the tasks assigned to “Dillen”
+** `view tasks -who Dilen` : shows all the tasks assigned to “Dilen”
 
 image::images/screenshots/viewtasks_who.png[]
 ** `view tasks -state done` : shows all the tasks with the state “DONE”
