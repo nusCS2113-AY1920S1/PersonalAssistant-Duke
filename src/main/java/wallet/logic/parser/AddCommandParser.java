@@ -176,7 +176,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public Contact parseContact(String input) throws ArrayIndexOutOfBoundsException {
         //@@author Xdecosee
-        String[] info = input.split(" ");
+        String replacedInput = input.replaceAll("\\s+", " ");
+        String[] info = replacedInput.split(" ");
         ContactParserHelper contactHelper = new ContactParserHelper();
         Contact contact = contactHelper.newInput(info);
         if (contact == null) {

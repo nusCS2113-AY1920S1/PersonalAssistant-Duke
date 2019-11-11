@@ -82,7 +82,8 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public Contact parseContact(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
         //@@author Xdecosee
-        String[] arguments = input.split(" ", 2);
+        String replacedInput = input.replaceAll("\\s+", " ");
+        String[] arguments = replacedInput.split(" ", 2);
         if (arguments.length == 2) {
 
             String[] parameters = arguments[1].split(" ");
