@@ -4,7 +4,17 @@ package planner.logic.parser;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import planner.logic.command.*;
+import planner.logic.command.AddCcaScheduleCommand;
+import planner.logic.command.CapCommand;
+import planner.logic.command.ClearCommand;
+import planner.logic.command.EndCommand;
+import planner.logic.command.GradeCommand;
+import planner.logic.command.ReminderCommand;
+import planner.logic.command.RemoveCommand;
+import planner.logic.command.SearchThenAddCommand;
+import planner.logic.command.ShowCommand;
+import planner.logic.command.SortCommand;
+import planner.logic.command.UpdateModuleCommand;
 import planner.logic.exceptions.legacy.ModException;
 
 import static org.junit.jupiter.api.Assertions.assertNull;

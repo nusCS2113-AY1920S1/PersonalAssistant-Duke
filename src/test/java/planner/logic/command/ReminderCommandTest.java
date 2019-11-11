@@ -29,5 +29,4 @@ public class ReminderCommandTest{
         lastTimerElement =  CliLauncher.timerPool.get(timerPoolSize - 1);
         assertEquals(lastTimerElement, time);
     }
-
 }

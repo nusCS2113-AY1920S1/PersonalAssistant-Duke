@@ -112,39 +112,39 @@ public class ShowCommand extends ModuleCommand {
                         plannerUi.println(count++ + ". " + task);
                     }
                     if (moduleCode.charAt(2) == 'H') {
-                        gehCount ++;
+                        gehCount++;
                         if (gehCount  > 1) {
                             geTypeCount += 0;
                         } else {
-                            geTypeCount ++;
+                            geTypeCount++;
                         }
                     } else if (moduleCode.charAt(2) == 'Q') {
-                        geqCount ++;
+                        geqCount++;
                         if (geqCount  > 1) {
                             geTypeCount += 0;
                         } else {
-                            geTypeCount ++;
+                            geTypeCount++;
                         }
                     } else if (moduleCode.charAt(2) == 'S') {
-                        gesCount ++;
+                        gesCount++;
                         if (gesCount  > 1) {
                             geTypeCount += 0;
                         } else {
-                            geTypeCount ++;
+                            geTypeCount++;
                         }
                     } else if (moduleCode.charAt(2) == 'R') {
-                        gerCount ++;
+                        gerCount++;
                         if (gerCount  > 1) {
                             geTypeCount += 0;
                         } else {
-                            geTypeCount ++;
+                            geTypeCount++;
                         }
                     } else if (moduleCode.charAt(2) == 'T') {
-                        getCount ++;
+                        getCount++;
                         if (getCount  > 1) {
                             geTypeCount += 0;
                         } else {
-                            geTypeCount ++;
+                            geTypeCount++;
                         }
                     }
                 }
