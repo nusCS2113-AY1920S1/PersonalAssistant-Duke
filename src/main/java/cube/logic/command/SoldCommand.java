@@ -105,9 +105,6 @@ public class SoldCommand extends Command {
 		int originalQty = toSold.getStock();
 		double revenue = quantity * price;
 		toSold.setStock(originalQty - quantity);
-		// old function Food.updateRevenue(Food.getRevenue() + revenue);
-		// new function
-
 		double profit = revenue - quantity * toSold.getCost();
 
 		//food revenue update, in the food model
