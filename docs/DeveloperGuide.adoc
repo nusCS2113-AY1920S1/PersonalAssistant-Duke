@@ -324,7 +324,7 @@ Taxicab distance is used as opposed to Euclidean in order to avoid computing squ
 This function is called by the parser finite state machine whenever a complete switch that does not match any alias is processed, instead of presenting all combinations of possible corrections after the whole input is parsed. This allows mistyped switches to be individually and unambiguously corrected, instead of creating a confusing combinatorical explosion of possible switches if the user makes several mistakes in a complex query, some of which may have more than two close matches for a switch if the user had used their shortened forms.
 
 === Search all records [KWOK KUIN EK JEREMY]
-image:SearchExample.png[]
+image::SearchExample.png[]
 
 ==== Rationale
 
