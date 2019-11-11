@@ -145,21 +145,6 @@ public class ExpenseList extends DukeList<Expense> {
     private StringProperty sortString;
     private StringProperty viewString;
 
-
-    /**
-     * Creates a new expense list using a file for storage.
-     *
-     * @throws DukeException if the file could not be loaded from, or created.
-     */
-    /*
-    public ExpenseList(File file) throws DukeException {
-        super(file, "expense");
-        viewScope = new ViewScope(ViewScopeName.ALL);
-        sortCriteria = SortCriteria.TIME;
-        externalList = getExternalList();
-    }
-
-     */
     public ExpenseList(List<Expense> internalList) {
         super(internalList, "expense");
         filterCriteria = "";
