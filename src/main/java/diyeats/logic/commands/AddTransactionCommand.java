@@ -51,6 +51,11 @@ public class AddTransactionCommand extends Command {
         if (transaction.getType().equals("PAY")) {
             if (!wallet.getAccount().isSufficientBalance(this.transaction.getTransactionAmount())) {
                 ui.showInsufficientBalance(this.transaction);
+            } else {
+                wallet.getTransactions().addTransaction(this.transaction);
+                wallet.updateAccountBalance(this.transaction);
+                storage.writeTransaction(wallet);
+                ui.showTransactionAdded(this.transaction, wallet.getAccountBalance());
             }
         } else {
             wallet.getTransactions().addTransaction(this.transaction);
