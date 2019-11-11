@@ -230,6 +230,7 @@ public class TaskList {
     /**
      * Snoozes task at index.
      *
+     * @param list collection of tasks.
      * @param i index at which task is snoozed.
      * @param userInput full description of the user's input.
      */
