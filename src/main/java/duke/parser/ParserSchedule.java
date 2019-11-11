@@ -1,7 +1,6 @@
 package duke.parser;
 
 import duke.data.ScheduleStorage;
-import duke.exceptions.DukeException;
 import duke.util.DateHandler;
 import duke.view.CliView;
 import duke.data.Storage;
@@ -159,19 +158,24 @@ public class ParserSchedule {
      * Method to run when entering monthly schedule.
      */
     public void monthlySchedule() {
+        ApacheLogger.logMessage("ParserSchedule", "Get the monthly schedule");
         boolean runMonth = true;
         cliViewSchedule.printMonthMenu();
         while (runMonth) {
             String input = sc.next();
             if (input.equals("back")) {
+                ApacheLogger.logMessage("ParserSchedule", "Back from monthlySchedule");
                 runMonth = false;
             } else if (input.equals("help")) {
                 cliViewSchedule.printMonthMenu();
+                ApacheLogger.logMessage("ParserSchedule", "Get commands");
             } else if (input.equals("list")) {
+                ApacheLogger.logMessage("ParserSchedule", "Listed all dates in log");
                 schedule.listAll();
             } else {
                 try {
                     int month = Integer.parseInt(input);
+                    ApacheLogger.logMessage("ParserSchedule", "Select month");
                     selectMonth(month);
                 } catch (NumberFormatException e) {
                     cliViewSchedule.showDontKnow();

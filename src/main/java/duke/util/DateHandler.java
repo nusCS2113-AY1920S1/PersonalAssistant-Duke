@@ -1,5 +1,6 @@
 package duke.util;
 
+import javax.xml.crypto.Data;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -62,6 +63,23 @@ public class DateHandler {
         } catch (ParseException e) {
             e.getMessage();
             return "Error";
+        }
+    }
+
+    /**
+     * Validate date is in correct format.
+     *
+     * @param date The date to check
+     */
+    public static boolean correctTime(String timeFormat, String time) {
+        SimpleDateFormat sdf = new SimpleDateFormat(timeFormat);
+        try {
+            Date date = sdf.parse(time);
+            ApacheLogger.logMessage("DateHandler", "Valid time and format in convertTime");
+            return true;
+        } catch (ParseException e) {
+            ApacheLogger.logMessage("DateHandler", "Invalid time or format in convertTime");
+            return false;
         }
     }
 

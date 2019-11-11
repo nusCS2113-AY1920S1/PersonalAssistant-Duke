@@ -2,6 +2,7 @@ package duke.models;
 
 import duke.data.ScheduleStorage;
 import duke.data.Storage;
+import duke.parser.ParseScheduleTable;
 import duke.util.ApacheLogger;
 import duke.util.DateHandler;
 import duke.view.CliViewSchedule;
@@ -88,21 +89,13 @@ public class Schedule {
             if (input.equals("back")) {
                 runTable = false;
             } else if (input.startsWith("add")) {
-                try {
-                    int indexName = input.indexOf("n/");
-                    int indexStart = input.indexOf("s/");
-                    int indexEnd = input.indexOf("d/");
-                    int indexLocation = input.indexOf("loc/");
-                    String name = input.substring(indexName + 2, indexStart);
-                    String start = input.substring(indexStart + 2, indexEnd);
-                    String end = input.substring(indexEnd + 2, indexLocation);
-                    String loc = input.substring(indexLocation + 4);
-                    ToDo toDo = new ToDo(start, end, loc, name, date);
+                ParseScheduleTable parseScheduleTable = new ParseScheduleTable();
+                ToDo toDo = parseScheduleTable.createToDo(input, date);
+                if (toDo == null) {
+                    ApacheLogger.logMessage("Schedule", "Cannot save file");
+                    cliViewSchedule.errMessage("Input was in wrong format");
+                } else {
                     new ScheduleStorage().save(toDo, date);
-                } catch (StringIndexOutOfBoundsException e) {
-                    cliViewSchedule.showDontKnow();
-                    ApacheLogger.logMessage("Schedule",
-                        "Wrong input format for adding to table");
                 }
             } else {
                 cliViewSchedule.showDontKnow();
@@ -119,7 +112,6 @@ public class Schedule {
      * @param month the month that is being viewed
      */
     public void tableUI(int day, int month) {
-
         cliViewSchedule.tableDate(day, month);
         cliViewSchedule.tableHeader();
         cliViewSchedule.tableContents(getCells(day, month));
