@@ -178,6 +178,7 @@ public class CommandParseHelper {
                 if ("".equals(time)) {
                     time = option.getValue();
                 } else {
+                    UI.getInstance().showDebug("Duplicated time option.");
                     throw new CommandParseException("Each task can have only one time option");
                 }
             }

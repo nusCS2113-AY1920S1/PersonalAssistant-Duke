@@ -454,7 +454,7 @@ public class TaskCommandParseHelper {
         } catch (TaskParseException e) {
             return new InvalidCommand(e.getMessage());
         } catch (CommandParseHelper.CommandParseException e) {
-            return null;
+            return new InvalidCommand(e.getMessage());
         }
     }
 
