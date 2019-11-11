@@ -433,7 +433,7 @@ e.g. `routeNodeNearby 1 1`
 .Activity diagram for the execute() method in RouteNodeShowCommand
 image::SGTravel_routeNodeNearby_diagram.png[height="1290" width="850"]
 
-The user can also automatically generate a new `Route` by using the `RouteGenerateCommand`. Given below is an exmample usage scenario and how the `Model`, `RouteList` and `PathFinder` object behave at each step.
+The user can also automatically generate a new `Route` by using the `RouteGenerateCommand`. Given below is an example usage scenario and how the `Model`, `RouteList` and `PathFinder` object behave at each step.
 
 .  The user calls the `RouteGenerateCommand` with its relevant parameters. +
 e.g. `routeGenerate amk hub to nus by bus`
