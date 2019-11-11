@@ -327,9 +327,9 @@ back to `ConsoleInputController` to signify the successful creation of a new Pro
 will call `CLIView` to print appropriate messages to the user based on whether a new Project object was created
 successfully or not.
 
-The following sequence diagram shows how the `create PROJECT_NAME` operation works.
+The following sequence diagram shows how the `create PROJECT_NAME` command works.
 
-image::images/sequnceDiagram/ProjectCreation_Sequence.png[]
+image::images/sequenceDiagram/ProjectCreation_Sequence.png[]
 
 The `delete PROJECT_INDEX` command works similarly to `create PROJECT_NAME`. Both commands will result in a
 `Boolean` of either `True` or `False` to indicate whether command was executed successfully. There are minor
@@ -342,6 +342,31 @@ differences, listed below:
 *Manage project*
 
 ArchDuke allows users to manage each individual project in the `ProjectRepository`.
+The following sequence diagram shows how the `manage PROJECT_INDEX` command works.
+
+image::images/sequenceDiagram/ManageProject_Sequence.png[]
+
+==== Design Considerations
+
+===== Aspect: How projects creation executes
+
+* **Alternative 1 (current choice):** Use Factory creational design pattern
+
+** Pros:
+*** Reduces complexities by creating objects without using the `new` operator
+*** Avoids tight coupling by separating the object creation process from the class that needs it
+*** Frequent changes to the Interface can be accommodated
+*** Aids scalability as other classes only need to refer to the `Factory` class to create more objects
+** Cons:
+*** Requires deep technical knowledge on handling Null objects
+
+* **Alternative 2:** Using the `new` operator to create new Objects
+
+** Pros:
+*** Simple, basic and easy to learn
+** Cons:
+*** High coupling, as instances of the Object created cannot be isolated for unit testing
+*** Breaks Single Responsibility Principle as sometimes the Object needs to be modified frequently
 
 === 3.2 CRUD functionality for Members
 ==== Implementation
