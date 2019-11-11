@@ -306,7 +306,7 @@ If the wordBank currently contains less than 5 entries, an exception will not be
 
 The following sequence diagram shows how the RecentlyAdded feature works:
 
-[INSERT DIAGRAM]
+image::RecentlyAddedSequenceDiagram.png[]
 
 ===== Design Considerations
 
