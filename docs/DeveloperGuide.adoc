@@ -614,7 +614,7 @@ How DegreeManager handles the checking of valid degree names:
 
 A class GraduateEmployment is used in order to display employment percentage rates and basic mean salary of recent graduates in the form of a dual axis bar chart. This class is an implementation of the Statistics interface. 
 
-image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/umlinheritance.png[width="900", align = "left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/umlinheritance.png[width="300", align = "left"]
 
 == Testing
 
