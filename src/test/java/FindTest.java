@@ -89,7 +89,7 @@ public class FindTest {
                         + "1.[E]$500.00 straw(on: 9/10/2015)\n" + "\n"
                         + "Loan Items Found:\n"
                         + "1.[Outstanding] [I] my daddy(loan: $1000.00)"
-                        + " (Lent On: 9/10/2015) Outstanding Amount: $1000.00\n"
+                        + " (Borrowed On: 9/10/2015) Outstanding Amount: $1000.00\n"
                         + "\n" + "Instalment Items Found:\n"
                         + "1.[INS]$5000.00 car(on: 9/10/2015)\n"
                         + "2.[INS]$100000.00 mortgage(on: 9/10/2015)\n"

@@ -5,7 +5,6 @@ import controlpanel.Parser;
 import moneycommands.*;
 import controlpanel.DukeException;
 import controlpanel.Ui;
-import org.assertj.core.internal.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.nio.file.Path;
@@ -56,7 +55,7 @@ class LoansTest {
         ui.clearOutputString();
         addIncomingLoanCommand.execute(account, ui, storage);
         assertEquals(" Got it. I've added this incoming loan: \n"
-                + "     [Outstanding] [I] my daddy(loan: $1000.00) (Lent On: 9/10/1997) "
+                + "     [Outstanding] [I] my daddy(loan: $1000.00) (Borrowed On: 9/10/1997) "
                 + "Outstanding Amount: $1000.00\n" + " Now you have "
                 + account.getLoans().size() + " loans listed and "
                 + account.getIncomingLoans().size() + " incoming loans\n", ui.getOutputString());
@@ -76,7 +75,7 @@ class LoansTest {
         assertEquals("Got it! List of ALL Loans printed in the other pane! \n", ui.getOutputString());
         assertEquals(" 1.[Outstanding] [O] my bros(loan: $500.00) (Lent On: 9/10/1997) "
                 + "Outstanding Amount: $500.00\n"
-                + " 2.[Outstanding] [I] my mama(loan: $1000.00) (Lent On: 9/10/1997) "
+                + " 2.[Outstanding] [I] my mama(loan: $1000.00) (Borrowed On: 9/10/1997) "
                 + "Outstanding Amount: $1000.00\n" + "Total amount of ALL Loans: $1500.00\n",
                 ui.getGraphContainerString());
     }
@@ -93,7 +92,7 @@ class LoansTest {
         ui.clearOutputString();
         listAllLoansCommand.execute(account, ui, storage);
         assertEquals("Got it! List of INCOMING Loans printed in the other pane! \n", ui.getOutputString());
-        assertEquals(" 1.[Outstanding] [I] my bras(loan: $1000.00) (Lent On: 9/10/1997) "
+        assertEquals(" 1.[Outstanding] [I] my bras(loan: $1000.00) (Borrowed On: 9/10/1997) "
                 + "Outstanding Amount: $1000.00\n" + "Total amount of INCOMING Loans: $1000.00\n",
                 ui.getGraphContainerString());
     }
@@ -150,7 +149,7 @@ class LoansTest {
         settleOutgoingLoanCommand.execute(account, ui, storage);
         assertEquals(" Got it. An amount of $400.00 has been paid to my daddy for the"
                 + " following loan: \n" + "     [Outstanding] [I] my daddy(loan: $1000.00) "
-                + "(Lent On: 9/10/1997) Outstanding Amount: $600.00\n", ui.getOutputString());
+                + "(Borrowed On: 9/10/1997) Outstanding Amount: $600.00\n", ui.getOutputString());
         String settleAllInput = "paid all /to my daddy";
         MoneyCommand settleEntireLoanCommand = new SettleLoanCommand(settleAllInput);
         ui.clearOutputString();
@@ -159,7 +158,7 @@ class LoansTest {
         String passDate = dateTimeFormatter.format(currDate);
         assertEquals(" Got it. An amount of $600.00 has been paid to my daddy for the"
                 + " following loan: \n" + "     [Settled] [I] my daddy(loan: $1000.00) "
-                + "(Lent On: 9/10/1997) (Paid Back On: " + passDate + ")\n"
+                + "(Borrowed On: 9/10/1997) (Paid Back On: " + passDate + ")\n"
                 + "The incoming loan has been settled\n", ui.getOutputString());
     }
 
@@ -177,7 +176,7 @@ class LoansTest {
         LocalDate currDate = LocalDate.now();
         String passDate = dateTimeFormatter.format(currDate);
         assertEquals(" Noted. I've removed this incoming loan:\n"
-                + "  [Outstanding] [I] my daddy(loan: $1000.00) (Lent On: 9/10/1997) "
+                + "  [Outstanding] [I] my daddy(loan: $1000.00) (Borrowed On: 9/10/1997) "
                 + "Outstanding Amount: $1000.00\n"
                 + " Now you have 1 total loans.\n", ui.getOutputString());
         String deleteSecondInput = "delete loan 1";
@@ -391,7 +390,7 @@ class LoansTest {
         ui.clearOutputString();
         settleIncomingLoanCommand.undo(account, ui, storage);
         assertEquals(" Last command undone: \n" + "[Outstanding] [I] my daddy(loan: $1000.00) "
-                + "(Lent On: 9/10/1997) Outstanding Amount: $600.00"
+                + "(Borrowed On: 9/10/1997) Outstanding Amount: $600.00"
                 + " reverted back to previous state.\n", ui.getOutputString());
         String settleAllInput = "paid all /to my daddy";
         MoneyCommand settleEntireLoanCommand = new SettleLoanCommand(settleAllInput);
@@ -401,7 +400,7 @@ class LoansTest {
         ui.clearOutputString();
         settleEntireLoanCommand.undo(account, ui, storage);
         assertEquals(" Last command undone: \n" + "[Settled] [I] my daddy(loan: $1000.00) "
-                        + "(Lent On: 9/10/1997) (Paid Back On: " + passDate + ") reverted back to previous state.\n",
+                        + "(Borrowed On: 9/10/1997) (Paid Back On: " + passDate + ") reverted back to previous state.\n",
                 ui.getOutputString());
         account.getLoans().clear();
         MoneyCommand exitCommand = new ExitMoneyCommand();
