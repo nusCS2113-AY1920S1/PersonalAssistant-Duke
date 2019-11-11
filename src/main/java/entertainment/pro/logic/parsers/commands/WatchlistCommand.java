@@ -67,7 +67,8 @@ public class WatchlistCommand  extends CommandSuper {
                 break;
             }
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            ((MovieHandler)(this.getUiController())).setGeneralFeedbackText("Please enter a valid command in the form of: \n"
+            ((MovieHandler)(this.getUiController())).setGeneralFeedbackText(
+                    "Please enter a valid command in the form of: \n"
                     + "watchlist add <name of movie> -d <type of task> -s <start date only for task> "
                     + "-e <end date for task>");
         }

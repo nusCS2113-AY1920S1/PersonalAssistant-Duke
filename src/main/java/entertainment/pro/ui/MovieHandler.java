@@ -24,8 +24,6 @@ import entertainment.pro.storage.utils.EditProfileJson;
 import entertainment.pro.storage.utils.EditPlaylistJson;
 import entertainment.pro.storage.utils.BlacklistStorage;
 import entertainment.pro.storage.utils.HelpStorage;
-//import entertainment.pro.xtra.PastCommands;
-//import entertainment.pro.storage.utils.PastUserCommands;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -100,7 +98,6 @@ public class MovieHandler extends Controller implements RequestListener {
 
     private static final Logger logger = Logger.getLogger(MovieHandler.class.getName());
     private boolean isViewMoreInfoPage = false;
-    private AnchorPane anchorPane;
     UserProfile userProfile;
     private ArrayList<String> playlists;
     private String playlistName = "";
@@ -701,16 +698,6 @@ public class MovieHandler extends Controller implements RequestListener {
      * @@author nwenhui
      */
     public void showPlaylistList() throws IOException {
-        ////        PlaylistUi playlistUi = new PlaylistUi(playlistName);
-        // playlistVBox.getChildren().clear();
-        // mMoviesScrollPane.setHvalue(0.5);
-        // mMoviesScrollPane.setVvalue(0.5);
-        // playlistVBox = playlistUi.buildPlaylistVBox(playlists, mProgressBar, mStatusLabel);
-        // mMoviesScrollPane.setContent(playlistVBox);
-        // mMoviesScrollPane.setVvalue(0);
-        // pageTracker.setToPlaylistList();
-        // playlistUi playlistUi = new PlaylistUi(playlistName, playlists);
-        // mMoviesScrollPane.setContent(playlistUi.getPlaylistScrollPaneContent());
         playlist = userProfile.getPlaylistNames();
         buildPlaylistVBox(playlists);
     }

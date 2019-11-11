@@ -58,7 +58,6 @@ public class PreferenceCommand extends CommandSuper {
      * Called when user wants to edit preferences set on the app.
      *
      * @throws InvalidFormatCommandException when the input entered by the user is invalid.
-     * @throws IOException
      */
     @Override
     public void executeCommands() throws InvalidFormatCommandException, IOException {
@@ -165,7 +164,7 @@ public class PreferenceCommand extends CommandSuper {
                 try {
                     userProfile = command.removePreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
-                } catch (InvalidFormatCommandException InvalidFormatCommandException) {
+                } catch (InvalidFormatCommandException invalidFormatCommandException) {
                     logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
                     ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                     movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
@@ -187,7 +186,6 @@ public class PreferenceCommand extends CommandSuper {
      *
      * @param containsPossibleInputs ArrayList containing the possible categories, user want to clear elements.
      * @param movieHandler           MovieHandler class
-     * @throws IOException
      * @throws InvalidFormatCommandException when the input entered by the user is invalid.
      */
     private void executeClearPreference(ArrayList<String> containsPossibleInputs,
