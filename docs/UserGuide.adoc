@@ -511,12 +511,17 @@ Format: `bye`
 Project data, fund data, history data, hitory command data and tasklist data
 are saved in the hard disk automatically after the exit command is executed. +
 
-
+== FAQ
+*Q: How do I transfer my data to another Computer?* +
+A: Install the app in the other computer and overwrite
+the localdata file it creates with the json files that
+store your data of your previous localdata folder.
 
 == Command Summary
-
+=== Help
 * *Command Help*: `help`
-* *Project:*
+
+=== Project:
 * *Load Backup:*          `load`
 * *Add Project:*         `add project pr/PROJECT_NAME am/AMOUNT_OF_FUND`
 * *Delete Project:*      `delete project pr/PROJECT_NAME`
@@ -524,13 +529,15 @@ are saved in the hard disk automatically after the exit command is executed. +
 * *Go to a Project:*     `goto PROJECT_INDEX_IN_LIST`
 * *Show Budget:*         `show budget pr/PROJECT_NAME`
 * *Reduce Budget:*       `reduce budget pr/PROJECT_NAME am/AMOUNT`
-* *Fund:*
+
+=== Fund:
 * *Set Fund:*            `set fund am/AMOUNT`
 * *Add Fund:*            `add fund add/AMOUNT`
 * *Assign budget:*         `assign budget pr/PROJECT_NAME am/AMOUNT`
 * *Change Fund:*        `change fund new/AMOUNT`
 * *Show Fund:*           `show fund`
-* *Payment and Payee:*
+
+=== Payment and Payee:
 * *Add Payee:*           `add payee p/PAYEE e/EMAIL m/MATRICNUM ph/PHONENUM`
 * *Add Payment:*         `add payment p/PAYEE i/ITEM c/COST v/INVOICE`
 * *Delete Payee:*        `delete payee p/PAYEE`
@@ -552,7 +559,10 @@ are saved in the hard disk automatically after the exit command is executed. +
 * *Postpone Deadline:*   `postpone id/ID n/DAYS`
 * *Reschedule Deadline:* `reschedule id/ID d/DATE`
 * *View Schedule:*       `view schedule d/DATE`
-* *History:*
+
+=== History:
 * *History of Commands:* `history`
 * *View History within a certain period:* `view history h/DATE_1 to DATE_2`
+
+=== Exit
 * *Exit:*                `bye`
