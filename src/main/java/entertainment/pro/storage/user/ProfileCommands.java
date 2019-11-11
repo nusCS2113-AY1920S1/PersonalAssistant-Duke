@@ -41,7 +41,6 @@ public class ProfileCommands {
     /**
      * Responsible for setting the name in the userProfile.
      * @param name The name to be set in the UserProfile.
-     * @throws IOException
      */
     public UserProfile setName(String name) throws IOException {
         return userProfile.setUserName(name);
@@ -50,7 +49,6 @@ public class ProfileCommands {
     /**
      * Responsible for setting the age in the userProfile.
      * @param age The age to be set in the userProfile.
-     * @throws IOException
      */
     public UserProfile setAge(String age) throws IOException {
         return userProfile.setUserAge(Integer.parseInt(age));
@@ -60,10 +58,6 @@ public class ProfileCommands {
      * Responsible for adding new preference and sort options in the userProfile.
      * @param flagMap The elements to be added under a particular category in the userProfile.
      * @param getInput String that signifies a particular category in the userProfile.
-     * @throws IOException
-     * @throws InvalidFormatCommandException
-     * @throws InvalidGenreNameEnteredException
-     * @throws DuplicateGenreException
      */
     public UserProfile addPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException,
             InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
@@ -72,7 +66,7 @@ public class ProfileCommands {
         int sortOption = 0;
         ArrayList<String> listForFlag = flagMap.get(getInput);
         if (listForFlag.size() == 0) {
-                throw new InvalidFormatCommandException();
+            throw new InvalidFormatCommandException();
         }
 
         for (String log : flagMap.get(getInput)) {
@@ -174,8 +168,6 @@ public class ProfileCommands {
      * Responsible for removing preference and sort options in the userProfile.
      * @param flagMap The elements to be added under a particular category in the userProfile.
      * @param getInput String that signifies a particular category in the userProfile
-     * @throws IOException
-     * @throws InvalidFormatCommandException
      */
     public UserProfile removePreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException,
             InvalidFormatCommandException, InvalidGenreNameEnteredException, GenreDoesNotExistException {
@@ -243,8 +235,6 @@ public class ProfileCommands {
      * Responsible for clearing preference and sort options for a particular category in the userProfile.
      * @param flagMap The elements to be added under a particular category in the userProfile.
      * @param getInput String that signifies a particular category in the userProfile.
-     * @throws IOException
-     * @throws InvalidFormatCommandException
      */
     public UserProfile clearPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException,
             InvalidFormatCommandException {
@@ -270,7 +260,6 @@ public class ProfileCommands {
 
     /**
      * Responsible for clearing the sort options in the userProfile.
-     * @throws IOException
      */
     public UserProfile clearSortPreference() throws IOException {
         return setSort(false, false, false);
@@ -303,7 +292,6 @@ public class ProfileCommands {
     /**
      * Responsible for setting sort preferences based on user's input.
      * @param sortOption A integer that corresponds to the user's input.
-     * @throws IOException
      */
     private UserProfile getSortFromUserInput(int sortOption) throws IOException {
         if (sortOption == 1) {
@@ -431,7 +419,6 @@ public class ProfileCommands {
      * Responsible for returning the genreId for corresponding genre name.
      * @param genreName A string that correspondes to the genre name.
      * @return GenreId of the genre name.
-     * @throws IOException
      */
     public static Integer findGenreID(String genreName) throws IOException {
         InputStream inputStream = ProfileCommands.class.getResourceAsStream("/data/GenreId.json");
@@ -447,14 +434,13 @@ public class ProfileCommands {
         inputStream.close();
         int genreId = Integer.parseInt(parseToId(genreListString, genreName.trim()));
         return genreId;
-        }
+    }
 
 
     /**
      * Responsible for returning the genre name for corresponding genreId.
      * @param id Integer that corresponds to a genreID.
      * @return Genre name for corresponding genreId.
-     * @throws IOException
      */
     public static String findGenreName(int id) throws IOException {
         InputStream inputStream = ProfileCommands.class.getResourceAsStream("/data/GenreId.json");

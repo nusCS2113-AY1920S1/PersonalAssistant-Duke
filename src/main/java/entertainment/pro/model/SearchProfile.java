@@ -48,6 +48,9 @@ public class SearchProfile extends UserProfile {
     }
 
 
+    /**
+     * Set up another constructor for searchprofile
+     */
     public SearchProfile(ArrayList<Integer> genreIdPreference,
                          ArrayList<Integer> genreIdRestriction, boolean adult,
                          boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease,
@@ -99,36 +102,54 @@ public class SearchProfile extends UserProfile {
                 this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), movie);
     }
 
+    /**
+     * Set genreId Preference.
+     */
     public SearchProfile setGenreIdPreference(ArrayList<Integer> genreIdPreference) {
         return new SearchProfile(this.getUserName(), this.getUserAge(), genreIdPreference, this.getGenreIdRestriction(),
                 this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(),
                 this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
+    /**
+     * Set genreId Restriction.
+     */
     public SearchProfile setGenreIdRestriction(ArrayList<Integer> genreIdRestriction) {
         return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(), genreIdRestriction,
                 this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(), this.isSortByHighestRating(),
                 this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
+    /**
+     * Set adult.
+     */
     public SearchProfile setAdult(boolean adult) {
         return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
                 this.getGenreIdRestriction(), adult, this.getPlaylistNames(), this.isSortByAlphabetical(),
                 this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
+    /**
+     * Set sort by alphabetical order.
+     */
     public SearchProfile setSortByAlphabetical(boolean sortByAlphabetical) {
         return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
                 this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), sortByAlphabetical,
                 this.isSortByHighestRating(), this.isSortByLatestRelease(), this.getName(), this.isMovie);
     }
 
+    /**
+     * Set sort by release dates.
+     */
     public SearchProfile setSortByLatestRelease(boolean sortByLatestRelease) {
         return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
                 this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(),
                 this.isSortByHighestRating(), sortByLatestRelease, this.getName(), this.isMovie);
     }
 
+    /**
+     * Set sort by highest ratings.
+     */
     public SearchProfile setSortByHighestRating(boolean sortByHighestRating) {
         return new SearchProfile(this.getUserName(), this.getUserAge(), this.getGenreIdPreference(),
                 this.getGenreIdRestriction(), this.isAdult(), this.getPlaylistNames(), this.isSortByAlphabetical(),
@@ -136,7 +157,7 @@ public class SearchProfile extends UserProfile {
     }
 
     /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     * Set search profile from userprofile.
      */
     public SearchProfile setFromUserPreference(String entryName, boolean isMovie, UserProfile userProfile) {
         SearchProfile searchProfile = new SearchProfile();
@@ -152,7 +173,7 @@ public class SearchProfile extends UserProfile {
     }
 
     /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     * Initialize search profile.
      */
     public SearchProfile iniitalizeBackSearchProfile() {
         SearchProfile searchProfile = new SearchProfile();

@@ -1,0 +1,131 @@
+= Mohamed Riyas - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Entertainment-Pro
+
+---
+
+== About the project  
+My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop Duke application for our Software Engineering project. We chose to morph it into an application that can search for movies and TV shows called Entertainment-Pro. This enhanced application enables people to search and view information about movies and TV shows; store movies and TV shows into playlists and watchlist; and view recommended movies. This is what our project looks like:
+
+
+
+My role was to design and write the codes for the search features. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.  
+
+
+== Summary of contributions  
+
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.  
+Enhancement added: I added the ability to search for movies and TV shows.
+
+**	What it does: Users can find and search about movies and/or TV shows. More explanation is provided in the next page.
+** Justification: This enhancement allows us to achieve the application’s main purpose which is to provide a fast and efficient way for users to search and view information about movies and TV shows.  
+**	Highlights: This enhancement not only provide a way for user to search for movies/TV shows but also allows them to sort and filter the search results according to their preferences either set by them inside the application or explicitly entered by them for a particular search request. This can be done by adding in the appropriate commands. More information about how these commands work is written in the next section. 
+**	Credits: To fetch and display movies/TV shows that meet users’ requirements, a third-party Application Programming Interface(API) called MovieDB API was extensively used. 
+** Code contributed: Please click these links to see a sample of my code: [Functional code] 
+
+== Other contributions:  
+**	Project management: 
+*	There were a total of 5 releases, from version 1.0 to 1.4. I managed release version 1.2 on GitHub.  
+**	Enhancements to existing features
+*	Assisted my teammate to enhance an existing feature that allows users to save their filtering and sort preferences inside the application (Pull Request #119)
+*	Built the whole UI from stretch and contributed to most of the aspects of the UI for the final product (Pull Requests #58, #59, #88)  
+*	Wrote tests for existing features to increase coverage (Pull requests #195, #196)
+**	Documentation:  
+*	Made cosmetic improvements to the existing User Guide and About Us documents to make it more reader-friendly 
+**	Community:  
+*	Reviewed Pull Requests: (Pull Requests #35, #46, #48, #49, #72) 
+*	Contributed to forum discussions by asking useful and appropriate questions inside the discussion  (Pull Requests #45, #74) 
+*	Reported bugs (during group meetings) and offered suggestions for other teams (when reviewing their User Guide and Developer Guide during CS2101 lesson)  
+*	Helped to port my phase 1 code to GitHub so that it could be adopted by others (Pull Requests #1) 
+*	Some parts of the code that I added for searching movies/TV shows was adopted by several other project teams to do features such as adding movies to watchlist and viewing recommended movies   
+**	Tools:   
+*	Helped set up Gradle and Checkstyle for the project(Pull Requests #43, #44) 
+*	Apart from the MovieDB API, integrated another third party library (Simple JSON library) to the project (#1) 
+ 
+== Contributions to User Guide
+
+
+The following is an excerpt from our Entertainment-Pro User Guide, showing additions that I have made for searching movies and/or TV shows.
+
+
+*Searching for movies*
+
+This function allows you to search for movies. There is a total of six ways you can search for movies. The command format to search for movies is search movies <type> where type can be one of the below commands:
+
+/current: allows you to search for currently showing movies +
+/upcoming: allows you to search for upcoming movies +
+/trend: allows you to search for most trending movies +
+/popular: allows you to search for most popular movies +
+/rated: allows you to search for top-rated movies +
+<name>: where ‘name’ is a word entered by you to search for movies related to ‘name’ +
+
+If you want to filter and sort the search results according to your preferences set by you on the app, simply add in the following command, -p, to the rest of the command above.
+
+If you however, want to filter and sort the results based on preferences that you want explicitly for a particular search request, add in the following command instead, [-g <GENRE_PREF…>] [-r <GENRE_RESTRICT…>] [-a <true/false>] [-s <1/2/3>],to the rest of the command above where 
+
+** -g <GENRE_PREF…> allows you to set the genre preferences that you want the search results to meet. Here, ‘GENRE_PREF’ refers to valid genre names that are recognized by the app. For instance, -g action will display movies that fall under the ‘action’ genre category. 
+**	-r <GENRE_RESTRICT…> allows you to set the genres that you don’t want the search results to have. Here, ‘GENRE_RESTRICT’ refers to valid genre names that are recognized by the app. For instance, -r action will display currently showing movies that does not fall under the ‘action’ genre category. 
+**	-a <true/false> allows you to set whether you want the search results to contain adult content. Here, ‘ADULT_CONTENT’ can only be either ‘true’ or ‘false’.  In other words, commands such as 
+**	-a yes and -a no are invalid. Using the command, -a true, displays search results that may contain adult content while the command, -a false, will display search results that strictly does not contain any adult content.
+**	-s <1/2/3> allows you to sort the search results. Here, ‘SORT OPTION’ can only be either ‘1’, ‘2’, or ‘3’. More information about how to use the respective command appropriately is written below:
+*	Using the command, -s 1, sorts the search results based on alphabetical order
+*	Using the command, -s 2, sorts search results based on descending release dates
+*	Using the command, -s 3 sorts search results based on descending ratings
+
+** One valid example for you to try out is given below:
+*	search movies /current -a true -g action -r adventure -s 3 - Displays currently showing movies that may contain adult content and fall under the action genre category but does not fall under the adventure genre category, sorted based on descending ratings.
+
+
+
+*Searching for TV shows*
+
+This function allows you to search for TV shows. There is a total of five ways you can search for TV shows. The command format to enter in order to search for TV shows is search tvshows <type> where type can be one of the below commands:
+
+/current: allows you to search for currently showing TV shows +
+/trend: allows you to search for most trending TV shows +
+/popular: allows you to search for most popular TV shows +
+/rated: allows you to search for top-rated TV shows +
+<name>: where ‘name’ is a word entered by you to search for TV shows related to ‘name’ +
+
+To filter and sort the search results according to the preferences set by you on the app, simply add in the following command, -p, to the rest of the command above. For example, if you enter the command, search tvshows /current -p, the app will display TV shows on the air, filtered and sorted according to the preferences set by you on the app.
+
+If you instead want to filter and sort the results based on preferences that you want explicitly for a particular search request, add in the following command, [-g <GENRE_PREF…>] [-r <GENRE_RESTRICT…>] [-a <true/false>] [-s <1/2/3>],to the rest of the command. To better understand what each command mean and how to use them, you can refer to above section on searching for movies. One valid example for you to try out is given below:
+
+** search tvshows /current -a false -g drama - Displays currently showing TV shows that fall under the drama genre category and strictly does not contain adult content
+
+
+== Contributions to Developer Guide
+
+The following is an excerpt from our Entertainment-Pro Developer Guide, showing additions that I have made for searching movies and/or TV shows.
+
+*Searching for movies/TV shows*
+
+Entertainment-Pro allows users to search for movies and/or TV shows by different ways such as by name or types (such as most trending, most popular and etc). In addition, users can also specify whether to have the search results filtered and sorted the way they want. This section will document the implementation of the search feature and its various components.
+There are two aspects to how this feature is implemented. The first one involves extracting the user’s preferences on how they want the search results to be filtered and sorted. This is facilitated by the SearchProfile class which extends from the User Profile class and contains 11 attributes. Some of these attributes include an array list of integer values which stores the integer values of genres, users want the search results to contain and a string which stores a name, users want the search results to match if they are doing a search by name. More details about these attributes is written inside the User Guide section 3.2 and 3.3. Both the SearchProfile and UserProfile classes can be viewed under the model package.
+The second aspect of the search feature is to extract data related to the search request being entered by the user and further filter and sort them with respect to the user’s preferences set under the SearchProfile. This is facilitated by the RetrieveRequest class which implements an interface called InfoFetcher. These classes can be viewed under the movierequesterapi package. Given below is an example usage scenario and how the search mechanism behaves at each step. 
+
+* 1. The user launches the application and enters a search command with the type and preferences included. The command goes through the various command parser classes as described in the previous sections to determine whether is it a valid command.
+* 2. If it is indeed a valid command, the method, execute() under SearchCommand class is called. At this stage, execute(), calls another function, getPreferences() to retrieve information about the preferences. 
+* 3. This function processes the command to get the respective attributes and store them inside a newly created SearchProfile object which it subsequently returns back to the execute() method inside SearchCommand class.
+* 4. Next, the method, execute(), extracts information about the type of search request and upon completion, invokes the method, beginSearchRequest() inside the RetrieveRequest class to begin the data fetch process to extract relevant data related to the search request from the MovieDB API.
+* 5. Data There is a probability of the data fetch process failing mainly due to a weak/no internet connection. In such circumstances, the method, load() under OfflineSearchStorage will be invoked to extract data from the storage files.
+* 6. Once the data fetch process is complete, finally, the method, parseJson() method is called to filter and sort the search results according to the attributes set in the SearchProfile class. 
+
+
+* Design Considerations:
+When designing the search function, I had to make decisions on how best to execute the commands and what data structure to support the commands. The following is a brief summary of my analysis and decisions.
+Aspect	Alternative 1	Alternative 2	Decision
+Data structure to store preferences to filter and sort the search results	Use an object to store all the preferences
+•	Pros: Can fetch and manipulate a set of related objects as a single unit. In addition, there is no need to re-create similar structures and methods in every application.
+•	Cons: Risk of consuming a lot of memory especially if the object is immutable.	Store all the preferences in RetrieveRequest class
+•	Pros: No additional need for huge memory. Moreover, it is easier to implement.
+•	Cons: Reduces productivity as can’t be adapted or reused across other classes. In addition, it might become difficult to modify and update without a need to make large-scale changes.	I decided to proceed with alternative 1 and have an object to store all the preferences for a respective search request. Firstly, the benefits of using an object such as the ability to reuse and easily modify them outweighs the benefits of processing with alternative 2. In addition, alternative 1 will also ensure that the code is easier to understand and modify for future developers.
+Fetch relevant data for the respective search requests	Use of a third-party API
+•	Pros: Don’t have to come out with own methods to store and process data as everything is maintained by the API. Furthermore, the data extracted is up to date.
+•	Cons: Need a strong internet connection and no control over how the API works. There is also a risk of the API not working well at times.	Use own storage files
+•	Pros: Have full control on how to store and process the data. In addition, data fetch can be done offline.
+•	Cons: Risk of heavy memory usage. The stored data could also become outdated especially if it does not get updated over time. Moreover, data fetch can become very slow if there are too many search items to process. 	I decided to proceed with both ways because I want the search mechanism to work well in any conditions. On one hand, I want the data fetch to be fast and the extracted data to be up to date which is only possible with an API. At the same time, I want my app to work offline which makes it a need to have storage files. In addition, implementing alternative 2 also ensures that the app is not over-dependent on the API to get the relevant data for the respective search requests.
+

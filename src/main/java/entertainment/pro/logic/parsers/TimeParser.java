@@ -7,6 +7,7 @@ import java.util.Date;
 
 /**
  * This class deals with manipulating a string into a date if it is possible to.
+ * @@author Hotspur1997
  */
 public class TimeParser {
     static Date date;
@@ -120,6 +121,7 @@ public class TimeParser {
 
     /**
      * Converts a date back to string and returns the string.
+     * @@author Hotspur1997.
      */
     public static String convertDateToLine(Date date) {
         Calendar calendar = Calendar.getInstance();
