@@ -133,8 +133,6 @@ task can be added into the task list quickly. The benefits of having this Natura
 The following sequence diagram below illustrates how this feature works:
 
 .Natural Dates Support Sequence diagram
-[#img-natural-dates-support]
-[caption="Figure 5: "]
 image::../images/TaskParseNaturalDate (1) (2).png[Natural Dates Support, 800]
 
 As seen from the diagram above, the Natural Dates support is facilitated by three classes, namely
@@ -212,8 +210,6 @@ The benefits of having this sorting feature are:
 The following sequence diagram below illustrates how the sort command is parsed:
 
 .parseSortCommand Sequence diagram
-[#img-parse-sort-command]
-[caption="Figure 6: "]
 image::../images/parseSortCommand (1) (1).png[Parse Sort Command, 800]
 
 As seen from the diagram above, the parsing of sort command is facilitated by two class, namely
@@ -250,8 +246,6 @@ sortBy.
 The following sequence diagram below illustrates how the sort command works:
 
 .TaskSortCommand Sequence diagram
-[#img-task-sort-command]
-[caption="Figure 7: "]
 image::TaskSortCommand.png[Task Sort Command, 800]
 
 As seen from the diagram above, the sort command is facilitated by four class, namely `TaskSortCommand`,
@@ -281,8 +275,6 @@ The following activity diagram shows the method `sortByType()` that changes how 
 according to the sort type:
 
 .sortByType activity diagram
-[#img-sort-by-type]
-[caption="Figure 8: "]
 image::sortByType.png[Sort By Type, 800]
 
 |===
@@ -320,16 +312,6 @@ updated, which increases the computational load.
 ** Cons: Have to consider other commands (e.g. `update`) that will change the task list and requires the
 task list to be sorted.
 
-//==== Set priority
-//
-//Priority levels can be added to tasks. The benefits of having this feature are:
-//
-//* Distinguish more pressing tasks from others.
-//
-//===== Implementation
-//
-//The following sequence diagram below illustrates how this feature works:
-
 ==== Updating of Tags
 
 Tasks have a variety of attributes that a user may want to add or change.
@@ -358,7 +340,6 @@ The content parsing is to parse the keyword included all components of email.
 ===== Email Format Parsing
 
 .Email Format Parsing
-
 image::EmailFormatParseHelper.png[Format Parsing, 800]
 
 The email format parsing starts at the call of `ParseFetchResponse(response)`. The variable `response` here
