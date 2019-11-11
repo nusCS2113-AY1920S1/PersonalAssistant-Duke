@@ -17,14 +17,26 @@ public class Deadline extends Tasks  {
         date = new MyDate(deadline);
     }
 
+    /**
+     * returns the deadline of the task in date format
+     * @return deadline of the task in date format
+     */
     public MyDate getDate() {
         return date;
     }
 
+    /**
+     * function to change the deadline of the task
+     * @param time: new deadline for the task to be changed to
+     */
     public void setTime(String time) {
         this.date = new MyDate(time);
     }
 
+    /**
+     * returns the description of a task
+     * @return String type of the description of a task
+     */
     public String toMessage() {
         return description + " (by: " + date.toString() + ")";
     }

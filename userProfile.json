@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"userName":"marc","userAge":18,"genreIdPreference":[28],"genreIdRestriction":[],"adult":false,"playlistNames":[],"sortByAlphabetical":true,"sortByHighestRating":false,"sortByLatestRelease":false}
-=======
 {"userName":"","userAge":-1,"genreIdPreference":[],"genreIdRestriction":[],"adult":true,"playlistNames":[],"sortByAlphabetical":false,"sortByHighestRating":false,"sortByLatestRelease":false}
->>>>>>> 20b9985c3245276cc6c467401f84758897eae7c2

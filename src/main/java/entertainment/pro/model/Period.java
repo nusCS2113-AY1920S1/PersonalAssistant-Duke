@@ -20,14 +20,26 @@ public class Period extends Tasks {
         date = new MyDate(start, end);
     }
 
+    /**
+     * returns the time interval of the task
+     * @return time interval of the task
+     */
     public String getPeriod() {
         return date.toString();
     }
 
+    /**
+     * returns the interval of the task in date format
+     * @return date format of the task interval
+     */
     public MyDate getDate() {
         return date;
     }
 
+    /**
+     * description of the task
+     * @return String format of the description of the task
+     */
     public String toMessage() {
         return description
                 + " (Period: " + date.toString() + ")";
