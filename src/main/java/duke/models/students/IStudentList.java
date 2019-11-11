@@ -2,6 +2,7 @@ package duke.models.students;
 
 import java.util.ArrayList;
 //@@ danisheddie
+
 public interface IStudentList {
     void addStudent(Student newStudent);
 
