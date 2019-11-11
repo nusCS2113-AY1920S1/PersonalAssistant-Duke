@@ -1,20 +1,24 @@
 package rims.core;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import rims.exception.RimsException;
 import rims.resource.Item;
 import rims.resource.Room;
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
+
+import rims.exception.RimsException;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.text.ParseException;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 
 //@@author rabhijit
 /**
@@ -41,18 +45,13 @@ public class Storage {
     public Storage(String resourceFile, String reserveFile) throws RimsException {
         this.resourceFile = new File(resourceFile);
         this.reservationFile = new File(reserveFile);
-        if ((!this.resourceFile.exists()) && (!this.reservationFile.exists())) {
-            try {
-                //this.resourceFile.getParentFile().mkdir();
-                this.resourceFile.createNewFile();
-                //this.reservationFile.getParentFile().mkdir();
-                this.reservationFile.createNewFile();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-                throw new RimsException("Cannot create a new file!");
-            } catch (NullPointerException e2) {
-                throw new RimsException("Cannot create data directory!");
-            }
+        try {
+            this.resourceFile.getParentFile().mkdir();
+            this.resourceFile.createNewFile();
+            this.reservationFile.getParentFile().mkdir();
+            this.reservationFile.createNewFile();
+        } catch (IOException e) {
+            throw new RimsException("Cannot create a new file!");
         }
         readResourceFile();
     }
@@ -77,14 +76,15 @@ public class Storage {
         try {
             fileScanner = new Scanner(resourceFile);
         } catch (FileNotFoundException e1) {
-            throw new RimsException("File " + resourceFile.toString() + " not found, is a directory or cannot be opened!");
+            throw new RimsException("File " + resourceFile.toString()
+                    + " not found, is a directory or cannot be opened!");
         }
         while (fileScanner.hasNextLine()) {
             String inputString = fileScanner.nextLine();
             String[] input = inputString.split(",");
             if (input.length < 3) {
-                throw new RimsException("\nResource entry has insufficient information: " + inputString +
-                "\nEither delete the invalid entry or fill in the missing details!");
+                throw new RimsException("\nResource entry has insufficient information: " + inputString
+                        + "\nEither delete the invalid entry or fill in the missing details!");
             }
             ReservationList reservations = readReserveFile(input[0]);
             if (input[1].equals("I")) {
@@ -103,7 +103,8 @@ public class Storage {
      * specified file path.
      *
      * @throws RimsException when specified file path does not lead to a valid file type,
-     * and when unable to parse an integer for ID or checking if a resource is booked.
+     *                       and when unable to parse an integer for ID, 
+     *                       or checking if a resource is booked.
      */
     public ReservationList readReserveFile(String resourceId) throws RimsException {
         Scanner fileScanner;
@@ -123,8 +124,8 @@ public class Storage {
             String inputString = fileScanner.nextLine();
             String[] line = inputString.split(",");
             if (line.length < 5) {
-                throw new RimsException("\nReservation/loan entry has insufficient information: " + inputString +
-                        "\nEither delete the invalid entry or fill in the missing details!");
+                throw new RimsException("\nReservation/loan entry has insufficient information: " + inputString
+                        + "\nEither delete the invalid entry or fill in the missing details!");
             }
             if (line[1].equals(resourceId)) {
                 Reservation newReservation = new Reservation(Integer.parseInt(line[0]),
@@ -149,21 +150,21 @@ public class Storage {
         try {
             resourceFileWriter = new BufferedWriter(new FileWriter(resourceFile, false));
             reservationFileWriter = new BufferedWriter(new FileWriter(reservationFile, false));
-        String reservationLine;
-        for (int i = 0; i < resources.size(); i++) {
-            Resource thisResource = resources.get(i);
-            resourceFileWriter.write(thisResource.toDataFormat());
-            resourceFileWriter.newLine();
+            String reservationLine;
+            for (int i = 0; i < resources.size(); i++) {
+                Resource thisResource = resources.get(i);
+                resourceFileWriter.write(thisResource.toDataFormat());
+                resourceFileWriter.newLine();
 
-            ReservationList thisReservationList = thisResource.getReservations();
-            for (int j = 0; j < thisReservationList.size(); j++) {
-                reservationLine = thisReservationList.getReservationByIndex(j).toDataFormat();
-                reservationFileWriter.write(reservationLine);
-                reservationFileWriter.newLine();
+                ReservationList thisReservationList = thisResource.getReservations();
+                for (int j = 0; j < thisReservationList.size(); j++) {
+                    reservationLine = thisReservationList.getReservationByIndex(j).toDataFormat();
+                    reservationFileWriter.write(reservationLine);
+                    reservationFileWriter.newLine();
+                }
             }
-        }
-        resourceFileWriter.close();
-        reservationFileWriter.close();
+            resourceFileWriter.close();
+            reservationFileWriter.close();
         } catch (IOException e) {
             if (resourceFile.isDirectory()) {
                 throw new RimsException("File is a directory!");

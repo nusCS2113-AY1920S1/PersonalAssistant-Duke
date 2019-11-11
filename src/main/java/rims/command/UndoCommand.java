@@ -3,6 +3,7 @@ package rims.command;
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
+
 import rims.exception.RimsException;
 
 import java.io.IOException;
@@ -12,11 +13,11 @@ import java.text.ParseException;
 /**
  * Undoes the last command (e.g. AddCommand, LoanCommand) that was executed that
  * made a change in Model component (ResourceList, ReservationList).
- * <p>
- * This is done by reloading a screenshot of the previous state of Model from
+ *
+ * <p>This is done by reloading a screenshot of the previous state of Model from
  * the external .txt files.
  *
- * Current list of commands supported:
+ * <p>Current list of commands supported:
  * Add, Delete, Loan, Reserve, Return
  */
 public class UndoCommand extends Command {
@@ -44,7 +45,7 @@ public class UndoCommand extends Command {
      * @param storage   An instance of the Storage class.
      * @param resources The ResourceList, containing all the created Resources thus
      *                  far.
-     * @throws RimsException
+     * @throws RimsException for any data-related error in undoing the command.
      */
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {

@@ -1,15 +1,18 @@
 package rims.command;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 
 import rims.core.ResourceList;
 import rims.core.Ui;
 import rims.core.Storage;
+
 import rims.resource.Resource;
 import rims.resource.Item;
 import rims.resource.Room;
 import rims.resource.ReservationList;
+
 import rims.exception.RimsException;
 
 //@@author hin1
@@ -78,10 +81,10 @@ public class DeleteCommand extends Command {
             //@@author rabhijit
             ui.printDash();
             String idInput = ui.getInput(
-                    "Type in the resource ID(s) (separated by a space for multiple IDs)"
+                    "Type in the resource ID(s) (separated by a space for multiple IDs) "
                     + "that you wish to delete:").trim();
             if (idInput.isEmpty()) {
-                throw new RimsException("Please specify the IDs of the resources you wish to delete!");
+                throw new RimsException("Please specify the ID(s) of the resources you wish to delete!");
             }
             String[] splitIdInput = idInput.split(" ");
             ArrayList<Integer> intIdInput = new ArrayList<Integer>();
@@ -91,8 +94,15 @@ public class DeleteCommand extends Command {
             ArrayList<Resource> deletedResources = new ArrayList<Resource>();
             for (int j = 0; j < intIdInput.size(); j++) {
                 Resource thisResource = resources.getResourceById(intIdInput.get(j));
+                if (!thisResource.getName().equals(resourceName)) {
+                    throw new RimsException("Please specify an ID that belongs to the " +
+                            "requested resource!");
+                }
+            }
+            for (int k = 0; k < intIdInput.size(); k++) {
+                Resource thisResource = resources.getResourceById(intIdInput.get(k));
                 deletedResources.add(thisResource);
-                resources.deleteResourceById(intIdInput.get(j));
+                resources.deleteResourceById(intIdInput.get(k));
             }
             qty = deletedResources.size();
 
@@ -101,7 +111,7 @@ public class DeleteCommand extends Command {
             for (int k = 0; k < deletedResources.size(); k++) {
                 Resource thisDeletedResource = deletedResources.get(k);
                 ui.print(thisDeletedResource.toString()
-                + " (resource ID: " + thisDeletedResource.getResourceId() + ")");
+                        + " (resource ID: " + thisDeletedResource.getResourceId() + ")");
             }
             ui.printLine();
 
@@ -110,8 +120,8 @@ public class DeleteCommand extends Command {
     }
 
     //@@author hin1
-    private void addIdsToCommandUserInput(ArrayList<Integer> IdArray) {
-        for (int i : IdArray) {
+    private void addIdsToCommandUserInput(ArrayList<Integer> idArray) {
+        for (int i : idArray) {
             commandUserInput += (i + ", ");
         }
     }

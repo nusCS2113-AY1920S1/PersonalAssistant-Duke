@@ -3,14 +3,18 @@ package rims.command;
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
+
 import rims.exception.RimsException;
 
 import java.io.IOException;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +34,7 @@ public class StatsCommand extends Command {
     /**
      * Constructor of an StatsCommand, which takes in a pair of specified dates.
      *
-     * @throws ParseException catches parse exception when handling dates.
+     * @throws RimsException catches parse exception when handling dates.
      */
     public StatsCommand(String dateFrom, String dateTill) throws RimsException {
         this.dateFromString = dateFrom;
@@ -47,15 +51,14 @@ public class StatsCommand extends Command {
      * @param storage   An instance of the Storage class.
      * @param resources The ResourceList, containing all the created Resources thus
      *                  far.
-     * @throws ParseException
-     * @throws RimsException
+     * @throws RimsException if there is an error in parsing data.
      */
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources)
             throws RimsException {
 
         long interval = TimeUnit.DAYS.convert((dateTill.getTime() - dateFrom.getTime()), TimeUnit.MILLISECONDS) + 1;
-        if (interval >= 15 ){
+        if (interval >= 15) {
             throw new RimsException("The date interval is too large (more than 14 days)");
         }
         ui.printLine();
@@ -66,18 +69,18 @@ public class StatsCommand extends Command {
         ui.print("Resource in use each day");
         ui.printDash();
         Date currentDate = dateFrom;
-        int total_count = 0;
+        int totalCount = 0;
         for (int i = 0; i < interval; i++) {
             int count = resources.getBookedNumberOfResourceForDate(currentDate);
-            total_count += count;
+            totalCount += count;
             String bar = "";
             for (int j = 0; j < count; j++) {
-                bar += "=";
+                bar += "= ";
             }
             ui.print(dateToStringWithoutTime(currentDate) + "|" + bar);
             currentDate = incrementDay(currentDate);
         }
-        double average = total_count / (double) interval;
+        double average = totalCount / (double) interval;
         average = BigDecimal.valueOf(average).setScale(3, RoundingMode.HALF_UP).doubleValue();
 
         ui.printDash();
@@ -133,8 +136,8 @@ public class StatsCommand extends Command {
     /**
      * This utility method takes in a date, increment it by 1 day, then return it.
      *
-     * @param thisDate
-     * @return
+     * @param thisDate the date to be incremented.
+     * @return the incremented date object.
      * @throws RimsException if newDate cannot be formatted into a Date from a String.
      */
     private Date incrementDay(Date thisDate) throws RimsException {

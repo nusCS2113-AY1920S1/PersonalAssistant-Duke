@@ -1,15 +1,17 @@
 package rims.command;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import rims.resource.Resource;
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
+
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
+
 import rims.exception.RimsException;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 //@@author isbobby
 /**

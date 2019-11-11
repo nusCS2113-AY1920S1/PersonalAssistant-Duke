@@ -1,14 +1,17 @@
 package rims.core;
 
+import rims.command.Command;
+
+import rims.exception.RimsException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
 
-import rims.command.Command;
-import rims.exception.RimsException;
+import java.text.ParseException;
+
+import java.util.ArrayList;
 
 //@@author rabhijit
 /**
@@ -31,7 +34,8 @@ public class Rims {
      *                         is stored.
      * @throws ParseException if data is stored in an invalid format and is thus
      *                        unable to be parsed
-     * @throws IOException
+     * @throws IOException  if there is an error related to user input or printing
+     *                      output.
      */
     public Rims(String resourceFilePath, String reserveFilePath) throws ParseException, RimsException, IOException {
         ui = new Ui();

@@ -1,18 +1,22 @@
 package rims.command;
 
 import java.io.IOException;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.ArrayList;
 
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
+
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
+
 import rims.exception.RimsException;
 
 //@@author isbobby
@@ -110,6 +114,12 @@ public class ReserveCommand extends Command {
         this.userId = userId;
     }
 
+    /**
+     * Prints a list of all instances of a given resource to the Ui, for the user's information.
+     * @param resourceName the name of the resource for which a list is to be printed.
+     * @param ui an instance of the user interface.
+     * @param resources an instance of the resource list.
+     */
     public void printResources(String resourceName, Ui ui, ResourceList resources) {
         ui.printLine();
         ArrayList<Resource> allOfResource = resources.getAllOfResource(resourceName);
@@ -151,6 +161,10 @@ public class ReserveCommand extends Command {
         if (!(stringDateFrom == null)) {
             dateFrom = resources.stringToDate(stringDateFrom);
         }
+
+        if (qty <= 0){
+            throw new RimsException("Reservation is not made because the user has entered 0 or a negative quantity!");
+        }
         dateTill = resources.stringToDate(stringDateTill);
         if (resources.getAvailableNumberOfResource(resourceName) < qty) {
             printResources(resourceName, ui, resources);
@@ -179,8 +193,8 @@ public class ReserveCommand extends Command {
             ui.printLine();
             ui.print("Done! I've booked these resources:");
             for (int i = 0; i < bookedResources.size(); i++) {
-                ui.print("\t" + bookedResources.get(i).toString() + " (resource ID: " + bookedResources.get(i).getResourceId()
-                        + ")");
+                ui.print("\t" + bookedResources.get(i).toString() + " (resource ID: "
+                        + bookedResources.get(i).getResourceId() + ")");
             }
             ui.print("\n\t" + "from " + resources.getDateToPrint(dateFrom) + " till "
                     + resources.getDateToPrint(dateTill));

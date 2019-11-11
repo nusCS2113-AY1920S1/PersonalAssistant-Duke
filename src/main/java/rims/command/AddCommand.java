@@ -3,12 +3,13 @@ package rims.command;
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
+
 import rims.exception.RimsException;
+
 import rims.resource.Item;
 import rims.resource.Room;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
-import rims.exception.RimsException;
 
 import java.io.IOException;
 
