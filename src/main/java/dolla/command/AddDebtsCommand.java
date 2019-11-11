@@ -1,14 +1,13 @@
 package dolla.command;
 
-import dolla.model.DollaData;
-
 import dolla.command.action.Redo;
 import dolla.command.action.state.DebtState;
 import dolla.command.action.state.UndoStateList;
+import dolla.model.Debt;
 import dolla.model.DebtList;
+import dolla.model.DollaData;
 import dolla.model.Record;
 import dolla.ui.Ui;
-import dolla.model.Debt;
 
 import java.time.LocalDate;
 

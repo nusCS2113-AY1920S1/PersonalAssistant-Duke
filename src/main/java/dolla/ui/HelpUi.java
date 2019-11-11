@@ -36,7 +36,7 @@ public class HelpUi extends Ui {
 
     private static final String MODIFY_CMD =
           "\tfully modify input                      modify [LIST NO.]\n"
-        + "\tpartially modify input                  modify [LIST NO.] /COMPONENT [NEW DATA]";
+        + "\tpartially modify input                  modify [LIST NO.] /COMPONENT1[NEW DATA1] /COMPONENT2[NEW DATA2]..";
 
     private static final String SORT_CMD =
           "\tsort by date                            sort date\n"

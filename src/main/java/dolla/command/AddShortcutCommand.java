@@ -1,6 +1,5 @@
 package dolla.command;
 
-
 import dolla.command.action.Redo;
 import dolla.command.action.state.ShortcutState;
 import dolla.command.action.state.UndoStateList;
@@ -8,6 +7,7 @@ import dolla.model.DollaData;
 import dolla.model.Record;
 import dolla.model.Shortcut;
 import dolla.model.ShortcutList;
+
 import dolla.ui.Ui;
 
 import java.util.ArrayList;

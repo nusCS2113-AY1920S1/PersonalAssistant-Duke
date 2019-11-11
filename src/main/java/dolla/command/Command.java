@@ -1,10 +1,10 @@
 package dolla.command;
 
 import dolla.model.DollaData;
-import dolla.ModeStringList;
 import dolla.model.RecordList;
-import dolla.ui.ListUi;
+import dolla.ModeStringList;
 import dolla.exception.DollaException;
+import dolla.ui.ListUi;
 import dolla.ui.Ui;
 
 /**
