@@ -1,7 +1,11 @@
 package moomoo;
 
 import moomoo.command.Command;
-import moomoo.feature.*;
+import moomoo.feature.Budget;
+import moomoo.feature.Cow;
+import moomoo.feature.MooMooException;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.parser.Parser;
 import moomoo.feature.storage.CategoryStorage;
