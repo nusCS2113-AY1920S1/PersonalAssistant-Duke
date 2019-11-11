@@ -1,7 +1,6 @@
 package diyeats.logic.commands;
 
 import diyeats.commons.exceptions.ProgramException;
-import diyeats.logic.parsers.InputValidator;
 import diyeats.model.meal.MealList;
 import diyeats.model.undo.Undo;
 import diyeats.model.user.User;

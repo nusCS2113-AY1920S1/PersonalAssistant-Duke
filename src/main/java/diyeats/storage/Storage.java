@@ -7,7 +7,6 @@ import diyeats.commons.file.LocalDateAdapter;
 import diyeats.logic.autocorrect.Autocorrect;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
-import diyeats.model.wallet.TransactionList;
 import diyeats.model.wallet.Wallet;
 
 import java.time.LocalDate;

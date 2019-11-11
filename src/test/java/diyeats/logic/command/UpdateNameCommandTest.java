@@ -1,8 +1,6 @@
 package diyeats.logic.command;
 
-import diyeats.logic.commands.UpdateAgeCommand;
 import diyeats.logic.commands.UpdateNameCommand;
-import diyeats.logic.commands.UpdateWeightCommand;
 import diyeats.logic.commands.UserSetup;
 import diyeats.model.meal.MealList;
 import diyeats.model.undo.Undo;
@@ -12,7 +10,6 @@ import diyeats.storage.Storage;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * This class is test to test UpdateNameCommand to check for rejections and acceptance.

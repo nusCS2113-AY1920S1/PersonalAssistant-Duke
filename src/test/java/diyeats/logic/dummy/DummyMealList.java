@@ -9,6 +9,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This is a stub mealList class for testing purposes.
+ */
 public class DummyMealList extends MealList {
     private HashMap<LocalDate, ArrayList<Meal>> mealTracker = new HashMap<>();
     private HashMap<String, HashMap<String, Integer>> defaultValues = new HashMap<>();
@@ -24,12 +27,6 @@ public class DummyMealList extends MealList {
         exerciseList.addStoredExercises("Tennis, casual, general", 7);
         exerciseList.addStoredExercises("Martial arts, different types, moderate pace (taichi, taekwondo, etc)", 10);
         this.exerciseList = exerciseList;
-    }
-
-    public DummyMealList(HashMap<LocalDate, ArrayList<Meal>> mealTracker,
-                    HashMap<String, HashMap<String, Integer>> defaultValues) {
-        this.mealTracker = mealTracker;
-        this.defaultValues = defaultValues;
     }
 
     @Override

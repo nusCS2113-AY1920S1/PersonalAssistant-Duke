@@ -7,11 +7,12 @@ import diyeats.model.meal.Lunch;
 import diyeats.model.meal.Meal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@author GaryStu
 /**

@@ -9,6 +9,9 @@ import diyeats.storage.Storage;
 
 import java.util.ArrayList;
 
+/**
+ * This is a stub storage class for testing purposes.
+ */
 public class DummyStorage extends Storage {
 
     public DummyStorage() {
