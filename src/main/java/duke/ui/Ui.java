@@ -95,12 +95,10 @@ public class Ui {
      * @param mapTag is the Tag of the Locker.
      */
     public void printStats(Map<String, Integer> mapZone, Map<String, Integer> mapAddress, Map<String, Integer> mapTag) {
-        System.out.print("Zone: ");
-        System.out.println(mapZone);
-        System.out.print("Address: ");
-        System.out.println(mapAddress);
-        System.out.print("Tag: ");
-        System.out.println(mapTag);
+        printSpaces("Zone: " + mapZone);
+        printSpaces("Address: " + mapAddress);
+        printSpaces("Tag: " + mapTag);
+        printDash();
     }
 
     /**
@@ -600,6 +598,7 @@ public class Ui {
             printSpaces(" There are NO broken lockers at the moment. ");
 
         }
+        printDash();
 
     }
 

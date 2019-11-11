@@ -1,6 +1,7 @@
 package duke.parser;
 
 import duke.exceptions.DukeException;
+import duke.log.Log;
 import duke.logic.commands.AddLockerCommand;
 
 import duke.models.locker.Address;
@@ -13,6 +14,8 @@ import duke.parser.utilities.ParserTokenizer;
 import duke.parser.utilities.Token;
 
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import static duke.parser.utilities.Syntax.TOKEN_ADDRESS;
@@ -23,6 +26,8 @@ import static duke.parser.utilities.Syntax.TOKEN_ZONE;
  * Parses input arguments and creates a new AddLockerCommand object.
  */
 public class AddLockerCommandParser {
+    private static final Logger logger = Log.getLogger();
+    private static final String LOG_ADD_LOCKER_PARSER = "Attempting to parse user input for AddLockerCommand";
 
     /**
      * Parses the user input for adding a new locker to the list of lockers.
@@ -32,6 +37,7 @@ public class AddLockerCommandParser {
      * @throws DukeException when the command format is invalid
      */
     public AddLockerCommand parse(String userInput) throws DukeException {
+        logger.log(Level.INFO, LOG_ADD_LOCKER_PARSER);
         MapTokensToArguments mapTokensToArguments =
                 ParserTokenizer.tokenize(userInput, TOKEN_SERIAL, TOKEN_ADDRESS, TOKEN_ZONE);
         if (!checkAllTokensPresent(mapTokensToArguments,

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import duke.exceptions.DukeException;
+import duke.log.Log;
 import duke.models.LockerList;
 import duke.models.util.ModelChecks;
 
@@ -11,18 +12,22 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Saves and loads data from a json file named as <code> fileName</code>.
  */
 public class FileStorage {
-    private final String fileName;
 
     private static final String FILE_NOT_FOUND = " Could not find the file. Invalid file name/file path... "
             + "Will continue with the default list";
     private static final String ERROR_READING_FILE = " Unable to read file. Will start with the default list";
     private static final String CORRUPTED_FILE = " Corrupted file. Will continue with default list";
     private static final String ERROR_WRITING_FILE = " Error occurred while writing data to the file";
+    private static final Logger logger = Log.getLogger();
+
+    private final String fileName;
 
     public FileStorage(String fileName) {
         this.fileName = fileName;
@@ -34,6 +39,7 @@ public class FileStorage {
      * @throws DukeException when there are errors while handling/parsing the file.
      */
     public LockerList retrieveData() throws DukeException {
+        logger.log(Level.INFO, "Retrieving data from file");
 
         try {
             FileInputStream readFile = new FileInputStream(this.fileName);
@@ -57,7 +63,7 @@ public class FileStorage {
      * @throws DukeException when there are errors while loading data into the file.
      */
     public void saveData(LockerList storeDataInFile) throws DukeException {
-
+        logger.log(Level.INFO, " Saving data to the file");
         try {
             FileOutputStream write = new FileOutputStream(this.fileName);
             getObjectMapper().writeValue(write, storeDataInFile);

@@ -1,6 +1,7 @@
 package duke.parser;
 
 import duke.exceptions.DukeException;
+import duke.log.Log;
 import duke.logic.commands.AddBatchCommand;
 import duke.models.locker.Address;
 import duke.models.locker.Locker;
@@ -13,6 +14,8 @@ import duke.parser.utilities.Token;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 
@@ -26,6 +29,8 @@ import static java.util.Objects.requireNonNull;
  * Parses user input and creates a new AddBatchCommand object.
  */
 public class AddBatchCommandParser {
+    private static final Logger logger = Log.getLogger();
+    private static final String LOG_ADD_BATCH_COMMAND_PARSER = " Attempting to parse input for AddBatchCommand";
 
     /**
      * Parse the user input for adding batches (multiple) of lockers to the list of lockers.
@@ -35,6 +40,8 @@ public class AddBatchCommandParser {
      * @throws DukeException when the command syntax/format is invalid
      */
     public AddBatchCommand parse(String userInput) throws DukeException {
+        logger.log(Level.INFO, LOG_ADD_BATCH_COMMAND_PARSER);
+
         MapTokensToArguments mapTokensToArguments = ParserTokenizer
                 .tokenize(userInput, TOKEN_SIZE, TOKEN_SERIAL, TOKEN_ADDRESS, TOKEN_ZONE);
         if (!checkAllTokensPresent(mapTokensToArguments,

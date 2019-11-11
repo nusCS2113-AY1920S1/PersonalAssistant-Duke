@@ -1,7 +1,6 @@
 package duke.parser;
 
 import duke.exceptions.DukeException;
-import duke.logic.commands.Command;
 import duke.logic.commands.SortCommand;
 import duke.parser.utilities.MapTokensToArguments;
 import duke.parser.utilities.ParserTokenizer;

@@ -1,12 +1,15 @@
 package duke.logic.commands;
 
 import duke.exceptions.DukeException;
+import duke.log.Log;
 import duke.models.locker.Locker;
 import duke.models.LockerList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
 
@@ -15,7 +18,9 @@ import static java.util.Objects.requireNonNull;
  */
 public class AddBatchCommand extends Command {
 
+    private static final String LOG_FOR_ADDING_BATCH_COMMAND = " Executing command for adding batch of lockers";
     private final List<Locker> batchOfLockers;
+    private static final Logger logger = Log.getLogger();
 
     public static final String COMMAND_WORD = "addbatch";
     public static final String INVALID_FORMAT = " Invalid command format for adding batch of lockers."
@@ -33,6 +38,7 @@ public class AddBatchCommand extends Command {
 
     @Override
     public void execute(LockerList lockerList, Ui ui, Storage storage) throws DukeException {
+        logger.log(Level.INFO, LOG_FOR_ADDING_BATCH_COMMAND);
         if (lockerList.areLockersPresent(batchOfLockers)) {
             throw new DukeException(LockerList.DUPLICATE_LOCKERS_FOUND);
         }

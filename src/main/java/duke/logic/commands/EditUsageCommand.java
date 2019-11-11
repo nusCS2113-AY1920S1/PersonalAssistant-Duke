@@ -1,6 +1,7 @@
 package duke.logic.commands;
 
 import duke.exceptions.DukeException;
+import duke.log.Log;
 import duke.models.LockerList;
 import duke.models.locker.Usage;
 import duke.models.locker.Locker;
@@ -14,7 +15,12 @@ import duke.models.student.Student;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
 
@@ -23,6 +29,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class EditUsageCommand extends Command {
 
+    private static final String LOG_FOR_EDITING_USAGE = " Executing command for editing subscription "
+            + "details of lockers";
     private final SerialNumber serialNumberToEdit;
     private final EditStudent editStudent;
     private final EditLockerDate editDate;
@@ -33,6 +41,8 @@ public class EditUsageCommand extends Command {
             + "\n     2. At least one field must be provided while updating usage.";
     private static final String EDIT_USAGE_CONSTRAINT = " You are allowed to edit usage of "
             + "only type In-Use Locker";
+    private static final Logger logger = Log.getLogger();
+    private static final String DATE_FORMAT = "dd-MM-uuuu";
 
     /**
      * Instantiates the edit usage command.
@@ -52,6 +62,7 @@ public class EditUsageCommand extends Command {
 
     @Override
     public void execute(LockerList lockerList, Ui ui, Storage storage) throws DukeException {
+        logger.log(Level.INFO, LOG_FOR_EDITING_USAGE);
         Locker editedLocker = editUsageDetails(lockerList);
         ui.showSuccessfullyEdited(editedLocker.toString());
         storage.saveData(lockerList);
@@ -76,13 +87,25 @@ public class EditUsageCommand extends Command {
         LockerDate editedStartDate = createEditedStartDate(usageToEdit, editDate);
         LockerDate editedEndDate = createEditedEndDate(usageToEdit, editDate);
         Usage editedUsage = new Usage(editedStudent,editedStartDate, editedEndDate);
-        if (!LockerDate.isDifferenceBetweenDatesValid(editedStartDate.getDate(),
-                editedEndDate.getDate())) {
+        if (!areDatesValid(editedStartDate.getDate(), editedEndDate.getDate())) {
             throw new DukeException(LockerDate.ERROR_IN_DATE_DIFFERENCE);
         }
         return new Locker(lockerToEdit.getSerialNumber(),
                 lockerToEdit.getAddress(),lockerToEdit.getZone(),
                 lockerToEdit.getTag(),editedUsage);
+    }
+
+    /**
+     * Returns true if the dates are valid as per the rules of subscription of lockers
+     * in SpongeBob.
+     */
+    private boolean areDatesValid(String startDate, String endDate) {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter checkDateFormat =
+                DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
+        return LockerDate.isDifferenceBetweenDatesValid(startDate, endDate)
+                && LockerDate.isEndDateBeforeCurrentDate(endDate, checkDateFormat.format(currentDate));
+
     }
 
     /**

@@ -19,7 +19,7 @@ public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sortby";
     public static final String INVALID_FORMAT =  " Invalid command format for sort command."
-            + "\n     1. Only one of the token should be present (asc/ or dsc/)"
+            + "\n     1. Only one of the token should be present (asc/ or des/)"
             + "\n     2. Keywords to use are, 'serialnumber', 'address', 'zone', 'tags'. ";
 
     /**
@@ -78,6 +78,7 @@ public class SortCommand extends Command {
             }
 
         }
-
+        storage.saveData(lockerList);
+        storage.updateStateList(lockerList);
     }
 }

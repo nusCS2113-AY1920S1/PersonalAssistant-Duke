@@ -40,7 +40,7 @@ public class ExportCsv {
                     CSVWriter.DEFAULT_LINE_END);
 
             String[] header = {"Locker", "Address", "Zone", "Status",
-                "Name", "Matrix-Number", "Course", "Email",
+                "Name", "StudentID", "Course", "Email",
                 "Start-Date","End-Date" };
 
             csvWriter.writeNext(header);

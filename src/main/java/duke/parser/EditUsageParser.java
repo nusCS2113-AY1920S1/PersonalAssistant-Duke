@@ -1,12 +1,16 @@
 package duke.parser;
 
 import duke.exceptions.DukeException;
+import duke.log.Log;
 import duke.logic.commands.EditUsageCommand;
 import duke.logic.commands.EditUsageCommand.EditLockerDate;
 import duke.logic.commands.EditUsageCommand.EditStudent;
 import duke.models.locker.SerialNumber;
 import duke.parser.utilities.MapTokensToArguments;
 import duke.parser.utilities.ParserTokenizer;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static duke.parser.utilities.Syntax.TOKEN_EMAIL;
 import static duke.parser.utilities.Syntax.TOKEN_END_DATE;
@@ -20,6 +24,8 @@ import static java.util.Objects.requireNonNull;
  * Parses the user input and returns a new EditUsageCommand object.
  */
 public class EditUsageParser {
+    private static final Logger logger = Log.getLogger();
+    private static final String LOG_PARSE_FOR_EDIT_USAGE = "Attempting to parse user input for EditUsageCommand";
 
     /**
      * Parses the user input for editing the subscription details of a in-use locker.
@@ -28,6 +34,7 @@ public class EditUsageParser {
      * @throws DukeException when the user input is invalid
      */
     public EditUsageCommand parse(String userInput) throws DukeException {
+        logger.log(Level.INFO, LOG_PARSE_FOR_EDIT_USAGE);
         requireNonNull(userInput);
         MapTokensToArguments mapTokensToArguments = ParserTokenizer
                 .tokenize(userInput, TOKEN_STUDENT_NAME, TOKEN_STUDENTID, TOKEN_EMAIL,

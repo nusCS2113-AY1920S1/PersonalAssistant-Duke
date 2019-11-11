@@ -22,7 +22,6 @@ bin/
 /storeData.json
 /export.csv
 src/main/java/data/
-
-
+/spongeBob.log*
 
 /data.json

@@ -47,7 +47,7 @@ public class ExportLockerSelectCommandParser {
                     if (str.equals("name")) {
                         throw new DukeException(ExportLockerSelectCommand.MISSINGSTATUS_FORMAT);
                     }
-                    if (str.equals("matrixid")) {
+                    if (str.equals("studentid")) {
                         throw new DukeException(ExportLockerSelectCommand.MISSINGSTATUS_FORMAT);
                     }
                     if (str.equals("course")) {

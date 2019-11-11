@@ -1,7 +1,6 @@
 package duke.parser;
 
 import duke.exceptions.DukeException;
-import duke.logic.commands.Command;
 import duke.logic.commands.FindCommand;
 import duke.models.locker.Address;
 import duke.models.locker.SerialNumber;

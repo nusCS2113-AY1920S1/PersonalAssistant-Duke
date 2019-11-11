@@ -1,6 +1,3 @@
-Locker,Status,End-Date
-1234,in-use,30-12-2019
-123,in-use,30-11-2019
-1,not-in-use,
-2,not-in-use,
-222,not-in-use,
+Locker,Address,Zone,Status,Name,StudentID,Course,Email,Start-Date,End-Date
+12,area,A,not-in-use,,,,,,
+2,Area.com,A,not-in-use,,,,,,

@@ -1,6 +1,7 @@
 package duke.parser;
 
 import duke.exceptions.DukeException;
+import duke.log.Log;
 import duke.logic.commands.FindCommand;
 import duke.logic.commands.AddLockerCommand;
 import duke.logic.commands.AddBatchCommand;
@@ -24,6 +25,8 @@ import duke.logic.commands.HistoryCommand;
 
 import duke.logic.commands.Command;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,6 +46,8 @@ public class Parser {
     private static final String INVALID_FORMAT = " The command entered has invalid format. "
             + "Type help to check all the commands available in SpongeBob";
     private static final String STATS_COMMAND = "stats";
+    private static final Logger logger = Log.getLogger();
+    private static final String PARSING = "Parsing ";
 
     /**
      * Parses the command entered by the user.
@@ -51,6 +56,7 @@ public class Parser {
      * @throws DukeException if the user inputs invalid command i.e in a an unexpected format
      */
     public Command parse(String fullCommand) throws DukeException {
+        logger.log(Level.INFO, PARSING + fullCommand);
         requireNonNull(fullCommand);
 
         Matcher commandMatch = GENERAL_COMMAND_FORMAT.matcher(fullCommand.trim());

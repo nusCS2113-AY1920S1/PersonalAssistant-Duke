@@ -1,6 +1,5 @@
 package duke.parser;
 
-import duke.logic.commands.Command;
 import duke.logic.commands.RemindersCommand;
 
 public class RemindersCommandParser {
