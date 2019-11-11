@@ -212,7 +212,6 @@ public class MovieHandler extends Controller implements RequestListener {
     private void setUpEventSearchField() {
         mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
-                //System.out.println("Tab pressed");
                 setAutoCompleteText(ContextHelper.getAllHints(mSearchTextField.getText(), this));
                 event.consume();
             } else if (event.getCode().equals(KeyCode.ALT_GRAPH) || event.getCode().equals(KeyCode.ALT)) {
@@ -738,7 +737,9 @@ public class MovieHandler extends Controller implements RequestListener {
         ArrayList<MovieInfoObject> converted = new ArrayList<>();
         boolean isMovie = false;
         for (PlaylistMovieInfoObject log : toConvert) {
-            converted.add(new MovieInfoObject(log.getId(), log.getTitle(), isMovie,log.getReleaseDateInfo(), log.getSummaryInfo(), log.getFullPosterPathInfo(), log.getFullBackdropPathInfo(),
+            converted.add(new MovieInfoObject(log.getId(), log.getTitle(), isMovie,
+                    log.getReleaseDateInfo(), log.getSummaryInfo(),
+                    log.getFullPosterPathInfo(), log.getFullBackdropPathInfo(),
                     log.getRatingInfo(), log.getGenreIdInfo(), log.isAdultContent()));
 
         }

@@ -49,7 +49,7 @@ public class SearchResultContext {
      * @param i index of the movie to return
      * @return Return MovieInfoObject
      */
-    public static MovieInfoObject getIndex(int i) {
+    public static MovieInfoObject getItemAtIndex(int i) {
         return mCurrentMovies.get(i - 1);
     }
 
