@@ -42,25 +42,16 @@ public class MainDisplayCommand extends Command {
             cols = newMainDisplay.getCatListSize(categoryList);
             rows = newMainDisplay.getMaxCatSize(categoryList);
         }
-
-        DetectOsCommand getOS = new DetectOsCommand();
+        //DetectOsCommand getOS = new DetectOsCommand();
         //String output = "";
         int t = 0; // Default Value 0 for mac
-
+        /*
         if (getOS.osName.contains("mac")) {
-            try {
                 //System.out.println("MainDisplay on Linux -> Color available");
-            } catch (Exception e) {
-                //throw new MooMooException("An error has occurred. Please close the terminal.");
-            }
         } else if (getOS.osName.contains("win")) {
-            try {
                 t = 1;
                 //System.out.println("MainDisplay on Windows -> Color currently unavailable");
-            } catch (Exception e) {
-                //throw new MooMooException("An error has occurred. Please close the terminal.");
-            }
-        }
+        }*/
         String output = newMainDisplay.newToPrint(month, year, rows, cols, categoryList, budget, t);
         Ui.printMainDisplay(output);
     }
