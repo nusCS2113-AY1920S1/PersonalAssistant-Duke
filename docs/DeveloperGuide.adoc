@@ -143,7 +143,7 @@ link:{repoURL}/src/main/java/sgtravel/logic/Logic.java[`Logic.java`]
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying calendar to the user.
 . Furthermore, the `EditorManager` is allowed to "snatch" the user inputs from the `Parser` when it is activated.
 
-Given below is the diagram illustrating the workflow of the `Logic` component. The user input is passed to `Logic` component. Then, it would determine the input is of single line type or complex multiple line type. If it is a multiple line type, it would start a `Conversation` with the user to prompt for more input. Then, using the input, it would build it to become a single line input to be passed to create a `Command`. In create command, figure at the bottom, the input is parsed to determine which command is to be built. Subsequently, the `Command` would be executed to create `CommandResult` which contains the response and result of the execution of the `Command`.
+Given below is the diagram illustrating the workflow of the `Logic` component. The user input is passed to `Logic` component. Then, it would determine the input is of single line type or complex multiple line type. If it is a multiple line type, it would start a `Conversation` with the user to prompt for more input. Then, using the input, it would build it to become a single line input to be passed to create a `Parser`. In create parser, figure at the bottom, the input is parsed to determine which parser is to be built. Then, the parser will break down the input into fields to create `Command`. Subsequently, the `Command` would be executed to create `CommandResult` which contains the response and result of the execution of the `Command`.
 
 .Logic Activity diagram
 image::LogicActivityDiagram.png[width="500" align="left"]
@@ -176,7 +176,7 @@ The `Storage` component,
 * can save `ProfileCard` objects in `.txt` format and read it back.
 * can save the SGTravel data in `.txt` format and read it back.
 
-The figure below shows some parts of the activity of `Storage` when it is initialised during the start of launching the SGTravel application. It will first read from event file path and parses it into `EventList` for `Storage`. Then it will read bus and train transport information and parses them into `TransportationMap` for `Storage`.
+The figure below shows some parts of the activity of `Storage` when it is initialised during the start of launching the SGTravel application. It will first load all the sample data. Then, it will read all data from resources such as Bus, Train and recommendation. Subsequently,it will read all the user file such as reading from event file path and parses it into `EventList` for `Storage`.
 
 .Activity diagram for the Storage Component
 image::StorageActivityDiagram.png[width="450" align="left"]
