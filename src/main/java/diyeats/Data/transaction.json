@@ -38,17 +38,7 @@
       "2019-11-10": [
         {
           "transactionAmount": 200,
-          "type": "PAY",
-          "date": "2019-11-10"
-        },
-        {
-          "transactionAmount": 200,
           "type": "DEP",
-          "date": "2019-11-10"
-        },
-        {
-          "transactionAmount": 125,
-          "type": "PAY",
           "date": "2019-11-10"
         },
         {
@@ -59,6 +49,11 @@
         {
           "transactionAmount": 100,
           "type": "DEP",
+          "date": "2019-11-10"
+        },
+        {
+          "transactionAmount": 100,
+          "type": "PAY",
           "date": "2019-11-10"
         }
       ],
@@ -216,6 +211,6 @@
     }
   },
   "account": {
-    "amount": 470.50
+    "amount": 495.50
   }
 }
