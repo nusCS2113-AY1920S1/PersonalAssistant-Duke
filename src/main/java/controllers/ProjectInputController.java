@@ -25,26 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
-import static util.constant.ConstantHelper.COMMAND_ADD_MEMBER;
-import static util.constant.ConstantHelper.COMMAND_EDIT_MEMBER;
-import static util.constant.ConstantHelper.COMMAND_EDIT_TASK;
-import static util.constant.ConstantHelper.COMMAND_DELETE_MEMBER;
-import static util.constant.ConstantHelper.COMMAND_DELETE_TASK;
-import static util.constant.ConstantHelper.COMMAND_VIEW_TASK_REQ;
-import static util.constant.ConstantHelper.COMMAND_EDIT_TASK_REQ;
-import static util.constant.ConstantHelper.COMMAND_VIEW_TASKS;
-import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_TASKS;
-import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_ASSIGNMENT_RESULTS;
-import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_VIEW_REMINDER_CATEGORY;
-
-
-
-
-
-
-
-
+import static util.constant.ConstantHelper.*;
 
 public class ProjectInputController implements IController {
     private ProjectRepository projectRepository;
