@@ -119,6 +119,9 @@ public class ListTaskCommandTest {
                 + "7. [\u2713] task7 (due: Tue 03-12-2019 09:11H)\n" 
                 + "8. [\u2713] task8 (due: Thu 05-12-2019 09:11H)", 
                 out.getOutputToUser());
+        model.getMemberList().clear();
+        model.getTaskList().clear();
+        model.save();
     }
 
     @Test
@@ -134,6 +137,9 @@ public class ListTaskCommandTest {
                 + "5. [\u2715] task5 (due: Tue 03-12-2019 11:22H)\n" 
                 + "6. [\u2715] task6 (due: Wed 04-12-2019 13:11H)", 
                 out.getOutputToUser());
+        model.getMemberList().clear();
+        model.getTaskList().clear();
+        model.save();
     }
 
     @Test
@@ -153,6 +159,9 @@ public class ListTaskCommandTest {
                 + "3. [\u2715] task3 (due: Tue 03-12-2019 11:13H) has 3 PICs.\n" 
                 + "5. [\u2715] task5 (due: Tue 03-12-2019 11:22H) has 3 PICs.", 
                 out.getOutputToUser());
+        model.getMemberList().clear();
+        model.getTaskList().clear();
+        model.save();
     }
 
     @Test
@@ -168,6 +177,9 @@ public class ListTaskCommandTest {
                 + "3. [\u2715] task3 (due: Tue 03-12-2019 11:13H) has 3 PICs.\n" 
                 + "5. [\u2715] task5 (due: Tue 03-12-2019 11:22H) has 3 PICs.", 
                 out.getOutputToUser());
+        model.getMemberList().clear();
+        model.getTaskList().clear();
+        model.save();
     }
 
 }

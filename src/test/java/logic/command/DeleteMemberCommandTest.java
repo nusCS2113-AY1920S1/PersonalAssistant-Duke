@@ -20,6 +20,8 @@ public class DeleteMemberCommandTest {
         Command command = DeleteMemberParser.parseDeleteMember("test");
         CommandOutput out = command.execute(model);
         assertEquals("test is not in the member list.\n", out.getOutputToUser());
+        model.getMemberList().clear();
+        model.save();
     }
 
     @Test

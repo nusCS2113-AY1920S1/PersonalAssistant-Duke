@@ -29,6 +29,8 @@ public class EditMemberBioCommandTest {
         Command command = EditMemberBioParser.parseEditMemberBio("test /to test bio");
         CommandOutput out = command.execute(model);
         assertEquals("You have set the bio of member: [test] to [[test bio]]", out.getOutputToUser());
+        model.getMemberList().clear();
+        model.save();
     }
 
     @Test
@@ -41,6 +43,8 @@ public class EditMemberBioCommandTest {
         Command command2 = EditMemberBioParser.parseEditMemberBio("test /to test bio");
         CommandOutput out = command2.execute(model);
         assertEquals("No update, they are the same.", out.getOutputToUser());
+        model.getMemberList().clear();
+        model.save();
     }
 
     @Test
@@ -54,5 +58,7 @@ public class EditMemberBioCommandTest {
         CommandOutput out = command2.execute(model);
         assertEquals("You have update the bio of member: "
                 + "[test] from [[test bio1]] to [[test bio2]]", out.getOutputToUser());
+        model.getMemberList().clear();
+        model.save();
     }
 }

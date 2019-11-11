@@ -111,6 +111,9 @@ public class ListMemberCommandTest {
                 + "4. test4\n"
                 + "5. test5",
                 out.getOutputToUser());
+        model.getMemberList().clear();
+        model.getTaskList().clear();
+        model.save();
     }
 
     @Test
@@ -129,6 +132,9 @@ public class ListMemberCommandTest {
                 + "6. test6 progress is: 0.5\n"
                 + "4. test4 progress is: 0.0",
                 out.getOutputToUser());
+        model.getMemberList().clear();
+        model.getTaskList().clear();
+        model.save();
     }
 
     @Test
@@ -147,5 +153,8 @@ public class ListMemberCommandTest {
                 + "2. test2 has todo tasks: 3\n"
                 + "6. test6 has todo tasks: 3",
                 out.getOutputToUser());
+        model.getMemberList().clear();
+        model.getTaskList().clear();
+        model.save();
     }
 }
