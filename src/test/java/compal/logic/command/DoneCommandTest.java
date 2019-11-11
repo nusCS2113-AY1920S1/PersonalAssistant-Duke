@@ -32,9 +32,12 @@ class DoneCommandTest {
         Deadline deadline1 = new Deadline("Deadline 1", high, "01/10/2019", "1500");
 
         taskArrListMain.add(event1);
+        event1.markAsDone();
         taskArrListMain.add(deadline1);
 
+        event1.markAsNotDone();
         taskArrListDup.add(event1);
+
         taskArrListDup.add(deadline1);
 
         this.taskListMain.setArrList(taskArrListMain);
@@ -60,12 +63,6 @@ class DoneCommandTest {
         Assertions.assertEquals(expected, tested);
     }
 
-    @Test
-    void execute_undone_success() throws CommandException {
-        String expected = new DoneCommand(0, "n").commandExecute(taskListDup).feedbackToUser;
-        String tested = done(taskListMain,0,"n");
-        Assertions.assertEquals(expected, tested);
-    }
 
     private String done(TaskList taskList, int taskID, String status) {
         Task task = taskList.getTaskById(taskID);

@@ -26,7 +26,7 @@ public class ListCommand extends Command {
         + "list /type deadline /status n\n\t\t"
         + "list all tasks with type deadline";
 
-    private static final String LIST_PREFIX = "Here are the tasks in your list sorted by chronological order: \n";
+    private static final String LIST_PREFIX = "Here are the tasks in your list sorted by chronological start order: \n";
     public static final String LIST_EMPTY = "Looks like there is nothing to list for this command!\n";
     public static final String MESSAGE_INVALID_INPUT = "Error: Invalid status input!";
 

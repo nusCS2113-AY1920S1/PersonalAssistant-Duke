@@ -252,27 +252,6 @@ public class ViewCommand extends Command {
             endTime = t.getStringEndTime();
         }
 
-
-        /*if (dateInput.equals(t.getStringMainDate())) {
-            //if date same
-            if (t.getStringMainDate().equals(t.getStringTrailingDate())) {
-                startTime = t.getStringStartTime();
-                endTime = t.getStringEndTime();
-            } else {
-                startTime = t.getStringStartTime();
-                endTime = "2359";
-            }
-        } else if (dateInput.equals(t.getStringTrailingDate())) {
-            if (t.getStringMainDate().equals(t.getStringTrailingDate())) {
-                startTime = t.getStringStartTime();
-                endTime = t.getStringEndTime();
-            } else {
-                startTime = "0000";
-                endTime = t.getStringEndTime();
-            }
-        }*/
-
-
         if ("-".equals(startTime)) {
             taskDetails.append("  Due: ").append(endTime)
                 .append("\n");
@@ -292,17 +271,6 @@ public class ViewCommand extends Command {
             .append("[Priority:").append(priority).append("]\n");
 
         String taskSymbol = t.getSymbol();
-        if (t.getDescription().matches("(?i:.*lec.*)")) {
-            taskSymbol = "Lect";
-        } else if (t.getDescription().matches("(?i:.*tut.*)")) {
-            taskSymbol = "Tut";
-        } else if (t.getDescription().matches("(?i:.*sect.*)")) {
-            taskSymbol = "Sect";
-        } else if (t.getDescription().matches("(?i:.*lab.*)")) {
-            taskSymbol = "Lab";
-        } else if (t.getDescription().matches("(?i:.*rt.*)")) {
-            taskSymbol = "RT";
-        }
 
         String taskDescription = t.getDescription();
         taskDetails.append("  [").append(taskSymbol).append("] ")

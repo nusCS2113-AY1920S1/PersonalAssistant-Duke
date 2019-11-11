@@ -266,18 +266,6 @@ class ViewCommandTest {
             .append("[Priority:").append(priority).append("]\n");
 
         String taskSymbol = t.getSymbol();
-        if (t.getDescription().matches("(?i:.*lec.*)")) {
-            taskSymbol = "Lect";
-        } else if (t.getDescription().matches("(?i:.*tut.*)")) {
-            taskSymbol = "Tut";
-        } else if (t.getDescription().matches("(?i:.*sect.*)")) {
-            taskSymbol = "Sect";
-        } else if (t.getDescription().matches("(?i:.*lab.*)")) {
-            taskSymbol = "Lab";
-        } else if (t.getDescription().matches("(?i:.*rt.*)")) {
-            taskSymbol = "RT";
-        }
-
         String taskDescription = t.getDescription();
         taskDetails.append("  [").append(taskSymbol).append("] ")
             .append("[").append(status).append("] ")
