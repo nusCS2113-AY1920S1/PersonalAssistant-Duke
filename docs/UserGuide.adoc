@@ -12,16 +12,16 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2113T-F10-2/main
 
 By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 
 == Introduction
 <<<
 === The Product
-DEGREES.NUS is a desktop application developed to help *prospective applicants of NUS Faculty of Engineering* view, choose  and manage engineering degrees, modules, and course events in a coherent and systematic manner.
+DEGREES.NUS is a desktop application developed to help *prospective applicants of NUS Faculty of Engineering* view, choose and manage engineering degrees, modules, and course events in a coherent and systematic manner.
 
-DEGREES.NUS offers various functionalitites that range from comparing the details of two different engineering degrees, to adding and sorting these degrees into a personalised list and viewing past statistics of the degrees. Moroever, as a task manager, DEGREES.NUS is suitable to be used as a personal assistant as it lets you organise and remind you of the important tasks pertaining to university application, such as document submission deadlines or freshman events.
+DEGREES.NUS offers various functionalities that range from comparing the details of two different engineering degrees, to adding and sorting these degrees into a personalised list and viewing past statistics of the degrees. Moreover, as a task manager, DEGREES.NUS is suitable to be used as a personal assistant as it lets you organise and remind you of the important tasks pertaining to university application, such as document submission deadlines or freshman events.
 
 DEGREES.NUS specifically fits users who prefer to work with a Command Line Interface (CLI), while still having the benefits of an appealing Graphical User Interface (GUI). Also, if you are particularly adept at typing fast, DEGREES.NUS will handle your commands more quickly than traditional GUI apps. 
 
@@ -72,7 +72,7 @@ If it does, you have successfully run DEGREES.NUS on your machine!
 === Getting Used to DEGREES.NUS
 Here are some other examples of commands you can try to get used to DEGREES.NUS:
 
-* **`tasks`** : displays all deadlines and events in the current tasklist (will be empty initially).
+* **`tasks`** : displays all deadlines and events in the current task list (will be empty initially).
 * **`event`**`University Talk /at 25-09-2019 2359` : adds an event named `University Talk` to the task list with "Normal" priority.
 * **`delete`**`3` : deletes the 3rd item shown in the current list.
 * **`detail`**`bme` : displays module information for Biomedical Engineering.
@@ -90,10 +90,10 @@ Here are some other examples of commands you can try to get used to DEGREES.NUS:
 * Words enclosed in `<>` are the parameters to be supplied by the user e.g. in `delete <ID>`, `<ID>` is a parameter which can be used as `delete 4`.
 * Items in square brackets represent tabs e.g `[Help]` signifies the help tab. As a rule, any changes to any of the tabs should automatically open that tab.
 * Items separated by `|` can be used either way. e.g `detail <DEGREE> | detail` can be used as `detail ceg` or as simply `detail`.
-* Items in curly brackets are optional e.g `event MISTA /at dd-MM-yyyy HHmm {/priority High}` can be used as `event MISTA /at 04-04-2004 0444` or as `event MISTA /at 04-04-2004 0444 /priority High`.
+* Items in curly brackets are optional e.g `event MISTA /at DD-MM-YYYY HHmm {/priority High}` can be used as `event MISTA /at 04-04-2004 0444` or as `event MISTA /at 04-04-2004 0444 /priority High`.
 ====
 
-=== Viewing Helpful Commands : `help | help <COMMAND>`
+=== Viewing Helpful Commands : `help | help <COMMAND>` [[help]]
 To view a full list of possible commands that DEGREES.NUS understands, you can call the help command. +
 It will also switch to the `[Help]` tab if you prefer to view the commands in tabular format.
 
@@ -145,9 +145,8 @@ Switches to the `[Degree Information]` tab.
 How it will be displayed: +
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/detailExample.png[width="600"]
-
 <<<
-=== Comparing two degrees: `compare | compare <DEGREE> <DEGREE>`
+=== Comparing two degrees: `compare | compare <DEGREE> <DEGREE>`[[compare]]
 
 Lists the module similarities and differences between two degree programs given their keywords. +
 Will also switch tabs to the `[Degree Differences]` tab. 
@@ -178,7 +177,8 @@ Adds a degree programme you are interested in into your personalised degree list
 This will also add tasks related to your degree to your task list. +
 Will switch to the `[Degree Choices]` tab. +
 
-`<DEGREE>` accepts keywords and aliases and is case insensitive. 
+[NOTE]
+`<DEGREE>` accepts keywords and aliases and is case insensitive, but there are exceptions with the `view_employment` and `cohort_size` commands. 
 
 Format: `add <DEGREE>` +
 
@@ -186,12 +186,12 @@ Examples: +
 
 * `add bme` +
 Adds Biomedical Engineering to your degree list and faculty events to your task list.
-* `add Materials Science and Engineering` +
+* `add Material Science Engineering` +
 Adds Materials Science and Engineering to your degree list and faculty events to your task list.
 * `add CivE` +
 Adds Civil Engineering to your degree list and faculty events to your task list.
 
-=== Listing all degrees in your degree list : `choices`
+=== Listing all degrees in your degree list: `choices` [[choices]]
 
 Displays a list of all the degrees you are interested in currently. +
 Will switch to the `[Degree Choices]` tab.
@@ -217,7 +217,7 @@ Swaps degrees with ID 1 and 2.
 Swaps degrees with ID 1 and 3.
 
 <<<
-=== Removing a degree in your degree list : `remove <ID>`
+=== Removing a degree in your degree list: `remove <ID>`
 
 Removes the degree with the specified ID from your degree list. +
 Will switch to the `[Degree Choices]` tab.
@@ -234,7 +234,7 @@ Removes the 3rd degree in your degree list.
 
 
 // tag::delete[]
-=== Deleting a task in your task list : `delete <ID>`
+=== Deleting a task in your task list: `delete <ID>`
 
 Deletes the task with the specified ID from your task list. +
 Will switch to the `[Tasks]` tab.
@@ -251,7 +251,7 @@ Deletes the 5th task in your task list.
 // end::delete[]
 
 <<<
-=== Sorting items in tasklist: `sort by <CATEGORY>`
+=== Sorting items in task list: `sort by <CATEGORY>`
 
 [NOTE]
 The help command accepts only `help sort`, not `help sort by`.
@@ -266,7 +266,7 @@ Possible `<CATEGORIES>` are:
 
 . date 
 
-. degrees
+. degree
 
 Format: `sort <CATEGORY>`
 
@@ -276,7 +276,7 @@ Examples:
 The task list will sort according the tasks priority levels. The priority of a task is specified by you, and tasks added via the addition of degrees defaults to normal.
 * `sort by date` +
 The task list will sort according to the deadlines of the tasks.
-* `sort by degrees` +
+* `sort by degree` +
 The task list will sort according to degree-specific tasks.
 
 
@@ -323,6 +323,9 @@ Creates a todo task with the description "Donate to the Hakurei Shrine" with hig
 
 === Adding custom event tasks: `event <DESCRIPTION> /at <DEADLINE> {/priority <LEVEL>}`
 
+[NOTE]
+You cannot add custom events with their start and end times, only their deadlines. Only faculty events that come with adding degrees have start and end times in them.
+
 You can add your own custom event tasks, with optional priority levels. +
 Event tasks require deadlines in the following format: `DD-MM-YYYY HHmm`. +
 The time format `HHmm` is in the 24-hour format. +
@@ -360,7 +363,7 @@ Creates a deadline task with the description "Bites the Dust" to be done by 10-1
 
 You can change the deadlines of deadline and event tasks. +
 Deadlines require the following format: `DD-MM-YYYY HHmm`. +
-The time format `HHmm` is in 24-hour format. =
+The time format `HHmm` is in 24-hour format. +
 This will switch to the `[Tasks]` tab. +
 
 Format: `snooze <ID> /to <DEADLINE>` 
@@ -404,30 +407,32 @@ Displays all tasks whose description contains the word "Sleep".
 
 === Find employment rate of a given degree: `view_employment <DEGREE>`
 
-You can view statistics, in this the employment rate, of your specified degree. +
+You can view the employment rates and basic mean salary of the recent graduates of your specified degree. +
+Only works with keywords and is case-sensitive. +
 This will produce a bar graph in another window. +
 
-Format: `view_employment <DEGREE>` 
+Format: `view_employment <DEGREE>` +
 
 Examples: +
 
-* `view_employment bme` +
+* `view_employment BME` +
 Displays the employment rate of graduates of the Biomedical Engineering course.
-* `view_employment ise` +
+* `view_employment ISE` +
 Displays the employment rate of graduates of the Industrial and Systems Engineering course.
 
 === Find cohort size of a given degree: `cohort_size <DEGREE>`
 
 You can view past cohort sizes of your specified degree. +
+Only works with keywords and is case-sensitive. +
 This will produce a bar graph in another window. +
 
-Format: `cohort_size <DEGREE>` 
+Format: `cohort_size <DEGREE>` +
 
 Examples: +
 
-* `cohort_size ee` +
+* `cohort_size EE` +
 Displays the past cohort sizes of the Electrical Engineering course.
-* `cohort_size me` +
+* `cohort_size ME` +
 Displays the past cohort sizes of the Mechanical Engineering course.
 
 === Display keywords and aliases that are compatible with <DEGREE>: `keywords`
@@ -453,7 +458,7 @@ You can also redo previous undone commands if you wish to revert back the undo. 
 
 Format: `redo`
 
-=== Exiting the program : `bye`
+=== Exiting the program: `bye`
 
 Exits the program after a short delay. +
 
@@ -461,8 +466,14 @@ Format: `bye`
 
 === Saving the data
 
-Task data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Task and degree choice data are saved in the hard disk automatically after any command that changes the data. +
+This includes undo and redo commands. +
+There is no need to save manually. +
+
+The save data is located in the `data` folder one level above the jar file. +
+`save.txt` is for task data, `savedegree.txt` is for degree choice data. +
+
+If there is no `data` folder detected (i.e. after a fresh download), the jar file will generate a fresh one with empty save files. +
 
 === Auto suggests commands based on frequency
 
@@ -535,9 +546,9 @@ e.g. `schedule 01-01-1970`
 * *Find tasks* : `find <STRING>` +
 e.g. `find r`, `find Work`
 * *Find employment rate* : `view_employment <DEGREE>` +
-e.g. `view_employment bme`
+e.g. `view_employment BME`
 * *Find past cohort sizes* : `cohort_size <DEGREE>` +
-e.g. `cohort_size ise`
+e.g. `cohort_size ISE`
 * *Display keywords and aliases* : `keywords` +
 * *Undo command* : `undo` +
 * *Redo command* : `redo` +

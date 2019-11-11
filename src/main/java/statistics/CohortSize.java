@@ -46,55 +46,55 @@ public class CohortSize implements Statistics  {
         for (int i = 1; i < 4; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                cohortStats.add(new CohortStats("che", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
+                cohortStats.add(new CohortStats("ChE", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
             }
         }
         for (int i = 5; i < 8; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                cohortStats.add(new CohortStats("enve", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
+                cohortStats.add(new CohortStats("ENVE", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
             }
         }
         for (int i = 9; i < 12; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                cohortStats.add(new CohortStats("mse", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
+                cohortStats.add(new CohortStats("MSE", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
             }
         }
         for (int i = 13; i < 16; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                cohortStats.add(new CohortStats("bme", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
+                cohortStats.add(new CohortStats("BME", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
             }
         }
         for (int i = 17; i < 20; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                cohortStats.add(new CohortStats("cive", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
+                cohortStats.add(new CohortStats("CivE", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
             }
         }
         for (int i = 21; i < 24; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                cohortStats.add(new CohortStats("ee", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
+                cohortStats.add(new CohortStats("ElecE", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
             }
         }
         for (int i = 25; i < 28; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                cohortStats.add(new CohortStats("ise", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
+                cohortStats.add(new CohortStats("ISE", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
             }
         }
         for (int i = 29; i < 32; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                cohortStats.add(new CohortStats("me", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
+                cohortStats.add(new CohortStats("ME", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
             }
         }
         for (int i = 33; i < 36; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                cohortStats.add(new CohortStats("ceg", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
+                cohortStats.add(new CohortStats("ComE", Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3])));
             }
         }
 
@@ -114,23 +114,23 @@ public class CohortSize implements Statistics  {
     @Override
     public void print(String input) {
 
-        if(input.equals("bme"))
+        if(input.equals("BME"))
             title = "Biomedical Engineering";
-        if(input.equals("ceg"))
+        if(input.equals("ComE"))
             title = "Computer Engineering";
-        if(input.equals("che"))
+        if(input.equals("ChE"))
             title = "Chemical Engineering";
-        if(input.equals("mse"))
+        if(input.equals("MSE"))
             title = "Materials Science Engineering";
-        if(input.equals("enve"))
+        if(input.equals("ENVE"))
             title = "Environmental Engineering";
-        if(input.equals("cive"))
+        if(input.equals("CivE"))
             title = "Civil Engineering";
-        if(input.equals("ise"))
+        if(input.equals("ISE"))
             title = "Industrial Systems Engineering";
-        if(input.equals("me"))
+        if(input.equals("ME"))
             title = "Mechanical Engineering";
-        if(input.equals("ee"))
+        if(input.equals("ElecE"))
             title = "Electrical Engineering";
         Cohort_BarChart chart = new Cohort_BarChart("Cohort Size Statistics",
                 title, input);

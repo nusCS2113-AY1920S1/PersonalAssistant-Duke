@@ -59,7 +59,7 @@ public class DegreeListStorage {
             for(int i = 0; i < store.size(); i++) {
                 list.add(store.get(i).getKey());
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             list.clear();
             throw new DukeException("Issues trying to read savedegree.txt file. Creating new list of choices.");
         }

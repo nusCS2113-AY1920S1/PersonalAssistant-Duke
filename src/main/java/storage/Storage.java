@@ -204,7 +204,7 @@ public class Storage {
                         List<String> linesSave = Files.readAllLines(folder.resolve("save.txt"), StandardCharsets.UTF_8);
                         data.put("save", linesSave);
                     }
-                } else if (read.matches("savedegree")) { //Checks internal save.txt
+                } else if (read.matches("savedegree")) { //Checks internal savedegree.txt
                     //check existence of external save and savedegrees first
                     File saveDir = new File("../data/");
                     File newFileSaveDegree = new File("../data/savedegree.txt");

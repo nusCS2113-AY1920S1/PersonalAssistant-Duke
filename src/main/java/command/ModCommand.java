@@ -54,7 +54,7 @@ public class ModCommand extends Command {
             memento2 = new Memento(degreesBuffer);
             NUSEventList NUSEventList = new NUSEventList();
             NUSEventList.removeDegreeTasks(this.input, lists, tasks);
-            lists.delete(this.input, this.dd);
+            lists.delete(this.input);
             break;
         case "done":
             this.listType = 0;

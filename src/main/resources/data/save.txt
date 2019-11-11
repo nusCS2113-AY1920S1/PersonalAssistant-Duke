@@ -1,2 +1,15 @@
-E | 0 | [BME] Open House for Prospective Students | 11-05-2020 1030 | Normal
-E | 0 | [BME] NUS-BME Open House | 18-05-2020 1330 | Normal
+E | 0 | [CEG] Open House for Prospective Students | 11-05-2020 1030 | Normal
+E | 0 | [CEG] NUS-ECE Open House | 18-05-2019 1330 | Normal
+D | 0 | [CEG] CS1010 Placement Examination Application | 26-06-2020 1700 | Normal
+D | 0 | [CEG] Math Refresher Course Application | 30-06-2020 2359 | Normal
+E | 0 | [CEG] CEG Freshmen Welcome Tea | 22-07-2020 0900 | Normal
+E | 0 | [BME] International Conference on Biomedical Engineering (ICBME) | 09-12-2019 0900 | Normal
+E | 0 | [BME] Biomedical Engineering Open House | 10-02-2020 0830 | Normal
+D | 0 | [ISE] Industrial and Systems Engineering Camp Application | 30-05-2020 2359 | Normal
+E | 0 | [ISE] Freshmen Orientation Camp 2020 | 25-06-2020 0900 to 28-06-2020 1800 | Normal
+D | 0 | [MSE] Material Science Engineering Camp Application | 26-06-2020 1700 | Normal
+E | 0 | [MSE] Freshman Orientation Camp MSE FOC 2020 | 28-06-2020 0900 to 01-07-2020 1800 | Normal
+E | 0 | [ME] Mechanical Engineering Open House | 18-05-2020 1330 | Normal
+E | 0 | [ME] NUS Freshmen Welcome Session 2020 | 22-07-2020 0900 | Normal
+D | 0 | [ME] Mechanical Engineering Orientation Camp Application | 07-06-2020 2359 | Normal
+E | 0 | [ME] Freshman Orientation Camp | 26-06-2020 0900 to 28-06-2020 1800 | Normal
