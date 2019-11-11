@@ -223,15 +223,41 @@ It contains an attribute searchTerm: string representing the word that user is l
 
 Given below is an example of usage scenario for Search Word feature:
 
-Step 1: User have already added a few words as below. Our word bank use a data structure to store all words as a binary tree.
+Step 1. Search from WordBank
+
+Step 1-1: User have already added a few words as below. Our word bank use a data structure to store all words as a binary tree.
 
 [INSERT IMAGE]
 
-Step 2: User wants to search for a word, e.g. “one”. It first goes to the word “seven”. We see that “one” appears before “seven”, so it searches on the left subtree of “seven”. Then it reaches “four”, and see that “one” appears after “four”, so it searches to the right. Then it reaches “one” and return it. The words appeared in searching are marked as yellow.
+Step 1-2: 
+
+User wants to search for a word, e.g. “one”. It first goes to the word “seven”. We see that “one” appears before “seven”, so it searches on the left subtree of “seven”. Then it reaches “four”, and see that “one” appears after “four”, so it searches to the right. Then it reaches “one” and return it. The words appeared in searching are marked as yellow.
 
 [INSERT IMAGE]
 
-Step 3: (If the word doesn’t appear in the bank): When search pointer reaches the lowest level but still cannot find the word, it will look for the “near” words. A “near” word is defined as the ratio between the edit distance between 2 words and the length of shorter word is less than 60%.
+Step 1-3:
+
+(If the word doesn’t appear in the bank): When search pointer reaches the lowest level but still cannot find the word, it will look for the “near” words. A “near” word is defined as the ratio between the edit distance between 2 words and the length of shorter word is less than 60%.
+
+Step 2. Search from Oxford Dictionary
+
+If the word doesn’t exist in wordbank, the search command calls OxfordCall.onlineSearch(). It’s an api which searches online Oxford dictionary and returns the meaning of the word. If the network is disconnected or the word does not exist in Oxford dictionary, an exception will be raised.   
+ 
+Step3. Search similar words in WordBank
+
+Whether we find the meaning of the word from Oxford dictionary or not, we match the word to every word in WordBank to see if there are any similar words. Levenshtein Distance is the method we use to calculate differences between words and is implemented by using dynamic programming. The threshold of similarity will be half of the length of the word in WordBank. 
+
+Example of calculating Levenshtein Distance
+
+image::LevenshteinDistanceExample.png[]
+
+Activity diagram of search command
+
+image::SearchActivityDiagram.png[]
+
+
+
+
 
 ==== Search with Beginning Substring
 This allows the user to look for the word that has a specific start. It is implemented as its own individual class SearchBeginCommand, which extends class Command.

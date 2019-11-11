@@ -61,6 +61,8 @@ Examples:
 * `help` shows all available commands. +
 * `help delete` shows the description and usage of delete command.
 
+image:help.png[]
+
 === Adding a word: `add`
 
 Adds a word to the Word Bank. +
@@ -70,7 +72,9 @@ Format: `add w/WORD w/MEANING [t/TAG]...`
 Examples:
 
 * `add w/life m/the existence of an individual human being or animal t/meaningoflife t/livingit` +
-* `add w/happy m/a state of joy t/lesson3`
+* `add w/happy m/a state of joy t/emotion`
+
+image:add.png[]
 
 === Listing all words inside dictionary : `list`
 
@@ -83,6 +87,8 @@ Example: `list o/asc` shows the list of words tagged “emotions” in alphabeti
 List of possible o/ORDER values: +
  `asc` - displayOrder the list in ascending alphabetical displayOrder +
  `desc` - displayOrder the list in descending alphabetical displayOrder
+
+image:list.png[]
 
 === Editing the meaning of a word : `edit`
 
@@ -97,6 +103,9 @@ Examples:
 
 * `edit w/drink m/a liquid for consumption` +
 Edits the word 'drink' and updates the meaning to "liquid for consumption".
+
+
+image:edit.png[]
 
 === Searching for the meaning of words: `search`
 
@@ -117,6 +126,9 @@ Returns `a liquid for consumption`
 * `search w/potatoes` +
 Returns suggestion of `potato`
 
+
+image:search.png[]
+
 === Checking search frequency: `freq`
 
 Displays the list of words in ascending or descending order of search count.
@@ -130,6 +142,9 @@ Returns a list of words in ascending order of search count (from lowest to highe
 List of possible o/ORDER values: +
  `asc` - displayOrder the list in ascending alphabetical displayOrder +
  `desc` - displayOrder the list in descending alphabetical displayOrder
+
+
+image:freq.png[]
 
 === Searching for words with their begin: `search_begin`
 
@@ -146,6 +161,8 @@ Examples:
 * `search  w/d` +
 * `search_begin  w/d` +
 Returns `drink, dog, do, etc`
+
+image:search_begin.png[]
 
 
 === Generating quizzes: `quiz`
@@ -173,6 +190,8 @@ What is the meaning of WordUp?
 
 The correct answer is 2. Type `2` and WordUp will respond the correctness.
 
+image:quiz.png[]
+
 // tag::delete[]
 === Deleting a word object : `delete`
 
@@ -195,17 +214,21 @@ Deletes the tag action from word drink.
 // end::delete[]
 
 
+image:delete.png[]
+
 === [Not supported] Clearing all entries : `clear`
 
 Clears all entries from the dictionary. +
 Format: `clear`
 
 
+image:clear.png[]
+
 // tag::schedule[]
 === Scheduling words to study : `schedule`
 
 Schedules reminders for a selected list of words given a user specified date and time. +
-Format: `schedule`
+Format: `schedule` OR `schedule w/word1, word2, ... r/dd-MM-yyyy HHmm`
 
 ****
 * Users can set a reminder for multiple words at one go. Terminate word input by entering blank line.
@@ -213,11 +236,18 @@ Format: `schedule`
 
 Examples:
 
+* `schedule w/happy, elated r/12-02-2020 1400`
+
+OR
+
 * Enter `schedule` +
-Enter a list of 'enter key' separated words: `life[Enter] is[Enter] great[Enter][Enter]` +
-Enter a date and time for the reminder: `31-10-2019 2359` +
-Reminder is set. Summary of reminder details is shown. Reminder pop up will be shown at time set.
+Enter a list of 'enter key' separated words: `happy[Enter] elated[Enter]` +
+Enter a date and time for the reminder: `12-02-2020 1400` +
+
+Reminder is then set. Summary of reminder details is shown. Reminder pop up will be shown on 12 Feb 2020 2pm.
 // end::schedule[]
+
+image:schedule.png[]
 
 
 // tag::history[]
@@ -237,6 +267,8 @@ Examples:
 Shows the list of the last 5 words added, with the latest entry first.
 // end::history[]
 
+image:history.png[]
+
 // tag::addsynonyms[]
 === Adding synonyms of a word : `addsyn`
 
@@ -246,7 +278,6 @@ Format: `addsyn w/WORD_TO_BE_TAGGED s/SYNONYM1 SYNONYM2` +
 If there are more than one synonym to be added, please separate them by spaces.
 
 //end::addsynonyms[]
-
 // tag::search_synonyms[]
 === Searching synonyms of a word : `search_syn`
 
@@ -256,7 +287,6 @@ Format: `search_syn w/WORD` +
 Synonyms are chained together, so even new words will be recognize.
 
 //end::search_synonyms[]
-
 === Adding tags to a word : `tag`
 
 Assigns a tag to an existing word in the database. +
@@ -269,6 +299,8 @@ Examples:
 * `tag w/banana t/fruit` +
 Assigns the word banana with tag fruit.
 
+image:tag.png[]
+
 === Adding tags to a word : `search_tag`
 
 Search for a word using t/TAG or w/WORD in the database. +
@@ -277,15 +309,7 @@ Format: `search_tag w/WORD` or `search_tag t/TAG` +
 `search_tag w/WORD` will output all the tags associated with the WORD
 `search_tag t/TAG` will output all words associated with the TAG
 
-=== Viewing history : `history`
-
-Shows adding history. +
-Format: `history INTEGER`
-
-=== Viewing search frequency : `freq`
-
-Shows search frequency of each word in specified order. +
-Format: `freq o/ORDER`
+image:search_tag.png[]
 
 === Adding example sentence : `add_example`
 
@@ -293,10 +317,12 @@ Add example sentence for a word.
 Format: `add_example w/ORDER e/EXAMPLE`
 
 
+
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
+
 
 === Saving the data
 
