@@ -15,12 +15,33 @@ import java.util.Map;
  * Calls out the list of specializations and technical electives.
  */
 public class ListSpecializationCommand {
+    /**
+     * Index of Communications and Networking on the list.
+     */
     private static final int COMMS_AND_NETWORKING_INDEX = 1;
+    /**
+     * Index of Embedded Computing on the list.
+     */
     private static final int EMBEDDED_COMPUTING_INDEX = 2;
+    /**
+     * Index of Intelligent Systems on the list.
+     */
     private static final int INTELLIGENT_SYSTEMS_INDEX = 3;
+    /**
+     * Index of Interactive Digital Media on the list.
+     */
     private static final int INTERACTIVE_DIGITAL_MEDIA_INDEX = 4;
+    /**
+     * Index of Large-Scale Computing on the list.
+     */
     private static final int LARGE_SCALE_COMPUTING_INDEX = 5;
+    /**
+     * Index of System On A Chip Design on the list.
+     */
     private static final int SYS_ON_A_CHIP_DESIGN_INDEX = 6;
+    /**
+     * Number of modular credits per technical elective.
+     */
     private static final int MODULAR_CREDITS = 4;
 
     /**
@@ -29,25 +50,20 @@ public class ListSpecializationCommand {
      *
      * @param ui            the object that deals
      *                      with printing things to the user.
-     * @param storage       the object that deals with storing data,
-     *                      in this case storing data in the expenses map
      * @param specMap       the map that map list of
      *                      technical electives to their
      *                      respective specializations
      * @param completedEMap the map that maps the completed electives to
      *                      their respective specializations
-     * @throws DukeException throws a custom exception if
-     *                       module index does not exist
      * @throws IOException   catch any error if read file fails
      */
 
     public ListSpecializationCommand(final Ui ui,
-                                     final Storage storage,
                                      final Map<String,
                                              ArrayList<ModuleCategory>> specMap,
                                      final Map<String, ArrayList<String>>
                                              completedEMap)
-            throws DukeException, IOException {
+            throws IOException {
 
         try {
             new ListOfSpecializationAndModules(specMap);
@@ -287,25 +303,26 @@ public class ListSpecializationCommand {
                                 * MODULAR_CREDITS + "/20");
                     }
                 }
+            } else if (specChosen == SYS_ON_A_CHIP_DESIGN_INDEX) {
                 System.out.println("Breadth:");
-                for (int i = 0; i < specMap.get("System-On-A-Chip"
-                        + " Design").size(); i++) {
-                    if (specMap.get("System-On-A-Chip"
-                            + " Design").get(i).isBreadth) {
+                for (int i = 0; i < specMap.get("System-On-A"
+                        + " Chip Design").size(); i++) {
+                    if (specMap.get("Large-Scale"
+                            + " Computing").get(i).isBreadth) {
                         System.out.println((i + 1) + ". "
-                                + specMap.get("System-On-A-Chip"
-                                + " Design").get(i).code);
+                                + specMap.get("Large-Scale"
+                                + " Computing").get(i).code);
                     }
                 }
 
                 System.out.println("Depth:");
-                for (int j = 0; j < specMap.get("System-On-A-Chip"
-                        + " Design").size(); j++) {
-                    if (specMap.get("System-On-A-Chip"
-                            + " Design").get(j).isDepth) {
+                for (int j = 0; j < specMap.get("System-On-A"
+                        + " Chip Design").size(); j++) {
+                    if (specMap.get("Large-Scale"
+                            + " Computing").get(j).isDepth) {
                         System.out.println((j + 1) + ". "
-                                + specMap.get("System-On-A-Chip"
-                                + " Design").get(j).code);
+                                + specMap.get("Large-Scale"
+                                + " Computing").get(j).code);
                     }
                 }
 

@@ -23,6 +23,50 @@ import java.util.Stack;
 
 public class SpecializationCommandParser extends Command {
     /**
+     * Shows welcome message.
+     */
+    private static void showWelcomeMessage() {
+        System.out.println("Welcome to your specialization page!"
+                + "What would you like to do?\n\n");
+    }
+
+    /**
+     * Shows main menu page.
+     */
+    private static void showMainMenu() {
+        System.out.println("Going back to Main Menu...\n"
+                + "Content Page:\n"
+                + "------------------ \n"
+                + "1. help\n"
+                + "2. contacts\n"
+                + "3. expenses\n"
+                + "4. places\n"
+                + "5. tasks\n"
+                + "6. cap\n"
+                + "7. spec\n"
+                + "8. moduleplanner\n"
+                + "9. notes\n"
+                + "10. change password\n"
+                + "To exit: bye\n");
+    }
+
+    /**
+     * Shows list of commands in specialization page.
+     */
+    private static void showListOfCommands() {
+        System.out.print("____________________________"
+                + "_____________________________\n"
+                + "1. Show list of specializations"
+                + " and technical electives : list\n"
+                + "2. Key in completed electives: complete\n"
+                + "3. List of commands for specialization page: commands\n"
+                + "4. Help page: help\n"
+                + "5. Exit contact page: esc\n"
+                + "____________________________"
+                + "______________________________");
+    }
+
+    /**
      * This method is allows user to call commands to add expenses,
      * find expenses on a certain date, delete a chosen expense,
      * see the expense list and exit the expense page.
@@ -45,6 +89,7 @@ public class SpecializationCommandParser extends Command {
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
             throws IOException, DukeException {
+
         SpecializationPageStorage specPageStorage = new SpecializationPageStorage();
         HashMap<String, ArrayList<ModuleCategory>> smap
                 = specPageStorage.readFromSpecializationFile(); //Read the file
@@ -53,58 +98,28 @@ public class SpecializationCommandParser extends Command {
         CompletedElectivesStorage completedElectivesStorage = new CompletedElectivesStorage();
         HashMap<String, ArrayList<String>> emap
                 = completedElectivesStorage.readFromCompletedElectivesFile(); //Read the file
-
         Map<String, ArrayList<String>> completedEMap = new TreeMap<>(emap);
 
         new ListOfSpecializationAndModules(specMap);
-
-        System.out.println("Welcome to your specialization page!"
-                + "What would you like to do?\n\n");
-        String helpSpec = "____________________________"
-                + "_____________________________\n"
-                + "1. Show list of specializations"
-                + " and technical electives : list\n"
-                + "2. Key in completed electives: complete\n"
-                + "3. List of commands for specialization page: commands\n"
-                + "4. Help page: help\n"
-                + "5. Exit contact page: esc\n"
-                + "____________________________"
-                + "______________________________";
-        System.out.println(helpSpec);
-
+        showWelcomeMessage();
+        showListOfCommands();
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.equals("list")) {
-                new ListSpecializationCommand(ui, storage,
-                        specMap, completedEMap);
+                new ListSpecializationCommand(ui, specMap, completedEMap);
             } else if (ui.fullCommand.equals("complete")) {
-                new CompletedCommand(ui, storage, specMap, completedEMap);
+                new CompletedCommand(ui, specMap, completedEMap);
             } else if (ui.fullCommand.equals("commands")) {
-                System.out.println(helpSpec);
+                showListOfCommands();
             } else if (ui.fullCommand.equals("help")) {
                 (new HelpCommand()).execute(null, ui, null,
                         null, null, null);
             } else {
-                System.out.println("Command not found, please re-enter!");
+                ui.showDontKnowErrorMessage();
             }
             ui.readCommand();
-
-
         }
-        System.out.println("Going back to Main Menu...\n"
-                + "Content Page:\n"
-                + "------------------ \n"
-                + "1. help\n"
-                + "2. contacts\n"
-                + "3. expenses\n"
-                + "4. places\n"
-                + "5. tasks\n"
-                + "6. cap\n"
-                + "7. spec\n"
-                + "8. moduleplanner\n"
-                + "9. notes\n"
-                + "10. change password\n"
-                + "To exit: bye\n");
+        showMainMenu();
     }
 
     /**
