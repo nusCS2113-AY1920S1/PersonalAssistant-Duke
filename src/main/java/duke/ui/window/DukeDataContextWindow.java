@@ -22,6 +22,7 @@ public class DukeDataContextWindow extends ContextWindow {
      *
      * @param fxmlFileName Name of FXML file.
      * @param data         DukeData object.
+     * @throws DukeFatalException If {@code data} is null.
      */
     public DukeDataContextWindow(String fxmlFileName, DukeData data) throws DukeFatalException {
         super(fxmlFileName);

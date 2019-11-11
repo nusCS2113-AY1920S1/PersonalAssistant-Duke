@@ -7,6 +7,7 @@ import duke.ui.card.EvidenceCard;
 import duke.ui.card.ObservationCard;
 import duke.ui.card.ResultCard;
 
+//@@author gowgos5
 /**
  * A factory class for creating an {@link EvidenceCard}.
  */

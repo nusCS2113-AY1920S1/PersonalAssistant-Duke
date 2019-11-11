@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 //@@author gowgos5
-
 /**
  * UI window for the Patient context.
  */
@@ -109,7 +108,7 @@ public class PatientContextWindow extends ContextWindow {
 
 
     /**
-     * Clears all card and UI lists.
+     * Clears all UI lists in this window.
      */
     private void clearLists() {
         impressionListPanel.getItems().clear();
@@ -120,20 +119,6 @@ public class PatientContextWindow extends ContextWindow {
     /**
      * Fills all UI lists in this window.
      */
-    private void indexLists() {
-        impressionListPanel.getItems().forEach(card -> {
-            card.setIndex(impressionListPanel.getItems().indexOf(card) + 1);
-        });
-
-        criticalListPanel.getItems().forEach(card -> {
-            card.setIndex(criticalListPanel.getItems().indexOf(card) + 1);
-        });
-
-        followUpListPanel.getItems().forEach(card -> {
-            card.setIndex(followUpListPanel.getItems().indexOf(card) + 1);
-        });
-    }
-
     private void fillLists() throws DukeFatalException {
         for (Impression impression : patient.getImpressionList()) {
             // Impression list
@@ -154,6 +139,23 @@ public class PatientContextWindow extends ContextWindow {
         for (Treatment followUp : patient.getFollowUpList()) {
             followUpListPanel.getItems().add(followUp.toCard());
         }
+    }
+
+    /**
+     * Indexes all UI lists in this window.
+     */
+    private void indexLists() {
+        impressionListPanel.getItems().forEach(card -> {
+            card.setIndex(impressionListPanel.getItems().indexOf(card) + 1);
+        });
+
+        criticalListPanel.getItems().forEach(card -> {
+            card.setIndex(criticalListPanel.getItems().indexOf(card) + 1);
+        });
+
+        followUpListPanel.getItems().forEach(card -> {
+            card.setIndex(followUpListPanel.getItems().indexOf(card) + 1);
+        });
     }
 
     /**

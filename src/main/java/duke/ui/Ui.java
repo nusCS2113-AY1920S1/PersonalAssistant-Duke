@@ -37,6 +37,7 @@ public interface Ui {
      * Updates {@link ContextWindow} and shows message on the {@link CommandWindow}.
      *
      * @param message Output message.
+     * @throws DukeFatalException If the {@link ContextWindow} to be updated cannot be initialised / loaded.
      */
     void updateUi(String message) throws DukeFatalException;
 

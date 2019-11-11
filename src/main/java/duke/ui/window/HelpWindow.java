@@ -84,7 +84,7 @@ public class HelpWindow extends UiElement<Region> implements ChangeListener<Stri
     }
 
     /**
-     * Attaches a listener to the {@link UiContext} to check for changes in context.
+     * Attaches a listener to the {@code uiContext} to check for changes in context.
      *
      * @param uiContext UiContext object.
      */
