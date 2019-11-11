@@ -333,9 +333,9 @@ without the need of memorising each of their savings account names within *OwlMo
  a specific savings account, it also aids in the operation of editing or deleting of savings account.
 
 ===== Current Implementation
-The current implementation of finding `savings` account only allows the user to search through the account name. The
-reason to only allow the user to search through the account name was that searching through parameters such as income
-may be inaccurate, as a user income may change over time resulting in inconsistency in the search.
+The current implementation of finding savings account only allows the user to search through the name of the account.
+The reason to only allow the user to search through the account name was that searching through parameters such as
+income may be inaccurate, as a user income may change over time resulting in inconsistency in the search.
 
 
 .Sequence Diagram of finding savings account

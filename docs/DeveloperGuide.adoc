@@ -542,7 +542,7 @@ When the user executes the `ListCardCommand`, the following steps are taken by t
 [start=4]
 . After passing the above checks, `cardListListCard` will display the details of each card within the Arraylist.
 
-=== Finding Savings Account
+=== Finding of Savings Account
 
 The `/find /savings` feature aims to provide the user with the ability to search for a savings account that matches the
 keyword specified by the user. This enables the user to have great flexibility to view their savings account details
@@ -550,9 +550,9 @@ without the need of memorising each of their savings account names within *OwlMo
  a specific savings account, it also aids in the operation of editing or deleting of savings account.
 
 ==== Current Implementation
-The current implementation of finding `savings` account only allows the user to search through the account name. The
-reason to only allow the user to search through the account name was that searching through parameters such as income
-may be inaccurate, as a user income may change over time resulting in inconsistency in the search.
+The current implementation of finding savings account only allows the user to search through the name of the account.
+The reason to only allow the user to search through the account name was that searching through parameters such as
+income may be inaccurate, as a user income may change over time resulting in inconsistency in the search.
 
 
 .Sequence Diagram of Finding Savings Account
@@ -566,15 +566,16 @@ The sequence diagram presented above depicts the interaction between the `Logic`
 
 The `FindBankOrCardCommand` requires *2* inputs:
 
-* The name of the savings account that acts as a keyword for the search.
+* The name of the account that acts as a keyword for the search.
 * Type of item to be searched (e.g. `card`, `savings` or `investment`)
 
-When the user executes the `FindBankOrCardCommand`, the following steps are taken by the application:
+When the user executes the `FindBankOrCardCommand` to search for savings account, the following steps are taken by the
+application:
 
 . When the `FindBankOrCardCommand` is executed, it will invoke `findBankOrCard`.
 . Once invoked, `findBankOrCard` will perform the following checks:
 
-* Check the type of items to be searched is either card, savings or investment account.
+* Check the type of items to be searched is either `card`, `savings` or `investment`.
 
 [start=3]
 . After passing the above checks, `findBankOrCard` will invoke `findBankAccount`.
@@ -587,7 +588,7 @@ When the user executes the `FindBankOrCardCommand`, the following steps are take
 `findBankAccount` will throw an error if all bank accounts within the application fail the above checks.
 
 [start=5]
-. Once the search has been completed, the details of the all matching savings account will be displayed to inform the
+. Once the search has been completed, the details of all matching savings account will be displayed to inform the
 user of the *successful* matches.
 
 ==== Design Considerations
@@ -626,13 +627,10 @@ a| * For example, if the description of a transaction record that the user is se
 
 After weighing the pros and cons, *approach 2* was taken.
 
-The reason for choosing *approach 2* over approach 1 is mainly due to the flexibility that it can provide to a user.
+The reason for choosing *approach 2 over approach 1* is mainly due to the flexibility that it can provide to a user.
 Although, searching for the item with case insensitivity might cause more unwanted results being displayed. We felt that
  the ability to easily match keyword with the item that the user would like to find is more important, as it enhanced
- the user-friendliness of OwlMoney.
-
-
-
+ the user-friendliness of *OwlMoney*.
 
 // tag::goals_sequence[]
 
@@ -1285,19 +1283,18 @@ entered correctly.
 *Main success scenario:*
 
 . User chooses to list the expenditure record.
-. System requests the type of expenditure to be listed and the account to list from.
-. User specifies the type of expenditure to be listed and the account to list from..
+. System requests the account to list from.
+. User specifies the account to list from.
 . System displays the expenditure records specified.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid type of expenditure to be listed or account to list from.
-** 3a1. System requests for the correct type of expenditure to be listed and the account to list from.
-** 3a2. User re-enters the type of expenditure to be listed and the account to list from.
-** Steps 3a1-3a2 are repeated until the type of expenditure to be listed and the account to list from are entered
-correctly.
+* 3a. System detects invalid account to list from.
+** 3a1. System requests for the correct account to list from.
+** 3a2. User re-enters the account to list from.
+** Steps 3a1-3a2 are repeated until the account to list from is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1306,9 +1303,7 @@ correctly.
 *Preconditions:*
 
 * *User has a profile created*
-* *User has existing savings account*
-* *User has existing investment account*
-* *User has existing card*
+* *User has at least an existing card, savings account or investment account*
 * *User has existing transaction records*
 
 *Main success scenario:*
@@ -1610,7 +1605,7 @@ Use case ends.
 . User chooses to view recurring expenditure.
 . System requests the savings account to be listed.
 . User enters the savings account to be listed.
-. System displays all recurring payments in chronological order.
+. System displays all recurring payments.
 +
 Use case ends.
 
@@ -1653,8 +1648,8 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to edit recurring expenditure.
-. System requests from user the recurring expenditure to be edited.
-. User specifies the recurring expenditure.
+. System requests from user the recurring expenditure to be edited and the savings account.
+. User specifies the recurring expenditure and the savings account.
 . System requests for the new recurring expenditure details.
 . User enters the new recurring expenditure details.
 . System updates the recurring expenditure.
@@ -1663,10 +1658,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid recurring expenditure being specified.
-** 3a1. System requests for the correct recurring expenditure.
-** 3a2. User re-enters the recurring expenditure.
-** Steps 3a1-3a2 are repeated until the recurring expenditure entered are correct.
+* 3a. System detects invalid recurring expenditure or savings account being specified.
+** 3a1. System requests for the correct recurring expenditure and savings account.
+** 3a2. User re-enters the recurring expenditure and savings account.
+** Steps 3a1-3a2 are repeated until the recurring expenditure and savings account are entered correctly.
 * Use case resumes from step 4.
 * 5a. System detects invalid recurring expenditure details.
 ** 5a1. System requests for the correct recurring expenditure details.
@@ -1926,8 +1921,8 @@ Use case ends.
 
 
 
-*Actor: Organized User* +
-[[UC-36]] *Use case: UC36 - Gain achievement* +
+*Actor: Organised User* +
+[[UC-36]] *Use case: UC36 - List card details* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -1944,8 +1939,8 @@ Use case ends.
 
 
 
-*Actor: Organized User* +
-[[UC-37]] *Use case: UC37 - Gain achievement* +
+*Actor: Organised User* +
+[[UC-37]] *Use case: UC37 - List card expenditures* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -1985,18 +1980,18 @@ Use case ends.
 *Main success scenario:*
 
 . User choose to search for specific bank account, credit card or bonds.
-. System requests for the keyword to be used for searching.
-. User specifies the keyword to be used for searching.
+. System requests for the keywords to be used for searching.
+. User specifies the keywords to be used for searching.
 . System displays information found from the search.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid keyword to be used for searching.
-** 3a1. System requests for the correct keyword to be used for searching.
-** 3a2. User re-enters the keyword to be used for searching.
-** Steps 3a1-3a2 are repeated until the keyword to be used for searching is entered correctly.
+* 3a. System detects invalid keywords to be used for searching.
+** 3a1. System requests for the correct keywords to be used for searching.
+** 3a2. User re-enters the keywords to be used for searching.
+** Steps 3a1-3a2 are repeated until the keywords to be used for searching is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -2097,18 +2092,19 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to edit credit card expenditure record.
-. System requests for the new expenditure details and the expenditure to be edited.
-. User enters new expenditure details and the expenditure to be edited.
+. System requests for the new expenditure details, expenditure to be edited and name of card.
+. User enters new expenditure details, expenditure to be edited and name of card.
 . System updates the credit card expenditure record.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid expenditure details or expenditure to be edited.
-** 3a1. System requests for the correct expenditure details and expenditure to be edited.
-** 3a2. User re-enters the expenditure details and expenditure to be edited.
-** Steps 3a1-3a2 are repeated until the expenditure details and expenditure to be edited entered are correct.
+* 3a. System detects invalid new expenditure details, expenditure to be edited or name of card.
+** 3a1. System requests for the correct new expenditure details, expenditure to be edited and name of card.
+** 3a2. User re-enters the new expenditure details, expenditure to be edited and name of card.
+** Steps 3a1-3a2 are repeated until the new expenditure details, expenditure to be edited and name of card entered are
+correct.
 ** Use case resumes from step 4.
 
 
@@ -2138,8 +2134,7 @@ Use case ends.
 ** 3a1. System requests for the correct expenditure to be deleted and the credit card to delete the expenditure from.
 ** 3a2. User re-enters the expenditure to be deleted and the credit card to delete the expenditure from.
 ** Steps 3a1-3a2 are repeated until the expenditure to be deleted and the credit card to delete the expenditure from are
-
-entered correctly.
+ entered correctly.
 ** Use case resumes from step 4.
 
 
