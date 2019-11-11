@@ -19,7 +19,6 @@ public class Food {
     protected double cost;
     protected int stock;
     protected Date expiryDate;
-    protected double foodRevenue;
 
     /**
      * The default constructor. Call the other constructor (overloading) with (null) as argument.
@@ -39,7 +38,6 @@ public class Food {
         this.price = 0;
         this.cost = 0;
         this.stock = 0;
-        this.foodRevenue = 0;
     }
 
     /**
@@ -112,25 +110,6 @@ public class Food {
      */
     public Date getExpiryDate() {
         return expiryDate;
-    }
-
-
-    /**
-     * Getter for the revenue of a food.
-     *
-     * @return The revenue of a food.
-     */
-    public double getFoodRevenue() {
-        return foodRevenue;
-    }
-
-    /**
-     * Setter for the revenue of a food.
-     *
-     * @param revenue The new revenue to be set.
-     */
-    public void setFoodRevenue(double revenue) {
-        this.foodRevenue = revenue;
     }
 
     /**

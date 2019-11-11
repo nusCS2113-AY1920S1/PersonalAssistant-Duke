@@ -12,7 +12,7 @@ class AddCommandParserTest {
 
     @Test
     public void execute_parse_correctly() throws ParserException {
-        String[] inputs = {"add","test","-t","test","-p","1.1",
+        final String[] inputs = {"add","test","-t","test","-p","1.1",
                 "-s","100"};
         Food expected = new Food("test");
         expected.setType("test");

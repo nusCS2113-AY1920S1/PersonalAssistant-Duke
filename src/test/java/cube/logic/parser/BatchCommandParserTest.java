@@ -33,17 +33,6 @@ class BatchCommandParserTest {
     }
 
     @Test
-    public void execute_empty_field() {
-        String[] inputs = {"batch", "-e"};
-        try {
-            new BatchCommandParser().parse(inputs);
-            fail("Fail to detect empty field");
-        } catch (ParserException e) {
-            assertEquals(ParserErrorMessage.EMPTY_FIELD, e.getMessage());
-        }
-    }
-
-    @Test
     public void execute_repetitive_parameter() {
         String[] inputs = {"batch", "-i", "A", "-i", "A"};
         try {

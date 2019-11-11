@@ -21,6 +21,8 @@ public class ParserErrorMessage {
             + "alphanumeric characters and spaces, and cannot be blank or start with '-'";
     public static final String INVALID_NUMBER
         = "OOPS!!! The number inside input should only be non-negative numerical and less than 10000.00.";
+    public static final String INVALID_INTEGER
+            = "OOPS!!! The number inside input should only be non-negative integer and less than 10000.00.";
     public static final String INVALID_SORT_TYPE
         = "OOPS!!! The sort type can only be expiry/name/stock.";
     public static final String INVALID_PARAM_RANGE

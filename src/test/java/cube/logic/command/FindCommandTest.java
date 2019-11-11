@@ -10,7 +10,7 @@ import cube.storage.StorageManager;
 import org.junit.jupiter.api.Test;
 
 import static cube.testutil.Assert.assertThrowEquals;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FindCommandTest {
 

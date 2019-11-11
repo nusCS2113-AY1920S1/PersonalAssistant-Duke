@@ -1,7 +1,19 @@
+/**
+ * The primary window for the GUI, consists of multiple placeholders to load GUI elements,
+ * as well as where most of the logic for GUI takes place.
+ *
+ * @author kuromono
+ */
+
 package cube.ui;
 
 import cube.exception.CubeException;
-import cube.logic.command.*;
+import cube.logic.command.Command;
+import cube.logic.command.ProfitCommand;
+import cube.logic.command.ConfigCommand;
+import cube.logic.command.SoldCommand;
+import cube.logic.command.AddCommand;
+import cube.logic.command.DeleteCommand;
 import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
 import cube.logic.parser.ParserUtil;
@@ -24,9 +36,6 @@ import javafx.stage.StageStyle;
 
 import java.util.logging.Logger;
 
-/**
- * Main window.
- */
 public class MainWindow extends UiManager<Stage> {
     public static final String FXML = "MainWindow.fxml";
 
@@ -68,10 +77,11 @@ public class MainWindow extends UiManager<Stage> {
     private final Logger logger = LogUtil.getLogger(MainWindow.class);
 
     /**
-     * Main window.
-     * @param primaryStage primary stage.
-     * @param storageManager storage manager.
-     * @param storage storage.
+     * Default constructor for MainWindow. Initialises all the required objects for Cube.
+     *
+     * @param primaryStage   PrimaryStage for GUI.
+     * @param storageManager StorageManager containing all the data storages.
+     * @param storage        File Utility the handles read/write operations.
      */
     public MainWindow(Stage primaryStage, StorageManager storageManager,
                       FileUtilJson<StorageManager> storage) {
@@ -82,7 +92,7 @@ public class MainWindow extends UiManager<Stage> {
         this.storage = storage;
         this.configStorage = storageManager.getConfig();
         this.modelManager = new ModelManager(storageManager.getFoodList(),
-                storageManager.getSalesHistory(), storageManager.getPromotionList());
+            storageManager.getSalesHistory(), storageManager.getPromotionList());
     }
 
     /**
@@ -110,7 +120,7 @@ public class MainWindow extends UiManager<Stage> {
 
         ProfitCommand.generateAnnualProfitRevenue(modelManager);
         overviewDisplay = new OverviewDisplay(storageManager.getFoodList().size(),
-                ProfitStorage.getAnnualProfit(), ProfitStorage.getAnnualRevenue());
+            ProfitStorage.getAnnualProfit(), ProfitStorage.getAnnualRevenue());
         overviewDisplayPlaceholder.getChildren().add(overviewDisplay.getRoot());
 
         listPanel = new ListPanel(storageManager.getFoodList(), this::executeSell, this::executeEdit);
@@ -120,6 +130,9 @@ public class MainWindow extends UiManager<Stage> {
         statusbarPlaceholder.getChildren().add(statusBar.getRoot());
     }
 
+    /**
+     * Initialises the window size and set the maximum width and height.
+     */
     private void initWindowSize() {
         final double windowHeight = configStorage.getUiConfig().getWindowHeight();
         final double windowWidth = configStorage.getUiConfig().getWindowWidth();
@@ -139,6 +152,9 @@ public class MainWindow extends UiManager<Stage> {
         }
     }
 
+    /**
+     * Initialises the ability for the GUI window to be dragged with a mouse.
+     */
     private void initWindowDrag() {
         primaryStage.initStyle(StageStyle.UNDECORATED);
 
@@ -161,6 +177,13 @@ public class MainWindow extends UiManager<Stage> {
         });
     }
 
+    /**
+     * Function that allows commands to be executed from within different GUI elements.
+     *
+     * @param command Command string to be parsed and executed.
+     * @return CommandResult that updates the GUI based on the command feedback.
+     * @throws CubeException Exception whenever error within command.
+     */
     private CommandResult executeCommand(String command) throws CubeException {
         try {
             logger.info("Command Entered : " + command);
@@ -171,11 +194,8 @@ public class MainWindow extends UiManager<Stage> {
             // Updates GUI components
             listPanel.updateProductList(storageManager.getFoodList());
 
-            if (c instanceof SoldCommand || c instanceof AddCommand
-                    || c instanceof DeleteCommand) {
+            if (c instanceof SoldCommand) {
                 ProfitCommand.generateAnnualProfitRevenue(modelManager);
-                overviewDisplay.updateOverview(storageManager.getFoodList().size(),
-                        ProfitStorage.getAnnualProfit(), ProfitStorage.getAnnualRevenue());
             }
             if (c instanceof ConfigCommand) {
                 initWindowSize();
@@ -186,6 +206,8 @@ public class MainWindow extends UiManager<Stage> {
             if (result.isExit()) {
                 handleExit();
             }
+            overviewDisplay.updateOverview(storageManager.getFoodList().size(),
+                ProfitStorage.getAnnualProfit(), ProfitStorage.getAnnualRevenue());
 
             storage.save(storageManager);
             return result;
@@ -196,15 +218,25 @@ public class MainWindow extends UiManager<Stage> {
         }
     }
 
+    /**
+     * Function for Edit Button. Generates the edit command for the current object to commandbox.
+     *
+     * @param index Index of current product.
+     */
     private void executeEdit(int index) {
         Food food = storageManager.getFoodList().get(index - 1);
         String command = "update %1$s -t %2$s -p %3$s -c %4$s -s %5$s -e %6$s";
 
         commandBox.setCommandText(String.format(command, food.getName(), food.getType(),
-                food.getPrice(), food.getCost(), food.getStock(),
-                ParserUtil.parseDateToString(food.getExpiryDate())));
+            food.getPrice(), food.getCost(), food.getStock(),
+            ParserUtil.parseDateToString(food.getExpiryDate())));
     }
 
+    /**
+     * Function for Sell Button. Generates the sell command for the current object to commandbox.
+     *
+     * @param index Index of current product.
+     */
     private void executeSell(int index) {
         Food food = storageManager.getFoodList().get(index - 1);
 

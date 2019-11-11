@@ -37,7 +37,7 @@ public class DeleteCommandParser implements ParserPrototype<DeleteCommand> {
 		switch (args[1]) {
 			case "-i":
 				if (!ParserUtil.isValidInteger(args[2])) {
-					throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+					throw new ParserException(ParserErrorMessage.INVALID_INTEGER);
 				}
 				return new DeleteCommand(Integer.parseInt(args[2]),"INDEX");
 			case "-n":

@@ -12,7 +12,7 @@ import cube.model.food.Food;
  */
 public class AddCommandParser implements ParserPrototype<AddCommand> {
 
-    private Food tempFood = new Food();
+	private Food tempFood = new Food();
 
     /**
      * Parse user add command.
@@ -74,7 +74,7 @@ public class AddCommandParser implements ParserPrototype<AddCommand> {
                 throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
             }
             if (!ParserUtil.isValidNumber(args[priceIndex + 1])) {
-                throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+                throw new ParserException(ParserErrorMessage.INVALID_INTEGER);
             }
             tempFood.setPrice(Double.parseDouble(args[priceIndex + 1]));
         }

@@ -1,3 +1,9 @@
+/**
+ * Handles input of commands to be executed within the GUI.
+ *
+ * @author kuromono
+ */
+
 package cube.ui;
 
 import cube.exception.CubeException;
@@ -27,11 +33,21 @@ public class CommandBox extends UiManager<StackPane> {
 
     private final Logger logger = LogUtil.getLogger(CommandBox.class);
 
+    /**
+     * Main Constructor for CommandBox.
+     *
+     * @param commandExecutor Function that contains the logic of executing commands.
+     */
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
     }
 
+    /**
+     * Sets the content to be shown in the command box.
+     *
+     * @param commandText Content to be shown.
+     */
     public void setCommandText(String commandText) {
         commandTextField.clear();
         commandTextField.setText(commandText);
