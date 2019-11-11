@@ -885,7 +885,7 @@ public class MainWindow extends UiPart<Stage> {
             "delete assigned task :#", "find patient :#", "find patient :", "find task :#",
             "find task :", "find assigned tasks :#", "find assigned task :", "update patient :#",
             "update task :#", "show upcoming tasks","show patients","show tasks","show assigned tasks",
-            "show help guide","show today","filter", "clear filter","barchart", "help", "piechart", "bye", "undo",
+            "show help guide","show tomorrow","show today","filter", "clear filter","barchart", "help", "piechart", "bye", "undo",
             "help"};
         TextFields.bindAutoCompletion(userInput, possibleWords);
     }
