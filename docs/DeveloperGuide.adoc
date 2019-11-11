@@ -448,7 +448,7 @@ into the goal list.
 
 Step 6: The goalAdded() method of the UI class will be called to reflect the change to the user.
 
-==== Editing a goal
+===== Editing a goal
 Step 1: The user will enter the command "goal edit <event ID> <goal ID>/<new goal description>". The goalsManagement() method
 is called.
 
@@ -465,7 +465,7 @@ as the new Goal instance.
 
 Step 6: The goalUpdated() method of the UI class will be called to reflect the change to the user.
 
-==== Deleting a goal
+===== Deleting a goal
 Step 1: When the user enters the command "goal delete <event ID> <goal ID>", the goalsManagement() method will be called.
 
 Step 2: The command description will be split up into separate strings. The strings for event ID and goal ID will be parsed
@@ -478,7 +478,7 @@ Step 4: The corresponding event will have its removeGoal() method called which r
 
 Step 5: The goalDeleted() method of the UI class will be called to reflect the change to the user.
 
-==== Setting the goal as achieved
+===== Setting the goal as achieved
 Step 1: When the command "goal achieved <event ID> <goal ID>" is given, the goalsManagement() method will be called.
 
 Step 2: The command description will be split up into separate strings. The strings for event ID and goal ID will be parsed
@@ -496,7 +496,7 @@ particular goal to "true".
 
 Step 7: The goalSetAsAchieved() method of the UI class will be called to reflect the change to the user.
 
-==== Viewing the goal list
+===== Viewing the goal list
 Step 1: The user will enter the command "goal view <event ID>". The goalsManagement() method will be called.
 
 Step 2: Command description will be split and the string for event ID will be parsed into an integer type.
@@ -583,13 +583,14 @@ image::PastEventAndGoalsListManagementSeq.png[]
 === Reminders
 
 ==== How it is implemented
-The reminder function filters out the tasks that are due or are happening before 2359 three days after the current date,
-and prints them out as a reminder for the users.
+The reminder function filters out the tasks that are due or are happening before 2359 an input number of days after 
+the current date, and prints them out as a reminder for the users. If the number of days is not provided, the number
+of days is 3 by default.
 
 After the user enters 'reminder', the Command.execute method calls Command.remindEvents, which in turn calls the
 Ui.printReminders function. The Ui.printReminders function calls the EventList.getReminder method, which uses the
-EventList.filteredList method to filter out a list of events that are due or are happening before 2359 three
-days after the current date. The EventList.filteredList method filters out events from the stored list of events
+EventList.filteredList method to filter out a list of events that are due or are happening before 2359 the input number 
+of days after the current date. The EventList.filteredList method filters out events from the stored list of events
 according to a certain input predicate.
 
 The constructor of the Predicate class takes in two arguments: the reference and the comparator. The reference is the
@@ -599,14 +600,14 @@ The Predicate.check method takes in an input and checks if reference (comp) inpu
 in the Predicate class depending on the type of the reference and input.
 
 In the EventList.getReminder method, the reference of the input Predicate object is set to an eventDate object set to
-2359 three days after the current date, and the comparator is GREATER_THAN. After that, the EventList.getReminder method
-calls the EventList.filteredList method. In the EventList.filteredList method, the system iterates through the list of Events in
-`eventArrayList`.The EventDate object stored in the the Event object is passed into the Predicate.check method. If the
+2359 the input number of days after the current date, and the comparator is GREATER_THAN. After that, the EventList.getReminder 
+method calls the EventList.filteredList method. In the EventList.filteredList method, the system iterates through the list of 
+Events in `eventArrayList`.The EventDate object stored in the the Event object is passed into the Predicate.check method. If the
 EventDate object stored in the the Event object is a date before the reference date, the Predicate.check method returns true
 and the Event object is added to the output. After all the elements in EventList.filteredList are parsed and the
 EventList.filteredList method terminates, EventList.getReminder method returns a string containing the current date and time,
-the date and time at 2359 three days after the current date, and the filtered list of events. This string is printed to
-stdout in the Ui.printReminders function.
+the date and time at 2359 the input number of days after the current date, and the filtered list of events. This string is 
+printed to stdout in the Ui.printReminders function.
 
 ==== Sequence diagram
 The following sequence diagram shows how the reminder functionality works.
@@ -621,6 +622,85 @@ obtains the filtered list of events from `eventArrayList`.
 
 This implementation also implements scalability as the Predicate class and the EventList.filteredList method can be reused for other
 functions.
+
+=== Instruments
+
+==== How it is implemented
+The mistermusik.commons.Instruments.InstrumentList class stores an array list of instruments. Instruments are objects of class
+mistermusic.commons.Instruments.Instrument. Each instance of the mistermusic.commons.Instruments.Instrument class also has an 
+array list of services. Services are objects of class mistermusic.commons.Instruments.Services.
+
+==== Adding an instrument
+
+Step 1: The user will type in the command `instrument add /<instrument name>`. The addInstrument() method from the InstrumentList 
+class is called.
+
+Step 2: The addInstrument() method creates a new instance of Instrument with the given input name. 
+
+Step 3: The getInstrumentIndexAndName() method, which returns a string containing the index of the instrument and the name, is 
+called. 
+
+Step 4: The instrumentAdded() method from the Ui class is then called, which prints a message stating that the instrument has
+been added.
+
+==== Viewing a list of instruments
+
+Step 1: The user will type in the command `instrument view instruments`. The getInstruments() method from the InstrumentList 
+class is called.
+
+Step 2: The getInstruments() method returns a string containing a list of instruments stored in the InstrumentList instance used
+for the program. 
+
+Step 3: The printInstruments() method from the Ui class is then called, which prints out the list of instruments stored in the
+InstrumentList instance used for the program.
+
+==== Servicing an instrument
+
+Step 1: The user will type in the command `instrument service <instrument index> /<brief description of servicing> /<date>`.
+The service() method from the InstrumentList instance is called.
+
+Step 2: The service() method of the InstrumentList instance calls the addService() method of the referenced Instrument stored in the
+InstrumentList instance based on the input index. 
+
+Step 3: The addService() method adds the relevant servicing information to the Instrument instance by creating a new ServiceInfo
+instance and adding it to the array list of ServiceInfo stored in the Instrument instance, and returns the number of ServiceInfo
+instances stored in the array list.
+
+Step 4: The getInstrumentIndexAndName() method of the InstrumentList instance, which returns a string containing the index of 
+the instrument and the name, is called. 
+
+Step 5: The getIndexAndService() method of the InstrumentList instance is called, which in turn calls the getIndexAndService()
+method of the relevant Instrument instance stored in the InstrumentList instance used for the program. Both methods return the 
+index of the required servicing and the brief description of the servicing. The getIndexAndService() method of the Instrument
+instance calls the getServiceInfo() method on the relevant service to obtain the brief description of the servicing. 
+
+Step 6: The serviceAdded() method of the Ui class, which prints a message notifying the user that the servicing information has
+been added, is then called.
+
+==== Viewing a list of instruments
+
+Step 1: The user will type in the command `instrument view services <instrument index>`. The getInstrumentServiceInfo() method from 
+the InstrumentList class is called, which in turn calls the getServiceInfos() method of the relevant Instrument instance stored in 
+the array list of Instruments in the InstrumentList instance. Both methods return the list of servicing done to the relevant
+instrument. The getServiceInfos() function iterates through the stored list of ServiceInfo instances and calls getServiceInfo() on
+all the ServieInfo instances to obtain the descriptions of the servicings.
+
+Step 2: The getInstrumentIndexAndName() method of the InstrumentList instance, which returns a string containing the index of 
+the instrument and the name, is called. 
+
+Step 3: The printServices() method from the Ui class is then called, which prints out the list of servicing stored in a particular
+Instrument instance.
+
+==== Sequence diagram
+The following sequence diagram shows how the instruments functionality works.
+====
+
+====
+
+==== Why it is implemented this way
+The implementation makes use of three classes, which are InstrumentList, Instrument and ServiceInfo. This allows for easier 
+testing as each of the classes represent a different component of the functionality. The InstrumentList instance stores an array 
+list of Instrument instances, an Instrument instance stores an array list of ServiceInfo instances.
 
 
 == Documentation
@@ -919,6 +999,9 @@ Expected: Prints a list of tasks that contains the `<key>`.
 Key in `reminder` +
 Expected: Prints a list of tasks to be completed in the next three days.
 
+Key in `reminder 2` +
+Expected: Prints a list of tasks to be completed in the next two days.
+
 === View all tasks in a certain day
 Key in view `<date>`, where `<date>` has the format dd-MM-yyyy. +
 Expected: Prints a list of tasks that occurs on the given `<date>`.
@@ -1014,3 +1097,18 @@ of all concerts in the month denoted by MM-yyyy.
 
 . The user command `budget set 35` will change the stipulated budget to the value stated ($35).
 Similarly, `budget set 70` will set the budget to a value of $70.
+
+=== Instruments
+Key in `instrument add /violin` +
+Expected: An instrument named 'violin' is added to the stored list of instruments, and a message
+is printed stating that this has been done.
+
+Key in `instrument view instruments` +
+Expected: The list of instruments stored in the system is printed out in order of their indexing.
+
+Key in `instrument service 1 /rehair bow /12-12-2012` +
+Expected: A servicing information is added to the instrument stored with index 1 that 'rehair bow' is
+done to the instrument on 12-12-2012. A message is also printed stating that this has been done.
+
+Key in `instrument view services 1` +
+Expected: The list of servicing done to the instrument stored with index 1 is printed out.

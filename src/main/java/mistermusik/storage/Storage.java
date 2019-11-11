@@ -72,7 +72,7 @@ public class Storage {
         try {
             this.scanFile = new Scanner(file);
             System.out.println("Event list loaded!");
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException fileNotFound) {
 
             System.out.println("No mistermusik.Main file found!\nCreating new file...");
 

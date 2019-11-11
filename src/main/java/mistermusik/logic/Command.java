@@ -2,7 +2,7 @@ package mistermusik.logic;
 
 import mistermusik.commons.Contact;
 import mistermusik.commons.Goal;
-import mistermusik.commons.Instruments.InstrumentList;
+import mistermusik.commons.instruments.InstrumentList;
 import mistermusik.commons.budgeting.CostExceedsBudgetException;
 import mistermusik.commons.events.eventtypes.Event;
 import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
@@ -253,11 +253,6 @@ public class Command {
                 String[] splitChecklist = continuation.split("/");
                 String[] checklistCommand = splitChecklist[0].split(" ");
                 int eventIndex = Integer.parseInt(checklistCommand[1]) - 1;
-                //                if(!((events.getEvent(eventIndex).getType()=='P')
-                //                || (events.getEvent(eventIndex).getType()=='L'))) {
-                //                    ui.printNoSuchEvent();
-                //                    return;
-                //                  }
                 if (checklistCommand.length == 3) {
                     int checklistIndex = Integer.parseInt(checklistCommand[2]);
                     switch (checklistCommand[0]) {
@@ -405,8 +400,8 @@ public class Command {
         while (daysFree.size() <= 3) {
             boolean isFree = true;
             for (Event viewEvent : events.getEventArrayList()) {
-                if (viewEvent.getStartDate().getFormattedDateString().substring(0, 16).equals(
-                        dayToCheckIfFreeObject.getFormattedDateString())) {
+                if (viewEvent.getStartDate().getFormattedDateString().substring(0, 16)
+                        .equals(dayToCheckIfFreeObject.getFormattedDateString())) {
                     isFree = false;
                     break;
                 }
@@ -534,7 +529,7 @@ public class Command {
     //@@author
 
     /**
-     * adds a new to-do to the list of events in EventList object.
+     * Adds a new to-do to the list of events in EventList object.
      */
     private void addNewTodo(EventList events, UI ui) {
         if (continuation.isEmpty()) {
@@ -947,7 +942,7 @@ public class Command {
          * @return organized entryForEvent object containing information required for a new event.
          */
         private EntryForEvent invoke() throws NumberFormatException, ParseException {
-
+            int nonRecurring = -1;
             String[] splitEvent = continuation.split("/");
             description = splitEvent[0];
 
@@ -961,17 +956,15 @@ public class Command {
 
             if (!DateStringValidator.isValidDateForEvent(startDate)
                     || !DateStringValidator.isValidDateForEvent(endDate)) {
-
                 throw new ParseException("Invalid date for Event", 0);
             }
 
-            if (splitEvent.length == 2) {
-                //cant find period extension of command, event is non-recurring
-                period = NON_RECURRING;
+            if (splitEvent.length == 2) { //cant find period extension of command, event is non-recurring
+                period = nonRecurring;
             } else {
                 if (command.equals("concert")) {
                     cost = Integer.parseInt(splitEvent[2]);
-                    period = NON_RECURRING;
+                    period = nonRecurring;
                 } else {
                     period = Integer.parseInt(splitEvent[2]);
                 }

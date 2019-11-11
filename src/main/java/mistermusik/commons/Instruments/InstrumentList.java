@@ -1,4 +1,4 @@
-package mistermusik.commons.Instruments;
+package mistermusik.commons.instruments;
 
 import mistermusik.commons.events.formatting.EventDate;
 
@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 public class InstrumentList {
     private ArrayList<Instrument> instrumentList;
-
-//    private boolean isAchieved;
 
     /**
      * Creates a Goal instance with the goal input by user and a boolean to check if goal is achieved.
@@ -49,5 +47,5 @@ public class InstrumentList {
     public String getIndexAndService(int instrumentIndex, int serviceIndex) {
         return instrumentList.get(instrumentIndex - 1).getIndexAndService(serviceIndex);
     }
-
 }
+
