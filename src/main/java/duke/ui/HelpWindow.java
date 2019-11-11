@@ -57,7 +57,7 @@ public class HelpWindow extends AnchorPane {
         /**
          * Create action event when command is selected from drop down list
          */
-        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+        EventHandler<ActionEvent> event = new EventHandler<>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 if (cbCommands.getSelectionModel().getSelectedItem().equals("todo")) {
@@ -163,14 +163,14 @@ public class HelpWindow extends AnchorPane {
                     getExample.setText(cbCommands.getValue());
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("friendlier syntax")) {
                     getDescription.setText(" Alternative shortened commands for inputting the equivalent commands.\n"
-                                            + " Format is as follows : | command: shortened cmd |");
+                            + " Format is as follows : | command: shortened cmd |");
                     getFormat.setText(" | deadline: dl | fixedduration: fd | setpriority: sp |"
                             + " findpriority: fp | priority: lp |\n"
                             + " | addcontacts: ac | listcontacts: lc | deletecontacts: dc | findcontacts: fc |\n"
                             + " | budget add: budget + | budget minus: budget - | budget view: budget list |\n");
                     getExample.setText(" ac Prof Lim, 81234567, limkopi@nus.edu.sg, Singapore \n"
-                                        + " dl computing project /by 19/11/2019 2359 \n"
-                                        + " budget - 1000 New Laptop ");
+                            + " dl computing project /by 19/11/2019 2359 \n"
+                            + " budget - 1000 New Laptop ");
                 }
             }
         };
