@@ -14,33 +14,34 @@ logic -> logic : isPaidCmd()
 activate logic LOGIC_COLOR_T1
 deactivate logic
 logic -> logic : verifyPaidCommand
-
-logic -> logic : AddDebtCommand()
+activate logic LOGIC_COLOR_T1
+deactivate logic LOGIC_COLOR_T1
+logic -> logic : RemoveNameCommand()
 activate logic LOGIC_COLOR_T1
 
-logic -> model : addToRecordList(mode, newDebt)
+logic -> model : addWithIndex(index, newDebt)
 activate model MODEL_COLOR_T2
 deactivate logic
 
-model -[LOGIC_COLOR]> storage : setDebts(get())
+model -> storage : setBill(get())
 activate storage STORAGE_COLOR
 
-storage -[STORAGE_COLOR]> storage : save()
+storage -> storage : save()
 activate storage STORAGE_COLOR_T1
 deactivate storage
 
-storage --[STORAGE_COLOR]> model
+storage --> model
 deactivate storage
 
-model --[MODEL_COLOR]> logic
+model --> logic
 deactivate model
 
-logic -[UI_COLOR]> ui : echoAddDebt(newDebt)
+logic -> ui : printRemoveNameMessage()
 activate ui UI_COLOR
 
-ui--[UI_COLOR]> logic
+ui--> logic
 deactivate ui
 
-logic --[LOGIC_COLOR]> user
+logic --> user
 deactivate logic
 @enduml

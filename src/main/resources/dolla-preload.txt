@@ -18,3 +18,8 @@ BI | 3 | 10.5 | 3.5 | xx, yy, zz
 BU | 10.0 | daily
 BU | 1000.0 | monthly
 S | 100.0 | weekly
+shortcut | expense | 6.0 | lunch
+shortcut | income | 30.0 | tuition
+shortcut | expense | 50.0 | clothes
+shortcut | income | 100.0 | lottery
+shortcut | expense | 20.0 | groceries

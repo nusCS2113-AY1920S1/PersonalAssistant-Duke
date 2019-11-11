@@ -22,7 +22,7 @@ public class ExecuteShortcutCommand extends Command {
     private String mode;
 
     public ExecuteShortcutCommand(String index, String mode) {
-        this.index = Integer.parseInt(index);
+        this.index = Integer.parseInt(index) - 1;
         this.mode = mode;
     }
 

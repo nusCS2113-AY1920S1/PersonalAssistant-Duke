@@ -17,7 +17,7 @@ public class AddShortcutCommand extends Command {
     private String mode;
 
     public AddShortcutCommand(String index, String mode) {
-        this.index = Integer.parseInt(index);
+        this.index = Integer.parseInt(index) - 1;
         this.mode = mode;
     }
 

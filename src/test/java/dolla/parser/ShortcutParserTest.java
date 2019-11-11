@@ -69,7 +69,7 @@ public class ShortcutParserTest {
         inputLine = "cs 1";
         ShortcutParser shortcutParser = new ShortcutParser(inputLine);
         Command c = shortcutParser.parseInput();
-        expectedCommand = "create shortcut 1 in mode shortcut";
+        expectedCommand = "create shortcut 0 in mode shortcut";
         assertEquals(expectedCommand, c.getCommandInfo());
     }
 
@@ -87,7 +87,7 @@ public class ShortcutParserTest {
         inputLine = "es 1";
         ShortcutParser shortcutParser = new ShortcutParser(inputLine);
         Command c = shortcutParser.parseInput();
-        expectedCommand = "execute shortcut 1 in mode shortcut";
+        expectedCommand = "execute shortcut 0 in mode shortcut";
         assertEquals(expectedCommand, c.getCommandInfo());
     }
 
