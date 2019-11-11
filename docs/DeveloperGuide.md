@@ -250,7 +250,7 @@ A subclass of  `Storage.java`, that can store `dishes` in the recipebook in a ce
 
 ##### 2.5.5 Printable
 
-![Printable](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/PrintableUML.png)
+![Printable](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/Printable.png)
 
 Figure. Structure of Printable
 
