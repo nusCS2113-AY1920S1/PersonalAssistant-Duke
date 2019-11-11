@@ -153,6 +153,23 @@ will add 20 lockers from serial number 123-142.
 Auto-Allocates locker to the student based on their preferences +
 Format: `assign n/NAME e/EMAIL i/ID m/MAJOR f/STARTDATE t/ENDDATE p/PREFERENCES`
 
+[NOTE]
+The `NAME` should have only alpha numeric characters
+
+[NOTE]
+The `EMAIL` consists of two parts local-part@domain and should satisfy the following constraints: +
+   1. The local-part and the domain name are separated by '@' +
+   2. The local-part should contain only alphanumeric characters and special symbols like (!#$%&'*+/=?`{|}~^.-) +
+   3. The domain name should contain at least two characters and start and end with alphanumeric characters +
+   4. The domain name should consists of only alphanumeric characters, a '.' " " or a '-' in the middle (optional). +
+Example: johndoe@example.com
+
+[NOTE]
+The `ID` should adhere to the following constraints: +
+  1. alpha numeric characters and should have only 9 characters +
+  2. It should start with the character 'A' +
+  3. It should end with a letter +
+  4. It should contain only digits between the first and the last character
 
 ****
 * Assigns locker to the student based on their preferences.
