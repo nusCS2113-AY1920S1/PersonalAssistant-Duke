@@ -61,12 +61,6 @@ public class CommandStructure {
                 CommandKeys.ADD, CommandKeys.REMOVE, CommandKeys.CLEAR
             });
 
-            /*
-            put(COMMANDKEYS.get, new COMMANDKEYS[]{
-                COMMANDKEYS.recommendation
-            });
-            */
-
             put(CommandKeys.WATCHLIST, new CommandKeys[] {
                 CommandKeys.ADD,  CommandKeys.SET,  CommandKeys.DELETE
             });
