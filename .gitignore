@@ -19,3 +19,4 @@ bin/
 # Logs
 *.log
 *.lck
+DucatsLogger.log.*
