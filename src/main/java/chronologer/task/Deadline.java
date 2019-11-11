@@ -25,7 +25,7 @@ public class Deadline extends Task implements Serializable {
     public Deadline(String description, LocalDateTime atDate) {
         super(description);
         this.startDate = atDate;
-        setReminder(1);
+        setReminder(DEFAULT_REMINDER_VALUE);
         this.type = DEADLINE;
     }
 
