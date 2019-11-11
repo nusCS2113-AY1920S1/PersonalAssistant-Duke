@@ -7,12 +7,12 @@ import ducats.components.Song;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AsciiCommandTest {
 
     /* Test to be redesigned
+
     //@@author Samuel787
     @Test
     public void testPrintBarAscii_validBars_success() {
@@ -175,6 +175,8 @@ public class AsciiCommandTest {
         }
     }
 
+*/
+
     @Test
     public void testPrintSongAscii_validGroups_success() {
         //test case 1
@@ -190,29 +192,45 @@ public class AsciiCommandTest {
             song.addBar(new Bar(0, "4_LG 4_LA 4_MC 4_UD"));
             song.addBar(new Bar(0, "4_LB 4_RT 4_LB 4_RT"));
             song.addBar(new Bar(0, "4_LF 4_LD 4_UA 4_UA"));
-            String result =
-                    "UC:          @. @. @                    @              @                                     \n"
-                   + "UB:          --------       -! -        --            ---                                    \n"
-                   + "UA:                                       @          @                                   @ @ \n"
-                   + "UG: --------|--------|--------|--------|----@---|--@-----|--------|--------|--------|--------\n"
-                   + "UF:         |        |        |        |      @ |@       |        |        |        |        \n"
-                   + "UE: --------|--------|--------|--------|--------|--------|--------|--------|--------|--------\n"
-                   + "UD:         |        |        |        |        |        |        |      @ |        |        \n"
-                   + "MC: @-^-@-^-|--------|%---^.--|@-^-@-^-|--------|--------|--------|----@---|--^---^-|--------\n"
-                   + "LB:         |        |        |        |        |        |        |        |@   @   |        \n"
-                   + "LA: --------|--------|--------|--------|--------|--------|--------|--@-----|--------|--------\n"
-                   + "LG:         |        |        |        |        |        |        |@       |        |        \n"
-                   + "LF: --------|--------|--------|--------|--------|--------|------@-|--------|--------|@-------\n"
-                   + "LE:                                                           @                              \n"
-                   + "LD:                                                        -@---                      -@-    \n"
-                   + "LC:                                                       @                                  \n";
+            String result ="UC:          @. @. @                    @              @                    \n" +
+                    "UB:          --------       -! -        --            ---                   \n" +
+                    "UA:                                       @          @                      \n" +
+                    "UG: --------|--------|--------|--------|----@---|--@-----|--------|--------|\n" +
+                    "UF:         |        |        |        |      @ |@       |        |        |\n" +
+                    "UE: --------|--------|--------|--------|--------|--------|--------|--------|\n" +
+                    "UD:         |        |        |        |        |        |        |      @ |\n" +
+                    "MC: @-^-@-^-|--------|%---^.--|@-^-@-^-|--------|--------|--------|----@---|\n" +
+                    "LB:         |        |        |        |        |        |        |        |\n" +
+                    "LA: --------|--------|--------|--------|--------|--------|--------|--@-----|\n" +
+                    "LG:         |        |        |        |        |        |        |@       |\n" +
+                    "LF: --------|--------|--------|--------|--------|--------|------@-|--------|\n" +
+                    "LE:                                                           @             \n" +
+                    "LD:                                                        -@---            \n" +
+                    "LC:                                                       @                 \n" +
+                    "\n" +
+                    "UC:                  \n" +
+                    "UB:                  \n" +
+                    "UA:              @ @ \n" +
+                    "UG: --------|--------\n" +
+                    "UF:         |        \n" +
+                    "UE: --------|--------\n" +
+                    "UD:         |        \n" +
+                    "MC: --^---^-|--------\n" +
+                    "LB: @   @   |        \n" +
+                    "LA: --------|--------\n" +
+                    "LG:         |        \n" +
+                    "LF: --------|@-------\n" +
+                    "LE:                  \n" +
+                    "LD:           -@-    \n" +
+                    "LC:                  \n" +
+                    "\n";
             assertEquals(result, AsciiCommand.printSongAscii(song));
         } catch (DucatsException e) {
             fail();
         }
     }
 
-     */
+
 
     //@@author rohan-av
     @Test

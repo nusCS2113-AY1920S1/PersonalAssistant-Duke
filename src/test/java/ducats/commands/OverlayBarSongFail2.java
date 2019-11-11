@@ -18,7 +18,7 @@ import ducats.components.Song;
 import ducats.commands.OverlayBarSong;
 import ducats.components.SongConverter;
 
-public class OverlayBarSongFail2 {
+public class   OverlayBarSongFail2 {
     @Test
 
     //this test case tests when overlaying 1 bar onto another

@@ -42,7 +42,7 @@ public class GroupCommand extends Command<SongList> {
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
         if (message.length() < 6 || !message.substring(0, 6).equals("group ")) {
             //exception if not fully spelt
-            throw new DucatsException(message);
+            throw new DucatsException(message, "group_format");
         }
         try {
             message = message.substring(6).trim();
@@ -54,6 +54,7 @@ public class GroupCommand extends Command<SongList> {
             endNo = Integer.parseInt(sections[1]);
             name = sections[2];
             createGroup(songList, startNo, endNo, name);
+            updateSong(storage, songList);
             return ui.formatGroupBar(startNo, endNo, name);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DucatsException(message, "group");
@@ -62,12 +63,27 @@ public class GroupCommand extends Command<SongList> {
 
     private void createGroup(SongList songList, int startNo, int endNo, String name) throws DucatsException {
         boolean nameAlreadyExists = groupNameExists(songList, name);
-        if (songList.getSize() > 0 && !nameAlreadyExists) {
+        if(songList.getSize() < 1){
+            throw new DucatsException(message, "no_song_in_songlist");
+        } else if (nameAlreadyExists){
+            throw new DucatsException(message, "name_exists");
+        } else {
             int activeSongIndex = songList.getActiveIndex();
             Song song = songList.getSongIndex(activeSongIndex);
             Group group = createGroup(song, name, startNo, endNo);
             songList.getSongIndex(songList.getActiveIndex()).getGroups().add(group);
-        } else {
+        }
+//        if (songList.getSize() > 0 && !nameAlreadyExists) {
+//
+//        } else {
+//            throw new DucatsException(message, "name_exists");
+//        }
+    }
+
+    private void updateSong(Storage storage, SongList songList) throws DucatsException{
+        try {
+            storage.updateFile(songList);
+        } catch (Exception e) {
             throw new DucatsException(message, "group");
         }
     }
@@ -98,7 +114,7 @@ public class GroupCommand extends Command<SongList> {
 
         //check that the bounds are valid
         if (start < 1 || end > song.getNumBars()) {
-            throw new DucatsException("", "group");
+            throw new DucatsException("", "no_index");
         }
 
         ArrayList<Bar> myBars = new ArrayList<>();

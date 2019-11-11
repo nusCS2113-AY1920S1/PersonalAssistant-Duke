@@ -58,7 +58,7 @@ public class CopyCommand extends Command<SongList> {
         }
         int activeSong = songList.getActiveIndex();
         song = songList.getSongIndex(activeSong);
-        try {
+
             message = message.substring(5).trim();
             String[] sections = message.split(" ");
             if (sections.length < 1 || sections.length > 3) {
@@ -95,9 +95,7 @@ public class CopyCommand extends Command<SongList> {
                 insertCopiedBars(copyStartNum, copyEndNum, pasteStartNum);
                 return ui.formatCopy(null, copyStartNum, copyEndNum, pasteStartNum, 3);
             }
-        } catch (Exception e) {
-            throw new DucatsException(message, "copy");
-        }
+
     }
 
     /**
@@ -130,7 +128,7 @@ public class CopyCommand extends Command<SongList> {
             }
         }
         if (copyGroup == null) {
-            throw new DucatsException("", "copy");
+            throw new DucatsException("", "group_not_found");
         }
 
         for (int i = 0; i < copyGroup.size(); i++) {
@@ -150,7 +148,7 @@ public class CopyCommand extends Command<SongList> {
      */
     private void insertVerse(String name, int i) throws DucatsException {
         if (i < 1 || i > song.getNumBars()) {
-            throw new DucatsException("", "copy");
+            throw new DucatsException("", "no_index");
         }
 
         ArrayList<Group> groupList = song.getGroups();
@@ -163,7 +161,7 @@ public class CopyCommand extends Command<SongList> {
             }
         }
         if (copyGroup == null) {
-            throw new DucatsException("", "copy");
+            throw new DucatsException("", "group_not_found");
         }
 
         ArrayList<Bar> songBars = song.getBars();
@@ -197,9 +195,9 @@ public class CopyCommand extends Command<SongList> {
     private void copyBarsToEnd(int copyStart, int copyEnd) throws DucatsException {
         int songNumBars = song.getNumBars();
         if (copyStart < 1 || copyEnd < 1
-                || copyStart > songNumBars || copyStart > songNumBars
+                || copyStart > songNumBars
                 || copyEnd < copyStart) {
-            throw new DucatsException("", "copy");
+            throw new DucatsException("", "no_index");
         }
         ArrayList<Bar> copyBars = new ArrayList<>();
         ArrayList<Bar> songBars = song.getBars();
@@ -229,7 +227,7 @@ public class CopyCommand extends Command<SongList> {
         if (copyStart < 1 || copyEnd < 1 || pasteStart < 1
                 || copyStart > songNumBars || pasteStart > songNumBars
                 || copyEnd < copyStart) {
-            throw new DucatsException("", "copy");
+            throw new DucatsException("", "no_index");
         }
         ArrayList<Bar> copyBars = new ArrayList<>();
         ArrayList<Bar> songBars = song.getBars();

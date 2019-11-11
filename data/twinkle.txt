@@ -4,5 +4,6 @@ twinkle aminor 120
 [[MCs],[MC],[MC],[MC],[MC],[MC],[LDs],[LD]]
 [[MCs],[UDs],[UD],[UD],[RTs],[RT],[RT],[RT]]
 [[MCs],[UDs],[UD],[UD],[RTs],[RT],[RT],[RT]]
+[[MCs],[MC],[MC],[MC],[MCs],[MC],[MC],[MC]]
 groups:
 goodstuff [[MCs],[MC],[MC],[MC],[MC],[MC],[LDs],[LD]] [[MCs],[UDs],[UD],[UD],[RTs],[RT],[RT],[RT]] 
