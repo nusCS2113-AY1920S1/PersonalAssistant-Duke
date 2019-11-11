@@ -12,8 +12,24 @@ import seedu.hustler.logic.command.schedulecommands.ScheduleCommand;
 import seedu.hustler.logic.command.schedulecommands.UpdateEntry;
 import seedu.hustler.logic.command.shop.InventoryCommand;
 import seedu.hustler.logic.command.shop.ShopListCommand;
-import seedu.hustler.logic.command.task.*;
-import seedu.hustler.logic.command.timer.*;
+import seedu.hustler.logic.command.task.InvalidCommand;
+import seedu.hustler.logic.command.task.DeleteCommand;
+import seedu.hustler.logic.command.task.AddCommand;
+import seedu.hustler.logic.command.task.ByeCommand;
+import seedu.hustler.logic.command.task.EditCommand;
+import seedu.hustler.logic.command.task.DoneCommand;
+import seedu.hustler.logic.command.task.FindCommand;
+import seedu.hustler.logic.command.task.ListCommand;
+import seedu.hustler.logic.command.task.RedoCommand;
+import seedu.hustler.logic.command.task.SnoozeCommand;
+import seedu.hustler.logic.command.task.RemindCommand;
+import seedu.hustler.logic.command.task.SortCommand;
+import seedu.hustler.logic.command.task.UndoCommand;
+import seedu.hustler.logic.command.timer.PauseTimerCommand;
+import seedu.hustler.logic.command.timer.ResumeTimerCommand;
+import seedu.hustler.logic.command.timer.ShowTimerCommand;
+import seedu.hustler.logic.command.timer.StopTimerCommand;
+import seedu.hustler.logic.command.timer.TimerCommand;
 import seedu.hustler.data.CommandLog;
 
 /**
