@@ -43,16 +43,7 @@ public class StudyAssistCommandParser extends Command {
                         Stack<ArrayList<Task>> commandStack,
                         ArrayList<Task> deletedTask,
                         TriviaManager triviaManager) throws IOException, DukeException, ParseException {
-        System.out.println("Welcome to Module Planner!");
-        System.out.println("__________________________________________________________");
-        System.out.println("1. Add module to your plan: add CSXXXX to n(Semester number)");
-        System.out.println("2. Delete module from your plan: Delete CSXXXX from n(Semester number)");
-        System.out.println("3. Shift module to other semester: shift CSXXXX to n(Semester number)");
-        System.out.println("4. See your Study Plan: plan");
-        System.out.println("5. See your Prerequisite of a module: prerequisite CSXXXX(module code)");
-        System.out.println("6. Undo Previous Command: undo");
-        System.out.println("7. Exit Module Planner page: esc");
-        System.out.println("__________________________________________________________");
+        showCommands();
         StudyAssistPageStorage studyStorage = new StudyAssistPageStorage();
         StudyPlannerCommand studyPlan =  new StudyPlannerCommand(studyStorage);
         Stack<ArrayList<ArrayList<String>>> oldStudyPlan = new Stack<>();
@@ -61,8 +52,8 @@ public class StudyAssistCommandParser extends Command {
             String[] splitCommand = command.split(" ");
             if (splitCommand[0].equals("help")) {
                 new HelpCommand().execute(
-                        null, null,null,
-                        null,null,
+                        null, null, null,
+                        null, null,
                         null);
             } else if (splitCommand[0].equals("plan")) {
                 studyPlan.showPlan();
@@ -73,13 +64,15 @@ public class StudyAssistCommandParser extends Command {
                 copyStudyPlan(oldStudyPlan,studyPlan.StudyPlan);
                 new DeleteModuleCommand().execute(studyPlan,studyStorage,ui,oldStudyPlan);
             } else if (splitCommand[0].equals("shift")) {
-                copyStudyPlan(oldStudyPlan,studyPlan.StudyPlan);
-                new ShiftModuleCommand().execute(studyPlan,studyStorage,ui);
+                copyStudyPlan(oldStudyPlan, studyPlan.StudyPlan);
+                new ShiftModuleCommand().execute(studyPlan, studyStorage, ui);
             } else if (splitCommand[0].equals("prerequisite")) {
                 new CheckPrerequisiteCommand().execute(ui, studyStorage);
             } else if (ui.fullCommand.equals("undo")) {
                 studyPlan.StudyPlan = new UndoStudyPlannerCommand()
-                        .undoStudyPlanner(oldStudyPlan,studyPlan.StudyPlan, studyStorage);
+                        .undoStudyPlanner(oldStudyPlan, studyPlan.StudyPlan, studyStorage);
+            } else if (ui.fullCommand.equals("commands")) {
+                showCommands();
             } else if (!ui.fullCommand.equals("moduleplanner")) {
                 System.out.println("Invalid input that i could not understand~");
             }
@@ -101,6 +94,11 @@ public class StudyAssistCommandParser extends Command {
                 + "To exit: bye\n");
     }
 
+    /**
+     * This methods saves a copy for undo function
+     * @param oldStudyPlan data structure stores previous copy.
+     * @param currentMods data structure stores copy after changes.
+     */
     private void copyStudyPlan(Stack<ArrayList<ArrayList<String>>> oldStudyPlan,
                                ArrayList<ArrayList<String>> currentMods) {
         ArrayList<ArrayList<String>> currentPlan = new ArrayList<>();
@@ -114,8 +112,28 @@ public class StudyAssistCommandParser extends Command {
         oldStudyPlan.push(currentPlan);
     }
 
+    /**
+     * This method checks input is esc or not, if yes quit.
+     * @return boolean value of whether inout is esc or not.
+     */
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    /**
+     * This method displays instructions of user inputs.
+     */
+    public void showCommands() {
+        System.out.println("Welcome to Module Planner!");
+        System.out.println("__________________________________________________________");
+        System.out.println("1. Add module to your plan: add CSXXXX to n(Semester number)");
+        System.out.println("2. Delete module from your plan: Delete CSXXXX from n(Semester number)");
+        System.out.println("3. Shift module to other semester: shift CSXXXX to n(Semester number)");
+        System.out.println("4. See your Study Plan: plan");
+        System.out.println("5. See your Prerequisite of a module: prerequisite CSXXXX(module code)");
+        System.out.println("6. Undo Previous Command: undo");
+        System.out.println("7. Exit Module Planner page: esc");
+        System.out.println("__________________________________________________________");
     }
 }
