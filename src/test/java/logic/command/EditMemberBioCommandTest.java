@@ -2,13 +2,14 @@ package logic.command;
 
 import common.DukeException;
 import logic.parser.edit.EditMemberBioParser;
-import logic.parser.edit.EditMemberNameParser;
 import model.Model;
 import model.ModelController;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+//@@author yuyanglin28
 
 public class EditMemberBioCommandTest {
     @Test

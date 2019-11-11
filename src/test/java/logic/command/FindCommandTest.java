@@ -3,13 +3,13 @@ package logic.command;
 import common.DukeException;
 import logic.parser.FindCommandParser;
 import logic.parser.edit.EditTaskDesParser;
-import logic.parser.edit.EditTaskNameParser;
 import model.Model;
 import model.ModelController;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+//@@author yuyanglin28
 
 public class FindCommandTest {
     @Test
