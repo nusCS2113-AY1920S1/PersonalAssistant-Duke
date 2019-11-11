@@ -48,7 +48,7 @@ public class GraphCategoryCommandTest {
     
     
     @Test
-    void testGraphCategoryCommandEmpty() throws MooMooException {
+    void testGraphCategoryCommandInvalid() throws MooMooException {
         ScheduleListStub newCalendar = new ScheduleListStub();
         Budget newBudget = new Budget();
         StorageStub newStorage = new StorageStub();
@@ -60,4 +60,80 @@ public class GraphCategoryCommandTest {
         });
         assertEquals("Please enter an existing category!! Moohoohoo", thrown.getMessage());
     }
+    
+    
+    @Test
+    void testGraphCategoryCommand() throws MooMooException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate date = LocalDate.parse("25/10/2019", formatter);
+        CategoryList newCatList = new CategoryListStub();
+        
+        Category shoes = new Category("shoes");
+        shoes.add(new Expenditure("Value 6", 50.00,  date, "shoes"));
+        
+        Category food = new Category("food");
+        food.add(new Expenditure("Value 6", 50.00,  date, "food"));
+        
+        ScheduleListStub newCalendar = new ScheduleListStub();
+        Budget newBudget = new Budget();
+        StorageStub newStorage = new StorageStub();
+        
+        newCatList.add(shoes);
+        newCatList.add(food);
+        
+        String completeBlock = "";
+        for (int i = 0; i < 100; i += 1) {
+            completeBlock += fullBlock;
+        }
+        String completeTop = "";
+        String completeBottom = "";
+        for (int i = 0; i < 101; i += 1) {
+            completeTop += topBorder;
+            completeBottom += bottomBorder;
+        }
+        
+        Command testGraph = new GraphCategoryCommand("food", 10, 2019);
+        testGraph.execute(newCalendar, newBudget, newCatList, newStorage);
+        assertEquals("       " + ANSI_YELLOW + completeTop
+                + ANSI_RESET + "\n"
+                + ANSI_CYAN + "Value 6 " + completeBlock
+                + "  " + "100.0%\n" + ANSI_RESET
+                + "       " + ANSI_YELLOW + completeBottom
+                + ANSI_RESET + "\n", Ui.getOutput());
+    }
+    
+    @Test
+    void testGraphCategoryCommandEmpty() throws MooMooException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate date = LocalDate.parse("25/10/2019", formatter);
+        CategoryList newCatList = new CategoryList();
+        
+        Category shoes = new Category("shoes");
+        Category food = new Category("food");
+        
+        ScheduleListStub newCalendar = new ScheduleListStub();
+        Budget newBudget = new Budget();
+        StorageStub newStorage = new StorageStub();
+        
+        newCatList.add(shoes);
+        newCatList.add(food);
+        
+        String completeBlock = "";
+        for (int i = 0; i < 100; i += 1) {
+            completeBlock += fullBlock;
+        }
+        String completeTop = "";
+        String completeBottom = "";
+        for (int i = 0; i < 101; i += 1) {
+            completeTop += topBorder;
+            completeBottom += bottomBorder;
+        }
+        
+        Command testGraph = new GraphCategoryCommand("food", 10, 2019);
+        Throwable thrown = assertThrows(MooMooException.class, () -> {
+            testGraph.execute(newCalendar, newBudget, newCatList, newStorage);
+        });
+        assertEquals("Please enter an existing category!! Moohoohoo", thrown.getMessage());
+    }
+    
 }

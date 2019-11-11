@@ -72,6 +72,9 @@ public class GraphCategoryCommand extends Command {
             horizontalAxisTop += topBorder;
             horizontalAxisBottom += bottomBorder;
         }
+    
+        horizontalAxisTop = ANSI_YELLOW + horizontalAxisTop + ANSI_RESET;
+        horizontalAxisBottom = ANSI_YELLOW + horizontalAxisBottom + ANSI_RESET;
         
         String topSpace = "";
         for (int i = 0; i < cat.getLongestExpenditure(); i += 1) {

@@ -86,6 +86,4 @@ public class GraphTotalCommandTest {
                 + ANSI_CYAN + "transportation" + "   " + "0.0%\n" + ANSI_RESET
                 + "              " + ANSI_YELLOW + "" + ANSI_RESET + "\n", Ui.getOutput());
     }
-    
-    
 }
