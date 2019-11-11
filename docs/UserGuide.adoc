@@ -144,7 +144,7 @@ Switches to the `[Degree Information]` tab.
 
 How it will be displayed: +
 
-images::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/detailExample.png
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/detailExample.png[width="600"]
 
 <<<
 === Comparing two degrees: `compare | compare <DEGREE> <DEGREE>`
@@ -170,7 +170,7 @@ Switches to the `[Degree Differences]` tab.
 
 How it will be displayed: +
 
-images::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/compareExample.png
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/compareExample.png[width="600"]
 
 <<<
 === Adding a degree into your degree list: `add <DEGREE>`
