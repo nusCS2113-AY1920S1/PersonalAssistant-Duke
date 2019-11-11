@@ -1,13 +1,11 @@
 package seedu.hustler.reminders;
 
 import org.junit.jupiter.api.Test;
-import seedu.hustler.task.Deadline;
-import seedu.hustler.task.Reminders;
-import seedu.hustler.task.Task;
-import seedu.hustler.task.TaskList;
+import seedu.hustler.task.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -21,13 +19,12 @@ public class RemindersTest {
     /**
      * Check if overDue reminder exist.
      */
-    public void checkOverDue() {
+    public void testOverDue() {
         ArrayList<Task> temp = new ArrayList<>();
         LocalDateTime localDateTime = LocalDateTime.of(2019,1,1,1,1,1);
-        temp.add(new Deadline("assignments",localDateTime));
-        TaskList list = new TaskList(temp);
-        Reminders.overdue(list);
-
+        temp.add(new Deadline("assignment",localDateTime, "M", "CS",localDateTime));
+        TaskList tempList = new TaskList(temp);
+        Reminders.overdue(tempList);
         assertTrue(Reminders.exist());
     }
 }

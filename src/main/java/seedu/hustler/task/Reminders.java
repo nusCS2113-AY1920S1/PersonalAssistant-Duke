@@ -41,10 +41,10 @@ public class Reminders {
      * @param i index of task in task list.
      * @return true if task is overdue.
      */
-    public static Boolean checkOverdue(int i) {
+    public static Boolean checkOverdue(int i, TaskList list) {
         Boolean check = false;
         LocalDateTime currentTime = LocalDateTime.now();
-        long duration = Duration.between(currentTime, Hustler.list.get(i).getDateTime()).getSeconds();
+        long duration = Duration.between(currentTime, list.get(i).getDateTime()).getSeconds();
         if (duration <= 0) {
             check = true;
         }
@@ -89,16 +89,17 @@ public class Reminders {
     public static ArrayList<Task> overdue(TaskList list) {
         overDueList.clear();
         for (int i = 0; i < list.size(); i++) {
+
             //LocalDateTime currentTime = LocalDateTime.now();
-            boolean done = list.get(i).isDone;
-            boolean checkDeadline = list.get(i).toString().contains("[D]");
-            boolean checkEvent = list.get(i).toString().contains("[E]");
-            boolean checkRange = list.get(i).toString().contains("[R]");
-            if (!done && (checkDeadline || checkEvent || checkRange)) {
-                if (checkOverdue(i)) {
-                    overDueList.add(list.get(i));
+                boolean done = list.get(i).isDone;
+                boolean checkDeadline = list.get(i).toString().contains("[D]");
+                boolean checkEvent = list.get(i).toString().contains("[E]");
+                boolean checkRange = list.get(i).toString().contains("[R]");
+                if (!done && (checkDeadline || checkEvent || checkRange)) {
+                    if (checkOverdue(i,list)) {
+                        overDueList.add(list.get(i));
+                    }
                 }
-            }
         }
         return overDueList;
     }
