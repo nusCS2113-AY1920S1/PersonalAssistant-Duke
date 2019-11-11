@@ -6,14 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class QuestionListTest {
-    //private static JavaCake javacake;
 
-    //@BeforeEach
-    //public void
-
-
-
-    // TODO this test is dummied out until a reliable unit test can be written.
+    // unused, this test has been moved to QuizSessionTest.testForDuplicates()
     @Test
     public void initializeBasicQuizTest() throws CakeException {
         /*
@@ -26,7 +20,5 @@ public class QuestionListTest {
         Set<Question> set = new HashSet<>(test.getQuestionList());
         assertEquals(set.size(), test.getQuestionList().size());
          */
-        String h = "head hurts";
-        assertEquals(h.length(), 10);
     }
 }
