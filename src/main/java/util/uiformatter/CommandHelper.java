@@ -104,10 +104,10 @@ public class CommandHelper {
         helpList.add("Displays overview of current project.");
         helpList.add("");
         helpList.add(" - exit");
-        helpList.add("Renames the current project being managed.");
+        helpList.add("Exits current project to manage other projects.");
         helpList.add("");
         helpList.add(" - rename PROJECT_NAME");
-        helpList.add("Exits current project to manage other projects.");
+        helpList.add("Renames the current project being managed.");
         helpList.add("");
         helpList.add(" - bye");
         helpList.add("Saves your data and exits ArchDuke.");

@@ -204,7 +204,7 @@ public class ProjectInputController implements IController {
      * @param projectToManage : The project specified by the user.
      * @param projectCommand : User input.
      */
-    private String[] projectRoleMembers(Project projectToManage, String projectCommand) {
+    public String[] projectRoleMembers(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectRoleMembers] User input: '"
                 + projectCommand + "'");
         if (projectCommand.length() < COMMAND_ROLE_MEMBER.length()) {
