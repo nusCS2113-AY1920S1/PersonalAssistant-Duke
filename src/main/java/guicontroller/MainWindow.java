@@ -20,8 +20,7 @@ import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Controller for guicontroller.MainWindow. Provides the layout for the other controls.
@@ -150,7 +149,7 @@ public class MainWindow extends AnchorPane {
     private void autoCompleteFunction() {
         AutoComplete autoComplete = new AutoComplete();
         AutoCompletionBinding<String> suggestions = TextFields.bindAutoCompletion(userInput, sc -> {
-            Set<String> suggestedCommands = new HashSet<>();
+            TreeSet<String> suggestedCommands = new TreeSet<>();
             for (String i: autoComplete.getCommandList()) {
                 if (!sc.getUserText().isEmpty() && !i.equals(sc.getUserText())
                         && i.startsWith(sc.getUserText())) {
