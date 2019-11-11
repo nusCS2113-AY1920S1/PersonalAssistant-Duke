@@ -18,7 +18,7 @@ Role: Lecturer
 
 === Sai Ganesh Suresh
 image::e0310898.png[width="150" , align="left"]
-{empty}[https://github.com/E0310898[github]] [<<Sai Ganesh Suresh#, portfolio>>]
+{empty}[https://github.com/E0310898[github]] [https://docs.google.com/document/d/12kPhT4xbSg-Cp5YS4r5W1vgsDnNZ1mz_pdw_yhIiciU/edit?usp=sharing[portfolio]]
 
 Role: Team Lead +
 Responsibilities:
