@@ -50,13 +50,18 @@ public class PrepSteps {
     public String toViewString() {
         String joinedString = "";
         if (prepStepsList.isEmpty()) {
-            joinedString = "No preparation steps provided yet.\n";
+            joinedString = "    No preparation steps provided yet.\n";
         } else {
             int i = 0;
-            for (String step : prepStepsList) {
-                ++i;
-                joinedString = joinedString.concat(Integer.toString(i) + ". " + step + "\n");
-                // joinedString = joinedString.concat(String.join("\n", Integer.toString(i) + ". " + ingredient.toString()));
+            prepStepsList.remove("No preparation steps provided yet.");
+            if (prepStepsList.isEmpty()) {
+                joinedString = "    No preparation steps provided yet.\n";
+            } else {
+                for (String step : prepStepsList) {
+                    prepStepsList.remove("No preparation steps provided yet.");
+                    ++i;
+                    joinedString = joinedString.concat("    " + i + ". " + step + "\n");
+                }
             }
         }
         return joinedString;

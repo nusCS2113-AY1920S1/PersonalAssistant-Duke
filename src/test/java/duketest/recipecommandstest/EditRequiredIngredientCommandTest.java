@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import static duke.common.Messages.filePathRecipesTest;
+import static duke.common.Messages.filePathRecipeTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@author wjlingg
@@ -26,7 +26,7 @@ public class EditRequiredIngredientCommandTest {
     @Test
     public void testEditRequiredIngredientFullInsert() throws ParseException {
         ui = new Ui(mainWindow);
-        recipeStorage = new RecipeStorage(filePathRecipesTest);
+        recipeStorage = new RecipeStorage(filePathRecipeTest);
         recipeList = new RecipeList(recipeStorage.load());
 
         ArrayList<String> arrayListExpectedOutput = new ArrayList<>();
@@ -42,13 +42,13 @@ public class EditRequiredIngredientCommandTest {
         assertEquals(arrayListExpectedOutput, arrayListActualOutput);
 
         DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand("deleterecipe testrecipe");
-        ArrayList<String> arrayListDummy2 = new ArrayList<>(deleteRecipeCommand.execute(recipeList, ui, recipeStorage));
+        deleteRecipeCommand.execute(recipeList, ui, recipeStorage);
     }
 
     @Test
     public void testEditRequiredIngredientPartialInsert() throws ParseException {
         ui = new Ui(mainWindow);
-        recipeStorage = new RecipeStorage(filePathRecipesTest);
+        recipeStorage = new RecipeStorage(filePathRecipeTest);
         recipeList = new RecipeList(recipeStorage.load());
 
         ArrayList<String> arrayListExpectedOutput = new ArrayList<>();
@@ -57,23 +57,23 @@ public class EditRequiredIngredientCommandTest {
         arrayListExpectedOutput.add(expected);
 
         AddRecipeCommand addRecipeCommand = new AddRecipeCommand("addrecipe testrecipe");
-        ArrayList<String> arrayListDummy1 = new ArrayList<>(addRecipeCommand.execute(recipeList, ui, recipeStorage));
+        addRecipeCommand.execute(recipeList, ui, recipeStorage);
 
         EditRequiredIngredientCommand editRequiredIngredientinsert = new EditRequiredIngredientCommand("editreqingredient testrecipe ins/ 1 n/ dumplings q/ 10 u/g a/ fried");
-        ArrayList<String> arrayListDummy2 = new ArrayList<>(editRequiredIngredientinsert.execute(recipeList, ui, recipeStorage));
+        editRequiredIngredientinsert.execute(recipeList, ui, recipeStorage);
 
         EditRequiredIngredientCommand editRequiredIngredientCommand = new EditRequiredIngredientCommand("editreqingredient testrecipe ins/ 1 n/ dumplings q/ 5 u/a/");
         ArrayList<String> arrayListActualOutput = new ArrayList<>(editRequiredIngredientCommand.execute(recipeList, ui, recipeStorage));
         assertEquals(arrayListExpectedOutput, arrayListActualOutput);
 
         DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand("deleterecipe testrecipe");
-        ArrayList<String> arrayListDummy3 = new ArrayList<>(deleteRecipeCommand.execute(recipeList, ui, recipeStorage));
+        deleteRecipeCommand.execute(recipeList, ui, recipeStorage);
     }
 
     @Test
     public void testEditRequiredIngredientDelete() throws ParseException {
         ui = new Ui(mainWindow);
-        recipeStorage = new RecipeStorage(filePathRecipesTest);
+        recipeStorage = new RecipeStorage(filePathRecipeTest);
         recipeList = new RecipeList(recipeStorage.load());
 
         ArrayList<String> arrayListExpectedOutput = new ArrayList<>();
@@ -82,22 +82,22 @@ public class EditRequiredIngredientCommandTest {
         arrayListExpectedOutput.add(expected);
 
         AddRecipeCommand addRecipeCommand = new AddRecipeCommand("addrecipe testrecipe");
-        ArrayList<String> arrayListDummy1 = new ArrayList<>(addRecipeCommand.execute(recipeList, ui, recipeStorage));
+        addRecipeCommand.execute(recipeList, ui, recipeStorage);
 
         EditRequiredIngredientCommand editRequiredIngredientinsert = new EditRequiredIngredientCommand("editreqingredient testrecipe ins/ 1 n/ dumplings q/ 10 u/g a/ fried");
-        ArrayList<String> arrayListDummy2 = new ArrayList<>(editRequiredIngredientinsert.execute(recipeList, ui, recipeStorage));
+        editRequiredIngredientinsert.execute(recipeList, ui, recipeStorage);
         EditRequiredIngredientCommand editRequiredIngredientCommand = new EditRequiredIngredientCommand("editreqingredient testrecipe del/ 1");
         ArrayList<String> arrayListActualOutput = new ArrayList<>(editRequiredIngredientCommand.execute(recipeList, ui, recipeStorage));
         assertEquals(arrayListExpectedOutput, arrayListActualOutput);
 
         DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand("deleterecipe testrecipe");
-        ArrayList<String> arrayListDummy3 = new ArrayList<>(deleteRecipeCommand.execute(recipeList, ui, recipeStorage));
+        deleteRecipeCommand.execute(recipeList, ui, recipeStorage);
     }
 
     @Test
     public void testEditRequiredIngredientFullAppend() throws ParseException {
         ui = new Ui(mainWindow);
-        recipeStorage = new RecipeStorage(filePathRecipesTest);
+        recipeStorage = new RecipeStorage(filePathRecipeTest);
         recipeList = new RecipeList(recipeStorage.load());
 
         ArrayList<String> arrayListExpectedOutput = new ArrayList<>();
@@ -106,20 +106,20 @@ public class EditRequiredIngredientCommandTest {
         arrayListExpectedOutput.add(expected);
 
         AddRecipeCommand addRecipeCommand = new AddRecipeCommand("addrecipe testrecipe");
-        ArrayList<String> arrayListDummy1 = new ArrayList<>(addRecipeCommand.execute(recipeList, ui, recipeStorage));
+        addRecipeCommand.execute(recipeList, ui, recipeStorage);
 
         EditRequiredIngredientCommand editRequiredIngredientCommand = new EditRequiredIngredientCommand("editreqingredient testrecipe app/n/ dumplings q/ 10 u/g a/ fried");
         ArrayList<String> arrayListActualOutput = new ArrayList<>(editRequiredIngredientCommand.execute(recipeList, ui, recipeStorage));
         assertEquals(arrayListExpectedOutput, arrayListActualOutput);
 
         DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand("deleterecipe testrecipe");
-        ArrayList<String> arrayListDummy2 = new ArrayList<>(deleteRecipeCommand.execute(recipeList, ui, recipeStorage));
+        deleteRecipeCommand.execute(recipeList, ui, recipeStorage);
     }
 
     @Test
     public void testEditRequiredIngredientPartialAppend() throws ParseException {
         ui = new Ui(mainWindow);
-        recipeStorage = new RecipeStorage(filePathRecipesTest);
+        recipeStorage = new RecipeStorage(filePathRecipeTest);
         recipeList = new RecipeList(recipeStorage.load());
 
         ArrayList<String> arrayListExpectedOutput = new ArrayList<>();
@@ -128,24 +128,24 @@ public class EditRequiredIngredientCommandTest {
         arrayListExpectedOutput.add(expected);
 
         AddRecipeCommand addRecipeCommand = new AddRecipeCommand("addrecipe testrecipe");
-        ArrayList<String> arrayListDummy1 = new ArrayList<>(addRecipeCommand.execute(recipeList, ui, recipeStorage));
+        addRecipeCommand.execute(recipeList, ui, recipeStorage);
 
 
         EditRequiredIngredientCommand editRequiredIngredientinsert = new EditRequiredIngredientCommand("editreqingredient testrecipe app/n/ dumplings q/ 10 u/g a/ fried");
-        ArrayList<String> arrayListDummy2 = new ArrayList<>(editRequiredIngredientinsert.execute(recipeList, ui, recipeStorage));
+        editRequiredIngredientinsert.execute(recipeList, ui, recipeStorage);
 
         EditRequiredIngredientCommand editRequiredIngredientCommand = new EditRequiredIngredientCommand("editreqingredient testrecipe app/n/ dumplings q/ 30 u/");
         ArrayList<String> arrayListActualOutput = new ArrayList<>(editRequiredIngredientCommand.execute(recipeList, ui, recipeStorage));
         assertEquals(arrayListExpectedOutput, arrayListActualOutput);
 
         DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand("deleterecipe testrecipe");
-        ArrayList<String> arrayListDummy3 = new ArrayList<>(deleteRecipeCommand.execute(recipeList, ui, recipeStorage));
+        deleteRecipeCommand.execute(recipeList, ui, recipeStorage);
     }
 
     @Test
     public void testEditRequiredIngredientClear() throws ParseException {
         ui = new Ui(mainWindow);
-        recipeStorage = new RecipeStorage(filePathRecipesTest);
+        recipeStorage = new RecipeStorage(filePathRecipeTest);
         recipeList = new RecipeList(recipeStorage.load());
 
         ArrayList<String> arrayListExpectedOutput = new ArrayList<>();
@@ -153,12 +153,12 @@ public class EditRequiredIngredientCommandTest {
         arrayListExpectedOutput.add(expected);
 
         AddRecipeCommand addRecipeCommand = new AddRecipeCommand("addrecipe testrecipe");
-        ArrayList<String> arrayListDummy1 = new ArrayList<>(addRecipeCommand.execute(recipeList, ui, recipeStorage));
+        addRecipeCommand.execute(recipeList, ui, recipeStorage);
 
         EditRequiredIngredientCommand editRequiredIngredientCommand = new EditRequiredIngredientCommand("editreqingredient testrecipe clr/");
         ArrayList<String> arrayListActualOutput = new ArrayList<>(editRequiredIngredientCommand.execute(recipeList, ui, recipeStorage));
         assertEquals(arrayListExpectedOutput, arrayListActualOutput);
         DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand("deleterecipe testrecipe");
-        ArrayList<String> arrayListDummy2 = new ArrayList<>(deleteRecipeCommand.execute(recipeList, ui, recipeStorage));
+        deleteRecipeCommand.execute(recipeList, ui, recipeStorage);
     }
 }

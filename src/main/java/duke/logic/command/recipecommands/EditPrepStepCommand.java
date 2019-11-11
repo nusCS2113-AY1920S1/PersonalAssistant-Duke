@@ -46,7 +46,7 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
                 String command = whichCommand(description);
 
                 if (isIns(command)) {
-                    if (!description.contains("stetp/")) {
+                    if (!description.contains("step/")) {
                         arrayList.add(ERROR_MESSAGE_EDIT_PREPSTEP_INS_INCORRECT_FORMAT + "\n");
                     } else {
                         String[] split = description.split(command, 2);
