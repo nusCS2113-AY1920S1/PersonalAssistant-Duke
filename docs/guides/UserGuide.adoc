@@ -53,9 +53,8 @@ This section serves as a tutorial for a new user to Email Manager.
 === Installation
 
 . Ensure you have Java version 11 or later installed in your computer.
-. Download the latest email_manager.zip https://github.com/AY1920S1-CS2113T-F11-3/main/releases[here] and
-extract it to a folder.
-. If the download is too slow, please download it from https://drive.google.com/open?id=1LUnpR3H-xxBTJ6nAnYmk0bCf4j0kuu4N[google drive].
+. Download the latest Jar file https://github.com/AY1920S1-CS2113T-F11-3/main/releases[here] and copy it to
+a new folder.
 
 [#run-email-manager]
 === Run Email Manager
@@ -65,7 +64,7 @@ The program might freeze for a while when fetching and parsing the email. Please
 
 ==== Windows User
 
-. Double click the jar file in the extracted folder.
+. Double click the jar file.
 . If any error occurs, try to follow the mac/linux user instructions to run the program from command line.
 
 ==== Mac/Linux User
@@ -73,11 +72,7 @@ The program might freeze for a while when fetching and parsing the email. Please
 . Open the command prompt.
 . Change the working directory of the command prompt to the extracted program folder using `cd` command.
 . Check java version using `java -version` command. It should be java 11.
-. Run `java -jar email_manager-1.3.jar` and you are good to go.
-
-[WARNING]
-Make sure that your command prompt is at the directory of the folder extracted, otherwise the data
-structure might not be recognised. Creating data file structure coming in v1.4
+. Run `java -jar [CS2113T-F11-3][Email_Manager].jar` and you are good to go.
 
 [TIP]
 Please send an email to jokeryan1997@gmail.com if you cannot successfully run the program.
@@ -89,8 +84,9 @@ with Internet connection. If you do not have Internet connection, we have also p
 test offline.
 
 * If you have Internet connection:
-. You will be directed to a web page to authorize our access to your mailbox. Please login to the *dummy
-email* we provided to you. (Dummy email account: cs2113t@outlook.com, Password: nusf11-3)
+. You will be directed to a web page to authorize our access to your mailbox. The program is set to
+login to the *dummy email* address automatically, but if for some reason it does not work, please login
+to the *dummy email* we provided to you. (Dummy email account: cs2113t@outlook.com, Password: nusf11-3)
 
 
 . Close the browser and return back to the Email Manager. Wait for a while for the email to be fetched
@@ -102,8 +98,9 @@ testing may lead to redundant saving and loading with the current version. More 
 in v2.0
 
 * If you do not have Internet connection:
-. Paste everything under `test_data` file in the program folder, to the `data` folder. Replace all the files
-in the `data` folder.
+. Start the program once first to generate the file structure.
+. Paste everything under `/data/test_data` file in the program folder, to the `/data` folder. Replace all the
+files in the `/data` folder.
 . Close the Email Manager and Start it again.
 . Wait for a while for all the emails to be parsed.
 
@@ -129,7 +126,7 @@ Type the command in the command box and press Enter to execute it. +
 All commands have a prefix, indicating whether the command belongs to the `Email` Mode or the `Task`
 Mode. The default prefix is `Email` and you can always enter a `flip` command to toggle between `Email`
 and `Task`. +
-e.g. typing help and pressing Enter opens the help window. +
+e.g. typing help and pressing Enter opens the help page in the browser. +
 Some example commands you can try in task mode:
 
 * `list`: lists all tasks
@@ -178,8 +175,7 @@ General commands will work in either mode.
 ==== Viewing help: `help`
 Format: `help`
 
-A pop up window appears and gives information on what commands are available and its respective format.
-(The help page might be outdated, please use this guide instead.)
+The program opens the browser that leads to our latest user guide for your reference.
 
 [#changeMode]
 ==== Change Mode: `flip`
@@ -217,6 +213,12 @@ To help you be more organised, each task is able to contain optional parameters.
 These parameters are a 'doafter' task, a priority level and multiple tags.
 To learn more about these parameters, go to their respective sections:
 <<doafter>>, <<priority>>.
+
+[NOTE]
+We do not want our product to restrict the user's behaviour too much, we allow tasks with duplicated names
+and date time. The user might choose to have multiple tasks of the same name, for example `assignment`, and
+wants to mark the assignment as done one by one. Our program is to assist the user to manage their tasks,
+not to tell them what they should do. 
 
 [TIP]
 For the following commands, you are able to enter the optional parameters in any order

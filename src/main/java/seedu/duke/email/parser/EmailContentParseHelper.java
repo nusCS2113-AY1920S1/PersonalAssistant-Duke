@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.StrictMath.max;
+
 /**
  * A parser to process the content of emails to support automatic management of email.
  */
@@ -22,6 +24,7 @@ public class EmailContentParseHelper {
     private static int RELEVANCE_SUBJECT_WEIGHTAGE = 5;
     private static int RELEVANCE_SENDER_WEIGHTAGE = 3;
     private static int RELEVANCE_BODY_WEIGHTAGE = 1;
+    private static int RELEVANCE_DISTANCE_WEIGHTAGE = 10;
     private static int INFINITY = 0x3f3f3f;
     private static int FUZZY_LIMIT = 2;
 
@@ -56,22 +59,22 @@ public class EmailContentParseHelper {
      */
     public static int keywordInEmail(Email email, KeywordPair keywordPair) {
         int totalScore = 0;
-        totalScore += keywordInSubject(email, keywordPair) * RELEVANCE_SUBJECT_WEIGHTAGE;
-        totalScore += keywordInSender(email, keywordPair) * RELEVANCE_SENDER_WEIGHTAGE;
-        totalScore += keywordInBody(email, keywordPair) * RELEVANCE_BODY_WEIGHTAGE;
+        totalScore += keywordInSubject(email, keywordPair);
+        totalScore += keywordInSender(email, keywordPair);
+        totalScore += keywordInBody(email, keywordPair);
         return totalScore;
     }
 
     private static int keywordInSubject(Email email, KeywordPair keywordPair) {
-        return keywordInString(email.getSubject(), keywordPair);
+        return keywordInString(email.getSubject(), keywordPair) * RELEVANCE_SUBJECT_WEIGHTAGE;
     }
 
     private static int keywordInSender(Email email, KeywordPair keywordPair) {
-        return keywordInString(email.getSenderString(), keywordPair);
+        return keywordInString(email.getSenderString(), keywordPair) * RELEVANCE_SENDER_WEIGHTAGE;
     }
 
     private static int keywordInBody(Email email, KeywordPair keywordPair) {
-        return keywordInString(email.getBody(), keywordPair);
+        return keywordInString(email.getBody(), keywordPair) * RELEVANCE_BODY_WEIGHTAGE;
     }
 
     /**
@@ -173,15 +176,15 @@ public class EmailContentParseHelper {
     }
 
     private static int fuzzySearchInSubject(Email email, String target) {
-        return fuzzySearchInString(email.getSubject(), target);
+        return fuzzySearchInString(email.getSubject(), target) * RELEVANCE_SUBJECT_WEIGHTAGE;
     }
 
     private static int fuzzySearchInSender(Email email, String target) {
-        return fuzzySearchInString(email.getSenderString(), target);
+        return fuzzySearchInString(email.getSenderString(), target) * RELEVANCE_SENDER_WEIGHTAGE;
     }
 
     private static int fuzzySearchInBody(Email email, String target) {
-        return fuzzySearchInString(email.getBody(), target);
+        return fuzzySearchInString(email.getBody(), target) * RELEVANCE_BODY_WEIGHTAGE;
     }
 
     /**
@@ -202,7 +205,7 @@ public class EmailContentParseHelper {
                 }
                 int distance = editDistance(inputWord, targetWord);
                 if (distance <= FUZZY_LIMIT) {
-                    score += FUZZY_LIMIT - distance + 1;
+                    score += (FUZZY_LIMIT - distance + 1) * RELEVANCE_DISTANCE_WEIGHTAGE;
                 }
             }
         }
