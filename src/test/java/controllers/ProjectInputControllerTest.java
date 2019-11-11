@@ -174,10 +174,10 @@ class ProjectInputControllerTest {
         simulatedUserInput = "add member -n Sean";
         projectInputController.projectAddMember(project, simulatedUserInput);
 
-        simulatedUserInput = "add task -t task1 -p 1 -c 10 -s doing";
+        simulatedUserInput = "add task -n task1 -p 1 -c 10 -s doing";
         projectInputController.projectAddTask(project, simulatedUserInput);
 
-        simulatedUserInput = "add task -t task2 -p 5 -c 10 -s done";
+        simulatedUserInput = "add task -n task2 -p 5 -c 10 -s done";
         projectInputController.projectAddTask(project, simulatedUserInput);
 
         actualOutput = "";
@@ -235,22 +235,22 @@ class ProjectInputControllerTest {
         try {
             Project project = new Project("Infinity_Gauntlet");
             dueDate = dateTimeHelper.formatDate("21/09/2019");
-            simulatedUserInput = "add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
+            simulatedUserInput = "add task -n Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
                     + "-r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task -t Documentation for product 1 -p 2 -c 40 "
+            simulatedUserInput = "add task -n Documentation for product 1 -p 2 -c 40 "
                     + "-s done -r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task  -p 2 -t Documentation for product 2 -c 40 -r do something "
+            simulatedUserInput = "add task  -p 2 -n Documentation for product 2 -c 40 -r do something "
                     + "-r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task -t Documentation for product 3 -p 2 -c 40";
+            simulatedUserInput = "add task -n Documentation for product 3 -p 2 -c 40";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task -s doing -t Documentation for CS2113 -c 40 -d 21/09/2019 -p 2";
+            simulatedUserInput = "add task -s doing -n Documentation for CS2113 -c 40 -d 21/09/2019 -p 2";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
             actualOutput = "";
@@ -279,11 +279,11 @@ class ProjectInputControllerTest {
         try {
             Project project = new Project("Infinity_Gauntlet");
             dueDate = dateTimeHelper.formatDate("22/09/2019");
-            simulatedUserInput = "add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
+            simulatedUserInput = "add task -n Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
                     + "-r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "edit task 1 -t No documentation -p 5 -d 22/09/2019 -c 50 -s done "
+            simulatedUserInput = "edit task 1 -n No documentation -p 5 -d 22/09/2019 -c 50 -s done "
                         + "-r do nothing -r do another thing";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
@@ -296,7 +296,7 @@ class ProjectInputControllerTest {
                     + " | Credit: 50 | State: DONE";
             assertEquals(expectedOutput,actualOutput);
 
-            simulatedUserInput = "edit task 1 -p 5 -t Infinity War -d 22/09/2019 -c 40 -s todo";
+            simulatedUserInput = "edit task 1 -p 5 -n Infinity War -d 22/09/2019 -c 40 -s todo";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
             for (String message : project.getTaskList().getAllTaskDetails(
@@ -309,7 +309,7 @@ class ProjectInputControllerTest {
                     + " | Credit: 40 | State: TODO";
             assertEquals(expectedOutput,actualOutput);
 
-            simulatedUserInput = "edit task 1 -t Infinity War -p 1 -c 30";
+            simulatedUserInput = "edit task 1 -n Infinity War -p 1 -c 30";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
             for (String message : project.getTaskList().getAllTaskDetails(
@@ -333,7 +333,7 @@ class ProjectInputControllerTest {
                     + " | Credit: 20 | State: TODO";
             assertEquals(expectedOutput,actualOutput);
 
-            simulatedUserInput = "edit task 1 -c 70 -s doing -p 6 -d 12/12/2020 -t End Game";
+            simulatedUserInput = "edit task 1 -c 70 -s doing -p 6 -d 12/12/2020 -n End Game";
             //6 is an invalid value for task priority, so priority remains as 2 after this command
             dueDate = dateTimeHelper.formatDate("12/12/2020");
             projectInputController.projectEditTask(project,simulatedUserInput);
@@ -356,11 +356,11 @@ class ProjectInputControllerTest {
     void testProjectViewTask() {
         try {
             Project project = new Project("Infinity_Gauntlet");
-            simulatedUserInput = "add task -t task1 -p 5 -c 10 -s todo -d 12/12/2021";
+            simulatedUserInput = "add task -n task1 -p 5 -c 10 -s todo -d 12/12/2021";
             projectInputController.projectAddTask(project, simulatedUserInput);
-            simulatedUserInput = "add task -t task2 -p 5 -c 100 -s doing";
+            simulatedUserInput = "add task -n task2 -p 5 -c 100 -s doing";
             projectInputController.projectAddTask(project, simulatedUserInput);
-            simulatedUserInput = "add task -t task3 -p 1 -c 50 -s done -d 1/1/2020";
+            simulatedUserInput = "add task -n task3 -p 1 -c 50 -s done -d 1/1/2020";
             projectInputController.projectAddTask(project, simulatedUserInput);
             simulatedUserInput = "add member -n Dillen -i 9999 -e dillen@gmail.com";
             projectInputController.projectAddMember(project, simulatedUserInput);
@@ -460,7 +460,7 @@ class ProjectInputControllerTest {
     @Test
     void testProjectDeleteTask() {
         Project project = new Project("Infinity_Gauntlet");
-        simulatedUserInput = "add task -t Documentation for product -p 2 d/21/09/2019 -c 40 s/todo "
+        simulatedUserInput = "add task -n Documentation for product -p 2 d/21/09/2019 -c 40 s/todo "
                 + "r/do something -r do another thing";
         projectInputController.projectAddTask(project, simulatedUserInput);
         simulatedUserInput = "delete task 1";
@@ -480,7 +480,7 @@ class ProjectInputControllerTest {
             Project project = new Project("Infinity_Gauntlet");
             DateTimeHelper dateTimeHelper = new DateTimeHelper();
             dueDate = dateTimeHelper.formatDate("21/09/2019");
-            simulatedUserInput = "add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
+            simulatedUserInput = "add task -n Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
                     + "-r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
@@ -511,7 +511,7 @@ class ProjectInputControllerTest {
     @Test
     void testProjectAssignTask_valid() {
         Project project = new Project("Infinity_Gauntlet");
-        simulatedUserInput = "add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
+        simulatedUserInput = "add task -n Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
                 + "-r do something -r do another thing";
         projectInputController.projectAddTask(project, simulatedUserInput);
         simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
@@ -684,7 +684,7 @@ class ProjectInputControllerTest {
         simulatedUserInput = "add reminder -n Install Antivirus -r Use the free version -d 10/10/2000 -l Software";
         projectInputController.projectAddReminder(project,simulatedUserInput);
 
-        String [] validArray = projectInputController.projectViewReminderCategory(project);
+        String [] validArray = projectInputController.projectViewReminderByList(project);
 
         String [] expectedArray = {"+----------------------------------------------------------------------+",
             "|Reminders of Infinity_Gauntlet:                                       |",

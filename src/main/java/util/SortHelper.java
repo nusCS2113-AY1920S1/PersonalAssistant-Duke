@@ -119,7 +119,7 @@ public class SortHelper {
         ArrayList<String> taskDetails = new ArrayList<>();
         int taskIndex = 1;
         for (Task task : taskList) {
-            if (state.equals(task.getTaskState().toString().toLowerCase())) {
+            if (state.equals(task.getTaskState().toString())) {
                 taskDetails.add(taskIndex + ". " + task.getDetails());
             }
             taskIndex++;

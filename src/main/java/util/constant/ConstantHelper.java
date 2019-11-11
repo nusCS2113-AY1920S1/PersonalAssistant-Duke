@@ -11,7 +11,8 @@ public class ConstantHelper {
         " YMM   \"\"` MMMM   \"W\"   \"YUMMMMMP\"MMM    YM MMMMP\"`   \"YmmMMMM\"\" MMM \"MMP\" \"\"\"\"YUMMM",
         "=======================================================================================",
         "\t Welcome to ArchDuke Project Manager!",
-        "\t Enter 'help' for the list of commands."
+        "\t Enter 'help' for the list of commands.",
+        "======================================================================================="
     };
 
     public static final String HORILINE = "\t+----------------------------------------------------------------------+";
@@ -90,7 +91,9 @@ public class ConstantHelper {
             "Please check that you are using valid member indexes.",
             "Also ensure that the correct flags are used: '-to' for assignees, '-rm' for unassignees."};
 
-
+    public static final String[] ROLE_MEMBER_INCOMPLETE_COMMAND = new String[]{
+        "Please follow the member index using the correct command format role INDEX -n ROLE_NAME"
+    };
 
     public static final String COMMAND_VIEW_ASSIGNMENTS_MEMBER_FLAG = "-m";
 
@@ -125,6 +128,10 @@ public class ConstantHelper {
     public static final String COMMAND_VIEW_TASK_REQ = "view task requirements ";
 
     public static final String COMMAND_VIEW_TASKS = "view tasks ";
+
+    public static final String COMMAND_ROLE_MEMBER = "role ";
+
+    public static final int COMMAND_ROLE_CORRECT_LENGTH = 2;
 
     public static final int NUM_OF_TABLE_COLUMNS_FOR_COMMAND_LIST = 1;
 
