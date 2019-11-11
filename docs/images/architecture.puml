@@ -1,7 +1,7 @@
 @startuml
 !include style.puml
 
-Package " "<<Rectangle>>{
+Package " "<<Rectangle>> {
     Class Storage STORAGE_COLOR
     Class Parser LOGIC_COLOR
     Class JsonWrapper MODEL_COLOR
@@ -22,9 +22,10 @@ JsonWrapper --> Parser
 
 Parser --> Logs
 Parser --> User
-User --> Storage
+User <--> Storage
 
 Logs --> File
-Storage -> File
+Storage <--> File
+Storage -> ModDetailedMap
 
 @enduml
