@@ -30,8 +30,8 @@ public class SoldCommand extends Command {
 	Food toSold;
 	Promotion promotion;
 
-	public static final String MESSAGE_SUCCESS = "%1$d of %2$s have been sold with $%3$f\n"
-		+ "you have earn $%4$f";
+	public static final String MESSAGE_SUCCESS = "%1$d of %2$s have been sold with $%3$.2f\n"
+		+ "you have earn profit $%4$.2f";
 
 	/**
 	 * Constructor with two arguments.
@@ -106,11 +106,6 @@ public class SoldCommand extends Command {
 		double revenue = quantity * price;
 		toSold.setStock(originalQty - quantity);
 		double profit = revenue - quantity * toSold.getCost();
-
-		//food revenue update, in the food model
-		double tempFoodRevenue = toSold.getFoodRevenue();
-		tempFoodRevenue += revenue;
-		toSold.setFoodRevenue(tempFoodRevenue);
 
 		//profit and revenue in sales record update
 		double tempRevenue = ProfitStorage.getAnnualRevenue();
