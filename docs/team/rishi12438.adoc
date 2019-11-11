@@ -65,194 +65,310 @@ Code contributed: My contributions can be seen at https://nuscs2113-ay1920s1.git
 
 == Contributions to the User Guide
 
-The following section shows my contribution to the user guide, namely the description of the how to create , navigation, data storage and metronome features, as well as my explanation of the attributes that make up a song in Ducats.
+The following section shows my contribution to the user guide, namely the description of the overlay, , navigation, data storage and metronome features, as well as my explanation of the attributes that make up a song in Ducats.
 
 _(Excerpt from Ducats User Guide starts here)_
 
-=== Creating your new song: `song`
+=== Combining sections of music:
+For any musician, having the freedom to overlay a part of one song to another (overlaps two components and we play the 2 components together at the same time)  will save them a lot of time and also make it easier for them to create a composition. The overlay function aims to perform this functionality and allows the freedom to overlay a bar-bar, bar-group, group - group. 
 
-=== Opening a song for editing: `open`
+==== Combining bar-bar: `overlay`
 
-=== Starting a metronome: `metronome`
-
-Rhythm is an essential part of musical composition, and it is useful to have a visual or aural cue regarding the different types of rhythm possible, especially for amateurs. To facilitate this, a metronome feature is included, where the user can cause a metronome to appear on the screen on the screen for a specific number of bars.
+This command allows the user to overlay a bar from the same song to another bar on the same song, i.e. opened song. To change the song please use the `open` command
 
 _Format_:
-`metronome n/DURATION_IN_BARS n/TEMPO s/TIME_SIGNATURE`
+`overlay <bar_num to be overlayed> <bar_num to be overlayed to>`
 
-_Example_:
-`metronome 10 120 4/4` will start a metronome for 10 bars, each consisting of four notes, with a tempo of 120 beats per minute.
+_Example_: `overlay 1 2`
 
-The metronome can be started from anywhere, and the only step is to type in the command according to the format provided above. This is shown below:
 
-image::ducats_metronome1.png[]
+The above command overlays bar 1 onto bar 2 (see Figure 3.4 for example demo). 
 
-Upon pressing 'Enter', the metronome will appear on the screen. The numbers 1 through 4 will appear in sequence for 10 times, with each change in number happening every half-second. The number 1 will be accompanied by a hash ('#') for emphasis, as the first beat of every bar is considered more significant in music.
+image::overlay_1_2.png[]
+Figure 3.4: overlaying of bar 1 onto bar 2.
 
-image::ducats_metronome2.png[]
 
-Upon execution, the user interface will output 'Done!', and you are free to key in your next command.
+The repeat parameter can be added to the end to overlay the bar from the required start point till the end. 
 
-image::ducats_metronome3.png[]
+_Format_:
+`overlay <bar_num to be overlayed> <bar_num to be overlayed to> repeat`
 
-=== Attributes of a song
+_Example_: `overlay 1 3 repeat`
 
-Music can be thought of as the accumulation of different patterns of rhythm and pitch. Formally, each song has three main attributes, which are implemented in Ducats, namely key, tempo and time signature. The latter two are to do with the rhythm of the song, while the key relates to the pitch of the song.
 
-[NOTE]
-In order to create a new song, all three of these attributes need to be specified, although they do not presently affect the modification of the songs and the execution of the features in v1.4. This is to ensure that, upon upgrade to v2.0, you will not lose all your composition data.
+The above command overlays bar 1 onto bar 3 and onwards. 
 
-*KEY*
+The output will be an ascii printed version of the song after overlaying. 
 
-A key consists of a group of pitches that sounds pleasant and consistent when put together. There are minor and major keys, with major keys usually sounding happier and minor keys sounding sadder.
 
-For Ducats, the default key for all songs is C Major, with the ability to change the Notes added based on the key coming in v2.0.
+==== Combining group-group: `overlay_group_group`
+Allows the users to overlay a group from one song to another. The interesting aspect of this feature is that it allows the users to overlay groups of unequal length, i.e. a group with a larger number of bars onto a group with a smaller number of bars and vice versa. The following example shows what will happen when combining two unequal groups:  
 
-*TEMPO*
 
-In most basic terms, tempo refers to the speed at which the song progresses. In the case of Ducats, tempo is measured in beats per minute, where one beat consists of one rhythmic unit of time as specified in the time signature.
+* Group 1: {Bar X Bar Y} 
+* Group 2 : {Bar A Bar B Bar C Bar D}
+* Overlaying Group 1 onto Group 2:  { [Bar A + Bar X] [Bar B + Bar Y] [Bar C + Bar X] [Bar D + Bar Y]}   
+* Overlaying Group 2 onto Group 1: { [Bar A + Bar X] [Bar B + Bar Y]} 
 
-If you are unsure of the appropriate tempo for your song, you can start the integrated visual metronome, as described in Section 4.19. In v2.0, with the Play functionality, you will be able to hear your composed music at the specified tempo.
+_Format_:
 
-*TIME SIGNATURE*
+`overlay_group_group <song_name to be overlayed from> <group_number> <song_name to be overlayed to> <group_number>`
 
-The time signature of a song consists of two numbers that signify how many how many beats are in a bar and what note duration does each beat correspond to respectively. For example, a song with a time signature of 4 4 has 4 beats in each bar, with each beat corresponding to the duration of a quarter note. Hence, a bar in a 4 4 song can have any combination of notes whose duration is equivalent to 1 whole note, such as four quarter notes, eight eighth notes, or a dotted half note and a quarter note.
+_Example_: `overlay_group_group twinkle 1 jingle 3`
 
-4 4 is the most common time signature for modern popular music. Considering this, the default time signature for songs composed in Ducats is 4 4, with the functionality to support other time signatures coming in v2.0.
+The above command overlays group 1 from twinkle onto group 4 of jingle 
+
+_Example_: `overlay_group_group twinkle 1 twinkle 2`
+
+If group 1 from twinkle is overlayed onto group 2 of twinkle, where group 1 contains bar 1 to 2 and group 2 consists of bar 3 to 5. See Figure 3.5 for example) 
+
+image::example_song_annotation.png[]
+Figure 3.5: Example song 
+
+
+The output of the above command ( `overlay_group_group twinkle 1 twinkle 2` ) must be (Figure 3.6): 
+
+image::overlay_group_group_1_2.png[]
+Figure 3.6: `overlay_group_group twinkle 1 twinkle 2` 
+
+
+If we try to run `overlay_group_group twinkle 2 twinkle 1` (Figure 3.7) 
+
+The output will be: 
+
+image::overlay_group_group_2_1.png[]
+Figure 3.7: `overlay_group_group twinkle 2 twinkle 1`
+
+The repeat parameter can be added to the end to overlay the group from the required start point till the end. 
+
+_Format_:
+`overlay_group_group <song_name to be overlayed from> <group_number> <song_name to be overlayed to> <group_number> repeat`
+
+_Example_: `overlay_group_group twinkle 1 jingle 3 repeat`
+
+
+The above command overlays group 1 onto jingle's group 4 and onwards. 
+
+
+If the indexes does not exist then an exception is thrown. 
+
+
+==== Combining bar-group: `overlay_bar_group`
+
+Allows the users to overlay a  bar onto a group from the same song, i.e. opened song. To change the song please use the `open` command. It works in the similar way as the `overlay` commands. The repeat parameter allows the user to overlay through all the groups from the specified starting group. 
+
+
+_Format_:
+
+`overlay_bar_group <bar_number to be overlayed> <group_number to be overlayed to>`
+
+_Example_: `overlay_bar_group 1 2`
+
+
+The above command overlays bar 1 from the opened song onto group 2. 
+
+If the group 2 was from bar 3 to 5 on the following song (Figure 3.8): 
+image::example_song_annotation.png[]
+Figure 3.8: Example song 
+
+The expected output will be (Figure 3.9): 
+
+image::overlay_bar_group_1_2.png[]
+Figure 3.9: `overlay_bar_group 1 2`
+
+The repeat parameter can be added to the end to overlay the bar from the required start point till the last group. 
+
+_Format_:
+`overlay_bar_group <bar_number to be overlayed> <group_number to be overlayed to> repeat`
+
+_Example_: `overlay_bar_group 1 3 repeat`
+
+
+The above command will allow the user to overlay bar 1 to group 3 and onwards till the end of group lists. 
+
+The output will be an ascii printed version of the song after overlaying. 
+
+
+==== Combining bars across songs: `overlay_bar_song`
+
+
+This command allows the user to overlay a bar from one song to another song's bar. 
+
+_Format_:
+`overlay_bar_song <song_name to be overlayed from> <bar_number> <song_name to be overlayed to> <bar_number>`
+
+
+_Example_: `overlay_bar_song twinkle 3 jingle 4`
+
+
+The above command overlays bar 3 from twinkle onto bar 4 of jingle 
+
+The repeat parameter can be added to the end to overlay the bar from the required start point till the end. 
+
+_Format_:
+`overlay_bar_song <song_name to be overlayed from> <bar_number> <song_name to be overlayed to> <bar_number> repeat`
+
+_Example_: `overlay_bar_song twinkle 3 jingle 4 repeat`
+
+
+The above command overlays bar 3 onto jingle's bar 4 and onwards. 
+
+The output will be an ascii printed version of the song after overlaying. 
 
 _(Excerpt from Ducats User Guide ends here)_
 
 == Contributions to the Developer Guide
 
-The following section shows my additions to Ducats' Developer Guide, namely the section explaining the overall architecture, the section explaining the parsing and execution of commands, the section explaining navigation, and the section explaining the storage.
+The following section shows my conreibution to Ducats' Developer Guide, namely the section explaining the overlay functions, how to include a new function and how logging and testing were conducted.
 
 _(Excerpt from Ducats Developer Guide starts here)_
 
-=== Overall Architecture
+==== Overlay
+For any musician, having the freedom to overlay a part of one song to another (overlaps two components and we play the 2 components together at the same time)  will save them a lot of time and also make it easier for them to create a composition. The overlay function aims to perform this functionality and allows the freedom to overlay a bar-bar , bar-group, group - group. See Figure 1.4 for an example.
 
-Ducats consists of multiple components implemented as objects that work together to fulfill the program's objectives. Figure 1 below showcases the high-level architecture of Ducats:
-
-.Architecture Diagram
-image::Architecture_Diagram.png[]
+image::overlay_1_2.png[]
+Figure 1.4 - Example of `overlay 1 2`
 
 
-Ducats, the main class, is responsible for the initialization of the different components, as well as the highest level of logic.
+`overlay`: 
 
-DucatsLogger is a common class used by many of the components in order to log information, warnings and errors in a `.log` file.
+`overlay <bar_num to be overlayed> <bar_num to be overlayed to>`
 
-Other than the two components mentioned above, the rest of the components are linked in a way reminiscent of an n-tier architectural style, with the higher-level components depending on the resources provided by the lower-level components.
+Allows the users to overlay a bar from the same song to another bar on the same song. This feature is really useful when the song is really big and we just need to get the index of the bars to be overlayed and the overlaying bar. 
 
-=== Command Parsing and Execution
+*How to go about it?* 
 
-Since Ducats is a CLI app, it works by reading user input and carrying out the command the user wants it to execute. In line with this objective, the different components of Ducats have been designed to interact in the sequence as depicted by Figure X.
+The `overlay` command gets the command from the Parser and checks if all the required parameters are provided by spliting the string by spaces. For instance if the user inputs 1 number instead of 2, then a DucatsException is thrown. 
 
-.Command Parsing and Execution Sequence Diagram
-image::Command_Sequence_Diagram.png[]
+The index of the current Song is obtained by calling the `getActiveIndex()` function of SongList. 
 
-In the above diagram, 'XYZ' is used to represent a general command or function. There are several different types of possible commands that can be created after parsing, and hence the object is labelled "XYZCommand". Similarly, to format the output string, there are multiple method within the UI class of doing so, hence being represented here by "XYZFormat()".
+    songList.getActiveIndex();
 
-It can be seen that, for all commands, the `Parser` class is used to determine what type of command the user intends for the program to execute. In accordance with this, a new `Command` object is created and then the `execute()` method of the Command is called, modifying the `SongList` and `Storage`, and returning a String to be displayed on the console through the `UI` class.
+After which the required song is obtained by calling the `getSongIndex(songIndex)` function of SongList: 
 
-A slightly different schedule is used for the Metronome functionality, which will be discussed in further detail in Section 4.5.
+    songList.getSongIndex(songIndex);
 
-=== Creating a Song and Navigation
+The list of bars of the song are obtained by calling the getter function 
 
-The creation of a new song is straightforward. In the `new` command, the following attributes of the song to be created will be specified:
+    song.getBars(); 
 
-* name
-* key _[implementation coming in v2.0]_
-* time signature _[implementation coming in v2.0]_
+After which, we try to get the bar depending on the user's input (user's input - 1 because in Ducats we use a 1 based indexing) 
 
-While the above data is stored with every song, data adjustments based on, and specific methods that utilize the key and time signature are yet to be implemented.
+We make a copy of the overlayingBar by calling the `copy` function of the bar. 
 
-The created Song object will then be inserted into the SongList object, which contains all the song data of Ducats. Following this, persistent storage will be updated.
+    Bar.copy(bar_to_be_copied); 
 
-In order to enable the modification of certain songs when there are multiple songs without the forced provision of additional parameters by the user, a system of navigation has been implemented, where a song can be "opened" in order for it to be edited, with the first song in the SongList being "opened" by default. "Opening" a song is carried out by the execution of the `OpenCommand`, which changes a variable in the `SongList` object known as the `activeIndex`.
+This function returns a bar and hence allows us to pass the bar by value rather than reference. Therefore,any modification does not affect the overlaying bar. 
 
-`activeIndex` corresponds to the index of the song that can be edited by the other CRUD functions, and only by modifying this attribute to the appropriate value can songs other than the first one be editable. For example, consider the situation where the SongList contains two songs titled "twinkle" and "dreams".
+We create a `Combiner` class, which combines 2 same components of a song. 
 
-image::songlist_activeIndex1.png[]
+    combiner = new Combiner(); 
 
-In this case, as the default `activeIndex` is set to `0`, the user can enter `open dreams` in the CLI to make sure he is editing the song titled "dreams".
+After creating the combiner, we check if there is any 3rd parameter (`repeat`) to repeat the overlaying throughout the song from the bar that needs to be overlayed to.
 
-image::songlist_activeIndex2.png[]
 
-When the main class executes the command, the command will first try to find the index of the provided song in the song list.
 
-    String songName = message.substring(5);
-    int songIndex = songList.findSongIndex(songName);
+If there is a `repeat` parameter, we will call the `repeatLoop` function. This uses an iterator to loop through the array of bars. An iterator was used as it allows us to modify the object in the array while looping through it. The current index of the loop is stored in the form of a variable.
 
-findSongIndex(songName) conducts a linear search on the SongList to return the index of the song that has the given name, and returns -1 is the song is not found. By querying the return value, Ducats either sets the activeIndex of the SongList or throws and then handles a DucatsException. The former is carried out with the `setActiveIndex()` method of the SongList class.
+If the condition is fulfilled,  we call the combiner's `combineBar` function.
 
-    songList.setActiveIndex(songList.findSongIndex(songName));
+    combiner.combineBar(Bar_to_be_combined_on, Bar_to_be_combined_to);
 
-For future CRUD commands, the specific SongList method invocated by the `execute()` method takes in the activeIndex as a parameter and proceeds to perform the necessary operations on the SongList, as shown below. This means that you can utilize the SongList API function `setActiveIndex()` in other created components to achieve the same functionality.
+We repeat this process till the end of the array list. 
 
-image::songlist_activeIndex3.png[]
+If there is no repeat function, then we just get the bar to be overlayed from the array and call the combiner's `combineBar` function. 
 
-_Design Considerations_:
+After which, we call the `updatefile` function of storage to store the new song and then return the string from the `execute` function of ascii to properly display the new song to the user through the UI. Below is the sequence diagram for the overlay function (Figure 1.5): 
 
-* Use binary search instead of linear search for `findSongIndex()`
-** _Pros_: Higher efficiency in navigation
-** _Cons_: the `list` in the SongList needs to be sorted, and insertion in a sorted manner, along with the implementation of binary search, for minimal gains in efficiency, seems to violate KISS
 
-* Let the user input the index of the song rather than the name
-** _Pros_: Faster input of command for the user
-** _Cons_: User needs to look at the full list first, so overall, time is not saved. For the user, querying a name is more natural than an index.
+image::overlaysequencediagram.png[]
+Figure 1.5 - `overlay` command sequence diagram
 
-=== Storage and StorageParser
+==== overlay_bar_song
 
-In order to ensure that the songs the user has created, deleted or modified can be retrieved even after exiting Ducats, a form of persistent storage is needed. This is implemented as a folder containing `.txt` files, and a `Storage` class that will interact with the said folder to read and modify its contents. Since the `Storage` class can create and modify files, it is important to understand the exact procedures executed within the class for the reading and writing of files. The two swimlane diagrams below display the sequence of events, as well as how the `Storage` class interacts with the `StorageParser` class. Each activity is annotated with the function within which it occurs for easy reference.
 
-.Reading files (for each file)
-image::storage_read.png[]
+`overlay_bar_song`: 
 
-Before reading from the files, an assertion is made for the file list of the data folder (obtained through the `File.listFiles()` method) to not be null. The reading process as described in Figure X is then repeated for each file in the file list.
+`overlay_bar_song <song_name to be overlayed from> <bar_number> <song_name to be overlayed to> <bar_number>`
+ 
+Allows the users to overlay a bar from a different song to another bar from another song. This especially useful when the composer has already made a song or liked a part of a song from another composer. 
 
-.Writing to files (for each song)
-image::storage_write.png[]
 
-Regardless of whether the `.txt` file corresponding to the specific song exists, the `Storage` class will attempt the creation of the file to ensure its existence. Due to the modification of data being involved, changes to the files are logged by DucatsLogger.
+*How to go about it?* 
 
-_Data Format:_
 
-In order to convert each Song object to a human-readable String, and to be able to parse it back, a format must be decided for the storing of the Song object in persistent storage. The following format has been adopted:
+The command is sent from the parser class and appropriate checking of the command is done to check if the user has inputed the right number of parameters by splitting the message space by a ` `.
 
-    NAME KEY TEMPO
-    BAR_1
-    BAR_2
-    ...
-    BAR_N
-    groups:
-    GROUP_1_NAME BAR_1 ... BAR_N
-    ...
-    GROUP_N_NAME BAR_1 ... BAR_N
 
-Each `BAR_N`, where N is a positive integer, is formatted as follows, with the segments representing each individual bar, chord and note being labelled with B, C and N respectively:
+This command allows the user to input the song name rather than by index and hence once the command message has been split. The splitting is performed by the  `message.split(" ")`. 
 
-    [[UAs;UCs],[UA;UC],[UA;UC],[UA;UC],[MCs;LDs],[MC;LD],[MC;UDs],[MC,UD]]
-    |----------------------------------B---------------------------------|
-     |---C---|
-      |N|
+The exact song is obtained by calling the `findSong` function of songList. If the array sent by songList is smaller than 1, then the song doesnt exists and a Ducats exception is thrown. 
 
-For each String representing a Note object, the first two characters correspond to the pitch (ranging from Pitch.LOWER_C to Pitch.UPPER_C while passing through Pitch.MIDDLE_C). An exception for this convention would be Rest, which is represented as “RT”. The “s”, if present, signifies that the unit Note that has the duration of a 1⁄8 note is the start of a bigger Note object or one of the same duration. For example, in the above visualization, the Bar consists of an Upper A Note with the duration of ½ and an Upper C Note with the same duration in the first four chords.
+    songList.findSong(songName); 
 
-By implementing the storage in this way, we are able to ensure that the data is both storage-friendly as well as human-readable and editable. To construct the data to be stored in the .txt file, the `StorageParser` class invokes the toString() methods for the Song, Bar, Chord and Note classes for each Song in the Song list in a tree-like fashion due to the composition structure of the Song component (as can be seen in Figure X). Inversely, in order for the StorageParser class to parse the data found in the .txt file into Song objects that are to be stored in the SongList, the following methods are defined under the `StorageParser` class:
+The respective bar array is obtained by calling the `getBars()` function for each song obtained and the combiner class is invoked. 
 
-* `convertNoteFromString(String s)` (converts a String into a Note)
-* `convertChordFromString(String s)` (converts a String into a Chord) _(uses the above)_
-* `convertBarFromString(String s)` (converts a String into a Bar) _(uses the above)_
-* `convertSongFromString(String s)` (converts a String into a Song) _(uses the above)_
+If there is a repeat parameter, we will call the `repeatLoop` function. This uses an iterator is used to loop through the bar list and check if the current index is greater than or equal to the required index and perform the combineBar function, which splits each bar into chords and combines the chords using the arrayList combination. 
 
-_Design Considerations_:
+If there isnt a repeat parameter,then we just get the bar to be overlayed from the array and call the combiner's combineBar() function. 
 
-* Using a single .txt file to store all the data
-** _Pros_: easier implementation of `Storage`
-** _Cons_: harder for the user to import and export files without corrupting the data, complicated parsing in `StorageParser` required to get the full data, hard for the user to view the data if the song is too long due to line length limits on most `.txt` file editors
-* Using .csv files instead of .txt files to store the data
-** _Pros_: arguably a more organized method of data management
-** _Cons_: difficult to store song data of varying lengths in a meaningful way that would make a `.csv` file more ideal than a `.txt` file
+After which, we call the updatefile function of storage to store the new song and then return the string from the execute function of ascii to properly display the new song to the user through the UI. 
 
-We have decided to use a storage directory that contains `.txt` files, each containing a single song's data. With this implementation, it is easy for the user to export and import songs by just copying out or inserting .txt files of the same format respectively. Additionally, having a folder instead of a single file is neater for the user's file management, hence enhancing the user experience.
+Below is the action sequence diagram (Figure 1.6): 
+
+
+image::overlay_bar_song_actionsequence.png[]
+Figure 1.6 - `overlay_bar_song` action sequence diagram
+
+==== overlay_group_group
+
+`overlay_group_group`: 
+
+`overlay_group_group <song_name to be overlayed from> <group_number> <song_name to be overlayed to> <group_number>` 
+
+
+Allows the users to overlay a group from one song to another. The interesting aspect of this feature is that it allows the users to overlay groups of unequal length, i.e. a group with a larger number of bars onto a group with a smaller number of bars and vice versa. The following example shows what will happen when combining two unequal groups:  
+
+
+* Group 1: {Bar X Bar Y} 
+* Group 2 : {Bar A Bar B Bar C Bar D}
+* Overlaying Group 1 onto Group 2:  { [Bar A + Bar X] [Bar B + Bar Y] [Bar C + Bar X] [Bar D + Bar Y]}   
+* Overlaying Group 2 onto Group 1: { [Bar A + Bar X] [Bar B + Bar Y]} 
+
+It works similarly to the above two commands but the only difference is the way it handles unequal groups as it gets ratio of the two groups (i.e. the number of bars in group_1): 
+
+    int numberOfTimes = (int) Math.ceil(barCopiedTo.size() / (barBeCopiedFrom.size() * 1.0));
+
+The value is rounded up using the `Math.ceil` function as this gives us the upper bound for the number of times the barBeCopiedFrom needs to be repeated. After which we loop through the tobeCopiedFrom array and combine it with the toCopiedTo bars. A variable is used to keep count to ensure one doesnt access. 
+
+
+==== overlay_bar_group 
+
+
+Allows the users to overlay a  bar onto a group from the same song. It works in the similar way as the `overlay` commands. The repeat parameter allows the user to overlay through all the groups from the specified starting group. 
+
+`overlay_bar_group <bar_number> <group_number>`
+
+The group number can be obtained from the `list_group` function. 
+
+=== Logging
+
+This feature allows our app to constantly log important information that the user inputs to better understand the user behavior in our application. Logging also helps us identify command pathways in the app that lead to unexpected bugs and we can remedy them without asking the user to repeat their actions. Furthermore, in the future, we can train our AI depending on how the amateur musicians learn and to give them a better learning experience. 
+
+
+
+== Adding a New Function
+
+When creating a new command for Ducats, one must first create a class separately for this command. This class must extend the abstract class Command.  One must also implement the method execute which is in charge of executing the command depending on the user’s input. Furthermore, the parser class must be changed to include the command, by editing the switch case. It should also be included in the Ducats class’s run method. It can be included by using c instance of <Class Name> .If the undo-redo function is not applicable to the implemented command, then it must be included the nested if statement in the code (Refer to Figure 1.3) . Furthermore the command must be included in the  WordGetter class’s commandList array of String (Figure 1.4 for more details).
+
+
+image::adding_new_functionality_1.png[1.3]
+Figure 1.3 - Nested if statement in the Parser class. 
+
+image::adding_new_functionality_2.png[1.4]
+Figure 1.4 - `Commandlist` in `WordGetter class`
+
+== Testing
+We have used Junit Testing for our application and have done extensive testing on each feature. We have tried to be as broad in our test cases and used `jacoco` as way to test the extensiveness of our tests. We have achieved an overall extensiveness for our commands to be 78%. We will continue to increase this in the upcoming versions. 
 
 _(Excerpt from Ducats Developer Guide ends here)_
