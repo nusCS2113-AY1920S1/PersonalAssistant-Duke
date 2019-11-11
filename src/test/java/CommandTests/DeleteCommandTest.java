@@ -1,3 +1,5 @@
+package CommandTests;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,8 +32,8 @@ public class DeleteCommandTest {
 
     @BeforeEach
     public void init() throws RimsException {
-        this.testResourceFile = new File("tempDeleteResources.txt");
-        this.testReservationsFile = new File("tempDeleteReservations.txt");
+        this.testResourceFile = new File("data/tempDeleteResources.txt");
+        this.testReservationsFile = new File("data/tempDeleteReservations.txt");
     }
 
     @AfterEach
