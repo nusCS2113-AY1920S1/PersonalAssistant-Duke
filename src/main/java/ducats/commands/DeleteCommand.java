@@ -10,7 +10,7 @@ import ducats.components.SongList;
 /**
  * A class that represents the command to delete a song from the song list.
  */
-public class DeleteCommand extends Command<SongList> {
+public class DeleteCommand extends Command {
 
     /**
      * Constructor for the ducats.Commands.Command created to delete a song from the ducats.SongList

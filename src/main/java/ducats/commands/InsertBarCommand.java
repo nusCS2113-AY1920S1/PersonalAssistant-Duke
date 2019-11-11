@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * A class representing the command to insert a new bar of notes between existing bars in the current song.
  */
-public class InsertBarCommand extends Command<SongList> {
+public class InsertBarCommand extends Command {
     private int songIndex;
 
     /**

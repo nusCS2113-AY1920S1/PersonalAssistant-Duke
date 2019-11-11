@@ -3,8 +3,6 @@ package ducats.commands;
 import ducats.DucatsException;
 import ducats.Storage;
 import ducats.Ui;
-import ducats.components.Bar;
-import ducats.components.Group;
 import ducats.components.Song;
 import ducats.components.SongList;
 
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 /**
  * A class representing the command to view the last bar of a song from the song list.
  */
-public class ViewCommand extends Command<SongList> {
+public class ViewCommand extends Command {
 
     /**
      * Constructor for the command to view a song from the song list.

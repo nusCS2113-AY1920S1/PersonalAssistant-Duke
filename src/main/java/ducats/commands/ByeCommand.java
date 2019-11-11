@@ -10,7 +10,7 @@ import ducats.components.SongList;
 
 
 
-public class ByeCommand extends Command<SongList> {
+public class ByeCommand extends Command {
 
     private boolean exit = false;
 

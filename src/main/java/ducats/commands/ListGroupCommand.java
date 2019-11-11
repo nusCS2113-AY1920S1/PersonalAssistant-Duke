@@ -5,7 +5,7 @@ import ducats.Storage;
 import ducats.Ui;
 import ducats.components.SongList;
 
-public class ListGroupCommand extends Command<SongList> {
+public class ListGroupCommand extends Command {
 
     @Override
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {

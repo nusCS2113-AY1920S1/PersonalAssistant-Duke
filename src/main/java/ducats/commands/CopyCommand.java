@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * A class representing the command to copy bars or verses and paste them within the same track.
  */
-public class CopyCommand extends Command<SongList> {
+public class CopyCommand extends Command {
 
     //@@author Samuel787
     private String message;

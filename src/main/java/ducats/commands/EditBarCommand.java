@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * A class representing the command to edit a bar of notes in the current song.
  */
-public class EditBarCommand extends Command<SongList> {
+public class EditBarCommand extends Command {
 
     private int songIndex;
 

@@ -10,12 +10,10 @@ import ducats.components.Note;
 import ducats.components.Pitch;
 import ducats.components.Song;
 import ducats.components.SongList;
-import ducats.components.VerseList;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class AsciiCommand extends Command<SongList> {
+public class AsciiCommand extends Command {
 
     //@@author Samuel787
 

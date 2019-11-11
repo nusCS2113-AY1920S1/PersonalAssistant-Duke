@@ -11,7 +11,7 @@ import ducats.Parser;
 /**
  * A class representing the command to add a new song to the song list.
  */
-public class NewCommand extends Command<SongList> {
+public class NewCommand extends Command {
 
     /**
      * Constructor for the command to add a task to the task list.

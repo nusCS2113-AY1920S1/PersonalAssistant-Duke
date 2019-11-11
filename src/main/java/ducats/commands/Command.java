@@ -21,7 +21,7 @@ import ducats.components.UndoRedoStack;
  *     <li>AddBarCommand</li>
  * </ul>
  */
-public abstract class Command<T> {
+public abstract class Command {
 
     String message;
 
@@ -30,14 +30,14 @@ public abstract class Command<T> {
      * file used as persistent storage, and returns a formatted String to be displayed by the
      * command line interface / GUI.
      *
-     * @param object the ducats.TaskList or ducats.components.SongList object that contains the task list in use
+     * @param songList the ducats.components.SongList object that contains the song list in use
      * @param ui the Ui object responsible for the reading of user input and the display of
      *           the responses
      * @param storage the Storage object used to read and manipulate the .txt file
      * @return the formatted String to be displayed
      * @throws DucatsException in the case of either parsing or IO errors
      */
-    public abstract String execute(T object, Ui ui, Storage storage) throws DucatsException;
+    public abstract String execute(SongList songList, Ui ui, Storage storage) throws DucatsException;
 
     /**
      * Used for undo command and redo command only.

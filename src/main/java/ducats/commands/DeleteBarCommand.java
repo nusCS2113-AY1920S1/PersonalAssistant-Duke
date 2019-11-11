@@ -10,7 +10,7 @@ import ducats.components.SongList;
 /**
  * A class that represents the command to delete an bar from a song.
  */
-public class DeleteBarCommand extends Command<SongList> {
+public class DeleteBarCommand extends Command {
 
     /**
      * Constructor for the duke.Commands.Command created to delete a bar from a song
