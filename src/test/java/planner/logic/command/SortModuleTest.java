@@ -4,7 +4,6 @@ package planner.logic.command;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import planner.main.InputTest;
 import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModFailedJsonException;
@@ -15,14 +14,12 @@ import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
 import planner.logic.modules.module.ModuleTasksList;
 import planner.logic.parser.Parser;
-import planner.main.CliLauncher;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
 import planner.util.legacy.reminder.Reminder;
 import planner.util.storage.Storage;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,23 +42,13 @@ public class SortModuleTest extends CommandTestFramework {
     private String expectedOutput;
     private String inputTasks = "add module CG1111 --begin 3 --end 5 --dayOfWeek Wednesday\n"
             +
-            "add module CS2101 --begin 12 --end 14 --dayOfWeek Monday\n";
+            "add module CS2101 --begin 12 --end 14 --dayOfWeek Monday\n"
+            +
+            "add module CG2027\n";
 
     SortModuleTest() throws ModException {
         super();
     }
-
-    private String expectedBye = "_______________________________\n"
-            +
-            "Thanks for using ModPlanner!\n"
-            +
-            "Your data will be stored in file shortly!\n"
-            +
-            "_______________________________\n"
-            +
-            "_______________________________\n";
-
-    final String[] hold = {""};
 
     /**
      * Test initialization of ModPlan main classes.
@@ -72,47 +59,7 @@ public class SortModuleTest extends CommandTestFramework {
         argparser = new Parser();
         jsonWrapper = new JsonWrapper();
         jsonWrapper.getModuleDetailedMap();
-    }
-
-    @DisplayName("sort module test")
-    @Test
-    public void sortTestUserInput() {
-        final String commandTest1 = "sort module code\n" + "bye";
-        final String commandTest2 = "sort module grade\n" + "bye";
-        final String commandTest3 = "sort module level\n" + "bye";
-        final String commandTest4 = "sort module mc\n" + "bye";
-
-        provideInput(commandTest1);
-        final String[] hold = {""};
-        CliLauncher.main(hold);
-        String expectedSortedModules = "_______________________________\n"
-                +
-                "Welcome to ModPlanner, your one stop solution to module planning!\n"
-                +
-                "Begin typing to get started!\n"
-                +
-                "_______________________________\n"
-                +
-                "_______________________________\n"
-                +
-                "Here are your sorted modules:\n"
-                +
-                "_______________________________\n"
-                +
-                "_______________________________\n"
-                +
-                "Thanks for using ModPlanner!\n"
-                +
-                "Your data will be stored in file shortly!\n"
-                +
-                "_______________________________\n"
-                +
-                "_______________________________";
-
-        String contentString = outContent.toString();
-        String expected = removeUnicodeAndEscapeChars(contentString);
-        //assertEquals(expectedSortedModules, expected);
-        assertEquals(expected, expected);
+        user = new User();
     }
 
     @DisplayName("Sort Module Output Test")
@@ -125,7 +72,9 @@ public class SortModuleTest extends CommandTestFramework {
                 +"| 03:00 - 05:00 on WEDNESDAY\n"
                 +"Got it, added the follow module!\n"
                 +"[not taken] CS2101 | ModuleCode:CS2101, MC:4.0, SU: can S/U, grade: "
-                +"| 12:00 - 14:00 on MONDAY\n";
+                +"| 12:00 - 14:00 on MONDAY\n"
+                +"Got it, added the follow module!\n"
+                +"[not taken] CG2027 | ModuleCode:CG2027, MC:2.0, SU: cannot S/U, grade: \n";
         assertEquals(expectedOutput, getOut());
 
         execute("sort module code\n");
@@ -133,6 +82,7 @@ public class SortModuleTest extends CommandTestFramework {
                 + "_______________________________\n"
                 + "[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
                 + "| 03:00 - 05:00 on WEDNESDAY\n"
+                + "[not taken] CG2027 | ModuleCode:CG2027, MC:2.0, SU: cannot S/U, grade: \n"
                 + "[not taken] CS2101 | ModuleCode:CS2101, MC:4.0, SU: can S/U, grade: "
                 + "| 12:00 - 14:00 on MONDAY\n";
         assertEquals(expectedOutput, getOut());
@@ -142,6 +92,7 @@ public class SortModuleTest extends CommandTestFramework {
                 + "_______________________________\n"
                 + "[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
                 + "| 03:00 - 05:00 on WEDNESDAY\n"
+                + "[not taken] CG2027 | ModuleCode:CG2027, MC:2.0, SU: cannot S/U, grade: \n"
                 + "[not taken] CS2101 | ModuleCode:CS2101, MC:4.0, SU: can S/U, grade: "
                 + "| 12:00 - 14:00 on MONDAY\n";
         assertEquals(expectedOutput, getOut());
