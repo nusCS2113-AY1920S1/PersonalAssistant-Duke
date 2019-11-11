@@ -72,6 +72,115 @@ While DEGREES.NUS may work using different versions of Java and with other IDEs,
 <<<
 == Design
 
+=== Architecture
+
+image::Architecture.png[width="600"]
+_Figure 3.1.1 : Architecture Diagram_
+
+The Architecture Diagram given above explains the high-level design of the App. It consists of the following 6 components: +
+
+* Main
+* Parser
+* UI
+* Logic
+* Model
+* Storage
+
+=== Components
+==== Main
+
+
+Main has only one class called link:{repoURL}/src/main/java/main/Duke.java[`Duke`]. It is responsible for: +
+
+* At app launch: Initialising the components in the correct sequence, and connects them up with each other.
+* On user input: Managing parser and executing commands.
+* At shut down: Shutting down the components and invokes cleanup method where necessary.
+
+==== UI component
+The UI component is the User Interface of the App.
+
+image::UiClassDiagram.png[width="800"]
+_Figure 3.2.1 : Structure of the UI Component_
+
+*API* : link:{repoURL}/src/main/java/javafx/MainWindow.java[`MainWindow.java`]
+ 
+The UI consists of a MainWindow that is made up of parts e.g. tableView, tabPane etc. All these, including the MainWindow, inherit from the abstract UiPart class. +
+
+The UI component uses JavaFx UI framework. +
+
+The layout of these UI parts are defined in matching .fxml files that are in the src/main/resources/view folder. For example, the layout of the MainWindow is specified in MainWindow.fxml. +
+
+The UI component: +
+
+•	Displays results from user inputs in a tabular format.
+•	Reads some data in the Model so that the UI can update when a user inputs a command.
+•	Responds to events raised from various parts of the App and updates the UI accordingly.
+
+==== Logic component
+The `Logic` component is the command executor. The following diagram illustrates the structure of Logic component.
+
+image::LogicClassDiagram.png[width="800"]
+_Figure 3.3.1 : Structure of the Logic Component_
+
+image::LogicCommandClassDiagram.png[width="800"]
+_Figure 3.3.2 : Structure of Commands in the Logic Component. This diagram shows finer details concerning `XYZCommand` and `Command` in Figure 2.3.1_
+
+
+.  `Logic` uses the `Parser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `Command` classes.
+.  The command execution can affect the `Model` (e.g. adding a degree) and/or add events.
+.  Commands save a state of a `TaskList` and `DegreeList` withing themselves in a `memento` object before executing changes to them. This is to be used in the `undo` and `redo` command.
+
+==== Model component
+The `Model` component holds the data of the App in-memory. The following diagram illustrates the structure of Model component.
+
+image::ModelComponentClassDiagram.PNG[width="800"]
+_Figure 3.4.1 : Structure of the Model Component_
+
+*API* : link:{repoURL}/src/main/java/task/TaskList.java[`TaskList.java`],  link:{repoURL}/src/main/java/list/DegreeList.java[`DegreeList.java`], link:{repoURL}/src/main/java/degree/DegreeManager.java[`DegreeManager.java`]
+link:{repoURL}/src/main/java/statistics/Statistics.java[`Statistics.java`]
+
+The `Model`,
+
+* stores `TaskList` and `DegreeList` objects that represents the user's preferences.
+* stores the Degree data in `Degree Manager`.
+* stores the Statistics data for degrees in `Statistics`.
+* does not depend on any of the other three components.
+
+==== Storage component
+The `Storage` component reads data from, and writes data to, the hard disk. The following diagram illustrates the structure of Storage component.
+
+image::StorageClassDiagram.png[width="800"]
+_Figure 3.5.1 : Structure of the Storage Component_
+
+*API* : link:{repoURL}/src/main/java/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `save` and `savedegree` objects in txt format and read it back.
+* can read the degree data in csv format.
+* can read the degree events and statistics data in txt format.
+
+=== Events-Driven nature of the design
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+
+image::SDforDeletePerson.png[width="800"]
+_Figure 3.1.3a : Component interactions for `delete 1` command (part 1)_
+
+[NOTE]
+Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+
+The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+
+image::SDforDeletePersonEventHandling.png[width="800"]
+_Figure 3.1.3b : Component interactions for `delete 1` command (part 2)_
+
+[NOTE]
+Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+
+
+
 
 == Implementation
 === Undo/Redo Feature
@@ -261,11 +370,11 @@ image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs
 
 The degree list is a customizable list for the users to maintain a list to keep track of the degrees they are interested in and they can rank them in order of their preference as well. The degree list functionalities are facilitated by the class `DegreeList`. It makes use of a private static ArrayList of Strings to keep track of all the degrees entered. It implements the following methods that are needed for the user to add, remove or re-arrange degrees: 
 
-`DegreeList#add_custom(String input)`: This function takes in the parameter which is the degree inputted by the user and adds the degree to the ArrayList, after checking if duplicates of the degree or its common aliases already exist in the ArrayList.
+`DegreeList#add_custom(String input)`: This function takes in the parameter of an input string which is the degree inputted by the user and adds the degree to the ArrayList, after checking if duplicates of the degree or its common aliases already exist in the ArrayList.
 
-`DegreeList#delete(String input)`: This function takes in a string which contains index of the degree the user wishes to remove from the degree list. This function deletes the degree the user wishes to remove from the ArrayList, after checking if if it within bounds or not.
+`DegreeList#delete(String input)`: This function takes in a string which contains index of the degree the user wishes to remove from the degree list. This function deletes the degree the user wishes to remove from the ArrayList, after checking if  it is within bounds or not.
 
-`DegreeList#swap(String input)`: This function takes in an input string, which is then split using the support of the `Parser Class` and the indices of the degrees to be swapped are obtains and are then swapped using the Collections.swap() function.  
+`DegreeList#swap(String input)`: This function takes in an input string, which is then split using the support of the `Parser Class` and the indices of the degrees to be swapped are obtained. They are then swapped using the Collections.swap() function.  
 
 An example usage scenario details how the mechanism behaves at each step:
 
@@ -581,18 +690,18 @@ image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs
 
 The Statistics interface comprises of two methods that are overridden in the GraduateEmployment class. These two methods are:
 
-`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type GraduateStats (Fig xyz) and stored.
+`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type GraduateStats and stored.
 
 `Statistics#print(String input)`: This method takes in the parameter of a string which is the degree inputted by the user. The end result is the display of a bar chart on a separate window, visually depicting the statistics. In the case of GraduateEmployment, an instance of the class Employment_BarChart is created and a dual axis bar chart is displayed with information for the employment percentage rates and basic mean salary. 
 
 
 The GraduateEmployment class also has the following function:
 
-`GraduateEmployment#getStats()`: This method returns an ArrayList of type Graduate Stats, namely Stats, when called and is used to store the information needed. 
+`GraduateEmployment#getStats()`: This method returns an ArrayList of type GraduateStats, named Stats, when called and is used to store the information needed. 
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/gradstats.png[width="300", align = "center"]
 
-The Graduate Stats class as mentioned above allows to store the a string pertaining to the degree, a double value which is the employment percentage rate and an integer which corresponds to the basic mean salary. An array list of type GraduateStats is hence created to store all the necessary information.
+The GraduateStats class as mentioned above allows to store a string pertaining to the degree, a double value which is the employment percentage rate and an integer which corresponds to the basic mean salary. An array list of type GraduateStats is hence created to store all the necessary information.
 
 Following is a sequence diagram to depict the process of the statistics being loaded and stored in the ArrayList:
 
@@ -609,7 +718,7 @@ Different ways were considered to display the employment statistics:
 *** Easy for the user to understand the data
 ** Cons: 
 *** Needs two datasets to be rendered and then added to a single chart panel
-*** Complicated implementation as a work-around needs to be used and a series of null values need to be added to prevent overlap the axes 
+*** Complicated implementation as a work-around needs to be used and a series of null values had to be added to prevent overlap the axes 
 
 * Alternative 2: Display in the form of a table
 ** Pros: 
@@ -637,17 +746,17 @@ image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs
 
 The Statistics interface comprises of two methods that are overridden in the CohortSize class. These two methods are:
 
-`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type CohortStats (Fig xyz) and stored.
+`Statistics#loadStatistics(List<String>)`: This method takes in the parameter of a list of strings (List<String>) that have been fetched from the Storage class. They are then categorised as per the different degrees and year, following which it is added into an ArrayList of type CohortStats and stored.
 
 `Statistics#print(String input)`: This method takes in the parameter of a string which is the degree inputted by the user. The end result is the display of a bar chart on a separate window, visually depicting the statistics. In this case, an instance of the class Cohort_BarChart is created and a bar chart is displayed with information of the number of male, female and total students in the years 2016-2018 for the degree requested. 
 
 The CohortSize class also has the following function:
 
-`CohortSize#getStats()`: This method returns an ArrayList of type CohortStats, namely cohortStats, when called and is used to store the information needed. 
+`CohortSize#getStats()`: This method returns an ArrayList of type CohortStats, named cohortStats, when called and is used to store the information needed. 
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/CohortStats.png[width="300", align = "center"]
 
-The CohortStats class as mentioned above allows to store the a string pertaining to the degree and three integer values - the number of male students, the number of female students and the total number of students. An array list of type CohortStats is hence created to store all the necessary information. This is similar to how the data is loaded and stored in the case of the Graduate Employment statistics
+The CohortStats class as mentioned above allows to store a string pertaining to the degree and three integer values - the number of male students, the number of female students and the total number of students. An array list of type CohortStats is hence created to store all the necessary information. This is similar to how the data is loaded and stored in the case of the Graduate Employment statistics
 
 Following is a sequence diagram to depict the process of a bar chart being displayed to the user for a particular (excluding the loading of the statistics): 
 
@@ -836,94 +945,86 @@ Different ways were considered to display the employment statistics:
 |As a student entering NUS, I can view all the details of the course and their modules in one place rather than going through multiple websites so that I can avoid confusion 
 |High
 
-|As a student applying to NUS, I wish to be able to save a list of possible personal degrees so that I can have a neat way of accessing my list of possible degrees that I have brainstormed to apply for
+|As a student applying to NUS, I can save a list of possible personal degrees so that I can have a neat way of accessing my list of possible degrees that I have brainstormed to apply for
 |High 
 
-|As a student applying to NUS, I wish to compare the details of two majors on a single platform so that I can clearly see what details of the major are important and relevant to me.
+|As a student applying to NUS, I can compare the details of two majors on a single platform so that I can clearly see what details of the major are important and relevant to me.
 |High
 
-|As an impulsive user, I can delete/rank degrees from my personal selection list so that I can correct old decisions that I made the last time in order to have my most updated list at all times.
+|As a student still making a decision, I can delete/rank degrees from my personal selection list so that I can correct old decisions that I made the last time in order to have my most updated list at all times.
 |High
 
-|As a student presented with too many options, I would want to have a narrowed-down view of the major requirements to make a clearer decision. 
+|As a student presented with too many options, I can have a narrowed-down view of the major requirements to make a clearer decision. 
 |High
 
-|As a student applying to NUS, I should be able to have a list wherein I can add general/unrestricted modules I am interested in and also have the option to delete them whenever needed so that I can have the most updated list at all times.
+|As a student applying to NUS, I can keep track of a list wherein I can add general/unrestricted modules I am interested in and also have the option to delete them whenever needed so that I can have the most updated list at all times.
+|Medium
+
+|As a prospective student choosing between NUS and other universities’ engineering courses, I can easily look up all the modules and their details required for the particular engineering degree in NUS
 |High
 
-|As a prospective student choosing between NUS and other universities’ engineering courses, I will prefer to easily look up all the modules and their details required for the engineering degree, and having one for NUS makes us more attractive than other unis
+|As a student applying to NUS, I can keep track of all the deadlines to submit documents or housing, and of the various freshman events so that I don't miss out any.
 |High
 
-|As a student applying to NUS, I would want to keep track of all the deadlines to submit documents or housing, and of the various freshman events so that I don't miss out any.
+|As a new student, I can view the module details of the courses as soon as possible, without resorting to manually searching through all modules so that I can know easily learn more about upcoming modules.
 |High
 
-|As a new student, I want to know the module details of the courses as soon as possible, without resorting to manually searching through all modules so that I can know easily learn more about upcoming modules.
+|As a student applying to NUS, I can view all the modules required and their details for the next few years so that I can make a more informed decision.
 |High
 
-|As a student applying to NUS, I want to know all the modules required and their details for the next few years so that I can make a more informed decision.
-|High
-
-|As a user who prefers side by side comparisons, I would want to be able to compare between any two majors simultaneously, without the need to switch tabs so as to not get confused. 
+|As a user who prefers side by side comparisons, I can be able to compare between any two majors simultaneously, without the need to switch tabs so as to not get confused. 
 |High
 
 |As a novice user, I can type a “help” command and receive all the possible commands that Duke 2.0 provides so that I can use the software to its fullest potential 
 |Medium
 
-|As a student applying to NUS and having specific interests, I want to see if the core modules have any overlap with my interests so that I am better able to decide which engineering disciplines suits me the most
+|As a student applying to NUS and having specific interests, I can see if the core modules have any overlap with my interests so that I am better able to decide which engineering disciplines suits me the most
 |Medium
 
-|As a student applying to NUS and wishing to explore, it should able to propose to me a 2nd Major and point out how many overlaps are there with another degree, so that I am able to decide which second major would be the most beneficial for me.
+|As a practical person, I can view what majors are the most in demand by employers in the job market so that I make my choices on my job prospects.
 |Medium
 
-|As a student applying to NUS and who is organised, I would want to view the module requirements for the two degrees in a tabular format which can also provide a percentage similarity between the two.
+|As a student applying to NUS, I can view the past cohort sizes so that I know what sort of competition awaits me in my university career.
 |Medium
 
-|As a student, I would want to be able to view the complexity of each module in the major and an overall calculation for the complexity of the entire degree so as to see other students’ perceptions regarding the major
+|As a student applying to NUS and who is organised, I can view the module requirements for the two degrees in a tabular format for better clarity
 |Medium
 
-|As a careless typer, I can type mistakes into the command without Duke 2.0 crashing so that I do not have to re-run the program at every mistake.
+|As a student selecting a degree, I can view the complexity of each module in the major and an overall calculation for the complexity of the entire degree so as to see other students’ perceptions regarding the major
+|Medium
+
+|As a careless typer, I can type mistakes into the command without the application crashing so that I do not have to re-run the program at every mistake.
 |Medium
 
 |As a user, I can save my personal module selection list onto the hard drive so that I can go back to it when I turn on the program the next time.
 |Medium
 
-|As a student applying to NUS, I wish to see a recommended schedule so that I can better plan around
+|As a student applying to NUS, I can see a recommended schedule so that I can better plan around
 |Medium
 
-|As a student applying to NUS, it can show me past statistics of the module so that I can make a better decision when choosing my modules based on my competency level
+|As a student applying to NUS, I can see past statistics of the module so that I can make a better decision when choosing my modules based on my competency level
 |Medium
 
-|As a student applying to NUS, I would like to know the module workload for the upcoming semester so that I can better plan for electives.
+|As a student applying to NUS, I can see the module workload for the upcoming semester so that I can better plan for electives.
 |Medium
 
-|As a thorough decision-maker, I want to be able to visit the NUS website associated with the module so that I can view the official webpage of the degree for extremely specific details.
+|As a person interested in a certain engineering discipline, I can have access to  everything NUS offers such as modules, research projects, internships etc. for it on one platform so as to make a more informed decision.
 |Medium
 
-|As a person ambitious about a certain engineering discipline, I would want to know about everything NUS offers such as modules, research projects, internships etc. for it so as to make a more informed decision.
+
+|As a person who likes to keep it short, I can have access to the user commands to be as simple as possible to search up for anything so that I don’t have to memorize and remember many long commands
 |Medium
 
-|As an advanced user, there should be an option to toggle the Module Name display so that I can view it in a format suitable for me.
-|Medium
-
-|As a person who likes to keep it short, I would want the user commands to be as simple as possible to search up for anything so that I don’t have to memorize and remember many long commands
-|Medium
-
-|As an advanced user, I want to make/delete user defined commands which execute a certain command for me 
+|As an advanced user, I can make/delete user defined commands which execute a certain command for me 
 |Medium
 
 |As an ambitious student, I can see which majors have a rigorous course curriculum so that I can apply for degree that is personally challenging.
 |Medium
 
-|As an enthusiastic student applying to NUS, it can link me to resources (Eg textbooks, external websites) for the module so that I can have a headstart in my studies. 
+|As an enthusiastic student applying to NUS, I can have links to resources (Eg textbooks, external websites) for the module so that I can have a headstart in my studies. 
 |Low
 
-|As a practical person, I can view what majors are the most in demand by employers in the job market so that I make my choices on my job prospects.
-|Low
-
-|As a student applying to NUS, I would want to be able to view the past cohort sizes so that I know what sort of competition awaits me in my university career.
-|Low
-
-|As a lazy typer, duke will auto suggest things according to my most frequently used words so that DukeJr. becomes easier to use as time goes on
+|As a lazy typer, I can be able to enter commands through auto suggestions according to my most frequently used words so that DEGREES.NUS becomes easier to use as time goes on
 |Low
 
 |===
@@ -937,78 +1038,69 @@ Different ways were considered to display the employment statistics:
 <<<
 == Appendix B: Use Cases
 
-[cols="4*"] 
-|===
-|System
-|Actor
-|Use Case
-|Steps
+This section lists a few Use Cases that shows the *Actor*, who is the `user`, interacting with the *System*, which is `DEGREES.NUS`.
 
-|Duke 2.0 (D2)
-|Prospective Applicant to NUS Faculty of Engineering
-|View the whole list of possible commands for D2
-|User requires help with command syntax +
- +
-User types in the command in the following manner: `help` +
- +
-D2 returns all the possible commands that it will accept +
- +
-User reads the information
 
-|Duke 2.0 (D2)
-|Prospective Applicant to NUS Faculty of Engineering
-|Check core modules for Bachelor of Engineering (Electrical Engineering)
-|User identifies a degree that he/she wishes to research +
- +
-User types in the command in the following manner: `details EE` +
- +
-D2 displays the degree requirements, including the core modules +
- +
-User reads the information
+=== Use Case: Get `help` for commands
 
-|Duke 2.0 (D2)
-|Prospective Applicant to NUS Faculty of Engineering
-|Compare core modules for EE and CEG
-|User identifies two degrees she wishes to compare +
- +
-User types in the command in the following manner: `compare EE CEG` +
- +
-D2 displays similar and different modules from the two degrees +
- +
-User reads the information
+1. User requires help with command syntax +
+ 
+2. User types in the command in the following manner: `help` +
+ 
+3. DEGREES.NUS returns all the possible commands that it will accept +
+ 
+4. User reads the information
 
-|Duke 2.0 (D2)
-|Prospective Applicant to NUS Faculty of Engineering
-|Add CEG into degree list and view degree list
-|User identifies the degree he/she wishes to add to his/her list of possible degrees +
- +
-User types in the command in the following manner: `add EE` +
- +
-D2 adds Electrical Engineering to the user’s degree list +
- +
-User types in the command in the following manner: `degreelist` +
- +
-D2 returns the user’s degree list with Electrical Engineering added
 
-|Duke 2.0 (D2)
-|Prospective Applicant to NUS Faculty of Engineering
-|Swap CEG with EE in degree list
-|User identifies two degrees that he/she wishes to switch in the degree list +
- +
-User types in the command in the following manner: `swap CEG EE` +
- +
-D2 returns the user’s degree list with CEG and EE having switched indexes 
-|===
+=== Use Case: Check core modules for Bachelor of Engineering (Electrical Engineering)
 
+1. User identifies a degree that he/she wishes to research, Electrical Engineering +
+ 
+2. User types in the command in the following manner: `details EE` +
+ 
+3. DEGREES.NUS displays the degree requirements, including the core modules +
+ 
+4. User reads the information
+
+
+=== Compare core modules for EE and CEG
+1. User identifies two degrees she wishes to compare +
+ 
+2. User types in the command in the following manner: `compare EE CEG` +
+ 
+3. DEGREES.NUS displays similar and different modules from the two degrees +
+ 
+4. User reads the information
+
+
+=== Use Case: Add CEG into degree list and view degree list
+1. User identifies the degree he/she wishes to add to his/her list of possible degrees +
+ 
+2. User types in the command in the following manner: `add EE` +
+ 
+3. DEGREES.NUS adds Electrical Engineering to the user’s degree list +
+ 
+4. User types in the command in the following manner: `degreelist` +
+ 
+5. DEGREES.NUS returns the user’s degree list with Electrical Engineering added
+
+=== Use Case: Swap CEG with EE in degree list
+1. User identifies two degrees that he/she wishes to switch in the degree list +
+ 
+2. User types in the command in the following manner: `swap CEG EE` +
+ 
+3. DEGREES.NUS returns the user’s degree list with CEG and EE having switched indexes
 <<<
+
+
 == Appendix C: Non-Functional Requirements
 
-. D2 is a fast application.
-. D2 can be used on any platform (any PC), and is hence light-weight.
+. DEGREES.NUS is a fast application.
+. DEGREES.NUS can be used on any platform (any PC), and is hence light-weight.
 . The information provided is accurate as of the latest semester.
-. The application has simple functions, with more options provided for advanced users.
+. The application has simple functions
 . The application is fairly easy and understandable to navigate through.
-. Multi-step commands are available for beginners, as compared to one step for advanced users.
-. The application provided tabular formatting of information for better analysis.
 . It is inviting to the eye with a well-designed graphical user interface. 
+. The response to any use action should be visible to the user within 5 seconds
+. The product is offered for free
 

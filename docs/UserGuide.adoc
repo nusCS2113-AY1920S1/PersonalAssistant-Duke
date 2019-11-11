@@ -17,7 +17,6 @@ endif::[]
 By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 
 == Introduction
-<<<
 === The Product
 DEGREES.NUS is a desktop application developed to help *prospective applicants of NUS Faculty of Engineering* view, choose and manage engineering degrees, modules, and course events in a coherent and systematic manner.
 
@@ -36,7 +35,6 @@ If you already have DEGREES.NUS, jump ahead to <<Features>>!
 
 A summary of all our commands is available in <<Command Summary>>!
 
-<<<
 == Quick Start
 === Prerequisites
 In order to run DEGREES.NUS, you should have Java `11` or above installed in your Computer.
@@ -52,7 +50,6 @@ Now that you've installed Java `11` on your computer, you can go ahead with gett
 .  Copy the file to the folder you want to use as the home folder for 'DEGREES.NUS'.
 .  Double-click the file to launch the application. DEGREES.NUS will appear in a few seconds
 
-<<<
 === Checking DEGREES.NUS
 As DEGREES.NUS launches, you should see the following GUI:
 
@@ -68,7 +65,7 @@ To test that DEGREES.NUS is running as it should:
 
 If it does, you have successfully run DEGREES.NUS on your machine!
 
-<<<
+
 === Getting Used to DEGREES.NUS
 Here are some other examples of commands you can try to get used to DEGREES.NUS:
 
@@ -116,6 +113,10 @@ Displays information for the `tasks` command.
 * `help` +
 Displays information for ALL possible commands and switches to the `[Help]` tab.
 
+How it will be displayed with just `help`: +
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UIhelp.png[width="600"]
+
 === Display keywords and aliases that are compatible with <DEGREE>: `keywords`
 
 Displays all keywords and their aliases for each degree. +
@@ -125,7 +126,11 @@ However `view_employment` and `cohort_size` only uses keywords.
 
 Format: `keywords` 
 
-<<<
+How it will be displayed: +
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UIkeywords.png[width="600"]
+
+
 === Viewing detailed information about a degree: `detail | detail <DEGREE>`
 
 Lists all the module information associated with a degree. +
@@ -154,7 +159,7 @@ Switches to the `[Degree Information]` tab.
 How it will be displayed: +
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/detailExample.png[width="600"]
-<<<
+
 === Comparing two degrees: `compare | compare <DEGREE> <DEGREE>`[[compare]]
 
 Lists the module similarities and differences between two degree programs given their keywords. +
@@ -180,7 +185,7 @@ How it will be displayed: +
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/compareExample.png[width="600"]
 
-<<<
+
 === Adding a degree into your degree list: `add <DEGREE>`
 Adds a degree programme you are interested in into your personalised degree list. +
 This will also add tasks related to your degree to your task list. +
@@ -200,12 +205,27 @@ Adds Materials Science and Engineering to your degree list and faculty events to
 * `add CivE` +
 Adds Civil Engineering to your degree list and faculty events to your task list.
 
-=== Listing all degrees in your degree list: `choices` [[choices]]
+=== Listing all tasks in your task list: `tasks`
+
+Displays a list of all upcoming tasks you have. +
+Will switch to the `[Tasks]` tab.
+
+Format: `tasks`
+
+How it will be displayed: +
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UItasks.png[width="600"]
+
+=== Listing all degrees in your degree list: `choices`
 
 Displays a list of all the degrees you are interested in currently. +
 Will switch to the `[Degree Choices]` tab.
 
 Format: `choices`
+
+How it will be displayed: +
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UIchoices.png[width="600"]
 
 === Swapping degrees in your degree list: `swap <ID> <ID>`
 
@@ -225,7 +245,7 @@ Swaps degrees with ID 1 and 2.
 * `swap 1 3` +
 Swaps degrees with ID 1 and 3.
 
-<<<
+
 === Removing a degree in your degree list: `remove <ID>`
 
 Removes the degree with the specified ID from your degree list. +
@@ -259,7 +279,7 @@ Deletes the 5th task in your task list.
 
 // end::delete[]
 
-<<<
+
 === Sorting items in task list: `sort by <CATEGORY>`
 
 [NOTE]
@@ -480,11 +500,9 @@ If there is no `data` folder detected (i.e. after a fresh download), the jar fil
 DEGREES.NUS will suggest commands based on the frequency you have used certain commands. Pressing kbd:[&#8594;] will fill the rest of the displayed command. +
 If you wish to exit the current auto suggestion box, press kbd:[Esc].
 
-// tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+We will use enigma to encode the save file. It is hard for enigma cyphers to be decoded by humans, therefore it acts as deterrence only.
 
 <<<
 == FAQ
@@ -522,8 +540,9 @@ e.g. `help add`, `help todo`
 e.g. `detail ME`, `detail CivE`
 * *Add Degree* : `add <DEGREE>` +
 e.g. `add me`, `add Industrial and Systems Engineering`
+* *Display tasks* : `tasks` +
 * *List Degrees* : `choices` +
-* *Add Degree* : `swap <ID> <ID>` +
+* *Swap Degrees* : `swap <ID> <ID>` +
 e.g. `swap 4 1`
 * *Remove Degree* : `remove <ID>` +
 e.g. `remove 3`
@@ -553,4 +572,3 @@ e.g. `cohort_size ISE`
 * *Undo command* : `undo` +
 * *Redo command* : `redo` +
 * *Exit program* : `bye` +
-
