@@ -834,11 +834,11 @@ find CS4221:
 
 ---
 
-*Test Case* `event CS4211: mid-term /at 07/10/2000 09:00 - 07/10/2000 11:00`
+* Test Case `event CS4211: mid-term /at 07/10/2000 09:00 - 07/10/2000 11:00`
 
-* Expected:
+** Expected:
 
- The Event task has been rescheduled, it has a new period
+*** The Event task has been rescheduled, it has a new period
 
 ```
 ---------------------------------------------------------------------------------
@@ -859,11 +859,11 @@ find CS4221:
 
 ---
 
-*Test Case* `remind`
+* Test Case `remind`
 
-* Expected:
+** Expected:
 
- The 3 most upcoming tasks
+*** The 3 most upcoming tasks
 
 ```
 ---------------------------------------------------------------------------------
@@ -885,11 +885,11 @@ find CS4221:
 
 ---
 
-*Test Case* `edit 15 description CS2113 demo`
+* Test Case `edit 15 description CS2113 demo`
 
-* Expected:
+** Expected:
 
- Edit the description of the 15th task and change it to CS2113 demo
+*** Edit the description of the 15th task and change it to CS2113 demo
 
 ```
 ---------------------------------------------------------------------------------
@@ -898,11 +898,11 @@ find CS4221:
 ---------------------------------------------------------------------------------
 
 ```
-*Test Case* `edit 1 /by 13/11/2019 10:00`
+* Test Case `edit 1 /by 13/11/2019 10:00`
 
-* Expected:
+** Expected:
 
- Edit the date of the 1st task and change it to 13/11/2019 10:10
+*** Edit the date of the 1st task and change it to 13/11/2019 10:10
 
 ```
 ---------------------------------------------------------------------------------
@@ -911,11 +911,11 @@ find CS4221:
 ---------------------------------------------------------------------------------
 
 ```
-*Test Case* `edit 7 /at 22/11/2019 16:00 - 22/11/2019 17:00`
+* Test Case `edit 7 /at 22/11/2019 16:00 - 22/11/2019 17:00`
 
-* Expected:
+** Expected:
 
- Edit the date of the 7th task and change it to 22/11/2019 16:00 - 22/11/2019 17:00
+*** Edit the date of the 7th task and change it to 22/11/2019 16:00 - 22/11/2019 17:00
 
 ```
  ---------------------------------------------------------------------------------
@@ -925,11 +925,11 @@ find CS4221:
 
 ```
 
-*Test Case* `edit`
+* Test Case `edit`
 
-* Expected:
+** Expected:
 
- Enter in the multi command line and follow the instruction. The list of task will be proposed. Then you have to choose the task, following by what to edit then enter the modification.
+*** Enter in the multi command line and follow the instruction. The list of task will be proposed. Then you have to choose the task, following by what to edit then enter the modification.
 
 ```
 ---------------------------------------------------------------------------------
@@ -969,11 +969,11 @@ find CS4221:
 
 ---
 
-*Test Case* `setwelcome`
+* Test Case `setwelcome`
 
-* Expected:
+** Expected:
 
- The welcome message has been customized
+*** The welcome message has been customized
 
 ```
 ---------------------------------------------------------------------------------
@@ -999,11 +999,11 @@ find CS4221:
 
 ---
 
-*Test Case* `bye`
+* Test Case `bye`
 
-* Expected:
+** Expected:
 
- Exit the program and close it
+*** Exit the program and close it
 
 ```
 ---------------------------------------------------------------------------------
@@ -1031,11 +1031,11 @@ find CS4221:
 
 ---
 
-*Test Case* `stats`
+* Test Case `stats`
 
-* Expected:
+** Expected:
 
- General statistics about task list
+*** General statistics about task list
 
 ```
 ---------------------------------------------------------------------------------
@@ -1049,11 +1049,11 @@ find CS4221:
         Percent Complete: 15.0%
 ---------------------------------------------------------------------------------
 ```
-*Test Case* `stats -p`
+* Test Case `stats -p`
 
-* Expected:
+** Expected:
 
- Detailed priority statistics about task list
+*** Detailed priority statistics about task list
 
 ```
 ---------------------------------------------------------------------------------
@@ -1078,11 +1078,11 @@ find CS4221:
         Percent of tasks with priority 1: 15.0%
 ---------------------------------------------------------------------------------
 ```
-*Test Case* `stats -c`
+* Test Case `stats -c`
 
-* Expected:
+** Expected:
 
- Detailed completion statistics about task list
+*** Detailed completion statistics about task list
 
 ```
 ---------------------------------------------------------------------------------
