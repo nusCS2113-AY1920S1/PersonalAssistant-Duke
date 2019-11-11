@@ -28,6 +28,7 @@ public class DeleteTransactionCommand extends Command {
      * @param indexStr the index of the transaction to be deleted.
      */
     public DeleteTransactionCommand(String indexStr) {
+        logger.setLevel(Level.OFF);
         try {
             this.index = Integer.parseInt(indexStr.trim());
             logger.log(Level.FINE, "index is a valid int");
@@ -43,6 +44,7 @@ public class DeleteTransactionCommand extends Command {
      */
     public DeleteTransactionCommand(String indexStr, String dateStr) {
         this(indexStr);
+        logger.setLevel(Level.OFF);
         if (!dateStr.isBlank()) {
             try {
                 currentDate = LocalDate.parse(dateStr, dateFormat);
@@ -68,6 +70,7 @@ public class DeleteTransactionCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
+        logger.setLevel(Level.OFF);
         ui.showLine();
         if (index <= 0 || index > wallet.getTransactions().getTransactionList(currentDate).size()) {
             logger.log(Level.WARNING, "the index " + index + " is out of bound");

@@ -20,6 +20,7 @@ public class DoneCommandParser implements ParserInterface<MarkDoneCommand> {
      */
     @Override
     public MarkDoneCommand parse(String userInputStr) {
+        logger.setLevel(Level.OFF);
         try {
             InputValidator.validate(userInputStr);
         } catch (ProgramException e) {

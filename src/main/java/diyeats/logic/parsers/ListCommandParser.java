@@ -23,6 +23,7 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
      */
     @Override
     public ListCommand parse(String userInputStr) throws ProgramException {
+        logger.setLevel(Level.OFF);
         HashMap<String, String> argumentInfoMap;
         LocalDate localDate = LocalDate.now();
         String sortArgStr = "";

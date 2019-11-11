@@ -4,7 +4,7 @@
       "description": "kueh",
       "type": "B",
       "mealType": "BREAKFAST",
-      "isDone": false,
+      "isDone": true,
       "date": "2019-11-11",
       "nutritionValue": {
         "calorie": 300

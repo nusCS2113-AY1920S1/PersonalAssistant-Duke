@@ -23,6 +23,7 @@ public class ListTransactionCommandParser implements ParserInterface<ListTransac
      */
     @Override
     public ListTransactionsCommand parse(String userInputStr) {
+        logger.setLevel(Level.OFF);
         HashMap<String, String> argumentInfoMap;
         LocalDate localDate = LocalDate.now();
         if (userInputStr.isBlank()) {

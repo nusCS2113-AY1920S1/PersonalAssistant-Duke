@@ -24,6 +24,7 @@ public class DepositCommandParser implements ParserInterface<AddTransactionComma
      */
     @Override
     public AddTransactionCommand parse(String userInputStr) {
+        logger.setLevel(Level.OFF);
         try {
             InputValidator.validate(userInputStr);
             String[] amountAndDate = ArgumentSplitter.splitArguments(userInputStr, "/date");
