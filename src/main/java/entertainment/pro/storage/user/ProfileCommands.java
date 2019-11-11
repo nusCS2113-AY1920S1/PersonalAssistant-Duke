@@ -246,14 +246,14 @@ public class ProfileCommands {
     /**
      * Responsible for clearing the sort options in the userProfile.
      */
-    private UserProfile clearSortPreference() throws IOException {
+    public UserProfile clearSortPreference() throws IOException {
         return setSort(false, false, false);
     }
 
     /**
      * Responsible for clearing all the genres set under gene restrictions in the userProfile.
      */
-    private UserProfile clearGenreRestrict() {
+    public UserProfile clearGenreRestrict() {
         return userProfile.removeGenreIdRestriction(userProfile.getGenreIdRestriction());
     }
 
@@ -261,15 +261,15 @@ public class ProfileCommands {
     /**
      * Responsible for clearing all the genres set under gene preferences in the userProfile.
      */
-    private UserProfile clearGenrePreference() {
+    public UserProfile clearGenrePreference() {
         return userProfile.removeGenreIdPreference(userProfile.getGenreIdPreference());
     }
 
 
     /**
-     * Responsible for clearing whether to have search results that conatin adult content in the userProfile.
+     * Responsible for clearing whether to have search results that contain adult content in the userProfile.
      */
-    private UserProfile clearAdultPreference() {
+    public UserProfile clearAdultPreference() {
         return userProfile.setAdult(false);
     }
 

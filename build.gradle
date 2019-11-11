@@ -4,6 +4,8 @@ plugins {
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'jacoco'
+    id 'com.github.kt3k.coveralls' version '2.8.4'
 }
 
 checkstyle {
@@ -47,6 +49,22 @@ dependencies {
     compile group: 'info.movito', name: 'themoviedbapi', version:'1.9'
 }
 
+
+jacoco {
+    toolVersion = "0.8.4"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled true
+    }
+}
+
+coveralls {
+    jacocoReportPath 'build/reports/jacoco/test/jacocoTestReport.xml'
+}
+
 sourceSets {
     main {
         java {
@@ -60,6 +78,9 @@ sourceSets {
 
 test {
     useJUnitPlatform()
+    jacoco {
+        destinationFile = new File("${buildDir}/jacoco/test.exec")
+    }
 }
 
 
