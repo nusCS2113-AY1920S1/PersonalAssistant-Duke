@@ -45,7 +45,7 @@ public abstract class DescriptionParser extends Parser {
     }
 
     // @@author hanskw4267
-    protected String extractModCode(String taskFeatures) throws ChronologerException {
+    String extractModCode(String taskFeatures) throws ChronologerException {
         Pattern patt = Pattern.compile("/m\\s*[A-Z,a-z]{2,3}[1-9]{1}\\d{3}[A-Z,a-z]?");
         Matcher matcher = patt.matcher(taskFeatures);
         if (matcher.find()) {
