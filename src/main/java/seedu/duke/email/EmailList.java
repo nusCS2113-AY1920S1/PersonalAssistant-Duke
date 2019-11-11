@@ -87,7 +87,7 @@ public class EmailList extends ArrayList<Email> {
      * @param index of email to be deleted
      * @return confirmation message to be displayed to user
      */
-    public String delete(int index) {
+    public String deleteLocalEmail(int index) {
         Email email = this.get(index);
         this.remove(email);
         String responseMsg = constructDeleteMessage(email);
