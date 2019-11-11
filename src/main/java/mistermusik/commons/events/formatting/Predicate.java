@@ -1,4 +1,5 @@
 //@@author Dng132FEI
+
 package mistermusik.commons.events.formatting;
 
 /**
