@@ -14,16 +14,18 @@ Kanban boards for different group projects? ArchDuke is the application for you!
 ArchDuke is a simple desktop application designed by team leaders, for team leaders to manage their multiple projects!
 ArchDuke is optimized for team leaders who wish to work using a Command Line Interface (CLI).
 
+.UI of ArchDuke
+image::images/UI.png[]
 
 == Quick Start
 . Ensure *Java `11`* is installed in your computer. To check the version of Java installed in your work environment,
 type `java -version` into your preferred terminal (such as Command Prompt, Git Bash, or MacOS terminal)
-. Download the latest *.jar* file from here.
+. Download the latest *.jar* file from here: link:https://github.com/AY1920S1-CS2113-T13-1/main/releases[`Releases`]
 . Copy the *.jar* file to your desired folder.
-. Double click the file to run. The GUI shown above will appear within a few seconds.
-. Type your commands in the command box at the very top and press Enter to execute it.
-.. Typing `help` and executing it will open the help window for a complete overview of all available commands,
-their usage and their functions.
+. Run the java file using `java -jar ArchDuke.jar`. The UI shown above will appear within a few seconds.
+. Type your commands in your terminal and press Enter to execute it.
+.. Typing `help` and executing it will open the help list for a complete overview of all available commands,
+their usage and their functions at the current state.
 . Refer to the Features section for detailed documentation and usage of each command
 . Refer to Command Summary section for a quick summary of all available commands.
 
@@ -31,26 +33,23 @@ their usage and their functions.
 
 === Command Format
 - Words in UPPER_CASE are the parameters that needs to be specified by each user.
-** E.g. `create PROJECT_NAME` where PROJECT_NAME is a parameter which can be used as create CS2113_Project
-- Parameters can be typed in any order
-** E.g. if the command specifies `-n NAME -d DATE`, `-d DATE -n NAME` is also acceptable
+** E.g. `create PROJECT_NAME` where PROJECT_NAME is a parameter which can be used as `create CS2113_Project`
 - Parameters defined in square brackets are optional.
-** E.g. -n NAME [-i PHONE_NUMBER] can be used as -n Cynthia -i 91234567 or as -n Cynthia
+** E.g. `-n NAME [-i PHONE_NUMBER]` can be used as `-n Cynthia -i 91234567` or as `-n Cynthia`
 
 ==== Basic Flags
 - `-n` indicates a name or string flag.
 - `-e` indicates a flag for email.
-- `-a` indicates a flag for an address of a member.
 - `-i` indicates an integer flag.
 - `-d` indicates a flag for a date in the DD/MM/YYYY format.
 - `-p` indicates a flag for task priority, represented in integers.
 - `-c` indicates a flag for the amount of credit awarded for completion of a certain task, represented in integers.
 - `-s` indicates the flag where user can specify the state of the specific task.
+- `-r` indicates a flag for either task requirements or roles of member, depending on the command used
 
 ==== Other notes
 - All names (eg. for members, tasks, etc) should not be hyphenated or they will not be recorded properly.
 - Dates are entered in the following format: `dd/mm/yyyy` (eg. 10/11/2019)
-
 
 === Project Commands
 
@@ -58,7 +57,12 @@ their usage and their functions.
 This command will create a new project with a given name, which is automatically saved in JSON.
 
 * Format: `create PROJECT_NAME`
-** Example: `create New Project`
+* Example:
+
+[source]
+----
+create New Project
+----
 
 ==== View all projects: `list`
 Shows a list of all projects and project details: project index number, project name, the names of all
@@ -70,7 +74,12 @@ project members, nearest deadline and overall progress of project.
 Allows user to manage a project at the specified index. The index refers to the index number shown in the list of all projects and project details through the command view. Index number are generated using 1-based indexing.
 
 * Format: `manage PROJECT_INDEX`
-** Example: `manage 1`
+* Example:
+
+[source]
+----
+manage 1
+----
 
 [IMPORTANT]
 All Member, Task, Assignment and other commands are only executable after the user has selected a project that he or she wishes to manage.
@@ -79,8 +88,12 @@ All Member, Task, Assignment and other commands are only executable after the us
 Allows user to delete a project at the specified index. The index refers to the index number shown in the list of all projects and project details through the command view. Index number is generated using 1-based indexing.
 
 * Format: `delete PROJECT_INDEX`
-** Example: `delete 2`
+* Example:
 
+[source]
+----
+delete 2
+----
 
 === Member Commands
 
@@ -88,7 +101,12 @@ Allows user to delete a project at the specified index. The index refers to the 
 Adds members to the specific project selected using `manage`.
 
 * Format: `add member -n NAME [-i PHONE_NUMBER] [-e EMAIL_ADDRESS] [-r ROLE]`
-** Example: `add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com -r Lead`
+* Example:
+
+[source]
+----
+add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com -r Lead
+----
 
 [NOTE]
 Member details should not contain any hyphens (eg. Mary-Jane) or the details will be truncated and not recorded properly.
@@ -110,7 +128,12 @@ image::images/screenshots/viewmembers.png[]
 Edits details of the members. Only fields that need editing need to be entered.
 
 * Format: `edit member INDEX [-n NAME] [-i PHONE_NUMBER] [-e EMAIL]`
-** Example: `edit member 2 -n Jerry Zhang -e zhangjerry@u.nus.edu`
+* Example:
+
+[source]
+----
+edit member 2 -n Jerry Zhang -e zhangjerry@u.nus.edu
+----
 
 [NOTE]
 The member index must be a positive integer.
@@ -132,9 +155,13 @@ with caution to avoid losing work.
 
 * Format: `delete member INDEX1 [INDEX2]`
 * Examples:
-** `delete member 4`
-** `delete member 1 2`
-** `delete member all`
+
+[source]
+----
+delete member 4
+delete member 1 2
+delete member all
+----
 
 [NOTE]
 Index numbers of the remaining members may be changed after deletion.
@@ -149,8 +176,14 @@ This is to prevent any errors caused by possible shifting of index numbers durin
 ==== Give roles to specific members in a project : role
 Allows a user to assign roles to specific members, where a role can be any String.
 Members must be specified using the index of a specific member in a group project.
+
 * Format: `role INDEX -n ROLE_NAME`
-** Example: `role 2 -n Badguy`
+* Example:
+
+[source]
+----
+role 2 -n Badguy
+----
 
 The role of a new member can also be changed during the addition, by using the -r flag.
 * Example: `add member -n Thor -r AlienGuy`
@@ -169,7 +202,12 @@ Adds a task to the project.
 [-r TASK_REQUIREMENT1]
 [-r TASK_REQUIREMENT2]`
 
-** Example: `add task -n Documentation for product -p 2 -d 21/09/2019 -c 40 -r do something -r do another thing`
+* Example:
+
+[source]
+----
+add task -n Documentation for product -p 2 -d 21/09/2019 -c 40 -r do something -r do another thing
+----
 
 [NOTE]
 Task name should not contain any hyphens (eg. Task-1) or the details will be truncated and not recorded properly.
@@ -210,6 +248,12 @@ Task requirements cannot be edited through this command.
 ** `edit task 12 -p 5 -c 80`
 ** `edit task 4 -s doing`
 
+[source]
+----
+edit task 12 -p 5 -c 80
+edit task 4 -s doing
+----
+
 ==== Delete a task : `delete task`
 Removes a task from the current selected project.
 All details regarding the task will be removed. If the task is assigned to any member, the member will automatically be unassigned.
@@ -221,9 +265,13 @@ with caution to avoid losing work.
 
 * Format: `delete task INDEX1 [INDEX2]`
 * Examples:
-** `delete task 1`
-** `delete task 1 2 3`
-** `delete task all`
+
+[source]
+----
+delete task 1
+delete task 1 2 3
+delete task all
+----
 
 [NOTE]
 Index numbers of the remaining tasks may be changed after deletion.
@@ -256,23 +304,34 @@ Tasks without a deadline will be classified as the latest.
 
 * Examples
 ** `view tasks -name` : shows all the tasks sorted lexicographically
+
 image::images/screenshots/viewtasks_name.png[]
 ** `view tasks -date` : show all the dates sorted by the due date
+
 image::images/screenshots/viewtasks_date.png[]
 ** `view tasks -priority` : shows all the dates sorted by priority
+
 image::images/screenshots/viewtasks_priority.png[]
 ** `view tasks -credits` : shows all the tasks sorted by credits
+
 image::images/screenshots/viewtasks_credits.png[]
 ** `view tasks -who Dillen` : shows all the tasks assigned to “Dillen”
+
 image::images/screenshots/viewtasks_who.png[]
 ** `view tasks -state doing` : shows all the tasks with the state “DOING”
+
 image::images/screenshots/viewtasks_state.png[]
 
 ==== View task requirements : `view task requirements`
 Shows user a list of task requirements for a specific task in the current project:
 
 * Format: `view task requirements TASK_INDEX`
-** Example: `view task requirements 2`
+* Example:
+
+[source]
+----
+view task requirements 2
+----
 
 ==== Edit task requirements : `edit task requirements`
 Adds or removes a list of task requirements to a specific task in the current project.
@@ -281,8 +340,12 @@ The flag `-rm`  indicates the index numbers of existing requirements to be remov
 
 * Format: `edit task requirements TASK_INDEX [-r TASK_REQUIREMENT_TO_ADD] [-rm TASK_REQUIREMENT_INDEX_TO_REMOVE]`
 * Examples:
-** `edit task requirements 2 -r do something -r do another thing`
-** `edit task requirements 2 -rm 1 2 4 -r do something`
+
+[source]
+----
+edit task requirements 2 -r do something -r do another thing
+edit task requirements 2 -rm 1 2 4 -r do something
+----
 
 [NOTE]
 The user may input multiple requirements to be added and multiple requirements to be removed.
@@ -291,7 +354,7 @@ The user may input multiple requirements to be added and multiple requirements t
 Displays the current month with any dates marked with an X if there is a task that is due then, much like a calendar.
 * Format: `agenda`
 
-//insert picture
+image::images/screenshots/agenda.png[]
 
 === Assignment Commands
 
@@ -332,6 +395,21 @@ This allows the user to check which task is assigned to who, and vice versa.
 
 A modifier suffix must be added behind the command to specify the format to display the task assignments.
 The suffix `-m` indicates member index numbers, while `-t` indicates tasks index numbers.
+
+====  View total credits completed by each member : view credits
+Shows all members’ credits, their index number, name, and name of tasks completed.
+* Format: view credits
+
+[NOTE]
+Credits are only calculated for tasks which have the “DONE” state.
+
+[NOTE]
+Credits are equally distributed amongst assigned members.
+
+image::images/screenshots/viewcredits.png[]
+=== Task Commands
+
+
 
 [width="100%",cols="25%,<75%,options="header",]
 |=======================================================================
@@ -378,25 +456,37 @@ Adds a reminder to the project.
 The due date may or may not need to be added depending on the nature of the reminder.
 The input for date is in the dd/mm/yyyy format. (E.g. 21/09/2019)
 
-* Format: `add reminder -n reminder_NAME [-d TASK_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
+* Format: `add reminder -n reminder_NAME [-d TASK_DUEDATE-(dd/mm/yyyy)] [-l REMINDER_LIST_NAME] [-r Requirements]`
 * Examples:
-** `add task -n Fix important bug -d 21/09/2019 -l Software Reminder List`
-** `add reminder -n Do activate patch -r need to check internet connection -d 10/10/2000 -l System`
 
-//insert screenshot
+[source]
+----
+add reminder -n Fix important bug -d 21/09/2019 -l Software Reminder List
+add reminder -n Do activate patch -r need to check internet connection -d 10/10/2000 -l System
+----
+
 ==== View reminder: `view reminders`
 View all the of reminders information in the project. Information such as the state of the reminder, the category, remarks and the deadline.
 
-//Dillen can elaborate one what u mean by "by list'?
-
 Format: `view reminders [by list]`
 Example: `view reminders [by list]`
+
+.If command was `view reminders`
+image::images/screenshots/view_reminders.png[]
+
+.If command was `view reminders by list`
+image::images/screenshots/view_reminders_by_list.png[]
 
 ==== Delete reminder: delete reminder
 Deletes a reminder from the project. The index number is based on the list given by the view  reminder command.
 
 * Format: `delete reminder INDEX_NUMBER`
-** Example: `delete reminder 1`
+* Example:
+
+[source]
+----
+delete reminder 1
+----
 
 ==== Edit reminder: edit reminder
 Edit the details of the  reminder in the project: reminder name, remarks, category and due date.
@@ -404,14 +494,25 @@ Edit the details of the  reminder in the project: reminder name, remarks, catego
 Only fields that need to be edited must be filled in. Fields that are not filled will not be changed.
 
 * Format: `edit reminder INDEX_NUMBER -n REMINDER_NAME [-d REMINDER_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
-** Example: `edit reminder 1 -n Fix important bug -d 21/09/2019`
-** `edit reminder 1 -n Apply critical patch -r need to understand some stuff -d 10/10/2000 -l Software`
+* Example:
+
+[source]
+----
+edit reminder 1 -n Fix important bug -d 21/09/2019
+edit reminder 1 -n Apply critical patch -r need to understand some stuff -d 10/10/2000 -l Software
+----
 
 ==== Mark status of the reminder: `[un]mark reminder`
 Mark the status of the reminder in the project.
 
 * Format: `mark reminder INDEX_NUMBER`
-** Example: `mark reminder 1`
+* Example:
+
+[source]
+----
+mark reminder 1
+unmark reminder 2
+----
 
 === Miscellaneous Commands
 
@@ -420,10 +521,18 @@ View the current details about the project that is being managed.
 
 * Format: `view`
 
+image::images/screenshots/view.png[]
+
 ==== Edit the name of the current project : rename
 Allows user to rename the project currently being managed.
-* Format: rename PROJECT_NAME
-** Example: rename Avengers
+
+* Format: `rename PROJECT_NAME`
+* Example:
+
+[source]
+----
+rename Avengers
+----
 
 ==== Report progress : report [coming in v2.0]
 Reports the progress of all projects, and the contributions of each member (the credit each member earned,
@@ -450,6 +559,7 @@ Displays a list of commands that are available for use at the current point of a
 == FAQ
 
 Q: How can I transfer data from one workstation to another?
+
 A: The application must be installed in the other computer by downloading the same version of the .jar file used in the original work environment. You may then copy the data file from the original work environment and overwrite the empty data file in the new work environment.
 
 == Command Summary
@@ -519,6 +629,8 @@ A: The application must be installed in the other computer by downloading the sa
 **** Example: `edit reminder 1 -n Fix error -d 21/09/2019`
 ... Mark reminder: `mark reminder INDEX_NUMBER`
 **** Example: `mark reminder 1`
+... Unmark reminder: `unmark reminder INDEX_NUMBER`
+**** Example: `unmark reminder 2`
 ... Delete reminder: `delete reminder INDEX_NUMBER`
 **** Example: `delete reminder 1`
 
@@ -526,7 +638,7 @@ A: The application must be installed in the other computer by downloading the sa
 ... View current details of project: `view`
 ... Edit the name of the current project : `rename PROJECT_NAME`
 **** Example: rename AvengersAssemble
-... Report progress : `report` [coming in v2.0]
+... Report progress : `report` **[coming in v2.0]**
 ... Exit managing a project: `exit`
 ... Exiting the program from anywhere: `bye`
 ... Display help: `help`
