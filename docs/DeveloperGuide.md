@@ -236,11 +236,11 @@ API: `OrderStorage.java`
 
 A subclass of  `Storage.java`, that can store `orders` in the order list in a certain format, by storing it into and reading it back from the `order.txt` file stored on the hard disc. The `OrderList` as a `GenericList` of orders also changes dynamically with the program execution.The format print in file follows  `order_status|serving_date|D|dish_name|dish_amount|D|dish_name|dish_amount|...` , where status refers to `done(1)`/`undone(0)`, and `D` seperates each ordered dishes with its amount. See example below:
 
-- ```
-  1|02/11/2019|D|fish|1|D|chili crab|1|D|rice|2
-  0|12/11/2019|D|beef noodle|1|D|pork dumplings|2
-  0|11/11/2019|D|cereal shrimp|1|D|soup|4
-  ```
+```
+1|02/11/2019|D|fish|1|D|chili crab|1|D|rice|2
+0|12/11/2019|D|beef noodle|1|D|pork dumplings|2
+0|11/11/2019|D|cereal shrimp|1|D|soup|4
+```
 
 ##### 2.5.4 DishStorage
 
@@ -249,7 +249,10 @@ API: `RecipeStorage.java`
 A subclass of  `Storage.java`, that can store `dishes` in the recipebook in a certain format, by storing it into and reading it back from the `recipebook.txt` file stored on the hard disc. The `DishList` as a `GenericList` of dishes also changes dynamically with the program execution. The format print in file follows:
 
   ```
-  ???? I don't know the output
+cake|milk|3|sugar|2|egg|1|wheat|3
+pumpkin pie|pumpkin|1|sugar|1|egg|1
+cookie|wheat|2|cocoa beans|1
+golden apple|gold ingot|8|apple|1
   ```
 
 ##### 2.5.5 Printable
