@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -189,8 +188,10 @@ public class Order {
                 //For example, if 2 units of milk are needed to make one cheese cake,
                 // and the order contains 5 cheese cakes,
                 //then milk needed for cheese cake = 2 * 5 = 10.
-                requiredIngredients.computeIfPresent(ingredientNeeded, (k, v) -> v + amountNeeded * numberOfCopies);
-                requiredIngredients.putIfAbsent(ingredientNeeded, amountNeeded * numberOfCopies);
+                requiredIngredients.computeIfPresent(ingredientNeeded,
+                    (k, v) -> v + amountNeeded * numberOfCopies);
+                requiredIngredients.putIfAbsent(ingredientNeeded,
+                    amountNeeded * numberOfCopies);
             }
         }
 
@@ -201,32 +202,49 @@ public class Order {
                                                    Map<Ingredient, Double> requiredIngredients) {
         requireAllNonNull(inventory, requiredIngredients);
 
-        AtomicBoolean isEnough = new AtomicBoolean(true);
-
-        //Iterate through all ingredients needed.
-        requiredIngredients.forEach((requiredIngredient, requiredAmount) -> {
-            boolean isFound = false;
-            //Iterate through inventory to find the required ingredient.
-            for (Item<Ingredient> ingredientItem : inventory) {
-                Ingredient inventoryIngredient = ingredientItem.getItem();
-                double inventoryAmount = ingredientItem.getQuantity().getNumber();
-                if (requiredIngredient.equals(inventoryIngredient)) {
-                    isFound = true;
-                    if (requiredAmount > inventoryAmount) {
-                        isEnough.set(false);
-                        break;
-                    }
-                }
+        //Check if all required ingredients are in inventory.
+        for (Ingredient required : requiredIngredients.keySet()) {
+            if (!isInInventory(required, inventory)) {
+                return false;
             }
+        }
 
-            //If ingredient needed is not in inventory
-            if (!isFound) {
-                isEnough.set(false);
+        //Check if inventory has enough ingredient.
+        for (Map.Entry<Ingredient, Double> entry : requiredIngredients.entrySet()) {
+            if (!isEnough(entry.getKey(), entry.getValue(), inventory)) {
+                return false;
             }
-        });
+        }
 
-        return isEnough.get();
+        return true;
     }
+
+    private boolean isInInventory(Ingredient required, ObservableList<Item<Ingredient>> inventory) {
+        for (Item<Ingredient> ingredientItem : inventory) {
+            Ingredient inventoryIngredient = ingredientItem.getItem();
+            if (required.equals(inventoryIngredient)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isEnough(Ingredient requiredIngredient,
+                             double requiredAmount,
+                             ObservableList<Item<Ingredient>> inventory) {
+
+        for (Item<Ingredient> ingredientItem : inventory) {
+            Ingredient inventoryIngredient = ingredientItem.getItem();
+            double inventoryAmount = ingredientItem.getQuantity().getNumber();
+            if (requiredIngredient.equals(inventoryIngredient) && requiredAmount > inventoryAmount) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 
     @Override
     public String toString() {
