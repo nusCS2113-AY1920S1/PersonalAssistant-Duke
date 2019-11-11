@@ -39,25 +39,6 @@ public class Payments implements Comparable<Payments> {
         this.deadline = new Date(currDate.getTime() + TimeUnit.DAYS.toMillis(30));
         this.project = project;
     }
-    
-    /**
-     * Creates an instance of a Payment object with existing deadline.
-     * @param project Name of project payment is being made in
-     * @param payee The name of the payee of payment
-     * @param item Item of the payment.
-     * @param cost Cost of the item.
-     * @param inv  Invoice for the payment.
-     * @param deadline A date to submit payment by
-     */
-    public Payments(String project, String payee, String item, double cost, String inv, Date deadline) {
-        this.payee = payee;
-        this.item = item;
-        this.cost = cost;
-        this.inv = inv;
-        this.status = Status.PENDING;
-        this.deadline = deadline;
-        this.project = project;
-    }
 
     /**
      * Prints out the details of a Payment object.
@@ -93,7 +74,8 @@ public class Payments implements Comparable<Payments> {
         dict.remove("" + this.deadline);
         dict.remove(this.inv);
     }
-    
+
+    //@@author lijiayu980606
     /**
      * TODO.
      * @param payments a Payments object

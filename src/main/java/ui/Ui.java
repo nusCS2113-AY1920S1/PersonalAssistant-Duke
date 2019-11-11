@@ -2,7 +2,7 @@ package ui;
 
 import common.AlphaNUSException;
 import common.CommandFormat;
-import common.TaskList;
+import task.TaskList;
 import payment.Payee;
 import payment.Payments;
 import payment.Status;
@@ -10,7 +10,6 @@ import project.Fund;
 import project.Project;
 import project.ProjectManager;
 import task.Task;
-import ui.Suggest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +22,7 @@ import java.util.Set;
 public class Ui {
     public static final String line = "    ____________________________________________________________\n";
     private static CommandFormat commandFormat = new CommandFormat();
-    Scanner in;
+    private Scanner in;
 
     /**
      * Creates a Ui instance with a scanner to read user input.
@@ -70,7 +69,7 @@ public class Ui {
         System.out.print(line);
         System.out.println("\t" + "There are no projects in the record.");
         System.out.println("\t" + "Please add a new project.");
-        System.out.println("\t" + "Format: add project pr/PROJECTNAME");
+        System.out.println("\t" + "Format: " + commandFormat.addProjectFormat());
         System.out.print(line);
     }
 
@@ -93,7 +92,7 @@ public class Ui {
         System.out.println("\t" + "There are " + projectslist.size() + " projects in the record.");
         if (currentprojectname == null) {
             System.out.println("\t" + "Please go to a project to manage its payments and payees.");
-            System.out.println("\t" + "Command Format: " + commandFormat.listProjectFormat());
+            System.out.println("\t" + "Command Format: " + commandFormat.gotoProjectFormat());
         } else {
             System.out.println("\t" + "Current Project: " + currentprojectname);
         }
@@ -341,19 +340,7 @@ public class Ui {
         System.out.print(line);
     }
 
-    /**
-     * Print all tasks in a tasklist.
-     * @param tasklist TaskList of the user.
-     */
-    public void printTaskList(TaskList tasklist) {
-        System.out.print(line);
-        System.out.println("\tYour result is as follows:");
-        for (int i  = 0; i < tasklist.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + tasklist.get(i).giveTask());
-        }
-        System.out.print(line);
-    }
-
+    //@@author lijiayu980606
     /**
      * Prints message to indicate a task being added.
      * 
@@ -368,6 +355,7 @@ public class Ui {
         System.out.print(line);
     }
 
+    //@@author lijiayu980606
     /**
      * Prints message to indicate a Task being snoozed.
      * 
@@ -401,6 +389,7 @@ public class Ui {
         System.out.print(line);
     }
 
+    //@@author
     /**
      * Prints message to indicate a payee has been edited.
      * 
@@ -434,17 +423,40 @@ public class Ui {
         System.out.print(line);
     }
 
+    //@@author lijiayu980606
+    /**
+     * Prints the message for the goto exception thrown.
+     * Also prints projects list for user reference.
+     * @param message Exception message.
+     */
+    public void gotoExceptionMessage(String message, ArrayList<Project> projectslist) {
+        int index = 1;
+        System.out.print(line);
+        System.out.println(message);
+        System.out.println("\t" + "Here is the list of projects:");
+        for (Project project : projectslist) {
+            System.out.println("\t" + index + ". " + project.projectname);
+            System.out.println("\t\t" + "Budget: " + project.budget);
+            System.out.println("\t\t" + "Spending: " + project.spending);
+            System.out.println("");
+            index++;
+        }
+        System.out.println("\t" + "There are " + projectslist.size() + " projects in the record.");
+        System.out.print(line);
+    }
+
     /**
      * TODO.
      */
     public void printInsufficientBudget(ProjectManager projectManager) {
         String currProjectName = projectManager.currentprojectname;
-        exceptionMessage("     ☹ OOPS!!! There is not enough budget left.\n"
+        exceptionMessage("     :( OOPS!!! There is not enough budget left.\n"
                         + " Total budget: " + projectManager.projectmap.get(currProjectName).getBudget() + "\n"
                         + " Budget spent: " + projectManager.projectmap.get(currProjectName).getSpending() + "\n"
                         + " Budget remaining: " + projectManager.projectmap.get(currProjectName).getRemaining() + "\n");
     }
 
+    //@@author
     /**
      * Prints message to indicate a Payment being added to a certain Payee.
      * 
@@ -473,6 +485,7 @@ public class Ui {
         System.out.println("\tProject " + payee.project + " now has " + payeesize + " payee(s).");
     }
 
+    //@@author lijiayu980606
     /**
      * Prints message to indicate a the total amount paid by a payee in a certain project.
      * @param payee name of the payee.
@@ -487,17 +500,7 @@ public class Ui {
         System.out.print(line);
     }
 
-    /**
-     * Prints message to indicate a deadline with an invoice added.
-     * 
-     * @param task Task to be edited.
-     */
-    public void printAddInvoiceMessage(Task task) {
-        System.out.print(line);
-        System.out.println("\t" + "Got it. I've added invoice to this deadline:");
-        System.out.print("\t" + task.giveTask() + "\n");
-    }
-
+    //@@author
     /**
      * Prints message to indicate a Payment being deleted.
      * 
@@ -526,7 +529,7 @@ public class Ui {
         exceptionMessage("\tMaybe you meant: " + replacement);
     }
 
-
+    //@@author lijiayu980606
     /**
      * Prints message of adding a fund to all projects.
      * @param fund the fund for all projects.
@@ -602,7 +605,7 @@ public class Ui {
      * Prints out the statement of accounts.
      * @param managermap managermap containing Payee and Payments information.
      */
-
+    //@@author
     public void generateStatementofAccounts(HashMap<String, Payee> managermap) {
         System.out.print("Item\tExpense\n");
         for (Payee payee : managermap.values()) {
@@ -657,12 +660,14 @@ public class Ui {
                             + "from backup.");
         System.out.println("\t" + "Replaced history with history data from backup.");
         System.out.println("\t" + "Replaced fund with fund data from backup.");
+        System.out.println("\t" + "Replaced tasklist with fund data from backup.");
         System.out.println("");
         System.out.println("\t" + "Current fund data is as follows:");
         System.out.print(backupfund.giveFund());
         System.out.print(line);
     }
 
+    //@@author
     /**
      * Prints out a help message with command formats.
      */
@@ -681,7 +686,7 @@ public class Ui {
         System.out.println("Fund:");
         System.out.println("\tSet Fund:            " + commandFormat.setFundFormat());
         System.out.println("\tAdd Fund:            " + commandFormat.addFundFormat());
-        System.out.println("\tAssign Fund:         " + commandFormat.assignFundFormat());
+        System.out.println("\tAssign budget:         " + commandFormat.assignFundFormat());
         System.out.println("\tChange Fund:         " + commandFormat.resetFundFormat());
         System.out.println("\tShow Fund:           " + commandFormat.showFundFormat());
         System.out.println("Payment and Payee:");
@@ -689,7 +694,7 @@ public class Ui {
         System.out.println("\tAdd Payment:         " + commandFormat.addPaymentFormat());
         System.out.println("\tDelete Payee:        " + commandFormat.deletePayeeFormat());
         System.out.println("\tDelete Payment:      " + commandFormat.deletePaymentFormat());
-        System.out.println("\tGet Payee:           " + commandFormat.getPayeeFormat());
+        System.out.println("\tFind Payee:          " + commandFormat.findPayeeFormat());
         System.out.println("\tList Payments:       " + commandFormat.listPaymentFormat());
         System.out.println("\tFind Payee:          " + commandFormat.findPayeeFormat());
         System.out.println("\tTotal cost:          " + commandFormat.totalCostFormat());

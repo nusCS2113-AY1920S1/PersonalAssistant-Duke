@@ -2,9 +2,8 @@ package command;
 
 import storage.Storage;
 import common.AlphaNUSException;
-import common.TaskList;
+import task.TaskList;
 import project.Fund;
-import project.ProjectManager;
 import ui.Ui;
 
 import java.text.ParseException;
@@ -45,6 +44,7 @@ public class Parser {
                 storage.writeToFundFile(fund);
                 storage.writeToDictFile(dict);
                 storage.writeTocurrentprojectnameFile(process.projectManager.currentprojectname);
+                storage.writeToTaskListFile(tasklist);
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
@@ -52,7 +52,7 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
                 process.undo(storage, ui, fund);
             } else if (instr.isLoad(input)) {
-                process.backupProjects(ui, fund, storage, list);
+                process.backupProjects(ui, fund, storage, list, tasklist);
             } else if (instr.isRedo(input)) {
                 process.commandHistory(input, ui, storage);
                 process.redo(storage, ui, fund);
