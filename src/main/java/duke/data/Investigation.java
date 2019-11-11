@@ -38,20 +38,13 @@ public class Investigation extends SummaryTreatment {
      */
     public Result toResult(String resultSummary) throws DukeException {
         return new Result(getName() + " Result", getParent(), getPriority(),
-                (resultSummary == null) ? "" : resultSummary);
+                (resultSummary == null) ? summary : summary + "\n\n" + resultSummary);
     }
 
-    @Override
-    public String toString() {
-        String informationString;
-        informationString = "Summary " + this.summary + "\n";
-        return super.toString() + informationString;
-    }
-
-    //TODO complete
+    //TODO return string in proper format
     @Override
     public String toReportString() {
-        return null;
+        return toString();
     }
 
     @Override

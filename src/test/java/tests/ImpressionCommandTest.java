@@ -3,11 +3,17 @@ package tests;
 import duke.command.ArgCommand;
 import duke.command.Command;
 import duke.command.ObjCommand;
+import duke.command.impression.ImpressionDeleteSpec;
 import duke.command.impression.ImpressionEditSpec;
 import duke.command.impression.ImpressionNewSpec;
 import duke.command.impression.ImpressionPrimarySpec;
+import duke.command.impression.ImpressionPrioritySpec;
+import duke.command.impression.ImpressionResultSpec;
+import duke.command.impression.ImpressionStatusSpec;
 import duke.data.Impression;
+import duke.data.Investigation;
 import duke.data.Medicine;
+import duke.data.Observation;
 import duke.data.Patient;
 import duke.data.Result;
 import duke.exception.DukeException;
@@ -19,6 +25,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -26,6 +33,8 @@ public class ImpressionCommandTest extends CommandTest {
 
     private Impression impression;
     private Patient patient;
+    private Result result;
+    private Medicine med;
 
     /**
      * Sets up the core of this object to have a patient and impression, opens the impression, and stores those
@@ -37,8 +46,13 @@ public class ImpressionCommandTest extends CommandTest {
                 0, 0, "", "");
         impression = new Impression("name", "description", patient);
         try {
-            patient.addNewImpression(impression);
             core.patientData.addPatient(patient);
+            patient.addNewImpression(impression);
+            result = new Result("result name", impression, 0, "Result summary");
+            med = new Medicine("test medicine", impression, 2, "1", "test dose",
+                    "today", "next two weeks");
+            impression.addNewEvidence(result);
+            impression.addNewTreatment(med);
         } catch (DukeException excp) {
             fail("Failed to setup patient and impression for testing!");
         }
@@ -47,13 +61,14 @@ public class ImpressionCommandTest extends CommandTest {
 
     @Test
     public void impressionNewCommand_fullCommand_correctDataCreated() {
-        String[] switchNames = {"medicine", "name", "priority", "status", "dose", "date", "duration"};
-        String[] switchVals = {null, "test", "2", "1", "test dose", "today", "next two weeks"};
+        String[] medSwitchNames = {"medicine", "name", "priority", "status", "dose", "date", "duration"};
+        String[] medSwitchVals = {null, "test", "2", "1", "test dose", "today", "next two weeks"};
 
         try {
             Medicine testMed = new Medicine("test", impression, 2, "1", "test dose",
                     "today", "next two weeks");
-            ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
+            ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, medSwitchNames, medSwitchVals);
+
             newMedCmd.execute(core);
             assertTrue(testMed.equals(impression.getTreatment("test")));
         } catch (DukeException excp) {
@@ -66,17 +81,26 @@ public class ImpressionCommandTest extends CommandTest {
         Medicine testMed = null;
         String[] switchNames = {"medicine", "name", "dose", "duration"};
         String[] switchVals = {null, "test", "test dose", "next two weeks"};
-
+        String[] obsvSwitchNames = {"observation", "name"};
+        String[] obsvSwitchVals = {null, "test"};
+        Observation testObsv = null;
+        ArgCommand newObsvCmd = null;
+        ArgCommand newMedCmd = null;
         try {
+            testObsv = new Observation("test", impression, 0, "", true);
+            newObsvCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, obsvSwitchNames,
+                    obsvSwitchVals);
             testMed = new Medicine("test", impression, 0, "0", "test dose",
                     LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")), "next two weeks");
+            newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
         } catch (DukeException excp) {
-            fail("Exception thrown when constructing valid Medicine!");
+            fail("Exception thrown when constructing valid Medicine and Observation!");
         }
 
         try {
-            ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
             newMedCmd.execute(core);
+            newObsvCmd.execute(core);
+            assertTrue(testObsv.equals(impression.getEvidence("test")));
             assertTrue(testMed.equals(impression.getTreatment("test")));
         } catch (DukeException excp) {
             fail("Exception thrown while executing valid command: " + excp.getMessage());
@@ -113,15 +137,17 @@ public class ImpressionCommandTest extends CommandTest {
     @Test
     public void impressionEditCommand_editData_dataEdited() {
         ObjCommand editCmd = null;
-        Result origData = null;
-        Result newData = null;
-        String[] switchNames = {"evidence", "name", "priority", "summary"};
-        String[] switchVals = {"1", "Edited", "1", "New result summary"};
+        Observation newData = null;
+        Observation origData = null;
+        String[] switchNames = {"evidence", "name", "priority", "summary", "subjective"};
+        String[] switchVals = {"1", "Edited", "1", "New observation summary", null};
 
         try {
             editCmd = new ObjCommand(ImpressionEditSpec.getSpec(), null, switchNames, switchVals);
-            origData = new Result("Original", impression, 0, "Result summary");
-            newData = new Result("Edited", impression, 1, "New result summary");
+            origData = new Observation("Edited", impression, 1, "New observation summary",
+                    false);
+            newData = new Observation("Edited", impression, 1, "New observation summary",
+                    false);
         } catch (DukeException excp) {
             fail("Error thrown while setting up Command and Result for editing!");
         }
@@ -158,5 +184,100 @@ public class ImpressionCommandTest extends CommandTest {
         assertTrue(newImpression.equals(impression));
     }
 
+    @Test
+    public void impressionDeleteCommand_validItem_itemDeleted() {
+        ObjCommand delCmd = null;
+        String[] switchNames = {"evidence"};
+        String[] switchVals = {"1"};
 
+        try {
+            delCmd = new ObjCommand(ImpressionDeleteSpec.getSpec(), null, switchNames, switchVals);
+
+        } catch (DukeException excp) {
+            fail("Exception thrown thrown while setting up Command and Result for editing: "
+                    + excp.getMessage());
+        }
+
+        try {
+            delCmd.execute(core, result);
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing valid deletion in Impression context: "
+                    + excp.getMessage());
+        }
+        assertNull(impression.getEvidence("result name"));
+    }
+
+    @Test
+    public void impressionPriorityCommand_validItem_itemPrioritySet() {
+        ObjCommand prioCmd = null;
+        String[] switchNames = {"evidence", "set"};
+        String[] switchVals = {"1", "1"};
+
+        try {
+            assertEquals(0, impression.getEvidenceAtIdx(0).getPriority());
+            prioCmd = new ObjCommand(ImpressionPrioritySpec.getSpec(), null, switchNames, switchVals);
+        } catch (DukeException excp) {
+            fail("Exception thrown thrown while setting up Command and Result for editing: "
+                    + excp.getMessage());
+        }
+
+        try {
+            prioCmd.execute(core); // unambiguous
+            assertEquals(1, impression.getEvidenceAtIdx(0).getPriority());
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing valid priority update in Impression context: "
+                    + excp.getMessage());
+        }
+    }
+
+    @Test
+    public void impressionStatusCommand_validItem_itemStatusSet() {
+        ObjCommand statusCmd = null;
+        String[] switchNames = {"set"};
+        String[] switchVals = {"completed"};
+
+        try {
+            assertEquals(1, impression.getTreatmentAtIdx(0).getStatusIdx());
+            statusCmd = new ObjCommand(ImpressionStatusSpec.getSpec(), "1", switchNames, switchVals);
+        } catch (DukeException excp) {
+            fail("Exception thrown thrown while setting up Command and Result for editing: "
+                    + excp.getMessage());
+        }
+
+        try {
+            statusCmd.execute(core); // unambiguous
+            assertEquals(2, impression.getTreatmentAtIdx(0).getStatusIdx());
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing valid status update in Impression context: "
+                    + excp.getMessage());
+        }
+    }
+
+    @Test
+    public void impressionResultCommand_validInvx_resultCreated() {
+        ObjCommand resultCmd = null;
+        String[] switchNames = {"summary"};
+        String[] switchVals = {"Uric acid was found to be extremely high."};
+        Result invxResult = null;
+
+        try {
+            Investigation invx = new Investigation("Blood test", impression, 3, "1",
+                    "Test patient's serum uric acid level.");
+            invxResult = new Result("Blood test Result", impression, 3,
+                    "Test patient's serum uric acid level.\n\nUric acid was found to be extremely high.");
+            impression.addNewTreatment(invx);
+            resultCmd = new ObjCommand(ImpressionResultSpec.getSpec(), "Blood test", switchNames, switchVals);
+        } catch (DukeException excp) {
+            fail("Exception thrown thrown while setting up Command and Result for editing: "
+                    + excp.getMessage());
+        }
+
+        try {
+            resultCmd.execute(core); // unambiguous
+            assertTrue(invxResult.equals(impression.getEvidence("blood test result")));
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing valid result command in Impression context: "
+                    + excp.getMessage());
+        }
+    }
 }

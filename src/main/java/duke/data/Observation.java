@@ -26,7 +26,7 @@ public class Observation extends Evidence {
     public Observation(String name, Impression impression, int priority, String summary, boolean isObjective)
             throws DukeException {
         super(name, impression, priority, summary);
-        this.isObjective = isObjective;
+        setObjective(isObjective);
     }
 
     @Override
@@ -52,10 +52,10 @@ public class Observation extends Evidence {
         return super.toString() + informationString;
     }
 
+    //TODO return string in proper format
     @Override
     public String toReportString() {
-        // todo
-        return null;
+        return toString();
     }
 
     public boolean isObjective() {

@@ -11,6 +11,7 @@ import java.util.Map;
 public abstract class Treatment extends DukeData {
 
     private Integer statusIdx;
+    public static final int STATUSIDX_DEFAULT = 0;
 
     /**
      * Abstraction of the actions taken to treat an impression the Doctor has about a patient.
@@ -26,16 +27,6 @@ public abstract class Treatment extends DukeData {
     public Treatment(String name, Impression impression, int priority, String status) throws DukeException {
         super(name, impression, priority);
         setStatus(status);
-    }
-
-    @Override
-    public Integer setPriority(Integer priorityVal) throws DukeException {
-        if (priorityVal >= 0 && priorityVal < 5) {
-            super.setPriority(priorityVal);
-            return super.getPriority();
-        } else {
-            throw new DukeException("The priority must be within 0 to 4!");
-        }
     }
 
     @Override
@@ -77,12 +68,16 @@ public abstract class Treatment extends DukeData {
                 setStatus(Integer.parseInt(status));
             } catch (NumberFormatException excp) { // not numeric
                 // TODO: parse with autocorrect?
+                boolean isValidStatus = false;
                 for (int i = 0; i < getStatusArr().size(); ++i) {
                     if (getStatusArr().get(i).equalsIgnoreCase(status)) {
                         statusIdx = i;
+                        isValidStatus = true;
                     }
                 }
-                throw new DukeUtilException("'" + status + "' is not a valid status name!");
+                if (!isValidStatus) {
+                    throw new DukeUtilException("'" + status + "' is not a valid status name!");
+                }
             }
         }
     }

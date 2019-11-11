@@ -36,7 +36,6 @@ public class HomeUtils {
 
         int index = CommandUtils.idxFromString(nameOrIdx);
         if (index != -1) {
-            // TODO: Law of demeter
             List<Patient> patientList = core.patientData.getPatientList();
             int count = patientList.size();
             if (index >= count) {

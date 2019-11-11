@@ -48,6 +48,11 @@ public abstract class DukeData extends DukeObject {
         return priority;
     }
 
+    public String getPriorityStr() {
+        String[] priorities = {"No priority", "Critical", "Urgent", "Compulsory", "Optional"};
+        return getPriority() + " - " + priorities[getPriority()];
+    }
+
     /**
      * Updates priority of treatment.
      * @param priority The integer value of the priority between 1 to 4
@@ -96,7 +101,7 @@ public abstract class DukeData extends DukeObject {
                      boolean isAppending)
             throws DukeException {
         if (newName != null) {
-            setName((isAppending) ? getName() + newName : newName);
+            setName((isAppending) ? getName() + " " + newName : newName);
         }
         if (newPriority != -1) {
             setPriority(newPriority);

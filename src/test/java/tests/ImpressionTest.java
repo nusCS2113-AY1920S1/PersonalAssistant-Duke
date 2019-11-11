@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -78,6 +79,19 @@ public class ImpressionTest {
     @Test
     public void getParentTest() {
         assertTrue(patient.equals(impression.getParent()));
+    }
+
+    @Test
+    public void countTest() {
+        final String addTest = "critTest";
+        try {
+            setupEvidences(addTest, addTest);
+            setupTreatments(addTest, addTest, addTest);
+        } catch (DukeException e) {
+            fail("Could not add items for critCount testing!");
+        }
+        assertEquals("2 critical issues", impression.getCriticalCountStr());
+        assertEquals("3 follow-ups", impression.getFollowUpCountStr());
     }
 
     /**

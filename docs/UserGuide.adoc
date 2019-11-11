@@ -31,24 +31,21 @@ If you're a house officer who types fast and don't mind learning how to use a ke
 
 *Dr. Duke* should open shortly.
 
-.UI
-image::Ui.png[]
-
 == Terminologies
 
 * This app manages multiple `Patients`.
 Each Patient has one or more `Impressions` (diagnoses), and each Impression is supported by `Evidences` and treated by `Treatments`.
 ** Evidences consist of `Observations` and `Results` [[evidences]]
-** Treatments consist of `Plans`, `Investigations` and `Medicine`. [[treatments]]
+** Treatments consist of `Plans`, `Investigations`, and `Medicine`. [[treatments]]
 * The different screens you can view in the application are referred to as `Contexts`. [[contexts]]
 Each context is associated with a particular set of data (e.g. the Patient context shows a detailed view of a particular Patient), and has its own set of commands.
 * `priority` refers to how critical a Treatment or Evidence is. *0* means not urgent, excluding the item from the criticality system, *1* means critical.
 The other values are not defined specifically but the greater they are, the lower the priority.
 These lower priority levels are meant to remain flexible for the user to provide his desired level of fine-graining and task management.
-** `priority` *1* generally refers to something that needs to be followed up on or investigated immediately, e.g. signs of severe complications. `priority` *1* items will be displayed prominently to remind the house officer to respond to it when treating the patient. [[priority-1]]
+** [[priority-1]] `priority` *1* generally refers to something that needs to be followed up on or investigated immediately, e.g. signs of severe complications. `priority` *1* items will be displayed prominently to remind the house officer to respond to it when treating the patient.
 * `status` refers to the stage of completion of a Treatment. `<status name>` refers to the textual description for each stage of completion.
 
-== Commands
+== Commands [[commands]]
 
 Each command consists of a name, an argument, and some number of switches: settings for a command that modify its behavior.
 Switches can also have arguments.
@@ -64,13 +61,13 @@ To type a literal backslash, you need to escape the backslash: `Hello\\World` be
 Must immediately be followed by an argument, if the switch requries one.
 * `<Space>`/`<Newline>` -> A switch is separated from its argument by a space or a newline.
 * `<Enter>` -> This sends a command to Dr. Duke. `<Shift-Enter>` would insert a new line.
-* `Page Up` and `Page Down` -> Access the input history.
+* `<Page Up>` and `<Page Down>` -> Access the input history.
 
 The documentation below uses the following notation to describe the structure of the commands recognised:
 
 * `<>` -> input of the type specified
 * `[]` -> optional element of a command
-* `(a | b | c)` -> input that can be one of several possible options, in this case `a`, `b` or `c`
+* `(a | b | c)` -> input that can be one of several possible options, in this case `a`, `b`, or `c`
 * `"<>"` -> string, must be surrounded by quotes
 * `[]*` -> 0 or more copies of the contents of `[]`, separated by spaces
 
@@ -80,7 +77,6 @@ The following italicised words refer to specific repeated patterns:
 * _string_or_idx_ -> `(<index> | "<search string>")` [[string_or_idx]]
 ** `<index>` refers to the index assigned to the object in the displayed list.
 ** `<search string>` will be searched for in the names of all relevant objects.
-* _type_ -> (`*-m[edicine]*` | `*-in[v(x | estigation)]*` | `*-p[lan]*` | `*-o[bservation]*` | `*-r[esult]*`) [[type]]
 
 Parsing rules:
 
@@ -103,10 +99,6 @@ They are as follows.
 . Primary diagnosis
 . <<priority-1, Number of critical issues>>
 
-==== `help` - Display the help window for the current context [[home-help]]
-
-Format: `help`
-
 ==== `new` - Add a new Patient [[home-new]]
 
 Format: `new *-n[ame]* "<name>" *-b[ed]* "<bed number>" *-a[llerg(y | ies)]* "<allergies>" *[<optional switch>]**` +
@@ -127,35 +119,37 @@ The `*-g[o]*` switch opens the <<Patient, patient's context>> for the newly adde
 
 **Example**
 ****
-*new* "John Doe" `*-b*` "A103" `*-a*` "paracetamol" `*-h*` 175 `*-w*` 60 `*-ag*` 35 `*-hi*` "Heart attack 3 years ago"
+*new* "John Doe" `*-b*` "A103" `*-a*` "paracetamol, cinnarizine, warfarin" `*-h*` 175 `*-w*` 60 `*-ag*` 35 `*-hi*` "Heart attack 3 years ago"
 ****
 
 ==== `open` - Go to a more detailed view of a particular Patient [[home-open]]
 
 Format: `open <<patient_id, _patient_id_>> *[-im[pression]]*`
 
-If opening by _<search string>_, patients will be searched through by *name*, and results presented and selected as per the <<home-find, `find`>> command. For example, if I have two patients named "John" and "Joe", `open jo` will open a search result context with the two aforementioned patients.
+If opening by _<search string>_, patients will be searched through by *name*, and results presented and selected as per the <<home-find, `find`>> command. For example, if the user manages two patients named "John" and "Joe", `open jo` will open a search result context with the two aforementioned patients.
 
 If the optional `*-im[pression]*` switch is provided, access the <<impression, primary diagnosis>> for that particular Patient.
 
 **Example**
 ****
-*open* 1 `*-impress*` (open by index and go to primary impression) +
-*open* `*-b*` "C210" (open by bed number) +
-*open* Duke (open by search string)
+*open* 1 `*-impress*`   (This command opens by index and goes to the primary impression) +
+*open* `*-b*` "C210"    (This command opens by bed number) +
+*open* "Duke"   (This command opens by search string)
 ****
 
-==== `find` - Perform search [[home-find]]
+==== `find` - Find items matching certain criteria [[home-find]]
 
-Format: `find - S["<search string>"] [<<type, _type_>>]`
+Format: `find ["<search string>"] [_type_]` +
+`[_type_]` -> (`*-p[atient]*` | `*-im[pression]*` | `*-e[vidence]*` | `*-t[reatment]*`)
 
-Display a list of all Patients, Impressions, Treatments and Evidence matching the criteria specified in the search.
-If none of the <<type, `_type_`>> switches are used, all types of objects will be listed.
+Display a list of all Patients, Impressions, Treatments, and Evidences matching the criteria specified in the search.
+If none of the `_type_` switches are used, all types of objects listed above will be shown.
 If at least one of them is listed, only objects whose type is used as a switch will be listed.
 
 **Example**
 ****
-*find* aspirin `*-p*`
+*find* "John" `*-p*`    (This command searches for patients only) +
+*find* "aspirin" `*-im*` `*-t*` (This command searches for impressions and treatments)
 ****
 
 ==== `report` - Generate a detailed report for the patient [[home-report]]
@@ -166,7 +160,8 @@ The report contains all of the information being tracked regarding the Patient.
 
 **Example**
 ****
-*report* 2
+*report* 2 +
+*report* "John Doe"
 ****
 
 ==== `discharge` - Generate a discharge report for the patient and delete him/her from the system [[home-discharge]]
@@ -219,11 +214,12 @@ Shows a detailed view of a `Patient`. The details are displayed in separate pane
 * List of allergies
 * Medical history
 * List of `Impressions` with their associated details (the name, an excerpt of its description,
-and the number of critical items and follow-up investigations associated with it)
+and the number of critical follow-up items associated with it)
 * List of critical <<treatments, `Treatments`>> and <<evidences, `Evidences`>> (of <<priority-1, priority 1>>)
-* List of `Investigations` to follow up on (i.e. all current investigations; completed investigations should be stored as `Results`)
+* List of ALL <<treatments, `Treatments`>> and <<evidences, `Evidences`>> follow-ups.
+* There will be items *duplicated* across the critical and follow-up lists as it's meant to give a view of two different but possibly overlapping categories of items that the user might want to view at a glance.
 
-Inherits: <<home-help,`help`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
+Inherits: <<home-undo,`undo`>>, <<home-redo,`redo`>>
 
 ==== `new` - Add a new Impression for this Patient
 
@@ -236,30 +232,26 @@ Opens the new <<impression, Impression's context>> if `-g[o]` is specified.
 *new* `*-n*` "Dengue Fever" `*-desc*` "High fever and back pain" `*-go*`
 ****
 
-==== `open` - Open a critical (<<treatments, `Treatment`>> / <<evidences, `Evidence`>>) or `Investigation` item listed on the page, or an `Impression`
+==== `open` - Open a critical, follow-up, or an impression [[patient-open]]
 
-Format: `open ("<search string>" | <<string_or_idx, _string_or_idx_>> *-c[ritical]* | <<string_or_idx, _string_or_idx_>> *-i[nv(x|estigation)]* | <<string_or_idx, _string_or_idx_>> *-im[pression]*)`
+Format: `open ("<search string>" | <<string_or_idx, _string_or_idx_>> *-c[ritical]* | <<string_or_idx, _string_or_idx_>> *-f[ollowup]* | <<string_or_idx, _string_or_idx_>> *-im[pression]*)`
 
-If a _<search string>_ is used,
+If a _<search string>_ is used, items will be searched through by *name*, and results presented and selected as per the <<patient-find, `find`>> command,
 
 **Example**
 ****
-`open 3 *-im*` +
-`open "Fever"`
+*open* 3 `*-impress*`   (This command opens an impression by index) +
+*open* "Hip" `*-crit*`  (This command opens a critical by search string) +
+*open* "Blood" `*-follow*`  (This command opens a follow-up by search string) +
+*open* "Fever"  (This command opens by search string)
 ****
 
-==== `edit` - Edit one of the details of the Patient [[patient-edit]]
+==== `edit` - Edit details of the Patient [[patient-edit]]
 
-Format: `edit <switch> [<new value>] [<switch> [<new value>]]* *[-app[end]]*` +
-Example: `edit *-height* 180 *-weight* 60 *-history* "memes" *-app*`
-
-For string-valued fields, `*-app*` will append the field's `<new value>` to its current value.
+Format: `edit *<switch>* [<new value>] [*<switch>* [<new value>]]* [*-app[end]*]` +
 
 Switches and corresponding new value format:
 
-// TODO: Changes need to be made to Patient class.
-//* `*-n[ame]* "<name>"`
-//* `*-b[ed]* <bed number>`
 * `*-h[eight]* <height>`
 * `*-w[eight]* <weight>`
 * `*-ag[e]* <age>`
@@ -268,13 +260,26 @@ Switches and corresponding new value format:
 * `*-hi[story]* "<history>"`
 * `*-a[llerg(y | ies)]* "<allergies>"`
 
-In [*v2.0*], if a `<new value>` is not supplied, a text box with the current value loaded inside will be displayed for the user to edit.
+For string-valued fields, `*-app*` will append the field's `<new value>` to its current value.
 
-==== `delete` - Delete a critical (<<treatments, `Treatment`>> / <<evidences, `Evidence`>>) or `Investigation` item listed on the page, or an `Impression`
+**Example**
+****
+*edit* `*-height*` 180 `*-weight*` 60 `*-history*` "Dengue Fever" `*-app*`
+****
+
+==== `delete` - Delete a critical, follow-up, or an impression
 
 Format: `delete ("<search string>" | <<string_or_idx, _string_or_idx_>> *-c[ritical]* | <<string_or_idx, _string_or_idx_>> *-i[nv(x|estigation)]* | <<string_or_idx, _string_or_idx_>> *-im[pression]*)` +
 
-If a <search string> is used, the first result that matches the search string will be immediately accessed.
+Same <<patient-open, rules>> apply here.
+
+**Example**
+****
+*delete* 3 `*-impression*` (This command deletes an impression by index) +
+*delete* "Hip" `*-critical*` (This command deletes a critical by search string) +
+*delete* "Blood" `*-followup*`  (This command deletes a follow-up by search string) +
+*delete* "Fever" (This command deletes by search string)
+****
 
 ==== `history` - Append miscellaneous notes to a patient's medical history
 
@@ -282,38 +287,42 @@ Format: `history <additional notes>` +
 
 **Example**
 ****
-`history ggwp`
+*history* "Patient suffers from intense anxiety attacks before"
 ****
-
-Functionally the same as <<home-history,`history` in the Home context>>.
 
 ==== `primary` - Set a particular Impression as the primary diagnosis for the Patient
 
 Format: `primary <<string_or_idx, _string_or_idx_>>`
 
+The primary diagnosis is emphasised with a blue border in the GUI display.
+
 **Example**
 ****
-`primary 1`
+*primary* 1 +
+*primary* "Dengue Fever"
 ****
 
-==== `find` - Find items matching certain criteria
+==== `find` - Find items matching certain criteria [[patient-find]]
 
-Format: `find ["<search string>"] [_type_]`
+Format: `find ["<search string>"] [_type_]` +
+`_type_` -> (`*-im[pression]*` | `*-e[vidence]*` | `*-t[reatment]*`)
 
-Display a list of all Impressions, Treatments and Evidence matching the criteria specified in the search.
+Display a list of all Impressions, Treatments, and Evidence matching the criteria specified in the search.
 If none of the `_type_` switches are used, all types of objects will be listed.
 If at least one of them is listed, only objects whose type is used as a switch will be listed.
 
 **Example**
 ****
-Example: `find aspirin *-im*`
+*find* "aspirin" `*-im*` (This command searches for impressions) +
+*find* "blood" `*-e*` (This command searches for evidences) +
+*find* "high" (This command searches for impressions, evidences, and treatments)
 ****
 
 ==== `discharge` - Generate a discharge report for the Patient and delete him/her from the system
 
 Format: `discharge [*-sum[mary]* <discharge summary>]`
 
-Functionally the same as <<home-discharge,`discharge` in the Home context>>.
+Functionally the same as <<home-discharge,`discharge` in the Home context>>. User will be sent back to the <<Home, Home>> context after the command is executed.
 
 ==== `report` - Generate a text file containing all data on this patient [[patient-report]]
 
@@ -331,7 +340,7 @@ Format: `back`
 _Available in:_ <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
 This will go back to the immediate context that the user came from.
-A context stack will be maintained.
+A context stack is maintained.
 
 ==== `up` - Go up to the next-higher context [[patient-up]]
 
@@ -355,29 +364,35 @@ Everything else will be treated as input.
 
 === Impression [[impression]]
 
-Shows a detailed view of an Impression, displaying in separate panels:
+.Impression
+image::Impression.png[]
 
-* The name and full description of the Impression
-* A list of Evidence for the Impression, sorted by default with critical items first
+Shows a detailed view of an Impression, displaying in separate panels as seen in the figure above:
+
+* The name (key identifier of an `Impression`) and full description of the Impression
+* A list of Evidences for the Impression, sorted by default with critical items first
 * A list of Treatments for the Impression, sorted by default with critical items first, followed by investigations that require follow-up
 * A small panel with the patient's allergies
 
-Inherits: <<home-help,`help`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
+Inherits: <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
 
 ==== `new` - Add a new Treatment or Evidence item to this Impression
 
-Format: `new <<type, _type_>> <relevant switches> *[-g[o]]*`
+Format: `new _type_ <relevant switches> *[-g[o]]*` +
+`[_type_]` -> (`*-m[edicine]*` | `*-in[v(x | estigation)]*` | `*-p[lan]*` | `*-o[bservation]*` | `*-r[esult]*`)
 
 Open the new Treatment or Evidence item's context if `*-g[o]*` is specified.
 Relevant switches for various types are as follows.
 
 [[type-table]]
-[cols=2*,options="header"]
+[cols="25%,15%,60%"],options="header"]
 |===
 |Type
+|Category
 |Relevant Switches
 
 |`-m[edicine]`
+| `Treatment`
 a|
 * `-n[ame] "<name>"` - Required
 * `-sta[tus] ("<status name>"\|<status idx>)` - Default: 0 (not ordered)
@@ -387,6 +402,7 @@ a|
 * `-pri[ority] <priority idx>` - Default: 0 (not urgent)
 
 |`-i[nv(x\|estigation)]`
+| `Treatment`
 a|
 * `-n[ame] "<name>"` - Required
 * `-sta[tus] ("<status name>"\|<status idx>)` - Default: 0 (not ordered)
@@ -394,6 +410,7 @@ a|
 * `-pri[ority] <priority idx>` - Default: 0 (not urgent)
 
 |`-p[lan]`
+| `Treatment`
 a|
 * `-n[ame] "<name>"` - Required
 * `-sta[tus] ("<status name>"\|<status idx>)` - Default: 0 (not ordered)
@@ -401,6 +418,7 @@ a|
 * `-pri[ority] <priority idx>` - Default: 0 (not urgent)
 
 |`-o[bservation]`
+| `Evidence`
 a|
 * `-n[ame] "<name>"` - Required
 * `-sum[mary] "<summary>"` - Default: ""
@@ -408,6 +426,7 @@ a|
 * `-pri[ority] <priority idx>` - Default: 0 (not urgent)
 
 |`-r[esult]`
+| `Evidence`
 a|
 * `-n[ame] "<name>"` - Required
 * `-sum[mary] "<summary>"` - Default: ""
@@ -417,27 +436,56 @@ a|
 
 `<status name>` is a case-insensitive substring of the `statusArr` entry of that particular object, while `<status idx>` is its numerical representation.
 
+**Example**
+****
+*new* `*-m*` `*-name*` "Penicillin" `*-dose*` "Twice daily after meal" `*-duration*` "1 week" +
+*new* `*-ob*` `*-name*` "observation" +
+*new* `*-inv*` `*-name*` "investigation"
+****
+
 ==== `open` - Open a Treatment or Evidence item listed on this page
 
 Format: `open ("<search string>" | *-e[vidence]* <<_string_or_idx_, string_or_idx>> | *-t[reatment]* <<_string_or_idx_, string_or_idx>>)`
 
-This will open a new context for the specific Treatment or Evidence identified.
+This will open a new context for the specific Treatment or Evidence identified. If a _<search string>_ is used, items will be searched through by *name*, and results presented and selected as per the <<impression-find, `find`>> command,
+
+**Example**
+****
+*open* `*-t*` 3 (This command opens a treatment by index) +
+*open* `*-e*` "pneumonia" (This command opens an evidence by search string) +
+*open* "blood" (This command opens by search string)
+****
 
 ==== `edit` - Edit one of the details of the Impression, or one of its Treatment or Evidence items
 
-Format: `edit *[-app[end]]* ("<search string>" | *-e[vidence]* <<_string_or_idx_, string_or_idx>> | *-t[reatment]* <<_string_or_idx_, string_or_idx>> | *-im[pression]* ) <switch> [<new value>] [<switch> [<new value>]]`
+Format: `edit *[-app[end]]* ( "<search string>" | *-e[vidence]* <<_string_or_idx_, string_or_idx>> | *-t[reatment]* <<_string_or_idx_, string_or_idx>> | *-im[pression]* ) <switch> [<new value>] [<switch> [<new value>]]*`
 
 If input with the `-im[pression]` switch set, it edits the `Impression` itself. The switches and corresponding new value formats are as follows:
 
 * `*-n[ame]* "<name>"`
 * `*-desc[ription]* "<description>"`
 
-Otherwise, it edits the treatment or evidence specified.
-The possible values for `<switch>` and `<new value>` can be found in the associated <<type-table,table>> for `new`.
+Otherwise, it edits the `treatment` or `evidence` specified.
+The possible values for `<switch>` and `<new value>` can be found in the associated <<type-table,table>>. +
+For string-valued fields, `*-app*` will append the field's `<new value>` to its current value.
+
+**Example**
+****
+*edit* `*-im*` `*-name*` "Malaria" `*-desc*` "High fever. Complaints of blurred vision." +
+*edit* `*-e*` 1 `*-sta*` 1 +
+*edit* `*-t*` "Theophylline" `*-dose*` "As and when required." `*-app*`
+****
 
 ==== `delete` - Delete a Treatment or Evidence item listed on this page
 
 Format: `delete ("<search string>" | *-e[vidence]* <<_string_or_idx_, string_or_idx>>  | *-t[reatment]* <<_string_or_idx_, string_or_idx>> )`
+
+**Example**
+****
+*delete* `*-t*` 1    (This command deletes a treatment by index) +
+*delete* `*-e*` "pneumonia" (This command deletes a treatment by search string) +
+*delete* "blood" (This command deletes by search string)
+****
 
 ==== `primary` - Set this Impression as the primary Impression for the Patient
 
@@ -448,19 +496,38 @@ Format: `primary`
 Format: `move ("<search string>" | *-e[vidence]* <<_string_or_idx_, string_or_idx>> | *-t[reatment]* <<_string_or_idx_, string_or_idx>>) [*-im[pression]* <<_string_or_idx_, string_or_idx>>]`
 
 If a Treatment or Evidence is assigned incorrectly, it can be moved to a different Impression via this command.
-If the `-im[pression]` switch is not used to specify the Impression to move it to, a window listing all Impressions will appear, and the user can select the correct Impression using its list index [*v1.4*].
+If the `-im[pression]` switch is not used to specify the Impression to move it to, a window listing all Impressions will first appear, and the user can select the correct Impression using its list index.
+
+**Example**
+****
+*move* `*-t*` "aspirin" `*-im*` "Dengue Fever" +
+*move* `*-e*` "pneumonia" +
+****
 
 ==== `priority` - Mark a Treatment or Evidence as a certain priority level
 
-Format: `priority ("<search string>" | *-e[vidence]* <<_string_or_idx_, string_or_idx>> | *-t[reatment]* <<_string_or_idx_, string_or_idx>>) *-s* <new priority>`
+Format: `priority ("<search string>" | *-e[vidence]* <<_string_or_idx_, string_or_idx>> | *-t[reatment]* <<_string_or_idx_, string_or_idx>>) *-s[et]* <new priority>`
 
 `<new priority>` must be a non-negative integer.
 
+**Example**
+****
+*priority* `*-t*` 1 `*-set*` 1  (This command sets priority of a treatment by index) +
+*priority* `*-e*` "pneumonia" `*-set*` 2  (This command sets priority of an evidence by search string) +
+*priority* "blood test" `*-set*` 2  (This command sets priority by index)
+****
+
 ==== `status` - Update the completion status of a Treatment
 
-Format: `status <<_string_or_idx_, string_or_idx>> [*-s* ("<status name>" | <status idx>)]`
+Format: `status <<_string_or_idx_, string_or_idx>> [*-s[et]* ("<status name>" | <status idx>)]`
 
-If `-s` is not specified, `status` will be incremented by 1, unless it is at the maximum value.
+If `-s[et]` is not specified, `status` will be incremented by 1, unless it is at the maximum value.
+
+**Example**
+****
+*status* "paracetamol" `*-set*` 2 +
+*status* "tylenol"
+****
 
 ==== `result` - Convert an Investigation that has been completed into a Result
 
@@ -469,43 +536,61 @@ Format: `result <<_string_or_idx_, string_or_idx>> *-sum[mary]* "<result summary
 _idx_ in this scope will refer to an index in the Treatment list.
 The result summary will be appended to the Investigation summary.
 
-==== `find` - Find items matching certain criteria
+**Example**
+****
+*result* "blood test" `*-summary*` "High white blood cells count" +
+****
+
+==== `find` - Find items matching certain criteria [[impression-find]]
 
 Format: `find ["<search string>"] [_type_]` +
-Example: `find aspirin *-t*`
+`[_type_]` -> (`*-e[vidence]*` | `*-t[reatment]*`) +
 
-Display a list of all Impressions, Treatments and Evidence matching the criteria specified in the search.
+Display a list of all Treatments and Evidences matching the criteria specified in the search.
 If none of the `_type_` switches are used, all types of objects will be listed.
 If at least one of them is listed, only objects whose type is used as a switch will be listed.
 
-=== Treatment and Evidence [*v1.4*]
+**Example**
+****
+*find* "aspirin" `*-treatment*` (This command searches for treatments) +
+*find* "blood" `*-evidence*` (This command searches for evidences) +
+*find* "high" (This command searches for treatments AND evidences)
+****
 
-All Treatment and Evidence contexts (one for each type of Treatment and each type of Evidence) behave in essentially the same way: they display all their data in full.
+=== Treatment and Evidence
+
+All <<treatment, Treatment>> (Medicine, Investigation, Plan) and <<evidence, Evidence>> (Observation and Result) contexts (one for each type of Treatment and each type of Evidence) behave in essentially the same way: they display all their data in full.
 This section will list the commands that they have in common.
 Each individual Treatment and Evidence context is assumed to have all these commands, and all the commands in this inheritance list.
 
-Inherits: <<home-help,`help`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
+Inherits: <<patient-back,`back`>>, <<patient-up,`up`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
 
 ==== `edit` - Edit one of the details of the Treatment or Evidence
 
-Format: `edit [-app[end]] <switch> [<new value>] [<switch> [<new value>]]`
+Format: `edit [-app[end]] <switch> [<new value>] [<switch> [<new value>]]*`
 
-The possible values for `<switch>` and `<new value>` can now be found in the <<type-table,table>> for `new` in the Impression context.
+**Example**
+****
+*edit* `*-dose*` "Thrice daily; before meals" (This command is applied in the `Medicine` context) +
+*edit* `*-summary*` "Inconclusive findings; need more tests" (This command is applied in the `Investigation` context) +
+****
 
-==== `move` - Move a Treatment or Evidence to a different Impression
+The possible values for `<switch>` and `<new value>` can now be found in this <<type-table,table>>.
+
+==== `move` - Move a Treatment or Evidence to a different Impression [*v2.0*]
 
 Format: `move [-im[pression] "<search string>"]`
 
 If a Treatment or Evidence is assigned incorrectly, it can be moved to a different Impression via this command.
 If the `-im[pression]` switch is not used to specify the Impression to move it to, a window listing all Impressions will appear, and the user can select the correct Impression using its list index.
 
-==== `priority` - Mark the Treatment or Evidence as a certain priority level
+==== `priority` - Mark the Treatment or Evidence as a certain priority level [*v2.0*]
 
 Format: `priority <new priority>`
 
 `<new priority>` must be a non-negative integer.
 
-=== Treatment [*v1.4*]
+=== Treatment [*v2.0*]
 
 Contains everything in <<Treatment and Evidence>>.
 
@@ -515,7 +600,7 @@ Format: `status [("<status name>" | <status idx>)]`
 
 If no `<status name>` or `<status idx>` is specified, `status` will be incremented by 1, unless it is at the maximum value.
 
-=== Investigation [*v1.4*]
+=== Investigation [*v2.0*]
 
 Contains everything in <<Treatment and Evidence>>.
 
@@ -525,19 +610,20 @@ Format: `result -sum[mary] "<result summary>"`
 
 The result summary will be appended to the Investigation summary.
 
-== Command Summary
+== Summary
 
 === Command Summary
 
-Summary of all the commands available in each context, for a more detailed description and associated switches, refer to section 1.
+Summary of all of the commands available in each context, +
+for detailed description and associated switches, refer to <<Commands, Section 4>>.
 
 .Command summary
 image::CommandSummary.png[]
 
 === Switch Summary
 
-Summary of all the switches available for the diffrent commands.
-For a more detailed description on how to use the switches with the diffrent commands, refer to section 1.
+Summary of all of the switches available for the different commands. +
+For detailed description on how to use the switches with the different commands, refer to <<Commands, Section 4>>.
 
 .Switch summary
 image::SwitchSummary.png[]

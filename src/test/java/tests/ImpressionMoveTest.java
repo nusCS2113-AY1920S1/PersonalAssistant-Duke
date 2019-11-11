@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -54,6 +55,8 @@ public class ImpressionMoveTest extends CommandTest {
         }
 
         try {
+            moveCmd.execute(core);
+            core.uiContext.open(impression);
             moveCmd.execute(core, newImpression);
             assertNotNull(newImpression.getEvidence("name"));
             core.uiContext.open(newImpression);
@@ -106,13 +109,53 @@ public class ImpressionMoveTest extends CommandTest {
         }
 
         try {
-            moveCmd.execute(core, newImpression);
+            moveCmd.execute(core);
             core.uiContext.open(impression);
             moveCmd.execute(core, obsv);
         } catch (DukeException excp) {
             fail("Exception thrown while moving data: " + excp.getMessage());
         }
         assertNotNull(newImpression.getEvidence("name"));
+    }
+
+    @Test
+    public void impressionMoveCommand_noImpression_failBeforeSearch() {
+        String[] switchNames = {"impression", "evidence"};
+        String[] switchVals = {"blah", "name"};
+        failTest(switchNames, switchVals);
+    }
+
+    @Test
+    public void impressionMoveCommand_noEvidence_failBeforeSearch() {
+        String[] switchNames = {"impression", "evidence"};
+        String[] switchVals = {"name2", "blah"};
+        failTest(switchNames, switchVals);
+    }
+
+    @Test
+    public void impressionMoveCommand_emptyCommand_failBeforeSearch() {
+        String[] switchNames = {};
+        String[] switchVals = {};
+        failTest(switchNames, switchVals);
+    }
+
+    private void failTest(String[] switchNames, String[] switchVals) {
+        Observation obsv = null;
+        Impression newImpression = new Impression("name2", "description2", patient);
+
+        try {
+            obsv = new Observation("name", impression, 0, "summary", true);
+            setupCmdAndData(switchNames, switchVals, newImpression, obsv);
+        } catch (DukeException excp) {
+            fail("Exception when creating observation: " + excp.getMessage());
+        }
+
+        try {
+            moveCmd.execute(core);
+            fail("Incorrect input not caught during execution!");
+        } catch (DukeException excp) {
+            assertEquals(impression, core.uiContext.getObject());
+        }
     }
 
     private void setupCmdAndData(String[] switchNames, String[] switchVals, Impression newImpression,

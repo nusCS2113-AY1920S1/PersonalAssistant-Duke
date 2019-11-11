@@ -27,8 +27,6 @@ public class PatientUtils {
         }
     }
 
-    // TODO clarify if we are doing get by idx from the UI or from the data
-
     /**
      * Find a {@code DukeObject} with the supplied identifier. Only 1 of either name or displayed index should be used
      * to identify said DukeObject.
@@ -42,7 +40,7 @@ public class PatientUtils {
      *                       2. 2 identifiers are provided.
      *                       3. 1 unique identifier is provided but said DukeObject does not exist.
      */
-    public static DukeObject findFromPatient(Patient patient, String type, String nameOrIdx)
+    public static DukeObject getFromPatientByIdx(Patient patient, String type, String nameOrIdx)
             throws DukeException {
         int idx = CommandUtils.idxFromString(nameOrIdx);
         if (idx != -1) {
@@ -95,7 +93,7 @@ public class PatientUtils {
             results.addAll(patient.findImpressionsByName(searchTerm));
         } else if ("critical".equals(type)) {
             results.addAll(patient.findCriticalsByName(searchTerm));
-        } else {
+        } else if ("followup".equals(type)) {
             results.addAll(patient.findFollowUpsByName(searchTerm));
         }
 

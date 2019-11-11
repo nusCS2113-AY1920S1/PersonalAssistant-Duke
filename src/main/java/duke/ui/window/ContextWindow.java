@@ -1,12 +1,9 @@
 package duke.ui.window;
 
-import duke.data.DukeObject;
 import duke.exception.DukeFatalException;
 import duke.ui.commons.UiElement;
 import duke.ui.context.UiContext;
 import javafx.scene.layout.Region;
-
-import java.util.List;
 
 //@@author gowgos5
 /**

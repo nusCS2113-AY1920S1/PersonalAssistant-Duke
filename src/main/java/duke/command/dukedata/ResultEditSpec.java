@@ -1,8 +1,12 @@
 package duke.command.dukedata;
 
+import duke.DukeCore;
 import duke.command.ArgLevel;
 import duke.command.ArgSpec;
 import duke.command.Switch;
+import duke.command.impression.ImpressionUtils;
+import duke.data.Result;
+import duke.exception.DukeException;
 
 public class ResultEditSpec extends ArgSpec {
 
@@ -20,5 +24,10 @@ public class ResultEditSpec extends ArgSpec {
                 new Switch("priority", Integer.class, true, ArgLevel.REQUIRED, "pri"),
                 new Switch("summary", String.class, true, ArgLevel.REQUIRED, "sum")
         );
+    }
+
+    @Override
+    protected void execute(DukeCore core) throws DukeException {
+        ImpressionUtils.editData(core, cmd, (Result) core.uiContext.getObject());
     }
 }

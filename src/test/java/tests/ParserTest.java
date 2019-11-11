@@ -16,8 +16,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
 
-    // TODO check if exceptions are thrown for incorrect input formats
-
     private Parser uut = new Parser(new UiContext(), new TestCommands());
 
     @Test

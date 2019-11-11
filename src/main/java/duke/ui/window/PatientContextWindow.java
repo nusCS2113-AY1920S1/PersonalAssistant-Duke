@@ -13,6 +13,7 @@ import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+//@@author gowgos5
 /**
  * UI window for the Patient context.
  */
@@ -135,8 +136,8 @@ public class PatientContextWindow extends ContextWindow {
             criticalListPanel.getItems().add(criticalData.toCard());
         }
 
-        for (Treatment followUps : patient.getFollowUpList()) {
-            followUpListPanel.getItems().add(followUps.toCard());
+        for (Treatment followUp : patient.getFollowUpList()) {
+            followUpListPanel.getItems().add(followUp.toCard());
         }
     }
 

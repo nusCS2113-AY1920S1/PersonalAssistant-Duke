@@ -46,8 +46,6 @@ public class SearchTest {
         } catch (DukeException e) {
             fail("Exception thrown while setting up basic patient! " + e.getMessage());
         }
-
-
     }
 
     @Test
@@ -63,18 +61,34 @@ public class SearchTest {
 
     @Test
     public void getSearchResultPatientTest() {
-        try {
-            patient = patientData.getPatientByBed(duplicateBed + 1);
-            patient.update();
-            assertEquals(patient.findImpressions("testImpression").getSearchList().size(), 1);
-            assertEquals(patient.searchAll(pattern3).getSearchList().size(), 4);
-            assertEquals(patient.searchAll(pattern4).getSearchList().size(), 1);
-            assertEquals(patient.findCriticalsByName("inv").getSearchList().size(), 1);
-            assertEquals(patient.findCriticalsByName("med blah").getSearchList().size(), 0);
-            assertEquals(patient.findFollowUpsByName("med blah").getSearchList().size(), 1);
-        } catch (DukeException e) {
-            fail("Could not excute find");
-        }
+        patient = patientData.getPatientByBed(duplicateBed + 1);
+        patient.update();
+        assertEquals(patient.findImpressions("testImpression").getSearchList().size(), 1);
+        assertEquals(patient.searchAll(pattern3).getSearchList().size(), 4);
+        assertEquals(patient.searchAll(pattern4).getSearchList().size(), 1);
+        assertEquals(patient.findCriticalsByName("inv").getSearchList().size(), 1);
+        assertEquals(patient.findCriticalsByName("med blah").getSearchList().size(), 0);
+        assertEquals(patient.findFollowUpsByName("med blah").getSearchList().size(), 1);
+    }
+
+    @Test
+    public void getSearchResultImpressionTest() {
+        patient = patientData.getPatientByBed(duplicateBed + 1);
+        Impression imp = patient.getImpression(pattern3);
+        assertEquals(imp.findEvidences(pattern4).getSearchList().size(), 0);
+        assertEquals(imp.findEvidences(pattern1).getSearchList().size(), 1);
+        assertEquals(imp.findEvidences("").getSearchList().size(), 2);
+        assertEquals(imp.findEvidences(pattern3).getSearchList().size(), 1);
+        assertEquals(imp.findEvidences("knight").getSearchList().size(), 1);
+        assertEquals(imp.searchAll(pattern3).getSearchList().size(), 2);
+        assertEquals(imp.findEvidences("summary").getSearchList().size(), 2);
+        assertEquals(imp.findTreatments("knight").getSearchList().size(), 2);
+        assertEquals(imp.findTreatments("summary").getSearchList().size(), 0);
+        assertEquals(imp.findTreatmentsByName("sum").getSearchList().size(), 0);
+        assertEquals(imp.findTreatmentsByName("med").getSearchList().size(), 1);
+        assertEquals(imp.findEvidencesByName("med").getSearchList().size(), 0);
+        assertEquals(imp.findEvidencesByName(pattern3).getSearchList().size(), 1);
+        assertEquals(imp.findByName(pattern3).getSearchList().size(), 2);
     }
 
     public Impression setupImpressionSimple(String pattern, Patient parent) {

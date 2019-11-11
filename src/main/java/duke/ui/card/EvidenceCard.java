@@ -9,8 +9,6 @@ import javafx.scene.control.Label;
  * A UI card that displays the basic information of an {@code Evidence}.
  */
 public abstract class EvidenceCard extends UiCard {
-    private static final String[] priorities = {"No priority", "Critical", "Urgent", "Compulsory", "Optional"};
-
     @FXML
     private Label nameLabel;
     @FXML
@@ -36,12 +34,7 @@ public abstract class EvidenceCard extends UiCard {
      */
     private void fillEvidenceCard() {
         nameLabel.setText(evidence.getName());
-
-        String priorityText = String.valueOf(evidence.getPriority());
-        if (evidence.getPriority() >= 0 && evidence.getPriority() < priorities.length) {
-            priorityText += " - " + priorities[evidence.getPriority()];
-        }
-        criticalLabel.setText(priorityText);
+        criticalLabel.setText(evidence.getPriorityStr());
     }
 
     /**

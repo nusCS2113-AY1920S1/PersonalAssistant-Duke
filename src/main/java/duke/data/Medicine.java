@@ -35,9 +35,9 @@ public class Medicine extends Treatment {
     public Medicine(String name, Impression impression, int priority, String status,
                     String dose, String startDate, String duration) throws DukeException {
         super(name, impression, priority, status);
-        this.dose = dose;
-        this.startDate = startDate;
-        this.duration = duration;
+        setDose(dose);
+        setStartDate(startDate);
+        setDuration(duration);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class Medicine extends Treatment {
 
     @Override
     public String toReportString() {
-        // todo
-        return null;
+        // TODO return string in proper format
+        return toString();
     }
 
     public String getDose() {
@@ -91,13 +91,13 @@ public class Medicine extends Treatment {
         String date = editVals.get("date");
         String duration = editVals.get("duration");
         if (dose != null) {
-            setDose((isAppending) ? getDose() + dose : dose);
+            setDose((isAppending) ? getDose() + " " + dose : dose);
         }
         if (date != null) {
-            setStartDate((isAppending) ? getStartDate() + date : date);
+            setStartDate((isAppending) ? getStartDate() + " " + date : date);
         }
         if (duration != null) {
-            setDuration((isAppending) ? getDuration() + duration : duration);
+            setDuration((isAppending) ? getDuration() + " " + duration : duration);
         }
     }
 

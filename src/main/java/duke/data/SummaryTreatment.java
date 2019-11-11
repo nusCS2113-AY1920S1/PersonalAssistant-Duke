@@ -8,22 +8,16 @@ public abstract class SummaryTreatment extends Treatment {
 
     protected String summary;
 
-    // TODO update javadocs
     /**
-     * Represents observations of a doctor about a patient.
-     * An Observation object corresponds to the observations of the doctor about the symptoms of a Patient,
-     * the information that led to that particular observation, as well as an integer between 1-4
-     * representing the priority or significance of the evidence.
-     * Attributes:
-     * @param name information on the observation / symptom
-     * @param impression the impression object the evidence is tagged to
-     * @param summary a summary of what led to the observation
-     * @param priority the priority level of the evidence
+     * Represents a treatment object that has a summary field. The constructor is the same, with the addition of the
+     * summary parameter for the summary field.
+     * @param summary A summary describing the treatment.
+     * @see Treatment
      */
     public SummaryTreatment(String name, Impression impression, int priority, String status, String summary)
             throws DukeException {
         super(name, impression, priority, status);
-        this.summary = summary;
+        setSummary(summary);
     }
 
     public String getSummary() {
@@ -50,7 +44,8 @@ public abstract class SummaryTreatment extends Treatment {
 
     /**
      * Edit this Treatment object. If a parameter is non-null, the corresponding member in the Treatment will be
-     * replaced by the parameter's value.
+     * replaced by the parameter's value. This method will also update the summary if it is supplied via
+     * {@code editVals}.
      * @param newName The new name to assign to the treatment.
      * @param newPriority The new priority value to assign to the treatment.
      * @param editVals A map mapping member names to new values. If a value for "summary" is present, the treatment's
@@ -58,6 +53,7 @@ public abstract class SummaryTreatment extends Treatment {
      * @param isAppending If true, append all new data to the existing members. If false, overwrite the existing data.
      * @throws DukeException If a invalid value is supplied for any field.
      */
+    @Override
     public void edit(String newName, int newPriority, Map<String, String> editVals,
                      boolean isAppending)
             throws DukeException {

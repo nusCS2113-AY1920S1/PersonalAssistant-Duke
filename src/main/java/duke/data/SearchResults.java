@@ -47,15 +47,21 @@ public class SearchResults extends DukeObject {
         return searchList;
     }
 
+    /**
+     * Adds all non-duplicated DukeObjects in another SearchResult's searchList to this SearchResult's searchList.
+     */
     public void addAll(SearchResults other) {
-        searchList.addAll(other.searchList);
+        for (DukeObject obj : other.searchList) {
+            if (!searchList.contains(obj)) {
+                searchList.add(obj);
+            }
+        }
     }
 
     public int getCount() {
         return searchList.size();
     }
 
-    // TODO keep track of each type individually
     @Override
     public String toString() {
         StringBuilder searchDetails = new StringBuilder();

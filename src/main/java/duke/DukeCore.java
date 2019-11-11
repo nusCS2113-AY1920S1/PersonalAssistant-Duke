@@ -35,7 +35,8 @@ public class DukeCore extends Application {
     public ObjCommand queuedCmd;
 
     /**
-     * Constructs a DukeCore object with the specified stdtestout.
+     * Creates a new DukeCore, constructing a storage class to store the app's data in the default data folder
+     * ([folder]/data, where [folder] is the folder from which Duke is run.
      */
     public DukeCore() {
         ui = new UiManager(this);
@@ -54,10 +55,8 @@ public class DukeCore extends Application {
      * Displays a set of search results, while storing a {@link ObjCommand} object (the one that calls the search),
      * so that it can resume execution after receiving the search results. Note that {@code queuedCmd} is saved between
      * invocations and cannot be used as a marker for command execution.
-     *
-     * @throws DukeFatalException If the file writer cannot be setup.
      */
-    public void search(SearchResults results, ObjCommand objCmd) throws DukeException {
+    public void search(SearchResults results, ObjCommand objCmd) {
         queuedCmd = objCmd;
         ui.showMessage("Here are all the results for '" + results.getName() + "'.");
         uiContext.open(results);
@@ -92,10 +91,10 @@ public class DukeCore extends Application {
      * Update UI to reflect current state of data.
      */
     public void updateUi(String message) throws DukeFatalException {
-        DukeObject obj = uiContext.getObject();
-        if (obj != null) {
-            obj.update();
+        if (uiContext.getObject() != null) {
+            uiContext.getObject().update();
         }
+
         ui.updateUi(message);
     }
 

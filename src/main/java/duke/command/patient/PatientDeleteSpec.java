@@ -36,8 +36,10 @@ public class PatientDeleteSpec extends PatientObjSpec {
             Impression impression = (Impression) obj.getParent();
             if (obj instanceof Evidence) {
                 impression.deleteEvidence(obj.getName());
+                core.ui.updateUi("Deleted '" + obj.getName() + "' evidence from '" + obj.getParent().getName() + "'!");
             } else if (obj instanceof Treatment) {
                 impression.deleteTreatment(obj.getName());
+                core.ui.updateUi("Deleted '" + obj.getName() + "' treatment from '" + obj.getParent().getName() + "'!");
             } else { // should not happen
                 throw new ClassCastException();
             }

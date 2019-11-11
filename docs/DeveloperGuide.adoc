@@ -162,7 +162,7 @@ When every character in the input has been consumed, cleanup will be performed b
 === Data Model [KWOK KUIN EK JEREMY]
 
 .Class Diagram
-image::ClassDiagram.svg[]
+image::DataModel.png[]
 
 The *_Class Diagram_* shown above describes the relationship among the different data classes used in *Dr. Duke*.
 

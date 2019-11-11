@@ -45,7 +45,7 @@ public class ImpressionNewSpec extends DukeDataSpec {
         );
     }
 
-    // TODO refactor into 5 different methods for each type
+    // TODO refactor constructors
     @Override
     protected void execute(DukeCore core) throws DukeException {
         super.execute(core);
@@ -61,11 +61,11 @@ public class ImpressionNewSpec extends DukeDataSpec {
         //extract parameters and data type
         int priority = cmd.switchToInt("priority");
         if (priority == -1) {
-            priority = 0;
+            priority = DukeData.PRIORITY_NONE;
         }
         cmd.nullToEmptyString(); //set optional string parameters to ""
-        int status;
-        switch (addType) { //isn't polymorphism fun?
+
+        switch (addType) {
         case "medicine":
             //TODO proper date parsing
             String startDate = cmd.getSwitchVal("date");

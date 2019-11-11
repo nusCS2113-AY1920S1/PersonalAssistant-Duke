@@ -103,7 +103,10 @@ public class MainWindow extends UiElement<Stage> {
      * @throws DukeFatalException If the {@code currentContextWindow} to be updated cannot be initialised / loaded.
      */
     public void updateUi(String message) throws DukeFatalException {
-        currentContextWindow.updateUi();
+        if (currentContextWindow != null) {
+            currentContextWindow.updateUi();
+        }
+
         showMessage(message);
     }
 

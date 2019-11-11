@@ -38,18 +38,31 @@ public class UiContext {
     }
 
     /**
-     * Access the context associated with a DukeObject.
+     * Stores the current context and object, then shows the context associated with a DukeObject.
      *
      * @param obj DukeObject whose context we wish to access.
      */
     public void open(DukeObject obj) {
-        Context context = Context.HOME;
         contexts.push(new Pair<>(this.context, this.object));
+        openWithoutHistory(obj);
+    }
+
+    /**
+     * Displays the context associated with a DukeObject.
+     *
+     * @param obj DukeObject whose context we wish to view.
+     */
+    public void openWithoutHistory(DukeObject obj) {
+        Context newContext = Context.HOME;
         if (obj != null) {
             obj.update();
-            context = obj.toContext();
+            newContext = obj.toContext();
         }
-        updateContext(context, obj);
+
+        Context oldContext = this.context;
+        this.context = newContext;
+        this.object = obj;
+        pcs.firePropertyChange("context", oldContext, this.context);
     }
 
     /**
@@ -82,7 +95,7 @@ public class UiContext {
         Pair<Context, DukeObject> pair = contexts.pop();
         Context newContext = pair.getKey();
         DukeObject newObj = pair.getValue();
-        updateContext(newContext, newObj);
+        openWithoutHistory(newObj);
         return getViewingStr(newContext, newObj);
     }
 
