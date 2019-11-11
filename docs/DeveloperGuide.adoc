@@ -21,18 +21,17 @@ By: `Team T12-3`      Since: `Oct 2019`      Licence: `MIT`
 
 === Purpose
 
-This document specified architecture and software design decisions for BakingHome, a one-stop application for managers of home bakeries to manage their business efficiently.
+This document describes the architecture, software design and implementation decisions of BakingHome, a one-stop application for managers of home bakeries to manage their business efficiently.
 
-=== Scope
+=== Audience
 
-This guide describes the software architecture and software design decisions for the implementation of BakingHome.
-The intended audience of this document is the developers, designers, and software testers of BakingHome.
+This documentation is intended for the developers, designers, and software testers of BakingHome.
 
 === Using the Guide
 
 This guide follows the following format:
 
-`marke-up` text represents a component or a command.
+`mark-up` text represents a component or a command.
 
 [NOTE]
 This box provides additional information.
@@ -70,17 +69,17 @@ image::ui_class_diagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that contains 5 separate pages, namely.`SalePage`,
+The UI consists of a `MainWindow` that contains 5 separate pages, namely the `SalePage`,
 `ProductPage`, `ShoppingPage`, `InventoryPage` and `OrderPage`.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-Some page consists of smaller components, for example, `SalePage` has a `SaleCard`, `ProductPage` has an
-`IngredientCard` and `OrderPage` has an `OrderCard` and an `OrderItemBox`.
+Some pages consist of smaller components. For example, `SalePage` has a `SaleCard`, `ProductPage` has an
+`IngredientCard`, and `OrderPage` has an `OrderCard` and an `OrderItemBox`.
 
 The `UI` component uses JavaFx UI framework.
 The layout of these UI parts are defined in matching `.fxml`
 files that are in the `src/main/resources/view` folder.
-For example, the layout of the link:https://github.com/AY1920S1-CS2113T-T12-3/main.git}/src/main/java/duke/ui/MainWindow.java[`MainWindow`] is specified in
-link:https://github.com/AY1920S1-CS2113T-T12-3/main.git}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+For example, the layout of the link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/duke/ui/MainWindow.java[`MainWindow`] is specified in
+link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -100,8 +99,8 @@ link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/du
 . `LogicManager` uses the `BakingHomeParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 . The command execution can affect the `Model` (for example, deleting an order).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-. In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying a certain page to the user.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
+. In addition, the `CommandResult` object can also instruct the `UI` to perform certain actions, such as displaying a certain page to the user.
 
 
 [[Design-Model]]
@@ -115,13 +114,13 @@ link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/du
 
 The `Model`,
 
-* stores classes that are used for BakingHome (namely Ingredient, Customer, Order, IngredientInfoList, IngredientItemList, Product, ProductIngredient, Sale)
+* Stores classes that are used for BakingHome (namely Ingredient, Customer, Order, IngredientInfoList, IngredientItemList, Product, ProductIngredient, Sale)
 
-* exposes unmodifiable ObservableList<> of Orders, Products, Sales, Inventory, and ShoppingList that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* Exposes unmodifiable `ObservableList<>` of Orders, Products, Sales, Inventory, and ShoppingList that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
-* does not depend on any of the other three components.
+* Does not depend on any of the other three components.
 
-* stores the UniqueEntityLists used for BakingHome and its methods.
+* Stores the UniqueEntityLists used for BakingHome and its methods.
 
 [[Design-Storage]]
 === Storage component
@@ -134,7 +133,7 @@ link:https://github.com/AY1920S1-CS2113T-T12-3/main/tree/master/src/main/java/du
 
 The `Storage` component,
 
-* can save the Ingredient objects, Ingredient Item objects, Order objects, Product objects, Product Item objects, Sale objects, and Shortcut objects, in json format and read it back.
+* Can save the Ingredient objects, Ingredient Item objects, Order objects, Product objects, Product Item objects, Sale objects, and Shortcut objects, in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -165,7 +164,7 @@ The auto-complete mechanism is facilitated by `AutoCompleter` in `Logic` compone
 
 * `AutoCompleter#isAutoCompletable(Input)` -- Returns true if the current user input can be completed by `AutoCompleter`.
 
-* `AutoCompleter#complete()` -- Returns a  `Input` object that specifies the details of the user input after auto-completion.
+* `AutoCompleter#complete()` -- Returns an `Input` object that specifies the details of the user input after auto-completion.
 
 The last two operations are exposed in the `Model` interface as `Model#isAutoCompletable(Input)()` and `Model#complete()` respectively.
 
@@ -223,17 +222,13 @@ public class AddOrderCommand extends Command {
 
 ** Pros: Easy to implement.
 
-** Cons: Violates the Open-Closed Principle because developers need to modify AutoCompleter's internal structure to add new commands.
-
-Also, it makes code more coupled since if we change parameters of a command, we need to change corresponding fields in AutoCompleter as well.
+** Cons: Violates the Open-Closed Principle because developers need to modify AutoCompleter's internal structure to add new commands. Also, it makes code more coupled since if we change parameters of a command, we need to change corresponding fields in AutoCompleter as well.
 
 * Alternative 2 (Current choice): Use Reflection API to obtain command words and arguments from CommandClass at runtime.
 
 ** Pros: Avoids modification to the internal structure of AutoCompleter class
 
-** Cons: Since Reflection allows code to perform operations that would be illegal in non-reflective code,
-
-It could lead to unexpected side-effects if implemented wrongly.
+** Cons: Since Reflection allows code to perform operations that would be illegal in non-reflective code, it could lead to unexpected side-effects if implemented wrongly.
 
 ===== Aspect 2: Displaying multiple suggestions
 
@@ -251,7 +246,7 @@ May require additional components other than JavaFx's built-in components.
 ==== Implementation
 
 BakingHome's products can have two status: `ACTIVE` or `ARCHIVE`.
-This feature allows user to view product with a given certain status, i.e. shows only products with an ARCHIVE status.
+This feature allows user to view products with a given certain status, i.e. shows only products with an ARCHIVE status.
 
 The filter mechanism in product is facilitated by
 https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html[FilteredList]
@@ -259,7 +254,7 @@ which wraps a ObservableList and
 filters using the provided Predicate.
 A `FilteredList<Product> filteredProducts` is stored in the `ModelManager`.
 In `BakingHome`, there is an
-`ObservableList<Product> products` which contains all products, regardless of the status. `filteredProducts`
+`ObservableList<Product> products` which contains all products, regardless of its status. `filteredProducts`
 in the ModelManager is initialized with this ObservableList.
 
 Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible, the filter mechanism implements the following operation to support filtering:
@@ -268,7 +263,7 @@ Since a FilteredList needs a Predicate, which matches the elements in the source
 
 ** Predicates are declared statically in the `Model` interface, namely
 `PREDICATE_SHOW_ACTIVE_PRODUCTS`, `PREDICATE_SHOW_ARCHIVE_PRODUCTS`, and `PREDICATE_SHOW_ALL_PRODUCT`.
-In particular `PREDICATE_SHOW_ARCHIVE_PRODUCTS` is as follow
+In particular `PREDICATE_SHOW_ARCHIVE_PRODUCTS` is as follows
 ```java
     Predicate<Product> PREDICATE_SHOW_ARCHIVE_PRODUCTS = product -> {
         return product.getStatus() == Product.Status.ARCHIVE;
@@ -279,12 +274,12 @@ In particular `PREDICATE_SHOW_ARCHIVE_PRODUCTS` is as follow
 
 An example usage scenario and how the filter mechanism behaves at each step is shown below.
 
-**Step 1.** The user launched the application for the first time.
-UniqueProductList will be initialized with a list of default products in BakingHome.
+**Step 1.** The user launches the application for the first time.
+`UniqueProductList` will be initialized with a list of default products in BakingHome.
 This list contains a few active products and a few archived products.
 
-**Step 2.** The user inputs `product filter -scope archive` to list all archived products. `UI` pass the input to `Logic`.
-Logic then uses a few `Parser` class to extract layers of information out.
+**Step 2.** The user inputs `product filter -scope archive` to list all archived products. `UI` passes the input to `Logic`.
+Logic then uses a few `Parser` classes to extract layers of information out as seen from steps 3 to 5.
 
 **Step 3.** Logic passes the user input to `BakingHomeParser`. `BakingHomeParser` identifies that this is a `ProductCommand`
 through the word "product".
@@ -312,12 +307,11 @@ The Sequence Diagram below shows how the components interact with each other for
 .Sequence Diagram for Filter Product Mechanism
 image::FilterProductSD.png[]
 
-Note that almost all other commands follow the same sequences, with different `Command` and `Parser`
-class.
+Note that almost all other commands follow the same sequence, with different `Command` and `Parser` classes.
 
 ==== Design considerations
 
-* Alternative 1 (current choice): Save all products in an `ObservableList` in `BakingHome`, and keeps a
+* Alternative 1 (current choice): Save all products in an `ObservableList` in `BakingHome`, and keep a
 `FilteredList` in the `ModelManager`. `ProductCommandParser` parses the user input and gets the Predicate to update the `FilteredList`.
 ** Advantages: Implementation is clearer and code is more human-readable.
 ** Disadvantages: More difficult to write a Predicate.
@@ -336,7 +330,7 @@ Loop through the list to get the products with the desired status.
 
 BakingHome comes with a `shop buy` command in its shopping list feature.
 This command transfers ingredients and its respective quantity from the shopping list to the inventory list.
-It will then also generate a sales transaction automatically in the Sales page.
+It will then generate a sales transaction automatically in the Sales page.
 
 ==== Implementation
 
@@ -360,10 +354,10 @@ Given below is an example usage scenario and how the `shop buy` mechanism works.
 The `UniqueEntityLists` `inventory`, `shoppingList`, and `sales` are initialized in BakingHome with the initial data stored in the `Storage`.
 
 *Step 2.* The user inputs `shop buy 1,2` command to buy the first and second ingredient in the shopping list.
-This command goes through the `Parser` to get the indices of the ingredients that is to be bought and executes the `BuyShoppingCommand`.
+This command goes through the `Parser` to get the indices of the ingredients to be bought and executes the `BuyShoppingCommand`.
 
 *Step 3.* The `BuyShoppingCommand` calls the `FilteredLists` stored in the `Model`
-through `Model#getFilteredInventoryList()`, `Model#getFilteredShoppingList()` and stores them in `ArrayLists<Item<Ingredient>>` `inventoryList` and `shoppingList` respectively.
+through `Model#getFilteredInventoryList()`, `Model#getFilteredShoppingList()` and stores them in the `ArrayLists<Item<Ingredient>>` `inventoryList` and `shoppingList` respectively.
 
 *Step 4.* For every index, the `Item<Ingredient>` object is called from `shoppingList`.
 Each ingredient is checked whether `inventoryList` already contains it using
@@ -409,10 +403,10 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application.
+* `WARNING` : Can continue, but with caution.
+* `INFO` : Information showing the noteworthy actions by the App.
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging. e.g. print the actual list instead of just its size
 
 <<<
 
