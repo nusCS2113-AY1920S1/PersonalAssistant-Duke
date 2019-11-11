@@ -1,10 +1,8 @@
 import booking.Booking;
-import control.Duke;
 import exception.DukeException;
 import org.junit.jupiter.api.Test;
-import user.UserList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 //@@author AmosChan97
 public class AddBookingTest1 {
     @Test

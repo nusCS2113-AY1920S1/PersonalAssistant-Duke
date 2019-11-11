@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 //@@author Alex-Teo
 public class AddBookingTest3 {
+
     @Test //Test Start time error
     void testAddBookingError1() throws DukeException, IOException {
         String user = "Null";
@@ -26,8 +27,8 @@ public class AddBookingTest3 {
         assertEquals(":-( Not able to parse the date for all patterns given, "
                 + "please use this format: add NAME DESCRIPTION "
                 + "/at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
-                + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM"
-                , BookingConstants.DATETIMEERROR);
+                + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM",
+                BookingConstants.DATETIMEERROR);
     }
 
     @Test //Test end time error
@@ -43,8 +44,8 @@ public class AddBookingTest3 {
         assertEquals(":-( Not able to parse the date for all patterns given, "
                         + "please use this format: add NAME DESCRIPTION "
                         + "/at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
-                        + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM"
-                , BookingConstants.DATETIMEERROR);
+                        + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM",
+                BookingConstants.DATETIMEERROR);
     }
 
     @Test //no /at
@@ -57,8 +58,8 @@ public class AddBookingTest3 {
         assertEquals(":-( Not able to parse the date for all patterns given, "
                         + "please use this format: add NAME DESCRIPTION "
                         + "/at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
-                        + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM"
-                , BookingConstants.DATETIMEERROR);
+                        + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM",
+                BookingConstants.DATETIMEERROR);
     }
 
     @Test //no /from
@@ -71,8 +72,8 @@ public class AddBookingTest3 {
         assertEquals(":-( Not able to parse the date for all patterns given, "
                         + "please use this format: add NAME DESCRIPTION "
                         + "/at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
-                        + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM"
-                , BookingConstants.DATETIMEERROR);
+                        + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM",
+                BookingConstants.DATETIMEERROR);
     }
 
     @Test //no /to
@@ -85,8 +86,8 @@ public class AddBookingTest3 {
         assertEquals(":-( Not able to parse the date for all patterns given, "
                         + "please use this format: add NAME DESCRIPTION "
                         + "/at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
-                        + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM"
-                , BookingConstants.DATETIMEERROR);
+                        + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM",
+                BookingConstants.DATETIMEERROR);
     }
 
     @Test //no date and time at all
@@ -99,7 +100,7 @@ public class AddBookingTest3 {
         assertEquals(":-( Not able to parse the date for all patterns given, "
                         + "please use this format: add NAME DESCRIPTION "
                         + "/at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
-                        + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM"
-                , BookingConstants.DATETIMEERROR);
+                        + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM",
+                BookingConstants.DATETIMEERROR);
     }
 }
