@@ -50,12 +50,12 @@ public class Parser {
                 return true;
             } else if (instr.isUndo(input)) {
                 process.commandHistory(input, ui, storage);
-                process.undo(storage, ui, fund);
+                process.undo(storage, ui);
             } else if (instr.isLoad(input)) {
                 process.backupProjects(ui, fund, storage, list);
             } else if (instr.isRedo(input)) {
                 process.commandHistory(input, ui, storage);
-                process.redo(storage, ui, fund);
+                process.redo(storage, ui);
             } else if (instr.isViewhistory(input)) {
                 process.viewhistory(input, ui, storage);
             } else if (instr.isHistory(input)) {
@@ -65,9 +65,9 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddProject(input)) {
                 process.commandHistory(input, ui, storage);
-                process.addProject(input, ui, fund, storage, projectManager);
+                process.addProject(input, ui, storage, fund);
             } else if (instr.isDeleteProject(input)) {
-                process.deleteProject(input, ui, storage, fund, projectManager);
+                process.deleteProject(input, ui, storage, fund);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isGoToProject(input)) {
                 process.goToProject(input, ui);
@@ -135,7 +135,7 @@ public class Parser {
                 process.addPayee(input, ui, storage);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isDeletePayee(input)) {
-                process.deletePayee(input, ui, storage, projectManager);
+                process.deletePayee(input, ui, storage);
                 process.commandHistory(input, ui, storage);
             } else if (instr.istotalcost(input)) {
                 process.totalCost(input, ui, storage);

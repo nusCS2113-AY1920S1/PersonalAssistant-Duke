@@ -26,7 +26,6 @@ import java.util.Set;
  * Storage that saves and loads the tasklist of the user.
  */
 public class Storage {
-<<<<<<< HEAD:src/main/java/command/Storage.java
     private static String projectsfilepath = "localdata/Projects.json";
     private static String CommandListFilePath = "localdata/history.json";
     private static String fundfilepath = "localdata/Fund.json";
@@ -35,21 +34,11 @@ public class Storage {
     private static String undofundfilepath = "localdata/undoFund.json";
     private static String redofundfilepath = "localdata/redoFund.json";
     private static String currentprojectfilepath = "localdata/CurrentProject.json";
-=======
     private static String basefilepath = System.getProperty("user.dir");
-    private static String projectsfilepath = basefilepath + "/localdata/Projects.json";
-    private static String commandlistfilepath = basefilepath +  "/localdata/history.json";
-    private static String fundfilepath =  basefilepath + "/localdata/Fund.json";
-    private static String undoListFilePath = basefilepath +  "/localdata/undo.json";
-    private static String redoListFilePath = basefilepath +  "/localdata/redo.json";
-    private static String currentprojectfilepath = basefilepath + "/localdata/CurrentProject.json";
     private static String dictFilePath = "/localdata/dict.json";
     private static String backuphistoryfilepath = "Backuphistory.json";
     private static String backupfundfilepath = "BackupFund.json";
     private static String backupprojectsfilepath = "BackupProjects.json";
-
-
->>>>>>> d1d0b99d8623edd1458795e54e81c5d99257cc46:src/main/java/storage/Storage.java
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -469,7 +458,7 @@ public class Storage {
     public void writeToCommandsFile(String command) throws AlphaNUSException {
         String toWriteStr = gson.toJson(command);
         try {
-            File file = new File(commandlistfilepath);
+            File file = new File(CommandListFilePath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
@@ -479,7 +468,7 @@ public class Storage {
             bufferedWriter.newLine();
             bufferedWriter.close();
         } catch (IOException e) {
-            throw new AlphaNUSException("Unable to write to file: " + commandlistfilepath);
+            throw new AlphaNUSException("Unable to write to file: " + CommandListFilePath);
         }
     }
 
@@ -493,7 +482,7 @@ public class Storage {
         String line = null;
         ArrayList<String> list = new ArrayList<String>();
         try {
-            File file = new File(commandlistfilepath);
+            File file = new File(CommandListFilePath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();

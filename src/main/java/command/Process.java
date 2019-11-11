@@ -33,10 +33,19 @@ public class Process {
     private SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     private CommandFormat commandformat = new CommandFormat();
     ProjectManager projectManager = new ProjectManager();
+    Fund fund = new Fund();
     private payment.Status status;
 
     private static final int MAX_FUND = 500000;
     private static final int MIN_FUND = 0;
+    private static ArrayList<String> canUndoRedo = new ArrayList<String>();
+
+    static {
+        canUndoRedo.add("add payment");
+        canUndoRedo.add("delete payment");
+        canUndoRedo.add("add payee");
+        canUndoRedo.add("delete payee");
+    }
 
     Process() throws AlphaNUSException {
     }
@@ -76,15 +85,12 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      * @return
      */
-    public void addProject(String input, Ui ui, Fund fund, Storage storage) {
+    public void addProject(String input, Ui ui, Storage storage, Fund fund) {
         try {
-            BeforeAfterCommand.beforeCommand(projectManager, storage);
             String[] splitproject = input.split("pr/", 2);
             splitproject = cleanStrStr(splitproject);
             String[] splitamount = splitproject[1].split("am/", 2);
             splitamount = cleanStrStr(splitamount);
-
-
             //input validity check
             if (splitamount.length != 2) {
                 System.out.println("\t" + "Incorrect input");
@@ -113,7 +119,7 @@ public class Process {
                 double projectamount = Double.parseDouble(inputamount);
                 if (projectamount < MIN_FUND) {
                     ui.exceptionMessage("     :( OOPS!!! Please enter a positive value. ");
-                } else if (projectamount > MAX_FUND) {
+                } if (projectamount > MAX_FUND) {
                     ui.exceptionMessage("     :( OOPS!!! Please enter a positive value of no more than 500,000. ");
                 }
                 if (fund.getFundRemaining() >= projectamount) {
@@ -121,7 +127,6 @@ public class Process {
                     Project newProject = projectManager.addProject(projectname, projectamount);
                     int projectsize = projectManager.projectmap.size();
                     ui.printAddProject(newProject, projectsize);
-                    BeforeAfterCommand.afterCommand(projectManager, storage);
                 } else {
                     ui.exceptionMessage("     :( OOPS!!! There is not enough fund. "
                             + "Please decrease the amount of fund assigned");
@@ -132,10 +137,6 @@ public class Process {
             ui.exceptionMessage("\t" + "Amount of funds should be a number!");
         } catch (IndexOutOfBoundsException e) {
             ui.exceptionMessage(e.getMessage());
-        } catch (AlphaNUSException e) {
-            e.printStackTrace();
-            ui.exceptionMessage("\t" + "Incorrect input format\n" + "\t"
-                    + "Correct Format: " + commandformat.addProjectFormat());
         }
     }
 
@@ -146,7 +147,6 @@ public class Process {
      */
     public void deleteProject(String input, Ui ui, Storage storage, Fund fund) throws AlphaNUSException {
         try {
-            BeforeAfterCommand.beforeCommand(projectManager, storage);
             String[] split = input.split("pr/", 2);
             split = cleanStrStr(split);
             if (split.length != 2) {
@@ -169,8 +169,7 @@ public class Process {
             Project deletedProject = projectManager.deleteProject(projectname);
             int projectsize = projectManager.projectmap.size();
             ui.printDeleteProject(deletedProject, projectsize, fund);
-            BeforeAfterCommand.afterCommand(projectManager, storage);
-        } catch (AlphaNUSException | ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("\t" + "☹ OOPS!!! Wrong input format!"
                     + "\n\tCorrect input format is: delete project pr/PROJECT_NAME");
         }
@@ -1276,11 +1275,24 @@ public class Process {
      * @param ui Ui that interacts with the user.
      * @param storage Storage that stores the project map.
      */
-    public void undo(Storage storage, Ui ui, Fund fund) throws AlphaNUSException {
-        //projectmanager.projectmap = UndoRedoStack.undo();
-        projectManager.projectmap = storage.readFromUndoFile();
-        fund = storage.readFromundoFundFile();
-        ui.undoMessage();
+    public void undo(Storage storage, Ui ui) throws AlphaNUSException {
+        ArrayList<String> commandList = new ArrayList<>();
+        commandList = storage.readFromCommandsFile();
+        String command = commandList.get(commandList.size() - 1);
+        //projectManager.projectmap = UndoRedoStack.undo();
+        int count = 0;
+        for(int i = 0; i < canUndoRedo.size(); i = i + 1){
+            if(command.contains(canUndoRedo.get(i))){
+                projectManager.projectmap = storage.readFromUndoFile();
+                ui.undoMessage();
+            }
+            else{
+                count = count + 1;
+            }
+        }
+        if(count == canUndoRedo.size()){
+            ui.cantUndomessage();
+        }
     }
 
     /**
@@ -1289,10 +1301,16 @@ public class Process {
      * @param ui Ui that interacts with the user.
      * @param storage Storage that stores the project map.
      */
-    public void redo(Storage storage, Ui ui, Fund fund) throws AlphaNUSException {
-        //projectmanager.projectmap = UndoRedoStack.redo();
-        projectManager.projectmap = storage.readFromRedoFile();
-        fund = storage.readFromredoFundFile();
-        ui.redoMessage();
+    public void redo(Storage storage, Ui ui, String command) throws AlphaNUSException {
+        ArrayList<String> commandList = new ArrayList<>();
+        commandList = storage.readFromCommandsFile();
+        String command1 = commandList.get(commandList.size() - 1);
+        if(command1.equals("undo")) {
+            projectManager.projectmap = storage.readFromRedoFile();
+            ui.redoMessage();
+        }
+        else{
+            ui.cantRedomessage();
+        }
     }
 }
