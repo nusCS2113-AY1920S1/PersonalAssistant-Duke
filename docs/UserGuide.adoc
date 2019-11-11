@@ -46,7 +46,7 @@ This app may not work with older major Java releases such as Java 10, 9, 8 etc.
 
 === Overview of our GUI
 
-image::GUI.png[gui]
+image::Ui.png[gui]
 
 . Command Box: This is where users type commands.
 . Feedback Box: This shows the result of command execution in addition to useful tips and error messages.
@@ -211,9 +211,14 @@ Examples: +
 Format: `search movies [/LIST_TYPE]` +
 Examples: `search movies /current`
 
+image::Search_Movies_1.png[width="800" align="left"]
+image::Search_Movies_2.png[width="800" align="left"]
+
 * *Searching within standard lists _using pre-set user profile_* +
 Format: `search movies [/LIST_TYPE] -p` +
 Examples: `search movies /rated -p`
+
+image::Search_Movies_4.png[width="800" align="left"]
 
 * *Searching within standard lists _using new unsaved set of filter flags_* +
 Format: `search movies [/LIST_TYPE] [-g PREFERENCE_GENRE_NAME ...] [-r RESTRICT_GENRE_NAME ...] [-a ADULT_FILER]` +
@@ -223,6 +228,9 @@ Examples: +
 ** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` cannot have any overlaps.
 ** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
 ** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
+
+image::Search_Movies_5.png[width="800" align="left"]
+image::Search_Movies_6.png[width="800" align="left"]
 
 * *Searching using _keywords_* +
 Search for movies using keywords and returns movies with titles that contains the keywords. +
@@ -235,6 +243,8 @@ Examples: +
 Format: `search movies KEYWORDS` +
 Examples: `search movies harry potter`
 
+image::Search_Movies_3.png[width="800" align="left"]
+
 * *Searching using keywords _using pre-set user profile_* +
 Format: `search movies KEYWORDS -p` +
 Examples: `search movies harry potter -p`
@@ -246,7 +256,9 @@ Examples: +
 `search movies harry potter -r romance , -a no` +
 ** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` cannot have any overlaps.
 ** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
-** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
+
+
+
 
 ==== *Searching for TV shows*: `tvshows`
 
@@ -265,6 +277,8 @@ Examples: +
 * *Searching within standard lists _without filtering_* +
 Format: `search tvshows [/LIST_TYPE]` +
 Examples: `search tvshows /current`
+
+image::Search_Movies_7.png[width="800" align="left"]
 
 * *Searching within standard lists _using pre-set user profile_* +
 Format: `search tvshows [/LIST_TYPE] -p` +
@@ -286,6 +300,8 @@ Examples: +
 `search tvshows simpsons` +
 `search tvshows greys anatomy`
 
+image::Search_Movies_8.png[width="800" align="left"]
+
 * *Searching using keywords _with no preferences_* +
 Format: `search tvshows KEYWORDS` +
 Examples: `search tvshows greys anatomy`
@@ -301,7 +317,7 @@ Examples: +
 `search movies harry potter -r romance , -a no` +
 ** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` cannot have any overlaps.
 ** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
-** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
+
 
 === View information: `view`
 
