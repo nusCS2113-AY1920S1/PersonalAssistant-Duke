@@ -759,7 +759,8 @@ message according to the specified logging level method called.
 
 The `log4j2.properties` file in the resource folder is used configure the following:
 
-* RootLogger level - The level root logger to be shown in the log file. Currently it is set to `all`
+* RootLogger level - The level root logger to be shown in the log file. Currently it is set to `all` to view
+all the logs level.
 
 * File Appender - The file direction and log file name. The log file can be found in the logs folder.
 
