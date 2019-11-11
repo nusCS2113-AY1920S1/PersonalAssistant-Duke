@@ -58,13 +58,15 @@ public class DeadlineCommand extends Command {
         String description;
         try {
             TriviaStorage triviaStorage = new TriviaStorage();
-            if (ui.fullCommand.length() == DEADLINE_CHAR_COUNT) {
+            if (ui.fullCommand.trim().length() == DEADLINE_CHAR_COUNT) {
                 throw new DukeException("OOPS!!! The description"
                         + "of a deadline cannot be empty.");
-            } else {
+            } else if (ui.fullCommand.contains("/by")){
                 description = ui.fullCommand.split("/by ")[0]
                         .substring(DEADLINE_AND_SPACE_CHAR_COUNT);
                 triviaManager.learnInput(ui.fullCommand, triviaStorage);
+            } else {
+                throw new DukeException("OOPS!!! The deadline command is incorrect. Format: deadline description/by YYYY-MM-DD HH:mm:ss");
             }
             Deadline d = new Deadline(description,
                     ui.fullCommand.split("/by ")[1]);
@@ -73,12 +75,6 @@ public class DeadlineCommand extends Command {
             System.out.println(d.listFormat());
             System.out.println("Now you have " + list.size()
                     + " tasks in the list.");
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < list.size(); i++) {
-                sb.append(list.get(i).toString() + "\n");
-            }
-            TasksPageStorage tasksPageStorage = new TasksPageStorage();
-            tasksPageStorage.writeToSaveFile(sb.toString());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
             triviaManager.showPossibleInputs("deadline");
