@@ -116,6 +116,15 @@ Displays information for the `tasks` command.
 * `help` +
 Displays information for ALL possible commands and switches to the `[Help]` tab.
 
+=== Display keywords and aliases that are compatible with <DEGREE>: `keywords`
+
+Displays all keywords and their aliases for each degree. +
+This will switch to the `[Keywords]` tab. +
+These keywords and aliases are compatible with usages of <DEGREE>. +
+However `view_employment` and `cohort_size` only uses keywords.
+
+Format: `keywords` 
+
 <<<
 === Viewing detailed information about a degree: `detail | detail <DEGREE>`
 
@@ -434,15 +443,6 @@ Examples: +
 Displays the past cohort sizes of the Electrical Engineering course.
 * `cohort_size ME` +
 Displays the past cohort sizes of the Mechanical Engineering course.
-
-=== Display keywords and aliases that are compatible with <DEGREE>: `keywords`
-
-Displays all keywords and their aliases for each degree. +
-This will switch to the `[Keywords]` tab. +
-These keywords and aliases are compatible with usages of <DEGREE>. +
-However `view_employment` and `cohort_size` only uses keywords.
-
-Format: `keywords` 
 
 
 === Undoing a command: `undo`
