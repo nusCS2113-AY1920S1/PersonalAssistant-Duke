@@ -7,7 +7,7 @@ plugins {
 
 shadowJar {
     archiveBaseName = "CoachManager"
-    archiveVersion = "0.1.3.3"
+    archiveVersion = "0.1.4"
     archiveClassifier = null
     archiveAppendix = null
 }
