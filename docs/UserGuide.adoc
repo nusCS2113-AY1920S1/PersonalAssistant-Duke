@@ -279,9 +279,9 @@ Format: `sort module mc`
 
 === Clearing the data : `clear`
 
-Clears the specified data. After inputting the parameter that you want to clear, ModPlan will prompt you again to reconfirm that you want to clear your data. +
+Clears the specified data. After inputting the parameter that you want to clear, ModPlan will prompt you again to *reconfirm* that you want to clear your data. +
 [TIP]
-You should type either `y` or `n` to confirm or deny ModPlan's request to clear your data.
+You should type either `y` or `n` to confirm or deny ModPlan's request to clear your data. ModPlan also allows other common forms of `yes` and `no`.
 
 ==== Clearing the modules data : `clear module`
 
@@ -308,12 +308,12 @@ Format: `clear data`
 === Adding another schedule to a CCA : `scheduleCca`
 
 Adds another schedule to a CCA which is already added, as the CCA may have multiple slots. +
-Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
+Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
 
 ****
 * The `BEGIN_TIME` and `END_TIME` must be in the format of HH:mm.
 * The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc. 
-* Example: `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
+* Example: `scheduleCca 1 --begin 13:00 --end 15:00 --dayOfWeek Tuesday`
 ****
 
 === Updating module data : `update`
@@ -554,8 +554,8 @@ eg. `sort time monday` +
 ** `clear modules`
 ** `clear ccas`
 * *Schedule CCA* :
-** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK` +
-e.g `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
+** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK` +
+e.g `scheduleCca 1 --begin 13:00 --end 15:00 --dayOfWeek Tuesday`
 * *Update* :
 ** `update module`
 * *Reminder* :
