@@ -96,7 +96,7 @@ public class ConstantHelper {
     };
 
     public static final String[] COMMAND_MANAGE_PROJECT_INVALID_NUMBER = new String[] {
-        "Input is not a number! Please input a proper project index!Input is not a number! Please input a proper project index!"
+        "Input is not a number! Please input a proper project index!"
     };
 
     public static final String[] COMMAND_MANAGE_PROJECT_REQUEST_INPUT = new String[] {
@@ -117,6 +117,14 @@ public class ConstantHelper {
 
     public static final String[] COMMAND_RENAME_PROJECT_CORRUPTED = new String[] {
         "An error has occurred! Project JSON is not updated correctly!"
+    };
+
+    public static final String[] COMMAND_RENAME_PROJECT_MISSING_ARGUMENT = new String[] {
+        "Missing argument! Please enter role INDEX -n ROLE_NAME"
+    };
+
+    public static final String[] COMMAND_RENAME_PROJECT_NOT_NUMBER = new String[] {
+        "Please enter an integer as member INDEX!"
     };
 
     public static final String COMMAND_VIEW_ASSIGNMENTS_MEMBER_FLAG = "-m";

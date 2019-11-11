@@ -37,6 +37,8 @@ import static util.constant.ConstantHelper.COMMAND_MANAGE_PROJECT_REQUEST_INPUT;
 import static util.constant.ConstantHelper.COMMAND_RENAME_PROJECT_CORRUPTED;
 import static util.constant.ConstantHelper.COMMAND_RENAME_PROJECT_EMPTY_NAME;
 import static util.constant.ConstantHelper.COMMAND_RENAME_PROJECT_INVALID_COMMAND;
+import static util.constant.ConstantHelper.COMMAND_RENAME_PROJECT_MISSING_ARGUMENT;
+import static util.constant.ConstantHelper.COMMAND_RENAME_PROJECT_NOT_NUMBER;
 import static util.constant.ConstantHelper.COMMAND_ROLE_CORRECT_LENGTH;
 import static util.constant.ConstantHelper.COMMAND_ROLE_MEMBER;
 import static util.constant.ConstantHelper.COMMAND_VIEW_TASKS;
@@ -219,13 +221,13 @@ public class ProjectInputController implements IController {
         String parsedCommands = projectCommand.substring(COMMAND_ROLE_MEMBER.length());
         String[] commandOptions = parsedCommands.split(" -n ");
         if (commandOptions.length != COMMAND_ROLE_CORRECT_LENGTH) {
-            return new String[] {"Missing argument! Please enter role INDEX -n ROLE_NAME"};
+            return COMMAND_RENAME_PROJECT_MISSING_ARGUMENT;
         }
         int memberIndex;
         try {
             memberIndex = Integer.parseInt(commandOptions[0]);
         } catch (NumberFormatException err) {
-            return new String[] {"Please enter an integer as member INDEX!"};
+            return COMMAND_RENAME_PROJECT_NOT_NUMBER;
         }
         IMember selectedMember = projectToManage.getMemberList().getMember(memberIndex);
         if (selectedMember.getClass() != NullMember.class) {
