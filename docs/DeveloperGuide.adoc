@@ -212,6 +212,13 @@ launch.
 NOTE: By convention, we store invalid values instead of null values to prevent nullptr exceptions. If there are
 attributes that may be null, consider returning an empty object instead. E.g. for `String`, return `""`.
 
+==== Design Considerations
+
+We considered how we should store our collections of objects and how we should update our UI when designing our model.
+
+image::DataModelComparison.PNG[]
+
+
 [[Design-Storage]]
 === Storage System [JACOB TORESSON]
 image::ClassDiagramData.png[]
