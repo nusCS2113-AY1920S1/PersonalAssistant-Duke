@@ -221,7 +221,7 @@ public class Blacklist {
     private static boolean removeMovieObj(String movie)  {
 
         for (MovieModel mo : blackListMovies) {
-            if (mo.getTitle().toLowerCase() == movie.toLowerCase()) {
+            if (mo.getTitle().toLowerCase().equals(movie.toLowerCase())) {
                 blackListMovies.remove(mo);
                 return true;
             }
@@ -349,9 +349,9 @@ public class Blacklist {
      * Filter search results by blacklisted keywords.
      * @return filtered search results.
      */
-    private static ArrayList<MovieInfoObject> filterByKeyword(ArrayList<MovieInfoObject> mMovies) {
+    private static ArrayList<MovieInfoObject> filterByKeyword(ArrayList<MovieInfoObject> movies) {
         ArrayList<MovieInfoObject> filteredMovies = new ArrayList<>();
-        for (MovieInfoObject o : mMovies) {
+        for (MovieInfoObject o : movies) {
             boolean isBlacklisted = false;
             for (String e : blackListKeyWords) {
                 if (o.getTitle().toLowerCase().contains(e.toLowerCase())) {
@@ -370,9 +370,9 @@ public class Blacklist {
      * Filter search results by blacklisted movie Ids.
      * @return filtered search results.
      */
-    private static ArrayList<MovieInfoObject> filterById(ArrayList<MovieInfoObject> mMovies) {
+    private static ArrayList<MovieInfoObject> filterById(ArrayList<MovieInfoObject> movies) {
         ArrayList<MovieInfoObject> filteredMovies = new ArrayList<>();
-        for (MovieInfoObject o : mMovies) {
+        for (MovieInfoObject o : movies) {
             boolean isBlacklisted = false;
             for (MovieModel e : blackListMovies) {
                 if (o.getId() == e.getId()) {
@@ -392,9 +392,9 @@ public class Blacklist {
      * Filter search results by blacklisted movie Titles.
      * @return filtered search results.
      */
-    private static ArrayList<MovieInfoObject> filterByTitle(ArrayList<MovieInfoObject> mMovies) {
+    private static ArrayList<MovieInfoObject> filterByTitle(ArrayList<MovieInfoObject> movies) {
         ArrayList<MovieInfoObject> filteredMovies = new ArrayList<>();
-        for (MovieInfoObject o : mMovies) {
+        for (MovieInfoObject o : movies) {
             boolean isBlacklisted = false;
             for (String e : blackListMoviesTitle) {
                 if (o.getTitle().toLowerCase().equals(e.toLowerCase())) {

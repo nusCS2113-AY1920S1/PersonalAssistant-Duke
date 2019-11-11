@@ -5,6 +5,5 @@ package entertainment.pro.logic.cinemarequesterapi;
  */
 public interface CinemaInfoFetcher {
     void fetchedCinemasJson(String json);
-
     void connectionTimedOut();
 }

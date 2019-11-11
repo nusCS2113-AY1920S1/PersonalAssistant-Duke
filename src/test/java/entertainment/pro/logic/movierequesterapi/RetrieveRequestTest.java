@@ -1,9 +1,12 @@
 package entertainment.pro.logic.movierequesterapi;
 
 import entertainment.pro.commons.strings.PromptMessages;
+import entertainment.pro.logic.movierequesterapi.RequestListener;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.logic.movierequesterapi.RetrieveRequest;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.SearchProfile;
+import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -34,7 +37,7 @@ public class RetrieveRequestTest {
     private static final String VALID_MOVIE_CERT_FILENAME2 = "/data/ValidMovieCertFile2";
     private static final String VALID_TV_CERT_FILENAME1 = "/data/ValidTVCertFile1.json";
     private static final String VALID_TV_CERT_FILENAME2 = "/data/ValidTVCertFile2.json";
-    private static final String INVALID_MOVIE_CERT_FILENAME1 = "/data/InValidMovieCertFile1";
+    private static final String INVALID_MOVIE_CERT_FILENAME1 = "/data/InvalidMovieCertFile1";
     private static final String INVALID_TV_CERT_FILENAME1 = "/data/InValidTVCertFile1";
     private static String MOVIES_DATABASE_FILEPATH = "/data/movieData/";
     private static String SEARCH_PROFILE_FILEPATH = "/data/SearchProfileTest/";
@@ -247,6 +250,7 @@ public class RetrieveRequestTest {
             for (int j = 0; j < jsonArray1.size(); j += 1) {
                 long num = (long) jsonArray1.get(j);
                 int genreNo = Math.toIntExact(num);
+                System.out.println(genreNo);
                 genrePref.add(genreNo);
             }
             JSONArray jsonArray2 = (JSONArray) jsonObject.get("genreIdRestriction");
@@ -255,14 +259,14 @@ public class RetrieveRequestTest {
                 int genreNo = Math.toIntExact(num);
                 genreRestrict.add(genreNo);
             }
-            searchProfile.setGenreIdPreference(genrePref);
-            searchProfile.setGenreIdRestriction(genreRestrict);
-            searchProfile.setAdult((Boolean) jsonObject.get("adult"));
-            searchProfile.setSortByAlphabetical((Boolean) jsonObject.get("sortByAlphabetical"));
-            searchProfile.setSortByHighestRating((Boolean) jsonObject.get("sortByHighestRating"));
-            searchProfile.setSortByHighestRating((Boolean) jsonObject.get("sortByLatestRelease"));
-            searchProfile.setMovie((Boolean) jsonObject.get("isMovie"));
-            searchProfile.setName((String) jsonObject.get("name"));
+            searchProfile = searchProfile.setGenreIdPreference(genrePref);
+            searchProfile = searchProfile.setGenreIdRestriction(genreRestrict);
+            searchProfile = searchProfile.setAdult((Boolean) jsonObject.get("adult"));
+            searchProfile = searchProfile.setSortByAlphabetical((Boolean) jsonObject.get("sortByAlphabetical"));
+            searchProfile = searchProfile.setSortByHighestRating((Boolean) jsonObject.get("sortByHighestRating"));
+            searchProfile = searchProfile.setSortByHighestRating((Boolean) jsonObject.get("sortByLatestRelease"));
+            searchProfile = searchProfile.setMovie((Boolean) jsonObject.get("isMovie"));
+            searchProfile = searchProfile.setName((String) jsonObject.get("name"));
             RetrieveRequest.searchProfile = searchProfile;
             JSONArray jsonArray3 = getOffline();
             ArrayList<String> getResults = getResultsData();
@@ -271,7 +275,7 @@ public class RetrieveRequestTest {
                 if (RetrieveRequest.checkCondition(jsonObject1)) {
                     //    System.out.println("true");
                     //} else {
-                    //  System.out.println("false");
+                     // System.out.println("false");
                     //}
                     assertEquals("true", getResults.get(d));
                     d += 1;
@@ -321,6 +325,7 @@ public class RetrieveRequestTest {
         ArrayList<String> expectedCastList1 = new ArrayList<>();
         assertEquals(expectedCastList1, castList1);
     }
+
 }
 
 

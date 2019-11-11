@@ -5,6 +5,7 @@ import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.EmptyResultExceptions;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
+import entertainment.pro.logic.movierequesterapi.RequestListener;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -45,6 +46,7 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String RECACHE_PARSE_ERROR = "Parsing error took place when recaching data";
     private static final String TO_SPECIFY_ADULT = "adult";
     private static final int MAX_FILES = 20;
+    private static final String TO_SPECIFY_NAME = "name" ;
     private static RequestListener requestListener;
     public static ArrayList<MovieInfoObject> finalSearchResults = new ArrayList<>();
     public static SearchProfile searchProfile;
@@ -102,7 +104,7 @@ public class RetrieveRequest implements InfoFetcher {
     // Data Keys for both movie and TV shows
     private static final String MOVIE_TITLE = "title";
     private static final String ADULT = "adult";
-    private static final String TV_TITLE = "original_name";
+    private static final String TV_TITLE = "name";
     private static final String RELEASE_DATE = "release_date";
     private static final String DATA_ID = "id";
     private static final String GENRES = "genre_ids";
@@ -134,7 +136,6 @@ public class RetrieveRequest implements InfoFetcher {
     private static String[] resultsPosterSizes;
     private static String[] resultsBackdropSizes;
     private boolean configWasRead;
-
 
     /**
      * Enumerates different types of requests that can be done with MovieDB API.
@@ -891,7 +892,7 @@ public class RetrieveRequest implements InfoFetcher {
      */
     public static boolean checkCondition(JSONObject entryInfo) {
         if (isOffline) {
-            System.out.println(entryInfo.get("name"));
+            System.out.println(entryInfo.get(TO_SPECIFY_NAME));
             if ((!(searchProfile.isAdult())) && (entryInfo.get(TO_SPECIFY_ADULT).equals(TO_SPECIFY_TRUE))) {
                 logger.log(Level.INFO, PromptMessages.FAILED_ADULT_REQUIREMENT);
                 return false;
