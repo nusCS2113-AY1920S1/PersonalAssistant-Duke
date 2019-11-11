@@ -31,15 +31,22 @@ public class AddCommand extends Command {
      * @param ingredient the ingredient to be added, specified by the name, amount and date
      */
     public AddCommand(Ingredient ingredient) {
+        assert ingredient != null;
         this.ingredient = ingredient;
     }
 
     @Override
     public void execute(Fridge fridge, DishList dishList, OrderList orderList, Ui ui, FridgeStorage fridgeStorage,
                         OrderStorage orderStorage, RecipeStorage rs) throws DukeException {
+        assert fridge != null;
+        assert fridgeStorage != null;
+        assert ui != null;
+        ui.showLine();
         if (ingredient.isExpired()) {
             ui.showDialogAddingExpired();
+            ui.showLine();
             String confirmation = ui.readCommand();
+            ui.showLine();
             if (!confirmation.trim().equalsIgnoreCase("yes")) {
                 ui.showIngredientTemplate();
                 return;
@@ -48,5 +55,6 @@ public class AddCommand extends Command {
         fridge.addIngredient(ingredient);
         ui.showAddedIngredient(fridge.getIngredient(ingredient));
         fridgeStorage.update();
+        ui.showLine();
     }
 }

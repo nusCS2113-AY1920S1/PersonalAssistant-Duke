@@ -10,9 +10,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * @author VirginiaYu
+ *
  * Represents a general Order to be added by {@link Duke}.
  */
 public class Order implements Printable {
+
     private Map<String, Integer> content;
     private boolean isDone;
     private Date date;
@@ -47,6 +50,8 @@ public class Order implements Printable {
 
     /**
      * Used to get the serving date of the {@link Order}.
+     *
+     * @return date string
      */
     public String getDate() { return this.dateToString;}
 

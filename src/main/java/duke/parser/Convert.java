@@ -9,12 +9,12 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-//@@author CEGLincoln
 /**
  * Convert between String and Date.
  */
 public class Convert {
 
+    //@@author CEGLincoln
     /**
      * Returns the suffix to be used after the days in the Date, useful for printing the Date in the desired format.
      *
@@ -37,6 +37,7 @@ public class Convert {
         }
     }
 
+    //@@author CEGLincoln
     /**
      * Returns a {@link Date} representation of a String in the format "dd/MM/yyyy hhmm" or "dd/MM/yyyy".
      *
@@ -60,6 +61,7 @@ public class Convert {
     }
 
 
+    //@@author CEGLincoln
     /**
      * Returns the {@link Date } instance as a String to be printed in the file.
      *
@@ -81,6 +83,15 @@ public class Convert {
         return formatter.format(date);
     }
 
+    /**
+     * @author VirginiaYu
+     *
+     * Check if the input date string is in valid format dd/mm/yyyy and
+     * check if the date is a real date
+     *
+     * @param date input date string
+     * @throws DukeException exception of invalid date
+     */
     public static void checkValidDate(String date) throws DukeException {
         boolean flag = true;
         String[] dateMonthYear = date.split("\\/",3);

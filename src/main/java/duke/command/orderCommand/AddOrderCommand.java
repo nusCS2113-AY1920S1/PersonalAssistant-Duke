@@ -14,6 +14,11 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * @author VirginiaYu
+ *
+ * Represents a specific {@link Command} used to add a newly coming {@link Order} .
+ */
 public class AddOrderCommand extends Command {
 
     private Order order;
@@ -28,14 +33,13 @@ public class AddOrderCommand extends Command {
     }
 
     /**
-     * Public method used to add a new order in the orderList, and write it on the hard disc.
+     * Public method used to add/place a new order in the orderList, and write it on the hard disc.
+     * Print out corresponding info if adding successfully
      *
-     *
-     * @param fridge
      * @param orderList the {@link OrderList} to be expanded
      * @param ui       {@link Ui} used for printing the order output
-     * @param orderStorage  {@link Storage} writes in the file on the hard disc
-     * @throws DukeException Error while adding the command to the duke.txt file
+     * @param orderStorage  {@link OrderStorage} writes in the file on the hard disc
+     * @throws DukeException Error while adding the order, or writing to the hard disc
      */
     @Override
     public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage, RecipeStorage rs) throws DukeException, IOException {

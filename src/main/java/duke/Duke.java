@@ -1,8 +1,8 @@
 package duke;
 
 import duke.command.Command;
-import duke.command.ViewTodoListCommand;
 import duke.command.ExitCommand;
+import duke.command.ViewTodoListCommand;
 import duke.command.ingredientCommand.RemoveAllExpired;
 import duke.dish.DishList;
 import duke.exception.DukeException;
@@ -48,7 +48,7 @@ public class Duke {
         try {
             fridgeStorage = new FridgeStorage(fridgeFilePath);
             orderStorage = new OrderStorage(orderFilePath);
-            recipeStorage = new RecipeStorage(recipeFilePath); //TODO: use this
+            recipeStorage = new RecipeStorage(recipeFilePath);
             fridge = new Fridge(fridgeStorage);
             order = new OrderList(orderStorage.load().getAllEntries());
             dish = new DishList(recipeStorage.load().getAllEntries());
@@ -139,7 +139,8 @@ public class Duke {
                         break;
                     }
                     case "c": {
-                        System.out.println("\t Managing order now\n\t You can type 'template' to retrieve command format");
+                        ui.orderDrawing();
+                        System.out.println("\t Managing order now\n\t Type 'template' to retrieve command format");
                         ui.showLine();
                         while (true) {
                             try {
