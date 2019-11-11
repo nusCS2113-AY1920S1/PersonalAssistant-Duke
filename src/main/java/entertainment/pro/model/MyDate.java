@@ -84,29 +84,20 @@ public class MyDate implements Comparable<MyDate> {
     }
 
     /**
-     * Returns the start date string.
-     * @return Date string of the Task
+     * converts the period to a string representation
+     * @return a string of the period
      */
-    public String getStartDateStr() {
-        return this.startdateStr;
-
-    }
-
-    /**
-     * Returns the end date string.
-     * @return Date string of the Task
-     */
-    public String getEndDateStr() {
-        return this.enddateStr;
-
-    }
-
     @Override
     public String toString() {
         String returnStr = hasEndDate ? startdateStr + " to " + enddateStr : startdateStr;
         return returnStr;
     }
 
+    /**
+     * function to compare two dates
+     * @param o: second object to compare the date to
+     * @return an integer to determine if the date is lesser than or equal to the date compared to
+     */
     @Override
     public int compareTo(MyDate o) {
         if (getEndDate() == null || o.getEndDate() == null) {
