@@ -35,6 +35,7 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 .  If you encounter a `Module Not Found` error, please check that you do not have a spacing in your file path to `javafx\lib`.
 .  Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing `Enter` opens up the window showing a list of commands available. +
 
+===
 .  Some example commands you can try:
 
 * *`list`* : shows the list of words currently stored in the Word Bank in alphabetical displayOrder or otherwise customised in the app settings
