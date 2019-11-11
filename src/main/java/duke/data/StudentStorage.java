@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class StudentStorage {
     private ArrayList<Student> saveText;
     private String userDir = System.getProperty("user.dir");
-    private String filePath = userDir + System.getProperty("savedData.json");
+    private String filePath = userDir + "/studentList.txt";
 
     /**
      * Method does something.
