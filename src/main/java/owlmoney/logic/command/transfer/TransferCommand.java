@@ -44,7 +44,7 @@ public class TransferCommand extends Command {
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      * @throws BankException If any of the bank does not exist, insufficient fund to transfer
-     * or sender and receiver account name is the same.
+     *                       or sender and receiver account name is the same.
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {

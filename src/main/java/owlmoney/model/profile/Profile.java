@@ -690,7 +690,7 @@ public class Profile {
      * @param date   The date that the fund was transferred.
      * @param ui     The ui object Required for printing.
      * @throws BankException If any of the bank does not exist, insufficient fund to transfer
-     * or sender and receiver account name is the same.
+     *                       or sender and receiver account name is the same.
      */
     public void transferFund(String from, String to, double amount, Date date,
             Ui ui) throws BankException {
