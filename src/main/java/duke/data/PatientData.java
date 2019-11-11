@@ -81,7 +81,7 @@ public class PatientData {
      * @param keyIdentifier The argument given by the user to identify the patient.
      * @return the patient object
      */
-    public Patient getPatientByBed(String keyIdentifier) throws DukeException {
+    public Patient getPatientByBed(String keyIdentifier) {
         for (Patient patient : patientList) {
             if (patient.getBedNo().equals(keyIdentifier)) {
                 return patient;
@@ -96,7 +96,7 @@ public class PatientData {
      * @param searchTerm String to search through the patients for.
      * @return PatientData of matching patients.
      */
-    public SearchResults findPatients(String searchTerm) throws DukeException {
+    public SearchResults findPatients(String searchTerm) {
         String lowerSearchTerm = searchTerm.toLowerCase();
         ArrayList<Patient> resultList = new ArrayList<Patient>();
         for (Patient patient : patientList) {

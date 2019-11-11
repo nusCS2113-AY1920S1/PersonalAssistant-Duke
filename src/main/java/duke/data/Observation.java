@@ -52,10 +52,10 @@ public class Observation extends Evidence {
         return super.toString() + informationString;
     }
 
+    //TODO return string in proper format
     @Override
     public String toReportString() {
-        // todo
-        return null;
+        return toString();
     }
 
     public boolean isObjective() {

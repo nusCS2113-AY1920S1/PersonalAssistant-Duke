@@ -22,10 +22,10 @@ public class Result extends Evidence {
         super(name, impression, priority, summary);
     }
 
+    //TODO return string in proper format
     @Override
     public String toReportString() {
-        // todo
-        return null;
+        return toString();
     }
 
     public ResultCard toCard() throws DukeFatalException {

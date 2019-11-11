@@ -76,7 +76,7 @@ public class ArgParser {
         currCommand.checkCommandValid();
     }
 
-    private void handleEmpty(char curr) throws DukeHelpException {
+    private void handleEmpty(char curr) {
         switch (curr) {
         case '-':
             state = ParseState.SWITCH;

@@ -1,14 +1,10 @@
 package duke.ui;
 
 import duke.DukeCore;
-import duke.data.DukeObject;
 import duke.exception.DukeFatalException;
-import duke.ui.context.UiContext;
 import duke.ui.window.CommandWindow;
 import duke.ui.window.ContextWindow;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 //@@author gowgos5
 /**

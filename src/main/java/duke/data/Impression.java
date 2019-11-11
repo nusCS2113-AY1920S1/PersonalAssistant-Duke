@@ -245,8 +245,6 @@ public class Impression extends DukeObject {
         throw new DukeException("I already have a treatment named that.");
     }
 
-    // TODO create parent reference in object
-
     /**
      * This function only allows medicine to be added if the patient is not allergic.
      * @param newMedicine the medicine to be added

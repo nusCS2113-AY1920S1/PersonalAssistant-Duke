@@ -41,10 +41,10 @@ public class Investigation extends SummaryTreatment {
                 (resultSummary == null) ? summary : summary + "\n\n" + resultSummary);
     }
 
-    //TODO complete
+    //TODO return string in proper format
     @Override
     public String toReportString() {
-        return null;
+        return toString();
     }
 
     @Override

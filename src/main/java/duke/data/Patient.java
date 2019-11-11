@@ -108,7 +108,7 @@ public class Patient extends DukeObject {
      * @param keyIdentifier name of the impression
      * @return Impression the impression specified by the index
      */
-    public Impression getImpression(String keyIdentifier) throws DukeException {
+    public Impression getImpression(String keyIdentifier) {
         String id = keyIdentifier.toLowerCase();
         for (Impression imp : impressionList) {
             String impName = imp.getName().toLowerCase();

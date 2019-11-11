@@ -1,7 +1,6 @@
 package duke.ui.window;
 
 import com.jfoenix.controls.JFXListView;
-import duke.data.DukeObject;
 import duke.data.Evidence;
 import duke.data.Impression;
 import duke.data.Patient;
@@ -12,9 +11,6 @@ import duke.ui.card.TreatmentCard;
 import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-
-import java.util.ArrayList;
-import java.util.List;
 
 //@@author gowgos5
 /**
