@@ -55,12 +55,17 @@ public class Income extends DukeItem {
          */
         Builder(Map<String, String> mappedStorageString) throws DukeException {
             super(mappedStorageString);
-            if (!mappedStorageString.containsKey("amount") | !mappedStorageString.containsKey("description")) {
-                setAmount((String) null);
-                setDescription(null);
+            if (mappedStorageString.containsKey("amount")) {
+                setAmount(mappedStorageString.get("amount"));
             }
-            setAmount(mappedStorageString.get("amount"));
-            setDescription(mappedStorageString.get("description"));
+
+            if (mappedStorageString.containsKey("description")) {
+                setDescription(mappedStorageString.get("description"));
+            }
+
+            if(!mappedStorageString.containsKey("amount") | !mappedStorageString.containsKey("description")) {
+                throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED,"income.txt"));
+            }
         }
 
         /**
