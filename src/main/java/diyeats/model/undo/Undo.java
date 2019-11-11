@@ -597,7 +597,7 @@ public class Undo {
             } catch (NumberFormatException e) {
                 throw new ProgramException(e.getMessage());
             }
-            c = new SuggestExerciseCommand(date, new Pair(type, rep));
+            c = new SuggestExerciseCommand(date, new Pair(type, rep), true);
         }
         c.undo(meals, storage, user, wallet);
     }

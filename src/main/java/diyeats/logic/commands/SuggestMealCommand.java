@@ -3,11 +3,8 @@ package diyeats.logic.commands;
 import diyeats.logic.suggestion.MealSuggestionAnalytics;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
-<<<<<<< HEAD
 import diyeats.model.undo.Undo;
-=======
 import diyeats.model.meal.MealType;
->>>>>>> 88810189485a36bd5623b18dc14c4d7f703961e5
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;

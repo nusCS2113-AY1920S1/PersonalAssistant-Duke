@@ -46,7 +46,7 @@ public class SuggestExerciseCommand extends Command {
      * @param revertExercise the reverted exercise
      */
 
-    public SuggestExerciseCommand(LocalDate date, Pair revertExercise) {
+    public SuggestExerciseCommand(LocalDate date, Pair revertExercise, boolean flag) {
         this.date = date;
         this.revertExercise = revertExercise;
     }
