@@ -517,7 +517,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     /**
-     * Checks if the first word after 'add' is either 'income' or 'expense'.
+     * Checks if the first word is "owe" or "borrow".
      * @param s String to be analysed.
      * @return Either 'expense' or 'income' if either are passed in.
      * @throws Exception ???

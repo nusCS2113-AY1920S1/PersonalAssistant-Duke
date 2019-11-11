@@ -1,0 +1,45 @@
+@startuml
+
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":Logic" as logic LOGIC_COLOR_T2
+Participant ":Model" as model MODEL_COLOR_T2
+Participant ":Storage" as storage STORAGE_COLOR_T3
+Participant ":UI" as ui UI_COLOR_T2
+
+user -[USER_COLOR]> logic : "owe xx 2 water /due 25/10/2019"
+activate logic LOGIC_COLOR_T2
+logic -> logic : verifyDebtCommand()
+activate logic
+deactivate logic
+
+logic -> logic : AddDebtCommand()
+activate logic
+deactivate logic
+
+logic -> model : addToRecordList(mode, newDebt)
+activate model MODEL_COLOR_T2
+
+model -[LOGIC_COLOR]> storage : setDebts(get())
+activate storage STORAGE_COLOR
+
+storage -[STORAGE_COLOR]> storage : Save to file
+activate storage STORAGE_COLOR_T1
+deactivate storage
+
+storage --[STORAGE_COLOR]> model
+deactivate storage
+
+model --[MODEL_COLOR]> logic
+deactivate model
+
+logic -[UI_COLOR]> ui : echoAddDebt(newDebt)
+activate ui UI_COLOR
+
+ui--[UI_COLOR]> logic
+deactivate ui
+
+logic --[LOGIC_COLOR]> user
+deactivate logic
+@enduml
