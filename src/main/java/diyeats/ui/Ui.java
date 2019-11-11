@@ -331,7 +331,7 @@ public class Ui {
         System.out.println(UI_PADDING + "Your current account balance is: " + wallet.getAccountBalance());
     }
 
-    public void showInsufficientBalance(Payment payment) {
+    public void showInsufficientBalance(Transaction payment) {
         System.out.println(UI_PADDING + "Account Balance insufficient for a " + payment.getTransactionAmount()
                 + "SGD withdrawal");
     }
