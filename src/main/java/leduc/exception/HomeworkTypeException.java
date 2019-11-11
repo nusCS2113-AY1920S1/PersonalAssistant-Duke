@@ -11,12 +11,5 @@ public class HomeworkTypeException extends DukeException {
         super();
     }
 
-    /**
-     * Tell the user that the tasks chosen should be a homework task.
-     * @return the error message
-     */
-    public String print(){
-        return "\t HomeworkTypeException:\n\t\t ☹ OOPS!!! The task should be a homework task";
-    }
 
 }

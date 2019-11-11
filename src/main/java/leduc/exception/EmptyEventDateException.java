@@ -11,11 +11,5 @@ public class EmptyEventDateException extends DukeException {
         super();
     }
 
-    /**
-     * Ask for a period for the event task to the user.
-     * @return the error message
-     */
-    public String print(){
-        return "\t emptyEventDateException:\n\t\t ☹ OOPS!!! Please enter a period for the event task";
-    }
+
 }

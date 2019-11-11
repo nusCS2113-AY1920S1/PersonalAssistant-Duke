@@ -12,11 +12,4 @@ public class UserAnswerException extends DukeException {
         super();
     }
 
-    /**
-     * Tell the user to answer correctly the question.
-     *
-     */
-    public String print(){
-        return "\t UserAnswerException:\n\t\t ☹ OOPS!!! Please answer correctly the question.";
-    }
 }

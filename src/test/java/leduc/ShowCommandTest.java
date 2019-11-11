@@ -1,9 +1,7 @@
 package leduc;
 
 import leduc.command.ShowCommand;
-import leduc.exception.DukeException;
-import leduc.exception.FileException;
-import leduc.exception.MeaninglessException;
+import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
 import leduc.ui.Ui;
@@ -88,7 +86,7 @@ public class ShowCommandTest {
             dayOfWeek = showCommand.getDayOfWeekInInt("aazeadzda");
             fail("The exception should be a MeaninglessException");
         } catch (MeaninglessException e) {
-            assertTrue(e.print().contains("MeaninglessException"));
+            assertTrue(e instanceof MeaninglessException);
         }
 
         try {
@@ -96,7 +94,7 @@ public class ShowCommandTest {
             showCommand1.execute(tasks, ui, storage);
             fail("The exception should be a WrongParameterException");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("WrongParameterException"));
+            assertTrue(e instanceof WrongParameterException);
         }
 
         try {
@@ -104,49 +102,49 @@ public class ShowCommandTest {
             showCommand2.execute(tasks, ui, storage);
             fail("The exception should be a NonExistentDateException");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("NonExistentDateException"));
+            assertTrue(e instanceof NonExistentDateException);
         }
         try {
             ShowCommand showCommand3 = new ShowCommand("show dayofweek dqdqd");
             showCommand3.execute(tasks, ui, storage);
             fail("The exception should be a MeaninglessException");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("MeaninglessException"));
+            assertTrue(e instanceof MeaninglessException);
         }
         try {
             ShowCommand showCommand3 = new ShowCommand("show month /2019");
             showCommand3.execute(tasks, ui, storage);
             fail("The exception should be a NonExistentDateException");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("NonExistentDateException"));
+            assertTrue(e instanceof NonExistentDateException);
         }
         try {
             ShowCommand showCommand3 = new ShowCommand("show month 01/");
             showCommand3.execute(tasks, ui, storage);
             fail("The exception should be a NonExistentDateException");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("NonExistentDateException"));
+            assertTrue(e instanceof  NonExistentDateException);
         }
         try {
             ShowCommand showCommand3 = new ShowCommand("show month 20/2010");
             showCommand3.execute(tasks, ui, storage);
             fail("The exception should be a NonExistentDateException");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("NonExistentDateException"));
+            assertTrue(e instanceof  NonExistentDateException);
         }
         try {
             ShowCommand showCommand3 = new ShowCommand("show month sqd/dqd");
             showCommand3.execute(tasks, ui, storage);
             fail("The exception should be a NonExistentDateException");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("NonExistentDateException"));
+            assertTrue(e instanceof NonExistentDateException);
         }
         try {
             ShowCommand showCommand3 = new ShowCommand("show year dsqdqs");
             showCommand3.execute(tasks, ui, storage);
             fail("The exception should be a NonExistentDateException");
         } catch (DukeException e) {
-            assertTrue(e.print().contains("NonExistentDateException"));
+            assertTrue(e instanceof NonExistentDateException);
         }
     }
 }

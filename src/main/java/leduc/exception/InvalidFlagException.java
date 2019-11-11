@@ -12,11 +12,4 @@ public class InvalidFlagException extends DukeException{
         super();
     }
 
-    /**
-     * Tell the user that the shortcut name already exist
-     * @return the error message
-     */
-    public String print(){
-        return "\t InvalidFlagException:\n\t\t ☹ Invalid Flag!";
-    }
 }

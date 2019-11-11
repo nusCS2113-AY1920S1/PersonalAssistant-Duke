@@ -11,11 +11,4 @@ public class EmptyTodoException extends DukeException {
         super();
     }
 
-    /**
-     * Ask for a description for the todo task to the user.
-     * @return the error message
-     */
-    public String print(){
-        return "\t emptyTodoException:\n\t\t ☹ OOPS!!! The description of a todo cannot be empty.";
-    }
 }

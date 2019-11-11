@@ -9,8 +9,6 @@ import leduc.ui.Ui;
 import leduc.ui.UiEn;
 import leduc.ui.UiFr;
 
-//import java.net.URL;
-
 /**
  * Represents the main program leduc.Duke.
  * Run the project from here.
@@ -42,12 +40,6 @@ public class Duke {
             file = System.getProperty("user.dir")+ "/data/duke.txt";
             configFile= System.getProperty("user.dir")+ "/data/config.txt";
             welcomeFile = System.getProperty("user.dir")+ "/data/welcome.txt";
-
-            // try to use txt file inside the jar file
-            //URL file = getClass().getClassLoader().getResource("duke.txt");
-            //URL configFile = getClass().getClassLoader().getResource("config.txt");
-            //URL welcomeFile = getClass().getClassLoader().getResource("welcome.txt");
-
         }
 
         try{
@@ -84,7 +76,6 @@ public class Duke {
                 isExit = c.isExit();
             }
             catch (DukeException e){ // catch one of subclass of dukeException and print the right message
-                e.print();
                 ui.showError(e);
             }
         }
