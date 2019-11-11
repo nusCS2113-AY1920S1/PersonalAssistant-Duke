@@ -41,8 +41,11 @@ public class EmailCommandParseHelperTest {
             assertTrue(method.invoke(null, optionList, "fuzzySearch CS   ") instanceof EmailFuzzySearchCommand);
 
             //negative cases
+            //no target added
             assertTrue(method.invoke(null, optionList, "fuzzySearch") instanceof InvalidCommand);
+            //command is case sensitive
             assertTrue(method.invoke(null, optionList, "fuzzysearch CS2113") instanceof InvalidCommand);
+            //space infront of command
             assertTrue(method.invoke(null, optionList, "   fuzzySearch cs21") instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
