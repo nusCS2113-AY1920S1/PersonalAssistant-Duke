@@ -33,7 +33,7 @@ public class EditBookingCommand extends Command {
      */
     public EditBookingCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 2) {
-            throw new DukeException(BookingConstants.INDEXERROR1);
+            throw new DukeException(BookingConstants.EDITERROR);
         }
         try {
             index = Integer.parseInt(splitStr[1]);

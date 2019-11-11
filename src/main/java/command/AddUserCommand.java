@@ -25,7 +25,8 @@ public class AddUserCommand extends Command {
      */
     public AddUserCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
-            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please enter a username you would like to register!");
+            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please enter a username you would like to register!\n"
+                    + "adduser <username>");
         }
         this.splitL = input.split("adduser ");
     }
@@ -35,9 +36,9 @@ public class AddUserCommand extends Command {
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
                         StorageManager allStorage)
             throws DukeException, IOException {
-        if (userList.addUser(splitL[1])) {
+        if (userList.addUser(splitL[1].trim())) {
             allStorage.getUserStorage().saveToFile(userList);
-            ui.addToOutput("You have successfully created an account: " + splitL[1]);
+            ui.addToOutput("You have successfully created an account: " + splitL[1].trim());
         } else {
             throw new DukeException("Sorry, that user already exists!");
         }

@@ -16,7 +16,7 @@ public class ApproveBookingTest1 {
     private Ui ui;
 
     @Test
-    void TestApproveBooking() throws DukeException {
+    void testApproveBooking() throws DukeException {
         String user = "Bob";
         String room = "room4";
         String description = "study";
@@ -25,8 +25,6 @@ public class ApproveBookingTest1 {
         Booking newBooking = new Booking(user, room, description, dateTimeStart, timeEnd);
         assertEquals("Bob room4 22/12/2019 1100 to 1200 P", newBooking.toString());
         newBooking.approveStatus("amir");
-        assertEquals( "Bob room4 22/12/2019 1100 to 1200 A", newBooking.toString());
-
-
+        assertEquals("Bob room4 22/12/2019 1100 to 1200 A", newBooking.toString());
     }
 }

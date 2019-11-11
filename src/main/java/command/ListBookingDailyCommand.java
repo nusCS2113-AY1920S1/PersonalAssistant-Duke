@@ -32,8 +32,9 @@ public class ListBookingDailyCommand extends Command {
      */
     public ListBookingDailyCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
-            throw new DukeException("☹ OOPS!!! Please create your booking with the following format: "
-                    + "date");
+            throw new DukeException(":-( OOPS!!! Please enter the correct format!\n"
+                    + "listday <date>\n"
+                    + "<date>: <dd/mm/yyyy>");
         }
         String date = input.substring(8);
         try {

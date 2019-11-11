@@ -25,7 +25,8 @@ public class LoginCommand extends Command {
      */
     public LoginCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
-            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please login with your username!");
+            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please login with your username!\n"
+                    + "login <username>");
         }
         this.splitL = input.split("login ");
     }
@@ -36,7 +37,7 @@ public class LoginCommand extends Command {
                         StorageManager allStorage)
             throws DukeException {
         if (!userList.getLoginStatus()) {
-            if (userList.login(splitL[1])) {
+            if (userList.login(splitL[1].trim())) {
                 ui.addToOutput("You have successfully logged in as: " + userList.getCurrentUser());
             } else {
                 throw new DukeException("The user does not exist!");

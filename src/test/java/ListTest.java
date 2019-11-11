@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ListTest {
     @Test
-    public void TestListDay () throws DukeException {
+    public void testListDay() throws DukeException {
         String user = "Bob";
         String room = "room4";
         String description = "study";
@@ -31,11 +31,11 @@ public class ListTest {
         String input = "listday 22/12/2019";
         String[] splitStr = input.split(" ");
         new ListBookingDailyCommand(input, splitStr);
-        assertEquals( "1. Bob room4 22/12/2019 1100 to 1200 P", "1. " + newBooking.toString());
+        assertEquals("1. Bob room4 22/12/2019 1100 to 1200 P", "1. " + newBooking.toString());
     }
 
     @Test
-    public void TestListDayError () throws DukeException {
+    public void testListDayError() throws DukeException {
         String user = "Bob";
         String room = "room4";
         String description = "study";
@@ -53,13 +53,13 @@ public class ListTest {
         assertThrows(DukeException.class, () -> {
             new ListBookingDailyCommand(input, splitStr);
         });
-        assertEquals( "Not able to parse the date for all patterns given, "
-                + "please use this format: DATE" + ", DATE format is dd/mm/yyyy"
-                , BookingConstants.DATEERROR);
+        assertEquals("Not able to parse the date for all patterns given, "
+                + "please use this format: DATE" + ", DATE format is dd/mm/yyyy",
+                BookingConstants.DATEERROR);
     }
 
     @Test
-    public void TestListMonth () throws DukeException {
+    public void testListMonth() throws DukeException {
         String user = "Bob";
         String room = "room4";
         String description = "study";
@@ -75,7 +75,7 @@ public class ListTest {
         String input = "listmonth 11";
         String[] splitStr = input.split(" ");
         new ListBookingMonthCommand(input, splitStr);
-        assertEquals( "2. brian room4 23/11/2019 1100 to 1200 P", "2. " + newBooking1.toString());
+        assertEquals("2. brian room4 23/11/2019 1100 to 1200 P", "2. " + newBooking1.toString());
     }
 
     @Test
@@ -94,7 +94,7 @@ public class ListTest {
         Booking newBooking1 = new Booking(user1, room1, description1, dateTimeStart1, timeEnd1);
         String input = "listmonth #";
         String[] splitStr = input.split(" ");
-        assertThrows(NumberFormatException.class, () -> {
+        assertThrows(DukeException.class, () -> {
             new ListBookingMonthCommand(input, splitStr);
         });
         assertEquals( ":-( OOPS!!! Please create your booking with the "
@@ -103,7 +103,7 @@ public class ListTest {
     }
 
     @Test
-    public void TestListYear () throws DukeException {
+    public void testListYear() throws DukeException {
         String user = "Bob";
         String room = "room4";
         String description = "study";
@@ -119,13 +119,13 @@ public class ListTest {
         String input = "listmonth 11";
         String[] splitStr = input.split(" ");
         new ListBookingMonthCommand(input, splitStr);
-        assertEquals( "1. Bob room4 22/12/2019 1100 to 1200 P" + "\n"
+        assertEquals("1. Bob room4 22/12/2019 1100 to 1200 P" + "\n"
                 + "2. brian room4 23/11/2019 1100 to 1200 P",
                 "1. " + newBooking.toString() + "\n" + "2. " + newBooking1.toString());
     }
 
     @Test
-    public void TestListYearError () throws DukeException {
+    public void testListYearError() throws DukeException {
         String user = "Bob";
         String room = "room4";
         String description = "study";
@@ -143,8 +143,8 @@ public class ListTest {
         assertThrows(DukeException.class, () -> {
             new ListBookingDailyCommand(input, splitStr);
         });
-        assertEquals( "Not able to parse the date for all patterns given, "
-                        + "please use this format: DATE" + ", DATE format is dd/mm/yyyy"
-                , BookingConstants.DATEERROR);
+        assertEquals("Not able to parse the date for all patterns given, "
+                        + "please use this format: DATE" + ", DATE format is dd/mm/yyyy",
+                BookingConstants.DATEERROR);
     }
 }

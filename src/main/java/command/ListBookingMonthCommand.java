@@ -6,6 +6,7 @@ import booking.Booking;
 import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
+import storage.BookingConstants;
 import storage.Storage;
 import storage.StorageManager;
 import ui.Ui;
@@ -27,10 +28,18 @@ public class ListBookingMonthCommand extends Command {
      */
     public ListBookingMonthCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
-            throw new DukeException(":-( OOPS!!! Please create your booking with the following format: "
-                    + "month value");
+            throw new DukeException(":-( OOPS!!! Please enter the correct format!\n"
+                    + "listmonth <month>\n"
+                    + "<month>: <mm>");
         }
-        this.monthStart = Integer.parseInt(input.substring(10));
+        try {
+            this.monthStart = Integer.parseInt(input.substring(10));
+        } catch (NumberFormatException e) {
+            throw new DukeException(BookingConstants.MONTHERROR1);
+        }
+        if (this.monthStart > 12) {
+            throw new DukeException(BookingConstants.MONTHERROR2);
+        }
     }
 
 

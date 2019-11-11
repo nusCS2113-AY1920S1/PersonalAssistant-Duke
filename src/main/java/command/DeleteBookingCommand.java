@@ -29,7 +29,7 @@ public class DeleteBookingCommand extends Command {
      */
     public DeleteBookingCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
-            throw new DukeException(BookingConstants.INDEXERROR1);
+            throw new DukeException(BookingConstants.DELETEERROR);
         }
         input = input.substring(7);
         try {

@@ -1,11 +1,10 @@
-import command.AddUserCommand;
-import exception.DukeException;
 import org.junit.jupiter.api.Test;
 import user.User;
 import user.UserList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 //@@ author AmirAzhar
 //AddUserTest2 is used to test if the UserList adds the new user as expected by checking its existence in the userList

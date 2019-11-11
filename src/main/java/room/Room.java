@@ -1,57 +1,28 @@
 package room;
 
-import exception.DukeException;
-import storage.Constants;
-
-import java.time.Month;
-import java.time.ZoneId;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Date;
-
 public class Room {
     protected String roomcode;
-    protected LocalDateTime dateTimeStart;
-    protected LocalDate date;
-    protected LocalTime timeEnd;
+    protected int capacity;
 
     //@@author zkchang97
     /**
      * Public constructor, returns the details of the room to be added.
      * @param roomcode Room code
-     * @param dateTimeStart Available booking date and starting time of the room
-     * @param dateTimeEnd Available booking date and ending time of the room
+     * @param capacity number of people able to use the room at the same time
      */
-    public Room(String roomcode, String dateTimeStart, String dateTimeEnd) throws DukeException {
+    public Room(String roomcode, int capacity) {
         this.roomcode = roomcode;
-        try {
-            DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-            DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
-            this.dateTimeStart = LocalDateTime.parse(dateTimeStart, formatterStart);
-            this.date = this.dateTimeStart.toLocalDate();
-            this.timeEnd = LocalTime.parse(dateTimeEnd, formatterEnd);
-        } catch (DateTimeParseException e) {
-            throw new DukeException(Constants.INVALIDDATETIME);
-        }
+        this.capacity = capacity;
     }
 
     /**
      * Converts text file to Room object.
      * @param roomcode room code
-     * @param longTimeStart Available booking date and starting time of the room
-     * @param longTimeEnd Available booking date and ending time of the room
+     * @param capacity number of people that can use the room at the same time
      */
-    public Room(String roomcode, Long longTimeStart, Long longTimeEnd) {
+    public Room(String roomcode, String capacity) {
         this.roomcode = roomcode;
-        Date storedTimeStart = new Date(longTimeStart);
-        Date storedTimeEnd = new Date(longTimeEnd);
-        this.dateTimeStart = storedTimeStart.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        this.date = this.dateTimeStart.toLocalDate();
-        this.timeEnd = storedTimeEnd.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+        this.capacity = Integer.parseInt(capacity);
     }
 
     /**
@@ -59,9 +30,7 @@ public class Room {
      * @return returns the statement and symbols as shown in room list
      */
     public String toString() {
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
-        return (this.roomcode + " " + dateTimeStart.format(formatterStart) + " to " + timeEnd.format(formatterEnd));
+        return (this.roomcode + " Capacity: " + capacity);
     }
 
     /**
@@ -69,10 +38,7 @@ public class Room {
      * @return returns the statement and symbols as shown in the text file
      */
     public String toWriteFile() {
-        Date storeTimeStart = Date.from(dateTimeStart.atZone(ZoneId.systemDefault()).toInstant());
-        Instant timeEndInstant = timeEnd.atDate(date).atZone(ZoneId.systemDefault()).toInstant();
-        Date storeTimeEnd = Date.from(timeEndInstant);
-        return (this.roomcode + " | " + storeTimeStart.getTime() + " | " + storeTimeEnd.getTime() + " | " + "stored\n");
+        return (this.roomcode + " | " + capacity + "\n");
     }
 
     /**
@@ -83,23 +49,7 @@ public class Room {
         return this.roomcode;
     }
 
-    public LocalDateTime getDateTimeStart() {
-        return this.dateTimeStart;
-    }
-
-    public LocalTime getTimeEnd() {
-        return this.timeEnd;
-    }
-
-    public LocalDate getDateStart() {
-        return date;
-    }
-
-    public Month getStartMonth() {
-        return date.getMonth();
-    }
-
-    public LocalTime getTimeStart() {
-        return dateTimeStart.toLocalTime();
+    public int getCapacity() {
+        return capacity;
     }
 }

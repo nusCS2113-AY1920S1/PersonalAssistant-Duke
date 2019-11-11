@@ -14,10 +14,11 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+//@@author Alex-Teo
 public class EditBookingTest {
 
     @Test
-    void TestEditBooking1() throws DukeException {
+    void testEditBooking1() throws DukeException {
         String user = "Bob";
         String room = "ST4";
         String description = "study";
@@ -42,7 +43,7 @@ public class EditBookingTest {
         });
         assertEquals(":-( OOPS!!! "
                 + "Please enter the index of the item you want to edit as well as the "
-                + "updated description of your booking!", BookingConstants.INDEXERROR1);
+                + "updated description of your booking!", BookingConstants.EDITERROR);
     }
 
     @Test
@@ -52,6 +53,6 @@ public class EditBookingTest {
         assertThrows(DukeException.class, () -> {
             new EditBookingCommand(input, splitStr);
         });
-        assertEquals(":-( OOPS!!! Please enter a index in integer form!", BookingConstants.INDEXERROR2);
+        assertEquals(":-( OOPS!!! Please enter an index in integer form!", BookingConstants.INDEXERROR2);
     }
 }
