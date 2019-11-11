@@ -93,7 +93,7 @@ public class ListMemberCommandTest {
         logicController = new LogicController(model);
         TasksCounter tc = new TasksCounter(logicController.model.getTaskList());
         new Window(tc, logicController);
-        
+
         Command command = ListMembersParser.parseListMembers("todonum");
         CommandOutput out = command.execute(model);
         assertEquals("There are currently no member in project manager", out.getOutputToUser());
