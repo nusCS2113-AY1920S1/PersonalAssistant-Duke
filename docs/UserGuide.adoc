@@ -1164,7 +1164,7 @@ YOU CAN ONLY ADD UP TO *20* GOALS.
 
 Adds a goal named `Dinner at WAA COW` which aims to save $`50` *in* `15` days.
 
-.Successful addition of goals using `/add /goals /in`
+.Successful addition of goals using `/in` as date parameter
 ifdef::env-github[]
 image::GoalsAddIn.png[width="800"]
 endif::[]
@@ -1176,7 +1176,7 @@ endif::[]
 
 Adds a goal named `BTO for Punggol HDB` which aims to save $`20000` by `10/10/2020`.
 
-.Successful addition of goals after using `/add /goals /by`
+.Successful addition of goals after using `/by` as date parameter
 ifdef::env-github[]
 image::GoalsAddBy.png[width="800"]
 endif::[]
@@ -1190,7 +1190,7 @@ endif::[]
 Adds a goal named GRAD TRIP which aims to save $`2000` by `30/12/2020` and ties it to a savings account named `JunBank
 Savings Account`.
 
-.Successful addition of goals tied to existing savings account after using `/add /goals /from`
+.Successful addition of goals tied to existing savings account after adding `/from` parameter
 ifdef::env-github[]
 image::GoalsAddSaving.png[width="800"]
 endif::[]
@@ -1226,7 +1226,7 @@ Untie your currently linked goals with the *same ACCOUNT_NAME* that you link to 
 
 Edits the name of the goal from `BTO for Punggol HDB` to `BTO for Tampines HDB`.
 
-.Successful edition of goal name after using `/edit /goals /newname`
+.Successful edition of goal name after using `/edit /goals /name` and `/newname`
 ifdef::env-github[]
 image::GoalsEditName.png[width="800"]
 endif::[]
@@ -1240,7 +1240,7 @@ endif::[]
 
 Edits the goal of `BTO for Tampines HDB` to a new date of `11/11/2021` and amount to `$27500`.
 
-.Successful edition of goal date and amount after using `/edit /goals /by /amount `
+.Successful edition of goal date and amount after using `/edit /goals /name` with /by` and `/amount`
 ifdef::env-github[]
 image::GoalsEditDate.png[width="800"]
 endif::[]
@@ -1317,7 +1317,7 @@ Thought of a new idea for your profile name? Change it now!
 
 Edits the profile name from `john` to `jun`
 
-.Successful edition of goal amount after using `/edit /profile /name`
+.Successful edition of goal amount after using `/edit /profile /name` and `/newname`
 ifdef::env-github[]
 image::ProfileEdit.png[width="800"]
 endif::[]

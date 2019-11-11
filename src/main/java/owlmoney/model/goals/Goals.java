@@ -199,14 +199,34 @@ public class Goals {
         this.savingAccount = newSavingAcc;
     }
 
+    /**
+     * Gets the amount of saving account for goal.
+     *
+     * @return amount of saving account.
+     */
+    double getSavingAmount() {
+        return savingAccount.getCurrentAmount();
+    }
+
+    /**
+     * Gets achievement status for goals.
+     *
+     * @return if goals achieved.
+     */
     boolean getGoalAchievementStatus() {
         return this.isAchieved;
     }
 
+    /**
+     * Set achievement status as done.
+     */
     public void achieveGoal() {
         this.isAchieved = true;
     }
 
+    /**
+     * Marks status of un-tracked goals as done.
+     */
     public void markDone() {
         done = true;
     }
