@@ -83,12 +83,12 @@ class ProjectInputControllerManageTest {
 
     @Test
     void manageProject_taskMethods_executionSuccess() {
-        simulatedUserInput = "add task -t Kill Thanos -c 100 -p 1";
+        simulatedUserInput = "add task -n Kill Thanos -c 100 -p 1";
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         expectedOutput = new String[] {"Added new task to the list."};
         assertArrayEquals(expectedOutput, simulatedOutput);
 
-        simulatedUserInput = "edit task 1 -t Kill Ironman -c 1 -p 5 -d 20/11/2019 -s done";
+        simulatedUserInput = "edit task 1 -n Kill Ironman -c 1 -p 5 -d 20/11/2019 -s done";
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         expectedOutput = new String[] {"Success!",
                                        "The name of this task has been changed to 'Kill Ironman'!",
@@ -116,7 +116,7 @@ class ProjectInputControllerManageTest {
                                        "+----------------------------------------------------------------------+"};
         assertArrayEquals(expectedOutput, simulatedOutput);
 
-        simulatedUserInput = "add task -t Kill Thanos -c 100 -p 1";
+        simulatedUserInput = "add task -n Kill Thanos -c 100 -p 1";
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         simulatedUserInput = "view tasks";
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
@@ -149,9 +149,9 @@ class ProjectInputControllerManageTest {
         };
         assertArrayEquals(expectedOutput, simulatedOutput);
 
-        simulatedUserInput = "add task -t ATest -c 100 -p 1";
+        simulatedUserInput = "add task -n ATest -c 100 -p 1";
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
-        simulatedUserInput = "add task -t BTest -c 100 -p 1";
+        simulatedUserInput = "add task -n BTest -c 100 -p 1";
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         simulatedUserInput = "view tasks -name";
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);

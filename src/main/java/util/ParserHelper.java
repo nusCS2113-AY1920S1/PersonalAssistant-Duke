@@ -1,21 +1,16 @@
 package util;
 
 
-import static util.constant.ConstantHelper.ALL_MARKER;
-import static util.constant.ConstantHelper.ASSIGNEE_MARKER;
-import static util.constant.ConstantHelper.ASSIGNMENT_INDEX_NUMBER_MARKER;
-import static util.constant.ConstantHelper.BLANK;
-import static util.constant.ConstantHelper.MEMBER_FLAG_LENGTH;
-import static util.constant.ConstantHelper.TASK_FLAG_LENGTH;
-import static util.constant.ConstantHelper.UNASSIGNEE_MARKER;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import models.project.Project;
 import models.task.Task;
 import util.log.ArchDukeLogger;
 import util.validation.ValidityHelper;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+
+import static util.constant.ConstantHelper.*;
 
 public class ParserHelper {
     private SortHelper sortHelper;
@@ -88,7 +83,7 @@ public class ParserHelper {
 
         String [] newTaskDetails = input.split("-");
         if (newTaskDetails.length == 0) {
-            errorMessages.add("Please input a complete flag! Examples for valid flags include '-t', '-p', '-d', "
+            errorMessages.add("Please input a complete flag! Examples for valid flags include '-n', '-p', '-d', "
                     + "'-c' and '-s'. Refer to the user guide for more help!");
         } else {
             ArrayList<String> newTaskDetailsA = new ArrayList<>(Arrays.asList(newTaskDetails));
@@ -96,7 +91,7 @@ public class ParserHelper {
             for (String s : newTaskDetailsA) {
                 String trimmedString = s.trim();
                 if (trimmedString.length() < 2) {
-                    if ("t".equals(trimmedString) || "p".equals(trimmedString) || "d".equals(trimmedString)
+                    if ("n".equals(trimmedString) || "p".equals(trimmedString) || "d".equals(trimmedString)
                             || "c".equals(trimmedString) || "s".equals(trimmedString)) {
                         errorMessages.add("'-" + trimmedString + "' is an empty flag!");
                     } else {
@@ -105,7 +100,7 @@ public class ParserHelper {
                     continue;
                 }
                 switch (trimmedString.substring(0, 2)) {
-                case "t ":
+                case "n ":
                     newTaskName = trimmedString.substring(2);
                     break;
                 case "p ":

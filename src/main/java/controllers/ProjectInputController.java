@@ -522,7 +522,7 @@ public class ProjectInputController implements IController {
             HashMap<String, ArrayList<String>> tasksAndAssignedMembers
                     = projectToManage.getTasksAndAssignedMembers();
             ArrayList<ArrayList<String>> allTaskDetailsForTable = new ArrayList<>();
-            if (("view tasks").equals(projectCommand)) {
+            if (("view tasks").equals(projectCommand.trim())) {
                 allTaskDetailsForTable = projectToManage.getTaskList().getAllTaskDetailsForTable(
                         tasksAndAssignedMembers,"-priority", projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
