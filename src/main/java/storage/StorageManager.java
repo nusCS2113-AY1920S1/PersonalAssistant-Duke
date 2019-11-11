@@ -161,8 +161,6 @@ public class StorageManager {
     public ReceiptTracker getReceiptsByTag(String tag) throws DukeException {
         try {
             return this.wallet.getReceipts().getReceiptsByTags(tag);
-        } catch (DukeException e) {
-            throw e;
         } catch (Exception e) {
             throw new DukeException("Unable to get receipts with tag: " + tag + "\n");
         }

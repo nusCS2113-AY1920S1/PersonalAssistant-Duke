@@ -107,16 +107,13 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * @param tag Specific String to be filtered with.
      * @return ArrayList containing all the Receipts with the specific tag
      */
-    public ReceiptTracker getReceiptsByTags(String tag) throws DukeException {
+    public ReceiptTracker getReceiptsByTags(String tag) {
         ReceiptTracker taggedReceipts = new ReceiptTracker();
         taggedReceipts.initializeMainReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.containsTag(tag)) {
                 taggedReceipts.addReceipt(receipt);
             }
-        }
-        if (taggedReceipts.isEmpty()) {
-            throw new DukeException("No such tag found in the list");
         }
         return taggedReceipts;
     }
@@ -125,6 +122,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * Find all the expenses more than or equal to the cash input.
      * @param amount Specific String to be filtered with.
      * @return ArrayList containing all the Receipts with all the major expenses
+     * @throws DukeException not able to get majorexpense
      */
     public ReceiptTracker getMajorExpenses(String amount) throws DukeException {
         int input = Integer.parseInt(amount);
@@ -143,8 +141,8 @@ public class ReceiptTracker extends ArrayList<Receipt> {
 
     /**
      * Find all the expenses more than or equal to $100.
-     *
      * @return ArrayList containing all the receipts with expenses above/equal to $100
+     * @throws DukeException no receipt in the list that is of $100 or above
      */
     public ReceiptTracker getMajorReceipts() throws DukeException {
         ReceiptTracker receipts = new ReceiptTracker();
@@ -228,7 +226,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * @param tag String representing the tag to filter by
      * @return Double, the total amount spent on a given tag
      */
-    public double getCashSpentByTag(String tag) throws DukeException {
+    public double getCashSpentByTag(String tag) {
         if (isRegisteredTag(tag)) {
             return this.getFolders().get(tag).getNettCashSpent();
         } else {
@@ -271,7 +269,6 @@ public class ReceiptTracker extends ArrayList<Receipt> {
 
     /**
      * Deletes a receipt via its index.
-     *
      * @param index Index of the receipt to be deleted
      */
     public void deleteReceiptsByIndex(int index) {

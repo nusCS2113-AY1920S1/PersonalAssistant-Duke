@@ -15,7 +15,7 @@ public class CommandTrackTagTest {
         StorageManager store = new StorageManager();
         CommandTrackTag emptyArg = new CommandTrackTag("Track");
         emptyArg.execute(store);
-        assertEquals(emptyArg.getInfoCapsule().getUiCode(), UiCode.TOAST);
+        assertEquals(emptyArg.getInfoCapsule().getUiCode(), UiCode.ERROR);
         assertEquals(emptyArg.getInfoCapsule().getOutputStr(), "Please enter a tag to track");
 
         ArrayList<String> tags = new ArrayList<>();

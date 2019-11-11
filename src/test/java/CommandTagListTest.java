@@ -26,6 +26,11 @@ public class CommandTagListTest {
         d1.execute(storageManager);
         String result = d1.getInfoCapsule().getOutputStr();
         assertEquals("Tag input is missing. FORMAT : taglist <tag>", result);
+
+        CommandTagList d2 = new CommandTagList("taglist 23d4");
+        d2.execute(storageManager);
+        String result1 = d2.getInfoCapsule().getOutputStr();
+        assertEquals("No such tag found in the list", result1);
     }
 
 }
