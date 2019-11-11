@@ -87,8 +87,9 @@ class ExportTest {
 
         Path path = Paths.get(filePath);
         Assertions.assertTrue(Files.exists(path));
-        File file = new File(filePath);
-        file.delete();
+
+        /*File file = new File(filePath);
+        file.delete();*/
     }
 
     @Test
