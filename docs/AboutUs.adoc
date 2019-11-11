@@ -10,16 +10,16 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Ting Wei
 image::talesrune.png[width="150", align="left"]
-{empty}[https://github.com/talesrune[github]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/team/talesrune.adoc[portfolio]]
+{empty}[https://github.com/talesrune[github]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/team/talesrune.pdf[portfolio]]
 
-Role: Team Lead +
-Responsibilities: Gui, Update
+Role: Lead Developer +
+Responsibilities: GUI, Update
 
 '''
 
 === Rui Huan
 image::e0318465.png[width="150", align="left"]
-{empty}[https://github.com/e0318465[github]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/team/e0318465.adoc[portfolio]]
+{empty}[https://github.com/e0318465[github]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/team/e0318465.adoc[portfolio]]
 
 Role: Developer +
 Responsibilities: Contact Management
@@ -28,7 +28,7 @@ Responsibilities: Contact Management
 
 === Yu Xuan
 image::maxxyx96.png[width="150", align="left"]
-{empty}[https://github.com/maxxyx96[github]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/team/maxxyx96.adoc[portfolio]]
+{empty}[https://github.com/maxxyx96[github]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/team/maxxyx96.adoc[portfolio]]
 
 Role: Developer +
 Responsibilities: Budget Management
@@ -37,7 +37,7 @@ Responsibilities: Budget Management
 
 === Gervaise Ang
 image::gervaiseang.png[width="150", align="left"]
-{empty}[https://github.com/gervaiseang[github]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/team/gervaiseang.adoc[portfolio]]
+{empty}[https://github.com/gervaiseang[github]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/team/gervaiseang.adoc[portfolio]]
 
 Role: Developer +
 Responsibilities: Help & Reminders
