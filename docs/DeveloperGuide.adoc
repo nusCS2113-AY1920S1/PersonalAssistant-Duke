@@ -74,7 +74,7 @@ While DEGREES.NUS may work using different versions of Java and with other IDEs,
 
 === Architecture
 
-image::Architecture.png[width="600"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/DukeArchitecture.PNG[width="600"]
 _Figure 3.1.1 : Architecture Diagram_
 
 The Architecture Diagram given above explains the high-level design of the App. It consists of the following 6 components: +
@@ -82,7 +82,7 @@ The Architecture Diagram given above explains the high-level design of the App. 
 * Main
 * Parser
 * UI
-* Logic
+* Command
 * Model
 * Storage
 
@@ -90,17 +90,29 @@ The Architecture Diagram given above explains the high-level design of the App. 
 ==== Main
 
 
-Main has only one class called link:{repoURL}/src/main/java/main/Duke.java[`Duke`]. It is responsible for: +
+Main has only one class called link:{repoURL}/src/main/java/main/Duke.java[`Duke`]. +
+
+It is responsible for: +
 
 * At app launch: Initialising the components in the correct sequence, and connects them up with each other.
 * On user input: Managing parser and executing commands.
 * At shut down: Shutting down the components and invokes cleanup method where necessary.
 
+==== Parser component
+
+The Parser component processes user input and returns a command to be executed, and contains only one class called `Parser.java`.
+
+*API* : link:{repoURL}/src/main/java/parser/Parser.java[`Parser.java`]
+
+The parser is able to do exception handling and weeds out errors in the initial commands. i.e. it checks for existences of inputs and checks whether commands like `done` or `detail` are spelled correctly, ignoring other inputs first.
+
+Once the command has passed the check, the parser returns a command object to be executed, and this is where the input validation happens.
+
 ==== UI component
 The UI component is the User Interface of the App.
 
-image::UiClassDiagram.png[width="800"]
-_Figure 3.2.1 : Structure of the UI Component_
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UIClassDiagram.PNG[width="600"]
+_Figure 3.2.3 : Structure of the UI Component_
 
 *API* : link:{repoURL}/src/main/java/javafx/MainWindow.java[`MainWindow.java`]
  
@@ -116,14 +128,11 @@ The UI component: +
 •	Reads some data in the Model so that the UI can update when a user inputs a command.
 •	Responds to events raised from various parts of the App and updates the UI accordingly.
 
-==== Logic component
-The `Logic` component is the command executor. The following diagram illustrates the structure of Logic component.
+==== Command component
+The `Command` component is the command executor and consists of multiple command classes. The following diagram illustrates the structure of Command component.
 
-image::LogicClassDiagram.png[width="800"]
-_Figure 3.3.1 : Structure of the Logic Component_
-
-image::LogicCommandClassDiagram.png[width="800"]
-_Figure 3.3.2 : Structure of Commands in the Logic Component. This diagram shows finer details concerning `XYZCommand` and `Command` in Figure 2.3.1_
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/CommandDiagram.PNG[width="800"]
+_Figure 3.3.1 : Structure of the Command Component_
 
 
 .  `Logic` uses the `Parser` class to parse the user command.
@@ -132,9 +141,9 @@ _Figure 3.3.2 : Structure of Commands in the Logic Component. This diagram shows
 .  Commands save a state of a `TaskList` and `DegreeList` withing themselves in a `memento` object before executing changes to them. This is to be used in the `undo` and `redo` command.
 
 ==== Model component
-The `Model` component holds the data of the App in-memory. The following diagram illustrates the structure of Model component.
+The `Model` component holds the data of the App in-memory and consists of the `TaskList` and `DegreeList` classes. The following diagram illustrates the structure of Model component.
 
-image::ModelComponentClassDiagram.PNG[width="800"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/ModelDiagram.PNG[width="600"]
 _Figure 3.4.1 : Structure of the Model Component_
 
 *API* : link:{repoURL}/src/main/java/task/TaskList.java[`TaskList.java`],  link:{repoURL}/src/main/java/list/DegreeList.java[`DegreeList.java`], link:{repoURL}/src/main/java/degree/DegreeManager.java[`DegreeManager.java`]
@@ -150,7 +159,7 @@ The `Model`,
 ==== Storage component
 The `Storage` component reads data from, and writes data to, the hard disk. The following diagram illustrates the structure of Storage component.
 
-image::StorageClassDiagram.png[width="800"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/StorageComponentClassDiagram.png[width="600"]
 _Figure 3.5.1 : Structure of the Storage Component_
 
 *API* : link:{repoURL}/src/main/java/Storage.java[`Storage.java`]
@@ -161,25 +170,17 @@ The `Storage` component,
 * can read the degree data in csv format.
 * can read the degree events and statistics data in txt format.
 
+`Storage` also allows `Duke` to hold a `Model`, ready to be modified according to the user input.
+
 === Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `sort by priority`.
 
-image::SDforDeletePerson.png[width="800"]
-_Figure 3.1.3a : Component interactions for `delete 1` command (part 1)_
-
-[NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
-
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
-
-image::SDforDeletePersonEventHandling.png[width="800"]
-_Figure 3.1.3b : Component interactions for `delete 1` command (part 2)_
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/sequenceDiagramsort.PNG[width="800"]
+_Figure 3.1.3 : Component interactions for `sort by priority` command (part 1)_
 
 [NOTE]
-Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
-
-
+Note how the `Duke` raises a `sortByPriority` event when a user inputs a command, eventually returning the updated TaskList to `Duke` and later the UI.
 
 
 == Implementation
