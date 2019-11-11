@@ -10,6 +10,7 @@ import money.Loan;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * This command adds a loan to the Loan List.
@@ -49,6 +50,20 @@ public class AddLoanCommand extends MoneyCommand {
     }
 
     /**
+     * Checks if the description entered is unique.
+     * @param loanList ArrayList of loans
+     * @param description description inputted by the user
+     * @return True if the description is unique, else returns false
+     */
+    private boolean isUnique(ArrayList<Loan> loanList, String description) {
+        ArrayList<String> descList = new ArrayList<>();
+        for (Loan l : loanList) {
+            descList.add(l.getDescription());
+        }
+        return !descList.contains(description);
+    }
+
+    /**
      * This method executes the add loan command. Takes the input data from user and
      * adds an incoming or outgoing loan to the Loan List.
      * @param account Account object containing all financial info of user saved on the programme
@@ -73,6 +88,16 @@ public class AddLoanCommand extends MoneyCommand {
         }
         if (amount <= 0) {
             throw new DukeException("Loan must be more than zero!\n");
+        }
+
+        boolean isUnique = false;
+        if (type == Loan.Type.OUTGOING) {
+            isUnique = isUnique(account.getOutgoingLoans(), description);
+        } else if (type == Loan.Type.INCOMING) {
+            isUnique = isUnique(account.getIncomingLoans(), description);
+        }
+        if (!isUnique) {
+            throw new DukeException("Description of the loan must be unique!\n");
         }
 
         Loan l = new Loan(amount, description, startDate, type);
