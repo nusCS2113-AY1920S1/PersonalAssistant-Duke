@@ -428,7 +428,8 @@ UI:
 image::reminder.png[]
 
 === Tasks Management
-==== Add Todo:`add todo`
+
+==== Add Todo: `add todo`
 
 Adds a new todo task with description +
 Format: `add to d/DESCRIPTION`
