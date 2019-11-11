@@ -133,7 +133,7 @@ task can be added into the task list quickly. The benefits of having this Natura
 The following sequence diagram below illustrates how this feature works:
 
 .Natural Dates Support Sequence diagram
-image::../images/TaskParseNaturalDate (1) (2).png[Natural Dates Support, 800]
+image::TaskParseNaturalDate (1) (2).png[Natural Dates Support, 800]
 
 As seen from the diagram above, the Natural Dates support is facilitated by three classes, namely
 `TaskCommandParseHelper`, `CommandParseHelper` and `TaskParseNaturalDateHelper`.
@@ -210,7 +210,7 @@ The benefits of having this sorting feature are:
 The following sequence diagram below illustrates how the sort command is parsed:
 
 .parseSortCommand Sequence diagram
-image::../images/parseSortCommand (1) (1).png[Parse Sort Command, 800]
+image::parseSortCommand (1) (1).png[Parse Sort Command, 800]
 
 As seen from the diagram above, the parsing of sort command is facilitated by two class, namely
 `TaskCommandParseHelper` and `TaskSortCommand`.
