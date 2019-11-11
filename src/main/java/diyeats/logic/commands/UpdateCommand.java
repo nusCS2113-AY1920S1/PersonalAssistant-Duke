@@ -1,5 +1,7 @@
 package diyeats.logic.commands;
 
+import diyeats.commons.exceptions.ProgramException;
+import diyeats.logic.parsers.InputValidator;
 import diyeats.model.meal.MealList;
 import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
@@ -22,6 +24,7 @@ public class UpdateCommand extends Command {
     private String name;
     private String activity;
     private UpdateWeightCommand c2 = new UpdateWeightCommand();
+    private boolean flag = false;
     /**
      * Constructor for UpdateCommand.
      */
@@ -36,7 +39,7 @@ public class UpdateCommand extends Command {
     }
 
     public UpdateCommand(boolean flag, String messageStr) {
-        this.isFail = flag;
+        this.isFail = true;
         this.errorStr = messageStr;
     }
 
@@ -49,16 +52,28 @@ public class UpdateCommand extends Command {
      */
     @Override
     public void execute(MealList meals,  Storage storage, User user, Wallet wallet, Undo undo) {
-        if (date == null) {
-            LocalDate now = LocalDate.now();
-            undo.undoUpdate(now.format(dateFormat), user);
-        } else {
-            undo.undoUpdate(date, user);
-        }
         switch (stage) {
             case 0:
+                if (date == null) {
+                    LocalDate now = LocalDate.now();
+                    undo.undoUpdate(now.format(dateFormat), user);
+                } else {
+                    undo.undoUpdate(date, user);
+                }
                 if (this.age != null) {
                     UpdateAgeCommand c1 = new UpdateAgeCommand(age);
+                    c1.execute(meals, storage, user, wallet, undo);
+                }
+                if (this.height != null) {
+                    UpdateHeightCommand c1 = new UpdateHeightCommand(height);
+                    c1.execute(meals, storage, user, wallet, undo);
+                }
+                if (this.name != null) {
+                    UpdateNameCommand c1 = new UpdateNameCommand(name);
+                    c1.execute(meals, storage, user, wallet, undo);
+                }
+                if (this.activity != null) {
+                    UpdateActivityCommand c1 = new UpdateActivityCommand(activity);
                     c1.execute(meals, storage, user, wallet, undo);
                 }
                 if (this.weight != null) {
@@ -73,25 +88,17 @@ public class UpdateCommand extends Command {
                         this.isDone = false;
                     }
                 }
-                if (this.height != null) {
-                    UpdateHeightCommand c1 = new UpdateHeightCommand(height);
-                    c1.execute(meals, storage, user, wallet, undo);
-                }
-                if (this.name != null) {
-                    UpdateNameCommand c1 = new UpdateNameCommand(name);
-                    c1.execute(meals, storage, user, wallet, undo);
-                }
-                if (this.activity != null) {
-                    UpdateActivityCommand c1 = new UpdateActivityCommand(activity);
-                    c1.execute(meals, storage, user, wallet, undo);
-                }
                 break;
             case 1:
-                c2.setResponseStr(this.responseStr);
-                c2.execute(meals, storage, user, wallet, undo);
-                this.isDone = c2.isDone();
-                if (c2.isDone()) {
-                    this.stage += 1;
+                try {
+                    c2.setResponseStr(this.responseStr);
+                    c2.execute(meals, storage, user, wallet, undo);
+                    this.isDone = c2.isDone();
+                    if (c2.isDone()) {
+                        this.stage += 1;
+                    }
+                } catch (ProgramException e) {
+                    ui.showMessage(e.getMessage());
                 }
                 break;
             default:

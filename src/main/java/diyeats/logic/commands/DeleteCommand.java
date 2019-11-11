@@ -35,6 +35,7 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(int index) {
         this.index = index;
+        this.deleteDate = LocalDate.now();
     }
 
     public DeleteCommand(boolean flag, String messageStr) {

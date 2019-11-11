@@ -3,34 +3,24 @@
     "transactionTracker": {
       "2019-11-11": [
         {
-          "transactionAmount": 200,
+          "transactionAmount": 0,
           "type": "PAY",
           "date": "2019-11-11"
         },
         {
-          "transactionAmount": 1000,
-          "type": "DEP",
+          "transactionAmount": 0,
+          "type": "PAY",
           "date": "2019-11-11"
         },
         {
-          "transactionAmount": 200,
-          "type": "DEP",
-          "date": "2019-11-11"
-        },
-        {
-          "transactionAmount": 200,
-          "type": "DEP",
-          "date": "2019-11-11"
-        },
-        {
-          "transactionAmount": 200,
-          "type": "DEP",
+          "transactionAmount": 0,
+          "type": "PAY",
           "date": "2019-11-11"
         }
       ]
     }
   },
   "account": {
-    "amount": 1400
+    "amount": 0
   }
 }

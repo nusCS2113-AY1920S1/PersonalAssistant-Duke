@@ -24,7 +24,7 @@ public final class CommandSyntax {
     public static final String PARSER_DEPOSIT_COMMAND = "deposit";
     public static final String PARSER_PAYMENT_COMMAND = "pay";
     public static final String PARSER_STATS_COMMAND = "stats";
-    public static final String PARSER_CGRAPH_COMMAND = "cgraph";
+    public static final String PARSER_CGRAPH_COMMAND = "graph";
     public static final String PARSER_SUGGEST_EXERCISE_COMMAND = "suggestexercise";
     public static final String PARSER_ADD_EXERCISE_COMMAND = "addexercise";
     public static final String PARSER_DELETE_EXERCISE_COMMAND = "delexercise";

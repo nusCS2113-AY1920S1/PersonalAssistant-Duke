@@ -143,6 +143,8 @@ Lost? Simply open up this user guide from inside the application by entering the
 ==== Undo previous command: `undo`
 Accidentally entered an erroneous command? Revert the command by entering the command `undo` in the CLI.
 
+image::Undo_Command.png[]
+
 [WARNING]
 ====
 You can only undo commands that were entered in the *current session* of the application.
@@ -157,7 +159,7 @@ Lost track of your commands in the middle of a session? Use the history command 
 You can only view commands that were entered in the *current session* of the application.
 ====
 
-==== Clear all data in a time period: `clear` `START_DATE` `END_DATE`
+==== Clear all data in a time period: `clear /startdate START_DATE /enddate END_DATE`
 Need to clear all the data from a single month without the hassle of entering the delete command multiple times?
 Simply enter the `clear` command followed by a start date and the end date, and the application will take care of the rest!
 
@@ -296,7 +298,7 @@ image::Dinner_3.png[]
 
 ==== Editing a meal: `edit`
 
-Format: `edit INDEX [/date]<DATE> [/TAG]<QUANTITY>... `
+Format: `edit INDEX [/date]<DATE> [/TAG]<QUANTITY>...`
 
 Accidentally entered the wrong details for a  meal item? Use the `edit` command! Simply enter the index of the meal that you wish to edit
 after the edit command, along with the tagged values that you wish to edit.
@@ -470,7 +472,7 @@ Examples:
 
 ==== Updating personal info: `update`
 
-Format: `update [/reset] [/TAG]<VALUE>...`
+Format: `update [/TAG]<VALUE>...`
 
 Accidentally entered the wrong personal information during setup, or simply wish to update your body weight at the end of each date
 for tracking purposes? By using the `update` command, along with the respective tags, you can easily change the information stored
@@ -479,13 +481,17 @@ on the application. A reset tag can also be used reset all of your tracked progr
 Examples:
 
 * Tags you can use
-** `/name` `/age` `/weight` `/gender`
+** `/name` `/age` `/weight` `/activity` `/height`
 * You want to update your body weight for the day to 50 kg:
 ** `update /weight 50`
+*
++
+image::Update_Command_1.png[]
 * You want to update your body weight and age to be 50 kg and 20 respectively:
 ** `update /weight 50 /age 50`
-* You want to reset your personal information to a clean slate:
-** `update /reset`
+*
++
+image::Update_Command_2.png[]
 
 ==== Deposit money to your account: `deposit`
 
@@ -611,7 +617,7 @@ image::Stats_Command.png[]
 
 ==== Graph nutrition track record: `graph`
 
-Format: `cgraph <DATA_TYPE> /month <MONTH> /year <YEAR>`
+Format: `graph /type <DATA_TYPE> /month <MONTH> /year <YEAR>`
 
 Want to monitor trends in your diet in a graphical form? By using the `graph` command, you will be able to see your nutritional
 intake across a time period charted as a graph.
@@ -628,22 +634,18 @@ Examples:
 
 1. You want a dinner meal suggestion for 29/10/2019 with up to maximum 5 meals to be suggested.
 
-    `suggestmeal /date 29/10/2019 /type d /display 3`
-
+* `suggestmeal /date 29/10/2019 /type d /display 3`
 +
 image::Suggest_Meal_1.png[width=""]
 +
 
 2. You want a breakfast suggestion for today.
 
-    `suggestmeal /type b`
-
+* `suggestmeal /type b`
 +
 image::Suggest_Meal_2.png[width=""]
-+
 
-You can opt to type 0 to reject all the suggestions, but if you did choose a suggestion, the command will add it to your list and will also show you the potential amount of calories your current plan has given that you ate everything (not only the ones marked as done).
-
+* You can opt to type 0 to reject all the suggestions, but if you did choose a suggestion, the command will add it to your list and will also show you the potential amount of calories your current plan has given that you ate everything (not only the ones marked as done).
 +
 image::Suggest_Meal_3.png[width=""]
 +
@@ -677,7 +679,7 @@ Examples:
 +
 image::suggestexercise_1.png[width=""]
 
-.. You want a exercise suggestion for 1/1/2000.
+* You want a exercise suggestion for 1/1/2000.
 ** `suggestexercise /date 1/1/2000`
 +
 image::suggestexercise_4.png[width=""]
