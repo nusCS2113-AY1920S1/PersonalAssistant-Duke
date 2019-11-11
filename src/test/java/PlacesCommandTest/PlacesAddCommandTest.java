@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,8 +41,10 @@ class PlacesAddCommandTest {
     void testAddPlacesCommand() throws IOException {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
+        Stack<Map<String, String>> oldplaces = new Stack<>();
+        oldplaces.push(places);
         ui.fullCommand = "add-Test,COM3";
-        AddPlacesCommand test = new AddPlacesCommand(ui, places);
+        AddPlacesCommand test = new AddPlacesCommand(ui, places, oldplaces);
         assertEquals("Successfully added :Test,COM3\r\n", output.toString());
     }
 
@@ -49,8 +52,10 @@ class PlacesAddCommandTest {
     void testAddWrongPlacesCommand() {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
+        Stack<Map<String, String>> oldplaces = new Stack<>();
+        oldplaces.push(places);
         ui.fullCommand = "add-TestCOM3";
-        AddPlacesCommand test = new AddPlacesCommand(ui, places);
+        AddPlacesCommand test = new AddPlacesCommand(ui, places, oldplaces);
         assertEquals("Please input add command in the correct format\r\n", output.toString());
     }
 }

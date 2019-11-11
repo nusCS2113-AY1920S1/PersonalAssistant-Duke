@@ -11,10 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -70,8 +67,10 @@ public class AddExpenseCommandTest {
     void testAddExpenseCommand() {
         HashMap<LocalDate, ArrayList<String>> map = new HashMap<>();
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<>();
+        Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
+        oldExpenses.push(expenses);
         ui.fullCommand = "add coffee, $4, 2019-09-09";
-        new AddExpenseCommand(ui, expenses);
+        new AddExpenseCommand(ui, expenses, oldExpenses);
         assertEquals("Successfully added: \n" + "coffee, $4, bought on 2019-09-09\r\n", output.toString());
     }
 
@@ -82,8 +81,10 @@ public class AddExpenseCommandTest {
     void testAddWrongFormatExpenseCommand() {
         HashMap<LocalDate, ArrayList<String>> map = new HashMap<>();
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<>();
+        Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
+        oldExpenses.push(expenses);
         ui.fullCommand = "add coffee$42019-09-09";
-        new AddExpenseCommand(ui, expenses);
+        new AddExpenseCommand(ui, expenses, oldExpenses);
         assertIncorrectFormatErrorMessageDisplayed();
     }
 
@@ -94,8 +95,10 @@ public class AddExpenseCommandTest {
     void testAddWrongDateTimeFormatExpenseCommand() {
         HashMap<LocalDate, ArrayList<String>> map = new HashMap<>();
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<>();
+        Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
+        oldExpenses.push(expenses);
         ui.fullCommand = "add coffee,$4,2019-9-09";
-        new AddExpenseCommand(ui, expenses);
+        new AddExpenseCommand(ui, expenses, oldExpenses);
         assertWrongDateFormatErrorMessageDisplayed();
     }
 
@@ -106,8 +109,10 @@ public class AddExpenseCommandTest {
     void testAddWrongPriceFormatExpenseCommand() {
         HashMap<LocalDate, ArrayList<String>> map = new HashMap<>();
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<>();
+        Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
+        oldExpenses.push(expenses);
         ui.fullCommand = "add coffee,4,2019-09-09";
-        new AddExpenseCommand(ui, expenses);
+        new AddExpenseCommand(ui, expenses, oldExpenses);
         assertPriceFormatErrorMessageDisplayed();
     }
 
