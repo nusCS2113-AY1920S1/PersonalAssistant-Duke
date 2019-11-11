@@ -41,23 +41,27 @@ public class EditCommand extends Command {
                         final TriviaManager triviaManager)
             throws DukeException, ParseException,
             IOException, NullPointerException {
-        String[] input = ui.fullCommand.split(" ");
-        System.out.println("Edit description/time/both ?");
-        int listnoIndex = Integer.parseInt(input[1]) - 1;
-        ui.readCommand();
-        if (ui.fullCommand.equals("description")) {
-            new EditDescriptionCommand(list, ui, listnoIndex);
-        } else if (ui.fullCommand.equals("time")) {
-            new EditTimeCommand(list, ui, listnoIndex);
-        } else {
-            new EditBothCommand(list, ui, listnoIndex);
+        try {
+            String[] input = ui.fullCommand.split(" ");
+            int listnoIndex = Integer.parseInt(input[1]) - 1;
+            System.out.println("Edit description/time/both ?");
+            ui.readCommand();
+            if (ui.fullCommand.equals("description")) {
+                new EditDescriptionCommand(list, ui, listnoIndex);
+            } else if (ui.fullCommand.equals("time")) {
+                new EditTimeCommand(list, ui, listnoIndex);
+            } else {
+                new EditBothCommand(list, ui, listnoIndex);
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < list.size(); i++) {
+                sb.append(list.get(i).toString() + "\n");
+            }
+            TasksPageStorage tasksPageStorage = new TasksPageStorage();
+            tasksPageStorage.writeToSaveFile(sb.toString());
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            System.out.println("Please input the correct format.");
         }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i).toString() + "\n");
-        }
-        TasksPageStorage tasksPageStorage = new TasksPageStorage();
-        tasksPageStorage.writeToSaveFile(sb.toString());
     }
 
     /**
