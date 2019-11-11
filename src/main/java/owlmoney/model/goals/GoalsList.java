@@ -239,8 +239,8 @@ public class GoalsList {
                             && currentGoal.getSavingAmount() <= currentGoal.getGoalsAmount()) {
                         logger.warning("Attempted to edit a goal with lesser / same amount "
                                 + "then balance of saving account");
-                        throw new GoalsException("You cannot edit a goal with equal / less amount as " +
-                                "savings account balance!");
+                        throw new GoalsException("You cannot edit a goal with equal / less amount as "
+                                + "savings account balance!");
                     } else {
                         currentGoal.setGoalsAmount(Double.parseDouble(amount));
                     }
