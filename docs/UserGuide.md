@@ -19,9 +19,9 @@ Chef Duke is targeted towards restaurant chefs who wants to be able to consolida
 
 4. Use the command prompt and navigate to the path where the application is downloaded `cd ../FILEPATH`
 
-5. run the command `java -jar v1.3` , application will then be executed 
+5. run the command `java -jar v1.4` , application will then be executed 
 
-   ![](C:\Users\s1014\Desktop\local_clone\docs\images\Ui.png)
+   ![](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/Ui.png)
 
 6. Type some commands and press ENTER to execute
 
@@ -56,8 +56,6 @@ The user is greeted depending on the time of day, `good morning` , `good evening
 ### 3.2 Recipe Book Management
 
 the user needs to enter command `d` from the Main menu to enter the Dish template. this template allows the user to modify the recipe book.
-
-add ui here
 
 #### 3.2.1 Adding Dish
 
@@ -281,7 +279,7 @@ To add an ingredient to the `Fridge`, the user needs to execute the command belo
 
 Format: `add `  `INGREDIENT_NAME` `INGREDIENT_AMOUNT` `INGREDIENT_EXPIRY_DATE-(dd/mm/yyyy)`
 
-*Note:*  `INGREDIENT_NAME` must not contain spaces, use underscores or Camel case, eg. blueCheese or blue_cheese
+*Note:*  `INGREDIENT_NAME` must not contain spaces, use underscores or Camel case, eg. blueCheese or blue_cheese, and *max*  `INGREDIENT_NAME` *length* is 30 letters!
 
 If the ingredient already exist in the `IngredientList` of the `Fridge`, but **does not have the same expiry date as the ingredient to be added**, another entry of the ingredient will be created in the ingredient list, differing from the existing one by the expiry date. **However**, if the ingredient to be added also **has the same expiry date as an existing ingredient in the ingredient list with the same name**, the amount of the ingredient to be added will be added onto the amount of the existing ingredient and no new entry will be created in the `IngredientList` of the `Fridge`.
 
@@ -342,7 +340,7 @@ If the ingredient index does not exist in the list, the following message is pri
   'q' to exit
 ```
 
-This example was done when the size of the ingredient list is 14.
+This example was done when the size of the `IngredientList` was initially 14.
 
 Examples: 
 
@@ -354,9 +352,8 @@ Examples:
 
      Noted. I've removed this ingredient:
 	 salt, amount is: 50 expiring on 31st of October 2019
-	 Now you have 14 ingredients in the list.
-   
-         _________________________________________________________________________________________
+	 Now you have 13 ingredients in the list.
+        _________________________________________________________________________________________
 ```
 
 #### 3.3.3 Finding Ingredient
@@ -364,6 +361,8 @@ Examples:
 To find an ingredient from the `Fridge`, user needs to execute command below:
 
 Format: `find` `INGREDIENT_NAME`
+
+*Note:* *max*  `INGREDIENT_NAME` *length* is 30 letters!
 
 If the ingredient name does not exist in the list, message is output:
 
@@ -389,7 +388,7 @@ To use an ingredient from the `Fridge`, the user needs to execute the command be
 
 Format: `use`  `INGREDIENT_NAME` `INGREDIENT_AMOUNT` 
 
-*Note:*  `INGREDIENT_NAME` must not contain spaces, use underscores or Camel case, eg. blueCheese or blue_cheese
+*Note:*  `INGREDIENT_NAME` must not contain spaces, use underscores or Camel case, eg. blueCheese or blue_cheese and *max*  `INGREDIENT_NAME` *length* is 30 letters!
 
 A warning:  `*always use most recently expiring ingredients first, to prevent food waste!*` is printed when showing the example use of this command. This notifies the chef that he should be using the ingredients with the most recent expiry date first. This command will look through all the ingredients matching the ingredient name, sorted by ascending expiry date, and continue removing them (considering the amount of the ingredient they contain ) until the total  `INGREDIENT_AMOUNT` is used/reached. Furthermore, if the `Fridge` contains expired ingredients matching the  `INGREDIENT_NAME`, they are not taken into consideration, since the Chef should not be able to use an expired ingredient in his dishes!
 
@@ -474,7 +473,7 @@ Examples:
 - `changeamount` `7` `22`   
 
 ```
-	OOPS!!! Enter a valid ingredient index number after change, between 1 and <number of     ingredients in the fridge>  
+	OOPS!!! Enter a valid ingredient index number after change, between 1 and <number of ingredients in the fridge>  
 ```
 
 Otherwise,
@@ -510,7 +509,7 @@ Examples:
 - `changename` `7` `beef`   
 
 ```
-	OOPS!!! Enter a valid ingredient index number after change, between 1 and <number of     ingredients in the fridge>  
+	OOPS!!! Enter a valid ingredient index number after change, between 1 and <number of ingredients in the fridge>  
 ```
 
 Otherwise,
@@ -912,6 +911,10 @@ Therefore, the program will record information of every trial, such as ingredien
 
 Upon the draft recipe is regarded as fixed and no longer changes, it will be added into recipebook.
 
+### 3.9 Changing ingredients of a dish `[Coming in V2.0]`
+
+The DishList contains all the dishes which also contains a list of ingredients each. However, there may be a case where there is a large number of ingredients for a dish. Thus there may be be a typo and the chef needs to amend the error. additionally, the ingredients for a certain dish may need changes as the chef may want to change the recipe, hence with this feature, he may be able to do so. 
+
 ## 4. Command Summary
 
 <u>Main Menu</u>
@@ -953,7 +956,7 @@ Index | Keyword  | Usage | Description
 | 7     | list    | list -n DISH_NAME                              | ind the orders containing that dishes |
 | 8     | list    | list -d ORDER_DATE [-l LIST_TYPE]              | list orders on querying date          |
 
-** For more details, please go for 3.5 Order.
+** For more details, please go for 3.4 Order.
 
 <u>Dish Template</u>
 

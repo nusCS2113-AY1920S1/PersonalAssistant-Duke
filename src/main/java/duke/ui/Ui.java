@@ -217,6 +217,7 @@ public class Ui {
      * @param ingredientsList the {@link IngredientsList} whose ingredients are to be shown
      */
     public void showIngredientsInFridge(IngredientsList ingredientsList) {
+        assert ingredientsList != null;
         showLine();
         if (ingredientsList.isEmpty())
             System.out.println("\t The fridge is empty, better go buy some ingredients! ");
@@ -348,6 +349,11 @@ public class Ui {
         showOrderListSize(size);
     }
 
+    //@@author 9hafidz6
+    /**
+     * show the dish that has been added to dishlist
+     * @param dish name of dish
+     */
     public void showAddedDishes(String dish) {
         showLine();
         System.out.println("\t you have added the following dish: ");
@@ -363,7 +369,11 @@ public class Ui {
         System.out.println("\t Got it. I've added " + ingredient.getName() + " to the fridge, you currently have:");
         System.out.println("\t " + ingredient);
     }
-
+    //@@author 9hafidz6
+    /**
+     * shows the dish that has been removed from dishlist
+     * @param dish name of dish deleted from dishlist
+     */
     public void showDeletedDIsh(String dish) {
         showLine();
         System.out.println("\t The following dish have been removed:");
@@ -371,7 +381,15 @@ public class Ui {
         showLine();
     }
 
+    //@@author 9hafidz6
+    /**
+     * shows the ingredient is added to the dish
+     * @param ingredient ingredient that is added to dish
+     * @param dish the dish that ingredient has been added to
+     */
     public void showIngredients(Ingredient ingredient, Dish dish) {
+        assert ingredient != null;
+        assert dish != null;
         showLine();
         System.out.println("\t ingredient: " + ingredient.getName()
                 + "\n\t added to: " + dish.getDishname());

@@ -12,7 +12,7 @@ By: `Team CS213-T14-2`       Since: `Oct 2019`
 
 #### 2.1  Architecture
 
-![architecture]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/archh.png )
+![architecture]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/arch.png )
 
 `main` has 1 class called `Duke`. It is responsible for,
 
