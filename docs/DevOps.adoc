@@ -9,4 +9,13 @@ We use Travis CI to perform continuous integration for ArchDuke.
 == 6.3 Documentation Previews
 
 == 6.4 Making a Release
+Here are the steps to create a new release.
+
+1. Update the archiveVersion number in `build.gradle` shadowJar section.
+
+2.  Generate a JAR file using Gradle shadowJar.
+
+3. Create a Tag to the current repo release with the version number e.g v.1.4.
+
+4. https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR generated earlier.
 

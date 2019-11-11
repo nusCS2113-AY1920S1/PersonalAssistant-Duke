@@ -684,7 +684,7 @@ class ProjectInputControllerTest {
         simulatedUserInput = "add reminder -n Install Antivirus -r Use the free version -d 10/10/2000 -l Software";
         projectInputController.projectAddReminder(project,simulatedUserInput);
 
-        String [] validArray = projectInputController.projectViewReminderCategory(project);
+        String [] validArray = projectInputController.projectViewReminderByList(project);
 
         String [] expectedArray = {"+----------------------------------------------------------------------+",
             "|Reminders of Infinity_Gauntlet:                                       |",
