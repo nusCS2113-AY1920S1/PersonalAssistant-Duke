@@ -24,6 +24,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import seedu.duke.common.network.Http;
 import seedu.duke.common.parser.CommandParseHelper;
 
 import java.io.File;
@@ -31,6 +32,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static seedu.duke.common.storage.ResourceHelper.readWelcomePageContent;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -75,15 +78,9 @@ public class MainWindow extends AnchorPane {
 
         // show email
         webEngine = webView.getEngine();
-        //webEngine.load("https://www.google.com");
-        webEngine.loadContent(loadDefaultWebView());
-
-        // initialize GUI with database
-        //updateTasksList();
-        //updateEmailsList();
+        webEngine.loadContent(readWelcomePageContent());
 
         userInputHandler = new UserInputHandler(userInput, sendButton);
-        //setInputPrefix();
 
         // disable webView so that userInput can get focus
         webView.setDisable(true);
@@ -101,23 +98,6 @@ public class MainWindow extends AnchorPane {
         rootAnchorPane.setPrefWidth(screenWidth);
     }
 
-    private String loadDefaultWebView() {
-        try {
-            String htmlDir = "." + File.separator + "src" + File.separator + "main" + File.separator
-                    + "resources" + File.separator + "html" + File.separator + "defaultWebView.html";
-            File htmlFile = new File(htmlDir);
-            FileInputStream in = new FileInputStream(htmlFile);
-            Scanner scanner = new Scanner(in);
-            String content = "";
-            while (scanner.hasNextLine()) {
-                content += scanner.nextLine();
-            }
-            return content;
-        } catch (FileNotFoundException e) {
-            return "Welcome to Email Manager!";
-        }
-
-    }
 
     /**
      * Display a message on the main window chat box.
