@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Arrays;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Pattern;
 
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.task.TaskList;
@@ -33,6 +34,10 @@ public class AddCommandAnomaly extends DetectAnomaly {
             + "Valid <unit> are minutes/hours/days/weeks/months.";
     private static final String MESSAGE_PASSED_DATE_TIME = "A past date and time has been provided.\n"
         + "\tPlease only provide upcoming date and time.";
+    private static final String MESSAGE_INVALID_SUBCOMMAND = "Invalid subcommand! Adding commands only supports: " +
+        "/d, /every and /tag";
+    private static final String MESSAGE_ONLY_ALPHANUMERIC = "Tags can only contain alphanumeric letters!";
+    private static Pattern p = Pattern.compile("^[a-zA-Z0-9]*$");
 
     /**
      * Detects anomaly in add command input.
@@ -55,6 +60,13 @@ public class AddCommandAnomaly extends DetectAnomaly {
         try {
             List<String> parsedInput = Arrays.asList(userInput[1].split(" "));
 
+            for(String str : parsedInput) {
+                if (str.substring(0, 1).equals("/") && !isValidSubCommand(str)) {
+                    CommandLog.removeLastCommand();
+                    throw new CommandLineException(MESSAGE_INVALID_SUBCOMMAND);
+                }
+            }
+
             if (parsedInput.contains("/d")) {
                 int difficultyIndex = parsedInput.indexOf("/d") + 1;
                 String difficulty = parsedInput.get(difficultyIndex);
@@ -67,7 +79,9 @@ public class AddCommandAnomaly extends DetectAnomaly {
 
             if (parsedInput.contains("/tag")) {
                 int tagIndex = parsedInput.indexOf("/tag") + 1;
-                parsedInput.get(tagIndex);
+                if (!p.matcher(parsedInput.get(tagIndex)).find()) {
+                    throw new CommandLineException(MESSAGE_ONLY_ALPHANUMERIC);
+                }
             }
 
             if (parsedInput.contains("/by") || parsedInput.contains("/at")) {
@@ -99,5 +113,10 @@ public class AddCommandAnomaly extends DetectAnomaly {
             CommandLog.removeLastCommand();
             throw new CommandLineException("Please enter an integer after /every");
         }
-    } 
+    }
+
+    public boolean isValidSubCommand(String str) {
+        List<String> check = Arrays.asList("/every", "/d", "/tag", "/at", "/by");
+        return check.contains(str.toLowerCase());
+    }
 }
