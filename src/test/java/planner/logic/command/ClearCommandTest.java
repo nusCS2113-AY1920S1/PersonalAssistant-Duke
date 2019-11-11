@@ -12,6 +12,7 @@ import planner.logic.modules.module.ModuleTask;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ClearCommandTest extends CommandTestFramework {
 
@@ -143,6 +144,28 @@ public class ClearCommandTest extends CommandTestFramework {
                 + "y");
         expectedOutput = "Are you sure you want to clear your data?\n"
                 + "Done! Your data have been cleared\n";
+        assertEquals(expectedOutput, getOut());
+    }
+
+    @DisplayName("Clear Password Functionality Test")
+    @Test
+    public void clearPasswordShouldDoNothingIfNoPasswordIsSet() {
+        resetAll();
+        assertNull(user.getPasswordHash());
+        execute("clear password\n"
+                + "y");
+        assertNull(user.getPasswordHash());
+    }
+
+    @DisplayName("Clear Password Output Test")
+    @Test
+    public void clearPasswordOutputShouldBeAnErrorIfNoPasswordIsSet() {
+        resetAll();
+        assertNull(user.getPasswordHash());
+        execute("clear password\n"
+                + "y");
+        expectedOutput = "Are you sure you want to clear your password?\n"
+                + "No active password found!\n";
         assertEquals(expectedOutput, getOut());
     }
 }
