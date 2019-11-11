@@ -101,7 +101,7 @@ Adds an event to the task manager. Events support the same functionalities of ta
 ==== Priority
 Priority tagging for tasks have 3 levels. `l` , `m` and `h` to represent low, medium and high respectively. +
 
-    -p h
+-p h
 
 [NOTE]
 Feel free to type `low`, `medium` or `high` as well, El Duque understands. +
@@ -121,11 +121,11 @@ Duration assigned to task denotes the amount of time in hours you assigned for t
 ==== Date and Time
 Date and time input follows the following formats: `ddMMyy` or `ddMMyy HHmm`. +
 
-    -t 071119 1000
+-t 071119 1000
 
 El Duque also supports keywords `today`,  `tomorrow` and `today/tomorrow HHmm` as well. +
 
-    -t tomorrow 1200
+-t tomorrow 1200
 
 [TIP]
 If a valid but non-existent date is passed in, El Duque will correct it to the closest existent date. +
@@ -134,17 +134,17 @@ e.g `-t 310219` will be corrected to 28-02-19.
 === Listing all tasks : `list`
 Shows a list of all tasks in the task manager. +
 
-    list
+list
 
 ==== Filtered List
 Adding a `-FILTER` infront of the list command will show the respective filtered list. +
 
-    -CS2113 list
+-CS2113 list
 
 ==== Time-Based List
 List based on certain time frames are also included: `day` and `week`. +
 
-    list day
+list day
 
 ==== Uncompleted List
 List based on completion of task: `undone`
@@ -159,7 +159,7 @@ List based on priority: `priority`
 === Completing a task : `done`
 Completes an existing task in the address book. +
 
-    done INDEX
+done INDEX
 
 [NOTE]
 Only valid indexes will work! If you try to perform the command using an index not shown in the current list, the task manager will ask you to type in a valid index!
@@ -174,6 +174,7 @@ Filters can be used with this command as well as shown.
 
 Will mark the second task in the -CS2113 list as done.
 
+//tag::ajl[]
 === Locating tasks by description: `find`
 
 Finds task whose description contain any of the given keywords. +
@@ -182,16 +183,26 @@ Finds task whose description contain any of the given keywords. +
 
 The task manager supports partial matching in the search operation. +
 
-    find bo
+find bo
 
-Will return tasks that have "bo" in the description.
+Will return tasks that have "bo" in their description.
 
 === Auto assign: `autoassign`
 You can auto assign tasks that have yet to have filters using certain heuristics.
 This feature relies on filter name matching or having similar description words.
-For example, if `cs` filter has many tasks with description contatining "programming", auto assigning a task with "programming" in the description will suggest `cs` as a filter.
+For example, if `cs` filter has many tasks with description contatining "programming", auto assigning a task with "programming" in the description will suggest `cs` as a filter. Having `cs` in its description will suggest `cs` as a filter.
+
+It is possible that there can be more than one eligible filter to be recommended. For example, if a task has many similar words with tasks in `cooking` filter but has `cs` within its description, both `cs` and `cooking` are eligible. El Duque will first ask for all filter(s) that matched based on filter name. If user replies `N` for all of them, El Duque will then ask for all filter(s) that matched based on similar description words.
 
     autoassign 2
+    This task's description contains the filter "cs", would you like to assign to it? (Y/N)
+    N
+    Alright then.
+    The closest filter is "cooking" based on similar words.
+    Would you like to assign task "prepare food for cs party" to filter "cooking"? (Y/N)
+    Y
+
+//end::ajl[]
 
 //tag::shaun97[]
 
@@ -203,7 +214,7 @@ The parameters to be edited must begin with `-KEYWORD` followed by the edit.
 
 Editing the description and recurrence of the first task of the list is as follows. +
 
-    edit 1 -desc gym -r daily
+edit 1 -desc gym -r daily
 
 [NOTE]
 The order of the parameters does not matter!
@@ -247,7 +258,7 @@ Deletes the 1st task in the list shown by the `-CS2113 list` command.
 
 Restores the task manager to the state before the previous _undoable_ command was executed. +
 
-    undo
+ undo
 
 [NOTE]
 ====
@@ -272,7 +283,8 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 This first undo will reverse the `delete 1` command. +
 The second undeo will reverse the `edit 2 -p high` command. +
-// end::undoredo[]
+
+//end::undoredo[]
 
 === Clear: `clear`
 Clears the entire task list.
@@ -295,7 +307,7 @@ Pomodoro supports the adding of task to a temporary pomodoro task list for you t
 ==== Starting a pomodoro: `start`
 Starts the timer for the current cycle that it is in. First instance of this would be the work cycle. +
 
-    pomo start
+pomo start
 
 El Duque will subsequently update you on the time remaining for the current state every 5 minutes.
 
@@ -313,18 +325,18 @@ Ends the current pomodoro. The pomodoro will automatically update to the next st
 ==== Viewing the status: `status`
 Shows the remaining time and current status of the pomodoro. +
 
-    pomo status
+pomo status
 
 ==== Resetting the pomodoro : `reset`
 Resets the current state to the previous state.
 If current state is a *break*, it will be resetted to a *work* state. +
 
-    pomo status
+pomo status
 
 ==== Restarts the pomodoro : `restart`
 Restarts the entire pomodoro to the first *work* state. +
 
-    pomo restart
+pomo restart
 
 ==== Adding to pomodoro tasks: `add`
 This pomodoro supports adding of tasks to the pomodoro to help you keep track of what you wish to complete in this cycle.
@@ -354,7 +366,7 @@ This will remove it from the pomodoro task list and update the task as completed
 El Duque contains a bank of brain teasers that will be shown every time a break has started.
 We hope this gives you something to take your mind of work. You can use the `answer` keyword to reveal the answer to the brain teaser. +
 
-    pomo answer
+ pomo answer
 
 [NOTE]
 Brain teaser bank is randomised, you might not get the same question the next break. Make sure to type `pomo answer` before you start your next break to view the answer to this current brain teaser!
@@ -365,7 +377,28 @@ Brain teaser bank is randomised, you might not get the same question the next br
 
 Exits the program. +
 
-    bye
+ bye
+
+//tag::qol[]
+=== Quality of life
+To make life easier - the program helps to deal with minor errors in commands as well as provide shortcuts. Specifically, there are 2 checks that the parser will do on the command keyword (the first keyword; not filter/parameter/modification).
+
+Firstly, it checks if the command keyword is off by exactly one character through substitution. If so, you are prompted for correction.
+
+    lisd
+    Did you mean list? (Y/N)
+
+Secondly, it checks if the command keyword is a shortform. If there is a proper command that begins with the keyword, you will be prompted for correction.
+
+    l
+    Did you mean list? (Y/N)
+
+Note that if more than one proper command that begins with the keyword, the priority is shown as such:
+
+    done > delete
+    event > edit
+
+//end::qol[]
 
 === Saving the data
 
@@ -400,4 +433,3 @@ e.g `-cs edit 2 -f cs2113 -p h`
 * *Pomodoro* `pomo [MODIFICATION]` +
 e.g `pomo add 1`
 * *Bye* `bye`
-

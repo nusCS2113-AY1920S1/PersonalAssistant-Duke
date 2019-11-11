@@ -40,7 +40,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             String field = s[1];
             switch (keyword) {
             case "r":
-                recurrence = Optional.of(field);
+                recurrence = Optional.of(field.trim());
                 break;
             case "d":
                 try {

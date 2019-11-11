@@ -11,6 +11,8 @@ import duke.extensions.PreloadTasks;
 import duke.task.Task;
 import duke.ui.Ui;
 
+import javax.swing.text.html.Option;
+
 /**
  * Represents the data structure containing all tasks added to the task manager
  * Uses java.util.ArrayList as the main container
@@ -215,7 +217,7 @@ public class TaskList {
             temp.add(t);
         }
         temp.sort((a, b) -> a.getPriorityLevel() < b.getPriorityLevel() ? 1 : -1);
-        return new TaskList(temp);
+        return new TaskList(temp).undoneView();
     }
 
     /**
@@ -339,5 +341,23 @@ public class TaskList {
 
     public int getLongestFilter() {
         return longestFilter;
+    }
+
+    public void replace(ArrayList<Task> other) {
+        this.taskList = new ArrayList<>(other);
+    }
+
+    public boolean isEmpty(Optional<String> filter) {
+        if (filter.isEmpty()) {
+            return taskList.isEmpty();
+        }
+        int total = 0;
+        for (Task t : taskList) {
+            if (t.getFilter().equals(filter)) {
+                total++;
+                break;
+            }
+        }
+        return total == 0;
     }
 }

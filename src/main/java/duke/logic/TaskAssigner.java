@@ -45,12 +45,9 @@ public class TaskAssigner {
                 }
                 if (toUpdate.equals("Y")) {
                     task.setFilter(Optional.ofNullable(s));
-                    System.out.println(String.format("Task \"%s\" has been assigned to filter \"%s\"",
-                            task.getDescription(), s));
                     return;
                 } else {
                     System.out.println("Alright then.");
-                    return;
                 }
             }
         }
@@ -68,7 +65,7 @@ public class TaskAssigner {
         ArrayList<Integer> taskVector = getVectorCount(tokenize(task), uniqueTokens);
         String closestFilter = findClosestFilter(taskVector, filterVectorCounts);
         if (closestFilter == null) {
-            System.out.println("There are no suitable filters to assign.");
+            System.out.println("There are no suitable filters to assign based on similar words.");
             return;
         }
         System.out.println(String.format("The closest filter is \"%s\" based on similar words.",
@@ -84,8 +81,6 @@ public class TaskAssigner {
         }
         if (toUpdate.equals("Y")) {
             task.setFilter(Optional.ofNullable(closestFilter));
-            System.out.println(String.format("Task \"%s\" has been assigned to filter \"%s\"",
-                    task.getDescription(), closestFilter));
         } else {
             System.out.println("Alright then.");
         }
