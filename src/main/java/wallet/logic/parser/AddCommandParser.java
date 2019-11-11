@@ -24,6 +24,9 @@ public class AddCommandParser implements Parser<AddCommand> {
     public static final String MESSAGE_ERROR_WRONG_DATETIME_FORMAT = "Wrong date format, use \"dd/MM/yyyy\".";
     public static final String MESSAGE_ERROR_INVALID_CATEGORY
             = "Category can only be Bills, Food, Others, Shopping or Transport.";
+    public static final String MESSAGE_ERROR_INVALID_RECURRENCE_RATE
+            = "Recurrence rate can only be Daily, Weekly or Monthly.";
+    public static final String MESSAGE_ERROR_NEGATIVE_AMOUNT = "Amount should only be positive values.";
 
     /**
      * Returns an AddCommand object.
@@ -91,6 +94,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         String desc = arguments[0].trim();
         arguments = arguments[1].split(" ", 2);
         Double amount = Double.parseDouble(arguments[0].trim());
+        if (amount < 0) {
+            throw new WrongParameterFormat(MESSAGE_ERROR_NEGATIVE_AMOUNT);
+        }
         Category cat;
         LocalDate date = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -108,7 +114,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 date = LocalDate.parse(arguments[0].trim(), formatter);
                 freq = RecurrenceRate.getRecurrence(arguments[1].trim());
                 if (freq == null) {
-                    throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_CATEGORY);
+                    throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
                 }
             } else {
                 arguments = arguments[1].split("/on");

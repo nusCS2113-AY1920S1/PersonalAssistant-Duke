@@ -27,6 +27,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public static final String MESSAGE_ERROR_WRONG_DATE_FORMAT = "Error when parsing date, format is \"dd/MM/yyyy\".";
     public static final String MESSAGE_ERROR_INVALID_RECURRENCE_RATE = "Invalid value for rate of recurrence. "
             + "Acceptable values are: Daily, Weekly, Monthly or No";
+    public static final String MESSAGE_ERROR_NEGATIVE_AMOUNT = "Amount should only be positive values.";
 
     @Override
     public EditCommand parse(String input) throws InsufficientParameters {
@@ -205,12 +206,12 @@ public class EditCommandParser implements Parser<EditCommand> {
         expense.setId(id);
         String parameters = arguments[1].trim();
         int recIndex = parameters.indexOf("/r");
-        int dateIndex = parameters.indexOf("/t");
         int catIndex = parameters.indexOf("/c");
         int amtIndex = parameters.indexOf("/a");
+        int dateIndex = parameters.indexOf("/t");
         int descIndex = parameters.indexOf("/d");
         if (recIndex != -1) {
-            if (recIndex > dateIndex && recIndex > catIndex && recIndex > amtIndex && recIndex > descIndex) {
+            if (recIndex > catIndex && recIndex > amtIndex && recIndex > dateIndex && recIndex > descIndex) {
                 String[] getRecurring = parameters.split("/r");
                 RecurrenceRate rec = RecurrenceRate.getRecurrence(getRecurring[1].trim());
                 if (rec == RecurrenceRate.DAILY || rec == RecurrenceRate.WEEKLY || rec == RecurrenceRate.MONTHLY) {
@@ -227,19 +228,8 @@ public class EditCommandParser implements Parser<EditCommand> {
                 throw new WrongParameterFormat(EditCommand.MESSAGE_ERROR_FORMAT);
             }
         }
-        if (dateIndex != -1) {
-            if (dateIndex > catIndex && dateIndex > amtIndex && dateIndex > descIndex) {
-                String[] getDate = parameters.split("/t");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate date = LocalDate.parse(getDate[1].trim(), formatter);
-                expense.setDate(date);
-                parameters = getDate[0].trim();
-            } else {
-                throw new WrongParameterFormat(EditCommand.MESSAGE_ERROR_FORMAT);
-            }
-        }
         if (catIndex != -1) {
-            if (catIndex > amtIndex && catIndex > descIndex) {
+            if (catIndex > amtIndex && catIndex > dateIndex && catIndex > descIndex) {
                 String[] getCategory = parameters.split("/c");
                 expense.setCategory(Category.getCategory(getCategory[1].trim()));
                 parameters = getCategory[0].trim();
@@ -248,10 +238,24 @@ public class EditCommandParser implements Parser<EditCommand> {
             }
         }
         if (amtIndex != -1) {
-            if (amtIndex > descIndex) {
+            if (amtIndex > dateIndex && amtIndex > descIndex) {
                 String[] getAmount = parameters.split("/a");
+                if (Double.parseDouble(getAmount[1].trim()) < 0) {
+                    throw new WrongParameterFormat(MESSAGE_ERROR_NEGATIVE_AMOUNT);
+                }
                 expense.setAmount(Double.parseDouble(getAmount[1].trim()));
                 parameters = getAmount[0].trim();
+            } else {
+                throw new WrongParameterFormat(EditCommand.MESSAGE_ERROR_FORMAT);
+            }
+        }
+        if (dateIndex != -1) {
+            if (dateIndex > descIndex) {
+                String[] getDate = parameters.split("/t");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate date = LocalDate.parse(getDate[1].trim(), formatter);
+                expense.setDate(date);
+                parameters = getDate[0].trim();
             } else {
                 throw new WrongParameterFormat(EditCommand.MESSAGE_ERROR_FORMAT);
             }
