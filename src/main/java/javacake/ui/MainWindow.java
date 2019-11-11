@@ -174,6 +174,12 @@ public class MainWindow extends GridPane {
                 } else if (isResult) { // On results screen
                     LOGGER.info("Display Results Settings");
                     handleIsResult();
+                } else if (isTryingReset) { //confirmation of reset
+                    LOGGER.info("Confirm Reset Settings");
+                    handleResetConfirmation();
+                } else if (isWritingNote) {
+                    LOGGER.info("Writing Note Settings");
+                    handleWriteNote();
                 } else if ("listnote".equals(input)) {
                     //must be "listnote" exactly, else wont exe
                     handleListNote();
@@ -184,12 +190,6 @@ public class MainWindow extends GridPane {
                 } else if (isStarting && javaCake.isFirstTimeUser) { //set up new username
                     LOGGER.info("NEW USER Settings");
                     handleStartAndFirstTime();
-                } else if (isTryingReset) { //confirmation of reset
-                    LOGGER.info("Confirm Reset Settings");
-                    handleResetConfirmation();
-                } else if (isWritingNote) {
-                    LOGGER.info("Writing Note Settings");
-                    handleWriteNote();
                 } else {
                     LOGGER.info("handleOtherProcesses { normal mode }");
                     handleOtherProcesses();
