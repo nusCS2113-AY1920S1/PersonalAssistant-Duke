@@ -31,6 +31,7 @@ public class OverlayBarGroupRepeat  {
         SongConverter songconverter = new SongConverter();
         ducats.Storage storage = new ducats.Storage(System.getProperty("user.dir") + fileDelimiter + "data");
         //ducats.Storage storage = new ducats.Storage(Paths.get("data", "songlist.txt"));
+
         SongList songs = new SongList();
         String testSong = "Twinkle aminor 120 [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] "
                 + "[[UBs],[UB],[UBs],[UB],[UBs],[UB],[UBs],[UB]] "
@@ -84,7 +85,6 @@ public class OverlayBarGroupRepeat  {
         try {
             tester.execute(songs,ui,storage);
         } catch (Exception e) {
-
             System.out.println(e);
         }
         ArrayList<ducats.components.Song> findList = songs.findSong("Twinkle");
