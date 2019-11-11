@@ -793,7 +793,7 @@ for essential syntax unlike MarkDown.
 
 == 5. Testing
 
-// Refer to the guide <<Testing#, here>>.
+Refer to the guide <<Testing#, here>>.
 
 == 6. Dev Ops
 
