@@ -698,9 +698,8 @@ Instrument instance.
 
 ==== Sequence diagram
 The following sequence diagram shows how the view services functionality works.
-image::getServicesInstrumentSequenceDiagram.png[width = 100%]
 ====
-
+image::getServicesInstrumentSequenceDiagram.png[width = 100%]
 ====
 
 ==== Why it is implemented this way
