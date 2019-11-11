@@ -48,8 +48,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will show you a brief summary of c
 
 [[Features]]
 == Features
-//tag::shaun97[]
 ====
+
+//tag::shaun97[]
+
 El Duque relies on a flexible command line syntax to parse in commands. Here is the general form of that said syntax.
 
     [-FILTER] COMMAND [-MODIFICATIONS]
@@ -65,8 +67,10 @@ For example: +
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `task DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `task example`.
 * Items in square brackets are optional e.g `DESCRIPTION [-p PRIORITY]` can be used as `task example -p high` or as `task example`.
 * All optional modifications except FILTER can be in any order e.g. if the command specifies `task DESCRIPTION [-p PRIORITY] [-t DATETIME]`, `task DESCRIPTION [-t DATETIME] [-p PRIORITY]` is also acceptable.
-====
 
+//end::shaun97[]
+
+====
 === Viewing help : `help`
 
     help
@@ -92,7 +96,6 @@ Adds an event to the task manager. Events support the same functionalities of ta
 
     event Student Life Fair -t tomorrow 1000
 
-//end::shaun97[]
 //tag::nova[]
 
 === Modifications
@@ -104,8 +107,8 @@ Priority tagging for tasks have 3 levels. `l` , `m` and `h` to represent low, me
 
 [NOTE]
 Feel free to type `low`, `medium` or `high` as well, El Duque understands.
+
 //end::nova[]
-//tag::shaun97[]
 
 ==== Recurring Tasks
 Recurring tasks are tasks that will mark itself as undone after the recurrence period.
@@ -114,7 +117,6 @@ Recurrence periods supported are `daily` and `weekly`.
 
     -r daily
 
-//end::shaun97[]
 //tag::nova[]
 
 ==== Duration
@@ -134,8 +136,8 @@ El Duque also supports keywords `today`,  `tomorrow` and `today/tomorrow HHmm` a
 [TIP]
 If a valid but non-existent date is passed in, El Duque will correct it to the closest existent date. +
 e.g `-t 310219` will be corrected to 28-02-19.
+
 //end::nova[]
-//tag::shaun97[]
 
 === Listing all tasks : `list`
 Shows a list of all tasks in the task manager. +
@@ -179,7 +181,6 @@ Filters can be used with this command as well as shown.
     -CS2113 done 2
 
 Will mark the second task in the -CS2113 list as done.
-//end::shaun97[]
 
 //tag::ajl[]
 === Locating tasks by description: `find`
@@ -214,6 +215,7 @@ After executing the `autoassign` command, even if the user chose not to assign a
 //end::ajl[]
 
 //tag::shaun97[]
+
 === Editing a task : `edit`
 El Duque supports the editing of any parameters of a given task.
 The parameters to be edited must begin with `-KEYWORD` followed by the edit.
@@ -243,7 +245,7 @@ Shown below are the list of keywords and the respective attributes that they edi
 
 Deletes the specified task from the task manager. +
 
- [-FILTER] delete INDEX
+    [-FILTER] delete INDEX
 
 ****
 * Deletes the person at the specified `INDEX`.
@@ -303,7 +305,7 @@ ___
     undo
 
 This undo will reverse the `autoassign 2` command even though you chose to not assign the chosen filters to it. This is because the program recognises the autoassign command as being executed even though the state of the program has changed.
-//end::nova[] 
+//end::nova[]
 
 === Clear: `clear`
 Clears the entire task list.
@@ -315,13 +317,13 @@ This command supports filters as well. Typing the following command will clear t
     -CS2113 clear
 
 //tag::shaun97[]
+
 === Pomodoro Timer: `pomo`
 El Duque includes a pomodoro timer to complement the pomodoro workflow.
 This timer has 3 states, *work*, *short break* and *long break*.
 A work cycle is followed by a *short break*, every 4th break will be a *long break*. +
 
 Pomodoro supports the adding of task to a temporary pomodoro task list for you to keep track of tasks you wish to complete this pomodoro work session. +
-
 
 ==== Starting a pomodoro: `start`
 Starts the timer for the current cycle that it is in. First instance of this would be the work cycle. +
@@ -333,6 +335,8 @@ El Duque will subsequently update you on the time remaining for the current stat
 [NOTE]
 Once the timer has ended, the next call of `pomo start` will be the next state.
 If the current state is *work*, the next call will be a *break*.
+
+//end::shaun97[]
 
 ==== Stopping a pomodoro: `stop`
 Ends the current pomodoro. The pomodoro will automatically update to the next state.+
@@ -376,6 +380,8 @@ After you have completed a pomodoro task, you can mark it as `done`.
 This will remove it from the pomodoro task list and update the task as completed in the main task list.
 
     pomo done 1
+
+//tag::shaun97[]
 
 ==== Answers to brain teaser: `answer`
 El Duque contains a bank of brain teasers that will be shown every time a break has started.
@@ -448,4 +454,3 @@ e.g `-cs edit 2 -f cs2113 -p h`
 * *Pomodoro* `pomo [MODIFICATION]` +
 e.g `pomo add 1`
 * *Bye* `bye`
-

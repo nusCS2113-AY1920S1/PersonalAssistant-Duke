@@ -35,7 +35,6 @@ If you are running the program for the first time, El Duque will preload 20 task
 == Design
 
 [[Design-Architecture]]
-//tag::shaun97[]
 === Architecture
 
 .Architecture Diagram
@@ -57,8 +56,8 @@ The sequence diagram below shows how the different components interact with each
 .Component interactions for "task sleep well" command
 image::ComponentSequence.jpeg[]
 
-The sections below give more details of each component.
-//end::shaun97[]
+The sections below give more details of each component. +
+
 //tag::ajl3[]
 [[Design-Ui]]
 === UI component
@@ -199,7 +198,7 @@ Given below is an example usage scenario of an edit that includes a filter and h
 -cs edit 5 -priority 2
 ----
 
-. `Parser` separates the full command into a filter, `-cs` and the string, `edit 5 -priority 2`. Parse`r subsequently returns an `EditCommand` with these two strings as parameters. 
+. `Parser` separates the full command into a filter, `-cs` and the string, `edit 5 -priority 2`. Parser subsequently returns an `EditCommand` with these two strings as parameters.
 
 . `Duke` calls `Command.execute()`, which runs the overridden function in `EditCommand` and takes in `TaskList`, `UI` and `Storage`.
 
@@ -244,7 +243,7 @@ The Pomodoro object instantiates a java.util timer and the pomodoroTimerTask cla
 *Pomodoro States*
 The states are configured based on the pomodoro workflow and are as follows:
 
-* Work : Set to 25 minutes intervals, once completed will switch to a break.
+* Work: Set to 25 minutes intervals, once completed will switch to a break.
 * Short Break: Set to 5 minutes interval, runs after ever 1st, 2nd and 3rd work cycle.
 * Long Break: Set to 15 minutes interval, runs after every 4th work cycle.
 
@@ -253,39 +252,37 @@ This feature uses the keyword pomo followed by a few commands to control it’s 
 
     pomo [MODIFICATION]
 
-`start`: Begins the timer.
+`start`: Begins the timer. +
+`status`: Outputs the current status of the pomodoro, minutes remaining and current cycle. +
+`reset`: Resets the timer back to the previous state. +
+`restart`: Restarts the pomodoro to the 1st work cycle. +
+`stop`: Stops the timer.  +
+`add INDEX`: Assigns a task to the current pomodoro and prints out during status updates. +
+`done INDEX`: Marks a pomodoro task as complete and removes it from the pomodoro list. +
+`answer` : Shows the answer to the brain teaser. +
 
-`status`: Outputs the current status of the pomodoro, minutes remaining and current cycle.
-
-`reset`: Resets the timer back to the previous state. 
-
-`restart`: Restarts the pomodoro to the 1st work cycle.
-
-`stop`: Stops the timer. 
-
-`[Coming in v1.4] set`: Assigns a task to the current pomodoro and prints out during status updates.
-
-Given below is the sequence diagram of how the pomodoro feature work. 
+Given below is the sequence diagram of how the pomodoro feature works.
 
 .Sequence Diagram for Pomodoro Feature
 image::PomodoroSequenceDiagram.jpeg[]
 
 ==== Design Considerations
-===== Aspect: How actual index of task is found when given an index based on the filtered list
-* **Alternative 1 (current choice):** Using 2 separate counters to keep track of actual index versus filtered index
-** Pros: Easy to implement.
-** Cons: Harder to understand.
-* **Alternative 2:** Saves a copy of the filtered list
-** Pros: Clearer to understand. 
-** Cons: Have to deal with multiple lists.
+===== Aspect: Where to instantiate this pomodoro class
+* **Alternative 1 (current choice):** Instantiate it as a singleton.
+** Pros: Easy way to access this pomodoro class from anywhere in the code base.
+There is only ever one instance of this class, multiple objects of this class will result in incorrect timer control.
+** Cons: Acts like a global variable, increasing coupling accross the code base.
+* **Alternative 2:** Instantiate it in Duke and pass it into PomodoroCommand.
+** Pros: Easier to test, Singletons carry data from one test to another.
+** Cons: Have keep passing this object to commands that require it.
 
-===== Aspect: How the task are updated
-* **Alternative 1 (current choice):** Updating each attribute of a task separately.
-** Pros: Reduces the dependency needed, `EditCommand` only needs to call a setter function instead of a getter for existing attributes followed by `AddCommand`.
-** Cons: Have to create a setter for each attribute of task
-* **Alternative 2:** Create a new task with updated fields.
-** Pros: Won’t need to call individual setters for each attribute.
-** Cons: Have to deal with AddCommand class to create a new task.
+===== Aspect: How pomodoro tasks are stored
+* **Alternative 1 (current choice):** Create a new array list of tasks and add tasks into it.
+** Pros: Reduces the dependency needed, PomodoroCommand does not need to call TaskList when it needs to run getDescription().
+** Cons: Have to write more code to maintain this new array list.
+* **Alternative 2:** Store indexes of tasks that are added.
+** Pros: Won’t need to maintain another array list in the Pomodoro Class.
+** Cons: Increases coupling, have to constantly reference TaskList class when managing tasks.
 
 //end::shaun97[]
 //tag::ajl[]
