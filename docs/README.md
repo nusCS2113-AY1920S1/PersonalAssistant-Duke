@@ -2,7 +2,7 @@
 
 We aim to provide NUS Hall admin staff with a tool to easily manage bookings of hall facilities by students.
 
-![HallBooker](https://github.com/AY1920S1-CS2113T-W12-3/main/blob/master/docs/images/Ui.PNG)
+![HallBooker](https://github.com/AY1920S1-CS2113T-W12-3/main/blob/master/docs/images/Ui.png)
 
 ## Site Map
 
