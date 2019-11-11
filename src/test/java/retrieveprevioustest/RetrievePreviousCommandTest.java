@@ -111,12 +111,18 @@ public class RetrievePreviousCommandTest {
         assertNotNull(command, actual);
     }
 
+    public ArrayList<String> addingToPreviousInputList(ArrayList<String> previousInputList) {
+        previousInputList.add("find/time 3 hours");
+        previousInputList.add("find/time 3 hours");
+        return previousInputList;
+    }
     @Test
     public void retrievePreviousCommand_userInputWithInvalidNumberGreaterThanSize_throwsDukeInvalidCommandException() {
         showPreviousCommandList();
         runWeekCommand();
 
         previousInputList = ShowPreviousCommand.getOutputList();
+        addingToPreviousInputList(previousInputList);
         int sizeOfList = previousInputList.size();
         Command command = new RetrievePreviousCommand(userInputWithInvalidNumberGreaterThanSize);
         String expected = "There are only " + sizeOfList + " of previous commands."
