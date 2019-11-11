@@ -1,7 +1,10 @@
 package seedu.hustler.reminders;
 
 import org.junit.jupiter.api.Test;
-import seedu.hustler.task.*;
+import seedu.hustler.task.TaskList;
+import seedu.hustler.task.Deadline;
+import seedu.hustler.task.Reminders;
+import seedu.hustler.task.Task;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
