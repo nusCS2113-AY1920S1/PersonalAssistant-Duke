@@ -42,8 +42,8 @@ public class AddBookingCommandTest {
         assertEquals(arrExpectedOutput, arrActualOutput);
         System.out.println("Test passed.");
 
-        DeleteBookingCommand deleteBookingCommand = new DeleteBookingCommand("deletebooking 4");
-        deleteBookingCommand.execute(bookingList, ui, bookingStorage);
+        DeleteBookingCommand deleteBookingCommand1 = new DeleteBookingCommand("deletebooking 4");
+        deleteBookingCommand1.execute(bookingList, ui, bookingStorage);
 
     }
 }
