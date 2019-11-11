@@ -21,7 +21,7 @@ Responsibilities: Integrate the different functions together.
 
 === Jason Lee
 image::jasonleeweihern.png[width="150", align="left"]
-{empty}[https://github.com/JasonLeeWeiHern[github]][<<JasonLeeWeiHern#, portfolio>>]
+{empty}[https://github.com/JasonLeeWeiHern[github]][https://github.com/AY1920S1-CS2113T-F10-4/main/blob/master/docs/team/JasonLeeWeiHern.pdf[portfolio]]
 
 Role: Team Lead +
 Responsibilities: UI/UX designer
