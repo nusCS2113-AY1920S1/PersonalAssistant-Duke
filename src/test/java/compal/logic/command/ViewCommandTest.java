@@ -48,7 +48,8 @@ class ViewCommandTest {
         taskArrListMain.add(deadline3);
         taskArrListMain.add(deadline4);
 
-        this.taskListMain.setArrList(taskArrListMain);
+        taskListMain.setArrList(taskArrListMain);
+        taskListMain.sortTask(taskListMain.getArrList());
     }
 
     @Test
@@ -174,9 +175,9 @@ class ViewCommandTest {
             }
 
             if (t.getStringMainDate().equals(dateInput)) {
-                allTask.append(getAsStringViewStub(t, dateInput));
+                allTask.append(getAsStringViewStub(t));
             } else if (!t.getStringTrailingDate().equals("-") && t.getStringTrailingDate().equals(dateInput)) {
-                allTask.append(getAsStringViewStub(t, dateInput));
+                allTask.append(getAsStringViewStub(t));
             }
         }
 
@@ -194,7 +195,7 @@ class ViewCommandTest {
 
     }
 
-    private String getAsStringViewStub(Task t, String dateInput) {
+    private String getAsStringViewStub(Task t) {
 
 
         StringBuilder taskDetails = new StringBuilder();
@@ -209,9 +210,21 @@ class ViewCommandTest {
             status = "\u274C";
         }
 
-        String startTime = "";
-        String endTime = "";
+        String startTime = "-";
+        String endTime = "-";
 
+        if (t.getSymbol().equals("E")) {
+            if (t.getStringMainDate().equals(t.getStringTrailingDate())) {
+                startTime = t.getStringStartTime();
+                endTime = t.getStringEndTime();
+            } else {
+                startTime = t.getStringStartTime();
+                endTime = "2359";
+            }
+        } else if (t.getSymbol().equals("D")) {
+            endTime = t.getStringEndTime();
+        }
+        /*
         if (dateInput.equals(t.getStringMainDate())) {
             //if date same
             if (t.getStringMainDate().equals(t.getStringTrailingDate())) {
@@ -231,7 +244,7 @@ class ViewCommandTest {
                 System.out.println(startTime);
                 System.out.println(endTime);
             }
-        }
+        }*/
 
 
         if ("-".equals(startTime)) {

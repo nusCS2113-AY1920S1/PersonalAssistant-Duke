@@ -11,7 +11,6 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -87,7 +86,6 @@ class DailyCalUi {
      */
     private void createDailyArrayList() {
 
-        Comparator<Task> compareByStartTime = Comparator.comparing(Task::getPriority);
         for (Task t : tempOriginalList) {
             if (t.getStringMainDate().equals(dateToDisplay)) {
                 if (t.getSymbol().equals("D") && !t.getisDone()) {
@@ -106,14 +104,9 @@ class DailyCalUi {
             }
         }
         if ("E".equals(type)) {
-            dailyCalArrayList.sort(compareByStartTime);
             deadlineArrayList.clear();
         } else if ("D".equals(type)) {
-            deadlineArrayList.sort(compareByStartTime);
             dailyCalArrayList.clear();
-        } else {
-            dailyCalArrayList.sort(compareByStartTime);
-            deadlineArrayList.sort(compareByStartTime);
         }
 
     }

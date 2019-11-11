@@ -75,11 +75,6 @@ public class TaskIdManager {
     }
 
     //@@author jaedonkey
-    public void clearId(int id) {
-        idBitSet.clear(id);
-    }
-
-    //@@author jaedonkey
     /**
      * Reads in the saved idbitset as an object and returns it.
      *

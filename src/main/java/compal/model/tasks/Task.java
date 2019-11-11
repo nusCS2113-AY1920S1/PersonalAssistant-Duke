@@ -26,7 +26,6 @@ public abstract class Task implements Serializable {
     private Date endTime;
     private boolean hasReminder;
     private Priority priority;
-    private long priorityScore;
     private int id;
     private static final Logger logger = LogUtils.getLogger(Task.class);
 
@@ -132,15 +131,6 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Sets symbol of task to be symbolInput.
-     *
-     * @param symbolInput The symbol for the task.
-     */
-    public void setSymbol(String symbolInput) {
-        symbol = symbolInput;
-    }
-
-    /**
      * Gets date of task in date format.
      *
      * @return Date of task.
@@ -184,8 +174,7 @@ public abstract class Task implements Serializable {
      * @param dateInput Input date for event. Used as the end date for event.
      */
     public void setTrailingDate(String dateInput) {
-        Date trailingDate = CompalUtils.stringToDate(dateInput);
-        this.trailingDate = trailingDate;
+        this.trailingDate = CompalUtils.stringToDate(dateInput);
     }
 
     /**
@@ -270,6 +259,7 @@ public abstract class Task implements Serializable {
         }
     }
 
+
     /**
      * Gets description of task.
      *
@@ -284,15 +274,6 @@ public abstract class Task implements Serializable {
      */
     public void setDescription(String newDescription) {
         this.description = newDescription;
-    }
-
-    /**
-     * Gets priorityScore.
-     *
-     * @return priority score
-     */
-    public long getPriorityScore() {
-        return priorityScore;
     }
 
     /**
@@ -420,7 +401,6 @@ public abstract class Task implements Serializable {
         long diffHours = diff / (60 * 60 * 1000);
         //System.out.println("Task:LOG: Difference is " + diffHours);
         score += diffHours;
-        this.priorityScore = score;
     }
 
     //@@author Catherinetan99
@@ -478,15 +458,6 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Create string of date and start time.
-     *
-     * @return string object of date and start time.
-     */
-    public String getStringDateAndStartTime() {
-        return getStringMainDate() + " " + getStringStartTime();
-    }
-
-    /**
      * Create a string of date and end time.
      *
      * @return string object of date and end time.
@@ -497,19 +468,66 @@ public abstract class Task implements Serializable {
 
 
     /**
+     * Create a string of main or trailing date with end time.
+     *
+     * @return string object of date and end time.
+     */
+    public String getStringMainOrTrailingDateAndEndTime() {
+        return getStringMainOrTrailingDate() + " " + getStringEndTime();
+    }
+
+    /**
+     * Create a string of main or trailing date.
+     *
+     * @return string object of date and end time.
+     */
+    public String getStringMainOrTrailingDate() {
+        if (this.trailingDate == null) {
+            return getStringMainDate();
+        } else {
+            String trailingDateString = CompalUtils.dateToString(this.trailingDate);
+            return trailingDateString;
+        }
+    }
+
+
+    /**
      * Create a date object of date and start time.
      *
      * @return date object of formatted time.
      */
-    public Date getDateObgDateAndStartTime() {
+    public Date getDateObgMainDateAndStartOrEndTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         try {
-            Date date = sdf.parse(getStringDateAndStartTime());
+            Date date = sdf.parse(getStringDateAndStartOrEndTime());
             return date;
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Create a string main date and start or end time.
+     *
+     * @return string object of date and end time.
+     */
+    public String getStringDateAndStartOrEndTime() {
+        return getStringMainDate() + " " + getStringStartOrEnd();
+    }
+
+    /**
+     * Gets start time of task in string.
+     *
+     * @return Time of task.
+     */
+    public String getStringStartOrEnd() {
+        SimpleDateFormat formatter = new SimpleDateFormat("HHmm");
+        if (this.startTime == null) {
+            return getStringEndTime();
+        } else {
+            return formatter.format(this.startTime);
+        }
     }
 
     /**

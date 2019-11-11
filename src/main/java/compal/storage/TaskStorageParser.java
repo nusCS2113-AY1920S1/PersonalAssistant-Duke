@@ -14,7 +14,6 @@ import java.util.logging.Logger;
  */
 public class TaskStorageParser implements StorageParser<Task> {
 
-    private static final String SYMBOL_RECUR = "RT";
     private static final String SYMBOL_DEADLINE = "D";
     private static final String SYMBOL_EVENT = "E";
     private static final Logger logger = LogUtils.getLogger(TaskStorageParser.class);

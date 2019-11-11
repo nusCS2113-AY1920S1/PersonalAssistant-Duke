@@ -57,7 +57,6 @@ public class ViewReminderCommand extends Command {
         Date dateAfter = calendar.getTime();
 
         calendar.setTime(currentDate);
-        Date dateToday = calendar.getTime();
 
         for (Task task : currList) {
             if (!task.getisDone() && ((task.getEndTime().before(dateAfter)) || task.gethasReminder())) {
