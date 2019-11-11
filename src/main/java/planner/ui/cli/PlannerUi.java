@@ -173,16 +173,13 @@ public class PlannerUi {
                 return null;
             }
             StringBuilder input = new StringBuilder();
-            char c;
-            for (c = (char) stream.read();
+            for (char c = (char) stream.read();
                  c != '\n' && c != '\uFFFF';
                  c = (char) stream.read()) {
                 if (c != '\r') {
                     input.append(c);
                 }
-                System.out.println(c);
             }
-            System.out.println(c);
             if (input.length() == 0) {
                 return null;
             }
