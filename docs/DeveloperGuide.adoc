@@ -1,4 +1,4 @@
-= ModPlan v1.3 - Developer's Guide
+= ModPlan v1.4 - Developer's Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
