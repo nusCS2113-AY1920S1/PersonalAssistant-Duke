@@ -24,7 +24,7 @@ RIMS (Resource and Inventory Management System) is a *command-line* logistic man
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `rims.jar` link:{repoURL/releases}[here].
+.  Download the latest RIMS JAR file release https://github.com/AY1920S1-CS2113T-W12-1/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your local version of RIMS.
 .  In your terminal, navigate to this folder and run the command `java -jar {FILENAME.jar}`, where `{FILENAME.jar}` should be replaced with the name of the latest RIMS file.
 .  The user interface should appear in a few seconds.
@@ -76,7 +76,7 @@ i.e. tabs and non-spacebar whitespace are not allowed in the input string.
 === Adding and Removing Resources
 
 ==== Add resource: `add`
-Adds a new resource (item or room) to the user's inventory, which is available for loan/reservation in RIMS.
+Adds a new resource to the user's inventory, which is available for loan/reservation in RIMS.
 
 .*Format*:
 * `add /item ITEM_NAME /qty QUANTITY`
@@ -93,11 +93,11 @@ Adds a new resource (item or room) to the user's inventory, which is available f
 Deletes a resource from the user's inventory in RIMS.
 
 .*Format*:
-. `delete /item ITEM_NAME /qty QUANTITY`
-. `delete /room ROOM_NAME`
-* If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
-* Quantity must be a positive integer.
-* Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
+* `delete /item ITEM_NAME`
+* `delete /room ROOM_NAME`
+. If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
+. Quantity must be a positive integer.
+. Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
 
 .*Examples*:
 * `delete /item book /qty 5`
@@ -109,13 +109,13 @@ Deletes a resource from the user's inventory in RIMS.
 Registers an item / room as having been lent out, and is unavailable for further loaning until it is returned.
 
 .*Format*:
-. `loan /item ITEM_NAME /qty QUANTITY /id USER_ID /by DEADLINE`
-. `loan /room ROOM_NAME /id USER_ID /by DEADLINE`
-* If the item or room does not exist in RIMS, then the UI will send an error message to inform the user.
-* Quantity and User ID must be non-negative integers.
-* If either of these values specified is less than or equal to zero, the UI will send an error message.
-* The deadline must be a valid date in the format `DD/MM/YYYY HHmm` or in the example format `Tuesday HHmm`, which will in this example, book the resource until the next Tuesday at the specified time.
-* If the deadline specified is in an invalid format, the UI will send an error message.
+* `loan /item ITEM_NAME /qty QUANTITY /id USER_ID /by DEADLINE`
+* `loan /room ROOM_NAME /id USER_ID /by DEADLINE`
+. If the item or room does not exist in RIMS, then the UI will send an error message to inform the user.
+. Quantity and User ID must be non-negative integers.
+. If either of these values specified is less than or equal to zero, the UI will send an error message.
+. The deadline must be a valid date in the format `DD/MM/YYYY HHmm` or in the example format `Tuesday HHmm`, which will in this example, book the resource until the next Tuesday at the specified time.
+. If the deadline specified is in an invalid format, the UI will send an error message.
 
 .*Examples*:
 * `loan /item book /qty 5 /id 1 /by 23/11/2019 1500`

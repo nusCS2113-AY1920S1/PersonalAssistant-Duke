@@ -18,7 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ParserReserveTest {
+public class ParserLoanTest {
     private static Parser parserUnderTest;
     private static Ui ui;
     private static ResourceList listUnderTest;
@@ -51,7 +51,7 @@ public class ParserReserveTest {
      */
     @Test
     public void validInputTest() throws RimsException, IOException, ParseException {
-        String input = "reserve /item testobject /qty 1 /id 1 /from 15/11/2020 1000 /by 15/11/2020 1200";
+        String input = "loan /item testobject /qty 1 /id 1 /by 15/11/2020 1200";
         parserUnderTest.parseInput(input);
 
         ui.formattedPrint("Test: valid input\n\tStatus: passed");
@@ -62,7 +62,7 @@ public class ParserReserveTest {
      */
     @Test
     public void invalidIntegerInputTest() throws RimsException, IOException, ParseException {
-        String input = "reserve /item testobject /qty a /id a /from 15/11/2020 1000 /by 15/11/2020 1200";    
+        String input = "loan /item testobject /qty a /id a /by 15/11/2020 1200";    
         Exception e = assertThrows(RimsException.class, () -> {
             parserUnderTest.parseInput(input);
         });
@@ -75,7 +75,7 @@ public class ParserReserveTest {
      */
     @Test
     public void invalidDateFormatTest() throws RimsException, IOException, ParseException {
-        String input = "reserve /item testobject /qty 1 /id 1 /from 15/11/2020 /by 15/11/2020 1200";
+        String input = "loan /item testobject /qty 1 /id 1 /by 15/11/2020";
     
         Exception e = assertThrows(RimsException.class, () -> {
             parserUnderTest.parseInput(input);
@@ -90,7 +90,7 @@ public class ParserReserveTest {
      */
     @Test
     public void itemDoesNotExistTest() throws RimsException, IOException, ParseException {
-        String input = "reserve /item what /qty 1 /id 1 /from 15/11/2020 /by 15/11/2020 1200";
+        String input = "reserve /item what /qty 1 /id 1 /by 15/11/2020 1200";
     
         Exception e = assertThrows(RimsException.class, () -> {
             parserUnderTest.parseInput(input);
