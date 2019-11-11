@@ -19,8 +19,7 @@ import java.util.HashMap;
  * This class displays songs in a musical song sheet format for visual representation
  * of the song being created.
  */
-public class AsciiCommand extends Command<SongList> {
-
+public class AsciiCommand extends Command {
     //@@author Samuel787
     private static final String MUSIC_8 = "*";
     private static final String MUSIC_6 = "$.";
@@ -135,7 +134,7 @@ public class AsciiCommand extends Command<SongList> {
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DucatsException(message, "AsciiCommand");
         }
-        return result;
+        return ui.formatAscii(result);
 
     }
 

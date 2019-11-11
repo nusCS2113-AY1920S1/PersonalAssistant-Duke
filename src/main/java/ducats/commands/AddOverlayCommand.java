@@ -11,8 +11,6 @@ import ducats.components.Chord;
 import ducats.components.Note;
 import ducats.components.Song;
 import ducats.components.SongList;
-import ducats.commands.AsciiCommand;
-import ducats.commands.Command;
 import ducats.DucatsLogger;
 import ducats.components.Combiner;
 
@@ -21,7 +19,7 @@ import java.util.Iterator;
 /**
  * A class representing the command to add a new bar of notes to the current song.
  */
-public class AddOverlayCommand extends Command<SongList> {
+public class AddOverlayCommand extends Command {
 
     private int songIndex;
     public String message;

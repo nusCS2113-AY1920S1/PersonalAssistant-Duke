@@ -6,15 +6,13 @@ import ducats.Ui;
 import ducats.components.Group;
 import ducats.components.Song;
 import ducats.components.SongList;
-
 import java.util.ArrayList;
 
 /**
  * A class representing the command to list all the groups of the active song.
  * It can also list specific groups based on a starting substring of the group name.
  */
-public class ListGroupCommand extends Command<SongList> {
-
+public class ListGroupCommand extends Command {
     //@@author Samuel787
 
     private String message;

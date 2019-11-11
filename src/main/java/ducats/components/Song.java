@@ -142,8 +142,6 @@ public class Song implements Serializable {
             i += 1;
         }
         return formattedChart.toString();
-
-
     }
 
     //@@author Samuel787

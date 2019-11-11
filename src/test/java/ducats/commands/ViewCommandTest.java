@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ViewCommandTest {
@@ -51,13 +52,55 @@ public class ViewCommandTest {
     public void execute_normalInput_success() throws DucatsException {
         ViewCommand viewTest1 = new ViewCommand("view dummy1");
         String testOutput1 = viewTest1.execute(dummySongList, dummyUi, dummyStorage);
-        String expectedOutput1 = "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|";
+        String expectedOutput1 = "\n" + "_____________________________________________\n"
+                + "UC:         \n"
+                + "UB:         \n"
+                + "UA: *       \n"
+                + "UG: --------\n"
+                + "UF:         \n"
+                + "UE: --------\n"
+                + "UD:         \n"
+                + "MC: --------\n"
+                + "LB:         \n"
+                + "LA: --------\n"
+                + "LG:         \n"
+                + "LF: --------\n"
+                + "LE:         \n"
+                + "LD:         \n"
+                + "LC:\n"
+                + "_____________________________________________\n";
         assertEquals(expectedOutput1, testOutput1);
 
         ViewCommand listTest2 = new ViewCommand("view dummy2");
         String testOutput2 = listTest2.execute(dummySongList, dummyUi, dummyStorage);
-        String expectedOutput2 = "{UPPER_B }{UPPER_B }{UPPER_B }{UPPER_B }|";
+        String expectedOutput2 = "\n" + "_____________________________________________\n"
+                + "UC:         \n"
+                + "UB: *-      \n"
+                + "UA:         \n"
+                + "UG: --------\n"
+                + "UF:         \n"
+                + "UE: --------\n"
+                + "UD:         \n"
+                + "MC: --------\n"
+                + "LB:         \n"
+                + "LA: --------\n"
+                + "LG:         \n"
+                + "LF: --------\n"
+                + "LE:         \n"
+                + "LD:         \n"
+                + "LC:\n"
+                + "_____________________________________________\n";
         assertEquals(expectedOutput2, testOutput2);
+    }
+
+    @Test
+    public void execute_invalidSongName_exceptionThrown() throws DucatsException {
+        ViewCommand newTest3 = new ViewCommand("view random");
+        DucatsException testDucatsException3 = assertThrows(DucatsException.class, () -> {
+            newTest3.execute(dummySongList, dummyUi, dummyStorage);
+        });
+        DucatsException expectedDucatsException3 = new DucatsException("view random", "view");
+        assertEquals(expectedDucatsException3.getMessage(), testDucatsException3.getMessage());
     }
 
     @Test

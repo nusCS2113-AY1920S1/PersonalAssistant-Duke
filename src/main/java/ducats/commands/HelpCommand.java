@@ -9,7 +9,7 @@ import ducats.components.SongList;
 /**
  * A class representing the command to display help: the command list.
  */
-public class HelpCommand extends Command<SongList> {
+public class HelpCommand extends Command {
 
     //@@author SalonetheGreat
     /**

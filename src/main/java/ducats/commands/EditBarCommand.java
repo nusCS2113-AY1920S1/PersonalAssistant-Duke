@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * A class representing the command to edit a bar of notes in the current song.
  */
-public class EditBarCommand extends Command<SongList> {
+public class EditBarCommand extends Command {
 
     private int songIndex;
 
@@ -44,6 +44,9 @@ public class EditBarCommand extends Command<SongList> {
             Song song = songList.getSongIndex(songIndex);
 
             String[] sections = message.substring(8).split(" ");
+            if (sections[0].isBlank() || sections[1].isBlank()) {
+                throw new DucatsException(message, "edit");
+            }
             barNo = Integer.parseInt(sections[0]);
             int notesIndex = message.indexOf(sections[1]);
             Bar newBar = new Bar(barNo, message.substring(notesIndex));
@@ -54,8 +57,16 @@ public class EditBarCommand extends Command<SongList> {
             storage.updateFile(songList);
             ArrayList<Song> temp = songList.getSongList();
             return ui.formatEdit(oldBar, newBar, song);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DucatsException("", "index");
+        } catch (NumberFormatException e) {
+            throw new DucatsException("", "number_index");
         } catch (Exception e) {
-            throw new DucatsException(message, "edit");
+            if (e instanceof DucatsException && ((DucatsException) e).getType().equals("io")) {
+                throw new DucatsException("", "io");
+            } else {
+                throw new DucatsException(message, "edit");
+            }
         }
     }
 

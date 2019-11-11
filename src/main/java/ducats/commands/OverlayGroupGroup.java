@@ -5,23 +5,18 @@ import java.util.ArrayList;
 import ducats.DucatsException;
 import ducats.Storage;
 import ducats.Ui;
-import ducats.components.Bar;
 import ducats.components.Group;
-import ducats.components.Note;
 import ducats.components.Song;
-import ducats.components.Chord;
 import ducats.components.SongList;
 import java.util.Iterator;
-import java.lang.Math;
-import ducats.commands.AsciiCommand;
-import ducats.commands.Command;
+
 import ducats.components.Combiner;
 import ducats.DucatsLogger;
 
 /**
  * A class that overlays  groups from 2 different songs.
  */
-public class OverlayGroupGroup  extends Command<SongList>  {
+public class OverlayGroupGroup  extends Command {
     public String message;
     private int songIndex;
 

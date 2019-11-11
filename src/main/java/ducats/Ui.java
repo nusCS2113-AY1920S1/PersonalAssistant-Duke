@@ -264,12 +264,23 @@ public class Ui {
     }
 
     /**
-     * Returns a String formatted for display that shows a song in the song list due to the view command.
-     * @param song the item that is to be displayed
+     * Returns a String formatted for display that shows the last bar of a song in the song list
+     * due to the view command.
+     * @param result the bar in ascii format that is to be displayed
      * @return the formatted String to be displayed
      */
-    public String formatView(Song song) {
-        return song.showSongChart();
+    public String formatView(String result) {
+        return result;
+    }
+
+    /**
+     * Returns a String formatted for display that shows a bar, group or song in the song list
+     * due to the ascii command.
+     * @param result the bar, group or song in ascii format that is to be displayed
+     * @return the formatted String to be displayed
+     */
+    public String formatAscii(String result) {
+        return wrap(result.trim());
     }
 
     /**
