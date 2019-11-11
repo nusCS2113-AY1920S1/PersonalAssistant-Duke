@@ -64,11 +64,11 @@ public class PatientCommandTest extends CommandTest {
         ArgCommand editCmd = null;
         ArgCommand editCmdPlus = null;
         String[] switchNames = {"name", "bed", "allergies", "height", "weight", "age", "number",
-                "address", "history"};
+            "address", "history"};
         String[] switchVals = {"new name", "new bed", "new allergies", "180", "100", "40", "95992020",
-                "new address", "new history"};
+            "new address", "new history"};
         String[] switchNamesPlus = {"name", "bed", "allergies", "height", "weight", "age", "number",
-                "address", "history", "append"};
+            "address", "history", "append"};
         String[] switchValsPlus = {"plus", "plus", "plus", "177", "70", "20", "99111720", "plus", "plus", null};
 
         try {

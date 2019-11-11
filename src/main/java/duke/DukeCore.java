@@ -33,20 +33,11 @@ public class DukeCore extends Application {
     public PatientData patientData;
     public ObjCommand queuedCmd;
 
+    /**
+     * Creates a new DukeCore, constructing a storage class to store the app's data in the default data folder
+     * ([folder]/data, where [folder] is the folder from which Duke is run.
+     */
     public DukeCore() {
-        ui = new UiManager(this);
-        uiContext = new UiContext();
-
-        try {
-            storage = new GsonStorage(storagePath);
-            patientData = new PatientData(storage);
-            setupLoggers();
-        } catch (DukeFatalException e) {
-            ui.showErrorDialogAndShutdown("Error encountered!", e);
-        }
-    }
-
-    public DukeCore(String storagePath) {
         ui = new UiManager(this);
         uiContext = new UiContext();
 

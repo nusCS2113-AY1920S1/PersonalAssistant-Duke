@@ -57,6 +57,9 @@ public class GsonStorageTest extends CommandTest {
      */
     private static String expected;
 
+    /**
+     * Loads the expected Json representation of the test patients from the data/expected.json file.
+     */
     @BeforeAll
     public static void loadExpected() {
         try {

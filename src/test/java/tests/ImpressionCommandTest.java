@@ -17,7 +17,6 @@ import duke.data.Observation;
 import duke.data.Patient;
 import duke.data.Result;
 import duke.exception.DukeException;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
@@ -58,14 +57,6 @@ public class ImpressionCommandTest extends CommandTest {
             fail("Failed to setup patient and impression for testing!");
         }
         core.uiContext.open(impression);
-    }
-
-    @AfterEach
-    public void cleanup() {
-        patient = null;
-        impression = null;
-        med = null;
-        result = null;
     }
 
     @Test
