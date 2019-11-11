@@ -244,6 +244,9 @@ public class Parser {
         if (words[1].equals("/item")) {
             int itemIndex = input.indexOf("/item") + 6;
             int qtyIndex = input.indexOf(" /qty");
+            if (itemIndex > input.length()){
+                throw new RimsException("Please specify the name of the item to add to your inventory.");
+            }
             if (qtyIndex == -1) {
                 throw new RimsException("Please specify the quantity of item to add to your inventory.");
             }
@@ -254,6 +257,13 @@ public class Parser {
             if (item.trim().isEmpty()) {
                 throw new RimsException("Please specify the item to add to your inventory.");
             }
+            String itemname = item.trim();
+            char[] charArray = itemname.toCharArray();
+            for (int i = 0; i < charArray.length; i ++){
+                if (charArray[i]==','){
+                    throw new RimsException("Please do not enter ',' in your input!");
+                }
+            }
             int qty = parseInt(input.replaceFirst("add /item " + item + " /qty ", "").trim());
             if (qty == 0) {
                 throw new RimsException("Please use a valid integer value above zero!");
@@ -261,7 +271,7 @@ public class Parser {
             if (qty > 100) {
                 throw new RimsException("You can only add up to 100 items at a time!");
             }
-            return new AddCommand(item.trim(), qty);
+            return new AddCommand(itemname, qty);
         } else if (words[1].equals("/room")) {
             if (input.contains("/qty")) {
                 throw new RimsException("Rooms do not require quantity!");

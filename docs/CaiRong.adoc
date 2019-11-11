@@ -1,40 +1,40 @@
-= Abhijit Ravichandran - Project Portfolio
+= CAI RONG- Project Portfolio 
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images/Bobby
+:stylesDir:
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-W12-1/main
 
-=== Project: RIMS – Resource & Inventory Management System
+
+== Project: RIMS – Resource & Inventory Management System
 
 This portfolio documents my contributions to the RIMS project, in terms of coding contributions towards implementing main features, project management on GitHub, and written contributions towards the User Guide, Developer Guide and general documentation.
 
-== About the project ==
+My project team consists of 4 computing students and I. Our project is about morphing an existing command-line note-taker into a storage management application. This application is a basic command-line interface application. This morphed application aims to serve as a user-friendly book-keeping system for logistics management. 
 
-RIMS (Resource & Inventory Management System) is a command-line based logistics management system, designed to keep track of an organisation’s facilities and inventory. To this end, the application supports the addition and deletion of resources from an organisation’s inventory, and tracks the loaning out and general status of items and facilities in the inventory. The program is intended to be used by logistical administrators or managers, for whom RIMS can act as a digital ledger of the resources moving in and out of their inventory.
-
-This is what our project looks like:
-
-image::images/Ui.png[550, 600]
-
-.*Main features of RIMS*
-* Addition and deletion of items and rooms from the inventory
-* Allows the user to track the lending out and booking of resources to those requesting the loan
-* Allows the user to track the reservation of items and rooms between two future dates
-* Provides reminders when items or rooms are overdue for return
-* View current bookings and reservations in a calendar format
-
-The following sections will summarize my contributions to the implementation of these features, as well as my contributions to the documentation and project management process for this project.
-
-.*Glossary*
-* Item: an object in the user’s inventory. There can be multiple of one item in a user’s inventory (e.g. 5 pens)
-* Room: a facility in the user’s inventory, of which there can only be one (e.g. seminar room 1)
-* Resource: any item or room in the user’s inventory.
-* User: the logistics administrator who is running the RIMS program.
-* Requester: the person requesting to borrow a resource from the user’s inventory.
+My role was to design and program the return feature. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides about these enhancements.
 
 == Summary of contributions
+This section shows a summary of the codes I have contributed, and other helpful contribution to the project.
 
-- *Provided base code for majority of the program*
 
-* Created the core classes required for accepting and processing user input, managing resources in the inventory, loading the current status of resources and reservations from the disk, and writing the logic for the program, which are fundamental for operation of the RIMS program
-* Created the basic structure for all implemented commands, along with providing the basic implementation for adding and deleting resources, creating a user-viewable list of resources, and loaning and returning resources
-* The features present in the RIMS program are all extensions of these core classes and commands  
+* Created a basic structure to store reservations pertaining to each item. 
+
+* Created the return feature, allowing users to cancel/return a borrowed resource by removing the corresponding reservation date from the storage. 
+
+* Created 
+
+Extensive analysis and testing has been done to ensure this feature works cohesively with other features such as reserve and storage. 
+
 
 - *Major enhancement: added the ability to loan out and reserve items and rooms*
 

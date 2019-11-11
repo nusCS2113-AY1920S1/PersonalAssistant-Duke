@@ -1,8 +1,8 @@
+package CommandTests;
+
 import rims.core.ResourceList;
-import rims.core.Rims;
 import rims.core.Ui;
 import rims.core.Storage;
-import rims.command.ReturnCommand;
 import rims.command.StatsCommand;
 import rims.exception.*;
 import rims.resource.*;
@@ -22,11 +22,7 @@ public class StatsCommandTest {
     private static Storage storage;
     private static ResourceList listUnderTest;
     private static Resource ResourceUnderTest;
-    private static ReservationList ReservationListUnderTest;
-    private static Reservation ReservationUnderTest;
 
-    private static Date datefrom;
-    private static Date datetill;
 
     /**
      * This before all method creates list, storage, reservations for later tests.
@@ -42,9 +38,6 @@ public class StatsCommandTest {
         ArrayList<Resource> emptyList = new ArrayList<Resource>();
         listUnderTest = new ResourceList(ui, emptyList);
         ResourceUnderTest = new Item(1, "testitem");
-        ReservationUnderTest = new Reservation(1,1,1,"10/10/2021 1000","11/11/2021 1000");
-        datefrom = ReservationUnderTest.stringToDate("10/10/2021 1000");
-        datetill = ReservationUnderTest.stringToDate("11/11/2021 1000");     
         listUnderTest.add(ResourceUnderTest);
         storage = new Storage("unitTestData/resources.txt", "unitTestData/reserves.txt");
     }
