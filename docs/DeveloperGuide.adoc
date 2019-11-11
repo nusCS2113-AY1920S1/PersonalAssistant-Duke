@@ -678,12 +678,6 @@ Other helper commands such as: `profileShow`, `listFav` and `showfav` have not b
 ** Pros: Easier and more intuitive for user to view favourite list.
 ** Cons: More difficult to implement as some classes can't be reused.
 
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging.
