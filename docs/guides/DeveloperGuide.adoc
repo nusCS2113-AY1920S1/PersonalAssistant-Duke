@@ -1128,6 +1128,40 @@ emails generally listed first | Normal use case when multiple words can be match
 should be listed first
 |===
 
+==== Email Tagging
+*Duke Email Manager* allows user to tag emails by tags.
+
+[NOTE]
+Minimum number of tags is 1. Tags without duplication will be added.
+
+|===
+| Mode | Input | Expected Result | Purpose of Testing
+
+| `email` | `update 1 -tag project` | The 1st email will have #project on the list | Normal use case of
+tagging email
+| `email` | `update 1 -tag final demo` | The 1st email will have #project demo on the list | Normal use
+case with space in tag
+| `email` | `update 1 -tag notice -tag fun` | The 1st email will have #notice and #fun on the list | Normal
+use case with multiple tags
+| `email` | `update 1 -tag notice` | The 1st email will have #notice remains on the list | Normal use case
+with existing tag
+| `email` | `update 1 -tag notice -tag career` | The 1st email will have new tag #career on the list, the
+tag #notice remains on the list | Normal use case with multiple tags including existing and new tags
+| `email` | `update 1 -tag 123` | The 1st email will have #tag on the list| Normal use case with numbers in tag
+
+| `email` | `update` | Invalid command reported asking for an index after `update`| Invalid input
+without index specified
+| `email` | `update -tag 123` | Invalid command reported asking for an index after `update`| Invalid input
+with tag but without index specified
+| `email` | `update 1` | Invalid command reported asking for tag options| Invalid input without tag specified
+| `email` | `update 1 -tag` | Invalid command format reported | Empty tag in tag option should trigger the
+ invalid command format check as option must not be empty
+| `email` | `update 1 -tag!@#` | Invalid command format reported | Invalid character in input will
+trigger the invalid command format check
+
+
+|===
+
 === Launch and Shutdown
 . Initial launch
 ... Download the jar file and copy into an empty folder
