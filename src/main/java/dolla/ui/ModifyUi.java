@@ -27,6 +27,7 @@ public class ModifyUi extends Ui {
                 + "\n\tDo check the User Guide for a list of components for each mode. :)");
         System.out.println(line);
     }
+    
     /**
      * Prints a message asking what the user wants to modify the selected log to.
      */
