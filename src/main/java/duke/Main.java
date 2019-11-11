@@ -4,9 +4,11 @@ import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import duke.logic.Logic;
 import duke.logic.LogicManager;
-import duke.model.DukePP;
+import duke.model.Income;
+import duke.model.IncomeList;
 import duke.model.Expense;
 import duke.model.ExpenseList;
+import duke.model.DukePP;
 import duke.model.Model;
 import duke.model.payment.Payment;
 import duke.model.payment.PaymentList;
@@ -116,6 +118,7 @@ public class Main extends Application {
 
     private final Storage loadListDemoData(Storage storage) {
         Expense.Builder expenseBuilder = new Expense.Builder();
+        Income.Builder incomeBuilder = new Income.Builder();
         Payment.Builder paymentBuilder = new Payment.Builder();
         try {
             // loading expense demo data
@@ -150,13 +153,23 @@ public class Main extends Application {
             expenseBuilder.setTime("14:00 09/06/2019");
             expenseList.add(expenseBuilder.build());
 
-
             expenseBuilder.setAmount("85");
             expenseBuilder.setDescription("Mario Kart 8");
             expenseBuilder.setTag("GAMES");
             expenseBuilder.setTime("14:00 09/06/2018");
             expenseList.add(expenseBuilder.build());
             storage.saveExpenseList(expenseList);
+
+            // loading income demo data
+            incomeBuilder.setAmount("400");
+            incomeBuilder.setDescription("Pocket Money");
+            IncomeList incomeList = storage.loadIncomeList();
+            incomeList.add(incomeBuilder.build());
+
+            incomeBuilder.setAmount("250.70");
+            incomeBuilder.setDescription("Part-Time Job");
+            incomeList.add(incomeBuilder.build());
+            storage.saveIncomeList(incomeList);
 
             // loading plan bot demo data
             Map<String, String> planAttributes = storage.loadPlanAttributes();
@@ -168,10 +181,10 @@ public class Main extends Application {
             storage.savePlanAttributes(planAttributes);
 
             // loading payment demo data
-            PaymentList paymentList = storage.loadPaymentList().get();
             paymentBuilder.setDescription("Raffles Hall Orientation Fee");
             paymentBuilder.setAmount("60").setTag("school life").setDue("05/01/2020");
             paymentBuilder.setPriority("Low").setReceiver("Raffles Hall");
+            PaymentList paymentList = storage.loadPaymentList().get();
             paymentList.add(paymentBuilder.build());
 
             logger.info("*********loading sample payment");

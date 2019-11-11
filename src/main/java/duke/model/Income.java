@@ -63,7 +63,7 @@ public class Income extends DukeItem {
                 setDescription(mappedStorageString.get("description"));
             }
 
-            if(!mappedStorageString.containsKey("amount") | !mappedStorageString.containsKey("description")) {
+            if (!mappedStorageString.containsKey("amount") | !mappedStorageString.containsKey("description")) {
                 throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED,"income.txt"));
             }
         }
