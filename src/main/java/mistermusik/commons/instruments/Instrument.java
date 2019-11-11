@@ -8,7 +8,6 @@ public class Instrument {
     private String instrumentName;
     private ArrayList<ServiceInfo> serviceInfoList;
 
-
     /**
      * Creates an Instrument instance with the input name.
      *
