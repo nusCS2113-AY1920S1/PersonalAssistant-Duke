@@ -249,22 +249,42 @@ public class Ui {
      * @param loan The Loan object.
      */
     public static void printLoanRow(Loan loan) {
-        if (!loan.getIsLend() && !loan.getIsSettled()) {
-            System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
-                    loan.getId(), "No", loan.getDescription(), loan.getAmount(), loan.getDate(), "Borrow from",
-                    loan.getPerson().getName(), loan.getPerson().getPhoneNum());
-        } else if (!loan.getIsLend() && loan.getIsSettled()) {
-            System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
-                    loan.getId(), "Yes", loan.getDescription(), loan.getAmount(), loan.getDate(), "Borrow from",
-                    loan.getPerson().getName(), loan.getPerson().getPhoneNum());
-        } else if (loan.getIsLend() && !loan.getIsSettled()) {
-            System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
-                    loan.getId(), "No", loan.getDescription(), loan.getAmount(), loan.getDate(), "Lend to",
-                    loan.getPerson().getName(), loan.getPerson().getPhoneNum());
-        } else if (loan.getIsLend() && loan.getIsSettled()) {
-            System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
-                    loan.getId(), "Yes", loan.getDescription(), loan.getAmount(), loan.getDate(), "Lend to",
-                    loan.getPerson().getName(), loan.getPerson().getPhoneNum());
+        if(loan.getPerson().getPhoneNum() != null) {
+            if (!loan.getIsLend() && !loan.getIsSettled()) {
+                System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                        loan.getId(), "No", loan.getDescription(), loan.getAmount(), loan.getDate(), "Borrow from",
+                        loan.getPerson().getName(), loan.getPerson().getPhoneNum());
+            } else if (!loan.getIsLend() && loan.getIsSettled()) {
+                System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                        loan.getId(), "Yes", loan.getDescription(), loan.getAmount(), loan.getDate(), "Borrow from",
+                        loan.getPerson().getName(), loan.getPerson().getPhoneNum());
+            } else if (loan.getIsLend() && !loan.getIsSettled()) {
+                System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                        loan.getId(), "No", loan.getDescription(), loan.getAmount(), loan.getDate(), "Lend to",
+                        loan.getPerson().getName(), loan.getPerson().getPhoneNum());
+            } else if (loan.getIsLend() && loan.getIsSettled()) {
+                System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                        loan.getId(), "Yes", loan.getDescription(), loan.getAmount(), loan.getDate(), "Lend to",
+                        loan.getPerson().getName(), loan.getPerson().getPhoneNum());
+            }
+        } else {
+            if (!loan.getIsLend() && !loan.getIsSettled()) {
+                System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                        loan.getId(), "No", loan.getDescription(), loan.getAmount(), loan.getDate(), "Borrow from",
+                        loan.getPerson().getName(), "");
+            } else if (!loan.getIsLend() && loan.getIsSettled()) {
+                System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                        loan.getId(), "Yes", loan.getDescription(), loan.getAmount(), loan.getDate(), "Borrow from",
+                        loan.getPerson().getName(), "");
+            } else if (loan.getIsLend() && !loan.getIsSettled()) {
+                System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                        loan.getId(), "No", loan.getDescription(), loan.getAmount(), loan.getDate(), "Lend to",
+                        loan.getPerson().getName(), "");
+            } else if (loan.getIsLend() && loan.getIsSettled()) {
+                System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                        loan.getId(), "Yes", loan.getDescription(), loan.getAmount(), loan.getDate(), "Lend to",
+                        loan.getPerson().getName(), "");
+            }
         }
     }
 

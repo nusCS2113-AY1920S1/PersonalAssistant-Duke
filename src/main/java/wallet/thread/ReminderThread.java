@@ -42,14 +42,26 @@ public class ReminderThread implements Runnable {
                 System.out.println("Remember to settle your loans soon!");
                 Ui.printLoanTableHeaders();
                 for (Loan l : loanList) {
-                    if (!l.getIsLend() && !l.getIsSettled()) {
-                        System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
-                                l.getId(), "No", l.getDescription(), l.getAmount(), l.getDate(), "Borrow from",
-                                l.getPerson().getName(), l.getPerson().getPhoneNum());
-                    } else if (l.getIsLend() && !l.getIsSettled()) {
-                        System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
-                                l.getId(), "No", l.getDescription(), l.getAmount(), l.getDate(), "Lend to",
-                                l.getPerson().getName(), l.getPerson().getPhoneNum());
+                    if (l.getPerson().getPhoneNum() != null) {
+                        if (!l.getIsLend() && !l.getIsSettled()) {
+                            System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                                    l.getId(), "No", l.getDescription(), l.getAmount(), l.getDate(), "Borrow from",
+                                    l.getPerson().getName(), l.getPerson().getPhoneNum());
+                        } else if (l.getIsLend() && !l.getIsSettled()) {
+                            System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                                    l.getId(), "No", l.getDescription(), l.getAmount(), l.getDate(), "Lend to",
+                                    l.getPerson().getName(), l.getPerson().getPhoneNum());
+                        }
+                    } else {
+                        if (!l.getIsLend() && !l.getIsSettled()) {
+                            System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                                    l.getId(), "No", l.getDescription(), l.getAmount(), l.getDate(), "Borrow from",
+                                    l.getPerson().getName(), "");
+                        } else if (l.getIsLend() && !l.getIsSettled()) {
+                            System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                                    l.getId(), "No", l.getDescription(), l.getAmount(), l.getDate(), "Lend to",
+                                    l.getPerson().getName(), "");
+                        }
                     }
                 }
                 Ui.printLoanTableClose();
