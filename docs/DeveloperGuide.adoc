@@ -318,7 +318,7 @@ Step 3: On each reminder date, there will be a notification showing the word and
 
 === Word Synonyms feature
 ==== Adding Synonym
-image::AddSynonym.png[align='center']
+image::addsynonym1.png[align='center']
 
 The synonym feature allows words or phrases that means exactly or nearly the same as the current word to be added and referenced.
 []
