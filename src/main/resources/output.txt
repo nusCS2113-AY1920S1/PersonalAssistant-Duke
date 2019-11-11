@@ -2,21 +2,13 @@ TODO||N||borrow another book||30-12-2019||||||||
 DEADLINE||N||homework||13-10-2019||23:59||||||
 EVENT||N||lecture||08-10-2019||10:00||08-10-2019||12:00||
 EVENT||N||tutorial||09-10-2019||17:00||09-10-2019||18:00||
-EVENT||N||family dinner||10-10-2019||18:00||10-10-2019||20:00||
-DEADLINE||N||presentation prep||14-10-2019||23:59||||||
+EVENT||N||test||10-10-2019||09:00||10-10-2019||10:00||
+DEADLINE||N||homework||14-10-2019||23:59||||||
 EVENT||N||steamboat||15-10-2019||18:00||15-10-2019||20:00||
-EVENT||N||project meeting||30-10-2019||10:00||30-10-2019||11:00||
+EVENT||N||testing||30-10-2019||10:00||30-10-2019||11:00||
 DEADLINE||N||homework||20-10-2019||23:59||||||
-DEADLINE||N||update adoc||22-10-2019||23:59||||||
+DEADLINE||N||homework||20-10-2019||23:59||||||
 ASSESSMENT||N||CS2106||final examination||31-10-2019||16:00||31-10-2019||18:00
 ASSIGNMENT||Y||CS2101||PPP||31-10-2019||08:35||||
-ASSIGNMENT||Y||CS2101||PPP submission||11-11-2019||23:59||||
-ASSIGNMENT||Y||CS2105||Assignment 3||13-11-2019||23:59||||
-DEADLINE||N||lab worksheet||15-11-2019||23:59||||||
-TODO||N||update UG||10-11-2019||||||||
-EVENT||N||Get welfare pack||12-11-2019||10:00||12-11-2019||12:00||
-EVENT||N||lunch with friends||12-11-2019||12:00||12-11-2019||13:00||
-EVENT||N||lab demo||15-11-2019||14:00||15-11-2019||15:00||
-TODO||N||update DG||11-11-2019||||||||
-ASSIGNMENT||Y||CS2101||OP2 prep||05-11-2019||23:59||||
-DEADLINE||N||final submission||12-11-2019||23:59||||||
+DEADLINE||N||homework||14-10-2019||23:59||||||
+EVENT||N||lecture||09-10-2019||10:00||09-10-2019||12:00||
