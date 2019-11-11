@@ -1,5 +1,6 @@
 package ducats.components;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 //@@author SalonetheGreat
@@ -13,7 +14,7 @@ public class UndoRedoStack {
      */
     public UndoRedoStack(SongList songs) {
         undoRedoStack = new Stack<>();
-        undoRedoStack.push(songs);
+        push(songs);
         currentVersionIndex = 0;
     }
 
@@ -22,7 +23,12 @@ public class UndoRedoStack {
      * @return a song list which is the current version of the UR stack
      */
     public SongList getCurrentVersion() {
-        return undoRedoStack.get(currentVersionIndex);
+        SongList songList = undoRedoStack.get(currentVersionIndex);
+        SongList result = new SongList();
+        for (int i = 0; i < songList.getSize(); i++) {
+            result.add(songList.getSongIndex(i));
+        }
+        return result;
     }
 
     /**
@@ -50,8 +56,12 @@ public class UndoRedoStack {
      * @param songList the song list to be put
      */
     private void push(SongList songList) {
-        undoRedoStack.push(songList);
         currentVersionIndex++;
+        SongList songs = new SongList();
+        for (int i = 0; i < songList.getSize(); i++) {
+            songs.add(songList.getSongIndex(i));
+        }
+        undoRedoStack.push(songs);
     }
 
     /**
