@@ -159,7 +159,9 @@ Lost track of your commands in the middle of a session? Use the history command 
 You can only view commands that were entered in the *current session* of the application.
 ====
 
-==== Clear all data in a time period: `clear /startdate START_DATE /enddate END_DATE`
+==== Clear all data in a time period: `clear`
+Format: `/startdate START_DATE /enddate END_DATE`
+
 Need to clear all the data from a single month without the hassle of entering the delete command multiple times?
 Simply enter the `clear` command followed by a start date and the end date, and the application will take care of the rest!
 
