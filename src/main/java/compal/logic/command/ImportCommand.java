@@ -15,8 +15,8 @@ import java.util.logging.Logger;
 
 public class ImportCommand extends Command {
     public static final String MESSAGE_USAGE = "import\n\t"
-        + "Format: import /file-name <name of file>\n\n\t"
-        + "Note: content in \"<>\": need to be fulfilled by the user\n\n"
+        + "Format: import /file-name FILE_NAME\n\n\t"
+        + "Note: content in CAP: need to be fulfilled by the user\n\n"
         + "This command will import an ics file schedule to COMPal\n"
         + "Examples:\n\t"
         + "import /file-name cal\n\t\t"
