@@ -69,7 +69,7 @@ public class GraphCategoryCommand extends Command {
         
         
         double grandTotal = cat.getTotal(month, year);
-        int maxAxisUnit = (int) ((cat.getLargestExpenditure() / grandTotal) * 100) + 1;
+        int maxAxisUnit = (int) ((cat.getLargestExpenditure(month, year) / grandTotal) * 100) + 1;
         for (int i = 0; i < maxAxisUnit; i += 1) {
             horizontalAxisTop += topBorder;
             horizontalAxisBottom += bottomBorder;
@@ -89,6 +89,10 @@ public class GraphCategoryCommand extends Command {
         output += topSpace + horizontalAxisTop + "\n";
         
         for (int i = 0; i < cat.size(); i += 1) {
+            Expenditure expenditure = cat.get(i);
+            if (expenditure.getDate().getMonthValue() != month || expenditure.getDate().getYear() != year) {
+                continue;
+            }
             String expenditureName = cat.get(i).getName();
             if (expenditureName.length() > 14) {
                 expenditureName = expenditureName.substring(0, 11) + "...";
