@@ -11,7 +11,6 @@ import seedu.duke.task.entity.ToDo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -169,6 +168,11 @@ public class TaskListTest {
         } catch (CommandParseHelper.CommandParseException e) {
             fail("Unable to parse input");
         }
+        // check if time updated correctly
+        assertEquals(LocalDateTime.parse("11/11/2019 0800", DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")),
+                taskList.get(3).getTime());
+        assertEquals(LocalDateTime.parse("31/08/2019 1334", DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")),
+                taskList.get(5).getTime());
 
         // negative cases - invalid index
         assertThrows(CommandParseHelper.CommandParseException.class, () ->
@@ -180,5 +184,114 @@ public class TaskListTest {
                 taskList.setTime(2, "-/abc"));
         assertThrows(CommandParseHelper.CommandParseException.class, () ->
                 taskList.setTime(2, "29/02/2019 1200"));
+    }
+
+    @Test
+    public void getTaskGuiStringListTest() {
+        TaskList taskList = createTaskList();
+        ArrayList<String> expectedResult1 = new ArrayList<>();
+        expectedResult1.add("[T][X] random");
+        expectedResult1.add("[T][X] something Priority: HIGH");
+        expectedResult1.add("[D][X] concatenate (by: 21/12/2019 1200)");
+        expectedResult1.add("[D][X] tabby (by: 02/02/2020 0000) #cat Priority: MEDIUM");
+        expectedResult1.add("[E][X] SocCat (by: 29/02/2020 2359)" + System.lineSeparator() + "\tAfter which: feed");
+        expectedResult1.add("[E][X] cat (by: 01/01/1980 1234)(Past) Priority: LOW");
+        assertEquals(expectedResult1, taskList.getTaskGuiStringList());
+
+        TaskList emptyTaskList = new TaskList();
+        ArrayList<String> emptyResult = new ArrayList<>();
+        assertEquals(emptyResult, emptyTaskList.getTaskGuiStringList());
+    }
+
+    @Test
+    public void setPriorityTest() {
+        TaskList taskList = createTaskList();
+
+        //positive cases
+        String testResult1 = "Priority of task 2 is set to HIGH";
+        String testResult2 = "Priority of task 6 is set to MEDIUM";
+        String testResult3 = "Priority of task 6 is set to LOW";
+        String testResult4 = "Priority of task 3 is set to NULL";
+        try {
+            assertEquals(testResult1, taskList.setPriority(1, Task.Priority.HIGH));
+            assertEquals(testResult2, taskList.setPriority(5, Task.Priority.MEDIUM));
+            assertEquals(testResult3, taskList.setPriority(5, Task.Priority.LOW));
+            assertEquals(testResult4, taskList.setPriority(2, Task.Priority.NULL));
+        } catch (CommandParseHelper.CommandParseException e) {
+            fail("Unable to parse input");
+        }
+        // check if priority updated successfully
+        assertEquals(Task.Priority.HIGH, taskList.get(1).getPriority());
+        assertEquals(Task.Priority.LOW, taskList.get(5).getPriority());
+        assertEquals(Task.Priority.NULL, taskList.get(2).getPriority());
+
+        // negative cases - invalid index
+        assertThrows(CommandParseHelper.CommandParseException.class, () ->
+                taskList.setPriority(-1, Task.Priority.HIGH));
+        assertThrows(CommandParseHelper.CommandParseException.class, () ->
+                taskList.setPriority(100000, Task.Priority.LOW));
+    }
+
+    @Test
+    public void setTagsTest() {
+        TaskList taskList = createTaskList();
+
+        //positive cases
+        ArrayList<String> testArray1 = new ArrayList<>();
+        testArray1.add("aaa");
+        testArray1.add("bbb");
+        testArray1.add("abc");
+        ArrayList<String> testArray2 = new ArrayList<>();
+        testArray2.add("---");
+
+        String testResult1 = "Tags of task 2 has been updated";
+        String testResult2 = "Tags of task 6 has been updated";
+        String testResult3 = "Tags of task 6 has been updated";
+        try {
+            assertEquals(testResult1, taskList.setTags(1, testArray1));
+            assertEquals(testResult2, taskList.setTags(5, testArray1));
+            assertEquals(testResult3, taskList.setTags(5, testArray2));
+        } catch (CommandParseHelper.CommandParseException e) {
+            fail("Unable to parse input");
+        }
+        // check if tags updated successfully
+        assertEquals(testArray1, taskList.get(1).getTags());
+        assertEquals(testArray2, taskList.get(5).getTags());
+
+        // negative cases - invalid index
+        assertThrows(CommandParseHelper.CommandParseException.class, () ->
+                taskList.setTags(-1, testArray1));
+        assertThrows(CommandParseHelper.CommandParseException.class, () ->
+                taskList.setTags(100000, testArray1));
+    }
+
+    @Test
+    public void findClashTest() {
+        TaskList taskList = createTaskList();
+        ArrayList<String> blankList = new ArrayList<>();
+
+        // positive clash response
+        Task clashTask = new Deadline("music lesson", LocalDateTime.parse("21/12/2019 1200",
+                DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")), null, blankList, Task.Priority.NULL, blankList);
+        TaskList expectedClash = new TaskList();
+        expectedClash.add(taskList.get(2));
+        assertEquals(expectedClash, taskList.findClash(clashTask));
+
+        // positive no clash response
+        Task notClashTask = new Deadline("something", LocalDateTime.parse("23/12/2019 1930",
+                DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")), null, blankList, Task.Priority.NULL, blankList);
+        TaskList expectedNotClash = new TaskList();
+        assertEquals(expectedNotClash, taskList.findClash(notClashTask));
+    }
+
+    @Test
+    public void clearListTest(){
+        TaskList taskList = createTaskList();
+        String expectedResponse = "Task List has been cleared";
+        assertEquals(expectedResponse, taskList.clearList());
+
+        // check if list has been cleared properly
+        TaskList blankList = new TaskList();
+        assertEquals(blankList, taskList);
     }
 }
