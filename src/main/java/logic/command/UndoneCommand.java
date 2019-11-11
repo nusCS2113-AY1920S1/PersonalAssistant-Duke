@@ -14,6 +14,12 @@ public class UndoneCommand extends Command {
 
     //@@author chenyuheng
     @Override
+    /**
+     * Undone task(s). The inversion of command Done.
+     * @param model model
+     * @return The executed output.
+     * @throws DukeException If the arguments of this command is invalid.
+     */
     public CommandOutput execute(Model model) throws DukeException {
         TasksManager tasksManager = model.getTasksManager();
         checkAvailability(model);
