@@ -76,6 +76,55 @@ public class Module {
         this.grades.remove(gradeNo);
     }
 
+    /**
+     * Adds a given grade object to the module.
+     *
+     * @param grade the grade to add
+     */
+    public void addGrade(Grade grade) {
+        if (grade.getIsComplete()) {
+            updateCompleteGradeWeightage(grade.getModulePercentage(), grade.getWeightage());
+        } else {
+            updateIncompleteGradeWeightage(grade.getWeightage());
+        }
+        this.grades.add(grade);
+    }
+
+    /**
+     * Updates the completed and obtained weightages.
+     * Called when a grade is marked as complete
+     *
+     * @param grade grade marked as complete
+     */
+
+    public void updateGrade(Grade grade) {
+        this.weightageCompleted += grade.getWeightage();
+        this.weightageObtained += grade.getModulePercentage();
+    }
+
+    /**
+     * Updates the weightages related to completed grades.
+     * Called when a completed grade is added to the list of grades.
+     *
+     * @param obtainedPercentage marks obtained in the newly added grade as a percentage of the module
+     * @param gradeWeightage     the weightage of the grade
+     */
+    private void updateCompleteGradeWeightage(double obtainedPercentage, double gradeWeightage) {
+        this.weightageCompleted += gradeWeightage;
+        this.weightageTotal += gradeWeightage;
+        this.weightageObtained += obtainedPercentage;
+    }
+
+    /**
+     * Updates the total weightage.
+     * Called when an incomplete grade is added to the list of grades.
+     *
+     * @param gradeWeightage the weightage of the grade
+     */
+    private void updateIncompleteGradeWeightage(double gradeWeightage) {
+        this.weightageTotal += gradeWeightage;
+    }
+
     @JsonGetter("name")
     public String getName() {
         return name;
@@ -125,54 +174,4 @@ public class Module {
     public double getWeightageTotal() {
         return weightageTotal;
     }
-
-    /**
-     * Adds a given grade object to the module.
-     *
-     * @param grade the grade to add
-     */
-    public void addGrade(Grade grade) {
-        if (grade.getIsComplete()) {
-            updateCompleteGradeWeightage(grade.getModulePercentage(), grade.getWeightage());
-        } else {
-            updateIncompleteGradeWeightage(grade.getWeightage());
-        }
-        this.grades.add(grade);
-    }
-
-    /**
-     * Updates the completed and obtained weightages.
-     * Called when a grade is marked as complete
-     *
-     * @param grade grade marked as complete
-     */
-
-    public void updateGrade(Grade grade) {
-        this.weightageCompleted += grade.getWeightage();
-        this.weightageObtained += grade.getModulePercentage();
-    }
-
-    /**
-     * Updates the weightages related to completed grades.
-     * Called when a completed grade is added to the list of grades.
-     *
-     * @param obtainedPercentage marks obtained in the newly added grade as a percentage of the module
-     * @param gradeWeightage the weightage of the grade
-     */
-    private void updateCompleteGradeWeightage(double obtainedPercentage, double gradeWeightage) {
-        this.weightageCompleted += gradeWeightage;
-        this.weightageTotal += gradeWeightage;
-        this.weightageObtained += obtainedPercentage;
-    }
-
-    /**
-     * Updates the total weightage.
-     * Called when an incomplete grade is added to the list of grades.
-     *
-     * @param gradeWeightage the weightage of the grade
-     */
-    private void updateIncompleteGradeWeightage(double gradeWeightage) {
-        this.weightageTotal += gradeWeightage;
-    }
-
 }

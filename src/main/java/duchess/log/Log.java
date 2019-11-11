@@ -11,6 +11,7 @@ import java.util.logging.SimpleFormatter;
  */
 public class Log {
     private static final String LOG_FILE_NAME = "duchess.log";
+    private static final String LOG_ERROR_MSG = "Unable to open log file.";
     private static Logger logger;
 
     /**
@@ -31,7 +32,7 @@ public class Log {
             logFileHandler.setLevel(Level.INFO);
             logger.addHandler(logFileHandler);
         } catch (IOException e) {
-            logger.warning("Unable to open log file.");
+            logger.warning(LOG_ERROR_MSG);
         }
 
         return logger;

@@ -1,17 +1,24 @@
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
+import duchess.log.Log;
 import duchess.model.Module;
 import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Command to add a given module to the store.
  */
 public class AddModuleCommand extends Command {
-    private String moduleCode;
-    private String moduleName;
+    private static final String DUPLICATE_ERROR_MSG = "Another module with the same code exists.";
+
+    private final String moduleCode;
+    private final String moduleName;
+    private final Logger logger = Log.getLogger();
 
     /**
      * Create a command to add a module.
@@ -20,11 +27,11 @@ public class AddModuleCommand extends Command {
      * @param moduleCode the code of the module
      */
     public AddModuleCommand(String moduleName, String moduleCode) {
+        assert moduleName != null;
+        assert moduleCode != null;
+
         this.moduleName = moduleName;
         this.moduleCode = moduleCode;
-
-        assert moduleName != null : "module name can't be null";
-        assert moduleCode != null : "module code can't be null";
     }
 
     /**
@@ -37,8 +44,20 @@ public class AddModuleCommand extends Command {
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         Module module = new Module(moduleCode, moduleName);
+        logger.log(Level.INFO, "Adding module: " + module);
+
+        ensureNoDuplicateModule(module, store);
         store.getModuleList().add(module);
         ui.showModuleAdded(module, store.getModuleList());
         storage.save(store);
+    }
+
+    private void ensureNoDuplicateModule(Module module, Store store) throws DuchessException {
+        boolean hasDuplicate = store.getModuleList().stream()
+                .anyMatch(existingModule -> existingModule.equals(module));
+        if (hasDuplicate) {
+            logger.log(Level.INFO, DUPLICATE_ERROR_MSG);
+            throw new DuchessException(DUPLICATE_ERROR_MSG);
+        }
     }
 }

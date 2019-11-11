@@ -10,6 +10,9 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParserTest {
+    private static final String STR_1 = "Stub test";
+    private static final String STR_2 = "Stub test 2";
+
     private final Parser parser = new Parser();
 
     @Test
@@ -18,7 +21,7 @@ class ParserTest {
         assertThrows(
             DuchessException.class,
             () -> parser.parse("will throw exception"),
-            "Stub test");
+                STR_1);
     }
 
     @Test
@@ -27,18 +30,18 @@ class ParserTest {
         assertThrows(
             DuchessException.class,
             () -> parser.continueParsing(Util.parameterizeWithoutCommand("test command")),
-            "Stub test 2");
+                STR_2);
     }
 
     private class ParserStateStub extends ParserState {
         @Override
         public Command parse(String input) throws DuchessException {
-            throw new DuchessException("Stub test");
+            throw new DuchessException(STR_1);
         }
 
         @Override
         public Command continueParsing(Map<String, String> parameters) throws DuchessException {
-            throw new DuchessException("Stub test 2");
+            throw new DuchessException(STR_2);
         }
     }
 }

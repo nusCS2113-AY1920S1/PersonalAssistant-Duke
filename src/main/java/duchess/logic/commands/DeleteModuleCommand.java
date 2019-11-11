@@ -1,6 +1,7 @@
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
+import duchess.log.Log;
 import duchess.model.Module;
 import duchess.model.task.Task;
 import duchess.storage.Storage;
@@ -9,6 +10,8 @@ import duchess.ui.Ui;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -18,6 +21,7 @@ public class DeleteModuleCommand extends Command {
     private static final String VALID_NUMBER_MSG = "Please supply a valid number.";
 
     private final int moduleNo;
+    private final Logger logger = Log.getLogger();
 
     /**
      * Deletes the module given an index.
@@ -46,13 +50,16 @@ public class DeleteModuleCommand extends Command {
                     .collect(Collectors.toList());
 
             if (associatedTasks.size() == 0) {
+                logger.log(Level.INFO, "Deleting module #" + moduleNo);
                 store.getModuleList().remove(moduleNo);
                 ui.showDeletedModule(toRemove);
                 storage.save(store);
             } else {
+                logger.log(Level.INFO, "Not deleting module #" + moduleNo);
                 ui.showUnableToDeleteModuleMsg(associatedTasks);
             }
         } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "Attempted to delete non-existent module #" + moduleNo);
             throw new DuchessException(VALID_NUMBER_MSG);
         }
     }

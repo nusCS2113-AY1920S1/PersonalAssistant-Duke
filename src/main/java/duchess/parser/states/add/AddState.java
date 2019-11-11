@@ -1,6 +1,7 @@
 package duchess.parser.states.add;
 
 import duchess.exceptions.DuchessException;
+import duchess.log.Log;
 import duchess.logic.commands.Command;
 import duchess.logic.commands.DisplayCommand;
 import duchess.parser.Parser;
@@ -10,16 +11,25 @@ import duchess.parser.states.ParserState;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static duchess.parser.Parser.ADD_TYPE_PROMPT;
+import static duchess.parser.Parser.DEADLINE_KEYWORD;
+import static duchess.parser.Parser.EVENT_KEYWORD;
+import static duchess.parser.Parser.GRADE_KEYWORD;
+import static duchess.parser.Parser.MODULE_KEYWORD;
+import static duchess.parser.Parser.TODO_KEYWORD;
 
 /**
  * Handles the parsing of entity type to add.
  */
 public class AddState extends ParserState {
     private final Parser parser;
+    private final Logger logger = Log.getLogger();
 
     public AddState(Parser parser) {
+        logger.log(Level.INFO, "In add state now");
         this.parser = parser;
     }
 
@@ -58,15 +68,15 @@ public class AddState extends ParserState {
                 .map(String::toLowerCase)
                 .map(this::validateInclusion)
                 .map(type -> {
-                    if (type.charAt(0) == 'm') {
+                    if (type.equalsIgnoreCase(MODULE_KEYWORD)) {
                         return new ModuleNameState(parser);
-                    } else if (type.charAt(0) == 'e') {
+                    } else if (type.equalsIgnoreCase(EVENT_KEYWORD)) {
                         return new EventDescriptionState(parser);
-                    } else if (type.charAt(0) == 'g') {
+                    } else if (type.equalsIgnoreCase(GRADE_KEYWORD)) {
                         return new GradeDescriptionState(parser);
-                    } else if (type.charAt(0) == 'd') {
+                    } else if (type.equalsIgnoreCase(DEADLINE_KEYWORD)) {
                         return new DeadlineDescriptionState(parser);
-                    } else if (type.charAt(0) == 't') {
+                    } else if (type.equalsIgnoreCase(TODO_KEYWORD)) {
                         return new TodoNameState(parser);
                     } else {
                         return null;
@@ -81,7 +91,12 @@ public class AddState extends ParserState {
     }
 
     private String validateInclusion(String type) {
-        List<String> validValues = List.of("module", "deadline", "todo", "event", "grade", "m", "d", "t", "e", "g");
+        List<String> validValues = List.of(
+                MODULE_KEYWORD,
+                DEADLINE_KEYWORD,
+                TODO_KEYWORD,
+                EVENT_KEYWORD,
+                GRADE_KEYWORD);
         if (validValues.indexOf(type) < 0) {
             return null;
         }

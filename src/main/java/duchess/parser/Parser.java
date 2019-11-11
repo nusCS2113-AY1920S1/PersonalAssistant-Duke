@@ -29,6 +29,9 @@ public class Parser {
     public static final String WEEK_KEYWORD = "week";
     public static final String DAY_KEYWORD = "day";
     public static final String MARKS_KEYWORD = "marks";
+    public static final String DEADLINE_KEYWORD = "deadline";
+    public static final String TODO_KEYWORD = "todo";
+    public static final String EVENT_KEYWORD = "event";
 
     /**
      * Usage for commands.
