@@ -648,15 +648,21 @@ Different ways were considered to display the employment statistics:
 *** Needs two datasets to be rendered and then added to a single chart panel
 *** Complicated implementation as a work-around needs to be used and a series of null values need to be added to prevent overlap the axes 
 
-* Alternative 2: Creation of Disjoint Set to find aliases.
+* Alternative 2: Display in the form of a table
 ** Pros: 
-*** Extremely efficient Data Structure, O(4) time in searching for an entry.
-*** Can be used to instantly determine if two keys belong to the same set as well.
-*** Becomes faster over time through usage of Path Compression techniques.
+*** Easy implementation only requiring to manually draw a table
+*** Data read is directly displayed on the CLI
 ** Cons: 
-*** Non-primitive storage container, requires self implementation which may be flawed.
-*** Complicated to use when handling non-integer members.
-*** Extra Containers and functions needed to support the Disjoint Set.
+*** Too simplistic of a display
+*** Doesn’t help users to visually compare the employment rates and mean salary for the past 3 years
+
+* Alternative 3: Display two separate graphs for two separate commands
+** Pros: 
+*** Cleaner code as it clearly distinguishes between the commands for employment rates and salary
+*** Distinction between data sets also for fewer bugs
+** Cons: 
+*** Troublesome for the user
+*** Side-by-side analysis will not be available to have a better idea
 
 == Testing
 
