@@ -184,9 +184,9 @@ Examples:
 ** `list`
 * You want to view your data from 26th of December, 2019:
 ** `list /date 26/12/2019`
-* You want to view your data from 1st of January, 2018 based on calorie:
-** `list /date 1/1/2018 /sort calorie`
-* You want to view your data from 31th of December, 2019 based on their cost:
+* You want to view your data from 1st of January, 2018 based on calorie (from largest calorie):
+** `list /date 1/1/2018 /sort calorieDescending`
+* You want to view your data from 31th of December, 2019 based on their cost (from cheapest):
 ** `list /sort costAscending /date 31/12/2019`
 
 [NOTE]
@@ -513,7 +513,9 @@ image::Deposit_2.png[]
 * Dates should be entered in the following format: day/month/year.
 * Adding deposit in the future does not work.
 * The `AMOUNT` is expressed in Singapore Dollar (SGD)
-* The `AMOUNT` can only go up to two decimal points (e.g. 2.50, 150.75)
+* The `AMOUNT` should only go up to two decimal points (e.g. 2.50, 150.75)
+* The Account Balance must not exceed the max value of BigDecimal data type
+
 ====
 
 ==== Pay money from your account: `pay`
@@ -526,7 +528,7 @@ The command also supports the addition of the transaction to other dates: simply
 
 Examples:
 
-* You pay 100SGD today
+* You pay 100SGD today (assuming original account balance of 400SGD)
 ** `pay 100`
 +
 image::Pay_1.png[]
@@ -542,7 +544,7 @@ image::Pay_2.png[]
 * Adding payment in the future does not work.
 * The `AMOUNT` is expressed in Singapore Dollar (SGD)
 * The `AMOUNT` can only go up to two decimal points (e.g. 2.50, 150.75)
-* If `AMOUNT` exceeds the current account balance. It is possible for the account balance to become negative.
+* The `AMOUNT` should not exceed the current account balance. If it does, the payment transaction will not be made.
 ====
 
 
