@@ -245,7 +245,7 @@ public class MainDisplay {
                             } else {
                                 blankSpaceCost = "";
                                 // prints out each individual expenditure Cost if it exists
-                                for (int k = 0; k < (10 - df.format(categoryList.get(j).get(i).getCost()).length()); k++) {
+                                for (int k = 0; k < (10 - amountString.length()); k++) {
                                     blankSpaceCost += " ";
                                 }
                             }
@@ -384,7 +384,7 @@ public class MainDisplay {
                             String amountString = "";
                             if (!newCategoryList.get(categoryName).isEmpty()) {
                                 // for nth row, nth category, extract the expenditure name (odd no in array list)
-                                expenditureName = newCategoryList.get(categoryName).get(0);
+                                expenditureName = (i + 1) + ". " + newCategoryList.get(categoryName).get(0);
                                 // for nth row, nth category, extract the expenditure cost (even no in array list)
                                 amountString = newCategoryList.get(categoryName).get(1);
                             }

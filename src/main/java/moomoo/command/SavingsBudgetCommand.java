@@ -41,6 +41,7 @@ public class SavingsBudgetCommand extends Command {
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
+        ArrayList<String> array = new ArrayList<>();
         String[] outputArray;
         String outputValue = "";
         double totalSavings = 0;
@@ -55,32 +56,42 @@ public class SavingsBudgetCommand extends Command {
             Category currentCategory = categoryList.get(iteratorCategory);
 
             if (currentCategory == null) {
-                outputValue += iteratorCategory + " category does not exist."
-                        + " Please create it first.\n";
+                outputValue = iteratorCategory + " category does not exist."
+                        + " Please create it first.";
+                array.add(outputValue);
                 continue;
             }
             if (budget.getBudgetFromCategory(iteratorCategory.toLowerCase()) == 0) {
-                outputValue += "The budget for " + iteratorCategory + " does not exist."
-                        + " Please set it using budget set.\n";
+                outputValue = "The budget for " + iteratorCategory + " does not exist."
+                        + " Please set it using budget set.";
+                array.add(outputValue);
                 continue;
             }
 
             if (end == null) {
                 outputArray = viewSingleMonthSavings(budget, iteratorCategory, currentCategory, outputValue);
-                outputValue = outputArray[0];
+                //outputValue = outputArray[0];
+                array.add(outputArray[0]);
             } else {
                 outputArray = viewMultiMonthSaving(budget, iteratorCategory, currentCategory, outputValue);
-                outputValue = outputArray[0];
+                //outputValue = outputArray[0];
+                array.add(outputArray[0]);
             }
 
             totalSavings += Double.parseDouble(outputArray[1]);
         }
         if (totalSavings > 0) {
-            outputValue += "Your total savings: $" + df.format(totalSavings) + "\n";
+            outputValue = "Your total savings: $" + df.format(totalSavings);
+            array.add(outputValue);
+            outputValue = Ui.showInCowBox(array);
         } else if (totalSavings == 0) {
-            outputValue += "Your total savings : $0";
+            outputValue = "Your total savings : $0";
+            array.add(outputValue);
+            outputValue = Ui.showInCowBox(array);
         } else {
-            outputValue += "You have overspent your total budget by: $" + df.format(Math.abs(totalSavings)) + "\n";
+            outputValue = "You have overspent your total budget by: $" + df.format(Math.abs(totalSavings));
+            array.add(outputValue);
+            outputValue = Ui.showInCowBox(array);
         }
 
         Ui.setOutput(outputValue);
@@ -95,15 +106,15 @@ public class SavingsBudgetCommand extends Command {
 
         totalSavings += savings;
         if (savings > 0) {
-            output += "Your savings for " + iteratorCategory + " for " + start.getMonth()
+            output = "Your savings for " + iteratorCategory + " for " + start.getMonth()
                     + " " + start.getYear() + " is: $"
-                    + df.format(savings)  + "\n";
+                    + df.format(savings);
         } else if (savings == 0) {
-            output += "Your savings for " + iteratorCategory + " for " + start.getMonth()
-                    + " " + start.getYear() + " is: $0\n";
+            output = "Your savings for " + iteratorCategory + " for " + start.getMonth()
+                    + " " + start.getYear() + " is: $0";
         } else {
-            output += "You have overspent your budget for " + iteratorCategory + " for " + start.getMonth()
-                    + " " + start.getYear() + " by $" + df.format(Math.abs(savings)) + "\n";
+            output = "You have overspent your budget for " + iteratorCategory + " for " + start.getMonth()
+                    + " " + start.getYear() + " by $" + df.format(Math.abs(savings));
         }
 
         return new String[]{output, Double.toString(totalSavings)};
@@ -142,18 +153,18 @@ public class SavingsBudgetCommand extends Command {
         totalSavings += savings;
 
         if (savings > 0) {
-            output += "Your savings for " + iteratorCategory + " from " + start.getMonth() + " "
+            output = "Your savings for " + iteratorCategory + " from " + start.getMonth() + " "
                     + start.getYear() + " to "
                     + end.getMonth() + " " + end.getYear() + " is: $"
-                    + df.format(savings)  + "\n";
+                    + df.format(savings);
         } else if (savings == 0) {
-            output += "Your savings for " + iteratorCategory + " from " + start.getMonth() + " "
+            output = "Your savings for " + iteratorCategory + " from " + start.getMonth() + " "
                     + start.getYear() + " to "
-                    + end.getMonth() + " " + end.getYear() + " is: $0\n";
+                    + end.getMonth() + " " + end.getYear() + " is: $0";
         }  else {
-            output += "You have overspent for your budget for " + iteratorCategory + " from "
+            output = "You have overspent for your budget for " + iteratorCategory + " from "
                     + start.getMonth() + " " + start.getYear() + " to "
-                    + end.getMonth() + " " + end.getYear() + " by: $" + df.format(Math.abs(savings)) + "\n";
+                    + end.getMonth() + " " + end.getYear() + " by: $" + df.format(Math.abs(savings));
         }
         return new String[]{output, Double.toString(totalSavings)};
 

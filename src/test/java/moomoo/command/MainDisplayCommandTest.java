@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class MainDisplayTest {
+class MainDisplayCommandTest {
 
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BLACK = "\u001B[30m";
@@ -53,22 +53,13 @@ class MainDisplayTest {
                         + "|" + ANSI_CYAN + "Budget" + ANSI_RESET + ":            |                          |\n"
                         + ".-------------------.--------------------------.\n"
                         + "|" + ANSI_YELLOW + "Savings" + ANSI_RESET + ":           |                          |\n"
-                        + ".-------------------.--------------------------.\n"
-                , Ui.getOutput());
-
+                        + ".-------------------.--------------------------.\n", Ui.getOutput());
     }
 
     @Test
     void testMainDisplayCommand() throws MooMooException {
-        ScheduleListStub newCalendar = new ScheduleListStub();
-        Budget newBudget = new Budget();
-        StorageStub newStorage = new StorageStub();
-        CategoryList newCatList = new CategoryList();
-
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         LocalDate date = LocalDate.parse("25/10/2019", formatter);
-
 
         Category shoes = new Category("shoes");
         shoes.add(new Expenditure("Value 6", 50.00,  date, "shoes"));
@@ -88,6 +79,8 @@ class MainDisplayTest {
         Category laptop = new Category("laptop");
         laptop.add(new Expenditure("Value 6", 50.00,  date, "laptop"));
 
+        CategoryList newCatList = new CategoryList();
+
         newCatList.add(shoes);
         newCatList.add(food);
         newCatList.add(window);
@@ -95,12 +88,17 @@ class MainDisplayTest {
         newCatList.add(sweets);
         newCatList.add(laptop);
 
+        Budget newBudget = new Budget();
+
         newBudget.addNewBudget("shoes", 50.00);
         newBudget.addNewBudget("food", 60.00);
         newBudget.addNewBudget("window", 70.00);
         newBudget.addNewBudget("places to go", 80.00);
         newBudget.addNewBudget("sweets", 90.00);
         newBudget.addNewBudget("laptop", 100.00);
+
+        ScheduleListStub newCalendar = new ScheduleListStub();
+        StorageStub newStorage = new StorageStub();
 
         MainDisplayCommand newMainDisplay = new MainDisplayCommand(10, 2019);
         newMainDisplay.execute(newCalendar, newBudget, newCatList, newStorage);
@@ -164,7 +162,6 @@ class MainDisplayTest {
                         + "|$50.00                    |\n"
                         + ".-------------------.----------------------------------------------------"
                         + "----------------------------------------------------------------------------"
-                        + "---------------------------------.\n"
-                , Ui.getOutput());
+                        + "---------------------------------.\n", Ui.getOutput());
     }
 }

@@ -12,6 +12,9 @@ import java.time.format.DateTimeFormatter;
 
 class ExpenditureParser extends Parser {
 
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+
     static Command parse(String commandType, Scanner scanner) throws MooMooException {
         switch (commandType) {
         case ("add"): return parseAdd(scanner);
@@ -24,8 +27,8 @@ class ExpenditureParser extends Parser {
 
     private static Command parseAdd(Scanner scanner) throws MooMooException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        String text = "What expenditure do you wish to add? Please enter:\n"
-                + "n/[NAME] c/[CATEGORY] a/[AMOUNT] (optional: d/[DD/MM/YYYY])";
+        String text = ANSI_GREEN + "What expenditure do you wish to add? Please enter:\n" + ANSI_RESET
+                + "n/[NAME] c/[CATEGORY] a/[AMOUNT] (optional: d/[d/MM/yyyy])\n";
         String input = parseInput(scanner, text);
 
         String categoryName = "";
@@ -58,16 +61,25 @@ class ExpenditureParser extends Parser {
         if (expenditureName.isBlank()) {
             throw new MooMooException("Oops, you forgot to enter a name.");
         }
+
         try {
             amount = Double.parseDouble(amountString);
-            date = LocalDate.parse(dateString, formatter);
         } catch (NumberFormatException e) {
             throw new MooMooException("Oops, the amount you entered was not recognized,\n"
                     + "please use an double value e.g. 9.90.");
-        } catch (DateTimeException e) {
-            throw new MooMooException("Opps, the date you entered was not recognized,"
-                    + " please use a date in the format of dd/mm/yyyy");
         }
+
+        if (!dateString.isBlank()) {
+            try {
+                date = LocalDate.parse(dateString, formatter);
+            } catch (DateTimeException e) {
+                throw new MooMooException("Opps, the date you entered was not recognized,"
+                        + " please use a date in the format of dd/mm/yyyy");
+            }
+        } else {
+            date = LocalDate.now();
+        }
+
         if (amount > 0) {
             return new AddExpenditureCommand(expenditureName, amount, date, categoryName);
         }
@@ -75,7 +87,7 @@ class ExpenditureParser extends Parser {
     }
 
     private static Command parseDelete(Scanner scanner) throws MooMooException {
-        String text = "What expenditure do you wish to add? Please enter:\n"
+        String text = ANSI_GREEN + "What expenditure do you wish to add? Please enter:\n" + ANSI_RESET
                 + "delete i/[INDEX] c/[CATEGORY]";
         String input = parseInput(scanner, text);
 
@@ -101,10 +113,10 @@ class ExpenditureParser extends Parser {
     }
 
     private static Command parseSort(Scanner scanner) {
-        String text = "How would you like to sort your expenditures:"
+        String text = ANSI_GREEN + "How would you like to sort your expenditures:" + ANSI_RESET
                     + "\n<name>"
                     + "\n<cost>"
-                    + "\n<date>";
+                    + "\n<date>\n";
         String sortType = parseInput(scanner, text);
         return new SortCategoryCommand(sortType);
     }

@@ -37,10 +37,6 @@ public class Expenditure {
         return "0";
     }
 
-    String costToString() {
-        return Double.toString(cost);
-    }
-
     public double getCost() {
         return this.cost;
     }
