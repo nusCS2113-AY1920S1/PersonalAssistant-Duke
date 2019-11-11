@@ -43,55 +43,55 @@ public class GraduateEmployment implements Statistics {
         for (int i = 1; i < 4; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                Stats.add(new GraduateStats("bme", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
+                Stats.add(new GraduateStats("BME", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
             }
         }
         for (int i = 5; i < 8; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                Stats.add(new GraduateStats("che", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
+                Stats.add(new GraduateStats("ChE", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
             }
         }
         for (int i = 9; i < 12; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                Stats.add(new GraduateStats("cive", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
+                Stats.add(new GraduateStats("CivE", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
             }
         }
         for (int i = 13; i < 16; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                Stats.add(new GraduateStats("ee", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
+                Stats.add(new GraduateStats("EE", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
             }
         }
         for (int i = 17; i < 20; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                Stats.add(new GraduateStats("enve", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
+                Stats.add(new GraduateStats("ENVE", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
             }
         }
         for (int i = 21; i < 24; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                Stats.add(new GraduateStats("ise", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
+                Stats.add(new GraduateStats("ISE", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
             }
         }
         for (int i = 25; i < 28; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                Stats.add(new GraduateStats("mse", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
+                Stats.add(new GraduateStats("MSE", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
             }
         }
         for (int i = 29; i < 32; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                Stats.add(new GraduateStats("me", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
+                Stats.add(new GraduateStats("ME", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
             }
         }
         for (int i = 33; i < 36; i++) {
             String[] data = st.get(i).split("-");
             if (data.length > 2) {
-                Stats.add(new GraduateStats("ceg", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
+                Stats.add(new GraduateStats("ComE", Double.parseDouble(data[1]), Integer.parseInt(data[2])));
             }
         }
     }
