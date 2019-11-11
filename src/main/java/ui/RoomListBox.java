@@ -22,7 +22,7 @@ public class RoomListBox extends HBox {
 
     /**
      * For displaying room related information.
-     * @param index Index of room in the list
+     * @param index Index of room in the list9999
      * @param room room code
      * @param capacity number of people able to use the room at the same time
      * @throws DukeException when input does not exist or invalid
