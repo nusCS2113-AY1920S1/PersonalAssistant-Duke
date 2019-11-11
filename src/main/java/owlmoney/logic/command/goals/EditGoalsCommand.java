@@ -8,6 +8,9 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 import java.util.Date;
+import java.util.logging.Logger;
+
+import static owlmoney.commons.log.LogsCenter.getLogger;
 
 /**
  * Executes EditGoalsCommand to edit goal object.
@@ -21,6 +24,7 @@ public class EditGoalsCommand extends Command {
     private final String savingName;
     private Bank savingAccount;
     private boolean markDone;
+    private static final Logger logger = getLogger(EditGoalsCommand.class);
 
     /**
      * Creates an instance of EditGoalsCommand.
@@ -54,6 +58,7 @@ public class EditGoalsCommand extends Command {
             savingAccount = profile.profileGetSavingAccount(savingName);
         }
         profile.profileEditGoals(name, amount, date, newName, savingAccount, markDone, ui);
+        logger.info("Successful execution of editing goals");
         return this.isExit;
     }
 }

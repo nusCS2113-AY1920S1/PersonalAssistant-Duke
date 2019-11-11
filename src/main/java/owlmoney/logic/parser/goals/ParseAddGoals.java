@@ -42,14 +42,16 @@ public class ParseAddGoals extends ParseGoals {
             String key = goalsIterator.next();
             String value = goalsParameters.get(key);
             if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning("/name parameter cannot be empty when adding goals");
                 throw new ParserException(key + " cannot be empty when adding new goals");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkGoalsName(NAME_PARAMETER, value);
             }
             if (AMOUNT_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning("/amount parameter cannot be empty when adding goals");
                 throw new ParserException(key + " cannot be empty when adding new goals");
             } else if (AMOUNT_PARAMETER.equals(key)) {
-                checkAmount(value);
+                checkGoalsAmount(value);
             }
             if (BY_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 by = checkDate(value);
@@ -63,21 +65,6 @@ public class ParseAddGoals extends ParseGoals {
             if (FROM_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkName(FROM_PARAMETER, value);
             }
-        }
-    }
-
-    /**
-     * Checks if only one of /by or /in is provided for Goals deadline.
-     *
-     * @param by Date of goals deadline.
-     * @param in Days of goals deadline.
-     * @throws ParserException If both /by and /in provided, or none provided.
-     */
-    void checkOptionalParameter(String by, String in) throws ParserException {
-        if (by.isBlank() && in.isBlank()) {
-            throw new ParserException("/by and /in cannot be both empty when adding new goals");
-        } else if (!by.isBlank() && !in.isBlank()) {
-            throw new ParserException("/by and /in cannot be specified concurrently when adding new goals");
         }
     }
 

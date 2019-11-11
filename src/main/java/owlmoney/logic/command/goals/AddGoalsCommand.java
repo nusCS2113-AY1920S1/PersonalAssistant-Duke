@@ -9,6 +9,9 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 import java.util.Date;
+import java.util.logging.Logger;
+
+import static owlmoney.commons.log.LogsCenter.getLogger;
 
 /**
  * Executes AddGoalsCommand to add a new goal object.
@@ -19,6 +22,7 @@ public class AddGoalsCommand extends Command {
     private final double amount;
     private final Date date;
     private final String savingName;
+    private static final Logger logger = getLogger(AddGoalsCommand.class);
 
     /**
      * Creates an instance of AddGoalsCommand.
@@ -53,6 +57,7 @@ public class AddGoalsCommand extends Command {
             newGoals = new Goals(this.name, this.amount, this.date, savingAccount);
         }
         profile.profileAddGoals(newGoals, ui);
+        logger.info("Successful execution of adding goals");
         return this.isExit;
     }
 }
