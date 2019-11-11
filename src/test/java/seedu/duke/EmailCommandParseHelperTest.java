@@ -12,6 +12,7 @@ import seedu.duke.email.command.EmailDeleteCommand;
 import seedu.duke.email.command.EmailFilterByTagCommand;
 import seedu.duke.email.command.EmailFuzzySearchCommand;
 import seedu.duke.email.command.EmailListCommand;
+import seedu.duke.email.command.EmailListKeywordCommand;
 import seedu.duke.email.command.EmailShowCommand;
 import seedu.duke.email.command.EmailTagCommand;
 import seedu.duke.email.entity.Email;
@@ -26,6 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class EmailCommandParseHelperTest {
+
+
     @Test
     public void parseEmailFuzzySearchCommandTest() {
         try {
