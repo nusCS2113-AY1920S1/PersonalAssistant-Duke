@@ -62,7 +62,7 @@ public class SearchTest {
      * test execute() in SearchCommand.java
      */
     @Test
-    public void testSearchCommand() {
+    public void searchCommandTest() {
         try {
             SearchCommand searchCommand = new SearchCommand("banana");
             String search = searchCommand.execute(ui, bank, storage);
@@ -138,9 +138,9 @@ public class SearchTest {
         File reminderFile = new File(Storage.REMINDER_FILE_PATH);
         File excelFile = new File(Storage.EXCEL_PATH);
         if ((dataFile.delete()) && (reminderFile.delete()) && (excelFile.delete())) {
-            System.out.println("SetReminderCommandTest: File deleted successfully");
+            System.out.println("SearchTest: File deleted successfully");
         } else {
-            System.out.println("SetReminderCommandTest: Failed to delete the file");
+            System.out.println("SearchTest: Failed to delete the file");
         }
     }
 }

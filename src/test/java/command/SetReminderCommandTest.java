@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Tests each of the case clauses in the SetReminderCommand class.
+ */
 class SetReminderCommandTest {
 
     private Storage storage;
@@ -25,11 +28,12 @@ class SetReminderCommandTest {
     void testSetup() {
         ui = new Ui();
         bank = new Bank();
-        storage = new Storage("setReminderCommandTestData.txt", "setReminderCommandTest.xlsx", "setReminderCommandTestReminder.txt");
+        storage = new Storage("setReminderCommandTestData.txt", "setReminderCommandTest.xlsx",
+                "setReminderCommandTestReminder.txt");
     }
 
     @Test
-    void executeCaseOneTest() {
+    void setReminderCaseOneTest() {
         try {
             String uiResponse = "Please enter the list of words.\n" + "Enter an empty line to end input";
             Command testSetReminderObject = new SetReminderCommand(1);
@@ -41,7 +45,7 @@ class SetReminderCommandTest {
     }
 
     @Test
-    void executeCaseTwoTest() {
+    void setReminderCaseTwoTest() {
         try {
             String uiResponse = "Enter next word or an empty line to end input\n";
             Command testSetReminderObject = new SetReminderCommand(2, "testWord");
@@ -52,7 +56,7 @@ class SetReminderCommandTest {
     }
 
     @Test
-    void executeCaseThreeTest() {
+    void setReminderCaseThreeTest() {
         try {
             String uiResponse = "Please enter the date and time of the reminder in the format:"
                     + "dd-MM-yyyy HHmm";
@@ -64,13 +68,13 @@ class SetReminderCommandTest {
     }
 
     @Test
-    void executeCaseFourTest() {
+    void setReminderCaseFourTest() {
         try {
             reminderWordList = new ArrayList<>();
             reminderWordList.add("testWord1");
             reminderWordList.add("testWord2");
-            userResponse = "12-02-2019 0000";
-            String uiResponse = "Done! You will be reminded on:\n" + "Tue Feb 12 00:00:00 SGT 2019"
+            userResponse = "12-02-3999 0000";
+            String uiResponse = "Done! You will be reminded on:\n" + "Fri Feb 12 00:00:00 SGT 3999"
                     + " to study these words:\n" + "testWord1\n" + "testWord2\n";
             Command testSetReminderObject = new SetReminderCommand(4, reminderWordList, userResponse);
             assertEquals(uiResponse, testSetReminderObject.execute(ui, bank, storage));
