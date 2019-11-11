@@ -1,6 +1,6 @@
 # Chef Duke - Developer Guide
 
-
+By: `Team CS213-T14-2`       Since: `Oct 2019`
 
 [TOC]
 
@@ -189,54 +189,51 @@ firstly the full command read from the user will go through parse method. depend
 
 #### 2.5 Storage Component
 
+##### 2.5.1 Storage
+
+![Storage]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/storage.png )
+
+Figure. Structure of the Storage Component
+
 API: `Storage.java` 
 
-This component handles storing data and reading it from text files on the hard disc. Upon creation, instances of its subtypes get linked to a *.txt* file passed as an argument in the constructor (by specifying its file path). Subsequently, this specific text file is used for loading and storing data.
+The `Storage` component, consists of `Storage.java`, `RecipeStorage.java`, `OrderStorage.java` and `FridgeStorage.java`. `Storage` is modelled as an abstract class,  with `RecipeStorage`, `OrderStorage` and `FridgeStorage` inheriting from it, as shown in the figure above. 
 
- `Storage.java`  is modelled as a *generic, abstract* component, used as a base for the `FridgeStorage.java` , `OrderStorage.java` and `RecipeStorage.java`, each one having their own implementation of the *abstract* method `generate()`, that creates and returns a `GenericList` from the entries stored in the .txt file liked to them. 
+The `Storage` component, 
 
-This component  allows for storing entries in a certain format, by using the `printInFile()` methods of  these `Printable` entries. Some examples of the data to be stored, are dishes in the dish list, ingredients that are already in the fridge, recipes in the Recipe book and anything else that needs to be saved on the hard disk and available again upon rebooting the program.
+- can store `ingredient` in the fridge (API: `FridgeStorage.java`) with a certain format, by storing it into and reading it back from the `fridge.txt` file stored on the hard disc. The `IngredientList` as a `GenericList` of ingredients also changes dynamically with the program execution. The format print in file follows `ingredient_name|ingredient_amount|ingredient_expiry date` . See below example:
 
-The dynamic change in the text file contents during execution, is handled primarily by the `update()` method. Calling this method results in updating the content in the linked text file accordingly to the entries in the `GenericList` contained in, and used by that component.
+- ```
+  milk|3|09/09/2019
+  cheese|4|12/12/2019
+  rice|50|12/12/2019
+  ```
 
-The program can `load` or `generate` an entry from the storage, and offers the methods to `changeContent(int index)`,  `addInFile(String data)` and `removeFromFile(int index)`.
+- can store `orders` in the order list (API: `OrderStorage.java`) in a certain format, by storing it into and reading it back from the `order.txt` file stored on the hard disc. The `OrderList` as a `GenericList` of orders also changes dynamically with the program execution.The format print in file follows  `order_status|serving_date|D|dish_name|dish_amount|D|dish_name|dish_amount|...` , where status refers to `done(1)`/`undone(0)`, and `D` seperates each ordered dishes with its amount. See below example:
 
-![Storage](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/StorageUML.png)
+- ```
+  1|02/11/2019|D|fish|1|D|chili crab|1|D|rice|2
+  0|12/11/2019|D|beef noodle|1|D|pork dumplings|2
+  0|11/11/2019|D|cereal shrimp|1|D|soup|4
+  ```
 
-##### 2.5.1 FridgeStorage
+- can store `dishes` in the recipebook (API: `RecipeStorage.java`) in a certain format, by storing it into and reading it back from the `recipebook.txt` file stored on the hard disc. The `DishList` as a `GenericList` of dishes also changes dynamically with the program execution. The format print in file follows:
 
-API: `FridgeStorage.java` 
+  ```
+  ???? I don't know the output
+  ```
+  
+##### 2.5.2 Printable
 
-A subclass of  `Storage.java`, used for storing and loading `Ingredient`s from the `Fridge`. It contains an `IngredientList` , as a `GenericList` of  `Ingredient`s, to keep track of the entries/ingredients being stored, loaded, and  dynamically changed during the program execution. The Ingredients are saved by using the format specified by their `printInFile()` method. The text file linked to this component is *"fridge.txt"*.
+![Printable](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/PrintableUML.png)
 
-An example for the format of saving for ingredients is :
-
-- milk|3|09/09/2019
-- cheese|4|12/12/2019
-- rice|50|12/12/2019
-- potato|3|12/2/2020
-
-where the first column is denotes the ingredient name, followed by it's amount and expiry date.
-
-Calling the `load()` method on the text file above, would result in an `IngredientList` containing the  four ingredients with their respective amounts and expiry dates.
-
-##### 2.5.2 OrderStorage
-
-API: `OrderStorage.java` 
-
-##### 2.5.3 RecipeStorage
-
-API: `RecipeStorage.java` 
-
-##### 2.5.4 Printable
+Figure. Structure of Printable
 
 API: `Printable.java` 
 
 It models a *public* *Interface*, implemented by all the classes that have the feature to print their representation in a file. 
 
 Offers one abstract method `printInFile()` whose implementation should indicate the format of printing the representation of the specific object calling it. A UML Class Diagram is shown below.
-
-![Printable](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/PrintableUML.png)
 
 #### 2.6 GenericList
 
@@ -262,9 +259,6 @@ Below is a table of the methods implemented in this class.
 
 | Methods                                                      | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| changeIngredientsDate(int, Date): void                       | Changes the date of the Ingredient using an Index number     |
-| changeName(int, String): void                                | Changes the name of the ingredient using an Index number     |
-| changeAmount(int, String): void                              | Changes the amount of the ingredient using an index number   |
 | addEntry(Ingredient Object): void                            | Adds a new Ingredient of Ingredients attributes into the Ingredient List |
 | hasEnough(Ingredient Object): Boolean                        | Returns true or false when comparing 2 Objects.<br />True: We have enough of the required Ingredient<br />False: Otherwise |
 | getEntry(Ingredient Object): Ingredient Object               | Looks for the queried ingredient and returns it              |
@@ -492,7 +486,7 @@ The `Fridge` component allows access and modification of the `Ingredient`s used 
 
 Upon (re)booting the program, the `Fridge` gets initialized with the current `IngredientList` (the attribute `entries`) stored in the `FridgeStorage`, passed as a parameter to it's main constructor. In all subsequent Ingredient manipulations, these two components are accessing/modifying the same `IngredientList`, meaning modifications made in the `Fridge`, are immediately seen in the `entries` attribute (an inherited `GenericList`) of the `FridgeStorage` , therefore, consistency among these classes is guaranteed. 
 
-![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML.png)
+![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML1.png)
 
 **<u>Ingredient Class</u>**
 
@@ -515,23 +509,24 @@ Below is a table with some of the methods provided by this class.
 
 
 
-| Methods                             | Description                                                  |
-| ----------------------------------- | ------------------------------------------------------------ |
-| Ingredient(String, Integer, String) | Converts the Date into String                                |
-| getAmount(): int                    | Returns amount of ingredient                                 |
-| getName(): String                   | Returns name of the Ingredient                               |
-| changeDate(Date): void              | Changes the expiry date of the ingredient                    |
-| setName(String): void               | Sets the name of the ingredient                              |
-| changeAmount(Integer): void         | Changes the amount of the ingredient                         |
-| getExpiryDate(): Date               | Returns the expiry date of the ingredient                    |
-| equals(Object): Boolean             | Returns true or false when comparing 2 objects<br />True: Object names are identical<br />False: Otherwise |
-| isExpired(): Date                   | Returns the expiry date                                      |
-| equalsCompletely(Object): Boolean   | Returns true or false when comparing 2 objects<br />True: Objects have same name and expiry date<br />False: Otherwise |
+| Methods                               | Description                                                  |
+| ------------------------------------- | ------------------------------------------------------------ |
+| Ingredient(String, Integer, String)   | Converts the `Date` into `String`                            |
+| getExpiryDate(): Date                 | Returns the expiry date of the ingredient                    |
+| setDate(Date): void                   | Setting the expiry date of the ingredient                    |
+| getAmount(): int                      | Returns the amount of the ingredient                         |
+| setAmount(Integer): void              | Setting the amount of an ingredient                          |
+| getName(): String                     | Returns the name of the ingredient                           |
+| setName(String): void                 | Setting the name of the ingredient                           |
+| equals(Ingredients): Boolean          | Returns a `boolean` when comparing 2 Ingredients<br />*True*: Ingredient names are identical<br />*False*: Otherwise |
+| isExpired(): Boolean                  | Returns a `boolean` depending on the expiry date<br />*True*: Ingredient's date is before or equal to today's date<br />*False*: Otherwise |
+| isExpiredToday(String): Boolean       | Returns a `boolean` depending on the expiry date<br />*True*: `Date` of string is is equal to today's date<br />*False*: Otherwise |
+| equalsCompletely(Ingredient): Boolean | Returns a `boolean` when comparing 2 Ingredients<br />*True*: Ingredients have same name and expiry date<br />*False*: Otherwise |
 
 
 #### 2.13 ingredientCommand Component
 
-API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.java`, `RemoveAllExpired.java,FindIngredientCommand.java, UseCommand.java,` `ChangeAmountCommand.java`, `ChangeNameCommand.java`
+API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.java`, `RemoveAllExpired.java`, `FindIngredientCommand.java`, `UseCommand.java`, `ChangeAmountCommand.java`, `ChangeNameCommand.java`
 
 The `ingredientCommand` classes all inherit from the `Command` class. They all have a specific implementation of the abstract method `execute` of the class `Command`. The `ingredientCommand` classes includes:
 
@@ -545,11 +540,13 @@ The `ingredientCommand` classes all inherit from the `Command` class. They all h
 - **ChangeAmountCommand**: This command is used to change the amount of an `Ingredient` given the index number of the `Ingredient`.
 - **ChangeNameCommand**: This command is used to change the name of an `Ingredient` given the index number of the `Ingredient`.
 
+
 ### 3. Implementation
 
 ### 4. Documentation
 
 ### 5. Testing
+
 
 - There are two ways to run our tests.
 
@@ -563,7 +560,6 @@ The `ingredientCommand` classes all inherit from the `Command` class. They all h
 - Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
 
 We provide `JUnit` tests to test individual methods in the `Dish` and `Fridge` component, provided in the `DishTest.java` and `FridgeTest.java`
-
 
 
 ### 6. Dev Ops 
@@ -598,7 +594,6 @@ Target user profile: Restaurant Chef
 | high     | restaurant Chef    | keep track of all the ingredients in the kitchen             | there are ample supply and no expired ingredient     |
 | high     | restaurant Chef    | I want to create a recipe book                               | I know which ingredient is needed for that dish      |
 | high     | restaurant Chef    | I want to keep track of the orders                           | I know which to complete first                       |
-| high     | restaurant Chef    | I want to                                                    |                                                      |
 
 ### Appendix C: Use Case
 
@@ -798,7 +793,27 @@ in the main page, there are several actions for the user:
 
       Expected: output a message to user that the description of add cannot be empty
 
-#### E3. Using an ingredient
+
+
+#### E3. Removing an ingredient
+
+Removing an ingredient from the Fridge
+
+1. prerequisite: user must be in `b` option of the main menu. Show all ingredients using `show` , assuming the number of ingredients currently  in the Fridge is for eg. 5.
+
+   Test case 1: `remove 1` 
+
+   Expected: remove the first, most recently expiring ingredient from the Fridge, and output back the details of the removed ingredient
+
+   Test case 2: `remove 6`
+
+   Expected: no ingredient is removed, outputs to the user that the index is not valid 
+
+   Test case 3: `remove`
+
+   Expected:  no ingredient is removed, outputs to the user that he must specify an index
+
+#### E4. Using an ingredient
 
 Using an ingredient from the Fridge
 
@@ -814,57 +829,29 @@ Using an ingredient from the Fridge
 
    Test case 3: `use tomato`
 
-   Expected: output a message to user that he must follow the template for using this command
+   Expected: output a message to user that he must specify an amount 
 
-#### E4. Finding an ingredient
+#### E5. Listing all ingredient
 
-Find an ingredient in the list using a keyword
+1. Adding an ingredient to the List
 
-1. Prerequisite: user must be in `ingredient` template. List all ingredients by typing `show`. Assuming the the fridge currently only has `beef`.
+#### E6. Removing all expired ingredient
 
-   Test case 1: `find beef` 
+1. Adding an ingredient to the List
 
-​		Expected: Find and list all ingredients that have the keyword `beef` to the user
-
-​		Test case 2: `find cockroach`
-
-​		Expected: Ingredient is not found and program outputs `No such ingredient found!`
-
-​		Test case 3: `find be ef`
-
-​		Expected: Program outputs to user the proper syntax to use the command.
-
-#### E5. Remove an ingredient
-
-Removing an ingredient from the Fridge
-
-1. prerequisite: user must be in `b` option of the main menu. Show all ingredients using `show` , assuming the number of ingredients currently  in the Fridge is for eg. 5.
-
-
-   Test case 1: `remove 1` 
-
-   Expected: remove the first, most recently expiring ingredient from the Fridge, and output back the details of the removed ingredient
-
-   Test case 2: `remove 6`
-
-   Expected: no ingredient is removed, outputs to the user that the index is not valid 
-
-   Test case 3: `remove`
-
-   Expected:  no ingredient is removed, outputs to the user that he must specify an index of the ingredient to be removed!
-
-#### E6. Listing all ingredient
-
-#### E7. Removing all expired ingredient
-
+#### E7. Finding an ingredient
 
 #### E8. Listing ingredients that expired today
 
-1. 
+1. Adding an ingredient to the List
 
 #### E9. Changing ingredient name
 
+1. Adding an ingredient to the List
+
 #### E10. Changing ingredient amount
+
+1. Adding an ingredient to the List
 
 #### E11. Adding an order
 

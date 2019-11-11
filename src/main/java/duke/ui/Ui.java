@@ -207,7 +207,7 @@ public class Ui {
     }
 
     public void showOrderTemplate() {
-        orderDrawing();
+        //orderDrawing();
         showLine();
         System.out.println("\t Continue by adding, cancelling, altering, and listing orders, or initializing order list. \n\t Command Template: ");
         showLine();
