@@ -67,8 +67,8 @@ An option could be added to give a priority to the task : `todo DESCRIPTION prio
 
 Be careful:
 
-* The second INDEX cannot be less than 0 or greater than 9.
-* 0 is the less urgent, 9 is the most urgent
+* The second INDEX cannot be less than 1 or greater than 9.
+* 1 is the less urgent, 9 is the most urgent
 
 Examples:
 
@@ -85,8 +85,8 @@ An option could be added to give a priority to the task : `homework DESCRIPTION 
 An other option could be added to give recurrence to the task : `homework DESCRIPTION /by DATE recu DATETYPE NBRECU`
 Be careful:
 
-* The second INDEX can’t be less than 0 or greater than 9.
-* 0 is the less urgent, 9 is the most urgent
+* The second INDEX can’t be less than 1 or greater than 9.
+* 1 is the less urgent, 9 is the most urgent
 * DATETYPE can be day, week, month
 * NBRECU indicate the number of recurrence +1 you want
 * If you want to add recurrence and priority, `prio` should be before `recu`
@@ -116,8 +116,8 @@ An other option could be added to give recurrence to the task : `vent DESCRIPTIO
 Be careful:
 
 * When creating an event, two dates can’t clash
-* The second INDEX can’t be less than 0 or greater than 9.
-* 0 is the less urgent, 9 is the most urgent
+* The second INDEX can’t be less than 1 or greater than 9.
+* 1 is the less urgent, 9 is the most urgent
 * DATETYPE can be day, week, month
 * NBRECU indicate the number of recurrence +1 you want
 * If you want to add recurrence and priority, `prio` should be before `recu`
@@ -284,14 +284,6 @@ Examples:
 ** One shot command
 - `edit 2 description DESCRIPTION`
 
-* The task 2 is a homework task:
-** Multi-steps command
-- `edit`
-- `2`
-- `2`
-- `DATE`
-** One shot command
-- `edit 2 /by DATE`
 
 * The task 3 is a event task:
 ** Multi-steps command
@@ -301,6 +293,52 @@ Examples:
 - `DATE - DATE`
 ** One shot command
 - `edit 3 /at DATE - DATE`
+
+
+* The task 2 is a homework task:
+** Multi-steps command
+- `edit`
+- `2`
+- `2`
+- `DATE`
+
+```
+edit
+	---------------------------------------------------------------------------------
+	 Please choose the task to edit from the list by its index:
+	---------------------------------------------------------------------------------
+	---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 1. [H][X] math assignment 1 by: 07/11/2019 23:59 [Priority: 5]
+	 2. [H][V] Software Security lab 2 by: 08/11/2019 23:59 [Priority: 5]
+	---------------------------------------------------------------------------------
+2
+	---------------------------------------------------------------------------------
+	 Please choose what you want to edit (1 or 2)
+	 1. The description
+	 2. The deadline/period
+	---------------------------------------------------------------------------------
+2
+	---------------------------------------------------------------------------------
+	 Please enter the new deadline of the task
+	---------------------------------------------------------------------------------
+12/12/2019 22:22
+	---------------------------------------------------------------------------------
+	 The task is edited:
+	 [H][V] Software Security lab 2 by: 12/12/2019 22:22 [Priority: 5]
+	---------------------------------------------------------------------------------
+```
+** One shot command
+- `edit 2 /by DATE`
+
+```
+edit 2 /by 12/12/2019 22:22
+---------------------------------------------------------------------------------
+The task is edited:
+[H][V] Software Security lab 2 by: 12/12/2019 22:22 [Priority: 5]
+---------------------------------------------------------------------------------
+```
+
 
 
 
@@ -472,12 +510,12 @@ Giving priority to task: `prioritize INDEX prio INDEX`
 
 The first INDEX is the task index
 
-The second INDEX is the priority (goes from 0 to 9)
+The second INDEX is the priority (goes from 1 to 9)
 
 Be careful:
 
-* The second INDEX can’t be less than 0 nor greater than 9.
-* 0 is the less urgent, 9 is the most urgent
+* The second INDEX can’t be less than 1 nor greater than 9.
+* 1 is the less urgent, 9 is the most urgent
 * When creating a task, specifying the priority is optional. When the priority is not specified, the task will automatically have a priority of 5.
 
 Example:

@@ -73,13 +73,6 @@ public class PrioritizeCommand extends Command {
         ui.showPrioritize(t);
     }
 
-    /**
-     * Returns is false for a leduc.command.PrioritizeCommand.
-     * @return false
-     */
-    public boolean isExit(){
-        return false;
-    }
 
     /**
      * used when the user want to change the shortcut
