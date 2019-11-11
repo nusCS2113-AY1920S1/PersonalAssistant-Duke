@@ -63,7 +63,8 @@ public class ViewCommand extends Command {
                                 BigDecimal expenseSum = BigDecimal.valueOf(wallet.getExpenseList()
                                         .getMonthExpenses(b.getMonth(), b.getYear()));
                                 BigDecimal accountedAmount = BigDecimal.valueOf(b.getAccountedExpenseAmount());
-                                double remainingBudget = monthBudget.subtract(expenseSum).add(accountedAmount).doubleValue();
+                                double remainingBudget = monthBudget.subtract(expenseSum)
+                                    .add(accountedAmount).doubleValue();
                                 System.out.println(MESSAGE_REMAINING_BUDGET
                                         + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                                 System.out.println("$" + remainingBudget);
