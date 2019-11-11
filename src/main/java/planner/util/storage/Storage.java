@@ -62,6 +62,14 @@ public class Storage {
         return fileExists;
     }
 
+    public Path getPath() {
+        return path;
+    }
+
+    public Path getDataPath() {
+        return dataPath;
+    }
+
     public boolean getDataPathExists() {
         return dataPathExists;
     }

@@ -1,4 +1,6 @@
-package planner.util;
+//@@author namiwa
+
+package planner.util.datetime;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -10,8 +12,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import planner.logic.exceptions.legacy.ModInvalidTimeException;
-import planner.util.datetime.NattyWrapper;
-
 
 public class NattyTesting {
 
