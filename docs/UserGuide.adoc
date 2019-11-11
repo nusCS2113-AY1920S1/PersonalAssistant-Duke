@@ -185,12 +185,14 @@ Finds members who possess skills required by a task +
 `match task [INDEX]` +
 
 ****
-* Deletes the task at the specified INDEX.
+* Finds members who possess skills required by specified INDEX of task
 * The index refers to the index number shown in the displayed schedule list.
 * The index must be a positive integer 1, 2, 3, …
-* Any reminders set on the task will be deleted together​
+* The gui will show members with the relevant skills and rank them.
+* Ranking works in descending order.
+* e.g
+* These are the members with the relevant skills:
 ****
-
 
 === Commands related to members
 
