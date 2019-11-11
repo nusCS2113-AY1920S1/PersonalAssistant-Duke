@@ -72,6 +72,11 @@ For each command, a format is specified for the user to key in. The following is
 ** The pitches available are: UC, UB, UA, UG, UF, UE, UD, MC, LB, LA, LG, LF, LE, LD, LC
 ** The durations available are: 1, 2*, 2, 4*, 4, 8. _(Just as in sheet music, a single dot (*) lengthens the duration of a note by 50%. Modification with double dots coming in v2.0.)_
 ** More information regarding pitches and durations is given in Section 5 Introduction to Basic Music Theory
+=== Autocorrect 
+
+An autocorrect has been implemented to help in the use of the application. It will try to correct the typos in the commands and suggest the command that the user meant. For instance 'helo' will be interpreted as 'help'
+
+
 
 === Viewing help: `help`
 
@@ -165,15 +170,146 @@ The above command groups the bars from index 2 to index 4 (inclusive) and gives 
 
 === Copying sections of music: `copy`
 
-=== Combining sections of music: `overlay`
+=== Combining sections of music:
+For any musician, having the freedom to overlay a part of one song to another (overlaps two components and we play the 2 components together at the same time)  will save them a lot of time and also make it easier for them to create a composition. The overlay function aims to perform this functionality and allows the freedom to overlay a bar-bar, bar-group, group - group. 
 
 ==== Combining bar-bar: `overlay`
 
+This command allows the user to overlay a bar from the same song to another bar on the same song, i.e. opened song. To change the song please use the `open` command
+
+_Format_:
+`overlay <bar_num to be overlayed> <bar_num to be overlayed to>`
+
+_Example_: `overlay 1 3`
+
+
+The above command overlays bar 1 onto bar 3. 
+
+The repeat parameter can be added to the end to overlay the bar from the required start point till the end. 
+
+_Format_:
+`overlay <bar_num to be overlayed> <bar_num to be overlayed to> repeat`
+
+_Example_: `overlay 1 3 repeat`
+
+
+The above command overlays bar 1 onto bar 3 and onwards. 
+
+The output will be an ascii printed version of the song after overlaying. 
+
+image::overlay_demo.png[]
+
 ==== Combining group-group: `overlay_group_group`
+Allows the users to overlay a group from one song to another. The interesting aspect of this feature is that it allows the users to overlay groups of unequal length, i.e. a group with a larger number of bars onto a group with a smaller number of bars and vice versa. The following example shows what will happen when combining two unequal groups:  
+
+
+* Group 1: {Bar X Bar Y} 
+* Group 2 : {Bar A Bar B Bar C Bar D}
+* Overlaying Group 1 onto Group 2:  { [Bar A + Bar X] [Bar B + Bar Y] [Bar C + Bar X] [Bar D + Bar Y]}   
+* Overlaying Group 2 onto Group 1: { [Bar A + Bar X] [Bar B + Bar Y]} 
+
+_Format_:
+
+`overlay_group_group <song_name to be overlayed from> <group_number> <song_name to be overlayed to> <group_number>`
+
+_Example_: `overlay_group_group twinkle 1 jingle 3`
+
+ 
+The above command overlays group 1 from twinkle onto group 4 of jingle 
+
+_Example_: `overlay_group_group twinkle 1 twinkle 2`
+
+If group 1 from twinkle is overlayed onto group 2 of twinkle, where 1 is from bar 1 to 2 and group 2 consists of bar 3 to 5. 
+
+image::example_song_annotation.png[]
+
+
+The output of the above command must be: 
+
+image::smaller_group_onto_bigger_one.png[]
+
+If we try to run `overlay_group_group twinkle 2 twinkle 1` 
+
+The output will be: 
+
+image::bigger_group_onto_smaller_group.png[]
+
+
+The repeat parameter can be added to the end to overlay the group from the required start point till the end. 
+
+_Format_:
+`overlay_group_group <song_name to be overlayed from> <group_number> <song_name to be overlayed to> <group_number> repeat`
+
+_Example_: `overlay_group_group twinkle 1 jingle 3 repeat`
+
+
+The above command overlays group 1 onto jingle's group 4 and onwards. 
+
+
+If the indexes does not exist then an exception is thrown. 
+
 
 ==== Combining bar-group: `overlay_bar_group`
 
+Allows the users to overlay a  bar onto a group from the same song, i.e. opened song. To change the song please use the `open` command. It works in the similar way as the `overlay` commands. The repeat parameter allows the user to overlay through all the groups from the specified starting group. 
+
+
+_Format_:
+
+`overlay_bar_group <bar_number to be overlayed> <group_number to be overlayed to>`
+
+_Example_: `overlay_bar_group 1 2`
+
+
+The above command overlays bar 1 from the opened song onto group 2. 
+
+If the group 2 was from bar 3 to 5 on the following song: 
+image::example_song_annotation.png[]
+
+The expected output will be: 
+
+image::overlay_bar_group_1_2.png[]
+
+
+The repeat parameter can be added to the end to overlay the bar from the required start point till the last group. 
+
+_Format_:
+`overlay_bar_group <bar_number to be overlayed> <group_number to be overlayed to> repeat`
+
+_Example_: `overlay_bar_group 1 3 repeat`
+
+
+The above command will allow the user to overlay bar 1 to group 3 and onwards till the end of group lists. 
+
+The output will be an ascii printed version of the song after overlaying. 
+
+
 ==== Combining bars across songs: `overlay_bar_song`
+
+
+This command allows the user to overlay a bar from one song to another song's bar. 
+
+_Format_:
+`overlay_bar_song <song_name to be overlayed from> <bar_number> <song_name to be overlayed to> <bar_number>`
+
+
+_Example_: `overlay_bar_song twinkle 3 jingle 4`
+
+
+The above command overlays bar 3 from twinkle onto bar 4 of jingle 
+
+The repeat parameter can be added to the end to overlay the bar from the required start point till the end. 
+
+_Format_:
+`overlay_bar_song <song_name to be overlayed from> <bar_number> <song_name to be overlayed to> <bar_number> repeat`
+
+_Example_: `overlay_bar_song twinkle 3 jingle 4 repeat`
+
+
+The above command overlays bar 3 onto jingle's bar 4 and onwards. 
+
+The output will be an ascii printed version of the song after overlaying. 
+
 
 === Viewing your list of groups in a song: `list_group`
 
