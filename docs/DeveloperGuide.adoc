@@ -248,7 +248,7 @@ The `setRecurringTask` method in `RecurringCommand` class is then called by the 
 * Calls `getTask` method from `TaskList` class to get the user-selected `Task`.
 * Updates the `Task` to a `recurring Task` by: +
 ** Calling `deleteTask` and `addTaskToIndex` methods in `TaskList` class to update the selected `Task`.
-* Calls `recurInstances` method in `RecurringCommand` class to set upcoming recurring `Tasks` based on user selected `Number of recurrences` and `Frequency` by:
+* Calls `recurInstances` method in `RecurringCommand` class to set upcoming recurring `Tasks` based on user-selected `Number of recurrences` and `Frequency` by:
 ** `recurInstances` method calls `dateTimeIncrement` method in `RecurringCommand` class to increment the `DateTime` based on the user input `Frequency`.
 
 *Step 4.* +
@@ -407,10 +407,10 @@ The `task` is then added to `calendarTasks` using the `addEntry()` method. After
 In the `printViewWeek()` method, 3 main methods are being called to print the final output. Firstly, `printViewWeekHeader()` method is called to print the header of the output which consists of the top border and the days of the current week.
 
 *Step 7.* +
-Secondly, `printViewWeekBody()` method is called to print the dates of the current week in the next line of output.
+Secondly, the `printViewWeekBody()` method is called to print the dates of the current week in the next line of output.
 
 *Step 8.* +
-Lastly, `printViewWeekDetails()` method is called to print relevant empty lines, tasks and the bottom border of the final output.
+Lastly, the `printViewWeekDetails()` method is called to print relevant empty lines, tasks and the bottom border of the final output.
 
 The following sequence diagram summarises what happens when a user executes a new command:
 
@@ -646,7 +646,7 @@ The `execute` method of `TrackerCommand` class reads and saves all `Tracker` obj
 The `readTrackerList` method in `StorageManager` class retrieves and processes `tracker.csv` from persistent storage through the `loadFile` method in `Storage` class.
 
 * *Step 1b:* +
-The `loadFile` method calls the `dataToTrackerList` method in `StorageParser` class, which in turns calls the `processLine` method.
+The `loadFile` method calls the `dataToTrackerList` method in `StorageParser` class, which in turn calls the `processLine` method.
 
 * *Step 1c:* +
 The `processLine` method of `StorageParser` class splits each line into its respective fields through the use of `,` delimiters before parsing and assign them into the correct fields.
@@ -694,7 +694,7 @@ Else, the next input field will be retrieved.
 
 *Step 4:* +
 If the user given instruction is `/delete`, the user input will be used as `taskIndex` to identify the tracker from the ArrayList of `Tracker` objects.
-It will then be removed from the ArrayList before the `execute` method of `TrackerCommand` calls `printTrackerDelete` method in the `Ui` class and updates `tracker.csv` by calling `writeTrackerList` method from `StorageManager` class.
+It will then be removed from the ArrayList before the `execute` method of `TrackerCommand` calls the `printTrackerDelete` method in the `Ui` class and updates `tracker.csv` by calling `writeTrackerList` method from `StorageManager` class.
 
 [WARNING]
 `InvalidArgumentException` will be thrown if the instruction given by the user is invalid.
@@ -740,7 +740,7 @@ If the user given instruction is `/stop`, the `execute` method of `TrackerComman
 This is where the `timeTaken` of the matching `Tracker` object will be updated, calculating the time difference between `startDate` and current `Date`.
 
 * *Step 7b:* +
-The `execute` method of `TrackerCommand` calls the `setStatus` method in `Task` class to mark the `Task` as completed.
+The `execute` method of `TrackerCommand` calls the `setStatus` method in the `Task` class to mark the `Task` as completed.
 
 * *Step 7c:* +
 The `execute` method of `TrackerCommand` calls `writeTrackerList` and `writeTaskList` methods in `StorageManager` class to update the ArrayList of `Tracker` objects and `TaskList`.
@@ -1046,7 +1046,7 @@ Use case ends.
 
 *Extensions:*
 
-* 3a. OOF detects empty date and time in the description of the task.
+* 3a. OOF detects an empty date and time in the description of the task.
 ** 3a1. OOF requests for date and time of task.
 ** 3a2. User enters the required data.
 ** Steps 3a1-3a2 are repeated until the correct data is entered.
@@ -1055,10 +1055,10 @@ Use case ends.
 ** 3b1. OOF warns the User of such a clash by displaying the task(s) that clash(es)    	and prompts for continuation or cancellation.
 ** 3b2. User decides for continuation or cancellation.
 ** 3b3. OOF requests to confirm the decision.
-** 3b4. User confirms decision.
+** 3b4. User confirms the decision.
 ** Use case ends if the User decides to cancel the action. Use case resumes from 		step 4 otherwise.
 * *a. At any time, User chooses to re-enter the task description.
-** *a1. OOF requests confirmation to re-enter task description.
+** *a1. OOF requests confirmation to re-enter the task description.
 ** *a2. User confirms to re-enter the task description.
 ** Use case resumes from step 3.
 
@@ -1115,7 +1115,7 @@ Use case ends.
 *Extension:*
 
 * 3a. OOF detects there are no tasks for the next day.
-** 3a1. OOF prints to the console to warn User that there are no tasks for the next day.
+** 3a1. OOF prints to the console to warn the User that there are no tasks for the next day.
 ** Use case ends.
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -1137,7 +1137,7 @@ Use case ends.
 ** 3a2. User enters the new data.
 ** Steps 3a1-3a2 are repeated until the data entered are correct.
 ** Use case resumes from step 4.
-* *a. At any time, User chooses to stop adding a task.
+* *a. At any time, the User chooses to stop adding a task.
 ** *a1. OOF requests to confirm the cancellation.
 ** *a2. User confirms the cancellation.
 ** Use case ends.
@@ -1150,7 +1150,7 @@ Use case ends.
 . User chooses to activate the reminder for expiring tasks.
 . OOF requests for confirmation of this action.
 . User confirms the action.
-. OOF displays the expiring tasks every time OOF is started.
+. OOF displays expiring tasks every time OOF is started.
 
 Use case ends.
 
@@ -1286,7 +1286,7 @@ Use case ends.
 *MSS:*
 
 . User requests to delete tasks.
-. OOF lists the current tasks saved in the program and prompts User to select the task to be deleted.
+. OOF lists the current tasks saved in the program and prompts the User to select the task to be deleted.
 . User chooses the task to be deleted.
 . OOF deletes and display the task that was deleted and the number of tasks saved in the program.
 
@@ -1490,7 +1490,7 @@ Expected: Similar to previous.
 . Prerequisites: Module has been selected using the `module /select` command.
 
 . Test case: `lesson /add Tutorial /day FRIDAY /from 10:00 /to 12:00`
-Expected: Acknowledgement message displayed regarding the successful addition of `Tutorial` for selected `module`.
+Expected: Acknowledgement message displayed regarding the successful addition of `Tutorial` for the selected `module`.
 
 . Test case: `lesson /add /day FRIDAY /from 10:00 /to 12:00`
 Expected: Error displayed about missing argument.
@@ -1545,7 +1545,7 @@ Expected: Error displayed regarding an invalid argument.
 . Prerequisites: Module has been selected using the `module /select` command.
 
 . Test case: `assignment Lab /by 15-11-2019 23:59` +
-Expected: An acknowledgement message displayed regarding the successful addition of a `assignment` task for selected `module`.
+Expected: An acknowledgement message displayed regarding the successful addition of a `assignment` task for the selected `module`.
 
 . Test case: `assignment /by 15-11-2019 23:59` +
 Expected: Error displayed regarding a missing argument.
@@ -1573,7 +1573,7 @@ Expected: Error displayed regarding an invalid argument.
 . Prerequisites: Module has been selected using the `module /select` command.
 
 . Test case: `assessment Finals /from 30-11-2019 10:00 /to 30-11-2019 12:00` +
-Expected: An acknowledgement message displayed regarding the successful addition of a `assessment` task for selected `module`.
+Expected: An acknowledgement message displayed regarding the successful addition of an `assessment` task for the selected `module`.
 
 . Test case: `assessment /from 30-11-2019 10:00 /to 30-11-2019 12:00` +
 Expected: Error displayed regarding a missing argument.
