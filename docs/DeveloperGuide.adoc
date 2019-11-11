@@ -184,7 +184,7 @@ Hence, we have decided to go for a linear search for `findSongIndex()`, and let 
 
 ==== Undo/Redo
 
-UndoCommand and RedoCommand is implemented using a typical undo-redo stack, which is also a important component called `UndoRedoStack`, which records all the versions of the `SongList` object that the user is currently using.
+UndoCommand and RedoCommand is implemented using a typical undo-redo stack, which is also an important component called `UndoRedoStack`, which records all the versions of the `SongList` object that the user is currently using.
 The implementation of UndoRedoStack is similar to git history tree.
 Each node on the UndoRedoStack is a version of the SongList.
 
