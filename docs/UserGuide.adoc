@@ -379,6 +379,7 @@ Format: `newItinerary START_DATE END_DATE ITINERARY_NAME DAY_NUMBER /venue VENUE
 ====
 * You cannot re-enter a list with the same name.
 * You cannot have an itinerary name with spaces.
+* You cannot enter a venue name with spaces.
 * Adding 2 of the same day numbers results in an error. (Putting two day 1's for example)
 * Adding identical venues twice in the same day will show only one instance but is still a valid input.
 ====
