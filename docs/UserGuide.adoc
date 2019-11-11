@@ -231,6 +231,15 @@ Generates a variable-size calendar which shows a monthly view of all the loaned 
 ... Decreases the cell size of the calendar, decreasing its overall size for more concise reading.
 ... The calendar has a minimum cell size, beyond which it cannot be decreased.
 
+==== View stats: `stats`
+View how many resources are in used between two dates with interval less than 15 in the form of a simple bar graph.
+
+.*Format*:
+. `stats /from DATE /till DATE`
+
+.*Example*:
+. `stats /from 20/11/2019 1000 /till 29/11/2019 1000`
+
 === Others
 
 ==== Undo last command: `undo`
