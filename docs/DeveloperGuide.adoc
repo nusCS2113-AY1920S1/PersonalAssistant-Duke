@@ -430,7 +430,7 @@ e.g. `routeNodeNearby 1 1`
 . The `generateStaticMapNeighbours()` method is called in the `ApiParser` class. This method constructs a string from the parameters of the `RouteNode` object and the list of nearby `RouteNodes`, and obtains an `Image` object from the `getStaticMap` method in the `ApiParser`.
 . A `StaticMapUrlRequest` object is created, which will send a request to the OneMap API. The API returns an `Image` object back to the `StaticMapUrlRequest`, which will return the object back to the `ApiParser`. This `Image` is returned back to the `RouteNodeNearbyCommand` object, which will then return a `ComandResultImage` object with the `Image` and list of nearby `RouteNodes`.
 
-.Activity diagram for the execute() method in RouteNodeShowCommand
+.Activity diagram for the execute() method in RouteNodeNearbyCommand
 image::SGTravel_routeNodeNearby_diagram.png[height="1290" width="850"]
 
 The user can also automatically generate a new `Route` by using the `RouteGenerateCommand`. Given below is an example usage scenario and how the `Model`, `RouteList` and `PathFinder` object behave at each step.
