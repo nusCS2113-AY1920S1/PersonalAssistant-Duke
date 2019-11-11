@@ -13,6 +13,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author NicholasLiu97
 class ReassignSeatCommandTest {
     private Ui ui = new Ui();
     private static File currentDir = new File(System.getProperty("user.dir"));
