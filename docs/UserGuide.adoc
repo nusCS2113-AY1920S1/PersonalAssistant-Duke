@@ -229,7 +229,7 @@ into a text file automatically. The user will be able to edit them in the text f
 === Checklists : `checklist`
 Checklist of each event can be used to remind users of certain items (e.g. bring glasses to concert).
 This is implemented by storing an array list of strings in `Event` objects.
-Storing checklist data to files coming in v2.0.
+Storing checklist data to files will be available in v2.0.
 
 Checklist implementation contains 4 operations:
 
