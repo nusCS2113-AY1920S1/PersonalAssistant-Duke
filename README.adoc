@@ -6,15 +6,34 @@ image::docs/images/Ui.png[width="600"]
 * Personalized for users who love typing over clicking.
 * Written primarily in Java with the Object Oriented Programming (OOP) paradigm.
 
+# System Requirements
+
+Ensure you have Java 11 or above installed in your Computer.
+
 # Setting Up
 
-1. Install.
-1. Enjoy!
+1. Download the latest Duke$$$.jar here.
+2. Copy the file to the folder you want to use as the home folder for your finance tracking.
+3. Double-click the file to start the app. The CLI should appear in a few seconds.
+4. Type "help" to see the list of commands
 
+Some example commands you can try:
+
+  [status]: Shows the current balance in the account 
+  [out] $5.00 /date 2019-10-31 /tags food adds an entry of food of value 5 to the memory
+  [delete] 3: deletes the 3rd entry on the current day’s list 
+  [bye]: exits the app
+  
+For more details on the Commands available, please refer to our User Guide, Section 4.
+	
 # Features
 
-Coming Soon!
+* Aesthetic Graphical Display
+* Forgiving Input Interpreter
+* Statistical Analysis of Expenses
+* Currency Conversion
+* Weather Updates
 
 # Requests
 
-* If you have any new features you would like us to implement, drop us an email at tbd@gmail.com!
+* If you have any new features you would like us to implement, drop us an email at SleepyUndergrad@gmail.com!
