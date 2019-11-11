@@ -12,7 +12,7 @@
     <children>
         <VBox layoutX="9.0" layoutY="9.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="350.0">
             <children>
-                <BorderPane maxWidth="-Infinity" prefWidth="320.0">
+                <BorderPane fx:id="commandSection">
                     <left>
                         <Label fx:id="commandLabel" alignment="CENTER" style="-fx-background-color: #d1a1ff; -fx-border-color: black; -fx-border-width: 1; -fx-border-style: solid;" text="COMMAND" textAlignment="CENTER" BorderPane.alignment="CENTER">
                             <font>

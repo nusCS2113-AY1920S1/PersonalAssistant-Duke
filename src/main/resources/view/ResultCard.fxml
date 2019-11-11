@@ -10,7 +10,8 @@
 
 <fx:root xmlns:fx="http://javafx.com/fxml/1" fx:id="cardView" maxWidth="-Infinity"
          prefWidth="168.0"
-         style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" type="javafx.scene.layout.AnchorPane"
+         style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;"
+         type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/11.0.1">
     <children>
         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="42.0" pickOnBounds="true"

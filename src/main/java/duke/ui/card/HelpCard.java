@@ -4,11 +4,14 @@ import duke.data.Help;
 import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class HelpCard extends UiCard {
     private static final String FXML = "HelpCard.fxml";
 
+    @FXML
+    private BorderPane commandSection;
     @FXML
     private Label commandLabel;
     @FXML
@@ -45,13 +48,23 @@ public class HelpCard extends UiCard {
         super(FXML);
 
         this.help = help;
-        this.commandLabel.setText(help.getCommand());
         this.descriptionLabel.setText(help.getSummary());
-        this.formatLabel.setText(help.getFormat());
+
+        if (help.getCommand() == null) {
+            this.commandSection.getChildren().remove(this.commandLabel);
+        } else {
+            this.commandLabel.setText(help.getCommand());
+        }
 
         if (!isDetailsShown) {
             this.mainSection.getChildren().remove(this.detailsSection);
             return;
+        }
+
+        if (help.getFormat() == null) {
+            this.detailsSection.getChildren().remove(this.formatSection);
+        } else {
+            this.formatLabel.setText(help.getFormat());
         }
 
         if (help.getSwitches() == null) {

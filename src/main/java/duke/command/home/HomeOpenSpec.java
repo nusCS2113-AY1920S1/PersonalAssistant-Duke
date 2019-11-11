@@ -1,5 +1,3 @@
-/* @@author gowgos5 */
-
 package duke.command.home;
 
 import duke.DukeCore;
@@ -9,6 +7,7 @@ import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
 
+/* @@author gowgos5 */
 public class HomeOpenSpec extends HomeObjSpec {
     private static final HomeOpenSpec spec = new HomeOpenSpec();
 

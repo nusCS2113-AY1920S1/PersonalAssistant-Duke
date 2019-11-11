@@ -8,9 +8,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root xmlns:fx="http://javafx.com/fxml/1" fx:id="cardView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="216.0"
+<fx:root xmlns:fx="http://javafx.com/fxml/1" fx:id="cardView" maxHeight="-Infinity" maxWidth="-Infinity"
+         prefHeight="216.0"
          prefWidth="218.0"
-         style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" type="javafx.scene.layout.AnchorPane"
+         style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;"
+         type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/11.0.1">
     <children>
         <BorderPane layoutX="4.0" layoutY="10.0" prefHeight="30.0" prefWidth="212.0">

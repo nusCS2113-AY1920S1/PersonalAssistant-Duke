@@ -16,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +34,7 @@ public class HelpWindow extends UiElement<Region> implements ChangeListener<Stri
 
     private List<Help> helpList;
     private List<Help> contextedHelpList;
+    private Context currentContext;
 
     /**
      * Constructs a help window.
@@ -89,7 +89,10 @@ public class HelpWindow extends UiElement<Region> implements ChangeListener<Stri
      * @param uiContext UiContext object.
      */
     private void attachListenerToContext(UiContext uiContext) {
-        uiContext.addListener(event -> update((Context) event.getNewValue()));
+        uiContext.addListener(event -> {
+            this.currentContext = (Context) event.getNewValue();
+            update(currentContext);
+        });
     }
 
     /**
@@ -110,6 +113,10 @@ public class HelpWindow extends UiElement<Region> implements ChangeListener<Stri
      */
     @Override
     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        if (currentContext == Context.SEARCH) {
+            return;
+        }
+
         List<Help> filteredHelpList = new ArrayList<>();
         helpListView.getItems().clear();
 
