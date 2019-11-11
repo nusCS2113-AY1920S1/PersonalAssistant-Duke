@@ -1,4 +1,4 @@
-package ducats.components;
+package ducats.commands;
 
 
 import org.junit.jupiter.api.Test;
