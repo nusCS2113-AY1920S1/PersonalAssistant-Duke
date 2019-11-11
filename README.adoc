@@ -1,8 +1,12 @@
 = OwlMoney
 
-image:https://travis-ci.org/AY1920S1-CS2113T-W17-3/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2113T-W17-3/main"]
-https://ci.appveyor.com/project/shamussy/main[image:https://img.shields.io/appveyor/ci/shamussy/main?label=build&logo=appveyor[AppVeyor CI Build Status]]
-link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/LICENSE[image:https://img.shields.io/badge/license-MIT-blue.svg?logo=github&logoColor=white[MIT License]]
+https://app.codacy.com/manual/OwlMoney/main/dashboard[image:https://img.shields.io/codacy/grade/87e6a35364dc480594f57acb07eb953b?logo=codacy&style=plastic[Codacy grade]]
+https://travis-ci.org/AY1920S1-CS2113T-W17-3/main[image:https://img.shields.io/travis/AY1920S1-CS2113T-W17-3/main?logo=travis&style=plastic[Travis (.org)]]
+https://ci.appveyor.com/project/shamussy/main[image:https://img.shields.io/appveyor/ci/shamussy/main?logo=appveyor&style=plastic[AppVeyor CI Build Status]]
+https://codecov.io/gh/AY1920S1-CS2113T-W17-3/main[image:https://img.shields.io/codecov/c/github/AY1920S1-CS2113T-W17-3/main?color=yellow&logo=codecov&style=plastic[Codecov]]
+https://coveralls.io/github/AY1920S1-CS2113T-W17-3/main[image:https://img.shields.io/coveralls/github/AY1920S1-CS2113T-W17-3/main?logo=reverbnation&style=plastic[Coveralls github]]
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/LICENSE[image:https://img.shields.io/badge/license-MIT-blue.svg?logo=github&logoColor=white&style=plastic[MIT License]]
+link:https://app.netlify.com/sites/ay1920s1-cs2113t-w17-3/deploys[image:https://api.netlify.com/api/v1/badges/e180df2c-45e2-4754-860d-ffc1d048c273/deploy-status[Netlify status]]
 
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 

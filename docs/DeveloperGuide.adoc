@@ -299,6 +299,10 @@ which holds records of transactions.
 If the `Card` or the `Bank` objects are *deleted*, its corresponding `TransactionList` that contains the records of
 transactions *will be deleted* along with it given that it has a *composite relationship* with `TransactionList`.
 
+Notice a layer of abstraction on the individual `arrayList` that stores objects such as `bank`, `bond`, `card` etc.
+The purpose of this extra layer of abstraction is to hide unwanted default `arrayList` methods from developers and to
+provide more extensive checks such as wrapping around when the `arrayList` is full which the default
+methods are unable to do.
 
 === Storage Component
 
@@ -2405,6 +2409,11 @@ There is enough money in the `investment` account to add the `bond`.
 `/add /bonds /name September SSB /amount 1000 /rate 1.65 /year 7 /date 1/10/2019 /from BBB Vickers Account` +
 Expected: New details of the September SSB `bond` being displayed after being added.
 
+[NOTE]
+====
+If you have previously deleted `BBB Vickers Account`, you might want to add it back before proceeding.
+====
+
 === Editing an investment bond
 
 . Editing the rate of an existing `investment` `bond` tied to an existing `investment` account
@@ -2419,9 +2428,25 @@ Expected: Updated rate of the September SSB `bond` being displayed after being e
 
 .. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
 
+[NOTE]
+====
+If you have previously deleted `BBB Vickers Account`, you might want to add it back before proceeding.
+====
+
+=== Deleting an investment bond
+
+. Deleting an existing `investment` `bond` tied to an existing `investment` account
+
+.. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
+
 .. Test case:
-`/edit /bonds /from BBB Vickers Account /name September SSB /year 10` +
-Expected: Updated years of the September SSB `bond` being displayed after being edited.
+`/delete /bonds /from BBB Vickers Account /name September SSB` +
+Expected: Details of the deleted `bond` being displayed after being deleted.
+
+[NOTE]
+====
+If you have previously deleted `BBB Vickers Account`, you might want to add it back before proceeding.
+====
 
 === Adding a bank expenditure transaction
 . Adding a new bank `expenditure` to a `savings` account
