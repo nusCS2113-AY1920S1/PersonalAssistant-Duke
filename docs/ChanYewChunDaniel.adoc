@@ -1,0 +1,110 @@
+= Chan Yew Chun Daniel – Project Portfolio for RIMS
+:imagesdir: images
+:toc:
+:sectnums:
+
+== About the project
+
+My team of 4 software engineering students and I are developing a resources management software. It is a software that is morphed from a basic personal assistant program, DUKE, a program that all students had to develop at the start of the semester.
+
+The software is named Resource & Inventory Management Software (RIMS). The application has a command line interface and it is a simple book-keeping software for users to keep track of logistics and facilities that they manage. This allows logistics managers to have a simple and fast platform to plan and manage their resources.
+
+This is the startup screen of RIMS:
+
+Figure 1. The command-line interface of RIMS.
+
+My role is mainly to implement the Calendar function in RIMS. The following sections will illustrate the features in greater detail. I am also in charge of updating and maintaining relevant parts of the Users’ Guide and Developers’ Guide.
+ 
+The following symbols and formatting will be used in this document:
+
+`Calendar`  A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
+
+
+== Summary of contributions
+
+This section shows a summary of my contributions toward the project.
+
+Enhancement added: I added the ability to view resources in the form of a calendar, a more graphical and more user-friendly interface.
+
+* 	What is does: The `calendar` command allows the user to view a visual representation of all the loans and bookings made for the whole month in the form of a calendar.
+*	Justification: This allows the user to better make sense of the data that is presented to him. This because the data is represented in a more visually appealing way and allows the user to see, at a glance, trends and availability of his resources. This will allow the user to better plan and manage his logistics.
+*	Highlights: This command supports all items that are being recorded. It will be expanded to support future improvements that may include showing what items are available for booking/loan as well as showing only the availability of a specific item. The implementation was challenging as it was difficult to ensure that the right contents are displayed. All the contents must be known before the system displays the calendar as everything is displayed line by line. Making sure of the alignment was also a challenge.
+*	Credits: Implementation was made completely original.
+
+== Code contributed:
+Please click these links to see a sample of my code: https://github.com/AY1920S1-CS2113T-W12-1/main/blob/master/src/main/java/rims/command/CalendarCommand.java[Functional code - CalendarCommand] +
+
+== Other Contributions:
+===	Project Management:
+*	Facilitated discussion and standardisation of architecture and general implementation of program
+*	Brainstormed some core features
+
+=== Enhancements to code:
+*	Updated the command line interface, user interface and logo
+
+===	Documentation:
+*	Made relevant changes to User guide and Developers’ guide to allow for logical and coherent flow of ideas.
+*	Proofread parts of documentation and corrected for grammar and accuracy
+
+===	Community:
+*	Reviewed pull requests
+*	Came up with use cases
+*	Reported bugs and offered suggestions for other teams in the class
+
+== Contributions to User Guide
+We had to write a completely new User Guide as most of the UI and flow is different from DUKE. Instructions as well as how to use the software had to be written and adapted for RIMS. Below is an excerpt from the RIMS user guide, showing the calendar command section.
+
+==== View calendar: `calendar`
+Generates a variable-size calendar which shows a monthly view of all the loaned and reserved resources in the current month.
+
+.*Format*:
+* `calendar`
+... Generates a calendar, with a view of all the loaned and reserved resources in the current month.
+* `calendar+`
+... Increases the cell size of the calendar, allowing it to display more information.
+* `calendar-`
+... Decreases the cell size of the calendar, decreasing its overall size for more concise reading.
+... The calendar has a minimum cell size of 2 entries, beyond which it cannot be decreased.
+
+
+* Changing view of items [coming in v2.0]
+** Additionally, work is in progress to enable the user to navigate and interact with the calendar in a more user-friendly and intuitive way, preferably using arrow keys. 
+
+
+== Contributions to Developers' Guide
+The following section shows my contributions to the RIMS Developers’ Guide for the Calendar feature.
+
+=== Calendar
+
+==== Implementation
+.Sequence Diagram for Calendar
+[caption="Figure 2.5: "]
+image::CalendarSequence.png[width="1000", align="center"]
+
+Viewing the resources on loan in a particular month, in the form of a calendar visualisation, is achieved using CalendarCommand. It extends Command and stores the necessary attributes and methods necessary to print to screen, a visualisation of the data.
+
+The user will input the command: cal in the UI. This is then parsed by Parser to invoke the constructor of CalendarCommand.
+
+Given below is an example usage scenario and how CalendarCommand works:
+
+1.	When RIMS launches, a UI and Parser object is instantiated.
+2.	Referring to Figure 2.5, a parseInput() function is called, prompting the user to input a command. The user enters a desired command, such as cal, into the UI.
+3.	This input is received by the Parser and it will call the constructor in CalendarCommand.
+4.	CalendarCommand is executed where getData() and printCal() is called.
+5.	getData() will fetch data from ResourceList using the List() function. It will iterate through all the days of the current month and store it in an array.
+6.	printCal() will draw the grid with dates and entries using the data obtained from getData().
+
+==== Design Considerations
+
+_Aspect: How entries is obtained_
+
+* *Alternative 1 (current choice)*: A 2-dimensional array is created to store all entries of the month to be called later.
+** Advantages: Performance is optimised as memoization will allow faster access of entries when the calendar is printed line by line in future
+** Disadvantages: Requires more space to store entries
+* *Alternative 2*: The function list() is called every time an entry is printed
+** Advantages: Does not require as much space at the first alternative as the data is discarded after every row of a cell is printed
+** Disadvantages: Will result in taking more time to print out the whole calendar if the data is big. This is because list() has to be called for every line on every cell(day) of the calendar as opposed to calling list() once for every cell(day).
+
+
+* Changing view of items [coming in v2.0]
+** Additionally, work is in progress to enable the user to navigate and interact with the calendar in a more user-friendly and intuitive way, preferably using arrow keys.

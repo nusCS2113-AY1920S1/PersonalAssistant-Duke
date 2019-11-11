@@ -210,7 +210,14 @@ Generates a list of all loans and reservations
 View a table-format calendar which shows when items/rooms are in use.
 
 .*Format*:
-. `calendar`
+* `calendar`
+... Generates a calendar, with a view of all the loaned and reserved resources in the current month.
+* `calendar+`
+... Increases the cell size of the calendar, allowing it to display more information.
+* `calendar-`
+... Decreases the cell size of the calendar, decreasing its overall size for more concise reading.
+... The calendar has a minimum cell size of 2 entries, beyond which it cannot be decreased.
+
 
 ==== View stats: `stats`
 View how many resources are in used between two dates with interval less than 15 in the form of a simple bar graph.
@@ -303,4 +310,3 @@ To decrease calendar cell size.
 e.g. `stats /from 11/11/2019 1111 /till Wednesday 1300`
 * *Exiting the program*:
 ** `bye`
-
