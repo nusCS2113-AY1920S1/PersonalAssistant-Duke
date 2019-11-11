@@ -1,8 +1,6 @@
 package chronologer.ui;
 
 import chronologer.ChronologerMain;
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 

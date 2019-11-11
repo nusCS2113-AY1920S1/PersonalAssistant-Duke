@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
 import chronologer.task.Deadline;
@@ -78,10 +79,11 @@ public class TaskScheduleCommand extends Command {
      * to the TaskScheduler logic.
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      * @throws ChronologerException if the selected task is not a compatible type.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException {
         Long duration;
         LocalDateTime deadlineDate;
         String result;

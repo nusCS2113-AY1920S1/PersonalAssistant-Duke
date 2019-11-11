@@ -81,9 +81,10 @@ public class AddCommand extends Command {
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException {
         Task task;
         switch (command.toLowerCase()) {
         case "todo":
@@ -124,7 +125,7 @@ public class AddCommand extends Command {
         }
 
         tasks.add(task);
-        ChronologerStateList.addState(tasks.getTasks());
+        history.addState(tasks.getTasks());
         storage.saveFile(tasks.getTasks());
         UiMessageHandler.outputMessage("Got it! I've added this task:" + "\n  " + task.toString() + "\nNow you have "
                 + tasks.getSize() + " task(s) in the list.");

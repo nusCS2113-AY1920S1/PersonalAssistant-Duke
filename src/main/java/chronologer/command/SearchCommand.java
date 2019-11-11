@@ -1,5 +1,6 @@
 package chronologer.command;
 
+import chronologer.storage.ChronologerStateList;
 import chronologer.task.Event;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
@@ -36,8 +37,9 @@ public class SearchCommand extends Command {
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      */
-    public void execute(TaskList tasks, Storage storage) {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) {
         ArrayList<Event> dateList = new ArrayList<Event>();
         boolean found = false;
         long duration;

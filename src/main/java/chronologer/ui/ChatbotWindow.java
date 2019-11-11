@@ -4,6 +4,7 @@ import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
 import chronologer.parser.Parser;
 import chronologer.parser.ParserFactory;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
 
@@ -21,7 +22,7 @@ import java.util.List;
 
 /**
  * UI component that allows the user to interact with Chronologer like a chatbot.
- * Its mainly acts on the user input and gives the user appopriate feedback.
+ * Its mainly acts on the user input and gives the user appropriate feedback.
  */
 class ChatbotWindow extends UiComponent<Region> {
 
@@ -40,6 +41,7 @@ class ChatbotWindow extends UiComponent<Region> {
     private Command command;
     private TaskList tasks;
     private Storage storage;
+    private ChronologerStateList history;
 
     private List<String> userInputHistory = new ArrayList<>();
     private int userInputHistoryPointer = 0;
@@ -53,12 +55,13 @@ class ChatbotWindow extends UiComponent<Region> {
      * @param tasks Holds the Tasklist object which holds the core tasklist.
      * @param storage Holds the Storage object which is used to store the core tasklist.
      */
-    ChatbotWindow(Command command, Parser parser, TaskList tasks, Storage storage) {
+    ChatbotWindow(Command command, Parser parser, TaskList tasks, Storage storage, ChronologerStateList history) {
         super(FXML, null);
         this.command = command;
         this.parser = parser;
         this.tasks = tasks;
         this.storage = storage;
+        this.history = history;
         scrollPane.vvalueProperty().bind(dialogBoxContainer.heightProperty());
 
         attachInputListeners();
@@ -74,7 +77,7 @@ class ChatbotWindow extends UiComponent<Region> {
         storeUserInputHistory(input);
         try {
             Command command = ParserFactory.parse(input);
-            command.execute(tasks, storage);
+            command.execute(tasks, storage, history);
         } catch (ChronologerException e) {
             e.printStackTrace();
         }

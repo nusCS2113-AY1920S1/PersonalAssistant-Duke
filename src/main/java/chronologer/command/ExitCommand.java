@@ -24,8 +24,9 @@ public class ExitCommand extends Command {
     /**
      * Terminates the program after saving the file.
      */
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException {
         storage.saveFile(tasks.getTasks());
+        // This is the proper way to exit the JVM.
         Runtime.getRuntime().exit(0);
     }
 

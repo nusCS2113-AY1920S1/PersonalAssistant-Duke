@@ -24,11 +24,7 @@ import javafx.collections.ListChangeListener;
 import javafx.util.Callback;
 
 /**
- * UI element designed for the user to interact with the application.
- * It has 3 main tasks.
- * 1. Displays and reads user's input.
- * 2. Parses VALID user's input into a defined command and displays the corresponding result.
- * 3. Displays the appropriate error message for INVALID user's input.
+ * Holds the timeline elements, handles the processing of obtaining and updating the elements of the timeline.
  */
 class TimelineWindow extends UiComponent<Region> {
     @FXML
@@ -76,7 +72,7 @@ class TimelineWindow extends UiComponent<Region> {
     private static Double moveYOfDays = 0.0;
 
     private static final String DARK_MODE = "#373737";
-    private static final String LIGHT_MODE = "#f1f1f1";
+    private static final String LIGHT_MODE = "#F1F1F1";
     private static final String GREEN_LABEL = "-fx-border-color: #009933; -fx-border-width: 3;";
     private static final String RED_LABEL = "-fx-border-color: #FF0000; -fx-border-width: 3;";
     private static final String BACKGROUND_COLOR_DARK = "-fx-background-color: #000000;";
@@ -93,7 +89,6 @@ class TimelineWindow extends UiComponent<Region> {
     private static final int FIRST = 1;
     private static final int WEEK = 7;
     private LocalDate currentSundayDate;
-
 
     /**
      * Constructs a UiComponent with the corresponding FXML file name and root object.
@@ -146,7 +141,9 @@ class TimelineWindow extends UiComponent<Region> {
         updateLightBackground();
     }
 
-
+    /**
+     * This allows the changing of the ListView colours to follow the theme.
+     */
     private void setListViewBackgroundAndTheme(ListView<String> task1, ListView<String> task2, ListView<String> task3,
                                                ListView<String> task4, ListView<String> task5, String theme,
                                                String background) {
@@ -192,7 +189,7 @@ class TimelineWindow extends UiComponent<Region> {
     }
 
     /**
-     * This method attaches the listener.
+     * This method attaches the listeners to automatically update the different parts of the GUI.
      */
     private void attachTasksListener() {
         tasks.getObservableListOfTasks().addListener((ListChangeListener<Task>) change -> {
@@ -237,9 +234,13 @@ class TimelineWindow extends UiComponent<Region> {
         });
     }
 
+    /**
+     * Dynamically obtains the dates for the first semester.
+     */
     private void changeWeek(int chosenWeek) {
         final DayOfWeek Sunday = DayOfWeek.SUNDAY;
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        // The first day of the semester is always the first Monday in August of that year.
         LocalDate firstDay = LocalDate.of(currentYear, AUGUST, FIRST);
         LocalDate firstMondayOfSemester = firstDay.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
         LocalDate firstSundayOfSemester = firstMondayOfSemester.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
@@ -249,6 +250,7 @@ class TimelineWindow extends UiComponent<Region> {
             todayLabel.setVisible(true);
         } else {
             requiredSundayDate = firstSundayOfSemester.plusDays(chosenWeek * WEEK);
+            // Only displays the today highlight label if you are in the current week.
             if (requiredSundayDate.isEqual(LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday)))) {
                 todayLabel.setVisible(true);
             } else {
@@ -259,7 +261,7 @@ class TimelineWindow extends UiComponent<Region> {
     }
 
     /**
-     * This method will populate the ListViews of the timeline.
+     * Populates the ListViews of the timeline.
      */
     private void populateEveryDay() {
         String monday = getDay(MONDAY);
@@ -286,6 +288,9 @@ class TimelineWindow extends UiComponent<Region> {
         return dtf.format(currentSundayDate.minusDays(dayAdjuster));
     }
 
+    /**
+     * Move the today label to the current day.
+     */
     private void moveTodayLabels() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
@@ -324,7 +329,9 @@ class TimelineWindow extends UiComponent<Region> {
         todayLabel.setLayoutY(moveYOfDays);
     }
 
-
+    /**
+     * Sets the tasks of the given day.
+     */
     private void setTasks(String day1, String day2, String day3, ListView<String> day1Task,
                           ListView<String> day2Task, ListView<String> day3Task) {
         ObservableList<String> day1Tasks = FXCollections.observableArrayList(tasks.scheduleForDay(day1));
@@ -335,6 +342,9 @@ class TimelineWindow extends UiComponent<Region> {
         day3Task.setItems(day3Tasks);
     }
 
+    /**
+     * Sets the colour of the listView components.
+     */
     private void listViewComponents(ListView<String> stringListView, String mode) {
         stringListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override

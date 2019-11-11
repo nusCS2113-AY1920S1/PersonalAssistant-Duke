@@ -1,6 +1,7 @@
 import chronologer.command.Command;
 import chronologer.command.ExportCommand;
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Deadline;
 import chronologer.task.Task;
@@ -32,8 +33,10 @@ class ExportTest {
     private static ArrayList<Task> list;
     private static TaskList tasks;
     private static File file;
+    private static File placeholder;
     private static File calendarFile;
     private static Storage storage;
+    private static ChronologerStateList history;
 
     /**
      * Setups the necessary base to carry out the test operations.
@@ -43,8 +46,10 @@ class ExportTest {
         list = new ArrayList<>();
         tasks = new TaskList(list);
         file = new File(System.getProperty("user.dir") + "/src/test/Test");
-
+        placeholder = new File(System.getProperty("user.dir") + "/src/test/States");
         storage = new Storage(file);
+        history = new ChronologerStateList(placeholder, placeholder, placeholder);
+
         LocalDateTime startDate = LocalDateTime.now().plusDays(3);
         Deadline deadline = new Deadline("Test", startDate);
         deadline.setComment("Testing description");
@@ -65,8 +70,7 @@ class ExportTest {
     @Test
     void testExport() throws ChronologerException, IOException, ParserException, ParseException {
         Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
-        export.execute(tasks, storage);
-
+        export.execute(tasks, storage, history);
         System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
         calendarFile = new File(System.getProperty("user.dir") + "/src/ChronologerDatabase/ExportTest.ics");
         FileInputStream inputStream = new FileInputStream(calendarFile);

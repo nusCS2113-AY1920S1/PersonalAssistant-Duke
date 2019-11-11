@@ -1,5 +1,6 @@
 package chronologer.command;
 
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
@@ -21,12 +22,11 @@ public class ListCommand extends Command {
     /**
      * Outputs the entire list of tasks to the UI which will print it.
      *
-     * @param tasks   this string holds command type determinant to decide how to
-     *                process the user input.
-     * @param storage this parameter provides the execute function the storage to
-     *                allow the saving of the file.
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      */
-    public void execute(TaskList tasks, Storage storage) {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) {
         ArrayList<Task> currentList = tasks.getTasks();
         if (tasks.getSize() == 0) {
             UiMessageHandler.outputMessage(EMPTY_LIST);

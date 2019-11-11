@@ -1,6 +1,7 @@
 import chronologer.command.EditCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.parser.ParserFactory;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -25,14 +26,18 @@ class EditCommandTest {
     private LocalDateTime testDate = LocalDateTime.of(2, 2, 2, 2, 2, 2, 2);
     private static TaskList tasks;
     private static File file;
+    private static File placeholder;
     private static Storage storage;
+    private static ChronologerStateList history;
 
     @BeforeAll
     static void setup() {
         ArrayList<Task> testList = new ArrayList<Task>();
         tasks = new TaskList(testList);
         file = new File(System.getProperty("user.dir") + "/src/test/EditList");
+        placeholder = new File(System.getProperty("user.dir") + "/src/test/States");
         storage = new Storage(file);
+        history = new ChronologerStateList(placeholder, placeholder, placeholder);
     }
 
     /**
@@ -44,7 +49,7 @@ class EditCommandTest {
         tasks.add(deadlineTest);
 
         EditCommand command = new EditCommand(0, "CDF");
-        command.execute(tasks, storage);
+        command.execute(tasks, storage, history);
         Assertions.assertEquals("CDF", deadlineTest.getDescription());
     }
 
@@ -64,7 +69,7 @@ class EditCommandTest {
         });
         Assertions.assertThrows(ChronologerException.class, () -> {
             EditCommand test = new EditCommand(2, "Foxtrot");
-            test.execute(tasks, storage);
+            test.execute(tasks, storage, history);
         });
 
     }

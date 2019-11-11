@@ -63,20 +63,20 @@ public class PostponeCommand extends Command {
      * @param storage Allows the saving of the file to persistent storage.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException {
         isIndexValid(tasks);
         Task taskToBePostponed = tasks.getTasks().get(indexOfTask);
 
         if (isDeadlinePostponeable(taskToBePostponed, tasks)) {
-            postponeDate(taskToBePostponed, startDate, tasks, storage);
+            postponeDate(taskToBePostponed, startDate, tasks, storage, history);
             UiMessageHandler.outputMessage(POSTPONED_DEADLINE + taskToBePostponed.toString());
 
         } else if (isEventPostponeable(taskToBePostponed, tasks)) {
-            postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage);
+            postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage, history);
             UiMessageHandler.outputMessage(POSTPONED_EVENT + taskToBePostponed.toString());
 
         } else if (isTodoPeriod(taskToBePostponed)) {
-            postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage);
+            postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage, history);
             UiMessageHandler.outputMessage(POSTPONED_TODO + taskToBePostponed.toString());
 
         } else {
@@ -169,11 +169,12 @@ public class PostponeCommand extends Command {
      * @throws ChronologerException If errors occur in storage component
      */
     private void postponeDateRange(Task taskToBePostponed, LocalDateTime startDate,
-                                   LocalDateTime toDate, TaskList tasks, Storage storage) throws ChronologerException {
+                                   LocalDateTime toDate, TaskList tasks, Storage storage,
+                                   ChronologerStateList history) throws ChronologerException {
         checkEventTodoDate(startDate, taskToBePostponed.getStartDate(), toDate, taskToBePostponed.getEndDate());
         taskToBePostponed.setStartDate(startDate);
         taskToBePostponed.setEndDate(toDate);
-        ChronologerStateList.addState((tasks.getTasks()));
+        history.addState((tasks.getTasks()));
         tasks.updateGui(null);
         storage.saveFile(tasks.getTasks());
     }
@@ -186,13 +187,15 @@ public class PostponeCommand extends Command {
      * @param startDate         Start date of the task
      * @param tasks             Current task list
      * @param storage           Storage component
+     * @param history Allows the history features to be done.
      * @throws ChronologerException If errors occur in storage component
      */
     private void postponeDate(Task taskToBePostponed, LocalDateTime startDate,
-                              TaskList tasks, Storage storage) throws ChronologerException {
+                              TaskList tasks, Storage storage, ChronologerStateList history)
+        throws ChronologerException {
         checkDeadlineDate(startDate, taskToBePostponed.getStartDate());
         taskToBePostponed.setStartDate(startDate);
-        ChronologerStateList.addState((tasks.getTasks()));
+        history.addState((tasks.getTasks()));
         tasks.updateGui(null);
         storage.saveFile(tasks.getTasks());
     }

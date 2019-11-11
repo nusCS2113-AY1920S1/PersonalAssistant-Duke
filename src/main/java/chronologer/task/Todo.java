@@ -11,7 +11,7 @@ import java.io.Serializable;
  * type.
  *
  * @author Sai Ganesh Suresh
- * @version v2.0
+ * @version v1.4
  */
 public class Todo extends Task implements Serializable {
 

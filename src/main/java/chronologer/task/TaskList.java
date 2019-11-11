@@ -17,7 +17,7 @@ import java.util.Comparator;
  * as stores the TaskList.
  *
  * @author Sai Ganesh Suresh
- * @version v1.0
+ * @version v1.4
  */
 public class TaskList {
 
@@ -26,8 +26,11 @@ public class TaskList {
     private static final String DEADLINE_TIMING_PREFIX = "D: ";
     private static final String START_TIME_PREFIX = "S: ";
     private static final String END_TIME_PREFIX = "E: ";
+    private static int previousTheme = 0;
+    private static int previousWeek = -1;
     private ArrayList<Task> listOfTasks;
     private ObservableList<Task> observableListOfTasks;
+    private ObservableList<Integer> currentSetting = FXCollections.observableArrayList(0,-1);
 
     public TaskList(ArrayList<Task> listOfTasks) {
         this.listOfTasks = listOfTasks;
@@ -275,7 +278,8 @@ public class TaskList {
                 && task.endDate.isAfter(LocalDateTime.now());
     }
 
-    //@@author
+    //@@author E0310898
+
     /**
      * Fetches all reminders for the current date. (Tasks within the next 3 days)
      *
@@ -326,6 +330,7 @@ public class TaskList {
         return scheduleDescriptionOnly;
     }
 
+    //@@author fauzt
     private String getStartTime(Task task) {
         String time;
 
@@ -343,12 +348,10 @@ public class TaskList {
     }
 
     private String getEndTime(Task task) {
+        String time;
         if (task.endDate == null) {
             return EMPTY;
         }
-
-        String time;
-
         int hour = task.endDate.getHour();
         int minute = task.endDate.getMinute();
         time = getFormattedTime(hour, minute);
@@ -371,7 +374,7 @@ public class TaskList {
         return time;
     }
 
-    //@@ author
+    //@@author
     /**
      * This function allows the user to edit the task description.
      *
@@ -388,7 +391,7 @@ public class TaskList {
     }
 
     /**
-     * Function to allow user to edit/add comments to existing tasks.
+     * Allows the user to edit/add comments to existing tasks.
      *
      * @param indexOfTask Index of task in list
      * @param comment     Holds comment to be added/edited
@@ -412,20 +415,16 @@ public class TaskList {
         listOfTasks = updatedListOfTasks;
     }
 
-    private ObservableList<Integer> currentSetting = FXCollections.observableArrayList(-2,-1);
-    private int prevTheme = 0;
-    private int prevWeek = -1;
-
     /**
      * Allows the user to change theme - either dark mode or light mode.
      * @param choiceOfTheme Holds the theme that the user wants.
      */
     public String updateTheme(int choiceOfTheme) {
         String messageToUser;
-        if (choiceOfTheme != prevTheme && choiceOfTheme != -2) {
+        if (choiceOfTheme != previousTheme) {
             currentSetting.remove(0);
             currentSetting.add(0, choiceOfTheme);
-            prevTheme = choiceOfTheme;
+            previousTheme = choiceOfTheme;
             messageToUser = "Theme changed!";
         } else {
             messageToUser = "Theme cannot be changed!";
@@ -439,10 +438,10 @@ public class TaskList {
      */
     public String updateWeek(int choiceOfWeek) {
         String messageToUser;
-        if (choiceOfWeek != prevWeek && choiceOfWeek != -2) {
+        if (choiceOfWeek != previousWeek) {
             currentSetting.remove(1);
             currentSetting.add(1, choiceOfWeek);
-            prevWeek = choiceOfWeek;
+            previousWeek = choiceOfWeek;
             messageToUser = "Week being viewed has been changed!";
         } else {
             messageToUser = "You are viewing the same week!";

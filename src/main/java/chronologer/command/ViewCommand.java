@@ -1,5 +1,6 @@
 package chronologer.command;
 
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * Renders all the sorted tasks scheduled on a date.
  *
  * @author Sai Ganesh Suresh
- * @version v1.3
+ * @version v1.4
  */
 public class ViewCommand extends Command {
 
@@ -28,17 +29,18 @@ public class ViewCommand extends Command {
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      */
-    public void execute(TaskList tasks, Storage storage) {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) {
         ArrayList<Task> sortedRequiredSchedule = tasks.schedule(dateToFind);
         String messageForUser;
         if (sortedRequiredSchedule.isEmpty()) {
             messageForUser = NO_TASK_SCHEDULED;
         } else {
             messageForUser = PRESENT_SCHEDULE;
-            int i = 1;
+            int indexOfTask = 1;
             for (Task task : sortedRequiredSchedule) {
-                messageForUser += i++ + "." + task.toString() + "\n";
+                messageForUser += indexOfTask++ + "." + task.toString() + "\n";
             }
         }
         UiMessageHandler.outputMessage(messageForUser);

@@ -1,6 +1,7 @@
 import chronologer.command.PriorityCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.parser.ParserFactory;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Deadline;
 import chronologer.task.Priority;
@@ -25,14 +26,18 @@ class PriorityCommandTest {
 
     private static TaskList tasks;
     private static File file;
+    private static File placeholder;
     private static Storage storage;
+    private static ChronologerStateList history;
 
     @BeforeAll
     static void setup() {
         ArrayList<Task> testList = new ArrayList<Task>();
         tasks = new TaskList(testList);
         file = new File(System.getProperty("user.dir") + "/src/test/PriorityList");
+        placeholder = new File(System.getProperty("user.dir") + "/src/test/States");
         storage = new Storage(file);
+        history = new ChronologerStateList(placeholder, placeholder, placeholder);
     }
 
     /**
@@ -47,15 +52,15 @@ class PriorityCommandTest {
         Assertions.assertEquals(deadlineTest.getPriority(), Priority.MEDIUM);
 
         PriorityCommand command = new PriorityCommand(0, "HIGH");
-        command.execute(tasks, storage);
+        command.execute(tasks, storage, history);
         Assertions.assertEquals(deadlineTest.getPriority(), Priority.HIGH);
 
         command = new PriorityCommand(0, "MedIum");
-        command.execute(tasks, storage);
+        command.execute(tasks, storage, history);
         Assertions.assertEquals(deadlineTest.getPriority(), Priority.MEDIUM);
 
         command = new PriorityCommand(0, "low");
-        command.execute(tasks, storage);
+        command.execute(tasks, storage, history);
         Assertions.assertEquals(deadlineTest.getPriority(), Priority.LOW);
     }
 
@@ -74,7 +79,7 @@ class PriorityCommandTest {
 
         Assertions.assertThrows(ChronologerException.class, () -> {
             PriorityCommand test = new PriorityCommand(0, "Gibberish");
-            test.execute(tasks, storage);
+            test.execute(tasks, storage, history);
         });
     }
 

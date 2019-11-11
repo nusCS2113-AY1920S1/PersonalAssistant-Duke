@@ -2,11 +2,11 @@ package chronologer.command;
 
 import chronologer.exception.ChronologerException;
 import chronologer.storage.CalendarOutput;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Priority;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.UiMessageHandler;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.component.VEvent;
@@ -63,11 +63,13 @@ public class ExportCommand extends Command {
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      * @throws ChronologerException If the task list is empty.
      * @throws ValidationException  If the calendar is empty.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException, ValidationException {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException,
+        ValidationException {
         Calendar calendar = initializeCalendar();
         ArrayList<Task> taskList = tasks.getTasks();
         checkEmptyList(taskList);

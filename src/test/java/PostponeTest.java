@@ -1,6 +1,7 @@
 import chronologer.command.PostponeCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.parser.ParserFactory;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Deadline;
 import chronologer.task.Event;
@@ -25,14 +26,18 @@ public class PostponeTest {
 
     private static TaskList tasks;
     private static File file;
+    private static File placeholder;
     private static Storage storage;
+    private static ChronologerStateList history;
 
     @BeforeAll
     static void setup() {
         ArrayList<Task> testList = new ArrayList<Task>();
         tasks = new TaskList(testList);
         file = new File(System.getProperty("user.dir") + "/src/test/PostponeList");
+        placeholder = new File(System.getProperty("user.dir") + "/src/test/States");
         storage = new Storage(file);
+        history = new ChronologerStateList(placeholder, placeholder, placeholder);
     }
 
 
@@ -49,12 +54,12 @@ public class PostponeTest {
         tasks.add(deadlineCLashTest);
 
         PostponeCommand command = new PostponeCommand(0, LocalDateTime.of(2004, 4, 4, 4, 0));
-        command.execute(tasks, storage);
+        command.execute(tasks, storage, history);
         Assertions.assertEquals(deadlineTest.getStartDate(), LocalDateTime.of(2004, 4, 4, 4, 0));
 
         command = new PostponeCommand(1, LocalDateTime.of(2004, 4, 4, 4, 0),
             LocalDateTime.of(2005, 5, 5, 5, 0));
-        command.execute(tasks, storage);
+        command.execute(tasks, storage, history);
         Assertions.assertEquals(eventTest.getStartDate(), LocalDateTime.of(2004, 4, 4, 4, 0));
         Assertions.assertEquals(eventTest.getEndDate(), LocalDateTime.of(2005, 5, 5, 5, 0));
     }
@@ -63,7 +68,7 @@ public class PostponeTest {
     void testClash() {
         PostponeCommand command = new PostponeCommand(3, LocalDateTime.of(2004, 4, 4, 4, 0));
         Assertions.assertThrows(ChronologerException.class, () -> {
-            command.execute(tasks, storage);
+            command.execute(tasks, storage, history);
         });
     }
 
@@ -71,7 +76,7 @@ public class PostponeTest {
     void testPostponeDateEarly() {
         PostponeCommand command = new PostponeCommand(3, LocalDateTime.of(2002, 2, 2, 2, 0));
         Assertions.assertThrows(ChronologerException.class, () -> {
-            command.execute(tasks, storage);
+            command.execute(tasks, storage, history);
         });
     }
 

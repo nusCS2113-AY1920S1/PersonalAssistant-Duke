@@ -30,9 +30,10 @@ public class PriorityCommand extends Command {
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
+     * @param history Allows the history features to be done.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
+    public void execute(TaskList tasks, Storage storage, ChronologerStateList history) throws ChronologerException {
 
         Priority newPriority = Priority.getPriorityLevel(priorityString);
         if (newPriority == Priority.INVALID) {
@@ -43,7 +44,7 @@ public class PriorityCommand extends Command {
         }
         Task task = tasks.getTasks().get(indexOfTask);
         task.setPriority(newPriority);
-        ChronologerStateList.addState((tasks.getTasks()));
+        history.addState((tasks.getTasks()));
         tasks.updateGui(null);
         storage.saveFile(tasks.getTasks());
         UiMessageHandler.outputMessage("Got it! " + task.getDescription() + " priority level is now " + priorityString);
