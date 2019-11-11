@@ -70,8 +70,13 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckListNumber(String input) {
-        final String listRegex = "^[1-9]\\d{0,8}$";
-        return input.matches(listRegex);
+        final String listRegex = "^[0-9]\\d{0,8}$";
+        if (input.matches(listRegex)) {
+            int parsedInput = Integer.parseInt(input);
+            return (parsedInput > 0);
+        } else {
+            return false;
+        }
     }
 
     /**

@@ -13,6 +13,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
+
+import static owlmoney.commons.log.LogsCenter.getLogger;
 
 
 /**
@@ -34,6 +37,7 @@ public abstract class ParseGoals {
     private static final String[] GOALS_KEYWORD = new String[]{NAME_PARAMETER, AMOUNT_PARAMETER, BY_PARAMETER,
         NEW_NAME_PARAMETER, FROM_PARAMETER, IN_PARAMETER, MARK_DONE_PARAMETER};
     private static final List<String> GOALS_KEYWORD_LISTS = Arrays.asList(GOALS_KEYWORD);
+    static final Logger logger = getLogger(ParseGoals.class);
 
     /**
      * Creates an instance of any ParseGoals type object.
@@ -53,6 +57,7 @@ public abstract class ParseGoals {
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {
         if (rawData.contains(parameter)) {
+            logger.warning("Contained redundant parameter: " + parameter);
             throw new ParserException(command + " /goals should not contain " + parameter);
         }
     }
@@ -65,6 +70,7 @@ public abstract class ParseGoals {
     void checkFirstParameter() throws ParserException {
         String[] rawDataSplit = rawData.split(" ", 2);
         if (!GOALS_KEYWORD_LISTS.contains(rawDataSplit[0])) {
+            logger.warning("Invalid parameters provided");
             throw new ParserException("Incorrect parameter: " + rawDataSplit[0]);
         }
     }
@@ -97,10 +103,11 @@ public abstract class ParseGoals {
      * @param valueString String to be converted to double as the user's amount.
      * @throws ParserException If the string is not a double value.
      */
-    void checkAmount(String valueString) throws ParserException {
-        if (!RegexUtil.regexCheckBankAmount(valueString)) {
+    void checkGoalsAmount(String valueString) throws ParserException {
+        if (!RegexUtil.regexCheckMoney(valueString)) {
+            logger.warning("Amount does not contain at most 9 digits and 2d.p or value of at least 1");
             throw new ParserException("/amount can only be numbers with at most 9 digits, 2 decimal places"
-                    + " and a value of at least 0");
+                    + " and a value of at least 1");
         }
     }
 
@@ -113,6 +120,7 @@ public abstract class ParseGoals {
      */
     void checkGoalsName(String key, String name) throws ParserException {
         if (!RegexUtil.regexCheckGoalsName(name)) {
+            logger.warning("Name is not alphanumeric or more than 20 characters");
             throw new ParserException(key + " can only be alphanumeric and at most 20 characters");
         }
     }
@@ -145,14 +153,17 @@ public abstract class ParseGoals {
             try {
                 date = temp.parse(dateString);
                 if (((Date) date).compareTo(new Date()) < 0) {
+                    logger.warning("Date provided is before today's date");
                     throw new ParserException("/date has already passed");
                 }
                 return date;
             } catch (ParseException e) {
+                logger.warning("Date provided is invalid format");
                 throw new ParserException("Incorrect date format."
                         + " Date format is dd/mm/yyyy in year range of 1900-2099");
             }
         }
+        logger.warning("Date provided is invalid format");
         throw new ParserException("Incorrect date format."
                 + " Date format is dd/mm/yyyy in year range of 1900-2099");
     }
@@ -166,12 +177,14 @@ public abstract class ParseGoals {
      */
     void checkDay(String variable, String valueString) throws ParserException {
         if (!RegexUtil.regexCheckDay(valueString)) {
+            logger.warning("/in can only be integer up to 365 days");
             throw new ParserException(variable + " can only be a positive integer up to only 365 days!");
         }
     }
 
     void checkInt(String variable, String valueString) throws ParserException {
         if (!RegexUtil.regexCheckExactNumFormat(valueString)) {
+            logger.warning("/mark can only be accompanied with input 1");
             throw new ParserException(variable + " can only be 1!");
         }
     }
@@ -189,6 +202,23 @@ public abstract class ParseGoals {
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE, day);
         return calendar.getTime();
+    }
+
+    /**
+     * Checks if only one of /by or /in is provided for Goals deadline.
+     *
+     * @param by Date of goals deadline.
+     * @param in Days of goals deadline.
+     * @throws ParserException If both /by and /in provided, or none provided.
+     */
+    void checkOptionalParameter(String by, String in) throws ParserException {
+        if (by.isBlank() && in.isBlank()) {
+            logger.warning("Date parameter not specified, use either /in [DAYS] or /by [DATE]");
+            throw new ParserException("/by and /in cannot be both empty when adding new goals");
+        } else if (!by.isBlank() && !in.isBlank()) {
+            logger.warning("Cannot specify both /in and /by");
+            throw new ParserException("/by and /in cannot be specified concurrently when adding new goals");
+        }
     }
 
     /**

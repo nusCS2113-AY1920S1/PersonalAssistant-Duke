@@ -39,6 +39,7 @@ public class ParseDeleteGoals extends ParseGoals {
             String key = goalsIterator.next();
             String value = goalsParameters.get(key);
             if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning("/name was empty");
                 throw new ParserException(key + " cannot be empty when deleting goals");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkGoalsName(NAME_PARAMETER, value);

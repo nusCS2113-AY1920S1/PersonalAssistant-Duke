@@ -2812,11 +2812,6 @@ Expected: Details of goal deleted being displayed
 `/delete /goals /name GRAD TRIP 1` +
 Expected: There are no goals with the name: GRAD TRIP 1
 
-. Delete when goal list is empty
-.. Test case:
-`/delete /goals /name any` +
-Expected: There are no goals set!
-
 === List goals and achievement
 . List goals
 .. Pre-requisites: Goals list must not be empty
@@ -2828,3 +2823,9 @@ Expected: Details of goals being displayed
 .. Test case:
 `/list /goals` +
 Expected: There are no goals set!
+
+. List achievements
+.. Pre-requisites: There are some achievements
+.. Test case:
+`/list /achievement` +
+Expected: Details of achievement being displayed
