@@ -24,7 +24,7 @@ import java.util.Map;
  * @version 1.4
  */
 class StorageTest {
-    private Path resourceDirectory = Paths.get("src","test","Testdata");
+    private Path resourceDirectory = Paths.get("src","test","testdata");
     private String testDataPath = resourceDirectory.toFile().getAbsolutePath();
     private StorageManager storageManager = new StorageManager(testDataPath);
 

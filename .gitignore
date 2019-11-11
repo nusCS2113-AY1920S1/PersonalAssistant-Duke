@@ -4,11 +4,11 @@
 /*.iml
 
 # Gradle build properties
-#build.gradle
+build.gradle
 
 # Gradle build files
 /.gradle/
-/build
+#/build
 
 # log files
 logs/
