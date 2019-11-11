@@ -1,4 +1,7 @@
-package TaskCommandTest;//@@author mononokehime14
+//@@author mononokehime14
+
+package taskcommandtest;
+
 import gazeeebo.commands.tasks.DeadlineCommand;
 import gazeeebo.commands.tasks.SnoozeCommand;
 import gazeeebo.storage.Storage;

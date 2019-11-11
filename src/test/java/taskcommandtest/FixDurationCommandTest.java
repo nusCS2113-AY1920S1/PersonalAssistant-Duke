@@ -1,4 +1,6 @@
-package TaskCommandTest;//@@author JasonLeeWeiHern
+//@@author JasonLeeWeiHern
+
+package taskcommandtest;
 
 import gazeeebo.tasks.FixedDuration;
 import org.junit.jupiter.api.Test;

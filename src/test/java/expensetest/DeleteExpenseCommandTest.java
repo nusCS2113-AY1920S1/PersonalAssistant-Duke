@@ -1,4 +1,6 @@
-package expensetest;//@@author e0323290
+//@@author e0323290
+
+package expensetest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.expenses.DeleteExpenseCommand;

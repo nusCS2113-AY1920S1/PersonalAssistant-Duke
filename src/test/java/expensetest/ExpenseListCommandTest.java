@@ -1,4 +1,6 @@
-package expensetest;//@@author e0323290
+//@@author e0323290
+
+package expensetest;
 
 import gazeeebo.commands.expenses.ExpenseListCommand;
 import org.junit.jupiter.api.AfterEach;
