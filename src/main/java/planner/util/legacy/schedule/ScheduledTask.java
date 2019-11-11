@@ -7,7 +7,14 @@ import planner.ui.cli.PlannerUi;
 
 public class ScheduledTask extends TimerTask {
 
+    private PlannerUi plannerUi;
+
+    public ScheduledTask(PlannerUi plannerUi) {
+        super();
+        this.plannerUi = plannerUi;
+    }
+
     public void run() {
-        new PlannerUi().reminderMsg();
+        plannerUi.reminderMsg();
     }
 }
