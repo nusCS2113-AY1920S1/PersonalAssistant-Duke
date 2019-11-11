@@ -20,6 +20,7 @@ public class Storage {
     private StorageParser storageParser;
 
     private String fileDelimiter = System.getProperty("file.separator");
+    //private static final DucatsLogger LOGGER = new DucatsLogger();
 
     /**
      * Constructor for the duke.Storage class, used to store songs into persistent storage in the form of a .txt file.
@@ -65,8 +66,10 @@ public class Storage {
                 sb.append(System.lineSeparator());
             }
             fileWriter.write(sb.toString());
+            DucatsLogger.finest("Successfully wrote to file " + filepath);
             fileWriter.close();
         } catch (IOException e) {
+            DucatsLogger.severe("An IO exception has occurred in writeStringsToFile()");
             throw new DucatsException("","io");
         }
     }
@@ -86,12 +89,14 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String nextLine = scanner.nextLine();
                 if (nextLine.equals("")) {
+                    DucatsLogger.finest("Successfully read from file " + filepath);
                     break;
                 } else {
                     result.add(nextLine);
                 }
             }
         } catch (Exception e) {
+            DucatsLogger.severe("An IO exception has occurred in readStringsFromFile()");
             throw new DucatsException("", "io");
         }
         return result;
@@ -135,13 +140,17 @@ public class Storage {
             createFile(filepath);
             writeStringsToFile(storageParser.getArrayList(song), filepath);
         }
+        DucatsLogger.info("Folder updated with current song data");
     }
 
     private void createFile(String filepath) throws DucatsException {
         File file = new File(filepath);
         try {
-            file.createNewFile();
+            if (file.createNewFile()) {
+                DucatsLogger.info("A new file has been created: " + filepath);
+            }
         } catch (IOException e) {
+            DucatsLogger.severe("An IO exception has occurred in file creation for " + filepath);
             throw new DucatsException("","io");
         }
     }

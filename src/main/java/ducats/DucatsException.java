@@ -8,7 +8,7 @@ public class DucatsException extends Exception {
     private String input;
     private String type = "other";
     private static final String[] COMMAND_STRINGS =
-        {"todo","deadline", "event", "doafter", "new", "view", "addbar", "copy", "group", "overlay"};
+        {"todo","deadline", "event", "doafter", "new", "view", "addbar", "copy", "group", "overlay", "delete"};
 
     //@@author rohan-av
     /**
@@ -47,7 +47,7 @@ public class DucatsException extends Exception {
     public String getMessage() {
 
         String message = "An unknown exception has occurred.";
-        String word = input.trim().equals("event")
+        String word = input.trim().equals("delete")
                 || input.trim().equals("overlay")
                 || input.trim().equals("addbar")
                 || input.trim().equals("insertbar")
@@ -189,6 +189,23 @@ public class DucatsException extends Exception {
             case "overlay_group_group_format" : {
                 message = "OOPS!! Please follow this format: overlay_group_group <song_name_to_be_copied_from> "
                         + "<group_num_to_be_copied_from> <song_name_to_be_copied_to> <group_num_to_be_copied_to>";
+                break;
+            }
+            case "group_not_found": {
+                message = "OOPS!! That group does not exist in this song";
+                break;
+            }
+            case "name_exists": {
+                message = "OOPS!! That name already exists";
+                break;
+            }
+            case "no_song_in_songlist": {
+                message = "OOPS!! You have no songs in songlist. :-(";
+                break;
+            }
+            case "group_format": {
+                message = "OOPS!! To create a group, please use this format: \n"
+                        + "group <start_index> <end_index> <group_name>";
                 break;
             }
             default: {

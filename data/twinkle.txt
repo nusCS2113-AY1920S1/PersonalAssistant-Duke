@@ -1,8 +1,44 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
 twinkle aminor 120 
 [[UAs],[UA],[UA],[UA],[RTs],[RT],[RT],[RT]]
 [[MCs],[MC],[MC],[MC],[MC],[MC],[LDs],[LD]]
 [[MCs],[MC],[MC],[MC],[MC],[MC],[LDs],[LD]]
 [[MCs],[UDs],[UD],[UD],[RTs],[RT],[RT],[RT]]
 [[MCs],[UDs],[UD],[UD],[RTs],[RT],[RT],[RT]]
+[[MCs],[MC],[MC],[MC],[MCs],[MC],[MC],[MC]]
+=======
+>>>>>>> fa656eb37782d5bef8afabd838221efb9ac4aaa7
+twinkle aminor 123 
+[[UAs;UEs;UAs],[UA;UE;UA],[UAs;UEs;UAs],[UA;UE;UA],[UAs;UEs;UAs],[UA;UE;UA],[UAs;UEs;UAs],[UA;UE;UA]]
+[[UEs;UAs;MCs;UEs],[UE;UA;MC;UE],[UEs;UAs;MCs;UEs],[UE;UA;MC;UE],[UEs;UAs;MCs;UEs],[UE;UA;MC;UE],[UEs;UAs;MCs;UEs],[UE;UA;MC;UE]]
+[[MCs;UEs;UAs],[MC;UE;UA],[MCs;UEs;UAs],[MC;UE;UA],[MCs;UEs;UAs],[MC;UE;UA],[MCs;UEs;UAs],[MC;UE;UA]]
+[[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]]
+[[UEs],[UE],[UEs],[UE],[UEs],[UE],[UEs],[UE]]
+[[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]]
+[[UEs],[UE],[UEs],[UE],[UEs],[UE],[UEs],[UE]]
+[[MCs],[MC],[MCs],[MC],[MCs],[MC],[MCs],[MC]]
+[[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]]
+[[UEs],[UE],[UEs],[UE],[UEs],[UE],[UEs],[UE]]
+[[MCs],[MC],[MCs],[MC],[MCs],[MC],[MCs],[MC]]
+[[MCs],[MC],[MCs],[MC],[MCs],[MC],[MCs],[MC]]
+[[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]]
+[[UEs],[UE],[UEs],[UE],[UEs],[UE],[UEs],[UE]]
+[[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]]
+[[UEs],[UE],[UEs],[UE],[UEs],[UE],[UEs],[UE]]
+[[MCs],[MC],[MCs],[MC],[MCs],[MC],[MCs],[MC]]
+[[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]]
+[[UEs],[UE],[UEs],[UE],[UEs],[UE],[UEs],[UE]]
+[[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]]
+[[UEs],[UE],[UEs],[UE],[UEs],[UE],[UEs],[UE]]
+[[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]]
+[[UEs],[UE],[UEs],[UE],[UEs],[UE],[UEs],[UE]]
+[[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]]
+<<<<<<< HEAD
+=======
+>>>>>>> d8aba8c374c879aae7ff3818ce7ebae182fa9355
+>>>>>>> fa656eb37782d5bef8afabd838221efb9ac4aaa7
 groups:
-goodstuff [[MCs],[MC],[MC],[MC],[MC],[MC],[LDs],[LD]] [[MCs],[UDs],[UD],[UD],[RTs],[RT],[RT],[RT]] 
+twinkle1 [[UAs;UEs;UAs],[UA;UE;UA],[UAs;UEs;UAs],[UA;UE;UA],[UAs;UEs;UAs],[UA;UE;UA],[UAs;UEs;UAs],[UA;UE;UA]] [[UEs;UAs;MCs;UEs],[UE;UA;MC;UE],[UEs;UAs;MCs;UEs],[UE;UA;MC;UE],[UEs;UAs;MCs;UEs],[UE;UA;MC;UE],[UEs;UAs;MCs;UEs],[UE;UA;MC;UE]] [[MCs;UEs;UAs],[MC;UE;UA],[MCs;UEs;UAs],[MC;UE;UA],[MCs;UEs;UAs],[MC;UE;UA],[MCs;UEs;UAs],[MC;UE;UA]] 
+twinkle2 [[UEs;UAs;MCs;UEs],[UE;UA;MC;UE],[UEs;UAs;MCs;UEs],[UE;UA;MC;UE],[UEs;UAs;MCs;UEs],[UE;UA;MC;UE],[UEs;UAs;MCs;UEs],[UE;UA;MC;UE]] [[MCs;UEs;UAs],[MC;UE;UA],[MCs;UEs;UAs],[MC;UE;UA],[MCs;UEs;UAs],[MC;UE;UA],[MCs;UEs;UAs],[MC;UE;UA]] [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] 

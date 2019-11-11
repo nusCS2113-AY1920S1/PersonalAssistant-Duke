@@ -48,7 +48,7 @@ public class Bar extends CopyObject<Bar> implements Serializable {
         updateBarChart();
     }
 
-    //@@author
+    //@@author rishi12438
     /**
      * the method that allows this item to be copied.
      *

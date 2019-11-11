@@ -6,6 +6,7 @@ import ducats.components.SongList;
 
 public class ListCommand extends Command<SongList> {
 
+    //@@author rohan-av
     /**
      * Modifies the task list in use and returns the messages intended to be displayed.
      *
@@ -30,7 +31,6 @@ public class ListCommand extends Command<SongList> {
         return false;
     }
 
-    //@@author rohan-av
     /**
      * Returns an integer corresponding to the duration, tempo and time signature if the command starts a metronome.
      * Else, returns an array containing -1.

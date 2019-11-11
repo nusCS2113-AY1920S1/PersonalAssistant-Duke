@@ -105,26 +105,23 @@ public class Song implements Serializable {
      *
      * @return a String representation of the Song to be viewed by the user
      */
+    //@@author rishi12438
     public String showSongChart() {
 
         StringBuilder formattedChart1 = new StringBuilder();
         for (String chordString : songChart) {
             formattedChart1.append(chordString).append(" ");
         }
-        //System.out.println(formattedChart1.toString());
-        //System.out.println(this.getBars().get(0).getChords().get(0).getNotes().get(0).getPitch());
-        //return formattedChart1.toString();
 
         ArrayList<Bar> barList = this.getBars();
         Iterator<Bar> iterator1 = barList.iterator();
         StringBuilder formattedChart = new StringBuilder();
         int i = 0;
-        //System.out.println(bars.get(0).getChords().get(0).getNotes().get(0).getPitch());
         while (iterator1.hasNext()) {
             Bar barToAnalyse = iterator1.next();
             ArrayList<Chord> chordToAnalyse = barToAnalyse.getChords();
             Iterator<Chord> iterator = chordToAnalyse.iterator();
-            //System.out.println(chordToAnalyse.size());
+
             int j = 0;
             while (iterator.hasNext() && j < chordToAnalyse.size() / 2) {
                 formattedChart.append("{");

@@ -1,6 +1,5 @@
 package ducats;
 
-
 import ducats.commands.AddBarCommand;
 import ducats.commands.AddOverlayCommand;
 import ducats.commands.AsciiCommand;
@@ -46,12 +45,11 @@ public class Ducats {
      * order to carry out its functions.
      */
     public Ducats() {
+        DucatsLogger.setupLogger();
         ui = new Ui();
         songs = new SongList();
-
         //storage = new Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt"));
         storage = new Storage(System.getProperty("user.dir") + fileDelimiter + "data");
-
         metronome = new Metronome();
         try {
             System.out.println(Ui.showSaveStatus(storage.initialize()));
@@ -74,10 +72,11 @@ public class Ducats {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-
                 Command c = Parser.parse(ui,fullCommand);
+                DucatsLogger.info("Command read and parsed");
                 //if the command uses the SongList
                 String output;
+                //@@author
                 if (c instanceof AddBarCommand
                         || c instanceof ViewCommand
                         || c instanceof NewCommand
@@ -98,6 +97,7 @@ public class Ducats {
                         || c instanceof OverlayGroupGroup
                         || c instanceof ListGroupCommand) {
                     output = c.execute(songs, ui, storage);
+                    DucatsLogger.info(c.getClass().getName() + " has finished execution");
                     if (!(c instanceof HelpCommand
                         || c instanceof ViewCommand
                         || c instanceof ListCommand)) {
@@ -109,10 +109,12 @@ public class Ducats {
                 } else {
                     output = c.execute(songs, ui, storage);
                 }
+                //@@author rohan-av
                 System.out.println(output);
                 metronome.start(c.startMetronome());
                 isExit = c.isExit();
             } catch (DucatsException e) {
+                DucatsLogger.severe("A fatal error has occured: " + ui.showError(e));
                 System.out.println(ui.showError(e));
             }
         }
@@ -126,10 +128,8 @@ public class Ducats {
         new Ducats().run();
     }
 
-
+    //@@author rohan-av
     public SongList getSongs() {
         return this.songs;
     }
-
-    //@@author
 }
