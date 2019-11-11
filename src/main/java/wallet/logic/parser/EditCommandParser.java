@@ -25,6 +25,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public static final String MESSAGE_ERROR_EDIT_CONTACT = "Error in command syntax when editing contact.";
     public static final String MESSAGE_ERROR_NOT_NUMBER = "Error when parsing number, please provide proper input.";
     public static final String MESSAGE_ERROR_WRONG_DATE_FORMAT = "Error when parsing date, format is \"dd/MM/yyyy\".";
+    public static final String MESSAGE_ERROR_INVALID_CATEGORY =
+            "Category can only be Bills, Food, Others, Shopping or Transport.";
     public static final String MESSAGE_ERROR_INVALID_RECURRENCE_RATE = "Invalid value for rate of recurrence. "
             + "Acceptable values are: Daily, Weekly, Monthly or No";
     public static final String MESSAGE_ERROR_NEGATIVE_AMOUNT = "Amount should only be positive values.";
@@ -37,10 +39,14 @@ public class EditCommandParser implements Parser<EditCommand> {
             Expense expense;
             try {
                 expense = parseExpense(arguments[1]);
-            } catch (NumberFormatException nf) {
-                throw new WrongParameterFormat(MESSAGE_ERROR_NOT_NUMBER);
             } catch (DateTimeParseException dt) {
                 throw new WrongDateTimeFormat(MESSAGE_ERROR_WRONG_DATE_FORMAT);
+            } catch (NumberFormatException nf) {
+                if (nf.toString().equals(MESSAGE_ERROR_INVALID_CATEGORY)) {
+                    throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_CATEGORY);
+                } else {
+                    throw new WrongParameterFormat(MESSAGE_ERROR_NOT_NUMBER);
+                }
             }
             if (expense != null) {
                 return new EditCommand(expense);
@@ -85,7 +91,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         //@@author Xdecosee
         String[] arguments = input.split(" ", 2);
         if (arguments.length == 2) {
-
             String[] parameters = arguments[1].split(" ");
             try {
                 int id = Integer.parseInt(arguments[0].trim());
@@ -231,6 +236,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (catIndex != -1) {
             if (catIndex > amtIndex && catIndex > dateIndex && catIndex > descIndex) {
                 String[] getCategory = parameters.split("/c");
+                if (Category.getCategory(getCategory[1].trim()) == null) {
+                    throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_CATEGORY);
+                }
                 expense.setCategory(Category.getCategory(getCategory[1].trim()));
                 parameters = getCategory[0].trim();
             } else {
