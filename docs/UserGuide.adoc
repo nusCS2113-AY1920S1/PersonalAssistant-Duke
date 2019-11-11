@@ -554,8 +554,8 @@ eg. `sort time monday` +
 ** `clear modules`
 ** `clear ccas`
 * *Schedule CCA* :
-** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK` +
-e.g `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
+** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK` +
+e.g `scheduleCca 1 --begin 13:00 --end 15:00 --dayOfWeek Tuesday`
 * *Update* :
 ** `update module`
 * *Reminder* :
