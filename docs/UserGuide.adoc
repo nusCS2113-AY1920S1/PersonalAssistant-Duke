@@ -581,12 +581,13 @@ view input commands entered by the user from a start date to an end date, provid
 Format: `view history h/DATE_1 to DATE_2`
 
 [TIP]
-the format of the date should be dd-MM-yyyy
+the format of the date should be dd-MM-yyyy if the date is a 2 digit number. If the date is a 1 digit number the format should be d-MM-yyyy.
 [TIP]
 to view the history of a specific date rather than a period: DATE_1 = DATE_2
 
 Examples:
 
+* `view history h/4-10-2019 to 5-10-2019`
 * `view history h/24-10-2019 to 25-10-2019`
 
 image::view_history2.png[]
@@ -594,6 +595,31 @@ image::view_history2.png[]
 * `view history h/25-10-2019 to 25-10-2019`
 
 image::view_history.png[]
+
+===Undo: undo
+
+undoes the command entered previously +
+Format: `undo`
+
+[TIP] undo can only be used for the commands add payment, delete payment, add payee, delete payee.
+[TIP] undo can only be used once at a time. An undo command followed by an undo command will not perform the undo action on any of the previous commands.
+
+Examples:
+
+image::undo.png[]
+
+image::undoerror.png[]
+
+===Redo: redo
+
+redoes a previously undone command +
+Format: `redo`
+
+[TIP] redo can only be used after an undo command.
+
+Examples:
+
+image::redo.png[]
 
 === Exit command: `bye`
 

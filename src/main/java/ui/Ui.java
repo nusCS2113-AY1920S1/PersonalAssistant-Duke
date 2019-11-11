@@ -720,8 +720,7 @@ public class Ui {
     }
 
     public void cantUndomessage() {
-        System.out.println("This command can't be undone. Only add payment, " 
-            + "delete payment, add payee and delete payee can be undone.");
+        System.out.println("This command can't be undone. Only add payment, delete payment, add payee and delete payee can be undone.");
     }
 
     public void cantRedomessage() {
