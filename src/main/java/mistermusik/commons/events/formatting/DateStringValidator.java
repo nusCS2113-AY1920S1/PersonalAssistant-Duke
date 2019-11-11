@@ -6,6 +6,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+/**
+ * Interface that handles the validation of user input date strings.
+ */
 public interface DateStringValidator {
     /**
      * Checks if a string is valid entry for dd-MM-yyyy format.
@@ -15,7 +18,7 @@ public interface DateStringValidator {
         format.setLenient(false);
         try {
             format.parse(dateString);
-        } catch (ParseException e) {
+        } catch (ParseException | NullPointerException e) {
             return false;
         }
         return true;

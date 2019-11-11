@@ -52,7 +52,7 @@ public class Storage {
 
             try {
                 file.createNewFile();
-            } catch (IOException inputWrong) {
+            } catch (IOException exceptionInputOutput) {
                 System.out.println("Failed! Please re-download the jar file and try again.");
             }
 
@@ -89,7 +89,7 @@ public class Storage {
             FileWriter writer = new FileWriter(file);
             writer.write(toWriteToFile);
             writer.close();
-        } catch (IOException inputWrong) {
+        } catch (IOException exceptionInputOutput) {
             ui.printErrorWritingToFile();
         }
     }

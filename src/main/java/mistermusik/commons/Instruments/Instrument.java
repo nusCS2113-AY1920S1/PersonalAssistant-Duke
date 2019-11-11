@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Instrument {
     private String instrumentName;
     private ArrayList<ServiceInfo> serviceInfoList;
-    
+
 
     /**
      * Creates an Instrument instance with the input name.
@@ -18,7 +18,7 @@ public class Instrument {
         this.instrumentName = name;
         serviceInfoList = new ArrayList<>();
     }
-    
+
     public String getName() {
         return instrumentName;
     }
@@ -45,7 +45,7 @@ public class Instrument {
         }
         return res;
     }
-    
+
     public String getIndexAndService(int index) {
         return index + ". " + serviceInfoList.get(index - 1).getServiceInfo();
     }

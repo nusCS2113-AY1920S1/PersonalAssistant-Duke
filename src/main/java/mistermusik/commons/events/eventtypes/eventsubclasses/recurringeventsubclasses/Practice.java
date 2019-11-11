@@ -2,6 +2,9 @@ package mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubc
 
 import mistermusik.commons.events.eventtypes.eventsubclasses.RecurrentEvent;
 
+/**
+ * Practice type Event class.
+ */
 public class Practice extends RecurrentEvent {
 
     /**

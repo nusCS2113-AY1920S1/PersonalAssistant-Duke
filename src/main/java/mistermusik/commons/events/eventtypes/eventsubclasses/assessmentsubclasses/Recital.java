@@ -2,6 +2,9 @@ package mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclass
 
 import mistermusik.commons.events.eventtypes.eventsubclasses.Assessment;
 
+/**
+ * Recital type Event class.
+ */
 public class Recital extends Assessment {
     /**
      * Creates recital event with isDone boolean for reading from files.

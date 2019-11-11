@@ -151,7 +151,7 @@ public class EventList {
             throw new EndBeforeStartException();
         }
 
-        Event clashEvent = clashEvent(event); //check the list for a schedule clash
+        Event clashEvent = getClashEvent(event); //check the list for a schedule clash
         if (clashEvent == null) { //null means no clash was found
             if (event.getType() == 'C') {
                 this.budgeting.updateMonthlyCost((Concert) event);
@@ -168,6 +168,7 @@ public class EventList {
     }
 
     //@@author YuanJiayi
+    private static final int ONE_SEMESTER_DAYS = 16 * 7;
 
     /**
      * Adds recurring events to the list.
@@ -197,7 +198,7 @@ public class EventList {
             }
 
             assert newEvent != null;
-            if (clashEvent(newEvent) == null) {
+            if (getClashEvent(newEvent) == null) {
                 tempEventList.add(newEvent);
             } else {
                 throw new ClashException(newEvent);
@@ -216,13 +217,9 @@ public class EventList {
      * there is a clash, return a reference to the event, if not, return null.
      *
      * @param checkingEvent newly added event
-     * @return event that causes a clash
+     * @return event that causes a clash, null if no clash found
      */
-    private Event clashEvent(Event checkingEvent) {
-        /*  NOTE: DateObj userInputString is arranged as follows: dd-MM-yyyy HHmm.
-            for now, only have one date with differing start time and end time, date in startDateObj will be same as
-            in endDateObj */
-
+    private Event getClashEvent(Event checkingEvent) {
         //split new event date string into date and time.
         String[] newEventStartDateTime = checkingEvent.getStartDate().getUserInputDateString().split(" ");
         String[] newEventEndDateTime = checkingEvent.getEndDate().getUserInputDateString().split(" ");
@@ -239,7 +236,7 @@ public class EventList {
             String[] currEventEndDateTime = currEvent.getEndDate().getUserInputDateString().split(" ");
 
             if (newEventDate.equals(currEventStartDateTime[0]) && //check for same date
-                    timeClash(newEventStartTime, newEventEndTime, currEventStartDateTime[1],
+                    checkForTimeClash(newEventStartTime, newEventEndTime, currEventStartDateTime[1],
                             currEventEndDateTime[1])) { //check for time clash
                 return currEvent; //clash found
             }
@@ -248,9 +245,9 @@ public class EventList {
     }
 
     /**
-     * Checks for a clash in time, returns appropriate boolean.
+     * Checks for a clash in time assuming two events have the same date.
      */
-    private boolean timeClash(int newEventStartTime, int newEventEndTime, String s, String s1) {
+    private boolean checkForTimeClash(int newEventStartTime, int newEventEndTime, String s, String s1) {
         int currEventStartTime = Integer.parseInt(s); //assign time
         int currEventEndTime = Integer.parseInt(s1);
 
@@ -333,7 +330,7 @@ public class EventList {
     }
 
     /**
-     * Return a string containing the filtered list of events, each separated by a newline.
+     * Retrieves String containing the filtered list of events, each separated by a newline.
      */
     private String filteredListTwoPredicates(Predicate<Object> predicate1, Predicate<Object> predicate2) {
         String filteredEvents = "";
@@ -352,7 +349,7 @@ public class EventList {
     }
 
     /**
-     * Return a string containing events found in the next `days` days.
+     * Retrieves String containing events found in the next `days` days.
      */
     public String getReminder(int days) {
         Date systemDateAndTime = new Date();
@@ -414,7 +411,7 @@ public class EventList {
     }
 
     /**
-     * Get past events which have unachieved goals.
+     * Retrieves string containing all past events with goals not yet achieved.
      */
     public String getPastEventsWithUnachievedGoals() {
         String overUnachievedGoalsList = "\n" + "Below lists all the unachieved goal for past events. "
@@ -438,5 +435,4 @@ public class EventList {
         }
         return overUnachievedGoalsList;
     }
-    //@@author
 }

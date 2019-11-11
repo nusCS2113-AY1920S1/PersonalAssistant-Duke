@@ -342,7 +342,8 @@ public class Command {
     //@@author Ryan-Wong-Ren-Wei
 
     /**
-     * passes budget to UI for printing to output.
+     * Sends cost information to UI class to be printed for a specific month, or sets a new
+     * monthly stipulated budget, based on user input.
      */
     private void showOrSetBudget(EventList events, UI ui) {
         if (continuation.isEmpty()) {
@@ -361,7 +362,7 @@ public class Command {
                 int cost = events.getBudgeting().getCostForMonth(monthAndYear);
                 UI.printCostForMonth(monthAndYear, cost);
             } catch (NullPointerException e) {
-                UI.printNoCostsForThatMonth();
+                UI.printNoConcertsForThatMonth();
             }
         }
     }
@@ -528,7 +529,7 @@ public class Command {
     //@@author
 
     /**
-     * adds a new to-do to the list of events in EventList object.
+     * Adds a new to-do to the list of events in EventList object.
      */
     private void addNewTodo(EventList events, UI ui) {
         if (continuation.isEmpty()) {
@@ -568,7 +569,7 @@ public class Command {
         try {
             int eventNo = Integer.parseInt(continuation);
             if (events.getEvent(eventNo - 1) instanceof ToDo) {
-                events.getEvent(eventNo - 1).markAsDone();
+                events.getEvent(eventNo - 1).setIsDoneToTrue();
                 ui.eventDone(events.getEvent(eventNo - 1));
             } else {
                 ui.printNoSuchEvent();
@@ -659,9 +660,13 @@ public class Command {
                 switch (goalCommand[0]) {
                 case "delete":
                     if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                        String deletedGoal = events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getGoal();
-                        events.getEvent(eventIndex).removeGoal(goalIndex - 1);
-                        ui.printGoalDeleted(deletedGoal);
+                        try {
+                            String deletedGoal = events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getGoal();
+                            events.getEvent(eventIndex).removeGoal(goalIndex - 1);
+                            ui.printGoalDeleted(deletedGoal);
+                        } catch (IndexOutOfBoundsException e) {
+                            ui.printNoSuchGoal();
+                        }
                     } else {
                         ui.printNoSuchGoal();
                     }
@@ -669,9 +674,13 @@ public class Command {
 
                 case "edit":
                     if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                        Goal newGoal = new Goal(splitGoal[1]);
-                        events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
-                        ui.printGoalUpdated(events, eventIndex, goalIndex - 1);
+                        try {
+                            Goal newGoal = new Goal(splitGoal[1]);
+                            events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
+                            ui.printGoalUpdated(events, eventIndex, goalIndex - 1);
+                        } catch (IndexOutOfBoundsException e) {
+                            ui.printNoSuchGoal();
+                        }
                     } else {
                         ui.printNoSuchGoal();
                     }
@@ -679,16 +688,21 @@ public class Command {
 
                 case "achieved":
                     if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                        if (events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
-                            ui.printGoalAlreadyAchieved();
-                        } else {
-                            events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
-                            ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                        try {
+                            if (events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
+                                ui.printGoalAlreadyAchieved();
+                            } else {
+                                events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
+                                ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                            }
+                        } catch (IndexOutOfBoundsException e) {
+                            ui.printNoSuchGoal();
                         }
                     } else {
                         ui.printNoSuchGoal();
                     }
                     break;
+
                 default:
                     ui.printGoalCommandInvalid();
                     break;
@@ -716,6 +730,7 @@ public class Command {
             ui.printNotAnInteger();
         }
     }
+
 
     //@@author YuanJiayi
 
@@ -812,7 +827,7 @@ public class Command {
     //@@author Dng132FEI
 
     /**
-     * Manages instruments.
+     * Method to manage instruments.
      */
     public void manageInstruments(InstrumentList instruments, UI ui) {
         try {
@@ -919,6 +934,8 @@ public class Command {
             return cost;
         }
 
+        static final int NON_RECURRING = -1;
+
         /**
          * contains all info regarding an entry for a non-recurring event.
          *
@@ -957,7 +974,7 @@ public class Command {
     }
 
     /**
-     * Contains all info concerning a new entry for a ToDo.
+     * Contains all info concerning a new entry for a To-Do.
      */
     private class EntryForToDo {
         private String description;
@@ -972,7 +989,7 @@ public class Command {
         }
 
         /**
-         * contains all info regarding an entry for a ToDo.
+         * contains all info regarding an entry for a To-Do.
          *
          * @return organized entryForEvent information
          */

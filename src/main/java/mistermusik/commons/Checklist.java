@@ -37,7 +37,7 @@ public class Checklist {
      * Editing an item.
      *
      * @param itemIndex Index of the item.
-     * @param newItem New item content.
+     * @param newItem   New item content.
      */
     public void editItem(int itemIndex, String newItem) {
         this.checklist.set(itemIndex, newItem);

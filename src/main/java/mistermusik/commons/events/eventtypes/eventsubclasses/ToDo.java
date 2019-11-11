@@ -2,6 +2,9 @@ package mistermusik.commons.events.eventtypes.eventsubclasses;
 
 import mistermusik.commons.events.eventtypes.Event;
 
+/**
+ * Class that represents a ToDo type event.
+ */
 public class ToDo extends Event {
     /**
      * Creates ToDo with description and done boolean for reading from file.

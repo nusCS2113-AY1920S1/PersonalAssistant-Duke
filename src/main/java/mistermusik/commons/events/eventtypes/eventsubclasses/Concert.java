@@ -2,6 +2,9 @@ package mistermusik.commons.events.eventtypes.eventsubclasses;
 
 import mistermusik.commons.events.eventtypes.Event;
 
+/**
+ * Class that represents a concert type event.
+ */
 public class Concert extends Event {
     private int cost;
 
@@ -22,9 +25,7 @@ public class Concert extends Event {
     }
 
     /**
-     * Gets the cost of the concert event.
-     *
-     * @return concert cost.
+     * Retrieves the concert cost.
      */
     public int getCost() {
         return this.cost;
