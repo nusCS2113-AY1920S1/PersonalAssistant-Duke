@@ -40,11 +40,11 @@ public class EditTaskDateTimeParser {
                     int taskIndex = Integer.parseInt(arrOfStr[0]);
                     String dateStr = arrOfStr[1];
                     int dd = Integer.parseInt(dateStr.substring(0,2));
-                    int mM = Integer.parseInt(dateStr.substring(3,5));
+                    int mmCaps = Integer.parseInt(dateStr.substring(3,5));
                     int yyyy = Integer.parseInt(dateStr.substring(6,10));
-                    int hH = Integer.parseInt(dateStr.substring(11,13));
+                    int hhCaps = Integer.parseInt(dateStr.substring(11,13));
                     int mm = Integer.parseInt(dateStr.substring(13,15));
-                    if (dateStr.length() > 15 || dd > 31 || mM > 12 || yyyy > 9999 || hH > 24 || mm > 60) {
+                    if (dateStr.length() > 15 || dd > 31 || mmCaps > 12 || yyyy > 9999 || hhCaps > 24 || mm > 60) {
                         throw new DukeException(INVALID_DATETIME_MESSAGE);
                     }
                     Date newDate = new SimpleDateFormat("dd/MM/yyyy HHmm").parse(dateStr);
