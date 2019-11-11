@@ -48,3 +48,4 @@ _Marco Jakob_.
 * Libraries used: https://code.google.com/archive/p/json-simple/[Simple JSON], https://github.com/TestFX/TestFX[TestFX], https://github.com/google/gson[GSON], https://github.com/junit-team/junit5[JUnit5]
 
 
+== Licence : link:LICENSE[MIT]
