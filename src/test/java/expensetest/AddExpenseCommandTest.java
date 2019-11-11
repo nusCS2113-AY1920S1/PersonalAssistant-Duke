@@ -1,5 +1,7 @@
 //@@author e0323290
 
+package expensetest;
+
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.expenses.AddExpenseCommand;
 import org.junit.jupiter.api.AfterEach;

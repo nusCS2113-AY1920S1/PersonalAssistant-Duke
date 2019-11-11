@@ -1,5 +1,7 @@
 //@@author e0323290
 
+package expensetest;
+
 import gazeeebo.parser.ExpenseCommandParser;
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.triviaManager.TriviaManager;
@@ -22,8 +24,8 @@ import java.util.Stack;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ExpenseCommandParserTest {
-    private static final String WELCOME_MESSAGE = "Welcome to your expenses record!"
-            + " What would you like to do?\n\n\r\n"
+    private static final String WELCOME_MESSAGE = "Welcome to your expenses page!"
+            + " What would you like to do?\r\n"
             + "_________________________"
             + "_________________________________\n"
             + "1. Add expenses command: add item, price, date\n"
@@ -82,10 +84,11 @@ public class ExpenseCommandParserTest {
         System.setIn(in);
         expenseCommandParser.execute(list, ui, storage, commandStack, deletedTask, triviaManager);
         assertWelcomeMessageDisplay();
+
     }
 
     private void assertWelcomeMessageDisplay() {
-        assertEquals(WELCOME_MESSAGE, output.toString());
+        assertEquals(WELCOME_MESSAGE,output.toString());
     }
 }
 
