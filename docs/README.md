@@ -6,4 +6,13 @@
 
 [User Guide](UserGuide.md) | [Developer Guide](DeveloperGuide.adoc) | [About Us](AboutUs.adoc) | [Contact Us](ContactUs.adoc)
 
-#### Licence : [MIT](LICENSE)
+Libraries used:
+- JavaFx
+- Jackson
+- JFoenix
+- JUnit
+- PrettyTime
+
+Refrence Project:
+- AddressBook 4
+- Duke
