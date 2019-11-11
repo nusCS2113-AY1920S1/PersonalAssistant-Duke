@@ -15,12 +15,12 @@ class AddPromotionCommandParserTest {
 
     @Test
     public void execute_parse_correctly() throws ParserException {
-        String[] inputs = {"promotion","test","-%","20", "-s", "01/12/2019",
+        final String[] inputs = {"promotion","test","-%","20", "-s", "01/12/2019",
                 "-e","02/12/2019"};
         Promotion expected = new Promotion("test");
         expected.setDiscount(20);
-        expected.setStartDate(new Date(2019-1900,12-01,01));
-        expected.setEndDate(new Date(2019-1900,12-01,02));
+        expected.setStartDate(new Date(2019 - 1900,12 - 01,01));
+        expected.setEndDate(new Date(2019 - 1900,12 - 01,02));
 
         AddPromotionCommandParser test = new AddPromotionCommandParser();
         test.parse(inputs);

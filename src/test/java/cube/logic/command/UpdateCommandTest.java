@@ -23,7 +23,7 @@ public class UpdateCommandTest {
     @Test
     public void execute_update_correctly() throws CommandException {
         ModelManager model = new ModelManager();
-        StorageManager storage = new StorageManager();
+        final StorageManager storage = new StorageManager();
         FoodList list = model.getFoodList();
         Food oldTest = new Food("test");
         list.add(oldTest);
@@ -49,7 +49,7 @@ public class UpdateCommandTest {
     @Test
     public void execute_invalidName() {
         ModelManager model = new ModelManager();
-        StorageManager storage = new StorageManager();
+        final StorageManager storage = new StorageManager();
         FoodList list = model.getFoodList();
         Food food = new Food("test");
         int[] testChange = {1,0,0,0};

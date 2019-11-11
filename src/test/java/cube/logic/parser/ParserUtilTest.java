@@ -17,14 +17,14 @@ class ParserUtilTest {
     @Test
     public void parseDateToString_correctly() {
         String expected = "01/11/2019";
-        Date test = new Date(2019-1900,11-01,1);
+        Date test = new Date(2019 - 1900,11 - 01,1);
         assertEquals(ParserUtil.parseDateToString(test),expected);
     }
 
     @Test
     void parseStringToDate_correctly() throws ParserException {
         String test = "01/11/2019";
-        Date expected = new Date(2019-1900,11-01,1);
+        Date expected = new Date(2019 - 1900,11 - 01,1);
         assertEquals(ParserUtil.parseStringToDate(test),expected);
     }
 

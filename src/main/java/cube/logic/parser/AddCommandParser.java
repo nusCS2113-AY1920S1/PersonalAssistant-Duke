@@ -13,6 +13,7 @@ import cube.model.food.Food;
 public class AddCommandParser implements ParserPrototype<AddCommand> {
 
 	private Food tempFood = new Food();
+
 	/**
 	 * Parse user add command.
 	 * @param args user inputs.

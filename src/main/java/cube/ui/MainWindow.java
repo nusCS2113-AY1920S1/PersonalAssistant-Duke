@@ -1,7 +1,12 @@
 package cube.ui;
 
 import cube.exception.CubeException;
-import cube.logic.command.*;
+import cube.logic.command.Command;
+import cube.logic.command.ProfitCommand;
+import cube.logic.command.ConfigCommand;
+import cube.logic.command.SoldCommand;
+import cube.logic.command.AddCommand;
+import cube.logic.command.DeleteCommand;
 import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
 import cube.logic.parser.ParserUtil;
