@@ -194,6 +194,10 @@ Format: `contact edit <event index> <contact index> <edit type> /<new contact in
 contact. +
 The edit types are name, email, and phone.
 
+==== Storing contact lists in a text file : `[coming v2.0]`
+Contact lists now cannot be seen after restarting MisterMusik. In future, contact lists will be stored into a text file
+automatically. The user will be able to edit them in the text file.
+
 === Goals list : `goal`
 Goals list of each event helps the user keep track of the outcome that they wishes to achieve by the end of the event.
 The user is able to add, edit, delete or set a goal as achieved.
@@ -218,9 +222,9 @@ This sets the specified goal as achieved.
 `goal view <event index>`
 This displays the goals list of a specified event along with their status - whether a goal is achieved or not.
 
-==== Storing contact lists in a text file : `[coming v2.0]`
-Contact lists now cannot be seen after restarting MisterMusik. In future, contact lists will be stored into a text file
-automatically. The user will be able to edit them in the text file.
+==== Storing goals lists in a text file : `[coming v2.0]`
+Like the contact lists, the goal lists now cannot be seen after restarting MisterMusik. In future, goal lists will be stored
+into a text file automatically. The user will be able to edit them in the text file.
 
 === Checklists : `checklist`
 Checklist of each event can be used to remind users of certain items (e.g. bring glasses to concert).
