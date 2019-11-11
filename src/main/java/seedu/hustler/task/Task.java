@@ -122,8 +122,7 @@ public abstract class Task {
      */
     public String toString() {
         return "[" + this.getStatusIcon() + "]" + this.getDifficulty().toString()
-                + this.tag.toString() +
-                " " + this.getDescription();
+                + this.tag.toString() + " " + this.getDescription();
     }
 
     /**
