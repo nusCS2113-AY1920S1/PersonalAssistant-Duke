@@ -2,8 +2,8 @@
 package taskcmdtest;//@@author yueyuu
 
 import gazeeebo.storage.TriviaStorage;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.tasks.EventCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;

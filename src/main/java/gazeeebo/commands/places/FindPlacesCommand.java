@@ -2,7 +2,7 @@
 
 package gazeeebo.commands.places;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.exception.DukeException;
 
 import java.io.IOException;

@@ -2,7 +2,7 @@
 
 package taskcmdtest;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.tasks.FindCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
@@ -12,7 +12,7 @@ import gazeeebo.tasks.Todo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import gazeeebo.triviaManager.TriviaManager;
+import gazeeebo.triviamanager.TriviaManager;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;

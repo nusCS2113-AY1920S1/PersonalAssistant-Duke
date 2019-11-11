@@ -181,7 +181,7 @@ public class StudyPlannerCommand {
     }
 
     /**
-     * This method calculate the total MCs for one column
+     * This method calculate the total MCs for one column.
      * @param semester this parameter indicate which column it is calculating.
      * @return number of MCs
      */
@@ -213,7 +213,7 @@ public class StudyPlannerCommand {
 
     /**
      * this method check modules planned, verdict whether the plan
-     * fulfill graduation requirements
+     * fulfill graduation requirements.
      * @return boolean judgement
      */
     public ArrayList<String> checkGraduation() {

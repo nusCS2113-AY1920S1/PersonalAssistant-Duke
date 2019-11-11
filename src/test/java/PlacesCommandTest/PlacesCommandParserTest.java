@@ -3,11 +3,11 @@
 package placesCommandTest;
 
 import gazeeebo.storage.TriviaStorage;
-import gazeeebo.triviaManager.TriviaManager;
+import gazeeebo.triviamanager.TriviaManager;
 import gazeeebo.parser.PlacesCommandParser;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

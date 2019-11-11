@@ -2,7 +2,7 @@
 
 package studyAssistTest;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.studyassist.StudyPlannerCommand;
 import gazeeebo.commands.studyassist.ShiftModuleCommand;
 import gazeeebo.exception.DukeException;

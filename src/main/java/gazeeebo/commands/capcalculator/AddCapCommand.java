@@ -2,7 +2,7 @@
 
 package gazeeebo.commands.capcalculator;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.parser.CapCommandParser;
 
 import java.io.IOException;
@@ -53,8 +53,8 @@ public class AddCapCommand {
             }
             String[] splitAddInput = toAdd.split(",");
             String semNumber = splitAddInput[0];
-            if(Integer.parseInt(semNumber) >= LOWER_BOUNDARY &&
-                    Integer.parseInt(semNumber) <= UPPER_BOUNDARY) {
+            if (Integer.parseInt(semNumber) >= LOWER_BOUNDARY
+                    && Integer.parseInt(semNumber) <= UPPER_BOUNDARY) {
                 String moduleCode = splitAddInput[1];
                 int moduleCredit = Integer.parseInt(splitAddInput[2]);
                 String grade = splitAddInput[GRADE_INDEX];

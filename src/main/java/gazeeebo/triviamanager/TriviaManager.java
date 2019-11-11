@@ -1,6 +1,6 @@
 //@@author mononokehime14
 
-package gazeeebo.triviaManager;
+package gazeeebo.triviamanager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class TriviaManager {
     public static Map<String, ArrayList<String>> CommandMemory;
 
     /**
-     * This method initialize a trivial manager object
+     * This method initialize a trivial manager object.
      * @param storage The object deals with access, modify and save files.
      * @throws IOException if the storage methods go wrong
      */

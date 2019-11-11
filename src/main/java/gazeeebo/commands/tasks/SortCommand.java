@@ -7,8 +7,8 @@ import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import java.io.IOException;
 import gazeeebo.exception.DukeException;
 import java.text.ParseException;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 public class SortCommand extends Command {
     /**
-     * This method sort the task list in given order
+     * This method sort the task list in given order.
      * @param list          Task list
      * @param ui            The object that deals with
      *                      printing things to the user.

@@ -2,7 +2,7 @@
 
 package contacttest;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.contact.FindContactCommand;
 
 import org.junit.jupiter.api.AfterEach;
