@@ -12,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -22,7 +24,8 @@ import java.util.Map;
  * @version 1.4
  */
 class StorageTest {
-    private String testDataPath = System.getProperty("user.dir") + "/testData";
+    private Path resourceDirectory = Paths.get("src","test","Testdata");
+    private String testDataPath = resourceDirectory.toFile().getAbsolutePath();
     private StorageManager storageManager = new StorageManager(testDataPath);
 
     @Test
