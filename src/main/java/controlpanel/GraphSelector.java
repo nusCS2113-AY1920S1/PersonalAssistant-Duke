@@ -6,6 +6,7 @@ import money.Account;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.time.format.DateTimeParseException;
 
 public class GraphSelector implements DataTransfer {
     //@@author cctt1014
@@ -21,7 +22,7 @@ public class GraphSelector implements DataTransfer {
      * @throws IOException The IOE exception
      * @throws ParseException The parse exception
      */
-    public HBox getTheGraph(String input, Account account) throws IOException, ParseException {
+    public HBox getTheGraph(String input, Account account) throws IOException, ParseException, DukeException {
         if (input.startsWith("graph monthly report")) {
             if (input.equals("graph monthly report")) {
                 return DataTransfer.getMonthlyData(account, DataTransfer.Type.HISTOGRAM);
@@ -41,8 +42,13 @@ public class GraphSelector implements DataTransfer {
             input = input.replaceFirst("graph income trend ", "");
             return DataTransfer.getIncomeTrend(account, DataTransfer.Type.valueOf(input.toUpperCase()));
         } else if (input.startsWith("graph finance status /until")) {
-            String dateString = input.split(" /until ")[1];
-            return  DataTransfer.getCurrFinance(account, Parser.shortcutTime(dateString));
+            try {
+                String dateString = input.split(" /until ")[1];
+                return  DataTransfer.getCurrFinance(account, Parser.shortcutTime(dateString));
+            } catch (DateTimeParseException e) {
+                throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
+            }
+
         } else {
             return null;
         }

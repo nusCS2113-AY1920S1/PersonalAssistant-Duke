@@ -40,7 +40,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField searchBar;
 
-    private FG FG;
+    private FG financialGhost;
     private UserIcon userIcon;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
@@ -74,9 +74,9 @@ public class MainWindow extends AnchorPane {
      * @param d the CLI duke
      */
     public void setFG(FG d) {
-        FG = d;
-        String logo = FG.getUi().getLogo();
-        boolean isNewUser = FG.getAccount().isToInitialize();
+        financialGhost = d;
+        String logo = financialGhost.getUi().getLogo();
+        boolean isNewUser = financialGhost.getAccount().isToInitialize();
         if (isNewUser) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getDukeDialog("enter start to begin", dukeImage));
@@ -101,7 +101,7 @@ public class MainWindow extends AnchorPane {
             userImage = userIcon.getIcon();
         }
 
-        String[] response = FG.getResponse(input);
+        String[] response = financialGhost.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response[0], dukeImage)
@@ -110,7 +110,7 @@ public class MainWindow extends AnchorPane {
         if (input.startsWith("graph")) {
             GraphSelector graphSelector = new GraphSelector();
             graphContainer.getChildren().addAll(
-                    graphSelector.getTheGraph(input, FG.getAccount())
+                    graphSelector.getTheGraph(input, financialGhost.getAccount())
             );
             userInput.clear();
         }
@@ -132,7 +132,7 @@ public class MainWindow extends AnchorPane {
         if (input.equals("")) {
             graphContainer.getChildren().clear();
         } else {
-            String[] response = FG.getResponse("find# " + input);
+            String[] response = financialGhost.getResponse("find# " + input);
             graphContainer.getChildren().clear();
             if (!response[1].equals("")) {
                 graphContainer.getChildren().clear();

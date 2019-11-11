@@ -50,6 +50,11 @@ public class CreateBankAccountTest {
     }
 
     @Test
+    void isExit_success() throws DukeException {
+        Assertions.assertFalse(new CreateBankAccountCommand(SAMPLE_INPUT1).isExit());
+    }
+
+    @Test
     void execute_duplicateName_exceptionThrown() throws DukeException {
         account.getBankTrackerList().clear();
         CreateBankAccountCommand cmd1 = new CreateBankAccountCommand(SAMPLE_INPUT1);

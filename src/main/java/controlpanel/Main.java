@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    private FG FG = new FG();
+    private FG financialGhost = new FG();
 
     @Override
     //@@author therealnickcheong
@@ -25,7 +25,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Financial Ghost");
-            fxmlLoader.<MainWindow>getController().setFG(FG);
+            fxmlLoader.<MainWindow>getController().setFG(financialGhost);
             stage.show();
 
 
