@@ -1,3 +1,9 @@
+/**
+ * Handles the content to be shown at the listcell, such as the list of products.
+ *
+ * @author kuromono
+ */
+
 package cube.ui;
 
 import cube.model.food.Food;
@@ -10,9 +16,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
-/**
- * List panel.
- */
 public class ListPanel extends UiManager<ListView> {
     private static final String FXML = "ListPanel.fxml";
 
@@ -23,10 +26,11 @@ public class ListPanel extends UiManager<ListView> {
     private ListView<Food> productListView;
 
     /**
-     * List panel.
-     * @param foodList the food list.
-     * @param sellExecutor sell executor.
-     * @param editExecutor edit executor.
+     * Main Constructor for ListPanel.
+     *
+     * @param foodList     The food list to be shown and initialised.
+     * @param sellExecutor Function containing the sell button logic.
+     * @param editExecutor Function containing the edit button logic.
      */
     public ListPanel(FoodList foodList, SellExecutor sellExecutor, EditExecutor editExecutor) {
         super(FXML);
@@ -39,8 +43,9 @@ public class ListPanel extends UiManager<ListView> {
     }
 
     /**
-     * Update food list.
-     * @param foodList the food list.
+     * Updates the food list that is shown in the list cell.
+     *
+     * @param foodList The food list to be updated with.
      */
     public void updateProductList(FoodList foodList) {
         ObservableList<Food> observableList = FXCollections.observableArrayList(foodList.getFoodList());
@@ -48,7 +53,7 @@ public class ListPanel extends UiManager<ListView> {
     }
 
     /**
-     * Class for list view cell.
+     * Overrides the ListViewCell in ListCell to show a custom format.
      */
     class ListViewCell extends ListCell<Food> {
         @Override
