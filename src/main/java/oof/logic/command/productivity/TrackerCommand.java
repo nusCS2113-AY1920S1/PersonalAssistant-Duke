@@ -27,6 +27,7 @@ public class TrackerCommand extends Command {
     private String description;
     private static final long DEFAULT_TIMETAKEN = 0;
     private static final int INDEX_INSTRUCTION = 0;
+    private static final int FIRST_INDEX = 0;
     private static final int PERIOD_INDEX = 1;
     private static final int DELETE_INDEX = 1;
     private static final int TASK_INDEX = 1;
@@ -72,7 +73,7 @@ public class TrackerCommand extends Command {
         switch (trackerCommand) {
         case VIEW_COMMAND:
             if (input.length != VIEW_COMMAND_LENGTH) {
-                throw new InvalidArgumentException("Invalid Commmand!");
+                throw new InvalidArgumentException("Invalid Command!");
             }
             String period = input[PERIOD_INDEX].toLowerCase();
             ArrayList<Tracker> sortedTL = processModuleTrackerList(period, trackerList);
@@ -88,8 +89,16 @@ public class TrackerCommand extends Command {
             if (input.length != DELETE_COMMAND_LENGTH) {
                 throw new InvalidArgumentException("Please enter the correct number of arguments!");
             }
-            int deleteIndex = Integer.parseInt(input[DELETE_INDEX]) - CORRECT_INDEX;
-            if (deleteIndex >= taskList.getSize()) {
+            String index = input[DELETE_INDEX];
+            int deleteIndex;
+            try {
+                deleteIndex = Integer.parseInt(index);
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Please enter a valid number!");
+            }
+            deleteIndex -= CORRECT_INDEX;
+            int trackerListSize = trackerList.size();
+            if (deleteIndex >= trackerListSize || deleteIndex < FIRST_INDEX) {
                 throw new InvalidArgumentException("Please select a valid index to delete!");
             }
             tracker = trackerList.get(deleteIndex);
@@ -105,10 +114,16 @@ public class TrackerCommand extends Command {
             if (input.length != TIMER_COMMAND_LENGTH) {
                 throw new InvalidArgumentException("Please enter the correct number of arguments!");
             }
+            String trackerIndex = input[TASK_INDEX];
             String moduleCode = input[MODULE_CODE_INDEX].toLowerCase();
-            int taskIndex = Integer.parseInt(input[TASK_INDEX]);
+            int taskIndex;
+            try {
+                taskIndex = Integer.parseInt(trackerIndex);
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Please enter a valid number!");
+            }
             taskIndex -= CORRECT_INDEX;
-            if (taskIndex > taskList.getSize()) {
+            if (taskIndex > taskList.getSize() || taskIndex < FIRST_INDEX) {
                 throw new InvalidArgumentException("Invalid Task Index!");
             }
 
