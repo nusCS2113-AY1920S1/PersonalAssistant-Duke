@@ -117,7 +117,7 @@ The `GUI` consists of a `MainWindow` that is made up of parts e.g `DialogBox`, `
 `MainWindow` is split into two segment, on the left the display window and on the right the chat box, as show
 in the GUI diagram.
 
-image::images/UI.png[width ="600", align="center"]
+image::images/Ui.png[width ="600", align="center"]
 
 The display window consists of 5 different viewing mode.
 
@@ -161,7 +161,7 @@ API: `Link for Model file`
 2. *showsHistory*: All the shows that are in the past.
 3. *showsGui*: All the shows that are to be displayed on the `GUI` component.
 
-image::images/devguide/DG_Model_ClassDiagram.png[width ="600", align="center"]
+image::images/devguide/DG_Model_Structure_Diagram.png[width ="600", align="center"]
 
 The ShowMap Class Diagram shown is the structure for all ShowMap with the exception of *showsHistory*.
 For *showsHistory* the multiplicity of Seat is 0 as it is irrelevant.
