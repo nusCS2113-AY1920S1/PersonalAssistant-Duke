@@ -9,9 +9,26 @@ import duke.ui.Ui;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.*;
 
-import static duke.common.BookingMessages.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
+import static duke.common.BookingMessages.COMMAND_ADD_BOOKING;
+
+import static duke.common.BookingMessages.MESSAGE_BOOKING_ADDED;
+
+import static duke.common.BookingMessages.ERROR_MESSAGE_EMPTY_BOOKING_DETAILS;
+import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_BOOKING_DETAILS;
+import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_NAME;
+import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_CONTACT_NO;
+import static duke.common.BookingMessages.ERROR_MESSAGE_UNKNOWN_PAX;
+import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_PAX;
+import static duke.common.BookingMessages.ERROR_MESSAGE_EMPTY_ORDERS;
+import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_DATE;
+import static duke.common.BookingMessages.ERROR_MESSAGE_OVERFLOW_DATE;
+import static duke.common.BookingMessages.ERROR_MESSAGE_UNAVAILABLE_DATE;
 
 /**
  * Handles the add new booking command.
@@ -230,10 +247,4 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
         }
         return true;
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

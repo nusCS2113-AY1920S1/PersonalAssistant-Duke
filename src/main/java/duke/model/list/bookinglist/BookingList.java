@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static duke.common.BookingMessages.*;
+import static duke.common.BookingMessages.MESSAGE_NO_EXISTING_BOOKING;
+import static duke.common.BookingMessages.MESSAGE_NO_BOOKING_FOR;
+import static duke.common.BookingMessages.MESSAGE_NO_ORDER_FOR;
+import static duke.common.BookingMessages.MESSAGE_IS_FOUND;
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 
 /**

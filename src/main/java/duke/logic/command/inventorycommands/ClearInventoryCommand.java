@@ -5,11 +5,12 @@ import duke.model.list.inventorylist.InventoryList;
 import duke.storage.InventoryStorage;
 import duke.ui.Ui;
 
-import java.util.*;
+import java.util.ArrayList;
 
 import static duke.common.InventoryMessages.COMMAND_CLEAR_INVENTORY;
 import static duke.common.InventoryMessages.MESSAGE_INGREDIENTS_CLEARED;
 import static duke.common.InventoryMessages.ERROR_MESSAGE_INVENTORY_ALREADY_EMPTY;
+
 import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 
 public class ClearInventoryCommand extends Command<InventoryList, Ui, InventoryStorage> {
@@ -31,10 +32,5 @@ public class ClearInventoryCommand extends Command<InventoryList, Ui, InventoryS
             arrayList.add(ERROR_MESSAGE_RANDOM);
         }
         return arrayList;
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

@@ -8,8 +8,15 @@ import duke.ui.Ui;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import static duke.common.Messages.*;
-import static duke.common.RecipeMessages.*;
+import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
+import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+
+import static duke.common.RecipeMessages.COMMAND_EDIT_RATING;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_EDIT_RATING_INCOMPLETE;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_INVALID_RATING;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_RATING_INCORRECT_FORMAT;
 
 /**
  * Handles the edit rating command.
@@ -81,10 +88,5 @@ public class EditRatingCommand extends Command<RecipeList, Ui, RecipeStorage> {
         return (rating.equals("") || rating.equals("average") || rating.equals("good") || rating.equals("delicious")
                                   || rating.equals("Average") || rating.equals("Good") || rating.equals("Delicious")
                                   || rating.equals("AVERAGE") || rating.equals("GOOD") || rating.equals("DELICIOUS"));
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

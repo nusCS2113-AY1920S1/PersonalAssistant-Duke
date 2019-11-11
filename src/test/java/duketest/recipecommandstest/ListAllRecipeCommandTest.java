@@ -1,5 +1,6 @@
 package duketest.recipecommandstest;
 
+import duke.logic.command.recipecommands.DeleteRecipeCommand;
 import duke.logic.command.recipecommands.ListAllRecipeCommand;
 import duke.model.list.recipelist.RecipeList;
 import duke.storage.RecipeStorage;

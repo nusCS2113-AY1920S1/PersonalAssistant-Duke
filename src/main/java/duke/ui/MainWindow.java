@@ -17,9 +17,12 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import static duke.common.InventoryMessages.COMMAND_LIST_INVENTORY;
-import static duke.common.Messages.*;
-import static duke.common.BookingMessages.*;
+import static duke.common.Messages.ERROR_MESSAGE_LOADING;
+import static duke.common.Messages.COMMAND_BYE;
+import static duke.common.Messages.COMMAND_HELP;
+
+import static duke.common.BookingMessages.COMMAND_VIEW_ORDERS;
+
 import static duke.common.RecipeMessages.COMMAND_LIST_RECIPE_INGREDIENT;
 
 //@@author wjlingg
@@ -31,13 +34,12 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
     private Ui ui;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    @FXML
+    private ScrollPane scrollPane;
 
     @FXML
-    private ScrollPane scrollPane, scrollPane2, scrollPane3;
-    @FXML
     private VBox dialogContainer;
+
     @FXML
     private TextField userInput;
 
@@ -48,8 +50,14 @@ public class MainWindow extends AnchorPane {
     private AnchorPane root;
 
     @FXML
-    private ListView<String> listView, listViewResult;
+    private ListView<String> listView;
 
+    @FXML
+    private ListView<String> listViewResult;
+
+    /**
+     * Initializes the ui.
+     */
     @FXML
     public void initialize() {
 
@@ -82,7 +90,8 @@ public class MainWindow extends AnchorPane {
             } else {
                 ArrayList<String> arrayList = new ArrayList<>(duke.runProgram(input));
                 showMessage(arrayList.get(0));
-                if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT) || input.trim().contains(COMMAND_VIEW_ORDERS)) {
+                if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)
+                        || input.trim().contains(COMMAND_VIEW_ORDERS)) {
                     listViewResult.getItems().clear();
                     for (int i = 1; i < arrayList.size(); i++) {
                         listViewResult.getItems().add(arrayList.get(i));

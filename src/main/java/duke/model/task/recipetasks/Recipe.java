@@ -4,7 +4,12 @@ import duke.model.task.ingredienttasks.Ingredient;
 
 import java.util.ArrayList;
 
-import static duke.common.RecipeMessages.*;
+import static duke.common.RecipeMessages.LABEL_TITLE;
+import static duke.common.RecipeMessages.LABEL_RATING;
+import static duke.common.RecipeMessages.LABEL_PREPSTEPS;
+import static duke.common.RecipeMessages.LABEL_REQ_INGREDIENTS;
+import static duke.common.RecipeMessages.LABEL_FEEDBACK;
+import static duke.common.RecipeMessages.LABEL_PREPTIME;
 
 public class Recipe {
 

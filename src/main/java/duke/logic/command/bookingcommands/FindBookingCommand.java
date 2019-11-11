@@ -6,7 +6,12 @@ import duke.storage.BookingStorage;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
-import static duke.common.BookingMessages.*;
+
+import static duke.common.BookingMessages.COMMAND_FIND_BOOKING;
+import static duke.common.BookingMessages.MESSAGE_MATCHING_BOOKINGS;
+import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_NAME;
+import static duke.common.BookingMessages.ERROR_MESSAGE_EMPTY_NAME_FIND;
+import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_FIND_COMMAND;
 
 /**
  * Handles the find booking command by filtering the bookings by keyword.
@@ -62,10 +67,5 @@ public class FindBookingCommand extends Command<BookingList, Ui, BookingStorage>
             }
         }
         return true;
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

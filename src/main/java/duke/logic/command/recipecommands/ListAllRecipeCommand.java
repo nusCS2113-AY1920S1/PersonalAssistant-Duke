@@ -6,11 +6,18 @@ import duke.model.list.recipelist.RecipeList;
 import duke.storage.RecipeStorage;
 import duke.model.task.recipetasks.Recipe;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.Map;
 
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
-import static duke.common.RecipeMessages.*;
+
+import static duke.common.RecipeMessages.COMMAND_LIST_RECIPES;
+import static duke.common.RecipeMessages.COMMAND_LIST_RECIPES_BY_PREPTIME;
+import static duke.common.RecipeMessages.MESSAGE_HERE_ARE_THE_RECIPES;
 
 /**
  * Handles the list all recipe command.
@@ -51,11 +58,6 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
         return arrayList;
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
     /**
      * Processes the list command to display all recipes in recipe list in the order that they are entered.
      *
@@ -87,13 +89,6 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
         Iterator entryIter = entries.iterator();
         ArrayList<String> arrayList = new ArrayList<>();
         int i = 0;
-//        while (entryIter.hasNext()) {
-//            Map.Entry entry = (Map.Entry) entryIter.next();
-//            Object key = entry.getKey();  // Get the key from the entry.
-//            Recipe value = (Recipe) entry.getValue();  // Get the value.
-//            arrayList.add(Integer.toString(i + DISPLAYED_INDEX_OFFSET) + ". " + value.getRecipeTitle().getTitle());
-//            i++;
-//        }
         return arrayList;
     }
 }

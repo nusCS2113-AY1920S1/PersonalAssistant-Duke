@@ -25,6 +25,9 @@ public class HelpWindow extends HBox {
     @FXML
     private Label helpMessage;
 
+    /**
+     * Creates a help window.
+     */
     public HelpWindow() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/HelpWindow.fxml"));

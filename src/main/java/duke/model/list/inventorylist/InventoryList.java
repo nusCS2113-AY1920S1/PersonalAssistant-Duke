@@ -44,18 +44,23 @@ public class InventoryList {
 
     public boolean removeUsedIngredients(ArrayList<Ingredient> reqIngredients) {
         boolean isRemoved = true;
-            for (Ingredient Ingredient : reqIngredients) {
-                String ingredientName = Ingredient.getIngredientName();
-                double ingredientMass = Ingredient.getMass();
-                Ingredient inventoryIngredient = this.inventoryHM.get(ingredientName);
-                double inventoryIngredientMass = inventoryIngredient.getMass();
+            for (Ingredient ingredient : reqIngredients) {
+                String ingredientName = ingredient.getIngredientName();
+                double ingredientMass = ingredient.getMass();
                 // if ingredient does not exist in inventory or not enough
-                if (!isDeductable(ingredientMass, inventoryIngredientMass) || !isInInventory(ingredientName)) {
+                if (!isInInventory(ingredientName)) {
                     isRemoved = false;
                     break;
                 } else {
-                    deductMass(ingredientMass, inventoryIngredient);
-                    updateQuantity(inventoryIngredient);
+                    Ingredient inventoryIngredient = this.inventoryHM.get(ingredientName);
+                    double inventoryIngredientMass = inventoryIngredient.getMass();
+                    if (!isDeductable(ingredientMass, inventoryIngredientMass)) {
+                        isRemoved = false;
+                        break;
+                    } else {
+                        deductMass(ingredientMass, inventoryIngredient);
+                        updateQuantity(inventoryIngredient);
+                    }
                 }
             }
             return isRemoved;

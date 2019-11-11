@@ -17,7 +17,14 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import static duke.common.BookingMessages.*;
+import static duke.common.BookingMessages.COMMAND_VIEW_BOOKING_SCHEDULE;
+import static duke.common.BookingMessages.MESSAGE_NO_BOOKING;
+import static duke.common.BookingMessages.MESSAGE_PROMPT_ADDBOOKING;
+import static duke.common.BookingMessages.MESSAGE_BOOKING_ON;
+import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_DATE;
+import static duke.common.BookingMessages.ERROR_MESSAGE_OVERFLOW_DATE;
+import static duke.common.BookingMessages.ERROR_MESSAGE_EMPTY_DATE;
+import static duke.common.BookingMessages.ERROR_MESSAGE_INVALID_VIEWBOOKINGSCHEDULE_COMMAND;
 
 /**
  * Handles the view booking schedule command by searching with date.
@@ -176,10 +183,5 @@ public class ViewBookingScheduleCommand extends Command<BookingList, Ui, Booking
         } else {
             return false;
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

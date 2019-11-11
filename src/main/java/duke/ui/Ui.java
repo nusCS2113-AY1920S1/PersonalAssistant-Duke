@@ -1,6 +1,6 @@
 package duke.ui;
 
-import static duke.common.Messages.*;
+import static duke.common.Messages.DIVIDER;
 
 //@@author wjlingg
 public class Ui {
