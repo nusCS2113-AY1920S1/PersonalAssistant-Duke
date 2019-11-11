@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Tests the schedule obtained for a given day is accurate.
+ *
+ * @author Sai Ganesh Suresh
+ * @version v1.4
+ */
 public class ScheduleTest {
 
     private static ArrayList<Task> testCoreList;

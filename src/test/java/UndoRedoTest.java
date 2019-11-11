@@ -1,6 +1,5 @@
 import chronologer.command.Command;
 import chronologer.command.RedoCommand;
-import chronologer.command.ThemeCommand;
 import chronologer.command.UndoCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.storage.ChronologerStateList;

@@ -1,5 +1,4 @@
 import chronologer.command.Command;
-import chronologer.command.ListCommand;
 import chronologer.command.ThemeCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiMessageHandler;

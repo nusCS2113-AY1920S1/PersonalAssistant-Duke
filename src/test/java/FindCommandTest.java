@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 /**
- * Tests both positive/negative cases for the list that the GUI obtains.
+ * Tests both positive/negative cases for the tasks with a keyword that the GUI obtains.
  *
  * @author Sai Ganesh Suresh
  * @version v1.4
