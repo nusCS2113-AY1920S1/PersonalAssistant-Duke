@@ -771,6 +771,7 @@ The following shows the class diagram of ArchDukeLogger
 .Class diagram of ArchDuke logger
 image::images/classDiagram/ArchDukeLogger_ClassDiagram.png[]
 *API* : link:{repoURL}/src/main/java/util/log/ArchDukeLogger.java[`ArchDukeLogger.java`]
+
 [NOTE]
 If any bugs or errors encountered during the testing, please do create an issue on this repo and upload the logs file located
 is the `logs` directory.
