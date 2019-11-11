@@ -22,6 +22,7 @@ public class DeleteModuleCommand {
                         StudyAssistPageStorage storage,
                         Ui ui,
                         Stack<ArrayList<ArrayList<String>>> oldStudyPlan) throws IOException,DukeException {
+
         try {
             if (ui.fullCommand.split(" ").length != 4) {
                 throw new DukeException("Please follow the correct input format~");
