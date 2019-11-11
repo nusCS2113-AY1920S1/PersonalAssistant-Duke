@@ -415,7 +415,7 @@ printFoundEvents() method will catch the exception before printing out a string 
 taking place on that specific date.
 
 ==== Activity Diagram
-image::DGViewEventsDiagram.png[width = 100%]
+image::DGViewEventsDiagram.png[]
 
 ==== Why is it implemented this way
 The matching events are being stored individually into a separate temporary list before being printed out. This is to allow
