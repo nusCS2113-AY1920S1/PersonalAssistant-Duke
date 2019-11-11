@@ -205,8 +205,13 @@ public class CapCommand extends ModuleCommand {
             throw new ModEmptyListException();
         }
         ArrayList<String> prunedModules = parsePrerequisiteTree(detailedMap.get(moduleCode).getPrerequisites());
+        for (String x : prunedModules) {
+            if (!detailedMap.containsKey(x)) { // check if the prereq moduels are still valid
+                prunedModules.remove(x);
+            }
+        }
         for (ModuleTask x : profile.getModules()) {
-            if (prunedModules.contains(x.getModuleCode())) {
+            if (prunedModules.contains(x.getModuleCode())) { // check module list for prereq modules, and add cap
                 if (letterGradeToCap(x.getGrade()) != 0.00) {
                     mcCount += x.getModuleCredit();
                     projectedModuleCap += letterGradeToCap(x.getGrade()) * x.getModuleCredit();
@@ -216,7 +221,7 @@ public class CapCommand extends ModuleCommand {
         }
         ArrayList<String> toBeRemoved = new ArrayList<>();
         if (!prunedModules.isEmpty()) {
-            for (String module : prunedModules) {
+            for (String module : prunedModules) { // check module list for preclusion of prereq modules
                 boolean hasPreclusions = false;
                 for (ModuleTask x : profile.getModules()) {
                     if (detailedMap.get(module).getPreclusion().contains(x.getModuleCode())
