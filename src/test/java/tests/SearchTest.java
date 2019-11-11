@@ -46,8 +46,6 @@ public class SearchTest {
         } catch (DukeException e) {
             fail("Exception thrown while setting up basic patient! " + e.getMessage());
         }
-
-
     }
 
     @Test
@@ -97,7 +95,7 @@ public class SearchTest {
             assertEquals(imp.findEvidencesByName(pattern3).getSearchList().size(), 1);
             assertEquals(imp.findByName(pattern3).getSearchList().size(), 2);
         } catch (DukeException e) {
-            fail("Could not excute find");
+            fail("Could not execute find");
         }
     }
 

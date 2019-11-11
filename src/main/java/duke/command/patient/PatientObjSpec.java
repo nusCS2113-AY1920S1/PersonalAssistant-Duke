@@ -35,7 +35,7 @@ public abstract class PatientObjSpec extends ObjSpec {
         }
 
         Patient patient = PatientUtils.getPatient(core);
-        DukeObject object = PatientUtils.findFromPatient(patient, type, cmd.getArg());
+        DukeObject object = PatientUtils.getFromPatientByIdx(patient, type, cmd.getArg());
         if (object == null) {
             SearchResults results = PatientUtils.searchFromPatient(patient, type, cmd.getArg());
             processResults(core, results);

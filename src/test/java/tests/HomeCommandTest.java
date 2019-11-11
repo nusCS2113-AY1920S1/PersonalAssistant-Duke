@@ -1,12 +1,20 @@
 package tests;
 
 import duke.command.ArgCommand;
+import duke.command.ObjCommand;
 import duke.command.home.HomeNewSpec;
+import duke.command.home.HomeReportSpec;
 import duke.data.Patient;
 import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -34,7 +42,6 @@ public class HomeCommandTest extends CommandTest {
     /**
      * Tests HomeReport Command with the summary switch present.
      */
-    /*
     @Test
     public void homeReportCommandTest() {
         String[] switchNames = {"bed", "summary"};
@@ -43,7 +50,7 @@ public class HomeCommandTest extends CommandTest {
         try {
             core.patientData.addPatient(new Patient("testCPatient", "testC1", "test allergies",
                     123, 456, 100, 6582447, "test address", "test history"));
-            ArgCommand newReportCmd = new ArgCommand(HomeReportSpec.getSpec(), "", switchNames, switchVals);
+            ObjCommand newReportCmd = new ObjCommand(HomeReportSpec.getSpec(), null, switchNames, switchVals);
             newReportCmd.execute(core);
             String expected = "PATIENT REPORT\n\nThis report shows all the data that was stored about a patient at "
                     + "the time the report was created.\n\nReport Summary: This as a test report that is used to test "
@@ -57,5 +64,5 @@ public class HomeCommandTest extends CommandTest {
         } catch (DukeException | IOException excp) {
             fail("Exception thrown when validly creating report from command in home context: " + excp.getMessage());
         }
-    }*/
+    }
 }

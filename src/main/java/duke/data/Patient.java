@@ -96,19 +96,6 @@ public class Patient extends DukeObject {
             if (impressionList.size() == 1) {
                 primaryDiagnosis = impressionList.get(0);
             }
-
-            // this is very slow but we have no choice
-            for (DukeData data : criticalList) {
-                if (data.getParent() == deletedImpression) {
-                    criticalList.remove(data);
-                }
-            }
-            for (Treatment treatment : followUpList) {
-                if (treatment.getParent() == deletedImpression) {
-                    followUpList.remove(treatment);
-                }
-            }
-
             return deletedImpression;
         }
 
@@ -315,6 +302,10 @@ public class Patient extends DukeObject {
         return bedNo;
     }
 
+    public void setBedNo(String bedNo) {
+        this.bedNo = bedNo;
+    }
+
     public String getAllergies() {
         return allergies;
     }
@@ -393,9 +384,7 @@ public class Patient extends DukeObject {
      * @return The number of critical DukeData items for this patient.
      */
     public String getCriticalCountStr() {
-        if (criticalList == null) {
-            update();
-        }
+        update();
         int count = criticalList.size();
         if (count == 0) {
             return "No critical issues";

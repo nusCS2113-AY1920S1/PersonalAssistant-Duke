@@ -96,7 +96,7 @@ public abstract class DukeData extends DukeObject {
                      boolean isAppending)
             throws DukeException {
         if (newName != null) {
-            setName((isAppending) ? getName() + newName : newName);
+            setName((isAppending) ? getName() + " " + newName : newName);
         }
         if (newPriority != -1) {
             setPriority(newPriority);

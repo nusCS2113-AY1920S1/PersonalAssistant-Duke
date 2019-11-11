@@ -193,7 +193,7 @@ public class Impression extends DukeObject {
             sortEvidences();
             return newEvidence;
         }
-        throw new DukeException("I already have an Evidence named that");
+        throw new DukeException("I already have an Evidence named that!");
     }
 
     /**
@@ -353,26 +353,6 @@ public class Impression extends DukeObject {
     }
 
     /**
-     * Computes the number of critical items in this impression: items with priority 1.
-     *
-     * @return The number of critical items in this impression.
-     */
-    public int getCriticalCount() {
-        int count = 0;
-        for (Treatment treatment : treatments) {
-            if (treatment.getPriority() == DukeData.PRIORITY_CRITICAL) {
-                ++count;
-            }
-        }
-        for (Evidence evidence : evidences) {
-            if (evidence.getPriority() == DukeData.PRIORITY_CRITICAL) {
-                ++count;
-            }
-        }
-        return count;
-    }
-
-    /**
      * Computes the number of follow up items: the number of Investigations not yet ordered, or whose results have not
      * been reviewed, and the number of plan items that have not been started on, and returns a string representing
      * these items.
@@ -402,7 +382,17 @@ public class Impression extends DukeObject {
      * @return A string indicating the number of critical items that are associated with this Impression.
      */
     public String getCriticalCountStr() {
-        int count = getCriticalCount();
+        int count = 0;
+        for (Treatment treatment : treatments) {
+            if (treatment.getPriority() == DukeData.PRIORITY_CRITICAL) {
+                ++count;
+            }
+        }
+        for (Evidence evidence : evidences) {
+            if (evidence.getPriority() == DukeData.PRIORITY_CRITICAL) {
+                ++count;
+            }
+        }
         if (count == 0) {
             return "No critical issues";
         } else if (count == 1) {

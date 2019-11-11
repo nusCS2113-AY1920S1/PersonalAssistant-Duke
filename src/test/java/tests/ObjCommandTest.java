@@ -4,8 +4,11 @@ import duke.command.Command;
 import duke.command.ObjCommand;
 import duke.command.ObjSpec;
 import duke.command.SearchSpec;
+import duke.command.home.HomeFindSpec;
 import duke.command.home.HomeOpenSpec;
+import duke.command.impression.ImpressionFindSpec;
 import duke.command.impression.ImpressionOpenSpec;
+import duke.command.patient.PatientFindSpec;
 import duke.command.patient.PatientOpenSpec;
 import duke.data.DukeObject;
 import duke.data.Impression;
@@ -20,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Test for open commands in Home, Patient and Impression contexts in order to test the ObjSpecs and ObjCommand system.
+ * Test for open and find commands in Home, Patient and Impression contexts in order to test the ObjSpecs and
+ * ObjCommand system.
  */
 public class ObjCommandTest extends CommandTest {
 
@@ -40,7 +45,7 @@ public class ObjCommandTest extends CommandTest {
     private Investigation invx;
     private Result result;
     private Plan plan;
-    private ObjCommand openCmd;
+    private ObjCommand cmd;
 
     /**
      * This sets up complex data for the patient before the tests are run.
@@ -97,9 +102,11 @@ public class ObjCommandTest extends CommandTest {
     public void homeOpenCommand_irrelevantMatches_matchesIgnored() {
         setupCommand(HomeOpenSpec.getSpec());
         try {
-            openCmd.execute(core); // opens search results
-            assertTrue(correctPatientSearchResults(getSearchResultList()));
-            openCmd.execute(core, patient1);
+            cmd.execute(core); // opens search results
+            List<DukeObject> searchList = getSearchResultList();
+            assertTrue(searchList.contains(patient1) && searchList.contains(patient2)
+                    && searchList.size() == 2);
+            cmd.execute(core, patient1);
             assertEquals(core.uiContext.getObject(), patient1);
         } catch (DukeException excp) {
             fail("Exception thrown while executing home open command: " + excp.getMessage());
@@ -113,9 +120,9 @@ public class ObjCommandTest extends CommandTest {
     public void homeOpenCommand_viaSearchSpec_patientOpened() {
         setupCommand(HomeOpenSpec.getSpec());
         try {
-            openCmd.execute(core); // opens search results
+            cmd.execute(core); // opens search results
             List<DukeObject> resultList = getSearchResultList();
-            assertTrue(resultList.contains(patient1) && resultList.contains(patient2)
+            assertTrue(resultList.containsAll(Arrays.asList(patient1, patient2))
                     && resultList.size() == 2);
             // construct a search command corresponding to the index of patient 1
             String idxStr = Integer.toString(resultList.indexOf(patient1) + 1);
@@ -132,15 +139,15 @@ public class ObjCommandTest extends CommandTest {
         setupCommand(PatientOpenSpec.getSpec());
         try {
             core.uiContext.open(patient1);
-            openCmd.execute(core); // opens search results
+            cmd.execute(core); // opens search results
             List<DukeObject> searchList = getSearchResultList();
             // matches invx (follow-up) and result (critical) but not plan (follow-up but non-matching name)
-            assertTrue(searchList.contains(impression1) && searchList.contains(impression2)
-                    && searchList.contains(invx) && searchList.contains(result) && searchList.size() == 4);
-            openCmd.execute(core, impression1);
+            assertTrue(searchList.containsAll(Arrays.asList(impression1, impression2, invx, result))
+                    && searchList.size() == 4);
+            cmd.execute(core, impression1);
             assertEquals(core.uiContext.getObject(), impression1);
         } catch (DukeException excp) {
-            fail("Exception thrown while executing home open command: " + excp.getMessage());
+            fail("Exception thrown while executing patient open command: " + excp.getMessage());
         }
     }
 
@@ -149,14 +156,67 @@ public class ObjCommandTest extends CommandTest {
         setupCommand(ImpressionOpenSpec.getSpec());
         try {
             core.uiContext.open(impression1);
-            openCmd.execute(core); // opens search results
+            cmd.execute(core); // opens search results
             List<DukeObject> searchList = getSearchResultList();
-            assertTrue(searchList.contains(invx) && searchList.contains(result)
+            assertTrue(searchList.containsAll(Arrays.asList(invx, result))
                     && searchList.size() == 2);
-            openCmd.execute(core, invx);
+            cmd.execute(core, invx);
             assertEquals(core.uiContext.getObject(), invx);
         } catch (DukeException excp) {
-            fail("Exception thrown while executing home open command: " + excp.getMessage());
+            fail("Exception thrown while executing impression open command: " + excp.getMessage());
+        }
+    }
+
+    /**
+     * Tests basic search functionality, ensuring it identifies patients whose description match the search,
+     * and child objects whose names match the search.
+     */
+    @Test
+    public void homeFindCommand_childMatches_matchesFound() {
+        setupCommand(HomeFindSpec.getSpec());
+        try {
+            cmd.execute(core); // opens search results
+            List<DukeObject> searchList = getSearchResultList();
+            assertTrue(searchList.containsAll(Arrays.asList(patient1, patient2, patient3, impression1,
+                    impression2, impression3, invx, result, plan))
+                    && searchList.size() == 9);
+            cmd.execute(core, plan);
+            assertEquals(core.uiContext.getObject(), plan);
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing home find command: " + excp.getMessage());
+        }
+    }
+
+    @Test
+    public void patientFindCommand_childMatches_matchesFound() {
+        setupCommand(PatientFindSpec.getSpec());
+        try {
+            core.uiContext.open(patient1);
+            cmd.execute(core); // opens search results
+            List<DukeObject> searchList = getSearchResultList();
+            assertTrue(searchList.containsAll(Arrays.asList(impression1, impression2, impression3,
+                    invx, result, plan))
+                    && searchList.size() == 6);
+            cmd.execute(core, result);
+            assertEquals(core.uiContext.getObject(), result);
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing patient find command: " + excp.getMessage());
+        }
+    }
+
+    @Test
+    public void impressionFindCommand_multipleMatches_matchesFound() {
+        setupCommand(ImpressionFindSpec.getSpec());
+        try {
+            core.uiContext.open(impression1);
+            cmd.execute(core); // opens search results
+            List<DukeObject> searchList = getSearchResultList();
+            assertTrue(searchList.containsAll(Arrays.asList(invx, result, plan))
+                    && searchList.size() == 3);
+            cmd.execute(core, result);
+            assertEquals(core.uiContext.getObject(), result);
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing impression find command: " + excp.getMessage());
         }
     }
 
@@ -164,7 +224,7 @@ public class ObjCommandTest extends CommandTest {
         String[] switchNames = {};
         String[] switchVals = {};
         try {
-            openCmd = new ObjCommand(spec, "jo", switchNames, switchVals);
+            cmd = new ObjCommand(spec, "jo", switchNames, switchVals);
         } catch (DukeException excp) {
             fail("Exception thrown while trying to create open command: " + excp.getMessage());
         }
@@ -179,10 +239,5 @@ public class ObjCommandTest extends CommandTest {
             fail("Command did not open search context, opened " + currObj + " instead!");
         }
         return results.getSearchList();
-    }
-
-    private boolean correctPatientSearchResults(List<DukeObject> searchList) {
-        return searchList.contains(patient1) && searchList.contains(patient2)
-                && searchList.size() == 2;
     }
 }

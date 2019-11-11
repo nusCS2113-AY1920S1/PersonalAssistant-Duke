@@ -128,31 +128,31 @@ public class Commands {
                 return null;
             }
         case PLAN:
-            if (cmdStr.equals("edit")) {
+            if ("edit".equals(cmdStr)) {
                 return new ArgCommand(PlanEditSpec.getSpec());
             } else {
                 return null;
             }
         case INVESTIGATION:
-            if (cmdStr.equals("edit")) {
+            if ("edit".equals(cmdStr)) {
                 return new ArgCommand(InvestigationEditSpec.getSpec());
             } else {
                 return null;
             }
         case MEDICINE:
-            if (cmdStr.equals("edit")) {
+            if ("edit".equals(cmdStr)) {
                 return new ArgCommand(MedicineEditSpec.getSpec());
             } else {
                 return null;
             }
         case RESULT:
-            if (cmdStr.equals("edit")) {
+            if ("edit".equals(cmdStr)) {
                 return new ArgCommand(ResultEditSpec.getSpec());
             } else {
                 return null;
             }
         case OBSERVATION:
-            if (cmdStr.equals("edit")) {
+            if ("edit".equals(cmdStr)) {
                 return new ArgCommand(ObservationEditSpec.getSpec());
             } else {
                 return null;

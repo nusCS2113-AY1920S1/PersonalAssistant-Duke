@@ -90,8 +90,8 @@ public class ImpressionTest {
         } catch (DukeException e) {
             fail("Could not add items for critCount testing!");
         }
-        assertEquals(impression.getCriticalCount(), 2);
-        assertEquals("3" + " follow-ups",impression.getFollowUpCountStr());
+        assertEquals("2 critical issues", impression.getCriticalCountStr());
+        assertEquals("3 follow-ups", impression.getFollowUpCountStr());
     }
 
     /**

@@ -17,9 +17,8 @@ public class PatientEditSpec extends ArgSpec {
     private PatientEditSpec() {
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
-                // TODO: Changes need to be made to Patient class. Update section in User Guide
-                // new Switch("name", String.class, true, ArgLevel.REQUIRED, "n"),
-                // new Switch("bed", String.class, true, ArgLevel.OPTIONAL, "b"),
+                new Switch("name", String.class, true, ArgLevel.REQUIRED, "n"),
+                new Switch("bed", String.class, true, ArgLevel.REQUIRED, "b"),
                 new Switch("allergies", String.class, true, ArgLevel.REQUIRED, "a",
                         "allergy"),
                 new Switch("height", Integer.class, true, ArgLevel.REQUIRED, "h"),
@@ -37,6 +36,20 @@ public class PatientEditSpec extends ArgSpec {
         super.execute(core);
         Patient patient = (Patient) core.uiContext.getObject();
         boolean append = cmd.isSwitchSet("append");
+
+        String name = cmd.getSwitchVal("name");
+        if (name != null) {
+            patient.setName(append ? (patient.getName() + " " + name) : name);
+        }
+
+        String bedNo = cmd.getSwitchVal("bed");
+        if (bedNo != null) {
+            String newBed = (append) ? (patient.getBedNo() + " " + bedNo) : bedNo;
+            if (core.patientData.getPatientByBed(newBed) != null) {
+                throw new DukeException("There is already a patient at that bed!");
+            }
+            patient.setBedNo(newBed);
+        }
 
         int height = cmd.switchToInt("height");
         if (height != -1) {
