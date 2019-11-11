@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when event is not selected.
  */
-public class EventNotSelectedException extends DukeException {
+public class EventNotSelectedException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

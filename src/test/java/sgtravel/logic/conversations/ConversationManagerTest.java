@@ -1,6 +1,6 @@
 package sgtravel.logic.conversations;
 
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.logic.commands.DeleteCommand;
 import sgtravel.logic.commands.PromptCommand;
 
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ConversationManagerTest {
 
     @Test
-    void converse() throws DukeException {
+    void converse() throws SingaporeTravelException {
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("delete");
         assertTrue(conversationManager.getCommand() instanceof PromptCommand);
@@ -23,7 +23,7 @@ class ConversationManagerTest {
     }
 
     @Test
-    void clearContext() throws DukeException {
+    void clearContext() throws SingaporeTravelException {
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("done");
         assertTrue(conversationManager.getCommand() instanceof PromptCommand);
@@ -32,7 +32,7 @@ class ConversationManagerTest {
     }
 
     @Test
-    void getCommand() throws DukeException {
+    void getCommand() throws SingaporeTravelException {
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("delete");
         assertTrue(conversationManager.getCommand() instanceof PromptCommand);

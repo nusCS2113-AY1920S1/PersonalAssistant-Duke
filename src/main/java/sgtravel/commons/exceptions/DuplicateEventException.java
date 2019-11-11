@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when a duplicate task is detected.
  */
-public class DuplicateEventException extends DukeException {
+public class DuplicateEventException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

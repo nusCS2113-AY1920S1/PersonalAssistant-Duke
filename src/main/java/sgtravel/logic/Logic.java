@@ -1,6 +1,6 @@
 package sgtravel.logic;
 
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.logic.commands.results.CommandResult;
 
 /**
@@ -14,5 +14,5 @@ public interface Logic {
      * @param userInput The input string from user.
      * @return CommandResult Object containing information for Ui to display.
      */
-    CommandResult execute(String userInput) throws DukeException;
+    CommandResult execute(String userInput) throws SingaporeTravelException;
 }

@@ -1,7 +1,7 @@
 package sgtravel.logic.commands;
 
 import sgtravel.ModelStub;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import org.junit.jupiter.api.Test;
 import sgtravel.commons.exceptions.NoSuchBusServiceException;
 
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class GetBusRouteCommandTest {
 
     @Test
-    void getBusRouteTest() throws DukeException {
+    void getBusRouteTest() throws SingaporeTravelException {
         ModelStub model = new ModelStub();
         String expected = "Here is the bus route:\n" + "45009 BT PANJANG INT\n" + "44259 Blk 183\n"
                 + "44149 Opp Phoenix Stn\n" + "44271 Bet Blks 13/14\n" + "44281 Blk 8\n" + "44291 Opp Cck Polyclinic\n"

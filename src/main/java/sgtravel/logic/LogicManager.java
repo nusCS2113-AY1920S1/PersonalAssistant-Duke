@@ -5,7 +5,7 @@ import sgtravel.commons.exceptions.ApiException;
 import sgtravel.commons.exceptions.ChronologyAfterPresentException;
 import sgtravel.commons.exceptions.ChronologyBeforePresentException;
 import sgtravel.commons.exceptions.ChronologyInconsistentException;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.logic.commands.Command;
 import sgtravel.logic.commands.results.CommandResult;
@@ -47,7 +47,7 @@ public class LogicManager implements Logic {
      * @return CommandResult Object containing information for Ui to display.
      */
     @Override
-    public CommandResult execute(String userInput) throws DukeException {
+    public CommandResult execute(String userInput) throws SingaporeTravelException {
         Command c;
         if (EditorManager.isActive()) {
             logger.log(Level.INFO, "Editing...");
@@ -85,7 +85,7 @@ public class LogicManager implements Logic {
      *
      * @param userInput The user input.
      */
-    private Command getCommandFromConversationManager(String userInput) throws DukeException {
+    private Command getCommandFromConversationManager(String userInput) throws SingaporeTravelException {
         conversationManager.converse(userInput);
         return conversationManager.getCommand();
     }

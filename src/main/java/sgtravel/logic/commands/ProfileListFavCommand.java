@@ -1,7 +1,7 @@
 package sgtravel.logic.commands;
 
 import sgtravel.commons.Messages;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.logic.commands.results.CommandResult;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Model;
@@ -20,7 +20,7 @@ public class ProfileListFavCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Model model) throws DukeException {
+    public CommandResult execute(Model model) throws SingaporeTravelException {
         ProfileCard profile = model.getProfileCard();
         HashMap<String, Itinerary> favHashMap = profile.getFavouriteList();
         StringBuilder stringBuilder = new StringBuilder();

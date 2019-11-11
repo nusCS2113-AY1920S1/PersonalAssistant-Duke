@@ -2,7 +2,7 @@ package sgtravel.logic.commands;
 
 import sgtravel.ModelStub;
 import sgtravel.commons.exceptions.DuplicateEventException;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.model.Event;
 import sgtravel.model.Model;
 
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class AddCommandTest {
 
     @Test
-    void execute() throws DukeException {
+    void execute() throws SingaporeTravelException {
         Model model = new ModelStub();
         Event event = new Event("NUS", LocalDateTime.now(), LocalDateTime.now());
         AddCommand addCommand = new AddCommand(event);

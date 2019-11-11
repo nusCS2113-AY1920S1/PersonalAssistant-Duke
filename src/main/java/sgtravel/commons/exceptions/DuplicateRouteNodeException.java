@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when duplicate route is found.
  */
-public class DuplicateRouteNodeException extends DukeException {
+public class DuplicateRouteNodeException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

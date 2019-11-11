@@ -1,7 +1,7 @@
 package sgtravel.logic.commands;
 
 import sgtravel.ModelStub;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.commons.exceptions.UnknownFieldException;
 import sgtravel.logic.parsers.Parser;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class RouteEditCommandTest {
 
     @Test
-    void execute() throws DukeException {
+    void execute() throws SingaporeTravelException {
         Model model = new ModelStub();
 
         RouteAddCommand routeAddCommand =

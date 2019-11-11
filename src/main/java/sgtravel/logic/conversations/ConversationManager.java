@@ -1,6 +1,6 @@
 package sgtravel.logic.conversations;
 
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.logic.commands.Command;
 import sgtravel.logic.parsers.ConversationParser;
@@ -77,9 +77,9 @@ public class ConversationManager {
      * Gets a command from the ConversationManager.
      *
      * @return Command for logic to execute.
-     * @throws DukeException If the result could not be parse by parser.
+     * @throws SingaporeTravelException If the result could not be parse by parser.
      */
-    public Command getCommand() throws DukeException {
+    public Command getCommand() throws SingaporeTravelException {
         if (isFinished) {
             return Parser.parseComplexCommand(getResult());
         }

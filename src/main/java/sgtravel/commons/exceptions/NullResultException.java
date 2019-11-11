@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when no result can be found.
  */
-public class NullResultException extends DukeException {
+public class NullResultException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when no such Route can be found.
  */
-public class NoSuchRouteException extends DukeException {
+public class NoSuchRouteException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

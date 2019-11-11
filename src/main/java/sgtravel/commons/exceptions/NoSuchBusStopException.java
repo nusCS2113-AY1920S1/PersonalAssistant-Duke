@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when no such bus stop can be found.
  */
-public class NoSuchBusStopException extends DukeException {
+public class NoSuchBusStopException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

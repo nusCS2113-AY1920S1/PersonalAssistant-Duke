@@ -1,7 +1,7 @@
 package sgtravel.logic.edits;
 
 import sgtravel.commons.exceptions.ApiException;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.logic.parsers.ParserTimeUtil;
@@ -21,7 +21,7 @@ class EditorTest {
     private static final int END_DATE = 2;
 
     @Test
-    void edit() throws DukeException {
+    void edit() throws SingaporeTravelException {
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
         Event event = new Event("Pulau Ubin", startDate, endDate);

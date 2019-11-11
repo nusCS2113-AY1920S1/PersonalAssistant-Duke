@@ -1,7 +1,7 @@
 package sgtravel.logic.commands;
 
 import sgtravel.ModelStub;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.logic.parsers.Parser;
 import sgtravel.model.Model;
 
@@ -18,7 +18,7 @@ class LocationSearchCommandTest {
     private static final String TIMEOUT_MESSAGE = "Sorry, but the search has timed out due to connection issues.";
 
     @Test
-    void execute() throws DukeException {
+    void execute() throws SingaporeTravelException {
         Model model = new ModelStub();
 
         //test for a regular search

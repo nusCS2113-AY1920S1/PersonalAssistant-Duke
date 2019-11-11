@@ -6,7 +6,7 @@ import sgtravel.logic.commands.results.CommandResultCalender;
 import sgtravel.logic.commands.results.CommandResultExit;
 import sgtravel.logic.commands.results.CommandResultImage;
 import sgtravel.logic.commands.results.CommandResultMap;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.logic.LogicManager;
 import sgtravel.logic.commands.results.PanelResult;
 import sgtravel.ui.calendar.CalendarWindow;
@@ -138,7 +138,7 @@ public class MainWindow extends UiPart<Stage> {
                     new MapWindow((CommandResultMap) result).show();
                 }
 
-            } catch (DukeException e) {
+            } catch (SingaporeTravelException e) {
                 sgTravelShow(e.getMessage());
             }
         });

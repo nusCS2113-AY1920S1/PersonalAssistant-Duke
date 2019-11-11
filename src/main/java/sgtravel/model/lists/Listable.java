@@ -1,6 +1,6 @@
 package sgtravel.model.lists;
 
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 
 /**
  * Interface which models a List of planning objects.
@@ -11,9 +11,9 @@ interface Listable<T> {
      * Adds an item to the List.
      *
      * @param item The item to add.
-     * @throws DukeException if there is an error in adding.
+     * @throws SingaporeTravelException if there is an error in adding.
      */
-    void add(T item) throws DukeException;
+    void add(T item) throws SingaporeTravelException;
 
     /**
      * Gets the item at a given index.

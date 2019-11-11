@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when a route cannot be generated.
  */
-public class RouteGenerateFailException extends DukeException {
+public class RouteGenerateFailException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

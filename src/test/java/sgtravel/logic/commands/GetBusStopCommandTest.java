@@ -1,7 +1,7 @@
 package sgtravel.logic.commands;
 
 import sgtravel.ModelStub;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class GetBusStopCommandTest {
 
     @Test
-    void getBusStopTest() throws DukeException {
+    void getBusStopTest() throws SingaporeTravelException {
         ModelStub model = new ModelStub();
         String expected = "This is the information for this Bus Stop:\n" + "Clementi Int\n"
                 + "99\n" + "14\n" + "96A\n" + "96B\n" + "147e\n" + "7B\n" + "282\n" + "173\n" + "284\n" + "196\n"
@@ -22,24 +22,24 @@ class GetBusStopCommandTest {
 
         //non-existant bus stop
         GetBusStopCommand command2 = new GetBusStopCommand("0");
-        assertThrows(DukeException.class, () -> {
+        assertThrows(SingaporeTravelException.class, () -> {
             command2.execute(model);
         });
 
         //negative number bus stop
         GetBusStopCommand command3 = new GetBusStopCommand("-1");
-        assertThrows(DukeException.class, () -> {
+        assertThrows(SingaporeTravelException.class, () -> {
             command3.execute(model);
         });
 
         GetBusStopCommand command4 = new GetBusStopCommand("-2");
-        assertThrows(DukeException.class, () -> {
+        assertThrows(SingaporeTravelException.class, () -> {
             command4.execute(model);
         });
 
         //test for string
         GetBusStopCommand command5 = new GetBusStopCommand("test");
-        assertThrows(DukeException.class, () -> {
+        assertThrows(SingaporeTravelException.class, () -> {
             command5.execute(model);
         });
     }

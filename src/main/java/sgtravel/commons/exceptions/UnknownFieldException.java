@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when an invalid field is queried.
  */
-public class UnknownFieldException extends DukeException {
+public class UnknownFieldException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

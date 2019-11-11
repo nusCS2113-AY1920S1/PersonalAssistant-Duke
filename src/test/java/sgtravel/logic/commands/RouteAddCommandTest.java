@@ -1,7 +1,7 @@
 package sgtravel.logic.commands;
 
 import sgtravel.ModelStub;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.logic.parsers.Parser;
 import sgtravel.model.Model;
 import sgtravel.model.transports.Route;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class RouteAddCommandTest {
 
     @Test
-    void execute() throws DukeException {
+    void execute() throws SingaporeTravelException {
         Model model = new ModelStub();
 
         Route route = new Route("2113", null);

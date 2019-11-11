@@ -1,6 +1,6 @@
 package sgtravel.logic.edits;
 
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.commons.exceptions.EmptyVenueException;
 import sgtravel.commons.exceptions.EventNotSelectedException;
 import sgtravel.logic.commands.EditCommand;
@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class EditorManagerTest {
 
     @Test
-    void activate() throws DukeException {
+    void activate() throws SingaporeTravelException {
         assertThrows(EmptyVenueException.class, () -> EditorManager.activate(new EventList(), new VenueList()));
         Event e = new Event("Pulau Tekong", LocalDateTime.now(), LocalDateTime.now());
         VenueList venues = new VenueList();
@@ -40,7 +40,7 @@ class EditorManagerTest {
     }
 
     @Test
-    void isActive() throws DukeException {
+    void isActive() throws SingaporeTravelException {
         EditorManager.deactivate();
         assertFalse(EditorManager.isActive());
         Event e = new Event("Pulau Tekong", LocalDateTime.now(), LocalDateTime.now());
@@ -53,7 +53,7 @@ class EditorManagerTest {
     }
 
     @Test
-    void edit() throws DukeException {
+    void edit() throws SingaporeTravelException {
         EditorManager.deactivate();
         Event e = new Event("Pulau Tekong", LocalDateTime.now(), LocalDateTime.now());
         VenueList venues = new VenueList();
@@ -78,7 +78,7 @@ class EditorManagerTest {
     }
 
     @Test
-    void testEdit() throws DukeException {
+    void testEdit() throws SingaporeTravelException {
         EditorManager.deactivate();
         assertFalse(EditorManager.isActive());
         Event e = new Event("Pulau Tekong", LocalDateTime.now(), LocalDateTime.now());

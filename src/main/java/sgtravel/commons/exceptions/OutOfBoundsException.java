@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when index query is out of bounds.
  */
-public class OutOfBoundsException extends DukeException {
+public class OutOfBoundsException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

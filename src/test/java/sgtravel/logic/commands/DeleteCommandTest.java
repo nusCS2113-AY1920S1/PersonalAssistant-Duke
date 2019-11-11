@@ -1,7 +1,7 @@
 package sgtravel.logic.commands;
 
 import sgtravel.ModelStub;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.model.Event;
 
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class DeleteCommandTest {
 
     @Test
-    void execute() throws DukeException {
+    void execute() throws SingaporeTravelException {
         ModelStub model = new ModelStub();
         Event event = new Event("Sentosa", LocalDateTime.now(), LocalDateTime.now());
         model.getEvents().add(event);

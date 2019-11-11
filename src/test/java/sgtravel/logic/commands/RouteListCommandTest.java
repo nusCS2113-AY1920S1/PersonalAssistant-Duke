@@ -1,7 +1,7 @@
 package sgtravel.logic.commands;
 
 import sgtravel.ModelStub;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.logic.parsers.Parser;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class RouteListCommandTest {
 
     @Test
-    void execute() throws DukeException {
+    void execute() throws SingaporeTravelException {
         String expected = "Here is the information of the Route:\n2113\n\n";
 
         Model model = new ModelStub();

@@ -1,7 +1,7 @@
 package sgtravel.model.lists;
 
 import sgtravel.commons.exceptions.DuplicateEventException;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.logic.parsers.ParserTimeUtil;
 import sgtravel.model.Event;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class EventListTest {
 
     @Test
-    void add() throws DukeException {
+    void add() throws SingaporeTravelException {
         EventList events = new EventList();
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
@@ -31,7 +31,7 @@ class EventListTest {
     }
 
     @Test
-    void isEmpty() throws DukeException {
+    void isEmpty() throws SingaporeTravelException {
         EventList events = new EventList();
         assertTrue(events.isEmpty());
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
@@ -45,7 +45,7 @@ class EventListTest {
     }
 
     @Test
-    void contains() throws DukeException {
+    void contains() throws SingaporeTravelException {
         EventList events = new EventList();
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
@@ -56,7 +56,7 @@ class EventListTest {
     }
 
     @Test
-    void size() throws DukeException {
+    void size() throws SingaporeTravelException {
         EventList events = new EventList();
         assertEquals(events.size(), 0);
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
@@ -69,7 +69,7 @@ class EventListTest {
     }
 
     @Test
-    void get() throws DukeException {
+    void get() throws SingaporeTravelException {
         EventList events = new EventList();
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
@@ -84,7 +84,7 @@ class EventListTest {
     }
 
     @Test
-    void sort() throws DukeException {
+    void sort() throws SingaporeTravelException {
         EventList events = new EventList();
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
@@ -122,7 +122,7 @@ class EventListTest {
     }
 
     @Test
-    void getSortedList() throws DukeException {
+    void getSortedList() throws SingaporeTravelException {
         EventList events = new EventList();
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
@@ -162,7 +162,7 @@ class EventListTest {
     }
 
     @Test
-    void iterator() throws DukeException {
+    void iterator() throws SingaporeTravelException {
         EventList events = new EventList();
         int i = 0;
         for (Event e: events) {
@@ -189,7 +189,7 @@ class EventListTest {
     }
 
     @Test
-    void setEvents() throws DukeException {
+    void setEvents() throws SingaporeTravelException {
         List<Event> events = new ArrayList<>();
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
@@ -210,7 +210,7 @@ class EventListTest {
     }
 
     @Test
-    void remove() throws DukeException {
+    void remove() throws SingaporeTravelException {
         EventList events = new EventList();
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");

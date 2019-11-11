@@ -1,6 +1,6 @@
 package sgtravel.logic.commands;
 
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.model.Model;
 
 /**
@@ -12,7 +12,7 @@ public abstract class Command<T> {
      *
      * @param model {@code Model} which the command should operate on.
      * @return feedback of the operation result for display.
-     * @throws DukeException If an error occurs during command execution.
+     * @throws SingaporeTravelException If an error occurs during command execution.
      */
-    public abstract T execute(Model model) throws DukeException;
+    public abstract T execute(Model model) throws SingaporeTravelException;
 }

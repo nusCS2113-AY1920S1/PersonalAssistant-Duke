@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when file is not saved.
  */
-public class UnknownConstraintException extends DukeException {
+public class UnknownConstraintException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

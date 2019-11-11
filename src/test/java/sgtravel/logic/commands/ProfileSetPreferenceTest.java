@@ -1,7 +1,7 @@
 package sgtravel.logic.commands;
 
 import sgtravel.ModelStub;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.logic.commands.results.CommandResult;
 import sgtravel.model.Model;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ProfileSetPreferenceTest {
     @Test
-    void execute() throws DukeException {
+    void execute() throws SingaporeTravelException {
         Model modelStub = new ModelStub();
         assertThrows(ParseException.class, () -> new ProfileSetPreferenceCommand("sports", "falseee"));
         assertThrows(ParseException.class, () -> new ProfileSetPreferenceCommand("spoorts", "true"));

@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when file is not saved.
  */
-public class FileNotSavedException extends DukeException {
+public class FileNotSavedException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

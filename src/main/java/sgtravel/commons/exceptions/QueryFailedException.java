@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when the query fails.
  */
-public class QueryFailedException extends DukeException {
+public class QueryFailedException extends SingaporeTravelException {
     private String queriedItem;
 
     /**

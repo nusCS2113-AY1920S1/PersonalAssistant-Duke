@@ -1,7 +1,7 @@
 package sgtravel.logic.commands;
 
 import sgtravel.ModelStub;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.logic.commands.results.CommandResultText;
 
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class FindCommandTest {
 
     @Test
-    void execute() throws DukeException, FileNotFoundException {
+    void execute() throws SingaporeTravelException, FileNotFoundException {
         Command c = new FindCommand("meow");
         ModelStub modelStub = new ModelStub();
         assertTrue(c.execute(modelStub) instanceof CommandResultText);

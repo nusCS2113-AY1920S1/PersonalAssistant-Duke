@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when file cannot be loaded.
  */
-public class FileLoadFailException extends DukeException {
+public class FileLoadFailException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

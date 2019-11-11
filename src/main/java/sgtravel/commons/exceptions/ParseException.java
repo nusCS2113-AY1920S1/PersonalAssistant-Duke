@@ -3,7 +3,7 @@ package sgtravel.commons.exceptions;
 /**
  * Exception thrown when parsing fails.
  */
-public class ParseException extends DukeException {
+public class ParseException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

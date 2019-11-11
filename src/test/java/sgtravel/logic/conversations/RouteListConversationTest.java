@@ -1,7 +1,7 @@
 package sgtravel.logic.conversations;
 
 import sgtravel.commons.Messages;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class RouteListConversationTest {
 
     @Test
-    void converse() throws DukeException {
+    void converse() throws SingaporeTravelException {
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeList");
         assertFalse(conversationManager.isFinished());

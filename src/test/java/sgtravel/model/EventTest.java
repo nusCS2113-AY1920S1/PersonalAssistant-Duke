@@ -1,6 +1,6 @@
 package sgtravel.model;
 
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.logic.parsers.ParserTimeUtil;
 import sgtravel.model.locations.Venue;
 
@@ -18,7 +18,7 @@ class EventTest {
     private Venue v2 = new Venue("Tuas Checkpoint", 1.34942405517095, 103.636127935782, 0, 0);
 
     @Test
-    void testToString() throws DukeException {
+    void testToString() throws SingaporeTravelException {
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
         Event event = new Event("Pulau Ubin", startDate, endDate);
@@ -29,7 +29,7 @@ class EventTest {
     }
 
     @Test
-    void getLocation() throws DukeException {
+    void getLocation() throws SingaporeTravelException {
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
         Event event = new Event("Pulau Ubin", startDate, endDate);
@@ -39,7 +39,7 @@ class EventTest {
     }
 
     @Test
-    void setLocation() throws DukeException {
+    void setLocation() throws SingaporeTravelException {
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
         Event event = new Event("Pulau Ubin", startDate, endDate);
@@ -52,7 +52,7 @@ class EventTest {
     }
 
     @Test
-    void isSameTask() throws DukeException {
+    void isSameTask() throws SingaporeTravelException {
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
         Event event = new Event("Pulau Ubin", startDate, endDate);

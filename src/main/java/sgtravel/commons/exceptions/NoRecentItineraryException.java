@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Displays an error when no recent recommendations are found.
  */
-public class NoRecentItineraryException extends DukeException {
+public class NoRecentItineraryException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

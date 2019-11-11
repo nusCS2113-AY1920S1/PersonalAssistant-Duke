@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Exception thrown when no such category can be found.
  */
-public class NoSuchCategoryException extends DukeException {
+public class NoSuchCategoryException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

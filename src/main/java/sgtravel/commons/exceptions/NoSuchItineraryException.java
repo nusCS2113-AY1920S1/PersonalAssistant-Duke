@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Displays an error a specified itinerary is not found within the itineraryTable.
  */
-public class NoSuchItineraryException extends DukeException {
+public class NoSuchItineraryException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.

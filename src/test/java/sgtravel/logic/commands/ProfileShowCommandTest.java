@@ -1,7 +1,7 @@
 package sgtravel.logic.commands;
 
 import sgtravel.ModelStub;
-import sgtravel.commons.exceptions.DukeException;
+import sgtravel.commons.exceptions.SingaporeTravelException;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Model;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ProfileShowCommandTest {
 
     @Test
-    void execute() throws DukeException {
+    void execute() throws SingaporeTravelException {
         Model modelStub = new ModelStub();
         ProfileShowCommand profileShowCommand = new ProfileShowCommand();
         CommandResultText resultText = profileShowCommand.execute(modelStub);

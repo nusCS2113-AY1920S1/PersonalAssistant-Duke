@@ -5,7 +5,7 @@ import sgtravel.commons.Messages;
 /**
  * Displays an error when the trip is too long (greater than 8 days).
  */
-public class RecommendationFailException extends DukeException {
+public class RecommendationFailException extends SingaporeTravelException {
 
     /**
      * Constructs the Exception.
