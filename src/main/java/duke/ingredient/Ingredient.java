@@ -1,6 +1,7 @@
 package duke.ingredient;
 
 import duke.exception.DukeException;
+import duke.list.IngredientsList;
 import duke.parser.Convert;
 import duke.storage.Printable;
 

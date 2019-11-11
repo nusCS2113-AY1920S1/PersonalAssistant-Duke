@@ -1,11 +1,8 @@
 package duke.list;
 
 import duke.exception.DukeException;
-import duke.ingredient.Ingredient;
-import duke.ingredient.IngredientsList;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 /**
  * Represents an abstract class, namely a Generic List, used to store different types of entries

@@ -1,7 +1,8 @@
-package duke.ingredient;
+package duke.list;
 
 import duke.exception.DukeException;
-import duke.list.GenericList;
+import duke.ingredient.Ingredient;
+
 
 import java.util.Comparator;
 import java.util.List;

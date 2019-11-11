@@ -1,9 +1,9 @@
 package duke.command;
 
-import duke.dish.DishList;
+import duke.list.DishList;
 import duke.exception.DukeException;
 import duke.fridge.Fridge;
-import duke.order.OrderList;
+import duke.list.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
 import duke.storage.RecipeStorage;

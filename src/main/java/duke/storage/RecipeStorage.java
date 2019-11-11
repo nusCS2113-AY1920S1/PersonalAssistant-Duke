@@ -1,10 +1,10 @@
 package duke.storage;
 
 import duke.dish.Dish;
-import duke.dish.DishList;
+import duke.list.DishList;
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
-import duke.ingredient.IngredientsList;
+import duke.list.IngredientsList;
 import duke.list.GenericList;
 
 //@@author CEGLincoln

@@ -2,7 +2,7 @@ package duke.fridge;
 
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
-import duke.ingredient.IngredientsList;
+import duke.list.IngredientsList;
 import duke.storage.FridgeStorage;
 
 import java.util.ArrayList;

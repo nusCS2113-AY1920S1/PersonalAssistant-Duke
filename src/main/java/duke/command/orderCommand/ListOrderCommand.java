@@ -2,11 +2,11 @@ package duke.command.orderCommand;
 
 import duke.command.Command;
 import duke.command.ingredientCommand.ListCommand;
-import duke.dish.DishList;
+import duke.list.DishList;
 import duke.exception.DukeException;
 import duke.fridge.Fridge;
 import duke.order.Order;
-import duke.order.OrderList;
+import duke.list.OrderList;
 import duke.parser.Convert;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
