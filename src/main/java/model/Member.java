@@ -28,7 +28,7 @@ public class Member {
     }
 
     /**
-     * add javadoc please
+     * add a new Task object to the task list of member
      */
     public void addTask(String toAdd) {
         if (!taskList.contains(toAdd)) {
@@ -37,7 +37,7 @@ public class Member {
     }
 
     /**
-     * add javadoc please
+     * delete a Task object from the task list of member.
      */
     public void deleteTask(String toDelete) {
         if (taskList != null) {
