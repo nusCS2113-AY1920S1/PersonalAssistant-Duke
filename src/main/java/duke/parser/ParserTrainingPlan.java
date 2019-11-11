@@ -71,7 +71,6 @@ public class ParserTrainingPlan implements IParser {
                         plan.loadPlanToList(key);
                         cliView.printLine();
                         System.out.println(plan.viewPlan());
-                        cliView.printLine();
                         inList = false;
                     }
                 }
@@ -103,7 +102,7 @@ public class ParserTrainingPlan implements IParser {
                             String[] num = key.split("(?<=\\D)(?=\\d)");
 
                             try {
-                                plan.editPlan(num[0],key);
+                                plan.editPlan(num[0], key);
                             } catch (IOException e) {
                                 System.out.println("IO Problem");
                             }

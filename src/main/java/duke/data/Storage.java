@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Storage handles all the loading and saving of data
@@ -402,20 +403,22 @@ public class Storage {
      */
     public Map<String, ArrayList<MyTraining>> loadPlans() {
         try {
-            Map<String, ArrayList<MyTraining>> temp = new HashMap<>();
-
             File f = new File(".\\src\\main\\java\\duke\\data\\plan.txt");
+            Map<String, ArrayList<MyTraining>> temp = new HashMap<>();
 
             if (f.length() == 0) {
                 System.out.println("Plan file is empty. Loading failed.");
-                return temp;
+                return null;
             } else {
                 String intensity = "";
-                int planNum = 1;
-                ArrayList<MyTraining> list = new ArrayList<>();
-
+                int planNum = 0;
+                int counter = 0;
+                ArrayList<MyTraining> tempList = new ArrayList<>();
+                ArrayList<Integer> countList = new ArrayList<>();
+                ArrayList<String> keyList = new ArrayList<>();
                 while (fileInput.hasNextLine()) {
                     String in = fileInput.nextLine();
+
 
                     if (in.contains("Intensity")) {
                         String[] line = in.split(": ");
@@ -430,26 +433,46 @@ public class Storage {
                             intensity = x.toString();
                         }
                     }
-
                     if (in.contains("Plan")) {
-                        list.clear();
                         String[] line = in.split(": ");
                         planNum = Integer.parseInt(line[1]);
                     }
-
                     if (in.contains(" | ")) {
+                        counter++;
                         String[] line = in.split("\\s*\\|\\s*");
                         MyTraining ac = new MyTraining(line[0],
                                 Integer.parseInt(line[1]),
                                 Integer.parseInt(line[2]));
-                        list.add(ac);
-                    }
+                        tempList.add(ac);
 
-                    if (in.contains("##")) {
-                        temp.put(intensity + planNum, list);
+                        final int endOfPlan = 4;
+                        if (line.length == endOfPlan) {
+                            countList.add(counter);
+                            counter = 0;
+                            if (line[endOfPlan - 1].equals("##")) {
+                                String key = intensity + planNum;
+                                keyList.add(key);
+                            }
+                        }
                     }
                 }
                 fileInput.close();
+                int a = 0;
+                for (String s : keyList) {
+                    int size = countList.get(a);
+                    a++;
+                    ArrayList<MyTraining> tl = new ArrayList<>();
+                    for (int x = 0; x < size; x++) {
+                        tl.add(tempList.get(0));
+                        tempList.remove(0);
+                    }
+                    temp.put(s,tl);
+                }
+                Set<String> keys = temp.keySet();
+                ArrayList<String> kl = new ArrayList<>(keys);
+                for (String s : kl) {
+                    System.out.println(s);
+                }
                 return temp;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -483,12 +506,19 @@ public class Storage {
                     ArrayList<MyTraining> p = map.get(s);
                     buffer.write("Plan: " + s.substring(s.length() - 1));
                     buffer.write("\r\n");
+
+                    int index = 1;
                     for (MyTraining y : p) {
                         buffer.write(y.toFile());
-                        buffer.write("\r\n");
+                        if (index != p.size()) {
+                            buffer.write("\r\n");
+                        } else {
+                            buffer.write("##");
+                            buffer.write("\r\n");
+                        }
+                        index++;
                     }
-                    buffer.write("##");
-                    buffer.write("\r\n");
+                    p.clear();
                 }
             }
         }

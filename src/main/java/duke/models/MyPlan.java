@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.Collections;
 
 /**
  * Loads a training plan from a txt file, create new plan, or edit a plan.
@@ -93,16 +93,7 @@ public class MyPlan {
     public ArrayList<String> keyList() {
         Set<String> keys = getMap().keySet();
         ArrayList<String> kl = new ArrayList<>(keys);
-        /*Collections.sort(kl, new Comparator<String>() {
-            public int compare(final String a, final String b) {
-                return extractInt(a) - extractInt(b);
-            }
-
-            public int extractInt(final String s) {
-                String num = s.replaceAll("\\D", "");
-                return num.isEmpty() ? 0 : Integer.parseInt(num);
-            }
-        });*/
+        Collections.sort(kl);
         return kl;
     }
 
@@ -118,6 +109,7 @@ public class MyPlan {
 
         for (String s : planList) {
             String[] num = s.split("(?<=\\D)(?=\\d)");
+
             if (s.contains("high")) {
                 if (num[1].equals("1")) {
                     index = 1;
@@ -397,6 +389,9 @@ public class MyPlan {
                             cliView.showPlanCreated();
                             System.out.println(viewPlan());
                             cliView.printLine();
+                            inCreation = false;
+                        } else if (input.equals("cancel")) {
+                            clearPlanInList();
                             inCreation = false;
                         } else if (input.equals("show")) {
                             if (getList().isEmpty()) {

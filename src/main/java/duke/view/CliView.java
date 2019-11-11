@@ -464,7 +464,8 @@ public class CliView {
     public void showPlanPrompt2() {
         System.out.println("Input new activity, finalize "
             + "the plan(finalize), look at the list(show)"
-            + ", or edit the positions(switch).");
+            + ", edit the positions(switch) or "
+            + "cancel plan creation(cancel)");
     }
 
     /**
