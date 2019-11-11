@@ -51,12 +51,40 @@ public class ViewCommandTest {
     public void execute_normalInput_success() throws DucatsException {
         ViewCommand viewTest1 = new ViewCommand("view dummy1");
         String testOutput1 = viewTest1.execute(dummySongList, dummyUi, dummyStorage);
-        String expectedOutput1 = "{UPPER_A }{UPPER_A }{UPPER_A }{UPPER_A }|";
+        String expectedOutput1 = "UC:         \n" + "UB:         \n"
+                + "UA: *       \n"
+                + "UG: --------\n"
+                + "UF:         \n"
+                + "UE: --------\n"
+                + "UD:         \n"
+                + "MC: --------\n"
+                + "LB:         \n"
+                + "LA: --------\n"
+                + "LG:         \n"
+                + "LF: --------\n"
+                + "LE:         \n"
+                + "LD:         \n"
+                + "LC:         \n"
+                + "\n";
         assertEquals(expectedOutput1, testOutput1);
 
         ViewCommand listTest2 = new ViewCommand("view dummy2");
         String testOutput2 = listTest2.execute(dummySongList, dummyUi, dummyStorage);
-        String expectedOutput2 = "{UPPER_B }{UPPER_B }{UPPER_B }{UPPER_B }|";
+        String expectedOutput2 = "UC:         \n" + "UB: *-      \n"
+                + "UA:         \n"
+                + "UG: --------\n"
+                + "UF:         \n"
+                + "UE: --------\n"
+                + "UD:         \n"
+                + "MC: --------\n"
+                + "LB:         \n"
+                + "LA: --------\n"
+                + "LG:         \n"
+                + "LF: --------\n"
+                + "LE:         \n"
+                + "LD:         \n"
+                + "LC:         \n"
+                + "\n";
         assertEquals(expectedOutput2, testOutput2);
     }
 

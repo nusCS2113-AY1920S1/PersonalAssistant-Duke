@@ -3,6 +3,8 @@ package ducats.commands;
 import ducats.DucatsException;
 import ducats.Storage;
 import ducats.Ui;
+import ducats.components.Bar;
+import ducats.components.Group;
 import ducats.components.Song;
 import ducats.components.SongList;
 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 
 //@@author jwyf
 /**
- * A class representing the command to view a song from the song list.
+ * A class representing the command to view the last bar of a song from the song list.
  */
 public class ViewCommand extends Command<SongList> {
 
@@ -43,7 +45,15 @@ public class ViewCommand extends Command<SongList> {
         if (findList.size() != 1) {
             throw new DucatsException(message, "view");
         } else {
-            return ui.formatView(findList.get(0));
+            Song selectedSong = findList.get(0);
+            int barSize = selectedSong.getBars().size();
+
+            OpenCommand openCommand = new OpenCommand("open " + selectedSong.getName());
+            openCommand.execute(songList, ui, storage);
+
+            AsciiCommand asciiCommand = new AsciiCommand("ascii bar " + Integer.toString(barSize));
+            String result = asciiCommand.execute(songList, ui, storage);
+            return result;
         }
     }
 
