@@ -7,134 +7,117 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root xmlns:fx="http://javafx.com/fxml/1" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="350.0"
-         type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1">
+<fx:root maxWidth="-Infinity" minWidth="-Infinity" prefWidth="350.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
         <VBox layoutX="9.0" layoutY="9.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="350.0">
             <children>
                 <BorderPane maxWidth="-Infinity" prefWidth="320.0">
                     <left>
-                        <Label fx:id="commandLabel" alignment="CENTER"
-                               style="-fx-background-color: #d1a1ff; -fx-border-color: black; -fx-border-width: 1; -fx-border-style: solid;"
-                               text="COMMAND" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                        <Label fx:id="commandLabel" alignment="CENTER" style="-fx-background-color: #d1a1ff; -fx-border-color: black; -fx-border-width: 1; -fx-border-style: solid;" text="COMMAND" textAlignment="CENTER" BorderPane.alignment="CENTER">
                             <font>
-                                <Font name="System Bold" size="16.0"/>
+                                <Font name="System Bold" size="16.0" />
                             </font>
                             <padding>
-                                <Insets left="10.0" right="10.0"/>
+                                <Insets left="10.0" right="10.0" />
                             </padding>
                         </Label>
                     </left>
                     <VBox.margin>
-                        <Insets bottom="10.0"/>
+                        <Insets bottom="10.0" />
                     </VBox.margin>
                 </BorderPane>
                 <VBox fx:id="mainSection" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="320.0">
                     <children>
-                        <Label fx:id="descriptionLabel" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="320.0"
-                               text="Nam eget augue viverra, ultrices mi non, tempus nisl. Suspendisse dapibus luctus sagittis. In rutrum ipsum quis sapien posuere pretium. Ut eu luctus dolor. Mauris sed turpis efficitur, hendrerit eros at, pellentesque ante. Sed ut finibus justo. Curabitur at vulputate elit, at tincidunt lectus."
-                               wrapText="true">
+                        <Label fx:id="descriptionLabel" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="320.0" text="Nam eget augue viverra, ultrices mi non, tempus nisl. Suspendisse dapibus luctus sagittis. In rutrum ipsum quis sapien posuere pretium. Ut eu luctus dolor. Mauris sed turpis efficitur, hendrerit eros at, pellentesque ante. Sed ut finibus justo. Curabitur at vulputate elit, at tincidunt lectus." wrapText="true">
                             <font>
-                                <Font size="13.0"/>
+                                <Font size="13.0" />
                             </font>
                             <VBox.margin>
-                                <Insets bottom="10.0"/>
+                                <Insets bottom="10.0" />
                             </VBox.margin>
                         </Label>
                         <VBox fx:id="detailsSection" prefWidth="320.0">
                             <children>
                                 <VBox fx:id="formatSection" prefWidth="320.0">
                                     <children>
-                                        <Label fx:id="formatHeader" text="FORMAT" textFill="#6a56ff">
+                                        <Label fx:id="formatHeader" text="FORMAT" textFill="#1b00e8">
                                             <font>
-                                                <Font name="System Bold" size="15.0"/>
+                                                <Font name="System Bold" size="15.0" />
                                             </font>
                                             <VBox.margin>
-                                                <Insets/>
+                                                <Insets />
                                             </VBox.margin>
                                         </Label>
-                                        <Label fx:id="formatLabel" maxWidth="-Infinity" minWidth="-Infinity"
-                                               prefWidth="320.0"
-                                               text="Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam aliquam sed risus in facilisis. Suspendisse posuere ligula id pellentesque finibus. Donec varius sodales bibendum. In vitae sagittis magna, nec efficitur quam. Integer nec nunc eu tortor volutpat varius. Ut sollicitudin interdum urna, et facilisis ex mattis eget. Donec nec commodo lacus, quis egestas nisi. Vestibulum laoreet ex convallis ligula porttitor lacinia."
-                                               wrapText="true">
+                                        <Label fx:id="formatLabel" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="320.0" text="Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam aliquam sed risus in facilisis. Suspendisse posuere ligula id pellentesque finibus. Donec varius sodales bibendum. In vitae sagittis magna, nec efficitur quam. Integer nec nunc eu tortor volutpat varius. Ut sollicitudin interdum urna, et facilisis ex mattis eget. Donec nec commodo lacus, quis egestas nisi. Vestibulum laoreet ex convallis ligula porttitor lacinia." wrapText="true">
                                             <font>
-                                                <Font size="13.0"/>
+                                                <Font size="13.0" />
                                             </font>
                                         </Label>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="10.0"/>
+                                        <Insets top="10.0" />
                                     </VBox.margin>
                                 </VBox>
                                 <VBox fx:id="switchSection" prefWidth="320.0">
                                     <children>
-                                        <Label fx:id="switchHeader" text="SWITCH(ES)" textFill="#5608fc">
+                                        <Label fx:id="switchHeader" text="SWITCH(ES)" textFill="#1b00e8">
                                             <font>
-                                                <Font name="System Bold" size="15.0"/>
+                                                <Font name="System Bold" size="15.0" />
                                             </font>
                                             <VBox.margin>
-                                                <Insets/>
+                                                <Insets />
                                             </VBox.margin>
                                         </Label>
-                                        <Label fx:id="switchLabel" maxWidth="-Infinity" minWidth="-Infinity"
-                                               prefWidth="320.0"
-                                               text="Fusce facilisis diam non interdum condimentum. Aenean dictum vehicula enim et vestibulum. Cras fermentum vitae mi vitae suscipit. Proin magna risus, consectetur vel nisi finibus, bibendum suscipit risus. Pellentesque nec varius turpis. Pellentesque ipsum purus, sollicitudin at luctus pharetra, mollis ac ante. Curabitur et sem ante. Proin quis lorem egestas, molestie odio eu, accumsan ligula."
-                                               wrapText="true">
+                                        <Label fx:id="switchLabel" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="320.0" text="Fusce facilisis diam non interdum condimentum. Aenean dictum vehicula enim et vestibulum. Cras fermentum vitae mi vitae suscipit. Proin magna risus, consectetur vel nisi finibus, bibendum suscipit risus. Pellentesque nec varius turpis. Pellentesque ipsum purus, sollicitudin at luctus pharetra, mollis ac ante. Curabitur et sem ante. Proin quis lorem egestas, molestie odio eu, accumsan ligula." wrapText="true">
                                             <font>
-                                                <Font size="13.0"/>
+                                                <Font size="13.0" />
                                             </font>
                                         </Label>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="10.0"/>
+                                        <Insets top="10.0" />
                                     </VBox.margin>
                                 </VBox>
                                 <VBox fx:id="infoSection" prefWidth="320.0">
                                     <children>
-                                        <Label fx:id="infoHeader" text="INFO" textFill="#2433ff">
+                                        <Label fx:id="infoHeader" text="INFO" textFill="#1b00e8">
                                             <font>
-                                                <Font name="System Bold" size="15.0"/>
+                                                <Font name="System Bold" size="15.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="infoLabel" maxWidth="-Infinity" minWidth="-Infinity"
-                                               prefWidth="320.0"
-                                               text="Fusce facilisis diam non interdum condimentum. Aenean dictum vehicula enim et vestibulum. Cras fermentum vitae mi vitae suscipit. Proin magna risus, consectetur vel nisi finibus, bibendum suscipit risus. Pellentesque nec varius turpis. Pellentesque ipsum purus, sollicitudin at luctus pharetra, mollis ac ante. Curabitur et sem ante. Proin quis lorem egestas, molestie odio eu, accumsan ligula."
-                                               wrapText="true">
+                                        <Label fx:id="infoLabel" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="320.0" text="Fusce facilisis diam non interdum condimentum. Aenean dictum vehicula enim et vestibulum. Cras fermentum vitae mi vitae suscipit. Proin magna risus, consectetur vel nisi finibus, bibendum suscipit risus. Pellentesque nec varius turpis. Pellentesque ipsum purus, sollicitudin at luctus pharetra, mollis ac ante. Curabitur et sem ante. Proin quis lorem egestas, molestie odio eu, accumsan ligula." wrapText="true">
                                             <font>
-                                                <Font size="13.0"/>
+                                                <Font size="13.0" />
                                             </font>
                                         </Label>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="10.0"/>
+                                        <Insets top="10.0" />
                                     </VBox.margin>
                                 </VBox>
                                 <VBox fx:id="exampleSection" prefWidth="320.0">
                                     <children>
-                                        <Label fx:id="exampleHeader" text="EXAMPLE" textFill="#8853fa">
+                                        <Label fx:id="exampleHeader" text="EXAMPLE" textFill="#1b00e8">
                                             <font>
-                                                <Font name="System Bold" size="15.0"/>
+                                                <Font name="System Bold" size="15.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="exampleLabel" maxWidth="-Infinity" minWidth="-Infinity"
-                                               prefWidth="320.0"
-                                               text="Fusce facilisis diam non interdum condimentum. Aenean dictum vehicula enim et vestibulum. Cras fermentum vitae mi vitae suscipit. Proin magna risus, consectetur vel nisi finibus, bibendum suscipit risus. Pellentesque nec varius turpis. Pellentesque ipsum purus, sollicitudin at luctus pharetra, mollis ac ante. Curabitur et sem ante. Proin quis lorem egestas, molestie odio eu, accumsan ligula."
-                                               wrapText="true">
+                                        <Label fx:id="exampleLabel" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="320.0" text="Fusce facilisis diam non interdum condimentum. Aenean dictum vehicula enim et vestibulum. Cras fermentum vitae mi vitae suscipit. Proin magna risus, consectetur vel nisi finibus, bibendum suscipit risus. Pellentesque nec varius turpis. Pellentesque ipsum purus, sollicitudin at luctus pharetra, mollis ac ante. Curabitur et sem ante. Proin quis lorem egestas, molestie odio eu, accumsan ligula." wrapText="true">
                                             <font>
-                                                <Font size="13.0"/>
+                                                <Font size="13.0" />
                                             </font>
                                         </Label>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="10.0"/>
+                                        <Insets top="10.0" />
                                     </VBox.margin>
                                 </VBox>
                             </children>
                         </VBox>
                     </children>
                     <padding>
-                        <Insets bottom="10.0"/>
+                        <Insets bottom="10.0" />
                     </padding>
                 </VBox>
             </children>
