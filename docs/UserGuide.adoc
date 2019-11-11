@@ -154,10 +154,9 @@ Deletes the specified task from the schedule list. +
 
 Edits the details of the tasks. +
 `edit task {name/time/des} TASK_INDEX /to [change content]` +
-e.g `edit task des 1 /to This is a very tough task` +
-e.g `edit task tim 1 /to 11/11/2019 1111`
 e.g `edit task name 1 /to Create swim meet poster` +
-e.g `edit task time 1 /to 12/12/2019 1010`
+e.g `edit task time 1 /to 12/12/2019 1010` +
+e.g `edit task des 1 /to This is a very tough task`
 
 ==== Showing the full details of Task : `show`
 
@@ -198,10 +197,10 @@ e.g `unlink 2 3 /from Alice, Bob` +
 ==== Editing the profile of member: `edit`
 
 `edit member {name/bio/email/phone} [MEMBER_NAME] /to [change content]` +
+e.g `edit member name Alex /to Alexia` +
 e.g `edit member bio Annie /to She is a programmer` +
 e.g `edit member email Justin /to justin@cs.com` +
-e.g `edit member phone Jason /to 11112222`
-e.g `edit member name Alex /to Alexia`
+e.g `edit member phone Jason /to 98765432`
 
 ==== Showing the full details of Member : `show`
 
