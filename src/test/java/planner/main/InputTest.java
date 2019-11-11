@@ -86,4 +86,8 @@ public class InputTest {
         }
         return buffer.toString();
     }
+
+    protected String getReplace() {
+        return outContent.toString().replace("\r", "");
+    }
 }
