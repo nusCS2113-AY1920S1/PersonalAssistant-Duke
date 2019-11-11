@@ -43,7 +43,7 @@ public class ProfitCommand extends Command {
     private ProfitCommand.ProfitBy param;
 
     public static final String MESSAGE_SUCCESS_ALL
-            = "Nice! I've generated the profits and revenue for all the stocks:\n"
+            = "Nice! I've generated the profits and revenue for all the food:\n"
             + "profit:  $ %1$.2f\n"
             + "revenue: $ %2$.2f\n"
             + "From the time %3$s to the time %4$s.\n";
