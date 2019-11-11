@@ -15,6 +15,7 @@ import static util.constant.ConstantHelper.PROJECT_COMMAND_DELETE;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_HELP;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_LIST;
 import static util.constant.ConstantHelper.PROJECT_COMMAND_MANAGE;
+import static util.constant.ConstantHelper.NUM_OF_TABLE_COLUMNS_FOR_COMMAND_LIST;
 
 public class ConsoleInputController implements IController {
 
@@ -114,7 +115,7 @@ public class ConsoleInputController implements IController {
             return new String[] {"You currently have no projects!"};
         } else {
             return viewHelper.consolePrintMultipleTables(allProjectsDetails, DEFAULT_HORI_BORDER_LENGTH,
-                    1, "Here are all the Projects you are managing:");
+                    NUM_OF_TABLE_COLUMNS_FOR_COMMAND_LIST, "Here are all the Projects you are managing:");
         }
     }
 

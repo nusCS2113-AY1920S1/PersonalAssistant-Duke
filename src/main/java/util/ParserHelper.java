@@ -309,8 +309,8 @@ public class ParserHelper {
      * @return An ArrayList with String descriptions of task details sorted by the criteria specified by the user.
      */
     public ArrayList<String> parseSortTaskDetails(
-        HashMap<String, ArrayList<String>> tasksAndAssignedMembers, ArrayList<Task> taskList,
-        String sortCriteria, Project project) {
+            HashMap<String, ArrayList<String>> tasksAndAssignedMembers, ArrayList<Task> taskList,
+            String sortCriteria, Project project) {
         ArrayList<String> taskDetails = new ArrayList<>();
         if (sortCriteria.length() >= 4) {
             String[] detailedCriteria = sortCriteria.split(" ",2);
@@ -329,7 +329,7 @@ public class ParserHelper {
                 break;
             case "-who":
                 taskDetails = this.sortHelper.sortTaskMember(tasksAndAssignedMembers, taskList,
-                    detailedCriteria[1], project);
+                        detailedCriteria[1], project);
                 break;
             case "-state":
                 taskDetails = this.sortHelper.sortTaskState(taskList, detailedCriteria[1]);
@@ -423,9 +423,9 @@ public class ParserHelper {
                 }
             } catch (NumberFormatException e) {
                 ArchDukeLogger.logError(ParserHelper.class.getName(), "[parseMemberIndexes] "
-                    + "Invalid member index: " + index);
+                        + "Invalid member index: " + index);
                 errorMessages.add("Could not recognise member " + index
-                    + ", please ensure it is an integer.");
+                        + ", please ensure it is an integer.");
             }
         }
         return validMembers;
@@ -459,24 +459,24 @@ public class ParserHelper {
                 }
             } catch (NumberFormatException e) {
                 ArchDukeLogger.logError(ParserHelper.class.getName(), "[parseTasksIndexes]"
-                    + "Invalid task number: " + index);
+                        + "Invalid task number: " + index);
                 errorMessages.add("Could not recognise task " + index
-                    + ", please ensure it is an integer.");
+                        + ", please ensure it is an integer.");
             }
         }
         return tasksToView;
     }
 
     private void checkForSameMemberIndexes(ArrayList<Integer> assignees, ArrayList<Integer> unassignees,
-        Project project) {
+                                           Project project) {
         ArrayList<Integer> repeated = new ArrayList<>();
         for (Integer index: assignees) {
             if (unassignees.contains(index)) {
                 repeated.add(index);
                 ArchDukeLogger.logError(ParserHelper.class.getName(), "[checkForSameMemberIndexes] "
-                    + " Same index in assign and unassign: " + index);
+                        + " Same index in assign and unassign: " + index);
                 errorMessages.add("Cannot assign and unassign task to member " + index + " ("
-                    + project.getMember(index).getName() + ") at the same time");
+                        + project.getMember(index).getName() + ") at the same time");
 
             }
         }

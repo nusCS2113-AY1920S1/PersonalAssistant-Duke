@@ -54,7 +54,7 @@ class CommandHelperTest {
             " - add member -n NAME [-i PHONE_NUMBER] [-e EMAIL_ADDRESS] [-r ROLE]",
             "Adds a new member to the project.",
             "",
-            " - edit member INDEX [-n NAME] [-i PHONE_NUMBER] [-e EMAIL_ADDRESS]",
+            " - edit member INDEX [-n NAME] [-i PHONE_NUMBER] [-e EMAIL_ADDRESS] [-r ROLE]",
             "Edits the stated details in specified member.",
             "",
             " - role INDEX -n ROLE_NAME",
@@ -113,7 +113,11 @@ class CommandHelperTest {
             "Exits current project to manage other projects.",
             "",
             " - bye",
-            "Exits program."};
+            "Saves your data and exits ArchDuke.",
+            "",
+            " - help",
+            "Provides a list of all the commands available."};
+
         assertArrayEquals(expectedOutput, simulatedOutput.toArray());
     }
 }

@@ -45,7 +45,7 @@ public class CommandHelper {
         helpList.add(" - add member -n NAME [-i PHONE_NUMBER] [-e EMAIL_ADDRESS] [-r ROLE]");
         helpList.add("Adds a new member to the project.");
         helpList.add("");
-        helpList.add(" - edit member INDEX [-n NAME] [-i PHONE_NUMBER] [-e EMAIL_ADDRESS]");
+        helpList.add(" - edit member INDEX [-n NAME] [-i PHONE_NUMBER] [-e EMAIL_ADDRESS] [-r ROLE]");
         helpList.add("Edits the stated details in specified member.");
         helpList.add("");
         helpList.add(" - role INDEX -n ROLE_NAME");
@@ -104,7 +104,10 @@ public class CommandHelper {
         helpList.add("Exits current project to manage other projects.");
         helpList.add("");
         helpList.add(" - bye");
-        helpList.add("Exits program.");
+        helpList.add("Saves your data and exits ArchDuke.");
+        helpList.add("");
+        helpList.add(" - help");
+        helpList.add("Provides a list of all the commands available.");
 
         return helpList;
     }
