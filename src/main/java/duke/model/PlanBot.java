@@ -69,7 +69,7 @@ public class PlanBot {
     /**
      * Constructor for PlanBot.
      *
-     * @param planAttributes the loaded attributes from Storage
+     * @param planAttributes the loaded Map&lt;String, String> planAttributes from Storage
      * @throws DukeException when there is an error loading questions based on the loaded planAttributes
      */
     private PlanBot(Map<String, String> planAttributes) {
@@ -107,6 +107,11 @@ public class PlanBot {
         }
     }
 
+    /**
+     * Constructor/ Getter method for this Singleton Object.
+     * @param planAttributes the loaded Map&lt;String, String> planAttributes from Storage
+     * @return this PlanBot object
+     */
     public static PlanBot getInstance(Map<String, String> planAttributes) {
         if (planBot == null) {
             planBot = new PlanBot(planAttributes);

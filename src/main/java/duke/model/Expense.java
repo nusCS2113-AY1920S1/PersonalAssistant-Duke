@@ -59,6 +59,10 @@ public class Expense extends DukeItem {
             time = expense.time;
         }
 
+        /**
+         * Builder object for Payment.
+         * @param payment Payment object
+         */
         public Builder(Payment payment) {
             setTag(payment.getTag());
             amount = payment.getAmount();
@@ -90,7 +94,8 @@ public class Expense extends DukeItem {
             }
             if (mappedStorageString.containsKey("time")) {
                 setTime(Parser.parseTime(mappedStorageString.get("time")));
-            }if (mappedStorageString.containsKey("isRecurring")) {
+            }
+            if (mappedStorageString.containsKey("isRecurring")) {
                 setRecurring(Boolean.parseBoolean(mappedStorageString.get("isRecurring")));
             }
         }
@@ -151,6 +156,8 @@ public class Expense extends DukeItem {
         }
 
         /**
+         * Sets the expense as a recurring expense.
+         *
          * @param recurring whether the expense is tentative.
          * @return this builder.
          */

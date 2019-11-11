@@ -48,7 +48,8 @@ public class ExpensePane extends UiPart<AnchorPane> {
      * @param expenseList ObservableList of Expense objects.
      * @param logic the Logic Object of Duke
      * @param totalExpense StringProperty of the sum of displayed expenses
-     * @param filterCriteria StringProperty of the current filter criteria of ExpenseList(broken for now, to be fixed in future builds)
+     * @param filterCriteria StringProperty of the current filter criteria of ExpenseList
+     *                       (broken for now, to be fixed in future builds)
      * @param sortCriteria StringProperty of the sortCriteria of ExpenseList
      * @param viewCriteria StringProperty of the viewCriteria of ExpenseList
      */

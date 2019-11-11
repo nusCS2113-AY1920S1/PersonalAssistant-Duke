@@ -29,8 +29,8 @@ public class DukePP implements Model {
 
     private static final Logger logger = LogsCenter.getLogger(DukePP.class);
 
-
-    private Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = PaymentList.PREDICATE_SHOW_ALL_PAYMENTS;
+    @SuppressWarnings("checkstyle:MemberName")
+    private final Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = PaymentList.PREDICATE_SHOW_ALL_PAYMENTS;
 
     private final ExpenseList expenseList;
     private final PlanBot planBot;
@@ -59,7 +59,7 @@ public class DukePP implements Model {
         this.budget = budget;
         this.budgetView = budgetView;
 
-        if (!optionalPayments.isPresent()) {
+        if (optionalPayments.isEmpty()) {
             logger.warning("PaymentList is not loaded. It will be starting with a empty PaymentList");
             this.payments = new PaymentList(new ArrayList<Payment>());
         } else {
@@ -94,7 +94,7 @@ public class DukePP implements Model {
     }
 
     /**
-     * Returns external expense list
+     * Returns external expense list.
      *
      * @return externalExpenseList the expense list to be reflected in ExpensePane
      */
@@ -227,6 +227,10 @@ public class DukePP implements Model {
         return incomeList.getTotalString();
     }
 
+    /**
+     * Adds income.
+     * @param income Income object to be added
+     */
     public void addIncome(Income income) {
         incomeList.add(income);
         logger.info("Model's income externalList length now is "
@@ -253,6 +257,10 @@ public class DukePP implements Model {
         expenseList.setViewScope(viewScope, previous);
     }
 
+    /**
+     * Getter method for IncomeExternalList.
+     * @return ObservableList&lt;Income> ExternalList of Income
+     */
     public ObservableList<Income> getIncomeExternalList() {
         logger.info("Model sends external income list length "
                 + incomeList.getExternalList().size());

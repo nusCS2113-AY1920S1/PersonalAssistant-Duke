@@ -62,7 +62,7 @@ public class PlanQuestion {
      * Returns a set of Integers of neighbouring questions given an attribute.
      *
      * @param attribute the attribute we want to get the neighbours of.
-     * @return a set of indexes of neighbouring questions, an empty set if no enighboring quesion
+     * @return a set of int indexes of neighbouring questions, an empty set if no enighboring quesion
      */
     public Set<Integer> getNeighbouringQuestions(String attribute) {
         if (answersAttributesValue.containsKey(DOUBLE) && (neighbouringQuestions.get(DOUBLE) != null)) {

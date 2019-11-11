@@ -126,6 +126,11 @@ public class PlanQuestionBank {
         logger.info("QuestionBank generated successfully!");
     }
 
+    /**
+     * Constructor/getter method for this Singleton Object.
+     * @return this PlanQuestionBank object
+     * @throws DukeException on errors loading questions
+     */
     public static PlanQuestionBank getInstance() throws DukeException {
         if (planQuestionBank == null) {
             planQuestionBank = new PlanQuestionBank();
