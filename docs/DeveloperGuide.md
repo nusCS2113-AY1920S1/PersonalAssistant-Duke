@@ -212,7 +212,7 @@ The program can `load` or `generate` an entry from the storage, and offers the m
 
 The interactions between the `GenericList` and the `Storage` and their subtypes is shown in the figure below.
 
-<img src=" https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/StorageUML.png" style="zoom:50%" />
+<img src="https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/StorageUML.png" style="zoom:50%" />
 
 ##### 2.5.2 FridgeStorage
 
@@ -254,6 +254,7 @@ A subclass of  `Storage.java`, that can store `dishes` in the recipebook in a ce
 
 ##### 2.5.5 Printable
 
+
 <img src="https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/Printable.png" style="zoom:25%" />
 
 Figure. Structure of Printable
@@ -265,6 +266,7 @@ It models a *public* *Interface*, implemented by all the classes that have the f
 Offers one abstract method `printInFile()` whose implementation should indicate the format of printing the representation of the specific object calling it. A UML Class Diagram is shown above.
 
 #### 2.6 List Component
+
 
 <img src="https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png" style="zoom:25%" />
 
@@ -529,7 +531,7 @@ The `Fridge` component allows access and modification of the `Ingredient`s used 
 
 Upon (re)booting the program, the `Fridge` gets initialized with the current `IngredientList` (the attribute `entries`) stored in the `FridgeStorage`, passed as a parameter to it's main constructor. In all subsequent Ingredient manipulations, these two components are accessing/modifying the same `IngredientList`, meaning modifications made in the `Fridge`, are immediately seen in the `entries` attribute (an inherited `GenericList`) of the `FridgeStorage` , therefore, consistency among these classes is guaranteed. 
 
-![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML1.png)
+![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridge.png)
 
 **<u>Ingredient Class</u>**
 
