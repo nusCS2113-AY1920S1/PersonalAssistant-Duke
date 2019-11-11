@@ -7,34 +7,31 @@
 '''
 == About the Project
 
-As part of the module CS2113T Software Engineering and Object-Oriented Programming, my team and I were assigned the task of improving upon a command line interface to-do list application known as Duke. To better reflect our interests and abilities, we chose to morph the existing project into a music composition app called Ducats geared towards amateurs but usable by anyone who is interested in music. The app includes sophisticated functionality in the creation and editing of music, as well as the capability to store multiple songs.
+As part of the module CS2113T Software Engineering and Object-Oriented Programming, my team and I were assigned the task of improving upon a command line interface to-do list application known as Duke. To better reflect our interests and abilities, we chose to morph the existing project into a music composition app called Ducats geared towards amateurs but usable by anyone who is interested in music.
 
-As the team lead, my primary responsibilities were to keep track of overall team progress, delegate tasks, and design the overall software architecture. Functionally, my role was to implement persistent storage, the open feature, and the metronome feature. The following sections will provide elaboration on these contributions, with excerpts from the user and developer guides added when appropriate.
+As the team lead, my primary responsibilities were to keep track of overall team progress, delegate tasks, and design the overall software architecture. Functionally, my role was to implement persistent storage, the open feature, and the metronome feature. The following sections will elaborate on these contributions, with excerpts from the user and developer guides added when appropriate.
 
 == Summary of Contributions
 
 Over the past few weeks, there have been several contributions made by me to the team project, and this section serves as a summary for these contributions.
 
-Enhancements added:
+*Enhancements added:*
 
 * Persistent Storage
 
 _What it does_: Persistent storage stores all the data in the form of a folder containing .txt files such that Ducats will keep the data upon its closure
 
-_Justification_: There are two major benefits to persistent storage:
+_Justification_: Firstly, Ducats is able to retain all the data upon its closure, ensuring that the user does not experience data loss. Secondly, human-readable data storage makes exporting and importing songs easy.
 
-1.	Ducats is able to retain all the data upon its closure, ensuring that the user does not experience data loss.
-2. Since the data is stored in a .txt file, it is easy to import or export the data, enabling the user to back up or share his/her compositions with ease.
-
-_Highlights_: As an essential part of Ducats, Storage had to be implemented with the consideration of a huge amount of features, as well as the extremely intricate data present in the form of musical compositions. A human-readable and compact form of data storage had to be designed, and considering the number of classes involved, the parsing and string conversion was complicated to implement.
+_Highlights_: Storage had to be implemented with the consideration of a huge amount of features and the extremely intricate data present in the form of musical compositions. This caused the parsing and string conversion to be complicated to implement.
 
 * Open functionality
 
 _What it does_: The open command (`OpenCommand`) opens one song for editing.
 
-_Justification_: This is important as it ensures that only one song is being manipulated at one time, resulting in the data of the rest of the songs being protected, and the focus of the user being made clear.
+_Justification_: This is important as it ensures that only one song is being manipulated at one time, resulting in the data of the rest of the songs being protected.
 
-_Highlights_: The original SongList object had to be refactored in order to implement `OpenCommand`
+_Highlights_: The original SongList object had to be refactored in order to implement `OpenCommand`.
 
 * Metronome functionality
 
@@ -42,32 +39,23 @@ _What it does_: The metronome command calls upon the metronome class to display 
 
 _Justification_: An in-built metronome helps significantly with the testing of rhythm and meter, especially for amateurs who are unsure of the musicality or mood of a specific rhythm or tempo.
 
-Code contributed: The following links contain samples of my code for the above mentioned features:
+*Code contributed:* You can view samples of my code for the above mentioned features link:https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=rohan-av[here].
 
-* Functional Code
-* Test Code
-
-Other contributions:
+*Other contributions:*
 
 *	Project Management:
 **	All the releases on GitHub were managed by me, and I played a major role in the scheduling of features to be implemented and bugs to be fixed for each release.
-*	Base Code and Library Integration:
-**	The base code used for the project was written by me and included fundamental OOP practices as well as thorough and detailed JavaDocs.
-**	Important library integrations such as ShadowJAR and Checkstyle were integrated early on with Gradle. Jacoco was integrated by me later on to determine test coverage, and I also integrated Codecov with Travis-CI.
+*	Library Integration:
+**	I integrated ShadowJAR and Checkstyle early on, followed by Jacoco later on to determine test coverage. I also integrated Codecov with Travis-CI.
 ** Logging was also setup in Ducats by me.
-*	Team Leadership and Knowledge Transfer:
-**	As the team leader, I made sure issues were closed on time and pull requests went through appropriate vetting before being merged. I also helped to ensure adherence to proper software engineering practices.
-**	With more than half of the team lacking appropriate knowledge in music theory, I engaged in detailed discussions in breaking down the fundamentals, and in the process, designed the overall architecture of the project.
+*	Team Leadership:
+**	As the team leader, I made sure issues were closed on time and pull requests went through appropriate vetting before being merged.
 
 == Contributions to the User Guide
 
-The following section displays my additions to the Ducats User Guide, namely my description of the song creation, navigation, data storage and metronome features, as well as my explanation of the attributes that make up a song in Ducats.
+The following section displays my additions to the Ducats User Guide, namely my description of the metronome and data storage features.
 
-_(Excerpt from Ducats User Guide starts here)_
-
-=== Creating your new song: `song`
-
-=== Opening a song for editing: `open`
+_(Excerpt from Ducats User Guide starts here. For a guide on the formatting used for the commands, please refer to the preface of link:https://github.com/AY1920S1-CS2113T-F09-4/main/blob/master/docs/UserGuide.adoc#features[Section 4])_
 
 === Starting a metronome: `metronome`
 
@@ -79,44 +67,48 @@ _Format_:
 _Example_:
 `metronome 10 120 4/4` will start a metronome for 10 bars, each consisting of four notes, with a tempo of 120 beats per minute.
 
-The metronome can be started from anywhere, and the only step is to type in the command according to the format provided above. This is shown below:
+The metronome can be started from anywhere, and the only step is to type in the command according to the format provided above. Upon pressing 'Enter', the metronome will appear on the screen. The numbers 1 through 4 will appear in sequence for 10 times, with each change in number happening every half-second. The number 1 will be accompanied by a hash ('#') for emphasis, as the first beat of every bar is considered more significant in music.
 
-image::ducats_metronome1.png[]
-
-Upon pressing 'Enter', the metronome will appear on the screen. The numbers 1 through 4 will appear in sequence for 10 times, with each change in number happening every half-second. The number 1 will be accompanied by a hash ('#') for emphasis, as the first beat of every bar is considered more significant in music.
-
-image::ducats_metronome2.png[]
+image::ducats_metronome2.png[scaledwidth=50%]
 
 Upon execution, the user interface will output 'Done!', and you are free to key in your next command.
 
-image::ducats_metronome3.png[]
+image::ducats_metronome3.png[scaledwidth=50%]
 
-=== Attributes of a song
+=== Saving the data
 
-Music can be thought of as the accumulation of different patterns of rhythm and pitch. Formally, each song has three main attributes, which are implemented in Ducats, namely key, tempo and time signature. The latter two are to do with the rhythm of the song, while the key relates to the pitch of the song.
+All of the song data is saved to the hard disk automatically after any modifications have been made through a command. There is no need to save manually. To access the data in order to export or import songs, simply access the `data` folder in the directory that contains the program file. By putting in `.txt` files of the same data format, the data will be imported seamlessly the next time you start up Ducats. Additionally, you can also edit the data directly on the `.txt` file if you need to make minor changes to the data without booting up Ducats.
 
 [NOTE]
-In order to create a new song, all three of these attributes need to be specified, although they do not presently affect the modification of the songs and the execution of the features in v1.4. This is to ensure that, upon upgrade to v2.0, you will not lose all your composition data.
+Direct data manipulation is only recommended for more advanced users. Ducats will be unable to read your song data if it detects an invalid format.
 
-*KEY*
+The data found in the `.txt` file is structured as follows:
 
-A key consists of a group of pitches that sounds pleasant and consistent when put together. There are minor and major keys, with major keys usually sounding happier and minor keys sounding sadder.
+    NAME KEY TEMPO
+    BAR_1
+    BAR_2
+    ...
+    BAR_N
+    groups:
+    GROUP_1_NAME BAR_1 ... BAR_N
+    ...
+    GROUP_N_NAME BAR_1 ... BAR_N
 
-For Ducats, the default key for all songs is C Major, with the ability to change the Notes added based on the key coming in v2.0.
+Each bar, represented above by `BAR_1`, `BAR_2` and so on, is formatted as follows, with the segments representing each individual bar, chord and note being labelled with B, C and N respectively:
 
-*TEMPO*
+    [[UAs;UCs],[UA;UC],[UA;UC],[UA;UC],[MCs;LDs],[MC;LD],[MC;UDs],[MC,UD]]
+    |----------------------------------B---------------------------------|
+     |---C---|
+      |N|
 
-In most basic terms, tempo refers to the speed at which the song progresses. In the case of Ducats, tempo is measured in beats per minute, where one beat consists of one rhythmic unit of time as specified in the time signature.
+[NOTE]
+The above bar is populated with different chords and notes for the purposes of demonstration.
 
-If you are unsure of the appropriate tempo for your song, you can start the integrated visual metronome, as described in Section 4.19. In v2.0, with the Play functionality, you will be able to hear your composed music at the specified tempo.
-
-*TIME SIGNATURE*
-
-The time signature of a song consists of two numbers that signify how many how many beats are in a bar and what note duration does each beat correspond to respectively. For example, a song with a time signature of 4 4 has 4 beats in each bar, with each beat corresponding to the duration of a quarter note. Hence, a bar in a 4 4 song can have any combination of notes whose duration is equivalent to 1 whole note, such as four quarter notes, eight eighth notes, or a dotted half note and a quarter note.
-
-4 4 is the most common time signature for modern popular music. Considering this, the default time signature for songs composed in Ducats is 4 4, with the functionality to support other time signatures coming in v2.0.
+Since the default time signature of a Song you create is in 4 4, each Bar consists of eight Chords.The “s”, if present, signifies that that Note that has the duration of a 1/8 note is the start of a bigger Note object or one of the same duration. For example, in the above visualization, the Bar consists of an Upper A Note with the duration of 1/2 and an Upper C Note with the same duration in the first four chords.
 
 _(Excerpt from Ducats User Guide ends here)_
+
+Additionally, I worked on Section 5: Introduction to Basic Music Theory, which you can view in the link:https://github.com/AY1920S1-CS2113T-F09-4/main/blob/master/docs/UserGuide.adoc[User Guide].
 
 == Contributions to the Developer Guide
 
@@ -129,21 +121,31 @@ _(Excerpt from Ducats Developer Guide starts here)_
 Ducats consists of multiple components implemented as objects that work together to fulfill the program's objectives. Figure 1 below showcases the high-level architecture of Ducats:
 
 .Architecture Diagram
-image::Architecture_Diagram.png[]
-
+image::Architecture_Diagram.png[scaledwidth=80%]
 
 Ducats, the main class, is responsible for the initialization of the different components, as well as the highest level of logic.
 
 DucatsLogger is a common class used by many of the components in order to log information, warnings and errors in a `.log` file.
 
-Other than the two components mentioned above, the rest of the components are linked in a way reminiscent of an n-tier architectural style, with the higher-level components depending on the resources provided by the lower-level components.
+Other than the two components mentioned above, the rest of the components are linked in a way reminiscent of an n-tier architectural style, with the higher-level components making use of the services provided by the lower-level components. The remaining seven components are as follows:
+
+* `UI`: interacts with the console (reading and writing)
+* `Parser`: parses the input command and creates of the appropriate Command object
+* `WordGetter`: suggests the correct command to the user if the user misspells his command
+* `Command`: executed to modify the UI, SongList and Storage
+* `SongList`: contains the list of Song objects
+* `Metronome`: displays a visual metronome on screen when initialized through a `MetronomeCommand`
+* `StorageParser`: parses data in persistent storage and converts song data to a form friendly to be stored in persistent storage
+* `Storage`: Reads data from and writes data to persistent storage in the hard disk
+
+Each of these classes have their API illustrated in their respective files.
 
 === Command Parsing and Execution
 
 Since Ducats is a CLI app, it works by reading user input and carrying out the command the user wants it to execute. In line with this objective, the different components of Ducats have been designed to interact in the sequence as depicted by Figure X.
 
 .Command Parsing and Execution Sequence Diagram
-image::Command_Sequence_Diagram.png[]
+image::Command_Sequence_Diagram.png[scaledwidth=90%]
 
 In the above diagram, 'XYZ' is used to represent a general command or function. There are several different types of possible commands that can be created after parsing, and hence the object is labelled "XYZCommand". Similarly, to format the output string, there are multiple method within the UI class of doing so, hence being represented here by "XYZFormat()".
 
@@ -151,62 +153,17 @@ It can be seen that, for all commands, the `Parser` class is used to determine w
 
 A slightly different schedule is used for the Metronome functionality, which will be discussed in further detail in Section 4.5.
 
-=== Creating a Song and Navigation
-
-The creation of a new song is straightforward. In the `new` command, the following attributes of the song to be created will be specified:
-
-* name
-* key _[implementation coming in v2.0]_
-* time signature _[implementation coming in v2.0]_
-
-While the above data is stored with every song, data adjustments based on, and specific methods that utilize the key and time signature are yet to be implemented.
-
-The created Song object will then be inserted into the SongList object, which contains all the song data of Ducats. Following this, persistent storage will be updated.
-
-In order to enable the modification of certain songs when there are multiple songs without the forced provision of additional parameters by the user, a system of navigation has been implemented, where a song can be "opened" in order for it to be edited, with the first song in the SongList being "opened" by default. "Opening" a song is carried out by the execution of the `OpenCommand`, which changes a variable in the `SongList` object known as the `activeIndex`.
-
-`activeIndex` corresponds to the index of the song that can be edited by the other CRUD functions, and only by modifying this attribute to the appropriate value can songs other than the first one be editable. For example, consider the situation where the SongList contains two songs titled "twinkle" and "dreams".
-
-image::songlist_activeIndex1.png[]
-
-In this case, as the default `activeIndex` is set to `0`, the user can enter `open dreams` in the CLI to make sure he is editing the song titled "dreams".
-
-image::songlist_activeIndex2.png[]
-
-When the main class executes the command, the command will first try to find the index of the provided song in the song list.
-
-    String songName = message.substring(5);
-    int songIndex = songList.findSongIndex(songName);
-
-findSongIndex(songName) conducts a linear search on the SongList to return the index of the song that has the given name, and returns -1 is the song is not found. By querying the return value, Ducats either sets the activeIndex of the SongList or throws and then handles a DucatsException. The former is carried out with the `setActiveIndex()` method of the SongList class.
-
-    songList.setActiveIndex(songList.findSongIndex(songName));
-
-For future CRUD commands, the specific SongList method invocated by the `execute()` method takes in the activeIndex as a parameter and proceeds to perform the necessary operations on the SongList, as shown below. This means that you can utilize the SongList API function `setActiveIndex()` in other created components to achieve the same functionality.
-
-image::songlist_activeIndex3.png[]
-
-_Design Considerations_:
-
-* Use binary search instead of linear search for `findSongIndex()`
-** _Pros_: Higher efficiency in navigation
-** _Cons_: the `list` in the SongList needs to be sorted, and insertion in a sorted manner, along with the implementation of binary search, for minimal gains in efficiency, seems to violate KISS
-
-* Let the user input the index of the song rather than the name
-** _Pros_: Faster input of command for the user
-** _Cons_: User needs to look at the full list first, so overall, time is not saved. For the user, querying a name is more natural than an index.
-
 === Storage and StorageParser
 
 In order to ensure that the songs the user has created, deleted or modified can be retrieved even after exiting Ducats, a form of persistent storage is needed. This is implemented as a folder containing `.txt` files, and a `Storage` class that will interact with the said folder to read and modify its contents. Since the `Storage` class can create and modify files, it is important to understand the exact procedures executed within the class for the reading and writing of files. The two swimlane diagrams below display the sequence of events, as well as how the `Storage` class interacts with the `StorageParser` class. Each activity is annotated with the function within which it occurs for easy reference.
 
 .Reading files (for each file)
-image::storage_read.png[]
+image::storage_read.png[scaledwidth=90%]
 
 Before reading from the files, an assertion is made for the file list of the data folder (obtained through the `File.listFiles()` method) to not be null. The reading process as described in Figure X is then repeated for each file in the file list.
 
 .Writing to files (for each song)
-image::storage_write.png[]
+image::storage_write.png[scaledwidth=90%]
 
 Regardless of whether the `.txt` file corresponding to the specific song exists, the `Storage` class will attempt the creation of the file to ensure its existence. Due to the modification of data being involved, changes to the files are logged by DucatsLogger.
 
@@ -231,24 +188,18 @@ Each `BAR_N`, where N is a positive integer, is formatted as follows, with the s
      |---C---|
       |N|
 
-For each String representing a Note object, the first two characters correspond to the pitch (ranging from Pitch.LOWER_C to Pitch.UPPER_C while passing through Pitch.MIDDLE_C). An exception for this convention would be Rest, which is represented as “RT”. The “s”, if present, signifies that the unit Note that has the duration of a 1⁄8 note is the start of a bigger Note object or one of the same duration. For example, in the above visualization, the Bar consists of an Upper A Note with the duration of ½ and an Upper C Note with the same duration in the first four chords.
+For each String representing a Note object, the first two characters correspond to the pitch (ranging from Pitch.LOWER_C to Pitch.UPPER_C while passing through Pitch.MIDDLE_C). An exception for this convention would be Rest, which is represented as “RT”. The “s”, if present, signifies that the unit Note that has the duration of an eighth note is the start of a bigger Note object or one of the same duration. For example, in the above visualization, the Bar consists of an Upper A Note with the duration of half and an Upper C Note with the same duration in the first four chords.
 
-By implementing the storage in this way, we are able to ensure that the data is both storage-friendly as well as human-readable and editable. To construct the data to be stored in the .txt file, the `StorageParser` class invokes the toString() methods for the Song, Bar, Chord and Note classes for each Song in the Song list in a tree-like fashion due to the composition structure of the Song component (as can be seen in Figure X). Inversely, in order for the StorageParser class to parse the data found in the .txt file into Song objects that are to be stored in the SongList, the following methods are defined under the `StorageParser` class:
-
-* `convertNoteFromString(String s)` (converts a String into a Note)
-* `convertChordFromString(String s)` (converts a String into a Chord) _(uses the above)_
-* `convertBarFromString(String s)` (converts a String into a Bar) _(uses the above)_
-* `convertSongFromString(String s)` (converts a String into a Song) _(uses the above)_
+By implementing the storage in this way, we are able to ensure that the data is both storage-friendly as well as human-readable and editable. To construct the data to be stored in the `.txt` file, the `StorageParser` class invokes the toString() methods for the Song, Bar, Chord and Note classes for each Song in the Song list in a tree-like fashion. Inversely, in order for the StorageParser class to parse the data found in the `.txt` file into Song objects that are to be stored in the SongList, the `convertSongFromString(String s)` method is defined.
 
 _Design Considerations_:
 
-* Using a single .txt file to store all the data
+* Using a single `.txt` file to store all the data
 ** _Pros_: easier implementation of `Storage`
-** _Cons_: harder for the user to import and export files without corrupting the data, complicated parsing in `StorageParser` required to get the full data, hard for the user to view the data if the song is too long due to line length limits on most `.txt` file editors
-* Using .csv files instead of .txt files to store the data
-** _Pros_: arguably a more organized method of data management
-** _Cons_: difficult to store song data of varying lengths in a meaningful way that would make a `.csv` file more ideal than a `.txt` file
+** _Cons_: harder for the user to import and export files without corrupting the data, hard for the user to view the data if the song is too long due to line length limits
 
-We have decided to use a storage directory that contains `.txt` files, each containing a single song's data. With this implementation, it is easy for the user to export and import songs by just copying out or inserting .txt files of the same format respectively. Additionally, having a folder instead of a single file is neater for the user's file management, hence enhancing the user experience.
+We have decided to use a storage directory that contains `.txt` files, each containing a single song's data. With this neater implementation, it is easy for the user to export and import songs by just copying out or inserting `.txt` files of the same format respectively.
 
 _(Excerpt from Ducats Developer Guide ends here)_
+
+In addition to these, I also worked on the Section 4.2.1 Creating a Song and Navigation, which you can view in the link:https://github.com/AY1920S1-CS2113T-F09-4/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide].
