@@ -1,5 +1,14 @@
 package oof.ui;
 
+import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.YearMonth;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
+
 import org.fusesource.jansi.AnsiConsole;
 
 import oof.model.task.Event;
@@ -11,15 +20,6 @@ import oof.model.university.Module;
 import oof.model.university.Semester;
 import oof.model.university.SemesterList;
 import oof.storage.StorageManager;
-
-import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Scanner;
 
 /**
  * Represents a Ui class that is responsible for Input/Output operations.
@@ -996,15 +996,13 @@ public class Ui {
 
     /**
      * Prints all tasks scheduled on the provided date.
-     *
-     * @param scheduledTasks List of all Tasks scheduled on the date provided.
-     * @param date           Date parameter provided by user.
-     */
-    public void printTasksByDate(TaskList scheduledTasks, String date) {
+     *  @param scheduledTasks List of all Tasks scheduled on the date provided.
+     * @param date           Date parameter provided by user.*/
+    public void printTasksByDate(ArrayList<String[]> scheduledTasks, String date) {
         printLine();
         System.out.println(" Here are your tasks for " + date + ": ");
-        for (int i = 0; i < scheduledTasks.getSize(); i++) {
-            System.out.println(" \t" + (i + 1) + ". " + scheduledTasks.getTask(i));
+        for (int i = 0; i < scheduledTasks.size(); i++) {
+            System.out.println(" \t" + (i + 1) + ". " + scheduledTasks.get(i)[0] + " " + scheduledTasks.get(i)[1]);
         }
     }
 
