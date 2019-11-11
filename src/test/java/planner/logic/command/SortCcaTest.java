@@ -4,7 +4,6 @@ package planner.logic.command;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import planner.main.InputTest;
 import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModFailedJsonException;
@@ -15,21 +14,19 @@ import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
 import planner.logic.modules.module.ModuleTasksList;
 import planner.logic.parser.Parser;
-import planner.main.CliLauncher;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
 import planner.util.legacy.reminder.Reminder;
 import planner.util.storage.Storage;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SortCcaTest extends InputTest {
+
+public class SortCcaTest extends CommandTestFramework {
     private static Storage store;
     private static ModuleTasksList modTasks;
     private static Parser argparser;
@@ -40,17 +37,20 @@ public class SortCcaTest extends InputTest {
     private static List<TaskWithMultiplePeriods> ccas;
     private static HashMap<String, ModuleInfoDetailed> modDetailedMap;
     private transient ByteArrayOutputStream output;
-    private String expectedBye = "_______________________________\n"
+    private static final TaskList<Cca> emptyCcaList = new TaskList<>();
+    private static final TaskList<ModuleTask> emptyModuleList = new TaskList<>();
+    private String expectedOutput;
+    private String inputTasks = "add cca soccer --begin 3 --end 5 --dayOfWeek Monday\n"
             +
-            "Thanks for using ModPlanner!\n"
+            "add cca dance --begin 7 --end 9 --dayOfWeek Monday\n"
             +
-            "Your data will be stored in file shortly!\n"
+            "add module CG1111 --begin 3 --end 5 --dayOfWeek Wednesday\n"
             +
-            "_______________________________\n"
-            +
-            "_______________________________\n";
+            "scheduleCca 1 --begin 3 --end 5 --dayOfWeek Thursday";
 
-    final String[] hold = {""};
+    SortCcaTest() throws ModException {
+        super();
+    }
 
     /**
      * Test initialization of ModPlan main classes.
@@ -60,47 +60,38 @@ public class SortCcaTest extends InputTest {
         modUi = new PlannerUi();
         argparser = new Parser();
         jsonWrapper = new JsonWrapper();
-        modTasks = new ModuleTasksList();
-        jsonWrapper.getModuleDetailedMap();
+        jsonWrapper.getModuleDetailedMap(true, store);
+        user = new User();
     }
 
-    @DisplayName("sort cca test")
+    @DisplayName("Sort Cca Output Test")
     @Test
-    public void sortTestUserInput() {
-        final String commandTest1 = "sort cca\n" + "bye";
-        final String commandTest2 = "sort cca --r\n" + "bye";
+    public void sortCcaOutputShouldMatchExpectedOutput() {
+        resetAll();
+        execute(inputTasks);
+        expectedOutput = "Got it, added the follow cca!\n"
+                + "[C] soccer | 03:00 - 05:00 on MONDAY\n"
+                + "Got it, added the follow cca!\n"
+                + "[C] dance | 07:00 - 09:00 on MONDAY\n"
+                + "Got it, added the follow module!\n"
+                + "[not taken] CG1111 | ModuleCode:CG1111, MC:6.0, SU: can S/U, grade: "
+                + "| 03:00 - 05:00 on WEDNESDAY\n"
+                + "Got it, added the follow cca!\n"
+                + "[C] soccer | 03:00 - 05:00 on MONDAY, 03:00 - 05:00 on THURSDAY\n";
+        assertEquals(expectedOutput, getOut());
 
-        provideInput(commandTest1);
-        final String[] hold = {""};
-        CliLauncher.main(hold);
-        String expectedSortedCcas = "_______________________________\n"
-                +
-                "Welcome to ModPlanner, your one stop solution to module planning!\n"
-                +
-                "Begin typing to get started!\n"
-                +
-                "_______________________________\n"
-                +
-                "_______________________________\n"
-                +
-                "Here are your sorted ccas:\n"
-                +
-                "_______________________________\n"
-                +
-                "_______________________________\n"
-                +
-                "Thanks for using ModPlanner!\n"
-                +
-                "Your data will be stored in file shortly!\n"
-                +
-                "_______________________________\n"
-                +
-                "_______________________________";
+        execute("sort cca\n");
+        expectedOutput = "Here are your sorted cca:\n"
+                + "_______________________________\n"
+                + "[C] dance | 07:00 - 09:00 on MONDAY\n"
+                + "[C] soccer | 03:00 - 05:00 on MONDAY, 03:00 - 05:00 on THURSDAY\n";
+        assertEquals(expectedOutput, getOut());
 
-        String contentString = outContent.toString();
-        String expected = removeUnicodeAndEscapeChars(contentString);
-        assertEquals(expected, expected);
-        //assertEquals(expectedSortedCcas, expected);
-        //cannot use due to "\n"
+        execute("sort cca --r\n");
+        expectedOutput = "Here are your sorted cca:\n"
+                + "_______________________________\n"
+                + "[C] soccer | 03:00 - 05:00 on MONDAY, 03:00 - 05:00 on THURSDAY\n"
+                + "[C] dance | 07:00 - 09:00 on MONDAY\n";
+        assertEquals(expectedOutput, getOut());
     }
 }
