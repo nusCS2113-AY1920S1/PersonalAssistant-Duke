@@ -60,11 +60,8 @@ public class Income extends DukeItem {
             }
 
             if (!mappedStorageString.containsKey("amount") | !mappedStorageString.containsKey("description")) {
-<<<<<<< HEAD
-                throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED,"income.txt"));
-=======
+
                 throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED, "income.txt"));
->>>>>>> upstream/master
             }
         }
 
