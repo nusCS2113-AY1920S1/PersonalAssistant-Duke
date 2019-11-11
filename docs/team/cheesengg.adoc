@@ -22,7 +22,8 @@ This section shows a summary of my coding, documentation, and other helpful cont
 * *What it does*: The sell command allows the user to manage ticket purchase and the view command allows user to see the seating arrangement for a show.
 * *Justification*: For the application to fulfil its purpose, it is necessary for it to be able to keep track of the number of tickets that can be sold for each showing instead of just scheduling shows.
 * *Highlights*: This enhancement works with existing as well as future commands. The sell feature implementation was particularly challenging because there were several implementations that we could explore but each implementation has their own challenges which will be discussed in the Contributions to the Developer Guide section.
-* *Code contributed*:  Please click the link to see a sample of my code: link:{repoURL}/tree/master/src/main/java/optix/commands/seats/SellSeatCommand.java[[Functional Code\]] link:{repoURL}/tree/master/src/test/java/Optix/commands/seats/SellSeatCommandTest.java[[Test Code\]]
+* *Code contributed*:  Please click the link to see a sample of my code: 
+link:https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=cheesengg[[Functional Code\]] link:{repoURL}/tree/master/src/test/java/Optix/commands/seats/SellSeatCommandTest.java[[Test Code\]]
 
 *Other Code contributions*: I helped to set up the base code for Optix (Pull request: link:{repoURL}/pull/10[#10]) and subsequently added most of the basic command so that my group could work on the features for Optix.
 
