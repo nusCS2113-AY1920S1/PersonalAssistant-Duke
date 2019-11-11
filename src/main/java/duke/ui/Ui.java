@@ -217,6 +217,7 @@ public class Ui {
      * @param ingredientsList the {@link IngredientsList} whose ingredients are to be shown
      */
     public void showIngredientsInFridge(IngredientsList ingredientsList) {
+        assert ingredientsList != null;
         showLine();
         if (ingredientsList.isEmpty())
             System.out.println("\t The fridge is empty, better go buy some ingredients! ");
@@ -387,6 +388,8 @@ public class Ui {
      * @param dish the dish that ingredient has been added to
      */
     public void showIngredients(Ingredient ingredient, Dish dish) {
+        assert ingredient != null;
+        assert dish != null;
         showLine();
         System.out.println("\t ingredient: " + ingredient.getName()
                 + "\n\t added to: " + dish.getDishname());

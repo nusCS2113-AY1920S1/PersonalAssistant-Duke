@@ -20,6 +20,7 @@ public class Parser {
 
     //There is no constructor method for all others are static.
     //@@author CEGLincoln
+
     /**
      * Returns a {@link Command} that can be understood by {@link Duke} and executed after.
      * We first split the fullCommand into 2, the keyword, followed by everything else.
@@ -43,8 +44,11 @@ public class Parser {
     }
 
     /**
+     * @param fullCommand input command from the user
+     * @return a command to be executed
+     * @throws DukeException
      * @author VirginiaYu
-     *
+     * <p>
      * commands for Order
      * add: add a new order to the order list
      * alter:alter order serving date
@@ -52,12 +56,8 @@ public class Parser {
      * done: mark an order as done
      * init: initialize the order list
      * list: list all orders, list all undone orders,
-     *      list all today's orders, list all today's undone orders
-     *      list orders on a fixed date, list orders containing some dish
-     *
-     * @param fullCommand input command from the user
-     * @return a command to be executed
-     * @throws DukeException
+     * list all today's orders, list all today's undone orders
+     * list orders on a fixed date, list orders containing some dish
      */
     private static Command order(String fullCommand) throws DukeException {
         String[] part = fullCommand.split(" ", 2);
@@ -92,6 +92,7 @@ public class Parser {
     }
 
     //@@author 9hafidz6
+
     /**
      * commands for Dish
      * add: adds a dish to dishList
@@ -161,6 +162,7 @@ public class Parser {
     }
 
     //@@author x3chillax
+
     /**
      * commands for Ingredient
      * add: adds an ingredient to the fridge, by adding more to an existing ingredient or creating a new one
@@ -187,7 +189,7 @@ public class Parser {
                     case 3:
                         throw new DukeException("must specify expiry date as well, eg: add chicken 3 12/2/2020");
                     case 4:
-                        return new AddCommand(new Ingredient(part[1], checkInt(part[2]), part[3]));
+                        return new AddCommand(new Ingredient(checkIngNameLength(part[1].trim()), checkInt(part[2]), part[3]));
                     default:
                         throw new DukeException("must specify ingredient name (no spaces, use underscore '_'), amount and expiry date,\n\t add only takes 3 arguments!");
                 }
@@ -198,7 +200,7 @@ public class Parser {
             case "use":
                 if (part.length != 3)           // input error handling for use ingredient!
                     throw new DukeException("follow the template: use <ingredient name> <amount>");
-                return new UseCommand(new Ingredient(part[1], checkInt(part[2]), new Date()));
+                return new UseCommand(new Ingredient(checkIngNameLength(part[1].trim()), checkInt(part[2]), new Date()));
             case "listtoday":
                 if (part.length != 1)
                     throw new DukeException("follow the template: listtoday");
@@ -206,7 +208,7 @@ public class Parser {
             case "find":
                 if (part.length != 2)
                     throw new DukeException("follow the template: find <ingredient name>");
-                return new FindIngredientCommand(part[1]);
+                return new FindIngredientCommand(checkIngNameLength(part[1].trim()));
             case "changename":
                 if (part.length != 3)
                     throw new DukeException("follow the template: change <ingredient index> <new ingredient name>");
@@ -220,7 +222,19 @@ public class Parser {
         }
     }
 
+    //@@author saradj
+    private static String checkIngNameLength(String name) throws DukeException {
+        if (name.length() == 0) {
+            throw new DukeException("Must enter a name for the ingredient, only space is not allowed :)");
+        }
+        if (name.length() > 30) {
+            throw new DukeException("Seems like the ingredient name you entered is too long, it has " + name.length() + " letters, MAX name length is 30 letters!");
+        }
+        return name;
+    }
+
     //@@author CEGLincoln
+
     /**
      * Checks the length of a String array is of size 2.
      *
@@ -233,6 +247,7 @@ public class Parser {
     }
 
     //@@author CEGLincoln
+
     /**
      * Split a string and check its length.
      */
@@ -243,6 +258,7 @@ public class Parser {
     }
 
     //@@author CEGLincoln
+
     /**
      * Converts a string into a number, and checks if it is out of bounds.
      *
@@ -270,14 +286,13 @@ public class Parser {
     }
 
     /**
-     * @author VirginiaYu
-     *
-     * to parse remaining information (order serving date, and dishes name and amount)
-     * in the user add command
-     *
      * @param splitter split user command, containing valuable info
      * @return a command to be executed
      * @throws DukeException
+     * @author VirginiaYu
+     * <p>
+     * to parse remaining information (order serving date, and dishes name and amount)
+     * in the user add command
      */
     public static Command addOrderParser(String[] splitter) throws DukeException {
         Order newOrder;
@@ -289,9 +304,11 @@ public class Parser {
             }
             newOrder = new Order();
             orderedDishes = splitter[1].substring(3).split(", ");
-        } else if (splitter[1].startsWith("-d ")&&splitter[1].length()>17) {
-            String[] dateAndDish = splitter[1].substring(3).split(" -n ",2);
-            if (dateAndDish[0].length()!=10) { throw new DukeException("Must enter a valid order date: dd/mm/yyyy"); }
+        } else if (splitter[1].startsWith("-d ") && splitter[1].length() > 17) {
+            String[] dateAndDish = splitter[1].substring(3).split(" -n ", 2);
+            if (dateAndDish[0].length() != 10) {
+                throw new DukeException("Must enter a valid order date: dd/mm/yyyy");
+            }
             orderDate = Convert.stringToDate(dateAndDish[0]);
             newOrder = new Order();
             newOrder.setDate(orderDate);
@@ -319,14 +336,13 @@ public class Parser {
     }
 
     /**
-     * @author VirginiaYu
-     *
-     * to parse remaining information (newly set order serving date,
-     * and target order index) in the user add command
-     *
      * @param splitter split user command, containing valuable info
      * @return a command to be executed
      * @throws DukeException
+     * @author VirginiaYu
+     * <p>
+     * to parse remaining information (newly set order serving date,
+     * and target order index) in the user add command
      */
     public static Command alterOrderDateParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
@@ -353,14 +369,12 @@ public class Parser {
     }
 
     /**
-     * @author VirginiaYu
-     *
-     * to parse remaining information (cancelled order index) in the user add command
-     *
-     *
      * @param splitter split user command, containing valuable info
      * @return a command to be executed
      * @throws DukeException
+     * @author VirginiaYu
+     * <p>
+     * to parse remaining information (cancelled order index) in the user add command
      */
     public static Command cancelOrDoneOrderParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
