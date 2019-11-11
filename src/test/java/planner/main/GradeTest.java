@@ -1,6 +1,6 @@
 //@@andrewleow97
 
-package planner.logic.command;
+package planner.main;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
