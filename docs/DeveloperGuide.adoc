@@ -1699,7 +1699,7 @@ You must enter either today's date or a date in the future.
 You can enter the command `free DD-MM-YYYY` to view your free time slots on the given date as well as suggestions for upcoming deadlines to complete. 
 
 . Test case: `free 12-12-2020` +
-Expected: The free time on `12-12-2020` will be displayed along with suggestions for deadlines to complete. +
+Expected: The free time on `12-12-2020` will be displayed along with suggestions for deadlines to complete, if applicable. +
 . Test case: `free 01-01-2010` + 
 Expected: Error displayed to warn users to enter either the current date or a date in the future. +
 . Test case: `free 32-32-2019` + 
