@@ -1268,7 +1268,7 @@ public class Process {
     public void undo(Storage storage, Ui ui) throws AlphaNUSException {
         ArrayList<String> commandList = new ArrayList<>();
         commandList = storage.readFromCommandsFile();
-        String command = commandList.get(commandList.size() - 1);
+        String command = commandList.get(commandList.size() - 2);
         //projectManager.projectmap = UndoRedoStack.undo();
         int count = 0;
         for(int i = 0; i < canUndoRedo.size(); i = i + 1){
@@ -1295,8 +1295,8 @@ public class Process {
     public void redo(Storage storage, Ui ui) throws AlphaNUSException {
         ArrayList<String> commandList = new ArrayList<>();
         commandList = storage.readFromCommandsFile();
-        String command1 = commandList.get(commandList.size() - 1);
-        if(command1.equals("undo")) {
+        String command1 = commandList.get(commandList.size() - 2);
+        if(command1.contains("undo")) {
             projectManager.projectmap = storage.readFromRedoFile();
             ui.redoMessage();
         }
