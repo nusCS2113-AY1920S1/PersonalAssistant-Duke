@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Nicholas N Novakovic
 image::nicholasnovakovic.png[width="150", align="left"]
-{empty}[https://github.com/nicholasnovakovic[github]]  [<<Nicholas N Novakovic PPP, portfolio>>]
+{empty}[https://github.com/nicholasnovakovic[github]]  [<a href="Nicholas N Novakovic PPP.adoc">portfolio</a>]
 
 Role: Developer + 
 Responsibilities: Developer Guide, Documentation, Architecture
