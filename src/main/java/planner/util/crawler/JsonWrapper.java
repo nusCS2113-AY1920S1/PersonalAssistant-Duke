@@ -20,6 +20,7 @@ import com.google.gson.stream.JsonReader;
 
 import planner.logic.exceptions.planner.ModBadRequestStatus;
 import planner.logic.exceptions.planner.ModFailedJsonException;
+import planner.logic.modules.cca.Cca;
 import planner.logic.modules.TaskList;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
@@ -33,6 +34,12 @@ public class JsonWrapper {
     private final String listFile = "data/modsListData.json";
     private final String listDetailedFile = "data/modsDetailedListData.json";
     private final String userModuleFile = "data/userData.json";
+    private final String userCcaFile = "data/ccaListData.json";
+    private final String academicYear = "2019-2020";
+
+    public enum Requests {
+        DETAILED, SUMMARY
+    }
 
     /**
      * Constructor for JsonWrapper to access module information.
@@ -131,6 +138,16 @@ public class JsonWrapper {
     }
 
     /**
+     * Stores the current state of the ccaList into a json file.
+     */
+    public void storeCcaListAsJson(List<Cca> ccaList, Storage store) {
+        String jsonString = gson.toJson(ccaList);
+        List<String> stringsList = requestsData.getResponseList(jsonString);
+        store.setDataPath(Paths.get(userCcaFile));
+        store.writeModsData(stringsList);
+    }
+
+    /**
      * Returns taskList after reading json file.
      * @return List of tasks of the read was successful, null if otherwise.
      */
@@ -140,6 +157,29 @@ public class JsonWrapper {
             if (store.getDataPathExists()) {
                 JsonReader reader = new JsonReader(new FileReader(userModuleFile));
                 Type listType = new TypeToken<TaskList>() {}.getType();
+                return gson.fromJson(reader, listType);
+            }
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+            PlannerLogger.log(e);
+        } catch (IOException ei) {
+            System.out.println(Arrays.toString(ei.getStackTrace()));
+            PlannerLogger.log(ei);
+        }
+        return new TaskList<>();
+    }
+
+    /**
+     * Returns ccaList after reading json file.
+     * @return List of ccas of the read was successful, null if otherwise.
+     */
+    public TaskList<Cca> readJsonCcaList(Storage store) {
+        try {
+            store.setDataPath(Paths.get(userCcaFile));
+            if (store.getDataPathExists()) {
+                JsonReader reader = new JsonReader(new FileReader(userCcaFile));
+                Type listType = new TypeToken<TaskList>() {
+                }.getType();
                 return gson.fromJson(reader, listType);
             }
         } catch (IllegalStateException e) {
