@@ -296,8 +296,8 @@ Displays the current month with any dates marked with an X if there is a task th
 === Assignment Commands
 
 ==== Assign/Remove tasks to/from members: `assign task`
-Delegates the task to a member/several members in the group.
-Assignments to the task can be added or removed simultaneously.
+Assigns or unassigns the task to a member or several members in the group.
+Task assignments can be added or removed simultaneously.
 
 * Flags:
 ** `-i`: Task index numbers
