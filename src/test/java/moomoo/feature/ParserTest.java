@@ -10,10 +10,11 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParserTest {
     @Test
-    void testParseSavingsBudgetCommand() {
+    public void testParseSavingsBudgetCommand() {
         CategoryListStub newCatList = new CategoryListStub();
         newCatList.add(null);
 
@@ -40,38 +41,38 @@ class ParserTest {
         Budget newBudget = new Budget();
         Parser newParser = new Parser();
 
-        try {
+        Throwable thrown;
+        thrown = assertThrows(MooMooException.class, () -> {
             Command c = newParser.parse("budget savings s/01/2019 e/14/2019");
             c.execute(newCalendar, newBudget, newCatList, newStorage);
-        } catch (MooMooException e) {
-            assertEquals("Please set an end month and year in this format \"e/01/2019\"\n", e.getMessage());
-        }
+        });
 
-        try {
+        assertEquals("Please set an end month and year in this format \"e/01/2019\"\n", thrown.getMessage());
+
+        thrown = assertThrows(MooMooException.class, () -> {
             Command c = newParser.parse("budget savings s/13/2019 e/14/2019");
             c.execute(newCalendar, newBudget, newCatList, newStorage);
-        } catch (MooMooException e) {
-            assertEquals("Please set a start month and year in this format \"s/01/2019\"\n", e.getMessage());
-        }
+        });
 
-        try {
+        assertEquals("Please set a start month and year in this format \"s/01/2019\"\n", thrown.getMessage());
+
+        thrown = assertThrows(MooMooException.class, () -> {
             Command c = newParser.parse("budget savings s/invalid input");
             c.execute(newCalendar, newBudget, newCatList, newStorage);
-        } catch (MooMooException e) {
-            assertEquals("Please input in this format \"c/CATEGORY "
-                    + "s/STARTMONTHYEAR e/ENDMONTHYEAR\"\n", e.getMessage());
-        }
+        });
+        assertEquals("Please input in this format \"c/CATEGORY s/STARTMONTHYEAR e/ENDMONTHYEAR\"\n",
+                thrown.getMessage());
 
-        try {
+        thrown = assertThrows(MooMooException.class, () -> {
             Command c = newParser.parse("budget savings s/invalid");
             c.execute(newCalendar, newBudget, newCatList, newStorage);
-        } catch (MooMooException e) {
-            assertEquals("Please set a start month and year in this format \"s/01/2019\"\n", e.getMessage());
-        }
+        });
+        assertEquals("Please set a start month and year in this format \"s/01/2019\"\n", thrown.getMessage());
+
     }
 
     @Test
-    void testParseSetBudgetCommand() throws MooMooException {
+    public void testParseSetBudgetCommand() throws MooMooException {
         ScheduleListStub newCalendar = new ScheduleListStub();
         StorageStub newStorage = new StorageStub();
         Budget newBudget = new Budget();
@@ -83,59 +84,92 @@ class ParserTest {
         c.execute(newCalendar, newBudget, newCatList, newStorage);
         assertEquals(
                 ".__________________________________.\n"
-                + "| ___ _   _ ___   ___ ___ _____    |\n"
-                + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
-                + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
-                + "||___/\\___/|___/ \\___|___| |_|     |\n"
-                + "|                                  |\n"
-                + "|Category : food                   |\n"
-                + "|$123.45                           |\n"
-                + ".----------------------------------.\n"
-                + "        \\   ^__^\n"
-                + "         \\  (oo)\\_______\n"
-                + "            (__)\\       )\\/\\\n"
-                + "                ||----w |\n"
-                + "                ||     ||\n"
-                + ".__________________________________.\n"
-                + "| ___ _   _ ___   ___ ___ _____    |\n"
-                + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
-                + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
-                + "||___/\\___/|___/ \\___|___| |_|     |\n"
-                + "|                                  |\n"
-                + "|Category : laptop                 |\n"
-                + "|$123.45                           |\n"
-                + ".----------------------------------.\n"
-                + "        \\   ^__^\n"
-                + "         \\  (oo)\\_______\n"
-                + "            (__)\\       )\\/\\\n"
-                + "                ||----w |\n"
-                + "                ||     ||\n"
-                + ".__________________________________.\n"
-                + "| ___ _   _ ___   ___ ___ _____    |\n"
-                + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
-                + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
-                + "||___/\\___/|___/ \\___|___| |_|     |\n"
-                + "|                                  |\n"
-                + "|Category : places to go           |\n"
-                + "|$150.00                           |\n"
-                + ".----------------------------------.\n"
-                + "        \\   ^__^\n"
-                + "         \\  (oo)\\_______\n"
-                + "            (__)\\       )\\/\\\n"
-                + "                ||----w |\n"
-                + "                ||     ||\n", Ui.getOutput());
+                        + "| ___ _   _ ___   ___ ___ _____    |\n"
+                        + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                        + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                        + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                        + "|                                  |\n"
+                        + "|Category : food                   |\n"
+                        + "|$123.45                           |\n"
+                        + ".----------------------------------.\n"
+                        + "        \\   ^__^\n"
+                        + "         \\  (oo)\\_______\n"
+                        + "            (__)\\       )\\/\\\n"
+                        + "                ||----w |\n"
+                        + "                ||     ||\n"
+                        + ".__________________________________.\n"
+                        + "| ___ _   _ ___   ___ ___ _____    |\n"
+                        + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                        + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                        + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                        + "|                                  |\n"
+                        + "|Category : laptop                 |\n"
+                        + "|$123.45                           |\n"
+                        + ".----------------------------------.\n"
+                        + "        \\   ^__^\n"
+                        + "         \\  (oo)\\_______\n"
+                        + "            (__)\\       )\\/\\\n"
+                        + "                ||----w |\n"
+                        + "                ||     ||\n"
+                        + ".__________________________________.\n"
+                        + "| ___ _   _ ___   ___ ___ _____    |\n"
+                        + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                        + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                        + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                        + "|                                  |\n"
+                        + "|Category : places to go           |\n"
+                        + "|$150.00                           |\n"
+                        + ".----------------------------------.\n"
+                        + "        \\   ^__^\n"
+                        + "         \\  (oo)\\_______\n"
+                        + "            (__)\\       )\\/\\\n"
+                        + "                ||----w |\n"
+                        + "                ||     ||\n", Ui.getOutput());
 
-        try {
-            c = newParser.parse("budget set b/100 c/places to go b/150");
-            c.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        } catch (MooMooException e) {
-            assertEquals("Please input in this format \"c/CATEGORY b/BUDGET\"", e.getMessage());
-        }
+        Throwable thrown = assertThrows(MooMooException.class, () -> {
+            Command thrownC = newParser.parse("budget set b/100 c/places to go b/150");
+            thrownC.execute(newCalendar, newBudget, newCatList, newStorage);
+        });
+        assertEquals("Please input in this format \"c/CATEGORY b/BUDGET\"", thrown.getMessage());
     }
 
     @Test
-    void testParseEditBudgetCommand() throws MooMooException {
+    public void testParseListBudgetCommand() throws MooMooException {
+        CategoryListStub newCatList = new CategoryListStub();
+        newCatList.add(null);
+        Budget newBudget = new Budget();
+        Parser newParser = new Parser();
+        ScheduleListStub newCalendar = new ScheduleListStub();
+        StorageStub newStorage = new StorageStub();
+
+        Command c = newParser.parse("budget set c/food b/100 c/laptop b/125 c/places to go b/123");
+        c.execute(newCalendar, newBudget, newCatList, newStorage);
+
+        c = newParser.parse("budget list");
+        c.execute(newCalendar, newBudget, newCatList, newStorage);
+        assertEquals("Budget for shoes has not been set\n"
+                + "Budget for food is $100.00\n"
+                + "Budget for window has not been set\n"
+                + "Budget for places to go is $123.00\n"
+                + "Budget for sweets has not been set\n"
+                + "Budget for laptop is $125.00\n", Ui.getOutput());
+
+        c = newParser.parse("budget list c/food c/hello c/shoes");
+        c.execute(newCalendar, newBudget, newCatList, newStorage);
+        assertEquals("Budget for food is $100.00\n"
+                + "hello category does not exist. Please add it first.\n"
+                + "Budget for shoes has not been set.\n", Ui.getOutput());
+
+        c = newParser.parse("budget list c/food s/food");
+        c.execute(newCalendar, newBudget, newCatList, newStorage);
+
+        assertEquals("food s/food category does not exist. Please add it first.\n", Ui.getOutput());
+
+    }
+
+    @Test
+    public void testParseEditBudgetCommand() throws MooMooException {
         CategoryListStub newCatList = new CategoryListStub();
         newCatList.add(null);
         Budget newBudget = new Budget();
@@ -149,16 +183,15 @@ class ParserTest {
         c = newParser.parse("budget edit c/food c/laptop b/100 c/places to go b/150");
         c.execute(newCalendar, newBudget, newCatList, newStorage);
         assertEquals("The budget for food is the same.\n"
-            + "You have changed the budget for laptop from $125.00 to $100.00\n"
-            + "You have changed the budget for places to go from $123.00 to $150.00\n", Ui.getOutput());
+                + "You have changed the budget for laptop from $125.00 to $100.00\n"
+                + "You have changed the budget for places to go from $123.00 to $150.00\n", Ui.getOutput());
 
-        try {
-            c = newParser.parse("budget edit b/100 c/places to go b/150");
-            c.execute(newCalendar, newBudget, newCatList, newStorage);
+        Throwable thrown = assertThrows(MooMooException.class, () -> {
+            Command thrownC = newParser.parse("budget edit b/100 c/places to go b/150");
+            thrownC.execute(newCalendar, newBudget, newCatList, newStorage);
+        });
+        assertEquals("Please input in this format \"c/CATEGORY b/BUDGET\"", thrown.getMessage());
 
-        } catch (MooMooException e) {
-            assertEquals("Please input in this format \"c/CATEGORY b/BUDGET\"", e.getMessage());
-        }
     }
 
 }

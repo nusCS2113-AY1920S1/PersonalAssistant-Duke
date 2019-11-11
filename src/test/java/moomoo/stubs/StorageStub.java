@@ -3,7 +3,6 @@ package moomoo.stubs;
 import moomoo.feature.Budget;
 import moomoo.feature.category.Category;
 import moomoo.feature.storage.Storage;
-import moomoo.feature.Ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;

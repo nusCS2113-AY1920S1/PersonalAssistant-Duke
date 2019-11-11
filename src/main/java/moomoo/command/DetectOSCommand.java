@@ -1,12 +1,12 @@
 package moomoo.command;
 
-public class DetectOsCommand {
+public class DetectOSCommand {
     public static String osName;
 
     /**
      * Get operating system name the user is running on.
      */
-    public DetectOsCommand() {
+    public DetectOSCommand() {
         this.osName = System.getProperty("os.name");
     }
 }

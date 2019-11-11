@@ -50,7 +50,7 @@ public class NotificationCommand extends Command {
             blank2 += " ";
         }
 
-        DetectOsCommand getOS = new DetectOsCommand();
+        DetectOSCommand getOS = new DetectOSCommand();
         String osName = getOS.osName;
         String colour = "";
         String reset = "";

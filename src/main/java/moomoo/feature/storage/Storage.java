@@ -25,7 +25,6 @@ import java.util.Map;
  * Handles storage and retrieval of the tasks.
  */
 public class Storage {
-    private DecimalFormat df;
     private String budgetFilePath;
     private String scheduleFilePath;
 
@@ -37,7 +36,6 @@ public class Storage {
     public Storage(String budgetFilePath, String scheduleFilePath) {
         this.budgetFilePath = budgetFilePath;
         this.scheduleFilePath = scheduleFilePath;
-        df = new DecimalFormat("#.00");
     }
 
     public Storage() {
@@ -47,7 +45,7 @@ public class Storage {
     /**
      * Creates the directory and file as given by the file path initialized in the constructor.
      */
-    static void createFileAndDirectory(String filePath) throws MooMooException {
+    public static void createFileAndDirectory(String filePath) throws MooMooException {
         try {
             File myNewFile = new File(filePath);
             myNewFile.getParentFile().mkdir();
