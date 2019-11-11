@@ -4,7 +4,7 @@ import exceptions.DukeException;
 import models.project.IProject;
 import models.project.Project;
 import util.factories.ProjectFactory;
-import util.json.JsonConverter;
+import storage.JsonConverter;
 import util.log.ArchDukeLogger;
 
 import java.util.ArrayList;

@@ -155,6 +155,8 @@ Members must be specified using the index of a specific member in a group projec
 The role of a new member can also be changed during the addition, by using the -r flag.
 * Example: `add member -n Thor -r AlienGuy`
 
+=== Task Commands
+
 ==== Add a task to project : `add task`
 Adds a task to the project.
 
@@ -294,13 +296,8 @@ Displays the current month with any dates marked with an X if there is a task th
 === Assignment Commands
 
 ==== Assign/Remove tasks to/from members: `assign task`
-Delegates the task to a member/several members in the group.
-Assignments to the task can be added or removed simultaneously.
-
-* Flags:
-** `-i`: Task index numbers
-** `-to`: Assignee index numbers
-** `-rm`: Unassignee index numbers
+Assigns or unassigns the task to a member or several members in the group.
+Task assignments can be added or removed simultaneously.
 
 [NOTE]
 Multiple tasks may be assigned or unassigned to multiple members in 1 command.
@@ -312,6 +309,11 @@ A task may be assigned to multiple members. The task credit will then be split e
 The keyword `all' may be used after any of the flags to represent all task or member index numbers.
 This allows the user to assign/unassign all tasks to members, or assign/unassign a task to all members.
 
+* Flags:
+** `-i`: Task index numbers
+** `-to`: Assignee index numbers
+** `-rm`: Unassignee index numbers
+
 * Format: `assign task -i TASK_INDEX1 [TASK_INDEX2] [-to MEMBER1_INDEX [MEMBER2_INDEX]] [-rm MEMBER3_INDEX [MEMBER4_INDEX]]`
 * Examples:
 ** `assign task -i 1 -to 3 4`      | assign task 1 to members 3 and 4
@@ -321,12 +323,42 @@ This allows the user to assign/unassign all tasks to members, or assign/unassign
 ** `assign task -i all -to 1 2`    | assign all tasks to members 1 and 2
 ** `assign task -i 1 -rm all`      | unassign task 1 from all members
 
+.Example of assign task command
+image::images/screenshots/assigntask.PNG[]
+
 ==== View task assignments : `view assignments`
 Shows user the task assignments based on certain specifications.
 This allows the user to check which task is assigned to who, and vice versa.
 
 A modifier suffix must be added behind the command to specify the format to display the task assignments.
 The suffix `-m` indicates member index numbers, while `-t` indicates tasks index numbers.
+
+[width="100%",cols="25%,<75%,options="header",]
+|=======================================================================
+|MODIFIER | Display
+|`-m INDEX_NUMBERS` | Shows the list of tasks assigned to the specified members.
+| `-t INDEX_NUMBERS` | Shows the members who are assigned to the specified tasks.
+|=======================================================================
+
+[NOTE]
+The keyword `all` can be used to show the assignments for all members, or all tasks. It is recommended
+to use this keyword if the user would like to get an overview of all the assignments in the project.
+
+* Format: `view assignments MODIFIER`
+* Examples:
+** `view assignments -m all`    | view tasks assigned to all members.
+** `view assignments -m 1 2 3`  | view tasks assigned to members 1, 2 and 3.
+** `view assignments -t all`    | view members assigned to all tasks.
+** `view assignments -t 4 5 6`  | view members assigned to tasks 1, 2 and 3.
+
+In case of confusion, the following are examples that demonstrate the difference between -m and -t,
+and how they can be used to show assignments in different formats.
+
+.`view assignments -t all`
+image::images/screenshots/viewassignmentstall.PNG[]
+
+.`view assignments -m all`
+image::images/screenshots/viewassignmentsmall.PNG[]
 
 ====  View total credits completed by each member : view credits
 Shows all members’ credits, their index number, name, and name of tasks completed.
@@ -338,32 +370,6 @@ Credits are only calculated for tasks which have the “DONE” state.
 [NOTE]
 Credits are equally distributed amongst assigned members.
 image::images/screenshots/viewcredits.png[]
-=== Task Commands
-
-
-
-[width="100%",cols="25%,<75%,options="header",]
-|=======================================================================
-|MODIFIER | Display
-|`-m INDEX_NUMBERS` | Shows the list of tasks assigned to the specified members.
-| `t INDEX_NUMBERS` | Shows the members who are assigned to the specified tasks.
-|=======================================================================
-
-[NOTE]
-The keyword `all` can be used to show the assignments for all members, or all tasks. It is recommended
-to use this keyword if the user would like to get an overview of all the assignments in the project.
-
-* Format: view assignments MODIFIER
-* Examples:
-** `view assignments -m all`    | view tasks assigned to all members.
-** `view assignments -m 1 2 3`  | view tasks assigned to members 1, 2 and 3.
-** `view assignments -t all`    | view members assigned to all tasks.
-** `view assignments -t 4 5 6`  | view members assigned to tasks 1, 2 and 3.
-
-In case of confusion, the following are examples that demonstrate the difference between -m and -t,
-and how they can be used to show assignments in different formats.
-
-//insert screenshots.
 
 === Reminder Commands
 
@@ -461,7 +467,7 @@ A: The application must be installed in the other computer by downloading the sa
 . *Member Commands*
 ... Add members: `add member -n NAME [-i PHONE_NUMBER] [-e EMAIL] [-r ROLE]`
 **** Example: `add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com -r Lead`
-... View members: `view member`
+... View members: `view members`
 ... Edit members: `edit member INDEX [-n NAME] [-i PHONE_NUMBER] [-e EMAIL]`
 **** Example: `edit member 2 -n Jerry Zhang -e zhangjerry@u.nus.edu`
 ... Delete members: `delete member INDEX1 [INDEX2]`
@@ -477,40 +483,49 @@ A: The application must be installed in the other computer by downloading the sa
 ... Delete tasks: `delete task INDEX`
 **** Example: `delete task 3`
 ... View tasks: `view tasks MODIFIER`
-**** Example: `view tasks -state or view task -name`
+**** Example: `view tasks -state done`
+**** Example: `view tasks -name`
+**** Example: `view tasks -priority`
+**** Example: `view tasks -credits`
+**** Example: `view tasks -date`
+**** Example: `view tasks -who EXISTING_MEMBER_NAME`
 ... View task requirements: `view task requirements TASK_INDEX`
-**** Example: `view task requirements 2`
+**** Example: `view task requirements 1`
 ... Edit task requirements: `edit task requirements TASK_INDEX [-r TASK_REQUIREMENT_TO_ADD] [-rm TASK_REQUIREMENT_INDEX_TO_REMOVE]`
-**** Example: `edit task requirements 2 -r do something -r do another thing`
-**** Example: `edit task requirements 2 -rm 1 2 4 -r do something`
+**** Example: `edit task requirements 1 -r Testing -r Documentation`
+**** Example: `edit task requirements 1 -rm 1 2 3 -r Submit`
 ... Agenda of Tasks: `agenda`
 
 . *Assignment Commands*
 ... Assign/Unassign members to tasks: `assign task -i TASK_INDEX1 [TASK_INDEX2] [-to MEMBER1_INDEX [MEMBER2_INDEX]] [-rm MEMBER3_INDEX [MEMBER4_INDEX]]`
-**** Example: `assign task -i 1 -to 2 5 `
-**** Example: `assign task -i 1 2 -to 5 -rm 1`
+**** Example: `assign task -i 1 2 -to 1 2`
+**** Example: `assign task -i 2 4 -to 3 4 5`
+**** Example: `assign task -i 1 -to 5 -rm 2`
+**** Example: `assign task -i 3 -to all`
 ... View assignments: `view assignments MODIFIER`
-**** Example: `view assignments -m all` (show all members tasks)
-**** Example: `view assignments -t 3 4 5` (show members assigned to tasks 3, 4, 5)
+**** Example: `view assignments -m all` (show all members' tasks)
+**** Example: `view assignments -m 1 2` (show tasks of member 1 and 2)
+**** Example: `view assignments -t all` (show all the members assigned to a task)
+**** Example: `view assignments -t 3 4` (show members assigned to tasks 3, 4, 5)
 ... View total credits completed by each member: `view credits`
 
 . *Requirement Commands*
 ... Create reminder: `add reminder -n reminder_NAME [-d TASK_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
 **** Example: `add reminder -n Fix important bug -d 21/09/2019 -l Software Reminder List`
 ... View reminders: `view reminder [by list]`
-**** Example: `view reminder`
-**** Example: `view reminder by list`
-... Delete reminder: `delete reminder INDEX_NUMBER`
-**** Example: `delete reminder 1`
+**** Example: `view reminders`
+**** Example: `view reminders by list`
 ... Edit reminder: `edit reminder INDEX_NUMBER -n REMINDER_NAME [-d REMINDER_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
-**** Example: `edit reminder 1 -n Fix important bug -d 21/09/2019`
+**** Example: `edit reminder 1 -n Fix error -d 21/09/2019`
 ... Mark reminder: `mark reminder INDEX_NUMBER`
 **** Example: `mark reminder 1`
+... Delete reminder: `delete reminder INDEX_NUMBER`
+**** Example: `delete reminder 1`
 
 . *Miscellaneous*
 ... View current details of project: `view`
 ... Edit the name of the current project : `rename PROJECT_NAME`
-**** Example: rename Avengers
+**** Example: rename AvengersAssemble
 ... Report progress : `report` [coming in v2.0]
 ... Exit managing a project: `exit`
 ... Exiting the program from anywhere: `bye`
