@@ -43,7 +43,7 @@ Users can use this app to manage projects faster than a typical mouse/gui driven
 
 == Design
 === Architecture
-image::SoftWareArchitecture.png[]
+image::SoftwareArchitecture.png[]
 
 1. The program enters from TeamManager(currently implemented as core.Duke)
 2. The `Software` consists of 3 main components: `UI` `Logic` `Model`
@@ -87,6 +87,9 @@ image::ModelDiagram.png[]
 5. This methods also allows for easy editing by the user as it is stored in a json notation text file.
 
 === Common
+
+1. Classes used by multiple components are in the `common` package.
+2. The `Common` component contains `DukeException` and `LoggerController`.
 
 == Implementation
 
