@@ -1,4 +1,4 @@
-//@@author e0323290
+package expensetest;//@@author e0323290
 
 import gazeeebo.parser.ExpenseCommandParser;
 import gazeeebo.storage.TriviaStorage;
