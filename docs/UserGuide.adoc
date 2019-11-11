@@ -38,15 +38,19 @@ their usage and their functions.
 ** E.g. -n NAME [-i PHONE_NUMBER] can be used as -n Cynthia -i 91234567 or as -n Cynthia
 
 ==== Basic Flags
-- `-n` indicates a name or string flag
-- `-e` indicates a flag for email
-- `-a` indicates a flag for an address of a member
-- `-i` indicates an integer flag
-- `-t` indicates the flag for adding task names
-- `-d` indicates a flag for a date in the DD/MM/YYYY format
+- `-n` indicates a name or string flag.
+- `-e` indicates a flag for email.
+- `-a` indicates a flag for an address of a member.
+- `-i` indicates an integer flag.
+- `-t` indicates the flag for adding task names.
+- `-d` indicates a flag for a date in the DD/MM/YYYY format.
 - `-p` indicates a flag for task priority, represented in integers.
 - `-c` indicates a flag for the amount of credit awarded for completion of a certain task, represented in integers.
-- `-s` indicates the flag where user can specify the state of the specific task
+- `-s` indicates the flag where user can specify the state of the specific task.
+
+==== Other notes
+- All names (eg. for members, tasks, etc) should not be hyphenated or they will not be recorded properly.
+- Dates are entered in the following format: `dd/mm/yyyy` (eg. 10/11/2019)
 
 
 === Project Commands
@@ -71,6 +75,13 @@ Allows user to manage a project at the specified index. The index refers to the 
 
 [IMPORTANT]
 All Member, Task, Assignment and other commands are only executable after the user has selected a project that he or she wishes to manage.
+
+==== Delete a project : `delete project`
+Allows user to delete a project at the specified index. The index refers to the index number shown in the list of all projects and project details through the command view. Index number is generated using 1-based indexing.
+
+* Format: `delete PROJECT_INDEX`
+** Example: `delete 2`
+
 
 === Member Commands
 
@@ -142,18 +153,6 @@ Members must be specified using the index of a specific member in a group projec
 
 The role of a new member can also be changed during the addition, by using the -r flag.
 * Example: `add member -n Thor -r AlienGuy`
-
-====  View total credits completed by each member : view credits
-Shows all members’ credits, their index number, name, and name of tasks completed.
-* Format: view credits
-
-[NOTE]
-Credits are only calculated for tasks which have the “DONE” state.
-
-[NOTE]
-Credits are equally distributed amongst assigned members.
-
-=== Task Commands
 
 ==== Add a task to project : `add task`
 Adds a task to the project.
@@ -272,7 +271,7 @@ Adds or removes a list of task requirements to a specific task in the current pr
 The flag `-r` indicates a task requirement that can be added to the task
 The flag `-rm`  indicates the index numbers of existing requirements to be removed.
 
-* Format: `edit task requirements TASK_INDEX [-r TASK_REQUIREMENT] [-rm TASK_REQUIREMENT_INDEX]`
+* Format: `edit task requirements TASK_INDEX [-r TASK_REQUIREMENT_TO_ADD] [-rm TASK_REQUIREMENT_INDEX_TO_REMOVE]`
 * Examples:
 ** `edit task requirements 2 -r do something -r do another thing`
 ** `edit task requirements 2 -rm 1 2 4 -r do something`
@@ -280,6 +279,11 @@ The flag `-rm`  indicates the index numbers of existing requirements to be remov
 [NOTE]
 The user may input multiple requirements to be added and multiple requirements to be removed.
 
+==== Show an agenda of tasks that are due within a time period : `agenda`
+Displays the current month with any dates marked with an X if there is a task that is due then, much like a calendar.
+* Format: `agenda`
+
+//insert picture
 
 === Assignment Commands
 
@@ -302,7 +306,7 @@ A task may be assigned to multiple members. The task credit will then be split e
 The keyword `all' may be used after any of the flags to represent all task or member index numbers.
 This allows the user to assign/unassign all tasks to members, or assign/unassign a task to all members.
 
-* Format: `assign task -i TASK_INDEX [-to MEMBER1_INDEX [MEMBER2_INDEX]] [-rm MEMBER3_INDEX [MEMBER4_INDEX]]`
+* Format: `assign task -i TASK_INDEX1 [TASK_INDEX2] [-to MEMBER1_INDEX [MEMBER2_INDEX]] [-rm MEMBER3_INDEX [MEMBER4_INDEX]]`
 * Examples:
 ** `assign task -i 1 -to 3 4`      | assign task 1 to members 3 and 4
 ** `assign task -i 1 -rm 1 2`      | unassign task 1 to members 1 and 2
@@ -316,6 +320,21 @@ Shows user the task assignments based on certain specifications.
 This allows the user to check which task is assigned to who, and vice versa.
 
 A modifier suffix must be added behind the command to specify the format to display the task assignments.
+The suffix `-m` indicates member index numbers, while `-t` indicates tasks index numbers.
+
+====  View total credits completed by each member : view credits
+Shows all members’ credits, their index number, name, and name of tasks completed.
+* Format: view credits
+
+[NOTE]
+Credits are only calculated for tasks which have the “DONE” state.
+
+[NOTE]
+Credits are equally distributed amongst assigned members.
+
+=== Task Commands
+
+
 
 [width="100%",cols="25%,<75%,options="header",]
 |=======================================================================
@@ -335,7 +354,161 @@ to use this keyword if the user would like to get an overview of all the assignm
 ** `view assignments -t all`    | view members assigned to all tasks.
 ** `view assignments -t 4 5 6`  | view members assigned to tasks 1, 2 and 3.
 
+In case of confusion, the following are examples that demonstrate the difference between -m and -t,
+and how they can be used to show assignments in different formats.
 
+//insert screenshots.
+
+=== Reminder Commands
+
+==== Create reminder: add reminder
+Adds a reminder to the project.
+The due date may or may not need to be added depending on the nature of the reminder.
+The input for date is in the dd/mm/yyyy format. (E.g. 21/09/2019)
+
+* Format: `add reminder -n reminder_NAME [-d TASK_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
+* Examples:
+** `add task -n Fix important bug -d 21/09/2019 -l Software Reminder List`
+** `add reminder -n Do activate patch -r need to check internet connection -d 10/10/2000 -l System`
+
+//insert screenshot
+==== View reminder: `view reminders`
+View all the of reminders information in the project. Information such as the state of the reminder, the category, remarks and the deadline.
+
+//Dillen can elaborate one what u mean by "by list'?
+
+Format: `view reminders [by list]`
+Example: `view reminders [by list]`
+
+==== Delete reminder: delete reminder
+Deletes a reminder from the project. The index number is based on the list given by the view  reminder command.
+
+* Format: `delete reminder INDEX_NUMBER`
+** Example: `delete reminder 1`
+
+==== Edit reminder: edit reminder
+Edit the details of the  reminder in the project: reminder name, remarks, category and due date.
+
+Only fields that need to be edited must be filled in. Fields that are not filled will not be changed.
+
+* Format: `edit reminder INDEX_NUMBER -n REMINDER_NAME [-d REMINDER_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
+** Example: `edit reminder 1 -n Fix important bug -d 21/09/2019`
+** `edit reminder 1 -n Apply critical patch -r need to understand some stuff -d 10/10/2000 -l Software`
+
+==== Mark status of the reminder: `[un]mark reminder`
+Mark the status of the reminder in the project.
+
+* Format: `mark reminder INDEX_NUMBER`
+** Example: `mark reminder 1`
+
+=== Miscellaneous Commands
+
+==== View current details of project: `view`
+View the current details about the project that is being managed.
+
+* Format: `view`
+
+==== Edit the name of the current project : rename
+Allows user to rename the project currently being managed.
+* Format: rename PROJECT_NAME
+** Example: rename Avengers
+
+==== Report progress : report [coming in v2.0]
+Reports the progress of all projects, and the contributions of each member (the credit each member earned,
+the dates of tasks completed, whether the tasks were overdue).
+
+* Format: `report`
+
+==== Exit managing a project: `exit`
+Exits the current project being managed, allowing the user to manage other projects.
+
+* Format: `exit`
+
+==== Exiting the program from anywhere: `bye`
+Exits the program, regardless of what the user was doing at the current point of application runtime. User will be able to exit the program even when they have selected a project, or when they have selected a task.
+
+* Format: `bye`
+
+==== Shows list of available commands: help
+Displays a list of commands that are available for use at the current point of application
+
+* Format: `help`
+
+
+== FAQ
+
+Q: How can I transfer data from one workstation to another?
+A: The application must be installed in the other computer by downloading the same version of the .jar file used in the original work environment. You may then copy the data file from the original work environment and overwrite the empty data file in the new work environment.
+
+== Command Summary
+
+*Project Commands*
+
+* Create project: `create PROJECT_NAME`
+** Example: `create Infinity Gauntlet`
+* View projects: `list`
+* Delete project: `delete PROJECT_INDEX`
+** Example: `delete 1`
+* Manage project: `manage PROJECT_INDEX`
+** Example: `manage 2`
+
+. *Member Commands*
+... Add members: `add member -n NAME [-i PHONE_NUMBER] [-e EMAIL] [-r ROLE]`
+**** Example: `add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com -r Lead`
+... View members: `view member`
+... Edit members: `edit member INDEX [-n NAME] [-i PHONE_NUMBER] [-e EMAIL]`
+**** Example: `edit member 2 -n Jerry Zhang -e zhangjerry@u.nus.edu`
+... Delete members: `delete member INDEX1 [INDEX2]`
+**** Example: `delete member 3 4`
+... Give roles for members: `role INDEX -n ROLE_NAME`
+**** Example: `role 2 -n Badguy`
+
+. *Task Commands*
+... Add task: `add task -t TASK_NAME -p TASK_PRIORITY [-d TASK_DUEDATE-(dd/mm/yyyy)] -c TASK_CREDIT [-s STATE] [-r TASK_REQUIREMENT1] [-r TASK_REQUIREMENT2]`
+**** Example: `add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -r do something -r do another thing -r do another thing`
+... Edit task: `edit task TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE-(dd/mm/yyyy)] [-c TASK_CREDIT] [-s TASK_STATE]`
+**** Example: `edit task 12 -p 5 -c 80`
+... Delete tasks: `delete task INDEX`
+**** Example: `delete task 3`
+... View tasks: `view tasks MODIFIER`
+**** Example: `view tasks -state or view task -name`
+... View task requirements: `view task requirements TASK_INDEX`
+**** Example: `view task requirements 2`
+... Edit task requirements: `edit task requirements TASK_INDEX [-r TASK_REQUIREMENT_TO_ADD] [-rm TASK_REQUIREMENT_INDEX_TO_REMOVE]`
+**** Example: `edit task requirements 2 -r do something -r do another thing`
+**** Example: `edit task requirements 2 -rm 1 2 4 -r do something`
+... Agenda of Tasks: `agenda`
+
+. *Assignment Commands*
+... Assign/Unassign members to tasks: `assign task -i TASK_INDEX1 [TASK_INDEX2] [-to MEMBER1_INDEX [MEMBER2_INDEX]] [-rm MEMBER3_INDEX [MEMBER4_INDEX]]`
+**** Example: `assign task -i 1 -to 2 5 `
+**** Example: `assign task -i 1 2 -to 5 -rm 1`
+... View assignments: `view assignments MODIFIER`
+**** Example: `view assignments -m all` (show all members tasks)
+**** Example: `view assignments -t 3 4 5` (show members assigned to tasks 3, 4, 5)
+... View total credits completed by each member: `view credits`
+
+. *Requirement Commands*
+... Create reminder: `add reminder -n reminder_NAME [-d TASK_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
+**** Example: `add reminder -n Fix important bug -d 21/09/2019 -l Software Reminder List`
+... View reminders: `view reminder [by list]`
+**** Example: `view reminder`
+**** Example: `view reminder by list`
+... Delete reminder: `delete reminder INDEX_NUMBER`
+**** Example: `delete reminder 1`
+... Edit reminder: `edit reminder INDEX_NUMBER -n REMINDER_NAME [-d REMINDER_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]`
+**** Example: `edit reminder 1 -n Fix important bug -d 21/09/2019`
+... Mark reminder: `mark reminder INDEX_NUMBER`
+**** Example: `mark reminder 1`
+
+. *Miscellaneous*
+... View current details of project: `view`
+... Edit the name of the current project : `rename PROJECT_NAME`
+**** Example: rename Avengers
+... Report progress : `report` [coming in v2.0]
+... Exit managing a project: `exit`
+... Exiting the program from anywhere: `bye`
+... Display help: `help`
 
 
 
