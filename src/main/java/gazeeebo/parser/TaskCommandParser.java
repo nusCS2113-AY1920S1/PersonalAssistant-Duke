@@ -34,7 +34,7 @@ import gazeeebo.commands.schedule.ScheduleDailyCommand;
 import gazeeebo.commands.schedule.ScheduleMonthlyCommand;
 import gazeeebo.commands.schedule.ScheduleWeeklyCommand;
 import gazeeebo.exception.DukeException;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;

@@ -20,6 +20,10 @@ import java.util.Comparator;
 public class Ui {
     public String fullCommand;
 
+    /**
+     * This method reads in user input line by line.
+     * @throws IOException if input is wrong.
+     */
     public void readCommand() throws IOException {
         BufferedReader reader =
                 new BufferedReader(new InputStreamReader(System.in));
@@ -53,8 +57,8 @@ public class Ui {
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
                 System.out.println("Today is "
-                        + a.format(DateTimeFormatter.
-                        ofLocalizedDate(FormatStyle.FULL)));
+                        + a.format(DateTimeFormatter
+                        .ofLocalizedDate(FormatStyle.FULL)));
                 break;
 
             } else {
@@ -94,7 +98,7 @@ public class Ui {
     /**
      * Reminder for upcoming tasks.
      * @param list Task list
-     * @throws ParseException
+     * @throws ParseException if input cannot be correctly parsed.
      */
     public void upcomingTask(final ArrayList<Task> list) throws ParseException {
         ArrayList<Deadline> deadlineList = new ArrayList<Deadline>();
@@ -134,10 +138,9 @@ public class Ui {
                 undoneNumber++;
             }
         }
-//        System.out.println(undoneNumber+" "+doneNumber);
         double progressPercentageTemp = (doneNumber * 1.00 / (doneNumber + undoneNumber) * 1.00) * 100.000;
         int progressPercentage = (int) progressPercentageTemp;
-//        System.out.println(progressPercentageTemp+" "+progressPercentage);
+
         StringBuilder progressivebar = new StringBuilder();
         for (int i = 0; i < progressPercentage / 2; i++) {
             progressivebar.append("/");
@@ -155,6 +158,7 @@ public class Ui {
     public static void showDeadlineDateFormatError() {
         System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss format");
     }
+
     /** Incorrect date input.*/
     public static void showEventDateFormatError() {
         System.out.println("Date Time has to be in "
@@ -168,13 +172,14 @@ public class Ui {
     public void showSystemTerminateMessage() {
         System.err.println("System terminating without an input");
     }
+
     public void showErrorMessage(final Exception e) {
         System.out.println(e.getMessage());
     }
 
     public void showDontKnowErrorMessage() {
-        System.out.println("OOPS!!! I'm sorry, " +
-                "but I don't know what that means :-(");
+        System.out.println("OOPS!!! I'm sorry, "
+                + "but I don't know what that means :-(");
     }
 
 }

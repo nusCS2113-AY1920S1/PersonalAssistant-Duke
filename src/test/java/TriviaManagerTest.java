@@ -1,8 +1,9 @@
-//@@ author mononokehime14
+//@@author mononokehime14
 
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.storage.TriviaStorage;
+import gazeeebo.triviaManager.TriviaManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,8 +35,9 @@ public class TriviaManagerTest {
     public void testLearnInput() throws IOException {
         String testinput = "Love Qinhuai River";
         Storage storage = new Storage();
-        TriviaManager triviaManager = new TriviaManager(storage);
-        triviaManager.learnInput(testinput,storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
+        triviaManager.learnInput(testinput,triviaStorage);
         assertEquals("Love Qinhuai River",triviaManager.CommandMemory.get("Love").get(0));
     }
 
@@ -43,8 +45,9 @@ public class TriviaManagerTest {
     public void testShowPossibleInput() throws IOException, DukeException {
         String testinput = "Love Qinhuai River";
         Storage storage = new Storage();
-        TriviaManager triviaManager= new TriviaManager(storage);
-        triviaManager.learnInput(testinput,storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager= new TriviaManager(triviaStorage);
+        triviaManager.learnInput(testinput,triviaStorage);
         triviaManager.showPossibleInputs("Love");
 //        System.out.print("Could it be one of the below inputs?\n");
 //        System.out.print(triviaManager.CommandMemory.get("Love"));

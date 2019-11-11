@@ -1,7 +1,8 @@
 //@@author JasonLeeWeiHern
 package capCalculatorTest;
 
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.storage.TriviaStorage;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
 import gazeeebo.parser.CapCommandParser;
@@ -43,7 +44,8 @@ public class MainCapCalculatorTest {
 
     @Test
     void testMainESCCommand() throws IOException, ParseException, DukeException {
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         String moduleCode = "", grade = "";
         int moduleCredit = 0;
         CapCommandParser test = new CapCommandParser(moduleCode, moduleCredit, grade);
@@ -81,7 +83,8 @@ public class MainCapCalculatorTest {
 
     @Test
     void testMainNumCommand() throws IOException, ParseException, DukeException {
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         String moduleCode = "", grade = "";
         int moduleCredit = 0;
         CapCommandParser test = new CapCommandParser(moduleCode, moduleCredit, grade);

@@ -1,6 +1,7 @@
 //@@author yueyuu
 
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.storage.TriviaStorage;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.tasks.EventCommand;
 import gazeeebo.exception.DukeException;
@@ -44,7 +45,8 @@ class EventCommandTest {
         //start time of clashing events are the same
         Ui ui = new Ui();
         Storage storage = new Storage();
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         ui.fullCommand = "event sleep/at 2019-12-12 03:03:03-04:04:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -70,7 +72,8 @@ class EventCommandTest {
         //start time of new event being added is earlier than old event but clash still occurs
         Ui ui = new Ui();
         Storage storage = new Storage();
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         ui.fullCommand = "event sleep/at 2019-12-12 02:03:03-03:10:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -95,7 +98,8 @@ class EventCommandTest {
         //start time of new event being added is after that of old event but clash still occurs
         Ui ui = new Ui();
         Storage storage = new Storage();
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         ui.fullCommand = "event sleep/at 2019-12-12 03:10:03-03:50:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -119,7 +123,8 @@ class EventCommandTest {
     void execute_scheduleAnomalies_noClash() throws IOException {
         Ui ui = new Ui();
         Storage storage = new Storage();
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         ui.fullCommand = "event sleep/at 2019-12-12 12:03:03-14:10:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
