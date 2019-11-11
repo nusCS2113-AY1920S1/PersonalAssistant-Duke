@@ -428,7 +428,7 @@ public class Process {
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     :( OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
-            ui.exceptionMessage("     :( OOPS!!! There is no project with that name yet, please add the project first!");
+            ui.exceptionMessage("     :( OOPS!!! There is no project with that name, please add the project first!");
         } catch (NumberFormatException e) {
             ui.exceptionMessage("     :( OOPS!!! The amount of fund must be a positive number and must not be empty!");
         }
@@ -965,7 +965,7 @@ public class Process {
             ui.exceptionMessage("     :( OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
             ui.exceptionMessage("     :( OOPS!!! There is no payee with that name yet, please add the payee first!");
-        }catch (AlphaNUSException e) {
+        } catch (AlphaNUSException e) {
             ui.exceptionMessage("     :( OOPS!!! Please input the correct command format!"
                     + "The correct format is [delete payee p/PAYEE_NAME]");
         } catch (IllegalArgumentException e) {
@@ -1176,7 +1176,7 @@ public class Process {
             ui.exceptionMessage("     :( OOPS!!! Wrong input error!"
                     + "The correct input format is: show budget pr/PROJECT_NAME");
         } catch (NullPointerException e) {
-            ui.exceptionMessage("     :( OOPS!!! There is no project with that name yet, please add the project first!");
+            ui.exceptionMessage("     :( OOPS!!! There is no project with that name, please add the project first!");
         }
     }
     //===========================* Command History *================================

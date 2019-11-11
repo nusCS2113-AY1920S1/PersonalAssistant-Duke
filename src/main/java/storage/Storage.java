@@ -368,7 +368,7 @@ public class Storage {
         return fund;
     }
 
-//@@author lijiayu980606
+    //@@author lijiayu980606
     /**
      * Read Fund from local storage and return it.
      * @return Fund stored in local storage.
@@ -597,7 +597,7 @@ public class Storage {
         return fund;
     }
 
-//@@author lijiayu980606
+    //@@author lijiayu980606
     /**
      * Reads array list of tasks from local storage and returns it.
      * @return Tasklist stored in local storage.

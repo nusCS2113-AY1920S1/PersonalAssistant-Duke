@@ -382,6 +382,7 @@ public class Ui {
         System.out.print("       " + task.giveTask() + "\n");
         System.out.print(line);
     }
+
     //@@author
     /**
      * Prints message to indicate a payee has been edited.
@@ -448,7 +449,8 @@ public class Ui {
                         + " Budget spent: " + projectManager.projectmap.get(currProjectName).getSpending() + "\n"
                         + " Budget remaining: " + projectManager.projectmap.get(currProjectName).getRemaining() + "\n");
     }
-//@@author
+
+    //@@author
     /**
      * Prints message to indicate a Payment being added to a certain Payee.
      * 
@@ -476,7 +478,8 @@ public class Ui {
         payee.printPayee();
         System.out.println("\tProject " + payee.project + " now has " + payeesize + " payee(s).");
     }
-//@@author lijiayu980606
+
+    //@@author lijiayu980606
     /**
      * Prints message to indicate a the total amount paid by a payee in a certain project.
      * @param payee name of the payee.
@@ -491,7 +494,7 @@ public class Ui {
         System.out.print(line);
     }
 
-//@@author
+    //@@author
     /**
      * Prints message to indicate a Payment being deleted.
      * 
@@ -520,7 +523,7 @@ public class Ui {
         exceptionMessage("\tMaybe you meant: " + replacement);
     }
 
-//@@author lijiayu980606
+    //@@author lijiayu980606
     /**
      * Prints message of adding a fund to all projects.
      * @param fund the fund for all projects.
@@ -596,7 +599,7 @@ public class Ui {
      * Prints out the statement of accounts.
      * @param managermap managermap containing Payee and Payments information.
      */
-//@@author
+    //@@author
     public void generateStatementofAccounts(HashMap<String, Payee> managermap) {
         System.out.print("Item\tExpense\n");
         for (Payee payee : managermap.values()) {

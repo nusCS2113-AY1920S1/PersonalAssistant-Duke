@@ -67,9 +67,14 @@ public class TaskList {
     }
 
     //@@author lijiayu980606
-    public  void loadBackup(TaskList taskList){
+
+    /**
+     * load the pre stored tasklist from the json file.
+     * @param taskList return a pre stored tasklist
+     */
+    public  void loadBackup(TaskList taskList) {
         this.tasklist.clear();
-        for (Task t:taskList.tasklist){
+        for (Task t:taskList.tasklist) {
             this.tasklist.add(t);
         }
     }
