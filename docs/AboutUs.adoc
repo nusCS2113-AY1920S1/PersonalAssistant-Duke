@@ -33,10 +33,10 @@ Responsibilities: Implementation of Clash Handling, Architecture of MisterMusik,
 === Yen Pei Chih
 image::yenpeichih.png[width="150", align="left"]
 {empty}[https://github.com/yenpeichih[github]]
-{empty}[https://github.com/yenpeichih[portfolio]]
+{empty}[https://github.com/yenpeichih/main/blob/master/docs/%5BAY1920S1-CS2113T-F11-4%5D%5BYen%20Pei%20Chih%5DPPP.pdf[portfolio]]
 
 Role: Developer
-Responsibilities: Releases Management, Implementation of Goal Management, Documentation
+Responsibilities: Releases Management, Implementation of Goal Management and Past Event Management, Documentation
 
 '''
 
