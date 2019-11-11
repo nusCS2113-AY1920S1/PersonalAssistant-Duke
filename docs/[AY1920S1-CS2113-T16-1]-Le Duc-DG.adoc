@@ -32,6 +32,10 @@ The following class diagram will represent the interaction between all classes w
 
 image::AllClassDiagram.png[width="1000"]
 
+The following class diagram represents in details the abstract class `Command` with all its inherited concrete class.
+
+image::ClassDiagramCommand.png[width="2000"]
+
 
 == Implementation
 
@@ -120,20 +124,20 @@ As these commands relate to the modification of tasks, each command need to writ
 When rescheduling an event, two dates can’t clash. This verification is done with the verifyConflictDate method which is
 in the TaskList class. Indeed, all task dates are needed to verify if there is a conflict. So, this allows to improve the cohesion.
 
-image::SequenceDiagramReschedule.png[width="1000", align="left"]
+image::SequenceDiagramReschedule.png[width="1000", align="center"]
 
 ==== *Snooze an homework task*
 
 Snooze is applicable to a homework task. The snooze time is fixed at 30 minutes( it could be easily changed in the snoozeLocalDateTime() method of Date.
 
-image::SequenceDiagramSnooze.png[width="1000", align="left"]
+image::SequenceDiagramSnooze.png[width="1000", align="center"]
 
 ==== *Postpone an homework task*
 
 Postpone is also only applicable to a homework task. The new date should be after the old one.
 This is verified inside the execution of the postponeCommand.
 
-image::SequenceDiagramPostpone.png[width="1000", align="left"]
+image::SequenceDiagramPostpone.png[width="1000", align="center"]
 
 ==== *Edit a task*
 
@@ -148,7 +152,7 @@ image::SequenceDiagramPostpone.png[width="1000", align="left"]
 
 The sequence diagram shows the interactions between different classes when the user want to edit the description an homework or event task with a multi-steps edit command.
 
-image::SequenceDiagramEditMultiSteps.png[width="1000", align="left"]
+image::SequenceDiagramEditMultiSteps.png[width="1000", align="center"]
 
 
 * For one shot command:
@@ -158,7 +162,7 @@ image::SequenceDiagramEditMultiSteps.png[width="1000", align="left"]
 
 The sequence diagram shows the interactions between different classes when the user input `edit 2 description DESCRIPTION`.
 
-image::SequenceDiagramEditOneShot.png[width="1000", align="left"]
+image::SequenceDiagramEditOneShot.png[width="1000", align="center"]
 
 ==== *Prioritize a task*
 
@@ -167,7 +171,7 @@ This command allows the user to change the priority of a task.
 
 The sequence diagram show the interactions between different classes when the user wants to change to priority of the first task to 2.
 
-image::SequenceDiagramPrioritize.png[width="1000", align="left"]
+image::SequenceDiagramPrioritize.png[width="1000", align="center"]
 
 ==== Consideration
 
