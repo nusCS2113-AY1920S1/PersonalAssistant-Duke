@@ -1,5 +1,6 @@
 package wallet.logic.command;
 
+import wallet.exception.WrongParameterFormat;
 import wallet.model.Wallet;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
@@ -67,8 +68,7 @@ public class EditCommand extends Command {
             try {
                 currentExpense = wallet.getExpenseList().getExpense(index);
             } catch (IndexOutOfBoundsException ex) {
-                Ui.printError(MESSAGE_ERROR_ID_DOES_NOT_EXIST);
-                return false;
+                throw new WrongParameterFormat(MESSAGE_ERROR_ID_DOES_NOT_EXIST);
             }
             if (expense.getRecFrequency() != null) {
                 currentExpense.setRecurring(expense.isRecurring());

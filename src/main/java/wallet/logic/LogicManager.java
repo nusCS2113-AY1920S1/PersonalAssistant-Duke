@@ -24,9 +24,6 @@ import wallet.ui.Ui;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-//save wallet state first before doing command
-//if my command modifies stuff, then i add the wallet object into the list
-
 /**
  * The LogicManager Class handles the logic of Wallet.
  */
@@ -63,7 +60,6 @@ public class LogicManager {
         this.walletList = new WalletList();
         walletList.getWalletList().add(wallet);
         this.reminder = new Reminder();
-
     }
 
     /**
@@ -107,7 +103,6 @@ public class LogicManager {
                         walletList.setState(state);
                     }
                 }
-
                 isExit = command.execute(walletList.getWalletList().get(walletList.getState()));
 
                 ExpenseParser.updateRecurringRecords(walletList.getWalletList().get(walletList.getState()));
@@ -121,7 +116,7 @@ public class LogicManager {
         } catch (WrongDateTimeFormat | WrongParameterFormat | InsufficientParameters | ParseException err) {
             Ui.printError(err.toString());
         } catch (Exception e) {
-            Ui.printError("Error in command!");
+            Ui.printError(MESSAGE_ERROR_COMMAND);
         }
         return isExit;
         //@@author
