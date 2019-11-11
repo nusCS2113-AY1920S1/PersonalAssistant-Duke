@@ -1240,7 +1240,7 @@ endif::[]
 
 Edits the goal of `BTO for Tampines HDB` to a new date of `11/11/2021` and amount to `$27500`.
 
-.Successful edition of goal date and amount after using `/edit /goals /by /amount `
+.Successful edition of goal date and amount after using `/edit /goals /by /amount`
 ifdef::env-github[]
 image::GoalsEditDate.png[width="800"]
 endif::[]

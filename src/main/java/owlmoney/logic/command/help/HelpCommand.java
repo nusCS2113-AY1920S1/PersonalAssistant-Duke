@@ -31,7 +31,7 @@ public class HelpCommand extends Command {
     private static final String PRINT_MOREINFO = NEWLINE + "====================" + NEWLINE
             + "For more information, please visit our User Guide on our Github at:"
             + NEWLINE
-            + "https://bit.ly/OwlMoney"
+            + "https://bit.ly/MyOwlMoney"
             + NEWLINE
             + "===================="
             + NEWLINE;

@@ -122,4 +122,3 @@ class Main {
         new Main().run();
     }
 }
-
