@@ -26,7 +26,7 @@ import javafx.util.Callback;
 /**
  * Holds the timeline elements, handles the processing of obtaining and updating the elements of the timeline.
  */
-class TimelineWindow extends UiComponent<Region> {
+public class TimelineWindow extends UiComponent<Region> {
     @FXML
     private AnchorPane backgroundOfTimeline;
     @FXML
@@ -250,6 +250,7 @@ class TimelineWindow extends UiComponent<Region> {
             todayLabel.setVisible(true);
         } else {
             requiredSundayDate = firstSundayOfSemester.plusDays(chosenWeek * WEEK);
+
             // Only displays the today highlight label if you are in the current week.
             if (requiredSundayDate.isEqual(LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday)))) {
                 todayLabel.setVisible(true);

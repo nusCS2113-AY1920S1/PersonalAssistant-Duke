@@ -56,11 +56,11 @@ public class UiMessageHandler {
 
     private static String outputForGUI = null;
 
-    static String getOutputForGui() {
+    public static String getOutputForGui() {
         return outputForGUI;
     }
 
-    static String printGreeting() {
+    public static String printGreeting() {
         return CHRONOLOGER_WELCOME_MESSAGE;
     }
 

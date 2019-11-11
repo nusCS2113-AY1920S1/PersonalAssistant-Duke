@@ -1,3 +1,7 @@
+import chronologer.command.Command;
+import chronologer.command.ThemeCommand;
+import chronologer.exception.ChronologerException;
+import chronologer.ui.UiMessageHandler;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,7 +23,9 @@ class ThemeTest {
     private static TaskList testThemeChange;
     private static ObservableList<Integer> test;
 
-
+    /**
+     * Sets up the required components before the test is done.
+     */
     @BeforeAll
     public static void setup() {
         testTheme = new ArrayList<>();
@@ -46,5 +52,13 @@ class ThemeTest {
     public void testThemeRepeat() {
         String messageToUser = testThemeChange.updateTheme(1);
         Assertions.assertEquals("Theme cannot be changed!", messageToUser);
+    }
+
+    @Test
+    @Order(4)
+    public void testThemeCommand() throws ChronologerException {
+        Command theme = new ThemeCommand(0);
+        theme.execute(testThemeChange, null, null);
+        Assertions.assertEquals("Theme changed!", UiMessageHandler.getOutputForGui());
     }
 }

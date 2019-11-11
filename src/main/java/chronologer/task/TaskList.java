@@ -1,14 +1,16 @@
 package chronologer.task;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import chronologer.ui.UiMessageHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -26,11 +28,27 @@ public class TaskList {
     private static final String DEADLINE_TIMING_PREFIX = "D: ";
     private static final String START_TIME_PREFIX = "S: ";
     private static final String END_TIME_PREFIX = "E: ";
+    private static final int CURRENT_WEEK_INDICATOR = -1;
+    private static final int DARK_MODE = 0;
+    private static final int THEME_SETTING = 0;
+    private static final int WEEK_SETTING = 1;
+
+    private static final int WEEK = 7;
+    private static final int AUGUST = 8;
+    private static final int FIRST = 1;
+    private static final int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+    private static final LocalDate firstDay = LocalDate.of(currentYear, AUGUST, FIRST);
+    private static final LocalDate firstMondayOfSemester =
+        firstDay.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+    private static final LocalDate firstSundayOfSemester =
+        firstMondayOfSemester.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+
     private static int previousTheme = 0;
     private static int previousWeek = -1;
     private ArrayList<Task> listOfTasks;
     private ObservableList<Task> observableListOfTasks;
-    private ObservableList<Integer> currentSetting = FXCollections.observableArrayList(0,-1);
+    private ObservableList<Integer> currentSetting =
+        FXCollections.observableArrayList(DARK_MODE, CURRENT_WEEK_INDICATOR);
 
     public TaskList(ArrayList<Task> listOfTasks) {
         this.listOfTasks = listOfTasks;
@@ -275,7 +293,7 @@ public class TaskList {
 
     private boolean isAnEventBeforeDeadline(Task task, LocalDateTime deadlineDate) {
         return task.getClass() == Event.class && task.startDate.isBefore(deadlineDate)
-                && task.endDate.isAfter(LocalDateTime.now());
+            && task.endDate.isAfter(LocalDateTime.now());
     }
 
     //@@author E0310898
@@ -422,8 +440,8 @@ public class TaskList {
     public String updateTheme(int choiceOfTheme) {
         String messageToUser;
         if (choiceOfTheme != previousTheme) {
-            currentSetting.remove(0);
-            currentSetting.add(0, choiceOfTheme);
+            currentSetting.remove(THEME_SETTING);
+            currentSetting.add(THEME_SETTING, choiceOfTheme);
             previousTheme = choiceOfTheme;
             messageToUser = "Theme changed!";
         } else {
@@ -438,9 +456,14 @@ public class TaskList {
      */
     public String updateWeek(int choiceOfWeek) {
         String messageToUser;
+        if (LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
+            .isEqual(firstSundayOfSemester.plusDays(choiceOfWeek * WEEK))) {
+
+            choiceOfWeek = CURRENT_WEEK_INDICATOR;
+        }
         if (choiceOfWeek != previousWeek) {
-            currentSetting.remove(1);
-            currentSetting.add(1, choiceOfWeek);
+            currentSetting.remove(WEEK_SETTING);
+            currentSetting.add(WEEK_SETTING, choiceOfWeek);
             previousWeek = choiceOfWeek;
             messageToUser = "Week being viewed has been changed!";
         } else {

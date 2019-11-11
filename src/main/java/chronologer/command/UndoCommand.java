@@ -26,6 +26,6 @@ public class UndoCommand extends Command {
         tasks.updateListOfTasks(history.undo());
         tasks.updateGui(null);
         storage.saveFile(tasks.getTasks());
-        UiMessageHandler.outputMessage("undo successful");
+        UiMessageHandler.outputMessage("Undo successful!");
     }
 }

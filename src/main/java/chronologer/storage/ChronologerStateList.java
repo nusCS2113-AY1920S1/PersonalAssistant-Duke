@@ -38,7 +38,7 @@ public class ChronologerStateList implements Serializable {
     }
 
     /**
-     * Function to store the current state based on the user's choice.
+     * Stores the current state based on the user's choice.
      */
     public void storeVersion(ArrayList<Task> listToStore, int version) throws ChronologerException {
         switch (version) {
@@ -60,7 +60,7 @@ public class ChronologerStateList implements Serializable {
     }
 
     /**
-     * Function to restore from the given state based on the user;s choice.
+     * Restores from the given state based on the user;s choice.
      */
     public ArrayList<Task> restoreVersion(ArrayList<Task> currentVersion, int version)
         throws ChronologerException {
@@ -90,18 +90,18 @@ public class ChronologerStateList implements Serializable {
     }
 
     /**
-     * Function to store the current state.
+     * Stores the current state.
      */
     public void addState(ArrayList<Task> listToStore) {
         chronologerUndoStack.push(SerializationUtils.clone(listToStore));
     }
 
     /**
-     * Function to undo to previous state.
+     * Performs a undo to change to the previous state.
      */
     public ArrayList<Task> undo() throws ChronologerException {
         ArrayList<Task> toReturn;
-        if (chronologerUndoStack.size() <= 1) {
+        if (checkUndoSizeInvalid()) {
             throw new ChronologerException(ChronologerException.undoLimitHit());
         } else {
             chronologerRedoStack.push(chronologerUndoStack.pop());
@@ -111,16 +111,30 @@ public class ChronologerStateList implements Serializable {
     }
 
     /**
-     * Function to redo to a previous state that was undone.
+     * Performs a redo to change to a previous state that was undone.
      */
     public ArrayList<Task> redo() throws ChronologerException {
         ArrayList<Task> toReturn;
-        if (chronologerRedoStack.size() == 0) {
+        if (checkRedoSizeInvalid()) {
             throw new ChronologerException(ChronologerException.redoLimitHit());
         } else {
             toReturn = (ArrayList<Task>) chronologerRedoStack.pop();
             chronologerUndoStack.push(SerializationUtils.clone(toReturn));
         }
         return (SerializationUtils.clone(toReturn));
+    }
+
+    /**
+     * Function to determine if a redo can be performed.
+     */
+    private boolean checkRedoSizeInvalid() {
+        return chronologerRedoStack.size() == 0;
+    }
+
+    /**
+     * Function to determine if a undo can be performed.
+     */
+    private boolean checkUndoSizeInvalid() {
+        return chronologerUndoStack.size() <= 1;
     }
 }
