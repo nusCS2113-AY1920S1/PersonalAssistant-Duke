@@ -1,33 +1,29 @@
 @startuml
-participant "Parser Logic"
-participant ":ArgCommand"
-participant ":ArgSpec"
+actor User
 
-activate "Parser Logic"
-activate ":ArgSpec"
-"Parser Logic" -> ":ArgCommand" : Construct
-activate ":ArgCommand"
+activate ":CommandSpec"
+activate ":CommandWindow"
+activate ":Parser"
+activate ":Executor"
+activate ":CommandSpec"
 
-"Parser Logic" -> ":ArgCommand" : Request Specification
-":ArgCommand" -> ":ArgSpec" : Get Specification
-":ArgCommand" <-- ":ArgSpec" : Return Specification
-"Parser Logic" <-- ":ArgCommand" : Return Specification
+User -> ":CommandWindow" : Provide input
+":CommandWindow" -> ":Parser" : parse()
+activate ":Parser"
+":Parser" -> ":Command" : Commands.getCommand(input, Context)
+activate ":Command"
+deactivate ":Parser"
+":Parser" <-- ":Command" : Provide parameters (if ArgCommand)
+note right : Only if this is an ArgCommand
+activate ":Parser"
+":Parser" -> ":Parser" : ArgParser.parseArgument(ArgCommand, input)
+":Parser" -> ":Command" : Parse ArgCommand
+":CommandWindow" <-- ":Command" : Complete parsing
+deactivate ":Parser"
 
-activate "Parser Logic"
-"Parser Logic" -> "Parser Logic" : Parse
-"Parser Logic" -> ":ArgCommand" : Load Parameters
-"Parser Logic" -> ":ArgCommand" : execute()
-deactivate "Parser Logic"
-
-":ArgCommand" -> ":ArgSpec" : executeWithCmd()
-note right
-  This provides ArgSpec with a
-  reference to ArgCommand, to 
-  allow it to access switch 
-  and argument values
-end note
-activate ":ArgSpec"
-":ArgSpec" ->] : execute()
-deactivate ":ArgSpec"
-destroy ":ArgCommand"
+":CommandWindow" -> ":Executor" : execute()
+":Executor" -> ":Command" : execute()
+":Command" -> ":CommandSpec" : execute()
+User <-- ":CommandSpec" : Provide feedback
+destroy ":Command"
 @enduml

@@ -70,13 +70,19 @@ As mentioned, the UI is made up of a `MainWindow` that houses various UI element
 === Parser Logic [JOHN CUTHBERT KHOO TENG FONG]
 image::john1.png[]
 
-This class diagram describes the relationships between the various core classes involved in parsing the user's input into `Command` s. The first word (delimited by a space or newline) of the user's input is the _command name_. All commands extend the `Command` abstract class, which provides enough functionality for basic commands consisting of a single word. The operation of the `Command` is specified in the associated `CommandSpec` singleton, via the `execute` method. 
+This class diagram describes the relationships between the various core classes involved in parsing the user's input into `Command` s. The two highest-level components are the `Parser` and the `Executor`, both members of the `CommandWindow`. They begin parsing when the user enters some input through the `CommandWindow`.
 
-The mapping from the command name to the `CommandSpec` should be created in the `Commands` class, which is loaded by the default `Parser` constructor. A `Parser` can also be constructed with a subclass of `Commands` to specify a different set of commands. The `Parser` will supply the first word in the user's input, and the `context` field in the `DukeCore` instance, to the `getCommand()` method in `Commands`. 
+The first word (delimited by a space or newline) of the user's input is the _command name_. All commands extend the `Command` abstract class, which provides enough functionality for basic commands consisting of a single word. The operation of the `Command` is specified in the associated `CommandSpec` singleton, via the `execute` method. 
+
+The mapping from the command name to the `CommandSpec` should be created in the `Commands` class, which is loaded by the default `Parser` constructor. A `Parser` can also be constructed with a subclass of `Commands` to specify a different set of commands. The `Parser` will supply the command name and the `context` field in the `DukeCore` instance to the `getCommand()` method in `Commands`. 
 
 The `Commands` class has a single function `getCommand()`, which takes, as arguments, a String that should uniquely identify the requested `CommandSpec` within a particular `Context`, and a `Context` enum representing the context from which `getCommand()` was called. It then returns a new instance of the `Command`, constructing it with the required `CommandSpec`.
 
 If the command requires an argument, the `ArgParser` class will parse the rest of the input to determine the argument of the command and/or the switches supplied to it, and set these parameters in the `Command`. Finally, the `Executor` class will call the `execute()` method of the command, suppling the `DukeCore` object, which provides access to the rest of the components, to the `Command`.
+
+This transaction is modelled by the following sequence diagram:
+
+image::plantuml/command.svg[]
 
 ==== `Command` s and `CommandSpec` s
 
@@ -111,7 +117,7 @@ When executing a command, the `Command` 's `execute()` method is called. In a ba
 
 This system is illustrated by the following sequence diagram:
 
-image::plantuml/command.svg[]
+image::plantuml/argcommand.svg[]
 
 Note that the "Parser Logic" abstraction represents the system of `Parser`, `ArgParser`, `Commands` and `Executor`.
 
