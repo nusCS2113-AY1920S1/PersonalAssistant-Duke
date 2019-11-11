@@ -323,6 +323,9 @@ This allows the user to assign/unassign all tasks to members, or assign/unassign
 ** `assign task -i all -to 1 2`    | assign all tasks to members 1 and 2
 ** `assign task -i 1 -rm all`      | unassign task 1 from all members
 
+.Example of assign task command
+image::images/screenshots/assigntask.png[]
+
 ==== View task assignments : `view assignments`
 Shows user the task assignments based on certain specifications.
 This allows the user to check which task is assigned to who, and vice versa.
@@ -351,8 +354,11 @@ to use this keyword if the user would like to get an overview of all the assignm
 In case of confusion, the following are examples that demonstrate the difference between -m and -t,
 and how they can be used to show assignments in different formats.
 
-//insert screenshots.
+.`view assignments -t all`
+image::images/screenshots/viewassignmentstall.png[]
 
+.`view assignments -m all`
+image::images/screenshots/viewassignmentsmall.png[]
 
 ====  View total credits completed by each member : view credits
 Shows all members’ credits, their index number, name, and name of tasks completed.
