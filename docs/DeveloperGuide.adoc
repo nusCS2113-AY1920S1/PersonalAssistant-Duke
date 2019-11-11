@@ -619,6 +619,22 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
+=== `new` commands
+
+. Navigate to the context of the parent of the object you are creating. For patients, this is the `HOME` context.
+
+.. Prerequisites: Creating new objects require their parent objects to already exist. i.e. A `Patient` must exist before
+an `Impression` can be created.
+.. Test case: `new -n "Wong Jin Tine" -b A018 -a "Dust"` +
+    Expected: Remain at `HOME` context. The GUI display remains at `HomeContextWindow`. `CommandWindow` prompts a
+    message to notify the user that a patient has been added.
+.. Test case: `new -n flu -desc "Patient seems to have sever flu."`
+    Expected: Remain at `PATIENT` context. The GUI display remains at `PatientContextWindow`. `CommandWindow` prompts a
+     message to notify the user that an impression has been added.
+.. Test case: `new -ob -n "Blood Test"`
+    Expected: Remain at `IMPRESSION` context. The GUI display remains at `ImpressionContextWindow`. `CommandWindow`
+    prompts a message to notify the user that an observation has been added.
+
 === Navigating between contexts
 
 .  Navigate to `PATIENT` context
