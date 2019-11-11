@@ -23,10 +23,10 @@ By: `Team W17-4`      Since: `Aug 2019`      Licence: `MIT`
 == Introduction
 
 === What is *_OOF_*?
-*_OOF_*, short for Outstanding Organisation Friend, is a command-line interface dekstop application built to improve University Students' productivity and efficiency by reducing the need to manually organise tasks. 
+*_OOF_*, short for Outstanding Organisation Friend, is a command-line interface desktop application built to improve University Students' productivity and efficiency by reducing the need to manually organise tasks.
 
 === What is the purpose of this guide?
-This guide aims to provide information for you, who are the future contributors of *_OOF_* so that you can have an easy reference for understanding the features implemented in *_OOF_*.
+This guide aims to provide information for you, future contributors of *_OOF_* so that you can have an easy reference for understanding the features implemented in *_OOF_*.
 
 === Acknowledgements
 Original source: https://github.com/nusCS2113-AY1920S1/PersonalAssistant-Duke[PersonalAssistant-Duke]
@@ -454,20 +454,24 @@ The user enters the command `calendar 10 2019`. The `parse` method in the `Comma
 *Step 2* +
 The constructor for the `CalendarCommand` class will parse and validate the arguments, `10` and `2019`, in the argument array.
 [NOTE]
-An `IndexOutOfBoundsException` will be thrown if less than 2 arguments are provided, a `NumberFormatException` will be thrown if the argument provided is not an integer while an `OofException` will be thrown if `month` argument is not within `1` and `12`. In these cases, the program will retrieve the current `month` and `year` from the system.
+A `MissingArgumentException` will be thrown if less than 2 arguments are provided while an `InvalidArgumentException` will be thrown if the `month` argument provided is not an integer or not between 1 and 12. The program handles the exceptions by retrieving the current month and year from the system as arguments for `CalendarCommand`.
 
 *Step 3* +
-The `execute` method in the `CalendarCommand` class is then called by the `executeCommand()` method in the `Oof` class. This method does the following:
+The `execute` method in the `CalendarCommand` class is then called by the `executeCommand()` method in the `Oof` class.
+
+This method does the following:
 
 * Iterates through the `ArrayList` of `Task` from the `TaskList` class and checks if the `Task` belongs to the queried `month` and `year` using the `verifyTask` method.
 * `Task` belonging to the queried `month` and `year` are added to the `ArrayList` corresponding to its `day`.
 * Each `ArrayList` is then sorted in ascending order of `time` using the `SortByDate` comparator.
+* The `execute` method then calls the `printCalendar` method in the `Ui` class.
+
 [NOTE]
 Since `Todo` objects do not have a `time` attribute, they are always sorted to the front of the `ArrayList`.
-* `execute` then calls the `printCalendar` method in the `Ui` class.
+
 
 *Step 4* +
-`printCalendar` calls `printCalendarLabel`, `printCalendarHeader` and `printCalendarBody` to print the calendar:
+`printCalendar` calls `printCalendarLabel`, `printCalendarHeader` and `printCalendarBody` separately to print the calendar:
 
 * `printCalendarLabel` prints the `month` and `year` being queried.
 * `printCalendarHeader` prints the header of the calendar which consists of the top border and the days of a week.
@@ -533,7 +537,7 @@ The `populateEventTimes` method calls the `isEventDateWithin()` and `isDuplicate
 The `populateDeadlines` method calls the `isDeadlineDueNextWeek()`, `isDuplicateDeadline()` and `isCompleted()` methods to check if the `Deadline` due date lies within one week from the input date, whether they are a duplicate `Deadline` and if they have already been completed respectively. If the `Deadline` due date lies within one week from the input date given that is not a duplicate entry and has not been completed yet, its due date will be added to an `ArrayList` corresponding to `deadlinesDue` while its name will be added to both `deadlineNames` and `sortedDeadlineNames`. 
 
 *Step 7.* + 
-The `findFreetime()` method then calls the `parseSemesterList` method, which uses the same logic in Step 4 to obtain the lesson start and end times if the lesson day coincides with the input day. The lesson start and end times are then added into an existing `ArrayList` called `startTimes` and `endTimes` respectively after checking that it is not a duplicate.  
+The `findFreeTime()` method then calls the `parseSemesterList` method, which uses the same logic in Step 4 to obtain the lesson start and end times if the lesson day coincides with the input day. The lesson start and end times are then added into an existing `ArrayList` called `startTimes` and `endTimes` respectively after checking that it is not a duplicate.
 
 *Step 8.* + 
 All `startTimes`, `endTimes` and `deadlinesDue` are sorted in ascending order by calling the `sort` method in the `SortByTime` class. The `sortDeadlineNames()` method is then called to sort the deadline names according to their due dates. 
@@ -664,7 +668,7 @@ The `execute` method of `TrackerCommand` calls the `processModuleTrackerList` me
 `InvalidArgumentException` will be thrown if the `tracker` command is incomplete.
 
 * *Step 2a:* +
-The `processModuleTrackerList` method creates a new ArrayList of `Tracker` objects and processes the user input to determine if it is to be filtered by `day`, `weeek` or `all` `Tracker` entries.
+The `processModuleTrackerList` method creates a new ArrayList of `Tracker` objects and processes the user input to determine if it is to be filtered by `day`, `week` or `all` `Tracker` entries.
 
 * *Step 2b:* +
 If the user indicated to filter `/view` by `day`, a new `Date` instance is created and parsed into the format of `dd-MM-yyyy` before the `timeSpentByModule` method is called.
@@ -697,7 +701,7 @@ It will then be removed from the ArrayList before the `execute` method of `Track
 `InvalidArgumentException` will be thrown if the `taskIndex` is invalid.
 
 *Step 5:* +
-If the instruction is not `/view`, `/list` or `/delete`, the `execute` method of `TrackerCommand` will obtain the `taskindex` and `moduleCode` given by the user
+If the instruction is not `/view`, `/list` or `/delete`, the `execute` method of `TrackerCommand` will obtain the `TASK_INDEX` and `MODULE_CODE` given by the user
 and check if the relevant `Task` has been completed.
 
 [WARNING]
@@ -739,7 +743,7 @@ This is where the `timeTaken` of the matching `Tracker` object will be updated, 
 The `execute` method of `TrackerCommand` calls the `setStatus` method in `Task` class to mark the `Task` as completed.
 
 * *Step 7c:* +
-The `execute` method of `TrackerCommand` calls `writeTrackerList` and `writeTaskList` methods in `Storagemanager` class to update the ArrayList of `Tracker` objects and `TaskList`.
+The `execute` method of `TrackerCommand` calls `writeTrackerList` and `writeTaskList` methods in `StorageManager` class to update the ArrayList of `Tracker` objects and `TaskList`.
 
 * *Step 7d:* +
 The `execute` method of `TrackerCommand` calls `printEndAtCurrent` method of `Ui` class.
@@ -756,7 +760,7 @@ If the user given instruction is `/stop`, the `execute` method of `TrackerComman
 This is where the `timeTaken` of the matching `Tracker` object will be updated, calculating the time difference between `startDate` and current `Date`.
 
 * *Step 8b:* +
-The `execute` method of `TrackerCommand` calls `writeTrackerList` and `writeTaskList` methods in `Storagemanager` class to update the ArrayList of `Tracker` objects and `TaskList`.
+The `execute` method of `TrackerCommand` calls `writeTrackerList` and `writeTaskList` methods in `StorageManager` class to update the ArrayList of `Tracker` objects and `TaskList`.
 
 * *Step 8c:* +
 The `execute` method of `TrackerCommand` calls `printEndAtCurrent` method of `Ui` class.
@@ -792,20 +796,20 @@ as it will be printing one `#` to represent one minute instead.
 == Documentation
 
 === Introduction
-We use asciidoc for writing documentation.
+We use AsciiDoc for writing documentation.
 
 [NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+We chose AsciiDoc over Markdown because AsciiDoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
 === Editing Documentation
 
-* **`asciidoctor`** +
+* **`AsciiDoc`** +
 Converts AsciiDoc files in `docs` to HTML format. Generated HTML files can be found in `build/docs`.
 * **`deployOfflineDocs`** +
 Updates the offline user guide, and its associated files, used by the Help window in the application. Deployed HTML files and images can be found in `src/main/resources/docs`.
 
 [NOTE]
-You can also choose to download Intellij's adoc plugin to edit and render adoc files locally.
+You can also choose to download Intellij's .adoc plugin to edit and render .adoc files locally.
 
 === Editing diagrams
 We use link:https://lucidchart.com/[LucidChart] to create and edit our UML diagrams in the developer guide.
@@ -905,12 +909,12 @@ Similarly, make sure you *do not print `$GITHUB_TOKEN` to the logs* in Travis sc
 **To verify that it works,**
 
 . Trigger Travis to regenerate documentation. To do so, you need to push a new commit to the master branch of the fork. +
-   Suggested change: Remove the codacy badge from `README`.
+   Suggested change: Remove the Codacy badge from `README`.
 . Wait for Travis CI to finish running the build on your new commit.
 . You should see your `README` file displayed on your team repository.
 
 ==== Converting Documentation to PDF format
-Follow the instructions for asciidoc conversion on this link:https://asciidoctor.org/docs/asciidoctor-pdf/[page] to set up `asciidoctor-pdf` for converting adoc files to PDF. 
+Follow the instructions for AsciiDoc conversion on this link:https://asciidoctor.org/docs/asciidoctor-pdf/[page] to set up `asciidoctor-pdf` for converting .adoc files to PDF.
 
 == Testing
 Testing is vital to ensure that the code you will be contributing in the future does not cause existing features to fail. There are *2* ways to run tests.
@@ -951,7 +955,7 @@ We use https://coveralls.io/[Coveralls] to track the code coverage of our projec
 
 === Documentation Previews
 
-If a pull request contains changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+If a pull request contains changes to AsciiDoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those AsciiDoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
 === Making a Release
 
