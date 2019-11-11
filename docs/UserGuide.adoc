@@ -650,7 +650,7 @@ Format: `bye`
 
 === Saving the data
 
-Project data, fund data, history data, hitory command data and tasklist data
+Project data, fund data, history data, history command data and tasklist data
 are saved in the hard disk automatically after the exit command is executed. +
 
 == FAQ

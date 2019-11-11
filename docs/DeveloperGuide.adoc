@@ -261,7 +261,6 @@ This feature supports the following commands:
 
 * `history` - lists all the input commands(with the date and time beside) entered by the user.
 * `view history h/DATE_1 to DATE_2` - lists the input commands entered by the user during a certain period.
-* (proposed) `delete history h/DATE_1 to DATE_2` - deletes the input commands entered by the user during a certain period.
 
 The use case for the `history` command is given below to show how each component interacts with each other.
 
@@ -273,11 +272,34 @@ The use case for the `history` command is given below to show how each component
 
 Below is the sequence diagram showing the interactions between the different components used to implement the `history` command.
 
-image::sequenceDiagramforHistory.PNG[]
+image::Slide1.PNG[]
 
 ==== Design Considerations
 ===== Aspect: How `view history h/DATE to DATE` is implemented
 * Alternative 1: The application loops through the arraylist of all the input commands loaded from the json file in storage. In the for loop, it is checked if the date beside the command is within the date range provided in the input. If yes, then it is added to a new arraylist, which is printed once the application has gone through the for loop.
+
+=== Undo Redo Feature
+The Undo Redo Feature is implemented for the users to quickly redo an action or reverse an action they entered by mistake. It is facilitated by the `BeforeAfterCommand` class which is called by the `Process` class in the `command` component.
+
+This feature supports the following commands:
+`undo`- undoes the previous command.(only the ones mentioned in the User Guide)
+`redo`- redoes an undone command.
+
+The use case for the `undo` command is given below to show how each component interacts with each other.
+
+1. The user executes the `undo` command in the CLI. The input is passed from `Ui` to `command` to determine the command to execute.
+
+2. The `Command` component will process the `undo` command and read from the json file consisting the previous state of the projectmap stored in `Storage`.
+
+3. This state is passed to `Parser` and is written to the storage when the program is exited with the `bye` command.
+
+Below is the sequence diagram showing the interactions between the different components used to implement a command that can be undone.
+
+image::command.PNG[]
+
+Below is the sequence diagram showing the interactions between the different components used to implement the `undo` command.
+
+image::undo seq diagram.PNG[]
 
 === Fund and Budget feature
 
