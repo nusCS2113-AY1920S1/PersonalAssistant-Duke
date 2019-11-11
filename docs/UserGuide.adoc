@@ -226,19 +226,19 @@ image::history.png[width="650"]
 
 ====
 
-=== Delete chat bubbles in the chat-box : `undo`
+=== Delete chat bubbles in the chat-box : `delete`
 
 This command allows users to delete the previous chat bubbles in the chat. +
 If `NUMBER` is not specified, the number of messages removes from chat is default to 1. +
-Format : `undo NUMBER`
+Format : `delete NUMBER`
 
 ====
 Example: +
-`undo 2` will delete 2 chat bubbles.
+`delete 2` will delete 2 chat bubbles.
 =====
 *Expected outcome*
 
-** Pre-undo
+** Pre-delete
 
 image::preundo.png[width="650"]
 
@@ -248,7 +248,7 @@ image::postundo.png[width=""650"]
 
 =====
 ====
-- NUMBER should be a positive and greater than 1 (since `undo` gives a default of NUMBER as 1)
+- NUMBER should be a positive and greater than 1 (since `delete` gives a default of NUMBER as 1)
 - NUMBER should be smaller than the number of response chats.
 
 === Provides questions for improvement : `help`
@@ -373,12 +373,56 @@ image::stats.png[width="650"]
 
 ====
 
-=== Manually save the game : `save` `[coming in v1.4]`
+=== Load the game form another save file: `load`
 
-This command provides a way for you to save the game manually. Normally, the game would already be saving your game for you at
-certain checkpoints. However, in the event that our auto-save function does not work, it is highly recommended to do a manual save
-from time to time. +
-Format : `save`
+This command allows you to load user data from another save .txt file. The save file must
+be a valid save file generated using
+the `save` command written below.
+
+NOTE: The load command does not replace your original data. To do that, you must run the `save` command (without
+extra parameters), which saves the current data to the UserStats.txt text file.
+
+Format: `load <filename>.txt`
+
+====
+*Expected Outcome for save (see below) and load*
+
+image::saveload.png[width="650"]
+
+====
+
+If the load file is invalid, the following error message is shown.
+
+====
+*Invalid file*
+
+image::invalidload.png[width="650"]
+
+====
+
+=== Manually save the game : `save`
+
+This command allows you to save your data manually to a text file. There are
+two use cases for this command:
+
+* After a `load` command, you can use the `save` command to update your default UserStats file to the one that is
+currently loaded. To do this, use the `save` command with no additional parameters.
+* To export your User Data to another text file to share with others, you can use the `save` command with a custom
+filename as the second parameter.
+
+
+Format : `save` or `save <filename>.txt`.
+
+=== Keyboard Shortcuts
+
+AlgoSenpai Adventures supports the following standard terminal shortcuts:
+
+* `TAB`: Type the beginning of a valid command, then press `TAB` and the app will auto-complete the command to the
+command with the same prefix. If multiple commands exist with that prefix, any one may be completed arbitrarily.
+* `UP` and `DOWN` Arrow Keys: Press the `UP` and `DOWN` key to cycle through the list of all the commands you have
+previously entered. `UP`  cycles backward and `DOWN` cycles forward in time.
+
+In addition, the standard text editing shortcuts are functional in the text entry field.
 
 
 == FAQ
@@ -460,7 +504,7 @@ placed into practicing the chapters which are deemed “weak” by the reports a
 understanding.
 
 *Q*: There are too many messages in the application. How do you clear the messages in the application?  +
-*A*: You can run `undo <x>` where x is the number of messages you want to delete. Alternatively, you can run
+*A*: You can run `delete <x>` where x is the number of messages you want to delete. Alternatively, you can run
 `clear` to delete all the messages.
 
 *Q*: Can I challenge friends in a multi-player mode?   +
@@ -473,6 +517,24 @@ the software at our https://github.com/AY1920S1-CS2113T-T09-3/main/releases[rele
 
 *Q*: How to get in touch? +
 *A*: You can contact us at contact@algosenpaiadventures.com.
+
+== Troubleshooting
+
+*Problem*: The app does not launch after double-clicking +
+*Solution*: Ensure you have Java `11` or above installed in your Computer.
+
+*Problem*: I have Java 11, but the app still doesn't work +
+*Solution*: Open windows powershell in the directory containing the jar file. +
+Then type `java -jar <Name of the jar file>` to run the jar file.
+
+*Problem*: The app show a message saying "Data file was corrupted! Data has been reset!" +
+*Solution*: This message appeared because the program detected a corrupted UserData.txt file.
+This can happen if someone edits the file. Please do not directly edit the data in the file. Use the `hello` command or
+`reset` command instead.
+
+*Problem*: Help! I encountered an undocumented bug in your program!
+*Solution*: We apologize for any bugs. We would appreciate if you reported your bug
+on our https://github.com/AY1920S1-CS2113T-T09-3/main/issues[bug tracker page].
 
 == Command Summary
 
@@ -495,8 +557,8 @@ e.g. `40, 50, 30`
 e.g. `review 6`
 * *history* : `history NUMBER` +
 e.g. `history 5`
-* *undo* : `undo || undo NUMBER` +
-e.g. `undo` gives a default NUMBER as 1 or `undo 4`
+* *delete* : `delete || delete NUMBER` +
+e.g. `delete` gives a default NUMBER as 1 or `delete 4`
 * *clear* : `clear`
 * *help* : `help CHAPTER` +
 e.g. `help sorting`
@@ -506,8 +568,10 @@ e.g. `volume 1`
 e.g `print user MyData.pdf`
 * *archive* : `archive QUESTION_NUMBER` +
 e.g. `archive 1`
-* *load* : `load <filename>.txt` +
+* *load* : `load <filename>.txt` or `load` +
 e.g. `load UserData.txt`
+* *save* : `save <filename>.txt` +
+e.g. `save DataFile.txt`
 * *stats* : `stats`
 * *reset* : `reset`
 * *exit* : `exit`

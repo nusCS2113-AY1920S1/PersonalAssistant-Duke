@@ -241,9 +241,17 @@ IMPORTANT: When editing the `toString` method, make sure to edit the correspondi
 
 [discrete]
 ==== How to use `UserStats`
-* Use the `currentChapter` object to hold stats for the current chapter while it is being played. Afterwards,
-use `saveCurrentChapterToChapterData` to transfer the relevant data from `currentChapter` to the appropriate
-element in the `chapterData` ArrayList.
+* After each quiz, use the `updateChapter` method to update that chapter's chapter data. Thereafter,
+use the `saveUserStats` method to save those changes to permanent storage. In the current
+implementation, "UserData.txt" is the hardcoded destination for saving user data
+
+[discrete]
+==== Handling an invalid String while parsing
+
+If the String that is passed to `parseString` is not a valid object string, the `parseString` method
+throws `FileParsingException`. You can choose to handle that exception by displaying an error message and/or
+fixing the data file and/or silently ignoring it.
+
 
 == Implementation
 
@@ -601,7 +609,7 @@ Use case ends.
 
 [discrete]
 ==== UC10: Undo my answers
-. User enters the `undo` command
+. User enters the `delete` command
 . System  the previous action done by the user
 
 Use case ends.

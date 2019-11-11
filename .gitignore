@@ -21,4 +21,5 @@ bin/
 ./*.pdf
 ./*.txt
 UserData.txt
+testTextFile.txt
 ./*.jar
