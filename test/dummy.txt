@@ -1,8 +1,3 @@
 dummy aminor 120 
 [[UAs],[UA],[UA],[UA],[UA],[UA],[UA],[UA]]
 [[UBs],[UB],[UB],[UB],[UB],[UB],[UB],[UB]]
-<<<<<<< HEAD
-[[MCs],[MC],[MC],[MC],[MC],[MC],[MC],[MC]]
-=======
-
->>>>>>> 16e36b7d4557b0f62e8911f01e560e7bba2c0a30
