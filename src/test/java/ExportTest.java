@@ -46,7 +46,6 @@ class ExportTest {
 
         ArrayList<Task> list = new ArrayList<>();
         TaskList tasks = new TaskList(list);
-        File file = new File(System.getProperty("user.dir") + "/src/test/Test");
 
         LocalDateTime startDate = LocalDateTime.now().plusDays(3);
         Deadline deadline = new Deadline("Test", startDate);
@@ -78,7 +77,6 @@ class ExportTest {
 
         inputStream.close();
         calendarFile.delete();
-        file.delete();
     }
 
 }
