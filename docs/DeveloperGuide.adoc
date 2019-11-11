@@ -752,7 +752,7 @@ logging every step that ArchDuke takes so that debugging will be easier.
 * The logging level is controlled by property name `rootLogger.level` in `log4j2.properties`. Currently the level is set to all.
 (Show all log level message)
 
-* The `ArchDukeLogger` call by using ArchDukeLogger.logInfo(className, Message); function which will log the
+* The `ArchDukeLogger` call by using `ArchDukeLogger.logInfo(className, Message);` function which will log the
 message according to the specified logging level method called.
 
 * Currently all the log messages are store in the log file located in the logs directory
@@ -769,7 +769,7 @@ The following shows the class diagram of ArchDukeLogger
 
 .Class diagram of ArchDuke logger
 image::images/classDiagram/ArchDukeLogger_ClassDiagram.png[]
-
+*API* : link:{repoURL}/src/main/java/util/log/ArchDukeLogger.java[`ArchDukeLogger.java`]
 [NOTE]
 If any bugs or errors encountered during the testing, please do create an issue on this repo and upload the logs file located
 is the `logs` directory.
