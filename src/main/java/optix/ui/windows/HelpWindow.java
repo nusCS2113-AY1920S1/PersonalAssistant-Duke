@@ -23,6 +23,12 @@ public class HelpWindow extends VBox {
     private static String SELL_MENU = "To sell seats for show:    "
             + "\nsell SHOW_NAME | SHOW_DATE | SEAT1 SEAT2 SEAT3 ...\n\n";
 
+    private static String REMOVE_MENU = "To remove seats from show: "
+            + "\nremove-seat SHOW_NAME | SHOW_DATE | SEAT1 SEAT2 SEAT3 ...\n\n";
+
+    private static String REFUND_MENU = "To refund seats from show: "
+            + "\nrefund-seat SHOW_NAME | SHOW_DATE | SEAT1 SEAT2 SEAT3 ...\n\n";
+
     private static String LIST_MENU = "To list shows:              \nlist\n\n"
             + "To list specific show:     \nlist SHOW_NAME\n\n"
             + "To list shows with date:   \nlist MONTH YEAR\n\n";
@@ -68,7 +74,7 @@ public class HelpWindow extends VBox {
         }
 
         showHelpLbl.setText(ADD_MENU + DELETE_MENU + LIST_MENU + RESCHEDULE_MENU + EDIT_MENU);
-        seatHelpLbl.setText(SELL_MENU + VIEW_MENU);
+        seatHelpLbl.setText(SELL_MENU + VIEW_MENU + REMOVE_MENU + REFUND_MENU);
         financeHelpLbl.setText(PROFIT_MENU);
         aliasHelpLbl.setText(ALIAS_MENU);
     }

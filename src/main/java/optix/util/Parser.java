@@ -48,7 +48,8 @@ public class Parser {
     // array of all possible command values
     private static String[] commandList = {"bye", "list", "help", "edit", "sell", "view",
         "reschedule", "add", "delete", "reassign-seat", "show", "archive", "finance",
-        "view-profit", "view-monthly", "add-alias", "remove-alias", "reset-alias", "list-alias"};
+        "view-profit", "view-monthly", "add-alias", "remove-alias", "reset-alias", "list-alias",
+        "refund-seat", "remove-seat"};
     private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
@@ -250,6 +251,8 @@ public class Parser {
         commandAliasMap.put("a-a", "add-alias");
         commandAliasMap.put("rm-a", "remove-alias");
         commandAliasMap.put("rst-a", "reset-alias");
+        commandAliasMap.put("rf-s", "refund-seat");
+        commandAliasMap.put("rm-s", "remove-seat");
         OPTIXLOGGER.log(Level.INFO, "preferences saved");
     }
 

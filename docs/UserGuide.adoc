@@ -256,6 +256,44 @@ reassign-seat Phantom of the Opera|5/5/2020|A1|A2
 reassign-seat Lion King|10/5/2020|D6|A1
 ----
 
+==== Refund seats: `refund-seat`
+Refund half the cost of the seat back to the cutsomer. +
+Format: `refund-seat SHOW_NAME|SHOW_DATE|SEAT …`
+
+* Refund `SEAT` specified by customers for the indicated `SHOW_NAME` on `SHOW_DATE`.
+* Each `SEAT` is represented by an alphabet followed by an integer e.g. A1
+* Multiple `SEAT` can be entered in the parameter `SEAT ...` to refund cost of seats back to customer
+
+Examples: +
+Refund a single seat: +
+----
+refund-seat Phantom of the Opera|5/5/2020|C1
+----
+
+Refund multiple seats in a single command: +
+----
+refund-seat Lion King|6/5/2020| A1 A2 A3 A4
+----
+
+==== Remove seats: `remove-seat`
+Remove a seat that has been sold wrongly. +
+Format: `remove-seat SHOW_NAME|SHOW_DATE|SEAT …`
+
+* Remove `SEAT` specified by customers for the indicated `SHOW_NAME` on `SHOW_DATE`.
+* Each `SEAT` is represented by an alphabet followed by an integer e.g. A1
+* Multiple `SEAT` can be entered in the parameter `SEAT ...` to remove all wrongly booked seats
+
+Examples: +
+Remove a single seat: +
+----
+remove-seat Phantom of the Opera|5/5/2020|C1
+----
+
+Remove multiple seats in a single command: +
+----
+remove-seat Lion King|6/5/2020| A1 A2 A3 A4
+----
+
 === Finance Commands
 The following set of commands helps with tracking the finance of the theatre.
 
