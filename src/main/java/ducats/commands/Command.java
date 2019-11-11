@@ -9,19 +9,32 @@ import ducats.components.UndoRedoStack;
 /**
  * An abstract class used to represent a command interpreted from an input message. Extended by
  * <ul>
- *     <li>AddCommand</li>
- *     <li>ListCommand</li>
- *     <li>DoneCommand</li>
- *     <li>DeleteCommand</li>
- *     <li>FindCommand</li>
- *     <li>ByeCommand</li>
- *     <li>NewCommand</li>
- *     <li>HelpCommand</li>
- *     <li>ViewCommand</li>
  *     <li>AddBarCommand</li>
+ *     <li>AddOverlayCommand</li>
+ *     <li>AsciiCommand</li>
+ *     <li>ByeCommand</li>
+ *     <li>CopyCommand</li>
+ *     <li>DeleteBarCommand</li>
+ *     <li>DeleteCommand</li>
+ *     <li>EditBarCommand</li>
+ *     <li>GroupCommand</li>
+ *     <li>HelpCommand</li>
+ *     <li>InsertBarCommand</li>
+ *     <li>ListCommand</li>
+ *     <li>ListGroupCommand</li>
+ *     <li>MetronomeCommand</li>
+ *     <li>NewCommand</li>
+ *     <li>OpenCommand</li>
+ *     <li>OverlayBarGroupCommand</li>
+ *     <li>OverlayBarSongCommand</li>
+ *     <li>OverlayGroupGroupCommand</li>
+ *     <li>RedoCommand</li>
+ *     <li>SwapBarCommand</li>
+ *     <li>UndoCommand</li>
+ *     <li>ViewCommand</li>
  * </ul>
  */
-public abstract class Command<T> {
+public abstract class Command {
 
     String message;
 
@@ -30,14 +43,14 @@ public abstract class Command<T> {
      * file used as persistent storage, and returns a formatted String to be displayed by the
      * command line interface / GUI.
      *
-     * @param object the ducats.TaskList or ducats.components.SongList object that contains the task list in use
+     * @param songList the ducats.components.SongList object that contains the song list in use
      * @param ui the Ui object responsible for the reading of user input and the display of
      *           the responses
      * @param storage the Storage object used to read and manipulate the .txt file
      * @return the formatted String to be displayed
      * @throws DucatsException in the case of either parsing or IO errors
      */
-    public abstract String execute(T object, Ui ui, Storage storage) throws DucatsException;
+    public abstract String execute(SongList songList, Ui ui, Storage storage) throws DucatsException;
 
     /**
      * Used for undo command and redo command only.

@@ -11,7 +11,7 @@ import ducats.Parser;
 /**
  * A class representing the command to add a new song to the song list.
  */
-public class NewCommand extends Command<SongList> {
+public class NewCommand extends Command {
 
     /**
      * Constructor for the command to add a task to the task list.
@@ -38,16 +38,12 @@ public class NewCommand extends Command<SongList> {
         String key;
         String timeSignature;
         int tempo;
-        if (message.length() < 4 || !message.substring(0, 4).equals("new ")) { //exception if not fully spelt
-            throw new DucatsException(message);
-        }
         Song song;
         try {
             String[] sections = message.substring(4).split(" ");
             Parser parse =  new Parser();
 
             songName = sections[0];
-
             if (songName.replaceAll("\\s+","").equals("")) {
                 throw new DucatsException(message,"whitespace_name");
             }
@@ -55,19 +51,44 @@ public class NewCommand extends Command<SongList> {
                 throw new DucatsException(message,"special_characters");
             }
             if (!songList.findSong(songName).isEmpty()) {
-                throw new DucatsException(message, "song name");
+                throw new DucatsException(message, "repeat_song_name");
             }
+
             key = sections[1];
+            if (!key.equals("c")) {
+                throw new DucatsException(message, "key");
+            }
+
             timeSignature = sections[2];
+            if (!timeSignature.equals("4/4")) {
+                throw new DucatsException(message, "time_sig");
+            }
+
             tempo = Integer.parseInt(sections[3]);
+            if (tempo <= 0) {
+                throw new DucatsException(message, "tempo");
+            }
             song = new Song(songName, key, tempo);
 
             songList.add(song);
             storage.updateFile(songList);
             return ui.formatNewSong(songList.getSongList(), song);
+
+        } catch (IndexOutOfBoundsException e) {
+            throw new DucatsException("", "index");
+        } catch (NumberFormatException e) {
+            throw new DucatsException("", "number_index");
         } catch (Exception e) {
-            if (e instanceof DucatsException && ((DucatsException) e).getType().equals("song name")) {
-                throw new DucatsException(message, "song name");
+            if (e instanceof DucatsException && ((DucatsException) e).getType().equals("io")) {
+                throw new DucatsException("", "io");
+            } else if (e instanceof DucatsException && ((DucatsException) e).getType().equals("key")) {
+                throw new DucatsException(message, "key");
+            } else if (e instanceof DucatsException && ((DucatsException) e).getType().equals("time_sig")) {
+                throw new DucatsException(message, "time_sig");
+            } else if (e instanceof DucatsException && ((DucatsException) e).getType().equals("tempo")) {
+                throw new DucatsException(message, "tempo");
+            } else if (e instanceof DucatsException && ((DucatsException) e).getType().equals("repeat_song_name")) {
+                throw new DucatsException(message, "repeat_song_name");
             }  else if (e instanceof DucatsException && ((DucatsException) e).getType().equals("special_characters")) {
                 throw new DucatsException(message, "special_characters");
             } else if (e instanceof DucatsException && ((DucatsException) e).getType().equals("whitespace_name")) {

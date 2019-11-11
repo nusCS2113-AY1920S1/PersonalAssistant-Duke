@@ -6,7 +6,7 @@ import ducats.Ui;
 import ducats.components.SongList;
 import ducats.components.UndoRedoStack;
 
-public class RedoCommand extends Command<SongList> {
+public class RedoCommand extends Command {
 
     /**
      * A null method that will never be used, the reason for this method is for inheritance.

@@ -1,6 +1,5 @@
 package ducats.commands;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ducats.DucatsException;
@@ -9,12 +8,8 @@ import ducats.Ui;
 import ducats.components.Bar;
 import ducats.components.Note;
 import ducats.components.Song;
-import ducats.components.Chord;
 import ducats.components.SongList;
-import ducats.commands.AsciiCommand;
-import ducats.commands.Command;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import ducats.components.Combiner;
 import ducats.DucatsLogger;
@@ -22,13 +17,9 @@ import ducats.DucatsLogger;
 /**
  * A class that overlays a bar from one song to another.
  */
-public class OverlayBarSong  extends Command<SongList>  {
-
+public class OverlayBarSong extends Command {
     public String message;
     private int songIndex;
-
-
-
 
     /**
      * Constructor for the command to overlay a bar from one song to another.

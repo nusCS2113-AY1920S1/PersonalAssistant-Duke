@@ -10,7 +10,7 @@ import ducats.components.SongList;
 /**
  * A class that represents the command to delete an bar from a song.
  */
-public class DeleteBarCommand extends Command<SongList> {
+public class DeleteBarCommand extends Command {
 
     /**
      * Constructor for the duke.Commands.Command created to delete a bar from a song
@@ -33,29 +33,34 @@ public class DeleteBarCommand extends Command<SongList> {
      * @throws DucatsException if an exception occurs in the parsing of the message or in IO
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
-        if (songList.getSize() == 0) {
-            throw new DucatsException("", "empty");
-        }
-        int barIndex = 0;
-        int songIndex = songList.getActiveIndex();
-        Song activeSong = songList.getSongIndex(songIndex);
-
+        int barIndex = -1;
         try {
-            barIndex = Integer.parseInt(message.substring(10));
-        } catch (Exception e) {
-            throw new DucatsException("","other");
-        }
-
-        if (barIndex > songList.getSongIndex(songList.getActiveIndex()).getBars().size() || barIndex < 1) {
-            throw new DucatsException("", "index");
-        } else {
-            activeSong.getBars().remove(barIndex - 1);
-            try {
-                storage.updateFile(songList);
-            } catch (Exception e) {
-                throw new DucatsException("","io");
+            if (songList.getSize() == 0) {
+                throw new DucatsException("", "empty");
             }
+
+            int songIndex = songList.getActiveIndex();
+            Song activeSong = songList.getSongIndex(songIndex);
+
+            if (message.substring(10).isBlank()) {
+                throw new DucatsException(message, "deletebar");
+            }
+
+            barIndex = Integer.parseInt(message.substring(10));
+
+            activeSong.getBars().remove(barIndex - 1);
+            storage.updateFile(songList);
             return ui.formatDeleteBar(activeSong, barIndex);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DucatsException("", "index");
+        } catch (NumberFormatException e) {
+            throw new DucatsException("", "number_index");
+        } catch (Exception e) {
+            if (e instanceof DucatsException && ((DucatsException) e).getType().equals("io")) {
+                throw new DucatsException("", "io");
+            } else {
+                throw new DucatsException(message, "deletebar");
+            }
         }
     }
 

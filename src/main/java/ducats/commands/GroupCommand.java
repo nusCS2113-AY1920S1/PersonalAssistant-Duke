@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * A class representing the command to
  * group bars together as a verse.
  */
-public class GroupCommand extends Command<SongList> {
+public class GroupCommand extends Command {
 
     //@@author Samuel787
     private String message;

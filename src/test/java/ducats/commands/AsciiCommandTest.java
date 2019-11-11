@@ -48,8 +48,7 @@ public class AsciiCommandTest {
                             + "LF: --------\n"
                             + "LE:         \n"
                             + "LD:         \n"
-                            + "LC:         \n"
-                            + "\n";
+                            + "LC:         \n\n";
         assertEquals(expectedResult, result);
 
         //test case 2
@@ -184,6 +183,7 @@ public class AsciiCommandTest {
                     + "LE:                           \n"
                     + "LD:                           \n"
                     + "LC:                           \n\n";
+
             assertEquals(result, AsciiCommand.printGroupAscii(testGroup3));
         } catch (DucatsException e) {
             fail();
@@ -237,8 +237,7 @@ public class AsciiCommandTest {
                     + "LF: --------|@-------\n"
                     + "LE:                  \n"
                     + "LD:           -@-    \n"
-                    + "LC:                  \n"
-                    + "\n";
+                    + "LC:                  \n\n";
             assertEquals(result, AsciiCommand.printSongAscii(song));
         } catch (DucatsException e) {
             fail();
@@ -274,7 +273,8 @@ public class AsciiCommandTest {
             System.out.println(e.getMessage());
         }
 
-        String expected = "UC:   @     \n"
+        String expected = "\n" + "_____________________________________________\n"
+                        + "UC:   @     \n"
                         + "UB:  ---    \n"
                         + "UA: @       \n"
                         + "UG: --------\n"
@@ -288,8 +288,8 @@ public class AsciiCommandTest {
                         + "LF: --------\n"
                         + "LE:         \n"
                         + "LD:         \n"
-                        + "LC:         \n"
-                        + "\n";
+                        + "LC:\n"
+                        + "_____________________________________________\n";
 
         AsciiCommand asciiCommand = new AsciiCommand("ascii bar 1");
 
@@ -333,7 +333,8 @@ public class AsciiCommandTest {
             System.out.println(e.getMessage());
         }
 
-        String expected = "UC:   @     \n"
+        String expected = "\n" + "_____________________________________________\n"
+                + "UC:   @     \n"
                 + "UB:  ---    \n"
                 + "UA: @       \n"
                 + "UG: --------\n"
@@ -347,8 +348,8 @@ public class AsciiCommandTest {
                 + "LF: --------\n"
                 + "LE:         \n"
                 + "LD:         \n"
-                + "LC:         \n"
-                + "\n";
+                + "LC:\n"
+                + "_____________________________________________\n";
 
         AsciiCommand asciiCommand = new AsciiCommand("ascii bar 100");
 
@@ -400,7 +401,8 @@ public class AsciiCommandTest {
             System.out.println(e);
         }
 
-        String expected = "UC:   @              \n"
+        String expected = "\n" + "_____________________________________________\n"
+                        + "UC:   @              \n"
                         + "UB:  ---             \n"
                         + "UA: @                \n"
                         + "UG: --------|--------\n"
@@ -414,8 +416,8 @@ public class AsciiCommandTest {
                         + "LF: --------|--------\n"
                         + "LE:                  \n"
                         + "LD:                  \n"
-                        + "LC:                  \n"
-                        + "\n";
+                        + "LC:\n"
+                        + "_____________________________________________\n";
 
         AsciiCommand asciiCommand = new AsciiCommand("ascii group test");
 
@@ -467,7 +469,8 @@ public class AsciiCommandTest {
             System.out.println(e);
         }
 
-        String expected = "UC:   @              \n"
+        String expected = "\n" + "_____________________________________________\n"
+                + "UC:   @              \n"
                 + "UB:  ---             \n"
                 + "UA: @                \n"
                 + "UG: --------|--------\n"
@@ -481,8 +484,8 @@ public class AsciiCommandTest {
                 + "LF: --------|--------\n"
                 + "LE:                  \n"
                 + "LD:                  \n"
-                + "LC:                  \n"
-                + "\n";
+                + "LC:\n"
+                + "_____________________________________________\n";
 
         AsciiCommand asciiCommand = new AsciiCommand("ascii group mellow");
 
@@ -528,7 +531,8 @@ public class AsciiCommandTest {
             System.out.println(e.getMessage());
         }
 
-        String expected = "UC:   @                       \n"
+        String expected = "\n" + "_____________________________________________\n"
+                        + "UC:   @                       \n"
                         + "UB:  ---                      \n"
                         + "UA: @                         \n"
                         + "UG: --------|--------|--------\n"
@@ -542,8 +546,8 @@ public class AsciiCommandTest {
                         + "LF: --------|--------|--------\n"
                         + "LE:                           \n"
                         + "LD:                           \n"
-                        + "LC:                       $   \n"
-                        + "\n";
+                        + "LC:                       $\n"
+                        + "_____________________________________________\n";
 
         AsciiCommand asciiCommand = new AsciiCommand("ascii song Jingle");
 
@@ -587,7 +591,8 @@ public class AsciiCommandTest {
             System.out.println(e.getMessage());
         }
 
-        String expected = "UC:   @                       \n"
+        String expected = "\n" + "_____________________________________________\n"
+                + "UC:   @                       \n"
                 + "UB:  ---                      \n"
                 + "UA: @                         \n"
                 + "UG: --------|--------|--------\n"
@@ -601,8 +606,8 @@ public class AsciiCommandTest {
                 + "LF: --------|--------|--------\n"
                 + "LE:                           \n"
                 + "LD:                           \n"
-                + "LC:                       $   \n"
-                + "\n";
+                + "LC:                       $\n"
+                + "_____________________________________________\n";
 
         AsciiCommand asciiCommand = new AsciiCommand("ascii song Twinkle");
 

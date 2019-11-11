@@ -4,7 +4,7 @@ import ducats.Storage;
 import ducats.Ui;
 import ducats.components.SongList;
 
-public class ListCommand extends Command<SongList> {
+public class ListCommand extends Command {
 
     //@@author rohan-av
     /**
