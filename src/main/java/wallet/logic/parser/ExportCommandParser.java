@@ -12,7 +12,6 @@ import wallet.model.record.Category;
 import wallet.ui.Ui;
 
 import java.math.BigDecimal;
-import java.text.DateFormatSymbols;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.YearMonth;
