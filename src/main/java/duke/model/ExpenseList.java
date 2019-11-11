@@ -153,6 +153,7 @@ public class ExpenseList extends DukeList<Expense> {
     private StringProperty sortString;
     private StringProperty viewString;
 
+
     /**
      * Constructor for ExpenseList.
      * @param internalList the List&lt;Expense> object we want to populate the list with
@@ -247,19 +248,7 @@ public class ExpenseList extends DukeList<Expense> {
         this.filterCriteria = filterCriteria;
         updateExternalList();
     }
-
-    public SortCriteria getSortCriteria() {
-        return sortCriteria;
-    }
-
-    public String getFilterCriteria() {
-        return filterCriteria;
-    }
-
-    public ViewScope getViewScope() {
-        return viewScope;
-    }
-
+    
     /**
      * Sets the view scope.
      * View scopes include DAY, WEEK, MONTH, YEAR, ALL;
