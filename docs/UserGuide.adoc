@@ -155,6 +155,8 @@ Members must be specified using the index of a specific member in a group projec
 The role of a new member can also be changed during the addition, by using the -r flag.
 * Example: `add member -n Thor -r AlienGuy`
 
+=== Task Commands
+
 ==== Add a task to project : `add task`
 Adds a task to the project.
 
@@ -328,20 +330,6 @@ This allows the user to check which task is assigned to who, and vice versa.
 A modifier suffix must be added behind the command to specify the format to display the task assignments.
 The suffix `-m` indicates member index numbers, while `-t` indicates tasks index numbers.
 
-====  View total credits completed by each member : view credits
-Shows all members’ credits, their index number, name, and name of tasks completed.
-* Format: view credits
-
-[NOTE]
-Credits are only calculated for tasks which have the “DONE” state.
-
-[NOTE]
-Credits are equally distributed amongst assigned members.
-image::images/screenshots/viewcredits.png[]
-=== Task Commands
-
-
-
 [width="100%",cols="25%,<75%,options="header",]
 |=======================================================================
 |MODIFIER | Display
@@ -364,6 +352,18 @@ In case of confusion, the following are examples that demonstrate the difference
 and how they can be used to show assignments in different formats.
 
 //insert screenshots.
+
+
+====  View total credits completed by each member : view credits
+Shows all members’ credits, their index number, name, and name of tasks completed.
+* Format: view credits
+
+[NOTE]
+Credits are only calculated for tasks which have the “DONE” state.
+
+[NOTE]
+Credits are equally distributed amongst assigned members.
+image::images/screenshots/viewcredits.png[]
 
 === Reminder Commands
 
