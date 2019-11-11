@@ -8,6 +8,12 @@ import duke.parser.Convert;
 
 import java.util.Date;
 
+/**
+ * @author VirginiaYu
+ *
+ * Represents a specific {@link Storage} for Orders in the {@link OrderList}
+ *
+ */
 public class OrderStorage extends Storage<Order> {
     /**
      * The constructor method for Storage.

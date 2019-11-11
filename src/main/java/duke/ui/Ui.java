@@ -93,33 +93,33 @@ public class Ui {
 //        System.out.println("              `.     ``-----'-''     ,'              ");
 //        System.out.println("                 -.               ,-                 ");
 //        System.out.println("                     `-._______.-                    ");
-        System.out.println(" _______     ________    ______  _____  _______  ________  ______      ___      ___   ___  ____");
-        System.out.println("|_   __ \\   |_   __  | .' ___  ||_   _||_   __ \\|_   __  ||_   _ \\   .'   `.  .'   `.|_  ||_  _|  ");
-        System.out.println("  | |__) |    | |_ \\_|/ .'   \\_|  | |    | |__) | | |_ \\_|  | |_) | /  .-.  \\/  .-.  \\ | |_/ /    ");
-        System.out.println("  |  __ /     |  _| _ | |         | |    |  ___/  |  _| _   |  __'. | |   | || |   | | |  __'.");
-        System.out.println(" _| |  \\ \\_  _| |__/ |\\ `.___.'\\ _| |_  _| |_    _| |__/ | _| |__) |\\  `-'  /\\  `-'  /_| |  \\ \\_");
-        System.out.println("|____| |___||________| `.____ .'|_____||_____|  |________||_______/  `.___.'  `.___.'|____||____|");
+        System.out.println("\t  _______     ________    ______  _____  _______  ________  ______      ___      ___   ___  ____");
+        System.out.println("\t |_   __ \\   |_   __  | .' ___  ||_   _||_   __ \\|_   __  ||_   _ \\   .'   `.  .'   `.|_  ||_  _|  ");
+        System.out.println("\t   | |__) |    | |_ \\_|/ .'   \\_|  | |    | |__) | | |_ \\_|  | |_) | /  .-.  \\/  .-.  \\ | |_/ /    ");
+        System.out.println("\t   |  __ /     |  _| _ | |         | |    |  ___/  |  _| _   |  __'. | |   | || |   | | |  __'.");
+        System.out.println("\t  _| |  \\ \\_  _| |__/ |\\ `.___.'\\ _| |_  _| |_    _| |__/ | _| |__) |\\  `-'  /\\  `-'  /_| |  \\ \\_");
+        System.out.println("\t |____| |___||________| `.____ .'|_____||_____|  |________||_______/  `.___.'  `.___.'|____||____|");
         System.out.println("\n");
     }
 
     public void orderDrawing() {
         if(!DRAW) return;
-        System.out.println("    ___   _______     ______   ________  _______");
-        System.out.println("  .'   `.|_   __ \\   |_   _ `.|_   __  ||_   __ \\    ");
-        System.out.println(" /  .-.  \\ | |__) |    | | `. \\ | |_ \\_|  | |__) |   ");
-        System.out.println(" | |   | | |  __ /     | |  | | |  _| _   |  __ /    ");
-        System.out.println(" \\  `-'  /_| |  \\ \\_  _| |_.' /_| |__/ | _| |  \\ \\_");
-        System.out.println("  `.___.'|____| |___||______.'|________||____| |___|");
+        System.out.println("\t     ___   _______     ______   ________  _______");
+        System.out.println("\t   .'   `.|_   __ \\   |_   _ `.|_   __  ||_   __ \\    ");
+        System.out.println("\t  /  .-.  \\ | |__) |    | | `. \\ | |_ \\_|  | |__) |   ");
+        System.out.println("\t  | |   | | |  __ /     | |  | | |  _| _   |  __ /    ");
+        System.out.println("\t  \\  `-'  /_| |  \\ \\_  _| |_.' /_| |__/ | _| |  \\ \\_");
+        System.out.println("\t   `.___.'|____| |___||______.'|________||____| |___|");
         System.out.println("\n");
     }
 
     public void ingredientDrawing() {
-        System.out.println(" _____  ____  _____   ______  _______     ________  ______   _____  ________  ____  _____  _________  ");
-        System.out.println("|_   _||_   \\|_   _|.' ___  ||_   __ \\   |_   __  ||_   _ `.|_   _||_   __  ||_   \\|_   _||  _   _  | ");
-        System.out.println("  | |    |   \\ | | / .'   \\_|  | |__) |    | |_ \\_|  | | `. \\ | |    | |_ \\_|  |   \\ | |  |_/ | | \\_| ");
-        System.out.println("  | |    | |\\ \\| | | |   ____  |  __ /     |  _| _   | |  | | | |    |  _| _   | |\\ \\| |      | |");
-        System.out.println(" _| |_  _| |_\\   |_\\ `.___]  |_| |  \\ \\_  _| |__/ | _| |_.' /_| |_  _| |__/ | _| |_\\   |_    _| |_    ");
-        System.out.println("|_____||_____|\\____|`._____.'|____| |___||________||______.'|_____||________||_____|\\____|  |_____|");
+        System.out.println("\t  _____  ____  _____   ______  _______     ________  ______   _____  ________  ____  _____  _________  ");
+        System.out.println("\t |_   _||_   \\|_   _|.' ___  ||_   __ \\   |_   __  ||_   _ `.|_   _||_   __  ||_   \\|_   _||  _   _  | ");
+        System.out.println("\t   | |    |   \\ | | / .'   \\_|  | |__) |    | |_ \\_|  | | `. \\ | |    | |_ \\_|  |   \\ | |  |_/ | | \\_| ");
+        System.out.println("\t   | |    | |\\ \\| | | |   ____  |  __ /     |  _| _   | |  | | | |    |  _| _   | |\\ \\| |      | |");
+        System.out.println("\t  _| |_  _| |_\\   |_\\ `.___]  |_| |  \\ \\_  _| |__/ | _| |_.' /_| |_  _| |__/ | _| |_\\   |_    _| |_    ");
+        System.out.println("\t |_____||_____|\\____|`._____.'|____| |___||________||______.'|_____||________||_____|\\____|  |_____|");
         System.out.println("\n");
     }
 
@@ -156,10 +156,6 @@ public class Ui {
         System.out.println("\t 'd' add/remove/change a dish");
         System.out.println("\t 't' view today's todo list");
         System.out.println("\t 'q' to exit");
-    }
-
-    public void showUsed(Ingredient ingredient) {
-        System.out.println("Great, just used " + ingredient);
     }
 
     public void show(String message) {
@@ -213,15 +209,15 @@ public class Ui {
     public void showOrderTemplate() {
         orderDrawing();
         showLine();
-        System.out.println("\t Continue by adding, removing, altering, listing order and initializing order list. \n\t Command Template: ");
+        System.out.println("\t Continue by adding, cancelling, altering, and listing orders, or initializing order list. \n\t Command Template: ");
         showLine();
-        System.out.println("\t init");
+        System.out.println("\t init      (REMOVES all entries in the list)");
         System.out.println("\t add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]");
         System.out.println("\t alter ORDER_INDEX ORDER_DATE-(dd/mm/yyyy)");
         System.out.println("\t cancel ORDER_INDEX");
         System.out.println("\t done ORDER_INDEX");
         System.out.println("\t list [-l LIST_TYPE-(option: all (default) | undone | today | undoneToday)]");
-        System.out.println("\t list -n DISH_NAME    *** Find the dishes in today's undone orders ***");
+        System.out.println("\t list -n DISH_NAME     (Find the dishes in today's undone orders)");
         System.out.println("\t list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) | undone)]");
         showLine();
     }
@@ -272,37 +268,6 @@ public class Ui {
     }
 
     /**
-     * Show that this task is marked.
-     *
-     * @param doneOrder The description of the order that is marked as done
-     */
-    public void showMarkDoneOrder(String doneOrder) {
-        System.out.println("\t Nice! I've marked this order as done:");
-        System.out.println("\t " + doneOrder);
-    }
-
-    /**
-     * Show that this task is marked.
-     *
-     * @param task The description of the task that is marked as done
-     */
-    public void showMarkDone(String task) {
-        System.out.println("\t Nice! I've marked this task as done:");
-        System.out.println("\t " + task);
-    }
-
-    /**
-     * Show the order that has been changed serving date.
-     *
-     * @param date         the newly set date for serving the order
-     * @param changedOrder the order that has been changed
-     */
-    public void showOrderChangedDate(String date, String changedOrder) {
-        System.out.println("\t Nice! I've changed the order to the date " + date + ":");
-        System.out.println("\t " + changedOrder);
-    }
-
-    /**
      * Show the size of the list.
      *
      * @param size the size
@@ -318,12 +283,36 @@ public class Ui {
     }
 
     /**
-     * Show the size of the order list.
+     * Show that this order is marked as done.
+     * @author VirginiaYu
      *
-     * @param size the size
+     * @param doneOrder The description of the order that has been marked as done
+     */
+    public void showMarkDoneOrder(String doneOrder) {
+        System.out.println("\t Nice! You've marked this order as done:");
+        System.out.println("\t " + doneOrder);
+    }
+
+    /**
+     * Show the order that has been changed its serving date.
+     * @author VirginiaYu
+     *
+     * @param date         the newly set date for serving the order
+     * @param changedOrder the order that has been changed
+     */
+    public void showOrderChangedDate(String date, String changedOrder) {
+        System.out.println("\t Nice! You've changed the order to the date " + date + ":");
+        System.out.println("\t " + changedOrder);
+    }
+
+    /**
+     * Show the size of the current order list.
+     * @author VirginiaYu
+     *
+     * @param size the size of the order list
      */
     public void showOrderListSize(int size) {
-        System.out.print("\t Now you have " + size);
+        System.out.print("\t Now you have got " + size);
         if (size == 1) {
             System.out.print(" order");
         } else {
@@ -333,24 +322,14 @@ public class Ui {
     }
 
     /**
-     * Shows that a task has been added.
-     *
-     * @param command ay
-     * @param size    ya
-     */
-    public void showAddCommand(String command, int size) {
-        System.out.println("\t Got it. I've added this: ");
-        System.out.println("\t " + command);
-    }
-
-    /**
-     * Shows that a order has been added.
+     * Shows that an order has been added.
+     * @author VirginiaYu
      *
      * @param description information of the order be added
      * @param size        current size of the whole order list
      */
     public void showAddOrder(String description, int size) {
-        System.out.println("\t Got it. New order added! ");
+        System.out.println("\t Got it! New order added: ");
         System.out.println("\t " + description);
         showOrderListSize(size);
     }
@@ -368,13 +347,14 @@ public class Ui {
     }
 
     /**
-     * Show the order that has been removed.
+     * Show the order that has been cancelled.
+     * @author VirginiaYu
      *
-     * @param removed the order
-     * @param size    size of order list
+     * @param removed the order that has been cancelled
+     * @param size    size of current order list
      */
     public void showRemovedOrder(String removed, int size) {
-        System.out.println("\t Noted. I've cancelled this order:");
+        System.out.println("\t Noted. You've cancelled this order: ");
         System.out.println("\t " + removed);
         showOrderListSize(size);
     }
@@ -393,10 +373,6 @@ public class Ui {
     public void showAddedIngredient(Ingredient ingredient) {
         System.out.println("\t Got it. I've added " + ingredient.getName() + " to the fridge, you currently have:");
         System.out.println("\t " + ingredient);
-    }
-
-    public void showDishes(String Dish, int Nb) {
-        System.out.println(Dish + "\t orders: " + Nb);
     }
 
     public void showDeletedDIsh(String dish) {

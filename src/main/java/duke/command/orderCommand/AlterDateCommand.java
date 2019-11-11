@@ -9,11 +9,14 @@ import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
 import duke.storage.RecipeStorage;
+import duke.storage.Storage;
 import duke.ui.Ui;
 
 import java.util.Date;
 
 /**
+ * @author VirginiaYu
+ *
  * Represents a specific {@link Command} used to alter the {@link Order} serving date.
  */
 public class AlterDateCommand extends Command {
@@ -32,6 +35,15 @@ public class AlterDateCommand extends Command {
         this.date = newDate;
     }
 
+    /**
+     * Public method used to alter a serving date of an existing order in the orderList, and update it on the hard disc.
+     * Print out corresponding info if altering successfully
+     *
+     * @param orderList the {@link OrderList} to be expanded
+     * @param ui       {@link Ui} used for printing the order output
+     * @param orderStorage  {@link OrderStorage} writes in the file on the hard disc
+     * @throws DukeException Error while altering the date, or writing to the hard disc
+     */
     @Override
     public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage, RecipeStorage rs) throws DukeException {
         if (orderList.size()==0) {
@@ -55,7 +67,11 @@ public class AlterDateCommand extends Command {
             ui.showLine();
 
         } else {
-            throw new DukeException("Must enter a valid order index number between 1 and "+orderList.size());
+            if (orderList.size()==1) {
+                throw new DukeException("Got only 1 order in the order list.\n\t Enter '1' as order index");
+            } else {
+                throw new DukeException("Must enter a valid order index number between 1 and "+orderList.size());
+            }
         }
     }
 }

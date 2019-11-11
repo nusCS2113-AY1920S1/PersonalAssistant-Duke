@@ -1,8 +1,8 @@
 # Chef Duke - Developer Guide
 
+
+
 [TOC]
-
-
 
 ### 1. Setting Up
 
@@ -531,17 +531,19 @@ Below is a table with some of the methods provided by this class.
 
 #### 2.13 ingredientCommand Component
 
-API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.java`, `RemoveAllExpired.java,FindIngredientCommand.java, UseCommand.java,`
+API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.java`, `RemoveAllExpired.java,FindIngredientCommand.java, UseCommand.java,` `ChangeAmountCommand.java`, `ChangeNameCommand.java`
 
 The `ingredientCommand` classes all inherit from the `Command` class. They all have a specific implementation of the abstract method `execute` of the class `Command`. The `ingredientCommand` classes includes:
 
 - **AddCommand** This command adds an `Ingredient` to the `Fridge` passed as an argument upon creating this command.  When adding an `Ingredient`, it is compared to all the existing ingredients in the `Fridge`, if there is an match, having the same name and expiry date, no new entry is created in the `IngredientList` of the `Fridge`, namely, only the amount of the already existing matching ingredient is augmented by the amount of the `Ingredient` to be added. Otherwise, a new `Ingredient` entry is created in the `IngredientList`. 
 - **DeteleCommand**: This command deletes an `Ingredient` from the `IngredientList` of the `Fridge`. The `Ingredient` to be removed is indicated by it's index in the `IngredientList`, passed as a parameter when creating this command. 
-- **FindToday**: This command is used to look for expired ingredients on the date itself.
-- **ListCommand**: This command is used to show the chef's entire IngredientsList.
+- **FindToday**: This command is used to look for expired ingredients from the `IngredientsList` of the `Fridge`, on the date itself.
+- **ListCommand**: This command is used to show the chef's entire `IngredientsList`.
 - **RemoveAllExpired**: The command is used to remove all expired ingredients from the  `IngredientList` of the `Fridge`.
-- **FindIngredientCommand**: This command is used to find all ingredients with the queried keyword entered by the chef.
+- **FindIngredientCommand**: This command is used to find all the `Ingredient`, with the queried keyword entered by the chef, in the `Fridge`.
 - **UseCommand**: This command is executed to use and remove the specified amount of a **non-expired** `Ingredient` stored in the  `IngredientList` of the `Fridge`, when the Chef wants to use it. An important *note* is that ingredients are used based on their expiry date, meaning the **most recently expiring ingredients**, matching the ingredient name indicated by the chef, **are used first**. Otherwise, if there is not enough of the required non-expired amount of this ingredient needed by the chef, the program will output a message notifying the Chef. 
+- **ChangeAmountCommand**: This command is used to change the amount of an `Ingredient` given the index number of the `Ingredient`.
+- **ChangeNameCommand**: This command is used to change the name of an `Ingredient` given the index number of the `Ingredient`.
 
 ### 3. Implementation
 
@@ -770,7 +772,7 @@ in the main page, there are several actions for the user:
 | 6     | c       | c       | go into order template      |
 | 7     | d       | d       | go into dish template       |
 
-#### E2. Launch and shutdown
+#### E1. Launch and shutdown
 
 1. Initial Launch
    1. Download Jar file and copy into empty folder
@@ -816,11 +818,28 @@ Using an ingredient from the Fridge
 
 #### E4. Finding an ingredient
 
+Find an ingredient in the list using a keyword
+
+1. Prerequisite: user must be in `ingredient` template. List all ingredients by typing `show`. Assuming the the fridge currently only has `beef`.
+
+   Test case 1: `find beef` 
+
+​		Expected: Find and list all ingredients that have the keyword `beef` to the user
+
+​		Test case 2: `find cockroach`
+
+​		Expected: Ingredient is not found and program outputs `No such ingredient found!`
+
+​		Test case 3: `find be ef`
+
+​		Expected: Program outputs to user the proper syntax to use the command.
+
 #### E5. Remove an ingredient
 
 Removing an ingredient from the Fridge
 
 1. prerequisite: user must be in `b` option of the main menu. Show all ingredients using `show` , assuming the number of ingredients currently  in the Fridge is for eg. 5.
+
 
    Test case 1: `remove 1` 
 
@@ -834,15 +853,28 @@ Removing an ingredient from the Fridge
 
    Expected:  no ingredient is removed, outputs to the user that he must specify an index of the ingredient to be removed!
 
-#### E6. Adding an order
+#### E6. Listing all ingredient
 
-#### E7. Marking order as done
+#### E7. Removing all expired ingredient
 
-#### E8. Altering order
 
-#### E9. Removing order
+#### E8. Listing ingredients that expired today
 
-#### E10. Adding a dish
+1. 
+
+#### E9. Changing ingredient name
+
+#### E10. Changing ingredient amount
+
+#### E11. Adding an order
+
+#### E12. Marking order as done
+
+#### E13. Altering order
+
+#### E14. Removing order
+
+#### E15. Adding a dish
 
 1. adding a dish to the dishList
 
@@ -860,7 +892,7 @@ Removing an ingredient from the Fridge
 
       Expected: output message to user that the description cannot be empty
 
-#### E11. Removing a dish
+#### E16. Removing a dish
 
 1. removing a dish from the dishList
 
@@ -882,7 +914,7 @@ Removing an ingredient from the Fridge
 
          Expected: no dish is deleted. outputs to the user that the dish does not exist 
 
-#### E12. Adding an ingredient to a dish
+#### E17. Adding an ingredient to a dish
 
 1. associating an ingredient to a dish in the dishList	
 
@@ -900,7 +932,7 @@ Removing an ingredient from the Fridge
 
       Expected: no ingredient is added to a dish. outputs message to user that index/amount needs to be valid
 
-#### E13. Finding a dish
+#### E18. Finding a dish
 
 1. finding a dish in list given a keyword
 
@@ -919,7 +951,7 @@ Removing an ingredient from the Fridge
    
    Expected: deletes the first dish in the list, 
 
-#### E12. Changing name of a dish
+#### E19. Changing name of a dish
 
 1. changing the name of a dish in list
 
