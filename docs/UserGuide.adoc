@@ -251,17 +251,17 @@ Tasks without a deadline will be classified as the latest.
 |=======================================================================
 
 * Examples
-** `view tasks -name` : shows all the tasks sorted lexicographically
+.`view tasks -name` : shows all the tasks sorted lexicographically
 image::images/screenshots/viewtasks_name.png[]
-** `view tasks -date` : show all the dates sorted by the due date
+.`view tasks -date` : show all the dates sorted by the due date
 image::images/screenshots/viewtasks_date.png[]
-** `view tasks -priority` : shows all the dates sorted by priority
+.`view tasks -priority` : shows all the dates sorted by priority
 image::images/screenshots/viewtasks_priority.png[]
-** `view tasks -credits` : shows all the tasks sorted by credits
+.`view tasks -credits` : shows all the tasks sorted by credits
 image::images/screenshots/viewtasks_credits.png[]
-** `view tasks -who Dillen` : shows all the tasks assigned to “Dillen”
+.`view tasks -who Dillen` : shows all the tasks assigned to “Dillen”
 image::images/screenshots/viewtasks_who.png[]
-** `view tasks -state doing` : shows all the tasks with the state “DOING”
+.`view tasks -state doing` : shows all the tasks with the state “DOING”
 image::images/screenshots/viewtasks_state.png[]
 
 ==== View task requirements : `view task requirements`
