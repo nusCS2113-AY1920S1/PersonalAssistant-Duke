@@ -626,7 +626,7 @@ The `FindBankOrCardCommand` requires *2* inputs:
 * The name of the account that acts as a keyword for the search.
 * Type of object to be searched (e.g. `card`, `savings` or `investment`)
 
-When the user executes the `FindBankOrCardCommand` to search for savings account, the following steps are taken by the
+When the user executes the `FindBankOrCardCommand` to search for a savings account, the following steps are taken by the
 application:
 
 . When the `FindBankOrCardCommand` is executed, it will invoke `findBankOrCard`.
@@ -642,7 +642,7 @@ application:
 * Check whether the account that matches the keyword is indeed a savings account.
 
 [NOTE]
-`findBankAccount` will throw an error if all bank accounts within the application fails the above checks.
+`findBankAccount` will throw an error if all bank accounts within the application fail the above checks.
 
 [start=5]
 . Once the search has been completed, the details of all matching savings account will be displayed to inform the

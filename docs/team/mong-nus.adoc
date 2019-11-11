@@ -24,8 +24,8 @@ Object-Oriented Programming. It aims to demonstrate the theoretical and practica
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/terencetanwt.adoc[Tan Wee Theng Terence],
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai],
-link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
-, and myself). It aims to assist undergraduates and fresh graduates to track and manage their finances
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia], and
+myself). It aims to assist undergraduates and fresh graduates to track and manage their finances
 conveniently and effectively - all in one place. *OwlMoney* provides a Command Line Interface (CLI) for the user to
 interact with. The commands used to interact with *OwlMoney* are designed to be simple and intuitive. Rest assured, you
 will be able to use *OwlMoney* with ease, even if you are unfamiliar with CLI.
@@ -259,7 +259,7 @@ Command Syntax: `/find /savings /name ACCOUNT_NAME`
 
 Command Example: `/find /savings /name Jun`
 
-The command example allows the user to find and list all savings account that matches the keyword `Jun`. This can
+The command example allows the user to find and list all savings account that match the keyword `Jun`. This can
 be seen from Figure 1 below.
 
 .Successful search of savings account after using `/find /savings`
@@ -268,14 +268,14 @@ image::FindSavings.png[Caption="Figure : "]
 ==== Finding Bank Transaction: `/find /banktransaction`
 
 Scenario: Let's say that you have thousands of bank transaction records and you want to find the
-details of a specific transaction records. Don't worry *OwlMoney* allows you to find it with ease.
+details of a specific transaction record. Don't worry *OwlMoney* allows you to find it with ease.
 
 Command Syntax: `/find /banktransaction /name ACCOUNT_NAME [/desc DESCRIPTION] [/from DATE /to DATE] [/category
 CATEGORY]`
 
 [NOTE]
 ====
-Transactions includes both expenditures and deposits.
+Transactions include both expenditures and deposits.
 
 `DESCRIPTION` used for searching is case-insensitive.
 
@@ -290,7 +290,7 @@ of `/desc`, `/category`, or `/from` with `/to` must be used to make it a valid c
 
 Command Example: `/find /banktransaction /name JunBank Savings Account /desc bubble tea`
 
-The command example allows the user to find and list all transaction records that matches the description `bubble tea`
+The command example allows the user to find and list all transaction records that match the description `bubble tea`
 charged to `JunBank Savings Account`. This can be seen from Figure 2 below.
 
 .Successful search of bank transaction by description after using `/find /banktransaction`
@@ -360,7 +360,7 @@ The `FindBankOrCardCommand` requires *2* inputs:
 * The name of the account that acts as a keyword for the search.
 * Type of object to be searched (e.g. `card`, `savings` or `investment`)
 
-When the user executes the `FindBankOrCardCommand` to search for savings account, the following steps are taken by the
+When the user executes the `FindBankOrCardCommand` to search for a savings account, the following steps are taken by the
 application:
 
 . When the `FindBankOrCardCommand` is executed, it will invoke `findBankOrCard`.
@@ -376,7 +376,7 @@ application:
 * Check whether the account that matches the keyword is indeed a savings account.
 
 [NOTE]
-`findBankAccount` will throw an error if all bank accounts within the application fails the above checks.
+`findBankAccount` will throw an error if all bank accounts within the application fail the above checks.
 
 [start=5]
 . Once the search has been completed, the details of all matching savings account will be displayed to inform the
