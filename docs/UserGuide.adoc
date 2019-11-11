@@ -318,7 +318,7 @@ image::images/screenshots/viewtasks_credits.png[]
 ** `view tasks -who Dillen` : shows all the tasks assigned to “Dillen”
 
 image::images/screenshots/viewtasks_who.png[]
-** `view tasks -state doing` : shows all the tasks with the state “DOING”
+** `view tasks -state done` : shows all the tasks with the state “DONE”
 
 image::images/screenshots/viewtasks_state.png[]
 
