@@ -229,7 +229,7 @@ Generates a variable-size calendar which shows a monthly view of all the loaned 
 ... Increases the cell size of the calendar, allowing it to display more information.
 * `calendar-`
 ... Decreases the cell size of the calendar, decreasing its overall size for more concise reading.
-... The calendar has a minimum cell size, beyond which it cannot be decreased.
+... The calendar has a minimum cell size of 2 entries, beyond which it cannot be decreased.
 
 ==== View stats: `stats`
 View how many resources are in used between two dates with interval less than 15 in the form of a simple bar graph.
@@ -320,24 +320,3 @@ e.g. `stats /from 11/11/2019 1111 /till Wednesday 1300`
 e.g. `tag /item pen /tag study`
 * *Exiting the program*:
 ** `bye`
-
-<<<<<<< HEAD
-* *Add resource*: `resource add /item ITEM /qty QUANTITY` +
-e.g. `add /item book /qty 5`
-* *Delete resource*: `delete /item ITEM /qty QUANTITY` +
-e.g. `delete /item book /qty 5`
-* *Loan out resource*: `lend /item ITEM /qty QUANTITY /by DEADLINE` +
-e.g. `lend /item frisbee /qty 5 /by 01/10/2019 2300`
-* *Return resource*: `return /item ITEM /qty QUANTITY` +
-e.g. `return /item frisbee /qty 3`
-* *Reserve resource*: `reserve /item ITEM /qty QUANTITY /from DATE /to DEADLINE` +
-e.g. `reserve /item basketball /qty 1 /from 01/10/2019 2300 /to 03/10/2019 2300`
-* *View deadline of resource*: `due DATE` +
-	e.g. `due 04/05/2019`
-* *List resources and their status*: `list`
-* *View calendar*: `calendar`
-* *Increase calendar size*: `calendar+`
-* *Decrease calendar size*: `calendar-`
-* *Exiting the program*: `bye`
-=======
->>>>>>> 2f2457dfd9d213ec20df3c684b33b513999df71c
