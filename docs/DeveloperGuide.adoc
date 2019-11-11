@@ -585,7 +585,7 @@ Given below is the UML Diagram relating how DegreeManager is linked to the main(
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/DegreeManagerInit.png[width="900", align = "left"]
 
-As detailed in the diagram above, when the main logic is initialized, an instance of Duke is created. Duke will subsequently create a Storage class. Duke will then create DegreeManager which will use Duke's instance of Storage. DegreeManager will fetch the information regarding the list of degrees from Storage. Subsequently, for each degree in the list, it will crete a Degree class to be stored within itself.
+As detailed in the diagram above, when the main logic is initialized, an instance of Duke is created. Duke will subsequently create a Storage class. Duke will then create DegreeManager which will use Duke's instance of Storage. DegreeManager will fetch the information regarding the list of degrees from Storage. Subsequently, for each degree in the list, it will create a Degree class to be stored within itself.
 
 ==== Design Considerations
 
@@ -605,7 +605,7 @@ How DegreeManager handles the checking of valid degree names:
 *** Can be used to instantly determine if two keys belong to the same set as well.
 *** Becomes faster over time through usage of Path Compression techniques.
 ** Cons: 
-*** Non-primitve storage container, requires self implementation which may be flawed.
+*** Non-primitive storage container, requires self implementation which may be flawed.
 *** Complicated to use when handling non-integer members.
 *** Extra Containers and functions needed to support the Disjoint Set.
 
