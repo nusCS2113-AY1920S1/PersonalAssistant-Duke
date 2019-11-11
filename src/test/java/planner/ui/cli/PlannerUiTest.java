@@ -61,7 +61,7 @@ public class PlannerUiTest extends InputTest {
     void testHelloMsg() {
         final String expected = LINE
                 + "\n"
-                +  "Welcome to ModPlanner, your one stop solution to module planning!\n"
+                +  "Welcome to ModPlan, your one stop solution to module planning!\n"
                 + "Begin typing to get started!\n"
                 + LINE
                 + "\n";
@@ -73,7 +73,7 @@ public class PlannerUiTest extends InputTest {
     void testByeMsg() {
         final String expected = LINE
                 + "\n"
-                + "Thanks for using ModPlanner!\n"
+                + "Thanks for using ModPlan!\n"
                 + "Your data will be stored in file shortly!\n"
                 + LINE
                 + "\n";

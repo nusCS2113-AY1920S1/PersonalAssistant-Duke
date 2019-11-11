@@ -30,7 +30,7 @@ public class PlannerTest extends CommandTest {
         String expected =
                   LINE
                 + "\n"
-                + "Thanks for using ModPlanner!\n"
+                + "Thanks for using ModPlan!\n"
                 + "Your data will be stored in file shortly!\n"
                 + LINE
                 + "\n";
