@@ -154,22 +154,46 @@ Registers an item / room as having been returned, and is thus available to be lo
 * `return /item frisbee /qty 3`
 * `return /room seminar room 1`
 
-==== View deadline of item/room: `due`
-View which items/rooms are due on a certain date using this command.
+==== View upcoming deadlines of items/rooms on loan: `deadlines`
+View a sorted list of upcoming deadlines for active loans.
 
 .*Format*:
-. `due DATE`
-* If the date is left blank then the UI will send a message to inform the user.
-* Date must be in DD/MM/YYYY format
+. `deadlines`
+* If the command entered is incorrect, the UI will prompt the user to type in the correct command.
 
 .*Examples*:
-* `due 07/10/2019`
+* `deadlines`
 
-==== List items/rooms and their status: `list`
-View all items and rooms recorded and whether they are available or not.
+==== List: `list`
+View various lists of the stored resources based on the parameters entered.
 
 .*Format*:
-. `list`
+
+. `list /item ITEM`
+. `list /room ROOM`
+. `list /date DATE`
+. `list /date TAG`
+* Only the names of items/room in the inventory can be entered
+* Incorrectly entering the name of the resource will cause the UI to prompt the user again
+* Dates should be entered in the DD/MM/YYYY HHmm format or in the natural date format like 'fri'
+
+.*Examples*:
+* `list /item pen`
+* `list /room seminar room 1`
+* `list /date 09/12/2019 1000`
+* `list /tag TAG`
+
+==== Tag: `tag`
+Tag the various resources in the inventory based on their function.
+
+.*Format*:
+
+. `tag /item ITEM /tag TAG`
+. `tag /room ROOM /tag TAG`
+
+.*Examples*:
+* `tag /item pen /tag study`
+
 
 ==== View calendar: `calendar`
 View a table-format calendar which shows when items/rooms are in use.
@@ -214,8 +238,9 @@ e.g. `lend /item frisbee /qty 5 /by 01/10/2019 2300`
 e.g. `return /item frisbee /qty 3`
 * *Reserve resource*: `reserve /item ITEM /qty QUANTITY /from DATE /to DEADLINE` +
 e.g. `reserve /item basketball /qty 1 /from 01/10/2019 2300 /to 03/10/2019 2300`
-* *View deadline of resource*: `due DATE` +
-	e.g. `due 04/05/2019`
+* *View upcoming deadlines*: `deadlines`
 * *List resources and their status*: `list`
+* *Tag resources*: `tag /item ITEM /tag TAG` +
+e.g. `tag /item pen /tag study`
 * *View calendar*: `calendar`
 * *Exiting the program*: `bye`
