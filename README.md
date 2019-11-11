@@ -7,6 +7,8 @@
 * Personal word management assistant
 * Customised features to help users manage their vocabulary learning process with ease
 
+![WordUp Screenshot](WordUp_screenshot.png)
+
 # Site Map
 
 * User Guide
