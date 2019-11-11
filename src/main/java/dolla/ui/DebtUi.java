@@ -111,6 +111,7 @@ public class DebtUi extends Ui {
     public static void printWrongPeopleNumberMessage(int people) {
         System.out.println(line);
         System.out.println("\tPlease enter " + people + " names.");
+        System.out.println(line);
     }
 
     /**
