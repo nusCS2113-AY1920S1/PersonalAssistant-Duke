@@ -57,7 +57,7 @@ public class CommandBox extends UiManager<StackPane> {
      * Handles the Enter button pressed event listener.
      */
     @FXML
-    private void handleCommandEntered() throws CubeException {
+    private void handleCommandEntered() {
         String fullCommand = commandTextField.getText();
 
         try {

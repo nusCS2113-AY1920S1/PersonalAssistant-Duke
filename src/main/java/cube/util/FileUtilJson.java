@@ -14,12 +14,14 @@ import cube.util.exception.UtilErrorMessage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class FileUtilJson<T> extends FileUtil {
     private T fileObject;
     private String fileFullPath;
     private File file;
     private ObjectMapper mapper;
+    private final Logger logger = LogUtil.getLogger(FileUtilJson.class);
 
     /**
      * Constructor with two argument.
@@ -42,12 +44,13 @@ public class FileUtilJson<T> extends FileUtil {
      */
     public T load() throws CubeException {
         if (checkFileAvailable(true)) {
-            System.out.println("Loading file from : " + fileFullPath);
+            logger.info("Loading file from : " + fileFullPath);
 
             try {
                 JavaType type = mapper.getTypeFactory().constructType(fileObject.getClass());
                 fileObject = mapper.readValue(file, type);
             } catch (IOException e) {
+                logger.warning(UtilErrorMessage.READ_ERROR + fileFullPath);
                 throw new CubeUtilException(UtilErrorMessage.READ_ERROR + fileFullPath);
             }
         }
@@ -65,6 +68,7 @@ public class FileUtilJson<T> extends FileUtil {
         try {
             mapper.writeValue(file, fileObject);
         } catch (IOException e) {
+            logger.warning(UtilErrorMessage.WRITE_ERROR + fileFullPath);
             throw new CubeUtilException(UtilErrorMessage.WRITE_ERROR + fileFullPath);
         }
     }
