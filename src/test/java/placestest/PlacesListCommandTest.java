@@ -1,6 +1,6 @@
 //@@author jessteoxizhi
 
-package placesCommandTest;
+package placestest;
 
 import gazeeebo.ui.Ui;
 import gazeeebo.commands.places.ListPlacesCommand;
@@ -57,3 +57,4 @@ class PlacesListCommandTest {
                 + "------------------------------------------\n", output.toString());
     }
 }
+

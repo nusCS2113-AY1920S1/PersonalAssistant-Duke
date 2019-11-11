@@ -1,6 +1,6 @@
 //@@author jessteoxizhi
 
-package placesCommandTest;
+package placestest;
 
 import gazeeebo.ui.Ui;
 import gazeeebo.commands.places.AddPlacesCommand;
@@ -59,3 +59,4 @@ class PlacesAddCommandTest {
         assertEquals("Please input add command in the correct format\r\n", output.toString());
     }
 }
+

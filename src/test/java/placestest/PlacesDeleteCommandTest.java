@@ -1,6 +1,6 @@
 //@@author jessteoxizhi
 
-package placesCommandTest;
+package placestest;
 
 import gazeeebo.ui.Ui;
 import gazeeebo.commands.places.DeletePlacesCommand;
@@ -71,3 +71,4 @@ class PlacesDeleteCommandTest {
         assertEquals("Please input delete command in the correct format\r\n", output.toString());
     }
 }
+
