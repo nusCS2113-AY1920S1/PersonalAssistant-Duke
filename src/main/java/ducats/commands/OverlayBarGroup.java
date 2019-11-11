@@ -103,7 +103,9 @@ public class OverlayBarGroup  extends Command<SongList>  {
                     int i = 0;
                     while (iterator1.hasNext()) {
                         Group temp = iterator1.next();
+
                         if (i >= groupIndexToBeCopiedTo) {
+
                             Splitter splitItem = new Splitter("group split");
                             ArrayList<Bar> barListCopiedTo = splitItem.splitObject(temp);
                             Iterator<Bar> iteratorGroup = barListCopiedTo.iterator();
