@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -76,6 +77,7 @@ public class Profile {
     private static final String TRANSFERFUNDFROM = "Fund Received from ";
     private static final Logger logger = getLogger(Profile.class);
     private static final String IS_MATURE = "true";
+    DateTimeFormatter yearMonthFormatter = DateTimeFormatter.ofPattern("MM/yyyy");
 
     /**
      * Creates a new instance of the user profile.
@@ -154,7 +156,7 @@ public class Profile {
      * @throws ProfileException if name don't match or change same name or name contain special character.
      */
     public void profileSetUsername(String name, String newName, Ui ui) throws ProfileException {
-        checkProfileName(name, newName);
+        checkProfileName(name);
         this.username = newName;
         ui.printMessage("\nProfile name was: " + name);
         ui.printMessage("Now changed to: " + newName);
@@ -163,6 +165,7 @@ public class Profile {
         } catch (IOException ex) {
             ui.printError("Unable to save profile now, your data is at risk, but we will"
                     + " try saving again, feel free to continue using the program.");
+            logger.warning("Error exporting new profile name when /edit /profile");
         }
     }
 
@@ -170,12 +173,11 @@ public class Profile {
      * Checks if profile name exist and not changed to same name.
      *
      * @param name existing name of user.
-     * @param newName new name that user wants to change to.
      * @throws ProfileException if name don't match or change same name.
      */
-    public void checkProfileName(String name, String newName) throws ProfileException {
+    public void checkProfileName(String name) throws ProfileException {
         if (!name.equals(this.username)) {
-            throw new ProfileException("No profile name with " + name + "found!\nTry this instead: " + this.username);
+            throw new ProfileException("No profile name with " + name + " found!\nTry this instead: " + this.username);
         }
     }
 
@@ -671,11 +673,12 @@ public class Profile {
      * @throws BankException If cannot add income.
      */
     public void profileUpdate(Ui ui) throws BankException {
+        ui.printMessage("Updating profile...");
         bankList.bankListUpdateRecurringTransactions(ui);
         goalsList.updateGoals();
         profileAddAchievement();
-        logger.info("Profile updated");
-        ui.printMessage("Profile has been updated");
+        logger.info("Profile checks done");
+        ui.printMessage("Update checks done");
     }
 
     /**
@@ -686,10 +689,12 @@ public class Profile {
      * @param amount The amount to be transferred.
      * @param date   The date that the fund was transferred.
      * @param ui     The ui object Required for printing.
-     * @throws BankException If any of the bank does not exist or insufficient fund to transfer.
+     * @throws BankException If any of the bank does not exist, insufficient fund to transfer
+     *                       or sender and receiver account name is the same.
      */
     public void transferFund(String from, String to, double amount, Date date,
             Ui ui) throws BankException {
+        checkSameBankName(from, to);
         String fromType = bankList.getTransferBankType(from, amount);
         String descriptionTo = TRANSFERFUNDTO + to;
         bankList.bankListCheckTransferExceed(to, amount);
@@ -701,7 +706,22 @@ public class Profile {
         Transaction newDeposit = new Deposit(descriptionFrom, amount, date, DEPOSITCATEGORY);
         bankList.bankListAddDeposit(to, newDeposit, ui, checkBankType(toType));
         logger.info("Successfully added deposit for the receiver");
-        logger.info("Fund successfully transfered");
+        logger.info("Fund successfully transferred");
+    }
+
+    /**
+     * Checks whether the sender and receiver account is the same.
+     *
+     * @param from   The account name for transferring the fund.
+     * @param to     The account name to receive the fund.
+     * @throws BankException If sender and receiver name is the same.
+     */
+    private void checkSameBankName(String from, String to) throws BankException {
+        String capitalFrom = from.toUpperCase();
+        String capitalto = to.toUpperCase();
+        if (capitalFrom.equals(capitalto)) {
+            throw new BankException("Sender account and receiver account cannot be the same");
+        }
     }
 
     /**
@@ -1231,9 +1251,9 @@ public class Profile {
     private void checkBillAmountNotZero(double amount, String card, YearMonth cardDate) throws CardException {
         if (amount == 0) {
             logger.warning("You have no paid expenditures for " + card + " for the month of "
-                    + cardDate + "!");
+                    + cardDate.format(yearMonthFormatter) + "!");
             throw new CardException("You have no paid expenditures for " + card + " for the month of "
-                    + cardDate + "!");
+                    + cardDate.format(yearMonthFormatter) + "!");
         }
     }
 
@@ -1258,10 +1278,10 @@ public class Profile {
         bankList.bankListAddDeposit(bank, deposit, ui, type);
         try {
             cardList.transferExpUnpaidToPaid(card, cardDate, type);
-            ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
-                    + " have been successfully paid!");
-            logger.info("Credit Card bill for " + card + " for the month of " + cardDate
-                    + " have been successfully paid!");
+            ui.printMessage("Credit Card bill for " + card + " for the month of "
+                    + cardDate.format(yearMonthFormatter) + " have been successfully paid!");
+            logger.info("Credit Card bill for " + card + " for the month of "
+                    + cardDate.format(yearMonthFormatter) + " have been successfully paid!");
         } catch (TransactionException error) {
             ui.printMessage(error.getMessage());
             logger.warning("Paying of card bill failed! Your data may potentially be corrupted!");
@@ -1291,10 +1311,10 @@ public class Profile {
         int depositNumber = profileGetCardBillDepositId(bank,getCardId(card), cardDate) + ARRAY_INDEX;
         profileDeleteDeposit(depositNumber, bank, ui, true);
         cardList.transferExpPaidToUnpaid(card, cardDate, type);
-        ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
-                + " have been successfully reverted!");
-        logger.info("Credit Card bill for " + card + " for the month of " + cardDate
-                + " have been successfully reverted!");
+        ui.printMessage("Credit Card bill for " + card + " for the month of "
+                + cardDate.format(yearMonthFormatter) + " have been successfully reverted!");
+        logger.info("Credit Card bill for " + card + " for the month of "
+                + cardDate.format(yearMonthFormatter) + " have been successfully reverted!");
     }
 
     /**

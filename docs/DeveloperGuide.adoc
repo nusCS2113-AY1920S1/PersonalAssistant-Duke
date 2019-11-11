@@ -19,11 +19,11 @@ By: `Team W17-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-*OwlMoney* is a command line based desktop application written in *Java 11*. It is written in an *Object Oriented
+*OwlMoney* is a command-line based desktop application written in *Java 11*. It is written in an *Object-Oriented
 Programming* (OOP) fashion which provides multiple layers of abstraction for ease of customisability and modularity
 for future improvements and revisions.
 Interested in contributing to the *OwlMoney* project? This guide provides information that will not only help you
-get started as a *OwlMoney* contributor, but you'll find useful to refer to even if you are already an experienced
+get started as an *OwlMoney* contributor, but you'll find useful to refer to even if you are already an experienced
 contributor.
 
 == Setting up
@@ -42,7 +42,7 @@ Only JDK 11 is officially supported
 IntelliJ by default has Gradle plugins installed. +
 Do not disable it. If you have disabled Gradle, go to `File` > `Settings` > `Plugins` to re-enable it.
 
-=== Setting up the project in your computer
+=== Setting up the project on your computer
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen,
 click `File` > `Close Project` to close the existing project dialog first)
@@ -55,7 +55,7 @@ click `File` > `Close Project` to close the existing project dialog first)
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`).
 It should finish with the `BUILD SUCCESSFUL` message. +
-This will generate all resources required by the application and tests.
+This will generate all the resources required by the application and tests.
 
 === Verifying the setup
 
@@ -76,7 +76,8 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 . Click on the `Imports` tab to set the order
 
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
-* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javafx.*`, `import
+org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
@@ -134,8 +135,8 @@ picture`.
 `Main` has only one class called link:{repoURL}/src/main/java/owlmoney/Main.java[`Main`]. It is
 responsible for,
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
+* At shut down: Shuts down the components and invokes the cleanup methods where necessary.
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
@@ -157,7 +158,7 @@ The `Ui` is responsible for printing output in a *user-friendly* manner and prin
 `Logic`.
 
 === Logic Component
-.High Level Logic Diagram
+.High-Level Logic Diagram
 image::HighLevelLogic.png[width="800"]
 
 * The `logic` package consists of the `parser`, `command` and `regex` packages.
@@ -186,10 +187,12 @@ will proceed to create an instance of the appropriate command class and return i
 
 ==== Command
 
+// tag::BankClassDiagram[]
+
 .Bank Command Class Diagram
 image::LogicCommandBankPackage.png[width="800"]
 
-The `logic.command.bank` package consist of `Savings` and `Investment` classes which inherits from the `Command` class.
+The `logic.command.bank` package consists of `Savings` and `Investment` classes which inherits from the `Command` class.
 
 Both the `Savings` and `Investments` classes have the following common features:
 
@@ -201,12 +204,14 @@ Both the `Savings` and `Investments` classes have the following common features:
 `Main` will call the specific `Savings` or `Investment` command class that will construct the *required
 parameters* before calling the `Profile` class in `Model` to *execute*.
 
+// end::BankClassDiagram[]
+
 // tag::bonds_class_diagram[]
 
 .Bond Command Class Diagram
 image::LogicCommandBondPackage.png[width="800"]
 
-The `logic.command.bond` package consist of `Bond` classes with the following features:
+The `logic.command.bond` package consists of `Bond` classes with the following features:
 
 * Add
 * Edit
@@ -222,7 +227,7 @@ The `logic.command.bond` package consist of `Bond` classes with the following fe
 .Card Command Class Diagram
 image::LogicCommandCardPackage.png[width="800"]
 
-The `logic.command.card` package consist of `Card` classes with the following features:
+The `logic.command.card` package consists of `Card` classes with the following features:
 
 * Add
 * Edit
@@ -267,7 +272,8 @@ The `logic.command.find` package consist of `Find` classes with the ability to f
 .Transfer Command Class Diagram
 image::LogicCommandTransferPackage.png[width="800"]
 
-The Transfer Package under `logic.command.transfer` consist of the `TransferCommand` class which inherits from `Command`.
+The Transfer Package under `logic.command.transfer` consists of the `TransferCommand` class which inherits from
+`Command`.
 
 `Main` will call the `TransferCommand` class that will construct the *required parameters* before calling the `Profile`
 class in `Model` to *execute*.
@@ -277,7 +283,7 @@ class in `Model` to *execute*.
 .Model Component Diagram
 image::ModelComponent.png[width="800"]
 
-The `Model` contains multiple packages that is responsible for specifying the structures and constraints of the *core
+The `Model` contains multiple packages that are responsible for specifying the structures and constraints of the *core
 functionalities* of *OwlMoney* as well as the storing of data of the application in memory.
 
 In general, the `Model` contains the following packages:
@@ -291,11 +297,15 @@ In general, the `Model` contains the following packages:
 
 To execute any command, `Main` will invoke `profile.Profile` to execute commands.
 `Profile` has access to each individual ArrayList such as `CardList`, `BankList`, `GoalList` that stores objects of
-cards, bank accounts and financial goals respectively. Both `Card` and `Bank` objects each contains a `TransactionList`
+cards, bank accounts and financial goals respectively. Both `Card` and `Bank` objects each contain a `TransactionList`
 which holds records of transactions.
 If the `Card` or the `Bank` objects are *deleted*, its corresponding `TransactionList` that contains the records of
 transactions *will be deleted* along with it given that it has a *composite relationship* with `TransactionList`.
 
+Notice a layer of abstraction on the individual `ArrayList` that stores objects such as `bank`, `bond`, `card`, etc.
+The purpose of this extra layer of abstraction is to hide unwanted default `ArrayList` methods from developers and to
+provide more extensive checks such as wrapping around when the `ArrayList` is full which the default
+methods are unable to do.
 
 === Storage Component
 
@@ -306,11 +316,11 @@ The `Storage` component:
 *OwlMoney* uses http://opencsv.sourceforge.net/[OpenCSV] during both importing and exporting data when acting on
 `.csv` files.
 
-This allows user to see and modify saved data easily, with the use of clearly defined columns.
+This allows users to see and modify saved data easily, with the use of clearly defined columns.
 
 === Common Classes
 
-Classes used by multiple components are in stored in the `commons` package. For example, the `logging` feature of
+Classes used by multiple components are stored in the `commons` package. For example, the `logging` feature of
 *OwlMoney* has its logging features centralised in `owlmoney.commons`.
 
 == Implementation
@@ -326,16 +336,27 @@ image::GeneralParsingSequenceDiagram.png[width="970]
 The sequence diagram presented above is assumed to be a valid command which will generate in a successful result.
 
 The above sequence diagram depicts the general sequence of parsing user input for all commands in general, before going
-into the the specific Parser classes in `ParseTypeMenu`.
+into the specific Parser classes in `ParseTypeMenu`.
 
 Depending on the `type` of command the user enters, the specific parser class invoked will be different (e.g.
 `ParseAddBond`, `ParseDeleteInvestment`) which will return a `Command` object back to main to prepare for execution.
 
 The execution of commands will be elaborated in subsequent diagrams below.
 
-// tag::add_savings[]
+// tag::AddSavingsDG[]
 
 === Adding Savings
+
+The `/add /savings` feature aims to provide the user with the ability to add a new `savings` account into *OwlMoney*.
+With this feature, the user will be able to start tracking their expenses.
+Hence, allowing the user to track their monthly budget and save up effectively.
+
+==== Current Implementation
+The current implementation of adding a `savings` account requires 2 parameters; `amount` and `income`.
+The ability to track the `savings` account is enhanced through monitoring the `amount`,
+while also being able to update it through any `income` the user has.
+Hence, the user will be able to control their spending effectively.
+
 .Sequence Diagram of Adding Savings
 image::AddSavingCommand.png[width="800"]
 
@@ -372,7 +393,44 @@ bank objects.
 . Once the savings object has been added, the details of the new savings object will be displayed to inform the user
 of the *successful* addition of the savings object.
 
-// end::add_savings[]
+==== Design consideration
+
+This section describes the various design considerations taken when implementing the `/add /savings` feature.
+
+*Aspect: Choice of whether to set the account name as case-sensitive or case-insensitive*
+[cols="18%,37%,45%"]
+|======
+| *Approach* | *Pros* | *Cons*
+
+| *1.* Case-insensitive name
+
+a| * All banks added have unique names.
+
+* More intuitive for users as they usually remember the names, and not the capitalisation of each letter.
+
+a| * More checks need to be done by trimming and comparing the capitalised newly added bank name to existing bank names
+
+* Unable to have similar bank names only differing by capitalising letters
+
+| *2.* Case-sensitive name
+
+a| * More accurate names
+
+* Allows for multiple similar name banks (eg. POSB, Posb, POsb)
+
+a| * Confusing when there are multiple banks with similar names,
+
+|======
+
+After weighing the pros and cons, *approach 1* was taken.
+
+By designing the name to be case-insensitive, it increases the user-friendliness of *OwlMoney* since bank names are
+commonly remembered without the exact capitalisation of letters. Also, in the event the user keys in a
+different capitalised character for the same bank, there is no need for the user to re-enter the command
+due to the bank account "not existing". Additionally, the case-sensitivity check can also be used with the Card
+function or with any other case-insensitive model or logic.
+
+// end::AddSavingsDG[]
 
 // tag::editing_bonds[]
 
@@ -390,7 +448,7 @@ allowing these *2* parameters to be changed was because we wanted consistency ac
 interest throughout the lifespan of the investment `bond`.
 
 .Sequence Diagram of Editing Bonds
-image::editBondCommand.png[width="800"]
+image::editBondCommand.png[width="970"]
 
 [NOTE]
 The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
@@ -461,8 +519,8 @@ transaction records not appearing in order.
 
 a| * Allows the user to change the name of the bond if the user entered it wrongly the first time.
 
-a| * If interest has already been credited, it is not feasible to change the names of past records as it might cause
-confusion to the end user. This becomes more apparent when the names clash with the name of another investment bond
+a| * If interest has already been credited, it is not feasible to change the names of past records as it might
+confuse the end-user. This becomes more apparent when the names clash with the name of another investment bond
 which had expired prior to making this edit. This might confuse users as they might think that they earned much more
 interest from the same bond.
 a|
@@ -478,12 +536,12 @@ a|
 
 |======
 
-After weighting the pros and cons, *approach 3* was taken.
+After weighing the pros and cons, *approach 3* was taken.
 
 Firstly, doing so would reduce the coupling and dependencies between transactions and investment banks. Although it may
 seem restrictive to limit the type and number of parameters that can be changed, it is beneficial both to you, the
-developer and the user, when developing and using the program. Developing the alternative ideas would result in a
-high risk of logic and coding errors, leaving room for bugs to be exploited.
+developer and the user, when developing and using the program. Developing the alternative ideas mentioned would result
+in a high risk of logic and coding errors, leaving room for bugs to be exploited.
 
 // end::editing_bonds[]
 
@@ -582,60 +640,114 @@ in the command.
 
 // end::DeleteCreditCard_SequenceDiagram[]
 
-=== Transferring Funds
-.Model Component Diagram
-image::TransferCommand.png[width="970"]
+=== Finding of Savings Account
+
+The `/find /savings` feature aims to provide the user with the ability to search for a savings account that matches the
+keyword specified by the user. This enables the user to have great flexibility to view their savings account details
+without the need of memorising each of their savings account names within *OwlMoney*. By allowing the user to search for
+ a specific savings account, it also aids in the operation of editing or deleting of savings account.
+
+==== Current Implementation
+The current implementation of finding savings account only allows the user to search through the name of the account.
+The reason to only allow the user to search through the account name was that searching through parameters such as
+income may be inaccurate, as a user income may change over time resulting in inconsistency in the search.
+
+
+.Sequence Diagram of Finding Savings Account
+image::FindSequenceDiagram.png[Caption="Figure : "]
 
 [NOTE]
 The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
 
-The above sequence diagram depicts the interaction between the `Logic` and `Model` component for running
-`TransferCommand`.
+The sequence diagram presented above depicts the interaction between the `Logic`, `Model` and `Ui` component for running
+`FindBankOrCardCommand`.
 
-The `TransferCommand` requires *4* inputs:
+The `FindBankOrCardCommand` requires *2* inputs:
 
-* Sender Bank Account's name
-* Receiver Bank Account's name
-* Date of transfer
-* Amount to transfer
+* The name of the account that acts as a keyword for the search.
+* Type of item to be searched (e.g. `card`, `savings` or `investment`)
 
-When the user executes the `TransferCommand`, the following steps are taken by the application:
+When the user executes the `FindBankOrCardCommand` to search for a savings account, the following steps are taken by the
+application:
 
-. When the `TransferCommand` is executed, it will invoke `transferFund`.
-. Once invoked, `transferFund` will perform the following checks:
+. When the `FindBankOrCardCommand` is executed, it will invoke `findBankOrCard`.
+. Once invoked, `findBankOrCard` will perform the following checks:
 
-* Check the transferring account exists in the Arraylist of banks through the method `bankListIsAccountExistToReceive`.
-* Check the transferring account has sufficient money for the transfer through the method
-`bankListIsSufficientForTransfer`.
-* Check the receiving account exists in the arraylist of bank through the method `bankListIsAccountExistToReceive`.
-
-[NOTE]
-`transferFund` will throw an error if any of the above checks fail.
+* Check the type of items to be searched is either `card`, `savings` or `investment`.
 
 [start=3]
-. After passing the above checks, `transferFund` will add an expenditure to the transferring account.
-. After adding an *expenditure* to the transferring account, a *deposit* will be added to the receiving account for the
-fund transfer.
-. Once the transfer has been completed, the details of the transfer will be displayed to inform the user of the
-*successful* fund transfer.
+. After passing the above checks, `findBankOrCard` will invoke `findBankAccount`.
+. Within the invocation of `findBankAccount`, it will perform the following checks:
+
+* Check for matching account name with the keyword among all accounts stored in the ArrayList.
+* Check whether the account that matches the keyword is indeed a savings account.
+
+[NOTE]
+`findBankAccount` will throw an error if all bank accounts within the application fail the above checks.
+
+[start=5]
+. Once the search has been completed, the details of all matching savings account will be displayed to inform the
+user of the *successful* matches.
+
+==== Design Considerations
+
+This section describes the various design considerations taken when implementing the `/find` feature.
+
+*Aspect: Choice of whether the keyword (E.g. `ACCOUNT_NAME`, `DESCRIPTION` or `CATEGORY`) to be searched should be
+case-sensitive or case-insensitive*
+
+[cols="18%,37%,45%"]
+|======
+| *Approach* | *Pros* | *Cons*
+
+| *1.* Searching of items based on the keyword is case-sensitive.
+
+a| * By restricting the search to be case-sensitive, it provides the user with a more accurate searched result.
+
+a| * By having a case-sensitive search, it will cause the `/find` command to be inflexible. As the user will need to
+provide the exact capitalisation within the keyword to be able to find the item he/she is searching for.
+
+* For example, if the description of a transaction record that the user is searching for is "Lunch at KFC". The user
+will not be able to find the expenditure if he/she provides the keyword as "lunch". This is because of the
+capitalisation of the first letter within the keyword is "l" and it is different from the expenditure description.
+
+
+| *2.* Searching of items based on the keyword is case-insensitive.
+
+a| * By allowing the search to be case-insensitive, it provides the user with greater flexibility when searching for
+matching items.
+
+
+a| * For example, if the description of a transaction record that the user is searching for is "Lunch at KFC". The user
+ will be able to find the transaction record if he/she provides the keyword as "lunch". This is because the
+ capitalisation of the keyword does not matter.
+|======
+
+After weighing the pros and cons, *approach 2* was taken.
+
+The reason for choosing *approach 2 over approach 1* is mainly due to the flexibility that it can provide to a user.
+Although, searching for the item with case insensitivity might cause more unwanted results being displayed. We felt that
+ the ability to easily match keyword with the item that the user would like to find is more important, as it enhanced
+ the user-friendliness of *OwlMoney*.
 
 // tag::goals_sequence[]
 
 === Adding Goals
 
-The `/add /goals` feature allows user to add in any financial goals they have in mind to achieve for their future plans.
-This also aims to encourage users whom have yet to have savings to start saving  and track their goals.
+The `/add /goals` feature allows users to add in any financial goals they have in mind to achieve for their future
+plans.
+This also aims to encourage users who have yet to have savings to start saving and track their goals.
 
 ==== Current Implementation
 
-The current implementation of adding goals allow users to either manually track their goals or track via an existing
-saving account. Also, the `/amount` parameter that user specify should be the total amount they wish to
-have in their saving account.
+The current implementation of adding goals allows users to either manually track their goals or track via an existing
+saving account. Also, the `/amount` parameter that users specify should be the total amount they wish to
+have in their savings account.
 The reason for providing these two options to users is that we consider that some users may prefer to do manual tracking
 while others would prefer tracking them using an existing savings account.
 
 .Sequence Diagram of Adding Goals
-image::AddGoalsCommand.png[width="800"]
+image::AddGoalsCommand.png[width="970"]
 
 [NOTE]
 The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
@@ -656,11 +768,11 @@ When the user executes the `AddGoalsCommand`, the following steps are taken by t
 . When `AddGoalsCommand` is executed, a new goal object is created  with the provided inputs.
 . After creation of the goal object is created, the `AddGoalsCommand` will invoke the method `profileAddGoals`.
 . Within the invocation of `profileAddGoals`, a method named `addToGoals` will be invoked to add the new goal object
-to an ArrayList containing all goals objects. .
+to an ArrayList containing all goals objects.
 . Once invoked, `addToGoals` will perform the following checks:
 
 * Checks if goal name specified is unique among all goals in the existing list through the method of `goalsExist`
-* If a saving accounts was specified, it will check for if the amount of money in the account is lesser than the
+* If a savings account was specified, it will check for if the amount of money in the account is lesser than the
 goals amount specified
 * Checks for the size of goals list through the method of `CheckNumGoals`
 
@@ -670,7 +782,7 @@ goals amount specified
 [start=4]
 . After passing the above checks,`addToGoals` will add the new goals object into the existing list containing all goals
 objects.
-. Once the goal object have been added, the details of the new goal object will be displayed to inform the user
+. Once the goal object has been added, the details of the new goal object will be displayed to inform the user
 of the *successful* addition of the goal object.
 
 ==== Design Considerations
@@ -687,8 +799,8 @@ This section describes the various design considerations taken when implementing
 a| * Provides flexibility to users
 * Able to track goals status and progress, know how much more to save
 a| * Difficult to implement, have to consider several possibilities: what happens to the goals when
-e.g. if savings account was deleted, if user are allowed to tie and untie savings account, un-tracked goals status would
-be always false
+e.g. if savings account was deleted, if users are allowed to tie and untie savings account, un-tracked goals status
+would be always false
 * Increases coupling and dependency of savings account
 
 | *2.* Disallow tying of savings account
@@ -705,7 +817,7 @@ a| * Less flexibility for the users
 Firstly, the original intention of `goals` feature is to model real-life implementation of having goals,
 encourages users to save and enable an easy yet convenient way of tracking on status of goals.
 Although it may increase coupling and dependencies, the implementation of `goals` evidently shows that the pros
-outweighs the cons despite these trade-offs.
+outweigh the cons despite these trade-offs.
 
 // end::goals_sequence[]
 
@@ -714,7 +826,7 @@ outweighs the cons despite these trade-offs.
 We use asciidoc for writing documentation. We recommend you to document features that you have done to keep other
 developers aware of your implementation.
 
-Feel free to modify documentations of our original features as well!
+Feel free to modify the documentation of our original features as well!
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc,
@@ -731,12 +843,14 @@ See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to dep
 
 === Converting Documentation to PDF format
 
-We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting the documentation to PDF format, as
+Chrome's PDF engine preserves hyperlinks used in webpages.
 
 Here are the steps to convert the project documentation files to PDF format.
 
 .  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
-.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Go to your generated HTML files in the `build/docs` folder, right-click on them and select `Open with` -> `Google
+Chrome`.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
@@ -1184,18 +1298,19 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to add new expenditure record.
-. System requests expenditure details.
+. System requests expenditure details and the account to add the expenditure.
 . User enters expenditure details.
-. System adds new expenditure record.
+. System adds new expenditure record into the specified account.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid expenditure details.
-** 3a1. System requests for the correct expenditure details.
-** 3a2. User re-enters the expenditure details.
-** Steps 3a1-3a2 are repeated until the expenditure details entered are correct.
+* 3a. System detects invalid expenditure details or account.
+** 3a1. System requests for the correct expenditure details and the account to add the expenditure.
+** 3a2. User re-enters the expenditure details and the account to add the expenditure.
+** Steps 3a1-3a2 are repeated until the expenditure details and the account to add the expenditure are entered correctly
+.
 ** Use case resumes from step 4.
 
 
@@ -1240,18 +1355,19 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to delete expenditure record.
-. System requests expenditure to be deleted.
-. User specifies the expenditure to be deleted.
+. System requests expenditure to be deleted and the account to delete the expenditure from.
+. User specifies the expenditure to be deleted and the account to delete the expenditure from.
 . System deletes the specified record from the database.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid expenditure to be deleted.
-** 3a1. System requests for the correct expenditure to be deleted.
-** 3a2. User re-enters the expenditure to be deleted.
-** Steps 3a1-3a2 are repeated until the expenditure to be deleted is entered correctly.
+* 3a. System detects invalid expenditure to be deleted or account to delete the expenditure from.
+** 3a1. System requests for the correct expenditure to be deleted and the account to delete the expenditure from.
+** 3a2. User re-enters the expenditure to be deleted and the account to delete the expenditure from.
+** Steps 3a1-3a2 are repeated until the expenditure to be deleted the account to delete the expenditure from are
+entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1268,18 +1384,18 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to list the expenditure record.
-. System requests the type of expenditure to be listed.
-. User specifies the type of expenditure to be listed.
+. System requests the account to list from.
+. User specifies the account to list from.
 . System displays the expenditure records specified.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid type of expenditure to be listed.
-** 3a1. System requests for the correct type of expenditure to be listed.
-** 3a2. User re-enters the type of expenditure to be listed.
-** Steps 3a1-3a2 are repeated until the type of expenditure to be listed is entered correctly.
+* 3a. System detects invalid account to list from.
+** 3a1. System requests for the correct account to list from.
+** 3a2. User re-enters the account to list from.
+** Steps 3a1-3a2 are repeated until the account to list from is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1288,23 +1404,24 @@ Use case ends.
 *Preconditions:*
 
 * *User has a profile created*
+* *User has at least an existing card, savings account or investment account*
 * *User has existing transaction records*
 
 *Main success scenario:*
 
 . User chooses to search for transaction record.
-. System requests the keyword to be search.
-. User specifies the keyword to be search.
+. System requests the keywords to be search.
+. User specifies the keywords to be search.
 . System displays information found from the search.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid keyword to be search.
-** 3a1. System requests for the correct keyword to be search.
-** 3a2. User re-enters the keyword to be search.
-** Steps 3a1-3a2 are repeated until the keyword to be search is entered correctly.
+* 3a. System detects invalid keywords to be search.
+** 3a1. System requests for the correct keywords to be search.
+** 3a2. User re-enters the keywords to be search.
+** Steps 3a1-3a2 are repeated until the keywords to be search is entered correctly.
 ** Use case resumes from step 4.
 
 // tag::goals_usecase[]
@@ -1462,18 +1579,18 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to charge expenditure to credit card.
-. System requests for the credit card and expenditure information.
-. User enters the expenditure information.
+. System requests the expenditure information and the card to be charged.
+. User enters the expenditure information and the card to be charged.
 . System creates the credit card expenditure record.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid expenditure information.
-** 3a1. System requests for the correct expenditure information.
-** 3a2. User re-enters the expenditure information.
-** Steps 3a1-3a2 are repeated until the expenditure information is entered correctly.
+* 3a. System detects invalid expenditure information or card to be charged.
+** 3a1. System requests for the correct expenditure information and card to be charged.
+** 3a2. User re-enters the expenditure information and card to be charged.
+** Steps 3a1-3a2 are repeated until the expenditure information and card to be charged are entered correctly.
 ** Use case resumes from step 4.
 
 *Actor: Credit card user* +
@@ -1486,18 +1603,18 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to edit credit card details.
-. System requests for the credit card and new details.
-. User enters new credit card details.
+. System requests for new credit card details and the credit card to be edited.
+. User enters new credit card details and the credit card to be edited.
 . System updates the credit card details.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid credit card details.
-** 3a1. System requests for the correct credit card details.
-** 3a2. User re-enters the credit card details.
-** Steps 3a1-3a2 are repeated until the credit card details is entered correctly.
+* 3a. System detects invalid credit card details or credit card to be edited
+** 3a1. System requests for the correct credit card details and credit card to be edited.
+** 3a2. User re-enters the credit card details and the credit card to be edited.
+** Steps 3a1-3a2 are repeated until the credit card details and the credit card to be edited are entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1531,18 +1648,19 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to set recurring expenditure.
-. System requests for details of recurring expenditure.
-. User enters details of recurring expenditure.
+. System requests for details of recurring expenditure and the savings account to be charged.
+. User enters details of recurring expenditure and the savings account to be charged.
 . System creates recurring expenditure.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid details of recurring expenditure.
-** 3a1. System requests for the correct details of recurring expenditure.
-** 3a2. User re-enters the details of recurring expenditure.
-** Steps 3a1-3a2 are repeated until the details of recurring expenditure is entered correctly.
+* 3a. System detects invalid details of recurring expenditure or savings account to be charged.
+** 3a1. System requests for the correct details of recurring expenditure and savings account to be charged.
+** 3a2. User re-enters the details of recurring expenditure and the savings account to be charged.
+** Steps 3a1-3a2 are repeated until the details of recurring expenditure and savings account to be charged are entered
+correctly.
 ** Use case resumes from step 4.
 
 
@@ -1586,11 +1704,19 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to view recurring expenditure.
-. System displays all recurring payments in chronological order.
+. System requests the savings account to be listed.
+. User enters the savings account to be listed.
+. System displays all recurring payments.
 +
 Use case ends.
 
-
+*Extensions*
+[none]
+* 3a. System detects invalid savings account to be listed.
+** 3a1. System requests for the correct savings account to be listed.
+** 3a2. User re-enters the savings account to be listed.
+** Steps 3a1-3a2 are repeated until the savings account to be listed is entered correctly.
+** Use case resumes from step 4.
 
 
 
@@ -1623,8 +1749,8 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to edit recurring expenditure.
-. System requests from user the recurring expenditure to be edited.
-. User specifies the recurring expenditure.
+. System requests from user the recurring expenditure to be edited and the savings account.
+. User specifies the recurring expenditure and the savings account.
 . System requests for the new recurring expenditure details.
 . User enters the new recurring expenditure details.
 . System updates the recurring expenditure.
@@ -1633,10 +1759,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid recurring expenditure being specified.
-** 3a1. System requests for the correct recurring expenditure.
-** 3a2. User re-enters the recurring expenditure.
-** Steps 3a1-3a2 are repeated until the recurring expenditure entered are correct.
+* 3a. System detects invalid recurring expenditure or savings account being specified.
+** 3a1. System requests for the correct recurring expenditure and savings account.
+** 3a2. User re-enters the recurring expenditure and savings account.
+** Steps 3a1-3a2 are repeated until the recurring expenditure and savings account are entered correctly.
 * Use case resumes from step 4.
 * 5a. System detects invalid recurring expenditure details.
 ** 5a1. System requests for the correct recurring expenditure details.
@@ -1822,18 +1948,19 @@ Use case ends.
 *Main success scenario:*
 
 . User choose to edit investment account.
-. System requests for new investment account details.
-. User enters investment account details.
+. System requests for new investment account details and the investment account to be edited.
+. User enters investment account details and the investment account to be edited.
 . System updates the investment account.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid investment account details.
-** 3a1. System requests for the correct investment account details.
-** 3a2. User re-enters the investment account details.
-** Steps 3a1-3a2 are repeated until the investment account details entered are correct.
+* 3a. System detects invalid investment account details or investment account to be edited.
+** 3a1. System requests for the correct investment account details and the investment account to be edited.
+** 3a2. User re-enters the investment account details and the investment account to be edited.
+** Steps 3a1-3a2 are repeated until the investment account details and the investment account to be edited entered
+are correct.
 ** Use case resumes from step 4.
 
 
@@ -1895,8 +2022,8 @@ Use case ends.
 
 
 
-*Actor: Organized User* +
-[[UC-36]] *Use case: UC36 - Gain achievement* +
+*Actor: Organised User* +
+[[UC-36]] *Use case: UC36 - List card details* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -1913,8 +2040,8 @@ Use case ends.
 
 
 
-*Actor: Organized User* +
-[[UC-37]] *Use case: UC37 - Gain achievement* +
+*Actor: Organised User* +
+[[UC-37]] *Use case: UC37 - List card expenditures* +
 *Preconditions:*
 
 * *User has a profile created*
@@ -1954,18 +2081,18 @@ Use case ends.
 *Main success scenario:*
 
 . User choose to search for specific bank account, credit card or bonds.
-. System requests for the keyword to be used for searching.
-. User specifies the keyword to be used for searching.
+. System requests for the keywords to be used for searching.
+. User specifies the keywords to be used for searching.
 . System displays information found from the search.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid keyword to be used for searching.
-** 3a1. System requests for the correct keyword to be used for searching.
-** 3a2. User re-enters the keyword to be used for searching.
-** Steps 3a1-3a2 are repeated until the keyword to be used for searching is entered correctly.
+* 3a. System detects invalid keywords to be used for searching.
+** 3a1. System requests for the correct keywords to be used for searching.
+** 3a2. User re-enters the keywords to be used for searching.
+** Steps 3a1-3a2 are repeated until the keywords to be used for searching is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1982,9 +2109,21 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses the type of financial details to list.
+. System requests for the type of financial details to be listed.
+. User specifies the type of financial details to be listed.
 . System displays the information in a table format.
 +
 Use case ends.
+
+
+*Extensions*
+[none]
+* 3a. System detects invalid type of financial details to be listed.
+** 3a1. System requests for the correct type of financial details to be listed.
+** 3a2. User re-enters the type of financial details to be listed.
+** Steps 3a1-3a2 are repeated until the type of financial details to be listed is entered correctly.
+** Use case resumes from step 4.
+
 
 *Actor: Existing user* +
 [[UC-40]] *Use case: UC40 - Search for specific recurring expenditure* +
@@ -1997,18 +2136,18 @@ Use case ends.
 *Main success scenario:*
 
 . User choose to search for specific recurring expenditure.
-. System requests for the keyword to be used for searching.
-. User specifies the keyword to be used for searching.
+. System requests for the keywords to be used for searching.
+. User specifies the keywords to be used for searching.
 . System displays information found from the search.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid keyword to be used for searching.
-** 3a1. System requests for the correct keyword to be used for searching.
-** 3a2. User re-enters the keyword to be used for searching.
-** Steps 3a1-3a2 are repeated until the keyword to be used for searching is entered correctly.
+* 3a. System detects invalid keywords to be used for searching.
+** 3a1. System requests for the correct keywords to be used for searching.
+** 3a2. User re-enters the keywords to be used for searching.
+** Steps 3a1-3a2 are repeated until the keywords to be used for searching is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -2054,18 +2193,19 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to edit credit card expenditure record.
-. System requests for the credit card, expenditure to be edited, and new expenditure details.
-. User enters new expenditure details and the expenditure to be edited.
+. System requests for the new expenditure details, expenditure to be edited and name of card.
+. User enters new expenditure details, expenditure to be edited and name of card.
 . System updates the credit card expenditure record.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid expenditure details or expenditure to be edited.
-** 3a1. System requests for the correct expenditure details and expenditure to be edited.
-** 3a2. User re-enters the expenditure details and expenditure to be edited.
-** Steps 3a1-3a2 are repeated until the expenditure details and expenditure to be edited entered are correct.
+* 3a. System detects invalid new expenditure details, expenditure to be edited or name of card.
+** 3a1. System requests for the correct new expenditure details, expenditure to be edited and name of card.
+** 3a2. User re-enters the new expenditure details, expenditure to be edited and name of card.
+** Steps 3a1-3a2 are repeated until the new expenditure details, expenditure to be edited and name of card entered are
+correct.
 ** Use case resumes from step 4.
 
 
@@ -2083,18 +2223,19 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to delete credit card expenditure record.
-. System requests expenditure to be deleted.
-. User specifies the expenditure to be deleted.
+. System requests expenditure to be deleted and the credit card to delete the expenditure from.
+. User specifies the expenditure to be deleted and the credit card to delete the expenditure from..
 . System deletes the specified record from the database.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid expenditure to be deleted.
-** 3a1. System requests for the correct expenditure to be deleted.
-** 3a2. User re-enters the expenditure to be deleted.
-** Steps 3a1-3a2 are repeated until the expenditure to be deleted is entered correctly.
+* 3a. System detects invalid expenditure to be deleted or credit card to delete the expenditure from.
+** 3a1. System requests for the correct expenditure to be deleted and the credit card to delete the expenditure from.
+** 3a2. User re-enters the expenditure to be deleted and the credit card to delete the expenditure from.
+** Steps 3a1-3a2 are repeated until the expenditure to be deleted and the credit card to delete the expenditure from are
+ entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -2311,6 +2452,11 @@ There is enough money in the `investment` account to add the `bond`.
 `/add /bonds /name September SSB /amount 1000 /rate 1.65 /year 7 /date 1/10/2019 /from BBB Vickers Account` +
 Expected: New details of the September SSB `bond` being displayed after being added.
 
+[NOTE]
+====
+If you have previously deleted `BBB Vickers Account`, you might want to add it back before proceeding.
+====
+
 === Editing an investment bond
 
 . Editing the rate of an existing `investment` `bond` tied to an existing `investment` account
@@ -2325,9 +2471,25 @@ Expected: Updated rate of the September SSB `bond` being displayed after being e
 
 .. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
 
+[NOTE]
+====
+If you have previously deleted `BBB Vickers Account`, you might want to add it back before proceeding.
+====
+
+=== Deleting an investment bond
+
+. Deleting an existing `investment` `bond` tied to an existing `investment` account
+
+.. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
+
 .. Test case:
-`/edit /bonds /from BBB Vickers Account /name September SSB /year 10` +
-Expected: Updated years of the September SSB `bond` being displayed after being edited.
+`/delete /bonds /from BBB Vickers Account /name September SSB` +
+Expected: Details of the deleted `bond` being displayed after being deleted.
+
+[NOTE]
+====
+If you have previously deleted `BBB Vickers Account`, you might want to add it back before proceeding.
+====
 
 === Adding a bank expenditure transaction
 . Adding a new bank `expenditure` to a `savings` account
@@ -2484,7 +2646,7 @@ Expected: Updated name of the `card` being displayed after being edited.
 .. Prerequisites: There is an existing `card` to be edited and there must be no unpaid card expenditures.
 
 .. Test case:
-`/edit /card /name POBB Tomorrow Card /limit 10000` +
+`/edit /card /name JunBank GoodVibes Card /limit 10000` +
 Expected: Updated limit of the `card` being displayed after being edited.
 
 === Deleting a credit card
@@ -2494,7 +2656,7 @@ Expected: Updated limit of the `card` being displayed after being edited.
 .. Prerequisites: The `card` to be deleted exist.
 
 .. Test case:
-`/delete /card /name POBB Tomorrow Card` +
+`/delete /card /name JunBank GoodVibes Card` +
 Expected: Deleted `card` details will be displayed after being deleted.
 
 . Deleting a `card` that do not exist
@@ -2797,11 +2959,6 @@ Expected: Details of goal deleted being displayed
 `/delete /goals /name GRAD TRIP 1` +
 Expected: There are no goals with the name: GRAD TRIP 1
 
-. Delete when goal list is empty
-.. Test case:
-`/delete /goals /name any` +
-Expected: There are no goals set!
-
 === List goals and achievement
 . List goals
 .. Pre-requisites: Goals list must not be empty
@@ -2813,3 +2970,9 @@ Expected: Details of goals being displayed
 .. Test case:
 `/list /goals` +
 Expected: There are no goals set!
+
+. List achievements
+.. Pre-requisites: There are some achievements
+.. Test case:
+`/list /achievement` +
+Expected: Details of achievement being displayed

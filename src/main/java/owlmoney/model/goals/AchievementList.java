@@ -8,6 +8,9 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Logger;
+
+import static owlmoney.commons.log.LogsCenter.getLogger;
 
 /**
  * Contains list of achievements in profile.
@@ -21,6 +24,7 @@ public class AchievementList {
     private static final int ONE_INDEX = 1;
     private static final boolean ISSINGLE = false;
     private static final boolean ISMULTIPLE = true;
+    private static final Logger logger = getLogger(AchievementList.class);
 
     /**
      * Creates a instance of AchievementList that contains an arrayList of Achievements.
@@ -43,9 +47,12 @@ public class AchievementList {
         } catch (IOException e) {
             ui.printError("Error trying to save your achievements to disk. Your data is"
                     + " at risk, but we will try again, feel free to continue using the program.");
+            logger.warning("Error exporting achievement status when adding achievement");
         }
         ui.printMessage("Achievement unlocked! Details: ");
         printOneAchievement(ONE_INDEX, achievement, ISSINGLE, ui);
+        logger.info("Successfully added achievement");
+
     }
 
     /**
@@ -63,10 +70,12 @@ public class AchievementList {
                 } catch (IOException e) {
                     ui.printError("Error trying to save your achievements to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
+                    logger.warning("Error exporting achievements when /list /achievement");
                 }
                 ui.printAchievementHeader();
                 printOneAchievement(ONE_INDEX, achievementList.get(i), ISMULTIPLE, ui);
                 ui.printDivider();
+                logger.info("Successfully list chievement");
             }
         }
     }
@@ -110,6 +119,7 @@ public class AchievementList {
             String category = achievementList.get(i).getCategory();
             exportArrayList.add(new String[]{achievementName, stringAmount, category, date});
         }
+        logger.info("Successfully added all achievements into the arraylist for export");
         return exportArrayList;
     }
 
@@ -121,6 +131,7 @@ public class AchievementList {
     private void exportAchievementList() throws IOException {
         ArrayList<String[]> inputData = prepareExportAchievementList();
         storage.writeFile(inputData, PROFILE_ACHIEVEMENT_LIST_FILE_NAME);
+        logger.info("Successfully exported all achievements from the arraylist for export");
     }
 
     /**
@@ -130,6 +141,7 @@ public class AchievementList {
      */
     public void achievementListImportNewAchievement(Achievement newAchievement) {
         achievementList.add(newAchievement);
+        logger.info("Successfully imported all achievements");
     }
 }
 

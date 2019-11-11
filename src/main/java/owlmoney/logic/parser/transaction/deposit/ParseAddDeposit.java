@@ -1,10 +1,7 @@
 package owlmoney.logic.parser.transaction.deposit;
 
-import static owlmoney.commons.log.LogsCenter.getLogger;
-
 import java.util.Date;
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.AddDepositCommand;
@@ -16,7 +13,6 @@ import owlmoney.logic.parser.exception.ParserException;
 public class ParseAddDeposit extends ParseDeposit {
     private static final String ADD_COMMAND = "/add";
     private Date date;
-    private static final Logger logger = getLogger(ParseAddDeposit.class);
 
     /**
      * Creates an instance of ParseAddDeposit.
@@ -72,6 +68,7 @@ public class ParseAddDeposit extends ParseDeposit {
         AddDepositCommand newAddDepositCommand = new AddDepositCommand(depositParameters.get(TO_PARAMETER),
                 Double.parseDouble(depositParameters.get(AMOUNT_PARAMETER)), date,
                 (depositParameters.get(DESCRIPTION_PARAMETER)));
+        logger.info("Successful creation of AddDepositCommand object");
         return newAddDepositCommand;
     }
 }

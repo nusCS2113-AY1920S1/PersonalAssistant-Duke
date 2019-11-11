@@ -5,12 +5,17 @@ import owlmoney.model.profile.Profile;
 import owlmoney.model.profile.exception.ProfileException;
 import owlmoney.ui.Ui;
 
+import java.util.logging.Logger;
+
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 /**
  * Executes EditProfileCommand to edit profile name.
  */
 public class EditProfileCommand extends Command {
     private final String name;
     private final String newName;
+    private static final Logger logger = getLogger(EditProfileCommand.class);
 
     /**
      * Creates an instance of EditProfileCommand.
@@ -34,6 +39,7 @@ public class EditProfileCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws ProfileException {
         profile.profileSetUsername(this.name, this.newName, ui);
+        logger.info("Successful execution of editing profile");
         return this.isExit;
     }
 }

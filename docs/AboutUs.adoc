@@ -23,7 +23,7 @@ image::briantkm.png[width="150", align="left"]
 {empty}[https://github.com/BrianTKM[github]] [<<briantkm#, portfolio>>]
 
 Role: Assistant Team Lead +
-Responsibilities: Code Maintainer + Model + Logic
+Responsibilities: Code Maintainer + Model + Logic + Logging
 
 '''
 
@@ -32,7 +32,7 @@ image::mong-nus.png[width="150", align="left"]
 {empty}[https://github.com/mong-nus[github]] [<<mong-nus#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Model + Logic
+Responsibilities: Model + Logic + Ui + Logging
 
 '''
 

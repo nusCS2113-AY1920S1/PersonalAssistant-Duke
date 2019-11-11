@@ -1,7 +1,13 @@
 package owlmoney.model.profile;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+import owlmoney.model.bank.Bank;
+import owlmoney.model.bank.Investment;
+import owlmoney.model.bank.Saving;
+import owlmoney.model.bank.exception.BankException;
+import owlmoney.model.bond.Bond;
+import owlmoney.model.bond.exception.BondException;
+import owlmoney.ui.Ui;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -10,15 +16,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.junit.jupiter.api.Test;
-
-import owlmoney.model.bank.Bank;
-import owlmoney.model.bank.Investment;
-import owlmoney.model.bank.Saving;
-import owlmoney.model.bank.exception.BankException;
-import owlmoney.model.bond.Bond;
-import owlmoney.model.bond.exception.BondException;
-import owlmoney.ui.Ui;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ProfileTest {
     private static final String NEWLINE = System.lineSeparator();

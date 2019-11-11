@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -32,6 +33,7 @@ public class AddCardBillCommand extends Command {
     private static final int PERCENTAGE_TO_DECIMAL = 100;
     private static final String BANK_TYPE = "bank";
     private static final Logger logger = getLogger(AddCardBillCommand.class);
+    DateTimeFormatter yearMonthFormatter = DateTimeFormatter.ofPattern("MM/yyyy");
 
     /**
      * Creates an instance of AddExpenditureCommand.
@@ -46,7 +48,7 @@ public class AddCardBillCommand extends Command {
         this.expenditureDate = getCurrentDate();
         this.bank = bank;
         this.type = BANK_TYPE;
-        this.expenditureDescription = "Bill Payment - " + card + " " + date;
+        this.expenditureDescription = "Bill Payment - " + card + " " + date.format(yearMonthFormatter);
     }
 
     /**
@@ -77,9 +79,9 @@ public class AddCardBillCommand extends Command {
     private void checkBillAmountZero(double amount, String card, YearMonth cardDate) throws CardException {
         if (amount == 0) {
             logger.warning("You have no expenditures for " + card + " for the month of "
-                    + cardDate + "!");
+                    + cardDate.format(yearMonthFormatter) + "!");
             throw new CardException("You have no expenditures for " + card + " for the month of "
-                    + cardDate + "!");
+                    + cardDate.format(yearMonthFormatter) + "!");
         }
     }
 
@@ -94,9 +96,9 @@ public class AddCardBillCommand extends Command {
     private void checkIfBillPaidBefore(Profile profile, String card, YearMonth cardDate)
             throws CardException {
         if (profile.getCardPaidBillAmount(card, cardDate) != 0) {
-            logger.warning("You cannot add a card bill for " + cardDate
+            logger.warning("You cannot add a card bill for " + cardDate.format(yearMonthFormatter)
                     + " because you have already done so!");
-            throw new CardException("You cannot add a card bill for " + cardDate
+            throw new CardException("You cannot add a card bill for " + cardDate.format(yearMonthFormatter)
             + " because you have already done so!");
         }
     }
@@ -117,7 +119,7 @@ public class AddCardBillCommand extends Command {
         checkIfBillPaidBefore(profile, card, cardDate);
         UUID cardId = profile.getCardId(card);
         String depDescription = "Rebate " + profile.getCardRebateAmount(card) + "% - "
-                + card + " " + cardDate;
+                + card + " " + cardDate.format(yearMonthFormatter);
         double billAmount = profile.getCardUnpaidBillAmount(card, cardDate);
         double rebateAmount = (profile.getCardRebateAmount(card) / PERCENTAGE_TO_DECIMAL) * billAmount;
         checkBillAmountZero(billAmount, card, cardDate);
