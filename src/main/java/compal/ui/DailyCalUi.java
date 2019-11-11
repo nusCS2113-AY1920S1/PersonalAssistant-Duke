@@ -27,7 +27,7 @@ class DailyCalUi {
     private TaskStorageManager taskStorageManager;
 
     private String dateToDisplay;
-    private boolean[][] canStore = new boolean[25][5];
+    private boolean[][] canStore = new boolean[25][6];
     private ScrollPane sp = new ScrollPane();
     private Group groupRoot = new Group();
     private Line[] horizontalLines = new Line[50];
@@ -40,8 +40,8 @@ class DailyCalUi {
     private int horizontalLineCounter = 0;
     private double horizontalYLayout = 0;
     private double horizontalXLayout = 0;
-    private double[][] storedXAxis = new double[25][5];
-    private double[][] storedYAxis = new double[25][5];
+    private double[][] storedXAxis = new double[25][6];
+    private double[][] storedYAxis = new double[25][6];
     private int startTime = 8;
     private int endTime = 17;
     private ArrayList<Task> tempOriginalList;
@@ -122,7 +122,7 @@ class DailyCalUi {
 
         int counter = 0;
         for (Task t : deadlineArrayList) {
-            if (counter == 6) {
+            if (counter ==  5) {
                 break;
             }
             Rectangle rectangle = new Rectangle(100, 50);
