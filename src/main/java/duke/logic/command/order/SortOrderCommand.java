@@ -34,8 +34,7 @@ public class SortOrderCommand extends OrderCommand {
      * Creates a {@code SortOrderCommand}.
      *
      * @param criteria     to sort the orders.
-     * @param isReversed true if orders are to be sorted in the non-default, reversed order.
-     *                   //TODO: ADD explaination
+     * @param isReversed   true if orders are to be sorted in the non-default, reversed order.
      */
     public SortOrderCommand(SortCriteria criteria, boolean isReversed) {
         assert (criteria != null);

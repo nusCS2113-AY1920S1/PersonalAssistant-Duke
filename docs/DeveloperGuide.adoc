@@ -72,7 +72,8 @@ image::ui_class_diagram.png[]
 The UI consists of a `MainWindow` that contains 5 separate pages, namely the `SalePage`,
 `ProductPage`, `ShoppingPage`, `InventoryPage` and `OrderPage`.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-Some pages consist of smaller components. For example, `SalePage` has a `SaleCard`, `ProductPage` has an
+Some pages consist of smaller components.
+For example, `SalePage` has a `SaleCard`, `ProductPage` has an
 `IngredientCard`, and `OrderPage` has an `OrderCard` and an `OrderItemBox`.
 
 The `UI` component uses JavaFx UI framework.
@@ -99,7 +100,7 @@ link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/du
 . `LogicManager` uses the `BakingHomeParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 . The command execution can affect the `Model` (for example, deleting an order).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
+. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 . In addition, the `CommandResult` object can also instruct the `UI` to perform certain actions, such as displaying a certain page to the user.
 
 
@@ -222,7 +223,8 @@ public class AddOrderCommand extends Command {
 
 ** Pros: Easy to implement.
 
-** Cons: Violates the Open-Closed Principle because developers need to modify AutoCompleter's internal structure to add new commands. Also, it makes code more coupled since if we change parameters of a command, we need to change corresponding fields in AutoCompleter as well.
+** Cons: Violates the Open-Closed Principle because developers need to modify AutoCompleter's internal structure to add new commands.
+Also, it makes code more coupled since if we change parameters of a command, we need to change corresponding fields in AutoCompleter as well.
 
 * Alternative 2 (Current choice): Use Reflection API to obtain command words and arguments from CommandClass at runtime.
 
@@ -694,8 +696,6 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
 .. Test case (missing data file): Delete the folder `data` in BakingHome's directory and restart BakingHome +
    Expected: BakingHome loads demo data
 .. Test case (corrupted data file): Change the content of data file at `data/baking.json` to "This file is damaged" and restart BakingHome. +
@@ -771,15 +771,15 @@ Product List.
 |An error message pops up
 |===
 
-=== Edit entries
+=== Editing entries
 
+Prerequisite: At least one entry in each list.
 [cols="1,1,1",options="header"]
 .Edit Operation
 |===
 |Section
 |Test Case
 |Expected Output
-
 |Shopping
 | `shop edit 1 -qty 10 -cost 10`
 |In the shopping list, the first ingredient’s quantity is changed to 10, and its unit cost is changed to 10.
@@ -798,7 +798,7 @@ This is provided the order status is not completed. If the order status is compl
 
 === Deleting entries
 
-Delete operation is have the same syntax for all five sections.
+Delete operation have the same syntax for all five sections.
 The table below use order as an example.
 `order`
 can be replaced with `inv`, `shop`, `product` and `sale`
