@@ -4,7 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesdir: images
+:imagesdir: ./images
 :stylesdir: stylesheets
 :xrefstyle: full
 ifdef::env-github[]
@@ -202,7 +202,7 @@ Given below is an example usage scenario of an edit that includes a filter and h
 
 . `Duke` calls `Command.execute()`, which runs the overridden function in `EditCommand` and takes in `TaskList`, `UI` and `Storage`.
 
-. `Edit` command will call 3 functions to get the relevant fields. `getParameters()` which splits the command by regex `“ -”` and returns a string array, in this case `“priority”`. `getIndexFromCommand()` returns an integer of the index in the command, `5`. `getIndexFromTaskList()` takes in the filter, index from command and the list of tasks. It will loop through `TaskList` and finds tasks with the priority filter and matches the index specified by the user to the actual index in the task list.
+. `Edit` command will call 3 functions to get the relevant fields. `getParameters()` which splits the command by regex `-` and returns a string array, in this case `priority`. `getIndexFromCommand()` returns an integer of the index in the command, `5`. `getIndexFromTaskList()` takes in the filter, index from command and the list of tasks. It will loop through `TaskList` and finds tasks with the priority filter and matches the index specified by the user to the actual index in the task list.
 
 . `EditCommand` will access the specified task using the index and calls `setPriority` to update the priority of the task. 
 
@@ -295,7 +295,7 @@ Given below is an example usage scenario of FindCommand:
 -cs find tutorial
 ----
 
-. The command `-cs find tutorial` is parsed into `Parser`. `Parser` then splits the command into two parts delimited by the first `“ “`.
+. The command `-cs find tutorial` is parsed into `Parser`. `Parser` then splits the command into two parts delimited by the first " ".
 Filter contains "cs" and command contains “find tutorial”. 
 
 . `Parser` will return `FindCommand` with the two parameters to duke. The two parameters are keyword which is “tutorial” and filter which is “cs”. `FindCommand` will then create a `ListCommand` with the filter.
@@ -358,14 +358,14 @@ The second heuristic is using cosine similarity and is slightly more complicated
 
 . All descriptions can now be tokenized into individual words.
 
-    E.g. “buy math textbook” is tokenized into [“buy”, “math”, “textbook”].
+    E.g. buy math textbook is tokenized into [buy, math, textbook]
 
 . Next, we get a set of unique tokens. Now, we can express the description of each task as a vector of counts of the unique tokens.
 
     For example, suppose the set of unique tokens are:
-    [“buy”, “sell”, “laundry”, “textbook”, “to”, “math”, “do”, “problems”, “pass”, “exam”]
+    [buy, sell, laundry, textbook, to, math, do, problems, pass, exam]
     The description will be vectorized like so:
-    “buy math textbook to do math problems to pass exam” => [1 0 0 1 2 2 1 1 1 1]
+    buy math textbook to do math problems to pass exam => [1 0 0 1 2 2 1 1 1 1]
 
 . For each filter, we can then find all the corresponding vectors and sum them up.
 . Now, we have a vector for each filter. For the unassigned task, we also have a vector.
