@@ -339,7 +339,7 @@ MisterMusik will automatically sort the list by the date and time of each task
 so the user will not have to manually prioritise each event and todo task. ToDos
 are listed at the front of each day as they do not have an included time.
 
-=== Budget handling system ：
+=== Budget handling system :
 
 The system allows for the user to handle their own monthly budget. There is a set budget
 for each month (fixed at $50 initially) that stops users from entering new concerts into
