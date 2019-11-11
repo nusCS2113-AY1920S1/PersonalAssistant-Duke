@@ -476,10 +476,75 @@ Here's the sequence diagram for copy command
 
 image::image_3_sam.jpeg[]
 
-
 === Display
 
+The ascii command allows the user to view the music he is creating in the form of an ascii song sheet. In addition, the user can also view a group in the song or a bar of the song in ascii format. The three formats of inputs are shown below:
 
+To view a song in ascii song sheet:
+`ascii song SONG_NAME`
+
+To view a group in ascii song sheet:
+`ascii group GROUP_NAME`
+
+To view a bar in ascii song sheet:
+`ascii bar BAR_INDEX`
+
+If the users wants to view a group or a bar, the getGroupAsSong method or getBarAsSong method is called respectively.
+
+For bar:
+
+    getBarAsSong(songList, barNum, message);
+
+For group:
+
+    getGroupAsSong(songList, groupName, message);
+
+These methods will do the necessary verfication to check if the user inputs are valid. If they are valid, they will create a new temporary song to represent either that particular bar or that group. This design is good because we just have to deal with parsing a song into ascii song sheet format. Once the bar or group is wrapped as a song, the printSongAscii command is invoked.
+
+    printSongAscii(song);
+
+This method will invoke three other methods that will implement the tedious parsing.
+
+Firstly, since only the start note knows when a note starts, we pass the song through firstLayerParserAscii which generates the entire songsheet without specific symbols for different duration. At this stage, a start note for music, a start note for rest, a continuation note for music and a continuation note for rest are given different symbols.
+
+Start musical note:
+
+    private static final String START_MUSICAL_NOTE_SONGSHEET = "@";
+
+Start rest note:
+
+    private static final String START_REST_SONGSHEET = "R";
+
+Continue musical note:
+
+    private static final String CONTINUE_MUSICAL_NOTE_SONGSHEET = "p";
+
+Continue rest note:
+
+    private static final String CONTINUE_REST_SONGSHEET = "X";
+
+After a general songsheet is created by the firstLayerParserAscii method, we can know the duration of each notes. With this information, we can further represent musical notes, rest notes, and all different durations with different symbols to add meaning to our ascii song sheet. Here are the symbols used:
+   
+    private static final String MUSIC_8 = "*";
+    private static final String MUSIC_6 = "$.";
+    private static final String MUSIC_4 = "$";
+    private static final String MUSIC_3 = "@.";
+    private static final String MUSIC_2 = "@";
+    private static final String MUSIC_1 = "!";
+    private static final String REST_8 = "#";
+    private static final String REST_6 = "%.";
+    private static final String REST_4 = "%";
+    private static final String REST_3 = "^.";
+    private static final String REST_2 = "^";
+    private static final String REST_1 = "&";
+
+MUSIC indicates that the symbol represents a musical note. REST indicates that the symbol represents a rest note. The number after the underscore represents the duration of each note. These symbols will now be added to the songsheet by the secondLayerParseAscii method. However, this returns a single long songsheet which is not viewable in the terminal as when the terminal resizes, the output is auto wrapped and it will not be user viewable. Hence, a limit of 7 bars per line in the songsheet is imposed strictly by the wrapContent method.
+
+Here's the activity flow diagram for the AsciiCommand class:
+
+
+
+image::image_4_sam.jpeg[]
 
 
 === Metronome

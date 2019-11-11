@@ -230,6 +230,45 @@ _Example_: `group 2 4 sunlight`
 The above command groups the bars from index 2 to index 4 (inclusive) and gives it the name “sunlight”.
 
 === Copying sections of music: `copy`
+=== Copying sections of music: `copy`
+This command allows you to copy a bar, a series of bars or a group and paste it into any part of the song. This command is also designed to be flexible as it supports 4 different input formats
+
+==== Copy a group to the end of the current song track: `copy GROUP_NAME `
+This command allows you to copy a group to the end of the current track. Note that groups are unique to each song and cannot be accessed from a different song. 
+
+Format: `copy GROUP_NAME`
+
+Example: `copy jingle`
+
+The above command will copy the group named jingle to the end of the current song track:
+
+==== Copy range of bars to end of current song track: `copy START_NUM END_NUM`
+This command allows you to copy a range of continuous bars (inclusive) to the end of the current track. Note that in particular, to copy just one bar to the end of the track, simply put the same numbers for starting and ending index.
+
+Format: `copy START_INDEX END_INDEX`
+
+Example: `copy 1 2`
+
+The above command will copy the bars from 1 to 2 (both inclusive) to the end of the current song track.
+
+==== Copy a group into a particular index: `copy GROUP_NAME PASTE_INDEX`
+This command will copy a group and paste it into a specified index. All bars starting from that index will be pushed forward to make space for this group. Note that paste index cannot exceed the last index of the current track.
+
+Format: `copy GROUP_NAME PASTE_INDEX`
+
+Example: `copy jingle 5`
+
+The above command will insert the group named “jingle” into the 5th index of the current song track.
+
+==== Copy range of bars into a particular index:  `copy START_INDEX END_INDEX PASTE_INDEX`
+This command allows you to copy a continuous series of bars from the starting index to the ending index specified and paste it into the specified PASTE_INDEX. Note that you cannot paste index cannot exceed the last index of the current track. All the bars starting from the bar at the PASTE_INDEX will be pushed forward to make space for the copied bars.
+
+Format: `copy START_NUM END_NUM PASTE_INDEX`
+
+Example: `copy 1 2 5`
+
+The above command will copy the bars from index 1 to 2 (both inclusive) and insert that into the 5th index of the current song track.
+
 
 === Combining sections of music:
 For any musician, having the freedom to overlay a part of one song to another (overlaps two components and we play the 2 components together at the same time)  will save them a lot of time and also make it easier for them to create a composition. The overlay function aims to perform this functionality and allows the freedom to overlay a bar-bar, bar-group, group - group. 
