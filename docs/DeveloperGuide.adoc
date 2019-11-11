@@ -996,3 +996,60 @@ Use case ends.
 * *Current date*: Date obtained from the system date in user’s local machine.
 * *Meal*: Only includes breakfast, lunch, and dinner.
 * *Session*: A period of time where the user interacts with the application. The session begins when the user launches the application, and ends when the user terminates the application.
+
+[appendix]
+== Instructions for manual testing
+
+[TIP]
+====
+This is only a guideline to test some features in our application, and by all means should not limit the tester from engaging in their own variants of testing
+====
+* *Initial Setup*
+. Launch
+.. Download our jar file from the website
+.. Using your computer's command line, navigate to the directory the jar file is in
+.. Launch the jar file using the command `java -jar DIYeats-1.4.jar
+. Persistent data storage during runtime
+.. Runtime data will be stored in a folder in the same directory as the jar file.
+.. Tempering with the save file may cause data corruption, do so with care.
+. Exiting the application
+.. Enter the command `bye` and the program should exit with a exit message.
+
+* *Updating user*
++
+The application comes preloaded with a user profile. However, if you wish to customize the user data to match yourself, you can use
+the `update` command to update user information.
+
+* *SetGoal command*
+. Test case 1:
+** Enter `setgoal /start 11/11/2019 /end 11/11/2020 /activity 5 /weight 60`
+** Program should say setgoal successful, unless the user details were modified
+
+* *SuggestExercise command*
+. Test case 1:
+** Enter `suggestexercise`
+** Program should show a list of exercise suggestions. Pick an index to select it as your exercise for the day. If a goal has not been properly set, an error message will be shown.
+
+* *List command*
+. Test case 1:
+** Enter `list`
+** Program should show you a list of your meals for the day. If no meals are present, none will be presented.
+
+* *SuggestMeal command*
+. Test case 1:
+** Enter `suggestmeal`
+** Program should show a list of meal suggestions. Pick a meal index to add it to your meals for the day
+** If you have hit or are close to hitting your calorie limit for the day, the command will not suggest any meals for you.
+
+* *Breakfast command*
+. Test case 1:
+** Enter `breakfast hotcakes /calorie 600`
+** Program will show that a breakfast item named "hotcakes" has been added to the list of meals. Use the `List` command to see a list of currently recorded meals. There should be an entry identical to the one you entered in the list
+
+* *default command*
+.Test case 1 :
+** Enter `default roti chanai /calorie 500`
+** Program will prompt you that a default value has been assigned to food item "roti chanai"
+** Now, enter `lunch roti chanai`
+** Program will show that a rotai chanai item with 500 calories associated to it has been added. 
+
