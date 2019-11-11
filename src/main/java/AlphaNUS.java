@@ -35,6 +35,7 @@ public class AlphaNUS {
         fund = storage.readFromFundFile();
         commandList = storage.readFromCommandsFile();
         parser = new Parser();
+        tasklist = storage.readFromTaskListFile();
         dict = new HashSet<>();
     }
 
