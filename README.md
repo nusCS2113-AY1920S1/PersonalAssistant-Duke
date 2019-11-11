@@ -1,6 +1,7 @@
 # Entertainment Pro
 
 ![travis](https://travis-ci.com/AY1920S1-CS2113T-T09-4/main.svg?branch=master)
+
 ![Coverage Status](https://coveralls.io/repos/github/AY1920S1-CS2113T-T09-4/main/badge.svg?branch=master)
 
 ![Ui.png](docs/images/Ui.png)
