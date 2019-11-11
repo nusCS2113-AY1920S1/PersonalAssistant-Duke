@@ -631,9 +631,32 @@ image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs
 
 The Graduate Stats class as mentioned above allows to store the a string pertaining to the degree, a double value which is the employment percentage rate and an integer which corresponds to the basic mean salary. An array list of type GraduateStats is hence created to store all the necessary information.
 
-Following is a sequence diagram to depict the process of the statistics are loaded and stored in the ArrayList:
+Following is a sequence diagram to depict the process of the statistics being loaded and stored in the ArrayList:
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/sqdges.png[width="500", align = "left"]
+
+==== Design Considerations
+
+Different ways were considered to display the employment statistics:
+
+* Alternative 1 (Current Choice): Display a dual axis bar chart
+** Pros: 
+*** Concise and clear display of data
+*** Visually pleasing
+*** Easy for the user to understand the data
+** Cons: 
+*** Needs two datasets to be rendered and then added to a single chart panel
+*** Complicated implementation as a work-around needs to be used and a series of null values need to be added to prevent overlap the axes 
+
+* Alternative 2: Creation of Disjoint Set to find aliases.
+** Pros: 
+*** Extremely efficient Data Structure, O(4) time in searching for an entry.
+*** Can be used to instantly determine if two keys belong to the same set as well.
+*** Becomes faster over time through usage of Path Compression techniques.
+** Cons: 
+*** Non-primitive storage container, requires self implementation which may be flawed.
+*** Complicated to use when handling non-integer members.
+*** Extra Containers and functions needed to support the Disjoint Set.
 
 == Testing
 
