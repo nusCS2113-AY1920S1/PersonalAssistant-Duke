@@ -49,13 +49,14 @@ public class TypoCorrectorTest {
             assertTrue(typoCorrector.isCommandCorrected(),
                 "The command < " + testPair[0] + " > should be corrected to < " + testPair[1] + " >");
             String correctedOutput = typoCorrector.getCorrectedCommand();
+            assertEquals(testPair[1], correctedOutput);
+
+            //System.out.println for debugging purposes in test
             System.out.println("Input Command:     " + testPair[0]);
             System.out.println("Expected Command:  " + testPair[1]);
             System.out.println("Corrected Command: " + correctedOutput + "\n");
-            assertEquals(testPair[1], correctedOutput);
         }
     }
-
 
     /**
      * Test commands which should not be corrected.
@@ -68,13 +69,13 @@ public class TypoCorrectorTest {
             assertFalse(typoCorrector.isCommandCorrected(),
                 "The command: " + command + " should not be corrected");
             String correctedOutput = typoCorrector.getCorrectedCommand();
+            assertEquals(command, correctedOutput);
+
+            //System.out.println for debugging purposes in test
             System.out.println("Input Command:     " + command);
             System.out.println("Expected Command:  " + command);
             System.out.println("Corrected Command: " + correctedOutput);
             System.out.println();
-            assertEquals(command, correctedOutput);
         }
     }
-
-
 }
