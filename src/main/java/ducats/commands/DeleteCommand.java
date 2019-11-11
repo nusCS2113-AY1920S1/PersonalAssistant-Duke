@@ -36,9 +36,12 @@ public class DeleteCommand extends Command<SongList> {
         if (songList.getSize() == 0) {
             throw new DucatsException("", "empty");
         }
+        if (message.length() < 8 || !message.substring(0, 7).equals("delete ")) { //exception if not fully spelt
+            throw new DucatsException(message);
+        }
         int songIndex = 0;
         try {
-            songIndex = Integer.parseInt(message.substring(12));
+            songIndex = Integer.parseInt(message.substring(7));
         } catch (NumberFormatException e) {
             songIndex = songList.findSongIndex(message.substring(7)) + 1;
         } catch (Exception e) {
