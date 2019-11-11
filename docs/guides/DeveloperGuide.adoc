@@ -669,7 +669,53 @@ The `LogsCenter` class is used to manage the logging levels and logging destin
 
 == Documentation
 
+We use asciidoc for writing documentation.
+
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+*Editing Diagrams*
+
+We use `draw.io` to create and update the UML diagrams in the developer guide.
+
+*Converting Documentation to PDF format*
+
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+
+Here are the steps to convert the project documentation files to PDF format.
+
+.  Convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Within Chrome, click on the `Print` option in Chrome's menu.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format.
+
 == Testing
+
+There are two ways to run tests.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
+
+*Types of tests*
+
+We have three types of tests:
+
+.  _Unit tests_ targeting the lowest level methods/classes.
+.  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working).
+.  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.
+
+*Troubleshooting Testing*
+
+**Problem: `EmailTagsTest` fails with a `NullPointerException`.**
+
+* Reason: One of its dependencies, `Model` is missing.
+* Solution: Initiate `Model`.
 
 == Dev Ops
 
