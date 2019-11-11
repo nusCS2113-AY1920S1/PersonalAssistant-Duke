@@ -61,8 +61,8 @@ public class HelpUi extends Ui {
     private static final String LIMITS_CMD =
           "\tset duration based budget               set budget [AMOUNT] [DURATION]\n"
         + "\tset duration based saving               set saving [AMOUNT] [DURATION]\n"
-        + "\tview remaining budget for the duration  remaining budget [DURATION]\n"
-        + "\tview remaining saving for the duration  remaining saving [DURATION]";
+        + "\tview remaining budget for the duration  remaining [DURATION] budget\n"
+        + "\tview remaining saving for the duration  remaining [DURATION] saving";
 
     private static final String DEBTS_CMD =
           "\towe                                     owe [FRIEND] [AMOUNT] [DESCRIPTION] /due [DATE]\n"

@@ -49,7 +49,7 @@ public class LimitUi extends Ui {
     private static final String REMAINING_WB_MSG = "\tYour remaining weekly budget is: $";
     private static final String REMAINING_MB_MSG = "\tYour remaining monthly budget is: $";
 
-    private static final String VISUAL_REPRESENTATION_MSG = "\tHere is a visual representation of your current goal:";
+    private static final String REPRESENTATION_MSG = "\tHere is a visual representation of your current limit goal:";
 
     private static final String X = "x";
     private static final String LEFT_BRACKET = "[";
@@ -206,8 +206,9 @@ public class LimitUi extends Ui {
      * @param remaining   Remaining limit amount to reach/cut down.
      */
     private static void barGraphPrinter(double total, double remaining) {
-        int ratio = (int) Math.ceil((remaining / total) * 58);
-        System.out.println(VISUAL_REPRESENTATION_MSG);
+        int ratioBase = 58;
+        int ratio = (int) Math.ceil((remaining / total) * ratioBase);
+        System.out.println(REPRESENTATION_MSG);
         System.out.print("\t" + LEFT_BRACKET);
         for (int i = 0; i < ratio; i++) {
             System.out.print(X);
