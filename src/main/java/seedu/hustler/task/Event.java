@@ -55,19 +55,6 @@ public class Event extends Task {
         return "E|" + super.toSaveFormat() + "|" + convertDateTime(at) + super.toSaveInputDateTime();
     }
 
-    /**
-     * Checks equality with another Event instance.
-     *
-     * @param temp the instance to compare against.
-     * @return true or false to the comparison.
-     */
-    public boolean equals(Event temp) {
-        if (this.description.equals(temp.description) && this.at == temp.at) {
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public LocalDateTime getDateTime() {
         return this.at;
@@ -78,6 +65,9 @@ public class Event extends Task {
         this.at = localDateTime;
     }
 
+    /**
+     * Checks equality with another Event object.
+     */
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Event

@@ -10,9 +10,9 @@ public class Difficulty {
      * Enumerator that separates the level of the difficulty.
      */
     enum Level {
-        L ("LOW"),
-        M ("MED"),
-        H ("HIGH");
+        L("LOW"),
+        M("MED"),
+        H("HIGH");
 
         /**
          * The string to be outputted on the Ui.

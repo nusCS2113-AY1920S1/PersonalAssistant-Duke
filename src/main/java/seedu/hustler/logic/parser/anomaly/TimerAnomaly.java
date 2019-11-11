@@ -13,11 +13,8 @@ public class TimerAnomaly extends DetectAnomaly {
      * Detects anomalies for input.
      *
      * @param userInput input for which anomaly is detected
-     * @return true or false for any anomaly detected
      */
     public void detect(String[] userInput) throws CommandLineException {
-
-        Ui ui = new Ui();
 
         if (Hustler.timermanager.isRunning()) {
             throw new CommandLineException("Timer already running. Please use /stoptimer to stop the current timer.");
@@ -44,7 +41,8 @@ public class TimerAnomaly extends DetectAnomaly {
             throw new CommandLineException("Hours, minutes and seconds should be positive integers.");
         }
 
-        //detects whether the relevant arguments are non-integers. For example, 'timer winter cheese sofa' is a invalid input.
+        //detects whether the relevant arguments are non-integers.
+        // For example, 'timer winter cheese sofa' is a invalid input.
         for (int i = 0; i < 3; i += 1) {
             try {
                 int timeparts = Integer.parseInt(timeParts[i]);
@@ -65,7 +63,8 @@ public class TimerAnomaly extends DetectAnomaly {
         for (int i = 1; i < 3; i += 1) {
             int timeparts = Integer.parseInt(timeParts[i]);
             if (timeparts >= 60) {
-                throw new CommandLineException("Timer only accepts integers between 0 and 59 (inclusive) for the minutes and seconds!");
+                throw new CommandLineException("Timer only accepts integers between 0 and 59 (inclusive) "
+                        + "for the minutes and seconds!");
             }
         }
     }

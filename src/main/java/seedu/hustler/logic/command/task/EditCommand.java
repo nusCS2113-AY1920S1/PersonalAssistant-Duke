@@ -22,7 +22,7 @@ public class EditCommand extends Command {
     private String[] userInput;
     
     /**
-     * Parser that parses edit commands;
+     * Parser that parses edit commands.
      */
     private EditCommandParser parser = new EditCommandParser();
 

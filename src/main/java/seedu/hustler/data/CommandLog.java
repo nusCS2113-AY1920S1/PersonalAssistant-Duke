@@ -28,7 +28,7 @@ public class CommandLog {
      * @param numberOfCommandsToUndo number of commands to undo.
      * @return boolean whether the user is trying to undo more commands than is possible.
      */
-    public static boolean isUndoUnderflow (int numberOfCommandsToUndo) {
+    public static boolean isUndoUnderflow(int numberOfCommandsToUndo) {
         int restoreDataUntil = commandLog.size() - numberOfCommandsToUndo;
         if (restoreDataUntil >= 0) {
             return false;

@@ -16,7 +16,8 @@ public class FindAnomaly extends DetectAnomaly {
     /**
      * The message to output if the user attempts to query more than one keyword.
      */
-    private static final String MESSAGE_ONE_KEYWORD_ONLY = "Please only find one keyword! Format should be \"find <keyword>\"";
+    private static final String MESSAGE_ONE_KEYWORD_ONLY = "Please only find one keyword! Format should be"
+        + " \"find <keyword>\"";
 
     /**
      * Detects anomalies in find command input.
