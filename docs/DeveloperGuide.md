@@ -77,12 +77,15 @@ the `Ui` also consist of templates for the different sections of the program, su
 
 ```
          _________________________________________________________________________________________
-         Continue by adding, removing or using an ingredient
+         Continue by adding, removing or using an ingredient(using its index number).
          Template:
          _________________________________________________________________________________________
          add <Ingredient name> <amount> <expiry date: DD/MM/YYYY>
          remove <ingredient number>
          use <ingredient name> <amount> *always use most recently expiring ingredients 			 first, to prevent food waste!*
+         To change amount, changeamount <Ingredient's Index> <New amount>
+	 	 To change name, changename <Ingredient's Index> <New name>
+	 	 To find an ingredient, find <Ingredient name>
 ```
 
 <u>Order</u>
@@ -152,13 +155,13 @@ In `Command` Component, there are three types of commands: `Ingredient Command`,
 - ingredientCommand
   - AddCommand
   - DeleteCommand
-  - ExitCommand
   - FindIngredientCommand
   - FindToday
   - ListCommand
   - RemoveAllExpired
   - UseCommand
-  - ViewCommand
+  - ChangeAmountCommand
+  - ChangeNameCommand
 
 The `Command` class is used as an abstract class for other command classes, its method `execute` is also declared as an abstract method, as shown in the figure above. Any other command classes all inherit from `Command` class and override the implementation of the `execute` method. 
 
@@ -731,11 +734,11 @@ Target user profile: Restaurant Chef
 
 
 
-**Use case: Find a ingredient by searching for keyword**
+**Use case: Find an ingredient by searching for keyword**
 
-1. User requests to find tasks with the given keyword
+1. User requests to find an ingredient with the given keyword
 
-2. Program loads up and shows ingredient with the given keyword
+2. Program loads up and shows a lists of ingredients(that fits the keyword), with their attributes
 
 **Extensions**
 
@@ -807,8 +810,6 @@ in the main page, there are several actions for the user:
 
       Expected: output a message to user that the description of add cannot be empty
 
-
-
 #### E3. Removing an ingredient
 
 Removing an ingredient from the Fridge
@@ -855,17 +856,71 @@ Using an ingredient from the Fridge
 
 #### E7. Finding an ingredient
 
+Finding an ingredient in the Fridge
+
+1. Prerequisite: user must be in `b` option of the main menu. List all ingredients in the `Fridge` by typing `show`. Assuming there is only **beef** and **chicken** in the `Fridge`.
+
+   Test case 1: `find beef` 
+
+   Expected: Find and list all ingredients that have the keyword `beef` to the user, regardless of their amount or expiry date
+
+​	   Test case 2: `find cockroach`
+
+​	   Expected: Ingredient is not found and program outputs `No such ingredient found!`
+
+​	   Test case 3: `find be ef`
+
+​	   Expected: Program outputs to user the proper syntax to use the command.
+
 #### E8. Listing ingredients that expired today
 
-1. Adding an ingredient to the List
+Listing all ingredients in the `Fridge` that expires today
+
+1. Prerequisite: user must be in `b` option of the main menu. Assuming there is only **beef** and **chicken** in the `Fridge`. However, only the **chicken** expires today.
+
+   Test case 1: `listtoday` 
+
+   Expected: Find and list all ingredients in the `Fridge` that expires today, which is the **chicken**.
+
+   Test case 2: `list today`
+
+   Expected: Program outputs to user the proper syntax to use the command
 
 #### E9. Changing ingredient name
 
-1. Adding an ingredient to the List
+Changing the name of an ingredient in the `Fridge`
+
+1. Prerequisite: user must be in `b` option of the main menu. List all ingredients in the `Fridge` by typing `show`. Assuming there is only **beef** and **chicken** in the `Fridge`, with index of 1 and 2 respectively.
+
+   Test case 1: `changename 1 pork` 
+
+   Expected: Changes the **beef** to **pork** and output its new name, amount and expiry date to the user.
+
+​	   Test case 2: `changename 3 pork`
+
+​	   Expected: User is prompted by the program to enter a valid range of ingredient index number,                                                                                        	   depending on the `IngredienstLists` size.
+
+​	   Test case 3: `changename chicken pork`
+
+​	   Expected: Program outputs to user the proper syntax to use the command.
 
 #### E10. Changing ingredient amount
 
-1. Adding an ingredient to the List
+Changing the amount of an ingredient in the `Fridge`
+
+1. Prerequisite: user must be in `b` option of the main menu. List all ingredients in the `Fridge` by typing `show`. Assuming there is only **30 beef** and **20 chicken** in the `Fridge`, with index of 1 and 2 respectively.
+
+   Test case 1: `changeamount 1 20` 
+
+   Expected: Changes the amount of **beef** from 30 to 20 and output its name, new amount and expiry date to the user.
+
+​	   Test case 2: `changeamount 3 20`
+
+​	   Expected: User is prompted by the program to enter a valid range of ingredient index number,                                                                                        	   depending on the `IngredienstLists` size.
+
+​	   Test case 3: `changeamount chicken 7`
+
+​	   Expected: Program outputs to user the proper syntax to use the command.
 
 #### E11. Adding an order
 
