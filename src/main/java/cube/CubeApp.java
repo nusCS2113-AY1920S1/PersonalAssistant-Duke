@@ -1,6 +1,6 @@
 /**
  * CubeApp.java
- * the Entry Point for the Graphical User Interface (GUI).
+ * The Entry Point for the Graphical User Interface (GUI).
  */
 
 package cube;
@@ -10,6 +10,7 @@ import cube.storage.StorageManager;
 import cube.ui.MainWindow;
 import cube.util.FileUtilJson;
 import cube.util.LogUtil;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
