@@ -22,7 +22,7 @@ import java.util.List;
  *
  * Represents a specific {@link Command} used to list all the {@link Order}s in the {@link OrderList}.
  */
-public class ListOrderCommand extends ListCommand {
+public class ListOrderCommand extends Command {
 
     private String[] listType;
 
