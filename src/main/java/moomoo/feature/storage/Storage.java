@@ -14,7 +14,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -25,7 +24,6 @@ import java.util.Map;
  * Handles storage and retrieval of the tasks.
  */
 public class Storage {
-    private DecimalFormat df;
     private String budgetFilePath;
     private String scheduleFilePath;
 
@@ -37,7 +35,6 @@ public class Storage {
     public Storage(String budgetFilePath, String scheduleFilePath) {
         this.budgetFilePath = budgetFilePath;
         this.scheduleFilePath = scheduleFilePath;
-        df = new DecimalFormat("#.00");
     }
 
     public Storage() {
@@ -47,7 +44,7 @@ public class Storage {
     /**
      * Creates the directory and file as given by the file path initialized in the constructor.
      */
-    static void createFileAndDirectory(String filePath) throws MooMooException {
+    public static void createFileAndDirectory(String filePath) throws MooMooException {
         try {
             File myNewFile = new File(filePath);
             myNewFile.getParentFile().mkdir();
@@ -211,7 +208,7 @@ public class Storage {
                     String outputFile = outputFiles[i];
                     inStream = MooMoo.class.getResourceAsStream("/" + outputFile);
                     if (inStream == null) {
-                        throw new MooMooException("Stream is empty");
+                        throw new MooMooException("Error creating default files. Please add your own values.");
                     }
 
                     int readBytes;
@@ -226,7 +223,7 @@ public class Storage {
                 inStream.close();
                 outputStream.close();
             } catch (Exception e) {
-                throw new MooMooException(e.getMessage());
+                throw new MooMooException("Error creating default files. Please add your own values.");
             }
         }
 

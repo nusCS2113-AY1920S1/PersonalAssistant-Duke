@@ -1,13 +1,12 @@
 package moomoo.command;
 
+import moomoo.feature.Budget;
+import moomoo.feature.Cow;
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
-import moomoo.feature.Budget;
 import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.storage.Storage;
-import moomoo.command.DetectOsCommand;
-import moomoo.feature.Cow;
 
 import java.io.IOException;
 

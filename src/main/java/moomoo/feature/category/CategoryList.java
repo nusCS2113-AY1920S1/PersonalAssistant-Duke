@@ -141,20 +141,4 @@ public class CategoryList {
             return false;
         }
     }
-
-    /**
-     * Populate the categoryList array with dummy variables. FOR TESTING PURPOSES.
-     */
-    public void testPopulate() {
-        ArrayList<String> population = new ArrayList<>();
-        population.add("Drugs");
-        population.add("Food");
-        population.add("Transportation");
-        population.add("Individualistically");
-        population.add("Compartmentalisation");
-        for (int i = 0; i < 5; i += 1) {
-            Category newCategory = new Category(population.get(i));
-            categoryList.add(newCategory);
-        }
-    }
 }
