@@ -11,12 +11,12 @@ public class BuyAnomaly extends DetectAnomaly {
     /**
      * The message to output if user inputs an out of bounds index.
      */
-    private final String OUT_OF_BOUNDS_MSG = "Please input the correct index! Recheck the shop size by typing \"/shop\"";
+    private static final String OUT_OF_BOUNDS_MSG = "Please input the correct index! Recheck the shop size by typing \"/shop\"";
 
     /**
      * The message to output if user inputs the wrong format.
      */
-    private final String WRONG_FORMAT_MSG = "Please input a proper format! Type \"/buy <index>\"";
+    private static final String WRONG_FORMAT_MSG = "Please input a proper format! Type \"/buy <index>\"";
 
     @Override
     public void detect(String[] userInput) throws CommandLineException {

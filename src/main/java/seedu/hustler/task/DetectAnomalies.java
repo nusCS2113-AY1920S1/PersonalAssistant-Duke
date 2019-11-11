@@ -29,12 +29,13 @@ public class DetectAnomalies {
             if (taskDescription.equals(list.get(i).getDescription())) {
                 return true;
             }
-
             if (taskDateTime == null || list.get(i).getDateTime() == null) {
                 continue;
             }
-            if (taskDateTime.isEqual(list.get(i).getDateTime())) {
-                return true;
+            if (splitInput.contains("/at")) {
+                if (taskDateTime.isEqual(list.get(i).getDateTime()) && list.get(i).toSaveFormat().contains("E|")) {
+                    return true;
+                }
             }
         }
         return false;

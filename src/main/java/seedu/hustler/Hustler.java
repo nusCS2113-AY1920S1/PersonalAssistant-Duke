@@ -2,19 +2,25 @@ package seedu.hustler;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.hustler.data.*;
+import seedu.hustler.data.ShopStorage;
+import seedu.hustler.data.AvatarStorage;
+import seedu.hustler.data.TaskStorage;
+import seedu.hustler.data.AchievementStorage;
+import seedu.hustler.data.CommandLog;
+import seedu.hustler.data.Folder;
+import seedu.hustler.data.MemoryManager;
 import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.game.avatar.Inventory;
 import seedu.hustler.game.shop.ShopList;
-import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.CommandParser;
 import seedu.hustler.task.Reminders;
 import seedu.hustler.task.TaskList;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.ui.timer.TimerManager;
+import seedu.hustler.schedule.Scheduler;
 
 import java.io.IOException;
 
@@ -29,14 +35,19 @@ public class Hustler extends Application {
      * user and from storage.
      */
     public static TaskList list;
+    
+    /**
+     * Stores tasks, amount of time spent on them, their priority 
+     * and makes recommendations.
+     */
+    public static Scheduler scheduler = Scheduler.getInstance();
 
     /**
      * shopList stores and manages the items to purchased in Hustler.
      * Bought items will be added to the storage and is not able for purchase
      * in the future.
      */
-    public static ShopList shopList = new ShopList();
-
+    public static ShopList shopList = new ShopList().populateShop();
 
     /**
      * achievementList stores and manage all the achievements available in Hustler.
@@ -106,11 +117,7 @@ public class Hustler extends Application {
         ConsecutiveLogin.updatePoints();
         ConsecutiveLogin.updateAchievementLevel();
         achievementList.updateDedicated();
-
-        avatar = AvatarStorage.load();
         AvatarStorage.save(avatar);
-        shopList = ShopStorage.load();
-        inventory = inventory.updateInventory();
     }
 
     /**
@@ -139,12 +146,17 @@ public class Hustler extends Application {
     public static void loadStorage() throws IOException {
         list = new TaskList(taskStorage.load());
         avatar = AvatarStorage.load();
+        shopList = ShopStorage.load();
+        inventory = inventory.updateInventory();
 
         //Loads information such as number of tasks done, added, points, etc.
         AchievementStorage.loadStatus();
         AchievementStorage.createBackup(achievementList);
     }
-
+    
+    /**
+     * Reloads avatar backup.
+     */
     public static void reloadBackup() {
         list = new TaskList(taskStorage.reloadBackup());
         avatar = AvatarStorage.reloadBackup();
@@ -161,6 +173,8 @@ public class Hustler extends Application {
             AvatarStorage.save(avatar);
             AchievementStorage.saveAchievements(achievementList);
             AchievementStorage.saveStatus();
+            ShopStorage.update();
+            inventory.updateInventory();
         } catch (IOException e) {
             ui.showSaveError();
         }

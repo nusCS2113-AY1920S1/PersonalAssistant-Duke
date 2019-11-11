@@ -4,10 +4,16 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -23,7 +29,7 @@ import java.util.Arrays;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
-public class MainWindow extends AnchorPane{
+public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -32,12 +38,8 @@ public class MainWindow extends AnchorPane{
     private TextField userInput;
     @FXML
     private TextArea console;
-
     @FXML
     private static PrintStream ps;
-
-    @FXML
-    private static PrintStream hps;
     @FXML
     private Button sendButton;
     @FXML
@@ -75,7 +77,7 @@ public class MainWindow extends AnchorPane{
     @FXML
     private FlowPane flowPane = new FlowPane();
     @FXML
-    private ScrollPane scrollPANEE;
+    private ScrollPane scrollPanel;
     @FXML
     private FlowPane heading;
 
@@ -83,18 +85,17 @@ public class MainWindow extends AnchorPane{
 
     /**
      * Initializes essential components to run Hustler.
+     *
      * @throws IOException if text area could not be found.
      */
     @FXML
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         ps = new PrintStream(new Console(console));
-        //hps = new PrintStream(new HistoryConsole(historyConsole));
         console.setEditable(false);
         onPrinting();
         Hustler.initialize();
         showWelcome();
-//        rootPane.getChildren().remove(historyConsole);
     }
 
     public void setHustler(Hustler h) {
@@ -106,11 +107,9 @@ public class MainWindow extends AnchorPane{
         System.setErr(ps);
     }
 
-//    public static void onHCPrinting() {
-//        System.setOut(hps);
-//        System.setErr(hps);
-//    }
-
+    /**
+     * Off printing.
+     */
     public static void offPrinting() {
         System.setOut(dummyStream);
         System.setErr(dummyStream);
@@ -126,33 +125,27 @@ public class MainWindow extends AnchorPane{
             this.console = console;
         }
 
+        /**
+         * Appending of text.
+         *
+         * @param valueOf String of value.
+         */
         public void appendText(String valueOf) {
             Platform.runLater(() -> console.appendText(valueOf));
-//            Font font = new Font("Gill Sans", 15);
-//            console.setFont(font);
+            Font font = new Font("Gill Sans", 15);
+            console.setFont(font);
         }
+
+        /**
+         * Write.
+         *
+         * @param b Integer b.
+         */
         public void write(int b) {
-            appendText(String.valueOf((char)b));
+            appendText(String.valueOf((char) b));
         }
     }
 
-//    public class HistoryConsole extends OutputStream {
-//        private TextArea historyConsole;
-//
-//        public HistoryConsole(TextArea historyConsole) {
-//            this.historyConsole = historyConsole;
-//
-//        }
-//
-//        public void appendHCText(String valueOf) {
-//            Platform.runLater(() -> historyConsole.appendText(valueOf));
-//            Font font = new Font("Gill Sans", 15);
-//            historyConsole.setFont(font);
-//        }
-//        public void write(int b) {
-//            appendHCText(String.valueOf((char)b));
-//        }
-//    }
 
     /**
      * Creates a dummy stream which does not print anything.
@@ -168,7 +161,7 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void handleUserInput() {
         String[] timerModeCommands = {"/timer", "/resumertimer", "/stoptimer", "/pausetimer", "/update",
-                                      "/resumetimer", "/showtimer", "/addfromlist", "/remove"};
+            "/resumetimer", "/showtimer", "/addfromlist", "/remove"};
 
         String[] avatarModeCommands = {"/setname", "/avatar", "/equip", "/inventory"};
 
@@ -198,12 +191,15 @@ public class MainWindow extends AnchorPane{
                 taskAction();
             }
             Hustler.run(input);
-            scrollPANEE.setContent(console);
+            scrollPanel.setContent(console);
             userInput.clear();
             sendReleased();
         }
     }
 
+    /**
+     * Change button color.
+     */
     @FXML
     public void sendClicked() {
         ColorAdjust color = new ColorAdjust();
@@ -211,6 +207,9 @@ public class MainWindow extends AnchorPane{
         sendButton.setEffect(color);
     }
 
+    /**
+     * Change button effect.
+     */
     @FXML
     public void sendReleased() {
         ColorAdjust color = new ColorAdjust();
@@ -218,9 +217,12 @@ public class MainWindow extends AnchorPane{
         sendButton.setEffect(color);
     }
 
+    /**
+     * Show welcome screen.
+     */
     @FXML
     public void showWelcome() {
-        StackPane stackPane = new StackPane();
+        final StackPane stackPane = new StackPane();
         Rectangle whiteSpace = new Rectangle();
         welcomeScreen.setStyle("-fx-background-color:#2dcb70");
         whiteSpace.setOpacity(0.0);
@@ -232,19 +234,25 @@ public class MainWindow extends AnchorPane{
         text.setFill(Color.WHITE);
         text.setTextAlignment(TextAlignment.CENTER);
 
-        stackPane.setMargin(text,new Insets(0,50,0,50));
-        stackPane.setAlignment(text,Pos.CENTER);
+        stackPane.setMargin(text, new Insets(0, 50, 0, 50));
+        stackPane.setAlignment(text, Pos.CENTER);
         stackPane.getChildren().addAll(text);
         stackPane.prefWidthProperty().bind(welcomeScreen.widthProperty());
 
-        welcomeScreen.getChildren().addAll(whiteSpace,stackPane);
+        welcomeScreen.getChildren().addAll(whiteSpace, stackPane);
     }
 
+    /**
+     * Remove welcome screen.
+     */
     @FXML
     public void removeWelcome() {
         rootPane.getChildren().remove(welcomeScreen);
     }
 
+    /**
+     * Task actions.
+     */
     @FXML
     public void taskAction() {
         heading.getChildren().clear();
@@ -283,7 +291,6 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#34495E");
         arena.setStyle("-fx-background-color:#34495E");
         //settings.setStyle("-fx-background-color:#34495E");
-        //historyButton.setStyle("-fx-background-color:#34495E");
 
         task.textFillProperty().setValue(Paint.valueOf("#ffffff"));
         taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
@@ -293,9 +300,11 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         // settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-       // historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
 
+    /**
+     * Task completion mode actions.
+     */
     @FXML
     public void taskCompletionModeAction() {
         heading.getChildren().clear();
@@ -338,7 +347,6 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#34495E");
         arena.setStyle("-fx-background-color:#34495E");
         //settings.setStyle("-fx-background-color:#34495E");
-        //historyButton.setStyle("-fx-background-color:#34495E");
 
         task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#ffffff"));
@@ -348,9 +356,11 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-        //historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
 
+    /**
+     * Achievement actions.
+     */
     @FXML
     public void achievementAction() {
         heading.getChildren().clear();
@@ -380,7 +390,6 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(null);
         swords.setEffect(null);
-        //history.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -390,7 +399,6 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#34495E");
         arena.setStyle("-fx-background-color:#34495E");
         //settings.setStyle("-fx-background-color:#34495E");
-        //historyButton.setStyle("-fx-background-color:#34495E");
 
         task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
@@ -400,9 +408,11 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-        //historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
 
+    /**
+     * Statistics actions.
+     */
     @FXML
     public void statisticsAction() {
         heading.getChildren().clear();
@@ -445,7 +455,6 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#34495E");
         arena.setStyle("-fx-background-color:#34495E");
         //settings.setStyle("-fx-background-color:#34495E");
-        //historyButton.setStyle("-fx-background-color:#34495E");
 
         task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
@@ -455,9 +464,11 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-        //historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
 
+    /**
+     * Avatar actions.
+     */
     @FXML
     public void avatarAction() {
         heading.getChildren().clear();
@@ -490,7 +501,6 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(color);
         trolley.setEffect(null);
         swords.setEffect(null);
-        //history.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -500,7 +510,6 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#34495E");
         arena.setStyle("-fx-background-color:#34495E");
         //settings.setStyle("-fx-background-color:#34495E");
-        ///historyButton.setStyle("-fx-background-color:#34495E");
 
         task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
@@ -510,9 +519,11 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-        //historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
 
+    /**
+     * Shop actions.
+     */
     @FXML
     public void shopAction() {
         heading.getChildren().clear();
@@ -546,7 +557,6 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(color);
         swords.setEffect(null);
-        //history.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -556,7 +566,6 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#243342");
         arena.setStyle("-fx-background-color:#34495E");
         //settings.setStyle("-fx-background-color:#34495E");
-        //historyButton.setStyle("-fx-background-color:#34495E");
 
         task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
@@ -566,9 +575,11 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#ffffff"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-        //historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
 
+    /**
+     * Arena actions.
+     */
     @FXML
     public void arenaAction() {
         heading.getChildren().clear();
@@ -602,7 +613,6 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(null);
         swords.setEffect(color);
-        //history.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -612,7 +622,6 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#34495E");
         arena.setStyle("-fx-background-color:#243342");
         //settings.setStyle("-fx-background-color:#34495E");
-        //historyButton.setStyle("-fx-background-color:#34495E");
 
         achievement.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
@@ -622,60 +631,5 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#ffffff"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-        //historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
-
-//    @FXML
-//    public void historyAction() {
-//        heading.getChildren().clear();
-//
-//        Text arenaAction = new Text("HISTORY");
-//        arenaAction.setFont(Font.font("Gill Sans", 15));
-//        arenaAction.setFill(Color.GRAY);
-//
-//        StackPane titlePane = new StackPane();
-//        //titlePane.setMargin(title1, new Insets(0,0,0,50));
-//        titlePane.setAlignment(arenaAction, Pos.CENTER);
-//        titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
-//        titlePane.prefWidthProperty().bind(heading.widthProperty());
-//        titlePane.getChildren().addAll(arenaAction);
-//
-//        heading.getChildren().addAll(titlePane);
-//
-//        flowPane.setStyle("-fx-background-color:#ffffff");
-//        flowPane.getChildren().clear();
-//
-//        ColorAdjust color = new ColorAdjust();
-//        color.setContrast(0.35);
-//        color.setHue(-0.21);
-//        color.setBrightness(0.09);
-//        color.setSaturation(1.0);
-//
-//        menu.setEffect(null);
-//        timer.setEffect(null);
-//        trophy.setEffect(null);
-//        spiderGraph.setEffect(null);
-//        profile.setEffect(null);
-//        trolley.setEffect(null);
-//        swords.setEffect(null);
-//        history.setEffect(color);
-//
-//        task.setStyle("-fx-background-color:#34495E");
-//        taskCompletionMode.setStyle("-fx-background-color:#34495E");
-//        achievement.setStyle("-fx-background-color:#34495E");
-//        statistics.setStyle("-fx-background-color:#34495E");
-//        avatar.setStyle("-fx-background-color:#34495E");
-//        shop.setStyle("-fx-background-color:#34495E");
-//        arena.setStyle("-fx-background-color:#34495E");
-//        historyButton.setStyle("-fx-background-color:#243342");
-//
-//        achievement.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        statistics.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        avatar.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        historyButton.textFillProperty().setValue(Paint.valueOf("#ffffff"));
-//    }
 }

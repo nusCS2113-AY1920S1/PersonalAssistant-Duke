@@ -3,7 +3,6 @@ package seedu.hustler.logic.command.shop;
 import seedu.hustler.Hustler;
 import seedu.hustler.game.achievement.Achievements;
 import seedu.hustler.logic.command.Command;
-import seedu.hustler.data.ShopStorage;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.parser.anomaly.BuyAnomaly;
 import seedu.hustler.ui.Ui;
@@ -37,18 +36,14 @@ public class BuyCommand extends Command {
         try {
             anomaly.detect(userInput);
             int index = Integer.parseInt(userInput[1]) - 1;
-            int oldPoints = Achievements.totalPoints;
-            if (Hustler.shopList.buy(index).isPresent()) {
-                if (oldPoints < Achievements.totalPoints) {
-                    ui.showPurchasedSuccess();
-                } else {
-                    ui.showAlreadyPurchased();
-                }
+            if (Hustler.shopList.buy(index, Achievements.totalPoints).isPresent()) {
+                Achievements.totalPoints -= Hustler.shopList.getItem(index).getCost();
+                ui.showPurchasedSuccess();
+            } else if (Hustler.shopList.getItem(index).isPurchased()) {
+                ui.showAlreadyPurchased();
             } else {
                 ui.showPurchasedFailure();
             }
-            ShopStorage.update();
-            Hustler.inventory.updateInventory();
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }

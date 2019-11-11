@@ -1,83 +1,40 @@
 package seedu.hustler.game.avatar;
 
 /**
- * Class representing the level of the avatar. Also contains the current xp.
+ * The level interface that AvatarLevel must inherit in order
+ * to properly level.
  */
-public class Level implements Convertible {
-
-    /**
-     * Integer level of avatar.
-     */
-    private int level;
-
-    /**
-     * Integer value of XP.
-     */
-    private int xp;
-
-    /**
-     * Constructs a default Level.
-     */
-    public Level() {
-        this.level = 1;
-        this.xp = 0;
-    }
-
-    /**
-     * Constructs Level with the given level and xp.
-     * @param level the level of the avatar.
-     * @param xp the xp of the avatar.
-     */
-    public Level(int level, int xp) {
-        this.level = level;
-        this.xp = xp;
-    }
+public interface Level extends Convertible {
 
     /**
      * Gets the current level of the avatar.
      * @return the current level of the avatar.
      */
-    public int getLevel() {
-        return this.level;
-    }
+    int getLevel();
 
     /**
-     * Gets the current xp of the avatar
+     * Gets the current xp of the avatar.
      * @return the current level of the avatar.
      */
-    public int getXp() {
-        return this.xp;
-    }
+    int getXp();
 
     /**
      * Increment xp by 1.
-     * @return the current Level.
+     * @return the new instance of the updated Level.
      */
-    public Level increaseXp() {
-        this.xp++;
-        return this;
-    }
+    Level increaseXp();
 
     /**
      * Levels up by 1.
-     * @return the current level.
+     * @return the new instance of the updated Level.
      */
-    public Level upLevel() {
-        this.level++;
-        return this;
-    }
+    Level upLevel();
 
     /**
      * Checks if avatar can reach the next level.
      * @return true if avatar can gain a level; false if otherwise.
      */
-    public boolean canLevel() {
-        if (this.xp >= xpNeeded(this.level)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    boolean canLevel();
 
     /**
      * The simple algorithm to calculate the xp needed for the
@@ -85,28 +42,5 @@ public class Level implements Convertible {
      * @param level the level of the avatar.
      * @return the xp needed to hit the next level.
      */
-    private int xpNeeded(int level) {
-        if (level <= 3) {
-            return 5 * level;
-        } else {
-            return (3 * (level * level)) - ((level - 3) * 15);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Level: " + this.level + " | XP: " + this.xp;
-    }
-
-    @Override
-    public String toTxt() {
-        return this.level + " " + this.xp;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return obj == this || (obj instanceof Level
-                && this.toString().equals(obj.toString()));
-    }
-
+    int xpNeeded(int level);
 }

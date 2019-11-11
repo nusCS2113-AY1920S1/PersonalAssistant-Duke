@@ -2,8 +2,7 @@ package seedu.hustler.logic.command.timer;
 
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.ui.timer.TimerManager;
-import seedu.hustler.schedule.RecommendedSchedule;
-import seedu.hustler.schedule.Scheduler;
+import seedu.hustler.Hustler;
 
 /**
  * Command that stops the timer, updates time spent on
@@ -16,5 +15,6 @@ public class StopTimerCommand extends Command {
      */
     public void execute() {
         TimerManager.stopTimer();
+        Hustler.scheduler.confirm();
     }
 }

@@ -6,6 +6,11 @@ package seedu.hustler.game.shop.items.armors;
 public class IronArmor extends Armor {
 
     /**
+     * The name of the armor.
+     */
+    private static final String NAME = "Iron Armor";
+
+    /**
      * The defence increment of the iron armor.
      */
     private static final int DEF_INCR = 3;
@@ -23,12 +28,12 @@ public class IronArmor extends Armor {
     /**
      * Constructs a new iron armor with its default variables.
      */
-    public IronArmor() {
-        super(COST, false, DEF_INCR, STA_INCR);
+    public IronArmor(boolean isPurchased) {
+        super(COST, isPurchased, DEF_INCR, STA_INCR, NAME);
     }
 
     @Override
-    public String toString() {
-        return "Iron Armor, " + super.toString();
+    public IronArmor setIsPurchased(boolean isPurchased) {
+        return new IronArmor(isPurchased);
     }
 }

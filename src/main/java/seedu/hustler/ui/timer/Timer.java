@@ -1,8 +1,7 @@
 package seedu.hustler.ui.timer;
 
-import java.util.*;
 import seedu.hustler.ui.timer.statusTypes.threadStatus;
-import seedu.hustler.schedule.RecommendedSchedule;
+import seedu.hustler.Hustler;
 
 /**
  * The timer device operated by timerManager.
@@ -29,6 +28,7 @@ public class Timer implements Runnable, TimerInterface {
         timeArray = new int[3];
         threadstatus = threadStatus.DEFAULT;
     }
+
     /**
      * Overloaded constructor that directly sets the hours, minutes
      * and seconds of the timer according to the user's discretion.
@@ -57,9 +57,12 @@ public class Timer implements Runnable, TimerInterface {
                 timeArray = TimerLogic.decrement(timeArray);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         TimerUI.printThreadInterrupt(threadstatus);
-        RecommendedSchedule.confirm();
+        if (isFinished()) {
+            Hustler.scheduler.confirm();
+        }
     }
 
     /**

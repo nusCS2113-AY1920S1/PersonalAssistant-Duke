@@ -1,9 +1,10 @@
 package seedu.hustler.logic.command.schedulecommands;
 
+import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.RemoveEntryAnomaly;
-import seedu.hustler.schedule.RecommendedSchedule;
+import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.ui.Ui;
 
 /**
@@ -40,9 +41,8 @@ public class RemoveEntry extends Command {
             int index = Integer.parseInt(this.userInput[1]);
             index--;
 
-            RecommendedSchedule.recommended.remove(index);
-            RecommendedSchedule.reTime();
-            RecommendedSchedule.displayRecommendedSchedule();
+            Hustler.scheduler.removeFromRecommended(index);
+            Hustler.scheduler.displayRecommendedSchedule();
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
             return;

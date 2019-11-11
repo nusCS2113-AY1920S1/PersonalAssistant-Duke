@@ -1,9 +1,14 @@
 package seedu.hustler.game.shop.items.weapons;
 
 /**
- * The cheapest weapon in the shop which gives the least damage.
+ * The lowest tiered weapon in the shop.
  */
 public class Broadsword extends Weapon {
+
+    /**
+     * The name of the weapon.
+     */
+    private static final String NAME = "Broadsword";
 
     /**
      * The damage increment of Broadsword.
@@ -18,8 +23,13 @@ public class Broadsword extends Weapon {
     /**
      * Constructs a Broadsword with it's default variables.
      */
-    public Broadsword() {
-        super(COST, false, DMG_INCR);
+    public Broadsword(boolean isPurchased) {
+        super(COST, isPurchased, DMG_INCR, NAME);
+    }
+
+    @Override
+    public Broadsword setIsPurchased(boolean isPurchased) {
+        return new Broadsword(isPurchased);
     }
 
     @Override

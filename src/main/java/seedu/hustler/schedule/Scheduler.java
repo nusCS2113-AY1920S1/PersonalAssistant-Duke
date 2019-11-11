@@ -4,34 +4,43 @@ import seedu.hustler.Hustler;
 import java.util.ArrayList;
 import seedu.hustler.task.Task;
 import seedu.hustler.ui.Ui;
+import seedu.hustler.logic.CommandLineException;
 
 /**
  * A class that holds all the
  * tasks to complete, time spent on each task,
  * and priority of each task, which is together called
  * an entry. Scheduler handles all these entries.
+ * Recommendations are also made as to which tasks to work on.
  */
 public class Scheduler {
+    private Ui ui = new Ui();
+
     /**
      * An ArrayList that stores entries
      * that are tasks to complete with the amount
      * of time spent on each task and their computed
      * priority.
      */
-    public static ArrayList<ScheduleEntry> schedule 
+    public ArrayList<ScheduleEntry> schedule 
         = new ArrayList<>();
 
     /**
-     * Add an entry to the schedule based on the task
-     * supplied as input, only if the task is not done.
-     *
-     * @param task task to be added as entry
+     * An object that uses top-k algorithm
+     * based on priority to initialize recommended list.
      */
-    public static void add(Task task) {
-        if (task.isCompleted()) {
-            return;
-        }
-        schedule.add(new ScheduleEntry(task, 0));
+    private Recommender recommender;
+
+    /**
+     * An ArrayList of entries extracted based on priorty
+     * from schedule.
+     */
+    public ArrayList<ScheduleEntry> recommended 
+        = new ArrayList<>();
+
+
+    public static Scheduler getInstance() {
+        return (new Scheduler()); 
     }
     
     /**
@@ -41,12 +50,25 @@ public class Scheduler {
      * @param task task to be added as entry
      * @param timeSpent amount of time spent on each task
      */
-    public static void add(Task task, long timeSpent) {
+    public void add(Task task, long timeSpent) {
         if (task.isCompleted()) {
             return;
         }
         schedule.add(new ScheduleEntry(task, timeSpent));
     }
+
+    /**
+     * Adds task as ScheduleEntry to schedule.
+     *
+     * @param task task to add
+     */
+    public void add(Task task) {
+        if (task.isCompleted()) {
+            return;
+        }
+        schedule.add(new ScheduleEntry(task, 0));
+    }
+
     
     /**
      * Returns an entry based on supplied index.
@@ -54,7 +76,7 @@ public class Scheduler {
      * @param index index of the wanted entry
      * @return entry that contains the task, time spent and priority of the task
      */
-    public static ScheduleEntry getEntry(int index) {
+    public ScheduleEntry getEntry(int index) {
         return schedule.get(index);
     }
     
@@ -64,7 +86,7 @@ public class Scheduler {
      * @param index index of the entry to update
      * @param seconds seconds to be added to the time spent on the task
      */
-    public static void updateEntry(int index, long seconds) {
+    public void updateEntry(int index, long seconds) {
         schedule.get(index).updateTimeSpent(seconds);
     }
     
@@ -73,7 +95,7 @@ public class Scheduler {
      *
      * @return list of entries
      */
-    public static ArrayList<ScheduleEntry> getList() {
+    public ArrayList<ScheduleEntry> getList() {
         return schedule;
     }
     
@@ -81,70 +103,35 @@ public class Scheduler {
      * Updates the schedule with a latest task from
      * the original TaskList.
      */
-    public static void update() {
+    public void update() {
         add(Hustler.list.getLastTask());
     }
-    
-    /**
-     * Removes entry at an index.
-     *
-     * @param index index at which entry should be removed
-     */
-    public static void remove(int index) {
-        schedule.remove(index);
-        
-    }
-    
+
     /**
      * Removes an entry based on the task supplied.
      *
      * @param task task whose matching entry needs to be removed
      */
-    public static void remove(Task task) {
-        int index = -1;
-        for (int i = 0; i < size(); i++) {
-            if (getEntry(i).getTask()
-                    == task) {
-                index = i;
-                break;
-            }
-        }
-        if (index == -1) {
-            return;
-        }
-        remove(index);
+    public void remove(Task task) {
+        schedule.removeIf(n -> (n.getTask() == task));
+        recommended.removeIf(n -> (n.getTask() == task));
     }
-    
+
     /**
      * Returns the size of the current list of entries.
      *
      * @return size of the list of entries
      */
-    public static int size() {
+    public int size() {
         return schedule.size();
     }
-    
-    /**
-     * Checks with the schedule contains the task supplied.
-     *
-     * @param task check for the task supplied
-     * @return check for whether task supplied exists.
-     */
-    public static boolean contains(Task task) {
-        for (ScheduleEntry entry : schedule) {
-            if (entry.getTask() == task) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
+
     /**
      * Displays the whole schedule which includes incomplete tasks,
      * and time spent on each of the tasks.
      */
-    public static void displayEntries() {
-        String output = "";
+    public void displayEntries() {
+        String output = "These are the amount of hours you have spent on all your tasks:\n\t";
         for (ScheduleEntry entry : schedule) {
             output += entry.getTask().toString() 
                 + " hours spent: " + (entry.getTimeSpent() / 3600.0) + "\n\t";
@@ -152,17 +139,16 @@ public class Scheduler {
         if (size() == 0) {
             output = "Tasks completed. Please add more.";
         }
-        Ui ui = new Ui();
         ui.showMessage(output);
     }
-    
+
     /**
      * Returns the time spent on each task.
      *
      * @param task the task for which time spent is required
      * @return amount of time spent on the task
      */
-    public static long getTimeSpent(Task task) {
+    public long getTimeSpent(Task task) {
         if (task.isCompleted()) {
             return -1; 
         }
@@ -172,5 +158,84 @@ public class Scheduler {
             }
         }
         return -1;
+    }
+
+    public void recommend(int seconds) {
+        recommender = new Recommender(schedule);
+        recommended = recommender.recommend(seconds);
+    }
+
+    /**
+     * Displays the recommended list of shedule entries/tasks
+     * to work on.
+     */
+    public void displayRecommendedSchedule() {
+        if (recommended.size() == 0) {
+            ui.showMessage("There are no tasks to complete. "
+                    + "Please add more tasks."); 
+            return;
+        }
+
+        String output = "This is your recommended schedule for the next "
+            + "few hours. Change it to your liking:\n\t";
+        for (int i = 0; i < recommended.size(); i++) {
+            long hours = recommended.get(i).getTimeAlloc() / 3600;
+            long minutes = (recommended.get(i).getTimeAlloc() / 60) % 60;
+            long seconds = recommended.get(i).getTimeAlloc() % 60;
+            output += (i + 1) + ". " + recommended.get(i).getTask().toString() 
+                + " time alloted: " + hours + ":" + minutes + ":" + seconds + "\n\t";
+        }
+        ui.showMessage(output);
+    }
+    
+    /**
+     * Add task to recommended.
+     *
+     * @param task task to add
+     * @throws CommandLineException if task is already present or completed
+     */
+    public void addToRecommended(Task task) throws CommandLineException {
+        if (task.isCompleted()) {
+            throw new CommandLineException("Task has already been completed");
+        }
+        if (recommended.stream().anyMatch(n -> (n.getTask() == task))) {
+            throw new CommandLineException("Task is already present");
+        }
+        schedule.stream().parallel()
+            .filter(n -> (n.getTask() == task))
+            .findAny()
+            .ifPresent(recommended::add);
+    }    
+    
+    /**
+     * Stores allocated time in recommended as time spent in schedule
+     * and clears recommended. Executed at the end of the timer.
+     */
+    public void confirm() {
+        for (ScheduleEntry entry : recommended) {
+            entry.updateTimeSpent(entry.getTimeAlloc());
+        }
+        recommended.clear();
+        displayEntries();
+    }
+    
+    /**
+     * Removes tasks/schedule entry at index.
+     *
+     * @param index at which entry is removed
+     */
+    public void removeFromRecommended(int index) {
+        recommended.remove(index); 
+    }
+
+    /**
+     * Updates the allocated time to a particular entry in the recommended
+     * list.
+     *
+     * @param index index of entry in recommended
+     * @param timeInSeconds time allocated in seconds
+     */
+    public void updateAllocTime(int index, long timeInSeconds) {
+        recommended.get(index).setTimeAlloc(timeInSeconds);
     }
 }

@@ -1,9 +1,9 @@
 package seedu.hustler.task;
 
-import java.time.LocalDateTime;
-
 import seedu.hustler.task.variables.Difficulty;
 import seedu.hustler.task.variables.Tag;
+
+import java.time.LocalDateTime;
 
 /**
  * An abstract class that acts as a template for ToDo, Deadline and Event.
@@ -122,7 +122,8 @@ public abstract class Task {
      */
     public String toString() {
         return "[" + this.getStatusIcon() + "]" + this.getDifficulty().toString()
-                + this.tag.toString() + " " + this.getDescription();
+                + this.tag.toString() +
+                " " + this.getDescription();
     }
 
     /**

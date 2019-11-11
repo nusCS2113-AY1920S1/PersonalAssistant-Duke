@@ -11,12 +11,13 @@ import seedu.hustler.ui.Ui;
  */
 public class ListCommand extends Command {
 
-    private final String userInput[];
+    private final String[] userInput;
     private OneWordAnomaly listAnomaly = new OneWordAnomaly();
 
     public ListCommand(String[] userInput) {
         this.userInput = userInput;
     }
+
     /**
      * Lists commands in TaskList instance.
      */
@@ -25,7 +26,7 @@ public class ListCommand extends Command {
         try {
             listAnomaly.detect(userInput);
             Hustler.list.displayList();
-        } catch(CommandLineException e) {
+        } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }
     }

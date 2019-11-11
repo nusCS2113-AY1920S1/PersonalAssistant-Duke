@@ -4,11 +4,17 @@ import seedu.hustler.Hustler;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
 import seedu.hustler.logic.parser.DateTimeParser;
-import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.ui.Ui;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.TreeMap;
+import java.util.Collections;
+import java.util.Map;
+
 
 import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
 
@@ -62,7 +68,6 @@ public class TaskList {
     public void add(Task task) {
         list.add(task);
         updateBusybeeAchievement();
-        Scheduler.add(this.getLastTask());
     }
 
     /**
@@ -98,7 +103,6 @@ public class TaskList {
             addEvent(splitInput, difficulty, tag);
         }
         updateBusybeeAchievement();
-        Scheduler.add(this.getLastTask());
     }
 
     /**
@@ -229,7 +233,7 @@ public class TaskList {
      * @param i index at which task is snoozed.
      * @param userInput full description of the user's input.
      */
-    public void snoozeTask(int i, String[] userInput) {
+    public void snoozeTask(TaskList list, int i, String[] userInput) {
         if (userInput[1].contains("/")) {
             LocalDateTime localDateTime = getDateTime(userInput[1] + " " + userInput[2]);
             list.get(i).setDateTime(localDateTime);
@@ -283,33 +287,53 @@ public class TaskList {
             }
             break;
         case "datetime":
-            TreeMap<LocalDateTime,Task> toDoList = new TreeMap<>();
-            TreeMap<LocalDateTime,Task> otherTasksList = new TreeMap<>();
+            TreeMap<LocalDateTime,ArrayList<Task>> toDoList = new TreeMap<>();
+            TreeMap<LocalDateTime,ArrayList<Task>> otherTasksList = new TreeMap<>();
 
             for (Task task : list) {
                 if (task instanceof ToDo) {
-                    toDoList.put(task.getInputDateTime(),task);
+                    LocalDateTime inputDateTime = task.getInputDateTime();
+                    ArrayList<Task> tasks = toDoList.get(inputDateTime);
+
+                    // If list does not exist create it
+                    if (tasks == null) {
+                        tasks = new ArrayList<>();
+                        tasks.add(task);
+                        toDoList.put(inputDateTime,tasks);
+                    } else {
+                        tasks.add(task);
+                    }
                 } else {
-                    otherTasksList.put(task.getDateTime(),task);
+                    LocalDateTime dateTime = task.getDateTime();
+                    ArrayList<Task> tasks = otherTasksList.get(dateTime);
+
+                    // If list does not exist create it
+                    if (tasks == null) {
+                        tasks = new ArrayList<>();
+                        tasks.add(task);
+                        otherTasksList.put(dateTime,tasks);
+                    } else {
+                        tasks.add(task);
+                    }
                 }
             }
 
             list.clear();
-            for (Map.Entry<LocalDateTime,Task> entry : toDoList.entrySet()) {
-                list.add(entry.getValue());
+            for (Map.Entry<LocalDateTime, ArrayList<Task>> entry : toDoList.entrySet()) {
+                list.addAll(entry.getValue());
             }
-            for (Map.Entry<LocalDateTime,Task> entry : otherTasksList.entrySet()) {
-                list.add(entry.getValue());
+            for (Map.Entry<LocalDateTime, ArrayList<Task>> entry : otherTasksList.entrySet()) {
+                list.addAll(entry.getValue());
             }
             break;
         case "priority":
             Collections.sort(list, (t1, t2) -> {
                 if (t1.getDifficulty().toString().equals(t2.getDifficulty().toString())) {
                     return 0;
-                } else if (t1.getDifficulty().toString().equals("[H]")) {
+                } else if (t1.getDifficulty().toString().equals("[HIGH]")) {
                     return -1;
-                } else if (t1.getDifficulty().toString().equals("[M]")
-                        && t2.getDifficulty().toString().equals("[L]")) {
+                } else if (t1.getDifficulty().toString().equals("[MED]")
+                        && t2.getDifficulty().toString().equals("[LOW]")) {
                     return -1;
                 } else {
                     return 1;

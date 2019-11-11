@@ -21,7 +21,7 @@ public class ShopStorage {
     public static final String FILEPATH = "data/shop.txt";
 
     /**
-     * Attemps to load the shop.txt file and initializes the boolean values of
+     * Attempts to load the shop.txt file and initializes the boolean values of
      * each item in the shop list.
      * @return the shop list with the updated values.
      * @throws IOException throws an error if there is no shop.txt file.
@@ -35,7 +35,7 @@ public class ShopStorage {
                 boolList.add(shopTxt.nextBoolean());
             }
             for (int i = 0; i < Hustler.shopList.size(); i++) {
-                Hustler.shopList.updateStatus(i, boolList.get(i));
+                Hustler.shopList.updateIsPurchased(i, boolList.get(i));
             }
             return Hustler.shopList;
         } catch (FileNotFoundException e) {

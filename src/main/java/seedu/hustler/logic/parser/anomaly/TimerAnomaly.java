@@ -2,6 +2,7 @@ package seedu.hustler.logic.parser.anomaly;
 
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.ui.Ui;
+import seedu.hustler.Hustler;
 
 /**
  * Detects timer anomalies in user input.
@@ -12,11 +13,12 @@ public class TimerAnomaly extends DetectAnomaly {
      * Detects anomalies for input.
      *
      * @param userInput input for which anomaly is detected
-     * @return true or false for any anomaly detected
      */
     public void detect(String[] userInput) throws CommandLineException {
 
-        Ui ui = new Ui();
+        if (Hustler.timermanager.isRunning()) {
+            throw new CommandLineException("Timer already running. Please use /stoptimer to stop the current timer.");
+        }
 
         //detects if the /timer command is followed with any arguments.
         if (userInput.length == 1) {
@@ -31,7 +33,16 @@ public class TimerAnomaly extends DetectAnomaly {
             throw new CommandLineException("Timer format should be: 'timer <integer> <integer> <integer>'!");
         }
 
-        //detects whether the relevant arguments are non-integers. For example, 'timer winter cheese sofa' is a invalid input.
+        int hours = Integer.parseInt(timeParts[0]);
+        int minutes = Integer.parseInt(timeParts[1]);
+        int seconds = Integer.parseInt(timeParts[1]);
+
+        if (hours < 0 || minutes < 0 || seconds < 0) {
+            throw new CommandLineException("Hours, minutes and seconds should be positive integers.");
+        }
+
+        //detects whether the relevant arguments are non-integers.
+        // For example, 'timer winter cheese sofa' is a invalid input.
         for (int i = 0; i < 3; i += 1) {
             try {
                 int timeparts = Integer.parseInt(timeParts[i]);
@@ -52,7 +63,8 @@ public class TimerAnomaly extends DetectAnomaly {
         for (int i = 1; i < 3; i += 1) {
             int timeparts = Integer.parseInt(timeParts[i]);
             if (timeparts >= 60) {
-                throw new CommandLineException("Timer only accepts integers between 0 and 59 (inclusive) for the minutes and seconds!");
+                throw new CommandLineException("Timer only accepts integers between 0 and 59 (inclusive) "
+                        + "for the minutes and seconds!");
             }
         }
     }

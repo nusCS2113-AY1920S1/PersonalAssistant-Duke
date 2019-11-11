@@ -1,6 +1,8 @@
 package seedu.hustler.schedule;
 
 import seedu.hustler.task.Task;
+import seedu.hustler.schedule.time.TimeRemaining;
+import seedu.hustler.schedule.time.Timing;
 
 /**
  * Entry of the schedule which symbolizes an
@@ -28,7 +30,7 @@ public class ScheduleEntry {
     /**
      * Priority of the task.
      */
-    private double priorityScore;
+    private Priority priority = new Priority(new TimeRemaining());
     
     /**
      * Initializes the task and seconds spent on it.
@@ -42,13 +44,26 @@ public class ScheduleEntry {
     }
     
     /**
+     * Initializes task, seconds spent and the object that is used
+     * to find time remaining before task is due for priority calculation.
+     *
+     * @param task incomplete task
+     * @param secondsSpent amount of time spent on it
+     * @param time object used to find time remaining for priority calculation
+     */
+    public ScheduleEntry(Task task, long secondsSpent, Timing time) {
+        this.task = task;
+        this.secondsSpent = secondsSpent;
+        priority = new Priority(time);
+    }
+    
+    /**
      * Adds time to the time spent on the task.
      *
      * @param seconds seconds spent recently
      */
     public void updateTimeSpent(long seconds) {
         this.secondsSpent += seconds;
-        this.priorityUpdate();
     }
     
     /**
@@ -68,21 +83,12 @@ public class ScheduleEntry {
     }
     
     /**
-     * Updates the priority of the task based on time spent, time
-     * available and difficulty of the task.
-     */
-    public void priorityUpdate() {
-        this.priorityScore = Priority.getPriorityScore(this);
-    }
-
-    /**
      * Returns the priority score of the task at the moment.
      *
      * @return priority of the task for comparison sake
      */
     public double getPriorityScore() {
-        this.priorityUpdate();
-        return this.priorityScore;
+        return priority.getPriorityScore(task, secondsSpent);
     }
     
     /**

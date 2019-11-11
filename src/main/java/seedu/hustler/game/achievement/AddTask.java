@@ -67,16 +67,18 @@ public class AddTask extends Achievements {
      */
     public AddTask(String achievementLevel) {
         this.description = "Busybee";
-        switch(achievementLevel) {
-            case "Bronze": {
-                this.information = "(User adds 5 tasks)";
-            } break;
-            case "Silver": {
-                this.information = "(User adds 10 tasks)";
-            } break;
-            case "Gold" : {
-                this.information = "(User adds 15 tasks)";
-            } break;
+        switch (achievementLevel) {
+        case "Bronze": {
+            this.information = "(User adds 5 tasks)";
+        } break;
+        case "Silver": {
+            this.information = "(User adds 10 tasks)";
+        } break;
+        case "Gold" : {
+            this.information = "(User adds 15 tasks)";
+        } break;
+        default:
+            break;
         }
         this.achievementLevel = achievementLevel;
         this.points = 0;
@@ -88,30 +90,30 @@ public class AddTask extends Achievements {
         double goal;
         double percentage = 0;
 
-        switch(achievementLevel) {
-            case "Bronze": {
-                if(numberOfTasks >= 5) {
-                    nextLevel = 5;
-                }
-                goal = 5;
-                percentage = nextLevel/goal * 100;
-            } break;
-            case "Silver": {
-                if(numberOfTasks >= 10) {
-                    nextLevel = 10;
-
-                }
-                goal = 10;
-                percentage = nextLevel/goal * 100;
-            } break;
-            case "Gold": {
-                if(numberOfTasks >= 15) {
-                    nextLevel = 15;
-                }
-                goal = 15;
-                percentage = nextLevel/goal * 100;
-
-            } break;
+        switch (achievementLevel) {
+        case "Bronze": {
+            if (numberOfTasks >= 5) {
+                nextLevel = 5;
+            }
+            goal = 5;
+            percentage = nextLevel / goal * 100;
+        } break;
+        case "Silver": {
+            if (numberOfTasks >= 10) {
+                nextLevel = 10;
+            }
+            goal = 10;
+            percentage = nextLevel / goal * 100;
+        } break;
+        case "Gold": {
+            if (numberOfTasks >= 15) {
+                nextLevel = 15;
+            }
+            goal = 15;
+            percentage = nextLevel / goal * 100;
+        } break;
+        default:
+            break;
         }
         return " Progress: [" + (int)percentage + "%]";
     }
@@ -155,8 +157,8 @@ public class AddTask extends Achievements {
             addPoints = SILVER_POINT;
             totalPoints += addPoints;
         } else if (numberOfTasks == 15) {
-           addPoints = GOLD_POINT;
-           totalPoints += addPoints;
+            addPoints = GOLD_POINT;
+            totalPoints += addPoints;
         } else {
             addPoints = 0;
         }
@@ -236,7 +238,8 @@ public class AddTask extends Achievements {
      */
     @Override
     public String toString() {
-        return super.toString() + " " + points + " " + description + " " + achievementLevel + " " + this.information + progress();
+        return super.toString() + " " + points + " " + description + " " + achievementLevel + " "
+            + this.information + progress();
     }
 
     /**

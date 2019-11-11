@@ -15,12 +15,6 @@ public class SortByPriority implements Comparator<ScheduleEntry> {
      * @return an integer based on the comparison {1, 0, -1}
      */
     public int compare(ScheduleEntry entryA, ScheduleEntry entryB) {
-        if (entryA.getPriorityScore() < entryB.getPriorityScore()) {
-            return 1; 
-        } else if (entryA.getPriorityScore() == entryB.getPriorityScore()) {
-            return 0;
-        } else {
-            return -1;
-        }
+        return Double.compare(entryA.getPriorityScore(), entryB.getPriorityScore());
     } 
 }

@@ -79,16 +79,18 @@ public class ConsecutiveLogin extends Achievements {
      */
     public ConsecutiveLogin(String achievementLevel) {
         this.description = "Dedicated to the art";
-        switch(achievementLevel) {
-            case "Bronze": {
-                this.information = "(User logs in 5 days consecutively)";
-            } break;
-            case "Silver": {
-                this.information = "(User logs in 10 days consecutively)";
-            } break;
-            case "Gold" : {
-                this.information = "(User logs in 15 days consecutively)";
-            } break;
+        switch (achievementLevel) {
+        case "Bronze": {
+            this.information = "(User logs in 5 days consecutively)";
+        } break;
+        case "Silver": {
+            this.information = "(User logs in 10 days consecutively)";
+        } break;
+        case "Gold" : {
+            this.information = "(User logs in 15 days consecutively)";
+        } break;
+        default:
+            break;
         }
         this.achievementLevel = achievementLevel;
         this.points = 0;
@@ -99,28 +101,30 @@ public class ConsecutiveLogin extends Achievements {
         double nextLevel = consecutiveCount;
         double goal = 0;
         double percentage = 0;
-        switch(achievementLevel) {
-            case "Bronze": {
-                if(consecutiveCount >= 5) {
-                    nextLevel = 5;
-                }
-                goal = 5;
-                percentage = nextLevel/goal * 100;
-            } break;
-            case "Silver": {
-                if(consecutiveCount >= 10) {
-                    nextLevel = 10;
-                }
-                goal = 10;
-                percentage = nextLevel/goal * 100;
-            } break;
-            case "Gold": {
-                if(consecutiveCount >= 15) {
-                    nextLevel = 15;
-                }
-                goal = 15;
-                percentage = nextLevel/goal * 100;
-            } break;
+        switch (achievementLevel) {
+        case "Bronze": {
+            if (consecutiveCount >= 5) {
+                nextLevel = 5;
+            }
+            goal = 5;
+            percentage = nextLevel / goal * 100;
+        } break;
+        case "Silver": {
+            if (consecutiveCount >= 10) {
+                nextLevel = 10;
+            }
+            goal = 10;
+            percentage = nextLevel / goal * 100;
+        } break;
+        case "Gold": {
+            if (consecutiveCount >= 15) {
+                nextLevel = 15;
+            }
+            goal = 15;
+            percentage = nextLevel / goal * 100;
+        } break;
+        default:
+            break;
         }
 
         return " Progress: [" + (int)percentage + "%]";
@@ -279,7 +283,8 @@ public class ConsecutiveLogin extends Achievements {
      */
     @Override
     public String toString() {
-        return super.toString() + " " + points + " " + description + " " + achievementLevel + " " + this.information + progress();
+        return super.toString() + " " + points + " " + description + " " + achievementLevel
+            + " " + this.information + progress();
     }
 
     /**

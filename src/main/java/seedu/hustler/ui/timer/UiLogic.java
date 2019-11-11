@@ -11,7 +11,7 @@ public class UiLogic {
      * @return the padded integers hours, minutes and seconds, to be printed.
      */
     public static String padOutput(int[] timeArray) {
-        return (  (timeArray[2] < 10 ? "0" : "") + timeArray[2] + "hrs "
+        return ((timeArray[2] < 10 ? "0" : "") + timeArray[2] + "hrs "
                 + (timeArray[1] < 10 ? "0" : "") + timeArray[1] + "min "
                 + (timeArray[0] < 10 ? "0" : "") + timeArray[0] + "sec");
     }

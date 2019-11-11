@@ -5,7 +5,7 @@ import seedu.hustler.task.Task;
 import seedu.hustler.task.TaskList;
 
 /**
- * Template for duke commands.
+ * Template for edit commands.
  */
 public abstract class Edit {
 

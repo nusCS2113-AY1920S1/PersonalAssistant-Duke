@@ -1,9 +1,0 @@
-list
-/add have some fun making Duke better
-/add meet Kartike /at 4/9/2019 1606
-/add finish Duke requirements /by 4/9/2019 2359
-done 2
-delete 2
-find f
-list
-bye
