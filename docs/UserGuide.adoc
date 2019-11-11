@@ -244,4 +244,6 @@ e.g. `reserve /item basketball /qty 1 /from 01/10/2019 2300 /to 03/10/2019 2300`
 	e.g. `due 04/05/2019`
 * *List resources and their status*: `list`
 * *View calendar*: `calendar`
+* *Increase calendar size*: `calendar+`
+* *Decrease calendar size*: `calendar-`
 * *Exiting the program*: `bye`
