@@ -1,6 +1,6 @@
 //@@author jessteoxizhi
 
-package PlacesCommandTest;
+package placesCommandTest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.places.FindPlacesCommand;
@@ -37,7 +37,7 @@ class PlacesFindCommandTest {
     }
 
     /**
-     * test find places command
+     * test find places command.
      * @throws IOException exception when there is an error reading the command
      */
 

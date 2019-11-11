@@ -1,6 +1,6 @@
 //@@author jessteoxizhi
 
-package PlacesCommandTest;
+package placesCommandTest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.places.UndoPlacesCommand;
@@ -14,7 +14,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.ParseException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.Stack;
+
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

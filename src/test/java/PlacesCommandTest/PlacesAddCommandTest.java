@@ -1,6 +1,6 @@
 //@@author jessteoxizhi
 
-package PlacesCommandTest;
+package placesCommandTest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.places.AddPlacesCommand;
