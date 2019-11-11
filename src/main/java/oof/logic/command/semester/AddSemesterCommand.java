@@ -96,8 +96,8 @@ public class AddSemesterCommand extends Command {
         }
         String year = arguments.get(INDEX_YEAR);
         String name = arguments.get(INDEX_NAME);
-        String startDate = arguments.get(INDEX_DATE_START);
-        String endDate = arguments.get(INDEX_DATE_END);
+        String startDate = parseDate(arguments.get(INDEX_DATE_START));
+        String endDate = parseDate(arguments.get(INDEX_DATE_END));
         if (exceedsMaxLength(year, SEMESTER_YEAR_LENGTH_MAX)) {
             throw new InvalidArgumentException("OOPS!!! Semester Year exceeds maximum length of "
                     + SEMESTER_YEAR_LENGTH_MAX + "!");
