@@ -11,6 +11,7 @@ import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Investigation;
 import duke.data.Patient;
+import duke.data.Plan;
 import duke.data.Result;
 import duke.data.SearchResults;
 import duke.exception.DukeException;
@@ -35,8 +36,10 @@ public class ObjCommandTest extends CommandTest {
     private Patient patient3;
     private Impression impression1;
     private Impression impression2;
+    private Impression impression3;
     private Investigation invx;
     private Result result;
+    private Plan plan;
     private ObjCommand openCmd;
 
     /**
@@ -54,15 +57,20 @@ public class ObjCommandTest extends CommandTest {
             core.patientData.addPatient(patient1);
             core.patientData.addPatient(patient2);
             core.patientData.addPatient(patient3);
-            impression1 = new Impression("Idiopathic arthritis", "No identifiable cause for joint pain", patient1);
-            impression2 = new Impression("Plantar fascitis", "Sudden onset heel muscle tightness", patient1);
+            impression1 = new Impression("John's syndrome", "", patient1);
+            impression2 = new Impression("Joe's complex", "", patient1);
+            impression3 = new Impression("Jack's fever", "Related to John's syndrome", patient1);
             patient1.addNewImpression(impression1);
             patient1.addNewImpression(impression2);
-            invx = new Investigation("Load bearing x-ray", impression1, 0, "0",
-                    "X-ray to examine the extent of damage to patient's joints");
-            result = new Result("CT scan", impression1, 0, "X-ray wasn't enough");
+            patient1.addNewImpression(impression3);
+            invx = new Investigation("Joker 2019", impression1, 0, "0",
+                    "");
+            result = new Result("Mojo jojo", impression1, 1, "");
+            plan = new Plan("memes", impression1, 0, "1", "It's just a joke bro! It's a"
+                    + " SOCIAL EXPERIMENT");
             impression1.addNewTreatment(invx);
             impression1.addNewEvidence(result);
+            impression1.addNewTreatment(plan);
         } catch (DukeException excp) {
             fail("Exception thrown while setting up data for open command test: " + excp.getMessage());
         }
@@ -107,7 +115,8 @@ public class ObjCommandTest extends CommandTest {
         try {
             openCmd.execute(core); // opens search results
             List<DukeObject> resultList = getSearchResultList();
-            assertTrue(correctPatientSearchResults(resultList));
+            assertTrue(resultList.contains(patient1) && resultList.contains(patient2)
+                    && resultList.size() == 2);
             // construct a search command corresponding to the index of patient 1
             String idxStr = Integer.toString(resultList.indexOf(patient1) + 1);
             Command searchCmd = new Command(SearchSpec.getSpec(idxStr));
@@ -122,10 +131,14 @@ public class ObjCommandTest extends CommandTest {
     public void patientOpenCommand_irrelevantMatches_matchesIgnored() {
         setupCommand(PatientOpenSpec.getSpec());
         try {
+            core.uiContext.open(patient1);
             openCmd.execute(core); // opens search results
-            assertTrue(correctPatientSearchResults(getSearchResultList()));
-            openCmd.execute(core, patient1);
-            assertEquals(core.uiContext.getObject(), patient1);
+            List<DukeObject> searchList = getSearchResultList();
+            // matches invx (follow-up) and result (critical) but not plan (follow-up but non-matching name)
+            assertTrue(searchList.contains(impression1) && searchList.contains(impression2)
+                    && searchList.contains(invx) && searchList.contains(result) && searchList.size() == 4);
+            openCmd.execute(core, impression1);
+            assertEquals(core.uiContext.getObject(), impression1);
         } catch (DukeException excp) {
             fail("Exception thrown while executing home open command: " + excp.getMessage());
         }
@@ -135,16 +148,17 @@ public class ObjCommandTest extends CommandTest {
     public void impressionOpenCommand_irrelevantMatches_matchesIgnored() {
         setupCommand(ImpressionOpenSpec.getSpec());
         try {
+            core.uiContext.open(impression1);
             openCmd.execute(core); // opens search results
-            assertTrue(correctPatientSearchResults(getSearchResultList()));
-            openCmd.execute(core, patient1);
-            assertEquals(core.uiContext.getObject(), patient1);
+            List<DukeObject> searchList = getSearchResultList();
+            assertTrue(searchList.contains(invx) && searchList.contains(result)
+                    && searchList.size() == 2);
+            openCmd.execute(core, invx);
+            assertEquals(core.uiContext.getObject(), invx);
         } catch (DukeException excp) {
             fail("Exception thrown while executing home open command: " + excp.getMessage());
         }
     }
-
-
 
     private void setupCommand(ObjSpec spec) {
         String[] switchNames = {};

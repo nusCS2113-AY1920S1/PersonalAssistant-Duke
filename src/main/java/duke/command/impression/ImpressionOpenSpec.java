@@ -25,6 +25,6 @@ public class ImpressionOpenSpec extends ImpressionObjSpec {
     @Override
     protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
         core.uiContext.open(obj);
-        //core.updateUi("Accessing " + obj.getClass().getSimpleName() + " '" + obj.getName() + "'");
+        core.updateUi("Accessing " + obj.getClass().getSimpleName() + " '" + obj.getName() + "'");
     }
 }

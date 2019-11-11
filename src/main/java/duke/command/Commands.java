@@ -2,6 +2,11 @@ package duke.command;
 
 // TODO: Write different commands for different contexts?
 
+import duke.command.dukedata.InvestigationEditSpec;
+import duke.command.dukedata.MedicineEditSpec;
+import duke.command.dukedata.ObservationEditSpec;
+import duke.command.dukedata.PlanEditSpec;
+import duke.command.dukedata.ResultEditSpec;
 import duke.command.home.HomeDischargeSpec;
 import duke.command.home.HomeFindSpec;
 import duke.command.home.HomeNewSpec;
@@ -72,6 +77,7 @@ public class Commands {
             default:
                 return null;
             }
+
         case PATIENT:
             switch (cmdStr) {
             case "new":
@@ -95,6 +101,7 @@ public class Commands {
             default:
                 return null;
             }
+
         case IMPRESSION:
             switch (cmdStr) {
             case "new":
@@ -118,6 +125,36 @@ public class Commands {
             case "primary":
                 return new Command(ImpressionPrimarySpec.getSpec());
             default:
+                return null;
+            }
+        case PLAN:
+            if (cmdStr.equals("edit")) {
+                return new ArgCommand(PlanEditSpec.getSpec());
+            } else {
+                return null;
+            }
+        case INVESTIGATION:
+            if (cmdStr.equals("edit")) {
+                return new ArgCommand(InvestigationEditSpec.getSpec());
+            } else {
+                return null;
+            }
+        case MEDICINE:
+            if (cmdStr.equals("edit")) {
+                return new ArgCommand(MedicineEditSpec.getSpec());
+            } else {
+                return null;
+            }
+        case RESULT:
+            if (cmdStr.equals("edit")) {
+                return new ArgCommand(ResultEditSpec.getSpec());
+            } else {
+                return null;
+            }
+        case OBSERVATION:
+            if (cmdStr.equals("edit")) {
+                return new ArgCommand(ObservationEditSpec.getSpec());
+            } else {
                 return null;
             }
         default:

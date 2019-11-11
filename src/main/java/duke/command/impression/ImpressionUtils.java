@@ -1,6 +1,7 @@
 package duke.command.impression;
 
 import duke.DukeCore;
+import duke.command.ArgCommand;
 import duke.command.CommandUtils;
 import duke.data.DukeData;
 import duke.data.Impression;
@@ -98,5 +99,25 @@ public class ImpressionUtils {
         } else {
             return results;
         }
+    }
+
+    /**
+     * Edits the data of a specified {@code DukeData} object, using the parameters supplied in an {@code ArgCommand}.
+     */
+    public static void editData(DukeCore core, ArgCommand cmd, DukeData data) throws DukeException {
+        boolean isAppending = false;
+        if (cmd.isSwitchSet("append")) {
+            isAppending = true;
+        }
+
+        // TODO mention in documentation that -append will append to ALL fields
+        // TODO: check for illegal switches, remove checked switches from map
+
+        // process universal fields
+        String newName = cmd.getSwitchVal("name");
+        int newPriority = cmd.switchToInt("priority");
+        data.edit(newName, newPriority, cmd.getSwitchVals(), isAppending);
+        core.writeJsonFile();
+        core.updateUi("Details of '" + data + "' updated!");
     }
 }
