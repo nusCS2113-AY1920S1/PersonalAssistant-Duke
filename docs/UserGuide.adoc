@@ -202,7 +202,7 @@ Format: `clear`
 
 
 // tag::schedule[]
-=== Scheduling words to study : `schedule`
+=== Scheduling words to study : `schedule` OR `schedule w/word1, word2, ... r/dd-MM-yyyy HHmm`
 
 Schedules reminders for a selected list of words given a user specified date and time. +
 Format: `schedule`
@@ -213,10 +213,15 @@ Format: `schedule`
 
 Examples:
 
+* `schedule w/happy, elated r/12-02-2020 1400`
+
+OR
+
 * Enter `schedule` +
 Enter a list of 'enter key' separated words: `life[Enter] is[Enter] great[Enter][Enter]` +
-Enter a date and time for the reminder: `31-10-2019 2359` +
-Reminder is set. Summary of reminder details is shown. Reminder pop up will be shown at time set.
+Enter a date and time for the reminder: `12-02-2020 1400` +
+
+Reminder is then set. Summary of reminder details is shown. Reminder pop up will be shown on 12 Feb 2020 2pm.
 // end::schedule[]
 
 
