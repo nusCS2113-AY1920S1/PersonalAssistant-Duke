@@ -191,7 +191,7 @@ public class ProjectInputController implements IController {
 
     //@@author seanlimhx
     /**
-     * Method that calls viewHelper to return an array of Strings listing all available commands in current state
+     * Method that calls viewHelper to return an array of Strings listing all available commands in current state.
      * @return : Returns an array of Strings for View layer
      */
     private String[] projectHelp() {
