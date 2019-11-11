@@ -188,7 +188,7 @@ UndoCommand and RedoCommand is implemented using a typical undo-redo stack, whic
 The implementation of UndoRedoStack is similar to git history tree.
 Each node on the UndoRedoStack is a version of the SongList.
 
-Once the user enters a command that may change the SongList, the UndoRedoStack will make one step forward, which is similar to 'git commit'.
+Once the user enters a command that is either `new` or `delete`, the UndoRedoStack will make one step forward, which is similar to 'git commit'.
 
 Before each `undo` or `redo`, UndoRedoStack will check the undoability/redoability of the UndoRedoStack.
 
@@ -205,9 +205,12 @@ Impact of UndoCommand/RedoCommand:
 * `undo` - moves the UndoRedoStack to its previous version.
 * `redo` - moves the UndoRedoStack to its next version.
 
-Note that after user enters a command that could change the SongList, if the current version of SongList is not the latest version, which means the the UndoRedoStack is not at its latest node,
+Note that after user enters a command, if the current version of SongList is not the latest version, which means the the UndoRedoStack is not at its latest node,
 all the nodes after current node will be dropped, and the new version of the UndoRedoStack will be treated as the current and the latest node,
 and you cannot visit the previous branch of nodes anymore.
+
+Currently UndoRedoStack only works for commands that add or delete songs in a SongList, which are `new` and `delete`.
+In v2.0, UndoRedoStack will work for all commands that could modify the SongList.
 
 ==== Overlay
 For any musician, having the freedom to overlay a part of one song to another (overlaps two components and we play the 2 components together at the same time)  will save them a lot of time and also make it easier for them to create a composition. The overlay function aims to perform this functionality and allows the freedom to overlay a bar-bar, bar-group, group - group. 
