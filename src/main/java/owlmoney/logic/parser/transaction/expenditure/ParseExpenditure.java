@@ -1,5 +1,7 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,6 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseRawData;
@@ -33,6 +36,7 @@ public abstract class ParseExpenditure {
         CATEGORY_PARAMETER, FROM_PARAMETER, TRANSACTION_NUMBER_PARAMETER, NUM_PARAMETER
     };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(EXPENDITURE_KEYWORD);
+    private static final Logger logger = getLogger(ParseExpenditure.class);
 
     /**
      * Creates an instance of any ParseExpenditure type object.
@@ -54,6 +58,7 @@ public abstract class ParseExpenditure {
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {
         if (rawData.contains(parameter)) {
+            logger.warning(command + " /expenditure should not contain " + parameter);
             throw new ParserException(command + " /expenditure should not contain " + parameter);
         }
     }
@@ -66,6 +71,7 @@ public abstract class ParseExpenditure {
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!EXPENDITURE_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+            logger.warning("Incorrect parameter " + rawDateSplit[0]);
             throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
         }
     }
@@ -100,6 +106,8 @@ public abstract class ParseExpenditure {
      */
     void checkAmount(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckMoney(valueString)) {
+            logger.warning("/amount can only be positive numbers"
+                    + " with at most 9 digits and 2 decimal places");
             throw new ParserException("/amount can only be positive numbers"
                     + " with at most 9 digits and 2 decimal places");
         }
@@ -113,6 +121,7 @@ public abstract class ParseExpenditure {
      */
     void checkInt(String variable, String valueString) throws ParserException {
         if (!RegexUtil.regexCheckListNumber(valueString)) {
+            logger.warning(variable + " can only be a positive integer with at most 9 digits");
             throw new ParserException(variable + " can only be a positive integer with at most 9 digits");
         }
     }
@@ -125,6 +134,7 @@ public abstract class ParseExpenditure {
      */
     void checkDescription(String descString, String keyword) throws ParserException {
         if (!RegexUtil.regexCheckDescription(descString)) {
+            logger.warning(keyword + " can only contain numbers and letters and at most 50 characters");
             throw new ParserException(keyword + " can only contain numbers and letters and at most 50 characters");
         }
     }
@@ -137,6 +147,7 @@ public abstract class ParseExpenditure {
      */
     void checkCategory(String category) throws ParserException {
         if (!RegexUtil.regexCheckCategory(category)) {
+            logger.warning("/category can only contain numbers and letters and at most 15 characters");
             throw new ParserException("/category can only contain numbers and letters and at most 15 characters");
         }
     }
@@ -149,6 +160,7 @@ public abstract class ParseExpenditure {
      */
     void checkName(String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
+            logger.warning("/from can only be alphanumeric and at most 30 characters");
             throw new ParserException("/from can only be alphanumeric and at most 30 characters");
         }
     }
@@ -168,10 +180,13 @@ public abstract class ParseExpenditure {
             try {
                 date = temp.parse(dateString);
                 if (date.compareTo(new Date()) > 0) {
+                    logger.warning("/date cannot be after today");
                     throw new ParserException("/date cannot be after today");
                 }
                 return date;
             } catch (ParseException e) {
+                logger.warning("Incorrect date format."
+                        + " Date format is dd/mm/yyyy in year range of 1900-2099");
                 throw new ParserException("Incorrect date format."
                         + " Date format is dd/mm/yyyy in year range of 1900-2099");
             }

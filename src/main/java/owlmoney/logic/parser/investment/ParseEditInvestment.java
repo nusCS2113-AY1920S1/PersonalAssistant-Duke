@@ -33,6 +33,7 @@ public class ParseEditInvestment extends ParseInvestment {
             String key = investmentIterator.next();
             String value = investmentParameters.get(key);
             if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning("/name cannot be empty.");
                 throw new ParserException("/name cannot be empty.");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(NAME_PARAMETER, value);
@@ -47,6 +48,7 @@ public class ParseEditInvestment extends ParseInvestment {
             }
         }
         if (changeCounter == 0) {
+            logger.warning("Edit should have at least 1 differing parameter to change.");
             throw new ParserException("Edit should have at least 1 differing parameter to change.");
         }
     }
@@ -60,6 +62,7 @@ public class ParseEditInvestment extends ParseInvestment {
         EditInvestmentCommand newEditInvestmentCommand = new EditInvestmentCommand(investmentParameters.get(
                 NAME_PARAMETER),
                 investmentParameters.get(AMOUNT_PARAMETER), investmentParameters.get(NEW_NAME_PARAMETER));
+        logger.info("Successful creation of EditInvestmentCommand object");
         return newEditInvestmentCommand;
     }
 }

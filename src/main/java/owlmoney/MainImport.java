@@ -28,8 +28,6 @@ class MainImport {
     private static final String CARD_UNPAID_TRANSACTION_LIST_FILE_NAME = "_card_unpaid_transactionList.csv";
     private static final String PROFILE_ACHIEVEMENT_LIST_FILE_NAME = "profile_achievementlist.csv";
 
-    //perhaps check if data/ directory don't exist then use all this
-
     /**
      * Creates an instance of MainImport to mass import dummy data for testing purposes.
      */
@@ -37,6 +35,9 @@ class MainImport {
         storage = new Storage(FILE_PATH);
     }
 
+    /**
+     * Creates all required dummy files for testing.
+     */
     void createAllFiles() {
         try {
             storage.createDirectoryIfNotExist(FILE_PATH);
@@ -56,6 +57,11 @@ class MainImport {
         }
     }
 
+    /**
+     * Prepares profile file data.
+     *
+     * @return arrayList that is ready to be written to the profile file.
+     */
     private ArrayList<String[]> prepareProfile() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         exportArrayList.add(new String[]{"Name"});
@@ -63,11 +69,21 @@ class MainImport {
         return exportArrayList;
     }
 
+    /**
+     * Creates the profile file.
+     *
+     * @throws IOException If there are errors creating the profile file.
+     */
     private void createProfileFile() throws IOException {
         ArrayList<String[]> inputData = prepareProfile();
         storage.writeFile(inputData,PROFILE_FILE_NAME);
     }
 
+    /**
+     * Prepares bank data for bankList.
+     *
+     * @return arrayList that is ready to be written to the bankList file.
+     */
     private ArrayList<String[]> prepareBankData() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         exportArrayList.add(new String[]{"accountName","type","amount","income","nextIncomeDate"});
@@ -86,11 +102,21 @@ class MainImport {
         return exportArrayList;
     }
 
+    /**
+     * Creates the bank list file.
+     *
+     * @throws IOException If there are errors creating the bank list file.
+     */
     private void createBankListFile() throws IOException {
         ArrayList<String[]> inputData = prepareBankData();
         storage.writeFile(inputData,PROFILE_BANK_LIST_FILE_NAME);
     }
 
+    /**
+     * Prepares transactions for savings account.
+     *
+     * @return arrayList that is ready to be written to the savings transaction list file.
+     */
     private ArrayList<String[]> prepareSavingTransactions() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         exportArrayList.add(new String[]{"description","amount","date","category","spent","cardId","billDate"});
@@ -185,11 +211,22 @@ class MainImport {
         return exportArrayList;
     }
 
+    /**
+     * Creates savings transaction list file.
+     *
+     * @param bankNumber the prepend arrayList number of the bank in the bank list.
+     * @throws IOException If there are errors creating the transaction list file.
+     */
     private void createSavingExpenditureListFile(String bankNumber) throws IOException {
         ArrayList<String[]> inputData = prepareSavingTransactions();
         storage.writeFile(inputData,bankNumber + SAVING_TRANSACTION_LIST_FILE_NAME);
     }
 
+    /**
+     * Prepares recurring transaction records for savings account.
+     *
+     * @return arrayList that is ready to be written to the savings recurring transaction list file.
+     */
     private ArrayList<String[]> prepareSavingRecurringTransactions() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         exportArrayList.add(new String[]{"description","amount","date","category","spent"});
@@ -202,11 +239,22 @@ class MainImport {
         return exportArrayList;
     }
 
+    /**
+     * Creates savings recurring transaction list file.
+     *
+     * @param bankNumber the prepend arrayList number of the bank in the bank list.
+     * @throws IOException If there are errors creating the transaction list file.
+     */
     private void createSavingRecurringExpenditureListFile(String bankNumber) throws IOException {
         ArrayList<String[]> inputData = prepareSavingRecurringTransactions();
         storage.writeFile(inputData,bankNumber + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
     }
 
+    /**
+     * Prepares investment bond records for investment account.
+     *
+     * @return arrayList that is ready to be written to the bond list file.
+     */
     private ArrayList<String[]> prepareInvestmentBonds() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         exportArrayList.add(new String[]{"bondName","amount","rate","boughtDate","year",
@@ -294,11 +342,22 @@ class MainImport {
         return exportArrayList;
     }
 
+    /**
+     * Creates investment bond list file.
+     *
+     * @param bankNumber the prepend arrayList number of the bank in the bank list.
+     * @throws IOException If there are errors creating the bond list file.
+     */
     private void createInvestmentBondListFile(String bankNumber) throws IOException {
         ArrayList<String[]> inputData = prepareInvestmentBonds();
         storage.writeFile(inputData,bankNumber + INVESTMENT_BOND_LIST_FILE_NAME);
     }
 
+    /**
+     * Prepares investment transaction records for investment account.
+     *
+     * @return arrayList that is ready to be written to the transaction list file.
+     */
     private ArrayList<String[]> prepareInvestmentTransactionList() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         exportArrayList.add(new String[]{"description","amount","date","category","spent","cardId","billDate"});
@@ -417,11 +476,22 @@ class MainImport {
         return exportArrayList;
     }
 
+    /**
+     * Creates investment transaction list file.
+     *
+     * @param bankNumber the prepend arrayList number of the bank in the bank list.
+     * @throws IOException If there are errors creating the transaction list file.
+     */
     private void createInvestmentTransactionListFile(String bankNumber) throws IOException {
         ArrayList<String[]> inputData = prepareInvestmentTransactionList();
         storage.writeFile(inputData,bankNumber + INVESTMENT_TRANSACTION_LIST_FILE_NAME);
     }
 
+    /**
+     * Prepares card records for card list.
+     *
+     * @return arrayList that is ready to be written to the card list file.
+     */
     private ArrayList<String[]> prepareCardData() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         exportArrayList.add(new String[] {"cardName", "cardLimit", "rebateRate", "uuid"});
@@ -438,11 +508,21 @@ class MainImport {
         return exportArrayList;
     }
 
+    /**
+     * Creates card list file.
+     *
+     * @throws IOException If there are errors creating the transaction list file.
+     */
     private void createCardListFile() throws IOException {
         ArrayList<String[]> inputData = prepareCardData();
         storage.writeFile(inputData,PROFILE_CARD_LIST_FILE_NAME);
     }
 
+    /**
+     * Prepares unpaid transaction records for card transaction list.
+     *
+     * @return arrayList that is ready to be written to the card transaction list file.
+     */
     private ArrayList<String[]> prepareCardUnpaidTransactionList() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         exportArrayList.add(new String[]{"description","amount","date","category","cardId","billDate",});
@@ -491,22 +571,44 @@ class MainImport {
         return exportArrayList;
     }
 
+    /**
+     * Creates the card unpaid transaction list file.
+     *
+     * @param cardNumber the prepend arrayList number of the card in the card list.
+     * @throws IOException If there are errors creating the transaction list file.
+     */
     private void createCardUnpaidTransactionListFile(String cardNumber) throws IOException {
         ArrayList<String[]> inputData = prepareCardUnpaidTransactionList();
         storage.writeFile(inputData,cardNumber + CARD_UNPAID_TRANSACTION_LIST_FILE_NAME);
     }
 
+    /**
+     * Prepares paid transaction records for card transaction list.
+     *
+     * @return arrayList that is ready to be written to the card transaction list file.
+     */
     private ArrayList<String[]> prepareCardpaidTransactionList() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         exportArrayList.add(new String[] {"description", "amount", "date", "category", "cardId", "billDate",});
         return exportArrayList;
     }
 
+    /**
+     * Creates the card paid transaction list file.
+     *
+     * @param cardNumber the prepend arrayList number of the card in the card list.
+     * @throws IOException If there are errors creating the transaction list file.
+     */
     private void createCardPaidTransactionListFile(String cardNumber) throws IOException {
         ArrayList<String[]> inputData = prepareCardpaidTransactionList();
         storage.writeFile(inputData,cardNumber + CARD_PAID_TRANSACTION_LIST_FILE_NAME);
     }
 
+    /**
+     * Prepares goals records for goal list.
+     *
+     * @return arrayList that is ready to be written to the goal list file.
+     */
     private ArrayList<String[]> prepareGoalsData() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         exportArrayList.add(new String[]{
@@ -535,17 +637,32 @@ class MainImport {
         return exportArrayList;
     }
 
+    /**
+     * Creates the goal list file.
+     *
+     * @throws IOException If there are errors creating the goal list file.
+     */
     private void createGoalListFile() throws IOException {
         ArrayList<String[]> inputData = prepareGoalsData();
         storage.writeFile(inputData,PROFILE_GOAL_LIST_FILE_NAME);
     }
 
+    /**
+     * Prepares achievement records for achievement list.
+     *
+     * @return arrayList that is ready to be written to the achievement list file.
+     */
     private ArrayList<String[]> prepareAchievementData() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         exportArrayList.add(new String[] {"achievementName", "amount", "category", "date"});
         return exportArrayList;
     }
 
+    /**
+     * Creates the achievement list file.
+     *
+     * @throws IOException If there are errors creating the achievement list file.
+     */
     private void createAchievementListFile() throws IOException {
         ArrayList<String[]> inputData = prepareAchievementData();
         storage.writeFile(inputData,PROFILE_ACHIEVEMENT_LIST_FILE_NAME);

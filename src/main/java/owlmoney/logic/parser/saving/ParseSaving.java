@@ -1,8 +1,11 @@
 package owlmoney.logic.parser.saving;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseRawData;
@@ -23,6 +26,7 @@ public abstract class ParseSaving {
     private static final String[] SAVINGS_KEYWORD = new String[] {AMOUNT_PARAMETER, INCOME_PARAMETER,
         NAME_PARAMETER, NEW_NAME_PARAMETER};
     private static final List<String> SAVINGS_KEYWORD_LISTS = Arrays.asList(SAVINGS_KEYWORD);
+    private static final Logger logger = getLogger(ParseSaving.class);
 
     /**
      * Creates an instance of any ParseSaving type object.
@@ -42,6 +46,7 @@ public abstract class ParseSaving {
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {
         if (rawData.contains(parameter)) {
+            logger.warning(command + "/savings should not contain " + parameter);
             throw new ParserException(command + "/savings should not contain " + parameter);
         }
     }
@@ -54,6 +59,7 @@ public abstract class ParseSaving {
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!SAVINGS_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+            logger.warning("Incorrect parameter " + rawDateSplit[0]);
             throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
         }
     }
@@ -82,6 +88,8 @@ public abstract class ParseSaving {
      */
     void checkAmount(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckBankAmount(valueString)) {
+            logger.warning("/amount can only be numbers with at most 9 digits, 2 decimal places"
+                    + " and a value of at least 0");
             throw new ParserException("/amount can only be numbers with at most 9 digits, 2 decimal places"
                     + " and a value of at least 0");
         }
@@ -95,6 +103,8 @@ public abstract class ParseSaving {
      */
     void checkIncome(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckBankAmount(valueString)) {
+            logger.warning("/income can only be numbers with at most 9 digits and 2 decimal places"
+                    + " and a value of at least 0");
             throw new ParserException("/income can only be numbers with at most 9 digits and 2 decimal places"
                     + " and a value of at least 0");
         }
@@ -109,6 +119,7 @@ public abstract class ParseSaving {
      */
     void checkName(String key, String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
+            logger.warning(key + " can only be alphanumeric and at most 30 characters");
             throw new ParserException(key + " can only be alphanumeric and at most 30 characters");
         }
     }

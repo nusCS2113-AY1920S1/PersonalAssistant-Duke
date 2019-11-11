@@ -1,6 +1,9 @@
 package owlmoney.logic.parser.saving;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.bank.DeleteSavingsCommand;
@@ -13,6 +16,7 @@ import owlmoney.logic.parser.exception.ParserException;
 public class ParseDeleteSaving extends ParseSaving {
 
     private static final String DELETE_COMMAND = "/delete";
+    private static final Logger logger = getLogger(ParseDeleteSaving.class);
 
     /**
      * Creates an instance of ParseDeleteSaving.
@@ -39,6 +43,7 @@ public class ParseDeleteSaving extends ParseSaving {
             String key = savingsIterator.next();
             String value = savingsParameters.get(key);
             if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when deleting savings account");
                 throw new ParserException(key + " cannot be empty when deleting savings account");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(NAME_PARAMETER, value);

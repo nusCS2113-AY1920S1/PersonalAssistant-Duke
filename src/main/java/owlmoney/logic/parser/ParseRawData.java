@@ -8,6 +8,7 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseRawData {
     private static final int NEXT_INDEX = 1;
+    private static final int PREVIOUS_INDEX = -1;
 
     /**
      * Extracts specific keyword values.
@@ -31,12 +32,26 @@ public class ParseRawData {
         return parameter;
     }
 
+    /**
+     * Check the user entered data from the command for duplicated keywords.
+     *
+     * @param splitArray    The array of the data that has been split out from the user command.
+     * @param keywordList   The list of all available keywords for a particular command.
+     * @throws ParserException  If duplicated keyword is found.
+     */
     private void checkDuplicateKeywords(String[] splitArray, String[] keywordList) throws ParserException {
         for (int i = 0; i < keywordList.length; i++) {
             checkEachKeyword(keywordList[i], splitArray);
         }
     }
 
+    /**
+     * Throws ParserException if duplicated keyword is found.
+     *
+     * @param keyword       The keyword to be checked for duplicates.
+     * @param splitArray    The array of the data that has been split out from the user command.
+     * @throws ParserException  If duplicated keyword is found.
+     */
     private void checkEachKeyword(String keyword, String[] splitArray) throws ParserException {
         int keywordCounter = 0;
         for (int i = 0; i < splitArray.length; i++) {
@@ -49,15 +64,30 @@ public class ParseRawData {
         }
     }
 
+    /**
+     * Get the starting index number of the keyword in the user entered data.
+     *
+     * @param splitTypeSpecificArguments    The user entered data.
+     * @param keyword   The keyword to get the starting index of.
+     * @return  The starting index number of the keyword in the user entered data.
+     */
     private int findStartIndex(String[] splitTypeSpecificArguments, String keyword) {
         for (int i = 0; i < splitTypeSpecificArguments.length; i++) {
             if (splitTypeSpecificArguments[i].equals(keyword)) {
                 return i;
             }
         }
-        return -1;
+        return PREVIOUS_INDEX;
     }
 
+    /**
+     * Get the ending index number of the last keyword parameter in the user entered data.
+     *
+     * @param startIndex    The start index of the keyword.
+     * @param splitTypeSpecificArguments    The user entered data.
+     * @param keywordList   The list of all available keywords for a particular command.
+     * @return  The ending index number of the last keyword parameter in the user entered data.
+     */
     private int findEndIndex(int startIndex, String[] splitTypeSpecificArguments, String[] keywordList) {
         for (int i = startIndex + NEXT_INDEX; i < splitTypeSpecificArguments.length; i++) {
             for (int k = 0; k < keywordList.length; k++) {
@@ -69,6 +99,14 @@ public class ParseRawData {
         return splitTypeSpecificArguments.length;
     }
 
+    /**
+     * Concatenates the string array of parameters belonging to the same keyword.
+     *
+     * @param startIndex    The start index of the keyword.
+     * @param endIndex      The end index of the last keyword parameter.
+     * @param splitTypeSpecificArguments    The array of keywords and it's parameters.
+     * @return  Concatenated string of the parameters of the keyword.
+     */
     private String concatenateParameter(int startIndex, int endIndex, String[] splitTypeSpecificArguments) {
         StringBuilder individualParameter = new StringBuilder();
         for (int i = startIndex + NEXT_INDEX; i < endIndex; i++) {

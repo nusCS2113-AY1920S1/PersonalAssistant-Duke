@@ -1,6 +1,9 @@
 package owlmoney.logic.command.transaction;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Date;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
@@ -20,6 +23,7 @@ public class AddDepositCommand extends Command {
     private final String description;
     private static final String BANK_TYPE = "bank";
     private static final String TRANSACTION_CATEGORY_DEPOSIT = "deposit";
+    private static final Logger logger = getLogger(AddDepositCommand.class);
 
     /**
      * Creates an instance of AddDepositCommand.
@@ -48,6 +52,7 @@ public class AddDepositCommand extends Command {
         Transaction newDeposit = new Deposit(this.description, this.amount, this.date,
                 TRANSACTION_CATEGORY_DEPOSIT);
         profile.profileAddNewDeposit(accountName, newDeposit, ui, BANK_TYPE);
+        logger.info("Successful execution of AddDepositCommand");
         return this.isExit;
     }
 }

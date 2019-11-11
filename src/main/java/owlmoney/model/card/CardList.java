@@ -695,6 +695,7 @@ public class CardList {
             String stringUuid = uuid.toString();
             exportArrayList.add(new String[] {cardName, stringCardLimit, stringRebateRate, stringUuid});
         }
+        logger.info("Successfully prepared card list for exporting");
         return exportArrayList;
     }
 
@@ -706,6 +707,7 @@ public class CardList {
     private void exportCardList() throws IOException {
         ArrayList<String[]> inputData = prepareExportCardList();
         storage.writeFile(inputData, PROFILE_CARD_LIST_FILE_NAME);
+        logger.info("Successfully exported card list to " + PROFILE_CARD_LIST_FILE_NAME);
     }
 
     /**

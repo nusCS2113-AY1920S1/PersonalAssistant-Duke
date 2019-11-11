@@ -44,11 +44,13 @@ public class RecurringExpenditureList {
     public void addRecurringExpenditure(Transaction newExpenditure, Ui ui)
             throws TransactionException {
         if (recurringExpenditures.size() >= MAX_LIST_SIZE) {
+            logger.warning("The list has reach a mix size of " + MAX_LIST_SIZE);
             throw new TransactionException("The list has reach a max size of " + MAX_LIST_SIZE);
         }
         recurringExpenditures.add(newExpenditure);
         ui.printMessage("Added expenditure with the following details:");
         printOneTransaction(1, newExpenditure, ISSINGLE, ui);
+        logger.info("Added recurring expenditure entry");
     }
 
     /**
@@ -60,15 +62,18 @@ public class RecurringExpenditureList {
      */
     public void deleteRecurringExpenditure(int index, Ui ui) throws TransactionException {
         if (recurringExpenditures.size() <= 0) {
+            logger.warning("There are no recurring expenditures in this bank account");
             throw new TransactionException("There are no recurring expenditures in this bank account");
         }
         if (!((index - 1) >= 0 && (index - 1) < recurringExpenditures.size())) {
+            logger.warning("Index is out of transaction list range");
             throw new TransactionException("Index is out of transaction list range");
         }
         Transaction temp = recurringExpenditures.get(index - 1);
         recurringExpenditures.remove(index - 1);
         ui.printMessage("Deleted expenditure with the following details:");
         printOneTransaction(1, temp, ISSINGLE, ui);
+        logger.info("Deleted recurring expenditure entry");
     }
 
     /**
@@ -79,6 +84,7 @@ public class RecurringExpenditureList {
      */
     public void listRecurringExpenditure(Ui ui) throws TransactionException {
         if (recurringExpenditures.size() <= 0) {
+            logger.warning("There are no recurring expenditures in this account");
             throw new TransactionException("There are no recurring expenditures in this account");
         }
         printOneHeader(ui);
@@ -102,9 +108,11 @@ public class RecurringExpenditureList {
             int index, String description, String amount, String category, Ui ui)
             throws TransactionException {
         if (recurringExpenditures.size() <= 0) {
+            logger.warning("There are no recurring expenditures in this account");
             throw new TransactionException("There are no recurring expenditures in this account");
         }
         if (!((index - 1) >= 0 && (index - 1) < recurringExpenditures.size())) {
+            logger.warning("Index is out of transaction list range");
             throw new TransactionException("Index is out of transaction list range");
         }
         if (!description.isBlank()) {
@@ -118,6 +126,7 @@ public class RecurringExpenditureList {
         }
         ui.printMessage("Edited details of the specified expenditure:");
         printOneTransaction(1, recurringExpenditures.get(index - 1), ISSINGLE, ui);
+        logger.info("Edited recurring expenditure details");
     }
 
     /**
@@ -196,12 +205,13 @@ public class RecurringExpenditureList {
      * @param description The description keyword to match against.
      * @param category    The category keyword to match against.
      * @param ui          The object required for printing.
+     * @throws TransactionException If recurring expenditure list is empty.
      */
-    public void findMatchingRecurringExpenditure(String description, String category, Ui ui) {
+    public void findMatchingRecurringExpenditure(String description, String category, Ui ui)
+            throws TransactionException {
         if (isRecurringExpendituresEmpty()) {
-            logger.info("Recurring expenditure is empty.");
-            ui.printMessage("Recurring expenditure is empty.");
-            return;
+            logger.info("Recurring expenditure list is empty");
+            throw new TransactionException("Recurring expenditure list is empty");
         }
         if (!(description == null || description.isBlank())) {
             findByDescription(description, ui);

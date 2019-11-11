@@ -1,6 +1,9 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.ListRecurringExpenditureCommand;
@@ -11,6 +14,7 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseListRecurringExpenditure extends ParseRecurringExpenditure {
     private static final String LIST = "/list";
+    private static final Logger logger = getLogger(ParseListRecurringExpenditure.class);
 
     /**
      * Creates an instance of ParseListRecurringExpenditure.
@@ -38,6 +42,7 @@ public class ParseListRecurringExpenditure extends ParseRecurringExpenditure {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
             if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
+                logger.warning(key + " cannot be empty when listing recurring expenditures");
                 throw new ParserException(key + " cannot be empty when listing recurring expenditures");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
