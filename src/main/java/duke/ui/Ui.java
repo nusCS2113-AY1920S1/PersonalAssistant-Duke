@@ -82,17 +82,6 @@ public class Ui {
 
     public void dishDrawing() {
         if(!DRAW) return;
-//        System.out.println("            (\\                                      ");
-//        System.out.println("             \\ \\                                   ");
-//        System.out.println("               \\/ ___,.-------..__                  ");
-//        System.out.println("        //\\\\ _,-'\\\\               `'--._ //\\\\  ");
-//        System.out.println("        \\\\ ;'      \\\\                   `: //    ");
-//        System.out.println("         `(          \\\\                   )'       ");
-//        System.out.println("           :.          \\\\,----,         ,;         ");
-//        System.out.println("            `.`--.___   (    /  ___.--','            ");
-//        System.out.println("              `.     ``-----'-''     ,'              ");
-//        System.out.println("                 -.               ,-                 ");
-//        System.out.println("                     `-._______.-                    ");
         System.out.println("\t  _______     ________    ______  _____  _______  ________  ______      ___      ___   ___  ____");
         System.out.println("\t |_   __ \\   |_   __  | .' ___  ||_   _||_   __ \\|_   __  ||_   _ \\   .'   `.  .'   `.|_  ||_  _|  ");
         System.out.println("\t   | |__) |    | |_ \\_|/ .'   \\_|  | |    | |__) | | |_ \\_|  | |_) | /  .-.  \\/  .-.  \\ | |_/ /    ");
@@ -359,6 +348,11 @@ public class Ui {
         showOrderListSize(size);
     }
 
+    //@@author 9hafidz6
+    /**
+     * show the dish that has been added to dishlist
+     * @param dish name of dish
+     */
     public void showAddedDishes(String dish) {
         showLine();
         System.out.println("\t you have added the following dish: ");
@@ -374,7 +368,11 @@ public class Ui {
         System.out.println("\t Got it. I've added " + ingredient.getName() + " to the fridge, you currently have:");
         System.out.println("\t " + ingredient);
     }
-
+    //@@author 9hafidz6
+    /**
+     * shows the dish that has been removed from dishlist
+     * @param dish name of dish deleted from dishlist
+     */
     public void showDeletedDIsh(String dish) {
         showLine();
         System.out.println("\t The following dish have been removed:");
@@ -382,6 +380,12 @@ public class Ui {
         showLine();
     }
 
+    //@@author 9hafidz6
+    /**
+     * shows the ingredient is added to the dish
+     * @param ingredient ingredient that is added to dish
+     * @param dish the dish that ingredient has been added to
+     */
     public void showIngredients(Ingredient ingredient, Dish dish) {
         showLine();
         System.out.println("\t ingredient: " + ingredient.getName()

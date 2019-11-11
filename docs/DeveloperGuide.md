@@ -108,7 +108,7 @@ the `Ui` also consist of templates for the different sections of the program, su
 <u>Dish</u>
 
 ```
-         _________________________________________________________________________________________
+_________________________________________________________________________________________
          Continue by adding, removing, listing, adding ingredient and initializing
          Template:       _________________________________________________________________________________________
          add <dish name>
@@ -173,7 +173,7 @@ makes sense of the data that is read by the user from the Duke Class.
 
 this component gets the command from the user through the Duke Class. This component will then make sense of the command by splitting the command into different parts as well as determining the command type.
 
-![Parser](C:\Users\s1014\Desktop\local_clone\docs\images\Parser.png)
+![Parser](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/Parser.png)
 
 | methods                           | description                                       |
 | --------------------------------- | ------------------------------------------------- |
@@ -200,19 +200,41 @@ Figure. Structure of the Storage Component
 
 API: `Storage.java` 
 
-The `Storage` component, consists of `Storage.java`, `RecipeStorage.java`, `OrderStorage.java` and `FridgeStorage.java`. `Storage` is modelled as an abstract class,  with `RecipeStorage`, `OrderStorage` and `FridgeStorage` inheriting from it, as shown in the figure above. 
+This component handles storing data and reading it from text files on the hard disc. Upon creation, instances of its subtypes get linked to a *.txt* file passed as an argument in the constructor (by specifying its file path). Subsequently, this specific text file is used for loading and storing data.
 
-The `Storage` component, 
+ `Storage.java`  is modelled as a *generic, abstract* component, used as a base for the `FridgeStorage.java` , `OrderStorage.java` and `RecipeStorage.java`, each one having their own implementation of the *abstract* method `generate()`, that creates and returns a `GenericList` from the entries stored in the .txt file liked to them. 
 
-- can store `ingredient` in the fridge (API: `FridgeStorage.java`) with a certain format, by storing it into and reading it back from the `fridge.txt` file stored on the hard disc. The `IngredientList` as a `GenericList` of ingredients also changes dynamically with the program execution. The format print in file follows `ingredient_name|ingredient_amount|ingredient_expiry date` . See below example:
+This component  allows for storing entries in a certain format, by using the `printInFile()` methods of  these `Printable` entries. Some examples of the data to be stored, are dishes in the dish list, ingredients that are already in the fridge, recipes in the Recipe book and anything else that needs to be saved on the hard disk and available again upon rebooting the program.
 
-- ```
-  milk|3|09/09/2019
-  cheese|4|12/12/2019
-  rice|50|12/12/2019
-  ```
+The dynamic change in the text file contents during execution, is handled primarily by the `update()` method. Calling this method results in updating the content in the linked text file accordingly to the entries in the `GenericList` contained in, and used by that component.
 
-- can store `orders` in the order list (API: `OrderStorage.java`) in a certain format, by storing it into and reading it back from the `order.txt` file stored on the hard disc. The `OrderList` as a `GenericList` of orders also changes dynamically with the program execution.The format print in file follows  `order_status|serving_date|D|dish_name|dish_amount|D|dish_name|dish_amount|...` , where status refers to `done(1)`/`undone(0)`, and `D` seperates each ordered dishes with its amount. See below example:
+The program can `load` or `generate` an entry from the storage, and offers the methods to `changeContent(int index)`,  `addInFile(String data)` and `removeFromFile(int index)`.
+
+The interactions between the `GenericList` and the `Storage` and their subtypes is shown in the figure below.
+
+<img src="https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/StorageUML.png" style="zoom:50%" />
+
+##### 2.5.2 FridgeStorage
+
+API: `FridgeStorage.java` 
+
+A subclass of  `Storage.java`, used for storing and loading `Ingredient`s from the `Fridge`. It contains an `IngredientList` , as a `GenericList` of  `Ingredient`s, to keep track of the entries/ingredients being stored, loaded, and  dynamically changed during the program execution. The Ingredients are saved by using the format specified by their `printInFile()` method. The text file linked to this component is *"fridge.txt"*.
+
+The format print in file follows is  `ingredient_name|ingredient_amount|ingredient_expiry date` . See the example below:
+
+```
+milk|3|09/09/2019
+cheese|4|12/12/2019
+rice|50|12/12/2019
+```
+
+Calling the `load()` method on the text file above, would result in an `IngredientList` containing the four ingredients with their respective amounts and expiry dates.
+
+##### 2.5.3 OrderStorage
+
+API: `OrderStorage.java`
+
+A subclass of  `Storage.java`, that can store `orders` in the order list in a certain format, by storing it into and reading it back from the `order.txt` file stored on the hard disc. The `OrderList` as a `GenericList` of orders also changes dynamically with the program execution.The format print in file follows  `order_status|serving_date|D|dish_name|dish_amount|D|dish_name|dish_amount|...` , where status refers to `done(1)`/`undone(0)`, and `D` seperates each ordered dishes with its amount. See example below:
 
 - ```
   1|02/11/2019|D|fish|1|D|chili crab|1|D|rice|2
@@ -220,15 +242,20 @@ The `Storage` component,
   0|11/11/2019|D|cereal shrimp|1|D|soup|4
   ```
 
-- can store `dishes` in the recipebook (API: `RecipeStorage.java`) in a certain format, by storing it into and reading it back from the `recipebook.txt` file stored on the hard disc. The `DishList` as a `GenericList` of dishes also changes dynamically with the program execution. The format print in file follows:
+##### 2.5.4 DishStorage
+
+API: `RecipeStorage.java`
+
+A subclass of  `Storage.java`, that can store `dishes` in the recipebook in a certain format, by storing it into and reading it back from the `recipebook.txt` file stored on the hard disc. The `DishList` as a `GenericList` of dishes also changes dynamically with the program execution. The format print in file follows:
 
   ```
   ???? I don't know the output
   ```
-  
-##### 2.5.2 Printable
 
-![Printable](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/PrintableUML.png)
+##### 2.5.5 Printable
+
+
+<img src="https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/Printable.png" style="zoom:25%" />
 
 Figure. Structure of Printable
 
@@ -236,11 +263,12 @@ API: `Printable.java`
 
 It models a *public* *Interface*, implemented by all the classes that have the feature to print their representation in a file. 
 
-Offers one abstract method `printInFile()` whose implementation should indicate the format of printing the representation of the specific object calling it. A UML Class Diagram is shown below.
+Offers one abstract method `printInFile()` whose implementation should indicate the format of printing the representation of the specific object calling it. A UML Class Diagram is shown above.
 
 #### 2.6 List Component
 
-![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/ListComponent.png)
+
+<img src="https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png" style="zoom:25%" />
 
 Figure. Structure of the List Component
 
@@ -362,15 +390,13 @@ eg. `throw new DukeException("enter a valid amount/index")`
 
 #### 2.8 Dish Component
 
-API: `Dish.java`, `DishList.java`
-
-The Recipebook contains 2 classes, Dishes Class and DishList Class
+API: `Dish.java`
 
 ![dishes](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishes.PNG)
 
 **<u>Dish Class</u>**
 
-This class holds the name of the dish as well the ingredients that are associated to that specific dish. 
+This class holds the name of the dish as well the ingredients that are associated to that specific dish.  there are several methods the Dish class contains that allows the attributes to be modified.
 
 | Attributes                       | Description                                     |
 | -------------------------------- | ----------------------------------------------- |
@@ -408,7 +434,7 @@ AddDishCommand, AddIngredient, DeleteDishCommand, ListDishCommand, ResetDishComm
   
 - **<u>AddIngredient</u>**
 
-  user intends to add an ingredient to a certain dish in dishList. this command takes in a description which is the ingredient name, amount and index. thus user enters `ingredient rice 100 1` which denotes adding an ingredient called rice with a amount of 100g to the index of the dish. in this case the index is 1. this command will then call the method`addIngredient` from the Dish class. in this method, it will iterate through the ingredient list to check for duplicates. if there are duplicates, same name and same amount, notify the user that the ingredient already exist. if the name of the ingredient is the same but amount is different, it only change the amount to the new amount. 
+  user intends to add an ingredient to a certain dish in dishList. this command takes in a description which is the ingredient name, amount and index. thus user enters `ingredient rice 100 1` which denotes adding an ingredient called rice with a amount of 100g to the index of the dish. in this case the index is 1. this command will then call the method`addIngredient` from the Dish class. in this method, it will iterate through the ingredient list to check for duplicates. if there are duplicates, same name and same amount, notify the user that the ingredient already exist. if the name of the ingredient is the same but amount is different, it only change the amount to the new amount. 
 
   if any of the description is empty, an exception will be thrown to inform the user. 
 
@@ -428,19 +454,13 @@ AddDishCommand, AddIngredient, DeleteDishCommand, ListDishCommand, ResetDishComm
   
 - **<u>FindDishCommand</u>**
 
-  user intends to find a dish in the dishList by keyword. user enters `find rice`, which denotes to list all the dishes which has the string rice in the name. this command takes in a String keyword and it will iterate through the dishList to find all the dishes that contain the keyword given by user. 
+  user intends to find a dish in the dishList by keyword. user enters `find rice`, which denotes to list all the dishes which has the string rice in the name. this command takes in a String keyword and it will iterate through the dishList to find all the dishes that contain the keyword given by user. 
 
   it will then print out the dish as well as the ingredient list of the dish to the user.
 
 - **<u>ChangeDishCommand</u>**
 
-  user intends to change the name of the dish. user needs to enter `change 1 chicken noodle` which denotes changing name if dish at index 1 to chicken noodle. this command takes in an integer index and string which is the new dish name. it will then change the name of the dish in dishList by the index to the new name.
-
-![dishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishesCommand.PNG)
-
-**<u>future additions</u>**
-
-- **<u>ChangeIngredientCommand</u>**
+  user intends to change the name of the dish. user needs to enter `change 1 chicken noodle` which denotes changing name if dish at index 1 to chicken noodle. this command takes in an integer index and string which is the new dish name. it will then change the name of the dish in dishList by the index to the new name.
 
 #### 2.10 Order Component
 API: `Order.java`, `OrderList.java`
@@ -503,7 +523,7 @@ The `Fridge` component allows access and modification of the `Ingredient`s used 
 
 Upon (re)booting the program, the `Fridge` gets initialized with the current `IngredientList` (the attribute `entries`) stored in the `FridgeStorage`, passed as a parameter to it's main constructor. In all subsequent Ingredient manipulations, these two components are accessing/modifying the same `IngredientList`, meaning modifications made in the `Fridge`, are immediately seen in the `entries` attribute (an inherited `GenericList`) of the `FridgeStorage` , therefore, consistency among these classes is guaranteed. 
 
-![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML1.png)
+![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridge.png)
 
 **<u>Ingredient Class</u>**
 
@@ -557,12 +577,7 @@ The `ingredientCommand` classes all inherit from the `Command` class. They all h
 - **ChangeAmountCommand**: This command is used to change the amount of an `Ingredient` given the index number of the `Ingredient`.
 - **ChangeNameCommand**: This command is used to change the name of an `Ingredient` given the index number of the `Ingredient`.
 
-
-### 3. Implementation
-
-### 4. Documentation
-
-### 5. Testing
+### 3. Testing
 
 
 - There are two ways to run our tests.
@@ -577,11 +592,6 @@ The `ingredientCommand` classes all inherit from the `Command` class. They all h
 - Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
 
 We provide `JUnit` tests to test individual methods in the `Dish` and `Fridge` component, provided in the `DishTest.java` and `FridgeTest.java`
-
-
-### 6. Dev Ops 
-
-
 
 ### Appendix A: Product Scope
 
@@ -762,7 +772,7 @@ Target user profile: Restaurant Chef
 4. should be easy to use for users with basic knowledge of command line interface
 5. should be able to handle large amounts of data without displaying any slowdown in application performance 
 
-### Appendix F: Instruction for Manual Testing 
+### Appendix E: Instruction for Manual Testing 
 
 1. Ensure you have Java `11` or above installed in your Computer.
 2. Download the latest Duke.jar [here](https://github.com/AY1920S1-CS2113-T14-2/main/releases).
@@ -922,15 +932,7 @@ Changing the amount of an ingredient in the `Fridge`
 
 ​	   Expected: Program outputs to user the proper syntax to use the command.
 
-#### E11. Adding an order
-
-#### E12. Marking order as done
-
-#### E13. Altering order
-
-#### E14. Removing order
-
-#### E15. Adding a dish
+#### E11. Adding a dish
 
 1. adding a dish to the dishList
 
@@ -948,7 +950,7 @@ Changing the amount of an ingredient in the `Fridge`
 
       Expected: output message to user that the description cannot be empty
 
-#### E16. Removing a dish
+#### E12. Removing a dish
 
 1. removing a dish from the dishList
 
@@ -970,7 +972,7 @@ Changing the amount of an ingredient in the `Fridge`
 
          Expected: no dish is deleted. outputs to the user that the dish does not exist 
 
-#### E17. Adding an ingredient to a dish
+#### E13. Adding an ingredient to a dish
 
 1. associating an ingredient to a dish in the dishList	
 
@@ -988,7 +990,7 @@ Changing the amount of an ingredient in the `Fridge`
 
       Expected: no ingredient is added to a dish. outputs message to user that index/amount needs to be valid
 
-#### E18. Finding a dish
+#### E14. Finding a dish
 
 1. finding a dish in list given a keyword
 
@@ -1007,7 +1009,7 @@ Changing the amount of an ingredient in the `Fridge`
    
    Expected: deletes the first dish in the list, 
 
-#### E19. Changing name of a dish
+#### E15. Changing name of a dish
 
 1. changing the name of a dish in list
 
