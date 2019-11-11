@@ -898,7 +898,7 @@ Changing the name of an ingredient in the `Fridge`
 
 ​	   Test case 2: `changename 3 pork`
 
-​	   Expected: User is prompted by the program to enter a valid range of ingredient index number,                                                                                        	   depending on the `IngredienstLists` size.
+​	   Expected:  User is prompted by the program to enter a valid range of ingredient index number, depending on the `IngredienstLists` size.
 
 ​	   Test case 3: `changename chicken pork`
 
