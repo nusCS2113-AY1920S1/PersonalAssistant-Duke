@@ -362,7 +362,7 @@ public class ProjectInputController implements IController {
         }
         return allCredits.toArray(new String[0]);
     }
-
+    //@@author
 
     /**
      * Adds a task to the current project.
