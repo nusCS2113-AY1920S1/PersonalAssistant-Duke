@@ -190,8 +190,8 @@ public class Parser {
             }
             break;
         case "list_group":
-            if (message.length() == 10) {
-                return new ListGroupCommand();
+            if (message.length() >= 10) {
+                return new ListGroupCommand(message);
             }
             break;
         default:
