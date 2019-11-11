@@ -14,7 +14,7 @@ public abstract class ProfitStorage {
     private static double annualProfit = 0;
 
     /**
-     * Getter for Annual Revenue.
+     * Getter for AnnualRevenue.
      *
      * @return The Annual Revenue.
      */
@@ -23,7 +23,7 @@ public abstract class ProfitStorage {
     }
 
     /**
-     * Setter for Annual Revenue.
+     * Setter for AnnualRevenue.
      *
      * @param annualRevenue The Annual Revenue to be set.
      */
@@ -32,7 +32,7 @@ public abstract class ProfitStorage {
     }
 
     /**
-     * Getter for Annual Profit.
+     * Getter for AnnualProfit.
      *
      * @return The Annual Profit.
      */
@@ -41,7 +41,7 @@ public abstract class ProfitStorage {
     }
 
     /**
-     * Setter for Annual Profit.
+     * Setter for AnnualProfit.
      *
      * @param annualProfit The Annual Profit to be set.
      */
