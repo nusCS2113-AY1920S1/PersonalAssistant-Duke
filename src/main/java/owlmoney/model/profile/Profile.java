@@ -689,10 +689,12 @@ public class Profile {
      * @param amount The amount to be transferred.
      * @param date   The date that the fund was transferred.
      * @param ui     The ui object Required for printing.
-     * @throws BankException If any of the bank does not exist or insufficient fund to transfer.
+     * @throws BankException If any of the bank does not exist, insufficient fund to transfer
+     *                       or sender and receiver account name is the same.
      */
     public void transferFund(String from, String to, double amount, Date date,
             Ui ui) throws BankException {
+        checkSameBankName(from, to);
         String fromType = bankList.getTransferBankType(from, amount);
         String descriptionTo = TRANSFERFUNDTO + to;
         bankList.bankListCheckTransferExceed(to, amount);
@@ -704,7 +706,22 @@ public class Profile {
         Transaction newDeposit = new Deposit(descriptionFrom, amount, date, DEPOSITCATEGORY);
         bankList.bankListAddDeposit(to, newDeposit, ui, checkBankType(toType));
         logger.info("Successfully added deposit for the receiver");
-        logger.info("Fund successfully transfered");
+        logger.info("Fund successfully transferred");
+    }
+
+    /**
+     * Checks whether the sender and receiver account is the same.
+     *
+     * @param from   The account name for transferring the fund.
+     * @param to     The account name to receive the fund.
+     * @throws BankException If sender and receiver name is the same.
+     */
+    private void checkSameBankName(String from, String to) throws BankException {
+        String capitalFrom = from.toUpperCase();
+        String capitalto = to.toUpperCase();
+        if (capitalFrom.equals(capitalto)) {
+            throw new BankException("Sender account and receiver account cannot be the same");
+        }
     }
 
     /**
