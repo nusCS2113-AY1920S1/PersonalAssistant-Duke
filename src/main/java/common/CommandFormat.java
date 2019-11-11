@@ -99,7 +99,7 @@ public class CommandFormat {
     }
 
     public String deleteTaskFormat() {
-        return "delete id/ID";
+        return "delete task id/ID";
     }
 
     public String findTaskFormat() {

@@ -33,6 +33,7 @@ Apart from these features, AlphaNUS also act as a personal assistant to help the
 
 .  Some example commands you can try:
 
+* `load` : load the prestored data for testing.
 * `add project pr/rag am/200` : Adds a project called `rag` with budget of 200 dollars to the record.
 * `list projects`: Lists all projects in the record.
 * `bye` : exits the app
@@ -311,85 +312,176 @@ UI:
 image::reminder.png[]
 
 === Tasks Management
-//==== List out all current submission deadlines: `list`
-//
-//List out all payments, sorted into overdue, pending and approved statuses, in order of ascending deadlines+
-//Format: `list`
+==== Add Todo:`add todo`
 
-//=== Adding a deadline: `deadline`
-//
-//Adds a new deadline with description +
-//Format: `deadline d/DESCRIPTION by/TIME`
-//
-//[TIP]
-//there can have spaces in the deadline description +
-//[TIP]
-//format of date should be "dd/MM/yyyy HHmm" +
-//
-//Examples:
-//
-//* `deadline d/submit venue payment by/31/10/2019 2100`
+Adds a new todo task with description +
+Format: `add to d/DESCRIPTION`
 
-//=== Delete a task: `delete task id/ID`
-//
-//Delete a task from the task list +
-//Format: `delete task id/ID`
-//
-//[TIP]
-//the index of the task should not be out of range
-//
-//Examples:
-//
-//* `delete task id/3`
-//
-//=== Edit a task's description: `edit`
-//
-//Edit a previously added task's description and details +
-//Format: `edit ID d/NEW_DESCRIPTION`
-//
-//[TIP]
-//there can have spaces in the description
-//[TIP]
-//the id should not be out of range
-//
-//Examples:
-//
-//* `edit 2 d/welcome tea for freshmen`
+[TIP]
+there can have spaces in the task description +
 
-//=== snooze the deadline: `snooze`
-//
-//snooze the deadline time by 1 hour +
-//Format: `snooze ID`
-//
-//[TIP]
-//the id input should not be out of range
-//
-//Examples:
-//
-//* `snooze 5`
-//
-//=== postpone the deadline: `postpone`
-//
-//postpone the deadline time by a customized period+
-//Format: `postpone ID NUM_OF_HOURS`
-//
-//[TIP]
-//the id input should not be out of range
-//
-//Examples:
-//
-//* `postpone 5 12`
+Examples:
+
+* `add todo d/meeting with MrLim`
+
+UI:
+
+image::addTodo.png[]
+
+==== Add Deadline: `add deadline`
+
+Adds a new deadline task with description +
+Format: `add deadline d/DESCRIPTION by/DATE`
+
+[TIP]
+there can have spaces in the deadline description +
+[TIP]
+format of date should be "dd-MM-yyyy" +
+
+Examples:
+
+* `add deadline d/deadline task by/12-11-2019`
+
+UI:
+
+image::addDeadline.png[]
+
+==== Done Task: `done task`
+This command set the status of a task as done. +
+Format: `done task id/ID`
+
+[TIP]
+The input ID must be a positive number.
+
+Example:
+
+* `done task id/1`
+
+UI:
+
+image::doneTask.png[]
+
+==== Delete Task: `delete task`
+This command delete a task from the task list. +
+Format: `delete task id/ID`
+
+[TIP]
+The input ID must be a positive number.
+
+Example
+
+* `delete task id/1`
+
+UI:
+
+image::deleteTask.png[]
+
+==== Find Task: `find task`
+This command find a task with a key word from the task list. +
+Format: `find task key/KEY_WORD`
+
+[TIP]
+The input key word can have spaces inside.
+
+Example
+
+* `find task key/MrLim`
+
+UI:
+
+image::findTask.png[]
+
+==== List Tasks: `list tasks`
+This command list out all tasks in the task list. +
+Format: `list tasks`
+
+Example
+
+* `list tasks`
+
+UI:
+
+image::listTasks.png[]
+
+==== Snooze Deadline: `snooze`
+This command snooze a deadline task by 1 day. +
+Format: `snooze id/ID`
+
+[TIP]
+The input ID must be a positive number.
+[TIP]
+The input ID must be corresponding to a deadline task.
+
+Example
+
+* `snooze id/1`
+
+UI:
+
+image::snooze.png[]
+
+
+==== Postpone Deadline: `postpone`
+This command postpone a deadline task by customized number of days. +
+Format: `postpone id/ID n/DAYS`
+
+[TIP]
+The input ID must be a positive number.
+[TIP]
+The input ID must be corresponding to a deadline task.
+
+Example
+
+* `postpone id/4 n/10`
+
+UI:
+
+image::postpone.png[]
+
+==== Reschedule Deadline: `reschedule`
+This command reschedule a deadline task to another date. +
+Format: `reschedule id/ID d/DATE`
+
+[TIP]
+The input numbers must be positive numbers.
+[TIP]
+The input ID must be corresponding to a deadline task.
+[TIP]
+The input date must be in the format of "dd-mm-yyyy".
+
+Example
+
+* `reschedule id/5 d/27-12-2019`
+
+UI:
+
+image::reschedule.png[]
+
+==== View Schedule: `view schedule`
+This command allow the user to view their schedule on a certain day. +
+Format: `view schedule d/DATE`
+
+[TIP]
+The input date must be in the format of "dd-mm-yyyy".
+
+Example
+
+* `view schedule d/13-11-2019`
+
+UI:
+
+image::viewSchedule.png[]
 
 === History Management
 
-==== View previous input commands: `history`
+==== History of Commands: `history`
 
 view input commands entered by the user from the start till the present +
 Format: `history`
 
 image::history.png[]
 
-==== View previous input commands within a certain period: `view history`
+==== View History within a certain period: `view history`
 
 view input commands entered by the user from a start date to an end date, provided in the input +
 Format: `view history h/DATE_1 to DATE_2`
@@ -416,28 +508,51 @@ Format: `bye`
 
 === Saving the data
 
-Task List data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Project data, fund data, history data, hitory command data and tasklist data
+are saved in the hard disk automatically after the exit command is executed. +
+
 
 
 == Command Summary
 
-
 * *Command Help*: `help`
-* *Add Project*: `add project pr/PROJECT_NAME am/AMOUNT`
-* *Delete Project*: `delete project pr/PROJECT_NAME`
-* *Go to Project*: `goto PROJECT_INDEX`
-* *List Projects*: `list projects`
-* *Set Total Fund*: `set fund am/AMOUNT`
-* *Add to Fund*: `add fund add/500`
-* *Assign Fund*: `assign fund pr/PROJECT_NAME am/AMOUNT`
-* *Show Fund*: `show fund`
-* *Add Payee*: `add payee p/PAYEE e/EMAIL m/MATRICNUM ph/PHONENUM`
-* *Add Payment*: `add payment p/PAYEE i/ITEM c/COST v/INVOICE`
-* *Edit Payment/Payee*: `edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT`
-* *Delete Payee*: `delete payee p/PAYEE`
-* *Full History*: `history`
-* *Specific History*: `view history h/DATE_1 to DATE_2`
-* *exit*: `bye`
-
-
+* *Project:*
+* *Load Backup:*          `load`
+* *Add Project:*         `add project pr/PROJECT_NAME am/AMOUNT_OF_FUND`
+* *Delete Project:*      `delete project pr/PROJECT_NAME`
+* *List Projects:*       `list projects`
+* *Go to a Project:*     `goto PROJECT_INDEX_IN_LIST`
+* *Show Budget:*         `show budget pr/PROJECT_NAME`
+* *Reduce Budget:*       `reduce budget pr/PROJECT_NAME am/AMOUNT`
+* *Fund:*
+* *Set Fund:*            `set fund am/AMOUNT`
+* *Add Fund:*            `add fund add/AMOUNT`
+* *Assign budget:*         `assign budget pr/PROJECT_NAME am/AMOUNT`
+* *Change Fund:*        `change fund new/AMOUNT`
+* *Show Fund:*           `show fund`
+* *Payment and Payee:*
+* *Add Payee:*           `add payee p/PAYEE e/EMAIL m/MATRICNUM ph/PHONENUM`
+* *Add Payment:*         `add payment p/PAYEE i/ITEM c/COST v/INVOICE`
+* *Delete Payee:*        `delete payee p/PAYEE`
+* *Delete Payment:*      `delete payment p/PAYEE i/ITEM`
+* *Find Payee:*          `find payee p/PAYEE`
+* *List Payments:*       `list payments`
+* *Find Payee:*         `find payee p/PAYEE`
+* *Total cost:*          `total cost p/PAYEE_NAME`
+* *Edit Payment/Payee:*  `edit p/PAYEE i/ITEM f/FIELD r/REPLACEMENT`
+* *Reminder:*            `reminder`
+* *Tasks:*
+* *Add Todo:*            `add todo d/DESCRIPTION`
+* *Add Deadline:*        `add deadline d/DESCRIPTION by/DATE.`
+* *Done Task:*           `done id/ID`
+* *Delete Task:*         `delete task id/ID`
+* *Find Task:*          `find task key/KEY_WORD`
+* *List Tasks:*          `list tasks`
+* *Snooze Deadline:*     `snooze id/ID`
+* *Postpone Deadline:*   `postpone id/ID n/DAYS`
+* *Reschedule Deadline:* `reschedule id/ID d/DATE`
+* *View Schedule:*       `view schedule d/DATE`
+* *History:*
+* *History of Commands:* `history`
+* *View History within a certain period:* `view history h/DATE_1 to DATE_2`
+* *Exit:*                `bye`

@@ -593,8 +593,9 @@ public class Process {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             Date date = sdf.parse(datestring);
             for (Task tasks : tasklist.returnArrayList()) {
-                System.out.println(sdf.format(date));
-                System.out.println(tasks.getDateStr());
+                if(tasks.getType().equals("T")){
+                    continue;
+                }
                 if (sdf.format(date).equals(tasks.getDateStr())) {
                     findlist.addTask(tasks);
                 }
