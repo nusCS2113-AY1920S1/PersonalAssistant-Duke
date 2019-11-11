@@ -1,4 +1,5 @@
 //@@author pdotdeep
+
 package entertainment.pro.storage.utils;
 
 
@@ -38,7 +39,7 @@ public class BlacklistStorage {
         KEYS,
         MOVIES,
         ID
-    };
+    }
 
     /**
      * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.

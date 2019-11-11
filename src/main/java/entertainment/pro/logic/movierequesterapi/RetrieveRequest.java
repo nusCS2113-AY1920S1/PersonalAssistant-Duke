@@ -46,7 +46,7 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String RECACHE_PARSE_ERROR = "Parsing error took place when recaching data";
     private static final String TO_SPECIFY_ADULT = "adult";
     private static final int MAX_FILES = 20;
-    private static final String TO_SPECIFY_NAME = "name" ;
+    private static final String TO_SPECIFY_NAME = "name";
     private static RequestListener requestListener;
     public static ArrayList<MovieInfoObject> finalSearchResults = new ArrayList<>();
     public static SearchProfile searchProfile;
@@ -462,7 +462,6 @@ public class RetrieveRequest implements InfoFetcher {
      * @param movieTitle movie name to be added to watchlist.
      * @return first movie title in the search result.
      * @throws Exceptions API request errors such as bad encoding or incorrect URL.
-     * @@author Hotspur1997.
      */
     public String beginAddRequest(String movieTitle) {
         try {

@@ -61,7 +61,7 @@ public class SearchCommand extends CommandSuper {
      * Also responsible for extracting whether the search request is for movies or TV shows.
      * And then call the approriate function to further extract the exact search request.
      *
-     * @throws Exceptions
+     * @throws Exceptions Exceptions thrown
      */
     @Override
     public void executeCommands() throws Exceptions {
@@ -107,17 +107,17 @@ public class SearchCommand extends CommandSuper {
             throw new Exceptions(PromptMessages.EMPTY_PARAM_IN_SEARCH);
         }
         if (payload.equals(GET_CURRENT)) {
-            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+            movieHandler.getApiRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
         } else if (payload.equals(GET_UPCOMING)) {
-            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
+            movieHandler.getApiRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
         } else if (payload.equals(GET_TRENDING)) {
-            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
+            movieHandler.getApiRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
         } else if (payload.equals(GET_POPULAR)) {
-            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
+            movieHandler.getApiRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
         } else if (payload.equals(GET_RATED)) {
-            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TOP_RATED_MOVIES);
+            movieHandler.getApiRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TOP_RATED_MOVIES);
         } else {
-            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES);
+            movieHandler.getApiRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES);
         }
     }
 
@@ -139,15 +139,15 @@ public class SearchCommand extends CommandSuper {
             throw new Exceptions(PromptMessages.EMPTY_PARAM_IN_SEARCH);
         }
         if (payload.equals(GET_CURRENT)) {
-            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
+            movieHandler.getApiRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
         } else if (payload.equals(GET_TRENDING)) {
-            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
+            movieHandler.getApiRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
         } else if (payload.equals(GET_POPULAR)) {
-            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
+            movieHandler.getApiRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
         } else if (payload.equals(GET_RATED)) {
-            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TOP_RATED_TV);
+            movieHandler.getApiRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TOP_RATED_TV);
         } else {
-            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.SEARCH_TV);
+            movieHandler.getApiRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.SEARCH_TV);
         }
     }
 

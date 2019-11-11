@@ -1,3 +1,5 @@
+//@@ hotspur1997
+
 package entertainment.pro.storage.user;
 
 import entertainment.pro.model.Deadline;
@@ -9,12 +11,15 @@ import java.util.Comparator;
 
 import entertainment.pro.ui.MovieHandler;
 
+/**
+ * Watchlist class.
+ */
 public class WatchlistHandler {
     private static ArrayList<Tasks> watch = new ArrayList<>();
     protected static String space =  "    ";
 
     /**
-     * adds a duke.task to the watchlist
+     * adds a duke.task to the watchlist.
      * @param t the duke.task list to store the movies
      */
     public static boolean add(Tasks t) {
@@ -80,7 +85,7 @@ public class WatchlistHandler {
     }
 
     /**
-     * marks the required duke.task as done and feedbacks it to the user
+     * marks the required duke.task as done and feedbacks it to the user.
      * @param index index of the movie to mark as done
      * @param handle moviehandler class to print out the completed duke.task on the users view
      */
@@ -99,12 +104,13 @@ public class WatchlistHandler {
             }
             handle.setGeneralFeedbackText(result);
         } catch (IndexOutOfBoundsException e) {
-            handle.setGeneralFeedbackText("Please enter a valid index that is not greater than the size of the watchlist!");
+            handle.setGeneralFeedbackText("Please enter a valid index that is not "
+                    + "greater than the size of the watchlist!");
         }
     }
 
     /**
-     * removes a particular duke.task from the watchlist by its name
+     * removes a particular duke.task from the watchlist by its name.
      * @param movie name of the movie to be removed
      * @param handle moviehandler class to print out the completed duke.task on the users view
      * @return boolean: returns whether the movie was present in the watchlist or not
@@ -138,7 +144,6 @@ public class WatchlistHandler {
         return names;
     }
 
-
     /**
      * return a list of possible hints from watchlist for autocomplete.
      * @param keyword incomplete command of the user
@@ -158,9 +163,9 @@ public class WatchlistHandler {
     }
 
     /**
-     * searches for a movie in the watchlist to mark as its corresponding task as done
-     * @param movie: title of the movie to be searched
-     * @param handle: UI controller to print text to the UI textfield itself
+     * searches for a movie in the watchlist to mark as its corresponding task as done.
+     * @param movie title of the movie to be searched
+     * @param handle UI controller to print text to the UI textfield itself
      * @return: a boolean to determine if the movie was found or not
      */
     public static boolean markMovieAsDone(String movie, MovieHandler handle) {
@@ -185,8 +190,8 @@ public class WatchlistHandler {
     }
 
     /**
-     * check if the watchlist class contains a movie
-     * @param movie: name of the movie title to be searched
+     * check if the watchlist class contains a movie.
+     * @param movie name of the movie title to be searched
      * @return a boolean representing if a movie is contained in the array list or not
      */
     public static boolean contains(String movie) {
@@ -199,7 +204,7 @@ public class WatchlistHandler {
     }
 
     /**
-     *  gets the size of the watchlist
+     * gets the size of the watchlist.
      * @return an integer denoting the size of the watchlist
      */
     public static int getSize() {
@@ -207,7 +212,7 @@ public class WatchlistHandler {
     }
 
     /**
-     * returns the watchlist for the user to view
+     * returns the watchlist for the user to view.
      * @return watchlist for the user to view
      */
     public static ArrayList<Tasks> getWatchlist() {

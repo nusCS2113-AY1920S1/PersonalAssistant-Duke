@@ -540,11 +540,11 @@ public class MovieHandler extends Controller implements RequestListener {
         try {
             MovieInfoObject movie = mMovies.get(num - 1);
             moviePosterClicked(movie);
-            } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, PromptMessages.INVALID_FORMAT);
             setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
             throw new InvalidFormatCommandException(PromptMessages.INVALID_FORMAT);
-       }
+        }
     }
 
 
@@ -732,7 +732,7 @@ public class MovieHandler extends Controller implements RequestListener {
             moviesFlowPane.prefWrapLengthProperty().bind(moviesScrollPane.widthProperty());
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("MoreInfo.fxml"));
-            AnchorPane posterView = loader.load();
+//            AnchorPane posterView = loader.load();
             InfoController controller = loader.getController();
             controller.getMovieTitleLabel().setText(movie.getTitle());
             controller.getMovieRatingLabel().setText(String.format("%.2f", movie.getRatingInfo()));
@@ -777,6 +777,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 }
 
             }
+            AnchorPane posterView = loader.load();
             controller.getMovieGenresLabel().setText(genreText);
             moviesFlowPane.getChildren().add(posterView);
             moviesScrollPane.setContent(moviesFlowPane);
@@ -904,7 +905,7 @@ public class MovieHandler extends Controller implements RequestListener {
      *
      * @return the RetrieveRequest class.
      */
-    public RetrieveRequest getAPIRequester() {
+    public RetrieveRequest getApiRequester() {
         return mMovieRequest;
     }
 
@@ -912,7 +913,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * Retrieves the cinemaRetrieveRequest class.
      * @return the cinemaRetrieveRequest class
      */
-    public CinemaRetrieveRequest getCinemaAPIRequester() {
+    public CinemaRetrieveRequest getCinemaApiRequester() {
         return mCinemaRequest;
     }
 

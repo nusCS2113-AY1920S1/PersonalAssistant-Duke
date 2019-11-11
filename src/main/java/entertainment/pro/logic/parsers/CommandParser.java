@@ -1,4 +1,5 @@
 //@@author pdotdeep
+
 package entertainment.pro.logic.parsers;
 
 
@@ -55,7 +56,7 @@ public class CommandParser {
             logger.log(Level.SEVERE, PromptMessages.MISSING_COMMAND);
             throw new EmptyCommandException(PromptMessages.MISSING_COMMAND);
         }
-        String commandArr[] = command.split(" ");
+        String commandArr [] = command.split(" ");
         rootCommand(commandArr, command, uicontroller);
     }
 

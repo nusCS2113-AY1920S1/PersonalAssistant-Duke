@@ -48,7 +48,7 @@ public class WatchlistCommand  extends CommandSuper {
      */
     private void addToWatchList() {
         try {
-            String movie = ((MovieHandler) this.getUiController()).getAPIRequester().beginAddRequest(getPayload());
+            String movie = ((MovieHandler) this.getUiController()).getApiRequester().beginAddRequest(getPayload());
             if (movie.equals("")) {
                 ((MovieHandler) (this.getUiController())).setGeneralFeedbackText("Movie not found.\n"
                         + "Please check your spelling");

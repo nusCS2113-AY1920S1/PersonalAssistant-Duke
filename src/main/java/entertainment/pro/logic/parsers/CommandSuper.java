@@ -1,4 +1,5 @@
 //@@author pdotdeep
+
 package entertainment.pro.logic.parsers;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -264,13 +265,12 @@ public abstract class CommandSuper {
         }
 
     }
-
     /**
      * Find payload of the user Command based on the interpretation by Command Parser.
      *
      * @param commandArr command that was entered by the user in split array form
      */
-     public void processPayload(String[] commandArr) {
+    public void processPayload(String[] commandArr) {
         if (this.root != CommandKeys.NONE) {
             if (this.subRootCommand != CommandKeys.NONE) {
                 payload =  getThePayload(2, commandArr);

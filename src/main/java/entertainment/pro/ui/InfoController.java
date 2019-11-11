@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 /**
- * This class is
+ * ui controller class for info fxml.
  */
 public class InfoController {
     @FXML

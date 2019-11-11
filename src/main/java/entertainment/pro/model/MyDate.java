@@ -84,7 +84,7 @@ public class MyDate implements Comparable<MyDate> {
     }
 
     /**
-     * converts the period to a string representation
+     * converts the period to a string representation.
      * @return a string of the period
      */
     @Override
@@ -94,8 +94,8 @@ public class MyDate implements Comparable<MyDate> {
     }
 
     /**
-     * function to compare two dates
-     * @param o: second object to compare the date to
+     * function to compare two dates.
+     * @param o second object to compare the date to
      * @return an integer to determine if the date is lesser than or equal to the date compared to
      */
     @Override

@@ -65,7 +65,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
     /**
      * parses the results from json into a CinemaInfoObject.
      *
-     * @param json: json result from the api request
+     * @param json json result from the api request
      */
     @Override
     public void fetchedCinemasJson(String json) {
@@ -111,7 +111,8 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
     }
 
     /**
-     * returns a list of retrieved cinemas from the users location
+     * returns a list of retrieved cinemas from the users location.
+     *
      * @return a list of cinemas nearest to the desired location
      */
     public ArrayList<CinemaInfoObject> getParsedCinemas() {
