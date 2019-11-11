@@ -46,7 +46,7 @@ public class HelpCommand extends Command {
 			+ String.format("%1$-50s", "  'promotion <food name> "
 					+ "-% <discount> -s <start date> -e <end date>'")
 					+ "adds a new promotion item\n"
-			+ String.format("%1$-50s", "  'promotion -delete -i <index> OR -all'")
+			+ String.format("%1$-50s", "  'promotion -delete <index> OR -all'")
 					+ "deletes the specified promotion in the list \n"
 			+ String.format("%1$-50s", "  'promotion -list'") + "shows the list of promotions\n"
 			+ "Miscellaneous:\n"
