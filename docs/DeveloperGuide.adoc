@@ -59,9 +59,8 @@ functions
 . *JDK `11`* or above is required
 . *IntelliJ* IDE is recommended
 
- [NOTE]
- IntelliJ by default has Gradle plugin installed. +
- Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+[NOTE] IntelliJ by default has Gradle plugin installed. Do not disable them.
+If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 === 1.2. Setting up the project environment on your local machine.
 
@@ -737,7 +736,6 @@ The `log4j2.properties` file in the resource folder is used configure the follow
 * File Appender - The file direction and log file name. The log file can be found in the logs folder.
 
 * PatternLayout - The output format message displayed in the log file
-
 
 The following shows the class diagram of ArchDukeLogger
 
