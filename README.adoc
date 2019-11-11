@@ -17,22 +17,18 @@ endif::[]
 * Allow users to track their loans, both incoming and outgoing.
 * Provides the user with statistics derived from the financial information keyed into the application.
 
-:toc:
-:toc-title: Contents
-:toc-placement: preamble
+== Table of Contents
 
-== Contents
-
-* <<QuickStart#, Quick Start>>
+* <<#QuickStart, Quick Start>>
 * <<#Usage, Usage>>
-* <<LearningOutcomes#, Acknowledgements>>
-* <<Liccence#, Licence>>
+* <<#Acknowledgements, Acknowledgements>>
+* <<#Licence, Licence>>
 
 == Quick Start
 * Ensure you have Java version 11 or later installed in your computer.
-* Download the jar file for the latest version of link:https://github.com/AY1920S1-CS2113T-W12-2/main/releases[Financial Ghost] here
+* Download the jar file for the latest version of link:https://github.com/AY1920S1-CS2113T-W12-2/main/releases[Financial Ghost] here.
 * Copy the file to the folder you want to use as the home folder for your Financial Ghost.
-* Double-click the file to start the app
+* Double-click the file to start the app.
 * You should see the GUI (Graphical User Interface) pop up in a few seconds as shown above.
 
 
