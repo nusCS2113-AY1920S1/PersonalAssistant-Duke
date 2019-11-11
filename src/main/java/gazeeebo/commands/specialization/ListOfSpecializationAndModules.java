@@ -9,13 +9,30 @@ import java.util.Map;
  * Pushes all specializations and technical electives to specMap.
  */
 public class ListOfSpecializationAndModules {
+    /**
+     * Index of Communications and Networking on the list.
+     */
     private static final int COMMS_AND_NETWORKING_INDEX = 1;
+    /**
+     * Index of Embedded Computing on the list.
+     */
     private static final int EMBEDDED_COMPUTING_INDEX = 2;
+    /**
+     * Index of Intelligent Systems on the list.
+     */
     private static final int INTELLIGENT_SYSTEMS_INDEX = 3;
+    /**
+     * Index of Interactive Digital Media on the list.
+     */
     private static final int INTERACTIVE_DIGITAL_MEDIA_INDEX = 4;
+    /**
+     * Index of Large-Scale Computing on the list.
+     */
     private static final int LARGE_SCALE_COMPUTING_INDEX = 5;
+    /**
+     * Index of System On A Chip Design on the list.
+     */
     private static final int SYS_ON_A_CHIP_DESIGN_INDEX = 6;
-    private static final int MODULAR_CREDITS = 4;
 
     /**
      * Stores all the technical electives and specializations.

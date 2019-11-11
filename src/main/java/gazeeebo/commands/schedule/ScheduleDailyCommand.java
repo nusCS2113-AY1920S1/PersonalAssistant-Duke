@@ -10,7 +10,7 @@ import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
 import gazeeebo.tasks.Timebound;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.Command;

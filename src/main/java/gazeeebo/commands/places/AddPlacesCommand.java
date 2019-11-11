@@ -20,9 +20,11 @@ public class AddPlacesCommand {
         try {
             String room;
             String location;
-            if (ui.fullCommand.equals("1") || ui.fullCommand.trim().equals("add") ||
-                    ui.fullCommand.trim().equals("add-")) {
-                System.out.println("Input the place you want to add in this format: Room,Location");
+            if (ui.fullCommand.equals("1")
+                    || ui.fullCommand.trim().equals("add")
+                    || ui.fullCommand.trim().equals("add-")) {
+                System.out.println("Input the place you want "
+                        + "to add in this format: Room,Location");
                 ui.readCommand();
                 String[] splitInfo = ui.fullCommand.split(",");
                 room = splitInfo[0];

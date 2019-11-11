@@ -3,7 +3,7 @@
 package gazeeebo.commands.tasks.edit;
 
 import gazeeebo.storage.Storage;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.Command;

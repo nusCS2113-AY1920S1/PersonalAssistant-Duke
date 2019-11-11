@@ -6,7 +6,7 @@ import gazeeebo.storage.NoteStorage;
 
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
 import gazeeebo.notes.Note;

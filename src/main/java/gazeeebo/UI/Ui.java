@@ -22,7 +22,7 @@ public class Ui {
 
     /**
      * Reads the user's input into the command line.
-     * @throws IOException exception when there is an error in reading the user input
+     * @throws IOException if input is wrong.
      */
 
     public void readCommand() throws IOException {
@@ -59,7 +59,8 @@ public class Ui {
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
                 System.out.println("Today is "
-                        + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
+                        + a.format(DateTimeFormatter
+                        .ofLocalizedDate(FormatStyle.FULL)));
                 break;
 
             } else {
@@ -185,7 +186,8 @@ public class Ui {
     }
 
     public void showDontKnowErrorMessage() {
-        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println("OOPS!!! I'm sorry, "
+                + "but I don't know what that means :-(");
     }
 
 }

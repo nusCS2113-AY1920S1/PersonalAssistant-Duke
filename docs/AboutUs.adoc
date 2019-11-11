@@ -20,7 +20,7 @@ Responsibilities: Integrate the different functions together.
 '''
 
 === Jason Lee
-image::JasonLeeWeiHern.png[width="150", align="left"]
+image::jasonleeweihern.png[width="150", align="left"]
 {empty}[https://github.com/JasonLeeWeiHern[github]][<<JasonLeeWeiHern#, portfolio>>]
 
 Role: Team Lead +

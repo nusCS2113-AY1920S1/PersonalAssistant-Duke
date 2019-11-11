@@ -1,6 +1,7 @@
 //@@author jessteoxizhi
 
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.storage.TriviaStorage;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.parser.TaskCommandParser;
 import gazeeebo.commands.tasks.TodoCommand;
@@ -54,7 +55,8 @@ class UndoCommandTest extends UndoTaskCommand{
         TodoCommand todoCommand = new TodoCommand();
         Ui ui = new Ui();
         ArrayList<Task> deletedTask = new ArrayList<>();
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         ArrayList<Task> oldList = new ArrayList<>();
         TaskCommandParser.copyOldList(oldList, list);
         CommandStack.push(oldList);

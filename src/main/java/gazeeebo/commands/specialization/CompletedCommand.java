@@ -16,6 +16,31 @@ import java.util.Map;
  */
 public class CompletedCommand {
     /**
+     * Index of Communications and Networking on the list.
+     */
+    private static final int COMMS_AND_NETWORKING_INDEX = 1;
+    /**
+     * Index of Embedded Computing on the list.
+     */
+    private static final int EMBEDDED_COMPUTING_INDEX = 2;
+    /**
+     * Index of Intelligent Systems on the list.
+     */
+    private static final int INTELLIGENT_SYSTEMS_INDEX = 3;
+    /**
+     * Index of Interactive Digital Media on the list.
+     */
+    private static final int INTERACTIVE_DIGITAL_MEDIA_INDEX = 4;
+    /**
+     * Index of Large-Scale Computing on the list.
+     */
+    private static final int LARGE_SCALE_COMPUTING_INDEX = 5;
+    /**
+     * Index of System On A Chip Design on the list.
+     */
+    private static final int SYS_ON_A_CHIP_DESIGN_INDEX = 6;
+
+    /**
      * Allows user to record the technical electives they have completed.
      *
      * @param ui            the object that deals with
@@ -25,18 +50,12 @@ public class CompletedCommand {
      *                      their respective specializations
      * @throws IOException catch any error if read file fails
      */
-    public CompletedCommand(final Ui ui, final Storage storage,
+    public CompletedCommand(final Ui ui,
                             final Map<String, ArrayList<ModuleCategory>>
                                     specMap,
                             final Map<String, ArrayList<String>> completedEMap)
             throws IOException {
         CompletedElectivesStorage completedElectivesStorage = new CompletedElectivesStorage();
-        final int commsAndNetworkingIndex = 1;
-        final int embeddedComputingIndex = 2;
-        final int intelligentSystemsIndex = 3;
-        final int interactiveDigitalMediaIndex = 4;
-        final int largeScaleComputingIndex = 5;
-        final int sysDesignIndex = 6;
 
         ArrayList<String> completedElectiveList = new ArrayList();
         System.out.println("Which specialization number "
@@ -60,18 +79,18 @@ public class CompletedCommand {
             }
 
             String checkKey = "";
-            if (specNumber == commsAndNetworkingIndex) {
-                checkKey = specList.get(commsAndNetworkingIndex - 1);
-            } else if (specNumber == embeddedComputingIndex) {
-                checkKey = specList.get(embeddedComputingIndex - 1);
-            } else if (specNumber == intelligentSystemsIndex) {
-                checkKey = specList.get(intelligentSystemsIndex - 1);
-            } else if (specNumber == interactiveDigitalMediaIndex) {
-                checkKey = specList.get(interactiveDigitalMediaIndex - 1);
-            } else if (specNumber == largeScaleComputingIndex) {
-                checkKey = specList.get(largeScaleComputingIndex - 1);
-            } else if (specNumber == sysDesignIndex) {
-                checkKey = specList.get(sysDesignIndex - 1);
+            if (specNumber == COMMS_AND_NETWORKING_INDEX) {
+                checkKey = specList.get(COMMS_AND_NETWORKING_INDEX - 1);
+            } else if (specNumber == EMBEDDED_COMPUTING_INDEX) {
+                checkKey = specList.get(EMBEDDED_COMPUTING_INDEX - 1);
+            } else if (specNumber == INTELLIGENT_SYSTEMS_INDEX) {
+                checkKey = specList.get(INTELLIGENT_SYSTEMS_INDEX - 1);
+            } else if (specNumber == INTERACTIVE_DIGITAL_MEDIA_INDEX) {
+                checkKey = specList.get(INTERACTIVE_DIGITAL_MEDIA_INDEX - 1);
+            } else if (specNumber == LARGE_SCALE_COMPUTING_INDEX) {
+                checkKey = specList.get(LARGE_SCALE_COMPUTING_INDEX - 1);
+            } else if (specNumber == SYS_ON_A_CHIP_DESIGN_INDEX) {
+                checkKey = specList.get(SYS_ON_A_CHIP_DESIGN_INDEX - 1);
             }
             System.out.println("Which module have you completed?");
             for (int i = 0; i < specMap.get(checkKey).size(); i++) {

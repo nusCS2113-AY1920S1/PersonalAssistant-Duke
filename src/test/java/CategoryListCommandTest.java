@@ -1,6 +1,7 @@
 //@@author e0323290
 
-import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.storage.TriviaStorage;
+import gazeeebo.triviaManager.TriviaManager;
 import gazeeebo.commands.tasks.CategoryListCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
@@ -81,7 +82,8 @@ public class CategoryListCommandTest {
         final Storage storage = new Storage();
         final Stack<ArrayList<Task>> commandStack = new Stack<>();
         final ArrayList<Task> deletedTask = new ArrayList<>();
-        final TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        final TriviaManager triviaManager = new TriviaManager(triviaStorage);
         CategoryListCommand catList = new CategoryListCommand();
         catList.execute(list, ui, storage, commandStack,
                 deletedTask, triviaManager);
@@ -121,7 +123,8 @@ public class CategoryListCommandTest {
         Storage storage = new Storage();
         Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<>();
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         CategoryListCommand catList = new CategoryListCommand();
         catList.execute(list, ui, storage, commandStack,
                 deletedTask, triviaManager);
@@ -161,7 +164,8 @@ public class CategoryListCommandTest {
         Storage storage = new Storage();
         Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<>();
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         CategoryListCommand catList = new CategoryListCommand();
         catList.execute(list, ui, storage, commandStack,
                 deletedTask, triviaManager);
@@ -201,7 +205,8 @@ public class CategoryListCommandTest {
         Storage storage = new Storage();
         Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<>();
-        TriviaManager triviaManager = new TriviaManager(storage);
+        TriviaStorage triviaStorage = new TriviaStorage();
+        TriviaManager triviaManager = new TriviaManager(triviaStorage);
         CategoryListCommand catList = new CategoryListCommand();
         catList.execute(list, ui, storage, commandStack,
                 deletedTask, triviaManager);
