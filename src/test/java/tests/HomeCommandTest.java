@@ -60,6 +60,7 @@ public class HomeCommandTest extends CommandTest {
                     + "test history\n\n\n";
             String actual = Files.readString(Paths.get("data/Reports/testCPatient-testC1.txt"),
                     StandardCharsets.US_ASCII);
+            actual = actual.replaceAll(System.lineSeparator(), "\n");
             assertEquals(expected, actual);
         } catch (DukeException | IOException excp) {
             fail("Exception thrown when validly creating report from command in home context: " + excp.getMessage());
