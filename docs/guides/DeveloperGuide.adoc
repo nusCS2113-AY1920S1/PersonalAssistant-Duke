@@ -16,8 +16,7 @@ Licence: `MIT`
 
 Welcome to the *Email Manager* Developer Guide!
 
-[#img-UI]
-[caption="Figure N: UI"]
+.Main window of Email Manager
 image::Ui.png[UI, 800]
 
 *Email Manager* is an email and task manager app, specifically designed for NUS School of Computing Students
@@ -139,10 +138,10 @@ the raw string fetched from the server or stored in local file. The content pars
 included all components of email.
 
 ===== Email Format Parsing
+
 .Email Format Parsing
-[#img-email-format-parsing]
-[caption="Figure N: "]
 image::EmailFormatParseHelper.png[Format Parsing, 800]
+
 The email format parsing starts at the call of `ParseFetchResponse(response)`. The variable `response` here
 is a string of the http response from the Outlook server to the fetch API call.
 
@@ -160,9 +159,8 @@ json and instantiate an `Email` object to be added to the `emailList` created ea
 This process repeats until all the email information in the response is processed.
 
 ===== Email Content Parsing
+
 .Email Content Parsing
-[#img-email-content-parsing]
-[caption="Figure N+1: "]
 image::EmailContentParseHelper.png[Content Parsing, 800]
 
 Email content parsing is to parse the keyword from different components of an email.
@@ -186,19 +184,15 @@ added to the email as a tag by calling `addTag(keywordPair, relevanceScore)`.
 *Email Manager* allows user to tag emails by tags.
 
 ===== Current Implementation
-* Format: `email update ITEM_NUMBER [-tag TAG1] [-tag TAG2]…`​
-* Note: Tags the specified item with the tag(s) minimum number of tags is 1.
-* Eg: `email update 2 -tag Fun -tag Project` : tags 2nd email in the list with the tags "Fun" and "Project".
-
+* Format: `email update ITEM_NUMBER [-tag TAG1] [-tag TAG2]`​
 Following is the activity diagram when the command is executed:
-[#img-email-tag-activity-diagram]
-[caption="Figure N+1: "]
-image::emailTagActivityDiagram.jpg[Email Tag Activity Diagram, 800, caption="sf"]
+
+.Activity diagram for email tagging
+image::emailTagActivityDiagram.jpg[Email Tag Activity Diagram, 800]
 
 The following sequence diagram below will explain how the `email update` command works in detail:
 
-[#img-email-tag-sequence-diagram]
-[caption="Figure N+1: "]
+.Sequence diagram for email tagging
 image::emailTagSequenceDiagram.jpg[Email Tag Sequence Diagram, 800]
 
 An example usage of the command is as follows:
@@ -258,14 +252,13 @@ Aspect: Handling updating of tags
 * Eg: `email list -tag Fun -tag Project`
 
 Following is the activity diagram when the command is executed:
-[#img-email-filter]
-[caption="Figure n: "]
+
+.Activity diagram for email filtering by tags
 image::emailFilterActivityDiagram.jpg[Email Filtering Activity Diagram, 800]
 
 The following sequence diagram below will explain how the `email update` command works in detail:
 
-[#img-email-filter-sequence-diagram]
-[caption="Figure N+1: "]
+.Sequence diagram for email filtering by tags
 image::emailFilterSequenceDiagram.jpg[Email Filter Sequence Diagram, 800]
 
 An example usage of the command is as follows:
@@ -287,20 +280,24 @@ stores it in ArrayList<String> `tags`.
 * `EmailCommandParseHelper` creates a new `EmailTagListCommand` by passing in `tags`, then return
 the `EmailTagListCommand` to `CommandParseHelper` and then to `UI`
 
-*Step 3* : `EmailTagListCommand#execute(model)` is called by `UI`.
+*Step 3* : `EmailFilterByTagCommand#execute(model)` is called by `UI`.
 
-*Step 4*: `EmailTagListCommand` calls `EmailTags#displayEmailTagList(tags)`.
+*Step 4*: `EmailFilterByTagCommand` calls `EmailTags#filterByEmailTag(tags, emailList)`, which calls
+`EmailTags#getTaggedEmailList(tags, emailList)`.
 
-*Step 5*: `EmailTags` checks the conditions of the each tags in `tags`, we say that a tag exists if there
+*Step 5*: `getTaggedEmailList()` checks the conditions of the each tags in `tags`, we say that a tag exists
+if there
 is email with the tag. If none of the emails has the tag, we say that the tag does not exist. We say that
 both tags co-exist if there is email tagged with both tags.
 
 ** In this example, both tags `Fun` and `Project` co-exist.
 
-*Step 6*: `EmailTags` call `TagMap.get("Fun").get("Project")`. `TagMap` returns `emailList` which is the
-email(s) tagged with both `Fun` and `Project`.
+*Step 6*: `getTaggedEmailList()` calls `TagMap.get("Fun").get("Project")`. `TagMap` returns `indexList`
+which is the *index* of all email(s) tagged with both `Fun` and `Project`.
 
-*Step 7*: `EmailTags` returns a String `responseMsg` to `EmailTagListCommand`.
+*Step 7*: `getTaggedEmailList()` constructs a String `responseMsg` containing the list of title of emails
+from the `indexList`. After that, `getTaggedEmailList()` returns the `responseMsg` to `filterByEmailTag`, then
+to `EmailFilterByTagCommand` and to the `UI`.
 
 ** `responseMsg` here is: +
 "Here is the email tagged with both #Project and #Fun: <list of title of email(s)
