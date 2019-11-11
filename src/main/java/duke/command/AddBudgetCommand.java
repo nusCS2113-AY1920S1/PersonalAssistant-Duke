@@ -69,7 +69,6 @@ public class AddBudgetCommand extends Command {
      */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) {
-
     }
 }
 //@@author

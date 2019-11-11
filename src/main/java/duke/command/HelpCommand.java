@@ -32,6 +32,5 @@ public class HelpCommand extends Command {
      */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) {
-
     }
 }
