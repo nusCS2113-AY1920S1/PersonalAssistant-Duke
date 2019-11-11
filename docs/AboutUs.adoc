@@ -41,7 +41,7 @@ image::ngjiewu.png[width="150", align="left"]
 {empty}[http://github.com/ngjiewu[github]] [<<ngjiewu#, portfolio>>]
 
 Role: Developer (Productivity) +
-Responsibilities: Threading
+Responsibilities: Integration + Scheduling and tracking
 
 '''
 
