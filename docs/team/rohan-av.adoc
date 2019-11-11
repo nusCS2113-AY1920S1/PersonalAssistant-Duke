@@ -142,7 +142,7 @@ Each of these classes have their API illustrated in their respective files.
 
 === Command Parsing and Execution
 
-Since Ducats is a CLI app, it works by reading user input and carrying out the command the user wants it to execute. In line with this objective, the different components of Ducats have been designed to interact in the sequence as depicted by Figure X.
+Since Ducats is a CLI app, it works by reading user input and carrying out the command the user wants it to execute. In line with this objective, the different components of Ducats have been designed to interact in the sequence as depicted by Figure 2.
 
 .Command Parsing and Execution Sequence Diagram
 image::Command_Sequence_Diagram.png[scaledwidth=90%]
@@ -160,7 +160,7 @@ In order to ensure that the songs the user has created, deleted or modified can 
 .Reading files (for each file)
 image::storage_read.png[scaledwidth=90%]
 
-Before reading from the files, an assertion is made for the file list of the data folder (obtained through the `File.listFiles()` method) to not be null. The reading process as described in Figure X is then repeated for each file in the file list.
+Before reading from the files, an assertion is made for the file list of the data folder (obtained through the `File.listFiles()` method) to not be null. The reading process as described in Figure 3 is then repeated for each file in the file list.
 
 .Writing to files (for each song)
 image::storage_write.png[scaledwidth=90%]
