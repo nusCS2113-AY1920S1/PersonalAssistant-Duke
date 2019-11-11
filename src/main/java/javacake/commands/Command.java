@@ -45,7 +45,7 @@ public abstract class Command {
      * @param inputCommand Command input from user
      * @return True if command contains illegal characters.
      */
-    static boolean containsIllegalCharacter(String inputCommand) {
+    public static boolean containsIllegalCharacter(String inputCommand) {
         String bySpaces = "\\s+";
         String[] subStrings = inputCommand.split(bySpaces);
         if (subStrings.length > 1) {
