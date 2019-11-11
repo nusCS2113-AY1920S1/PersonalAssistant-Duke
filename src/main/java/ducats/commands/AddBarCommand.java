@@ -1,6 +1,7 @@
 package ducats.commands;
 
 import ducats.DucatsException;
+import ducats.Parser;
 import ducats.Storage;
 import ducats.Ui;
 import ducats.components.Bar;
@@ -52,7 +53,11 @@ public class AddBarCommand extends Command {
             return ui.formatAddBar(temp, newBar, activeSong);
 
         } catch (Exception e) {
-            throw new DucatsException(message, "addbar");
+            if (e instanceof DucatsException && ((DucatsException) e).getType().equals("io")) {
+                throw new DucatsException("", "io");
+            } else {
+                throw new DucatsException(message, "addbar");
+            }
         }
     }
 

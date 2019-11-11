@@ -75,8 +75,20 @@ public class DucatsException extends Exception {
                 message = "OOPS!!! ducats.components.Song cannot be created due to invalid input format.";
                 break;
             }
-            case "song name": {
+            case "repeat_song_name": {
                 message = "OOPS!!! ducats.components.Song cannot be created as that song name is already in use.";
+                break;
+            }
+            case "key": {
+                message = "OOPS!!! The song cannot be created as the only supported key is c.";
+                break;
+            }
+            case "time_sig": {
+                message = "OOPS!!! The song cannot be created as the only supported time signature is 4/4.";
+                break;
+            }
+            case "tempo": {
+                message = "OOPS!!! The song cannot be created as the tempo is invalid; it must be a positive number.";
                 break;
             }
             case "view": {
@@ -162,7 +174,7 @@ public class DucatsException extends Exception {
                 break;
             }
             case "number_index": {
-                message = "OOPS!! An index must be a number not a string!";
+                message = "OOPS!! The index must be a number not a string!";
                 break;
             }
             case "special_characters": {

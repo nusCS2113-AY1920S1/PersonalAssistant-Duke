@@ -1,6 +1,7 @@
 package ducats.commands;
 
 import ducats.DucatsException;
+import ducats.Parser;
 import ducats.Storage;
 import ducats.Ui;
 import ducats.components.Bar;
@@ -80,9 +81,8 @@ public class InsertBarCommandTest {
 
     @Test
     public void execute_emptyInput_exceptionThrown() throws DucatsException {
-        InsertBarCommand newTest13 = new InsertBarCommand("insertbar ");
         DucatsException testDucatsException13 = assertThrows(DucatsException.class, () -> {
-            newTest13.execute(dummySongList, dummyUi, dummyStorage);
+            Command newTest13 = Parser.parse(dummyUi, "insertbar ");
         });
         DucatsException expectedDucatsException13 = new DucatsException("insertbar ", "insertbar");
         assertEquals(expectedDucatsException13.getMessage(), testDucatsException13.getMessage());
@@ -94,14 +94,14 @@ public class InsertBarCommandTest {
         DucatsException testDucatsException4 = assertThrows(DucatsException.class, () -> {
             newTest4.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException4 = new DucatsException("insertrandom 2_MC 2_MC", "insertbar");
+        DucatsException expectedDucatsException4 = new DucatsException("", "number_index");
         assertEquals(expectedDucatsException4.getMessage(), testDucatsException4.getMessage());
 
         InsertBarCommand newTest5 = new InsertBarCommand("insertbar !@#$%^ 2_MC 2_MC");
         DucatsException testDucatsException5 = assertThrows(DucatsException.class, () -> {
             newTest5.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException5 = new DucatsException("insertbar !@#$%^ 2_MC 2_MC", "insertbar");
+        DucatsException expectedDucatsException5 = new DucatsException("", "number_index");
         assertEquals(expectedDucatsException5.getMessage(), testDucatsException5.getMessage());
 
         InsertBarCommand newTest6 = new InsertBarCommand("insertbar  2_MC 2_MC");
@@ -115,21 +115,21 @@ public class InsertBarCommandTest {
         DucatsException testDucatsException7 = assertThrows(DucatsException.class, () -> {
             newTest7.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException7 = new DucatsException("insertbar 0 2_MC 2_MC", "insertbar");
+        DucatsException expectedDucatsException7 = new DucatsException("", "index");
         assertEquals(expectedDucatsException7.getMessage(), testDucatsException7.getMessage());
 
         InsertBarCommand newTest8 = new InsertBarCommand("insertbar -1 2_MC 2_MC");
         DucatsException testDucatsException8 = assertThrows(DucatsException.class, () -> {
             newTest8.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException8 = new DucatsException("insertbar -1 2_MC 2_MC", "insertbar");
+        DucatsException expectedDucatsException8 = new DucatsException("", "index");
         assertEquals(expectedDucatsException8.getMessage(), testDucatsException8.getMessage());
 
         InsertBarCommand newTest9 = new InsertBarCommand("insertbar 4 2_MC 2_MC");
         DucatsException testDucatsException9 = assertThrows(DucatsException.class, () -> {
             newTest9.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException9 = new DucatsException("insertbar 4 2_MC 2_MC", "insertbar");
+        DucatsException expectedDucatsException9 = new DucatsException("", "index");
         assertEquals(expectedDucatsException9.getMessage(), testDucatsException9.getMessage());
     }
 
@@ -154,7 +154,7 @@ public class InsertBarCommandTest {
         DucatsException testDucatsException12 = assertThrows(DucatsException.class, () -> {
             newTest12.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException12 = new DucatsException("insertbar 1 ", "insertbar");
+        DucatsException expectedDucatsException12 = new DucatsException("", "index");
         assertEquals(expectedDucatsException12.getMessage(), testDucatsException12.getMessage());
     }
 

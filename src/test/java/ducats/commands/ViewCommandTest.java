@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ViewCommandTest {
@@ -90,6 +91,16 @@ public class ViewCommandTest {
                 + "LC:\n"
                 + "_____________________________________________\n";
         assertEquals(expectedOutput2, testOutput2);
+    }
+
+    @Test
+    public void execute_invalidSongName_exceptionThrown() throws DucatsException {
+        ViewCommand newTest3 = new ViewCommand("view random");
+        DucatsException testDucatsException3 = assertThrows(DucatsException.class, () -> {
+            newTest3.execute(dummySongList, dummyUi, dummyStorage);
+        });
+        DucatsException expectedDucatsException3 = new DucatsException("view random", "view");
+        assertEquals(expectedDucatsException3.getMessage(), testDucatsException3.getMessage());
     }
 
     @Test

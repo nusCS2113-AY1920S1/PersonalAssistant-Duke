@@ -32,7 +32,7 @@ public class DeleteBarCommandTest {
             dummyFileDelimiter = System.getProperty("file.separator");
             dummyStorage = new Storage(System.getProperty("user.dir") + dummyFileDelimiter + "test");
 
-            Song dummySong = new Song("dummy", "aminor", 120);
+            Song dummySong = new Song("dummy", "c", 120);
             Bar dummyBar1 = new Bar(1, "1_UA");
             Bar dummyBar2 = new Bar(2, "1_UB");
             dummySong.addBar(dummyBar1);
@@ -82,21 +82,21 @@ public class DeleteBarCommandTest {
         DucatsException testDucatsException4 = assertThrows(DucatsException.class, () -> {
             newTest4.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException4 = new DucatsException("deletebar random", "deletebar");
+        DucatsException expectedDucatsException4 = new DucatsException("", "number_index");
         assertEquals(expectedDucatsException4.getMessage(), testDucatsException4.getMessage());
 
         DeleteBarCommand newTest5 = new DeleteBarCommand("deletebar !@#$%^");
         DucatsException testDucatsException5 = assertThrows(DucatsException.class, () -> {
             newTest5.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException5 = new DucatsException("deletebar !@#$%^", "deletebar");
+        DucatsException expectedDucatsException5 = new DucatsException("", "number_index");
         assertEquals(expectedDucatsException5.getMessage(), testDucatsException5.getMessage());
 
         DeleteBarCommand newTest6 = new DeleteBarCommand("deletebar 1_UA");
         DucatsException testDucatsException6 = assertThrows(DucatsException.class, () -> {
             newTest6.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException6 = new DucatsException("deletebar 1_UA", "deletebar");
+        DucatsException expectedDucatsException6 = new DucatsException("", "number_index");
         assertEquals(expectedDucatsException6.getMessage(), testDucatsException6.getMessage());
     }
 
@@ -106,21 +106,21 @@ public class DeleteBarCommandTest {
         DucatsException testDucatsException7 = assertThrows(DucatsException.class, () -> {
             newTest7.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException7 = new DucatsException("deletebar 0", "deletebar");
+        DucatsException expectedDucatsException7 = new DucatsException("", "index");
         assertEquals(expectedDucatsException7.getMessage(), testDucatsException7.getMessage());
 
         DeleteBarCommand newTest8 = new DeleteBarCommand("deletebar -1");
         DucatsException testDucatsException8 = assertThrows(DucatsException.class, () -> {
             newTest8.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException8 = new DucatsException("deletebar -1", "deletebar");
+        DucatsException expectedDucatsException8 = new DucatsException("", "index");
         assertEquals(expectedDucatsException8.getMessage(), testDucatsException8.getMessage());
 
         DeleteBarCommand newTest9 = new DeleteBarCommand("deletebar 3");
         DucatsException testDucatsException9 = assertThrows(DucatsException.class, () -> {
             newTest9.execute(dummySongList, dummyUi, dummyStorage);
         });
-        DucatsException expectedDucatsException9 = new DucatsException("deletebar 3", "deletebar");
+        DucatsException expectedDucatsException9 = new DucatsException("", "index");
         assertEquals(expectedDucatsException9.getMessage(), testDucatsException9.getMessage());
     }
 

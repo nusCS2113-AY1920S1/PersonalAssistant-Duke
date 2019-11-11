@@ -1,5 +1,6 @@
 package ducats.commands;
 
+import ducats.Ducats;
 import ducats.DucatsException;
 import ducats.Storage;
 import ducats.Ui;
@@ -7,6 +8,7 @@ import ducats.components.Bar;
 import ducats.components.Song;
 import ducats.components.SongList;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 //@@author jwyf
@@ -43,6 +45,10 @@ public class InsertBarCommand extends Command {
             Song activeSong = songList.getSongIndex(songIndex);
 
             String[] sections = message.substring(10).split(" ");
+
+            if (sections[0].isBlank() || sections[1].isBlank()) {
+                throw new DucatsException(message, "insertbar");
+            }
             barNo = Integer.parseInt(sections[0]);
             int notesIndex = message.indexOf(sections[1]);
             Bar newBar = new Bar(barNo, message.substring(notesIndex));
@@ -52,8 +58,18 @@ public class InsertBarCommand extends Command {
             storage.updateFile(songList);
             ArrayList<Song> temp = songList.getSongList();
             return ui.formatInsertBar(temp, newBar, activeSong);
+
+        } catch (IndexOutOfBoundsException e) {
+            throw new DucatsException("", "index");
+        } catch (NumberFormatException e) {
+            throw new DucatsException("", "number_index");
         } catch (Exception e) {
-            throw new DucatsException(message, "insertbar");
+            if (e instanceof DucatsException && ((DucatsException) e).getType().equals("io")) {
+                throw new DucatsException("", "io");
+            }
+            else {
+                throw new DucatsException(message, "insertbar");
+            }
         }
     }
 
