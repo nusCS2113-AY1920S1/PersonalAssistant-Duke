@@ -145,36 +145,44 @@ The finite state machine for input parsing has the following states:
 * `STRING`: parsing an argument that is surrounded by double quotes
 * `SWITCH`: parsing a switch name
 
-The state transitions on encountering would not be clearly represented on a state diagram, but can be summarised as follows:
+The state transitions are as follows:
 
 * `EMPTY` 
-** `EMPTY` -> `EMPTY`: <Newline> or <Space>
+** `EMPTY` -> `EMPTY`: <Space> or <Newline>
 ** `EMPTY` -> `SWITCH`: `-`
 ** `EMPTY` -> `STRING`: `"`
 ** `EMPTY` -> `ARG`: <any other character>
 * `SWITCH` 
-** `SWITCH` -> `EMPTY`: <Newline> or <Space>
+** `SWITCH` -> `EMPTY`: <Space> or <Newline>
 ** `SWITCH` -> `SWITCH` (add current switch and begin processing a new switch): `-`
 ** `SWITCH` -> `STRING` (add current switch and begin parsing a string as an argument): `"`
-** `SWITCH` -> `SWITCH`: <any other character>
+** `SWITCH` -> `SWITCH` (add char to elementBuilder): <any other character>
 * `STRING` 
-** `STRING` -> `EMPTY`: `"`
-** `STRING` -> `STRING`: <any other character>
+** `STRING` -> `EMPTY` : `"`
+** `STRING` -> `STRING` (add char to elementBuilder) : <any other character>
 * `ARG` 
-** `ARG` -> `EMPTY`: <Newline> or <Space>
+** `ARG` -> `EMPTY`: <Space> or <Newline>
 ** `ARG` -> `DukeException`: Unescaped `"` or `-`
-** `ARG` -> `ARG`: <any other character>
+** `ARG` -> `ARG` (add char to elementBuilder): <any other character>
 
 Preceding any transition character with a backslash `\` will escape it, allowing it to be treated as an ordinary character.
 
-While in the `ARG`, `STRING` or `SWITCH` states, each character that is read is added to a StringBuilder `elementBuilder`. When exiting the state, the string is processed as a switch via `addSwitch()`, or written to the `Command` being constructed as an argument by `writeElement()`. These functions also check if adding a switch or argument would be valid. This can be an argument for the `Command` itself, or a switch argument. For more details on how switches are processed, see above on `Command` objects, and on the <<Feature-Switch-Autocorrect,Switch Autocorrect>> feature.
+While in the `ARG`, `STRING` or `SWITCH` states, each character that is read is added to a StringBuilder `elementBuilder`. When exiting the state, the string is processed as a switch via `addSwitch()`, or written as an argument to the `Command` being constructed by `writeElement()`. These functions also check if adding a switch or argument would be valid. This can be an argument for the `Command` itself, or a switch argument. `elementBuilder` is then cleared, and the parser continues. 
 
-When every character in the input has been consumed, cleanup will be performed based on the state that the `Parser` is in at that point:
+These transitions are summarised in the following finite state diagram:
+
+image::plantuml/fsm.svg[]
+
+For more details on how switches are processed, see above on `Command` objects, and on the <<Feature-Switch-Autocorrect,Switch Autocorrect>> feature.
+
+When every character in the input has been consumed, cleanup will be performed based on the state that the `ArgParser` is in at that point:
 
 * `EMPTY`: nothing is done
 * `ARG`: call `writeElement()` to write a command or switch argument
 * `SWITCH`: call `addSwitch()` to process the switch name
 * `STRING`: call `writeElement()`, assuming the user simply forgot to close the string
+
+The `ArgParser` also checks for the corner case of a switch without an argument at the end, in which case it attempts to write a `null` value for the switch.
 
 [[Design-Model]]
 === Data Model [KWOK KUIN EK JEREMY]
@@ -274,7 +282,15 @@ Typeahead had been considered as an alternative means to achieve these results, 
 [[Feature-Object-Disambiguation]]
 === Object Disambiguation [JOHN CUTHBERT KHOO TENG FONG] 
 
+==== Rationale
 
+In order to provide the smoothest experience and least delay to our users, we would want to allow them to identify the targets of operations such as reading, updating and deleting with minimal effort. Given a clear, unambiguous identifier like an index in a list, this is straightforward, but if the user wishes to access something by part of its name, and there are multiple objects matching his criterion, he needs some way to disambiguate between them. Having such a disambiguation system in place instead of rejecting ambiguous input (e.g. anything other than an exact name) or preventing it (e.g. access by index only) would improve the user's experience and input speed by allowing more free-form input, without needing to worry so much if the input is of the correct form. Our users are also likely to think primarily in terms of names, so being able to access objects by part of a name instead of scrolling through a (potentially large) collection of objects to find an index or tring to remember an exact name would increase the speed at which they navigate through the app and provide input to it.
+
+==== Implementation
+
+
+
+==== Comparison with Alternatives
 
 
 [[Feature-Switch-Autocorrect]]
