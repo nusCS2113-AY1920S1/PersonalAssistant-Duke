@@ -71,6 +71,31 @@ class ParserTest {
     }
 
     @Test
+    public void testIfNotNegative_NonNegativeInput_DoesNotThrow() {
+        assertDoesNotThrow(() -> Parser.isNotNegative(0, "test"));
+        assertDoesNotThrow(() -> Parser.isNotNegative(100, "test"));
+    }
+
+    @Test
+    public void testIfNotNegative_NegativeInput_ThrowsBadInputException() {
+        assertDoesNotThrow(() -> Parser.isNotNegative(100, "test"));
+        assertThrows(BadInputException.class,() -> Parser.isNotNegative(-1, "test"));
+    }
+
+    @Test
+    public void testIfNotZero_NonZero_DoesNotThrow() {
+        assertDoesNotThrow(() -> Parser.isNotZero(-1, "test"));
+        assertDoesNotThrow(() -> Parser.isNotZero(1, "test"));
+    }
+
+    @Test
+    public void testIfNotZero_IsZero_ThrowsBadInputException() {
+        assertDoesNotThrow(() -> Parser.isNotZero(100, "test"));
+        assertThrows(BadInputException.class, () -> Parser.isNotZero(0, "test"));
+    }
+
+
+    @Test
     public void checkReservedInput_InputNotReserved_ReturnsFalse() {
         String[] testInputs = {"Rishab", "Raghav", "Rebecca", "Dana", "Yanbo", "Resistor", "Arduino", "Eggventory"};
 

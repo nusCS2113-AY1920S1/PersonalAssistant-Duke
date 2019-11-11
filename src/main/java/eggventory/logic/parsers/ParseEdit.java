@@ -31,6 +31,8 @@ public class ParseEdit {
 
         case "quantity":
             Parser.isCheckIsInteger(editInput[2], "quantity");
+            Parser.isNotNegative(Integer.parseInt(editInput[2]), "quantity");
+
             return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.QUANTITY,
                     editInput[2]);
         case "description":
@@ -38,6 +40,8 @@ public class ParseEdit {
                     editInput[2]);
         case "minimum":
             Parser.isCheckIsInteger(editInput[2], "minimum quantity");
+            Parser.isNotNegative(Integer.parseInt(editInput[2]), "minimum quantity");
+
             return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.MINIMUM, editInput[2]);
         default:
             throw new BadInputException("The property you are trying to edit does not exist.");

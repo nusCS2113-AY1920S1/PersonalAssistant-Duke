@@ -44,5 +44,16 @@ class ParseEditTest {
         assertDoesNotThrow(() -> testParser.parse("stocktype arg1 arg2"));
         assertThrows(BadInputException.class, () -> testParser.parse("sommething arg1 arg2"));
     }
+
+    //@@author cyanoei
+    @Test
+    public void testParseEdit_NegativeQuantity_ThrowsBadInputException() {
+        assertDoesNotThrow(() -> testParser.parse("stock test quantity 1"));
+        assertThrows(BadInputException.class, () -> testParser.parse("stock test quantity -1"));
+
+        assertDoesNotThrow(() -> testParser.parse("stock test minimum 1"));
+        assertThrows(BadInputException.class, () -> testParser.parse("stock test minimum -1"));
+    }
+
     //@@author
 }

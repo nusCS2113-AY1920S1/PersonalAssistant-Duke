@@ -44,8 +44,7 @@ public class Stock {
         this.stockCode = stockCode;
         this.quantity = quantity;
         this.description = description;
-        this.loaned = 0; //TODO: Determine whether to remove this attribute or update it from the LoanList.
-        this.lost = 0;
+        this.lost = 0; //For future use.
         this.minimum = 0;
     }
 
@@ -149,23 +148,6 @@ public class Stock {
         } else if (quantity > 1000000) {
             throw new BadInputException("Sorry, the quantity cannot be greater than 1 000 000!");
         }
-    }
-
-    /**
-     * Gets the number of this stock that is on loan.
-     * @return loaned the number of loaned items.
-     */
-    public int getLoaned() {
-        return loaned;
-    }
-
-
-    /**
-     * Sets the number of this stock on loan. To be used by the 'loan' command.
-     * @param loaned the number of items on loan.
-     */
-    public void setLoaned(int loaned) {
-        this.loaned = loaned;
     }
 
     /**

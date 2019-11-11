@@ -42,10 +42,7 @@ class EditStockCommandTest {
                 + "stockcode: #TNEW\n"
                 + "quantity: 100\n"
                 + "description: Test\n"
-                + "minimum: 0\n"
-                + "lost: 0\n"
-                + "loaned: 0\n"
-                + "available: 100";
+                + "minimum: 0";
         String output = new EditStockCommand(CommandType.EDIT, "#T", StockProperty.STOCKCODE,
                 "#TNEW").execute(testStockList,testCli,testStorage);
         assertEquals(expected,output);
@@ -60,10 +57,7 @@ class EditStockCommandTest {
                 + "stockcode: #T\n"
                 + "quantity: 5000\n"
                 + "description: Test\n"
-                + "minimum: 0\n"
-                + "lost: 0\n"
-                + "loaned: 0\n"
-                + "available: 5000";
+                + "minimum: 0";
         String output = new EditStockCommand(CommandType.EDIT, "#T", StockProperty.QUANTITY,
                 "5000").execute(testStockList,testCli,testStorage);
         assertEquals(expected,output);
@@ -78,10 +72,7 @@ class EditStockCommandTest {
                 + "stockcode: #T\n"
                 + "quantity: 100\n"
                 + "description: Test NEW\n"
-                + "minimum: 0\n"
-                + "lost: 0\n"
-                + "loaned: 0\n"
-                + "available: 100";
+                + "minimum: 0";
         String output = new EditStockCommand(CommandType.EDIT, "#T", StockProperty.DESCRIPTION,
                 "Test NEW").execute(testStockList,testCli,testStorage);
         assertEquals(expected,output);

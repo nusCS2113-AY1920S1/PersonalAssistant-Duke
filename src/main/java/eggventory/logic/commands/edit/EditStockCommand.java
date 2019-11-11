@@ -54,12 +54,9 @@ public class EditStockCommand extends Command {
                         + "stockcode: %s\n"
                         + "quantity: %d\n"
                         + "description: %s\n"
-                        + "minimum: %s\n"
-                        + "lost: %s\n"
-                        + "loaned: %s\n"
-                        + "available: %s",
+                        + "minimum: %s",
                 edited.getStockType(), edited.getStockCode(), edited.getQuantity(), edited.getDescription(),
-                edited.getMinimum(), edited.getLost(), edited.getLoaned(), edited.numAvailable());
+                edited.getMinimum());
         output += QuantityManager.checkMinimum(edited);
         storage.save(list);
         ui.print(output);

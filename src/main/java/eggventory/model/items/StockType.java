@@ -2,7 +2,7 @@ package eggventory.model.items;
 
 import eggventory.commons.enums.StockProperty;
 import eggventory.commons.exceptions.BadInputException;
-import java.util.List;
+
 import java.util.ArrayList;
 
 //@@author Deculsion
@@ -101,38 +101,6 @@ public class StockType {
         for (Stock stock : stocks) {
             if (stock.getStockCode().equals(stockCode)) {
                 stock.setQuantity(quantity);
-                return stock;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Accesses and updates loaned quantity of a stock.
-     * @param stockCode The current stockcode reffering to this stock
-     * @param quantity The new loaned quantity to change to
-     * @return Stock if stockCode is found, else null
-     */
-    public Stock setStockLoaned(String stockCode, int quantity) {
-        for (Stock stock : stocks) {
-            if (stock.getStockCode().equals(stockCode)) {
-                stock.setLoaned(quantity);
-                return stock;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Accesses and updates lost quantity of a stock.
-     * @param stockCode The current stockcode reffering to this stock
-     * @param quantity The new lost quantity to change to
-     * @return Stock if stockCode is found, else null
-     */
-    public Stock setStockLost(String stockCode, int quantity) {
-        for (Stock stock : stocks) {
-            if (stock.getStockCode().equals(stockCode)) {
-                stock.setLost(quantity);
                 return stock;
             }
         }
@@ -242,10 +210,6 @@ public class StockType {
             return this.setStockCode(stockCode, newValue);
         case QUANTITY:
             return this.setStockQuantity(stockCode, Integer.parseInt(newValue));
-        case LOANED:
-            return this.setStockLoaned(stockCode, Integer.parseInt(newValue));
-        case LOST:
-            return this.setStockLost(stockCode, Integer.parseInt(newValue));
         case DESCRIPTION:
             return this.setStockDescription(stockCode, newValue);
         case MINIMUM:

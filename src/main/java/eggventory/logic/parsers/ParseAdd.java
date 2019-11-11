@@ -35,6 +35,8 @@ public class ParseAdd {
             String minString = parseMinimum[1].split(" ", 2)[0]; //Take only the first word after " -m ".
 
             Parser.isCheckIsInteger(minString, "minimum quantity");
+            Parser.isNotNegative(Integer.parseInt(minString), "minimum quantity");
+
             return Integer.parseInt(minString);
         }
     }
@@ -77,6 +79,8 @@ public class ParseAdd {
         }
 
         Parser.isCheckIsInteger(addInput[2], "quantity");
+        Parser.isNotNegative(Integer.parseInt(addInput[2]), "quantity");
+
 
         return new AddStockCommand(CommandType.ADD, addInput[0], addInput[1],
                 Integer.parseInt(addInput[2]), addInput[3], minimumQuantity);
@@ -164,6 +168,9 @@ public class ParseAdd {
         }
 
         Parser.isCheckIsInteger(addInput[2], "loan quantity");
+        Parser.isNotNegative(Integer.parseInt(addInput[2]), "loan quantity");
+        Parser.isNotZero(Integer.parseInt(addInput[2]), "loan quantity");
+
 
         return new AddLoanCommand(CommandType.ADD, addInput[0], addInput[1], Integer.parseInt(addInput[2]));
     }

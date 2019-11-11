@@ -7,9 +7,8 @@ import eggventory.logic.commands.ByeCommand;
 import eggventory.logic.commands.Command;
 import eggventory.logic.commands.CommandDictionary;
 import eggventory.logic.commands.HelpCommand;
-import eggventory.logic.commands.UndoCommand;
 import eggventory.logic.commands.RedoCommand;
-
+import eggventory.logic.commands.UndoCommand;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -78,12 +77,35 @@ public class Parser {
     /**
      * Checks if a string input is an integer.
      * @param testInteger the input to test.
+     * @throws BadInputException if the input is not an integer.
      */
     public static void isCheckIsInteger(String testInteger, String inputName) throws BadInputException {
         try {
             Integer.parseInt(testInteger);
         } catch (NumberFormatException e) {
             throw new BadInputException(String.format("Sorry, the input for %s has to be an integer!", inputName));
+        }
+    }
+
+    /**
+     * Checks if a int input is negative.
+     * @param testInteger the input to test.
+     * @throws BadInputException if the input is negative.
+     */
+    public static void isNotNegative(int testInteger, String inputName) throws BadInputException {
+        if (testInteger < 0) {
+            throw new BadInputException(String.format("Sorry, the input for %s cannot be negative!", inputName));
+        }
+    }
+
+    /**
+     * Checks if a int input is zero.
+     * @param testInteger the input to test.
+     * @throws BadInputException if the input is zero.
+     */
+    public static void isNotZero(int testInteger, String inputName) throws BadInputException {
+        if (testInteger == 0) {
+            throw new BadInputException(String.format("Sorry, the input for %s cannot be 0!", inputName));
         }
     }
 

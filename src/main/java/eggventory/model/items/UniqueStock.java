@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 //@@author cyanoei
 
-//TODO: Since 5 Nov the quantity-related features have been broken by the sanity check for negatives.
+//Since 5 Nov the quantity-related features have been broken by the sanity check for negatives.
 /**
  * A child of the Stock class.
  * A UniqueStock is a group of many items (eg. Arduino Uno) that share the same stockCode, description etc.,
@@ -85,7 +85,7 @@ public class UniqueStock extends Stock {
 
     //Note: toString works as per normal, treating UniqueStock as a CollectiveStock.
 
-    //TODO: Provide a 'detailed' version of the print string to show individual items.
+    //Provide a 'detailed' version of the print string to show individual items.
     public void printUniqueStocks() {
        /*
            A header with all the usual info, maybe using toString.
@@ -99,8 +99,8 @@ public class UniqueStock extends Stock {
         */
     }
 
-    //TODO: Update both print and save method in Item class, and iterate through all of them here.
-    //  Should be similar to StockType printing methods.
+    //Update both print and save method in Item class, and iterate through all of them here.
+    //Should be similar to StockType printing methods.
     /**
      * Formats all stock details appropriately to be saved to file.
      * @return the string to save.

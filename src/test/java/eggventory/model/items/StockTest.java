@@ -52,18 +52,6 @@ class StockTest {
     }
 
     @Test
-    void testGetLoaned_haventBeenSetReturnsZero_success() {
-        assertEquals(0, testStock.getLoaned());
-    }
-
-    @Test
-    void testSetLoaned_ValidSetLoan_success() {
-        assertEquals(0, testStock.getLoaned());
-        testStock.setLoaned(2000);
-        assertEquals(2000, testStock.getLoaned());
-    }
-
-    @Test
     void testGetLost_haventBeenSetReturnZero_success() {
         assertEquals(0,testStock.getLost());
 
@@ -92,15 +80,6 @@ class StockTest {
     void testNumAvailable_noLostOrLoaned_returnTotal() {
         assertEquals(500,testStock.numAvailable());
 
-    }
-
-    @Test
-    void testNumAvailable_haveLostOrLoaned_returnTotal() {
-        assertEquals(500,testStock.numAvailable());
-        testStock.setLost(200);
-        assertEquals(300,testStock.numAvailable());
-        testStock.setLoaned(100);
-        assertEquals(200, testStock.numAvailable());
     }
 
     @Test
