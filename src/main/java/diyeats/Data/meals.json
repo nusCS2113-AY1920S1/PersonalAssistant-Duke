@@ -1,5 +1,7 @@
 {
   "2019-11-11": [
+<<<<<<< HEAD
+=======
     {
       "description": "burger",
       "type": "B",
@@ -25,14 +27,50 @@
     }
   ],
   "2019-11-10": [
+>>>>>>> 88810189485a36bd5623b18dc14c4d7f703961e5
     {
+      "mealPreferenceParameter": "calorie",
       "description": "Turkey Bacon Burger",
+      "type": "L",
+      "isDone": false,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 400
+      },
+      "costStr": "0"
+    },
+    {
+      "mealPreferenceParameter": "calorie",
+      "description": "Turkey Bacon Burger",
+      "type": "L",
+      "isDone": false,
+      "date": "2019-11-11",
+      "nutritionValue": {
+        "calorie": 400
+      },
+      "costStr": "0"
+    }
+  ],
+  "2019-11-10": [
+    {
+      "description": "keuh",
       "type": "B",
       "mealType": "BREAKFAST",
       "isDone": false,
       "date": "2019-11-10",
       "nutritionValue": {
-        "calorie": 400
+        "calorie": 250
+      },
+      "costStr": "20"
+    },
+    {
+      "description": "mee sotong",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-10",
+      "nutritionValue": {
+        "calorie": 240
       },
       "costStr": "0"
     }

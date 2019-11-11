@@ -16,7 +16,7 @@ public final class CommandSyntax {
     public static final String PARSER_DONE_COMMAND = "done";
     public static final String PARSER_EDIT_COMMAND = "edit";
     public static final String PARSER_CLEAR_COMMAND = "clear";
-    public static final String PARSER_EXIT_COMMAND = "exit";
+    public static final String PARSER_EXIT_COMMAND = "bye";
     public static final String PARSER_UPDATE_COMMAND = "update";
     public static final String PARSER_ADD_GOAL_COMMAND = "setgoal";
     public static final String PARSER_HISTORY_COMMAND = "history";
@@ -29,5 +29,6 @@ public final class CommandSyntax {
     public static final String PARSER_ADD_EXERCISE_COMMAND = "addexercise";
     public static final String PARSER_DELETE_EXERCISE_COMMAND = "delexercise";
     public static final String PARSER_LIST_TRANSACTION_COMMAND = "listtransaction";
+    public static final String PARSER_UNDO_COMMAND = "undo";
     public static final String PARSER_DELETE_TRANSACTION_COMMAND = "deletetransaction";
 }

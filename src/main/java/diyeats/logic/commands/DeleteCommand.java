@@ -3,12 +3,12 @@ package diyeats.logic.commands;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 //@@author HashirZahir
 /**
@@ -50,7 +50,7 @@ public class DeleteCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         ui.showLine();
         if (index < 0 || index >= meals.getMealsList(deleteDate).size()) {
             String errorMsg = "Index provided out of bounds for list of meals on the indicated date. ";
@@ -62,6 +62,7 @@ public class DeleteCommand extends Command {
             ui.showMessage(errorMsg);
         } else {
             Meal currentMeal = meals.delete(deleteDate, index);
+            undo.undoDelete(currentMeal);
             ui.showDeleted(currentMeal, meals.getMealsList(deleteDate));
             try {
                 storage.writeFile(meals);

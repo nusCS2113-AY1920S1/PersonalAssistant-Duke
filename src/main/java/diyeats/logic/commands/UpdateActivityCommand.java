@@ -2,6 +2,7 @@ package diyeats.logic.commands;
 
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
@@ -33,7 +34,7 @@ public class UpdateActivityCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         ui.showLine();
         int activityInt = 0;
         try {
@@ -60,6 +61,11 @@ public class UpdateActivityCommand extends Command {
         ui.showLine();
     }
 
+    /**
+     * This function updates user's activity level during userSetup.
+     * @param user the user object that encapsulates user data
+     */
+
     public void updateUser(User user) {
         ui.showLine();
         int activityInt = 0;
@@ -79,5 +85,23 @@ public class UpdateActivityCommand extends Command {
             ui.showMessage("Please input a proper number for activity level");
         }
         ui.showLine();
+    }
+
+    /**
+     * This function facilitates undo for updating Activity.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
+     */
+    public void undo(MealList meals, Storage storage, User user, Wallet wallet) {
+        int activityInt = 0;
+        activityInt = Integer.parseInt(description);
+        user.setActivityLevel(activityInt);
+        try {
+            storage.writeUser(user);
+        } catch (ProgramException e) {
+            ui.showMessage(e.getMessage());
+        }
     }
 }

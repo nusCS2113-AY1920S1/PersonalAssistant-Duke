@@ -2,6 +2,7 @@ package diyeats.logic.commands;
 
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
@@ -45,17 +46,17 @@ public class DeleteExerciseCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         isDone = false;
         switch (stage) {
             case 0:
                 //Checks for exact matches and deletes. Otherwise shows a list of similar items.
-                execute_stage_0(meals, storage);
+                execute_stage_0(meals, storage, undo);
                 stage++;
                 break;
             case 1:
                 //Checks user input for index. Deletes item indicated by index on previously shown list.
-                execute_stage_1(meals, storage);
+                execute_stage_1(meals, storage, undo);
                 break;
             default:
                 //Exits execute loop if command enters invalid state
@@ -68,7 +69,7 @@ public class DeleteExerciseCommand extends Command {
      * @param meals the MealList object in which the meals are supposed to be added
      * @param storage the storage object that handles all reading and writing to files
      */
-    private void execute_stage_0(MealList meals, Storage storage) {
+    private void execute_stage_0(MealList meals, Storage storage, Undo undo) {
         HashMap<String, Integer> storedExercises = meals.getExerciseList().getStoredExercises();
 
         Integer perfectMatchValue = storedExercises.get(keywordStr);
@@ -87,6 +88,8 @@ public class DeleteExerciseCommand extends Command {
             int lastIdx = deleteCandidateKeys.size() - 1;
             ui.showMessage("Success! " + deleteCandidateKeys.get(lastIdx)
                     + " has been deleted from the list of exercises.");
+            undo.undoDeleteExercise(deleteCandidateKeys.get(lastIdx),
+                    meals.getExerciseList().getStoredExercises().get(deleteCandidateKeys.get(lastIdx)));
             meals.getExerciseList().getStoredExercises().remove(deleteCandidateKeys.get(lastIdx));
             try {
                 storage.writeFile(meals);
@@ -108,7 +111,7 @@ public class DeleteExerciseCommand extends Command {
      * @param meals the MealList object in which the meals are supposed to be added
      * @param storage the storage object that handles all reading and writing to files
      */
-    private void execute_stage_1(MealList meals, Storage storage) {
+    private void execute_stage_1(MealList meals, Storage storage, Undo undo) {
         int deleteIdx;
 
         try {
@@ -131,6 +134,8 @@ public class DeleteExerciseCommand extends Command {
 
         ui.showMessage("Success! " + deleteCandidateKeys.get(deleteIdx - 1)
                 + " has been deleted from the list of exercises.");
+        undo.undoDeleteExercise(deleteCandidateKeys.get(deleteIdx - 1),
+                meals.getExerciseList().getStoredExercises().get(deleteCandidateKeys.get(deleteIdx - 1)));
         meals.getExerciseList().getStoredExercises().remove(deleteCandidateKeys.get(deleteIdx - 1));
         try {
             storage.writeFile(meals);
@@ -139,4 +144,6 @@ public class DeleteExerciseCommand extends Command {
         }
         isDone = true;
     }
+
+
 }

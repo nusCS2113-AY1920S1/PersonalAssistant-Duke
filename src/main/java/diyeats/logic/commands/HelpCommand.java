@@ -2,6 +2,7 @@ package diyeats.logic.commands;
 
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
@@ -40,7 +41,7 @@ public class HelpCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         ui.showLine();
         ArrayList<String> helpLines = new ArrayList<>();
         try {

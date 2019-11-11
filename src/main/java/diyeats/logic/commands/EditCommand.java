@@ -3,6 +3,7 @@ package diyeats.logic.commands;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
@@ -67,12 +68,13 @@ public class EditCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         if (this.mealIndex >= meals.getMealsList(localDate).size()) {
             ui.showMessage("Edit meal index is out of bounds. Edit not performed");
             return;
         }
         Meal oldMeal = meals.getMealsList(localDate).get(mealIndex);
+        undo.undoEdit(mealIndex, oldMeal);
         Meal updatedMeal = getUpdatedMeal(oldMeal, this.nutritionInfoMap);
         meals.getMealsList(localDate).set(mealIndex, updatedMeal);
 

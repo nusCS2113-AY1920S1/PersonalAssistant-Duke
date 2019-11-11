@@ -2,11 +2,13 @@ package diyeats.logic.commands;
 
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 //@@author HashirZahir
 /**
@@ -24,7 +26,7 @@ public class ClearCommand extends Command {
      */
     public ClearCommand(LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;
-        this.endDate = endDate;
+        this.endDate = endDate.plusDays(1);
     }
 
     // This constructor called if there are issues parsing user input as dates.
@@ -41,12 +43,15 @@ public class ClearCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {
         ui.showLine();
+        undo.undoClearStage1();
         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+            undo.undoClearStage2((ArrayList)meals.getMealsList(date).clone());
             meals.deleteAllMealsOnDate(date);
         }
-        ui.showCleared(dateFormat.format(startDate), dateFormat.format(endDate));
+        undo.undoClearStage3();
+        ui.showCleared(dateFormat.format(startDate), dateFormat.format(endDate.minusDays(1)));
         try {
             storage.writeFile(meals);
         } catch (ProgramException e) {

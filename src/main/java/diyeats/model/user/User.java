@@ -2,7 +2,6 @@ package diyeats.model.user;
 
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
-import diyeats.model.wallet.Account;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -105,6 +104,10 @@ public class User {
                 calculateTargetCalories();
             }
         }
+    }
+
+    public void clearGoal() {
+        this.goal = null;
     }
 
     public void setName(String name) {

@@ -3,6 +3,7 @@ package diyeats.logic.commands;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.ExerciseList;
 import diyeats.model.meal.MealList;
+import diyeats.model.undo.Undo;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
@@ -43,8 +44,13 @@ public class AddExerciseCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) throws ProgramException {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) throws ProgramException {
         ExerciseList exerciseList = meals.getExerciseList();
+        if (exerciseList.getStoredExercises().containsKey(this.exerciseNameStr)) {
+            undo.undoAddExercise(this.exerciseNameStr, exerciseList.getStoredExercises().get(this.exerciseNameStr));
+        }  else {
+            undo.undoAddExercise(this.exerciseNameStr, -1);
+        }
         exerciseList.addStoredExercises(this.exerciseNameStr, this.exerciseValueInt);
         meals.setExerciseList(exerciseList);
         try {
@@ -53,5 +59,31 @@ public class AddExerciseCommand extends Command {
             ui.showMessage(e.getMessage());
         }
         ui.showMessage("The add exercise command is successful!");
+    }
+
+    public void undo(MealList meals, Storage storage, User user, Wallet wallet) {
+        if (this.exerciseValueInt == -1) {
+            ExerciseList exerciseList = meals.getExerciseList();
+            exerciseList.removeStoredExercises(this.exerciseNameStr);
+        } else {
+            ExerciseList exerciseList = meals.getExerciseList();
+            exerciseList.addStoredExercises(this.exerciseNameStr, this.exerciseValueInt);
+        }
+        try {
+            storage.writeExercises(meals);
+        } catch (ProgramException e) {
+            ui.showMessage(e.getMessage());
+        }
+    }
+
+    public void undoForDelete(MealList meals, Storage storage, User user, Wallet wallet) {
+        ExerciseList exerciseList = meals.getExerciseList();
+        exerciseList.addStoredExercises(this.exerciseNameStr, this.exerciseValueInt);
+        meals.setExerciseList(exerciseList);
+        try {
+            storage.writeExercises(meals);
+        } catch (ProgramException e) {
+            ui.showMessage(e.getMessage());
+        }
     }
 }
