@@ -224,7 +224,7 @@ The parameters to be edited must begin with `-KEYWORD` followed by the edit.
 
 Editing the description and recurrence of the first task of the list is as follows. +
 
-edit 1 -desc gym -r daily
+    edit 1 -desc gym -r daily
 
 [NOTE]
 The order of the parameters does not matter!
