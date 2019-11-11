@@ -3,15 +3,11 @@ package seedu.duke;
 import org.junit.jupiter.api.Test;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.task.TaskList;
-import seedu.duke.task.command.TaskLinkCommand;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
 import seedu.duke.task.entity.ToDo;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -131,5 +127,58 @@ public class TaskListTest {
         } catch (CommandParseHelper.CommandParseException e) {
             fail();
         }
+    }
+
+    @Test
+    public void setDoAfterTest() {
+        TaskList taskList = createTaskList();
+
+        //positive cases
+        String testResult1 = "Do after task testing a has been added to task 2";
+        String testResult2 = "Do after task test b  has been added to task 6";
+        String testResult3 = "Do after task doafter descrip has been added to task 6";
+        String testResult4 = "Do after task -/abc has been added to task 3";
+        try {
+            assertEquals(testResult1, taskList.setDoAfter(1, "testing a"));
+            assertEquals(testResult2, taskList.setDoAfter(5, "test b "));
+            assertEquals(testResult3, taskList.setDoAfter(5, "doafter descrip"));
+            assertEquals(testResult4, taskList.setDoAfter(2, "-/abc"));
+        } catch (CommandParseHelper.CommandParseException e) {
+            fail("Unable to parse input");
+        }
+
+        // negative cases - invalid index
+        assertThrows(CommandParseHelper.CommandParseException.class, () ->
+                taskList.setDoAfter(-1, "abc"));
+        assertThrows(CommandParseHelper.CommandParseException.class, () ->
+                taskList.setDoAfter(100000, "abc"));
+    }
+
+    @Test
+    public void setTimeTest() {
+        TaskList taskList = createTaskList();
+
+        // positive cases
+        String testResult1 = "Time for task 4 has been changed to 11/11/2019 0800";
+        String testResult2 = "Time for task 6 has been changed to 03/01/2019 0659";
+        String testResult3 = "Time for task 6 has been changed to 31/08/2019 1334";
+        try {
+            assertEquals(testResult1, taskList.setTime(3, "11/11/2019 0800"));
+            assertEquals(testResult2, taskList.setTime(5, "03/01/2019 0659"));
+            assertEquals(testResult3, taskList.setTime(5, "31/08/2019 1334"));
+        } catch (CommandParseHelper.CommandParseException e) {
+            fail("Unable to parse input");
+        }
+
+        // negative cases - invalid index
+        assertThrows(CommandParseHelper.CommandParseException.class, () ->
+                taskList.setTime(-1, "11/11/2019 0200"));
+        assertThrows(CommandParseHelper.CommandParseException.class, () ->
+                taskList.setTime(100000, "04/05/2020 2113"));
+        // invalid description string
+        assertThrows(CommandParseHelper.CommandParseException.class, () ->
+                taskList.setTime(2, "-/abc"));
+        assertThrows(CommandParseHelper.CommandParseException.class, () ->
+                taskList.setTime(2, "29/02/2019 1200"));
     }
 }
