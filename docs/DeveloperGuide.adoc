@@ -2410,8 +2410,8 @@ you might want to change it back to `DBB Vickers Account` or you can choose to d
 There is enough money in the `investment` account to add the `bond`.
 
 .. Test case:
-`/add /bonds /name September SSB /amount 1000 /rate 1.65 /year 7 /date 1/10/2019 /from BBB Vickers Account` +
-Expected: New details of the September SSB `bond` being displayed after being added.
+`/add /bonds /name test SSB /amount 1000 /rate 1.65 /year 7 /date 1/10/2019 /from BBB Vickers Account` +
+Expected: New details of the test SSB `bond` being displayed after being added.
 
 [NOTE]
 ====
@@ -2425,12 +2425,16 @@ If you have previously deleted `BBB Vickers Account`, you might want to add it b
 .. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
 
 .. Test case:
-`/edit /bonds /from BBB Vickers Account /name September SSB /rate 1.90` +
-Expected: Updated rate of the September SSB `bond` being displayed after being edited.
+`/edit /bonds /from BBB Vickers Account /name test SSB /rate 1.90` +
+Expected: Updated rate of the test SSB `bond` being displayed after being edited.
 
 . Editing the years of an existing `investment` `bond` tied to an existing `investment` account
 
 .. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
+
+.. Test case:
+`/edit /bonds /from BBB Vickers Account /name test SSB /year 10` +
+Expected: Updated year of the test SSB `bond` being displayed after being edited.
 
 [NOTE]
 ====
@@ -2444,7 +2448,7 @@ If you have previously deleted `BBB Vickers Account`, you might want to add it b
 .. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
 
 .. Test case:
-`/delete /bonds /from BBB Vickers Account /name September SSB` +
+`/delete /bonds /from BBB Vickers Account /name test SSB` +
 Expected: Details of the deleted `bond` being displayed after being deleted.
 
 [NOTE]
