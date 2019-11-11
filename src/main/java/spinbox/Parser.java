@@ -29,6 +29,7 @@ public class Parser {
     private static final String LOGGER_INVALID_COMMAND = "Invalid command entered, error propagated upwards.";
     private static final String EXITING_COMMAND_BUILDER = "Exiting static method commandBuilder with pageData: ";
     private static final String ENTERING_COMMAND_BUILDER = "Entering static method commandBuilder";
+    private static final String PAGE_TRACE_SET = "Page trace set";
     private static final int PAGEDATA_COMPONENT_MAX = 10;
 
     private static ArrayDeque<String> pageTrace;
@@ -41,7 +42,7 @@ public class Parser {
     public static void setPageTrace(ArrayDeque<String> pageTraceNew) {
         LOGGER.setUseParentHandlers(true);
         LOGGER.setLevel(Level.WARNING);
-        LOGGER.info("Page trace set");
+        LOGGER.info(PAGE_TRACE_SET);
         for (String string : pageTraceNew) {
             LOGGER.fine(string);
         }

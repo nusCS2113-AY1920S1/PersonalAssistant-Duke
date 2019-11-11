@@ -544,7 +544,7 @@ public class MainWindow extends GridPane {
                 Schedulable schedulable = ((Schedulable) task);
                 dates += schedulable.getStartDate().toString();
                 if (TaskType.taskWithBothDates().contains(task.getTaskType())) {
-                    dates += " " + schedulable.getEndDate().toString();
+                    dates += " to " + schedulable.getEndDate().toString();
                     dates = "At: " + dates;
                 } else {
                     dates = "By: " + dates;

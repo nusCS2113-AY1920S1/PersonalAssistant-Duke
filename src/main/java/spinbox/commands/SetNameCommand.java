@@ -136,14 +136,14 @@ public class SetNameCommand extends Command {
                     } else {
                         doneStatus = 0;
                     }
-                    if (taskType.equals("EVENT") || taskType.equals("EXAM") || taskType.equals("LAB")
-                            || taskType.equals("LECTURE") || taskType.equals("TUTORIAL")) {
+                    if (taskSelected.isSchedulable() && !taskType.equals("DEADLINE")) {
                         start = new DateTime(taskDescription.substring(taskDescription.lastIndexOf("(at: ") + 5,
                                 taskDescription.lastIndexOf(" to")));
                         end = new DateTime(taskDescription.substring(taskDescription.lastIndexOf("to ") + 3,
                                 taskDescription.lastIndexOf(")")));
                     } else if (taskType.equals("DEADLINE")) {
-                        start = new DateTime(taskDescription.substring(taskDescription.lastIndexOf("(by: ")));
+                        start = new DateTime(taskDescription.substring(taskDescription.lastIndexOf("(by: ") + 5,
+                                taskDescription.lastIndexOf(")")));
                         end = null;
                     } else {
                         start = null;

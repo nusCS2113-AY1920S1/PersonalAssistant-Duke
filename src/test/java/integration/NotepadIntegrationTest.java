@@ -8,12 +8,13 @@ import spinbox.containers.ModuleContainer;
 import spinbox.containers.Notepad;
 import spinbox.entities.Module;
 
-import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
-import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.InputException;
 import spinbox.exceptions.InvalidIndexException;
 import spinbox.exceptions.SpinBoxException;
+import spinbox.exceptions.FileCreationException;
+import spinbox.exceptions.CorruptedDataException;
+import spinbox.exceptions.DateFormatException;
 
 import java.util.ArrayDeque;
 import java.util.List;
@@ -26,8 +27,54 @@ public class NotepadIntegrationTest {
     private Module testModule;
     private Notepad testPad;
     private ArrayDeque<String> pageTrace;
-    private Command command;
     private Ui ui;
+
+    /**
+     * Clears the noteList of any notes that are stored from previous tests.
+     * @param notes The noteList that is used to store notes from tests.
+     * @throws DataReadWriteException If there is an error reading/writing to the files.
+     * @throws InvalidIndexException If an invalid index is entered.
+     */
+    private void clearNotesList(List<String> notes) throws DataReadWriteException, InvalidIndexException {
+        while (notes.size() > 0) {
+            testPad.removeLine(0);
+        }
+    }
+
+    /**
+     * Initialize the set up which creates a test module and adds the test module into the module container,
+     * as well as add a new note into the noteList under the test module.
+     * @throws FileCreationException If there is an error when creating new files.
+     * @throws DataReadWriteException If there is an error reading/writing to the files.
+     * @throws CorruptedDataException If the data within the files have been corrupted.
+     * @throws DateFormatException If an invalid date format is provided.
+     * @throws InvalidIndexException If an invalid index is entered.
+     */
+    private void initializeSetUp() throws FileCreationException, DataReadWriteException, CorruptedDataException,
+            DateFormatException, InvalidIndexException {
+        testContainer = new ModuleContainer();
+        testModule = new Module("TESTMOD", "Test Module");
+        testContainer.addModule(testModule);
+
+        testPad = testModule.getNotepad();
+        List<String> notes = testPad.getNotes();
+        clearNotesList(notes);
+        testPad.addLine("test line0");
+
+        pageTrace = new ArrayDeque<>();
+        ui = new Ui(true);
+    }
+
+    /**
+     * Executes the command that is provided to the Parser.
+     * @param userInput The String input provided to the test.
+     * @throws SpinBoxException If there are storage errors or input errors.
+     */
+    private void executeCommand(String userInput) throws SpinBoxException {
+        Parser.setPageTrace(pageTrace);
+        Command command = Parser.parse(userInput);
+        command.execute(testContainer, pageTrace, ui, false);
+    }
 
     @Test
     public void loadDataSuccessful_AddLinesThenManualClear_successfulRepopulationOfData() throws
@@ -50,24 +97,10 @@ public class NotepadIntegrationTest {
     @Test
     public void setNameSuccessful_setNameOfNoteToANewName_noteDescriptionSuccessfullySet() throws
             SpinBoxException {
-        testContainer = new ModuleContainer();
-        testModule = new Module("TESTMOD", "Test Module");
-        testContainer.addModule(testModule);
-
-        testPad = testModule.getNotepad();
-        List<String> notes = testPad.getNotes();
-        while (notes.size() > 0) {
-            testPad.removeLine(0);
-        }
-        testPad.addLine("test line0");
-
-        pageTrace = new ArrayDeque<>();
-        ui = new Ui(true);
+        initializeSetUp();
 
         String setNameForNote1 = "set-name TESTMOD / note 1 to: test line1";
-        Parser.setPageTrace(pageTrace);
-        command = Parser.parse(setNameForNote1);
-        command.execute(testContainer, pageTrace, ui, false);
+        executeCommand(setNameForNote1);
 
         assertEquals(testPad.getLine(0), "test line1");
         testContainer.removeModule(testModule.getModuleCode(),testModule);
@@ -76,25 +109,11 @@ public class NotepadIntegrationTest {
     @Test
     public void setNameUnsuccessful_invalidIndexUsed_exceptionThrown() throws
             SpinBoxException {
-        testContainer = new ModuleContainer();
-        testModule = new Module("TESTMOD", "Test Module");
-        testContainer.addModule(testModule);
-
-        testPad = testModule.getNotepad();
-        List<String> notes = testPad.getNotes();
-        while (notes.size() > 0) {
-            testPad.removeLine(0);
-        }
-        testPad.addLine("test line0");
-
-        pageTrace = new ArrayDeque<>();
-        ui = new Ui(true);
+        initializeSetUp();
 
         try {
             String setNameForNote1 = "set-name TESTMOD / note 2 to: test line1";
-            Parser.setPageTrace(pageTrace);
-            command = Parser.parse(setNameForNote1);
-            command.execute(testContainer, pageTrace, ui, false);
+            executeCommand(setNameForNote1);
             fail();
         } catch (InvalidIndexException e) {
             testContainer.removeModule(testModule.getModuleCode(),testModule);
@@ -105,25 +124,11 @@ public class NotepadIntegrationTest {
     @Test
     public void setDateUnsuccessful_setDateUsedOnNonSchedulableItems_exceptionThrown() throws
             SpinBoxException {
-        testContainer = new ModuleContainer();
-        testModule = new Module("TESTMOD", "Test Module");
-        testContainer.addModule(testModule);
-
-        testPad = testModule.getNotepad();
-        List<String> notes = testPad.getNotes();
-        while (notes.size() > 0) {
-            testPad.removeLine(0);
-        }
-        testPad.addLine("test line0");
-
-        pageTrace = new ArrayDeque<>();
-        ui = new Ui(true);
+        initializeSetUp();
 
         try {
             String setDateForNote1 = "set-date TESTMOD / note 1 to: tomorrow";
-            Parser.setPageTrace(pageTrace);
-            command = Parser.parse(setDateForNote1);
-            command.execute(testContainer, pageTrace, ui, false);
+            executeCommand(setDateForNote1);
             fail();
         } catch (InputException e) {
             testContainer.removeModule(testModule.getModuleCode(),testModule);
