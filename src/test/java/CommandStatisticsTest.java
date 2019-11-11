@@ -87,7 +87,47 @@ public class CommandStatisticsTest {
         assertEquals("No receipts found in the list", output);
     }
 
-    //add test for only income receipts
-    //add test for receipts of same tag for income and expense
+    @Test
+    void onlyIncomeReceipt() {
+        StorageManager storageManager = new StorageManager();
+
+        IncomeReceipt receipt1 = new IncomeReceipt(4.0);
+        receipt1.addTag("food");
+        receipt1.setDate(LocalDate.parse("2019-02-02"));
+        storageManager.getWallet().addReceipt(receipt1);
+
+        CommandStatistics s1 = new CommandStatistics("stats food");
+        s1.execute(storageManager);
+        String output = s1.getInfoCapsule().getOutputStr();
+        assertEquals("NaN% of your wallet expenses is spent on food\n"
+                + "You spent a total of $0.00 on food\n\n"
+                + "1. [Income, food] $4.00 2019-02-02\n\n", output);
+
+    }
+
+
+    @Test
+    void incomeAndExpense() {
+        StorageManager storageManager = new StorageManager();
+
+        IncomeReceipt receipt1 = new IncomeReceipt(4.0);
+        receipt1.addTag("food");
+        receipt1.setDate(LocalDate.parse("2019-02-02"));
+        storageManager.getWallet().addReceipt(receipt1);
+
+        Receipt receipt2 = new Receipt(4.0);
+        receipt2.addTag("food");
+        receipt2.setDate(LocalDate.parse("2019-02-01"));
+        storageManager.getWallet().addReceipt(receipt2);
+
+        CommandStatistics s1 = new CommandStatistics("stats food");
+        s1.execute(storageManager);
+        String output = s1.getInfoCapsule().getOutputStr();
+        assertEquals("100.00% of your wallet expenses is spent on food\n"
+                + "You spent a total of $4.00 on food\n\n"
+                + "1. [Income, food] $4.00 2019-02-02\n"
+                + "2. [Expenses, food] $4.00 2019-02-01\n\n", output);
+
+    }
 
 }
