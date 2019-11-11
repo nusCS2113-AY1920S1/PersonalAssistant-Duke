@@ -1,4 +1,4 @@
-= SGTravel 
+= SGTravel
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2113T-W13-3/main[image:https://travis-ci.org/AY1920S1-CS2113T-W13-3/main.svg?branch=master[Build Status]]
@@ -20,7 +20,7 @@ endif::[]
 * This app has route planning, profile page, edit location and recommended itineraries feature up and running.
 * The latest release, version 1.4 was completed on 11/11/2019
 * The project showcases what we have learnt from our OOP and Software Engineering module and was made in the AY19/20 Semester 1 iteration of CS2113/T
-* This project was originally expanded on the Duke Chatbot project. 
+* This project was originally expanded on the Duke Chatbot project.
 * Project by - Daniel, Hong Chuan, Sukrut and Jefferson!
 
 == Site Map

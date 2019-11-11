@@ -104,14 +104,14 @@ public interface Model {
 
     /**
      * Returns the itinerary hash-map keyed by their names.
-     * 
+     *
      * @return The list of saved itineraries.
      */
     HashMap<String,Itinerary> getItineraryTable();
 
     /**
      * Saves the most recent recommendation.
-     * 
+     *
      * @param itinerary The recent recommendation.
      */
     void setRecentItinerary(Itinerary itinerary) throws AddListFailException;
@@ -125,21 +125,21 @@ public interface Model {
 
     /**
      * Stores a new itinerary to storage.
-     * 
+     *
      * @param itinerary The itinerary to be saved.
      */
     void setNewItinerary(Itinerary itinerary) throws ParseException;
 
     /**
      * Stores recently recommended itinerary.
-     * 
+     *
      * @param newName The new name for the itinerary.
      */
     void confirmRecentItinerary(String newName) throws AddListFailException;
 
     /**
      * Deletes the requested itinerary from storage.
-     * 
+     *
      * @param name The name of the itinerary to be "done" (deleted).
      */
     void doneItinerary(String name) throws NoSuchItineraryException;

@@ -24,7 +24,6 @@ public class DoneParser extends CommandParser {
 
     /**
      * Parses the user input and constructs DoneCommand object.
-     * 
      * @return DoneCommand object.
      * @throws ParseException If DoneCommand object cannot be created.
      */

@@ -30,7 +30,7 @@
 
 https://docs.google.com/document/d/1jau7lCh6TdFEZnxJQyfkELXFryA56I4-Jf6dzDFwSI0/edit?usp=sharing
 
-# Tutorials 
+# Tutorials
 
 Duke Increment | Tutorial
 ---------------|---------------

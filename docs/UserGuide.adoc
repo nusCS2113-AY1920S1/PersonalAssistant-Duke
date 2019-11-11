@@ -318,13 +318,13 @@ Format: `recommend itinerary between START_DATE and END_DATE`
 [NOTE]
 ====
 * 23/04/20 to 25/04/20 is regarded as a 3 day trip.
-* Dates entered can only be in the future and valid with respects to each other. (Start date must be before End date etc.) 
+* Dates entered can only be in the future and valid with respects to each other. (Start date must be before End date etc.)
 ====
 
 [WARNING]
 ====
 This command still works if you enter 23/04/20 and 31/04/20 (invalid date). This is just the
- Java Library automatically changing 31/04/20 to 01/05/20. 
+ Java Library automatically changing 31/04/20 to 01/05/20.
 Hence, do not enter invalid dates (This is not a bug, the smart feature is enabled by default).
 ====
 
@@ -346,8 +346,8 @@ Format: `addThisList NEW_ITINERARY_NAME`
 
 [WARNING]
 ====
-* You must enter this command only after the app has recommended you a list. 
-* You cannot save the same recommendation list twice, this will result in an error. 
+* You must enter this command only after the app has recommended you a list.
+* You cannot save the same recommendation list twice, this will result in an error.
 ====
 
 image::AddThisListCommand.png[width="365" height="497"]
@@ -369,21 +369,21 @@ Format: `newItinerary START_DATE END_DATE ITINERARY_NAME DAY_NUMBER /venue VENUE
 
 [NOTE]
 ====
-* Each itinerary day can have any number of venues and todos.  
+* Each itinerary day can have any number of venues and todos.
 * Every venue must come with at least 2 todos.
-* Dates must be valid with respect to each other and be in the future. 
-* If you enter dates with 5 days in between them. A list containing the acitivities for 5 days must be specified.  
+* Dates must be valid with respect to each other and be in the future.
+* If you enter dates with 5 days in between them. A list containing the acitivities for 5 days must be specified.
 ====
 
 [WARNING]
 ====
-* You cannot re-enter a list with the same name.  
+* You cannot re-enter a list with the same name.
 * You cannot have an itinerary name with spaces.
-* Adding 2 of the same day numbers results in an error. (Putting two day 1's for example) 
-* Adding identical venues twice in the same day will show only one instance but is still a valid input. 
+* Adding 2 of the same day numbers results in an error. (Putting two day 1's for example)
+* Adding identical venues twice in the same day will show only one instance but is still a valid input.
 ====
 
-image::NewItineraryCommand.png[width="377" height="485"] 
+image::NewItineraryCommand.png[width="377" height="485"]
 
 Examples:
 
@@ -402,7 +402,7 @@ Format: `listItinerary`
 
 [NOTE]
 ====
-* Enter the command exactly with no whitespaces.  
+* Enter the command exactly with no whitespaces.
 ====
 Example Output:
 
@@ -704,7 +704,7 @@ Examples:
 * `routeNodeNearby 9 6`
 
 === Editing a Route: `routeEdit`
- 
+
 Edits a specific field in a Route. +
 Format: `routeEdit INDEX_ROUTE FIELD VALUE`
 
