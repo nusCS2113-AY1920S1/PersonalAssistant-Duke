@@ -38,8 +38,13 @@ public class SpecializationPageStorage {
      * Specialization.txt and put the details into a HashMap.
      *
      * @return Returns the HashMap of specMap,
+<<<<<<< HEAD
+     * key is the specialization title and the value is
+     * list of technical electives under that specialization.
+=======
      *     key is the specialization title and the value is
      *     list of technical electives under that specialization.
+>>>>>>> 71056c071ad3642f49ddb4af5c29b09b20be25ad
      * @throws FileNotFoundException catch the error if the read file fails.
      */
     public HashMap<String, ArrayList<ModuleCategory>> readFromSpecializationFile() throws FileNotFoundException {

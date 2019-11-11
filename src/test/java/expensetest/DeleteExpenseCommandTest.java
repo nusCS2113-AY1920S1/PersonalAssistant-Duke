@@ -2,6 +2,7 @@
 
 package expensetest;
 
+
 import gazeeebo.ui.Ui;
 import gazeeebo.commands.expenses.DeleteExpenseCommand;
 import org.junit.jupiter.api.AfterEach;
@@ -13,6 +14,10 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -84,6 +89,7 @@ public class DeleteExpenseCommandTest {
     void testDeleteNotInExpenseCommand() throws IOException {
         HashMap<LocalDate, ArrayList<String>> map = new HashMap<>();
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<>();
+
         Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
         oldExpenses.push(expenses);
         ArrayList<String> itemAndPriceList1 = new ArrayList<>();

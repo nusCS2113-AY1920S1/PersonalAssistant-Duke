@@ -2,6 +2,7 @@
 
 package expensetest;
 
+
 import gazeeebo.ui.Ui;
 import gazeeebo.commands.expenses.AddExpenseCommand;
 import org.junit.jupiter.api.AfterEach;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.*;
@@ -109,6 +111,7 @@ public class AddExpenseCommandTest {
     void testAddWrongPriceFormatExpenseCommand() {
         HashMap<LocalDate, ArrayList<String>> map = new HashMap<>();
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<>();
+
         Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
         oldExpenses.push(expenses);
         ui.fullCommand = "add coffee,4,2019-09-09";
