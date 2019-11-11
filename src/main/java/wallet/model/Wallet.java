@@ -74,15 +74,6 @@ public class Wallet {
     }
 
     /**
-     * Sets the RecordList object.
-     *
-     * @param recordList The RecordList object.
-     */
-    public void setRecordList(RecordList recordList) {
-        this.recordList = recordList;
-    }
-
-    /**
      * Returns the ExpenseList object.
      *
      * @return The ExpenseList object.

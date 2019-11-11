@@ -5,7 +5,6 @@ package wallet.logic.command;
 import wallet.exception.WrongParameterFormat;
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
-import wallet.reminder.Reminder;
 import wallet.ui.Ui;
 
 public class ReminderCommand extends Command {
@@ -19,11 +18,8 @@ public class ReminderCommand extends Command {
     public static final String MESSAGE_FAILURE_REMINDER_OFF = "It looks like you already have reminders turned off!";
     public static final String MESSAGE_SUCCESS_REMINDER_OFF = "Got it. I've turned off reminders!";
     public static final String MESSAGE_SUCCESS_REMINDER_SET = "Got it. I've set reminders to notify every ";
-    public static final String MESSAGE_FAILURE_REMINDER_SET = "Sorry! It looks like setting reminder time failed!";
 
-    private Reminder reminder = null;
     private String input;
-    private Ui ui;
     private int timeInSeconds;
 
     public ReminderCommand(String input) {

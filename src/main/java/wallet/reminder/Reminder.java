@@ -2,13 +2,11 @@
 
 package wallet.reminder;
 
-import wallet.logic.LogicManager;
-import wallet.model.record.LoanList;
 import wallet.thread.ReminderThread;
 
 public class Reminder {
 
-    private LoanList loanList;
+
     private boolean autoRemind;
     private int timeInSeconds;
     private ReminderThread thread;
@@ -17,8 +15,7 @@ public class Reminder {
      * The constructor for the Reminder object.
      */
     public Reminder() {
-        this.loanList = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList()
-                .getState()).getLoanList();
+
         autoRemind = true;
         timeInSeconds = 1800; //set default time interval of auto remind to be 30 minutes
     }
@@ -65,14 +62,5 @@ public class Reminder {
      */
     public void setTimeInSeconds(int timeInSeconds) {
         this.timeInSeconds = timeInSeconds;
-    }
-
-    /**
-     * Shows the time interval in seconds.
-     *
-     * @return The time interval in seconds.
-     */
-    public int getTimeInSeconds() {
-        return this.timeInSeconds;
     }
 }

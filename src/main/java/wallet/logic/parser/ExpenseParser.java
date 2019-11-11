@@ -106,7 +106,7 @@ public class ExpenseParser {
                 expenseList.editExpense(index, e);
                 expenseDate = expenseDate.plusMonths(1);
                 while (expenseDate.getMonthValue() <= currentMonth || expenseDate.getYear() < currentYear) {
-                    Expense expense = null;
+                    Expense expense;
                     if (expenseDate.getMonthValue() == currentMonth && expenseDate.getYear() == currentYear) {
                         expense = new Expense(e.getDescription(), expenseDate,
                                 e.getAmount(), e.getCategory(), true, RecurrenceRate.MONTHLY);
@@ -120,5 +120,4 @@ public class ExpenseParser {
             }
         }
     }
-    //@@author
 }

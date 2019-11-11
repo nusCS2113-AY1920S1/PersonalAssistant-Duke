@@ -116,18 +116,6 @@ public class ContactList {
     }
 
     /**
-     * Creates Contact object.
-     *
-     * @param name     Name of the contact.
-     * @param detail   Details of the contact.
-     * @param phoneNum Phone Number of the contact.
-     * @return The Contact Object.
-     */
-    public Contact createContact(String name, String detail, String phoneNum) {
-        return new Contact(name, detail, phoneNum);
-    }
-
-    /**
      * Finds and returns contact index using its id.
      *
      * @param id The id of the contact to find.

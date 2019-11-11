@@ -24,8 +24,6 @@ public class AddCommandParser implements Parser<AddCommand> {
     public static final String MESSAGE_ERROR_WRONG_DATETIME_FORMAT = "Wrong date format, use \"dd/MM/yyyy\".";
     public static final String MESSAGE_ERROR_INVALID_CATEGORY
             = "Category can only be Bills, Food, Others, Shopping or Transport.";
-    public static final String MESSAGE_ERROR_INVALID_RECURRENCE_RATE
-            = "Recurrence rate can only be Daily, Weekly or Monthly.";
 
     /**
      * Returns an AddCommand object.

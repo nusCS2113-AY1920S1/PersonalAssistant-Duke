@@ -168,10 +168,6 @@ public class LogicManager {
         walletList = walletList1;
     }
 
-    public static StorageManager getStorageManager() {
-        return storageManager;
-    }
-
     /**
      * Gets list of help sections.
      *
