@@ -43,7 +43,7 @@ Responsibilities: Data
 === Claire Chan
 
 image::claysmilesoil.png[width="150", align="left"]
-{empty}[http://github.com/claysmilesoil[github]]
+{empty}[http://github.com/claysmilesoil[github]] [https://github.com/AY1920S1-CS2113T-W13-2/main/blob/master/docs/team/%5BCS2113T-W13-2%5D%5BClaire%20Chan%20Yen%20Hwa%5DPPP.pdf[portfolio]]
 
 Role: Developer +
 Responsibilities: UI
