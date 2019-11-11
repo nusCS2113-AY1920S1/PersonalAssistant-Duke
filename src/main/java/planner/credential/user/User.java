@@ -27,12 +27,12 @@ public class User {
     private static final String defaultPath = "data/userProfile.json";
     private static String path = "data/userProfile.json";
 
-    private User(int semester) {
+    public User(int semester) {
         currentSemester = semester;
         this.init();
     }
 
-    private User() {
+    public User() {
         this(0);
     }
 
