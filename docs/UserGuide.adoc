@@ -980,7 +980,9 @@ At least one of `/desc`, `/category`, `/amount` or `/date` must be used.
 
 [TIP]
 ====
-To find out which transaction to edit, use the `/list` or `/find` function to find `/transno`
+To find out which transaction to edit, use the `/list` or `/find` function to find `/transno`.
+
+Only unpaid expenditures can be edited.
 ====
 
 *Example*
@@ -1008,6 +1010,8 @@ Accidentally added a transaction that did not happen? You can delete it!
 [TIP]
 ====
 To find out which expenditure to delete, use the `/list` or `/find` function to find the expenditure number.
+
+Only unpaid expenditures can be deleted.
 ====
 
 *Example*
