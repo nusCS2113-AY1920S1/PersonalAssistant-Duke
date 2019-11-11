@@ -72,6 +72,13 @@ public class ModelManager {
 	}
 
 	/**
+	 * Sets the sales history.
+	 */
+	public static void setSalesHistory(SalesHistory salesHistoryToSet) {
+		salesHistory = salesHistoryToSet;
+	}
+
+	/**
 	 * Gets the promotion list.
 	 * @return The promotion list.
 	 */
