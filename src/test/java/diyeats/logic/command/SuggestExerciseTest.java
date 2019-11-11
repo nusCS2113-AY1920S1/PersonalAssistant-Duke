@@ -33,5 +33,29 @@ public class SuggestExerciseTest {
         } catch (Exception e) {
             fail();
         }
+
+        try {
+            Command command = new SuggestExerciseCommand(LocalDate.now(), null);
+            command.execute(dummyMealList, dummyStorage, dummyUser, dummyWallet, undo);
+            assertEquals(false, command.isDone());
+            //Should have 8 entries
+            command.setResponseStr("8");
+            command.execute(dummyMealList, dummyStorage, dummyUser, dummyWallet, undo);
+            assertEquals(true, command.isDone());
+        } catch (Exception e) {
+            fail();
+        }
+
+        try {
+            Command command = new SuggestExerciseCommand(LocalDate.now(), "cycling");
+            command.execute(dummyMealList, dummyStorage, dummyUser, dummyWallet, undo);
+            assertEquals(false, command.isDone());
+            //should have 3 entries
+            command.setResponseStr("3");
+            command.execute(dummyMealList, dummyStorage, dummyUser, dummyWallet, undo);
+            assertEquals(true, command.isDone());
+        } catch (Exception e) {
+            fail();
+        }
     }
 }
