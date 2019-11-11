@@ -1,0 +1,58 @@
+= Shaun Teo - Project Portfolio
+:site-section: AboutUs
+:stylesDir: ../stylesheets
+:imagesDir: images
+
+== PROJECT: El Duque
+== Overview
+
+El Duque is a desktop task manager application for computer science student.
+The user interacts with it through a CLI and is written in java with over >10 kLOC.
+It is enhanced from the original Duke application.
+
+== Summary of contributions
+
+* *Enhancement*: added *ability to edit tasks*
+** What it does: allows the user to edit every parameter of the task.
+It has support for filtered indexing as well.
+** Justification: This feature improves the product significantly because a user can make mistakes in creating a task and now they can rectify those mistakes.
+** Highlights: This feature cuts across several layers of the project, hence designing it in such a way to work with existing classes was a very important step.
+
+* *Enhancement*: added *pomodoro timer*
+** What it does: The Pomodoro feature is an inbuilt timer based on the pomodoro workflow.
+It allows the user to run a timer based on the 25-5 work-rest work ratio and reminds users to manage their work-rest ratio properly.
+** Justification: During work sessions, this provides the users the ability to only rely on one app to manage their work session.
+** Highlights: This feature is implemented as a Singleton as there is only one instance of this object.
+Supports adding and completing of tasks from the task list which required a dependency with the task list class.
+
+* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=shaun97[Code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed issues and milestones for v1.1 and issues for v1.4.
+*** Lead the team to ensure tasks are assigned properly and project requirements met.
+** Enhancements to existing features:
+*** Wrote test code for existing commands.
+*** Enforced code quality.
+** Documentation:
+*** Converted UserGuide from a Google Doc to an AsciiDoc to improve the formatting.
+** Tools:
+*** Implemented and managed checkstyle plugin.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::UserGuide.adoc[tag=shaun97]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+
+include::DeveloperGuide.adoc[tag=shaun97]
