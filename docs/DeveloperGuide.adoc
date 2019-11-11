@@ -100,7 +100,10 @@ This layer consists of the `WordGetter` Class, which works on the basis of the J
 === SongList
 
 This layer consists of the `SongList` Class. The `SongList` class is accessed by the `Command` class whenever the user invokes a command. This layer contains the list of Song objects. Each Song object consists of groups, bars, chords and notes. The detailed implementation of a song is depicted by Figure 2 below.
-image::diagrams/SongList.png[]
+
+image::SongList.png[]
+
+Figure 2: Detailed implementation of SongList
 
 === Storage and StorageParser
 
