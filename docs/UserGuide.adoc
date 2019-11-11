@@ -220,9 +220,11 @@ Shows a detailed view of a `Patient`. The details are displayed in separate pane
 * List of allergies
 * Medical history
 * List of `Impressions` with their associated details (the name, an excerpt of its description,
-and the number of critical items and follow-up investigations associated with it)
+and the number of critical follow-up items associated with it)
 * List of critical <<treatments, `Treatments`>> and <<evidences, `Evidences`>> (of <<priority-1, priority 1>>)
-* List of `Investigations` to follow up on (i.e. all current investigations; completed investigations should be stored as `Results`)
+* List of ALL <<treatments, `Treatments`>> and <<evidences, `Evidences`>> follow-ups. There will be items duplicated
+across the "critical" and "follow-up" lists as It's meant to give a view of two different but possibly overlapping
+categories of stuff that the user might want to view at a glance.
 
 Inherits: <<home-help,`help`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
 
