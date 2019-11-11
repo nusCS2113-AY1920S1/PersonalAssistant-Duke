@@ -60,6 +60,13 @@ public class PaymentPane extends UiPart<AnchorPane> {
     @FXML
     private ListView<Payment> paymentListView;
 
+
+    /**
+     * Constructor for PaymentPane.
+     * @param paymentList ObservableList&lt;Payment>
+     * @param sortingCriteria ObjectProperty&lt;PaymentList.SortingCriteria>
+     * @param predicate ObjectProperty&lt;Predicate>
+     */
     public PaymentPane(ObservableList<Payment> paymentList,
                        ObjectProperty<PaymentList.SortingCriteria> sortingCriteria,
                        ObjectProperty<Predicate> predicate) {

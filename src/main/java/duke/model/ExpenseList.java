@@ -39,6 +39,12 @@ public class ExpenseList extends DukeList<Expense> {
         private int viewScopeNumber;
         private ViewScopeName viewScopeName;
 
+        /**
+         * Constructor for ViewScope.
+         * @param viewScopeName String name of the viewScope
+         * @param viewScopeNumber int number of viewScope
+         * @throws DukeException when invalld viewScope name
+         */
         public ViewScope(String viewScopeName, int viewScopeNumber) throws DukeException {
             this.viewScopeNumber = viewScopeNumber;
             try {
@@ -71,8 +77,10 @@ public class ExpenseList extends DukeList<Expense> {
                     .filter(e -> {
                         boolean isRecurring = e.isRecurring();
                         int dayOfWeek = e.getTime().getDayOfWeek().getValue();
-                        LocalDate start = e.getTime().minusDays(dayOfWeek - 1).toLocalDate(); // Sunday of week of expense.
-                        LocalDate end = e.getTime().plusDays(7 - dayOfWeek).toLocalDate(); // Monday of week of expense.
+                        LocalDate start = e.getTime().minusDays(dayOfWeek - 1).toLocalDate();
+                        // Sunday of week of expense.
+                        LocalDate end = e.getTime().plusDays(7 - dayOfWeek).toLocalDate();
+                        // Monday of week of expense.
                         LocalDate current = LocalDate.now().minusWeeks(viewScopeNumber);
 
                         return (current.equals(end) || current.equals(start)
@@ -145,20 +153,9 @@ public class ExpenseList extends DukeList<Expense> {
     private StringProperty sortString;
     private StringProperty viewString;
 
-
     /**
-     * Creates a new expense list using a file for storage.
-     *
-     * @throws DukeException if the file could not be loaded from, or created.
-     */
-    /*
-    public ExpenseList(File file) throws DukeException {
-        super(file, "expense");
-        viewScope = new ViewScope(ViewScopeName.ALL);
-        sortCriteria = SortCriteria.TIME;
-        externalList = getExternalList();
-    }
-
+     * Constructor for ExpenseList.
+     * @param internalList the List&lt;Expense> object we want to populate the list with
      */
     public ExpenseList(List<Expense> internalList) {
         super(internalList, "expense");
@@ -181,14 +178,14 @@ public class ExpenseList extends DukeList<Expense> {
         totalString.setValue("Total: $" + getTotalExternalAmount());
         filterString.setValue("Filter: " + filterCriteria);
         switch (sortCriteria) {
-        case TIME:
-            sortString.setValue("Sort by: Newest");
-            break;
         case AMOUNT:
             sortString.setValue("Sort by: Largest");
             break;
         case DESCRIPTION:
             sortString.setValue("Sort by:  Alphabetical");
+            break;
+        default:
+            sortString.setValue("Sort by: Newest");
             break;
         }
         viewString.set("Viewscope: " + viewScope.getViewScopeName());

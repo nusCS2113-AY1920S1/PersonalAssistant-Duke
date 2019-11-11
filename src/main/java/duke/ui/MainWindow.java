@@ -135,6 +135,7 @@ public class MainWindow extends UiPart<Stage> {
 
         case PAYMENT:
             paymentPane.getRoot().setVisible(true);
+            break;
 
         default: //Expense pane
             expensePane.getRoot().setVisible(true);

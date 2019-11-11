@@ -58,7 +58,7 @@ public class PlanQuestionBankTest {
             PlanQuestionBank.PlanRecommendation recommendation = planQuestionBank
                     .makeRecommendation(knownAttributes);
 
-            Assertions.assertNotEquals(recommendation.recommendation, "I can't make any recommendations for you"
+            Assertions.assertNotEquals(recommendation.getRecommendation(), "I can't make any recommendations for you"
                     + " :(. Something probably went wrong");
 
             Assertions.assertFalse(recommendation.getPlanBudget().isEmpty());

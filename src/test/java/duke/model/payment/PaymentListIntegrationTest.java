@@ -29,6 +29,9 @@ public class PaymentListIntegrationTest {
 
     private final PaymentList payments = new PaymentList();
 
+    /**
+     * Setup test.
+     */
     @BeforeEach
     public void setup() {
         assertDoesNotThrow(() -> {
@@ -56,8 +59,7 @@ public class PaymentListIntegrationTest {
 
     @Test
     public void add_nullPayment_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> payments.add(null));
+        assertThrows(NullPointerException.class, () -> payments.add(null));
     }
 
     @Test
@@ -87,7 +89,8 @@ public class PaymentListIntegrationTest {
     @Test
     public void setPayment_nullEditedPayment_throwsNullPointerException() {
         payments.add(STORAGE_FEE);
-        assertThrows(NullPointerException.class, () -> payments.setPayment(1, null)); // 1-based index
+        assertThrows(NullPointerException.class, () -> payments.setPayment(1, null));
+        // 1-based index
     }
 
     @Test
@@ -140,8 +143,7 @@ public class PaymentListIntegrationTest {
 
     @Test
     public void setSortingCriteria_unidentifiableSortingCriteria_throwsDukeException() {
-        assertThrows(DukeException.class,
-                () -> payments.setSortingCriteria(UNIDENTIFIABLE_SORTING_CRITERIA));
+        assertThrows(DukeException.class, () -> payments.setSortingCriteria(UNIDENTIFIABLE_SORTING_CRITERIA));
     }
 
     @Test
@@ -170,8 +172,8 @@ public class PaymentListIntegrationTest {
 
     @Test
     public void asUnmodifiableFilteredList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-                -> payments.asUnmodifiableFilteredList().remove(0)); // 0-based
+        assertThrows(UnsupportedOperationException.class, () -> payments.asUnmodifiableFilteredList().remove(0));
+        // 0-based
     }
 
     /**

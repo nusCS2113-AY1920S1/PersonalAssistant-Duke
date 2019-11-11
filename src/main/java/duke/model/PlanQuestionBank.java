@@ -126,6 +126,11 @@ public class PlanQuestionBank {
         logger.info("QuestionBank generated successfully!");
     }
 
+    /**
+     * Constructor/getter method for this Singleton Object.
+     * @return this PlanQuestionBank object
+     * @throws DukeException on errors loading questions
+     */
     public static PlanQuestionBank getInstance() throws DukeException {
         if (planQuestionBank == null) {
             planQuestionBank = new PlanQuestionBank();
@@ -355,9 +360,9 @@ public class PlanQuestionBank {
      * Simple container for recommendation.
      */
     public class PlanRecommendation {
-        String recommendation;
-        Map<String, BigDecimal> budget;
-        List<Expense> recommendationExpenseList;
+        private String recommendation;
+        private Map<String, BigDecimal> budget;
+        private List<Expense> recommendationExpenseList;
 
         /**
          * Constructor for PlanRecommendation.
