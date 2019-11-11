@@ -71,7 +71,6 @@ public class ProfileCommands {
                 throw new InvalidFormatCommandException();
             }
             if (getInput.equals(GET_NEW_GENRE_PREF)) {
-                System.out.println("ok so far0...");
                 int genre = findGenreID(log);
                 if (genre == 0) {
                     throw new InvalidGenreNameEnteredException();
@@ -82,7 +81,6 @@ public class ProfileCommands {
                 genrePreferences.add(genre);
             }
             if (getInput.equals(GET_NEW_GENRE_RESTRICT)) {
-                System.out.println("ok so far1...");
                 int genre = findGenreID(log);
                 if (genre == 0) {
                     throw new InvalidGenreNameEnteredException();
@@ -103,10 +101,8 @@ public class ProfileCommands {
                 } else {
                     throw new InvalidFormatCommandException();
                 }
-                System.out.println("ok so far2...");
             }
             if (getInput.equals(GET_NEW_SORT)) {
-                System.out.println("ok so far..." + log);
                 if (listForFlag.size() != 1) {
                     throw new InvalidFormatCommandException();
                 }
@@ -118,15 +114,11 @@ public class ProfileCommands {
                 } catch (NumberFormatException e) {
                     throw new InvalidFormatCommandException();
                 }
-                System.out.println("ok so far..." + sortOption);
                 userProfile = getSortFromUserInput(sortOption);
-                System.out.println("ok so far3...");
             }
         }
         userProfile = userProfile.addGenreIdPreference(genrePreferences);
-        System.out.println("ok so far4...");
         userProfile = userProfile.addGenreIdRestriction(genreRestrict);
-        System.out.println("ok so far5...");
         return userProfile;
     }
 
@@ -204,10 +196,8 @@ public class ProfileCommands {
             if (getFlag.isEmpty()) {
                 if (userProfile.isAdult()) {
                     userProfile = userProfile.setAdult(false);
-                    System.out.println("ok so far...0");
                 } else {
                     userProfile = userProfile.setAdult(true);
-                    System.out.println("ok so far...1");
                 }
             } else {
                 throw new InvalidFormatCommandException();
@@ -217,14 +207,12 @@ public class ProfileCommands {
             ArrayList<String> getFlag = flagMap.get(GET_NEW_SORT);
             if (getFlag.isEmpty()) {
                 clearSortPreference();
-                System.out.println("ok so far...3");
             } else {
                 throw new InvalidFormatCommandException();
             }
         }
         userProfile = userProfile.removeGenreIdPreference(removeGenrePreferences);
         userProfile =  userProfile.removeGenreIdRestriction(removeGenreRestrict);
-        System.out.println("ok so far5...");
         return userProfile;
     }
 

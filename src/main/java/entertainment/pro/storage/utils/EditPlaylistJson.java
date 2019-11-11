@@ -1,6 +1,5 @@
 package entertainment.pro.storage.utils;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entertainment.pro.model.Playlist;
 import entertainment.pro.model.PlaylistMovieInfoObject;
@@ -56,9 +55,6 @@ public class EditPlaylistJson {
                     playlistMovies.add(new PlaylistMovieInfoObject(false, movieID, movieTitle, null,
                             movieSummary, movieRating, movieGenreIDs, movieFullPosterPath, movieFullBackdropPath,
                             false, movieReleaseDate));
-                }
-                for (PlaylistMovieInfoObject log : playlistMovies) {
-                    System.out.println(log.getTitle() + "choochoo");
                 }
                 return new Playlist(playlistName, description, playlistMovies);
             } catch (ParseException e) {

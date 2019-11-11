@@ -108,7 +108,6 @@ public class PlaylistCommands {
             Date date = log.getReleaseDateInfo();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String string = dateFormat.format(date);
-            System.out.println("help " + log.getTitle() + " " + log.getFullPosterPathInfo());
             boolean fakeType = false;
             PlaylistMovieInfoObject testMovie = new PlaylistMovieInfoObject(fakeType, log.getId(),
                     log.getTitle(), log.getReleaseDateInfo(), log.getSummaryInfo(), log.getRatingInfo(),
