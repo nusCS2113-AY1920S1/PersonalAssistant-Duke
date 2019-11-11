@@ -156,6 +156,11 @@ e.g. if the command states -time TIME, TIME is a parameter which can be used as 
 
 * Items in square brackets are optional.
 e.g. -time TIME [-tag TAG] can be used as -time 12/12/2019 1200 -tag urgent or as -time 12/12/2019 1200.
+* Commands accepting options can accept options even if they are invalid. For example, command `todo
+tutorial -priorit HIGH` will also add in the todo, but without the priority set, since the `priority` is not
+spelled correctly. We purposely designed it this way as all the tasks and email tagging can be updated.
+This allows the user to
+at least partially execute the program if he/she has mis-spelled the option name, and then update later.
 
 [NOTE]
 You are only allowed to enter alphanumeric (a-z, A-Z, 0-9), space and underscore (_) characters. All other symbols will not be accepted by Email Manager.
