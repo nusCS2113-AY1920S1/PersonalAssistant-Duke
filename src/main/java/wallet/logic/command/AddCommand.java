@@ -76,8 +76,8 @@ public class AddCommand extends Command {
                     BigDecimal monthBudget = BigDecimal.valueOf(b.getAmount());
                     BigDecimal expenseSum = BigDecimal.valueOf(wallet.getExpenseList()
                             .getMonthExpenses(b.getMonth(), b.getYear()));
-                    double remainingBudget = monthBudget.subtract(expenseSum).doubleValue();
-                    remainingBudget += b.getAccountedExpenseAmount();
+                    BigDecimal accountedAmount = BigDecimal.valueOf(b.getAccountedExpenseAmount());
+                    double remainingBudget = monthBudget.subtract(expenseSum).add(accountedAmount).doubleValue();
                     b.setExpenseTakenIntoAccount(true);
                     if (remainingBudget < 0) {
                         System.out.println(MESSAGE_EXCEED_BUDGET);

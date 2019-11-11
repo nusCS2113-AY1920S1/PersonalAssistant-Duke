@@ -3,11 +3,10 @@
 package wallet.logic.command;
 
 import wallet.model.Wallet;
-import wallet.model.record.ExpenseList;
-import wallet.model.record.LoanList;
-import wallet.model.record.Expense;
-import wallet.model.record.Loan;
+import wallet.model.record.*;
 
+import java.math.BigDecimal;
+import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -19,6 +18,9 @@ public class ImportCommand extends Command {
     private static final String MESSAGE_SUCCESS_ADD_LOAN = "Got it. I've added this loan:";
     private static final String MESSAGE_IMPORT_PROGRESS = "Importing records...";
     private static final String MESSAGE_IMPORT_FINISH = "Finish Import!";
+    public static final String MESSAGE_NEW_REMAINING_BUDGET = " is your budget left for ";
+    public static final String MESSAGE_EXCEED_BUDGET = "Your budget has exceeded!!";
+    public static final String MESSAGE_REACH_BUDGET = "You have reached your budget!!";
     private LoanList loanList = null;
     private ExpenseList expenseList = null;
 
@@ -82,6 +84,25 @@ public class ImportCommand extends Command {
             for (Expense expense : expenseData) {
                 wallet.getExpenseList().addExpense(expense);
                 LocalDate date = expense.getDate();
+
+                for (Budget b : wallet.getBudgetList().getBudgetList()) {
+                    if (b.getMonth() == date.getMonthValue() && b.getYear() == date.getYear()) {
+                        BigDecimal monthBudget = BigDecimal.valueOf(b.getAmount());
+                        BigDecimal expenseSum = BigDecimal.valueOf(wallet.getExpenseList()
+                                .getMonthExpenses(b.getMonth(), b.getYear()));
+                        BigDecimal accountedAmount = BigDecimal.valueOf(b.getAccountedExpenseAmount());
+                        double remainingBudget = monthBudget.subtract(expenseSum).add(accountedAmount).doubleValue();
+                        b.setExpenseTakenIntoAccount(true);
+                        if (remainingBudget < 0) {
+                            System.out.println(MESSAGE_EXCEED_BUDGET);
+                        } else if (remainingBudget == 0) {
+                            System.out.println(MESSAGE_REACH_BUDGET);
+                        }
+                        System.out.println("$" + remainingBudget + MESSAGE_NEW_REMAINING_BUDGET
+                                + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
+                    }
+                }
+
                 wallet.getRecordList().addRecord(expense);
                 wallet.getExpenseList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
