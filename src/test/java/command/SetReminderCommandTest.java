@@ -29,7 +29,13 @@ class SetReminderCommandTest {
     }
 
     @Test
-    void executeCaseOneTest() {
+    void setReminderOneLineCommandTest() {
+        //test case 1
+
+    }
+
+    @Test
+    void setReminderCaseOneTest() {
         try {
             String uiResponse = "Please enter the list of words.\n" + "Enter an empty line to end input";
             Command testSetReminderObject = new SetReminderCommand(1);
@@ -41,7 +47,7 @@ class SetReminderCommandTest {
     }
 
     @Test
-    void executeCaseTwoTest() {
+    void setReminderCaseTwoTest() {
         try {
             String uiResponse = "Enter next word or an empty line to end input\n";
             Command testSetReminderObject = new SetReminderCommand(2, "testWord");
@@ -52,7 +58,7 @@ class SetReminderCommandTest {
     }
 
     @Test
-    void executeCaseThreeTest() {
+    void setReminderCaseThreeTest() {
         try {
             String uiResponse = "Please enter the date and time of the reminder in the format:"
                     + "dd-MM-yyyy HHmm";
@@ -64,7 +70,7 @@ class SetReminderCommandTest {
     }
 
     @Test
-    void executeCaseFourTest() {
+    void setReminderCaseFourTest() {
         try {
             reminderWordList = new ArrayList<>();
             reminderWordList.add("testWord1");
