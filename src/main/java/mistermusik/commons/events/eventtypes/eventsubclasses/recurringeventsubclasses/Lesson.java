@@ -14,8 +14,8 @@ public class Lesson extends RecurrentEvent {
     /**
      * creates new lesson class with boolean to read from user input (assume incomplete).
      */
-    public Lesson(String description, String startDateAndTime, String EndDateAndTime) {
-        super(description, false, startDateAndTime, EndDateAndTime, 'L');
+    public Lesson(String description, String startDateAndTime, String endDateAndTime) {
+        super(description, false, startDateAndTime, endDateAndTime, 'L');
     }
 
 

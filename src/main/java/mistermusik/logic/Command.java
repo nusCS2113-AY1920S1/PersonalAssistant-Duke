@@ -2,7 +2,7 @@ package mistermusik.logic;
 
 import mistermusik.commons.Contact;
 import mistermusik.commons.Goal;
-import mistermusik.commons.Instruments.InstrumentList;
+import mistermusik.commons.instruments.InstrumentList;
 import mistermusik.commons.budgeting.CostExceedsBudgetException;
 import mistermusik.commons.events.eventtypes.Event;
 import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
@@ -46,7 +46,7 @@ public class Command {
     private static final int NO_PERIOD = -1;
 
     /**
-     * Creates a new command with the command type and specific instructions
+     * Creates a new command with the command type and specific instructions.
      *
      * @param command      The Model_Class.Command type
      * @param continuation The Model_Class.Command specific instructions
@@ -74,7 +74,8 @@ public class Command {
      * @param ui      Class containing all relevant user interface instructions.
      * @param storage Class containing access to the storage file and related instructions.
      */
-    public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments, EventDate calendarStartDate, boolean allowCalendarFrequentPrint) {
+    public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments,
+                        EventDate calendarStartDate, boolean allowCalendarFrequentPrint) {
         boolean changesMade = true;
         switch (command) {
         case "help":
@@ -191,7 +192,7 @@ public class Command {
     //@@author YuanJiayi
 
     /**
-     * check help command for printing the correct commands
+     * check help command for printing the correct commands.
      */
     private void findHelp(UI ui) {
         if (continuation.isEmpty()) {
@@ -252,10 +253,6 @@ public class Command {
                 String[] splitChecklist = continuation.split("/");
                 String[] checklistCommand = splitChecklist[0].split(" ");
                 int eventIndex = Integer.parseInt(checklistCommand[1]) - 1;
-//                if(!((events.getEvent(eventIndex).getType()=='P') || (events.getEvent(eventIndex).getType()=='L'))) {
-//                    ui.printNoSuchEvent();
-//                    return;
-//                }
                 if (checklistCommand.length == 3) {
                     int checklistIndex = Integer.parseInt(checklistCommand[2]);
                     switch (checklistCommand[0]) {
@@ -267,6 +264,9 @@ public class Command {
                     case "edit":
                         events.getEvent(eventIndex).editChecklist(checklistIndex - 1, splitChecklist[1]);
                         ui.checklistEdited(splitChecklist[1], eventIndex);
+                        break;
+
+                    default:
                         break;
                     }
                 } else {
@@ -281,6 +281,9 @@ public class Command {
                         //print goals list
                         ArrayList<String> thisChecklist = events.getEvent(eventIndex).getChecklist();
                         ui.printEventChecklist(thisChecklist, eventIndex, events.getEvent(eventIndex));
+                        break;
+
+                    default:
                         break;
                     }
                 }
@@ -339,7 +342,7 @@ public class Command {
     //@@author Ryan-Wong-Ren-Wei
 
     /**
-     * passes budget to UI for printing to output
+     * passes budget to UI for printing to output.
      */
     private void showOrSetBudget(EventList events, UI ui) {
         if (continuation.isEmpty()) {
@@ -396,7 +399,8 @@ public class Command {
         while (daysFree.size() <= 3) {
             boolean isFree = true;
             for (Event viewEvent : events.getEventArrayList()) {
-                if (viewEvent.getStartDate().getFormattedDateString().substring(0, 16).equals(dayToCheckIfFreeObject.getFormattedDateString())) {
+                if (viewEvent.getStartDate().getFormattedDateString().substring(0, 16)
+                        .equals(dayToCheckIfFreeObject.getFormattedDateString())) {
                     isFree = false;
                     break;
                 }
@@ -487,7 +491,7 @@ public class Command {
     }
 
     /**
-     * Instantiates a new event (excludes to-do) based on details passed as parameter
+     * Instantiates a new event (excludes to-do) based on details passed as parameter.
      *
      * @param entryForEvent contains all necessary info for creating new event
      * @return instantiated event
@@ -514,6 +518,8 @@ public class Command {
         case 'R':
             newEvent = new Recital(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
                     entryForEvent.getEndDate());
+            break;
+        default:
             break;
         }
         return newEvent;
@@ -673,7 +679,7 @@ public class Command {
 
                 case "achieved":
                     if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                        if(events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
+                        if (events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
                             ui.printGoalAlreadyAchieved();
                         } else {
                             events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
@@ -726,8 +732,8 @@ public class Command {
         try {
             String[] splitContact = continuation.split("/");
             String[] contactCommand = splitContact[0].split(" ");
-            if (!(contactCommand[0].equals("add") || contactCommand[0].equals("delete") ||
-                    contactCommand[0].equals("view") || contactCommand[0].equals("edit"))) {
+            if (!(contactCommand[0].equals("add") || contactCommand[0].equals("delete")
+                    || contactCommand[0].equals("view") || contactCommand[0].equals("edit"))) {
                 throw new UnsupportedOperationException();
             }
             int eventIndex = Integer.parseInt(contactCommand[1]) - 1;
@@ -770,17 +776,17 @@ public class Command {
                     }
                     char editType;
                     switch (contactCommand[3]) {
-                        case "name":
-                            editType = 'N';
-                            break;
-                        case "email":
-                            editType = 'E';
-                            break;
-                        case "phone":
-                            editType = 'P';
-                            break;
-                        default:
-                            throw new UnsupportedOperationException();
+                    case "name":
+                        editType = 'N';
+                        break;
+                    case "email":
+                        editType = 'E';
+                        break;
+                    case "phone":
+                        editType = 'P';
+                        break;
+                    default:
+                        throw new UnsupportedOperationException();
                     }
                     try {
                         int contactIndex = Integer.parseInt(contactCommand[2]) - 1;
@@ -804,6 +810,10 @@ public class Command {
     }
 
     //@@author Dng132FEI
+
+    /**
+     * Manages instruments.
+     */
     public void manageInstruments(InstrumentList instruments, UI ui) {
         try {
             if (continuation.isEmpty()) {
@@ -830,17 +840,21 @@ public class Command {
                 break;
             case "view":
                 switch (instrumentCommand[1]) {
-                    case "instruments":
-                        String listOfInstruments = instruments.getInstruments();
-                        ui.printInstruments(listOfInstruments);
-                        break;
-                    case "services":
-                        instrumentIndex = Integer.parseInt(instrumentCommand[2]);
-                        String listOfServices = instruments.getInstrumentServiceInfo(instrumentIndex);
-                        instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
-                        ui.printServices(listOfServices, instrumentIndexAndName);
-                        break;
+                case "instruments":
+                    String listOfInstruments = instruments.getInstruments();
+                    ui.printInstruments(listOfInstruments);
+                    break;
+                case "services":
+                    instrumentIndex = Integer.parseInt(instrumentCommand[2]);
+                    String listOfServices = instruments.getInstrumentServiceInfo(instrumentIndex);
+                    instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+                    ui.printServices(listOfServices, instrumentIndexAndName);
+                    break;
+                default:
+                    break;
                 }
+                break;
+            default:
                 break;
             }
         } catch (IndexOutOfBoundsException e) {
@@ -906,12 +920,12 @@ public class Command {
         }
 
         /**
-         * contains all info regarding an entry for a non-recurring event
+         * contains all info regarding an entry for a non-recurring event.
          *
          * @return organized entryForEvent object containing information required for a new event.
          */
         private EntryForEvent invoke() throws NumberFormatException, ParseException {
-            int NON_RECURRING = -1;
+            int nonRecurring = -1;
             String[] splitEvent = continuation.split("/");
             description = splitEvent[0];
 
@@ -923,18 +937,17 @@ public class Command {
                 endDate = splitDate[0] + " " + splitDate[2];
             }
 
-            if (!DateStringValidator.isValidDateForEvent(startDate) ||
-                    !DateStringValidator.isValidDateForEvent(endDate)) {
-
+            if (!DateStringValidator.isValidDateForEvent(startDate)
+                    || !DateStringValidator.isValidDateForEvent(endDate)) {
                 throw new ParseException("Invalid date for Event", 0);
             }
 
-            if (splitEvent.length == 2) {//cant find period extension of command, event is non-recurring
-                period = NON_RECURRING;
+            if (splitEvent.length == 2) { //cant find period extension of command, event is non-recurring
+                period = nonRecurring;
             } else {
                 if (command.equals("concert")) {
                     cost = Integer.parseInt(splitEvent[2]);
-                    period = NON_RECURRING;
+                    period = nonRecurring;
                 } else {
                     period = Integer.parseInt(splitEvent[2]);
                 }
@@ -944,7 +957,7 @@ public class Command {
     }
 
     /**
-     * Contains all info concerning a new entry for a ToDo
+     * Contains all info concerning a new entry for a ToDo.
      */
     private class EntryForToDo {
         private String description;
@@ -959,7 +972,7 @@ public class Command {
         }
 
         /**
-         * contains all info regarding an entry for a ToDo
+         * contains all info regarding an entry for a ToDo.
          *
          * @return organized entryForEvent information
          */

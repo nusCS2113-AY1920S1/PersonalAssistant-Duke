@@ -1,4 +1,5 @@
 //@@author YuanJiayi
+
 package mistermusik.commons;
 
 
@@ -7,6 +8,12 @@ public class Contact {
     private String email;
     private String phoneNo;
 
+    /**
+     * Creates a new contact.
+     * @param name    name to be stored
+     * @param email   email to be stored
+     * @param phoneNo phone number to be stored
+     */
     public Contact(String name, String email, String phoneNo) {
         this.name = name;
         this.email = email;

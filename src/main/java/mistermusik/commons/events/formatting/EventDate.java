@@ -81,7 +81,7 @@ public class EventDate {
     }
 
     /**
-     * Gets the Event java Date object
+     * Gets the Event java Date object.
      */
     public Date getEventJavaDate() {
         return this.javaDate;

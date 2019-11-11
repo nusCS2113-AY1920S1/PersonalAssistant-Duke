@@ -107,19 +107,22 @@ public abstract class Event implements Comparable<Event> {
             return "[" + getDoneSymbol() + "][T] " + getDescription()
                     + " BY: " + this.getStartDate().getFormattedDateString();
         } else { //multiple date entries
-            return "[" + getDoneSymbol() + "][" + getType() + "] " +
-                    getDescription() + " START: " + startEventDate.getFormattedDateString() +
-                    " END: " + endEventDate.getFormattedDateString();
+            return "[" + getDoneSymbol() + "][" + getType() + "] "
+                    + getDescription() + " START: " + startEventDate.getFormattedDateString()
+                    + " END: " + endEventDate.getFormattedDateString();
         }
     }
 
+    /**
+     * Transfers the string format for events in the file.
+     */
     public String toStringForFile() { //string that is to be saved to file.
         if (getEndDate() == null) {
-            return getDoneSymbol() + getType() + "/" + getDescription() + "/" +
-                    getStartDate().getUserInputDateString();
+            return getDoneSymbol() + getType() + "/" + getDescription() + "/"
+                    + getStartDate().getUserInputDateString();
         }
-        return getDoneSymbol() + getType() + "/" + getDescription() + "/" +
-                getStartDate().getUserInputDateString() + "/" + getEndDate().getUserInputDateString();
+        return getDoneSymbol() + getType() + "/" + getDescription() + "/"
+                + getStartDate().getUserInputDateString() + "/" + getEndDate().getUserInputDateString();
     }
 
     public char getType() {
@@ -193,6 +196,12 @@ public abstract class Event implements Comparable<Event> {
         return contactList;
     }
 
+    /**
+     * Checks the information type to be edited and edit that in the contact.
+     *
+     * @param contactIndex the index of the contact in the list.
+     * @param editType     the type of the information in the contact.
+     */
     public void editContact(int contactIndex, char editType, String newContact) {
         if (editType == 'N') {
             contactList.get(contactIndex).setName(newContact);

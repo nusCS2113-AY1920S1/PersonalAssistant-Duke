@@ -31,7 +31,7 @@ public class EventList {
     private ArrayList<Event> eventArrayList;
 
     /**
-     * compare_func codes
+     * compareFunc codes.
      */
     private static final int GREATER_THAN = 1;
     private static final int SMALLER_THAN = 2;
@@ -116,6 +116,9 @@ public class EventList {
                 case RECITAL:
                     eventArrayList.add(new Recital(description, isDone, startDateAndTime, endDateAndTime));
                     break;
+
+                default:
+                    break;
                 }
             }
         }
@@ -181,8 +184,8 @@ public class EventList {
         ArrayList<Event> tempEventList = new ArrayList<>();
 
         Event newEvent = null;
-        int ONE_SEMESTER_DAYS = 16 * 7;
-        for (int addEventCount = 0; addEventCount * period <= ONE_SEMESTER_DAYS; addEventCount++) {
+        int oneSemesterDays = 16 * 7;
+        for (int addEventCount = 0; addEventCount * period <= oneSemesterDays; addEventCount++) {
             EventDate toFormatCalendarStartDate = new EventDate(calendarStartDate.getTime());
             EventDate toFormatCalendarEndDate = new EventDate(calendarEndDate.getTime());
             if (event.getType() == 'L') {
@@ -228,13 +231,16 @@ public class EventList {
         int newEventEndTime = Integer.parseInt(newEventEndDateTime[1]);
 
         for (Event currEvent : eventArrayList) { //scan list for clashes
-            if (currEvent.getType() == 'T') continue; //skip scan if todo class
+            if (currEvent.getType() == 'T') {
+                continue; //skip scan if todo class
+            }
 
             String[] currEventStartDateTime = currEvent.getStartDate().getUserInputDateString().split(" ");
             String[] currEventEndDateTime = currEvent.getEndDate().getUserInputDateString().split(" ");
 
             if (newEventDate.equals(currEventStartDateTime[0]) && //check for same date
-                    timeClash(newEventStartTime, newEventEndTime, currEventStartDateTime[1], currEventEndDateTime[1])) { //check for time clash
+                    timeClash(newEventStartTime, newEventEndTime, currEventStartDateTime[1],
+                            currEventEndDateTime[1])) { //check for time clash
                 return currEvent; //clash found
             }
         }
@@ -309,7 +315,7 @@ public class EventList {
     }
 
     /**
-     * Gets the entire list of events stored in String format
+     * Gets the entire list of events stored in String format.
      *
      * @return String containing all events, separated by a newline.
      */
@@ -317,7 +323,9 @@ public class EventList {
         findNextEventAndSetBoolean(currentDate);
         String allEvents = "";
         for (int i = currentDateIndex; i < eventArrayList.size(); ++i) {
-            if (eventArrayList.get(i) == null) continue;
+            if (eventArrayList.get(i) == null) {
+                continue;
+            }
             int j = i + 1;
             allEvents += j + ". " + this.getEvent(i).toString() + "\n";
         }
@@ -325,15 +333,18 @@ public class EventList {
     }
 
     /**
-     * @return String containing the filtered list of events, each separated by a newline.
+     * Return a string containing the filtered list of events, each separated by a newline.
      */
     private String filteredListTwoPredicates(Predicate<Object> predicate1, Predicate<Object> predicate2) {
         String filteredEvents = "";
         int j;
         for (int i = 0; i < eventArrayList.size(); ++i) {
-            if (eventArrayList.get(i) == null) continue;
-            else if (!predicate1.check(eventArrayList.get(i).getStartDate())
-                    || !predicate2.check(eventArrayList.get(i).getStartDate())) continue;
+            if (eventArrayList.get(i) == null) {
+                continue;
+            } else if (!predicate1.check(eventArrayList.get(i).getStartDate())
+                    || !predicate2.check(eventArrayList.get(i).getStartDate())) {
+                continue;
+            }
             j = i + 1;
             filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
         }
@@ -341,7 +352,7 @@ public class EventList {
     }
 
     /**
-     * @return String containing events found in the next `days` days
+     * Return a string containing events found in the next `days` days.
      */
     public String getReminder(int days) {
         Date systemDateAndTime = new Date();
@@ -352,15 +363,15 @@ public class EventList {
         String reminderDeadline = upperLimit.getEventJavaDate().toString();
         Predicate<Object> lowerPredicate = new Predicate<>(lowerLimit, SMALLER_THAN);
         Predicate<Object> upperPredicate = new Predicate<>(upperLimit, GREATER_THAN);
-        return "The time now is " + systemDateAndTime + ".\n" +
-                "Here is a list of events you need to complete in the next " + days + " day(s) (by " +
-                reminderDeadline + "):\n" + filteredListTwoPredicates(lowerPredicate, upperPredicate);
+        return "The time now is " + systemDateAndTime + ".\n"
+                + "Here is a list of events you need to complete in the next " + days + " day(s) (by "
+                + reminderDeadline + "):\n" + filteredListTwoPredicates(lowerPredicate, upperPredicate);
     }
 
     //@@author
 
     /**
-     * Used to reinstate deleted event in case of failure to reschedule
+     * Used to reinstate deleted event in case of failure to reschedule.
      */
     public void undoDeletionOfEvent(Event event) {
         try {
@@ -380,7 +391,7 @@ public class EventList {
     //@@author yenpeichih
 
     /**
-     * Compares the dates of each event with current date
+     * Compares the dates of each event with current date.
      */
     public void findNextEventAndSetBoolean(Date currentDate) {
         gotPastUnachieved = false;
@@ -402,8 +413,12 @@ public class EventList {
         }
     }
 
+    /**
+     * Get past events which have unachieved goals.
+     */
     public String getPastEventsWithUnachievedGoals() {
-        String overUnachievedGoalsList = "\n" + "Below lists all the unachieved goal for past events. Please be reminded to add them to the future events." + "\n";
+        String overUnachievedGoalsList = "\n" + "Below lists all the unachieved goal for past events. "
+                + "Please be reminded to add them to the future events." + "\n";
         if (gotPastUnachieved) {
             for (int j = 0; j < currentDateIndex; j += 1) {
                 Event eventToCheck = this.getEvent(j);
@@ -412,7 +427,8 @@ public class EventList {
                         Goal unachievedGoal = eventToCheck.getGoalObject(k);
                         int eventListNum = j + 1;
                         int goalListNum = k + 1;
-                        overUnachievedGoalsList += "Event " + eventListNum + ": " + eventToCheck.toString() + " ---" + " Goal " + goalListNum + ": " + unachievedGoal.getGoal() + "\n";
+                        overUnachievedGoalsList += "Event " + eventListNum + ": " + eventToCheck.toString() + " ---"
+                                + " Goal " + goalListNum + ": " + unachievedGoal.getGoal() + "\n";
                     }
                 }
             }

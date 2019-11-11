@@ -9,32 +9,32 @@ package mistermusik.commons.events.formatting;
 public class Predicate<T> {
 
     /**
-     * compare_func codes
+     * compare_func codes.
      */
     private static final int EQUAL = 0;
     private static final int GREATER_THAN = 1;
     private static final int SMALLER_THAN = 2;
 
     /**
-     * compare_type codes
+     * compare_type codes.
      */
     private static final int JAVA_DATE = 0;
     private static final int STRING = 1;
 
     /**
-     * The item used as the reference to check if the predicate is true
+     * The item used as the reference to check if the predicate is true.
      */
     private T reference;
 
     /**
-     * The function used for the following comparison: reference (compare_func) input
+     * The function used for the following comparison: reference (compare_func) input.
      */
-    private int compare_func;
+    private int compareFunc;
 
     /**
-     * The type of variable that is used as the reference
+     * The type of variable that is used as the reference.
      */
-    private int variable_type;
+    private int variableType;
 
     /**
      * Creates a new Model_Class.Predicate Object.
@@ -44,21 +44,23 @@ public class Predicate<T> {
      */
     public Predicate(T ref, int comp) {
         switch (comp) {
-            case EQUAL:
-                this.compare_func = EQUAL;
-                break;
-            case GREATER_THAN:
-                this.compare_func = GREATER_THAN;
-                break;
-            case SMALLER_THAN:
-                this.compare_func = SMALLER_THAN;
-                break;
+        case EQUAL:
+            this.compareFunc = EQUAL;
+            break;
+        case GREATER_THAN:
+            this.compareFunc = GREATER_THAN;
+            break;
+        case SMALLER_THAN:
+            this.compareFunc = SMALLER_THAN;
+            break;
+        default:
+            break;
         }
         this.reference = ref;
         if (this.reference instanceof EventDate) {
-            this.variable_type = JAVA_DATE;
+            this.variableType = JAVA_DATE;
         } else if (this.reference instanceof String) {
-            this.variable_type = STRING;
+            this.variableType = STRING;
         }
     }
 
@@ -68,13 +70,15 @@ public class Predicate<T> {
     protected boolean compare_dates(T input) {
         EventDate x = (EventDate) reference;
         EventDate y = (EventDate) input;
-        switch (this.compare_func) {
-            case EQUAL:
-                return x.compare(y) == 0;
-            case GREATER_THAN:
-                return x.compare(y) == 1;
-            case SMALLER_THAN:
-                return x.compare(y) == -1;
+        switch (this.compareFunc) {
+        case EQUAL:
+            return x.compare(y) == 0;
+        case GREATER_THAN:
+            return x.compare(y) == 1;
+        case SMALLER_THAN:
+            return x.compare(y) == -1;
+        default:
+            break;
         }
         return false;
     }
@@ -85,13 +89,15 @@ public class Predicate<T> {
     protected boolean compare_str(T input) {
         String x = (String) reference;
         String y = (String) input;
-        switch (this.compare_func) {
-            case EQUAL:
-                return x.compareTo(y) == 0;
-            case GREATER_THAN:
-                return x.compareTo(y) > 0;
-            case SMALLER_THAN:
-                return x.compareTo(y) < 0;
+        switch (this.compareFunc) {
+        case EQUAL:
+            return x.compareTo(y) == 0;
+        case GREATER_THAN:
+            return x.compareTo(y) > 0;
+        case SMALLER_THAN:
+            return x.compareTo(y) < 0;
+        default:
+            break;
         }
         return false;
     }
@@ -102,11 +108,13 @@ public class Predicate<T> {
      * based on the type of the reference.
      */
     public boolean check(T item) {
-        switch (this.variable_type) {
-            case JAVA_DATE:
-                return compare_dates(item);
-            case STRING:
-                return compare_str(item);
+        switch (this.variableType) {
+        case JAVA_DATE:
+            return compare_dates(item);
+        case STRING:
+            return compare_str(item);
+        default:
+            break;
         }
         return false;
     }

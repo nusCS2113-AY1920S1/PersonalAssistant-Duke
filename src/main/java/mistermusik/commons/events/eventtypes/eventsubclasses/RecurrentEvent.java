@@ -8,7 +8,8 @@ public abstract class RecurrentEvent extends Event {
      *
      * @param eventType type of event denoted by character
      */
-    public RecurrentEvent(String description, boolean isDone, String startDateAndTime, String endDateAndTime, char eventType) {
+    public RecurrentEvent(String description, boolean isDone, String startDateAndTime, String endDateAndTime,
+                          char eventType) {
         super(description, isDone, startDateAndTime, endDateAndTime, eventType);
     }
 

@@ -11,7 +11,7 @@ public class ToDo extends Event {
     }
 
     /**
-     * Creates ToDo without boolean, assumed incomplete read from user input
+     * Creates ToDo without boolean, assumed incomplete read from user input.
      */
     public ToDo(String description, String dateAndTime) {
         super(description, false, dateAndTime);
@@ -22,6 +22,7 @@ public class ToDo extends Event {
      */
     @Override
     public String toString() {
-        return "[" + getDoneSymbol() + "][T] " + getDescription() + " BY: " + this.getStartDate().getFormattedDateString();
+        return "[" + getDoneSymbol() + "][T] " + getDescription() + " BY: "
+                + this.getStartDate().getFormattedDateString();
     }
 }
