@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author yuyanglin28
+
 public class CheckCommandTest {
 
     private Model model = new ModelController();

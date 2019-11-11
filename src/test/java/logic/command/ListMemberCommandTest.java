@@ -1,7 +1,9 @@
 package logic.command;
 
 import common.DukeException;
+import gui.TasksCounter;
 import gui.UiController;
+import gui.Window;
 import logic.LogicController;
 import logic.parser.AddMemberParser;
 import logic.parser.AddTaskParser;
@@ -16,12 +18,12 @@ import storage.Storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author yuyanglin28
+
 public class ListMemberCommandTest {
 
     private Model model;
-    private Storage storage;
     private LogicController logicController;
-    private UiController uiController;
 
     /**
      * This method is to generate test data
@@ -29,11 +31,12 @@ public class ListMemberCommandTest {
      */
     public void buildTestData() throws DukeException {
         model = new ModelController();
-        logicController = new LogicController(model);
-        uiController = new UiController(logicController, storage);
-        uiController.start();
         model.getMemberList().clear();
         model.getTaskList().clear();
+        logicController = new LogicController(model);
+        TasksCounter tc = new TasksCounter(logicController.model.getTaskList());
+        new Window(tc, logicController);
+
         model.addMember("test1");
         model.addMember("test2");
         model.addMember("test3");
@@ -57,11 +60,12 @@ public class ListMemberCommandTest {
     @Test
     public void listMember_all_empty() throws DukeException {
         model = new ModelController();
-        logicController = new LogicController(model);
-        uiController = new UiController(logicController, storage);
-        uiController.start();
         model.getMemberList().clear();
         model.getTaskList().clear();
+        logicController = new LogicController(model);
+        TasksCounter tc = new TasksCounter(logicController.model.getTaskList());
+        new Window(tc, logicController);
+
         Command command = ListMembersParser.parseListMembers("");
         CommandOutput out = command.execute(model);
         assertEquals("There are currently no member in project manager", out.getOutputToUser());
@@ -70,11 +74,12 @@ public class ListMemberCommandTest {
     @Test
     public void listMember_progress_empty() throws DukeException {
         model = new ModelController();
-        logicController = new LogicController(model);
-        uiController = new UiController(logicController, storage);
-        uiController.start();
         model.getMemberList().clear();
         model.getTaskList().clear();
+        logicController = new LogicController(model);
+        TasksCounter tc = new TasksCounter(logicController.model.getTaskList());
+        new Window(tc, logicController);
+
         Command command = ListMembersParser.parseListMembers("progress");
         CommandOutput out = command.execute(model);
         assertEquals("There are currently no member in project manager", out.getOutputToUser());
@@ -83,11 +88,12 @@ public class ListMemberCommandTest {
     @Test
     public void listMember_todoNum_empty() throws DukeException {
         model = new ModelController();
-        logicController = new LogicController(model);
-        uiController = new UiController(logicController, storage);
-        uiController.start();
         model.getMemberList().clear();
         model.getTaskList().clear();
+        logicController = new LogicController(model);
+        TasksCounter tc = new TasksCounter(logicController.model.getTaskList());
+        new Window(tc, logicController);
+        
         Command command = ListMembersParser.parseListMembers("todonum");
         CommandOutput out = command.execute(model);
         assertEquals("There are currently no member in project manager", out.getOutputToUser());
