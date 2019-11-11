@@ -43,8 +43,9 @@ public class FindBookingCommand extends Command {
                         StorageManager allStorage)
             throws DukeException, IOException, ParseException {
         boolean found = false;
+        ui.addToOutput("Here are the request(s):");
         for (int i = 0; i < bookingList.size(); i++) {
-            if (bookingList.get(i).getDescription().contains(textToFind)) {
+            if (bookingList.get(i).getDescription().toUpperCase().contains(textToFind.toUpperCase())) {
                 found = true;
                 ui.addToOutput(i + 1 + ". " + bookingList.get(i).toString());
             }

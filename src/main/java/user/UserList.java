@@ -41,6 +41,11 @@ public class UserList extends ArrayList<User> {
         return found;
     }
 
+    /**
+     * Check for ability to add user.
+     * @param username user to be added
+     * @return boolean value
+     */
     public boolean addUser(String username) {
         if (this.doesExist(username)) {
             return false;
@@ -65,7 +70,7 @@ public class UserList extends ArrayList<User> {
     }
 
     /**
-     *
+     * Whether there is such a user to log into
      * @param username to login with
      * @return true if login is successful
      */
@@ -74,7 +79,9 @@ public class UserList extends ArrayList<User> {
             loginStatus = true;
             setCurrentUser(username);
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     }
 
     public void logout() {

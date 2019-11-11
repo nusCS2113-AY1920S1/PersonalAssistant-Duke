@@ -38,8 +38,6 @@ public class RoomList extends ArrayList<Room> {
      * @return if the room already exists in the file
      * @throws IOException if the input is in the wrong format
      */
-
-
     public boolean checkRoom(String roomcode) {
         for (Room i : this) {
             if (i.roomcode.equals(roomcode)) {
