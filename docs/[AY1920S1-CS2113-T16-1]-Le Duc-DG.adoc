@@ -11,7 +11,7 @@
 == Setting Up
 *  Please ensure that you have Java `11` or above installed.
 *  Download the latest leduc jar file.
-*  Execute the jar file with command: "[CS2113-T16-1][Le Duc].jar"
+*  Execute the jar file with command: `[CS2113-T16-1][Le Duc].jar`
 
 ---
 == Design
@@ -197,7 +197,7 @@ So, here the sort key are the desciption or the priority of the task.
 === Remind
 
 
-The Remind feature is done by the RemindCommand. Along with all of the other implemented commands, it extends Command. The feature will process each tasks date/timestamps to order them, and then remind the user of the top 3 upcoming tasks. The following methods were implemented in this feature:
+The Remind feature is done by the RemindCommand. Along with all of the other implemented commands, it extends Command. The feature will process each tasks date/timestamps to order them, and then remind the user of the 3 earliest, unfinished tasks. The following methods were implemented in this feature:
 
 * `filterTasks` - Extracts the Homework and Event tasks into a seperate ArrayList
 * `sort` - Orders the filtered TaskList in chronological order.
@@ -213,13 +213,13 @@ There are 4 cases:
 * TaskList contains no objects
 
 The task of sorting the tasklist in chronological order becomes challenging as not all tasks have associated timestamps.
-This problem is divded into 4 subproblems, each of which are handled seperately.
+This problem is divided into 4 subproblems, each of which are handled seperately.
 
 
 ==== TaskList contains only Homework/Event tasks
 
-* The original TaskList is passed through a filter to isolate the Homework and event tasks.
-* The TaskList.extractTodo() method will attempt to isolate all todo tasks. It will return an empty array in this case
+* The original TaskList is passed through a filter to isolate the Homework and Event tasks.
+* The TaskList.extractTodo() method will attempt to isolate all Todo tasks. It will return an empty array in this case
 * After filtering by TaskList.filterTasks(), the filtered TaskList will be equal to the original TaskList, as there are no Todo objects to filter out in this particular case.
 * The filtered TaskList will then be sorted by TaskList.sort().
 * The sort() method will call each tasks task.getDate() method in preparation for sorting. For "Event" tasks, the first timestamp will be used for the purposes of sorting.
@@ -241,7 +241,7 @@ remind
 * The filtered TaskList will then be sorted by TaskList.sort(). The method will return an empty array, because the input array containing Homework and Event tasks is empty.
 * The sort method will return an empty array, as the input array of Homework/Event tasks is empty in this case.
 * The array of Todo's is appended to the empty, returned array from TaskList.sort(), resulting in the original tasklist of only Todo tasks.
-* *The original tasklist is considered to be the sorted tasklist. The order in which the Todo's were created are treated as an  "implicit order".*
+* *The original tasklist is considered to be the sorted tasklist. The order in which the Todo's were created is treated as an  "implicit order".*
 * The first 3 most upcoming tasks will be displayed to the user.
 * *Output:*
 ```---------------------------------------------------------------------------------
@@ -458,9 +458,9 @@ but that would limit its potential utility
 === G.2. View all Commands:
 * *View all the commands the user can make*
 *  Command: `help`
-. Test Case: `help`
+* Test Case: `help`
 
-.. Expected:
+** Expected:
 ```
 help
 ---------------------------------------------------------------------------------
@@ -507,11 +507,11 @@ help : show the list of all command
 ```
 === G.3. Adding a Todo Task:
 * *Add a task of type Todo*
-* Command `todo DESCRIPTION` or `todo DESCRIPTION prio INDEX` or
-. Test Case `todo read book`
+* Command `todo DESCRIPTION` or `todo DESCRIPTION prio INDEX`
+* Test Case `todo read book`
 
-.. Expected:
-... The task will be given a default priority of 5 (Priorities range from 1-9)
+** Expected:
+*** The task will be given a default priority of 5 (Priorities range from 1-9)
 ```
 ---------------------------------------------------------------------------------
 Got it. I've added this task:
@@ -520,15 +520,15 @@ Now you have 14 tasks in the list.
 ---------------------------------------------------------------------------------
 ```
 
-. Test Case `todo sell book prio 3`
+* Test Case `todo sell book prio 3`
 
-.. Expected:
+** Expected:
 ```
  ---------------------------------------------------------------------------------
          Got it. I've added this task:
            [T][X]  sell book  [Priority: 3]
          Now you have 15 tasks in the list.
-        ---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 
 ```
 
@@ -538,7 +538,7 @@ Now you have 14 tasks in the list.
 
 * Command `homework DESCRIPTION /by DATE` or `homework DESCRIPTION /by DATE prio INDEX` or `homework DESCRIPTION /by DATE recu DATETYPE NBRECU`
 • The second INDEX can’t be less than 1 or greater than 9.
-• 1 is the less urgent, 9 is the most urgent
+• 1 is the least urgent, 9 is the most urgent
 • DATETYPE can be day, week, month
 • NBRECU indicate the number of recurrence +1 you want
 • If you want to add recurrence and priority, prio should be before recu
@@ -547,33 +547,33 @@ Now you have 14 tasks in the list.
 
 ---
 
-. Test Case `homework CS4239: lab3 /by 21/09/2019 23:59`
+* Test Case `homework CS4239: lab3 /by 21/09/2019 23:59`
 
-.. Expected:
+** Expected:
 
-... Homework is given a default priority of 5
+*** Homework is given a default priority of 5
 ```
 ---------------------------------------------------------------------------------
          Got it. I've added this task:
            [H][X] CS4239: lab3 by: 21/09/2019 23:59 [Priority: 5]
          Now you have 16 tasks in the list.
-        ---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 
 ```
 
-. Test Case `homework CS4239: lab4 /by 25/09/2019 23:59 prio 7`
-.. Expected:
-... The task is given a priority of 7
+* Test Case `homework CS4239: lab4 /by 25/09/2019 23:59 prio 7`
+** Expected:
+*** The task is given a priority of 7
 ```
  ---------------------------------------------------------------------------------
          Got it. I've added this task:
            [H][X] CS4239: lab4 by: 25/09/2019 23:59 [Priority: 7]
          Now you have 17 tasks in the list.
-        ---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 ```
-. Test Case `homework test code /by 25/09/2019 23:59 recu day 3`
-.. Expected:
-... Three recurrent tasks are also created, one for each of the next 3 days
+* Test Case `homework test code /by 25/09/2019 23:59 recu day 3`
+** Expected:
+*** Three recurrent tasks are also created, one for each of the next 3 days
 ```
 ---------------------------------------------------------------------------------
          Here are the tasks in your list:
@@ -581,7 +581,7 @@ Now you have 14 tasks in the list.
          19. [H][X] test code by: 26/09/2019 23:59 [Priority: 5]
          20. [H][X] test code by: 27/09/2019 23:59 [Priority: 5]
          21. [H][X] test code by: 28/09/2019 23:59 [Priority: 5]
-        ---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 
 ```
 
@@ -589,8 +589,8 @@ Now you have 14 tasks in the list.
 
 * *Creates a task of type Event*
 
-* Command: `event DESCRIPTION /at DATE - DATE` or `event DESCRIPTION /at DATE - DATE prio INDEX` or `vent DESCRIPTION /at DATE - DATE recu DATETYPE NBRECU`
-•
+* Command: `event DESCRIPTION /at DATE - DATE` or `event DESCRIPTION /at DATE - DATE prio INDEX` or `event DESCRIPTION /at DATE - DATE recu DATETYPE NBRECU`
+
 • When creating an event, two dates can’t clash
 • The second INDEX can’t be less than 1 or greater than 9.
 • 1 is the less urgent, 9 is the most urgent
@@ -607,38 +607,38 @@ previous one, it will
 
 ---
 
-. Test Case `event CS4211: mid-term /at 07/10/2000 09:00 - 07/10/2000 11:00`
+* Test Case `event CS4211: mid-term /at 07/10/2000 09:00 - 07/10/2000 11:00`
 
-.. Expected:
+** Expected:
 
-... Event is created with default priority of 5
+*** Event is created with default priority of 5
 
 ```
  ---------------------------------------------------------------------------------
          Got it. I've added this task:
            [E][X] CS4211: mid-term at: 07/10/2000 09:00 - 07/10/2000 11:00 [Priority: 5]
          Now you have 22 tasks in the list.
-        ---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 
 ```
-. Test Case `event CS4211: final exam /at 07/12/2019 09:00 - 07/12/2019 11:00 prio 8`
-.. Expected:
+* Test Case `event CS4211: final exam /at 07/12/2019 09:00 - 07/12/2019 11:00 prio 8`
+** Expected:
 
-... Event is created with priority 8
+*** Event is created with priority 8
 
 ```
  ---------------------------------------------------------------------------------
          Got it. I've added this task:
            [E][X] CS4211: final exam at: 07/12/2019 09:00 - 07/12/2019 11:00 [Priority: 8]
          Now you have 23 tasks in the list.
-        ---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 
 ```
 
-. Test Case `event CS4211: sport /at 07/10/2001 09:00 - 07/10/2001 11:00 recu day 3`
-.. Expected:
+* *Test Case `event CS4211: sport /at 07/10/2001 09:00 - 07/10/2001 11:00 recu day 3`*
+** Expected:
 
-... 3 recurrent tasks are created, each one day apart
+*** 3 recurrent tasks are created, each one day apart
 
 ```
  ---------------------------------------------------------------------------------
@@ -647,18 +647,180 @@ previous one, it will
          25. [E][X] CS4211: sport at: 08/10/2001 09:00 - 08/10/2001 11:00 [Priority: 5]
          26. [E][X] CS4211: sport at: 09/10/2001 09:00 - 09/10/2001 11:00 [Priority: 5]
          27. [E][X] CS4211: sport at: 10/10/2001 09:00 - 10/10/2001 11:00 [Priority: 5]
-        ---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 ```
 
-. Test Case `event CS4211: cooking session /at 17/12/2019 09:00 - 17/12/2019 11:00 prio 8 recu week 2`
-.. Expected:
-... Will create 3 events, each one being 1 week apart
+* *Test Case `event CS4211: cooking session /at 17/12/2019 09:00 - 17/12/2019 11:00 prio 8 recu week 2`*
+**  Expected:
+***  Will create 3 events, each one being 1 week apart
 ```
 ---------------------------------------------------------------------------------
          Here are the tasks in your list:
          28. [E][X] CS4211: cooking session at: 17/12/2019 09:00 - 17/12/2019 11:00 [Priority: 8]
          29. [E][X] CS4211: cooking session at: 24/12/2019 09:00 - 24/12/2019 11:00 [Priority: 8]
          30. [E][X] CS4211: cooking session at: 31/12/2019 09:00 - 31/12/2019 11:00 [Priority: 8]
+---------------------------------------------------------------------------------
+```
+=== G.6. Find a Task by Relevancy:
+
+* *Searches For a task by Character Relevancy (Not Keyword Relevancy!)*
+* Command `Find DESCRIPTION`
+** The "Sorensen Dice" character matching algorithm is used to generate relevance scores for each task
+** Tasks are scored based on % character match across the entire description, and a 50% minimum match threshold value.
+* Test Case `find homewasrdtyst`
+** Expected:
+*** Despite typos, the correct result will be returned
+```
+        ---------------------------------------------------------------------------------
+         Here are the most relevant tasks in your list:
+         6. [H][V] homeworktest by: 04/04/2004 04:04 [Priority: 5]
+         13. [T][X] homework [Priority: 5]
+
+        ---------------------------------------------------------------------------------
+```
+
+
+* Test Case `find CS4221:`
+** Expected:
+*** Despite Partial queries, relevant tasks are still returned.
+
+```
+find CS4221:
+        ---------------------------------------------------------------------------------
+         Here are the most relevant tasks in your list:
+         24. [E][X] CS4211: sport at: 07/10/2001 09:00 - 07/10/2001 11:00 [Priority: 5]
+         25. [E][X] CS4211: sport at: 08/10/2001 09:00 - 08/10/2001 11:00 [Priority: 5]
+         26. [E][X] CS4211: sport at: 09/10/2001 09:00 - 09/10/2001 11:00 [Priority: 5]
+         27. [E][X] CS4211: sport at: 10/10/2001 09:00 - 10/10/2001 11:00 [Priority: 5]
+
+        ---------------------------------------------------------------------------------
+
+```
+
+=== G.7. Delete a Task:
+
+* *Delete a task from the task list.*
+
+* Command: `delete INDEX`
+
+* Test Case `delete 1`
+** Expected:
+```
+  ---------------------------------------------------------------------------------
+         Noted. I've removed this task:
+                [T][X] td1 [Priority: 5]
+         Now you have 29 tasks in the list
+---------------------------------------------------------------------------------
+```
+
+* Test Case `delete 500000`
+** Expected:
+*** Invalid indices throw an error
+
+```
+ NonExistentTaskException:
+                 ☹ OOPS!!! The task doesn't exist
+
+```
+
+=== G.8. List all tasks
+
+* *List all tasks in the list*
+* Command `list`
+* Test Case `list`
+** Expected:
+```
+ ---------------------------------------------------------------------------------
+         Here are the tasks in your list:
+         1. [E][X] e at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+         2. [T][V] td3 [Priority: 5]
+         3. [T][V] td4 [Priority: 5]
+         4. [H][X] math by: 11/11/2011 01:01 [Priority: 5]
+         5. [H][V] homeworktest by: 04/04/2004 04:04 [Priority: 5]
+         6. [H][V] science by: 05/05/2005 05:05 [Priority: 2]
+         7. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
+---------------------------------------------------------------------------------
+```
+
+=== G.9. Complete a Task
+
+* *Marks a task as done*
+* Command `done INDEX`
+
+* Test Case `done 1`
+** Expected
+*** [X] becomes [V] when completing a task
+```
+ ---------------------------------------------------------------------------------
+         Nice! I've marked this task as done:
+         [E][V] e at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+---------------------------------------------------------------------------------
+
+```
+* Test Case `done 60000`
+** Expected
+*** Invalid indices will throw NonExistentTaskException
+```
+ NonExistentTaskException:
+                 ☹ OOPS!!! The task doesn't exist
+```
+
+=== G.10. Snooze a Homework Task
+
+* *Snooze a Homework task by 30 minutes*
+* Command `snooze INDEX`
+
+* Test Case: `snooze 4`
+
+** Expected:
+*** The task is now snoozed by 30 minutes
+
+*** Before:
+
+    `4. [H][X] math by: 11/11/2011 01:01 [Priority: 5]`
+
+
+
+*** After:
+
+
+     ---------------------------------------------------------------------------------
+            Noted. I've snoozed this task:
+                    [H][X] math by:11/11/2011 01:31
+     ---------------------------------------------------------------------------------
+
+
+
+* Test Case `snooze 3`
+** Expected
+*** Snoozing a non-Homework task will throw HomeworkTypeException
+```
+ HomeworkTypeException:
+                 ☹ OOPS!!! The task should be a homework task
+```
+
+=== G.11. Postpone a Homework Task
+* *Postpone a Homework task by a user-specified amount of time*
+* Command `postpone INDEX /by DATE`
+
+** DATE is the new date of the homework task.
+** The new date should be after the old one.
+
+* Test Case `postpone 4 /by 12/12/2011 22:10`
+** Expected:
+*** The Homework task deadline has been postponed
+*** Before:
+
+    `4. [H][X] math by: 11/11/2011 01:01 [Priority: 5]`
+
+
+*** After:
+
+
+    ---------------------------------------------------------------------------------
+             Noted. I've postponed this task:
+                     [H][X] math by:12/12/2011 22:10
+    ---------------------------------------------------------------------------------
     ---------------------------------------------------------------------------------
 ```
 
@@ -781,18 +943,18 @@ previous one, it will
 ---------------------------------------------------------------------------------
         1
 ---------------------------------------------------------------------------------
-	   Please choose what you want to edit (1 or 2)
-	   1. The description
-	   2. The deadline/period
+        Please choose what you want to edit (1 or 2)
+        1. The description
+        2. The deadline/period
 ---------------------------------------------------------------------------------
         2
 ---------------------------------------------------------------------------------
-	   Please enter the new deadline of the task
+        Please enter the new deadline of the task
 ---------------------------------------------------------------------------------
         14/11/2019 10:10
 ---------------------------------------------------------------------------------
-	   The task is edited:
-	   [H][X] math assignment 1 by: 14/11/2019 10:10 [Priority: 5]
+        The task is edited:
+        [H][X] math assignment 1 by: 14/11/2019 10:10 [Priority: 5]
 ---------------------------------------------------------------------------------
 
 ```
