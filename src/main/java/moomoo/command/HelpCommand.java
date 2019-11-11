@@ -30,19 +30,20 @@ public class HelpCommand extends Command {
         text.add("1.  list");
         text.add("2.  category add [CATEGORY NAME]");
         text.add("3.  category delete [CATEGORY NAME or CATEGORY INDEX NUMBER]");
-        text.add("4.  add n/[NAME] a/[AMOUNT SPENT] c/[CATEGORY] (optional: d/[YYYY-MM-DD])");
+        text.add("4.  add n/[NAME] a/[AMOUNT SPENT] c/[CATEGORY] (optional: d/[d/MM/yyyy)");
         text.add("5.  delete i/[INDEX] c/[Category]");
         text.add("6.  sort [TYPE]");
         text.add("7.  view m/[MONTH] y/[YEAR]");
         text.add("8.  view current");
-        text.add("9.  budget add c/[CATEGORY NAME] b/[BUDGET]");
-        text.add("10. budget edit c/[CATEGORY NAME] b/[BUDGET]");
-        text.add("11. budget list c/[CATEGORY NAME] ");
-        text.add("12. budget savings c/[CATEGORY NAME] s/[STARTMONTHYEAR (MM/YYYY)] e/[ENDMONTHYEAR (MM/YYYY)]");
-        text.add("13. schedule d/[DD/MM/YYYY] a/[AMOUNT] n/[DESCRIPTION]");
-        text.add("14. graph");
-        text.add("15. moo");
-        text.add("16. bye");
+        text.add("9.  view all");
+        text.add("10. budget add c/[CATEGORY NAME] b/[BUDGET]");
+        text.add("11. budget edit c/[CATEGORY NAME] b/[BUDGET]");
+        text.add("12. budget list c/[CATEGORY NAME] ");
+        text.add("13. budget savings c/[CATEGORY NAME] s/[STARTMONTHYEAR (MM/YYYY)] e/[ENDMONTHYEAR (MM/YYYY)]");
+        text.add("14. schedule d/[DD/MM/YYYY] a/[AMOUNT] n/[DESCRIPTION]");
+        text.add("15. graph");
+        text.add("16. moo");
+        text.add("17. bye");
         Ui.showInCowBox(text);
     }
 }

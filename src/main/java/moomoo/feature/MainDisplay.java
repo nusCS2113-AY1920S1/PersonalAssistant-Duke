@@ -412,7 +412,6 @@ public class MainDisplay {
                             }
 
                             output += expenditureName + blankSpaceExp + "|"
-                                    //+ ANSI_GREEN + "$" + ANSI_RESET
                                     + "$"
                                     + amountString + blankSpaceCost + "|";
                         } else {

@@ -136,7 +136,10 @@ public class Parser {
     
     
     private static Command parseView(Scanner scanner) throws MooMooException {
-        String text = "Which month's summary do you wish to view?" + "(m/) month" + "(y/) year";
+        String text = "Which month's summary do you wish to view?\n"
+                + "1.(m/) month" + " (y/) year\n"
+                + "2.current\n"
+                + "3.all\n";
         String input = parseInput(scanner, text);
         LocalDate now = LocalDate.now();
         if (input.startsWith("m/") || input.startsWith("y/")) {
@@ -146,13 +149,23 @@ public class Parser {
             int tokenCount = tokens.length;
             for (int i = 0; i < tokenCount; i++) {
                 if (tokens[i].equals("m")) {
-                    month = Integer.parseInt(tokens[i + 1]);
+                    try {
+                        month = Integer.parseInt(tokens[i + 1]);
+                    } catch (Exception e) {
+                        throw new MooMooException("Please enter a valid month (from 1 to 12)!!! MOOOOO!!!!");
+                    }
                 } else if (tokens[i].equals("y")) {
-                    year = Integer.parseInt(tokens[i + 1]);
+                    try {
+                        year = Integer.parseInt(tokens[i + 1]);
+                    } catch (Exception e) {
+                        throw new MooMooException("Please enter a valid year!!! MOOOOOO!!!!!");
+                    }
                 }
             }
-            if (month != 0 && year != 0) {
+            if ((month > 0 && month <= 12) && (year > 0 && year <= 10000)) {
                 return new MainDisplayCommand(month, year);
+            } else {
+                throw new MooMooException("Please enter a valid month (from 1 to 12) and a valid year!!! MOOOOO!!!!");
             }
         } else if (input.equals("current")) {
             int month = now.getMonth().getValue();
