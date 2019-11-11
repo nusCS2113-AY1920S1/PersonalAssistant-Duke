@@ -24,6 +24,7 @@ public class AddGoalCommand extends Command {
 
     /**
      * Constructor for addGoalCommand.
+     *
      * @param argumentsMap argumentsMap for instantiating a goal object
      */
     public AddGoalCommand(HashMap<String, String> argumentsMap) {
@@ -38,10 +39,11 @@ public class AddGoalCommand extends Command {
 
     /**
      * Executes AddGoalCommand.
-     * @param meals the MealList object in which the meals are supposed to be added
+     *
+     * @param meals   the MealList object in which the meals are supposed to be added
      * @param storage the storage object that handles all reading and writing to files
-     * @param user the object that handles all user data
-     * @param wallet the wallet object that stores transaction information
+     * @param user    the object that handles all user data
+     * @param wallet  the wallet object that stores transaction information
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet, Undo undo) {

@@ -27,7 +27,10 @@ public class Undo {
         return history.size();
     }
 
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) throws ProgramException {
+    public String execute(MealList meals, Storage storage, User user, Wallet wallet) throws ProgramException {
+        if (history.size() == 0) {
+            throw new ProgramException("There is no previous command to undo.");
+        }
         String temp = history.pop();
         String[] execution = temp.split(" ",2);
         String type = execution[0];
@@ -74,9 +77,12 @@ public class Undo {
             case "delDefault":
                 delDefault(meals, storage, user, wallet, info);
                 break;
+            case "setGoal":
+                //setgoal(meals, storage, user, wallet, info);
             default:
                 break;
         }
+        return type;
     }
 
     public void undoAdd(Meal meal, ArrayList<Meal> meals) {
@@ -123,7 +129,7 @@ public class Undo {
         }
         temp += "/date " + meal.getDate().format(dateFormat);
         if (!meal.getCostStr().equals("0")) {
-            temp += "/cost " + meal.getCostStr();
+            temp += " /cost " + meal.getCostStr();
         }
         history.push(temp);
     }
@@ -207,6 +213,10 @@ public class Undo {
             temp += " /" + nutrition + " " + nutritionList.get(nutrition);
         }
         history.push(temp);
+    }
+
+    public void undoSetGoal() {
+        history.push("setGoal ");
     }
 
     public void deleteFood(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
@@ -303,4 +313,7 @@ public class Undo {
         c.undo(meals, storage, user, wallet);
     }
 
+    public void setGoal(MealList meals, Storage storage, User user, Wallet wallet, String toBeParsed) {
+
+    }
 }
