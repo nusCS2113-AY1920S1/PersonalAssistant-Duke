@@ -401,8 +401,8 @@ a| * For example, if the description of a transaction record that the user is se
 
 After weighing the pros and cons, *approach 2* was taken.
 
-The reason for choosing *approach 2* over approach 1 is mainly due to the flexibility that it can provide to a user.
+The reason for choosing *approach 2 over approach 1* is mainly due to the flexibility that it can provide to a user.
 Although, searching for the item with case insensitivity might cause more unwanted results being displayed. We felt that
  the ability to easily match keyword with the item that the user would like to find is more important, as it enhanced
- the user-friendliness of OwlMoney.
+ the user-friendliness of *OwlMoney*.
 
