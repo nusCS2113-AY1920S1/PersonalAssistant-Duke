@@ -1,5 +1,4 @@
 = OwlMoney - Developer Guide
-= OwlMoney - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
