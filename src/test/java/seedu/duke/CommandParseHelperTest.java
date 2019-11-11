@@ -23,7 +23,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class CommandParserHelperTest {
+public class CommandParseHelperTest {
     @Test
     public void parseEmailCommandTest() {
         Email emailOne = new Email("TestEmailOne");

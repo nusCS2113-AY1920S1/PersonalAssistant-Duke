@@ -1,7 +1,9 @@
 package seedu.duke.email;
 
+import javafx.util.Pair;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.email.entity.Email;
+import seedu.duke.email.parser.EmailContentParseHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -79,7 +81,7 @@ public class EmailList extends ArrayList<Email> {
 
 
     /**
-     * Delete email at the given index from eh email list.
+     * Delete email at the given index from the email list.
      *
      * @param index of email to be deleted
      * @return confirmation message to be displayed to user
@@ -89,6 +91,37 @@ public class EmailList extends ArrayList<Email> {
         this.remove(email);
         String responseMsg = constructDeleteMessage(email);
         return responseMsg;
+    }
+
+    /**
+     * Finds the email with the input SHA hash and converts into subject.
+     *
+     * @param sha the identifier to be converted
+     * @return    Subject that corresponds to the SHA hash
+     */
+    public String convertShaToSubject(String sha) {
+        for (Email email : this) {
+            if (sha.equals(email.getShaHash())) {
+                return email.getSubject();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds the email with the input SHA hash and converts into index.
+     *
+     * @param sha the identifier to be converted
+     * @return    Index that corresponds to the SHA hash
+     */
+    public int convertShaToIndex(String sha) {
+        for (int i = 0; i < this.size(); i++) {
+            Email email = this.get(i);
+            if (sha.equals(email.getShaHash())) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     private String constructDeleteMessage(Email email) {
@@ -154,6 +187,33 @@ public class EmailList extends ArrayList<Email> {
             emailStringList.add(email.toGuiString());
         }
         return emailStringList;
+    }
+
+    /**
+     * Searches for the target string with some degree of tolerance in difference.
+     *
+     * @param target the given target string
+     * @return the string to be displayed to the user containing all the search result
+     */
+    public String fuzzySearch(String target) {
+        ArrayList<Pair<Integer, Integer>> results = new ArrayList<>();
+        for (int i = 0; i < this.size(); i++) {
+            int score = EmailContentParseHelper.fuzzySearchInEmail(this.get(i), target);
+            if (score > 0) {
+                results.add(new Pair<>(i, score));
+            }
+        }
+        results.sort(Comparator.comparing(Pair::getValue));
+        ArrayList<Integer> indexes = extractIndexFromFuzzyResults(results);
+        return this.toString(indexes);
+    }
+
+    private static ArrayList<Integer> extractIndexFromFuzzyResults(ArrayList<Pair<Integer, Integer>> results) {
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for (Pair result : results) {
+            indexes.add((Integer) result.getKey());
+        }
+        return indexes;
     }
 
     /**
