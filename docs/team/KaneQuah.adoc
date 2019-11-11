@@ -60,7 +60,7 @@ o Scraped data from official public NUS degree pages listing the information. (#
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::{docsDir}/UserGuide.adoc[tags=compare]
+include::{docsDir}/UserGuide.adoc[lines=149..173]
 
 include::../UserGuide.adoc[tag=dataencryption]
 
@@ -70,7 +70,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
