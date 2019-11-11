@@ -3,7 +3,11 @@
 package wallet.logic.command;
 
 import wallet.model.Wallet;
-import wallet.model.record.*;
+import wallet.model.record.ExpenseList;
+import wallet.model.record.LoanList;
+import wallet.model.record.Expense;
+import wallet.model.record.Loan;
+import wallet.model.record.Budget;
 
 import java.math.BigDecimal;
 import java.text.DateFormatSymbols;
