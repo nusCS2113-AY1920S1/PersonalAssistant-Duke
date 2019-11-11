@@ -70,7 +70,7 @@ public class UserList extends ArrayList<User> {
     }
 
     /**
-     * Whether there is such a user to log into
+     * Whether there is such a user to log into.
      * @param username to login with
      * @return true if login is successful
      */
