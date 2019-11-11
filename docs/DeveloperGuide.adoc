@@ -114,7 +114,6 @@ The rest of the App consists of four components.
 * <<Design-Model,*`Model`*>>: Holds the data of the application in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads from and writes data to the hard disk, via text files and excel files.
 
-
 The sections below give more details of each component.
 
 [[Design-Ui]]
@@ -147,7 +146,6 @@ image::CommandClassDiagram.png[align='center']
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
 
 [[Design-Model]]
 === Model component
