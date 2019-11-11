@@ -5,7 +5,6 @@ import inventory.Inventory;
 import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
-import storage.Storage;
 import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
@@ -27,12 +26,12 @@ public class RejectCommand extends Command {
      */
     public RejectCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (splitStr.length <= 1) {
-            throw new DukeException("☹ OOPS!!! Please create the booking you want to approve"
-                    + " with the following format: "
-                    + "name, roomcode, start date and time");
+            throw new DukeException("☹ OOPS!!! Please create the booking you want to reject"
+                    + " with the following format: reject INDEX");
         }
+        String indexString = input.substring("reject".length()).trim();
         try {
-            index = Integer.parseInt(splitStr[1]);
+            index = Integer.parseInt(indexString);
         } catch (NumberFormatException e) {
             throw new DukeException("OOPS!!! Please enter a index in integer form!");
         }

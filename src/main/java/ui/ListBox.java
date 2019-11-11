@@ -1,6 +1,5 @@
 package ui;
 
-import booking.Booking;
 import exception.DukeException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -13,10 +13,9 @@ public class AddRoomTest4 {
     @Test
     void addRoomTest() {
         String roomcode = "SR4";
-        String dateStartTime = "19/08/2019 0800";
-        String endTime = "2000";
+        int capacity = 111;
         assertThrows(AssertionError.class, () -> {
-            Room addroom = new Room(roomcode, dateStartTime, endTime);
+            Room addroom = new Room(roomcode, capacity);
             RoomList roomList = null;
             StorageManager allStorage = null;
             assert false;
