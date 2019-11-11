@@ -59,13 +59,13 @@ public class ReviewSessionTest {
         assertTrue(e1.getMessage().contains("You can't use that command here"));
 
         // negative test: out of bounds of number of questions
-        Exception e2 = assertThrows(CakeException.class,
-                () -> reviewSession.parseInput(0, String.valueOf(MAX_QUESTIONS + 1)));
+        Exception e2 = assertThrows(CakeException.class, () -> reviewSession.parseInput(
+                0, String.valueOf(MAX_QUESTIONS + 1)));
         assertTrue(e2.getMessage().contains("That question number is out of range! Try again."));
 
         // negative test: int overflow input
-        Exception e3 = assertThrows(CakeException.class,
-                () -> reviewSession.parseInput(0, "2147483700"));
+        Exception e3 = assertThrows(CakeException.class, () -> reviewSession.parseInput(
+                0, "2147483700"));
         assertTrue(e3.getMessage().contains("number is out of range!"));
 
         // positive test: back
