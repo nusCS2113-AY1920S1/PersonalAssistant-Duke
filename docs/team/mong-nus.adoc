@@ -20,7 +20,12 @@ Object-Oriented Programming. It aims to demonstrate the theoretical and practica
  over the semester.
 
 == Project: OwlMoney
-*OwlMoney* is an application designed to assist undergraduates and fresh graduates to track and manage their finances
+*OwlMoney* is an application designed by a team of five members (
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/terencetanwt.adoc[Tan Wee Theng Terence],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia], and
+myself). It aims to assist undergraduates and fresh graduates to track and manage their finances
 conveniently and effectively - all in one place. *OwlMoney* provides a Command Line Interface (CLI) for the user to
 interact with. The commands used to interact with *OwlMoney* are designed to be simple and intuitive. Rest assured, you
 will be able to use *OwlMoney* with ease, even if you are unfamiliar with CLI.
@@ -96,13 +101,15 @@ saving account to investment account to invest.
  user.
 
 * *Highlights*: For this enhancement to be implemented, it depends on all other features such
- as `bank`, `transaction`, and `goals`. Therefore, the implementation of `Ui` feature was challenging as it requires
- an in-depth analysis and understanding of other features.
+ as `bank`, `transaction`, and `goals`. Therefore, the integration of `Ui` feature into *OwlMoney* was challenging
+ as it  requires an in-depth analysis and understanding of other features.
 
 == Code Contributions
-The lines of codes (LOC) contributed by me for *OwlMoney* can be viewed
-link:++https://nuscs2113-ay1920s1.github.io/dashboard/#search=mong&sort=groupTitle&sortWithin=title&since=2019-09-21
-&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false++[here].
+* Lines of codes (LOC) contributed by me for *OwlMoney*: [link:++https://nuscs2113-ay1920s1.github
+.io/dashboard/#search=mong&sort=groupTitle&sortWithin=title&since=2019-09-21
+&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false++[RepoSense]][link:++https
+://github.com/AY1920S1-CS2113T-W17-3/main/commits?author=mong-nus++[Commits]][link:++https://github
+.com/AY1920S1-CS2113T-W17-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3Among-nus++[Pull Requests]]
 
 == Team Contributions
 
@@ -125,27 +132,30 @@ link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valeri
 
 === Project Management:
 * Organised and Coordinated Team Meeting
-* Managed issue tracker
-* Merged pull requests (PRs)
+* Managed issue tracker and merged pull requests (PRs)
 
 === Documentation:
-* User Guide (UG)
-** Contributed and wrote the sections for all parts of
+* Contributed and wrote the sections for all parts of
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc#Features[Features] and
-link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc#command-summary[Command Summary]
-while collaborating with everyone (
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc#command-summary[Command Summary] in
+User Guide (UG) while collaborating with everyone (
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/terencetanwt.adoc[Tan Wee Theng Terence],
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai], and
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
 ).
 
-** Vetted and resolved User Guide Error (Example: Issue Number
+* Vetted and resolved User Guide Error (Example: Issue Number
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/issues/100++[#100]
 ).
 
-* Developer Guide (DG)
-** Contributed and wrote the sections for all part of
+* Contributed and wrote the initial set up for
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#user-stories++[User Stories]
+and
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#use-cases++[Use Cases] in
+Developer Guide (DG).
+
+* Contributed and wrote the sections for all part of
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#design++[Design],
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide
 .adoc#implementation++[Implementation],
@@ -155,14 +165,13 @@ link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/Developer
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#use-cases++[Use Cases], and
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#instructions-
 for-manual-testing++[Instructions for
-Manual Testing] while collaborating with everyone (
+Manual Testing] in Developer Guide while collaborating with everyone (
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/briantkm.adoc[Tan Kian Ming Brian],
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/terencetanwt.adoc[Tan Wee Theng Terence],
 link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai], and
-link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
-).
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]).
 
-** Vetted and resolved Developer Guide Error (Example: Issue Number
+* Vetted and resolved Developer Guide Error (Example: Issue Number
 link:++https://github.com/AY1920S1-CS2113T-W17-3/main/issues/161++[#161]
 ).
 
@@ -183,9 +192,9 @@ link:https://github.com/mong-nus/ped/issues/7[#7],
 link:https://github.com/mong-nus/ped/issues/8[#8],
 link:https://github.com/mong-nus/ped/issues/9[#9].
 
-* Reviewed and provided constructive feedback for other team's project (
-link:https://github.com/AY1920S1-CS2113T-W17-4/main[OOF]
-) UG and DG.
+* Reviewed and provided constructive feedback for other team's link:++https://github
+.com/AY1920S1-CS2113T-W17-4/main/blob/master/docs/UserGuide.adoc++[User Guide] and link:++https://github
+.com/AY1920S1-CS2113T-W17-4/main/blob/master/docs/DeveloperGuide.adoc++[Developer Guide].
 
 == Contributions to the User Guide
 
@@ -239,8 +248,8 @@ Take note that there is a maximum of *50* character limit.
 
 ==== Finding Savings Account Details: `/find /savings`
 
-Scenario: Let's say that you can only recall part of your savings account's name and would like to find out the
-details of the savings account. Don't worry *OwlMoney* allows you to find it with ease.
+Scenario: Let's say that you can only recall part of the name of your savings account and would like to view the details
+ of the savings account. Don't worry *OwlMoney* allows you to find it with ease.
 
 Command Syntax: `/find /savings /name ACCOUNT_NAME`
 
@@ -251,8 +260,8 @@ Command Syntax: `/find /savings /name ACCOUNT_NAME`
 
 Command Example: `/find /savings /name Jun`
 
-The command example allows the user to find and list all savings account that matches the keyword "Jun". This can
-be seen from Figure 2 below.
+The command example allows the user to find and list all savings accounts that match the keyword `Jun`. This can
+be seen from Figure 1 below.
 
 .Successful search of savings account after using `/find /savings`
 image::FindSavings.png[Caption="Figure : "]
@@ -260,14 +269,14 @@ image::FindSavings.png[Caption="Figure : "]
 ==== Finding Bank Transaction: `/find /banktransaction`
 
 Scenario: Let's say that you have thousands of bank transaction records and you want to find the
-details of a specific bank transaction's records. Don't worry *OwlMoney* allows you to find it with ease.
+details of a specific transaction record. Don't worry *OwlMoney* allows you to find it with ease.
 
 Command Syntax: `/find /banktransaction /name ACCOUNT_NAME [/desc DESCRIPTION] [/from DATE /to DATE] [/category
 CATEGORY]`
 
 [NOTE]
 ====
-Transactions includes both expenditures and deposits.
+Transactions include both expenditures and deposits.
 
 `DESCRIPTION` used for searching is case-insensitive.
 
@@ -276,14 +285,14 @@ Transactions includes both expenditures and deposits.
 
 [WARNING]
 ====
-The parameter within the square bracket (E.g. `[/desc DESCRIPTION]``) is optional in the command. However, at least one
+The parameter within the square bracket (E.g. `[/desc DESCRIPTION]`) is optional in the command. However, at least one
 of `/desc`, `/category`, or `/from` with `/to` must be used to make it a valid command.
 ====
 
 Command Example: `/find /banktransaction /name JunBank Savings Account /desc bubble tea`
 
 The command example allows the user to find and list all transaction records that match the description `bubble tea`
-charged to `JunBank Savings Account`.
+charged to `JunBank Savings Account`. This can be seen from Figure 2 below.
 
 .Successful search of bank transaction by description after using `/find /banktransaction`
 image::FindBankTransaction1.png[Caption="Figure : "]
@@ -323,19 +332,19 @@ The `logic.command.find` package consist of `Find` classes with the ability to f
 === Implementation for `find` feature
 The following section describes the specific implementation for *finding of the savings account* and how data flows
 across various objects and methods to obtain a successful execution. In this section, we will be showcasing the data
-flow of finding a savings account.
+flow of *finding a savings account*.
 
 ==== Finding of Savings Account
 
 The `/find /savings` feature aims to provide the user with the ability to search for a savings account that matches the
-keyword specified by the user. This enables the user to have great flexibility to view their savings account details
+keyword specified by the user. This enables the user to have *great flexibility* to view their savings account details
 without the need of memorising each of their savings account names within *OwlMoney*. By allowing the user to search for
  a specific savings account, it also aids in the operation of editing or deleting of savings account.
 
-===== Current Implementation
+===== 9.2.1.1. Current Implementation
 The current implementation of finding savings account only allows the user to search through the name of the account.
-The reason to only allow the user to search through the account name was that searching through parameters such as
-income may be inaccurate, as a user income may change over time resulting in inconsistency in the search.
+The reason to only allows the user to search through the account name was that searching through parameters such as
+income may be inaccurate, as a user's income may change over time resulting in inconsistency in the search.
 
 
 .Sequence Diagram of finding savings account
@@ -350,21 +359,21 @@ The sequence diagram presented above depicts the interaction between the `Logic`
 The `FindBankOrCardCommand` requires *2* inputs:
 
 * The name of the account that acts as a keyword for the search.
-* Type of item to be searched (e.g. `card`, `savings` or `investment`)
+* Type of object to be searched (e.g. `card`, `savings` or `investment`)
 
-When the user executes the `FindBankOrCardCommand` to search for savings account, the following steps are taken by the
+When the user executes the `FindBankOrCardCommand` to search for a savings account, the following steps are taken by the
 application:
 
 . When the `FindBankOrCardCommand` is executed, it will invoke `findBankOrCard`.
 . Once invoked, `findBankOrCard` will perform the following checks:
 
-* Check the type of items to be searched is either `card`, `savings` or `investment`.
+* Check the type of object to be searched is either `card`, `savings` or `investment`.
 
 [start=3]
 . After passing the above checks, `findBankOrCard` will invoke `findBankAccount`.
 . Within the invocation of `findBankAccount`, it will perform the following checks:
 
-* Check for matching account name with the keyword among all accounts stored in the ArrayList.
+* Check for matching account name with the keyword among all accounts stored in the *ArrayList*.
 * Check whether the account that matches the keyword is indeed a savings account.
 
 [NOTE]
@@ -374,9 +383,10 @@ application:
 . Once the search has been completed, the details of all matching savings account will be displayed to inform the
 user of the *successful* matches.
 
-=== Design Considerations
+===== 9.2.1.2. Design Considerations
 
-This section describes the various design considerations taken when implementing the `/find` feature.
+This section describes the various design considerations taken when implementing the `find` feature (e.g. `/find
+/savings` or `/find /banktransaction`).
 
 *Aspect: Choice of whether the keyword (E.g. `ACCOUNT_NAME`, `DESCRIPTION` or `CATEGORY`) to be searched should be
 case-sensitive or case-insensitive*
@@ -385,22 +395,23 @@ case-sensitive or case-insensitive*
 |======
 | *Approach* | *Pros* | *Cons*
 
-| *1.* Searching of items based on the keyword is case-sensitive.
+| *1.* Searching of objects based on the keyword is case-sensitive.
 
 a| * By restricting the search to be case-sensitive, it provides the user with a more accurate searched result.
 
 a| * By having a case-sensitive search, it will cause the `/find` command to be inflexible. As the user will need to
-provide the exact capitalisation within the keyword to be able to find the item he/she is searching for.
+provide the exact capitalisation within the keyword to be able to find the object he/she is searching for.
 
 * For example, if the description of a transaction record that the user is searching for is "Lunch at KFC". The user
-will not be able to find the expenditure if he/she provides the keyword as "lunch". This is because of the
-capitalisation of the first letter within the keyword is "l" and it is different from the expenditure description.
+will not be able to find the transaction record if he/she provides the keyword as "lunch". This is because of the
+capitalisation of the first letter within the keyword is "l" and it is different from the transaction record's
+description.
 
 
-| *2.* Searching of items based on the keyword is case-insensitive.
+| *2.* Searching of objects based on the keyword is case-insensitive.
 
 a| * By allowing the search to be case-insensitive, it provides the user with greater flexibility when searching for
-matching items.
+matching objects.
 
 
 a| * For example, if the description of a transaction record that the user is searching for is "Lunch at KFC". The user
@@ -411,7 +422,8 @@ a| * For example, if the description of a transaction record that the user is se
 After weighing the pros and cons, *approach 2* was taken.
 
 The reason for choosing *approach 2 over approach 1* is mainly due to the flexibility that it can provide to a user.
-Although, searching for the item with case insensitivity might cause more unwanted results being displayed. We felt that
- the ability to easily match keyword with the item that the user would like to find is more important, as it enhanced
+Although, searching for the object with case insensitivity might cause more unwanted results being displayed. We felt
+that
+ the ability to easily match keyword with the object that the user would like to find is more important, as it enhanced
  the user-friendliness of *OwlMoney*.
 

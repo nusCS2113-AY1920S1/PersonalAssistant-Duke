@@ -643,17 +643,17 @@ in the command.
 === Finding of Savings Account
 
 The `/find /savings` feature aims to provide the user with the ability to search for a savings account that matches the
-keyword specified by the user. This enables the user to have great flexibility to view their savings account details
+keyword specified by the user. This enables the user to have *great flexibility* to view their savings account details
 without the need of memorising each of their savings account names within *OwlMoney*. By allowing the user to search for
  a specific savings account, it also aids in the operation of editing or deleting of savings account.
 
 ==== Current Implementation
 The current implementation of finding savings account only allows the user to search through the name of the account.
-The reason to only allow the user to search through the account name was that searching through parameters such as
-income may be inaccurate, as a user income may change over time resulting in inconsistency in the search.
+The reason to only allows the user to search through the account name was that searching through parameters such as
+income may be inaccurate, as a user's income may change over time resulting in inconsistency in the search.
 
 
-.Sequence Diagram of Finding Savings Account
+.Sequence Diagram of finding savings account
 image::FindSequenceDiagram.png[Caption="Figure : "]
 
 [NOTE]
@@ -665,7 +665,7 @@ The sequence diagram presented above depicts the interaction between the `Logic`
 The `FindBankOrCardCommand` requires *2* inputs:
 
 * The name of the account that acts as a keyword for the search.
-* Type of item to be searched (e.g. `card`, `savings` or `investment`)
+* Type of object to be searched (e.g. `card`, `savings` or `investment`)
 
 When the user executes the `FindBankOrCardCommand` to search for a savings account, the following steps are taken by the
 application:
@@ -673,13 +673,13 @@ application:
 . When the `FindBankOrCardCommand` is executed, it will invoke `findBankOrCard`.
 . Once invoked, `findBankOrCard` will perform the following checks:
 
-* Check the type of items to be searched is either `card`, `savings` or `investment`.
+* Check the type of object to be searched is either `card`, `savings` or `investment`.
 
 [start=3]
 . After passing the above checks, `findBankOrCard` will invoke `findBankAccount`.
 . Within the invocation of `findBankAccount`, it will perform the following checks:
 
-* Check for matching account name with the keyword among all accounts stored in the ArrayList.
+* Check for matching account name with the keyword among all accounts stored in the *ArrayList*.
 * Check whether the account that matches the keyword is indeed a savings account.
 
 [NOTE]
@@ -691,7 +691,8 @@ user of the *successful* matches.
 
 ==== Design Considerations
 
-This section describes the various design considerations taken when implementing the `/find` feature.
+This section describes the various design considerations taken when implementing the `find` feature (e.g. `/find
+/savings` or `/find /banktransaction`).
 
 *Aspect: Choice of whether the keyword (E.g. `ACCOUNT_NAME`, `DESCRIPTION` or `CATEGORY`) to be searched should be
 case-sensitive or case-insensitive*
@@ -700,22 +701,23 @@ case-sensitive or case-insensitive*
 |======
 | *Approach* | *Pros* | *Cons*
 
-| *1.* Searching of items based on the keyword is case-sensitive.
+| *1.* Searching of objects based on the keyword is case-sensitive.
 
 a| * By restricting the search to be case-sensitive, it provides the user with a more accurate searched result.
 
 a| * By having a case-sensitive search, it will cause the `/find` command to be inflexible. As the user will need to
-provide the exact capitalisation within the keyword to be able to find the item he/she is searching for.
+provide the exact capitalisation within the keyword to be able to find the object he/she is searching for.
 
 * For example, if the description of a transaction record that the user is searching for is "Lunch at KFC". The user
-will not be able to find the expenditure if he/she provides the keyword as "lunch". This is because of the
-capitalisation of the first letter within the keyword is "l" and it is different from the expenditure description.
+will not be able to find the transaction record if he/she provides the keyword as "lunch". This is because of the
+capitalisation of the first letter within the keyword is "l" and it is different from the transaction record's
+description.
 
 
-| *2.* Searching of items based on the keyword is case-insensitive.
+| *2.* Searching of objects based on the keyword is case-insensitive.
 
 a| * By allowing the search to be case-insensitive, it provides the user with greater flexibility when searching for
-matching items.
+matching objects.
 
 
 a| * For example, if the description of a transaction record that the user is searching for is "Lunch at KFC". The user
@@ -726,9 +728,11 @@ a| * For example, if the description of a transaction record that the user is se
 After weighing the pros and cons, *approach 2* was taken.
 
 The reason for choosing *approach 2 over approach 1* is mainly due to the flexibility that it can provide to a user.
-Although, searching for the item with case insensitivity might cause more unwanted results being displayed. We felt that
- the ability to easily match keyword with the item that the user would like to find is more important, as it enhanced
+Although, searching for the object with case insensitivity might cause more unwanted results being displayed. We felt
+that
+ the ability to easily match keyword with the object that the user would like to find is more important, as it enhanced
  the user-friendliness of *OwlMoney*.
+
 
 // tag::goals_sequence[]
 
