@@ -145,7 +145,6 @@ public class ContactsCommTest {
             fail();
         } catch (Exception e) {
             assertEquals("Format is in: addcontact <name>, <contact>, <email>, <office>\n"
-                    + "Put 'Nil' if field is empty\n"
                     + "Check that email has an '@'", ErrorMessages.CONTACT_FORMAT.message);
         }
     }
