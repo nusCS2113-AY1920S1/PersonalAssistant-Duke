@@ -1,5 +1,5 @@
 package inventory;
-
+import java.util.*;
 import java.util.ArrayList;
 
 import exception.DukeException;
@@ -16,8 +16,10 @@ public class Inventory extends ArrayList<Item> {
      */
     public Inventory(ArrayList<String> loader) { //loads previous inventory data stored in text file
         for (String line : loader) {
-            String[] splitStr = line.split(" \\| ", 2);
-            this.add(new Item(splitStr[Constants.ITEMNAME], Integer.parseInt(splitStr[Constants.ITEMQTY])));
+            String[] splitStr = line.split(" \\| ", 3);
+            //this.add(new Item(splitStr[Constants.ITEMNAME], Integer.parseInt(splitStr[Constants.ITEMQTY])));
+            this.add(new Item(splitStr[Constants.ITEMRMCODE], splitStr[Constants.ITEMNAME],
+                    Integer.parseInt(splitStr[Constants.ITEMQTY])));
         }
     }
 
@@ -31,10 +33,10 @@ public class Inventory extends ArrayList<Item> {
      * @param inputItem the item in question
      * @return if the item already exists
      */
-    public static boolean checkInventory(Inventory inventory, String inputItem) {
+    public static boolean checkInventory(Inventory inventory, String roomcode, String name) {
         boolean found = false;
         for (int i = 0; i < inventory.size(); i++) {
-            if (inventory.get(i).getName().equals(inputItem)) {
+            if (inventory.get(i).getName().equals(name) && inventory.get(i).getRoomcode().equals(roomcode)) { //compare NAME of newitem with name of currentitem
                 found = true;
             }
         }
