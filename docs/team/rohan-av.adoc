@@ -65,7 +65,7 @@ Other contributions:
 
 == Contributions to the Developer Guide
 
-The following sections shows my additions to Ducats' Developer Guide, namely the section explaining the overall architecture, the section explaining the parsing and execution of commands, the section explaining the metronome, and the section explaining the storage.
+The following sections shows my additions to Ducats' Developer Guide, namely the section explaining the overall architecture, the section explaining the parsing and execution of commands, the section explaining navigation, and the section explaining the storage.
 
 (Excerpt from Ducats Developer Guide starts here)
 
@@ -96,9 +96,50 @@ It can be seen that, for all commands, the `Parser` class is used to determine w
 
 A slightly different schedule is used for the Metronome functionality, which will be discussed in further detail in Section 4.5.
 
-=== Metronome
+=== Creating a Song and Navigation
 
-//todo
+The creation of a new song is straightforward. In the `new` command, the following attributes of the song to be created will be specified:
+
+* name
+* key _[implementation coming in v2.0]_
+* time signature _[implementation coming in v2.0]_
+
+While the above data is stored with every song, data adjustments based on, and specific methods that utilize the key and time signature are yet to be implemented.
+
+The created Song object will then be inserted into the SongList object, which contains all the song data of Ducats. Following this, persistent storage will be updated.
+
+In order to enable the modification of certain songs when there are multiple songs without the forced provision of additional parameters by the user, a system of navigation has been implemented, where a song can be "opened" in order for it to be edited, with the first song in the SongList being "opened" by default. "Opening" a song is carried out by the execution of the `OpenCommand`, which changes a variable in the `SongList` object known as the `activeIndex`.
+
+`activeIndex` corresponds to the index of the song that can be edited by the other CRUD functions, and only by modifying this attribute to the appropriate value can songs other than the first one be editable. For example, consider the situation where the SongList contains two songs titled "twinkle" and "dreams".
+
+image::songlist_activeIndex1.png[]
+
+In this case, as the default `activeIndex` is set to `0`, the user can enter `open dreams` in the CLI to make sure he is editing the song titled "dreams".
+
+image::songlist_activeIndex2.png[]
+
+When the main class executes the command, the command will first try to find the index of the provided song in the song list.
+
+    String songName = message.substring(5);
+    int songIndex = songList.findSongIndex(songName);
+
+findSongIndex(songName) conducts a linear search on the SongList to return the index of the song that has the given name, and returns -1 is the song is not found. By querying the return value, Ducats either sets the activeIndex of the SongList or throws and then handles a DucatsException. The former is carried out with the `setActiveIndex()` method of the SongList class.
+
+    songList.setActiveIndex(songList.findSongIndex(songName));
+
+For future CRUD commands, the specific SongList method invocated by the `execute()` method takes in the activeIndex as a parameter and proceeds to perform the necessary operations on the SongList, as shown below.
+
+image::songlist_activeIndex3.png[]
+
+_Design Considerations_:
+
+* Use binary search instead of linear search for `findSongIndex()`
+** _Pros_: Higher efficiency in navigation
+** _Cons_: the `list` in the SongList needs to be sorted, and insertion in a sorted manner, along with the implementation of binary search, for minimal gains in efficiency, seems to violate KISS
+
+* Let the user input the index of the song rather than the name
+** _Pros_: Faster input of command for the user
+** _Cons_: User needs to look at the full list first, so overall, time is not saved. For the user, querying a name is more natural than an index.
 
 === Storage
 
