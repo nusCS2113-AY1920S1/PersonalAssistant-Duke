@@ -30,7 +30,7 @@ public class UpdateCommandTest {
         Food newTest = new Food("test");
         newTest.setType("test");
         assert newTest.getType().equals("test");
-        int[] testChange = {1,0,0,0};
+        int[] testChange = {1,0,0,0,0};
         UpdateCommand command = new UpdateCommand(newTest,testChange);
         CommandResult result = command.execute(model, storage);
 
