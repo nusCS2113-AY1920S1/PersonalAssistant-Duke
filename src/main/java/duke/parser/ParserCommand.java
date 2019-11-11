@@ -8,10 +8,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
 
-/**
- * This is the parser for the first command.
- * @author danisheddie
- */
+
 public class ParserCommand implements IParser {
 
     /**

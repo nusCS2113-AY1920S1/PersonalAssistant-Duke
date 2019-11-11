@@ -1,10 +1,7 @@
 package duke.models.students;
 
+//@@ danisheddie
 public interface IStudent {
-
-    void updateDetails(String name, String age, String address);
-
-    int getIndexNumber();
 
     String getName();
 

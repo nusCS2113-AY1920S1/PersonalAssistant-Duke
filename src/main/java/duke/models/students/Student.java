@@ -2,19 +2,11 @@ package duke.models.students;
 
 import java.util.ArrayList;
 
-/**
- * Represents a student.
- */
+//@@ danisheddie
 public class Student implements IStudent {
 
-    /**
-     * Represents the name of the student.
-     */
     private String name;
 
-    /**
-     * Represents the age of the student.
-     */
     private String age;
 
     private String address;
@@ -35,28 +27,6 @@ public class Student implements IStudent {
         this.age = myAge;
         this.address = myAddress;
         this.progressList = new ArrayList<>();
-    }
-
-    /**
-     * Method to update the details of the student.
-     * @param name new name.
-     * @param age new age.
-     * @param address new address.
-     */
-    @Override
-    public void updateDetails(String name, String age, String address) {
-        this.name = name;
-        this.age = age;
-        this.address = address;
-    }
-
-    /**
-     * The index of the student.
-     * @return index
-     */
-    @Override
-    public int getIndexNumber() {
-        return 0;
     }
 
     /**
@@ -118,10 +88,10 @@ public class Student implements IStudent {
 
     /**
      * This method is to add student progress.
-     * @param string description of progress.
+     * @param progress description of progress.
      */
-    public void addStudentProgress(String string) {
-        progressList.add(string);
+    public void addStudentProgress(String progress) {
+        progressList.add(progress);
     }
 
     /**

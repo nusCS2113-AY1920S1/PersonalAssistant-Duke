@@ -9,10 +9,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import duke.view.CliView;
 
-/**
- * This is the parser for manage students.
- * @author danisheddie
- */
+//@@ danisheddie
 public final class ParserManageStudents {
     /**
      * Boolean status to check if the class can exit.
@@ -86,34 +83,6 @@ public final class ParserManageStudents {
                 case progress:
                     studentProgressParser();
                     break;
-
-                    /**
-                case find:
-                    final int limit = 4;
-                    String name = sc.nextLine();
-                   // String name = cmd.substring(limit);
-                    ArrayList<Student> search = new ArrayList<Student>();
-                    for (Student i : students.getStudentList()) {
-                        if (i.getName().contains(name)) {
-                            search.add(i);
-                        }
-                    }
-                    if (search.size() >= 1) {
-                        System.out.println(
-                                "Here are the matching "
-                                        + "names in your list:");
-                        int index = 1;
-                        for (int i = 0; i < search.size(); i++) {
-                            System.out.println(index++ + ". "
-                                    + search.get(i));
-                        }
-                    } else {
-                        System.out.println("Sorry, there are"
-                                + " no names matching your search");
-                    }
-                    break;
-
-                     */
                 case view:
                     System.out.println("Which student details do you want to view?");
                     students.listAllStudents();
@@ -144,31 +113,26 @@ public final class ParserManageStudents {
      */
     public void studentProgressParser() {
         boolean runProgress = true;
-
         while (runProgress) {
             new CliView().studentProgressHeading();
             String cmd = sc.nextLine();
-            //String[] word = input.split(" ");
-            //String cmd = word[0];
-            switch (sc.nextLine()) {
-            case "list":
-                students.listAllStudents();
-                break;
+            switch (cmd) {
             case "add":
                 System.out.print("Who do you want to add progress for?\n");
                 students.listAllStudents();
                 String input = sc.nextLine();
-                String[] word = input.split(",");
+                String[] word = input.split("-");
                 students.getStudent(Integer.parseInt(word[0])).addStudentProgress(word[1]);
+                System.out.println("Progress have been added.");
                 break;
             case "delete":
                 break;
             case "view":
                 System.out.print("Whose progress do you want to see?\n");
                 students.listAllStudents();
-                //int index = sc.nextInt();
-                System.out.println(
-                        students.getStudent(sc.nextInt()).getStudentProgress());
+                int index = sc.nextInt();
+                System.out.println("Progress report:\n"
+                        + students.getStudent(index).getStudentProgress());
                 break;
             case "back":
                 runProgress = false;

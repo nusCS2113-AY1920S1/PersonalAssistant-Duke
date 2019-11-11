@@ -138,10 +138,8 @@ public class CliView {
         printLine();
         System.out.println("STUDENT PROGRESS:\n"
             + "1. Add progress - (Cmd: add) \n"
-            + "3. Delete progress - "
-            + "(Cmd: delete [student index] [progress index])\n"
-            + "4. View Student Progress - (Cmd: View)\n"
-            + "5. Exit Page - (Cmd - back)");
+            + "2. View Student Progress - (Cmd: view)\n"
+            + "3. Exit Page - (Cmd - back)");
     }
 
     /**
