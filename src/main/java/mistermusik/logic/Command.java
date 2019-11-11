@@ -329,13 +329,17 @@ public class Command {
      */
     private void editEvent(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.printEventDescriptionEmpty();
+            ui.printInvalidCommand();
         } else {
-            String[] splitInfo = continuation.split("/");
-            int eventIndex = Integer.parseInt(splitInfo[0]) - 1;
-            String newDescription = splitInfo[1];
-            events.editEvent(eventIndex, newDescription);
-            ui.printEditedEvent(eventIndex + 1, events.getEvent(eventIndex));
+            try {
+                String[] splitInfo = continuation.split("/");
+                int eventIndex = Integer.parseInt(splitInfo[0]) - 1;
+                String newDescription = splitInfo[1];
+                events.editEvent(eventIndex, newDescription);
+                ui.printEditedEvent(eventIndex + 1, events.getEvent(eventIndex));
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                ui.printInvalidCommand();
+            }
         }
     }
 
