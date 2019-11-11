@@ -71,7 +71,8 @@ class UndoCommandTest {
         Task prevTask;
 
         // undo AddCommand
-        testCommand = new AddCommand(noFilter, Optional.empty(), Optional.empty(), "undo this", "task", 0, "l");
+        testCommand = new AddCommand(noFilter, Optional.empty(), Optional.empty(), "undo this",
+        "task", 0, "l");
         expectedTask = list.get(noFilter, 6);
         testCommand.savePrevState(list, undoStack);
         testCommand.execute(list, ui, storage);

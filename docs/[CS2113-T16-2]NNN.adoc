@@ -1,12 +1,13 @@
 = Nicholas Novakovic - Project Portfolio
 :site-section: AboutUs
+:imagesDir: images
 :stylesDir: ../stylesheets
 
 == PROJECT: El Duque
 
 == Overview
 
-El Duque is a task manager application targeting computer science students. The user interacts with it using a CLI. It is written in Java, and has about 10 kLoC.
+El Duque is a task manager application targeting computer science students. The user interacts with it using a CLI. It is written in Java, and has about 6 kLoC.
 
 == Summary of contributions
 
@@ -20,17 +21,22 @@ El Duque is a task manager application targeting computer science students. The 
 ** Justification: This feature improves the product significantly because a user can now choose to view tasks from specific categories. This is especially helpful considering our target user audience is computer science students who will have many tasks of varying categories to do. This will help them better organise their tasks. 
 ** Highlights: This enhancement affects existing tasks, commands, and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{TODO: give links to collated code files}_
+* *Enhancement*: improved *the user interface*
+** What it does: shows the user their current task list with significantly better clarity and detail.
+** Justification: This feature improves the product significantly because a user can now view their tasks more comfortably. This allows them to extract important information from their task list more efficiently than before. This is especially helpful considering our target user audience is computer science students who will have many tasks causing the task list to encapsulate a lot of information. This will help them better organise and understand their tasks.
+** Highlights: This enhancement affects existing tasks, commands, and the task list implementation. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed all JAR releases on GitHub
 ** Enhancements to existing features:
-*** Updated the formatting of how the task list is printed to the user, increasing the readability and improving the user experience (Pull requests {to be added})
+*** Optimised the user interface to improve user interaction, including the format of user input, and the format of the output task list to be shown to the user.
+** Code contribution:
+*** All of my code contributions to the project can be found https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=nicholasnovakovic[here].
 ** Documentation:
 *** Converted the entire DeveloperGuide from a Google Doc to an AsciiDoc to improve the formatting
-*** TODO -> convert UG similarly
+*** Converted the entire UserGuide from a Google Doc to an AsciiDoc to improve the formatting
 ** Tools:
 *** Integrated a third party library (Gson) to the project
 
@@ -41,7 +47,7 @@ El Duque is a task manager application targeting computer science students. The 
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-_{TODO - convert UG to adoc for easy conversion to here}_
+include::UserGuide.adoc[tag=nova]
 
 
 == Contributions to the Developer Guide
