@@ -27,7 +27,7 @@ public class CommandTest {
 
     /**
      * Create wordup test file.
-     * @throws WordAlreadyExistsException
+     * @throws WordAlreadyExistsException when the word to be added already exists
      */
     @BeforeEach
     public void createWordUpTestFile() throws WordAlreadyExistsException {
