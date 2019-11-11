@@ -22,12 +22,14 @@ import duke.storage.UndoStack;
  */
 public class DuqueParser {
     /**
-     * Returns a duke.logic.parser.command.Command object which will be specific to the keywords given in the user command
+     * Returns a duke.logic.parser.command.Command object which will be specific to the keywords given in the user
+     * command
      * Segregates the different categories of user commands
      * Allows them to be dealt with specifically like how the should be with less confusion
      *
      * @param fullCommand the entire user command
-     * @return duke.logic.parser.command.Command the class duke.logic.parser.command.Command will execute the user command
+     * @return duke.logic.parser.command.Command the class duke.logic.parser.command.Command will execute the user
+     * command
      * @throws DukeException in case of user input errors which duke.logic.parser.Parser cannot recognise,
      *                       the parser will return
      *                       specific error messages depending on the reason of the error

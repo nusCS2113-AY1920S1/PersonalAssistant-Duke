@@ -5,7 +5,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * duke.logic.parser.OffByOneChecker class which checks if a keyword is off by one from any keyword in a list of keywords
+ * duke.logic.parser.OffByOneChecker class which checks if a keyword is off by one from any keyword in a list of
+ * keywords
  */
 public class OffByOneChecker {
     /**

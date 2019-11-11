@@ -3,8 +3,8 @@ package duke.logic.parser;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import duke.logic.command.EditCommand;
 import duke.exception.DukeException;
+import duke.logic.command.EditCommand;
 
 /**
  * Class that implements a Parser and handles the parsing of parameters into the edit command
@@ -13,6 +13,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
     /**
      * Method that takes in a string and breaks it down to an array list of a tuple keyword and field class
+     *
      * @param rawParameters String of the inputs of the edit
      * @return an array list of the keyword and field class
      * @throws DukeException throws an exception of theres no field inputted
@@ -37,6 +38,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
     /**
      * Method that gets the correct index from the command
+     *
      * @param fullEditArg String of the command
      * @return the index
      * @throws DukeException throws an error if format of index is not numerical
@@ -53,8 +55,9 @@ public class EditCommandParser implements Parser<EditCommand> {
 
     /**
      * Parse command that takes in a filter and a string
+     *
      * @param filter of the task
-     * @param args arguments of the command
+     * @param args   arguments of the command
      * @return an edit command with the right parameters
      * @throws DukeException throws a duke exception
      */

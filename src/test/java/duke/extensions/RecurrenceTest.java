@@ -1,15 +1,17 @@
 package duke.extensions;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
-import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
+
+import duke.exception.DukeException;
 
 class RecurrenceTest {
     /**
      * Test for correct boolean value returned for isTimeToReset()
+     *
      * @throws DukeException
      */
     @Test
@@ -20,6 +22,7 @@ class RecurrenceTest {
 
     /**
      * Test for correct boolean value returned for isTimeToReset()
+     *
      * @throws DukeException
      */
     @Test

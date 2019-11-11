@@ -49,15 +49,15 @@ public class PreloadTasks {
         //Description parameters
         String gym = "go to the gym";
         String sweep = "sweep the floor";
-        String UG = "Submit UG";
-        String DG = "Submit DG";
+        String ug = "Submit UG";
+        String dg = "Submit DG";
         String washBedsheet = "wash bedsheet";
         String washDishes = "wash dishes";
         String assignment = "cs2113 assignment";
         String sleep = "sleep";
-        String PPP = "PPP submission";
-        String Oral = "Oral Exam";
-        String PE = "CS2113 PE";
+        String ppp = "PPP submission";
+        String oral = "Oral Exam";
+        String pe = "CS2113 PE";
         String cg2271Tutorial = "CG2271 Tutorial 10";
         String proposal = "cca camp proposal";
         String st2334 = "st2334 tutorial";
@@ -69,16 +69,16 @@ public class PreloadTasks {
         String kattis = "Kattis grind";
 
         t.add(new Task(personal, emptyDate, recurrenceDaily, gym, 1, "l"));
-        t.add(new Task(cs2113, dateTime2, recurrenceNone, UG, 0, "h"));
+        t.add(new Task(cs2113, dateTime2, recurrenceNone, ug, 0, "h"));
         t.add(new Task(home, emptyDate, recurrenceDaily, sweep, 2, "l"));
         t.add(new Task(home, emptyDate, recurrenceNone, washBedsheet, 0, "l"));
         t.add(new Task(empty, emptyDate, recurrenceNone, washDishes, 0, "l"));
         t.add(new Task(empty, emptyDate, recurrenceNone, assignment, 0, "l"));
-        t.add(new Task(cs2113, dateTime2, recurrenceNone, DG, 0, "h"));
+        t.add(new Task(cs2113, dateTime2, recurrenceNone, dg, 0, "h"));
         t.add(new Task(personal, emptyDate, recurrenceDaily, sleep, 8, "l"));
-        t.add(new Task(empty, emptyDate, recurrenceNone, PPP, 0, "m"));
-        t.add(new Event(empty, dateTime1, recurrenceNone, Oral, 0, "m"));
-        t.add(new Event(empty, dateTime3, recurrenceNone, PE, 0, "h"));
+        t.add(new Task(empty, emptyDate, recurrenceNone, ppp, 0, "m"));
+        t.add(new Event(empty, dateTime1, recurrenceNone, oral, 0, "m"));
+        t.add(new Event(empty, dateTime3, recurrenceNone, pe, 0, "h"));
         t.add(new Task(empty, dateTime1, recurrenceNone, cg2271Tutorial, 2, "l"));
         t.add(new Task(cca, dateTime4, recurrenceNone, proposal, 0, "l"));
         t.add(new Task(empty, emptyDate, recurrenceWeekly, st2334, 0, "m"));

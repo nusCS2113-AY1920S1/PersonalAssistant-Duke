@@ -3,8 +3,6 @@ package duke.logic.command;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import javax.swing.text.html.Option;
-
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;

@@ -11,8 +11,8 @@ import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
 public class PomodoroCommand extends Command {
-    Optional<String> filter;
-    int indexNo;
+    private Optional<String> filter;
+    private int indexNo;
     private String fullCommand;
 
     /**

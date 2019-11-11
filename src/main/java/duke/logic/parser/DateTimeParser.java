@@ -15,8 +15,10 @@ import duke.exception.DukeException;
  */
 public class DateTimeParser {
 
-    /**d
+    /**
+     * d
      * Method that parses the date time based on today, tomorrow with time or an actual date
+     *
      * @param info the string of the date
      * @return return the LocalDateTime of the inputted date
      * @throws DukeException throws an exception if wrong format inputted

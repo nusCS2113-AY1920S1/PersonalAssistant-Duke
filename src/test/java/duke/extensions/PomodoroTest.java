@@ -1,17 +1,19 @@
 package duke.extensions;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
 
+import duke.exception.DukeException;
+
 class PomodoroTest {
-    Pomodoro p = new Pomodoro();
+    private Pomodoro p = new Pomodoro();
 
     /**
      * Tests for correction exception thrown once there is a timer already started
+     *
      * @throws DukeException
      */
     @Test
@@ -25,12 +27,13 @@ class PomodoroTest {
 
     /**
      * Tests for no exception thrown if timer started and then stop successfully
+     *
      * @throws DukeException
      */
     @Test
-    public void testStopTimerThenStartTimer_Success() throws DukeException {
+    public void testStopTimerThenStartTimer_success() throws DukeException {
         p.startTimer();
         p.stopTimer();
-        assertDoesNotThrow(()->p.startTimer());
+        assertDoesNotThrow(() -> p.startTimer());
     }
 }

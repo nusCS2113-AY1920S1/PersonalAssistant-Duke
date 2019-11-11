@@ -1,11 +1,6 @@
-import duke.exception.DukeException;
-import duke.extensions.Recurrence;
-import duke.logic.command.SetCommand;
-import duke.storage.Storage;
-import duke.task.Task;
-import duke.tasklist.TaskList;
-import duke.ui.Ui;
-import org.junit.jupiter.api.Test;
+package duke.logic.command;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -13,7 +8,14 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import duke.exception.DukeException;
+import duke.extensions.Recurrence;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.tasklist.TaskList;
+import duke.ui.Ui;
 
 
 class SetCommandTest {
@@ -44,12 +46,12 @@ class SetCommandTest {
         String description2 = "description2";
 
         //Create different Tasks to use as template for testing
-        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 1,"l")); // base
-        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 2,"l")); // diff duration
-        list.add(new Task(noFilter, dateTime1, haveRecurrence, description1, 1,"l")); // diff filter
-        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description2, 1,"l")); // diff description
-        list.add(new Task(haveFilter, dateTime2, haveRecurrence, description1, 1,"l")); // diff datetime
-        list.add(new Task(haveFilter, dateTime1, noRecurrence, description1, 1,"l"));// diff recurrence
+        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 1, "l")); // base
+        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 2, "l")); // diff duration
+        list.add(new Task(noFilter, dateTime1, haveRecurrence, description1, 1, "l")); // diff filter
+        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description2, 1, "l")); // diff description
+        list.add(new Task(haveFilter, dateTime2, haveRecurrence, description1, 1, "l")); // diff datetime
+        list.add(new Task(haveFilter, dateTime1, noRecurrence, description1, 1, "l")); // diff recurrence
 
         return list;
     }

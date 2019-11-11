@@ -1,12 +1,8 @@
 package duke.task;
 
-import javax.sound.midi.Soundbank;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import duke.exception.DukeException;
 import duke.extensions.Priority;
@@ -81,6 +77,7 @@ public class Task {
     public boolean getIsDone() {
         return isDone;
     }
+
     /**
      * Flags the boolean attribute isDone as true in a task
      * Prints out the confirmation that the task is marked done
@@ -176,12 +173,6 @@ public class Task {
         return this.description;
     }
 
-    public String getDTString() {
-        return dateTime.map(localDateTime ->
-                localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")))
-                .orElseGet(() -> "       NA       ");
-    }
-
     /**
      * Updates the description of a Task
      *
@@ -190,6 +181,12 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
         System.out.println(this + " description has been successfully updated");
+    }
+
+    public String getDtString() {
+        return dateTime.map(localDateTime ->
+                localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")))
+                .orElseGet(() -> "       NA       ");
     }
 
     public boolean hasDateTime() {

@@ -8,13 +8,14 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Test;
+
 import duke.exception.DukeException;
 import duke.extensions.Recurrence;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
-import org.junit.jupiter.api.Test;
 
 
 class AddCommandTest {
@@ -25,6 +26,7 @@ class AddCommandTest {
 
     /**
      * Helper method to create a sample task lists for the commands to work on
+     *
      * @return TaskList
      * @throws DukeException
      */
@@ -72,7 +74,7 @@ class AddCommandTest {
                 "task", 2, "l");
 
         addCommand.execute(tasks, ui, storage);
-        String expectedDescriptionOfTask = "tower 29/10/2017 00:00";
+        String expectedDescriptionOfTask = "tower";
         String actualTaskDescription = tasks.get(4).getDescription();
         assertEquals(expectedDescriptionOfTask, actualTaskDescription);
     }

@@ -55,8 +55,10 @@ class AutoAssignCommandTest {
         System.setIn(systemIn);
         System.setOut(systemOut);
     }
+
     /**
      * Helper method to create a sample task lists for the commands to work on
+     *
      * @return TaskList
      * @throws DukeException
      */
@@ -85,10 +87,10 @@ class AutoAssignCommandTest {
         String description3 = "cs2113 homework 2";
         String description4 = "More cs homework";
 
-        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4,"l"));
-        t.add(new Task(Optional.of("cs"), dateTime3, recurrenceDaily, description3, 4,"l"));
-        t.add(new Task(Optional.of("cs"), dateTime2, recurrenceNone, description2, 5,"l"));
-        t.add(new Task(empty, dateTime2, recurrenceNone, description4, 5,"l"));
+        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4, "l"));
+        t.add(new Task(Optional.of("cs"), dateTime3, recurrenceDaily, description3, 4, "l"));
+        t.add(new Task(Optional.of("cs"), dateTime2, recurrenceNone, description2, 5, "l"));
+        t.add(new Task(empty, dateTime2, recurrenceNone, description4, 5, "l"));
 
         return t;
     }
@@ -103,17 +105,6 @@ class AutoAssignCommandTest {
         Optional<String> expectedTaskFilter = Optional.of("cs");
         Optional<String> actualTaskFilter = tasks.get(3).getFilter();
         assertEquals(expectedTaskFilter.get(), actualTaskFilter.get());
-    }
-
-    @Test
-    public void execute_autoAssignFilterNameReject_success() throws DukeException, IOException {
-        TaskList tasks = createTaskList();
-        AutoAssignCommand autoAssignCommand = new AutoAssignCommand("4");
-        final String input = "N";
-        provideInput(input);
-        autoAssignCommand.execute(tasks, ui, storage);
-        Optional<String> actualTaskFilter = tasks.get(3).getFilter();
-        assertFalse(actualTaskFilter.isPresent());
     }
 
     @Test

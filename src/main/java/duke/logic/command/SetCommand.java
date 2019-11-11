@@ -27,8 +27,8 @@ public class SetCommand extends Command {
      * before it was edited or marked as done
      *
      * @param filter filter for each task
-     * @param index index of the task
-     * @param t original version of the task before editing or marking done
+     * @param index  index of the task
+     * @param t      original version of the task before editing or marking done
      */
     public SetCommand(Optional<String> filter, int index, Task t) {
         this.filter = filter;
@@ -39,12 +39,12 @@ public class SetCommand extends Command {
     /**
      * Replaces the new task with its original version.
      *
-     * @param tasks TaskList containing all of the user's tasks
-     * @param ui Ui handling user interactions
+     * @param tasks   TaskList containing all of the user's tasks
+     * @param ui      Ui handling user interactions
      * @param storage Storage handling the saving and loading of the TaskList
-     * @throws IOException NA
+     * @throws IOException    NA
      * @throws ParseException NA
-     * @throws DukeException if the given index is invalid
+     * @throws DukeException  if the given index is invalid
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ParseException, DukeException {
@@ -55,7 +55,8 @@ public class SetCommand extends Command {
 
     /**
      * Not applicable for this class
-     * @param tasks NA
+     *
+     * @param tasks     NA
      * @param undoStack NA
      * @throws DukeException NA
      */

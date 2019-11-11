@@ -8,6 +8,7 @@ public enum RecurrencePeriod {
 
     /**
      * Method that returns the recurrence code for printing
+     *
      * @return a string of the code to print
      */
     public String recurrenceCode() {
@@ -23,6 +24,7 @@ public enum RecurrencePeriod {
 
     /**
      * Method that returns the recurrence description for printing
+     *
      * @return a string of the description
      */
     public String recurrenceDescription() {
@@ -38,6 +40,7 @@ public enum RecurrencePeriod {
 
     /**
      * Method that returns the recurrence icon for printing
+     *
      * @return a string of the icon
      */
     public String recurrenceIcon() {
