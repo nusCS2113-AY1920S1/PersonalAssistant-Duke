@@ -1,6 +1,6 @@
 //@@author jessteoxizhi
 
-package PlacesCommandTest;
+package placestest;
 
 import gazeeebo.ui.Ui;
 import gazeeebo.commands.places.ListPlacesCommand;
@@ -38,7 +38,7 @@ class PlacesListCommandTest {
 
     /**
      * test list command.
-     * @throws IOException
+     * @throws IOException Exception when file cannot be read
      */
 
     @Test
@@ -57,3 +57,4 @@ class PlacesListCommandTest {
                 + "------------------------------------------\n", output.toString());
     }
 }
+

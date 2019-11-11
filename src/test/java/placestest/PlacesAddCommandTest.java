@@ -1,13 +1,14 @@
 //@@author jessteoxizhi
 
-package PlacesCommandTest;
+package placestest;
 
 import gazeeebo.ui.Ui;
-import gazeeebo.commands.places.DeletePlacesCommand;
+import gazeeebo.commands.places.AddPlacesCommand;
 import gazeeebo.storage.Storage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -18,7 +19,7 @@ import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PlacesDeleteCommandTest {
+class PlacesAddCommandTest {
     private Ui ui = new Ui();
     private Storage storage = new Storage();
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -37,37 +38,25 @@ class PlacesDeleteCommandTest {
     }
 
     @Test
-    void testDeleteInPlacesCommand() throws IOException {
-        HashMap<String, String> map = new HashMap<>(); //Read the file
-        Map<String, String> places = new TreeMap<String, String>(map);
-        Stack<Map<String, String>> oldplaces = new Stack<>();
-        places.put("LT19", "COM5");
-        ui.fullCommand = "delete-LT19";
-        DeletePlacesCommand test = new DeletePlacesCommand(ui, places, oldplaces);
-        assertEquals("Successfully deleted: LT19\r\n", output.toString());
-    }
-
-    @Test
-    void testDeleteNotInPlacesCommand() throws IOException {
+    void testAddPlacesCommand() throws IOException {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         Stack<Map<String, String>> oldplaces = new Stack<>();
         oldplaces.push(places);
-        places.put("LT19", "COM5");
-        ui.fullCommand = "delete-LT30";
-        DeletePlacesCommand test = new DeletePlacesCommand(ui, places, oldplaces);
-        assertEquals("LT30 is not found in the list.\r\n", output.toString());
+        ui.fullCommand = "add-Test,COM3";
+        AddPlacesCommand test = new AddPlacesCommand(ui, places, oldplaces);
+        assertEquals("Successfully added :Test,COM3\r\n", output.toString());
     }
 
     @Test
-    void testDeleteWrongFormatPlacesCommand() throws IOException {
+    void testAddWrongPlacesCommand() {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> places = new TreeMap<String, String>(map);
         Stack<Map<String, String>> oldplaces = new Stack<>();
         oldplaces.push(places);
-        places.put("LT19", "COM5");
-        ui.fullCommand = "delete -";
-        DeletePlacesCommand test = new DeletePlacesCommand(ui, places, oldplaces);
-        assertEquals("Please input delete command in the correct format\r\n", output.toString());
+        ui.fullCommand = "add-TestCOM3";
+        AddPlacesCommand test = new AddPlacesCommand(ui, places, oldplaces);
+        assertEquals("Please input add command in the correct format\r\n", output.toString());
     }
 }
+
