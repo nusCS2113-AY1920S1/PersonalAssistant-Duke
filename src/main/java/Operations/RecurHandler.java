@@ -43,7 +43,7 @@ public class RecurHandler {
         String currentTime = now.format(dateTimeFormatterNow);
         int index = 0;
         boolean isEdited = false;
-        for (Task check : TaskList.currentList()) {
+        for (Task check : TaskList.getCurrentList()) {
             if (check.hasRecurring()) {
                 // task is a recurring task
                 RecurrenceScheduleType type;

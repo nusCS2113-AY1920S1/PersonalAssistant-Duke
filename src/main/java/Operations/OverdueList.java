@@ -32,18 +32,38 @@ public class OverdueList {
      * Reschedules an overdue task that was in the overdued list to be placed back into
      * the original task list for the user.
      *
-     * @param index index of the task in the Overdued task list that is being rescheduled.
+     * @param idx index of the task in the Overdued task list that is being rescheduled.
      * @throws RoomShareException if the index entered is not valid
      */
-    public void reschedule(int index, TaskList taskList) throws RoomShareException {
-        if (index < 0 || index > overdue.size() - 1) {
-            System.out.println("This are your tasks in your Overdue list");
-            list();
-            throw new RoomShareException(ExceptionType.outOfBounds);
+    public void reschedule(int[] idx, TaskList taskList) throws RoomShareException {
+        int[] index = idx.clone();
+        if (index.length == 1) {
+            boolean isNegativeIndex = index[0] < 0;
+            boolean isExceededIndex = index[0] >= overdue.size();
+            if (isNegativeIndex || isExceededIndex) {
+                System.out.println("This are your tasks in your Overdue list");
+                list();
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            } else {
+                taskList.add(overdue.get(index[0]));
+                overdue.get(index[0]).setOverdue(false);
+            }
         } else {
-            taskList.add(overdue.get(index));
-            overdue.get(index).setOverdue(false);
-            overdue.remove(index);
+            boolean isNegativeFirstIndex = index[0] < 0;
+            boolean isExceededFirstIndex = index[0] >= overdue.size();
+            boolean isNegativeSecondIndex = index[1] < 0;
+            boolean isExceededSecondIndex = index[1] >= overdue.size();
+            if (isNegativeFirstIndex|| isExceededFirstIndex
+                    || isNegativeSecondIndex || isExceededSecondIndex) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
+            for (int i = index[0]; i <= index[1]; i++){
+                taskList.add(overdue.get(i));
+                overdue.get(i).setOverdue(false);
+            }
+        }
+        for (int i = 0; i < index.length; i++){
+            overdue.removeIf(n -> !n.getOverdue());
         }
     }
 
@@ -58,12 +78,7 @@ public class OverdueList {
             int listCount = 1;
             for (Task output : overdue) {
                 System.out.println("\t" + listCount + ". " + output.toString());
-                if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
-                    ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                    for (String subtask : subTasks) {
-                        System.out.println("\t" + "\t" + "-" + subtask);
-                    }
-                }
+                showSubtasks(output);
                 listCount += 1;
             }
         }
@@ -93,13 +108,20 @@ public class OverdueList {
     public void remove(int[] index, TempDeleteList deletedList) throws RoomShareException {
         int[] idx = index.clone();
         if (idx.length == 1) {
-            if (idx[0] < 0 || idx[0] >= overdue.size()) {
+            boolean isNegativeIndex = index[0] < 0;
+            boolean isExceededIndex = index[0] >= overdue.size();
+            if (isNegativeIndex || isExceededIndex) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
             deletedList.add(overdue.get(idx[0]));
             overdue.remove(idx[0]);
         } else {
-            if (idx[0] < 0 || idx[0] >= overdue.size() || idx[1] < 0 || idx[1] >= overdue.size()) {
+            boolean isNegativeFirstIndex = index[0] < 0;
+            boolean isExceededFirstIndex = index[0] >= overdue.size();
+            boolean isNegativeSecondIndex = index[1] < 0;
+            boolean isExceededSecondIndex = index[1] >= overdue.size();
+            if (isNegativeFirstIndex || isExceededFirstIndex
+                    || isNegativeSecondIndex || isExceededSecondIndex) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
             for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--) {
@@ -115,5 +137,14 @@ public class OverdueList {
      */
     public static ArrayList<Task> getOverdueList() {
         return overdue;
+    }
+
+    private void showSubtasks(Task task) {
+        if (task instanceof Assignment && !(((Assignment) task).getSubTasks() == null)) {
+            ArrayList<String> subTasks = ((Assignment) task).getSubTasks();
+            for (String subtask : subTasks) {
+                System.out.println("\t" + "\t" + "-" + subtask);
+            }
+        }
     }
 }

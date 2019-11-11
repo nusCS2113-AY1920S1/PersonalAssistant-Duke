@@ -86,8 +86,12 @@ public class TaskCreatorTest {
 
     @Test
     void extractPriority() {
-        assertEquals(taskCreator.extractPriority(input1), Priority.high);
-        assertEquals(taskCreator.extractPriority(input2), Priority.low);
+        try {
+            assertEquals(taskCreator.extractPriority(input1), Priority.high);
+            assertEquals(taskCreator.extractPriority(input2), Priority.low);
+        } catch (RoomShareException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -102,8 +106,12 @@ public class TaskCreatorTest {
 
     @Test
     void extractRecurrence() {
-        assertEquals(taskCreator.extractRecurrence(input1), RecurrenceScheduleType.week);
-        assertEquals(taskCreator.extractRecurrence(input2), RecurrenceScheduleType.none);
+        try {
+            assertEquals(taskCreator.extractRecurrence(input1), RecurrenceScheduleType.week);
+            assertEquals(taskCreator.extractRecurrence(input2), RecurrenceScheduleType.none);
+        } catch (RoomShareException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

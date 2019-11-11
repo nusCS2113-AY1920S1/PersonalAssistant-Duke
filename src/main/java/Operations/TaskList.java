@@ -18,8 +18,8 @@ import java.util.Date;
  * A class to perform operations on the task list in Duke.
  */
 public class TaskList {
-    public static final String COMPLETED_TASKS = "Completed Tasks:";
-    public static final String YOUR_SEARCH_RETURNED_NO_RESULTS_TRY_SEARCHING_WITH_ANOTHER_KEYWORD = "    Your search returned no results.... Try searching with another keyword!";
+    private static final String COMPLETED_TASKS = "Completed Tasks:";
+    private static final String YOUR_SEARCH_RETURNED_NO_RESULTS_TRY_SEARCHING_WITH_ANOTHER_KEYWORD = "    Your search returned no results.... Try searching with another keyword!";
     private static ArrayList<Task> tasks;
     private static SortType sortType = SortType.priority;
 
@@ -51,13 +51,20 @@ public class TaskList {
     public void delete(int[] index, TempDeleteList deletedList) throws RoomShareException {
         int[] idx = index.clone();
         if (idx.length == 1) {
-            if (idx[0] < 0 || idx[0] >= tasks.size()) {
+            boolean isNegativeIndex = idx[0] < 0;
+            boolean isExceededIndex = idx[0] >= tasks.size();
+            if (isNegativeIndex || isExceededIndex) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
             deletedList.add(tasks.get(idx[0]));
             tasks.remove(idx[0]);
         } else {
-            if (idx[0] < 0 || idx[0] >= tasks.size() || idx[1] < 0 || idx[1] >= tasks.size()) {
+            boolean isNegativeFirstIndex = idx[0] < 0;
+            boolean isExceededFirstIndex = idx[0] >= tasks.size();
+            boolean isNegativeSecondIndex = idx[1] < 0;
+            boolean isExceededSecondIndex = idx[1] >= tasks.size();
+            if (isNegativeFirstIndex || isExceededFirstIndex
+                    || isNegativeSecondIndex || isExceededSecondIndex) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
             for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--) {
@@ -77,46 +84,15 @@ public class TaskList {
         sortTasks();
         if (tasks.size() != 0) {
             int listCount = 1;
-            for (int i = 0; i < tasks.size(); i++) {
-                if (new Date().after(tasks.get(i).getDate()) && !(tasks.get(i) instanceof Leave)) {
-                    tasks.get(i).setOverdue(true);
-                    if (CheckAnomaly.checkDuplicateOverdue(tasks.get(i))) {
-                        // no duplicates in overdue list
-                        overdueList.add(tasks.get(i));
-                    }
-                    tasks.remove(tasks.get(i));
-                }
-            }
-
-            for (int i = 0; i < tasks.size(); i++) {
-                if (tasks.get(i) instanceof Leave && ((Leave) tasks.get(i)).getEndDate().before(new Date())) {
-                    tasks.remove(tasks.get(i));
-                }
-            }
-
+            checkForOverdueTasks(overdueList);
+            checkForFinishedLeave();
             for (Task output : tasks) {
-                if (!output.getDone()) {
-                    Priority priority = output.getPriority();
-                    String priorityLvl;
-                    if (priority.equals(Priority.low)) {
-                        priorityLvl = " *";
-                    } else if (priority.equals(Priority.medium)) {
-                        priorityLvl = " **";
-                    } else {
-                        priorityLvl = " ***";
-                    }
-                  
-                    if (!output.getDone() && !output.getOverdue()) {
-                        System.out.println("\t" + listCount + ". " + output.toString() + priorityLvl);
-                        if (output instanceof Assignment && (((Assignment) output).getSubTasks() != null)) {
-                            ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                            for (String subtask : subTasks) {
-                                System.out.println("\t" + "\t" + "- " + subtask);
-                            }
-                        }
-                    }
-                    listCount += 1;
+                if (!output.getDone() && !output.getOverdue()) {
+                    String priorityLvl = indicatePriorityLevel(output);
+                    System.out.println("\t" + listCount + ". " + output.toString() + priorityLvl);
+                    showSubtasks(output);
                 }
+                listCount += 1;
             }
         } else {
             throw new RoomShareException(ExceptionType.emptyList);
@@ -135,12 +111,7 @@ public class TaskList {
             for (Task output : tasks) {
                 if (output.getDone()) {
                     System.out.println("\t" + listCount + ". " + output.toString());
-                    if (output instanceof Assignment && (((Assignment) output).getSubTasks() != null)) {
-                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                        for (String subtask : subTasks) {
-                            System.out.println("\t" + "\t" + "- " + subtask);
-                        }
-                    }
+                    showSubtasks(output);
                 }
                 listCount += 1;
             }
@@ -157,12 +128,19 @@ public class TaskList {
      */
     public void done(int[] index) throws RoomShareException {
         if (index.length == 1) {
-            if (index[0] < 0 || index[0] >= tasks.size()) {
+            boolean isNegativeIndex = index[0] < 0;
+            boolean isExceededIndex = index[0] >= tasks.size();
+            if (isNegativeIndex || isExceededIndex) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
             tasks.get(index[0]).setDone(true);
         } else {
-            if (index[0] < 0 || index[0] >= tasks.size() || index[1] < 0 || index[1] >= tasks.size()) {
+            boolean isNegativeFirstIndex = index[0] < 0;
+            boolean isExceededFirstIndex = index[0] >= tasks.size();
+            boolean isNegativeSecondIndex = index[1] < 0;
+            boolean isExceededSecondIndex = index[1] >= tasks.size();
+            if (isNegativeFirstIndex || isExceededFirstIndex
+                    || isNegativeSecondIndex || isExceededSecondIndex) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
             for (int i = index[0]; i <= index[1]; i++) {
@@ -202,7 +180,9 @@ public class TaskList {
         int queryCount = 1;
         for (Task query : tasks) {
             if (query.toString().toLowerCase().contains(key.trim())) {
-                System.out.println("\t" + queryCount + ". " + query.toString());
+                String priorityLevel = indicatePriorityLevel(query);
+                System.out.println("\t" + queryCount + ". " + query.toString() + priorityLevel);
+                showSubtasks(query);
                 queryCount += 1;
             }
         }
@@ -215,7 +195,7 @@ public class TaskList {
      * Returns the entire ArrayList of tasks.
      * @return tasks The ArrayList of Task objects that is being operated on.
      */
-    public static ArrayList<Task> currentList() {
+    public static ArrayList<Task> getCurrentList() {
         return tasks;
     }
 
@@ -298,7 +278,7 @@ public class TaskList {
      * Compare tasks based on priority.
      */
     private static void comparePriority() {
-        Collections.sort(tasks, (task1, task2) -> {
+        tasks.sort((task1, task2) -> {
             if (task1.getDone() && !task2.getDone()) {
                 return 1;
             } else if (task2.getDone() && !task1.getDone()) {
@@ -313,7 +293,7 @@ public class TaskList {
      * Compare tasks based on Alphabetical order.
      */
     private static void compareAlphabetical() {
-        Collections.sort(tasks, (task1, task2) -> {
+        tasks.sort((task1, task2) -> {
             if (task1.getDone() && !task2.getDone()) {
                 return 1;
             } else if (task2.getDone() && !task1.getDone()) {
@@ -330,7 +310,7 @@ public class TaskList {
      * Compare tasks based on Deadline.
      */
     private static void compareDeadline() {
-        Collections.sort(tasks, (task1, task2) -> {
+        tasks.sort((task1, task2) -> {
             if (task1.getDone() && !task2.getDone()) {
                 return 1;
             } else if (task2.getDone() && !task1.getDone()) {
@@ -347,7 +327,7 @@ public class TaskList {
      * Compare tasks based on Type.
      */
     private static void compareType() {
-        Collections.sort(tasks, (task1, task2) -> {
+        tasks.sort((task1, task2) -> {
             if (task1 instanceof Meeting && !(task2 instanceof Meeting)) {
                 return -1;
             } else if (task1 instanceof Assignment) {
@@ -473,28 +453,17 @@ public class TaskList {
         int belongCount = 0;
         int doneCount  = 0;
         for (Task output : tasks) {
-            if (output.getAssignee().equals(user) || output.getAssignee().equals("everyone")) {
+            boolean isSameUser = output.getAssignee().equals(user);
+            boolean isEveryone = output.getAssignee().equals("everyone");
+            if (isSameUser || isEveryone) {
                 belongCount += 1;
                 if (output.getDone()) {
                     doneCount += 1;
                 }
-                if (!output.getDone()) {
-                    Priority priority = output.getPriority();
-                    String priorityLvl;
-                    if (priority.equals(Priority.low)) {
-                        priorityLvl = " *";
-                    } else if (priority.equals(Priority.medium)) {
-                        priorityLvl = " **";
-                    } else {
-                        priorityLvl = " ***";
-                    }
+                if (!output.getDone() && !output.getOverdue()) {
+                    String priorityLvl = indicatePriorityLevel(output);
                     System.out.println("\t" + listCount + ". " + output.toString() + priorityLvl);
-                    if (output instanceof Assignment && (((Assignment) output).getSubTasks() != null)) {
-                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                        for (String subtask : subTasks) {
-                            System.out.println("\t" + "\t" + "- " + subtask);
-                        }
-                    }
+                    showSubtasks(output);
                 }
                 listCount += 1;
             }
@@ -513,10 +482,75 @@ public class TaskList {
      */
     public void reopen(int index, Date date) throws RoomShareException {
         TaskList.get(index).setDate(date);
-        CheckAnomaly.checkDuplicate(TaskList.get(index));
+        CheckAnomaly.isDuplicate(TaskList.get(index));
         if (tasks.get(index) instanceof Meeting) {
-            CheckAnomaly.checkTimeClash(TaskList.get(index));
+            CheckAnomaly.isTimeClash(TaskList.get(index));
         }
         TaskList.get(index).setDone(false);
+    }
+
+    /**
+     * checks for overdue tasks in the task list.
+     * removes from the current list if overdue, and adds it into the overdue list
+     * @param overdueList overdue list to be added into
+     */
+    private void checkForOverdueTasks(OverdueList overdueList) {
+        for (int i = 0; i < tasks.size(); i++) {
+            boolean isPassedCurrentDate = new Date().after(tasks.get(i).getDate());
+            boolean isNotALeave = !(tasks.get(i) instanceof Leave);
+            if (isPassedCurrentDate && isNotALeave) {
+                tasks.get(i).setOverdue(true);
+                boolean hasNoDuplicateOverdue = !CheckAnomaly.isDuplicateOverdue(tasks.get(i));
+                if (hasNoDuplicateOverdue) {
+                    // no duplicates in overdue list
+                    overdueList.add(tasks.get(i));
+                }
+                tasks.remove(tasks.get(i));
+            }
+        }
+    }
+
+    /**
+     * checks for finished leave in the task list.
+     * removes the finished leave if detected
+     */
+    private void checkForFinishedLeave() {
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i) instanceof Leave && ((Leave) tasks.get(i)).getEndDate().before(new Date())) {
+                tasks.remove(tasks.get(i));
+            }
+        }
+    }
+
+    /**
+     * Shows the priority level of the task as String.
+     * number of stars indicates the priority level
+     * @param task task to be checked for priority level
+     * @return String containing the number of stars as the priority level
+     */
+    private String indicatePriorityLevel(Task task) {
+        Priority priority = task.getPriority();
+        String priorityLvl;
+        if (priority.equals(Priority.low)) {
+            priorityLvl = " *";
+        } else if (priority.equals(Priority.medium)) {
+            priorityLvl = " **";
+        } else {
+            priorityLvl = " ***";
+        }
+        return priorityLvl;
+    }
+
+    /**
+     * lists out the subtasks if the task is an Assignment.
+     * @param task task to be checked for subtasks.
+     */
+    private void showSubtasks(Task task) {
+        if (task instanceof Assignment && (((Assignment) task).getSubTasks() != null)) {
+            ArrayList<String> subTasks = ((Assignment) task).getSubTasks();
+            for (String subtask : subTasks) {
+                System.out.println("\t" + "\t" + "- " + subtask);
+            }
+        }
     }
 }

@@ -111,9 +111,12 @@ public class Parser {
         try {
             int[] index;
             if (temp.length == 1) {
-                index = new int[]{Integer.parseInt(temp[0].trim()) - 1};
+                int tempIndex = Integer.parseInt(temp[0].trim()) - 1;
+                index = new int[]{tempIndex};
             } else {
-                index = new int[]{Integer.parseInt(temp[0].trim()) - 1, Integer.parseInt(temp[1].trim()) - 1};
+                int tempIndex1 = Integer.parseInt(temp[0].trim()) - 1;
+                int tempIndex2 = Integer.parseInt(temp[1].trim()) - 1;
+                index = new int[]{tempIndex1, tempIndex2};
             }
             return index;
         } catch (IllegalArgumentException e) {
@@ -127,7 +130,7 @@ public class Parser {
      * @return A Date object containing the appropriately formatted date.
      * @throws RoomShareException if the input is uninterpretable.
      */
-    public Date formatDate(String by) throws RoomShareException {
+    Date formatDate(String by) throws RoomShareException {
         Date date;
         if (this.formatDateTomorrowToday(by) != null) {
             date = this.formatDateTomorrowToday(by);
@@ -164,7 +167,7 @@ public class Parser {
      * @param by Input String containing the date information.
      * @return A Date object containing the appropriately formatted date.
      */
-    public Date formatDateTomorrowToday(String by) {
+    private Date formatDateTomorrowToday(String by) {
         try {
             Date date = new Date();
             String[] temp = by.split(" ");
@@ -215,21 +218,43 @@ public class Parser {
             // Check which day of the week the user input
             String day = temp[1].trim();
             DayOfWeek dayOfWeek;
-            if (day.toLowerCase().equals("monday") || day.toLowerCase().equals("mon")) {
+            switch (day.toLowerCase()) {
+            case "monday":
+            case "mon":
                 dayOfWeek = DayOfWeek.MONDAY;
-            } else if (day.toLowerCase().equals("tuesday") || day.toLowerCase().equals("tues")) {
+                break;
+
+            case "tuesday":
+            case "tues":
                 dayOfWeek = DayOfWeek.TUESDAY;
-            } else if (day.toLowerCase().equals("wednesday") || day.toLowerCase().equals("wed")) {
+                break;
+
+            case "wednesday":
+            case "wed":
                 dayOfWeek = DayOfWeek.WEDNESDAY;
-            } else if (day.toLowerCase().equals("thursday") || day.toLowerCase().equals("thurs")) {
+                break;
+
+            case "thursday":
+            case "thurs":
                 dayOfWeek = DayOfWeek.THURSDAY;
-            } else if (day.toLowerCase().equals("friday") || day.toLowerCase().equals("fri")) {
+                break;
+
+            case "friday":
+            case "fri":
                 dayOfWeek = DayOfWeek.FRIDAY;
-            } else if (day.toLowerCase().equals("saturday") || day.toLowerCase().equals("sat")) {
+                break;
+
+            case "saturday":
+            case "sat":
                 dayOfWeek = DayOfWeek.SATURDAY;
-            } else if (day.toLowerCase().equals("sunday") || day.toLowerCase().equals("sun")) {
+                break;
+
+            case "sunday":
+            case "sun":
                 dayOfWeek = DayOfWeek.SUNDAY;
-            } else {
+                break;
+
+            default:
                 return null;
             }
             if (temp[0].toLowerCase().equals("this")) {
