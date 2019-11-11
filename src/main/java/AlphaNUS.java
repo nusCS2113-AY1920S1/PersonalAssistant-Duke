@@ -24,7 +24,7 @@ public class AlphaNUS {
     private static ArrayList<String> commandList;
     private static Parser parser;
     private static Set<String> dict;
-
+    
     /**
      * Creates a AlphaNUS instance and initialises the required attributes.
      */
@@ -41,10 +41,8 @@ public class AlphaNUS {
     /**
      * Method to run the AlphaNUS instance and take in the inputs of the user.
      */
-    public void run() {
+    public void run() throws AlphaNUSException {
         ui.startMessage();
-
-
         boolean isExit = false;
         while (!isExit) {
 
