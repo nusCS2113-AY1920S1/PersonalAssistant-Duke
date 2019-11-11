@@ -1,6 +1,5 @@
 package cube.logic.parser;
 
-import cube.logic.command.AddCommand;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 import cube.model.food.Food;
@@ -12,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class UpdateCommandParserTest {
 
     @Test
-    public void execute_parse_correctly () throws ParserException {
+    public void execute_parse_correctly() throws ParserException {
         String[] inputs = {"update","test","-t","test","-p","1.1",
                 "-s","100"};
         Food expected = new Food("test");
@@ -26,7 +25,7 @@ class UpdateCommandParserTest {
     }
 
     @Test
-    public void execute_not_enough_parameter () {
+    public void execute_not_enough_parameter() {
         String[] inputs = {"update"};
         try {
             new UpdateCommandParser().parse(inputs);
@@ -37,7 +36,7 @@ class UpdateCommandParserTest {
     }
 
     @Test
-    public void execute_invalid_parameter () {
+    public void execute_invalid_parameter() {
         String[] inputs = {"update", "test", "-x", "field"};
         try {
             new UpdateCommandParser().parse(inputs);
@@ -49,7 +48,7 @@ class UpdateCommandParserTest {
     }
 
     @Test
-    public void execute_invalid_name () {
+    public void execute_invalid_name() {
         String[] inputs = {"update", " ", "-t", "field"};
         try {
             new UpdateCommandParser().parse(inputs);
@@ -60,7 +59,7 @@ class UpdateCommandParserTest {
     }
 
     @Test
-    public void execute_empty_field () {
+    public void execute_empty_field() {
         String[] inputs = {"update", "test", "-p"};
         try {
             new UpdateCommandParser().parse(inputs);
