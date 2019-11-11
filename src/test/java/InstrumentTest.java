@@ -41,13 +41,13 @@ public class InstrumentTest {
         String instrumentIndexAndName = instrumentListTest.getIndexAndInstrument(instrumentIndex);
         String serviceIndexAndName = instrumentListTest.getIndexAndService(instrumentIndex, serviceIndex);
         assertEquals("1. double bass", instrumentIndexAndName);
-        assertEquals("1. varnished body  on Sun, 26 Nov 2017, 10:32", serviceIndexAndName);
+        assertEquals("1. varnished body on Sun, 26 Nov 2017, 10:32", serviceIndexAndName);
         EventDate inputDateTwo = new EventDate("26-11-2018 1032");
-        int serviceIndexTwo = instrumentListTest.service(instrumentIndex, inputDate, "rehaired bow");
+        int serviceIndexTwo = instrumentListTest.service(instrumentIndex, inputDateTwo, "rehaired bow");
         String instrumentIndexAndNameTwo = instrumentListTest.getIndexAndInstrument(instrumentIndex);
-        String serviceIndexAndNameTwo = instrumentListTest.getIndexAndService(instrumentIndex, serviceIndex);
+        String serviceIndexAndNameTwo = instrumentListTest.getIndexAndService(instrumentIndex, serviceIndexTwo);
         assertEquals("1. double bass", instrumentIndexAndName);
-        assertEquals("2. rehaired bow  on Mon, 26 Nov 2017, 10:32", serviceIndexAndName);
+        assertEquals("2. rehaired bow on Mon, 26 Nov 2018, 10:32", serviceIndexAndNameTwo);
     }
 
     @Test
@@ -59,10 +59,10 @@ public class InstrumentTest {
         String instrumentIndexAndName = instrumentListTest.getIndexAndInstrument(instrumentIndex);
         String serviceIndexAndName = instrumentListTest.getIndexAndService(instrumentIndex, serviceIndex);
         EventDate inputDateTwo = new EventDate("26-11-2018 1032");
-        int serviceIndexTwo = instrumentListTest.service(instrumentIndex, inputDate, "rehaired bow");
+        int serviceIndexTwo = instrumentListTest.service(instrumentIndex, inputDateTwo, "rehaired bow");
         String serviceIndexAndNameTwo = instrumentListTest.getIndexAndService(instrumentIndex, serviceIndex);
         String viewServiceResult = instrumentListTest.getInstrumentServiceInfo(instrumentIndex);
-        assertEquals("1. varnished body  on Sun, 26 Nov 2017, 10:32\n2. rehaired bow  on "
-                + "Mon, 26 Nov 2017, 10:32\n", viewServiceResult);
+        assertEquals("1. varnished body on Sun, 26 Nov 2017, 10:32\n2. rehaired bow on "
+                + "Mon, 26 Nov 2018, 10:32\n", viewServiceResult);
     }
 }
