@@ -99,7 +99,7 @@ public class ViewCommand extends Command {
         case "day":
             finalList = finalList + ("Your daily schedule for " + dateInput + " :\n");
             finalList = finalList + displayDayView(dateInput, currList);
-            calenderUtil.dateViewRefresh(dateInput);
+            calenderUtil.dateViewRefresh(dateInput, type);
             break;
         default:
             break;

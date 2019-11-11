@@ -14,7 +14,7 @@ public class FindFreeSlotCommandParser implements CommandParser {
 
     private static final Logger logger = LogUtils.getLogger(FindFreeSlotCommandParser.class);
     public static final String MESSAGE_INVALID_DATE = "Error: Date entered cannot be a past date!";
-    public static final String MESSAGE_INVALID_PARAM = "Whoops! Looks like there's an invalid parameter inserted!\n"
+    public static final String MESSAGE_INVALID_PARAM = "Whoops! Looks like that's an invalid command!\n"
             + "This is how you use the findfreeslot command:\n\n" + FindFreeSlotCommand.MESSAGE_USAGE;
 
     @Override

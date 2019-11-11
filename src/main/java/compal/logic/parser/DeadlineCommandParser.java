@@ -19,7 +19,7 @@ public class DeadlineCommandParser implements CommandParser {
     private static final Logger logger = LogUtils.getLogger(DeadlineCommand.class);
     private static final ArrayList<String> key = new ArrayList<>(Arrays.asList(TOKEN_END_TIME,
             TOKEN_DATE, TOKEN_PRIORITY, TOKEN_FINAL_DATE, TOKEN_INTERVAL));
-    public static final String MESSAGE_INVALID_PARAM = "Whoops! Looks like there's an invalid parameter inserted!\n"
+    public static final String MESSAGE_INVALID_PARAM = "Whoops! Looks like that's an invalid command!\n"
         + "This is how you use the deadline command:\n\n" + DeadlineCommand.MESSAGE_USAGE;
 
 

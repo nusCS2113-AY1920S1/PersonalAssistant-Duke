@@ -20,7 +20,7 @@ public class CalenderUtil {
      *
      * @param dateToStore date to view of daily calender
      */
-    public void dateViewRefresh(String dateToStore) {
+    public void dateViewRefresh(String dateToStore,String type) {
         DailyCalUi dc = new DailyCalUi();
 
         int totalTabSize = tabWindow.getTabs().size();
@@ -33,7 +33,7 @@ public class CalenderUtil {
 
         Tab dailyTab = new Tab();
         dailyTab.setText("Daily Task: " + dateToStore);
-        dailyTab.setContent(dc.init(dateToStore));
+        dailyTab.setContent(dc.init(dateToStore,type));
 
         totalTabSize = tabWindow.getTabs().size();
         tabWindow.getTabs().add(totalTabSize, dailyTab);

@@ -42,7 +42,7 @@ public class EventCommandParserTest {
 
     @Test
     void parse_excessiveDatesAfterTokenDate_failure() {
-        assertParseFailure(parser, "CS2113T Lecture"
+        assertParseFailure(parser, "CS2113T Lecture "
                 + "/date 10/10/2019 11/10/2019 12/10/2019 13/10/2019 14/10/2019 15/10/2019 16/10/2019 17/10/2019"
                 + "/start 1700"
                 + "/end 1800"

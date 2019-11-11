@@ -96,7 +96,7 @@ public class EditCommandParser implements CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             String sub = scanner.nextLine();
-            int splitPoint = sub.indexOf("/");
+            int splitPoint = sub.indexOf(" /");
             if (splitPoint == -1) {
                 description = sub;
             } else {
