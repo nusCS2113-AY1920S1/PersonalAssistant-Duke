@@ -7,6 +7,7 @@ import executor.command.Command;
 import executor.command.CommandError;
 import executor.command.CommandType;
 import storage.StorageManager;
+import ui.UiCode;
 import utils.AccessType;
 import utils.InfoCapsule;
 
@@ -90,6 +91,23 @@ public class Executor {
         }
         infoCapsule.setCodeToast();
         infoCapsule.setOutputStr("Saved All Data Succesfully.\n");
+        return infoCapsule;
+    }
+
+    /**
+     * Loads test data for Testers to use.
+     * @return InfoCapsule containing the success/failure of the loading.
+     */
+    public InfoCapsule loadTestData() {
+        InfoCapsule infoCapsule = new InfoCapsule();
+        try {
+            this.storageLayer.loadTestData();
+        } catch (DukeException e) {
+            infoCapsule.setCodeError();
+            infoCapsule.setOutputStr("Error starting Testing Mode");
+        }
+        infoCapsule.setUiCode(UiCode.TOAST);
+        infoCapsule.setOutputStr("Testing Mode Enabled");
         return infoCapsule;
     }
 }

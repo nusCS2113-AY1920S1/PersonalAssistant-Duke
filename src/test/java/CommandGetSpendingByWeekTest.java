@@ -30,7 +30,7 @@ class CommandGetSpendingByWeekTest {
         c1.execute(storageManager);
         String ans1 = c1.getInfoCapsule().getOutputStr();
         assertEquals("The total amount spent this week is $"
-                + "10.0"
+                + "5.0"
                 + " and there is/are "
                 + dayLeft
                 + "day(s) to end of week", ans1);

@@ -5,12 +5,16 @@ import executor.command.CommandAddIncomeReceipt;
 import executor.command.CommandAddReceipt;
 import executor.command.CommandAddSpendingReceipt;
 import executor.command.CommandType;
+import executor.task.Task;
 import ui.IncomeReceipt;
 import ui.Wallet;
 import ui.Receipt;
 import interpreter.Parser;
+import ui.gui.MainWindow;
+
 import java.io.File;
 import java.io.FileWriter;
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class StorageWallet {
@@ -79,6 +83,34 @@ public class StorageWallet {
             }
         } catch (Exception e) {
             throw new DukeException("No Previously Saved Wallet Data.");
+        }
+    }
+
+    void loadTestData(Wallet wallet) throws DukeException {
+        InputStream testerWalletData = MainWindow.class
+                .getResourceAsStream("/testers/testersWallet.txt");
+        if (testerWalletData == null) {
+            throw new DukeException("No file detected.");
+        }
+        Scanner s = new Scanner(testerWalletData).useDelimiter("\\A");
+        String storedBalanceStr = s.nextLine();
+        double storedBalanceDouble = 0.0;
+        try {
+            storedBalanceDouble = Double.parseDouble(storedBalanceStr);
+        } catch (Exception e) {
+            throw new DukeException("Balance cannot be read");
+        }
+        wallet.setBalance(storedBalanceDouble);
+        String folderNames = s.nextLine();
+        while (s.hasNextLine()) {
+            String loadedInput = s.nextLine();
+            if (loadedInput.equals("")) {
+                break;
+            }
+            parseAddReceiptFromStorageString(wallet, loadedInput);
+        }
+        for (String folderName : folderNames.split("-")) {
+            wallet.addFolder(folderName);
         }
     }
 

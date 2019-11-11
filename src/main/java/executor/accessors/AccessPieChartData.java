@@ -27,8 +27,8 @@ public class AccessPieChartData extends Accessor {
             walletExpenses = storageManager.getWalletExpenses();
         } catch (DukeException e) {
             e.printStackTrace();
-            walletBalance = 0.0;
-            walletExpenses = 0.0;
+            walletBalance = 0.01;
+            walletExpenses = 0.01;
             this.infoCapsule.setUiCode(UiCode.ERROR);
             this.infoCapsule.setOutputStr(e.getMessage());
         }
@@ -36,6 +36,6 @@ public class AccessPieChartData extends Accessor {
                 new PieChart.Data("Expenses",
                         walletExpenses),
                 new PieChart.Data("Balance",
-                        walletBalance - walletExpenses)));
+                        walletBalance)));
     }
 }
