@@ -3,6 +3,7 @@ import chronologer.task.Task;
 import chronologer.task.TaskList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -28,20 +29,20 @@ public class ReminderListTest {
     }
 
     @Test
-    public void testReminder() {
-        byDate = LocalDateTime.now().plusDays(2);
-        testDeadline = new Deadline("Test", byDate);
-        testCore.add(testDeadline);
-        ArrayList<String> reminderList = testCore.fetchReminders();
-        Assertions.assertEquals(1, reminderList.size());
-    }
-
-    @Test
     public void testNegativeReminder() {
         byDate = LocalDateTime.now().plusDays(4);
         testDeadline = new Deadline("Test", byDate);
         testCore.add(testDeadline);
         ArrayList<String> reminderList = testCore.fetchReminders();
         Assertions.assertEquals(0, reminderList.size());
+    }
+
+    @Test
+    public void testReminder() {
+        byDate = LocalDateTime.now().plusDays(1);
+        testDeadline = new Deadline("Test", byDate);
+        testCore.add(testDeadline);
+        ArrayList<String> reminderList = testCore.fetchReminders();
+        Assertions.assertEquals(1, reminderList.size());
     }
 }

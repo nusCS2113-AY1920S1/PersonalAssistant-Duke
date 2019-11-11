@@ -58,6 +58,6 @@ class ThemeTest {
     public void testThemeCommand() throws ChronologerException {
         Command theme = new ThemeCommand(0);
         theme.execute(testThemeChange, null, null);
-        Assertions.assertEquals(UiMessageHandler.getOutputForGui(), "Theme changed!");
+        Assertions.assertEquals("Theme changed!", UiMessageHandler.getOutputForGui());
     }
 }
