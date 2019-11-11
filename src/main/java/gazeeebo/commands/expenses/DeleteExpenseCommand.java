@@ -122,11 +122,11 @@ public class DeleteExpenseCommand {
             }
 
         } catch (NumberFormatException e) {
-            System.out.print("Wrong input for delete command\n");
+            System.out.print("Please key in only numbers.\n");
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            System.out.print("Please Input in the correct format\n");
+            System.out.print("Please input in the correct format.\n");
         } catch (IndexOutOfBoundsException e) {
-            System.out.print("Index does not exist\n");
+            System.out.print("Index does not exist.\n");
         }
 
     }

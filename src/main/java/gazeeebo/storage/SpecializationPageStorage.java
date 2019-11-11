@@ -1,3 +1,5 @@
+//@@author e0323290
+
 package gazeeebo.storage;
 
 import gazeeebo.commands.specialization.ModuleCategory;
@@ -36,8 +38,8 @@ public class SpecializationPageStorage {
      * Specialization.txt and put the details into a HashMap.
      *
      * @return Returns the HashMap of specMap,
-     *         key is the specialization title and the value is
-     *         list of technical electives under that specialization.
+     * key is the specialization title and the value is
+     * list of technical electives under that specialization.
      * @throws FileNotFoundException catch the error if the read file fails.
      */
     public HashMap<String, ArrayList<ModuleCategory>> readFromSpecializationFile() throws FileNotFoundException {
