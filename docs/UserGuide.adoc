@@ -19,7 +19,7 @@ By: `Team SGTravel`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-SGTravel is for those who *prefer to use a desktop app for scheduling tasks*. SGTravel is also able to provide all sort of information about Singapore. Regardless whether you are a tourist or a local, SGTravel is the best application for planning your vacation plans in Singapore! More importantly, SGTravel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SGTravel can get your tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+SGTravel is for those who *prefer to use a desktop app for scheduling travel plans*. SGTravel is also able to provide all sort of information about Singapore. Regardless whether you are a tourist or a local, SGTravel is the best application for planning your vacation plans in Singapore! More importantly, SGTravel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SGTravel can get your tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == How to use this user guide
 
@@ -69,7 +69,7 @@ image::Ui.png[width="600" height="400"]
 .  Type the command in the command box and press kbd:[Enter] to execute it.
 .  Some example commands you can try:
 
-* *`list`* : lists all tasks
+* *`list`* : lists all events
 * **`map`**`Jurong Regional Library` : Shows the map area of `Jurong Regional Library` on SGTravel.
 * **`delete`**`3` : deletes the 3rd event shown in the current list
 * *`bye`* : exits the app
@@ -88,7 +88,7 @@ image::Ui.png[width="600" height="400"]
 
 === Help: `help`
 
-SGTravel shows the available commands to the user +
+SGTravel shows the available commands to the user. +
 Format: `help`
 
 Examples:
@@ -112,7 +112,7 @@ Entering `profile` will initiate the multi-step version of this command
 ====
 === Showing a profile: `profileShow`
 
-SGTravel shows the current profile +
+SGTravel shows the current profile. +
 Format: `profileShow`
 
 image::profileShow.png[width="400" height="250"]
@@ -123,7 +123,7 @@ Examples:
 
 === Set the preference in profile: `profileSet`
 
-SGTravel set the preferences of activity the users prefer to do in profile
+SGTravel sets the preferences of activity the user prefers to do in the profile. +
 Format: `profileSet CATEGORY STATE`
 
 image::profileSet.png[width="400" height="150"]
@@ -148,7 +148,7 @@ Examples:
 
 === Adding an event: `event`
 
-Adds an event to SGTravel +
+Adds an event to SGTravel. +
 Format: `event VENUE between DATE and DATE`
 
 Examples:
@@ -312,7 +312,7 @@ image::map.png[width="400" height="600"]
 
 === Recommend an Itinerary: `recommend`
 
-Get a recommended itinerary list from SGTravel +
+Gets a recommended itinerary list from SGTravel. +
 Format: `recommend itinerary between START_DATE and END_DATE`
 
 [NOTE]
@@ -336,7 +336,7 @@ Examples:
 
 === Save a Recommended Itinerary: `addThisList`
 
-After SGTravel shows a recommended list, you can save this list using this command +
+After SGTravel shows a recommended list, you can save this list using this command. +
 Format: `addThisList NEW_ITINERARY_NAME`
 
 [NOTE]
@@ -397,7 +397,7 @@ An itinerary with multiple venues in 1 day.
 
 === List Saved Itineraries: `listItinerary`
 
-Returns the list of saved itineraries and their names +
+Shows the list of saved itineraries and their names. +
 Format: `listItinerary`
 
 [NOTE]
@@ -415,7 +415,7 @@ Use this command in order to refer to itinerary names before using the showItine
 
 === Show a saved Itinerary: `showItinerary`
 
-Displays a specific saved Itinerary +
+Displays a specific saved Itinerary. +
 Format: `showItinerary ITINERARY_NAME`
 
 [WARNING]
@@ -433,7 +433,7 @@ Will print the `SundayVacay` Itinerary.
 
 === Delete an Itinerary: `doneItinerary`
 
-Removes a specified Itinerary from storage +
+Removes a specified Itinerary. +
 Format: `doneItinerary ITINERARY_NAME`
 
 [NOTE]
@@ -585,7 +585,7 @@ Examples:
 Entering `routeNodeAdd` will initiate the multi-step version of this command
 ====
 
-=== Automatically generating a Route: `routeGenerate`
+=== Automatically generates a Route: `routeGenerate`
 
 Automatically creates a new Route between 2 given locations with RouteNodes in it. +
 Format: `routeGenerate STARTLOCATION to ENDLOCATION by CONSTRAINT`
@@ -958,6 +958,15 @@ Examples:
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SGTravel folder.
 
+*Q*: Why is the Ui not refreshing by itself?
+*A*: Our Ui only updates itself when user inputs something.
+
+*Q*: Why can't I zoom into the map?
+*A*: You will be able to do so in v2.0!
+
+*Q*: Why are some error messages not very informative?
+*A*: This is due to flexibility of our design and sometimes its impossible to identify the root cause.
+
 == Command Summary
 
 
@@ -977,7 +986,7 @@ e.g. `list` , `delete 2`
 e.g. `list`, `done 2`
 * *Editing places of visit* : `edit` +
 e.g. `Orchard road` if updating the `VENUE`
-`Mon` or `12/12/12` if updating a `DATE`
+`Mon` or `12/12/22` if updating a `DATE`
 * *Listing all places to visit* : `list` +
 e.g. `list`
 * *Finding certain events you have* : `find KEYWORD` +
@@ -1010,7 +1019,7 @@ e.g. `showFav my3DayTrip`
 e.g. `routeAdd Day trip to Sentosa`
 * *Creating a new RouteNode* : `routeNodeAdd INDEXROUTE INDEXNODE at LOCATION by CONSTRAINT` +
 e.g. `routeNodeAdd 1 1 at 17009 by bus`
-* *Automatically generating a Route* : `routeGenerate STARTLOCATION to ENDLOCATION by CONSTRAINT` +
+* *Automatically generate a Route* : `routeGenerate STARTLOCATION to ENDLOCATION by CONSTRAINT` +
 e.g. `routeGenerate amk hub to clementi by bus`
 * *Listing the information of all the Routes* : `routeListAll` +
 e.g. `routeListAll`
