@@ -9,12 +9,8 @@ import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 //@@author CheeSengg
 public class ViewSeatsCommand extends Command {
@@ -25,7 +21,6 @@ public class ViewSeatsCommand extends Command {
     private static final String MESSAGE_SHOW_FOUND = "Here is the layout of the theatre for %1$s on %2$s:\n";
 
     private static final String MESSAGE_SHOW_NOT_FOUND = "☹ OOPS!!! Sorry the show %1$s cannot be found.\n";
-    private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Command to view seats of a show.
@@ -80,16 +75,4 @@ public class ViewSeatsCommand extends Command {
         return detailsArray;
     }
 
-    private void initLogger() {
-        LogManager.getLogManager().reset();
-        OPTIXLOGGER.setLevel(Level.ALL);
-        try {
-            FileHandler fh = new FileHandler("OptixLogger.log", true);
-            fh.setLevel(Level.FINE);
-            OPTIXLOGGER.addHandler(fh);
-        } catch (IOException e) {
-            OPTIXLOGGER.log(Level.SEVERE, "File logger not working", e);
-        }
-        OPTIXLOGGER.log(Level.FINEST, "Logging in " + this.getClass().getName());
-    }
 }

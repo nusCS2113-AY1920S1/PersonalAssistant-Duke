@@ -10,16 +10,12 @@ import optix.util.Parser;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 //@@author OungKennedy
 public class AddAliasCommand extends Command {
     private String details;
     private File preferenceFilePath;
-    private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private static final String MESSAGE_NOT_ACCEPTED = "☹ OOPS!!! Spaces are not allowed for alias command.\n"
                                                        + "Please try again";
@@ -32,7 +28,7 @@ public class AddAliasCommand extends Command {
     public AddAliasCommand(String details, File filePath) {
         this.details = details.trim();
         this.preferenceFilePath = filePath;
-        initLogger();
+        super.initLogger();
     }
 
     /**
@@ -86,17 +82,5 @@ public class AddAliasCommand extends Command {
         return detailsArray;
     }
 
-    private void initLogger() {
-        LogManager.getLogManager().reset();
-        OPTIXLOGGER.setLevel(Level.ALL);
-        try {
-            FileHandler fh = new FileHandler("OptixLogger.log", true);
-            fh.setLevel(Level.FINE);
-            OPTIXLOGGER.addHandler(fh);
-        } catch (IOException e) {
-            OPTIXLOGGER.log(Level.SEVERE, "File logger not working", e);
-        }
-        OPTIXLOGGER.log(Level.FINEST, "Logging in " + this.getClass().getName());
-    }
 }
 

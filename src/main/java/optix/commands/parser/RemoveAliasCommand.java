@@ -1,6 +1,5 @@
 package optix.commands.parser;
 
-import optix.Optix;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
@@ -13,16 +12,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 //@@author OungKennedy
 public class RemoveAliasCommand extends Command {
     private String details;
     private HashMap<String, String> commandAliasMap;
-    private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Command to remove an existing alias from aliasCommandMap.
@@ -93,16 +88,4 @@ public class RemoveAliasCommand extends Command {
         return detailsArray;
     }
 
-    private void initLogger() {
-        LogManager.getLogManager().reset();
-        OPTIXLOGGER.setLevel(Level.ALL);
-        try {
-            FileHandler fh = new FileHandler("OptixLogger.log", true);
-            fh.setLevel(Level.FINE);
-            OPTIXLOGGER.addHandler(fh);
-        } catch (IOException e) {
-            OPTIXLOGGER.log(Level.SEVERE, "File logger not working", e);
-        }
-        OPTIXLOGGER.log(Level.FINEST, "Logging in " + this.getClass().getName());
-    }
 }

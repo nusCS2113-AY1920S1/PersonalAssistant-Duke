@@ -498,17 +498,11 @@ Learn more about logging link:{loggingBasicsURL}[here].
 :loggingBasicsURL: https://www.loggly.com/ultimate-guide/java-logging-basics/
 
 
-== Testing
-
 == Dev Ops
 
 === Build Automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
-
-=== Continuous Integration
-
-We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> for more details.
 
 === Making a Release
 

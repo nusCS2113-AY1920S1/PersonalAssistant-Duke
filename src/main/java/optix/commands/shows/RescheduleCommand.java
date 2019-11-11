@@ -9,12 +9,8 @@ import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 //@@author CheeSengg
 public class RescheduleCommand extends Command {
@@ -32,7 +28,6 @@ public class RescheduleCommand extends Command {
     private static final String MESSAGE_INVALID_NEW_DATE = "☹ OOPS!!! It is not possible to reschedule to the past.\n";
 
     private static final String MESSAGE_SUCCESSFUL = "%1$s has been rescheduled from %2$s to %3$s.\n";
-    private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Command to reschedule show.
@@ -41,6 +36,7 @@ public class RescheduleCommand extends Command {
      */
     public RescheduleCommand(String splitStr) {
         this.details = splitStr;
+        initLogger();
     }
 
     @Override
@@ -54,6 +50,7 @@ public class RescheduleCommand extends Command {
             String newDate = details[2].trim();
 
             if (!formatter.isValidDate(oldDate) || !formatter.isValidDate(newDate)) {
+                OPTIXLOGGER.log(Level.WARNING, "Invalid date");
                 throw new OptixInvalidDateException();
             }
 
@@ -61,13 +58,17 @@ public class RescheduleCommand extends Command {
             LocalDate localNewDate = formatter.toLocalDate(newDate);
 
             if (localNewDate.compareTo(today) <= 0) {
+                OPTIXLOGGER.log(Level.WARNING, "Invalid date");
                 message = MESSAGE_INVALID_NEW_DATE;
             } else {
                 if (!model.containsKey(localOldDate)) {
+                    OPTIXLOGGER.log(Level.WARNING, MESSAGE_SHOW_NOT_FOUND);
                     message = MESSAGE_SHOW_NOT_FOUND;
                 } else if (model.containsKey(localNewDate)) {
+                    OPTIXLOGGER.log(Level.WARNING, MESSAGE_SHOW_CLASH);
                     message = String.format(MESSAGE_SHOW_CLASH, newDate);
                 } else if (!model.hasSameName(localOldDate, showName)) {
+                    OPTIXLOGGER.log(Level.WARNING, MESSAGE_DOES_NOT_MATCH);
                     message = MESSAGE_DOES_NOT_MATCH;
                 } else {
                     model.rescheduleShow(localOldDate, localNewDate);
@@ -93,16 +94,4 @@ public class RescheduleCommand extends Command {
         return detailsArray;
     }
 
-    private void initLogger() {
-        LogManager.getLogManager().reset();
-        OPTIXLOGGER.setLevel(Level.ALL);
-        try {
-            FileHandler fh = new FileHandler("OptixLogger.log");
-            fh.setLevel(Level.FINE);
-            OPTIXLOGGER.addHandler(fh);
-        } catch (IOException e) {
-            OPTIXLOGGER.log(Level.SEVERE, "File logger not working", e);
-        }
-        OPTIXLOGGER.log(Level.FINEST, "Logging in " + this.getClass().getName());
-    }
 }

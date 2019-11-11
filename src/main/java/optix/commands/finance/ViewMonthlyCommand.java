@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 public class ViewMonthlyCommand extends Command {
     private String details;
     private OptixDateFormatter formatter = new OptixDateFormatter();
-    private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     public ViewMonthlyCommand(String details) {
         this.details = details;
@@ -73,16 +72,4 @@ public class ViewMonthlyCommand extends Command {
         return detailsArray;
     }
 
-    private void initLogger() {
-        LogManager.getLogManager().reset();
-        OPTIXLOGGER.setLevel(Level.ALL);
-        try {
-            FileHandler fh = new FileHandler("OptixLogger.log", true);
-            fh.setLevel(Level.FINE);
-            OPTIXLOGGER.addHandler(fh);
-        } catch (IOException e) {
-            OPTIXLOGGER.log(Level.SEVERE, "File logger not working", e);
-        }
-        OPTIXLOGGER.log(Level.FINEST, "Logging in " + this.getClass().getName());
-    }
 }

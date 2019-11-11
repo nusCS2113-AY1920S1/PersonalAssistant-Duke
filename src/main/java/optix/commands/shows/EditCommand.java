@@ -9,12 +9,8 @@ import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 //@@author CheeSengg
 public class EditCommand extends Command {
@@ -25,7 +21,6 @@ public class EditCommand extends Command {
     private static final String MESSAGE_UPDATE_UNSUCCESSFUL = "☹ OOPS!!! The show you are finding does not exist!\n";
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
-    private static final Logger OPTIXLOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Edit the name of an existing show.
@@ -34,6 +29,7 @@ public class EditCommand extends Command {
      */
     public EditCommand(String splitStr) {
         this.details = splitStr;
+        super.initLogger();
     }
 
     @Override
@@ -45,6 +41,7 @@ public class EditCommand extends Command {
             String newShowName = details[2].trim();
 
             if (!formatter.isValidDate(showDate)) {
+                OPTIXLOGGER.log(Level.WARNING, "Invalid date");
                 throw new OptixInvalidDateException();
             }
 
@@ -56,6 +53,7 @@ public class EditCommand extends Command {
                 storage.write(model.getShows());
                 message.append(String.format(MESSAGE_UPDATE_SUCCESSFUL, newShowName));
             } else {
+                OPTIXLOGGER.log(Level.WARNING, MESSAGE_UPDATE_UNSUCCESSFUL);
                 message.append(MESSAGE_UPDATE_UNSUCCESSFUL);
             }
             ui.setMessage(message.toString());
@@ -75,16 +73,4 @@ public class EditCommand extends Command {
         return detailsArray;
     }
 
-    private void initLogger() {
-        LogManager.getLogManager().reset();
-        OPTIXLOGGER.setLevel(Level.ALL);
-        try {
-            FileHandler fh = new FileHandler("OptixLogger.log");
-            fh.setLevel(Level.FINE);
-            OPTIXLOGGER.addHandler(fh);
-        } catch (IOException e) {
-            OPTIXLOGGER.log(Level.SEVERE, "File logger not working", e);
-        }
-        OPTIXLOGGER.log(Level.FINEST, "Logging in " + this.getClass().getName());
-    }
 }
