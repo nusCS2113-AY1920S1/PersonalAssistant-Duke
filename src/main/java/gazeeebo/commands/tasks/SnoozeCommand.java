@@ -9,8 +9,8 @@ import gazeeebo.storage.TriviaStorage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 
 import java.io.IOException;
 
@@ -27,7 +27,7 @@ import java.util.Stack;
 
 public class SnoozeCommand extends Command {
     /**
-     * This method snooze the date of deadline and event
+     * This method snooze the date of deadline and event.
      * @param list          List of all tasks
      * @param ui            the object that deals with
      *                      printing things to the user

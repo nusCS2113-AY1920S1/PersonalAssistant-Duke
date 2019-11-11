@@ -1,10 +1,15 @@
 package gazeeebo.parser;
 
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.Command;
 import gazeeebo.commands.help.HelpCommand;
-import gazeeebo.commands.studyassist.*;
+import gazeeebo.commands.studyassist.StudyPlannerCommand;
+import gazeeebo.commands.studyassist.AddModuleCommand;
+import gazeeebo.commands.studyassist.DeleteModuleCommand;
+import gazeeebo.commands.studyassist.ShiftModuleCommand;
+import gazeeebo.commands.studyassist.CheckPrerequisiteCommand;
+import gazeeebo.commands.studyassist.UndoStudyPlannerCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.storage.StudyAssistPageStorage;

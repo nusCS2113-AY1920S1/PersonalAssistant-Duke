@@ -2,7 +2,7 @@
 
 package expensetest;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.expenses.DeleteExpenseCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

@@ -3,8 +3,8 @@
 package taskcmdtest;
 
 import gazeeebo.storage.TriviaStorage;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.parser.TaskCommandParser;
 import gazeeebo.commands.tasks.TodoCommand;
 import gazeeebo.commands.tasks.UndoTaskCommand;

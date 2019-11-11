@@ -2,7 +2,7 @@
 
 package editcmdtest;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.commands.tasks.edit.EditBothCommand;
 import gazeeebo.tasks.Task;
 import gazeeebo.tasks.Deadline;

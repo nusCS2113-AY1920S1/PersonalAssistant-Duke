@@ -2,8 +2,7 @@
 
 package gazeeebo.commands.places;
 
-import gazeeebo.storage.Storage;
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 
 import java.io.IOException;
 import java.util.Map;

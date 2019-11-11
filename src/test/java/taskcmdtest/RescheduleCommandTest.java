@@ -7,8 +7,8 @@ import gazeeebo.storage.Storage;
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Task;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 
 import org.junit.jupiter.api.Test;
 import java.io.IOException;

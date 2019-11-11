@@ -7,8 +7,8 @@ import gazeeebo.storage.Storage;
 import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.tasks.FixedDuration;
 import gazeeebo.tasks.Task;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 
 import gazeeebo.exception.DukeException;
 

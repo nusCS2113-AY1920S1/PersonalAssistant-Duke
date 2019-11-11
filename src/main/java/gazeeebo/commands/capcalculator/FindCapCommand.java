@@ -2,7 +2,7 @@
 
 package gazeeebo.commands.capcalculator;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.ui.Ui;
 import gazeeebo.parser.CapCommandParser;
 
 import java.io.IOException;

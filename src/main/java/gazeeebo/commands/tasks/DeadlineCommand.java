@@ -3,12 +3,11 @@
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
-import gazeeebo.storage.TasksPageStorage;
 import gazeeebo.storage.TriviaStorage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Task;
-import gazeeebo.triviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
+import gazeeebo.triviamanager.TriviaManager;
+import gazeeebo.ui.Ui;
 import gazeeebo.storage.Storage;
 
 import java.io.IOException;
@@ -61,12 +60,13 @@ public class DeadlineCommand extends Command {
             if (ui.fullCommand.trim().length() == DEADLINE_CHAR_COUNT) {
                 throw new DukeException("OOPS!!! The description"
                         + "of a deadline cannot be empty.");
-            } else if (ui.fullCommand.contains("/by")){
+            } else if (ui.fullCommand.contains("/by")) {
                 description = ui.fullCommand.split("/by ")[0]
                         .substring(DEADLINE_AND_SPACE_CHAR_COUNT);
                 triviaManager.learnInput(ui.fullCommand, triviaStorage);
             } else {
-                throw new DukeException("OOPS!!! The deadline command is incorrect. Format: deadline description/by YYYY-MM-DD HH:mm:ss");
+                throw new DukeException("OOPS!!! The deadline command is incorrect. "
+                        + "Format: deadline description/by YYYY-MM-DD HH:mm:ss");
             }
             Deadline d = new Deadline(description,
                     ui.fullCommand.split("/by ")[1]);
